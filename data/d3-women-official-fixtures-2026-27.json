@@ -3,19 +3,19 @@
   "division": "d3",
   "gender": "women",
   "season": "2026-27",
-  "generated_utc": "2026-11-02T02:18:53.998008+00:00",
+  "generated_utc": "2026-11-02T02:20:34.824134+00:00",
   "source": "NCAA 2026-27 member directory + year/gender-validated official school athletics calendars",
   "scope": "NCAA membership-wide first pass; sources without independently validated 2026-27 schedules excluded",
   "ncaa_confirmed_programs": 415,
   "verified_source_calendars": 361,
-  "official_conference_calendar_fallbacks": 11,
+  "official_conference_calendar_fallbacks": 13,
   "school_calendars_checked": 415,
   "school_calendars_missing": 54,
-  "school_calendars_unresolved": 43,
+  "school_calendars_unresolved": 41,
   "source_status_counts": {
     "parsed": 361,
-    "failed": 43,
-    "parsed_conference": 11
+    "failed": 41,
+    "parsed_conference": 13
   },
   "last_verified_school_source": {
     "4": "https://adrianbulldogs.com/sports/womens-basketball/schedule/2026-27?grid=true",
@@ -389,8 +389,10 @@
     "218": "https://sliac.org/schedule.aspx?schedule=2038",
     "449": "https://newmacsports.com/schedule.aspx?schedule=3965",
     "525": "https://miaa.org/schedule.aspx?schedule=2274",
+    "641": "https://rollrivers.com/schedule.aspx?schedule=2849",
     "684": "https://cnesports.org/schedule.aspx?schedule=4118",
     "762": "https://cnesports.org/schedule.aspx?schedule=4122",
+    "806": "https://northcoast.org/schedule.aspx?schedule=2771",
     "8981": "https://cnesports.org/schedule.aspx?schedule=4121"
   },
   "unverified_school_review": [
@@ -597,7 +599,7 @@
       "discovered_schedule_links": [],
       "checked_schedule_candidates": 9,
       "next_action": "Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar",
-      "opponent_published_fixtures": 20,
+      "opponent_published_fixtures": 21,
       "opponent_source_examples": [
         "https://trinethunder.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.woosterathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
@@ -662,23 +664,6 @@
         "https://www.corsairathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://coastguardathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://cnesports.org/schedule.aspx?schedule=4118"
-      ]
-    },
-    {
-      "ncaa_org_id": 641,
-      "school": "Simpson College",
-      "conference": "American Rivers Conference",
-      "category": "season_heading_not_verified",
-      "failed_url": "https://simpsonathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "last_successful_school_schedule_url": "",
-      "discovered_schedule_links": [],
-      "checked_schedule_candidates": 9,
-      "next_action": "Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar",
-      "opponent_published_fixtures": 22,
-      "opponent_source_examples": [
-        "https://www.blugolds.com/sports/womens-basketball/schedule/2026-27?grid=true",
-        "https://miacathletics.com/schedule.aspx?schedule=3671",
-        "https://www.gobennies.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ]
     },
     {
@@ -748,28 +733,11 @@
       ],
       "checked_schedule_candidates": 12,
       "next_action": "Add a source-specific parser only after checking dates/opponents/home-away manually",
-      "opponent_published_fixtures": 11,
+      "opponent_published_fixtures": 12,
       "opponent_source_examples": [
         "https://www.gopios.com/sports/womens-basketball/schedule/2026-27?grid=true",
-        "https://www.go-knights.net/sports/womens-basketball/schedule/2026-27?grid=true",
-        "https://calvinknights.com/sports/womens-basketball/schedule/2026-27?grid=true"
-      ]
-    },
-    {
-      "ncaa_org_id": 806,
-      "school": "Wittenberg University",
-      "conference": "North Coast Athletic Conference",
-      "category": "season_heading_not_verified",
-      "failed_url": "https://www.wittenbergtigers.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "last_successful_school_schedule_url": "",
-      "discovered_schedule_links": [],
-      "checked_schedule_candidates": 9,
-      "next_action": "Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar",
-      "opponent_published_fixtures": 23,
-      "opponent_source_examples": [
-        "https://franklingrizzlies.com/sports/womens-basketball/schedule/2026-27?grid=true",
-        "https://athletics.hope.edu/sports/womens-basketball/schedule/2026-27?grid=true",
-        "https://calvinknights.com/sports/womens-basketball/schedule/2026-27?grid=true"
+        "https://rollrivers.com/schedule.aspx?schedule=2849",
+        "https://www.go-knights.net/sports/womens-basketball/schedule/2026-27?grid=true"
       ]
     },
     {
@@ -1121,11 +1089,11 @@
     }
   ],
   "unverified_school_summary": {
-    "remaining_unverified_school_calendars": 43,
-    "missing_schools_with_at_least_10_opponent_sourced_games": 33,
+    "remaining_unverified_school_calendars": 41,
+    "missing_schools_with_at_least_10_opponent_sourced_games": 31,
     "missing_schools_with_zero_opponent_sourced_games": 4,
     "recovery_reason_counts": {
-      "season_heading_not_verified": 36,
+      "season_heading_not_verified": 34,
       "unsupported_calendar_or_opponent_format": 2,
       "access_restricted": 2,
       "calendar_path_unavailable": 1,
@@ -1503,9 +1471,9 @@
       },
       "status": "parsed",
       "calendar_origin": "independently_verified_athletics_host",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://gobrynmawr.com/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 84,
@@ -2795,7 +2763,7 @@
       "calendar_origin": "pinned_official_url",
       "candidate_urls_tried": 1,
       "verified_direct_url": "https://vikings.lawrence.edu/sports/womens-basketball/schedule/2026?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 351,
@@ -4117,14 +4085,16 @@
     },
     {
       "owner_org_id": 641,
-      "source_url": "https://simpsonathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "status": "failed",
-      "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
-      "candidate_urls_tried": 9,
-      "discovered_schedule_links": [],
-      "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0,
-      "retained_verified_fixtures": 0
+      "source_url": "https://rollrivers.com/schedule.aspx?schedule=2849",
+      "status": "parsed_conference",
+      "calendar_origin": "official_conference_team_calendar",
+      "readable_rows": 28,
+      "verified_member_opponents": 18,
+      "excluded_rows": {
+        "missing_or_ambiguous_ncaa_opponent": 7,
+        "conditional_or_unverified_opponent": 3
+      },
+      "failed_school_calendar_urls": 9
     },
     {
       "owner_org_id": 642,
@@ -4876,14 +4846,15 @@
     },
     {
       "owner_org_id": 806,
-      "source_url": "https://www.wittenbergtigers.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "status": "failed",
-      "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
-      "candidate_urls_tried": 9,
-      "discovered_schedule_links": [],
-      "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0,
-      "retained_verified_fixtures": 0
+      "source_url": "https://northcoast.org/schedule.aspx?schedule=2771",
+      "status": "parsed_conference",
+      "calendar_origin": "official_conference_team_calendar",
+      "readable_rows": 25,
+      "verified_member_opponents": 23,
+      "excluded_rows": {
+        "conditional_or_unverified_opponent": 2
+      },
+      "failed_school_calendar_urls": 9
     },
     {
       "owner_org_id": 807,
@@ -5772,9 +5743,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://www.mlcknights.com/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 8600,
@@ -5932,9 +5903,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://www.ascscotties.com/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 11839,
@@ -5946,9 +5917,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://pittgreensburgathletics.com/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 12399,
@@ -6809,7 +6780,7 @@
       "calendar_origin": "pinned_official_url",
       "candidate_urls_tried": 1,
       "verified_direct_url": "https://regentroyals.com/sports/womens-basketball/schedule/2026?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     }
   ],
   "conflicts": [
@@ -7126,8 +7097,8 @@
       ]
     }
   ],
-  "fixture_count": 4291,
-  "reciprocal_fixtures": 2203,
+  "fixture_count": 4294,
+  "reciprocal_fixtures": 2241,
   "fixtures": [
     {
       "id": "d3-women-2026-11-06-18-1315",
@@ -8578,13 +8549,15 @@
       "status": "scheduled",
       "source_url": "https://franklingrizzlies.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://franklingrizzlies.com/sports/womens-basketball/schedule/2026-27?grid=true"
+        "https://franklingrizzlies.com/sports/womens-basketball/schedule/2026-27?grid=true",
+        "https://northcoast.org/schedule.aspx?schedule=2771"
       ],
       "verified_by_org_ids": [
+        806,
         2694
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "7 PM",
       "venue": "",
       "venue_location": "St. Louis, Mo.",
@@ -8846,7 +8819,7 @@
       "home_org_id": 12399,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.cedarcrestathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://gwyneddathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
         "https://gwyneddathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
         "https://www.cedarcrestathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -8857,12 +8830,12 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "6:00 PM",
-      "venue": "",
+      "tipoff_as_posted": "6:00 P.M.",
+      "venue": "The Griffin Complex",
       "venue_location": "Gwynedd Valley, PA",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "Gwynedd Mercy University Tip-Off Tournament",
+      "tournament": "Gwynedd Mercy University Tip-off Tournament",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -9396,7 +9369,7 @@
       "home_org_id": 214,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.emersonlions.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.elmira.edu/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.elmira.edu/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.emersonlions.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -9407,8 +9380,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "6:00 PM",
-      "venue": "Bobbi Brown and Steven Plofker Gym",
+      "tipoff_as_posted": "7:00 PM",
+      "venue": "",
       "venue_location": "Boston, Mass.",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -10202,21 +10175,23 @@
       "home_org_id": 793,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.blugolds.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://rollrivers.com/schedule.aspx?schedule=2849",
       "official_schedule_sources": [
+        "https://rollrivers.com/schedule.aspx?schedule=2849",
         "https://www.blugolds.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
+        641,
         793
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
-      "tipoff_as_posted": "3:00 p.m.",
-      "venue": "Sonnentag Event Center",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "3:00 P.M.",
+      "venue": "",
       "venue_location": "Eau Claire, Wis.",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "UWEC Tipoff Tournament",
+      "tournament": "",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -10650,7 +10625,7 @@
       "home_org_id": 170,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.elmira.edu/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://cnesports.org/schedule.aspx?schedule=4125",
       "official_schedule_sources": [
         "https://athletics.elmira.edu/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://cnesports.org/schedule.aspx?schedule=4125"
@@ -10661,7 +10636,7 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "2:00 PM",
+      "tipoff_as_posted": "2:00 P.M.",
       "venue": "",
       "venue_location": "Milton, Mass.",
       "network_as_posted": "",
@@ -10894,6 +10869,30 @@
       "radio_as_posted": "",
       "tournament": "Nicolet National Bank Tip-Off Tournament",
       "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-women-2026-11-08-641-798",
+      "date": "2026-11-08",
+      "away_org_id": 641,
+      "home_org_id": 798,
+      "neutral": true,
+      "status": "scheduled",
+      "source_url": "https://rollrivers.com/schedule.aspx?schedule=2849",
+      "official_schedule_sources": [
+        "https://rollrivers.com/schedule.aspx?schedule=2849"
+      ],
+      "verified_by_org_ids": [
+        641
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "3:30 P.M.",
+      "venue": "",
+      "venue_location": "Eau Claire, Wis.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": true
     },
     {
       "id": "d3-women-2026-11-08-715-8530",
@@ -14372,13 +14371,15 @@
       "status": "scheduled",
       "source_url": "https://athletics.hope.edu/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://athletics.hope.edu/sports/womens-basketball/schedule/2026-27?grid=true"
+        "https://athletics.hope.edu/sports/womens-basketball/schedule/2026-27?grid=true",
+        "https://northcoast.org/schedule.aspx?schedule=2771"
       ],
       "verified_by_org_ids": [
-        286
+        286,
+        806
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "7:00 PM",
       "venue": "DeVos Fieldhouse DeVette-VanWieren Court",
       "venue_location": "Holland, MI",
@@ -15420,21 +15421,23 @@
       "home_org_id": 806,
       "neutral": true,
       "status": "scheduled",
-      "source_url": "https://calvinknights.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://northcoast.org/schedule.aspx?schedule=2771",
       "official_schedule_sources": [
-        "https://calvinknights.com/sports/womens-basketball/schedule/2026-27?grid=true"
+        "https://calvinknights.com/sports/womens-basketball/schedule/2026-27?grid=true",
+        "https://northcoast.org/schedule.aspx?schedule=2771"
       ],
       "verified_by_org_ids": [
-        114
+        114,
+        806
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
-      "tipoff_as_posted": "1 PM",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "1:00 P.M.",
       "venue": "",
-      "venue_location": "Holland, Mich.",
+      "venue_location": "",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "Calvin/Hope Classic",
+      "tournament": "",
       "neutral_home_designation_unconfirmed": true
     },
     {
@@ -15444,7 +15447,7 @@
       "home_org_id": 154,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://uaasports.info/schedule.aspx?schedule=1154",
+      "source_url": "https://www.cctigers.com/sports/womens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
         "https://uaasports.info/schedule.aspx?schedule=1154",
         "https://www.cctigers.com/sports/womens-basketball/schedule/2026-2027?grid=true"
@@ -15455,12 +15458,12 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "3:00 P.M.",
-      "venue": "",
-      "venue_location": "",
+      "tipoff_as_posted": "3 pm",
+      "venue": "Reid Arena",
+      "venue_location": "Home",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "Colorado College Tip-Off Classic",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -17264,13 +17267,15 @@
       "status": "scheduled",
       "source_url": "https://www.gobennies.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://rollrivers.com/schedule.aspx?schedule=2849",
         "https://www.gobennies.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
-        595
+        595,
+        641
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "3 p.m.",
       "venue": "Claire Lynch Hall",
       "venue_location": "St. Joseph, Minn.",
@@ -17912,7 +17917,7 @@
       "home_org_id": 30047,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.centenarycyclones.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.gokcgiants.com/sports/womens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
         "https://www.centenarycyclones.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.gokcgiants.com/sports/womens-basketball/schedule/2026-2027?grid=true"
@@ -17923,8 +17928,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "2PM",
-      "venue": "",
+      "tipoff_as_posted": "2:00 PM",
+      "venue": "Gambal Athletic Center",
       "venue_location": "La Plume, PA",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -19890,7 +19895,7 @@
       "home_org_id": 11839,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.wilsonphoenix.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://pittgreensburgathletics.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://pittgreensburgathletics.com/sports/womens-basketball/schedule?grid=true",
         "https://www.wilsonphoenix.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -19901,9 +19906,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7 p.m.",
-      "venue": "",
-      "venue_location": "Greensburg, Pa.",
+      "tipoff_as_posted": "7:00 PM",
+      "venue": "Chambers Hall",
+      "venue_location": "Greensburg, PA",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -20388,7 +20393,7 @@
       "home_org_id": 192,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.cornellrams.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://udspartans.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://udspartans.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.cornellrams.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -20399,9 +20404,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "5:30 PM",
+      "tipoff_as_posted": "5:30 p.m.",
       "venue": "Stoltz Sports Center",
-      "venue_location": "Dubuque, IA",
+      "venue_location": "Dubuque, Iowa",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -20798,13 +20803,15 @@
       "status": "scheduled",
       "source_url": "https://pioneers.marietta.edu/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://northcoast.org/schedule.aspx?schedule=2771",
         "https://pioneers.marietta.edu/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
-        385
+        385,
+        806
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "7:00 p.m.",
       "venue": "Ban Johnson Arena",
       "venue_location": "Marietta, OH",
@@ -21790,7 +21797,7 @@
       "home_org_id": 581,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.sjfathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://uofrathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://uofrathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.sjfathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -21801,12 +21808,12 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "5:30 PM",
-      "venue": "",
+      "tipoff_as_posted": "7:30 pm",
+      "venue": "Louis Alexander Palestra",
       "venue_location": "Rochester, NY",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "Mark's Pizzeria Crosstown Shootout",
+      "tournament": "Marks Pizzeria Crosstown Shootout",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -23640,13 +23647,15 @@
       "status": "scheduled",
       "source_url": "https://athletics.capital.edu/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://athletics.capital.edu/sports/womens-basketball/schedule/2026-27?grid=true"
+        "https://athletics.capital.edu/sports/womens-basketball/schedule/2026-27?grid=true",
+        "https://northcoast.org/schedule.aspx?schedule=2771"
       ],
       "verified_by_org_ids": [
-        117
+        117,
+        806
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "3:00 PM",
       "venue": "",
       "venue_location": "Springfield, Ohio",
@@ -23662,7 +23671,7 @@
       "home_org_id": 320,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://uaasports.info/schedule.aspx?schedule=1154",
+      "source_url": "https://www.jcusports.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://uaasports.info/schedule.aspx?schedule=1154",
         "https://www.jcusports.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -23673,9 +23682,9 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "1:00 P.M.",
-      "venue": "",
-      "venue_location": "",
+      "tipoff_as_posted": "1:00 PM",
+      "venue": "DeCarlo Varsity Center",
+      "venue_location": "University Hts., OH",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -24582,7 +24591,7 @@
       "home_org_id": 344,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.goforesters.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://luthernorse.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://luthernorse.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.goforesters.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -24594,7 +24603,7 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "2:00 p.m.",
-      "venue": "Sports & Recreation Center",
+      "venue": "",
       "venue_location": "Lake Forest, IL",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -25886,7 +25895,7 @@
       "home_org_id": 30044,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.centenarycyclones.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.psuberksathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
         "https://www.centenarycyclones.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.psuberksathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true"
@@ -25897,8 +25906,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "1PM",
-      "venue": "",
+      "tipoff_as_posted": "1:00 p.m.",
+      "venue": "Beaver Athletics and Wellness Center",
       "venue_location": "Reading, PA",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -26620,7 +26629,7 @@
       "home_org_id": 11839,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.stvincent.edu/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://pittgreensburgathletics.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://athletics.stvincent.edu/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://pittgreensburgathletics.com/sports/womens-basketball/schedule?grid=true"
@@ -26632,7 +26641,7 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "6:00 PM",
-      "venue": "",
+      "venue": "Chambers Hall",
       "venue_location": "Greensburg, PA",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -27206,13 +27215,15 @@
       "status": "scheduled",
       "source_url": "https://uaasports.info/schedule.aspx?schedule=1154",
       "official_schedule_sources": [
+        "https://northcoast.org/schedule.aspx?schedule=2771",
         "https://uaasports.info/schedule.aspx?schedule=1154"
       ],
       "verified_by_org_ids": [
-        119
+        119,
+        806
       ],
       "source_kind": "official_conference",
-      "source_verification": "single_official_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "6:00 P.M.",
       "venue": "",
       "venue_location": "",
@@ -28926,7 +28937,7 @@
       "home_org_id": 760,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://cnesports.org/schedule.aspx?schedule=4122",
+      "source_url": "https://www.wellesleyblue.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://cnesports.org/schedule.aspx?schedule=4122",
         "https://www.wellesleyblue.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -28937,9 +28948,9 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7:00 P.M.",
-      "venue": "",
-      "venue_location": "",
+      "tipoff_as_posted": "7:00 PM",
+      "venue": "Dorothy Towne Fieldhouse",
+      "venue_location": "Wellesley, MA",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -29334,7 +29345,7 @@
       "home_org_id": 2741,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.letuathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.hpusports.com/sports/womens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
         "https://www.hpusports.com/sports/womens-basketball/schedule/2026-2027?grid=true",
         "https://www.letuathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -29346,8 +29357,8 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "3:00 PM",
-      "venue": "",
-      "venue_location": "Brownwood, Texas",
+      "venue": "Brownwood Coliseum",
+      "venue_location": "Brownwood, TX",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -30056,21 +30067,23 @@
       "home_org_id": 641,
       "neutral": true,
       "status": "scheduled",
-      "source_url": "https://www.principiaathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://rollrivers.com/schedule.aspx?schedule=2849",
       "official_schedule_sources": [
+        "https://rollrivers.com/schedule.aspx?schedule=2849",
         "https://www.principiaathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true"
       ],
       "verified_by_org_ids": [
-        555
+        555,
+        641
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "TBA",
       "venue": "",
-      "venue_location": "La Crosse, WI",
+      "venue_location": "La Crosse, Wis.",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "UW-La Crosse Tournament",
+      "tournament": "",
       "neutral_home_designation_unconfirmed": true
     },
     {
@@ -30474,6 +30487,30 @@
       "radio_as_posted": "",
       "tournament": "",
       "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-women-2026-11-29-525-641",
+      "date": "2026-11-29",
+      "away_org_id": 525,
+      "home_org_id": 641,
+      "neutral": true,
+      "status": "scheduled",
+      "source_url": "https://rollrivers.com/schedule.aspx?schedule=2849",
+      "official_schedule_sources": [
+        "https://rollrivers.com/schedule.aspx?schedule=2849"
+      ],
+      "verified_by_org_ids": [
+        641
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "TBA",
+      "venue": "",
+      "venue_location": "La Crosse, Wis.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": true
     },
     {
       "id": "d3-women-2026-11-29-555-795",
@@ -30988,7 +31025,7 @@
       "home_org_id": 1179,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://golinfieldwildcats.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.goetbutigers.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://golinfieldwildcats.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.goetbutigers.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -30999,9 +31036,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7 p.m.",
+      "tipoff_as_posted": "7:00 PM (PST)",
       "venue": "",
-      "venue_location": "McMinnville, Ore.",
+      "venue_location": "McMinnville, OR",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -32240,7 +32277,7 @@
       "home_org_id": 276,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.haverfordathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://gobrynmawr.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://gobrynmawr.com/sports/womens-basketball/schedule?grid=true",
         "https://www.haverfordathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -32251,9 +32288,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7:00 p.m.",
-      "venue": "Gooding '84 Arena",
-      "venue_location": "Haverford, Pa.",
+      "tipoff_as_posted": "7:00 PM",
+      "venue": "",
+      "venue_location": "Haverford, PA",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -33540,13 +33577,15 @@
       "status": "scheduled",
       "source_url": "https://www.goyeo.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://northcoast.org/schedule.aspx?schedule=2771",
         "https://www.goyeo.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
-        515
+        515,
+        806
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "6:00 PM",
       "venue": "Philips Gymnasium",
       "venue_location": "Oberlin, OH",
@@ -34384,7 +34423,7 @@
       "home_org_id": 16142,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.mountieathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.misericordia.edu/sports/womens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
         "https://athletics.misericordia.edu/sports/womens-basketball/schedule/2026-2027?grid=true",
         "https://www.mountieathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -34396,8 +34435,8 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "6:00 PM",
-      "venue": "Anderson Sports-Health Center",
-      "venue_location": "Dallas, Pa.",
+      "venue": "Anderson Center",
+      "venue_location": "Dallas, PA",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -34482,7 +34521,7 @@
       "home_org_id": 69,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.bowdoin.edu/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.gobatesbobcats.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.bowdoin.edu/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.gobatesbobcats.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -34493,8 +34532,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7:00 PM",
-      "venue": "Morrell Gymnasium",
+      "tipoff_as_posted": "7 p.m.",
+      "venue": "Morrell Gym",
       "venue_location": "Brunswick, Maine",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -35354,7 +35393,7 @@
       "home_org_id": 4,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://almascots.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://adrianbulldogs.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://adrianbulldogs.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://almascots.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -35365,9 +35404,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "1 p.m.",
-      "venue": "Merillat Sport & Fitness Center",
-      "venue_location": "Adrian, Michigan",
+      "tipoff_as_posted": "1:00PM",
+      "venue": "Merillat Sport and Fitness Center",
+      "venue_location": "Adrian, Mich.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -35606,7 +35645,7 @@
       "home_org_id": 73,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.brandeisjudges.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://babsonathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://babsonathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.brandeisjudges.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -35617,8 +35656,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "1 pm",
-      "venue": "",
+      "tipoff_as_posted": "1:00 pm",
+      "venue": "Red Auerbach Arena",
       "venue_location": "Waltham, Mass.",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -36716,13 +36755,15 @@
       "status": "scheduled",
       "source_url": "https://www.hamlineathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://rollrivers.com/schedule.aspx?schedule=2849",
         "https://www.hamlineathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
-        268
+        268,
+        641
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "3:00 PM",
       "venue": "",
       "venue_location": "Indianola, Iowa",
@@ -37538,6 +37579,30 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-women-2026-12-05-517-806",
+      "date": "2026-12-05",
+      "away_org_id": 806,
+      "home_org_id": 517,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://northcoast.org/schedule.aspx?schedule=2771",
+      "official_schedule_sources": [
+        "https://northcoast.org/schedule.aspx?schedule=2771"
+      ],
+      "verified_by_org_ids": [
+        806
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "1:00 P.M.",
+      "venue": "",
+      "venue_location": "",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-women-2026-12-05-520-1163",
       "date": "2026-12-05",
       "away_org_id": 1163,
@@ -37644,7 +37709,7 @@
       "home_org_id": 607,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.saintsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.rpiathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.rpiathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.saintsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -37655,9 +37720,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "2 p.m.",
-      "venue": "Ronald T. Burkman Gymnasium",
-      "venue_location": "Canton, N.Y.",
+      "tipoff_as_posted": "2:00 PM",
+      "venue": "",
+      "venue_location": "Canton, NY",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -37794,7 +37859,7 @@
       "home_org_id": 618,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.csssaints.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.stkatesathletics.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://www.csssaints.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.stkatesathletics.com/sports/womens-basketball/schedule?grid=true"
@@ -37805,8 +37870,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "3:00 PM",
-      "venue": "Reif Gym (Burns Wellness Commons)",
+      "tipoff_as_posted": "3 PM",
+      "venue": "",
       "venue_location": "Duluth, Minn.",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -38540,7 +38605,7 @@
       "home_org_id": 8490,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.letuathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.hpusports.com/sports/womens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
         "https://www.hpusports.com/sports/womens-basketball/schedule/2026-2027?grid=true",
         "https://www.letuathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -38552,8 +38617,8 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "3:00 PM",
-      "venue": "Solheim Arena",
-      "venue_location": "Longview, Texas",
+      "venue": "",
+      "venue_location": "Longview, TX",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -38664,7 +38729,7 @@
       "home_org_id": 30114,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.abingtonsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.psuberksathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
         "https://www.abingtonsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.psuberksathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true"
@@ -38676,8 +38741,8 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "1:00 p.m.",
-      "venue": "",
-      "venue_location": "Bryn Athyn, Pa.",
+      "venue": "Bryn Athyn College | Asplundh Field House",
+      "venue_location": "Bryn Athyn, PA",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -43006,7 +43071,7 @@
       "home_org_id": 344,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.goforesters.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://prairiefire.knox.edu/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://prairiefire.knox.edu/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.goforesters.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -43017,8 +43082,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "1:00 p.m.",
-      "venue": "Sports & Recreation Center",
+      "tipoff_as_posted": "1:00 P.M.",
+      "venue": "",
       "venue_location": "Lake Forest, IL",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -43580,7 +43645,7 @@
       "home_org_id": 615,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.csssaints.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.stolaf.edu/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.stolaf.edu/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.csssaints.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -43591,9 +43656,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "3:00 PM",
-      "venue": "",
-      "venue_location": "Northfield, MN",
+      "tipoff_as_posted": "3 p.m.",
+      "venue": "Bob Gelle Court at Skoglund Center",
+      "venue_location": "Northfield, Minn.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -44580,13 +44645,15 @@
       "status": "scheduled",
       "source_url": "https://adrianbulldogs.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://adrianbulldogs.com/sports/womens-basketball/schedule/2026-27?grid=true"
+        "https://adrianbulldogs.com/sports/womens-basketball/schedule/2026-27?grid=true",
+        "https://northcoast.org/schedule.aspx?schedule=2771"
       ],
       "verified_by_org_ids": [
-        4
+        4,
+        806
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "7:00PM",
       "venue": "",
       "venue_location": "Springfield, Ohio",
@@ -45102,7 +45169,7 @@
       "home_org_id": 337,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://vikings.lawrence.edu/sports/womens-basketball/schedule/2026?grid=true",
+      "source_url": "https://prairiefire.knox.edu/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://prairiefire.knox.edu/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://vikings.lawrence.edu/sports/womens-basketball/schedule/2026?grid=true"
@@ -45584,7 +45651,7 @@
       "home_org_id": 119,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://uaasports.info/schedule.aspx?schedule=1154",
+      "source_url": "https://athletics.mountunion.edu/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.mountunion.edu/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://uaasports.info/schedule.aspx?schedule=1154"
@@ -45595,9 +45662,9 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "2:00 P.M.",
+      "tipoff_as_posted": "2 pm",
       "venue": "",
-      "venue_location": "",
+      "venue_location": "Pittsburgh, PA",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -45938,7 +46005,7 @@
       "home_org_id": 938,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.ycpspartans.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.alvernia.edu/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.alvernia.edu/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.ycpspartans.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -45949,9 +46016,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "6:00 pm",
-      "venue": "",
-      "venue_location": "Reading, PA",
+      "tipoff_as_posted": "6:00 PM",
+      "venue": "Jack McCloskey Court",
+      "venue_location": "Reading, Pa.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -48334,13 +48401,15 @@
       "status": "scheduled",
       "source_url": "https://www.gopresidents.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://northcoast.org/schedule.aspx?schedule=2771",
         "https://www.gopresidents.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
-        751
+        751,
+        806
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "3:00 PM",
       "venue": "Pam Evans Smith Arena",
       "venue_location": "Springfield, Ohio",
@@ -48430,7 +48499,7 @@
       "home_org_id": 938,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.arcadiaknights.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.alvernia.edu/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.alvernia.edu/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.arcadiaknights.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -48441,9 +48510,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "1:00 p.m.",
-      "venue": "",
-      "venue_location": "Reading, PA",
+      "tipoff_as_posted": "1:00 PM",
+      "venue": "Jack McCloskey Court",
+      "venue_location": "Reading, Pa.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -49720,7 +49789,7 @@
       "home_org_id": 451,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://umsvathletics.com/sports/womens-basketball/schedule?grid=true",
+      "source_url": "https://www.mecathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
         "https://umsvathletics.com/sports/womens-basketball/schedule?grid=true",
         "https://www.mecathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true"
@@ -49731,9 +49800,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "1:00 PM",
-      "venue": "Peter Jay Sharp Center",
-      "venue_location": "Riverdale, NY",
+      "tipoff_as_posted": "1:00pm",
+      "venue": "",
+      "venue_location": "Peter Jay Sharp Center (Riverdale, NY)",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -51348,7 +51417,7 @@
       "home_org_id": 185,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://uaasports.info/schedule.aspx?schedule=1154",
+      "source_url": "https://www.dickinsonathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://uaasports.info/schedule.aspx?schedule=1154",
         "https://www.dickinsonathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -51359,9 +51428,9 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "4:00 P.M.",
-      "venue": "",
-      "venue_location": "",
+      "tipoff_as_posted": "4:00 PM",
+      "venue": "Kline Center",
+      "venue_location": "Carlisle, Pa.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -53220,7 +53289,7 @@
       "home_org_id": 15,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.gobrits.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://adrianbulldogs.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://adrianbulldogs.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.gobrits.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -53231,9 +53300,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "2:00 PM",
-      "venue": "Kresge Gymnasium",
-      "venue_location": "Albion, MI",
+      "tipoff_as_posted": "2:00PM",
+      "venue": "",
+      "venue_location": "Albion, Mich.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -53800,13 +53869,15 @@
       "status": "scheduled",
       "source_url": "https://www.denisonbigred.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://northcoast.org/schedule.aspx?schedule=2771",
         "https://www.denisonbigred.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
-        182
+        182,
+        806
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "2 P.M.",
       "venue": "Livingston Gymnasium",
       "venue_location": "Granville, Ohio",
@@ -53974,7 +54045,7 @@
       "home_org_id": 268,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.hamlineathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://gogusties.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://gogusties.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.hamlineathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -53986,7 +54057,7 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "3:00 PM",
-      "venue": "Hutton Arena",
+      "venue": "",
       "venue_location": "St. Paul, Minn.",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -54604,7 +54675,7 @@
       "home_org_id": 615,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.stolaf.edu/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.stkatesathletics.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://athletics.stolaf.edu/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.stkatesathletics.com/sports/womens-basketball/schedule?grid=true"
@@ -54615,8 +54686,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "1 p.m.",
-      "venue": "Bob Gelle Court at Skoglund Center",
+      "tipoff_as_posted": "1 PM",
+      "venue": "",
       "venue_location": "Northfield, Minn.",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -55354,7 +55425,7 @@
       "home_org_id": 119,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://uaasports.info/schedule.aspx?schedule=1154",
+      "source_url": "https://athletics.ithaca.edu/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.ithaca.edu/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://uaasports.info/schedule.aspx?schedule=1154"
@@ -55365,9 +55436,9 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "12:00 P.M.",
+      "tipoff_as_posted": "TBD",
       "venue": "",
-      "venue_location": "",
+      "venue_location": "Pittsburgh, PA",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -56874,7 +56945,7 @@
       "home_org_id": 11324,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.piedmontlions.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.ascscotties.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://www.ascscotties.com/sports/womens-basketball/schedule?grid=true",
         "https://www.piedmontlions.com/sports/womens-basketball/schedule/2026-2027?grid=true"
@@ -56885,9 +56956,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "5:00 pm",
-      "venue": "",
-      "venue_location": "Decatur, Georgia",
+      "tipoff_as_posted": "6:00 PM",
+      "venue": "Woodruff Gymnasium",
+      "venue_location": "Decatur, GA",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -56926,7 +56997,7 @@
       "home_org_id": 30094,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://knightathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.bctornados.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://knightathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.bctornados.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -56937,7 +57008,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "2:00 PM",
+      "tipoff_as_posted": "4 pm",
       "venue": "",
       "venue_location": "Brevard, N.C.",
       "network_as_posted": "",
@@ -58962,7 +59033,7 @@
       "home_org_id": 752,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://generalssports.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://vwuathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://generalssports.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://vwuathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -58973,9 +59044,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "6 p.m.",
-      "venue": "Holekamp Gym",
-      "venue_location": "Lexington, Va.",
+      "tipoff_as_posted": "6:00 PM",
+      "venue": "",
+      "venue_location": "Lexington, VA",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -61482,13 +61553,15 @@
       "status": "scheduled",
       "source_url": "https://www.kohawkathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://rollrivers.com/schedule.aspx?schedule=2849",
         "https://www.kohawkathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
-        150
+        150,
+        641
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "2:00 PM",
       "venue": "",
       "venue_location": "Indianola, Iowa",
@@ -61960,7 +62033,7 @@
       "home_org_id": 258,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.haverfordathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.gettysburgsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.gettysburgsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.haverfordathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -61971,9 +62044,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "4:30 p.m.",
-      "venue": "",
-      "venue_location": "Gettysburg, Pa.",
+      "tipoff_as_posted": "4:30 PM",
+      "venue": "Bream Gym",
+      "venue_location": "Gettysburg, PA",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -62340,13 +62413,15 @@
       "status": "scheduled",
       "source_url": "https://www.jcusports.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://northcoast.org/schedule.aspx?schedule=2771",
         "https://www.jcusports.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
-        320
+        320,
+        806
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "2:00 PM",
       "venue": "Pam Evans Smith Arena",
       "venue_location": "Springfield, OH",
@@ -63048,7 +63123,7 @@
       "home_org_id": 515,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://battlingbishops.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.goyeo.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://battlingbishops.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.goyeo.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -63059,9 +63134,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "2 p.m.",
-      "venue": "",
-      "venue_location": "Oberlin, Ohio",
+      "tipoff_as_posted": "2:00 PM",
+      "venue": "Philips Gymnasium",
+      "venue_location": "Oberlin, OH",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -66272,13 +66347,15 @@
       "status": "scheduled",
       "source_url": "https://depauwtigers.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://depauwtigers.com/sports/womens-basketball/schedule/2026-27?grid=true"
+        "https://depauwtigers.com/sports/womens-basketball/schedule/2026-27?grid=true",
+        "https://northcoast.org/schedule.aspx?schedule=2771"
       ],
       "verified_by_org_ids": [
-        177
+        177,
+        806
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "7 p.m.",
       "venue": "Neal Fieldhouse",
       "venue_location": "Greencastle, Ind.",
@@ -67624,17 +67701,19 @@
       "home_org_id": 750,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.go-knights.net/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://rollrivers.com/schedule.aspx?schedule=2849",
       "official_schedule_sources": [
+        "https://rollrivers.com/schedule.aspx?schedule=2849",
         "https://www.go-knights.net/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
+        641,
         750
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
-      "tipoff_as_posted": "5:30 PM",
-      "venue": "Levick Arena",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "5:30 P.M.",
+      "venue": "",
       "venue_location": "Waverly, Iowa",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -67746,7 +67825,7 @@
       "home_org_id": 795,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.uwlathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.letsgopioneers.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.letsgopioneers.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.uwlathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -67757,7 +67836,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7 p.m.",
+      "tipoff_as_posted": "7 PM",
       "venue": "",
       "venue_location": "La Crosse, WI",
       "network_as_posted": "",
@@ -69060,7 +69139,7 @@
       "home_org_id": 581,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://washubears.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://uofrathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://uofrathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://washubears.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -69071,9 +69150,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "5:30 p.m. ET",
+      "tipoff_as_posted": "5:30 pm",
       "venue": "Louis Alexander Palestra",
-      "venue_location": "Rochester, N.Y.",
+      "venue_location": "Rochester, NY",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -69862,7 +69941,7 @@
       "home_org_id": 82,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.dickinsonathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://gobrynmawr.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://gobrynmawr.com/sports/womens-basketball/schedule?grid=true",
         "https://www.dickinsonathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -69874,8 +69953,8 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "1:00 PM",
-      "venue": "",
-      "venue_location": "Bryn Mawr, PA (Class of 1958 Gymnasium)",
+      "venue": "Class of 1958 Gymnasium",
+      "venue_location": "Bryn Mawr, PA",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -71252,13 +71331,15 @@
       "status": "scheduled",
       "source_url": "https://athletics.kenyon.edu/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://athletics.kenyon.edu/sports/womens-basketball/schedule/2026-27?grid=true"
+        "https://athletics.kenyon.edu/sports/womens-basketball/schedule/2026-27?grid=true",
+        "https://northcoast.org/schedule.aspx?schedule=2771"
       ],
       "verified_by_org_ids": [
-        335
+        335,
+        806
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "1:00 PM",
       "venue": "",
       "venue_location": "Gambier, OH",
@@ -71298,7 +71379,7 @@
       "home_org_id": 337,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.goforesters.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://prairiefire.knox.edu/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://prairiefire.knox.edu/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.goforesters.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -71309,8 +71390,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "1:00 p.m.",
-      "venue": "",
+      "tipoff_as_posted": "1:00 P.M.",
+      "venue": "Memorial Gymnasium",
       "venue_location": "Galesburg, IL",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -71376,13 +71457,15 @@
       "status": "scheduled",
       "source_url": "https://www.duhawks.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://rollrivers.com/schedule.aspx?schedule=2849",
         "https://www.duhawks.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
-        364
+        364,
+        641
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "2:00 PM",
       "venue": "Cowles Fieldhouse",
       "venue_location": "Indianola, Iowa",
@@ -73256,7 +73339,7 @@
       "home_org_id": 50,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.bowdoin.edu/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.gobatesbobcats.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.bowdoin.edu/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.gobatesbobcats.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -73267,8 +73350,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "1:00 PM",
-      "venue": "",
+      "tipoff_as_posted": "1 p.m.",
+      "venue": "Underhill Arena",
       "venue_location": "Lewiston, Maine",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -73988,7 +74071,7 @@
       "home_org_id": 8600,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.cedarcrestathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.notredamegators.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.cedarcrestathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.notredamegators.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -73999,9 +74082,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "5:00 PM",
-      "venue": "",
-      "venue_location": "Baltimore, MD",
+      "tipoff_as_posted": "5 p.m.",
+      "venue": "MBK Sports Complex",
+      "venue_location": "Baltimore, Md.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -74014,7 +74097,7 @@
       "home_org_id": 21830,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.piedmontlions.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.ascscotties.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://www.ascscotties.com/sports/womens-basketball/schedule?grid=true",
         "https://www.piedmontlions.com/sports/womens-basketball/schedule/2026-2027?grid=true"
@@ -74025,9 +74108,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "5:00 pm",
-      "venue": "Cave Arena (Basketball)",
-      "venue_location": "Demorest, Georgia",
+      "tipoff_as_posted": "5:00 PM",
+      "venue": "",
+      "venue_location": "Demorest, GA",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -74538,7 +74621,7 @@
       "home_org_id": 239,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.godiplomats.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://gobrynmawr.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://gobrynmawr.com/sports/womens-basketball/schedule?grid=true",
         "https://www.godiplomats.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -74550,8 +74633,8 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "6:00 PM",
-      "venue": "Mayser Center",
-      "venue_location": "Lancaster, Pa.",
+      "venue": "",
+      "venue_location": "Lancaster, PA",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -75300,7 +75383,7 @@
       "home_org_id": 292,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.huntercollegeathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.lehmanathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.huntercollegeathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.lehmanathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -75311,9 +75394,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "5 pm",
-      "venue": "Hunter Sportsplex",
-      "venue_location": "New York, N.Y.",
+      "tipoff_as_posted": "5:00 PM",
+      "venue": "Sportsplex",
+      "venue_location": "New York, NY",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -75910,13 +75993,15 @@
       "status": "scheduled",
       "source_url": "https://www.nwusports.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://rollrivers.com/schedule.aspx?schedule=2849",
         "https://www.nwusports.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
-        462
+        462,
+        641
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "5:30 PM",
       "venue": "",
       "venue_location": "Indianola, IA",
@@ -76410,13 +76495,15 @@
       "status": "scheduled",
       "source_url": "https://www.woosterathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://northcoast.org/schedule.aspx?schedule=2771",
         "https://www.woosterathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
+        806,
         807
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "7:00 PM",
       "venue": "",
       "venue_location": "Springfield, OH",
@@ -76708,7 +76795,7 @@
       "home_org_id": 12399,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.centenarycyclones.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://gwyneddathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
         "https://gwyneddathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
         "https://www.centenarycyclones.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -76719,8 +76806,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "6PM",
-      "venue": "",
+      "tipoff_as_posted": "6:00 P.M.",
+      "venue": "The Griffin Complex",
       "venue_location": "Gwynedd Valley, PA",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -77006,7 +77093,7 @@
       "home_org_id": 119,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://uaasports.info/schedule.aspx?schedule=1154",
+      "source_url": "https://www.emoryathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://uaasports.info/schedule.aspx?schedule=1154",
         "https://www.emoryathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -77017,9 +77104,9 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "5:30 P.M.",
+      "tipoff_as_posted": "5:30 PM",
       "venue": "",
-      "venue_location": "",
+      "venue_location": "Pittsburgh, PA",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -78738,13 +78825,15 @@
       "status": "scheduled",
       "source_url": "https://udspartans.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://rollrivers.com/schedule.aspx?schedule=2849",
         "https://udspartans.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
-        192
+        192,
+        641
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "2:00 p.m.",
       "venue": "Stoltz Sports Center",
       "venue_location": "Dubuque, Iowa",
@@ -80018,13 +80107,15 @@
       "status": "scheduled",
       "source_url": "https://battlingbishops.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://battlingbishops.com/sports/womens-basketball/schedule/2026-27?grid=true"
+        "https://battlingbishops.com/sports/womens-basketball/schedule/2026-27?grid=true",
+        "https://northcoast.org/schedule.aspx?schedule=2771"
       ],
       "verified_by_org_ids": [
-        520
+        520,
+        806
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "1 p.m.",
       "venue": "Branch Rickey Arena",
       "venue_location": "Delaware, Ohio",
@@ -80318,7 +80409,7 @@
       "home_org_id": 597,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.stolaf.edu/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.stkatesathletics.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://athletics.stolaf.edu/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.stkatesathletics.com/sports/womens-basketball/schedule?grid=true"
@@ -80329,7 +80420,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "1 p.m.",
+      "tipoff_as_posted": "1 PM",
       "venue": "Butler Center",
       "venue_location": "St. Paul, Minn.",
       "network_as_posted": "",
@@ -80916,7 +81007,7 @@
       "home_org_id": 1203,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://cruathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.goetbutigers.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://cruathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
         "https://www.goetbutigers.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -80928,7 +81019,7 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "1:00 PM",
-      "venue": "Mayborn Campus Center",
+      "venue": "",
       "venue_location": "Belton, TX",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -81270,7 +81361,7 @@
       "home_org_id": 2741,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.mcmurrysports.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.hpusports.com/sports/womens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
         "https://www.hpusports.com/sports/womens-basketball/schedule/2026-2027?grid=true",
         "https://www.mcmurrysports.com/sports/womens-basketball/schedule/2026-2027?grid=true"
@@ -82450,7 +82541,7 @@
       "home_org_id": 21,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://almascots.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://adrianbulldogs.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://adrianbulldogs.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://almascots.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -82461,11 +82552,11 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7 p.m.",
-      "venue": "Art Smith Arena",
-      "venue_location": "Alma, Michigan",
-      "network_as_posted": "MIAA Sports Network",
-      "radio_as_posted": "104.9 WQBX",
+      "tipoff_as_posted": "7:00PM",
+      "venue": "",
+      "venue_location": "Alma, Mich.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
       "tournament": "",
       "neutral_home_designation_unconfirmed": false
     },
@@ -82880,13 +82971,15 @@
       "status": "scheduled",
       "source_url": "https://www.bvuathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://rollrivers.com/schedule.aspx?schedule=2849",
         "https://www.bvuathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
-        84
+        84,
+        641
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "5:30 p.m.",
       "venue": "",
       "venue_location": "Indianola, IA",
@@ -84378,13 +84471,15 @@
       "status": "scheduled",
       "source_url": "https://www.goyeo.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://northcoast.org/schedule.aspx?schedule=2771",
         "https://www.goyeo.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
-        515
+        515,
+        806
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "7:00 PM",
       "venue": "",
       "venue_location": "Springfield, OH",
@@ -85066,7 +85161,7 @@
       "home_org_id": 12973,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.wilsonphoenix.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.notredamegators.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.notredamegators.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.wilsonphoenix.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -85592,7 +85687,7 @@
       "home_org_id": 119,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://uaasports.info/schedule.aspx?schedule=1154",
+      "source_url": "https://athletics.uchicago.edu/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.uchicago.edu/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://uaasports.info/schedule.aspx?schedule=1154"
@@ -85603,9 +85698,9 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "5:30 P.M.",
+      "tipoff_as_posted": "5:30 PM ET",
       "venue": "",
-      "venue_location": "",
+      "venue_location": "Pittsburgh, PA | Highmark Center",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -87218,13 +87313,15 @@
       "status": "scheduled",
       "source_url": "https://www.kohawkathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://rollrivers.com/schedule.aspx?schedule=2849",
         "https://www.kohawkathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
-        150
+        150,
+        641
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "2:00 PM",
       "venue": "Kohawk Arena",
       "venue_location": "Cedar Rapids, Iowa",
@@ -87416,13 +87513,15 @@
       "status": "scheduled",
       "source_url": "https://www.denisonbigred.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://northcoast.org/schedule.aspx?schedule=2771",
         "https://www.denisonbigred.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
-        182
+        182,
+        806
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "3 P.M.",
       "venue": "Pam Evans Smith Arena",
       "venue_location": "Springfield, Ohio",
@@ -90898,7 +90997,7 @@
       "home_org_id": 775,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://cnesports.org/schedule.aspx?schedule=4122",
+      "source_url": "https://www.wnegoldenbears.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://cnesports.org/schedule.aspx?schedule=4122",
         "https://www.wnegoldenbears.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -90909,8 +91008,8 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "5:30 P.M.",
-      "venue": "",
+      "tipoff_as_posted": "5:30 pm",
+      "venue": "Anthony S. Caprio Alumni Healthful Living Center",
       "venue_location": "Springfield, Mass.",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -91534,7 +91633,7 @@
       "home_org_id": 82,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.haverfordathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://gobrynmawr.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://gobrynmawr.com/sports/womens-basketball/schedule?grid=true",
         "https://www.haverfordathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -91545,9 +91644,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7:00 p.m.",
-      "venue": "",
-      "venue_location": "Bryn Mawr, Pa.",
+      "tipoff_as_posted": "7:00 PM",
+      "venue": "Class of 1958 Gymnasium",
+      "venue_location": "Bryn Mawr, PA",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -93320,7 +93419,7 @@
       "home_org_id": 815,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.ycpspartans.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.alvernia.edu/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.alvernia.edu/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.ycpspartans.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -93331,8 +93430,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "6:00 pm",
-      "venue": "Wolf Gym",
+      "tipoff_as_posted": "6:00 PM",
+      "venue": "",
       "venue_location": "York, PA",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -94074,7 +94173,7 @@
       "home_org_id": 137,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://uaasports.info/schedule.aspx?schedule=1154",
+      "source_url": "https://athletics.uchicago.edu/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.uchicago.edu/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://uaasports.info/schedule.aspx?schedule=1154"
@@ -94085,9 +94184,9 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "6:30 P.M.",
+      "tipoff_as_posted": "5:30 PM CT",
       "venue": "",
-      "venue_location": "",
+      "venue_location": "Chicago, IL | Ratner Athletic Center",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -96334,7 +96433,7 @@
       "home_org_id": 266,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.hamlineathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://gogusties.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://gogusties.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.hamlineathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -96347,7 +96446,7 @@
       "source_verification": "reciprocal",
       "tipoff_as_posted": "3:00 PM",
       "venue": "",
-      "venue_location": "St. Peter, Minn.",
+      "venue_location": "Saint Peter, Minn.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -96542,13 +96641,15 @@
       "status": "scheduled",
       "source_url": "https://www.jcusports.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://northcoast.org/schedule.aspx?schedule=2771",
         "https://www.jcusports.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
-        320
+        320,
+        806
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "3:00 PM",
       "venue": "DeCarlo Varsity Center",
       "venue_location": "University Hts., OH",
@@ -97242,7 +97343,7 @@
       "home_org_id": 520,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://battlingbishops.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.goyeo.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://battlingbishops.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.goyeo.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -97253,9 +97354,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "1 p.m.",
-      "venue": "Branch Rickey Arena",
-      "venue_location": "Delaware, Ohio",
+      "tipoff_as_posted": "1:00 PM",
+      "venue": "",
+      "venue_location": "Delaware, OH",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -97566,7 +97667,7 @@
       "home_org_id": 597,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.csssaints.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.stkatesathletics.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://www.csssaints.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.stkatesathletics.com/sports/womens-basketball/schedule?grid=true"
@@ -97577,9 +97678,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "3:00 PM",
-      "venue": "",
-      "venue_location": "St. Paul, MN",
+      "tipoff_as_posted": "1 PM",
+      "venue": "Butler Center",
+      "venue_location": "St. Paul, Minn.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -97694,18 +97795,20 @@
       "home_org_id": 641,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.go-knights.net/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://rollrivers.com/schedule.aspx?schedule=2849",
       "official_schedule_sources": [
+        "https://rollrivers.com/schedule.aspx?schedule=2849",
         "https://www.go-knights.net/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
+        641,
         750
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
-      "tipoff_as_posted": "2 PM",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "2:00 P.M.",
       "venue": "",
-      "venue_location": "Indianola, IA",
+      "venue_location": "Indianola, Iowa",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -100144,13 +100247,15 @@
       "status": "scheduled",
       "source_url": "https://depauwtigers.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://depauwtigers.com/sports/womens-basketball/schedule/2026-27?grid=true"
+        "https://depauwtigers.com/sports/womens-basketball/schedule/2026-27?grid=true",
+        "https://northcoast.org/schedule.aspx?schedule=2771"
       ],
       "verified_by_org_ids": [
-        177
+        177,
+        806
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "7 p.m.",
       "venue": "",
       "venue_location": "Springfield, Ohio",
@@ -100600,7 +100705,7 @@
       "home_org_id": 279,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.huntercollegeathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.lehmanathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.huntercollegeathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.lehmanathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -100611,8 +100716,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7 pm",
-      "venue": "",
+      "tipoff_as_posted": "7:00 PM",
+      "venue": "APEX Main Gym",
       "venue_location": "Bronx, NY",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -100982,13 +101087,15 @@
       "status": "scheduled",
       "source_url": "https://www.nwusports.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://rollrivers.com/schedule.aspx?schedule=2849",
         "https://www.nwusports.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
-        462
+        462,
+        641
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "5:30 PM",
       "venue": "Snyder Arena",
       "venue_location": "Lincoln, NE",
@@ -101970,7 +102077,7 @@
       "home_org_id": 12884,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.centenarycyclones.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://gwyneddathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
         "https://gwyneddathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
         "https://www.centenarycyclones.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -101981,9 +102088,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "6PM",
-      "venue": "John M. Reeves Student Recreation Center",
-      "venue_location": "Hackettstown, N.J.",
+      "tipoff_as_posted": "6:00 P.M.",
+      "venue": "",
+      "venue_location": "Hackettstown, NJ",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -102046,7 +102153,7 @@
       "home_org_id": 8530,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.mcmurrysports.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.hpusports.com/sports/womens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
         "https://www.hpusports.com/sports/womens-basketball/schedule/2026-2027?grid=true",
         "https://www.mcmurrysports.com/sports/womens-basketball/schedule/2026-2027?grid=true"
@@ -102058,7 +102165,7 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "5:30 PM",
-      "venue": "Kimbrell Arena",
+      "venue": "",
       "venue_location": "Abilene, TX",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -102748,7 +102855,7 @@
       "home_org_id": 755,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://washubears.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://uofrathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://uofrathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://washubears.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -102759,9 +102866,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "5:30 p.m.",
-      "venue": "Field House",
-      "venue_location": "St. Louis, Mo.",
+      "tipoff_as_posted": "5:30 pm (CT)",
+      "venue": "",
+      "venue_location": "St. Louis, MO",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -104074,13 +104181,15 @@
       "status": "scheduled",
       "source_url": "https://udspartans.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://rollrivers.com/schedule.aspx?schedule=2849",
         "https://udspartans.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
-        192
+        192,
+        641
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "2:00 p.m.",
       "venue": "Cowles Fieldhouse",
       "venue_location": "Indianola, Iowa",
@@ -104850,13 +104959,15 @@
       "status": "scheduled",
       "source_url": "https://athletics.kenyon.edu/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://athletics.kenyon.edu/sports/womens-basketball/schedule/2026-27?grid=true"
+        "https://athletics.kenyon.edu/sports/womens-basketball/schedule/2026-27?grid=true",
+        "https://northcoast.org/schedule.aspx?schedule=2771"
       ],
       "verified_by_org_ids": [
-        335
+        335,
+        806
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "2:00 PM",
       "venue": "",
       "venue_location": "Springfield, OH",
@@ -106228,7 +106339,7 @@
       "home_org_id": 1062,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://cruathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.goetbutigers.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://cruathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
         "https://www.goetbutigers.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -106876,7 +106987,7 @@
       "home_org_id": 30164,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://knightathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.bctornados.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://knightathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.bctornados.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -106887,8 +106998,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "4:00 PM",
-      "venue": "Knight Arena",
+      "tipoff_as_posted": "4 pm",
+      "venue": "",
       "venue_location": "Buena Vista, Va.",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -108084,13 +108195,15 @@
       "status": "scheduled",
       "source_url": "https://www.bvuathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://rollrivers.com/schedule.aspx?schedule=2849",
         "https://www.bvuathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
-        84
+        84,
+        641
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "5:30 p.m.",
       "venue": "Siebens Fieldhouse/Saggau Family Court",
       "venue_location": "Storm Lake, IA",
@@ -109786,13 +109899,15 @@
       "status": "scheduled",
       "source_url": "https://www.woosterathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://northcoast.org/schedule.aspx?schedule=2771",
         "https://www.woosterathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
+        806,
         807
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "6:00 PM",
       "venue": "",
       "venue_location": "Timken Gymnasium",
@@ -110276,7 +110391,7 @@
       "home_org_id": 217,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://uaasports.info/schedule.aspx?schedule=1154",
+      "source_url": "https://www.emoryathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://uaasports.info/schedule.aspx?schedule=1154",
         "https://www.emoryathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -110287,9 +110402,9 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "5:30 P.M.",
-      "venue": "",
-      "venue_location": "",
+      "tipoff_as_posted": "5:30 PM",
+      "venue": "Woodruff PE Center Arena",
+      "venue_location": "Atlanta, GA",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -110526,7 +110641,7 @@
       "home_org_id": 570,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.saintsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.rpiathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.rpiathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.saintsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -110537,9 +110652,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "5:30 p.m.",
-      "venue": "",
-      "venue_location": "Troy, N.Y.",
+      "tipoff_as_posted": "5:30 PM",
+      "venue": "ECAV Arena",
+      "venue_location": "Troy, NY",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -110774,7 +110889,7 @@
       "home_org_id": 4,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.gobrits.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://adrianbulldogs.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://adrianbulldogs.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.gobrits.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -110785,9 +110900,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "3 PM",
-      "venue": "",
-      "venue_location": "Adrian, MI",
+      "tipoff_as_posted": "3:00PM",
+      "venue": "Merillat Sport and Fitness Center",
+      "venue_location": "Adrian, Mich.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -112436,7 +112551,7 @@
       "home_org_id": 348,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://vikings.lawrence.edu/sports/womens-basketball/schedule/2026?grid=true",
+      "source_url": "https://prairiefire.knox.edu/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://prairiefire.knox.edu/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://vikings.lawrence.edu/sports/womens-basketball/schedule/2026?grid=true"
@@ -112462,7 +112577,7 @@
       "home_org_id": 372,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.goforesters.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://luthernorse.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://luthernorse.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.goforesters.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -112474,8 +112589,8 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "12:00 p.m.",
-      "venue": "",
-      "venue_location": "Decorah, IA",
+      "venue": "Birkestrand Family Court",
+      "venue_location": "Decorah, Iowa",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -112516,13 +112631,15 @@
       "status": "scheduled",
       "source_url": "https://www.duhawks.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://rollrivers.com/schedule.aspx?schedule=2849",
         "https://www.duhawks.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
-        364
+        364,
+        641
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "2:00 PM",
       "venue": "Lillis Athletic & Wellness Center",
       "venue_location": "Dubuque, Iowa",
@@ -112912,13 +113029,15 @@
       "status": "scheduled",
       "source_url": "https://battlingbishops.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://battlingbishops.com/sports/womens-basketball/schedule/2026-27?grid=true"
+        "https://battlingbishops.com/sports/womens-basketball/schedule/2026-27?grid=true",
+        "https://northcoast.org/schedule.aspx?schedule=2771"
       ],
       "verified_by_org_ids": [
-        520
+        520,
+        806
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "2 p.m.",
       "venue": "",
       "venue_location": "Springfield, Ohio",
@@ -113530,7 +113649,7 @@
       "home_org_id": 800,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.uwlathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.letsgopioneers.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.letsgopioneers.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.uwlathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -113541,8 +113660,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "3 p.m.",
-      "venue": "",
+      "tipoff_as_posted": "3 PM",
+      "venue": "Bo Ryan Court",
       "venue_location": "Platteville, WI",
       "network_as_posted": "",
       "radio_as_posted": "",
