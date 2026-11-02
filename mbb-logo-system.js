@@ -87,7 +87,7 @@ function upgradeBareLogos(root=document){
   img.replaceWith(temp.firstElementChild);
  }
 }
-w.MBBLogos={ready,render,byNCAA:(id,size,name)=>render({ncaaId:id,name,size}),byESPN:(id,size,name)=>render({espnId:id&&registry[String(id)]?String(id):'',name:name||registry[String(id)]?.school,size}),byName:(name,size)=>render({name,size}),fail,stripLegacyRings,upgradeLegacyCalendar,upgradeBareLogos,logoURL:id=>registry[byNcaa.get(id)]?.logo_url||'',colorForESPN:id=>palette[String(id)]?{...palette[String(id)]}:null};
+w.MBBLogos={ready,render,byNCAA:(id,size,name)=>render({ncaaId:id,name,size}),byESPN:(id,size,name)=>render({espnId:id&&registry[String(id)]?String(id):'',name:name||registry[String(id)]?.school,size}),byName:(name,size)=>render({name,size}),fail,stripLegacyRings,upgradeLegacyCalendar,upgradeBareLogos,logoURL:id=>registry[byNcaa.get(id)]?.logo_url||'',colorForESPN:id=>palette[String(id)]?{...palette[String(id)]}:null,schoolNameForESPN:id=>String(registry[String(id)]?.school||'').replace(/\bSt\.$/,'State')};
 ready.then(ok=>{
  if(!ok)return;
  const run=()=>{stripLegacyRings(document);upgradeLegacyCalendar();upgradeBareLogos(document)};
