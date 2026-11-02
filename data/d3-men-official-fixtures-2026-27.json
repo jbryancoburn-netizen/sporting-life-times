@@ -3,19 +3,19 @@
   "division": "d3",
   "gender": "men",
   "season": "2026-27",
-  "generated_utc": "2026-11-02T02:38:24.487926+00:00",
+  "generated_utc": "2026-11-02T02:42:06.409226+00:00",
   "source": "NCAA 2026-27 member directory + year/gender-validated official school athletics calendars",
   "scope": "NCAA membership-wide first pass; sources without independently validated 2026-27 schedules excluded",
   "ncaa_confirmed_programs": 406,
   "verified_source_calendars": 355,
-  "official_conference_calendar_fallbacks": 19,
+  "official_conference_calendar_fallbacks": 25,
   "school_calendars_checked": 406,
   "school_calendars_missing": 51,
-  "school_calendars_unresolved": 32,
+  "school_calendars_unresolved": 26,
   "source_status_counts": {
     "parsed": 355,
-    "parsed_conference": 19,
-    "failed": 32
+    "failed": 26,
+    "parsed_conference": 25
   },
   "last_verified_school_source": {
     "4": "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
@@ -384,14 +384,20 @@
     "455": "https://oac.org/schedule.aspx?schedule=2381",
     "517": "https://oac.org/schedule.aspx?schedule=2382",
     "525": "https://miaa.org/schedule.aspx?schedule=2283",
+    "532": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300753",
+    "569": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300759",
     "641": "https://rollrivers.com/schedule.aspx?schedule=2841",
     "684": "https://cnesports.org/schedule.aspx?schedule=4107",
     "762": "https://cnesports.org/schedule.aspx?schedule=4111",
     "785": "https://nwcsports.com/schedule.aspx?schedule=2480",
     "806": "https://northcoast.org/schedule.aspx?schedule=2761",
     "1355": "https://ascsports.org/schedule.aspx?schedule=6196",
+    "2798": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300749",
+    "8486": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300755",
+    "8687": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300762",
     "8981": "https://cnesports.org/schedule.aspx?schedule=4110",
     "22235": "https://nwcsports.com/schedule.aspx?schedule=2501",
+    "30042": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300756",
     "30081": "https://gounitedeast.com/schedule.aspx?schedule=3822",
     "30189": "https://gounitedeast.com/schedule.aspx?schedule=3821"
   },
@@ -514,7 +520,7 @@
       "last_successful_school_schedule_url": "",
       "discovered_schedule_links": [],
       "checked_schedule_candidates": 15,
-      "next_action": "Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar",
+      "next_action": "Inspect official school schedule platform's public print/text calendar; do not circumvent access controls",
       "opponent_published_fixtures": 17,
       "opponent_source_examples": [
         "https://www.mountieathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
@@ -557,23 +563,6 @@
       ]
     },
     {
-      "ncaa_org_id": 532,
-      "school": "Elms College",
-      "conference": "Great Northeast Athletic Conference",
-      "category": "season_heading_not_verified",
-      "failed_url": "https://ecblazers.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "last_successful_school_schedule_url": "",
-      "discovered_schedule_links": [],
-      "checked_schedule_candidates": 15,
-      "next_action": "Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar",
-      "opponent_published_fixtures": 11,
-      "opponent_source_examples": [
-        "https://cnesports.org/schedule.aspx?schedule=4114",
-        "https://www.lyndonhornets.com/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://www.goecsaints.com/sports/mens-basketball/schedule/2026-27?grid=true"
-      ]
-    },
-    {
       "ncaa_org_id": 538,
       "school": "Pennsylvania State Univ. Erie, the Behrend College",
       "conference": "Allegheny Mountain Collegiate Conference",
@@ -588,23 +577,6 @@
         "https://www.fredoniabluedevils.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://bethanybison.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.franciscanathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
-      ]
-    },
-    {
-      "ncaa_org_id": 569,
-      "school": "Regis College (Massachusetts)",
-      "conference": "Great Northeast Athletic Conference",
-      "category": "season_heading_not_verified",
-      "failed_url": "https://www.goregispride.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "last_successful_school_schedule_url": "",
-      "discovered_schedule_links": [],
-      "checked_schedule_candidates": 15,
-      "next_action": "Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar",
-      "opponent_published_fixtures": 5,
-      "opponent_source_examples": [
-        "https://www.gogryphons.com/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://cnesports.org/schedule.aspx?schedule=4110",
-        "https://www.castletonsports.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ]
     },
     {
@@ -795,57 +767,6 @@
       ]
     },
     {
-      "ncaa_org_id": 2798,
-      "school": "Albertus Magnus College",
-      "conference": "Great Northeast Athletic Conference",
-      "category": "season_heading_not_verified",
-      "failed_url": "https://www.albertusfalcons.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "last_successful_school_schedule_url": "",
-      "discovered_schedule_links": [],
-      "checked_schedule_candidates": 15,
-      "next_action": "Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar",
-      "opponent_published_fixtures": 16,
-      "opponent_source_examples": [
-        "https://www.lehmanathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://www.rutgersnewarkathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://www.goecsaints.com/sports/mens-basketball/schedule/2026-27?grid=true"
-      ]
-    },
-    {
-      "ncaa_org_id": 8486,
-      "school": "Lasell University",
-      "conference": "Great Northeast Athletic Conference",
-      "category": "season_heading_not_verified",
-      "failed_url": "https://laserpride.lasell.edu/sports/mens-basketball/schedule/2026-27?grid=true",
-      "last_successful_school_schedule_url": "",
-      "discovered_schedule_links": [],
-      "checked_schedule_candidates": 15,
-      "next_action": "Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar",
-      "opponent_published_fixtures": 15,
-      "opponent_source_examples": [
-        "https://babsonathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://cnesports.org/schedule.aspx?schedule=4107",
-        "https://www.gotuftsjumbos.com/sports/mens-basketball/schedule/2026-27?grid=true"
-      ]
-    },
-    {
-      "ncaa_org_id": 8687,
-      "school": "University of Saint Joseph (Connecticut)",
-      "conference": "Great Northeast Athletic Conference",
-      "category": "season_heading_not_verified",
-      "failed_url": "https://www.usjbluejays.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "last_successful_school_schedule_url": "",
-      "discovered_schedule_links": [],
-      "checked_schedule_candidates": 15,
-      "next_action": "Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar",
-      "opponent_published_fixtures": 6,
-      "opponent_source_examples": [
-        "https://www.yumacs.com/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://www.gonyuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://www.wnegoldenbears.com/sports/mens-basketball/schedule/2026-27?grid=true"
-      ]
-    },
-    {
       "ncaa_org_id": 11036,
       "school": "Russell Sage College",
       "conference": "Empire 8",
@@ -897,23 +818,6 @@
       ]
     },
     {
-      "ncaa_org_id": 30042,
-      "school": "Mitchell College",
-      "conference": "Great Northeast Athletic Conference",
-      "category": "season_heading_not_verified",
-      "failed_url": "https://www.mitchellathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "last_successful_school_schedule_url": "",
-      "discovered_schedule_links": [],
-      "checked_schedule_candidates": 15,
-      "next_action": "Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar",
-      "opponent_published_fixtures": 16,
-      "opponent_source_examples": [
-        "https://www.govaliants.com/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://www.purchasecollegeathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://coastguardathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
-      ]
-    },
-    {
       "ncaa_org_id": 30225,
       "school": "State University of New York at Delhi",
       "conference": "State University of New York Athletic Conference",
@@ -949,14 +853,14 @@
     }
   ],
   "unverified_school_summary": {
-    "remaining_unverified_school_calendars": 32,
-    "missing_schools_with_at_least_10_opponent_sourced_games": 24,
+    "remaining_unverified_school_calendars": 26,
+    "missing_schools_with_at_least_10_opponent_sourced_games": 20,
     "missing_schools_with_zero_opponent_sourced_games": 0,
     "recovery_reason_counts": {
       "server_refused_method": 4,
       "unsupported_calendar_or_opponent_format": 1,
       "calendar_path_unavailable": 1,
-      "season_heading_not_verified": 25,
+      "season_heading_not_verified": 18,
       "temporary_network_failure": 1
     }
   },
@@ -2571,7 +2475,7 @@
       "owner_org_id": 325,
       "source_url": "https://www.juniatasports.net/sports/mens-basketball/schedule/2026-27?grid=true",
       "status": "failed",
-      "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
+      "error": "HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2",
       "candidate_urls_tried": 15,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -3485,14 +3389,17 @@
     },
     {
       "owner_org_id": 532,
-      "source_url": "https://ecblazers.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "status": "failed",
-      "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
-      "candidate_urls_tried": 15,
-      "discovered_schedule_links": [],
-      "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0,
-      "retained_verified_fixtures": 0
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300753",
+      "verified_direct_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300753",
+      "status": "parsed_conference",
+      "calendar_origin": "GNAC_AD_Council_approved_conference_games_only",
+      "readable_rows": 25,
+      "verified_member_opponents": 16,
+      "excluded_rows": {
+        "bye_or_missing_opponent": 9
+      },
+      "coverage_note": "Conference games only; school must verify nonconference dates and game times",
+      "failed_school_calendar_urls": 15
     },
     {
       "owner_org_id": 538,
@@ -3672,14 +3579,17 @@
     },
     {
       "owner_org_id": 569,
-      "source_url": "https://www.goregispride.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "status": "failed",
-      "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
-      "candidate_urls_tried": 15,
-      "discovered_schedule_links": [],
-      "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0,
-      "retained_verified_fixtures": 0
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300759",
+      "verified_direct_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300759",
+      "status": "parsed_conference",
+      "calendar_origin": "GNAC_AD_Council_approved_conference_games_only",
+      "readable_rows": 26,
+      "verified_member_opponents": 16,
+      "excluded_rows": {
+        "bye_or_missing_opponent": 10
+      },
+      "coverage_note": "Conference games only; school must verify nonconference dates and game times",
+      "failed_school_calendar_urls": 15
     },
     {
       "owner_org_id": 570,
@@ -5694,14 +5604,17 @@
     },
     {
       "owner_org_id": 2798,
-      "source_url": "https://www.albertusfalcons.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "status": "failed",
-      "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
-      "candidate_urls_tried": 15,
-      "discovered_schedule_links": [],
-      "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0,
-      "retained_verified_fixtures": 0
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300749",
+      "verified_direct_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300749",
+      "status": "parsed_conference",
+      "calendar_origin": "GNAC_AD_Council_approved_conference_games_only",
+      "readable_rows": 25,
+      "verified_member_opponents": 16,
+      "excluded_rows": {
+        "bye_or_missing_opponent": 9
+      },
+      "coverage_note": "Conference games only; school must verify nonconference dates and game times",
+      "failed_school_calendar_urls": 15
     },
     {
       "owner_org_id": 2810,
@@ -5751,14 +5664,17 @@
     },
     {
       "owner_org_id": 8486,
-      "source_url": "https://laserpride.lasell.edu/sports/mens-basketball/schedule/2026-27?grid=true",
-      "status": "failed",
-      "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
-      "candidate_urls_tried": 15,
-      "discovered_schedule_links": [],
-      "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0,
-      "retained_verified_fixtures": 0
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300755",
+      "verified_direct_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300755",
+      "status": "parsed_conference",
+      "calendar_origin": "GNAC_AD_Council_approved_conference_games_only",
+      "readable_rows": 25,
+      "verified_member_opponents": 16,
+      "excluded_rows": {
+        "bye_or_missing_opponent": 9
+      },
+      "coverage_note": "Conference games only; school must verify nonconference dates and game times",
+      "failed_school_calendar_urls": 15
     },
     {
       "owner_org_id": 8490,
@@ -5837,14 +5753,17 @@
     },
     {
       "owner_org_id": 8687,
-      "source_url": "https://www.usjbluejays.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "status": "failed",
-      "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
-      "candidate_urls_tried": 15,
-      "discovered_schedule_links": [],
-      "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0,
-      "retained_verified_fixtures": 0
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300762",
+      "verified_direct_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300762",
+      "status": "parsed_conference",
+      "calendar_origin": "GNAC_AD_Council_approved_conference_games_only",
+      "readable_rows": 25,
+      "verified_member_opponents": 16,
+      "excluded_rows": {
+        "bye_or_missing_opponent": 9
+      },
+      "coverage_note": "Conference games only; school must verify nonconference dates and game times",
+      "failed_school_calendar_urls": 15
     },
     {
       "owner_org_id": 8746,
@@ -6367,14 +6286,17 @@
     },
     {
       "owner_org_id": 30042,
-      "source_url": "https://www.mitchellathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "status": "failed",
-      "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
-      "candidate_urls_tried": 15,
-      "discovered_schedule_links": [],
-      "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0,
-      "retained_verified_fixtures": 0
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300756",
+      "verified_direct_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300756",
+      "status": "parsed_conference",
+      "calendar_origin": "GNAC_AD_Council_approved_conference_games_only",
+      "readable_rows": 25,
+      "verified_member_opponents": 16,
+      "excluded_rows": {
+        "bye_or_missing_opponent": 9
+      },
+      "coverage_note": "Conference games only; school must verify nonconference dates and game times",
+      "failed_school_calendar_urls": 15
     },
     {
       "owner_org_id": 30044,
@@ -7239,9 +7161,9 @@
       ]
     }
   ],
-  "fixture_count": 4244,
-  "reciprocal_fixtures": 2296,
-  "unresolved_opponent_fixture_count": 1828,
+  "fixture_count": 4283,
+  "reciprocal_fixtures": 2353,
+  "unresolved_opponent_fixture_count": 1815,
   "unresolved_opponent_fixtures": [
     {
       "id": "d3-men-2026-11-06-18-other-7e7a67cf3608",
@@ -7809,7 +7731,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://athletics.desales.edu/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://athletics.desales.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "3:00 PM",
       "venue_location": "Center Valley, PA / Billera Hall Gymnasium"
     },
@@ -9339,7 +9261,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "7:00 P.M.",
       "venue_location": "Purcellville, VA"
     },
@@ -9474,7 +9396,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://athletics.desales.edu/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://athletics.desales.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "7:00 PM",
       "venue_location": "Center Valley, PA / Billera Hall Gymnasium"
     },
@@ -9729,7 +9651,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.go-knights.net/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.go-knights.net/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "7:30 PM",
       "venue_location": "Waverly, Iowa / Levick Arena"
     },
@@ -10779,7 +10701,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "4:00 P.M.",
       "venue_location": "Swanannoa, NC / Devries Athletic Center"
     },
@@ -11244,7 +11166,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.scarletraptors.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.scarletraptors.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "6 p.m.",
       "venue_location": "Camden, NJ / Athletic and Fitness Center"
     },
@@ -11754,7 +11676,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.bereaathletics.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.bereaathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "7:00 PM",
       "venue_location": "Highland Heights, KY"
     },
@@ -13479,7 +13401,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.bereaathletics.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.bereaathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "7:00 PM",
       "venue_location": "Wilmore, KY"
     },
@@ -14174,21 +14096,6 @@
       "venue_location": "Newburgh, NY"
     },
     {
-      "id": "d3-men-2026-12-01-30219-other-8c82c0a21df6",
-      "date": "2026-12-01",
-      "source_owner_org_id": 30219,
-      "external_opponent_label": "Regis College * *",
-      "placement": "home",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://www.deanbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "7:00 PM",
-      "venue_location": "Franklin, MA / Pieri Gymnasium"
-    },
-    {
       "id": "d3-men-2026-12-02-134-other-9a0f01c6661a",
       "date": "2026-12-02",
       "source_owner_org_id": 134,
@@ -14664,7 +14571,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.go-knights.net/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.go-knights.net/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "7 PM",
       "venue_location": "Cedar Falls, IA"
     },
@@ -14862,21 +14769,6 @@
       "source_url": "https://athletics.central.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "1 p.m.",
       "venue_location": "Pella, Iowa / P.H. Kuyper Gymnasium"
-    },
-    {
-      "id": "d3-men-2026-12-05-152-other-be426461c7f3",
-      "date": "2026-12-05",
-      "source_owner_org_id": 152,
-      "external_opponent_label": "Regis * *",
-      "placement": "away",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://www.colby-sawyerathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "1:00 PM",
-      "venue_location": "Weston, Mass."
     },
     {
       "id": "d3-men-2026-12-05-163-other-0d7e4f4e9709",
@@ -15114,7 +15006,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.scarletraptors.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.scarletraptors.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "3 p.m.",
       "venue_location": "Wayne, NJ"
     },
@@ -15684,7 +15576,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "7:00 P.M.",
       "venue_location": "Charleston, SC"
     },
@@ -15717,21 +15609,6 @@
       "source_url": "https://www.cortlandreddragons.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "7:30 p.m.",
       "venue_location": "Cortland, N.Y. / Whitney T. Corey '43 Gymnasium"
-    },
-    {
-      "id": "d3-men-2026-12-08-215-other-88535515e6be",
-      "date": "2026-12-08",
-      "source_owner_org_id": 215,
-      "external_opponent_label": "Regis College * *",
-      "placement": "home",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://www.goecsaints.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "7:30 PM",
-      "venue_location": "Boston, Mass. / Jean Yawkey Center"
     },
     {
       "id": "d3-men-2026-12-08-242-other-4610af66ebd0",
@@ -15879,7 +15756,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://athletics.desales.edu/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://athletics.desales.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "7:00 PM",
       "venue_location": "Center Valley, PA / Billera Hall Gymnasium"
     },
@@ -16599,7 +16476,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.scarletraptors.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.scarletraptors.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "3 p.m.",
       "venue_location": "New Paltz, NY"
     },
@@ -17049,7 +16926,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.bereaathletics.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.bereaathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "3:00 PM",
       "venue_location": "Anderson, IN"
     },
@@ -17769,7 +17646,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.scarletraptors.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.scarletraptors.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "3 p.m.",
       "venue_location": "Camden, NJ / Athletic and Fitness Center"
     },
@@ -18054,7 +17931,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.bereaathletics.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.bereaathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "1:00 PM",
       "venue_location": "New York, N.Y."
     },
@@ -20049,7 +19926,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://athletics.desales.edu/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://athletics.desales.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "4:00 PM",
       "venue_location": "Wilkes-Barre, PA"
     },
@@ -20202,21 +20079,6 @@
       "source_url": "https://charlotte.jwuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "6:00 PM",
       "venue_location": "Due West, SC / Belk Arena"
-    },
-    {
-      "id": "d3-men-2027-01-05-152-other-9dd509124fcc",
-      "date": "2027-01-05",
-      "source_owner_org_id": 152,
-      "external_opponent_label": "University of Saint Joseph (Conn.) * *",
-      "placement": "home",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://www.colby-sawyerathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "3:30 PM",
-      "venue_location": "New London, NH / Dan & Kathleen Hogan Sports Center"
     },
     {
       "id": "d3-men-2027-01-05-200-other-31769e3a58e6",
@@ -20907,21 +20769,6 @@
       "source_url": "https://www.wlcsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "6:00 PM",
       "venue_location": "Milwaukee, Wis. / Time of Grace Center"
-    },
-    {
-      "id": "d3-men-2027-01-07-18422-other-7e15d1f7b04e",
-      "date": "2027-01-07",
-      "source_owner_org_id": 18422,
-      "external_opponent_label": "Saint Joseph (Conn.) * *",
-      "placement": "away",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://www.rivierathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "7:00 PM",
-      "venue_location": "West Hartford, Conn. / James A. Calhoun Gymnasium"
     },
     {
       "id": "d3-men-2027-01-07-22989-other-dea8cd9f6fc9",
@@ -22839,7 +22686,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "3:00 P.M.",
       "venue_location": "Swanannoa, NC / Devries Athletic Center"
     },
@@ -23142,21 +22989,6 @@
       "source_url": "https://www.sjfathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "4:00 PM",
       "venue_location": "Brockport, NY"
-    },
-    {
-      "id": "d3-men-2027-01-16-605-other-914a6ebb9349",
-      "date": "2027-01-16",
-      "source_owner_org_id": 605,
-      "external_opponent_label": "Regis College * *",
-      "placement": "home",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://www.gomonks.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "3:00 PM",
-      "venue_location": "Standish, Maine"
     },
     {
       "id": "d3-men-2027-01-16-612-other-7b619ada209b",
@@ -23592,21 +23424,6 @@
       "source_url": "https://umsvathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "6:00 PM",
       "venue_location": "Riverdale, NY / Peter Jay Sharp Center"
-    },
-    {
-      "id": "d3-men-2027-01-19-467-other-676126e07c73",
-      "date": "2027-01-19",
-      "source_owner_org_id": 467,
-      "external_opponent_label": "Regis College * *",
-      "placement": "away",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://athletics.nec.edu/sports/mens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "5:00 PM",
-      "venue_location": "Weston, MA / Higgins Court"
     },
     {
       "id": "d3-men-2027-01-19-724-other-373bb2cf3649",
@@ -24434,21 +24251,6 @@
       "venue_location": "Buffalo, NY / Sports Arena"
     },
     {
-      "id": "d3-men-2027-01-23-152-other-2d9f5727cada",
-      "date": "2027-01-23",
-      "source_owner_org_id": 152,
-      "external_opponent_label": "Regis * *",
-      "placement": "home",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://www.colby-sawyerathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "3:00 PM",
-      "venue_location": "New London, NH / Dan & Kathleen Hogan Sports Center"
-    },
-    {
       "id": "d3-men-2027-01-23-168-other-fb1fc9dabaf0",
       "date": "2027-01-23",
       "source_owner_org_id": 168,
@@ -24684,7 +24486,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.scarletraptors.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.scarletraptors.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "3 p.m.",
       "venue_location": "Camden, NJ / Athletic and Fitness Center"
     },
@@ -25104,7 +24906,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "3:00 P.M.",
       "venue_location": "Swanannoa, NC / Devries Athletic Center"
     },
@@ -25254,7 +25056,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "8:00 P.M.",
       "venue_location": "Swanannoa, NC / Devries Athletic Center"
     },
@@ -25302,21 +25104,6 @@
       "source_url": "https://gowarriorathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "7 p.m.",
       "venue_location": "Danbury, Conn."
-    },
-    {
-      "id": "d3-men-2027-01-27-215-other-c6dbff88e4e4",
-      "date": "2027-01-27",
-      "source_owner_org_id": 215,
-      "external_opponent_label": "Regis College * *",
-      "placement": "away",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://www.goecsaints.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "7:00 PM",
-      "venue_location": "Weston, Mass."
     },
     {
       "id": "d3-men-2027-01-27-245-other-52a74aff3b21",
@@ -26079,7 +25866,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://athletics.desales.edu/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://athletics.desales.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "3:00 PM",
       "venue_location": "Center Valley, PA / Billera Hall Gymnasium"
     },
@@ -26379,7 +26166,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.scarletraptors.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.scarletraptors.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "3 p.m.",
       "venue_location": "Camden, NJ / Athletic and Fitness Center"
     },
@@ -26829,7 +26616,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://athletics.desales.edu/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://athletics.desales.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "7:00 PM",
       "venue_location": "Madison, NJ"
     },
@@ -26979,7 +26766,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.scarletraptors.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.scarletraptors.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "8 p.m.",
       "venue_location": "Newark, NJ"
     },
@@ -27249,7 +27036,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "7:00 P.M.",
       "venue_location": "Swanannoa, NC / Devries Athletic Center"
     },
@@ -28094,21 +27881,6 @@
       "venue_location": "Erie, PA / Junker Center"
     },
     {
-      "id": "d3-men-2027-02-06-18422-other-14750994ab2f",
-      "date": "2027-02-06",
-      "source_owner_org_id": 18422,
-      "external_opponent_label": "Regis (Mass.) * *",
-      "placement": "home",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://www.rivierathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "12:00 PM",
-      "venue_location": "Nashua, N.H. / Muldoon Center"
-    },
-    {
       "id": "d3-men-2027-02-06-20220-other-3281a8d7b760",
       "date": "2027-02-06",
       "source_owner_org_id": 20220,
@@ -28329,7 +28101,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "2:00 P.M.",
       "venue_location": "Winston-Salem, NC"
     },
@@ -28479,7 +28251,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "7:00 P.M.",
       "venue_location": "Greenville, SC"
     },
@@ -28947,21 +28719,6 @@
       "source_url": "https://www.illinoistechathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "7:00 PM",
       "venue_location": "Mequon, Wisconsin"
-    },
-    {
-      "id": "d3-men-2027-02-10-30219-other-95a7586caf8f",
-      "date": "2027-02-10",
-      "source_owner_org_id": 30219,
-      "external_opponent_label": "Regis College * *",
-      "placement": "away",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://www.deanbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "5:00 PM",
-      "venue_location": "Weston, MA"
     },
     {
       "id": "d3-men-2027-02-10-30245-other-c478f50e3f25",
@@ -29564,21 +29321,6 @@
       "venue_location": "Redlands, Calif. / Currier Gymnasium"
     },
     {
-      "id": "d3-men-2027-02-13-605-other-032478269e1e",
-      "date": "2027-02-13",
-      "source_owner_org_id": 605,
-      "external_opponent_label": "University of Saint Joseph * *",
-      "placement": "away",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://www.gomonks.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "3:00 PM",
-      "venue_location": "West Hartford, Conn."
-    },
-    {
       "id": "d3-men-2027-02-13-618-other-018a0594b05f",
       "date": "2027-02-13",
       "source_owner_org_id": 618,
@@ -29949,7 +29691,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.bereaathletics.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.bereaathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "3:00 PM",
       "venue_location": "Berea, KY / Roland Wierwille Court (Basketball & Volleyball)"
     },
@@ -31139,21 +30881,6 @@
       "venue_location": "Throggs Neck, NY / Riesenberg Gymnasium"
     },
     {
-      "id": "d3-men-2027-02-20-511-other-bbc5f35a46b9",
-      "date": "2027-02-20",
-      "source_owner_org_id": 511,
-      "external_opponent_label": "Regis College * *",
-      "placement": "home",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://www.norwichathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "1:00 PM",
-      "venue_location": "Northfield, Vt. / Andrews Gym"
-    },
-    {
       "id": "d3-men-2027-02-20-526-other-275940a93ed3",
       "date": "2027-02-20",
       "source_owner_org_id": 526,
@@ -31704,7 +31431,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "3:00 P.M.",
       "venue_location": "Charlotte, NC"
     },
@@ -31764,7 +31491,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://athletics.desales.edu/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://athletics.desales.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "",
       "venue_location": "TBA"
     },
@@ -32439,7 +32166,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.go-knights.net/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.go-knights.net/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "TBD",
       "venue_location": "TBD"
     },
@@ -36132,7 +35859,7 @@
       "home_org_id": 583,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.rwuhawks.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://coastguardathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://coastguardathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.rwuhawks.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -36143,8 +35870,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "6:00 PM",
-      "venue": "Campus Rec Center Gymnasium",
+      "tipoff_as_posted": "6:00 PM ET",
+      "venue": "RWU Campus Rec Center",
       "venue_location": "Bristol, R.I.",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -50258,7 +49985,7 @@
       "home_org_id": 73,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.bowdoin.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.brandeisjudges.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.bowdoin.edu/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.brandeisjudges.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -50269,7 +49996,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7:00 PM",
+      "tipoff_as_posted": "7 pm",
       "venue": "",
       "venue_location": "Waltham, Mass.",
       "network_as_posted": "",
@@ -59824,13 +59551,15 @@
       "status": "scheduled",
       "source_url": "https://www.goecsaints.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.goecsaints.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.goecsaints.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300749"
       ],
       "verified_by_org_ids": [
-        215
+        215,
+        2798
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "7:30 PM",
       "venue": "",
       "venue_location": "New Haven, Conn.",
@@ -60104,13 +59833,15 @@
       "status": "scheduled",
       "source_url": "https://www.norwichathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.norwichathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.norwichathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300756"
       ],
       "verified_by_org_ids": [
-        511
+        511,
+        30042
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "3:00 PM",
       "venue": "",
       "venue_location": "New London, CT",
@@ -60212,6 +59943,30 @@
       "tipoff_as_posted": "7:30 PM (ET)",
       "venue": "",
       "venue_location": "Louisville, KY",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-12-01-569-30219",
+      "date": "2026-12-01",
+      "away_org_id": 569,
+      "home_org_id": 30219,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300759",
+      "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300759"
+      ],
+      "verified_by_org_ids": [
+        569
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "Franklin MA",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -60486,6 +60241,32 @@
       "tipoff_as_posted": "6 PM",
       "venue": "",
       "venue_location": "Abilene, TX",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-12-01-8486-8687",
+      "date": "2026-12-01",
+      "away_org_id": 8687,
+      "home_org_id": 8486,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300755",
+      "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300755",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300762"
+      ],
+      "verified_by_org_ids": [
+        8486,
+        8687
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "Lasell Newton",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -64428,6 +64209,30 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2026-12-05-152-569",
+      "date": "2026-12-05",
+      "away_org_id": 152,
+      "home_org_id": 569,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300759",
+      "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300759"
+      ],
+      "verified_by_org_ids": [
+        569
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "Regis Weston MA",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2026-12-05-160-582",
       "date": "2026-12-05",
       "away_org_id": 582,
@@ -65706,13 +65511,15 @@
       "status": "scheduled",
       "source_url": "https://athletics.nec.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://athletics.nec.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://athletics.nec.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300749"
       ],
       "verified_by_org_ids": [
-        467
+        467,
+        2798
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "3:00 PM",
       "venue": "Bridges Gym",
       "venue_location": "Henniker, NH",
@@ -65890,6 +65697,32 @@
       "tipoff_as_posted": "4:00 P.M.",
       "venue": "",
       "venue_location": "Whitewater, WI",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-12-05-532-8486",
+      "date": "2026-12-05",
+      "away_org_id": 8486,
+      "home_org_id": 532,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300753",
+      "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300753",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300755"
+      ],
+      "verified_by_org_ids": [
+        532,
+        8486
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "Maguire Center",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -66402,7 +66235,7 @@
       "home_org_id": 759,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://washubears.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://websterathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
         "https://washubears.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://websterathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true"
@@ -66413,9 +66246,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "3 p.m.",
+      "tipoff_as_posted": "3:00 PM",
       "venue": "Grant Gymnasium",
-      "venue_location": "St. Louis, Mo.",
+      "venue_location": "St. Louis, MO",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -67020,6 +66853,32 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2026-12-05-8687-30042",
+      "date": "2026-12-05",
+      "away_org_id": 30042,
+      "home_org_id": 8687,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300762",
+      "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300756",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300762"
+      ],
+      "verified_by_org_ids": [
+        8687,
+        30042
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "W. Hartford, CT",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2026-12-05-8968-12399",
       "date": "2026-12-05",
       "away_org_id": 12399,
@@ -67540,6 +67399,30 @@
       "tipoff_as_posted": "6:00 PM",
       "venue": "Dan & Kathleen Hogan Sports Center",
       "venue_location": "New London, NH",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-12-08-215-569",
+      "date": "2026-12-08",
+      "away_org_id": 569,
+      "home_org_id": 215,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300759",
+      "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300759"
+      ],
+      "verified_by_org_ids": [
+        569
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "Jean Yawkey Center",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -81126,7 +81009,7 @@
       "home_org_id": 583,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.rwuhawks.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.salveathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.rwuhawks.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.salveathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -81139,7 +81022,7 @@
       "source_verification": "reciprocal",
       "tipoff_as_posted": "12:00 PM",
       "venue": "Campus Rec Center Gymnasium",
-      "venue_location": "Bristol, R.I.",
+      "venue_location": "Bristol, RI",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -83148,7 +83031,7 @@
       "home_org_id": 815,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.ycpspartans.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.alvernia.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.alvernia.edu/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.ycpspartans.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -83159,8 +83042,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "3:00 pm",
-      "venue": "Wolf Gym",
+      "tipoff_as_posted": "3:00 PM",
+      "venue": "",
       "venue_location": "York, PA",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -84232,6 +84115,30 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2027-01-05-152-8687",
+      "date": "2027-01-05",
+      "away_org_id": 8687,
+      "home_org_id": 152,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300762",
+      "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300762"
+      ],
+      "verified_by_org_ids": [
+        8687
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "New London NH",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2027-01-05-168-581",
       "date": "2027-01-05",
       "away_org_id": 581,
@@ -84312,7 +84219,7 @@
       "home_org_id": 273,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.elmira.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.hartwickhawks.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.elmira.edu/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.hartwickhawks.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -84324,8 +84231,8 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "7:30 PM",
-      "venue": "",
-      "venue_location": "Oneonta, N.Y.",
+      "venue": "Lambros Arena",
+      "venue_location": "Oneonta, NY",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -84442,13 +84349,15 @@
       "status": "scheduled",
       "source_url": "https://athletics.nec.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://athletics.nec.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://athletics.nec.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300756"
       ],
       "verified_by_org_ids": [
-        467
+        467,
+        30042
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "3:00 PM",
       "venue": "Bridges Gym",
       "venue_location": "Henniker, NH",
@@ -84492,16 +84401,44 @@
       "status": "scheduled",
       "source_url": "https://www.norwichathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.norwichathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.norwichathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300749"
       ],
       "verified_by_org_ids": [
-        511
+        511,
+        2798
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "2:00 PM",
       "venue": "Andrews Gym",
       "venue_location": "Northfield, Vt.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-01-05-532-569",
+      "date": "2027-01-05",
+      "away_org_id": 532,
+      "home_org_id": 569,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300753",
+      "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300753",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300759"
+      ],
+      "verified_by_org_ids": [
+        532,
+        569
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "Regis Weston MA",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -87426,13 +87363,15 @@
       "status": "scheduled",
       "source_url": "https://www.colby-sawyerathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.colby-sawyerathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.colby-sawyerathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300749"
       ],
       "verified_by_org_ids": [
-        152
+        152,
+        2798
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "",
       "venue": "",
       "venue_location": "New Haven, Conn.",
@@ -87474,13 +87413,15 @@
       "status": "scheduled",
       "source_url": "https://www.goecsaints.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.goecsaints.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.goecsaints.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300753"
       ],
       "verified_by_org_ids": [
-        215
+        215,
+        532
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "5:30 PM",
       "venue": "Jean Yawkey Center",
       "venue_location": "Boston, Mass.",
@@ -87524,13 +87465,15 @@
       "status": "scheduled",
       "source_url": "https://athletics.nec.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://athletics.nec.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://athletics.nec.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300755"
       ],
       "verified_by_org_ids": [
-        467
+        467,
+        8486
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "7:30 PM",
       "venue": "Athletic Center",
       "venue_location": "Newton, MA",
@@ -87600,13 +87543,15 @@
       "status": "scheduled",
       "source_url": "https://www.gomonks.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.gomonks.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.gomonks.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300756"
       ],
       "verified_by_org_ids": [
-        605
+        605,
+        30042
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "4:00 PM",
       "venue": "",
       "venue_location": "New London, Conn.",
@@ -87684,6 +87629,30 @@
       "tipoff_as_posted": "7:30 p.m.",
       "venue": "Westminster Historic Gymnasium",
       "venue_location": "Fulton, MO",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-01-07-8687-18422",
+      "date": "2027-01-07",
+      "away_org_id": 18422,
+      "home_org_id": 8687,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300762",
+      "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300762"
+      ],
+      "verified_by_org_ids": [
+        8687
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "W. Hartford, CT",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -89326,13 +89295,15 @@
       "status": "scheduled",
       "source_url": "https://www.colby-sawyerathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.colby-sawyerathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.colby-sawyerathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300756"
       ],
       "verified_by_org_ids": [
-        152
+        152,
+        30042
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "",
       "venue": "",
       "venue_location": "New London, Conn.",
@@ -90668,7 +90639,7 @@
       "home_org_id": 455,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://oac.org/schedule.aspx?schedule=2381",
+      "source_url": "https://oac.org/schedule.aspx?schedule=2382",
       "official_schedule_sources": [
         "https://oac.org/schedule.aspx?schedule=2381",
         "https://oac.org/schedule.aspx?schedule=2382"
@@ -90732,6 +90703,30 @@
       "tipoff_as_posted": "4:00 PM",
       "venue": "",
       "venue_location": "Waverly, IA",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-01-09-467-8687",
+      "date": "2027-01-09",
+      "away_org_id": 8687,
+      "home_org_id": 467,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300762",
+      "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300762"
+      ],
+      "verified_by_org_ids": [
+        8687
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "Henniker NH",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -90818,7 +90813,7 @@
       "home_org_id": 515,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.goyeo.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.goyeo.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -90829,9 +90824,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "4 p.m.",
-      "venue": "",
-      "venue_location": "Oberlin, Ohio",
+      "tipoff_as_posted": "4:00 PM",
+      "venue": "Philips Gymnasium",
+      "venue_location": "Oberlin, OH",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -90856,6 +90851,32 @@
       "tipoff_as_posted": "4:00 PM",
       "venue": "Voelkel Gymnasium",
       "venue_location": "Claremont, Ca.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-01-09-532-569",
+      "date": "2027-01-09",
+      "away_org_id": 569,
+      "home_org_id": 532,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300753",
+      "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300753",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300759"
+      ],
+      "verified_by_org_ids": [
+        532,
+        569
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "Maguire Center",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -91842,18 +91863,20 @@
       "home_org_id": 18422,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.rivierathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300749",
       "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300749",
         "https://www.rivierathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
+        2798,
         18422
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
-      "tipoff_as_posted": "2:00 PM",
-      "venue": "Muldoon Center",
-      "venue_location": "Nashua, N.H.",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "Nashua, NH",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -91892,18 +91915,20 @@
       "home_org_id": 30219,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.deanbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300755",
       "official_schedule_sources": [
-        "https://www.deanbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.deanbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300755"
       ],
       "verified_by_org_ids": [
+        8486,
         30219
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
-      "tipoff_as_posted": "3:00 PM",
-      "venue": "Pieri Gymnasium",
-      "venue_location": "Franklin, MA",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "Franklin MA",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -92062,7 +92087,7 @@
       "home_org_id": 30114,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://gounitedeast.com/schedule.aspx?schedule=3822",
+      "source_url": "https://www.abingtonsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://gounitedeast.com/schedule.aspx?schedule=3822",
         "https://www.abingtonsports.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -92073,9 +92098,9 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "3:30 P.M.",
+      "tipoff_as_posted": "3:30 p.m.",
       "venue": "",
-      "venue_location": "",
+      "venue_location": "Philadelphia, Pa.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -94056,13 +94081,15 @@
       "status": "scheduled",
       "source_url": "https://www.goecsaints.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.goecsaints.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.goecsaints.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300749"
       ],
       "verified_by_org_ids": [
-        215
+        215,
+        2798
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "7:30 PM",
       "venue": "Jean Yawkey Center",
       "venue_location": "Boston, Mass.",
@@ -94790,13 +94817,15 @@
       "status": "scheduled",
       "source_url": "https://athletics.nec.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://athletics.nec.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://athletics.nec.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300753"
       ],
       "verified_by_org_ids": [
-        467
+        467,
+        532
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "7:00 PM",
       "venue": "Picknelly Arena",
       "venue_location": "Chicopee, MA",
@@ -95004,6 +95033,32 @@
       "tipoff_as_posted": "7:00 PM",
       "venue": "Frances and Don Giles Gymnasium",
       "venue_location": "Lynchburg, Va.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-01-13-569-8486",
+      "date": "2027-01-13",
+      "away_org_id": 8486,
+      "home_org_id": 569,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300759",
+      "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300755",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300759"
+      ],
+      "verified_by_org_ids": [
+        569,
+        8486
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "Regis Weston MA",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -95696,6 +95751,30 @@
       "tipoff_as_posted": "7:30 p.m.",
       "venue": "MBK Sports Complex",
       "venue_location": "Baltimore, Md.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-01-13-8687-30219",
+      "date": "2027-01-13",
+      "away_org_id": 30219,
+      "home_org_id": 8687,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300762",
+      "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300762"
+      ],
+      "verified_by_org_ids": [
+        8687
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "W. Hartford, CT",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -99270,24 +99349,50 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2027-01-16-511-8687",
+      "date": "2027-01-16",
+      "away_org_id": 511,
+      "home_org_id": 8687,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300762",
+      "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300762"
+      ],
+      "verified_by_org_ids": [
+        8687
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "W. Hartford, CT",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2027-01-16-532-18422",
       "date": "2027-01-16",
       "away_org_id": 532,
       "home_org_id": 18422,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.rivierathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300753",
       "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300753",
         "https://www.rivierathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
+        532,
         18422
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
-      "tipoff_as_posted": "12:00 PM",
-      "venue": "Muldoon Center",
-      "venue_location": "Nashua, N.H.",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "Nashua, NH",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -99438,6 +99543,30 @@
       "tipoff_as_posted": "4:30 PM",
       "venue": "",
       "venue_location": "Lynchburg, Va.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-01-16-569-605",
+      "date": "2027-01-16",
+      "away_org_id": 569,
+      "home_org_id": 605,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300759",
+      "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300759"
+      ],
+      "verified_by_org_ids": [
+        569
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "Standish ME",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -100322,16 +100451,18 @@
       "home_org_id": 2798,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.deanbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300749",
       "official_schedule_sources": [
-        "https://www.deanbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.deanbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300749"
       ],
       "verified_by_org_ids": [
+        2798,
         30219
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
-      "tipoff_as_posted": "3:00 PM",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "",
       "venue": "",
       "venue_location": "New Haven, CT",
       "network_as_posted": "",
@@ -100384,6 +100515,32 @@
       "tipoff_as_posted": "3:00 PM",
       "venue": "Woodsboro Bank Arena",
       "venue_location": "Frederick, Md.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-01-16-8486-30042",
+      "date": "2027-01-16",
+      "away_org_id": 30042,
+      "home_org_id": 8486,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300755",
+      "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300755",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300756"
+      ],
+      "verified_by_org_ids": [
+        8486,
+        30042
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "Lasell Newton",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -101418,6 +101575,30 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2027-01-19-467-569",
+      "date": "2027-01-19",
+      "away_org_id": 467,
+      "home_org_id": 569,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300759",
+      "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300759"
+      ],
+      "verified_by_org_ids": [
+        569
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "Regis Weston MA",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2027-01-19-484-583",
       "date": "2027-01-19",
       "away_org_id": 583,
@@ -101452,16 +101633,44 @@
       "status": "scheduled",
       "source_url": "https://www.norwichathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.norwichathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.norwichathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300755"
       ],
       "verified_by_org_ids": [
-        511
+        511,
+        8486
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "5:00 PM",
       "venue": "Andrews Gym",
       "venue_location": "Northfield, Vt.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-01-19-532-2798",
+      "date": "2027-01-19",
+      "away_org_id": 2798,
+      "home_org_id": 532,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300753",
+      "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300749",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300753"
+      ],
+      "verified_by_org_ids": [
+        532,
+        2798
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "Maguire Center",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -101640,6 +101849,32 @@
       "tipoff_as_posted": "7:30 PM",
       "venue": "",
       "venue_location": "Lancaster, PA",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-01-19-8687-30042",
+      "date": "2027-01-19",
+      "away_org_id": 8687,
+      "home_org_id": 30042,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300762",
+      "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300756",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300762"
+      ],
+      "verified_by_org_ids": [
+        8687,
+        30042
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "Mitchell College New London CT",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -106008,6 +106243,30 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2027-01-23-152-569",
+      "date": "2027-01-23",
+      "away_org_id": 569,
+      "home_org_id": 152,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300759",
+      "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300759"
+      ],
+      "verified_by_org_ids": [
+        569
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "New London NH",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2027-01-23-160-614",
       "date": "2027-01-23",
       "away_org_id": 614,
@@ -106306,6 +106565,30 @@
       "tipoff_as_posted": "3:00 PM ET",
       "venue": "Roland Hall",
       "venue_location": "New London, Conn.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-01-23-215-8687",
+      "date": "2027-01-23",
+      "away_org_id": 8687,
+      "home_org_id": 215,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300762",
+      "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300762"
+      ],
+      "verified_by_org_ids": [
+        8687
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "Jean Yawkey Center",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -107400,13 +107683,15 @@
       "status": "scheduled",
       "source_url": "https://athletics.nec.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://athletics.nec.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://athletics.nec.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300753"
       ],
       "verified_by_org_ids": [
-        467
+        467,
+        532
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "3:00 PM",
       "venue": "Bridges Gym",
       "venue_location": "Henniker, NH",
@@ -107474,13 +107759,15 @@
       "status": "scheduled",
       "source_url": "https://www.norwichathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.norwichathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.norwichathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300756"
       ],
       "verified_by_org_ids": [
-        511
+        511,
+        30042
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "3:00 PM",
       "venue": "Andrews Gym",
       "venue_location": "Northfield, Vt.",
@@ -107852,13 +108139,15 @@
       "status": "scheduled",
       "source_url": "https://www.gomonks.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.gomonks.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.gomonks.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300749"
       ],
       "verified_by_org_ids": [
-        605
+        605,
+        2798
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "3:00 PM",
       "venue": "",
       "venue_location": "New Haven, Conn.",
@@ -108830,18 +109119,20 @@
       "home_org_id": 8486,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.rivierathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300755",
       "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300755",
         "https://www.rivierathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
+        8486,
         18422
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
-      "tipoff_as_posted": "3:00 PM",
-      "venue": "Athletic Center",
-      "venue_location": "Newton, Mass.",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "Lasell Newton",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -110442,13 +110733,15 @@
       "status": "scheduled",
       "source_url": "https://www.colby-sawyerathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.colby-sawyerathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.colby-sawyerathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300753"
       ],
       "verified_by_org_ids": [
-        152
+        152,
+        532
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "",
       "venue": "",
       "venue_location": "Chicopee, Mass.",
@@ -110780,6 +111073,30 @@
       "tipoff_as_posted": "7:00 PM",
       "venue": "Hank Smith Court",
       "venue_location": "Boston, Mass.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-01-27-215-569",
+      "date": "2027-01-27",
+      "away_org_id": 215,
+      "home_org_id": 569,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300759",
+      "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300759"
+      ],
+      "verified_by_org_ids": [
+        569
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "Regis Weston MA",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -111772,13 +112089,15 @@
       "status": "scheduled",
       "source_url": "https://www.gomonks.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.gomonks.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.gomonks.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300755"
       ],
       "verified_by_org_ids": [
-        605
+        605,
+        8486
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "7:00 PM",
       "venue": "",
       "venue_location": "Newton, Mass.",
@@ -112206,6 +112525,32 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2027-01-27-2798-8687",
+      "date": "2027-01-27",
+      "away_org_id": 2798,
+      "home_org_id": 8687,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300749",
+      "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300749",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300762"
+      ],
+      "verified_by_org_ids": [
+        2798,
+        8687
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "W. Hartford, CT",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2027-01-27-8567-30171",
       "date": "2027-01-27",
       "away_org_id": 8567,
@@ -112386,18 +112731,20 @@
       "home_org_id": 30042,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.deanbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300756",
       "official_schedule_sources": [
-        "https://www.deanbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.deanbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300756"
       ],
       "verified_by_org_ids": [
+        30042,
         30219
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
-      "tipoff_as_posted": "7:00 PM",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "",
       "venue": "",
-      "venue_location": "New London, CT",
+      "venue_location": "Mitchell College New London CT",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -115778,13 +116125,15 @@
       "status": "scheduled",
       "source_url": "https://www.norwichathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.norwichathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.norwichathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300749"
       ],
       "verified_by_org_ids": [
-        511
+        511,
+        2798
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "3:00 PM",
       "venue": "",
       "venue_location": "New Haven, Conn.",
@@ -115876,18 +116225,20 @@
       "home_org_id": 605,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.gomonks.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300753",
       "official_schedule_sources": [
-        "https://www.gomonks.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.gomonks.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300753"
       ],
       "verified_by_org_ids": [
+        532,
         605
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
-      "tipoff_as_posted": "3:00 PM",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "",
       "venue": "",
-      "venue_location": "Standish, Maine",
+      "venue_location": "Standish ME",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -115990,6 +116341,32 @@
       "tipoff_as_posted": "2:00 PM",
       "venue": "",
       "venue_location": "Greensboro, N.C.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-01-30-569-30042",
+      "date": "2027-01-30",
+      "away_org_id": 30042,
+      "home_org_id": 569,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300759",
+      "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300756",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300759"
+      ],
+      "verified_by_org_ids": [
+        569,
+        30042
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "Regis Weston MA",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -116920,6 +117297,32 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2027-01-30-8486-8687",
+      "date": "2027-01-30",
+      "away_org_id": 8486,
+      "home_org_id": 8687,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300755",
+      "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300755",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300762"
+      ],
+      "verified_by_org_ids": [
+        8486,
+        8687
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "W. Hartford, CT",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2027-01-30-8597-30031",
       "date": "2027-01-30",
       "away_org_id": 8597,
@@ -117584,13 +117987,15 @@
       "status": "scheduled",
       "source_url": "https://www.goecsaints.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.goecsaints.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.goecsaints.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300755"
       ],
       "verified_by_org_ids": [
-        215
+        215,
+        8486
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "5:30 PM",
       "venue": "Jean Yawkey Center",
       "venue_location": "Boston, Mass.",
@@ -117806,18 +118211,20 @@
       "home_org_id": 30219,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.deanbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300753",
       "official_schedule_sources": [
-        "https://www.deanbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.deanbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300753"
       ],
       "verified_by_org_ids": [
+        532,
         30219
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
-      "tipoff_as_posted": "7:00 PM",
-      "venue": "Pieri Gymnasium",
-      "venue_location": "Franklin, MA",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "Franklin MA",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -117850,13 +118257,39 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2027-02-02-569-8687",
+      "date": "2027-02-02",
+      "away_org_id": 8687,
+      "home_org_id": 569,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300759",
+      "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300759",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300762"
+      ],
+      "verified_by_org_ids": [
+        569,
+        8687
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "Regis Weston MA",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2027-02-02-583-684",
       "date": "2027-02-02",
       "away_org_id": 583,
       "home_org_id": 684,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.rwuhawks.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://cnesports.org/schedule.aspx?schedule=4107",
       "official_schedule_sources": [
         "https://cnesports.org/schedule.aspx?schedule=4107",
         "https://www.rwuhawks.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -117867,9 +118300,9 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7:30 PM",
+      "tipoff_as_posted": "7:30 P.M.",
       "venue": "",
-      "venue_location": "",
+      "venue_location": "Boston, Mass.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -118072,6 +118505,32 @@
       "tipoff_as_posted": "7:30 PM",
       "venue": "",
       "venue_location": "La Plume, PA",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-02-02-2798-30042",
+      "date": "2027-02-02",
+      "away_org_id": 30042,
+      "home_org_id": 2798,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300749",
+      "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300749",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300756"
+      ],
+      "verified_by_org_ids": [
+        2798,
+        30042
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "New Haven, CT",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -120350,7 +120809,7 @@
       "home_org_id": 938,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.ycpspartans.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.alvernia.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.alvernia.edu/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.ycpspartans.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -120361,9 +120820,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7:00 pm",
-      "venue": "",
-      "venue_location": "Reading, PA",
+      "tipoff_as_posted": "7:00 PM",
+      "venue": "Jack McCloskey Court",
+      "venue_location": "Reading, Pa.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -120722,7 +121181,7 @@
       "home_org_id": 30163,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.farmingdalesports.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.gogryphons.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.farmingdalesports.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.gogryphons.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -120733,9 +121192,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7 pm",
-      "venue": "",
-      "venue_location": "Bronxville, NY",
+      "tipoff_as_posted": "7:00 PM",
+      "venue": "Campbell Sports Center",
+      "venue_location": "Bronxville, N.Y.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -122640,13 +123099,15 @@
       "status": "scheduled",
       "source_url": "https://www.colby-sawyerathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.colby-sawyerathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.colby-sawyerathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300755"
       ],
       "verified_by_org_ids": [
-        152
+        152,
+        8486
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "3:00 PM",
       "venue": "Dan & Kathleen Hogan Sports Center",
       "venue_location": "New London, NH",
@@ -124084,13 +124545,15 @@
       "status": "scheduled",
       "source_url": "https://athletics.nec.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://athletics.nec.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://athletics.nec.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300756"
       ],
       "verified_by_org_ids": [
-        467
+        467,
+        30042
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "3:00 PM",
       "venue": "Yarnall Athletic Center",
       "venue_location": "New London, CT",
@@ -124252,6 +124715,32 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2027-02-06-532-8687",
+      "date": "2027-02-06",
+      "away_org_id": 532,
+      "home_org_id": 8687,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300753",
+      "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300753",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300762"
+      ],
+      "verified_by_org_ids": [
+        532,
+        8687
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "W. Hartford, CT",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2027-02-06-548-656",
       "date": "2027-02-06",
       "away_org_id": 548,
@@ -124370,6 +124859,30 @@
       "tipoff_as_posted": "2:00 PM",
       "venue": "Frances and Don Giles Gymnasium",
       "venue_location": "Lynchburg, Va.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-02-06-569-18422",
+      "date": "2027-02-06",
+      "away_org_id": 569,
+      "home_org_id": 18422,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300759",
+      "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300759"
+      ],
+      "verified_by_org_ids": [
+        569
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "Nashua, NH",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -127798,13 +128311,15 @@
       "status": "scheduled",
       "source_url": "https://www.norwichathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.norwichathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.norwichathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300755"
       ],
       "verified_by_org_ids": [
-        511
+        511,
+        8486
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "TBD",
       "venue": "",
       "venue_location": "Newton, MA",
@@ -127832,6 +128347,32 @@
       "tipoff_as_posted": "7:00 P.M.",
       "venue": "Fred Raizk Arena in Hermann Court",
       "venue_location": "Wilmington, OH",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-02-10-532-30042",
+      "date": "2027-02-10",
+      "away_org_id": 30042,
+      "home_org_id": 532,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300753",
+      "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300753",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300756"
+      ],
+      "verified_by_org_ids": [
+        532,
+        30042
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "Maguire Center",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -127884,6 +128425,30 @@
       "tipoff_as_posted": "7:00 PM",
       "venue": "",
       "venue_location": "Redlands, CA",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-02-10-569-30219",
+      "date": "2027-02-10",
+      "away_org_id": 30219,
+      "home_org_id": 569,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300759",
+      "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300759"
+      ],
+      "verified_by_org_ids": [
+        569
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "Regis Weston MA",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -128548,6 +129113,32 @@
       "tipoff_as_posted": "7:00 PM",
       "venue": "Pratt ARC",
       "venue_location": "Brooklyn, NY",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-02-10-2798-8687",
+      "date": "2027-02-10",
+      "away_org_id": 8687,
+      "home_org_id": 2798,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300749",
+      "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300749",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300762"
+      ],
+      "verified_by_org_ids": [
+        2798,
+        8687
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "New Haven, CT",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -130592,13 +131183,15 @@
       "status": "scheduled",
       "source_url": "https://www.colby-sawyerathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.colby-sawyerathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.colby-sawyerathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300749"
       ],
       "verified_by_org_ids": [
-        152
+        152,
+        2798
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "3:00 PM",
       "venue": "Dan & Kathleen Hogan Sports Center",
       "venue_location": "New London, NH",
@@ -131990,7 +132583,7 @@
       "home_org_id": 517,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://oac.org/schedule.aspx?schedule=2381",
+      "source_url": "https://oac.org/schedule.aspx?schedule=2382",
       "official_schedule_sources": [
         "https://oac.org/schedule.aspx?schedule=2381",
         "https://oac.org/schedule.aspx?schedule=2382"
@@ -132114,7 +132707,7 @@
       "home_org_id": 520,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.goyeo.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.goyeo.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -132125,9 +132718,35 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "1 p.m.",
-      "venue": "Branch Rickey Arena",
-      "venue_location": "Delaware, Ohio",
+      "tipoff_as_posted": "1:00 PM",
+      "venue": "",
+      "venue_location": "Delaware, OH",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-02-13-532-8486",
+      "date": "2027-02-13",
+      "away_org_id": 532,
+      "home_org_id": 8486,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300753",
+      "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300753",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300755"
+      ],
+      "verified_by_org_ids": [
+        532,
+        8486
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "Lasell Newton",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -132382,6 +133001,30 @@
       "tipoff_as_posted": "4:00 PM",
       "venue": "",
       "venue_location": "Houghton, NY",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-02-13-605-8687",
+      "date": "2027-02-13",
+      "away_org_id": 605,
+      "home_org_id": 8687,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300762",
+      "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300762"
+      ],
+      "verified_by_org_ids": [
+        8687
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "W. Hartford, CT",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -133380,13 +134023,15 @@
       "status": "scheduled",
       "source_url": "https://www.rivierathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300756",
         "https://www.rivierathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
-        18422
+        18422,
+        30042
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "12:00 PM",
       "venue": "Muldoon Center",
       "venue_location": "Nashua, N.H.",
@@ -134176,16 +134821,44 @@
       "status": "scheduled",
       "source_url": "https://www.norwichathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.norwichathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.norwichathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300753"
       ],
       "verified_by_org_ids": [
-        511
+        511,
+        532
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "TBD",
       "venue": "",
       "venue_location": "Chicopee, MA",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-02-16-569-2798",
+      "date": "2027-02-16",
+      "away_org_id": 569,
+      "home_org_id": 2798,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300759",
+      "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300749",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300759"
+      ],
+      "verified_by_org_ids": [
+        569,
+        2798
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "New Haven, CT",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -134338,6 +135011,56 @@
       "tipoff_as_posted": "7 p.m.",
       "venue": "Woltzen Gymnasium",
       "venue_location": "Home",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-02-16-8486-30042",
+      "date": "2027-02-16",
+      "away_org_id": 8486,
+      "home_org_id": 30042,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300755",
+      "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300755",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300756"
+      ],
+      "verified_by_org_ids": [
+        8486,
+        30042
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "Mitchell College New London CT",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-02-16-8687-30219",
+      "date": "2027-02-16",
+      "away_org_id": 8687,
+      "home_org_id": 30219,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300762",
+      "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300762"
+      ],
+      "verified_by_org_ids": [
+        8687
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "Franklin MA",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -138492,13 +139215,15 @@
       "status": "scheduled",
       "source_url": "https://www.goecsaints.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.goecsaints.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.goecsaints.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300756"
       ],
       "verified_by_org_ids": [
-        215
+        215,
+        30042
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "1:00 PM",
       "venue": "",
       "venue_location": "New London, Conn.",
@@ -139496,6 +140221,30 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2027-02-20-511-569",
+      "date": "2027-02-20",
+      "away_org_id": 569,
+      "home_org_id": 511,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300759",
+      "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300759"
+      ],
+      "verified_by_org_ids": [
+        569
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "Northfield, VT",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2027-02-20-524-27892",
       "date": "2027-02-20",
       "away_org_id": 27892,
@@ -139552,18 +140301,20 @@
       "home_org_id": 532,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.deanbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300753",
       "official_schedule_sources": [
-        "https://www.deanbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.deanbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300753"
       ],
       "verified_by_org_ids": [
+        532,
         30219
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
-      "tipoff_as_posted": "3:00 PM",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "",
       "venue": "",
-      "venue_location": "Chicopee, MA",
+      "venue_location": "Maguire Center",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -140560,6 +141311,32 @@
       "tipoff_as_posted": "3:00 PM",
       "venue": "Larry Mahaney Gymnasium",
       "venue_location": "Waterville, ME",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-02-20-2798-8486",
+      "date": "2027-02-20",
+      "away_org_id": 2798,
+      "home_org_id": 8486,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300755",
+      "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300749",
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300755"
+      ],
+      "verified_by_org_ids": [
+        2798,
+        8486
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "Lasell Newton",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
