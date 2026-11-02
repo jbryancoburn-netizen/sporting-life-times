@@ -1,0 +1,55 @@
+name: Iowa District 1 — verified county GIS cache
+on:
+  schedule:
+    - cron: '9 5 * * 1'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: iowa-county-map-source-cache
+  cancel-in-progress: false
+jobs:
+  verify_and_cache:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate source collector
+        run: python3 -m py_compile scripts/collect-politics-ia01-counties.py
+      - name: Fetch Iowa official county geometry, 20 of 20 or abort
+        run: python3 scripts/collect-politics-ia01-counties.py
+      - name: Verify published geometry against 2024 county canvass
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          g=json.loads(Path('data/politics-ia01-counties.geojson').read_text())
+          d=json.loads(Path('politics-district-guide.json').read_text())['districts']['IA-01']
+          a={f['properties']['name'].lower().removesuffix(' county') for f in g['features']}
+          b={f['county'].lower() for f in d['county_results_2024']['rows']}
+          assert a==b and len(a)==20, (a^b)
+          assert sum(x['dem'] for x in d['county_results_2024']['rows'])==206156
+          assert sum(x['rep'] for x in d['county_results_2024']['rows'])==206955
+          print('PASS: exactly 20 official geographic features and official canvass reconciliation')
+          PY
+      - name: Commit only changed sourced geometry
+        run: |
+          set -euo pipefail
+          git add data/politics-ia01-counties.geojson data/politics-ia01-geometry-meta.json
+          if git diff --cached --quiet; then echo 'No county boundary changes'; exit 0; fi
+          git config user.name 'Political District Geography'
+          git config user.email 'district-geography@users.noreply.github.com'
+          git commit -m 'Cache validated original Iowa county GIS boundaries'
+          for attempt in 1 2 3; do
+            git fetch origin main
+            if git rebase origin/main && git push origin HEAD:main; then
+              echo 'Cached genuine county boundaries on main'; exit 0
+            fi
+            git rebase --abort || true
+            sleep 3
+          done
+          echo 'Concurrent commit prevented publish; never forced a geometry overwrite'
+          exit 1
