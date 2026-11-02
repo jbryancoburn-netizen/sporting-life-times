@@ -83,6 +83,8 @@ ALIASES = {
 # The NCAA member directory sometimes exposes an old generic campus URL.
 # Every candidate still must pass exact 2026–27, sex, row and NCAA-opponent tests.
 OFFICIAL_ATHLETICS_HOST_OVERRIDE = {
+    53: "beloitcollegeathletics.com", 549: "sagehens.com",
+    1450: "wcbluejays.wcmo.edu",
     58: "athletics.baruch.cuny.edu", 82: "gobrynmawr.com",
     151: "colbyathletics.com", 1111: "greenvillepanthers.com",
     69: "athletics.bowdoin.edu", 117: "athletics.capital.edu",
@@ -106,11 +108,17 @@ OFFICIAL_ATHLETICS_HOST_OVERRIDE = {
 # from neighboring season IDs.
 OFFICIAL_CONFERENCE_SCHEDULES = {
     "men": {
+        53: ("https://midwestconference.org/schedule.aspx?schedule=3999", "Beloit"),
+        218: ("https://sliac.org/schedule.aspx?schedule=2031", "Eureka"),
+        684: ("https://cnesports.org/schedule.aspx?schedule=4107", "Suffolk"),
         64: ("https://sliac.org/schedule.aspx?schedule=2030", "Blackburn"),
         119: ("https://uaasports.info/schedule.aspx?schedule=1162", "Carnegie Mellon"),
         525: ("https://miaa.org/schedule.aspx?schedule=2283", "Olivet"),
     },
     "women": {
+        53: ("https://midwestconference.org/schedule.aspx?schedule=3989", "Beloit"),
+        218: ("https://sliac.org/schedule.aspx?schedule=2038", "Eureka"),
+        449: ("https://newmacsports.com/schedule.aspx?schedule=3965", "Mount Holyoke"),
         64: ("https://sliac.org/schedule.aspx?schedule=2029", "Blackburn"),
         119: ("https://uaasports.info/schedule.aspx?schedule=1154", "Carnegie Mellon"),
         525: ("https://miaa.org/schedule.aspx?schedule=2274", "Olivet"),
@@ -670,6 +678,9 @@ def self_test():
     # No future-season or wrong-sport page can be accepted just because its
     # URL looks right. Yearless routes must still have the exact 2026-27 title.
     assert OFFICIAL_ATHLETICS_HOST_OVERRIDE[69] == "athletics.bowdoin.edu"
+    assert OFFICIAL_ATHLETICS_HOST_OVERRIDE[53] == "beloitcollegeathletics.com"
+    assert OFFICIAL_CONFERENCE_SCHEDULES["men"][218][1] == "Eureka"
+    assert OFFICIAL_CONFERENCE_SCHEDULES["women"][449][1] == "Mount Holyoke"
     assert OFFICIAL_CONFERENCE_SCHEDULES["men"][64][1] == "Blackburn"
     assert OFFICIAL_CONFERENCE_SCHEDULES["women"][525][1] == "Olivet"
     conf_html = """<html><head><title>2026-27 Blackburn Men's Basketball Schedule</title></head>
