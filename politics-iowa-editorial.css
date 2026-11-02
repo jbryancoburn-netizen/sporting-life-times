@@ -1,0 +1,261 @@
+/* THE POLITICAL LIFE & TIMES | IOWA FOUR / DISTINCT RACE-FILE EDITION.
+   All labels are source observations. No invented win odds. */
+body.iowa-edition-active{
+ --ia-ink:#132d3e;--ia-cream:#f7f3e9;--ia-blue:#326cb5;
+ --ia-red:#b84651;--ia-purple:#734ab0;--ia-border:#b9c6cc;
+ background:#d9dee1;
+}
+body.iowa-edition-active .paper{background:#f5f3ed;max-width:1360px}
+body.iowa-edition-active .mast{padding:16px 0 13px}
+body.iowa-edition-active .mast h1{font-size:clamp(22px,2.4vw,32px);letter-spacing:-.7px;margin:6px 0 3px}
+body.iowa-edition-active .mast p{font-size:11px}
+body.iowa-edition-active .mast .folio{font-size:9px}
+body.iowa-edition-active .nav{padding:7px 0}
+body.iowa-edition-active .nav a{font-size:10px}
+body.iowa-edition-active #district-front[hidden],body.iowa-edition-active #metrics[hidden]{display:none!important}
+#iowa-edition[hidden]{display:none}
+.ia-cover{
+ --ia-accent:#734ab0;
+ overflow:hidden;margin:17px -10px 26px;border:1px solid #233b4d;
+ border-top:7px solid var(--ia-accent);box-shadow:0 12px 0 #1c32400b;
+ background:#fffdfa;
+}
+.ia-tone-history .ia-cover{--ia-accent:#c29759}
+.ia-tone-watch .ia-cover{--ia-accent:#a85d9b}
+.ia-cover-strap{
+ background:#132d3e;color:#dce9f3;display:flex;justify-content:space-between;gap:14px;
+ padding:11px 20px;text-transform:uppercase;letter-spacing:1.7px;font:900 10px/1.3 'DM Sans',sans-serif
+}
+.ia-race-nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-bottom:1px solid #8396a6;background:#142a3b}
+.ia-race-link{
+ min-width:0;display:grid;gap:3px;color:#d8e2ed!important;text-decoration:none!important;
+ padding:15px 15px 13px;border-right:1px solid #496373;transition:background .15s ease;
+ border-bottom:5px solid transparent
+}
+.ia-race-link:last-child{border-right:0}
+.ia-race-link.is-current{background:#f2ebff;color:#342451!important;border-bottom-color:#754bb8}
+.ia-tone-history .ia-race-link.is-current{background:#fff1d9;color:#553b21!important;border-bottom-color:#b18b50}
+.ia-race-link:hover,.ia-race-link:focus-visible{background:#33495a;color:#fff!important;outline:2px solid #f1e9ff;outline-offset:-2px}
+.ia-race-id{font:900 clamp(18px,2.5vw,29px)/1 'DM Sans',sans-serif;letter-spacing:-.5px}
+.ia-race-mini{font:750 10px/1.2 'DM Sans',sans-serif;letter-spacing:.6px;text-transform:uppercase}
+.ia-cover-grid{display:grid;grid-template-columns:minmax(0,1.37fr) minmax(310px,.8fr)}
+.ia-cover-editorial{
+ padding:35px clamp(20px,3.2vw,45px) 30px;background:
+ radial-gradient(ellipse at -5% 6%,#eddefc66,transparent 46%),#fffdfa
+}
+.ia-feature-kicker{
+ color:#7752a3;font:900 11px/1.4 'DM Sans',sans-serif;
+ letter-spacing:1.8px;text-transform:uppercase
+}
+.ia-feature-headline{
+ font:700 clamp(36px,4.2vw,59px)/1.12 'Libre Baskerville',Georgia,serif;
+ letter-spacing:-1.7px;color:#172c3a;margin:12px 0 15px;max-width:750px
+}
+.ia-feature-deck{
+ font:500 clamp(15px,1.38vw,18px)/1.62 'DM Sans',Arial,sans-serif;
+ color:#405b67;margin:0 0 23px;max-width:650px
+}
+.ia-editorial-callout{
+ border-left:6px solid #774fb5;background:#f0eafa;padding:16px 19px;
+ box-shadow:inset 0 0 0 1px #dbcfeb
+}
+.ia-tone-history .ia-editorial-callout{border-left-color:#b99051;background:#f5ead8}
+.ia-editorial-callout strong{font:900 10px 'DM Sans',sans-serif;letter-spacing:1.5px;color:#593989}
+.ia-tone-history .ia-editorial-callout strong{color:#704b23}
+.ia-editorial-callout p{font:600 13px/1.62 'DM Sans',sans-serif;margin:7px 0 0;color:#3d4156}
+.ia-quick-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:22px}
+.ia-quick-fact{
+ display:flex;flex-direction:column;gap:4px;min-width:0;padding:12px 12px 13px;
+ background:#e9eef2;border-top:4px solid #879dad
+}
+.ia-quick-fact:nth-child(1){border-top-color:#744ba9}
+.ia-quick-fact:nth-child(2){border-top-color:#bc6e4d}
+.ia-quick-fact:nth-child(3){border-top-color:#296b88}
+.ia-quick-fact span{font:900 9px 'DM Sans',sans-serif;letter-spacing:.8px;color:#49616d}
+.ia-quick-fact strong{font:900 clamp(25px,2.8vw,41px)/1.15 'DM Sans',sans-serif;letter-spacing:-1px;color:#172e41}
+.ia-quick-fact small{font:600 10px/1.3 'DM Sans',sans-serif;color:#617480}
+.ia-cover-map{
+ background:radial-gradient(circle at 80% 38%,#364d78,#152c42 74%);
+ color:#f2f6ff;padding:23px 18px 22px;display:flex;flex-direction:column;justify-content:space-between
+}
+.ia-cover-map-title{font:900 11px 'DM Sans',sans-serif;letter-spacing:1.45px;color:#ded5f4}
+.ia-map-art{min-height:235px;display:grid;place-items:center}
+.ia-map-svg{width:100%;max-height:300px;display:block}
+.ia-map-seat{outline:none}
+.ia-map-seat path{fill:#647b94;stroke:#e6f4ff;stroke-width:2.3;vector-effect:non-scaling-stroke;transition:fill .12s ease}
+.ia-map-seat.current path{fill:#9773d5;stroke:#fff4c7;stroke-width:4;filter:drop-shadow(0 3px 3px #14222a80)}
+.ia-tone-history .ia-map-seat.current path{fill:#bb8b48}
+.ia-map-seat:hover path,.ia-map-seat:focus-visible path{fill:#e8b878;stroke:#fff;stroke-width:4}
+.ia-map-seat text{fill:#fff;font:900 25px 'DM Sans',sans-serif;pointer-events:none;paint-order:stroke;stroke:#20304799;stroke-width:4}
+.ia-map-note{font:500 11px/1.55 'DM Sans',sans-serif;color:#c8d5e5;margin:8px 0 0}
+.ia-map-fallback{font-size:12px;color:#c8d5e5}
+.ia-candidate-section,.ia-evidence-section,.ia-insights{
+ margin:0 0 24px;background:#fffefa;border:1px solid #bdc8cd;box-shadow:0 5px 0 #12304008;
+}
+.ia-section-head{
+ display:flex;flex-wrap:wrap;align-items:baseline;gap:14px;
+ padding:19px 24px 15px;border-bottom:2px solid #1b3345;background:#f7f6f2
+}
+.ia-section-head .ia-section-number{font:900 10px/1.3 'DM Sans',sans-serif;letter-spacing:1.3px;color:#875aa7;white-space:nowrap}
+.ia-section-head h3{margin:0;font:700 clamp(23px,2.9vw,32px)/1.2 'Libre Baskerville',Georgia,serif;letter-spacing:-.5px;color:#183142}
+.ia-candidate-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;padding:23px 28px;position:relative}
+.ia-candidate{
+ display:grid;grid-template-columns:minmax(120px,33%) 1fr;align-items:center;gap:19px;
+ min-width:0;min-height:204px;padding:18px 18px 18px 16px;
+ border:1px solid #b9c5cd;border-bottom:7px solid #8392a0;background:#f0f5f8
+}
+.ia-candidate.ia-party-dem{background:linear-gradient(120deg,#dae7fc,#f6faff);border-bottom-color:#326bb8}
+.ia-candidate.ia-party-rep{background:linear-gradient(120deg,#f8e3e4,#fff8f8);border-bottom-color:#b64a54}
+.ia-candidate .candidate-portrait,.ia-fallback-initials{
+ width:100%;min-width:0;height:185px;min-height:185px;display:grid;place-items:center;
+ border:4px solid #fff;box-shadow:0 0 0 1px #b1bfc7;background:#d1dde6;overflow:hidden
+}
+.ia-candidate .candidate-portrait img{width:100%;height:100%;object-fit:cover;object-position:center top}
+.ia-candidate .portrait-initials,.ia-fallback-initials{
+ font:900 42px 'DM Sans',sans-serif;color:#456276
+}
+.ia-candidate-copy{display:flex;flex-direction:column;align-items:flex-start;gap:12px;min-width:0}
+.ia-candidate-party{font:900 11px 'DM Sans',sans-serif;letter-spacing:1px;text-transform:uppercase;color:#506874}
+.ia-candidate-name{
+ font:700 clamp(21px,2.3vw,32px)/1.23 'Libre Baskerville',Georgia,serif;
+ overflow-wrap:anywhere;color:#173042
+}
+.ia-candidate .party-seal-group{display:flex;align-items:center;gap:7px}
+.ia-candidate .political-party-seal{position:relative;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;
+ overflow:hidden;background:#687e89;color:#fff;font-weight:900;border:2px solid #fff;box-shadow:0 0 0 1px #708691
+}
+.ia-candidate .seal-dem{background:#3263a9}.ia-candidate .seal-rep{background:#ad424c}
+.ia-candidate .political-party-seal img{display:block;position:absolute;inset:6px;width:24px;height:24px;filter:brightness(0) invert(1)}
+.ia-candidate .seal-loaded .seal-letter{visibility:hidden}
+.ia-candidate .seal-text{font:900 11px 'DM Sans',sans-serif;color:#46606d}
+.ia-versus{
+ position:absolute;z-index:2;top:50%;left:50%;transform:translate(-50%,-50%);
+ display:grid;place-items:center;width:48px;height:48px;border:4px solid #fff;border-radius:50%;
+ background:#1d3242;color:#fff;font:900 13px 'DM Sans',sans-serif;box-shadow:0 3px 12px #122b4280
+}
+.ia-other-ballot{margin:0 28px 22px;padding:14px 17px;background:#f1eee6;border-left:4px solid #927a55}
+.ia-other-ballot>strong{font:900 10px/1.3 'DM Sans',sans-serif;letter-spacing:1.2px;color:#6b5634}
+.ia-other-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.ia-other-person{background:#fff;padding:7px 10px;border:1px solid #c7c3b8;font:800 11px 'DM Sans',sans-serif}
+.ia-candidate-sourcing{
+ display:flex;flex-wrap:wrap;align-items:center;gap:10px 17px;
+ padding:13px 28px 16px;border-top:1px solid #d1dadd;color:#516774;font:600 11px/1.5 'DM Sans',sans-serif
+}
+.ia-source{font:800 10px/1.3 'DM Sans',sans-serif;color:#1d5784!important;
+ text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere}
+.ia-source:hover,.ia-source:focus-visible{color:#804c9a!important}
+.ia-section-intro{padding:15px 24px 4px;max-width:900px;color:#516976;font:600 13px/1.6 'DM Sans',sans-serif;margin:0}
+.ia-evidence-tabs{display:flex;gap:9px;flex-wrap:wrap;margin:15px 24px 0;border-bottom:2px solid #1f3852}
+.ia-evidence-tab{
+ flex:1 1 220px;background:#e8edf0;color:#254456;border:1px solid #a8bbc2;border-bottom:0;
+ padding:15px 14px;font:900 12px 'DM Sans',sans-serif;letter-spacing:1px;text-transform:uppercase;transition:background .12s
+}
+.ia-evidence-tab[aria-selected="true"]{background:#203a52;color:#fff;border-color:#203a52}
+.ia-evidence-tab:focus-visible{outline:3px solid #a776c7;outline-offset:2px}
+.ia-measurement{padding:24px clamp(18px,4vw,42px) 29px;min-height:260px}
+.ia-measurement-heading{display:flex;flex-wrap:wrap;gap:7px 17px;align-items:baseline}
+.ia-proof-label{font:900 10px/1.3 'DM Sans',sans-serif;letter-spacing:1.1px;color:#607580;width:100%}
+.ia-measurement-lead{font:900 clamp(35px,4.2vw,55px)/1.1 'DM Sans',sans-serif;letter-spacing:-1.5px;color:#183145}
+.ia-measurement-context{font:700 14px 'DM Sans',sans-serif;color:#526a76}
+.ia-data-bar{display:flex;width:100%;height:37px;background:#aab7be;border:3px solid #f9fbfa;box-shadow:0 0 0 1px #afc0c8;margin:24px 0 16px}
+.ia-bar-piece{display:block;height:100%;min-width:0}
+.ia-color-dem{background:#356fbc}.ia-color-rep{background:#ba4850}
+.ia-color-ind{background:#9a70bc}.ia-color-other{background:#aab4b8}
+.ia-bar-legend{display:flex;gap:10px 20px;flex-wrap:wrap}
+.ia-legend-item{display:flex;align-items:center;gap:6px;font:700 11px 'DM Sans',sans-serif;color:#435e6c}
+.ia-legend-chip{width:11px;height:11px;flex:0 0 11px}
+.ia-legend-item strong{color:#1e3544;font-weight:900}
+.ia-evidence-note{
+ max-width:950px;margin:17px 0 12px;padding:10px 13px;border-left:4px solid #8e99a9;
+ color:#526573;background:#f0f3f4;font:600 11px/1.6 'DM Sans',sans-serif
+}
+.ia-evidence-missing{padding:25px 22px;margin:6px 0 19px;background:#e9eff0;color:#4d626d;font:700 15px/1.65 'DM Sans',sans-serif}
+.ia-insight-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;padding:24px}
+.ia-insight{padding:18px 18px 23px;background:#f0f3f4;border-top:5px solid #586f80;display:flex;flex-direction:column;gap:12px;min-width:0}
+.ia-insight:nth-child(1){border-top-color:#3266a6}
+.ia-insight:nth-child(2){border-top-color:#af6063}
+.ia-insight-question{background:#ece6f9;border-top-color:#794eac!important}
+.ia-insight small{color:#5b7080;font:900 10px/1.35 'DM Sans',sans-serif;letter-spacing:.85px}
+.ia-insight strong{font:700 clamp(18px,1.8vw,23px)/1.25 'Libre Baskerville',Georgia,serif;color:#203747;overflow-wrap:anywhere}
+.ia-insight p{font:600 12px/1.65 'DM Sans',sans-serif;color:#4d626e;margin:0}
+.ia-evidence-footer{
+ background:#1a3448;color:#dae6ef;padding:19px 25px;margin:0 0 20px;
+ display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;border-top:5px solid #7751ac
+}
+.ia-evidence-footer-main{flex:1 1 380px;display:flex;flex-direction:column;gap:6px}
+.ia-evidence-footer-main strong{font:900 10px 'DM Sans',sans-serif;letter-spacing:1.3px;color:#d3b3ff}
+.ia-evidence-footer-main span{font:600 11px/1.55 'DM Sans',sans-serif}
+.ia-footer-links{display:flex;flex-wrap:wrap;gap:12px}
+.ia-evidence-footer .ia-source{color:#c4e9ff!important}
+.ia-full-dossier{margin:17px 0 25px;background:#f1f0e9;border-top:3px solid #26445a;border-bottom:1px solid #a8b7c0}
+.ia-full-dossier>summary{cursor:pointer;font:900 12px/1.5 'DM Sans',sans-serif;letter-spacing:.6px;color:#1b3b50;padding:21px 18px;list-style:none}
+.ia-full-dossier>summary::after{content:"  +";float:right;font-size:20px}
+.ia-full-dossier[open]>summary::after{content:" −"}
+.ia-dossier-content{padding:0 17px 23px}
+.ia-dossier-content .panels{padding:15px 0}
+.ia-dossier-content .panel{margin-top:15px}
+.ia-dossier-content .district-coverage-details{background:#fff}
+body.iowa-edition-active #district-front,body.iowa-edition-active #metrics{display:none!important}
+@media(max-width:1050px){
+ .ia-cover-grid{grid-template-columns:minmax(0,1.2fr) minmax(250px,.8fr)}
+ .ia-cover-editorial{padding:27px 24px}
+ .ia-feature-headline{font-size:40px}
+ .ia-candidate{grid-template-columns:minmax(96px,36%) 1fr;gap:12px;padding:13px}
+ .ia-candidate .candidate-portrait,.ia-fallback-initials{height:155px;min-height:155px}
+ .ia-candidate-name{font-size:23px}
+}
+@media(max-width:750px){
+ body.iowa-edition-active .paper{padding:0 16px 24px}
+ .ia-cover{margin:12px -16px 20px}
+ .ia-cover-strap{font-size:8px;letter-spacing:.4px;padding:10px 13px}
+ .ia-race-link{padding:11px 8px 10px}
+ .ia-race-id{font-size:20px}
+ .ia-race-mini{font-size:8px;letter-spacing:0}
+ .ia-cover-grid{grid-template-columns:1fr}
+ .ia-cover-editorial{padding:25px 20px}
+ .ia-feature-headline{font-size:clamp(33px,8vw,47px);letter-spacing:-1.1px}
+ .ia-feature-deck{font-size:15px}
+ .ia-cover-map{padding:18px 18px 14px}
+ .ia-map-art{min-height:190px;max-height:260px}
+ .ia-map-svg{max-height:230px}
+ .ia-quick-metrics{gap:7px}
+ .ia-quick-fact{padding:9px 8px}
+ .ia-quick-fact span{font-size:8px;letter-spacing:.15px}
+ .ia-quick-fact strong{font-size:26px}
+ .ia-quick-fact small{font-size:9px}
+ .ia-section-head{padding:17px 17px 13px;gap:7px}
+ .ia-section-head h3{font-size:26px;width:100%}
+ .ia-candidate-grid{padding:18px 15px;gap:10px}
+ .ia-candidate{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:11px 7px 15px;min-height:0}
+ .ia-candidate .candidate-portrait,.ia-fallback-initials{width:min(100%,162px);height:163px;min-height:163px}
+ .ia-candidate-copy{align-items:center;gap:7px}
+ .ia-candidate-name{font-size:20px}
+ .ia-candidate-party{font-size:9px}
+ .ia-candidate .seal-text{font-size:9px}
+ .ia-versus{width:37px;height:37px;border-width:3px;font-size:10px;top:35%}
+ .ia-other-ballot{margin:0 15px 17px}
+ .ia-candidate-sourcing{padding:12px 15px}
+ .ia-evidence-tabs{margin:14px 15px 0;gap:6px}
+ .ia-evidence-tab{font-size:10px;flex-basis:125px;padding:13px 8px;letter-spacing:.1px}
+ .ia-section-intro{padding:13px 16px 3px;font-size:12px}
+ .ia-measurement{padding:19px 18px 26px}
+ .ia-measurement-lead{font-size:39px}
+ .ia-measurement-context{font-size:12px}
+ .ia-data-bar{margin:18px 0 13px;height:31px}
+ .ia-bar-legend{gap:8px 12px}
+ .ia-insight-grid{grid-template-columns:1fr;padding:15px;gap:10px}
+ .ia-insight{padding:15px 16px 17px;gap:8px}
+ .ia-insight strong{font-size:21px}
+ .ia-insight p{font-size:12px}
+ .ia-evidence-footer{padding:16px 18px}
+}
+@media(max-width:370px){
+ .ia-race-mini{font-size:7px}
+ .ia-candidate .candidate-portrait,.ia-fallback-initials{height:132px;min-height:132px}
+ .ia-candidate-name{font-size:17px}
+ .ia-quick-fact strong{font-size:22px}
+ .ia-quick-fact small{font-size:8px}
+}
+@media(prefers-reduced-motion:reduce){
+ .ia-race-link,.ia-map-seat path,.ia-evidence-tab{transition:none}
+}
