@@ -27,6 +27,20 @@ assert(script.includes('data/mbb-arena-registry.json'),'official arena registry 
 assert(script.includes('SCHOOL ARENA REFERENCE · NOT A VERIFIED GAME SITE'),
   'avoid claiming a team home arena is the site of a neutral or alternate-host game');
 assert(script.includes('data/dual-ring-team-palette.json'),'real two-color school palette not loaded');
+
+for(const motif of ['.sl-arena--rafters','.sl-arena--gallery','.sl-arena--grandstand',
+ '.sl-stands','.sl-arena-spotlight','.sl-pennant-seam','.sl-pennant-rating',
+ '.sl-pennant--tail','.sl-pennant--point','.sl-pennant--shield'])
+ assert(css.includes(motif),'missing school-specific arena treatment: '+motif);
+assert(script.includes('teamPage(t)')&&script.includes('sl-pennant--'),
+ 'school pennants must link to their own team page and vary in banner shape');
+assert(script.includes('USRS '+ "'+elo")||script.includes('USRS '+ "'+elo"),
+ 'pennants need current independent Elo rather than fabricated titles');
+assert(script.includes('data/ncaaw-2026-27-teams.json')&&script.includes('womenTeams.get('),
+ 'women must have a documented school-logo fallback instead of a broken ranking reference');
+assert(!script.includes('rankings.get('),'undefined women ranking variable breaks mascot artwork');
+assert(!script.includes('CHAMPIONSHIP BANNER'),'editorial pennants cannot claim unverified titles');
+
 assert(script.includes('window.MBBLogos.byESPN'),'official double-ring logo system not used');
 assert(script.includes('source_tier')||script.includes('sourceURL'),'sourced exhibitions remain identifiable');
 assert(!script.includes('NATIONAL CHAMPIONS')&&!script.includes('CONFERENCE TITLES'),
