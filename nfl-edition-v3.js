@@ -601,7 +601,7 @@ function gamePage(){
  out+='<div class="nfl-feature-chart"><div class="nfl-feature-chart-header"><span>Cumulative points by quarter</span>'+
   '<div class="nfl-feature-chart-legend"><i class="away"></i>'+escapeHtml(a.code)+
   '<i class="home"></i>'+escapeHtml(h.code)+'</div></div>'+
-  gameScoringArc(g,story)+'</div></section>'+
+  gameScoringArc(g,story)+'</div><section class="nfl-game-story-data" id="nfl-game-story-data" hidden aria-label="Verified game analysis"></section></section>'+
   '<section class="nfl-story-model" id="nfl-story-model">'+
   '<div class="nfl-feature-section-label">The USRS pregame read <i></i></div>'+
   '<div class="nfl-feature-model-layout">'+
@@ -632,6 +632,62 @@ function gamePage(){
   '<p>Game results and statistics are sourced; USRS forecasts and ratings are independent.</p></footer></article>';
  return out;
 }
+function gameInsightHTML(box,g,away,home){
+ const teams=box.teams||{},A=teams[String(g.away.id)]||{},H=teams[String(g.home.id)]||{};
+ const num=(t,k)=>t[k]!=null&&Number.isFinite(Number(t[k]))?Number(t[k]):null;
+ const ay=num(A,"totalYards"),hy=num(H,"totalYards");
+ if(ay==null||hy==null)return "";
+ const done=g.state==="post"&&g.away.score!=null&&g.home.score!=null;
+ const as=Number(g.away.score),hs=Number(g.home.score);
+ const winner=done&&(as!==hs)?(as>hs?away:home):null;
+ const more=ay===hy?null:ay>hy?away:home,less=more===away?home:away;
+ const gap=Math.abs(ay-hy),moreCode=more?escapeHtml(more.code):"TIED";
+ const lessY=more===away?hy:ay;
+ let head="The game, beyond the score",deck="";
+ if(done&&winner&&more&&winner.id!==more.id){
+  head="The box score didn't pick the winner";
+  deck=escapeHtml(winner.name)+" won despite gaining "+format(gap)+" fewer yards. "+
+   escapeHtml(more.name)+" finished with "+format(Math.max(ay,hy))+" yards, but the final belonged to "+
+   escapeHtml(winner.name)+".";
+ }else if(done&&winner&&more){
+  head=escapeHtml(winner.name)+" won the yardage battle, too";
+  deck=escapeHtml(winner.name)+" finished with "+format(Math.max(ay,hy))+
+   " yards, "+format(gap)+" more than "+escapeHtml(less.name)+".";
+ }else{
+  deck="Source-verified offensive production for "+escapeHtml(away.code)+" and "+escapeHtml(home.code)+".";
+ }
+ const aPlays=num(A,"totalOffensivePlays"),hPlays=num(H,"totalOffensivePlays");
+ const aEff=num(A,"yardsPerPlay"),hEff=num(H,"yardsPerPlay");
+ const statLine=(label,val,sub)=>'<div class="nfl-insight-number"><span>'+label+'</span>'+
+  '<strong>'+val+'</strong><small>'+sub+'</small></div>';
+ const rows=[
+  statLine("Yardage difference",format(gap),more?moreCode+" gained more":"Even on total yards"),
+  statLine("Offensive snaps",aPlays==null||hPlays==null?"—":format(aPlays)+" / "+format(hPlays),
+   escapeHtml(away.code)+" / "+escapeHtml(home.code)),
+  statLine("Yards per play",aEff==null||hEff==null?"—":format(aEff,1)+" / "+format(hEff,1),
+   escapeHtml(away.code)+" / "+escapeHtml(home.code))
+ ];
+ const attack=(t,side,label)=>{
+  const yards=num(t,"totalYards"),passing=num(t,"netPassingYards"),rushing=num(t,"rushingYards");
+  if(yards==null||passing==null||rushing==null||yards<=0)return "";
+  const sum=passing+rushing,ratio=sum>0?100*passing/sum:50;
+  return '<div class="nfl-insight-offense-row"><div><strong>'+escapeHtml(side.code)+'</strong>'+
+   '<span>'+format(passing)+" pass · "+format(rushing)+" rush</span></div>"+
+   '<div class="nfl-insight-offense-track" role="img" aria-label="'+escapeHtml(side.code)+
+   " passing "+format(passing)+" yards, rushing "+format(rushing)+' yards">'+
+   '<i style="width:'+Math.max(0,Math.min(100,ratio)).toFixed(1)+'%"></i></div>'+
+   '<small>'+format(ratio,0)+'% pass</small></div>';
+ };
+ const balance=attack(A,away,"away")+attack(H,home,"home");
+ return '<div class="nfl-insight-kicker">FROM THE VERIFIED BOX SCORE <i></i></div>'+
+ '<div class="nfl-insight-lede"><h2>'+head+'</h2><p>'+deck+'</p></div>'+
+ '<div class="nfl-insight-three" aria-label="Three game statistics">'+rows.join("")+'</div>'+
+ (balance?'<div class="nfl-insight-offense"><div class="nfl-insight-offense-title">'+
+ '<strong>Where the yards came from</strong><span><i class="pass"></i>Net pass yards <i class="rush"></i>Rush yards</span></div>'+
+ balance+'</div>':"")+
+ '<p class="nfl-insight-source">Derived from the reported game totals. Passing figures are net team passing yards; '+
+ 'individual quarterback passing totals can differ because of sacks.</p>';
+}
 async function gameBox(){
  const id=params.get("id"),el=document.getElementById("nfl-game-box");if(!el)return;
  try{
@@ -640,42 +696,57 @@ async function gameBox(){
   if(res&&!res.ok)throw Error("Source box score is not available");
   const json=res?await res.json():{games:{}},box=((liveFeed||{}).boxes||{})[id]||(json.games||{})[id];
   if(!box){const deep=document.getElementById("nfl-game-deep-dive");if(deep)deep.hidden=true;el.innerHTML="";return;}
-  const game=games.find(x=>x.id===id),away=team(game.away.id),home=team(game.home.id);
-  let out='<div class="nfl-box-report-head"><strong>THE VERIFIED STATISTICAL LEDGER</strong>'+
-    '<span>'+escapeHtml(away.code)+' AWAY / '+escapeHtml(home.code)+' HOME</span></div>';
+  const game=games.find(x=>x.id===id);if(!game)return;
+  const away=team(game.away.id),home=team(game.home.id);
+  const storyTarget=document.getElementById("nfl-game-story-data");
+  if(storyTarget){
+   const insight=gameInsightHTML(box,game,away,home);
+   if(insight){storyTarget.innerHTML=insight;storyTarget.hidden=false;}
+  }
+  let out='<header class="nfl-box-report-head"><strong>Official game ledger</strong>'+
+   '<span>'+escapeHtml(away.code)+' AWAY · '+escapeHtml(home.code)+' HOME</span></header>'+
+   '<p class="nfl-box-editor-note">Verified individual statistics, organized by category. Expand a section; swipe the table sideways for additional columns.</p>';
   let hasPlayerData=false;
   const categories=[
-   ['passing','PASSING'],['rushing','RUSHING'],['receiving','RECEIVING'],
-   ['defensive','DEFENSE'],['interceptions','INTERCEPTIONS'],
-   ['kicking','KICKING'],['punting','PUNTING']
+   ["passing","Passing",["YDS","TD","INT","QBR","RTG","AVG","C/ATT","CMP","ATT","SACK"]],
+   ["rushing","Rushing",["CAR","YDS","AVG","TD","LONG"]],
+   ["receiving","Receiving",["REC","YDS","AVG","TD","LONG","TGTS"]],
+   ["defensive","Defense",["TOT","SOLO","SACK","TFL","PD","QB HITS","INT"]],
+   ["interceptions","Interceptions",["INT","YDS","TD","LONG"]],
+   ["kicking","Kicking",["FG","FGM","FGA","PCT","XP","XPM","XPA","LONG"]],
+   ["punting","Punting",["PUNTS","YDS","AVG","LONG","IN20"]]
   ];
-  categories.forEach(([cat,title])=>{
-   const lines=(box.players||[]).filter(p=>String(p.category||"").includes(cat));
+  categories.forEach(([cat,title,priority],index)=>{
+   const lines=(box.players||[]).filter(p=>String(p.category||"")===cat);
    if(!lines.length)return;
    hasPlayerData=true;
-   const cols=[...new Set(lines.flatMap(p=>Object.keys(p.stats||{})))].slice(0,9);
-   out+='<section class="nfl-box-category"><h3>'+title+'</h3>'+
-     '<div class="nfl-box-table-scroll" tabindex="0" aria-label="'+title+' player statistics, scroll horizontally for more columns">'+
-     '<table class="nfl-box-data"><thead><tr><th>PLAYER / CLUB</th>'+
-     cols.map(col=>'<th>'+escapeHtml(col)+'</th>').join('')+'</tr></thead><tbody>'+
-     lines.map(p=>'<tr><td><div class="nfl-box-athlete">'+
-      (p.headshot?'<img loading="lazy" src="'+escapeHtml(p.headshot)+'" alt="">':'')+
-      '<span><b>'+escapeHtml(p.name)+'</b><small>'+
-      escapeHtml(team(p.team_id).code)+'</small></span></div></td>'+
-      cols.map(col=>'<td>'+((p.stats||{})[col]==null?'—':escapeHtml((p.stats||{})[col]))+'</td>').join('')+
-      '</tr>').join('')+'</tbody></table></div></section>';
+   const discovered=[...new Set(lines.flatMap(p=>Object.keys(p.stats||{})))];
+   const cols=priority.filter(k=>discovered.includes(k)).concat(discovered.filter(k=>!priority.includes(k)));
+   const titleId="nfl-box-section-"+cat;
+   out+='<details class="nfl-box-category" id="'+titleId+'"'+(index===0?' open':'')+'>'+
+    '<summary><span>'+title+'</span><span class="nfl-box-category-count">'+format(lines.length)+
+    ' PLAYERS <b aria-hidden="true">⌄</b></span></summary>'+
+    '<div class="nfl-box-table-scroll" tabindex="0" role="region" aria-label="'+escapeHtml(title)+' statistics; scroll horizontally for more columns">'+
+    '<table class="nfl-box-data"><thead><tr><th scope="col">Player / team</th>'+
+    cols.map(col=>'<th scope="col">'+escapeHtml(col)+'</th>').join("")+'</tr></thead><tbody>'+
+    lines.map(p=>'<tr><th scope="row" class="nfl-box-player-cell"><span class="nfl-box-athlete">'+
+     (p.headshot?'<img loading="lazy" decoding="async" width="34" height="34" src="'+escapeHtml(p.headshot)+'" alt="">':'')+
+     '<span class="nfl-box-player-copy"><b>'+escapeHtml(p.name)+'</b><small>'+
+     escapeHtml(team(p.team_id).code)+'</small></span></span></th>'+
+     cols.map(col=>'<td>'+((p.stats||{})[col]==null?'—':escapeHtml((p.stats||{})[col]))+'</td>').join("")+
+     '</tr>').join("")+'</tbody></table></div></details>';
   });
-  if(!hasPlayerData)out+='<p class="nfl-box-no-data">Verified individual player box scores are not available yet.</p>';
-  const totals=(box.teams||{});
+  if(!hasPlayerData)out+='<p class="nfl-box-no-data">Verified individual player box scores are not yet available.</p>';
+  const totals=box.teams||{};
   const keys=[...new Set(Object.values(totals).flatMap(t=>Object.keys(t||{})))];
   if(keys.length){
-   out+='<details class="nfl-box-totals"><summary>COMPLETE TEAM TOTALS <span>OPEN ↗</span></summary>'+
-    '<div class="nfl-box-table-scroll" tabindex="0" aria-label="Verified team statistics">'+
-    '<table class="nfl-box-data"><thead><tr><th>METRIC</th><th>'+escapeHtml(away.code)+
-    '</th><th>'+escapeHtml(home.code)+'</th></tr></thead><tbody>'+
-    keys.map(key=>'<tr><th>'+escapeHtml(key.replace(/([A-Z])/g," $1"))+'</th>'+
+   out+='<details class="nfl-box-totals"><summary>Complete team totals <span>VIEW ALL ↗</span></summary>'+
+    '<div class="nfl-box-table-scroll" tabindex="0" role="region" aria-label="Verified team statistics">'+
+    '<table class="nfl-box-data"><thead><tr><th scope="col">Metric</th><th scope="col">'+escapeHtml(away.code)+
+    '</th><th scope="col">'+escapeHtml(home.code)+'</th></tr></thead><tbody>'+
+    keys.map(key=>'<tr><th scope="row" class="nfl-box-stat-label">'+escapeHtml(key.replace(/([A-Z])/g," $1"))+'</th>'+
       '<td>'+((totals[away.id]||{})[key]==null?'—':escapeHtml(totals[away.id][key]))+'</td>'+
-      '<td>'+((totals[home.id]||{})[key]==null?'—':escapeHtml(totals[home.id][key]))+'</td></tr>').join('')+
+      '<td>'+((totals[home.id]||{})[key]==null?'—':escapeHtml(totals[home.id][key]))+'</td></tr>').join("")+
     '</tbody></table></div></details>';
   }
   el.innerHTML=out;
