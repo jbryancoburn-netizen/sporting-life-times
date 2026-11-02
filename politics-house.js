@@ -495,6 +495,7 @@ function renderState(a){
  if(mapStatus)mapStatus.textContent=state["2026_congressional_map_changed"]?"2026 map · redrawn":"2026 map · unchanged";
  insertMetric($("metrics"),[state.district_count,state["2026_verified_house_nominee_offices"],state["2026_house_poll_count"]]);
  const rows=a.districts.filter(x=>x.state===code).sort((a,b)=>a.district.localeCompare(b.district));
+ if(window.PoliticsRaceExperience)window.PoliticsRaceExperience.renderState({state,rows});
  if(window.PoliticsStateArt){
   const hero=$("state-hero-art");
   if(hero)hero.append(window.PoliticsStateArt.create(code,"hero-outline"));
@@ -502,6 +503,22 @@ function renderState(a){
   window.PoliticsStateArt.prepare(code,state.district_count);
  }
  const watchRows=rows.filter(x=>preliminaryRaceRead(x).watch);
+ const lead=$("state-edition-heading"),deck=document.querySelector(".state-lead-main > p");
+ const comparable=rows.filter(r=>{
+  const h=r["2024_house_result_on_prior_boundaries"];
+  return h?.same_2026_geography&&Number.isFinite(h.dem_votes)&&Number.isFinite(h.rep_votes);
+ }).sort((a,b)=>{
+  const x=a["2024_house_result_on_prior_boundaries"],y=b["2024_house_result_on_prior_boundaries"];
+  return Math.abs(x.dem_votes-x.rep_votes)-Math.abs(y.dem_votes-y.rep_votes);
+ });
+ if(state.district_count===4&&lead)lead.textContent="Four districts. Four different House stories.";
+ if(deck){
+  const near=comparable[0],old=near?.["2024_house_result_on_prior_boundaries"];
+  const n=rows.filter(r=>r.district_specific_2026_polls?.length).length;
+  deck.textContent=(old?"Closest 2024 House vote: "+fmt(Math.abs(old.dem_votes-old.rep_votes))+" ballots in "+near.id+". ":"")+
+   watchRows.length+" watch-flagged district"+(watchRows.length===1?"":"s")+
+   " and "+n+" district"+(n===1?"":"s")+" with reported polling. Sources and vintage restrictions remain visible.";
+ }
  const conflicting=rows.filter(x=>preliminaryRaceRead(x).label==="Signals disagree");
  const watchBox=$("state-headline-watch"),mixedBox=$("state-headline-conflicts"),ballotBox=$("state-headline-ballots");
  if(watchBox)watchBox.textContent=String(watchRows.length);
@@ -694,6 +711,7 @@ function renderDistrict(a){
  $("district-subtitle").textContent=r.id+" · November 3, 2026 · race data & original sources";
  $("state-link").href=urlForState(r.state);$("state-link").textContent="← All "+state.name+" districts";
  renderDistrictFront(r,state);
+ if(window.PoliticsRaceExperience)window.PoliticsRaceExperience.renderDistrict({r,state});
  const current=districtEvidence(r),clr=color(current.party,current.margin);
  let badge=$("leader-badge");badge.textContent=current.source.toUpperCase()+" · "+current.text;badge.style.background=clr.bg;badge.style.color=clr.fg;
  if(preliminaryRaceRead(r).watch){
