@@ -5,7 +5,8 @@ const contexts=new WeakMap(),activeByGame=new Map(),MAX=12;
 const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const score=v=>v===null||v===undefined||v===''||!Number.isSafeInteger(Number(v))||Number(v)<0||Number(v)>500?null:Number(v);
 const teamColor=(t,fallback)=>{const raw=String(t?.team?.color||'').replace(/^#/,'');
- return /^[a-f0-9]{6}$/i.test(raw)&&raw.toLowerCase()!=='ffffff'?'#'+raw:fallback;};
+ if(/^[a-f0-9]{6}$/i.test(raw)&&raw.toLowerCase()!=='ffffff')return '#'+raw;
+ return global.MBBLogos?.colorForESPN?.(t?.team?.id)?.primary||fallback;};
 const sideName=t=>String(t?.team?.shortDisplayName||t?.team?.abbreviation||t?.team?.displayName||'TEAM')
  .trim().slice(0,27).toUpperCase();
 function parsePlays(data){
