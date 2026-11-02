@@ -182,3 +182,25 @@ body[data-league="college-soccer"] .cs-hero-leader .cs-pitch-badge{width:42px!im
  body[data-league="college-soccer"] .cs-pitch-crest,
  body[data-league="college-soccer"] .cs-pitch-badge{width:42px!important;height:42px!important;min-width:42px!important;min-height:42px!important;flex:0 0 42px!important}
 }
+
+/* Six independent soccer editions. No cross-division or cross-gender scores in selected view. */
+body[data-league="college-soccer"] .cs-pitch-division-switch{
+ display:flex!important;align-items:center;gap:5px;overflow-x:auto;overscroll-behavior-inline:contain;
+ padding:9px 16px 10px;margin:0!important;scrollbar-width:thin;
+ border-block:1px solid #d7e1d5;background:#edf2eb;
+}
+body[data-league="college-soccer"] .cs-pitch-division-tab{
+ flex:0 0 auto!important;white-space:nowrap!important;cursor:pointer!important;
+ font:800 10px/1.25 Arial,sans-serif!important;letter-spacing:.035em!important;
+ padding:8px 10px!important;background:#fff!important;color:#3e6855!important;
+ border:1px solid #bdd0c0!important;border-radius:2px!important;
+}
+body[data-league="college-soccer"] .cs-pitch-division-tab.is-selected{
+ color:#fff!important;background:#173f33!important;border-color:#173f33!important;box-shadow:inset 0 -2px 0 #d8b979!important;
+}
+body[data-league="college-soccer"] .cs-pitch-division-tab:focus-visible{outline:3px solid #cba34f!important;outline-offset:1px}
+body[data-league="college-soccer"] .cs-pitch-division-tab:not(.is-selected):hover{background:#e2ebdf!important}
+@media(max-width:700px){
+ body[data-league="college-soccer"] .cs-pitch-division-switch{padding:8px 11px!important;gap:5px!important}
+ body[data-league="college-soccer"] .cs-pitch-division-tab{padding:9px!important;font-size:10px!important}
+}
