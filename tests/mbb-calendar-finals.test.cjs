@@ -28,7 +28,9 @@ async function render(feed, fixture={}){
   byESPN:(id)=>'<span class="crest" data-logo-id="'+id+'">crest</span>'}},document,
   location:{search:'?team='+encodeURIComponent(selectedTeam.id)},
   fetch:async url=>({ok:true,json:async()=>url.includes('crosswalk')?{teams:[selectedTeam,selectedFoe]}:
-   url.includes('retro-primary')?feed:selectedSchedule}),
+   url.includes('retro-primary')?feed:
+   url.includes('exhibition-finals')?(fixture.exhibitions||{season:'2026-27',retro_included:false,games:[]}):
+   selectedSchedule}),
   URLSearchParams,Intl,Date,Map,Set,Number,Boolean,String,Promise,console,encodeURIComponent,setInterval:()=>0};
  vm.runInNewContext(source,context,{filename:'mbb-team-calendar-boot.js'});
  for(let i=0;i<100&&!host.dataset.scheduleLoaded;i++)await new Promise(resolve=>setTimeout(resolve,10));
@@ -72,6 +74,42 @@ async function render(feed, fixture={}){
  }))};
  const notReconciled=await render(ratings([hpFinal]),{team:highPoint,foe:liberty,schedule:noMidnight});
  assert.doesNotMatch(notReconciled,/W 72–57/,'non-midnight games may not borrow adjacent-day finals');
+
+
+ // Exhibition results belong to a separate source-ledger, never to the Elo
+ // rating archive, and must display for both participating university pages.
+ const dayton={id:'ncaa:609713',espn_id:'2168',name:'Dayton',espn_name:'Dayton Flyers'};
+ const exhibitionGame={id:'school-dayton-2026-10-17',date:'2026-10-17T12:00:00-05:00',
+  name:'Notre Dame (Exh.)',site_verified:true,competitions:[{competitors:[
+    {homeAway:'home',team:{id:'2168',displayName:'Dayton Flyers'}},
+    {homeAway:'away',team:{id:'87',displayName:'Notre Dame Fighting Irish'}}
+  ],venue:{fullName:'UD Arena'},broadcasts:[]}]};
+ const exhibitionEntry={date:'2026-10-17',away_espn_id:'87',home_espn_id:'2168',
+  away_score:65,home_score:75,source_url:'https://daytonflyers.com/news/2026/10/17/recap',
+  verified:true,classification:'exhibition',counts_for_retro:false};
+ const exLedger={season:'2026-27',retro_included:false,games:[exhibitionEntry]};
+ const daytonCalendar={...schedule,events:[exhibitionGame]};
+ const daytonHTML=await render(ratings([]),{team:dayton,foe:team,schedule:daytonCalendar,exhibitions:exLedger});
+ assert.match(daytonHTML,/EXHIBITION FINAL/);
+ assert.match(daytonHTML,/W 75–65/);
+ assert.match(daytonHTML,/Verified result ↗/);
+ assert.match(daytonHTML,/data-exhibition="true"/);
+ assert.match(daytonHTML,/Not applicable/,'exhibitions have no opponent RETRO');
+ assert.doesNotMatch(daytonHTML,/cbb-gamefile\.html\?day=2026-10-17/,'non-counting exhibitions do not masquerade as RETRO Gamefiles');
+ const notreDameCal={...schedule,events:[exhibitionGame]};
+ const ndHTML=await render(ratings([]),{team,foe:dayton,schedule:notreDameCal,exhibitions:exLedger});
+ assert.match(ndHTML,/L 65–75/,'away team receives its exact reciprocal exhibition result');
+ const unverifiedLedger={...exLedger,games:[{...exhibitionEntry,verified:false}]};
+ const notVerified=await render(ratings([]),{team:dayton,foe:team,schedule:daytonCalendar,exhibitions:unverifiedLedger});
+ assert.doesNotMatch(notVerified,/W 75–65/,'unverified exhibition score never published');
+ const conflictLedger={...exLedger,games:[exhibitionEntry,{...exhibitionEntry,home_score:74}]};
+ const conflictedExhibition=await render(ratings([]),{team:dayton,foe:team,schedule:daytonCalendar,exhibitions:conflictLedger});
+ assert.doesNotMatch(conflictedExhibition,/W 75–65/,'conflicting exhibition scores must be quarantined');
+ const notOctober={...exLedger,games:[{...exhibitionEntry,date:'2026-11-03'}]};
+ assert.doesNotMatch(await render(ratings([]),{team:dayton,foe:team,schedule:daytonCalendar,exhibitions:notOctober}),/W 75–65/);
+ const notElo=await render(ratings([final]),{team:dayton,foe:team,schedule:daytonCalendar,exhibitions:exLedger});
+ assert.match(notElo,/W 75–65/,'exhibition final is separate from RETRO game list');
+ assert.match(notElo,/Exhibitions<\/option>/,'exhibition filter available without hiding regular results');
 
  const css=fs.readFileSync('mbb-newspaper.css','utf8');
  assert.match(css,/grid-template-columns:minmax\(0,1fr\) minmax\(0,1fr\)/,'mobile cards use columns, not stacked arbitrary TD order');
