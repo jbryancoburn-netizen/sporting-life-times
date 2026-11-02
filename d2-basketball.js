@@ -12,7 +12,7 @@ const tipMinute=v=>{const m=/^(1[0-2]|0?[1-9]):([0-5][0-9])\s*(AM|PM)\s*ET$/i.ex
 const chronological=(a,b)=>String(a.date).localeCompare(String(b.date))||tipMinute(a.start_time)-tipMinute(b.start_time)||String(a.id).localeCompare(String(b.id));
 const pct=t=>((t.w||0)+(t.l||0))?((t.w||0)/((t.w||0)+(t.l||0))):0;
 const label=t=>t?.conference||'Conference unverified';
-const memberBadge=t=>t?.not_eligible_for_dii_elo?'<small class="member-tag" title="'+esc(t.membership_note||'DII membership pending')+'">2026–27 NCAA DII MEMBERSHIP PENDING</small>':'';
+const memberBadge=t=>t?.not_eligible_for_dii_elo?'<small class="member-tag" title="'+esc(t.membership_status||t.membership_note||'Not eligible for 2026–27 DII Elo')+'">NOT IN 2026–27 DII ELO</small>':'';
 const color=v=>/^#[0-9a-f]{6}$/i.test(v||'')?v:'#274c5e';
 function logo(t){
  const slug=String(t?.slug||'').replace(/[^a-z0-9-]/gi,'');
@@ -106,8 +106,9 @@ $('coverage').innerHTML+='<br><b>Logo rings:</b> '+brandedSchools.length+' of '+
 }
 function renderScheduleRecovery(d){
  const target=$('schedule-recovery-content');if(!target)return;
- // A published game contributes one entry to each participating school's
- // schedule. No assumed home-and-home pairings or conference completion.
+ // Count actual published fixtures, never assumed conference schedules.
+ // Ineligible/future Division II schools do NOT count as missing 2026-27
+ // DII schedules (e.g. West Florida is competing in Division I).
  const schools=new Map((d.teams||[]).map(t=>[String(t.id),{team:t,fixtures:0,tipoffs:0}]));
  for(const g of (d.games||[])){
   for(const id of new Set([String(g.away),String(g.home)])){
@@ -116,21 +117,28 @@ function renderScheduleRecovery(d){
   }
  }
  const entries=[...schools.values()].sort((a,b)=>a.fixtures-b.fixtures||a.team.name.localeCompare(b.team.name));
- const empty=entries.filter(x=>x.fixtures===0),thin=entries.filter(x=>x.fixtures>0&&x.fixtures<=6);
+ const eligible=entries.filter(x=>!x.team.not_eligible_for_dii_elo);
+ const excluded=entries.filter(x=>x.team.not_eligible_for_dii_elo);
+ const empty=eligible.filter(x=>x.fixtures===0),thin=eligible.filter(x=>x.fixtures>0&&x.fixtures<=6);
  const renderRows=rows=>rows.map(x=>'<a class="recovery-school" href="'+link(x.team)+'">'+
  '<strong>'+name(x.team)+'</strong><span>'+esc(x.team.conference||'Conference unverified')+
- (x.team.not_eligible_for_dii_elo?' · MEMBERSHIP PENDING':'')+
  '</span><small>'+x.fixtures+' '+(x.fixtures===1?'GAME':'GAMES')+
  (x.fixtures?' · '+x.tipoffs+' WITH VERIFIED TIPOFF':'')+'</small></a>').join('');
+ const renderExcluded=rows=>rows.map(x=>'<a class="recovery-school" href="'+link(x.team)+'">'+
+ '<strong>'+name(x.team)+'</strong><span>'+esc(x.team.membership_status||'Not eligible for 2026–27 Division II Elo')+
+ '</span><small>'+x.fixtures+' PUBLISHED GAMES · NO DII ELO</small></a>').join('');
  target.innerHTML='<div class="recovery-ribbon">'+
- '<div><strong>'+empty.length+'</strong><span>NO PUBLISHED GAMES</span></div>'+
- '<div><strong>'+thin.length+'</strong><span>ONLY 1–6 ENTRIES</span></div>'+
- '<div><strong>'+entries.filter(x=>x.fixtures>6).length+'</strong><span>7+ ENTRIES</span></div></div>'+
- '<p class="recovery-explainer">Counts reflect games actually published in this edition, not completed official school schedules. Exhibition and cross-division records may not appear. Click any school to check its source-backed Gamefile schedule.</p>'+
- '<details class="recovery-details" '+(empty.length?'open':'')+'><summary>UNLISTED SCHOOL SCHEDULES · '+empty.length+'</summary>'+
- (empty.length?'<div class="recovery-school-grid">'+renderRows(empty)+'</div>':'<p class="recovery-explainer">Every directory program has at least one published game; full-season verification remains pending.</p>')+'</details>'+
- '<details class="recovery-details"><summary>LOW-COVERAGE SCHOOL SCHEDULES · '+thin.length+'</summary>'+
- (thin.length?'<div class="recovery-school-grid">'+renderRows(thin)+'</div>':'<p class="recovery-explainer">No programs currently have 1–6 listed games.</p>')+'</details>';
+ '<div><strong>'+empty.length+'</strong><span>ELIGIBLE · NO GAMES</span></div>'+
+ '<div><strong>'+thin.length+'</strong><span>ELIGIBLE · 1–6 GAMES</span></div>'+
+ '<div><strong>'+eligible.filter(x=>x.fixtures>6).length+'</strong><span>ELIGIBLE · 7+ GAMES</span></div></div>'+
+ '<p class="recovery-explainer">Counts include only schools eligible for the 2026–27 DII Elo ledger. They reflect games actually published in this edition, not completed official school schedules. Exhibition and cross-division games may be absent.</p>'+
+ '<details class="recovery-details" '+(empty.length?'open':'')+'><summary>UNLISTED ELIGIBLE SCHOOL SCHEDULES · '+empty.length+'</summary>'+
+ (empty.length?'<div class="recovery-school-grid">'+renderRows(empty)+'</div>':'<p class="recovery-explainer">Every eligible DII program has at least one published game; full-season verification remains pending.</p>')+'</details>'+
+ '<details class="recovery-details"><summary>LOW-COVERAGE ELIGIBLE SCHOOL SCHEDULES · '+thin.length+'</summary>'+
+ (thin.length?'<div class="recovery-school-grid">'+renderRows(thin)+'</div>':'<p class="recovery-explainer">No eligible DII programs currently have 1–6 listed games.</p>')+'</details>'+
+ (excluded.length?'<details class="recovery-details"><summary>NOT ELIGIBLE FOR 2026–27 DII ELO · '+excluded.length+'</summary>'+
+ '<p class="recovery-explainer">These are legacy directory listings, future applicants, or transitioning schools; their missing DII schedules are not recovery work. Their profiles retain source-backed membership notes.</p>'+
+ '<div class="recovery-school-grid">'+renderExcluded(excluded)+'</div></details>':'');
 }
 
 function renderTeam(d){const id=new URLSearchParams(location.search).get('team');const t=state.teams.get(id);$('back-link').href=path;const el=$('team-profile');
