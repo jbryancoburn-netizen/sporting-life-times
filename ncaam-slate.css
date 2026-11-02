@@ -734,3 +734,13 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #c481
  .sl-game .sl-pennant-name{font-size:11px!important}
  .sl-game .sl-pennant-mascot{font-size:10px!important}
 }
+
+/* Evidence-backed editorial achievement and matchup ribbons. */
+.sl-game .sl-title-stars{display:flex;align-items:center;justify-content:center;gap:3px;width:100%;min-height:14px;margin:-1px 0 0;color:#f1cb6d;font:700 12px/1 'DM Sans',sans-serif;letter-spacing:2px;text-shadow:0 1px 2px #14232c}
+.sl-game .sl-title-stars b{font-size:10px;letter-spacing:0;background:rgba(0,0,0,.25);padding:2px 4px}
+.sl-editorial-badges{display:flex;flex-wrap:wrap;align-items:center;gap:7px;padding:9px 12px;background:#f8f5ed;border-bottom:1px solid #d7d4c8}
+.sl-editorial-badge{display:inline-block;padding:5px 9px;font:800 10px/1.3 'DM Sans',Arial,sans-serif;letter-spacing:.055em;text-transform:uppercase;border:1px solid #b5a990;color:#293842;background:#fffdfa;text-decoration:none}
+.sl-editorial-badge.sl-upset{border-color:#ad684a;background:#fff0e8;color:#8d3b26}
+.sl-editorial-badge.sl-rivalry{border-color:#7a8391;color:#243e51}
+.sl-editorial-badge.sl-rivalry:hover{text-decoration:underline}
+@media(max-width:650px){.sl-game .sl-title-stars{font-size:10px;letter-spacing:1px;min-height:12px}.sl-editorial-badges{padding:7px}.sl-editorial-badge{font-size:9px}}
