@@ -67,6 +67,8 @@ async function render(){
  cfg.name=conferenceMeta.short||conferenceMeta.name||cfg.name;
  cfg.standings=conferenceMeta.standings_feed;
  const [baseTable,elo,rules,branding,projections]=await Promise.all([get(cfg.standings),get('data/college-soccer-elo.json'),get('data/college-soccer-postseason-rules.json'),get('data/college-soccer-team-branding.json').catch(()=>({teams:{}})),get('data/college-soccer-projected-standings.json').catch(()=>({conferences:{}}))]);
+ const [teamPalette,crestOverrides]=await Promise.all([get('data/dual-ring-team-palette.json').catch(()=>({soccer:{}})),get('data/college-soccer-crest-overrides.json').catch(()=>({schools:{}}))]);
+ branding.soccer_palette=teamPalette.soccer||{};branding.crest_overrides=crestOverrides.schools||{};
  const projectedTable=projections.conferences?.[key];
  const projectionUsable=Array.isArray(projectedTable?.rows)&&Array.isArray(baseTable.rows)&&projectedTable.rows.length===baseTable.rows.length&&new Set(projectedTable.rows.map(r=>r.team_id)).size===baseTable.rows.length&&projectedTable.rows.every(r=>baseTable.rows.some(b=>b.team_id===r.team_id)&&Number.isFinite(r.conference_points))&&String(projectedTable.snapshot_checked_date||'')>=String(baseTable.snapshot_checked_date||'')&&(!projectedTable.projected_through||Date.parse(projectedTable.projected_through)>=Date.parse(baseTable.snapshot_checked_date));
  const table=projectionUsable?projectedTable:baseTable;
