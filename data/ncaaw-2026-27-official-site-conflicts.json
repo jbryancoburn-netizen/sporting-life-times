@@ -3,10 +3,10 @@
   "gender": "women",
   "status": "unresolved_university_site_claims",
   "policy": "A university 'vs.' prefix is not proof of an on-campus game. Preserve existing ESPN event identities, avoid home-edge forecasts pending independent venue confirmation.",
-  "school_game_claims": 96,
-  "ambiguous_vs_at_neutral": 73,
-  "explicit_university_site_disagreements": 10,
-  "unique_game_ids": 86,
+  "school_game_claims": 101,
+  "ambiguous_vs_at_neutral": 81,
+  "explicit_university_site_disagreements": 6,
+  "unique_game_ids": 92,
   "games": [
     {
       "game_id": "401903558",
@@ -231,34 +231,6 @@
       "review_classification": "ambiguous_vs_at_neutral_site",
       "source_url": "https://goyotes.com/sports/womens-basketball/schedule/2026-27",
       "source_type": "official_university_sidearm_card"
-    },
-    {
-      "game_id": "401912104",
-      "team_id": "2572",
-      "school": "Southern Miss Lady Eagles",
-      "opponent_id": "324",
-      "opponent": "Coastal Carolina Chanticleers",
-      "date": "2027-01-09",
-      "published_site": "home",
-      "university_listed_site": "away",
-      "site_evidence": "explicit_site_column",
-      "review_classification": "explicit_site_claim_disagreement",
-      "source_url": "https://southernmiss.com/sports/womens-basketball/schedule/text",
-      "source_type": "official_university_schedule_table"
-    },
-    {
-      "game_id": "401912104",
-      "team_id": "324",
-      "school": "Coastal Carolina Chanticleers",
-      "opponent_id": "2572",
-      "opponent": "Southern Miss Lady Eagles",
-      "date": "2027-01-09",
-      "published_site": "away",
-      "university_listed_site": "home",
-      "site_evidence": "explicit_site_column",
-      "review_classification": "explicit_site_claim_disagreement",
-      "source_url": "https://goccusports.com/sports/womens-basketball/schedule/text",
-      "source_type": "official_university_schedule_table"
     },
     {
       "game_id": "401912971",
@@ -486,6 +458,20 @@
     },
     {
       "game_id": "401915337",
+      "team_id": "163",
+      "school": "Princeton Tigers",
+      "opponent_id": "43",
+      "opponent": "Yale Bulldogs",
+      "date": "2027-03-06",
+      "published_site": "home",
+      "university_listed_site": "away",
+      "site_evidence": "explicit_site_column",
+      "review_classification": "explicit_site_claim_disagreement",
+      "source_url": "https://goprincetontigers.com/sports/womens-basketball/schedule/text",
+      "source_type": "official_university_schedule_table"
+    },
+    {
+      "game_id": "401915337",
       "team_id": "43",
       "school": "Yale Bulldogs",
       "opponent_id": "163",
@@ -538,6 +524,20 @@
       "site_evidence": "vs_prefix",
       "review_classification": "ambiguous_vs_at_neutral_site",
       "source_url": "https://mutigers.com/sports/womens-basketball/schedule?print=true",
+      "source_type": "official_university_schedule_table"
+    },
+    {
+      "game_id": "401915897",
+      "team_id": "21",
+      "school": "San Diego State Aztecs",
+      "opponent_id": "85",
+      "opponent": "IU Indianapolis Jaguars",
+      "date": "2026-12-20",
+      "published_site": "neutral",
+      "university_listed_site": "home",
+      "site_evidence": "vs_prefix",
+      "review_classification": "ambiguous_vs_at_neutral_site",
+      "source_url": "https://goaztecs.com/sports/womens-basketball/schedule",
       "source_type": "official_university_schedule_table"
     },
     {
@@ -696,6 +696,20 @@
     },
     {
       "game_id": "401916156",
+      "team_id": "2217",
+      "school": "Fairfield Stags",
+      "opponent_id": "252",
+      "opponent": "BYU Cougars",
+      "date": "2026-11-27",
+      "published_site": "neutral",
+      "university_listed_site": "home",
+      "site_evidence": "vs_prefix",
+      "review_classification": "ambiguous_vs_at_neutral_site",
+      "source_url": "https://fairfieldstags.com/sports/womens-basketball/schedule/2026-27",
+      "source_type": "official_university_sidearm_card"
+    },
+    {
+      "game_id": "401916156",
       "team_id": "252",
       "school": "BYU Cougars",
       "opponent_id": "2217",
@@ -723,6 +737,20 @@
       "source_type": "official_university_schedule_table"
     },
     {
+      "game_id": "401917726",
+      "team_id": "198",
+      "school": "Oral Roberts Golden Eagles",
+      "opponent_id": "2351",
+      "opponent": "Loyola Marymount Lions",
+      "date": "2026-11-27",
+      "published_site": "neutral",
+      "university_listed_site": "away",
+      "site_evidence": "away_prefix",
+      "review_classification": "prefix_inferred_site_disagreement",
+      "source_url": "https://oruathletics.com/sports/womens-basketball/schedule/2026-27",
+      "source_type": "official_university_sidearm_card"
+    },
+    {
       "game_id": "401917763",
       "team_id": "304",
       "school": "Idaho State Bengals",
@@ -735,6 +763,20 @@
       "review_classification": "ambiguous_vs_at_neutral_site",
       "source_url": "https://isubengals.com/sports/womens-basketball/schedule/2026-27",
       "source_type": "official_university_sidearm_card"
+    },
+    {
+      "game_id": "401918004",
+      "team_id": "328",
+      "school": "Utah State Aggies",
+      "opponent_id": "2628",
+      "opponent": "TCU Horned Frogs",
+      "date": "2026-11-22",
+      "published_site": "neutral",
+      "university_listed_site": "away",
+      "site_evidence": "explicit_site_column",
+      "review_classification": "explicit_site_claim_disagreement",
+      "source_url": "https://utahstateaggies.com/sports/womens-basketball/schedule?print=true",
+      "source_type": "official_university_schedule_table"
     },
     {
       "game_id": "401918545",
@@ -777,6 +819,20 @@
       "review_classification": "ambiguous_vs_at_neutral_site",
       "source_url": "https://longwoodlancers.com/sports/womens-basketball/schedule/2026-27",
       "source_type": "official_university_sidearm_card"
+    },
+    {
+      "game_id": "401918715",
+      "team_id": "77",
+      "school": "Northwestern Wildcats",
+      "opponent_id": "2026",
+      "opponent": "App State Mountaineers",
+      "date": "2026-11-14",
+      "published_site": "neutral",
+      "university_listed_site": "home",
+      "site_evidence": "vs_prefix",
+      "review_classification": "ambiguous_vs_at_neutral_site",
+      "source_url": "https://nusports.com/sports/womens-basketball/schedule",
+      "source_type": "official_university_schedule_table"
     },
     {
       "game_id": "401918775",
@@ -1073,12 +1129,68 @@
       "source_type": "official_university_schedule_table"
     },
     {
+      "game_id": "401921427",
+      "team_id": "2294",
+      "school": "Iowa Hawkeyes",
+      "opponent_id": "254",
+      "opponent": "Utah Utes",
+      "date": "2026-11-23",
+      "published_site": "neutral",
+      "university_listed_site": "home",
+      "site_evidence": "vs_prefix",
+      "review_classification": "ambiguous_vs_at_neutral_site",
+      "source_url": "https://hawkeyesports.com/sports/wbball/schedule",
+      "source_type": "official_university_schedule_table"
+    },
+    {
+      "game_id": "401921428",
+      "team_id": "2294",
+      "school": "Iowa Hawkeyes",
+      "opponent_id": "2426",
+      "opponent": "Navy Midshipmen",
+      "date": "2026-11-25",
+      "published_site": "neutral",
+      "university_listed_site": "home",
+      "site_evidence": "vs_prefix",
+      "review_classification": "ambiguous_vs_at_neutral_site",
+      "source_url": "https://hawkeyesports.com/sports/wbball/schedule",
+      "source_type": "official_university_schedule_table"
+    },
+    {
+      "game_id": "401921549",
+      "team_id": "70",
+      "school": "Idaho Vandals",
+      "opponent_id": "2463",
+      "opponent": "Cal State Northridge Matadors",
+      "date": "2026-11-28",
+      "published_site": "neutral",
+      "university_listed_site": "home",
+      "site_evidence": "vs_prefix",
+      "review_classification": "ambiguous_vs_at_neutral_site",
+      "source_url": "https://govandals.com/sports/womens-basketball/schedule/2026-27",
+      "source_type": "official_university_sidearm_card"
+    },
+    {
       "game_id": "401923673",
       "team_id": "258",
       "school": "Virginia Cavaliers",
       "opponent_id": "201",
       "opponent": "Oklahoma Sooners",
       "date": "2026-11-23",
+      "published_site": "neutral",
+      "university_listed_site": "home",
+      "site_evidence": "vs_prefix",
+      "review_classification": "ambiguous_vs_at_neutral_site",
+      "source_url": "https://virginiasports.com/sports/wbball/schedule",
+      "source_type": "official_university_schedule_table"
+    },
+    {
+      "game_id": "401923674",
+      "team_id": "258",
+      "school": "Virginia Cavaliers",
+      "opponent_id": "5",
+      "opponent": "UAB Blazers",
+      "date": "2026-11-24",
       "published_site": "neutral",
       "university_listed_site": "home",
       "site_evidence": "vs_prefix",
@@ -1213,62 +1325,6 @@
       "source_type": "official_university_sidearm_card"
     },
     {
-      "game_id": "401928297",
-      "team_id": "204",
-      "school": "Oregon State Beavers",
-      "opponent_id": "278",
-      "opponent": "Fresno State Bulldogs",
-      "date": "2027-03-03",
-      "published_site": "away",
-      "university_listed_site": "home",
-      "site_evidence": "explicit_site_column",
-      "review_classification": "explicit_site_claim_disagreement",
-      "source_url": "https://osubeavers.com/sports/womens-basketball/schedule/text",
-      "source_type": "official_university_schedule_table"
-    },
-    {
-      "game_id": "401928297",
-      "team_id": "278",
-      "school": "Fresno State Bulldogs",
-      "opponent_id": "204",
-      "opponent": "Oregon State Beavers",
-      "date": "2027-03-03",
-      "published_site": "home",
-      "university_listed_site": "away",
-      "site_evidence": "explicit_site_column",
-      "review_classification": "explicit_site_claim_disagreement",
-      "source_url": "https://gobulldogs.com/sports/womens-basketball/schedule/text",
-      "source_type": "official_university_schedule_table"
-    },
-    {
-      "game_id": "401928312",
-      "team_id": "204",
-      "school": "Oregon State Beavers",
-      "opponent_id": "27",
-      "opponent": "UC Riverside Highlanders",
-      "date": "2026-11-18",
-      "published_site": "away",
-      "university_listed_site": "home",
-      "site_evidence": "explicit_site_column",
-      "review_classification": "explicit_site_claim_disagreement",
-      "source_url": "https://osubeavers.com/sports/womens-basketball/schedule/text",
-      "source_type": "official_university_schedule_table"
-    },
-    {
-      "game_id": "401928312",
-      "team_id": "27",
-      "school": "UC Riverside Highlanders",
-      "opponent_id": "204",
-      "opponent": "Oregon State Beavers",
-      "date": "2026-11-18",
-      "published_site": "home",
-      "university_listed_site": "away",
-      "site_evidence": "explicit_site_column",
-      "review_classification": "explicit_site_claim_disagreement",
-      "source_url": "https://gohighlanders.com/sports/womens-basketball/schedule/text",
-      "source_type": "official_university_schedule_table"
-    },
-    {
       "game_id": "401928314",
       "team_id": "304",
       "school": "Idaho State Bengals",
@@ -1293,7 +1349,7 @@
       "university_listed_site": "away",
       "site_evidence": "away_prefix",
       "review_classification": "prefix_inferred_site_disagreement",
-      "source_url": "https://uapblionsroar.com/sports/womens-basketball/schedule",
+      "source_url": "https://uapblionsroar.com/sports/womens-basketball/schedule/2026-27",
       "source_type": "official_university_sidearm_card"
     },
     {
@@ -1336,6 +1392,20 @@
       "site_evidence": "vs_prefix",
       "review_classification": "ambiguous_vs_at_neutral_site",
       "source_url": "https://12thman.com/sports/womens-basketball/schedule",
+      "source_type": "official_university_schedule_table"
+    },
+    {
+      "game_id": "401929205",
+      "team_id": "2390",
+      "school": "Miami Hurricanes",
+      "opponent_id": "254",
+      "opponent": "Utah Utes",
+      "date": "2026-11-25",
+      "published_site": "neutral",
+      "university_listed_site": "home",
+      "site_evidence": "vs_prefix",
+      "review_classification": "ambiguous_vs_at_neutral_site",
+      "source_url": "https://miamihurricanes.com/sports/wbball/schedule",
       "source_type": "official_university_schedule_table"
     },
     {
