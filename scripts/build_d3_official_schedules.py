@@ -86,6 +86,19 @@ ALIASES = {
     "saint johns minnesota": 602, "st johns minnesota": 602,
     "johnson and wales university": 22626, "uw eau claire": 793,
     "uw oshkosh": 798, "uw stevens point": 802,
+    # NCAA directory names differ from official opponent short names. These
+    # deliberately include institution qualifiers; "Trinity" and bare
+    # "Saint Joseph" remain ambiguous and must never be guessed.
+    "penn state behrend": 538, "penn st behrend": 538,
+    "penn state behrend college": 538, "psu behrend": 538,
+    "regis college": 569, "regis college mass": 569,
+    "regis college ma": 569, "regis mass": 569,
+    "regis college massachusetts": 569,
+    "suny delhi": 30225, "suny delhi broncos": 30225,
+    "st joseph ct": 8687, "saint joseph ct": 8687,
+    "st joseph conn": 8687, "saint joseph conn": 8687,
+    "university of saint joseph": 8687, "usj": 8687,
+
     "uw la crosse": 795, "uw platteville": 800,
     "uw river falls": 801, "uw stout": 803, "uw stout polytechnic": 803,
     "uw superior": 804, "uw whitewater": 805,
@@ -1048,6 +1061,22 @@ def self_test():
     assert resolve("Trine University", by_org, exact) == 30037
     assert resolve("Trinity", by_org, exact) is None
     assert resolve("Trine or Hope", by_org, exact) is None
+    missing_names = [
+        (538, "Pennsylvania State Univ. Erie, the Behrend College", "Penn State Behrend"),
+        (569, "Regis College (Massachusetts)", "Regis College"),
+        (30225, "State University of New York at Delhi", "SUNY Delhi"),
+        (8687, "University of Saint Joseph (Connecticut)", "St. Joseph (CT)"),
+    ]
+    aliases_by_org, aliases_exact = official_index([
+        {"ncaa_org_id": org, "name": name, "membership_year": 2027,
+         "d3_confirmed": True} for org, name, _ in missing_names
+    ])
+    assert all(resolve(label, aliases_by_org, aliases_exact) == org
+               for org, _, label in missing_names)
+    assert resolve("St. Joseph", aliases_by_org, aliases_exact) is None
+    assert resolve("Regis University", aliases_by_org, aliases_exact) is None
+    assert resolve("Penn State Altoona", aliases_by_org, aliases_exact) is None
+
     # Cross-school fixture identities must not disappear due to NCAA's formal
     # institution names; ambiguous names remain unresolved rather than guessed.
     for label, expected_org in (
