@@ -57,6 +57,23 @@ class TestNsic(unittest.TestCase):
         self.assertEqual(audit["added"],0)
         self.assertEqual(g["away_score"],71)
         self.assertEqual(g["status"],"final")
+    def test_full_legal_moorhead_title_for_both_official_conference_pages(self):
+        # NSIC uses the school's FULL legal name in HTML <title>, while
+        # the official visible H1 says MSU Moorhead. Both are the same school.
+        for gender,source_id in (("men",4254),("women",4270)):
+            original=html(gender,"MSU Moorhead","at Minnesota Crookston","A")
+            legal=original.replace("2026-27 MSU Moorhead",
+                                   "2026-27 Minnesota State University Moorhead")
+            games,rejected=parse(legal,gender,source_id)
+            self.assertEqual(len(games),1)
+            self.assertEqual(games[0][3],"moorhead")
+            self.assertEqual(games[0][1],"moorhead")
+            self.assertEqual(games[0][2],"crookston")
+            # Guard against confusing Moorhead with Minnesota State Mankato.
+            wrong=legal.replace("Minnesota State University Moorhead",
+                                "Minnesota State University Mankato")
+            with self.assertRaises(ValueError):
+                parse(wrong,gender,source_id)
     def test_womens_full_conference_names(self):
         src=files("women");out={}
         audit=enrich_nsic("women",out,teams(long=True),dt.date(2026,11,1),lambda url:src[url])
