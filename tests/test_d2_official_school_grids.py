@@ -17,8 +17,8 @@ class D2OfficialSchoolGrids(unittest.TestCase):
                   ("women","lincoln-university-pennsylvania"):28,
                   ("women","university-of-charleston-west-virginia"):28,
                   ("women","upper-iowa-university"):26,
-                  ("women","lenoir-rhyne-university"):1,
-                  ("women","the-university-of-virginia-s-college-at-wise"):1}
+                  ("women","lenoir-rhyne-university"):2,
+                  ("women","the-university-of-virginia-s-college-at-wise"):2}
         current={(x["gender"],x["owner_id"]):len(x["fixtures"]) for x in data["schools"]}
         self.assertEqual(len(current),len(data["schools"]))
         for ident,count in required.items():
@@ -131,8 +131,8 @@ class D2OfficialSchoolGrids(unittest.TestCase):
         }
         for owner,(date,time) in cases.items():
             source=next(s for s in evidence["schools"] if s["owner_id"]==owner)
-            self.assertEqual(len(source["fixtures"]),1)
-            row=source["fixtures"][0]
+            self.assertEqual(len(source["fixtures"]),2)
+            row=next(item for item in source["fixtures"] if item["opponent"]=="University of Puerto Rico, Mayaguez")
             self.assertEqual(row["date"],date)
             self.assertEqual(row["start_time"],time)
             self.assertEqual(row["role"],"neutral")
@@ -153,7 +153,7 @@ class D2OfficialSchoolGrids(unittest.TestCase):
         games={}
         first=apply_official_school_grid_snapshots(
             "women",games,teams,dt.date(2026,11,1))
-        self.assertEqual(first["source_rows"],2)
+        self.assertEqual(first["source_rows"],4)
         self.assertEqual(first["created"],2)
         self.assertEqual(len(games),2)
         self.assertEqual({g["date"] for g in games.values()},
