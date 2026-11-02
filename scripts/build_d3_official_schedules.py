@@ -3007,6 +3007,10 @@ def self_test():
                    game["away_org_id"] == opponent]
         assert len(matches) == 1, (date, opponent, matches)
     assert not recovered_report["unresolved_opponent_rows"]
+    # A repeated opponent is valid on different dates, but each fixture/date
+    # pair must be unique after stripping conference footnote markers.
+    assert len({(g["date"], g["away_org_id"], g["home_org_id"])
+                for g in recovered}) == len(recovered)
 
     print("DIII schedule importer: date/identity/conditional/neutral/reciprocal tests PASS")
 
