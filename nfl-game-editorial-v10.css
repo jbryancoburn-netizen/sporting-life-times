@@ -247,3 +247,19 @@ body.nfl-paper[data-page="game"]{--paper:#f8f5ed;--ink:#151b20;--soft:#55595c;--
  .nfl-paper[data-page="game"] .nfl-feature-prob-values strong{font-size:18px}
 }
 @media(prefers-reduced-motion:reduce){.nfl-paper[data-page="game"] *{scroll-behavior:auto!important}}
+
+/* Offline-verified scoring ledger; visually integrated into the same dark report. */
+.nfl-paper[data-page="game"] .nfl-feature-report .nfl-offline-quarter-list{
+ display:grid;gap:0;padding:3px 0 8px;
+}
+.nfl-paper[data-page="game"] .nfl-feature-report .nfl-offline-quarter{
+ display:flex;justify-content:space-between;gap:12px;align-items:baseline;
+ padding:11px 0;border-bottom:1px solid #ffffff24;
+ font:700 13px/1.25 "Iowan Old Style",Baskerville,Georgia,serif;color:#f6f5f1;
+}
+.nfl-paper[data-page="game"] .nfl-feature-report .nfl-offline-quarter b{
+ color:#ffbcb4;font:900 11px Arial,sans-serif;letter-spacing:.09em;
+}
+.nfl-paper[data-page="game"] .nfl-feature-report .nfl-offline-quarter span{
+ font-variant-numeric:tabular-nums;letter-spacing:.02em;
+}
