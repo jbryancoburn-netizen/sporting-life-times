@@ -70,15 +70,29 @@ def normalize_event(event,crosswalk):
             "status":"final" if done else "scheduled",
             "provider":"espn"},None
 
-def merge(previous,updates):
+def merge(previous,updates,identity_conflicts=None):
+    # Test callers retain strict assertions; production supplies a quarantine
+    # list so a changed ESPN event ID cannot halt updates for every other game.
     all_rows={str(e["contest_id"]):e for e in previous}
+    quarantined=set()
     corrected=0
     for new in updates:
         gid=new["contest_id"]
+        if gid in quarantined:
+            continue
         old=all_rows.get(gid)
         if old:
             if old["home"]!=new["home"] or old["away"]!=new["away"]:
-                raise ValueError(f"ESPN event participant identity changed: {gid}")
+                if identity_conflicts is None:
+                    raise ValueError(f"ESPN event participant identity changed: {gid}")
+                identity_conflicts.append({"event_id":gid,
+                    "cached_teams":[old["away"],old["home"]],
+                    "new_teams":[new["away"],new["home"]]})
+                # Quarantine both versions; don't publish a disputed fixture,
+                # discard a proven result, or assign a final to the wrong team.
+                all_rows.pop(gid,None)
+                quarantined.add(gid)
+                continue
             if old["status"]=="final" and new["status"]!="final":
                 continue  # Temporary provider degradation cannot erase a final.
             if old["status"]=="final" and new["status"]=="final" and (
@@ -112,14 +126,17 @@ def collect(through,crosswalk_path,cache_path,fetcher=fetch_day):
             if reason:excluded[reason]=excluded.get(reason,0)+1
             else:updates.append(row)
         day+=timedelta(days=1)
-    merged,corrections=merge(previous,updates)
+    identity_conflicts=[]
+    merged,corrections=merge(previous,updates,identity_conflicts)
     report={"provider":"ESPN scoreboard","season":"2026-27",
         "crosswalk_matched_programs":known["matched_team_count"],
         "crosswalk_unmatched_programs":known["missing_ncaa_teams"],
         "fetch_start":start.isoformat(),"fetch_through":finish.isoformat(),
         "provider_events_seen":fetched,"provider_events_accepted":len(updates),
         "provider_events_excluded":excluded,"corrected_final_scores":corrections,
-        "cached_event_count":len(merged)}
+        "cached_event_count":len(merged),
+        "quarantined_identity_conflicts":identity_conflicts,
+        "quarantined_identity_count":len(identity_conflicts)}
     return merged,report
 
 def write_cache(path,rows):
