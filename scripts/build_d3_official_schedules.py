@@ -177,9 +177,17 @@ def parse_calendar(html, gender, owner, url, by_org, exact):
     identity_text = (title + " " + headlines).lower().replace("’", "'")
     if not re.search(r"2026\s*[-–]\s*(?:27|2027)", identity_text):
         raise ValueError("No 2026–27 season in the actual page title/heading")
-    if gender == "men" and (not re.search(r"(?<![a-z])men's\s+basketball", identity_text)
-                            or re.search(r"women's\s+basketball", identity_text)):
-        raise ValueError("Wrong men's sport or women's calendar")
+    if gender == "men":
+        # Some all-male athletic programs (e.g., Wabash) title the page
+        # "Basketball Schedule" rather than "Men's Basketball Schedule".
+        # The official, gender-specific URL + season-heading + dated grid
+        # must ALL agree; never accept this exception on a women's path.
+        mens_path = "/sports/mens-basketball/schedule" in urlsplit(url).path.lower()
+        explicit_men = bool(re.search(r"(?<![a-z])men's\s+basketball", identity_text))
+        basketball_schedule = bool(re.search(r"\bbasketball\s+schedule\b", identity_text))
+        if ("women's basketball" in identity_text or
+                not (explicit_men or (mens_path and basketball_schedule))):
+            raise ValueError("Wrong men's sport or women's calendar")
     if gender == "women" and not re.search(r"women's\s+basketball", identity_text):
         raise ValueError("Wrong women's sport or men's calendar")
     matches = []
@@ -422,6 +430,52 @@ def process(gender, workers=30, dry_run=False):
         raise ValueError(f"No official {gender} calendars parsed; preserving last certified dataset")
     count_reciprocal = sum(f["source_verification"] == "reciprocal" for f in fixtures)
     status_counts = Counter(a["status"] for a in audit)
+    # A failed school's *own* site can still have dated DIII fixtures verified
+    # by official opponent sites. Preserve that provenance, but never call it a
+    # certified complete calendar or claim the school published the schedule.
+    fixture_index = defaultdict(list)
+    for f in fixtures:
+        fixture_index[f["away_org_id"]].append(f)
+        fixture_index[f["home_org_id"]].append(f)
+    missing_school_review = []
+    for a in sorted((x for x in audit if x["status"] != "parsed"),
+                    key=lambda x: x["owner_org_id"]):
+        org = a["owner_org_id"]
+        other_sourced = [f for f in fixture_index[org]
+                         if org not in f["verified_by_org_ids"]]
+        reason = (a.get("error") or "").lower()
+        if "http error 403" in reason or "http error 429" in reason:
+            category = "access_restricted"
+        elif "http error 405" in reason:
+            category = "server_refused_method"
+        elif "http error 404" in reason:
+            category = "calendar_path_unavailable"
+        elif "wrong " in reason and "sport" in reason:
+            category = "gender_or_sport_ambiguous"
+        elif "season in the actual" in reason:
+            category = "season_heading_not_verified"
+        elif "readable grid rows" in reason or "eligible matches" in reason:
+            category = "unsupported_calendar_or_opponent_format"
+        elif "timed out" in reason or "connection reset" in reason:
+            category = "temporary_network_failure"
+        else:
+            category = "source_unavailable_or_unverified"
+        missing_school_review.append({
+            "ncaa_org_id": org, "school": by_org[org]["name"],
+            "conference": by_org[org].get("conference", ""),
+            "category": category, "failed_url": a.get("source_url", ""),
+            "opponent_published_fixtures": len(other_sourced),
+            "opponent_source_examples": list(dict.fromkeys(
+                f["source_url"] for f in other_sourced))[:3]
+        })
+    review_coverage = {
+        "remaining_unverified_school_calendars": len(missing_school_review),
+        "missing_schools_with_at_least_10_opponent_sourced_games": sum(
+            m["opponent_published_fixtures"] >= 10 for m in missing_school_review),
+        "missing_schools_with_zero_opponent_sourced_games": sum(
+            m["opponent_published_fixtures"] == 0 for m in missing_school_review),
+        "recovery_reason_counts": dict(Counter(m["category"] for m in missing_school_review))
+    }
     output = {
         "schema_version": 1, "division": "d3", "gender": gender, "season": "2026-27",
         "generated_utc": dt.datetime.now(dt.timezone.utc).isoformat(),
@@ -432,6 +486,8 @@ def process(gender, workers=30, dry_run=False):
         "school_calendars_checked": len(audit),
         "school_calendars_missing": len(by_org) - successful,
         "source_status_counts": dict(status_counts),
+        "unverified_school_review": missing_school_review,
+        "unverified_school_summary": review_coverage,
         "no_athletics_host": missing,
         "source_audit": sorted(audit, key=lambda x: x["owner_org_id"]),
         "conflicts": conflicts,
@@ -444,7 +500,8 @@ def process(gender, workers=30, dry_run=False):
     print(json.dumps({"gender": gender, "ncaa_members": len(by_org),
                       "calendars_parsed": successful, "fixtures": len(fixtures),
                       "reciprocal": count_reciprocal, "conflicts": len(conflicts),
-                      "outcomes": dict(status_counts)}, sort_keys=True), flush=True)
+                      "outcomes": dict(status_counts),
+                      "unverified_school_summary": review_coverage}, sort_keys=True), flush=True)
     return output
 
 def self_test():
@@ -463,6 +520,8 @@ def self_test():
     assert calendar_date("January 99, 2027") is None
     assert calendar_date("October 31, 2026 (Saturday)") is None
     assert not re.search(r"(?<![a-z])men's\s+basketball", "women's basketball")
+    assert "/sports/mens-basketball/schedule" in "/sports/mens-basketball/schedule/2026-2027"
+    assert "women's basketball" not in "2026-2027 Wabash College Basketball Schedule".lower()
     candidates, missing = source_candidates("men", {
         286: {**by_org[286], "athletics_site": "https://athletics.hope.edu/landing/index"},
         30037: {**by_org[30037], "athletics_site": "https://www.trinethunder.com/"}
