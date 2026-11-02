@@ -24,7 +24,7 @@ async function loadNews(){
   const fresh=freshAge>=-2&&freshAge<=6;
   id("desk-feed-status").textContent=(fresh?"Publisher feeds updated ":"Last collected ")+clock(date(j.updated_at))+" · "+(fresh?"Sourced headlines":"Archive — refresh pending");
   id("desk-feed-state").textContent=fresh?"LATEST FROM VERIFIED PUBLISHERS":"LATEST AVAILABLE PUBLISHER LINKS";
-  const main=unique[0];linkText(id("desk-feature-headline"),main.url,main.title);linkText(id("desk-feature-link"),main.url,"");id("desk-feature-link").setAttribute("aria-label","Open story at "+main.source+": "+main.title);
+  const main=unique[0];linkText(id("desk-feature-headline"),main.url,main.title);const photoLink=id("desk-feature-link");photoLink.href=main.url;photoLink.target="_blank";photoLink.rel="noopener noreferrer";photoLink.setAttribute("aria-label","Open story at "+main.source+": "+main.title);
   id("desk-feature-source").textContent=main.source.toUpperCase()+" · "+clock(date(main.published_at));
   id("desk-feature-intro").textContent="A sourced headline from "+main.source+". Read the complete reporting at the publisher; explore the election data and race files below.";
   linkText(id("desk-feature-read"),main.url,"Read the report at "+main.source+" ↗");
