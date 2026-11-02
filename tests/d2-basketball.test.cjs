@@ -20,7 +20,13 @@ test('sanctioned 2026 Hawaii games are present, neutral and counted exactly once
   const played=data.games.filter(g=>g.id.startsWith('hih-2026-'));
   assert.equal(source[gender].length,12);
   assert.equal(played.length,12);
-  assert.equal(played.filter(g=>g.status==='final').length,8);
+  // Official October tournament finishes continue to arrive live. Avoid
+  // freezing the October 31 final count after November 1 results become final.
+  const officialFinals=played.filter(g=>g.status==='final');
+  assert.ok(officialFinals.length>=8 && officialFinals.length<=12,
+    'verified tournament finals should advance monotonically without fabricated extras');
+  assert.ok(officialFinals.every(g=>g.verified&&Number.isInteger(g.away_score)&&Number.isInteger(g.home_score)),
+    'every completed tournament game must retain official scores and verification');
   assert.ok(played.every(g=>g.neutral&&g.source_url===source.source_url));
   assert.ok(played.every(g=>data.teams.some(t=>t.id===g.away)&&data.teams.some(t=>t.id===g.home)));
   assert.equal(new Set(played.map(g=>g.id)).size,12);
