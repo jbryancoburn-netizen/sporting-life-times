@@ -117,6 +117,30 @@ class TestCCAA(unittest.TestCase):
         ambiguous['second-humboldt']={'name':'Humboldt State','conference':'CCAA'}
         rep,_=self.call(pages,teams=ambiguous)
         self.assertEqual(rep['added'],0)
+    def test_missing_fresno_star_can_be_second_witness_but_never_sole_conference_claim(self):
+        pages,pairs=make_pages()
+        fresno_url=c.BASE+'5206'
+        # Official Fresno 2026-27 grid omits stars on many actual league games.
+        # The other university must mark the conference game explicitly.
+        pages[fresno_url]=pages[fresno_url].replace('<td>*</td>','<td></td>')
+        report,games=self.call(pages)
+        self.assertEqual(report['added'],91)
+        self.assertEqual(report['unmarked_both_held'],0)
+        # Take one specific Fresno/other-school matchup, remove its other
+        # school's marker too; two unmarked pages cannot certify conference status.
+        date,a,b=next((d,x,y) for d,x,y in pairs if 'fresno' in (x,y))
+        other=b if a=='fresno' else a
+        other_url=c.BASE+str(next(i for i,name in c.SOURCES.items() if name==other))
+        day_text=dt.date.fromisoformat(date).strftime('%-m/%-d/%Y')
+        original=pages[other_url]
+        marker=f'<tr><td>{day_text}</td><td>*</td>'
+        self.assertIn(marker,original)
+        pages[other_url]=original.replace(marker,f'<tr><td>{day_text}</td><td></td>',1)
+        second,after=self.call(pages)
+        self.assertEqual(second['added'],90)
+        self.assertGreaterEqual(second['unmarked_both_held'],1)
+        self.assertFalse(any(g['date']==date and 'fresno' in (g['away'],g['home'])
+                             for g in after.values()))
     def test_conflicting_pacific_clocks_not_assigned(self):
         pages,pairs=make_pages()
         day,a,b=pairs[0]
