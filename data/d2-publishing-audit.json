@@ -6,12 +6,12 @@
   "men": {
     "gender": "men",
     "teams": 301,
-    "games": 2930,
+    "games": 3037,
     "verified_elo_finals": 26,
     "dated_game_days": 104,
-    "no_venue": 2795,
-    "no_network": 2800,
-    "no_tipoff": 933,
+    "no_venue": 2772,
+    "no_network": 2907,
+    "no_tipoff": 936,
     "no_source_url": 0,
     "schools_without_a_published_game": 6,
     "eligible_schools_without_a_published_game": 0,
@@ -20,10 +20,10 @@
       "disclaimer": "These are published ledger entries, not full-school schedule certifications. NCAA scoreboard and university schedules may be incomplete.",
       "programs_with_published_games": 295,
       "without_games": 6,
-      "with_1_to_6_games": 22,
+      "with_1_to_6_games": 15,
       "eligible_without_games": 0,
       "excluded_without_games": 6,
-      "eligible_with_1_to_6_games": 21,
+      "eligible_with_1_to_6_games": 14,
       "eligible_zero_game_schools": [],
       "zero_game_schools": [
         {
@@ -95,31 +95,9 @@
       ],
       "thin_schedule_priority": [
         {
-          "id": "charleston",
-          "name": "Charleston",
-          "conference": "MEC",
-          "membership_pending": false,
-          "published_fixtures": 1,
-          "finals": 0,
-          "with_tipoff": 1,
-          "with_venue": 0,
-          "with_network": 0
-        },
-        {
           "id": "elizabeth-city-state",
           "name": "Elizabeth City State",
           "conference": "CIAA",
-          "membership_pending": false,
-          "published_fixtures": 1,
-          "finals": 0,
-          "with_tipoff": 1,
-          "with_venue": 0,
-          "with_network": 0
-        },
-        {
-          "id": "fairmont-state",
-          "name": "Fairmont State",
-          "conference": "MEC",
           "membership_pending": false,
           "published_fixtures": 1,
           "finals": 0,
@@ -161,28 +139,6 @@
           "with_network": 0
         },
         {
-          "id": "west-virginia-wesleyan",
-          "name": "West Virginia Wesleyan",
-          "conference": "MEC",
-          "membership_pending": false,
-          "published_fixtures": 2,
-          "finals": 0,
-          "with_tipoff": 2,
-          "with_venue": 1,
-          "with_network": 0
-        },
-        {
-          "id": "wheeling",
-          "name": "Wheeling",
-          "conference": "MEC",
-          "membership_pending": false,
-          "published_fixtures": 2,
-          "finals": 0,
-          "with_tipoff": 2,
-          "with_venue": 0,
-          "with_network": 0
-        },
-        {
           "id": "claflin",
           "name": "Claflin",
           "conference": "CIAA",
@@ -203,17 +159,6 @@
           "with_tipoff": 3,
           "with_venue": 3,
           "with_network": 3
-        },
-        {
-          "id": "point-park",
-          "name": "Point Park",
-          "conference": "MEC",
-          "membership_pending": false,
-          "published_fixtures": 3,
-          "finals": 0,
-          "with_tipoff": 3,
-          "with_venue": 0,
-          "with_network": 0
         },
         {
           "id": "virginia-state",
@@ -260,17 +205,6 @@
           "with_network": 0
         },
         {
-          "id": "west-virginia-state",
-          "name": "West Virginia State",
-          "conference": "MEC",
-          "membership_pending": false,
-          "published_fixtures": 4,
-          "finals": 0,
-          "with_tipoff": 4,
-          "with_venue": 0,
-          "with_network": 0
-        },
-        {
           "id": "western-oregon",
           "name": "Western Oregon",
           "conference": "GNAC",
@@ -278,17 +212,6 @@
           "published_fixtures": 4,
           "finals": 0,
           "with_tipoff": 4,
-          "with_venue": 0,
-          "with_network": 0
-        },
-        {
-          "id": "west-liberty",
-          "name": "West Liberty",
-          "conference": "MEC",
-          "membership_pending": false,
-          "published_fixtures": 5,
-          "finals": 0,
-          "with_tipoff": 5,
           "with_venue": 0,
           "with_network": 0
         },
@@ -458,11 +381,11 @@
         "MEC": {
           "programs": 12,
           "without_games": 0,
-          "with_1_to_6_games": 7,
-          "fixture_appearances": 69,
+          "with_1_to_6_games": 0,
+          "fixture_appearances": 283,
           "eligible_without_games": 0,
           "excluded_without_games": 0,
-          "eligible_with_1_to_6_games": 7
+          "eligible_with_1_to_6_games": 0
         },
         "MIAA": {
           "programs": 14,
@@ -570,6 +493,7 @@
       "GMAC 2026-27 reciprocal official school calendars": 91,
       "Gulf South Conference member schedules (reciprocal)": 109,
       "LSC 2026-27 reciprocal official university schedules": 123,
+      "MEC 2026-27 reciprocal official university calendars": 107,
       "MIAA 2026-27 two-university official schedules": 113,
       "NCAA scoreboard": 716,
       "NE10 2026-27 official reciprocal school calendars": 65,
@@ -789,6 +713,21 @@
         "one_sided": 2,
         "conflicts": 1,
         "source": "https://goccaa.org/schedule.aspx?schedule=",
+        "unavailable_count": 0
+      },
+      "MEC men fixtures": {
+        "status": "MEC 2026-27 exact two-university men's fixtures verified",
+        "gender": "men",
+        "schools_read": 12,
+        "added": 107,
+        "enriched": 23,
+        "time_conflicts": 3,
+        "reciprocal": 130,
+        "one_sided": 2,
+        "official_tipoffs_added": 104,
+        "official_arenas_added": 130,
+        "conflicts": 0,
+        "source": "Mountain East universities' own official 2026-27 basketball calendars",
         "unavailable_count": 0
       },
       "SSC fixtures": {
