@@ -62,7 +62,7 @@ class CandidatePhotoUI(unittest.TestCase):
     def test_large_controls_use_vector_arrows_and_conspicuous_party_badges(self):
         self.assertIn("function openCardIcon()",self.script)
         self.assertIn("http://www.w3.org/2000/svg",self.script)
-        self.assertIn('newEl("span",info.party||"—","marker")',self.script)
+        self.assertIn('newEl("span",read.watch?"◆":info.party||"—","marker")',self.script)
         self.assertIn('mark.title=',self.script)
         self.assertIn('.district-card::after{content:none!important',self.css)
         self.assertIn('width:51px;height:51px',self.css)
