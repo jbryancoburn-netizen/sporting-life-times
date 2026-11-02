@@ -1,248 +1,219 @@
-/* THE POLITICAL LIFE & TIMES / LOCAL IDENTITY DESK
- * Real state flags (with text fallbacks), official Census district geometry,
- * and party-affiliation emblems. All shapes are geography, never forecast.
- * State flag images: flagcdn.com (US state flags, public domain).
- * Party emblems: Font Awesome Free 6.7.2 (CC BY 4.0), text fallback.
- */
+/* All-435 race identity: actual Census polygons, state flag graphics and party badges.
+   Imagery is sourced, never fabricated candidate portraits. No poll is interpreted as odds. */
 (function(){
 "use strict";
-const NS="http://www.w3.org/2000/svg";
-const byId=id=>document.getElementById(id);
-const el=(tag,cl,content)=>{const x=document.createElement(tag);if(cl)x.className=cl;if(content!=null)x.textContent=String(content);return x};
-const svgEl=tag=>document.createElementNS(NS,tag);
-const atlasGeoCache=new Map();
-// These are visual/identity colors, not partisan forecast ratings.
-const stateTones={
- AL:["#173c63","#d3aa70"],AK:["#142e64","#efcd5e"],AZ:["#9b3d30","#d5a34a"],
- AR:["#a83b43","#eee5d5"],CA:["#b64c3f","#bd9e59"],CO:["#1e4f87","#d6b452"],
- CT:["#213d74","#e5c37c"],DE:["#327fa8","#daa66b"],FL:["#173d6f","#e9a84f"],
- GA:["#af4145","#d6ae6e"],HI:["#355b8a","#e3ac72"],ID:["#355f83","#d4aa6c"],
- IL:["#276b9c","#cb7c51"],IN:["#1b477f","#d3ac5b"],IA:["#214879","#bb4654"],
- KS:["#2d5182","#e8ad59"],KY:["#174d86","#deb56b"],LA:["#194b74","#d8af67"],
- ME:["#21447b","#e7bb68"],MD:["#a74c35","#dcb153"],MA:["#28587e","#d2b16c"],
- MI:["#214f75","#dfb35b"],MN:["#1f6a88","#90d1c5"],MS:["#29537d","#d9b46c"],
- MO:["#254973","#e5bb71"],MT:["#27477b","#e9b95e"],NE:["#1c5586","#ddb257"],
- NV:["#24558b","#d9af61"],NH:["#274983","#d7b46c"],NJ:["#3d5777","#d8b46f"],
- NM:["#bb503f","#f1c65d"],NY:["#1c4d87","#dcb66c"],NC:["#214b7a","#d8b16b"],
- ND:["#234e7f","#dbb369"],OH:["#1b487b","#dfb45d"],OK:["#487e9f","#dbb163"],
- OR:["#1d4b7f","#d8ad54"],PA:["#1d4271","#e1bb67"],RI:["#26528a","#daa85c"],
- SC:["#1e5084","#e3b96f"],SD:["#266f99","#e6ba59"],TN:["#a83d48","#dcb16f"],
- TX:["#1c4981","#e0b36d"],UT:["#224776","#d8ac65"],VT:["#244a65","#dcb366"],
- VA:["#22467e","#d0aa61"],WA:["#215d59","#d1b46b"],WV:["#234d7a","#d4b36b"],
- WI:["#1c4b89","#dcb669"],WY:["#245283","#d6b569"]
+const $=id=>document.getElementById(id);
+const N="http://www.w3.org/2000/svg";
+const el=(tag,cls,txt)=>{const x=document.createElement(tag);if(cls)x.className=cls;if(txt!=null)x.textContent=txt;return x;};
+const named={
+ AL:"Alabama",AK:"Alaska",AZ:"Arizona",AR:"Arkansas",CA:"California",CO:"Colorado",CT:"Connecticut",DE:"Delaware",FL:"Florida",GA:"Georgia",
+ HI:"Hawaii",ID:"Idaho",IL:"Illinois",IN:"Indiana",IA:"Iowa",KS:"Kansas",KY:"Kentucky",LA:"Louisiana",ME:"Maine",MD:"Maryland",
+ MA:"Massachusetts",MI:"Michigan",MN:"Minnesota",MS:"Mississippi",MO:"Missouri",MT:"Montana",NE:"Nebraska",NV:"Nevada",NH:"New Hampshire",NJ:"New Jersey",
+ NM:"New Mexico",NY:"New York",NC:"North Carolina",ND:"North Dakota",OH:"Ohio",OK:"Oklahoma",OR:"Oregon",PA:"Pennsylvania",RI:"Rhode Island",
+ SC:"South Carolina",SD:"South Dakota",TN:"Tennessee",TX:"Texas",UT:"Utah",VT:"Vermont",VA:"Virginia",WA:"Washington",WV:"West Virginia",WI:"Wisconsin",WY:"Wyoming"
 };
-const currentTone=code=>stateTones[code]||["#204d78","#d9b56b"];
-const unique=arr=>[...new Set(arr)];
-function badge(code,state,variant){
- const wrap=el("div","race-place-badge "+(variant||""));
- const flag=el("span","race-flag-frame");
- const img=document.createElement("img");
- img.src="https://flagcdn.com/us-"+code.toLowerCase()+".svg";
- img.alt=state.name+" state flag";
- img.loading="eager";img.decoding="async";
- img.onerror=()=>{img.remove();flag.classList.add("flag-unavailable");};
- flag.append(img,el("span","race-flag-fallback",code));
- const text=el("div","race-place-caption");
- text.append(el("small",null,"STATE EDITION · OFFICIAL FLAG"),
-  el("strong",null,state.name.toUpperCase()),
-  el("span",null,"THE POLITICAL LIFE & TIMES"));
- wrap.append(flag,text);
- return wrap;
+// Two-color treatment inspired by state flags; actual flag image is fetched separately.
+const themes={
+ AL:["#a7232e","#f5eee1"],AK:["#183c74","#ebc65d"],AZ:["#ba303d","#f6b943"],AR:["#ae2636","#205a9d"],CA:["#b62935","#397c52"],
+ CO:["#bd3436","#ebbf49"],CT:["#204e91","#d4be76"],DE:["#18798b","#e8ba46"],FL:["#bb3044","#efae3c"],GA:["#b62d40","#c8a05a"],
+ HI:["#284e89","#c0444c"],ID:["#1b5086","#dcb85f"],IL:["#2e659c","#b33c41"],IN:["#143b81","#e2b04d"],IA:["#245a9c","#ba3442"],
+ KS:["#254e84","#e7be50"],KY:["#27497a","#dbbd69"],LA:["#2467a2","#d8b77a"],ME:["#23507a","#b89a65"],MD:["#cead44","#ba3140"],
+ MA:["#29518c","#bd9f60"],MI:["#2d5a8d","#ddba56"],MN:["#2a5781","#79b7ca"],MS:["#a22c36","#e8bd59"],MO:["#9d3143","#1f4f86"],
+ MT:["#24558e","#dfb65b"],NE:["#264a82","#c3a46e"],NV:["#2b5988","#b7ab64"],NH:["#245085","#dfc474"],NJ:["#b88c53","#285482"],
+ NM:["#c53b37","#edbd3d"],NY:["#205295","#e2b967"],NC:["#bb343b","#275d91"],ND:["#285287","#e1be59"],OH:["#ae3546","#2e5691"],
+ OK:["#3875ab","#bc9861"],OR:["#204b89","#e3b743"],PA:["#1b487e","#d4b76f"],RI:["#d9b34e","#245c88"],SC:["#216d8a","#d9c298"],
+ SD:["#3b7caf","#d3bd63"],TN:["#b6303b","#254e88"],TX:["#b72d39","#244d8e"],UT:["#1b5691","#e7b944"],VT:["#2f6c59","#c9ac5e"],
+ VA:["#2c568a","#c3a464"],WA:["#285e50","#bd9d5b"],WV:["#e4bd55","#31548c"],WI:["#24579b","#ddb45c"],WY:["#b13342","#2e6390"]
+};
+const flagFile=code=>"https://commons.wikimedia.org/wiki/Special:FilePath/"+(code==="GA"?"Flag_of_Georgia_(U.S._state)":"Flag_of_"+encodeURIComponent(named[code]||code).replace(/%20/g,"_"))+".svg";
+function flag(code,cls="state-flag-image"){
+ const img=document.createElement("img");img.className=cls;img.alt=(named[code]||code)+" state flag";
+ img.loading="lazy";img.decoding="async";img.referrerPolicy="no-referrer";
+ img.src=flagFile(code);
+ img.addEventListener("error",()=>{img.hidden=true;const parent=img.parentNode;if(parent&&!parent.querySelector(".state-flag-fallback"))parent.append(el("span","state-flag-fallback",code));},{once:true});
+ return img;
 }
-function seatChip(r,state){
- const number=Number(r.district);
- const chip=el("div","race-seat-chip");
- chip.append(el("span",null,"U.S. HOUSE / 2026"),el("strong",null,r.at_large?"AT-LARGE":String(number).padStart(2,"0")),
-  el("small",null,r.at_large?"STATEWIDE SEAT":"DISTRICT "+number));
- chip.title="Congressional district identifier only; not a race prediction";
- return chip;
+function branding(code,node){
+ const c=themes[code]||["#365a83","#b5a783"];
+ node.style.setProperty("--state-primary",c[0]);
+ node.style.setProperty("--state-secondary",c[1]);
+ return c;
 }
-function flagCredit(){
- const p=el("span","race-brand-credit");
- const a=el("a",null,"State flag artwork");
- a.href="https://flagpedia.net/us-states/download";a.target="_blank";a.rel="noopener noreferrer";p.append(a);
- return p;
+function stateInsignia(code,cls="race-state-insignia"){
+ const seal=el("div",cls);
+ const shape=el("div","state-insignia-shape");
+ if(window.PoliticsStateArt)shape.append(window.PoliticsStateArt.create(code));
+ else shape.append(el("strong",null,code));
+ seal.append(shape,el("b","state-insignia-code",code));
+ return seal;
 }
-function partyEmblem(party){
- const known=party==="DEM"||party==="REP";
- const name=party==="DEM"?"Democratic":party==="REP"?"Republican":"Other party";
- const slot=el("span","race-party-feature "+(party==="DEM"?"race-party-blue":party==="REP"?"race-party-red":"race-party-neutral"));
- slot.setAttribute("aria-label",name+" candidate affiliation symbol; not a prediction");
- if(known){
-  const img=document.createElement("img");
-  img.src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/svgs/solid/"+(party==="DEM"?"democrat":"republican")+".svg";
-  img.alt="";img.loading="lazy";img.decoding="async";
-  img.onerror=()=>{img.remove();};
-  slot.append(img);
- }
- slot.append(el("strong",null,party==="DEM"?"D":party==="REP"?"R":"I"));
- return slot;
+function previewEvidence(r){
+ const p=(r.district_specific_2026_polls||[]).find(q=>q.question_type==="named_house"&&q.candidates?.filter(c=>c.party==="D").length===1&&q.candidates?.filter(c=>c.party==="R").length===1);
+ if(!p)return null;
+ const d=p.candidates.find(c=>c.party==="D")?.pct,rep=p.candidates.find(c=>c.party==="R")?.pct;
+ if(!Number.isFinite(d)||!Number.isFinite(rep)||d<0||rep<0||d+rep>100.01)return null;
+ return {margin:d-rep,source:p.source_tier==="original_release_checked"&&p.source_verified===true?"ORIGINAL POLL":"COMPILED POLL",year:2026};
 }
-function partyRoster(r,selector){
- const container=document.querySelector(selector);if(!container)return;
- const major=(r.official_2026_candidate_snapshot?.candidates||[])
-  .filter(c=>c.party==="DEM"||c.party==="REP")
-  .sort((a,b)=>a.party==="DEM"?-1:b.party==="DEM"?1:a.name.localeCompare(b.name));
- if(!major.length)return;
- const cards=[...container.children].filter(x=>x.matches(".front-person,.ia-candidate"));
- for(const c of major){
-  const node=cards.find(card=>card.textContent.includes(c.name));
-  if(!node||node.querySelector(".race-party-feature"))continue;
-  const emblem=partyEmblem(c.party);
-  node.classList.add("race-branded-person");
-  node.setAttribute("data-party",c.party);
-  node.prepend(emblem);
- }
+function watch(r){
+ const poll=previewEvidence(r);
+ const h=r["2024_house_result_on_prior_boundaries"];
+ const comparable=h?.same_2026_geography===true&&h.both_major_parties===true&&Number.isFinite(h.dem_two_party_margin_pp);
+ const old=comparable?h.dem_two_party_margin_pp:null;
+ const split=poll&&old!=null&&poll.margin*old<0;
+ const closePoll=poll&&Math.abs(poll.margin)<=6;
+ const closePast=old!=null&&Math.abs(old)<5;
+ const isWatch=!!(split||closePoll||closePast);
+ const category=split?"MIXED SIGNALS":closePoll?"CLOSE POLL":closePast?"CLOSE 2024 RESULT":"SOURCE CHECK";
+ // Rankings here prioritize source availability and competitive observations;
+ // they are never statistical 2026 win probabilities or model rankings.
+ const tier=poll?.source==="ORIGINAL POLL"?0:poll?1:2;
+ const distance=poll?Math.abs(poll.margin):old!=null?Math.abs(old):100;
+ return {isWatch,category,tier,distance,split:!!split,poll,old};
 }
-function geomRings(geometry){
- if(!geometry)return [];
- if(geometry.type==="Polygon")return geometry.coordinates||[];
- if(geometry.type==="MultiPolygon")return geometry.coordinates.flat(1);
+const districtStore=new Map();
+async function districtGeo(code){
+ if(districtStore.has(code))return districtStore.get(code);
+ const request=(async()=>{
+  const response=await fetch("politics-geometry/"+code+".geojson",{cache:"force-cache"});
+  if(!response.ok)throw Error("Census geometry unavailable");
+  const geo=await response.json();
+  if(geo.type!=="FeatureCollection"||geo.meta?.state!==code||!Array.isArray(geo.features))
+   throw Error("Census state mismatch");
+  return geo;
+ })();
+ districtStore.set(code,request);return request;
+}
+function ringsOf(geometry){
+ if(geometry?.type==="Polygon")return geometry.coordinates;
+ if(geometry?.type==="MultiPolygon")return geometry.coordinates.flat();
  return [];
 }
-function keyForFeature(f,field,code){
- const val=f.properties?.[field];
- if(val==null)return "";
- return code+"-"+String(val).padStart(2,"0");
+function featureCode(feature){
+ const p=feature.properties||{};
+ const raw=p.CD120??p.CD119;
+ const n=Number(raw);
+ return Number.isInteger(n)&&n>=0&&n<100?String(n).padStart(2,"0"):null;
 }
-function buildCartography(geo,state,id,mini){
- const feats=geo.features,field=geo.meta.field||"CD120";
- const expected=Number(state.district_count);
- if(geo.meta.state!==state.code||feats.length!==expected||!feats.every(f=>f.geometry))throw Error("State geography inventory mismatch");
- const keys=feats.map(f=>keyForFeature(f,field,state.code));
- if(unique(keys).length!==expected||!keys.includes(id))throw Error("Selected congressional district was not in 2026 Census archive");
- const paths=feats.map(f=>({id:keyForFeature(f,field,state.code),rings:geomRings(f.geometry)}));
- let minX=Infinity,maxX=-Infinity,minY=Infinity,maxY=-Infinity;
- const shifted=paths.map(row=>({...row,rings:row.rings.map(ring=>ring.map(point=>{
-  let x=Number(point[0]),y=Number(point[1]);
-  if(state.code==="AK"&&x>0)x-=360;
-  if(Number.isFinite(x)&&Number.isFinite(y)){
-   minX=Math.min(x,minX);maxX=Math.max(x,maxX);minY=Math.min(y,minY);maxY=Math.max(y,maxY);
-  }
-  return [x,y];
- }))}));
- if(!(maxX>minX&&maxY>minY))throw Error("Invalid state geography bounds");
- const W=mini?170:380,H=mini?118:247,pad=mini?10:18;
- const scale=Math.min((W-2*pad)/(maxX-minX),(H-2*pad)/(maxY-minY));
- const dx=(W-(maxX-minX)*scale)/2,dy=(H-(maxY-minY)*scale)/2;
- const pt=([x,y])=>[(dx+(x-minX)*scale).toFixed(2),(H-dy-(y-minY)*scale).toFixed(2)];
- const svg=svgEl("svg");
- svg.setAttribute("viewBox","0 0 "+W+" "+H);
- svg.setAttribute("class","race-district-geometry"+(mini?" mini":""));
- svg.setAttribute("role","img");
- svg.setAttribute("aria-label",state.name+" 2026 House district boundaries, with "+id+" highlighted; boundaries only, not an election forecast");
- for(const row of shifted){
-  const shape=svgEl("path");
-  let d="";
-  for(const ring of row.rings){
-   if(ring.length<3)continue;
-   const usable=ring.filter(p=>Number.isFinite(p[0])&&Number.isFinite(p[1]));
-   if(usable.length<3)continue;
-   d+=usable.map((p,i)=>{const [x,y]=pt(p);return(i?"L":"M")+x+" "+y;}).join("")+"Z";
-  }
-  if(!d)continue;
-  shape.setAttribute("d",d);
-  shape.setAttribute("fill-rule","evenodd");
-  shape.setAttribute("class",row.id===id?"race-geographic-current":"race-geographic-other");
-  shape.setAttribute("data-district",row.id);
-  const title=svgEl("title");title.textContent=row.id===id?row.id+" highlighted current seat":row.id+" neighboring seat";shape.append(title);
-  svg.append(shape);
- }
- return svg;
-}
-async function geography(code,state,id,host,mini){
- if(!host)return;
- let future=atlasGeoCache.get(code);
- if(!future){
-  future=fetch("politics-geometry/"+code+".geojson",{cache:"force-cache"}).then(r=>{
-   if(!r.ok)throw Error("District geometry unavailable");return r.json();
-  });
-  atlasGeoCache.set(code,future);
- }
+async function outlineDistrict(r,host){
  try{
-  const svg=buildCartography(await future,state,id,mini);
-  host.replaceChildren(svg);
- }catch(error){
-  host.replaceChildren(el("span","race-geo-fallback",state.name+" · "+id));
-  console.warn("Source-checked district crest unavailable:",code,error.message);
- }
-}
-function applyTheme(node,r){
- if(!node)return;
- const [primary,trim]=currentTone(r.state);
- node.style.setProperty("--local-primary",primary);
- node.style.setProperty("--local-trim",trim);
- node.classList.add("race-location-"+r.state.toLowerCase());
- node.classList.add("race-location-seat-"+r.id.replace("-","-").toLowerCase());
-}
-function decorateDistrict({r,state}){
- const iowa=r.state==="IA";
- const area=iowa?byId("iowa-edition"):byId("district-front");
- if(!area)return;
- applyTheme(area,r);
- if(iowa){
-  const mast=area.querySelector(".ia-cover-strap");
-  const flagbar=el("div","race-identity-row race-identity-iowa");
-  flagbar.append(badge(r.state,state,"race-iowa-flag"),seatChip(r,state),flagCredit());
-  if(mast)mast.insertAdjacentElement("afterend",flagbar);
-  partyRoster(r,".ia-candidate-grid");
-  // Keep the separate detailed four-way Iowa SVG: it is already fully clickable.
-  const map=area.querySelector(".ia-cover-map");
-  if(map){
-   map.classList.add("race-local-map");
-   const mark=el("strong","race-local-map-id",r.id+" / SELECTED");
-   map.prepend(mark);
-  }
- }else{
-  const banner=area.querySelector(".district-front-banner");
-  if(!banner)return;
-  const identity=el("div","race-identity-row race-identity-general");
-  identity.append(badge(r.state,state),seatChip(r,state));
-  const square=el("div","race-identity-map");
-  square.setAttribute("aria-label",r.id+" Census district outline");
-  square.append(el("span","race-map-loading","DRAWING "+r.id+" DISTRICT OUTLINE…"));
-  identity.append(square);
-  banner.insertAdjacentElement("afterend",identity);
-  geography(r.state,state,r.id,square,false);
-  partyRoster(r,".front-faceoff");
- }
-}
-function decorateState({state,rows}){
- const hero=document.querySelector(".state-graphic-hero");
- if(!hero)return;
- applyTheme(hero,{state:state.code,id:state.code+"-00"});
- const strip=el("div","race-state-signature");
- strip.append(badge(state.code,state),el("span","race-state-signature-count",state.district_count+" U.S. HOUSE "+(state.district_count===1?"SEAT":"SEATS")),flagCredit());
- const lead=hero.querySelector(".state-edition-line");
- if(lead)lead.insertAdjacentElement("afterend",strip);
- const storyCards=[...document.querySelectorAll(".state-brief-card")];
- for(const card of storyCards){
-  const id=new URL(card.href,location.href).searchParams.get("district");
-  const row=rows.find(x=>x.id===id);
-  if(!row)continue;
-  applyTheme(card,row);
-  const existing=card.querySelector(".state-brief-top");
-  if(!existing)continue;
-  const geo=el("span","race-story-map","DISTRICT OUTLINE");
-  existing.append(geo);
-  geography(state.code,state,row.id,geo,true);
-  const label=el("span","race-brief-state-id",state.code+" / "+row.district);
-  existing.append(label);
-  const named=(row.official_2026_candidate_snapshot?.candidates||[])
-   .filter(c=>c.party==="DEM"||c.party==="REP")
-   .sort((a,b)=>a.party==="DEM"?-1:1);
-  if(named.length){
-   const matchup=el("div","race-story-party-match");
-   matchup.setAttribute("aria-label","Official 2026 candidate affiliations");
-   for(const person of named){
-    const contender=el("span","race-story-contender");
-    contender.append(partyEmblem(person.party),el("span","race-story-candidate-text",person.name));
-    matchup.append(contender);
+  const geo=await districtGeo(r.state);
+  const features=geo.features.filter(f=>f.geometry&&featureCode(f)!=null);
+  if(!features.length)throw Error("No valid geographic district boundaries");
+  const all=[],pieces=[];
+  for(const f of features){
+   const rings=ringsOf(f.geometry),id=featureCode(f);
+   for(const ring of rings){
+    if(!Array.isArray(ring)||ring.length<3)continue;
+    const coords=ring.map(v=>[r.state==="AK"&&v[0]>0?v[0]-360:v[0],v[1]]).filter(v=>Number.isFinite(v[0])&&Number.isFinite(v[1]));
+    if(coords.length<3)continue;
+    all.push(...coords);pieces.push({id,coords});
    }
-   const bottom=card.querySelector(".state-brief-bottom");
-   if(bottom)card.insertBefore(matchup,bottom);else card.append(matchup);
   }
+  if(!all.length||!pieces.some(p=>p.id===r.district))throw Error("District not present in Census archive");
+  const minx=Math.min(...all.map(p=>p[0])),maxx=Math.max(...all.map(p=>p[0]));
+  const miny=Math.min(...all.map(p=>p[1])),maxy=Math.max(...all.map(p=>p[1]));
+  const width=maxx-minx,height=maxy-miny;
+  if(width<=0||height<=0)throw Error("Degenerate geometry");
+  const scale=Math.min(340/width,244/height);
+  const left=(384-width*scale)/2,bottom=(284-height*scale)/2;
+  const svg=document.createElementNS(N,"svg");
+  svg.setAttribute("viewBox","0 0 384 284");svg.setAttribute("role","img");
+  svg.setAttribute("aria-label",(named[r.state]||r.state)+" congressional district map. "+r.id+" highlighted in the 2026 Census-district archive.");
+  svg.classList.add("race-district-svg");
+  for(const p of pieces){
+   const path=document.createElementNS(N,"path");
+   const d=p.coords.map(([x,y],i)=>(i?"L":"M")+(left+(x-minx)*scale).toFixed(2)+","+(284-bottom-(y-miny)*scale).toFixed(2)).join("")+"Z";
+   path.setAttribute("d",d);path.setAttribute("fill-rule","evenodd");
+   path.setAttribute("class",p.id===r.district?"race-map-active":"race-map-neighbor");
+   svg.append(path);
+  }
+  if(!host.isConnected)return;
+  host.replaceChildren(svg);
+  const desc=el("span","race-map-caption",r.id+" IN "+(named[r.state]||r.state).toUpperCase()+" · CENSUS DISTRICT GEOMETRY");
+  host.append(desc);
+ }catch(err){
+  if(host.isConnected)host.replaceChildren(stateInsignia(r.state,"race-map-fallback"),el("span","race-map-caption","District shape unavailable. State outline shown."));
  }
 }
-window.PoliticsRaceBranding=Object.freeze({decorateDistrict,decorateState,buildCartography,partyEmblem});
+function createIdentity(r,state){
+ const brand=el("div","race-identity-strip");
+ const flagBox=el("div","race-flag-frame");
+ flagBox.append(flag(r.state),el("span","race-flag-label","STATE FLAG"));
+ const name=el("div","race-identity-copy");
+ name.append(el("small","race-identity-label",state.name.toUpperCase()+" · HOUSE ELECTION"),el("strong","race-identity-district",r.id));
+ const mark=stateInsignia(r.state);
+ brand.append(flagBox,name,mark);
+ return brand;
+}
+function renderDistrict(r,state){
+ const root=$("district-front");if(!root)return;
+ branding(r.state,root);
+ const w=watch(r);
+ root.classList.add(w.isWatch?"race-branded-watch":"race-branded-ordinary");
+ const banner=root.querySelector(".district-front-banner");
+ if(banner){
+  const grid=banner.querySelector(".front-banner-grid");
+  if(grid)banner.insertBefore(createIdentity(r,state),grid);
+ }
+ const context=$("race-experience")?.querySelector(".race-editor-note");
+ if(context){
+  const board=el("div","race-cartographic");
+  board.append(el("span","race-map-title","YOUR DISTRICT · GEOGRAPHIC VIEW"));
+  const target=el("div","race-map-canvas","Loading verified district outline…");
+  board.append(target);
+  context.insertAdjacentElement("afterend",board);
+  outlineDistrict(r,target);
+ }
+ const strip=el("div","race-heatbar "+(w.isWatch?"is-watch":"is-context"));
+ strip.append(el("span","race-heaticon",w.isWatch?"◆":"▰"),
+  el("span","race-heatname",w.isWatch?w.category:"RESEARCH DESK"),
+  el("span","race-heatnote",w.isWatch?
+   (w.poll?"A close reported poll or conflicting source evidence. Not model-certified odds.":"The previous comparable election was close; not a current forecast."):
+    (w.poll?"A reported district poll is on file; not a certified forecast.":"No close current poll is established by this dataset.")));
+ const featured=$("race-experience");
+ if(featured)featured.insertBefore(strip,featured.querySelector(".race-experience-top"));
+ // Make candidate identity visible before large data and methodology panels.
+ const field=$("front-field");
+ const metrics=featured?.querySelector(".race-headline-numbers");
+ if(field&&metrics){field.classList.add("race-field-promoted");metrics.before(field);}
+ // Provide party symbols in candidates; verified portraits stay connected to source-checked ballot identities.
+ const all=r.official_2026_candidate_snapshot?.candidates||[];
+ if(all.length>2&&field){
+  const extras=el("div","race-other-candidates");
+  extras.append(el("strong",null,"OTHER OFFICIAL BALLOT CANDIDATES"));
+  for(const c of all){
+   if(c.party==="DEM"||c.party==="REP")continue;
+   const chip=el("span","race-other-candidate");
+   chip.append(el("b",null,c.name),el("small",null,partyName(c.party)));
+   extras.append(chip);
+  }
+  field.append(extras);
+ }
+}
+function decorateStateCard(card,r){
+ const top=card.querySelector(".state-brief-top");if(!top)return;
+ branding(r.state,card);
+ const insignia=stateInsignia(r.state,"brief-state-stamp");
+ top.prepend(insignia);
+ const category=watch(r);
+ card.classList.add(category.isWatch?"brief-watch":"brief-record");
+ const label=top.querySelector("span");if(label&&category.isWatch)label.textContent="◆ "+category.category+" · NOT FORECAST ODDS";
+}
+function decorateNationalCard(a,r){
+ branding(r.state,a);
+ const w=watch(r);
+ a.classList.add(w.isWatch?"national-watch":"national-context");
+ a.href="politics-house-district.html?district="+encodeURIComponent(r.id);
+ const emblem=stateInsignia(r.state,"national-card-insignia");
+ emblem.append(flag(r.state,"national-card-flag"));
+ a.append(emblem);
+ const body=el("div","national-card-body");
+ body.append(el("small","national-card-id",r.id+" · "+(named[r.state]||r.state)),
+  el("strong","national-card-title",w.split?"POLL & HISTORY DISAGREE":w.poll?"THE DISTRICT POLL":w.old!=null?"THE LAST HOUSE VOTE":"THE RESEARCH FILE"));
+ const metric=w.poll?(Math.abs(w.poll.margin).toFixed(1)+" PT REPORTED POLL GAP"):
+  (w.old!=null?Math.abs(w.old).toFixed(1)+" PT 2024 HOUSE GAP":"NO COMPARABLE MARGIN");
+ body.append(el("span","national-card-stat",metric),el("span","national-card-cta","OPEN EVIDENCE →"));
+ a.append(body);
+}
+window.PoliticsRaceBranding=Object.freeze({named,themes,branding,flag,stateInsignia,watch,renderDistrict,decorateStateCard,decorateNationalCard,outlineDistrict});
 })();
