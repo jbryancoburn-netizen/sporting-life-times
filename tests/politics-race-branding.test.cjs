@@ -72,6 +72,10 @@ test('Iowa and other states display flag, real district outline, and party ident
   assert.equal(await page.locator('.race-switchboard').count(),1);
   assert.equal(await page.locator('.front-person .race-party-feature').count(),2);
   assert.equal(await page.locator('.race-number').count(),3);
+  await page.goto(origin+'/politics-house-district.html?district=AK-00',{waitUntil:'domcontentloaded'});
+  await page.locator('.race-switchboard').waitFor({timeout:15000});
+  assert.equal(await page.locator('.race-wire-link').count(),0,'at-large state should not link to itself');
+  assert.equal(await page.locator('#race-seat-picker option').count(),1);
   await page.goto(origin+'/politics-house-state.html?state=IA',{waitUntil:'domcontentloaded'});
   await page.locator('.race-state-signature').waitFor({timeout:15000});
   await page.locator('.state-brief-card .race-district-geometry').first().waitFor({timeout:15000});
