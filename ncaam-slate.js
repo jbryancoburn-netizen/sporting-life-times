@@ -294,7 +294,9 @@ const comparison=g=>{
   '<span>'+esc(g.away.name)+' / '+esc(g.home.name)+'</span></div>'+
   line('Points for / G',x,y,n)+line('Points against / G',x,y,allowed)+
   line('Last five',x,y,form)+
-  '<p>Regular-season verified finals only · sample sizes '+(x?.g||0)+' and '+(y?.g||0)+'.</p></div>';
+  line('Verified home W–L',x,y,p=>p.homeG?p.homeW+'–'+p.homeL:'—')+
+  '<p>Regular-season verified finals only · sample sizes '+(x?.g||0)+' and '+(y?.g||0)+
+  '. Home W–L excludes neutral sites and games without a verified court.</p></div>';
 };
 const projectedScoreCard=g=>{
  const projection=insight?.projectedScore(g,scoreCalibration,ratings);
