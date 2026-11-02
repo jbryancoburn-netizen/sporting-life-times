@@ -14,6 +14,24 @@
 <script src="politics-sources.js?v=20261101" defer></script>
 <script src="politics-history.js?v=20261101" defer></script>
 <script src="politics-readiness.js?v=20261101" defer></script>
+<style>
+/* Election-eve service desk: editorial utility, not an unsourced results board. */
+.eve-desk{margin:25px 0 4px;padding:0;background:#101f30;color:#fff;border-top:5px solid #ae4335;border-bottom:5px solid #ae4335;box-shadow:0 7px 22px #14233222}
+.eve-desk-header{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;padding:22px 24px 17px;border-bottom:1px solid #ffffff38}
+.eve-desk-kicker{color:#eab3a1;font:800 11px/1.5 Arial,sans-serif;letter-spacing:2px;text-transform:uppercase}
+.eve-desk h2{font:700 clamp(28px,3vw,43px)/1.07 Georgia,serif;letter-spacing:-.8px;margin:7px 0 0;color:#fff}
+.eve-desk-header p{max-width:345px;font:13px/1.55 Arial,sans-serif;color:#d8e0e8;margin:0}
+.eve-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.eve-item{display:flex;flex-direction:column;min-height:158px;gap:10px;padding:19px 21px 22px;text-decoration:none!important;border-right:1px solid #ffffff38;transition:background .15s}
+.eve-item:last-child{border-right:0}.eve-item:hover,.eve-item:focus-visible{background:#25425e}
+.eve-item .eve-num{font:800 11px Arial,sans-serif;letter-spacing:1.5px;color:#eab3a1}
+.eve-item strong{font:700 21px/1.18 Georgia,serif;color:#fff}
+.eve-item span:last-child{font:12px/1.4 Arial,sans-serif;color:#d8e0e8;margin-top:auto}
+.eve-note{padding:12px 24px;background:#e9e1d5;color:#293342;font:12px/1.5 Arial,sans-serif}
+.eve-note strong{color:#823527}
+@media(max-width:850px){.eve-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.eve-item:nth-child(2){border-right:0}.eve-item:nth-child(-n+2){border-bottom:1px solid #ffffff38}}
+@media(max-width:560px){.eve-desk-header{display:block}.eve-desk-header p{margin-top:12px}.eve-grid{grid-template-columns:1fr}.eve-item{min-height:105px;border-right:0!important;border-bottom:1px solid #ffffff38;padding:15px 19px}.eve-item:last-child{border-bottom:0}}
+</style>
 </head>
 <body>
 <a class="skip" href="#content">Skip to the newspaper</a>
@@ -112,6 +130,16 @@
       <a href="#briefing">Political wire</a>
       <a href="#house-directory">House atlas</a>
     </nav>
+    <section class="eve-desk" id="election-services" aria-labelledby="eve-desk-title">
+  <div class="eve-desk-header"><div><span class="eve-desk-kicker">Election 2026 / November 3 / Reader's guide</span><h2 id="eve-desk-title">Your election headquarters.</h2></div><p>Explore the contests, follow sourced reporting, and find official election information. No simulated returns or unverified race calls.</p></div>
+  <div class="eve-grid">
+    <a class="eve-item" href="politics-house.html"><span class="eve-num">01 / HOUSE</span><strong>435 districts.<br>One Congress.</strong><span>Maps, candidates, local context and individual races ↗</span></a>
+    <a class="eve-item" href="#forecast"><span class="eve-num">02 / FORECAST</span><strong>Who controls Washington?</strong><span>Compare published models and their dated estimates ↓</span></a>
+    <a class="eve-item" href="#briefing"><span class="eve-num">03 / NEWSWIRE</span><strong>The political story, as reported.</strong><span>Current linked headlines from original publishers ↓</span></a>
+    <a class="eve-item" href="https://www.usa.gov/state-election-office" target="_blank" rel="noopener noreferrer"><span class="eve-num">04 / OFFICIAL SOURCES</span><strong>Voting and certified results.</strong><span>Find your state election authority ↗</span></a>
+  </div>
+  <div class="eve-note"><strong>Know what you're reading:</strong> Forecasts are dated estimates, polls are not votes, and actual returns must be attributed to election authorities. The election desk does not claim to publish live official results.</div>
+</section>
     <section class="forecast" id="forecast" aria-labelledby="forecast-heading">
       <div class="section-heading"><div><p class="eyebrow">ELECTION 2026 / THE CONTROL BOARD</p><h2 id="forecast-heading">The battle for 218. The fight for 51.</h2></div><p>Decision Desk HQ model · October 31, 2026, 5:26 p.m. ET</p></div>
       <div class="forecast-grid">
