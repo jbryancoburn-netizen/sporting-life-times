@@ -795,3 +795,34 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #c481
  .sl-game .sl-title-stars>span{grid-template-columns:repeat(6,minmax(0,13px))!important;gap:1px 2px!important}
  .sl-game .sl-title-stars .sl-title-star{font-size:12px!important}
 }
+
+
+/* Modern classic broadcast scorebug: upright typography throughout. */
+.sl-game .sl-broadcast-bug{
+ display:grid;grid-template-columns:68px minmax(0,1fr) 108px;min-height:92px;
+ margin:0 14px 15px;border:2px solid #ba995b;border-radius:2px;
+ background:#0b244b;color:#fff;box-shadow:0 3px 0 #07172c,0 8px 18px rgba(0,0,0,.16);
+ font-style:normal!important;overflow:hidden;
+}
+.sl-game .sl-broadcast-mark{background:linear-gradient(145deg,#164d91,#091d3e);border-right:2px solid #ba995b;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-align:center;padding:5px}
+.sl-game .sl-broadcast-mark b{font:900 28px/1 Georgia,serif;font-style:normal!important;color:#f4dfae}
+.sl-game .sl-broadcast-mark span{font:800 7px/1.1 Arial,sans-serif;letter-spacing:.04em}
+.sl-game .sl-broadcast-pair{min-width:0;display:flex;flex-direction:column}
+.sl-game .sl-broadcast-row{min-height:44px;display:grid;grid-template-columns:33px minmax(0,1fr) 48px;align-items:center;gap:7px;padding:3px 10px 3px 7px;border-bottom:1px solid rgba(255,255,255,.19);border-left:5px solid var(--bug-team);font-style:normal!important}
+.sl-game .sl-broadcast-crest{display:grid;place-items:center;width:30px;height:30px;overflow:hidden}
+.sl-game .sl-broadcast-crest .mbb-mark,.sl-game .sl-broadcast-crest .sl-emblem{--mbb-size:28px!important;width:28px!important;height:28px!important;min-width:28px!important;min-height:28px!important;max-width:28px!important;max-height:28px!important}
+.sl-game .sl-broadcast-name{font:900 clamp(13px,1.6vw,18px)/1.1 'DM Sans',Arial,sans-serif!important;font-style:normal!important;letter-spacing:.015em;overflow-wrap:anywhere}
+.sl-game .sl-broadcast-points{text-align:right;font:900 29px/1 'DM Sans',Arial,sans-serif!important;font-style:normal!important;font-variant-numeric:tabular-nums}
+.sl-game .sl-broadcast-status{border-left:2px solid #ba995b;background:linear-gradient(155deg,#24518b,#102947);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;padding:6px}
+.sl-game .sl-broadcast-status strong{font:900 14px/1.2 'DM Sans',Arial,sans-serif!important;font-style:normal!important}
+.sl-game .sl-broadcast-status small{font:700 8px/1.2 Arial,sans-serif;letter-spacing:.05em}
+@media(max-width:600px){.sl-game .sl-broadcast-bug{grid-template-columns:46px minmax(0,1fr) 78px;margin:0 7px 10px}.sl-game .sl-broadcast-mark b{font-size:21px}.sl-game .sl-broadcast-mark span{font-size:5px}.sl-game .sl-broadcast-row{grid-template-columns:26px minmax(0,1fr) 35px;gap:4px;padding:3px}.sl-game .sl-broadcast-crest,.sl-game .sl-broadcast-crest .mbb-mark,.sl-game .sl-broadcast-crest .sl-emblem{width:24px!important;height:24px!important;min-width:24px!important;min-height:24px!important}.sl-game .sl-broadcast-points{font-size:23px}.sl-game .sl-broadcast-name{font-size:12px!important}.sl-game .sl-broadcast-status strong{font-size:11px!important}}
+/* Center every complete and incomplete championship star row. */
+.sl-game .sl-title-stars>span{
+ display:flex!important;flex-wrap:wrap!important;align-items:center!important;
+ justify-content:center!important;align-content:center!important;
+ gap:2px 3px!important;width:114px!important;max-width:100%!important;
+ margin-inline:auto!important;grid-template-columns:none!important;
+}
+.sl-game .sl-title-stars .sl-title-star{flex:0 0 16px!important;width:16px!important;text-align:center!important;font-style:normal!important}
+@media(max-width:650px){.sl-game .sl-title-stars>span{width:93px!important;gap:1px 2px!important}.sl-game .sl-title-stars .sl-title-star{flex-basis:13px!important;width:13px!important}}
