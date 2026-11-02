@@ -102,29 +102,27 @@ class OfficialSites(unittest.TestCase):
   self.assertFalse(mod.official_opponent_matches("BYU",{"opponent_id":"2628","opponent":"TCU Horned Frogs"},{}))
 
 
- def test_verified_short_school_aliases_reconcile_only_existing_opponents(self):
-  examples=(
-   ("vs. Navy","2426","Navy Midshipmen"),
-   ("at BYU","252","BYU Cougars"),
-   ("TCU","2628","TCU Horned Frogs"),
-   ("UAB","5","UAB Blazers"),
-   ("CSUN","2463","Cal State Northridge Matadors"),
-   ("UNLV","2439","UNLV Lady Rebels"),
-   ("IU Indy","85","IU Indianapolis Jaguars"),
-   ("UMBC","2378","UMBC Retrievers"),
-   ("UTEP","2638","UTEP Miners"),
-   ("CCSU","2115","Central Connecticut Blue Devils"),
-   ("Loyola Marymount","2351","Loyola Marymount Lions"),
-   ("USC Upstate","2908","South Carolina Upstate Spartans"),
+ def test_new_exact_university_opponent_labels(self):
+  school_labels=(
+   ("Boston U.","104","Boston University Terriers"),
+   ("Connecticut","41","UConn Huskies"),
+   ("Central Florida","2116","UCF Knights"),
+   ("University at Albany","399","UAlbany Great Danes"),
+   ("Loyola (Md.)","2352","Loyola Maryland Greyhounds"),
+   ("N.C. A&T","2448","North Carolina A&T Aggies"),
+   ("University of Portland","2501","Portland Pilots"),
+   ("Cal Baptist","2856","California Baptist Lancers"),
+   ("JMU","256","James Madison Dukes"),
+   ("New Jersey Institute of Technology","2885","NJIT Highlanders"),
+   ("Central Connecticut State University","2115","Central Connecticut Blue Devils"),
+   ("San Jose State University","23","San José State Spartans"),
   )
-  for official_printed, opponent_id, full_name in examples:
-   with self.subTest(official_printed=official_printed):
+  for label,oppid,name in school_labels:
+   with self.subTest(official_label=label):
     self.assertTrue(mod.official_opponent_matches(
-      official_printed,{"opponent_id":opponent_id,"opponent":full_name},{}))
-  # Matching a printed shorthand is NOT authority to synthesize a game,
-  # infer its home court, or override an existing opponent identity.
+      label,{"opponent_id":oppid,"opponent":name},{}))
 
- def test_shared_prefixes_cannot_swallow_different_division_one_schools(self):
+ def test_full_label_gate_prevents_school_prefix_collisions(self):
   collisions=(
    ("Utah State","254","Utah Utes"),
    ("Ohio State","195","Ohio Bobcats"),
@@ -133,11 +131,12 @@ class OfficialSites(unittest.TestCase):
    ("Iowa State","2294","Iowa Hawkeyes"),
    ("Arizona State","12","Arizona Wildcats"),
    ("California Baptist","25","California Golden Bears"),
+   ("North Carolina State","153","North Carolina Tar Heels"),
   )
-  for printed,opponent_id,full_name in collisions:
-   with self.subTest(printed=printed):
+  for label,oppid,name in collisions:
+   with self.subTest(official_label=label):
     self.assertFalse(mod.official_opponent_matches(
-      printed,{"opponent_id":opponent_id,"opponent":full_name},{}))
+      label,{"opponent_id":oppid,"opponent":name},{}))
 
 
 
