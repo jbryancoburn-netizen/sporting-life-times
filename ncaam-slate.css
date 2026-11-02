@@ -762,3 +762,36 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #c481
 .sl-game .sl-pennant-name{order:2!important}
 .sl-game .sl-pennant-mascot{order:3!important}
 .sl-game .sl-pennant-rating{order:4!important}
+
+/* Championship insignia final layout. Stars precede the logo in source order. */
+.sl-game .sl-pennant,.sl-featured .sl-pennant{
+  height:208px!important;min-height:208px!important;
+  padding-top:12px!important;padding-bottom:30px!important;
+  gap:3px!important;overflow:hidden!important;
+}
+.sl-game .sl-title-stars{
+  order:0!important;position:relative!important;z-index:4!important;
+  display:flex!important;flex:0 0 auto!important;align-items:center!important;
+  justify-content:center!important;max-height:none!important;min-height:16px!important;
+  margin:1px 0 5px!important;width:100%!important;
+}
+.sl-game .sl-title-stars>span{
+  display:grid!important;grid-template-columns:repeat(6, minmax(0, 16px))!important;
+  gap:2px 3px!important;align-content:center!important;justify-content:center!important;
+  width:max-content!important;max-width:100%!important;
+}
+.sl-game .sl-title-stars .sl-title-star{
+  display:block!important;font-family:Arial,'DejaVu Sans',sans-serif!important;
+  font-size:15px!important;font-weight:700!important;font-style:normal!important;
+  line-height:1!important;letter-spacing:0!important;text-align:center!important;
+  color:var(--star-ink,var(--pennant-accent))!important;
+  filter:drop-shadow(0 1px 1px #071c29);
+}
+.sl-game .sl-pennant-brand{order:1!important;flex:0 0 54px!important;}
+.sl-game .sl-pennant-name{order:2!important}
+.sl-game .sl-pennant-mascot{order:3!important}
+@media(max-width:650px){
+ .sl-game .sl-pennant,.sl-featured .sl-pennant{height:196px!important;min-height:196px!important}
+ .sl-game .sl-title-stars>span{grid-template-columns:repeat(6,minmax(0,13px))!important;gap:1px 2px!important}
+ .sl-game .sl-title-stars .sl-title-star{font-size:12px!important}
+}
