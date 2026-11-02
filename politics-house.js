@@ -701,6 +701,67 @@ function renderDistrictFront(r,state){
   window.PoliticsStateArt.prepare(r.state,state.district_count);
  }
 }
+/* District wire service: navigate the official 50-state, 435-seat archive without
+ * a trip back to the state directory. A watch flag is observed evidence, not odds. */
+function renderDistrictSwitcher(atlas,r,state){
+ const root=$("district-front");
+ if(!root||root.querySelector(".race-switchboard"))return;
+ const rows=atlas.districts.filter(x=>x.state===r.state).sort((a,b)=>a.district.localeCompare(b.district));
+ const index=rows.findIndex(x=>x.id===r.id);
+ if(index<0)return;
+ const prev=rows[(index+rows.length-1)%rows.length],next=rows[(index+1)%rows.length];
+ const read=window.PoliticsRaceExperience?.evidenceWatch(r);
+ const watch=!!read?.watch;
+ const strip=newEl("section",null,"race-switchboard"+(watch?" race-switchboard-watch":""));
+ strip.setAttribute("aria-label","Navigate congressional race reports");
+ const title=newEl("div",null,"race-switchboard-status");
+ title.append(newEl("span","THE 2026 HOUSE / DISTRICT WIRE","race-switch-eyebrow"),
+    newEl("strong",watch?(read.mixed?"◆ MIXED SIGNALS":read.closePoll?"◆ CLOSE REPORTED POLL":"◆ CLOSE 2024 ELECTION"):"DISTRICT RESEARCH FILE","race-switch-status"),
+    newEl("small",watch?"Watch flag based on available evidence, not a certified 2026 forecast.":"Showing state and district evidence, not an election prediction.","race-switch-context"));
+ const controls=newEl("div",null,"race-switchboard-controls");
+ const previous=newEl("a","← "+prev.id,"race-wire-link");
+ previous.href=urlForDistrict(prev.id);
+ previous.setAttribute("aria-label","Previous "+state.name+" House district: "+prev.id);
+ const selector=newEl("select",null,"race-seat-picker");
+ selector.id="race-seat-picker";
+ selector.setAttribute("aria-label","Choose a House district in "+state.name);
+ for(const row of rows){
+  const option=newEl("option",(row.at_large?"At-large":row.id)+" · "+(row.official_2026_candidate_snapshot?.candidates?.length?"candidate slate checked":"source review"),null);
+  option.value=row.id;
+  if(row.id===r.id)option.selected=true;
+  selector.append(option);
+ }
+ const go=newEl("button","OPEN SEAT →","race-seat-open");
+ go.type="button";
+ go.addEventListener("click",()=>{if(rows.some(x=>x.id===selector.value))location.href=urlForDistrict(selector.value)});
+ selector.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();go.click();}});
+ const forward=newEl("a",next.id+" →","race-wire-link");
+ forward.href=urlForDistrict(next.id);
+ forward.setAttribute("aria-label","Next "+state.name+" House district: "+next.id);
+ if(rows.length>1)controls.append(previous);
+ controls.append(selector,go);
+ if(rows.length>1)controls.append(forward);
+ const explore=newEl("div",null,"race-switchboard-next");
+ const stateLink=newEl("a","VIEW "+state.name.toUpperCase()+" HOUSE MAP ↗","race-switch-map");
+ stateLink.href=urlForState(r.state);
+ explore.append(stateLink);
+ if(window.PoliticsRaceExperience){
+  const watchlist=window.PoliticsRaceExperience.orderRaces(atlas.districts.filter(x=>window.PoliticsRaceExperience.evidenceWatch(x).watch));
+  if(watchlist.length>1){
+   const n=watchlist.findIndex(x=>x.id===r.id);
+   const nextWatch=watchlist[(n+1)%watchlist.length];
+   if(nextWatch?.id!==r.id){
+    const link=newEl("a","NEXT EVIDENCE-WATCH RACE · "+nextWatch.id+" →","race-switch-watch-link");
+    link.href=urlForDistrict(nextWatch.id);
+    explore.append(link);
+   }
+  }
+ }
+ strip.append(title,controls,explore);
+ const anchor=root.querySelector(".race-identity-general")||root.querySelector(".district-front-banner");
+ if(anchor)anchor.insertAdjacentElement("afterend",strip);
+ else root.prepend(strip);
+}
 function renderDistrict(a){
  let id=(new URLSearchParams(location.search).get("district")||"").trim().toUpperCase();
  const r=a.districts.find(x=>x.id===id);
@@ -729,6 +790,7 @@ function renderDistrict(a){
  candidatePanel(r);pollPanel(r);resultPanel(r,state);
  // Iowa and every other state use the same interactive race edition.
  if(window.PoliticsRaceBranding)window.PoliticsRaceBranding.decorateDistrict({r,state});
+ renderDistrictSwitcher(a,r,state);
  const stateIds=a.districts.filter(x=>x.state===r.state).sort((x,y)=>x.district.localeCompare(y.district));
  const n=stateIds.findIndex(x=>x.id===r.id),prev=stateIds[(n-1+stateIds.length)%stateIds.length],next=stateIds[(n+1)%stateIds.length];
  $("prev-district").href=urlForDistrict(prev.id);$("prev-district").textContent="← "+prev.id;

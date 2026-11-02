@@ -248,3 +248,85 @@ body[data-house-page="state"] .state-brief-card .race-story-party-match+.state-b
  body[data-house-page="state"] .race-story-party-match{margin-top:12px}
  body[data-house-page="state"] .race-story-contender{font-size:10px}
 }
+
+/* The District Wire: brisk, tactile newspaper navigation, not another dashboard. */
+body[data-house-page="district"] .race-switchboard{
+  --switch-accent:var(--local-primary,#224e7e);
+  position:relative;z-index:3;
+  display:grid;grid-template-columns:minmax(180px,.78fr) minmax(320px,1.15fr) minmax(175px,.78fr);
+  align-items:center;gap:19px;margin:0;padding:18px 23px;
+  background:#f5f5f0;border-top:2px solid #c4cfd1;border-bottom:2px solid #b6c6c9;
+  box-shadow:0 4px 10px #213a5010;
+}
+body[data-house-page="district"] .race-switchboard-watch{
+  --switch-accent:#674198;background:linear-gradient(95deg,#f0e7f9,#f8f5f9 52%,#f5f6f1)
+}
+body[data-house-page="district"] .race-switchboard-status{
+ display:flex;flex-direction:column;align-items:flex-start;min-width:0;gap:4px
+}
+body[data-house-page="district"] .race-switch-eyebrow{
+ color:#5a6c74;font:900 9px/1.3 'DM Sans',Arial,sans-serif;
+ letter-spacing:1.3px;text-transform:uppercase
+}
+body[data-house-page="district"] .race-switch-status{
+ color:var(--switch-accent);font:900 14px/1.25 'DM Sans',Arial,sans-serif;letter-spacing:.25px
+}
+body[data-house-page="district"] .race-switch-context{
+ color:#536872;font:600 10px/1.45 'DM Sans',Arial,sans-serif
+}
+body[data-house-page="district"] .race-switchboard-controls{
+ display:flex;align-items:stretch;min-width:0;gap:5px
+}
+body[data-house-page="district"] .race-wire-link,
+body[data-house-page="district"] .race-seat-open{
+ display:grid;place-items:center;white-space:nowrap;min-height:42px;
+ padding:9px 11px;background:#23465d;border:1px solid #23465d;
+ color:#fff;text-decoration:none;
+ font:900 11px/1.2 'DM Sans',Arial,sans-serif;cursor:pointer
+}
+body[data-house-page="district"] .race-wire-link:hover,
+body[data-house-page="district"] .race-wire-link:focus-visible,
+body[data-house-page="district"] .race-seat-open:hover,
+body[data-house-page="district"] .race-seat-open:focus-visible{
+ background:#6a438f;border-color:#6a438f;outline:2px solid #d6a9e0;outline-offset:1px
+}
+body[data-house-page="district"] .race-seat-picker{
+ min-width:110px;width:100%;max-width:240px;
+ padding:8px 9px;border:1px solid #879da7;border-radius:0;
+ background:#fff;color:#1d384a;cursor:pointer;
+ font:800 12px/1.35 'DM Sans',Arial,sans-serif
+}
+body[data-house-page="district"] .race-switchboard-next{
+ display:flex;flex-direction:column;align-items:flex-start;gap:10px;
+ padding-left:16px;border-left:2px solid #d1d8d5;min-width:0
+}
+body[data-house-page="district"] .race-switch-map,
+body[data-house-page="district"] .race-switch-watch-link{
+ color:#234e6b;font:900 10px/1.45 'DM Sans',Arial,sans-serif;
+ letter-spacing:.4px;text-decoration:underline;text-underline-offset:3px
+}
+body[data-house-page="district"] .race-switch-watch-link{color:#674198}
+body[data-house-page="district"] .race-switch-map:hover,
+body[data-house-page="district"] .race-switch-watch-link:hover{color:#a02a59}
+@media(max-width:1060px){
+ body[data-house-page="district"] .race-switchboard{grid-template-columns:1fr minmax(0,1.4fr);gap:13px 19px}
+ body[data-house-page="district"] .race-switchboard-next{
+   grid-column:1/-1;flex-direction:row;flex-wrap:wrap;padding:10px 0 0;
+   border-left:0;border-top:1px solid #c7d1d5
+ }
+}
+@media(max-width:700px){
+ body[data-house-page="district"] .race-switchboard{grid-template-columns:1fr;padding:13px 15px;gap:10px}
+ body[data-house-page="district"] .race-switch-status{font-size:14px}
+ body[data-house-page="district"] .race-switchboard-controls{width:100%;gap:4px}
+ body[data-house-page="district"] .race-wire-link,
+ body[data-house-page="district"] .race-seat-open{padding:10px 7px;font-size:10px}
+ body[data-house-page="district"] .race-seat-picker{min-width:0;flex:1;max-width:none}
+ body[data-house-page="district"] .race-switchboard-next{grid-column:auto;gap:9px 17px}
+}
+@media(max-width:370px){
+ body[data-house-page="district"] .race-switchboard-controls{display:grid;grid-template-columns:1fr 1fr}
+ body[data-house-page="district"] .race-seat-picker{grid-column:1/-1;grid-row:1;width:100%}
+ body[data-house-page="district"] .race-seat-open{grid-column:1/-1;grid-row:2}
+ body[data-house-page="district"] .race-wire-link{grid-row:3}
+}
