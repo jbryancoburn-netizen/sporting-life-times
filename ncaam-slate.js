@@ -53,6 +53,34 @@ function normalizeMen(feed,forecasts,crossList){
   }
   return [...result.values()];
 }
+// Merge provisional fixtures only when the same two canonical schools meet on the
+// same Eastern date. Preserve distinct live/final event IDs and real doubleheaders.
+function dedupeFixtures(games){
+ const chosen=[],lookup=new Map();
+ const pairKey=g=>{
+  if(g.kind!=='regular'||!g.day||!g.away?.canonical||!g.home?.canonical)return '';
+  return g.day+'|'+[String(g.away.canonical),String(g.home.canonical)].sort().join('|');
+ };
+ const quality=g=>(g.phase==='final'?100:g.phase==='live'?90:0)+
+   (g.timed&&g.date?20:0)+(g.venue?4:0)+(g.broadcast?2:0)+(g.evidence==='final-source'?3:0);
+ for(const g of games){
+  const key=pairKey(g);
+  if(!key){chosen.push(g);continue;}
+  const indices=lookup.get(key)||[];
+  const duplicate=indices.find(i=>{
+   const old=chosen[i];
+   // Never remove two independently reported played games.
+   if(old.phase!=='upcoming'&&g.phase!=='upcoming')return false;
+   // Distinct scheduled tipoffs can be legitimate doubleheaders.
+   if(old.timed&&g.timed&&old.date&&g.date&&
+      Math.abs(new Date(old.date)-new Date(g.date))>30*60*1000)return false;
+   return true;
+  });
+  if(duplicate===undefined){lookup.set(key,[...indices,chosen.length]);chosen.push(g);}
+  else if(quality(g)>quality(chosen[duplicate]))chosen[duplicate]=g;
+ }
+ return chosen;
+}
 function normalizeWomen(rows,rankings,crossList){
   const cross=new Map((crossList?.teams||[]).map(t=>[String(t.espn_id),t]));
   const rating=new Map((rankings?.rankings||[]).map(t=>[String(t.team_id),t]));
@@ -404,7 +432,7 @@ async function refresh(){
     cross=c||{teams:[]};ratings=rankingsMap(rank);palette=pal?.wbb||pal?.mbb||{};
     womenTeams=new Map((wTeams?.teams||[]).map(t=>[String(t.team_id),t]));
     sourceFeed=feed||null;seasonStats=insight?.seasonProfiles(rank.events)||new Map();
-    loaded=normalizeWomen(results,rank,cross);
+    loaded=dedupeFixtures(normalizeWomen(results,rank,cross));
     lastUpdate='women’s rolling fixture ledger';
   }else{
     const [feed,forecast,rank,c,pal,ex,arenas,calibration]=output;
