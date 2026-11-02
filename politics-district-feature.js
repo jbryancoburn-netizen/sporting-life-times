@@ -121,8 +121,10 @@ function render(){
    text("feature-big-number",fmt(gap));
    const big=$("feature-big-number");if(big)big.dataset.digits=String(gap).length;
    text("feature-big-label","VOTES DECIDED THE 2024 HOUSE RACE");
-   text("feature-deck",(gap<1000?"Fewer than 1,000 votes separated the major parties in 2024. ":"")+
-      "The vote gap in actual ballots. The 2026 election has not been decided.");
+   text("feature-prelude",id==="IA-01"?"A recount. A rematch. A river district.":"How thin was the line between victory and defeat?");
+   text("feature-deck",id==="IA-01"?
+      "From the University of Iowa to the Quad Cities, twenty southeast Iowa counties. The 2024 House election went to a recount and finished this close.":
+      "The difference in actual Republican and Democratic House votes in 2024. Explore the real communities and election record below.");
    text("feature-margin-note",winner==="R"?"REPUBLICAN HOUSE WIN / 2024 ACTUAL":"DEMOCRATIC HOUSE WIN / 2024 ACTUAL");
    text("feature-vote-rep",fmt(h.rep_votes));
    text("feature-vote-dem",fmt(h.dem_votes));
@@ -160,6 +162,7 @@ function render(){
   }else{
    // A 2024 district using different boundaries should not be advertised
    // as the margin of the 2026 seat.
+   text("feature-prelude","The people and places behind the race.");
    text("feature-big-number","435");const big=$("feature-big-number");if(big)big.dataset.digits="3";text("feature-big-label","DISTRICTS, EACH WITH A DIFFERENT STORY");
    text("feature-deck","Get to know the communities and sourced history before judging a congressional contest. Prior election boundaries may differ.");
    text("feature-margin-note","HISTORICAL BOUNDARIES NEED VERIFICATION");
