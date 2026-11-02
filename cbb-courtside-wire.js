@@ -73,7 +73,7 @@ async function refresh(){
  }catch(e){const stamp=$('#cbb-wire-updated');if(stamp)stamp.textContent=last?'Feed delayed · showing last received update':'Feed temporarily unavailable';}
 }
 function mount(){
- const header=$('.wrap > header');if(!header||$('#cbb-courtside-wire'))return;
+ const header=$('.wrap > header, .cbb-standalone > header');if(!header||$('#cbb-courtside-wire'))return;
  const root=document.createElement('section');root.id='cbb-courtside-wire';root.className='cbb-wire';root.setAttribute('aria-label','Live college basketball scores and news');
  root.innerHTML='<div class="cbb-wire-top"><span class="cbb-wire-brand"><i aria-hidden="true"></i> THE COURTSIDE WIRE</span><span id="cbb-wire-updated">Connecting to the basketball desk…</span><a href="cbb-game-center.html">ALL SCORES ↗</a></div><div class="cbb-wire-score-row"><div class="cbb-wire-score-track" id="cbb-wire-score-track"><span class="cbb-wire-empty">Loading scores…</span></div></div><div class="cbb-wire-news-row"><span class="cbb-wire-news-label">LATEST <span aria-hidden="true">●</span></span><div class="cbb-wire-news-viewport"><div id="cbb-wire-news-track" class="cbb-wire-news-track">Loading basketball headlines…</div></div><a class="cbb-wire-news-more" href="ncaam.html#news">NEWS ↗</a></div>';
  header.insertAdjacentElement('afterend',root);
