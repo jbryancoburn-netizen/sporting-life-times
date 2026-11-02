@@ -1216,6 +1216,13 @@ def update(gender, bootstrap=False, live=False):
     if (not rapid or not ecc_quality or
         ecc_quality.get("status")!="ECC 2026-27 exact reciprocal school calendars verified"):
         ecc_quality=enrich_ecc(gender,games,teams,today)
+    # Great Midwest 2026-27: separately verify both university calendars
+    # and conference H/A markers. Never assign unzoned clock times to ET.
+    from d2_gmac_official import enrich_gmac
+    gmac_quality=previous_quality.get("official_gmac_schedule_reconciliation")
+    if (not rapid or not gmac_quality or
+        gmac_quality.get("status")!="GMAC exact two-university 2026-27 fixture verification"):
+        gmac_quality=enrich_gmac(gender,games,teams,today)
     # Ratings start at 1500 on every new season; only NCAA verified DII-v-DII finals count.
     rating={key:1500.0 for key in teams}
     wins={key:0 for key in teams};losses={key:0 for key in teams}
@@ -1316,6 +1323,7 @@ def update(gender, bootstrap=False, live=False):
         "official_sac_schedule_reconciliation":sac_quality,
         "official_glvc_schedule_reconciliation":glvc_quality,
         "official_ecc_schedule_reconciliation":ecc_quality,
+        "official_gmac_schedule_reconciliation":gmac_quality,
         "official_ssc_schedule_reconciliation":ssc_quality,
         "official_pwc_schedule_reconciliation":pwc_quality,
         "official_lsc_men_schedule_reconciliation":lsc_quality}
