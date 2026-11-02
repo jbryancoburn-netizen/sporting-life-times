@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""DIII official university basketball calendar importer: strict 2026-27 verified pilot.
+"""DIII official university basketball calendar importer: 2026-27 nationwide crawl.
 
 Never guess team identities, conditional games, actual Eastern time, or scores.
 A source calendar is only an available calendar, NOT certified complete.
@@ -10,7 +10,8 @@ import datetime as dt
 import json
 import re
 import urllib.request
-from collections import defaultdict
+from urllib.parse import urlsplit
+from collections import defaultdict, Counter
 from pathlib import Path
 
 from bs4 import BeautifulSoup
@@ -22,7 +23,7 @@ SEASON_END = dt.date(2027, 4, 15)
 HEADERS = {"User-Agent": "SportingLifeTimes/1.0 (NCAA public schedule audit)",
            "Accept": "text/html"}
 
-# Explicit university-verified 2026-27 paths, never auto-assume an athletics host.
+# Individually confirmed official university URLs take precedence over automatic discovery.
 # orgId is the year-specific NCAA directory identity, not an ESPN game/team ID.
 SOURCES = {
     "men": [
@@ -149,11 +150,17 @@ def parse_calendar(html, gender, owner, url, by_org, exact):
     doc = BeautifulSoup(html, "html.parser")
     visible = compact(doc.get_text(" ", strip=True)).lower()
     title = compact(doc.title.get_text(" ", strip=True)) if doc.title else ""
-    kind = "men's basketball" if gender == "men" else "women's basketball"
-    if not any(s in visible or s in title for s in ("2026-27", "2026-2027")):
-        raise ValueError("2026–27 season not found in official school page")
-    if kind not in (title + " " + visible[:2200]).lower():
-        raise ValueError("Wrong sport/gender on school schedule")
+    # Require a year/sport-specific headline rather than unrelated sidebar links.
+    # Important: "men's basketball" is a substring of "women's basketball".
+    headlines = " ".join(compact(h.get_text(" ", strip=True)) for h in doc.select("h1")[:3])
+    identity_text = (title + " " + headlines).lower().replace("’", "'")
+    if not re.search(r"2026\s*[-–]\s*(?:27|2027)", identity_text):
+        raise ValueError("No 2026–27 season in the actual page title/heading")
+    if gender == "men" and (not re.search(r"(?<![a-z])men's\s+basketball", identity_text)
+                            or re.search(r"women's\s+basketball", identity_text)):
+        raise ValueError("Wrong men's sport or women's calendar")
+    if gender == "women" and not re.search(r"women's\s+basketball", identity_text):
+        raise ValueError("Wrong women's sport or men's calendar")
     matches = []
     inspected = 0
     omitted = defaultdict(int)
@@ -216,8 +223,59 @@ def parse_calendar(html, gender, owner, url, by_org, exact):
 def fetch_calendar(source):
     owner, url = source
     request = urllib.request.Request(url, headers=HEADERS)
-    with urllib.request.urlopen(request, timeout=19) as response:
+    with urllib.request.urlopen(request, timeout=11) as response:
         return owner, url, response.read().decode("utf-8", "replace")
+
+
+
+def source_candidates(gender, by_org):
+    """One guaranteed official NCAA-listed athletics hostname per program.
+
+    A guessed schedule PATH is never trusted: the returned document must
+    certify season, sport, NCAA member opponent, and substantial real rows.
+    """
+    explicit = dict(SOURCES[gender])
+    sources = []
+    unlisted = 0
+    for org, team in sorted(by_org.items()):
+        if org in explicit:
+            sources.append((org, explicit[org], True))
+            continue
+        official = str(team.get("athletics_site") or "").strip()
+        host = urlsplit(official).hostname if official.startswith("https://") else ""
+        if not host or not re.fullmatch(r"[a-z0-9][a-z0-9.-]*\.[a-z]{2,}", host, re.I):
+            unlisted += 1
+            sources.append((org, "", False))
+            continue
+        sport = "mens-basketball" if gender == "men" else "womens-basketball"
+        sources.append((org, f"https://{host}/sports/{sport}/schedule/2026-27?grid=true", False))
+    return sources, unlisted
+
+
+def inspect_source(gender, source, by_org, exact):
+    """Reject incorrect seasons/sexes and unknown calendars, even on HTTP 200."""
+    org, url, pinned = source
+    if not url:
+        return None, {"owner_org_id": org, "source_url": "",
+                      "status": "no_official_athletics_site",
+                      "error": "NCAA directory has no usable athletics URL"}
+    attempts = [url]
+    if not pinned:
+        attempts.append(url.replace("/2026-27?", "/2026-2027?"))
+    errors = []
+    for candidate in attempts:
+        try:
+            _, verified_url, html = fetch_calendar((org, candidate))
+            rows, report = parse_calendar(html, gender, org, verified_url, by_org, exact)
+            report["calendar_origin"] = "pinned_official_url" if pinned else "NCAA_directory_athletics_hostname"
+            report["candidate_urls_tried"] = len(errors) + 1
+            return rows, report
+        except Exception as ex:
+            errors.append(str(ex)[:130])
+    return None, {"owner_org_id": org, "source_url": url,
+                  "status": "failed", "error": " | ".join(errors)[:260],
+                  "candidate_urls_tried": len(attempts),
+                  "calendar_origin": "pinned_official_url" if pinned else "NCAA_directory_athletics_hostname"}
 
 
 def canonical_key(item):
@@ -264,7 +322,7 @@ def combine(gender, parsed):
     return fixtures, conflicts
 
 
-def process(gender, workers=6, dry_run=False):
+def process(gender, workers=30, dry_run=False):
     current = json.loads((DATA / f"d3-{gender}-2026-27.json").read_text())
     if current["gender"] != gender or current["division"] != "d3" or current["starting_elo"] != 1500:
         raise ValueError("Wrong gender/division/Elo in official NCAA directory")
@@ -278,57 +336,75 @@ def process(gender, workers=6, dry_run=False):
         for owner in f.get("verified_by_org_ids", []):
             available_previous[owner].append(f)
     gathered, audit = [], []
-    sources = SOURCES[gender]
+    sources, missing = source_candidates(gender, by_org)
+    assert len(sources) == len(by_org) and len({s[0] for s in sources}) == len(by_org)
+
+    # Bounded workers: independent university hosts, no NCAA scraping flood.
     with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
-        results = {pool.submit(fetch_calendar, source): source for source in sources}
+        results = {pool.submit(inspect_source, gender, source, by_org, exact): source
+                   for source in sources}
         for future in concurrent.futures.as_completed(results):
-            owner, url = results[future]
-            if owner not in by_org:
-                raise ValueError(f"Unverified DIII owner orgId: {owner}")
+            owner, url, pinned = results[future]
             try:
-                _, _, html = future.result()
-                rows, report = parse_calendar(html, gender, owner, url, by_org, exact)
-                gathered.append(rows)
-                audit.append(report)
+                rows, report = future.result()
             except Exception as ex:
-                audit.append({"owner_org_id": owner, "source_url": url,
-                              "status": "failed", "error": str(ex)[:180],
-                              "retained_previous_fixtures": len(available_previous[owner])})
-                # If source fails, retain the previous *school's* published
-                # evidence only. Never turn an old unconfirmed date into a score.
+                rows = None
+                report = {"owner_org_id": owner, "source_url": url,
+                          "status": "failed", "error": str(ex)[:200]}
+            prior = available_previous[owner]
+            if rows:
+                gathered.append(rows)
+            else:
+                report["retained_previous_fixtures"] = len(prior)
+                # Failed sources must not erase last verified fixture snapshots.
                 recovered = []
-                for f in available_previous[owner]:
-                    recovered.append({"date": f["date"], "away_org_id": f["away_org_id"],
-                                      "home_org_id": f["home_org_id"], "neutral": f["neutral"],
-                                      "source_owner_org_id": owner, "source_url": url,
-                                      "tipoff_as_posted": f.get("tipoff_as_posted", ""),
-                                      "venue": f.get("venue", ""),
-                                      "venue_location": f.get("venue_location", ""),
-                                      "network_as_posted": f.get("network_as_posted", ""),
-                                      "radio_as_posted": f.get("radio_as_posted", ""),
-                                      "tournament": f.get("tournament", "")})
+                for f in prior:
+                    prior_urls = f.get("official_schedule_sources") or [f.get("source_url", "")]
+                    prev_source = next((x for x in prior_urls if x), f.get("source_url", ""))
+                    recovered.append({
+                        "date": f["date"], "away_org_id": f["away_org_id"],
+                        "home_org_id": f["home_org_id"], "neutral": f["neutral"],
+                        "source_owner_org_id": owner, "source_url": prev_source,
+                        "tipoff_as_posted": f.get("tipoff_as_posted", ""),
+                        "venue": f.get("venue", ""),
+                        "venue_location": f.get("venue_location", ""),
+                        "network_as_posted": f.get("network_as_posted", ""),
+                        "radio_as_posted": f.get("radio_as_posted", ""),
+                        "tournament": f.get("tournament", "")})
                 if recovered:
                     gathered.append(recovered)
+            audit.append(report)
+
     fixtures, conflicts = combine(gender, gathered)
     successful = sum(a["status"] == "parsed" for a in audit)
-    if not successful:
-        raise ValueError(f"No official {gender} calendars parsed; previous verified snapshot preserved")
+    if successful < 1:
+        raise ValueError(f"No official {gender} calendars parsed; preserving last certified dataset")
     count_reciprocal = sum(f["source_verification"] == "reciprocal" for f in fixtures)
-    output = {"schema_version": 1, "division": "d3", "gender": gender, "season": "2026-27",
-              "generated_utc": dt.datetime.now(dt.timezone.utc).isoformat(),
-              "source": "School-published 2026–27 university athletics schedule grids",
-              "scope": "pilot only; not all NCAA DIII programs",
-              "verified_source_calendars": successful,
-              "school_calendars_checked": len(audit),
-              "source_audit": sorted(audit, key=lambda x: x["owner_org_id"]),
-              "conflicts": conflicts,
-              "fixture_count": len(fixtures),
-              "reciprocal_fixtures": count_reciprocal,
-              "fixtures": fixtures}
+    status_counts = Counter(a["status"] for a in audit)
+    output = {
+        "schema_version": 1, "division": "d3", "gender": gender, "season": "2026-27",
+        "generated_utc": dt.datetime.now(dt.timezone.utc).isoformat(),
+        "source": "NCAA 2026-27 member directory + year/gender-validated official school athletics calendars",
+        "scope": "NCAA membership-wide first pass; sources without independently validated 2026-27 schedules excluded",
+        "ncaa_confirmed_programs": len(by_org),
+        "verified_source_calendars": successful,
+        "school_calendars_checked": len(audit),
+        "school_calendars_missing": len(by_org) - successful,
+        "source_status_counts": dict(status_counts),
+        "no_athletics_host": missing,
+        "source_audit": sorted(audit, key=lambda x: x["owner_org_id"]),
+        "conflicts": conflicts,
+        "fixture_count": len(fixtures),
+        "reciprocal_fixtures": count_reciprocal,
+        "fixtures": fixtures
+    }
     if not dry_run:
         prior_file.write_text(json.dumps(output, indent=2) + "\n")
+    print(json.dumps({"gender": gender, "ncaa_members": len(by_org),
+                      "calendars_parsed": successful, "fixtures": len(fixtures),
+                      "reciprocal": count_reciprocal, "conflicts": len(conflicts),
+                      "outcomes": dict(status_counts)}, sort_keys=True), flush=True)
     return output
-
 
 def self_test():
     teams = [
@@ -345,6 +421,15 @@ def self_test():
     assert calendar_date("January 6, 2027 (Wednesday)") == "2027-01-06"
     assert calendar_date("January 99, 2027") is None
     assert calendar_date("October 31, 2026 (Saturday)") is None
+    assert not re.search(r"(?<![a-z])men's\s+basketball", "women's basketball")
+    candidates, missing = source_candidates("men", {
+        286: {**by_org[286], "athletics_site": "https://athletics.hope.edu/landing/index"},
+        30037: {**by_org[30037], "athletics_site": "https://www.trinethunder.com/"}
+    })
+    assert len(candidates) == 2 and not missing
+    assert all(s[2] is True for s in candidates)  # the prior explicit source wins
+    assert len({x[0] for x in candidates}) == 2
+
     html = """<html><head><title>2026-27 Men's Basketball Schedule - Hope College</title></head>
       <body><h1>2026-27 Men's Basketball Schedule</h1><table><tr>
       <th>Date</th><th>Time</th><th>At</th><th>Opponent</th><th>Location</th>
@@ -371,6 +456,13 @@ def self_test():
     assert len(fixtures) == 3 and not conflicts
     assert any(f["source_verification"] == "reciprocal" for f in fixtures)
     assert all(f["status"] == "scheduled" for f in fixtures)
+    try:
+        parse_calendar(html.replace("Men's Basketball", "Women's Basketball"),
+                       "men", 286, "https://athletics.hope.edu/example", by_org, exact)
+        raise AssertionError("Wrong-gender calendar was improperly accepted")
+    except ValueError:
+        pass
+
     print("DIII schedule importer: date/identity/conditional/neutral/reciprocal tests PASS")
 
 
@@ -378,7 +470,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--test", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
-    parser.add_argument("--workers", type=int, default=6)
+    parser.add_argument("--workers", type=int, default=30)
     opts = parser.parse_args()
     if opts.test:
         self_test()
