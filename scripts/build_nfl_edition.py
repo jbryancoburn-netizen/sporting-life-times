@@ -318,7 +318,19 @@ def run(fast):
                     newgames[game["id"]]=game
     games=dict(oldgames if fast else {})
     for eid,g in newgames.items():
-        # Fresh source replaces prior state; game identity remains stable.
+        # Live scoreboards sometimes omit period scoring from already final games.
+        # Preserve the last source-verified complete periods only if the final score
+        # still matches; never keep an obsolete quarter line after a correction.
+        previous=oldgames.get(eid) or {}
+        for side in ("home","away"):
+            incoming=g[side].get("linescores") or []
+            earlier=(previous.get(side) or {}).get("linescores") or []
+            score=g[side].get("score")
+            if (not incoming and earlier and score is not None
+                    and (previous.get(side) or {}).get("score")==score
+                    and all(isinstance(q,dict) and isinstance(q.get("score"),int) for q in earlier)
+                    and sum(q["score"] for q in earlier)==score):
+                g[side]["linescores"]=earlier
         games[eid]=g
     games=sorted(games.values(),key=lambda g:(g["date"] or "",g["id"]))
     if len(games)!=272 or len({g["id"] for g in games})!=272:
