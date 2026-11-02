@@ -79,6 +79,25 @@ ALIASES = {
     "johnson and wales university": 22626, "uw eau claire": 793,
     "uw oshkosh": 798, "uw stevens point": 802,
 }
+# Official athletics domains independently verified against 2026–27 school sites.
+# The NCAA member directory sometimes exposes an old generic campus URL.
+# Every candidate still must pass exact 2026–27, sex, row and NCAA-opponent tests.
+OFFICIAL_ATHLETICS_HOST_OVERRIDE = {
+    69: "athletics.bowdoin.edu", 117: "athletics.capital.edu",
+    126: "athletics.central.edu", 168: "www.cortlandreddragons.com",
+    192: "udspartans.com", 266: "gogusties.com",
+    267: "athletics.hamilton.edu", 336: "kingscollegeathletics.com",
+    372: "luthernorse.com", 376: "athletics.macalester.edu",
+    420: "athletics.middlebury.edu", 496: "athletics.northpark.edu",
+    581: "uofrathletics.com", 673: "springfieldcollegepride.com",
+    764: "athletics.wesleyan.edu", 773: "mcdanielathletics.com",
+    780: "whitmanblues.com", 1094: "athletics.georgefox.edu",
+    1112: "guilfordquakers.com", 1203: "cruathletics.com",
+    1451: "athletics.westminster.edu", 1461: "wilmingtonquakers.com",
+    16142: "athletics.misericordia.edu", 30041: "salemcollegeathletics.com",
+    30064: "athletics.stvincent.edu",
+}
+
 DATE = re.compile(
     r"^([A-Za-z]+)\s+(\d{1,2}),?\s+(2026|2027)(?:\s+\([^)]+\))?$")
 MONTHS = {m: i for i, m in enumerate(
@@ -242,7 +261,9 @@ def source_candidates(gender, by_org):
             sources.append((org, explicit[org], True))
             continue
         official = str(team.get("athletics_site") or "").strip()
-        host = urlsplit(official).hostname if official.startswith("https://") else ""
+        host = OFFICIAL_ATHLETICS_HOST_OVERRIDE.get(org)
+        if not host:
+            host = urlsplit(official).hostname if official.startswith("https://") else ""
         if not host or not re.fullmatch(r"[a-z0-9][a-z0-9.-]*\.[a-z]{2,}", host, re.I):
             unlisted += 1
             sources.append((org, "", False))
@@ -267,7 +288,7 @@ def inspect_source(gender, source, by_org, exact):
         try:
             _, verified_url, html = fetch_calendar((org, candidate))
             rows, report = parse_calendar(html, gender, org, verified_url, by_org, exact)
-            report["calendar_origin"] = "pinned_official_url" if pinned else "NCAA_directory_athletics_hostname"
+            report["calendar_origin"] = ("pinned_official_url" if pinned else "independently_verified_athletics_host" if org in OFFICIAL_ATHLETICS_HOST_OVERRIDE else "NCAA_directory_athletics_hostname")
             report["candidate_urls_tried"] = len(errors) + 1
             return rows, report
         except Exception as ex:
@@ -275,7 +296,7 @@ def inspect_source(gender, source, by_org, exact):
     return None, {"owner_org_id": org, "source_url": url,
                   "status": "failed", "error": " | ".join(errors)[:260],
                   "candidate_urls_tried": len(attempts),
-                  "calendar_origin": "pinned_official_url" if pinned else "NCAA_directory_athletics_hostname"}
+                  "calendar_origin": ("pinned_official_url" if pinned else "independently_verified_athletics_host" if org in OFFICIAL_ATHLETICS_HOST_OVERRIDE else "NCAA_directory_athletics_hostname")}
 
 
 def canonical_key(item):
@@ -429,6 +450,12 @@ def self_test():
     assert len(candidates) == 2 and not missing
     assert all(s[2] is True for s in candidates)  # the prior explicit source wins
     assert len({x[0] for x in candidates}) == 2
+    assert OFFICIAL_ATHLETICS_HOST_OVERRIDE[69] == "athletics.bowdoin.edu"
+    fixes, _ = source_candidates("men", {69: {
+        "name": "Bowdoin College", "ncaa_org_id": 69,
+        "athletics_site": "https://www.bowdoin.edu/athletics/"}})
+    assert len(fixes) == 1 and fixes[0][1].startswith("https://athletics.bowdoin.edu/")
+
 
     html = """<html><head><title>2026-27 Men's Basketball Schedule - Hope College</title></head>
       <body><h1>2026-27 Men's Basketball Schedule</h1><table><tr>
