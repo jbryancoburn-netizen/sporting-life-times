@@ -84,4 +84,34 @@ console.log('Validated '+watch+' purple watch cards, '+mixed+' conflicting-signa
         p=subprocess.run(["node","-e",node],cwd=ROOT,text=True,capture_output=True,timeout=25)
         self.assertEqual(p.returncode,0,p.stdout+"\n"+p.stderr)
 
+
+    def test_district_profile_is_visual_and_keeps_raw_evidence_distinct(self):
+        district=(ROOT/"politics-house-district.html").read_text(encoding="utf-8")
+        visual=(ROOT/"politics-house-district-visual.css").read_text(encoding="utf-8")
+        ids=["district-front","front-map-art","front-title","front-read",
+             "front-field","front-chart","front-facts","district-updated",
+             "leader-badge","coverage-board"]
+        for ident in ids:
+            with self.subTest(id=ident):
+                self.assertEqual(district.count('id="'+ident+'"'),1)
+        self.assertIn("politics-house-district-visual.css?v=20261101-editorial1",district)
+        self.assertIn("politics-state-art.js",district)
+        self.assertLess(district.index('id="district-front"'),district.index('id="metrics"'))
+        self.assertIn('<details id="coverage-section"',district)
+        self.assertIn('function renderDistrictFront(r,state){',self.js)
+        self.assertIn('renderDistrictFront(r,state);',self.js)
+        self.assertIn('renderDistrictGraphic(r)',self.js)
+        self.assertIn('raceReasonPanel(r)',self.js)
+        self.assertIn('portraitNode(r,c,true)',self.js)
+        self.assertIn('if(!ballot?.candidates?.length)',self.js)
+        self.assertIn('window.PoliticsStateArt.prepare(r.state,state.district_count)',self.js)
+        self.assertIn('front-theme-purple',visual)
+        self.assertIn('front-theme-dem',visual)
+        self.assertIn('front-theme-rep',visual)
+        self.assertIn('front-theme-history',visual)
+        self.assertIn('grid-template-columns:1fr',visual)
+        self.assertIn('NOT A 2026 POLL',self.js)
+        self.assertIn('not a guaranteed winner',district.lower())
+        self.assertNotIn('win probability 60%',district.lower())
+
 if __name__=="__main__":unittest.main()
