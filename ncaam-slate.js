@@ -223,8 +223,7 @@ const titleMarks=t=>{
  const count=(ncaaTitles[women?'women':'men']||{})[String(t.id)]||0;
  if(!count)return '';
  return '<span class="sl-title-stars" title="'+count+' NCAA Division I national title'+(count===1?'':'s')+'" aria-label="'+count+' NCAA national championships">'+
-   '<span aria-hidden="true">'+(count<=6?'★'.repeat(count):'★')+'</span>'+
-   (count>6?'<b>×'+count+'</b>':'')+'</span>';
+   '<span aria-hidden="true">'+Array.from({length:count},()=>'<i>★</i>').join('')+'</span></span>';
 };
 const editorialBadges=g=>{
  if(g.kind==='exhibition')return '';
