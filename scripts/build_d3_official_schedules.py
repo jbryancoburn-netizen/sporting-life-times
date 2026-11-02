@@ -918,6 +918,73 @@ def parse_hcac_bluffton_home_rows(doc, gender, owner, url, by_org, exact):
 
 
 
+
+def dated_landmark_womens_official_away(owner, by_org):
+    """Accept an individually source-verified 2026-27 Landmark women's away slate.
+
+    Fallback for official conference SIDEARM game cards when a network crawl
+    returns unusable markup. Each dated 'at' game was independently checked
+    against a current, exact 2026-27 gender/team-named official league URL.
+    This is deliberately NOT a complete university or conference calendar.
+    """
+    ledger = json.loads(
+        (DATA / "d3-landmark-womens-official-away-2026-27.json").read_text())
+    expected_urls = {
+        1467: "https://landmarkconference.org/schedule.aspx?schedule=2615",
+        325: "https://landmarkconference.org/schedule.aspx?schedule=2616",
+        443: "https://landmarkconference.org/schedule.aspx?schedule=2618",
+    }
+    if (ledger.get("division"), ledger.get("gender"), ledger.get("season"),
+            ledger.get("scope"), ledger.get("source_kind")) != (
+            "d3", "women", "2026-27",
+            "dated_away_conference_games_only_not_full_university_calendar",
+            "official_conference"):
+        raise ValueError("Landmark women manual calendar source identity invalid")
+    if ledger.get("source_urls") != {
+            str(org): url for org, url in expected_urls.items()}:
+        raise ValueError("Landmark team-specific official source URLs changed")
+    if owner not in expected_urls or owner not in by_org:
+        raise ValueError("Not a preverified women's Landmark schedule owner")
+    games = (ledger.get("programs") or {}).get(str(owner))
+    if not isinstance(games, list) or len(games) < 8:
+        raise ValueError("Too few verified Landmark women's conference away dates")
+    allowed_members = {124, 190, 211, 325, 373, 443, 633, 685, 784, 1467}
+    rows, seen = [], set()
+    for game in games:
+        date = dt.date.fromisoformat(game["date"])
+        opp = game.get("opponent_org_id")
+        when = game.get("tipoff_as_posted", "")
+        if (not SEASON_START <= date <= SEASON_END or
+                date.weekday() not in (2, 5) or
+                date.isoformat() in seen or
+                game.get("site") != "away" or
+                type(opp) is not int or opp not in allowed_members or
+                opp == owner or opp not in by_org or
+                not by_org[opp].get("d3_confirmed") or
+                not re.fullmatch(r"\d{1,2}:\d{2}\s*[AP]\.M\.", when)):
+            raise ValueError("Invalid official Landmark women's away fixture")
+        seen.add(date.isoformat())
+        rows.append({
+            "date": date.isoformat(), "away_org_id": owner,
+            "home_org_id": opp, "neutral": False,
+            "source_owner_org_id": owner,
+            "source_url": expected_urls[owner],
+            "source_kind": "official_conference",
+            "tipoff_as_posted": when, "venue": "", "venue_location": "",
+            "network_as_posted": "", "radio_as_posted": "",
+            "tournament": "",
+        })
+    return rows, {
+        "owner_org_id": owner, "status": "parsed_conference",
+        "source_url": expected_urls[owner],
+        "verified_direct_url": expected_urls[owner],
+        "calendar_origin": "dated_landmark_away_only_not_full_school_calendar",
+        "readable_rows": len(rows), "verified_member_opponents": len(rows),
+        "excluded_rows": {},
+    }
+
+
+
 def parse_conference_calendar(html, gender, owner, url, subject, by_org, exact, school_legacy=False):
     """Read an explicitly selected OFFICIAL conference team season table.
 
@@ -1546,6 +1613,19 @@ def process(gender, workers=30, dry_run=False):
                     rows, report = approved_rows, approved_report
                 except Exception as ex:
                     report["approved_landmark_error"] = str(ex)[:200]
+            # Current official Landmark women's 2026-27 conference pages
+            # sometimes return ambiguous DOM containers in server-side reads.
+            # Never guess home or neutral games: use the separately validated
+            # first-party dated 'at' entries only if a direct parse fails.
+            if gender == "women" and owner in (1467, 325, 443) and rows is None:
+                try:
+                    known_away, known_report = dated_landmark_womens_official_away(
+                        owner, by_org)
+                    known_report["university_source_failure"] = report.get("error", "")
+                    known_report["university_source_status"] = report.get("status", "")
+                    rows, report = known_away, known_report
+                except Exception as ex:
+                    report["dated_landmark_women_error"] = str(ex)[:200]
             prior = available_previous[owner]
             new_external = report.pop("unresolved_opponent_rows", [])
             if rows is not None and (rows or new_external):
@@ -2349,6 +2429,30 @@ def self_test():
     certified, conflicted = combine("men", shared)
     assert not conflicted and len(certified) == 1
     assert certified[0]["source_verification"] == "single_official_conference"
+
+    # Independently posted 2026-27 women's Landmark source calendars provide
+    # only unambiguous 'at' league games; original school-site failures and
+    # unsourced vs/home/neutral claims remain correctly separate.
+    women_dir = json.loads((DATA / "d3-women-2026-27.json").read_text())
+    women_orgs, _ = official_index(women_dir["teams"])
+    expected_away_counts = {1467: 10, 325: 8, 443: 9}
+    league_pair_dates = set()
+    for owner, count in expected_away_counts.items():
+        away_rows, away_audit = dated_landmark_womens_official_away(
+            owner, women_orgs)
+        assert len(away_rows) == away_audit["readable_rows"] == count
+        assert away_audit["status"] == "parsed_conference"
+        assert "not_full_school" in away_audit["calendar_origin"]
+        assert all(r["away_org_id"] == owner and not r["neutral"] and
+                   r["source_kind"] == "official_conference" and
+                   not r["venue"] and not r["network_as_posted"]
+                   for r in away_rows)
+        for game in away_rows:
+            stamp = (game["date"], tuple(sorted((
+                game["away_org_id"], game["home_org_id"]))))
+            assert stamp not in league_pair_dates
+            league_pair_dates.add(stamp)
+    assert len(league_pair_dates) == 27
 
     print("DIII schedule importer: date/identity/conditional/neutral/reciprocal tests PASS")
 
