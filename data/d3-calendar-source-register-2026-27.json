@@ -1,19 +1,19 @@
 {
   "division": "d3",
   "season": "2026-27",
-  "updated_utc": "2026-11-02T02:50:47.458350+00:00",
+  "updated_utc": "2026-11-02T02:55:19.978499+00:00",
   "summary": {
     "men": {
       "ncaa_teams": 406,
-      "verified_university": 355,
+      "verified_university": 356,
       "verified_conference": 26,
-      "unresolved": 25
+      "unresolved": 24
     },
     "women": {
       "ncaa_teams": 415,
-      "verified_university": 362,
+      "verified_university": 363,
       "verified_conference": 27,
-      "unresolved": 26
+      "unresolved": 25
     }
   },
   "schools": [
@@ -238,7 +238,7 @@
       "previously_verified_university_url": "",
       "discovery_method": "NCAA_directory_athletics_hostname",
       "verified_opponent_rows": 0,
-      "dated_games_from_other_official_sources": 5,
+      "dated_games_from_other_official_sources": 7,
       "opponent_source_examples": [
         "https://athletics.hope.edu/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://miaa.org/schedule.aspx?schedule=2283",
@@ -891,97 +891,20 @@
       "school": "Bluffton University",
       "conference": "Heartland Collegiate Athletic Conference",
       "ncaa_athletics_url": "https://www.blufftonbeavers.com",
-      "status": "unresolved",
-      "verified_2026_27_schedule_url": "",
+      "status": "verified_conference",
+      "verified_2026_27_schedule_url": "https://heartlandconf.org/schedule.aspx?schedule=4398",
       "previously_verified_university_url": "",
-      "discovery_method": "NCAA_directory_athletics_hostname",
-      "verified_opponent_rows": 0,
-      "dated_games_from_other_official_sources": 20,
-      "opponent_source_examples": [
-        "https://athletics.kenyon.edu/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://www.goearlham.com/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://franklingrizzlies.com/sports/mens-basketball/schedule/2026-27?grid=true"
-      ],
-      "attempted_source_urls": 15,
+      "discovery_method": "official_conference_team_calendar",
+      "verified_opponent_rows": 24,
+      "dated_games_from_other_official_sources": 0,
+      "opponent_source_examples": [],
+      "attempted_source_urls": 0,
       "additional_candidate_links": [],
-      "failure_category": "season_heading_not_verified",
-      "next_manual_action": "Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar",
-      "source_error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
-      "rejected_page_evidence": [
-        {
-          "url": "https://www.blufftonbeavers.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.blufftonbeavers.com/sports/mens-basketball/schedule/2026-2027?grid=true",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.blufftonbeavers.com/sports/mens-basketball/schedule?grid=true",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.blufftonbeavers.com/sports/mens-basketball/schedule",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.blufftonbeavers.com/sports/mbball/schedule?grid=true",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.blufftonbeavers.com/sports/mbball/schedule",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.blufftonbeavers.com/sports/mbkb/2026-27/schedule",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.blufftonbeavers.com/sports/mbkb/schedule",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        }
-      ],
-      "refresh_rule": "Follow official university sports navigation, conference calendars and opponent evidence without inventing missing games"
+      "failure_category": "",
+      "next_manual_action": "",
+      "source_error": "",
+      "rejected_page_evidence": [],
+      "refresh_rule": "Recheck official conference schedule; do not certify university calendar"
     },
     {
       "gender": "men",
@@ -3281,13 +3204,13 @@
       "conference": "American Southwest Conference",
       "ncaa_athletics_url": "https://www.hpusports.com",
       "status": "verified_university",
-      "verified_2026_27_schedule_url": "https://www.hpusports.com/sports/mens-basketball/schedule?grid=true",
-      "previously_verified_university_url": "https://www.hpusports.com/sports/mens-basketball/schedule?grid=true",
-      "discovery_method": "previously_verified_source",
+      "verified_2026_27_schedule_url": "https://www.hpusports.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+      "previously_verified_university_url": "https://www.hpusports.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+      "discovery_method": "official_school_url_or_vendor_variant",
       "verified_opponent_rows": 17,
       "dated_games_from_other_official_sources": 3,
       "opponent_source_examples": [],
-      "attempted_source_urls": 1,
+      "attempted_source_urls": 3,
       "additional_candidate_links": [],
       "failure_category": "",
       "next_manual_action": "",
@@ -5198,20 +5121,96 @@
       "school": "Muskingum University",
       "conference": "Ohio Athletic Conference",
       "ncaa_athletics_url": "https://www.fightingmuskies.com/landing/index",
-      "status": "verified_conference",
-      "verified_2026_27_schedule_url": "https://oac.org/schedule.aspx?schedule=2381",
+      "status": "unresolved",
+      "verified_2026_27_schedule_url": "",
       "previously_verified_university_url": "",
-      "discovery_method": "official_conference_team_calendar",
-      "verified_opponent_rows": 22,
+      "discovery_method": "NCAA_directory_athletics_hostname",
+      "verified_opponent_rows": 0,
       "dated_games_from_other_official_sources": 3,
-      "opponent_source_examples": [],
-      "attempted_source_urls": 0,
+      "opponent_source_examples": [
+        "https://athletics.westminster.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://wilmingtonquakers.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "attempted_source_urls": 9,
       "additional_candidate_links": [],
-      "failure_category": "",
-      "next_manual_action": "",
-      "source_error": "",
-      "rejected_page_evidence": [],
-      "refresh_rule": "Recheck official conference schedule; do not certify university calendar"
+      "failure_category": "season_heading_not_verified",
+      "next_manual_action": "Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar",
+      "source_error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
+      "rejected_page_evidence": [
+        {
+          "url": "https://www.fightingmuskies.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fightingmuskies.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fightingmuskies.com/sports/mens-basketball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fightingmuskies.com/sports/mens-basketball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fightingmuskies.com/sports/mbball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fightingmuskies.com/sports/mbball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fightingmuskies.com/sports/mbkb/2026-27/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fightingmuskies.com/sports/mbkb/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        }
+      ],
+      "refresh_rule": "Follow official university sports navigation, conference calendars and opponent evidence without inventing missing games"
     },
     {
       "gender": "men",
@@ -5539,7 +5538,7 @@
       "previously_verified_university_url": "",
       "discovery_method": "official_conference_team_calendar",
       "verified_opponent_rows": 12,
-      "dated_games_from_other_official_sources": 12,
+      "dated_games_from_other_official_sources": 13,
       "opponent_source_examples": [],
       "attempted_source_urls": 0,
       "additional_candidate_links": [],
@@ -6813,7 +6812,7 @@
       "previously_verified_university_url": "https://www.suseagulls.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "discovery_method": "previously_verified_source",
       "verified_opponent_rows": 15,
-      "dated_games_from_other_official_sources": 5,
+      "dated_games_from_other_official_sources": 6,
       "opponent_source_examples": [],
       "attempted_source_urls": 1,
       "additional_candidate_links": [],
@@ -6918,7 +6917,7 @@
       "previously_verified_university_url": "",
       "discovery_method": "official_conference_team_calendar",
       "verified_opponent_rows": 20,
-      "dated_games_from_other_official_sources": 4,
+      "dated_games_from_other_official_sources": 5,
       "opponent_source_examples": [],
       "attempted_source_urls": 0,
       "additional_candidate_links": [],
@@ -8044,118 +8043,20 @@
       "school": "University of California, Santa Cruz",
       "conference": "Coast-To-Coast Athletic Conference",
       "ncaa_athletics_url": "https://www.goslugs.com/",
-      "status": "unresolved",
-      "verified_2026_27_schedule_url": "",
-      "previously_verified_university_url": "",
-      "discovery_method": "NCAA_directory_athletics_hostname",
-      "verified_opponent_rows": 0,
-      "dated_games_from_other_official_sources": 22,
-      "opponent_source_examples": [
-        "https://www.goredlands.com/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://nwcsports.com/schedule.aspx?schedule=2501",
-        "https://www.stevensducks.com/sports/mens-basketball/schedule/2026-27?grid=true"
-      ],
-      "attempted_source_urls": 19,
-      "additional_candidate_links": [
-        "https://www.goslugs.com/sports/mens-basketball/schedule/text/2026-27",
-        "https://www.goslugs.com/sports/mbball/schedule",
-        "https://www.goslugs.com/sports/mens-basketball/schedule/text/2026-2027",
-        "https://www.goslugs.com/sports/mens-basketball/schedule/text",
-        "https://www.goslugs.com/sports/mbball/schedule/text",
-        "https://www.goslugs.com/sports/mens-basketball/schedule/text/2026"
-      ],
-      "failure_category": "unsupported_calendar_or_opponent_format",
-      "next_manual_action": "Add a source-specific parser only after checking dates/opponents/home-away manually",
-      "source_error": "Fewer than 4 readable grid rows (0); no publish | Fewer than 4 readable grid rows (0); no publish | Fewer than 4 readable grid rows (0); no publish | Fewer than 4 readable grid rows (0); no publish | Fewer than 4 readable grid rows (0); no publish | Fewer than",
-      "rejected_page_evidence": [
-        {
-          "url": "https://www.goslugs.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "title": "2026-27 Men's Basketball Schedule - University of California, Santa Cruz",
-          "headings": [
-            "2026-27 Men's Basketball Schedule",
-            "Related News",
-            "Footer"
-          ],
-          "date_tables": 0,
-          "reason": "Fewer than 4 readable grid rows (0); no publish"
-        },
-        {
-          "url": "https://www.goslugs.com/sports/mens-basketball/schedule/2026-2027?grid=true",
-          "title": "2026-27 Men's Basketball Schedule - University of California, Santa Cruz",
-          "headings": [
-            "2026-27 Men's Basketball Schedule",
-            "Related News",
-            "Footer"
-          ],
-          "date_tables": 0,
-          "reason": "Fewer than 4 readable grid rows (0); no publish"
-        },
-        {
-          "url": "https://www.goslugs.com/sports/mens-basketball/schedule?grid=true",
-          "title": "2026-27 Men's Basketball Schedule - University of California, Santa Cruz",
-          "headings": [
-            "2026-27 Men's Basketball Schedule",
-            "Related News",
-            "Footer"
-          ],
-          "date_tables": 0,
-          "reason": "Fewer than 4 readable grid rows (0); no publish"
-        },
-        {
-          "url": "https://www.goslugs.com/sports/mens-basketball/schedule",
-          "title": "2026-27 Men's Basketball Schedule - University of California, Santa Cruz",
-          "headings": [
-            "2026-27 Men's Basketball Schedule",
-            "Related News",
-            "Footer"
-          ],
-          "date_tables": 0,
-          "reason": "Fewer than 4 readable grid rows (0); no publish"
-        },
-        {
-          "url": "https://www.goslugs.com/sports/mbball/schedule?grid=true",
-          "title": "2026-27 Men's Basketball Schedule - University of California, Santa Cruz",
-          "headings": [
-            "2026-27 Men's Basketball Schedule",
-            "Related News",
-            "Footer"
-          ],
-          "date_tables": 0,
-          "reason": "Fewer than 4 readable grid rows (0); no publish"
-        },
-        {
-          "url": "https://www.goslugs.com/sports/mbball/schedule",
-          "title": "2026-27 Men's Basketball Schedule - University of California, Santa Cruz",
-          "headings": [
-            "2026-27 Men's Basketball Schedule",
-            "Related News",
-            "Footer"
-          ],
-          "date_tables": 0,
-          "reason": "Fewer than 4 readable grid rows (0); no publish"
-        },
-        {
-          "url": "https://www.goslugs.com/sports/mbkb/schedule",
-          "title": "@season @sport Schedule - University of California, Santa Cruz",
-          "headings": [
-            "Footer"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.goslugs.com/sports/mens-basketball/schedule/2026?grid=true",
-          "title": "2026-27 Men's Basketball Schedule - University of California, Santa Cruz",
-          "headings": [
-            "2026-27 Men's Basketball Schedule",
-            "Related News",
-            "Footer"
-          ],
-          "date_tables": 0,
-          "reason": "Fewer than 4 readable grid rows (0); no publish"
-        }
-      ],
-      "refresh_rule": "Follow official university sports navigation, conference calendars and opponent evidence without inventing missing games"
+      "status": "verified_university",
+      "verified_2026_27_schedule_url": "https://goslugs.com/sports/mens-basketball/schedule/text",
+      "previously_verified_university_url": "https://goslugs.com/sports/mens-basketball/schedule/text",
+      "discovery_method": "official_school_url_or_vendor_variant",
+      "verified_opponent_rows": 20,
+      "dated_games_from_other_official_sources": 5,
+      "opponent_source_examples": [],
+      "attempted_source_urls": 1,
+      "additional_candidate_links": [],
+      "failure_category": "",
+      "next_manual_action": "",
+      "source_error": "",
+      "rejected_page_evidence": [],
+      "refresh_rule": "Refresh exact URL and reverify season/gender/opponents/date; never infer scores"
     },
     {
       "gender": "men",
@@ -8168,7 +8069,7 @@
       "previously_verified_university_url": "https://athletics.uchicago.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "discovery_method": "previously_verified_source",
       "verified_opponent_rows": 20,
-      "dated_games_from_other_official_sources": 4,
+      "dated_games_from_other_official_sources": 5,
       "opponent_source_examples": [],
       "attempted_source_urls": 1,
       "additional_candidate_links": [],
@@ -8525,11 +8426,11 @@
       "previously_verified_university_url": "",
       "discovery_method": "NCAA_directory_athletics_hostname",
       "verified_opponent_rows": 0,
-      "dated_games_from_other_official_sources": 12,
+      "dated_games_from_other_official_sources": 13,
       "opponent_source_examples": [
         "https://athletics.houghton.edu/sports/mens-basketball/schedule/2026-2027?grid=true",
         "https://www.franciscanathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://athletics.westminster.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://heartlandconf.org/schedule.aspx?schedule=4398"
       ],
       "attempted_source_urls": 15,
       "additional_candidate_links": [],
@@ -11661,13 +11562,13 @@
       "conference": "United East Conference",
       "ncaa_athletics_url": "https://www.cedarcrestathletics.com",
       "status": "verified_university",
-      "verified_2026_27_schedule_url": "https://www.cedarcrestathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "previously_verified_university_url": "https://www.cedarcrestathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "discovery_method": "previously_verified_source",
+      "verified_2026_27_schedule_url": "https://www.cedarcrestathletics.com/sports/womens-basketball/schedule?grid=true",
+      "previously_verified_university_url": "https://www.cedarcrestathletics.com/sports/womens-basketball/schedule?grid=true",
+      "discovery_method": "official_school_url_or_vendor_variant",
       "verified_opponent_rows": 17,
       "dated_games_from_other_official_sources": 4,
       "opponent_source_examples": [],
-      "attempted_source_urls": 1,
+      "attempted_source_urls": 3,
       "additional_candidate_links": [],
       "failure_category": "",
       "next_manual_action": "",
@@ -18636,118 +18537,20 @@
       "school": "University of California, Santa Cruz",
       "conference": "Coast-To-Coast Athletic Conference",
       "ncaa_athletics_url": "https://www.goslugs.com/",
-      "status": "unresolved",
-      "verified_2026_27_schedule_url": "",
-      "previously_verified_university_url": "",
-      "discovery_method": "NCAA_directory_athletics_hostname",
-      "verified_opponent_rows": 0,
-      "dated_games_from_other_official_sources": 21,
-      "opponent_source_examples": [
-        "https://cmsathletics.org/sports/womens-basketball/schedule/2026-27?grid=true",
-        "https://athletics.georgefox.edu/sports/womens-basketball/schedule/2026-27?grid=true",
-        "https://whitmanblues.com/sports/womens-basketball/schedule/2026-2027?grid=true"
-      ],
-      "attempted_source_urls": 19,
-      "additional_candidate_links": [
-        "https://www.goslugs.com/sports/womens-basketball/schedule/text/2026-27",
-        "https://www.goslugs.com/sports/wbball/schedule",
-        "https://www.goslugs.com/sports/womens-basketball/schedule/text/2026-2027",
-        "https://www.goslugs.com/sports/womens-basketball/schedule/text",
-        "https://www.goslugs.com/sports/wbball/schedule/text",
-        "https://www.goslugs.com/sports/womens-basketball/schedule/text/2026"
-      ],
-      "failure_category": "unsupported_calendar_or_opponent_format",
-      "next_manual_action": "Add a source-specific parser only after checking dates/opponents/home-away manually",
-      "source_error": "Fewer than 4 readable grid rows (0); no publish | Fewer than 4 readable grid rows (0); no publish | Fewer than 4 readable grid rows (0); no publish | Fewer than 4 readable grid rows (0); no publish | Fewer than 4 readable grid rows (0); no publish | Fewer than",
-      "rejected_page_evidence": [
-        {
-          "url": "https://www.goslugs.com/sports/womens-basketball/schedule/2026-27?grid=true",
-          "title": "2026-27 Women's Basketball Schedule - University of California, Santa Cruz",
-          "headings": [
-            "2026-27 Women's Basketball Schedule",
-            "Related News",
-            "Footer"
-          ],
-          "date_tables": 0,
-          "reason": "Fewer than 4 readable grid rows (0); no publish"
-        },
-        {
-          "url": "https://www.goslugs.com/sports/womens-basketball/schedule/2026-2027?grid=true",
-          "title": "2026-27 Women's Basketball Schedule - University of California, Santa Cruz",
-          "headings": [
-            "2026-27 Women's Basketball Schedule",
-            "Related News",
-            "Footer"
-          ],
-          "date_tables": 0,
-          "reason": "Fewer than 4 readable grid rows (0); no publish"
-        },
-        {
-          "url": "https://www.goslugs.com/sports/womens-basketball/schedule?grid=true",
-          "title": "2026-27 Women's Basketball Schedule - University of California, Santa Cruz",
-          "headings": [
-            "2026-27 Women's Basketball Schedule",
-            "Related News",
-            "Footer"
-          ],
-          "date_tables": 0,
-          "reason": "Fewer than 4 readable grid rows (0); no publish"
-        },
-        {
-          "url": "https://www.goslugs.com/sports/womens-basketball/schedule",
-          "title": "2026-27 Women's Basketball Schedule - University of California, Santa Cruz",
-          "headings": [
-            "2026-27 Women's Basketball Schedule",
-            "Related News",
-            "Footer"
-          ],
-          "date_tables": 0,
-          "reason": "Fewer than 4 readable grid rows (0); no publish"
-        },
-        {
-          "url": "https://www.goslugs.com/sports/wbball/schedule?grid=true",
-          "title": "2026-27 Women's Basketball Schedule - University of California, Santa Cruz",
-          "headings": [
-            "2026-27 Women's Basketball Schedule",
-            "Related News",
-            "Footer"
-          ],
-          "date_tables": 0,
-          "reason": "Fewer than 4 readable grid rows (0); no publish"
-        },
-        {
-          "url": "https://www.goslugs.com/sports/wbball/schedule",
-          "title": "2026-27 Women's Basketball Schedule - University of California, Santa Cruz",
-          "headings": [
-            "2026-27 Women's Basketball Schedule",
-            "Related News",
-            "Footer"
-          ],
-          "date_tables": 0,
-          "reason": "Fewer than 4 readable grid rows (0); no publish"
-        },
-        {
-          "url": "https://www.goslugs.com/sports/wbkb/schedule",
-          "title": "@season @sport Schedule - University of California, Santa Cruz",
-          "headings": [
-            "Footer"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.goslugs.com/sports/womens-basketball/schedule/2026?grid=true",
-          "title": "2026-27 Women's Basketball Schedule - University of California, Santa Cruz",
-          "headings": [
-            "2026-27 Women's Basketball Schedule",
-            "Related News",
-            "Footer"
-          ],
-          "date_tables": 0,
-          "reason": "Fewer than 4 readable grid rows (0); no publish"
-        }
-      ],
-      "refresh_rule": "Follow official university sports navigation, conference calendars and opponent evidence without inventing missing games"
+      "status": "verified_university",
+      "verified_2026_27_schedule_url": "https://goslugs.com/sports/womens-basketball/schedule/text",
+      "previously_verified_university_url": "https://goslugs.com/sports/womens-basketball/schedule/text",
+      "discovery_method": "official_school_url_or_vendor_variant",
+      "verified_opponent_rows": 16,
+      "dated_games_from_other_official_sources": 5,
+      "opponent_source_examples": [],
+      "attempted_source_urls": 1,
+      "additional_candidate_links": [],
+      "failure_category": "",
+      "next_manual_action": "",
+      "source_error": "",
+      "rejected_page_evidence": [],
+      "refresh_rule": "Refresh exact URL and reverify season/gender/opponents/date; never infer scores"
     },
     {
       "gender": "women",
@@ -19696,11 +19499,11 @@
       "status": "verified_university",
       "verified_2026_27_schedule_url": "https://www.lyndonhornets.com/sports/womens-basketball/schedule?grid=true",
       "previously_verified_university_url": "https://www.lyndonhornets.com/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant",
+      "discovery_method": "previously_verified_source",
       "verified_opponent_rows": 20,
       "dated_games_from_other_official_sources": 2,
       "opponent_source_examples": [],
-      "attempted_source_urls": 3,
+      "attempted_source_urls": 1,
       "additional_candidate_links": [],
       "failure_category": "",
       "next_manual_action": "",
@@ -19742,11 +19545,11 @@
       "status": "verified_university",
       "verified_2026_27_schedule_url": "https://warrenwilsonowls.com/sports/womens-basketball/schedule?grid=true",
       "previously_verified_university_url": "https://warrenwilsonowls.com/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant",
+      "discovery_method": "previously_verified_source",
       "verified_opponent_rows": 16,
       "dated_games_from_other_official_sources": 5,
       "opponent_source_examples": [],
-      "attempted_source_urls": 3,
+      "attempted_source_urls": 1,
       "additional_candidate_links": [],
       "failure_category": "",
       "next_manual_action": "",
@@ -20132,13 +19935,13 @@
       "conference": "Presidents' Athletic Conference",
       "ncaa_athletics_url": "https://www.westminster.edu/athletics/",
       "status": "verified_university",
-      "verified_2026_27_schedule_url": "https://athletics.westminster.edu/sports/womens-basketball/schedule/2026-27?grid=true",
-      "previously_verified_university_url": "https://athletics.westminster.edu/sports/womens-basketball/schedule/2026-27?grid=true",
-      "discovery_method": "previously_verified_source",
+      "verified_2026_27_schedule_url": "https://athletics.westminster.edu/sports/womens-basketball/schedule?grid=true",
+      "previously_verified_university_url": "https://athletics.westminster.edu/sports/womens-basketball/schedule?grid=true",
+      "discovery_method": "official_school_url_or_vendor_variant",
       "verified_opponent_rows": 22,
       "dated_games_from_other_official_sources": 0,
       "opponent_source_examples": [],
-      "attempted_source_urls": 1,
+      "attempted_source_urls": 3,
       "additional_candidate_links": [],
       "failure_category": "",
       "next_manual_action": "",
