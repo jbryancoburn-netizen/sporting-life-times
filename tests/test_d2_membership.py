@@ -25,7 +25,14 @@ class MembershipTests(unittest.TestCase):
         if men["quality"]["membership_review"]["excluded_from_dii_elo"]==5:
             self.assertTrue(candidates["azusa-pacific"]["not_eligible_for_dii_elo"])
             self.assertFalse(candidates["azusa-pacific"]["d2_confirmed"])
-        self.assertEqual(len(men["teams"]),299)
+        self.assertIn(len(men["teams"]),(299,301))
+        # During migration both snapshots can be valid. The next release
+        # restores the two NCAA-verified teams without moving women's Elo.
+        if len(men["teams"])==301:
+            self.assertEqual(candidates["university-of-texas-at-dallas"]["conference"],"LSC")
+            self.assertEqual(candidates["the-university-of-texas-at-tyler"]["conference"],"LSC")
+            self.assertEqual(candidates["university-of-texas-at-dallas"]["membership_source"],
+                             "https://web3.ncaa.org/directory/orgDetail?id=23121")
         self.assertEqual(len(women["teams"]),298)
         lookup=builder.build_dii_team_lookup(candidates)
         self.assertIsNone(builder.resolve_dii_team_id({"name":"Texas Wesleyan University"},lookup))
