@@ -1226,8 +1226,9 @@ def update(gender, bootstrap=False, live=False):
         if (not rapid or not ecc_men_quality or
             ecc_men_quality.get("status")!="ECC 2026-27 official two-university men's matchups verified"):
             ecc_men_quality=enrich_ecc_men(games,teams,today)
-    # Official GMAC 2026-27 two-university match verification; times
-    # are left unzoned unless independently supplied by NCAA scoreboard.
+    # Official GMAC 2026-27 two-university match verification; opposing
+    # home/away claims for the same date and pair are quarantined; times
+    # remain unzoned unless independently supplied by NCAA scoreboard.
     from d2_gmac_official import enrich_gmac
     gmac_quality=previous_quality.get("official_gmac_schedule_reconciliation")
     if (not rapid or not gmac_quality or
