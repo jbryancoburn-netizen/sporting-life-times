@@ -117,9 +117,11 @@ function normalizeFeatures(geo,expected){
  return {type:"FeatureCollection",features:subset};
 }
 function countyUrl(base,names){
- const where="name IN ("+names.map(n=>"'"+n.replace(/'/g,"''")+"'").join(",")+")";
- return base+"?where="+encodeURIComponent(where)+
-  "&outFields=name,stfips,cofips&returnGeometry=true&outSR=4326&geometryPrecision=4&f=geojson";
+ // The state service may not resolve county-name IN queries. Retrieve the
+ // 99 official features, then check precisely 20 against Iowa Code §40.1.
+ // No extra county is displayed even if the service sends the whole state.
+ return base+"?where=1%3D1&outFields=name,stfips,cofips"+
+  "&returnGeometry=true&outSR=4326&geometryPrecision=4&f=geojson";
 }
 async function readCounties(conf,names){
  const expected=new Set(names.map(nrm));
