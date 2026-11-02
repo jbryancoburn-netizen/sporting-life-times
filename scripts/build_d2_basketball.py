@@ -1135,6 +1135,13 @@ def update(gender, bootstrap=False, live=False):
     if (not rapid or not siac_quality or
         siac_quality.get("status")!="SIAC 2026-27 exact reciprocal university fixture check"):
         siac_quality=enrich_siac(gender,games,teams,today)
+    # SAC: institution-specific 2026-27 school calendars independently attest
+    # each date and H/A role. University titles/gender/season are validated;
+    # unresolved conflicts cannot become forecast fixtures.
+    from d2_sac_official import enrich_sac
+    sac_quality=previous_quality.get("official_sac_schedule_reconciliation")
+    if not rapid or not sac_quality:
+        sac_quality=enrich_sac(gender,games,teams,today)
     # Ratings start at 1500 on every new season; only NCAA verified DII-v-DII finals count.
     rating={key:1500.0 for key in teams}
     wins={key:0 for key in teams};losses={key:0 for key in teams}
@@ -1230,7 +1237,8 @@ def update(gender, bootstrap=False, live=False):
         "official_gac_schedule_reconciliation":gac_quality,
         "official_pbc_schedule_reconciliation":pbc_quality,
         "official_ne10_schedule_reconciliation":ne10_quality,
-        "official_siac_schedule_reconciliation":siac_quality}
+        "official_siac_schedule_reconciliation":siac_quality,
+        "official_sac_schedule_reconciliation":sac_quality}
     # A complete DATE scan is not certification of every school schedule.
     previous=(prior.get("quality") or {}).get("full_season_scan")
     if bootstrap:
