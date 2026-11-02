@@ -839,6 +839,85 @@ def approved_landmark_mens_conference(owner, by_org):
 
 
 
+
+def parse_hcac_bluffton_home_rows(doc, gender, owner, url, by_org, exact):
+    """Extract independently located HOME dates from official HCAC Bluffton grid.
+
+    The HCAC publisher uses Date/Teams/Event/Results/Notes, where Teams holds
+    the opponent and Event holds the game locality, not Date/Opponent/Location.
+    The NCAA confirms Bluffton University's campus is Bluffton, Ohio (org 987).
+    Only rows with that exact listed locality can certify home; all other
+    sites (road or neutral) remain on other official sources for adjudication.
+    """
+    parsed = urlsplit(url)
+    if (gender != "women" or owner != 987 or
+            parsed.hostname not in ("heartlandconf.org", "www.heartlandconf.org")
+            or parsed.path != "/schedule.aspx" or parsed.query != "schedule=4399"):
+        raise ValueError("Not the verified 2026-27 HCAC Bluffton women's team page")
+    entries, inspected = [], 0
+    omitted = defaultdict(int)
+    for table in doc.select("table"):
+        labels = [compact(th.get_text(" ", strip=True)).lower()
+                  for th in table.select("thead th")]
+        if not all(x in labels for x in ("date", "teams", "event", "results")):
+            continue
+        cols = {label: labels.index(label) for label in ("date", "teams", "event", "results")}
+        for tr in table.select("tbody tr") or table.select("tr"):
+            cells = [compact(cell.get_text(" ", strip=True))
+                     for cell in tr.find_all(["td", "th"], recursive=False)]
+            if len(cells) <= max(cols.values()):
+                continue
+            text_date = cells[cols["date"]]
+            if not re.fullmatch(r"\\d{1,2}/\\d{1,2}/202[67]", text_date):
+                continue
+            try:
+                date = dt.datetime.strptime(text_date, "%m/%d/%Y").date()
+            except ValueError:
+                continue
+            if not SEASON_START <= date <= SEASON_END:
+                continue
+            inspected += 1
+            locality = cells[cols["event"]].strip().lower()
+            if locality not in ("bluffton, ohio", "bluffton, oh"):
+                # An out-of-town fixture might be away or neutral, never guess.
+                omitted["venue_not_independently_qualified_as_home"] += 1
+                continue
+            name = cells[cols["teams"]]
+            if BAD_OPPONENT.search(name) or re.search(
+                    r"\\b(exhibition|scrimmage|joint practice)\\b", name, re.I):
+                omitted["conditional_or_exhibition"] += 1
+                continue
+            other = resolve(name, by_org, exact)
+            if other is None or other == owner:
+                omitted["missing_or_ambiguous_ncaa_opponent"] += 1
+                continue
+            raw_time = cells[cols["results"]]
+            time = raw_time if re.fullmatch(
+                r"\\d{1,2}:\\d{2}\\s*[AP]\\.?M\\.?", raw_time, re.I) else ""
+            entries.append({
+                "date": date.isoformat(), "away_org_id": other,
+                "home_org_id": owner, "neutral": False,
+                "source_owner_org_id": owner, "source_url": url,
+                "source_kind": "official_conference",
+                "tipoff_as_posted": time, "venue": "",
+                "venue_location": cells[cols["event"]],
+                "network_as_posted": "", "radio_as_posted": "",
+                "tournament": ""
+            })
+    if inspected < 12 or len(entries) < 7:
+        raise ValueError(
+            f"Bluffton HCAC insufficient source rows/home confirmations: "
+            f"{inspected}/{len(entries)}")
+    return entries, {
+        "owner_org_id": owner, "source_url": url,
+        "status": "parsed_conference",
+        "calendar_origin": "official_hcac_verified_campus_city_home_only",
+        "readable_rows": inspected, "verified_member_opponents": len(entries),
+        "excluded_rows": dict(omitted)
+    }
+
+
+
 def parse_conference_calendar(html, gender, owner, url, subject, by_org, exact, school_legacy=False):
     """Read an explicitly selected OFFICIAL conference team season table.
 
@@ -859,6 +938,10 @@ def parse_conference_calendar(html, gender, owner, url, subject, by_org, exact, 
         raise ValueError("Conference calendar women's sport on men's source")
     if subject and key(subject) not in key(heads + " " + title):
         raise ValueError("Conference page does not identify expected member")
+    if (gender == "women" and owner == 987 and
+            urlsplit(url).hostname in ("heartlandconf.org", "www.heartlandconf.org") and
+            urlsplit(url).query == "schedule=4399"):
+        return parse_hcac_bluffton_home_rows(doc, gender, owner, url, by_org, exact)
     if doc.select(".sidearm-schedule-list-game"):
         return parse_landmark_list_schedule(doc, gender, owner, url, by_org, exact)
     entries, inspected, excluded = [], 0, defaultdict(int)
@@ -2173,6 +2256,46 @@ def self_test():
             raise AssertionError("Invalid text-only source accepted")
         except ValueError:
             pass
+
+    # The HCAC 2026-27 Bluffton women's source is an official schedule
+    # table with Date/Teams/Event/Results/Notes, NOT a date/opponent grid.
+    # Only locations confirmed as Bluffton, Ohio (the NCAA member address)
+    # qualify as home; outside-city games remain unclassified here.
+    full_women = json.loads((DATA / "d3-women-2026-27.json").read_text())
+    h_org, h_exact = official_index(full_women["teams"])
+    h_rows = [
+        ("11/6/2026", "University of Olivet", "Olivet, MI"),
+        ("11/21/2026", "Kalamazoo College", "Bluffton, Ohio"),
+        ("11/24/2026", "Heidelberg University", "Bluffton, Ohio"),
+        ("12/2/2026", "Earlham College", "Bluffton, Ohio"),
+        ("12/5/2026", "Franklin College", "Bluffton, Ohio"),
+        ("12/12/2026", "Rose-Hulman Institute of Technology", "Terre Haute, IN"),
+        ("12/21/2026", "Hanover College", "Bluffton, Ohio"),
+        ("1/13/2027", "Manchester University", "Bluffton, Ohio"),
+        ("1/20/2027", "Anderson University (IN)", "Bluffton, Ohio"),
+        ("1/23/2027", "Berea College", "Bluffton, Ohio"),
+        ("1/30/2027", "Transylvania University", "Bluffton, Ohio"),
+        ("2/13/2027", "Rose-Hulman Institute of Technology", "Bluffton, Ohio"),
+    ]
+    h_body = "".join(
+        f"<tr><td>{d}</td><td>{team}</td><td>{site}</td>"
+        "<td>2:00 P.M.</td><td></td></tr>"
+        for d, team, site in h_rows)
+    h_html = ('<html><title>2026-27 Bluffton Women\\'s Basketball</title>'
+              '<h2>2026-27 Bluffton Women\\'s Basketball Schedule</h2>'
+              '<table><thead><tr><th>Date</th><th>Teams</th><th>Event</th>'
+              '<th>Results</th><th>Notes</th></tr></thead><tbody>' +
+              h_body + '</tbody></table></html>')
+    h_url = "https://heartlandconf.org/schedule.aspx?schedule=4399"
+    h_games, h_report = parse_conference_calendar(
+        h_html, "women", 987, h_url, "Bluffton", h_org, h_exact)
+    assert h_report["status"] == "parsed_conference"
+    assert h_report["readable_rows"] == len(h_rows)
+    assert all(x["home_org_id"] == 987 and not x["neutral"] for x in h_games)
+    assert h_report["excluded_rows"]["venue_not_independently_qualified_as_home"] == 2
+    assert len(h_games) >= 7, (len(h_games), h_report)
+    assert all(x["venue"] == "" and x["source_kind"] == "official_conference"
+               for x in h_games)
 
     # First-party signed-off Landmark men's 2026-27 PDF: 54 program entries,
     # 48 distinct conference fixtures, six overlapping two-team declarations.
