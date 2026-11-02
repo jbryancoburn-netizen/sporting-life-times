@@ -10,6 +10,16 @@ Source of truth: `data/d2-publishing-audit.json` -> `men.full_school_schedule_ce
 
 **Next substantive work:** collect full calendars, not minimum counts; prioritize the 64 thin-to-20-game men's and 19 women's programs identified from the Nov 2 data (especially Mayagüez, Río Piedras, Bayamón, Salem women, D'Youville men and ECC), then audit every remaining school regardless of published game count. Every date, opponent, court designation and DII eligibility must reconcile to an existing or newly verified ledger game; conflicting games remain quarantined. Preserve existing workflows, zero-dollar constraints and independent 1500 Elo.
 
+## November 2 follow-through: 79 official men's calendar rows recovered
+
+Commit `204712a23ab45c3b99652f670ce84506f23c7a4d` adds three official 2026–27 men's full-calendar captures, totaling **79 dated source rows**: D'Youville (25), Roberts Wesleyan (25), and Minnesota–Duluth (29). These are official-calendar evidence rows, **not** 79 newly added DII games or three independently certified schools. The imported records still require the existing publisher's strict audit, per-school second-domain cross-check, non-DII classification, and independent attestation before certification.
+
+- D'Youville: official October 16 schedule announcement; several dates independently corroborated by Millersville, Mansfield, Franklin Pierce, Saint Michael's and American International.
+- Roberts Wesleyan: retains Kent State and St. Bonaventure exhibitions and Redeemer as outside-DII source rows only; they must never enter DII Elo.
+- Minnesota–Duluth: retains Carleton and UW–Superior as outside-DII source rows; unconfirmed source clocks remain blank rather than invented; verified Central times must convert correctly to Eastern.
+
+**Next evidence batch:** first reconcile these three captures against both sides of the published fixture ledger, then prioritize remaining Puerto Rico women's short calendars (Mayagüez, Río Piedras, Bayamón), Salem women, Ferris State men, and the other thin men's and women's schools. Audit every other school regardless of game count. Recalculate queue sizes from the latest `data/d2-publishing-audit.json` rather than treating historical 64/19 as permanently current. Do not write certification assertions without an actual independent review.
+
 ## Nonnegotiable constraints
 
 - **$0 budget.** No paid APIs, data vendors, subscriptions, hosting, premium CI capacity, cloud charges, or enabling billing. Use public/official free sources and existing no-cost infrastructure only. If a proposed operation may cost money, do not do it; find a free alternative or report the blocker.
