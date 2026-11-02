@@ -1344,6 +1344,12 @@ def parse_carlow_university_event_page(html, gender, owner, url, by_org, exact):
     dates = []
     for node in doc.select("time[datetime]"):
         val = str(node.get("datetime", ""))
+        # A page that explicitly states a wrong season must never be
+        # recertified from a stray displayed 2026-27 date elsewhere in
+        # the document (e.g. next-event navigation).
+        if re.match(r"^20\d{2}-\d{2}-\d{2}", val) and not re.match(
+                r"^202[67]-\d{2}-\d{2}", val):
+            raise ValueError("Carlow event has conflicting published season")
         if re.match(r"^202[67]-\d{2}-\d{2}", val):
             dates.append(val[:10])
     if not dates:
