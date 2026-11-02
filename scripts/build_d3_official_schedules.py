@@ -45,6 +45,7 @@ SOURCES = {
         (30067, "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-27?grid=true"),
         (348, "https://vikings.lawrence.edu/sports/mens-basketball/schedule/2026?grid=true"),
         (30264, "https://regentroyals.com/sports/mens-basketball/schedule/2026?grid=true"),
+        (685, "https://suriverhawks.com/sports/mens-basketball/schedule/2026-27?grid=true"),
         (113, "https://goslugs.com/sports/mens-basketball/schedule/text"),
     ],
     "women": [
@@ -69,6 +70,7 @@ SOURCES = {
         (30067, "https://morrisvillemustangs.com/sports/womens-basketball/schedule/2026-27?grid=true"),
         (348, "https://vikings.lawrence.edu/sports/womens-basketball/schedule/2026?grid=true"),
         (30264, "https://regentroyals.com/sports/womens-basketball/schedule/2026?grid=true"),
+        (685, "https://suriverhawks.com/sports/womens-basketball/schedule/2026-27?grid=true"),
         (113, "https://goslugs.com/sports/womens-basketball/schedule/text"),
     ],
 }
@@ -1607,6 +1609,10 @@ def self_test():
     assert OFFICIAL_CONFERENCE_SCHEDULES["women"][685][0].endswith("schedule=2619")
     assert OFFICIAL_CONFERENCE_SCHEDULES["women"][22235][0].endswith("schedule=2504")
     assert OFFICIAL_CONFERENCE_SCHEDULES["women"][785][0].endswith("schedule=2511")
+    assert dict(SOURCES["men"])[685] == (
+        "https://suriverhawks.com/sports/mens-basketball/schedule/2026-27?grid=true")
+    assert dict(SOURCES["women"])[685] == (
+        "https://suriverhawks.com/sports/womens-basketball/schedule/2026-27?grid=true")
     assert OFFICIAL_CONFERENCE_SCHEDULES["men"][1130] == (
         "https://collegiateconferenceofthesouth.com/schedule.aspx?schedule=542", "Huntingdon")
     assert OFFICIAL_CONFERENCE_SCHEDULES["women"][1130] == (
