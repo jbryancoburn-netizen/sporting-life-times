@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "checked_at_utc": "2026-11-02T00:45:53.248304+00:00",
+  "checked_at_utc": "2026-11-02T01:28:30.471376+00:00",
   "source": "NCAA scoreboard via ncaa-api compatibility endpoint",
   "games": [
     {
@@ -58,14 +58,14 @@
     {
       "match_id": "men-6615645",
       "cohort": "men-d1",
-      "status": "live",
+      "status": "final",
       "home_score": 0,
       "away_score": 1,
       "home_name": "New Haven",
       "away_name": "FDU",
       "home_id": "new-haven",
       "away_id": "fdu",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6615645"
     },
     {
@@ -111,13 +111,13 @@
       "match_id": "men-6615751",
       "cohort": "men-d1",
       "status": "live",
-      "home_score": 0,
+      "home_score": 1,
       "away_score": 0,
       "home_name": "Tulsa",
       "away_name": "Memphis",
       "home_id": "tulsa",
       "away_id": "memphis",
-      "period": "1ST HALF",
+      "period": "2ND HALF",
       "source_url": "https://www.ncaa.com/game/6615751"
     },
     {
@@ -364,7 +364,7 @@
       "away_name": "FIU",
       "home_id": "temple",
       "away_id": "fiu",
-      "period": "1ST HALF",
+      "period": "2ND HALF",
       "source_url": "https://www.ncaa.com/game/6616277"
     },
     {
@@ -630,14 +630,14 @@
     {
       "match_id": "men-6617014",
       "cohort": "men-d1",
-      "status": "live",
-      "home_score": 1,
+      "status": "final",
+      "home_score": 2,
       "away_score": 4,
       "home_name": "Charlotte",
       "away_name": "Missouri St.",
       "home_id": "charlotte",
       "away_id": "missouri-st",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6617014"
     },
     {
@@ -658,12 +658,12 @@
       "cohort": "men-d1",
       "status": "live",
       "home_score": 0,
-      "away_score": 1,
+      "away_score": 2,
       "home_name": "UAB",
       "away_name": "Fla. Atlantic",
       "home_id": "uab",
       "away_id": "fla-atlantic",
-      "period": "1ST HALF",
+      "period": "2ND HALF",
       "source_url": "https://www.ncaa.com/game/6617039"
     },
     {
@@ -990,6 +990,19 @@
       "away_id": "wis-superior",
       "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6619251"
+    },
+    {
+      "match_id": "men-6619307",
+      "cohort": "men-d3",
+      "status": "live",
+      "home_score": 0,
+      "away_score": 0,
+      "home_name": "Concordia (TX)",
+      "away_name": "Dallas",
+      "home_id": "concordia-tx",
+      "away_id": "dallas",
+      "period": "1ST HALF",
+      "source_url": "https://www.ncaa.com/game/6619307"
     },
     {
       "match_id": "men-6619340",
@@ -2132,7 +2145,7 @@
       "away_name": "Molloy",
       "home_id": "dyouville",
       "away_id": "molloy",
-      "period": "1ST HALF",
+      "period": "2ND HALF",
       "source_url": "https://www.ncaa.com/game/6663459"
     },
     {
@@ -2723,27 +2736,27 @@
     {
       "match_id": "men-6664794",
       "cohort": "men-d2",
-      "status": "live",
-      "home_score": 2,
+      "status": "final",
+      "home_score": 3,
       "away_score": 1,
       "home_name": "Frostburg St.",
       "away_name": "Salem (WV)",
       "home_id": "frostburg-st",
       "away_id": "salem-intl",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6664794"
     },
     {
       "match_id": "men-6664795",
       "cohort": "men-d2",
-      "status": "live",
-      "home_score": 0,
+      "status": "final",
+      "home_score": 1,
       "away_score": 2,
       "home_name": "Concord",
       "away_name": "Point Park",
       "home_id": "concord",
       "away_id": "point-park",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6664795"
     },
     {
@@ -3217,14 +3230,14 @@
     {
       "match_id": "women-6607128",
       "cohort": "women-d1",
-      "status": "live",
+      "status": "final",
       "home_score": 1,
-      "away_score": 2,
+      "away_score": 3,
       "home_name": "Middle Tenn.",
       "away_name": "Western Ky.",
       "home_id": "middle-tenn",
       "away_id": "western-ky",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6607128"
     },
     {
@@ -4693,7 +4706,7 @@
       "away_name": "New Mexico",
       "home_id": "hawaii",
       "away_id": "new-mexico",
-      "period": "1ST HALF",
+      "period": "HALF",
       "source_url": "https://www.ncaa.com/game/6609489"
     },
     {
