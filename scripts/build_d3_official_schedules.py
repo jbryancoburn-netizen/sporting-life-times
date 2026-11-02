@@ -282,9 +282,22 @@ def inspect_source(gender, source, by_org, exact):
                       "error": "NCAA directory has no usable athletics URL"}
     attempts = [url]
     if not pinned:
-        attempts.append(url.replace("/2026-27?", "/2026-2027?"))
+        base = url.split("/sports/", 1)[0]
+        sport = "mens-basketball" if gender == "men" else "womens-basketball"
+        short = "mbball" if gender == "men" else "wbball"
+        # Current-season calendars often live at an unversioned route.
+        # Other athletics vendors use the short mbball/wbball slug.
+        # URLs are merely candidates; strict actual-page identity and game
+        # checks must pass before an entry is accepted.
+        attempts.extend([
+            f"{base}/sports/{sport}/schedule/2026-2027?grid=true",
+            f"{base}/sports/{sport}/schedule?grid=true",
+            f"{base}/sports/{sport}/schedule",
+            f"{base}/sports/{short}/schedule?grid=true",
+            f"{base}/sports/{short}/schedule",
+        ])
     errors = []
-    for candidate in attempts:
+    for candidate in dict.fromkeys(attempts):
         try:
             _, verified_url, html = fetch_calendar((org, candidate))
             rows, report = parse_calendar(html, gender, org, verified_url, by_org, exact)
@@ -292,10 +305,15 @@ def inspect_source(gender, source, by_org, exact):
             report["candidate_urls_tried"] = len(errors) + 1
             return rows, report
         except Exception as ex:
-            errors.append(str(ex)[:130])
+            err = str(ex)
+            errors.append(err[:105])
+            # A blocked institutional site remains blocked: do not bypass
+            # 403s, repeated rate limits, or access controls.
+            if re.search(r"HTTP Error (403|429):", err):
+                break
     return None, {"owner_org_id": org, "source_url": url,
                   "status": "failed", "error": " | ".join(errors)[:260],
-                  "candidate_urls_tried": len(attempts),
+                  "candidate_urls_tried": len(errors),
                   "calendar_origin": ("pinned_official_url" if pinned else "independently_verified_athletics_host" if org in OFFICIAL_ATHLETICS_HOST_OVERRIDE else "NCAA_directory_athletics_hostname")}
 
 
@@ -450,6 +468,8 @@ def self_test():
     assert len(candidates) == 2 and not missing
     assert all(s[2] is True for s in candidates)  # the prior explicit source wins
     assert len({x[0] for x in candidates}) == 2
+    # No future-season or wrong-sport page can be accepted just because its
+    # URL looks right. Yearless routes must still have the exact 2026-27 title.
     assert OFFICIAL_ATHLETICS_HOST_OVERRIDE[69] == "athletics.bowdoin.edu"
     fixes, _ = source_candidates("men", {69: {
         "name": "Bowdoin College", "ncaa_org_id": 69,
