@@ -628,3 +628,57 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #c481
 /* Uniform pennant geometry across every school and matchup. */
 .sl-pennant,.sl-pennant--tail,.sl-pennant--point,.sl-pennant--shield{--sl-wedge:polygon(0 0,100% 0,100% 80%,50% 100%,0 80%);width:185px;max-width:100%;height:174px;min-height:174px;box-sizing:border-box;flex-shrink:0}
 .sl-pennant:first-child,.sl-pennant:last-child{transform:none}
+
+
+/* 2026-11-02 Courtside design: identifiable schools, not fictional venue photos.
+   Existing source-gated statistics and official venue attribution remain intact. */
+.sl-game .sl-arena-gallery{
+  isolation:isolate;overflow:hidden;position:relative;
+  background:
+    linear-gradient(90deg,color-mix(in srgb,var(--sl-away) 75%,#0a1720) 0 49.85%,color-mix(in srgb,var(--sl-home) 76%,#0a1720) 50.15% 100%)!important;
+}
+.sl-game .sl-arena-gallery::before{
+  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:
+    repeating-linear-gradient(0deg,transparent 0 27px,rgba(255,255,255,.035) 28px 29px),
+    radial-gradient(ellipse at 50% 100%,rgba(207,152,75,.30),transparent 66%),
+    linear-gradient(90deg,transparent 0 49.7%,rgba(255,255,255,.48) 49.85% 50.15%,transparent 50.3%);
+}
+.sl-game .sl-arena-gallery::after{
+  content:"";position:absolute;inset:7px;z-index:0;pointer-events:none;
+  border:1px solid rgba(255,255,255,.22);
+  background:linear-gradient(90deg,rgba(255,255,255,.07),transparent 28% 72%,rgba(255,255,255,.07));
+}
+.sl-game .sl-arena-wordmark{
+  position:absolute;z-index:1;top:30%;width:45%;max-width:45%;overflow:hidden;
+  font:900 clamp(22px,3vw,42px)/1 'DM Sans',Arial,sans-serif;letter-spacing:.09em;
+  color:rgba(255,255,255,.15);text-shadow:none;text-align:center;text-transform:uppercase;
+  white-space:normal;word-break:break-word;pointer-events:none;transform:rotate(-12deg);
+}
+.sl-game .sl-arena-wordmark-away{left:2%}
+.sl-game .sl-arena-wordmark-home{left:auto;right:2%;transform:rotate(12deg)}
+.sl-game .sl-pennant-row{z-index:3;position:relative}
+.sl-game .sl-pennant{
+  width:185px;min-width:0;max-width:185px;height:174px;min-height:174px;
+  clip-path:polygon(0 0,100% 0,100% 80%,50% 100%,0 80%);
+  transform:none!important;box-sizing:border-box;
+}
+.sl-game .sl-stage-beam{position:relative;z-index:2}
+.sl-game .sl-stage-beam span{
+  position:absolute;top:0;left:50%;transform:translateX(-50%);
+  padding:4px 12px;background:rgba(9,23,29,.88);color:#fff;
+  font:800 10px/1.2 'DM Sans',Arial,sans-serif;letter-spacing:.13em;white-space:nowrap;
+}
+.sl-game .sl-floor-graphic{opacity:.32;z-index:1;pointer-events:none}
+.sl-game .sl-arena-spotlight{opacity:.22;pointer-events:none}
+.sl-game .sl-game-main--live{border-top:3px solid #b85a2d}
+.sl-game .sl-game-main--final{border-top:3px solid color-mix(in srgb,var(--sl-home) 60%,var(--sl-away))}
+.sl-game .sl-game-main--final .sl-vs strong{font-variant-numeric:tabular-nums;font-size:clamp(22px,3vw,38px)}
+.sl-game .sl-game-main--live .sl-vs strong{font-variant-numeric:tabular-nums;font-size:clamp(24px,3vw,42px)}
+.sl-game .sl-stage-final .sl-stage-mid span{background:#14252b;color:white;padding:5px 10px}
+.sl-game .sl-stage-live .sl-stage-mid span{background:#a13c23;color:white;padding:5px 10px}
+@media(max-width:650px){
+ .sl-game .sl-pennant{width:min(36vw,165px);height:160px;min-height:160px}
+ .sl-game .sl-arena-wordmark{font-size:19px}
+ .sl-game .sl-stage-beam span{font-size:9px}
+}
