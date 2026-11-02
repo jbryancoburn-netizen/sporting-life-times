@@ -68,6 +68,8 @@ test('Iowa and other states display flag, real district outline, and party ident
   await page.locator('.state-brief-card .race-district-geometry').first().waitFor({timeout:15000});
   assert.equal(await page.locator('.state-brief-card .race-district-geometry').count(),4);
   assert.equal(await page.locator('.state-brief-card .race-geographic-current').count(),4);
+  assert.equal(await page.locator('.state-brief-card .race-story-party-match').count(),4);
+  assert.equal(await page.locator('.state-brief-card .race-story-party-match .race-party-feature').count(),8);
   await page.setViewportSize({width:390,height:844});
   for(const url of [
    '/politics-house-district.html?district=IA-01',
