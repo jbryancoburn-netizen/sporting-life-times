@@ -110,8 +110,9 @@ class TestCCAA(unittest.TestCase):
         pages,_=make_pages()
         pending=dict(self.teams)
         pending['merced']=dict(pending['merced'],not_eligible_for_dii_elo=True)
-        rep,_=self.call(pages,teams=pending)
-        self.assertEqual(rep['added'],0)
+        rep,actual=self.call(pages,teams=pending)
+        self.assertEqual(rep['added'],78)  # Other 13 eligible schools remain publishable.
+        self.assertTrue(all(g['away']!='merced' and g['home']!='merced' for g in actual.values()))
         ambiguous=dict(self.teams)
         ambiguous['second-humboldt']={'name':'Humboldt State','conference':'CCAA'}
         rep,_=self.call(pages,teams=ambiguous)
