@@ -157,6 +157,7 @@ def full_season_school_certification(gender: str, teams: list[dict],
         eligible_rows = 0
         corroborated = 0
         unidentified_opponents = 0
+        unclassified_source_rows = []
         role_conflicts = 0
         disputed_times = 0
         missing_games = []
@@ -175,6 +176,9 @@ def full_season_school_certification(gender: str, teams: list[dict],
                     # Explicitly unclassified until all cross-division
                     # opponents have been reviewed for true NCAA membership.
                     unidentified_opponents += 1
+                    unclassified_source_rows.append({"date": fixture.get("date"),
+                        "opponent": fixture.get("opponent"),
+                        "source_url": source.get("source_url")})
                     continue
                 eligible_rows += 1
                 key = (fixture.get("date"), frozenset((ident, other)))
@@ -240,8 +244,27 @@ def full_season_school_certification(gender: str, teams: list[dict],
                 attestation_errors.append("Independent official secondary domain required")
             if not assertion.get("reviewed_by"):
                 attestation_errors.append("Named accountable reviewer required")
-            if unidentified_opponents:
-                attestation_errors.append("Non-DII/unidentified source opponents not classified")
+            # A complete university calendar often contains NAIA, DI, DIII
+            # or exhibition games. These belong in the *source* inventory,
+            # but not in DII Elo. Require a separate dated, corroborated
+            # classification of every such row; never silently discard it.
+            classifications = assertion.get("other_division_classifications") or []
+            actual = {(r["date"], r["opponent"]) for r in unclassified_source_rows}
+            declared = set()
+            for classified in classifications:
+                key = (classified.get("date"), classified.get("opponent"))
+                if key in declared or key not in actual:
+                    attestation_errors.append("Duplicate or unfounded other-division source classification")
+                declared.add(key)
+                if (classified.get("classification") not in
+                        ("not_dii_2026_27", "exhibition", "unresolved_identity")):
+                    attestation_errors.append("Invalid non-DII source game classification")
+                if not str(classified.get("membership_source_url") or "").startswith("https://"):
+                    attestation_errors.append("Missing independent other-division membership evidence URL")
+            if declared != actual or any(
+                    r.get("classification") == "unresolved_identity"
+                    for r in classifications):
+                attestation_errors.append("Non-DII/unidentified source opponents not fully classified")
             if missing_games or outside_snapshot or role_conflicts or disputed_times:
                 attestation_errors.append("School calendar and ledger differ")
             attested = not attestation_errors and not excluded
@@ -281,6 +304,7 @@ def full_season_school_certification(gender: str, teams: list[dict],
             "eligible_source_games": eligible_rows,
             "matched_source_games": corroborated,
             "unidentified_or_other_division_rows": unidentified_opponents,
+            "other_division_source_examples": unclassified_source_rows[:12],
             "missing_source_games_count": len(missing_games),
             "missing_source_games": missing_games[:12],
             "role_conflicts": role_conflicts,
