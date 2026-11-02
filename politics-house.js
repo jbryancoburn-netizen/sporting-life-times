@@ -469,6 +469,7 @@ function renderNational(a){
  title("All 435 U.S. House districts");
  insertMetric($("metrics"),["435","50",fmt(a["2026_official_ballot_offices"]),a["2026_polled_districts"]]);
   showCoverage(a.districts,"national");
+ if(window.PoliticsRaceExperience)window.PoliticsRaceExperience.renderNational({rows:a.districts});
  const board=$("state-tiles"),list=$("state-list");
  a.states.forEach(s=>list.append(makeStateLink(s)));
   if(window.HouseGeo){window.HouseGeo.evidenceColor=color;window.HouseGeo.national(a,board);}
@@ -495,6 +496,7 @@ function renderState(a){
  if(mapStatus)mapStatus.textContent=state["2026_congressional_map_changed"]?"2026 map · redrawn":"2026 map · unchanged";
  insertMetric($("metrics"),[state.district_count,state["2026_verified_house_nominee_offices"],state["2026_house_poll_count"]]);
  const rows=a.districts.filter(x=>x.state===code).sort((a,b)=>a.district.localeCompare(b.district));
+ if(window.PoliticsRaceExperience)window.PoliticsRaceExperience.renderState({state,rows});
  if(window.PoliticsStateArt){
   const hero=$("state-hero-art");
   if(hero)hero.append(window.PoliticsStateArt.create(code,"hero-outline"));
@@ -694,6 +696,7 @@ function renderDistrict(a){
  $("district-subtitle").textContent=r.id+" · November 3, 2026 · race data & original sources";
  $("state-link").href=urlForState(r.state);$("state-link").textContent="← All "+state.name+" districts";
  renderDistrictFront(r,state);
+ if(window.PoliticsRaceExperience)window.PoliticsRaceExperience.renderDistrict({r,state});
  const current=districtEvidence(r),clr=color(current.party,current.margin);
  let badge=$("leader-badge");badge.textContent=current.source.toUpperCase()+" · "+current.text;badge.style.background=clr.bg;badge.style.color=clr.fg;
  if(preliminaryRaceRead(r).watch){
@@ -707,7 +710,7 @@ function renderDistrict(a){
    let box=$("map-warning");box.hidden=false;box.textContent="2026 district geography changed in "+state.name+". A 2024 race with the same district number may include different voters. We do not use its margin as a 2026 forecast or shade for this district.";
  }
  candidatePanel(r);pollPanel(r);resultPanel(r,state);
- if(window.PoliticsIowaDesk)window.PoliticsIowaDesk.render(r,state);
+ // All 435 districts share the same editorial edition, including Iowa.
  const stateIds=a.districts.filter(x=>x.state===r.state).sort((x,y)=>x.district.localeCompare(y.district));
  const n=stateIds.findIndex(x=>x.id===r.id),prev=stateIds[(n-1+stateIds.length)%stateIds.length],next=stateIds[(n+1)%stateIds.length];
  $("prev-district").href=urlForDistrict(prev.id);$("prev-district").textContent="← "+prev.id;
