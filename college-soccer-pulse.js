@@ -39,7 +39,7 @@ function mark(name,id,cohort,brand,palette,overrides){
   .filter(Boolean).filter((url,i,list)=>list.indexOf(url)===i);
  if(candidates.length){
   const img=make('img','cs-pitch-badge-logo');img.alt='';img.loading='lazy';img.decoding='async';
-  let next=0;const tryNext=()=>{if(next<candidates.length)img.src=candidates[next++];else{badge.classList.remove('has-image');img.remove();}};
+  let next=0;const tryNext=()=>{badge.classList.remove('has-image');if(next<candidates.length)img.src=candidates[next++];else img.remove();};
   img.addEventListener('load',()=>{if(img.naturalWidth>0)badge.classList.add('has-image');else tryNext();});
   img.addEventListener('error',tryNext);badge.append(img);tryNext();
  }
