@@ -120,7 +120,20 @@ async function start(){
     .map(t=>[t.ncaa_org_id,t]));
   const merged=new Map(d.games.map(g=>[g.date+'|'+[g.away,g.home].sort().join('|'),{...g}]));
   let added=0,enhanced=0,disputed=0;
-  if(fixtureData)for(const f of fixtureData.fixtures){
+  // A source-ledger publishing race can repeat a deterministic fixture ID.
+  // Collapse duplicates before merging into the game desk. Keep all sources
+  // and prefer the record with a verified venue and tipoff when available.
+  const distinctFixtures=new Map();
+  for(const f of fixtureData?.fixtures||[]){
+    if(!f||!f.id)continue;
+    const old=distinctFixtures.get(f.id);
+    if(!old){distinctFixtures.set(f.id,{...f});continue;}
+    const sources=[...new Set([...(old.official_schedule_sources||[]),...(f.official_schedule_sources||[])])];
+    const better=(Number(!!f.venue)+Number(!!f.tipoff_as_posted))>
+      (Number(!!old.venue)+Number(!!old.tipoff_as_posted))?f:old;
+    distinctFixtures.set(f.id,{...better,official_schedule_sources:sources});
+  }
+  if(fixtureData)for(const f of distinctFixtures.values()){
     const away=orgIds.get(f.away_org_id),home=orgIds.get(f.home_org_id);
     if(!away||!home||away.id===home.id||!/^202[67]-\d{2}-\d{2}$/.test(f.date))continue;
     const k=f.date+'|'+[away.id,home.id].sort().join('|');
