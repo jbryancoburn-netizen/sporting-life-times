@@ -83,6 +83,8 @@ ALIASES = {
 # The NCAA member directory sometimes exposes an old generic campus URL.
 # Every candidate still must pass exact 2026–27, sex, row and NCAA-opponent tests.
 OFFICIAL_ATHLETICS_HOST_OVERRIDE = {
+    53: "beloitcollegeathletics.com", 549: "sagehens.com",
+    1450: "wcbluejays.wcmo.edu",
     58: "athletics.baruch.cuny.edu", 82: "gobrynmawr.com",
     151: "colbyathletics.com", 1111: "greenvillepanthers.com",
     69: "athletics.bowdoin.edu", 117: "athletics.capital.edu",
@@ -106,11 +108,17 @@ OFFICIAL_ATHLETICS_HOST_OVERRIDE = {
 # from neighboring season IDs.
 OFFICIAL_CONFERENCE_SCHEDULES = {
     "men": {
+        53: ("https://midwestconference.org/schedule.aspx?schedule=3999", "Beloit"),
+        218: ("https://sliac.org/schedule.aspx?schedule=2031", "Eureka"),
+        684: ("https://cnesports.org/schedule.aspx?schedule=4107", "Suffolk"),
         64: ("https://sliac.org/schedule.aspx?schedule=2030", "Blackburn"),
         119: ("https://uaasports.info/schedule.aspx?schedule=1162", "Carnegie Mellon"),
         525: ("https://miaa.org/schedule.aspx?schedule=2283", "Olivet"),
     },
     "women": {
+        53: ("https://midwestconference.org/schedule.aspx?schedule=3989", "Beloit"),
+        218: ("https://sliac.org/schedule.aspx?schedule=2038", "Eureka"),
+        449: ("https://newmacsports.com/schedule.aspx?schedule=3965", "Mount Holyoke"),
         64: ("https://sliac.org/schedule.aspx?schedule=2029", "Blackburn"),
         119: ("https://uaasports.info/schedule.aspx?schedule=1154", "Carnegie Mellon"),
         525: ("https://miaa.org/schedule.aspx?schedule=2274", "Olivet"),
@@ -258,6 +266,7 @@ def parse_calendar(html, gender, owner, url, by_org, exact):
                 "date": calendar_date(date), "away_org_id": away,
                 "home_org_id": home, "neutral": at == "neutral",
                 "source_owner_org_id": owner, "source_url": url,
+                "source_kind": "official_school",
                 "tipoff_as_posted": compact(time), "venue": venue,
                 "venue_location": parts[0], "network_as_posted": tv,
                 "radio_as_posted": radio, "tournament": tournament,
@@ -351,6 +360,7 @@ def parse_conference_calendar(html, gender, owner, url, subject, by_org, exact, 
                 "date": date.isoformat(), "away_org_id": away,
                 "home_org_id": home, "neutral": neutral,
                 "source_owner_org_id": owner, "source_url": url,
+                "source_kind": "official_conference",
                 "tipoff_as_posted": cells[idx_time], "venue": "",
                 "venue_location": location, "network_as_posted": "",
                 "radio_as_posted": "", "tournament": ""
@@ -498,6 +508,10 @@ def combine(gender, parsed):
         unique = list({(x["source_owner_org_id"], x["source_url"]): x for x in evidence}.values())
         best = next((x for x in unique if x["home_org_id"] == home), unique[0])
         owners = sorted({x["source_owner_org_id"] for x in unique})
+        kinds = {x.get("source_kind", "official_school") for x in unique}
+        fixture_source_kind = ("official_conference_and_school" if len(kinds) > 1
+                               else "official_conference" if kinds == {"official_conference"}
+                               else "official_school")
         fixtures.append({
             "id": f"d3-{gender}-{date}-{members[0]}-{members[1]}",
             "date": date, "away_org_id": away, "home_org_id": home,
@@ -505,6 +519,7 @@ def combine(gender, parsed):
             "source_url": best["source_url"],
             "official_schedule_sources": sorted({x["source_url"] for x in unique}),
             "verified_by_org_ids": owners,
+            "source_kind": fixture_source_kind,
             "source_verification": "reciprocal" if len(owners) >= 2 else "single_official_school",
             "tipoff_as_posted": best["tipoff_as_posted"],
             "venue": best["venue"], "venue_location": best["venue_location"],
@@ -557,6 +572,11 @@ def process(gender, workers=30, dry_run=False):
                           "status": "failed", "error": str(ex)[:200]}
             prior = available_previous[owner]
             if rows:
+                # Attach evidence type before dedupe so conference pages
+                # never masquerade as a university-published schedule.
+                for row in rows:
+                    row["source_kind"] = ("official_conference" if
+                        report.get("status") == "parsed_conference" else "official_school")
                 gathered.append(rows)
             else:
                 report["retained_previous_fixtures"] = len(prior)
@@ -570,6 +590,7 @@ def process(gender, workers=30, dry_run=False):
                         "date": f["date"], "away_org_id": f["away_org_id"],
                         "home_org_id": f["home_org_id"], "neutral": f["neutral"],
                         "source_owner_org_id": owner, "source_url": prev_source,
+                        "source_kind": "official_school",
                         "tipoff_as_posted": f.get("tipoff_as_posted", ""),
                         "venue": f.get("venue", ""),
                         "venue_location": f.get("venue_location", ""),
@@ -598,7 +619,7 @@ def process(gender, workers=30, dry_run=False):
         fixture_index[f["away_org_id"]].append(f)
         fixture_index[f["home_org_id"]].append(f)
     missing_school_review = []
-    for a in sorted((x for x in audit if x["status"] != "parsed"),
+    for a in sorted((x for x in audit if x["status"] == "failed"),
                     key=lambda x: x["owner_org_id"]):
         org = a["owner_org_id"]
         other_sourced = [f for f in fixture_index[org]
@@ -646,6 +667,7 @@ def process(gender, workers=30, dry_run=False):
         "official_conference_calendar_fallbacks": official_conference,
         "school_calendars_checked": len(audit),
         "school_calendars_missing": len(by_org) - successful,
+        "school_calendars_unresolved": len(by_org) - successful - official_conference,
         "source_status_counts": dict(status_counts),
         "last_verified_school_source": {str(k): v for k, v in sorted(previous_good_source.items())},
         "unverified_school_review": missing_school_review,
@@ -694,6 +716,9 @@ def self_test():
     # No future-season or wrong-sport page can be accepted just because its
     # URL looks right. Yearless routes must still have the exact 2026-27 title.
     assert OFFICIAL_ATHLETICS_HOST_OVERRIDE[69] == "athletics.bowdoin.edu"
+    assert OFFICIAL_ATHLETICS_HOST_OVERRIDE[53] == "beloitcollegeathletics.com"
+    assert OFFICIAL_CONFERENCE_SCHEDULES["men"][218][1] == "Eureka"
+    assert OFFICIAL_CONFERENCE_SCHEDULES["women"][449][1] == "Mount Holyoke"
     assert OFFICIAL_CONFERENCE_SCHEDULES["men"][64][1] == "Blackburn"
     assert OFFICIAL_CONFERENCE_SCHEDULES["women"][525][1] == "Olivet"
     conf_html = """<html><head><title>2026-27 Blackburn Men's Basketball Schedule</title></head>
