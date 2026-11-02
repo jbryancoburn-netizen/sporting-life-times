@@ -28,11 +28,11 @@ const logoFor=(cohort,id)=>branding.teams?.[cohort+':'+id]?.logo_url||branding.t
 const start=matchJs.indexOf('const club='),end=matchJs.indexOf('\nconst row=',start);
 assert(start>=0&&end>start,'Visual desk club function missing');
 let brand=branding;
-const club=new Function('E','link','logoFor','brand','palette','overrides','return ('+matchJs.slice(start,end).replace(/;\s*$/,'')+')')(E,link,logoFor,brand,palette,overrides);
+const club=new Function('E','link','logoFor','brand','palette','overrides','return ('+matchJs.slice(start,end).replace(/^const club=/,'').replace(/;\s*$/,'')+')')(E,link,logoFor,brand,palette,overrides);
 const sj=selectionJs.indexOf('const badge='),se=selectionJs.indexOf(';async function render(){',sj);
 assert(sj>=0&&se>sj,'Selection badge renderer missing');
 const S=(tag,cls,txt)=>{const e=new El(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e};
-const badge=new Function('E','return ('+selectionJs.slice(sj,se)+')')(S);
+const badge=new Function('E','return ('+selectionJs.slice(sj,se).replace(/^const badge=/,'')+')')(S);
 const rows=[
  ['men-d1','georgetown','Georgetown'],
  ['men-d1','memphis','Memphis'],
