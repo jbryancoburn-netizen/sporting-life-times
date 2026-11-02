@@ -143,7 +143,7 @@ def parse_merced(html):
                 rows.append((day,away,home,'merced',clock_pt(c[ti])))
             if len(rows)>len(best):best=rows
             break
-    if len(best)<12:raise ValueError('UC Merced official men's schedule has too few CCAA opponents')
+    if len(best)<12:raise ValueError("UC Merced official men's schedule has too few CCAA opponents")
     return 'merced',best,0
 def identities(teams):
     index={};ambiguous=set()
