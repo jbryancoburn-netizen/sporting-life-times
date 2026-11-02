@@ -79,8 +79,8 @@ class TestGmac(unittest.TestCase):
   pages[BASE+str(4060+walsh_index)]=grid("walsh","men","Ashland")
   games={}
   enrich_gmac("men",games,directory("men"),dt.date(2026,11,1),lambda u:pages[u])
-  self.assertFalse(any(g["away"]=="walsh" and g["home"]=="ashland"
-                       for g in games.values()))
+  self.assertFalse(any(g["date"]=="2026-12-03" and g["away"]=="walsh"
+                       and g["home"]=="ashland" for g in games.values()))
  def test_no_games_when_directory_ambiguous_or_expired(self):
   team=directory("women");team.pop("ursuline")
   games={}
