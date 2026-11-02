@@ -932,6 +932,91 @@ def ledger_changed(prior,teams,games):
     return prior.get("teams",[])!=teams or prior.get("games",[])!=games
 
 
+
+def apply_official_school_grid_snapshots(gender, games, teams, today=None, registry_file=None):
+    """Reconcile exact official school calendars into the EXISTING DII ledger.
+
+    Never introduce a non-DII opponent, change a final, invent home court
+    for a neutral game, or replace an NCAA/organizer canonical game ID.
+    Only exact unambiguous registry identities qualify. Unknown schools
+    remain out of the publication, not silently reclassified as DII.
+    """
+    today = today or dt.datetime.now(ZoneInfo("America/New_York")).date()
+    path = registry_file or DATA / "d2-official-school-grids-2026-27.json"
+    if not path.exists():
+        return {"source_rows": 0, "created": 0, "matched": 0, "unmatched": 0, "conflicts": 0, "past_unpublished": 0}
+    evidence = json.loads(path.read_text(encoding="utf-8"))
+    if evidence.get("season") != SEASON or evidence.get("schema") != 1:
+        raise ValueError("Incorrect DII official school grid evidence schema/season")
+    lookup = build_dii_team_lookup(teams)
+    counts = {"source_rows": 0, "created": 0, "matched": 0, "unmatched": 0, "conflicts": 0, "past_unpublished": 0}
+    # Rebuild for each school so newly created games can never double-enter.
+    for calendar in evidence.get("schools", []):
+        if calendar.get("gender") != gender:
+            continue
+        owner = calendar["owner_id"]
+        if owner not in teams or teams[owner].get("not_eligible_for_dii_elo"):
+            counts["unmatched"] += len(calendar.get("fixtures", []))
+            continue
+        source_url = calendar["source_url"]
+        if not source_url.startswith("https://"):
+            raise ValueError("Missing official school calendar URL")
+        for row in calendar.get("fixtures", []):
+            counts["source_rows"] += 1
+            opponent = resolve_dii_team_id({"name": row["opponent"]}, lookup)
+            if not opponent or owner == opponent:
+                counts["unmatched"] += 1
+                continue
+            date = row["date"]
+            if not (dt.date(2026, 10, 1) <= dt.date.fromisoformat(date) <= dt.date(2027, 4, 15)):
+                raise ValueError("School source game date outside DII season")
+            role = row["role"]
+            if role not in ("home", "away", "neutral"):
+                raise ValueError("Unrecognized official school home/away marker")
+            away, home = (opponent, owner) if role == "home" else (owner, opponent)
+            neutral = role == "neutral"
+            matches = [g for g in games.values()
+                       if g.get("date") == date and
+                       {g.get("away"), g.get("home")} == {away, home}]
+            if len(matches) > 1:
+                counts["conflicts"] += 1
+                continue
+            if matches:
+                old = matches[0]
+                if not neutral and (old.get("away"), old.get("home")) != (away, home):
+                    counts["conflicts"] += 1
+                    continue
+                if neutral:
+                    old["neutral"] = True
+                    old["neutral_source_url"] = source_url
+                if row.get("start_time") and not old.get("start_time"):
+                    old["start_time"] = row["start_time"]
+                    old["tipoff_source_url"] = source_url
+                if role == "home" and calendar.get("home_venue") and not old.get("venue"):
+                    old["venue"] = calendar["home_venue"]
+                    old["venue_source_url"] = source_url
+                counts["matched"] += 1
+                continue
+            if dt.date.fromisoformat(date) < today:
+                # Official future schedule alone is not a historical final/result.
+                counts["past_unpublished"] += 1
+                continue
+            ident = f"d2schoolgrid-2026-{gender}-{owner}-{date}-{opponent}"
+            games[ident] = {
+                "id": ident, "date": date, "away": away, "home": home,
+                "status": "scheduled", "away_score": None, "home_score": None,
+                "start_time": row.get("start_time") or "",
+                "venue": calendar.get("home_venue", "") if role == "home" else "",
+                "network": "", "neutral": neutral,
+                "site_designation": ("Neutral site; official school grid does not certify home/away"
+                                     if neutral else ""),
+                "elo_eligible": True, "verified": True,
+                "source": "Official university 2026-27 school schedule",
+                "source_url": source_url,
+            }
+            counts["created"] += 1
+    return counts
+
 def update(gender, bootstrap=False, live=False):
     output=DATA/f"d2-{gender}-2026-27.json"
     prior=json.loads(output.read_text()) if output.exists() else {}
@@ -1017,6 +1102,9 @@ def update(gender, bootstrap=False, live=False):
             if old.get("status")=="final" and fixture.get("status")!="final":
                 continue
             games[fixture["id"]]={**fixture,"verified":True,"elo_eligible":True}
+    # Official university grids for neglected independent/CIAA programs;
+    # reconcile into canonical games without changing IDs or inventing finals.
+    school_grid_quality=apply_official_school_grid_snapshots(gender,games,teams)
     # Use the basketball newspaper's Eastern calendar, not UTC midnight.
     # During game hours the UTC date can already be tomorrow.
     today=dt.datetime.now(ZoneInfo("America/New_York")).date()
@@ -1332,6 +1420,7 @@ def update(gender, bootstrap=False, live=False):
         "school_color_coverage":color_quality,
         "membership_certified":False,
         "membership_review":membership_quality,
+        "official_school_grid_recovery":school_grid_quality,
         "verified_lsc_directory_recovery":verified_lsc_directory,
         "official_cwu_tipoff_broadcasts":official_broadcasts,
         "official_other_schedule_broadcasts":extra_broadcasts,
