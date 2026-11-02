@@ -174,6 +174,10 @@ OFFICIAL_CONFERENCE_SCHEDULES = {
         # Published current-season official conference team pages, independently
         # checked for school, basketball sex and 2026-27 year.
         1355: ("https://ascsports.org/schedule.aspx?schedule=6196", "Schreiner"),
+        179: ("https://gomacsports.com/schedule.aspx?schedule=7613", "Delaware Valley"),
+        455: ("https://oac.org/schedule.aspx?schedule=2381", "Muskingum"),
+        517: ("https://oac.org/schedule.aspx?schedule=2382", "Ohio Northern"),
+        22235: ("https://nwcsports.com/schedule.aspx?schedule=2501", "Lewis & Clark"),
     },
     "women": {
         161: ("https://miacathletics.com/schedule.aspx?schedule=3671", "Concordia"),
@@ -205,6 +209,7 @@ OFFICIAL_CONFERENCE_SCHEDULES = {
         22235: ("https://nwcsports.com/schedule.aspx?schedule=2504", "Lewis & Clark"),
         785: ("https://nwcsports.com/schedule.aspx?schedule=2511", "Willamette"),
         1355: ("https://ascsports.org/schedule.aspx?schedule=6202", "Schreiner"),
+        179: ("https://gomacsports.com/schedule.aspx?schedule=7633", "Delaware Valley"),
     },
 }
 
@@ -466,6 +471,78 @@ def parse_conference_calendar(html, gender, owner, url, subject, by_org, exact, 
                      "status": "parsed_conference", "calendar_origin": "official_conference_team_calendar",
                      "readable_rows": inspected, "verified_member_opponents": len(entries),
                      "excluded_rows": dict(excluded)}
+
+
+# Tight, conference-specific 2026-27 Sidearm schedule-ID ranges.
+# IDs are DISCOVERY CANDIDATES, not fixtures: each fetched page must pass
+# full season, gender, subject, NCAA-opponent, date and readable-row checks.
+# Never crawl a generic search engine, bypass a block, or infer a game.
+OFFICIAL_CONFERENCE_RECOVERY_WINDOWS = {
+    "men": (
+        ("heartlandconf.org", 4465, 4482, {939: "Anderson", 987: "Bluffton"}),
+        ("landmarkconference.org", 2535, 2563,
+         {1467: "Goucher", 325: "Juniata", 443: "Moravian", 685: "Susquehanna"}),
+        ("empire8.com", 3169, 3183, {11036: "Sage"}),
+        ("nwcsports.com", 2470, 2481, {785: "Willamette"}),
+    ),
+    "women": (
+        ("heartlandconf.org", 4390, 4412, {939: "Anderson"}),
+        ("empire8.com", 3183, 3198, {11036: "Sage"}),
+        ("oac.org", 2387, 2402, {455: "Muskingum", 517: "Ohio Northern"}),
+    ),
+}
+
+
+def discover_official_conference_fallbacks(gender, by_org, exact, previous_urls):
+    """Resolve only real 2026-27, member-specific official conference calendars.
+
+    The scan is bounded to independently identified conference-hosted sport
+    season blocks. A numeric ID is *never* considered valid by itself.
+    Once verified, URL provenance is persisted for subsequent normal refreshes.
+    """
+    recovered = {}
+    audited = 0
+    for domain, first, last, subjects in OFFICIAL_CONFERENCE_RECOVERY_WINDOWS[gender]:
+        needed = {org: label for org, label in subjects.items()
+                  if org in by_org and org not in OFFICIAL_CONFERENCE_SCHEDULES[gender]
+                  and org not in previous_urls}
+        if not needed:
+            continue
+        # No more than 28 requests to any one conference during discovery.
+        if not 0 < last - first <= 28:
+            raise ValueError("Unbounded DIII conference discovery range")
+        candidates = [(0, f"https://{domain}/schedule.aspx?schedule={sid}")
+                      for sid in range(first, last)]
+        with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
+            futures = {pool.submit(fetch_calendar, c): c[1] for c in candidates}
+            for future in concurrent.futures.as_completed(futures):
+                url = futures[future]
+                try:
+                    _, _, html = future.result()
+                except Exception:
+                    continue
+                audited += 1
+                for org, subject in needed.items():
+                    if org in recovered:
+                        continue
+                    try:
+                        rows, report = parse_conference_calendar(
+                            html, gender, org, url, subject, by_org, exact)
+                    except ValueError:
+                        continue
+                    if rows and report["verified_member_opponents"] >= 4:
+                        recovered[org] = (url, subject)
+                        print(json.dumps({
+                            "d3_conference_discovered": subject,
+                            "gender": gender,
+                            "ncaa_org_id": org,
+                            "source": url,
+                            "opponents": len(rows)
+                        }), flush=True)
+    print(json.dumps({"gender": gender, "conference_discovery_documents": audited,
+                      "independently_verified_new_calendar_urls": len(recovered)}),
+          flush=True)
+    return recovered
 
 
 def fetch_calendar(source):
@@ -783,6 +860,18 @@ def process(gender, workers=30, dry_run=False):
     gathered, audit = [], []
     previous_audit = {int(a["owner_org_id"]): a for a in previous.get("source_audit", [])
                       if "owner_org_id" in a}
+    # Reuse previously validated conference URLs instead of scanning them
+    # every time; each refresh rechecks the full official page.
+    known_subjects = {}
+    for _, _, _, subject_map in OFFICIAL_CONFERENCE_RECOVERY_WINDOWS[gender]:
+        known_subjects.update(subject_map)
+    for org, conf_url in previous_good_conference.items():
+        if (org in by_org and org in known_subjects and
+                org not in OFFICIAL_CONFERENCE_SCHEDULES[gender]):
+            OFFICIAL_CONFERENCE_SCHEDULES[gender][org] = (conf_url, known_subjects[org])
+    OFFICIAL_CONFERENCE_SCHEDULES[gender].update(
+        discover_official_conference_fallbacks(
+            gender, by_org, exact, previous_good_conference))
     sources, missing = source_candidates(gender, by_org)
     assert len(sources) == len(by_org) and len({s[0] for s in sources}) == len(by_org)
 
@@ -1034,6 +1123,16 @@ def self_test():
     assert OFFICIAL_CONFERENCE_SCHEDULES["women"][685][0].endswith("schedule=2619")
     assert OFFICIAL_CONFERENCE_SCHEDULES["women"][22235][0].endswith("schedule=2504")
     assert OFFICIAL_CONFERENCE_SCHEDULES["women"][785][0].endswith("schedule=2511")
+    assert OFFICIAL_CONFERENCE_SCHEDULES["men"][179][0].endswith("schedule=7613")
+    assert OFFICIAL_CONFERENCE_RECOVERY_WINDOWS["men"][0][0] == "heartlandconf.org"
+    assert OFFICIAL_CONFERENCE_RECOVERY_WINDOWS["women"][-1][0] == "oac.org"
+    assert all(0 < last - first <= 28
+               for windows in OFFICIAL_CONFERENCE_RECOVERY_WINDOWS.values()
+               for _, first, last, _ in windows)
+    assert OFFICIAL_CONFERENCE_SCHEDULES["women"][179][0].endswith("schedule=7633")
+    assert OFFICIAL_CONFERENCE_SCHEDULES["men"][455][0].endswith("schedule=2381")
+    assert OFFICIAL_CONFERENCE_SCHEDULES["men"][517][0].endswith("schedule=2382")
+    assert OFFICIAL_CONFERENCE_SCHEDULES["men"][22235][0].endswith("schedule=2501")
     # Lock down individually checked CNE team-specific season IDs and sport identity.
     assert OFFICIAL_CONFERENCE_SCHEDULES["men"][8981] == (
         "https://cnesports.org/schedule.aspx?schedule=4110", "Endicott")
