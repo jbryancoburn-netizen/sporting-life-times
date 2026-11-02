@@ -43,11 +43,19 @@ The existing official school grid JSON includes `certification_assertions: []`. 
   "all_eligible_games_checked": true,
   "other_division_games_reviewed": true,
   "independent_crosscheck_completed": true,
-  "unresolved_tbd_count": 0
+  "unresolved_tbd_count": 0,
+  "other_division_classifications": [
+    {
+      "date": "2026-11-21",
+      "opponent": "<literal opponent name from the university snapshot>",
+      "classification": "not_dii_2026_27",
+      "membership_source_url": "https://<verified separate NCAA/membership evidence>"
+    }
+  ]
 }
 ```
 
-**Do not add this record until the check has actually been performed.** The audit rejects wrong-season/duplicate attestations, unverified second sources, unresolved opponents, mismatched snapshot counts, missing or extra DII games, conflicting home/away, and conflicting published clocks. The mere presence of an official URL, 25 games or a reciprocal conference schedule is insufficient.
+**Do not add this record until the check has actually been performed.** If the complete school calendar contains no other-division games, use `other_division_classifications: []`. Otherwise enumerate **every** non-DII/exhibition source row by exact date and original opponent, plus a reliable independent classification URL; unresolved identities cannot be certified. The audit rejects wrong-season/duplicate attestations, unverified second sources, unresolved opponents, mismatched snapshot counts, missing or extra DII games, conflicting home/away, and conflicting published clocks. The mere presence of an official URL, 25 games or a reciprocal conference schedule is insufficient.
 
 ## Recovery order / next substantive batches
 
