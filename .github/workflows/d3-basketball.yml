@@ -8,6 +8,7 @@ on:
       - 'd3-basketball.js'
       - 'd3-basketball.css'
       - 'scripts/build_d3_basketball.mjs'
+      - 'scripts/recover_d3_logo_slugs.py'
       - '.github/workflows/d3-basketball.yml'
   schedule:
     - cron: '9,24,39,54 0-6,16-23 * * *'
@@ -38,6 +39,9 @@ jobs:
           else
             node scripts/build_d3_basketball.mjs
           fi
+      - name: Recover only exact NCAA school logo identities
+        run: |
+          python3 scripts/recover_d3_logo_slugs.py
       - name: Audit DIII-only publication contracts
         run: |
           node --input-type=module <<'NODE'
@@ -60,7 +64,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/d3-men-2026-27.json data/d3-women-2026-27.json
+          git add data/d3-men-2026-27.json data/d3-women-2026-27.json data/d3-verified-logo-slugs-2026-27.json
           if git diff --cached --quiet; then exit 0; fi
           git commit -m "Refresh DIII men's and women's verified NCAA result ledgers"
           for n in 1 2 3 4; do
