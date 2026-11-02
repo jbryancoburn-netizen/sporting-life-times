@@ -25,7 +25,7 @@ const themes={
  SD:["#3b7caf","#d3bd63"],TN:["#b6303b","#254e88"],TX:["#b72d39","#244d8e"],UT:["#1b5691","#e7b944"],VT:["#2f6c59","#c9ac5e"],
  VA:["#2c568a","#c3a464"],WA:["#285e50","#bd9d5b"],WV:["#e4bd55","#31548c"],WI:["#24579b","#ddb45c"],WY:["#b13342","#2e6390"]
 };
-const flagFile=code=>"https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_"+encodeURIComponent(named[code]||code).replace(/%20/g,"_")+".svg";
+const flagFile=code=>"https://commons.wikimedia.org/wiki/Special:FilePath/"+(code==="GA"?"Flag_of_Georgia_(U.S._state)":"Flag_of_"+encodeURIComponent(named[code]||code).replace(/%20/g,"_"))+".svg";
 function flag(code,cls="state-flag-image"){
  const img=document.createElement("img");img.className=cls;img.alt=(named[code]||code)+" state flag";
  img.loading="lazy";img.decoding="async";img.referrerPolicy="no-referrer";
@@ -204,7 +204,9 @@ function decorateNationalCard(a,r){
  const w=watch(r);
  a.classList.add(w.isWatch?"national-watch":"national-context");
  a.href="politics-house-district.html?district="+encodeURIComponent(r.id);
- a.append(stateInsignia(r.state,"national-card-insignia"));
+ const emblem=stateInsignia(r.state,"national-card-insignia");
+ emblem.append(flag(r.state,"national-card-flag"));
+ a.append(emblem);
  const body=el("div","national-card-body");
  body.append(el("small","national-card-id",r.id+" · "+(named[r.state]||r.state)),
   el("strong","national-card-title",w.split?"POLL & HISTORY DISAGREE":w.poll?"THE DISTRICT POLL":w.old!=null?"THE LAST HOUSE VOTE":"THE RESEARCH FILE"));
