@@ -443,7 +443,7 @@ def matching_calendar_links(html, parent_url, gender):
         u = urlsplit(target)
         target_host = (u.hostname or "").lower().removeprefix("www.")
         if (u.scheme != "https" or target_host != host or
-                any(x in u.path.lower() for x in opposite)):
+                any(x in u.path.lower().split('/') for x in opposite)):
             continue
         label = compact(link.get_text(" ", strip=True)).lower()
         path = u.path.lower()
@@ -845,7 +845,9 @@ def self_test():
     discovered = matching_calendar_links(
         link_sample, "https://athletics.hope.edu/landing/index", "men")
     assert len(discovered) == 1 and "mens-basketball" in discovered[0]
-    assert not matching_calendar_links(link_sample, "https://athletics.hope.edu", "women") == []
+    womens_links=matching_calendar_links(link_sample, "https://athletics.hope.edu", "women")
+    assert len(womens_links)==1 and "/sports/womens-basketball/" in womens_links[0]
+    assert all("/sports/mens-basketball/" not in x for x in womens_links)
     # No future-season or wrong-sport page can be accepted just because its
     # URL looks right. Yearless routes must still have the exact 2026-27 title.
     assert OFFICIAL_ATHLETICS_HOST_OVERRIDE[69] == "athletics.bowdoin.edu"
