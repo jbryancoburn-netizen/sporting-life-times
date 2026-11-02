@@ -1,0 +1,241 @@
+/* THE POLITICAL LIFE & TIMES / IOWA 1ST
+   A place-first reported field guide. Color identifies actual 2024 candidates
+   only. No default rounded dashboard cards, no fabricated geography.
+*/
+body[data-house-page="district"] #iowa-field-guide{
+ background:#fffefa;color:#1d3547;padding:0 29px 29px;
+ border-bottom:4px solid #1e4257;scroll-margin-top:10px
+}
+body[data-house-page="district"] #iowa-field-guide[hidden]{display:none!important}
+body[data-house-page="district"] #iowa-field-guide .ia-overline{
+ display:block;color:#a3433e;font:900 10px/1.5 'DM Sans',Arial,sans-serif;
+ letter-spacing:1.4px
+}
+body[data-house-page="district"] .ia-portrait{
+ border-top:6px solid #1a4359;padding:24px 0 29px;
+ display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,.7fr);gap:8px 42px
+}
+body[data-house-page="district"] .ia-portrait>.ia-overline{grid-column:1/-1}
+body[data-house-page="district"] .ia-portrait h2{
+ font:700 clamp(33px,3.7vw,49px)/1.11 Georgia,serif;letter-spacing:-1.35px;
+ grid-column:1;grid-row:2;margin:0;text-wrap:balance;color:#17384b
+}
+body[data-house-page="district"] .ia-intro-description{
+ margin:0;grid-column:1;grid-row:3;font:17px/1.65 Georgia,serif;color:#354e5e
+}
+body[data-house-page="district"] .ia-portrait-analysis{
+ margin:0;grid-column:2;grid-row:2/4;border-left:4px solid #c14f40;
+ padding:8px 0 5px 20px;font:15px/1.63 Georgia,serif;color:#213b4b
+}
+body[data-house-page="district"] .ia-source-trail{
+ grid-column:1/-1;display:flex;flex-wrap:wrap;gap:10px 20px;
+ border-top:1px solid #bfcbcd;margin-top:15px;padding-top:13px
+}
+body[data-house-page="district"] #iowa-field-guide a{
+ color:#1b587b;text-decoration:underline;text-underline-offset:3px;
+ text-decoration-thickness:1px
+}
+body[data-house-page="district"] #iowa-field-guide a:hover{
+ color:#a24139;text-decoration-thickness:2px
+}
+body[data-house-page="district"] .ia-source-trail a{
+ font:800 11px/1.5 'DM Sans',sans-serif
+}
+body[data-house-page="district"] .ia-section-head{
+ display:grid;grid-template-columns:1fr minmax(150px,.35fr);
+ gap:2px 22px;align-items:end;padding:23px 0 22px;border-top:3px solid #1f455c
+}
+body[data-house-page="district"] .ia-section-head>.ia-overline{grid-column:1/-1;margin:0 0 8px}
+body[data-house-page="district"] .ia-section-head h3{
+ grid-column:1;font:700 clamp(30px,3.3vw,45px)/1.11 Georgia,serif;
+ letter-spacing:-1.15px;color:#17374b;margin:0;text-wrap:balance
+}
+body[data-house-page="district"] .ia-section-head p{
+ grid-column:2;grid-row:2;margin:0;font:13px/1.6 Georgia,serif;color:#4c6270
+}
+body[data-house-page="district"] .ia-places-nav{
+ display:flex;gap:0;overflow:auto;scrollbar-width:thin;
+ border-top:1px solid #c2cbcd;border-bottom:1px solid #c2cbcd;background:#f3f5f2;
+ margin-bottom:7px
+}
+body[data-house-page="district"] .ia-places-nav>a{
+ display:block;flex:1 0 150px;
+ font:800 11px/1.4 'DM Sans',sans-serif!important;
+ color:#264a61!important;text-decoration:none!important;
+ padding:14px 13px;white-space:normal;border-right:1px solid #ccd3d5
+}
+body[data-house-page="district"] .ia-places-nav>a:hover,
+body[data-house-page="district"] .ia-places-nav>a:focus-visible{
+ background:#dfe9e9;color:#9f453b!important;text-decoration:underline!important
+}
+body[data-house-page="district"] .ia-regions{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 29px
+}
+body[data-house-page="district"] .ia-region{
+ display:grid;grid-template-columns:57px minmax(0,1fr);align-items:start;
+ gap:12px;border-bottom:1px solid #bcc9cc;padding:24px 0;
+ scroll-margin-top:12px
+}
+body[data-house-page="district"] .ia-region:nth-child(2n){border-left:1px solid #bcc9cc;padding-left:23px}
+body[data-house-page="district"] .ia-region-number{
+ font:700 50px/.98 Georgia,serif;color:#b5c7cc;letter-spacing:-3px
+}
+body[data-house-page="district"] .ia-region-places{
+ color:#a34039;font:900 10px/1.55 'DM Sans',Arial,sans-serif;
+ letter-spacing:.8px;text-transform:uppercase
+}
+body[data-house-page="district"] .ia-region-copy h4{
+ color:#183d54;font:700 27px/1.14 Georgia,serif;letter-spacing:-.7px;
+ margin:8px 0 10px
+}
+body[data-house-page="district"] .ia-region-copy p{
+ color:#435966;font:13px/1.65 Georgia,serif;margin:9px 0 0
+}
+body[data-house-page="district"] .ia-region-copy .ia-region-lead{
+ font:700 15px/1.5 Georgia,serif;color:#263e4d;margin-top:0
+}
+body[data-house-page="district"] .ia-region-copy .ia-region-why{
+ padding:7px 0 0;border-top:1px dotted #aabdc3;
+ font-size:12px;color:#334c5b;margin-top:13px
+}
+body[data-house-page="district"] .ia-region-footer{
+ display:flex;align-items:baseline;justify-content:space-between;
+ flex-wrap:wrap;gap:6px 12px;margin-top:14px
+}
+body[data-house-page="district"] .ia-region-footer .ia-overline{font-size:9px!important;color:#6b7b83!important}
+body[data-house-page="district"] .ia-region-footer a{
+ font:900 10px/1.5 'DM Sans',Arial,sans-serif
+}
+body[data-house-page="district"] .ia-voting-story{margin-top:33px}
+body[data-house-page="district"] .ia-vote-insight{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+ border-block:2px solid #1e4259;margin:3px 0 22px
+}
+body[data-house-page="district"] .ia-vote-insight>div{padding:22px 24px 24px 0}
+body[data-house-page="district"] .ia-vote-insight>div:last-child{border-left:1px solid #c4d1d3;padding-left:24px}
+body[data-house-page="district"] .ia-vote-insight strong{
+ display:block;font:700 clamp(29px,3vw,41px)/1.06 Georgia,serif;letter-spacing:-1px
+}
+body[data-house-page="district"] .ia-vote-insight .ia-count-blue{color:#2c6696}
+body[data-house-page="district"] .ia-vote-insight .ia-count-red{color:#a54640}
+body[data-house-page="district"] .ia-vote-insight p{
+ font:13px/1.63 Georgia,serif;color:#385463;margin:10px 0 0;max-width:48ch
+}
+body[data-house-page="district"] .ia-results-toolbar{
+ display:flex;align-items:center;justify-content:space-between;gap:16px;
+ flex-wrap:wrap;border-bottom:1px solid #9fb1b7;padding:8px 0 12px
+}
+body[data-house-page="district"] .ia-sort-controls{display:flex;gap:3px;flex-wrap:wrap}
+body[data-house-page="district"] .ia-sort-controls button{
+ border:1px solid #94a9b3;border-radius:0;cursor:pointer;
+ font:800 11px/1.4 'DM Sans',sans-serif;background:transparent;
+ color:#33556b;padding:8px 12px
+}
+body[data-house-page="district"] .ia-sort-controls button.ia-sort-active,
+body[data-house-page="district"] .ia-sort-controls button:hover{
+ background:#214760;color:white;border-color:#214760
+}
+body[data-house-page="district"] .ia-county-legend{
+ display:grid;grid-template-columns:1fr 1.5fr 1fr;gap:8px;
+ align-items:center;padding:13px 0 7px;
+ font:900 9px/1.5 'DM Sans',sans-serif;letter-spacing:.55px;color:#5f717c
+}
+body[data-house-page="district"] .ia-county-legend span:first-child{color:#386f9d}
+body[data-house-page="district"] .ia-county-legend span:last-child{color:#ad4a43;text-align:right}
+body[data-house-page="district"] .ia-county-legend span:nth-child(2){text-align:center}
+body[data-house-page="district"] .ia-county-list{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 24px
+}
+body[data-house-page="district"] .ia-county-row{
+ display:grid;grid-template-columns:95px minmax(0,1fr) 88px;align-items:center;
+ gap:8px;min-width:0;padding:10px 0;
+ border-bottom:1px solid #d4dbde
+}
+body[data-house-page="district"] .ia-county-row:nth-child(2n){border-left:1px solid #cad3d5;padding-left:17px}
+body[data-house-page="district"] .ia-county-name{
+ font:700 13px/1.25 Georgia,serif;color:#253f51
+}
+body[data-house-page="district"] .ia-county-bar{
+ height:14px;display:flex;position:relative;overflow:hidden;
+ background:#e1e8eb
+}
+body[data-house-page="district"] .ia-county-bar:after{
+ content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:#f9f8ef
+}
+body[data-house-page="district"] .ia-county-dem{display:block;flex:none;background:#3876aa;height:100%}
+body[data-house-page="district"] .ia-county-rep{display:block;flex:none;background:#ba4b47;height:100%}
+body[data-house-page="district"] .ia-county-result{
+ text-align:right;white-space:nowrap;font:900 11px 'DM Sans',sans-serif;color:#a54841
+}
+body[data-house-page="district"] .ia-county-row.dem .ia-county-result{color:#286da0}
+body[data-house-page="district"] .ia-results-notes,body[data-house-page="district"] .ia-source-caption{
+ font:12px/1.65 Georgia,serif;color:#4c6270;margin:13px 0 0
+}
+body[data-house-page="district"] .ia-results-notes a,body[data-house-page="district"] .ia-source-caption a{
+ font:800 11px/1.5 'DM Sans',sans-serif
+}
+body[data-house-page="district"] .ia-turnout{margin:34px 0 30px}
+body[data-house-page="district"] .ia-ballot-split{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:5px
+}
+body[data-house-page="district"] .ia-ballot-part{
+ border-top:1px solid #b6c7cb;border-bottom:1px solid #b6c7cb;padding:17px 0
+}
+body[data-house-page="district"] .ia-ballot-part h4{
+ margin:0 0 8px;font:700 18px/1.25 Georgia,serif;color:#243e50
+}
+body[data-house-page="district"] .ia-ballot-part>strong{
+ display:block;font:700 30px/1.1 Georgia,serif;color:#a74841
+}
+body[data-house-page="district"] .ia-ballot-part:nth-child(2)>strong{color:#3876aa}
+body[data-house-page="district"] .ia-ballot-bar{
+ width:100%;height:17px;display:flex;margin-top:15px;overflow:hidden
+}
+body[data-house-page="district"] .ia-ballot-part>p{
+ font:12px/1.45 Georgia,serif;color:#455967;margin:8px 0 0
+}
+body[data-house-page="district"] .ia-lenses{margin-top:31px}
+body[data-house-page="district"] .ia-lens-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0}
+body[data-house-page="district"] .ia-lens{padding:15px 15px 18px;border-top:3px solid #9fb4bd;border-right:1px solid #bbc8cd}
+body[data-house-page="district"] .ia-lens:first-child{padding-left:0}
+body[data-house-page="district"] .ia-lens:last-child{border-right:0}
+body[data-house-page="district"] .ia-lens h4{font:700 19px/1.2 Georgia,serif;color:#21435b;margin:0 0 9px}
+body[data-house-page="district"] .ia-lens p{font:12px/1.6 Georgia,serif;color:#526572;margin:0 0 12px}
+body[data-house-page="district"] .ia-lens a{font:900 11px 'DM Sans',sans-serif}
+body[data-house-page="district"] .ia-back-map{
+ display:inline-block;font:900 12px/1.5 'DM Sans',sans-serif;margin-top:24px
+}
+@media(max-width:930px){
+ body[data-house-page="district"] #iowa-field-guide{padding:0 19px 23px}
+ body[data-house-page="district"] .ia-portrait{grid-template-columns:1fr}
+ body[data-house-page="district"] .ia-portrait h2,
+ body[data-house-page="district"] .ia-intro-description,
+ body[data-house-page="district"] .ia-portrait-analysis{grid-column:1;grid-row:auto}
+ body[data-house-page="district"] .ia-portrait-analysis{margin-top:10px}
+ body[data-house-page="district"] .ia-regions{grid-template-columns:1fr}
+ body[data-house-page="district"] .ia-region:nth-child(2n){border-left:0;padding-left:0}
+ body[data-house-page="district"] .ia-section-head{grid-template-columns:1fr}
+ body[data-house-page="district"] .ia-section-head h3,
+ body[data-house-page="district"] .ia-section-head p{grid-column:1;grid-row:auto}
+ body[data-house-page="district"] .ia-section-head p{margin-top:10px}
+ body[data-house-page="district"] .ia-lens-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ body[data-house-page="district"] .ia-lens:nth-child(2){border-right:0}
+}
+@media(max-width:650px){
+ body[data-house-page="district"] #iowa-field-guide{padding:0 15px 23px}
+ body[data-house-page="district"] .ia-portrait h2{font-size:34px}
+ body[data-house-page="district"] .ia-intro-description{font-size:15px}
+ body[data-house-page="district"] .ia-section-head h3{font-size:31px}
+ body[data-house-page="district"] .ia-region{grid-template-columns:39px 1fr;gap:10px}
+ body[data-house-page="district"] .ia-region-number{font-size:37px}
+ body[data-house-page="district"] .ia-region-copy h4{font-size:24px}
+ body[data-house-page="district"] .ia-vote-insight{grid-template-columns:1fr}
+ body[data-house-page="district"] .ia-vote-insight>div{padding:16px 0}
+ body[data-house-page="district"] .ia-vote-insight>div:last-child{border-left:0;border-top:1px solid #c4d1d3;padding:16px 0}
+ body[data-house-page="district"] .ia-county-list{grid-template-columns:1fr}
+ body[data-house-page="district"] .ia-county-row:nth-child(2n){border:0;border-bottom:1px solid #d4dbde;padding-left:0}
+ body[data-house-page="district"] .ia-county-legend{font-size:8px}
+ body[data-house-page="district"] .ia-ballot-split{grid-template-columns:1fr;gap:5px}
+ body[data-house-page="district"] .ia-lens-grid{grid-template-columns:1fr}
+ body[data-house-page="district"] .ia-lens{padding-left:0;border-right:0}
+}
