@@ -141,6 +141,9 @@ OFFICIAL_CONFERENCE_SCHEDULES = {
         641: ("https://rollrivers.com/schedule.aspx?schedule=2841", "Simpson"),
         806: ("https://northcoast.org/schedule.aspx?schedule=2761", "Wittenberg"),
         8597: ("https://umacathletics.com/schedule.aspx?schedule=4445", "Martin Luther"),
+        # Published current-season official conference team pages, independently
+        # checked for school, basketball sex and 2026-27 year.
+        1355: ("https://ascsports.org/schedule.aspx?schedule=6196", "Schreiner"),
     },
     "women": {
         161: ("https://miacathletics.com/schedule.aspx?schedule=3671", "Concordia"),
@@ -162,6 +165,14 @@ OFFICIAL_CONFERENCE_SCHEDULES = {
         348: ("https://midwestconference.org/schedule.aspx?schedule=3994", "Lawrence"),
         641: ("https://rollrivers.com/schedule.aspx?schedule=2849", "Simpson"),
         806: ("https://northcoast.org/schedule.aspx?schedule=2771", "Wittenberg"),
+        987: ("https://heartlandconf.org/schedule.aspx?schedule=4399", "Bluffton"),
+        1467: ("https://landmarkconference.org/schedule.aspx?schedule=2615", "Goucher"),
+        325: ("https://landmarkconference.org/schedule.aspx?schedule=2616", "Juniata"),
+        443: ("https://landmarkconference.org/schedule.aspx?schedule=2618", "Moravian"),
+        685: ("https://landmarkconference.org/schedule.aspx?schedule=2619", "Susquehanna"),
+        22235: ("https://nwcsports.com/schedule.aspx?schedule=2504", "Lewis & Clark"),
+        785: ("https://nwcsports.com/schedule.aspx?schedule=2511", "Willamette"),
+        1355: ("https://ascsports.org/schedule.aspx?schedule=6202", "Schreiner"),
     },
 }
 
@@ -958,6 +969,15 @@ def self_test():
     assert OFFICIAL_CONFERENCE_SCHEDULES["men"][1450][1] == "Westminster"
     assert OFFICIAL_CONFERENCE_SCHEDULES["women"][1450][0].endswith("schedule=2045")
     assert OFFICIAL_CONFERENCE_SCHEDULES["women"][525][1] == "Olivet"
+    assert OFFICIAL_CONFERENCE_SCHEDULES["men"][1355][0].endswith("schedule=6196")
+    assert OFFICIAL_CONFERENCE_SCHEDULES["women"][1355][0].endswith("schedule=6202")
+    assert OFFICIAL_CONFERENCE_SCHEDULES["women"][987][0].endswith("schedule=4399")
+    assert OFFICIAL_CONFERENCE_SCHEDULES["women"][1467][0].endswith("schedule=2615")
+    assert OFFICIAL_CONFERENCE_SCHEDULES["women"][325][0].endswith("schedule=2616")
+    assert OFFICIAL_CONFERENCE_SCHEDULES["women"][443][0].endswith("schedule=2618")
+    assert OFFICIAL_CONFERENCE_SCHEDULES["women"][685][0].endswith("schedule=2619")
+    assert OFFICIAL_CONFERENCE_SCHEDULES["women"][22235][0].endswith("schedule=2504")
+    assert OFFICIAL_CONFERENCE_SCHEDULES["women"][785][0].endswith("schedule=2511")
     # Lock down individually checked CNE team-specific season IDs and sport identity.
     assert OFFICIAL_CONFERENCE_SCHEDULES["men"][8981] == (
         "https://cnesports.org/schedule.aspx?schedule=4110", "Endicott")
