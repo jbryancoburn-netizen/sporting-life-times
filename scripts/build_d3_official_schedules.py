@@ -272,7 +272,7 @@ def parse_calendar(html, gender, owner, url, by_org, exact):
 
 
 
-def parse_conference_calendar(html, gender, owner, url, subject, by_org, exact):
+def parse_conference_calendar(html, gender, owner, url, subject, by_org, exact, school_legacy=False):
     """Read an explicitly selected OFFICIAL conference team season table.
 
     Conference-hosted calendars can cover a member whose school domain is
@@ -290,7 +290,7 @@ def parse_conference_calendar(html, gender, owner, url, subject, by_org, exact):
         raise ValueError("Conference calendar wrong basketball gender")
     if gender == "men" and "women's basketball" in identity:
         raise ValueError("Conference calendar women's sport on men's source")
-    if key(subject) not in key(heads or title):
+    if subject and key(subject) not in key(heads + " " + title):
         raise ValueError("Conference page does not identify expected member")
     entries, inspected, excluded = [], 0, defaultdict(int)
     for table in doc.select("table"):
@@ -328,6 +328,12 @@ def parse_conference_calendar(html, gender, owner, url, subject, by_org, exact):
                 excluded["conditional_or_unverified_opponent"] += 1
                 continue
             neutral = bool(re.match(r"(?i)^(?:vs\.?|versus)\s+", opponent))
+            if neutral and school_legacy:
+                # Older school vendors use "vs." both for home and for
+                # neutral-site matches. Without an explicit site designation
+                # it is unsafe to infer a neutral-site/game-home record.
+                excluded["ambiguous_legacy_vs_location"] += 1
+                continue
             away_site = bool(re.match(r"(?i)^at\s+", opponent))
             if neutral or away_site:
                 opponent = re.sub(r"(?i)^(?:vs\.?|versus|at)\s+", "", opponent).strip()
@@ -403,6 +409,7 @@ def inspect_source(gender, source, by_org, exact):
         base = url.split("/sports/", 1)[0]
         sport = "mens-basketball" if gender == "men" else "womens-basketball"
         short = "mbball" if gender == "men" else "wbball"
+        old_short = "mbkb" if gender == "men" else "wbkb"
         # Current-season calendars often live at an unversioned route.
         # Other athletics vendors use the short mbball/wbball slug.
         # URLs are merely candidates; strict actual-page identity and game
@@ -413,13 +420,30 @@ def inspect_source(gender, source, by_org, exact):
             f"{base}/sports/{sport}/schedule",
             f"{base}/sports/{short}/schedule?grid=true",
             f"{base}/sports/{short}/schedule",
+            f"{base}/sports/{old_short}/2026-27/schedule",
+            f"{base}/sports/{old_short}/schedule",
+            f"{base}/sports/{sport}/2026-27/schedule",
         ])
     errors = []
     for candidate in dict.fromkeys(attempts):
         try:
             _, verified_url, html = fetch_calendar((org, candidate))
-            rows, report = parse_calendar(html, gender, org, verified_url, by_org, exact)
-            report["calendar_origin"] = ("pinned_official_url" if pinned else "independently_verified_athletics_host" if org in OFFICIAL_ATHLETICS_HOST_OVERRIDE else "NCAA_directory_athletics_hostname")
+            try:
+                rows, report = parse_calendar(html, gender, org, verified_url, by_org, exact)
+                report["calendar_origin"] = ("pinned_official_url" if pinned else "independently_verified_athletics_host" if org in OFFICIAL_ATHLETICS_HOST_OVERRIDE else "NCAA_directory_athletics_hostname")
+            except ValueError as primary_error:
+                # Some genuine university athletics pages expose an older
+                # schedule table, not the Sidearm "At/Home/Neutral" grid.
+                # The same strict year, gender, NCAA opponent and minimum
+                # full-calendar test applies; "vs."-only sites are excluded.
+                try:
+                    rows, report = parse_conference_calendar(
+                        html, gender, org, verified_url, by_org[org]["name"], by_org, exact,
+                        school_legacy=True)
+                except ValueError:
+                    raise primary_error
+                report["status"] = "parsed"
+                report["calendar_origin"] = "ncaa_directory_verified_university_legacy_table"
             report["candidate_urls_tried"] = len(errors) + 1
             return rows, report
         except Exception as ex:
@@ -692,6 +716,13 @@ def self_test():
     assert len(conference_rows) == 7
     assert conference_rows[1]["away_org_id"] == 64
     assert conference_rows[2]["neutral"] is True
+    legacy_rows, legacy_report = parse_conference_calendar(
+        conf_html, "men", 64, "https://blackburnbeavers.com/sports/mbkb/2026-27/schedule",
+        "Blackburn College", by_org, exact, school_legacy=True)
+    assert legacy_report["status"] == "parsed_conference"  # caller recategorizes university
+    assert len(legacy_rows) == 6  # neutral 'vs.' suppressed as ambiguous in legacy mode
+    assert all(not x["neutral"] for x in legacy_rows)
+
     try:
         parse_conference_calendar(
             conf_html.replace("Men's Basketball", "Women's Basketball"), "men", 64,
