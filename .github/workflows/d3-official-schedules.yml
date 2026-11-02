@@ -49,9 +49,10 @@ jobs:
               assert len(f['source_audit'])==len(ids)
               assert len({a['owner_org_id'] for a in f['source_audit']})==len(ids)
               assert sum(f['source_status_counts'].values())==len(ids)
-              assert len(f['unverified_school_review'])==f['school_calendars_missing']
-              assert f['unverified_school_summary']['remaining_unverified_school_calendars']==f['school_calendars_missing']
-              assert sum(f['unverified_school_summary']['recovery_reason_counts'].values())==f['school_calendars_missing']
+              assert f['school_calendars_unresolved']+f['official_conference_calendar_fallbacks']+f['verified_source_calendars']==len(ids)
+              assert len(f['unverified_school_review'])==f['school_calendars_unresolved']
+              assert f['unverified_school_summary']['remaining_unverified_school_calendars']==f['school_calendars_unresolved']
+              assert sum(f['unverified_school_summary']['recovery_reason_counts'].values())==f['school_calendars_unresolved']
               assert all(u['ncaa_org_id'] in ids for u in f['unverified_school_review'])
               assert f['no_athletics_host']>=0
               assert len(f['fixtures'])==f['fixture_count']
@@ -60,6 +61,7 @@ jobs:
                   assert game['status']=='scheduled' and game['source_url'].startswith('https://')
                   assert {game['away_org_id'],game['home_org_id']}<=ids
                   assert len(game['official_schedule_sources'])>=1
+                  assert game['source_kind'] in ('official_school','official_conference','official_conference_and_school')
                   assert not any(x in game for x in ('away_score','home_score','pred_home_pct'))
                   key=(game['date'],frozenset((game['away_org_id'],game['home_org_id'])))
                   assert key not in keys,('duplicate match',game['id'])
