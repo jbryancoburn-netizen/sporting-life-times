@@ -239,6 +239,13 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #c481
              0 -48px 0 -47px rgba(255,255,255,.2);
   pointer-events:none;
 }
+.sl-arena-wordmark{
+  position:absolute;z-index:0;inset:auto -4% 10px auto;max-width:90%;
+  font:italic 900 clamp(55px,9vw,130px)/.82 Georgia,serif;
+  letter-spacing:-.07em;white-space:nowrap;text-transform:uppercase;
+  color:rgba(255,255,255,.115);user-select:none;pointer-events:none;
+  transform:skew(-7deg);overflow:hidden;text-overflow:clip;
+}
 .sl-stage-beam{
   position:absolute;top:0;left:0;width:100%;height:14px;
   background:repeating-linear-gradient(90deg,rgba(255,255,255,.30) 0 2px,transparent 2px 36px),
@@ -347,6 +354,7 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #c481
 }
 @media(max-width:700px){
  .sl-arena-gallery{height:144px}
+ .sl-arena-wordmark{bottom:9px;max-width:100%;font-size:58px;color:rgba(255,255,255,.13)}
  .sl-pennant-row,.sl-featured .sl-pennant-row{
    grid-template-columns:minmax(0,1fr) 50px minmax(0,1fr);
    gap:5px;padding:12px 12px 0}
