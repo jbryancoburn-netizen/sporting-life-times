@@ -477,8 +477,8 @@ function gameStoryData(g){
   const def=wSide==='home'?a3-h3:h3-a3;
   const wQ=wSide==='home'?hq.at(-1):aq.at(-1);
   const lQ=wSide==='home'?aq.at(-1):hq.at(-1);
-  deck=winnerName+' erased a '+def+'-point deficit entering the fourth, outscoring '+
-    short(wSide==='home'?away:home)+' '+wQ+'–'+lQ+' in the final period.';
+  deck=winnerName+' entered the fourth down '+def+' and outscored '+
+    short(wSide==='home'?away:home)+' '+wQ+'–'+lQ+' to claim the win.';
   tag='THE FOURTH-QUARTER SWING';
  }else if(done&&winner){
   headline=winnerName+' take the result';
