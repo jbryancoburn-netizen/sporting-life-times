@@ -1413,6 +1413,14 @@ def self_test():
 
     rows, report = parse_calendar(html, "men", 286, "https://athletics.hope.edu/example", by_org, exact)
     assert report["readable_rows"] == 5 and len(rows) == 3
+    assert not report["unresolved_opponent_rows"]  # conditional/ambiguous names
+    _, mixed = parse_calendar(
+        html.replace("Trine or Hope", "Marquette University"),
+        "men", 286, "https://athletics.hope.edu/example", by_org, exact)
+    assert len(mixed["unresolved_opponent_rows"]) == 1
+    assert mixed["unresolved_opponent_rows"][0]["external_opponent_label"] == "Marquette University"
+    assert mixed["unresolved_opponent_rows"][0]["placement"] == "neutral"
+    assert resolve("Marquette University", by_org, exact) is None
     assert rows[0]["away_org_id"] == 286 and rows[0]["home_org_id"] == 30037
     assert rows[1]["venue"] == "DeVos Fieldhouse"
     assert rows[0]["tipoff_as_posted"] == "7 PM"
