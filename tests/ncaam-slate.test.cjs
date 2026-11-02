@@ -13,6 +13,25 @@ assert(html.includes('ncaam-slate.js')&&html.includes('ncaam-slate.css'));
 assert(css.includes('@media(max-width:700px)'),'mobile-first responsive layout missing');
 assert(css.includes('.sl-featured'),'featured editorial game layout missing');
 assert(script.includes('setInterval('),'live refresh missing');
+// Each card includes real school colors, provider mascot identities and
+// visually unmistakable court/pennant architecture. Arena references are
+// sourced school profiles and may never be silently assigned as game venue.
+const arenas=json('data/mbb-arena-registry.json');
+assert(arenas.teams&&Object.keys(arenas.teams).length>=300,'verified home-court reference coverage missing');
+assert.equal(arenas.teams['2'].home_arena,'Neville Arena');
+assert(/^https:\/\//.test(arenas.teams['2'].home_arena_source));
+for(const cls of ['.sl-arena-stage','.sl-pennant','.sl-pennant-mascot','.sl-pennant-brand',
+  '.sl-floor-graphic','.sl-arena-caption','.sl-matchup-facts'])
+  assert(css.includes(cls),'art-directed arena module missing: '+cls);
+assert(script.includes('data/mbb-arena-registry.json'),'official arena registry not loaded');
+assert(script.includes('SCHOOL ARENA REFERENCE · NOT A VERIFIED GAME SITE'),
+  'avoid claiming a team home arena is the site of a neutral or alternate-host game');
+assert(script.includes('data/dual-ring-team-palette.json'),'real two-color school palette not loaded');
+assert(script.includes('window.MBBLogos.byESPN'),'official double-ring logo system not used');
+assert(script.includes('source_tier')||script.includes('sourceURL'),'sourced exhibitions remain identifiable');
+assert(!script.includes('NATIONAL CHAMPIONS')&&!script.includes('CONFERENCE TITLES'),
+  'decorative pennants must not invent championship banners');
+
 const cross=json('data/ncaam-2026-27-espn-team-crosswalk.json');
 assert.equal(cross.teams.length,365);
 const ratings=json('data/ncaam-2026-27-retro-primary.json');
