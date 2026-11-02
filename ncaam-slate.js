@@ -133,12 +133,24 @@ const secondary=t=>{const c=palette[String(t?.id)]?.secondary||'#b49864';
   return /^#[0-9a-f]{6}$/i.test(c)&&c.toLowerCase()!=='#ffffff'?c:'#b49864'};
 const mascot=t=>{const full=String(t?.full||'').trim(),school=String(t?.name||'').trim();
   if(!full||!school)return '';
-  let label=full.toLowerCase().startsWith(school.toLowerCase())?full.slice(school.length).trim():'';
-  // Verified provider nickname can be obtained from exact ESPN team ID, but
-  // never use a first-letter guess for an unidentified opponent.
-  if(!label&&cross?.teams){const found=cross.teams.find(x=>String(x.espn_id)===String(t?.id));
-    const official=String(found?.espn_name||'');
-    if(official.toLowerCase().startsWith(school.toLowerCase()))label=official.slice(school.length).trim();}
+  const canonical=cross?.teams?.find(x=>String(x.espn_id)===String(t?.id));
+  const verified=String(canonical?.espn_name||full);
+  const variants=[school,school.replace(/\s*\([^)]*\)/g,''),
+    school.replace(/\bSt\.?(?=\s|$)/g,'State'),
+    school.replace(/\bTenn\.?(?=\s|$)/g,'Tennessee')];
+  let label='';
+  for(const name of variants){
+    if(verified.toLowerCase().startsWith(name.toLowerCase())){
+      label=verified.slice(name.length).trim().replace(/^University\s+/i,'');
+      if(label)break;
+    }
+  }
+  // The full verified provider team display name is the fallback, not a
+  // guessed first-letter code or an invented mascot designation.
+  if(!label&&verified!==school){
+    const suffix=verified.trim().split(/\s+/).at(-1)||'';
+    if(suffix&&suffix.toLowerCase()!==school.toLowerCase())label=suffix;
+  }
   return label&&label.length<=35?label:'';
 };
 const teamPage=t=>women?
