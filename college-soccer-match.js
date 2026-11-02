@@ -9,24 +9,22 @@ const pct=v=>Math.round(Number(v)*100)+'%';
 const link=(s,href)=>{const a=$('a',s);a.href=href;if(/^https?:/i.test(href)){a.target='_blank';a.rel='noopener noreferrer';}return a;};
 const field=(s,v)=>{const n=$('div',null,'cs-match-fact');n.append($('span',s),$('strong',v));return n;};
 const brandMark=(team,cohort,branding,palette,overrides)=>{
- const badge=$('span',null,'cs-match-badge');
- const key=cohort+':'+team?.team_id,alternative=cohort==='women-d1'?'men-d1:'+team?.team_id:'';
- const b=branding.teams?.[key]||branding.teams?.[alternative]||{};
- const paletteEntry=palette.soccer?.[key]||palette.soccer?.[alternative]||{};
- const verified=overrides.schools?.[team?.team_id]||{};
+ const badge=$('span',null,'cs-match-badge'),id=String(team?.team_id||'');
+ const keys=[cohort+':'+id,'men-'+String(cohort).split('-')[1]+':'+id,'men-d1:'+id];
+ const pick=o=>keys.map(k=>o?.[k]).find(Boolean)||{};
+ const b=pick(branding.teams),p=pick(palette.soccer),verified=overrides.schools?.[id]||{};
  const valid=v=>/^#[a-f0-9]{6}$/i.test(v||'')&&v.toLowerCase()!=='#ffffff';
- const primary=paletteEntry.primary||verified.primary||b.primary;
- const secondary=paletteEntry.secondary||verified.secondary||b.secondary||b.accent;
+ const primary=p.primary||verified.primary||b.primary,secondary=p.secondary||verified.secondary||b.secondary||b.accent;
  if(valid(primary)&&valid(secondary)&&primary.toLowerCase()!==secondary.toLowerCase()){
-  badge.classList.add('has-school-colors');
-  badge.style.setProperty('--crest-primary',primary);
-  badge.style.setProperty('--crest-secondary',secondary);
+  badge.classList.add('has-school-colors');badge.style.setProperty('--crest-primary',primary);badge.style.setProperty('--crest-secondary',secondary);
  }else badge.classList.add('is-unverified-color');
- const fallback=$('span',String(b.badge_text||team?.team||'SC').split(/\s+/).filter(Boolean).map(w=>w[0]).slice(0,2).join('').toUpperCase(),'cs-match-initials');
- badge.append(fallback);
- const id=String(team?.team_id||'');
- const src=b.logo_url||paletteEntry.logo_url||(/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(id)?'https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/'+id+'.svg':null);
- if(src){const img=$('img');img.alt='';img.loading='lazy';img.addEventListener('load',()=>{if(img.naturalWidth>0){badge.classList.add('has-image');fallback.remove();}});img.addEventListener('error',()=>{badge.classList.remove('has-image');img.remove();});badge.append(img);img.src=src;}
+ const fallback=$('span',String(b.badge_text||team?.team||'SC').split(' ').filter(Boolean).map(w=>w[0]).slice(0,2).join('').toUpperCase(),'cs-match-initials');badge.append(fallback);
+ const candidates=[b.logo_url,p.logo_url,verified.logo_url,/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(id)?'https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/'+id+'.svg':null].filter(Boolean).filter((v,i,a)=>a.indexOf(v)===i);
+ if(candidates.length){const img=$('img');img.alt='';img.loading='lazy';img.decoding='async';let idx=0;
+  const next=()=>{badge.classList.remove('has-image');if(idx<candidates.length)img.src=candidates[idx++];else img.remove()};
+  img.addEventListener('load',()=>{if(img.naturalWidth>0){badge.classList.add('has-image');fallback.remove()}else next()});
+  img.addEventListener('error',next);badge.append(img);next();
+ }
  return badge;
 };
 (async()=>{
@@ -54,7 +52,7 @@ const brandMark=(team,cohort,branding,palette,overrides)=>{
   return programs.some(t=>t.team_id===final?.home_team)&&programs.some(t=>t.team_id===final?.away_team);
  })||null;
  const teams=ratings.cohorts?.[cohort]||[];
- const school=(teamId,fallback)=>teams.find(x=>x.team_id===teamId)||{team_id:teamId,team:fallback||String(teamId||'').replaceAll('-',' '),elo:null};
+ const school=(teamId,fallback)=>teams.find(x=>x.team_id===teamId)||teams.find(x=>String(x.team||'').toLowerCase().replace(/[^a-z0-9]/g,'')===String(fallback||'').toLowerCase().replace(/[^a-z0-9]/g,''))||{team_id:teamId,team:fallback||String(teamId||'').replaceAll('-',' '),elo:null};
  const snap=live||scoreboardFinal||sourceLive;
  const home=school(pre?.home_team||final?.home_team||snap?.home_id,pre?.home_name||snap?.home_name);
  const away=school(pre?.away_team||final?.away_team||snap?.away_id,pre?.away_name||snap?.away_name);
@@ -64,7 +62,8 @@ const brandMark=(team,cohort,branding,palette,overrides)=>{
  const head=$('header',null,'cs-match-hero');
  const schoolCol=(t,side)=>{const col=$('div',null,'cs-match-school');col.append(brandMark(t,cohort,branding,palette,overrides));col.append(link(t.team,profile(cohort,t.team_id)));const meta=$('span',null,'cs-match-school-meta');if(t.record)meta.textContent=t.record+' · '+Number(t.elo).toFixed(1)+' Elo';else meta.textContent='NCAA Soccer';col.append(meta);return col;};
  head.append(schoolCol(away,'away'));const center=$('div',null,'cs-match-score');const scoreLabel=$('strong',score),statusLabel=$('span',state+(finished?' · '+date(final.date):(!live&&!scoreboardFinal&&pre?.kickoff_utc)?' · '+date(pre.kickoff_utc):''));center.append(scoreLabel,statusLabel);head.append(center,schoolCol(home,'home'));root.append(head);
- const links=$('div',null,'cs-match-links');links.append(link('← All NCAA scores','college-soccer.html'));
+ const crumb=document.querySelector('.cs-match-breadcrumb a');if(crumb&&cohort)crumb.href='college-soccer.html?cohort='+encodeURIComponent(cohort);
+ const links=$('div',null,'cs-match-links');links.append(link('← All NCAA scores','college-soccer.html?cohort='+encodeURIComponent(cohort)));
  const official=final?.source_game||pre?.source_game||snap?.source_url;if(official)links.append(link('Official NCAA match record ↗',official));root.append(links);
  const grid=$('div',null,'cs-match-grid');root.append(grid);
  const lead=$('section',null,'cs-match-panel');grid.append(lead);
