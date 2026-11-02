@@ -81,7 +81,7 @@ def parse(html,sid):
                 continue
             found=True
             idx={name:cols.index(name) for name in ("date","time ct","lsc","opponent")}
-            for row in tr.find_next_siblings("tr"):
+            for row in table.select("tr"):
                 cells=[x.get_text(" ",strip=True) for x in row.find_all("td",recursive=False)]
                 if len(cells)<=max(idx.values()):continue
                 date_raw,clock,mark,opponent=(cells[idx[x]].strip()
