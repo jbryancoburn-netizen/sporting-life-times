@@ -21,6 +21,8 @@ function crest(name,id,cohort,branding){
  if(!hex(secondary)||secondary.toLowerCase()===primary.toLowerCase())secondary='#83918f';
  const mark=node('span','soccer-school-mark');
  mark.dataset.soccerCrestOwner='cup-ui';
+ mark.dataset.ringCount='2';
+ mark.dataset.colorVerification=palette.primary&&palette.secondary?'palette':overrides.primary&&overrides.secondary?'override':'provisional';
  mark.style.cssText='display:inline-flex!important;align-items:center!important;justify-content:center!important;'+
   'position:relative!important;isolation:isolate!important;box-sizing:border-box!important;'+
   'width:48px!important;height:48px!important;min-width:48px!important;min-height:48px!important;'+
@@ -33,7 +35,7 @@ function crest(name,id,cohort,branding){
  // Secondary ring is a single child border, not another external outline or shadow.
  const inner=node('span','soccer-school-inner-ring');
  inner.setAttribute('aria-hidden','true');
- inner.style.cssText='position:absolute!important;inset:1px!important;border:2px solid '+secondary+'!important;'+
+ inner.style.cssText='position:absolute!important;inset:0!important;border:2px solid '+secondary+'!important;'+
   'border-radius:50%!important;background:transparent!important;pointer-events:none!important;'+
   'z-index:3!important;box-shadow:none!important;outline:0!important;';
  const fallback=node('span','soccer-school-fallback',String(info.badge_text||name||id).replace(/[^A-Za-z0-9 ]/g,'').split(/\s+/).filter(Boolean).map(w=>w[0]).join('').slice(0,3).toUpperCase()||'SC');
@@ -50,8 +52,8 @@ function crest(name,id,cohort,branding){
   // Preserve 100% of the image: no clip-path, CSS rings on the shell only.
   img.style.cssText='display:none!important;position:absolute!important;top:50%!important;left:50%!important;'+
    'right:auto!important;bottom:auto!important;transform:translate(-50%,-50%)!important;'+
-   'width:78%!important;height:78%!important;min-width:0!important;min-height:0!important;'+
-   'max-width:78%!important;max-height:78%!important;padding:0!important;margin:0!important;'+
+   'width:90%!important;height:90%!important;min-width:0!important;min-height:0!important;'
+   'max-width:90%!important;max-height:90%!important;padding:0!important;margin:0!important;'
    'box-sizing:border-box!important;object-fit:contain!important;object-position:center!important;'+
    'background:transparent!important;border:0!important;border-radius:0!important;'+
    'clip-path:none!important;mask:none!important;box-shadow:none!important;filter:none!important;'+
