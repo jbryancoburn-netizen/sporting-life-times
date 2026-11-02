@@ -677,7 +677,7 @@ def conference_markup_evidence(html, url, reason):
             "headings": heads, "table_headers": tables,
             "schedule_dom_classes": seen,
             "date_text_fragments": len(re.findall(
-                r"(?:11|12|1|2|3)/\\d{1,2}/202[67]", doc.get_text(" ", strip=True)))}
+                r"(?:11|12|1|2|3)/\d{1,2}/202[67]", doc.get_text(" ", strip=True)))}
 
 
 def parse_conference_calendar(html, gender, owner, url, subject, by_org, exact, school_legacy=False):
