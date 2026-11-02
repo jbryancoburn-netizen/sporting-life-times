@@ -229,15 +229,17 @@ const arenaStage=g=>{
    'DOCUMENTED SCHOOL HOME COURT · NOT CONFIRMED FOR THIS GAME':'VENUE AWAITING SOURCE';
  const link=profile&&!venue?'<a href="'+esc(profile.source)+
    '" target="_blank" rel="noopener noreferrer">University source ↗</a>':'';
- const arenaVariation=Number(g.home.id)%3;
- const architecture=['rafters','gallery','grandstand'][Number.isFinite(arenaVariation)?arenaVariation:0];
- return '<div class="sl-arena-stage" aria-label="Editorial school pennants, basketball court illustration and sourced venue information">'+
-  '<div class="sl-arena-gallery sl-arena--'+architecture+'">'+
+  const phase=g.phase==='final'?'FINAL SCORE':g.phase==='live'?'LIVE FROM THE COURT':'THE MATCHUP';
+ const homeLabel=mascot(g.home)||g.home.name;
+ const awayLabel=mascot(g.away)||g.away.name;
+ return '<div class="sl-arena-stage sl-stage-'+esc(g.phase)+'" aria-label="Team-specific school pennants, graphic hardwood court and sourced venue information">'+
+  '<div class="sl-arena-gallery">'+
   '<div class="sl-stands" aria-hidden="true"></div>'+
-  '<div class="sl-arena-wordmark" aria-hidden="true">'+esc(mascot(g.home)||g.home.name)+'</div>'+
-  '<div class="sl-stage-beam" aria-hidden="true"></div>'+
+  '<div class="sl-arena-wordmark sl-arena-wordmark-away" aria-hidden="true">'+esc(awayLabel)+'</div>'+
+  '<div class="sl-arena-wordmark sl-arena-wordmark-home" aria-hidden="true">'+esc(homeLabel)+'</div>'+
+  '<div class="sl-stage-beam" aria-hidden="true"><span>'+esc(phase)+'</span></div>'+
   '<div class="sl-pennant-row">'+pennant(g.away)+
-  '<div class="sl-stage-mid" aria-hidden="true"><span>VS</span><small>THE SLATE</small></div>'+
+  '<div class="sl-stage-mid" aria-hidden="true"><span>'+(g.phase==='final'?'FT':g.phase==='live'?'LIVE':'VS')+'</span><small>THE SLATE</small></div>'+
   pennant(g.home)+'</div>'+
   '<div class="sl-floor-graphic" aria-hidden="true"><span class="sl-floor-half"></span>'+
   '<span class="sl-floor-circle"></span><span class="sl-floor-key"></span></div>'+
@@ -387,7 +389,7 @@ function card(g,featured){
   esc(g.kind==='exhibition'?'EXHIBITION':g.phase==='live'?'LIVE':g.phase==='final'?'FINAL':'UPCOMING')+'</span>'+
   '<span class="sl-game-time">'+esc(formatClock(g))+'</span>'+venue+'</div>'+
   arenaStage(g)+
-  '<div class="sl-game-main"><div class="sl-game-teams">'+
+  '<div class="sl-game-main sl-game-main--'+esc(g.phase)+'"><div class="sl-game-teams">'+
   '<div class="sl-school">'+team(g.away)+favorite(g.away)+'</div>'+
   '<div class="sl-vs">'+(score?'<strong>'+esc(score)+'</strong>':'<span>VS</span>')+'</div>'+
   '<div class="sl-school">'+team(g.home)+favorite(g.home)+'</div>'+
