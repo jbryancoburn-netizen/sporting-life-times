@@ -682,6 +682,88 @@ def conference_markup_evidence(html, url, reason):
                 r"(?:11|12|1|2|3)/\d{1,2}/202[67]", doc.get_text(" ", strip=True)))}
 
 
+
+def parse_landmark_list_schedule(doc, gender, owner, url, by_org, exact):
+    """Read dated SIDEARM conference game cards, never a generic team listing.
+
+    Only the actual institution-specific 2026-27 Landmark schedule endpoint
+    is eligible. Every game needs its own calendar date, explicit at/vs
+    placement, resolvable NCAA DIII opponent, and regular-season window.
+    """
+    source = urlsplit(url)
+    if (source.hostname not in ("landmarkconference.org", "www.landmarkconference.org")
+            or source.path != "/schedule.aspx" or
+            not re.fullmatch(r"schedule=\\d+", source.query)):
+        raise ValueError("Not an official Landmark team schedule endpoint")
+    entries, inspected = [], 0
+    excluded = defaultdict(int)
+    for card in doc.select(".sidearm-schedule-list-game"):
+        text = compact(card.get_text(" ", strip=True))
+        md = re.search(
+            r"\\b(Nov|Dec|Jan|Feb|Mar|Apr)\\.?\\s+(\\d{1,2})\\s*"
+            r"\\((Mon|Tue|Wed|Thu|Fri|Sat|Sun)\\)", text, re.I)
+        if not md:
+            continue
+        month = {"nov": 11, "dec": 12, "jan": 1, "feb": 2, "mar": 3, "apr": 4}[md[1].lower()]
+        year = 2026 if month >= 11 else 2027
+        try:
+            date = dt.date(year, month, int(md[2]))
+        except ValueError:
+            continue
+        if (not SEASON_START <= date <= SEASON_END or
+                date.strftime("%a").lower() != md[3].lower()[:3]):
+            excluded["invalid_date_or_weekday"] += 1
+            continue
+        element = card.select_one(".sidearm-schedule-list-game-opponent")
+        if element is None:
+            excluded["no_structured_opponent"] += 1
+            continue
+        label = compact(element.get_text(" ", strip=True))
+        opponent = re.sub(r"(?i)^(?:at|vs\\.?)\\s+", "", label).strip()
+        if not opponent or BAD_OPPONENT.search(opponent):
+            excluded["conditional_or_unverified_opponent"] += 1
+            continue
+        # The game card must itself visibly state the at/vs relation. The
+        # school name alone is not evidence of who is home. Landmark SIDEARM
+        # cards use "at" for away and "vs" for home. Neutral/TBA sites are
+        # held rather than assigned fictional home advantage.
+        placement = re.search(
+            r"(?i)\\b(at|vs\\.?)\\s+" + re.escape(opponent) + r"(?=\\b|$)",
+            text[md.end():])
+        if not placement or re.search(
+                r"(?i)\\bneutral\\s*(?:site|court)?\\b", text):
+            excluded["site_not_explicitly_verified"] += 1
+            continue
+        inspected += 1
+        opp_id = resolve(opponent, by_org, exact)
+        if opp_id is None or opp_id == owner:
+            excluded["missing_or_ambiguous_ncaa_opponent"] += 1
+            continue
+        is_away = placement[1].lower() == "at"
+        time = re.search(r"\\b\\d{1,2}:\\d{2}\\s*[AP]\\.?M\\.?", text[md.end():], re.I)
+        entries.append({
+            "date": date.isoformat(),
+            "away_org_id": owner if is_away else opp_id,
+            "home_org_id": opp_id if is_away else owner,
+            "neutral": False, "source_owner_org_id": owner,
+            "source_url": url, "source_kind": "official_conference",
+            "tipoff_as_posted": compact(time[0]) if time else "",
+            "venue": "", "venue_location": "",
+            "network_as_posted": "", "radio_as_posted": "",
+            "tournament": ""
+        })
+    if inspected < 8 or len(entries) < 4:
+        raise ValueError(
+            f"Landmark list insufficient dated/matched games: {inspected}/{len(entries)}")
+    return entries, {
+        "owner_org_id": owner, "source_url": url, "status": "parsed_conference",
+        "calendar_origin": "official_conference_sidearm_list",
+        "readable_rows": inspected, "verified_member_opponents": len(entries),
+        "excluded_rows": dict(excluded)
+    }
+
+
+
 def parse_conference_calendar(html, gender, owner, url, subject, by_org, exact, school_legacy=False):
     """Read an explicitly selected OFFICIAL conference team season table.
 
@@ -702,6 +784,8 @@ def parse_conference_calendar(html, gender, owner, url, subject, by_org, exact, 
         raise ValueError("Conference calendar women's sport on men's source")
     if subject and key(subject) not in key(heads + " " + title):
         raise ValueError("Conference page does not identify expected member")
+    if doc.select(".sidearm-schedule-list-game"):
+        return parse_landmark_list_schedule(doc, gender, owner, url, by_org, exact)
     entries, inspected, excluded = [], 0, defaultdict(int)
     for table in doc.select("table"):
         heads = [compact(x.get_text(" ", strip=True)).lower()
@@ -1691,6 +1775,46 @@ def self_test():
     assert len(conference_rows) == 7
     assert conference_rows[1]["away_org_id"] == 64
     assert conference_rows[2]["neutral"] is True
+    # 2026-27 Landmark school-specific pages publish list cards, not tables.
+    # Require actual dated cards and explicit at/vs labels before publishing.
+    landmark_items = []
+    for day, dow, venue, opponent in [
+        (6, "Fri", "at", "Hope College"),
+        (7, "Sat", "vs", "Trine University"),
+        (8, "Sun", "at", "Trine University"),
+        (9, "Mon", "vs", "Hope College"),
+        (10, "Tue", "at", "Hope College"),
+        (11, "Wed", "vs", "Trine University"),
+        (12, "Thu", "at", "Trine University"),
+        (13, "Fri", "vs", "Hope College"),
+    ]:
+        landmark_items.append(
+            '<div class="sidearm-schedule-list-game"><div class="sidearm-schedule-list-game-row">'
+            f'Nov {day} ({dow}) 7:00 P.M. {venue} '
+            f'<div class="sidearm-schedule-list-game-opponent">{opponent}</div>'
+            '</div></div>')
+    landmark_html = (
+        "<html><head><title>2026-27 Goucher Women's Basketball Schedule</title></head>"
+        "<body><h2>2026-27 Goucher Women's Basketball Schedule</h2>" +
+        "".join(landmark_items) + "</body></html>")
+    landmark_url = "https://landmarkconference.org/schedule.aspx?schedule=2615"
+    lr, audit = parse_conference_calendar(
+        landmark_html, "women", 1467, landmark_url, "Goucher", by_org, exact)
+    assert len(lr) == 8 and audit["readable_rows"] == 8, (len(lr), audit)
+    assert lr[0]["away_org_id"] == 1467 and lr[0]["home_org_id"] == 286
+    assert lr[1]["away_org_id"] == 30037 and lr[1]["home_org_id"] == 1467
+    assert lr[0]["date"] == "2026-11-06" and not lr[1]["neutral"]
+    for bad_html, bad_gender in [
+        (landmark_html.replace("2026-27", "2025-26"), "women"),
+        (landmark_html, "men"),
+        (landmark_html.replace("Nov 6 (Fri)", "Nov 6 (Sat)"), "men"),
+    ]:
+        try:
+            parse_conference_calendar(
+                bad_html, bad_gender, 1467, landmark_url, "Goucher", by_org, exact)
+            raise AssertionError("Invalid conference calendar accepted")
+        except ValueError:
+            pass
     legacy_rows, legacy_report = parse_conference_calendar(
         conf_html, "men", 64, "https://blackburnbeavers.com/sports/mbkb/2026-27/schedule",
         "Blackburn College", by_org, exact, school_legacy=True)
