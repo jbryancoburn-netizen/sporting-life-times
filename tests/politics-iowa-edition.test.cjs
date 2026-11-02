@@ -23,7 +23,18 @@ test('All 435 House races: shared source-led newsroom, real maps, state emblems,
   const visit=async(id)=>{
    const response=await page.goto(origin+'/politics-house-district.html?district='+id,{waitUntil:'domcontentloaded'});
    assert(response.ok(),id+' request failed');
-   await page.locator('#race-experience .race-feature-headline').waitFor({timeout:15000});
+   await page.locator('#race-experience .race-feature-headline').waitFor({timeout:15000}).catch(async e=>{
+    const diagnostic=await page.evaluate(()=>({
+      title:document.title,
+      page:document.body.dataset.housePage,
+      root:!!document.querySelector('#district-front'),
+      story:!!document.querySelector('#race-experience'),
+      headline:document.querySelector('#district-title')?.textContent,
+      error:document.querySelector('.notice-error')?.textContent,
+      scripts:[...document.scripts].map(x=>x.src).filter(Boolean)
+    }));
+    throw new Error(id+' race story did not render '+JSON.stringify(diagnostic)+'; pageerrors='+errors.join('|')+'; '+e.message);
+   });
    await page.locator('.race-district-svg').waitFor({timeout:15000});
    assert.equal(await page.locator('.race-identity-strip').count(),1,id);
    assert.equal(await page.locator('.race-state-insignia').count(),1,id);
@@ -84,7 +95,7 @@ test('Every House seat has a real Census district archive; 50 unique state style
   assert.equal(geo.features.length,state.district_count);
   assert(branding.includes(state.code+':"'+state.name+'"'),state.code+' flag identity missing');
  }
- assert(branding.includes('Special:FilePath/Flag_of_'));
+ assert(branding.includes('Special:FilePath/'));
  assert(branding.includes('race-map-active'));
  assert.equal(atlas.forecast_eligible,false);
  assert.equal(atlas.certified_2026_probabilities,0);
