@@ -481,3 +481,15 @@ body[data-page="tournament"] .selection-comparison details .region h3{font-size:
   }
   #full-season-schedule .mbb-exhibition-source{font-size:10px!important}
 }
+
+
+/* Source-backed scrimmage ties and cancellations do not enter RETRO Elo. */
+#full-season-schedule .sched-tie{color:#816129;font-weight:800}
+#full-season-schedule .sched-status--canceled{color:#91423b!important;font-weight:800}
+#full-season-schedule tr[data-calendar-state="canceled"] .sched-result-pending{color:#91423b}
+#full-season-schedule .mbb-exhibition-source{overflow-wrap:anywhere}
+@media(max-width:700px){
+  #full-season-schedule .mbb-schedule-table tbody tr[data-calendar-state="canceled"]{
+    border-top-color:#91423b!important;background:#fbf7f6!important
+  }
+}
