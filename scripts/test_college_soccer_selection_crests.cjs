@@ -11,7 +11,7 @@ const overrides=JSON.parse(fs.readFileSync('data/college-soccer-crest-overrides.
 assert(!cup.includes("node('span','slt-mark soccer-school-mark')"),'Generic slt-mark class still adds extra borders');
 assert(!cup.includes('slt-dual-shell'),'Legacy dual-shell belongs to the generic decorator, not Cup UI');
 assert(generic.includes(".soccer-school-mark"),'Shared decorator must explicitly skip independently owned NCAA soccer crests');
-assert(html.includes('college-soccer-cup-ui.js?v=20261102-single-owner1'),'Selection has stale renderer cache key');
+assert(html.includes('college-soccer-cup-ui.js?v=20261102-double-ring4'),'Selection has stale renderer cache key');
 assert(html.includes('college-soccer-selection.js?v=20261102-double-ring4'),'Selection does not load the unified two-ring renderer');
 assert(selection.includes("file('data/dual-ring-team-palette.json')"),'Selection fails to load actual school colors');
 assert(selection.includes("window.CollegeSoccerCupUI.crest(name,entry.team_id,'men-d1',branding)"),'Selection must use shared two-ring crest for every card and bracket slot');
