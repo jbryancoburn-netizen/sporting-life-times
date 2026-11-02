@@ -259,3 +259,20 @@ test('DII school-grid fixtures are not fabricated results',()=>{
   assert.ok(!item.start_time || /^([1-9]|1[0-2]):[0-5]\d [AP]M ET$/.test(item.start_time));
  }
 });
+
+test('DII Charleston official-to-NCAA identity labels are explicitly sourced',()=>{
+ const evidence=JSON.parse(fs.readFileSync('data/d2-official-school-grids-2026-27.json','utf8'));
+ const school=evidence.schools.find(x=>x.owner_id==='university-of-charleston-west-virginia');
+ assert.ok(school);
+ const aliases=school.fixtures.filter(x=>x.source_opponent);
+ assert.equal(aliases.length,7);
+ assert.deepEqual(aliases.map(x=>x.date),[
+   '2026-11-09','2026-11-13','2026-11-24','2026-12-16',
+   '2027-01-06','2027-02-10','2027-02-13'
+ ]);
+ for(const item of aliases){
+  assert.notEqual(item.source_opponent,item.opponent);
+  assert.match(item.opponent_identity_source_url,/^https:\/\//);
+  assert.ok(!Object.hasOwn(item,'away_score')&&!Object.hasOwn(item,'home_score'));
+ }
+});
