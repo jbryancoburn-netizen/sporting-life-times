@@ -1243,6 +1243,16 @@ def update(gender, bootstrap=False, live=False):
     if (not rapid or not miaa_quality or
         miaa_quality.get("status")!="MIAA 2026-27 reciprocal school schedules verified"):
         miaa_quality=enrich_miaa(gender,games,teams,today)
+    # CCAA 2026-27: thirteen conference-hosted men's university calendars
+    # plus UC Merced's own campus grid. Admit only exact two-school agreement;
+    # all 14 institutional sources are gender/year vetted, time ET conversion
+    # requires agreement on TWO independently posted Pacific clocks.
+    ccaa_men_quality=previous_quality.get("official_ccaa_men_schedule_reconciliation") if gender=="men" else None
+    if gender=="men":
+        from d2_ccaa_men_official import enrich_ccaa_men
+        if (not rapid or not ccaa_men_quality or
+            ccaa_men_quality.get("status")!="CCAA 2026-27 exact two-university men fixtures verified"):
+            ccaa_men_quality=enrich_ccaa_men(games,teams,today)
     # Ratings start at 1500 on every new season; only NCAA verified DII-v-DII finals count.
     rating={key:1500.0 for key in teams}
     wins={key:0 for key in teams};losses={key:0 for key in teams}
@@ -1345,6 +1355,7 @@ def update(gender, bootstrap=False, live=False):
         "official_ecc_schedule_reconciliation":ecc_quality,
         "official_gmac_schedule_reconciliation":gmac_quality,
         "official_miaa_schedule_reconciliation":miaa_quality,
+        "official_ccaa_men_schedule_reconciliation":ccaa_men_quality,
         "official_ssc_schedule_reconciliation":ssc_quality,
         "official_pwc_schedule_reconciliation":pwc_quality,
         "official_lsc_men_schedule_reconciliation":lsc_quality,
