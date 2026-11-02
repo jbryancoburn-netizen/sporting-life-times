@@ -6,8 +6,8 @@
   "elo_approved": false,
   "source": "ESPN site API, completed finals since NBL27 regular-season opening",
   "season_start": "2026-09-19",
-  "updated_at": "2026-11-02T06:21:37.192512+00:00",
-  "games_replayed": 51,
+  "updated_at": "2026-11-02T19:34:27.671201+00:00",
+  "games_replayed": 52,
   "teams": 10,
   "rows": [
     {
@@ -41,6 +41,16 @@
       "points_pct": 96.44
     },
     {
+      "team": "Melbourne United",
+      "wins": 6,
+      "losses": 5,
+      "played": 11,
+      "win_pct": 0.545,
+      "points_for": 1061,
+      "points_against": 999,
+      "points_pct": 106.21
+    },
+    {
       "team": "Cairns Taipans",
       "wins": 6,
       "losses": 5,
@@ -49,16 +59,6 @@
       "points_for": 1014,
       "points_against": 1062,
       "points_pct": 95.48
-    },
-    {
-      "team": "Melbourne United",
-      "wins": 5,
-      "losses": 5,
-      "played": 10,
-      "win_pct": 0.5,
-      "points_for": 967,
-      "points_against": 925,
-      "points_pct": 104.54
     },
     {
       "team": "Brisbane Bullets",
@@ -93,12 +93,12 @@
     {
       "team": "New Zealand Breakers",
       "wins": 4,
-      "losses": 6,
-      "played": 10,
-      "win_pct": 0.4,
-      "points_for": 922,
-      "points_against": 906,
-      "points_pct": 101.77
+      "losses": 7,
+      "played": 11,
+      "win_pct": 0.364,
+      "points_for": 996,
+      "points_against": 1000,
+      "points_pct": 99.6
     },
     {
       "team": "Illawarra Hawks",
@@ -112,6 +112,18 @@
     }
   ],
   "recent_finals": [
+    {
+      "id": "401875301",
+      "played_at": "2026-11-02T08:30Z",
+      "home": "Melbourne United",
+      "away": "New Zealand Breakers",
+      "home_score": 94,
+      "away_score": 74,
+      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875301/breakers-united",
+      "verified": false,
+      "provider": "espn",
+      "state": "candidate"
+    },
     {
       "id": "401875288",
       "played_at": "2026-11-01T06:00Z",
@@ -216,18 +228,6 @@
       "home_score": 105,
       "away_score": 95,
       "source_url": "https://www.espn.com/nbl/game/_/gameId/401875284/kings-united",
-      "verified": false,
-      "provider": "espn",
-      "state": "candidate"
-    },
-    {
-      "id": "401875276",
-      "played_at": "2026-10-25T04:00Z",
-      "home": "Cairns Taipans",
-      "away": "New Zealand Breakers",
-      "home_score": 86,
-      "away_score": 84,
-      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875276/breakers-taipans",
       "verified": false,
       "provider": "espn",
       "state": "candidate"
