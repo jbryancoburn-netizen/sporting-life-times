@@ -183,3 +183,20 @@ test('DII scoreboard and both Elo builders order Eastern tipoffs by meridiem, ne
   assert.match(py,/key=game_sort_key/);
  }
 });
+
+
+test('both DII papers expose dynamic clickable school-by-school schedule recovery without invented full calendars',()=>{
+ const js=fs.readFileSync('d2-basketball.js','utf8');
+ const css=fs.readFileSync('d2-basketball.css','utf8');
+ assert.match(js,/function renderScheduleRecovery\(d\)/);
+ assert.match(js,/renderScheduleRecovery\(d\);/);
+ assert.match(js,/for\(const id of new Set\(\[String\(g\.away\),String\(g\.home\)\]\)\)/);
+ assert.match(js,/not completed official school schedules/);
+ assert.match(js,/recovery-school/);
+ assert.match(css,/recovery-ribbon/);
+ for(const gender of ['mens','womens']){
+  const html=fs.readFileSync('d2-'+gender+'-basketball.html','utf8');
+  assert.match(html,/id="schedule-recovery-content"/);
+  assert.match(html,/SCHEDULE RECOVERY DESK/);
+ }
+});
