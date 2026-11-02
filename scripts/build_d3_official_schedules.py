@@ -41,6 +41,7 @@ SOURCES = {
         (326, "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true"),
         (520, "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true"),
         (118, "https://athletics.carleton.edu/sports/mens-basketball/schedule/2026-27?grid=true"),
+        (30067, "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-27?grid=true"),
     ],
     "women": [
         (30037, "https://trinethunder.com/sports/womens-basketball/schedule/2026-27?grid=true"),
@@ -61,6 +62,7 @@ SOURCES = {
         (142, "https://cmsathletics.org/sports/womens-basketball/schedule/2026-27?grid=true"),
         (300, "https://www.iwusports.com/sports/womens-basketball/schedule/2026-27?grid=true"),
         (376, "https://athletics.macalester.edu/sports/womens-basketball/schedule/2026-27?grid=true"),
+        (30067, "https://morrisvillemustangs.com/sports/womens-basketball/schedule/2026-27?grid=true"),
     ],
 }
 # Institutional nicknames are used only when explicitly unambiguous.
@@ -218,23 +220,24 @@ def parse_calendar(html, gender, owner, url, by_org, exact):
     identity_text = (title + " " + headlines).lower().replace("’", "'")
     if not re.search(r"2026\s*[-–]\s*(?:27|2027)", identity_text):
         raise ValueError("No 2026–27 season in the actual page title/heading")
+    # Some official basketball pages are explicitly sex-labeled (M)/(W)
+    # rather than spelled-out Men's/Women's Basketball Schedule. Accept such
+    # headings only on the matching gender-specific sport URL, with 2026-27
+    # title/heading and real NCAA-opponent dated rows still mandatory.
+    mens_path = "/sports/mens-basketball/schedule" in urlsplit(url).path.lower()
+    womens_path = "/sports/womens-basketball/schedule" in urlsplit(url).path.lower()
+    coded_men = bool(re.search(r"\bbasketball\s*\(\s*m\s*\)\s+schedule\b", identity_text))
+    coded_women = bool(re.search(r"\bbasketball\s*\(\s*w\s*\)\s+schedule\b", identity_text))
+    generic_schedule = bool(re.search(r"\bbasketball\s+schedule\b", identity_text))
+    explicit_men = bool(re.search(r"(?<![a-z])men's\s+basketball", identity_text))
+    explicit_women = bool(re.search(r"women's\s+basketball", identity_text))
     if gender == "men":
-        # Some all-male athletic programs (e.g., Wabash) title the page
-        # "Basketball Schedule" rather than "Men's Basketball Schedule".
-        # The official, gender-specific URL + season-heading + dated grid
-        # must ALL agree; never accept this exception on a women's path.
-        mens_path = "/sports/mens-basketball/schedule" in urlsplit(url).path.lower()
-        explicit_men = bool(re.search(r"(?<![a-z])men's\s+basketball", identity_text))
-        basketball_schedule = bool(re.search(r"\bbasketball\s+schedule\b", identity_text))
-        if ("women's basketball" in identity_text or
-                not (explicit_men or (mens_path and basketball_schedule))):
+        if (explicit_women or coded_women or not (
+                explicit_men or mens_path and (generic_schedule or coded_men))):
             raise ValueError("Wrong men's sport or women's calendar")
     if gender == "women":
-        womens_path = "/sports/womens-basketball/schedule" in urlsplit(url).path.lower()
-        explicit_women = bool(re.search(r"women's\s+basketball", identity_text))
-        basketball_schedule = bool(re.search(r"\bbasketball\s+schedule\b", identity_text))
-        if ("men's basketball" in identity_text and not explicit_women) or not (
-                explicit_women or (womens_path and basketball_schedule)):
+        if (coded_men or explicit_men and not explicit_women or not (
+                explicit_women or womens_path and (generic_schedule or coded_women))):
             raise ValueError("Wrong women's sport or men's calendar")
     matches = []
     inspected = 0
@@ -944,6 +947,27 @@ def self_test():
     grw, _ = parse_calendar(generic, "women", 286,
                             "https://athletics.hope.edu/sports/womens-basketball/schedule/2026-27", by_org, exact)
     assert len(grw) == 3
+    coded_m = html.replace("Men's Basketball", "Basketball (M)")
+    coded_w = html.replace("Men's Basketball", "Basketball (W)")
+    mr, _ = parse_calendar(coded_m, "men", 286,
+                           "https://athletics.hope.edu/sports/mens-basketball/schedule/2026-27",
+                           by_org, exact)
+    wr, _ = parse_calendar(coded_w, "women", 286,
+                           "https://athletics.hope.edu/sports/womens-basketball/schedule/2026-27",
+                           by_org, exact)
+    assert len(mr) == len(wr) == 3
+    for wrong, g, path in [
+        (coded_m, "women", "womens-basketball"),
+        (coded_w, "men", "mens-basketball"),
+    ]:
+        try:
+            parse_calendar(wrong, g, 286,
+                           "https://athletics.hope.edu/sports/" + path + "/schedule/2026-27",
+                           by_org, exact)
+            raise AssertionError("Opposite-gender M/W calendar accepted")
+        except ValueError:
+            pass
+
     rows, report = parse_calendar(html, "men", 286, "https://athletics.hope.edu/example", by_org, exact)
     assert report["readable_rows"] == 5 and len(rows) == 3
     assert rows[0]["away_org_id"] == 286 and rows[0]["home_org_id"] == 30037
