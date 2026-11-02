@@ -208,8 +208,7 @@ const homeProfile=g=>{
 // These are editorial school pennants, not claims about actual arena
 // banners, championship wins or physical architectural features.
 const pennant=t=>{
- const i=Number(t.id),cut=Number.isSafeInteger(i)?i%3:0;
- const shape=['tail','point','shield'][cut],link=teamPage(t);
+ const shape='point',link=teamPage(t);
  const open=link?'<a href="'+esc(link)+'" aria-label="View '+esc(t.name)+' team page"':'<div';
  const close=link?'</a>':'</div>';
  const elo=rating(t),nickname=mascot(t);
