@@ -33,7 +33,7 @@ SCHOOLS={
  "utd":("UT Dallas","University of Texas at Dallas","Texas-Dallas","Texas Dallas"),
  "utpb":("UT Permian Basin","Texas-Permian Basin","University of Texas Permian Basin",
          "University of Texas of the Permian Basin","Texas Permian Basin"),
- "uttyler":("UT Tyler","University of Texas at Tyler","Texas-Tyler","Texas Tyler"),
+ "uttyler":("UT Tyler","University of Texas at Tyler","The University of Texas at Tyler","Texas-Tyler","Texas Tyler"),
  "wtam":("West Texas A&M","West Texas AM","West Texas A&M University"),
  "wnm":("Western New Mexico","Western New Mexico University"),
 }
