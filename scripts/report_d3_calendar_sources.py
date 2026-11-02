@@ -42,6 +42,7 @@ def run():
                 "failure_category":m.get("category",""),
                 "next_manual_action":m.get("next_action",""),
                 "source_error":a.get("error",""),
+                "rejected_page_evidence":a.get("rejected_page_evidence",[]),
                 "refresh_rule":("Refresh exact URL and reverify season/gender/opponents/date; never infer scores"
                     if status=="verified_university" else
                     "Recheck official conference schedule; do not certify university calendar"

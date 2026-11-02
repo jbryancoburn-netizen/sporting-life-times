@@ -815,6 +815,9 @@ def inspect_source(gender, source, by_org, exact, preferred_url=None, deep_disco
                 f"{base}/sports/{short}/schedule/2026",
             ])
     errors = []
+    # HTML that is reachable but rejected should be diagnosable from the
+    # compact public source register without archiving entire websites.
+    rejected_page_evidence = []
     observed_links = []
     fetched_html = None
     fetched_from = None
@@ -856,6 +859,19 @@ def inspect_source(gender, source, by_org, exact, preferred_url=None, deep_disco
         except Exception as ex:
             err = str(ex)
             errors.append(err[:105])
+            if "html" in locals() and "verified_url" in locals() and verified_url == candidate and len(rejected_page_evidence) < 8:
+                try:
+                    doc = BeautifulSoup(html, "html.parser")
+                    label = compact(doc.title.get_text(" ", strip=True)) if doc.title else ""
+                    heads = [compact(h.get_text(" ", strip=True)) for h in doc.select("h1,h2,h3")[:6]]
+                    rejected_page_evidence.append({
+                        "url": verified_url, "title": label[:135],
+                        "headings": [x[:110] for x in heads if x][:4],
+                        "date_tables": len(doc.select("table")),
+                        "reason": err[:110]
+                    })
+                except Exception:
+                    pass
             # A blocked institutional site remains blocked: do not bypass
             # 403s, repeated rate limits, or access controls.
             if re.search(r"HTTP Error (403|429):", err):
@@ -927,6 +943,7 @@ def inspect_source(gender, source, by_org, exact, preferred_url=None, deep_disco
     return None, {"owner_org_id": org, "source_url": url,
                   "status": "failed", "error": " | ".join(errors)[:260],
                   "candidate_urls_tried": len(visited),
+                  "rejected_page_evidence": rejected_page_evidence,
                   "discovered_schedule_links": list(dict.fromkeys(observed_links))[:8],
                   "calendar_origin": ("pinned_official_url" if pinned else "independently_verified_athletics_host" if org in OFFICIAL_ATHLETICS_HOST_OVERRIDE else "NCAA_directory_athletics_hostname")}
 
