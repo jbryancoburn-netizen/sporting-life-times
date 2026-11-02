@@ -186,6 +186,7 @@ def full_season_school_certification(gender: str, teams: list[dict],
         corroborated = 0
         unidentified_opponents = 0
         unclassified_source_rows = []
+        unresolved_tournament_rows = []
         role_conflicts = 0
         disputed_times = 0
         missing_games = []
@@ -197,6 +198,16 @@ def full_season_school_certification(gender: str, teams: list[dict],
         for source in own:
             for fixture in source.get("fixtures", []):
                 evidence_rows += 1
+                # A published postseason tournament with no opponent is
+                # neither a genuine DII-vs-DII fixture nor a non-DII opponent.
+                # Preserve the TBD as unresolved certification work; never
+                # manufacture a tournament game or misclassify it as NAIA.
+                if fixture.get("unresolved_tournament_placeholder"):
+                    unresolved_tournament_rows.append({
+                        "date": fixture.get("date"),
+                        "tournament": fixture.get("opponent"),
+                        "source_url": source.get("source_url")})
+                    continue
                 other = resolve_dii_team_id(
                     {"name": fixture.get("opponent", "")}, lookup)
                 if (not other or other == ident or
@@ -255,7 +266,7 @@ def full_season_school_certification(gender: str, teams: list[dict],
                 attestation_errors.append("Excluded other-division games not independently reviewed")
             if assertion.get("independent_crosscheck_completed") is not True:
                 attestation_errors.append("Independent crosscheck not completed")
-            if assertion.get("unresolved_tbd_count") != 0:
+            if assertion.get("unresolved_tbd_count") != 0 or unresolved_tournament_rows:
                 attestation_errors.append("Unresolved TBD opponents/tournament placeholders")
             if assertion.get("snapshot_rows") != evidence_rows:
                 attestation_errors.append("Attested row count differs from captured source")
@@ -321,6 +332,11 @@ def full_season_school_certification(gender: str, teams: list[dict],
         elif missing_games or role_conflicts or disputed_times or outside_snapshot:
             stage = "SOURCE_LEDGER_RECONCILIATION"
             next_action = "Reconcile exact date/opponent/role/time conflicts without inventing games."
+        elif unresolved_tournament_rows:
+            stage = "POSTSEASON_TBD_REVIEW_REQUIRED"
+            next_action = ("Identify and verify each future tournament opponent"
+                           " after official bracket publication; keep the TBD"
+                           " outside the DII Elo fixture ledger until named.")
         elif not assertion:
             stage = "COMPLETE_SEASON_ATTESTATION_REQUIRED"
             next_action = ("Verify the stored calendar includes every regular-season"
@@ -346,6 +362,8 @@ def full_season_school_certification(gender: str, teams: list[dict],
             "matched_source_games": corroborated,
             "unidentified_or_other_division_rows": unidentified_opponents,
             "other_division_source_examples": unclassified_source_rows[:12],
+            "unresolved_tournament_placeholders": len(unresolved_tournament_rows),
+            "tournament_placeholder_examples": unresolved_tournament_rows[:8],
             "missing_source_games_count": len(missing_games),
             "missing_source_games": missing_games[:12],
             "role_conflicts": role_conflicts,
@@ -383,6 +401,8 @@ def full_season_school_certification(gender: str, teams: list[dict],
             if s["official_snapshot_count"]),
         "unclassified_other_division_source_rows": sum(
             s["unidentified_or_other_division_rows"] for s in eligible),
+        "unresolved_tournament_placeholders": sum(
+            s["unresolved_tournament_placeholders"] for s in eligible),
         "stage_counts": dict(sorted(stage_counts.items())),
         "schools": rows,
     }
