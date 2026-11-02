@@ -29,7 +29,7 @@ test('all 435 House seats receive a distinct real Census-district polygon and a 
   assert.equal(districts.length,state.district_count);
   assert.equal(identity.named[state.code],state.name);
   assert.equal(identity.themes[state.code].length,2);
-  const currentCodes=geo.features.map(f=>String(f.properties.CD120).padStart(2,'0'));
+  const currentCodes=geo.features.map(f=>String(f.properties[geo.meta.field]??f.properties.CD120??f.properties.CD119).padStart(2,'0'));
   for(const race of districts){
    assert(!visited.has(race.id),'duplicate district '+race.id);
    visited.add(race.id);
