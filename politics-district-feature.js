@@ -17,7 +17,10 @@ function segments(geometry){
  return parts.filter(r=>r.length>=3);
 }
 function mapArt(root,geometry,district,places=[]){
- const rings=segments(geometry);
+ let rings=segments(geometry);
+ // Alaska's Aleutian Islands cross the 180-degree meridian. Normalize
+ // western longitudes for a truthful, continuous geographic depiction.
+ if(district.startsWith("AK-"))rings=rings.map(r=>r.map(p=>[p[0]>0?p[0]-360:p[0],p[1]]));
  if(!rings.length)throw Error("No official district polygon");
  const xy=rings.flatMap(r=>r.filter(x=>Number.isFinite(x[0])&&Number.isFinite(x[1])));
  const lons=xy.map(p=>p[0]),lats=xy.map(p=>p[1]);
