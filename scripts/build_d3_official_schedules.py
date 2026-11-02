@@ -80,6 +80,9 @@ ALIASES = {
     "saint johns minnesota": 602, "st johns minnesota": 602,
     "johnson and wales university": 22626, "uw eau claire": 793,
     "uw oshkosh": 798, "uw stevens point": 802,
+    "uw la crosse": 795, "uw platteville": 800,
+    "uw river falls": 801, "uw stout": 803, "uw stout polytechnic": 803,
+    "uw superior": 804, "uw whitewater": 805,
 }
 # Official athletics domains independently verified against 2026–27 school sites.
 # The NCAA member directory sometimes exposes an old generic campus URL.
@@ -825,6 +828,18 @@ def self_test():
     assert resolve("Trine University", by_org, exact) == 30037
     assert resolve("Trinity", by_org, exact) is None
     assert resolve("Trine or Hope", by_org, exact) is None
+    wisconsin=[{"ncaa_org_id":i,"name":"University of Wisconsin-"+name,
+                "membership_year":2027,"d3_confirmed":True}
+               for i,name in [(793,"Eau Claire"),(795,"La Crosse"),(798,"Oshkosh"),
+                              (800,"Platteville"),(801,"River Falls"),(802,"Stevens Point"),
+                              (803,"Stout Polytechnic"),(804,"Superior"),(805,"Whitewater")]]
+    w_org,w_exact=official_index(wisconsin)
+    assert resolve("UW-Oshkosh",w_org,w_exact)==798
+    assert resolve("UW-La Crosse",w_org,w_exact)==795
+    assert resolve("UW-Stout",w_org,w_exact)==803
+    assert resolve("UW-Whitewater",w_org,w_exact)==805
+    assert resolve("Wisconsin Badgers",w_org,w_exact) is None
+
     assert calendar_date("January 6, 2027 (Wednesday)") == "2027-01-06"
     assert calendar_date("January 99, 2027") is None
     assert calendar_date("October 31, 2026 (Saturday)") is None
