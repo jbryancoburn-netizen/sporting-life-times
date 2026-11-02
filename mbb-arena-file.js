@@ -44,7 +44,9 @@
     encodeURIComponent(team.espn_id)+'">← '+esc(team.name)+' team desk</a></div>'+
    '<header class="af-heading"><div><p class="af-pretitle">THE SPORTING LIFE & TIMES / WHERE BASKETBALL LIVES</p>'+
    '<h1>'+esc(title)+'</h1><p class="af-subheading">'+esc(team.name)+' <span>•</span> '+esc(city||'Location research pending')+
-   '</p></div><div class="af-identity"><span>'+esc(team.name)+'</span><strong>THE HOME COURT</strong></div></header>'+
+   '</p></div><div class="af-identity"><div class="af-official-mark">'+
+   (window.MBBLogos?.byESPN?.(team.espn_id,'featured',team.name)||'')+'</div>'+
+   '<span>'+esc(team.name)+'</span><strong>THE HOME COURT</strong></div></header>'+
    '<section class="af-layout"><div class="af-picture-column">'+visual(p)+
    '<div class="af-sources"><h2>Evidence file</h2><p>Only verifiable venue facts appear above. '+
    'Additional history, seating details, and photography are published when documented.</p>'+
@@ -82,6 +84,7 @@
    if(!app&&!inline)return;
    try{
     const [cross,registry,features]=await load();
+    await window.MBBLogos?.ready;
     if(app){
       const query=new URLSearchParams(location.search),team=teamFromParam(cross,query);
       if(!team)throw Error('That school is not in the Division I registry.');
