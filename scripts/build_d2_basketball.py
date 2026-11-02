@@ -1177,6 +1177,14 @@ def update(gender, bootstrap=False, live=False):
         if (not rapid or not lsc_quality or
             lsc_quality.get("status")!="LSC 2026-27 two-university men's fixture verification"):
             lsc_quality=enrich_lsc_men(games,teams,today)
+    # ECC school-published 2026-27 basketball calendars: both universities
+    # must corroborate every date and H/A role. Men's and women's IDs are
+    # independently resolved from the currently published NCAA directory.
+    from d2_ecc_official import enrich_ecc
+    ecc_quality=previous_quality.get("official_ecc_schedule_reconciliation")
+    if (not rapid or not ecc_quality or
+        ecc_quality.get("status")!="ECC 2026-27 exact reciprocal school calendars verified"):
+        ecc_quality=enrich_ecc(gender,games,teams,today)
     # Ratings start at 1500 on every new season; only NCAA verified DII-v-DII finals count.
     rating={key:1500.0 for key in teams}
     wins={key:0 for key in teams};losses={key:0 for key in teams}
@@ -1275,6 +1283,7 @@ def update(gender, bootstrap=False, live=False):
         "official_siac_schedule_reconciliation":siac_quality,
         "official_sac_schedule_reconciliation":sac_quality,
         "official_glvc_schedule_reconciliation":glvc_quality,
+        "official_ecc_schedule_reconciliation":ecc_quality,
         "official_ssc_schedule_reconciliation":ssc_quality,
         "official_pwc_schedule_reconciliation":pwc_quality,
         "official_lsc_men_schedule_reconciliation":lsc_quality}
