@@ -96,7 +96,33 @@ const byNCAA=new Map(xref.teams.map(t=>[String(t.id),String(t.espn_id)]));
 for(const t of ratings.rankings){const id=byNCAA.get(String(t.team_id));if(id)men.state.ratings.set(id,t);}
 men.state.ratingsReady=men.state.ratings.size===365;
 
-for(const t of xref.teams)men.state.crosswalk.set(String(t.espn_id),String(t.id));
+for(const t of xref.teams){
+  men.state.crosswalk.set(String(t.espn_id),String(t.id));
+  men.state.schoolNames.set(String(t.espn_id),String(t.name).replace(/\bSt\.$/,'State'));
+}
+// Editorial scorebugs must identify the school, never use first-letter
+// provider codes such as FS / FA / B / OS / QUC.
+const schoolSamples=[
+ ['52','Florida State Seminoles','Florida State','Seminoles'],
+ ['50','Florida A&M Rattlers','Florida A&M','Rattlers'],
+ ['252','BYU Cougars','BYU','Cougars'],
+ ['194','Ohio State Buckeyes','Ohio State','Buckeyes'],
+ ['2737','Winthrop Eagles','Winthrop','Eagles'],
+ ['2511','Queens University Royals','Queens (NC)','Royals']
+];
+for(const [id,full,school] of schoolSamples){
+  const sample={id:'school-test-'+id,phase:'upcoming',date:'2026-11-02T18:00:00Z',
+    away:{team:{id,displayName:full,abbreviation:full.split(' ').map(w=>w[0]).join('')},homeAway:'away'},
+    home:{team:{id:'87',displayName:'Notre Dame Fighting Irish',abbreviation:'ND'},homeAway:'home'},
+    source:'Verified sample'};
+  const markup=men.scorebug(sample);
+  assert(markup.includes('class="cbb-school-label">'+school),
+    'Full canonical school name missing for '+full);
+  assert(!new RegExp('class="cbb-school-label">(?:FS|FA|B|OS|WIN|QUC)<').test(markup),
+    'No home-brew first-letter abbreviation may appear as main label');
+}
+assert(css.includes('b.cbb-school-label')&&css.includes('white-space:normal'),
+ 'School names must wrap on mobile rather than be abbreviated or truncated');
 const ledger=read('data/mbb-retro-live-finals.json');
 const historical=men.certifiedArchivedFinals('2026-11-01',ledger);
 assert(historical.some(g=>g.id==='401920982'&&Number(g.away.score)===74&&Number(g.home.score)===72),
@@ -281,7 +307,7 @@ const namedGame={...fakeGame,away:{...fakeGame.away,team:{...fakeGame.away.team,
 const teamFlow=court.gameFlow(flowPlays,namedGame);
 assert.match(teamFlow,/MERRIMACK LEAD/);
 assert.match(teamFlow,/APP STATE LEAD/);
-assert.match(teamFlow,/MRMK|ND/); // Scoring endpoint must identify the actual school abbreviation.
+assert.match(teamFlow,/MERRIMACK 4/); // Endpoint names use schools, not provider-made initials.
 assert.match(teamFlow,/#135b84/);
 assert.match(teamFlow,/#e0b43e/);
 assert(!teamFlow.includes('AWAY LEAD'));
