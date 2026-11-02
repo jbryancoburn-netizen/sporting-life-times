@@ -63,7 +63,7 @@ try{
    if(g.classification!=='exhibition'||g.counts_for_retro!==false||g.verified!==true||
       !/^2026-10-[0-3][0-9]$/.test(day)||!schoolByCross.has(a)||!schoolByCross.has(h)||
       a===h||!score(g.away_score)||!score(g.home_score)||
-      Number(g.away_score)===Number(g.home_score)||!/^https:\/\/[^\s"'<>]+$/.test(g.source_url||''))continue;
+      !/^https:\/\/[^\s"'<>]+$/.test(g.source_url||''))continue;
    const key=gameKey(day,a,h),old=exhibitionFinals.get(key);
    if(exhibitionFinals.has(key)){
     if(!old||old.away!==a||old.home!==h||old.away_score!==Number(g.away_score)||
@@ -71,7 +71,8 @@ try{
     continue;
    }
    exhibitionFinals.set(key,{away:a,home:h,away_score:Number(g.away_score),
-    home_score:Number(g.home_score),source_url:g.source_url});
+    home_score:Number(g.home_score),source_url:g.source_url,
+    source_tier:g.source_tier||'official'});
   }
  }
  const validRatings=ratings?.season==='2026-27'&&ratings?.model==='retro-clean-slate'&&
@@ -157,28 +158,42 @@ try{
   const scheduledDate=e.date.slice(0,10);
   const exhibition=e.exhibition===true||scheduledDate<'2026-11-01'||
     /\b(?:exhibition|exh\.|preseason|scrimmage)\b/i.test(e.name||'');
+  const canceled=e.exhibition_canceled===true||e.status?.type?.state==='canceled';
+  // For non-D-I opponents, an exact university-attested source result may
+  // be carried by the schedule record without assigning a false NCAA ID.
+  const special=e.exhibition_result;
+  const verifiedSpecial=exhibition&&!canceled&&special?.verified===true&&
+    special?.counts_for_retro===false&&
+    /^https:\/\/[^\s"'<>]+$/.test(special?.source_url||'')&&
+    [special?.team_score,special?.opponent_score].every(n=>n!==''&&n!=null&&Number.isSafeInteger(Number(n))&&Number(n)>=0&&Number(n)<=300)?special:null;
   const midnight=/^12:0[0-9]\s*A\.?M\.?/i.test(verifiedTip.trim());
-  const final=!exhibition&&opponentId?schoolFinal(scheduledDate,opponentId,midnight):null;
-  const exhibitionFinal=exhibition&&opponentId?
+  const final=!exhibition&&!canceled&&opponentId?schoolFinal(scheduledDate,opponentId,midnight):null;
+  const exhibitionFinal=exhibition&&!canceled&&opponentId?
     exhibitionFinals.get(gameKey(scheduledDate,team.espn_id,opponentId)):null;
-  const completed=!!final||!!exhibitionFinal||
+  const completed=!!final||!!exhibitionFinal||!!verifiedSpecial||
     e.status?.type?.completed===true||e.status?.type?.state==='post';
   const resultRecord=exhibitionFinal||final;
-  const teamPoints=resultRecord?(resultRecord.home===String(team.espn_id)?
+  const teamPoints=verifiedSpecial?verifiedSpecial.team_score:
+    resultRecord?(resultRecord.home===String(team.espn_id)?
     resultRecord.home_score:resultRecord.away_score):(exhibition?null:self?.score);
-  const opponentPoints=resultRecord?(resultRecord.home===String(team.espn_id)?
+  const opponentPoints=verifiedSpecial?verifiedSpecial.opponent_score:
+    resultRecord?(resultRecord.home===String(team.espn_id)?
     resultRecord.away_score:resultRecord.home_score):(exhibition?null:opponent?.score);
   const hasScore=completed&&teamPoints!=null&&opponentPoints!=null&&
     String(teamPoints).trim()!==''&&String(opponentPoints).trim()!==''&&
     Number.isFinite(Number(teamPoints))&&Number.isFinite(Number(opponentPoints))&&
-    Number(teamPoints)!==Number(opponentPoints);
-  const gameState=exhibition?(hasScore?'EXHIBITION FINAL':'EXHIBITION'):
+    (exhibition?(!!exhibitionFinal||!!verifiedSpecial):Number(teamPoints)!==Number(opponentPoints));
+  const gameState=canceled?'CANCELED':exhibition?(hasScore?'EXHIBITION FINAL':
+    /closed.scrimmage/i.test(e.name||'')?'CLOSED SCRIMMAGE':'EXHIBITION'):
     hasScore?'FINAL':completed?'RESULT PENDING':'UPCOMING';
-  const scoreText=hasScore?'<strong class="sched-result-score '+(Number(teamPoints)>Number(opponentPoints)?'sched-win':'sched-loss')+'">'+
-    (Number(teamPoints)>Number(opponentPoints)?'W ':'L ')+escape(teamPoints)+'–'+escape(opponentPoints)+'</strong>':
-    '<span class="sched-result-pending">'+(exhibition?'Exhibition result unverified':'Not final')+'</span>';
-  const sourceLink=exhibitionFinal?'<br><a class="mbb-exhibition-source" href="'+escape(exhibitionFinal.source_url)+
-    '" rel="noopener noreferrer" target="_blank">Verified result ↗</a>':'';
+  const winning=Number(teamPoints)>Number(opponentPoints),tied=Number(teamPoints)===Number(opponentPoints);
+  const scoreText=hasScore?'<strong class="sched-result-score '+(tied?'sched-tie':winning?'sched-win':'sched-loss')+'">'+
+    (tied?'T ':winning?'W ':'L ')+escape(teamPoints)+'–'+escape(opponentPoints)+'</strong>':
+    '<span class="sched-result-pending">'+(canceled?'Event canceled':exhibition?'Exhibition result not reported':'Not final')+'</span>';
+  const resultSource=exhibitionFinal||verifiedSpecial;
+  const sourceLink=resultSource?'<br><a class="mbb-exhibition-source" href="'+escape(resultSource.source_url)+
+    '" rel="noopener noreferrer" target="_blank">'+(resultSource.source_tier==='independent_secondary'?
+      'Published score ↗':'University result ↗')+'</a>':'';
   const result=scoreText+sourceLink;
   const gameFile=final?'<br><a class="mbb-schedule-gamefile" href="cbb-gamefile.html?day='+
     encodeURIComponent(final.date)+'&amp;game='+encodeURIComponent(final.id)+'">Game file ↗</a>':'';
@@ -186,10 +201,10 @@ try{
   const label=escape(school?.name||opponentName);
   const title=school?'<a href="ncaam-team.html?team='+encodeURIComponent(school.id)+'">'+label+'</a>':label;
   const today=new Date().toLocaleDateString('sv-SE',{timeZone:'America/New_York'});
-  const scheduleState=hasScore?'final':scheduledDate>=today?'upcoming':'past';
+  const scheduleState=hasScore?'final':canceled?'canceled':scheduledDate>=today?'upcoming':'past';
   return '<tr data-calendar-state="'+scheduleState+'" data-exhibition="'+(exhibition?'true':'false')+
     '" data-opponent="'+escape((school?.name||opponentName).toLowerCase())+'">'+
-    '<td class="sched-date-cell"><time datetime="'+escape(scheduledDate)+'">'+escape(day)+'</time><span class="sched-game-status sched-status--'+(exhibition?'exhibition':hasScore?'final':completed?'pending':'upcoming')+'">'+gameState+'</span></td>'+
+    '<td class="sched-date-cell"><time datetime="'+escape(scheduledDate)+'">'+escape(day)+'</time><span class="sched-game-status sched-status--'+(canceled?'canceled':exhibition?'exhibition':hasScore?'final':completed?'pending':'upcoming')+'">'+gameState+'</span></td>'+
     '<td class="sched-matchup-cell"><div class="sched-matchup">'+emblem+'<span class="sched-opponent"><strong>'+title+'</strong><small>'+vs.replace('SITE UNVERIFIED','LOCATION UNCONFIRMED')+'</small></span></div></td>'+
     '<td class="sched-venue-cell"><div class="sched-venue"><strong>'+escape(arena)+'</strong><small>'+escape(city)+'</small></div></td>'+
     '<td class="sched-time-cell">'+escape(tip)+'</td>'+
