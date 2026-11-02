@@ -41,7 +41,7 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | Belhaven University (30197) | verified_university | [Exact verified URL](https://blazers.belhaven.edu/sports/mens-basketball/schedule/2026-27?grid=true) | 17 |
 | Beloit College (53) | verified_university | [Exact verified URL](https://beloitcollegeathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true) | 22 |
 | Benedictine University (Illinois) (296) | verified_university | [Exact verified URL](https://www.benueagles.com/sports/mens-basketball/schedule/2026-27?grid=true) | 17 |
-| Berea College (30171) | verified_university | [Exact verified URL](https://www.bereaathletics.com/sports/mens-basketball/schedule?grid=true) | 19 |
+| Berea College (30171) | verified_university | [Exact verified URL](https://www.bereaathletics.com/sports/mens-basketball/schedule/2026-27?grid=true) | 19 |
 | Berry College (973) | verified_university | [Exact verified URL](https://www.berryvikings.com/sports/mens-basketball/schedule/2026-2027?grid=true) | 17 |
 | Bethany College (West Virginia) (59) | verified_university | [Exact verified URL](https://bethanybison.com/sports/mens-basketball/schedule/2026-27?grid=true) | 21 |
 | Bethany Lutheran College (30038) | verified_university | [Exact verified URL](https://www.blcvikings.com/sports/mens-basketball/schedule/2026-27?grid=true) | 14 |
@@ -412,7 +412,7 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | Fitchburg State University (227) | [NCAA athletics](https://www.fitchburgfalcons.com) | server_refused_method; Inspect official school schedule platform's public print/text calendar; do not circumvent access controls; 15 URLs checked | 10 |
 | Framingham State University (238) | [NCAA athletics](https://www.fsurams.com) | server_refused_method; Inspect official school schedule platform's public print/text calendar; do not circumvent access controls; 15 URLs checked | 7 |
 | Goucher College (1467) | [NCAA athletics](https://athletics.goucher.edu/landing/index) | season_heading_not_verified; Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar; 15 URLs checked | 20 |
-| Juniata College (325) | [NCAA athletics](https://www.juniatasports.net) | server_refused_method; Inspect official school schedule platform's public print/text calendar; do not circumvent access controls; 15 URLs checked | 19 |
+| Juniata College (325) | [NCAA athletics](https://www.juniatasports.net) | season_heading_not_verified; Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar; 15 URLs checked | 19 |
 | La Roche University (1163) | [NCAA athletics](https://larochesports.com) | season_heading_not_verified; Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar; 15 URLs checked | 16 |
 | Lesley University (24317) | [NCAA athletics](https://lesleyathletics.com) | season_heading_not_verified; Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar; 15 URLs checked | 19 |
 | Massachusetts College of Liberal Arts (486) | [NCAA athletics](https://athletics.mcla.edu/) | season_heading_not_verified; Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar; 15 URLs checked | 9 |
