@@ -8,8 +8,8 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 |---|---:|---:|
 | NCAA-listed teams | 406 | 415 |
 | University schedules | 357 | 364 |
-| Official conference calendars | 30 | 27 |
-| School and conference calendars unresolved | 19 | 24 |
+| Official conference calendars | 30 | 28 |
+| School and conference calendars unresolved | 19 | 23 |
 
 ## Men — verified calendar source URLs
 
@@ -465,6 +465,7 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | Bethany Lutheran College (30038) | verified_university | [Exact verified URL](https://www.blcvikings.com/sports/womens-basketball/schedule/2026-27?grid=true) | 14 |
 | Bethel University (Minnesota) (60) | verified_university | [Exact verified URL](https://athletics.bethel.edu/sports/womens-basketball/schedule/2026-27?grid=true) | 21 |
 | Blackburn College (64) | verified_conference | [Exact verified URL](https://sliac.org/schedule.aspx?schedule=2029) | 19 |
+| Bluffton University (987) | verified_conference | [Exact verified URL](https://heartlandconf.org/schedule.aspx?schedule=4399) | 10 |
 | Bowdoin College (69) | verified_university | [Exact verified URL](https://athletics.bowdoin.edu/sports/womens-basketball/schedule/2026-27?grid=true) | 15 |
 | Brandeis University (73) | verified_university | [Exact verified URL](https://www.brandeisjudges.com/sports/womens-basketball/schedule/2026-27?grid=true) | 18 |
 | Brevard College (30094) | verified_university | [Exact verified URL](https://www.bctornados.com/sports/womens-basketball/schedule/2026-27?grid=true) | 21 |
@@ -607,7 +608,7 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | Maranatha Baptist University (1194) | verified_university | [Exact verified URL](https://mbusabercats.com/sports/womens-basketball/schedule/2026-27?grid=true) | 7 |
 | Marian University (Wisconsin) (1196) | verified_university | [Exact verified URL](https://www.sabreathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 18 |
 | Marietta College (385) | verified_university | [Exact verified URL](https://pioneers.marietta.edu/sports/womens-basketball/schedule/2026-27?grid=true) | 23 |
-| Martin Luther College (8597) | verified_university | [Exact verified URL](https://www.mlcknights.com/sports/womens-basketball/schedule?grid=true) | 13 |
+| Martin Luther College (8597) | verified_university | [Exact verified URL](https://www.mlcknights.com/sports/wbball/schedule?grid=true) | 13 |
 | Mary Baldwin University (389) | verified_university | [Exact verified URL](https://www.marybaldwinathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true) | 20 |
 | Marymount University (Virginia) (394) | verified_university | [Exact verified URL](https://www.marymountsaints.com/sports/womens-basketball/schedule/2026-27?grid=true) | 20 |
 | Maryville College (Tennessee) (396) | verified_university | [Exact verified URL](https://www.mcscots.com/sports/womens-basketball/schedule/2026-27?grid=true) | 17 |
@@ -827,9 +828,8 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 
 | School / NCAA ID | Starting official school site | Failure / exact next action | Games confirmed by opponents |
 |---|---|---|---:|
-| Anderson University (Indiana) (939) | [NCAA athletics](https://athletics.anderson.edu) | season_heading_not_verified; Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar; 15 URLs checked | 6 |
+| Anderson University (Indiana) (939) | [NCAA athletics](https://athletics.anderson.edu) | season_heading_not_verified; Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar; 15 URLs checked | 7 |
 | Austin College (953) | [NCAA athletics](https://www.acroos.com) | season_heading_not_verified; Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar; 15 URLs checked | 23 |
-| Bluffton University (987) | [NCAA athletics](https://www.blufftonbeavers.com) | season_heading_not_verified; Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar; 15 URLs checked; official conference layout: sidearm-schedule, sidearm-schedule-header, sidearm-schedule-share, sidearm-schedule-share-list | 21 |
 | Bridgewater State University (76) | [NCAA athletics](https://www.bsubears.com) | season_heading_not_verified; Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar; 15 URLs checked | 12 |
 | Carlow University (30253) | [NCAA athletics](https://athletics.carlow.edu/landing/index) | season_heading_not_verified; Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar; 15 URLs checked | 8 |
 | Centenary College (Louisiana) (125) | [NCAA athletics](https://www.GoCentenary.com) | season_heading_not_verified; Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar; 15 URLs checked | 11 |

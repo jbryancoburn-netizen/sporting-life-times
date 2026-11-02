@@ -1,7 +1,7 @@
 {
   "division": "d3",
   "season": "2026-27",
-  "updated_utc": "2026-11-02T03:29:08.110334+00:00",
+  "updated_utc": "2026-11-02T03:32:09.161893+00:00",
   "summary": {
     "men": {
       "ncaa_teams": 406,
@@ -12,8 +12,8 @@
     "women": {
       "ncaa_teams": 415,
       "verified_university": 364,
-      "verified_conference": 27,
-      "unresolved": 24
+      "verified_conference": 28,
+      "unresolved": 23
     }
   },
   "schools": [
@@ -10322,7 +10322,7 @@
       "previously_verified_university_url": "",
       "discovery_method": "NCAA_directory_athletics_hostname",
       "verified_opponent_rows": 0,
-      "dated_games_from_other_official_sources": 6,
+      "dated_games_from_other_official_sources": 7,
       "opponent_source_examples": [
         "https://athletics.kenyon.edu/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.illinoiscollegeathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
@@ -10999,134 +10999,21 @@
       "school": "Bluffton University",
       "conference": "Heartland Collegiate Athletic Conference",
       "ncaa_athletics_url": "https://www.blufftonbeavers.com",
-      "status": "unresolved",
-      "verified_2026_27_schedule_url": "",
+      "status": "verified_conference",
+      "verified_2026_27_schedule_url": "https://heartlandconf.org/schedule.aspx?schedule=4399",
       "previously_verified_university_url": "",
-      "discovery_method": "NCAA_directory_athletics_hostname",
-      "verified_opponent_rows": 0,
-      "dated_games_from_other_official_sources": 21,
-      "opponent_source_examples": [
-        "https://www.woosterathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-        "https://athletics.kenyon.edu/sports/womens-basketball/schedule/2026-27?grid=true",
-        "https://hornets.kzoo.edu/sports/womens-basketball/schedule/2026-27?grid=true"
-      ],
-      "attempted_source_urls": 15,
+      "discovery_method": "official_hcac_verified_campus_city_home_only",
+      "verified_opponent_rows": 10,
+      "dated_games_from_other_official_sources": 12,
+      "opponent_source_examples": [],
+      "attempted_source_urls": 0,
       "additional_candidate_links": [],
-      "failure_category": "season_heading_not_verified",
-      "next_manual_action": "Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar",
-      "source_error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
-      "rejected_page_evidence": [
-        {
-          "url": "https://www.blufftonbeavers.com/sports/womens-basketball/schedule/2026-27?grid=true",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.blufftonbeavers.com/sports/womens-basketball/schedule/2026-2027?grid=true",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.blufftonbeavers.com/sports/womens-basketball/schedule?grid=true",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.blufftonbeavers.com/sports/womens-basketball/schedule",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.blufftonbeavers.com/sports/wbball/schedule?grid=true",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.blufftonbeavers.com/sports/wbball/schedule",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.blufftonbeavers.com/sports/wbkb/2026-27/schedule",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.blufftonbeavers.com/sports/wbkb/schedule",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        }
-      ],
-      "conference_page_evidence": [
-        {
-          "url": "https://heartlandconf.org/schedule.aspx?schedule=4399",
-          "reason": "Conference source insufficient identifiable 2026-27 rows: 0/0",
-          "headings": [
-            "Heartland Collegiate Athletic Conference",
-            "Main",
-            "2026-27 Bluffton Women's Basketball Schedule (0-0)",
-            "Schedule/Results",
-            "Team Stats",
-            "Footer"
-          ],
-          "table_headers": [
-            [
-              "Date",
-              "Teams",
-              "Event",
-              "Results",
-              "Notes"
-            ]
-          ],
-          "sample_game_cards": [],
-          "schedule_dom_classes": [
-            "sidearm-schedule",
-            "sidearm-schedule-header",
-            "sidearm-schedule-share",
-            "sidearm-schedule-share-list",
-            "sidearm-schedule-header-print",
-            "sidearm-schedule-select",
-            "sidearm-schedule-select-list",
-            "sidearm-schedule-select-subscribe",
-            "sidearm-schedule-select-schedule",
-            "sidearm-schedule-table"
-          ],
-          "date_text_fragments": 25
-        }
-      ],
-      "refresh_rule": "Follow official university sports navigation, conference calendars and opponent evidence without inventing missing games"
+      "failure_category": "",
+      "next_manual_action": "",
+      "source_error": "",
+      "rejected_page_evidence": [],
+      "conference_page_evidence": [],
+      "refresh_rule": "Recheck official conference schedule; do not certify university calendar"
     },
     {
       "gender": "women",
@@ -15288,13 +15175,13 @@
       "conference": "Upper Midwest Athletic Conference",
       "ncaa_athletics_url": "https://www.mlcknights.com",
       "status": "verified_university",
-      "verified_2026_27_schedule_url": "https://www.mlcknights.com/sports/womens-basketball/schedule?grid=true",
-      "previously_verified_university_url": "https://www.mlcknights.com/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "previously_verified_source",
+      "verified_2026_27_schedule_url": "https://www.mlcknights.com/sports/wbball/schedule?grid=true",
+      "previously_verified_university_url": "https://www.mlcknights.com/sports/wbball/schedule?grid=true",
+      "discovery_method": "official_school_url_or_vendor_variant",
       "verified_opponent_rows": 13,
       "dated_games_from_other_official_sources": 12,
       "opponent_source_examples": [],
-      "attempted_source_urls": 1,
+      "attempted_source_urls": 5,
       "additional_candidate_links": [],
       "failure_category": "",
       "next_manual_action": "",
