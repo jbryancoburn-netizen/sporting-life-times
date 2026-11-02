@@ -44,7 +44,7 @@ function render(){
   const strength=E('div','cs-showcase-strength'),fill=E('span');fill.style.width=Math.max(8,Math.min(100,100*(Number(t.elo)-1100)/800)).toFixed(1)+'%';strength.append(fill);row.append(strength);panel.append(row);
  }
  grid.append(panel);
- const secondary=E('section','cs-showcase-panel cs-showcase-selection');
+ const secondary=E('section','cs-showcase-panel cs-showcase-selection'+(selReady?'':' cs-form-ledger'));
  if(selReady){
   secondary.append(E('p','cs-showcase-kicker','THE FIELD · TWO PROJECTION METHODS'),E('h2',null,'The Selection Divide'),E('p','cs-showcase-summary','The RPI-based snapshot and independent USRS field agree on '+overlap+' of 48 entrants. Neither is an official NCAA selection.'));
   for(const [heading,subset] of [['RPI SNAPSHOT ONLY',ncaa.field.filter(x=>!u.has(x.team_id))],['USRS FORECAST ONLY',usrs.field.filter(x=>!n.has(x.team_id))]]){
@@ -53,17 +53,49 @@ function render(){
    secondary.append(pick);
   }
   const link=E('a','cs-showcase-go','SEE TWO FIELD PROJECTIONS');link.href='college-soccer-selection.html';secondary.append(link);
+
  }else{
-  secondary.append(E('p','cs-showcase-kicker','DIVISION NOTEBOOK · '+divisionName(cohort)),E('h2',null,'The Form Book'));
-  const active=ranked.filter(r=>Number(r.gp)>0);
-  secondary.append(E('p','cs-showcase-summary','Attack and defense leaders from verified season totals, not an invented tournament bracket.'));
-  for(const [heading,rows,stat] of [
-   ['MOST GOALS PER MATCH',active.slice().sort((a,b)=>Number(b.gf)/Number(b.gp)-Number(a.gf)/Number(a.gp)).slice(0,5),x=>(Number(x.gf)/Number(x.gp)).toFixed(2)+' GF/GP'],
-   ['FEWEST GOALS CONCEDED PER MATCH',active.slice().sort((a,b)=>Number(a.ga)/Number(a.gp)-Number(b.ga)/Number(b.gp)).slice(0,5),x=>(Number(x.ga)/Number(x.gp)).toFixed(2)+' GA/GP']]){
-   secondary.append(E('h3',null,heading));const pick=E('div','cs-showcase-picks');
-   for(const t of rows){const a=E('a','cs-showcase-form-row');a.href='college-soccer-team.html?team='+encodeURIComponent(cohort+':'+t.team_id);a.append(badge(t,cohort,brands,palette),E('strong',null,stat(t)));pick.append(a)}
-   secondary.append(pick);
+  // Standalone newspaper leaderboard rows: each stat stays inside its school's link.
+  const header=E('div','cs-form-header');
+  header.append(E('p','cs-showcase-kicker','THE DIVISION NOTEBOOK · '+divisionName(cohort)),
+   E('h2',null,'The Form Book'),
+   E('p','cs-form-deck','Who scores most, and who concedes least? Ranked by goals per match from the published USRS season record.'));
+  secondary.append(header);
+  const qualifying=ranked.filter(t=>Number.isFinite(Number(t.gp))&&Number(t.gp)>=8&&Number.isFinite(Number(t.gf))&&Number.isFinite(Number(t.ga)));
+  const lists=[
+   {type:'attack',kicker:'01 · ATTACK',heading:'Most prolific',sub:'Goals scored per match',field:'GF/GP',sort:(a,b)=>Number(b.gf)/Number(b.gp)-Number(a.gf)/Number(a.gp),value:t=>Number(t.gf)/Number(t.gp)},
+   {type:'defense',kicker:'02 · DEFENSE',heading:'Tightest backlines',sub:'Fewest goals conceded per match',field:'GA/GP',sort:(a,b)=>Number(a.ga)/Number(a.gp)-Number(b.ga)/Number(b.gp),value:t=>Number(t.ga)/Number(t.gp)}
+  ];
+  const board=E('div','cs-form-board');
+  for(const category of lists){
+   const group=E('section','cs-form-group cs-form-'+category.type);
+   const groupHead=E('div','cs-form-group-heading');
+   const headings=E('div','cs-form-heading-copy');
+   headings.append(E('span','cs-form-overline',category.kicker),
+    E('h3',null,category.heading),
+    E('p','cs-form-context',category.sub));
+   groupHead.append(headings,E('span','cs-form-column-head',category.field));
+   group.append(groupHead);
+   const list=E('ol','cs-form-list');
+   for(const [position,t] of qualifying.slice().sort(category.sort).slice(0,5).entries()){
+    const item=E('li','cs-form-entry');
+    const row=E('a','cs-form-row');
+    row.href='college-soccer-team.html?team='+encodeURIComponent(cohort+':'+t.team_id);
+    const metric=category.value(t);
+    row.setAttribute('aria-label',t.team+', rank '+(position+1)+', '+metric.toFixed(2)+' '+category.sub.toLowerCase());
+    row.append(E('span','cs-form-place',String(position+1).padStart(2,'0')),
+      badge(t,cohort,brands,palette));
+    const rate=E('span','cs-form-value');
+    rate.append(E('strong',null,metric.toFixed(2)),E('small',null,category.field));
+    row.append(rate);
+    item.append(row);list.append(item);
+   }
+   if(!list.childElementCount)list.append(E('li','cs-form-empty','Not enough published games to rank this category.'));
+   group.append(list);
+   board.append(group);
   }
+  secondary.append(board,E('p','cs-form-disclosure','ELIGIBILITY · At least eight recorded matches. GF/GP = goals scored ÷ games played; GA/GP = goals conceded ÷ games played. Lower GA/GP is better. Based on the published USRS '+String(elo.as_of||'season')+' edition.'));
+
  }
  grid.append(secondary);
 }
