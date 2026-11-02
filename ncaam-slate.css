@@ -207,8 +207,8 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #c481
 }
 .sl-game:before{z-index:3;width:6px;pointer-events:none}
 .sl-game-bar{
-  background:linear-gradient(98deg,color-mix(in srgb,var(--sl-away) 88%,#111820),
-    color-mix(in srgb,var(--sl-home) 78%,#111820));
+  background:linear-gradient(98deg,color-mix(in srgb,var(--sl-away) 44%,#101c28),
+    color-mix(in srgb,var(--sl-home) 44%,#101c28));
   color:#fff;
   padding:12px 18px 12px 24px;
   border-bottom:1px solid rgba(255,255,255,.22);
@@ -228,8 +228,8 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #c481
   background:
     repeating-linear-gradient(90deg,transparent 0 19px,rgba(255,255,255,.055) 20px 21px),
     radial-gradient(ellipse at 50% 145%,rgba(219,180,106,.5),transparent 56%),
-    linear-gradient(125deg,color-mix(in srgb,var(--sl-away) 80%,#0b1520),
-        color-mix(in srgb,var(--sl-home) 70%,#0a1821));
+    linear-gradient(125deg,color-mix(in srgb,var(--sl-away) 52%,#0b1520),
+        color-mix(in srgb,var(--sl-home) 52%,#0a1821));
 }
 .sl-arena-gallery:before{
   content:'';position:absolute;z-index:0;
@@ -252,8 +252,8 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #c481
   padding:15px 9px 19px;display:flex;flex-direction:column;align-items:center;gap:3px;
   text-align:center;color:#fff;
   background:linear-gradient(130deg,
-    color-mix(in srgb,var(--pennant) 85%,#091a23),
-    color-mix(in srgb,var(--pennant) 65%,#172532));
+    color-mix(in srgb,var(--pennant) 52%,#091a23),
+    color-mix(in srgb,var(--pennant) 45%,#172532));
   border:1px solid color-mix(in srgb,var(--pennant-accent) 80%,white);
   box-shadow:0 5px 15px rgba(0,0,0,.2),inset 0 0 0 4px rgba(255,255,255,.1);
   clip-path:polygon(0 0,100% 0,100% 84%,50% 100%,0 84%);
@@ -339,8 +339,8 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #c481
 .sl-featured .sl-game-editorial{background:linear-gradient(125deg,
  color-mix(in srgb,var(--sl-home) 9%,#fffdf8),#fffdf8 70%);}
 .sl-featured .sl-game-bar{background:linear-gradient(95deg,
- color-mix(in srgb,var(--sl-away) 92%,#101b23),
- color-mix(in srgb,var(--sl-home) 86%,#101b23))}
+ color-mix(in srgb,var(--sl-away) 46%,#101b23),
+ color-mix(in srgb,var(--sl-home) 46%,#101b23))}
 @media(max-width:940px){
  .sl-pennant-row{gap:7px;padding-inline:10px}
  .sl-featured .sl-pennant-row{gap:7px}
