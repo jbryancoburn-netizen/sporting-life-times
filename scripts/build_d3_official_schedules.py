@@ -1791,7 +1791,13 @@ def combine(gender, parsed):
         home = next(iter(home_designations)) if home_designations else members[1]
         away = members[0] if home == members[1] else members[1]
         unique = list({(x["source_owner_org_id"], x["source_url"]): x for x in evidence}.values())
-        best = next((x for x in unique if x["home_org_id"] == home), unique[0])
+        # Prefer concrete venue evidence on otherwise matching official
+        # schedule rows, without inferring a home school's default arena.
+        best = max(unique, key=lambda x: (
+            bool(x.get("venue")), bool(x.get("venue_location")),
+            bool(x.get("tipoff_as_posted")),
+            x.get("source_owner_org_id") == home,
+            x.get("source_kind") == "official_school"))
         owners = sorted({x["source_owner_org_id"] for x in unique})
         kinds = {x.get("source_kind", "official_school") for x in unique}
         fixture_source_kind = ("official_conference_and_school" if len(kinds) > 1
