@@ -116,7 +116,8 @@ for(const [id,full,school] of schoolSamples){
     home:{team:{id:'87',displayName:'Notre Dame Fighting Irish',abbreviation:'ND'},homeAway:'home'},
     source:'Verified sample'};
   const markup=men.scorebug(sample);
-  assert(markup.includes('class="cbb-school-label">'+school),
+  const safeSchool=school.replace(/&/g,'&amp;');
+  assert(markup.includes('class="cbb-school-label">'+safeSchool),
     'Full canonical school name missing for '+full);
   assert(!new RegExp('class="cbb-school-label">(?:FS|FA|B|OS|WIN|QUC)<').test(markup),
     'No home-brew first-letter abbreviation may appear as main label');
