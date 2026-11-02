@@ -98,7 +98,10 @@ def parse_event(e):
         tm=raw["team"];code,div,col,alt=META[tid]
         sides[side]={"id":str(tid),"code":code,"name":tm.get("displayName") or tm.get("name") or code,
             "logo":logo(tm) or f"https://a.espncdn.com/i/teamlogos/nfl/500/{code.lower()}.png",
-            "score":intval(raw.get("score"))}
+            "score":intval(raw.get("score")),
+            "linescores":[{"period":i+1,"score":intval(line.get("score"))}
+                          for i,line in enumerate(raw.get("linescores") or [])
+                          if isinstance(line,dict) and intval(line.get("score")) is not None]}
     if set(sides)!={"away","home"}:return None
     status=(e.get("status") or {}).get("type") or (c.get("status") or {}).get("type") or {}
     state=status.get("state") or "pre"
