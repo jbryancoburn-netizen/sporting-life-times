@@ -154,6 +154,8 @@
       group.addTo(map);
       const completeBounds=group.getBounds();
       map.fitBounds(completeBounds,{padding:[32,32],maxZoom:8});
+      const michiganSource=document.getElementById("map-official-michigan");
+      if(michiganSource)michiganSource.hidden=state.code!=="MI";
       const zoomViews=document.getElementById("map-real-views");
       if(zoomViews){
         zoomViews.hidden=false;
