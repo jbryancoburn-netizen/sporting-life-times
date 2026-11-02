@@ -136,6 +136,28 @@ class EloTests(unittest.TestCase):
         x=nfl.base_team(1);y=nfl.base_team(2)
         self.assertNotEqual(*nfl.projection(x,y,home_advantage=0))
 
+    def test_period_lines_extract_sourced_fourth_quarter_comeback(self):
+        # Actual final and verified quarter breakdown used in the Denver gamefile.
+        raw={"header":{"competitions":[{"competitors":[
+            {"homeAway":"away","linescores":[{"score":7},{"score":10},{"score":7},{"score":0}]},
+            {"homeAway":"home","linescores":[{"score":3},{"score":10},{"score":0},{"score":15}]}
+        ]}]}}
+        periods=nfl.period_lines_from_summary(raw)
+        self.assertEqual([x["score"] for x in periods["away"]],[7,10,7,0])
+        self.assertEqual([x["score"] for x in periods["home"]],[3,10,0,15])
+        self.assertEqual(sum(x["score"] for x in periods["away"]),24)
+        self.assertEqual(sum(x["score"] for x in periods["home"]),28)
+
+    def test_period_lines_fallback_uses_reported_scoring_plays(self):
+        raw={"header":{"competitions":[{"competitors":[]}]},"scoringPlays":[
+            {"period":{"number":1},"clock":{"displayValue":"8:22"},"awayScore":7,"homeScore":0},
+            {"period":{"number":2},"clock":{"displayValue":"1:34"},"awayScore":7,"homeScore":10},
+            {"period":{"number":4},"clock":{"displayValue":"0:20"},"awayScore":10,"homeScore":17}
+        ]}
+        periods=nfl.period_lines_from_summary(raw)
+        self.assertEqual([x["score"] for x in periods["away"]],[7,0,0,3])
+        self.assertEqual([x["score"] for x in periods["home"]],[0,10,0,7])
+
     def test_gamefile_story_has_no_background_logo_wallpaper(self):
         root=Path(__file__).resolve().parents[1]
         js=(root/"nfl-edition-v3.js").read_text(encoding="utf-8")
