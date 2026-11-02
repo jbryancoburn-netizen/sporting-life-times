@@ -10,6 +10,7 @@ on:
       - 'data/college-soccer-crest-overrides.json'
       - 'scripts/test_college_soccer_pitch_crests.cjs'
       - 'scripts/test_college_soccer_live_match_center.cjs'
+      - 'scripts/test_college_soccer_division_scope.cjs'
       - 'college-soccer-pitch.css'
       - 'college-soccer-showcase.js'
       - 'scripts/publish_college_soccer_live_scores.py'
@@ -83,6 +84,7 @@ jobs:
           node --check college-soccer-pulse.js
           node scripts/test_college_soccer_pitch_crests.cjs
           node scripts/test_college_soccer_live_match_center.cjs
+          node scripts/test_college_soccer_division_scope.cjs
           node --check college-soccer-showcase.js
           node --check college-soccer-editorial.js
           node --check college-soccer-match.js
