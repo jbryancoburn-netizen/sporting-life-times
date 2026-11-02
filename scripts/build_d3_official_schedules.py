@@ -141,6 +141,9 @@ OFFICIAL_CONFERENCE_SCHEDULES = {
         641: ("https://rollrivers.com/schedule.aspx?schedule=2841", "Simpson"),
         806: ("https://northcoast.org/schedule.aspx?schedule=2761", "Wittenberg"),
         8597: ("https://umacathletics.com/schedule.aspx?schedule=4445", "Martin Luther"),
+        # Official United East 2026–27 university-specific conference calendars.
+        30189: ("https://gounitedeast.com/schedule.aspx?schedule=3821", "Penn State Brandywine"),
+        30081: ("https://gounitedeast.com/schedule.aspx?schedule=3822", "Penn State Harrisburg"),
         # Published current-season official conference team pages, independently
         # checked for school, basketball sex and 2026-27 year.
         1355: ("https://ascsports.org/schedule.aspx?schedule=6196", "Schreiner"),
@@ -165,6 +168,8 @@ OFFICIAL_CONFERENCE_SCHEDULES = {
         348: ("https://midwestconference.org/schedule.aspx?schedule=3994", "Lawrence"),
         641: ("https://rollrivers.com/schedule.aspx?schedule=2849", "Simpson"),
         806: ("https://northcoast.org/schedule.aspx?schedule=2771", "Wittenberg"),
+        30189: ("https://gounitedeast.com/schedule.aspx?schedule=3832", "Penn State Brandywine"),
+        30081: ("https://gounitedeast.com/schedule.aspx?schedule=3833", "Penn State Harrisburg"),
         987: ("https://heartlandconf.org/schedule.aspx?schedule=4399", "Bluffton"),
         1467: ("https://landmarkconference.org/schedule.aspx?schedule=2615", "Goucher"),
         325: ("https://landmarkconference.org/schedule.aspx?schedule=2616", "Juniata"),
@@ -1014,6 +1019,14 @@ def self_test():
             assert urlsplit(url).query == f"schedule={season_id}"
             assert subject == label
 
+    # United East calendar IDs checked against their exact public 2026–27 headings.
+    expected_ue = {"men": {30189: 3821, 30081: 3822},
+                   "women": {30189: 3832, 30081: 3833}}
+    for sex, ids in expected_ue.items():
+        for org, schedule_id in ids.items():
+            link, subject = OFFICIAL_CONFERENCE_SCHEDULES[sex][org]
+            assert link == f"https://gounitedeast.com/schedule.aspx?schedule={schedule_id}"
+            assert subject in ("Penn State Brandywine", "Penn State Harrisburg")
     conf_html = """<html><head><title>2026-27 Blackburn Men's Basketball Schedule</title></head>
     <body><h2>2026-27 Blackburn Men's Basketball Schedule (0-0)</h2>
     <table><thead><tr><th>Date</th><th>Opponent</th><th>Status</th><th>Result</th><th>Location</th></tr></thead><tbody>
