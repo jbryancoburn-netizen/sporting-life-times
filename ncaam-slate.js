@@ -121,7 +121,7 @@ const url=new URL(location.href),women=url.searchParams.get('gender')==='women';
 let selected=/^\d{4}-\d\d-\d\d$/.test(url.searchParams.get('date')||'')?url.searchParams.get('date'):today();
 let filter=['all','live','final','upcoming','exhibition','favorites'].includes(url.searchParams.get('view'))?url.searchParams.get('view'):'all';
 let search='',loaded=[],ratings=new Map(),lastUpdate='',limit=18,loading=false,sourceError='';
-let cross={teams:[]},palette={},arenaRegistry={},womenTeams=new Map(),sourceFeed=null,seasonStats=new Map(),liveChanges=new Map();
+let cross={teams:[]},palette={},arenaRegistry={},womenTeams=new Map(),sourceFeed=null,seasonStats=new Map(),liveChanges=new Map(),scoreCalibration=null;
 const insight=window.SLTBasketballInsights;
 const favoriteKey='slt-slate-favorites-'+(women?'women':'men');
 let followed=new Set();
@@ -296,6 +296,13 @@ const comparison=g=>{
   line('Last five',x,y,form)+
   '<p>Regular-season verified finals only · sample sizes '+(x?.g||0)+' and '+(y?.g||0)+'.</p></div>';
 };
+const projectedScoreCard=g=>{
+ const projection=insight?.projectedScore(g,scoreCalibration,ratings);
+ if(!projection)return '';
+ return '<div class="sl-score-projection"><div><span>THE USRS SCORE FORECAST</span>'+
+  '<strong>'+esc(g.away.name)+' '+projection.away+' · '+esc(g.home.name)+' '+projection.home+'</strong></div>'+
+  '<p>'+esc(projection.caveat)+'</p></div>';
+};
 const liveEditorial=g=>{
  if(g.phase==='live'){
   const delta=liveChanges.get(g.id);
@@ -359,7 +366,7 @@ function card(g,featured){
   '<h3>'+esc(pair[0])+'</h3><p>'+esc(pair[1])+'</p>'+
   '<div class="sl-rating-pair"><span>'+esc(g.away.name)+' <b>'+ (rating(g.away)??'—')+'</b></span>'+
   '<i aria-hidden="true"></i><span>'+esc(g.home.name)+' <b>'+(rating(g.home)??'—')+'</b></span></div>'+
-  matchupStats(g)+comparison(g)+meter(g)+liveEditorial(g)+'</div></div>'+
+  matchupStats(g)+comparison(g)+meter(g)+projectedScoreCard(g)+liveEditorial(g)+'</div></div>'+
   '<div class="sl-game-footer"><span>'+esc(source)+'</span>'+
   '<a class="sl-details" href="'+esc(href)+'"'+(isExternal?' target="_blank" rel="noopener noreferrer"':'')+'>'+
   (isExternal?'Result source':'Game details')+' <span aria-hidden="true">↗</span></a>'+
@@ -385,7 +392,7 @@ const render=()=>{
 async function refresh(){
  if(loading)return;loading=true;const status=document.getElementById('sl-data');status.textContent='Refreshing verified sources…';
  try{
-  const menFiles=['data/mbb-live.json','data/ncaam-2026-27-upcoming-forecasts.json','data/ncaam-2026-27-retro-primary.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json','data/mbb-exhibition-finals-2026-27.json','data/mbb-arena-registry.json'];
+  const menFiles=['data/mbb-live.json','data/ncaam-2026-27-upcoming-forecasts.json','data/ncaam-2026-27-retro-primary.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json','data/mbb-exhibition-finals-2026-27.json','data/mbb-arena-registry.json','data/ncaam-score-calibration.json'];
   const womenFiles=['data/ncaaw-2026-27-games.json','data/ncaaw-2026-27-retro-primary.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json','data/ncaaw-2026-27-teams.json','data/mbb-live.json'];
   const paths=women?womenFiles:menFiles;
   const output=await Promise.all(paths.map(p=>fetchJSON(p).catch(()=>null)));
@@ -398,11 +405,11 @@ async function refresh(){
     loaded=normalizeWomen(results,rank,cross);
     lastUpdate='women’s rolling fixture ledger';
   }else{
-    const [feed,forecast,rank,c,pal,ex,arenas]=output;
+    const [feed,forecast,rank,c,pal,ex,arenas,calibration]=output;
     if(!feed||rank?.model!=='retro-clean-slate'||rank.starting_elo!==1500||rank.rankings?.length!==365)
       throw Error('Men’s scoreboard or certified RETRO feed unavailable');
     cross=c||{teams:[]};ratings=rankingsMap(rank);palette=pal?.mbb||{};
-    arenaRegistry=arenas?.teams||{};
+    arenaRegistry=arenas?.teams||{};scoreCalibration=calibration;
     const before=new Map(loaded.filter(g=>g.phase==='live'&&g.kind==='regular').map(g=>
       [g.id,{id:g.id,day:g.day,away_score:g.away.score,home_score:g.home.score}]));
     sourceFeed=feed;seasonStats=insight?.seasonProfiles(rank.events)||new Map();
