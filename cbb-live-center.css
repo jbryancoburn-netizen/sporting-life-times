@@ -354,3 +354,25 @@
  .cbb-gamefile-score .cbb-name b.cbb-school-label{font-size:20px;line-height:1.15}
  .cbb-game-card .cbb-points{flex:0 0 auto}
 }
+
+
+/* SLT two-row Courtside presentation: source-backed dots only, no jersey clip-art. */
+.cbb-scorebug-row .slt-cbb-team-stack{display:flex;flex:1;min-width:0;flex-direction:column;gap:3px}
+.cbb-scorebug-row .slt-cbb-team-stack>.cbb-team-link,
+.cbb-scorebug-row .slt-cbb-team-stack>.cbb-team-identity{min-width:0;flex:0 1 auto}
+.cbb-scorebug-row .slt-cbb-info{display:flex;align-items:center;flex-wrap:wrap;gap:4px 10px;min-height:16px;padding:2px 0 1px;font:700 10px/1.2 Arial,Helvetica,sans-serif;letter-spacing:.01em;color:#455c64}
+.slt-cbb-indicator{display:inline-flex;align-items:center;white-space:nowrap;gap:3px}
+.slt-cbb-indicator b{font:900 9px Arial,sans-serif;color:inherit}
+.slt-cbb-dots{display:inline-flex;align-items:center;gap:3px}
+.slt-cbb-dot{display:block;width:7px;height:7px;border:1.3px solid currentColor;border-radius:50%;background:transparent}
+.slt-cbb-dot.is-remaining{background:currentColor}
+.slt-cbb-unavailable{opacity:.66}
+.slt-cbb-bonus{padding:2px 5px;border:1px solid currentColor;border-radius:2px;font-weight:900}
+.slt-cbb-possession{font:900 12px Arial,sans-serif;color:#1e507c;margin-left:5px}
+.cbb-scorebug-row .slt-cbb-record{font:800 10px Arial,sans-serif;white-space:nowrap;color:#526b74;margin-left:auto}
+.cbb-gamefile-score .slt-cbb-info{color:#dfebed}
+.cbb-gamefile-score .slt-cbb-possession{color:#f1bd39}
+.cbb-gamefile-score .slt-cbb-record{color:#dfebed}
+.cbb-game-card .cbb-match-rows{background:#fff8eb}
+.cbb-game-card .cbb-match-rows .cbb-scorebug-row{min-height:88px;padding-top:8px;padding-bottom:8px}
+@media(max-width:560px){.cbb-scorebug-row .slt-cbb-info{gap:4px 7px;font-size:9px}.slt-cbb-dot{width:6px;height:6px}.cbb-game-card .cbb-match-rows .cbb-scorebug-row{min-height:85px}.cbb-scorebug-row .slt-cbb-record{font-size:9px}}
