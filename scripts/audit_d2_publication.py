@@ -88,6 +88,254 @@ def school_schedule_coverage(teams: list[dict], games: list[dict]) -> dict:
     }
 
 
+
+def full_season_school_certification(gender: str, teams: list[dict],
+                                     games: list[dict], data_dir: Path) -> dict:
+    """Fail-closed, every-school 2026-27 certification ledger.
+
+    Official-source observations are NOT an attestation of a complete season.
+    Explicitly signed/dated per-school review plus reconciled source fixtures
+    is required. A minimum fixture count can never produce CERTIFIED status.
+    """
+    from urllib.parse import urlparse
+    try:
+        from scripts.build_d2_basketball import (
+            build_dii_team_lookup, resolve_dii_team_id)
+    except ModuleNotFoundError:  # python scripts/audit_d2_publication.py
+        from build_d2_basketball import (
+            build_dii_team_lookup, resolve_dii_team_id)
+
+    evidence_file = data_dir / "d2-official-school-grids-2026-27.json"
+    if evidence_file.exists():
+        evidence = json.loads(evidence_file.read_text(encoding="utf-8"))
+        if evidence.get("season") != "2026-27" or evidence.get("schema") != 1:
+            raise ValueError("Wrong school-grid certification season/schema")
+    else:
+        evidence = {"schools": [], "live_school_sources": [],
+                    "certification_assertions": []}
+
+    schools = {str(t["id"]): t for t in teams if t.get("id")}
+    lookup = build_dii_team_lookup(schools)
+    snapshots = defaultdict(list)
+    live_pins = defaultdict(list)
+    assertions = {}
+    for rec in evidence.get("schools", []):
+        if rec.get("gender") == gender:
+            snapshots[str(rec.get("owner_id"))].append(rec)
+    for rec in evidence.get("live_school_sources", []):
+        if rec.get("gender") == gender:
+            live_pins[str(rec.get("owner_id"))].append(rec)
+    for assertion in evidence.get("certification_assertions", []):
+        if assertion.get("gender") != gender:
+            continue
+        owner = str(assertion.get("owner_id", ""))
+        if owner in assertions:
+            raise ValueError("Duplicate full-season certification assertion: " + owner)
+        assertions[owner] = assertion
+
+    by_team_games = defaultdict(list)
+    game_index = defaultdict(list)
+    for game in games:
+        if not game.get("date"):
+            continue
+        for ident in {game.get("away"), game.get("home")}:
+            if ident in schools:
+                by_team_games[ident].append(game)
+        if game.get("away") and game.get("home"):
+            game_index[(game["date"], frozenset(
+                (game["away"], game["home"])))].append(game)
+
+    rows = []
+    stage_counts = Counter()
+    for ident, t in sorted(schools.items(), key=lambda item:
+                           (str(item[1].get("name", "")).casefold(), item[0])):
+        excluded = bool(t.get("not_eligible_for_dii_elo"))
+        own = snapshots.get(ident, [])
+        pinned = live_pins.get(ident, [])
+        assertion = assertions.get(ident)
+        evidence_rows = 0
+        eligible_rows = 0
+        corroborated = 0
+        unidentified_opponents = 0
+        unclassified_source_rows = []
+        role_conflicts = 0
+        disputed_times = 0
+        missing_games = []
+        evidence_pairs = set()
+        source_links = sorted({
+            str(x.get("source_url")) for x in own + pinned
+            if str(x.get("source_url", "")).startswith("https://")
+        })
+        for source in own:
+            for fixture in source.get("fixtures", []):
+                evidence_rows += 1
+                other = resolve_dii_team_id(
+                    {"name": fixture.get("opponent", "")}, lookup)
+                if (not other or other == ident or
+                        schools.get(other, {}).get("not_eligible_for_dii_elo")):
+                    # Explicitly unclassified until all cross-division
+                    # opponents have been reviewed for true NCAA membership.
+                    unidentified_opponents += 1
+                    unclassified_source_rows.append({"date": fixture.get("date"),
+                        "opponent": fixture.get("opponent"),
+                        "source_url": source.get("source_url")})
+                    continue
+                eligible_rows += 1
+                key = (fixture.get("date"), frozenset((ident, other)))
+                evidence_pairs.add(key)
+                matches = game_index.get(key, [])
+                if len(matches) != 1:
+                    missing_games.append({
+                        "date": fixture.get("date"),
+                        "opponent": fixture.get("opponent"),
+                        "resolved_id": other,
+                        "source_url": source.get("source_url"),
+                        "reason": ("missing from ledger" if not matches
+                                   else "duplicate same-day matchup")})
+                    continue
+                game = matches[0]
+                role = fixture.get("role")
+                if ((role == "home" and game.get("home") != ident) or
+                    (role == "away" and game.get("away") != ident) or
+                    (role == "neutral" and not game.get("neutral"))):
+                    role_conflicts += 1
+                clock = fixture.get("start_time")
+                if clock and game.get("start_time") and clock != game["start_time"]:
+                    disputed_times += 1
+                corroborated += 1
+
+        outside_snapshot = [
+            {"date": g["date"], "opponent_id":
+                (g["home"] if g.get("away") == ident else g.get("away"))}
+            for g in by_team_games[ident]
+            if (g["date"], frozenset((g.get("away"), g.get("home"))))
+            not in evidence_pairs
+        ]
+        # No inference of total game count from 20, 25 or 30 fixtures.
+        attested = False
+        attestation_errors = []
+        if assertion:
+            if not own or len(own) != 1:
+                attestation_errors.append("Must attach exactly one authoritative full-season snapshot")
+            if assertion.get("complete_calendar") is not True:
+                attestation_errors.append("Complete calendar not explicitly attested")
+            if assertion.get("all_eligible_games_checked") is not True:
+                attestation_errors.append("All eligible DII matchups not checked")
+            if assertion.get("other_division_games_reviewed") is not True:
+                attestation_errors.append("Excluded other-division games not independently reviewed")
+            if assertion.get("independent_crosscheck_completed") is not True:
+                attestation_errors.append("Independent crosscheck not completed")
+            if assertion.get("unresolved_tbd_count") != 0:
+                attestation_errors.append("Unresolved TBD opponents/tournament placeholders")
+            if assertion.get("snapshot_rows") != evidence_rows:
+                attestation_errors.append("Attested row count differs from captured source")
+            try:
+                checked = dt.date.fromisoformat(str(assertion.get("checked_on", "")))
+                if checked < dt.date(2026, 8, 1):
+                    attestation_errors.append("Attestation predates 2026-27 schedule release")
+            except ValueError:
+                attestation_errors.append("Missing valid reviewed date")
+            primary = str(assertion.get("source_url") or "")
+            independent = str(assertion.get("independent_source_url") or "")
+            if primary not in source_links or not primary.startswith("https://"):
+                attestation_errors.append("Source URL must match the saved official source")
+            if (not independent.startswith("https://") or
+                    urlparse(primary).netloc == urlparse(independent).netloc):
+                attestation_errors.append("Independent official secondary domain required")
+            if not assertion.get("reviewed_by"):
+                attestation_errors.append("Named accountable reviewer required")
+            # A complete university calendar often contains NAIA, DI, DIII
+            # or exhibition games. These belong in the *source* inventory,
+            # but not in DII Elo. Require a separate dated, corroborated
+            # classification of every such row; never silently discard it.
+            classifications = assertion.get("other_division_classifications") or []
+            actual = {(r["date"], r["opponent"]) for r in unclassified_source_rows}
+            declared = set()
+            for classified in classifications:
+                key = (classified.get("date"), classified.get("opponent"))
+                if key in declared or key not in actual:
+                    attestation_errors.append("Duplicate or unfounded other-division source classification")
+                declared.add(key)
+                if (classified.get("classification") not in
+                        ("not_dii_2026_27", "exhibition", "unresolved_identity")):
+                    attestation_errors.append("Invalid non-DII source game classification")
+                if not str(classified.get("membership_source_url") or "").startswith("https://"):
+                    attestation_errors.append("Missing independent other-division membership evidence URL")
+            if declared != actual or any(
+                    r.get("classification") == "unresolved_identity"
+                    for r in classifications):
+                attestation_errors.append("Non-DII/unidentified source opponents not fully classified")
+            if missing_games or outside_snapshot or role_conflicts or disputed_times:
+                attestation_errors.append("School calendar and ledger differ")
+            attested = not attestation_errors and not excluded
+
+        if excluded:
+            stage = "MEMBERSHIP_EXCLUDED"
+            next_action = "Review 2026-27 membership; do not assign DII Elo."
+        elif attested:
+            stage = "CERTIFIED"
+            next_action = "Revalidate on subsequent official schedule changes."
+        elif not own:
+            stage = "OFFICIAL_FULL_CALENDAR_REQUIRED"
+            next_action = ("Save and independently verify all dated official games,"
+                           " including non-DII opponents and tournament placeholders.")
+        elif missing_games or role_conflicts or disputed_times:
+            stage = "SOURCE_LEDGER_RECONCILIATION"
+            next_action = "Reconcile exact date/opponent/role/time conflicts without inventing games."
+        elif not assertion:
+            stage = "COMPLETE_SEASON_ATTESTATION_REQUIRED"
+            next_action = ("Verify the stored calendar includes every regular-season"
+                           " game and postseason TBD, classify non-DII opponents,"
+                           " and record independent crosscheck.")
+        else:
+            stage = "ATTESTATION_FAILED"
+            next_action = "Resolve listed attestation errors and source/ledger coverage."
+        stage_counts[stage] += 1
+        rows.append({
+            "id": ident, "name": t.get("name") or ident,
+            "conference": t.get("conference") or "Unverified",
+            "eligible": not excluded,
+            "status": stage,
+            "certified": attested,
+            "published_games": len(by_team_games[ident]),
+            "official_source_urls": source_links,
+            "official_snapshot_count": len(own),
+            "official_source_rows": evidence_rows,
+            "eligible_source_games": eligible_rows,
+            "matched_source_games": corroborated,
+            "unidentified_or_other_division_rows": unidentified_opponents,
+            "other_division_source_examples": unclassified_source_rows[:12],
+            "missing_source_games_count": len(missing_games),
+            "missing_source_games": missing_games[:12],
+            "role_conflicts": role_conflicts,
+            "tipoff_disagreements": disputed_times,
+            "published_games_not_in_source_snapshot": len(outside_snapshot),
+            "outside_snapshot_examples": outside_snapshot[:6],
+            "attestation_errors": attestation_errors,
+            "next_action": next_action,
+        })
+    eligible = [s for s in rows if s["eligible"]]
+    certified = [s for s in eligible if s["certified"]]
+    with_source = [s for s in eligible if s["official_snapshot_count"]]
+    return {
+        "milestone": "Every eligible 2026-27 NCAA Division II school independently full-season certified",
+        "completion_rule": ("Only a complete reviewed official fixture snapshot, an independent"
+                            " corroborating university/conference source, documented"
+                            " non-DII exclusions and zero ledger discrepancies"
+                            " can certify a school. Game count NEVER certifies."),
+        "eligible_schools": len(eligible),
+        "certified_schools": len(certified),
+        "uncertified_schools": len(eligible) - len(certified),
+        "excluded_membership_schools": len(rows) - len(eligible),
+        "eligible_with_saved_official_snapshots": len(with_source),
+        "eligible_without_saved_official_snapshots": len(eligible) - len(with_source),
+        "unresolved_official_source_games": sum(s["missing_source_games_count"] for s in eligible),
+        "role_conflicts": sum(s["role_conflicts"] for s in eligible),
+        "tipoff_disagreements": sum(s["tipoff_disagreements"] for s in eligible),
+        "stage_counts": dict(sorted(stage_counts.items())),
+        "schools": rows,
+    }
+
 def audit_one(gender: str, data_dir: Path) -> tuple[dict, list[str]]:
     path = data_dir / f"d2-{gender}-2026-27.json"
     data = json.loads(path.read_text(encoding="utf-8"))
@@ -189,13 +437,16 @@ def audit_one(gender: str, data_dir: Path) -> tuple[dict, list[str]]:
 
     q = data.get("quality") or {}
     scan = q.get("full_season_scan") or {}
-    complete_school_schedules = bool(scan.get("schedules_certified"))
-    if not complete_school_schedules:
-        warnings.append("A completed date scan is NOT a certified set of school schedules")
+    # Date scan alone never certifies an institution's entire fixture list.
+    complete_school_schedules = False
     if missing_source:
         warnings.append(f"{missing_source} fixtures have no traceable source URL")
     coverage = q.get("field_coverage") or {}
     school_gaps = school_schedule_coverage(teams, games)
+    school_certification = full_season_school_certification(gender, teams, games, data_dir)
+    complete_school_schedules = (school_certification["uncertified_schools"] == 0)
+    if not complete_school_schedules:
+        warnings.append("A completed date scan is NOT a certified set of school schedules")
     reported_zero = coverage.get("schools_with_no_published_fixtures")
     if reported_zero is not None and reported_zero != school_gaps["without_games"]:
         warnings.append("Stored school coverage differs from the live ledger; school-by-school report is authoritative")
@@ -261,6 +512,7 @@ def audit_one(gender: str, data_dir: Path) -> tuple[dict, list[str]]:
         "eligible_schools_without_a_published_game": school_gaps["eligible_without_games"],
         "excluded_elo_schools_without_a_published_game": school_gaps["excluded_without_games"],
         "school_schedule_recovery": school_gaps,
+        "full_school_schedule_certification": school_certification,
         "full_season_date_scan": bool(scan.get("completed")),
         "school_schedule_certified": complete_school_schedules,
         "source_categories": dict(sorted(source_categories.items())),
@@ -301,7 +553,10 @@ def main() -> None:
         "schema": 1,
         "season": "2026-27",
         "independent_elo_start": 1500,
-        "status": "BLOCKED" if men_errors or women_errors else "PASS — school schedules remain uncertified",
+        "status": ("BLOCKED" if men_errors or women_errors else
+                   ("PASS — all eligible full school schedules independently certified"
+                    if men["school_schedule_certified"] and women["school_schedule_certified"]
+                    else "PASS — school schedules remain uncertified")),
         "men": men,
         "women": women,
         "cross_gender_logo_palette_conflicts": mismatch[:30],

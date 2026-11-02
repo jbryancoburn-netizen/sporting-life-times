@@ -2,6 +2,14 @@
 
 > **Project continuity document.** Read this file first after any ChatGPT conversation error or interrupted work. The repository and its committed artifacts, NOT chat claims, are the source of truth. This document is a point-in-time snapshot; regenerate counts from the current publication audit before reporting newer progress.
 
+## Active next milestone — FULL official school schedule certification (2026-11-02)
+
+**This supersedes the old thin-schedule recovery milestone.** See [DII_FULL_SEASON_CERTIFICATION.md](DII_FULL_SEASON_CERTIFICATION.md) for the binding checklist and the exact evidence fields. Fixture counts (including 25+ games), finished date scans, and passing GitHub Actions are **not** completion certification.
+
+Source of truth: `data/d2-publishing-audit.json` -> `men.full_school_schedule_certification` and `women.full_school_schedule_certification`. Every eligible school's `status`, official calendar URLs, reconciled DII source fixtures, unresolved university games, non-DII/exhibition classifications, missing ledger games and independent attestation must be reviewed. The auditable per-school attestations live in `data/d2-official-school-grids-2026-27.json` as `certification_assertions`, initially empty. Do not add any attestation without actually reviewing its full university schedule against a second independent official domain.
+
+**Next substantive work:** collect full calendars, not minimum counts; prioritize the 64 thin-to-20-game men's and 19 women's programs identified from the Nov 2 data (especially Mayagüez, Río Piedras, Bayamón, Salem women, D'Youville men and ECC), then audit every remaining school regardless of published game count. Every date, opponent, court designation and DII eligibility must reconcile to an existing or newly verified ledger game; conflicting games remain quarantined. Preserve existing workflows, zero-dollar constraints and independent 1500 Elo.
+
 ## Nonnegotiable constraints
 
 - **$0 budget.** No paid APIs, data vendors, subscriptions, hosting, premium CI capacity, cloud charges, or enabling billing. Use public/official free sources and existing no-cost infrastructure only. If a proposed operation may cost money, do not do it; find a free alternative or report the blocker.
