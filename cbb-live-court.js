@@ -4,6 +4,10 @@
 const contexts=new WeakMap(),activeByGame=new Map(),MAX=12;
 const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const score=v=>v===null||v===undefined||v===''||!Number.isSafeInteger(Number(v))||Number(v)<0||Number(v)>500?null:Number(v);
+const teamColor=(t,fallback)=>{const raw=String(t?.team?.color||'').replace(/^#/,'');
+ return /^[a-f0-9]{6}$/i.test(raw)&&raw.toLowerCase()!=='ffffff'?'#'+raw:fallback;};
+const sideName=t=>String(t?.team?.shortDisplayName||t?.team?.abbreviation||t?.team?.displayName||'TEAM')
+ .trim().slice(0,27).toUpperCase();
 function parsePlays(data){
   let raw=data?.plays;
   if(!Array.isArray(raw))raw=raw?.items||data?.gamepackageJSON?.plays||data?.playByPlay?.plays||[];
@@ -82,19 +86,31 @@ function gameFlow(plays,game){
    46+(848*i/Math.max(1,sampled.length-1)),
    204-((p.awayScore-p.homeScore)/max)*146
  ]);
- const poly=xy.map(([x,y])=>x.toFixed(1)+','+y.toFixed(1)).join(' ');
+
  const last=scoring[scoring.length-1];
- return '<div class="slc-flow" role="img" aria-label="Score margin by sourced play. Away leads above center, home leads below">'+
-   '<div class="slc-flow-heading"><strong>GAME FLOW</strong><span>SOURCED SCORE MARGINS · NOT PLAYER TRACKING</span></div>'+
+ const away=game?sideName(game.away):'AWAY',home=game?sideName(game.home):'HOME';
+ const awayCode=game?name(game.away):'AWAY',homeCode=game?name(game.home):'HOME';
+ const awayColor=teamColor(game?.away,'#23657d'),homeColor=teamColor(game?.home,'#b17931');
+ const segments=xy.slice(1).map(([x,y],i)=>{
+   const [px,py]=xy[i],p=sampled[i+1];
+   const color=p.awayScore>=p.homeScore?awayColor:homeColor;
+   return '<line x1="'+px.toFixed(1)+'" y1="'+py.toFixed(1)+'" x2="'+x.toFixed(1)+'" y2="'+y.toFixed(1)+
+     '" stroke="'+color+'" stroke-width="6" stroke-linecap="round"/>';
+ }).join('');
+ const leaderColor=last.awayScore>=last.homeScore?awayColor:homeColor;
+ return '<div class="slc-flow" style="--slc-away:'+awayColor+';--slc-home:'+homeColor+
+   '" role="img" aria-label="Verified scoring margin. '+esc(away)+' leads above center; '+esc(home)+' leads below.">'+
+   '<div class="slc-flow-heading"><strong>GAME FLOW</strong><span>SCORING MARGIN · SOURCE-REPORTED PLAYS</span></div>'+
+   '<div class="slc-flow-key"><span><i class="slc-away-dot"></i>'+esc(away)+'</span><span><i class="slc-home-dot"></i>'+esc(home)+'</span></div>'+
    '<svg viewBox="0 0 940 410" preserveAspectRatio="xMidYMid meet" aria-hidden="true">'+
    '<line x1="46" y1="204" x2="894" y2="204" stroke="#aab9b6" stroke-dasharray="5 6" stroke-width="2"/>'+
-   '<text x="48" y="32">AWAY LEAD</text><text x="48" y="379">HOME LEAD</text>'+
-   '<polyline points="'+poly+'" fill="none" stroke="#204b57" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>'+
-   '<circle cx="'+xy.at(-1)[0]+'" cy="'+xy.at(-1)[1]+'" r="10" fill="#ad673e" stroke="#fff" stroke-width="3"/>'+
-   '<text x="860" y="32" text-anchor="end">AWAY '+last.awayScore+'</text>'+
-   '<text x="860" y="379" text-anchor="end">HOME '+last.homeScore+'</text></svg>'+
-   '<p>Points show successive sourced score updates (not elapsed game time). Last reported play: '+esc(last.clock||'clock unavailable')+
-   '. This chart is not an official shot chart.</p></div>';
+   '<text x="48" y="32">'+esc(away)+' LEAD</text><text x="48" y="379">'+esc(home)+' LEAD</text>'+
+   segments+
+   '<circle cx="'+xy.at(-1)[0]+'" cy="'+xy.at(-1)[1]+'" r="10" fill="'+leaderColor+'" stroke="#fff" stroke-width="3"/>'+
+   '<text x="860" y="32" text-anchor="end">'+esc(awayCode)+' '+last.awayScore+'</text>'+
+   '<text x="860" y="379" text-anchor="end">'+esc(homeCode)+' '+last.homeScore+'</text></svg>'+
+   '<p>Each mark is a sourced score update—not elapsed game time. Last reported play: '+esc(last.clock||'time not reported')+
+   '. This is not an official shot chart.</p></div>';
 }
 function stationLinks(g){
  const id=String(g.id||'');
@@ -133,11 +149,11 @@ function draw(c){
   const shotPlays=plays.filter(p=>location(p)!==null).slice(-30);
   const flow=shotPlays.length?'':gameFlow(plays,g);
   const live=g.phase==='live',final=g.phase==='final';
-  c.node.innerHTML='<div class="slc-wrap"><header class="slc-head"><div><small>THE SPORTING LIFE & TIMES / GAMEFILE</small>'+
+  c.node.innerHTML='<div class="slc-wrap" style="--slc-away:'+teamColor(g.away,'#23657d')+';--slc-home:'+teamColor(g.home,'#b17931')+'"><header class="slc-head"><div><small>THE SPORTING LIFE & TIMES / GAMEFILE</small>'+
     '<h2>COURTCAST</h2></div><b>'+(delayed?'FEED DELAYED':live?'LIVE PLAY-BY-PLAY':final?'FINAL · PLAY REPLAY':'PREGAME')+'</b></header>'+
     (delayed?'<p class="slc-warning">Live play feed has not refreshed for more than one minute. The events below are the most recent available, not confirmed current.</p>':'')+
-    '<div class="slc-columns"><section class="slc-visual"><div class="slc-teams"><span>AWAY · '+esc(name(g.away))+'</span>'+
-    '<span>HOME · '+esc(name(g.home))+'</span></div>'+
+    '<div class="slc-columns"><section class="slc-visual"><div class="slc-teams"><span class="slc-away-name">'+esc(sideName(g.away))+'</span>'+
+    '<span class="slc-home-name">'+esc(sideName(g.home))+'</span></div>'+
     (flow?flow:
       (!validation.ok&&validation.sequence.length>=3?'<div class="slc-data-conflict" role="status"><strong>GAME FLOW UNAVAILABLE</strong><span>'+esc(validation.reason)+'. The verified score above remains authoritative.</span></div>':
       (shotPlays.length?'<div class="slc-floor">'+lines+
