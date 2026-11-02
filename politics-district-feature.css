@@ -398,3 +398,45 @@ body[data-house-page="district"] .dossier-history{
  body[data-house-page="district"] .district-data-story{padding:26px 16px!important}
  body[data-house-page="district"] .dossier-map-panel,body[data-house-page="district"] .dossier-people{padding:22px 18px!important}
 }
+
+/* Place labels are geographically located, not designed into fake positions.
+ * Source: 2026 Census TIGERweb Iowa incorporated-place centroids. */
+body[data-house-page="district"] .feature-index:before{
+ content:"";display:inline-block;flex:none;width:54px;height:2px;background:#e66f61;
+ align-self:center
+}
+body[data-house-page="district"] .feature-index>.feature-index-rule{display:none}
+body[data-house-page="district"] .feature-city-leader{
+ stroke:#ebd17a;stroke-width:1;stroke-dasharray:3 3;opacity:.9
+}
+body[data-house-page="district"] .feature-city-marker-halo{
+ fill:#e6bc70;stroke:#d9f9ff;stroke-width:1.3
+}
+body[data-house-page="district"] .feature-city-marker{fill:#0d293d}
+body[data-house-page="district"] .feature-city-label{
+ fill:#f4f7e9;stroke:#10334b;stroke-width:3.5px;paint-order:stroke;
+ font:900 12px 'DM Sans',Arial,sans-serif;letter-spacing:.2px
+}
+body[data-house-page="district"] .feature-number[data-digits="5"]{
+ font-size:clamp(94px,10vw,164px)
+}
+body[data-house-page="district"] .feature-number[data-digits="6"]{
+ font-size:clamp(83px,8.5vw,136px)
+}
+body[data-house-page="district"] .feature-number[data-digits="7"],
+body[data-house-page="district"] .feature-number[data-digits="8"]{
+ font-size:clamp(65px,6.8vw,104px)
+}
+@media(max-width:760px){
+ body[data-house-page="district"] .feature-number[data-digits="5"]{font-size:clamp(89px,18vw,148px)}
+ body[data-house-page="district"] .feature-number[data-digits="6"]{font-size:clamp(79px,15.5vw,125px)}
+ body[data-house-page="district"] .feature-number[data-digits="7"],
+ body[data-house-page="district"] .feature-number[data-digits="8"]{font-size:clamp(54px,12vw,93px)}
+}
+@media(max-width:450px){
+ body[data-house-page="district"] .feature-city-label{font-size:11px}
+ body[data-house-page="district"] .feature-number[data-digits="5"]{font-size:clamp(76px,17.5vw,109px)}
+ body[data-house-page="district"] .feature-number[data-digits="6"]{font-size:clamp(67px,15vw,94px)}
+ body[data-house-page="district"] .feature-number[data-digits="7"],
+ body[data-house-page="district"] .feature-number[data-digits="8"]{font-size:clamp(46px,11vw,72px)}
+}
