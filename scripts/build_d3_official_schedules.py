@@ -813,6 +813,26 @@ def discover_official_conference_fallbacks(gender, by_org, exact, previous_urls)
     return recovered
 
 
+def javascript_only_placeholder(html):
+    """Recognize a vendor's JS-only shell, not a genuine official schedule.
+
+    Such documents contain neither a title nor a data table and expose only
+    the JavaScript-disabled notice. Retrying 15 URL variants on that hostname
+    cannot recover fixture evidence; switch to verified conference sources.
+    This is never a browser-emulation or access-control bypass.
+    """
+    doc = BeautifulSoup(html, "html.parser")
+    if doc.title or doc.select_one("table"):
+        return False
+    headings = [compact(h.get_text(" ", strip=True)).lower()
+                for h in doc.select("h1, h2, h3")]
+    visible = compact(doc.get_text(" ", strip=True)).lower()
+    return (len(headings) == 1 and
+            headings[0].startswith("javascript is disabled") and
+            len(visible) < 650 and
+            "javascript is disabled" in visible)
+
+
 def fetch_calendar(source):
     owner, url = source
     request = urllib.request.Request(url, headers=HEADERS)
@@ -939,12 +959,25 @@ def inspect_source(gender, source, by_org, exact, preferred_url=None, deep_disco
     fetched_from = None
     visited = set()
     attempt_queue = list(dict.fromkeys(attempts))
+    javascript_unavailable = False
     for candidate in attempt_queue:
         if not candidate or candidate in visited:
             continue
         visited.add(candidate)
         try:
             _, verified_url, html = fetch_calendar((org, candidate))
+            if javascript_only_placeholder(html):
+                # Explicitly label the unavailable public DOM once. Don't
+                # retry every guessed path on a JS-only publishing host.
+                errors.append("JavaScript-only calendar shell; no public schedule table")
+                rejected_page_evidence.append({
+                    "url": verified_url, "title": "",
+                    "headings": ["JavaScript is disabled"],
+                    "date_tables": 0,
+                    "reason": "JavaScript-only calendar shell",
+                })
+                javascript_unavailable = True
+                break
             if deep_discovery and len(observed_links) < 14:
                 observed_links.extend(matching_calendar_links(html, verified_url, gender))
             if candidate == url:
@@ -998,7 +1031,7 @@ def inspect_source(gender, source, by_org, exact, preferred_url=None, deep_disco
                 break
     # 2026-27 current schedule is sometimes linked from another official
     # school page rather than living at a predictable vendor URL.
-    if deep_discovery and not any(re.search(r"HTTP Error (403|429):", e) for e in errors):
+    if deep_discovery and not javascript_unavailable and not any(re.search(r"HTTP Error (403|429):", e) for e in errors):
         if not observed_links:
             # Fetch the school's official athletics landing page once.
             # Never follow a generic campus directory to unrelated hosts.
@@ -1327,7 +1360,9 @@ def process(gender, workers=30, dry_run=False):
         other_sourced = [f for f in fixture_index[org]
                          if org not in f["verified_by_org_ids"]]
         reason = (a.get("error") or "").lower()
-        if "http error 403" in reason or "http error 429" in reason:
+        if "javascript-only calendar shell" in reason:
+            category = "javascript_only_calendar"
+        elif "http error 403" in reason or "http error 429" in reason:
             category = "access_restricted"
         elif "http error 405" in reason:
             category = "server_refused_method"
@@ -1351,6 +1386,7 @@ def process(gender, workers=30, dry_run=False):
             "discovered_schedule_links": a.get("discovered_schedule_links", []),
             "checked_schedule_candidates": a.get("candidate_urls_tried", 0),
             "next_action": {
+                "javascript_only_calendar": "The school's HTML is an empty JavaScript-only shell; use official conference member calendar or documented opponent fixtures, without bypassing access controls",
                 "season_heading_not_verified": "Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar",
                 "server_refused_method": "Inspect official school schedule platform's public print/text calendar; do not circumvent access controls",
                 "access_restricted": "Use school's public conference schedule or official opponent schedule",
@@ -1423,6 +1459,17 @@ def self_test():
     assert resolve("Hope", by_org, exact) == 286
     assert resolve("Trine University", by_org, exact) == 30037
     assert resolve("Trinity", by_org, exact) is None
+    assert javascript_only_placeholder(
+        "<html><body><h1>JavaScript is disabled</h1>"
+        "<p>Enable JavaScript to view this calendar.</p></body></html>")
+    assert not javascript_only_placeholder(
+        "<html><title>2026-27 Men's Basketball Schedule</title>"
+        "<body><h1>JavaScript is disabled</h1>"
+        "<table><tr><td>Nov 6, 2026</td></tr></table></body></html>")
+    assert not javascript_only_placeholder(
+        "<html><body><h2>2026-27 Women's Basketball Schedule</h2>"
+        "<table><tr><th>Opponent</th></tr></table></body></html>")
+
     assert resolve("Trine or Hope", by_org, exact) is None
     missing_names = [
         (538, "Pennsylvania State Univ. Erie, the Behrend College", "Penn State Behrend"),
