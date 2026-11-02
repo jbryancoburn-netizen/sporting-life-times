@@ -49,6 +49,10 @@ jobs:
               assert len(f['source_audit'])==len(ids)
               assert len({a['owner_org_id'] for a in f['source_audit']})==len(ids)
               assert sum(f['source_status_counts'].values())==len(ids)
+              assert len(f['unverified_school_review'])==f['school_calendars_missing']
+              assert f['unverified_school_summary']['remaining_unverified_school_calendars']==f['school_calendars_missing']
+              assert sum(f['unverified_school_summary']['recovery_reason_counts'].values())==f['school_calendars_missing']
+              assert all(u['ncaa_org_id'] in ids for u in f['unverified_school_review'])
               assert f['no_athletics_host']>=0
               assert len(f['fixtures'])==f['fixture_count']
               keys=set()
@@ -73,7 +77,10 @@ jobs:
           for n in 1 2 3 4; do
             if git push origin HEAD:main; then exit 0; fi
             git fetch origin main
-            if ! git rebase origin/main; then
+            # The rebase conflict side named "theirs" is this run's
+            # already validated DIII-only fixture snapshot. Preserve
+            # unrelated upstream changes, replay only our audited files.
+            if ! git rebase -X theirs origin/main; then
               git rebase --abort || true
               echo "Concurrent schedule update; preserving existing published data"
               exit 1
