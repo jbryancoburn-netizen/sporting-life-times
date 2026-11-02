@@ -59,9 +59,11 @@ def main():
     assert sum(x["dem"] for x in rows) == 206156, "House D canvass does not reconcile"
     assert sum(x["rep"] for x in rows) == 206955, "House R canvass does not reconcile"
     valid = conf["county_geography"]
-    query = "name IN (" + ",".join("'" + x["county"].replace("'", "''") + "'" for x in rows) + ")"
+    # The Iowa service has not honored string IN name lookups reliably.
+    # Query all 99 official counties and filter the 20 statutory names HERE.
+    # No inference or new geography is introduced by the client-side filter.
     params = {
-        "where": query,
+        "where": "1=1",
         "outFields": "name,stfips,cofips",
         "returnGeometry": "true",
         "outSR": "4326",
@@ -78,6 +80,7 @@ def main():
     if len(payload) > 3_000_000:
         raise ValueError("Unexpected county GIS response size")
     obj = json.loads(payload)
+    print("Iowa state GIS: returned", len(obj.get("features", [])), "feature candidates")
     if obj.get("type") != "FeatureCollection":
         raise ValueError("State endpoint did not return GeoJSON")
     selected = []
