@@ -312,3 +312,11 @@ footer{border-top:4px double #182c3e;padding-top:24px;padding-bottom:10px}
 #races .race-card-links a{text-decoration:underline;text-underline-offset:3px}
 #races .race-card-links .race-atlas-link{color:#214a64}
 @media(max-width:660px){#races .race-foot{flex-direction:column;align-items:flex-start}#races .race-foot .race-card-links{text-align:left;justify-content:flex-start}}
+
+/* Newspaper's sticky edition index: editorial navigation rather than a second hero. */
+.issue-navigation{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:0;margin:0 -42px;padding:0 42px;background:#142537;color:#e9edf0;border-bottom:3px solid #a84639;box-shadow:0 3px 9px #12233225;white-space:nowrap;overflow-x:auto;scrollbar-width:thin}
+.issue-navigation strong{flex:none;font-size:9px;letter-spacing:1.4px;color:#e9bd8f;margin-right:16px}
+.issue-navigation a{flex:none;text-decoration:none;color:#f2f0ec;font-size:10px;font-weight:900;letter-spacing:.15px;padding:13px 14px;border-left:1px solid #ffffff22}
+.issue-navigation a:hover,.issue-navigation a:focus-visible{background:#a64336;color:white}
+@media(max-width:1100px){.issue-navigation{margin:0 -24px;padding:0 24px}}
+@media(max-width:660px){.issue-navigation{margin:0 -13px;padding:0 13px}.issue-navigation strong{font-size:8px;margin-right:7px}.issue-navigation a{font-size:9px;padding:12px 10px}}
