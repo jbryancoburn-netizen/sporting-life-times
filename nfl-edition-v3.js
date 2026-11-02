@@ -224,7 +224,7 @@ function featuredMatch(g){
       out+='<div class="nfl-p26-elo-note">USRS pregame · '+escapeHtml(a.code)+' '+format((1-homePct)*100)+'% / '+escapeHtml(h.code)+' '+format(homePct*100)+'% <span>Not an in-game win probability</span></div>';
    }
    out+='<div class="nfl-p26-hero-footer"><span>'+escapeHtml(clockLabel)+'</span>'+
-     '<a href="'+(page==='game'?'#nfl-game-box':urlGame(g.id))+'">'+(page==='game'?'BOX SCORE &amp; STATS':g.state==='in'?'FOLLOW THE GAME':'OPEN GAMEFILE')+' <span aria-hidden="true">'+(page==='game'?'↓':'↗')+'</span></a></div></section>';
+     '<a href="'+(page==='game'?'#nfl-game-deep-dive':urlGame(g.id))+'">'+(page==='game'?'BOX SCORE &amp; STATS':g.state==='in'?'FOLLOW THE GAME':'OPEN GAMEFILE')+' <span aria-hidden="true">'+(page==='game'?'↓':'↗')+'</span></a></div></section>';
    return out;
  }
 
@@ -718,5 +718,14 @@ setInterval(refreshLive,45000);
 document.getElementById("nfl-stamp").textContent="NFL data verification pending";
 root.innerHTML='<p class="nfl-kicker">THE NFL EDITION</p><h1 class="nfl-title">NFL DATA PUBLICATION PENDING</h1><div class="nfl-error"><p>The NFL newspaper is installed, but a complete sourced 2026 ledger has not been published. No placeholder ratings or invented player statistics will be shown.</p><p>'+escapeHtml(e.message)+'</p>'+link("sports.html","Browse the sports desks")+'</div>';
 }}
+// The primary stats button opens the full gamefile, never a closed details pane.
+if(page==="game")document.addEventListener("click",event=>{
+ const anchor=event.target.closest('a[href="#nfl-game-deep-dive"]');
+ if(!anchor)return;
+ const details=document.getElementById("nfl-game-deep-dive");
+ if(details&&!details.hidden){details.open=true;return;}
+ const live=document.getElementById("nfl-live-game-data");
+ if(live){event.preventDefault();live.scrollIntoView({behavior:"smooth",block:"start"});}
+});
 main();
 })();
