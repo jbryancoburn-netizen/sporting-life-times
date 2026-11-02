@@ -12,14 +12,14 @@ function moveScores(t){
  if(el&&!scorePause&&!document.hidden&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&Date.now()>scoreInteracted&&el.scrollWidth>el.clientWidth+5){
   if(scoreLast){const n=el.scrollLeft+Math.min((t-scoreLast)*.018,2);el.scrollLeft=n>=el.scrollWidth-el.clientWidth-3?0:n;}
  }
- scoreLast=t;requestAnimationFrame(moveScores);
+ scoreLast=t;/* CSS handles continuous score movement; JS animation disabled. */
 }
 function newsLoop(items){
  const el=$('#cbb-wire-news-track');if(!el)return;
  const key=items.map(a=>a.url).join('|');if(el.dataset.key===key)return;el.dataset.key=key;
  const h=items.length?items.map(a=>'<a href="'+escape(validURL(a.url))+'" target="_blank" rel="noopener noreferrer"><strong>'+escape(a.source||'NEWS')+'</strong> '+escape(a.title)+'</a>').join('<span class="cbb-wire-separator">◆</span>'):'<span>Headlines unavailable</span>';
  el.innerHTML='<div class="cbb-wire-news-group">'+h+'</div><div class="cbb-wire-news-group" aria-hidden="true">'+h+'</div>';
- el.style.setProperty('--cbb-news-duration',Math.max(40,items.length*8)+'s');
+ el.style.setProperty('--cbb-news-duration',Math.max(30,items.length*3.2)+'s');
 }
 
 function normalize(g){
@@ -45,7 +45,17 @@ function draw(){
  games.sort((a,b)=>({live:0,final:1,scheduled:2}[a.state]-{live:0,final:1,scheduled:2}[b.state])||String(a.date).localeCompare(String(b.date)));
  const deck=$('#cbb-wire-score-track');
  const focused=document.activeElement?.closest?.('.cbb-wire-game');
- if(deck&&!focused)deck.innerHTML=games.length?games.slice(0,55).map(g=>scoreCard(g,w)).join(''):'<span class="cbb-wire-empty">No '+(w?'women’s':'men’s')+' Division I games available for this date. <a href="cbb-game-center.html'+(w?'?gender=women':'')+'">Open Game Center →</a></span>';
+ if(deck&&!focused){
+  const selected=games.slice(0,40);
+  const key=(w?'w':'m')+selected.map(g=>g.id+':'+g.awayScore+':'+g.homeScore+':'+g.state).join('|');
+  if(deck.dataset.key!==key){
+   deck.dataset.key=key;
+   const cards=selected.map(g=>scoreCard(g,w)).join('');
+   deck.innerHTML=selected.length?'<div class="cbb-wire-score-group">'+cards+'</div><div class="cbb-wire-score-group" aria-hidden="true">'+cards+'</div>':'<span class="cbb-wire-empty">No games available for this date. <a href="cbb-game-center.html">Open Game Center →</a></span>';
+   deck.classList.toggle('cbb-wire-has-games',Boolean(selected.length));
+   deck.style.setProperty('--cbb-score-duration',Math.max(35,selected.length*3.8)+'s');
+  }
+ }
  const news=(last.articles||[]).filter(a=>a.title&&validURL(a.url)&&(w?a.category==='WBB':a.category==='MBB')).slice(0,18);
  const newsTarget=$('#cbb-wire-news-track');
  newsLoop(news);
