@@ -1040,6 +1040,21 @@ def parse_conference_calendar(html, gender, owner, url, subject, by_org, exact, 
         # Never assume all unprefixed rows are home when a site column exists.
         idx_site = next((i for i, x in enumerate(heads)
                          if re.fullmatch(r"(?:h\s*/\s*a|home\s*/\s*away)", x)), None)
+        # Two real 2026–27 OAC men's member grids were source-verified
+        # before the generic H/A upgrade (22 Muskingum and 12 Ohio
+        # Northern DIII rows), but the upgrade rejected their live DOM.
+        # On these exact URLs only, keep the already-audited opponent
+        # prefixes used for their original verification rather than
+        # dropping both entire official calendars. All global season,
+        # gender, owner, date, and NCAA-opponent checks still apply.
+        legacy_oac_men = (
+            gender == "men" and owner in (455, 517)
+            and urlsplit(url).hostname in ("oac.org", "www.oac.org")
+            and urlsplit(url).query == {
+                455: "schedule=2381", 517: "schedule=2382"
+            }[owner])
+        if legacy_oac_men:
+            idx_site = None
         if idx_date is None or idx_opponent is None or idx_time is None:
             continue
         for tr in table.select("tbody tr") or table.select("tr"):
@@ -2206,6 +2221,29 @@ def self_test():
     except ValueError:
         pass
 
+    # The publisher's 2026–27 OAC Muskingum and Ohio Northern team
+    # pages were previously verified using 'at'/'vs.' prefixes, before
+    # adding generic H/A parsing. Never regress those exact sources.
+    oac_muskingum_html = oac_html.replace(
+        "Trinity College (Connecticut)", "Muskingum University")
+    oac_muskingum_rows, _ = parse_conference_calendar(
+        oac_muskingum_html, "men", 455,
+        "https://oac.org/schedule.aspx?schedule=2381",
+        "Muskingum", by_org, exact)
+    assert len(oac_muskingum_rows) >= 8, len(oac_muskingum_rows)
+    assert oac_muskingum_rows[0]["away_org_id"] == 455
+    assert oac_muskingum_rows[1]["home_org_id"] == 455
+    assert oac_muskingum_rows[2]["neutral"]
+    oac_onu_html = oac_html.replace(
+        "Trinity College (Connecticut)", "Ohio Northern University")
+    oac_onu_rows, _ = parse_conference_calendar(
+        oac_onu_html, "men", 517,
+        "https://oac.org/schedule.aspx?schedule=2382",
+        "Ohio Northern", by_org, exact)
+    assert len(oac_onu_rows) >= 8, len(oac_onu_rows)
+    assert oac_onu_rows[1]["home_org_id"] == 517
+    # No fallback on arbitrary OAC schedule IDs, women, other owners or
+    # other conference domains; the normal strict H/A tests above stand.
     legacy_rows, legacy_report = parse_conference_calendar(
         conf_html, "men", 64, "https://blackburnbeavers.com/sports/mbkb/2026-27/schedule",
         "Blackburn College", by_org, exact, school_legacy=True)
