@@ -10,10 +10,13 @@ const brands=JSON.parse(fs.readFileSync('data/college-soccer-team-branding.json'
 const overrides=JSON.parse(fs.readFileSync('data/college-soccer-crest-overrides.json','utf8')).schools;
 assert(!cup.includes("node('span','slt-mark soccer-school-mark')"),'Generic slt-mark class still adds extra borders');
 assert(!cup.includes('slt-dual-shell'),'Legacy dual-shell belongs to the generic decorator, not Cup UI');
-assert(generic.includes("img.closest('.cs-pitch-badge,.cs-match-badge,.soccer-school-mark,.ncaa-native-mark')"),'Shared decorator must explicitly skip owned soccer and natural-artwork crests');
+assert(generic.includes(".soccer-school-mark"),'Shared decorator must explicitly skip independently owned NCAA soccer crests');
 assert(html.includes('college-soccer-cup-ui.js?v=20261102-single-owner1'),'Selection has stale renderer cache key');
-assert(html.includes('soccer-native=20261102'),'Selection has stale generic decorator cache key');
+assert(html.includes('college-soccer-selection.js?v=20261102-double-ring4'),'Selection does not load the unified two-ring renderer');
 assert(selection.includes("file('data/dual-ring-team-palette.json')"),'Selection fails to load actual school colors');
+assert(selection.includes("window.CollegeSoccerCupUI.crest(name,entry.team_id,'men-d1',branding)"),'Selection must use shared two-ring crest for every card and bracket slot');
+assert(!selection.includes('nativeSchoolLogo'),'An unframed selection exception has reappeared');
+assert(!fs.readFileSync('college-soccer-selection.css','utf8').includes('.ncaa-native-mark'),'Ringless legacy CSS must not exist');
 class Element{
  constructor(tag){this.tag=tag;this.className='';this.children=[];this.events={};this.attrs={};this.removed=false;this.naturalWidth=0;this.dataset={};this.style={
   cssText:'',props:{},setProperty:(k,v,p)=>{this.style.props[k]={value:v,priority:p||''}}
@@ -35,16 +38,19 @@ for(const id of selectionIds){
  const school={...brands,soccer_palette:palette,crest_overrides:overrides};
  const mark=crest(id.replaceAll('-',' '),id,'men-d1',school);
  assert.equal(mark.className,'soccer-school-mark','A generic markup class added unnecessary ring for '+id);
+ assert.equal(mark.dataset.ringCount,'2','Two-ring invariant violated for '+id);
+ assert.equal(mark.dataset.colorVerification,'palette','Colors must come from published primary/secondary school palette: '+id);
  assert(mark.style.cssText.includes('border:2px solid '+colors.primary+'!important'),'Wrong primary ring for '+id);
  assert(mark.style.cssText.includes('box-shadow:none!important'),'Extraneous ring shadow for '+id);
  const strokes=mark.children.filter(n=>n.tag==='span'&&n.style.cssText.includes('border:2px solid '));
  assert.equal(strokes.length,1,'A third ring was added for '+id);
  assert(strokes[0].style.cssText.includes('border:2px solid '+colors.secondary+'!important'),'Wrong secondary ring '+id);
+ assert(strokes[0].style.cssText.includes('inset:0!important'),'Rings must touch without a third white gap '+id);
  const image=mark.children.find(n=>n.tag==='img');
  const fallback=mark.children.find(n=>n.className==='soccer-school-fallback');
  assert(image,'No primary image candidate '+id);
  assert(fallback,'No fallback image initials '+id);
- assert(image.style.cssText.includes('width:78%!important'),'Artwork too small/large '+id);
+ assert(image.style.cssText.includes('width:90%!important'),'Artwork must be centered and legible '+id);
  assert(image.style.cssText.includes('clip-path:none!important'),'Logo cropped '+id);
  assert(image.style.cssText.includes('border-radius:0!important'),'Artwork should not inherit a third roundel');
  assert(image.src.startsWith('https://'),'Invalid image source for '+id);
