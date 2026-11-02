@@ -14,6 +14,32 @@ let feed={},teams={},games=[];
 let liveFeed=null,liveSource='season ledger',lastLiveSignature='';
 function team(id){return teams[String(id)]||{id:String(id),name:"Unknown team",code:"?",color:"#222",secondary_color:"#cfa951"};}
 function crest(t,size=""){return '<span class="nfl-badge '+size+'" style="--nfl-primary:'+escapeHtml(t.color||"#222")+';--nfl-secondary:'+escapeHtml(t.secondary_color||"#cfa951")+'"><span class="nfl-badge-core"><img loading="lazy" src="'+escapeHtml(t.logo||"")+'" alt=""></span></span>';}
+/* Source-accurate pregame score estimates: no future-stat lookahead. */
+function scoreForecast(g) {
+ const e=g.elo||{},away=team(g.away.id),home=team(g.home.id);
+ let ap=e.away_projected_points==null?NaN:Number(e.away_projected_points);
+ let hp=e.home_projected_points==null?NaN:Number(e.home_projected_points);
+ const prob=e.home_win_probability==null?NaN:Number(e.home_win_probability);
+ if(g.state==='pre'&&!(feed.model||{}).score_projection_version){
+  const n=x=>Number(x),nums=[away.pf,away.pa,away.played,home.pf,home.pa,home.played];
+  const ra=Number(e.away_before),rh=Number(e.home_before);
+  if(nums.every(x=>x!=null&&Number.isFinite(n(x)))&&Number.isFinite(ra)&&Number.isFinite(rh)){
+   const attack=t=>(88+n(t.pf))/(4+n(t.played));
+   const defense=t=>(88+n(t.pa))/(4+n(t.played));
+   const aBase=(attack(away)+defense(home))/2-0.9;
+   const hBase=(attack(home)+defense(away))/2+0.9;
+   const total=Math.max(30,Math.min(70,aBase+hBase));
+   const homeAdv=g.neutral_site?0:Number((feed.model||{}).home_advantage_elo||30);
+   const margin=.65*(hBase-aBase)+.35*(rh+homeAdv-ra)/20;
+   ap=Math.round(Math.max(10,Math.min(45,(total-margin)/2)));
+   hp=Math.round(Math.max(10,Math.min(45,(total+margin)/2)));
+  }
+ }
+ if(!Number.isFinite(ap)||!Number.isFinite(hp))return null;
+ if(ap===hp){if(Number.isFinite(prob)&&prob<.5)ap++;else hp++;}
+ return {away:ap,home:hp};
+}
+
 function side(s,showScore){const t=team(s.id);return '<div class="nfl-side">'+crest(t,"sm")+link(urlTeam(t.id),t.name)+(showScore&&s.score!=null?'<b class="nfl-score">'+s.score+'</b>':"")+'</div>';}
 function panel(title,content){return '<section class="nfl-section"><h2>'+escapeHtml(title)+'</h2>'+content+'</section>';}
 function note(content){return '<div class="nfl-note">'+content+'</div>';}
@@ -157,17 +183,6 @@ function featuredMatch(g){
       return isOrange&&dark?{base:alternate,accent:primary}:{base:primary,accent:alternate};
    };
    const pa=paint(a),ph=paint(h);
-   // Authentic team marks used only for wallpaper; the double-ring crest is unchanged.
-   const officialMark=t=>/^https:\/\/a\.espncdn\.com\/i\/teamlogos\/nfl\/\d+\/[a-z0-9_-]+\.png$/i.test(t.logo||'')?'url(&quot;'+escapeHtml(t.logo)+'&quot;)':'none';
-   // Archival identities curated from Wikimedia Commons (PD-US; trademarks remain held by clubs).
-   // Only verified vintage assets are used; no invented historical graphics.
-   const archivalMark=t=>{
-    const archive={
-      "12":"https://upload.wikimedia.org/wikipedia/commons/e/e1/Kansas_City_Chiefs_logo.svg",
-      "7":"https://upload.wikimedia.org/wikipedia/commons/1/1f/Denver_Broncos_wordmark_%281968_-_1996%29.png"
-    };
-    return archive[String(t.id)]?'url(&quot;'+archive[String(t.id)]+'&quot;)':'none';
-   };
 
    const stateLabel=g.state==='in'?(g.period>4?'OVERTIME':'QUARTER '+(g.period||'?')):g.state==='post'?nflFinalStatus(g):'UP NEXT';
    const detail=g.state==='in'?((g.period>4?'OT':'Q'+(g.period||'?'))+' · '+(g.clock||'IN PROGRESS')):g.state==='post'?nflFinalStatus(g):date(g.date);
@@ -177,14 +192,14 @@ function featuredMatch(g){
      '<span class="nfl-p26-hero-state '+(g.state==='in'?'is-live':pre?'is-pre':'is-final')+'">'+
      (g.state==='in'?'<i class="nfl-p26-red-dot"></i>':'')+escapeHtml(detail)+'</span></div>'+
      '<div class="nfl-p26-score-stage nfl-p26-box-score" style="--nfl-away-color:'+escapeHtml(pa.base)+';--nfl-away-accent:'+escapeHtml(pa.accent)+';--nfl-home-color:'+escapeHtml(ph.base)+';--nfl-home-accent:'+escapeHtml(ph.accent)+'">'+
-       '<div class="nfl-p26-box-team nfl-p26-box-away" style="--nfl-box-color:'+escapeHtml(pa.base)+';--nfl-box-alt:'+escapeHtml(pa.accent)+';--nfl-club-mark:'+officialMark(a)+';--nfl-club-archive:'+archivalMark(a)+'">'+
+       '<div class="nfl-p26-box-team nfl-p26-box-away" style="--nfl-box-color:'+escapeHtml(pa.base)+';--nfl-box-alt:'+escapeHtml(pa.accent)+'">'+
          '<div class="nfl-p26-box-row">'+crest(a,'lg')+
            '<strong class="nfl-p26-box-points" aria-label="'+escapeHtml(a.name)+' score">'+(pre?'—':format(g.away.score))+'</strong></div>'+
          '<div class="nfl-p26-box-identity"><b>'+escapeHtml(short(a))+'</b>'+
            '<small>'+escapeHtml(a.code)+' · '+escapeHtml(rec(a))+
            (g.state==='in'&&g.possession===a.id?' · BALL':'')+'</small></div></div>'+
        '<span class="nfl-p26-box-seam" aria-hidden="true"></span>'+
-       '<div class="nfl-p26-box-team nfl-p26-box-home" style="--nfl-box-color:'+escapeHtml(ph.base)+';--nfl-box-alt:'+escapeHtml(ph.accent)+';--nfl-club-mark:'+officialMark(h)+';--nfl-club-archive:'+archivalMark(h)+'">'+
+       '<div class="nfl-p26-box-team nfl-p26-box-home" style="--nfl-box-color:'+escapeHtml(ph.base)+';--nfl-box-alt:'+escapeHtml(ph.accent)+'">'+
          '<div class="nfl-p26-box-row">'+
            '<strong class="nfl-p26-box-points" aria-label="'+escapeHtml(h.name)+' score">'+(pre?'—':format(g.home.score))+'</strong>'+crest(h,'lg')+'</div>'+
          '<div class="nfl-p26-box-identity"><b>'+escapeHtml(short(h))+'</b>'+
@@ -463,8 +478,8 @@ function gamePage(){
  const signed=x=>x==null?'—':(x>0?'+':'')+format(x,1);
  const beforeAway=elo.away_before==null?'—':format(elo.away_before,1);
  const beforeHome=elo.home_before==null?'—':format(elo.home_before,1);
- const projected=elo.away_projected_points==null||elo.home_projected_points==null?
- '—':escapeHtml(elo.away_projected_points)+' – '+escapeHtml(elo.home_projected_points);
+ const scorePick=scoreForecast(g);
+ const projected=scorePick?format(scorePick.away)+' – '+format(scorePick.home):'—';
  out+='<section class="nfl-game-model nfl-usrs-v7" style="--usrs-away:'+escapeHtml(a.color||'#ad2330')+
   ';--usrs-home:'+escapeHtml(h.color||'#163b60')+'">'+
   '<div class="nfl-usrs-title"><div><span>USRS · INDEPENDENT GAME INTELLIGENCE</span><h2>THE MATCHUP EDGE</h2></div>'+
