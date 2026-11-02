@@ -111,7 +111,7 @@ class TestCCAA(unittest.TestCase):
         pending=dict(self.teams)
         pending['merced']=dict(pending['merced'],not_eligible_for_dii_elo=True)
         rep,actual=self.call(pages,teams=pending)
-        self.assertEqual(rep['added'],78)  # Other 13 eligible schools remain publishable.
+        self.assertEqual(rep['added'],0)  # All 14 valid CCAA member identities required.
         self.assertTrue(all(g['away']!='merced' and g['home']!='merced' for g in actual.values()))
         ambiguous=dict(self.teams)
         ambiguous['second-humboldt']={'name':'Humboldt State','conference':'CCAA'}
@@ -124,8 +124,8 @@ class TestCCAA(unittest.TestCase):
         # The other university must mark the conference game explicitly.
         pages[fresno_url]=pages[fresno_url].replace('<td>*</td>','<td></td>')
         report,games=self.call(pages)
-        self.assertEqual(report['added'],91)
-        self.assertEqual(report['unmarked_both_held'],0)
+        self.assertEqual(report['added'],90)
+        self.assertEqual(report['unmarked_both_held'],1)  # Merced has no conference marker.
         # Take one specific Fresno/other-school matchup, remove its other
         # school's marker too; two unmarked pages cannot certify conference status.
         date,a,b=next((d,x,y) for d,x,y in pairs if 'fresno' in (x,y))
@@ -137,8 +137,8 @@ class TestCCAA(unittest.TestCase):
         self.assertIn(marker,original)
         pages[other_url]=original.replace(marker,f'<tr><td>{day_text}</td><td></td>',1)
         second,after=self.call(pages)
-        self.assertEqual(second['added'],90)
-        self.assertGreaterEqual(second['unmarked_both_held'],1)
+        self.assertEqual(second['added'],89)
+        self.assertGreaterEqual(second['unmarked_both_held'],2)
         self.assertFalse(any(g['date']==date and 'fresno' in (g['away'],g['home'])
                              for g in after.values()))
     def test_conflicting_pacific_clocks_not_assigned(self):
