@@ -1,0 +1,32 @@
+name: DIII residual school-calendar recovery priorities
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/d3-recovery-priority.yml'
+permissions:
+  contents: read
+jobs:
+  residual:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Print zero-coverage programs and source failure evidence
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          for gender in ('men','women'):
+              d=json.loads(Path(f'data/d3-{gender}-official-fixtures-2026-27.json').read_text())
+              unverified=d.get('unverified_school_review',[])
+              zero=sorted((x for x in unverified if x['opponent_published_fixtures']==0),
+                          key=lambda x:(x['category'],x['school']))
+              limited=sorted((x for x in unverified if 0<x['opponent_published_fixtures']<5),
+                             key=lambda x:(x['opponent_published_fixtures'],x['school']))
+              print(json.dumps({'gender':gender,'ncaa_programs':d['ncaa_confirmed_programs'],
+                  'school_calendars_verified':d['verified_source_calendars'],
+                  'official_conference_fallbacks':d.get('official_conference_calendar_fallbacks',0),
+                  'zero_fixture_count':len(zero),'zero_fixture_programs':zero,
+                  'one_to_four_fixture_programs':limited[:18]},sort_keys=True))
+          PY
