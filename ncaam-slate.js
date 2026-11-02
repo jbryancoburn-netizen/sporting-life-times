@@ -111,7 +111,9 @@ function selectGames(all,day,view,query,followed){
     (view==='upcoming'&&g.phase==='upcoming')||(view==='exhibition'&&g.kind==='exhibition')
   )&&(!q||[g.away.name,g.away.full,g.home.name,g.home.full].some(t=>String(t||'').toLowerCase().includes(q))))
   .sort((a,b)=>{const p=g=>g.phase==='live'?0:g.phase==='upcoming'?1:g.phase==='final'?2:3;
-    return p(a)-p(b)||(a.date||'').localeCompare(b.date||'')||a.away.name.localeCompare(b.away.name)});
+    const certified=g=>Number(Boolean(g.away.canonical))+Number(Boolean(g.home.canonical));
+    return p(a)-p(b)||certified(b)-certified(a)||
+      (a.date||'').localeCompare(b.date||'')||a.away.name.localeCompare(b.away.name)});
 }
 function start(){
 const root=document.getElementById('slate-root');if(!root)return;
@@ -169,7 +171,7 @@ function card(g,featured){
  const isExternal=g.kind==='exhibition';
  const source=g.kind==='exhibition'?(g.evidence==='secondary'?'Published secondary result':'University / cited result'):
    g.phase==='final'?g.evidence==='final-source'?'Attributed final':'Reported final':
-   g.phase==='live'?'Live scoreboard':'Verified fixture + USRS';
+   g.phase==='live'?'Live scoreboard':'Sourced fixture + USRS';
  const score=g.phase==='upcoming'?'':(g.away.score===null||g.home.score===null?'SCORE PENDING':g.away.score+' — '+g.home.score);
  const venue=g.venue?'<span class="sl-location">'+esc(g.venue)+'</span>':'';
  return '<article class="sl-game'+(featured?' sl-featured':'')+'" style="--sl-away:'+brand(g.away)+';--sl-home:'+brand(g.home)+'">'+
