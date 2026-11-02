@@ -19,3 +19,11 @@
 .d3-calendar-status{margin:16px 0 12px;padding:11px 14px;background:#eaf1ec;border-left:5px solid #286a76;color:#193847;font-weight:800;font-size:11px;letter-spacing:.055em;line-height:1.6}
 .game-head{flex-wrap:wrap;gap:5px 14px;line-height:1.6}
 .game-footer{line-height:1.6;overflow-wrap:anywhere}
+
+/* Two official calendars agree on the matchup/date but conflict on site.
+   Never color either school as a home or away side until reconciled. */
+.d3-site-dispute{border-top:4px solid #b45c31;background:#fff8f0}
+.d3-site-dispute .game-head{color:#713c23;letter-spacing:.04em}
+.d3-site-dispute .game-footer{border-top:1px solid #edd6c2;color:#553525}
+.d3-site-dispute .game-footer strong{display:block;margin-bottom:4px}
+.d3-site-dispute .game-footer a{margin-right:9px}
