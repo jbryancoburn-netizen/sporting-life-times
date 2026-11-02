@@ -15,7 +15,8 @@ const updateVisuals=()=>{
  const fieldLink=document.querySelector('.cs-hero-aside-foot a');if(fieldLink)fieldLink.hidden=selected!=='men-d1';
  const fieldText=document.querySelector('.cs-hero-aside-foot span');if(fieldText)fieldText.textContent=selected==='men-d1'?'48 IN THE FIELD · 23 AUTOMATIC BIDS':'2026 USRS · '+label(selected);
  const kicker=document.querySelector('.cs-hero-aside-kicker');if(kicker)kicker.textContent='THE TEAM TO BEAT · '+label(selected);
- const selectionNav=document.querySelector('.cs-tournament-shortcut');if(selectionNav)selectionNav.hidden=selected!=='men-d1';
+ const conferenceNav=document.querySelector('.cs-tournament-shortcut');if(conferenceNav){conferenceNav.hidden=false;conferenceNav.textContent=selected==='men-d1'?'CONFERENCE DESKS & TOURNAMENTS':'CONFERENCE DESKS';}
+ for(const href of ['college-soccer-men.html','college-soccer-selection.html']){const nav=document.querySelector('nav.site-nav a[href="'+href+'"]');if(nav)nav.hidden=selected!=='men-d1';}
 };
 function set(next,opts={}){
  if(!available.includes(next))return;
