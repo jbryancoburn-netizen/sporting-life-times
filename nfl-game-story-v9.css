@@ -518,3 +518,21 @@ body.nfl-paper[data-page="game"]{background:#e9e6dd;color:#172932}
  .nfl-paper[data-page="game"] .nfl-box-data td{padding:7px 9px}
  .nfl-paper[data-page="game"] .nfl-box-data th:first-child{min-width:130px}
 }
+
+
+/* Phone screenshot QA: never inherit old generic link/title typography. */
+.nfl-paper[data-page="game"] .nfl-story-topline a{
+ display:inline-flex!important;align-items:center!important;max-width:62%;
+ white-space:nowrap!important;flex:0 1 auto!important;
+ font:900 10px/1.4 Arial,Helvetica,sans-serif!important;
+ letter-spacing:.1em!important;text-transform:uppercase!important;
+ color:#a52c26!important;padding:0!important;margin:0!important;
+}
+.nfl-paper[data-page="game"] .nfl-story-topline span{
+ flex:0 0 auto;font:900 10px/1.4 Arial,Helvetica,sans-serif!important;
+ letter-spacing:.07em!important;white-space:nowrap!important;
+}
+@media(max-width:375px){
+ .nfl-paper[data-page="game"] .nfl-story-topline a,
+ .nfl-paper[data-page="game"] .nfl-story-topline span{font-size:9px!important;letter-spacing:.03em!important}
+}
