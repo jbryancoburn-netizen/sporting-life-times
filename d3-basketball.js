@@ -19,13 +19,15 @@ const emblem=t=>{
 const team=id=>state.teams.get(id)||{id,name:id};
 const row=(t,i)=>'<div class="board-row"><span>'+esc(i==null?'':i+1)+'</span>'+emblem(t)+'<a class="school-link" href="'+teamLink(t)+'">'+esc(t.name)+'</a><span>'+esc(t.w||0)+'–'+esc(t.l||0)+'</span><span>'+pct(t)+'%</span><span class="elo">'+Math.round(t.elo||1500)+'</span></div>';
 function card(g){
- const a=team(g.away),h=team(g.home),final=g.status==='final',live=g.status==='live';
+ const a=g.away_external_label?{name:g.away_external_label}:team(g.away),h=g.home_external_label?{name:g.home_external_label}:team(g.home),final=g.status==='final',live=g.status==='live';
+ const identityLabel=t=>t?.name??'Unknown opponent';
+ const schoolName=(t,external)=>external?'<span class="school-link" title="Opponent NCAA division not matched">'+esc(identityLabel(t))+'</span>':'<a class="school-link" href="'+teamLink(t)+'">'+esc(identityLabel(t))+'</a>';
  const showScore=final||live,winA=final&&g.away_score>g.home_score,winH=final&&g.home_score>g.away_score;
  const time=final?'FINAL':live?'LIVE · SOURCE SNAPSHOT':g.start_time||(g.tipoff_as_posted?g.tipoff_as_posted+' · POSTED TIME (ZONE UNVERIFIED)':'TIPOFF UNCONFIRMED');
  const p=typeof g.pred_home_pct==='number'&&g.elo_eligible?'<p class="muted">Pregame home win chance: '+esc(g.pred_home_pct)+'% · provisional DIII Elo</p>':'';
  return '<article class="game-card"><div class="game-head"><span>'+esc(g.date)+' · '+esc(time)+(g.neutral?' · NEUTRAL SITE':'')+'</span><span>'+esc(g.network||'')+'</span></div>'+
- '<div class="game-row '+(winA?'winner':'')+'">'+emblem(a)+'<a class="school-link" href="'+teamLink(a)+'">'+esc(a.name)+'</a><b>'+(showScore?esc(g.away_score??'—'):'')+'</b></div>'+
- '<div class="game-row '+(winH?'winner':'')+'">'+emblem(h)+'<a class="school-link" href="'+teamLink(h)+'">'+esc(h.name)+'</a><b>'+(showScore?esc(g.home_score??'—'):'')+'</b></div>'+p+
+ '<div class="game-row '+(winA?'winner':'')+'">'+emblem(a)+schoolName(a,!!g.away_external_label)+'<b>'+(showScore?esc(g.away_score??'—'):'')+'</b></div>'+
+ '<div class="game-row '+(winH?'winner':'')+'">'+emblem(h)+schoolName(h,!!g.home_external_label)+'<b>'+(showScore?esc(g.home_score??'—'):'')+'</b></div>'+p+
  '<div class="game-footer">'+(g.schedule_only?(g.source_kind==='official_conference'?'VERIFIED CONFERENCE CALENDAR FIXTURE':g.source_kind==='official_conference_and_school'?'UNIVERSITY + CONFERENCE CONFIRMED FIXTURE':g.source_verification==='reciprocal'?'RECIPROCALLY VERIFIED UNIVERSITY FIXTURE':'SCHOOL-PUBLISHED UNIVERSITY FIXTURE')+' · NO GAME RESULT YET':g.elo_eligible?'NCAA-VERIFIED DIII RESULT':'OPPONENT ELIGIBILITY NOT VERIFIED · EXCLUDED FROM ELO')+' · '+source(g)+(g.venue?' · '+esc(g.venue):'')+(g.venue_location?' · '+esc(g.venue_location):'')+'</div></article>';
 }
 function renderTeam(d){
@@ -74,6 +76,7 @@ function renderHome(d){
  $('coverage').innerHTML='<b>'+games.length+'</b> published games, <b>'+d.coverage.eligible_finals+'</b> Elo-eligible finals, and <b>'+d.coverage.scanned_days+'</b> recently checked NCAA dates.<br>'+
  '<b>'+esc(d.coverage.official_directory_count??0)+'</b> schools recorded in the NCAA’s official 2026–27 sport-sponsor directory. The July projection was <b>'+esc(d.coverage.ncaa_projected_programs??'—')+'</b>; difference <b>'+esc(d.coverage.official_vs_projection_gap??'—')+'</b> remains to reconcile.<br>'+
  '<b>'+d.coverage.failed_days.length+'</b> checked dates failed their primary and fallback reads; prior published games were retained.<br>'+
+ '<b>Other official school games:</b> '+esc(d.coverage.unresolved_opponent_fixture_count??0)+' published with their posted opponent labels, but without confirmed DIII opponent identity; entirely excluded from Elo.<br>'+
  '<b>University schedule crawl:</b> '+esc(d.coverage.school_calendars_checked??0)+' NCAA programs audited, '+esc(d.coverage.school_calendars_verified??0)+' school calendars verified, '+esc(d.coverage.official_conference_calendar_fallbacks??0)+' additional official conference calendars, '+esc(d.coverage.school_calendars_missing??0)+' school sites not independently verified, including '+esc(d.coverage.school_calendars_unresolved??0)+' unresolved source checks; '+esc(d.coverage.official_fixture_count??0)+' additional fixtures; '+esc(d.coverage.official_fixture_overlaps??0)+' corroborated scoreboard entries; '+esc(d.coverage.reciprocal_fixtures??0)+' cross-school corroborations; '+esc(d.coverage.source_conflicts??0)+' conflicting source matches quarantined.<br>'+
  '<b>Program directory:</b> '+esc(d.coverage.directory_status||'Published NCAA-scoreboard identities only')+'<br>Calendar availability is tracked school by school; no readable page does not mean no games. Complete calendars, official conference standings, player statistics and historical Elo calibration remain <b>outstanding</b>.';
 }
@@ -116,7 +119,22 @@ async function start(){
         start_time:'',schedule_only:true});added++;
     }
   }
+  // Official school schedules also contain legitimate opponents outside
+  // the NCAA DIII membership crosswalk. Show them without a fake team ID,
+  // score, predicted winner, or Elo eligibility.
+  let unresolvedOpponentGames=0;
+  for(const f of fixtureData?.unresolved_opponent_fixtures||[]){
+    const school=orgIds.get(f.source_owner_org_id),other=String(f.external_opponent_label||'').trim();
+    if(!school||!other||!/^202[67]-\d{2}-\d{2}$/.test(f.date)||
+      !['away','home','neutral'].includes(f.placement)||!/^https:\/\//.test(f.source_url||''))continue;
+    const fixture={...f,away:f.placement==='away'?school.id:null,home:f.placement!=='away'?school.id:null,
+      away_external_label:f.placement==='away'?null:other,
+      home_external_label:f.placement==='away'?other:null,
+      status:'scheduled',schedule_only:true,elo_eligible:false,start_time:''};
+    merged.set('unresolved|'+f.id,fixture);unresolvedOpponentGames++;
+  }
   d.games=[...merged.values()].sort((a,b)=>a.date.localeCompare(b.date)||a.id.localeCompare(b.id));
+  d.coverage.unresolved_opponent_fixture_count=unresolvedOpponentGames;
   d.coverage.official_fixture_count=added;
   d.coverage.official_fixture_overlaps=enhanced;
   d.coverage.school_calendars_verified=fixtureData?.verified_source_calendars??0;
