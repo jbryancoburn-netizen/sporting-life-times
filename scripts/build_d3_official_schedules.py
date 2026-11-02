@@ -693,15 +693,15 @@ def parse_landmark_list_schedule(doc, gender, owner, url, by_org, exact):
     source = urlsplit(url)
     if (source.hostname not in ("landmarkconference.org", "www.landmarkconference.org")
             or source.path != "/schedule.aspx" or
-            not re.fullmatch(r"schedule=\\d+", source.query)):
+            not re.fullmatch(r"schedule=\d+", source.query)):
         raise ValueError("Not an official Landmark team schedule endpoint")
     entries, inspected = [], 0
     excluded = defaultdict(int)
     for card in doc.select(".sidearm-schedule-list-game"):
         text = compact(card.get_text(" ", strip=True))
         md = re.search(
-            r"\\b(Nov|Dec|Jan|Feb|Mar|Apr)\\.?\\s+(\\d{1,2})\\s*"
-            r"\\((Mon|Tue|Wed|Thu|Fri|Sat|Sun)\\)", text, re.I)
+            r"\b(Nov|Dec|Jan|Feb|Mar|Apr)\.?\s+(\d{1,2})\s*"
+            r"\((Mon|Tue|Wed|Thu|Fri|Sat|Sun)\)", text, re.I)
         if not md:
             continue
         month = {"nov": 11, "dec": 12, "jan": 1, "feb": 2, "mar": 3, "apr": 4}[md[1].lower()]
@@ -719,7 +719,7 @@ def parse_landmark_list_schedule(doc, gender, owner, url, by_org, exact):
             excluded["no_structured_opponent"] += 1
             continue
         label = compact(element.get_text(" ", strip=True))
-        opponent = re.sub(r"(?i)^(?:at|vs\\.?)\\s+", "", label).strip()
+        opponent = re.sub(r"(?i)^(?:at|vs\.?)\s+", "", label).strip()
         if not opponent or BAD_OPPONENT.search(opponent):
             excluded["conditional_or_unverified_opponent"] += 1
             continue
@@ -728,10 +728,10 @@ def parse_landmark_list_schedule(doc, gender, owner, url, by_org, exact):
         # cards use "at" for away and "vs" for home. Neutral/TBA sites are
         # held rather than assigned fictional home advantage.
         placement = re.search(
-            r"(?i)\\b(at|vs\\.?)\\s+" + re.escape(opponent) + r"(?=\\b|$)",
+            r"(?i)\b(at|vs\.?)\s+" + re.escape(opponent) + r"(?=\b|$)",
             text[md.end():])
         if not placement or re.search(
-                r"(?i)\\bneutral\\s*(?:site|court)?\\b", text):
+                r"(?i)\bneutral\s*(?:site|court)?\b", text):
             excluded["site_not_explicitly_verified"] += 1
             continue
         inspected += 1
@@ -740,7 +740,7 @@ def parse_landmark_list_schedule(doc, gender, owner, url, by_org, exact):
             excluded["missing_or_ambiguous_ncaa_opponent"] += 1
             continue
         is_away = placement[1].lower() == "at"
-        time = re.search(r"\\b\\d{1,2}:\\d{2}\\s*[AP]\\.?M\\.?", text[md.end():], re.I)
+        time = re.search(r"\b\d{1,2}:\d{2}\s*[AP]\.?M\.?", text[md.end():], re.I)
         entries.append({
             "date": date.isoformat(),
             "away_org_id": owner if is_away else opp_id,
