@@ -90,7 +90,8 @@ def school_schedule_coverage(teams: list[dict], games: list[dict]) -> dict:
 
 
 def full_season_school_certification(gender: str, teams: list[dict],
-                                     games: list[dict], data_dir: Path) -> dict:
+                                     games: list[dict], data_dir: Path,
+                                     live_captures: list[dict] | None = None) -> dict:
     """Fail-closed, every-school 2026-27 certification ledger.
 
     Official-source observations are NOT an attestation of a complete season.
@@ -122,6 +123,25 @@ def full_season_school_certification(gender: str, teams: list[dict],
     for rec in evidence.get("schools", []):
         if rec.get("gender") == gender:
             snapshots[str(rec.get("owner_id"))].append(rec)
+    # Verified date-by-date live university grids already captured by the
+    # existing publisher survive its fast refresh path in ledger quality.
+    # Treat them as PARTIAL official source evidence, not a complete
+    # school-season calendar. Never let an automated capture stand in for
+    # a manually reviewed, independently verified full-season attestation.
+    captured_owners = set()
+    for rec in live_captures or []:
+        if (not isinstance(rec, dict) or
+            rec.get("gender") != gender or
+            rec.get("capture_scope") != "partial_verified_dated_rows" or
+            not isinstance(rec.get("fixtures"), list)):
+            continue
+        owner = str(rec.get("owner_id") or "")
+        if (owner in schools and not snapshots.get(owner) and
+            str(rec.get("source_url") or "").startswith("https://")):
+            snapshots[owner].append({**rec, "scope": (
+                "Machine-captured dated official university grid rows; "
+                "Not a complete independently reviewed school calendar.")})
+            captured_owners.add(owner)
     for rec in evidence.get("live_school_sources", []):
         if rec.get("gender") == gender:
             live_pins[str(rec.get("owner_id"))].append(rec)
@@ -156,6 +176,7 @@ def full_season_school_certification(gender: str, teams: list[dict],
         # A one-/two-game opponent snippet is never an exhaustive calendar,
         # even when every saved row already exists in the published ledger.
         partial_snapshot = any(
+            source.get("capture_scope") == "partial_verified_dated_rows" or
             any(term in str(source.get("scope") or "").lower() for term in (
                 "not a complete", "no full", "one exact",
                 "two dated", "only one", "individually confirmed"))
@@ -318,6 +339,7 @@ def full_season_school_certification(gender: str, teams: list[dict],
             "published_games": len(by_team_games[ident]),
             "official_source_urls": source_links,
             "official_snapshot_count": len(own),
+            "live_source_rows_persisted": ident in captured_owners,
             "explicitly_partial_source": partial_snapshot,
             "official_source_rows": evidence_rows,
             "eligible_source_games": eligible_rows,
@@ -348,6 +370,11 @@ def full_season_school_certification(gender: str, teams: list[dict],
         "excluded_membership_schools": len(rows) - len(eligible),
         "eligible_with_saved_official_snapshots": len(with_source),
         "eligible_without_saved_official_snapshots": len(eligible) - len(with_source),
+        "eligible_with_auto_captured_unreviewed_dates": sum(
+            s["live_source_rows_persisted"] for s in eligible),
+        "auto_capture_certification_policy": (
+            "Live grid date captures are partial source evidence only;"
+            " never school-season certifications or independent checks."),
         "unresolved_official_source_games": sum(s["missing_source_games_count"] for s in eligible),
         "role_conflicts": sum(s["role_conflicts"] for s in eligible),
         "tipoff_disagreements": sum(s["tipoff_disagreements"] for s in eligible),
@@ -467,7 +494,10 @@ def audit_one(gender: str, data_dir: Path) -> tuple[dict, list[str]]:
         warnings.append(f"{missing_source} fixtures have no traceable source URL")
     coverage = q.get("field_coverage") or {}
     school_gaps = school_schedule_coverage(teams, games)
-    school_certification = full_season_school_certification(gender, teams, games, data_dir)
+    school_certification = full_season_school_certification(
+        gender, teams, games, data_dir,
+        live_captures=((q.get("official_school_grid_recovery") or {})
+                       .get("live_calendar_captures") or []))
     complete_school_schedules = (
         school_certification["eligible_schools"] > 0 and
         school_certification["uncertified_schools"] == 0)
