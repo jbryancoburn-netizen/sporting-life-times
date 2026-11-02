@@ -394,3 +394,24 @@ test('Saint Martin three California away games retain original source and verifi
   assert.ok(!Object.hasOwn(match,'status')&&!Object.hasOwn(match,'away_score'));
  }
 });
+
+test('DII complete-season source recovery keeps 79 DYouville Roberts and Duluth university dates as evidence, not automatic certification',()=>{
+ const grid=JSON.parse(fs.readFileSync('data/d2-official-school-grids-2026-27.json','utf8'));
+ const expected={'d-youville':25,'roberts-wesleyan':25,'minnesota-duluth':29};
+ for(const [owner,n] of Object.entries(expected)){
+  const school=grid.schools.find(s=>s.gender==='men'&&s.owner_id===owner);
+  assert.ok(school,'missing entire official school fixture source '+owner);
+  assert.equal(school.fixtures.length,n);
+  assert.equal(new Set(school.fixtures.map(g=>g.date+'|'+g.opponent)).size,n);
+  for(const row of school.fixtures){
+   assert.ok(['home','away','neutral'].includes(row.role));
+   assert.ok(!row.start_time || /^([1-9]|1[0-2]):[0-5]\d [AP]M ET$/.test(row.start_time));
+   assert.equal(Object.hasOwn(row,'home_score'),false);
+   assert.equal(Object.hasOwn(row,'away_score'),false);
+  }
+  assert.ok(!grid.certification_assertions.some(a=>a.gender==='men'&&a.owner_id===owner));
+ }
+ assert.ok(grid.schools.find(s=>s.owner_id==='d-youville').source_references.some(x=>x.includes('millersvilleathletics.com')));
+ assert.ok(grid.schools.find(s=>s.owner_id==='roberts-wesleyan').fixtures.some(g=>g.opponent.includes('Exhibition')));
+ assert.ok(grid.schools.find(s=>s.owner_id==='minnesota-duluth').fixtures.some(g=>g.opponent==='Carleton College'));
+});
