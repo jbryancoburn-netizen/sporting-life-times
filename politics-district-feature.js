@@ -28,11 +28,14 @@ function mapArt(root,geometry,district,places=[]){
  // Web Mercator local projection, not raw degrees. Keeps district shape factual.
  const merc=lat=>Math.log(Math.tan(Math.PI/4+lat*Math.PI/360));
  const minY=merc(minLat),maxY=merc(maxLat);
- const width=660,height=470,pad=42,rangeX=Math.max(.001,maxLon-minLon),rangeY=Math.max(.001,maxY-minY);
+ // Both axes MUST be in radians. The former code used longitude degrees
+ // with Mercator latitude radians, flattening Iowa into a horizontal line.
+ const rad=Math.PI/180;
+ const width=660,height=470,pad=42,rangeX=Math.max(.001,(maxLon-minLon)*rad),rangeY=Math.max(.001,maxY-minY);
  const scale=Math.min((width-2*pad)/rangeX,(height-2*pad)/rangeY);
  const offX=(width-rangeX*scale)/2,offY=(height-rangeY*scale)/2;
  const pts=ring=>ring.map((p,i)=>{
-  const x=offX+(p[0]-minLon)*scale,y=offY+(maxY-merc(p[1]))*scale;
+  const x=offX+(p[0]-minLon)*rad*scale,y=offY+(maxY-merc(p[1]))*scale;
   return (i?"L":"M")+x.toFixed(1)+" "+y.toFixed(1);
  }).join(" ")+"Z";
  const svg=s("svg");svg.setAttribute("viewBox","0 0 660 470");svg.setAttribute("class","feature-census-svg");
@@ -53,7 +56,7 @@ function mapArt(root,geometry,district,places=[]){
  // Iowa: original 2026 Census incorporated-place centroids). No guessed pins.
  const validPlaces=(Array.isArray(places)?places:[]).filter(p=>p&&typeof p.name==="string"&&
   Number.isFinite(p.lat)&&Number.isFinite(p.lon)&&p.lat>=minLat&&p.lat<=maxLat&&p.lon>=minLon&&p.lon<=maxLon);
- const positions=validPlaces.map(p=>({name:p.name,x:offX+(p.lon-minLon)*scale,
+ const positions=validPlaces.map(p=>({name:p.name,x:offX+(p.lon-minLon)*rad*scale,
    y:offY+(maxY-merc(p.lat))*scale})).sort((a,b)=>a.y-b.y);
  // Keep labels on distinct lines without moving the authentic marker dots.
  let previous=5;for(const p of positions){p.ty=Math.max(25,p.y,previous+28);previous=p.ty;}
