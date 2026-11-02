@@ -159,6 +159,7 @@ async function attach({map,shape,route,extra,fallbackLayer}){
  let activeCounty=null,activeTown=null,mode="votes";
  function selected(county){const row=lookup.get(nrm(county));if(!row)return;
   details.replaceChildren(countyCard(row,extra,desk));activeCounty=county;
+  const picker=$("geo-story-county-select");if(picker)picker.value=row.county;
   for(const [name,layer] of counties){const r=lookup.get(nrm(name));layer.setStyle({weight:nrm(name)===nrm(county)?3.3:1.15,fillOpacity:nrm(name)===nrm(county)?.46:(.15+.4*Math.abs(r.rep-r.dem)/(r.rep+r.dem))});}
   const l=counties.get(nrm(county));if(l&&mode==="votes"){map.fitBounds(l.getBounds(),{padding:[55,55],maxZoom:9});}
  }
@@ -210,9 +211,20 @@ async function attach({map,shape,route,extra,fallbackLayer}){
  for(const town of conf.towns){if(!group)break;const btn=EL("button",town.name,"dossier-town-zoom");btn.type="button";
   btn.addEventListener("click",()=>{if(mode!=="towns")selectMode("towns");chosenTown(town.name);});group.append(btn);}
  const buttons=EL("div",null,"geo-story-toolbar");
- const title=EL("span","EXPLORE THE DISTRICT","geo-story-toolbar-title");controls.replaceChildren(title,buttons);
+ const title=EL("span","EXPLORE THE DISTRICT","geo-story-toolbar-title");
+ const countyLabel=EL("label","FIND A COUNTY","geo-story-county-label");countyLabel.htmlFor="geo-story-county-select";
+ const picker=EL("select",null,"geo-story-county-picker");picker.id="geo-story-county-select";
+ const empty=EL("option","Choose one of the 20 counties");empty.value="";picker.append(empty);
+ for(const row of [...rows].sort((a,b)=>a.county.localeCompare(b.county))){
+  const option=EL("option",row.county+" County");option.value=row.county;picker.append(option);
+ }
+ picker.addEventListener("change",()=>{if(!picker.value)return;
+  if(mode!=="votes")selectMode("votes");selected(picker.value);
+ });
+ controls.replaceChildren(title,buttons,countyLabel,picker);
  function selectMode(next){
-  mode=next;
+  mode=next;countyLabel.hidden=picker.hidden=mode!=="votes";
+  if(mode==="votes")picker.value="";
   for(const b of buttons.querySelectorAll("button")){const active=b.dataset.geoMode===mode;b.classList.toggle("is-selected",active);b.setAttribute("aria-pressed",active?"true":"false");}
   if(mode==="votes"){
    if(!map.hasLayer(countyLayers))countyLayers.addTo(map);
