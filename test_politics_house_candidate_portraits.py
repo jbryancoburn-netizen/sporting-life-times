@@ -71,7 +71,10 @@ class CandidatePhotoUI(unittest.TestCase):
         self.assertIn("politics-candidate-photos.json",self.script)
         self.assertIn("portrait-source-note",self.state)
         for page in [self.state,self.district]:
-            self.assertIn("20261101-candidate-portraits2",page)
+            self.assertIn("politics-house.js?v=",page)
+            self.assertIn("politics-house.css?v=",page)
+        self.assertIn("20261101-newsgraphics-purple1",self.state)
+        self.assertIn("20261101-editorial1",self.district)
 
 if __name__=="__main__":
     unittest.main()
