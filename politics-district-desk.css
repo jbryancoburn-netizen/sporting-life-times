@@ -159,3 +159,28 @@ body[data-house-page="district"] .metrics{display:none!important}
  body[data-house-page="district"] .desk-vote{grid-template-columns:80px 1fr}
  body[data-house-page="district"] .desk-vote-date{grid-column:2;text-align:left}
 }
+
+/* Election night and the new congressional term change the editorial priority.
+ * Campaign reports remain accessible as a labeled archive; never deleted. */
+body[data-house-page="district"] .desk-archive-toggle{
+ display:block;margin:18px 0 5px;padding:12px 17px;width:100%;
+ background:#fff;border:1px solid #879da8;border-radius:0;color:#26495e;
+ font:900 11px/1.5 'DM Sans',Arial,sans-serif;text-align:left;
+ cursor:pointer
+}
+body[data-house-page="district"] .desk-archive-toggle:hover{
+ background:#e7eff1
+}
+body[data-house-page="district"] .desk-archive-toggle[hidden]{display:none!important}
+body[data-house-page="district"][data-district-edition="after"] .district-front,
+body[data-house-page="district"][data-district-edition="certified"] .district-front{
+ display:none!important
+}
+body[data-house-page="district"][data-district-edition="after"].show-district-campaign-archive .district-front,
+body[data-house-page="district"][data-district-edition="certified"].show-district-campaign-archive .district-front{
+ display:block!important
+}
+/* The poll and candidate details are already in the new sourced campaign desk;
+ * duplicate legacy cards no longer interrupt the local editorial narrative. */
+body[data-house-page="district"] .dossier-polling,
+body[data-house-page="district"] .panels{display:none!important}
