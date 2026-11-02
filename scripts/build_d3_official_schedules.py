@@ -42,6 +42,8 @@ SOURCES = {
         (520, "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true"),
         (118, "https://athletics.carleton.edu/sports/mens-basketball/schedule/2026-27?grid=true"),
         (30067, "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-27?grid=true"),
+        (348, "https://vikings.lawrence.edu/sports/mens-basketball/schedule/2026?grid=true"),
+        (30264, "https://regentroyals.com/sports/mens-basketball/schedule/2026?grid=true"),
     ],
     "women": [
         (30037, "https://trinethunder.com/sports/womens-basketball/schedule/2026-27?grid=true"),
@@ -63,6 +65,8 @@ SOURCES = {
         (300, "https://www.iwusports.com/sports/womens-basketball/schedule/2026-27?grid=true"),
         (376, "https://athletics.macalester.edu/sports/womens-basketball/schedule/2026-27?grid=true"),
         (30067, "https://morrisvillemustangs.com/sports/womens-basketball/schedule/2026-27?grid=true"),
+        (348, "https://vikings.lawrence.edu/sports/womens-basketball/schedule/2026?grid=true"),
+        (30264, "https://regentroyals.com/sports/womens-basketball/schedule/2026?grid=true"),
     ],
 }
 # Institutional nicknames are used only when explicitly unambiguous.
@@ -222,10 +226,21 @@ def parse_calendar(html, gender, owner, url, by_org, exact):
     doc = BeautifulSoup(html, "html.parser")
     visible = compact(doc.get_text(" ", strip=True)).lower()
     title = compact(doc.title.get_text(" ", strip=True)) if doc.title else ""
-    # Require a year/sport-specific headline rather than unrelated sidebar links.
+    # Sidearm year-only archive paths (e.g. /schedule/2026) often put
+    # "2026 Men's Basketball Schedule" in <title>, and the ACTUAL full
+    # "2026-27 Men's Basketball Schedule" in <h2>. Include only the
+    # schedule-specific heading, not general navigation/sidebar text.
     # Important: "men's basketball" is a substring of "women's basketball".
     headlines = " ".join(compact(h.get_text(" ", strip=True)) for h in doc.select("h1")[:3])
-    identity_text = (title + " " + headlines).lower().replace("’", "'")
+    season_schedule_headings = [
+        compact(h.get_text(" ", strip=True))
+        for h in doc.select("h1, h2, h3")
+        if re.search(r"^2026\s*[-–]\s*(?:27|2027)\b", compact(h.get_text(" ", strip=True)), re.I)
+        and re.search(r"\bbasketball\b", compact(h.get_text(" ", strip=True)), re.I)
+        and re.search(r"\bschedule\b", compact(h.get_text(" ", strip=True)), re.I)
+    ]
+    identity_text = (title + " " + headlines + " " +
+                     " ".join(season_schedule_headings[:3])).lower().replace("’", "'")
     if not re.search(r"2026\s*[-–]\s*(?:27|2027)", identity_text):
         raise ValueError("No 2026–27 season in the actual page title/heading")
     # Some official basketball pages are explicitly sex-labeled (M)/(W)
@@ -988,6 +1003,35 @@ def self_test():
             raise AssertionError("Opposite-gender M/W calendar accepted")
         except ValueError:
             pass
+
+    # 2026-27 schedule inside an h2 counts when the archive page title
+    # gives "2026" alone (Regent/Lawrence Sidearm vendor behavior).
+    archive_html = html.replace(
+        "<title>2026-27 Men's Basketball Schedule - Hope College</title>",
+        "<title>2026 Men's Basketball Schedule - Hope College</title>").replace(
+        "<h1>2026-27 Men's Basketball Schedule</h1>",
+        "<h1>Hope College Athletics</h1><h2>2026-27 Men's Basketball Schedule</h2>")
+    archived_rows, _ = parse_calendar(
+        archive_html, "men", 286,
+        "https://athletics.hope.edu/sports/mens-basketball/schedule/2026?grid=true",
+        by_org, exact)
+    assert len(archived_rows) == 3
+    archived_women = archive_html.replace("Men's Basketball", "Women's Basketball")
+    archive_w_rows, _ = parse_calendar(
+        archived_women, "women", 286,
+        "https://athletics.hope.edu/sports/womens-basketball/schedule/2026?grid=true",
+        by_org, exact)
+    assert len(archive_w_rows) == 3
+    wrong_year = archive_html.replace(
+        "<h2>2026-27 Men's Basketball Schedule</h2>",
+        "<h2>2025-26 Men's Basketball Schedule</h2>")
+    try:
+        parse_calendar(wrong_year, "men", 286,
+                       "https://athletics.hope.edu/sports/mens-basketball/schedule/2026",
+                       by_org, exact)
+        raise AssertionError("Year-only title with wrong season heading accepted")
+    except ValueError:
+        pass
 
     rows, report = parse_calendar(html, "men", 286, "https://athletics.hope.edu/example", by_org, exact)
     assert report["readable_rows"] == 5 and len(rows) == 3
