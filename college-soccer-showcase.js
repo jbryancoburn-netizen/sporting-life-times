@@ -5,7 +5,7 @@ const read=async f=>{const r=await fetch('data/'+f+'?t='+Date.now(),{cache:'no-s
 let snapshots=null;
 const edition=()=>window.CollegeSoccerEdition?.get()||'men-d1';
 const divisionName=cohort=>window.CollegeSoccerEdition?.label(cohort)||cohort.toUpperCase();
-function badge(r,cohort,brands,palette){
+function badge(r,cohort,brands,palette,detailOverride){
  const wrap=E('div','cs-showcase-school'),logo=E('span','cs-showcase-logo');
  const keys=[cohort+':'+r.team_id,'men-'+cohort.split('-')[1]+':'+r.team_id,'men-d1:'+r.team_id];
  const lookup=o=>keys.map(k=>o?.[k]).find(Boolean)||{};
@@ -19,7 +19,7 @@ function badge(r,cohort,brands,palette){
  logo.append(initials);
  const candidates=[identity.logo_url,colors.logo_url,/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(r.team_id)?'https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/'+r.team_id+'.svg':null].filter(Boolean);
  if(candidates.length){const img=E('img');img.loading='lazy';img.decoding='async';img.alt='';let idx=0;const next=()=>{if(idx<candidates.length)img.src=candidates[idx++];else img.remove()};img.addEventListener('load',()=>{if(img.naturalWidth>0){logo.classList.add('has-image');initials.remove()}else next()});img.addEventListener('error',next);logo.append(img);next();}
- const detail=E('span','cs-showcase-detail');detail.append(E('strong',null,r.team),E('small',null,String(r.conference||divisionName(cohort)).replace(cohort+':','').replaceAll('-',' ').toUpperCase()));wrap.append(logo,detail);
+ const detail=E('span','cs-showcase-detail');detail.append(E('strong',null,r.team),E('small',null,detailOverride||String(r.conference||divisionName(cohort)).replace(cohort+':','').replaceAll('-',' ').toUpperCase()));wrap.append(logo,detail);
  if(hex(p))wrap.style.setProperty('--school-color',p);return wrap;
 }
 function render(){
@@ -84,7 +84,7 @@ function render(){
     const metric=category.value(t);
     row.setAttribute('aria-label',t.team+', rank '+(position+1)+', '+metric.toFixed(2)+' '+category.sub.toLowerCase());
     row.append(E('span','cs-form-place',String(position+1).padStart(2,'0')),
-      badge(t,cohort,brands,palette));
+      badge(t,cohort,brands,palette,Number(t.gp)+' MATCHES'));
     const rate=E('span','cs-form-value');
     rate.append(E('strong',null,metric.toFixed(2)),E('small',null,category.field));
     row.append(rate);
