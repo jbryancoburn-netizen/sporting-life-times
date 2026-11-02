@@ -2972,6 +2972,42 @@ def self_test():
     assert resolve("Arcadia/Salisbury", mount_orgs, mount_exact) is None
     assert resolve("Pitt-Bradford * * / Salisbury", mount_orgs, mount_exact) is None
 
+    # End-to-end regression for the exact Mount Aloysius gap: the real
+    # university schedule marks AMCC opponents with trailing "* *".
+    # Checking only resolve() would miss a grid-parser regression.
+    mount_url = "https://www.mountieathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
+    mount_rows = [
+        ("January 6, 2027", "Away", "Pitt-Bradford * *"),
+        ("January 18, 2027", "Away", "Penn State Behrend * *"),
+        ("February 3, 2027", "Home", "Pitt-Greensburg * *"),
+        ("February 6, 2027", "Home", "Pitt-Bradford * *"),
+        ("February 10, 2027", "Home", "Penn State Behrend * *"),
+    ]
+    mount_grid = "".join(
+        "<tr><td>" + date + "</td><td>7:00 PM</td><td>" + placement +
+        "</td><td>" + opponent +
+        "</td><td>Cresson, Pa. / Athletic, Convocation, and Wellness Center</td>" +
+        "<td></td><td></td><td></td><td></td></tr>"
+        for date, placement, opponent in mount_rows)
+    mount_html = (
+        "<html><title>2026-27 Men's Basketball Schedule - Mount Aloysius</title>"
+        "<h1>2026-27 Men's Basketball Schedule</h1><table><thead><tr>"
+        "<th>Date</th><th>Time</th><th>At</th><th>Opponent</th>"
+        "<th>Location</th><th>TV</th><th>Radio</th><th>Tournament</th>"
+        "<th>Result</th></tr></thead><tbody>" + mount_grid +
+        "</tbody></table></html>")
+    recovered, recovered_report = parse_calendar(
+        mount_html, "men", 30036, mount_url, mount_orgs, mount_exact)
+    assert recovered_report["status"] == "parsed"
+    assert len(recovered) == len(mount_rows)
+    for date, opponent in (("2027-02-06", 1315), ("2027-02-10", 538)):
+        matches = [game for game in recovered
+                   if game["date"] == date and
+                   game["home_org_id"] == 30036 and
+                   game["away_org_id"] == opponent]
+        assert len(matches) == 1, (date, opponent, matches)
+    assert not recovered_report["unresolved_opponent_rows"]
+
     print("DIII schedule importer: date/identity/conditional/neutral/reciprocal tests PASS")
 
 
