@@ -16,7 +16,9 @@ class D2OfficialSchoolGrids(unittest.TestCase):
                   ("women","salem-university-west-virginia"):28,
                   ("women","lincoln-university-pennsylvania"):28,
                   ("women","university-of-charleston-west-virginia"):28,
-                  ("women","upper-iowa-university"):26}
+                  ("women","upper-iowa-university"):26,
+                  ("women","lenoir-rhyne-university"):1,
+                  ("women","the-university-of-virginia-s-college-at-wise"):1}
         current={(x["gender"],x["owner_id"]):len(x["fixtures"]) for x in data["schools"]}
         self.assertEqual(len(current),len(data["schools"]))
         for ident,count in required.items():
@@ -119,6 +121,52 @@ class D2OfficialSchoolGrids(unittest.TestCase):
         again=apply_official_school_grid_snapshots("women",games,teams,dt.date(2026,11,1))
         self.assertEqual(again["created"],0)
         self.assertEqual(len(games),1)
+
+
+    def test_two_extra_puerto_rico_mayaguez_games_from_independent_schools(self):
+        evidence=json.loads(DATA.read_text())
+        cases={
+            "lenoir-rhyne-university":("2026-12-18","2:00 PM ET"),
+            "the-university-of-virginia-s-college-at-wise":("2026-12-19","9:00 AM ET"),
+        }
+        for owner,(date,time) in cases.items():
+            source=next(s for s in evidence["schools"] if s["owner_id"]==owner)
+            self.assertEqual(len(source["fixtures"]),1)
+            row=source["fixtures"][0]
+            self.assertEqual(row["date"],date)
+            self.assertEqual(row["start_time"],time)
+            self.assertEqual(row["role"],"neutral")
+            self.assertEqual(row["opponent"],"University of Puerto Rico, Mayaguez")
+            self.assertTrue(row["opponent_identity_source_url"].startswith("https://"))
+            self.assertIn("Not a complete",source["scope"])
+            self.assertNotIn("home_score",row)
+        teams={
+            "lenoir-rhyne-university":{
+                "id":"lenoir-rhyne-university","name":"Lenoir-Rhyne University"},
+            "the-university-of-virginia-s-college-at-wise":{
+                "id":"the-university-of-virginia-s-college-at-wise",
+                "name":"The University of Virginia's College at Wise"},
+            "university-of-puerto-rico-mayaguez":{
+                "id":"university-of-puerto-rico-mayaguez",
+                "name":"University of Puerto Rico, Mayaguez"},
+        }
+        games={}
+        first=apply_official_school_grid_snapshots(
+            "women",games,teams,dt.date(2026,11,1))
+        self.assertEqual(first["source_rows"],2)
+        self.assertEqual(first["created"],2)
+        self.assertEqual(len(games),2)
+        self.assertEqual({g["date"] for g in games.values()},
+                         {"2026-12-18","2026-12-19"})
+        for g in games.values():
+            self.assertEqual(g["status"],"scheduled")
+            self.assertTrue(g["neutral"])
+            self.assertIsNone(g["home_score"])
+            self.assertIsNone(g["away_score"])
+        second=apply_official_school_grid_snapshots(
+            "women",games,teams,dt.date(2026,11,1))
+        self.assertEqual(second["created"],0)
+        self.assertEqual(second["matched"],2)
 
     def test_wrong_time_zone_school_evidence_is_rejected(self):
         import tempfile
