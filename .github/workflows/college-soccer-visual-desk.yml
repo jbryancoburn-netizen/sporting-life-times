@@ -14,6 +14,8 @@ on:
       - 'scripts/test_college_soccer_frontpage_crests.cjs'
       - 'college-soccer-pitch.css'
       - 'college-soccer-showcase.js'
+      - 'college-soccer-leaderboard.css'
+      - 'scripts/test_college_soccer_formbook.cjs'
       - 'scripts/publish_college_soccer_live_scores.py'
       - 'college-soccer.html'
       - 'college-soccer-search.css'
@@ -87,6 +89,7 @@ jobs:
           node scripts/test_college_soccer_live_match_center.cjs
           node scripts/test_college_soccer_division_scope.cjs
           node scripts/test_college_soccer_frontpage_crests.cjs
+          node scripts/test_college_soccer_formbook.cjs
           node --check college-soccer-showcase.js
           node --check college-soccer-editorial.js
           node --check college-soccer-match.js
