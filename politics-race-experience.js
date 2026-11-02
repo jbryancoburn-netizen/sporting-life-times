@@ -168,9 +168,13 @@ function renderDistrict({r,state}){
  const intro=el("div",null,"race-experience-lead");
  intro.append(el("span",s.eyebrow,"race-eyebrow"),el("h2",s.headline,"race-feature-headline"),el("p",s.sub,"race-feature-deck"));
  head.append(intro);
+ // One newsroom lead: present the authentic candidate field with the reported
+ // race narrative, not in a second identical box further down the page.
+ const field=$("front-field");
+ if(field){head.append(field);root.classList.add("editorial-race-layout");}
  const context=el("aside",null,"race-editor-note");
- context.append(el("b","WHY THE DISTINCTION MATTERS"),el("p",s.importance));
- head.append(context);featured.append(head);
+ context.append(el("b","HOW TO READ THE EVIDENCE"),el("p",s.importance));
+ featured.append(head,context);
  const metrics=el("div",null,"race-headline-numbers");
  for(const item of s.items){
   const box=el("div",null,"race-number race-number-"+item.tone);
