@@ -1,70 +1,75 @@
-/* Prevent D-II/D-III matches from leaking into D-I soccer scoreboard panels. */
+/* Regression: one top-level edition switch must strictly isolate live/final scores. */
 'use strict';
-const assert=require('node:assert/strict');
-const fs=require('node:fs'),vm=require('node:vm');
+const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
 const src=fs.readFileSync('college-soccer-pulse.js','utf8');
+const codes=['men-d1','women-d1','men-d2','women-d2','men-d3','women-d3'];
 class Element{
- constructor(tag){this.tag=tag;this.children=[];this.events={};this.className='';this.textContent='';this.style={setProperty:()=>{}};this.classList={add:()=>{},remove:()=>{}};this.attributes={};}
- append(...nodes){this.children.push(...nodes);for(const n of nodes){if(n&&typeof n==='object')n.parent=this;}}
- replaceChildren(...nodes){this.children=[];this.append(...nodes);}
- setAttribute(k,v){this.attributes[k]=v;}
+ constructor(tag){this.tag=tag;this.children=[];this.events={};this.className='';this.textContent='';this.attributes={};this.naturalWidth=0;this.style={setProperty:()=>{}};this.classList={
+  add:x=>this.className=[...new Set([...this.className.split(' ').filter(Boolean),x])].join(' '),
+  remove:x=>this.className=this.className.split(' ').filter(v=>v!==x).join(' '),
+  contains:x=>this.className.split(' ').includes(x)
+ };}
+ append(...children){this.children.push(...children);for(const n of children)if(n&&typeof n==='object')n.parent=this;}
+ replaceChildren(...children){this.children=[];this.append(...children)}
+ setAttribute(k,v){this.attributes[k]=v}
  addEventListener(k,fn){this.events[k]=fn}
  remove(){if(this.parent)this.parent.children=this.parent.children.filter(n=>n!==this)}
+ set src(v){this.source=v}
+ get src(){return this.source}
 }
-const find=(root,name)=>root.className.split(/\s+/).includes(name)?[root]:root.children.flatMap(n=>find(n,name));
-const content=root=>[root.textContent,...root.children.map(content)].join(' ');
-const codes=['men-d1','women-d1','men-d2','women-d2','men-d3','women-d3'];
-const names=Object.fromEntries(codes.map((k,i)=>[k,'EXACT '+k.toUpperCase()]));
-const games=codes.map((cohort,index)=>({cohort,match_id:(cohort.startsWith('men')?'men-':'women-')+(6999000+index),
-  home_name:'HOME '+names[cohort],away_name:'AWAY '+names[cohort],
-  home_id:'h-'+cohort,away_id:'a-'+cohort,home_score:index,away_score:0,
-  status:'live',source_url:'https://www.ncaa.com/game/'+(6999000+index)}));
-const finals=codes.map((cohort,index)=>({...games[index],date:'2026-11-01',home:'HOME FINAL '+names[cohort],away:'AWAY FINAL '+names[cohort],
- score:index+'-0',status:'final'}));
+const find=(e,cls)=>e.className.split(' ').includes(cls)?[e]:e.children.flatMap(x=>find(x,cls));
+const text=e=>[e.textContent,...e.children.map(text)].join(' ');
+const cohorts=Object.fromEntries(codes.map(c=>[c,[
+ {team:'HOME EXACT '+c.toUpperCase(),team_id:'home-'+c,elo:1501,record:'1-0',rank:1},
+ {team:'AWAY EXACT '+c.toUpperCase(),team_id:'away-'+c,elo:1499,record:'0-1',rank:2}
+]]));
+const games=codes.map((cohort,i)=>({cohort,match_id:(cohort.startsWith('men')?'men-':'women-')+(6999000+i),
+ away_name:'AWAY EXACT '+cohort.toUpperCase(),home_name:'HOME EXACT '+cohort.toUpperCase(),
+ away_id:'',home_id:'',away_score:i,home_score:2,status:'live'}));
+const finals=games.map((g,i)=>({match_id:g.match_id,cohort:g.cohort,away:g.away_name,home:g.home_name,date:'2026-11-01',score:'2-'+i}));
 const data={
- 'college-soccer-elo.json':{cohorts:{'men-d1':[{team:'Leader',team_id:'leader',elo:1600,record:'9-1'}]},latest_finals:finals,as_of:'2026-11-01'},
+ 'college-soccer-elo.json':{cohorts,latest_finals:finals,as_of:'2026-11-01'},
  'college-soccer-live-scores.json':{checked_at_utc:new Date().toISOString(),games},
  'college-soccer-team-branding.json':{teams:{}},
  'college-soccer-prospective-v2.json':{forecasts:[]},
  'dual-ring-team-palette.json':{soccer:{}},
  'college-soccer-crest-overrides.json':{schools:{}}
 };
-const root=new Element('section'),uri={href:'https://example.org/college-soccer.html',search:''};
-const win={location:uri,history:{replaceState(_,__,value){uri.href='https://example.org'+value;uri.search=new URL(uri.href).search}}};
-const ctx={document:{getElementById:id=>id==='cs-current-scoreboard'?root:null,createElement:t=>new Element(t),visibilityState:'visible'},
-  window:win,URLSearchParams,URL,Date,Number,String,Math,RegExp,Intl,encodeURIComponent,
-  setInterval:()=>0,console,
-  fetch:async path=>({ok:true,json:async()=>data[path.replace(/^data\//,'').split('?')[0]]})};
-function assertNoLeak(expected,kind){
+let chosen='men-d1';const listeners=new Map(),root=new Element('section');
+const global={
+ CollegeSoccerEdition:{get:()=>chosen,set:code=>{chosen=code;listeners.get('college-soccer:edition')?.({detail:{cohort:code}})}},
+ addEventListener:(name,cb)=>listeners.set(name,cb),
+ location:{href:'https://example.com/college-soccer.html',search:''},
+ history:{replaceState:()=>{}}
+};
+const ctx={
+ document:{getElementById:id=>id==='cs-current-scoreboard'?root:null,createElement:tag=>new Element(tag),visibilityState:'visible'},
+ window:global,URL,URLSearchParams,Date,Number,String,Math,RegExp,Intl,encodeURIComponent,
+ setInterval:()=>{},console,
+ fetch:async path=>({ok:true,json:async()=>data[path.replace('data/','').split('?')[0]]})
+};
+function assertScope(code,kind){
  const cards=find(root,'cs-pitch-match');
- assert.equal(cards.length,1,'Expected exactly one '+kind+' card in '+expected);
- assert(cards[0].href.includes(encodeURIComponent(games[codes.indexOf(expected)].match_id)),'Wrong source match for '+expected);
- const text=content(cards[0]);
- assert(text.includes(names[expected]),'Expected '+expected+' team is absent');
- for(const other of codes.filter(c=>c!==expected))assert(!text.includes(names[other]),other+' leaked into '+expected);
- const count=find(root,'cs-pitch-count')[0];
- assert(count,'Live badge missing');
- assert.equal(find(root,'cs-pitch-division-tab').length,6,'Six distinct scoped editions must be selectable');
- const selected=find(root,'cs-pitch-division-tab').filter(b=>b.attributes['aria-pressed']==='true');
- assert.equal(selected.length,1);
- assert(selected[0].textContent.includes('D'+expected.at(-1)),'Division selector out of sync');
+ assert.equal(cards.length,1,'Exactly one '+kind+' game for '+code);
+ assert.equal(find(root,'cs-pitch-division-tab').length,0,'Do not duplicate the global selector inside the scoreboard');
+ assert(cards[0].href.includes(games[codes.indexOf(code)].match_id),'Wrong match ID for '+code);
+ const shown=text(cards[0]);
+ assert(shown.includes('EXACT '+code.toUpperCase()),'Selected cohort absent: '+code);
+ for(const other of codes.filter(c=>c!==code))
+  assert(!shown.includes('EXACT '+other.toUpperCase()),'Cross-division score leakage: '+other+' into '+code);
+ for(const side of find(cards[0],'cs-pitch-side')){
+  const img=side.children[0]?.children[0]?.children?.find(e=>e.tag==='img');
+  assert(img,'Team ID should resolve from Elo and produce a crest candidate for '+code);
+ }
 }
 async function run(){
- vm.runInNewContext(src,ctx,{timeout:1000});
- await new Promise(resolve=>setTimeout(resolve,40));
- assertNoLeak('men-d1','live');
- for(const cohort of codes){
-   const tabs=find(root,'cs-pitch-division-tab');
-   const index=codes.indexOf(cohort);
-   tabs[index].events.click();
-   assertNoLeak(cohort,'live');
- }
- // 'LATEST FINALS' must respect the same exact cohort boundary.
- const finalTab=find(root,'cs-pitch-tab')[1];
- finalTab.events.click();
- assertNoLeak('women-d3','verified final');
- assert(content(root).includes('LATEST FINALS'));
- assert.equal(uri.search,'?cohort=women-d3');
- console.log('PASS: six isolated NCAA soccer divisions, live source, final results and deep-link scope.');
+ vm.runInNewContext(src,ctx,{timeout:1500});
+ await new Promise(resolve=>setTimeout(resolve,60));
+ assertScope('men-d1','live');
+ for(const code of codes){global.CollegeSoccerEdition.set(code);assertScope(code,'live')}
+ find(root,'cs-pitch-tab')[1].events.click();
+ assertScope('women-d3','verified final');
+ assert(text(root).includes('LATEST FINALS'));
+ console.log('PASS: all six unified NCAA editions isolate verified finals and live matches with resolved crest IDs.');
 }
 run().catch(e=>{console.error(e);process.exitCode=1});
