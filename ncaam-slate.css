@@ -610,3 +610,17 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #c481
  .sl-game-footer{gap:7px}
  .sl-arena-deep-link{font-size:9px}
 }
+
+
+/* Calibrated, explicitly illustrative neutral-floor projected score. */
+.sl-score-projection{
+ display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1fr);gap:12px;align-items:center;
+ padding:13px 14px;margin-top:12px;background:linear-gradient(112deg,#102c3a,#254653);
+ border-left:4px solid var(--sl-home-alt);color:#f6edda;
+}
+.sl-score-projection div{min-width:0}
+.sl-score-projection span{display:block;color:#dab982;font:800 9px/1.4 'DM Sans',Arial,sans-serif;letter-spacing:.13em}
+.sl-score-projection strong{display:block;margin-top:6px;font:800 17px/1.3 'DM Sans',Arial,sans-serif;overflow-wrap:break-word}
+.sl-score-projection p{margin:0;font:10px/1.6 'DM Sans',Arial,sans-serif;color:#b9d2d8}
+@media(max-width:700px){.sl-score-projection{grid-template-columns:1fr;gap:7px;padding:11px}
+ .sl-score-projection strong{font-size:15px}}
