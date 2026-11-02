@@ -116,6 +116,21 @@ async function start(){
       }
     }catch(e){/* Preserve last verified university fixture snapshot. */}
   }
+  // NCAA school-name crosswalk: only exact official matches are displayed.
+  // Color rings remain unbranded until school palettes are sourced.
+  try{
+    const logos=await fetch('data/d3-verified-logo-slugs-2026-27.json',{cache:'no-cache'});
+    if(logos.ok){
+      const manifest=await logos.json();
+      if(manifest.matching==='exact_normalized_school_name_only'){
+        for(const t of d.teams){
+          const match=manifest.schools?.[String(t.ncaa_org_id)];
+          if(match?.slug&&/^[a-z0-9-]+$/.test(match.slug)&&match.match==='exact_normalized_name')
+            t.slug=match.slug;
+        }
+      }
+    }
+  }catch(e){/* Keep explicit logo fallbacks on network failure. */}
   const orgIds=new Map(d.teams.filter(t=>t.d3_confirmed&&t.membership_year===2027&&Number.isInteger(t.ncaa_org_id))
     .map(t=>[t.ncaa_org_id,t]));
   const merged=new Map(d.games.map(g=>[g.date+'|'+[g.away,g.home].sort().join('|'),{...g}]));
