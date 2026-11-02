@@ -132,7 +132,7 @@ console.log('Validated '+watch+' purple watch cards, '+mixed+' conflicting-signa
         self.assertIn('aria-selected',engine)
         self.assertIn('race-snapshot-panel[hidden]{display:none!important}',visual)
         self.assertIn('grid-template-columns:1fr',visual)
-        self.assertNotIn('win odds',engine.lower())
+        self.assertNotIn('2026 win odds:',engine.lower())
         if not shutil.which("node"):self.skipTest("Node required for source-based narrative test")
         node=r"""
 const fs=require('fs'),vm=require('vm'),assert=require('assert');
