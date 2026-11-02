@@ -5,6 +5,7 @@
 const $=id=>document.getElementById(id);
 const N="http://www.w3.org/2000/svg";
 const el=(tag,cls,txt)=>{const x=document.createElement(tag);if(cls)x.className=cls;if(txt!=null)x.textContent=txt;return x;};
+const partyName=code=>({D:"Democratic",R:"Republican",DEM:"Democratic",REP:"Republican",IND:"Independent",LIB:"Libertarian",GRE:"Green",WRI:"Qualified write-in",NPA:"No Party Affiliation",NPP:"No Party Preference",AIP:"American Independent",PAF:"Peace and Freedom"})[code]||code;
 const named={
  AL:"Alabama",AK:"Alaska",AZ:"Arizona",AR:"Arkansas",CA:"California",CO:"Colorado",CT:"Connecticut",DE:"Delaware",FL:"Florida",GA:"Georgia",
  HI:"Hawaii",ID:"Idaho",IL:"Illinois",IN:"Indiana",IA:"Iowa",KS:"Kansas",KY:"Kentucky",LA:"Louisiana",ME:"Maine",MD:"Maryland",
