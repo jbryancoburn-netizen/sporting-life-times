@@ -100,6 +100,23 @@ OFFICIAL_ATHLETICS_HOST_OVERRIDE = {
     30064: "athletics.stvincent.edu",
 }
 
+# Published 2026-27 team-specific pages on OFFICIAL NCAA member conferences.
+# A conference source is reported separately from the school's own calendar.
+# IDs were individually checked against conference page headings, not assumed
+# from neighboring season IDs.
+OFFICIAL_CONFERENCE_SCHEDULES = {
+    "men": {
+        64: ("https://sliac.org/schedule.aspx?schedule=2030", "Blackburn"),
+        119: ("https://uaasports.info/schedule.aspx?schedule=1162", "Carnegie Mellon"),
+        525: ("https://miaa.org/schedule.aspx?schedule=2283", "Olivet"),
+    },
+    "women": {
+        64: ("https://sliac.org/schedule.aspx?schedule=2029", "Blackburn"),
+        119: ("https://uaasports.info/schedule.aspx?schedule=1154", "Carnegie Mellon"),
+        525: ("https://miaa.org/schedule.aspx?schedule=2274", "Olivet"),
+    },
+}
+
 DATE = re.compile(
     r"^([A-Za-z]+)\s+(\d{1,2}),?\s+(2026|2027)(?:\s+\([^)]+\))?$")
 MONTHS = {m: i for i, m in enumerate(
@@ -241,6 +258,92 @@ def parse_calendar(html, gender, owner, url, by_org, exact):
                      "excluded_rows": dict(omitted), "status": "parsed"}
 
 
+
+def parse_conference_calendar(html, gender, owner, url, subject, by_org, exact):
+    """Read an explicitly selected OFFICIAL conference team season table.
+
+    Conference-hosted calendars can cover a member whose school domain is
+    blocked, but cannot retroactively certify that school's athletics website.
+    """
+    doc = BeautifulSoup(html, "html.parser")
+    heads = " ".join(compact(h.get_text(" ", strip=True))
+                     for h in doc.select("h1, h2, h3")[:7])
+    title = compact(doc.title.get_text(" ", strip=True)) if doc.title else ""
+    identity = (heads + " " + title).lower().replace("’", "'")
+    if not re.search(r"2026\s*[-–]\s*(?:27|2027)", identity):
+        raise ValueError("Conference calendar wrong season")
+    expected = ("women's basketball" if gender == "women" else "men's basketball")
+    if expected not in identity:
+        raise ValueError("Conference calendar wrong basketball gender")
+    if gender == "men" and "women's basketball" in identity:
+        raise ValueError("Conference calendar women's sport on men's source")
+    if key(subject) not in key(heads or title):
+        raise ValueError("Conference page does not identify expected member")
+    entries, inspected, excluded = [], 0, defaultdict(int)
+    for table in doc.select("table"):
+        heads = [compact(x.get_text(" ", strip=True)).lower()
+                 for x in table.select("thead th")]
+        if not heads:
+            first = table.select_one("tr")
+            heads = [compact(x.get_text(" ", strip=True)).lower()
+                     for x in first.find_all("th", recursive=False)] if first else []
+        def column(name):
+            return next((i for i, x in enumerate(heads) if name in x), None)
+        idx_date, idx_opponent = column("date"), column("opponent")
+        idx_loc = column("location")
+        idx_time = next((i for i, x in enumerate(heads)
+                         if "time" in x or "result" in x), None)
+        if idx_date is None or idx_opponent is None or idx_time is None:
+            continue
+        for tr in table.select("tbody tr") or table.select("tr"):
+            cells = [compact(x.get_text(" ", strip=True))
+                     for x in tr.find_all(["td", "th"], recursive=False)]
+            if max(idx_date, idx_opponent, idx_time) >= len(cells):
+                continue
+            raw_date = cells[idx_date]
+            if not re.fullmatch(r"\d{1,2}/\d{1,2}/202[67]", raw_date):
+                continue
+            try:
+                date = dt.datetime.strptime(raw_date, "%m/%d/%Y").date()
+            except ValueError:
+                continue
+            if date < SEASON_START or date > SEASON_END:
+                continue
+            inspected += 1
+            opponent = cells[idx_opponent]
+            if BAD_OPPONENT.search(opponent):
+                excluded["conditional_or_unverified_opponent"] += 1
+                continue
+            neutral = bool(re.match(r"(?i)^(?:vs\.?|versus)\s+", opponent))
+            away_site = bool(re.match(r"(?i)^at\s+", opponent))
+            if neutral or away_site:
+                opponent = re.sub(r"(?i)^(?:vs\.?|versus|at)\s+", "", opponent).strip()
+            opp_id = resolve(opponent, by_org, exact)
+            if opp_id is None or opp_id == owner:
+                excluded["missing_or_ambiguous_ncaa_opponent"] += 1
+                continue
+            if not (away_site or neutral) and re.match(r"(?i)^vs", opponent):
+                excluded["ambiguous_home_away"] += 1
+                continue
+            away = owner if away_site else opp_id
+            home = opp_id if away_site else owner
+            location = cells[idx_loc] if idx_loc is not None and idx_loc < len(cells) else ""
+            entries.append({
+                "date": date.isoformat(), "away_org_id": away,
+                "home_org_id": home, "neutral": neutral,
+                "source_owner_org_id": owner, "source_url": url,
+                "tipoff_as_posted": cells[idx_time], "venue": "",
+                "venue_location": location, "network_as_posted": "",
+                "radio_as_posted": "", "tournament": ""
+            })
+    if inspected < 8 or len(entries) < 4:
+        raise ValueError(f"Conference source insufficient identifiable 2026-27 rows: {inspected}/{len(entries)}")
+    return entries, {"owner_org_id": owner, "source_url": url,
+                     "status": "parsed_conference", "calendar_origin": "official_conference_team_calendar",
+                     "readable_rows": inspected, "verified_member_opponents": len(entries),
+                     "excluded_rows": dict(excluded)}
+
+
 def fetch_calendar(source):
     owner, url = source
     request = urllib.request.Request(url, headers=HEADERS)
@@ -313,6 +416,19 @@ def inspect_source(gender, source, by_org, exact):
             # 403s, repeated rate limits, or access controls.
             if re.search(r"HTTP Error (403|429):", err):
                 break
+    # An independently listed conference's dated team schedule is valid
+    # fixture evidence, not proof the institution publishes its own calendar.
+    conference = OFFICIAL_CONFERENCE_SCHEDULES[gender].get(org)
+    if conference:
+        conf_url, subject = conference
+        try:
+            _, _, conf_html = fetch_calendar((org, conf_url))
+            rows, report = parse_conference_calendar(
+                conf_html, gender, org, conf_url, subject, by_org, exact)
+            report["failed_school_calendar_urls"] = len(errors)
+            return rows, report
+        except Exception as ex:
+            errors.append("Official conference: " + str(ex)[:105])
     return None, {"owner_org_id": org, "source_url": url,
                   "status": "failed", "error": " | ".join(errors)[:260],
                   "candidate_urls_tried": len(errors),
@@ -421,6 +537,7 @@ def process(gender, workers=30, dry_run=False):
     if successful < 1:
         raise ValueError(f"No official {gender} calendars parsed; preserving last certified dataset")
     count_reciprocal = sum(f["source_verification"] == "reciprocal" for f in fixtures)
+    official_conference = sum(a["status"] == "parsed_conference" for a in audit)
     status_counts = Counter(a["status"] for a in audit)
     output = {
         "schema_version": 1, "division": "d3", "gender": gender, "season": "2026-27",
@@ -429,6 +546,7 @@ def process(gender, workers=30, dry_run=False):
         "scope": "NCAA membership-wide first pass; sources without independently validated 2026-27 schedules excluded",
         "ncaa_confirmed_programs": len(by_org),
         "verified_source_calendars": successful,
+        "official_conference_calendar_fallbacks": official_conference,
         "school_calendars_checked": len(audit),
         "school_calendars_missing": len(by_org) - successful,
         "source_status_counts": dict(status_counts),
@@ -442,7 +560,7 @@ def process(gender, workers=30, dry_run=False):
     if not dry_run:
         prior_file.write_text(json.dumps(output, indent=2) + "\n")
     print(json.dumps({"gender": gender, "ncaa_members": len(by_org),
-                      "calendars_parsed": successful, "fixtures": len(fixtures),
+                      "calendars_parsed": successful, "conference_sources": official_conference, "fixtures": len(fixtures),
                       "reciprocal": count_reciprocal, "conflicts": len(conflicts),
                       "outcomes": dict(status_counts)}, sort_keys=True), flush=True)
     return output
@@ -473,6 +591,35 @@ def self_test():
     # No future-season or wrong-sport page can be accepted just because its
     # URL looks right. Yearless routes must still have the exact 2026-27 title.
     assert OFFICIAL_ATHLETICS_HOST_OVERRIDE[69] == "athletics.bowdoin.edu"
+    assert OFFICIAL_CONFERENCE_SCHEDULES["men"][64][1] == "Blackburn"
+    assert OFFICIAL_CONFERENCE_SCHEDULES["women"][525][1] == "Olivet"
+    conf_html = """<html><head><title>2026-27 Blackburn Men's Basketball Schedule</title></head>
+    <body><h2>2026-27 Blackburn Men's Basketball Schedule (0-0)</h2>
+    <table><thead><tr><th>Date</th><th>Opponent</th><th>Status</th><th>Result</th><th>Location</th></tr></thead><tbody>
+    <tr><td>11/6/2026</td><td>Hope College</td><td></td><td>7:00 PM</td><td>Carlinville, IL</td></tr>
+    <tr><td>11/7/2026</td><td>at Trine University</td><td></td><td>1:00 PM</td><td>Angola, IN</td></tr>
+    <tr><td>11/8/2026</td><td>vs. Hope College</td><td></td><td>2:00 PM</td><td>Detroit, MI</td></tr>
+    <tr><td>11/9/2026</td><td>Trine or Hope</td><td></td><td>TBA</td><td>Detroit, MI</td></tr>
+    <tr><td>11/10/2026</td><td>Hope College</td><td></td><td>7:00 PM</td><td>Carlinville, IL</td></tr>
+    <tr><td>11/11/2026</td><td>at Trine University</td><td></td><td>1:00 PM</td><td>Angola, IN</td></tr>
+    <tr><td>11/12/2026</td><td>Hope College</td><td></td><td>7:00 PM</td><td>Carlinville, IL</td></tr>
+    <tr><td>11/13/2026</td><td>Hope College</td><td></td><td>7:00 PM</td><td>Carlinville, IL</td></tr>
+    </tbody></table></body></html>"""
+    conference_rows, conference_report = parse_conference_calendar(
+        conf_html, "men", 64, "https://sliac.org/schedule.aspx?schedule=2030",
+        "Blackburn", by_org, exact)
+    assert conference_report["status"] == "parsed_conference"
+    assert conference_report["readable_rows"] == 8
+    assert len(conference_rows) == 7
+    assert conference_rows[1]["away_org_id"] == 64
+    assert conference_rows[2]["neutral"] is True
+    try:
+        parse_conference_calendar(
+            conf_html.replace("Men's Basketball", "Women's Basketball"), "men", 64,
+            "https://sliac.org/schedule.aspx?schedule=2030", "Blackburn", by_org, exact)
+        raise AssertionError("Wrong gender conference schedule accepted")
+    except ValueError:
+        pass
     assert OFFICIAL_ATHLETICS_HOST_OVERRIDE[58] == "athletics.baruch.cuny.edu"
     assert OFFICIAL_ATHLETICS_HOST_OVERRIDE[151] == "colbyathletics.com"
     fixes, _ = source_candidates("men", {69: {
