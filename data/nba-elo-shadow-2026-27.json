@@ -4,7 +4,7 @@
   "status": "primary_live_earned_elo",
   "model": "team_only_reset1500_home40_k24_sqrt_mov",
   "source": "data/nba-2026-27-current-provisional.json",
-  "games_played": 89,
+  "games_played": 90,
   "parameters": {
     "season_start_elo": 1500,
     "home_elo": 40,
@@ -174,14 +174,6 @@
       "difference_from_live": -0.494
     },
     {
-      "team": "IND",
-      "elo": 1474.785,
-      "games": 6,
-      "forecast_prior": 1352.5605,
-      "live_elo": 1366.372,
-      "difference_from_live": 108.413
-    },
-    {
       "team": "LAC",
       "elo": 1468.975,
       "games": 5,
@@ -214,12 +206,20 @@
       "difference_from_live": -48.078
     },
     {
+      "team": "IND",
+      "elo": 1461.9,
+      "games": 7,
+      "forecast_prior": 1352.5605,
+      "live_elo": 1348.981,
+      "difference_from_live": 112.919
+    },
+    {
       "team": "BKN",
-      "elo": 1444.196,
-      "games": 5,
+      "elo": 1457.08,
+      "games": 6,
       "forecast_prior": 1321.2285,
-      "live_elo": 1319.423,
-      "difference_from_live": 124.773
+      "live_elo": 1336.813,
+      "difference_from_live": 120.267
     },
     {
       "team": "UTA",
@@ -1767,6 +1767,23 @@
       "home_elo_change": -12.2817246104978,
       "home_after": 1468.1493658812378,
       "away_after": 1541.106031718636
+    },
+    {
+      "id": "espn-nba-401909904",
+      "date": "2026-11-01T22:00:00.000Z",
+      "home": "IND",
+      "away": "BKN",
+      "home_score": 90,
+      "away_score": 98,
+      "home_before": 1474.784665845685,
+      "away_before": 1444.195578222144,
+      "home_win_probability": 0.6002107840604047,
+      "forecast_home_win_probability": 0.6059855519153272,
+      "forecast_prior_weight_home": 0.46875,
+      "forecast_prior_weight_away": 0.5,
+      "home_elo_change": -12.884276294280118,
+      "home_after": 1461.9003895514047,
+      "away_after": 1457.0798545164241
     }
   ]
 }

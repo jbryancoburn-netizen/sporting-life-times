@@ -2,7 +2,7 @@
   "league": "NBA",
   "season": "2026-27",
   "status": "provisional_live_from_historical_baseline",
-  "games_played": 89,
+  "games_played": 90,
   "preseason_status": "provisional_historical_regression_only",
   "source": "ESPN FINAL NBA regular-season scores; Sporting Life & Times independent Elo",
   "rankings": [
@@ -107,24 +107,24 @@
       "elo": 1371.631
     },
     {
-      "team": "IND",
-      "elo": 1366.372
-    },
-    {
       "team": "WAS",
       "elo": 1358.181
+    },
+    {
+      "team": "IND",
+      "elo": 1348.981
     },
     {
       "team": "SAC",
       "elo": 1341.019
     },
     {
-      "team": "UTA",
-      "elo": 1322.283
+      "team": "BKN",
+      "elo": 1336.813
     },
     {
-      "team": "BKN",
-      "elo": 1319.423
+      "team": "UTA",
+      "elo": 1322.283
     }
   ],
   "events": [
@@ -928,6 +928,15 @@
       "away_score": 108,
       "date": "2026-11-01T20:30:00.000Z",
       "home_elo_change": -13.150369
+    },
+    {
+      "id": "espn-nba-401909904",
+      "home": "IND",
+      "away": "BKN",
+      "home_score": 90,
+      "away_score": 98,
+      "date": "2026-11-01T22:00:00.000Z",
+      "home_elo_change": -17.390583
     }
   ],
   "movement": {
@@ -958,11 +967,11 @@
       "NOP": 0,
       "MIL": 0,
       "CHI": 0,
-      "IND": 0,
       "WAS": 0,
+      "IND": -17.390583,
       "SAC": 0,
-      "UTA": 0,
-      "BKN": 0
+      "BKN": 17.390583,
+      "UTA": 0
     },
     "last_week_eastern_date": "2026-10-25",
     "last_week_elo": {
@@ -991,11 +1000,11 @@
       "NOP": 1397.824,
       "MIL": 1382.178,
       "CHI": 1389.63,
-      "IND": 1397.091,
       "WAS": 1346.014,
+      "IND": 1397.091,
       "SAC": 1367.5,
-      "UTA": 1349.084,
-      "BKN": 1328.249
+      "BKN": 1328.249,
+      "UTA": 1349.084
     }
   }
 }
