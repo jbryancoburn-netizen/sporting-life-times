@@ -58,6 +58,22 @@ assert.equal(insights.gameNumbers({...event,phase:'live'},games,'men'),null,
   'do not present final-only stat boxes as live stats');
 assert.equal(insights.gameNumbers({...event,away:{score:event.away.score+1}},games,'men'),null,
   'disputed score may not receive an authoritative stats panel');
+const calibration=read('data/ncaam-score-calibration.json');
+assert.equal(calibration.status,'HISTORICAL_HOLDOUT_VALIDATED');
+const ratings=new Map(retro.rankings.map(r=>[String(r.team_id),r]));
+const rr=retro.rankings.slice(0,2);
+const pregame={phase:'upcoming',kind:'regular',probability:.51,
+ away:{canonical:rr[0].team_id},home:{canonical:rr[1].team_id}};
+const projection=insights.projectedScore(pregame,calibration,ratings);
+assert(projection&&projection.home!==projection.away,'calibrated game score must have a winner');
+assert(projection.caveat.includes('not a game-specific venue'));
+assert.equal(insights.projectedScore({...pregame,probability:null},calibration,ratings),null,
+ 'unmatched forecasts may not be borrowed');
+assert.equal(insights.projectedScore({...pregame,phase:'live'},calibration,ratings),null,
+ 'game-in-progress cannot show projected score');
+assert.equal(insights.projectedScore({...pregame,kind:'exhibition'},calibration,ratings),null,
+ 'exhibitions cannot show RETRO scoring projection');
+assert.equal(insights.projectedScore(pregame,{...calibration,status:'NOT_VERIFIED'},ratings),null);
 const found=insights.gameLeaders(event,games,'men');
 assert(Array.isArray(found),'missing player box should fail closed, not invent leaders');
 assert.equal(insights.scoreDelta({id:'1',day:'2026-11-02',away_score:14,home_score:32},
