@@ -53,7 +53,7 @@ test('Other House districts have source-matched stories and accessible compariso
   await page.goto(origin+'/politics-house-state.html?state=IA',{waitUntil:'domcontentloaded'});
   await page.locator('.state-brief-card').first().waitFor({timeout:20000});
   assert.equal(await page.locator('.state-brief-card').count(),4);
-  assert.match(await page.locator('.state-brief-card').first().innerText(),/799 votes/);
+  assert.match(await page.locator('.state-editorial-stories').innerText(),/799 votes/);
   const storyAbove=await page.evaluate(()=>document.querySelector('.state-editorial-briefing').compareDocumentPosition(document.querySelector('.state-metrics'))&Node.DOCUMENT_POSITION_FOLLOWING);
   assert(storyAbove,'state race stories should appear before generic coverage metrics');
   assert.deepEqual(pageErrors,[],'uncaught JavaScript errors in the House race desk');
