@@ -250,3 +250,71 @@ body[data-house-page="district"] .dossier-poll-unassigned{
  body[data-house-page="district"] .dossier-history-meta{flex-direction:column;gap:3px;align-items:flex-start}
  body[data-house-page="district"] .dossier-history-meta span{text-align:left}
 }
+
+/* NEW / THE DISTRICT, EXPLAINED. Visible in the FIRST viewport.
+ * Original, newspaper-style front-of-article feature band.
+ * Real sourced local context replaces generic AI election boilerplate.
+ */
+body[data-house-page="district"] .district-new-desk{
+ display:grid;grid-template-columns:minmax(120px,.55fr) minmax(0,2.1fr) minmax(150px,.6fr);
+ align-items:center;column-gap:22px;
+ margin:0 -8px;padding:21px 25px 22px;
+ background:#fffdf7;border-top:1px solid #a2a8aa;border-bottom:4px solid #ac4339;
+ color:#162c41
+}
+body[data-house-page="district"] .district-new-desk-mark{
+ align-self:stretch;display:flex;flex-direction:column;
+ justify-content:center;gap:9px;padding:0 19px 0 0;
+ border-right:1px solid #b9c0c2
+}
+body[data-house-page="district"] .district-new-desk-mark span{
+ color:#a13d34;font:900 9px/1.35 'DM Sans',Arial,sans-serif;letter-spacing:1.3px
+}
+body[data-house-page="district"] .district-new-desk-mark strong{
+ color:#17344b;font:700 clamp(17px,1.7vw,22px)/1.14 Georgia,serif;
+ letter-spacing:-.6px
+}
+body[data-house-page="district"] .district-new-desk-story{
+ min-width:0;display:flex;flex-direction:column;gap:5px
+}
+body[data-house-page="district"] .district-new-desk-story>span{
+ font:900 9px/1.35 'DM Sans',sans-serif;letter-spacing:1.1px;color:#a64036
+}
+body[data-house-page="district"] .district-new-desk-story h2{
+ font:700 clamp(21px,2.3vw,31px)/1.18 Georgia,serif;
+ letter-spacing:-.6px;margin:3px 0;color:#1b3145;text-wrap:balance
+}
+body[data-house-page="district"] .district-new-desk-story p{
+ font:13px/1.5 Georgia,serif;color:#52606a;margin:0;max-width:88ch
+}
+body[data-house-page="district"] .district-new-desk-link{
+ display:flex;justify-content:space-between;align-items:center;gap:11px;
+ padding:16px 17px;background:#193b53;color:#f8f5e8;
+ font:900 10px/1.4 'DM Sans',Arial,sans-serif;
+ text-decoration:none!important;letter-spacing:.8px
+}
+body[data-house-page="district"] .district-new-desk-link span{font:700 22px/1 Georgia,serif}
+body[data-house-page="district"] .district-new-desk-link:hover,
+body[data-house-page="district"] .district-new-desk-link:focus-visible{
+ background:#a43e37;color:#fff
+}
+@media(max-width:960px){
+ body[data-house-page="district"] .district-new-desk{
+  grid-template-columns:minmax(110px,.5fr) minmax(0,2fr);
+  row-gap:15px;padding:17px 17px
+ }
+ body[data-house-page="district"] .district-new-desk-link{grid-column:2;justify-self:start}
+}
+@media(max-width:600px){
+ body[data-house-page="district"] .district-new-desk{
+  grid-template-columns:1fr;gap:10px;margin-inline:-14px;padding:16px 15px 19px
+ }
+ body[data-house-page="district"] .district-new-desk-mark{
+  flex-direction:row;align-items:baseline;justify-content:flex-start;
+  gap:10px;border:0;padding:0
+ }
+ body[data-house-page="district"] .district-new-desk-mark strong{font-size:15px}
+ body[data-house-page="district"] .district-new-desk-mark strong br{display:none}
+ body[data-house-page="district"] .district-new-desk-story h2{font-size:clamp(22px,6.3vw,29px)}
+ body[data-house-page="district"] .district-new-desk-link{grid-column:1;margin-top:6px}
+}
