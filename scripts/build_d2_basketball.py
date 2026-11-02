@@ -933,7 +933,148 @@ def ledger_changed(prior,teams,games):
 
 
 
-def apply_official_school_grid_snapshots(gender, games, teams, today=None, registry_file=None):
+
+def parse_dii_live_school_grid(html, record):
+    """Read only a named school's dated 2026-27 SIDEARM university grid.
+
+    Page identity, gender, year, source URL and visible row headers must agree.
+    Calendars are fixture evidence, NEVER proof of a final or DII membership.
+    Source-local clocks are converted using the pinned campus timezone; an
+    undecipherable/time-conflicted clock is withheld rather than guessed.
+    """
+    from bs4 import BeautifulSoup
+
+    owner = record["owner_id"]
+    url = record["source_url"]
+    gender = record["gender"]
+    if gender not in ("men", "women") or not url.startswith("https://"):
+        raise ValueError("Invalid official calendar identity/source")
+    if (("/sports/mens-basketball/schedule/2026-27" if gender == "men"
+         else "/sports/womens-basketball/schedule/2026-27") not in url):
+        raise ValueError("University schedule URL must identify 2026-27 gender")
+    soup = BeautifulSoup(html, "html.parser")
+    title = soup.title.get_text(" ", strip=True) if soup.title else ""
+    visible = " ".join(tag.get_text(" ", strip=True)
+                       for tag in soup.select("h1,h2,header")[:8])
+    heading = title + " " + visible
+    if not re.search(r"2026\s*[-–]\s*(?:2027|27)\s+" +
+                     ("Men['’]s" if gender == "men" else "Women['’]s") +
+                     r"\s+Basketball\s+Schedule", heading, re.I):
+        raise ValueError("Wrong gender or season in official university calendar: " + owner)
+    institution = record.get("school_identity", "").lower()
+    if not institution or institution not in heading.lower():
+        raise ValueError("Missing named school identity in official calendar title/header: " + owner)
+
+    from zoneinfo import ZoneInfo
+    school_zone = ZoneInfo(record["time_zone"])
+    eastern_zone = ZoneInfo("America/New_York")
+    rows = []
+    for table in soup.select("table"):
+        header = None
+        for tr in table.select("tr"):
+            cols = tr.find_all(["th", "td"], recursive=False)
+            values = [c.get_text(" ", strip=True) for c in cols]
+            keys = [re.sub(r"\s+", "", v.lower()) for v in values]
+            required = ("date", "time", "at", "opponent", "location")
+            if all(k in keys for k in required):
+                header = {k: keys.index(k) for k in required}
+                continue
+            if not header or not tr.find("td", recursive=False):
+                continue
+            if len(values) <= max(header.values()):
+                continue
+            date_text = values[header["date"]]
+            match = re.search(r"\b([A-Za-z]+)\s+(\d{1,2}),\s*(2026|2027)\b", date_text)
+            if not match:
+                continue
+            try:
+                calendar_date = dt.datetime.strptime(
+                    " ".join(match.groups()), "%B %d %Y").date()
+            except ValueError:
+                continue
+            if not (dt.date(2026, 11, 1) <= calendar_date <= dt.date(2027, 3, 15)):
+                continue
+            role = values[header["at"]].strip().lower()
+            if role not in ("home", "away", "neutral"):
+                continue
+            opponent = values[header["opponent"]].strip()
+            if (not opponent or len(opponent) > 110 or
+                re.search(r"\b(tbd|to be determined|championships?|tournament|semifinals?|quarterfinals?)\b",
+                          opponent, re.I)):
+                continue
+            local_clock = values[header["time"]].replace(".", "")
+            time_match = re.search(r"\b(1[0-2]|0?[1-9])(?::([0-5]\d))?\s*([AP])M\b",
+                                   local_clock, re.I)
+            eastern_clock = ""
+            if time_match:
+                hour = int(time_match[1]) % 12 + (12 if time_match[3].upper() == "P" else 0)
+                minute = int(time_match[2] or "0")
+                local = dt.datetime.combine(calendar_date, dt.time(hour, minute),
+                                            tzinfo=school_zone)
+                converted = local.astimezone(eastern_zone)
+                # If a late West Coast game starts the next ET day, don't
+                # attach an invalid tipoff to the original game date.
+                if converted.date() == calendar_date:
+                    eastern_clock = converted.strftime("%I:%M %p ET").lstrip("0")
+            location = values[header["location"]].strip()
+            exact_venue = ""
+            if role == "home" and "/" in location:
+                city, arena = location.split("/", 1)
+                if re.search(r"\b(gym(?:nasium)?|arena|center|complex|pavilion|fieldhouse|court)\b",
+                             arena, re.I):
+                    exact_venue = arena.strip() + " · " + city.strip()
+            row = {"date": calendar_date.isoformat(), "role": role,
+                   "opponent": opponent, "start_time": eastern_clock}
+            if exact_venue:
+                row["venue"] = exact_venue
+            rows.append(row)
+        if rows:
+            break
+    unique = {(x["date"], x["opponent"]) for x in rows}
+    if len(rows) < 12 or len(unique) != len(rows):
+        raise ValueError("Sparse, malformed or duplicate official university dates: " + owner)
+    return {"gender": gender, "owner_id": owner, "source_url": url,
+            "fixtures": rows, "home_venue": "", "live_official_source": True}
+
+
+def fetch_dii_live_school_grids(gender, sources, fetcher=None):
+    """Recover authoritative school calendars within the existing DII collector.
+
+    Network failures never delete or replace previously published fixtures.
+    Each URL is a pinned named university; no opponent-only or stale year feeds.
+    """
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+    if fetcher is None:
+        def fetcher(url):
+            request = urllib.request.Request(url, headers={
+                "User-Agent": USER_AGENT, "Accept": "text/html"})
+            with urllib.request.urlopen(request, timeout=16) as response:
+                return response.read(1800000).decode("utf-8", "replace")
+    selected = [x for x in sources if x.get("gender") == gender]
+    verified = []
+    failed = []
+    if not selected:
+        return verified, {"attempted": 0, "parsed": 0, "source_rows": 0,
+                          "failed": []}
+    with ThreadPoolExecutor(max_workers=7) as executor:
+        futures = {executor.submit(fetcher, x["source_url"]): x for x in selected}
+        for future in as_completed(futures):
+            item = futures[future]
+            try:
+                parsed = parse_dii_live_school_grid(future.result(), item)
+                verified.append(parsed)
+            except Exception as exc:
+                failed.append({"owner": item["owner_id"], "reason": str(exc)[:145]})
+    verified.sort(key=lambda x: x["owner_id"])
+    return verified, {
+        "attempted": len(selected),
+        "parsed": len(verified),
+        "source_rows": sum(len(x["fixtures"]) for x in verified),
+        "failed": sorted(failed, key=lambda x: x["owner"]),
+    }
+
+
+def apply_official_school_grid_snapshots(gender, games, teams, today=None, registry_file=None, live_sources=False, live_fetcher=None):
     """Reconcile exact official school calendars into the EXISTING DII ledger.
 
     Never introduce a non-DII opponent, change a final, invent home court
@@ -948,8 +1089,17 @@ def apply_official_school_grid_snapshots(gender, games, teams, today=None, regis
     evidence = json.loads(path.read_text(encoding="utf-8"))
     if evidence.get("season") != SEASON or evidence.get("schema") != 1:
         raise ValueError("Incorrect DII official school grid evidence schema/season")
+    live_report = {"attempted": 0, "parsed": 0, "source_rows": 0, "failed": []}
+    if live_sources:
+        calendars, live_report = fetch_dii_live_school_grids(
+            gender, evidence.get("live_school_sources", []), fetcher=live_fetcher)
+        # Use the same canonical identity, collision, Elo and final guards as
+        # the hand-verified grids. This is not a second publishing pipeline.
+        evidence["schools"] = list(evidence["schools"]) + calendars
     lookup = build_dii_team_lookup(teams)
     counts = {"source_rows": 0, "created": 0, "matched": 0, "unmatched": 0, "conflicts": 0, "past_unpublished": 0}
+    counts["live_source_attempted"] = bool(live_sources)
+    counts["live_school_sources"] = live_report
     # Two campus calendars can disagree. Detect all corroborated discrepancies
     # BEFORE inserting either side: otherwise the first school's unverified
     # clock or court role can leak into the published scorebug.
@@ -1027,8 +1177,9 @@ def apply_official_school_grid_snapshots(gender, games, teams, today=None, regis
                 if clock and not old.get("start_time"):
                     old["start_time"] = clock
                     old["tipoff_source_url"] = source_url
-                if role == "home" and calendar.get("home_venue") and not old.get("venue"):
-                    old["venue"] = calendar["home_venue"]
+                verified_venue = row.get("venue") or calendar.get("home_venue")
+                if role == "home" and verified_venue and not old.get("venue"):
+                    old["venue"] = verified_venue
                     old["venue_source_url"] = source_url
                 counts["matched"] += 1
                 continue
@@ -1041,7 +1192,7 @@ def apply_official_school_grid_snapshots(gender, games, teams, today=None, regis
                 "id": ident, "date": date, "away": away, "home": home,
                 "status": "scheduled", "away_score": None, "home_score": None,
                 "start_time": clock,
-                "venue": calendar.get("home_venue", "") if role == "home" else "",
+                "venue": (row.get("venue") or calendar.get("home_venue", "")) if role == "home" else "",
                 "network": "", "neutral": neutral,
                 "site_designation": ("Neutral site; official school grid does not certify home/away"
                                      if neutral else ""),
@@ -1167,7 +1318,10 @@ def update(gender, bootstrap=False, live=False):
             games[fixture["id"]]={**fixture,"verified":True,"elo_eligible":True}
     # Official university grids for neglected independent/CIAA programs;
     # reconcile into canonical games without changing IDs or inventing finals.
-    school_grid_quality=apply_official_school_grid_snapshots(gender,games,teams)
+    school_grid_quality=apply_official_school_grid_snapshots(
+        gender, games, teams,
+        live_sources=(not rapid or not
+                      (previous_quality.get("official_school_grid_recovery") or {}).get("live_source_attempted")))
     # Use the basketball newspaper's Eastern calendar, not UTC midnight.
     # During game hours the UTC date can already be tomorrow.
     today=dt.datetime.now(ZoneInfo("America/New_York")).date()
