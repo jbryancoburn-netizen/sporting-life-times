@@ -1348,6 +1348,21 @@ def update(gender, bootstrap=False, live=False):
             (ccaa_men_quality.get("status")!="CCAA 2026-27 exact two-university men fixtures verified" or
              ccaa_men_quality.get("source_reconciliation_version")!=2)):
             ccaa_men_quality=enrich_ccaa_men(games,teams,today)
+    # An institution can appear in the NCAA reclassification directory while
+    # still playing its 2026-27 basketball season in the NAIA, or can have
+    # transferred to DI/DIII. Keep legitimate cross-division fixture evidence,
+    # but never allow such a game to enter the independent DII Elo replay.
+    # This applies even if an old NCAA ingest previously marked it eligible.
+    for game in games.values():
+        excluded = [ident for ident in (game.get("away"), game.get("home"))
+                    if ident in teams and teams[ident].get("not_eligible_for_dii_elo")]
+        if excluded:
+            game["elo_eligible"] = False
+            game["elo_exclusion_reason"] = (
+                "At least one participant is not competing as NCAA DII in 2026-27")
+            game["elo_exclusion_source"] = next(
+                (teams[ident].get("membership_source") for ident in excluded
+                 if teams[ident].get("membership_source")), "")
     # Ratings start at 1500 on every new season; only NCAA verified DII-v-DII finals count.
     rating={key:1500.0 for key in teams}
     wins={key:0 for key in teams};losses={key:0 for key in teams}
