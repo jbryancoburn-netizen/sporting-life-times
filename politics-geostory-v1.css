@@ -192,3 +192,44 @@ body[data-house-page="district"] .geo-story-detail-wrap[hidden]{display:none!imp
 body[data-house-page="district"] .geo-story-card>.geo-story-town-deck{
  font:15px/1.6 Georgia,serif;color:#385669;max-width:74ch
 }
+
+/* Real 2020 city population comparison, not a fabricated metro diagram. */
+body[data-house-page="district"] .geo-story-stat.geo-story-population{
+ display:block;max-width:390px;border:0;border-block:1px solid #becacd;
+ margin:12px 0;padding:12px 0
+}
+body[data-house-page="district"] .geo-story-stat.geo-story-population strong{
+ font-size:clamp(29px,3.5vw,44px);color:#244c61
+}
+body[data-house-page="district"] .geo-story-city-list{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:0 25px;border-top:1px solid #b9c8cd;margin-top:18px
+}
+body[data-house-page="district"] .geo-story-city-row{
+ appearance:none;display:grid;grid-template-columns:84px minmax(0,1fr) 75px;
+ align-items:center;gap:10px;min-width:0;
+ width:100%;padding:12px 1px;border:0;
+ border-bottom:1px solid #c4d0d3;border-radius:0;
+ background:transparent;cursor:pointer;text-align:left;
+ color:#2a495a
+}
+body[data-house-page="district"] .geo-story-city-row:hover,
+body[data-house-page="district"] .geo-story-city-row:focus-visible{
+ background:#dfe9ec;outline:1px solid #7896a7
+}
+body[data-house-page="district"] .geo-story-city-row strong{
+ font:700 13px/1.3 Georgia,serif
+}
+body[data-house-page="district"] .geo-story-city-row>span:last-child{
+ font:900 11px/1.45 'DM Sans',sans-serif;text-align:right
+}
+body[data-house-page="district"] .geo-story-city-track{
+ height:12px;display:block;background:#e0e9eb
+}
+body[data-house-page="district"] .geo-story-city-fill{
+ height:100%;display:block;background:#376882
+}
+@media(max-width:690px){
+ body[data-house-page="district"] .geo-story-city-list{grid-template-columns:1fr}
+ body[data-house-page="district"] .geo-story-city-row{grid-template-columns:88px minmax(0,1fr) 68px}
+}
