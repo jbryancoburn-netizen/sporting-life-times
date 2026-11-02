@@ -754,3 +754,11 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #c481
 
 /* School-associated contrast-adjusted title stars (computed against pennant gradient). */
 .sl-game .sl-title-stars,.sl-game .sl-title-stars i{color:var(--star-ink,var(--pennant-accent))!important}
+
+/* Flat, non-italic star glyphs above school logos, with championship-year tooltips. */
+.sl-game .sl-title-stars{order:0!important;flex:0 0 auto!important;min-height:16px!important;margin:0 0 3px!important;max-height:34px!important}
+.sl-game .sl-title-stars i{font-style:normal!important;font-family:Arial,'DejaVu Sans',sans-serif!important;font-weight:700!important;font-size:12px!important;line-height:1!important}
+.sl-game .sl-pennant-brand{order:1!important}
+.sl-game .sl-pennant-name{order:2!important}
+.sl-game .sl-pennant-mascot{order:3!important}
+.sl-game .sl-pennant-rating{order:4!important}
