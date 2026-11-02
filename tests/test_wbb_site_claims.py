@@ -102,5 +102,44 @@ class OfficialSites(unittest.TestCase):
   self.assertFalse(mod.official_opponent_matches("BYU",{"opponent_id":"2628","opponent":"TCU Horned Frogs"},{}))
 
 
+ def test_verified_short_school_aliases_reconcile_only_existing_opponents(self):
+  examples=(
+   ("vs. Navy","2426","Navy Midshipmen"),
+   ("at BYU","252","BYU Cougars"),
+   ("TCU","2628","TCU Horned Frogs"),
+   ("UAB","5","UAB Blazers"),
+   ("CSUN","2463","Cal State Northridge Matadors"),
+   ("UNLV","2439","UNLV Lady Rebels"),
+   ("IU Indy","85","IU Indianapolis Jaguars"),
+   ("UMBC","2378","UMBC Retrievers"),
+   ("UTEP","2638","UTEP Miners"),
+   ("CCSU","2115","Central Connecticut Blue Devils"),
+   ("Loyola Marymount","2351","Loyola Marymount Lions"),
+   ("USC Upstate","2908","South Carolina Upstate Spartans"),
+  )
+  for official_printed, opponent_id, full_name in examples:
+   with self.subTest(official_printed=official_printed):
+    self.assertTrue(mod.official_opponent_matches(
+      official_printed,{"opponent_id":opponent_id,"opponent":full_name},{}))
+  # Matching a printed shorthand is NOT authority to synthesize a game,
+  # infer its home court, or override an existing opponent identity.
+
+ def test_shared_prefixes_cannot_swallow_different_division_one_schools(self):
+  collisions=(
+   ("Utah State","254","Utah Utes"),
+   ("Ohio State","195","Ohio Bobcats"),
+   ("UMass Lowell","113","Massachusetts Minutewomen"),
+   ("USC Upstate","30","USC Trojans"),
+   ("Iowa State","2294","Iowa Hawkeyes"),
+   ("Arizona State","12","Arizona Wildcats"),
+   ("California Baptist","25","California Golden Bears"),
+  )
+  for printed,opponent_id,full_name in collisions:
+   with self.subTest(printed=printed):
+    self.assertFalse(mod.official_opponent_matches(
+      printed,{"opponent_id":opponent_id,"opponent":full_name},{}))
+
+
+
 if __name__=="__main__":
  unittest.main()
