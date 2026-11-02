@@ -1230,7 +1230,8 @@ def update(gender, bootstrap=False, live=False):
     from d2_gmac_official import enrich_gmac
     gmac_quality=previous_quality.get("official_gmac_schedule_reconciliation")
     if (not rapid or not gmac_quality or
-        gmac_quality.get("status")!="GMAC exact two-university 2026-27 fixture verification"):
+        gmac_quality.get("status")!="GMAC exact two-university 2026-27 fixture verification" or
+        gmac_quality.get("gender")!=gender):
         gmac_quality=enrich_gmac(gender,games,teams,today)
     # Ratings start at 1500 on every new season; only NCAA verified DII-v-DII finals count.
     rating={key:1500.0 for key in teams}
