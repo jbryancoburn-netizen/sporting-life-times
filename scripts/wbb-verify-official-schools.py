@@ -167,7 +167,8 @@ def official_opponent_matches(source,game,safe_stems):
    continue
   if oppid=="153" and text.startswith((
      "northcarolinastate","northcarolinacentral","northcarolinaat",
-     "northcarolinagreensboro","northcarolinawilmington","northcarolinaasheville")):
+     "northcarolinagreensboro","northcarolinawilmington","northcarolinaasheville",
+     "uncgreensboro","uncwilmington","uncasheville","unccharlotte","unccentral","uncat")):
    continue
   if oppid=="12" and text.startswith("arizonastate"):
    continue
