@@ -424,7 +424,7 @@ def run(fast):
             except (TypeError,ValueError):pass
         return True
     pending_periods=sorted((g for g in finals if g["id"] in boxes and needs_periods(g)),
-                           key=lambda g:g["date"],reverse=True)[:24]
+                           key=lambda g:g["date"],reverse=True)[:40]
     if pending_periods:
         print("NFL archival quarter-scoring recovery:",len(pending_periods),"final games")
         with concurrent.futures.ThreadPoolExecutor(max_workers=5) as pool:
