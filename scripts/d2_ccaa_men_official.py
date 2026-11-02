@@ -241,6 +241,7 @@ def enrich_ccaa_men(games,teams,today=None,fetcher=fetch):
             time_conflicts+=1
     return {'status':'CCAA 2026-27 exact two-university men fixtures verified',
             'gender':'men','schools_read':len(sources),'reciprocal_games':reciprocal,
+            'source_reconciliation_version':2,
             'added':added,'enriched':enriched,'one_sided':one_sided,
             'quarantined':rejected+duplicated+conflicts,'unmarked_both_held':unmarked,
             'conflicts':conflicts,'time_disagreements':time_conflicts,
