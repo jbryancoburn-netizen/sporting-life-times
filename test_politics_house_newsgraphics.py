@@ -121,8 +121,9 @@ console.log('Validated '+watch+' purple watch cards, '+mixed+' conflicting-signa
         state=(ROOT/"politics-house-state.html").read_text(encoding="utf-8")
         visual=(ROOT/"politics-race-experience.css").read_text(encoding="utf-8")
         engine=(ROOT/"politics-race-experience.js").read_text(encoding="utf-8")
-        for marker in ["politics-race-experience.js","politics-race-experience.css","iowa-edition"]:
+        for marker in ["politics-race-experience.js","politics-race-experience.css","politics-race-branding.js"]:
             self.assertIn(marker,district)
+        self.assertNotIn('id="iowa-edition"',district)
         for marker in ["race-snapshots","race-receipts","race-experience"]:
             self.assertIn(marker,engine)
         for marker in ["state-editorial-stories","politics-race-experience.js","politics-race-experience.css"]:
