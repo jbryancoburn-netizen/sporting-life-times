@@ -32,7 +32,7 @@ class EloTests(unittest.TestCase):
             with self.subTest(page=name):
                 page=(root/name).read_text(encoding="utf-8")
                 self.assertIn("nfl-badge-v3.css?v=20261101-2realrings",page)
-                self.assertIn("nfl-edition-v3.js?v="+("20261101-approved-design-v10" if name=="nfl-game.html" else "20261101-gamev6"),page)
+                self.assertIn("nfl-edition-v3.js?v="+("20261101-approved-design-v10b" if name=="nfl-game.html" else "20261101-gamev6"),page)
                 self.assertNotIn('src="nfl-edition.js?',page)
 
     def test_generic_sitewide_crest_does_not_add_third_ring(self):
@@ -102,7 +102,7 @@ class EloTests(unittest.TestCase):
         self.assertIn("observer.observe(root,{childList:true})",live)
         self.assertIn('setInterval(page==="game"?gameDetails:update,25000)',live)
         self.assertIn('nfl-live-day.js?v=20261101-gamev6',center)
-        self.assertIn('nfl-live-day.js?v=20261101-approved-design-v10',game)
+        self.assertIn('nfl-live-day.js?v=20261101-approved-design-v10b',game)
 
 
     def test_nfl_individual_game_has_sourced_editorial_story(self):
@@ -115,7 +115,7 @@ class EloTests(unittest.TestCase):
         self.assertIn('function gamePage()',page)
         self.assertIn('featuredMatch(g)',page)
         self.assertIn('nfl-game-live-slot',page)
-        self.assertIn('nfl-game-editorial-v10.css?v=20261101-approved-design-v10',game)
+        self.assertIn('nfl-game-editorial-v10.css?v=20261101-approved-design-v10b',game)
         self.assertNotIn('nfl-matchup-v5.css',game)
         self.assertIn(':is([data-page="front"],[data-page="game"])',stylesheet)
         self.assertIn('root.querySelector("#nfl-game-live-slot")',live)
@@ -173,6 +173,11 @@ class EloTests(unittest.TestCase):
         self.assertIn("nflGameStatInsight(box,match)", (root/"nfl-live-day.js").read_text(encoding="utf-8"))
         self.assertIn("nfl-feature-hero-center",css)
         self.assertIn("nfl-feature-model-layout",css)
+        live=(root/"nfl-live-day.js").read_text(encoding="utf-8")
+        self.assertIn("renderVerifiedGame(target)",live)
+        self.assertIn("data/nfl-2026-boxscores.json?v=",live)
+        self.assertIn("nflGameStatInsight({...v.box,boxscore:summary.boxscore},comp)",live)
+        self.assertIn('href="#nfl-live-game-data"',js)
         self.assertIn("nfl-feature-report",css)
         self.assertIn("nfl-feature-swing",js)
         self.assertIn("if(box.id===\"nfl-game-live-slot\")box.append(section)", (root/"nfl-live-day.js").read_text(encoding="utf-8"))
@@ -181,7 +186,7 @@ class EloTests(unittest.TestCase):
         self.assertIn(".nfl-feature-tabs a{",css)
         self.assertIn("font-variant-numeric:tabular-nums",css)
         self.assertIn("display:none!important",css)
-        self.assertIn("nfl-game-editorial-v10.css?v=20261101-approved-design-v10",html)
+        self.assertIn("nfl-game-editorial-v10.css?v=20261101-approved-design-v10b",html)
 
 
     def test_temporary_approved_mobile_screenshot(self):
