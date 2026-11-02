@@ -111,7 +111,7 @@ class TestCCAA(unittest.TestCase):
         pending=dict(self.teams)
         pending['merced']=dict(pending['merced'],not_eligible_for_dii_elo=True)
         rep,actual=self.call(pages,teams=pending)
-        self.assertEqual(rep['added'],0)  # All 14 valid CCAA member identities required.
+        self.assertEqual(rep['added'],78)  # Only the 13 eligible schools may be published.
         self.assertTrue(all(g['away']!='merced' and g['home']!='merced' for g in actual.values()))
         ambiguous=dict(self.teams)
         ambiguous['second-humboldt']={'name':'Humboldt State','conference':'CCAA'}
