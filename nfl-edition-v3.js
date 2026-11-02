@@ -544,13 +544,19 @@ function gamePage(){
  const awayDelta=homeDelta==null?null:-homeDelta;
  const winnerCode=story.winner?story.winner.code:'';
  const record=t=>t.w+'–'+t.l+(t.t?'–'+t.t:'');
+ const darkField=t=>{
+  const c=String(t.color||'#244255'),alt=String(t.secondary_color||c);
+  const rgb=x=>/^#[0-9a-f]{6}$/i.test(x)?[1,3,5].map(i=>parseInt(x.slice(i,i+2),16)):[85,85,85];
+  const [r,g,b]=rgb(c),sum=rgb(alt).reduce((a,v)=>a+v,0);
+  return r>160&&g>45&&g<190&&b<100&&sum<345?alt:c;
+ };
  const teamSide=(t,side,gScore)=>'<div class="nfl-story-club '+side+'">'+
   '<a href="'+urlTeam(t.id)+'" class="nfl-story-logo" aria-label="'+escapeHtml(t.name)+' team profile">'+crest(t,'lg')+'</a>'+
   '<div class="nfl-story-club-copy"><span class="nfl-story-city">'+escapeHtml(t.name.split(' ').slice(0,-1).join(' '))+'</span>'+
   '<strong>'+escapeHtml(story.short(t))+'</strong><small>'+escapeHtml(t.code)+' · '+escapeHtml(record(t))+'</small></div>'+
   '<b class="nfl-story-score" aria-label="'+escapeHtml(t.name)+' points">'+(pre?'—':fmt(gScore))+'</b></div>';
  let out='<article class="nfl-story" style="--nfl-story-away:'+escapeHtml(a.color||'#b61d31')+
-  ';--nfl-story-home:'+escapeHtml(h.color||'#fa551d')+
+  ';--nfl-story-home:'+escapeHtml(darkField(h))+
   ';--nfl-story-winning:'+escapeHtml(story.winner?.color||h.color||'#e76237')+'">'+
   '<div class="nfl-story-topline"><a href="nfl-game-center.html">← NFL GAME CENTER</a>'+
   '<span>WEEK '+escapeHtml(g.week)+' / '+escapeHtml(status)+'</span></div>'+
@@ -801,8 +807,8 @@ async function refreshLive(){
   if(!u||(base.state==='post'&&u.state!=='post'))return base;
   return {...base,state:u.state,status:u.status||base.status,period:u.period,clock:u.clock,
    possession:u.possession,down_distance:u.down_distance,last_play:u.last_play,
-   away:{...base.away,score:u.away.score,linescores:u.away.linescores},
-   home:{...base.home,score:u.home.score,linescores:u.home.linescores}};
+   away:{...base.away,score:u.away.score,linescores:Array.isArray(u.away.linescores)&&u.away.linescores.length?u.away.linescores:base.away.linescores},
+   home:{...base.home,score:u.home.score,linescores:Array.isArray(u.home.linescores)&&u.home.linescores.length?u.home.linescores:base.home.linescores}};
  });
  if(['front','games','game','schedule','team'].includes(page))renderNFL();
  else document.getElementById('nfl-stamp').textContent+=' · Live source '+date(incoming.updated_at);
