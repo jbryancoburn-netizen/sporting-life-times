@@ -32,7 +32,7 @@ class EloTests(unittest.TestCase):
             with self.subTest(page=name):
                 page=(root/name).read_text(encoding="utf-8")
                 self.assertIn("nfl-badge-v3.css?v=20261101-2realrings",page)
-                self.assertIn("nfl-edition-v3.js?v="+("20261101-gamev8-no-overlay" if name=="nfl-game.html" else "20261101-gamev6"),page)
+                self.assertIn("nfl-edition-v3.js?v="+("20261101-nfl-story1" if name=="nfl-game.html" else "20261101-gamev6"),page)
                 self.assertNotIn('src="nfl-edition.js?',page)
 
     def test_generic_sitewide_crest_does_not_add_third_ring(self):
@@ -102,10 +102,10 @@ class EloTests(unittest.TestCase):
         self.assertIn("observer.observe(root,{childList:true})",live)
         self.assertIn('setInterval(page==="game"?gameDetails:update,25000)',live)
         self.assertIn('nfl-live-day.js?v=20261101-gamev6',center)
-        self.assertIn('nfl-live-day.js?v=20261101-gamev8-balanced',game)
+        self.assertIn('nfl-live-day.js?v=20261101-nfl-story1',game)
 
 
-    def test_nfl_individual_game_inherits_diagonal_design(self):
+    def test_nfl_individual_game_has_sourced_editorial_story(self):
         root=Path(__file__).resolve().parents[1]
         page=(root/"nfl-edition-v3.js").read_text(encoding="utf-8")
         game=(root/"nfl-game.html").read_text(encoding="utf-8")
@@ -115,8 +115,8 @@ class EloTests(unittest.TestCase):
         self.assertIn('function gamePage()',page)
         self.assertIn('featuredMatch(g)',page)
         self.assertIn('nfl-game-live-slot',page)
-        self.assertIn('nfl-game-editorial-v6.css?v=20261101-gamev6',game)
-        self.assertIn('nfl-matchup-v5.css?v=20261101-sharedv6',game)
+        self.assertIn('nfl-game-story-v9.css?v=20261101-nfl-story1',game)
+        self.assertNotIn('nfl-matchup-v5.css',game)
         self.assertIn(':is([data-page="front"],[data-page="game"])',stylesheet)
         self.assertIn('root.querySelector("#nfl-game-live-slot")',live)
         self.assertIn('function nflFinalStatus(g)',page)
@@ -136,7 +136,7 @@ class EloTests(unittest.TestCase):
         x=nfl.base_team(1);y=nfl.base_team(2)
         self.assertNotEqual(*nfl.projection(x,y,home_advantage=0))
 
-    def test_gamefile_v8_has_no_background_logo_wallpaper(self):
+    def test_gamefile_story_has_no_background_logo_wallpaper(self):
         root=Path(__file__).resolve().parents[1]
         js=(root/"nfl-edition-v3.js").read_text(encoding="utf-8")
         css=(root/"nfl-game-showcase-v7.css").read_text(encoding="utf-8")
@@ -144,10 +144,14 @@ class EloTests(unittest.TestCase):
         self.assertNotIn("archivalMark(",js)
         self.assertNotIn("--nfl-club-archive",js)
         self.assertIn("scoreForecast(g)",js)
-        self.assertIn("clip-path:none!important",css)
-        self.assertIn("nfl-p26-box-team::after",css)
+        self.assertIn("function gameStoryData(g)",js)
+        self.assertIn("function gameScoringArc(g,story)",js)
+        self.assertIn("nfl-story-field-note", (root/"nfl-game-story-v9.css").read_text(encoding="utf-8"))
+        self.assertIn("nflGameStatInsight(box,match)", (root/"nfl-live-day.js").read_text(encoding="utf-8"))
+        self.assertIn("nfl-story-scoreline",css)
+        self.assertIn("nfl-story-arc",css)
         self.assertIn("display:none!important",css)
-        self.assertIn("nfl-game-showcase-v7.css?v=20261101-gamev8-balanced",html)
+        self.assertIn("nfl-game-story-v9.css?v=20261101-nfl-story1",html)
 
     def test_exact_preseason_reset(self):
         t=nfl.replay([])
