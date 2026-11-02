@@ -6,12 +6,11 @@ const divisions=['men-d1','women-d1','men-d2','women-d2','men-d3','women-d3'];
 const divisionName=x=>({men:'MEN',women:'WOMEN'})[String(x).split('-')[0]]+' · D'+String(x).slice(-1);
 const freshTime=when=>new Intl.DateTimeFormat('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/New_York'}).format(new Date(when))+' ET';
 const clean=name=>String(name||'').trim();
-let view='live',data=null;
-function balanced(rows,count){
- const result=[],used=new Set();
- for(const division of divisions){const g=rows.find(x=>x.cohort===division&&!used.has(x.match_id));if(g){result.push(g);used.add(g.match_id)}if(result.length>=count)break}
- for(const g of rows){if(result.length>=count)break;if(!used.has(g.match_id)){result.push(g);used.add(g.match_id)}}
- return result;
+const requested=new URLSearchParams(window.location.search).get('cohort');
+let view='live',selectedCohort=divisions.includes(requested)?requested:'men-d1',data=null;
+// A selected edition is a strict cohort boundary: never mix men's/women's or D-I/D-II/D-III.
+function scoped(rows,count,cohort){
+ return rows.filter(g=>g.cohort===cohort).slice(0,count);
 }
 function mark(name,id,cohort,brand,palette,overrides){
  const badge=make('span','cs-pitch-badge');
@@ -90,22 +89,37 @@ function render(){
   return {...g,away_name:clean(g.away_name||f.away_name),home_name:clean(g.home_name||f.home_name),
    away_id:clean(g.away_id||f.away_team),home_id:clean(g.home_id||f.home_team)};
  }).filter(g=>g.away_name&&g.home_name&&Number.isInteger(g.away_score)&&Number.isInteger(g.home_score));
- const liveMatches=fresh?fromFeed.filter(g=>g.status==='live'):[];
- const displayLive=balanced(liveMatches,6);
- const finals=balanced(verifiedFinals(elo),6);
+ const liveMatches=fresh?fromFeed.filter(g=>g.status==='live'&&g.cohort===selectedCohort):[];
+ const displayLive=scoped(liveMatches,6,selectedCohort);
+ const finals=scoped(verifiedFinals(elo),6,selectedCohort);
  const active=view==='live'&&displayLive.length?'live':'final';
  root.replaceChildren();root.className='cs-pitch-board';
  const kicker=make('div','cs-pitch-board-kicker');
  kicker.append(make('span',null,'THE PITCH  /  MATCH CENTRE'),make('span',null,'2026 NCAA SOCCER'));
  root.append(kicker);
  const header=make('div','cs-pitch-board-header');
- const title=make('div');title.append(make('p','cs-pitch-eyebrow','SIX DIVISIONS · SCORES THAT MOVE'),make('h2',null,'Matchday, live.'));
+ const title=make('div');title.append(make('p','cs-pitch-eyebrow',divisionName(selectedCohort)+' · INDEPENDENT USRS'),make('h2',null,'Matchday, live.'));
  const count=make('div','cs-pitch-count '+(liveMatches.length?'is-active':''));
  count.append(make('b',null,liveMatches.length?liveMatches.length:'—'),make('span',null,liveMatches.length?'LIVE MATCHES':'NO VERIFIED LIVE MATCHES'));
  header.append(title,count);root.append(header);
  const status=make('p','cs-pitch-freshness');
  status.textContent=fresh?'NCAA feed checked '+freshTime(live.checked_at_utc)+' · Elo standings through '+elo.as_of:'Live feed out of date. Showing last published verified finals · Elo through '+elo.as_of;
  root.append(status);
+ const editionTabs=make('div','cs-pitch-division-switch');editionTabs.setAttribute('role','group');editionTabs.setAttribute('aria-label','Choose NCAA soccer division and gender');
+ for(const code of divisions){
+  const label=divisionName(code);
+  const button=make('button','cs-pitch-division-tab'+(selectedCohort===code?' is-selected':''),label);
+  button.type='button';
+  button.setAttribute('aria-pressed',String(selectedCohort===code));
+  button.addEventListener('click',()=>{
+   selectedCohort=code;view='live';
+   const u=new URL(window.location.href);u.searchParams.set('cohort',selectedCohort);
+   window.history.replaceState(null,'',u.pathname+u.search+u.hash);
+   render();
+  });
+  editionTabs.append(button);
+ }
+ root.append(editionTabs);
  const tabs=make('div','cs-pitch-switch');tabs.setAttribute('role','group');tabs.setAttribute('aria-label','Choose soccer live or final scores');
  [['live','LIVE NOW'],['final','LATEST FINALS']].forEach(([key,label])=>{
   const b=make('button','cs-pitch-tab'+(active===key?' is-selected':''),label);
