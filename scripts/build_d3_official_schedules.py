@@ -868,7 +868,7 @@ def parse_hcac_bluffton_home_rows(doc, gender, owner, url, by_org, exact):
             if len(cells) <= max(cols.values()):
                 continue
             text_date = cells[cols["date"]]
-            if not re.fullmatch(r"\\d{1,2}/\\d{1,2}/202[67]", text_date):
+            if not re.fullmatch(r"\d{1,2}/\d{1,2}/202[67]", text_date):
                 continue
             try:
                 date = dt.datetime.strptime(text_date, "%m/%d/%Y").date()
@@ -884,7 +884,7 @@ def parse_hcac_bluffton_home_rows(doc, gender, owner, url, by_org, exact):
                 continue
             name = cells[cols["teams"]]
             if BAD_OPPONENT.search(name) or re.search(
-                    r"\\b(exhibition|scrimmage|joint practice)\\b", name, re.I):
+                    r"\b(exhibition|scrimmage|joint practice)\b", name, re.I):
                 omitted["conditional_or_exhibition"] += 1
                 continue
             other = resolve(name, by_org, exact)
@@ -893,7 +893,7 @@ def parse_hcac_bluffton_home_rows(doc, gender, owner, url, by_org, exact):
                 continue
             raw_time = cells[cols["results"]]
             time = raw_time if re.fullmatch(
-                r"\\d{1,2}:\\d{2}\\s*[AP]\\.?M\\.?", raw_time, re.I) else ""
+                r"\d{1,2}:\d{2}\s*[AP]\.?M\.?", raw_time, re.I) else ""
             entries.append({
                 "date": date.isoformat(), "away_org_id": other,
                 "home_org_id": owner, "neutral": False,
@@ -2281,11 +2281,11 @@ def self_test():
         f"<tr><td>{d}</td><td>{team}</td><td>{site}</td>"
         "<td>2:00 P.M.</td><td></td></tr>"
         for d, team, site in h_rows)
-    h_html = ('<html><title>2026-27 Bluffton Women\\'s Basketball</title>'
-              '<h2>2026-27 Bluffton Women\\'s Basketball Schedule</h2>'
-              '<table><thead><tr><th>Date</th><th>Teams</th><th>Event</th>'
-              '<th>Results</th><th>Notes</th></tr></thead><tbody>' +
-              h_body + '</tbody></table></html>')
+    h_html = ("<html><title>2026-27 Bluffton Women's Basketball</title>"
+              "<h2>2026-27 Bluffton Women's Basketball Schedule</h2>"
+              "<table><thead><tr><th>Date</th><th>Teams</th><th>Event</th>"
+              "<th>Results</th><th>Notes</th></tr></thead><tbody>" +
+              h_body + "</tbody></table></html>")
     h_url = "https://heartlandconf.org/schedule.aspx?schedule=4399"
     h_games, h_report = parse_conference_calendar(
         h_html, "women", 987, h_url, "Bluffton", h_org, h_exact)
