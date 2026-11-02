@@ -624,3 +624,7 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #c481
 .sl-score-projection p{margin:0;font:10px/1.6 'DM Sans',Arial,sans-serif;color:#b9d2d8}
 @media(max-width:700px){.sl-score-projection{grid-template-columns:1fr;gap:7px;padding:11px}
  .sl-score-projection strong{font-size:15px}}
+
+/* Uniform pennant geometry across every school and matchup. */
+.sl-pennant,.sl-pennant--tail,.sl-pennant--point,.sl-pennant--shield{--sl-wedge:polygon(0 0,100% 0,100% 80%,50% 100%,0 80%);width:185px;max-width:100%;height:174px;min-height:174px;box-sizing:border-box;flex-shrink:0}
+.sl-pennant:first-child,.sl-pennant:last-child{transform:none}
