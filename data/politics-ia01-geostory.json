@@ -10,79 +10,84 @@
     "district_counties_source": "https://www.legis.iowa.gov/docs/code/2024/40.1.pdf",
     "warning": "County shapes and names come from the actual state GIS service, not approximate art. Only 20 counties on the 2022-2026 Iowa CD1 statutory list may be rendered. If unavailable, a source error is shown; no substitute geometry."
   },
-  "town_pins_source_note": "Each pin denotes a verified city-level location, NOT a precise workplace address or a facility entrance. Existing five city coordinates from U.S. Census TIGER incorporated-place centroids; Pella, Fairfield and Newton from cited geographic sources.",
+  "town_pins_source_note": "All eight town pins use original U.S. Census TIGER 2020 incorporated-place internal points, with city population from the 2020 decennial Census; they are NOT facility entrances or current population estimates.",
   "towns": [
     {
       "name": "Iowa City",
       "county": "Johnson",
-      "lat": 41.6559258,
-      "lon": -91.5306346,
-      "source_url": "https://tigerweb.geo.census.gov/tigerwebmain/",
+      "lat": 41.6559354,
+      "lon": -91.5303847,
+      "source_url": "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs24/tigerweb_acs24_incplace_2020_tab20_ia.html",
       "description": "University and medical center for much of eastern Iowa.",
       "topics": [
         "University of Iowa",
         "University of Iowa Health Care"
       ],
       "employer_source": "https://uihc.org/basic-facts-about-medical-center-university-campus",
-      "region_slug": "university"
+      "region_slug": "university",
+      "population2020": 74828
     },
     {
       "name": "Davenport",
       "county": "Scott",
-      "lat": 41.5569271,
-      "lon": -90.6053975,
-      "source_url": "https://tigerweb.geo.census.gov/tigerwebmain/",
+      "lat": 41.5565412,
+      "lon": -90.6052792,
+      "source_url": "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs24/tigerweb_acs24_incplace_2020_tab20_ia.html",
       "description": "Quad Cities manufacturing, logistics and the Mississippi River economy.",
       "topics": [
         "John Deere Davenport Works",
         "Eastern Iowa Industrial Center"
       ],
       "employer_source": "https://www.davenportiowa.com/our_community/economic_development/available_land_and_buildings",
-      "region_slug": "quadcities"
+      "region_slug": "quadcities",
+      "population2020": 101724
     },
     {
       "name": "Clinton",
       "county": "Clinton",
-      "lat": 41.8434087,
-      "lon": -90.2412129,
-      "source_url": "https://tigerweb.geo.census.gov/tigerwebmain/",
+      "lat": 41.8434359,
+      "lon": -90.2411663,
+      "source_url": "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs24/tigerweb_acs24_incplace_2020_tab20_ia.html",
       "description": "Mississippi River manufacturing and agricultural processing.",
       "topics": [
         "ADM · Archer Daniels Midland"
       ],
       "employer_source": "https://www.growclinton.com/business-development/why-clinton-region/leading-employers/",
-      "region_slug": "river"
+      "region_slug": "river",
+      "population2020": 24469
     },
     {
       "name": "Muscatine",
       "county": "Muscatine",
-      "lat": 41.419499,
-      "lon": -91.0681093,
-      "source_url": "https://tigerweb.geo.census.gov/tigerwebmain/",
+      "lat": 41.4194499,
+      "lon": -91.0681523,
+      "source_url": "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs24/tigerweb_acs24_incplace_2020_tab20_ia.html",
       "description": "Mississippi River city with office-furniture manufacturing and engineering.",
       "topics": [
         "HNI Corporation headquarters"
       ],
       "employer_source": "https://investors.hnicorp.com/ir-resources/investor-faqs",
-      "region_slug": "river"
+      "region_slug": "river",
+      "population2020": 23797
     },
     {
       "name": "Burlington",
       "county": "Des Moines",
-      "lat": 40.80713,
-      "lon": -91.1247213,
-      "source_url": "https://tigerweb.geo.census.gov/tigerwebmain/",
+      "lat": 40.8071194,
+      "lon": -91.1247277,
+      "source_url": "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs24/tigerweb_acs24_incplace_2020_tab20_ia.html",
       "description": "River port, manufacturing and the seat of Des Moines County.",
       "topics": [],
       "employer_source": null,
-      "region_slug": "river"
+      "region_slug": "river",
+      "population2020": 23982
     },
     {
       "name": "Pella",
       "county": "Marion",
-      "lat": 41.4073,
-      "lon": -92.9174,
-      "source_url": "https://mapcarta.com/Pella_(Iowa)",
+      "lat": 41.4051555,
+      "lon": -92.9189102,
+      "source_url": "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs24/tigerweb_acs24_incplace_2020_tab20_ia.html",
       "description": "Manufacturing center with global businesses rooted in a smaller Iowa city.",
       "topics": [
         "Pella Corporation",
@@ -90,31 +95,34 @@
         "Precision Pulley & Idler"
       ],
       "employer_source": "https://www.pella.org/residents/work/major-employers",
-      "region_slug": "manufacturing"
+      "region_slug": "manufacturing",
+      "population2020": 10464
     },
     {
       "name": "Fairfield",
       "county": "Jefferson",
-      "lat": 41.0072,
-      "lon": -91.963,
-      "source_url": "https://mapcarta.com/Fairfield_(Iowa)",
+      "lat": 41.006359,
+      "lon": -91.9665846,
+      "source_url": "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs24/tigerweb_acs24_incplace_2020_tab20_ia.html",
       "description": "Arts, education and a politically distinctive small city.",
       "topics": [
         "Maharishi International University"
       ],
       "employer_source": "https://www.visitfairfieldiowa.com/about-our-vibe/about-fairfield",
-      "region_slug": "fairfield"
+      "region_slug": "fairfield",
+      "population2020": 9416
     },
     {
       "name": "Newton",
       "county": "Jasper",
-      "lat": 41.6997,
-      "lon": -93.048,
-      "source_url": "https://iowa.hometownlocator.com/ia/jasper/newton.cfm",
+      "lat": 41.6962255,
+      "lon": -93.040268,
+      "source_url": "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs24/tigerweb_acs24_incplace_2020_tab20_ia.html",
       "description": "Manufacturing heritage, regional services and a historic county seat.",
       "topics": [],
       "employer_source": null,
-      "region_slug": "manufacturing"
+      "region_slug": "manufacturing",
+      "population2020": 15760
     }
   ],
   "legend": {
@@ -123,5 +131,6 @@
     "town": "#183e56",
     "employer": "#96733e"
   },
-  "news_matching": "Only display news as specific to a place when the verified headline/title names that place or county. Broader IA-01 stories remain available through the district newsroom link."
+  "news_matching": "Only display news as specific to a place when the verified headline/title names that place or county. Broader IA-01 stories remain available through the district newsroom link.",
+  "town_population_source": "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs24/tigerweb_acs24_incplace_2020_tab20_ia.html"
 }
