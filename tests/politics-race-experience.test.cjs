@@ -36,7 +36,7 @@ test('Iowa race pages tell four distinct, readable, interactive stories', {timeo
   assert.equal(await page.locator('#race-panel-poll').isHidden(),true);
   assert.equal(await page.locator('#race-panel-history').isVisible(),true);
   assert.match(await page.locator('#race-panel-history').innerText(),/206,955/);
-  await page.locator('#race-tab-poll').focus();
+  await page.locator('#race-tab-poll').click();
   await page.keyboard.press('ArrowRight');
   assert.equal(await page.locator('#race-tab-history').getAttribute('aria-selected'),'true');
   await load('IA-02');
