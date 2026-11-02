@@ -1177,10 +1177,14 @@ def apply_official_school_grid_snapshots(gender, games, teams, today=None, regis
                 if clock and not old.get("start_time"):
                     old["start_time"] = clock
                     old["tipoff_source_url"] = source_url
-                verified_venue = row.get("venue") or calendar.get("home_venue")
-                if role == "home" and verified_venue and not old.get("venue"):
+                verified_venue = row.get("venue") or (
+                    calendar.get("home_venue") if role == "home" else "")
+                if role in ("home", "neutral") and verified_venue and not old.get("venue"):
                     old["venue"] = verified_venue
                     old["venue_source_url"] = source_url
+                if row.get("network") and not old.get("network"):
+                    old["network"] = row["network"]
+                    old["broadcast_source_url"] = source_url
                 counts["matched"] += 1
                 continue
             if dt.date.fromisoformat(date) < today:
@@ -1192,13 +1196,20 @@ def apply_official_school_grid_snapshots(gender, games, teams, today=None, regis
                 "id": ident, "date": date, "away": away, "home": home,
                 "status": "scheduled", "away_score": None, "home_score": None,
                 "start_time": clock,
-                "venue": (row.get("venue") or calendar.get("home_venue", "")) if role == "home" else "",
-                "network": "", "neutral": neutral,
+                "venue": ((row.get("venue") or
+                           (calendar.get("home_venue", "") if role == "home" else ""))
+                          if role in ("home", "neutral") else ""),
+                "network": row.get("network", ""), "neutral": neutral,
                 "site_designation": ("Neutral site; official school grid does not certify home/away"
                                      if neutral else ""),
                 "elo_eligible": True, "verified": True,
                 "source": "Official university 2026-27 school schedule",
                 "source_url": source_url,
+                **({"broadcast_source_url": source_url}
+                   if row.get("network") else {}),
+                **({"venue_source_url": source_url}
+                   if role in ("home", "neutral") and
+                   (row.get("venue") or calendar.get("home_venue")) else {}),
             }
             counts["created"] += 1
     return counts
