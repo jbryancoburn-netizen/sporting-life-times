@@ -389,10 +389,13 @@ def process(gender, workers=30, dry_run=False):
     # Bind recovered historical evidence to the actual university URL that
     # passed validation on the earlier run, never an unrelated opponent link.
     previous_good_source = {
-        int(a["owner_org_id"]): a.get("source_url", "")
-        for a in previous.get("source_audit", [])
-        if a.get("status") == "parsed" and a.get("source_url", "").startswith("https://")
+        int(org): url
+        for org, url in (previous.get("last_verified_school_source") or {}).items()
+        if isinstance(url, str) and url.startswith("https://")
     }
+    for a in previous.get("source_audit", []):
+        if a.get("status") == "parsed" and a.get("source_url", "").startswith("https://"):
+            previous_good_source[int(a["owner_org_id"])] = a["source_url"]
     for f in previous.get("fixtures", []):
         for owner in f.get("verified_by_org_ids", []):
             available_previous[owner].append(f)
@@ -441,6 +444,9 @@ def process(gender, workers=30, dry_run=False):
     successful = sum(a["status"] == "parsed" for a in audit)
     if successful < 1:
         raise ValueError(f"No official {gender} calendars parsed; preserving last certified dataset")
+    for a in audit:
+        if a["status"] == "parsed" and a.get("source_url", "").startswith("https://"):
+            previous_good_source[int(a["owner_org_id"])] = a["source_url"]
     count_reciprocal = sum(f["source_verification"] == "reciprocal" for f in fixtures)
     status_counts = Counter(a["status"] for a in audit)
     # A failed school's *own* site can still have dated DIII fixtures verified
@@ -499,6 +505,7 @@ def process(gender, workers=30, dry_run=False):
         "school_calendars_checked": len(audit),
         "school_calendars_missing": len(by_org) - successful,
         "source_status_counts": dict(status_counts),
+        "last_verified_school_source": {str(k): v for k, v in sorted(previous_good_source.items())},
         "unverified_school_review": missing_school_review,
         "unverified_school_summary": review_coverage,
         "no_athletics_host": missing,
