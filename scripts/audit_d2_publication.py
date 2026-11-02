@@ -54,6 +54,15 @@ def school_schedule_coverage(teams: list[dict], games: list[dict]) -> dict:
         x["published_fixtures"], x["name"].casefold(), x["id"]))
     zero = [s for s in ordered if s["published_fixtures"] == 0]
     thin = [s for s in ordered if 1 <= s["published_fixtures"] <= 6]
+    # Keep legacy all-directory counts for backwards compatibility while
+    # separating NCAA-DII-ineligible candidates/transfers from actual gaps.
+    # Otherwise West Florida (DI 2026-27) and future DII applicants appear
+    # as if their Division II schedules are still missing.
+    eligible = [s for s in ordered if not s["membership_pending"]]
+    ineligible = [s for s in ordered if s["membership_pending"]]
+    eligible_zero = [s for s in eligible if s["published_fixtures"] == 0]
+    eligible_thin = [s for s in eligible if 1 <= s["published_fixtures"] <= 6]
+    ineligible_zero = [s for s in ineligible if s["published_fixtures"] == 0]
     conf = {}
     for row in ordered:
         c = conf.setdefault(row["conference"], {
@@ -68,6 +77,15 @@ def school_schedule_coverage(teams: list[dict], games: list[dict]) -> dict:
         "programs_with_published_games": len(ordered) - len(zero),
         "without_games": len(zero),
         "with_1_to_6_games": len(thin),
+        "eligible_programs": len(eligible),
+        "ineligible_programs": len(ineligible),
+        "eligible_programs_with_games": len(eligible) - len(eligible_zero),
+        "eligible_without_games": len(eligible_zero),
+        "eligible_with_1_to_6_games": len(eligible_thin),
+        "eligible_zero_game_schools": eligible_zero,
+        "eligible_thin_schedule_priority": eligible_thin[:40],
+        "ineligible_zero_game_schools": ineligible_zero,
+        "ineligible_zero_game_count": len(ineligible_zero),
         "zero_game_schools": zero,
         "thin_schedule_priority": thin[:40],
         "conference_gaps": dict(sorted(conf.items())),
@@ -242,6 +260,8 @@ def audit_one(gender: str, data_dir: Path) -> tuple[dict, list[str]]:
         "no_tipoff": missing_time,
         "no_source_url": missing_source,
         "schools_without_a_published_game": school_gaps["without_games"],
+        "eligible_schools_without_a_published_game": school_gaps["eligible_without_games"],
+        "ineligible_directory_schools_without_games": school_gaps["ineligible_zero_game_count"],
         "school_schedule_recovery": school_gaps,
         "full_season_date_scan": bool(scan.get("completed")),
         "school_schedule_certified": complete_school_schedules,
