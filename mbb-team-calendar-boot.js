@@ -45,6 +45,9 @@ try{
    const reviewed=schoolAliases[norm(n)];return reviewed&&schoolByCross.has(reviewed)?reviewed:'';};
  const schoolByCross=new Map((cross.teams||[]).map(t=>[String(t.espn_id),t]));
  const ratings=await load('data/ncaam-2026-27-retro-primary.json').catch(()=>null);
+ // Non-counting October results are maintained in their own evidence ledger.
+ // NEVER feed these scores to the RETRO model or call them regular-season finals.
+ const exhibitionData=await load('data/mbb-exhibition-finals-2026-27.json').catch(()=>null);
  const ratingBySchool=new Map((ratings?.rankings||[]).map(x=>[String(x.team_id),x.elo]));
  const ncaaByEspn=new Map((cross.teams||[]).map(x=>[String(x.espn_id),String(x.id)]));
  const schoolByEspn=new Map((cross.teams||[]).map(x=>[String(x.espn_id),x]));
@@ -52,7 +55,25 @@ try{
  // Join on exact NCAA/ESPN identities AND official event date, never a fuzzy school name.
  const intervalDate=d=>/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(d||'');
  const gameKey=(date,a,b)=>[date,...[String(a),String(b)].sort()].join('|');
- const verifiedFinals=new Map();
+ const verifiedFinals=new Map(),exhibitionFinals=new Map();
+ if(exhibitionData?.season==='2026-27'&&exhibitionData.retro_included===false&&Array.isArray(exhibitionData.games)){
+  for(const g of exhibitionData.games){
+   const a=String(g.away_espn_id||''),h=String(g.home_espn_id||''),day=String(g.date||'');
+   const score=n=>n!==''&&n!=null&&Number.isSafeInteger(Number(n))&&Number(n)>=0&&Number(n)<=300;
+   if(g.classification!=='exhibition'||g.counts_for_retro!==false||g.verified!==true||
+      !/^2026-10-[0-3][0-9]$/.test(day)||!schoolByCross.has(a)||!schoolByCross.has(h)||
+      a===h||!score(g.away_score)||!score(g.home_score)||
+      Number(g.away_score)===Number(g.home_score)||!/^https:\/\/[^\s"'<>]+$/.test(g.source_url||''))continue;
+   const key=gameKey(day,a,h),old=exhibitionFinals.get(key);
+   if(exhibitionFinals.has(key)){
+    if(!old||old.away!==a||old.home!==h||old.away_score!==Number(g.away_score)||
+       old.home_score!==Number(g.home_score))exhibitionFinals.set(key,null);
+    continue;
+   }
+   exhibitionFinals.set(key,{away:a,home:h,away_score:Number(g.away_score),
+    home_score:Number(g.home_score),source_url:g.source_url});
+  }
+ }
  const validRatings=ratings?.season==='2026-27'&&ratings?.model==='retro-clean-slate'&&
   ratings?.starting_elo===1500&&ratings?.rankings?.length===365&&
   Array.isArray(ratings?.events)&&ratings.events.length===ratings.games_played;
@@ -134,20 +155,31 @@ try{
    const city=cityState&&rawCity!=='City TBA'&&!rawCity.includes(',')?rawCity+', '+cityState:rawCity;
   if(rawCity&&rawCity!=='City TBA'&&arena.startsWith(rawCity))arena=arena.slice(rawCity.length).replace(/^[\s/|,]+/,'')||arena;
   const scheduledDate=e.date.slice(0,10);
+  const exhibition=e.exhibition===true||scheduledDate<'2026-11-01'||
+    /\b(?:exhibition|exh\.|preseason|scrimmage)\b/i.test(e.name||'');
   const midnight=/^12:0[0-9]\s*A\.?M\.?/i.test(verifiedTip.trim());
-  const final=opponentId?schoolFinal(scheduledDate,opponentId,midnight):null;
-  const completed=!!final||e.status?.type?.completed===true||e.status?.type?.state==='post';
-  const teamPoints=final?(final.home===String(team.espn_id)?final.home_score:final.away_score):self?.score;
-  const opponentPoints=final?(final.home===String(team.espn_id)?final.away_score:final.home_score):opponent?.score;
+  const final=!exhibition&&opponentId?schoolFinal(scheduledDate,opponentId,midnight):null;
+  const exhibitionFinal=exhibition&&opponentId?
+    exhibitionFinals.get(gameKey(scheduledDate,team.espn_id,opponentId)):null;
+  const completed=!!final||!!exhibitionFinal||
+    e.status?.type?.completed===true||e.status?.type?.state==='post';
+  const resultRecord=exhibitionFinal||final;
+  const teamPoints=resultRecord?(resultRecord.home===String(team.espn_id)?
+    resultRecord.home_score:resultRecord.away_score):(exhibition?null:self?.score);
+  const opponentPoints=resultRecord?(resultRecord.home===String(team.espn_id)?
+    resultRecord.away_score:resultRecord.home_score):(exhibition?null:opponent?.score);
   const hasScore=completed&&teamPoints!=null&&opponentPoints!=null&&
     String(teamPoints).trim()!==''&&String(opponentPoints).trim()!==''&&
     Number.isFinite(Number(teamPoints))&&Number.isFinite(Number(opponentPoints))&&
     Number(teamPoints)!==Number(opponentPoints);
-  const exhibition=e.exhibition===true||scheduledDate<'2026-11-01';
-  const gameState=hasScore?'FINAL':exhibition?'EXHIBITION':completed?'RESULT PENDING':'UPCOMING';
-  const result=hasScore?'<strong class="sched-result-score '+(Number(teamPoints)>Number(opponentPoints)?'sched-win':'sched-loss')+'">'+
+  const gameState=exhibition?(hasScore?'EXHIBITION FINAL':'EXHIBITION'):
+    hasScore?'FINAL':completed?'RESULT PENDING':'UPCOMING';
+  const scoreText=hasScore?'<strong class="sched-result-score '+(Number(teamPoints)>Number(opponentPoints)?'sched-win':'sched-loss')+'">'+
     (Number(teamPoints)>Number(opponentPoints)?'W ':'L ')+escape(teamPoints)+'–'+escape(opponentPoints)+'</strong>':
-    '<span class="sched-result-pending">'+(exhibition?'No regular-season Elo':'Not final')+'</span>';
+    '<span class="sched-result-pending">'+(exhibition?'Exhibition result unverified':'Not final')+'</span>';
+  const sourceLink=exhibitionFinal?'<br><a class="mbb-exhibition-source" href="'+escape(exhibitionFinal.source_url)+
+    '" rel="noopener noreferrer" target="_blank">Verified result ↗</a>':'';
+  const result=scoreText+sourceLink;
   const gameFile=final?'<br><a class="mbb-schedule-gamefile" href="cbb-gamefile.html?day='+
     encodeURIComponent(final.date)+'&amp;game='+encodeURIComponent(final.id)+'">Game file ↗</a>':'';
   const school=schoolByEspn.get(opponentId);
@@ -155,8 +187,9 @@ try{
   const title=school?'<a href="ncaam-team.html?team='+encodeURIComponent(school.id)+'">'+label+'</a>':label;
   const today=new Date().toLocaleDateString('sv-SE',{timeZone:'America/New_York'});
   const scheduleState=hasScore?'final':scheduledDate>=today?'upcoming':'past';
-  return '<tr data-calendar-state="'+scheduleState+'" data-opponent="'+escape((school?.name||opponentName).toLowerCase())+'">'+
-    '<td class="sched-date-cell"><time datetime="'+escape(scheduledDate)+'">'+escape(day)+'</time><span class="sched-game-status sched-status--'+(hasScore?'final':exhibition?'exhibition':completed?'pending':'upcoming')+'">'+gameState+'</span></td>'+
+  return '<tr data-calendar-state="'+scheduleState+'" data-exhibition="'+(exhibition?'true':'false')+
+    '" data-opponent="'+escape((school?.name||opponentName).toLowerCase())+'">'+
+    '<td class="sched-date-cell"><time datetime="'+escape(scheduledDate)+'">'+escape(day)+'</time><span class="sched-game-status sched-status--'+(exhibition?'exhibition':hasScore?'final':completed?'pending':'upcoming')+'">'+gameState+'</span></td>'+
     '<td class="sched-matchup-cell"><div class="sched-matchup">'+emblem+'<span class="sched-opponent"><strong>'+title+'</strong><small>'+vs.replace('SITE UNVERIFIED','LOCATION UNCONFIRMED')+'</small></span></div></td>'+
     '<td class="sched-venue-cell"><div class="sched-venue"><strong>'+escape(arena)+'</strong><small>'+escape(city)+'</small></div></td>'+
     '<td class="sched-time-cell">'+escape(tip)+'</td>'+
@@ -164,14 +197,20 @@ try{
     '<td class="sched-elo-cell">'+(exhibition?'Not applicable':escape(opponentElo(opponentId)))+'</td>'+
     '<td class="sched-result-cell">'+result+gameFile+'</td></tr>';
  }).join('');
+ const scoredExhibitions=games.filter(e=>{
+  if(e.date.slice(0,10)>='2026-11-01')return false;
+  const opponents=e.competitions?.[0]?.competitors||[];
+  const other=opponents.find(x=>String(x.team?.id)!==String(team.espn_id));
+  return !!other&&!!exhibitionFinals.get(gameKey(e.date.slice(0,10),team.espn_id,other.team?.id));
+ }).length;
  const method=data.verified_from_school?'Official university athletics calendar':data.verified_by_opponents?'Opponent universities confirmed these games; partial coverage':'Published schedule feed; official verification pending';
  const source=/^https:\/\/[^\s"'<>]+$/.test(data.source_url||'')&&!/espn\.com|realgm\.com|wikipedia\.org/i.test(data.source_url)?'<a href="'+escape(data.source_url)+'" target="_blank" rel="noopener">School athletics source ↗</a>':'';
  const savedSearch=host.querySelector('#calendar-opponent')?.value||'';
  const savedView=host.querySelector('#calendar-view')?.value||'all';
- host.innerHTML='<section class="panel" id="full-season-schedule"><div class="panel-head"><div class="eyebrow">'+escape(team.name)+' · 2026–27</div><h2>Full Season Schedule — '+games.length+' Games</h2></div><p class="note">'+escape(method)+' · Times follow the school listing and its published time zone. Verified results come from the independent RETRO final ledger; unannounced broadcasts remain TBA. '+source+'</p><div class="calendar-controls"><label>Opponent <input id="calendar-opponent" class="input" type="search" placeholder="Find an opponent…"></label><label>Show <select id="calendar-view"><option value="all">All games</option><option value="upcoming">Upcoming games</option><option value="final">Finals</option></select></label><span id="calendar-count" class="note" aria-live="polite"></span></div><div class="table-wrap"><table class="mbb-schedule-table"><thead><tr><th>Date</th><th>Opponent</th><th>Arena / City</th><th>Tipoff (school listing)</th><th>TV / Stream</th><th>Opp. RETRO</th><th>Result</th></tr></thead><tbody>'+cells+'</tbody></table></div></section>';
+ host.innerHTML='<section class="panel" id="full-season-schedule"><div class="panel-head"><div class="eyebrow">'+escape(team.name)+' · 2026–27</div><h2>Full Season Schedule — '+games.length+' Games</h2></div><p class="note">'+escape(method)+' · Times follow the school listing and its published time zone. Regular-season finals follow RETRO; exhibition finals use a separate sourced ledger and never affect Elo. '+scoredExhibitions+' verified exhibition result(s). Unannounced broadcasts remain TBA. '+source+'</p><div class="calendar-controls"><label>Opponent <input id="calendar-opponent" class="input" type="search" placeholder="Find an opponent…"></label><label>Show <select id="calendar-view"><option value="all">All games</option><option value="upcoming">Upcoming games</option><option value="final">Finals</option><option value="exhibition">Exhibitions</option></select></label><span id="calendar-count" class="note" aria-live="polite"></span></div><div class="table-wrap"><table class="mbb-schedule-table"><thead><tr><th>Date</th><th>Opponent</th><th>Arena / City</th><th>Tipoff (school listing)</th><th>TV / Stream</th><th>Opp. RETRO</th><th>Result</th></tr></thead><tbody>'+cells+'</tbody></table></div></section>';
  const search=host.querySelector('#calendar-opponent'),view=host.querySelector('#calendar-view');
  search.value=savedSearch;view.value=savedView;
- const filter=()=>{let shown=0;for(const row of host.querySelectorAll('tbody tr')){row.hidden=!(row.dataset.opponent.includes(search.value.toLowerCase().trim())&&(view.value==='all'||row.dataset.calendarState===view.value));if(!row.hidden)shown++;}host.querySelector('#calendar-count').textContent=shown+' of '+games.length+' games';};
+ const filter=()=>{let shown=0;for(const row of host.querySelectorAll('tbody tr')){row.hidden=!(row.dataset.opponent.includes(search.value.toLowerCase().trim())&&(view.value==='all'||(view.value==='exhibition'?row.dataset.exhibition==='true':row.dataset.calendarState===view.value)));if(!row.hidden)shown++;}host.querySelector('#calendar-count').textContent=shown+' of '+games.length+' games';};
  search.addEventListener('input',filter);view.addEventListener('change',filter);filter();
  host.dataset.scheduleLoaded=selected;
  if(!host.dataset.calendarPolling){host.dataset.calendarPolling='true';setInterval(()=>{if(!document.hidden)refreshCalendar();},60000);}
