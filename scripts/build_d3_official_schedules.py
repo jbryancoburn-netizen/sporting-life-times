@@ -669,6 +669,27 @@ def combine(gender, parsed):
     return fixtures, conflicts
 
 
+
+def retained_fixture_source(fixture, owner, previous_status, known_school, known_conference):
+    """Retain only a prior fixture's genuinely documented owner source.
+
+    A previously checked conference calendar must NEVER be relabeled as an
+    official school source merely because the current crawl fails.
+    """
+    sources = set(fixture.get("official_schedule_sources") or [])
+    if not sources:
+        return None
+    if owner not in fixture.get("verified_by_org_ids", []):
+        return None
+    school = (known_school.get(owner), "official_school")
+    conference = (known_conference.get(owner), "official_conference")
+    candidates = ([conference, school] if previous_status == "parsed_conference"
+                  else [school, conference])
+    for url, kind in candidates:
+        if url and url in sources:
+            return url, kind
+    return None
+
 def process(gender, workers=30, dry_run=False):
     current = json.loads((DATA / f"d3-{gender}-2026-27.json").read_text())
     if current["gender"] != gender or current["division"] != "d3" or current["starting_elo"] != 1500:
@@ -686,9 +707,23 @@ def process(gender, workers=30, dry_run=False):
         for org, url in (previous.get("last_verified_school_source") or {}).items()
         if isinstance(url, str) and url.startswith("https://")
     }
+    # A successfully validated conference schedule is ALSO original official
+    # evidence. When its school calendar later becomes temporarily unreadable,
+    # retain its fixtures as conference-sourced, never as a fake university
+    # schedule. Provenance is persisted across successive transient failures.
+    previous_good_conference = {
+        int(org): url
+        for org, url in (previous.get("last_verified_conference_source") or {}).items()
+        if isinstance(url, str) and url.startswith("https://")
+    }
     for a in previous.get("source_audit", []):
-        if a.get("status") == "parsed" and a.get("source_url", "").startswith("https://"):
-            previous_good_source[int(a["owner_org_id"])] = a["source_url"]
+        org, url = int(a["owner_org_id"]), a.get("verified_direct_url") or a.get("source_url", "")
+        if not str(url).startswith("https://"):
+            continue
+        if a.get("status") == "parsed":
+            previous_good_source[org] = url
+        elif a.get("status") == "parsed_conference":
+            previous_good_conference[org] = url
     for f in previous.get("fixtures", []):
         for owner in f.get("verified_by_org_ids", []):
             available_previous[owner].append(f)
@@ -726,20 +761,24 @@ def process(gender, workers=30, dry_run=False):
                 # Failed sources must not erase last verified fixture snapshots.
                 recovered = []
                 for f in prior:
-                    prev_source = previous_good_source.get(owner, "")
-                    if not prev_source:
-                        continue  # evidence attribution cannot be proven
+                    source = retained_fixture_source(
+                        f, owner, previous_audit.get(owner, {}).get("status"),
+                        previous_good_source, previous_good_conference)
+                    if source is None:
+                        continue  # Never attribute an opponent URL to this owner.
+                    prev_source, original_kind = source
                     recovered.append({
                         "date": f["date"], "away_org_id": f["away_org_id"],
                         "home_org_id": f["home_org_id"], "neutral": f["neutral"],
                         "source_owner_org_id": owner, "source_url": prev_source,
-                        "source_kind": "official_school",
+                        "source_kind": original_kind,
                         "tipoff_as_posted": f.get("tipoff_as_posted", ""),
                         "venue": f.get("venue", ""),
                         "venue_location": f.get("venue_location", ""),
                         "network_as_posted": f.get("network_as_posted", ""),
                         "radio_as_posted": f.get("radio_as_posted", ""),
                         "tournament": f.get("tournament", "")})
+                report["retained_verified_fixtures"] = len(recovered)
                 if recovered:
                     gathered.append(recovered)
             audit.append(report)
@@ -749,8 +788,13 @@ def process(gender, workers=30, dry_run=False):
     if successful < 1:
         raise ValueError(f"No official {gender} calendars parsed; preserving last certified dataset")
     for a in audit:
-        if a["status"] == "parsed" and a.get("source_url", "").startswith("https://"):
-            previous_good_source[int(a["owner_org_id"])] = a["source_url"]
+        url = a.get("verified_direct_url") or a.get("source_url", "")
+        if not str(url).startswith("https://"):
+            continue
+        if a["status"] == "parsed":
+            previous_good_source[int(a["owner_org_id"])] = url
+        elif a["status"] == "parsed_conference":
+            previous_good_conference[int(a["owner_org_id"])] = url
     count_reciprocal = sum(f["source_verification"] == "reciprocal" for f in fixtures)
     official_conference = sum(a["status"] == "parsed_conference" for a in audit)
     status_counts = Counter(a["status"] for a in audit)
@@ -824,6 +868,7 @@ def process(gender, workers=30, dry_run=False):
         "school_calendars_unresolved": len(by_org) - successful - official_conference,
         "source_status_counts": dict(status_counts),
         "last_verified_school_source": {str(k): v for k, v in sorted(previous_good_source.items())},
+        "last_verified_conference_source": {str(k): v for k, v in sorted(previous_good_conference.items())},
         "unverified_school_review": missing_school_review,
         "unverified_school_summary": review_coverage,
         "no_athletics_host": missing,
@@ -1050,6 +1095,30 @@ def self_test():
         raise AssertionError("Wrong-gender calendar was improperly accepted")
     except ValueError:
         pass
+
+    # A transient 403 must never erase an official conference-verified
+    # fixture or promote it to a university-certified source.
+    prior_game = {
+        "verified_by_org_ids": [286, 30037],
+        "official_schedule_sources": ["https://conference.example/schedule=44",
+                                      "https://school.example/schedule"],
+    }
+    assert retained_fixture_source(
+        prior_game, 286, "parsed_conference",
+        {286: "https://school.example/schedule"},
+        {286: "https://conference.example/schedule=44"}) == (
+            "https://conference.example/schedule=44", "official_conference")
+    assert retained_fixture_source(
+        prior_game, 286, "parsed",
+        {286: "https://school.example/schedule"},
+        {286: "https://conference.example/schedule=44"}) == (
+            "https://school.example/schedule", "official_school")
+    assert retained_fixture_source(
+        prior_game, 286, "failed", {286: "https://other.example/unknown"},
+        {286: "https://no-source.example/missing"}) is None
+    assert retained_fixture_source(
+        prior_game, 999, "parsed", {999: "https://school.example/schedule"},
+        {}) is None
 
     print("DIII schedule importer: date/identity/conditional/neutral/reciprocal tests PASS")
 
