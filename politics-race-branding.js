@@ -89,20 +89,20 @@ function ringsOf(geometry){
  if(geometry?.type==="MultiPolygon")return geometry.coordinates.flat();
  return [];
 }
-function featureCode(feature){
+function featureCode(feature,field){
  const p=feature.properties||{};
- const raw=p.CD120??p.CD119;
+ const raw=p[field]??p.CD120??p.CD119;
  const n=Number(raw);
  return Number.isInteger(n)&&n>=0&&n<100?String(n).padStart(2,"0"):null;
 }
 async function outlineDistrict(r,host){
  try{
   const geo=await districtGeo(r.state);
-  const features=geo.features.filter(f=>f.geometry&&featureCode(f)!=null);
+  const features=geo.features.filter(f=>f.geometry&&featureCode(f,geo.meta?.field)!=null);
   if(!features.length)throw Error("No valid geographic district boundaries");
   const all=[],pieces=[];
   for(const f of features){
-   const rings=ringsOf(f.geometry),id=featureCode(f);
+   const rings=ringsOf(f.geometry),id=featureCode(f,geo.meta?.field);
    for(const ring of rings){
     if(!Array.isArray(ring)||ring.length<3)continue;
     const coords=ring.map(v=>[r.state==="AK"&&v[0]>0?v[0]-360:v[0],v[1]]).filter(v=>Number.isFinite(v[0])&&Number.isFinite(v[1]));
