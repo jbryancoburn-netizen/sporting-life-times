@@ -1088,7 +1088,14 @@ def update(gender, bootstrap=False, live=False):
     # gender, explicit H/A role and two-school agreement. Daily only.
     from d2_nsic_official import enrich_nsic
     nsic_quality=previous_quality.get("official_nsic_schedule_reconciliation")
-    if not rapid or not nsic_quality:
+    # Repair a prior NSIC title-validation false negative. The official
+    # university title uses "Minnesota State University Moorhead", while
+    # the stored conference display label is "MSU Moorhead". Retry the
+    # two affected school calendars once instead of reusing a stale error.
+    moorhead_id=4254 if gender=="men" else 4270
+    stale_moorhead=any(isinstance(item,dict) and item.get("id")==moorhead_id
+                       for item in (nsic_quality or {}).get("errors",[]))
+    if not rapid or not nsic_quality or stale_moorhead:
         nsic_quality=enrich_nsic(gender,games,teams,today)
     # Thirty-two official Carolinas school calendars, two independent
     # institutional witnesses for any new conference game (one per team).
