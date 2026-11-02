@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "checked_at_utc": "2026-11-02T02:04:45.492202+00:00",
+  "checked_at_utc": "2026-11-02T02:14:32.246206+00:00",
   "source": "NCAA scoreboard via ncaa-api compatibility endpoint",
   "games": [
     {
@@ -359,7 +359,7 @@
       "cohort": "men-d1",
       "status": "live",
       "home_score": 1,
-      "away_score": 0,
+      "away_score": 1,
       "home_name": "Temple",
       "away_name": "FIU",
       "home_id": "temple",
@@ -657,7 +657,7 @@
       "match_id": "men-6617039",
       "cohort": "men-d1",
       "status": "live",
-      "home_score": 1,
+      "home_score": 2,
       "away_score": 3,
       "home_name": "UAB",
       "away_name": "Fla. Atlantic",
@@ -1008,13 +1008,13 @@
       "match_id": "men-6619307",
       "cohort": "men-d3",
       "status": "live",
-      "home_score": 1,
+      "home_score": 2,
       "away_score": 0,
       "home_name": "Concordia (TX)",
       "away_name": "Dallas",
       "home_id": "concordia-tx",
       "away_id": "dallas",
-      "period": "HALF",
+      "period": "2ND HALF",
       "source_url": "https://www.ncaa.com/game/6619307"
     },
     {
@@ -1786,7 +1786,7 @@
     },
     {
       "match_id": "men-6638624",
-      "cohort": "men-d2",
+      "cohort": "men-d1",
       "status": "final",
       "home_score": 5,
       "away_score": 0,
@@ -1796,6 +1796,19 @@
       "away_id": "spring-hill",
       "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6638624"
+    },
+    {
+      "match_id": "men-6638632",
+      "cohort": "men-d1",
+      "status": "live",
+      "home_score": 0,
+      "away_score": 0,
+      "home_name": "UNLV",
+      "away_name": "Air Force",
+      "home_id": "unlv",
+      "away_id": "air-force",
+      "period": "1ST HALF",
+      "source_url": "https://www.ncaa.com/game/6638632"
     },
     {
       "match_id": "men-6638775",
@@ -2151,14 +2164,14 @@
     {
       "match_id": "men-6663459",
       "cohort": "men-d2",
-      "status": "live",
+      "status": "final",
       "home_score": 2,
       "away_score": 0,
       "home_name": "D'Youville",
       "away_name": "Molloy",
       "home_id": "dyouville",
       "away_id": "molloy",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6663459"
     },
     {
@@ -4713,7 +4726,7 @@
       "match_id": "women-6609489",
       "cohort": "women-d1",
       "status": "live",
-      "home_score": 0,
+      "home_score": 1,
       "away_score": 1,
       "home_name": "Hawaii",
       "away_name": "New Mexico",
