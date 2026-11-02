@@ -1,0 +1,252 @@
+/* THE DISTRICT, EXPLAINED · field-report design, not dashboard widgets.
+   Official Census district boundaries and original geographic sources only.
+ */
+body[data-house-page="district"] .district-dossier{
+ background:#fbf9f3;color:#172b3c;border-top:5px solid #183449;
+ margin:33px -8px 27px;padding:0 0 20px;isolation:isolate
+}
+body[data-house-page="district"] .dossier-edition-head{
+ display:grid;grid-template-columns:minmax(0,1.6fr) minmax(185px,.4fr);
+ gap:11px 23px;align-items:end;padding:27px 25px 24px;
+ border-bottom:1px solid #acb7ba
+}
+body[data-house-page="district"] #dossier-kicker{
+ grid-column:1/-1;color:#a73e34;letter-spacing:1.7px;
+ font:900 10px/1.5 'DM Sans',sans-serif
+}
+body[data-house-page="district"] #district-dossier-title{
+ grid-column:1;grid-row:2;max-width:1000px;
+ font:700 clamp(38px,4.5vw,68px)/1.04 Georgia,'Libre Baskerville',serif;
+ letter-spacing:-2.1px;margin:0;text-wrap:balance;color:#192f40
+}
+body[data-house-page="district"] #dossier-status{
+ grid-column:2;grid-row:2;margin:0;max-width:230px;
+ font:11px/1.65 'DM Sans',sans-serif;color:#556773;
+ border-left:3px solid #b6473e;padding-left:12px
+}
+body[data-house-page="district"] .dossier-overline{
+ display:block;font:900 10px/1.5 'DM Sans',sans-serif;
+ letter-spacing:1.35px;color:#9e4037;text-transform:uppercase
+}
+body[data-house-page="district"] .dossier-place-grid{
+ display:grid;grid-template-columns:minmax(0,1.7fr) minmax(240px,.77fr);
+ gap:0;border-bottom:1px solid #aeb9bd
+}
+body[data-house-page="district"] .dossier-map-panel{
+ padding:27px 25px 23px;border-right:1px solid #aeb9bd
+}
+body[data-house-page="district"] .dossier-map-panel h3,
+body[data-house-page="district"] .dossier-people h3,
+body[data-house-page="district"] .dossier-local h3,
+body[data-house-page="district"] .dossier-history h3,
+body[data-house-page="district"] .dossier-polling h3{
+ font:700 clamp(28px,3.1vw,43px)/1.11 Georgia,serif;
+ letter-spacing:-.9px;color:#1b354b;margin:7px 0 14px
+}
+body[data-house-page="district"] .dossier-map-panel>p:not(.dossier-map-credit){
+ font:14px/1.58 Georgia,serif;color:#4a5c69;max-width:62ch;margin:0 0 16px
+}
+body[data-house-page="district"] .dossier-map{
+ height:clamp(330px,38vw,510px);min-height:330px;
+ background:#dce7e8;border:1px solid #879ba7;
+ overflow:hidden;color:#385a70;
+ display:block
+}
+body[data-house-page="district"] .dossier-map .leaflet-control-attribution{
+ background:#ffffffec!important;font:10px/1.5 'DM Sans',sans-serif;padding:3px!important
+}
+body[data-house-page="district"] .dossier-map-credit{
+ margin:11px 0 0;font:10px/1.55 'DM Sans',sans-serif;color:#657581
+}
+body[data-house-page="district"] .dossier-map-credit a{
+ color:#164f70;font-weight:800;text-underline-offset:2px
+}
+body[data-house-page="district"] .dossier-people{
+ padding:27px 22px;background:#e9edec
+}
+body[data-house-page="district"] .dossier-demographics{
+ display:grid;gap:0;border-top:2px solid #203c52;border-bottom:1px solid #9eacb5
+}
+body[data-house-page="district"] .dossier-demographic{
+ display:flex;flex-direction:column;gap:7px;padding:17px 0;
+ border-bottom:1px solid #adbabf
+}
+body[data-house-page="district"] .dossier-demographic:last-child{border:0}
+body[data-house-page="district"] .dossier-demographic span{
+ font:900 10px/1.45 'DM Sans',sans-serif;letter-spacing:.4px;color:#4e6170
+}
+body[data-house-page="district"] .dossier-demographic strong{
+ font:700 clamp(33px,3.5vw,52px)/1 Georgia,serif;
+ letter-spacing:-1.4px;color:#173b58
+}
+body[data-house-page="district"] .dossier-caution{
+ margin:13px 0;font:11px/1.6 'DM Sans',sans-serif;color:#52616a;
+ border-left:3px solid #b45447;padding:7px 0 7px 12px
+}
+body[data-house-page="district"] .dossier-people>a,
+body[data-house-page="district"] .dossier-polling>a{
+ display:inline-block;font:900 11px/1.5 'DM Sans',sans-serif;
+ color:#9b3d35;text-decoration:underline;text-underline-offset:3px;margin-right:17px
+}
+body[data-house-page="district"] .dossier-main-story{
+ display:grid;grid-template-columns:minmax(0,1.25fr) minmax(300px,.87fr);
+ gap:0;border-bottom:1px solid #b5bec1
+}
+body[data-house-page="district"] .dossier-local{
+ padding:31px 25px 29px;border-right:1px solid #b5bec1
+}
+body[data-house-page="district"] .dossier-history{
+ padding:31px 25px 29px;background:#f0eee7
+}
+body[data-house-page="district"] .dossier-local-deck{
+ margin:0 0 22px;font:17px/1.63 Georgia,serif;
+ color:#384f5d;max-width:65ch
+}
+body[data-house-page="district"] .dossier-local-places{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:0 21px;border-top:2px solid #1e394e
+}
+body[data-house-page="district"] .dossier-local-place{
+ padding:15px 0 17px;border-bottom:1px solid #b7c1c3
+}
+body[data-house-page="district"] .dossier-local-place strong{
+ display:block;font:700 clamp(17px,1.7vw,23px)/1.2 Georgia,serif;
+ color:#1e405a
+}
+body[data-house-page="district"] .dossier-local-place span{
+ display:block;font:900 9px/1.5 'DM Sans',sans-serif;
+ margin:6px 0;color:#9e4138;letter-spacing:.5px;text-transform:uppercase
+}
+body[data-house-page="district"] .dossier-local-place p{
+ margin:0;font:12px/1.6 Georgia,serif;color:#4f606a
+}
+body[data-house-page="district"] .dossier-county-list{
+ border-top:2px solid #1d374c;border-bottom:1px solid #b8c2c4;
+ margin:20px 0 19px;padding:0
+}
+body[data-house-page="district"] .dossier-county-list summary{
+ padding:15px 0;cursor:pointer;
+ font:700 17px Georgia,serif;color:#173c57
+}
+body[data-house-page="district"] .dossier-county-list summary:hover{color:#a73e34}
+body[data-house-page="district"] .dossier-county-list p{
+ margin:0;padding:3px 0 17px;font:13px/1.85 Georgia,serif;color:#485a65
+}
+body[data-house-page="district"] .dossier-local-character{
+ display:grid;grid-template-columns:1fr;gap:0;border-top:1px solid #b6c1c2
+}
+body[data-house-page="district"] .dossier-character-item{
+ padding:15px 0;border-bottom:1px solid #b6c1c2
+}
+body[data-house-page="district"] .dossier-character-item strong{
+ display:block;font:700 17px Georgia,serif;color:#1d3950
+}
+body[data-house-page="district"] .dossier-character-item p{
+ margin:6px 0 0;font:13px/1.57 Georgia,serif;color:#495a65
+}
+body[data-house-page="district"] .dossier-local-sources{
+ padding:18px 0 0;font:11px/1.6 'DM Sans',sans-serif;color:#566873
+}
+body[data-house-page="district"] .dossier-local-sources strong{display:block;margin-bottom:9px}
+body[data-house-page="district"] .dossier-local-sources a{
+ display:block;margin:7px 0;color:#a03e36;
+ text-decoration:underline;text-underline-offset:2px
+}
+body[data-house-page="district"] .dossier-module-head{margin-bottom:23px}
+body[data-house-page="district"] .dossier-history-grid{
+ display:grid;gap:21px;border-top:2px solid #17394f;padding-top:7px
+}
+body[data-house-page="district"] .dossier-history-row{padding:15px 0;border-bottom:1px solid #bcc5c6}
+body[data-house-page="district"] .dossier-history-meta{
+ display:flex;justify-content:space-between;align-items:baseline;gap:12px;
+ margin-bottom:12px
+}
+body[data-house-page="district"] .dossier-history-meta strong{
+ font:700 39px Georgia,serif;letter-spacing:-1.2px;color:#183b54
+}
+body[data-house-page="district"] .dossier-history-meta span{
+ font:900 11px/1.5 'DM Sans',sans-serif;color:#9b3c35;text-align:right
+}
+body[data-house-page="district"] .dossier-vote-bar{
+ display:flex;align-items:stretch;overflow:hidden;height:25px;background:#e7e7e6;
+ border:1px solid #fff
+}
+body[data-house-page="district"] .dossier-vote-bar .dossier-dem{background:#346aab}
+body[data-house-page="district"] .dossier-vote-bar .dossier-rep{background:#ba4c43}
+body[data-house-page="district"] .dossier-vote-legend{
+ display:flex;justify-content:space-between;gap:9px;flex-wrap:wrap;
+ margin:10px 0 13px;font:11px/1.5 'DM Sans',sans-serif;color:#475763
+}
+body[data-house-page="district"] .dossier-history-row>a{
+ font:900 10px/1.45 'DM Sans',sans-serif;
+ color:#a03e36;text-underline-offset:3px
+}
+body[data-house-page="district"] .dossier-polling{padding:30px 25px 26px}
+body[data-house-page="district"] .dossier-polling .dossier-module-head{
+ border-bottom:2px solid #1e3a50;padding-bottom:5px
+}
+body[data-house-page="district"] .dossier-poll-badge{
+ color:#954239;font:900 11px/1.5 'DM Sans',sans-serif;
+ letter-spacing:.25px;margin:13px 0 21px
+}
+body[data-house-page="district"] .dossier-poll-bars{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 28px;
+ max-width:950px
+}
+body[data-house-page="district"] .dossier-poll-line{min-width:0}
+body[data-house-page="district"] .dossier-poll-line-head{
+ display:flex;justify-content:space-between;gap:12px;margin-bottom:9px;
+ font:700 13px/1.4 Georgia,serif;color:#253e50
+}
+body[data-house-page="district"] .dossier-poll-line-head strong{
+ font:700 23px/1 Georgia,serif;color:#1b415e
+}
+body[data-house-page="district"] .dossier-poll-track{
+ width:100%;height:20px;background:#dee1df;border:1px solid #d3d7d7
+}
+body[data-house-page="district"] .dossier-poll-track span{display:block;height:100%}
+body[data-house-page="district"] .dossier-poll-dem{background:#356da9}
+body[data-house-page="district"] .dossier-poll-rep{background:#b4473e}
+body[data-house-page="district"] .dossier-poll-other{background:#7e8198}
+body[data-house-page="district"] .dossier-poll-unassigned{
+ margin:18px 0 0;font:13px/1.6 Georgia,serif;color:#455764
+}
+@media(max-width:1080px){
+ body[data-house-page="district"] .dossier-edition-head{grid-template-columns:1fr}
+ body[data-house-page="district"] #district-dossier-title,body[data-house-page="district"] #dossier-status{
+ grid-column:1;grid-row:auto
+ }
+ body[data-house-page="district"] #dossier-status{max-width:750px}
+ body[data-house-page="district"] .dossier-place-grid{grid-template-columns:minmax(0,1.25fr) minmax(230px,.8fr)}
+ body[data-house-page="district"] .dossier-main-story{grid-template-columns:1fr}
+ body[data-house-page="district"] .dossier-local{border-right:0;border-bottom:1px solid #b5bec1}
+}
+@media(max-width:750px){
+ body[data-house-page="district"] .dossier-place-grid{grid-template-columns:1fr}
+ body[data-house-page="district"] .dossier-map-panel{border-right:0;border-bottom:1px solid #b5bec1}
+ body[data-house-page="district"] .dossier-people{padding:24px 17px}
+ body[data-house-page="district"] .dossier-demographics{grid-template-columns:repeat(3,minmax(0,1fr))}
+ body[data-house-page="district"] .dossier-demographic{
+ padding:14px 10px;border-bottom:0;border-right:1px solid #aab6be
+ }
+ body[data-house-page="district"] .dossier-demographic:last-child{border:0}
+ body[data-house-page="district"] .dossier-demographic strong{font-size:clamp(20px,4vw,35px)}
+ body[data-house-page="district"] .dossier-demographic span{font-size:9px}
+}
+@media(max-width:600px){
+ body[data-house-page="district"] .district-dossier{margin-inline:-14px}
+ body[data-house-page="district"] .dossier-edition-head{padding:21px 16px}
+ body[data-house-page="district"] #district-dossier-title{font-size:clamp(32px,8vw,47px);letter-spacing:-1.1px}
+ body[data-house-page="district"] .dossier-map-panel,
+ body[data-house-page="district"] .dossier-local,
+ body[data-house-page="district"] .dossier-history,
+ body[data-house-page="district"] .dossier-polling{padding:22px 16px}
+ body[data-house-page="district"] .dossier-local-places{grid-template-columns:1fr}
+ body[data-house-page="district"] .dossier-poll-bars{grid-template-columns:1fr;gap:18px}
+ body[data-house-page="district"] .dossier-demographics{grid-template-columns:1fr}
+ body[data-house-page="district"] .dossier-demographic{border-right:0;border-bottom:1px solid #aab6be}
+ body[data-house-page="district"] .dossier-demographic strong{font-size:33px}
+ body[data-house-page="district"] .dossier-map{height:370px;min-height:340px}
+ body[data-house-page="district"] .dossier-history-meta{flex-direction:column;gap:3px;align-items:flex-start}
+ body[data-house-page="district"] .dossier-history-meta span{text-align:left}
+}
