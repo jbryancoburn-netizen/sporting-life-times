@@ -1097,6 +1097,13 @@ def update(gender, bootstrap=False, live=False):
     if (not rapid or not carolinas_quality or
         carolinas_quality.get("status")!="Carolinas two-school official fixtures verified"):
         carolinas_quality=enrich_carolinas(gender,games,teams,today)
+    # GAC's published university season grids: discover actual 2026-27
+    # SIDEARM IDs by school/sport title, cache validated IDs, and publish
+    # only exact two-school corroborated conference fixtures.
+    from d2_gac_official import enrich_gac
+    gac_quality=previous_quality.get("official_gac_schedule_reconciliation")
+    if not rapid or not gac_quality:
+        gac_quality=enrich_gac(gender,games,teams,today,previous=gac_quality)
     # Ratings start at 1500 on every new season; only NCAA verified DII-v-DII finals count.
     rating={key:1500.0 for key in teams}
     wins={key:0 for key in teams};losses={key:0 for key in teams}
@@ -1188,7 +1195,8 @@ def update(gender, bootstrap=False, live=False):
         "official_gliac_university_venue_evidence":gliac_venue_quality,
         "official_rmac_schedule_reconciliation":rmac_quality,
         "official_nsic_schedule_reconciliation":nsic_quality,
-        "official_carolinas_schedule_reconciliation":carolinas_quality}
+        "official_carolinas_schedule_reconciliation":carolinas_quality,
+        "official_gac_schedule_reconciliation":gac_quality}
     # A complete DATE scan is not certification of every school schedule.
     previous=(prior.get("quality") or {}).get("full_season_scan")
     if bootstrap:
