@@ -204,6 +204,28 @@ class FullSeasonCertificationTests(unittest.TestCase):
         self.assertEqual(result["outside_source_snapshot_games"], 1)
         # Only alpha has a source snapshot; beta is queued for discovery.
 
+    def test_unresolved_postseason_tbd_is_not_a_nondii_opponent(self):
+        source = snapshot()
+        source["fixtures"].append({
+            "date": "2027-03-03", "opponent": "Conference Tournament",
+            "role": "neutral", "start_time": "",
+            "unresolved_tournament_placeholder": True,
+        })
+        result = self.report(sources=[source])
+        alpha = self.find(result)
+        self.assertEqual(alpha["unresolved_tournament_placeholders"], 1)
+        self.assertEqual(alpha["unidentified_or_other_division_rows"], 0)
+        self.assertEqual(alpha["status"], "POSTSEASON_TBD_REVIEW_REQUIRED")
+        self.assertEqual(result["unresolved_tournament_placeholders"], 1)
+        assertion = attestation()
+        assertion["snapshot_rows"] = 2
+        assertion["unresolved_tbd_count"] = 0  # dishonest claim cannot pass
+        result = self.report(sources=[source], assertions=[assertion])
+        alpha = self.find(result)
+        self.assertFalse(alpha["certified"])
+        self.assertIn("Unresolved TBD opponents/tournament placeholders",
+                      alpha["attestation_errors"])
+
     def test_duplicate_and_wrong_season_attestations_rejected(self):
         with self.assertRaisesRegex(ValueError, "Duplicate"):
             self.report(sources=[snapshot()],
