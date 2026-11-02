@@ -26,14 +26,14 @@ SCHOOLS={
  "midwestern":("Midwestern State","Midwestern State University","MSU Texas"),
  "oc":("Oklahoma Christian","Oklahoma Christian University"),
  "stedwards":("St. Edward's","St Edward's","St. Edward's University","St Edward's University"),
- "stmarys":("St. Mary's","St Mary's","St. Mary's (Texas)","St. Mary's University","St Mary's University (Texas)"),
+ "stmarys":("St. Mary's","St Mary's","St. Mary's (Texas)","St. Mary's University","St Mary's University (Texas)" ,"St. Mary's (TX)","St. Mary's University (Texas)","Saint Mary's (Texas)")
  "sulross":("Sul Ross State","Sul Ross State University"),
  "tamiu":("Texas A&M International","Texas A&M International University","Texas AM International"),
  "tamuk":("Texas A&M-Kingsville","Texas A&M Kingsville","Texas A&M University-Kingsville"),
  "utd":("UT Dallas","University of Texas at Dallas","Texas-Dallas","Texas Dallas"),
  "utpb":("UT Permian Basin","Texas-Permian Basin","University of Texas Permian Basin",
          "University of Texas of the Permian Basin","Texas Permian Basin"),
- "uttyler":("UT Tyler","University of Texas at Tyler","Texas-Tyler","Texas Tyler"),
+ "uttyler":("UT Tyler","University of Texas at Tyler","The University of Texas at Tyler","Texas-Tyler","Texas Tyler"),
  "wtam":("West Texas A&M","West Texas AM","West Texas A&M University"),
  "wnm":("Western New Mexico","Western New Mexico University"),
 }
