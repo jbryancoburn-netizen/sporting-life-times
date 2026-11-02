@@ -1034,12 +1034,21 @@ def parse_conference_calendar(html, gender, owner, url, subject, by_org, exact, 
         idx_loc = column("location")
         idx_time = next((i for i, x in enumerate(heads)
                          if "time" in x or "result" in x), None)
+        # Ohio Athletic Conference and Empire 8 official tables publish
+        # a separate site column (H/A, Home / Away). This is *stronger*
+        # location evidence than the opponent's sometimes-generic "vs.".
+        # Never assume all unprefixed rows are home when a site column exists.
+        idx_site = next((i for i, x in enumerate(heads)
+                         if re.fullmatch(r"(?:h\s*/\s*a|home\s*/\s*away)", x)), None)
         if idx_date is None or idx_opponent is None or idx_time is None:
             continue
         for tr in table.select("tbody tr") or table.select("tr"):
             cells = [compact(x.get_text(" ", strip=True))
                      for x in tr.find_all(["td", "th"], recursive=False)]
-            if max(idx_date, idx_opponent, idx_time) >= len(cells):
+            needed = [idx_date, idx_opponent, idx_time]
+            if idx_site is not None:
+                needed.append(idx_site)
+            if max(needed) >= len(cells):
                 continue
             raw_date = cells[idx_date]
             if not re.fullmatch(r"\d{1,2}/\d{1,2}/202[67]", raw_date):
@@ -1055,15 +1064,26 @@ def parse_conference_calendar(html, gender, owner, url, subject, by_org, exact, 
             if BAD_OPPONENT.search(opponent):
                 excluded["conditional_or_unverified_opponent"] += 1
                 continue
-            neutral = bool(re.match(r"(?i)^(?:vs\.?|versus)\s+", opponent))
-            if neutral and school_legacy:
-                # Older school vendors use "vs." both for home and for
-                # neutral-site matches. Without an explicit site designation
-                # it is unsafe to infer a neutral-site/game-home record.
-                excluded["ambiguous_legacy_vs_location"] += 1
-                continue
-            away_site = bool(re.match(r"(?i)^at\s+", opponent))
-            if neutral or away_site:
+            prefixed_vs = bool(re.match(r"(?i)^(?:vs\.?|versus)\s+", opponent))
+            prefixed_at = bool(re.match(r"(?i)^at\s+", opponent))
+            if idx_site is not None:
+                explicit = cells[idx_site].strip().upper()
+                if explicit not in ("H", "A", "N"):
+                    excluded["missing_or_unknown_explicit_site"] += 1
+                    continue
+                if (prefixed_at and explicit != "A") or (
+                        prefixed_vs and explicit == "A"):
+                    excluded["opponent_prefix_conflicts_with_explicit_site"] += 1
+                    continue
+                away_site, neutral = explicit == "A", explicit == "N"
+            else:
+                # Legacy conference rows without a separate site column
+                # preserve their previous conservative prefix treatment.
+                neutral, away_site = prefixed_vs, prefixed_at
+                if neutral and school_legacy:
+                    excluded["ambiguous_legacy_vs_location"] += 1
+                    continue
+            if prefixed_vs or prefixed_at:
                 opponent = re.sub(r"(?i)^(?:vs\.?|versus|at)\s+", "", opponent).strip()
             opp_id = resolve(opponent, by_org, exact)
             if opp_id is None or opp_id == owner:
@@ -1075,12 +1095,19 @@ def parse_conference_calendar(html, gender, owner, url, subject, by_org, exact, 
             away = owner if away_site else opp_id
             home = opp_id if away_site else owner
             location = cells[idx_loc] if idx_loc is not None and idx_loc < len(cells) else ""
+            # A result cell becomes a final score later in the season; only
+            # independently posted CLOCK text is a tipoff. Actual final
+            # scores are obtained exclusively from the NCAA scoreboard.
+            clock = cells[idx_time]
+            posted_time = (clock if re.fullmatch(
+                r"(?:\d{1,2}:\d{2}\s*(?:[AP]\.?M\.?)?|TBA|TBD)", clock, re.I)
+                else "")
             entries.append({
                 "date": date.isoformat(), "away_org_id": away,
                 "home_org_id": home, "neutral": neutral,
                 "source_owner_org_id": owner, "source_url": url,
                 "source_kind": "official_conference",
-                "tipoff_as_posted": cells[idx_time], "venue": "",
+                "tipoff_as_posted": posted_time, "venue": "",
                 "venue_location": location, "network_as_posted": "",
                 "radio_as_posted": "", "tournament": ""
             })
@@ -2120,6 +2147,57 @@ def self_test():
             raise AssertionError("Invalid conference calendar accepted")
         except ValueError:
             pass
+
+    # Official OAC 2026–27 Ohio Northern men's conference table uses
+    # Date/Opponent/Location/Result/Home / Away. Explicit H/A outranks
+    # generic "vs" and unknown/mismatched flags are never imported.
+    oac_rows = [
+        ("12/9/2026", "at Trine University", "Angola, IN", "7:00 P.M.", "A"),
+        ("12/12/2026", "Hope College", "Ada, OH", "3:00 P.M.", "H"),
+        ("1/6/2027", "vs. Hope College", "Ada, OH", "7:00 P.M.", "H"),
+        ("1/13/2027", "Trine University", "Ada, OH", "7:00 P.M.", "H"),
+        ("1/16/2027", "vs. Trine University", "Cleveland, OH", "TBA", "N"),
+        ("1/20/2027", "at Hope College", "Holland, MI", "7:00 P.M.", "A"),
+        ("1/23/2027", "Trine University", "Ada, OH", "W 82-65", "H"),
+        ("1/27/2027", "Hope College", "Ada, OH", "7:00 P.M.", "H"),
+        ("1/30/2027", "at Hope College", "Holland, MI", "7:00 P.M.", "H"),
+        ("2/3/2027", "Trine University", "Ada, OH", "7:00 P.M.", "X"),
+    ]
+    oac_markup = "".join(
+        f"<tr><td>{date}</td><td>{opponent}</td><td>{location}</td>"
+        f"<td>{time}</td><td>{site}</td></tr>"
+        for date, opponent, location, time, site in oac_rows)
+    oac_html = (
+        "<html><title>2026-27 Hope Men's Basketball Schedule</title>"
+        "<h2>2026-27 Hope Men's Basketball Schedule</h2>"
+        "<table><thead><tr><th>Date</th><th>Opponent</th><th>Location</th>"
+        "<th>Result</th><th>Home / Away</th></tr></thead><tbody>" +
+        oac_markup + "</tbody></table></html>")
+    oac_games, oac_report = parse_conference_calendar(
+        oac_html, "men", 286, "https://oac.org/schedule.aspx?schedule=example",
+        "Hope", by_org, exact)
+    assert oac_report["readable_rows"] == 10
+    assert len(oac_games) == 8, (len(oac_games), oac_report)
+    assert oac_report["excluded_rows"]["opponent_prefix_conflicts_with_explicit_site"] == 1
+    assert oac_report["excluded_rows"]["missing_or_unknown_explicit_site"] == 1
+    assert oac_games[0]["away_org_id"] == 286 and oac_games[0]["home_org_id"] == 30037
+    assert oac_games[2]["home_org_id"] == 286 and not oac_games[2]["neutral"]
+    assert oac_games[4]["neutral"] and oac_games[4]["home_org_id"] == 286
+    assert oac_games[6]["tipoff_as_posted"] == ""  # do not import W/L as a tipoff
+    assert all(game["source_kind"] == "official_conference" for game in oac_games)
+    e8_html = oac_html.replace("<th>Home / Away</th>", "<th>H/A</th>")
+    e8_games, _ = parse_conference_calendar(
+        e8_html, "men", 286, "https://empire8.com/schedule.aspx?schedule=example",
+        "Hope", by_org, exact)
+    assert len(e8_games) == 8
+    try:
+        parse_conference_calendar(
+            oac_html.replace("2026-27", "2025-26"), "men", 286,
+            "https://oac.org/schedule.aspx?schedule=example", "Hope", by_org, exact)
+        raise AssertionError("Wrong season conference H/A table accepted")
+    except ValueError:
+        pass
+
     legacy_rows, legacy_report = parse_conference_calendar(
         conf_html, "men", 64, "https://blackburnbeavers.com/sports/mbkb/2026-27/schedule",
         "Blackburn College", by_org, exact, school_legacy=True)
