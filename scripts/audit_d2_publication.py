@@ -19,6 +19,61 @@ SEASON_START = dt.date(2026, 10, 1)
 SEASON_END = dt.date(2027, 4, 15)
 
 
+def school_schedule_coverage(teams: list[dict], games: list[dict]) -> dict:
+    """An evidence-only triage queue; fixture counts do NOT certify schedules.
+
+    Counts each fixture once per participating school, including neutral-site
+    games, and never infers unreported games from conference opponents.
+    """
+    school = {
+        str(t["id"]): {
+            "id": str(t["id"]),
+            "name": t.get("name") or str(t["id"]),
+            "conference": t.get("conference") or "Conference unverified",
+            "membership_pending": bool(t.get("not_eligible_for_dii_elo")),
+            "published_fixtures": 0,
+            "finals": 0,
+            "with_tipoff": 0,
+            "with_venue": 0,
+            "with_network": 0,
+        }
+        for t in teams if t.get("id")
+    }
+    for game in games:
+        # Set prevents accidentally counting the same school twice.
+        for team_id in {str(game.get("away", "")), str(game.get("home", ""))}:
+            row = school.get(team_id)
+            if not row:
+                continue
+            row["published_fixtures"] += 1
+            row["finals"] += int(game.get("status") == "final")
+            row["with_tipoff"] += int(bool(game.get("start_time")))
+            row["with_venue"] += int(bool(game.get("venue")))
+            row["with_network"] += int(bool(game.get("network")))
+    ordered = sorted(school.values(), key=lambda x: (
+        x["published_fixtures"], x["name"].casefold(), x["id"]))
+    zero = [s for s in ordered if s["published_fixtures"] == 0]
+    thin = [s for s in ordered if 1 <= s["published_fixtures"] <= 6]
+    conf = {}
+    for row in ordered:
+        c = conf.setdefault(row["conference"], {
+            "programs": 0, "without_games": 0,
+            "with_1_to_6_games": 0, "fixture_appearances": 0})
+        c["programs"] += 1
+        c["without_games"] += int(row["published_fixtures"] == 0)
+        c["with_1_to_6_games"] += int(1 <= row["published_fixtures"] <= 6)
+        c["fixture_appearances"] += row["published_fixtures"]
+    return {
+        "disclaimer": "These are published ledger entries, not full-school schedule certifications. NCAA scoreboard and university schedules may be incomplete.",
+        "programs_with_published_games": len(ordered) - len(zero),
+        "without_games": len(zero),
+        "with_1_to_6_games": len(thin),
+        "zero_game_schools": zero,
+        "thin_schedule_priority": thin[:40],
+        "conference_gaps": dict(sorted(conf.items())),
+    }
+
+
 def audit_one(gender: str, data_dir: Path) -> tuple[dict, list[str]]:
     path = data_dir / f"d2-{gender}-2026-27.json"
     data = json.loads(path.read_text(encoding="utf-8"))
@@ -126,6 +181,10 @@ def audit_one(gender: str, data_dir: Path) -> tuple[dict, list[str]]:
     if missing_source:
         warnings.append(f"{missing_source} fixtures have no traceable source URL")
     coverage = q.get("field_coverage") or {}
+    school_gaps = school_schedule_coverage(teams, games)
+    reported_zero = coverage.get("schools_with_no_published_fixtures")
+    if reported_zero is not None and reported_zero != school_gaps["without_games"]:
+        warnings.append("Stored school coverage differs from the live ledger; school-by-school report is authoritative")
     # The 1–2 MB game files contain detailed evidence; export a small,
     # independently readable source audit for site operators. A verified
     # match count is NOT a certified entire-conference season.
@@ -173,7 +232,8 @@ def audit_one(gender: str, data_dir: Path) -> tuple[dict, list[str]]:
         "no_network": missing_network,
         "no_tipoff": missing_time,
         "no_source_url": missing_source,
-        "schools_without_a_published_game": coverage.get("schools_with_no_published_fixtures"),
+        "schools_without_a_published_game": school_gaps["without_games"],
+        "school_schedule_recovery": school_gaps,
         "full_season_date_scan": bool(scan.get("completed")),
         "school_schedule_certified": complete_school_schedules,
         "source_categories": dict(sorted(source_categories.items())),

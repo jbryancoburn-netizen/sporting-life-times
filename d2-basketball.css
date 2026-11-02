@@ -62,3 +62,23 @@
 .gamefile-source-links{display:flex;gap:8px;flex-wrap:wrap}.gamefile-source-links a{padding:8px 10px;border:1px solid var(--line);font-weight:700;font-size:11px;text-decoration:none}
 .gamefile-source-box{margin-bottom:25px}.gamefile-link{font-weight:700;color:var(--teal)}
 @media(max-width:700px){.gamefile-grid{grid-template-columns:1fr}.gamefile-tools{align-items:start;flex-direction:column}.gamefile-title h1{font-size:36px}}
+
+
+/* Division II reporting desk: an accountable schedule gap ledger, not a fake
+   full-season progress bar. Shares the existing editorial newspaper palette. */
+#schedule-recovery-content{background:#f1f2ec;border-left:4px solid #b94b2e;padding:13px}
+.recovery-ribbon{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:#cdd6d1;border:1px solid #cdd6d1;margin:0 0 11px}
+.recovery-ribbon>div{background:#fffcf5;min-width:0;padding:10px 8px}
+.recovery-ribbon>div:first-child{background:#f7e7dc}
+.recovery-ribbon strong{display:block;color:#143c47;font:800 clamp(23px,3vw,37px)/1 'Barlow Condensed',Arial,sans-serif}
+.recovery-ribbon span{display:block;margin-top:5px;color:#48636a;font:800 9px/1.3 'DM Sans',Arial,sans-serif;letter-spacing:.045em}
+.recovery-explainer{font-size:11px;line-height:1.65;color:#42585e;margin:11px 0}
+.recovery-details{border-top:1px solid #b9c8c3;padding:9px 0 4px}
+.recovery-details summary{cursor:pointer;list-style-position:inside;color:#163f49;font:800 12px/1.4 'Barlow Condensed',Arial,sans-serif;letter-spacing:.055em}
+.recovery-school-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin:12px 0}
+.recovery-school{display:block;min-width:0;text-decoration:none;padding:10px;background:#fffefa;border-left:3px solid #37616a}
+.recovery-school:hover,.recovery-school:focus-visible{background:#e4ece9;outline:1px solid #37616a}
+.recovery-school strong{display:block;font:800 13px/1.2 'Barlow Condensed',Arial,sans-serif;overflow-wrap:anywhere}
+.recovery-school span{display:block;color:#566b70;font-size:10px;line-height:1.4;margin:3px 0}
+.recovery-school small{color:#9a482e;font:800 9px 'DM Sans',Arial,sans-serif;letter-spacing:.02em}
+@media(max-width:600px){.recovery-school-grid{grid-template-columns:1fr}.recovery-ribbon span{font-size:8px}}

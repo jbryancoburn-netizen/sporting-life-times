@@ -96,6 +96,7 @@ if(coverageStats){
  ' games include a named venue; '+esc(coverageStats.games_with_network)+' / '+total+
  ' include a broadcast network; '+esc(coverageStats.games_with_verified_tipoff??'—')+' have posted tipoff times and '+esc(coverageStats.games_with_stream_link??'—')+' have verified stream links. <b>Full schedule certification remains pending.</b>';
 }
+renderScheduleRecovery(d);
 const brandedSchools=teams.filter(t=>/^#[0-9a-f]{6}$/i.test(t.primary||'')&&/^#[0-9a-f]{6}$/i.test(t.secondary||''));
 const officialPairs=brandedSchools.filter(t=>t.color_provenance&&t.color_provenance.includes('ESPN-published primary and secondary')).length;
 $('coverage').innerHTML+='<br><b>Logo rings:</b> '+brandedSchools.length+' of '+teams.length+
@@ -103,6 +104,35 @@ $('coverage').innerHTML+='<br><b>Logo rings:</b> '+brandedSchools.length+' of '+
  ' When a university lists white as its secondary, a nonwhite <em>editorial tonal accent</em> is used and marked in the source data; it is not represented as an official second school color.'+
  ' Schools without a verified primary remain in neutral paper styling.';
 }
+function renderScheduleRecovery(d){
+ const target=$('schedule-recovery-content');if(!target)return;
+ // A published game contributes one entry to each participating school's
+ // schedule. No assumed home-and-home pairings or conference completion.
+ const schools=new Map((d.teams||[]).map(t=>[String(t.id),{team:t,fixtures:0,tipoffs:0}]));
+ for(const g of (d.games||[])){
+  for(const id of new Set([String(g.away),String(g.home)])){
+   const row=schools.get(id);if(!row)continue;
+   row.fixtures++;if(g.start_time)row.tipoffs++;
+  }
+ }
+ const entries=[...schools.values()].sort((a,b)=>a.fixtures-b.fixtures||a.team.name.localeCompare(b.team.name));
+ const empty=entries.filter(x=>x.fixtures===0),thin=entries.filter(x=>x.fixtures>0&&x.fixtures<=6);
+ const renderRows=rows=>rows.map(x=>'<a class="recovery-school" href="'+link(x.team)+'">'+
+ '<strong>'+name(x.team)+'</strong><span>'+esc(x.team.conference||'Conference unverified')+
+ (x.team.not_eligible_for_dii_elo?' · MEMBERSHIP PENDING':'')+
+ '</span><small>'+x.fixtures+' '+(x.fixtures===1?'GAME':'GAMES')+
+ (x.fixtures?' · '+x.tipoffs+' WITH VERIFIED TIPOFF':'')+'</small></a>').join('');
+ target.innerHTML='<div class="recovery-ribbon">'+
+ '<div><strong>'+empty.length+'</strong><span>NO PUBLISHED GAMES</span></div>'+
+ '<div><strong>'+thin.length+'</strong><span>ONLY 1–6 ENTRIES</span></div>'+
+ '<div><strong>'+entries.filter(x=>x.fixtures>6).length+'</strong><span>7+ ENTRIES</span></div></div>'+
+ '<p class="recovery-explainer">Counts reflect games actually published in this edition, not completed official school schedules. Exhibition and cross-division records may not appear. Click any school to check its source-backed Gamefile schedule.</p>'+
+ '<details class="recovery-details" '+(empty.length?'open':'')+'><summary>UNLISTED SCHOOL SCHEDULES · '+empty.length+'</summary>'+
+ (empty.length?'<div class="recovery-school-grid">'+renderRows(empty)+'</div>':'<p class="recovery-explainer">Every directory program has at least one published game; full-season verification remains pending.</p>')+'</details>'+
+ '<details class="recovery-details"><summary>LOW-COVERAGE SCHOOL SCHEDULES · '+thin.length+'</summary>'+
+ (thin.length?'<div class="recovery-school-grid">'+renderRows(thin)+'</div>':'<p class="recovery-explainer">No programs currently have 1–6 listed games.</p>')+'</details>';
+}
+
 function renderTeam(d){const id=new URLSearchParams(location.search).get('team');const t=state.teams.get(id);$('back-link').href=path;const el=$('team-profile');
 const back=$('back-link');if(back)back.textContent='← BACK TO '+(gender==='women'?'WOMEN’S':'MEN’S')+' DII NEWSPAPER';
 for(const a of document.querySelectorAll('.switches a'))a.classList.toggle('selected',gender==='women'?a.href.includes('womens'):a.href.includes('mens'));
