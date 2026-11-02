@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 'use strict';
-/* MBB visual ownership: exactly one renderer, 365 image identities, 11 page templates.
+/* MBB visual ownership: exactly one renderer, 365 image identities, 13 page templates.
    The original provider art may already contain circular artwork. */
 const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
 const read=p=>fs.readFileSync(p,'utf8');
@@ -55,7 +55,7 @@ async function run(){
  assert(!read('ncaaw-team.html').includes('.wbb-identity .mbb-mark__img{'),'Women-specific image sizing overrides shared badge');
  for(const t of cross.teams)assert(ctx.window.MBBLogos.byESPN(t.espn_id,'score',t.espn_name).includes('data-ring-count="2"'),'Missing shared two-ring contract '+t.name);
  const pages=fs.readdirSync('.').filter(p=>p.endsWith('.html')&&(/^(ncaam(?:[-.]|$))/.test(p)||p==='college-basketball.html'));
- assert.equal(pages.length,11,'Expected every MBB page type');
+ assert.equal(pages.length,13,'Expected all thirteen MBB page templates, including Slate and Arena File');
  for(const page of pages){
   const html=read(page);
   assert.equal((html.match(/mbb-logo-system\.js\?v=[a-zA-Z0-9._-]+/g)||[]).length,1,page+' must have exactly one shared logo renderer');
@@ -80,6 +80,6 @@ async function run(){
   const src=read(file);assert(src.includes('MBBLogos.'),'Old page-specific crest renderer '+file);
   new Function(src);
  }
- console.log('PASS 365 verified NCAA logos; '+JSON.stringify(kinds)+' artwork flags; 11/11 MBB pages have one owner; no stacked ring imports');
+ console.log('PASS 365 verified NCAA logos; '+JSON.stringify(kinds)+' artwork flags; '+pages.length+'/'+pages.length+' MBB pages have one owner; no stacked ring imports');
 }
 run().catch(e=>{console.error(e);process.exitCode=1});
