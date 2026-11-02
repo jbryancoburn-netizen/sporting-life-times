@@ -68,7 +68,7 @@ class D2OfficialSchoolGrids(unittest.TestCase):
         games={}
         first=apply_official_school_grid_snapshots("women",games,teams,dt.date(2026,11,1))
         self.assertEqual(first["created"],4)
-        self.assertEqual(first["source_rows"],84)
+        self.assertEqual(first["source_rows"],28)  # Only enrolled source owners count
         fairmont=[g for g in games.values() if "fairmont-state-university" in
                   (g["away"],g["home"])]
         self.assertEqual(len(fairmont),2)
