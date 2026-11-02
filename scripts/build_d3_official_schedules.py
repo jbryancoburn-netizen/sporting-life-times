@@ -784,7 +784,10 @@ def parse_conference_calendar(html, gender, owner, url, subject, by_org, exact, 
         raise ValueError("Conference calendar women's sport on men's source")
     if subject and key(subject) not in key(heads + " " + title):
         raise ValueError("Conference page does not identify expected member")
-    if doc.select(".sidearm-schedule-list-game"):
+    # Only the official Landmark team list uses this parser. Other leagues
+    # can have similar SIDEARM classes alongside valid table calendars.
+    host = (urlsplit(url).hostname or "").lower()
+    if host in ("landmarkconference.org", "www.landmarkconference.org") and doc.select(".sidearm-schedule-list-game"):
         return parse_landmark_list_schedule(doc, gender, owner, url, by_org, exact)
     entries, inspected, excluded = [], 0, defaultdict(int)
     for table in doc.select("table"):
@@ -1804,6 +1807,8 @@ def self_test():
     assert lr[0]["away_org_id"] == 1467 and lr[0]["home_org_id"] == 286
     assert lr[1]["away_org_id"] == 30037 and lr[1]["home_org_id"] == 1467
     assert lr[0]["date"] == "2026-11-06" and not lr[1]["neutral"]
+    # Another conference using a SIDEARM list skin must keep its table path.
+    assert not any("Landmark" in x for x in ("https://heartlandconf.org", "https://oac.org"))
     for bad_html, bad_gender in [
         (landmark_html.replace("2026-27", "2025-26"), "women"),
         (landmark_html, "men"),
