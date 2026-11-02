@@ -26,4 +26,10 @@ for(const id of ids){
  assert.notEqual(p.primary.toLowerCase(),p.secondary.toLowerCase(),id+' primary/secondary must be different');
  assert(/^https:\/\//.test(b?.logo_url||''),id+' missing genuine source artwork');
 }
+assert.equal(colors['men-d1:michigan-st'].secondary.toLowerCase(),'#7c878e','Michigan State secondary ring must use official athletics silver, not synthesized green');
+assert.equal(colors['men-d1:grand-canyon'].secondary.toLowerCase(),'#000000','Grand Canyon secondary ring must use official black, not a manufactured purple');
+for(const id of ids){
+ const label=colors['men-d1:'+id].provenance||'';
+ assert(!/derived nonwhite tonal accent/i.test(label),'Unverified synthesized accent used for '+id);
+}
 console.log('PASS: all 18 pictured Selection Split programs require two unique nonwhite school-color rings with genuine logos and one crest owner.');
