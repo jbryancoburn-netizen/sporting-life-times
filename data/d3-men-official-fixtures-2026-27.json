@@ -3,18 +3,18 @@
   "division": "d3",
   "gender": "men",
   "season": "2026-27",
-  "generated_utc": "2026-11-02T02:08:08.723752+00:00",
+  "generated_utc": "2026-11-02T02:10:27.707097+00:00",
   "source": "NCAA 2026-27 member directory + year/gender-validated official school athletics calendars",
   "scope": "NCAA membership-wide first pass; sources without independently validated 2026-27 schedules excluded",
   "ncaa_confirmed_programs": 406,
-  "verified_source_calendars": 351,
+  "verified_source_calendars": 352,
   "official_conference_calendar_fallbacks": 6,
   "school_calendars_checked": 406,
-  "school_calendars_missing": 55,
-  "school_calendars_unresolved": 49,
+  "school_calendars_missing": 54,
+  "school_calendars_unresolved": 48,
   "source_status_counts": {
-    "parsed": 351,
-    "failed": 49,
+    "parsed": 352,
+    "failed": 48,
     "parsed_conference": 6
   },
   "last_verified_school_source": {
@@ -347,6 +347,7 @@
     "30047": "https://www.gokcgiants.com/sports/mens-basketball/schedule/2026-2027?grid=true",
     "30064": "https://athletics.stvincent.edu/sports/mens-basketball/schedule/2026-27?grid=true",
     "30065": "https://www.lyndonhornets.com/sports/mens-basketball/schedule/2026-27?grid=true",
+    "30067": "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-27?grid=true",
     "30069": "https://www.franciscanathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
     "30072": "https://sjbkathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
     "30083": "https://fightingtigers.cobleskill.edu/sports/mens-basketball/schedule/2026-27?grid=true",
@@ -557,12 +558,12 @@
       "ncaa_org_id": 443,
       "school": "Moravian University",
       "conference": "Landmark Conference",
-      "category": "season_heading_not_verified",
+      "category": "server_refused_method",
       "failed_url": "https://moraviansports.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "last_successful_school_schedule_url": "",
       "discovered_schedule_links": [],
       "checked_schedule_candidates": 9,
-      "next_action": "Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar",
+      "next_action": "Inspect official school schedule platform's public print/text calendar; do not circumvent access controls",
       "opponent_published_fixtures": 18,
       "opponent_source_examples": [
         "https://www.muhlenbergsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
@@ -1034,11 +1035,11 @@
       "discovered_schedule_links": [],
       "checked_schedule_candidates": 9,
       "next_action": "Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar",
-      "opponent_published_fixtures": 20,
+      "opponent_published_fixtures": 21,
       "opponent_source_examples": [
+        "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://fightingtigers.cobleskill.edu/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://www.castletonsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://www.msmcknights.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.castletonsports.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ]
     },
     {
@@ -1108,28 +1109,6 @@
         "https://www.purchasecollegeathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://coastguardathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ]
-    },
-    {
-      "ncaa_org_id": 30067,
-      "school": "State University of New York at Morrisville",
-      "conference": "State University of New York Athletic Conference",
-      "category": "calendar_path_unavailable",
-      "failed_url": "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "last_successful_school_schedule_url": "",
-      "discovered_schedule_links": [
-        "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-27?print=true",
-        "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-27?path=wdsp",
-        "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-27",
-        "https://morrisvillemustangs.com/sports/mens-basketball/schedule",
-        "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-2027?path=wdsp",
-        "https://morrisvillemustangs.com/sports/mens-basketball/schedule?print=true",
-        "https://morrisvillemustangs.com/sports/mens-basketball/schedule?path=wdsp"
-      ],
-      "checked_schedule_candidates": 13,
-      "next_action": "Find school's current official athletics website and season-specific schedule path",
-      "opponent_published_fixtures": 0,
-      "opponent_source_examples": []
     },
     {
       "ncaa_org_id": 30081,
@@ -1221,15 +1200,15 @@
     }
   ],
   "unverified_school_summary": {
-    "remaining_unverified_school_calendars": 49,
+    "remaining_unverified_school_calendars": 48,
     "missing_schools_with_at_least_10_opponent_sourced_games": 33,
-    "missing_schools_with_zero_opponent_sourced_games": 5,
+    "missing_schools_with_zero_opponent_sourced_games": 4,
     "recovery_reason_counts": {
-      "server_refused_method": 6,
+      "server_refused_method": 7,
       "unsupported_calendar_or_opponent_format": 1,
       "access_restricted": 2,
-      "calendar_path_unavailable": 2,
-      "season_heading_not_verified": 36,
+      "calendar_path_unavailable": 1,
+      "season_heading_not_verified": 35,
       "temporary_network_failure": 2
     }
   },
@@ -2741,7 +2720,7 @@
       "owner_org_id": 324,
       "source_url": "https://nvubadgers.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "status": "failed",
-      "error": "HTTP Error 404: Not Found | HTTP Error 404: Not Found | HTTP Error 404: Not Found | HTTP Error 404: Not Found | HTTP Error 404: Not Found | HTTP Error 404: Not Found | HTTP Error 404: Not Found | HTTP Error 404: Not Found | HTTP Error 404: Not Found",
+      "error": "HTTP Error 404: Not Found | HTTP Error 404: Not Found | HTTP Error 404: Not Found | HTTP Error 404: Not Found | HTTP Error 404: Not Found | HTTP Error 404: Not Found | HTTP Error 404: Not Found | HTTP Error 404: Not Found | HTTP Error 404: Not Found | Official",
       "candidate_urls_tried": 9,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -2751,7 +2730,7 @@
       "owner_org_id": 325,
       "source_url": "https://www.juniatasports.net/sports/mens-basketball/schedule/2026-27?grid=true",
       "status": "failed",
-      "error": "HTTP Error 405: Not Allowed | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season ",
+      "error": "HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not ",
       "candidate_urls_tried": 9,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -3255,7 +3234,7 @@
       "owner_org_id": 443,
       "source_url": "https://moraviansports.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "status": "failed",
-      "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
+      "error": "HTTP Error 405: Not Allowed | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season ",
       "candidate_urls_tried": 9,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -5793,7 +5772,7 @@
       "owner_org_id": 8597,
       "source_url": "https://www.mlcknights.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "status": "failed",
-      "error": "The read operation timed out | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season",
+      "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
       "candidate_urls_tried": 14,
       "discovered_schedule_links": [
         "https://www.mlcknights.com/sports/mens-basketball/schedule/2026?grid=true",
@@ -6385,21 +6364,16 @@
     {
       "owner_org_id": 30067,
       "source_url": "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "status": "failed",
-      "error": "Wrong men's sport or women's calendar | Wrong men's sport or women's calendar | Wrong men's sport or women's calendar | Wrong men's sport or women's calendar | Wrong men's sport or women's calendar | Wrong men's sport or women's calendar | HTTP Error 404: Not ",
-      "candidate_urls_tried": 13,
-      "discovered_schedule_links": [
-        "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-27?print=true",
-        "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-27?path=wdsp",
-        "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-27",
-        "https://morrisvillemustangs.com/sports/mens-basketball/schedule",
-        "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-2027?path=wdsp",
-        "https://morrisvillemustangs.com/sports/mens-basketball/schedule?print=true",
-        "https://morrisvillemustangs.com/sports/mens-basketball/schedule?path=wdsp"
-      ],
-      "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "readable_rows": 25,
+      "verified_member_opponents": 10,
+      "excluded_rows": {
+        "unknown_or_conditional_opponent": 15
+      },
+      "status": "parsed",
+      "calendar_origin": "pinned_official_url",
+      "candidate_urls_tried": 1,
+      "verified_direct_url": "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "discovery_method": "official_school_url_or_vendor_variant"
     },
     {
       "owner_org_id": 30069,
@@ -6939,7 +6913,7 @@
       ]
     }
   ],
-  "fixture_count": 4148,
+  "fixture_count": 4158,
   "reciprocal_fixtures": 2034,
   "fixtures": [
     {
@@ -8855,7 +8829,7 @@
       "home_org_id": 8490,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.mcmurrysports.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.letuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.letuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.mcmurrysports.com/sports/mens-basketball/schedule/2026-2027?grid=true"
@@ -8868,7 +8842,7 @@
       "source_verification": "reciprocal",
       "tipoff_as_posted": "6:00 PM",
       "venue": "Solheim Arena",
-      "venue_location": "Longview, TX",
+      "venue_location": "Longview, Texas",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -10667,6 +10641,30 @@
       "neutral_home_designation_unconfirmed": true
     },
     {
+      "id": "d3-men-2026-11-07-11036-30067",
+      "date": "2026-11-07",
+      "away_org_id": 30067,
+      "home_org_id": 11036,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        30067
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "3 PM",
+      "venue": "",
+      "venue_location": "Albany, NY",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2026-11-07-17094-30245",
       "date": "2026-11-07",
       "away_org_id": 30245,
@@ -11877,6 +11875,30 @@
       "tipoff_as_posted": "7:00 PM ET",
       "venue": "COLUMBIA GYM",
       "venue_location": "Louisville, KY",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-11-10-1159-30067",
+      "date": "2026-11-10",
+      "away_org_id": 1159,
+      "home_org_id": 30067,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        30067
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7:30 PM",
+      "venue": "",
+      "venue_location": "Morrisville, N.Y.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -13239,7 +13261,7 @@
       "home_org_id": 642,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.norwichathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://skidmoreathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://skidmoreathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.norwichathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -13251,7 +13273,7 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "5:30 PM",
-      "venue": "",
+      "venue": "Williamson Sports Center",
       "venue_location": "Saratoga Springs, NY",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -16765,7 +16787,7 @@
       "home_org_id": 376,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.macalester.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://luthernorse.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.macalester.edu/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://luthernorse.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -16776,9 +16798,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "4:00 PM",
-      "venue": "Leonard Center",
-      "venue_location": "St. Paul, MN (Home)",
+      "tipoff_as_posted": "4:00 p.m.",
+      "venue": "",
+      "venue_location": "St. Paul, MN",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -17825,6 +17847,30 @@
       "tipoff_as_posted": "1:00 PM",
       "venue": "Bardo Gymnasium",
       "venue_location": "Williamsport, Pa.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-11-14-30067-30160",
+      "date": "2026-11-14",
+      "away_org_id": 30067,
+      "home_org_id": 30160,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        30067
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "4 PM",
+      "venue": "",
+      "venue_location": "Houghton, NY",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -19071,6 +19117,30 @@
       "tipoff_as_posted": "7:30 PM",
       "venue": "Tripp Athletic Center",
       "venue_location": "Dartmouth, Mass.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-11-17-733-30067",
+      "date": "2026-11-17",
+      "away_org_id": 30067,
+      "home_org_id": 733,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        30067
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "6 PM",
+      "venue": "",
+      "venue_location": "Utica, NY",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -21047,7 +21117,7 @@
       "home_org_id": 966,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.arcadiaknights.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.ycpspartans.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.arcadiaknights.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.ycpspartans.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -21058,9 +21128,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "6:00 p.m.",
-      "venue": "Alumni Gymnasium",
-      "venue_location": "Glenside, Pa.",
+      "tipoff_as_posted": "6:00 pm",
+      "venue": "",
+      "venue_location": "Glenside, PA",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -21423,7 +21493,7 @@
       "home_org_id": 511,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.norwichathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.plymouth.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.plymouth.edu/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.norwichathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -21434,7 +21504,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "",
+      "tipoff_as_posted": "5:00 PM",
       "venue": "Andrews Gym",
       "venue_location": "Northfield, Vt.",
       "network_as_posted": "",
@@ -21625,7 +21695,7 @@
       "home_org_id": 73,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.brandeisjudges.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.bowdoin.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.bowdoin.edu/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.brandeisjudges.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -21636,7 +21706,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7 pm",
+      "tipoff_as_posted": "7:00 PM",
       "venue": "",
       "venue_location": "Waltham, Mass.",
       "network_as_posted": "",
@@ -22327,7 +22397,7 @@
       "home_org_id": 30083,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.lyndonhornets.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://fightingtigers.cobleskill.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://fightingtigers.cobleskill.edu/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.lyndonhornets.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -22339,7 +22409,7 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "5:00 PM",
-      "venue": "",
+      "venue": "Iorio Gymnasium",
       "venue_location": "Cobleskill, NY",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -27711,6 +27781,30 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2026-11-24-313-30067",
+      "date": "2026-11-24",
+      "away_org_id": 30067,
+      "home_org_id": 313,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        30067
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "5:30 PM",
+      "venue": "",
+      "venue_location": "Ithaca, NY",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2026-11-24-335-517",
       "date": "2026-11-24",
       "away_org_id": 517,
@@ -30067,7 +30161,7 @@
       "home_org_id": 605,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.southernmainehuskies.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.gomonks.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.gomonks.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.southernmainehuskies.com/sports/mens-basketball/schedule?grid=true"
@@ -30080,7 +30174,7 @@
       "source_verification": "reciprocal",
       "tipoff_as_posted": "7:00 PM",
       "venue": "",
-      "venue_location": "Standish, ME",
+      "venue_location": "Standish, Maine",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -32117,7 +32211,7 @@
       "home_org_id": 211,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.etownbluejays.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.drewrangers.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.drewrangers.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.etownbluejays.com/sports/mens-basketball/schedule/2026-2027?grid=true"
@@ -32128,9 +32222,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7 p.m.",
-      "venue": "Thompson Gymnasium",
-      "venue_location": "Elizabethtown, Pa.",
+      "tipoff_as_posted": "7:00 PM",
+      "venue": "",
+      "venue_location": "Elizabethtown, PA",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -32429,6 +32523,30 @@
       "tipoff_as_posted": "7:00 PM",
       "venue": "Grove City College Arena",
       "venue_location": "Grove City, Pa.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-12-02-267-30067",
+      "date": "2026-12-02",
+      "away_org_id": 267,
+      "home_org_id": 30067,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        30067
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "6:30 PM",
+      "venue": "",
+      "venue_location": "Morrisville, N.Y.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -34843,7 +34961,7 @@
       "home_org_id": 50,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.gobatesbobcats.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.bowdoin.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.bowdoin.edu/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.gobatesbobcats.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -34854,8 +34972,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "3 p.m.",
-      "venue": "Underhill Arena",
+      "tipoff_as_posted": "3:00 PM",
+      "venue": "",
       "venue_location": "Lewiston, Maine",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -37221,7 +37339,7 @@
       "home_org_id": 759,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://websterathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://washubears.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://washubears.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://websterathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true"
@@ -37232,9 +37350,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "3:00 PM",
+      "tipoff_as_posted": "3 p.m.",
       "venue": "Grant Gymnasium",
-      "venue_location": "St. Louis, MO",
+      "venue_location": "St. Louis, Mo.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -43009,7 +43127,7 @@
       "home_org_id": 30111,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.covenant.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.bctornados.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.covenant.edu/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.bctornados.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -43020,8 +43138,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "4:00 PM",
-      "venue": "Barnes PE Center (Basketball)",
+      "tipoff_as_posted": "3 pm",
+      "venue": "",
       "venue_location": "Lookout Mountain, Ga.",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -50691,6 +50809,30 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2026-12-30-461-30067",
+      "date": "2026-12-30",
+      "away_org_id": 461,
+      "home_org_id": 30067,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        30067
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "6 PM",
+      "venue": "",
+      "venue_location": "Morrisville, N.Y.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2026-12-30-480-777",
       "date": "2026-12-30",
       "away_org_id": 480,
@@ -52357,6 +52499,30 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2027-01-02-273-30067",
+      "date": "2027-01-02",
+      "away_org_id": 273,
+      "home_org_id": 30067,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        30067
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "3 PM",
+      "venue": "",
+      "venue_location": "Morrisville, N.Y.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2027-01-02-276-1467",
       "date": "2027-01-02",
       "away_org_id": 1467,
@@ -53283,7 +53449,7 @@
       "home_org_id": 815,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.alvernia.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.ycpspartans.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.alvernia.edu/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.ycpspartans.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -53294,8 +53460,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "3:00 PM",
-      "venue": "",
+      "tipoff_as_posted": "3:00 pm",
+      "venue": "Wolf Gym",
       "venue_location": "York, PA",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -57045,7 +57211,7 @@
       "home_org_id": 801,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.uwlathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.uwrfsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.uwlathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.uwrfsports.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -57057,7 +57223,7 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "7 p.m.",
-      "venue": "",
+      "venue": "Don Page Arena",
       "venue_location": "River Falls, WI",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -60849,7 +61015,7 @@
       "home_org_id": 511,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.norwichathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.gomonks.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.gomonks.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.norwichathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -60861,7 +61027,7 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "3:00 PM",
-      "venue": "Andrews Gym",
+      "venue": "",
       "venue_location": "Northfield, Vt.",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -69837,7 +70003,7 @@
       "home_org_id": 801,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.letsgopioneers.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.uwrfsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.letsgopioneers.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.uwrfsports.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -69848,8 +70014,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "5 PM",
-      "venue": "",
+      "tipoff_as_posted": "5 p.m.",
+      "venue": "Don Page Arena",
       "venue_location": "River Falls, WI",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -70527,6 +70693,30 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2027-01-16-30067-30170",
+      "date": "2027-01-16",
+      "away_org_id": 30170,
+      "home_org_id": 30067,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        30067
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "4 PM",
+      "venue": "",
+      "venue_location": "Morrisville, N.Y.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2027-01-16-30085-30190",
       "date": "2027-01-16",
       "away_org_id": 30085,
@@ -70581,7 +70771,7 @@
       "home_org_id": 69,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.gobatesbobcats.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.bowdoin.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.bowdoin.edu/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.gobatesbobcats.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -70592,8 +70782,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "1 p.m.",
-      "venue": "Morrell Gym",
+      "tipoff_as_posted": "",
+      "venue": "Morrell Gymnasium",
       "venue_location": "Brunswick, Maine",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -81769,7 +81959,7 @@
       "home_org_id": 795,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.uwlathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.uwrfsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.uwlathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.uwrfsports.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -87489,7 +87679,7 @@
       "home_org_id": 379,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.marinersports.org/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.goumfbeavers.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.goumfbeavers.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.marinersports.org/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -87500,9 +87690,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "3 p.m.",
+      "tipoff_as_posted": "7:30 PM",
       "venue": "",
-      "venue_location": "Farmington, Maine",
+      "venue_location": "Farmington, ME",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -88741,7 +88931,7 @@
       "home_org_id": 190,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.etownbluejays.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.drewrangers.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.drewrangers.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.etownbluejays.com/sports/mens-basketball/schedule/2026-2027?grid=true"
@@ -88752,7 +88942,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7 p.m.",
+      "tipoff_as_posted": "7:00 PM",
       "venue": "",
       "venue_location": "Madison, NJ",
       "network_as_posted": "",
@@ -90097,7 +90287,7 @@
       "home_org_id": 938,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.alvernia.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.ycpspartans.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.alvernia.edu/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.ycpspartans.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -90108,9 +90298,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7:00 PM",
-      "venue": "Jack McCloskey Court",
-      "venue_location": "Reading, Pa.",
+      "tipoff_as_posted": "7:00 pm",
+      "venue": "",
+      "venue_location": "Reading, PA",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -90469,7 +90659,7 @@
       "home_org_id": 30163,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.gogryphons.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.farmingdalesports.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.farmingdalesports.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.gogryphons.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -90480,9 +90670,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7:00 PM",
-      "venue": "Campbell Sports Center",
-      "venue_location": "Bronxville, N.Y.",
+      "tipoff_as_posted": "7 pm",
+      "venue": "",
+      "venue_location": "Bronxville, NY",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -91633,6 +91823,30 @@
       "tipoff_as_posted": "7:30 PM",
       "venue": "George W. Stannard Gymnasium",
       "venue_location": "Lyndonville, VT",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-02-05-30067-30170",
+      "date": "2027-02-05",
+      "away_org_id": 30067,
+      "home_org_id": 30170,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        30067
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7:30 PM",
+      "venue": "",
+      "venue_location": "Alfred, NY",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -93869,7 +94083,7 @@
       "home_org_id": 605,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.norwichathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.gomonks.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.gomonks.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.norwichathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -93882,7 +94096,7 @@
       "source_verification": "reciprocal",
       "tipoff_as_posted": "3:00 PM",
       "venue": "",
-      "venue_location": "Standish, ME",
+      "venue_location": "Standish, Maine",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -94467,7 +94681,7 @@
       "home_org_id": 800,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.letsgopioneers.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.uwrfsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.letsgopioneers.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.uwrfsports.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -94478,8 +94692,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "5 PM",
-      "venue": "Bo Ryan Court",
+      "tipoff_as_posted": "5 p.m.",
+      "venue": "",
       "venue_location": "Platteville, WI",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -108683,7 +108897,7 @@
       "home_org_id": 378,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.marinersports.org/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.goumfbeavers.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.goumfbeavers.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.marinersports.org/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -108694,9 +108908,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "1 p.m.",
-      "venue": "Margaret Chase Smith Gymnasium",
-      "venue_location": "Castine, Maine",
+      "tipoff_as_posted": "3:00 PM",
+      "venue": "",
+      "venue_location": "Castine, ME",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
