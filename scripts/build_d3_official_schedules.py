@@ -144,6 +144,10 @@ OFFICIAL_CONFERENCE_SCHEDULES = {
         # Published current-season official conference team pages, independently
         # checked for school, basketball sex and 2026-27 year.
         1355: ("https://ascsports.org/schedule.aspx?schedule=6196", "Schreiner"),
+        179: ("https://gomacsports.com/schedule.aspx?schedule=7613", "Delaware Valley"),
+        455: ("https://oac.org/schedule.aspx?schedule=2381", "Muskingum"),
+        517: ("https://oac.org/schedule.aspx?schedule=2382", "Ohio Northern"),
+        22235: ("https://nwcsports.com/schedule.aspx?schedule=2501", "Lewis & Clark"),
     },
     "women": {
         161: ("https://miacathletics.com/schedule.aspx?schedule=3671", "Concordia"),
@@ -173,6 +177,7 @@ OFFICIAL_CONFERENCE_SCHEDULES = {
         22235: ("https://nwcsports.com/schedule.aspx?schedule=2504", "Lewis & Clark"),
         785: ("https://nwcsports.com/schedule.aspx?schedule=2511", "Willamette"),
         1355: ("https://ascsports.org/schedule.aspx?schedule=6202", "Schreiner"),
+        179: ("https://gomacsports.com/schedule.aspx?schedule=7633", "Delaware Valley"),
     },
 }
 
@@ -978,6 +983,11 @@ def self_test():
     assert OFFICIAL_CONFERENCE_SCHEDULES["women"][685][0].endswith("schedule=2619")
     assert OFFICIAL_CONFERENCE_SCHEDULES["women"][22235][0].endswith("schedule=2504")
     assert OFFICIAL_CONFERENCE_SCHEDULES["women"][785][0].endswith("schedule=2511")
+    assert OFFICIAL_CONFERENCE_SCHEDULES["men"][179][0].endswith("schedule=7613")
+    assert OFFICIAL_CONFERENCE_SCHEDULES["women"][179][0].endswith("schedule=7633")
+    assert OFFICIAL_CONFERENCE_SCHEDULES["men"][455][0].endswith("schedule=2381")
+    assert OFFICIAL_CONFERENCE_SCHEDULES["men"][517][0].endswith("schedule=2382")
+    assert OFFICIAL_CONFERENCE_SCHEDULES["men"][22235][0].endswith("schedule=2501")
     # Lock down individually checked CNE team-specific season IDs and sport identity.
     assert OFFICIAL_CONFERENCE_SCHEDULES["men"][8981] == (
         "https://cnesports.org/schedule.aspx?schedule=4110", "Endicott")
