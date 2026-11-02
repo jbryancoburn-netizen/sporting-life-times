@@ -26,6 +26,10 @@ class D2SchoolRecoveryTests(unittest.TestCase):
         self.assertEqual(info["programs_with_published_games"], 3)
         self.assertEqual(info["without_games"], 1)
         self.assertEqual(info["with_1_to_6_games"], 3)
+        self.assertEqual(info["eligible_without_games"], 0)
+        self.assertEqual(info["excluded_without_games"], 1)
+        self.assertEqual(info["eligible_with_1_to_6_games"], 3)
+        self.assertEqual(info["eligible_zero_game_schools"], [])
         self.assertEqual([x["id"] for x in info["zero_game_schools"]], ["c"])
         self.assertTrue(info["zero_game_schools"][0]["membership_pending"])
         thin = {x["id"]: x for x in info["thin_schedule_priority"]}
@@ -34,6 +38,8 @@ class D2SchoolRecoveryTests(unittest.TestCase):
         self.assertEqual(thin["b"]["with_network"], 1)
         self.assertEqual(thin["d"]["with_venue"], 1)
         self.assertEqual(info["conference_gaps"]["South"]["without_games"], 1)
+        self.assertEqual(info["conference_gaps"]["South"]["eligible_without_games"], 0)
+        self.assertEqual(info["conference_gaps"]["South"]["excluded_without_games"], 1)
 
     def test_no_double_count_on_invalid_duplicate_school_reference(self):
         info = school_schedule_coverage(self.teams, [
@@ -43,10 +49,27 @@ class D2SchoolRecoveryTests(unittest.TestCase):
         self.assertEqual(info["without_games"], 3)
         self.assertEqual(info["thin_schedule_priority"][0]["published_fixtures"], 1)
 
+    def test_zero_elo_exclusions_are_not_wrongly_reported_as_schedule_gaps(self):
+        teams = [
+            {"id": "future", "name": "Future applicant", "conference": "Other",
+             "not_eligible_for_dii_elo": True},
+            {"id": "active", "name": "Active school", "conference": "Other"},
+        ]
+        info = school_schedule_coverage(teams, [])
+        self.assertEqual(info["without_games"], 2)
+        self.assertEqual(info["eligible_without_games"], 1)
+        self.assertEqual(info["excluded_without_games"], 1)
+        self.assertEqual([x["id"] for x in info["eligible_zero_game_schools"]], ["active"])
+        self.assertEqual(info["conference_gaps"]["Other"]["eligible_without_games"], 1)
+        self.assertEqual(info["conference_gaps"]["Other"]["excluded_without_games"], 1)
+
     def test_does_not_infer_unpublished_conference_games(self):
         info = school_schedule_coverage(self.teams, [])
         self.assertEqual(info["without_games"], 4)
         self.assertEqual(info["with_1_to_6_games"], 0)
+        self.assertEqual(info["eligible_without_games"], 3)
+        self.assertEqual(info["excluded_without_games"], 1)
+        self.assertEqual([x["id"] for x in info["eligible_zero_game_schools"]], ["a", "b", "d"])
         self.assertEqual(info["conference_gaps"]["North"]["fixture_appearances"], 0)
         self.assertIn("not full-school schedule certifications", info["disclaimer"])
 
