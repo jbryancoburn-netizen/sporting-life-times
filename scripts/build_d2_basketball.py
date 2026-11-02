@@ -1120,6 +1120,14 @@ def update(gender, bootstrap=False, live=False):
     if (not rapid or not pbc_quality or
         pbc_quality.get("status")!="PBC 2026-27 two-school official fixtures verified"):
         pbc_quality=enrich_pbc(gender,games,teams,today)
+    # NE10 2026-27 official school grids: ten men plus ten women.
+    # Publication is gated on BOTH opponents corroborating date/home/away;
+    # identical published Eastern tipoffs can also be recovered.
+    from d2_ne10_official import enrich_ne10
+    ne10_quality=previous_quality.get("official_ne10_schedule_reconciliation")
+    if (not rapid or not ne10_quality or
+        ne10_quality.get("status")!="NE10 2026-27 exact reciprocal school fixtures verified"):
+        ne10_quality=enrich_ne10(gender,games,teams,today)
     # Ratings start at 1500 on every new season; only NCAA verified DII-v-DII finals count.
     rating={key:1500.0 for key in teams}
     wins={key:0 for key in teams};losses={key:0 for key in teams}
@@ -1213,7 +1221,8 @@ def update(gender, bootstrap=False, live=False):
         "official_nsic_schedule_reconciliation":nsic_quality,
         "official_carolinas_schedule_reconciliation":carolinas_quality,
         "official_gac_schedule_reconciliation":gac_quality,
-        "official_pbc_schedule_reconciliation":pbc_quality}
+        "official_pbc_schedule_reconciliation":pbc_quality,
+        "official_ne10_schedule_reconciliation":ne10_quality}
     # A complete DATE scan is not certification of every school schedule.
     previous=(prior.get("quality") or {}).get("full_season_scan")
     if bootstrap:
