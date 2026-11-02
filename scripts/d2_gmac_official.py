@@ -138,7 +138,14 @@ def enrich_gmac(gender,games,teams,today=None,fetcher=fetch):
   if g.get("date") and g.get("away") and g.get("home"):
    existing[(g["date"],frozenset((g["away"],g["home"])))].append((gid,g))
  added=enriched=confirmed=one_sided=conflicts=0
+ pair_orientations=defaultdict(set)
+ for (date,away,home) in votes:
+  pair_orientations[(date,frozenset((away,home)))].add((away,home))
  for (day,away,home),witnesses in sorted(votes.items()):
+  # If any official calendar contradicts the home/away direction, hold
+  # that school/date pairing even when one direction has two witnesses.
+  if len(pair_orientations[(day,frozenset((away,home)))])>1:
+   conflicts+=1;continue
   if set(witnesses)!={away,home} or any(x is None for x in witnesses.values()):
    one_sided+=1;continue
   confirmed+=1
