@@ -687,3 +687,77 @@ body[data-house-page="state"] .state-editorial-stories .state-brief-card:only-ch
  }
  body[data-house-page="state"] .race-wire-article:last-child,body[data-house-page="district"] .race-wire-article:last-child{border:0!important}
 }
+
+/* LIVE GEOGRAPHY DESK · Michigan repaired with real cartography.
+ * The 13 clickable congressional shapes are official Census boundaries.
+ * The basemap provides actual Michigan cities, highways, lakes and coastlines.
+ */
+body[data-house-page="state"] .map-real-views[hidden],
+body[data-house-page="state"] #map-official-michigan[hidden],
+body[data-house-page="state"] #map-base-warning[hidden]{display:none!important}
+body[data-house-page="state"] .map-real-views{
+ display:flex;flex-wrap:wrap;align-items:center;gap:7px;
+ margin:13px 0 11px;padding:0;border:0;background:transparent
+}
+body[data-house-page="state"] .map-real-view{
+ padding:10px 13px;background:#fffefa;color:#18384d;
+ border:1px solid #9caeb6;border-radius:0;
+ font:900 11px 'DM Sans',Arial,sans-serif;letter-spacing:.15px;
+ cursor:pointer;min-height:39px
+}
+body[data-house-page="state"] .map-real-view:hover,
+body[data-house-page="state"] .map-real-view:focus-visible{
+ background:#17384c;color:#fff;border-color:#17384c
+}
+body[data-house-page="state"] .map-base-legend{
+ display:flex;gap:11px 18px;align-items:center;flex-wrap:wrap;
+ background:#e8edef;border:1px solid #c2cacc;border-bottom:0;
+ padding:11px 14px;color:#435661;font:11px/1.5 Georgia,serif;
+}
+body[data-house-page="state"] .map-base-legend strong{
+ flex:none;color:#9e4037;font:900 10px/1.35 'DM Sans',sans-serif;letter-spacing:1px
+}
+body[data-house-page="state"] .map-base-legend span:last-child{
+ margin-left:auto;font:10px/1.5 'DM Sans',sans-serif;color:#65717b
+}
+body[data-house-page="state"] .state-feature-map .geo-district-map{
+ height:clamp(450px,54vw,680px)!important;min-height:450px!important;
+ border:1px solid #9caeb7!important;box-shadow:none!important;
+ background:#dce8eb!important
+}
+body[data-house-page="state"] .geo-district-map .politics-geographic-basemap{
+ filter:saturate(.85) contrast(1.04)
+}
+body[data-house-page="state"] .geo-district-map .leaflet-control-attribution{
+ font:10px/1.5 'DM Sans',Arial,sans-serif;
+ padding:3px 5px!important;background:#ffffffef!important;
+ color:#364a56!important
+}
+body[data-house-page="state"] .geo-district-map .house-district-label{
+ background:#fff9efeD;color:#1e374c;border:2px solid #25475b;
+ border-radius:50%;font:900 11px 'DM Sans',sans-serif;
+ box-shadow:0 2px 5px #17334355;width:27px;height:27px
+}
+body[data-house-page="state"] .map-base-warning{
+ font:12px/1.5 Georgia,serif;padding:12px 15px;margin:10px 0;
+ background:#f5e4d9;color:#7d322a;border-left:4px solid #a54338
+}
+body[data-house-page="state"] .map-official-michigan{
+ margin:11px 0 0;padding:12px 16px;
+ border-left:4px solid #1a3b52;background:#e5ebec;
+ font:13px/1.55 Georgia,serif;color:#324552
+}
+body[data-house-page="state"] .map-official-michigan a{
+ color:#174f74;text-decoration:underline;text-underline-offset:3px;font-weight:700
+}
+body[data-house-page="state"] .geo-district-map .district-map-tip{
+ background:#fffefa;border:1px solid #81969f;box-shadow:0 4px 16px #0b23384a;
+ color:#172a3b;padding:8px 12px;font-size:11px;max-width:245px
+}
+@media(max-width:720px){
+ body[data-house-page="state"] .state-feature-map .geo-district-map{
+  height:480px!important;min-height:390px!important
+ }
+ body[data-house-page="state"] .map-real-view{padding:8px 11px;font-size:10px;min-height:39px}
+ body[data-house-page="state"] .map-base-legend span:last-child{margin:0}
+}
