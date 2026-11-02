@@ -330,13 +330,14 @@ function makeDistrictCard(r){
  const read=preliminaryRaceRead(r);
  const theme=graphicTheme(r,read);
  const link=newEl("a",null,"district-card district-card-infographic theme-"+theme+(read.watch?" race-watch-card":""));link.href=urlForDistrict(r.id);
- link.setAttribute("aria-label",r.id+": "+info.text+". Open the source-linked district report.");
+ link.setAttribute("aria-label",r.id+": "+read.label+". "+info.text+". Open the source-linked district report.");
  const top=newEl("div",null,"top");
  const mark=newEl("span",read.watch?"◆":info.party||"—","marker");
  if(read.watch){mark.setAttribute("aria-label","Purple watchlist / mixed-signal marker");}
  mark.style.background=paint.bg;mark.style.color=paint.fg;
  mark.classList.add(info.party==="D"?"marker-dem":info.party==="R"?"marker-rep":"marker-neutral");
- mark.title=(info.party==="D"?"Democratic":info.party==="R"?"Republican":"No comparable lead")+" · "+info.source+" · never a 2026 probability";
+ mark.title=read.watch?"Purple watchlist: conflicting or competitive evidence, not a predicted winner":
+   (info.party==="D"?"Democratic":info.party==="R"?"Republican":"No comparable lead")+" · "+info.source+" · never a 2026 probability";
  const actions=newEl("span",null,"card-actions");actions.append(mark,openCardIcon());
  const titleWrap=newEl("div",null,"card-district-title");
  titleWrap.append(newEl("span","CONGRESSIONAL DISTRICT","district-kicker"),newEl("strong",r.at_large?r.state+" At-Large":r.id));
@@ -534,6 +535,10 @@ function renderState(a){
  }
  const watchNode=$("state-watch-count");
  if(watchNode)watchNode.textContent=rows.filter(x=>preliminaryRaceRead(x).watch).length+" races to watch · early data signals";
+ const watchLink=$("news-watch-link");
+ if(watchLink)watchLink.addEventListener("click",()=>{
+   select.value="watch";paint();
+ });
  select.addEventListener("change",paint);paint();
  if(state["2026_congressional_map_changed"]){
   let callout=$("boundary-caution");
