@@ -178,27 +178,49 @@ async function update(){
 }
 function boxRows(summary){
  const teams=arr(summary.boxscore?.teams);
- if(teams.length<2)return '<p>Detailed team statistics have not been published for this game.</p>';
+ if(teams.length<2)return '<p class="nfl-live-status">Source-confirmed team statistics are pending.</p>';
  const stats=t=>{const r={};arr(t.statistics).forEach(x=>{r[x.name]=x.displayValue;});return r;};
  const find=id=>teams.find(t=>str(t.team?.id)===str(id));
- const away=find(summary.__away),home=find(summary.__home);
- const a=stats(away||teams[0]),h=stats(home||teams[1]);
- const rows=[["First downs","firstDowns"],["Total yards","totalYards"],["Passing yards","netPassingYards"],["Rushing yards","rushingYards"],["Turnovers","turnovers"],["Third downs","thirdDownEff"],["Time of possession","possessionTime"]]
-  .filter(row=>a[row[1]]!=null||h[row[1]]!=null)
-  .map(([label,key])=>'<tr><td>'+html(label)+'</td><td>'+html(a[key]??"—")+'</td><td>'+html(h[key]??"—")+'</td></tr>');
- return rows.length?'<table class="nfl-live-mini-table"><thead><tr><th>TEAM STATS</th><th>'+html(summary.__awayCode)+'</th><th>'+html(summary.__homeCode)+'</th></tr></thead><tbody>'+rows.join("")+'</tbody></table>':
- '<p>Live team totals pending.</p>';
+ const a=stats(find(summary.__away)||teams[0]),h=stats(find(summary.__home)||teams[1]);
+ // Percentages for charts only; source values remain unchanged in printed statistics.
+ const numeric=v=>{
+  if(v==null)return null;
+  const vstr=str(v).replace(/,/g,"").trim(),time=vstr.match(/^(\d+):(\d{2})$/);
+  if(time)return Number(time[1])*60+Number(time[2]);
+  const ratio=vstr.match(/^(\d+)\s*[-/]\s*(\d+)$/);
+  if(ratio)return Number(ratio[2])?100*Number(ratio[1])/Number(ratio[2]):0;
+  return /^-?\d+(?:\.\d+)?$/.test(vstr)?Number(vstr):null;
+ };
+ const rows=[["First downs","firstDowns"],["Total yards","totalYards"],["Passing yards","netPassingYards"],
+  ["Rushing yards","rushingYards"],["Turnovers","turnovers"],["Third downs","thirdDownEff"],
+  ["Time of possession","possessionTime"]].filter(row=>a[row[1]]!=null||h[row[1]]!=null);
+ if(!rows.length)return '<p>Live team totals pending.</p>';
+ let out='<section class="nfl-live-stats-graphic"><div class="nfl-live-metric-head"><span>FIELD PERFORMANCE</span><strong>'+
+  html(summary.__awayCode)+' · '+html(summary.__homeCode)+'</strong></div>';
+ rows.forEach(([label,key])=>{
+  const av=numeric(a[key]),hv=numeric(h[key]),total=Math.max(1,Math.max(0,av||0)+Math.max(0,hv||0));
+  const aw=av==null||hv==null?50:100*Math.max(0,av)/total,hw=100-aw;
+  out+='<div class="nfl-live-metric"><span class="label">'+html(label)+'</span>'+
+   '<div class="nfl-live-metric-values"><b>'+html(a[key]??"—")+'</b>'+
+   '<div class="nfl-live-metric-bars" aria-hidden="true"><i style="width:'+aw.toFixed(2)+'%"></i>'+
+   '<em style="width:'+hw.toFixed(2)+'%"></em></div><b>'+html(h[key]??"—")+'</b></div></div>';
+ });
+ return out+'</section>';
 }
 function playRows(summary){
  const current=summary.drives?.current,prior=arr(summary.drives?.previous);
- const plays=arr(current?.plays).slice(-5);
- if(!plays.length){
-  const last=prior.at(-1);
-  plays.push(...arr(last?.plays).slice(-5));
- }
- if(!plays.length)plays.push(...arr(summary.scoringPlays).slice(-5));
- if(!plays.length)return '<p>No play descriptions are available yet.</p>';
- return plays.reverse().map(p=>'<div class="nfl-live-play"><b>'+html(p.clock?.displayValue||p.period?.number&&"Q"+p.period.number||"PLAY")+'</b> · '+html(p.text||p.type?.text||"Play detail pending")+'</div>').join("");
+ const plays=arr(current?.plays).slice(-6);
+ if(!plays.length)plays.push(...arr(prior.at(-1)?.plays).slice(-6));
+ if(!plays.length)plays.push(...arr(summary.scoringPlays).slice(-6));
+ if(!plays.length)return '<p>No source-verified play descriptions are available yet.</p>';
+ return plays.reverse().map(p=>{
+  const words=str(p.text||p.type?.text||"Play detail pending");
+  const kind=/touchdown|field goal is good|extra point is good|safety/i.test(words)?'is-scoring':
+   /intercepted|fumble recovered|turnover on downs/i.test(words)?'is-turnover':'';
+  const q=p.period?.number?'Q'+p.period.number+' · ':'';
+  const clock=str(p.clock?.displayValue||"");
+  return '<div class="nfl-live-play '+kind+'"><b>'+html(q+clock||'PLAY')+'</b><span>'+html(words)+'</span></div>';
+ }).join("");
 }
 async function gameDetails(){
  const target=document.getElementById("nfl-live-game-data");if(!target||!currentEvent||document.hidden)return;
