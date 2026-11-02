@@ -12,7 +12,7 @@ let view='live',selectedCohort=window.CollegeSoccerEdition?.get()||(divisions.in
 function scoped(rows,count,cohort){
  return rows.filter(g=>g.cohort===cohort).slice(0,count);
 }
-const normal=name=>String(name||'').normalize('NFKD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');
+const normal=name=>String(name||'').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');
 function teamId(name,cohort,id,elo){
  const rows=elo?.cohorts?.[cohort]||[];
  if(id&&rows.some(x=>x.team_id===id))return id;
@@ -32,7 +32,7 @@ function mark(name,id,cohort,brand,palette,overrides){
   badge.style.setProperty('--crest-primary',primary);
   badge.style.setProperty('--crest-secondary',secondary);
  }else badge.classList.add('is-unverified-color');
- const initials=String(team.badge_text||name||id||'?').replace(/[^A-Za-z0-9 ]/g,'').trim().split(/\\s+/).filter(Boolean).map(word=>word.charAt(0)).slice(0,2).join('').toUpperCase()||'SC';
+ const initials=String(team.badge_text||name||id||'?').replace(/[^A-Za-z0-9 ]/g,'').trim().split(/\s+/).filter(Boolean).map(word=>word.charAt(0)).slice(0,2).join('').toUpperCase()||'SC';
  badge.append(make('span','cs-pitch-initials',initials));
  const candidates=[team.logo_url,shared.logo_url,verified.logo_url,
   /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(id||'')?'https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/'+id+'.svg':null]
