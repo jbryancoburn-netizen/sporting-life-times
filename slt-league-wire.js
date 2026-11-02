@@ -12,7 +12,20 @@ const config={
 const page=location.pathname.split('/').pop(),c=config[page];if(!c)return;
 const esc=s=>String(s??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[ch]));
 const safe=s=>{try{const u=new URL(s,location.href);return /^https?:$/.test(u.protocol)?u.href:''}catch{return ''}};
+const espnPath={'nba.html':'basketball/nba','nfl.html':'football/nfl','epl.html':'soccer/eng.1','college-football.html':'football/college-football','nbl.html':'basketball/australian-nbl','euroleague.html':'basketball/euroleague'};
 const get=async url=>{try{const r=await fetch(url+'?t='+Date.now(),{cache:'no-store',signal:AbortSignal.timeout(12000)});return r.ok?await r.json():null}catch{return null}};
+async function liveBoard(){
+ const path=espnPath[page];if(!path)return null;
+ try{
+ const r=await fetch('https://site.api.espn.com/apis/site/v2/sports/'+path+'/scoreboard?limit=100',{signal:AbortSignal.timeout(8000),cache:'no-store'});
+ if(!r.ok)return null;const data=await r.json();
+ if(!Array.isArray(data.events))return null;
+ return data.events.map(e=>{
+  const comp=e.competitions?.[0],teams=(comp?.competitors||[]).map(t=>({name:t.team?.shortDisplayName||t.team?.displayName||'Team',logo:t.team?.logo||t.team?.logos?.[0]?.href||'',score:t.score??'',home_away:t.homeAway}));
+  return {id:e.id,url:e.links?.[0]?.href||'',date:e.date,state:e.status?.type?.state||'pre',status:e.status?.type?.shortDetail||e.status?.type?.description||'',teams};
+ }).filter(g=>g.teams.length===2);
+ }catch{return null}
+}
 const sortTeams=g=>{const teams=Array.isArray(g.teams)?g.teams:[];return [teams.find(t=>t.home_away==='away')||teams[1],teams.find(t=>t.home_away==='home')||teams[0]]};
 const gameHTML=g=>{
  const [a,h]=sortTeams(g);if(!a||!h)return '';
@@ -32,9 +45,11 @@ function mount(){
  section.querySelector('.slt-wire-pause').addEventListener('click',e=>{const pressed=e.currentTarget.getAttribute('aria-pressed')==='true';e.currentTarget.setAttribute('aria-pressed',String(!pressed));e.currentTarget.textContent=pressed?'PAUSE ▌▌':'PLAY ▶';section.classList.toggle('is-paused',!pressed)});
  const score=section.querySelector('.slt-wire-score-track'),news=section.querySelector('.slt-wire-news-track'),stamp=section.querySelector('.slt-wire-stamp');
  async function update(){
-  const [boards,stories]=await Promise.all([get('multi_scoreboards.json'),get(c[2]||'articles.json')]);
+  const [boards,stories,currentGames]=await Promise.all([get('multi_scoreboards.json'),get(c[2]||'articles.json'),liveBoard()]);
   const group=boards?.leagues?.find(l=>l.league===c[0]);
-  const games=(group?.games||[]).filter(g=>g.teams?.length===2);
+  const age=boards?.updated_at?Date.now()-new Date(boards.updated_at).getTime():Infinity;
+  const freshCached=age>=0&&age<36*3600*1000;
+  const games=Array.isArray(currentGames)?currentGames:(freshCached?(group?.games||[]):[]).filter(g=>g.teams?.length===2);
   const key=games.map(g=>g.id+':'+g.state+':'+g.teams.map(t=>t.score).join('-')).join('|');
   if(games.length){const html=games.slice(0,30).map(gameHTML).join('');loop(score,html,'slt-wire-score-group',Math.max(45,games.length*6));}
   else{score.classList.remove('has-scores');score.innerHTML='<span class="slt-wire-empty">No verified '+esc(c[1])+' scores in the current feed.</span>';score.dataset.content='';}
@@ -45,7 +60,7 @@ function mount(){
   const items=filtered.length?filtered:[];const html=items.map(a=>'<a href="'+esc(safe(a.url))+'" target="_blank" rel="noopener noreferrer"><b>'+esc(a.source||'NEWS')+'</b> '+esc(a.title)+'</a>').join('<span class="slt-wire-bullet">◆</span>');
   if(items.length)loop(news,html,'slt-wire-news-group',Math.max(45,items.length*7));
   else{news.dataset.content='';news.innerHTML='<span class="slt-wire-empty">No verified '+esc(c[1])+' headlines in the current feed.</span>'}
-  const date=boards?.updated_at?new Date(boards.updated_at):null;stamp.textContent=date&&!isNaN(+date)?'Score feed: '+date.toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit',timeZone:'America/New_York'})+' ET':'Score feed not available';
+  const date=boards?.updated_at?new Date(boards.updated_at):null;stamp.textContent=Array.isArray(currentGames)?'Score source: ESPN · refreshed now':freshCached&&date?'Cached scores: '+date.toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit',timeZone:'America/New_York'})+' ET':'Current scores unavailable';
  }
  update();setInterval(()=>{if(!document.hidden)update()},60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)update()});
 }
