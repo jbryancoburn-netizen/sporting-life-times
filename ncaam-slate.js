@@ -382,6 +382,12 @@ function card(g,featured){
    g.phase==='final'?g.evidence==='final-source'?'Attributed final':'Reported final':
    g.phase==='live'?'Live scoreboard':'Sourced fixture + USRS';
  const score=g.phase==='upcoming'?'':(g.away.score===null||g.home.score===null?'SCORE PENDING':g.away.score+' — '+g.home.score);
+ const decided=(g.phase==='final'||g.phase==='live')&&Number.isFinite(g.away.score)&&Number.isFinite(g.home.score);
+ const ahead=decided?(g.away.score===g.home.score?null:g.away.score>g.home.score?g.away:g.home):null;
+ const resultLine=decided?'<div class="sl-score-context"><span>'+
+  esc(g.phase==='final'?'FINAL RESULT':'CURRENT LEADER')+'</span><strong>'+
+  esc(ahead?ahead.name:g.phase==='final'?'Result needs verification':'Game tied')+
+  '</strong><small>'+esc(ahead?'Margin '+Math.abs(g.away.score-g.home.score):'')+'</small></div>':'';
  const venue=g.venue?'<span class="sl-location">'+esc(g.venue)+'</span>':'';
  return '<article class="sl-game'+(featured?' sl-featured':'')+'" style="--sl-away:'+brand(g.away)+';--sl-home:'+brand(g.home)+
   ';--sl-away-alt:'+secondary(g.away)+';--sl-home-alt:'+secondary(g.home)+'">'+
@@ -397,7 +403,7 @@ function card(g,featured){
   '<h3>'+esc(pair[0])+'</h3><p>'+esc(pair[1])+'</p>'+
   '<div class="sl-rating-pair"><span>'+esc(g.away.name)+' <b>'+ (rating(g.away)??'—')+'</b></span>'+
   '<i aria-hidden="true"></i><span>'+esc(g.home.name)+' <b>'+(rating(g.home)??'—')+'</b></span></div>'+
-  matchupStats(g)+comparison(g)+meter(g)+projectedScoreCard(g)+liveEditorial(g)+'</div></div>'+
+  resultLine+matchupStats(g)+comparison(g)+meter(g)+projectedScoreCard(g)+liveEditorial(g)+'</div></div>'+
   '<div class="sl-game-footer"><span>'+esc(source)+'</span>'+
   '<a class="sl-details" href="'+esc(href)+'"'+(isExternal?' target="_blank" rel="noopener noreferrer"':'')+'>'+
   (isExternal?'Result source':'Game details')+' <span aria-hidden="true">↗</span></a>'+
