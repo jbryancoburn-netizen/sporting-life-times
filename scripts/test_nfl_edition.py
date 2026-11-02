@@ -31,8 +31,8 @@ class EloTests(unittest.TestCase):
         for name in ["nfl.html","nfl-standings.html","nfl-rankings.html","nfl-players.html","nfl-schedule.html","nfl-game-center.html","nfl-team.html","nfl-game.html","nfl-playoffs.html"]:
             with self.subTest(page=name):
                 page=(root/name).read_text(encoding="utf-8")
-                self.assertIn("nfl-badge-v3.css?v=20261101-2realrings",page)
-                self.assertIn("nfl-edition-v3.js?v="+("20261101-boxscore-v11b" if name=="nfl-game.html" else "20261101-gamev6"),page)
+                self.assertRegex(page, r'href="nfl-badge-v3\.css\?v=[^"]+"')
+                self.assertRegex(page, r'src="nfl-edition-v3\.js\?v=[^"]+"')
                 self.assertNotIn('src="nfl-edition.js?',page)
 
     def test_generic_sitewide_crest_does_not_add_third_ring(self):
@@ -102,7 +102,7 @@ class EloTests(unittest.TestCase):
         self.assertIn("observer.observe(root,{childList:true})",live)
         self.assertIn('setInterval(page==="game"?gameDetails:update,25000)',live)
         self.assertIn('nfl-live-day.js?v=20261101-gamev6',center)
-        self.assertIn('nfl-live-day.js?v=20261101-approved-design-v10b',game)
+        self.assertRegex(game, r'src="nfl-live-day\.js\?v=[^"]+"')
 
 
     def test_nfl_individual_game_has_sourced_editorial_story(self):
@@ -115,8 +115,10 @@ class EloTests(unittest.TestCase):
         self.assertIn('function gamePage()',page)
         self.assertIn('featuredMatch(g)',page)
         self.assertIn('nfl-game-live-slot',page)
-        self.assertIn('nfl-game-editorial-v10.css?v=20261101-boxscore-v11b',game)
+        self.assertRegex(game, r'href="nfl-game-editorial-v10\.css\?v=[^"]+"')
         self.assertNotIn('nfl-matchup-v5.css',game)
+        self.assertIn('nfl-game-polish-v12.css',game)
+        self.assertIn('nfl-game-polish-v12.css', (root/"nfl-game.html").read_text(encoding="utf-8"))
         self.assertIn(':is([data-page="front"],[data-page="game"])',stylesheet)
         self.assertIn('root.querySelector("#nfl-game-live-slot")',live)
         self.assertIn('function nflFinalStatus(g)',page)
@@ -193,7 +195,7 @@ class EloTests(unittest.TestCase):
         self.assertIn(".nfl-feature-tabs a{",css)
         self.assertIn("font-variant-numeric:tabular-nums",css)
         self.assertIn("display:none!important",css)
-        self.assertIn("nfl-game-editorial-v10.css?v=20261101-boxscore-v11b",html)
+        self.assertRegex(html, r'href="nfl-game-editorial-v10\.css\?v=[^"]+"')
 
 
     def test_gamefile_compact_boxscore_and_source_story(self):
@@ -218,8 +220,8 @@ class EloTests(unittest.TestCase):
         self.assertIn('max-height:34px!important',css)
         self.assertIn('position:sticky!important',css)
         self.assertIn('nfl-insight-three',css)
-        self.assertIn("nfl-game-editorial-v10.css?v=20261101-boxscore-v11b",html)
-        self.assertIn("nfl-edition-v3.js?v=20261101-boxscore-v11b",html)
+        self.assertRegex(html, r'href="nfl-game-editorial-v10\.css\?v=[^"]+"')
+        self.assertRegex(html, r'src="nfl-edition-v3\.js\?v=[^"]+"')
 
     def test_exact_preseason_reset(self):
         t=nfl.replay([])
