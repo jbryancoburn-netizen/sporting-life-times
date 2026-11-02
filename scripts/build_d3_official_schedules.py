@@ -110,6 +110,8 @@ OFFICIAL_ATHLETICS_HOST_OVERRIDE = {
 # from neighboring season IDs.
 OFFICIAL_CONFERENCE_SCHEDULES = {
     "men": {
+        # University 2026–27 athletics schedules unavailable; official SLIAC team grids.
+        1450: ("https://sliac.org/schedule.aspx?schedule=2037", "Westminster"),
         53: ("https://midwestconference.org/schedule.aspx?schedule=3999", "Beloit"),
         218: ("https://sliac.org/schedule.aspx?schedule=2031", "Eureka"),
         684: ("https://cnesports.org/schedule.aspx?schedule=4107", "Suffolk"),
@@ -118,6 +120,7 @@ OFFICIAL_CONFERENCE_SCHEDULES = {
         525: ("https://miaa.org/schedule.aspx?schedule=2283", "Olivet"),
     },
     "women": {
+        1450: ("https://sliac.org/schedule.aspx?schedule=2045", "Westminster"),
         53: ("https://midwestconference.org/schedule.aspx?schedule=3989", "Beloit"),
         218: ("https://sliac.org/schedule.aspx?schedule=2038", "Eureka"),
         449: ("https://newmacsports.com/schedule.aspx?schedule=3965", "Mount Holyoke"),
@@ -724,6 +727,8 @@ def self_test():
     assert OFFICIAL_CONFERENCE_SCHEDULES["men"][218][1] == "Eureka"
     assert OFFICIAL_CONFERENCE_SCHEDULES["women"][449][1] == "Mount Holyoke"
     assert OFFICIAL_CONFERENCE_SCHEDULES["men"][64][1] == "Blackburn"
+    assert OFFICIAL_CONFERENCE_SCHEDULES["men"][1450][1] == "Westminster"
+    assert OFFICIAL_CONFERENCE_SCHEDULES["women"][1450][0].endswith("schedule=2045")
     assert OFFICIAL_CONFERENCE_SCHEDULES["women"][525][1] == "Olivet"
     conf_html = """<html><head><title>2026-27 Blackburn Men's Basketball Schedule</title></head>
     <body><h2>2026-27 Blackburn Men's Basketball Schedule (0-0)</h2>
