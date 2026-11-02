@@ -17,6 +17,22 @@
         "log_loss": 0.7642063218596366
       }
     },
+    "401878762": {
+      "away": "Everton",
+      "away_score": 1,
+      "baseline": {
+        "brier": 0.7612914926454459,
+        "log_loss": 1.213110949480838
+      },
+      "fixture_id": "401878762",
+      "home": "Newcastle United",
+      "home_score": 0,
+      "outcome": "away",
+      "research": {
+        "brier": 0.767415031061601,
+        "log_loss": 1.2242536387875542
+      }
+    },
     "401878763": {
       "away": "Ipswich",
       "away_score": 2,
@@ -491,19 +507,19 @@
   "schema_version": 1,
   "status": "research_only_not_for_live_promotion",
   "summary": {
-    "graded_count": 9,
+    "graded_count": 10,
     "locked_count": 20,
     "new_grades": 1,
     "new_locks": 0,
     "note": "Paired pregame outcomes only; a small sample cannot validate superiority.",
     "scores": {
       "baseline": {
-        "brier": 0.593862,
-        "log_loss": 0.99583
+        "brier": 0.610605,
+        "log_loss": 1.017558
       },
       "research": {
-        "brier": 0.602152,
-        "log_loss": 1.007505
+        "brier": 0.618678,
+        "log_loss": 1.02918
       }
     }
   }
