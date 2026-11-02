@@ -3,19 +3,19 @@
   "division": "d3",
   "gender": "men",
   "season": "2026-27",
-  "generated_utc": "2026-11-02T02:16:01.955168+00:00",
+  "generated_utc": "2026-11-02T02:18:19.408098+00:00",
   "source": "NCAA 2026-27 member directory + year/gender-validated official school athletics calendars",
   "scope": "NCAA membership-wide first pass; sources without independently validated 2026-27 schedules excluded",
   "ncaa_confirmed_programs": 406,
   "verified_source_calendars": 355,
-  "official_conference_calendar_fallbacks": 7,
+  "official_conference_calendar_fallbacks": 8,
   "school_calendars_checked": 406,
   "school_calendars_missing": 51,
-  "school_calendars_unresolved": 44,
+  "school_calendars_unresolved": 43,
   "source_status_counts": {
     "parsed": 355,
-    "failed": 44,
-    "parsed_conference": 7
+    "failed": 43,
+    "parsed_conference": 8
   },
   "last_verified_school_source": {
     "4": "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
@@ -374,6 +374,16 @@
     "30245": "https://charlotte.jwuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
     "30264": "https://regentroyals.com/sports/mens-basketball/schedule/2026?grid=true"
   },
+  "last_verified_conference_source": {
+    "64": "https://sliac.org/schedule.aspx?schedule=2030",
+    "119": "https://uaasports.info/schedule.aspx?schedule=1162",
+    "161": "https://miacathletics.com/schedule.aspx?schedule=3665",
+    "218": "https://sliac.org/schedule.aspx?schedule=2031",
+    "525": "https://miaa.org/schedule.aspx?schedule=2283",
+    "684": "https://cnesports.org/schedule.aspx?schedule=4107",
+    "762": "https://cnesports.org/schedule.aspx?schedule=4111",
+    "8981": "https://cnesports.org/schedule.aspx?schedule=4110"
+  },
   "unverified_school_review": [
     {
       "ncaa_org_id": 76,
@@ -572,12 +582,12 @@
       "ncaa_org_id": 486,
       "school": "Massachusetts College of Liberal Arts",
       "conference": "Massachusetts State Collegiate Athletic Conference",
-      "category": "season_heading_not_verified",
+      "category": "server_refused_method",
       "failed_url": "https://athletics.mcla.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "last_successful_school_schedule_url": "",
       "discovered_schedule_links": [],
       "checked_schedule_candidates": 9,
-      "next_action": "Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar",
+      "next_action": "Inspect official school schedule platform's public print/text calendar; do not circumvent access controls",
       "opponent_published_fixtures": 5,
       "opponent_source_examples": [
         "https://bantamsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
@@ -589,12 +599,12 @@
       "ncaa_org_id": 517,
       "school": "Ohio Northern University",
       "conference": "Ohio Athletic Conference",
-      "category": "season_heading_not_verified",
+      "category": "server_refused_method",
       "failed_url": "https://onusports.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "last_successful_school_schedule_url": "",
       "discovered_schedule_links": [],
       "checked_schedule_candidates": 9,
-      "next_action": "Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar",
+      "next_action": "Inspect official school schedule platform's public print/text calendar; do not circumvent access controls",
       "opponent_published_fixtures": 22,
       "opponent_source_examples": [
         "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true",
@@ -623,12 +633,12 @@
       "ncaa_org_id": 532,
       "school": "Elms College",
       "conference": "Great Northeast Athletic Conference",
-      "category": "season_heading_not_verified",
+      "category": "server_refused_method",
       "failed_url": "https://ecblazers.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "last_successful_school_schedule_url": "",
       "discovered_schedule_links": [],
       "checked_schedule_candidates": 9,
-      "next_action": "Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar",
+      "next_action": "Inspect official school schedule platform's public print/text calendar; do not circumvent access controls",
       "opponent_published_fixtures": 10,
       "opponent_source_examples": [
         "https://www.lyndonhornets.com/sports/mens-basketball/schedule/2026-27?grid=true",
@@ -640,12 +650,12 @@
       "ncaa_org_id": 538,
       "school": "Pennsylvania State Univ. Erie, the Behrend College",
       "conference": "Allegheny Mountain Collegiate Conference",
-      "category": "season_heading_not_verified",
+      "category": "server_refused_method",
       "failed_url": "https://psblions.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "last_successful_school_schedule_url": "",
       "discovered_schedule_links": [],
       "checked_schedule_candidates": 9,
-      "next_action": "Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar",
+      "next_action": "Inspect official school schedule platform's public print/text calendar; do not circumvent access controls",
       "opponent_published_fixtures": 0,
       "opponent_source_examples": []
     },
@@ -1113,15 +1123,15 @@
     }
   ],
   "unverified_school_summary": {
-    "remaining_unverified_school_calendars": 44,
-    "missing_schools_with_at_least_10_opponent_sourced_games": 32,
+    "remaining_unverified_school_calendars": 43,
+    "missing_schools_with_at_least_10_opponent_sourced_games": 31,
     "missing_schools_with_zero_opponent_sourced_games": 4,
     "recovery_reason_counts": {
-      "server_refused_method": 6,
+      "server_refused_method": 12,
       "unsupported_calendar_or_opponent_format": 1,
       "access_restricted": 2,
       "calendar_path_unavailable": 1,
-      "season_heading_not_verified": 32,
+      "season_heading_not_verified": 25,
       "temporary_network_failure": 2
     }
   },
@@ -1456,7 +1466,8 @@
       "candidate_urls_tried": 9,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "retained_previous_fixtures": 0,
+      "retained_verified_fixtures": 0
     },
     {
       "owner_org_id": 78,
@@ -1556,7 +1567,8 @@
         "https://www.goslugs.com/sports/mbball/schedule/text"
       ],
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "retained_previous_fixtures": 0,
+      "retained_verified_fixtures": 0
     },
     {
       "owner_org_id": 114,
@@ -1691,7 +1703,8 @@
       "candidate_urls_tried": 9,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "retained_previous_fixtures": 0,
+      "retained_verified_fixtures": 0
     },
     {
       "owner_org_id": 126,
@@ -1938,7 +1951,8 @@
       "candidate_urls_tried": 9,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "retained_previous_fixtures": 0,
+      "retained_verified_fixtures": 0
     },
     {
       "owner_org_id": 177,
@@ -1962,7 +1976,8 @@
       "candidate_urls_tried": 1,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "retained_previous_fixtures": 0,
+      "retained_verified_fixtures": 0
     },
     {
       "owner_org_id": 182,
@@ -2180,7 +2195,8 @@
       "candidate_urls_tried": 9,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "retained_previous_fixtures": 0,
+      "retained_verified_fixtures": 0
     },
     {
       "owner_org_id": 238,
@@ -2190,7 +2206,8 @@
       "candidate_urls_tried": 9,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "retained_previous_fixtures": 0,
+      "retained_verified_fixtures": 0
     },
     {
       "owner_org_id": 239,
@@ -2637,7 +2654,8 @@
       "candidate_urls_tried": 9,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "retained_previous_fixtures": 0,
+      "retained_verified_fixtures": 0
     },
     {
       "owner_org_id": 325,
@@ -2647,7 +2665,8 @@
       "candidate_urls_tried": 9,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "retained_previous_fixtures": 0,
+      "retained_verified_fixtures": 0
     },
     {
       "owner_org_id": 326,
@@ -3149,7 +3168,8 @@
       "candidate_urls_tried": 9,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "retained_previous_fixtures": 0,
+      "retained_verified_fixtures": 0
     },
     {
       "owner_org_id": 451,
@@ -3201,7 +3221,8 @@
       "candidate_urls_tried": 9,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "retained_previous_fixtures": 0,
+      "retained_verified_fixtures": 0
     },
     {
       "owner_org_id": 461,
@@ -3319,11 +3340,12 @@
       "owner_org_id": 486,
       "source_url": "https://athletics.mcla.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "status": "failed",
-      "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
+      "error": "HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not ",
       "candidate_urls_tried": 9,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "retained_previous_fixtures": 0,
+      "retained_verified_fixtures": 0
     },
     {
       "owner_org_id": 491,
@@ -3413,11 +3435,12 @@
       "owner_org_id": 517,
       "source_url": "https://onusports.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "status": "failed",
-      "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
+      "error": "HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | No 2026\u201327 season in",
       "candidate_urls_tried": 9,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "retained_previous_fixtures": 0,
+      "retained_verified_fixtures": 0
     },
     {
       "owner_org_id": 520,
@@ -3503,21 +3526,23 @@
       "owner_org_id": 532,
       "source_url": "https://ecblazers.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "status": "failed",
-      "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
+      "error": "HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 ",
       "candidate_urls_tried": 9,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "retained_previous_fixtures": 0,
+      "retained_verified_fixtures": 0
     },
     {
       "owner_org_id": 538,
       "source_url": "https://psblions.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "status": "failed",
-      "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
+      "error": "HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual pa",
       "candidate_urls_tried": 9,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "retained_previous_fixtures": 0,
+      "retained_verified_fixtures": 0
     },
     {
       "owner_org_id": 542,
@@ -3682,7 +3707,8 @@
       "candidate_urls_tried": 9,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "retained_previous_fixtures": 0,
+      "retained_verified_fixtures": 0
     },
     {
       "owner_org_id": 570,
@@ -4001,7 +4027,8 @@
       "candidate_urls_tried": 9,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "retained_previous_fixtures": 0,
+      "retained_verified_fixtures": 0
     },
     {
       "owner_org_id": 622,
@@ -4067,7 +4094,8 @@
       "candidate_urls_tried": 9,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "retained_previous_fixtures": 0,
+      "retained_verified_fixtures": 0
     },
     {
       "owner_org_id": 642,
@@ -4188,7 +4216,8 @@
       "candidate_urls_tried": 9,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "retained_previous_fixtures": 0,
+      "retained_verified_fixtures": 0
     },
     {
       "owner_org_id": 686,
@@ -4546,7 +4575,8 @@
       "candidate_urls_tried": 9,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "retained_previous_fixtures": 0,
+      "retained_verified_fixtures": 0
     },
     {
       "owner_org_id": 778,
@@ -4640,7 +4670,8 @@
       "candidate_urls_tried": 1,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "retained_previous_fixtures": 0,
+      "retained_verified_fixtures": 0
     },
     {
       "owner_org_id": 787,
@@ -4805,7 +4836,8 @@
       "candidate_urls_tried": 9,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "retained_previous_fixtures": 0,
+      "retained_verified_fixtures": 0
     },
     {
       "owner_org_id": 807,
@@ -4843,7 +4875,8 @@
       "candidate_urls_tried": 9,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "retained_previous_fixtures": 0,
+      "retained_verified_fixtures": 0
     },
     {
       "owner_org_id": 814,
@@ -4895,7 +4928,8 @@
       "candidate_urls_tried": 9,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "retained_previous_fixtures": 0,
+      "retained_verified_fixtures": 0
     },
     {
       "owner_org_id": 953,
@@ -4905,7 +4939,8 @@
       "candidate_urls_tried": 9,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "retained_previous_fixtures": 0,
+      "retained_verified_fixtures": 0
     },
     {
       "owner_org_id": 962,
@@ -4957,7 +4992,8 @@
       "candidate_urls_tried": 9,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "retained_previous_fixtures": 0,
+      "retained_verified_fixtures": 0
     },
     {
       "owner_org_id": 1036,
@@ -5109,7 +5145,8 @@
       "candidate_urls_tried": 9,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "retained_previous_fixtures": 0,
+      "retained_verified_fixtures": 0
     },
     {
       "owner_org_id": 1133,
@@ -5161,7 +5198,8 @@
       "candidate_urls_tried": 9,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "retained_previous_fixtures": 0,
+      "retained_verified_fixtures": 0
     },
     {
       "owner_org_id": 1164,
@@ -5327,7 +5365,8 @@
       "candidate_urls_tried": 9,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "retained_previous_fixtures": 0,
+      "retained_verified_fixtures": 0
     },
     {
       "owner_org_id": 1332,
@@ -5365,7 +5404,8 @@
       "candidate_urls_tried": 9,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "retained_previous_fixtures": 0,
+      "retained_verified_fixtures": 0
     },
     {
       "owner_org_id": 1400,
@@ -5459,7 +5499,8 @@
       "candidate_urls_tried": 9,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "retained_previous_fixtures": 0,
+      "retained_verified_fixtures": 0
     },
     {
       "owner_org_id": 1468,
@@ -5581,7 +5622,8 @@
       "candidate_urls_tried": 9,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "retained_previous_fixtures": 0,
+      "retained_verified_fixtures": 0
     },
     {
       "owner_org_id": 2810,
@@ -5634,7 +5676,8 @@
       "candidate_urls_tried": 9,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "retained_previous_fixtures": 0,
+      "retained_verified_fixtures": 0
     },
     {
       "owner_org_id": 8490,
@@ -5716,7 +5759,8 @@
       "candidate_urls_tried": 9,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "retained_previous_fixtures": 0,
+      "retained_verified_fixtures": 0
     },
     {
       "owner_org_id": 8746,
@@ -5822,7 +5866,8 @@
       "candidate_urls_tried": 9,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "retained_previous_fixtures": 0,
+      "retained_verified_fixtures": 0
     },
     {
       "owner_org_id": 11839,
@@ -5973,7 +6018,8 @@
       "candidate_urls_tried": 9,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "retained_previous_fixtures": 0,
+      "retained_verified_fixtures": 0
     },
     {
       "owner_org_id": 22626,
@@ -6039,7 +6085,8 @@
       "candidate_urls_tried": 9,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "retained_previous_fixtures": 0,
+      "retained_verified_fixtures": 0
     },
     {
       "owner_org_id": 24400,
@@ -6063,7 +6110,8 @@
       "candidate_urls_tried": 9,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "retained_previous_fixtures": 0,
+      "retained_verified_fixtures": 0
     },
     {
       "owner_org_id": 27892,
@@ -6213,7 +6261,8 @@
       "candidate_urls_tried": 9,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "retained_previous_fixtures": 0,
+      "retained_verified_fixtures": 0
     },
     {
       "owner_org_id": 30044,
@@ -6321,7 +6370,8 @@
       "candidate_urls_tried": 9,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "retained_previous_fixtures": 0,
+      "retained_verified_fixtures": 0
     },
     {
       "owner_org_id": 30083,
@@ -6528,7 +6578,8 @@
       "candidate_urls_tried": 9,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "retained_previous_fixtures": 0,
+      "retained_verified_fixtures": 0
     },
     {
       "owner_org_id": 30190,
@@ -6580,7 +6631,8 @@
       "candidate_urls_tried": 9,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "retained_previous_fixtures": 0,
+      "retained_verified_fixtures": 0
     },
     {
       "owner_org_id": 30236,
@@ -6633,7 +6685,8 @@
       "candidate_urls_tried": 9,
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "retained_previous_fixtures": 0,
+      "retained_verified_fixtures": 0
     },
     {
       "owner_org_id": 30264,
@@ -6844,8 +6897,8 @@
       ]
     }
   ],
-  "fixture_count": 4178,
-  "reciprocal_fixtures": 2085,
+  "fixture_count": 4179,
+  "reciprocal_fixtures": 2100,
   "fixtures": [
     {
       "id": "d3-men-2026-11-06-4-42",
@@ -30782,7 +30835,7 @@
       "home_org_id": 1203,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.hendrixwarriors.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://cruathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
         "https://cruathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true",
         "https://www.hendrixwarriors.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -30794,8 +30847,8 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "6:00 PM",
-      "venue": "",
-      "venue_location": "Belton, Texas",
+      "venue": "Mayborn Campus Center",
+      "venue_location": "Belton, TX",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -43325,9 +43378,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "2:45 p.m.",
-      "venue": "LSC Gymnasium",
-      "venue_location": "New Ulm, MN",
+      "tipoff_as_posted": "2:45 PM",
+      "venue": "",
+      "venue_location": "New Ulm, Minn.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -43414,7 +43467,7 @@
       "home_org_id": 30111,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.covenant.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.bctornados.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.covenant.edu/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.bctornados.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -43425,8 +43478,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "4:00 PM",
-      "venue": "Barnes PE Center (Basketball)",
+      "tipoff_as_posted": "3 pm",
+      "venue": "",
       "venue_location": "Lookout Mountain, Ga.",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -45962,7 +46015,7 @@
       "home_org_id": 1400,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.hendrixwarriors.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://tlubulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://tlubulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.hendrixwarriors.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -45973,9 +46026,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7:30 PM",
+      "tipoff_as_posted": "7:30 pm",
       "venue": "",
-      "venue_location": "Seguin, Texas",
+      "venue_location": "/ Memorial Gymnasium",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -50978,7 +51031,7 @@
       "home_org_id": 373,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.godutchmen.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://lycomingathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://lycomingathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.godutchmen.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -50990,7 +51043,7 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "5 p.m.",
-      "venue": "",
+      "venue": "Lamade Gym",
       "venue_location": "Williamsport, Pa.",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -54166,7 +54219,7 @@
       "home_org_id": 119,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://uaasports.info/schedule.aspx?schedule=1162",
+      "source_url": "https://www.dickinsonathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://uaasports.info/schedule.aspx?schedule=1162",
         "https://www.dickinsonathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -54177,9 +54230,9 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "2:00 P.M.",
+      "tipoff_as_posted": "2:00 PM",
       "venue": "",
-      "venue_location": "",
+      "venue_location": "Pittsburgh, PA (Highmark Center)",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -54660,7 +54713,7 @@
       "home_org_id": 480,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.ccnyathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.gonyuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.ccnyathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.gonyuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -54672,7 +54725,7 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "7:00 PM",
-      "venue": "Nat Holman Gymnasium",
+      "venue": "",
       "venue_location": "New York, NY",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -74695,9 +74748,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "6:45 p.m.",
-      "venue": "",
-      "venue_location": "Mankato, MN",
+      "tipoff_as_posted": "6:45 PM",
+      "venue": "North Gym",
+      "venue_location": "Mankato, Minn.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -75036,7 +75089,7 @@
       "home_org_id": 119,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://uaasports.info/schedule.aspx?schedule=1162",
+      "source_url": "https://www.emoryathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://uaasports.info/schedule.aspx?schedule=1162",
         "https://www.emoryathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -75047,9 +75100,9 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7:30 P.M.",
+      "tipoff_as_posted": "7:30 PM",
       "venue": "",
-      "venue_location": "",
+      "venue_location": "Pittsburgh, PA",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -75544,7 +75597,7 @@
       "home_org_id": 1124,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.hendrixwarriors.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://tlubulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://tlubulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.hendrixwarriors.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -75555,9 +75608,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "8:00 PM",
-      "venue": "Grove Gymnasium",
-      "venue_location": "Conway, Ark.",
+      "tipoff_as_posted": "8 pm",
+      "venue": "",
+      "venue_location": "Conway, AR",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -83144,7 +83197,7 @@
       "home_org_id": 119,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://uaasports.info/schedule.aspx?schedule=1162",
+      "source_url": "https://athletics.uchicago.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.uchicago.edu/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://uaasports.info/schedule.aspx?schedule=1162"
@@ -83155,9 +83208,9 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7:30 P.M.",
+      "tipoff_as_posted": "7:30 PM ET",
       "venue": "",
-      "venue_location": "",
+      "venue_location": "Pittsburgh, PA | Highmark Center",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -91534,7 +91587,7 @@
       "home_org_id": 137,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://uaasports.info/schedule.aspx?schedule=1162",
+      "source_url": "https://athletics.uchicago.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.uchicago.edu/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://uaasports.info/schedule.aspx?schedule=1162"
@@ -91545,9 +91598,9 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "8:30 P.M.",
+      "tipoff_as_posted": "7:30 PM CT",
       "venue": "",
-      "venue_location": "",
+      "venue_location": "Chicago, IL | Ratner Athletic Center",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -98915,9 +98968,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "6:45 p.m.",
-      "venue": "LSC Gymnasium",
-      "venue_location": "New Ulm, MN",
+      "tipoff_as_posted": "6:45 PM",
+      "venue": "",
+      "venue_location": "New Ulm, Minn.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
