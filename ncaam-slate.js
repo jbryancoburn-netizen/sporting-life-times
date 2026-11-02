@@ -125,8 +125,21 @@ let cross={teams:[]},palette={},arenaRegistry={};
 const favoriteKey='slt-slate-favorites-'+(women?'women':'men');
 let followed=new Set();
 try{followed=new Set(JSON.parse(localStorage.getItem(favoriteKey)||'[]').map(String))}catch{}
-const fetchJSON=async path=>{const c=new AbortController();const tm=setTimeout(()=>c.abort(),14000);
-  try{const r=await fetch(path,{cache:'no-store',signal:c.signal});if(!r.ok)throw Error('HTTP '+r.status);return await r.json()}finally{clearTimeout(tm)}};
+// Large source-backed identity and arena references remain stable during a
+// page session; do not re-download them on every 90-second scoreboard tick.
+const staticData=new Map();
+const staticPaths=new Set(['data/ncaam-2026-27-espn-team-crosswalk.json',
+  'data/dual-ring-team-palette.json','data/mbb-arena-registry.json']);
+const fetchJSON=async path=>{
+ if(staticPaths.has(path)&&staticData.has(path))return staticData.get(path);
+ const c=new AbortController(),tm=setTimeout(()=>c.abort(),14000);
+ try{const r=await fetch(path,{cache:staticPaths.has(path)?'default':'no-store',signal:c.signal});
+  if(!r.ok)throw Error('HTTP '+r.status);
+  const data=await r.json();
+  if(staticPaths.has(path))staticData.set(path,data);
+  return data;
+ }finally{clearTimeout(tm)}
+};
 const saveURL=()=>{const u=new URL(location.href);u.searchParams.set('date',selected);if(filter==='all')u.searchParams.delete('view');else u.searchParams.set('view',filter);history.replaceState({},'',u.pathname+u.search+u.hash)};
 const brand=t=>{if(!t)return '#133a48';const p=palette[String(t.id)];const c=p?.primary||'#234b62';return /^#[0-9a-f]{6}$/i.test(c)?c:'#234b62'};
 const secondary=t=>{const c=palette[String(t?.id)]?.secondary||'#b49864';
