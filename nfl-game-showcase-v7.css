@@ -14,13 +14,13 @@ body.nfl-paper[data-page="game"]{
 }
 .nfl-paper[data-page="game"] .nfl-p26 .nfl-p26-box-team::after{
  opacity:.12;filter:grayscale(1);
- background-image:var(--nfl-club-mark,none);
- background-repeat:repeat;
- background-size:106px 106px;
- background-position:19px 7px;
+ background-image:var(--nfl-club-mark,none),var(--nfl-club-archive,none);
+ background-repeat:repeat,no-repeat;
+ background-size:106px 106px,78% auto;
+ background-position:19px 7px,center 92%;
 }
 .nfl-paper[data-page="game"] .nfl-p26 .nfl-p26-box-home::after{
- background-position:58px 27px;
+ background-position:58px 27px,center 91%;
 }
 .nfl-paper[data-page="game"] .nfl-p26 .nfl-p26-box-away .nfl-p26-box-row{
  display:grid;grid-template-columns:75px minmax(0,1fr);align-items:center;
