@@ -263,3 +263,19 @@ body.nfl-paper[data-page="game"]{--paper:#f8f5ed;--ink:#151b20;--soft:#55595c;--
 .nfl-paper[data-page="game"] .nfl-feature-report .nfl-offline-quarter span{
  font-variant-numeric:tabular-nums;letter-spacing:.02em;
 }
+
+
+/* Preserve the newspaper hierarchy: only the article headline is display-sized. */
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-return a{
+ display:inline!important;padding:0!important;margin:0!important;
+ font:800 11px/1.4 "Helvetica Neue",Arial,sans-serif!important;
+ text-transform:uppercase!important;letter-spacing:.09em!important;
+ color:#a1322b!important;text-decoration:none!important;
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-return span{
+ font:800 10px/1.4 Arial,sans-serif!important;letter-spacing:.08em!important;
+}
+@media(max-width:600px){
+ .nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-return a{font-size:10px!important}
+ .nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-return span{font-size:9px!important}
+}
