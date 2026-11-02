@@ -6,11 +6,11 @@
   "men": {
     "gender": "men",
     "teams": 299,
-    "games": 2451,
+    "games": 2521,
     "verified_elo_finals": 25,
     "dated_game_days": 102,
-    "no_venue": 2322,
-    "no_network": 2321,
+    "no_venue": 2392,
+    "no_network": 2391,
     "no_tipoff": 715,
     "no_source_url": 0,
     "schools_without_a_published_game": 10,
@@ -18,7 +18,7 @@
       "disclaimer": "These are published ledger entries, not full-school schedule certifications. NCAA scoreboard and university schedules may be incomplete.",
       "programs_with_published_games": 289,
       "without_games": 10,
-      "with_1_to_6_games": 64,
+      "with_1_to_6_games": 53,
       "zero_game_schools": [
         {
           "id": "azusa-pacific",
@@ -419,17 +419,6 @@
           "with_network": 0
         },
         {
-          "id": "angelo-state",
-          "name": "Angelo State",
-          "conference": "LSC",
-          "membership_pending": false,
-          "published_fixtures": 4,
-          "finals": 0,
-          "with_tipoff": 4,
-          "with_venue": 0,
-          "with_network": 0
-        },
-        {
           "id": "cal-state-stanislaus",
           "name": "Cal State Stanislaus",
           "conference": "CCAA",
@@ -444,17 +433,6 @@
           "id": "daemen",
           "name": "Daemen",
           "conference": "ECC",
-          "membership_pending": false,
-          "published_fixtures": 4,
-          "finals": 0,
-          "with_tipoff": 4,
-          "with_venue": 0,
-          "with_network": 0
-        },
-        {
-          "id": "dallas-baptist",
-          "name": "Dallas Baptist",
-          "conference": "LSC",
           "membership_pending": false,
           "published_fixtures": 4,
           "finals": 0,
@@ -496,17 +474,6 @@
           "with_network": 0
         },
         {
-          "id": "midwestern-state",
-          "name": "Midwestern State",
-          "conference": "LSC",
-          "membership_pending": false,
-          "published_fixtures": 4,
-          "finals": 0,
-          "with_tipoff": 4,
-          "with_venue": 0,
-          "with_network": 0
-        },
-        {
           "id": "northwest-nazarene",
           "name": "Northwest Nazarene",
           "conference": "GNAC",
@@ -540,28 +507,6 @@
           "with_network": 0
         },
         {
-          "id": "sul-ross-state",
-          "name": "Sul Ross State",
-          "conference": "LSC",
-          "membership_pending": false,
-          "published_fixtures": 4,
-          "finals": 0,
-          "with_tipoff": 4,
-          "with_venue": 0,
-          "with_network": 0
-        },
-        {
-          "id": "texas-a-m-kingsville",
-          "name": "Texas A&M–Kingsville",
-          "conference": "LSC",
-          "membership_pending": false,
-          "published_fixtures": 4,
-          "finals": 0,
-          "with_tipoff": 4,
-          "with_venue": 0,
-          "with_network": 0
-        },
-        {
           "id": "thomas-more",
           "name": "Thomas More",
           "conference": "G-MAC",
@@ -569,6 +514,61 @@
           "published_fixtures": 4,
           "finals": 0,
           "with_tipoff": 4,
+          "with_venue": 0,
+          "with_network": 0
+        },
+        {
+          "id": "washburn",
+          "name": "Washburn",
+          "conference": "MIAA",
+          "membership_pending": false,
+          "published_fixtures": 4,
+          "finals": 0,
+          "with_tipoff": 4,
+          "with_venue": 0,
+          "with_network": 0
+        },
+        {
+          "id": "west-virginia-state",
+          "name": "West Virginia State",
+          "conference": "MEC",
+          "membership_pending": false,
+          "published_fixtures": 4,
+          "finals": 0,
+          "with_tipoff": 4,
+          "with_venue": 0,
+          "with_network": 0
+        },
+        {
+          "id": "western-oregon",
+          "name": "Western Oregon",
+          "conference": "GNAC",
+          "membership_pending": false,
+          "published_fixtures": 4,
+          "finals": 0,
+          "with_tipoff": 4,
+          "with_venue": 0,
+          "with_network": 0
+        },
+        {
+          "id": "cal-poly-humboldt",
+          "name": "Cal Poly Humboldt",
+          "conference": "CCAA",
+          "membership_pending": false,
+          "published_fixtures": 5,
+          "finals": 0,
+          "with_tipoff": 5,
+          "with_venue": 0,
+          "with_network": 0
+        },
+        {
+          "id": "central-missouri",
+          "name": "Central Missouri",
+          "conference": "MIAA",
+          "membership_pending": false,
+          "published_fixtures": 5,
+          "finals": 0,
+          "with_tipoff": 5,
           "with_venue": 0,
           "with_network": 0
         }
@@ -649,8 +649,8 @@
         "LSC": {
           "programs": 17,
           "without_games": 1,
-          "with_1_to_6_games": 13,
-          "fixture_appearances": 133
+          "with_1_to_6_games": 2,
+          "fixture_appearances": 273
         },
         "MEC": {
           "programs": 12,
@@ -730,6 +730,7 @@
       "GLIAC 2026-27 reciprocal official school calendars": 44,
       "GLVC 2026-27 reciprocal university calendars": 145,
       "Gulf South Conference member schedules (reciprocal)": 109,
+      "LSC 2026-27 reciprocal official university schedules": 70,
       "NCAA scoreboard": 716,
       "NE10 2026-27 official reciprocal school calendars": 65,
       "NSIC 2026-27 reciprocal official school calendars": 132,
@@ -925,6 +926,18 @@
         "one_sided": 0,
         "source": "https://thepacwest.com/schedule.aspx?schedule=",
         "unavailable_count": 0
+      },
+      "Lone Star men fixtures": {
+        "status": "LSC 2026-27 two-university men's fixture verification",
+        "gender": "men",
+        "added": 70,
+        "enriched": 42,
+        "quarantined": 116,
+        "time_conflicts": 0,
+        "official_tipoffs": 70,
+        "one_sided": 0,
+        "source": "https://lonestarconference.org/schedule.aspx?schedule=",
+        "unavailable_count": 1
       }
     },
     "warnings": [
