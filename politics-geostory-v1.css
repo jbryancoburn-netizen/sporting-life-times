@@ -186,3 +186,9 @@ body[data-house-page="district"] .leaflet-tooltip{
  body[data-house-page="district"] .geo-story-stat:nth-child(3){grid-column:1/-1;padding-left:0;border-top:1px solid #bec8ca}
  body[data-house-page="district"] .geo-story-news-list{grid-template-columns:1fr}
 }
+
+/* Preserve the actual hidden state while the county layer is checked. */
+body[data-house-page="district"] .geo-story-detail-wrap[hidden]{display:none!important}
+body[data-house-page="district"] .geo-story-card>.geo-story-town-deck{
+ font:15px/1.6 Georgia,serif;color:#385669;max-width:74ch
+}
