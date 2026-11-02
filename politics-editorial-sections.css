@@ -1,0 +1,307 @@
+
+/* The Political Life & Times · national pages below the fold
+ * Original editorial design, no frameworks, preserves source provenance.
+ * Built for the existing forecast, polling, geography and research components.
+ */
+#content>section:not(.news-front){scroll-margin-top:20px}
+#content>section:not(.news-front)>.section-heading{padding-bottom:17px;margin-bottom:23px;border-color:rgba(31,45,55,.36)}
+#content>section:not(.news-front)>.section-heading h2{font:700 clamp(31px,3.55vw,49px)/1.12 Georgia,"Libre Baskerville",serif;letter-spacing:-1.6px}
+#content>section:not(.news-front)>.section-heading .eyebrow{font-size:10px;letter-spacing:2px;color:#9b3b32}
+#content>section:not(.news-front)>.section-heading>p{font-size:11px;line-height:1.55;max-width:350px}
+#content>section:not(.news-front){padding-top:45px;padding-bottom:45px;border-bottom:1px solid #c6c3bb}
+#content .fine{line-height:1.65!important;font-size:11px!important}
+
+/* 01 · Election control board, bold institutional masthead and accessible bars. */
+#forecast{position:relative;isolation:isolate;margin:28px -42px 0;padding:44px 42px 38px!important;background:#15283a;color:#f7f5ef;border:0!important;overflow:hidden}
+#forecast:before{content:"2026";font:700 clamp(190px,22vw,350px)/1 Georgia,serif;position:absolute;right:-35px;top:-75px;letter-spacing:-25px;color:#ffffff08;z-index:-1;pointer-events:none}
+#forecast:after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0,transparent calc(25% - 1px),#ffffff07 calc(25% - 1px),#ffffff07 25%);z-index:-1;pointer-events:none}
+#forecast .section-heading{border-color:#8392a055!important}
+#forecast .section-heading h2{color:#fffaf1!important;max-width:710px}
+#forecast .section-heading .eyebrow{color:#efbd8f!important}
+#forecast .section-heading>p{color:#c0cdd6}
+#forecast .forecast-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:0;border-top:1px solid #a7b3c27d;border-bottom:1px solid #a7b3c27d}
+#forecast .forecast-card{background:transparent;border:0!important;box-shadow:none;padding:24px 29px 20px 0;color:#fff;min-width:0}
+#forecast .forecast-card:nth-child(2){padding-left:32px;padding-right:0;border-left:1px solid #8794a260!important}
+#forecast .forecast-card .forecast-card-head{font-size:11px;letter-spacing:1.7px;color:#e9e5dc}
+#forecast .forecast-card .badge{background:#e4ddca19;color:#d4dce4;border:1px solid #b0c2cc55;padding:6px 10px;font-size:10px}
+#forecast .forecast-lede{margin:18px 0 0;font:700 clamp(20px,2.4vw,30px)/1.22 Georgia,serif;color:#faf5e8}
+#forecast .forecast-big{align-items:end;gap:19px;margin:14px 0 22px}
+#forecast .forecast-big strong{font:700 clamp(76px,9.5vw,152px)/.85 Georgia,serif;letter-spacing:-8px;color:#f8f4eb}
+#forecast .forecast-big span{font-size:12px;line-height:1.55;color:#e4e8e8}
+#forecast .chance-track{height:20px;background:#c35750}
+#forecast .chance-track>span{background:#3a78ba}
+#forecast .track-legend{font-size:11px;color:#d9e5ed;margin:11px 0}
+#forecast .seat-total{border-color:#8794a27c;color:#d3dce4;margin-top:15px;padding:15px 0 13px;font-size:11px}
+#forecast .seat-total strong{color:white;font-size:31px}
+#forecast .forecast-card>a{color:#eac58b;font-weight:900;text-decoration:underline;text-underline-offset:4px;font-size:11px}
+#forecast .gov-card{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:35px;align-items:center;padding:23px 0 15px!important;border-top:1px solid #8794a260!important}
+#forecast .gov-card .forecast-card-head{grid-column:1}
+#forecast .gov-card .forecast-lede{grid-column:1;margin:9px 0 0}
+#forecast .gov-card .forecast-big{grid-column:1;grid-row:3/5;margin:12px 0}
+#forecast .gov-card .forecast-big strong{font-size:clamp(60px,6vw,100px)}
+#forecast .gov-card .governor-stacked{grid-column:2;grid-row:1;height:19px}
+#forecast .gov-card .track-legend{grid-column:2;grid-row:2;align-self:start}
+#forecast .gov-card .seat-total{grid-column:2;grid-row:3;margin:0}
+#forecast .gov-card>a{grid-column:2;grid-row:4;align-self:start}
+#forecast .control-bars{gap:30px;margin:26px 0 15px}
+#forecast .bar-title{font-size:11px;letter-spacing:.6px}
+#forecast .bar-title span{color:#c5d0d7}
+#forecast .seat-bar{height:24px;border:1px solid #ced6dd6e;background:#b84240}
+#forecast .seat-bar .dem{background:#3975b3}
+#forecast .seat-bar .majority-mark{border-color:#fff}
+#forecast .bar-end{font-size:11px;color:#ecf1f4;font-weight:900}
+#forecast>.fine{color:#bac8d1!important;max-width:1090px;font-size:10px!important}
+
+/* 02 · Geographic desk: atlas as a full-width, usable interactive feature. */
+#map .section-heading{align-items:end}
+#map{padding-top:48px!important}
+#map .map-deck{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;border-top:2px solid #172b3d;border-bottom:1px solid #c4c2bd;margin:0 0 22px;padding:14px 0;font-size:12px;font-weight:700}
+#map .map-deck strong{font:700 18px Georgia,serif}
+#map .map-deck a{background:#1b364b;color:#fff;text-decoration:none;padding:11px 16px;font-size:11px;letter-spacing:.35px;font-weight:900}
+#map .map-deck a:hover{background:#9e392e;color:#fff}
+#map .segmented{border:0;border-bottom:1px solid #b3b9ba;white-space:normal;flex-wrap:wrap;align-self:end;gap:0}
+#map .segmented button{border:0;border-bottom:3px solid transparent;background:transparent;font-size:10px;letter-spacing:.4px;font-weight:900;padding:11px 12px}
+#map .segmented button.active{background:#213b50;color:white;border-bottom-color:#ab4536}
+#map .map-flex{grid-template-columns:minmax(0,1fr) 320px;gap:20px}
+#map .map-flex>div:first-child{background:#e8e9e5;border-top:4px solid #1b3347;padding:20px 18px 10px;min-width:0}
+#map .map-caption{font-size:11px;line-height:1.55;margin-bottom:15px;color:#4d5a63}
+#map .tile-map{background:transparent;border:0;grid-template-rows:repeat(9,clamp(29px,3.3vw,43px));gap:5px;max-width:none;padding:0}
+#map .state-tile{font-size:clamp(9px,1vw,12px);font-weight:900;border:1px solid #ffffff80;box-shadow:0 1px 0 #1d2c3855}
+#map .state-tile:hover,#map .state-tile:focus-visible{outline:3px solid #a54535}
+#map .legend{gap:9px 16px;font-size:10px;border-top:1px solid #bbc2c2;margin-top:18px;padding-top:12px}
+#map .state-detail{background:#172f43;border:0;border-top:5px solid #ba5541;color:#f5f6f1;padding:25px 22px;min-height:380px}
+#map .state-detail h3{font:700 clamp(29px,3vw,41px)/1.1 Georgia,serif;color:#fff}
+#map .state-detail .eyebrow{color:#efbf84}
+#map .state-detail p,#map .state-detail .prob-line span{color:#d8e1e5}
+#map .state-detail .prob-line{color:#fff}
+#map .state-detail a{color:#efbf84;text-decoration:underline;text-underline-offset:3px}
+
+/* 03 · Battleground desk: consistent reading hierarchy without generic cards. */
+#races{background:#fffdf8;position:relative;margin:0 -42px;padding:47px 42px!important}
+#races .section-heading h2{font-size:clamp(37px,4vw,57px)!important}
+#races .race-toolbar{border-top:3px solid #1a2b3a;border-bottom:1px solid #b8bcbb;padding:13px 0;margin-bottom:9px}
+#races .segmented{border:0;gap:5px}
+#races .segmented button{background:transparent;border:1px solid #c7cacc;font-size:11px;font-weight:900;letter-spacing:.5px;padding:10px 15px}
+#races .segmented button.active{background:#1b354a;color:#fff;border-color:#1b354a}
+#races .search-label{font-size:10px;letter-spacing:1px}
+#races .search-label input{background:#fff;border:1px solid #949b9e;min-height:42px;min-width:270px}
+#races .race-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:0 24px}
+#races .race-card{position:relative;background:transparent;border:0;border-bottom:1px solid #b5b9b9;min-width:0;padding:20px 0 19px}
+#races .race-card:before{content:"";position:absolute;left:0;top:18px;bottom:20px;width:4px;background:linear-gradient(#2d61a0 0 50%,#b7473c 50%)}
+#races .race-card[data-rating="toss-up"]:before{background:#735197}
+#races .race-card .race-head{padding-left:15px;align-items:baseline;gap:15px}
+#races .race-card .race-head strong{font:700 clamp(22px,2vw,29px) Georgia,serif;letter-spacing:-.7px}
+#races .race-card .race-head span{padding:4px 7px;background:#f1ecdf;color:#743e39;font-size:9px;letter-spacing:1px}
+#races .race-card[data-rating="toss-up"] .race-head span{background:#e9def3;color:#593c76}
+#races .race-names{padding-left:15px;align-items:baseline;gap:10px;margin:13px 0 11px}
+#races .race-names b{font:700 clamp(15px,1.4vw,19px) Georgia,serif}
+#races .race-names span{font-weight:900;font-size:12px;color:#1c415d}
+#races .race-progress{height:17px;margin-left:15px;background:#b7473c}
+#races .race-foot{padding-left:15px;font-size:11px;align-items:center}
+#races .race-foot a{font-weight:900;text-decoration:none;color:#913a31}
+#races>.fine{border-left:3px solid #ae4b3a;padding-left:12px;max-width:850px;margin-top:20px}
+
+/* 04 · Polling as an editorial graphic, not three same-size widgets. */
+#polls .poll-grid{grid-template-columns:1.15fr 1fr;gap:0;border-top:3px solid #132f45;border-bottom:1px solid #b8bbb9}
+#polls .poll-card{border:0;border-right:1px solid #b8bbb9;background:#e7edf1;padding:27px 26px 26px 0}
+#polls .poll-card:nth-child(2){padding:27px 0 26px 28px;background:transparent;border:0}
+#polls .poll-top{align-items:center;border-bottom:1px solid #b9c6cd;padding-bottom:14px}
+#polls .poll-card:nth-child(2) .poll-top{border-color:#c7c5bc}
+#polls .poll-top span{font-size:11px;letter-spacing:1.3px;max-width:250px;line-height:1.4}
+#polls .poll-top strong{font:700 clamp(34px,4.1vw,60px)/1 Georgia,serif;letter-spacing:-2px;color:#204f7c}
+#polls .poll-card:nth-child(2) .poll-top strong{color:#a34439}
+#polls .poll-card>p{font:15px/1.45 Georgia,serif;color:#3d4e59}
+#polls .poll-row{grid-template-columns:96px 1fr 56px;padding:11px 0;font-size:12px}
+#polls .poll-track{height:19px;background:#d7dbda}
+#polls .poll-card .swing{margin:20px 0 13px;border-top:1px solid #bfc9ca;padding-top:14px;font:13px/1.5 Georgia,serif;min-height:0}
+#polls .poll-card>a{font-size:11px;color:#9d3e30;text-decoration:underline;text-underline-offset:3px}
+#polls .original-lab{margin-top:22px;border:0;border-left:5px solid #b34c3b;background:#162d41;color:#fff;padding:27px 31px}
+#polls .original-lab .lab-top,#polls .original-lab .lab-top a{color:#e3c7a0}
+#polls .original-lab .fine{color:#d5dce3!important}
+#polls .original-lab h3{font-size:clamp(24px,2.8vw,38px)}
+#polls .original-lab a{color:#f0c992}
+
+/* 05 · Interactive result studio */
+#scenarios{margin:0 -42px;padding:47px 42px!important;background:#e8e3d9}
+#scenarios .section-heading{border-color:#9fa3a0}
+#scenarios .scenario-layout{grid-template-columns:1.1fr 1fr;gap:0;border-top:4px solid #202c36}
+#scenarios .scenario-inputs{background:#fffbf1;padding:30px 32px 26px;border-right:1px solid #aeb1ad}
+#scenarios .scenario-inputs label{font-size:11px;letter-spacing:.5px;font-weight:900;line-height:1.45}
+#scenarios .scenario-inputs label strong{font-size:12px;color:#983f37}
+#scenarios .scenario-inputs input{accent-color:#214e73;height:19px;margin:15px 0 31px;cursor:pointer}
+#scenarios .scenario-presets{border-top:1px solid #bbbcb8;padding-top:20px}
+#scenarios .scenario-presets button{font-size:11px;border:1px solid #9da3a5;background:transparent;color:#1a3c54;padding:10px 12px}
+#scenarios .scenario-presets button:hover{background:#18384e;color:#fff}
+#scenarios .scenario-results{background:#182d40;padding:29px 31px}
+#scenarios .scenario-results>p{letter-spacing:1.6px;color:#e8c69e}
+#scenarios .scenario-result{padding:24px 0;border-color:#99a9b555;align-items:flex-start;flex-direction:column;gap:7px}
+#scenarios .scenario-result strong{font:700 clamp(27px,3.3vw,45px)/1.14 Georgia,serif;letter-spacing:-1.2px}
+#scenarios .scenario-result b{text-align:left;color:#d3e4ec;font-size:13px}
+#scenarios .scenario-note{font-size:11px;line-height:1.6}
+#scenarios .fine{margin-top:20px}
+
+/* 06 · Publisher wire formatted like a news briefing. */
+#briefing{padding-top:50px!important}
+#briefing .briefing-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-top:3px solid #172d40;border-bottom:1px solid #bfc1be}
+#briefing .briefing-grid article{border:0;border-right:1px solid #c6c8c4;padding:18px 20px 18px 16px}
+#briefing .briefing-grid article:first-child{padding-left:0}
+#briefing .briefing-grid article:last-child{border:0}
+#briefing .briefing-grid article span{color:#a94335;font-size:10px;letter-spacing:1.2px}
+#briefing .briefing-grid h3{font:700 clamp(20px,2.2vw,28px)/1.17 Georgia,serif;letter-spacing:-.5px}
+#briefing .briefing-grid h3 a:hover{text-decoration:underline;text-decoration-color:#a94335}
+#briefing .briefing-grid article p{font:13px/1.6 Georgia,serif;color:#515862}
+#briefing .live-wire-heading{border-bottom:3px solid #203346;margin:43px 0 13px;padding-bottom:13px}
+#briefing .live-wire-heading h3{font:700 clamp(30px,3.5vw,46px) Georgia,serif;letter-spacing:-1px}
+#briefing .live-wire-heading p{line-height:1.5;font-size:11px}
+#briefing .wire-status{font-size:11px;color:#5a6370}
+#briefing .wire-filters{gap:0;margin-bottom:17px;border-bottom:1px solid #9cabad}
+#briefing .wire-filters button{border:0;border-bottom:3px solid transparent;background:transparent;padding:12px 14px;font-size:11px;color:#284c65}
+#briefing .wire-filters button.active{border-bottom-color:#ad433a;color:#912f2c;background:#efe6df}
+#briefing .wire-stories{gap:0 25px}
+#briefing .wire-stories article{padding:17px 0 21px;border-top:1px solid #b9bdbc}
+#briefing .wire-stories h3{font:700 clamp(18px,1.65vw,23px)/1.24 Georgia,serif;letter-spacing:-.3px}
+#briefing .wire-byline{font-size:10px;color:#9f3c32;letter-spacing:.8px}
+
+/* 07 · Signature House atlas portal */
+#house-directory{position:relative;isolation:isolate;overflow:hidden;background:#14283b;color:#f7f2e8;margin:0 -42px;padding:44px 42px!important;min-height:275px}
+#house-directory:after{content:"435";position:absolute;font:700 clamp(190px,28vw,400px)/.8 Georgia,serif;letter-spacing:-25px;right:18px;bottom:-45px;color:#ffffff0c;z-index:-1;pointer-events:none}
+#house-directory .section-heading{border-color:#80909c70!important}
+#house-directory .section-heading h2{max-width:860px;color:#f9f6ee;font-size:clamp(35px,4.5vw,61px)!important}
+#house-directory .section-heading .eyebrow{color:#f1c58e!important}
+#house-directory .section-heading>p{color:#b9c8d2}
+#house-directory .history-intro{display:flex;border:0;background:transparent;margin:0;padding:3px 0 0;align-items:flex-start;gap:32px}
+#house-directory .history-intro p{color:#e4e7e8;font:17px/1.6 Georgia,serif;max-width:840px}
+#house-directory .history-intro strong{flex:0 0 270px;max-width:270px}
+#house-directory .history-intro strong a{display:block;background:#e8c596;color:#182b39;text-decoration:none;text-align:center;padding:16px 20px;font-size:12px;line-height:1.5;letter-spacing:.5px}
+#house-directory .history-intro strong a:hover{background:#fff;color:#14283b}
+#house-directory .history-intro strong a:after{content:" →"}
+
+/* 08 · Special reporting on Florida's geography */
+#geography{background:#e6e9e7;margin:0 -42px;padding:42px!important;position:relative;isolation:isolate;overflow:hidden}
+#geography:after{content:"FL";position:absolute;right:0;top:20px;z-index:-1;color:#1b395015;font:700 clamp(190px,26vw,360px)/1 Georgia,serif;letter-spacing:-25px}
+#geography .section-heading h2{max-width:680px}
+#geography .history-intro{border:0;border-top:3px solid #163a53;background:transparent;padding:18px 0 0;margin:0;align-items:baseline;gap:35px}
+#geography .history-intro p{font:16px/1.64 Georgia,serif}
+#geography .history-intro strong{flex:0 0 300px;color:#4a4f58;font-size:11px;line-height:1.6;text-transform:none}
+#geography .history-intro strong a{display:block;margin-top:13px;color:#fff;background:#1b3d54;text-align:center;padding:12px 18px;text-decoration:none}
+#geography .history-intro strong a:hover{background:#a34439;color:#fff}
+
+/* 09 · Historical data dossier */
+#history .section-heading h2{max-width:740px}
+#history .history-intro{background:#f0ebe2;border:0;border-left:5px solid #a64335;padding:20px 24px}
+#history .history-intro p{font:16px/1.6 Georgia,serif}
+#history .history-intro strong{font-size:11px;color:#943a30}
+.research-details{border-top:2px solid #182e40;border-bottom:1px solid #b8bdbb;padding:0 0 16px;margin:17px 0 16px}
+.research-details>summary{cursor:pointer;font:700 19px Georgia,serif;list-style:none;padding:17px 28px 17px 4px;position:relative}
+.research-details>summary::-webkit-details-marker{display:none}
+.research-details>summary:after{content:"+";font:700 28px Georgia,serif;position:absolute;right:4px;top:9px;color:#a74236}
+.research-details[open]>summary:after{content:"−"}
+.research-details[open]>summary{border-bottom:1px solid #c4c8c6;margin-bottom:20px}
+#history .history-year{border:0;background:#eeefe9;padding:18px;box-shadow:inset 0 3px 0 #21445a}
+#history .history-yr{font-size:43px}
+#history .history-year-bar{height:22px}
+#history .history-close-row{background:transparent;border:0;border-top:1px solid #abb9bd}
+#history .history-baseline{border:0;border-left:5px solid #a94736;background:#f0e9df;padding:18px}
+#history .history-sources{border-top:1px solid #bfc2bd;padding-top:14px}
+#history .history-sources a{color:#983e33}
+
+/* 10 · Source-readiness editorial notes */
+#readiness{margin:0 -42px;padding:37px 42px!important;background:#e7e1d6}
+#readiness .section-heading{margin-bottom:15px!important}
+#readiness .section-heading h2{font-size:clamp(29px,3vw,43px)!important}
+#readiness .readiness-callout{display:flex;gap:18px;align-items:baseline;border-left:5px solid #a84536;background:#f5eee3;padding:19px 22px;margin:16px 0 20px}
+#readiness .readiness-callout strong{font:700 clamp(19px,2.3vw,30px) Georgia,serif;color:#923a31;flex:0 0 35%}
+#readiness .readiness-callout span{font-size:12px;line-height:1.55;color:#404b54}
+#readiness .sim-details{border-top-color:#a3a9a6}
+#readiness .sim-ready-head{border-bottom:1px solid #bdc2c0;padding-bottom:12px}
+#readiness .sim-ready-warning{font-size:13px}
+#readiness .sim-ready-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:0}
+#readiness .sim-check{background:transparent;border:0;border-top:3px solid #a14436;border-right:1px solid #bdc4c2;padding:17px 13px}
+#readiness .sim-check.partial{border-top-color:#a77d31}#readiness .sim-check.verified{border-top-color:#3f7264}
+#readiness>.fine{max-width:1100px}
+
+/* 11 · Transparent standards / endnotes */
+#method{padding-top:46px!important;grid-template-columns:1.15fr 1fr;gap:25px 55px;border-top:4px solid #1a2c3d;border-bottom:0!important}
+#method h2{font-size:clamp(32px,3.5vw,50px);letter-spacing:-1.5px}
+#method p{font:15px/1.64 Georgia,serif;color:#414c56}
+#method .method-links{gap:0}
+#method .method-links a{font-size:12px;font-weight:900;border-bottom:1px solid #b9c0c1;padding:10px 5px}
+#method .method-links a:hover{background:#e7e9e7}
+#method .method-warning{border:0;border-top:2px solid #ba4836;background:#eee7dc;padding:17px 20px!important;font:12px/1.6 "DM Sans",sans-serif}
+footer{border-top:4px double #182c3e;padding-top:24px;padding-bottom:10px}
+
+/* Tablet and phone layout: no horizontal overflow, readable charts and controls. */
+@media(max-width:1100px){
+ #forecast,#races,#scenarios,#house-directory,#geography,#readiness{margin-left:-24px;margin-right:-24px;padding-left:24px!important;padding-right:24px!important}
+ #map .map-flex{grid-template-columns:minmax(0,1fr) 275px}
+ #house-directory .history-intro strong{flex-basis:235px}
+ #briefing .briefing-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #briefing .briefing-grid article:nth-child(2){border-right:0}
+ #briefing .briefing-grid article:nth-child(-n+2){border-bottom:1px solid #bcbebc}
+ #briefing .briefing-grid article:nth-child(3){padding-left:0}
+}
+@media(max-width:850px){
+ #forecast .forecast-big strong{font-size:clamp(71px,10vw,110px)}
+ #forecast .forecast-big span{font-size:11px}
+ #map .map-flex{grid-template-columns:1fr}
+ #map .state-detail{min-height:240px}
+ #map .tile-map{grid-template-rows:repeat(9,clamp(30px,4.3vw,42px))}
+ #races .race-grid{gap:0 16px}
+ #house-directory .history-intro{flex-wrap:wrap}
+ #house-directory .history-intro strong{flex:0 0 280px}
+ #geography .history-intro{flex-direction:column;gap:10px}
+ #geography .history-intro strong{flex:1}
+ #readiness .sim-ready-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #method{gap:25px}
+}
+@media(max-width:660px){
+ #content>section:not(.news-front){padding-top:32px;padding-bottom:34px}
+ #content>section:not(.news-front)>.section-heading{margin-bottom:17px}
+ #content>section:not(.news-front)>.section-heading h2{font-size:clamp(28px,7vw,38px)!important;letter-spacing:-.8px}
+ #forecast,#races,#scenarios,#house-directory,#geography,#readiness{margin-left:-13px;margin-right:-13px;padding-left:13px!important;padding-right:13px!important}
+ #forecast:before{font-size:150px;letter-spacing:-8px;top:-15px}
+ #forecast .forecast-grid{grid-template-columns:1fr}
+ #forecast .forecast-card{padding:20px 0!important}
+ #forecast .forecast-card:nth-child(2){border-left:0!important;border-top:1px solid #9faab56b!important}
+ #forecast .forecast-big strong{font-size:clamp(76px,19vw,120px);letter-spacing:-5px}
+ #forecast .gov-card{grid-template-columns:1fr}
+ #forecast .gov-card .forecast-card-head,#forecast .gov-card .forecast-lede,#forecast .gov-card .forecast-big,#forecast .gov-card .governor-stacked,#forecast .gov-card .track-legend,#forecast .gov-card .seat-total,#forecast .gov-card>a{grid-column:1;grid-row:auto}
+ #forecast .gov-card .governor-stacked{margin-top:10px}
+ #forecast .control-bars{grid-template-columns:1fr;gap:15px;margin-top:20px}
+ #map .map-deck{align-items:stretch}
+ #map .map-deck a{text-align:center}
+ #map .map-flex>div:first-child{padding:13px 8px}
+ #map .tile-map{grid-template-rows:repeat(9,clamp(22px,6vw,33px));gap:2px}
+ #map .state-tile{font-size:8px}
+ #map .segmented{width:100%}
+ #map .segmented button{font-size:9px;padding:10px 8px}
+ #races .race-toolbar{flex-direction:column;align-items:stretch}
+ #races .race-grid{grid-template-columns:1fr}
+ #races .search-label input{min-width:0;width:100%}
+ #polls .poll-grid{grid-template-columns:1fr}
+ #polls .poll-card,#polls .poll-card:nth-child(2){padding:24px 12px;border:0}
+ #polls .poll-card:nth-child(2){border-top:1px solid #bcbdb9}
+ #polls .poll-top strong{font-size:clamp(34px,9vw,52px)}
+ #polls .poll-row{grid-template-columns:80px 1fr 48px;gap:7px}
+ #polls .original-lab{padding:21px 17px}
+ #scenarios .scenario-layout{grid-template-columns:1fr}
+ #scenarios .scenario-inputs{padding:22px 15px;border-right:0}
+ #scenarios .scenario-results{padding:24px 18px}
+ #briefing .briefing-grid{grid-template-columns:1fr}
+ #briefing .briefing-grid article,#briefing .briefing-grid article:first-child,#briefing .briefing-grid article:nth-child(3){padding:16px 0;border-right:0;border-bottom:1px solid #bcbebc}
+ #briefing .briefing-grid article:last-child{border-bottom:0}
+ #briefing .wire-stories{grid-template-columns:1fr}
+ #briefing .live-wire-heading{display:block}
+ #briefing .live-wire-heading p{text-align:left}
+ #house-directory .history-intro{gap:20px}
+ #house-directory .history-intro p{font-size:15px}
+ #house-directory .history-intro strong{flex:1 1 100%;max-width:none}
+ #geography .history-intro p{font-size:15px}
+ #readiness .readiness-callout{flex-direction:column;gap:8px}
+ #readiness .readiness-callout strong{flex:auto}
+ #readiness .sim-ready-grid{grid-template-columns:1fr}
+ #history .history-intro{display:block;padding:16px}
+ #history .history-intro strong{display:block;margin-top:14px}
+ #method{grid-template-columns:1fr}
+ #method .method-warning{grid-column:1}
+}
