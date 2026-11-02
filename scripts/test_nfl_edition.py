@@ -32,7 +32,7 @@ class EloTests(unittest.TestCase):
             with self.subTest(page=name):
                 page=(root/name).read_text(encoding="utf-8")
                 self.assertIn("nfl-badge-v3.css?v=20261101-2realrings",page)
-                self.assertIn("nfl-edition-v3.js?v=20261101-gamev6",page)
+                self.assertIn("nfl-edition-v3.js?v="+("20261101-gamev8-no-overlay" if name=="nfl-game.html" else "20261101-gamev6"),page)
                 self.assertNotIn('src="nfl-edition.js?',page)
 
     def test_generic_sitewide_crest_does_not_add_third_ring(self):
@@ -102,7 +102,7 @@ class EloTests(unittest.TestCase):
         self.assertIn("observer.observe(root,{childList:true})",live)
         self.assertIn('setInterval(page==="game"?gameDetails:update,25000)',live)
         self.assertIn('nfl-live-day.js?v=20261101-gamev6',center)
-        self.assertIn('nfl-live-day.js?v=20261101-gamev6',game)
+        self.assertIn('nfl-live-day.js?v=20261101-gamev8-balanced',game)
 
 
     def test_nfl_individual_game_inherits_diagonal_design(self):
@@ -124,6 +124,30 @@ class EloTests(unittest.TestCase):
         self.assertIn('"FINAL/OT"',live)
         self.assertIn('Number(g.period)>4',page)
         self.assertIn('setInterval(refreshLive,45000)',page)
+
+    def test_projection_avoids_rounded_ties_with_opponent_defense(self):
+        away=nfl.base_team(12);home=nfl.base_team(7)
+        away.update({"pf":143,"pa":103,"played":6,"elo":1566.8})
+        home.update({"pf":144,"pa":141,"played":7,"elo":1562.9})
+        a,h=nfl.projection(away,home,home_advantage=30)
+        self.assertEqual((a,h),(21,22))
+        self.assertNotEqual(a,h)
+        # Preseason equal offense must still designate a projected winner.
+        x=nfl.base_team(1);y=nfl.base_team(2)
+        self.assertNotEqual(*nfl.projection(x,y,home_advantage=0))
+
+    def test_gamefile_v8_has_no_background_logo_wallpaper(self):
+        root=Path(__file__).resolve().parents[1]
+        js=(root/"nfl-edition-v3.js").read_text(encoding="utf-8")
+        css=(root/"nfl-game-showcase-v7.css").read_text(encoding="utf-8")
+        html=(root/"nfl-game.html").read_text(encoding="utf-8")
+        self.assertNotIn("archivalMark(",js)
+        self.assertNotIn("--nfl-club-archive",js)
+        self.assertIn("scoreForecast(g)",js)
+        self.assertIn("clip-path:none!important",css)
+        self.assertIn("nfl-p26-box-team::after",css)
+        self.assertIn("display:none!important",css)
+        self.assertIn("nfl-game-showcase-v7.css?v=20261101-gamev8-balanced",html)
 
     def test_exact_preseason_reset(self):
         t=nfl.replay([])
