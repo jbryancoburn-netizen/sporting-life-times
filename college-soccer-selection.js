@@ -113,6 +113,9 @@ function draw(data,metrics,branding){
   section.append(table);host.append(section);
  }
 }
-async function show(){try{const data=await file('data/college-soccer-ncaa-selection-forecast.json');if(data.field?.length!==48)throw Error('Invalid field');const metrics=await file('data/college-soccer-ncaa-rpi-forecast-2026.json').catch(()=>({status:'not_ready'}));const branding=await file('data/college-soccer-team-branding.json').catch(()=>({teams:{}}));draw(data,metrics,branding)}catch(e){host.replaceChildren(el('p','Selection forecast unavailable: '+e.message))}}
+async function show(){try{const data=await file('data/college-soccer-ncaa-selection-forecast.json');if(data.field?.length!==48)throw Error('Invalid field');const metrics=await file('data/college-soccer-ncaa-rpi-forecast-2026.json').catch(()=>({status:'not_ready'}));const branding=await file('data/college-soccer-team-branding.json').catch(()=>({teams:{}}));
+ const [palette,overrides]=await Promise.all([file('data/dual-ring-team-palette.json').catch(()=>({soccer:{}})),file('data/college-soccer-crest-overrides.json').catch(()=>({schools:{}}))]);
+ branding.soccer_palette=palette.soccer||{};branding.crest_overrides=overrides.schools||{};
+ draw(data,metrics,branding)}catch(e){host.replaceChildren(el('p','Selection forecast unavailable: '+e.message))}}
 show();setInterval(show,60000);
 })();
