@@ -276,6 +276,7 @@ def supplement_verified_lsc_mens_directory(gender,teams):
     # Division II programs. Never let its incomplete extraction erase official
     # NCAA membership or Lone Star Conference fixture access.
     # These identities are NCAA-directory confirmed (not guessed from standings).
+    # Source alias repair also re-runs the LSC audit until all 17 teams match.
     if gender!="men":return {"added":0,"ids":[]}
     official_lsc_missing={
         "university-of-texas-at-dallas":{
