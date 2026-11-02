@@ -111,5 +111,47 @@ class VerifiedD2GapRecovery(unittest.TestCase):
         self.assertEqual(len(games), 2)
 
 
+    def test_three_reciprocally_confirmed_california_away_games(self):
+        school = next(s for s in read_schools() if s["gender"] == "men"
+                      and s["owner_id"] == "saint-martin-s")
+        verified = {
+            "2026-11-20": ("Cal State Stanislaus", "Stanislaus State",
+                            "warriorathletics.com"),
+            "2026-11-24": ("Fresno Pacific",
+                            "Fresno Pacific University (Calif.)",
+                            "fpusunbirds.com"),
+            "2026-11-25": ("Cal State Los Angeles",
+                            "California State University, Los Angeles",
+                            "lagoldeneagles.com"),
+        }
+        for date, (canonical, original, official_domain) in verified.items():
+            row = next(x for x in school["fixtures"] if x["date"] == date)
+            self.assertEqual(row["opponent"], canonical)
+            self.assertEqual(row["source_opponent"], original)
+            self.assertEqual(row["role"], "away")
+            self.assertIn(official_domain, row["opponent_identity_source_url"])
+            self.assertEqual(row["source_clock"].endswith(" PT"), True)
+        teams = {"saint-martin-s": {"id": "saint-martin-s",
+                                     "name": "Saint Martin's"}}
+        for canonical, _, _ in verified.values():
+            ident = {"Cal State Stanislaus": "cal-state-stanislaus",
+                     "Fresno Pacific": "fresno-pacific",
+                     "Cal State Los Angeles": "cal-state-los-angeles"}[canonical]
+            teams[ident] = {"id": ident, "name": canonical}
+        games = {}
+        stats = apply_official_school_grid_snapshots(
+            "men", games, teams, dt.date(2026, 11, 2))
+        self.assertEqual(stats["source_rows"], 27)
+        self.assertEqual(stats["created"], 3)
+        self.assertEqual({g["date"] for g in games.values()}, set(verified))
+        self.assertTrue(all(g["status"] == "scheduled" and
+                            g["home_score"] is None and g["away_score"] is None
+                            for g in games.values()))
+        second = apply_official_school_grid_snapshots(
+            "men", games, teams, dt.date(2026, 11, 2))
+        self.assertEqual(second["created"], 0)
+        self.assertEqual(len(games), 3)
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -1885,7 +1885,7 @@
       "owner_id": "saint-martin-s",
       "source_url": "https://smusaints.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "home_venue": "Marcus Pavilion · Lacey, WA",
-      "scope": "27 exact Saint Martin's official 2026–27 men's school-calendar rows captured to guard against intermittent live-source timeouts. Dec 19 Hawaii Pacific held separately: NCAA ledger instead lists Dec 20 ET and its identity/clock must be reconciled before adding. November showcase games between OTHER schools and unpaired tournament rounds excluded. Source times explicitly Pacific, converted +3 hours to Eastern for November–February. Non-DII opponents retained solely as source evidence and not created in DII ledger.",
+      "scope": "27 exact Saint Martin's official 2026–27 men's school-calendar rows captured to guard against intermittent live-source timeouts. Dec 19 Hawaii Pacific held separately: NCAA ledger instead lists Dec 20 ET and its identity/clock must be reconciled before adding. November showcase games between OTHER schools and unpaired tournament rounds excluded. Source times explicitly Pacific, converted +3 hours to Eastern for November–February. Non-DII opponents retained solely as source evidence and not created in DII ledger. Three 2026 November away opponents are mapped to verified NCAA DII canonical identities only after independent reciprocal official 2026-27 host-school verification; original university-source labels retained.",
       "fixtures": [
         {
           "date": "2026-11-13",
@@ -1911,9 +1911,12 @@
         {
           "date": "2026-11-20",
           "role": "away",
-          "opponent": "Stanislaus State",
+          "opponent": "Cal State Stanislaus",
           "source_clock": "7:30 PM PT",
-          "start_time": "10:30 PM ET"
+          "start_time": "10:30 PM ET",
+          "source_opponent": "Stanislaus State",
+          "opponent_identity_source_url": "https://warriorathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "identity_verified_by": "Both universities' official 2026-27 men's basketball calendars match date, opponent and home/away."
         },
         {
           "date": "2026-11-21",
@@ -1925,16 +1928,22 @@
         {
           "date": "2026-11-24",
           "role": "away",
-          "opponent": "Fresno Pacific University (Calif.)",
+          "opponent": "Fresno Pacific",
           "source_clock": "4:00 PM PT",
-          "start_time": "7:00 PM ET"
+          "start_time": "7:00 PM ET",
+          "source_opponent": "Fresno Pacific University (Calif.)",
+          "opponent_identity_source_url": "https://www.fpusunbirds.com/sports/mens-basketball/schedule",
+          "identity_verified_by": "Both universities' official 2026-27 men's basketball calendars match date, opponent and home/away."
         },
         {
           "date": "2026-11-25",
           "role": "away",
-          "opponent": "California State University, Los Angeles",
+          "opponent": "Cal State Los Angeles",
           "source_clock": "7:00 PM PT",
-          "start_time": "10:00 PM ET"
+          "start_time": "10:00 PM ET",
+          "source_opponent": "California State University, Los Angeles",
+          "opponent_identity_source_url": "https://lagoldeneagles.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "identity_verified_by": "Both universities' official 2026-27 men's basketball calendars match date, opponent and home/away."
         },
         {
           "date": "2026-12-03",

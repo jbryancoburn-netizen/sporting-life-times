@@ -374,3 +374,23 @@ test('DII Puerto Rico women get four new 2026-27 school-source dates without inv
   }
  }
 });
+
+test('Saint Martin three California away games retain original source and verified canonical DII opponent IDs',()=>{
+ const evidence=JSON.parse(fs.readFileSync('data/d2-official-school-grids-2026-27.json','utf8'));
+ const smu=evidence.schools.find(s=>s.gender==='men'&&s.owner_id==='saint-martin-s');
+ assert.ok(smu);
+ const verified=[
+  ['2026-11-20','Stanislaus State','Cal State Stanislaus','warriorathletics.com'],
+  ['2026-11-24','Fresno Pacific University (Calif.)','Fresno Pacific','fpusunbirds.com'],
+  ['2026-11-25','California State University, Los Angeles','Cal State Los Angeles','lagoldeneagles.com']
+ ];
+ for(const [date,original,canonical,domain] of verified){
+  const match=smu.fixtures.find(s=>s.date===date&&s.opponent===canonical);
+  assert.ok(match,'missing Saint Martin reciprocal fixture '+date);
+  assert.equal(match.role,'away');
+  assert.equal(match.source_opponent,original);
+  assert.ok(match.opponent_identity_source_url.includes(domain));
+  assert.match(match.identity_verified_by,/Both universities/);
+  assert.ok(!Object.hasOwn(match,'status')&&!Object.hasOwn(match,'away_score'));
+ }
+});
