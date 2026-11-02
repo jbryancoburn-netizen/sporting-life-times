@@ -128,6 +128,7 @@ ALIASES = {
     "university of saint joseph ct": 8687,
     "university of saint joseph conn": 8687,
     "anderson university in": 939, "anderson university ind": 939,
+    "berea college ky": 30171,  # Explicit state qualifier on official HCAC fixtures.
     "anderson indiana": 939, "anderson ind": 939,
     "bridgewater state": 76, "bridgewater college va": 75,
     "centenary college la": 125, "centenary la": 125,
@@ -224,6 +225,9 @@ OFFICIAL_CONFERENCE_SCHEDULES = {
         30189: ("https://gounitedeast.com/schedule.aspx?schedule=3832", "Penn State Brandywine"),
         30081: ("https://gounitedeast.com/schedule.aspx?schedule=3833", "Penn State Harrisburg"),
         987: ("https://heartlandconf.org/schedule.aspx?schedule=4399", "Bluffton"),
+        # Anderson women 2026-27 HCAC team page: published 14 conference games,
+        # seven explicitly hosted in Anderson, Indiana; the other sites are unclassified.
+        939: ("https://heartlandconf.org/schedule.aspx?schedule=4405", "Anderson"),
         1467: ("https://landmarkconference.org/schedule.aspx?schedule=2615", "Goucher"),
         325: ("https://landmarkconference.org/schedule.aspx?schedule=2616", "Juniata"),
         443: ("https://landmarkconference.org/schedule.aspx?schedule=2618", "Moravian"),
@@ -840,20 +844,25 @@ def approved_landmark_mens_conference(owner, by_org):
 
 
 
-def parse_hcac_bluffton_home_rows(doc, gender, owner, url, by_org, exact):
-    """Extract independently located HOME dates from official HCAC Bluffton grid.
+def parse_hcac_verified_home_rows(doc, gender, owner, url, by_org, exact):
+    """Accept only verified campus-city HOME fixtures on two checked HCAC grids.
 
-    The HCAC publisher uses Date/Teams/Event/Results/Notes, where Teams holds
-    the opponent and Event holds the game locality, not Date/Opponent/Location.
-    The NCAA confirms Bluffton University's campus is Bluffton, Ohio (org 987).
-    Only rows with that exact listed locality can certify home; all other
-    sites (road or neutral) remain on other official sources for adjudication.
+    HCAC Date/Teams/Event/Results/Notes lists locality without home/away status.
+    A verified team-specific URL and exact NCAA campus-city locality allow
+    only HOME fixtures. All out-of-town rows remain unclassified (possibly
+    away or neutral), and these conference sources are not complete calendars.
     """
+    approved = {
+        987: ("schedule=4399", ("bluffton, ohio", "bluffton, oh")),
+        939: ("schedule=4405", ("anderson, ind.", "anderson, in",
+                                "anderson, indiana")),
+    }
     parsed = urlsplit(url)
-    if (gender != "women" or owner != 987 or
+    config = approved.get(owner)
+    if (gender != "women" or config is None or
             parsed.hostname not in ("heartlandconf.org", "www.heartlandconf.org")
-            or parsed.path != "/schedule.aspx" or parsed.query != "schedule=4399"):
-        raise ValueError("Not the verified 2026-27 HCAC Bluffton women's team page")
+            or parsed.path != "/schedule.aspx" or parsed.query != config[0]):
+        raise ValueError("Not a verified 2026-27 HCAC women's team page")
     entries, inspected = [], 0
     omitted = defaultdict(int)
     for table in doc.select("table"):
@@ -878,7 +887,7 @@ def parse_hcac_bluffton_home_rows(doc, gender, owner, url, by_org, exact):
                 continue
             inspected += 1
             locality = cells[cols["event"]].strip().lower()
-            if locality not in ("bluffton, ohio", "bluffton, oh"):
+            if locality not in config[1]:
                 # An out-of-town fixture might be away or neutral, never guess.
                 omitted["venue_not_independently_qualified_as_home"] += 1
                 continue
@@ -906,7 +915,7 @@ def parse_hcac_bluffton_home_rows(doc, gender, owner, url, by_org, exact):
             })
     if inspected < 12 or len(entries) < 7:
         raise ValueError(
-            f"Bluffton HCAC insufficient source rows/home confirmations: "
+            f"HCAC insufficient source rows/home confirmations for {owner}: "
             f"{inspected}/{len(entries)}")
     return entries, {
         "owner_org_id": owner, "source_url": url,
@@ -1005,10 +1014,10 @@ def parse_conference_calendar(html, gender, owner, url, subject, by_org, exact, 
         raise ValueError("Conference calendar women's sport on men's source")
     if subject and key(subject) not in key(heads + " " + title):
         raise ValueError("Conference page does not identify expected member")
-    if (gender == "women" and owner == 987 and
+    if (gender == "women" and owner in (987, 939) and
             urlsplit(url).hostname in ("heartlandconf.org", "www.heartlandconf.org") and
-            urlsplit(url).query == "schedule=4399"):
-        return parse_hcac_bluffton_home_rows(doc, gender, owner, url, by_org, exact)
+            urlsplit(url).query == {987: "schedule=4399", 939: "schedule=4405"}[owner]):
+        return parse_hcac_verified_home_rows(doc, gender, owner, url, by_org, exact)
     if doc.select(".sidearm-schedule-list-game"):
         return parse_landmark_list_schedule(doc, gender, owner, url, by_org, exact)
     entries, inspected, excluded = [], 0, defaultdict(int)
@@ -1956,6 +1965,8 @@ def self_test():
     assert OFFICIAL_CONFERENCE_SCHEDULES["men"][1355][0].endswith("schedule=6196")
     assert OFFICIAL_CONFERENCE_SCHEDULES["women"][1355][0].endswith("schedule=6202")
     assert OFFICIAL_CONFERENCE_SCHEDULES["women"][987][0].endswith("schedule=4399")
+    assert OFFICIAL_CONFERENCE_SCHEDULES["women"][939] == (
+        "https://heartlandconf.org/schedule.aspx?schedule=4405", "Anderson")
     assert OFFICIAL_CONFERENCE_SCHEDULES["men"][987][0].endswith("schedule=4398")
     assert OFFICIAL_CONFERENCE_SCHEDULES["women"][1467][0].endswith("schedule=2615")
     assert OFFICIAL_CONFERENCE_SCHEDULES["women"][325][0].endswith("schedule=2616")
@@ -2404,6 +2415,62 @@ def self_test():
     assert len(h_games) >= 7, (len(h_games), h_report)
     assert all(x["venue"] == "" and x["source_kind"] == "official_conference"
                for x in h_games)
+
+    # Official Anderson (IN) 2026-27 women's HCAC table; 14 genuine league
+    # rows, seven explicitly located in Anderson. Do not infer away/neutral.
+    assert resolve("Berea College (KY)", h_org, h_exact) == 30171
+    a_rows = [
+        ("12/5/2026", "Transylvania University", "Lexington, KY"),
+        ("12/9/2026", "Rose-Hulman Institute of Technology", "Terre Haute, Ind."),
+        ("12/12/2026", "Berea College (KY)", "Anderson, Ind."),
+        ("1/6/2027", "Bluffton University", "Anderson, IN"),
+        ("1/9/2027", "Hanover College", "Anderson, Ind."),
+        ("1/13/2027", "Franklin College", "Anderson, Ind."),
+        ("1/20/2027", "Bluffton University", "Bluffton, Ohio"),
+        ("1/23/2027", "Earlham College", "Anderson, Ind."),
+        ("1/27/2027", "Franklin College", "Franklin, Ind."),
+        ("1/30/2027", "Hanover College", "Hanover, IN"),
+        ("2/3/2027", "Rose-Hulman Institute of Technology", "Anderson, Ind."),
+        ("2/6/2027", "Transylvania University", "Anderson, Ind."),
+        ("2/13/2027", "Berea College (KY)", "Berea, KY"),
+        ("2/20/2027", "Earlham College", "Richmond, IN"),
+    ]
+    a_body = "".join(
+        f"<tr><td>{date}</td><td>{opponent}</td><td>{city}</td>"
+        "<td>1:00 P.M.</td><td></td></tr>"
+        for date, opponent, city in a_rows)
+    a_html = ("<html><title>2026-27 Anderson University (IN) Women's Basketball</title>"
+              "<h2>2026-27 Anderson Women's Basketball Schedule</h2>"
+              "<table><thead><tr><th>Date</th><th>Teams</th><th>Event</th>"
+              "<th>Results</th><th>Notes</th></tr></thead><tbody>" +
+              a_body + "</tbody></table></html>")
+    a_url = "https://heartlandconf.org/schedule.aspx?schedule=4405"
+    a_games, a_report = parse_conference_calendar(
+        a_html, "women", 939, a_url, "Anderson", h_org, h_exact)
+    assert a_report["status"] == "parsed_conference"
+    assert a_report["readable_rows"] == 14
+    assert len(a_games) == 7
+    assert a_report["excluded_rows"]["venue_not_independently_qualified_as_home"] == 7
+    assert all(x["home_org_id"] == 939 and x["away_org_id"] != 939 and
+               x["source_kind"] == "official_conference" and not x["neutral"]
+               for x in a_games)
+    assert {x["date"] for x in a_games} == {
+        "2026-12-12", "2027-01-06", "2027-01-09", "2027-01-13",
+        "2027-01-23", "2027-02-03", "2027-02-06"}
+    for invalid_html, sex, invalid_url in [
+        (a_html.replace("Women's Basketball", "Men's Basketball"), "women", a_url),
+        (a_html, "men", a_url),
+        (a_html.replace("2026-27", "2025-26"), "women", a_url),
+        (a_html, "women", h_url),  # another school page
+        (a_html.replace("Anderson, Ind.", "Indianapolis, Ind.").replace(
+            "Anderson, IN", "Indianapolis, IN"), "women", a_url),
+    ]:
+        try:
+            parse_conference_calendar(
+                invalid_html, sex, 939, invalid_url, "Anderson", h_org, h_exact)
+            raise AssertionError("Unverified HCAC Anderson site/season/gender accepted")
+        except ValueError:
+            pass
 
     # First-party signed-off Landmark men's 2026-27 PDF: 54 program entries,
     # 48 distinct conference fixtures, six overlapping two-team declarations.
