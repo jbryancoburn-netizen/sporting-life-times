@@ -5,7 +5,8 @@ const URL_TEAM=(c,id)=>'college-soccer-team.html?team='+encodeURIComponent(c+':'
 const date=d=>{const x=new Date(d),now=new Date();if(isNaN(x))return String(d);const eventDay=String(d).match(/^\d{4}-\d{2}-\d{2}/)?.[0];const localDay=[now.getFullYear(),String(now.getMonth()+1).padStart(2,'0'),String(now.getDate()).padStart(2,'0')].join('-');if(eventDay===localDay)return '';return x.toLocaleDateString('en-US',{month:'short',day:'numeric',timeZone:/^\d{4}-\d{2}-\d{2}$/.test(String(d))?'UTC':undefined});};
 const fmt=n=>Number(n).toLocaleString('en-US',{maximumFractionDigits:1});
 const rank=(s)=>({1:'I',2:'II',3:'III'})[s.slice(-1)];
-let gender='men',division=1,model=null,forecast=null,brand={teams:{}},palette={soccer:{}},overrides={schools:{}},audit=null,index=null,liveScores={games:[]};
+const initial=(window.CollegeSoccerEdition?.get()||'men-d1').split('-');
+let gender=initial[0],division=Number(initial[1].slice(-1)),model=null,forecast=null,brand={teams:{}},palette={soccer:{}},overrides={schools:{}},audit=null,index=null,liveScores={games:[]};
 const section=(parent,title,subtitle)=>{const wrap=E('section',null,'cs-visual-section');const hd=E('div',null,'cs-section-title');hd.append(E('h3',title),E('span',subtitle));wrap.append(hd);parent.append(wrap);return wrap;};
 const link=(name,cohort,id)=>{const a=E('a',name);a.href=URL_TEAM(cohort,id);return a;};
 const pct=n=>Math.round(100*Number(n))+'%';
@@ -50,11 +51,7 @@ function render(){
  host.replaceChildren();
  const header=E('div',null,'cs-main-heading');header.append(E('strong','THE COLLEGE SOCCER MATCHDAY FILE'),E('span','INDEPENDENT USRS · '+date(model.as_of)));host.append(header);
  if(audit?.replay_required||audit?.certified===false){const notice=E('p','RATINGS PROVISIONAL · Corrected NCAA finals are awaiting full Elo replay. Published rankings, records and projections may be outdated until the reconciliation completes.','cs-note');notice.setAttribute('role','status');host.append(notice);}
- const controls=E('div',null,'cs-controls');
- for(const [label,g,d] of [["Men's",'men',null],["Women's",'women',null],['DI',null,1],['DII',null,2],['DIII',null,3]]){
- const b=E('button',label,'cs-choice'+((g?gender===g:division===d)?' active':''));b.type='button';b.setAttribute('aria-pressed',String(g?gender===g:division===d));
- b.addEventListener('click',()=>{if(g)gender=g;else division=d;render();});controls.append(b);}
- controls.append(E('span',teams.length+' programs · '+(gender==='men'?"Men's":"Women's")+' Division '+rank(cohort),'cs-controls-desc'));host.append(controls);
+ const editionHint=E('p','Edition: '+(window.CollegeSoccerEdition?.label(cohort)||cohort)+' · All tables and results on this desk follow the selected division.','cs-note');host.append(editionHint);
  const todayGames=section(host,'TODAY’S GAMES','SCHOOL CRESTS · PREDICTIONS · MATCH CENTER');
  const dayNY=value=>{const parts=Object.fromEntries(new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(value).filter(x=>x.type!=='literal').map(x=>[x.type,x.value]));return parts.year+'-'+parts.month+'-'+parts.day;};
  const today=dayNY(new Date());
@@ -161,5 +158,6 @@ function render(){
  for(const t of def)row(defenses,t.team,(t.ga/t.gp).toFixed(2)+' GA/GP',URL_TEAM(cohort,t.team_id));
  const foot=E('p','Source cutoffs: USRS '+String(model.as_of||'unknown')+' · forecasts '+String(forecast.published_at||'unknown')+'. Elo movement needs prior certified rating snapshots; it is deliberately not inferred from ranks or scores.','cs-note');host.append(foot);
 }
+window.addEventListener('college-soccer:edition',e=>{const parts=e.detail.cohort.split('-');gender=parts[0];division=Number(parts[1].slice(-1));if(model)render();});
 (async()=>{try{const [a,b,c,d,e,f,h]=await Promise.allSettled([load('data/college-soccer-elo.json'),load('data/college-soccer-prospective-v2.json'),load('data/college-soccer-team-branding.json'),load('data/college-soccer-elo-live-audit.json'),load('data/college-soccer-team-game-index.json'),load('data/dual-ring-team-palette.json'),load('data/college-soccer-crest-overrides.json')]);if(a.status!=='fulfilled'||b.status!=='fulfilled')throw Error('Required ratings or forecast feed missing');model=a.value;forecast=b.value;if(c.status==='fulfilled')brand=c.value;if(d.status==='fulfilled')audit=d.value;if(e.status==='fulfilled')index=e.value;if(f.status==='fulfilled')palette=f.value;if(h.status==='fulfilled')overrides=h.value;if(!model?.cohorts||!Array.isArray(forecast?.forecasts))throw Error('Invalid schema');render();refreshLiveScores();setInterval(()=>{if(document.visibilityState==='visible')refreshLiveScores()},60000);setInterval(async()=>{if(document.visibilityState!=='visible')return;try{const [ratings,projections]=await Promise.all([load('data/college-soccer-elo.json'),load('data/college-soccer-prospective-v2.json')]);if(!ratings?.cohorts||!Array.isArray(projections?.forecasts))throw Error('Invalid refreshed soccer data');model=ratings;forecast=projections;render();}catch(err){console.warn('Soccer ratings/forecast refresh failed; retaining last valid snapshot',err);}},300000);}catch(e){host.replaceChildren(E('p','NCAA visual dashboard unavailable: required published ratings or forecasts could not be loaded.','cs-note'));console.error('College soccer visual desk',e);}})();
 })();
