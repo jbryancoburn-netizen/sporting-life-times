@@ -88,13 +88,18 @@
     const raw=String(t?.team?.color||'').replace(/^#/,'');
     return /^[a-f\d]{6}$/i.test(raw)&&raw.toLowerCase()!=='ffffff'?'#'+raw:'#294650';
   };
-  function row(t,phase,winning){
+  function row(t,phase,winning,gamefile=false){
     const s=phase==='upcoming'?'—':score(t)??'—';
-    const link=schoolLink(t);
+    const link=schoolLink(t),rating=gamefile?teamRating(t):null;
+    const record=rating&&Number.isInteger(Number(rating.wins))&&Number.isInteger(Number(rating.losses))?
+      Number(rating.wins)+'–'+Number(rating.losses):'';
+    const elo=rating&&Number.isFinite(Number(rating.elo))?'USRS '+Math.round(Number(rating.elo)):'';
+    const context=gamefile?[record,elo].filter(Boolean).join(' · '):'';
     const identity='<span class="cbb-team-identity">'+crest(t)+
-      '<span class="cbb-name"><b>'+esc(code(t))+(apRank(t)?'<i class="cbb-ap-rank">AP '+esc(apRank(t))+'</i>':'')+'</b><small>'+esc(teamName(t))+'</small></span></span>';
-    return '<div class="cbb-scorebug-row'+(winning?' cbb-winner':'')+'"><span class="cbb-team-side">'+
-      esc(t.homeAway==='away'?'AWAY':'HOME')+'</span>'+
+      '<span class="cbb-name"><b>'+esc(code(t))+(apRank(t)?'<i class="cbb-ap-rank">AP '+esc(apRank(t))+'</i>':'')+'</b>'+
+      '<small>'+esc(teamName(t))+'</small>'+(context?'<span class="cbb-team-context">'+esc(context)+'</span>':'')+'</span></span>';
+    return '<div class="cbb-scorebug-row'+(winning?' cbb-winner':'')+'" data-team-side="'+esc(t.homeAway||'')+'">'+
+      '<span class="cbb-team-side">'+esc(code(t))+'</span>'+
       (link?'<a href="'+link+'" class="cbb-team-link">'+identity+'</a>':identity)+
       '<strong class="cbb-points" aria-label="'+esc(teamName(t))+' score">'+esc(s)+'</strong></div>';
   }
@@ -209,9 +214,51 @@
     const ar=metric(a,['totalrebounds','reb']),hr=metric(h,['totalrebounds','reb']);
     if(ar!==null&&hr!==null&&Math.abs(ar-hr)>=4){
       const side=ar>hr?g.away:g.home;
-      return code(side)+' holds a '+Math.abs(ar-hr)+'-rebound edge ('+ar+'–'+hr+' away–home).';
+      return teamName(side)+' leads the rebounding battle '+Math.max(ar,hr)+'–'+Math.min(ar,hr)+
+        ' ('+Math.abs(ar-hr)+' more boards).';
     }
     return '';
+  }
+  // Display only corroborated, source-reported box totals; never fabricate
+  // percentages or fill absent categories with zero.
+  function gamefileStatStrip(g,raw){
+    if(g.disputed||g.statsDisputed||g.phase==='upcoming')return '';
+    const official=g.certifiedTeamBox;
+    const teams=raw?.boxscore?.teams||[];
+    const lookup=(id)=>teams.find(x=>String(x.team?.id)===String(id));
+    const get=(t,names)=>{if(!t)return null;for(const name of names){
+      const row=(t.statistics||[]).find(x=>String(x.name||x.abbreviation||'').toLowerCase()===name);
+      if(row){const value=String(row.displayValue??row.value??'').trim();if(value&&value!=='--')return value;}
+    }return null;};
+    const items=[
+      ['REB','reb',['totalrebounds','reb','rebounds']],
+      ['FG%','fgPct',['fieldgoalpct','fg%','field goal percentage']],
+      ['3PT%','threePct',['threepointfieldgoalpct','3p%','3pt%']],
+      ['TO','tov',['turnovers','to']],
+      ['AST','ast',['assists','ast']],
+      ['FOULS','pf',['fouls','personal fouls','pf']]
+    ];
+    const metrics=items.flatMap(([label,key,aliases])=>{
+      let a=null,h=null;
+      if(official?.away&&official?.home){
+        const format=(side)=>{
+          if(key==='fgPct'&&side.fgm!=null&&Number(side.fga)>0)return (100*Number(side.fgm)/Number(side.fga)).toFixed(1)+'%';
+          if(key==='threePct'&&side.tpm!=null&&Number(side.tpa)>0)return (100*Number(side.tpm)/Number(side.tpa)).toFixed(1)+'%';
+          return side[key]==null?null:String(side[key]);
+        };
+        a=format(official.away);h=format(official.home);
+      }else{
+        a=get(lookup(g.away.team?.id),aliases);h=get(lookup(g.home.team?.id),aliases);
+      }
+      if(a===null||h===null||!a||!h)return [];
+      return ['<div class="cbb-gamefile-stat"><span class="cbb-gamefile-stat-label">'+label+'</span>'+
+        '<span class="cbb-gamefile-stat-values"><b>'+esc(a)+'</b><i>–</i><b>'+esc(h)+'</b></span></div>'];
+    });
+    if(!metrics.length)return '';
+    return '<section class="cbb-gamefile-stats" aria-label="Verified game statistics"><div class="cbb-gamefile-stats-key">'+
+      '<span>'+esc(code(g.away))+'</span><strong>GAME NUMBERS</strong><span>'+esc(code(g.home))+'</span></div>'+
+      '<div class="cbb-gamefile-stats-grid">'+metrics.join('')+'</div>'+
+      '<p>Team totals: '+(official?'NCAA-origin verified data':'attributed game box score')+'. Values in '+esc(code(g.away))+'–'+esc(code(g.home))+' order.</p></section>';
   }
   function storyNote(g){
     const note=statEditorial(g)||gameEditorial(g);
@@ -797,15 +844,16 @@
     const espnId=/^\d+$/.test(String(g.espnId||g.id))?String(g.espnId||g.id):null;
     const ext=(hasStats&&espnId)?'https://www.espn.com/'+sport+'/game/_/gameId/'+encodeURIComponent(espnId):
       (g.url||('https://www.ncaa.com/scoreboard/'+(women?'basketball-women':'basketball-men')+'/d1'));
-    node.innerHTML='<header class="cbb-gamefile-hero"><div class="cbb-gamefile-eyebrow">THE SPORTING LIFE & TIMES · '+(women?'WOMEN’S':'MEN’S')+' D-I · GAMEFILE '+esc(g.id)+'</div>'+
-      '<h1>'+esc(teamName(g.away))+' <em>at</em> '+esc(teamName(g.home))+'</h1>'+
+    node.innerHTML='<header class="cbb-gamefile-hero" style="--cbb-away:'+safeTeamColor(g.away)+';--cbb-home:'+safeTeamColor(g.home)+'"><div class="cbb-gamefile-eyebrow">THE SPORTING LIFE & TIMES · '+(women?'WOMEN’S':'MEN’S')+' D-I · GAMEFILE '+esc(g.id)+'</div>'+
+      '<h1>'+esc(teamName(g.away))+' <em>'+(g.neutral?'vs.':'at')+'</em> '+esc(teamName(g.home))+'</h1>'+
       '<p class="cbb-gamefile-status">'+currentView(g)+' · '+esc(g.venue||'Venue not listed')+(g.broadcast?' · '+esc(g.broadcast):'')+'</p>'+
-      '<div class="cbb-gamefile-score">'+row(g.away,g.phase,false)+row(g.home,g.phase,false)+'</div></header>'+
+      '<div class="cbb-gamefile-score">'+row(g.away,g.phase,false,true)+row(g.home,g.phase,false,true)+'</div></header>'+
       '<nav class="cbb-gamefile-tabs" role="tablist" aria-label="Gamefile statistics">'+
       '<button role="tab" type="button" id="gf-tab-summary" aria-controls="gf-panel-summary" data-gamefile-tab="summary">Game Summary</button>'+
       '<button role="tab" type="button" id="gf-tab-team" aria-controls="gf-panel-team" data-gamefile-tab="team">Team Statistics</button>'+
       '<button role="tab" type="button" id="gf-tab-players" aria-controls="gf-panel-players" data-gamefile-tab="players">Player Box Score</button></nav>'+
       '<section role="tabpanel" id="gf-panel-summary" aria-labelledby="gf-tab-summary" data-gamefile-panel="summary">'+
+      gamefileStatStrip(g,raw)+
       '<div class="cbb-gamefile-note"><span>'+(g.phase==='live'?'LIVE NOTEBOOK':g.phase==='final'?'FINAL LEDGER':'MATCHUP FILE')+'</span><p>'+
       esc(statEditorial(g)||gameEditorial(g))+'</p></div>'+
       '<div id="cbb-courtcast-root"></div>'+(periods||missing)+usrsLine(g)+'</section>'+
