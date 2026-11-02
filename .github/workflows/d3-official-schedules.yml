@@ -89,11 +89,15 @@ jobs:
           assert 'schools requiring individual source investigation' in notebook
           print('Verified 821 NCAA program source dossiers, direct URLs and unresolved-school source instructions')
           PY
+      - name: Generate per-school DIII arena and logo exception queue
+        run: |
+          python scripts/audit_d3_venues.py
+          python -m py_compile scripts/audit_d3_venues.py
       - name: Commit source-backed DIII fixtures only
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/d3-men-official-fixtures-2026-27.json data/d3-women-official-fixtures-2026-27.json data/d3-calendar-source-register-2026-27.json data/d3-calendar-source-notebook-2026-27.md
+          git add data/d3-men-official-fixtures-2026-27.json data/d3-women-official-fixtures-2026-27.json data/d3-calendar-source-register-2026-27.json data/d3-calendar-source-notebook-2026-27.md data/d3-school-venue-exceptions-2026-27.json
           if git diff --cached --quiet; then exit 0; fi
           git commit -m "Publish NCAA member-wide DIII university schedule audit and fixtures"
           for n in 1 2 3 4; do
