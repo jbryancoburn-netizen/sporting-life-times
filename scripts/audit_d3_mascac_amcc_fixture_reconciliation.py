@@ -56,8 +56,8 @@ def norm(s):
 
 def team_id(name, teams):
     choices = {norm(n) for n in ALIASES[name]}
-    hits = [int(t["org_id"]) for t in teams
-            if str(t.get("org_id", "")).isdigit()
+    hits = [int(t["ncaa_org_id"]) for t in teams
+            if str(t.get("ncaa_org_id", "")).isdigit()
             and (norm(t.get("name", "")) in choices)]
     if len(set(hits)) != 1:
         raise ValueError(f"Cannot safely identify {name}: {hits}")
