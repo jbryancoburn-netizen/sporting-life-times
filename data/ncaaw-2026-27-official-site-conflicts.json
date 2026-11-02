@@ -3,9 +3,9 @@
   "gender": "women",
   "status": "unresolved_university_site_claims",
   "policy": "A university 'vs.' prefix is not proof of an on-campus game. Preserve existing ESPN event identities, avoid home-edge forecasts pending independent venue confirmation.",
-  "school_game_claims": 101,
-  "ambiguous_vs_at_neutral": 81,
-  "explicit_university_site_disagreements": 6,
+  "school_game_claims": 100,
+  "ambiguous_vs_at_neutral": 80,
+  "explicit_university_site_disagreements": 5,
   "unique_game_ids": 92,
   "games": [
     {
@@ -407,26 +407,12 @@
       "opponent_id": "311",
       "opponent": "Maine Black Bears",
       "date": "2026-12-09",
-      "published_site": "neutral",
+      "published_site": "away",
       "university_listed_site": "home",
       "site_evidence": "vs_prefix",
-      "review_classification": "ambiguous_vs_at_neutral_site",
+      "review_classification": "prefix_inferred_site_disagreement",
       "source_url": "https://fairfieldstags.com/sports/womens-basketball/schedule/2026-27",
       "source_type": "official_university_sidearm_card"
-    },
-    {
-      "game_id": "401913770",
-      "team_id": "311",
-      "school": "Maine Black Bears",
-      "opponent_id": "2217",
-      "opponent": "Fairfield Stags",
-      "date": "2026-12-09",
-      "published_site": "neutral",
-      "university_listed_site": "home",
-      "site_evidence": "explicit_site_column",
-      "review_classification": "explicit_site_claim_disagreement",
-      "source_url": "https://goblackbears.com/sports/womens-basketball/schedule/text",
-      "source_type": "official_university_schedule_table"
     },
     {
       "game_id": "401913863",
