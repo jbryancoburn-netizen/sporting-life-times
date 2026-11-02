@@ -738,7 +738,9 @@ function renderDistrictSwitcher(atlas,r,state){
  const forward=newEl("a",next.id+" →","race-wire-link");
  forward.href=urlForDistrict(next.id);
  forward.setAttribute("aria-label","Next "+state.name+" House district: "+next.id);
- controls.append(previous,selector,go,forward);
+ if(rows.length>1)controls.append(previous);
+ controls.append(selector,go);
+ if(rows.length>1)controls.append(forward);
  const explore=newEl("div",null,"race-switchboard-next");
  const stateLink=newEl("a","VIEW "+state.name.toUpperCase()+" HOUSE MAP ↗","race-switch-map");
  stateLink.href=urlForState(r.state);
