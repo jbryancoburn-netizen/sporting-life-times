@@ -19,7 +19,7 @@ function crest(name,id,cohort,branding){
  const primary=[palette.primary,overrides.primary,info.primary].find(hex)||'#294c58';
  let secondary=[palette.secondary,overrides.secondary,info.secondary,info.accent].find(c=>hex(c)&&c.toLowerCase()!==primary.toLowerCase())||tone(primary);
  if(!hex(secondary)||secondary.toLowerCase()===primary.toLowerCase())secondary='#83918f';
- const mark=node('span','slt-mark soccer-school-mark');
+ const mark=node('span','soccer-school-mark');
  mark.dataset.soccerCrestOwner='cup-ui';
  mark.style.cssText='display:inline-flex!important;align-items:center!important;justify-content:center!important;'+
   'position:relative!important;isolation:isolate!important;box-sizing:border-box!important;'+
@@ -36,7 +36,7 @@ function crest(name,id,cohort,branding){
  inner.style.cssText='position:absolute!important;inset:1px!important;border:2px solid '+secondary+'!important;'+
   'border-radius:50%!important;background:transparent!important;pointer-events:none!important;'+
   'z-index:3!important;box-shadow:none!important;outline:0!important;';
- const fallback=node('span','slt-mark-initial soccer-school-fallback',String(info.badge_text||name||id).replace(/[^A-Za-z0-9 ]/g,'').split(/\s+/).filter(Boolean).map(w=>w[0]).join('').slice(0,3).toUpperCase()||'SC');
+ const fallback=node('span','soccer-school-fallback',String(info.badge_text||name||id).replace(/[^A-Za-z0-9 ]/g,'').split(/\s+/).filter(Boolean).map(w=>w[0]).join('').slice(0,3).toUpperCase()||'SC');
  fallback.style.cssText='display:flex!important;align-items:center!important;justify-content:center!important;'+
   'position:absolute!important;inset:5px!important;font:800 11px/1 Arial,sans-serif!important;'+
   'color:'+primary+'!important;background:#fff!important;border:0!important;box-shadow:none!important;';
@@ -192,7 +192,7 @@ function decorateTable(table,teams,cohort,branding){
  for(let i=0;i<Math.min(rows.length,teams.length);i++){
   const team=teams[i],id=team.id||team.team_id,name=team.name||team.team?.team||team.team;
   const link=rows[i].querySelector('td:nth-child(2) a');
-  if(!link||link.querySelector('.slt-mark'))continue;
+  if(!link||link.querySelector('.soccer-school-mark'))continue;
   link.classList.add('cs-cup-table-school');
   link.prepend(crest(name,id,cohort,branding));
  }
