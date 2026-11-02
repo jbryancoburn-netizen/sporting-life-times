@@ -234,7 +234,7 @@ const rivalryLedger={
 };
 const titleMarks=t=>{
  const years=(ncaaTitleYears[women?'women':'men']||{})[String(t.id)]||[];
- if(!years.length)return '';
+ if(!years.length)return '<span class="sl-title-stars sl-title-stars--empty" aria-hidden="true"><span></span></span>';
  const heading=years.length+' NCAA Division I titles: '+years.join(', ');
  return '<span class="sl-title-stars" title="'+esc(heading)+'" aria-label="'+esc(heading)+'">'+
   '<span aria-hidden="true">'+years.map(y=>'<span class="sl-title-star" title="NCAA champion '+y+'">★</span>').join('')+'</span></span>';
