@@ -116,6 +116,7 @@ function render(){
    const winner=h.rep_votes>h.dem_votes?"R":"D";
    const model=window.PoliticsDistrictCharts?.getModel(atlas,{districts:[]},guide,id);
    text("feature-big-number",fmt(gap));
+   const big=$("feature-big-number");if(big)big.dataset.digits=String(gap).length;
    text("feature-big-label","VOTES DECIDED THE 2024 HOUSE RACE");
    text("feature-deck",(gap<1000?"Fewer than 1,000 votes separated the major parties in 2024. ":"")+
       "The vote gap in actual ballots. The 2026 election has not been decided.");
@@ -156,7 +157,7 @@ function render(){
   }else{
    // A 2024 district using different boundaries should not be advertised
    // as the margin of the 2026 seat.
-   text("feature-big-number","435");text("feature-big-label","DISTRICTS, EACH WITH A DIFFERENT STORY");
+   text("feature-big-number","435");const big=$("feature-big-number");if(big)big.dataset.digits="3";text("feature-big-label","DISTRICTS, EACH WITH A DIFFERENT STORY");
    text("feature-deck","Get to know the communities and sourced history before judging a congressional contest. Prior election boundaries may differ.");
    text("feature-margin-note","HISTORICAL BOUNDARIES NEED VERIFICATION");
    text("feature-rank","—");text("feature-rank-denom","HISTORIC VOTE RANK NOT COMPARABLE");
