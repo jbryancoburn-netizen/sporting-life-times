@@ -3,19 +3,19 @@
   "division": "d3",
   "gender": "women",
   "season": "2026-27",
-  "generated_utc": "2026-11-02T02:43:11.612897+00:00",
+  "generated_utc": "2026-11-02T02:45:59.861962+00:00",
   "source": "NCAA 2026-27 member directory + year/gender-validated official school athletics calendars",
   "scope": "NCAA membership-wide first pass; sources without independently validated 2026-27 schedules excluded",
   "ncaa_confirmed_programs": 415,
-  "verified_source_calendars": 361,
+  "verified_source_calendars": 362,
   "official_conference_calendar_fallbacks": 26,
   "school_calendars_checked": 415,
-  "school_calendars_missing": 54,
-  "school_calendars_unresolved": 28,
+  "school_calendars_missing": 53,
+  "school_calendars_unresolved": 27,
   "source_status_counts": {
-    "parsed": 361,
-    "parsed_conference": 26,
-    "failed": 28
+    "parsed": 362,
+    "failed": 27,
+    "parsed_conference": 26
   },
   "last_verified_school_source": {
     "4": "https://adrianbulldogs.com/sports/womens-basketball/schedule/2026-27?grid=true",
@@ -253,6 +253,7 @@
     "789": "https://ephsports.williams.edu/sports/womens-basketball/schedule/2026-27?grid=true",
     "793": "https://www.blugolds.com/sports/womens-basketball/schedule/2026-27?grid=true",
     "795": "https://www.uwlathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+    "798": "https://uwoshkoshtitans.com/sports/womens-basketball/schedule/2026-27?grid=true",
     "800": "https://www.letsgopioneers.com/sports/womens-basketball/schedule/2026-27?grid=true",
     "801": "https://www.uwrfsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
     "802": "https://athletics.uwsp.edu/sports/womens-basketball/schedule/2026-27?grid=true",
@@ -655,29 +656,6 @@
       ]
     },
     {
-      "ncaa_org_id": 798,
-      "school": "University of Wisconsin-Oshkosh",
-      "conference": "Wisconsin Intercollegiate Athletic Conference",
-      "category": "unsupported_calendar_or_opponent_format",
-      "failed_url": "https://uwoshkoshtitans.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "last_successful_school_schedule_url": "",
-      "discovered_schedule_links": [
-        "https://uwoshkoshtitans.com/sports/womens-basketball/schedule/2026-27?print=true",
-        "https://uwoshkoshtitans.com/sports/womens-basketball/schedule/2026-27",
-        "https://uwoshkoshtitans.com/sports/womens-basketball/schedule",
-        "https://uwoshkoshtitans.com/sports/womens-basketball/schedule/2026-27?grid=true",
-        "https://uwoshkoshtitans.com/sports/womens-basketball/schedule?print=true"
-      ],
-      "checked_schedule_candidates": 16,
-      "next_action": "Add a source-specific parser only after checking dates/opponents/home-away manually",
-      "opponent_published_fixtures": 12,
-      "opponent_source_examples": [
-        "https://www.gopios.com/sports/womens-basketball/schedule/2026-27?grid=true",
-        "https://rollrivers.com/schedule.aspx?schedule=2849",
-        "https://www.go-knights.net/sports/womens-basketball/schedule?grid=true"
-      ]
-    },
-    {
       "ncaa_org_id": 809,
       "school": "Worcester State University",
       "conference": "Massachusetts State Collegiate Athletic Conference",
@@ -900,12 +878,12 @@
     }
   ],
   "unverified_school_summary": {
-    "remaining_unverified_school_calendars": 28,
-    "missing_schools_with_at_least_10_opponent_sourced_games": 20,
+    "remaining_unverified_school_calendars": 27,
+    "missing_schools_with_at_least_10_opponent_sourced_games": 19,
     "missing_schools_with_zero_opponent_sourced_games": 0,
     "recovery_reason_counts": {
       "season_heading_not_verified": 24,
-      "unsupported_calendar_or_opponent_format": 2,
+      "unsupported_calendar_or_opponent_format": 1,
       "calendar_path_unavailable": 1,
       "temporary_network_failure": 1
     }
@@ -1258,6 +1236,80 @@
       "status": "failed",
       "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
       "candidate_urls_tried": 15,
+      "rejected_page_evidence": [
+        {
+          "url": "https://www.bsubears.com/sports/womens-basketball/schedule/2026-27?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.bsubears.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.bsubears.com/sports/womens-basketball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.bsubears.com/sports/womens-basketball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.bsubears.com/sports/wbball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.bsubears.com/sports/wbball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.bsubears.com/sports/wbkb/2026-27/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.bsubears.com/sports/wbkb/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        }
+      ],
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
       "retained_previous_fixtures": 0,
@@ -1373,6 +1425,94 @@
       "status": "failed",
       "error": "Fewer than 4 readable grid rows (0); no publish | Fewer than 4 readable grid rows (0); no publish | Fewer than 4 readable grid rows (0); no publish | Fewer than 4 readable grid rows (0); no publish | Fewer than 4 readable grid rows (0); no publish | Fewer than",
       "candidate_urls_tried": 19,
+      "rejected_page_evidence": [
+        {
+          "url": "https://www.goslugs.com/sports/womens-basketball/schedule/2026-27?grid=true",
+          "title": "2026-27 Women's Basketball Schedule - University of California, Santa Cruz",
+          "headings": [
+            "2026-27 Women's Basketball Schedule",
+            "Related News",
+            "Footer"
+          ],
+          "date_tables": 0,
+          "reason": "Fewer than 4 readable grid rows (0); no publish"
+        },
+        {
+          "url": "https://www.goslugs.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+          "title": "2026-27 Women's Basketball Schedule - University of California, Santa Cruz",
+          "headings": [
+            "2026-27 Women's Basketball Schedule",
+            "Related News",
+            "Footer"
+          ],
+          "date_tables": 0,
+          "reason": "Fewer than 4 readable grid rows (0); no publish"
+        },
+        {
+          "url": "https://www.goslugs.com/sports/womens-basketball/schedule?grid=true",
+          "title": "2026-27 Women's Basketball Schedule - University of California, Santa Cruz",
+          "headings": [
+            "2026-27 Women's Basketball Schedule",
+            "Related News",
+            "Footer"
+          ],
+          "date_tables": 0,
+          "reason": "Fewer than 4 readable grid rows (0); no publish"
+        },
+        {
+          "url": "https://www.goslugs.com/sports/womens-basketball/schedule",
+          "title": "2026-27 Women's Basketball Schedule - University of California, Santa Cruz",
+          "headings": [
+            "2026-27 Women's Basketball Schedule",
+            "Related News",
+            "Footer"
+          ],
+          "date_tables": 0,
+          "reason": "Fewer than 4 readable grid rows (0); no publish"
+        },
+        {
+          "url": "https://www.goslugs.com/sports/wbball/schedule?grid=true",
+          "title": "2026-27 Women's Basketball Schedule - University of California, Santa Cruz",
+          "headings": [
+            "2026-27 Women's Basketball Schedule",
+            "Related News",
+            "Footer"
+          ],
+          "date_tables": 0,
+          "reason": "Fewer than 4 readable grid rows (0); no publish"
+        },
+        {
+          "url": "https://www.goslugs.com/sports/wbball/schedule",
+          "title": "2026-27 Women's Basketball Schedule - University of California, Santa Cruz",
+          "headings": [
+            "2026-27 Women's Basketball Schedule",
+            "Related News",
+            "Footer"
+          ],
+          "date_tables": 0,
+          "reason": "Fewer than 4 readable grid rows (0); no publish"
+        },
+        {
+          "url": "https://www.goslugs.com/sports/wbkb/schedule",
+          "title": "@season @sport Schedule - University of California, Santa Cruz",
+          "headings": [
+            "Footer"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.goslugs.com/sports/womens-basketball/schedule/2026?grid=true",
+          "title": "2026-27 Women's Basketball Schedule - University of California, Santa Cruz",
+          "headings": [
+            "2026-27 Women's Basketball Schedule",
+            "Related News",
+            "Footer"
+          ],
+          "date_tables": 0,
+          "reason": "Fewer than 4 readable grid rows (0); no publish"
+        }
+      ],
       "discovered_schedule_links": [
         "https://www.goslugs.com/sports/womens-basketball/schedule/text/2026-27",
         "https://www.goslugs.com/sports/wbball/schedule",
@@ -1517,6 +1657,80 @@
       "status": "failed",
       "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
       "candidate_urls_tried": 15,
+      "rejected_page_evidence": [
+        {
+          "url": "https://www.gocentenary.com/sports/womens-basketball/schedule/2026-27?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.gocentenary.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.gocentenary.com/sports/womens-basketball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.gocentenary.com/sports/womens-basketball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.gocentenary.com/sports/wbball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.gocentenary.com/sports/wbball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.gocentenary.com/sports/wbkb/2026-27/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.gocentenary.com/sports/wbkb/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        }
+      ],
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
       "retained_previous_fixtures": 0,
@@ -1970,9 +2184,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://www.emersonlions.com/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 215,
@@ -2037,6 +2251,80 @@
       "status": "failed",
       "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
       "candidate_urls_tried": 15,
+      "rejected_page_evidence": [
+        {
+          "url": "https://www.fitchburgfalcons.com/sports/womens-basketball/schedule/2026-27?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fitchburgfalcons.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fitchburgfalcons.com/sports/womens-basketball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fitchburgfalcons.com/sports/womens-basketball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fitchburgfalcons.com/sports/wbball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fitchburgfalcons.com/sports/wbball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fitchburgfalcons.com/sports/wbkb/2026-27/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fitchburgfalcons.com/sports/wbkb/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        }
+      ],
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
       "retained_previous_fixtures": 0,
@@ -2048,6 +2336,80 @@
       "status": "failed",
       "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
       "candidate_urls_tried": 15,
+      "rejected_page_evidence": [
+        {
+          "url": "https://www.fsurams.com/sports/womens-basketball/schedule/2026-27?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fsurams.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fsurams.com/sports/womens-basketball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fsurams.com/sports/womens-basketball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fsurams.com/sports/wbball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fsurams.com/sports/wbball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fsurams.com/sports/wbkb/2026-27/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fsurams.com/sports/wbkb/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        }
+      ],
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
       "retained_previous_fixtures": 0,
@@ -2094,9 +2456,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://www.gallaudetbison.com/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 247,
@@ -2154,9 +2516,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://www.greensborocollegesports.com/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 264,
@@ -2523,6 +2885,7 @@
       "status": "failed",
       "error": "HTTP Error 404: Not Found | HTTP Error 404: Not Found | HTTP Error 404: Not Found | HTTP Error 404: Not Found | HTTP Error 404: Not Found | HTTP Error 404: Not Found | HTTP Error 404: Not Found | HTTP Error 404: Not Found | HTTP Error 404: Not Found | HTTP Err",
       "candidate_urls_tried": 15,
+      "rejected_page_evidence": [],
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
       "retained_previous_fixtures": 0,
@@ -2534,6 +2897,80 @@
       "status": "failed",
       "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
       "candidate_urls_tried": 15,
+      "rejected_page_evidence": [
+        {
+          "url": "https://www.juniatasports.net/sports/womens-basketball/schedule/2026-27?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.juniatasports.net/sports/womens-basketball/schedule/2026-2027?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.juniatasports.net/sports/womens-basketball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.juniatasports.net/sports/womens-basketball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.juniatasports.net/sports/wbball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.juniatasports.net/sports/wbball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.juniatasports.net/sports/wbkb/2026-27/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.juniatasports.net/sports/wbkb/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        }
+      ],
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
       "retained_previous_fixtures": 0,
@@ -2949,9 +3386,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://www.goavengingangels.com/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 411,
@@ -3078,6 +3515,80 @@
       "status": "failed",
       "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
       "candidate_urls_tried": 15,
+      "rejected_page_evidence": [
+        {
+          "url": "https://moraviansports.com/sports/womens-basketball/schedule/2026-27?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://moraviansports.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://moraviansports.com/sports/womens-basketball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://moraviansports.com/sports/womens-basketball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://moraviansports.com/sports/wbball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://moraviansports.com/sports/wbball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://moraviansports.com/sports/wbkb/2026-27/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://moraviansports.com/sports/wbkb/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        }
+      ],
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
       "retained_previous_fixtures": 0,
@@ -3150,7 +3661,7 @@
       "excluded_rows": {
         "missing_or_ambiguous_ncaa_opponent": 3
       },
-      "failed_school_calendar_urls": 15
+      "failed_school_calendar_urls": 9
     },
     {
       "owner_org_id": 461,
@@ -3264,6 +3775,80 @@
       "status": "failed",
       "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
       "candidate_urls_tried": 15,
+      "rejected_page_evidence": [
+        {
+          "url": "https://athletics.mcla.edu/sports/womens-basketball/schedule/2026-27?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://athletics.mcla.edu/sports/womens-basketball/schedule/2026-2027?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://athletics.mcla.edu/sports/womens-basketball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://athletics.mcla.edu/sports/womens-basketball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://athletics.mcla.edu/sports/wbball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://athletics.mcla.edu/sports/wbball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://athletics.mcla.edu/sports/wbkb/2026-27/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://athletics.mcla.edu/sports/wbkb/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        }
+      ],
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
       "retained_previous_fixtures": 0,
@@ -3364,6 +3949,80 @@
       "status": "failed",
       "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
       "candidate_urls_tried": 15,
+      "rejected_page_evidence": [
+        {
+          "url": "https://onusports.com/sports/womens-basketball/schedule/2026-27?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://onusports.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://onusports.com/sports/womens-basketball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://onusports.com/sports/womens-basketball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://onusports.com/sports/wbball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://onusports.com/sports/wbball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://onusports.com/sports/wbkb/2026-27/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://onusports.com/sports/wbkb/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        }
+      ],
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
       "retained_previous_fixtures": 0,
@@ -3474,6 +4133,80 @@
       "status": "failed",
       "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
       "candidate_urls_tried": 15,
+      "rejected_page_evidence": [
+        {
+          "url": "https://psblions.com/sports/womens-basketball/schedule/2026-27?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://psblions.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://psblions.com/sports/womens-basketball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://psblions.com/sports/womens-basketball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://psblions.com/sports/wbball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://psblions.com/sports/wbball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://psblions.com/sports/wbkb/2026-27/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://psblions.com/sports/wbkb/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        }
+      ],
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
       "retained_previous_fixtures": 0,
@@ -4003,6 +4736,80 @@
       "status": "failed",
       "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
       "candidate_urls_tried": 15,
+      "rejected_page_evidence": [
+        {
+          "url": "https://www.salemstatevikings.com/sports/womens-basketball/schedule/2026-27?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.salemstatevikings.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.salemstatevikings.com/sports/womens-basketball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.salemstatevikings.com/sports/womens-basketball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.salemstatevikings.com/sports/wbball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.salemstatevikings.com/sports/wbball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.salemstatevikings.com/sports/wbkb/2026-27/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.salemstatevikings.com/sports/wbkb/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        }
+      ],
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
       "retained_previous_fixtures": 0,
@@ -4105,9 +4912,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://www.gosmithbears.com/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 652,
@@ -4218,6 +5025,7 @@
       "status": "failed",
       "error": "<urlopen error [Errno 104] Connection reset by peer> | <urlopen error [Errno 104] Connection reset by peer> | <urlopen error [Errno 104] Connection reset by peer> | <urlopen error [Errno 104] Connection reset by peer> | <urlopen error [Errno 104] Connection re",
       "candidate_urls_tried": 15,
+      "rejected_page_evidence": [],
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
       "retained_previous_fixtures": 0,
@@ -4426,9 +5234,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://www.go-knights.net/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 751,
@@ -4597,6 +5405,80 @@
       "status": "failed",
       "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
       "candidate_urls_tried": 15,
+      "rejected_page_evidence": [
+        {
+          "url": "https://www.westfieldstateowls.com/sports/womens-basketball/schedule/2026-27?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.westfieldstateowls.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.westfieldstateowls.com/sports/womens-basketball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.westfieldstateowls.com/sports/womens-basketball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.westfieldstateowls.com/sports/wbball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.westfieldstateowls.com/sports/wbball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.westfieldstateowls.com/sports/wbkb/2026-27/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.westfieldstateowls.com/sports/wbkb/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        }
+      ],
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
       "retained_previous_fixtures": 0,
@@ -4765,19 +5647,17 @@
     {
       "owner_org_id": 798,
       "source_url": "https://uwoshkoshtitans.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "status": "failed",
-      "error": "Only 2 eligible matches from 36 rows; no publish | Fewer than 4 readable grid rows (0); no publish | Only 2 eligible matches from 36 rows; no publish | Fewer than 4 readable grid rows (0); no publish | Only 2 eligible matches from 36 rows; no publish | Fewer t",
-      "candidate_urls_tried": 16,
-      "discovered_schedule_links": [
-        "https://uwoshkoshtitans.com/sports/womens-basketball/schedule/2026-27?print=true",
-        "https://uwoshkoshtitans.com/sports/womens-basketball/schedule/2026-27",
-        "https://uwoshkoshtitans.com/sports/womens-basketball/schedule",
-        "https://uwoshkoshtitans.com/sports/womens-basketball/schedule/2026-27?grid=true",
-        "https://uwoshkoshtitans.com/sports/womens-basketball/schedule?print=true"
-      ],
+      "readable_rows": 36,
+      "verified_member_opponents": 2,
+      "excluded_rows": {
+        "conditional_or_ambiguous_opponent": 11,
+        "identity_not_d3_matched_but_posted": 23
+      },
+      "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0,
-      "retained_verified_fixtures": 0
+      "candidate_urls_tried": 1,
+      "verified_direct_url": "https://uwoshkoshtitans.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "discovery_method": "official_school_url_or_vendor_variant"
     },
     {
       "owner_org_id": 800,
@@ -4914,6 +5794,80 @@
       "status": "failed",
       "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
       "candidate_urls_tried": 15,
+      "rejected_page_evidence": [
+        {
+          "url": "https://www.wsulancers.com/sports/womens-basketball/schedule/2026-27?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.wsulancers.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.wsulancers.com/sports/womens-basketball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.wsulancers.com/sports/womens-basketball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.wsulancers.com/sports/wbball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.wsulancers.com/sports/wbball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.wsulancers.com/sports/wbkb/2026-27/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.wsulancers.com/sports/wbkb/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        }
+      ],
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
       "retained_previous_fixtures": 0,
@@ -4967,6 +5921,80 @@
       "status": "failed",
       "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
       "candidate_urls_tried": 15,
+      "rejected_page_evidence": [
+        {
+          "url": "https://athletics.anderson.edu/sports/womens-basketball/schedule/2026-27?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://athletics.anderson.edu/sports/womens-basketball/schedule/2026-2027?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://athletics.anderson.edu/sports/womens-basketball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://athletics.anderson.edu/sports/womens-basketball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://athletics.anderson.edu/sports/wbball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://athletics.anderson.edu/sports/wbball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://athletics.anderson.edu/sports/wbkb/2026-27/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://athletics.anderson.edu/sports/wbkb/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        }
+      ],
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
       "retained_previous_fixtures": 0,
@@ -4978,6 +6006,80 @@
       "status": "failed",
       "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
       "candidate_urls_tried": 15,
+      "rejected_page_evidence": [
+        {
+          "url": "https://www.acroos.com/sports/womens-basketball/schedule/2026-27?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.acroos.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.acroos.com/sports/womens-basketball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.acroos.com/sports/womens-basketball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.acroos.com/sports/wbball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.acroos.com/sports/wbball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.acroos.com/sports/wbkb/2026-27/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.acroos.com/sports/wbkb/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        }
+      ],
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
       "retained_previous_fixtures": 0,
@@ -5033,6 +6135,80 @@
       "status": "failed",
       "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
       "candidate_urls_tried": 15,
+      "rejected_page_evidence": [
+        {
+          "url": "https://www.blufftonbeavers.com/sports/womens-basketball/schedule/2026-27?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.blufftonbeavers.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.blufftonbeavers.com/sports/womens-basketball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.blufftonbeavers.com/sports/womens-basketball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.blufftonbeavers.com/sports/wbball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.blufftonbeavers.com/sports/wbball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.blufftonbeavers.com/sports/wbkb/2026-27/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.blufftonbeavers.com/sports/wbkb/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        }
+      ],
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
       "retained_previous_fixtures": 0,
@@ -5192,6 +6368,80 @@
       "status": "failed",
       "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
       "candidate_urls_tried": 15,
+      "rejected_page_evidence": [
+        {
+          "url": "https://www.huntingdonhawks.com/sports/womens-basketball/schedule/2026-27?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.huntingdonhawks.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.huntingdonhawks.com/sports/womens-basketball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.huntingdonhawks.com/sports/womens-basketball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.huntingdonhawks.com/sports/wbball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.huntingdonhawks.com/sports/wbball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.huntingdonhawks.com/sports/wbkb/2026-27/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.huntingdonhawks.com/sports/wbkb/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        }
+      ],
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
       "retained_previous_fixtures": 0,
@@ -5247,6 +6497,80 @@
       "status": "failed",
       "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
       "candidate_urls_tried": 15,
+      "rejected_page_evidence": [
+        {
+          "url": "https://larochesports.com/sports/womens-basketball/schedule/2026-27?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://larochesports.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://larochesports.com/sports/womens-basketball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://larochesports.com/sports/womens-basketball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://larochesports.com/sports/wbball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://larochesports.com/sports/wbball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://larochesports.com/sports/wbkb/2026-27/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://larochesports.com/sports/wbkb/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        }
+      ],
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
       "retained_previous_fixtures": 0,
@@ -5422,6 +6746,80 @@
       "status": "failed",
       "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
       "candidate_urls_tried": 15,
+      "rejected_page_evidence": [
+        {
+          "url": "https://athletics.pittbradford.org/sports/womens-basketball/schedule/2026-27?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://athletics.pittbradford.org/sports/womens-basketball/schedule/2026-2027?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://athletics.pittbradford.org/sports/womens-basketball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://athletics.pittbradford.org/sports/womens-basketball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://athletics.pittbradford.org/sports/wbball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://athletics.pittbradford.org/sports/wbball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://athletics.pittbradford.org/sports/wbkb/2026-27/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://athletics.pittbradford.org/sports/wbkb/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        }
+      ],
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
       "retained_previous_fixtures": 0,
@@ -5560,6 +6958,80 @@
       "status": "failed",
       "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
       "candidate_urls_tried": 15,
+      "rejected_page_evidence": [
+        {
+          "url": "https://athletics.goucher.edu/sports/womens-basketball/schedule/2026-27?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://athletics.goucher.edu/sports/womens-basketball/schedule/2026-2027?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://athletics.goucher.edu/sports/womens-basketball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://athletics.goucher.edu/sports/womens-basketball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://athletics.goucher.edu/sports/wbball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://athletics.goucher.edu/sports/wbball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://athletics.goucher.edu/sports/wbkb/2026-27/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://athletics.goucher.edu/sports/wbkb/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        }
+      ],
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
       "retained_previous_fixtures": 0,
@@ -5967,6 +7439,80 @@
       "status": "failed",
       "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
       "candidate_urls_tried": 15,
+      "rejected_page_evidence": [
+        {
+          "url": "https://www.sagegators.com/sports/womens-basketball/schedule/2026-27?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.sagegators.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.sagegators.com/sports/womens-basketball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.sagegators.com/sports/womens-basketball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.sagegators.com/sports/wbball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.sagegators.com/sports/wbball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.sagegators.com/sports/wbkb/2026-27/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.sagegators.com/sports/wbkb/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        }
+      ],
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
       "retained_previous_fixtures": 0,
@@ -6228,6 +7774,80 @@
       "status": "failed",
       "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
       "candidate_urls_tried": 15,
+      "rejected_page_evidence": [
+        {
+          "url": "https://lesleyathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://lesleyathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://lesleyathletics.com/sports/womens-basketball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://lesleyathletics.com/sports/womens-basketball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://lesleyathletics.com/sports/wbball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://lesleyathletics.com/sports/wbball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://lesleyathletics.com/sports/wbkb/2026-27/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://lesleyathletics.com/sports/wbkb/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        }
+      ],
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
       "retained_previous_fixtures": 0,
@@ -6255,6 +7875,80 @@
       "status": "failed",
       "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
       "candidate_urls_tried": 15,
+      "rejected_page_evidence": [
+        {
+          "url": "https://www.psaltoonalions.com/sports/womens-basketball/schedule/2026-27?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.psaltoonalions.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.psaltoonalions.com/sports/womens-basketball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.psaltoonalions.com/sports/womens-basketball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.psaltoonalions.com/sports/wbball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.psaltoonalions.com/sports/wbball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.psaltoonalions.com/sports/wbkb/2026-27/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.psaltoonalions.com/sports/wbkb/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        }
+      ],
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
       "retained_previous_fixtures": 0,
@@ -6841,6 +8535,80 @@
       "status": "failed",
       "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
       "candidate_urls_tried": 15,
+      "rejected_page_evidence": [
+        {
+          "url": "https://delhibroncos.com/sports/womens-basketball/schedule/2026-27?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://delhibroncos.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://delhibroncos.com/sports/womens-basketball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://delhibroncos.com/sports/womens-basketball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://delhibroncos.com/sports/wbball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://delhibroncos.com/sports/wbball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://delhibroncos.com/sports/wbkb/2026-27/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://delhibroncos.com/sports/wbkb/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        }
+      ],
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
       "retained_previous_fixtures": 0,
@@ -6897,6 +8665,80 @@
       "status": "failed",
       "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
       "candidate_urls_tried": 15,
+      "rejected_page_evidence": [
+        {
+          "url": "https://athletics.carlow.edu/sports/womens-basketball/schedule/2026-27?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://athletics.carlow.edu/sports/womens-basketball/schedule/2026-2027?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://athletics.carlow.edu/sports/womens-basketball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://athletics.carlow.edu/sports/womens-basketball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://athletics.carlow.edu/sports/wbball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://athletics.carlow.edu/sports/wbball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://athletics.carlow.edu/sports/wbkb/2026-27/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://athletics.carlow.edu/sports/wbkb/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        }
+      ],
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
       "retained_previous_fixtures": 0,
@@ -7364,9 +9206,9 @@
       ]
     }
   ],
-  "fixture_count": 4386,
-  "reciprocal_fixtures": 2423,
-  "unresolved_opponent_fixture_count": 1753,
+  "fixture_count": 4387,
+  "reciprocal_fixtures": 2424,
+  "unresolved_opponent_fixture_count": 1770,
   "unresolved_opponent_fixtures": [
     {
       "id": "d3-women-2026-11-06-73-other-3415eb321a6f",
@@ -18394,6 +20236,36 @@
       "venue_location": "Daytona Beach, FL"
     },
     {
+      "id": "d3-women-2026-12-28-798-other-1e3f4f72d7d7",
+      "date": "2026-12-28",
+      "source_owner_org_id": 798,
+      "external_opponent_label": "Concordia College (Minn.)",
+      "placement": "home",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://uwoshkoshtitans.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "2:30 p.m.",
+      "venue_location": "Oshkosh, Wis. / Oshkosh Arena"
+    },
+    {
+      "id": "d3-women-2026-12-28-798-other-61ea390bfde1",
+      "date": "2026-12-28",
+      "source_owner_org_id": 798,
+      "external_opponent_label": "UW-Platteville vs. Ripon College",
+      "placement": "neutral",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://uwoshkoshtitans.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "Noon",
+      "venue_location": "Oshkosh, Wis. / Oshkosh Arena"
+    },
+    {
       "id": "d3-women-2026-12-28-804-other-4d3485365bc0",
       "date": "2026-12-28",
       "source_owner_org_id": 804,
@@ -18587,6 +20459,21 @@
       "source_url": "https://www.wcpoets.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "5:00 PM",
       "venue_location": "Whittier, Calif. / Dave Jacobs Court"
+    },
+    {
+      "id": "d3-women-2026-12-29-798-other-0c9848ea8ee3",
+      "date": "2026-12-29",
+      "source_owner_org_id": 798,
+      "external_opponent_label": "UW-Platteville vs. Concordia College (Minn.)",
+      "placement": "neutral",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://uwoshkoshtitans.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "Noon",
+      "venue_location": "Oshkosh, Wis. / Oshkosh Arena"
     },
     {
       "id": "d3-women-2026-12-29-800-other-bcdd62dfc281",
@@ -19534,6 +21421,21 @@
       "venue_location": "Eau Claire, Wis. / Sonnentag Event Center"
     },
     {
+      "id": "d3-women-2027-01-02-798-other-c19f05ef48e0",
+      "date": "2027-01-02",
+      "source_owner_org_id": 798,
+      "external_opponent_label": "UW-Platteville * *",
+      "placement": "home",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://uwoshkoshtitans.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "3 p.m.",
+      "venue_location": "Oshkosh, Wis. / Kolf Sports Center"
+    },
+    {
       "id": "d3-women-2027-01-02-801-other-e904d69e7e20",
       "date": "2027-01-02",
       "source_owner_org_id": 801,
@@ -20192,6 +22094,21 @@
       "source_url": "https://www.blugolds.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "7:00 p.m.",
       "venue_location": "Eau Claire, Wis. / Sonnentag Event Center"
+    },
+    {
+      "id": "d3-women-2027-01-06-798-other-5c33adaee377",
+      "date": "2027-01-06",
+      "source_owner_org_id": 798,
+      "external_opponent_label": "UW-Stevens Point * *",
+      "placement": "away",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://uwoshkoshtitans.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "7 p.m.",
+      "venue_location": "Stevens Point, Wis. / Shirley Egner Court at Berg Gymnasium"
     },
     {
       "id": "d3-women-2027-01-06-801-other-bdc5186a167f",
@@ -21034,6 +22951,21 @@
       "venue_location": "River Falls, Wis. / Don Page Arena"
     },
     {
+      "id": "d3-women-2027-01-09-798-other-90bfdee55446",
+      "date": "2027-01-09",
+      "source_owner_org_id": 798,
+      "external_opponent_label": "UW-Stout Polytechnic * *",
+      "placement": "home",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://uwoshkoshtitans.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "1 p.m.",
+      "venue_location": "Oshkosh, Wis. / Kolf Sports Center"
+    },
+    {
       "id": "d3-women-2027-01-09-801-other-6bdd36349897",
       "date": "2027-01-09",
       "source_owner_org_id": 801,
@@ -21692,6 +23624,21 @@
       "source_url": "https://www.blugolds.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "7:00 p.m.",
       "venue_location": "Oshkosh, Wis / Kolf Sports Center"
+    },
+    {
+      "id": "d3-women-2027-01-13-798-other-fea9cefc2a73",
+      "date": "2027-01-13",
+      "source_owner_org_id": 798,
+      "external_opponent_label": "UW-Eau Claire * *",
+      "placement": "home",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://uwoshkoshtitans.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "7 p.m.",
+      "venue_location": "Oshkosh, Wis. / Kolf Sports Center"
     },
     {
       "id": "d3-women-2027-01-13-801-other-9e4364e31b94",
@@ -22669,6 +24616,21 @@
       "venue_location": "Eau Claire, Wis. / Sonnentag Event Center"
     },
     {
+      "id": "d3-women-2027-01-16-798-other-a3b48852c83c",
+      "date": "2027-01-16",
+      "source_owner_org_id": 798,
+      "external_opponent_label": "UW-La Crosse * *",
+      "placement": "away",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://uwoshkoshtitans.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "3 p.m.",
+      "venue_location": "La Crosse, Wis. / Mitchell Hall Gymnasium"
+    },
+    {
       "id": "d3-women-2027-01-16-801-other-104c90ce5feb",
       "date": "2027-01-16",
       "source_owner_org_id": 801,
@@ -23357,6 +25319,21 @@
       "source_url": "https://www.blugolds.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "7:00 p.m.",
       "venue_location": "Eau Claire, Wis. / Sonnentag Event Center"
+    },
+    {
+      "id": "d3-women-2027-01-20-798-other-d5e12947601f",
+      "date": "2027-01-20",
+      "source_owner_org_id": 798,
+      "external_opponent_label": "UW-Whitewater * *",
+      "placement": "home",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://uwoshkoshtitans.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "7 p.m.",
+      "venue_location": "Oshkosh, Wis. / Kolf Sports Center"
     },
     {
       "id": "d3-women-2027-01-20-801-other-8a836272c380",
@@ -24199,6 +26176,21 @@
       "venue_location": "Whitewater, Wis. / Kachel Gymnasium"
     },
     {
+      "id": "d3-women-2027-01-23-798-other-d580560405ba",
+      "date": "2027-01-23",
+      "source_owner_org_id": 798,
+      "external_opponent_label": "UW-River Falls * *",
+      "placement": "away",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://uwoshkoshtitans.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "3 p.m.",
+      "venue_location": "River Falls, Wis. / Don Page Arena"
+    },
+    {
       "id": "d3-women-2027-01-23-801-other-0d64fcd4d294",
       "date": "2027-01-23",
       "source_owner_org_id": 801,
@@ -24872,6 +26864,21 @@
       "source_url": "https://www.blugolds.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "7:00 p.m.",
       "venue_location": "Menomonie, Wis. / Johnson Fieldhouse"
+    },
+    {
+      "id": "d3-women-2027-01-27-798-other-329a1efa38d9",
+      "date": "2027-01-27",
+      "source_owner_org_id": 798,
+      "external_opponent_label": "UW-Platteville * *",
+      "placement": "away",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://uwoshkoshtitans.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "7 p.m.",
+      "venue_location": "Platteville, Wis. / Bo Ryan Court at Williams Fieldhouse"
     },
     {
       "id": "d3-women-2027-01-27-801-other-4b59385fadc1",
@@ -26374,6 +28381,21 @@
       "venue_location": "Eau Claire, Wis. / Sonnentag Event Center"
     },
     {
+      "id": "d3-women-2027-02-03-798-other-beda4986d091",
+      "date": "2027-02-03",
+      "source_owner_org_id": 798,
+      "external_opponent_label": "UW-La Crosse * *",
+      "placement": "home",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://uwoshkoshtitans.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "7 p.m.",
+      "venue_location": "Oshkosh, Wis. / Kolf Sports Center"
+    },
+    {
       "id": "d3-women-2027-02-03-801-other-932a84f909e3",
       "date": "2027-02-03",
       "source_owner_org_id": 801,
@@ -27184,6 +29206,21 @@
       "venue_location": "La Crosse, Wis. / Mitchell Hall"
     },
     {
+      "id": "d3-women-2027-02-06-798-other-2ec11aac7f98",
+      "date": "2027-02-06",
+      "source_owner_org_id": 798,
+      "external_opponent_label": "UW-Stevens Point * *",
+      "placement": "home",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://uwoshkoshtitans.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "3 p.m.",
+      "venue_location": "Oshkosh, Wis. / Kolf Sports Center"
+    },
+    {
       "id": "d3-women-2027-02-06-801-other-9b36c9cf56df",
       "date": "2027-02-06",
       "source_owner_org_id": 801,
@@ -27931,6 +29968,21 @@
       "source_kind": "official_school",
       "source_url": "https://www.blugolds.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "7:00 p.m.",
+      "venue_location": "Eau Claire, Wis. / Sonnentag Event Center"
+    },
+    {
+      "id": "d3-women-2027-02-10-798-other-2852b42bcd97",
+      "date": "2027-02-10",
+      "source_owner_org_id": 798,
+      "external_opponent_label": "UW-Eau Claire * *",
+      "placement": "away",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://uwoshkoshtitans.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "7 p.m.",
       "venue_location": "Eau Claire, Wis. / Sonnentag Event Center"
     },
     {
@@ -28804,6 +30856,21 @@
       "venue_location": "Eau Claire, Wis. / Sonnentag Event Center"
     },
     {
+      "id": "d3-women-2027-02-13-798-other-2247650aa53a",
+      "date": "2027-02-13",
+      "source_owner_org_id": 798,
+      "external_opponent_label": "UW-River Falls * *",
+      "placement": "home",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://uwoshkoshtitans.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "3 p.m.",
+      "venue_location": "Oshkosh, Wis. / Kolf Sports Center"
+    },
+    {
       "id": "d3-women-2027-02-13-801-other-c7482c5490fb",
       "date": "2027-02-13",
       "source_owner_org_id": 801,
@@ -29644,6 +31711,21 @@
       "venue_location": "Platteville, Wis. / Williams Fieldhouse"
     },
     {
+      "id": "d3-women-2027-02-17-798-other-9641e448e7bf",
+      "date": "2027-02-17",
+      "source_owner_org_id": 798,
+      "external_opponent_label": "UW-Whitewater * *",
+      "placement": "away",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://uwoshkoshtitans.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "7 p.m.",
+      "venue_location": "Whitewater, Wis. / Kachel Gymnasium in Williams Center"
+    },
+    {
       "id": "d3-women-2027-02-17-801-other-8f46535773e9",
       "date": "2027-02-17",
       "source_owner_org_id": 801,
@@ -30467,6 +32549,21 @@
       "source_url": "https://www.blugolds.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "3:00 p.m.",
       "venue_location": "Stevens Point, Wis. / Berg Gym"
+    },
+    {
+      "id": "d3-women-2027-02-20-798-other-0a1ae019a8b5",
+      "date": "2027-02-20",
+      "source_owner_org_id": 798,
+      "external_opponent_label": "UW-Stout Polytechnic * *",
+      "placement": "away",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://uwoshkoshtitans.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "TBA",
+      "venue_location": "Menomonie, Wis. / Johnson Fieldhouse"
     },
     {
       "id": "d3-women-2027-02-20-801-other-18506a7f34c6",
@@ -34254,7 +36351,7 @@
       "home_org_id": 214,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.hartwickhawks.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.emersonlions.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://www.emersonlions.com/sports/womens-basketball/schedule?grid=true",
         "https://www.hartwickhawks.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -34265,9 +36362,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7 PM",
-      "venue": "",
-      "venue_location": "Boston, MA",
+      "tipoff_as_posted": "7:00 PM",
+      "venue": "Bobbi Brown and Steven Plofker Gym",
+      "venue_location": "Boston, Mass.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -38730,7 +40827,7 @@
       "home_org_id": 42,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://beloitcollegeathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://athletics.aurora.edu/sports/womens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
         "https://athletics.aurora.edu/sports/womens-basketball/schedule/2026-2027?grid=true",
         "https://beloitcollegeathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true"
@@ -38741,9 +40838,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "6:00 p.m.",
+      "tipoff_as_posted": "6:00 pm",
       "venue": "Thornton Gymnasium",
-      "venue_location": "Aurora, IL",
+      "venue_location": "Aurora, Ill.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -43994,7 +46091,7 @@
       "home_org_id": 577,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.snc.edu/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://riponredhawks.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.snc.edu/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://riponredhawks.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -44005,8 +46102,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "5 p.m.",
-      "venue": "",
+      "tipoff_as_posted": "5:00 PM",
+      "venue": "Doc Weiske '50 Memorial Gymnasium",
       "venue_location": "Ripon, Wis.",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -45076,7 +47173,7 @@
       "home_org_id": 245,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.keanathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.gallaudetbison.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://www.gallaudetbison.com/sports/womens-basketball/schedule?grid=true",
         "https://www.keanathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -45088,8 +47185,8 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "2:00 PM",
-      "venue": "",
-      "venue_location": "Washington, D.C",
+      "venue": "Field House",
+      "venue_location": "Washington, DC",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -45102,7 +47199,7 @@
       "home_org_id": 263,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.hollinssports.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.greensborocollegesports.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://www.greensborocollegesports.com/sports/womens-basketball/schedule?grid=true",
         "https://www.hollinssports.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -45113,12 +47210,12 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "12:00pm",
-      "venue": "",
-      "venue_location": "Greensboro, N.C.",
+      "tipoff_as_posted": "12:00 PM",
+      "venue": "Hanes Gymnasium",
+      "venue_location": "Greensboro, NC",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "2026 Randy Tuggle Memorial Tip-Off Classic",
+      "tournament": "Tuggle Memorial Tip-Off Classic",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -49200,6 +51297,30 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-women-2026-11-20-126-798",
+      "date": "2026-11-20",
+      "away_org_id": 126,
+      "home_org_id": 798,
+      "neutral": true,
+      "status": "scheduled",
+      "source_url": "https://uwoshkoshtitans.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://uwoshkoshtitans.com/sports/womens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        798
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "5:30 p.m.",
+      "venue": "Bo Ryan Court at Williams Fieldhouse",
+      "venue_location": "Platteville, Wis.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "UW-Platteville Marc Heidorf Memorial Classic",
+      "neutral_home_designation_unconfirmed": true
+    },
+    {
       "id": "d3-women-2026-11-20-132-8490",
       "date": "2026-11-20",
       "away_org_id": 8490,
@@ -51654,7 +53775,7 @@
       "home_org_id": 344,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.goforesters.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://luthernorse.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://luthernorse.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.goforesters.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -51666,7 +53787,7 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "2:00 p.m.",
-      "venue": "Sports & Recreation Center",
+      "venue": "",
       "venue_location": "Lake Forest, IL",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -52934,7 +55055,7 @@
       "home_org_id": 8911,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://trinethunder.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.wlcsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://trinethunder.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.wlcsports.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -52945,9 +55066,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "2:00 p.m.",
-      "venue": "",
-      "venue_location": "Milwaukee, WI",
+      "tipoff_as_posted": "1:00 PM",
+      "venue": "Time of Grace Center",
+      "venue_location": "Milwaukee, Wis.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -57788,7 +59909,7 @@
       "home_org_id": 713,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://bantamsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.gosmithbears.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://bantamsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.gosmithbears.com/sports/womens-basketball/schedule?grid=true"
@@ -57799,9 +59920,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "3:30 p.m.",
-      "venue": "Ray Oosting Gymnasium/Stan Ogrodnik Court",
-      "venue_location": "Hartford, Conn.",
+      "tipoff_as_posted": "3:30 PM",
+      "venue": "",
+      "venue_location": "Hartford, CT",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -61776,7 +63897,7 @@
       "home_org_id": 69,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.bowdoin.edu/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.gobatesbobcats.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.bowdoin.edu/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.gobatesbobcats.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -61787,8 +63908,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7:00 PM",
-      "venue": "Morrell Gymnasium",
+      "tipoff_as_posted": "7 p.m.",
+      "venue": "Morrell Gym",
       "venue_location": "Brunswick, Maine",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -62674,7 +64795,7 @@
       "home_org_id": 4,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://adrianbulldogs.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://almascots.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://adrianbulldogs.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://almascots.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -62685,9 +64806,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "1:00PM",
-      "venue": "Merillat Sport and Fitness Center",
-      "venue_location": "Adrian, Mich.",
+      "tipoff_as_posted": "1 p.m.",
+      "venue": "Merillat Sport & Fitness Center",
+      "venue_location": "Adrian, Michigan",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -64994,7 +67115,7 @@
       "home_org_id": 571,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.goanchormen.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.plymouth.edu/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.plymouth.edu/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.goanchormen.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -65006,8 +67127,8 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "1:00 PM",
-      "venue": "",
-      "venue_location": "Providence, RI",
+      "venue": "The Murray Center",
+      "venue_location": "Providence, R.I.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -65194,7 +67315,7 @@
       "home_org_id": 595,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.stolaf.edu/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.gobennies.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.stolaf.edu/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.gobennies.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -66144,7 +68265,7 @@
       "home_org_id": 30047,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.lbcchargers.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.gokcgiants.com/sports/womens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
         "https://www.gokcgiants.com/sports/womens-basketball/schedule/2026-2027?grid=true",
         "https://www.lbcchargers.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -66155,9 +68276,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "1:00 p.m.",
-      "venue": "",
-      "venue_location": "La Plume, Pa.",
+      "tipoff_as_posted": "1:00 PM",
+      "venue": "Gambal Athletic Center",
+      "venue_location": "La Plume, PA",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -66720,7 +68841,7 @@
       "home_org_id": 322,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.hopkinssports.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.gallaudetbison.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://www.gallaudetbison.com/sports/womens-basketball/schedule?grid=true",
         "https://www.hopkinssports.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -66731,8 +68852,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "5:00 pm",
-      "venue": "Goldfarb Gymnasium",
+      "tipoff_as_posted": "5:00 PM",
+      "venue": "",
       "venue_location": "Baltimore, MD",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -68338,7 +70459,7 @@
       "home_org_id": 789,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://ephsports.williams.edu/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.gosmithbears.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://ephsports.williams.edu/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.gosmithbears.com/sports/womens-basketball/schedule?grid=true"
@@ -68350,8 +70471,8 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "7:00 PM",
-      "venue": "Chandler Gymnasium",
-      "venue_location": "Williamstown, Mass.",
+      "venue": "",
+      "venue_location": "Williamstown, MA",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -68388,7 +70509,7 @@
       "home_org_id": 750,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.uwrfsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.go-knights.net/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://www.go-knights.net/sports/womens-basketball/schedule?grid=true",
         "https://www.uwrfsports.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -68399,9 +70520,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7 p.m.",
-      "venue": "",
-      "venue_location": "Waverly, IA",
+      "tipoff_as_posted": "7 PM",
+      "venue": "Levick Arena",
+      "venue_location": "Waverly, Iowa",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -75330,7 +77451,7 @@
       "home_org_id": 245,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.gcc.edu/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.gallaudetbison.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://athletics.gcc.edu/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.gallaudetbison.com/sports/womens-basketball/schedule?grid=true"
@@ -75342,8 +77463,8 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "2:00 PM",
-      "venue": "",
-      "venue_location": "Washington, D.C.",
+      "venue": "Field House",
+      "venue_location": "Washington, DC",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -78542,13 +80663,15 @@
       "status": "scheduled",
       "source_url": "https://riponredhawks.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://riponredhawks.com/sports/womens-basketball/schedule/2026-27?grid=true"
+        "https://riponredhawks.com/sports/womens-basketball/schedule/2026-27?grid=true",
+        "https://uwoshkoshtitans.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
-        577
+        577,
+        798
       ],
       "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "5:00 PM",
       "venue": "",
       "venue_location": "Oshkosh, WI",
@@ -85906,7 +88029,7 @@
       "home_org_id": 258,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.gettysburgsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.godiplomats.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.gettysburgsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.godiplomats.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -85918,8 +88041,8 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "7:00 PM",
-      "venue": "Bream Gym",
-      "venue_location": "Gettysburg, PA",
+      "venue": "",
+      "venue_location": "Gettysburg, Pa.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -85958,7 +88081,7 @@
       "home_org_id": 412,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.mumonarchs.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.greensborocollegesports.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://www.greensborocollegesports.com/sports/womens-basketball/schedule?grid=true",
         "https://www.mumonarchs.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -85969,8 +88092,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7:30 p.m.",
-      "venue": "Riddle Center",
+      "tipoff_as_posted": "7:30 PM",
+      "venue": "",
       "venue_location": "Fayetteville, N.C.",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -86540,7 +88663,7 @@
       "home_org_id": 491,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://ncwsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.goavengingangels.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://ncwsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.goavengingangels.com/sports/womens-basketball/schedule?grid=true"
@@ -86552,8 +88675,8 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "3:00 PM",
-      "venue": "Everett Gymnasium",
-      "venue_location": "Rocky Mount, NC",
+      "venue": "",
+      "venue_location": "Rocky Mount, N.C.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -91170,7 +93293,7 @@
       "home_org_id": 515,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.goyeo.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://battlingbishops.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://battlingbishops.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.goyeo.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -91181,9 +93304,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "2:00 PM",
-      "venue": "Philips Gymnasium",
-      "venue_location": "Oberlin, OH",
+      "tipoff_as_posted": "2 p.m.",
+      "venue": "",
+      "venue_location": "Oberlin, Ohio",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -91494,7 +93617,7 @@
       "home_org_id": 644,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://springfieldcollegepride.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.gosmithbears.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://springfieldcollegepride.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.gosmithbears.com/sports/womens-basketball/schedule?grid=true"
@@ -91505,7 +93628,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "2:00 pm",
+      "tipoff_as_posted": "2:00 PM",
       "venue": "",
       "venue_location": "Northampton, MA",
       "network_as_posted": "",
@@ -92220,7 +94343,7 @@
       "home_org_id": 11839,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://pittgreensburgathletics.com/sports/womens-basketball/schedule?grid=true",
+      "source_url": "https://www.hilberthawks.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://pittgreensburgathletics.com/sports/womens-basketball/schedule?grid=true",
         "https://www.hilberthawks.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -92446,7 +94569,7 @@
       "home_org_id": 30114,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://gounitedeast.com/schedule.aspx?schedule=3833",
+      "source_url": "https://www.abingtonsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://gounitedeast.com/schedule.aspx?schedule=3833",
         "https://www.abingtonsports.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -92457,9 +94580,9 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "1:00 P.M.",
+      "tipoff_as_posted": "1:00 p.m.",
       "venue": "",
-      "venue_location": "",
+      "venue_location": "Philadelphia, Pa.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -92498,7 +94621,7 @@
       "home_org_id": 30189,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://gounitedeast.com/schedule.aspx?schedule=3832",
+      "source_url": "https://athletics.pct.edu/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.pct.edu/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://gounitedeast.com/schedule.aspx?schedule=3832"
@@ -92509,9 +94632,9 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "1:00 P.M.",
+      "tipoff_as_posted": "1:00 PM",
       "venue": "",
-      "venue_location": "",
+      "venue_location": "Media, Pa.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -93222,7 +95345,7 @@
       "home_org_id": 542,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.gofalconsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.goavengingangels.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://www.goavengingangels.com/sports/womens-basketball/schedule?grid=true",
         "https://www.gofalconsports.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -93233,8 +95356,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7:30 p.m.",
-      "venue": "Merner Gym",
+      "tipoff_as_posted": "6:00 PM",
+      "venue": "",
       "venue_location": "Misenheimer, N.C.",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -95642,7 +97765,7 @@
       "home_org_id": 597,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.stkatesathletics.com/sports/womens-basketball/schedule?grid=true",
+      "source_url": "https://www.gobennies.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.gobennies.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.stkatesathletics.com/sports/womens-basketball/schedule?grid=true"
@@ -95653,8 +97776,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7 PM",
-      "venue": "Butler Center",
+      "tipoff_as_posted": "7 p.m.",
+      "venue": "",
       "venue_location": "St. Paul, Minn.",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -100282,7 +102405,7 @@
       "home_org_id": 566,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.rmcathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.randolphwildcats.com/sports/womens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
         "https://www.randolphwildcats.com/sports/womens-basketball/schedule/2026-2027?grid=true",
         "https://www.rmcathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true"
@@ -100294,8 +102417,32 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "2:00 PM",
+      "venue": "Frances and Don Giles Gymnasium",
+      "venue_location": "Lynchburg, Va.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-women-2027-01-16-569-605",
+      "date": "2027-01-16",
+      "away_org_id": 569,
+      "home_org_id": 605,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634829&OrgDir=gnac&TeamID=14305315",
+      "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634829&OrgDir=gnac&TeamID=14305315"
+      ],
+      "verified_by_org_ids": [
+        569
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "",
       "venue": "",
-      "venue_location": "Lynchburg, VA",
+      "venue_location": "Standish ME",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -100654,7 +102801,7 @@
       "home_org_id": 780,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://whitmanblues.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://athletics.georgefox.edu/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.georgefox.edu/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://whitmanblues.com/sports/womens-basketball/schedule/2026-2027?grid=true"
@@ -100665,9 +102812,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "5:00 p.m.",
-      "venue": "Sherwood Athletic Center",
-      "venue_location": "Walla Walla, WA",
+      "tipoff_as_posted": "5:00 PM",
+      "venue": "",
+      "venue_location": "Walla Walla, Wash.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -101552,7 +103699,7 @@
       "home_org_id": 50,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.bowdoin.edu/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.gobatesbobcats.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.bowdoin.edu/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.gobatesbobcats.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -101563,8 +103710,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "1:00 PM",
-      "venue": "",
+      "tipoff_as_posted": "1 p.m.",
+      "venue": "Underhill Arena",
       "venue_location": "Lewiston, Maine",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -102234,7 +104381,7 @@
       "home_org_id": 644,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.gotuftsjumbos.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.gosmithbears.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://www.gosmithbears.com/sports/womens-basketball/schedule?grid=true",
         "https://www.gotuftsjumbos.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -104028,7 +106175,7 @@
       "home_org_id": 348,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.goforesters.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://vikings.lawrence.edu/sports/womens-basketball/schedule/2026?grid=true",
       "official_schedule_sources": [
         "https://vikings.lawrence.edu/sports/womens-basketball/schedule/2026?grid=true",
         "https://www.goforesters.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -104039,8 +106186,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "5:30 p.m.",
-      "venue": "",
+      "tipoff_as_posted": "5:30 PM",
+      "venue": "Alexander Gymnasium",
       "venue_location": "Appleton, WI",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -104234,7 +106381,7 @@
       "home_org_id": 409,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.mumonarchs.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.goavengingangels.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://www.goavengingangels.com/sports/womens-basketball/schedule?grid=true",
         "https://www.mumonarchs.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -104245,8 +106392,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "6 p.m.",
-      "venue": "",
+      "tipoff_as_posted": "6:00 PM",
+      "venue": "Weatherspoon Athletic Center",
       "venue_location": "Raleigh, N.C.",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -105140,7 +107287,7 @@
       "home_org_id": 12399,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.centenarycyclones.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://gwyneddathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
         "https://gwyneddathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
         "https://www.centenarycyclones.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -105151,8 +107298,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "6PM",
-      "venue": "",
+      "tipoff_as_posted": "6:00 P.M.",
+      "venue": "The Griffin Complex",
       "venue_location": "Gwynedd Valley, PA",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -105266,7 +107413,7 @@
       "home_org_id": 1355,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://ascsports.org/schedule.aspx?schedule=6202",
+      "source_url": "https://www.mcmurrysports.com/sports/womens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
         "https://ascsports.org/schedule.aspx?schedule=6202",
         "https://www.mcmurrysports.com/sports/womens-basketball/schedule/2026-2027?grid=true"
@@ -105277,8 +107424,8 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "5:30 P.M.",
-      "venue": "",
+      "tipoff_as_posted": "5:30 PM",
+      "venue": "Event Center",
       "venue_location": "Kerrville, TX",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -108614,7 +110761,7 @@
       "home_org_id": 548,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.goanchormen.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.plymouth.edu/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.plymouth.edu/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.goanchormen.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -108626,8 +110773,8 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "12:00 PM",
-      "venue": "",
-      "venue_location": "Plymouth, NH",
+      "venue": "Foley Gymnasium",
+      "venue_location": "Plymouth, N.H.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -109850,7 +111997,7 @@
       "home_org_id": 30036,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.mountieathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.hilberthawks.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.hilberthawks.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.mountieathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -109862,8 +112009,8 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "3:00 PM",
-      "venue": "Athletic, Convocation, and Wellness Center",
-      "venue_location": "Cresson, Pa.",
+      "venue": "Convocation & Wellness Center",
+      "venue_location": "Cresson, PA",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -110076,7 +112223,7 @@
       "home_org_id": 30047,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://gounitedeast.com/schedule.aspx?schedule=3833",
+      "source_url": "https://www.gokcgiants.com/sports/womens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
         "https://gounitedeast.com/schedule.aspx?schedule=3833",
         "https://www.gokcgiants.com/sports/womens-basketball/schedule/2026-2027?grid=true"
@@ -110087,9 +112234,9 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "1:00 P.M.",
-      "venue": "",
-      "venue_location": "",
+      "tipoff_as_posted": "1:00 PM",
+      "venue": "Gambal Athletic Center",
+      "venue_location": "La Plume, PA",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -110610,7 +112757,7 @@
       "home_org_id": 263,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.marybaldwinathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.greensborocollegesports.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://www.greensborocollegesports.com/sports/womens-basketball/schedule?grid=true",
         "https://www.marybaldwinathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true"
@@ -110622,8 +112769,8 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "6:00 PM",
-      "venue": "",
-      "venue_location": "Greensboro, N.C.",
+      "venue": "Hanes Gymnasium",
+      "venue_location": "Greensboro, NC",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -110988,7 +113135,7 @@
       "home_org_id": 21,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://adrianbulldogs.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://almascots.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://adrianbulldogs.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://almascots.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -110999,11 +113146,11 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7:00PM",
-      "venue": "",
-      "venue_location": "Alma, Mich.",
-      "network_as_posted": "",
-      "radio_as_posted": "",
+      "tipoff_as_posted": "7 p.m.",
+      "venue": "Art Smith Arena",
+      "venue_location": "Alma, Michigan",
+      "network_as_posted": "MIAA Sports Network",
+      "radio_as_posted": "104.9 WQBX",
       "tournament": "",
       "neutral_home_designation_unconfirmed": false
     },
@@ -112138,7 +114285,7 @@
       "home_org_id": 276,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.haverfordathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.godiplomats.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.godiplomats.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.haverfordathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -112149,8 +114296,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7:00 p.m.",
-      "venue": "Gooding '84 Arena",
+      "tipoff_as_posted": "7:00 PM",
+      "venue": "",
       "venue_location": "Haverford, Pa.",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -113216,7 +115363,7 @@
       "home_org_id": 760,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.wellesleyblue.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.gosmithbears.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://www.gosmithbears.com/sports/womens-basketball/schedule?grid=true",
         "https://www.wellesleyblue.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -113228,7 +115375,7 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "7:00 PM",
-      "venue": "Dorothy Towne Fieldhouse",
+      "venue": "",
       "venue_location": "Wellesley, MA",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -114192,7 +116339,7 @@
       "home_org_id": 119,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.uchicago.edu/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://uaasports.info/schedule.aspx?schedule=1154",
       "official_schedule_sources": [
         "https://athletics.uchicago.edu/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://uaasports.info/schedule.aspx?schedule=1154"
@@ -114203,9 +116350,9 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "5:30 PM ET",
+      "tipoff_as_posted": "5:30 P.M.",
       "venue": "",
-      "venue_location": "Pittsburgh, PA | Highmark Center",
+      "venue_location": "",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -116272,7 +118419,7 @@
       "home_org_id": 239,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.gettysburgsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.godiplomats.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.gettysburgsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.godiplomats.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -116284,8 +118431,8 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "1:00 PM",
-      "venue": "",
-      "venue_location": "Lancaster, PA",
+      "venue": "Mayser Center",
+      "venue_location": "Lancaster, Pa.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -117640,7 +119787,7 @@
       "home_org_id": 615,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.stolaf.edu/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.gobennies.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.stolaf.edu/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.gobennies.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -117652,8 +119799,8 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "3 p.m.",
-      "venue": "Bob Gelle Court at Skoglund Center",
-      "venue_location": "Northfield, Minn",
+      "venue": "",
+      "venue_location": "Northfield, Minn.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -117790,7 +119937,7 @@
       "home_org_id": 673,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://springfieldcollegepride.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.gosmithbears.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://springfieldcollegepride.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.gosmithbears.com/sports/womens-basketball/schedule?grid=true"
@@ -117801,8 +119948,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "12:00 pm",
-      "venue": "Blake Arena",
+      "tipoff_as_posted": "12:00 PM",
+      "venue": "",
       "venue_location": "Springfield, MA",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -118538,7 +120685,7 @@
       "home_org_id": 8398,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://pittgreensburgathletics.com/sports/womens-basketball/schedule?grid=true",
+      "source_url": "https://www.hilberthawks.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://pittgreensburgathletics.com/sports/womens-basketball/schedule?grid=true",
         "https://www.hilberthawks.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -119420,7 +121567,7 @@
       "home_org_id": 379,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.marinersports.org/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.goumfbeavers.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://www.goumfbeavers.com/sports/womens-basketball/schedule?grid=true",
         "https://www.marinersports.org/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -119431,9 +121578,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "5:30 p.m.",
+      "tipoff_as_posted": "5:30 PM",
       "venue": "",
-      "venue_location": "Farmington, Maine",
+      "venue_location": "Farmington, ME",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -119622,7 +121769,7 @@
       "home_org_id": 775,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://cnesports.org/schedule.aspx?schedule=4122",
+      "source_url": "https://www.wnegoldenbears.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://cnesports.org/schedule.aspx?schedule=4122",
         "https://www.wnegoldenbears.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -119633,8 +121780,8 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "5:30 P.M.",
-      "venue": "",
+      "tipoff_as_posted": "5:30 pm",
+      "venue": "Anthony S. Caprio Alumni Healthful Living Center",
       "venue_location": "Springfield, Mass.",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -121424,7 +123571,7 @@
       "home_org_id": 409,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.gofalconsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.goavengingangels.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://www.goavengingangels.com/sports/womens-basketball/schedule?grid=true",
         "https://www.gofalconsports.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -121435,8 +123582,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "6:00 p.m.",
-      "venue": "",
+      "tipoff_as_posted": "6:00 PM",
+      "venue": "Weatherspoon Athletic Center",
       "venue_location": "Raleigh, N.C.",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -122828,7 +124975,7 @@
       "home_org_id": 137,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.uchicago.edu/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://uaasports.info/schedule.aspx?schedule=1154",
       "official_schedule_sources": [
         "https://athletics.uchicago.edu/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://uaasports.info/schedule.aspx?schedule=1154"
@@ -122839,9 +124986,9 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "5:30 PM CT",
+      "tipoff_as_posted": "6:30 P.M.",
       "venue": "",
-      "venue_location": "Chicago, IL | Ratner Athletic Center",
+      "venue_location": "",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -126008,7 +128155,7 @@
       "home_org_id": 520,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.goyeo.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://battlingbishops.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://battlingbishops.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.goyeo.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -126019,9 +128166,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "1:00 PM",
-      "venue": "",
-      "venue_location": "Delaware, OH",
+      "tipoff_as_posted": "1 p.m.",
+      "venue": "Branch Rickey Arena",
+      "venue_location": "Delaware, Ohio",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -127088,7 +129235,7 @@
       "home_org_id": 1355,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://ascsports.org/schedule.aspx?schedule=6202",
+      "source_url": "https://www.hpusports.com/sports/womens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
         "https://ascsports.org/schedule.aspx?schedule=6202",
         "https://www.hpusports.com/sports/womens-basketball/schedule/2026-2027?grid=true"
@@ -127099,7 +129246,7 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "1:00 P.M.",
+      "tipoff_as_posted": "1:00 PM",
       "venue": "",
       "venue_location": "Kerrville, TX",
       "network_as_posted": "",
@@ -127860,7 +130007,7 @@
       "home_org_id": 389,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.marybaldwinathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.greensborocollegesports.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://www.greensborocollegesports.com/sports/womens-basketball/schedule?grid=true",
         "https://www.marybaldwinathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true"
@@ -127873,7 +130020,7 @@
       "source_verification": "reciprocal",
       "tipoff_as_posted": "6:00 PM",
       "venue": "",
-      "venue_location": "Staunton, VA",
+      "venue_location": "Staunton, Va.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -127936,7 +130083,7 @@
       "home_org_id": 344,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.goforesters.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://vikings.lawrence.edu/sports/womens-basketball/schedule/2026?grid=true",
       "official_schedule_sources": [
         "https://vikings.lawrence.edu/sports/womens-basketball/schedule/2026?grid=true",
         "https://www.goforesters.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -127947,8 +130094,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "5:30 p.m.",
-      "venue": "Sports & Recreation Center",
+      "tipoff_as_posted": "5:30 PM",
+      "venue": "",
       "venue_location": "Lake Forest, IL",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -127986,7 +130133,7 @@
       "home_org_id": 412,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.mumonarchs.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.goavengingangels.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://www.goavengingangels.com/sports/womens-basketball/schedule?grid=true",
         "https://www.mumonarchs.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -127997,8 +130144,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7:30 p.m.",
-      "venue": "Riddle Center",
+      "tipoff_as_posted": "7:30 PM",
+      "venue": "",
       "venue_location": "Fayetteville, N.C.",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -130064,7 +132211,7 @@
       "home_org_id": 565,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.rmcathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.randolphwildcats.com/sports/womens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
         "https://www.randolphwildcats.com/sports/womens-basketball/schedule/2026-2027?grid=true",
         "https://www.rmcathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true"
@@ -130076,8 +132223,32 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "7:00 PM",
-      "venue": "Crenshaw Gym",
-      "venue_location": "Ashland, Va.",
+      "venue": "",
+      "venue_location": "Ashland, VA",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-women-2027-02-10-569-30219",
+      "date": "2027-02-10",
+      "away_org_id": 30219,
+      "home_org_id": 569,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634829&OrgDir=gnac&TeamID=14305315",
+      "official_schedule_sources": [
+        "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634829&OrgDir=gnac&TeamID=14305315"
+      ],
+      "verified_by_org_ids": [
+        569
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "Regis Weston MA",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -130932,7 +133103,7 @@
       "home_org_id": 12884,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.centenarycyclones.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://gwyneddathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
         "https://gwyneddathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
         "https://www.centenarycyclones.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -130943,9 +133114,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "6PM",
-      "venue": "John M. Reeves Student Recreation Center",
-      "venue_location": "Hackettstown, N.J.",
+      "tipoff_as_posted": "6:00 P.M.",
+      "venue": "",
+      "venue_location": "Hackettstown, NJ",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -130958,7 +133129,7 @@
       "home_org_id": 30044,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.psuberksathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.gokcgiants.com/sports/womens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
         "https://www.gokcgiants.com/sports/womens-basketball/schedule/2026-2027?grid=true",
         "https://www.psuberksathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true"
@@ -130969,8 +133140,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "5:00 p.m.",
-      "venue": "Beaver Athletics and Wellness Center",
+      "tipoff_as_posted": "5:00 PM",
+      "venue": "",
       "venue_location": "Reading, PA",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -131810,7 +133981,7 @@
       "home_org_id": 1094,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://whitmanblues.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://athletics.georgefox.edu/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.georgefox.edu/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://whitmanblues.com/sports/womens-basketball/schedule/2026-2027?grid=true"
@@ -131821,9 +133992,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7:30 p.m.",
-      "venue": "",
-      "venue_location": "Newberg, OR",
+      "tipoff_as_posted": "7:30 PM",
+      "venue": "Wheeler Sports Center",
+      "venue_location": "Newberg, Ore.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -133340,7 +135511,7 @@
       "home_org_id": 263,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.mumonarchs.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.greensborocollegesports.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://www.greensborocollegesports.com/sports/womens-basketball/schedule?grid=true",
         "https://www.mumonarchs.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -133351,9 +135522,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "2 p.m.",
-      "venue": "",
-      "venue_location": "Greensboro, N.C.",
+      "tipoff_as_posted": "4:00 PM",
+      "venue": "Hanes Gymnasium",
+      "venue_location": "Greensboro, NC",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -134224,7 +136395,7 @@
       "home_org_id": 409,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://ncwsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.goavengingangels.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://ncwsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.goavengingangels.com/sports/womens-basketball/schedule?grid=true"
@@ -134236,7 +136407,7 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "2:00 PM",
-      "venue": "Weatherspoon Gymnasium",
+      "venue": "Weatherspoon Athletic Center",
       "venue_location": "Raleigh, N.C.",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -135634,7 +137805,7 @@
       "home_org_id": 8398,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.mountieathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.hilberthawks.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.hilberthawks.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.mountieathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -135647,7 +137818,7 @@
       "source_verification": "reciprocal",
       "tipoff_as_posted": "3:00 PM",
       "venue": "Hafner Recreation Center",
-      "venue_location": "Hamburg, N.Y.",
+      "venue_location": "Hamburg, NY",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -141632,7 +143803,7 @@
       "home_org_id": 372,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.goforesters.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://luthernorse.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://luthernorse.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.goforesters.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -141644,8 +143815,8 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "12:00 p.m.",
-      "venue": "",
-      "venue_location": "Decorah, IA",
+      "venue": "Birkestrand Family Court",
+      "venue_location": "Decorah, Iowa",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -141736,7 +143907,7 @@
       "home_org_id": 378,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.marinersports.org/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.goumfbeavers.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://www.goumfbeavers.com/sports/womens-basketball/schedule?grid=true",
         "https://www.marinersports.org/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -141747,9 +143918,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "3:30 p.m.",
-      "venue": "Margaret Chase Smith Gymnasium",
-      "venue_location": "Castine, Maine",
+      "tipoff_as_posted": "1:00 PM",
+      "venue": "",
+      "venue_location": "Castine, ME",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -143280,7 +145451,7 @@
       "home_org_id": 8486,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634829&OrgDir=gnac&TeamID=14305311",
+      "source_url": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634829&OrgDir=gnac&TeamID=14305305",
       "official_schedule_sources": [
         "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634829&OrgDir=gnac&TeamID=14305305",
         "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634829&OrgDir=gnac&TeamID=14305311"

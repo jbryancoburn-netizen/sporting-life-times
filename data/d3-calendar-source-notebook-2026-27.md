@@ -7,9 +7,9 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | Measure | Men | Women |
 |---|---:|---:|
 | NCAA-listed teams | 406 | 415 |
-| University schedules | 355 | 361 |
+| University schedules | 355 | 362 |
 | Official conference calendars | 25 | 26 |
-| School and conference calendars unresolved | 26 | 28 |
+| School and conference calendars unresolved | 26 | 27 |
 
 ## Men — verified calendar source URLs
 
@@ -526,7 +526,7 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | Elmhurst University (212) | verified_university | [Exact verified URL](https://elmhurstbluejays.com/sports/womens-basketball/schedule/2026-27?grid=true) | 15 |
 | Elmira College (213) | verified_university | [Exact verified URL](https://athletics.elmira.edu/sports/womens-basketball/schedule/2026-27?grid=true) | 19 |
 | Elms College (532) | verified_conference | [Exact verified URL](https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634829&OrgDir=gnac&TeamID=14305309) | 16 |
-| Emerson College (214) | verified_university | [Exact verified URL](https://www.emersonlions.com/sports/womens-basketball/schedule/2026-27?grid=true) | 20 |
+| Emerson College (214) | verified_university | [Exact verified URL](https://www.emersonlions.com/sports/womens-basketball/schedule?grid=true) | 20 |
 | Emmanuel College (Massachusetts) (215) | verified_university | [Exact verified URL](https://www.goecsaints.com/sports/womens-basketball/schedule/2026-27?grid=true) | 20 |
 | Emory University (217) | verified_university | [Exact verified URL](https://www.emoryathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 17 |
 | Endicott College (8981) | verified_conference | [Exact verified URL](https://cnesports.org/schedule.aspx?schedule=4121) | 23 |
@@ -771,6 +771,7 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | University of St. Thomas (Texas) (2810) | verified_university | [Exact verified URL](https://www.ustcelts.com/sports/womens-basketball/schedule/2026-27?grid=true) | 21 |
 | University of Wisconsin-Eau Claire (793) | verified_university | [Exact verified URL](https://www.blugolds.com/sports/womens-basketball/schedule/2026-27?grid=true) | 10 |
 | University of Wisconsin-La Crosse (795) | verified_university | [Exact verified URL](https://www.uwlathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 14 |
+| University of Wisconsin-Oshkosh (798) | verified_university | [Exact verified URL](https://uwoshkoshtitans.com/sports/womens-basketball/schedule/2026-27?grid=true) | 2 |
 | University of Wisconsin-Platteville (800) | verified_university | [Exact verified URL](https://www.letsgopioneers.com/sports/womens-basketball/schedule/2026-27?grid=true) | 22 |
 | University of Wisconsin-River Falls (801) | verified_university | [Exact verified URL](https://www.uwrfsports.com/sports/womens-basketball/schedule/2026-27?grid=true) | 8 |
 | University of Wisconsin-Stevens Point (802) | verified_university | [Exact verified URL](https://athletics.uwsp.edu/sports/womens-basketball/schedule/2026-27?grid=true) | 10 |
@@ -847,7 +848,6 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | Susquehanna University (685) | [NCAA athletics](https://www.gosusqu.com) | temporary_network_failure; Retry prior official published schedule without deleting verified entries; 15 URLs checked | 18 |
 | University of California, Santa Cruz (113) | [NCAA athletics](https://www.goslugs.com/) | unsupported_calendar_or_opponent_format; Add a source-specific parser only after checking dates/opponents/home-away manually; 19 URLs checked; [discovered schedule](https://www.goslugs.com/sports/womens-basketball/schedule/text/2026-27) | 21 |
 | University of Pittsburgh, Bradford (1315) | [NCAA athletics](https://athletics.pittbradford.org/landing/index) | season_heading_not_verified; Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar; 15 URLs checked | 13 |
-| University of Wisconsin-Oshkosh (798) | [NCAA athletics](https://uwoshkoshtitans.com/) | unsupported_calendar_or_opponent_format; Add a source-specific parser only after checking dates/opponents/home-away manually; 16 URLs checked; [discovered schedule](https://uwoshkoshtitans.com/sports/womens-basketball/schedule/2026-27?print=true) | 12 |
 | Vermont State University-Johnson (324) | [NCAA athletics](https://nvubadgers.com/landing/index) | calendar_path_unavailable; Find school's current official athletics website and season-specific schedule path; 15 URLs checked | 16 |
 | Westfield State University (777) | [NCAA athletics](https://www.WestfieldStateOwls.com) | season_heading_not_verified; Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar; 15 URLs checked | 8 |
 | Worcester State University (809) | [NCAA athletics](https://www.wsulancers.com) | season_heading_not_verified; Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar; 15 URLs checked | 12 |
