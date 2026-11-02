@@ -679,12 +679,27 @@ function gameInsightHTML(box,g,away,home){
    '<small>'+format(ratio,0)+'% pass</small></div>';
  };
  const balance=attack(A,away,"away")+attack(H,home,"home");
+ const leadPasser=t=>(box.players||[]).filter(p=>String(p.team_id)===String(t.id)&&p.category==="passing"&&Number.isFinite(Number(p.stats?.YDS)))
+  .sort((u,v)=>Number(v.stats.YDS)-Number(u.stats.YDS))[0];
+ const passers=[leadPasser(away),leadPasser(home)];
+ const duel=passers.every(Boolean)?
+  '<div class="nfl-insight-quarterbacks"><div class="nfl-insight-qb-label">The quarterback comparison'+
+  '<small>Source-verified individual passing totals</small></div><div class="nfl-insight-qb-grid">'+
+  passers.map((p,i)=>'<div class="nfl-insight-qb-player">'+
+   (p.headshot?'<img loading="lazy" decoding="async" width="46" height="46" src="'+escapeHtml(p.headshot)+'" alt="">':'')+
+   '<div class="nfl-insight-qb-body"><span>'+escapeHtml((i===0?away:home).code)+'</span>'+
+   '<strong>'+escapeHtml(p.name)+'</strong><div class="nfl-insight-qb-line">'+
+   '<b>'+format(Number(p.stats.YDS))+'</b><small>Pass yds</small></div>'+
+   '<div class="nfl-insight-qb-mini"><span>'+format(Number(p.stats.TD||0))+' TD</span>'+
+   '<span>'+(p.stats.RTG==null?'—':escapeHtml(p.stats.RTG))+' RTG</span></div>'+
+   '</div></div>').join("")+'</div></div>':"";
  return '<div class="nfl-insight-kicker">FROM THE VERIFIED BOX SCORE <i></i></div>'+
  '<div class="nfl-insight-lede"><h2>'+head+'</h2><p>'+deck+'</p></div>'+
  '<div class="nfl-insight-three" aria-label="Three game statistics">'+rows.join("")+'</div>'+
  (balance?'<div class="nfl-insight-offense"><div class="nfl-insight-offense-title">'+
  '<strong>Where the yards came from</strong><span><i class="pass"></i>Net pass yards <i class="rush"></i>Rush yards</span></div>'+
  balance+'</div>':"")+
+ duel+
  '<p class="nfl-insight-source">Derived from the reported game totals. Passing figures are net team passing yards; '+
  'individual quarterback passing totals can differ because of sacks.</p>';
 }
