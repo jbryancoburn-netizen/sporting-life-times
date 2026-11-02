@@ -111,6 +111,76 @@ async function render(feed, fixture={}){
  assert.match(notElo,/W 75–65/,'exhibition final is separate from RETRO game list');
  assert.match(notElo,/Exhibitions<\/option>/,'exhibition filter available without hiding regular results');
 
+
+ // College exhibition ties can occur when OT is not played. They do not
+ // become retro regular-season finals; both schools display T 70–70.
+ const alabamaAM={id:'ncaa:609615',espn_id:'2010',name:'Alabama A&M',espn_name:'Alabama A&M Bulldogs'};
+ const detroit={id:'ncaa:609716',espn_id:'2174',name:'Detroit Mercy',espn_name:'Detroit Mercy Titans'};
+ const tieFixture={...exhibitionGame,id:'official-tied-2026-10-24',
+   date:'2026-10-24T12:00:00-05:00',name:'Detroit Mercy (Exh.)',
+   competitions:[{competitors:[
+     {homeAway:'neutral',team:{id:'2010',displayName:'Alabama A&M Bulldogs'}},
+     {homeAway:'neutral',team:{id:'2174',displayName:'Detroit Mercy Titans'}}
+   ],venue:{fullName:'Wayne State Fieldhouse'},broadcasts:[]}]};
+ const tieLedger={season:'2026-27',retro_included:false,games:[{
+   date:'2026-10-24',away_espn_id:'2010',home_espn_id:'2174',away_score:70,home_score:70,
+   classification:'exhibition',counts_for_retro:false,verified:true,source_tier:'official',
+   source_url:'https://detroittitans.com/sports/mens-basketball/schedule'
+ }]};
+ const tie=await render(ratings([]),{team:alabamaAM,foe:detroit,
+   schedule:{...schedule,events:[tieFixture]},exhibitions:tieLedger});
+ assert.match(tie,/T 70–70/,'exhibition tie reported exactly when no OT played');
+ assert.match(tie,/Not applicable/,'exhibition tie changes no RETRO rating');
+ const canceledFixture={...exhibitionGame,id:'canceled-fsu',name:'Mississippi State',
+   date:'2026-10-10T12:00:00-05:00',exhibition:true,exhibition_canceled:true,
+   status:{type:{state:'canceled',completed:false}},competitions:[{competitors:[
+     {homeAway:'neutral',team:{id:'52',displayName:'Florida State Seminoles'}},
+     {homeAway:'neutral',team:{id:'344',displayName:'Mississippi State Bulldogs'}}
+   ],venue:{fullName:'Pensacola Bay Center'}}]};
+ const fsu={id:'ncaa:609733',espn_id:'52',name:'Florida St.',espn_name:'Florida State Seminoles'};
+ const missSt={id:'ncaa:609806',espn_id:'344',name:'Mississippi St.',espn_name:'Mississippi State Bulldogs'};
+ const canceled=await render(ratings([]),{team:fsu,foe:missSt,
+   schedule:{...schedule,events:[canceledFixture]}});
+ assert.match(canceled,/CANCELED/);
+ assert.match(canceled,/Event canceled/);
+ assert.doesNotMatch(canceled,/EXHIBITION FINAL/);
+ // College of Idaho is not Division I Idaho: never invent the Vandals identity.
+ const wyoming={id:'ncaa:609872',espn_id:'2751',name:'Wyoming',espn_name:'Wyoming Cowboys'};
+ const collegeOfIdaho={...exhibitionGame,id:'school-wyoming-10-24',
+   date:'2026-10-24T12:00:00-05:00',name:'College of Idaho (Exhibition)',
+   exhibition:true,exhibition_result:{verified:true,counts_for_retro:false,
+     team_score:76,opponent_score:61,source_url:'https://gowyo.com/news/2026/10/24/college-of-idaho',
+     source_tier:'official'},
+   competitions:[{competitors:[
+     {homeAway:'home',team:{id:'2751',displayName:'Wyoming Cowboys'}},
+     {homeAway:'away',team:{id:'',displayName:'College of Idaho Yotes'}}
+   ],venue:{fullName:'Arena-Auditorium'}}]};
+ const wyomingHTML=await render(ratings([]),{team:wyoming,foe:foe,
+   schedule:{...schedule,events:[collegeOfIdaho]}});
+ assert.match(wyomingHTML,/W 76–61/);
+ assert.match(wyomingHTML,/College of Idaho Yotes/);
+ assert.match(wyomingHTML,/University result ↗/);
+ assert.doesNotMatch(wyomingHTML,/ncaam-team\.html\?team=ncaa%3A609/);
+ const unknown={...collegeOfIdaho,exhibition_result:{...collegeOfIdaho.exhibition_result,
+   verified:false}};
+ assert.doesNotMatch(await render(ratings([]),{team:wyoming,foe,
+   schedule:{...schedule,events:[unknown]}}),/W 76–61/,'unverified source score must fail closed');
+ const cross=JSON.parse(fs.readFileSync('data/ncaam-2026-27-espn-team-crosswalk.json','utf8'));
+ const actualPairs=JSON.parse(fs.readFileSync('data/mbb-exhibition-finals-2026-27.json','utf8'));
+ assert.equal(actualPairs.retro_included,false);
+ const pairKey=x=>[x.date,...[x.away_espn_id,x.home_espn_id].map(String).sort()].join('|');
+ assert.equal(new Set(actualPairs.games.map(pairKey)).size,actualPairs.games.length,
+   'no duplicate exhibition game evidence');
+ assert(actualPairs.games.every(x=>x.counts_for_retro===false&&x.classification==='exhibition'&&
+   x.verified===true),'all exhibition results stay outside RETRO');
+ const newMexico=JSON.parse(fs.readFileSync('data/mbb-schedules-2026-27/167.json','utf8'));
+ for(const [date,id,badId] of [['2026-10-18','265','45'],['2026-10-25','9','12']]){
+   const fixture=newMexico.events.find(e=>e.date.startsWith(date));
+   const ids=fixture.competitions[0].competitors.map(x=>String(x.team.id));
+   assert(ids.includes(id)&&!ids.includes(badId),
+     'New Mexico exhibitions must use exact opponent identity on '+date);
+ }
+
  const css=fs.readFileSync('mbb-newspaper.css','utf8');
  assert.match(css,/grid-template-columns:minmax\(0,1fr\) minmax\(0,1fr\)/,'mobile cards use columns, not stacked arbitrary TD order');
  assert.match(css,/td\.sched-elo-cell\{grid-column:1/,'opponent rating must be positioned in footer');
