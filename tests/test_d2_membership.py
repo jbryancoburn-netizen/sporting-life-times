@@ -15,10 +15,10 @@ class MembershipTests(unittest.TestCase):
         men=json.loads((ROOT/"data"/"d2-men-2026-27.json").read_text())
         women=json.loads((ROOT/"data"/"d2-women-2026-27.json").read_text())
         candidates={t["id"]:t for t in men["teams"]}
-        self.assertEqual(men["quality"]["membership_review"]["excluded_from_dii_elo"],4)
+        self.assertEqual(men["quality"]["membership_review"]["excluded_from_dii_elo"],5)
         self.assertEqual(women["quality"]["membership_review"]["excluded_from_dii_elo"],0)
         for ident in ("lackawanna-college","monroe-university",
-                      "loyola-university-new-orleans","texas-wesleyan-university"):
+                      "loyola-university-new-orleans","texas-wesleyan-university","azusa-pacific"):
             self.assertTrue(candidates[ident]["not_eligible_for_dii_elo"])
             self.assertEqual(candidates[ident]["d2_confirmed"],False)
             self.assertTrue(candidates[ident]["membership_source"].startswith("https://"))
