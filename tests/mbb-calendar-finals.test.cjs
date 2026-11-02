@@ -92,7 +92,7 @@ async function render(feed, fixture={}){
  const daytonHTML=await render(ratings([]),{team:dayton,foe:team,schedule:daytonCalendar,exhibitions:exLedger});
  assert.match(daytonHTML,/EXHIBITION FINAL/);
  assert.match(daytonHTML,/W 75–65/);
- assert.match(daytonHTML,/Verified result ↗/);
+ assert.match(daytonHTML,/University result ↗/,'official score has university citation');
  assert.match(daytonHTML,/data-exhibition="true"/);
  assert.match(daytonHTML,/Not applicable/,'exhibitions have no opponent RETRO');
  assert.doesNotMatch(daytonHTML,/cbb-gamefile\.html\?day=2026-10-17/,'non-counting exhibitions do not masquerade as RETRO Gamefiles');
