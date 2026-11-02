@@ -397,7 +397,7 @@ def resolve(label, by_org, exact):
     # Sidearm team grids append conference footnote markers ("* *") to
     # opponent labels. Remove ONLY trailing asterisks, not name characters,
     # tournament notes or other ambiguous labels.
-    label = re.sub(r"(?:\\s+\\*)+\\s*$", "", compact(label)).strip()
+    label = re.sub(r"(?:\s+\*)+\s*$", "", compact(label)).strip()
     if not label or BAD_OPPONENT.search(label):
         return None
     x = key(label)
