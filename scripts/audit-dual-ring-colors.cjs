@@ -31,7 +31,7 @@ const css=read('slt-dual-ring.css');
 assert(css.includes('background:transparent!important'),'Colored ring mask must have no white fill');
 assert(css.includes('transform:translate(-50%,-50%)!important'),'Non-MBB image centering missing');
 const mbbPages=files.filter(p=>/^(?:ncaam(?:[-.]|$)|college-basketball\.html$)/.test(p));
-assert.equal(mbbPages.length,11,'Expected 11 basketball page templates');
+assert.equal(mbbPages.length,13,'Expected 13 basketball templates including Slate and Arena File');
 for(const page of mbbPages){
  const html=read(page);
  const styles=html.match(/mbb-logo-system\.css\?v=[a-zA-Z0-9._-]+/g)||[];
@@ -43,4 +43,4 @@ for(const page of mbbPages){
 }
 const js=read('slt-dual-ring.js');
 assert(js.includes('nonwhite-rings-20261029'),'Stale cached ring palette');
-console.log('PASS '+count+' distinct nonwhite team palettes; '+pages.length+' generic two-ring pages plus 11 single-owner roundel-aware MBB pages');
+console.log('PASS '+count+' distinct nonwhite team palettes; '+pages.length+' generic two-ring pages plus '+mbbPages.length+' single-owner roundel-aware MBB pages');
