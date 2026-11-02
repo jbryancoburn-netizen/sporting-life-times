@@ -53,7 +53,7 @@ def parse(html,gender,sid):
  # substring rejected BOTH otherwise valid 2026-27 school calendars.
  # Match the entire named institution before sport instead; NEVER opponent
  # text from the table or a similar but different Minnesota State campus.
- title_identity=re.search(r"2026-27\\s+(.+?)\\s+(?:women's|men's)\\s+basketball",t,re.I)
+ title_identity=re.search(r"2026-27\s+(.+?)\s+(?:women's|men's)\s+basketball",t,re.I)
  expected=school(SOURCES[gender][sid])
  actual=school(title_identity.group(1)) if title_identity else None
  if ("2026-27" not in t or required not in t or
