@@ -66,21 +66,21 @@ class TestCCAA(unittest.TestCase):
         self.assertEqual(len(games),91)
         self.assertTrue(all(g['status']=='scheduled' and g['start_time'].endswith(' ET')
                             and len(g['official_schedule_sources'])==2 for g in games.values()))
-    def test_fresno_partial_six_flagged_games_not_automatically_completed(self):
+    def test_fresno_partial_seven_flagged_games_not_automatically_completed(self):
         pages,_=make_pages()
         url=c.BASE+'5206'
-        # Real Fresno Pacific league grid lists only six CCAA-flagged
+        # Real Fresno Pacific league grid lists only seven CCAA-flagged
         # matchups; all other cross-league-school encounters are unflagged.
-        # Do not fill those seven unconfirmed fixtures from opponent pages.
-        pages[url]=pages[url].replace('<td>*</td>','<td></td>',7)
+        # Do not fill those six unconfirmed fixtures from opponent pages.
+        pages[url]=pages[url].replace('<td>*</td>','<td></td>',6)
         owner,rows,_=c.parse_league(pages[url],5206)
         self.assertEqual(owner,'fresno')
-        self.assertEqual(len(rows),6)
+        self.assertEqual(len(rows),7)
         report,games=self.call(pages)
         self.assertEqual(report['schools_read'],14)
-        self.assertEqual(report['added'],84)
-        self.assertEqual(report['one_sided'],7)
-        self.assertEqual(len(games),84)
+        self.assertEqual(report['added'],85)
+        self.assertEqual(report['one_sided'],6)
+        self.assertEqual(len(games),85)
 
     def test_wrong_gender_season_owner_and_conf_are_rejected(self):
         pages,_=make_pages()
