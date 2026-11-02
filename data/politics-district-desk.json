@@ -1,0 +1,132 @@
+{
+  "schema": 1,
+  "updated_at": "2026-11-02T18:30:00Z",
+  "rule": "Uncertified election returns never trigger a winner or new representative. Polls are field-dated published surveys; news is district-specific and source-linked. Congressional votes belong to the member actually in office.",
+  "districts": {
+    "IA-01": {
+      "news_updated_at": "2026-11-02T18:30:00Z",
+      "news_status": "editorially_checked",
+      "articles": [
+        {
+          "title": "Trump promised a steel mill in this rural Iowa region. But is it all a midterm election ploy?",
+          "source": "The Guardian",
+          "url": "https://www.theguardian.com/us-news/2026/nov/02/iowa-midterms-steel-mill",
+          "published_at": "2026-11-02T17:00:23Z",
+          "topic": "JOBS"
+        },
+        {
+          "title": "How a steel plant and party disillusionment are shaping Iowa’s 1st Congressional District",
+          "source": "Iowa Public Radio",
+          "url": "https://www.iowapublicradio.org/political-news/2026-10-28/iowas-1st-congressional-district-race-war-steel-plant-democrats-republicans-indepent-miller-meeks-bohannan-bridgford-sand",
+          "published_at": "2026-10-28T19:47:00Z",
+          "topic": "DISTRICT"
+        },
+        {
+          "title": "Miller-Meeks and Bohannan debate foreign wars, tariffs, healthcare in 1st District",
+          "source": "Iowa Public Radio",
+          "url": "https://www.iowapublicradio.org/political-news/2026-10-21/1st-congressional-district-candidates-debate-foreign-wars-tariffs-healthcare-miller-meeks-bohannan",
+          "published_at": "2026-10-21T17:42:00Z",
+          "topic": "ISSUES"
+        },
+        {
+          "title": "Miller-Meeks, Bohannan spar on Iran war, rising costs in 1st District debate",
+          "source": "Iowa Capital Dispatch",
+          "url": "https://iowacapitaldispatch.com/2026/10/20/miller-meeks-bohannan-spar-on-iran-war-rising-costs-in-1st-district-debate/",
+          "published_at": "2026-10-21T02:34:00Z",
+          "topic": "ISSUES"
+        },
+        {
+          "title": "Rematch for Iowa's 1st Congressional District sees fresh obstacles, third candidate",
+          "source": "Iowa Public Radio",
+          "url": "https://www.iowapublicradio.org/political-news/2026-10-20/rematch-iowa-1st-congressional-district-house-race-miller-meeks-bohannan-bridgford",
+          "published_at": "2026-10-20T16:38:00Z",
+          "topic": "ELECTION"
+        }
+      ],
+      "polls_updated_at": "2026-11-02T18:30:00Z",
+      "polls": [
+        {
+          "id": "wavefield-2026-10-02",
+          "pollster": "Wavefield Research",
+          "start": "2026-09-29",
+          "end": "2026-10-02",
+          "n": 297,
+          "population": "Likely voters",
+          "sponsor": "Not independently established",
+          "tier": "Reported by secondary poll database; full original questionnaire not verified",
+          "url": "https://www.poliwave.com/us/fed/polls/2026oct02-wavefield-research-usfed-s1415",
+          "results": [
+            {
+              "name": "Bohannan",
+              "party": "D",
+              "pct": 45
+            },
+            {
+              "name": "Miller-Meeks",
+              "party": "R",
+              "pct": 29
+            },
+            {
+              "name": "Bridgford",
+              "party": "I",
+              "pct": 18
+            }
+          ]
+        },
+        {
+          "id": "bullfinch-2026-07-16",
+          "pollster": "The Bullfinch Group",
+          "start": "2026-07-13",
+          "end": "2026-07-16",
+          "n": 705,
+          "population": "Likely voters",
+          "sponsor": "The Independent Center (reported)",
+          "tier": "Secondary compilation; original methodological release not independently verified",
+          "url": "https://www.270towin.com/2026-house-polls/iowa/district-1",
+          "results": [
+            {
+              "name": "Bohannan",
+              "party": "D",
+              "pct": 40
+            },
+            {
+              "name": "Miller-Meeks",
+              "party": "R",
+              "pct": 35
+            },
+            {
+              "name": "Bridgford",
+              "party": "I",
+              "pct": 11
+            }
+          ]
+        }
+      ],
+      "election": {
+        "date": "2026-11-03",
+        "phase": "pre_election",
+        "official_source": "https://sos.iowa.gov/iowans/election-results-statistics",
+        "certified": false,
+        "certified_at": null,
+        "winner": null,
+        "totals": null,
+        "last_checked": null
+      },
+      "representation": {
+        "current_119th": {
+          "name": "Mariannette Miller-Meeks",
+          "party": "R",
+          "bioguide": "M001215",
+          "profile": "https://clerk.house.gov/members/M001215",
+          "official_site": "https://millermeeks.house.gov",
+          "bills": "https://www.congress.gov/member/mariannette-miller-meeks/M001215",
+          "rollcalls": "https://clerk.house.gov/Votes",
+          "feed": "https://watch.vote/feeds/members/M001215.xml"
+        },
+        "new_120th": null,
+        "votes_checked_at": null,
+        "votes": []
+      }
+    }
+  }
+}
