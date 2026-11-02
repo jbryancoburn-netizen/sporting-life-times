@@ -497,7 +497,14 @@ function gameStoryData(g){
  return {away,home,aq,hq,hasPeriods,a3,h3,winner,wSide,headline,deck,tag,short,fourthComeback};
 }
 function gameScoringArc(g,story){
- if(!story.hasPeriods)return '<p class="nfl-feature-chart-await">Quarter-by-quarter scoring will appear once source-confirmed.</p>';
+ if(!story.hasPeriods){
+ const live=g.state==='in',ready=g.away.score!=null&&g.home.score!=null;
+ return '<div class="nfl-score-live-preview" aria-label="Current sourced game score, with quarter-by-quarter timeline loading">'+
+ '<div class="nfl-score-live-copy"><strong>'+(live?'SCORING PROGRESSION · LIVE':g.state==='pre'?'SCORING AFTER KICKOFF':'SCORING BY QUARTER PENDING')+'</strong>'+
+ '<p>'+(live?'Quarter-by-quarter movement will appear from the sourced scoring plays.':'A verified period breakdown is not yet available.')+'</p></div>'+
+ (ready?'<div class="nfl-score-live-line"><span class="away">'+escapeHtml(story.away.code)+' <b>'+escapeHtml(g.away.score)+'</b></span><span class="home"><b>'+escapeHtml(g.home.score)+'</b> '+escapeHtml(story.home.code)+'</span></div>':'')+
+ '</div>';
+}
  const count=Math.min(5,Math.max(story.aq.length,story.hq.length));
  const cum=q=>{let n=0;return [0,...q.slice(0,count).map(v=>(n+=v))];};
  const a=cum(story.aq),h=cum(story.hq),top=Math.max(10,Math.ceil(Math.max(...a,...h)/10)*10);
@@ -560,14 +567,18 @@ function gamePage(){
   story.short(winTeam)+' outscored the '+story.short(opponent)+' '+
   qWinner[3]+'–'+qLoser[3]+' to rally for a '+fmt(winTeam.id===a.id?g.away.score:g.home.score)+
   '–'+fmt(winTeam.id===a.id?g.home.score:g.away.score)+' win.':story.deck;
- const colorA=escapeHtml(a.color||'#b9213e'),colorH=escapeHtml(darkField(h));
+ const colorA=escapeHtml(a.color||'#004c54'),colorH=escapeHtml(darkField(h));
+ const colorAS=escapeHtml(a.secondary_color||a.color||'#a5acaf');
+ const colorHS=escapeHtml(h.secondary_color||h.color||'#ffb612');
  const scoreSide=(t,side,value)=>'<div class="nfl-feature-side '+side+'">'+
   '<a class="nfl-feature-side-mark" href="'+urlTeam(t.id)+'" aria-label="'+escapeHtml(fullName(t))+' team page">'+crest(t,'lg')+'</a>'+
   '<span class="nfl-feature-side-code">'+escapeHtml(t.code)+'</span>'+
   '<strong class="nfl-feature-side-score">'+(pre?'—':fmt(value))+'</strong>'+
   '<small class="nfl-feature-side-record">'+escapeHtml(record(t))+'</small></div>';
  let out='<article class="nfl-story nfl-feature-v10" style="--nfl-story-away:'+colorA+
-  ';--nfl-story-home:'+colorH+';--nfl-story-winning:'+escapeHtml(winTeam?.color||h.color||'#d45128')+'">'+
+  ';--nfl-story-home:'+colorH+';--nfl-story-away-secondary:'+colorAS+
+  ';--nfl-story-home-secondary:'+colorHS+
+  ';--nfl-story-winning:'+escapeHtml(winTeam?.color||h.color||'#d45128')+'">'+
   '<nav class="nfl-feature-tabs" aria-label="Sections of the NFL game report">'+
   '<a href="#nfl-story-turn" class="is-current">Game Story</a>'+
   '<a href="#nfl-story-model">USRS Model</a>'+
@@ -605,19 +616,22 @@ function gamePage(){
   '<section class="nfl-story-model" id="nfl-story-model">'+
   '<div class="nfl-feature-section-label">The USRS pregame read <i></i></div>'+
   '<div class="nfl-feature-model-layout">'+
-  '<div class="nfl-feature-model-heading"><h2>The USRS<br>Pregame Read</h2>'+
-  '<p>What the model saw before kickoff, and how it played out.</p></div>'+
+  '<div class="nfl-feature-model-heading"><h2>Before the<br>opening kick</h2>'+
+  '<p>Independent probability and predicted score, frozen before the game.</p></div>'+
   '<div class="nfl-feature-model-report"><div class="nfl-feature-model-scores">'+
   '<div><span>Forecast</span><strong>'+forecast+'</strong></div>'+
   '<div><span>Final result</span><strong>'+result+'</strong></div></div>'+
   '<div class="nfl-feature-model-probs"><span>Pregame win probability</span>'+
   '<div class="nfl-feature-prob-values">'+
   '<div><small>'+escapeHtml(a.code)+'</small><strong>'+(awayPct==null?'—':format(awayPct,1)+'%')+'</strong></div>'+
-  '<div><small>'+escapeHtml(h.code)+'</small><strong>'+(homePct==null?'—':format(homePct,1)+'%')+'</strong></div></div></div>'+
-  '<div class="nfl-feature-model-elo"><div><span>Before kickoff (Elo)</span><b>'+
-  escapeHtml(a.code)+' '+fmt(elo.away_before)+' <i>|</i> '+escapeHtml(h.code)+' '+fmt(elo.home_before)+'</b></div>'+
-  '<div><span>Elo after the final</span><b>'+
-  escapeHtml(a.code)+' '+signed(awayDelta)+' <i>|</i> '+escapeHtml(h.code)+' '+signed(homeDelta)+'</b></div></div>'+
+  '<div><small>'+escapeHtml(h.code)+'</small><strong>'+(homePct==null?'—':format(homePct,1)+'%')+'</strong></div></div>'+
+  (validP?'<div class="nfl-feature-prob-band" role="img" aria-label="Pregame win probability: '+escapeHtml(a.code)+' '+format(awayPct,1)+' percent, '+escapeHtml(h.code)+' '+format(homePct,1)+' percent"><span class="away" style="width:'+awayPct.toFixed(2)+'%"></span><span class="home" style="width:'+homePct.toFixed(2)+'%"></span></div>':'')+'</div>'+
+  '<div class="nfl-feature-model-elo"><div><span>Before kickoff · Elo</span>'+
+  '<div class="nfl-feature-elo-matchup"><b><em class="away">'+escapeHtml(a.code)+'</em> '+fmt(elo.away_before)+'</b>'+
+  '<b><em class="home">'+escapeHtml(h.code)+'</em> '+fmt(elo.home_before)+'</b></div></div>'+
+  '<div><span>Elo movement · after final</span>'+
+  '<div class="nfl-feature-elo-matchup"><b><em class="away">'+escapeHtml(a.code)+'</em> '+signed(awayDelta)+'</b>'+
+  '<b><em class="home">'+escapeHtml(h.code)+'</em> '+signed(homeDelta)+'</b></div></div></div>'+
   '</div></div>'+
   '<p class="nfl-feature-model-note">Independent 2026 Elo starts all 32 teams at 1,500; the forecast reflects pregame information. '+
   (hasVerifiedDelta?'Elo adjustments are verified by the season ledger.':
