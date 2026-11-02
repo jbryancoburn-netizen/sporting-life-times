@@ -1923,7 +1923,7 @@ def self_test():
     w_url = "https://goslugs.com/sports/womens-basketball/schedule/text"
     text_matches, text_report = parse_text_only_school_calendar(
         text_rows, "women", 113, w_url, by_org, exact)
-    assert len(text_matches) == 3
+    assert len(text_matches) == 3, (len(text_matches), [x["date"] for x in text_matches], text_report)
     assert text_matches[0]["date"] == "2026-11-07"
     assert text_matches[-1]["date"] == "2027-01-09"
     assert text_matches[-1]["tipoff_as_posted"] == "2 PM CT"
