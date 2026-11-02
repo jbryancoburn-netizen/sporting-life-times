@@ -53,3 +53,23 @@ The first screen answers: **Which direction do the available facts point, who is
 3. Calibrate national/state/district correlated error and Brier scores; incorporate source-verified district polls, dates and sponsorship transparently.
 4. Publish separate **MODEL** probability objects only after passing reproducibility, calibration, sourcing, geography and live-update gates.
 5. Expose a full methodology link and model vintage; continue to show historical and polling evidence separately.
+
+## News Graphics Desk · Purple Watch (implemented November 1, 2026)
+
+The state pages use verified Census district polygons to construct a state-shaped watermark. One shared, hidden SVG symbol is reused in the hero and all district cards; an unavailable geography file simply leaves a typography-led design and does not create an incorrect outline.
+
+**Color contract (editorial status, not party win odds):**
+
+| Evidence status | Display treatment | Key colors |
+| --- | --- | --- |
+| Watch / mixed signals / close evidence | Saturated purple header, soft purple read panel, purple border and watch marker | `#6F4BAE`, `#53348A`, `#EEE7F8`, `#8B6BC2` |
+| Democratic polling direction, not watch | Navy-blue header and cool blue wash | Blue; keep survey share marks blue |
+| Republican polling direction, not watch | Burgundy-red header and warm red wash | Red; keep survey share marks red |
+| Historical evidence only | Heritage ink and parchment | Tan; explicitly 2024, not 2026 odds |
+| Missing source / redrawn map | Neutral blue-slate | Never call it a toss-up merely because it is gray |
+
+For watch cards, the circle in the header is a **purple diamond**, not a red/blue party-endorsement marker. The candidate-faceoff section independently shows party-affiliation symbols and portraits, with image fallbacks. Party animal icons are sourced from Font Awesome Free (CC BY 4.0) and identify party affiliation only; no endorsement is implied.
+
+The state newsroom strip shows the **number of early-read watch races**, **conflicting-signal races**, and **government-checked candidate slates**, plus a directly linked featured race. These are audited counts, not model probabilities. Clicking the watch count sets the actual district-list watch filter.
+
+The publication remains explicitly pre-forecast. A model win-probability module requires the holdout-calibration and 2026-geography certification gates described above; do not relabel an early-read category as certified odds.
