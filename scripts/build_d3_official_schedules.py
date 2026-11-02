@@ -651,6 +651,35 @@ def parse_text_only_school_calendar(html, gender, owner, url, by_org, exact):
     }
 
 
+def conference_markup_evidence(html, url, reason):
+    """Small audit-only fingerprint for officially linked conference pages.
+
+    This cannot qualify a fixture: it records only public headings, table
+    headers and DOM class names to identify unsupported publisher layouts.
+    Do not archive page HTML or create speculative schedule rows.
+    """
+    doc = BeautifulSoup(html, "html.parser")
+    heads = [compact(h.get_text(" ", strip=True))[:115]
+             for h in doc.select("h1,h2,h3")[:9]]
+    tables = [[compact(c.get_text(" ", strip=True))[:55]
+               for c in t.select("th")[:8]]
+              for t in doc.select("table")[:3]]
+    seen = []
+    for tag in doc.select("[class]"):
+        for clazz in tag.get("class", []):
+            if ("schedule" in clazz or "game" in clazz) and clazz not in seen:
+                seen.append(clazz)
+                if len(seen) >= 20:
+                    break
+        if len(seen) >= 20:
+            break
+    return {"url": url, "reason": str(reason)[:110],
+            "headings": heads, "table_headers": tables,
+            "schedule_dom_classes": seen,
+            "date_text_fragments": len(re.findall(
+                r"(?:11|12|1|2|3)/\d{1,2}/202[67]", doc.get_text(" ", strip=True)))}
+
+
 def parse_conference_calendar(html, gender, owner, url, subject, by_org, exact, school_legacy=False):
     """Read an explicitly selected OFFICIAL conference team season table.
 
@@ -1074,6 +1103,7 @@ def inspect_source(gender, source, by_org, exact, preferred_url=None, deep_disco
     # An independently listed conference's dated team schedule is valid
     # fixture evidence, not proof the institution publishes its own calendar.
     conference = OFFICIAL_CONFERENCE_SCHEDULES[gender].get(org)
+    conference_page_evidence = []
     if conference:
         conf_url, subject = conference
         try:
@@ -1083,6 +1113,9 @@ def inspect_source(gender, source, by_org, exact, preferred_url=None, deep_disco
             report["failed_school_calendar_urls"] = len(errors)
             return rows, report
         except Exception as ex:
+            if "conf_html" in locals():
+                conference_page_evidence.append(
+                    conference_markup_evidence(conf_html, conf_url, ex))
             errors.append("Official conference: " + str(ex)[:105])
     # The GNAC explicitly posts an AD Council-approved league-only master
     # schedule on its own administrative scheduling account. This is an
@@ -1103,6 +1136,7 @@ def inspect_source(gender, source, by_org, exact, preferred_url=None, deep_disco
                   "status": "failed", "error": " | ".join(errors)[:260],
                   "candidate_urls_tried": len(visited),
                   "rejected_page_evidence": rejected_page_evidence,
+                  "conference_page_evidence": conference_page_evidence,
                   "discovered_schedule_links": list(dict.fromkeys(observed_links))[:8],
                   "calendar_origin": ("pinned_official_url" if pinned else "independently_verified_athletics_host" if org in OFFICIAL_ATHLETICS_HOST_OVERRIDE else "NCAA_directory_athletics_hostname")}
 
@@ -1461,6 +1495,14 @@ def self_test():
     assert resolve("Hope", by_org, exact) == 286
     assert resolve("Trine University", by_org, exact) == 30037
     assert resolve("Trinity", by_org, exact) is None
+    mark = conference_markup_evidence(
+        "<html><title>League</title><h2>2026-27 Goucher Men's Basketball Schedule</h2>"
+        "<ul><li class='sidearm-schedule-game'>November 10, 2026 - at Wesleyan</li></ul></html>",
+        "https://landmarkconference.org/schedule.aspx?schedule=000",
+        ValueError("insufficient table rows"))
+    assert mark["schedule_dom_classes"] == ["sidearm-schedule-game"]
+    assert mark["table_headers"] == []
+    assert "2026-27 Goucher" in mark["headings"][0]
     assert javascript_only_placeholder(
         "<html><body><h1>JavaScript is disabled</h1>"
         "<p>Enable JavaScript to view this calendar.</p></body></html>")
