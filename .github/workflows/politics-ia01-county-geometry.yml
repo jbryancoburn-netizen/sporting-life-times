@@ -1,5 +1,11 @@
 name: Iowa District 1 — verified county GIS cache
 on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/politics-ia01-county-geometry.yml'
+      - 'scripts/collect-politics-ia01-counties.py'
+      - 'data/politics-ia01-geostory.json'
   schedule:
     - cron: '9 5 * * 1'
   workflow_dispatch:
