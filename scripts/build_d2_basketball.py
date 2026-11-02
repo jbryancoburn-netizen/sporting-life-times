@@ -1023,6 +1023,34 @@ def apply_official_school_grid_snapshots(gender, games, teams, today=None, regis
             counts["created"] += 1
     return counts
 
+def enforce_dii_elo_member_gate(games, teams):
+    """Keep sourced cross-division fixtures, but exclude them from DII Elo.
+
+    A provisional NCAA DII institution may still compete in the NAIA for
+    2026-27 (Texas A&M–Texarkana) or have moved to DI/DIII. A historical
+    or upcoming game against them is not a DII-vs-DII rating event.
+    """
+    changed = 0
+    for game in games.values():
+        excluded = [ident for ident in (game.get("away"), game.get("home"))
+                    if ident in teams and teams[ident].get("not_eligible_for_dii_elo")]
+        if not excluded:
+            continue
+        if game.get("elo_eligible") is not False:
+            changed += 1
+        game["elo_eligible"] = False
+        game["elo_exclusion_reason"] = (
+            "At least one participant is not competing as NCAA DII in 2026-27")
+        game["elo_exclusion_source"] = next(
+            (teams[ident].get("membership_source") for ident in excluded
+             if teams[ident].get("membership_source")), "")
+        # Remove stale former projections before the chronological 1500 replay.
+        for field in ("pregame_elo_away","pregame_elo_home","pred_home_pct",
+                      "elo_change_home","elo_change_away"):
+            game.pop(field, None)
+    return changed
+
+
 def update(gender, bootstrap=False, live=False):
     output=DATA/f"d2-{gender}-2026-27.json"
     prior=json.loads(output.read_text()) if output.exists() else {}
@@ -1348,6 +1376,7 @@ def update(gender, bootstrap=False, live=False):
             (ccaa_men_quality.get("status")!="CCAA 2026-27 exact two-university men fixtures verified" or
              ccaa_men_quality.get("source_reconciliation_version")!=2)):
             ccaa_men_quality=enrich_ccaa_men(games,teams,today)
+    enforce_dii_elo_member_gate(games, teams)
     # Ratings start at 1500 on every new season; only NCAA verified DII-v-DII finals count.
     rating={key:1500.0 for key in teams}
     wins={key:0 for key in teams};losses={key:0 for key in teams}
