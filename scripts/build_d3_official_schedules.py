@@ -784,6 +784,61 @@ def parse_landmark_list_schedule(doc, gender, owner, url, by_org, exact):
 
 
 
+
+def approved_landmark_mens_conference(owner, by_org):
+    """Validate a first-party approved 2026-27 Landmark MEN'S league slate.
+
+    This is conference-only evidence and must never be represented as a
+    university's full-season calendar. It contains no announced tipoff times,
+    arenas, broadcast details, outcomes, or neutral-site claims.
+    """
+    ledger = json.loads(
+        (DATA / "d3-landmark-mens-approved-conference-2026-27.json").read_text())
+    source = ("https://s3.amazonaws.com/landmarkconference.org/documents/"
+              "2025/8/20/2026_27_Landmark_MBB_APPROVED_2.pdf")
+    if (ledger.get("division"), ledger.get("gender"),
+            ledger.get("season"), ledger.get("source_url"),
+            ledger.get("scope")) != (
+            "d3", "men", "2026-27", source,
+            "conference_regular_season_only_not_complete_institutional_schedule"):
+        raise ValueError("Approved Landmark source identity or scope invalid")
+    games = (ledger.get("programs") or {}).get(str(owner))
+    if owner not in by_org or not isinstance(games, list) or len(games) != 18:
+        raise ValueError("Approved Landmark schedule lacks eighteen games")
+    seen, rows = set(), []
+    for game in games:
+        date = dt.date.fromisoformat(game["date"])
+        other = game.get("opponent_org_id")
+        site = game.get("site")
+        if (not SEASON_START <= date <= SEASON_END or
+                date.weekday() not in (2, 5) or
+                date.isoformat() in seen or
+                type(other) is not int or other not in by_org or
+                not by_org[other].get("d3_confirmed") or other == owner or
+                site not in ("home", "away")):
+            raise ValueError("Invalid Landmark date, site, or NCAA DIII identity")
+        seen.add(date.isoformat())
+        away = owner if site == "away" else other
+        home = other if site == "away" else owner
+        rows.append({
+            "date": date.isoformat(), "away_org_id": away,
+            "home_org_id": home, "neutral": False,
+            "source_owner_org_id": owner, "source_url": source,
+            "source_kind": "official_conference",
+            "tipoff_as_posted": "", "venue": "", "venue_location": "",
+            "network_as_posted": "", "radio_as_posted": "",
+            "tournament": "",
+        })
+    return rows, {
+        "owner_org_id": owner, "status": "parsed_conference",
+        "source_url": source, "verified_direct_url": source,
+        "calendar_origin": "approved_landmark_league_only_not_full_school_calendar",
+        "readable_rows": len(rows), "verified_member_opponents": len(rows),
+        "excluded_rows": {}, "approved_at": "2024-10-08",
+    }
+
+
+
 def parse_conference_calendar(html, gender, owner, url, subject, by_org, exact, school_legacy=False):
     """Read an explicitly selected OFFICIAL conference team season table.
 
@@ -1368,6 +1423,7 @@ def process(gender, workers=30, dry_run=False):
         known_subjects.update(subject_map)
     for org, conf_url in previous_good_conference.items():
         if (org in by_org and org in known_subjects and
+                not conf_url.lower().split("?", 1)[0].endswith(".pdf") and
                 org not in OFFICIAL_CONFERENCE_SCHEDULES[gender]):
             OFFICIAL_CONFERENCE_SCHEDULES[gender][org] = (conf_url, known_subjects[org])
     OFFICIAL_CONFERENCE_SCHEDULES[gender].update(
@@ -1391,6 +1447,17 @@ def process(gender, workers=30, dry_run=False):
                 rows = None
                 report = {"owner_org_id": owner, "source_url": url,
                           "status": "failed", "error": str(ex)[:200]}
+            # Use the first-party approved conference matrix only if a more
+            # current university/conference team calendar cannot be parsed.
+            # This supplies LEAGUE fixtures, never a full school schedule.
+            if gender == "men" and owner in (1467, 325, 443) and rows is None:
+                try:
+                    approved_rows, approved_report = approved_landmark_mens_conference(owner, by_org)
+                    approved_report["university_source_failure"] = report.get("error", "")
+                    approved_report["university_source_status"] = report.get("status", "")
+                    rows, report = approved_rows, approved_report
+                except Exception as ex:
+                    report["approved_landmark_error"] = str(ex)[:200]
             prior = available_previous[owner]
             new_external = report.pop("unresolved_opponent_rows", [])
             if rows is not None and (rows or new_external):
@@ -2101,6 +2168,27 @@ def self_test():
             raise AssertionError("Invalid text-only source accepted")
         except ValueError:
             pass
+
+    # First-party signed-off Landmark men's 2026-27 PDF: 54 program entries,
+    # 48 distinct conference fixtures, six overlapping two-team declarations.
+    full_men = json.loads((DATA / "d3-men-2026-27.json").read_text())
+    landmark_by_org, _ = official_index(full_men["teams"])
+    approved_games = {}
+    for school in (1467, 325, 443):
+        league_rows, league_report = approved_landmark_mens_conference(
+            school, landmark_by_org)
+        assert league_report["status"] == "parsed_conference"
+        assert league_report["readable_rows"] == len(league_rows) == 18
+        assert "not_full_school" in league_report["calendar_origin"]
+        for item in league_rows:
+            assert (not item["tipoff_as_posted"] and not item["venue"] and
+                    item["source_kind"] == "official_conference")
+            pair = tuple(sorted((item["away_org_id"], item["home_org_id"])))
+            stamp = (item["date"], pair)
+            sites = (item["away_org_id"], item["home_org_id"])
+            assert stamp not in approved_games or approved_games[stamp] == sites
+            approved_games[stamp] = sites
+    assert len(approved_games) == 48
 
     print("DIII schedule importer: date/identity/conditional/neutral/reciprocal tests PASS")
 
