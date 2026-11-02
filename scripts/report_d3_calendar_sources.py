@@ -43,6 +43,7 @@ def run():
                 "next_manual_action":m.get("next_action",""),
                 "source_error":a.get("error",""),
                 "rejected_page_evidence":a.get("rejected_page_evidence",[]),
+                "conference_page_evidence":a.get("conference_page_evidence",[]),
                 "refresh_rule":("Refresh exact URL and reverify season/gender/opponents/date; never infer scores"
                     if status=="verified_university" else
                     "Recheck official conference schedule; do not certify university calendar"
@@ -82,6 +83,11 @@ def run():
             note=x["failure_category"]+"; "+x["next_manual_action"]+"; "+str(x["attempted_source_urls"])+" URLs checked"
             if x["additional_candidate_links"]:
                 note+="; [discovered schedule]("+x["additional_candidate_links"][0]+")"
+            if x.get("conference_page_evidence"):
+                evidence=x["conference_page_evidence"][0]
+                classes=", ".join(evidence.get("schedule_dom_classes",[])[:4]) or "no schedule classes"
+                note+="; official conference layout: "+classes.replace("|","/")
+
             lines.append("| "+x["school"].replace("|","/")+" ("+str(x["ncaa_org_id"])+") | "+
                 link+" | "+note.replace("|","/")+" | "+str(x["dated_games_from_other_official_sources"])+" |")
     lines.extend(["","## Ongoing refresh procedure","",
