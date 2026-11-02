@@ -601,3 +601,58 @@ body.nfl-paper[data-page="game"]{--paper:#f8f5ed;--ink:#151b20;--soft:#55595c;--
  .nfl-paper[data-page="game"] .nfl-insight-qb-line small{font-size:8px}
  .nfl-paper[data-page="game"] .nfl-insight-qb-mini{font-size:9px}
 }
+
+
+/* Nov 1 mobile audit: verified team palette, no horizontal clipping.
+   Away/home color custom properties are supplied by the existing game renderer. */
+.nfl-paper[data-page="game"] .nfl-feature-side.home .nfl-feature-side-score:after,
+.nfl-paper[data-page="game"] .nfl-feature-chart-legend i.home,
+.nfl-paper[data-page="game"] .nfl-feature-prob-values>div:last-child small:after{
+ background:var(--nfl-story-home,#3b79ab);
+}
+.nfl-paper[data-page="game"] .nfl-story-arc .arc-home,
+.nfl-paper[data-page="game"] .nfl-story-arc .arc-home-dot{
+ stroke:var(--nfl-story-home,#3b79ab);
+}
+.nfl-paper[data-page="game"] .nfl-feature-report .nfl-live-metric-bars i{
+ background:var(--nfl-story-away,#d82c48);
+}
+.nfl-paper[data-page="game"] .nfl-feature-report .nfl-live-metric-bars em{
+ background:var(--nfl-story-home,#4488c6);
+}
+.nfl-paper[data-page="game"] .nfl-feature-report .nfl-live-detail-grid,
+.nfl-paper[data-page="game"] .nfl-feature-report .nfl-live-metrics,
+.nfl-paper[data-page="game"] .nfl-feature-report .nfl-live-metric,
+.nfl-paper[data-page="game"] .nfl-feature-report .nfl-live-metric-values,
+.nfl-paper[data-page="game"] .nfl-feature-report .nfl-live-metric-bars{
+ min-width:0;max-width:100%;
+}
+.nfl-paper[data-page="game"] .nfl-feature-report .nfl-live-metric-values b{
+ min-width:0;overflow-wrap:anywhere;white-space:normal;
+}
+.nfl-paper[data-page="game"] .nfl-feature-report .nfl-live-metric-bars{
+ overflow:hidden;
+}
+@media(max-width:650px){
+ .nfl-paper[data-page="game"] .nfl-feature-report .nfl-live-metric-values{
+  grid-template-columns:minmax(0,63px) minmax(0,1fr) minmax(0,63px);
+  gap:8px;
+ }
+ .nfl-paper[data-page="game"] .nfl-feature-report .nfl-live-metric-values b{
+  font-size:clamp(17px,5vw,27px);line-height:1.1;font-variant-numeric:tabular-nums;
+ }
+ .nfl-paper[data-page="game"] .nfl-feature-report{
+  overflow-x:clip;
+ }
+ .nfl-paper[data-page="game"] .nfl-feature-model-layout{
+  min-width:0;max-width:100%;
+ }
+ .nfl-paper[data-page="game"] .nfl-feature-model-probs,
+ .nfl-paper[data-page="game"] .nfl-feature-prob-values,
+ .nfl-paper[data-page="game"] .nfl-feature-model-elo{
+  min-width:0;max-width:100%;
+ }
+ .nfl-paper[data-page="game"] .nfl-feature-prob-values strong{
+  font-size:clamp(20px,5.2vw,32px);
+ }
+}
