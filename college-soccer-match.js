@@ -62,7 +62,7 @@ const brandMark=(team,cohort,branding,palette,overrides)=>{
  const head=$('header',null,'cs-match-hero');
  const schoolCol=(t,side)=>{const col=$('div',null,'cs-match-school');col.append(brandMark(t,cohort,branding,palette,overrides));col.append(link(t.team,profile(cohort,t.team_id)));const meta=$('span',null,'cs-match-school-meta');if(t.record)meta.textContent=t.record+' · '+Number(t.elo).toFixed(1)+' Elo';else meta.textContent='NCAA Soccer';col.append(meta);return col;};
  head.append(schoolCol(away,'away'));const center=$('div',null,'cs-match-score');const scoreLabel=$('strong',score),statusLabel=$('span',state+(finished?' · '+date(final.date):(!live&&!scoreboardFinal&&pre?.kickoff_utc)?' · '+date(pre.kickoff_utc):''));center.append(scoreLabel,statusLabel);head.append(center,schoolCol(home,'home'));root.append(head);
- const crumb=document.querySelector('.cs-match-breadcrumb a');if(crumb&&cohort)crumb.href='college-soccer.html?cohort='+encodeURIComponent(cohort);
+ const crumb=document.querySelector?.('.cs-match-breadcrumb a');if(crumb&&cohort)crumb.href='college-soccer.html?cohort='+encodeURIComponent(cohort);
  const links=$('div',null,'cs-match-links');links.append(link('← All NCAA scores','college-soccer.html?cohort='+encodeURIComponent(cohort)));
  const official=final?.source_game||pre?.source_game||snap?.source_url;if(official)links.append(link('Official NCAA match record ↗',official));root.append(links);
  const grid=$('div',null,'cs-match-grid');root.append(grid);
