@@ -199,7 +199,7 @@ function boxRows(summary){
   html(summary.__awayCode)+' · '+html(summary.__homeCode)+'</strong></div>';
  rows.forEach(([label,key])=>{
   const av=numeric(a[key]),hv=numeric(h[key]),total=Math.max(1,Math.max(0,av||0)+Math.max(0,hv||0));
-  const aw=av==null||hv==null?50:100*Math.max(0,av)/total,hw=100-aw;
+  const aw=av==null||hv==null||(av===0&&hv===0)?50:100*Math.max(0,av)/total,hw=100-aw;
   out+='<div class="nfl-live-metric"><span class="label">'+html(label)+'</span>'+
    '<div class="nfl-live-metric-values"><b>'+html(a[key]??"—")+'</b>'+
    '<div class="nfl-live-metric-bars" aria-hidden="true"><i style="width:'+aw.toFixed(2)+'%"></i>'+
