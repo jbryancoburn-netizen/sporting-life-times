@@ -32,7 +32,7 @@ class EloTests(unittest.TestCase):
             with self.subTest(page=name):
                 page=(root/name).read_text(encoding="utf-8")
                 self.assertIn("nfl-badge-v3.css?v=20261101-2realrings",page)
-                self.assertIn("nfl-edition-v3.js?v="+("20261101-nfl-story1" if name=="nfl-game.html" else "20261101-gamev6"),page)
+                self.assertIn("nfl-edition-v3.js?v="+("20261101-nfl-story2" if name=="nfl-game.html" else "20261101-gamev6"),page)
                 self.assertNotIn('src="nfl-edition.js?',page)
 
     def test_generic_sitewide_crest_does_not_add_third_ring(self):
@@ -102,7 +102,7 @@ class EloTests(unittest.TestCase):
         self.assertIn("observer.observe(root,{childList:true})",live)
         self.assertIn('setInterval(page==="game"?gameDetails:update,25000)',live)
         self.assertIn('nfl-live-day.js?v=20261101-gamev6',center)
-        self.assertIn('nfl-live-day.js?v=20261101-nfl-story1',game)
+        self.assertIn('nfl-live-day.js?v=20261101-nfl-story2',game)
 
 
     def test_nfl_individual_game_has_sourced_editorial_story(self):
@@ -115,7 +115,7 @@ class EloTests(unittest.TestCase):
         self.assertIn('function gamePage()',page)
         self.assertIn('featuredMatch(g)',page)
         self.assertIn('nfl-game-live-slot',page)
-        self.assertIn('nfl-game-story-v9.css?v=20261101-nfl-story1',game)
+        self.assertIn('nfl-game-story-v9.css?v=20261101-nfl-story2',game)
         self.assertNotIn('nfl-matchup-v5.css',game)
         self.assertIn(':is([data-page="front"],[data-page="game"])',stylesheet)
         self.assertIn('root.querySelector("#nfl-game-live-slot")',live)
@@ -173,7 +173,7 @@ class EloTests(unittest.TestCase):
         self.assertIn("nfl-story-scoreline",css)
         self.assertIn("nfl-story-arc",css)
         self.assertIn("display:none!important",css)
-        self.assertIn("nfl-game-story-v9.css?v=20261101-nfl-story1",html)
+        self.assertIn("nfl-game-story-v9.css?v=20261101-nfl-story2",html)
 
 
     def test_temporary_mobile_visual_audit(self):
