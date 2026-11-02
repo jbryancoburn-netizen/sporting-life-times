@@ -206,7 +206,7 @@ src="nfl-game.html?id=401873033"></iframe><pre id="qa">waiting</pre>
 let step=0;let id=setInterval(()=>{
 step++;const f=document.getElementById("f"),d=f.contentDocument;
 const el=d?.querySelector(".nfl-feature-v10"),chart=d?.querySelector(".nfl-story-arc svg");
-if(!el||!chart){if(step>25){document.getElementById("qa").textContent="QA_JSON:"+JSON.stringify({error:"failed render"});clearInterval(id)}return;}
+if(!el||!chart){if(step>25){document.getElementById("qa").textContent="QA_JSON:"+JSON.stringify({error:"failed render"});clearInterval(id)}return;}if(!d.querySelector("#nfl-live-game-data") && step<26)return;
 const selectors=[".nfl-feature-tabs",".nfl-feature-hero",".nfl-feature-hero-center",
 ".nfl-feature-story-intro h1",".nfl-feature-swing",".nfl-feature-chart",
 ".nfl-feature-model-layout",".nfl-feature-report",".nfl-live-details"];
@@ -219,7 +219,7 @@ headline:d.querySelector(".nfl-feature-story-intro h1")?.textContent,
 score:d.querySelectorAll(".nfl-feature-side-score").length,
 rings:d.querySelectorAll(".nfl-feature-side-mark .nfl-badge.lg").length,
 oldV9:d.querySelectorAll(".nfl-story-game,.nfl-story-model-table,.nfl-story-turnkey").length,
-section:d.querySelector("#nfl-game-live-slot")?.contains(d.querySelector("#nfl-live-game-data")),
+section:!!d.querySelector("#nfl-live-game-data") && d.querySelector("#nfl-game-live-slot")?.contains(d.querySelector("#nfl-live-game-data")),hasLive:!!d.querySelector("#nfl-live-game-data"),loadedScripts:[...d.querySelectorAll("script[src]")].map(x=>x.getAttribute("src")),
 coords};
 document.getElementById("qa").textContent="QA_JSON:"+JSON.stringify(metrics);clearInterval(id);
 },450);
