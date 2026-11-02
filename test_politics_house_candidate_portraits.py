@@ -62,7 +62,7 @@ class CandidatePhotoUI(unittest.TestCase):
     def test_large_controls_use_vector_arrows_and_conspicuous_party_badges(self):
         self.assertIn("function openCardIcon()",self.script)
         self.assertIn("http://www.w3.org/2000/svg",self.script)
-        self.assertIn('newEl("span",info.party||"—","marker")',self.script)
+        self.assertIn('newEl("span",read.watch?"◆":info.party||"—","marker")',self.script)
         self.assertIn('mark.title=',self.script)
         self.assertIn('.district-card::after{content:none!important',self.css)
         self.assertIn('width:51px;height:51px',self.css)
@@ -71,7 +71,10 @@ class CandidatePhotoUI(unittest.TestCase):
         self.assertIn("politics-candidate-photos.json",self.script)
         self.assertIn("portrait-source-note",self.state)
         for page in [self.state,self.district]:
-            self.assertIn("20261101-candidate-portraits2",page)
+            self.assertIn("politics-house.js?v=",page)
+            self.assertIn("politics-house.css?v=",page)
+        self.assertIn("20261101-newsgraphics-purple1",self.state)
+        self.assertIn("20261101-editorial1",self.district)
 
 if __name__=="__main__":
     unittest.main()
