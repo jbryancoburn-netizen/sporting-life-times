@@ -121,10 +121,12 @@ console.log('Validated '+watch+' purple watch cards, '+mixed+' conflicting-signa
         state=(ROOT/"politics-house-state.html").read_text(encoding="utf-8")
         visual=(ROOT/"politics-race-experience.css").read_text(encoding="utf-8")
         engine=(ROOT/"politics-race-experience.js").read_text(encoding="utf-8")
-        for marker in ["politics-race-experience.js","politics-race-experience.css","iowa-edition"]:
+        for marker in ["politics-race-experience.js","politics-race-experience.css","politics-race-branding.js","politics-race-branding.css"]:
             self.assertIn(marker,district)
-        for marker in ["race-snapshots","race-receipts","race-experience"]:
+        for marker in ["race-snapshots","race-experience"]:
             self.assertIn(marker,engine)
+        self.assertIn('id="race-receipts"',district)
+        self.assertNotIn('id="iowa-edition"',district)
         for marker in ["state-editorial-stories","politics-race-experience.js","politics-race-experience.css"]:
             self.assertIn(marker,state)
         self.assertIn('role","tablist"',engine)
