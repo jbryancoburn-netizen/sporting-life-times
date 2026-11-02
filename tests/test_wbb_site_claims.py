@@ -108,6 +108,8 @@ class OfficialSites(unittest.TestCase):
    ("Connecticut","41","UConn Huskies"),
    ("Central Florida","2116","UCF Knights"),
    ("University at Albany","399","UAlbany Great Danes"),
+   ("vs. University at Albany","399","UAlbany Great Danes"),
+   ("at University at Albany","399","UAlbany Great Danes"),
    ("Loyola (Md.)","2352","Loyola Maryland Greyhounds"),
    ("N.C. A&T","2448","North Carolina A&T Aggies"),
    ("University of Portland","2501","Portland Pilots"),
