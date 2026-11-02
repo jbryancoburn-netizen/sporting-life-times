@@ -176,36 +176,20 @@ function applyTheme(node,r){
  node.classList.add("race-location-seat-"+r.id.replace("-","-").toLowerCase());
 }
 function decorateDistrict({r,state}){
- const iowa=r.state==="IA";
- const area=iowa?byId("iowa-edition"):byId("district-front");
- if(!area)return;
+ // Every one of the 435 seats—including all four Iowa seats—uses the
+ // same newspaper layout, sourced flag, party portraits and Census district map.
+ const area=byId("district-front");if(!area)return;
  applyTheme(area,r);
- if(iowa){
-  const mast=area.querySelector(".ia-cover-strap");
-  const flagbar=el("div","race-identity-row race-identity-iowa");
-  flagbar.append(badge(r.state,state,"race-iowa-flag"),seatChip(r,state),flagCredit());
-  if(mast)mast.insertAdjacentElement("afterend",flagbar);
-  partyRoster(r,".ia-candidate-grid");
-  // Keep the separate detailed four-way Iowa SVG: it is already fully clickable.
-  const map=area.querySelector(".ia-cover-map");
-  if(map){
-   map.classList.add("race-local-map");
-   const mark=el("strong","race-local-map-id",r.id+" / SELECTED");
-   map.prepend(mark);
-  }
- }else{
-  const banner=area.querySelector(".district-front-banner");
-  if(!banner)return;
-  const identity=el("div","race-identity-row race-identity-general");
-  identity.append(badge(r.state,state),seatChip(r,state));
-  const square=el("div","race-identity-map");
-  square.setAttribute("aria-label",r.id+" Census district outline");
-  square.append(el("span","race-map-loading","DRAWING "+r.id+" DISTRICT OUTLINE…"));
-  identity.append(square);
-  banner.insertAdjacentElement("afterend",identity);
-  geography(r.state,state,r.id,square,false);
-  partyRoster(r,".front-faceoff");
- }
+ const banner=area.querySelector(".district-front-banner");if(!banner)return;
+ const identity=el("div","race-identity-row race-identity-general");
+ identity.append(badge(r.state,state),seatChip(r,state));
+ const square=el("div","race-identity-map");
+ square.setAttribute("aria-label",r.id+" Census district outline");
+ square.append(el("span","race-map-loading","DRAWING "+r.id+" DISTRICT OUTLINE…"));
+ identity.append(square);
+ banner.insertAdjacentElement("afterend",identity);
+ geography(r.state,state,r.id,square,false);
+ partyRoster(r,".front-faceoff");
 }
 function decorateState({state,rows}){
  const hero=document.querySelector(".state-graphic-hero");

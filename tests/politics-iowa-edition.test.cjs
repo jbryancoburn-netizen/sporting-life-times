@@ -18,63 +18,48 @@ const server=http.createServer((req,res)=>{
   res.end(data);
  }catch(e){res.writeHead(404);res.end('Not found');}
 });
-test('Four Iowa race files show live data-derived stories and responsive evidence switcher',async t=>{
+test('Four Iowa races now use the same photo, source, flag and district-map newsroom as all 435 seats',{timeout:100000},async()=>{
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
  const origin='http://127.0.0.1:'+server.address().port;
  let browser;
  try{
-  browser=await chromium.launch({headless:true});
+  browser=await chromium.launch({headless:true,args:['--no-sandbox','--disable-dev-shm-usage']});
   const page=await browser.newPage({viewport:{width:1280,height:900}});
-  await page.route('**/*',route=>{
-   if(route.request().url().startsWith(origin+'/'))return route.continue();
-   return route.abort(); // External portraits/fonts do not determine our data correctness.
-  });
-  const check=async(id)=>{
+  const errors=[];page.on('pageerror',e=>errors.push(e.message));
+  await page.route('**/*',route=>route.request().url().startsWith(origin+'/')?route.continue():route.abort());
+  const check=async id=>{
    await page.goto(origin+'/politics-house-district.html?district='+id,{waitUntil:'domcontentloaded'});
-   await page.locator('body.iowa-edition-active').waitFor({timeout:15000});
-   assert.equal(await page.locator('.ia-race-link').count(),4,id+' district navigator');
-   await page.locator('.ia-map-seat').first().waitFor({timeout:15000});
-   assert.equal(await page.locator('.ia-map-seat').count(),4,id+' true Census map');
-   assert.equal(await page.locator('.ia-map-seat.current').count(),1);
-   assert.equal(await page.locator('.ia-candidate').count(),2);
-   assert.equal(await page.locator('.iowa-edition-active #district-front').isVisible(),false);
-   assert.equal(await page.locator('.ia-full-dossier').count(),1);
-   const label=await page.locator('.ia-measurement').innerText();
-   assert.doesNotMatch(label,/win probability|chance of victory/i,id+' cannot invent odds');
+   await page.locator('#race-experience .race-feature-headline').waitFor({timeout:15000});
+   await page.locator('.race-district-geometry .race-geographic-current').waitFor({timeout:15000});
+   assert.equal(await page.locator('.race-identity-general').count(),1,id);
+   assert.equal(await page.locator('.race-district-geometry .race-geographic-current').getAttribute('data-district'),id);
+   assert.equal(await page.locator('.front-person').count(),2,id);
+   assert.equal(await page.locator('.front-person .race-party-feature').count(),2,id);
+   assert.equal(await page.locator('#race-receipts').count(),1,id);
+   assert.equal(await page.locator('.race-number').count(),3,id);
+   assert.equal(await page.locator('.race-tab[aria-selected="true"]').count(),1,id);
+   assert.equal(await page.locator('#iowa-edition').count(),0,id);
   };
   await check('IA-01');
-  assert.match(await page.locator('.ia-feature-headline').innerText(),/799 votes/);
-  await page.getByRole('tab',{name:/2024/}).click();
-  assert.match(await page.locator('.ia-measurement').innerText(),/799 votes/);
-  await page.getByRole('tab',{name:/2026/}).click();
-  assert.match(await page.locator('.ia-measurement').innerText(),/Michael Bridgford/);
-  assert.match(await page.locator('.ia-measurement').innerText(),/Other \/ unreported/);
+  assert.match(await page.locator('.race-feature-headline').innerText(),/799 votes/);
+  await page.locator('#race-tab-history').click();
+  assert.match(await page.locator('#race-panel-history').innerText(),/206,955/);
+  await page.locator('#race-tab-poll').click();
+  assert.match(await page.locator('#race-panel-poll').innerText(),/Michael Bridgford/);
   await check('IA-02');
-  assert.match(await page.locator('.ia-feature-headline').innerText(),/past says one thing/);
-  await page.getByRole('tab',{name:/2024/}).click();
-  assert.match(await page.locator('.ia-measurement').innerText(),/63,600 votes/);
-  await page.getByRole('tab',{name:/2026/}).click();
-  assert.match(await page.locator('.ia-measurement').innerText(),/3.0 points/);
+  assert.match(await page.locator('.race-feature-headline').innerText(),/different directions/);
   await check('IA-03');
-  assert.match(await page.locator('.ia-feature-headline').innerText(),/old poll/i);
-  assert.match(await page.locator('.ia-measurement').innerText(),/2026-03-14/);
+  assert.match(await page.locator('.race-number-past').innerText(),/15,784/);
   await check('IA-04');
-  assert.match(await page.locator('.ia-feature-headline').innerText(),/unanswered 2026 question/i);
-  assert.match(await page.locator('.ia-measurement').innerText(),/128,347 votes/);
-  await page.getByRole('tab',{name:/2026/}).click();
-  assert.match(await page.locator('.ia-measurement').innerText(),/No eligible 2026 named-candidate poll/);
+  assert.match(await page.locator('.race-number-survey').innerText(),/NO POLL/);
   await page.setViewportSize({width:390,height:844});
-  await check('IA-01');
-  const mobile=await page.evaluate(()=>({
-    page:document.documentElement.scrollWidth,viewport:window.innerWidth,
-    title:document.querySelector('.ia-feature-headline')?.getBoundingClientRect().width,
-    first:document.querySelector('.ia-candidate')?.getBoundingClientRect().width,
-  }));
-  assert.ok(mobile.page<=mobile.viewport+2,JSON.stringify(mobile));
-  assert.ok(mobile.title>200&&mobile.first>110,JSON.stringify(mobile));
-  await page.locator('.ia-full-dossier > summary').click();
-  assert.equal(await page.locator('#result-panel').isVisible(),true);
- } finally {
+  for(const id of ['IA-01','IA-02','IA-03','IA-04']){
+   await check(id);
+   const dim=await page.evaluate(()=>({viewport:innerWidth,body:document.body.scrollWidth}));
+   assert(dim.body<=dim.viewport+2,id+' mobile overflow '+JSON.stringify(dim));
+  }
+  assert.deepEqual(errors,[]);
+ }finally{
   if(browser)await browser.close();
   await new Promise(resolve=>server.close(resolve));
  }

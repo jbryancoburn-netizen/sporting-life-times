@@ -1,0 +1,79 @@
+/* Political Life & Times: original-source close-evidence watch. Not a forecast. */
+body[data-house-page=atlas] .national-watch-section{
+ margin:23px 0 27px;border:1px solid #c1cad2;border-top:7px solid #7849aa;
+ background:#f8f6fa;box-shadow:0 6px 20px #182c3e12
+}
+body[data-house-page=atlas] .national-watch-head{padding:22px 23px 20px}
+body[data-house-page=atlas] .national-watch-head>span{
+ display:block;color:#67419c;font:900 11px/1.4 'DM Sans',Arial,sans-serif;
+ letter-spacing:1.5px;text-transform:uppercase
+}
+body[data-house-page=atlas] .national-watch-head h2{
+ color:#162e3f;font:700 clamp(27px,3.8vw,41px)/1.16 'Libre Baskerville',Georgia,serif;
+ letter-spacing:-.8px;margin:7px 0 12px
+}
+body[data-house-page=atlas] .national-watch-head p{
+ margin:5px 0;color:#47616c;font:600 13px/1.6 'DM Sans',sans-serif
+}
+body[data-house-page=atlas] .national-watch-head p:last-child{font-size:11px}
+body[data-house-page=atlas] .national-watch-grid{
+ display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2px;background:#d4ccdc;
+ border-top:2px solid #a79ab6
+}
+body[data-house-page=atlas] .national-race-card{
+ display:flex;align-items:flex-start;gap:12px;min-height:172px;
+ text-decoration:none;color:#183345;background:#fffdfb;padding:17px 14px;
+ border-left:4px solid #7849aa;transition:background .12s ease
+}
+body[data-house-page=atlas] .national-race-card:hover,
+body[data-house-page=atlas] .national-race-card:focus-visible{
+ background:#efe8fa;outline:2px solid #7540b5;outline-offset:-2px
+}
+body[data-house-page=atlas] .national-race-crest{
+ flex:0 0 65px;width:65px;min-height:60px;display:grid;place-items:center;
+ border:2px solid #d2c3dd;background:#f7f5ee;
+ color:#553180;font:900 20px 'DM Sans',sans-serif;
+ box-shadow:0 2px 4px #10283b15
+}
+body[data-house-page=atlas] .national-race-crest img{width:57px;height:40px;object-fit:contain}
+body[data-house-page=atlas] .national-race-copy{
+ display:flex;min-width:0;flex-direction:column;gap:7px;justify-content:start
+}
+body[data-house-page=atlas] .national-race-kicker{
+ font:900 9px/1.3 'DM Sans',sans-serif;color:#634297;letter-spacing:.65px
+}
+body[data-house-page=atlas] .national-race-title{
+ font:800 14px/1.27 'DM Sans',sans-serif;color:#203847;overflow-wrap:anywhere
+}
+body[data-house-page=atlas] .national-race-figure{
+ font:900 12px/1.35 'DM Sans',sans-serif;color:#3d4d60
+}
+body[data-house-page=atlas] .national-race-open{
+ margin-top:auto;font:900 10px/1.4 'DM Sans',sans-serif;color:#60408e
+}
+body[data-house-page=district] .race-identity-general{
+ border-top:4px solid var(--state-accent,#5a527e);
+}
+body[data-house-page=district] .race-place-badge{min-width:0}
+@media(max-width:1050px){
+ body[data-house-page=atlas] .national-watch-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:720px){
+ body[data-house-page=atlas] .national-watch-section{margin:12px -16px 18px}
+ body[data-house-page=atlas] .national-watch-head{padding:17px 16px}
+ body[data-house-page=atlas] .national-watch-head h2{font-size:29px}
+ body[data-house-page=atlas] .national-watch-grid{grid-template-columns:1fr 1fr}
+ body[data-house-page=atlas] .national-race-card{gap:9px;min-height:175px;padding:13px 11px}
+ body[data-house-page=atlas] .national-race-crest{flex-basis:46px;width:46px;min-height:42px;font-size:15px}
+ body[data-house-page=atlas] .national-race-crest img{width:41px;height:30px}
+ body[data-house-page=atlas] .national-race-title{font-size:12px}
+ body[data-house-page=atlas] .national-race-kicker{font-size:8px}
+ body[data-house-page=atlas] .national-race-figure{font-size:10px}
+}
+@media(max-width:450px){
+ body[data-house-page=atlas] .national-watch-grid{grid-template-columns:1fr}
+ body[data-house-page=atlas] .national-race-card{min-height:130px;gap:14px}
+ body[data-house-page=atlas] .national-race-crest{flex-basis:62px;width:62px}
+ body[data-house-page=atlas] .national-race-crest img{width:55px;height:38px}
+ body[data-house-page=atlas] .national-race-title{font-size:15px}
+}
