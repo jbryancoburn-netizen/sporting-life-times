@@ -146,6 +146,96 @@ def member_entries(id_: str):
     entries.sort(key=lambda item: item["when"], reverse=True)
     return entries[:50]
 
+def collect_votehub_polls(existing: list[dict]) -> list[dict]:
+    """Only import exact IA-01 2026 House races with sample, candidate and source.
+    Unclear state/district identifiers or incomplete polls are skipped, never
+    filled from race ratings, broad generic-ballot polls or search snippets.
+    VoteHub public API: CC BY 4.0, https://votehub.com/polls/api/
+    """
+    url = "https://api.votehub.com/polls?" + urllib.parse.urlencode({
+        "poll_type": "house", "from_date": "2026-01-01"
+    })
+    doc = json.loads(get(url, limit=4500000))
+    polls = doc.get("polls", []) if isinstance(doc, dict) else []
+    if not isinstance(polls, list):
+        raise ValueError("Unexpected VoteHub poll response")
+    valid = []
+    for p in polls:
+        if not isinstance(p, dict):
+            continue
+        state = str(p.get("state", "")).casefold().strip()
+        seat = str(p.get("seat_name", "")).casefold().strip()
+        district = str(p.get("seat_number") or p.get("district") or "").strip()
+        exact_state = state in {"iowa", "ia"}
+        exact_seat = district in {"1", "01"} or bool(re.fullmatch(r"(?:district|congressional district)\s*0?1", seat))
+        # No mere candidate-name matching: another district can share names.
+        if not (exact_state and exact_seat):
+            continue
+        start, end = p.get("start_date"), p.get("end_date")
+        if not (isinstance(start, str) and isinstance(end, str)
+                and re.fullmatch(r"2026-\d{2}-\d{2}", end)
+                and re.fullmatch(r"202[56]-\d{2}-\d{2}", start)):
+            continue
+        try:
+            sample = int(p.get("sample_size"))
+        except (TypeError, ValueError):
+            continue
+        if sample < 100 or sample > 20000:
+            continue
+        ref = str(p.get("url") or "")
+        if not ref.startswith("https://"):
+            continue
+        answer = p.get("answers") or []
+        if not isinstance(answer, list):
+            continue
+        respondents = []
+        for a in answer:
+            if not isinstance(a, dict):
+                continue
+            candidate = str(a.get("choice") or a.get("candidate") or "").strip()
+            try:
+                pct = float(a.get("pct"))
+            except (TypeError, ValueError):
+                continue
+            if not (0 <= pct <= 100):
+                continue
+            for name, party in [("Bohannan", "D"), ("Miller-Meeks", "R"), ("Bridgford", "I")]:
+                if name.casefold() in candidate.casefold():
+                    respondents.append({"name": name, "party": party, "pct": pct})
+                    break
+        if len({x["party"] for x in respondents}) < 2 or not {"D", "R"} <= {x["party"] for x in respondents}:
+            continue
+        try:
+            _ = dt.date.fromisoformat(start)
+            _ = dt.date.fromisoformat(end)
+        except ValueError:
+            continue
+        source_id = str(p.get("id") or "")
+        if not re.fullmatch(r"[a-zA-Z0-9_-]{6,80}", source_id):
+            continue
+        sponsors = p.get("sponsors") or []
+        if not isinstance(sponsors, list):
+            sponsors = []
+        valid.append({
+            "id": "votehub-" + source_id, "pollster": str(p.get("pollster") or "Pollster not reported")[:90],
+            "start": start, "end": end, "n": sample, "population": str(p.get("population") or "Not reported")[:60],
+            "sponsor": "; ".join(str(x) for x in sponsors[:3]) or "Not reported",
+            "tier": "VoteHub API, CC BY 4.0; original survey methodology not independently checked",
+            "url": ref, "results": respondents,
+        })
+    # Preserve editorially sourced entries. Exact pollster+field-end+n is the
+    # same observation even if the data vendor assigns another ID.
+    seen = {(str(x.get("pollster", "")).lower(), x.get("end"), int(x.get("n") or 0))
+            for x in existing}
+    additions = []
+    for p in valid:
+        key = (p["pollster"].lower(), p["end"], p["n"])
+        if key not in seen:
+            additions.append(p)
+            seen.add(key)
+    return additions
+
+
 def main() -> int:
     raw = json.loads(FILE.read_text(encoding="utf-8"))
     d = raw["districts"]["IA-01"]
@@ -172,9 +262,21 @@ def main() -> int:
         d["news_checked_at"] = ISO
     elif not errors:
         d["news_checked_at"] = ISO
-    # Polls: do not scrape ambiguous percentages from search snippets,
-    # update a row only after an original source-backed methodological review.
-    # The publication links in the desk expose available new survey releases.
+    # Free VoteHub polling API, only safely matched candidate+district polls.
+    # Poll survey field dates are immutable even if the aggregator updates.
+    polls = d.get("polls", [])
+    try:
+        additions = collect_votehub_polls(polls)
+        if additions:
+            d["polls"] = sorted(polls + additions, key=lambda p: p["end"], reverse=True)[:40]
+            d["polls_updated_at"] = ISO
+        old_check = parsed_date(d.get("polls_checked_at"))
+        if old_check is None or (UTC_NOW - old_check).total_seconds() >= 21600 or additions:
+            d["polls_checked_at"] = ISO
+        d["polls_feed_attribution"] = "VoteHub polling API, CC BY 4.0"
+        print(f"IA-01 polls: {len(additions)} new complete source records")
+    except (ValueError, KeyError, TypeError, urllib.error.URLError, TimeoutError) as exc:
+        print(f"Poll feed unavailable ({type(exc).__name__}); existing reported surveys preserved.")
     current = d.get("representation", {}).get("current_119th", {})
     new = d.get("representation", {}).get("new_120th")
     election = d.get("election", {})
@@ -188,13 +290,14 @@ def main() -> int:
     try:
         votes = member_entries(bioguide)
         if chosen is new:
-            if votes != new.get("votes", []):
+            if votes and votes != new.get("votes", []):
                 new["votes"] = votes
                 new["votes_checked_at"] = ISO
         else:
-            if votes != d["representation"].get("votes", []):
+            if votes and votes != d["representation"].get("votes", []):
                 d["representation"]["votes"] = votes
-            d["representation"]["votes_checked_at"] = ISO
+            if votes:
+                d["representation"]["votes_checked_at"] = ISO
         print(f"Record {bioguide}: verified member vote entries {len(votes)}")
     except (ValueError, ET.ParseError, urllib.error.URLError, TimeoutError) as exc:
         print(f"Record {bioguide}: source unavailable ({type(exc).__name__}); preserved existing.")
