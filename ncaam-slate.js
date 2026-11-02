@@ -420,6 +420,20 @@ const meter=g=>{
     '<div class="sl-prob-track"><span style="width:'+away+'%;background:'+brand(g.away)+'"></span>'+
     '<span style="width:'+home+'%;background:'+brand(g.home)+'"></span></div></div>';
 };
+// Upright classic-broadcast scorebug, powered by the same game records as the cards.
+const broadcastBug=g=>{
+ const pts=t=>g.phase==='upcoming'?'—':Number.isFinite(t.score)?String(t.score):'—';
+ const status=g.phase==='final'?'FINAL':g.phase==='live'?String(g.status||'LIVE'):'PREGAME';
+ return '<div class="sl-broadcast-bug" aria-label="Game scoreboard">'+
+  '<div class="sl-broadcast-mark"><b>SL</b><span>THE SPORTING LIFE</span></div>'+
+  '<div class="sl-broadcast-pair">'+
+  [g.away,g.home].map((t,i)=>'<div class="sl-broadcast-row" style="--bug-team:'+brand(t)+';--bug-accent:'+secondary(t)+'">'+
+   '<span class="sl-broadcast-crest">'+emblem(t)+'</span>'+
+   '<strong class="sl-broadcast-name">'+esc(t.name)+'</strong>'+
+   '<b class="sl-broadcast-points">'+pts(t)+'</b></div>').join('')+
+  '</div><div class="sl-broadcast-status"><strong>'+esc(status)+'</strong>'+
+  '<small>'+esc(g.kind==='exhibition'?'EXHIBITION':'COLLEGE HOOPS')+'</small></div></div>';
+};
 function card(g,featured){
  const pair=lens(g),href=gameDetailsHref(g,women);
  const isExternal=g.kind==='exhibition';
@@ -439,7 +453,7 @@ function card(g,featured){
   '<div class="sl-game-bar"><span class="sl-tag '+(g.phase==='live'?'sl-live':'')+'">'+
   esc(g.kind==='exhibition'?'EXHIBITION':g.phase==='live'?'LIVE':g.phase==='final'?'FINAL':'UPCOMING')+'</span>'+
   '<span class="sl-game-time">'+esc(formatClock(g))+'</span>'+venue+'</div>'+
-  editorialBadges(g)+arenaStage(g)+
+  editorialBadges(g)+arenaStage(g)+broadcastBug(g)+
   '<div class="sl-game-main sl-game-main--'+esc(g.phase)+'"><div class="sl-game-teams">'+
   '<div class="sl-school">'+team(g.away)+favorite(g.away)+'</div>'+
   '<div class="sl-vs">'+(score?'<strong>'+esc(score)+'</strong>':'<span>VS</span>')+'</div>'+
