@@ -6,6 +6,22 @@ const validURL=s=>{try{let u=new URL(s,location.href);return /^https?:$/.test(u.
 const etDate=()=>new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
 const isWomen=()=>new URLSearchParams(location.search).get('gender')==='women';
 let last=null,timer=null,active=0;
+let scorePause=false,scoreInteracted=0,scoreLast=0;
+function moveScores(t){
+ const el=$('.cbb-wire-score-row');
+ if(el&&!scorePause&&!document.hidden&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&Date.now()>scoreInteracted&&el.scrollWidth>el.clientWidth+5){
+  if(scoreLast){const n=el.scrollLeft+Math.min((t-scoreLast)*.018,2);el.scrollLeft=n>=el.scrollWidth-el.clientWidth-3?0:n;}
+ }
+ scoreLast=t;requestAnimationFrame(moveScores);
+}
+function newsLoop(items){
+ const el=$('#cbb-wire-news-track');if(!el)return;
+ const key=items.map(a=>a.url).join('|');if(el.dataset.key===key)return;el.dataset.key=key;
+ const h=items.length?items.map(a=>'<a href="'+escape(validURL(a.url))+'" target="_blank" rel="noopener noreferrer"><strong>'+escape(a.source||'NEWS')+'</strong> '+escape(a.title)+'</a>').join('<span class="cbb-wire-separator">◆</span>'):'<span>Headlines unavailable</span>';
+ el.innerHTML='<div class="cbb-wire-news-group">'+h+'</div><div class="cbb-wire-news-group" aria-hidden="true">'+h+'</div>';
+ el.style.setProperty('--cbb-news-duration',Math.max(40,items.length*8)+'s');
+}
+
 function normalize(g){
  const teams=Array.isArray(g.teams)?g.teams:[],away=teams[0]||{},home=teams[1]||{};
  const state=String(g.state||'').toLowerCase();
@@ -32,7 +48,7 @@ function draw(){
  if(deck&&!focused)deck.innerHTML=games.length?games.slice(0,55).map(g=>scoreCard(g,w)).join(''):'<span class="cbb-wire-empty">No '+(w?'women’s':'men’s')+' Division I games available for this date. <a href="cbb-game-center.html'+(w?'?gender=women':'')+'">Open Game Center →</a></span>';
  const news=(last.articles||[]).filter(a=>a.title&&validURL(a.url)&&(w?a.category==='WBB':a.category==='MBB')).slice(0,18);
  const newsTarget=$('#cbb-wire-news-track');
- if(newsTarget)newsTarget.innerHTML=news.length?news.map(a=>'<a href="'+escape(validURL(a.url))+'" target="_blank" rel="noopener noreferrer"><strong>'+escape(a.source||'NEWS')+'</strong> '+escape(a.title)+'</a>').join('<span class="cbb-wire-separator" aria-hidden="true">◆</span>'):'<span>Headlines unavailable — the newsroom feed is updating.</span>';
+ newsLoop(news);
  const time=last.scores_updated_at||last.attempted_at;
  const stamp=$('#cbb-wire-updated');
  if(stamp)stamp.textContent=time&&Number.isFinite(+new Date(time))?'Updated '+new Date(time).toLocaleTimeString('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit',timeZoneName:'short'}):'Latest available feed';
@@ -51,7 +67,13 @@ function mount(){
  const root=document.createElement('section');root.id='cbb-courtside-wire';root.className='cbb-wire';root.setAttribute('aria-label','Live college basketball scores and news');
  root.innerHTML='<div class="cbb-wire-top"><span class="cbb-wire-brand"><i aria-hidden="true"></i> THE COURTSIDE WIRE</span><span id="cbb-wire-updated">Connecting to the basketball desk…</span><a href="cbb-game-center.html">ALL SCORES ↗</a></div><div class="cbb-wire-score-row"><div class="cbb-wire-score-track" id="cbb-wire-score-track"><span class="cbb-wire-empty">Loading scores…</span></div></div><div class="cbb-wire-news-row"><span class="cbb-wire-news-label">LATEST <span aria-hidden="true">●</span></span><div class="cbb-wire-news-viewport"><div id="cbb-wire-news-track" class="cbb-wire-news-track">Loading basketball headlines…</div></div><a class="cbb-wire-news-more" href="ncaam.html#news">NEWS ↗</a></div>';
  header.insertAdjacentElement('afterend',root);
- root.querySelector('.cbb-wire-score-row').addEventListener('wheel',e=>{if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){e.currentTarget.scrollLeft+=e.deltaY;e.preventDefault();}},{passive:false});
+ const rail=root.querySelector('.cbb-wire-score-row');
+ rail.addEventListener('mouseenter',()=>{scorePause=true});rail.addEventListener('mouseleave',()=>{scorePause=false;scoreInteracted=Date.now()+1000});
+ rail.addEventListener('focusin',()=>{scorePause=true});rail.addEventListener('focusout',()=>{scorePause=false;scoreInteracted=Date.now()+1000});
+ rail.addEventListener('touchstart',()=>{scoreInteracted=Date.now()+10000},{passive:true});
+ rail.addEventListener('pointerdown',()=>{scoreInteracted=Date.now()+10000});
+ rail.addEventListener('wheel',e=>{scoreInteracted=Date.now()+8000;if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){rail.scrollLeft+=e.deltaY;e.preventDefault()}},{passive:false});
+ requestAnimationFrame(moveScores);
  refresh();timer=setInterval(()=>{if(!document.hidden)refresh();},60000);
  document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh()});
  window.addEventListener('popstate',draw);
