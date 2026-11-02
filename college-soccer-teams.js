@@ -28,6 +28,7 @@ let conferenceStandings={rows:[],checked_date:null};
 
 const box=(heading)=>{const section=node('section',undefined,'team-panel');section.append(node('h3',heading));profile.append(section);return section;};
 function open(t){
+if(window.CollegeSoccerEdition&&window.CollegeSoccerEdition.get()!==t.cohort)window.CollegeSoccerEdition.set(t.cohort);
 profile.replaceChildren();results.replaceChildren();
 const brand=brandData.teams?.[t.cohort+':'+t.team_id];
 profile.style.setProperty('--team-primary',brand?.primary||'#152b42');
@@ -419,19 +420,23 @@ dashboard.append(main,aside);
 profile.append(dashboard);
 const link=node('a','Share team profile ↗');link.href='college-soccer-team.html?team='+encodeURIComponent(key);link.className='team-share';profile.append(link);
 if(location.pathname.endsWith('college-soccer-team.html'))document.title=t.team+' Soccer Elo & Scores | The Sporting Life & Times';
-history.replaceState(null,'',location.pathname+'?team='+encodeURIComponent(key)+'#college-team-finder');
+{const u=new URL(location.href);u.searchParams.set('team',key);if(window.CollegeSoccerEdition)u.searchParams.set('cohort',window.CollegeSoccerEdition.get());history.replaceState(null,'',u.pathname+u.search+'#college-team-finder');}
 }
 function render(){
 const q=search.value.trim().toLocaleLowerCase();results.replaceChildren();if(q.length<2)return;
-const matches=teams.filter(t=>t.team.toLocaleLowerCase().includes(q)).sort((a,b)=>a.team.localeCompare(b.team)).slice(0,35);
+const selectedCohort=window.CollegeSoccerEdition?.get();
+const matches=teams.filter(t=>(!selectedCohort||t.cohort===selectedCohort)&&t.team.toLocaleLowerCase().includes(q)).sort((a,b)=>a.team.localeCompare(b.team)).slice(0,35);
 for(const t of matches){const button=node('button',t.team+' · '+cohortName(t.cohort),'team-search-result');button.type='button';button.addEventListener('click',()=>{search.value=t.team;open(t);});results.append(button);}
-if(!matches.length)results.append(node('p','No matching school. Try a shorter school name.'));
+if(!matches.length)results.append(node('p','No matching school in this division. Try a shorter name or change the edition selector above.'));
 }
 search.addEventListener('input',render);
 results.replaceChildren();
-results.setAttribute('aria-label',teams.length+' searchable NCAA soccer programs');
+const edition=window.CollegeSoccerEdition?.get();
+const programCount=edition?teams.filter(t=>t.cohort===edition).length:teams.length;
+results.setAttribute('aria-label',programCount+' searchable NCAA soccer programs in the selected division');
 if(search.value.trim().length>=2)render();
-else results.append(node('p','Type at least two letters to search '+teams.length.toLocaleString()+' college soccer programs.','college-elo-note'));
+else results.append(node('p','Type at least two letters to search '+programCount.toLocaleString()+' programs in this edition.','college-elo-note'));
+window.addEventListener('college-soccer:edition',()=>{profile.replaceChildren();const selected=window.CollegeSoccerEdition.get();const n=teams.filter(t=>t.cohort===selected).length;if(search.value.trim().length>=2)render();else results.replaceChildren(node('p','Search '+n.toLocaleString()+' programs in this edition.','college-elo-note'));});
 const selected=new URLSearchParams(location.search).get('team');
 if(selected&&byId.has(selected)){
  const t=byId.get(selected);search.value=t.team;open(t);
