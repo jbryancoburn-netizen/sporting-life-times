@@ -1100,8 +1100,14 @@ def parse_conference_calendar(html, gender, owner, url, subject, by_org, exact, 
             # scores are obtained exclusively from the NCAA scoreboard.
             clock = cells[idx_time]
             posted_time = (clock if re.fullmatch(
-                r"(?:\d{1,2}:\d{2}\s*(?:[AP]\.?M\.?)?|TBA|TBD)", clock, re.I)
-                else "")
+                # Preserve literal source clocks: OAC and Empire 8 post
+                # both '6 P.M.' and '6:00 P.M.'. Only plausible clock
+                # strings qualify; an NCAA final is never a tipoff time.
+                r"(?:"
+                r"(?:1[0-2]|0?[1-9])(?::[0-5]\d)?\s*[AP]\.?M\.?"
+                r"|(?:[01]?\d|2[0-3]):[0-5]\d"
+                r"|TBA|TBD"
+                r")", clock, re.I) else "")
             entries.append({
                 "date": date.isoformat(), "away_org_id": away,
                 "home_org_id": home, "neutral": neutral,
@@ -2153,9 +2159,9 @@ def self_test():
     # generic "vs" and unknown/mismatched flags are never imported.
     oac_rows = [
         ("12/9/2026", "at Trine University", "Angola, IN", "7:00 P.M.", "A"),
-        ("12/12/2026", "Hope College", "Ada, OH", "3:00 P.M.", "H"),
+        ("12/12/2026", "Hope College", "Ada, OH", "3 P.M.", "H"),
         ("1/6/2027", "vs. Hope College", "Ada, OH", "7:00 P.M.", "H"),
-        ("1/13/2027", "Trine University", "Ada, OH", "7:00 P.M.", "H"),
+        ("1/13/2027", "Trine University", "Ada, OH", "7 PM", "H"),
         ("1/16/2027", "vs. Trine University", "Cleveland, OH", "TBA", "N"),
         ("1/20/2027", "at Hope College", "Holland, MI", "7:00 P.M.", "A"),
         ("1/23/2027", "Trine University", "Ada, OH", "W 82-65", "H"),
@@ -2183,6 +2189,8 @@ def self_test():
     assert oac_games[0]["away_org_id"] == 713 and oac_games[0]["home_org_id"] == 30037
     assert oac_games[2]["home_org_id"] == 713 and not oac_games[2]["neutral"]
     assert oac_games[4]["neutral"] and oac_games[4]["home_org_id"] == 713
+    assert oac_games[1]["tipoff_as_posted"] == "3 P.M."
+    assert oac_games[3]["tipoff_as_posted"] == "7 PM"
     assert oac_games[6]["tipoff_as_posted"] == ""  # do not import W/L as a tipoff
     assert all(game["source_kind"] == "official_conference" for game in oac_games)
     e8_html = oac_html.replace("<th>Home / Away</th>", "<th>H/A</th>")
