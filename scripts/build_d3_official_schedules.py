@@ -2048,6 +2048,7 @@ def self_test():
         {"ncaa_org_id": 30225, "name": "State University of New York at Delhi", "membership_year": 2027, "d3_confirmed": True},
         {"ncaa_org_id": 8687, "name": "University of Saint Joseph (Connecticut)", "membership_year": 2027, "d3_confirmed": True},
         {"ncaa_org_id": 25719, "name": "Penn State University, Altoona", "membership_year": 2027, "d3_confirmed": True},
+        {"ncaa_org_id": 1163, "name": "La Roche University", "membership_year": 2027, "d3_confirmed": True},
         {"ncaa_org_id": 30189, "name": "Penn State Brandywine", "membership_year": 2027, "d3_confirmed": True},
         {"ncaa_org_id": 939, "name": "Anderson University (Indiana)", "membership_year": 2027, "d3_confirmed": True},
     ]
