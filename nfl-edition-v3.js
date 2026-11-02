@@ -159,6 +159,15 @@ function featuredMatch(g){
    const pa=paint(a),ph=paint(h);
    // Authentic team marks used only for wallpaper; the double-ring crest is unchanged.
    const officialMark=t=>/^https:\/\/a\.espncdn\.com\/i\/teamlogos\/nfl\/\d+\/[a-z0-9_-]+\.png$/i.test(t.logo||'')?'url(&quot;'+escapeHtml(t.logo)+'&quot;)':'none';
+   // Archival identities curated from Wikimedia Commons (PD-US; trademarks remain held by clubs).
+   // Only verified vintage assets are used; no invented historical graphics.
+   const archivalMark=t=>{
+    const archive={
+      "12":"https://upload.wikimedia.org/wikipedia/commons/e/e1/Kansas_City_Chiefs_logo.svg",
+      "7":"https://upload.wikimedia.org/wikipedia/commons/1/1f/Denver_Broncos_wordmark_%281968_-_1996%29.png"
+    };
+    return archive[String(t.id)]?'url(&quot;'+archive[String(t.id)]+'&quot;)':'none';
+   };
 
    const stateLabel=g.state==='in'?(g.period>4?'OVERTIME':'QUARTER '+(g.period||'?')):g.state==='post'?nflFinalStatus(g):'UP NEXT';
    const detail=g.state==='in'?((g.period>4?'OT':'Q'+(g.period||'?'))+' · '+(g.clock||'IN PROGRESS')):g.state==='post'?nflFinalStatus(g):date(g.date);
@@ -168,14 +177,14 @@ function featuredMatch(g){
      '<span class="nfl-p26-hero-state '+(g.state==='in'?'is-live':pre?'is-pre':'is-final')+'">'+
      (g.state==='in'?'<i class="nfl-p26-red-dot"></i>':'')+escapeHtml(detail)+'</span></div>'+
      '<div class="nfl-p26-score-stage nfl-p26-box-score" style="--nfl-away-color:'+escapeHtml(pa.base)+';--nfl-away-accent:'+escapeHtml(pa.accent)+';--nfl-home-color:'+escapeHtml(ph.base)+';--nfl-home-accent:'+escapeHtml(ph.accent)+'">'+
-       '<div class="nfl-p26-box-team nfl-p26-box-away" style="--nfl-box-color:'+escapeHtml(pa.base)+';--nfl-box-alt:'+escapeHtml(pa.accent)+';--nfl-club-mark:'+officialMark(a)+'">'+
+       '<div class="nfl-p26-box-team nfl-p26-box-away" style="--nfl-box-color:'+escapeHtml(pa.base)+';--nfl-box-alt:'+escapeHtml(pa.accent)+';--nfl-club-mark:'+officialMark(a)+';--nfl-club-archive:'+archivalMark(a)+'">'+
          '<div class="nfl-p26-box-row">'+crest(a,'lg')+
            '<strong class="nfl-p26-box-points" aria-label="'+escapeHtml(a.name)+' score">'+(pre?'—':format(g.away.score))+'</strong></div>'+
          '<div class="nfl-p26-box-identity"><b>'+escapeHtml(short(a))+'</b>'+
            '<small>'+escapeHtml(a.code)+' · '+escapeHtml(rec(a))+
            (g.state==='in'&&g.possession===a.id?' · BALL':'')+'</small></div></div>'+
        '<span class="nfl-p26-box-seam" aria-hidden="true"></span>'+
-       '<div class="nfl-p26-box-team nfl-p26-box-home" style="--nfl-box-color:'+escapeHtml(ph.base)+';--nfl-box-alt:'+escapeHtml(ph.accent)+';--nfl-club-mark:'+officialMark(h)+'">'+
+       '<div class="nfl-p26-box-team nfl-p26-box-home" style="--nfl-box-color:'+escapeHtml(ph.base)+';--nfl-box-alt:'+escapeHtml(ph.accent)+';--nfl-club-mark:'+officialMark(h)+';--nfl-club-archive:'+archivalMark(h)+'">'+
          '<div class="nfl-p26-box-row">'+
            '<strong class="nfl-p26-box-points" aria-label="'+escapeHtml(h.name)+' score">'+(pre?'—':format(g.home.score))+'</strong>'+crest(h,'lg')+'</div>'+
          '<div class="nfl-p26-box-identity"><b>'+escapeHtml(short(h))+'</b>'+
