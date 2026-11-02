@@ -115,7 +115,7 @@ class EloTests(unittest.TestCase):
         self.assertIn('function gamePage()',page)
         self.assertIn('featuredMatch(g)',page)
         self.assertIn('nfl-game-live-slot',page)
-        self.assertIn('nfl-game-editorial-v10.css?v=20261101-approved-design-v10b',game)
+        self.assertIn('nfl-game-editorial-v10.css?v=20261101-approved-design-v10c',game)
         self.assertNotIn('nfl-matchup-v5.css',game)
         self.assertIn(':is([data-page="front"],[data-page="game"])',stylesheet)
         self.assertIn('root.querySelector("#nfl-game-live-slot")',live)
@@ -186,74 +186,8 @@ class EloTests(unittest.TestCase):
         self.assertIn(".nfl-feature-tabs a{",css)
         self.assertIn("font-variant-numeric:tabular-nums",css)
         self.assertIn("display:none!important",css)
-        self.assertIn("nfl-game-editorial-v10.css?v=20261101-approved-design-v10b",html)
+        self.assertIn("nfl-game-editorial-v10.css?v=20261101-approved-design-v10c",html)
 
-
-    def test_temporary_approved_mobile_screenshot(self):
-        """Temporary render audit for the approved NFL concept, removed after inspection."""
-        import os, shutil, subprocess, tempfile, threading, http.server, json, base64
-        if not os.environ.get("GITHUB_ACTIONS"):
-            self.skipTest("Browser audit only on GitHub runner")
-        chrome=next((shutil.which(n) for n in ("google-chrome","google-chrome-stable","chromium","chromium-browser") if shutil.which(n)),None)
-        if not chrome:self.skipTest("No headless Chromium available")
-        root=Path(__file__).resolve().parents[1]
-        class Handler(http.server.SimpleHTTPRequestHandler):
-            def __init__(self,*args,**kwargs):super().__init__(*args,directory=str(root),**kwargs)
-            def log_message(self,*args):pass
-        server=http.server.ThreadingHTTPServer(("127.0.0.1",0),Handler)
-        threading.Thread(target=server.serve_forever,daemon=True).start()
-        target=root/"nfl-concept-browser-qa-tmp.html"
-        try:
-            target.write_text("""<!doctype html><html><head><meta charset="utf-8">
-<style>body{margin:0;background:#ddd;font:10px Arial}iframe{width:390px;height:1800px;border:0;display:block}
-#qa{max-width:390px;white-space:pre-wrap}</style></head><body><iframe id="f"
-src="nfl-game.html?id=401873033"></iframe><pre id="qa">waiting</pre>
-<script>
-let step=0;let id=setInterval(()=>{
-step++;const f=document.getElementById("f"),d=f.contentDocument;
-const el=d?.querySelector(".nfl-feature-v10"),chart=d?.querySelector(".nfl-story-arc svg");
-if(!el||!chart){if(step>25){document.getElementById("qa").textContent="QA_JSON:"+JSON.stringify({error:"failed render"});clearInterval(id)}return;}if(!d.querySelector("#nfl-live-game-data") && step<26)return;
-const selectors=[".nfl-feature-tabs",".nfl-feature-hero",".nfl-feature-hero-center",
-".nfl-feature-story-intro h1",".nfl-feature-swing",".nfl-feature-chart",
-".nfl-feature-model-layout",".nfl-feature-report",".nfl-live-details"];
-const coords=selectors.map(sel=>{
-let q=d.querySelector(sel),r=q?.getBoundingClientRect();
-return {sel,visible:!!q,x:Math.round(r?.x??0),w:Math.round(r?.width??0),y:Math.round(r?.y??0),h:Math.round(r?.height??0)};
-});
-const metrics={viewport:f.contentWindow.innerWidth,documentWidth:d.documentElement.scrollWidth,
-headline:d.querySelector(".nfl-feature-story-intro h1")?.textContent,
-score:d.querySelectorAll(".nfl-feature-side-score").length,
-rings:d.querySelectorAll(".nfl-feature-side-mark .nfl-badge.lg").length,
-oldV9:d.querySelectorAll(".nfl-story-game,.nfl-story-model-table,.nfl-story-turnkey").length,
-section:!!d.querySelector("#nfl-live-game-data") && d.querySelector("#nfl-game-live-slot")?.contains(d.querySelector("#nfl-live-game-data")),hasLive:!!d.querySelector("#nfl-live-game-data"),loadedScripts:[...d.querySelectorAll("script[src]")].map(x=>x.getAttribute("src")),
-coords};
-document.getElementById("qa").textContent="QA_JSON:"+JSON.stringify(metrics);clearInterval(id);
-},450);
-</script></body></html>""",encoding="utf-8")
-            with tempfile.TemporaryDirectory() as temp:
-                url="http://127.0.0.1:"+str(server.server_port)+"/"+target.name
-                common=[chrome,"--headless=new","--no-sandbox","--disable-gpu","--disable-dev-shm-usage",
-                "--hide-scrollbars","--force-device-scale-factor=1","--virtual-time-budget=13500",
-                "--window-size=430,1810"]
-                proc=subprocess.run(common+["--dump-dom",url],capture_output=True,text=True,timeout=50)
-                self.assertEqual(proc.returncode,0,proc.stderr[-1600:])
-                marker=re.search(r'QA_JSON:(\{[^\n<]+\})',proc.stdout)
-                self.assertIsNotNone(marker,"Missing browser metrics "+proc.stdout[-600:])
-                metrics=json.loads(marker.group(1).replace("&quot;",'"').replace("&amp;","&"))
-                print("NFL_V10_QA_METRICS:",json.dumps(metrics))
-                self.assertNotIn("error",metrics)
-                self.assertLessEqual(metrics["documentWidth"],metrics["viewport"]+2)
-                self.assertEqual(metrics["score"],2)
-                self.assertEqual(metrics["rings"],2)
-                self.assertEqual(metrics["oldV9"],0)
-                self.assertTrue(metrics["section"])
-                png=Path(temp)/"approved-nfl-game-mobile.png"
-                shot=subprocess.run(common+["--screenshot="+str(png),url],capture_output=True,text=True,timeout=50)
-                if shot.returncode==0 and png.exists():
-                    print("NFL_V10_PNG_BEGIN"+base64.b64encode(png.read_bytes()).decode("ascii")+"NFL_V10_PNG_END")
-        finally:
-            target.unlink(missing_ok=True)
-            server.shutdown()
 
     def test_exact_preseason_reset(self):
         t=nfl.replay([])
