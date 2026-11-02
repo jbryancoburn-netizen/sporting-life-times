@@ -2,13 +2,13 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f8f7f3">
 <meta name="description" content="Source-checked 2026 congressional districts within each U.S. state. Compare published House polls, official ballot candidates and previous election returns with clear geography-vintage rules.">
 <title>State House District Directory | The Political Life &amp; Times</title>
-<link rel="stylesheet" href="politics-house.css?v=20261101-early-read-1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"><script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js" defer></script><script src="politics-house-map.js?v=20261101-2" defer></script><script src="politics-house.js?v=20261101-early-read-1" defer></script></head>
+<link rel="stylesheet" href="politics-house.css?v=20261101-newsgraphics-purple1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"><script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js" defer></script><script src="politics-house-map.js?v=20261101-2" defer></script><script src="politics-state-art.js?v=20261101-graphics-1" defer></script><script src="politics-house.js?v=20261101-newsgraphics-purple1" defer></script></head>
 <body data-house-page="state"><main class="paper" id="view-content">
 <div class="strip"><span>THE SPORTING LIFE &amp; TIMES / CIVIC AFFAIRS</span><span>HOUSE ELECTIONS · STATE DESK</span></div>
 <header class="mast state-mast"><span class="folio">THE POLITICAL LIFE &amp; TIMES · 2026 HOUSE ELECTIONS</span>
 <h1 id="state-title">State House districts</h1><p id="state-desc">The congressional edition · November 3, 2026</p></header>
 <nav class="nav state-nav" aria-label="Political newspaper navigation"><a href="politics-house.html">← National atlas</a><a href="politics.html">Politics front page</a><a href="politics-ballots.html">Ballot ledger</a></nav>
-<section class="state-edition" aria-labelledby="state-edition-heading">
+<section class="state-edition state-graphic-hero" aria-labelledby="state-edition-heading"><div id="state-hero-art" class="state-hero-watermark" aria-hidden="true"></div><div class="hero-race-watermark" aria-hidden="true">THE HOUSE<br>2026</div>
 <div class="state-edition-line"><span class="eyebrow">THE HOUSE DESK / STATE REPORT</span><span>GENERAL ELECTION · NOV 3, 2026</span></div>
 <div class="state-lead-grid"><div class="state-lead-main"><h2 id="state-edition-heading">The congressional field</h2><p>Verified candidates, published district polling and historical results—one profile for every seat.</p><div class="state-jump-links"><a href="#district-geography">View district map <span aria-hidden="true">↘</span></a><a href="#district-list">Browse the races <span aria-hidden="true">↘</span></a></div></div>
 <aside class="state-context"><span class="state-context-label">THE HISTORICAL BASELINE · 2024</span><p id="state-history">Checking actual statewide presidential returns…</p><span id="state-map-status-pill" class="state-map-status-pill">2026 boundary check pending</span></aside></div>
@@ -18,6 +18,27 @@
 <div class="metric"><b>—</b><span>Verified ballot lists</span></div>
 <div class="metric"><b>—</b><span>District poll records</span></div>
 </div>
+<section class="state-news-board" aria-label="State election news graphics">
+  <div class="news-board-topline"><span>STATE GRAPHICS DESK</span><span>THE HOUSE · NOVEMBER 2026</span></div>
+  <div class="news-board-grid">
+    <a href="#district-list" class="news-number news-number-watch" id="news-watch-link">
+      <span class="news-number-heading">RACES TO WATCH</span>
+      <strong id="state-headline-watch">—</strong>
+      <span class="news-number-caption">Purple-flagged contests · screening, not odds ↗</span>
+    </a>
+    <div class="news-number news-number-conflicts">
+      <span class="news-number-heading">MIXED SIGNALS</span>
+      <strong id="state-headline-conflicts">—</strong>
+      <span class="news-number-caption">Polling and history point in opposite directions</span>
+    </div>
+    <div class="news-number news-number-ballots">
+      <span class="news-number-heading">BALLOTS CHECKED</span>
+      <strong id="state-headline-ballots">—</strong>
+      <span class="news-number-caption">Government-reviewed 2026 candidate lists</span>
+    </div>
+    <div class="news-spotlight" id="state-spotlight" aria-live="polite"><span>Finding the state’s featured race…</span></div>
+  </div>
+</section>
 <div class="callout" id="boundary-caution" hidden></div>
 <section class="district-map-section state-feature-map" id="district-geography">
 <div class="section-heading"><h3>The district map</h3><p>Tap a district to open its race profile · official Census outlines</p></div>
@@ -37,7 +58,7 @@
 <details class="state-sources-details"><summary><span><small>METHODOLOGY</small><strong>How to read the map and data</strong></span><span class="details-chevron" aria-hidden="true">+</span></summary><div class="source-detail-body">
 <div class="legend"><span><i class="swatch blue"></i> Democratic candidate leads published poll, or Democrat won last comparable House election</span>
 <span><i class="swatch red"></i> Republican candidate leads published poll, or Republican won last comparable House election</span>
-<span><i class="swatch gray"></i> No current poll or comparable prior result</span></div>
+<span><i class="swatch gray"></i> No current poll or comparable prior result</span><span><i class="swatch purple"></i> Purple highlights races to watch, close polls or conflicting evidence; not a predicted winner</span></div>
 <p class="footnote">Each card clearly labels the poll or election year. Within a color family, stronger color denotes a larger observed margin. It does not measure win probability or confidence. Poll sponsorship, sample, dates and linked original releases appear inside individual district profiles. Our current editorial ratings are not certified model probabilities. <a href="https://github.com/jbryancoburn-netizen/sporting-life-times/blob/main/POLITICS_HOUSE_CARD_DESIGN_SPEC.md" target="_blank" rel="noopener noreferrer">Read the race-card design and forecast standards ↗</a>.</p></div></details>
 <footer><span>THE POLITICAL LIFE &amp; TIMES · NONPARTISAN SOURCE-BASED ELECTION ATLAS</span><span><a href="politics-house.html">← Back to all 50 states</a></span></footer>
 </main></body></html>
