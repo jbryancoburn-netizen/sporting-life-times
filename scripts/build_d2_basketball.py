@@ -1339,7 +1339,8 @@ def update(gender, bootstrap=False, live=False):
     if gender=="men":
         from d2_ccaa_men_official import enrich_ccaa_men
         if (not rapid or not ccaa_men_quality or
-            ccaa_men_quality.get("status")!="CCAA 2026-27 exact two-university men fixtures verified"):
+            (ccaa_men_quality.get("status")!="CCAA 2026-27 exact two-university men fixtures verified" or
+             ccaa_men_quality.get("source_reconciliation_version")!=2)):
             ccaa_men_quality=enrich_ccaa_men(games,teams,today)
     # Ratings start at 1500 on every new season; only NCAA verified DII-v-DII finals count.
     rating={key:1500.0 for key in teams}
