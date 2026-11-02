@@ -51,7 +51,7 @@ function normalizeMen(feed,forecasts,crossList){
       evidence:'fixture',kind:'regular',
       probability:Number.isFinite(Number(g.home_win_probability))?Math.max(0,Math.min(1,Number(g.home_win_probability))):null});
   }
-  return [...result.values()];
+  return dedupeFixtures([...result.values()]);
 }
 // Merge provisional fixtures only when the same two canonical schools meet on the
 // same Eastern date. Preserve distinct live/final event IDs and real doubleheaders.
