@@ -224,6 +224,8 @@ test('DII official university school-grid evidence covers all four verified reco
  assert.deepEqual(evidence.schools.map(x=>x.fixtures.length),[27,28,28,28]);
  assert.deepEqual(evidence.schools.map(x=>x.gender),['men','women','women','women']);
   assert.equal(evidence.schools[3].owner_id,'university-of-charleston-west-virginia');
+  assert.ok(evidence.schools[3].fixtures.some(g=>g.date==='2026-12-02' && g.role==='home' && g.start_time==='5:30 PM ET'));
+  assert.equal(new Set(evidence.schools[3].fixtures.map(g=>g.date+'|'+g.opponent)).size,28);
  for(const calendar of evidence.schools){
   assert.match(calendar.source_url,/^https:\/\//);
   for(const game of calendar.fixtures){
