@@ -1140,6 +1140,58 @@ def apply_official_school_grid_snapshots(gender, games, teams, today=None, regis
     counts["captured_school_count"] = len(captures)
     counts["captured_source_rows"] = sum(len(c["fixtures"]) for c in captures)
     counts["live_capture_incomplete_by_design"] = True
+    # Some official calendars describe the SAME game on adjacent ET dates
+    # with contradictory clocks. An explicitly evidenced conflict must not
+    # create a new game merely because exact-day de-duplication missed it.
+    # Quarantines are keyed to one specific NCAA ID, participant pair and
+    # both exact source dates. Never remove a real NCAA game or a final.
+    quarantined_school_rows = set()
+    removed_adjacent_duplicates = 0
+    for conflict in evidence.get("cross_date_quarantines", []):
+        if conflict.get("gender") != gender:
+            continue
+        owner = conflict.get("owner_id")
+        if owner not in teams or teams[owner].get("not_eligible_for_dii_elo"):
+            continue
+        other = resolve_dii_team_id({"name": conflict.get("opponent")}, lookup)
+        if not other or owner == other:
+            continue
+        published = games.get(str(conflict.get("ncaa_game_id", "")))
+        if not published or str(published.get("id")) != str(conflict.get("ncaa_game_id")):
+            continue
+        official_date = conflict.get("official_school_date")
+        ncaa_date = conflict.get("ncaa_game_date")
+        if (published.get("date") != ncaa_date or
+            {published.get("away"), published.get("home")} != {owner, other}):
+            continue
+        try:
+            delta = abs((dt.date.fromisoformat(official_date) -
+                         dt.date.fromisoformat(ncaa_date)).days)
+        except (ValueError, TypeError):
+            continue
+        if delta != 1:
+            continue
+        # The official original source must match the pinned provenance.
+        source_urls = {rec.get("source_url") for rec in
+                       evidence.get("schools", []) + evidence.get("live_school_sources", [])
+                       if rec.get("gender") == gender and rec.get("owner_id") == owner}
+        if conflict.get("official_school_url") not in source_urls:
+            continue
+        quarantined_school_rows.add((owner, official_date, other))
+        duplicate_ids = [gid for gid, record in games.items()
+                         if (gid.startswith("d2schoolgrid-2026-") and
+                             record.get("date") == official_date and
+                             {record.get("away"), record.get("home")} == {owner, other} and
+                             record.get("source_url") == conflict.get("official_school_url") and
+                             record.get("status") == "scheduled" and
+                             record.get("away_score") is None and
+                             record.get("home_score") is None and
+                             not record.get("ncaa_id"))]
+        for gid in duplicate_ids:
+            del games[gid]
+            removed_adjacent_duplicates += 1
+    counts["cross_date_quarantined_source_rows"] = len(quarantined_school_rows)
+    counts["cross_date_duplicate_games_removed"] = removed_adjacent_duplicates
     # Two campus calendars can disagree. Detect all corroborated discrepancies
     # BEFORE inserting either side: otherwise the first school's unverified
     # clock or court role can leak into the published scorebug.
@@ -1151,6 +1203,8 @@ def apply_official_school_grid_snapshots(gender, games, teams, today=None, regis
         for row in calendar.get("fixtures", []):
             opponent = resolve_dii_team_id({"name": row.get("opponent")}, lookup)
             if not opponent or owner == opponent:
+                continue
+            if (owner, row.get("date"), opponent) in quarantined_school_rows:
                 continue
             key = (row["date"], tuple(sorted((owner, opponent))))
             if row.get("start_time"):
@@ -1179,6 +1233,10 @@ def apply_official_school_grid_snapshots(gender, games, teams, today=None, regis
             opponent = resolve_dii_team_id({"name": row["opponent"]}, lookup)
             if not opponent or owner == opponent:
                 counts["unmatched"] += 1
+                continue
+            if (owner, row.get("date"), opponent) in quarantined_school_rows:
+                counts.setdefault("cross_date_quarantined_evidence_rows", 0)
+                counts["cross_date_quarantined_evidence_rows"] += 1
                 continue
             fixture_key = (row["date"], tuple(sorted((owner, opponent))))
             if fixture_key in disputed_courts:
