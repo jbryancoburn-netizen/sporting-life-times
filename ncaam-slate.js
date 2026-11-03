@@ -307,11 +307,18 @@ const emblem=t=>{
     '<span>'+esc(String(t.name).slice(0,2))+'</span>')+'</span>';
 };
 const rating=t=>{const r=rankOf(t,ratings,women);return r&&Number.isFinite(+r.elo)?Math.round(+r.elo):null};
+// Display the published RETRO rank beside Elo; never manufacture standings from game-card order.
+const retroLine=t=>{
+ const profile=rankOf(t,ratings,women),elo=rating(t),rank=Number(profile?.rank);
+ const maxRank=women?363:365;
+ const validRank=Number.isInteger(rank)&&rank>=1&&rank<=maxRank;
+ return 'RETRO '+(elo??'—')+(validRank?' (#'+rank+')':'');
+};
 const record=t=>{const r=rankOf(t,ratings,women);return r&&r.wins!=null&&r.losses!=null?Number(r.wins)+'–'+Number(r.losses):'0–0'};
 const team=t=>{const profile=rankOf(t,ratings,women),url=teamPage(t);
  const body='<span class="sl-team">'+emblem(t)+'<span class="sl-team-copy"><strong>'+esc(t.name)+'</strong>'+
   '<small>'+esc(mascot(t)||'')+'</small>'+
-  '<span class="sl-record">'+esc(record(t))+' <span aria-hidden="true">·</span> RETRO '+(rating(t)??'—')+'</span>'+
+  '<span class="sl-record">'+esc(record(t))+' <span aria-hidden="true">·</span> '+retroLine(t)+'</span>'+
   (profile?.conference?'<span class="sl-conference">'+esc(profile.conference)+'</span>':'')+
   '</span></span>';
  return url?'<a class="sl-team-link" href="'+esc(url)+'" aria-label="Open '+esc(t.name)+' team page">'+body+'</a>':body;
@@ -434,7 +441,7 @@ const ledgerScorebug=g=>{
   const pollPair=poll?[poll.coaches??'NR',poll.ap??'NR'].join('/'):'';
   const pollTitle=poll?'Coaches '+(poll.coaches?'#'+poll.coaches:'unranked')+' / AP '+(poll.ap?'#'+poll.ap:'unranked'):'';
   const leagueRank=pollPair?'<span class="ledger26-poll" title="'+esc(pollTitle)+'" aria-label="'+esc(pollTitle)+'">'+esc(pollPair)+'</span>':'';
-  const recordLine=esc(record(t))+' · RETRO '+(rating(t)??'—');
+  const recordLine=esc(record(t))+' · '+retroLine(t);
   return '<div class="ledger26-team" style="--ledger26-school:'+brand(t)+'">'+
    '<span class="ledger26-crest">'+emblem(t)+'</span>'+
    '<span class="ledger26-identity"><strong class="ledger26-name">'+leagueRank+esc(t.name)+'</strong>'+
