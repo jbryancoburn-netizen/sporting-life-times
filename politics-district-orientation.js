@@ -21,11 +21,12 @@ if(!data){
  // A real geographic edition for every remaining district: official Census polygon
  // and shared House atlas facts, never a fabricated town list or generic race label.
  const node=document.getElementById("district-local-orientation");
- if(node && /^[A-Z]{2}-\\d{2}$/.test(id)){
+ if(node && /^[A-Z]{2}-[0-9]{2}$/.test(id)){
   Promise.all([
    fetch("politics-house-atlas.json",{cache:"no-cache"}).then(x=>{if(!x.ok)throw Error("atlas");return x.json()}),
-   fetch("politics-geometry/"+id.slice(0,2)+".geojson",{cache:"force-cache"}).then(x=>{if(!x.ok)throw Error("geography");return x.json()})
-  ]).then(([atlas,geo])=>{
+   fetch("politics-geometry/"+id.slice(0,2)+".geojson",{cache:"force-cache"}).then(x=>{if(!x.ok)throw Error("geography");return x.json()}),
+   fetch("data/politics-district-communities.json",{cache:"no-cache"}).then(x=>x.ok?x.json():null).catch(()=>null)
+  ]).then(([atlas,geo,communityData])=>{
    const route=atlas.districts.find(x=>x.id===id);
    const state=atlas.states.find(x=>x.code===id.slice(0,2));
    if(!route||!state)return;
@@ -37,6 +38,9 @@ if(!data){
    const location=Number.isFinite(lat)&&Number.isFinite(lon)?
     "Official Census geographic reference point: "+Math.abs(lat).toFixed(2)+"°"+(lat>=0?"N":"S")+", "+Math.abs(lon).toFixed(2)+"°"+(lon>=0?"E":"W")+".": 
     "Explore the official congressional boundaries in the interactive atlas below.";
+   const verifiedPlaces=communityData?.districts?.[id]?.communities||[];
+   const cleanPlace=name=>name.replace(/ (?:city|town|village|CDP|borough|municipality)$/i,"");
+   const named=verifiedPlaces.slice(0,6).map(x=>cleanPlace(x.name));
    const revised=route["2026_boundaries_revised"];
    const frame=document.createElement("div");frame.className="orientation-national-edition";
    const kicker=document.createElement("span");kicker.className="orientation-kicker";kicker.textContent=state.name.toUpperCase()+" / DISTRICT FIELD GUIDE";
@@ -46,13 +50,24 @@ if(!data){
    const columns=document.createElement("div");columns.className="orientation-columns";
    const place=document.createElement("section");place.className="orientation-places";
    const pt=document.createElement("h3");pt.textContent="Locate this district";
-   const p1=document.createElement("p");p1.textContent=location;
+   const p1=document.createElement("p");
+   p1.textContent=named.length?
+     "Census-verified community reference points inside the district: "+named.join(", ")+". "+
+     "A city's municipal boundary may also extend beyond the district.":
+     "The district boundary is verified, but its Census place reference points do not identify the individual neighborhoods here. "+location;
+   if(named.length){
+    const list=document.createElement("ul");list.className="orientation-verified-places";
+    for(const p of verifiedPlaces.slice(0,9)){
+      const li=document.createElement("li");li.textContent=cleanPlace(p.name);list.append(li);
+    }
+    place.append(pt,p1,list);
+   }else place.append(pt,p1);
    const link=document.createElement("a");link.className="orientation-map-link";link.href="#dossier-map";link.textContent="See the actual district outline, cities and roads ↓";
-   place.append(pt,p1,link);
+   place.append(link);
    const facts=document.createElement("section");facts.className="orientation-facts";
    const fact=(title,body)=>{const article=document.createElement("article");const h=document.createElement("h3");const p=document.createElement("p");h.textContent=title;p.textContent=body;article.append(h,p);return article};
    facts.append(
-    fact("THE GEOGRAPHY","Official U.S. Census congressional district geometry; use the interactive map to recognize neighboring cities, roads and shorelines."),
+    fact("THE GEOGRAPHY",named.length?"Reference points for "+named.slice(0,3).join(", ")+" fall inside the official district outline. Explore the map for streets and neighborhood detail.":"Official Census polygons define this district; community-level detail awaits verified neighborhood mapping."),
     fact("THE ELECTORATE",revised?"The district was redrawn for 2026. Older election results may describe different voters.":"Historical votes are labeled by election year and never presented as current polling."),
     fact("THE REPORTING","District-specific articles appear only after their local connection and publisher are confirmed. Missing coverage is not filled with unrelated headlines.")
    );
@@ -60,6 +75,7 @@ if(!data){
    const source=document.createElement("p");source.className="orientation-source";
    const a=document.createElement("a");a.href=geo.meta?.source_url||"https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/Legislative/MapServer";a.target="_blank";a.rel="noopener noreferrer";a.textContent="Official Census boundary source ↗";
    source.append("SOURCE / VERIFIED 2026 GEOGRAPHY · ",a);
+   if(named.length){const gaz=document.createElement("a");gaz.href=communityData.census_gazetteer_url;gaz.textContent="Census 2026 named places ↗";gaz.target="_blank";gaz.rel="noopener noreferrer";source.append(" · ",gaz);}
    frame.append(kicker,heading,description,columns,source);
    node.replaceChildren(frame);node.hidden=false;
   }).catch(error=>console.warn("District orientation source unavailable:",error));
