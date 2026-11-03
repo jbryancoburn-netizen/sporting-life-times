@@ -43,9 +43,14 @@ function badge(code,state,variant){
  img.onerror=()=>{img.remove();flag.classList.add("flag-unavailable");};
  flag.append(img,el("span","race-flag-fallback",code));
  const text=el("div","race-place-caption");
- text.append(el("small",null,"STATE EDITION · OFFICIAL FLAG"),
-  el("strong",null,state.name.toUpperCase()),
-  el("span",null,"THE POLITICAL LIFE & TIMES"));
+ if(variant==="state-folio"){
+  text.append(el("small",null,"OFFICIAL STATE FLAG"),
+    el("span",null,"HOUSE ELECTIONS · NOVEMBER 2026"));
+ }else{
+  text.append(el("small",null,"STATE EDITION · OFFICIAL FLAG"),
+   el("strong",null,state.name.toUpperCase()),
+   el("span",null,"THE POLITICAL LIFE & TIMES"));
+ }
  wrap.append(flag,text);
  return wrap;
 }
@@ -196,7 +201,7 @@ function decorateState({state,rows}){
  if(!hero)return;
  applyTheme(hero,{state:state.code,id:state.code+"-00"});
  const strip=el("div","race-state-signature");
- strip.append(badge(state.code,state),el("span","race-state-signature-count",state.district_count+" U.S. HOUSE "+(state.district_count===1?"SEAT":"SEATS")),flagCredit());
+ strip.append(badge(state.code,state,"state-folio"),el("span","race-state-signature-count",state.district_count+" U.S. HOUSE "+(state.district_count===1?"SEAT":"SEATS")));
  const lead=hero.querySelector(".state-edition-line");
  if(lead)lead.insertAdjacentElement("afterend",strip);
  const storyCards=[...document.querySelectorAll(".state-brief-card")];

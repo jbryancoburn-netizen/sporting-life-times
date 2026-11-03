@@ -138,20 +138,20 @@ body.iowa-edition-active .race-location-seat-ia-04 .ia-editorial-callout{
 /* State fronts: the state flag is genuinely visible as a newsroom masthead logo. */
 body[data-house-page="state"] .race-state-signature{
  display:flex;align-items:center;flex-wrap:wrap;gap:13px;padding:13px 0 12px;
- position:relative;z-index:3;border-bottom:1px solid #ffffff55;
+ position:relative;z-index:3;border-bottom:1px solid #968875;
  --local-primary:#214e7b;--local-trim:#d8b56e
 }
-body[data-house-page="state"] .race-state-signature .race-place-badge{flex:0 1 330px}
+body[data-house-page="state"] .race-state-signature .race-place-badge{flex:0 1 auto;gap:12px}
 body[data-house-page="state"] .race-state-signature .race-flag-frame{
- width:82px;height:58px;min-width:82px;border-bottom-color:var(--local-trim)
+ width:67px;height:48px;min-width:67px;padding:3px;border:1px solid #a99d89;background:#fffaf1;box-shadow:none
 }
 body[data-house-page="state"] .race-state-signature .race-place-caption small,
-body[data-house-page="state"] .race-state-signature .race-place-caption>span{color:#d7e9ef}
-body[data-house-page="state"] .race-state-signature .race-place-caption strong{color:#fff;font-size:22px}
+body[data-house-page="state"] .race-state-signature .race-place-caption>span{color:#463d32}
+body[data-house-page="state"] .race-state-signature .race-place-caption strong{color:#29251f;font-size:17px}
 body[data-house-page="state"] .race-state-signature-count{
- font:900 12px 'DM Sans',Arial,sans-serif;letter-spacing:1.2px;color:#e8dbff
+ font:900 12px 'DM Sans',Arial,sans-serif;letter-spacing:.08em;color:#713a30
 }
-body[data-house-page="state"] .race-state-signature .race-brand-credit{color:#dce7ed;margin-left:auto}
+body[data-house-page="state"] .race-state-signature .race-brand-credit{color:#65594a;margin-left:auto}
 body[data-house-page="state"] .race-place-caption{flex:1}
 body[data-house-page="state"] .state-brief-card{
  --local-primary:#214d7a;--local-trim:#d8b56e;
@@ -209,7 +209,8 @@ body[data-house-page="state"] .state-brief-bottom{padding-right:0}
   inset:5px;width:25px;height:25px
  }
  body[data-house-page="state"] .race-state-signature{padding:9px 0}
- body[data-house-page="state"] .race-state-signature .race-place-badge{flex:1 1 100%}
+ body[data-house-page="state"] .race-state-signature .race-place-badge{flex:1 1 auto;min-width:0}
+  body[data-house-page="state"] .race-state-signature .race-flag-frame{width:59px;height:43px;min-width:59px}
  body[data-house-page="state"] .race-state-signature-count{font-size:10px}
  body[data-house-page="state"] .race-state-signature .race-brand-credit{margin-left:0}
  body[data-house-page="state"] .state-brief-card{padding-right:14px}
