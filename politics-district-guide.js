@@ -209,9 +209,12 @@ async function init(){
  if(!/^[A-Z]{2}-\d{2}$/.test(id)||!$("district-dossier"))return;
  const status=$("dossier-status");
  try{
-  const [atlas,census,guide]=await Promise.all([
-   dataFile("politics-house-atlas.json"),dataFile("politics-census-inputs.json"),dataFile("politics-district-guide.json")
+  const atlas=await dataFile("politics-house-atlas.json");
+  const [censusResult,guideResult]=await Promise.allSettled([
+   dataFile("politics-census-inputs.json"),dataFile("politics-district-guide.json")
   ]);
+  const census=censusResult.status==="fulfilled"?censusResult.value:null;
+  const guide=guideResult.status==="fulfilled"?guideResult.value:{districts:{}};
   const r=atlas.districts?.find(x=>x.id===id);if(!r)throw Error("District not found in the official district ledger");
   const extra=guide.districts?.[id];
   const state=atlas.states?.find(s=>s.code===r.state);
@@ -229,11 +232,12 @@ async function init(){
   $("district-dossier-title").textContent=extra?.title||"Get to know "+(state?.name||r.state)+"'s "+(r.at_large?"at-large":"District "+Number(r.district))+".";
   $("dossier-kicker").textContent=r.id+" · A FIELD GUIDE TO PLACE, PEOPLE, POLITICS AND PAST ELECTIONS";
   status.textContent="Official Census boundaries · state-verified ballot snapshots · original historical vote sources";
+  officialMap(r,extra);
   local($("dossier-local"),extra,r);
   historyRows($("dossier-history"),r,extra);
   polling($("dossier-polling"),r);
-  census($("dossier-people"),null,r,census);
-  officialMap(r,extra);
+  if(census)census($("dossier-people"),null,r,census);
+  else warn($("dossier-people"),"Census details are temporarily unavailable; district geography remains available.");
  }catch(error){
   status.textContent="The district guide is temporarily unavailable. See the independently sourced race report above and the official links below.";
   console.warn("District guide:",error);
