@@ -49,3 +49,17 @@ assert.equal(live.phase,'live');assert.equal(live.home.score,24);
 assert.equal(live.away.score,22);
 const final={...scheduled,phase:'final',away:{...scheduled.away,score:69},home:{...scheduled.home,score:65}};
 assert.equal(slate.applyESPNToSlate([final],{events:[evt('1','2','2026-11-03T23:00:00Z','in','77','77')]},'2026-11-03').games[0].away.score,69);
+
+const official={games:{'2026-11-03|2747|2633':{
+ arena:'Food City Center',city:'Knoxville',state:'TN',neutral:false,
+ source:'https://utsports.com/sports/mens-basketball/schedule/2026-27'}}};
+const opponent={kind:'regular',id:'401906848',day:'2026-11-03',away:{id:'2747'},
+ home:{id:'2633'},venue:'',venueCity:'',neutral:false};
+const site=slate.courtLocation(opponent,official);
+assert.equal(site.arena,'Food City Center');assert.equal(site.city,'Knoxville, TN');
+assert.equal(slate.courtLocation({...opponent,away:{id:'999'}},official),null);
+assert.equal(slate.courtLocation({...opponent,venue:'Other Arena'},official).city,'');
+assert.equal(slate.courtLocation({...opponent,kind:'exhibition'},official),null);
+assert(script.includes('data/mbb-slate-game-sites-2026-27.json'));
+assert(script.includes('sl-site-arena')&&script.includes('sl-site-city'));
+assert(css.includes('.sl-site-arena')&&css.includes('.sl-site-city'));

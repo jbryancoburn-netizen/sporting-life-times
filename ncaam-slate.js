@@ -125,6 +125,23 @@ function normalizeExhibitions(data,crossList){
       probability:null}];
   });
 }
+
+/* Exact official fixture site; no presumed home arena for any unverified game. */
+function courtLocation(g,locations){
+ if(!g||g.kind==='exhibition')return null;
+ const key=[g.day,g.away?.id,g.home?.id].join('|');
+ const fixture=locations?.games?.[key];
+ const liveArena=String(g.venue||'').trim(),liveCity=String(g.venueCity||'').trim();
+ const officialArena=String(fixture?.arena||'').trim();
+ const same=!liveArena||!officialArena||
+   liveArena.toLowerCase().replace(/[^a-z0-9]/g,'')===officialArena.toLowerCase().replace(/[^a-z0-9]/g,'');
+ const official=fixture&&same?fixture:null;
+ const arena=liveArena||String(official?.arena||'').trim();
+ const city=liveCity||[official?.city,official?.state].filter(Boolean).join(', ');
+ if(!arena&&!city)return null;
+ return {arena,city,neutral:g.neutral===true||official?.neutral===true,
+   source:String(g.siteSource||official?.source||'')};
+}
 function gameDetailsHref(g,women){
   if(g.kind==='exhibition')return g.sourceURL||'#';
   if(!validId(g.id))return '#';
@@ -210,7 +227,7 @@ const url=new URL(location.href),women=url.searchParams.get('gender')==='women';
 let selected=/^\d{4}-\d\d-\d\d$/.test(url.searchParams.get('date')||'')?url.searchParams.get('date'):today();
 let filter=['all','live','final','upcoming','exhibition','favorites'].includes(url.searchParams.get('view'))?url.searchParams.get('view'):'all';
 let search='',loaded=[],ratings=new Map(),lastUpdate='',limit=18,loading=false,sourceError='';
-let cross={teams:[]},palette={},arenaRegistry={},womenTeams=new Map(),sourceFeed=null,seasonStats=new Map(),liveChanges=new Map(),scoreCalibration=null;
+let cross={teams:[]},palette={},arenaRegistry={},gameSites={games:{}},womenTeams=new Map(),sourceFeed=null,seasonStats=new Map(),liveChanges=new Map(),scoreCalibration=null;
 let sourceCheckBusy=false,sourceCheckAt=0;
 const insight=window.SLTBasketballInsights;
 const favoriteKey='slt-slate-favorites-'+(women?'women':'men');
@@ -294,7 +311,7 @@ const bugTeam=(t,side,g)=>{
   '<b class="sl-bug-score">'+(g.phase==='upcoming'||t.score==null||!Number.isFinite(+t.score)?'—':Number(t.score))+'</b></div>';
 };
 function card(g,featured){
- const href=gameDetailsHref(g,women),ex=g.kind==='exhibition',site=String(g.venue||'').trim();
+ const href=gameDetailsHref(g,women),ex=g.kind==='exhibition',site=courtLocation(g,gameSites);
  const broadcast=String(g.broadcast||'').trim(),phase=g.phase==='live'?'LIVE':g.phase==='final'?'FINAL':'UPCOMING';
  const source=String(g.source||'Unspecified');
  return '<article class="sl-game sl-courtside-card" style="--sl-away:'+brand(g.away)+';--sl-home:'+brand(g.home)+'">'+
@@ -304,12 +321,14 @@ function card(g,featured){
  (broadcast?'<span class="sl-bug-network">'+esc(broadcast)+'</span>':'')+
  '<small class="sl-bug-division">'+(women?'WOMEN':'MEN')+' · D-I</small></div>'+
  '<div class="sl-bug-pair">'+bugTeam(g.away,'away',g)+bugTeam(g.home,'home',g)+'</div>'+
- (site?'<p class="sl-bug-site">'+(g.neutral?'NEUTRAL SITE · ':'VENUE · ')+esc(site)+
- (g.venueCity?' · '+esc(g.venueCity):'')+'</p>':
- g.neutral?'<p class="sl-bug-site">NEUTRAL SITE · VENUE NOT VERIFIED</p>':'')+
+ '<div class="sl-bug-site'+(site?'':' sl-bug-site-pending')+'"'+(site?.source?' title="'+esc(site.source)+'"':'')+'>'+
+ '<span class="sl-site-label">'+(site?.neutral?'NEUTRAL SITE':'ARENA / CITY')+'</span>'+
+ (site?'<strong class="sl-site-arena">'+esc(site.arena||'ARENA UNCONFIRMED')+'</strong>'+
+ (site.city?'<span class="sl-site-city">'+esc(site.city)+'</span>':''):
+ '<strong class="sl-site-unconfirmed">LOCATION NOT YET VERIFIED</strong>')+'</div>'+
  '<div class="sl-bug-footer"><details class="sl-bug-follows"><summary>Follow teams</summary><div>'+
  favorite(g.away)+favorite(g.home)+'</div></details>'+
- '<span class="sl-bug-source" title="'+esc(source)+'">SOURCE · '+esc(source)+'</span>'+
+ '<span class="sl-bug-source" title="'+esc(source)+'">MATCHUP DATA</span>'+
  '<a class="sl-bug-open" href="'+esc(href)+'"'+(ex?' target="_blank" rel="noopener noreferrer"':'')+'>'+
  (ex?'VIEW SOURCE':g.phase==='live'?'FOLLOW COURTCAST':'OPEN GAMEFILE')+' →</a></div></article>';
 }
@@ -341,7 +360,7 @@ const render=()=>{
 async function refresh(){
  if(loading)return;loading=true;const status=document.getElementById('sl-data');status.textContent='Refreshing verified sources…';
  try{
-  const menFiles=['data/mbb-live.json','data/ncaam-2026-27-upcoming-forecasts.json','data/ncaam-2026-27-retro-primary.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json','data/mbb-exhibition-finals-2026-27.json','data/mbb-arena-registry.json','data/ncaam-score-calibration.json','data/mbb-verified-game-sites-2026-27.json'];
+  const menFiles=['data/mbb-live.json','data/ncaam-2026-27-upcoming-forecasts.json','data/ncaam-2026-27-retro-primary.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json','data/mbb-exhibition-finals-2026-27.json','data/mbb-arena-registry.json','data/ncaam-score-calibration.json','data/mbb-verified-game-sites-2026-27.json','data/mbb-slate-game-sites-2026-27.json'];
   const womenFiles=['data/ncaaw-2026-27-games.json','data/ncaaw-2026-27-retro-primary.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json','data/ncaaw-2026-27-teams.json','data/mbb-live.json'];
   const paths=women?womenFiles:menFiles;
   const output=await Promise.all(paths.map(p=>fetchJSON(p).catch(()=>null)));
@@ -354,11 +373,11 @@ async function refresh(){
     loaded=dedupeFixtures(normalizeWomen(results,rank,cross));
     lastUpdate='women’s rolling fixture ledger';
   }else{
-    const [feed,forecast,rank,c,pal,ex,arenas,calibration,verifiedSites]=output;
+    const [feed,forecast,rank,c,pal,ex,arenas,calibration,verifiedSites,officialSiteIndex]=output;
     if(!feed||rank?.model!=='retro-clean-slate'||rank.starting_elo!==1500||rank.rankings?.length!==365)
       throw Error('Men’s scoreboard or certified RETRO feed unavailable');
     cross=c||{teams:[]};ratings=rankingsMap(rank);palette=pal?.mbb||{};
-    arenaRegistry=arenas?.teams||{};scoreCalibration=calibration;
+    arenaRegistry=arenas?.teams||{};gameSites=officialSiteIndex?.games?officialSiteIndex:{games:{}};scoreCalibration=calibration;
     const before=new Map(loaded.filter(g=>g.phase==='live'&&g.kind==='regular').map(g=>
       [g.id,{id:g.id,day:g.day,away_score:g.away.score,home_score:g.home.score}]));
     sourceFeed=feed;seasonStats=insight?.seasonProfiles(rank.events)||new Map();
@@ -424,5 +443,5 @@ setInterval(()=>{if(!document.hidden)refresh().then(checkESPN)},90000);
 setInterval(()=>{if(!document.hidden&&selected===today())checkESPN()},30000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)checkESPN()});
 }
-return{normalizeMen,normalizeWomen,normalizeExhibitions,selectGames,gameDetailsHref,formatClock,isoDate,shift,applyESPNToSlate,start};
+return{normalizeMen,normalizeWomen,normalizeExhibitions,selectGames,gameDetailsHref,formatClock,isoDate,shift,applyESPNToSlate,courtLocation,start};
 });

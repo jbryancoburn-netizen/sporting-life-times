@@ -148,7 +148,7 @@ def build():
     }
     if len(games) < 100:
         raise SystemExit(f"Source venue index suspiciously small: {len(games)}")
-    OUTPUT.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    OUTPUT.write_text(json.dumps(report, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
     print(json.dumps({k: report[k] for k in ("total_official_site_rows", "verified_game_sites",
                                           "games_with_arena_and_city", "conflicting_matchups_skipped")},
                      indent=2))

@@ -254,3 +254,25 @@ body.cbb-product.cbb-header-v2 .sl-header .cbb-compact-editions .cbb-edition-lin
  .sl-day-picker #sl-date{font-size:clamp(11px,3vw,13px)!important}
  .sl-toolbar{margin-bottom:5px!important}
 }
+
+/* Sourced game arena and city occupy the card's former provenance strip. */
+.sl-game.sl-courtside-card .sl-bug-site{
+ display:flex!important;align-items:baseline!important;flex-wrap:wrap!important;gap:3px 8px!important;
+ min-height:31px!important;margin:0!important;padding:7px 9px!important;border-top:1px solid #d7c7b4!important;
+ background:#f1e8d7!important;color:#143557!important;
+ font:600 11px/1.3 Arial,sans-serif!important}
+.sl-game.sl-courtside-card .sl-site-label{
+ flex:0 0 auto!important;color:#9b2541!important;font:900 9px Arial,sans-serif!important;letter-spacing:.07em!important}
+.sl-game.sl-courtside-card .sl-site-arena{
+ color:#0b2b4c!important;font:900 12px/1.2 Arial,sans-serif!important}
+.sl-game.sl-courtside-card .sl-site-city{color:#526b80!important;font:700 11px/1.2 Arial,sans-serif!important}
+.sl-game.sl-courtside-card .sl-site-city:before{content:'·';margin-right:7px;color:#b59765}
+.sl-game.sl-courtside-card .sl-bug-site-pending{background:#f6f0e6!important}
+.sl-game.sl-courtside-card .sl-site-unconfirmed{font:700 10px Arial,sans-serif!important;color:#68798a!important}
+.sl-game.sl-courtside-card .sl-bug-source{font:600 8px Arial,sans-serif!important;opacity:.65!important}
+@media(max-width:700px){
+ .sl-game.sl-courtside-card .sl-bug-site{padding:6px 8px!important}
+ .sl-game.sl-courtside-card .sl-site-label{font-size:8px!important}
+ .sl-game.sl-courtside-card .sl-site-arena{font-size:11px!important}
+ .sl-game.sl-courtside-card .sl-site-city{font-size:10px!important}
+}
