@@ -15,7 +15,7 @@ const indicators=[
 ];
 function chart(entry,spec,full,stateRows){
  const list=full.filter(row=>Number.isFinite(Number(row[spec.key]))&&Number(row[spec.key])>=0)
-  .sort((a,b)=>Number(a[entry.key])-Number(b[entry.key]));
+  .sort((a,b)=>Number(a[spec.key])-Number(b[spec.key]));
  const idx=list.findIndex(row=>row.id===entry.id);
  if(idx<0)return null;
  return {percentile:((idx+1)/list.length)*100,rank:list.length-idx,total:list.length,
