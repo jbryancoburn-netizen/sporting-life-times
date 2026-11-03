@@ -101,7 +101,7 @@ const rows=sorted.map(g=>{
   const officialSource=disputed?(dispute.source_claims||[]).find(x=>typeof x.source_url==='string'&&x.source_url.startsWith('https://'))?.source_url:'';
   const tipNote=disputed?'<small class="wbb-tipoff-dispute">'+esc(disagreement)+
     (officialSource?' <a href="'+esc(officialSource)+'" target="_blank" rel="noopener noreferrer">School source ↗</a>':'')+'</small>':
-    tentative?'<small class="wbb-tipoff-tentative">ESPN-listed start; unverified by school.</small>':
+    tentative?'<small class="wbb-tipoff-tentative">Feed-listed start; unverified by school.</small>':
     hasOfficial?'<small class="wbb-tipoff-verified">University-sourced listing</small>':'';
   const result=window.WBBGameResults.scoreFor(g,id);
   return '<tr data-game-id="'+esc(g.id)+'"><td>'+date+'</td><td><div class="sched-matchup">'+opponent+'<span class="wbb-site-label">'+esc(site(g))+'</span></div></td><td>'+location+'</td><td>'+tip+tipNote+'</td><td class="wbb-broadcast">'+television+'</td><td class="wbb-opp-elo">'+fmtElo(other)+'</td><td class="wbb-forecast wbb-win-probability">'+probability+'</td><td class="wbb-forecast wbb-opp-change">'+delta+'</td><td class="wbb-result-cell" title="'+esc(result.detail)+'"><strong>'+esc(result.value)+'</strong><small class="wbb-result-source">'+esc(result.detail)+'</small></td></tr>';
