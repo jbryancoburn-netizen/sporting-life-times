@@ -13,14 +13,14 @@ const indicators=[
  {key:"bachelors_plus_age25_pct_est",label:"Adults 25+ with bachelor's degree or higher",unit:"percent",fmt:v=>Number(v).toFixed(1)+"%",kind:"Education"},
  {key:"population_2020_2024_acs_est",label:"Resident population, ACS estimate",unit:"people",fmt:v=>number(v),kind:"Population"}
 ];
-function chart(entry,full,stateRows){
- const list=full.filter(row=>Number.isFinite(Number(row[entry.key]))&&Number(row[entry.key])>=0)
+function chart(entry,spec,full,stateRows){
+ const list=full.filter(row=>Number.isFinite(Number(row[spec.key]))&&Number(row[spec.key])>=0)
   .sort((a,b)=>Number(a[entry.key])-Number(b[entry.key]));
  const idx=list.findIndex(row=>row.id===entry.id);
  if(idx<0)return null;
  return {percentile:((idx+1)/list.length)*100,rank:list.length-idx,total:list.length,
-  stateRank:stateRows.filter(row=>Number.isFinite(Number(row[entry.key]))&&Number(row[entry.key])>Number(entry[entry.key])).length+1,
-  stateTotal:stateRows.filter(row=>Number.isFinite(Number(row[entry.key]))).length};
+  stateRank:stateRows.filter(row=>Number.isFinite(Number(row[spec.key]))&&Number(row[spec.key])>Number(entry[spec.key])).length+1,
+  stateTotal:stateRows.filter(row=>Number.isFinite(Number(row[spec.key]))).length};
 }
 async function init(){
  const id=(new URLSearchParams(location.search).get("district")||"").toUpperCase();
@@ -46,7 +46,7 @@ async function init(){
   for(const spec of indicators){
    const v=Number(current[spec.key]);
    if(!Number.isFinite(v)||v<0||current[spec.key]===null)continue;
-   const c=chart(current,rows,stateRows);if(!c)continue;
+   const c=chart(current,spec,rows,stateRows);if(!c)continue;
    available++;
    const card=E("article",null,"community-ledger-metric");
    const name=E("span",spec.label,"community-ledger-label");
