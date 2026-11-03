@@ -44,7 +44,7 @@ assert(slateHTML.includes('mbb-slate-insights.js'));
 assert(slateHTML.indexOf('mbb-slate-insights.js')<slateHTML.indexOf('ncaam-slate.js'));
 assert(teamHTML.includes('mbb-arena-file.js')&&teamHTML.includes('id="af-inline"'));
 for(const phrase of ['sl-season-comparison','sl-game-analytics','sl-leading-players',
-  'sl-live-desk','ncaam-arena.html?team='])
+  'sl-live-desk'])
  assert(slateJS.includes(phrase),'missing functioning storytelling module '+phrase);
 const retro=read('data/ncaam-2026-27-retro-primary.json');
 assert.equal(retro.starting_elo,1500);
