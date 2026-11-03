@@ -1,0 +1,39 @@
+/* SLT DAILY LEDGER — Victorian scorecard and scorebug edition.
+   Presentation only: original game states, team-color pennants, double-ring logos and links remain owned by ncaam-slate.js. */
+body{--sl-paper:#eee3cf;--sl-card:#f9f0df;--sl-ink:#2a241e;--sl-line:#a99578;--sl-dim:#645849;background:var(--sl-paper);color:var(--sl-ink)}
+.sl-game{background:var(--sl-card);border:1px solid #927e62;box-shadow:none;border-radius:0}
+.sl-game:before{width:3px;background:linear-gradient(var(--sl-away) 50%,var(--sl-home) 50%)}
+.sl-game-bar{background:#e6d8be;border-bottom:3px double #6f5b42;padding:8px 12px 8px 18px;color:#33291d;font:700 10px/1.4 Georgia,'Times New Roman',serif;letter-spacing:.05em;text-transform:uppercase}
+.sl-game-time,.sl-location,.sl-tag{color:#52432e;font-family:Georgia,serif}
+.sl-tag.sl-live{background:#7f352d;color:#fff4e5;padding:3px 7px}
+.sl-game-teams{padding:11px 13px 8px 18px}
+.sl-team-copy strong{font:700 clamp(19px,2vw,25px)/1.1 Georgia,'Times New Roman',serif;letter-spacing:-.025em}
+.sl-team-copy small,.sl-record{color:#665948;font-family:Georgia,serif}
+.sl-game .sl-vs,.sl-game .sl-vs strong{font-family:Georgia,serif;font-variant-numeric:tabular-nums}
+.sl-game-main--live,.sl-game .sl-game-main--final{border-top:3px double #6e5640}
+.sl-game .sl-score-context{background:#eee2cd;border-left:3px solid var(--sl-home);padding:9px 11px}
+.sl-game .sl-score-context span,.sl-game .sl-score-context strong,.sl-game .sl-score-context small{font-family:Georgia,serif;color:#352b21}
+.sl-game-footer{border-top:1px solid #a99578}
+.sl-score-projection{background:#e5d5b9;color:#292018;border-left:3px solid var(--sl-home-alt);border-top:1px solid #a99578}
+.sl-score-projection span,.sl-score-projection p{color:#68523b;font-family:Georgia,serif}
+.sl-score-projection strong{color:#271f19;font-family:Georgia,serif}
+.sl-game .sl-broadcast-bug{border:3px double #332b22;border-radius:0;background:#27221c;color:#f8edda;box-shadow:none;grid-template-columns:62px minmax(0,1fr) 100px}
+.sl-game .sl-broadcast-mark{background:#352b22;border-right:1px solid #be9d65}
+.sl-game .sl-broadcast-mark b{font:900 25px Georgia,serif;color:#e8cb8d}
+.sl-game .sl-broadcast-row{border-bottom:1px solid #6d5b44;border-left:4px solid var(--bug-team);background:transparent}
+.sl-game .sl-broadcast-row :is(b,strong){font-family:Georgia,'Times New Roman',serif;font-variant-numeric:tabular-nums}
+.sl-game .sl-broadcast-pair{background:#29231d}
+.sl-game .sl-broadcast-crest .mbb-mark,.sl-game .sl-broadcast-crest .sl-emblem{object-fit:contain}
+.sl-game .sl-pennant{box-shadow:none}
+.sl-game :is(.sl-game-metric,.sl-game-analytics){border-color:#ae9a7c}
+.sl-game :is(.sl-game-metric,.sl-game-analytics,.sl-matchup-facts){font-family:Georgia,serif}
+.sl-hero{background:#ede0c7;min-height:175px;padding:23px 22px}
+.sl-hero:after{opacity:.25}
+.sl-hero h1{font:800 clamp(43px,6vw,82px)/1 Georgia,serif;letter-spacing:-.06em}
+.sl-hero h1 em{font-style:normal}
+.sl-hero p{color:#544733}
+.sl-court-art{opacity:.24}
+.sl-nav{background:#30261c;border-bottom:3px double #bb9a65}
+.sl-toolbar{border-bottom:2px solid #463929}
+.sl-day-controls>button,.sl-filters button{border-radius:0}
+@media(max-width:620px){.sl-game .sl-broadcast-bug{grid-template-columns:49px minmax(0,1fr) 78px;margin-left:7px;margin-right:7px}.sl-game .sl-broadcast-row{gap:4px;padding-right:4px}.sl-game-bar{padding-left:11px}.sl-game-teams{padding-left:11px}}
