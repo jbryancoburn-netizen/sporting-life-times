@@ -1012,3 +1012,23 @@ body .sl-game .sl-broadcast-status small{font:700 8px/1.05 Georgia,serif!importa
  body .sl-game .sl-broadcast-name{font-size:10px!important}
  body .sl-game .sl-broadcast-points{font-size:16px!important}
 }
+
+/* Score-first ledger: one compact, expandable scoreboard per fixture. */
+.sl-game{display:block!important;overflow:hidden!important}
+.sl-game .sl-game-bar{padding:7px 10px!important;gap:8px!important}
+.sl-game .sl-game-expansion{display:block;min-width:0}
+.sl-game .sl-game-summary{display:block;cursor:pointer;list-style:none;padding:8px 11px 10px;position:relative}
+.sl-game .sl-game-summary::-webkit-details-marker{display:none}
+.sl-game .sl-game-summary:focus-visible{outline:3px solid #8c603b;outline-offset:-3px}
+.sl-game .sl-game-summary::after{content:'OPEN GAMEFILE ＋';display:block;text-align:right;font:700 10px/1.2 Georgia,serif;letter-spacing:.08em;color:#775f42;margin-top:5px}
+.sl-game .sl-game-expansion[open]>.sl-game-summary::after{content:'CLOSE DETAILS −'}
+.sl-game .sl-game-summary .sl-broadcast-bug{margin:0!important;max-width:none!important}
+.sl-game .sl-game-expanded{border-top:3px double #9e8661;padding:0 10px 12px}
+.sl-game .sl-game-expanded .sl-game-main{display:none!important}
+.sl-game .sl-game-expanded .sl-game-footer{padding:8px 0!important;margin:0!important;flex-wrap:wrap!important}
+.sl-game .sl-game-expanded .sl-details{background:#443526;color:#f6edda;border:0;padding:8px 11px}
+.sl-game .sl-inline-frame{display:block;width:100%;height:min(70vh,750px);min-height:420px;background:#f8f0df;border:1px solid #a98d65}
+.sl-game .sl-inline-gamefile{margin-top:10px}
+.sl-game:has(.sl-game-expansion) .sl-game-main{display:none!important}
+.sl-game .sl-broadcast-mark{min-width:0}
+@media(max-width:620px){.sl-game .sl-game-summary{padding:6px}.sl-game .sl-inline-frame{min-height:480px;height:68vh}}
