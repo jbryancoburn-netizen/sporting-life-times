@@ -1,0 +1,23 @@
+/* Sporting Life & Times — cross-edition Victorian editorial system. Non-destructive: existing live renderers remain in place. */
+:root{--slt-paper:#f1e7d5;--slt-ink:#29231c;--slt-rule:#ae9b7f;--slt-red:#86372e}
+body{background-color:var(--slt-paper);color:var(--slt-ink)}
+body :is(.wrap,.slt-wrap,.page-wrap,.shell,.sl-shell){max-width:1500px}
+body :is(.masthead,.slt-masthead){font-family:Georgia,'Times New Roman',serif!important;letter-spacing:-.045em!important}
+body :is(.edition-line,.slt-edition-line){font-family:Georgia,'Times New Roman',serif!important;text-transform:uppercase;letter-spacing:.12em}
+body :is(.grid,.slt-columns,.columns){column-gap:0}
+body :is(.grid,.slt-columns) > :is(.column,.slt-column){min-width:0}
+body :is(.grid,.slt-columns) > :is(.column,.slt-column):not(:last-child){border-right:1px solid var(--slt-rule);padding-right:clamp(10px,1.4vw,22px);margin-right:clamp(10px,1.4vw,22px)}
+body :is(.panel,.slt-panel){border-radius:0!important;box-shadow:none!important}
+body :is(.panel,.slt-panel) > :is(h2,h3),body :is(.panel-head,.slt-panel-head) h2{font-family:Georgia,'Times New Roman',serif!important;letter-spacing:-.035em;line-height:1.12}
+body :is(.story,.nba-story,.slt-story) h3{font-family:Georgia,'Times New Roman',serif!important;letter-spacing:-.025em}
+body :is(.score-card,.slt-score-card,.nba-leader,.metric,.slt-metric){box-shadow:none!important;border-radius:0!important}
+body :is(table,.nba-table,.standings-table){font-variant-numeric:tabular-nums}
+body :is(table,.nba-table,.standings-table) :is(th,td){border-bottom:1px solid var(--slt-rule)}
+body :is(.badge,.team-logo,.club-logo,.slt-team-logo) img,body img:is(.badge,.team-logo,.club-logo,.slt-team-logo){object-fit:contain}
+body :is(.score-card,.rank-row,.nba-leader,.team-row){border-bottom-color:var(--slt-rule)}
+body :is(.bar,.progress,.rating-bar){border-radius:0!important}
+body :is(.panel-head,.slt-panel-head,.section-head){border-bottom-color:var(--slt-rule)}
+body :is(.eyebrow,.slt-eyebrow,.source,.section-kicker){font-family:Arial,Helvetica,sans-serif!important;letter-spacing:.1em;text-transform:uppercase}
+body :is(.story-img,.player-headshot,.player-image,.nba-player-headshot){object-fit:cover}
+@media(max-width:860px){body :is(.grid,.slt-columns) > :is(.column,.slt-column){margin-right:0!important;padding-right:0!important;border-right:0!important}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
