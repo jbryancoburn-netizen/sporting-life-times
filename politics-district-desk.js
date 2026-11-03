@@ -22,6 +22,9 @@ function news(d,host,phase){
  const articles=Array.isArray(d?.articles)?d.articles.filter(x=>x&&good(x.url)&&x.title&&x.source&&dt(x.published_at)): [];
  articles.sort((a,b)=>new Date(b.published_at)-new Date(a.published_at));
  host.replaceChildren();
+ host.classList.toggle("desk-has-no-news",articles.length===0);
+ const serviceHost=$("district-service-desk");
+ if(serviceHost)serviceHost.classList.toggle("district-news-empty",articles.length===0);
  const intro=E("div",null,"desk-intro");
  intro.append(E("span",phase==="campaign"?"THE DISTRICT / ON THE CAMPAIGN TRAIL":"THE DISTRICT / CONTINUING COVERAGE","desk-kicker"),
  E("h3",phase==="campaign"?"Reporting from this district":"What's happening in the district"),
@@ -37,7 +40,7 @@ function news(d,host,phase){
    const over=E("span",(item.topic||"REPORT")+" · "+item.source+" · "+format(item.published_at),"desk-overline");
    row.append(over,A(item.title,item.url));list.append(row);
   }host.append(list);
- }else host.append(E("p","No directly confirmed district headlines are available right now. Broader national headlines are deliberately excluded.","desk-empty"));
+ }else { const empty=E("p","No verified district-specific headlines have been collected yet. We will publish linked local reporting here when its relevance is confirmed.","desk-empty");host.append(empty); const guide=E("a","Explore local geography and communities →","desk-local-guide-link");guide.href="#district-dossier";host.append(guide); }
  const foot=E("p",null,"desk-attribution");
  foot.textContent="District feed last collected: "+(d?.news_updated_at?format(d.news_updated_at):"not yet checked")+". ";
  const checked=d?.news_checked_at;if(checked)foot.textContent+="Source check: "+format(checked)+". ";
