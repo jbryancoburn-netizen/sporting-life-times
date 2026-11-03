@@ -67,9 +67,9 @@ function render(payload){
  mapped.sort((a,b)=>priority(a)-priority(b)||((priority(a)===2?-1:1)*(Date.parse(a.date)-Date.parse(b.date)))||String(a.id).localeCompare(String(b.id)));
  root.innerHTML=mapped.map(g=>{
   const playing=g.state==='in';const final=g.state==='post';const pregameSafe=!playing&&!final&&Number.isFinite(Date.parse(g.date))&&Date.parse(g.date)>Date.now()+10*60000;
-  const state=playing?'LIVE · '+g.label:final?'FINAL · '+new Date(g.date).toLocaleDateString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric'}):new Date(g.date).toLocaleTimeString('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit'})+' ET';
+  const state=playing?'LIVE · '+g.label:final?'FINAL':new Date(g.date).toLocaleTimeString('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit'})+' ET';
   const team=t=>'<div class="nba-live-team" style="--team-color:'+({ATL:'#E03A3E',BOS:'#007A33',BKN:'#242424',CHA:'#1D1160',CHI:'#CE1141',CLE:'#860038',DAL:'#00538C',DEN:'#0E2240',DET:'#C8102E',GSW:'#1D428A',HOU:'#CE1141',IND:'#002D62',LAC:'#C8102E',LAL:'#552583',MEM:'#5D76A9',MIA:'#98002E',MIL:'#00471B',MIN:'#0C2340',NOP:'#0C2340',NYK:'#006BB6',OKC:'#007AC1',ORL:'#0077C0',PHI:'#006BB6',PHX:'#1D1160',POR:'#E03A3E',SAC:'#5A2D81',SAS:'#000000',TOR:'#CE1141',UTA:'#002B5C',WAS:'#002B5C'}[canonicalCode(t.code)]||'#344a58')+'"><img src="'+logo(t.code)+'" alt="" loading="lazy"><span><b>'+esc(t.code)+'</b><small>'+esc(t.record)+'</small></span><strong>'+((playing||final)?esc(t.score):'–')+'</strong></div>';
-  return '<a class="nba-live-match'+(playing?' playing':'')+'" href="nba-live-game.html?game='+encodeURIComponent(g.id)+'" aria-label="View live stats for '+esc(g.away.name)+' versus '+esc(g.home.name)+'"><div class="nba-live-match-head"><b>'+esc(state)+'</b><span>'+ (playing?'IN PROGRESS':final?'FINAL SCORE':'TODAY')+'</span></div>'+team(g.away)+team(g.home)+(pregameSafe?projected(g):'')+'</a>'
+  return '<a class="nba-live-match'+(playing?' playing':'')+'" href="nba-live-game.html?game='+encodeURIComponent(g.id)+'" aria-label="View live stats for '+esc(g.away.name)+' versus '+esc(g.home.name)+'"><div class="nba-live-match-head"><b>'+esc(state)+'</b><span>'+ (playing?'IN PROGRESS':final?'FEED FINAL':'TODAY')+'</span></div>'+team(g.away)+team(g.home)+(pregameSafe?projected(g):'')+'</a>'
  }).join('');
 }
 function fromNba(raw){
@@ -94,9 +94,7 @@ async function update(){
   ['ESPN previous day','https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates='+yesterday+'&_='+Date.now(),x=>x],
   ['NBA official fallback','https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json',fromNba]
  ];
- const merged=new Map(),successful=[],previousFinals=new Map();
- const usableFinal=e=>e.status?.type?.state==='post'&&(e.competitions?.[0]?.competitors||[]).length===2&&(e.competitions?.[0]?.competitors||[]).every(t=>t.score!==undefined&&t.score!==null&&String(t.score).trim()!==''&&Number.isFinite(Number(t.score)));
- const finalKey=e=>(e.competitions?.[0]?.competitors||[]).map(t=>canonicalCode(t.team?.abbreviation)).join('-');
+ const merged=new Map(),successful=[];
  for(const [name,url,normalize] of sources){
   try{
    const ctrl=new AbortController(),timeout=setTimeout(()=>ctrl.abort(),6500);
@@ -108,11 +106,7 @@ async function update(){
    for(const event of data.events){
     const id=String(event.id||'');if(!id||merged.has(id))continue;
     const when=Date.parse(event.date||'');
-    if(!Number.isFinite(when))continue;
-    if(gameDay(when)===yesterday&&usableFinal(event)){
-      const key=finalKey(event);if(!previousFinals.has(key))previousFinals.set(key,event);
-    }
-    if(gameDay(when)!==today)continue;
+    if(!Number.isFinite(when)||gameDay(when)!==today)continue;
     const teams=event.competitions?.[0]?.competitors||[];
     const away=canonicalCode(teams.find(x=>x.homeAway==='away')?.team?.abbreviation);
     const home=canonicalCode(teams.find(x=>x.homeAway==='home')?.team?.abbreviation);
@@ -131,11 +125,7 @@ async function update(){
   const stale=!Number.isFinite(publishedAt)||Date.now()-publishedAt>30*60000;
   for(const event of fromArchive(snapshot).events){
    const when=Date.parse(event.date||'');
-   if(!Number.isFinite(when))continue;
-   if(gameDay(when)===yesterday&&usableFinal(event)){
-     const key=finalKey(event);if(!previousFinals.has(key))previousFinals.set(key,event);
-   }
-   if(gameDay(when)!==today)continue;
+   if(!Number.isFinite(when)||gameDay(when)!==today)continue;
    const teams=event.competitions?.[0]?.competitors||[];
    const away=teams.find(x=>x.homeAway==='away')?.team?.abbreviation||'';
    const home=teams.find(x=>x.homeAway==='home')?.team?.abbreviation||'';
@@ -189,18 +179,13 @@ async function update(){
   clean.push(e);
   for(const t of teams){const a=verified.get(t)||[];a.push(stamp);verified.set(t,a)}
  }
- // Keep real previous-day scores on the page before today's games begin.
- // Their date is printed explicitly; never present older games as live.
- const recent=[...previousFinals.values()].sort((a,b)=>Date.parse(b.date)-Date.parse(a.date)).slice(0,4);
- const hasTodayResults=clean.some(e=>['in','post'].includes(e.status?.type?.state));
- if(!hasTodayResults)clean.push(...recent);
  if(clean.length){
   render({events:clean});lastOK=Date.now();
   status.textContent=(successful.length?'LIVE SOURCES · '+successful.join(' + '):'Live feeds unavailable · published snapshot')+' · checked '+new Date(lastOK).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/New_York'})+' ET · refreshes every minute';
   return;
  }
- status.textContent=successful.length?'No NBA games listed for this Eastern calendar date':'NBA scoring sources temporarily unavailable';
- root.innerHTML='<p class="hub-small">'+(successful.length?'No games were listed for today in the available feed.':'Today’s live score feeds could not be reached.')+' <a href="nba-game-center.html">Open published game results →</a></p>';
+ status.textContent='NBA score feeds unavailable · no recent game confirmed';
+ root.innerHTML='<p class="hub-small">Recent scores could not be verified. <a href="nba-game-center.html">Open the verified game archive</a>.</p>';
 }
 Promise.allSettled([refreshRecords(),loadPregameElo()]).then(update);setInterval(()=>{if(!document.hidden)loadPregameElo().then(update)},60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)update()});
 })();
