@@ -718,6 +718,11 @@
   function renderInlineDetails(g,panel,entry){
     if(!panel?.isConnected||panel.hidden||!state.expanded.has(String(g.id)))return;
     const raw=(g.disputed||g.statsDisputed)?null:entry?.data;
+    const currentFlow=g.phase!=='live'||(()=>{
+      const snap=verifiedPeriodSnapshot(g,raw);
+      return !!snap&&!snap.behind&&score(g.away)===String(snap.awayTotal)&&
+        score(g.home)===String(snap.homeTotal);
+    })();
     const unavailable='<p class="cbb-empty">No confirmed statistics for this section. Nothing has been estimated.</p>';
     const periods=periodTable(g,raw);
     const teams=g.certifiedTeamBox?ncaaTeamStats(g,g.certifiedTeamBox):statsPairs(g,raw);
@@ -750,7 +755,7 @@
       (entry?.at?' · Checked '+new Date(entry.at).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/New_York'})+' ET':'')+'</p>';
     selectInlineTab(panel,state.inlineTabs.get(String(g.id))||'summary');
     const court=panel.querySelector('[data-cbb-courtcast]');
-    if(window.SLTCourt&&court)window.SLTCourt.mount(court,g,raw,{updatedAt:entry?.at||0,inline:true});
+    if(window.SLTCourt&&court)window.SLTCourt.mount(court,g,currentFlow?raw:null,{updatedAt:entry?.at||0,inline:true});
   }
   async function loadInlineDetails(id,panel){
     const g=state.games.find(x=>String(x.id)===String(id));
@@ -1003,7 +1008,10 @@
        (g.certifiedBox?' · NCAA-origin individual totals available under Player Box Score':'')+
        (g.certifiedTeamBox?' · NCAA-origin verified team totals available under Team Statistics':'')+'</p>';
     selectGameTab(state.section);
-    if(window.SLTCourt)window.SLTCourt.mount(document.getElementById('cbb-courtcast-root'),g,raw,{updatedAt:entry?.at||0});
+    const snap=g.phase==='live'?verifiedPeriodSnapshot(g,raw):null;
+    const flowMatches=g.phase!=='live'||(snap&&!snap.behind&&
+      score(g.away)===String(snap.awayTotal)&&score(g.home)===String(snap.homeTotal));
+    if(window.SLTCourt)window.SLTCourt.mount(document.getElementById('cbb-courtcast-root'),g,flowMatches?raw:null,{updatedAt:entry?.at||0});
     if(window.SLTRadio)window.SLTRadio.mount(document.getElementById('cbb-radio-companion-root'),g,women?'women':'men');
   }
   async function openGamefile(){
