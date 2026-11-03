@@ -533,3 +533,48 @@ body[data-house-page="district"] .desk-local-guide-link{
  display:inline-block;font:700 12px/1.5 var(--ledger-sans)!important;
  color:var(--ledger-accent)!important;margin:6px 0!important;
 }
+
+/* Newspaper typography correction: restrained Victorian type, not oversized display cards. */
+body[data-house-page="district"] .district-service-desk .desk-frame h2{
+ font:700 clamp(24px,2.3vw,32px)/1.18 var(--ledger-display)!important;
+ letter-spacing:-.015em!important;color:#302a23!important;
+}
+body[data-house-page="district"] .district-service-desk .desk-intro h3{
+ font:700 clamp(19px,1.8vw,25px)/1.28 var(--ledger-serif)!important;
+ letter-spacing:-.01em!important;color:#302a23!important;
+}
+body[data-house-page="district"] .district-service-desk .desk-frame,
+body[data-house-page="district"] .district-service-desk .desk-intro{
+ margin-bottom:8px!important;padding-bottom:8px!important;
+}
+body[data-house-page="district"] .district-service-desk .desk-intro p,
+body[data-house-page="district"] .district-service-desk .desk-empty{
+ font:400 14px/1.6 var(--ledger-serif)!important;
+ color:#3d382f!important;
+}
+body[data-house-page="district"] .district-service-desk .desk-switcher button{
+ font:700 11px/1.3 var(--ledger-sans)!important;
+ letter-spacing:0!important;
+}
+body[data-house-page="district"] .plt-public-record-head h2,
+body[data-house-page="district"] .plt-public-record h2{
+ font:700 clamp(23px,2.2vw,31px)/1.24 var(--ledger-display)!important;
+ letter-spacing:-.01em!important;color:#302a23!important;
+}
+body[data-house-page="district"] .plt-public-record-head p,
+body[data-house-page="district"] .plt-public-record-card p{
+ font:400 14px/1.65 var(--ledger-serif)!important;
+}
+body[data-house-page="district"] .district-lower-heading h2{
+ font-size:clamp(27px,2.9vw,39px)!important;
+}
+body[data-house-page="district"] .front-title{
+ font-size:clamp(26px,3vw,41px)!important;
+}
+body[data-house-page="district"] .district-dossier .dossier-edition-head h2{
+ font-size:clamp(24px,2.5vw,34px)!important;
+}
+@media(max-width:680px){
+ body[data-house-page="district"] .district-service-desk .desk-frame h2{font-size:25px!important}
+ body[data-house-page="district"] .district-service-desk .desk-intro h3{font-size:20px!important}
+}
