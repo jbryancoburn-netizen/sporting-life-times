@@ -160,3 +160,28 @@ body[data-house-page="district"] .orientation-national-edition>.orientation-kick
 body[data-house-page="district"] .orientation-national-edition .orientation-places p{
  font:14px/1.75 'Libre Baskerville',Georgia,serif;
 }
+
+/* Census-backed town and neighborhood reading lists; matched to official polygons. */
+body[data-house-page="district"] .orientation-national-edition .orientation-verified-places,
+body[data-house-page="district"] #dossier-local .dossier-community-list{
+ column-count:2;column-gap:24px;list-style:none!important;
+ padding:10px 0!important;margin:8px 0 16px!important;
+ border-top:1px solid #a59a89;border-bottom:1px solid #a59a89;
+}
+body[data-house-page="district"] .orientation-national-edition .orientation-verified-places li,
+body[data-house-page="district"] #dossier-local .dossier-community-list li{
+ font:700 13px/1.55 'Libre Baskerville',Georgia,serif!important;
+ padding:6px 0!important;margin:0!important;break-inside:avoid;
+ border-bottom:1px dotted #b5a99a;
+}
+body[data-house-page="district"] #dossier-local>h4{
+ font:700 19px/1.25 'Libre Baskerville',Georgia,serif!important;
+ margin:17px 0 8px!important;
+}
+body[data-house-page="district"] .orientation-national-edition .orientation-facts article p{
+ font:400 13px/1.55 'Libre Baskerville',Georgia,serif!important;
+}
+@media(max-width:540px){
+ body[data-house-page="district"] .orientation-national-edition .orientation-verified-places,
+ body[data-house-page="district"] #dossier-local .dossier-community-list{column-count:1}
+}
