@@ -904,3 +904,38 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #c481
   padding-top:11px!important;
  }
 }
+
+/* ENGRAVED NAMEPLATE OVERRIDE — canonical rendering rules (formerly forced pointed pennants). */
+body .sl-game .sl-pennant,body .sl-featured .sl-pennant,
+body .sl-game .sl-pennant--tail,body .sl-game .sl-pennant--point,body .sl-game .sl-pennant--shield{
+ clip-path:none!important;transform:none!important;
+ border:4px double color-mix(in srgb,var(--pennant-accent) 70%,#ebd4a0)!important;
+ outline:1px solid #473726!important;outline-offset:2px!important;
+ background:color-mix(in srgb,var(--pennant) 74%,#30251b)!important;
+ border-radius:0!important;box-shadow:none!important;
+ height:219px!important;min-height:219px!important;
+ padding:14px 10px 12px!important;
+}
+body .sl-game .sl-pennant::before,body .sl-featured .sl-pennant::before{
+ content:''!important;display:block!important;position:absolute!important;
+ inset:5px!important;border:1px solid color-mix(in srgb,var(--pennant-accent) 65%,#ebd4a0)!important;
+ opacity:.85!important;pointer-events:none!important;
+}
+body .sl-game .sl-pennant::after,body .sl-featured .sl-pennant::after{content:none!important}
+body .sl-game .sl-pennant-seam,body .sl-featured .sl-pennant-seam,
+body .sl-game .sl-pennant-rivet{display:none!important}
+body .sl-game .sl-pennant-name,body .sl-featured .sl-pennant-name{
+ font:700 12px/1.15 Georgia,'Times New Roman',serif!important;
+ letter-spacing:.04em!important;text-shadow:none!important;
+}
+body .sl-game .sl-pennant-mascot,body .sl-featured .sl-pennant-mascot{
+ font:italic 13px/1.12 Georgia,'Times New Roman',serif!important;
+ text-shadow:none!important;
+}
+body .sl-game .sl-pennant-rating,body .sl-featured .sl-pennant-rating{
+ background:#33281c!important;border:1px solid #ac905a!important;border-radius:0!important;
+ font-family:Georgia,serif!important;
+}
+@media(max-width:650px){
+ body .sl-game .sl-pennant,body .sl-featured .sl-pennant{height:207px!important;min-height:207px!important;padding:11px 6px!important}
+}
