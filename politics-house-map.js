@@ -125,7 +125,7 @@
         const evidence=mapEvidence.get(id);
         const chosen=selectedDistrict===id;
         return {
-          fillColor:mapView==="evidence"&&evidence?evidence.color:"#c9bda7",
+          fillColor:mapView==="evidence"&&evidence?.eligible?evidence.color:"#c9bda7",
           color:chosen?"#793e32":"#3a352e",
           weight:chosen?3.7:1.8,
           fillOpacity:mapView==="evidence"&&evidence?.eligible?0.48:(chosen?0.33:0.18),
@@ -137,7 +137,7 @@
       for(const feature of features){
         const id=featureId(feature,state.code,field),row=byId.get(id);
         const info=districtEvidence(row),paint=color(info.party,info.margin);
-        mapEvidence.set(id,{color:paint.bg,eligible:!!(info.party&&Number.isFinite(Number(info.margin)))});
+        mapEvidence.set(id,{color:paint.bg,eligible:!!(info.party&&info.margin!==null&&info.margin!==undefined&&info.margin!==""&&Number.isFinite(Number(info.margin)))});
         const layer=L.geoJSON(feature,{style:()=>districtStyle(id),interactive:true});
         layer.eachLayer(shape=>{
           shape.bindTooltip(makeInfoNode(id,info),{sticky:true,direction:"top",opacity:0.98,className:"district-map-tip"});
