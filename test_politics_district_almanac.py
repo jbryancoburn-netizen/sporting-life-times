@@ -37,7 +37,8 @@ class DistrictAlmanac(unittest.TestCase):
         ids={r["id"] for r in self.atlas["districts"]}
         year_map={}
         for row in self.early["house"]+self.recent["house"]:
-            self.assertIn(row["id"],ids)
+            # Historical districts can disappear after reapportionment.
+            # Retain them in the archive, but only modern IDs receive modern pages.
             self.assertIn(row["year"],(2012,2014,2016,2018,2020,2022,2024))
             key=(row["id"],row["year"])
             self.assertNotIn(key,year_map)
@@ -46,6 +47,9 @@ class DistrictAlmanac(unittest.TestCase):
                 self.assertGreaterEqual(row[field],0)
             self.assertTrue(row.get("source_url") or row.get("source"))
         self.assertGreaterEqual(len(year_map),3000)
+        removed={key[0] for key in year_map if key[0] not in ids}
+        self.assertEqual(removed,{"CA-53","IL-18","MI-14","MT-00","NY-27","OH-16","PA-18","WV-03"})
+        self.assertEqual(sum(key[0] not in ids for key in year_map),40)
         self.assertGreaterEqual(sum(sum((id_,year) in year_map for year in (2012,2014,2016,2018,2020,2022,2024))==7 for id_ in ids),413)
 
     def test_top_two_candidate_results_not_mislabeled_as_one_party_races(self):
