@@ -1084,3 +1084,10 @@ body .sl-game .sl-game-summary .sl-broadcast-crest :is(.mbb-mark,.sl-emblem){--m
 body .sl-game .sl-game-summary .sl-broadcast-name{font-size:11px!important}
 body .sl-game .sl-game-summary .sl-broadcast-points{font-size:21px!important}
 }
+
+/* Keep pregame status visible in the narrow Victorian scorebug column. */
+body .sl-game .sl-game-summary .sl-broadcast-status{min-width:0!important;padding:4px 3px!important}
+body .sl-game .sl-game-summary .sl-broadcast-status strong{display:block!important;max-width:100%!important;font:800 11px/1.15 Georgia,serif!important;letter-spacing:.015em!important;overflow-wrap:anywhere!important;text-align:center}
+body .sl-game .sl-game-summary .sl-broadcast-status strong[data-status="upcoming"]{font-size:10px!important;letter-spacing:0!important}
+body .sl-game .sl-game-summary .sl-broadcast-bug{grid-template-columns:42px minmax(0,1fr) minmax(90px,104px)!important}
+@media(max-width:560px){body .sl-game .sl-game-summary .sl-broadcast-bug{grid-template-columns:35px minmax(0,1fr) 82px!important}body .sl-game .sl-game-summary .sl-broadcast-status strong{font-size:10px!important}}
