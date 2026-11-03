@@ -47,7 +47,7 @@ for(const district of ['IA-01','IL-07','CA-12','MO-01','AK-00']){
   await smoke('politics-house-district.html?district='+district,viewport,'district-'+district+'-'+device);
  }
 }
-// Navigate to EVERY existing route and verify the correct edition materializes.
+// Navigate to EVERY state edition, then EVERY district route.\nfor(const state of atlas.states){\n const page=await pageFor();\n try{\n  const response=await page.goto(new URL('politics-house-state.html?state='+state.code,base).href,{waitUntil:'domcontentloaded',timeout:30000});\n  if(response?.status()!==200)throw Error('HTTP '+response?.status());\n  await page.waitForFunction(expected=>document.querySelector('#state-title')?.textContent?.includes(expected),state.name,{timeout:25000});\n }catch(e){fail('state route '+state.code,e.message)}finally{await page.close()}\n}\n// Navigate to EVERY existing route and verify the correct edition materializes.
 const routePage=await pageFor();
 try{
  for(let i=0;i<all.length;i++){
@@ -63,5 +63,5 @@ try{
   }catch(e){fail('route '+id,e.message)}
  }
 }finally{await routePage.close();await browser.close()}
-console.log(JSON.stringify({totalDistrictRoutes:all.length,checkedScreenshots:18,failures:failures.length,details:failures.slice(0,30)},null,2));
+console.log(JSON.stringify({totalStateRoutes:atlas.states.length,totalDistrictRoutes:all.length,checkedScreenshots:18,failures:failures.length,details:failures.slice(0,30)},null,2));
 if(failures.length)process.exitCode=1;
