@@ -133,17 +133,9 @@ def main():
     acs_by_id={r["id"]:r for r in acs["districts"]}
     places=read_places()
     print("2026 Census Gazetteer places:",sum(map(len,places.values())),flush=True)
-    populations={}
-    failed=[]
-    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as pool:
-        futures={pool.submit(population_for_state,item):item for item in FIPS.items()}
-        for f in concurrent.futures.as_completed(futures):
-            try:
-                k,v=f.result();populations[k]=v
-            except Exception as exc:
-                failed.append((futures[f][0],type(exc).__name__))
-    # Reject an incomplete population ingest rather than misrank places silently.
-    if failed:raise RuntimeError("Census population requests failed: "+repr(failed))
+    # The Census Data API now requires an API key. Avoid authentication
+    # entirely: use only the free official national Gazetteer ZIP.
+    populations={fips:{} for fips in FIPS.values()}
     records={}
     for state,fips in FIPS.items():
         file=ROOT/"politics-geometry"/(state+".geojson")
@@ -166,7 +158,7 @@ def main():
                         out.append({
                           "name":item["name"],
                           "lat":round(item["lat"],6),"lon":round(item["lon"],6),
-                          "geoid":item["geoid"],"population_2020":populations[fips].get(item["place_code"])
+                          "geoid":item["geoid"],"area_sqmi":item["area_sqmi"]
                         })
                         break
         print(state, "mapped",sum(len(records.get(x,[])) for x in indexed), "place points into",len(indexed),"districts",flush=True)
@@ -174,7 +166,7 @@ def main():
     for r in atlas["districts"]:
         id=r["id"]
         raw=records.get(id,[])
-        raw.sort(key=lambda x:(-(x["population_2020"] if x["population_2020"] is not None else -1),x["name"]))
+        raw.sort(key=lambda x:(-x["area_sqmi"],x["name"]))
         # Prefer names of larger settlements, but never claim whole city falls in district.
         best=raw[:TOP]
         a=acs_by_id.get(id) or {}
@@ -193,9 +185,9 @@ def main():
     total=sum(bool(x["communities"]) for x in result.values())
     obj={
       "schema_version":1,"generated_at":dt.datetime.now(dt.timezone.utc).isoformat(),
-      "census_gazetteer_url":GAZ,"population_url":POP_API,
+      "census_gazetteer_url":GAZ,"population_url":None,
       "geometry_source":"politics-geometry/[STATE].geojson (Census TIGERweb 2026; MO 119th fallback)",
-      "method":"2026 Gazetteer place reference points within official congressional polygons; 2020 Decennial place population for sorting only",
+      "method":"2026 Gazetteer place reference points within official congressional polygons; selected by place land area, NOT population or district share",
       "district_count":len(result),"districts_with_named_places":total,
       "districts_without_named_places":sorted(id for id,x in result.items() if not x["communities"]),
       "districts":result
