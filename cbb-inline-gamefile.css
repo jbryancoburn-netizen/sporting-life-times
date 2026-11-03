@@ -1,0 +1,52 @@
+/* The Gamefile is expanded inside its original Ledger scorecard; no iframe. */
+.ledger26-gamefile{--gf-rule:#b6a486;--gf-ink:#34291c;min-width:0;color:var(--gf-ink);font:13px/1.45 Georgia,'Times New Roman',serif}
+.ledger26-gamefile *{box-sizing:border-box}
+.slt-gf-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;border-bottom:3px double var(--gf-rule);padding:10px 0 13px}
+.slt-gf-head small{font:700 10px/1.3 Georgia,serif;letter-spacing:.1em}
+.slt-gf-head h3{font:700 clamp(19px,2vw,27px)/1.17 Georgia,serif;margin:5px 0 6px;color:#302517}
+.slt-gf-head p{margin:0;font-size:12px}
+.slt-gf-refresh{border:1px solid #89765b;background:#f6eddf;color:#47341e;padding:7px 10px;font:700 11px/1.3 Georgia,serif;cursor:pointer;white-space:nowrap}
+.slt-gf-refresh:hover{background:#e7d8bb}
+.slt-gf-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-bottom:2px solid #a38e6e;margin:10px 0 0}
+.slt-gf-tabs button{min-width:0;padding:10px 4px;border:0;border-right:1px solid #c1ae8e;background:#eae0ce;color:#4b3b28;cursor:pointer;font:700 12px/1.3 Georgia,serif}
+.slt-gf-tabs button:last-child{border-right:0}
+.slt-gf-tabs button[aria-selected="true"]{background:#f9f2e4;color:#2e2419;box-shadow:inset 0 -3px 0 #5f482f}
+.slt-gf-tabs button:focus-visible,.slt-gf-refresh:focus-visible{outline:3px solid #946124;outline-offset:-3px}
+.ledger26-gamefile [data-inline-panel]{padding:14px 2px 10px;min-width:0}
+.ledger26-gamefile [data-inline-panel][hidden]{display:none!important}
+.ledger26-gamefile h4{font:700 17px/1.25 Georgia,serif;margin:3px 0 10px}
+.ledger26-gamefile h4:not(:first-child){margin-top:22px}
+.slt-gf-scroll{overflow-x:auto;max-width:100%;margin:0 0 14px;overscroll-behavior-x:contain}
+.slt-gf-table{border-collapse:collapse;width:100%;min-width:max-content;text-align:center;background:#faf5e9;color:#2e291f}
+.slt-gf-table caption{text-align:left;caption-side:top;padding:7px 4px;font:700 12px/1.3 Georgia,serif}
+.slt-gf-table th,.slt-gf-table td{border-bottom:1px solid #d2c5b1;padding:8px 12px;font:12px/1.3 Georgia,serif;white-space:nowrap;font-variant-numeric:tabular-nums}
+.slt-gf-table thead th{background:#eae0ce;font-weight:700}
+.slt-gf-table tbody th{text-align:left;position:sticky;left:0;background:#f5ecdc;font-weight:700;z-index:1}
+.slt-gf-table tbody tr:nth-child(even) td{background:#f4ecdd}
+.slt-gf-stat-head{display:flex;justify-content:space-between;gap:16px;background:#e8dac2;padding:9px 12px;font:700 12px Georgia,serif}
+.slt-gf-stat-head b:last-child{text-align:right}
+.slt-gf-stat-row{display:grid;grid-template-columns:minmax(48px,1fr) minmax(98px,2fr) minmax(48px,1fr);align-items:baseline;gap:10px;padding:7px 12px;border-bottom:1px solid #d4c6af;font:13px/1.35 Georgia,serif}
+.slt-gf-stat-row:nth-child(odd){background:#f9f2e5}
+.slt-gf-stat-row span{text-align:center}
+.slt-gf-stat-row b:last-child{text-align:right}
+.slt-gf-source,.slt-gf-provenance{margin:7px 0 11px;font:11px/1.45 Georgia,serif;color:#5e4e39}
+.slt-gf-provenance{padding:11px 2px 3px;border-top:1px solid #c4b397}
+.slt-gf-source a{color:#493827;text-decoration:underline}
+.slt-gf-plays{list-style:decimal;margin:8px 0;padding:0 0 0 24px;max-height:680px;overflow-y:auto}
+.slt-gf-plays li{display:grid;grid-template-columns:90px minmax(0,1fr) 56px;gap:8px;padding:9px 7px;border-bottom:1px solid #d7cbb9;font:12px/1.42 Georgia,serif}
+.slt-gf-plays li:nth-child(odd){background:#f9f2e6}
+.slt-gf-play-clock{font-weight:700;font-variant-numeric:tabular-nums}
+.slt-gf-plays li b{text-align:right;font-variant-numeric:tabular-nums}
+.slt-gf-missing,.slt-gf-loading{padding:16px;margin:7px 0;background:#eee3cf;border:1px solid #cfbda1;font:13px/1.45 Georgia,serif;color:#5d4a30}
+.ledger26-gamefile .slc-flow{max-width:100%;margin:0 0 16px}
+.ledger26-gamefile .slc-flow svg{width:100%;height:auto;max-height:300px}
+.ledger26-identity{display:block;min-width:0}
+.ledger26-record{display:block;color:#5f503c;font:10px/1.35 Georgia,serif;padding-top:3px;letter-spacing:.015em}
+.ledger26-ap{font:700 10px Georgia,serif;color:#7a2e26;padding-right:4px}
+@media(max-width:640px){
+ .slt-gf-head{flex-wrap:wrap}
+ .slt-gf-tabs button{font-size:11px;padding:10px 2px}
+ .slt-gf-plays li{grid-template-columns:65px minmax(0,1fr) 40px;gap:5px}
+ .ledger26-record{font-size:9px}
+ .slt-gf-stat-row{padding:7px 4px;gap:6px;font-size:12px}
+}
