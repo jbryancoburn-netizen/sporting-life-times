@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "checked_at_utc": "2026-11-02T23:48:12.419095+00:00",
+  "checked_at_utc": "2026-11-03T00:33:39.676958+00:00",
   "source": "NCAA scoreboard via ncaa-api compatibility endpoint",
   "games": [
     {
@@ -511,6 +511,19 @@
       "source_url": "https://www.ncaa.com/game/6664836"
     },
     {
+      "match_id": "men-6664837",
+      "cohort": "men-d2",
+      "status": "live",
+      "home_score": 0,
+      "away_score": 0,
+      "home_name": "Fort Lewis",
+      "away_name": "South Dakota Mines",
+      "home_id": "fort-lewis",
+      "away_id": "south-dakota-mines",
+      "period": "1ST HALF",
+      "source_url": "https://www.ncaa.com/game/6664837"
+    },
+    {
       "match_id": "men-6665026",
       "cohort": "men-d3",
       "status": "final",
@@ -632,12 +645,12 @@
       "cohort": "men-d2",
       "status": "live",
       "home_score": 0,
-      "away_score": 0,
+      "away_score": 2,
       "home_name": "Embry-Riddle (FL)",
       "away_name": "Tampa",
       "home_id": "embry-riddle-fl",
       "away_id": "tampa",
-      "period": "1ST HALF",
+      "period": "2ND HALF",
       "source_url": "https://www.ncaa.com/game/6665580"
     },
     {
@@ -2373,40 +2386,79 @@
       "match_id": "women-6665590",
       "cohort": "women-d2",
       "status": "live",
-      "home_score": 0,
+      "home_score": 1,
       "away_score": 0,
       "home_name": "Northern St.",
       "away_name": "Concordia-St. Paul",
       "home_id": "northern-st",
       "away_id": "concordia-st-paul",
-      "period": "1ST HALF",
+      "period": "2ND HALF",
       "source_url": "https://www.ncaa.com/game/6665590"
     },
     {
       "match_id": "women-6665592",
       "cohort": "women-d2",
-      "status": "live",
+      "status": "final",
       "home_score": 2,
       "away_score": 0,
       "home_name": "Minn. Duluth",
       "away_name": "Augustana (SD)",
       "home_id": "minn-duluth",
       "away_id": "augustana-sd",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6665592"
     },
     {
       "match_id": "women-6665593",
       "cohort": "women-d2",
-      "status": "live",
+      "status": "final",
       "home_score": 1,
       "away_score": 2,
       "home_name": "Mary",
       "away_name": "Bemidji St.",
       "home_id": "mary",
       "away_id": "bemidji-st",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6665593"
+    },
+    {
+      "match_id": "women-6665813",
+      "cohort": "women-d2",
+      "status": "live",
+      "home_score": 1,
+      "away_score": 0,
+      "home_name": "Eckerd",
+      "away_name": "Saint Leo",
+      "home_id": "eckerd",
+      "away_id": "saint-leo",
+      "period": "1ST HALF",
+      "source_url": "https://www.ncaa.com/game/6665813"
+    },
+    {
+      "match_id": "women-6665815",
+      "cohort": "women-d2",
+      "status": "live",
+      "home_score": 1,
+      "away_score": 0,
+      "home_name": "Tampa",
+      "away_name": "Fla. Southern",
+      "home_id": "tampa",
+      "away_id": "fla-southern",
+      "period": "1ST HALF",
+      "source_url": "https://www.ncaa.com/game/6665815"
+    },
+    {
+      "match_id": "women-6666222",
+      "cohort": "women-d3",
+      "status": "live",
+      "home_score": 1,
+      "away_score": 0,
+      "home_name": "Widener",
+      "away_name": "Albright",
+      "home_id": "widener",
+      "away_id": "albright",
+      "period": "1ST HALF",
+      "source_url": "https://www.ncaa.com/game/6666222"
     },
     {
       "match_id": "women-6666287",
