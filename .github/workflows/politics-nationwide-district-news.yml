@@ -1,0 +1,76 @@
+name: District news — verified source refresh across 435 seats
+on:
+  schedule:
+    # Fifty to seventy-five exact-district searches per batch; bounded free RSS usage.
+    - cron: '17 */2 * * *'
+  push:
+    paths:
+      - 'scripts/collect-politics-district-news.py'
+      - '.github/workflows/politics-nationwide-district-news.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: politics-nationwide-district-news
+  cancel-in-progress: false
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check importer syntax and official 435-seat source
+        run: |
+          python3 -m py_compile scripts/collect-politics-district-news.py
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          d=json.loads(Path('politics-house-atlas.json').read_text())
+          assert len(d['districts'])==435
+          assert len({r['id'] for r in d['districts']})==435
+          PY
+      - name: Collect exact district and named candidate publisher headlines
+        env:
+          DISTRICT_NEWS_BATCH: '75'
+        run: python3 -u scripts/collect-politics-district-news.py
+      - name: Validate article provenance, dates and district identifiers
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          doc=json.loads(Path('data/politics-district-news.json').read_text())
+          atlas=json.loads(Path('politics-house-atlas.json').read_text())
+          valid={x['id'] for x in atlas['districts']}
+          assert doc['district_count']==len(valid)==435
+          assert 0<=doc['next_index']<435
+          for did,entry in doc['districts'].items():
+              assert did in valid and len(entry.get('articles',[]))<=12
+              for article in entry.get('articles',[]):
+                  assert article['district_id']==did
+                  assert article['url'].startswith('https://')
+                  assert article['source'] and article['title'] and article['published_at']
+                  assert article['match_reason'] in ('named_2026_district','state_at_large_seat','verified_2026_ballot_candidate')
+          print('PASS',doc['districts_checked_total'],'ever checked /',doc['districts_with_articles'],'with verified articles')
+          PY
+      - name: Commit only approved source-linked news evidence
+        run: |
+          set -euo pipefail
+          git add data/politics-district-news.json
+          if git diff --cached --quiet; then
+            echo 'No news data changes'; exit 0
+          fi
+          git config user.name 'The Political Life & Times District News Desk'
+          git config user.email 'politics-district-news@users.noreply.github.com'
+          git commit -m 'Refresh district-specific publisher-linked House headlines'
+          for attempt in 1 2 3; do
+            git fetch origin main
+            if git rebase origin/main && git push origin HEAD:main; then
+              echo 'District source records published'; exit 0
+            fi
+            git rebase --abort || true
+            sleep 3
+          done
+          echo 'Could not publish source update without overwriting other edits'; exit 1
