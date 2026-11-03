@@ -1,7 +1,7 @@
 {
   "player_snapshot": {
     "scope": "published_match_reports_only",
-    "matches_covered": 89,
+    "matches_covered": 90,
     "goals": [
       {
         "player": "Erling Haaland",
@@ -114,6 +114,11 @@
         "count": 3
       },
       {
+        "player": "Thierno Barry",
+        "team": "Everton",
+        "count": 3
+      },
+      {
         "player": "Yasin Ayari",
         "team": "Brighton and Hove Albion",
         "count": 3
@@ -216,11 +221,6 @@
       {
         "player": "Maxim De Cuyper",
         "team": "Brighton and Hove Albion",
-        "count": 2
-      },
-      {
-        "player": "Thierno Barry",
-        "team": "Everton",
         "count": 2
       },
       {
@@ -1229,7 +1229,7 @@
     "own_goals_not_counted": 12,
     "note": "Event-derived from the published match-report window, not official season leaderboards; unresolved player names are excluded."
   },
-  "updated_at": "2026-11-02T20:21:41.093779+00:00",
+  "updated_at": "2026-11-03T02:39:19.926175+00:00",
   "source": "ESPN event summary; third-party match facts only, not Elo",
   "matches": {
     "401878768": {
@@ -42430,13 +42430,538 @@
         }
       ],
       "source_url": "https://www.espn.com/soccer/match/_/gameId/401879246"
+    },
+    "401878762": {
+      "home": "Newcastle United",
+      "away": "Everton",
+      "home_score": 0,
+      "away_score": 1,
+      "kickoff_utc": "2026-11-02T20:00:00+00:00",
+      "teams": [
+        {
+          "team": "Newcastle United",
+          "statistics": [
+            {
+              "name": "foulsCommitted",
+              "displayValue": "13",
+              "label": "Fouls"
+            },
+            {
+              "name": "yellowCards",
+              "displayValue": "2",
+              "label": "Yellow Cards"
+            },
+            {
+              "name": "redCards",
+              "displayValue": "1",
+              "label": "Red Cards"
+            },
+            {
+              "name": "offsides",
+              "displayValue": "0",
+              "label": "Offsides"
+            },
+            {
+              "name": "wonCorners",
+              "displayValue": "4",
+              "label": "Corner Kicks"
+            },
+            {
+              "name": "saves",
+              "displayValue": "4",
+              "label": "Saves"
+            },
+            {
+              "name": "possessionPct",
+              "displayValue": "51.6",
+              "label": "Possession"
+            },
+            {
+              "name": "totalShots",
+              "displayValue": "17",
+              "label": "SHOTS"
+            },
+            {
+              "name": "shotsOnTarget",
+              "displayValue": "2",
+              "label": "ON GOAL"
+            },
+            {
+              "name": "shotPct",
+              "displayValue": "0.1",
+              "label": "On Target %"
+            },
+            {
+              "name": "penaltyKickGoals",
+              "displayValue": "0",
+              "label": "Penalty Goals"
+            },
+            {
+              "name": "penaltyKickShots",
+              "displayValue": "0",
+              "label": "Penalty Kicks Taken"
+            },
+            {
+              "name": "accuratePasses",
+              "displayValue": "332",
+              "label": "Accurate Passes"
+            },
+            {
+              "name": "totalPasses",
+              "displayValue": "419",
+              "label": "Passes"
+            },
+            {
+              "name": "passPct",
+              "displayValue": "0.8",
+              "label": "Pass Completion %"
+            },
+            {
+              "name": "accurateCrosses",
+              "displayValue": "7",
+              "label": "Accurate Crosses"
+            },
+            {
+              "name": "totalCrosses",
+              "displayValue": "24",
+              "label": "Crosses"
+            },
+            {
+              "name": "crossPct",
+              "displayValue": "0.3",
+              "label": "Cross %"
+            },
+            {
+              "name": "totalLongBalls",
+              "displayValue": "54",
+              "label": "Long Balls"
+            },
+            {
+              "name": "accurateLongBalls",
+              "displayValue": "12",
+              "label": "Accurate Long Balls"
+            },
+            {
+              "name": "longballPct",
+              "displayValue": "0.2",
+              "label": "Long Balls %"
+            },
+            {
+              "name": "blockedShots",
+              "displayValue": "6",
+              "label": "Blocked Shots"
+            },
+            {
+              "name": "effectiveTackles",
+              "displayValue": "4",
+              "label": "Effective Tackles"
+            },
+            {
+              "name": "totalTackles",
+              "displayValue": "8",
+              "label": "Tackles"
+            },
+            {
+              "name": "tacklePct",
+              "displayValue": "0.5",
+              "label": "Tackle %"
+            },
+            {
+              "name": "interceptions",
+              "displayValue": "2",
+              "label": "Interceptions"
+            },
+            {
+              "name": "effectiveClearance",
+              "displayValue": "33",
+              "label": "Effective Clearances"
+            },
+            {
+              "name": "totalClearance",
+              "displayValue": "33",
+              "label": "Clearances"
+            }
+          ]
+        },
+        {
+          "team": "Everton",
+          "statistics": [
+            {
+              "name": "foulsCommitted",
+              "displayValue": "9",
+              "label": "Fouls"
+            },
+            {
+              "name": "yellowCards",
+              "displayValue": "2",
+              "label": "Yellow Cards"
+            },
+            {
+              "name": "redCards",
+              "displayValue": "0",
+              "label": "Red Cards"
+            },
+            {
+              "name": "offsides",
+              "displayValue": "2",
+              "label": "Offsides"
+            },
+            {
+              "name": "wonCorners",
+              "displayValue": "5",
+              "label": "Corner Kicks"
+            },
+            {
+              "name": "saves",
+              "displayValue": "2",
+              "label": "Saves"
+            },
+            {
+              "name": "possessionPct",
+              "displayValue": "48.4",
+              "label": "Possession"
+            },
+            {
+              "name": "totalShots",
+              "displayValue": "16",
+              "label": "SHOTS"
+            },
+            {
+              "name": "shotsOnTarget",
+              "displayValue": "5",
+              "label": "ON GOAL"
+            },
+            {
+              "name": "shotPct",
+              "displayValue": "0.3",
+              "label": "On Target %"
+            },
+            {
+              "name": "penaltyKickGoals",
+              "displayValue": "0",
+              "label": "Penalty Goals"
+            },
+            {
+              "name": "penaltyKickShots",
+              "displayValue": "0",
+              "label": "Penalty Kicks Taken"
+            },
+            {
+              "name": "accuratePasses",
+              "displayValue": "314",
+              "label": "Accurate Passes"
+            },
+            {
+              "name": "totalPasses",
+              "displayValue": "393",
+              "label": "Passes"
+            },
+            {
+              "name": "passPct",
+              "displayValue": "0.8",
+              "label": "Pass Completion %"
+            },
+            {
+              "name": "accurateCrosses",
+              "displayValue": "7",
+              "label": "Accurate Crosses"
+            },
+            {
+              "name": "totalCrosses",
+              "displayValue": "22",
+              "label": "Crosses"
+            },
+            {
+              "name": "crossPct",
+              "displayValue": "0.3",
+              "label": "Cross %"
+            },
+            {
+              "name": "totalLongBalls",
+              "displayValue": "62",
+              "label": "Long Balls"
+            },
+            {
+              "name": "accurateLongBalls",
+              "displayValue": "26",
+              "label": "Accurate Long Balls"
+            },
+            {
+              "name": "longballPct",
+              "displayValue": "0.4",
+              "label": "Long Balls %"
+            },
+            {
+              "name": "blockedShots",
+              "displayValue": "1",
+              "label": "Blocked Shots"
+            },
+            {
+              "name": "effectiveTackles",
+              "displayValue": "4",
+              "label": "Effective Tackles"
+            },
+            {
+              "name": "totalTackles",
+              "displayValue": "10",
+              "label": "Tackles"
+            },
+            {
+              "name": "tacklePct",
+              "displayValue": "0.4",
+              "label": "Tackle %"
+            },
+            {
+              "name": "interceptions",
+              "displayValue": "6",
+              "label": "Interceptions"
+            },
+            {
+              "name": "effectiveClearance",
+              "displayValue": "26",
+              "label": "Effective Clearances"
+            },
+            {
+              "name": "totalClearance",
+              "displayValue": "26",
+              "label": "Clearances"
+            }
+          ]
+        }
+      ],
+      "players": [],
+      "events": [
+        {
+          "clock": "",
+          "text": "First Half begins.",
+          "type": "Kickoff",
+          "team": null
+        },
+        {
+          "clock": "32'",
+          "text": "Dan Burn (Newcastle United) is shown the yellow card for a bad foul.",
+          "type": "Yellow Card",
+          "team": "Newcastle United"
+        },
+        {
+          "clock": "44'",
+          "text": "Delay in match because of an injury Lewis Hall (Newcastle United).",
+          "type": "Start Delay",
+          "team": "Newcastle United"
+        },
+        {
+          "clock": "44'",
+          "text": null,
+          "type": "Start Delay",
+          "team": "Everton"
+        },
+        {
+          "clock": "45'+1'",
+          "text": "Delay over. They are ready to continue.",
+          "type": "End Delay",
+          "team": "Newcastle United"
+        },
+        {
+          "clock": "45'+1'",
+          "text": null,
+          "type": "End Delay",
+          "team": "Everton"
+        },
+        {
+          "clock": "45'+3'",
+          "text": "First Half ends, Newcastle United 0, Everton 0.",
+          "type": "Halftime",
+          "team": null
+        },
+        {
+          "clock": "45'",
+          "text": "Second Half begins Newcastle United 0, Everton 0.",
+          "type": "Start 2nd Half",
+          "team": null
+        },
+        {
+          "clock": "49'",
+          "text": "Goal! Newcastle United 0, Everton 1. Thierno Barry (Everton) right footed shot from very close range to the centre of the goal following a set piece situation.Goal confirmed following VAR Review.",
+          "type": "Goal",
+          "team": "Everton"
+        },
+        {
+          "clock": "50'",
+          "text": "Delay in match because of an injury Fabian Schär (Newcastle United).",
+          "type": "Start Delay",
+          "team": "Newcastle United"
+        },
+        {
+          "clock": "50'",
+          "text": null,
+          "type": "Start Delay",
+          "team": "Everton"
+        },
+        {
+          "clock": "51'",
+          "text": "Delay over. They are ready to continue.",
+          "type": "End Delay",
+          "team": "Newcastle United"
+        },
+        {
+          "clock": "51'",
+          "text": null,
+          "type": "End Delay",
+          "team": "Everton"
+        },
+        {
+          "clock": "51'",
+          "text": null,
+          "type": "Start Delay",
+          "team": "Everton"
+        },
+        {
+          "clock": "52'",
+          "text": null,
+          "type": "End Delay",
+          "team": "Everton"
+        },
+        {
+          "clock": "52'",
+          "text": "Tyrique George (Everton) is shown the yellow card.",
+          "type": "Yellow Card",
+          "team": "Everton"
+        },
+        {
+          "clock": "58'",
+          "text": "Delay in match because of an injury James Garner (Everton).",
+          "type": "Start Delay",
+          "team": "Everton"
+        },
+        {
+          "clock": "58'",
+          "text": null,
+          "type": "Start Delay",
+          "team": "Newcastle United"
+        },
+        {
+          "clock": "60'",
+          "text": "Delay over. They are ready to continue.",
+          "type": "End Delay",
+          "team": "Everton"
+        },
+        {
+          "clock": "60'",
+          "text": null,
+          "type": "End Delay",
+          "team": "Newcastle United"
+        },
+        {
+          "clock": "64'",
+          "text": "Substitution, Newcastle United. Yoane Wissa replaces Joe Willock.",
+          "type": "Substitution",
+          "team": "Newcastle United"
+        },
+        {
+          "clock": "64'",
+          "text": "Substitution, Newcastle United. Sean Steur replaces Nico González.",
+          "type": "Substitution",
+          "team": "Newcastle United"
+        },
+        {
+          "clock": "72'",
+          "text": "Delay in match because of an injury Thierno Barry (Everton).",
+          "type": "Start Delay",
+          "team": "Everton"
+        },
+        {
+          "clock": "72'",
+          "text": null,
+          "type": "Start Delay",
+          "team": "Newcastle United"
+        },
+        {
+          "clock": "73'",
+          "text": "Delay over. They are ready to continue.",
+          "type": "End Delay",
+          "team": "Everton"
+        },
+        {
+          "clock": "73'",
+          "text": null,
+          "type": "End Delay",
+          "team": "Newcastle United"
+        },
+        {
+          "clock": "75'",
+          "text": "Substitution, Newcastle United. Jacob Ramsey replaces Joelinton.",
+          "type": "Substitution",
+          "team": "Newcastle United"
+        },
+        {
+          "clock": "76'",
+          "text": "Substitution, Newcastle United. Jacob Murphy replaces Anthony Elanga.",
+          "type": "Substitution",
+          "team": "Newcastle United"
+        },
+        {
+          "clock": "80'",
+          "text": "Substitution, Everton. Brennan Johnson replaces Thierno Barry.",
+          "type": "Substitution",
+          "team": "Everton"
+        },
+        {
+          "clock": "82'",
+          "text": "Substitution, Everton. Michael Keane replaces Jarrad Branthwaite.",
+          "type": "Substitution",
+          "team": "Everton"
+        },
+        {
+          "clock": "87'",
+          "text": "Substitution, Newcastle United. Bazoumana Touré replaces Amar Dedic.",
+          "type": "Substitution",
+          "team": "Newcastle United"
+        },
+        {
+          "clock": "90'+2'",
+          "text": "Substitution, Everton. Hayden Hackney replaces Tyrique George.",
+          "type": "Substitution",
+          "team": "Everton"
+        },
+        {
+          "clock": "90'+6'",
+          "text": "Jacob Ramsey (Newcastle United) is shown the yellow card for a bad foul.",
+          "type": "Yellow Card",
+          "team": "Newcastle United"
+        },
+        {
+          "clock": "90'+8'",
+          "text": "Second yellow card to Jacob Ramsey (Newcastle United) for a bad foul.",
+          "type": "Red Card",
+          "team": "Newcastle United"
+        },
+        {
+          "clock": "90'+9'",
+          "text": "Brennan Johnson (Everton) is shown the yellow card.",
+          "type": "Yellow Card",
+          "team": "Everton"
+        },
+        {
+          "clock": "90'+9'",
+          "text": "Fabian Schär (Newcastle United) is shown the yellow card.",
+          "type": "Yellow Card",
+          "team": "Newcastle United"
+        },
+        {
+          "clock": "90'+10'",
+          "text": "Second Half ends, Newcastle United 0, Everton 1.",
+          "type": "End Regular Time",
+          "team": null
+        }
+      ],
+      "source_url": "https://www.espn.com/soccer/match/_/gameId/401878762"
     }
   },
   "fetch_status": {
-    "successful": 0,
+    "successful": 1,
     "failed": {},
-    "attempted": 0,
-    "season_finals": 89,
-    "detailed_reports": 89
+    "attempted": 1,
+    "season_finals": 90,
+    "detailed_reports": 90
   }
 }
