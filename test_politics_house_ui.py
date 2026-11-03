@@ -71,6 +71,7 @@ class HouseUI(unittest.TestCase):
         self.assertEqual(a["certified_2026_probabilities"],0)
         for r in a["districts"]:
             self.assertIsNone(r["2026_forecast"])
-            if r["2026_boundaries_revised"] and r["2024_house_result_on_prior_boundaries"]:
-                self.assertFalse(r["2024_house_result_on_prior_boundaries"]["same_2026_geography"])
+            if r["2024_house_result_on_prior_boundaries"]:
+                expected=r["2024_to_2026_geography_comparison"] in ("unchanged_state_vintage","verified_same_district_blocks")
+                self.assertEqual(r["2024_house_result_on_prior_boundaries"]["same_2026_geography"],expected)
 if __name__=="__main__":unittest.main()
