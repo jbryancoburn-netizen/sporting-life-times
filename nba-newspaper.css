@@ -775,3 +775,21 @@ body.nba-newspaper[data-page="matchups"] .rabby-audit-note{
  body.nba-newspaper[data-page="matchups"] .rabby-audit-summary{grid-template-columns:1fr;gap:9px}
  body.nba-newspaper[data-page="matchups"] .rabby-audit-metric{padding:12px}
 }
+
+/* Victorian NBA desk: live score and box-score renderer rather than decorative section. */
+body.nba-newspaper{--paper:#f1e7d5;--ink:#29221b;--line:#baa990;--muted:#695b4a;--teal:#6b3b2d;--orange:#84362c;--white:#fcf7ed;background:var(--paper);font:15px/1.43 Georgia,serif}
+body.nba-newspaper .hero{background:#eee0c5;color:#2b231b;border:5px double #30261d;border-left:0;border-right:0;border-radius:0}
+body.nba-newspaper .hero p{color:#594939}
+body.nba-newspaper .nba-score-rail{grid-template-columns:repeat(auto-fit,minmax(205px,1fr));gap:0;border-top:3px double var(--ink);border-bottom:3px double var(--ink);background:#f7efdf}
+body.nba-newspaper .nba-score-rail .score-card{background:transparent;border:0;border-right:1px solid var(--line);border-radius:0;padding:11px}
+body.nba-newspaper .nba-score-rail .score-card.is-live{border-top:3px solid #813429}
+body.nba-newspaper .nba-score-rail .score-card .score-team strong{font:800 22px/1 Georgia,serif}
+body.nba-newspaper .nba-leader{background:transparent;border-left:0;border-bottom:1px solid var(--line);padding:9px 2px}
+body.nba-newspaper .nba-leader strong{font:800 26px Georgia,serif}
+body.nba-newspaper .rank-row .rank{font:800 21px Georgia,serif}
+body.nba-newspaper .rank-row .rank-score{font:800 20px Georgia,serif}
+body.nba-newspaper .nba-story h3{font-family:Georgia,serif;letter-spacing:-.025em}
+body.nba-newspaper .nba-table th{font:700 10px Arial,sans-serif;border-bottom:2px solid #29221b}
+body.nba-newspaper .nba-table td{padding:7px 5px}
+body.nba-newspaper .nba-table tbody tr:hover{background:#e9dac2}
+body.nba-newspaper .nba-tag{background:transparent;border:1px solid var(--line);border-radius:0;color:#74382e}
