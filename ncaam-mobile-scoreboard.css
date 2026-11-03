@@ -1,0 +1,216 @@
+/* Sporting Life & Times | Courtside broadcast card, 2026-11-02.
+   One data-owned scoreboard, no decorative court, no fabricated statistics.
+   Scoped to the Slate: never overrides the live Gamefile or score feeds. */
+.sl-game.sl-courtside-card {
+  --sl-paper:#fff9ed;
+  --sl-ink:#0a1d33;
+  border:1px solid #bec4c7 !important;
+  border-top:0 !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
+  background:var(--sl-paper) !important;
+  font-style:normal !important;
+  isolation:isolate;
+}
+.sl-courtside-card .sl-tv-head {
+  position:relative; min-height:38px !important;
+  background:#081d39 !important;
+  border-bottom:3px solid #bfa16b !important;
+  padding:5px 12px !important;
+  display:flex !important; gap:9px !important; align-items:center !important;
+  color:#f7eed9 !important;
+}
+.sl-courtside-card .sl-tv-head .sl-tv-state {
+  font:900 11px/1 Arial,Helvetica,sans-serif !important;
+  letter-spacing:.08em !important;
+}
+.sl-courtside-card .sl-tv-state--live {
+  background:#a8202f !important; color:#fff !important;
+  padding:7px 10px !important;
+  border:1px solid #d25d65 !important;
+}
+.sl-courtside-card .sl-tv-clock {
+  font:800 14px/1 Arial,Helvetica,sans-serif !important;
+  font-variant-numeric:tabular-nums; white-space:nowrap;
+  color:#fff9ed !important;
+}
+.sl-courtside-card .sl-tv-broadcast {
+  max-width:32%; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;
+  font:800 10px Arial,sans-serif !important; color:#e6c88e !important;
+}
+.sl-courtside-card .sl-tv-edition {
+  color:#c1cad3 !important; font:800 9px/1 Arial,sans-serif !important;
+  margin-left:auto !important;
+}
+.sl-courtside-card .sl-tv-scoreboard {
+  background:#fff9ed !important; min-width:0; position:relative;
+}
+.sl-game.sl-courtside-card .sl-tv-team {
+  display:grid !important;grid-template-columns:minmax(0,1fr) auto !important;
+  min-height:78px !important; padding:7px 14px 7px 9px !important;
+  gap:8px !important; background:#fff9ed !important;
+  border:0 !important;
+  border-left:5px solid var(--tv-primary) !important;
+  border-bottom:1px solid #d7d7cf !important;
+  box-shadow:inset 3px 0 0 var(--tv-secondary) !important;
+  align-items:center !important; min-width:0;
+}
+.sl-game.sl-courtside-card .sl-tv-team:last-child {
+  border-bottom:0 !important;
+}
+.sl-courtside-card .sl-tv-team-link {
+  display:flex !important;align-items:center !important;gap:10px !important;
+  min-width:0; text-decoration:none !important;color:inherit !important;
+}
+.sl-courtside-card .sl-tv-identity {
+  display:grid !important;grid-template-rows:14px 46px !important;
+  place-items:center !important;flex:0 0 58px !important;width:58px !important;
+  min-width:58px !important;overflow:visible;
+}
+.sl-courtside-card .sl-tv-honors {
+  width:60px !important;height:14px !important;min-height:14px !important;
+  max-height:14px !important;flex:none !important;
+  display:flex !important;flex-wrap:wrap !important;justify-content:center !important;
+  align-content:center !important;gap:0 1px !important;overflow:visible !important;
+}
+.sl-courtside-card .sl-tv-honors--empty {visibility:hidden !important}
+.sl-courtside-card .sl-tv-star {
+  color:var(--tv-star) !important;
+  font:normal 10px/10px Arial,sans-serif !important;
+  flex:0 0 9px !important;width:9px !important;height:10px !important;
+  text-align:center !important;letter-spacing:0 !important;
+}
+.sl-courtside-card .sl-tv-logo {
+  display:grid !important;place-items:center !important;
+  width:45px !important;height:45px !important;flex:none !important;
+}
+.sl-courtside-card .sl-tv-logo .mbb-mark,
+.sl-courtside-card .sl-tv-logo .sl-emblem {
+  --mbb-size:43px !important;
+  width:43px !important;height:43px !important;
+  min-width:43px !important;max-width:43px !important;
+  min-height:43px !important;max-height:43px !important;
+  margin:0 !important;object-fit:contain !important;
+}
+.sl-courtside-card .sl-tv-school {
+  display:flex !important;flex-direction:column !important;
+  align-items:flex-start !important;min-width:0 !important;gap:2px !important;
+}
+.sl-courtside-card .sl-tv-side {
+  color:#7b6f5d !important;font:800 9px/1 Arial,sans-serif !important;
+  text-transform:uppercase;letter-spacing:.07em !important;
+}
+.sl-courtside-card .sl-tv-school strong {
+  font:900 clamp(17px,2.05vw,22px)/1.05 Impact,'Arial Narrow',Arial,sans-serif !important;
+  letter-spacing:.012em !important;text-transform:uppercase !important;
+  color:var(--sl-ink) !important;overflow-wrap:break-word;
+}
+.sl-courtside-card .sl-tv-mascot {
+  color:#455c66 !important;font:600 10px/1.2 Arial,sans-serif !important;
+}
+.sl-courtside-card .sl-tv-record {
+  color:#566875 !important;font:700 10px/1.2 Arial,sans-serif !important;
+}
+.sl-courtside-card .sl-tv-points {
+  color:#081d39 !important;
+  font:900 clamp(42px,4.4vw,56px)/.95 Impact,'Arial Narrow',Arial,sans-serif !important;
+  min-width:48px !important;letter-spacing:-.018em !important;
+  font-variant-numeric:tabular-nums !important;
+  text-align:right !important;white-space:nowrap;
+}
+.sl-courtside-card .sl-tv-points--pending {font-size:28px !important;color:#9ba9ab !important}
+.sl-courtside-card .sl-tv-venuebar {
+  display:flex !important;align-items:center !important;gap:7px !important;
+  justify-content:space-between !important;
+  border-top:1px solid #d3d5d1 !important;background:#f0eee6 !important;
+  padding:7px 12px !important;
+}
+.sl-courtside-card .sl-tv-venue {
+  color:#43535a !important;font:700 10px/1.35 Arial,sans-serif !important;
+}
+.sl-courtside-card .sl-tv-source-link {font:800 9px/1.2 Arial,sans-serif !important;color:#285b67 !important}
+.sl-courtside-card .sl-tv-movement,
+.sl-courtside-card .sl-tv-elo {
+  background:#f0f2ee !important;color:#3a5864 !important;
+  padding:7px 12px !important;font:700 10px/1.4 Arial,sans-serif !important;
+}
+.sl-courtside-card .sl-tv-movement b,
+.sl-courtside-card .sl-tv-elo strong {font-size:11px !important}
+.sl-courtside-card .sl-tv-footer {
+  display:flex !important;align-items:center !important;
+  gap:8px !important;justify-content:space-between !important;
+  padding:6px 10px !important;min-height:42px !important;
+  border-top:1px solid #cfd0ca !important;
+  background:#e9e5db !important;flex-wrap:nowrap !important;
+}
+.sl-courtside-card .sl-tv-attribution {
+  flex:1 1 auto !important;min-width:0 !important;
+  color:#5e686e !important;font:600 9px/1.25 Arial,sans-serif !important;
+  overflow:hidden !important;white-space:nowrap !important;text-overflow:ellipsis !important;
+}
+.sl-courtside-card .sl-tv-actions {
+  display:flex !important;align-items:center !important;
+  width:auto !important;justify-content:flex-end !important;
+  flex:0 0 auto;gap:5px !important;flex-wrap:nowrap !important;
+}
+.sl-courtside-card .sl-tv-follow {
+  flex:none !important;width:29px !important;height:29px !important;min-width:29px !important;
+  padding:0 !important;border:1px solid #bbbeb8 !important;
+  color:#394e58 !important;background:#f8f5ee !important;
+  text-align:center !important;font-size:0 !important;
+  cursor:pointer;
+}
+.sl-courtside-card .sl-tv-follow::before {
+  content:'☆';font:700 19px/1 Arial,sans-serif !important;vertical-align:middle;
+}
+.sl-courtside-card .sl-tv-follow[aria-pressed="true"]::before {content:'★';color:#276147 !important}
+.sl-courtside-card .sl-tv-details {
+  flex:0 0 auto;margin-left:0 !important;
+  padding:9px 10px !important;border-left:3px solid #bfa16b !important;
+  background:#081d39 !important;color:#f9f5e7 !important;
+  text-decoration:none !important;
+  font:900 10px/1 Arial,sans-serif !important;letter-spacing:.05em !important;
+}
+.sl-courtside-card .sl-tv-details:focus-visible,
+.sl-courtside-card .sl-tv-team-link:focus-visible,
+.sl-courtside-card .sl-tv-follow:focus-visible {
+  outline:3px solid #367fa5 !important;outline-offset:2px;
+}
+.sl-courtside-card .sl-editorial-badges {background:#f4eee2 !important;padding:5px 10px !important}
+.sl-courtside-card .sl-editorial-badge {font-style:normal !important;font-size:10px !important}
+/* Old stage components are not part of a data-owned broadcast card. */
+.sl-courtside-card .sl-arena-stage,
+.sl-courtside-card .sl-broadcast-bug,
+.sl-courtside-card .sl-matchup-facts,
+.sl-courtside-card .sl-featured-pennants {display:none !important}
+@media (max-width:700px) {
+ .sl-game.sl-courtside-card {margin:0 !important}
+ .sl-courtside-card .sl-tv-head {min-height:35px !important;padding:4px 8px !important;gap:7px !important}
+ .sl-courtside-card .sl-tv-clock {font-size:12px !important}
+ .sl-courtside-card .sl-tv-broadcast {max-width:29%;font-size:9px !important}
+ .sl-courtside-card .sl-tv-edition {font-size:8px !important}
+ .sl-game.sl-courtside-card .sl-tv-team {min-height:71px !important;padding:5px 9px 5px 6px !important;gap:5px !important}
+ .sl-courtside-card .sl-tv-team-link {gap:6px !important}
+ .sl-courtside-card .sl-tv-identity {width:51px !important;min-width:51px !important;flex-basis:51px !important;grid-template-rows:12px 39px !important}
+ .sl-courtside-card .sl-tv-honors {width:51px !important;max-width:51px !important;height:12px !important;min-height:12px !important;max-height:12px !important}
+ .sl-courtside-card .sl-tv-star {font-size:9px !important;flex-basis:8px !important;width:8px !important}
+ .sl-courtside-card .sl-tv-logo {width:40px !important;height:40px !important}
+ .sl-courtside-card .sl-tv-logo .mbb-mark,.sl-courtside-card .sl-tv-logo .sl-emblem {
+   --mbb-size:39px !important;width:39px !important;height:39px !important;
+   min-width:39px !important;max-width:39px !important;min-height:39px !important;max-height:39px !important;
+ }
+ .sl-courtside-card .sl-tv-school strong {font-size:clamp(16px,4.5vw,20px) !important}
+ .sl-courtside-card .sl-tv-mascot {font-size:10px !important}
+ .sl-courtside-card .sl-tv-record {font-size:9px !important}
+ .sl-courtside-card .sl-tv-points {font-size:42px !important;min-width:43px !important}
+ .sl-courtside-card .sl-tv-venuebar {padding:6px 8px !important}
+ .sl-courtside-card .sl-tv-footer {padding:6px 8px !important;min-height:40px !important}
+ .sl-courtside-card .sl-tv-details {padding:8px !important;font-size:9px !important}
+}
+@media(max-width:360px) {
+ .sl-courtside-card .sl-tv-edition {display:none !important}
+ .sl-courtside-card .sl-tv-school strong {font-size:15px !important}
+ .sl-courtside-card .sl-tv-points {font-size:37px !important;min-width:36px !important}
+ .sl-courtside-card .sl-tv-follow {width:27px !important;min-width:27px !important;height:27px !important}
+ .sl-courtside-card .sl-tv-details {font-size:8px !important}
+}
