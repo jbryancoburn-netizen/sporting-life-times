@@ -354,3 +354,49 @@
  .cbb-gamefile-score .cbb-name b.cbb-school-label{font-size:20px;line-height:1.15}
  .cbb-game-card .cbb-points{flex:0 0 auto}
 }
+
+
+/* Inline game report: a native expansion of the existing Courtside scorebug.
+   All reporting stays in this card, not in an iframe or another page. */
+.cbb-game-card .cbb-box-btn{appearance:none;border:0;border-bottom:1px solid currentColor;border-radius:0;
+  background:transparent;cursor:pointer;font:800 11px Arial,Helvetica,sans-serif;color:#235361;
+  white-space:nowrap;padding:4px 0;min-height:30px}
+.cbb-game-card .cbb-box-btn[aria-expanded="true"]{color:#87352c}
+.cbb-game-card.cbb-expanded{grid-column:1/-1;border-color:#a99c83;border-top-color:#403329}
+.cbb-inline-detail[hidden],.cbb-inline-detail [data-cbb-inline-panel][hidden]{display:none!important}
+.cbb-inline-detail{background:#fcf8ef;border-top:3px double #7b6b55;padding:0 16px 16px;min-width:0;color:#282720}
+.cbb-inline-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  border-bottom:1px solid #c9bdab;padding:15px 0 11px;font:700 11px Georgia,serif;letter-spacing:.3px}
+.cbb-inline-heading span{color:#695d50;font-weight:400;text-align:right}
+.cbb-inline-tabs{display:flex;gap:0;flex-wrap:wrap;border-bottom:1px solid #b9ab96;margin-bottom:14px}
+.cbb-inline-tabs button{border:0;border-bottom:3px solid transparent;background:transparent;cursor:pointer;
+  color:#6b5d50;padding:11px 15px;font:700 11px Arial,Helvetica,sans-serif;min-height:42px}
+.cbb-inline-tabs button[aria-selected="true"]{color:#27221b;border-bottom-color:#87352c;background:#f4ecdf}
+.cbb-inline-tabs button:focus-visible{outline:2px solid #87352c;outline-offset:-2px}
+.cbb-inline-detail [data-cbb-inline-panel]{min-width:0}
+.cbb-inline-summary{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:20px;align-items:start}
+.cbb-inline-detail .cbb-box-section{min-width:0;margin-bottom:15px}
+.cbb-inline-detail .cbb-box-section h4{font:700 19px Georgia,serif;color:#362e25}
+.cbb-inline-detail .cbb-box-table{min-width:420px;color:#352f27}
+.cbb-inline-detail .cbb-box-table th,.cbb-inline-detail .cbb-box-table td{padding:8px 9px;border-color:#d7cab7}
+.cbb-inline-detail .cbb-usrs-module{background:#f2ebdf;color:#2c433c;border-left-color:#87352c}
+.cbb-inline-detail [data-cbb-courtcast]{margin-top:12px;min-width:0}
+.cbb-inline-detail .slc-wrap{max-width:none;margin:0}
+.cbb-inline-source{font:400 10px/1.5 Arial,Helvetica,sans-serif;color:#76695d;
+  padding:12px 0 0;margin:12px 0 0;border-top:1px solid #d7cab7}
+.cbb-plays-count{font:700 11px Arial,sans-serif;color:#695d50;padding:5px 0 10px}
+.cbb-all-plays{list-style:none;margin:0;padding:0;max-height:720px;overflow-y:auto;border-top:1px solid #cfc3b3}
+.cbb-all-plays li{display:grid;grid-template-columns:90px minmax(0,1fr) 65px;align-items:start;gap:12px;
+  padding:9px 5px;border-bottom:1px solid #e2d9cc;font:12px/1.4 Arial,Helvetica,sans-serif}
+.cbb-all-plays li span{font-size:10px;color:#776b60;white-space:nowrap}
+.cbb-all-plays li strong{font-weight:500;overflow-wrap:anywhere}
+.cbb-all-plays li small{text-align:right;color:#46372d;font-weight:700;font-variant-numeric:tabular-nums}
+@media(max-width:740px){
+ .cbb-inline-detail{padding:0 10px 12px}
+ .cbb-inline-heading{align-items:start}
+ .cbb-inline-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+ .cbb-inline-tabs button{font-size:10px;padding:11px 5px}
+ .cbb-inline-summary{grid-template-columns:1fr;gap:6px}
+ .cbb-all-plays li{grid-template-columns:61px minmax(0,1fr) 45px;gap:6px;font-size:11px}
+ .cbb-all-plays li span{font-size:9px}
+}
