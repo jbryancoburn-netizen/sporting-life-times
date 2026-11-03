@@ -1,0 +1,79 @@
+/* GAMEFILE / MOBILE BROADCAST REPAIR. Presentation only.
+   Keep sourced live scores, CourtCast, box scores and Elo independent. */
+.cbb-gamefile-page #cbb-gamefile-root{
+  display:flex!important;flex-direction:column!important;min-width:0!important;
+}
+.cbb-gamefile-page .cbb-gamefile-back{order:0!important}
+.cbb-gamefile-page #cbb-detail{order:1!important;min-width:0!important}
+.cbb-gamefile-page #cbb-radio-companion-root{
+  order:2!important;min-width:0!important;margin:16px 0!important;
+}
+.cbb-gamefile-page .cbb-gamefile-status{line-height:1.6!important;overflow-wrap:anywhere}
+.cbb-gamefile-page .cbb-gamefile-status .cbb-live-pill{
+  display:inline-block!important;vertical-align:middle!important;margin-right:9px!important;
+}
+.cbb-gamefile-page .cbb-gamefile-status .cbb-period{
+  display:inline-block!important;vertical-align:middle!important;margin-right:8px!important;
+}
+.cbb-gamefile-page .cbb-gamefile-status .cbb-live-clock{
+  display:inline-block!important;vertical-align:middle!important;margin-right:6px!important;
+}
+.cbb-gamefile-page .cbb-gamefile-hero{box-shadow:none!important}
+.cbb-gamefile-page .cbb-gamefile-ledger{gap:8px 12px!important;line-height:1.5!important}
+.cbb-gamefile-page .cbb-gamefile-ledger span:last-child{
+  max-width:100%!important;overflow-wrap:anywhere!important;
+}
+.cbb-gamefile-page .cbb-gamefile-tabs button{font-style:normal!important}
+.cbb-gamefile-page .cbb-scorebug-row .cbb-team-context{font-style:normal!important}
+@media(max-width:700px){
+  body.cbb-product.cbb-header-v2 .cbb-gamefile-page{
+    padding:8px!important;max-width:100%!important;
+  }
+  body.cbb-product .cbb-gamefile-hero{
+    padding:15px 12px 12px!important;border-top-width:4px!important;
+  }
+  body.cbb-product .cbb-gamefile-hero h1{
+    font-size:clamp(26px,6vw,39px)!important;line-height:1.06!important;
+    margin:11px 0 12px!important;letter-spacing:0!important;
+  }
+  .cbb-gamefile-page .cbb-gamefile-eyebrow{
+    font:800 9px/1.4 Arial,sans-serif!important;letter-spacing:.11em!important;
+    overflow-wrap:anywhere!important;
+  }
+  .cbb-gamefile-page .cbb-gamefile-status{
+    font-size:12px!important;margin:0 0 11px!important;color:#e6e7e3!important;
+  }
+  body.cbb-product .cbb-gamefile-score{
+    border:2px solid #c8a662!important;border-radius:0!important;
+  }
+  body.cbb-product .cbb-gamefile-score .cbb-scorebug-row,
+  body.cbb-product .cbb-gamefile-score .cbb-scorebug-row:nth-child(2){
+    min-height:70px!important;padding:7px 10px!important;
+  }
+  .cbb-gamefile-score .cbb-scorebug-row .cbb-team-identity{gap:9px!important}
+  body.cbb-product .cbb-gamefile-score .cbb-name b{
+    font-size:clamp(18px,4.4vw,23px)!important;line-height:1.05!important;
+  }
+  body.cbb-product .cbb-gamefile-score .cbb-points{
+    font-size:clamp(37px,10vw,51px)!important;line-height:1!important;
+  }
+  .cbb-gamefile-page .cbb-gamefile-ledger{
+    display:flex!important;flex-wrap:wrap!important;gap:6px 12px!important;
+    padding-top:9px!important;margin-top:10px!important;font-size:9px!important;
+  }
+  .cbb-gamefile-page .cbb-gamefile-ledger span:last-child{
+    flex:1 0 100%!important;font-size:9px!important;
+    color:#cbd5d7!important;letter-spacing:.02em!important;
+  }
+  .cbb-gamefile-page .cbb-gamefile-stats-grid{grid-template-columns:1fr 1fr!important}
+  .cbb-gamefile-page .cbb-gamefile-stat{padding:9px!important}
+  .cbb-gamefile-page .cbb-gamefile-stats-key{padding:8px!important;font-size:9px!important}
+  .cbb-gamefile-page .cbb-gamefile-tabs button{
+    min-height:44px!important;padding:8px 4px!important;
+    font:800 10px/1.2 Arial,sans-serif!important;
+  }
+  .cbb-gamefile-page .cbb-gamefile-detail [data-gamefile-panel]{
+    padding:12px 10px!important;
+  }
+  .cbb-gamefile-page #cbb-radio-companion-root .slr-header h2{margin:0!important}
+}
