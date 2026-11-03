@@ -242,7 +242,7 @@ def main(args):
     report["finished_at"]=utc()
     dest=Path(args.output)
     dest.parent.mkdir(parents=True,exist_ok=True)
-    dest.write_text(json.dumps(report,indent=2,ensure_ascii=False)+"\\n")
+    dest.write_text(json.dumps(report,indent=2,ensure_ascii=False)+chr(10))
     print(json.dumps(report["summary"],indent=2))
     print("Saved audit:",dest)
     return 0
