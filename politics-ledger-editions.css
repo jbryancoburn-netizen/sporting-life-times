@@ -294,3 +294,103 @@ body[data-house-page="district"] .nav a[href^="#"]{font-size:10px!important}
  body[data-house-page="district"] .district-overview{padding:17px 12px!important}
  body[data-house-page="state"] .state-graphic-hero{padding:17px 12px!important}
 }
+
+/* 435-EDITION VICTORIAN COMPOSITION — editorial columns, not dashboard cards */
+body[data-house-page="district"] .paper{max-width:1340px!important}
+body[data-house-page="district"] .district-overview,
+body[data-house-page="district"] .district-service-desk,
+body[data-house-page="district"] .district-dossier,
+body[data-house-page="district"] .district-front{
+  margin-block:24px!important;
+  border-top:3px double #3c342b!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+body[data-house-page="district"] .district-overview-head{
+  display:grid!important;grid-template-columns:minmax(0,2fr) minmax(230px,1fr);
+  gap:clamp(18px,3vw,44px);align-items:start;
+}
+body[data-house-page="district"] .district-overview-intro h2,
+body[data-house-page="district"] .district-dossier h2,
+body[data-house-page="district"] .district-service-desk h2{
+  font-family:var(--ledger-display)!important;
+  font-style:normal!important;font-weight:700!important;
+  letter-spacing:-.025em!important;line-height:1.12!important;
+}
+body[data-house-page="district"] .district-service-desk .desk-frame{
+  border-bottom:2px solid var(--ledger-ink)!important;
+  padding-block:16px!important;
+}
+body[data-house-page="district"] .desk-panel:not([hidden]){display:block!important}
+body[data-house-page="district"] .desk-panel .desk-lead-story{
+  padding:15px 0 20px!important;background:transparent!important;
+  border:0!important;border-bottom:1px solid var(--ledger-rule)!important;
+  box-shadow:none!important;border-radius:0!important;
+}
+body[data-house-page="district"] .desk-lead-story a{
+  display:block;font:700 clamp(22px,2.5vw,36px)/1.22 var(--ledger-display)!important;
+  color:var(--ledger-ink)!important;text-decoration:none!important;
+}
+body[data-house-page="district"] .desk-news-list{
+  display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:0!important;margin-top:12px!important;
+}
+body[data-house-page="district"] .desk-news-row{
+  padding:13px 18px!important;border-right:1px solid var(--ledger-rule)!important;
+  border-bottom:1px solid var(--ledger-rule)!important;
+  border-radius:0!important;box-shadow:none!important;background:transparent!important;
+}
+body[data-house-page="district"] .desk-news-row:nth-child(3n){border-right:0!important}
+body[data-house-page="district"] .desk-news-row a{
+  display:block;font:700 16px/1.48 var(--ledger-serif)!important;
+  color:var(--ledger-ink)!important;text-decoration:none!important;
+}
+body[data-house-page="district"] .desk-news-row a:hover,
+body[data-house-page="district"] .desk-lead-story a:hover{text-decoration:underline!important}
+body[data-house-page="district"] .desk-overline,
+body[data-house-page="district"] .desk-kicker,
+body[data-house-page="district"] .desk-attribution{
+  font:600 11px/1.6 var(--ledger-sans)!important;
+}
+body[data-house-page="district"] .desk-switcher{display:flex!important;flex-wrap:wrap!important;gap:0!important;border-block:1px solid var(--ledger-rule)!important}
+body[data-house-page="district"] .desk-switcher button{
+  background:transparent!important;border:0!important;border-right:1px solid var(--ledger-rule)!important;
+  border-radius:0!important;box-shadow:none!important;font:700 11px/1.4 var(--ledger-sans)!important;
+  min-height:44px!important;padding:10px 16px!important;
+}
+body[data-house-page="district"] .desk-switcher button[aria-pressed="true"]{
+  background:#e7dece!important;color:#25231f!important;
+  text-decoration:underline;text-underline-offset:6px;
+}
+body[data-house-page="district"] .front-person img,
+body[data-house-page="district"] .race-experience img{
+  object-fit:cover;object-position:center top;
+}
+body[data-house-page="district"] .district-overview-bottom{
+  display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));
+  border-top:3px double var(--ledger-rule);gap:0!important;
+}
+body[data-house-page="district"] .district-overview-bottom>div{
+  padding:16px 20px!important;border-right:1px solid var(--ledger-rule);
+}
+body[data-house-page="district"] .district-overview-bottom>div:last-child{border-right:0}
+body[data-house-page="district"] .district-overview-bottom p{font:400 15px/1.65 var(--ledger-serif)!important}
+body[data-house-page="district"] .district-glance{
+  border-block:3px double var(--ledger-rule);
+  border-radius:0!important;box-shadow:none!important;
+}
+body[data-house-page="district"] .dossier-map{border-radius:0!important}
+@media(max-width:950px){
+ body[data-house-page="district"] .desk-news-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+ body[data-house-page="district"] .desk-news-row:nth-child(3n){border-right:1px solid var(--ledger-rule)!important}
+ body[data-house-page="district"] .desk-news-row:nth-child(2n){border-right:0!important}
+}
+@media(max-width:680px){
+ body[data-house-page="district"] .district-overview-head,
+ body[data-house-page="district"] .district-overview-bottom,
+ body[data-house-page="district"] .desk-news-list{grid-template-columns:minmax(0,1fr)!important}
+ body[data-house-page="district"] .desk-news-row{border-right:0!important;padding:15px 2px!important}
+ body[data-house-page="district"] .district-overview-bottom>div{border-right:0;border-bottom:1px solid var(--ledger-rule)}
+ body[data-house-page="district"] .desk-switcher button{flex:1 1 140px!important;font-size:10px!important}
+ body[data-house-page="district"] .district-service-desk{padding-inline:10px!important}
+}
