@@ -6,12 +6,12 @@
   "men": {
     "gender": "men",
     "teams": 301,
-    "games": 3344,
+    "games": 3345,
     "verified_elo_finals": 31,
     "dated_game_days": 104,
-    "no_venue": 2871,
-    "no_network": 3213,
-    "no_tipoff": 942,
+    "no_venue": 2872,
+    "no_network": 3214,
+    "no_tipoff": 940,
     "no_source_url": 0,
     "schools_without_a_published_game": 6,
     "eligible_schools_without_a_published_game": 0,
@@ -309,7 +309,7 @@
           "programs": 15,
           "without_games": 0,
           "with_1_to_6_games": 0,
-          "fixture_appearances": 371,
+          "fixture_appearances": 372,
           "eligible_without_games": 0,
           "excluded_without_games": 0,
           "eligible_with_1_to_6_games": 0
@@ -318,7 +318,7 @@
           "programs": 11,
           "without_games": 0,
           "with_1_to_6_games": 0,
-          "fixture_appearances": 245,
+          "fixture_appearances": 246,
           "eligible_without_games": 0,
           "excluded_without_games": 0,
           "eligible_with_1_to_6_games": 0
@@ -4814,7 +4814,7 @@
           "eligible": true,
           "status": "OFFICIAL_FULL_CALENDAR_REQUIRED",
           "certified": false,
-          "published_games": 24,
+          "published_games": 25,
           "official_source_urls": [],
           "official_snapshot_count": 0,
           "live_source_rows_persisted": false,
@@ -4830,8 +4830,12 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 24,
+          "published_games_not_in_source_snapshot": 25,
           "outside_snapshot_examples": [
+            {
+              "date": "2026-11-15",
+              "opponent_id": "florida-tech"
+            },
             {
               "date": "2026-11-19",
               "opponent_id": "lane"
@@ -4851,10 +4855,6 @@
             {
               "date": "2026-12-10",
               "opponent_id": "spring-hill"
-            },
-            {
-              "date": "2026-12-12",
-              "opponent_id": "albany-state"
             }
           ],
           "attestation_errors": [],
@@ -5604,7 +5604,7 @@
           "eligible": true,
           "status": "OFFICIAL_FULL_CALENDAR_REQUIRED",
           "certified": false,
-          "published_games": 22,
+          "published_games": 23,
           "official_source_urls": [],
           "official_snapshot_count": 0,
           "live_source_rows_persisted": false,
@@ -5620,11 +5620,15 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 22,
+          "published_games_not_in_source_snapshot": 23,
           "outside_snapshot_examples": [
             {
               "date": "2026-11-09",
               "opponent_id": "flagler"
+            },
+            {
+              "date": "2026-11-15",
+              "opponent_id": "edward-waters"
             },
             {
               "date": "2026-11-18",
@@ -5641,10 +5645,6 @@
             {
               "date": "2026-12-05",
               "opponent_id": "florida-southern"
-            },
-            {
-              "date": "2026-12-12",
-              "opponent_id": "tampa"
             }
           ],
           "attestation_errors": [],
@@ -16442,7 +16442,7 @@
       "LSC 2026-27 reciprocal official university schedules": 123,
       "MEC 2026-27 reciprocal official university calendars": 107,
       "MIAA 2026-27 two-university official schedules": 113,
-      "NCAA scoreboard": 716,
+      "NCAA scoreboard": 717,
       "NE10 2026-27 official reciprocal school calendars": 65,
       "NSIC 2026-27 reciprocal official school calendars": 132,
       "Official university 2026-27 school schedule": 321,
@@ -16503,11 +16503,11 @@
         "status": "NSIC exact two-school 2026-27 conference fixture check",
         "gender": "men",
         "schools_read": 16,
-        "confirmed_matchups": 163,
+        "confirmed_matchups": 164,
         "added": 0,
-        "enriched": 0,
+        "enriched": 1,
         "quarantined": 0,
-        "one_sided": 13,
+        "one_sided": 12,
         "conflicts": 0,
         "source": "Northern Sun official 2026-27 university calendars",
         "errors_count": 0
@@ -16519,7 +16519,7 @@
         "confirmed_matchups": 161,
         "added": 0,
         "enriched": 0,
-        "quarantined": 143,
+        "quarantined": 141,
         "one_sided": 2,
         "conflicts": 0,
         "source": "Conference Carolinas official 2026-27 school schedules",
@@ -16604,10 +16604,10 @@
         "schools_read": 15,
         "confirmed_matchups": 149,
         "added": 0,
-        "enriched": 0,
+        "enriched": 1,
         "quarantined": 0,
-        "time_conflicts": 4,
-        "official_tipoffs": 0,
+        "time_conflicts": 3,
+        "official_tipoffs": 1,
         "one_sided": 0,
         "conflicts": 0,
         "source": "https://glvcsports.com/schedule.aspx?schedule=",
@@ -16622,7 +16622,7 @@
         "added": 0,
         "enriched": 0,
         "quarantined": 77,
-        "time_conflicts": 2,
+        "time_conflicts": 3,
         "official_tipoffs": 0,
         "one_sided": 20,
         "conflicts": 0,
@@ -16658,7 +16658,7 @@
         "added": 0,
         "enriched": 0,
         "quarantined": 7,
-        "time_disagreements": 1,
+        "time_disagreements": 0,
         "one_sided": 2,
         "conflicts": 1,
         "source": "https://goccaa.org/schedule.aspx?schedule=",
@@ -16739,12 +16739,12 @@
   "women": {
     "gender": "women",
     "teams": 298,
-    "games": 3802,
+    "games": 3803,
     "verified_elo_finals": 36,
     "dated_game_days": 103,
-    "no_venue": 3595,
-    "no_network": 3634,
-    "no_tipoff": 322,
+    "no_venue": 3596,
+    "no_network": 3635,
+    "no_tipoff": 323,
     "no_source_url": 0,
     "schools_without_a_published_game": 1,
     "eligible_schools_without_a_published_game": 0,
@@ -16933,7 +16933,7 @@
           "programs": 16,
           "without_games": 0,
           "with_1_to_6_games": 0,
-          "fixture_appearances": 399,
+          "fixture_appearances": 401,
           "eligible_without_games": 0,
           "excluded_without_games": 0,
           "eligible_with_1_to_6_games": 0
@@ -28244,7 +28244,7 @@
           "eligible": true,
           "status": "OFFICIAL_FULL_CALENDAR_REQUIRED",
           "certified": false,
-          "published_games": 21,
+          "published_games": 22,
           "official_source_urls": [],
           "official_snapshot_count": 0,
           "live_source_rows_persisted": false,
@@ -28260,7 +28260,7 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 21,
+          "published_games_not_in_source_snapshot": 22,
           "outside_snapshot_examples": [
             {
               "date": "2026-11-24",
@@ -30320,7 +30320,7 @@
           "eligible": true,
           "status": "OFFICIAL_FULL_CALENDAR_REQUIRED",
           "certified": false,
-          "published_games": 22,
+          "published_games": 23,
           "official_source_urls": [],
           "official_snapshot_count": 0,
           "live_source_rows_persisted": false,
@@ -30336,7 +30336,7 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 22,
+          "published_games_not_in_source_snapshot": 23,
           "outside_snapshot_examples": [
             {
               "date": "2026-11-13",
@@ -32837,7 +32837,7 @@
       "MIAA 2026-27 two-university official schedules": 46,
       "NCAA scoreboard": 3136,
       "NE10 2026-27 official reciprocal school calendars": 21,
-      "NSIC 2026-27 reciprocal official school calendars": 74,
+      "NSIC 2026-27 reciprocal official school calendars": 75,
       "Official university 2026-27 school schedule": 124,
       "Official university athletics schedule": 1,
       "PBC 2026-27 reciprocal official university calendars": 25,
@@ -32899,11 +32899,11 @@
         "status": "NSIC exact two-school 2026-27 conference fixture check",
         "gender": "women",
         "schools_read": 16,
-        "confirmed_matchups": 160,
-        "added": 0,
+        "confirmed_matchups": 161,
+        "added": 1,
         "enriched": 0,
         "quarantined": 1,
-        "one_sided": 15,
+        "one_sided": 14,
         "conflicts": 1,
         "source": "Northern Sun official 2026-27 university calendars",
         "errors_count": 0
@@ -32915,7 +32915,7 @@
         "confirmed_matchups": 159,
         "added": 0,
         "enriched": 0,
-        "quarantined": 151,
+        "quarantined": 146,
         "one_sided": 1,
         "conflicts": 1,
         "source": "Conference Carolinas official 2026-27 school schedules",
@@ -33082,6 +33082,12 @@
     "release_errors": [],
     "release_error_count": 0
   },
-  "cross_gender_logo_palette_conflicts": [],
-  "cross_gender_logo_palette_conflict_count": 0
+  "cross_gender_logo_palette_conflicts": [
+    {
+      "ncaa_logo": "trevecca-nazarene",
+      "men": "trevecca-nazarene",
+      "women": "trevecca-nazarene-university"
+    }
+  ],
+  "cross_gender_logo_palette_conflict_count": 1
 }
