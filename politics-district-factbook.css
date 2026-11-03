@@ -1,0 +1,118 @@
+/* The District Almanac: one self-contained Victorian newspaper component.
+   The component owns its layout; it does not restyle or conceal existing sections. */
+body[data-house-page="district"] .district-factbook[hidden]{display:none}
+body[data-house-page="district"] .district-factbook{
+ --al-ink:#29251f;--al-muted:#62594e;--al-rule:#998c78;
+ color:var(--al-ink);background:transparent;
+ margin:22px 0 28px;padding:16px 0 24px;min-width:0;
+ border-top:5px double var(--al-ink);border-bottom:3px double var(--al-ink);
+ font:14px/1.6 Georgia,'Times New Roman',serif
+}
+body[data-house-page="district"] .district-factbook *{box-sizing:border-box}
+body[data-house-page="district"] .district-factbook .al-intro{max-width:90ch;border-bottom:2px solid var(--al-ink);padding-bottom:12px}
+body[data-house-page="district"] .district-factbook .al-kicker,
+body[data-house-page="district"] .district-factbook .al-head>small{
+ display:block;color:#843d31;letter-spacing:.12em;text-transform:uppercase;
+ font:700 10px/1.55 Inter,Arial,sans-serif
+}
+body[data-house-page="district"] .district-factbook h2{
+ color:var(--al-ink);font:700 clamp(30px,4vw,49px)/1.12 'Bodoni Moda',Georgia,serif!important;
+ margin:6px 0!important;letter-spacing:-.025em!important
+}
+body[data-house-page="district"] .district-factbook h3{
+ color:var(--al-ink);font:700 clamp(22px,2.8vw,32px)/1.17 'Bodoni Moda',Georgia,serif!important;
+ margin:5px 0 7px!important
+}
+body[data-house-page="district"] .district-factbook h4{color:var(--al-ink);font:700 16px/1.3 Georgia,serif;margin:7px 0}
+body[data-house-page="district"] .district-factbook p{
+ color:#51483c!important;font:400 13px/1.62 Georgia,serif!important;margin:5px 0 10px!important
+}
+body[data-house-page="district"] .district-factbook .al-intro p{font-size:15px!important}
+body[data-house-page="district"] .district-factbook .al-head{padding:18px 0 12px}
+body[data-house-page="district"] .district-factbook .al-boundary{padding:15px 0;border-bottom:1px solid var(--al-rule)}
+body[data-house-page="district"] .district-factbook .al-boundary strong{
+ color:#843d31;font:700 11px/1.5 Inter,Arial,sans-serif;letter-spacing:.07em
+}
+body[data-house-page="district"] .district-factbook .al-boundary small{
+ display:block;color:var(--al-muted);font:12px/1.5 Inter,Arial,sans-serif
+}
+body[data-house-page="district"] .district-factbook .al-demographics{padding-bottom:16px;border-bottom:1px solid var(--al-rule)}
+body[data-house-page="district"] .district-factbook .al-dem-grid{
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+ border-block:1px solid var(--al-rule)
+}
+body[data-house-page="district"] .district-factbook .al-stat{
+ padding:13px 18px 13px 0;margin-right:18px;border-right:1px solid var(--al-rule)
+}
+body[data-house-page="district"] .district-factbook .al-stat:last-child{border:0;margin:0}
+body[data-house-page="district"] .district-factbook .al-stat small{
+ display:block;color:var(--al-muted);font:700 11px/1.5 Inter,Arial,sans-serif;min-height:31px
+}
+body[data-house-page="district"] .district-factbook .al-stat strong{
+ display:block;color:var(--al-ink);font:700 clamp(24px,2.6vw,36px)/1.14 'Bodoni Moda',Georgia,serif;margin:6px 0
+}
+body[data-house-page="district"] .district-factbook .al-moe{
+ display:block;color:var(--al-muted);font:11px/1.5 Inter,Arial,sans-serif
+}
+body[data-house-page="district"] .district-factbook .al-stat p{font:12px/1.55 Inter,Arial,sans-serif!important;color:#433b32!important}
+body[data-house-page="district"] .district-factbook .al-columns{
+ display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:26px;border-bottom:2px solid var(--al-ink);padding:0 0 16px
+}
+body[data-house-page="district"] .district-factbook .al-local{
+ padding-right:20px;border-right:1px solid var(--al-rule);min-width:0
+}
+body[data-house-page="district"] .district-factbook .al-place-cols{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px
+}
+body[data-house-page="district"] .district-factbook ul{padding-left:19px;margin:2px 0 12px}
+body[data-house-page="district"] .district-factbook li{font:400 13px/1.55 Georgia,serif;color:var(--al-ink);margin:5px 0;overflow-wrap:anywhere}
+body[data-house-page="district"] .district-factbook .al-link{
+ display:inline-block;margin:5px 18px 5px 0;color:#843d31!important;
+ font:700 11px/1.5 Inter,Arial,sans-serif;text-decoration:underline
+}
+body[data-house-page="district"] .district-factbook .al-list{border-top:2px solid var(--al-ink)}
+body[data-house-page="district"] .district-factbook .al-election{
+ display:grid;grid-template-columns:75px minmax(0,1fr) 150px;
+ gap:17px;align-items:start;padding:14px 0;border-bottom:1px solid var(--al-rule)
+}
+body[data-house-page="district"] .district-factbook .al-year strong{
+ display:block;color:var(--al-ink);font:700 24px/1.1 'Bodoni Moda',Georgia,serif
+}
+body[data-house-page="district"] .district-factbook .al-year small{
+ display:block;color:var(--al-muted);font:10px/1.4 Inter,Arial,sans-serif
+}
+body[data-house-page="district"] .district-factbook .al-votes strong{
+ display:block;color:var(--al-ink);font:700 16px/1.3 Georgia,serif
+}
+body[data-house-page="district"] .district-factbook .al-votes p{font-size:12px!important;margin:4px 0 8px!important}
+body[data-house-page="district"] .district-factbook .al-bar{
+ display:flex;height:8px;width:100%;background:#d5cab8;overflow:hidden
+}
+body[data-house-page="district"] .district-factbook .al-bar span{display:block;height:100%}
+body[data-house-page="district"] .district-factbook .al-first{background:#665344}
+body[data-house-page="district"] .district-factbook .al-runner{background:#bcae95}
+body[data-house-page="district"] .district-factbook .al-dem{background:#355d89}
+body[data-house-page="district"] .district-factbook .al-rep{background:#a04a43}
+body[data-house-page="district"] .district-factbook .al-source{text-align:right}
+body[data-house-page="district"] .district-factbook .al-source small{
+ display:block;color:var(--al-ink);font:600 11px/1.5 Inter,Arial,sans-serif
+}
+body[data-house-page="district"] .district-factbook .al-change{
+ padding:11px 14px;background:#e8dfcf;color:var(--al-ink)!important;
+ font-weight:700!important;margin:14px 0!important
+}
+body[data-house-page="district"] .district-factbook .al-note{font:12px/1.62 Inter,Arial,sans-serif!important;color:#62594e!important}
+body[data-house-page="district"] .district-factbook .al-error{color:#843d31!important;padding:12px 0}
+@media(max-width:760px){
+ body[data-house-page="district"] .district-factbook{margin:17px 0;padding:14px 0}
+ body[data-house-page="district"] .district-factbook .al-dem-grid,
+ body[data-house-page="district"] .district-factbook .al-columns{grid-template-columns:minmax(0,1fr)}
+ body[data-house-page="district"] .district-factbook .al-stat{margin:0;padding:12px 0;border-right:0;border-bottom:1px solid var(--al-rule)}
+ body[data-house-page="district"] .district-factbook .al-stat:last-child{border-bottom:0}
+ body[data-house-page="district"] .district-factbook .al-stat small{min-height:0}
+ body[data-house-page="district"] .district-factbook .al-local{padding:0 0 14px;border-right:0;border-bottom:1px solid var(--al-rule)}
+ body[data-house-page="district"] .district-factbook .al-place-cols{grid-template-columns:minmax(0,1fr)}
+ body[data-house-page="district"] .district-factbook .al-election{grid-template-columns:55px minmax(0,1fr);gap:11px}
+ body[data-house-page="district"] .district-factbook .al-source{grid-column:2;text-align:left}
+ body[data-house-page="district"] .district-factbook h2{font-size:33px!important}
+}
