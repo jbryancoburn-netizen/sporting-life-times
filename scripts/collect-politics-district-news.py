@@ -95,7 +95,7 @@ def one(row,state_name):
             published_at=published(node.findtext("pubDate"))
             link=(node.findtext("link") or "").strip()
             title=clean_title(raw_title,publisher)
-            if re.search(r"\\b(latest polls|polling averages|betting odds|election odds)\\b",title,re.I):continue
+            if re.search(r"\b(latest polls|polling averages|betting odds|election odds)\b",title,re.I):continue
             if not publisher or not published_at or not link.startswith("https://") or len(title)<16 or len(title)>230:
                 continue
             if published_at>NOW+dt.timedelta(days=1) or NOW-published_at>MAX_AGE:
