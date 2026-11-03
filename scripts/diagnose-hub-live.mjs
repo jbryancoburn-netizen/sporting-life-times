@@ -1,12 +1,20 @@
 /* Diagnostic of the ACTUAL GitHub Pages version, not a local copy. */
-import {chromium} from 'playwright';
+import {chromium,webkit} from 'playwright';
 import fs from 'node:fs';
 const URL='https://jbryancoburn-netizen.github.io/sporting-life-times/';
-const browser=await chromium.launch({headless:true,...(process.env.PLAYWRIGHT_CHROME_CHANNEL?{channel:process.env.PLAYWRIGHT_CHROME_CHANNEL}:{})});
+const engine=process.env.SLT_HUB_ENGINE==='webkit'?'webkit':'chromium';
+const browserType=engine==='webkit'?webkit:chromium;
+const browser=await browserType.launch({headless:true,...(engine==='chromium'&&process.env.PLAYWRIGHT_CHROME_CHANNEL?{channel:process.env.PLAYWRIGHT_CHROME_CHANNEL}:{})});
 fs.mkdirSync('test-artifacts',{recursive:true});
 let mismatch=0;
 try{
- for(const name of ['index.html','sports.html']){
+ for(const target of [
+  {name:'root-url',url:URL},
+  {name:'root-busted',url:URL+'?v=20261103-cacheproof'},
+  {name:'index-unbusted',url:URL+'index.html'},
+  {name:'index-busted',url:URL+'index.html?v=20261103-cacheproof'},
+  {name:'sports-unbusted',url:URL+'sports.html'}
+ ]){const {name,url}=target;
   const requests=[];
   const page=await browser.newPage({viewport:{width:390,height:844},deviceScaleFactor:1,isMobile:true,hasTouch:true});
   page.on('response',res=>{
@@ -15,7 +23,7 @@ try{
   page.on('requestfailed',r=>requests.push({failed:r.url(),error:r.failure()?.errorText}));
   const errors=[];
   page.on('pageerror',e=>errors.push(e.message));
-  const url=URL+name+'?diag='+Date.now();
+
   let resp;
   try{resp=await page.goto(url,{waitUntil:'networkidle',timeout:30000})}
   catch(e){console.log('LIVE page fetch error '+name+': '+e.message)}
@@ -37,12 +45,13 @@ try{
     title:info('header.masthead .slt-brand-title'),nav:info('nav.site-nav'),
     pageWidth:document.documentElement.scrollWidth,viewport:innerWidth};
   });
-  await page.screenshot({path:'test-artifacts/live-hub-'+name+'.png',fullPage:false});
-  const result={name,status:resp?.status(),detail,requests,errors};
+  await page.screenshot({path:'test-artifacts/live-hub-'+engine+'-'+name+'.png',fullPage:false});
+  const result={engine,name,status:resp?.status(),detail,requests,errors};
   console.log('LIVE_DIAGNOSTIC '+JSON.stringify(result));
-  fs.writeFileSync('test-artifacts/live-hub-'+name+'.json',JSON.stringify(result,null,2));
+  fs.writeFileSync('test-artifacts/live-hub-'+engine+'-'+name+'.json',JSON.stringify(result,null,2));
   if(detail.link.missing||detail.globe.width>90||detail.link.height>200||detail.link.background!=='rgb(9, 31, 61)')mismatch++;
   await page.close();
  }
 }finally{await browser.close()}
-console.log('LIVE_DIAGNOSTIC_DONE '+JSON.stringify({mismatch}));
+console.log('LIVE_DIAGNOSTIC_DONE '+JSON.stringify({engine,mismatch}));
+if(mismatch)process.exitCode=1;

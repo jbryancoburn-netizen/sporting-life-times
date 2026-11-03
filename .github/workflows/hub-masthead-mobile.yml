@@ -28,6 +28,7 @@ jobs:
           else
             npx playwright install chromium
           fi
+          npx playwright install --with-deps webkit
       - name: Serve local published files
         run: |
           python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/slt-http.log 2>&1 &
@@ -39,6 +40,11 @@ jobs:
         run: node scripts/test-hub-masthead-mobile.mjs
       - name: Inspect ACTUAL deployed GitHub Pages site in mobile Chromium
         if: always()
+        run: node scripts/diagnose-hub-live.mjs
+      - name: Inspect actual published site with Safari-compatible WebKit
+        if: always()
+        env:
+          SLT_HUB_ENGINE: webkit
         run: node scripts/diagnose-hub-live.mjs
       - name: Save visual evidence even when a check fails
         if: always()
