@@ -38,11 +38,6 @@ function render(g,events,rankings){
  }
  const selectedRecords=gameRecords.get(g.id);
  const recordFor=t=>{const rec=selectedRecords?.[t.code];return rec?rec.w+'–'+rec.l:'Record unavailable'};
- const finalScorebug=Number.isFinite(Number(away.score))&&Number.isFinite(Number(home.score))?
-  window.SLTScorebug.render({mode:'final',away:{code:away.code,name:away.name,record:recordFor(away)},
-  home:{code:home.code,name:home.name,record:recordFor(home)},awayScore:away.score,homeScore:home.score,
-  winner:Number(away.score)>Number(home.score)?away.code:home.code,
-  subtitle:String(g.status||'').includes('OT')?g.status:'VERIFIED FINAL'}):null;
  const gameElo=postgame.get(g.id);
  const eloStat=t=>{const v=gameElo?.[t.code];if(!v)return '<small>Elo unavailable</small>';
   return '<b>'+v.elo.toFixed(1)+'</b><small>ELO '+(v.delta>0?'+':'')+v.delta.toFixed(1)+' · RANK #'+v.rank+(v.movement>0?' ▲'+v.movement:v.movement<0?' ▼'+Math.abs(v.movement):'')+'</small>';
@@ -67,7 +62,7 @@ function render(g,events,rankings){
  })();
  const highlight=(g.leaders||[]).slice(0,4).map(p=>'<div class="star"><small>'+esc(p.team)+'</small><b>'+esc(p.name)+'</b><strong>'+esc(p.pts)+' <small>PTS</small></strong><small>'+esc(p.reb)+' REB · '+esc(p.ast)+' AST</small></div>').join('');
  const roster=t=>'<section class="roster" style="--team-color:'+window.SLTScorebug.color(t.code)+'"><h4>'+esc(t.name)+'</h4>'+g.players.filter(p=>p.team===t.code).sort((a,b)=>num(b.pts)-num(a.pts)).map(player).join('')+'</section>';
- $('game').innerHTML='<div class="game-hero"><div class="game-label"><span>'+esc(g.status||'FINAL')+'</span><span>'+esc(fmt(g.date))+'</span></div><div class="game-teams">'+(finalScorebug||panel(away,recordFor(away))+panel(home,recordFor(home)))+'</div><div class="game-summary"><div>'+eloStat(away)+'</div><div>'+eloStat(home)+'</div></div></div>'+quarterScores+teamComparison+'<section class="section"><h3>Top Performers</h3><div class="star-grid">'+highlight+'</div></section><section class="section"><h3>Complete Player Box Score</h3><div class="rosters">'+roster(away)+roster(home)+'</div></section><section class="section"><h3>Game Sources</h3><div class="links"><a target="_blank" rel="noopener noreferrer" href="'+esc(g.url)+'">Official game box score ↗</a><a href="nba.html#page-3">Standings & Elo ↗</a></div><p class="notice">Player statistics are sourced from captured completed-game box scores. Possession timelines and quarter scoring are not included until verified data is available.</p></section>';
+ $('game').innerHTML='<div class="game-hero"><div class="game-label"><span>'+esc(g.status||'FINAL')+'</span><span>'+esc(fmt(g.date))+'</span></div><div class="game-teams">'+panel(away,recordFor(away))+panel(home,recordFor(home))+'</div><div class="game-summary"><div>'+eloStat(away)+'</div><div>'+eloStat(home)+'</div></div></div>'+quarterScores+teamComparison+'<section class="section"><h3>Top Performers</h3><div class="star-grid">'+highlight+'</div></section><section class="section"><h3>Complete Player Box Score</h3><div class="rosters">'+roster(away)+roster(home)+'</div></section><section class="section"><h3>Game Sources</h3><div class="links"><a target="_blank" rel="noopener noreferrer" href="'+esc(g.url)+'">Official game box score ↗</a><a href="nba.html#page-3">Standings & Elo ↗</a></div><p class="notice">Player statistics are sourced from captured completed-game box scores. Possession timelines and quarter scoring are not included until verified data is available.</p></section>';
 }
 async function boot(){
  try{

@@ -250,56 +250,56 @@
 
 /* 2026-11-01 — restrained mobile front page. One primary newspaper masthead,
    no oversized marketing billboard and no fabricated preseason leaderboard. */
-body[data-page="home"]:not([data-gender="women"]):not(.cbb-product) .hero{
+body[data-page="home"]:not([data-gender="women"]) .hero{
  display:flex;align-items:center;justify-content:space-between;gap:24px;
  padding:18px 20px;margin:11px 0 15px;
  background:#f0efe9;color:#1b333b;border-top:2px solid #243c42;
  border-bottom:1px solid #cbd2ce;box-shadow:none;min-height:0
 }
-body[data-page="home"]:not([data-gender="women"]):not(.cbb-product) .hero .eyebrow{
+body[data-page="home"]:not([data-gender="women"]) .hero .eyebrow{
  font:700 10px Arial,Helvetica,sans-serif;letter-spacing:1px;color:#6e716a;margin:0 0 5px
 }
-body[data-page="home"]:not([data-gender="women"]):not(.cbb-product) .hero h1{
+body[data-page="home"]:not([data-gender="women"]) .hero h1{
  font:700 clamp(24px,3vw,35px)/1.1 Georgia,'Times New Roman',serif!important;
  letter-spacing:-.5px;margin:4px 0 8px;color:#172f37
 }
-body[data-page="home"]:not([data-gender="women"]):not(.cbb-product) .hero p{
+body[data-page="home"]:not([data-gender="women"]) .hero p{
  font:400 13px/1.45 Arial,Helvetica,sans-serif;color:#52666a;margin:0 0 9px
 }
-body[data-page="home"]:not([data-gender="women"]):not(.cbb-product) .hero a.cta{
+body[data-page="home"]:not([data-gender="women"]) .hero a.cta{
  display:inline-block;background:transparent!important;color:#225866!important;
  padding:2px 0;border-bottom:1px solid #225866;text-decoration:none!important;
  font:700 11px Arial,sans-serif;letter-spacing:0
 }
-body[data-page="home"]:not([data-gender="women"]):not(.cbb-product) .hero-facts{
+body[data-page="home"]:not([data-gender="women"]) .hero-facts{
  display:grid;grid-template-columns:repeat(2,minmax(75px,1fr));
  border-left:1px solid #c3ccc8;flex:0 0 240px;margin-left:0;min-width:0;
  align-items:center;align-self:stretch
 }
-body[data-page="home"]:not([data-gender="women"]):not(.cbb-product) .hero-facts>div{
+body[data-page="home"]:not([data-gender="women"]) .hero-facts>div{
  display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
  gap:3px;padding:5px 10px
 }
-body[data-page="home"]:not([data-gender="women"]):not(.cbb-product) .hero-facts strong{
+body[data-page="home"]:not([data-gender="women"]) .hero-facts strong{
  font:700 27px/1 Georgia,serif;color:#264b56
 }
-body[data-page="home"]:not([data-gender="women"]):not(.cbb-product) .hero-facts span{
+body[data-page="home"]:not([data-gender="women"]) .hero-facts span{
  font:700 9px/1.3 Arial,sans-serif;letter-spacing:.45px;color:#738280
 }
 body[data-page="home"] #score-stamp[hidden]{display:none!important}
 @media(max-width:680px){
- body[data-page="home"]:not([data-gender="women"]):not(.cbb-product) .hero{
+ body[data-page="home"]:not([data-gender="women"]) .hero{
   padding:12px 13px;gap:12px;align-items:start
  }
- body[data-page="home"]:not([data-gender="women"]):not(.cbb-product) .hero h1{font-size:25px!important;line-height:1.08}
- body[data-page="home"]:not([data-gender="women"]):not(.cbb-product) .hero p{font-size:11px;line-height:1.4}
- body[data-page="home"]:not([data-gender="women"]):not(.cbb-product) .hero-facts{
+ body[data-page="home"]:not([data-gender="women"]) .hero h1{font-size:25px!important;line-height:1.08}
+ body[data-page="home"]:not([data-gender="women"]) .hero p{font-size:11px;line-height:1.4}
+ body[data-page="home"]:not([data-gender="women"]) .hero-facts{
   flex:0 0 94px;grid-template-columns:1fr;border-left:1px solid #c3ccc8
  }
- body[data-page="home"]:not([data-gender="women"]):not(.cbb-product) .hero-facts>div{padding:5px 2px}
- body[data-page="home"]:not([data-gender="women"]):not(.cbb-product) .hero-facts>div+div{border-top:1px solid #d0d6d1}
- body[data-page="home"]:not([data-gender="women"]):not(.cbb-product) .hero-facts strong{font-size:20px}
- body[data-page="home"]:not([data-gender="women"]):not(.cbb-product) .hero-facts span{font-size:8px;letter-spacing:.25px}
+ body[data-page="home"]:not([data-gender="women"]) .hero-facts>div{padding:5px 2px}
+ body[data-page="home"]:not([data-gender="women"]) .hero-facts>div+div{border-top:1px solid #d0d6d1}
+ body[data-page="home"]:not([data-gender="women"]) .hero-facts strong{font-size:20px}
+ body[data-page="home"]:not([data-gender="women"]) .hero-facts span{font-size:8px;letter-spacing:.25px}
 }
 
 
