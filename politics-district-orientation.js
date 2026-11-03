@@ -39,8 +39,12 @@ if(!data){
     "Official Census geographic reference point: "+Math.abs(lat).toFixed(2)+"°"+(lat>=0?"N":"S")+", "+Math.abs(lon).toFixed(2)+"°"+(lon>=0?"E":"W")+".": 
     "Explore the official congressional boundaries in the interactive atlas below.";
    const verifiedPlaces=communityData?.districts?.[id]?.communities||[];
-   const cleanPlace=name=>name.replace(/ (?:city|town|village|CDP|borough|municipality)$/i,"");
-   const named=verifiedPlaces.slice(0,6).map(x=>cleanPlace(x.name));
+   const verifiedNeighborhoods=communityData?.districts?.[id]?.neighborhoods||[];
+   const displayPlaces=verifiedPlaces.length?verifiedPlaces:verifiedNeighborhoods;
+   const localNeighborhood=!verifiedPlaces.length&&verifiedNeighborhoods.length>0;
+   const cleanPlace=name=>name.replace(/ (?:city|town|village|CDP|borough|municipality)$/i,"")
+     .replace(/_/g," ").replace(/[A-Z]{3,}/g,w=>w[0]+w.slice(1).toLowerCase());
+   const named=displayPlaces.slice(0,6).map(x=>cleanPlace(x.name));
    const revised=route["2026_boundaries_revised"];
    const frame=document.createElement("div");frame.className="orientation-national-edition";
    const kicker=document.createElement("span");kicker.className="orientation-kicker";kicker.textContent=state.name.toUpperCase()+" / DISTRICT FIELD GUIDE";
@@ -52,12 +56,12 @@ if(!data){
    const pt=document.createElement("h3");pt.textContent="Locate this district";
    const p1=document.createElement("p");
    p1.textContent=named.length?
-     "Census-verified community reference points inside the district: "+named.join(", ")+". "+
-     "A city's municipal boundary may also extend beyond the district.":
-     "The district boundary is verified, but its Census place reference points do not identify the individual neighborhoods here. "+location;
+     (localNeighborhood?"Source-verified neighborhood reference points: ":"Census-verified community reference points: ")+named.join(", ")+". "+
+     "The exact district outline determines which blocks are included; these names do not imply full-community containment.":
+     "The district outline is verified. More neighborhood geography is still being researched. "+location;
    if(named.length){
     const list=document.createElement("ul");list.className="orientation-verified-places";
-    for(const p of verifiedPlaces.slice(0,9)){
+    for(const p of displayPlaces.slice(0,9)){
       const li=document.createElement("li");li.textContent=cleanPlace(p.name);list.append(li);
     }
     place.append(pt,p1,list);
@@ -75,7 +79,8 @@ if(!data){
    const source=document.createElement("p");source.className="orientation-source";
    const a=document.createElement("a");a.href=geo.meta?.source_url||"https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/Legislative/MapServer";a.target="_blank";a.rel="noopener noreferrer";a.textContent="Official Census boundary source ↗";
    source.append("SOURCE / VERIFIED 2026 GEOGRAPHY · ",a);
-   if(named.length){const gaz=document.createElement("a");gaz.href=communityData.census_gazetteer_url;gaz.textContent="Census 2026 named places ↗";gaz.target="_blank";gaz.rel="noopener noreferrer";source.append(" · ",gaz);}
+   if(verifiedPlaces.length){const gaz=document.createElement("a");gaz.href=communityData.census_gazetteer_url;gaz.textContent="Census 2026 named places ↗";gaz.target="_blank";gaz.rel="noopener noreferrer";source.append(" · ",gaz);}
+   if(verifiedNeighborhoods.length){const near=document.createElement("a");near.href=verifiedNeighborhoods[0].source_url;near.textContent="Local neighborhood geography ↗";near.target="_blank";near.rel="noopener noreferrer";source.append(" · ",near);}
    frame.append(kicker,heading,description,columns,source);
    node.replaceChildren(frame);node.hidden=false;
   }).catch(error=>console.warn("District orientation source unavailable:",error));
