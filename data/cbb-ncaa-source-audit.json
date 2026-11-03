@@ -1,0 +1,1561 @@
+{
+  "schema": 1,
+  "sample_date": "2026-11-02",
+  "started_at": "2026-11-03T03:41:49.283+00:00",
+  "methodology": {
+    "sampling": "4 rounds separated by 20 seconds",
+    "source": "NCAA.com through community ncaa-api and ESPN public summary",
+    "score_identity": "NCAA/ESPN exact matched crosswalk, no text-only guessed joins",
+    "freshness_limitation": "First observed at sampling points; cannot know on-court event time or true provider ingestion delay. The community API caches game endpoints for about 45 seconds.",
+    "no_live_promotion": true,
+    "no_payment": true
+  },
+  "scoreboard_requests": {
+    "men": {
+      "status": 200,
+      "ms": 277,
+      "bytes": 2536109,
+      "error": null
+    },
+    "women": {
+      "status": 200,
+      "ms": 206,
+      "bytes": 2333191,
+      "error": null
+    }
+  },
+  "games": [
+    {
+      "gender": "men",
+      "sport": "mens-college-basketball",
+      "ncaa_id": "6653942",
+      "espn_id": "401919001",
+      "teams": "UT Martin @ Tulane",
+      "verified_crosswalk": true,
+      "initial_espn": {
+        "phase": "in",
+        "score": [
+          91,
+          93
+        ],
+        "status_text": "4:04 - 2OT",
+        "clock": "4:04"
+      },
+      "initial_ncaa_score": [
+        91,
+        91
+      ],
+      "initial_ncaa_score_as_of": "2026-11-03T03:39:11.806867+00:00",
+      "selection_phase": "in"
+    },
+    {
+      "gender": "women",
+      "sport": "womens-college-basketball",
+      "ncaa_id": "6648906",
+      "espn_id": "401917682",
+      "teams": "Nevada @ LMU (CA)",
+      "verified_crosswalk": true,
+      "initial_espn": {
+        "phase": "in",
+        "score": [
+          25,
+          31
+        ],
+        "status_text": "2:37 - 2nd",
+        "clock": "2:37"
+      },
+      "initial_ncaa_score": [
+        23,
+        27
+      ],
+      "initial_ncaa_score_as_of": "2026-11-03T03:39:11.806867+00:00",
+      "selection_phase": "in"
+    },
+    {
+      "gender": "men",
+      "sport": "mens-college-basketball",
+      "ncaa_id": "6652236",
+      "espn_id": "401925683",
+      "teams": "Alcorn @ Ole Miss",
+      "verified_crosswalk": true,
+      "initial_espn": {
+        "phase": "in",
+        "score": [
+          52,
+          95
+        ],
+        "status_text": "1:47 - 2nd",
+        "clock": "1:47"
+      },
+      "initial_ncaa_score": [
+        52,
+        92
+      ],
+      "initial_ncaa_score_as_of": "2026-11-03T03:39:11.806867+00:00",
+      "selection_phase": "in"
+    },
+    {
+      "gender": "men",
+      "sport": "mens-college-basketball",
+      "ncaa_id": "6652251",
+      "espn_id": "401909694",
+      "teams": "Florida St. @ Florida A&M",
+      "verified_crosswalk": true,
+      "initial_espn": {
+        "phase": "in",
+        "score": [
+          64,
+          34
+        ],
+        "status_text": "15:29 - 2nd",
+        "clock": "15:29"
+      },
+      "initial_ncaa_score": [
+        64,
+        34
+      ],
+      "initial_ncaa_score_as_of": "2026-11-03T03:39:11.806867+00:00",
+      "selection_phase": "in"
+    }
+  ],
+  "samples": [
+    {
+      "round": 1,
+      "at": "2026-11-03T03:41:49.771+00:00",
+      "games": [
+        {
+          "ncaa_id": "6653942",
+          "espn_id": "401919001",
+          "status": {
+            "phase": "in",
+            "score": [
+              91,
+              93
+            ],
+            "status_text": "4:04 - 2OT",
+            "clock": "4:04"
+          },
+          "ncaa": {
+            "http": {
+              "status": 200,
+              "ms": 1960,
+              "bytes": 190884,
+              "error": null
+            },
+            "play_count": 574,
+            "last_play": {
+              "key": "7cc97cd8512f6876",
+              "text": "Personal Foul on Tulane's Krystian Lewis (Arminas Vilkas draws the foul)",
+              "clock": "04:04",
+              "period": 4
+            },
+            "field_examples": {
+              "top": [
+                "__typename",
+                "contestId",
+                "title",
+                "description",
+                "divisionName",
+                "status",
+                "period",
+                "minutes",
+                "seconds",
+                "teams",
+                "periods"
+              ],
+              "period": [
+                "__typename",
+                "periodNumber",
+                "periodDisplay",
+                "playbyplayStats"
+              ]
+            }
+          },
+          "espn": {
+            "http": {
+              "status": 200,
+              "ms": 108,
+              "bytes": 436039,
+              "error": null
+            },
+            "play_count": 559,
+            "last_play": {
+              "key": "37c4c1fc61f28540",
+              "text": "Krystian Lewis makes driving layup",
+              "clock": "4:26",
+              "period": 4
+            },
+            "field_examples": {
+              "top": [
+                "boxscore",
+                "format",
+                "gameInfo",
+                "leaders",
+                "broadcasts",
+                "pickcenter",
+                "odds",
+                "againstTheSpread",
+                "videos",
+                "news",
+                "winprobability",
+                "plays"
+              ],
+              "period": []
+            }
+          }
+        },
+        {
+          "ncaa_id": "6648906",
+          "espn_id": "401917682",
+          "status": {
+            "phase": "in",
+            "score": [
+              25,
+              31
+            ],
+            "status_text": "2:37 - 2nd",
+            "clock": "2:37"
+          },
+          "ncaa": {
+            "http": {
+              "status": 200,
+              "ms": 1567,
+              "bytes": 71389,
+              "error": null
+            },
+            "play_count": 219,
+            "last_play": {
+              "key": "2e042f591261127a",
+              "text": "Personal Foul on Nevada's Olivia Poulivaati",
+              "clock": "02:37",
+              "period": 2
+            },
+            "field_examples": {
+              "top": [
+                "__typename",
+                "contestId",
+                "title",
+                "description",
+                "divisionName",
+                "status",
+                "period",
+                "minutes",
+                "seconds",
+                "teams",
+                "periods"
+              ],
+              "period": [
+                "__typename",
+                "periodNumber",
+                "periodDisplay",
+                "playbyplayStats"
+              ]
+            }
+          },
+          "espn": {
+            "http": {
+              "status": 200,
+              "ms": 118,
+              "bytes": 278146,
+              "error": null
+            },
+            "play_count": 204,
+            "last_play": {
+              "key": "8676f9dff3cb2c8a",
+              "text": "Mahaila Harrison misses 26-foot three point jumper",
+              "clock": "2:37",
+              "period": 2
+            },
+            "field_examples": {
+              "top": [
+                "boxscore",
+                "format",
+                "gameInfo",
+                "videos",
+                "leaders",
+                "broadcasts",
+                "pickcenter",
+                "odds",
+                "againstTheSpread",
+                "plays",
+                "news",
+                "winprobability"
+              ],
+              "period": []
+            }
+          }
+        },
+        {
+          "ncaa_id": "6652236",
+          "espn_id": "401925683",
+          "status": {
+            "phase": "in",
+            "score": [
+              52,
+              95
+            ],
+            "status_text": "1:47 - 2nd",
+            "clock": "1:47"
+          },
+          "ncaa": {
+            "http": {
+              "status": 200,
+              "ms": 1661,
+              "bytes": 195224,
+              "error": null
+            },
+            "play_count": 594,
+            "last_play": {
+              "key": "8763ea2008960d7a",
+              "text": "Subbing in for Ole Miss-Zach Day",
+              "clock": "01:47",
+              "period": 2
+            },
+            "field_examples": {
+              "top": [
+                "__typename",
+                "contestId",
+                "title",
+                "description",
+                "divisionName",
+                "status",
+                "period",
+                "minutes",
+                "seconds",
+                "teams",
+                "periods"
+              ],
+              "period": [
+                "__typename",
+                "periodNumber",
+                "periodDisplay",
+                "playbyplayStats"
+              ]
+            }
+          },
+          "espn": {
+            "http": {
+              "status": 200,
+              "ms": 184,
+              "bytes": 483294,
+              "error": null
+            },
+            "play_count": 552,
+            "last_play": {
+              "key": "5b54183816c9af0b",
+              "text": "Foul on Jaron Saulsberry.",
+              "clock": "1:47",
+              "period": 2
+            },
+            "field_examples": {
+              "top": [
+                "boxscore",
+                "format",
+                "gameInfo",
+                "leaders",
+                "broadcasts",
+                "pickcenter",
+                "odds",
+                "againstTheSpread",
+                "videos",
+                "news",
+                "plays",
+                "winprobability"
+              ],
+              "period": []
+            }
+          }
+        },
+        {
+          "ncaa_id": "6652251",
+          "espn_id": "401909694",
+          "status": {
+            "phase": "in",
+            "score": [
+              64,
+              34
+            ],
+            "status_text": "15:29 - 2nd",
+            "clock": "15:29"
+          },
+          "ncaa": {
+            "http": {
+              "status": 200,
+              "ms": 1634,
+              "bytes": 116666,
+              "error": null
+            },
+            "play_count": 338,
+            "last_play": {
+              "key": "a3afa9928b937ab5",
+              "text": "Free Throw  by Florida A&M's Daisean Williford",
+              "clock": "15:29",
+              "period": 2
+            },
+            "field_examples": {
+              "top": [
+                "__typename",
+                "contestId",
+                "title",
+                "description",
+                "divisionName",
+                "status",
+                "period",
+                "minutes",
+                "seconds",
+                "teams",
+                "periods"
+              ],
+              "period": [
+                "__typename",
+                "periodNumber",
+                "periodDisplay",
+                "playbyplayStats"
+              ]
+            }
+          },
+          "espn": {
+            "http": {
+              "status": 200,
+              "ms": 103,
+              "bytes": 322914,
+              "error": null
+            },
+            "play_count": 334,
+            "last_play": {
+              "key": "9de7976bd42dc4ca",
+              "text": "Daisean Williford makes free throw 2 of 2",
+              "clock": "15:29",
+              "period": 2
+            },
+            "field_examples": {
+              "top": [
+                "boxscore",
+                "format",
+                "gameInfo",
+                "leaders",
+                "broadcasts",
+                "pickcenter",
+                "odds",
+                "againstTheSpread",
+                "videos",
+                "news",
+                "plays",
+                "winprobability"
+              ],
+              "period": []
+            }
+          }
+        }
+      ]
+    },
+    {
+      "round": 2,
+      "at": "2026-11-03T03:42:20.363+00:00",
+      "games": [
+        {
+          "ncaa_id": "6653942",
+          "espn_id": "401919001",
+          "status": {
+            "phase": "in",
+            "score": [
+              91,
+              93
+            ],
+            "status_text": "4:04 - 2OT",
+            "clock": "4:04"
+          },
+          "ncaa": {
+            "http": {
+              "status": 200,
+              "ms": 732,
+              "bytes": 190884,
+              "error": null
+            },
+            "play_count": 574,
+            "last_play": {
+              "key": "7cc97cd8512f6876",
+              "text": "Personal Foul on Tulane's Krystian Lewis (Arminas Vilkas draws the foul)",
+              "clock": "04:04",
+              "period": 4
+            },
+            "field_examples": {
+              "top": [
+                "__typename",
+                "contestId",
+                "title",
+                "description",
+                "divisionName",
+                "status",
+                "period",
+                "minutes",
+                "seconds",
+                "teams",
+                "periods"
+              ],
+              "period": [
+                "__typename",
+                "periodNumber",
+                "periodDisplay",
+                "playbyplayStats"
+              ]
+            }
+          },
+          "espn": {
+            "http": {
+              "status": 200,
+              "ms": 188,
+              "bytes": 437704,
+              "error": null
+            },
+            "play_count": 562,
+            "last_play": {
+              "key": "5cf14380d61e19ef",
+              "text": "Foul on Krystian Lewis.",
+              "clock": "4:04",
+              "period": 4
+            },
+            "field_examples": {
+              "top": [
+                "boxscore",
+                "format",
+                "gameInfo",
+                "leaders",
+                "broadcasts",
+                "pickcenter",
+                "odds",
+                "againstTheSpread",
+                "videos",
+                "news",
+                "winprobability",
+                "plays"
+              ],
+              "period": []
+            },
+            "count_changed_from": 559
+          }
+        },
+        {
+          "ncaa_id": "6648906",
+          "espn_id": "401917682",
+          "status": {
+            "phase": "in",
+            "score": [
+              25,
+              33
+            ],
+            "status_text": "2:22 - 2nd",
+            "clock": "2:22"
+          },
+          "ncaa": {
+            "http": {
+              "status": 200,
+              "ms": 615,
+              "bytes": 71389,
+              "error": null
+            },
+            "play_count": 219,
+            "last_play": {
+              "key": "2e042f591261127a",
+              "text": "Personal Foul on Nevada's Olivia Poulivaati",
+              "clock": "02:37",
+              "period": 2
+            },
+            "field_examples": {
+              "top": [
+                "__typename",
+                "contestId",
+                "title",
+                "description",
+                "divisionName",
+                "status",
+                "period",
+                "minutes",
+                "seconds",
+                "teams",
+                "periods"
+              ],
+              "period": [
+                "__typename",
+                "periodNumber",
+                "periodDisplay",
+                "playbyplayStats"
+              ]
+            }
+          },
+          "espn": {
+            "http": {
+              "status": 200,
+              "ms": 117,
+              "bytes": 278443,
+              "error": null
+            },
+            "play_count": 211,
+            "last_play": {
+              "key": "2bfee9676d584dcf",
+              "text": "Mahaila Harrison subbing out for Nevada",
+              "clock": "2:37",
+              "period": 2
+            },
+            "field_examples": {
+              "top": [
+                "boxscore",
+                "format",
+                "gameInfo",
+                "leaders",
+                "broadcasts",
+                "pickcenter",
+                "odds",
+                "againstTheSpread",
+                "videos",
+                "plays",
+                "news",
+                "winprobability"
+              ],
+              "period": []
+            },
+            "count_changed_from": 204
+          }
+        },
+        {
+          "ncaa_id": "6652236",
+          "espn_id": "401925683",
+          "status": {
+            "phase": "in",
+            "score": [
+              53,
+              95
+            ],
+            "status_text": "1:47 - 2nd",
+            "clock": "1:47"
+          },
+          "ncaa": {
+            "http": {
+              "status": 200,
+              "ms": 738,
+              "bytes": 195224,
+              "error": null
+            },
+            "play_count": 594,
+            "last_play": {
+              "key": "8763ea2008960d7a",
+              "text": "Subbing in for Ole Miss-Zach Day",
+              "clock": "01:47",
+              "period": 2
+            },
+            "field_examples": {
+              "top": [
+                "__typename",
+                "contestId",
+                "title",
+                "description",
+                "divisionName",
+                "status",
+                "period",
+                "minutes",
+                "seconds",
+                "teams",
+                "periods"
+              ],
+              "period": [
+                "__typename",
+                "periodNumber",
+                "periodDisplay",
+                "playbyplayStats"
+              ]
+            }
+          },
+          "espn": {
+            "http": {
+              "status": 200,
+              "ms": 100,
+              "bytes": 477736,
+              "error": null
+            },
+            "play_count": 557,
+            "last_play": {
+              "key": "a02a6cfe4d17ba64",
+              "text": "Josh Powell makes free throw 2 of 2",
+              "clock": "1:47",
+              "period": 2
+            },
+            "field_examples": {
+              "top": [
+                "boxscore",
+                "format",
+                "gameInfo",
+                "leaders",
+                "broadcasts",
+                "pickcenter",
+                "odds",
+                "againstTheSpread",
+                "videos",
+                "news",
+                "winprobability",
+                "plays"
+              ],
+              "period": []
+            },
+            "count_changed_from": 552
+          }
+        },
+        {
+          "ncaa_id": "6652251",
+          "espn_id": "401909694",
+          "status": {
+            "phase": "in",
+            "score": [
+              64,
+              35
+            ],
+            "status_text": "15:06 - 2nd",
+            "clock": "15:06"
+          },
+          "ncaa": {
+            "http": {
+              "status": 200,
+              "ms": 2183,
+              "bytes": 116666,
+              "error": null
+            },
+            "play_count": 338,
+            "last_play": {
+              "key": "a3afa9928b937ab5",
+              "text": "Free Throw  by Florida A&M's Daisean Williford",
+              "clock": "15:29",
+              "period": 2
+            },
+            "field_examples": {
+              "top": [
+                "__typename",
+                "contestId",
+                "title",
+                "description",
+                "divisionName",
+                "status",
+                "period",
+                "minutes",
+                "seconds",
+                "teams",
+                "periods"
+              ],
+              "period": [
+                "__typename",
+                "periodNumber",
+                "periodDisplay",
+                "playbyplayStats"
+              ]
+            }
+          },
+          "espn": {
+            "http": {
+              "status": 200,
+              "ms": 99,
+              "bytes": 323767,
+              "error": null
+            },
+            "play_count": 336,
+            "last_play": {
+              "key": "eed73288c304ccf4",
+              "text": "Elise Assui Offensive Rebound.",
+              "clock": "15:07",
+              "period": 2
+            },
+            "field_examples": {
+              "top": [
+                "boxscore",
+                "format",
+                "gameInfo",
+                "leaders",
+                "broadcasts",
+                "pickcenter",
+                "odds",
+                "againstTheSpread",
+                "news",
+                "videos",
+                "winprobability",
+                "plays"
+              ],
+              "period": []
+            },
+            "count_changed_from": 334
+          }
+        }
+      ]
+    },
+    {
+      "round": 3,
+      "at": "2026-11-03T03:42:48.381+00:00",
+      "games": [
+        {
+          "ncaa_id": "6653942",
+          "espn_id": "401919001",
+          "status": {
+            "phase": "in",
+            "score": [
+              91,
+              93
+            ],
+            "status_text": "3:51 - 2OT",
+            "clock": "3:51"
+          },
+          "ncaa": {
+            "http": {
+              "status": 200,
+              "ms": 731,
+              "bytes": 190884,
+              "error": null
+            },
+            "play_count": 574,
+            "last_play": {
+              "key": "7cc97cd8512f6876",
+              "text": "Personal Foul on Tulane's Krystian Lewis (Arminas Vilkas draws the foul)",
+              "clock": "04:04",
+              "period": 4
+            },
+            "field_examples": {
+              "top": [
+                "__typename",
+                "contestId",
+                "title",
+                "description",
+                "divisionName",
+                "status",
+                "period",
+                "minutes",
+                "seconds",
+                "teams",
+                "periods"
+              ],
+              "period": [
+                "__typename",
+                "periodNumber",
+                "periodDisplay",
+                "playbyplayStats"
+              ]
+            }
+          },
+          "espn": {
+            "http": {
+              "status": 200,
+              "ms": 119,
+              "bytes": 441057,
+              "error": null
+            },
+            "play_count": 568,
+            "last_play": {
+              "key": "580a5841b4ed11ee",
+              "text": "TJ Nadeau Defensive Rebound.",
+              "clock": "4:03",
+              "period": 4
+            },
+            "field_examples": {
+              "top": [
+                "boxscore",
+                "format",
+                "gameInfo",
+                "leaders",
+                "broadcasts",
+                "pickcenter",
+                "odds",
+                "againstTheSpread",
+                "news",
+                "videos",
+                "winprobability",
+                "plays"
+              ],
+              "period": []
+            },
+            "count_changed_from": 562
+          }
+        },
+        {
+          "ncaa_id": "6648906",
+          "espn_id": "401917682",
+          "status": {
+            "phase": "in",
+            "score": [
+              25,
+              33
+            ],
+            "status_text": "2:06 - 2nd",
+            "clock": "2:06"
+          },
+          "ncaa": {
+            "http": {
+              "status": 200,
+              "ms": 617,
+              "bytes": 71389,
+              "error": null
+            },
+            "play_count": 219,
+            "last_play": {
+              "key": "2e042f591261127a",
+              "text": "Personal Foul on Nevada's Olivia Poulivaati",
+              "clock": "02:37",
+              "period": 2
+            },
+            "field_examples": {
+              "top": [
+                "__typename",
+                "contestId",
+                "title",
+                "description",
+                "divisionName",
+                "status",
+                "period",
+                "minutes",
+                "seconds",
+                "teams",
+                "periods"
+              ],
+              "period": [
+                "__typename",
+                "periodNumber",
+                "periodDisplay",
+                "playbyplayStats"
+              ]
+            }
+          },
+          "espn": {
+            "http": {
+              "status": 200,
+              "ms": 186,
+              "bytes": 280511,
+              "error": null
+            },
+            "play_count": 215,
+            "last_play": {
+              "key": "4e6986d78ae48705",
+              "text": "Maya Hernandez makes 20-foot pullup jump shot",
+              "clock": "2:23",
+              "period": 2
+            },
+            "field_examples": {
+              "top": [
+                "boxscore",
+                "format",
+                "gameInfo",
+                "leaders",
+                "broadcasts",
+                "pickcenter",
+                "odds",
+                "againstTheSpread",
+                "videos",
+                "plays",
+                "news",
+                "winprobability"
+              ],
+              "period": []
+            },
+            "count_changed_from": 211
+          }
+        },
+        {
+          "ncaa_id": "6652236",
+          "espn_id": "401925683",
+          "status": {
+            "phase": "in",
+            "score": [
+              53,
+              95
+            ],
+            "status_text": "1:29 - 2nd",
+            "clock": "1:29"
+          },
+          "ncaa": {
+            "http": {
+              "status": 200,
+              "ms": 735,
+              "bytes": 195224,
+              "error": null
+            },
+            "play_count": 594,
+            "last_play": {
+              "key": "8763ea2008960d7a",
+              "text": "Subbing in for Ole Miss-Zach Day",
+              "clock": "01:47",
+              "period": 2
+            },
+            "field_examples": {
+              "top": [
+                "__typename",
+                "contestId",
+                "title",
+                "description",
+                "divisionName",
+                "status",
+                "period",
+                "minutes",
+                "seconds",
+                "teams",
+                "periods"
+              ],
+              "period": [
+                "__typename",
+                "periodNumber",
+                "periodDisplay",
+                "playbyplayStats"
+              ]
+            }
+          },
+          "espn": {
+            "http": {
+              "status": 200,
+              "ms": 131,
+              "bytes": 478287,
+              "error": null
+            },
+            "play_count": 558,
+            "last_play": {
+              "key": "d06465d300c96a98",
+              "text": "Foul on Adam Tokpah.",
+              "clock": "1:29",
+              "period": 2
+            },
+            "field_examples": {
+              "top": [
+                "boxscore",
+                "format",
+                "gameInfo",
+                "leaders",
+                "broadcasts",
+                "pickcenter",
+                "odds",
+                "againstTheSpread",
+                "videos",
+                "news",
+                "winprobability",
+                "plays"
+              ],
+              "period": []
+            },
+            "count_changed_from": 557
+          }
+        },
+        {
+          "ncaa_id": "6652251",
+          "espn_id": "401909694",
+          "status": {
+            "phase": "in",
+            "score": [
+              67,
+              35
+            ],
+            "status_text": "14:34 - 2nd",
+            "clock": "14:34"
+          },
+          "ncaa": {
+            "http": {
+              "status": 200,
+              "ms": 698,
+              "bytes": 116666,
+              "error": null
+            },
+            "play_count": 338,
+            "last_play": {
+              "key": "a3afa9928b937ab5",
+              "text": "Free Throw  by Florida A&M's Daisean Williford",
+              "clock": "15:29",
+              "period": 2
+            },
+            "field_examples": {
+              "top": [
+                "__typename",
+                "contestId",
+                "title",
+                "description",
+                "divisionName",
+                "status",
+                "period",
+                "minutes",
+                "seconds",
+                "teams",
+                "periods"
+              ],
+              "period": [
+                "__typename",
+                "periodNumber",
+                "periodDisplay",
+                "playbyplayStats"
+              ]
+            }
+          },
+          "espn": {
+            "http": {
+              "status": 200,
+              "ms": 154,
+              "bytes": 324899,
+              "error": null
+            },
+            "play_count": 338,
+            "last_play": {
+              "key": "f6a6a7f3056d8ce7",
+              "text": "team  turnover",
+              "clock": "14:36",
+              "period": 2
+            },
+            "field_examples": {
+              "top": [
+                "boxscore",
+                "format",
+                "gameInfo",
+                "leaders",
+                "broadcasts",
+                "pickcenter",
+                "odds",
+                "againstTheSpread",
+                "videos",
+                "news",
+                "plays",
+                "winprobability"
+              ],
+              "period": []
+            },
+            "count_changed_from": 336
+          }
+        }
+      ]
+    },
+    {
+      "round": 4,
+      "at": "2026-11-03T03:43:15.115+00:00",
+      "games": [
+        {
+          "ncaa_id": "6653942",
+          "espn_id": "401919001",
+          "status": {
+            "phase": "in",
+            "score": [
+              94,
+              93
+            ],
+            "status_text": "3:25 - 2OT",
+            "clock": "3:25"
+          },
+          "ncaa": {
+            "http": {
+              "status": 200,
+              "ms": 1495,
+              "bytes": 194110,
+              "error": null
+            },
+            "play_count": 583,
+            "last_play": {
+              "key": "2b1006f1dff3a950",
+              "text": "Assist by UT Martin's Nikas Stuknys",
+              "clock": "03:25",
+              "period": 4
+            },
+            "field_examples": {
+              "top": [
+                "__typename",
+                "contestId",
+                "title",
+                "description",
+                "divisionName",
+                "status",
+                "period",
+                "minutes",
+                "seconds",
+                "teams",
+                "periods"
+              ],
+              "period": [
+                "__typename",
+                "periodNumber",
+                "periodDisplay",
+                "playbyplayStats"
+              ]
+            },
+            "count_changed_from": 574
+          },
+          "espn": {
+            "http": {
+              "status": 200,
+              "ms": 126,
+              "bytes": 445426,
+              "error": null
+            },
+            "play_count": 570,
+            "last_play": {
+              "key": "92bc603cfcfd36c0",
+              "text": "Kaan Onat Defensive Rebound.",
+              "clock": "3:48",
+              "period": 4
+            },
+            "field_examples": {
+              "top": [
+                "boxscore",
+                "format",
+                "gameInfo",
+                "leaders",
+                "broadcasts",
+                "pickcenter",
+                "odds",
+                "againstTheSpread",
+                "news",
+                "videos",
+                "winprobability",
+                "plays"
+              ],
+              "period": []
+            },
+            "count_changed_from": 568
+          }
+        },
+        {
+          "ncaa_id": "6648906",
+          "espn_id": "401917682",
+          "status": {
+            "phase": "in",
+            "score": [
+              25,
+              33
+            ],
+            "status_text": "2:06 - 2nd",
+            "clock": "2:06"
+          },
+          "ncaa": {
+            "http": {
+              "status": 200,
+              "ms": 1599,
+              "bytes": 76008,
+              "error": null
+            },
+            "play_count": 232,
+            "last_play": {
+              "key": "e531f4b1ba7d58ea",
+              "text": "Defensive rebound by LMU (CA)'s Maya Hernandez",
+              "clock": "02:05",
+              "period": 2
+            },
+            "field_examples": {
+              "top": [
+                "__typename",
+                "contestId",
+                "title",
+                "description",
+                "divisionName",
+                "status",
+                "period",
+                "minutes",
+                "seconds",
+                "teams",
+                "periods"
+              ],
+              "period": [
+                "__typename",
+                "periodNumber",
+                "periodDisplay",
+                "playbyplayStats"
+              ]
+            },
+            "count_changed_from": 219
+          },
+          "espn": {
+            "http": {
+              "status": 200,
+              "ms": 90,
+              "bytes": 281067,
+              "error": null
+            },
+            "play_count": 216,
+            "last_play": {
+              "key": "f763f67bf2b254ea",
+              "text": "Foul on Maya Hernandez.",
+              "clock": "2:06",
+              "period": 2
+            },
+            "field_examples": {
+              "top": [
+                "boxscore",
+                "format",
+                "gameInfo",
+                "leaders",
+                "broadcasts",
+                "pickcenter",
+                "odds",
+                "againstTheSpread",
+                "news",
+                "videos",
+                "plays",
+                "winprobability"
+              ],
+              "period": []
+            },
+            "count_changed_from": 215
+          }
+        },
+        {
+          "ncaa_id": "6652236",
+          "espn_id": "401925683",
+          "status": {
+            "phase": "in",
+            "score": [
+              53,
+              96
+            ],
+            "status_text": "1:29 - 2nd",
+            "clock": "1:29"
+          },
+          "ncaa": {
+            "http": {
+              "status": 200,
+              "ms": 1599,
+              "bytes": 197533,
+              "error": null
+            },
+            "play_count": 601,
+            "last_play": {
+              "key": "f402105ac544e364",
+              "text": "Free Throw  by Ole Miss's Jaron Saulsberry",
+              "clock": "01:29",
+              "period": 2
+            },
+            "field_examples": {
+              "top": [
+                "__typename",
+                "contestId",
+                "title",
+                "description",
+                "divisionName",
+                "status",
+                "period",
+                "minutes",
+                "seconds",
+                "teams",
+                "periods"
+              ],
+              "period": [
+                "__typename",
+                "periodNumber",
+                "periodDisplay",
+                "playbyplayStats"
+              ]
+            },
+            "count_changed_from": 594
+          },
+          "espn": {
+            "http": {
+              "status": 200,
+              "ms": 106,
+              "bytes": 482536,
+              "error": null
+            },
+            "play_count": 560,
+            "last_play": {
+              "key": "c82721efdef4caad",
+              "text": "Ole Miss Deadball Team Rebound.",
+              "clock": "1:29",
+              "period": 2
+            },
+            "field_examples": {
+              "top": [
+                "boxscore",
+                "format",
+                "gameInfo",
+                "leaders",
+                "broadcasts",
+                "pickcenter",
+                "odds",
+                "againstTheSpread",
+                "videos",
+                "news",
+                "plays",
+                "winprobability"
+              ],
+              "period": []
+            },
+            "count_changed_from": 558
+          }
+        },
+        {
+          "ncaa_id": "6652251",
+          "espn_id": "401909694",
+          "status": {
+            "phase": "in",
+            "score": [
+              69,
+              35
+            ],
+            "status_text": "14:31 - 2nd",
+            "clock": "14:31"
+          },
+          "ncaa": {
+            "http": {
+              "status": 200,
+              "ms": 1625,
+              "bytes": 119622,
+              "error": null
+            },
+            "play_count": 347,
+            "last_play": {
+              "key": "f88bb6644c1c645d",
+              "text": "Personal Foul on Florida St.'s Sebastian Rancik (Daisean Williford draws the foul)",
+              "clock": "14:04",
+              "period": 2
+            },
+            "field_examples": {
+              "top": [
+                "__typename",
+                "contestId",
+                "title",
+                "description",
+                "divisionName",
+                "status",
+                "period",
+                "minutes",
+                "seconds",
+                "teams",
+                "periods"
+              ],
+              "period": [
+                "__typename",
+                "periodNumber",
+                "periodDisplay",
+                "playbyplayStats"
+              ]
+            },
+            "count_changed_from": 338
+          },
+          "espn": {
+            "http": {
+              "status": 200,
+              "ms": 115,
+              "bytes": 329348,
+              "error": null
+            },
+            "play_count": 340,
+            "last_play": {
+              "key": "db54b2a627a6eac7",
+              "text": "Sebastian Rancik makes 1-foot dunk (Shon Abaev assists)",
+              "clock": "14:31",
+              "period": 2
+            },
+            "field_examples": {
+              "top": [
+                "boxscore",
+                "format",
+                "gameInfo",
+                "leaders",
+                "broadcasts",
+                "pickcenter",
+                "odds",
+                "againstTheSpread",
+                "videos",
+                "news",
+                "plays",
+                "winprobability"
+              ],
+              "period": []
+            },
+            "count_changed_from": 338
+          }
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "sampled_games": 4,
+    "sampled_rounds": 4,
+    "games_with_ncaa_playlog": 4,
+    "games_with_espn_playlog": 4,
+    "http_errors": {
+      "ncaa": 0,
+      "espn": 0
+    },
+    "per_game": [
+      {
+        "teams": "UT Martin @ Tulane",
+        "espn_id": "401919001",
+        "ncaa_id": "6653942",
+        "play_counts": {
+          "espn": [
+            559,
+            562,
+            568,
+            570
+          ],
+          "ncaa": [
+            574,
+            574,
+            574,
+            583
+          ]
+        },
+        "exact_text_clock_play_matches": 0,
+        "observed_ncaa_minus_espn_seconds": [],
+        "possible_lag_conclusion": "Inconclusive: no identical event text/clock/period keys across both feeds."
+      },
+      {
+        "teams": "Nevada @ LMU (CA)",
+        "espn_id": "401917682",
+        "ncaa_id": "6648906",
+        "play_counts": {
+          "espn": [
+            204,
+            211,
+            215,
+            216
+          ],
+          "ncaa": [
+            219,
+            219,
+            219,
+            232
+          ]
+        },
+        "exact_text_clock_play_matches": 0,
+        "observed_ncaa_minus_espn_seconds": [],
+        "possible_lag_conclusion": "Inconclusive: no identical event text/clock/period keys across both feeds."
+      },
+      {
+        "teams": "Alcorn @ Ole Miss",
+        "espn_id": "401925683",
+        "ncaa_id": "6652236",
+        "play_counts": {
+          "espn": [
+            552,
+            557,
+            558,
+            560
+          ],
+          "ncaa": [
+            594,
+            594,
+            594,
+            601
+          ]
+        },
+        "exact_text_clock_play_matches": 0,
+        "observed_ncaa_minus_espn_seconds": [],
+        "possible_lag_conclusion": "Inconclusive: no identical event text/clock/period keys across both feeds."
+      },
+      {
+        "teams": "Florida St. @ Florida A&M",
+        "espn_id": "401909694",
+        "ncaa_id": "6652251",
+        "play_counts": {
+          "espn": [
+            334,
+            336,
+            338,
+            340
+          ],
+          "ncaa": [
+            338,
+            338,
+            338,
+            347
+          ]
+        },
+        "exact_text_clock_play_matches": 0,
+        "observed_ncaa_minus_espn_seconds": [],
+        "possible_lag_conclusion": "Inconclusive: no identical event text/clock/period keys across both feeds."
+      }
+    ],
+    "recommendation": "Do not auto-promote NCAA play data; assess matching, freshness, and failure rate first."
+  },
+  "finished_at": "2026-11-03T03:43:25.195+00:00"
+}\n
