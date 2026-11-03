@@ -70,10 +70,19 @@ if(!data){
    place.append(link);
    const facts=document.createElement("section");facts.className="orientation-facts";
    const fact=(title,body)=>{const article=document.createElement("article");const h=document.createElement("h3");const p=document.createElement("p");h.textContent=title;p.textContent=body;article.append(h,p);return article};
+   const census=communityData?.districts?.[id]?.census_2020_2024_acs_on_old_boundaries||{};
+   const income=Number(census.median_household_income_est);
+   const education=Number(census.bachelors_plus_age25_pct_est);
+   const population=Number(census.population_2020_2024_acs_est);
    facts.append(
-    fact("THE GEOGRAPHY",named.length?"Reference points for "+named.slice(0,3).join(", ")+" fall inside the official district outline. Explore the map for streets and neighborhood detail.":"Official Census polygons define this district; community-level detail awaits verified neighborhood mapping."),
-    fact("THE ELECTORATE",revised?"The district was redrawn for 2026. Older election results may describe different voters.":"Historical votes are labeled by election year and never presented as current polling."),
-    fact("THE REPORTING","District-specific articles appear only after their local connection and publisher are confirmed. Missing coverage is not filled with unrelated headlines.")
+    fact("THE GEOGRAPHY",named.length?"Reference points for "+named.slice(0,3).join(", ")+" fall inside the official district outline. Explore the map for street and neighborhood detail.":"Official Census polygons define this district. Neighborhood-level detail is still being verified."),
+    fact(revised?"CHANGED BOUNDARIES":"RESIDENTS & HOUSEHOLDS",revised?
+      "The district was redrawn for 2026. Earlier results and Census estimates may describe different voters.":
+      (Number.isFinite(population)&&population>0?"2020–24 Census ACS population estimate on the earlier 119th Congress geography: "+Math.round(population).toLocaleString("en-US")+" residents.":"Demographic estimates require source-vintage verification.")),
+    fact("THE DISTRICT BY THE NUMBERS",revised?
+      "Updated 2026 demographic comparisons require mapping Census figures onto the new district lines.":
+      (Number.isFinite(income)&&income>0?"2020–24 ACS median household income: $"+Math.round(income).toLocaleString("en-US")+". ":"")+
+      (Number.isFinite(education)&&education>=0?"Bachelor's degree or higher (age 25+): "+education.toFixed(1)+"%.":"Census education details unavailable."))
    );
    columns.append(place,facts);
    const source=document.createElement("p");source.className="orientation-source";
