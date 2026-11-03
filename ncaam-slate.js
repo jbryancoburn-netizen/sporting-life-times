@@ -448,41 +448,81 @@ const broadcastBug=g=>{
   '</div><div class="sl-broadcast-status"><strong>'+esc(status)+'</strong>'+
   '<small>'+esc(g.kind==='exhibition'?'EXHIBITION':'DIVISION I')+'</small></div></div>';
 };
+/* One scoreboard owns each matchup. The game feed is the only score authority.
+   Never substitute empty season ratings, fake run tracking, or placeholder stats. */
+const tvHonors=t=>{
+ const years=(ncaaTitleYears[women?'women':'men']||{})[String(t.id)]||[];
+ return '<span class="sl-tv-honors'+(years.length?'':' sl-tv-honors--empty')+'"'+
+   (years.length?' title="'+esc(years.length+' NCAA Division I titles: '+years.join(', '))+'" aria-label="'+esc(years.length+' NCAA Division I titles')+'"':' aria-hidden="true"')+'>'+
+   years.map(y=>'<span class="sl-tv-star" title="NCAA champion '+y+'" aria-hidden="true">★</span>').join('')+'</span>';
+};
+const tvMeta=t=>{
+ const r=rankOf(t,ratings,women);
+ const n=Number(r?.games_played);
+ if(!Number.isFinite(n)||n<=0)return '';
+ const w=Number(r?.wins),l=Number(r?.losses),elo=rating(t);
+ if(!Number.isFinite(w)||!Number.isFinite(l))return '';
+ return '<span class="sl-tv-record">'+w+'–'+l+(elo===null?'':' <span class="sl-tv-meta-dot">·</span> USRS '+elo)+'</span>';
+};
+const tvTeam=(t,side,g)=>{
+ const href=teamPage(t),hasPoints=g.phase!=='upcoming'&&Number.isFinite(t.score);
+ const logo='<span class="sl-tv-logo">'+emblem(t)+'</span>';
+ const identity='<span class="sl-tv-identity">'+tvHonors(t)+logo+'</span>'+
+  '<span class="sl-tv-school"><small class="sl-tv-side">'+(side==='away'?'AWAY':'HOME')+'</small>'+
+  '<strong>'+esc(t.name)+'</strong>'+
+  (mascot(t)?'<span class="sl-tv-mascot">'+esc(mascot(t))+'</span>':'')+tvMeta(t)+'</span>';
+ return '<div class="sl-tv-team sl-tv-team--'+side+'" style="--tv-primary:'+brand(t)+';--tv-secondary:'+secondary(t)+';--tv-star:'+
+  (contrast(secondary(t),'#fff8e9')>=3?secondary(t):mix(secondary(t),'#071d3c',.55))+'">'+
+  (href?'<a class="sl-tv-team-link" href="'+esc(href)+'" aria-label="'+esc(t.name)+' team page">'+identity+'</a>':
+   '<span class="sl-tv-team-link">'+identity+'</span>')+
+  '<b class="sl-tv-points'+(hasPoints?'':' sl-tv-points--pending')+'">'+(hasPoints?t.score:'—')+'</b></div>';
+};
+const tvFollow=t=>'<button type="button" class="sl-tv-follow'+(followed.has(t.id)?' is-followed':'')+
+ '" data-follow="'+esc(t.id)+'" aria-pressed="'+followed.has(t.id)+'">'+
+ (followed.has(t.id)?'Following ':'Follow ')+esc(t.name)+'</button>';
 function card(g,featured){
- const pair=lens(g),href=gameDetailsHref(g,women);
- const isExternal=g.kind==='exhibition';
- const source=g.kind==='exhibition'?(g.evidence==='secondary'?'Published secondary result':'University / cited result'):
-   g.phase==='final'?g.evidence==='final-source'?'Attributed final':'Reported final':
-   g.phase==='live'?'Live scoreboard':'Sourced fixture + USRS';
- const score=g.phase==='upcoming'?'':(g.away.score===null||g.home.score===null?'SCORE PENDING':g.away.score+' — '+g.home.score);
- const decided=(g.phase==='final'||g.phase==='live')&&Number.isFinite(g.away.score)&&Number.isFinite(g.home.score);
- const ahead=decided?(g.away.score===g.home.score?null:g.away.score>g.home.score?g.away:g.home):null;
- const resultLine=decided?'<div class="sl-score-context"><span>'+
-  esc(g.phase==='final'?'FINAL RESULT':'CURRENT LEADER')+'</span><strong>'+
-  esc(ahead?ahead.name:g.phase==='final'?'Result needs verification':'Game tied')+
-  '</strong><small>'+esc(ahead?'Margin '+Math.abs(g.away.score-g.home.score):'')+'</small></div>':'';
- const venue=g.venue?'<span class="sl-location">'+esc(g.venue)+'</span>':'';
- return '<article class="sl-game'+(featured?' sl-featured':'')+'" style="--sl-away:'+brand(g.away)+';--sl-home:'+brand(g.home)+
-  ';--sl-away-alt:'+secondary(g.away)+';--sl-home-alt:'+secondary(g.home)+'">'+
-  '<div class="sl-game-bar"><span class="sl-tag '+(g.phase==='live'?'sl-live':'')+'">'+
-  esc(g.kind==='exhibition'?'EXHIBITION':g.phase==='live'?'LIVE':g.phase==='final'?'FINAL':'UPCOMING')+'</span>'+
-  '<span class="sl-game-time">'+esc(formatClock(g))+'</span>'+venue+'</div>'+
-  editorialBadges(g)+arenaStage(g)+broadcastBug(g)+
-  '<div class="sl-game-main sl-game-main--'+esc(g.phase)+'"><div class="sl-game-teams">'+
-  '<div class="sl-school">'+team(g.away)+favorite(g.away)+'</div>'+
-  '<div class="sl-vs">'+(score?'<strong>'+esc(score)+'</strong>':'<span>VS</span>')+'</div>'+
-  '<div class="sl-school">'+team(g.home)+favorite(g.home)+'</div>'+
-  '</div><div class="sl-game-editorial"><p class="sl-kicker">'+(featured?'THE FEATURE MATCHUP':'MATCHUP NOTES')+'</p>'+
-  '<h3>'+esc(pair[0])+'</h3><p>'+esc(pair[1])+'</p>'+
-  '<div class="sl-rating-pair"><span>'+esc(g.away.name)+' <b>'+ (rating(g.away)??'—')+'</b></span>'+
-  '<i aria-hidden="true"></i><span>'+esc(g.home.name)+' <b>'+(rating(g.home)??'—')+'</b></span></div>'+
-  resultLine+matchupStats(g)+comparison(g)+meter(g)+projectedScoreCard(g)+liveEditorial(g)+'</div></div>'+
-  '<div class="sl-game-footer"><span>'+esc(source)+'</span>'+
-  '<a class="sl-details" href="'+esc(href)+'"'+(isExternal?' target="_blank" rel="noopener noreferrer"':'')+'>'+
-  (isExternal?'Result source':'Game details')+' <span aria-hidden="true">↗</span></a>'+
-  (!women&&g.home?.canonical?'<a class="sl-arena-deep-link" href="ncaam-arena.html?team='+
-    encodeURIComponent(g.home.id)+'">Arena File ↗</a>':'')+'</div></article>';
+ const href=gameDetailsHref(g,women),exhibition=g.kind==='exhibition';
+ const profile=homeProfile(g),gameVenue=String(g.venue||'').trim(),fallback=profile?.name||'';
+ const clock=formatClock(g);
+ const phase=g.phase==='final'?'FINAL':g.phase==='live'?'LIVE':'UPCOMING';
+ const source=String(g.source||'Sourced game feed').trim();
+ const broadcaster=String(g.broadcast||'').trim();
+ const venueLine=gameVenue?'<span class="sl-tv-venue">AT '+esc(gameVenue)+'</span>':
+   fallback?'<span class="sl-tv-venue">HOME ARENA: '+esc(fallback)+' <span>(GAME SITE UNCONFIRMED)</span></span>':'';
+ const sourceLink=profile&&!gameVenue?
+   '<a class="sl-tv-source-link" href="'+esc(profile.source)+'" target="_blank" rel="noopener noreferrer">Arena source ↗</a>':'';
+ const change=liveChanges.get(g.id);
+ const hasChange=g.phase==='live'&&change&&(Number(change.away)>0||Number(change.home)>0);
+ const movement=hasChange?'<div class="sl-tv-movement">SCORE CHANGE SINCE PREVIOUS UPDATE <b>'+
+   esc(g.away.name)+' +'+change.away+' · '+esc(g.home.name)+' +'+change.home+
+   '</b><small>Not a verified scoring run</small></div>':'';
+ const a=rankOf(g.away,ratings,women),h=rankOf(g.home,ratings,women);
+ const played=Number(a?.games_played)>0&&Number(h?.games_played)>0;
+ const eloA=rating(g.away),eloH=rating(g.home);
+ const eloNote=g.phase==='upcoming'&&played&&eloA!==null&&eloH!==null?
+   '<div class="sl-tv-elo">IN-SEASON USRS <strong>'+esc(g.away.name)+' '+eloA+' <i>·</i> '+
+   esc(g.home.name)+' '+eloH+'</strong></div>':'';
+ const probability=g.phase==='upcoming'&&Number.isFinite(g.probability)?meter(g):'';
+ const sourceCaption=exhibition?'Exhibition · excluded from USRS':g.phase==='live'?'Reported live score':
+   g.phase==='final'?'Reported final score':'Scheduled matchup';
+ return '<article class="sl-game sl-courtside-card'+(featured?' sl-courtside-feature':'')+'" style="--sl-away:'+brand(g.away)+
+   ';--sl-home:'+brand(g.home)+';--sl-away-alt:'+secondary(g.away)+';--sl-home-alt:'+secondary(g.home)+'">'+
+   '<div class="sl-tv-head"><span class="sl-tv-state sl-tv-state--'+g.phase+'">'+phase+'</span>'+
+   '<span class="sl-tv-clock">'+esc(clock)+'</span>'+
+   (broadcaster?'<span class="sl-tv-broadcast">'+esc(broadcaster)+'</span>':'')+
+   '<span class="sl-tv-edition">'+(women?'WOMEN':'MEN')+' · D-I</span></div>'+
+   editorialBadges(g)+
+   '<div class="sl-tv-scoreboard" aria-label="'+esc(g.away.name)+' at '+esc(g.home.name)+'; '+esc(clock)+'">'+
+     tvTeam(g.away,'away',g)+tvTeam(g.home,'home',g)+'</div>'+
+   (venueLine?'<div class="sl-tv-venuebar">'+venueLine+sourceLink+'</div>':'')+
+   movement+eloNote+probability+
+   '<footer class="sl-tv-footer"><span class="sl-tv-attribution">'+esc(sourceCaption)+' · '+esc(source)+'</span>'+
+   '<div class="sl-tv-actions">'+tvFollow(g.away)+tvFollow(g.home)+
+   '<a class="sl-tv-details" href="'+esc(href)+'"'+(exhibition?' target="_blank" rel="noopener noreferrer"':'')+'>'+
+   (exhibition?'SOURCE RESULT':'OPEN GAMEFILE')+' <span aria-hidden="true">↗</span></a></div></footer>'+
+   '</article>';
 }
+
 const render=()=>{
  const games=selectGames(loaded,selected,filter,search,followed),shown=games.slice(0,limit);
  document.getElementById('sl-date').textContent=dateLabel(selected);

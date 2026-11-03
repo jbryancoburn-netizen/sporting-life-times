@@ -904,3 +904,140 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #c481
   padding-top:11px!important;
  }
 }
+
+
+/* 2026-11-03 · SLT Courtside Scoreboard, single-owner mobile card.
+   No stage illustration, redundant score presentations or unsourced UI controls. */
+.sl-game.sl-courtside-card {
+  background:#fff8ea; border:1px solid #bfc9c8; border-top:0; box-shadow:none;
+  overflow:hidden; margin:0; min-width:0; display:flex; flex-direction:column;
+}
+.sl-game.sl-courtside-card::before {display:none}
+.sl-courtside-card .sl-tv-head{
+  display:flex;align-items:center;gap:10px;min-height:42px;padding:7px 13px;
+  border-bottom:3px solid #be9851;background:#071d3c;color:#fff9eb;
+  font:800 11px/1.3 'DM Sans',Arial,sans-serif;letter-spacing:.02em;
+}
+.sl-courtside-card .sl-tv-state {font:900 11px/1 'DM Sans',Arial,sans-serif;letter-spacing:.12em}
+.sl-courtside-card .sl-tv-state--live{background:#a52a28;color:#fff;padding:8px 9px}
+.sl-courtside-card .sl-tv-state--final{color:#e6d2a4}
+.sl-courtside-card .sl-tv-state--upcoming{color:#f0daaa}
+.sl-courtside-card .sl-tv-clock{font-weight:900;font-variant-numeric:tabular-nums;white-space:nowrap}
+.sl-courtside-card .sl-tv-broadcast{color:#edd8ac;margin-left:auto;white-space:nowrap}
+.sl-courtside-card .sl-tv-edition{color:#a8bdc6;font-size:9px;white-space:nowrap;margin-left:auto}
+.sl-courtside-card .sl-tv-broadcast + .sl-tv-edition{margin-left:1px}
+.sl-courtside-card .sl-tv-scoreboard{min-width:0;background:#fff9ee}
+.sl-courtside-card .sl-tv-team{
+  display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;
+  gap:8px;min-height:94px;border-bottom:1px solid #cfcac0;
+  border-left:5px solid var(--tv-primary);background:#fff9ee;padding:8px 15px 8px 9px;
+}
+.sl-courtside-card .sl-tv-team:last-child{border-bottom:0}
+.sl-courtside-card .sl-tv-team-link{
+  min-width:0;display:flex;align-items:center;gap:12px;text-decoration:none;
+}
+.sl-courtside-card .sl-tv-identity{
+  width:74px;flex:0 0 74px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+}
+.sl-courtside-card .sl-tv-honors{
+  height:24px;max-height:24px;flex:0 0 24px;width:74px;max-width:74px;
+  display:flex;flex-wrap:wrap;align-content:center;align-items:center;justify-content:center;gap:0 2px;
+  overflow:visible;color:var(--tv-star);
+}
+.sl-courtside-card .sl-tv-honors--empty{visibility:hidden}
+.sl-courtside-card .sl-tv-star{
+  display:block;flex:0 0 9px;width:9px;height:10px;line-height:10px;
+  font:normal 10px/1 Arial,sans-serif;color:var(--tv-star);text-align:center;
+}
+.sl-courtside-card .sl-tv-logo{width:49px;height:49px;display:grid;place-items:center;flex:0 0 49px}
+.sl-courtside-card .sl-tv-logo .mbb-mark,
+.sl-courtside-card .sl-tv-logo .sl-emblem{
+  --mbb-size:45px!important;width:45px!important;height:45px!important;min-width:45px!important;
+  max-width:45px!important;min-height:45px!important;max-height:45px!important;margin:0!important;
+}
+.sl-courtside-card .sl-tv-school{display:flex;flex-direction:column;justify-content:center;gap:1px;min-width:0}
+.sl-courtside-card .sl-tv-side{font:800 9px/1.2 'DM Sans',Arial,sans-serif;letter-spacing:.13em;color:#816f59}
+.sl-courtside-card .sl-tv-school strong{
+  font:900 clamp(16px,2vw,22px)/1.07 Impact,'Arial Narrow',Arial,sans-serif;
+  text-transform:uppercase;letter-spacing:.018em;color:#091f3d;overflow-wrap:break-word;
+}
+.sl-courtside-card .sl-tv-mascot{font:600 11px/1.3 'DM Sans',Arial,sans-serif;color:#526169}
+.sl-courtside-card .sl-tv-record{font:800 10px/1.35 'DM Sans',Arial,sans-serif;color:#465a63}
+.sl-courtside-card .sl-tv-meta-dot{color:#9b793f;padding:0 2px}
+.sl-courtside-card .sl-tv-points{
+  flex:0 0 auto;color:#091f3d;font:900 clamp(38px,4vw,52px)/.95 Impact,'Arial Narrow',Arial,sans-serif;
+  font-variant-numeric:tabular-nums;letter-spacing:-.02em;text-align:right;
+}
+.sl-courtside-card .sl-tv-points--pending{font-size:30px;color:#9ea9a8}
+.sl-courtside-card .sl-tv-venuebar{
+  background:#e9ede8;border-top:1px solid #cbd4ce;padding:8px 13px;
+  display:flex;align-items:baseline;justify-content:space-between;gap:7px 12px;
+}
+.sl-courtside-card .sl-tv-venue{font:800 10px/1.45 'DM Sans',Arial,sans-serif;color:#324d55}
+.sl-courtside-card .sl-tv-venue span{font-weight:600;color:#718083}
+.sl-courtside-card .sl-tv-source-link{font:800 9px/1.3 'DM Sans',Arial,sans-serif;color:#22596a;white-space:nowrap}
+.sl-courtside-card .sl-tv-movement,.sl-courtside-card .sl-tv-elo{
+  padding:8px 13px;border-top:1px solid #e2ded4;background:#f4f2e9;
+  font:800 10px/1.5 'DM Sans',Arial,sans-serif;letter-spacing:.025em;color:#51616a;
+}
+.sl-courtside-card .sl-tv-movement b,.sl-courtside-card .sl-tv-elo strong{display:inline;color:#173b4e;margin-left:6px;letter-spacing:0}
+.sl-courtside-card .sl-tv-movement small{display:block;font-weight:600;color:#68777c}
+.sl-courtside-card .sl-tv-elo i{font-style:normal;color:#aa946c;padding:0 4px}
+.sl-courtside-card .sl-prob{margin:0;padding:8px 13px;background:#f5f0e4}
+.sl-courtside-card .sl-tv-footer{
+  margin-top:auto;display:flex;align-items:center;gap:8px;justify-content:space-between;
+  flex-wrap:wrap;background:#ede7d9;border-top:1px solid #cabda7;padding:9px 12px;
+}
+.sl-courtside-card .sl-tv-attribution{
+  flex:1 1 180px;color:#687378;font:700 9px/1.35 'DM Sans',Arial,sans-serif;
+  overflow-wrap:anywhere;letter-spacing:.005em;text-transform:none;
+}
+.sl-courtside-card .sl-tv-actions{display:flex;gap:5px;align-items:center;justify-content:flex-end;flex-wrap:wrap}
+.sl-courtside-card .sl-tv-follow{
+  border:1px solid #c1c5bd;color:#3e5960;background:#fbf9f3;
+  padding:7px;font:700 9px/1.2 'DM Sans',Arial,sans-serif;
+}
+.sl-courtside-card .sl-tv-follow.is-followed{border-color:#486959;color:#24503f;background:#e6f0e6}
+.sl-courtside-card .sl-tv-details{
+  color:#fff8eb;background:#071d3c;border-left:3px solid #be9851;
+  padding:9px 13px;font:900 10px/1.3 'DM Sans',Arial,sans-serif;
+  letter-spacing:.07em;white-space:nowrap;text-decoration:none;
+}
+.sl-courtside-card .sl-tv-details:hover,.sl-courtside-card .sl-tv-team-link:hover{filter:brightness(.9)}
+.sl-courtside-card .sl-editorial-badges{padding:6px 12px}
+@media(min-width:850px) {
+ .sl-courtside-card.sl-courtside-feature{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+ .sl-courtside-card.sl-courtside-feature .sl-tv-head,
+ .sl-courtside-card.sl-courtside-feature .sl-editorial-badges,
+ .sl-courtside-card.sl-courtside-feature .sl-tv-footer{grid-column:1/-1}
+ .sl-courtside-card.sl-courtside-feature .sl-tv-scoreboard{grid-column:1/-1}
+}
+@media(max-width:600px){
+ .sl-courtside-card .sl-tv-head{padding:7px 9px;gap:8px;min-height:38px}
+ .sl-courtside-card .sl-tv-edition{font-size:8px}
+ .sl-courtside-card .sl-tv-team{min-height:83px;padding:6px 10px 6px 5px;gap:4px}
+ .sl-courtside-card .sl-tv-team-link{gap:7px}
+ .sl-courtside-card .sl-tv-identity{width:57px;flex-basis:57px}
+ .sl-courtside-card .sl-tv-honors{width:57px;max-width:57px;height:21px;max-height:21px;flex-basis:21px;gap:0 1px}
+ .sl-courtside-card .sl-tv-star{font-size:9px;line-height:9px;height:9px;width:8px;flex-basis:8px}
+ .sl-courtside-card .sl-tv-logo{width:44px;height:44px;flex-basis:44px}
+ .sl-courtside-card .sl-tv-logo .mbb-mark,
+ .sl-courtside-card .sl-tv-logo .sl-emblem{
+  --mbb-size:41px!important;width:41px!important;height:41px!important;min-width:41px!important;
+  max-width:41px!important;min-height:41px!important;max-height:41px!important;
+ }
+ .sl-courtside-card .sl-tv-school strong{font-size:clamp(15px,4.5vw,19px)}
+ .sl-courtside-card .sl-tv-mascot{font-size:10px}
+ .sl-courtside-card .sl-tv-points{font-size:39px;min-width:41px}
+ .sl-courtside-card .sl-tv-venuebar{padding:7px 9px;flex-wrap:wrap}
+ .sl-courtside-card .sl-tv-footer{padding:8px 9px}
+ .sl-courtside-card .sl-tv-actions{width:100%;justify-content:space-between}
+ .sl-courtside-card .sl-tv-details{margin-left:auto;padding:9px 10px}
+ .sl-courtside-card .sl-tv-follow{padding:6px 5px;font-size:8px}
+}
+@media(max-width:350px){
+ .sl-courtside-card .sl-tv-follow{font-size:7px}
+ .sl-courtside-card .sl-tv-team-link{gap:4px}
+ .sl-courtside-card .sl-tv-team{padding-right:7px}
+ .sl-courtside-card .sl-tv-school strong{font-size:14px}
+}
