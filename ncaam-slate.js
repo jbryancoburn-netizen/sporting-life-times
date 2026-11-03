@@ -421,53 +421,41 @@ const meter=g=>{
     '<span style="width:'+home+'%;background:'+brand(g.home)+'"></span></div></div>';
 };
 // Upright classic-broadcast scorebug, powered by the same game records as the cards.
-const broadcastBug=g=>{
+
+/* The Daily Ledger scorecard — one canonical presentation of each game. */
+const ledgerScorebug=g=>{
  const pts=t=>g.phase==='upcoming'?'—':Number.isFinite(t.score)?String(t.score):'—';
  const status=g.phase==='final'?'FINAL':g.phase==='live'?String(g.status||'LIVE'):'UPCOMING';
- return '<div class="sl-broadcast-bug" aria-label="Game scoreboard">'+
-  '<div class="sl-broadcast-mark"><img src="assets/slt-engraved-black.svg" alt="" class="sl-broadcast-monogram" aria-hidden="true"></div>'+
-  '<div class="sl-broadcast-pair">'+
-  [g.away,g.home].map((t,i)=>'<div class="sl-broadcast-row" style="--bug-team:'+brand(t)+';--bug-accent:'+secondary(t)+'">'+
-   '<span class="sl-broadcast-crest">'+emblem(t)+'</span>'+
-   '<strong class="sl-broadcast-name">'+esc(t.name)+'</strong>'+
-   '<b class="sl-broadcast-points">'+pts(t)+'</b></div>').join('')+
-  '</div><div class="sl-broadcast-status"><strong>'+esc(status)+'</strong>'+
-  '<small>'+esc(g.kind==='exhibition'?'EXHIBITION':'COLLEGE HOOPS')+'</small></div></div>';
+ const teamRow=t=>'<div class="ledger26-team" style="--ledger26-school:'+brand(t)+'">'+
+   '<span class="ledger26-crest">'+emblem(t)+'</span>'+
+   '<strong class="ledger26-name">'+esc(t.name)+'</strong>'+
+   '<b class="ledger26-points">'+pts(t)+'</b></div>';
+ return '<div class="ledger26-scorebug" role="group" aria-label="'+esc(g.away.name)+' at '+esc(g.home.name)+' scoreboard">'+
+  '<span class="ledger26-monogram"><img src="assets/slt-engraved-black.svg" width="35" height="49" alt="Sporting Life and Times monogram"></span>'+
+  '<div class="ledger26-teams">'+teamRow(g.away)+teamRow(g.home)+'</div>'+
+  '<div class="ledger26-status" data-phase="'+esc(g.phase)+'"><strong>'+esc(status)+'</strong></div></div>';
 };
 function card(g,featured){
- const pair=lens(g),href=gameDetailsHref(g,women);
- const isExternal=g.kind==='exhibition';
- const source=g.kind==='exhibition'?(g.evidence==='secondary'?'Published secondary result':'University / cited result'):
-   g.phase==='final'?g.evidence==='final-source'?'Attributed final':'Reported final':
-   g.phase==='live'?'Live scoreboard':'Sourced fixture + USRS';
- const score=g.phase==='upcoming'?'':(g.away.score===null||g.home.score===null?'SCORE PENDING':g.away.score+' — '+g.home.score);
- const decided=(g.phase==='final'||g.phase==='live')&&Number.isFinite(g.away.score)&&Number.isFinite(g.home.score);
- const ahead=decided?(g.away.score===g.home.score?null:g.away.score>g.home.score?g.away:g.home):null;
- const resultLine=decided?'<div class="sl-score-context"><span>'+
-  esc(g.phase==='final'?'FINAL RESULT':'CURRENT LEADER')+'</span><strong>'+
-  esc(ahead?ahead.name:g.phase==='final'?'Result needs verification':'Game tied')+
-  '</strong><small>'+esc(ahead?'Margin '+Math.abs(g.away.score-g.home.score):'')+'</small></div>':'';
- const venue=g.venue?'<span class="sl-location">'+esc(g.venue)+'</span>':'';
- return '<article class="sl-game'+(featured?' sl-featured':'')+'" style="--sl-away:'+brand(g.away)+';--sl-home:'+brand(g.home)+
-  ';--sl-away-alt:'+secondary(g.away)+';--sl-home-alt:'+secondary(g.home)+'">'+
-  '<div class="sl-game-bar">'+(g.phase==='upcoming'?'<span class="sl-game-time">'+esc(formatClock(g))+'</span>':'')+venue+'</div>'+
-  '<details class="sl-game-expansion"><summary class="sl-game-summary" aria-label="Show game details">'+broadcastBug(g)+'</summary><div class="sl-game-expanded">'+
-  '<div class="sl-game-main sl-game-main--'+esc(g.phase)+'"><div class="sl-game-teams">'+
-  '<div class="sl-school">'+team(g.away)+favorite(g.away)+'</div>'+
-  '<div class="sl-vs">'+(score?'<strong>'+esc(score)+'</strong>':'<span>VS</span>')+'</div>'+
-  '<div class="sl-school">'+team(g.home)+favorite(g.home)+'</div>'+
-  '</div><div class="sl-game-editorial"><p class="sl-kicker">'+(featured?'THE FEATURE MATCHUP':'MATCHUP NOTES')+'</p>'+
-  '<h3>'+esc(pair[0])+'</h3><p>'+esc(pair[1])+'</p>'+
-  '<div class="sl-rating-pair"><span>'+esc(g.away.name)+' <b>'+ (rating(g.away)??'—')+'</b></span>'+
-  '<i aria-hidden="true"></i><span>'+esc(g.home.name)+' <b>'+(rating(g.home)??'—')+'</b></span></div>'+
-  resultLine+matchupStats(g)+comparison(g)+meter(g)+projectedScoreCard(g)+liveEditorial(g)+'</div></div>'+
-  '<div class="sl-game-footer"><span>'+esc(source)+'</span>'+
-  '<a class="sl-details" href="'+esc(href)+'"'+(isExternal?' target="_blank" rel="noopener noreferrer"':'')+'>'+
-  (isExternal?'Result source':'Game details')+' <span aria-hidden="true">↗</span></a>'+
-  (!women&&g.home?.canonical?'<a class="sl-arena-deep-link" href="ncaam-arena.html?team='+
-    encodeURIComponent(g.home.id)+'">Arena File ↗</a>':'')+'</div>'+
- (isExternal?'':'<div class="sl-inline-gamefile" data-gamefile="'+esc(href)+'"></div>')+
- '</div></details></article>';
+ const href=gameDetailsHref(g,women),isExternal=g.kind==='exhibition';
+ const source=isExternal?(g.evidence==='secondary'?'Published secondary result':'University / cited result'):
+   g.phase==='final'?(g.evidence==='final-source'?'Attributed final':'Reported final'):
+   g.phase==='live'?'Live scoreboard':'Sourced fixture + RETRO';
+ const when=g.phase==='upcoming'?'<span class="ledger26-time">'+esc(formatClock(g))+'</span>':'';
+ const venue=g.venue?'<span class="ledger26-venue">'+esc(g.venue)+'</span>':'';
+ return '<article class="sl-game ledger26-card'+(featured?' ledger26-featured':'')+'">'+
+   (when||venue?'<div class="ledger26-meta">'+when+venue+'</div>':'')+
+   '<details class="sl-game-expansion ledger26-expand">'+
+   '<summary class="ledger26-summary" aria-label="Expand '+esc(g.away.name)+' at '+esc(g.home.name)+' game details">'+
+   ledgerScorebug(g)+'<span class="ledger26-instruction">OPEN GAMEFILE <span aria-hidden="true">+</span></span></summary>'+
+   '<div class="ledger26-expanded">'+
+   '<div class="ledger26-follows">'+favorite(g.away)+favorite(g.home)+'</div>'+
+   '<div class="sl-game-footer ledger26-links"><span>'+esc(source)+'</span>'+
+   '<a class="sl-details" href="'+esc(href)+'"'+(isExternal?' target="_blank" rel="noopener noreferrer"':'')+'>'+
+   (isExternal?'Result source':'Open full Gamefile')+' ↗</a>'+
+   (!women&&g.home?.canonical?'<a class="sl-arena-deep-link" href="ncaam-arena.html?team='+encodeURIComponent(g.home.id)+'">Arena File ↗</a>':'')+
+   '</div>'+
+   (isExternal?'':'<div class="sl-inline-gamefile ledger26-gamefile" data-gamefile="'+esc(href)+'"></div>')+
+   '</div></details></article>';
 }
 /* Load detailed box score and period scoring only after opening its compact scorebug. */
 if(typeof document!=='undefined')document.addEventListener('toggle',event=>{
