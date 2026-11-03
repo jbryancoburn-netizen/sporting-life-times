@@ -470,3 +470,29 @@ body[data-house-page="district"] .district-research-archive .panel,body[data-hou
  body[data-house-page="district"] .front-lead-read,body[data-house-page="district"] .front-field,body[data-house-page="district"] .front-chart,body[data-house-page="district"] .front-facts{padding:14px 4px!important}
  body[data-house-page="district"] .district-research-archive>summary>em{margin-left:0}
 }
+
+/* Unified lower edition: flatten inherited dashboard presentation. */
+body[data-house-page="district"] .district-lower-edition{margin:28px 0 30px;color:#26221d}
+body[data-house-page="district"] .district-lower-heading{border-top:5px double #302b24;border-bottom:2px solid #302b24;padding:17px 0 20px;text-align:left}
+body[data-house-page="district"] .district-lower-heading span{font:700 11px/1.5 var(--ledger-sans);letter-spacing:.13em;color:#793e32}
+body[data-house-page="district"] .district-lower-heading h2{font:700 clamp(30px,4vw,50px)/1.06 var(--ledger-display);letter-spacing:-.025em;margin:8px 0}
+body[data-house-page="district"] .district-lower-heading p{font:400 15px/1.65 var(--ledger-serif);margin:0;max-width:75ch}
+body[data-house-page="district"] .district-lower-edition :is(.district-front,.district-dossier,.district-research-archive){max-width:100%;border-radius:0!important;box-shadow:none!important;margin:0!important;background:transparent!important}
+body[data-house-page="district"] .district-lower-edition .district-front-banner{background:transparent!important;padding:24px 0!important;border-top:0!important;border-bottom:2px solid #302b24!important}
+body[data-house-page="district"] .district-lower-edition :is(.front-map-art,.hero-race-watermark){display:none!important}
+body[data-house-page="district"] .district-lower-edition .front-rail{background:transparent!important;color:#62584c!important;border:0!important;padding:0!important}
+body[data-house-page="district"] .district-lower-edition .front-evidence-grid{border-bottom:1px solid #a99b87!important}
+body[data-house-page="district"] .district-lower-edition .front-lead-read{background:transparent!important}
+body[data-house-page="district"] .district-lower-edition .front-graphics-grid{border-bottom:3px double #302b24}
+body[data-house-page="district"] .district-lower-edition .front-disclaimer{font:11px/1.65 var(--ledger-sans)!important;padding:14px 0!important;background:transparent!important}
+body[data-house-page="district"] .district-lower-edition .district-dossier{border-top:0!important;padding:24px 0!important}
+body[data-house-page="district"] .district-lower-edition .dossier-edition-head{border-top:3px double #302b24!important;padding:18px 0!important;margin:0!important;background:transparent!important}
+body[data-house-page="district"] .district-lower-edition .dossier-edition-head h2{font:700 clamp(26px,3vw,39px)/1.12 var(--ledger-display)!important;margin:7px 0}
+body[data-house-page="district"] .district-lower-edition .district-research-archive{border-top:2px solid #302b24!important;margin-top:10px!important}
+body[data-house-page="district"] .district-lower-edition :is(.panel,.charts-slot,.dossier-local,.dossier-history,.dossier-polling,.front-field,.front-facts,.front-chart){box-shadow:none!important;border-radius:0!important}
+body[data-house-page="district"] .district-lower-edition :is(.front-evidence-grid,.front-graphics-grid,.dossier-main-story){align-items:stretch}
+body[data-house-page="district"] .district-lower-edition .district-research-archive-body>.metrics{margin:12px 0!important}
+@media(max-width:760px){
+ body[data-house-page="district"] .district-lower-heading{text-align:left;padding-inline:4px}
+ body[data-house-page="district"] .district-lower-edition .front-evidence-grid,body[data-house-page="district"] .district-lower-edition .front-graphics-grid,body[data-house-page="district"] .district-lower-edition .dossier-main-story{display:block!important}
+}
