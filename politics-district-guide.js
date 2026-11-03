@@ -102,17 +102,29 @@ function local(host,extra,r,community){
  host.append(el("span","GEOGRAPHY, COMMUNITIES AND CHARACTER","dossier-overline"),el("h3","Where you are—and what makes it different"));
  if(!extra){
   const named=Array.isArray(community?.communities)?community.communities:[];
-  if(named.length){
-   const opener=el("p","Real communities within the official 2026 congressional map, drawn from Census Gazetteer representative points. Cities can straddle district lines; these are mapped points, not claims that entire cities fall within the district.","dossier-local-deck");
-   host.append(opener);
-   const list=el("ul",null,"dossier-community-list");
-   named.slice(0,12).forEach(p=>{
-    const name=p.name.replace(/ (?:city|town|village|CDP|borough|municipality)$/i,"");
-    list.append(el("li",name));
-   });
-   host.append(list);
+  const neighborhoods=Array.isArray(community?.neighborhoods)?community.neighborhoods:[];
+  if(named.length||neighborhoods.length){
+   host.append(el("p","The mapped reference points for these places fall within the district's official congressional polygon. Cities and neighborhoods can cross district lines; this does not claim all their residents are represented by the same member.","dossier-local-deck"));
+   const display=list=>{
+     const ul=el("ul",null,"dossier-community-list");
+     for(const p of list.slice(0,14)){
+       const name=p.name.replace(/ (?:city|town|village|CDP|borough|municipality)$/i,"")
+         .replace(/_/g," ").replace(/[A-Z]{3,}/g,w=>w[0]+w.slice(1).toLowerCase());
+       ul.append(el("li",name));
+     }
+     host.append(ul);
+   };
+   if(named.length){
+     host.append(el("h4","Cities and communities — 2026 Census Gazetteer"));
+     display(named);
+     host.append(link("Official Census 2026 places ↗","https://www.census.gov/geographies/reference-files/time-series/geo/gazetteer-files.html"));
+   }
+   if(neighborhoods.length){
+     host.append(el("h4","Neighborhood areas and local landmarks"));
+     display(neighborhoods);
+     host.append(link("Source: local planning neighborhood map ↗",neighborhoods[0].source_url));
+   }
    if(community?.geographic_rule)warn(host,community.geographic_rule);
-   host.append(link("Census 2026 national place Gazetteer ↗","https://www.census.gov/geographies/reference-files/time-series/geo/gazetteer-files.html"));
   }else warn(host,"Verified neighborhood-level detail is still being collected. The district boundary on the map is official; no speculative towns have been added.");
   return;
  }
@@ -184,14 +196,16 @@ function officialMap(r,extra,community){
   const list=$("dossier-map-town-links");if(list)list.replaceChildren();
   const existing=Array.isArray(extra?.map_places)?extra.map_places:[];
   const official=Array.isArray(community?.communities)?community.communities:[];
-  const places=(existing.length?existing:official).filter(p=>Number.isFinite(p.lat)&&Number.isFinite(p.lon));
+  const neighborhoods=Array.isArray(community?.neighborhoods)?community.neighborhoods:[];
+  const places=(existing.length?existing:[...official,...neighborhoods])
+    .filter(p=>Number.isFinite(p.lat)&&Number.isFinite(p.lon)).slice(0,16);
   const fallbackLayer=L.layerGroup().addTo(map);
   for(const p of places){
     const pin=L.circleMarker([p.lat,p.lon],{radius:6,color:"#fff",weight:2,fillColor:"#b54b40",fillOpacity:1});
     pin.addTo(fallbackLayer);
     pin.bindTooltip(p.name,{direction:"top",permanent:false,opacity:.95});
     if(list){
-      const button=el("button",p.name.replace(/ (?:city|town|village|CDP|borough|municipality)$/i,""),"dossier-town-zoom");button.type="button";
+      const button=el("button",p.name.replace(/ (?:city|town|village|CDP|borough|municipality)$/i,"").replace(/_/g," ").replace(/[A-Z]{3,}/g,w=>w[0]+w.slice(1).toLowerCase()),"dossier-town-zoom");button.type="button";
       button.addEventListener("click",()=>{map.flyTo([p.lat,p.lon],9,{duration:.5});pin.openTooltip();});
       list.append(button);
     }
