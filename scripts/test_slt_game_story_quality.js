@@ -1,0 +1,22 @@
+/* Run: node scripts/test_slt_game_story_quality.js */
+const assert=require("node:assert/strict");
+const q=require("../slt-game-story-quality.js");
+assert.deepEqual(q.footballField().yardMarkers,[0,10,20,30,40,50,40,30,20,10,0]);
+assert.equal(q.footballFieldPosition(30,"IND","IND").x,30);
+assert.equal(q.footballFieldPosition(30,"MEM","IND").x,70);
+assert.equal(q.footballFieldPosition(50,"IND","IND").x,50);
+assert.equal(q.footballFieldPosition(60,"IND","IND").ok,false);
+const game={id:"test-1",sport:"basketball",away:"A",home:"B",awayScore:7,homeScore:5,status:"final"};
+assert.equal(q.validateGame(game).ok,true);
+assert.equal(q.validateGame({...game,awayScore:5,homeScore:5}).ok,false);
+assert.equal(q.validateGame({...game,probability:1.4}).ok,false);
+const events=[{elapsedSeconds:2,type:"score",side:"away",points:2},{elapsedSeconds:8,type:"score",side:"away",points:3},{elapsedSeconds:13,type:"score",side:"home",points:3},{elapsedSeconds:18,type:"score",side:"home",points:2},{elapsedSeconds:20,type:"score",side:"away",points:2}];
+assert.equal(q.validateEvents(game,events).ok,true);
+assert.equal(q.validateEvents(game,[...events].reverse()).ok,false);
+assert.equal(q.validateEvents({...game,awayScore:8},events).ok,false);
+assert.equal(q.scoringRuns(game,events).runs[0].points,5);
+assert.equal(q.storyClaim({text:"This won the game",type:"interpretation"}).allowed,false);
+assert.equal(q.storyClaim({text:"Largest run",type:"interpretation",criteria:"most points without reply",evidence:"verified events"}).allowed,true);
+assert.equal(q.displayMetric({label:"Win probability",value:0.7,kind:"model",source:{name:"USRS",retrievedAt:"2026-11-03"},modelVersion:"1"}).visible,true);
+assert.equal(q.displayMetric({label:"Mystery",value:30,kind:"recorded"}).visible,false);
+console.log("SLT Game Story quality gate: 16 checks passed");
