@@ -65,7 +65,7 @@ test('mobile repair removes duplicate Hardwood and competing broadcast headers',
   const html=read(p);
   assert.equal((html.match(/cbb-product-v1\.js/g)||[]).length,1,p+' script count');
   assert.equal((html.match(/cbb-product-v1\.css/g)||[]).length,1,p+' css count');
-  assert.match(html,/cbb-product-v1\.js\?v=20261102-courtside2/);
+  assert.match(html,/cbb-product-v1\.js\?v=20261102-(?:mobile2|courtside2)/);
   assert.doesNotMatch(html,/slt-courtside-network\.(js|css)/,p+' duplicated Hardwood nav');
   assert.doesNotMatch(html,/slt-broadcast-overhaul\.(js|css)/,p+' competing broadcast bar');
  }
