@@ -3,7 +3,8 @@ const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('nod
 const js=fs.readFileSync('cbb-live-center.js','utf8'),court=fs.readFileSync('cbb-live-court.js','utf8');
 assert(js.includes('function currentView(g)'), 'live status source exists');
 assert(!js.includes('TO — · CH — · FOULS —'), 'unavailable live-stat placeholders removed');
-assert(!js.includes('cbb-preview-'+"'"+'"'), 'do not show statistics in compact bug');
+const compact=js.slice(js.indexOf('function scorebug(g)'),js.indexOf('function updateStatsPreview(g)'));
+assert(!compact.includes('cbb-preview'), 'compact game bug contains no statistics panel');
 assert(js.includes('cbb-ncaa-pilot-root'), 'NCAA pilot lives only in expanded Gamefile');
 const worlds={window:{},setInterval:()=>0,clearInterval:()=>{}};
 vm.runInNewContext(court,worlds);

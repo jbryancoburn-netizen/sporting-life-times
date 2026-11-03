@@ -183,7 +183,7 @@ function draw(c){
       (shotPlays.length?'<div class="slc-floor">'+lines+
       shotPlays.map(p=>{const xy=location(p);return '<span class="slc-shot'+(p.scoring?' slc-shot-made':'')+(selected?.id===p.id?' slc-shot-current':'')+'" style="--x:'+xy.x+'%;--y:'+xy.y+'%" title="'+esc(p.text)+'" aria-hidden="true"></span>';}).join('')+
       '<span class="slc-court-label">SOURCE-REPORTED SHOT LOCATIONS · HALF-COURT PLOT</span></div>':
-      '<div class="slc-standby"><strong>LIVE EVENT TRACKER</strong><span>Recorded plays and scoring are shown below. Shot locations are not published for this game.</span></div>')))+
+      '<div class="slc-standby"><strong>COURT VIEW NOT AVAILABLE</strong><span>Recorded plays and scoring are shown below. Shot locations are not published for this game.</span></div>')))+
     latestRun(plays,g)+'<div class="slc-now" aria-live="polite">'+
     (selected?'<small>'+esc(selected.clock||'TIME NOT LISTED')+
       (selected.period?' · PERIOD '+esc(selected.period):'')+'</small><strong>'+esc(selected.text)+'</strong>':
