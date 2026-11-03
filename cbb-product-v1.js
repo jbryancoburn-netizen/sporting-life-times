@@ -61,7 +61,9 @@ function boot(){
  nav.replaceChildren();
  for(const [title,target] of sections){
   const a=mk('a','cbb-main-link',title);a.href=href(target);
-  if(target.split('#')[0]===page||(page==='college-basketball.html'&&target==='ncaam.html'))a.setAttribute('aria-current','page');
+  const sectionSelected=target.includes('#')?location.hash==='#'+target.split('#')[1]&&page===target.split('#')[0]:
+    (target===page||(page==='college-basketball.html'&&target==='ncaam.html'))&&!location.hash;
+  if(sectionSelected)a.setAttribute('aria-current','page');
   nav.appendChild(a);
  }
  const more=mk('details','cbb-nav-more'),summary=mk('summary','cbb-nav-more-button','MORE');
