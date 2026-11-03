@@ -491,6 +491,8 @@ function card(g,featured){
    fallback?'<span class="sl-tv-venue">HOME ARENA: '+esc(fallback)+' <span>(GAME SITE UNCONFIRMED)</span></span>':'';
  const sourceLink=profile&&!gameVenue?
    '<a class="sl-tv-source-link" href="'+esc(profile.source)+'" target="_blank" rel="noopener noreferrer">Arena source ↗</a>':'';
+ const arenaLink=!women&&g.home?.canonical?
+   '<a class="sl-tv-source-link" href="ncaam-arena.html?team='+encodeURIComponent(g.home.id)+'">Arena File ↗</a>':'';
  const change=liveChanges.get(g.id);
  const hasChange=g.phase==='live'&&change&&(Number(change.away)>0||Number(change.home)>0);
  const movement=hasChange?'<div class="sl-tv-movement">SCORE CHANGE SINCE PREVIOUS UPDATE <b>'+
@@ -514,7 +516,7 @@ function card(g,featured){
    editorialBadges(g)+
    '<div class="sl-tv-scoreboard" aria-label="'+esc(g.away.name)+' at '+esc(g.home.name)+'; '+esc(clock)+'">'+
      tvTeam(g.away,'away',g)+tvTeam(g.home,'home',g)+'</div>'+
-   (venueLine?'<div class="sl-tv-venuebar">'+venueLine+sourceLink+'</div>':'')+
+   (venueLine||arenaLink?'<div class="sl-tv-venuebar">'+venueLine+sourceLink+arenaLink+'</div>':'')+
    movement+eloNote+probability+
    '<footer class="sl-tv-footer"><span class="sl-tv-attribution">'+esc(sourceCaption)+' · '+esc(source)+'</span>'+
    '<div class="sl-tv-actions">'+tvFollow(g.away)+tvFollow(g.home)+
