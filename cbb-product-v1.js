@@ -1,64 +1,99 @@
-/* SLT College Court v1 — shared UI: four pages, data untouched.
-   Visual/route enhancements only; all observed values stay owned by existing feeds. */
+/* SLT College Court: ONE header owner for all four NCAA Division I core pages.
+ * Does not create game data, alter ratings, or interfere with gender loaders. */
 (function(){
 'use strict';
 const page=(location.pathname.split('/').pop()||'').toLowerCase();
-const supported=new Set(['ncaam.html','college-basketball.html','ncaam-slate.html','cbb-game-center.html','cbb-gamefile.html']);
-if(!supported.has(page))return;
-const source=new URLSearchParams(location.search), women=source.get('gender')==='women';
-const labels={'ncaam.html':['THE NATIONAL DESK','FRONT PAGE'],
-'college-basketball.html':['THE NATIONAL DESK','FRONT PAGE'],
-'ncaam-slate.html':['THE DAILY SLATE','GAMES & SCHEDULE'],
-'cbb-game-center.html':['THE COURTSIDE DESK','LIVE GAME CENTER'],
-'cbb-gamefile.html':['THE GAMEFILE','GAME REPORT']};
-const escapeHTML=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c]));
-const dest=(file,gender)=>file+(gender?'?gender=women':'');
-const menus=[
-['FRONT PAGE','ncaam.html'],['DAILY SLATE','ncaam-slate.html'],
-['LIVE DESK','cbb-game-center.html'],['USRS RANKINGS','ncaam-elo.html'],
-['CONFERENCES','ncaam-conference.html'],['BRACKET WATCH','ncaam-tournament.html'],
-['TEAMS','ncaam.html#teams'],['PLAYERS','ncaam-players.html'],['ARENA FILE','ncaam-arena.html']];
+const pages=new Set(['ncaam.html','college-basketball.html','ncaam-slate.html','cbb-game-center.html','cbb-gamefile.html']);
+if(!pages.has(page))return;
+const params=new URLSearchParams(location.search),women=params.get('gender')==='women';
+const genderLink=(file,isWomen)=>file+(isWomen?'?gender=women':'');
+const sections=[
+ ['FRONT PAGE','ncaam.html'],['GAMES','ncaam-slate.html'],['LIVE','cbb-game-center.html'],
+ ['RANKINGS','ncaam-elo.html'],['TEAMS','ncaam.html#teams'],['CONFERENCES','ncaam-conference.html']
+];
+const moreSections=[
+ ['BRACKET WATCH','ncaam-tournament.html'],['PLAYER LEADERS','ncaam-players.html'],
+ ['ARENA FILE','ncaam-arena.html'],['MATCHUP LAB','ncaam-predictor.html'],
+ ['RIVALRIES','ncaam-rivalry.html'],['ELO HISTORY','ncaam-history.html'],
+ ['ALL SPORTS','sports.html']];
+const mk=(tag,cls,label)=>{const el=document.createElement(tag);if(cls)el.className=cls;if(label!=null)el.textContent=label;return el};
+const href=(target)=>{
+ if(target==='sports.html')return target;
+ const bits=target.split('#');
+ return genderLink(bits[0],women)+(bits[1]?'#'+bits[1]:'');
+};
+const label=page.includes('gamefile')?'GAMEFILE':page.includes('center')?'COURTSIDE':page.includes('slate')?'DAILY SLATE':'NATIONAL DESK';
 function boot(){
  const header=document.querySelector('header');if(!header)return;
- document.body.classList.add('cbb-product');document.body.dataset.cbbEdition=page.includes('gamefile')?'gamefile':page.includes('center')?'live':page.includes('slate')?'slate':'front';
- const brand=header.querySelector('.slt-brand-title');
- if(brand)brand.textContent='SPORTING LIFE AND TIMES';
- const legacy=header.querySelector('.sl-masthead>a');
- if(legacy){legacy.textContent='SPORTING LIFE AND TIMES';legacy.style.fontStyle='normal'}
- const old=header.querySelector('.edition-line,.sl-masthead>span');
- if(old)old.textContent='NCAA BASKETBALL  /  '+(women?'WOMEN':'MEN')+"'S DIVISION I";
- const nav=header.querySelector('nav');if(nav)nav.setAttribute('aria-label','College basketball newspaper navigation');
- const strip=document.createElement('div');strip.className='cbb-product-ribbon';
- strip.innerHTML='<span class="cbb-product-stamp">SLT <small>COLLEGE COURT</small></span>'+
-  '<span class="cbb-product-issue"><b>NCAA BASKETBALL</b><small>'+labels[page][0]+'</small></span>'+
-  '<span class="cbb-product-issue-no">2026—27 <b>•</b> '+labels[page][1]+'</span>';
- const mast=header.querySelector('.slt-retro-masthead,.sl-masthead,.masthead')||header;
- mast.insertAdjacentElement('afterend',strip);
- const editions=document.createElement('nav');editions.className='cbb-product-switch';editions.setAttribute('aria-label','College basketball divisions and gender');
- const genderTarget=page==='cbb-gamefile.html'?'cbb-game-center.html':page==='college-basketball.html'?'ncaam.html':page;
- editions.innerHTML='<span class="cbb-product-switch-name">EDITION</span>'+
-  '<a href="'+dest(genderTarget,false)+'"'+(!women?' aria-current="page"':'')+'>MEN</a>'+
-  '<a href="'+dest(genderTarget,true)+'"'+(women?' aria-current="page"':'')+'>WOMEN</a>'+
-  '<span class="cbb-product-break" aria-hidden="true"></span>'+
-  '<a href="ncaam.html" aria-label="Division I basketball">D-I</a>'+
-  '<a href="'+(women?'d2-womens-basketball.html':'d2-mens-basketball.html')+'" aria-label="Division II basketball">D-II</a>'+
-  '<a href="'+(women?'d3-womens-basketball.html':'d3-mens-basketball.html')+'" aria-label="Division III basketball">D-III</a>';
- if(nav)nav.insertAdjacentElement('afterend',editions);else header.appendChild(editions);
- const existing=new Set([...(nav?.querySelectorAll('a[href]')||[])].map(a=>a.getAttribute('href').split('?')[0].split('#')[0]));
- if(nav){
- const extras=menus.filter(([,url])=>!existing.has(url.split('#')[0]));
- for(const [title,url] of extras){const a=document.createElement('a');a.textContent=title;a.href=url.includes('#')?(women?url.replace('#','?gender=women#'):url):dest(url,women);a.className='cbb-product-navlink';nav.appendChild(a);}
- for(const a of nav.querySelectorAll('a')){a.style.fontStyle='normal';const href=a.getAttribute('href')||'';if(href.split('?')[0]===page)a.setAttribute('aria-current','page')}
+ document.body.classList.add('cbb-product','cbb-header-v2');
+ document.body.dataset.cbbEdition=page.includes('gamefile')?'gamefile':page.includes('center')?'live':page.includes('slate')?'slate':'front';
+ // Remove *only* duplicate presentation controls, not any live-data components.
+ header.querySelectorAll('.slt-courtside-network,.slt-broadcast-ribbon,.cbb-gender-bar,.cbb-product-ribbon,.cbb-product-switch').forEach(el=>el.remove());
+ const legacyToggle=document.querySelector('.cbb-standalone>.cbb-switch');
+ if(legacyToggle)legacyToggle.remove();
+ const mast=header.querySelector('.slt-retro-masthead,.sl-masthead,.masthead');
+ if(!mast)return;
+ const oldTop=header.querySelector('.topline,.sl-meta');
+ if(oldTop)oldTop.classList.add('cbb-legacy-topline');
+ const legacyEdition=header.querySelector('.edition-line,.sl-masthead>span');
+ if(legacyEdition)legacyEdition.classList.add('cbb-legacy-edition');
+ const mastLink=mast.querySelector('a[href]');
+ if(mastLink){
+   mastLink.setAttribute('aria-label','Sporting Life and Times home');
+   if(!mastLink.querySelector('.slt-brand-title')){
+    mastLink.textContent='SPORTING LIFE AND TIMES';mastLink.classList.add('cbb-plain-masthead');
+   }
  }
+ const mastTitle=mast.querySelector('.slt-brand-title');
+ if(mastTitle)mastTitle.textContent='SPORTING LIFE AND TIMES';
+ const bar=mk('div','cbb-compact-identity');
+ bar.setAttribute('aria-label','NCAA basketball edition');
+ const mark=mk('strong','cbb-identity-mark','NCAA BASKETBALL');
+ const subtitle=mk('span','cbb-identity-subtitle',(women?"WOMEN'S":"MEN'S")+' DIVISION I · '+label);
+ const season=mk('span','cbb-identity-season','2026–27');
+ bar.append(mark,subtitle,season);
+ mast.insertAdjacentElement('afterend',bar);
+ // A single accessible horizontal navigation; the long list lives in one compact MORE menu.
+ let nav=header.querySelector('nav.nav,nav.sl-nav,nav[aria-label="College basketball navigation"]');
+ if(!nav)nav=mk('nav','nav');
+ nav.setAttribute('aria-label','College basketball sections');
+ nav.classList.add('cbb-main-nav');
+ nav.replaceChildren();
+ for(const [title,target] of sections){
+  const a=mk('a','cbb-main-link',title);a.href=href(target);
+  if(target.split('#')[0]===page||(page==='college-basketball.html'&&target==='ncaam.html'))a.setAttribute('aria-current','page');
+  nav.appendChild(a);
+ }
+ const more=mk('details','cbb-nav-more'),summary=mk('summary','cbb-nav-more-button','MORE');
+ const dropdown=mk('div','cbb-nav-dropdown');
+ more.append(summary,dropdown);
+ for(const [title,target] of moreSections){
+  const a=mk('a','cbb-nav-dropdown-link',title);a.href=href(target);dropdown.appendChild(a);
+ }
+ const navRow=mk('div','cbb-navigation');navRow.append(nav,more);
+ const existing=header.querySelector('.cbb-navigation');
+ if(existing)existing.replaceWith(navRow);else bar.insertAdjacentElement('afterend',navRow);
+ const edition=mk('nav','cbb-compact-editions');
+ edition.setAttribute('aria-label','Select basketball gender and division');
+ const here=page==='cbb-gamefile.html'?'cbb-game-center.html':page==='college-basketball.html'?'ncaam.html':page;
+ for(const [title,target,on] of [
+  ['MEN',genderLink(here,false),!women],['WOMEN',genderLink(here,true),women],
+  ['D-I',genderLink('ncaam.html',women),true],
+  ['D-II',women?'d2-womens-basketball.html':'d2-mens-basketball.html',false],
+  ['D-III',women?'d3-womens-basketball.html':'d3-mens-basketball.html',false]
+ ]){
+  const a=mk('a','cbb-edition-link',title);a.href=target;
+  if(on)a.setAttribute('aria-current','page');
+  edition.appendChild(a);
+ }
+ navRow.insertAdjacentElement('afterend',edition);
  if(page==='ncaam-slate.html'){
-  const hero=document.querySelector('.sl-hero');if(hero){
-   const title=hero.querySelector('h1');if(title)title.textContent='TODAY ON THE COURT';
-   const art=hero.querySelector('.sl-court-art');if(art)art.setAttribute('aria-hidden','true');
-  }
+  const h= document.querySelector('.sl-hero h1');
+  if(h)h.textContent='TODAY ON THE COURT';
  }
- if(page==='cbb-game-center.html'){
-  const top=document.querySelector('.cbb-switch');if(top)top.setAttribute('aria-label','Live desk gender');
- }
+ // A single menu remains open; dismiss outside clicks and Escape on small screens.
+ document.addEventListener('click',e=>{if(more.open&&!more.contains(e.target))more.open=false;});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape')more.open=false;});
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
 })();
