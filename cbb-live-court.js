@@ -118,6 +118,24 @@ function gameFlow(plays,game){
    '<p>Each mark is a sourced score update—not elapsed game time. Last reported play: '+esc(last.clock||'time not reported')+
    '. This is not an official shot chart.</p></div>';
 }
+// Source-validated scoring runs; no estimates from game clock or commentary.
+function latestRun(plays,game){
+ const v=verifyPlayScores(plays,game);
+ if(!v.ok||v.sequence.length<3)return '';
+ const seq=v.sequence;
+ let side='',points=0,events=0;
+ for(let i=seq.length-1;i>0;i--){
+   const away=seq[i].awayScore-seq[i-1].awayScore;
+   const home=seq[i].homeScore-seq[i-1].homeScore;
+   if(away===0&&home===0)continue;
+   const next=away>0&&home===0?'away':home>0&&away===0?'home':'';
+   if(!next||side&&side!==next)break;
+   side=next;points+=next==='away'?away:home;events++;
+ }
+ if(points<4||events<2)return '';
+ return '<div class="slc-live-run"><span>LAST VERIFIED RUN</span><strong>'+
+   esc(sideName(side==='away'?game.away:game.home))+' · '+points+' unanswered</strong></div>';
+}
 function stationLinks(g){
  const id=String(g.id||'');
  const radio=[{label:'Browse official college radio',url:'https://thevarsitynetwork.com/',note:'Broadcaster availability varies by matchup.'}];
@@ -165,8 +183,8 @@ function draw(c){
       (shotPlays.length?'<div class="slc-floor">'+lines+
       shotPlays.map(p=>{const xy=location(p);return '<span class="slc-shot'+(p.scoring?' slc-shot-made':'')+(selected?.id===p.id?' slc-shot-current':'')+'" style="--x:'+xy.x+'%;--y:'+xy.y+'%" title="'+esc(p.text)+'" aria-hidden="true"></span>';}).join('')+
       '<span class="slc-court-label">SOURCE-REPORTED SHOT LOCATIONS · HALF-COURT PLOT</span></div>':
-      '<div class="slc-standby"><strong>COURT VIEW NOT AVAILABLE</strong><span>No certified shot coordinates or complete score progression are available. Recorded plays remain listed at right.</span></div>')))+
-    '<div class="slc-now" aria-live="polite">'+
+      '<div class="slc-standby"><strong>LIVE EVENT TRACKER</strong><span>Recorded plays and scoring are shown below. Shot locations are not published for this game.</span></div>')))+
+    latestRun(plays,g)+'<div class="slc-now" aria-live="polite">'+
     (selected?'<small>'+esc(selected.clock||'TIME NOT LISTED')+
       (selected.period?' · PERIOD '+esc(selected.period):'')+'</small><strong>'+esc(selected.text)+'</strong>':
       '<strong>'+(g.phase==='upcoming'?'Awaiting tipoff.':'No verified play-by-play is available for this matchup.')+'</strong>')+
@@ -181,7 +199,7 @@ function draw(c){
       '<p>Play-by-play is not available. We do not create simulated events.</p>')+'</aside></div>'+
     (global.SLTRadio?'':stationLinks(g))+
     '<footer class="slc-note">Play log: attributed ESPN events. Shot marks appear only where normalized source coordinates exist. '+
-    'This is not optical tracking or radio transcription. For ongoing games, score and plays are checked approximately every 15 seconds.</footer></div>';
+    'Not video or radio transcription. Feed checked approximately every 15 seconds while the game is open; provider reporting delay varies.</footer></div>';
   c.previousPlay=selected||null;
 }
 function replay(c){
@@ -219,5 +237,5 @@ function mount(node,game,summary,meta={}){
  if(c.selected&&!c.plays.some(p=>p.id===c.selected)){c.follow=true;c.selected=null;}
  draw(c);
 }
-global.SLTCourt={mount,parsePlays,location,stationLinks,gameFlow,verifyPlayScores};
+global.SLTCourt={mount,parsePlays,location,stationLinks,gameFlow,verifyPlayScores,latestRun};
 })(window);

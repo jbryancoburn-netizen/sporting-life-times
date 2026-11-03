@@ -77,10 +77,17 @@
     return (league?.games||[]).filter(g=>etParts(new Date(g.date))===state.day).map(normalizeSnapshot).filter(Boolean);
   }
   function currentView(g){
-    if(g.phase==='live')return '<span class="cbb-live-pill">LIVE</span> '+esc(g.headline||('Period '+g.period));
+    if(g.phase==='live'){
+      const period=Number(g.period),clock=String(g.clock||'').trim();
+      const goodClock=/^\d{1,2}:\d{2}$/.test(clock)&&clock!=='0:00';
+      const half=women?(period>4?'OT':period>0?'Q'+period:''):period>2?'OT':period===1?'1ST HALF':period===2?'2ND HALF':'';
+      return '<span class="cbb-live-pill">LIVE</span>'+
+        (half?'<strong class="cbb-period">'+esc(half)+'</strong>':'')+
+        (goodClock?'<strong class="cbb-live-clock">'+esc(clock)+'</strong>':'');
+    }
     if(g.phase==='final')return '<strong class="cbb-final">FINAL</strong>';
-    if(!g.date)return 'Tipoff time TBA';
-    return esc(localDate(g.date));
+    if(!g.date)return '<span class="cbb-tip-tba">TIPOFF TBA</span>';
+    return '<span class="cbb-tip-time">'+esc(localDate(g.date))+'</span>';
   }
   function schoolLink(t){
     const id=String(t?.team?.id||'');
@@ -116,25 +123,25 @@
     const link=schoolLink(t),rating=gamefile?teamRating(t):null;
     const record=rating&&Number.isInteger(Number(rating.wins))&&Number.isInteger(Number(rating.losses))?
       Number(rating.wins)+'–'+Number(rating.losses):'';
-    const elo=rating&&Number.isFinite(Number(rating.elo))?'USRS '+Math.round(Number(rating.elo)):'';
-    const context=gamefile?[record,elo].filter(Boolean).join(' · '):'';
-    const publishedRecord=!gamefile&&Array.isArray(t?.records)?
-      (t.records.find(x=>x?.type==='total'||x?.type==='overall')||t.records[0])?.summary:'';
-    const officialRecord=/^\d{1,3}[-–]\d{1,3}$/.test(String(publishedRecord||''))?String(publishedRecord):'';
+    const context=record?'<small class="cbb-team-context">'+esc(record)+'</small>':'';
     const identity='<span class="cbb-team-identity">'+crest(t)+
-      '<span class="cbb-name"><b class="cbb-school-label">'+esc(schoolLabel(t))+(apRank(t)?'<i class="cbb-ap-rank">AP '+esc(apRank(t))+'</i>':'')+'</b>'+
-      (mascotLabel(t)?'<small class="cbb-school-mascot">'+esc(mascotLabel(t))+'</small>':'')+
-      (context?'<span class="cbb-team-context">'+esc(context)+'</span>':'')+
-      (officialRecord?'<small class="slt-cbb-record">'+esc(officialRecord)+'</small>':'')+'</span></span>';
-    return '<div class="cbb-scorebug-row'+(winning?' cbb-winner':'')+'" data-team-side="'+esc(t.homeAway||'')+'">'+
-      '<span class="cbb-team-side">'+esc(code(t))+'</span>'+
+      '<span class="cbb-name"><b class="cbb-school-label">'+esc(schoolLabel(t))+
+      (apRank(t)?'<i class="cbb-ap-rank"> '+esc(apRank(t))+'</i>':'')+'</b>'+context+'</span></span>';
+    let extras='';
+    if(gamefile&&phase==='live'&&window.SLTCollegeIndicators){
+      const indicators=window.SLTCollegeIndicators.fromGame(g,t,state.summaryCache.get(g?.id)?.data,
+        {summaryAgeMs:Date.now()-(state.summaryCache.get(g?.id)?.at||0)});
+      // Never display placeholders for unfetched timeouts, fouls or challenges.
+      if(indicators&&(indicators.timeouts||indicators.challenges||
+         indicators.fouls!==null&&indicators.fouls!==undefined||indicators.bonus)){
+        extras='<span class="slt-cbb-info" data-cbb-indicators="'+esc(t?.team?.id||'')+'">'+
+          window.SLTCollegeIndicators.render(indicators)+'</span>';
+      }
+    }
+    return '<div class="cbb-scorebug-row'+(winning?' cbb-winner':'')+
+      '" data-team-side="'+esc(t.homeAway||'')+'">'+
       '<span class="slt-cbb-team-stack">'+
-      (link?'<a href="'+link+'" class="cbb-team-link">'+identity+'</a>':identity)+
-      '<span class="slt-cbb-info" data-cbb-indicators="'+esc(t?.team?.id||'')+'">'+
-      (window.SLTCollegeIndicators?
-        window.SLTCollegeIndicators.render(window.SLTCollegeIndicators.fromGame(g,t,
-          state.summaryCache.get(g?.id)?.data,{summaryAgeMs:Date.now()-(state.summaryCache.get(g?.id)?.at||0)})):
-        '<span class="slt-cbb-unavailable">TO — · CH — · FOULS —</span>')+'</span></span>'+
+      (link?'<a href="'+link+'" class="cbb-team-link">'+identity+'</a>':identity)+extras+'</span>'+
       '<strong class="cbb-points" aria-label="'+esc(teamName(t))+' score">'+esc(s)+'</strong></div>';
   }
   function summaryStats(g){
@@ -349,26 +356,19 @@
       '</div><p>Watch counts use current sourced scores and identified conference memberships. Upset watch requires a valid pregame model forecast.</p></div>';
   }
   function scorebug(g){
-    const as=Number(score(g.away)),hs=Number(score(g.home));
-    const winner=g.phase==='final'&&score(g.away)!=null&&score(g.home)!=null&&as!==hs;
-    const broadcast=g.broadcast?' · '+esc(g.broadcast):'';
-    const details=summaryStats(g);
-    const model=modelFor(g);
-    // Never print equal clean-slate ratings as artificial pregame matchup intelligence.
-    const prob=Number.isFinite(model?.probability)&&g.phase==='upcoming'?
-      '<span class="cbb-model-inline">USRS: '+esc(code(model.probability>.5?g.home:g.away))+' '+
-      Math.round(Math.max(model.probability,1-model.probability)*100)+'% pregame</span>':'';
-    return '<article class="cbb-game-card cbb-'+g.phase+'" data-cbb-game="'+esc(g.id)+'" style="--cbb-away:'+safeTeamColor(g.away)+';--cbb-home:'+safeTeamColor(g.home)+'">'+
-      '<div class="cbb-bug-top"><span><b class="slt-cbb-signature" aria-label="Sporting Life and Times">SLT</b>'+currentView(g)+'</span><span class="cbb-bug-network">'+
-      esc(g.broadcast||'')+'</span></div>'+
-      '<div class="cbb-match-rows">'+row(g.away,g.phase,winner&&as>hs,false,g)+row(g.home,g.phase,winner&&hs>as,false,g)+'</div>'+
-      (details?'<div class="cbb-preview" id="cbb-preview-'+esc(g.id)+'">'+details+'</div>':
-        '<div class="cbb-preview cbb-preview-empty" id="cbb-preview-'+esc(g.id)+'"></div>')+
-      '<div class="cbb-bug-bottom"><span>'+esc(g.venue||localDate(g.date))+'</span>'+prob+
-      '<a class="cbb-box-btn" href="'+gameLink(g)+'">'+(g.phase==='live'?'CourtCast / LIVE →':g.phase==='final'?'CourtCast / Replay →':'Game details →')+'</a></div>'+
-      '<div class="cbb-game-origin">'+esc(g.source||'Source not available')+
-       (g.certifiedTeamBox?' · NCAA-origin team totals checked':'')+
-       (g.conferenceSource?' · <a href="'+cleanURL(g.conferenceSource)+'" rel="noopener noreferrer" target="_blank">Conference listing ↗</a>':'')+'</div>'+      '</article>';
+    const as=score(g.away),hs=score(g.home);
+    const winner=g.phase==='final'&&as!==null&&hs!==null&&Number(as)!==Number(hs);
+    const network=(!g.conferenceNetworkDisagreement&&g.broadcast)?esc(g.broadcast):'';
+    return '<article class="cbb-game-card cbb-'+g.phase+'" data-cbb-game="'+esc(g.id)+
+      '" style="--cbb-away:'+safeTeamColor(g.away)+';--cbb-home:'+safeTeamColor(g.home)+'">'+
+      '<div class="cbb-bug-top"><span><b class="slt-cbb-signature" aria-label="Sporting Life and Times">SLT</b>'+
+      currentView(g)+'</span>'+(network?'<span class="cbb-bug-network">'+network+'</span>':'')+'</div>'+
+      '<div class="cbb-match-rows">'+row(g.away,g.phase,winner&&Number(as)>Number(hs),false,g)+
+      row(g.home,g.phase,winner&&Number(hs)>Number(as),false,g)+'</div>'+
+      '<div class="cbb-bug-bottom"><span>'+esc(g.venue||((g.phase==='upcoming')?localDate(g.date):''))+
+      '</span><a class="cbb-box-btn" href="'+gameLink(g)+'">'+
+      (g.phase==='live'?'FOLLOW LIVE →':g.phase==='final'?'GAME REPLAY →':'OPEN GAME →')+'</a></div>'+
+      '<div class="cbb-game-origin">'+esc(g.source||'Source unavailable')+'</div></article>';
   }
   function updateStatsPreview(g){
     const target=document.getElementById('cbb-preview-'+g.id);
@@ -915,7 +915,7 @@
       '<section role="tabpanel" id="gf-panel-summary" aria-labelledby="gf-tab-summary" data-gamefile-panel="summary">'+
       '<div class="cbb-gamefile-note"><span>'+(g.phase==='live'?'LIVE NOTEBOOK':g.phase==='final'?'FINAL LEDGER':'MATCHUP FILE')+'</span><p>'+
       esc(statEditorial(g)||gameEditorial(g))+'</p></div>'+
-      '<div id="cbb-courtcast-root"></div>'+(periods||missing)+usrsLine(g)+'</section>'+
+      '<div id="cbb-courtcast-root"></div><div id="cbb-ncaa-pilot-root"></div>'+(periods||missing)+usrsLine(g)+'</section>'+
       '<section role="tabpanel" id="gf-panel-team" aria-labelledby="gf-tab-team" data-gamefile-panel="team">'+(team||missing)+'</section>'+
       '<section role="tabpanel" id="gf-panel-players" aria-labelledby="gf-tab-players" data-gamefile-panel="players">'+(playersHTML||missing)+'</section>'+
       '<p class="cbb-provider-link">'+esc(g.source||'Source pending')+
@@ -928,6 +928,7 @@
        (g.certifiedTeamBox?' · NCAA-origin verified team totals available under Team Statistics':'')+'</p>';
     selectGameTab(state.section);
     if(window.SLTCourt)window.SLTCourt.mount(document.getElementById('cbb-courtcast-root'),g,raw,{updatedAt:entry?.at||0});
+    if(window.SLTNCAAPilot)window.SLTNCAAPilot.mount(document.getElementById('cbb-ncaa-pilot-root'),g,raw);
     if(window.SLTRadio)window.SLTRadio.mount(document.getElementById('cbb-radio-companion-root'),g,women?'women':'men');
   }
   async function openGamefile(){
