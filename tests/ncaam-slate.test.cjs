@@ -4,8 +4,8 @@ const script=fs.readFileSync('ncaam-slate.js','utf8'),css=fs.readFileSync('ncaam
 const slate=require('../ncaam-slate.js'),json=p=>JSON.parse(fs.readFileSync(p,'utf8'));
 assert.doesNotThrow(()=>new vm.Script(script));
 for(const id of ['slate-root','sl-prev','sl-next','sl-picker','sl-games','sl-search','sl-filters','sl-more','sl-reload','sl-women','sl-men','sl-count'])assert(html.includes('id="'+id+'"'),id);
-assert(/ncaam-slate\\.js\\?v=[a-zA-Z0-9-]+/.test(html), 'versioned slate JS must be linked');
-assert(/ncaam-slate\\.css\\?v=[a-zA-Z0-9-]+/.test(html), 'versioned slate CSS must be linked');
+assert(html.includes('ncaam-slate.js?v='), 'versioned slate JS must be linked');
+assert(html.includes('ncaam-slate.css?v='), 'versioned slate CSS must be linked');
 assert(!html.includes('cbb-broadcast-v2.css')&&!html.includes('ncaam-mobile-scoreboard.css'));
 assert(script.includes('function card(g,featured)')&&script.includes('sl-bug-pair'));
 assert(!script.includes('sl-arena-stage')&&!script.includes('sl-pennant')&&!script.includes('TO — · CH —'));
