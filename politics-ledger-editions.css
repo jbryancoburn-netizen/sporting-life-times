@@ -1,0 +1,137 @@
+/* POLITICAL LIFE & TIMES / THE DAILY LEDGER EDITORIAL SYSTEM
+   Applied to both shared election-edition templates; map geometry and data are unchanged.
+   Design reference: Figma Political Life & Times, The Engraving Room.
+*/
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@600;700;800&family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;500;600;700&display=swap');
+:root {
+  --ledger-paper:#f2ecdf;
+  --ledger-paper-deep:#e7dece;
+  --ledger-ink:#25231f;
+  --ledger-muted:#60574b;
+  --ledger-accent:#803c31;
+  --ledger-rule:#8c8170;
+  --ledger-serif:'Libre Baskerville',Georgia,'Times New Roman',serif;
+  --ledger-display:'Bodoni Moda',Georgia,serif;
+  --ledger-sans:'Inter',Arial,sans-serif;
+}
+body[data-house-page="state"],
+body[data-house-page="district"] {
+  background:var(--ledger-paper)!important;
+  color:var(--ledger-ink);
+}
+body[data-house-page="state"] .paper,
+body[data-house-page="district"] .paper {
+  background:var(--ledger-paper)!important;
+  color:var(--ledger-ink);
+  box-shadow:none!important;
+  max-width:1480px;
+  margin-inline:auto;
+}
+body[data-house-page="state"] .mast,
+body[data-house-page="district"] .mast {
+  border-top:4px double var(--ledger-ink);
+  border-bottom:3px double var(--ledger-ink);
+  text-align:center;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+body[data-house-page="state"] .mast h1,
+body[data-house-page="district"] .mast h1 {
+  font-family:var(--ledger-display);
+  font-weight:700;
+  letter-spacing:-.035em;
+  line-height:1.04;
+}
+body[data-house-page="state"] h2,
+body[data-house-page="district"] h2,
+body[data-house-page="state"] h3,
+body[data-house-page="district"] h3 {
+  font-family:var(--ledger-serif);
+  letter-spacing:-.02em;
+}
+body[data-house-page="state"] .folio,
+body[data-house-page="district"] .folio,
+body[data-house-page="state"] .strip,
+body[data-house-page="district"] .strip,
+body[data-house-page="state"] .eyebrow,
+body[data-house-page="district"] .dossier-overline {
+  font-family:var(--ledger-sans);
+  font-weight:700;
+  letter-spacing:.09em;
+}
+body[data-house-page="state"] .state-edition,
+body[data-house-page="district"] .district-overview {
+  background:transparent!important;
+  box-shadow:none!important;
+  border-color:var(--ledger-rule)!important;
+}
+body[data-house-page="state"] .state-hero-watermark,
+body[data-house-page="state"] .hero-race-watermark {
+  opacity:.12!important;
+  pointer-events:none;
+}
+body[data-house-page="state"] .state-feature-map,
+body[data-house-page="district"] .dossier-map-panel {
+  background:var(--ledger-paper)!important;
+  border:1px solid var(--ledger-rule)!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+body[data-house-page="state"] .geo-district-map,
+body[data-house-page="district"] .dossier-map {
+  background:var(--ledger-paper-deep)!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+body[data-house-page="state"] .map-base-legend {
+  background:var(--ledger-paper)!important;
+  color:var(--ledger-muted)!important;
+  border-top:1px solid var(--ledger-rule);
+  font-family:var(--ledger-serif);
+  border-radius:0!important;
+}
+body[data-house-page="state"] .map-base-legend strong {
+  font-family:var(--ledger-sans);
+  color:var(--ledger-accent);
+  letter-spacing:.08em;
+}
+body[data-house-page="district"] .dossier-map-credit {
+  color:var(--ledger-muted);
+  font-family:var(--ledger-serif);
+  font-size:.78rem;
+  line-height:1.6;
+}
+body[data-house-page="state"] .nav,
+body[data-house-page="district"] .nav {
+  border-block:1px solid var(--ledger-rule);
+  background:transparent!important;
+  box-shadow:none!important;
+}
+body[data-house-page="state"] .nav a,
+body[data-house-page="district"] .nav a {
+  font-family:var(--ledger-sans);
+  color:var(--ledger-ink);
+  text-decoration-thickness:1px;
+  text-underline-offset:3px;
+}
+body[data-house-page="state"] a:focus-visible,
+body[data-house-page="district"] a:focus-visible,
+body[data-house-page="state"] button:focus-visible,
+body[data-house-page="district"] button:focus-visible {
+  outline:3px solid var(--ledger-accent);
+  outline-offset:3px;
+}
+@media (max-width:760px) {
+  body[data-house-page="state"] .mast h1,
+  body[data-house-page="district"] .mast h1 {
+    font-size:clamp(2.1rem,9vw,3.25rem);
+  }
+  body[data-house-page="state"] .paper,
+  body[data-house-page="district"] .paper {width:100%;max-width:100%;overflow-x:clip}
+  body[data-house-page="state"] .geo-district-map,
+  body[data-house-page="district"] .dossier-map {min-height:320px}
+}
+@media (prefers-reduced-motion:reduce) {
+  body[data-house-page="state"] *,
+  body[data-house-page="district"] * {scroll-behavior:auto!important}
+}
