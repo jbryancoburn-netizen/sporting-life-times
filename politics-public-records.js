@@ -8,6 +8,8 @@ const code=new URLSearchParams(location.search).get("state")?.toUpperCase()||new
 if(!code||!states[code])return;
 const district=new URLSearchParams(location.search).get("district")||"";
 const name=states[code],isDistrict=document.body.dataset.housePage==="district";
+// District pages already have their own sourced accountability desk. Avoid a second generic, oversized duplicate.
+if(isDistrict)return;
 const section=document.createElement("section");
 section.className="plt-public-record";
 section.id="public-records";
