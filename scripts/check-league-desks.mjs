@@ -34,7 +34,7 @@ for(const page of found){
   for(const id of ['game-grid','elo-board','team-directory','conference-board'])
    assert(html.includes('id="'+id+'"'),'DIII desk '+id+' missing: '+page);
  }else if(page==='nfl.html'){
-  assert(html.includes('nfl-edition.js'),'NFL edition loader missing');
+  assert(/nfl-edition(?:-v3)?\.js/.test(html),'NFL edition loader missing');
   assert(html.includes('id="nfl-app"'),'NFL edition mount missing');
  }else if(!['nba.html','epl.html','euroleague.html','college-basketball.html','college-football.html'].includes(page)){
   for(const id of ['league-news-grid','league-standings-table','league-final-lines','league-result-ledger','league-upcoming-games','league-snapshot'])assert(html.includes('id="'+id+'"'),id+' missing from '+page);
