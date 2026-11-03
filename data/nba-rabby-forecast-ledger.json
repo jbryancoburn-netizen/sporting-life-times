@@ -2,7 +2,7 @@
   "schema": "rabby-nba-prospective-v1",
   "season": "2026-27",
   "created_at": "2026-11-01T19:25:57.157Z",
-  "updated_at": "2026-11-03T01:09:15.954Z",
+  "updated_at": "2026-11-03T07:52:56.371Z",
   "method": "First qualifying early (>2h) or near-tipoff (10-120m) snapshot is final. Never create a retrospective forecast.",
   "forecasts": [
     {
@@ -688,47 +688,167 @@
       "home_score": 131,
       "verified_at": "2026-11-02T08:15:36.137Z",
       "source": "USRS 1500-reset earned Elo verified final"
+    },
+    "espn-nba-401909907": {
+      "away": "OKC",
+      "home": "CLE",
+      "away_score": 117,
+      "home_score": 112,
+      "verified_at": "2026-11-03T07:52:56.371Z",
+      "source": "USRS 1500-reset earned Elo verified final"
+    },
+    "espn-nba-401909908": {
+      "away": "DET",
+      "home": "CHA",
+      "away_score": 124,
+      "home_score": 91,
+      "verified_at": "2026-11-03T07:52:56.371Z",
+      "source": "USRS 1500-reset earned Elo verified final"
+    },
+    "espn-nba-401909909": {
+      "away": "ATL",
+      "home": "IND",
+      "away_score": 108,
+      "home_score": 104,
+      "verified_at": "2026-11-03T07:52:56.371Z",
+      "source": "USRS 1500-reset earned Elo verified final"
+    },
+    "espn-nba-401909910": {
+      "away": "BKN",
+      "home": "NYK",
+      "away_score": 90,
+      "home_score": 103,
+      "verified_at": "2026-11-03T07:52:56.371Z",
+      "source": "USRS 1500-reset earned Elo verified final"
+    },
+    "espn-nba-401909911": {
+      "away": "WAS",
+      "home": "ORL",
+      "away_score": 103,
+      "home_score": 94,
+      "verified_at": "2026-11-03T07:52:56.371Z",
+      "source": "USRS 1500-reset earned Elo verified final"
+    },
+    "espn-nba-401909912": {
+      "away": "CHI",
+      "home": "PHI",
+      "away_score": 107,
+      "home_score": 126,
+      "verified_at": "2026-11-03T07:52:56.371Z",
+      "source": "USRS 1500-reset earned Elo verified final"
+    },
+    "espn-nba-401909913": {
+      "away": "SAC",
+      "home": "DAL",
+      "away_score": 115,
+      "home_score": 100,
+      "verified_at": "2026-11-03T07:52:56.371Z",
+      "source": "USRS 1500-reset earned Elo verified final"
+    },
+    "espn-nba-401909914": {
+      "away": "NOP",
+      "home": "MEM",
+      "away_score": 135,
+      "home_score": 134,
+      "verified_at": "2026-11-03T07:52:56.371Z",
+      "source": "USRS 1500-reset earned Elo verified final"
+    },
+    "espn-nba-401909915": {
+      "away": "MIL",
+      "home": "MIN",
+      "away_score": 100,
+      "home_score": 112,
+      "verified_at": "2026-11-03T07:52:56.371Z",
+      "source": "USRS 1500-reset earned Elo verified final"
+    },
+    "espn-nba-401909916": {
+      "away": "BOS",
+      "home": "HOU",
+      "away_score": 93,
+      "home_score": 109,
+      "verified_at": "2026-11-03T07:52:56.371Z",
+      "source": "USRS 1500-reset earned Elo verified final"
+    },
+    "espn-nba-401909917": {
+      "away": "UTA",
+      "home": "SAS",
+      "away_score": 97,
+      "home_score": 119,
+      "verified_at": "2026-11-03T07:52:56.371Z",
+      "source": "USRS 1500-reset earned Elo verified final"
+    },
+    "espn-nba-401909918": {
+      "away": "POR",
+      "home": "DEN",
+      "away_score": 118,
+      "home_score": 110,
+      "verified_at": "2026-11-03T07:52:56.371Z",
+      "source": "USRS 1500-reset earned Elo verified final"
+    },
+    "espn-nba-401909919": {
+      "away": "PHX",
+      "home": "GSW",
+      "away_score": 113,
+      "home_score": 116,
+      "verified_at": "2026-11-03T07:52:56.371Z",
+      "source": "USRS 1500-reset earned Elo verified final"
+    },
+    "espn-nba-401909920": {
+      "away": "TOR",
+      "home": "LAC",
+      "away_score": 125,
+      "home_score": 118,
+      "verified_at": "2026-11-03T07:52:56.371Z",
+      "source": "USRS 1500-reset earned Elo verified final"
+    },
+    "espn-nba-401909921": {
+      "away": "MIA",
+      "home": "LAL",
+      "away_score": 117,
+      "home_score": 138,
+      "verified_at": "2026-11-03T07:52:56.371Z",
+      "source": "USRS 1500-reset earned Elo verified final"
     }
   },
   "metrics": {
     "early": {
-      "sample": 3,
-      "team_score_mae": 13,
-      "margin_mae": 9.124,
-      "total_mae": 26.206,
-      "league_total_baseline_mae": 25.789,
-      "elo_brier": 0.232,
-      "elo_winner_accuracy": 0.667
+      "sample": 18,
+      "team_score_mae": 10.139,
+      "margin_mae": 9.524,
+      "total_mae": 17.501,
+      "league_total_baseline_mae": 18.303,
+      "elo_brier": 0.225,
+      "elo_winner_accuracy": 0.611
     },
     "near_tipoff": {
-      "sample": 2,
-      "team_score_mae": 12.5,
-      "margin_mae": 5.506,
-      "total_mae": 25.209,
-      "league_total_baseline_mae": 25.622,
-      "elo_brier": 0.215,
-      "elo_winner_accuracy": 1
+      "sample": 8,
+      "team_score_mae": 8.563,
+      "margin_mae": 7.98,
+      "total_mae": 16.013,
+      "league_total_baseline_mae": 16.931,
+      "elo_brier": 0.181,
+      "elo_winner_accuracy": 0.875
     },
     "by_model_version": {
       "6c0d5fb8196929fa50c7": {
         "forecasts": 26,
         "early": {
-          "sample": 3,
-          "team_score_mae": 13,
-          "margin_mae": 9.124,
-          "total_mae": 26.206,
-          "league_total_baseline_mae": 25.789,
-          "elo_brier": 0.232,
-          "elo_winner_accuracy": 0.667
+          "sample": 18,
+          "team_score_mae": 10.139,
+          "margin_mae": 9.524,
+          "total_mae": 17.501,
+          "league_total_baseline_mae": 18.303,
+          "elo_brier": 0.225,
+          "elo_winner_accuracy": 0.611
         },
         "near_tipoff": {
-          "sample": 2,
-          "team_score_mae": 12.5,
-          "margin_mae": 5.506,
-          "total_mae": 25.209,
-          "league_total_baseline_mae": 25.622,
-          "elo_brier": 0.215,
-          "elo_winner_accuracy": 1
+          "sample": 8,
+          "team_score_mae": 8.563,
+          "margin_mae": 7.98,
+          "total_mae": 16.013,
+          "league_total_baseline_mae": 16.931,
+          "elo_brier": 0.181,
+          "elo_winner_accuracy": 0.875
         }
       }
     }
