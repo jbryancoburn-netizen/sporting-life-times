@@ -423,7 +423,7 @@ const meter=g=>{
 // Upright classic-broadcast scorebug, powered by the same game records as the cards.
 const broadcastBug=g=>{
  const pts=t=>g.phase==='upcoming'?'—':Number.isFinite(t.score)?String(t.score):'—';
- const status=g.phase==='final'?'FINAL':g.phase==='live'?String(g.status||'LIVE'):'PREGAME';
+ const status=g.phase==='final'?'FINAL':g.phase==='live'?String(g.status||'LIVE'):'UPCOMING';
  return '<div class="sl-broadcast-bug" aria-label="Game scoreboard">'+
   '<div class="sl-broadcast-mark"><b>SL<span class="sl-mark-amp">&</span>T</b><span>SPORTS</span></div>'+
   '<div class="sl-broadcast-pair">'+
