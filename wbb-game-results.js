@@ -56,9 +56,9 @@ function scoreFor(g,teamId){
   if(home===away)return {value:'Review',detail:'Result identity not verified'};
   const ours=Number(home?g.home_score:g.away_score),theirs=Number(home?g.away_score:g.home_score);
   if(ours===theirs)return {value:'Review',detail:'Final score tied; source review required'};
-  const label=g.result_provenance==='espn_and_ncaa_origin'?'ESPN + NCAA-origin confirmed':
+  const label=g.result_provenance==='espn_and_ncaa_origin'?'NCAA-origin and live feed confirmed':
     g.result_provenance==='ncaa_origin_final_espn_fixture'?'NCAA-origin final':
-    g.result_provenance==='espn_final_ncaa_pending'?'ESPN final; NCAA check pending':
+    g.result_provenance==='espn_final_ncaa_pending'?'Final reported; NCAA check pending':
     'Final on published scoreboard';
   return {value:(ours>theirs?'W ':'L ')+ours+'–'+theirs,detail:label};
 }
