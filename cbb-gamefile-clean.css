@@ -1,0 +1,124 @@
+/* One-piece CourtCast Gamefile presentation. Source data untouched. */
+body.cbb-product.cbb-header-v2 .cbb-gamefile-page{max-width:1250px!important}
+body.cbb-product.cbb-header-v2 .cbb-gamefile-page #cbb-gamefile-root{margin:8px 0 18px!important}
+body.cbb-product.cbb-header-v2 .cbb-gamefile-back{padding:5px 4px 9px!important;margin:0 0 7px!important;border-bottom:1px solid #c7bca8!important}
+body.cbb-product.cbb-header-v2 .cbb-gamefile-back a{font:900 10px Arial,sans-serif!important;letter-spacing:0!important;color:#193a63!important}
+body.cbb-product.cbb-header-v2 .cbb-gamefile-detail{
+ border:1px solid #c7c1b7!important;border-radius:7px!important;
+ overflow:hidden!important;box-shadow:0 3px 12px #061f3b14!important;background:#fff7e8!important;
+}
+body.cbb-product.cbb-header-v2 .cbb-gamefile-hero{
+ padding:13px clamp(10px,2vw,25px) 0!important;border-top:4px solid #e8b648!important;
+ background:#0a2244!important;color:#fff6e2!important
+}
+body.cbb-product.cbb-header-v2 .cbb-gamefile-eyebrow{
+ color:#f0c872!important;letter-spacing:.06em!important;font:800 9px Arial,sans-serif!important
+}
+body.cbb-product.cbb-header-v2 .cbb-gamefile-hero h1{
+ margin:7px 0 5px!important;color:#fff4db!important;
+ font:900 clamp(21px,3.1vw,37px)/1.05 Impact,'Arial Narrow',Arial,sans-serif!important;
+ letter-spacing:0!important;text-transform:uppercase!important
+}
+body.cbb-product.cbb-header-v2 .cbb-gamefile-hero h1 .cbb-gamefile-versus{color:#f3c35b!important;font-size:.7em!important;font-style:normal!important}
+body.cbb-product.cbb-header-v2 .cbb-gamefile-status{
+ font:800 11px/1.35 Arial,sans-serif!important;color:#c3d3e7!important;margin:4px 0 9px!important
+}
+body.cbb-product.cbb-header-v2 .cbb-gamefile-score{
+ display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+ gap:0!important;background:#fff7e8!important;border:1px solid #d0bd9a!important;
+ border-radius:5px 5px 0 0!important;overflow:hidden!important
+}
+body.cbb-product.cbb-header-v2 .cbb-gamefile-score .cbb-scorebug-row,
+body.cbb-product.cbb-header-v2 .cbb-gamefile-score .cbb-scorebug-row:nth-child(2){
+ display:flex!important;align-items:center!important;gap:5px!important;min-height:69px!important;
+ padding:7px 11px!important;background:#fff7e8!important;
+ border:0!important;border-left:5px solid var(--cbb-away,#a21e3a)!important;
+ box-shadow:none!important;color:#0a2244!important
+}
+body.cbb-product.cbb-header-v2 .cbb-gamefile-score .cbb-scorebug-row:nth-child(2){
+ border-left:5px solid var(--cbb-home,#255cb6)!important;border-top:0!important
+}
+body.cbb-product.cbb-header-v2 .cbb-gamefile-score .cbb-name b{
+ color:#0a2244!important;font:900 clamp(15px,1.9vw,23px)/1.05 Impact,'Arial Narrow',Arial,sans-serif!important;
+ white-space:normal!important;line-height:1.08!important
+}
+body.cbb-product.cbb-header-v2 .cbb-gamefile-score .cbb-points{
+ color:#0a2244!important;font:900 clamp(31px,3.5vw,45px) Impact,'Arial Narrow',Arial,sans-serif!important;
+ font-variant-numeric:tabular-nums!important
+}
+body.cbb-product.cbb-header-v2 .cbb-gamefile-score .cbb-team-context{
+ font:700 10px Arial,sans-serif!important;color:#607082!important
+}
+body.cbb-product.cbb-header-v2 .cbb-gamefile-ledger{
+ margin:0!important;padding:6px 3px!important;display:flex!important;
+ justify-content:space-between!important;flex-wrap:wrap!important;
+ gap:5px!important;color:#d2dced!important;font:700 9px Arial,sans-serif!important;
+ border:0!important;background:#0a2244!important
+}
+body.cbb-product.cbb-header-v2 .cbb-gamefile-tabs{
+ display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;
+ gap:0!important;background:#eee8dc!important;border:0!important;border-bottom:2px solid #cbb99b!important
+}
+body.cbb-product.cbb-header-v2 .cbb-gamefile-tabs button{
+ min-height:39px!important;padding:8px 4px!important;border:0!important;border-right:1px solid #d8d1c7!important;
+ font:900 10px Arial,sans-serif!important;letter-spacing:0!important;color:#314e6e!important
+}
+body.cbb-product.cbb-header-v2 .cbb-gamefile-tabs button[aria-selected="true"]{
+ background:#fff7e8!important;color:#071e3e!important;box-shadow:inset 0 -3px 0 #a61f3b!important
+}
+body.cbb-product.cbb-header-v2 .cbb-gamefile-detail [data-gamefile-panel]{
+ padding:9px clamp(9px,2vw,23px)!important;background:#fff7e8!important
+}
+body.cbb-product.cbb-header-v2 #cbb-courtcast-root{margin:0!important}
+body.cbb-product.cbb-header-v2 #cbb-courtcast-root .slc-wrap{
+ border-radius:6px!important;overflow:hidden!important;margin:0 0 12px!important;
+ border-top:3px solid #e5b547!important;background:#fff7e8!important
+}
+body.cbb-product.cbb-header-v2 #cbb-courtcast-root .slc-head{
+ padding:9px 12px!important;background:#0a2244!important
+}
+body.cbb-product.cbb-header-v2 #cbb-courtcast-root .slc-head h2{
+ font:900 25px Impact,'Arial Narrow',Arial,sans-serif!important;margin:0!important;color:#fff4db!important
+}
+body.cbb-product.cbb-header-v2 #cbb-courtcast-root .slc-head>b{
+ font:900 9px Arial,sans-serif!important;padding:5px 7px!important;border-radius:8px!important
+}
+body.cbb-product.cbb-header-v2 #cbb-courtcast-root .slc-visual{background:#fff9ee!important}
+body.cbb-product.cbb-header-v2 #cbb-courtcast-root .slc-standby{
+ min-height:38px!important;padding:9px 12px!important
+}
+body.cbb-product.cbb-header-v2 #cbb-courtcast-root .slc-feed>ol{max-height:440px!important}
+body.cbb-product.cbb-header-v2 #cbb-courtcast-root .slc-now{min-height:54px!important;padding:10px!important}
+body.cbb-product.cbb-header-v2 .cbb-gamefile-note{
+ margin:0 0 8px!important;padding:8px 10px!important;background:#f4eddd!important;
+ border:0!important;border-left:3px solid #d9a93f!important
+}
+body.cbb-product.cbb-header-v2 .cbb-gamefile-note span{font:900 9px Arial,sans-serif!important;letter-spacing:.05em!important}
+body.cbb-product.cbb-header-v2 .cbb-gamefile-note p{font:500 11px/1.35 Arial,sans-serif!important;margin:3px 0!important;color:#39516a!important}
+body.cbb-product.cbb-header-v2 .cbb-gamefile-stats{
+ border:1px solid #e0d6c5!important;margin:0 0 10px!important;border-radius:3px!important;background:#fff9f0!important
+}
+body.cbb-product.cbb-header-v2 .cbb-gamefile-stats-key{padding:5px 9px!important}
+body.cbb-product.cbb-header-v2 .cbb-gamefile-stat{padding:7px 9px!important}
+body.cbb-product.cbb-header-v2 .cbb-gamefile-detail .cbb-provider-link{
+ font:600 9px/1.5 Arial,sans-serif!important;color:#627487!important;
+ padding:9px 12px!important;overflow-wrap:anywhere!important
+}
+body.cbb-product.cbb-header-v2 #cbb-radio-companion-root{margin:8px 0!important}
+body.cbb-product.cbb-header-v2 #cbb-radio-companion-root .slr-desk{
+ border-top:2px solid #e8b648!important;background:#f5eddd!important;border-radius:4px!important;
+ padding:9px 13px!important
+}
+@media(max-width:700px){
+ body.cbb-product.cbb-header-v2 .cbb-gamefile-hero{padding:10px 9px 0!important}
+ body.cbb-product.cbb-header-v2 .cbb-gamefile-hero h1{font-size:clamp(19px,5vw,28px)!important}
+ body.cbb-product.cbb-header-v2 .cbb-gamefile-score{grid-template-columns:1fr!important}
+ body.cbb-product.cbb-header-v2 .cbb-gamefile-score .cbb-scorebug-row,
+ body.cbb-product.cbb-header-v2 .cbb-gamefile-score .cbb-scorebug-row:nth-child(2){min-height:57px!important;padding:5px 8px!important}
+ body.cbb-product.cbb-header-v2 .cbb-gamefile-score .cbb-scorebug-row:nth-child(2){border-top:1px solid #d7cdbd!important}
+ body.cbb-product.cbb-header-v2 .cbb-gamefile-score .cbb-name b{font-size:clamp(15px,4.5vw,21px)!important}
+ body.cbb-product.cbb-header-v2 .cbb-gamefile-score .cbb-points{font-size:35px!important}
+ body.cbb-product.cbb-header-v2 .cbb-gamefile-tabs button{font-size:9px!important;min-height:37px!important}
+ body.cbb-product.cbb-header-v2 #cbb-courtcast-root .slc-columns{display:grid!important;grid-template-columns:1fr!important}
+ body.cbb-product.cbb-header-v2 #cbb-courtcast-root .slc-feed>ol{max-height:310px!important}
+}

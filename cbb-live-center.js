@@ -920,19 +920,19 @@ async function getCourtGames(day){
     node.innerHTML='<header class="cbb-gamefile-hero" style="--cbb-away:'+safeTeamColor(g.away)+';--cbb-home:'+safeTeamColor(g.home)+'"><div class="cbb-gamefile-eyebrow">SPORTING LIFE AND TIMES · '+(women?'WOMEN’S':'MEN’S')+' D-I · GAMEFILE '+esc(g.id)+'</div>'+
       '<h1>'+esc(schoolLabel(g.away))+' <span class="cbb-gamefile-versus">'+(g.neutral?'VS':'AT')+'</span> '+esc(schoolLabel(g.home))+'</h1>'+
       '<p class="cbb-gamefile-status">'+currentView(g)+(g.neutral?' · NEUTRAL SITE':'')+
-      ' · '+esc(g.venue||'Venue not listed')+(g.broadcast?' · '+esc(g.broadcast):'')+'</p>'+
+      (g.venue?' · '+esc(g.venue):'')+(g.broadcast?' · '+esc(g.broadcast):'')+'</p>'+
       '<div class="cbb-gamefile-score">'+row(g.away,g.phase,false,true,g)+row(g.home,g.phase,false,true,g)+'</div>'+
       '<div class="cbb-gamefile-ledger"><span>'+(g.neutral?'NEUTRAL GAME · DISPLAY ORDER':'AWAY → HOME')+'</span><span>'+esc(g.phase==='final'?'FINAL SCORE':g.phase==='live'?'LIVE REPORTED SCORE':'PREGAME')+'</span>'+
       '<span>'+esc(g.source||'SOURCE PENDING')+'</span></div></header>'+
-      gamefileStatStrip(g,raw)+
       '<nav class="cbb-gamefile-tabs" role="tablist" aria-label="Gamefile statistics">'+
       '<button role="tab" type="button" id="gf-tab-summary" aria-controls="gf-panel-summary" data-gamefile-tab="summary">Game Summary</button>'+
       '<button role="tab" type="button" id="gf-tab-team" aria-controls="gf-panel-team" data-gamefile-tab="team">Team Statistics</button>'+
       '<button role="tab" type="button" id="gf-tab-players" aria-controls="gf-panel-players" data-gamefile-tab="players">Player Box Score</button></nav>'+
       '<section role="tabpanel" id="gf-panel-summary" aria-labelledby="gf-tab-summary" data-gamefile-panel="summary">'+
+      '<div id="cbb-courtcast-root"></div>'+gamefileStatStrip(g,raw)+
       '<div class="cbb-gamefile-note"><span>'+(g.phase==='live'?'LIVE NOTEBOOK':g.phase==='final'?'FINAL LEDGER':'MATCHUP FILE')+'</span><p>'+
       esc(statEditorial(g)||gameEditorial(g))+'</p></div>'+
-      '<div id="cbb-courtcast-root"></div><div id="cbb-ncaa-pilot-root"></div>'+(periods||missing)+usrsLine(g)+'</section>'+
+      '<div id="cbb-ncaa-pilot-root"></div>'+(periods||'')+usrsLine(g)+'</section>'+
       '<section role="tabpanel" id="gf-panel-team" aria-labelledby="gf-tab-team" data-gamefile-panel="team">'+(team||missing)+'</section>'+
       '<section role="tabpanel" id="gf-panel-players" aria-labelledby="gf-tab-players" data-gamefile-panel="players">'+(playersHTML||missing)+'</section>'+
       '<p class="cbb-provider-link">'+esc(g.source||'Source pending')+
@@ -953,8 +953,8 @@ async function getCourtGames(day){
     const host=document.getElementById('cbb-gamefile-root');if(!host)return;
     const id=here.get('game')||'';
     host.innerHTML='<div class="cbb-gamefile-back"><a href="'+backLink()+'">← RETURN TO THE COURTSIDE DESK</a></div>'+
-      '<div id="cbb-radio-companion-root" aria-label="Official radio listening options"></div>'+
-      '<article id="cbb-detail" class="cbb-gamefile-detail" aria-live="polite"><p class="cbb-loading">Connecting to the game feed…</p></article>';
+      '<article id="cbb-detail" class="cbb-gamefile-detail" aria-live="polite"><p class="cbb-loading">Connecting to the game feed…</p></article>'+
+      '<div id="cbb-radio-companion-root" aria-label="Official radio listening options"></div>';
     host.addEventListener('click',e=>{const button=e.target.closest('[data-gamefile-tab]');if(button)selectGameTab(button.dataset.gamefileTab);});
     if(!/^(?:\d+|ncaa:\d+)$/.test(id)){q('#cbb-detail').innerHTML='<p class="cbb-empty">Choose a matchup from the Courtside Desk to open its Gamefile.</p>';return;}
     let busy=false;

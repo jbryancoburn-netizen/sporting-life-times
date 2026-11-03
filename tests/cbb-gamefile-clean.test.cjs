@@ -1,0 +1,14 @@
+'use strict';
+const fs=require('node:fs'),assert=require('node:assert/strict'),vm=require('node:vm');
+const src=fs.readFileSync('cbb-live-center.js','utf8'),html=fs.readFileSync('cbb-gamefile.html','utf8');
+const css=fs.readFileSync('cbb-gamefile-clean.css','utf8');
+assert.doesNotThrow(()=>new vm.Script(src));
+assert(html.includes('cbb-gamefile-clean.css?v=20261103-rebuild1'));
+assert(html.includes('cbb-live-center.js?v=20261103-gamefile-clean1'));
+assert(!html.includes('cbb-gamefile-mobile-polish.css')&&!html.includes('cbb-broadcast-v2.css'));
+const open=src.slice(src.indexOf('async function openDetails(id)'),src.indexOf('async function openGamefile()'));
+assert(open.indexOf("'<div id=\"cbb-courtcast-root")<open.indexOf("'<div class=\"cbb-gamefile-note"));
+assert(!open.includes('Venue not listed'));
+assert(open.includes("(periods||'')"));
+assert(css.includes('slc-feed')&&css.includes('cbb-gamefile-score'));
+console.log('PASS gamefile opens with real CourtCast ahead of generic notes; no false venue');

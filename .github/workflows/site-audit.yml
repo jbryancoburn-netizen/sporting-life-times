@@ -49,6 +49,8 @@ jobs:
         run: node tests/mbb-poll-logos.test.cjs
       - name: Certify rebuilt NCAA game slate source and layout contracts
         run: node tests/ncaam-slate.test.cjs
+      - name: Certify Gamefile puts sourced CourtCast ahead of commentary
+        run: node tests/cbb-gamefile-clean.test.cjs
       - name: Protect Courtside sourced scorebugs and independent USRS
         run: node tests/cbb-courtside.test.cjs
       - name: Verify radio stays opt-in, unrecorded and broadcaster-approved
