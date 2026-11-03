@@ -30,15 +30,7 @@ test('front page now includes sourced national features and correct field size',
  assert.match(s,/metric\(76,'Experimental scenario field'\)/);
  assert.ok(s.includes('not the official 68-team NCAA'));
 });
-test('slate presents phase groups with two-line school data and source-safe dots',()=>{
- const s=read('ncaam-slate.js');
- assert.match(s,/ON THE FLOOR/);assert.match(s,/COMING UP/);assert.match(s,/FINAL SCORES/);
- assert.match(s,/class="sl-broadcast-secondary"/);
- assert.match(s,/window\.SLTCollegeIndicators\?\.fromGame/);
- assert.match(s,/RECORD '\+esc\(r\)/);
- assert.match(s,/:'—'/);
- assert.doesNotMatch(s,/SL<span class="sl-mark-amp">&<\/span>T/);
-});
+test('single source-backed game slate',()=>{const s=read('ncaam-slate.js');assert.match(s,/ON THE FLOOR/);assert.match(s,/COMING UP/);assert.match(s,/FINAL SCORES/);assert.match(s,/sl-bug-pair/);assert.doesNotMatch(s,/sl-pennant|sl-arena-stage|TO —/);});
 test('live desk and Gamefile have source-identified rows and no italic VS',()=>{
  const s=read('cbb-live-center.js');
  assert.match(s,/COURTSIDE \/ THE LIVE DESK/);
