@@ -222,11 +222,75 @@ def build(fec,historical,county,ballots,geography,politics,polls,compiled=None,u
         "warning":"Compiled latest poll summaries are secondary evidence with samples and sponsorship unverified; historical margins are previous election results, not 2026 probabilities. Redistricted states' 2024 district returns do NOT apply to 2026 geography. Generic ballot surveys, national polls, DDHQ probabilities and candidate filings are never presented as district-specific polling. Missing data remain labeled."
     }
 
+def apply_verified_district_evidence(atlas, finalists, comparisons):
+    """Preserve state-certified 2024 finalists and assess geography per district.
+
+    The source MEDSL extract aggregates same-party candidates into party totals.
+    Neither a second Democrat nor a second Republican is an unopposed contest.
+    A state map revision alone cannot establish a specific numbered district moved.
+    """
+    verified=finalists.get("records",{})
+    boundary=comparisons.get("records",{})
+    if finalists.get("schema_version")!=1 or len(verified)!=7:
+        raise ValueError("Expected seven verified 2024 finalist contests")
+    if comparisons.get("schema_version")!=1 or len(boundary)!=435:
+        raise ValueError("A 435-district map-comparison ledger is mandatory")
+    if {r["id"] for r in atlas["districts"]}!=set(boundary):
+        raise ValueError("Every House district requires a map comparison")
+    for district in atlas["districts"]:
+        rid=district["id"]
+        evidence=boundary[rid]
+        status=evidence.get("status")
+        if status not in ("pending_district_block_comparison","unchanged_state_vintage","verified_same_district_blocks","verified_changed_district_blocks"):
+            raise ValueError("Unknown district geography status "+rid)
+        match=status in ("unchanged_state_vintage","verified_same_district_blocks")
+        if (evidence.get("same_2026_geography") is True)!=match:
+            raise ValueError("District geography match lacks verification "+rid)
+        district["2024_to_2026_geography_comparison"]=status
+        district["2022_to_2024_geography_comparison"]=evidence["comparison_2022_to_2024"]
+        district["2024_to_2026_same_geography_verified"]=match
+        result=district.get("2024_house_result_on_prior_boundaries")
+        if result:
+            result["same_2026_geography"]=match
+            result["geography_comparison_status"]=status
+        official=verified.get(rid)
+        if not official:continue
+        if result is None:raise ValueError("No historical vote tally "+rid)
+        people=official["finalists"]
+        if len(people)!=2 or people[0]["votes"]<people[1]["votes"]:
+            raise ValueError("Finalist ordering incorrect "+rid)
+        if (sum(c["votes"] for c in people if c["party"]=="D")!=result["dem_votes"]
+            or sum(c["votes"] for c in people if c["party"]=="R")!=result["rep_votes"]
+            or result["both_major_parties"]):
+            raise ValueError("Candidate totals mismatch MEDSL party aggregate "+rid)
+        if official["total_votes"]!=sum(c["votes"] for c in people)+official["write_in_votes"]:
+            raise ValueError("Certified 2024 vote totals do not reconcile "+rid)
+        if not official["source_url"].startswith("https://"):
+            raise ValueError("Official election source is missing "+rid)
+        result.update({
+            "finalists":people,"contest_type":official["contest_type"],
+            "write_in_votes":official["write_in_votes"],
+            "total_votes":official["total_votes"],
+            "other_votes":sum(c["votes"] for c in people if c["party"] not in ("D","R"))+official["write_in_votes"],
+            "winner_runner_up_margin_votes":people[0]["votes"]-people[1]["votes"],
+            "candidate_vote_source_url":official["source_url"],
+            "candidate_vote_source_authority":official["source_authority"]
+        })
+    atlas["2024_verified_finalist_contests"]=len(verified)
+    atlas["2024_verified_same_party_finalist_contests"]=sum(x["contest_type"]=="same_party_finalists" for x in verified.values())
+    atlas["2024_to_2026_district_geography_pending_count"]=sum(x["status"]=="pending_district_block_comparison" for x in boundary.values())
+    atlas["source_notes"]["historic_top_two_elections"]="Certified same-party 2024 general election candidates retain individual results and vote margins."
+    atlas["source_notes"]["district_geography_audit"]="One boundary assessment per House district; redraw of a state is not automatic proof its districts changed."
+    atlas["source_notes"]["district_shading"]="2024 House returns are previous-cycle results and are comparable to 2026 only after district-specific geography review."
+    atlas["warning"]="2024 finalists remain on record including same-party races. A revised state map alone does not prove each district changed. Historical votes never become 2026 predictions."
+    return atlas
+
 def main():
     data=build(load("politics-fec-race-index.json"),load("politics-historical-contests.json"),
                load("politics-2024-county-presidential.json"),load("politics-official-ballots.json"),
                load("politics-2026-district-geography.json"),load("politics-data.json"),
                load(POLL_FILE),load("politics-house-polls-compilation.json"),load("politics-2024-unopposed-house.json"))
+    data=apply_verified_district_evidence(data,load("politics-2024-finalist-results.json"),load("politics-district-boundary-comparability.json"))
     OUTPUT.write_text(json.dumps(data,ensure_ascii=False,separators=(",",":"))+"\n",encoding="utf-8")
     print("House atlas:",data["district_count"],"districts,",data["2024_house_results_found"],
           "historical results,",data["2026_official_ballot_offices"],
