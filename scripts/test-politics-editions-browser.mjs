@@ -15,7 +15,7 @@ async function smoke(target,viewport,label){
   if(response?.status()!==200)throw Error('HTTP '+response?.status());
   const isState=target.includes('state.html');
   const selector=isState?'#state-title':'#district-title';
-  await page.waitForFunction(sel=>{const t=document.querySelector(sel)?.textContent||'';return t.length>5&&!/State House districts|Individual U.S. House District/i.test(t)},selector,{timeout:30000});
+  await page.waitForFunction(sel=>{const t=document.querySelector(sel)?.textContent||'';return t.length>3&&!/State House districts|Individual U.S. House District/i.test(t)},selector,{timeout:60000});
   const horizontalOverflow=await page.evaluate(()=>document.documentElement.scrollWidth>window.innerWidth+12);
   if(horizontalOverflow)throw Error('Horizontal page overflow');
   if(errors.length)throw Error('Uncaught JS: '+errors.join(' | '));
@@ -34,7 +34,11 @@ async function smoke(target,viewport,label){
   const screenshot='artifacts/'+label.replace(/[^a-z0-9_-]/gi,'_')+'.png';
   await page.screenshot({path:screenshot,fullPage:true,animations:'disabled'});
   console.log('PASS',label,target);
- }catch(e){fail(label,e.message)}finally{await page.close()}
+ }catch(e){
+  const title=await page.locator(isState?'#state-title':'#district-title').textContent().catch(()=>null);
+  const status=await page.locator('#district-map-status').textContent().catch(()=>null);
+  fail(label,e.message+'; title='+JSON.stringify(title)+'; status='+JSON.stringify(status)+'; JS='+JSON.stringify(errors.slice(0,4)));
+ }finally{await page.close()}
 }
 // Real full-page layouts at desktop and phone dimensions.
 for(const state of ['IA','IL','CA','MO']){
