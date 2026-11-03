@@ -1,0 +1,150 @@
+/* Political Life & Times — District EDITION LOWER HALF v1
+   Single readable newspaper layout shared by all 435 district URLs.
+   The geographic introduction above is intentionally untouched. */
+body[data-house-page="district"] .district-lower-edition{
+ --press-ink:#292621;--press-line:#8f8577;--press-muted:#685f54;--press-paper:#f3ede0;
+ margin:32px 0 40px!important;padding:0!important;background:transparent!important;
+ color:var(--press-ink)!important;font:15px/1.62 'Libre Baskerville',Georgia,serif!important;
+}
+body[data-house-page="district"] .district-lower-edition *,
+body[data-house-page="district"] .district-lower-edition *::before,
+body[data-house-page="district"] .district-lower-edition *::after{box-sizing:border-box}
+body[data-house-page="district"] .district-lower-heading{
+ border-top:4px double var(--press-ink)!important;border-bottom:2px solid var(--press-ink)!important;
+ padding:15px 0 16px!important;margin:0 0 22px!important;text-align:left!important;
+ background:transparent!important;
+}
+body[data-house-page="district"] .district-lower-heading span{
+ font:700 10px/1.4 Inter,Arial,sans-serif!important;letter-spacing:.14em!important;color:#8b4638!important;
+}
+body[data-house-page="district"] .district-lower-heading h2{
+ font:700 clamp(27px,3vw,39px)/1.15 'Bodoni Moda',Georgia,serif!important;
+ letter-spacing:-.018em!important;margin:7px 0!important;color:var(--press-ink)!important;
+}
+body[data-house-page="district"] .district-lower-heading p{
+ font:14px/1.6 'Libre Baskerville',Georgia,serif!important;margin:0!important;color:var(--press-muted)!important;
+}
+/* The news register is a compact column section, not a giant empty feature. */
+body[data-house-page="district"] .district-lower-edition #district-service-desk{
+ background:transparent!important;border:0!important;border-bottom:3px double var(--press-ink)!important;
+ border-radius:0!important;box-shadow:none!important;padding:0 0 17px!important;margin:0 0 22px!important;
+ min-height:0!important;
+}
+body[data-house-page="district"] .district-lower-edition #district-service-desk .desk-frame{
+ display:flex!important;align-items:baseline!important;justify-content:space-between!important;gap:12px!important;
+ border:0!important;padding:0 0 8px!important;margin:0!important;
+}
+body[data-house-page="district"] .district-lower-edition #district-service-desk .desk-frame h2{
+ font:700 clamp(21px,2.2vw,29px)/1.2 'Bodoni Moda',Georgia,serif!important;
+ color:var(--press-ink)!important;letter-spacing:0!important;margin:4px 0!important;
+}
+body[data-house-page="district"] .district-lower-edition #desk-edition-status{font:10px/1.4 Inter,Arial,sans-serif!important;color:var(--press-muted)!important}
+body[data-house-page="district"] .district-lower-edition .desk-switcher{
+ display:flex!important;flex-wrap:wrap!important;gap:0!important;
+ border-top:1px solid var(--press-line)!important;border-bottom:1px solid var(--press-line)!important;
+ margin:0 0 12px!important;background:transparent!important;
+}
+body[data-house-page="district"] .district-lower-edition .desk-switcher button{
+ flex:0 1 auto!important;min-height:37px!important;padding:9px 13px!important;
+ border:0!important;border-right:1px solid var(--press-line)!important;border-radius:0!important;
+ background:transparent!important;color:var(--press-ink)!important;
+ box-shadow:none!important;font:700 10px/1.35 Inter,Arial,sans-serif!important;letter-spacing:0!important;
+}
+body[data-house-page="district"] .district-lower-edition .desk-switcher button[aria-pressed="true"]{
+ background:#e7dfd1!important;text-decoration:underline!important;text-underline-offset:4px!important;
+}
+body[data-house-page="district"] .district-lower-edition .desk-panel:not([hidden]){
+ display:block!important;margin:0!important;padding:0!important;background:transparent!important;
+ border:0!important;box-shadow:none!important;min-height:0!important;
+}
+body[data-house-page="district"] .district-lower-edition .desk-intro{
+ margin:0 0 9px!important;padding:0!important;border:0!important;background:transparent!important;
+}
+body[data-house-page="district"] .district-lower-edition .desk-intro h3{
+ font:700 21px/1.3 'Libre Baskerville',Georgia,serif!important;
+ color:var(--press-ink)!important;margin:3px 0 6px!important;
+}
+body[data-house-page="district"] .district-lower-edition .desk-intro p,
+body[data-house-page="district"] .district-lower-edition .desk-empty{
+ font:13px/1.65 'Libre Baskerville',Georgia,serif!important;max-width:85ch!important;margin:7px 0!important;
+}
+body[data-house-page="district"] .district-lower-edition .desk-attribution{
+ font:10px/1.5 Inter,Arial,sans-serif!important;margin:7px 0!important;color:var(--press-muted)!important;
+}
+body[data-house-page="district"] .district-lower-edition .district-news-empty .desk-intro{display:none!important}
+body[data-house-page="district"] .district-lower-edition .district-news-empty .desk-empty{margin:0 0 5px!important}
+/* Race feature: candidates take two-thirds, analysis one-third, with print separators. */
+body[data-house-page="district"] .district-lower-edition .district-front{
+ padding:0!important;margin:0 0 22px!important;border:0!important;background:transparent!important;
+ border-radius:0!important;box-shadow:none!important;
+}
+body[data-house-page="district"] .district-lower-edition .district-front-banner{
+ padding:14px 0!important;margin:0!important;background:transparent!important;
+ border:0!important;border-bottom:2px solid var(--press-ink)!important;box-shadow:none!important;
+}
+body[data-house-page="district"] .district-lower-edition .front-map-art{display:none!important}
+body[data-house-page="district"] .district-lower-edition .front-title{
+ font:700 clamp(24px,2.5vw,34px)/1.18 'Bodoni Moda',Georgia,serif!important;
+ color:var(--press-ink)!important;margin:6px 0!important;max-width:initial!important;
+}
+body[data-house-page="district"] .district-lower-edition .front-deck{
+ font:14px/1.6 'Libre Baskerville',Georgia,serif!important;color:var(--press-muted)!important;
+}
+body[data-house-page="district"] .district-lower-edition .front-evidence-grid{
+ display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1.8fr)!important;
+ gap:0!important;border-bottom:1px solid var(--press-line)!important;
+}
+body[data-house-page="district"] .district-lower-edition .front-graphics-grid{
+ display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+ gap:0!important;border-bottom:3px double var(--press-ink)!important;
+}
+body[data-house-page="district"] .district-lower-edition :is(.front-lead-read,.front-field,.front-chart,.front-facts){
+ min-width:0!important;padding:18px!important;border:0!important;border-radius:0!important;
+ box-shadow:none!important;background:transparent!important;
+}
+body[data-house-page="district"] .district-lower-edition :is(.front-lead-read,.front-chart){
+ border-right:1px solid var(--press-line)!important;
+}
+body[data-house-page="district"] .district-lower-edition .front-disclaimer{
+ padding:11px 0!important;font:10px/1.6 Inter,Arial,sans-serif!important;
+ background:transparent!important;border:0!important;
+}
+/* Second printed article: community and election history. */
+body[data-house-page="district"] .district-lower-edition .district-dossier{
+ margin:0!important;padding:16px 0!important;background:transparent!important;border:0!important;
+ box-shadow:none!important;
+}
+body[data-house-page="district"] .district-lower-edition .dossier-edition-head{
+ border-top:3px double var(--press-ink)!important;padding:15px 0!important;margin:0!important;
+ background:transparent!important;
+}
+body[data-house-page="district"] .district-lower-edition .dossier-edition-head h2{
+ font:700 clamp(23px,2.5vw,32px)/1.2 'Bodoni Moda',Georgia,serif!important;
+ color:var(--press-ink)!important;margin:6px 0!important;
+}
+body[data-house-page="district"] .district-lower-edition .dossier-main-story{
+ display:grid!important;grid-template-columns:1.25fr 1fr!important;gap:0!important;
+}
+body[data-house-page="district"] .district-lower-edition :is(.dossier-local,.dossier-history){
+ margin:0!important;padding:14px 18px!important;border:0!important;background:transparent!important;
+ box-shadow:none!important;
+}
+body[data-house-page="district"] .district-lower-edition .dossier-local{border-right:1px solid var(--press-line)!important}
+body[data-house-page="district"] .district-lower-edition .district-research-archive{
+ border-top:3px double var(--press-ink)!important;margin:10px 0!important;
+}
+body[data-house-page="district"] .district-lower-edition .district-research-archive>summary{
+ padding:13px 0!important;
+}
+@media(max-width:800px){
+ body[data-house-page="district"] .district-lower-edition .front-evidence-grid,
+ body[data-house-page="district"] .district-lower-edition .front-graphics-grid,
+ body[data-house-page="district"] .district-lower-edition .dossier-main-story{
+ display:block!important;
+ }
+ body[data-house-page="district"] .district-lower-edition :is(.front-lead-read,.front-chart,.dossier-local){
+ border-right:0!important;border-bottom:1px solid var(--press-line)!important;
+ }
+ body[data-house-page="district"] .district-lower-edition .desk-frame{display:block!important}
+ body[data-house-page="district"] .district-lower-edition .desk-switcher button{flex:1 1 130px!important}
+}
