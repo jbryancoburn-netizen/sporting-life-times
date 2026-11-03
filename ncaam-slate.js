@@ -286,6 +286,11 @@ const arenaStage=g=>{
     'VENUE REPORTED BY GAME FEED':'NO VERIFIED GAME VENUE · SCHOOL HOME COURT NOT SUBSTITUTED';
   const link=g.siteSource?'<a href="'+esc(g.siteSource)+
     '" target="_blank" rel="noopener noreferrer">Official game source ↗</a>':'';
+  // Arena File is a separate school profile, never evidence of this game's venue.
+  const schoolHome=homeProfile(g);
+  const schoolProfile=schoolHome&&!venue&&!g.neutral?
+    '<a href="ncaam-arena.html?team='+encodeURIComponent(g.home.id)+
+    '" class="sl-school-arena-link">School arena profile (not the game venue) ↗</a>':'';
   const phase=g.phase==='final'?'FINAL SCORE':g.phase==='live'?'LIVE FROM THE COURT':'THE MATCHUP';
  const homeLabel=mascot(g.home)||g.home.name;
  const awayLabel=mascot(g.away)||g.away.name;
@@ -302,7 +307,7 @@ const arenaStage=g=>{
   '<span class="sl-floor-circle"></span><span class="sl-floor-key"></span></div>'+
   '<span class="sl-arena-spotlight" aria-hidden="true"></span></div>'+
   '<div class="sl-arena-caption"><div><small>'+esc(intro)+'</small>'+
-  '<strong>'+esc(name)+'</strong><span>'+esc(source)+'</span></div>'+link+'</div></div>';
+  '<strong>'+esc(name)+'</strong><span>'+esc(source)+'</span></div>'+link+schoolProfile+'</div></div>';
 };
 const emblem=t=>{
   if(window.MBBLogos?.byESPN&&palette[String(t.id)])
