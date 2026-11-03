@@ -1032,3 +1032,27 @@ body .sl-game .sl-broadcast-status small{font:700 8px/1.05 Georgia,serif!importa
 .sl-game:has(.sl-game-expansion) .sl-game-main{display:none!important}
 .sl-game .sl-broadcast-mark{min-width:0}
 @media(max-width:620px){.sl-game .sl-game-summary{padding:6px}.sl-game .sl-inline-frame{min-height:480px;height:68vh}}
+
+/* SLT letterpress edition: the scorebug IS the card; the complete statistical Gamefile opens on demand. */
+body .sl-game{background:#f5ead5!important;border:1px solid #a38c6c!important;border-top:3px double #382c20!important;box-shadow:none!important}
+body .sl-game:before{width:0!important}
+body .sl-game .sl-game-bar{background:transparent!important;border-bottom:1px solid #bba788!important;padding:7px 10px!important;min-height:0!important}
+body .sl-game .sl-game-time,body .sl-game .sl-location{color:#574833!important}
+body .sl-game .sl-game-summary{padding:8px!important;background:#f5ead5!important}
+body .sl-game .sl-game-summary .sl-broadcast-bug{background:#f4e9d4!important;color:#282019!important;border:3px double #765e3e!important;box-shadow:none!important;min-height:64px!important}
+body .sl-game .sl-game-summary .sl-broadcast-mark{background:#e5d4b3!important;border-right:1px solid #a48a63!important}
+body .sl-game .sl-game-summary .sl-broadcast-mark b{color:#573d29!important;font:800 14px Georgia,serif!important}
+body .sl-game .sl-game-summary .sl-broadcast-mark span{color:#664e2f!important}
+body .sl-game .sl-game-summary .sl-broadcast-pair{background:#f4e9d4!important}
+body .sl-game .sl-game-summary .sl-broadcast-row{background:#f4e9d4!important;color:#292019!important;border-bottom:1px solid #c2ae8c!important}
+body .sl-game .sl-game-summary .sl-broadcast-name{color:#31271c!important;font:700 12px Georgia,serif!important}
+body .sl-game .sl-game-summary .sl-broadcast-points{color:#231a12!important;font:800 20px Georgia,serif!important}
+body .sl-game .sl-game-summary .sl-broadcast-status{background:#e8d8b9!important;border-left:1px solid #a48a63!important}
+body .sl-game .sl-game-summary .sl-broadcast-status strong{color:#493124!important;font:800 12px Georgia,serif!important}
+body .sl-game .sl-game-summary .sl-broadcast-status small{color:#6f5538!important}
+body .sl-game .sl-game-summary:after{color:#725631!important;letter-spacing:.1em}
+body .sl-game .sl-game-summary:hover{background:#e9dbc0!important}
+body .sl-game .sl-game-expansion[open]>.sl-game-summary{background:#e9dbc0!important}
+body .sl-game .sl-inline-gamefile{background:#f5ead5}
+body .sl-game .sl-game-expanded .sl-game-editorial{display:block}
+@media(max-width:620px){body .sl-game .sl-game-summary .sl-broadcast-name{font-size:10px!important}body .sl-game .sl-game-summary .sl-broadcast-points{font-size:18px!important}}
