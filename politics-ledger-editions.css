@@ -141,3 +141,42 @@ body[data-house-page="state"] .ledger-map-controls{display:flex;flex-wrap:wrap;g
 body[data-house-page="state"] .ledger-map-mode{border:1px solid var(--ledger-rule);background:transparent;color:var(--ledger-ink);border-radius:0;padding:10px 18px;cursor:pointer;font:600 12px var(--ledger-sans);letter-spacing:.035em}
 body[data-house-page="state"] .ledger-map-mode[aria-pressed="true"]{background:var(--ledger-ink);color:var(--ledger-paper);border-color:var(--ledger-ink)}
 body[data-house-page="state"] .ledger-map-explanation{font:13px/1.6 var(--ledger-serif);color:var(--ledger-muted);max-width:80ch;margin:5px 0 12px}
+
+/* ATLAS-FIRST LAYOUT · shared by all fifty state and 435 district editions */
+body[data-house-page="state"] .state-graphic-hero{padding:22px 32px!important;min-height:0!important;margin-block:12px!important}
+body[data-house-page="state"] .state-lead-grid{grid-template-columns:minmax(0,1.55fr) minmax(220px,.75fr);gap:25px}
+body[data-house-page="state"] .state-edition h2{font:700 clamp(24px,3vw,38px)/1.12 var(--ledger-serif)}
+body[data-house-page="state"] .state-feature-map{padding:26px 32px 22px!important;margin:10px 0 20px!important;position:relative}
+body[data-house-page="state"] .state-feature-map .section-heading{display:flex;justify-content:space-between;align-items:end;gap:20px;border-bottom:2px solid var(--ledger-ink);padding-bottom:14px;margin-bottom:17px}
+body[data-house-page="state"] .state-feature-map .section-heading h3{font:700 clamp(28px,3.6vw,46px)/1.05 var(--ledger-display);margin:3px 0 0}
+body[data-house-page="state"] .ledger-atlas-kicker{font:700 11px var(--ledger-sans);color:var(--ledger-accent);letter-spacing:.15em}
+body[data-house-page="state"] .state-feature-map .section-heading p{font:14px/1.45 var(--ledger-serif);max-width:36ch;margin:0;color:var(--ledger-muted)}
+body[data-house-page="state"] .geo-district-map{height:610px!important;min-height:480px!important;outline:1px solid #c1b3a0;outline-offset:0}
+body[data-house-page="state"] .map-actions{display:flex;flex-wrap:wrap;align-items:end;gap:10px 18px;margin:13px 0}
+body[data-house-page="state"] .map-actions label{font:700 11px var(--ledger-sans);letter-spacing:.045em}
+body[data-house-page="state"] .map-actions select,body[data-house-page="state"] .map-actions button{border:1px solid var(--ledger-rule);border-radius:0;background:var(--ledger-paper);color:var(--ledger-ink);min-height:40px}
+body[data-house-page="state"] .state-editorial-briefing,
+body[data-house-page="state"] .race-wire,
+body[data-house-page="state"] .state-news-board{border-top:2px solid var(--ledger-ink);margin-top:22px}
+body[data-house-page="state"] .state-editorial-briefing h2,
+body[data-house-page="state"] .race-wire h2{font-family:var(--ledger-display)!important;font-size:clamp(25px,3vw,39px)!important}
+body[data-house-page="district"] .district-overview{padding:25px 30px!important;margin-top:15px!important}
+body[data-house-page="district"] .district-overview-head{border-bottom:2px solid var(--ledger-ink);padding-bottom:20px}
+body[data-house-page="district"] .district-overview-title,body[data-house-page="district"] #district-overview-title{font:700 clamp(27px,3.3vw,44px)/1.1 var(--ledger-display)!important}
+body[data-house-page="district"] .dossier-place-grid{display:grid!important;grid-template-columns:minmax(0,1.75fr) minmax(245px,.75fr)!important;gap:24px!important;align-items:start}
+body[data-house-page="district"] .dossier-map-panel{min-width:0;padding:18px!important}
+body[data-house-page="district"] #dossier-map{height:525px!important;min-height:420px!important}
+body[data-house-page="district"] .dossier-map-panel h3{font:700 29px/1.15 var(--ledger-display);margin:8px 0 12px}
+body[data-house-page="district"] .dossier-map-panel p{line-height:1.7}
+body[data-house-page="district"] .dossier-people{min-width:0;border-left:1px solid var(--ledger-rule);padding-left:22px}
+body[data-house-page="district"] .geo-story-detail-wrap{border-block:2px solid var(--ledger-rule);background:transparent!important}
+body[data-house-page="state"] .paper>footer,
+body[data-house-page="district"] .paper>footer{border-top:4px double var(--ledger-ink);padding-top:18px;margin-top:32px}
+@media(max-width:850px){
+ body[data-house-page="state"] .state-lead-grid,body[data-house-page="district"] .dossier-place-grid{grid-template-columns:minmax(0,1fr)!important}
+ body[data-house-page="state"] .state-feature-map{padding:14px!important}
+ body[data-house-page="state"] .state-feature-map .section-heading{align-items:start;flex-direction:column}
+ body[data-house-page="district"] .dossier-people{border-left:0;border-top:1px solid var(--ledger-rule);padding:16px 0 0}
+ body[data-house-page="state"] .geo-district-map{height:440px!important;min-height:400px!important}
+ body[data-house-page="district"] #dossier-map{height:440px!important;min-height:390px!important}
+}
