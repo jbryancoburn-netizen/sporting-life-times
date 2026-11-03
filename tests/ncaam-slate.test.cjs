@@ -63,3 +63,15 @@ assert.equal(slate.courtLocation({...opponent,kind:'exhibition'},official),null)
 assert(script.includes('data/mbb-slate-game-sites-2026-27.json'));
 assert(script.includes('sl-site-arena')&&script.includes('sl-site-city'));
 assert(css.includes('.sl-site-arena')&&css.includes('.sl-site-city'));
+
+const venueEvent=(name,city,state)=>({id:'401906848',date:'2026-11-03T23:00:00Z',
+ status:{type:{state:'pre'}},competitions:[{venue:{fullName:name,address:{city,state}},
+ competitors:[{homeAway:'away',team:{id:'2747'}},{homeAway:'home',team:{id:'2633'}}]}]});
+const matched=slate.applyESPNToSlate([{...opponent,phase:'upcoming'}],
+ {events:[venueEvent('Food City Center','Knoxville','TN')]},'2026-11-03',official);
+assert.equal(matched.games[0].venueCity,'Knoxville, TN');
+assert.equal(matched.games[0].venue,'');
+const contradicted=slate.applyESPNToSlate([{...opponent,phase:'upcoming'}],
+ {events:[venueEvent('Wrong Venue','Wrong City','ZZ')]},'2026-11-03',official);
+assert.equal(contradicted.games[0].venueCity,'');
+assert(script.includes("'data/mbb-slate-game-sites-2026-27.json']);"),'cache game-site index');

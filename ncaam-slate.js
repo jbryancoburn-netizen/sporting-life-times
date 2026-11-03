@@ -177,7 +177,7 @@ function selectGames(all,day,view,query,followed){
  * Exact ESPN event ID, exact away/home school IDs and Eastern date are required.
  * It can confirm time/status; it never changes RETRO, game IDs or a certified final.
  */
-function applyESPNToSlate(games,payload,selectedDate){
+function applyESPNToSlate(games,payload,selectedDate,siteIndex){
  const events=Array.isArray(payload?.events)?payload.events:[];
  const byId=new Map(events.map(e=>[String(e?.id||''),e]));
  let changes=0;
@@ -194,6 +194,25 @@ function applyESPNToSlate(games,payload,selectedDate){
   if(!['pre','in','post'].includes(state))return g;
   const next={...g,away:{...g.away},home:{...g.home}};
   let changed=false;
+  // A game-specific ESPN listing can add an exact city without guessing the
+  // school's home court. Official matchup venues retain priority.
+  const verifiedSite=courtLocation(g,siteIndex);
+  const espnVenue=competition?.venue;
+  const espnName=typeof espnVenue?.fullName==='string'?espnVenue.fullName.trim():'';
+  const espnCity=String(espnVenue?.address?.city||'').trim();
+  const espnState=String(espnVenue?.address?.state||'').trim();
+  const matching=!verifiedSite?.arena||!espnName||
+    verifiedSite.arena.toLowerCase().replace(/[^a-z0-9]/g,'')===
+    espnName.toLowerCase().replace(/[^a-z0-9]/g,'');
+  if(matching&&(!verifiedSite||!verifiedSite.arena)&&!g.venue&&espnName){
+    next.venue=espnName;changed=true;
+  }
+  if(matching&&!g.venueCity&&espnCity){
+    next.venueCity=[espnCity,espnState].filter(Boolean).join(', ');changed=true;
+  }
+  if(espnVenue?.neutralSite===true&&!g.neutral){
+    next.neutral=true;changed=true;
+  }
   // A calendar timestamp becomes trusted only after exact matchup confirmation.
   if(!g.timed&&g.phase==='upcoming'){
    next.date=event.date;next.timed=true;
@@ -237,7 +256,8 @@ try{followed=new Set(JSON.parse(localStorage.getItem(favoriteKey)||'[]').map(Str
 // page session; do not re-download them on every 90-second scoreboard tick.
 const staticData=new Map();
 const staticPaths=new Set(['data/ncaam-2026-27-espn-team-crosswalk.json',
-  'data/dual-ring-team-palette.json','data/mbb-arena-registry.json','data/mbb-verified-game-sites-2026-27.json']);
+  'data/dual-ring-team-palette.json','data/mbb-arena-registry.json','data/mbb-verified-game-sites-2026-27.json',
+  'data/mbb-slate-game-sites-2026-27.json']);
 const fetchJSON=async path=>{
  if(staticPaths.has(path)&&staticData.has(path))return staticData.get(path);
  const c=new AbortController(),tm=setTimeout(()=>c.abort(),14000);
@@ -408,7 +428,7 @@ async function checkESPN(){
     '/scoreboard?dates='+selected.replaceAll('-','')+'&groups=50&limit=1000';
   const r=await fetch(url,{cache:'no-store',signal:controller.signal});
   if(!r.ok)return;
-  const checked=selected,received=applyESPNToSlate(loaded,await r.json(),selected);
+  const checked=selected,received=applyESPNToSlate(loaded,await r.json(),selected,gameSites);
   // Guard selection changes while the browser request is in flight.
   if(checked!==selected)return;
   loaded=received.games;
