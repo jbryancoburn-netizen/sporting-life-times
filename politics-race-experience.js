@@ -63,7 +63,7 @@ function story(r){
  }else if(p){
   headline=r.id+": a reported "+dec(Math.abs(pm))+"-point poll gap, with questions to answer.";
   sub="A "+pLabel+" dated "+reported+" reports "+(pm===0?"a tied Democratic–Republican race":nameD(pm>0?"D":"R").toLowerCase()+" "+dec(Math.abs(pm))+" points ahead")+".";
-  importance=geo==="pending_district_block_comparison"?"The state changed its map, but this district has not been individually compared.":geo==="verified_changed_district_blocks"?"A verified district-level Census-block change separates the 2024 and 2026 geographies.":"No comparable two-party margin is available."
+  importance=geo==="pending_district_block_comparison"?"The state changed its map, but this district has not been individually compared.":geo==="verified_changed_district_blocks"?"A verified district-level Census-block change separates the 2024 and 2026 geographies.":"No comparable two-party margin is available.";
  }else if(h){
   if(diff<1000)headline="Only "+fmt(diff)+" votes separated the major parties last time.";
   else if(Math.abs(hm)<5)headline="The last House vote was decided by "+dec(Math.abs(hm))+" points.";
@@ -80,7 +80,7 @@ function story(r){
     (geo==="pending_district_block_comparison"?"2026 district lines have not been individually assessed.":
       geo==="verified_changed_district_blocks"?"This district's 2026 boundaries differ from 2024.":"District geography was unchanged.");
  }else{
-  headline=geo==="pending_district_block_comparison"?r.id+": district comparison pending.":geo==="verified_changed_district_blocks"?r.id+": confirmed new district boundaries.":r.id+": new 2026 lines, old results cannot compare.":r.id+": the contest needs more direct election evidence.";
+  headline=geo==="pending_district_block_comparison"?r.id+": district comparison pending.":geo==="verified_changed_district_blocks"?r.id+": confirmed new district boundaries.":r.id+": the contest needs more direct election evidence.";
   sub=n?"An official 2026 candidate list is present. A usable current poll and comparable two-party historical vote margin are not both available.":"The newsroom is still checking current candidates and directly usable district election measurements.";
   importance="The absence of data should not be colored as a tie, a toss-up or a predicted winner.";
  }
@@ -98,7 +98,7 @@ function story(r){
   if(d&&g)sub+=" The election-office list names "+d.name+" (D) and "+g.name+" (R) for 2026.";
  }
  const official=r.official_2026_candidate_snapshot?.candidates||[];
- if(!p&&!h&&official.length){
+ if(!p&&!h&&!finalists.length&&official.length){
   const pair=official.filter(c=>c.party==="DEM"||c.party==="REP");
   if(pair.length===2)sub="State-listed 2026 candidates "+pair.map(c=>c.name).join(" and ")+" face voters in "+r.id+". This desk has not verified a current named-candidate poll or comparable two-party 2024 margin.";
   else sub="The state election office lists "+official.length+" official 2026 ballot contender"+(official.length===1?"":"s")+" in "+r.id+". This is a candidate snapshot, not a race projection.";
