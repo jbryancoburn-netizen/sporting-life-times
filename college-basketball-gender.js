@@ -1,6 +1,8 @@
 /* Shared men's/women's College Basketball Edition. Women's records stay isolated. */
 (function () {
   'use strict';
+  // The data provider stays traceable in the ingestion audit, but the page is provider-neutral.
+  const sourceLabel=s=>String(s||'').replace(/\bESPN\b/gi,'secondary feed');
   const params=new URLSearchParams(location.search);
   const women=params.get('gender')==='women';
   const file=location.pathname.split('/').pop()||'ncaam.html';
@@ -88,7 +90,7 @@
        (siteClaims.length?'<div class="wbb-game-detail wbb-site-dispute">'+
         esc(window.WBBSiteIntegrity.note(siteClaims))+
         (siteSource?' <a href="'+safe(siteSource)+'" target="_blank" rel="noopener noreferrer">University source ↗</a>':'')+'</div>':'')+
-       '<div class="wbb-game-detail">'+esc(g.source||'Published season calendar; live source not confirmed')+'</div>'+
+       '<div class="wbb-game-detail">'+esc(sourceLabel(g.source||'Published season calendar; live source not confirmed'))+'</div>'+
        (g.tipoff_disputed?'<div class="wbb-game-detail wbb-tipoff-dispute">University or organizer tipoff disagreement; start time is not confirmed.</div>':'')+(g.source_conflict?'<div class="wbb-game-detail">Provider conflict: score withheld until reconciled.</div>':'')+
        (gamefile?'<a class="wbb-gamecast-link" href="'+esc(gamefile)+'">Gamecast &amp; box score →</a>':'')+
        '<a class="wbb-game-source" href="'+safe(/^\d+$/.test(String(g.espn_id||g.id))?'https://www.espn.com/womens-college-basketball/game/_/gameId/'+encodeURIComponent(g.espn_id||g.id):'https://www.ncaa.com/scoreboard/basketball-women/d1')+'" target="_blank" rel="noopener noreferrer">Source details ↗</a></article>';
@@ -284,7 +286,7 @@
       document.getElementById('wbb-score-stamp').textContent='Scoreboard checked '+fmt(new Date())+
         ' · '+live.size+' games today · '+ncaaMatched+' NCAA-origin crosschecks'+
         (disputed?' · '+disputed+' disputed scores withheld':'')+
-        ' · ESPN secondary; season calendar '+games.size.toLocaleString()+' games';
+        ' · secondary scoreboard; season calendar '+games.size.toLocaleString()+' games';
     }else{
       live=new Map();drawGames();
       document.getElementById('wbb-score-stamp').textContent=
