@@ -17,11 +17,11 @@ function fact(label,value,detail,href){
  node.append(E("span",label,"ig-fact-label"),E("strong",value,"ig-fact-value"),E("p",detail,"ig-fact-detail"));
  if(href)node.append(L("SOURCE ↗",href));return node;
 }
-function glance(atlas,census,guide,ledger,id){
+function glance(atlas,census,guide,ledger,id,communities){
  const host=$("district-glance");if(!host)return;
  const district=atlas?.districts?.find(x=>x.id===id);if(!district)return;
- const h=district["2024_house_result_on_prior_boundaries"],extra=guide?.districts?.[id],acs=census?.districts?.find(x=>x.id===id),desk=ledger?.districts?.[id];
- const factual=h?.both_major_parties===true&&h.same_2026_geography===true&&
+ const h=district["2024_house_result_on_prior_boundaries"],extra=guide?.districts?.[id],acs=census?.districts?.find(x=>x.id===id),desk=ledger?.districts?.[id],local=communities?.districts?.[id];
+ const factual=h?.both_major_parties===true&&
   Number.isFinite(h.dem_votes)&&Number.isFinite(h.rep_votes);
  const counties=extra?.counties?.length;const polls=desk?.polls||district.district_specific_2026_polls||[];
  host.replaceChildren();
@@ -30,11 +30,22 @@ function glance(atlas,census,guide,ledger,id){
   E("span","Each statistic has its own source and vintage. These are not forecasts."));
  host.append(title);
  const rail=E("div",null,"ig-fact-rail");
- rail.append(fact("LAST HOUSE ELECTION",factual?
-    ((h.rep_votes>h.dem_votes?"R":"D")+" +"+fmt(Math.abs(h.rep_votes-h.dem_votes))):"Not comparable",
-   factual?"2024 actual two-party vote gap":"Prior district map differs or result unverified",validUrl(h?.source_url)?h.source_url:null));
- rail.append(fact("COUNTIES",Number.isInteger(counties)&&counties>0?String(counties):"Not certified",
-  Number.isInteger(counties)&&counties>0?"Only sourced county lists appear here":"Visit the official Census map","#district-overview"));
+ const geo=district["2024_to_2026_geography_comparison"];
+ const vintage=geo==="verified_changed_district_blocks"?"2026 boundary assignments changed; 2024 votes remain historical":
+   geo==="pending_district_block_comparison"?"2026 district map match pending; 2024 votes remain historical":
+   "2024 actual votes · prior election, not 2026 outcome";
+ const finalist=h?.finalists?.length===2;
+ const observed=finalist?h.finalists[0].name+" over "+h.finalists[1].name:
+   factual?(h.rep_votes>h.dem_votes?"R":"D")+" +"+fmt(Math.abs(h.rep_votes-h.dem_votes)):
+   h?h.winner+" (no valid D/R margin)":"Not available";
+ rail.append(fact("2024 HOUSE RESULT",observed,
+   finalist?fmt(h.winner_runner_up_margin_votes)+"-vote candidate gap · "+vintage:vintage,
+   validUrl(h?.candidate_vote_source_url||h?.source_url)?h.candidate_vote_source_url||h.source_url:null));
+ const pointCount=local?.verified_place_point_count||0;
+ rail.append(fact(counties?"VERIFIED COUNTIES":"MAPPED LOCALITIES",
+   counties?fmt(counties):pointCount?fmt(pointCount):local?.neighborhoods?.length?fmt(local.neighborhoods.length):"Not certified",
+   counties?"Original-source county list":"2026 Census place reference points, not complete municipal territory",
+   counties?"#district-overview":communities?.census_gazetteer_url||"#district-overview"));
  rail.append(fact("RESIDENTS / ACS",Number.isFinite(acs?.population_2020_2024_acs_est)?fmt(acs.population_2020_2024_acs_est):"Not available",
   "2020–24 Census ACS estimate · older 119th-district geography",census?.source_url||null));
  rail.append(fact("MEDIAN HOUSEHOLD INCOME",Number.isFinite(acs?.median_household_income_est)?"$"+fmt(acs.median_household_income_est):"Not available",
@@ -178,9 +189,9 @@ async function initGlance(){
  const id=(new URLSearchParams(location.search).get("district")||"").trim().toUpperCase();
  if(!/^[A-Z]{2}-\d{2}$/.test(id)||!$("district-glance"))return;
  try{
-  const names=["politics-house-atlas.json","politics-census-inputs.json","politics-district-guide.json","data/politics-district-desk.json"];
+  const names=["politics-house-atlas.json","politics-census-inputs.json","politics-district-guide.json","data/politics-district-desk.json","data/politics-district-communities.json"];
   const parts=await Promise.all(names.map(async name=>{const r=await fetch(name,{cache:"no-cache"});return r.ok?r.json():null}));
-  glance(parts[0],parts[1],parts[2],parts[3],id);
+  glance(parts[0],parts[1],parts[2],parts[3],id,parts[4]);
  }catch(e){$("district-glance").append(E("p","Source summary unavailable. The district guide and original records remain accessible below.","ig-source"));}
 }
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initGlance);else initGlance();
