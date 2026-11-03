@@ -4,8 +4,8 @@ const script=fs.readFileSync('ncaam-slate.js','utf8'),css=fs.readFileSync('ncaam
 const slate=require('../ncaam-slate.js'),json=p=>JSON.parse(fs.readFileSync(p,'utf8'));
 assert.doesNotThrow(()=>new vm.Script(script));
 for(const id of ['slate-root','sl-prev','sl-next','sl-picker','sl-games','sl-search','sl-filters','sl-more','sl-reload','sl-women','sl-men','sl-count'])assert(html.includes('id="'+id+'"'),id);
-assert(html.includes('ncaam-slate.js?v=20261103-rebuilt-court1'));
-assert(html.includes('ncaam-slate.css?v=20261103-rebuilt-court1'));
+assert(html.includes('ncaam-slate.js?v=20261103-slate-compact2'));
+assert(html.includes('ncaam-slate.css?v=20261103-slate-compact2'));
 assert(!html.includes('cbb-broadcast-v2.css')&&!html.includes('ncaam-mobile-scoreboard.css'));
 assert(script.includes('function card(g,featured)')&&script.includes('sl-bug-pair'));
 assert(!script.includes('sl-arena-stage')&&!script.includes('sl-pennant')&&!script.includes('TO — · CH —'));
@@ -23,3 +23,9 @@ console.log('PASS new source-backed court UI, no theatrical arena/pennant placeh
 
 // Independent official game-site certification stays in the release gate.
 require('./mbb-verified-game-sites.test.cjs');
+
+assert(!html.includes('cbb-product-v1.css')&&!html.includes('ncaam-slate-mobile-legibility.css'));
+assert(html.includes('class="sl-masthead masthead"'), 'brand globe must initialize on the slate masthead');
+assert(!html.includes('class="sl-hero"'), 'scoreboard must appear without a decorative 135px hero');
+assert(css.includes('.sl-day-picker input[type=date]')&&css.includes('opacity:0!important'),'native iOS month text must not leak into date');
+assert(script.includes("weekday:'short',month:'short'"), 'abbreviated mobile date required');
