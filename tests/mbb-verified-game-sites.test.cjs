@@ -44,6 +44,16 @@ const empty={games:[]};
 const good=slate.normalizeMen(sample,empty,cross,sites)[0];
 assert(good.neutral&&good.venue==='Benchmark International Arena');
 assert.equal(good.away.score,67);assert.equal(good.home.score,77);
+// A neutral match may not inherit a home-advantage forecast made without
+// a sourced neutral-court correction; leave the probability unpublished.
+const incoming={games:[{...sample.games[0],state:'pre',teams:sample.games[0].teams.map(t=>({...t,score:''}))}]};
+const sched={games:[{id:'espn:401906769',date:'2026-11-02',
+ away_id:'ncaa:609667',home_id:'ncaa:609734',home_win_probability:.83}]};
+const unproven=slate.normalizeMen(incoming,sched,cross,{games:[]})[0];
+assert.equal(unproven.probability,.83,'fixture forecast setup should be valid');
+const neutralForecast=slate.normalizeMen(incoming,sched,cross,sites)[0];
+assert.equal(neutralForecast.neutral,true);
+assert.equal(neutralForecast.probability,null,'neutral-site probability requires a neutral model');
 for(const changed of [{...miami,home_id:'9999'},{...miami,date:'2026-11-03'},
                        {...miami,site_verified:false},{...miami,source:'unverified'}]){
  const invalid=slate.normalizeMen(sample,empty,cross,{games:{'401906769':changed}})[0];
