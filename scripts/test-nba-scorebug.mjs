@@ -24,3 +24,11 @@ assert.throws(()=>render({mode:'live',away,home,projected:true}),/cannot display
 assert.throws(()=>render({mode:'upcoming',away,home,awayScore:100}),/projected=true/);
 assert.throws(()=>render({mode:'final',away,home:away,awayScore:100,homeScore:98}),/must differ/);
 console.log('PASS: away/home order, finals, live, upcoming, projected scores, invalid-score guards');
+
+const noImage=render({mode:'final',away:{code:'IND',name:'Indiana Pacers'},home:{code:'NYK',name:'New York Knicks'},awayScore:99,homeScore:101});
+assert.match(noImage,/assets\/nba-logos\/IND\.png/);
+assert.match(noImage,/<img class="slt-nba-team-logo"/);
+assert(!noImage.includes("const logo="));
+assert(noImage.includes('slt-scorebug-id'));
+const unsafe=render({mode:'live',away:{code:'IND',name:'Indiana',logo:'x" onerror="alert(1)'},home:{code:'NYK',name:'New York Knicks'},awayScore:10,homeScore:9});
+assert(!unsafe.includes('alert(1)'));

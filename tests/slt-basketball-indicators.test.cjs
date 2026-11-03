@@ -1,0 +1,12 @@
+const assert=require('node:assert/strict');const {fromGame,render}=require('../slt-basketball-indicators.js');
+const g={phase:'live',alternatingPossessionTeamId:'20'};const team={team:{id:'20'},timeoutsRemaining:3,timeoutsTotal:4,challengesRemaining:1,challengesTotal:1,teamFouls:6,bonusStatus:'single'};
+const a=fromGame(g,team,null);assert.deepEqual(a.timeouts,{remaining:3,total:4});assert.deepEqual(a.challenges,{remaining:1,total:1});assert.equal(a.fouls,6);assert.equal(a.bonus,'1 & 1');assert.equal(a.possession,true);
+const html=render(a);assert.match(html,/Timeouts 3 of 4 remaining/);assert.match(html,/Coach challenges 1 of 1 remaining/);assert.equal((html.match(/class="slt-cbb-dot is-remaining"/g)||[]).length,4);
+const unknown=fromGame({phase:'live',alternatingPossessionTeamId:'99'}, {team:{id:'20'},timeoutsRemaining:3},null);assert.equal(unknown.timeouts,null);assert.equal(unknown.challenges,null);assert.equal(unknown.fouls,null);assert.equal(unknown.possession,false);assert.match(render(unknown),/not reported/);
+const final=fromGame({phase:'final'},team,null);assert.equal(final.timeouts,null);assert.equal(final.challenges,null);assert.equal(final.fouls,null);
+const stale=fromGame(g,{team:{id:'20'}},{boxscore:{},header:{competitions:[{competitors:[{team:{id:'20'},timeoutsRemaining:1,timeoutsTotal:4,teamFouls:9}]}]}},{summaryAgeMs:150000});assert.equal(stale.timeouts,null);
+const sourced=fromGame(g,{team:{id:'20'}},{boxscore:{},header:{competitions:[{competitors:[{team:{id:'20'},timeoutsRemaining:1,timeoutsTotal:4,challengesRemaining:0,challengesTotal:1,teamFouls:9}]}]}},{summaryAgeMs:2000});assert.equal(sourced.timeouts.remaining,1);assert.equal(sourced.fouls,9);
+const other=fromGame(g,{team:{id:'21'}},{boxscore:{},header:{competitions:[{competitors:[{team:{id:'20'},teamFouls:9}]}]}},{summaryAgeMs:2000});assert.equal(other.fouls,null);assert.equal(other.possession,false);
+assert.equal(fromGame(g,{team:{id:'20'},timeoutsRemaining:5,timeoutsTotal:4},null).timeouts,null);
+assert.ok(!render({bonus:'<script>alert(1)</script>'}).includes('<script>'));
+console.log('SLT basketball indicator tests pass: real dots, absent source, stale data, arrow targeting, and score integrity');

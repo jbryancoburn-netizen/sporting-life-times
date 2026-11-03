@@ -111,20 +111,30 @@
     if(/^[a-f\d]{6}$/i.test(raw)&&raw.toLowerCase()!=='ffffff')return '#'+raw;
     return branded?.primary||'#294650';
   };
-  function row(t,phase,winning,gamefile=false){
+  function row(t,phase,winning,gamefile=false,g=null){
     const s=phase==='upcoming'?'—':score(t)??'—';
     const link=schoolLink(t),rating=gamefile?teamRating(t):null;
     const record=rating&&Number.isInteger(Number(rating.wins))&&Number.isInteger(Number(rating.losses))?
       Number(rating.wins)+'–'+Number(rating.losses):'';
     const elo=rating&&Number.isFinite(Number(rating.elo))?'USRS '+Math.round(Number(rating.elo)):'';
     const context=gamefile?[record,elo].filter(Boolean).join(' · '):'';
+    const publishedRecord=!gamefile&&Array.isArray(t?.records)?
+      (t.records.find(x=>x?.type==='total'||x?.type==='overall')||t.records[0])?.summary:'';
+    const officialRecord=/^\d{1,3}[-–]\d{1,3}$/.test(String(publishedRecord||''))?String(publishedRecord):'';
     const identity='<span class="cbb-team-identity">'+crest(t)+
       '<span class="cbb-name"><b class="cbb-school-label">'+esc(schoolLabel(t))+(apRank(t)?'<i class="cbb-ap-rank">AP '+esc(apRank(t))+'</i>':'')+'</b>'+
       (mascotLabel(t)?'<small class="cbb-school-mascot">'+esc(mascotLabel(t))+'</small>':'')+
-      (context?'<span class="cbb-team-context">'+esc(context)+'</span>':'')+'</span></span>';
+      (context?'<span class="cbb-team-context">'+esc(context)+'</span>':'')+
+      (officialRecord?'<small class="slt-cbb-record">'+esc(officialRecord)+'</small>':'')+'</span></span>';
     return '<div class="cbb-scorebug-row'+(winning?' cbb-winner':'')+'" data-team-side="'+esc(t.homeAway||'')+'">'+
       '<span class="cbb-team-side">'+esc(code(t))+'</span>'+
+      '<span class="slt-cbb-team-stack">'+
       (link?'<a href="'+link+'" class="cbb-team-link">'+identity+'</a>':identity)+
+      '<span class="slt-cbb-info" data-cbb-indicators="'+esc(t?.team?.id||'')+'">'+
+      (window.SLTCollegeIndicators?
+        window.SLTCollegeIndicators.render(window.SLTCollegeIndicators.fromGame(g,t,
+          state.summaryCache.get(g?.id)?.data,{summaryAgeMs:Date.now()-(state.summaryCache.get(g?.id)?.at||0)})):
+        '<span class="slt-cbb-unavailable">TO — · CH — · FOULS —</span>')+'</span></span>'+
       '<strong class="cbb-points" aria-label="'+esc(teamName(t))+' score">'+esc(s)+'</strong></div>';
   }
   function summaryStats(g){
@@ -349,9 +359,9 @@
       '<span class="cbb-model-inline">USRS: '+esc(code(model.probability>.5?g.home:g.away))+' '+
       Math.round(Math.max(model.probability,1-model.probability)*100)+'% pregame</span>':'';
     return '<article class="cbb-game-card cbb-'+g.phase+'" data-cbb-game="'+esc(g.id)+'" style="--cbb-away:'+safeTeamColor(g.away)+';--cbb-home:'+safeTeamColor(g.home)+'">'+
-      '<div class="cbb-bug-top"><span>'+currentView(g)+'</span><span class="cbb-bug-network">'+
+      '<div class="cbb-bug-top"><span><b class="slt-cbb-signature" aria-label="Sporting Life and Times">SLT</b>'+currentView(g)+'</span><span class="cbb-bug-network">'+
       esc(g.broadcast||'')+'</span></div>'+
-      '<div class="cbb-match-rows">'+row(g.away,g.phase,winner&&as>hs)+row(g.home,g.phase,winner&&hs>as)+'</div>'+
+      '<div class="cbb-match-rows">'+row(g.away,g.phase,winner&&as>hs,false,g)+row(g.home,g.phase,winner&&hs>as,false,g)+'</div>'+
       (details?'<div class="cbb-preview" id="cbb-preview-'+esc(g.id)+'">'+details+'</div>':
         '<div class="cbb-preview cbb-preview-empty" id="cbb-preview-'+esc(g.id)+'"></div>')+
       '<div class="cbb-bug-bottom"><span>'+esc(g.venue||localDate(g.date))+'</span>'+prob+
@@ -364,6 +374,16 @@
     const target=document.getElementById('cbb-preview-'+g.id);
     if(!target)return;
     const result=summaryStats(g);
+    if(window.SLTCollegeIndicators){
+      const host=document.querySelector('[data-cbb-game="'+String(g.id).replace(/[^\d]/g,'')+'"]');
+      if(host)for(const t of [g.away,g.home]){
+        const selector='[data-cbb-indicators="'+String(t?.team?.id||'').replace(/[^\d]/g,'')+'"]';
+        const node=host.querySelector(selector);
+        if(node)node.innerHTML=window.SLTCollegeIndicators.render(
+          window.SLTCollegeIndicators.fromGame(g,t,state.summaryCache.get(g.id)?.data,
+            {summaryAgeMs:Date.now()-(state.summaryCache.get(g.id)?.at||0)}));
+      }
+    }
     if(result){target.innerHTML=result;target.classList.remove('cbb-preview-empty');}
     else{target.innerHTML='';target.classList.add('cbb-preview-empty');}
 
@@ -875,7 +895,7 @@
     node.innerHTML='<header class="cbb-gamefile-hero" style="--cbb-away:'+safeTeamColor(g.away)+';--cbb-home:'+safeTeamColor(g.home)+'"><div class="cbb-gamefile-eyebrow">THE SPORTING LIFE & TIMES · '+(women?'WOMEN’S':'MEN’S')+' D-I · GAMEFILE '+esc(g.id)+'</div>'+
       '<h1>'+esc(schoolLabel(g.away))+' <em>'+(g.neutral?'vs.':'at')+'</em> '+esc(schoolLabel(g.home))+'</h1>'+
       '<p class="cbb-gamefile-status">'+currentView(g)+' · '+esc(g.venue||'Venue not listed')+(g.broadcast?' · '+esc(g.broadcast):'')+'</p>'+
-      '<div class="cbb-gamefile-score">'+row(g.away,g.phase,false,true)+row(g.home,g.phase,false,true)+'</div></header>'+
+      '<div class="cbb-gamefile-score">'+row(g.away,g.phase,false,true,g)+row(g.home,g.phase,false,true,g)+'</div></header>'+
       gamefileStatStrip(g,raw)+
       '<nav class="cbb-gamefile-tabs" role="tablist" aria-label="Gamefile statistics">'+
       '<button role="tab" type="button" id="gf-tab-summary" aria-controls="gf-panel-summary" data-gamefile-tab="summary">Game Summary</button>'+
