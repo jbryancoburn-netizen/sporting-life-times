@@ -2,7 +2,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f8f7f3">
 <meta name="description" content="Source-checked 2026 congressional districts within each U.S. state. Compare published House polls, official ballot candidates and previous election returns with clear geography-vintage rules.">
 <title>State House District Directory | The Political Life &amp; Times</title>
-<link rel="stylesheet" href="politics-house.css?v=20261101-newsgraphics-purple1"><link rel="stylesheet" href="politics-race-experience.css?v=20261101-iowa2"><link rel="stylesheet" href="politics-race-branding.css?v=20261101-wire1"><link rel="stylesheet" href="politics-race-newsroom.css?v=20261102-story1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"><script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js" defer></script><script src="politics-house-map.js?v=20261101-2" defer></script><script src="politics-state-art.js?v=20261101-graphics-1" defer></script><script src="politics-race-experience.js?v=20261101-unified435" defer></script><script src="politics-race-branding.js?v=20261101-unified435" defer></script><script src="politics-house.js?v=20261101-wire1" defer></script><script src="politics-race-newsroom.js?v=20261102-story1" defer></script><link rel="stylesheet" href="politics-public-records.css?v=20261103"><script src="politics-public-records.js?v=20261103" defer></script></head>
+<link rel="stylesheet" href="politics-house.css?v=20261101-newsgraphics-purple1"><link rel="stylesheet" href="politics-race-experience.css?v=20261101-iowa2"><link rel="stylesheet" href="politics-race-branding.css?v=20261101-wire1"><link rel="stylesheet" href="politics-race-newsroom.css?v=20261102-story1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"><script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js" defer></script><script src="politics-house-map.js?v=20261103-ledger2" defer></script><script src="politics-state-art.js?v=20261101-graphics-1" defer></script><script src="politics-race-experience.js?v=20261101-unified435" defer></script><script src="politics-race-branding.js?v=20261101-unified435" defer></script><script src="politics-house.js?v=20261101-wire1" defer></script><script src="politics-race-newsroom.js?v=20261102-story1" defer></script><link rel="stylesheet" href="politics-public-records.css?v=20261103"><script src="politics-public-records.js?v=20261103" defer></script><link rel="stylesheet" href="politics-ledger-editions.css?v=20261103-iowa-template1"></head>
 <body data-house-page="state"><main class="paper" id="view-content">
 <div class="strip"><span>THE SPORTING LIFE &amp; TIMES / CIVIC AFFAIRS</span><span>HOUSE ELECTIONS · STATE DESK</span></div>
 <header class="mast state-mast"><span class="folio">THE POLITICAL LIFE &amp; TIMES · 2026 HOUSE ELECTIONS</span>
@@ -12,6 +12,27 @@
 <div class="state-edition-line"><span class="eyebrow">THE HOUSE DESK / STATE REPORT</span><span>GENERAL ELECTION · NOV 3, 2026</span></div>
 <div class="state-lead-grid"><div class="state-lead-main"><h2 id="state-edition-heading">The congressional field</h2><p>Verified candidates, published district polling and historical results—one profile for every seat.</p><div class="state-jump-links"><a href="#district-geography">View district map <span aria-hidden="true">↘</span></a><a href="#district-list">Browse the races <span aria-hidden="true">↘</span></a></div></div>
 <aside class="state-context"><span class="state-context-label">THE HISTORICAL BASELINE · 2024</span><p id="state-history">Checking actual statewide presidential returns…</p><span id="state-map-status-pill" class="state-map-status-pill">2026 boundary check pending</span></aside></div>
+</section>
+<div class="metrics state-metrics" id="metrics">
+<div class="metric"><b>—</b><span>House seats</span></div>
+<div class="metric"><b>—</b><span>Verified ballot lists</span></div>
+<div class="metric"><b>—</b><span>District poll records</span></div>
+</div>
+
+<section class="district-map-section state-feature-map" id="district-geography">
+<div class="section-heading"><div><span class="ledger-atlas-kicker">PLATE I · THE CONGRESSIONAL ATLAS</span><h3>Explore the state</h3></div><p>Official boundaries · Select a district to open its local edition</p></div>
+<p class="footnote" id="district-map-status" role="status" aria-live="polite">Loading official congressional district geometry…</p>
+<div class="map-actions"><label for="map-district-jump">Find a district<select id="map-district-jump"><option value="">Loading districts…</option></select></label><button type="button" id="map-open-district">Open selected district →</button><span class="map-help">Drag to move · + / − to zoom · select a district directly</span></div>
+<div id="map-real-views" class="map-real-views" hidden aria-label="Choose a geographic view of the actual state map"></div>
+<div class="ledger-map-controls" id="map-shading-controls" role="group" aria-label="District map shading mode"></div>
+<p class="ledger-map-explanation" id="map-shading-explanation">Geographic atlas: neutral district shading, not election results.</p>
+<div class="map-base-legend"><strong>REAL GEOGRAPHY</strong><span>U.S. Census 2026 district boundaries · OpenStreetMap cities, roads and shorelines</span><span>Election evidence is optional, explicitly labeled, and never a 2026 winner prediction.</span></div>
+<div id="geo-district-map" class="geo-district-map" aria-label="Interactive geographic map showing each 2026 U.S. House district in this state"></div>
+<p id="map-base-warning" class="map-base-warning" role="status" hidden></p>
+<p id="map-official-michigan" class="map-official-michigan" hidden><strong>Michigan reference:</strong> <a href="https://www.michigan.gov/dtmb/-/media/Project/Websites/dtmb/Services/GIS/congress21statewide.pdf?hash=869B1FCA0059943658615AAC7546172C&amp;rev=5e90a2d86f9943b893e3f6664b016d90" target="_blank" rel="noopener noreferrer">Michigan state government's original 13-district statewide map (PDF) ↗</a>. That official map includes county and city labels for comparison.</p>
+<p class="callout" id="map-fallback" hidden></p>
+<p class="map-vintage-note" id="map-vintage-note">Boundaries are independent of historical election and polling data.</p>
+<p class="footnote state-map-source">Boundary source: <a id="map-source-link" href="https://www.census.gov/programs-surveys/decennial-census/about/rdo/congressional-districts.120th_Congress.html" target="_blank" rel="noopener noreferrer">Census Bureau redistricting program ↗</a>. Small urban districts may require zooming. The cards below remain a fully accessible alternative.</p>
 </section>
 <section class="state-editorial-briefing" aria-labelledby="state-editorial-title">
 <span class="state-brief-label">THE POLITICAL LIFE & TIMES / THE RACE READ</span>
@@ -25,11 +46,6 @@
   <div class="race-wire-list" id="race-wire-items" aria-live="polite"><p>Connecting to the publisher link desk…</p></div>
   <p class="race-wire-caution">Publisher headlines link to the original reporting; we do not republish the articles. A state mention does not establish that the report covers this congressional race.</p>
 </section>
-<div class="metrics state-metrics" id="metrics">
-<div class="metric"><b>—</b><span>House seats</span></div>
-<div class="metric"><b>—</b><span>Verified ballot lists</span></div>
-<div class="metric"><b>—</b><span>District poll records</span></div>
-</div>
 <section class="state-news-board" aria-label="State election news graphics">
   <div class="news-board-topline"><span>STATE GRAPHICS DESK</span><span>THE HOUSE · NOVEMBER 2026</span></div>
   <div class="news-board-grid">
@@ -53,19 +69,7 @@
 </section>
 
 <div class="callout" id="boundary-caution" hidden></div>
-<section class="district-map-section state-feature-map" id="district-geography">
-<div class="section-heading"><h3>The district map</h3><p>Tap a district to open its race profile · official Census outlines</p></div>
-<p class="footnote" id="district-map-status" role="status" aria-live="polite">Loading official congressional district geometry…</p>
-<div class="map-actions"><label for="map-district-jump">Find a district<select id="map-district-jump"><option value="">Loading districts…</option></select></label><button type="button" id="map-open-district">Open selected district →</button><span class="map-help">Drag to move · + / − to zoom · select a district directly</span></div>
-<div id="map-real-views" class="map-real-views" hidden aria-label="Choose a geographic view of the actual state map"></div>
-<div class="map-base-legend"><strong>REAL GEOGRAPHY</strong><span>U.S. Census 2026 district boundaries · OpenStreetMap cities, roads and shorelines</span><span>Color shading is dated election evidence, not a winner prediction.</span></div>
-<div id="geo-district-map" class="geo-district-map" aria-label="Interactive geographic map showing each 2026 U.S. House district in this state"></div>
-<p id="map-base-warning" class="map-base-warning" role="status" hidden></p>
-<p id="map-official-michigan" class="map-official-michigan" hidden><strong>Michigan reference:</strong> <a href="https://www.michigan.gov/dtmb/-/media/Project/Websites/dtmb/Services/GIS/congress21statewide.pdf?hash=869B1FCA0059943658615AAC7546172C&amp;rev=5e90a2d86f9943b893e3f6664b016d90" target="_blank" rel="noopener noreferrer">Michigan state government's original 13-district statewide map (PDF) ↗</a>. That official map includes county and city labels for comparison.</p>
-<p class="callout" id="map-fallback" hidden></p>
-<p class="map-vintage-note" id="map-vintage-note">Boundaries are independent of historical election and polling data.</p>
-<p class="footnote state-map-source">Boundary source: <a id="map-source-link" href="https://www.census.gov/programs-surveys/decennial-census/about/rdo/congressional-districts.120th_Congress.html" target="_blank" rel="noopener noreferrer">Census Bureau redistricting program ↗</a>. Small urban districts may require zooming. The cards below remain a fully accessible alternative.</p>
-</section>
+
 <section id="district-list" class="state-races-section"><div class="section-heading"><h3>Congressional races</h3><p id="district-count">Loading all districts…</p></div>
 <p id="state-watch-count" class="watchlist-count" aria-live="polite">Checking potentially competitive races…</p>
 <div class="toolbar"><label for="district-filter">Show districts<select id="district-filter"><option value="all">All House districts</option><option value="watch">Races to watch</option><option value="poll">2026 polling available</option><option value="ballot">Official candidate slate</option><option value="historical">Comparable 2024 House results</option><option value="missing-ballot">Candidate list not yet verified</option><option value="missing-poll">No published district poll in ledger</option><option value="redrawn">2026 boundaries changed</option></select></label></div>
