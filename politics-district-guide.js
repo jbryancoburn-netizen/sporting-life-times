@@ -150,7 +150,10 @@ function census(host,row,r,acs){
  for(const [label,val]of values){const x=el("div",null,"dossier-demographic");x.append(el("span",label),el("strong",val));metrics.append(x);}
  host.append(metrics);
  warn(host,"U.S. Census Bureau American Community Survey, 2020–2024 five-year estimates on 119th Congress district geography. These are not current voter counts, election results, or a 2026 poll."+
- (r["2026_boundaries_revised"]?" CAUTION: This district was redrawn for 2026; these figures describe its PREVIOUS boundary.":""));
+ (r["2024_to_2026_geography_comparison"]==="verified_changed_district_blocks"?
+ " CAUTION: Official Census-block comparison proves this numbered district changed for 2026; these figures describe its earlier geography.":
+ r["2024_to_2026_geography_comparison"]==="pending_district_block_comparison"?
+ " CAUTION: This state was redrawn, but the geographic match for this particular district has not yet been verified.":""));
  host.append(link("Original Census detailed-table data ↗",acs.source_url));
 }
 function local(host,extra,r,community){
