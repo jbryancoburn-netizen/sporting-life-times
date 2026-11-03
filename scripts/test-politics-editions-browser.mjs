@@ -20,6 +20,37 @@ async function smoke(target,viewport,label){
   if(horizontalOverflow)throw Error('Horizontal page overflow');
   if(errors.length)throw Error('Uncaught JS: '+errors.join(' | '));
   if(isState){
+    // Check actual computed styles. Prevent white type on paper or sticky overlap.
+    const visual=await page.evaluate(()=>{
+      const nums=value=>(value.match(/[0-9.]+/g)||[]).map(Number);
+      const layer=el=>{
+        for(let node=el;node;node=node.parentElement){
+          const color=getComputedStyle(node).backgroundColor,v=nums(color);
+          if(v.length>=3&&(v.length<4||v[3]!==0))return color;
+        }
+        return 'rgb(255,255,255)';
+      };
+      const luminance=value=>{
+        const [r,g,b]=nums(value).slice(0,3).map(x=>x/255).map(x=>x<=.04045?x/12.92:Math.pow((x+.055)/1.055,2.4));
+        return .2126*r+.7152*g+.0722*b;
+      };
+      const contrast=el=>{
+        const [hi,lo]=[luminance(getComputedStyle(el).color),luminance(layer(el))].sort((a,b)=>b-a);
+        return (hi+.05)/(lo+.05);
+      };
+      const q=selector=>document.querySelector(selector);
+      return {
+        heading:contrast(q('.state-graphic-hero .state-lead-main h2')),
+        description:contrast(q('.state-graphic-hero .state-lead-main p')),
+        metric:contrast(q('.state-metrics .metric b')),
+        label:contrast(q('.state-metrics .metric span')),
+        nav:getComputedStyle(q('.state-nav')).position
+      };
+    });
+    for(const key of ['heading','description','metric','label']){
+      if(visual[key]<4.5)throw Error(key+' is unreadable: '+visual[key].toFixed(2)+':1 contrast');
+    }
+    if(visual.nav==='sticky'||visual.nav==='fixed')throw Error('Navigation overlays the content while scrolling');
    await page.waitForSelector('#map-shading-controls button',{timeout:30000});
    const modes=page.locator('#map-shading-controls button');
    if(await modes.count()!==2)throw Error('Geographic and election evidence controls missing');
@@ -51,7 +82,16 @@ for(const district of ['IA-01','IL-07','CA-12','MO-01','AK-00']){
   await smoke('politics-house-district.html?district='+district,viewport,'district-'+district+'-'+device);
  }
 }
-// Navigate to EVERY state edition, then EVERY district route.\nfor(const state of atlas.states){\n const page=await pageFor();\n try{\n  const response=await page.goto(new URL('politics-house-state.html?state='+state.code,base).href,{waitUntil:'domcontentloaded',timeout:30000});\n  if(response?.status()!==200)throw Error('HTTP '+response?.status());\n  await page.waitForFunction(expected=>document.querySelector('#state-title')?.textContent?.includes(expected),state.name,{timeout:25000});\n }catch(e){fail('state route '+state.code,e.message)}finally{await page.close()}\n}\n// Navigate to EVERY existing route and verify the correct edition materializes.
+// Navigate to EVERY state edition, then EVERY district route.
+for(const state of atlas.states){
+ const page=await pageFor();
+ try{
+  const response=await page.goto(new URL('politics-house-state.html?state='+state.code,base).href,{waitUntil:'domcontentloaded',timeout:30000});
+  if(response?.status()!==200)throw Error('HTTP '+response?.status());
+  await page.waitForFunction(expected=>document.querySelector('#state-title')?.textContent?.includes(expected),state.name,{timeout:25000});
+ }catch(e){fail('state route '+state.code,e.message)}finally{await page.close()}
+}
+// Navigate to EVERY existing route and verify the correct edition materializes.
 const routePage=await pageFor();
 try{
  for(let i=0;i<all.length;i++){
