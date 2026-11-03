@@ -11,24 +11,35 @@ async function start(){
  const id=(new URLSearchParams(location.search).get("district")||"").trim().toUpperCase();
  if(!/^[A-Z]{2}-\d{2}$/.test(id)||!$("district-overview"))return;
  try{
-  const r=await Promise.all(["politics-house-atlas.json","politics-district-guide.json"].map(async name=>{
+  const r=await Promise.all(["politics-house-atlas.json","politics-district-guide.json",
+   "politics-historical-contests.json","data/politics-district-communities.json"].map(async name=>{
    const response=await fetch(name,{cache:"no-cache"});if(!response.ok)throw Error(name+" unavailable");return response.json();
   }));
-  const atlas=r[0],profile=r[1].districts?.[id],district=atlas.districts.find(d=>d.id===id);
+  const atlas=r[0],profile=r[1].districts?.[id],historical=r[2],places=r[3].districts?.[id],
+   district=atlas.districts.find(d=>d.id===id);
   if(!district)throw Error("Unknown district");const state=atlas.states.find(s=>s.code===district.state);
   const stateName=state?.name||district.state;
   $("district-overview-id").textContent=stateName.toUpperCase()+" / "+(district.at_large?"AT-LARGE":"DISTRICT "+Number(district.district))+" / NOVEMBER 2026";
   $("district-overview-title").textContent=profile?
    id==="IA-01"?profile.explainer?.headline||profile.title:profile.title:
    stateName+"'s "+(district.at_large?"at-large seat":"District "+Number(district.district))+" — a closer look.";
+  const mapped=[...(places?.communities||[]),...(places?.neighborhoods||[])];
+  const clean=n=>n.replace(/ (?:city|town|village|CDP|borough|municipality)$/i,"");
+  const named=(profile?.major_communities||[]).map(p=>p.name);
+  const samples=named.length?named:mapped.slice(0,6).map(p=>clean(p.name));
+  const boundary=district["2024_to_2026_geography_comparison"];
+  const vintage=boundary==="verified_changed_district_blocks"?"Its 2026 lines changed under an official block comparison.":
+    boundary==="pending_district_block_comparison"?"Its precise 2024–2026 boundary overlap is still being checked.":
+    "Its district geography matches the 2024 election vintage.";
   $("district-overview-summary").textContent=profile?.explainer?.subheading||profile?.geography_deck||
-    "An original-source portrait of the district's boundaries, voters and candidates. Place-by-place reporting is added only after verification.";
-  $("district-overview-places").textContent=profile?.major_communities?.length?
-    profile.major_communities.slice(0,7).map(p=>p.name).join("  ·  "):
-    "Open the official district map to explore towns, cities and county boundaries.";
+    (samples.length?"Verified mapped reference points include "+samples.slice(0,4).join(", ")+". ":"")+
+    vintage+" Earlier elections are displayed as actual historical results, never projected 2026 votes.";
+  $("district-overview-places").textContent=samples.length?
+    "Census-mapped places: "+samples.slice(0,7).join(" · ")+". These points do not imply whole-city inclusion.":
+    "Explore Census-verified neighborhood geography on the district map.";
   const h=district["2024_house_result_on_prior_boundaries"];
-  const valid=h?.both_major_parties===true&&h.same_2026_geography===true&&
-      Number.isFinite(h.dem_votes)&&Number.isFinite(h.rep_votes);
+  const valid=h?.both_major_parties===true&&Number.isFinite(h.dem_votes)&&Number.isFinite(h.rep_votes)
+    &&h.dem_votes>0&&h.rep_votes>0;
   const place=$("overview-vote-gap"),label=$("overview-vote-label"),rank=$("overview-vote-rank");
   if(valid){
    const gap=Math.abs(h.rep_votes-h.dem_votes);
@@ -41,14 +52,25 @@ async function start(){
    });
    const ordinal=order.findIndex(r=>r.id===id)+1;
    rank.textContent=ordinal?"#"+ordinal+" closest of "+list.length+" races with usable major-party totals":"2024 actual major-party votes";
-   const old=profile?.congressional_history?.find(d=>d.year===2022);
-   const current=profile?.congressional_history?.find(d=>d.year===2024);
-   const rep=old?.candidates?.find(c=>c.party==="R")?.votes,dem=old?.candidates?.find(c=>c.party==="D")?.votes;
-   if(district["2022_to_2024_geography_comparison"]==="unchanged_state_vintage"&&current&&rep!==undefined&&dem!==undefined&&
-    current.candidates.find(c=>c.party==="R")?.votes===h.rep_votes&&current.candidates.find(c=>c.party==="D")?.votes===h.dem_votes){
-    const pastGap=Math.abs(rep-dem);
-    $("district-overview-history").textContent="2022: "+digits(pastGap)+"-vote gap. 2024: "+fmt(gap)+"-vote gap. Same district lines; real counted votes, not polls.";
-   }else $("district-overview-history").textContent="2024 House result: "+fmt(gap)+"-vote margin. Historic comparisons require matched district boundaries.";
+   const off=profile?.congressional_history?.find(d=>d.year===2022);
+   const archive=historical.house?.find(d=>d.id===id&&d.year===2022);
+   const d22=off?.candidates?.find(c=>c.party==="D")?.votes??archive?.dem_votes;
+   const r22=off?.candidates?.find(c=>c.party==="R")?.votes??archive?.rep_votes;
+   const margins=district["2022_to_2024_geography_comparison"]==="unchanged_state_vintage"&&
+     Number.isFinite(d22)&&Number.isFinite(r22)&&d22>0&&r22>0;
+   const geographicCaution=boundary==="verified_changed_district_blocks"?
+     " Official records confirm 2026 lines changed; this is the 2024 electorate.":
+     boundary==="pending_district_block_comparison"?
+     " Its 2026 district geographic match is still under review.":" The 2024 lines match 2026.";
+   if(margins){
+     const oldMargin=100*(d22-r22)/(d22+r22),currentMargin=100*(h.dem_votes-h.rep_votes)/(h.dem_votes+h.rep_votes);
+     const delta=currentMargin-oldMargin;
+     $("district-overview-history").textContent="2022 D/R margin "+(oldMargin>0?"D +":"R +")+Math.abs(oldMargin).toFixed(1)+
+       " pts; 2024 "+(currentMargin>0?"D +":"R +")+Math.abs(currentMargin).toFixed(1)+
+       " pts. "+Math.abs(delta).toFixed(1)+"-point shift toward "+(delta>0?"Democrats":delta<0?"Republicans":"neither party")+
+       " on comparable 2022–24 lines."+geographicCaution;
+   }else $("district-overview-history").textContent="Actual 2024 House vote gap: "+fmt(gap)+
+     " ballots. No unverified 2022–24 partisan swing is claimed."+geographicCaution;
   }else if(h?.finalists?.length===2){
    const [winner,runner]=h.finalists,same=winner.party===runner.party;
    place.textContent=fmt(h.winner_runner_up_margin_votes)+" votes";
@@ -63,7 +85,19 @@ async function start(){
    place.textContent="See the record";
    label.textContent="Past candidate gap or map match not yet verified";
    rank.textContent="No unverifiable historic comparison shown.";
-   $("district-overview-history").textContent="Earlier elections remain archived. Each district requires independent map verification before using its votes as a current-boundary baseline.";
+   const u=district["2024_unopposed_official_context"];
+   if(u){
+     place.textContent="Unopposed · 2024";
+     label.textContent=u.winner+" was elected unopposed according to the official record.";
+     rank.textContent="No invented vote total or partisan margin.";
+   }else if(h){
+     place.textContent="2024 actual";
+     label.textContent=h.winner+" won the 2024 House election.";
+     rank.textContent="No verified two-candidate vote margin.";
+   }
+   $("district-overview-history").textContent="Earlier election returns remain available in the district history. "+
+     (boundary==="verified_changed_district_blocks"?"This district changed boundaries for 2026.":
+      boundary==="pending_district_block_comparison"?"This district's 2026 map comparison is pending.":"2024 district boundaries are comparable with 2026.");
   }
  }catch(error){
   console.warn("District editorial profile:",error);
