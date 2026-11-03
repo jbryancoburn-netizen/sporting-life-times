@@ -113,7 +113,7 @@
   };
   function row(t,phase,winning,gamefile=false){
     const s=phase==='upcoming'?'—':score(t)??'—';
-    const link=schoolLink(t),rating=teamRating(t);
+    const link=gamefile?schoolLink(t):'',rating=teamRating(t);
     const record=rating&&Number.isInteger(Number(rating.wins))&&Number.isInteger(Number(rating.losses))?
       Number(rating.wins)+'–'+Number(rating.losses):'';
     const elo=rating&&Number.isFinite(Number(rating.elo))?'USRS '+Math.round(Number(rating.elo)):'';
@@ -419,7 +419,7 @@
       if(tab){state.inlineTabs.set(tab.closest('[data-cbb-game]').dataset.cbbGame,tab.dataset.cbbInlineTab);
         selectInlineTab(tab.closest('[data-cbb-details]'),tab.dataset.cbbInlineTab);return;}
       const card=e.target.closest('[data-cbb-game]');
-      if(!card||!host.contains(card)||(!e.target.closest('[data-cbb-toggle]')&&e.target.closest('a,button,input,select,label')))return;
+      if(!card||!host.contains(card)||e.target.closest('[data-cbb-details]')||(!e.target.closest('[data-cbb-toggle]')&&e.target.closest('a,button,input,select,label')))return;
       const id=card.dataset.cbbGame,open=!state.expanded.has(id);
       if(open)state.expanded.add(id);else state.expanded.delete(id);
       card.classList.toggle('cbb-expanded',open);
