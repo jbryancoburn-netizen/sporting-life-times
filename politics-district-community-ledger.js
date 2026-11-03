@@ -25,7 +25,7 @@ function chart(entry,spec,full,stateRows){
 async function init(){
  const id=(new URLSearchParams(location.search).get("district")||"").toUpperCase();
  const root=$("community-ledger");
- if(!root||!/^[A-Z]{2}-[0-9]{2}$/.test(id)||id==="IA-01")return;
+ if(!root||!/^[A-Z]{2}-[0-9]{2}$/.test(id))return;
  try{
   const [acs,atlas,places]=await Promise.all([
    get("politics-census-inputs.json"),get("politics-house-atlas.json"),
@@ -70,10 +70,13 @@ async function init(){
   const url=acs.source_url||"https://www.census.gov/programs-surveys/acs";
   const link=E("a","U.S. Census ACS 2020–2024 original source ↗");link.href=url;link.target="_blank";link.rel="noopener noreferrer";
   source.append(link,document.createTextNode(" · Ranks compare available estimates, not voters or election outcomes."));
-  if(district["2026_boundaries_revised"]){
-   const warn=E("p","BOUNDARY CAUTION: This district changed for 2026. The Census figures above describe the former 119th Congress district boundaries and must NOT be treated as estimates for the newly redrawn electorate.","community-ledger-warning");
-   root.append(head,grid,reading,warn,source);
-  }else root.append(head,grid,reading,source);
+  const status=district["2024_to_2026_geography_comparison"];
+  const note=status==="verified_changed_district_blocks"?
+   "BOUNDARY AUDIT: Official Census-block comparison proves this district's lines changed for 2026. The 2020–2024 survey figures describe the former 119th-Congress boundaries.":
+   status==="pending_district_block_comparison"?
+   "BOUNDARY REVIEW PENDING: The state changed its 2026 map, but the geographic change to this particular district has not been established. The survey refers to 119th-Congress geography.":
+   "DISTRICT GEOGRAPHY: The 2024 and 2026 district boundary correspondence is verified; these remain historical 2020–2024 survey estimates, not current voter counts.";
+  root.append(head,grid,reading,E("p",note,"community-ledger-warning"),source);
   root.hidden=false;
  }catch(error){console.warn("Verified local Census register:",error);}
 }
