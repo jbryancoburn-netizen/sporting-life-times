@@ -413,7 +413,7 @@
     if(!old)return false;
     const host=document.createElement('section');host.id='cbb-live-desk';host.className='cbb-live-desk'+(women?' cbb-women':'');
     host.innerHTML='<div class="cbb-desk-header"><div><div class="cbb-kicker">'+(women?'WOMEN’S':'MEN’S')+' DIVISION I</div>'+
-      '<h2>'+(isStandalone?'COURTSIDE / THE LIVE DESK':'THE SLT SCOREBOARD')+'</h2>'+
+      '<'+(isStandalone?'h2':'h1')+'>'+(isStandalone?'COURTSIDE / THE LIVE DESK':'THE SLT SCOREBOARD')+'</'+(isStandalone?'h2':'h1')+'>'+
       (isStandalone?'<p class="cbb-desk-byline">Verified game states · independent analysis · away team first</p>':'')+'</div>'+
       (isStandalone?'':'<a class="cbb-center-link" href="'+centerURL()+'">All games →</a>')+'</div>'+
       '<div class="cbb-date-controls"><button type="button" data-cbb-date="-1" aria-label="Previous day">‹</button>'+
