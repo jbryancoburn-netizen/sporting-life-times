@@ -1,0 +1,43 @@
+name: CBB verified per-game arena and city index
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - scripts/build_cbb_slate_venues.py
+      - .github/workflows/cbb-slate-venues.yml
+      - 'data/mbb-schedules-2026-27/**'
+      - data/mbb-verified-game-sites-2026-27.json
+permissions:
+  contents: write
+concurrency:
+  group: cbb-verified-slate-venues
+  cancel-in-progress: false
+jobs:
+  index:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Certify and index game-specific official venue and city
+        run: |
+          python -m py_compile scripts/build_cbb_slate_venues.py
+          python scripts/build_cbb_slate_venues.py
+      - name: Publish compact verified index without changing source fixtures
+        run: |
+          set -euo pipefail
+          git config user.name "sporting-life-times-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/mbb-slate-game-sites-2026-27.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "CBB venue index: official game-specific arenas and cities"
+          for attempt in 1 2 3 4; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$((attempt*2))"
+          done
+          exit 1
