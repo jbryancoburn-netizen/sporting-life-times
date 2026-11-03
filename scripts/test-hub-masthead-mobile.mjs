@@ -39,6 +39,7 @@ try{
        globeDisplay:getComputedStyle(globe).display,
        titleText:brand.textContent.trim()};
    });
+   console.log('HUB COMPUTED LAYOUT '+JSON.stringify({file,width,metrics}));
    assert.equal(metrics.linkDisplay,'flex',file+' '+width+' must use a flex masthead');
    assert.equal(metrics.linkBackground,'rgb(9, 31, 61)',file+' '+width+' navy not applied');
    assert.equal(metrics.titleColor,'rgb(255, 246, 224)',file+' '+width+' lettering unreadable');
