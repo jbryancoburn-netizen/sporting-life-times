@@ -118,10 +118,14 @@
       Number(rating.wins)+'–'+Number(rating.losses):'';
     const elo=rating&&Number.isFinite(Number(rating.elo))?'USRS '+Math.round(Number(rating.elo)):'';
     const context=gamefile?[record,elo].filter(Boolean).join(' · '):'';
+    const publishedRecord=!gamefile&&Array.isArray(t?.records)?
+      (t.records.find(x=>x?.type==='total'||x?.type==='overall')||t.records[0])?.summary:'';
+    const officialRecord=/^\\d{1,3}[-–]\\d{1,3}$/.test(String(publishedRecord||''))?String(publishedRecord):'';
     const identity='<span class="cbb-team-identity">'+crest(t)+
       '<span class="cbb-name"><b class="cbb-school-label">'+esc(schoolLabel(t))+(apRank(t)?'<i class="cbb-ap-rank">AP '+esc(apRank(t))+'</i>':'')+'</b>'+
       (mascotLabel(t)?'<small class="cbb-school-mascot">'+esc(mascotLabel(t))+'</small>':'')+
-      (context?'<span class="cbb-team-context">'+esc(context)+'</span>':'')+'</span></span>';
+      (context?'<span class="cbb-team-context">'+esc(context)+'</span>':'')+
+      (officialRecord?'<small class="slt-cbb-record">'+esc(officialRecord)+'</small>':'')+'</span></span>';
     return '<div class="cbb-scorebug-row'+(winning?' cbb-winner':'')+'" data-team-side="'+esc(t.homeAway||'')+'">'+
       '<span class="cbb-team-side">'+esc(code(t))+'</span>'+
       '<span class="slt-cbb-team-stack">'+
@@ -355,7 +359,7 @@
       '<span class="cbb-model-inline">USRS: '+esc(code(model.probability>.5?g.home:g.away))+' '+
       Math.round(Math.max(model.probability,1-model.probability)*100)+'% pregame</span>':'';
     return '<article class="cbb-game-card cbb-'+g.phase+'" data-cbb-game="'+esc(g.id)+'" style="--cbb-away:'+safeTeamColor(g.away)+';--cbb-home:'+safeTeamColor(g.home)+'">'+
-      '<div class="cbb-bug-top"><span>'+currentView(g)+'</span><span class="cbb-bug-network">'+
+      '<div class="cbb-bug-top"><span><b class="slt-cbb-signature" aria-label="Sporting Life and Times">SLT</b>'+currentView(g)+'</span><span class="cbb-bug-network">'+
       esc(g.broadcast||'')+'</span></div>'+
       '<div class="cbb-match-rows">'+row(g.away,g.phase,winner&&as>hs,false,g)+row(g.home,g.phase,winner&&hs>as,false,g)+'</div>'+
       (details?'<div class="cbb-preview" id="cbb-preview-'+esc(g.id)+'">'+details+'</div>':

@@ -376,3 +376,14 @@
 .cbb-game-card .cbb-match-rows{background:#fff8eb}
 .cbb-game-card .cbb-match-rows .cbb-scorebug-row{min-height:88px;padding-top:8px;padding-bottom:8px}
 @media(max-width:560px){.cbb-scorebug-row .slt-cbb-info{gap:4px 7px;font-size:9px}.slt-cbb-dot{width:6px;height:6px}.cbb-game-card .cbb-match-rows .cbb-scorebug-row{min-height:85px}.cbb-scorebug-row .slt-cbb-record{font-size:9px}}
+
+/* Classic SLT network treatment: the real game status and broadcaster stay visible. */
+.cbb-game-card .cbb-bug-top{background:#071d3c;color:#fff6e0;border-bottom:3px solid #f1bd39;min-height:36px;gap:8px}
+.cbb-game-card .cbb-bug-top>span:first-child{min-width:0}
+.cbb-game-card .cbb-bug-top .slt-cbb-signature{background:#fff6e0;color:#071d3c;border-right:3px solid #f1bd39;padding:4px 7px;display:inline-block;font:900 13px/1 Impact,Arial,sans-serif;font-style:normal;letter-spacing:.03em}
+.cbb-game-card .cbb-bug-top .cbb-bug-network{color:#e1dfda;font-weight:700}
+.cbb-game-card .cbb-bug-top .cbb-live-pill{color:#f6c4b7}
+.cbb-game-card .cbb-bug-top .cbb-final{color:#d7e6ed}
+.cbb-game-card .cbb-match-rows{background:#fff8eb}
+.cbb-game-card .cbb-match-rows .cbb-scorebug-row{font-style:normal!important}
+.cbb-gamefile-score .slt-cbb-record{color:#e9eef0!important}
