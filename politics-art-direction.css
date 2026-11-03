@@ -1,0 +1,72 @@
+/* Political Life & Times — editorial refinement, November 2026.
+   Intent: hierarchy from content, photography, rules and whitespace, not oversized tiles. */
+:root{--paper:#f8f7f3;--white:#f8f7f3;--ink:#202421;--muted:#64655f;--line:#c9c8c1;--teal:#28443e;--orange:#9b422f;--blue:#38566b;--red:#a44438;--light:#eeede7;--plum:#745a75}
+html{scroll-behavior:smooth}
+body{background:#d9d9d4;color:#202421}
+.paper{max-width:1390px;background:#f8f7f3;box-shadow:0 3px 18px #20221f0f;padding-left:34px;padding-right:34px}
+.top-strip{background:#2d3835;margin-left:-34px;margin-right:-34px;padding:7px 34px;letter-spacing:.08em}
+.masthead{padding:22px 0 18px;text-align:center}
+.masthead .folio{display:flex;justify-content:space-between}
+.masthead h1{font-size:clamp(42px,5.2vw,70px);letter-spacing:-.045em;margin:13px 0 3px}
+.masthead h1 em{color:inherit;font-style:normal}
+.masthead .deck{font:italic 14px/1.4 Georgia,serif;color:#5b625c}
+.main-nav{justify-content:center;gap:0 24px;border-bottom:2px solid #2c3531}
+.main-nav>a,.desk-more>summary{font-size:10px;letter-spacing:.09em;font-weight:700;min-height:40px;color:#353c38}
+.main-nav>a[aria-current="page"],.main-nav>a:hover{color:#8b392c;border-bottom-color:#8b392c}
+.newsline{background:transparent;border-bottom:1px solid #c7c7be;margin-left:-34px;margin-right:-34px;padding:10px 34px}
+.newsline strong{background:#8d3f32}
+.news-front{padding-top:27px;border-bottom:1px solid #949a93}
+.desk-strap{border-bottom:2px solid #29352f;margin-bottom:18px}
+.desk-strap strong{color:#303c36;font-weight:800;letter-spacing:.09em;font-size:10px}
+.desk-strap span{font-size:10px}
+.desk-hero-grid{grid-template-columns:minmax(0,1.9fr) minmax(270px,.76fr);gap:25px}
+.desk-photo{height:clamp(310px,34vw,470px);background:#e0e1db}
+.desk-photo img{filter:saturate(.82) contrast(1.03);transition:none}
+.desk-photo:hover img{transform:none}
+.desk-photo:after{display:none}
+.desk-photo .photo-corner{top:auto;bottom:14px;left:14px;background:#f8f7f3;color:#242c27;border:1px solid #d9d7cc;letter-spacing:.07em;font-size:9px;padding:7px 10px}
+.desk-photo .photo-wordmark{display:none}
+.desk-photo-credit{font-size:9px;color:#666d68}
+.desk-feature-source,.desk-byline{color:#835043;font-size:10px;letter-spacing:.08em}
+.desk-lead h2{font:700 clamp(30px,3.15vw,44px)/1.1 Georgia,serif;letter-spacing:-.035em;margin:12px 0;max-width:730px}
+.desk-lead .desk-standfirst{font:16px/1.5 Georgia,serif;max-width:690px;color:#4f5651}
+.desk-lead .desk-external{color:#24483f}
+.desk-latest{border-left:1px solid #b8bab1;padding-left:25px}
+.desk-rail-head{border-bottom:2px solid #303b35;padding-bottom:9px}
+.desk-rail-head h3{font:700 23px Georgia,serif;letter-spacing:-.02em}
+.desk-rail-head span{color:#62665f}
+.desk-rail-list article{padding:16px 0;border-bottom:1px solid #d3d2ca}
+.desk-rail-list h4{font:700 18px/1.25 Georgia,serif}
+.desk-rail-more{color:#2b4941;border-color:#839087}
+.desk-topics{margin-top:27px;border-top:1px solid #aeb3aa;border-bottom:1px solid #aeb3aa}
+.desk-topic{padding:18px 22px;gap:6px;background:transparent}
+.desk-topic:hover{background:#eeede7}
+.desk-topic span{color:#6c635a;letter-spacing:.1em;font-size:9px}
+.desk-topic strong{font:700 clamp(18px,1.65vw,23px)/1.22 Georgia,serif}
+.desk-topic small{color:#5b645e;font-size:11px}
+.desk-channel-bar{margin-top:17px;gap:35px}
+.desk-data h3,.desk-find h3{font:700 21px Georgia,serif}
+.desk-odds{border-top:1px solid #929b91}
+.desk-odds b{font:700 clamp(23px,2.2vw,31px) Georgia,serif;color:#304d47}
+.desk-find button{background:#314740}
+.desk-find button:hover{background:#23463c}
+#content>section:not(.news-front){padding-top:32px;padding-bottom:33px}
+#content>section:not(.news-front)>.section-heading{padding-bottom:12px;margin-bottom:18px}
+#content>section:not(.news-front)>.section-heading h2{font-size:clamp(27px,2.7vw,37px);letter-spacing:-.04em;line-height:1.14}
+#content>section:not(.news-front)>.section-heading .eyebrow{color:#7e4b3f;letter-spacing:.13em}
+.forecast-grid .forecast-card{border-top:2px solid #4c6156}
+.eve-desk{background:#f1f0ea!important;color:#27322c!important;border-top:2px solid #34483c!important;border-bottom:1px solid #bfc4ba!important;box-shadow:none!important;margin-top:21px!important}
+.eve-desk-header{border-bottom:1px solid #bfc4ba!important;padding:18px 22px 14px!important}
+.eve-desk h2{color:#26362d!important;font:700 clamp(24px,2.7vw,34px)/1.1 Georgia,serif!important;letter-spacing:-.035em!important}
+.eve-desk-kicker{color:#7f4d3e!important;letter-spacing:.11em!important;font-size:9px!important}
+.eve-desk-header p{color:#555f57!important;font:12px/1.5 Arial,sans-serif!important}
+.eve-item{min-height:123px!important;padding:16px 17px!important;border-right:1px solid #c8cdc5!important}
+.eve-item:hover,.eve-item:focus-visible{background:#e5e8e0!important}
+.eve-item .eve-num{color:#725447!important;font-size:9px!important}
+.eve-item strong{color:#283b31!important;font:700 18px/1.2 Georgia,serif!important}
+.eve-item span:last-child{color:#58655b!important;font-size:11px!important}
+.eve-note{background:#e8e8e0!important;color:#4a574c!important;padding:10px 22px!important}
+.eve-note strong{color:#7f4d3e!important}
+@media(max-width:1100px){.paper{padding-left:24px;padding-right:24px}.top-strip,.newsline{margin-left:-24px;margin-right:-24px;padding-left:24px;padding-right:24px}.desk-hero-grid{grid-template-columns:minmax(0,1.6fr) minmax(255px,.8fr)}}
+@media(max-width:850px){.desk-hero-grid{grid-template-columns:1fr}.desk-latest{border-left:0;padding-left:0;border-top:1px solid #aeb3aa;padding-top:18px}.eve-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.eve-item:nth-child(2){border-right:0!important}}
+@media(max-width:580px){.paper{padding-left:13px;padding-right:13px}.top-strip,.newsline{margin-left:-13px;margin-right:-13px;padding-left:13px;padding-right:13px}.masthead{text-align:left}.masthead h1{font-size:clamp(36px,9.1vw,51px)}.main-nav{justify-content:flex-start}.desk-photo{height:275px}.desk-lead h2{font-size:31px}.desk-topics{grid-template-columns:1fr}.desk-topic,.desk-topic:first-child,.desk-topic:last-child{padding:13px 0;border-right:0;border-bottom:1px solid #c1c5ba;grid-column:auto}.eve-grid{grid-template-columns:1fr}.eve-item{min-height:90px!important;border-right:0!important;border-bottom:1px solid #c8cdc5!important}}
