@@ -111,7 +111,7 @@ test('the approved newspaper puts live games above editorial branding and uses o
   const src=read(path);
   assert.match(src,/cbb-product-v1\.css\?v=20261102-courtside2/);
   assert.match(src,/mbb-newspaper\.js\?v=20261102-courtside2/);
-  assert.match(src,/cbb-live-center\.js\?v=20261102-courtside2/);
+  assert.match(src,/cbb-live-center\.js\?v=20261102-neutral-site-v1/);
  }
 });
 test('real Chromium screenshot-layout contract: cream scorebug ahead of compact editorial on phone and desktop',async()=>{
@@ -174,4 +174,22 @@ test('real Chromium screenshot-layout contract: cream scorebug ahead of compact 
    }finally{await page.close()}
   }
  }finally{await browser.close()}
+});
+
+test('Miami–Florida neutral site is documented across both score displays',()=>{
+ const sites=JSON.parse(read('data/mbb-verified-game-sites-2026-27.json'));
+ const proof=sites.games['401906769'];
+ assert.equal(proof.neutral,true);
+ assert.equal(proof.site_verified,true);
+ assert.equal(proof.venue,'Benchmark International Arena');
+ assert.equal(proof.city,'Tampa');
+ assert.equal(proof.date,'2026-11-02');
+ assert(proof.source.includes('floridagators.com/sports/mens-basketball/schedule'));
+ const slate=read('ncaam-slate.js'),court=read('cbb-live-center.js');
+ assert(slate.includes('certifiedSite(g,sites)'));
+ assert(slate.includes('SCHOOL HOME COURT NOT SUBSTITUTED'));
+ assert(court.includes('certifiedGameSite(g,day)'));
+ assert(court.includes('NEUTRAL GAME · DISPLAY ORDER'));
+ for(const source of [slate,court])
+  assert(source.includes('data/mbb-verified-game-sites-2026-27.json'));
 });
