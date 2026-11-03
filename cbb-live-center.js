@@ -463,7 +463,7 @@
       date:row.date||null,away:team(row.away_id,row.away_name,'away',row.away_score),
       home:team(row.home_id,row.home_name,'home',row.home_score),
       phase:row.phase,headline:row.phase==='final'?'NCAA final':'NCAA scoreboard',
-      venue:'',broadcast:'',url:cleanURL(row.source_url||''),neutral:false,
+      venue:'',broadcast:'',url:cleanURL(row.source_url||''),neutral:null,
       source:row.source||'NCAA-origin score report',verifiedOfficial:true,linescores:false};
   }
   function certifiedArchivedFinals(day,ledger){
@@ -488,7 +488,7 @@
         away_score:a,home_score:h,date:day,
         source:'Verified RETRO final archive'
       });
-      if(record)official.push({...record,neutral:event.neutral===true,
+      if(record)official.push({...record,neutral:event.site_verified===true?event.neutral===true:null,
         archivedFinal:true,source:'Verified final · RETRO archive'});
     }
     return official;
@@ -520,7 +520,7 @@
       }else if(!previous||previous.phase!=='final'){
         byId.set(proof.id,proof);
       }else{
-        byId.set(proof.id,{...previous,archivedFinal:true,neutral:proof.neutral,
+        byId.set(proof.id,{...previous,archivedFinal:true,neutral:proof.neutral===null?previous.neutral:proof.neutral,
           source:'Verified final · RETRO archive'});
       }
     }
@@ -556,7 +556,7 @@
         games.push({...secondary,ncaaId:ncaa.ncaaId,phase:'final',
           away:{...secondary.away,score:score(ncaa.away)},
           home:{...secondary.home,score:score(ncaa.home)},
-          neutral:ncaa.archivedFinal?ncaa.neutral:secondary.neutral,
+          neutral:ncaa.archivedFinal&&ncaa.neutral!==null?ncaa.neutral:secondary.neutral,
           verifiedOfficial:true,statsDisputed:conflict,
           source:conflict?'NCAA verified final · ESPN score mismatch, secondary stats withheld':
             'NCAA-origin final · ESPN statistics secondary'});
@@ -918,7 +918,7 @@ async function getCourtGames(day){
     const ext=(hasStats&&espnId)?'https://www.espn.com/'+sport+'/game/_/gameId/'+encodeURIComponent(espnId):
       (g.url||('https://www.ncaa.com/scoreboard/'+(women?'basketball-women':'basketball-men')+'/d1'));
     node.innerHTML='<header class="cbb-gamefile-hero" style="--cbb-away:'+safeTeamColor(g.away)+';--cbb-home:'+safeTeamColor(g.home)+'"><div class="cbb-gamefile-eyebrow">SPORTING LIFE AND TIMES · '+(women?'WOMEN’S':'MEN’S')+' D-I · GAMEFILE '+esc(g.id)+'</div>'+
-      '<h1>'+esc(schoolLabel(g.away))+' <span class="cbb-gamefile-versus">'+(g.neutral?'VS':'AT')+'</span> '+esc(schoolLabel(g.home))+'</h1>'+
+      '<h1>'+esc(schoolLabel(g.away))+' <span class="cbb-gamefile-versus">'+(g.neutral===true||!g.venue?'VS':'AT')+'</span> '+esc(schoolLabel(g.home))+'</h1>'+
       '<p class="cbb-gamefile-status">'+currentView(g)+(g.neutral?' · NEUTRAL SITE':'')+
       (g.venue?' · '+esc(g.venue):'')+(g.broadcast?' · '+esc(g.broadcast):'')+'</p>'+
       '<div class="cbb-gamefile-score">'+row(g.away,g.phase,false,true,g)+row(g.home,g.phase,false,true,g)+'</div>'+
