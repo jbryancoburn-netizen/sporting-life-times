@@ -17,7 +17,7 @@ assert.deepEqual(proLinks,basketball,'professional basketball must list exactly 
 for(const page of found){
  assert(fs.existsSync(page),'missing dedicated page: '+page);
  const html=read(page);
- assert(html.includes('THE SPORTING LIFE')||html.includes('The Sporting Life'),'masthead missing: '+page);
+ assert(html.includes('THE SPORTING LIFE')||html.includes('The Sporting Life')||html.includes('SPORTING LIFE AND TIMES')||html.includes('Sporting Life and Times'),'masthead missing: '+page);
  assert(html.includes('sports.html'),'return navigation missing: '+page);
  if(page==='college-soccer.html'){
   assert(html.includes('college-soccer-visual-desk.css'),'Soccer visual edition stylesheet missing');

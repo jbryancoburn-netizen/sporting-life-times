@@ -299,3 +299,8 @@ body.cbb-header-v2 main{position:relative;z-index:0}
  body.cbb-header-v2 .sl-hero{min-height:135px!important;padding:16px!important}
  body.cbb-header-v2 .sl-hero h1{font-size:clamp(31px,8.5vw,49px)!important}
 }
+
+/* Native details visibility MUST beat the author-defined dropdown grid. */
+body.cbb-header-v2 header .cbb-nav-more:not([open]) .cbb-nav-dropdown{display:none!important}
+body.cbb-header-v2 header .cbb-nav-more[open] .cbb-nav-dropdown{display:grid!important}
+body.cbb-header-v2 header .cbb-nav-more[open] .cbb-nav-more-button{background:#9e1930;color:#fff7e8}
