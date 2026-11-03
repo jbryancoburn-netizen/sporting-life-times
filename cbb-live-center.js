@@ -744,7 +744,7 @@
       (entry?.at?' · Checked '+new Date(entry.at).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/New_York'})+' ET':'')+'</p>';
     selectInlineTab(panel,state.inlineTabs.get(String(g.id))||'summary');
     const court=panel.querySelector('[data-cbb-courtcast]');
-    if(window.SLTCourt&&court)window.SLTCourt.mount(court,g,raw,{updatedAt:entry?.at||0});
+    if(window.SLTCourt&&court)window.SLTCourt.mount(court,g,raw,{updatedAt:entry?.at||0,inline:true});
   }
   async function loadInlineDetails(id,panel){
     const g=state.games.find(x=>String(x.id)===String(id));
