@@ -7,3 +7,21 @@
 .slt-department-links a{color:#782c27!important;font:700 11px/1.4 Arial,sans-serif;letter-spacing:.06em;text-transform:uppercase;text-decoration:none}
 .slt-department-links a:hover{text-decoration:underline}
 @media(max-width:640px){.slt-department-band{margin:10px;padding:15px}.slt-department-band h1{font-size:clamp(34px,9vw,49px)!important}.slt-department-links{gap:12px}}
+
+/* Victorian sports edition editorial rail; sources remain in the existing live apps */
+.slt-edition-index{max-width:1330px;margin:0 auto 20px;background:#f4ead7;color:#262019;border-top:2px solid #252019;border-bottom:6px double #252019;padding:0 16px;font-family:Georgia,serif}
+.slt-edition-index .slt-index-folio{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:10px 0;border-bottom:1px solid #252019;font:700 11px Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase}
+.slt-index-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr))}
+.slt-index-panel{min-width:0;padding:18px;border-right:1px solid #b6a68c}
+.slt-index-panel:first-child{padding-left:0}.slt-index-panel:last-child{border-right:0;padding-right:0}
+.slt-index-panel.slt-wide{grid-column:span 3}.slt-index-panel.slt-narrow{grid-column:span 2}
+.slt-index-label{font:700 11px Arial,sans-serif!important;letter-spacing:.12em;text-transform:uppercase;color:#8a332a;margin:0 0 9px!important}
+.slt-index-panel h2{font:800 clamp(23px,2.5vw,36px)/1.12 Georgia,serif!important;letter-spacing:-.04em;margin:0 0 12px!important;color:#262019}
+.slt-index-panel>p:not(.slt-index-label){font:15px/1.45 Georgia,serif!important;color:#54463a}
+.slt-index-links{display:grid;gap:0;margin-top:14px}
+.slt-index-links a{display:flex;justify-content:space-between;gap:8px;padding:10px 0;border-top:1px solid #b6a68c;text-decoration:none;color:#262019;font:700 14px Georgia,serif}
+.slt-index-links a span{font:700 10px Arial,sans-serif;color:#8a332a;white-space:nowrap}
+.slt-index-links a:hover{text-decoration:underline}
+.slt-index-foot{border-top:1px solid #252019;padding:9px 0;font:11px/1.4 Georgia,serif;color:#62523e}
+@media(max-width:940px){.slt-index-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.slt-index-panel.slt-wide{grid-column:span 4}.slt-index-panel.slt-narrow{grid-column:span 2}.slt-index-panel{border-bottom:1px solid #b6a68c}.slt-index-panel:nth-child(2){border-right:0}}
+@media(max-width:580px){.slt-index-grid{display:block}.slt-index-panel,.slt-index-panel:first-child,.slt-index-panel:last-child{padding:15px 0;border-right:0;border-bottom:1px solid #b6a68c}.slt-index-panel h2{font-size:27px!important}}
