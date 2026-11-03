@@ -149,6 +149,7 @@ const url=new URL(location.href),women=url.searchParams.get('gender')==='women';
 let selected=/^\d{4}-\d\d-\d\d$/.test(url.searchParams.get('date')||'')?url.searchParams.get('date'):today();
 let filter=['all','live','final','upcoming','exhibition','favorites'].includes(url.searchParams.get('view'))?url.searchParams.get('view'):'all';
 let search='',loaded=[],ratings=new Map(),lastUpdate='',limit=18,loading=false,sourceError='';
+let pollRankings=new Map();
 let cross={teams:[]},palette={},arenaRegistry={},womenTeams=new Map(),sourceFeed=null,seasonStats=new Map(),liveChanges=new Map(),scoreCalibration=null;
 const insight=window.SLTBasketballInsights;
 const favoriteKey='slt-slate-favorites-'+(women?'women':'men');
@@ -422,66 +423,68 @@ const meter=g=>{
 };
 // Upright classic-broadcast scorebug, powered by the same game records as the cards.
 
-/* The Daily Ledger scorecard — one canonical presentation of each game. */
+/* The Daily Ledger scorecard — compact scoreboard, native in-place Gamefile. */
 const ledgerScorebug=g=>{
  const pts=t=>g.phase==='upcoming'?'—':Number.isFinite(t.score)?String(t.score):'—';
  const status=g.phase==='final'?'FINAL':g.phase==='live'?String(g.status||'LIVE'):'UPCOMING';
- const teamRow=t=>'<div class="ledger26-team" style="--ledger26-school:'+brand(t)+'">'+
+ const teamRow=t=>{
+  const poll=pollRankings.get(String(t.id));
+  const leagueRank=poll?'<span class="ledger26-ap">AP '+poll+'</span>':'';
+  const recordLine=esc(record(t))+' · RETRO '+(rating(t)??'—');
+  return '<div class="ledger26-team" style="--ledger26-school:'+brand(t)+'">'+
    '<span class="ledger26-crest">'+emblem(t)+'</span>'+
-   '<strong class="ledger26-name">'+esc(t.name)+'</strong>'+
+   '<span class="ledger26-identity"><strong class="ledger26-name">'+leagueRank+esc(t.name)+'</strong>'+
+   '<small class="ledger26-record">'+recordLine+'</small></span>'+
    '<b class="ledger26-points">'+pts(t)+'</b></div>';
+ };
  return '<div class="ledger26-scorebug" role="group" aria-label="'+esc(g.away.name)+' at '+esc(g.home.name)+' scoreboard">'+
   '<span class="ledger26-monogram"><img src="assets/slt-engraved-black.svg" width="35" height="49" alt="Sporting Life and Times monogram"></span>'+
   '<div class="ledger26-teams">'+teamRow(g.away)+teamRow(g.home)+'</div>'+
   '<div class="ledger26-status" data-phase="'+esc(g.phase)+'"><strong>'+esc(status)+'</strong></div></div>';
 };
-function card(g,featured){
- const href=gameDetailsHref(g,women),isExternal=g.kind==='exhibition';
- const source=isExternal?(g.evidence==='secondary'?'Published secondary result':'University / cited result'):
+function card(g,featured,opened=false){
+ const external=g.kind==='exhibition';
+ const source=external?(g.evidence==='secondary'?'Published secondary result':'University / cited result'):
    g.phase==='final'?(g.evidence==='final-source'?'Attributed final':'Reported final'):
    g.phase==='live'?'Live scoreboard':'Sourced fixture + RETRO';
  const when=g.phase==='upcoming'?'<span class="ledger26-time">'+esc(formatClock(g))+'</span>':'';
  const venue=g.venue?'<span class="ledger26-venue">'+esc(g.venue)+'</span>':'';
  return '<article class="sl-game ledger26-card'+(featured?' ledger26-featured':'')+'">'+
    (when||venue?'<div class="ledger26-meta">'+when+venue+'</div>':'')+
-   '<details class="sl-game-expansion ledger26-expand">'+
+   '<details class="sl-game-expansion ledger26-expand" data-game-id="'+esc(g.id)+'" data-day="'+esc(g.day)+'"'+(opened?' open':'')+'>'+
    '<summary class="ledger26-summary" aria-label="Expand '+esc(g.away.name)+' at '+esc(g.home.name)+' game details">'+
-   ledgerScorebug(g)+'<span class="ledger26-instruction">OPEN GAMEFILE <span aria-hidden="true">+</span></span></summary>'+
+   ledgerScorebug(g)+'<span class="ledger26-instruction">OPEN GAME DETAILS <span aria-hidden="true">+</span></span></summary>'+
    '<div class="ledger26-expanded">'+
    '<div class="ledger26-follows">'+favorite(g.away)+favorite(g.home)+'</div>'+
    '<div class="sl-game-footer ledger26-links"><span>'+esc(source)+'</span>'+
-   '<a class="sl-details" href="'+esc(href)+'"'+(isExternal?' target="_blank" rel="noopener noreferrer"':'')+'>'+
-   (isExternal?'Result source':'Open full Gamefile')+' ↗</a>'+
-   (!women&&g.home?.canonical?'<a class="sl-arena-deep-link" href="ncaam-arena.html?team='+encodeURIComponent(g.home.id)+'">Arena File ↗</a>':'')+
+   (external&&/^https:\/\/[^\s"'<>]+$/.test(g.sourceURL||'')?
+     '<a class="sl-details" href="'+esc(g.sourceURL)+'" target="_blank" rel="noopener noreferrer">Cited exhibition result ↗</a>':'')+
    '</div>'+
-   (isExternal?'':'<div class="sl-inline-gamefile ledger26-gamefile" data-gamefile="'+esc(href)+'"></div>')+
+   (external?'<p class="slt-gf-missing">Exhibition results are recorded separately from official RETRO ratings. Full statistical feeds may not be available.</p>':
+     '<div class="sl-inline-gamefile ledger26-gamefile" data-inline-game-id="'+esc(g.id)+'"></div>')+
    '</div></details></article>';
 }
-/* Load detailed box score and period scoring only after opening its compact scorebug. */
-if(typeof document!=='undefined')document.addEventListener('toggle',event=>{
- const details=event.target;
- if(!details.matches?.('.sl-game-expansion')||!details.open)return;
- const panel=details.querySelector('.sl-inline-gamefile[data-gamefile]');
- if(!panel||panel.dataset.loaded)return;
- const source=panel.dataset.gamefile;
- if(!source||!source.startsWith('cbb-gamefile.html?'))return;
- const frame=document.createElement('iframe');
- frame.className='sl-inline-frame';
- frame.title='Gamefile with box score, period scoring and additional statistics';
- frame.loading='lazy';
- frame.src=source;
- panel.replaceChildren(frame);
- panel.dataset.loaded='true';
+const openGamefile=details=>{
+ const g=loaded.find(x=>String(x.id)===details.dataset.gameId&&x.day===details.dataset.day);
+ const panel=details.querySelector('[data-inline-game-id]');
+ if(!g||!panel||!window.SLTInlineGamefile)return;
+ window.SLTInlineGamefile.mount(panel,g,{women,feed:sourceFeed});
+};
+document.addEventListener('toggle',event=>{
+ const d=event.target;
+ if(d.matches?.('.sl-game-expansion')&&d.open)openGamefile(d);
 },true);
 const render=()=>{
  const games=selectGames(loaded,selected,filter,search,followed),shown=games.slice(0,limit);
+ const opened=new Set([...document.querySelectorAll('.sl-game-expansion[open]')].map(d=>d.dataset.day+'|'+d.dataset.gameId));
  document.getElementById('sl-date').textContent=dateLabel(selected);
  document.getElementById('sl-count').textContent=games.length+' '+(games.length===1?'game':'games');
  document.getElementById('sl-data').textContent=lastUpdate?'Updated '+lastUpdate:'Checking game data…';
  for(const b of document.querySelectorAll('[data-filter]')){const active=b.dataset.filter===filter;b.classList.toggle('is-active',active);b.setAttribute('aria-pressed',String(active));}
  const empty=sourceError?'<div class="sl-empty"><strong>Data source unavailable.</strong><p>'+esc(sourceError)+'</p><button type="button" id="sl-retry">Retry connection</button></div>':
  '<div class="sl-empty"><strong>No games match this view.</strong><p>Change the date or filter. Only source-backed fixtures are shown.</p></div>';
- document.getElementById('sl-games').innerHTML=shown.length?shown.map((g,i)=>card(g,i===0)).join(''):empty;
+ document.getElementById('sl-games').innerHTML=shown.length?shown.map((g,i)=>card(g,i===0,opened.has(g.day+'|'+g.id))).join(''):empty;
+ document.querySelectorAll('.sl-game-expansion[open]').forEach(openGamefile);
  document.getElementById('sl-more').hidden=games.length<=shown.length;
  document.getElementById('sl-more').textContent='Show more games ('+(games.length-shown.length)+' remaining)';
  document.getElementById('sl-coverage').textContent=women?
@@ -492,7 +495,7 @@ const render=()=>{
 async function refresh(){
  if(loading)return;loading=true;const status=document.getElementById('sl-data');status.textContent='Refreshing verified sources…';
  try{
-  const menFiles=['data/mbb-live.json','data/ncaam-2026-27-upcoming-forecasts.json','data/ncaam-2026-27-retro-primary.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json','data/mbb-exhibition-finals-2026-27.json','data/mbb-arena-registry.json','data/ncaam-score-calibration.json'];
+  const menFiles=['data/mbb-live.json','data/ncaam-2026-27-upcoming-forecasts.json','data/ncaam-2026-27-retro-primary.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json','data/mbb-exhibition-finals-2026-27.json','data/mbb-arena-registry.json','data/ncaam-score-calibration.json','data/ncaam-2026-27-national-polls.json'];
   const womenFiles=['data/ncaaw-2026-27-games.json','data/ncaaw-2026-27-retro-primary.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json','data/ncaaw-2026-27-teams.json','data/mbb-live.json'];
   const paths=women?womenFiles:menFiles;
   const output=await Promise.all(paths.map(p=>fetchJSON(p).catch(()=>null)));
@@ -505,10 +508,15 @@ async function refresh(){
     loaded=dedupeFixtures(normalizeWomen(results,rank,cross));
     lastUpdate='women’s rolling fixture ledger';
   }else{
-    const [feed,forecast,rank,c,pal,ex,arenas,calibration]=output;
+    const [feed,forecast,rank,c,pal,ex,arenas,calibration,polls]=output;
     if(!feed||rank?.model!=='retro-clean-slate'||rank.starting_elo!==1500||rank.rankings?.length!==365)
       throw Error('Men’s scoreboard or certified RETRO feed unavailable');
     cross=c||{teams:[]};ratings=rankingsMap(rank);palette=pal?.mbb||{};
+    const schools=new Map((cross.teams||[]).map(t=>[String(t.name||'').trim().toLowerCase(),String(t.espn_id)]));
+    pollRankings=new Map((polls?.season==='2026-27'?polls?.polls?.ap?.rankings||[]:[]).flatMap(r=>{
+      const id=schools.get(String(r.team||'').trim().toLowerCase());
+      return id&&Number.isInteger(r.rank)&&r.rank>=1&&r.rank<=25?[[id,r.rank]]:[];
+    }));
     arenaRegistry=arenas?.teams||{};scoreCalibration=calibration;
     const before=new Map(loaded.filter(g=>g.phase==='live'&&g.kind==='regular').map(g=>
       [g.id,{id:g.id,day:g.day,away_score:g.away.score,home_score:g.home.score}]));
@@ -548,6 +556,14 @@ document.getElementById('sl-women').classList.toggle('is-active',women);
 document.getElementById('sl-men').classList.toggle('is-active',!women);
 if(women)document.getElementById('sl-filter-exhibitions').hidden=true;
 refresh();setInterval(()=>{if(!document.hidden)refresh()},90000);
+// Detailed live feeds update while expanded, without refreshing or navigating the page.
+setInterval(()=>{if(document.hidden||!window.SLTInlineGamefile)return;
+ document.querySelectorAll('.sl-game-expansion[open]').forEach(d=>{
+  const g=loaded.find(x=>String(x.id)===d.dataset.gameId&&x.day===d.dataset.day);
+  const panel=d.querySelector('[data-inline-game-id]');
+  if(g?.phase==='live'&&panel)window.SLTInlineGamefile.mount(panel,g,{women,feed:sourceFeed,force:true});
+ });
+},30000);
 }
 return{normalizeMen,normalizeWomen,normalizeExhibitions,selectGames,gameDetailsHref,formatClock,isoDate,shift,start};
 });
