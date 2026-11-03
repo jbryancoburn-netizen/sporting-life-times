@@ -25,7 +25,7 @@ function metric(label,value,note){
  block.append(elem("span",note,"acs-note"));
  return block;
 }
-function render(data,id){
+function render(data,id,atlas){
  const host=document.getElementById("result-panel");
  if(!host||!host.closest("section"))return;
  const section=elem("section",null,"panel acs-wrap");
@@ -39,8 +39,13 @@ function render(data,id){
  if(!oldDistrict){
    section.append(elem("p","Census district profile unavailable. Nothing estimated or filled in.","acs-warning"));
  }else{
-   const state=window.PoliticsCurrentDistrictGeo||null;
-   const geo=elem("p","These 2020–2024 ACS estimates use 119th-Congress boundaries. If the state redrew its map, a comparison of this individual district is needed before treating estimates as 2026 geography.","acs-muted");
+   const status=atlas?.districts?.find(x=>x.id===id)?.["2024_to_2026_geography_comparison"];
+   const warning=status==="verified_changed_district_blocks";
+   const pending=status==="pending_district_block_comparison";
+   const explanation=warning?"Official block comparison confirms the numbered district changed for 2026. These figures describe its older 119th-Congress geography.":
+    pending?"This state redrew its map, but the geographic overlap of this specific district is not yet verified. These statistics describe 119th-Congress geography.":
+    "This district's geographic correspondence is verified. Estimates still reflect the 2020–2024 ACS survey period, not a current population count.";
+   const geo=elem("p",explanation,warning||pending?"acs-warning":"acs-muted");
    section.append(geo);
    const grid=elem("div",null,"acs-stat-grid");
    const pop=oldDistrict["population_2020_2024_acs_est"];
@@ -70,16 +75,19 @@ async function start(){
  if(document.body.dataset.housePage!=="district")return;
  const id=(new URLSearchParams(location.search).get("district")||"").trim().toUpperCase();
  if(!/^[A-Z]{2}-(?:\d{2})$/.test(id))return;
- const response=await fetch(SOURCE+"?v=20261101-acs",{cache:"no-store"});
- if(!response.ok)throw Error("No verified original Census district source");
- const d=await response.json();
+ const [response,atlasResponse]=await Promise.all([
+  fetch(SOURCE+"?v=20261101-acs",{cache:"no-store"}),
+  fetch("politics-house-atlas.json",{cache:"no-cache"})
+ ]);
+ if(!response.ok||!atlasResponse.ok)throw Error("No verified original Census or House geographic source");
+ const [d,atlas]=await Promise.all([response.json(),atlasResponse.json()]);
  if(d.status!=="ok"||d.district_count!==435||d.districts?.length!==435||
     d.forecast_eligible!==false||d["2026_district_geography_harmonized"]!==false||
     !d.geography?.startsWith("119th Congress")||
     Object.keys(d.source_files||{}).sort().join(",")!=="B01003,B15003,B19013"){
    throw Error("Census evidence did not pass the 119th district geographic source contract");
  }
- render(d,id);
+ render(d,id,atlas);
 }
 function init(){start().catch(e=>{
  const host=document.getElementById("result-panel")?.closest("section");
