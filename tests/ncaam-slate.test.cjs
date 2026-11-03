@@ -24,8 +24,8 @@ for(const cls of ['.sl-arena-stage','.sl-arena-wordmark','.sl-pennant','.sl-penn
   '.sl-floor-graphic','.sl-arena-caption','.sl-matchup-facts'])
   assert(css.includes(cls),'art-directed arena module missing: '+cls);
 assert(script.includes('data/mbb-arena-registry.json'),'official arena registry not loaded');
-assert(script.includes('DOCUMENTED SCHOOL HOME COURT · NOT CONFIRMED FOR THIS GAME'),
-  'avoid claiming a team home arena is the site of a neutral or alternate-host game');
+assert(script.includes('SCHOOL HOME COURT NOT SUBSTITUTED')&&!script.includes('HOME ARENA: '),
+  'game pages must never substitute the school home court for an unverified game site');
 assert(script.includes('data/dual-ring-team-palette.json'),'real two-color school palette not loaded');
 
 for(const motif of ['.sl-arena--rafters','.sl-arena--gallery','.sl-arena--grandstand',
@@ -53,7 +53,22 @@ assert.equal(ratings.starting_elo,1500);
 assert.equal(ratings.model,'retro-clean-slate');
 assert.equal(ratings.rankings.length,365);
 const feed=json('data/mbb-live.json'),forecast=json('data/ncaam-2026-27-upcoming-forecasts.json');
-const men=slate.normalizeMen(feed,forecast,cross);
+const siteEvidence=json('data/mbb-verified-game-sites-2026-27.json');
+const men=slate.normalizeMen(feed,forecast,cross,siteEvidence);
+const neutral=men.find(g=>g.id==='401906769');
+assert(neutral,'Miami–Florida final missing from published scoreboard');
+assert.equal(neutral.neutral,true);
+assert.equal(neutral.venue,'Benchmark International Arena');
+assert.equal(neutral.venueCity,'Tampa, FL');
+assert.equal(neutral.siteEvent,'Orion180 Tip-Off Classic');
+assert.equal(neutral.away.id,'2390');
+assert.equal(neutral.home.id,'57');
+assert.equal(neutral.away.score,67);
+assert.equal(neutral.home.score,77);
+assert.equal(neutral.siteSource,siteEvidence.games['401906769'].source);
+const wrongEvidence={games:{'401906769':{...siteEvidence.games['401906769'],home_id:'9999'}}};
+assert.equal(slate.normalizeMen(feed,forecast,cross,wrongEvidence)
+  .find(g=>g.id==='401906769').venue,'','mismatched school proof must be rejected');
 assert(men.length>0,'current men scoreboard missing');
 assert(men.every(g=>g.away&&g.home&&g.away.id!==g.home.id),'duplicate or missing teams');
 const publishedDay=slate.isoDate(feed.games[0].date);
