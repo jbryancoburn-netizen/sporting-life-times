@@ -180,3 +180,30 @@ body[data-house-page="district"] .paper>footer{border-top:4px double var(--ledge
  body[data-house-page="state"] .geo-district-map{height:440px!important;min-height:400px!important}
  body[data-house-page="district"] #dossier-map{height:440px!important;min-height:390px!important}
 }
+
+/* Finished print-grid treatment: the map leads, verified numbers remain concise. */
+body[data-house-page="state"] .state-metrics{
+ display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:0!important;
+ margin:4px 0 0!important;background:transparent!important;border-top:1px solid var(--ledger-rule);
+ border-bottom:1px solid var(--ledger-rule);box-shadow:none!important
+}
+body[data-house-page="state"] .state-metrics>.metric{
+ border-right:1px solid var(--ledger-rule)!important;border-radius:0!important;
+ background:transparent!important;box-shadow:none!important;padding:12px 18px!important;
+}
+body[data-house-page="state"] .state-metrics>.metric:last-child{border-right:0!important}
+body[data-house-page="state"] .state-metrics .metric b{font-family:var(--ledger-display)!important;font-weight:700}
+body[data-house-page="state"] .state-metrics .metric span{font-family:var(--ledger-sans)!important;letter-spacing:.04em}
+body[data-house-page="state"] .state-feature-map{clear:both}
+body[data-house-page="state"] .state-news-board,
+body[data-house-page="state"] .state-races-section,
+body[data-house-page="district"] .district-data-story{background:transparent!important;box-shadow:none!important}
+body[data-house-page="state"] .state-races-section{border-top:3px double var(--ledger-ink);padding-top:20px}
+body[data-house-page="district"] #district-overview-places,
+body[data-house-page="district"] #district-overview-history{font-family:var(--ledger-serif)}
+@media(max-width:600px){
+ body[data-house-page="state"] .state-metrics{grid-template-columns:repeat(3,minmax(0,1fr))}
+ body[data-house-page="state"] .state-metrics>.metric{padding:10px 6px!important}
+ body[data-house-page="state"] .state-metrics .metric span{font-size:10px!important;line-height:1.4}
+ body[data-house-page="state"] .state-feature-map{margin-inline:0!important}
+}
