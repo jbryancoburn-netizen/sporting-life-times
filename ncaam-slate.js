@@ -155,6 +155,55 @@ function selectGames(all,day,view,query,followed){
     return p(a)-p(b)||certified(b)-certified(a)||
       (a.date||'').localeCompare(b.date||'')||a.away.name.localeCompare(b.away.name)});
 }
+
+/* Browser-only scoreboard supplement.
+ * Exact ESPN event ID, exact away/home school IDs and Eastern date are required.
+ * It can confirm time/status; it never changes RETRO, game IDs or a certified final.
+ */
+function applyESPNToSlate(games,payload,selectedDate){
+ const events=Array.isArray(payload?.events)?payload.events:[];
+ const byId=new Map(events.map(e=>[String(e?.id||''),e]));
+ let changes=0;
+ const result=games.map(g=>{
+  if(g.kind!=='regular'||g.phase==='final'||g.day!==selectedDate)return g;
+  const event=byId.get(String(g.id));
+  if(!event||isoDate(event.date)!==g.day)return g;
+  const competition=event.competitions?.[0];
+  const sides=competition?.competitors||[];
+  const away=sides.find(t=>t.homeAway==='away'),home=sides.find(t=>t.homeAway==='home');
+  if(String(away?.team?.id)!==String(g.away?.id)||
+     String(home?.team?.id)!==String(g.home?.id))return g;
+  const state=String(event.status?.type?.state||'');
+  if(!['pre','in','post'].includes(state))return g;
+  const next={...g,away:{...g.away},home:{...g.home}};
+  let changed=false;
+  // A calendar timestamp becomes trusted only after exact matchup confirmation.
+  if(!g.timed&&g.phase==='upcoming'){
+   next.date=event.date;next.timed=true;
+   changed=true;
+  }
+  if(state==='in'||state==='post'){
+   const scoreValue=t=>{
+    const raw=t?.score;
+    const n=typeof raw==='object'?Number(raw?.value??raw?.displayValue):Number(raw);
+    return raw!==null&&raw!==undefined&&raw!==''&&Number.isInteger(n)&&n>=0&&n<=250?n:null;
+   };
+   const a=scoreValue(away),h=scoreValue(home);
+   if(a!==null&&h!==null&&(g.away.score==null||a>=g.away.score)&&
+       (g.home.score==null||h>=g.home.score)){
+     next.away.score=a;next.home.score=h;
+     next.phase=state==='post'?'final':'live';
+     next.status=String(event.status?.type?.shortDetail||event.status?.type?.detail||
+       (state==='post'?'Final':'Live'));
+     next.source='ESPN directly matched game event';
+     if(next.away.score!==g.away.score||next.home.score!==g.home.score||next.phase!==g.phase||next.status!==g.status)changed=true;
+   }
+  }
+  if(changed)changes++;
+  return changed?next:g;
+ });
+ return {games:result,changes};
+}
 function start(){
 const root=document.getElementById('slate-root');if(!root)return;
 const url=new URL(location.href),women=url.searchParams.get('gender')==='women';
@@ -162,6 +211,7 @@ let selected=/^\d{4}-\d\d-\d\d$/.test(url.searchParams.get('date')||'')?url.sear
 let filter=['all','live','final','upcoming','exhibition','favorites'].includes(url.searchParams.get('view'))?url.searchParams.get('view'):'all';
 let search='',loaded=[],ratings=new Map(),lastUpdate='',limit=18,loading=false,sourceError='';
 let cross={teams:[]},palette={},arenaRegistry={},womenTeams=new Map(),sourceFeed=null,seasonStats=new Map(),liveChanges=new Map(),scoreCalibration=null;
+let sourceCheckBusy=false,sourceCheckAt=0;
 const insight=window.SLTBasketballInsights;
 const favoriteKey='slt-slate-favorites-'+(women?'women':'men');
 let followed=new Set();
@@ -267,7 +317,8 @@ const render=()=>{
  const games=selectGames(loaded,selected,filter,search,followed),shown=games.slice(0,limit);
  document.getElementById('sl-date').textContent=dateLabel(selected);
  document.getElementById('sl-count').textContent=games.length+' '+(games.length===1?'game':'games');
- document.getElementById('sl-data').textContent=lastUpdate?'Updated '+lastUpdate:'Checking game data…';
+ document.getElementById('sl-data').textContent=(lastUpdate?'Published '+lastUpdate:'Published source pending')+
+   (sourceCheckAt?' · ESPN checked '+new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit'}).format(new Date(sourceCheckAt)):'');
  for(const b of document.querySelectorAll('[data-filter]')){const active=b.dataset.filter===filter;b.classList.toggle('is-active',active);b.setAttribute('aria-pressed',String(active));}
  const empty=sourceError?'<div class="sl-empty"><strong>Data source unavailable.</strong><p>'+esc(sourceError)+'</p><button type="button" id="sl-retry">Retry connection</button></div>':
  '<div class="sl-empty"><strong>No games match this view.</strong><p>Change the date or filter. Only source-backed fixtures are shown.</p></div>';
@@ -323,13 +374,37 @@ async function refresh(){
  }catch(err){if(!loaded.length)sourceError=String(err.message||'Unable to retrieve fixtures');}
  finally{loading=false;render()}
 }
-document.getElementById('sl-prev').addEventListener('click',()=>{selected=shift(selected,-1);limit=18;render()});
-document.getElementById('sl-next').addEventListener('click',()=>{selected=shift(selected,1);limit=18;render()});
-document.getElementById('sl-picker').addEventListener('change',e=>{if(e.target.value){selected=e.target.value;limit=18;render()}});
+
+async function checkESPN(){
+ if(sourceCheckBusy||document.hidden||!loaded.length)return;
+ // We do not introduce fixtures absent from the certified published schedule.
+ // A single scoreboard check may confirm provisional tipoffs by exact game ID.
+ if(!loaded.some(g=>g.day===selected&&g.kind==='regular'&&g.phase!=='final'))return;
+ sourceCheckBusy=true;
+ const controller=new AbortController();
+ const timeout=setTimeout(()=>controller.abort(),10000);
+ try{
+  const sport=women?'womens-college-basketball':'mens-college-basketball';
+  const url='https://site.api.espn.com/apis/site/v2/sports/basketball/'+sport+
+    '/scoreboard?dates='+selected.replaceAll('-','')+'&groups=50&limit=1000';
+  const r=await fetch(url,{cache:'no-store',signal:controller.signal});
+  if(!r.ok)return;
+  const checked=selected,received=applyESPNToSlate(loaded,await r.json(),selected);
+  // Guard selection changes while the browser request is in flight.
+  if(checked!==selected)return;
+  loaded=received.games;
+  sourceCheckAt=Date.now();
+  render();
+ }catch{/* Offline/CORS/provider failures retain published data. Never claim fresh scores. */}
+ finally{clearTimeout(timeout);sourceCheckBusy=false}
+}
+document.getElementById('sl-prev').addEventListener('click',()=>{selected=shift(selected,-1);limit=18;sourceCheckAt=0;render();checkESPN()});
+document.getElementById('sl-next').addEventListener('click',()=>{selected=shift(selected,1);limit=18;sourceCheckAt=0;render();checkESPN()});
+document.getElementById('sl-picker').addEventListener('change',e=>{if(e.target.value){selected=e.target.value;limit=18;sourceCheckAt=0;render();checkESPN()}});
 document.getElementById('sl-search').addEventListener('input',e=>{search=e.target.value;limit=18;render()});
 document.getElementById('sl-filters').addEventListener('click',e=>{const b=e.target.closest('[data-filter]');if(!b)return;filter=b.dataset.filter;limit=18;render()});
 document.getElementById('sl-more').addEventListener('click',()=>{limit+=18;render()});
-document.getElementById('sl-reload').addEventListener('click',refresh);
+document.getElementById('sl-reload').addEventListener('click',async()=>{await refresh();await checkESPN()});
 document.getElementById('sl-games').addEventListener('click',e=>{
  const b=e.target.closest('[data-follow]');if(b){const id=b.dataset.follow;
    followed.has(id)?followed.delete(id):followed.add(id);
@@ -344,7 +419,10 @@ document.title=(women?'Women’s':'Men’s')+' College Basketball Games | The Sp
 document.getElementById('sl-women').classList.toggle('is-active',women);
 document.getElementById('sl-men').classList.toggle('is-active',!women);
 if(women)document.getElementById('sl-filter-exhibitions').hidden=true;
-refresh();setInterval(()=>{if(!document.hidden)refresh()},90000);
+refresh().then(checkESPN);
+setInterval(()=>{if(!document.hidden)refresh().then(checkESPN)},90000);
+setInterval(()=>{if(!document.hidden&&selected===today())checkESPN()},30000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)checkESPN()});
 }
-return{normalizeMen,normalizeWomen,normalizeExhibitions,selectGames,gameDetailsHref,formatClock,isoDate,shift,start};
+return{normalizeMen,normalizeWomen,normalizeExhibitions,selectGames,gameDetailsHref,formatClock,isoDate,shift,applyESPNToSlate,start};
 });

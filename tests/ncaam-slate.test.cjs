@@ -29,3 +29,23 @@ assert(html.includes('class="sl-masthead masthead"'), 'brand globe must initiali
 assert(!html.includes('class="sl-hero"'), 'scoreboard must appear without a decorative 135px hero');
 assert(css.includes('.sl-day-picker input[type=date]')&&css.includes('opacity:0!important'),'native iOS month text must not leak into date');
 assert(script.includes("weekday:'short',month:'short'"), 'abbreviated mobile date required');
+
+const scheduled={id:'401999999',day:'2026-11-03',phase:'upcoming',kind:'regular',
+ date:'',timed:false,away:{id:'1',name:'Example Away',score:null},
+ home:{id:'2',name:'Example Home',score:null}};
+const evt=(aid='1',hid='2',date='2026-11-03T23:00:00Z',state='pre',a='',h='')=>({
+ id:'401999999',date,status:{type:{state,shortDetail:state==='in'?'12:13 - 1st':'Scheduled'}},
+ competitions:[{competitors:[{homeAway:'away',team:{id:aid},score:a},
+ {homeAway:'home',team:{id:hid},score:h}]}]
+});
+const verified=slate.applyESPNToSlate([scheduled],{events:[evt()]},'2026-11-03');
+assert.equal(verified.changes,1);assert.equal(verified.games[0].timed,true);
+assert.equal(verified.games[0].date,'2026-11-03T23:00:00Z');
+assert.equal(verified.games[0].phase,'upcoming');
+assert.equal(slate.applyESPNToSlate([scheduled],{events:[evt('99','2')]},'2026-11-03').changes,0);
+assert.equal(slate.applyESPNToSlate([scheduled],{events:[evt('1','2','2026-11-04T23:00:00Z')]},'2026-11-03').changes,0);
+const live=slate.applyESPNToSlate([scheduled],{events:[evt('1','2','2026-11-03T23:00:00Z','in','22','24')]},'2026-11-03').games[0];
+assert.equal(live.phase,'live');assert.equal(live.home.score,24);
+assert.equal(live.away.score,22);
+const final={...scheduled,phase:'final',away:{...scheduled.away,score:69},home:{...scheduled.home,score:65}};
+assert.equal(slate.applyESPNToSlate([final],{events:[evt('1','2','2026-11-03T23:00:00Z','in','77','77')]},'2026-11-03').games[0].away.score,69);
