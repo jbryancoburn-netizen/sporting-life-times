@@ -222,6 +222,48 @@ def build(fec,historical,county,ballots,geography,politics,polls,compiled=None,u
         "warning":"Compiled latest poll summaries are secondary evidence with samples and sponsorship unverified; historical margins are previous election results, not 2026 probabilities. Redistricted states' 2024 district returns do NOT apply to 2026 geography. Generic ballot surveys, national polls, DDHQ probabilities and candidate filings are never presented as district-specific polling. Missing data remain labeled."
     }
 
+def validate_florida_original_block_records(comparisons, florida):
+    """Independently re-derive 28 district matches from the official Florida block matrix.
+
+    This is geometric block membership, not voter turnout or demographic weight.
+    """
+    if (florida.get("status")!="OFFICIAL_BLOCK_REASSIGNMENTS_VERIFIED_NOT_VOTE_RESULTS"
+        or florida.get("source_block_inventory_identical") is not True
+        or florida.get("2020_census_block_vintage_aligned") is not True
+        or florida.get("congressional_districts_each_plan")!=28):
+        raise ValueError("Florida 2024/2026 official Census block comparison unavailable")
+    matrix=florida["comparison"]["matrix"]
+    if florida["comparison"]["total_2020_census_blocks"]!=390066:
+        raise ValueError("Unexpected Florida source block inventory")
+    ledger=comparisons["records"]
+    certified_unchanged=0
+    for number in range(1,29):
+        code=f"{number:02}"
+        old=sum(int(r["2020_blocks"]) for r in matrix if r["district_2024"]==code)
+        current=sum(int(r["2020_blocks"]) for r in matrix if r["district_2026"]==code)
+        shared=sum(int(r["2020_blocks"]) for r in matrix if r["district_2024"]==code and r["district_2026"]==code)
+        incoming=current-shared
+        outgoing=old-shared
+        if old<=0 or current<=0 or incoming<0 or outgoing<0:
+            raise ValueError("Invalid Florida original census block assignment "+code)
+        expected="verified_same_district_blocks" if incoming==0 and outgoing==0 else "verified_changed_district_blocks"
+        record=ledger[f"FL-{code}"]
+        if (record["status"]!=expected
+            or record.get("same_2026_geography") is not (expected=="verified_same_district_blocks")
+            or record.get("previous_plan_blocks")!=old
+            or record.get("current_plan_blocks")!=current
+            or record.get("matching_2020_blocks")!=shared
+            or record.get("incoming_2020_blocks")!=incoming
+            or record.get("outgoing_2020_blocks")!=outgoing):
+            raise ValueError("Florida block findings disagree with official source in FL-"+code)
+        certified_unchanged+=expected=="verified_same_district_blocks"
+    if certified_unchanged!=5:
+        raise ValueError("Florida district identity certification no longer agrees with source")
+    if sum(int(r["2020_blocks"]) for r in matrix)!=390066:
+        raise ValueError("Florida original block comparison has inconsistent total assignments")
+    return True
+
+
 def apply_verified_district_evidence(atlas, finalists, comparisons):
     """Preserve state-certified 2024 finalists and assess geography per district.
 
@@ -301,7 +343,9 @@ def main():
                load("politics-2024-county-presidential.json"),load("politics-official-ballots.json"),
                load("politics-2026-district-geography.json"),load("politics-data.json"),
                load(POLL_FILE),load("politics-house-polls-compilation.json"),load("politics-2024-unopposed-house.json"))
-    data=apply_verified_district_evidence(data,load("politics-2024-finalist-results.json"),load("politics-district-boundary-comparability.json"))
+    district_comparisons=load("politics-district-boundary-comparability.json")
+    validate_florida_original_block_records(district_comparisons,load("politics-fl-2024-2026-block-transition.json"))
+    data=apply_verified_district_evidence(data,load("politics-2024-finalist-results.json"),district_comparisons)
     OUTPUT.write_text(json.dumps(data,ensure_ascii=False,separators=(",",":"))+"\n",encoding="utf-8")
     print("House atlas:",data["district_count"],"districts,",data["2024_house_results_found"],
           "historical results,",data["2026_official_ballot_offices"],
