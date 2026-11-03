@@ -234,3 +234,23 @@ body.cbb-product.cbb-header-v2 .sl-header .cbb-compact-editions .cbb-edition-lin
  body.cbb-product.cbb-header-v2 .sl-header .cbb-navigation .cbb-main-link{padding:6px 7px!important;font-size:9px!important}
  .sl-count-wrap strong{font-size:10px}
 }
+
+/* Nov 3, 2026: iOS date input is clickable but must never paint glyphs over the label. */
+.sl-day-picker{isolation:isolate!important}
+.sl-day-picker #sl-date{position:relative!important;z-index:1!important;pointer-events:none!important}
+.sl-day-picker input#sl-picker[type=date]{
+  -webkit-appearance:none!important;appearance:none!important;
+  position:absolute!important;inset:0!important;width:100%!important;height:100%!important;
+  margin:0!important;padding:0!important;border:0!important;background:transparent!important;
+  color:transparent!important;-webkit-text-fill-color:transparent!important;
+  opacity:0!important;font-size:16px!important;z-index:3!important;
+}
+.sl-day-picker input#sl-picker::-webkit-datetime-edit,
+.sl-day-picker input#sl-picker::-webkit-date-and-time-value{
+  opacity:0!important;color:transparent!important;-webkit-text-fill-color:transparent!important;
+}
+@media(max-width:700px){
+ .sl-day-picker{padding:0 6px!important}
+ .sl-day-picker #sl-date{font-size:clamp(11px,3vw,13px)!important}
+ .sl-toolbar{margin-bottom:5px!important}
+}
