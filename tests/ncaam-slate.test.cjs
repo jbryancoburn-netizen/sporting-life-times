@@ -20,3 +20,6 @@ assert.equal(ex.retro_included,false);assert(exh.length>=100);
 assert(exh.every(g=>!slate.gameDetailsHref(g,false).startsWith('cbb-gamefile.html')));
 const w=json('data/ncaaw-2026-27-retro-primary.json');assert.equal(w.rankings.length,363);
 console.log('PASS new source-backed court UI, no theatrical arena/pennant placeholders');
+
+// Independent official game-site certification stays in the release gate.
+require('./mbb-verified-game-sites.test.cjs');
