@@ -1,0 +1,23 @@
+/* College Basketball mobile legibility repair: CSS only; feeds unchanged. */
+@media (max-width: 700px) {
+ .sl-toolbar {display:block!important;padding:10px 0!important;overflow:visible!important}
+ .sl-toolbar .sl-edition {display:none!important} /* men/women already in main navigation */
+ .sl-day-controls {display:grid!important;grid-template-columns:36px minmax(0,1fr) 36px!important;align-items:center!important;gap:8px!important;width:100%!important;min-width:0!important}
+ .sl-day-controls>button {width:36px!important;height:42px!important;min-width:36px!important;flex:none!important;font-size:24px!important}
+ .sl-day-picker {display:flex!important;justify-content:center!important;align-items:center!important;min-width:0!important;max-width:100%!important;overflow:hidden!important;white-space:nowrap!important;font:500 clamp(13px,3.5vw,19px)/1.2 Georgia,serif!important;text-align:center!important}
+ .sl-day-picker #sl-date {display:block!important;min-width:0!important;max-width:100%!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important}
+ .sl-day-picker input[type=date] {flex:none!important;width:24px!important;min-width:24px!important;height:36px!important;display:block!important}
+ .sl-tools-row {min-width:0!important}
+ .sl-filters {max-width:100%!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch!important}
+ .sl-courtside-card .sl-tv-footer {display:flex!important;flex-wrap:wrap!important;gap:5px 8px!important}
+ .sl-courtside-card .sl-tv-attribution {flex:0 0 100%!important;max-width:100%!important}
+ .sl-courtside-card .sl-tv-actions {display:flex!important;flex:1 1 100%!important;width:100%!important;justify-content:space-between!important;gap:4px!important;flex-wrap:wrap!important}
+ .sl-courtside-card .sl-tv-follow {font:700 9px/1 Arial,sans-serif!important;width:auto!important;height:30px!important;min-width:0!important;min-height:30px!important;padding:5px 7px!important;white-space:nowrap!important}
+ .sl-courtside-card .sl-tv-follow::before {content:'☆ '!important;font-size:14px!important;vertical-align:-1px!important}
+ .sl-courtside-card .sl-tv-follow[aria-pressed=true]::before {content:'★ '!important}
+ .sl-courtside-card .sl-tv-details {white-space:nowrap!important}
+}
+@media (max-width: 360px) {
+ .sl-courtside-card .sl-tv-actions {justify-content:flex-start!important}
+ .sl-courtside-card .sl-tv-details {margin-left:auto!important}
+}
