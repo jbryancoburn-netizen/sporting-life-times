@@ -1,6 +1,6 @@
 {
   "status": "NOT_READY_FOR_PUBLIC_PREDICTIONS",
-  "evaluated_at": "2026-11-02T06:44:24+00:00",
+  "evaluated_at": "2026-11-03T07:11:36+00:00",
   "method": "Primary-source evidence only; external commercial forecasts are never counted as model inputs.",
   "source_keys": {
     "history": "politics-history.json",
@@ -101,9 +101,9 @@
     },
     {
       "id": "2026_national_generic_ballot_polls",
-      "state": "missing",
-      "verified_record_count": 2,
-      "evidence": "2 recent eligible polls from 2 pollsters",
+      "state": "partial",
+      "verified_record_count": 3,
+      "evidence": "3 recent eligible polls from 3 pollsters",
       "source": "VoteHub polling API CC BY 4.0",
       "blocker": "Minimum 3 independent pollsters not met, or historical/pollster weights not calibrated."
     },
@@ -113,7 +113,7 @@
       "verified_record_count": 154,
       "evidence": "151 House offices documented (150 general-ballot contests, 1 separately sourced unopposed offices), 3 Senate contests; 284 House offices not yet verified",
       "source": "Original state election offices (CA, DE, FL, IA, KY, MA, MD, NC, NE, NJ, RI, VA, WY), dated candidate records",
-      "blocker": "Ballot records cover only the listed states; The audited original FEC identity crosswalk is incomplete or out of sync. Remaining state candidates, newer office changes and 2026 precinct/district voting baselines are unverified; no nationwide roster or probabilities are certified."
+      "blocker": "Ballot records cover only the listed states; 198 original FEC candidate IDs have an exact match, but most state ballots remain unverified. Remaining state candidates, newer office changes and 2026 precinct/district voting baselines are unverified; no nationwide roster or probabilities are certified."
     },
     {
       "id": "2026_district_geography_change_table",
@@ -158,8 +158,8 @@
   ],
   "counts": {
     "verified": 1,
-    "partial": 11,
-    "missing": 5
+    "partial": 12,
+    "missing": 4
   },
   "house_forecast_ready": false,
   "senate_forecast_ready": false,
