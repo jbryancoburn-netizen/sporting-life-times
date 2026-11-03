@@ -68,10 +68,12 @@ Promise.all([
  }
  numbers.append(grid);
  const note=el("p","context-source-note");
- const changed=Boolean(route["2026_boundaries_revised"]);
- note.textContent=changed?
-  "Important: These ACS 2020–2024 estimates describe the prior 119th Congress geography. "+state.name+" changed district boundaries for the 2026 election. They are historical context, not estimates for the newly drawn district.":
-  "2020–2024 ACS estimates use 119th Congress geography. They are demographic estimates, not voter registrations or election predictions.";
+ const status=route["2024_to_2026_geography_comparison"];
+ note.textContent=status==="verified_changed_district_blocks"?
+  "Official block comparisons prove this district's 2026 boundaries differ. The 2020–2024 ACS estimates describe the older geographic area.":
+  status==="pending_district_block_comparison"?
+  "The state was redrawn but this district's geographic overlap has not yet been verified. These ACS estimates refer to the prior 119th Congress geographic vintage.":
+  "2020–2024 ACS estimates describe independently matched district geography. These are demographic estimates, not election returns or vote forecasts.";
  const source=el("a","context-source-link","Census ACS original tables ↗");
  source.href=census.source_url||"https://data.census.gov/";
  source.target="_blank";source.rel="noopener noreferrer";
