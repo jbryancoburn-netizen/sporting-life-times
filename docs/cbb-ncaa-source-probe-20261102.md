@@ -26,3 +26,22 @@
 
 Source service: https://ncaa-api.henrygd.me/openapi (community NCAA.com relay; subject to public rate limits and availability). Existing service: https://site.api.espn.com/apis/site/v2/sports/basketball/.  
 Frozen machine-readable first run: `data/cbb-ncaa-source-audit-20261102-first-run.json`. Latest re-run (if present): `data/cbb-ncaa-source-audit.json`. Collection code: `scripts/probe_cbb_ncaa_pbp.py`. One-off manual workflow: `.github/workflows/cbb-ncaa-source-probe.yml`.
+
+## Second independent observation window
+
+**Time:** 2026-11-03T03:45:54.977+00:00 through 2026-11-03T03:47:22.737+00:00 UTC. The exact same four matched games continued to be live when selected. Again, **4/4 games supplied NCAA and ESPN play-by-play and all 32 requests returned HTTP 200** (16 NCAA + 16 ESPN).
+
+| Matchup | NCAA plays, first→last | ESPN plays, first→last |
+|---|---:|---:|
+| UT Martin @ Tulane | 594→602 | 583→590 |
+| Nevada @ LMU (CA) | 250→256 | 238→241 |
+| Alcorn @ Ole Miss | 616→619 | 574→580 |
+| Florida St. @ Florida A&M | 371→373 | 363→368 |
+
+Response time medians: **NCAA 670 ms, ESPN 178.5 ms** (again request RTT, *not* court-to-publication time). At the final observation, UT Martin–Tulane was at 2:08 remaining in NCAA's most recent listed play versus 2:29 in ESPN's; the other three latest listed play clocks were equal. This repeated the observation that NCAA can occasionally show an event later in game time, even when its play count refreshes less often. The descriptions and clocks are not guaranteed to refer to identical actions, so this is **not** a measured provider delay.
+
+### Combined sign-off
+
+Across both sampling windows: **64/64 play-log HTTP requests succeeded**, 4/4 matched games had useful text-bearing plays in each source, including one women's game. The NCAA feed added event-detail coverage but **did not pass exact cross-provider event matching** and therefore cannot be certified as the faster or more accurate automatic live play provider. Keep existing ESPN live scoring and the NCAA official-final audit unchanged. Any NCAA play display must be source-attributed, game-ID-matched, and able to fail closed. Browser CORS availability and sustained game-night reliability were not measured here.
+
+Frozen observations: `data/cbb-ncaa-source-audit-20261102-first-run.json` and `data/cbb-ncaa-source-audit-20261102-second-run.json`. The newest-run file `data/cbb-ncaa-source-audit.json` is a convenience pointer, not a permanent study artifact.
