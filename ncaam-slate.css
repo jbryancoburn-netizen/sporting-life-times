@@ -838,14 +838,14 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #c481
  background:linear-gradient(155deg,#194e9f,#061d55)!important;
  box-shadow:inset -3px 0 0 rgba(255,255,255,.17);
 }
-.sl-game .sl-broadcast-mark b{font:900 29px/1 'DM Sans',Arial,sans-serif!important;letter-spacing:-.085em!important;font-style:normal!important;color:#f4d18a!important;text-shadow:1px 2px 0 #6b4817,0 0 8px #cfb36b}
+.sl-game .sl-broadcast-mark b{font:900 29px/1 'DM Sans',Arial,sans-serif!important;letter-spacing:-.085em!important;font-style:normal!important;color:#f4d18a!important;text-shadow:none}
 .sl-game .sl-broadcast-mark .sl-mark-amp{font-size:17px;vertical-align:middle;margin:0 2px}
 .sl-game .sl-broadcast-mark>span{font:900 11px/1 'DM Sans',Arial,sans-serif!important;letter-spacing:.16em!important;color:#fff}
 .sl-game .sl-broadcast-row{background:linear-gradient(180deg,rgba(255,255,255,.12),transparent 66%);border-left-width:7px!important}
-.sl-game .sl-broadcast-name{font-weight:900!important;text-transform:uppercase!important;color:#fff!important;letter-spacing:.025em!important;text-shadow:0 2px 0 #071a39}
+.sl-game .sl-broadcast-name{font-weight:900!important;text-transform:uppercase!important;color:#fff!important;letter-spacing:.025em!important;text-shadow:none}
 .sl-game .sl-broadcast-points{color:#fff!important;text-shadow:0 2px 0 #071a39}
 .sl-game .sl-broadcast-status{background:linear-gradient(150deg,#bd9042 0%,#745018 45%,#092b6c 47%,#071f4d 100%)!important}
-.sl-game .sl-broadcast-status strong{font-size:16px!important;color:#fff;text-shadow:0 1px #071b3a}
+.sl-game .sl-broadcast-status strong{font-size:16px!important;color:#fff;text-shadow:none}
 .sl-game .sl-broadcast-status small{color:#f6d689}
 @media(max-width:600px){
  .sl-game .sl-broadcast-bug{grid-template-columns:61px minmax(0,1fr) 73px!important}
@@ -1091,3 +1091,39 @@ body .sl-game .sl-game-summary .sl-broadcast-status strong{display:block!importa
 body .sl-game .sl-game-summary .sl-broadcast-status strong[data-status="upcoming"]{font-size:10px!important;letter-spacing:0!important}
 body .sl-game .sl-game-summary .sl-broadcast-bug{grid-template-columns:42px minmax(0,1fr) minmax(90px,104px)!important}
 @media(max-width:560px){body .sl-game .sl-game-summary .sl-broadcast-bug{grid-template-columns:35px minmax(0,1fr) 82px!important}body .sl-game .sl-game-summary .sl-broadcast-status strong{font-size:10px!important}}
+
+/* Printing fix: forbid faux 3-D lettering/overprint on the scorebug at every size. */
+body .sl-game .sl-game-summary .sl-broadcast-bug,
+body .sl-game .sl-game-summary .sl-broadcast-bug *,
+body .sl-game .sl-game-summary .sl-broadcast-bug *::before,
+body .sl-game .sl-game-summary .sl-broadcast-bug *::after{
+ text-shadow:none!important;-webkit-text-stroke:0 transparent!important;
+ filter:none!important;box-shadow:none!important;
+}
+body .sl-game .sl-game-summary .sl-broadcast-row{
+ border-left:5px solid var(--bug-team)!important;
+}
+body .sl-game .sl-game-summary .sl-broadcast-name{
+ font-family:Georgia,'Times New Roman',serif!important;font-weight:700!important;
+ line-height:1.15!important;letter-spacing:0!important;white-space:normal!important;
+ text-transform:uppercase!important;overflow-wrap:break-word!important;
+}
+body .sl-game .sl-game-summary .sl-broadcast-name::before,
+body .sl-game .sl-game-summary .sl-broadcast-name::after,
+body .sl-game .sl-game-summary .sl-broadcast-status strong::before,
+body .sl-game .sl-game-summary .sl-broadcast-status strong::after{content:none!important}
+body .sl-game .sl-game-summary .sl-broadcast-status strong{
+ font-family:Georgia,'Times New Roman',serif!important;letter-spacing:0!important;
+ font-weight:700!important;line-height:1.2!important;
+}
+body .sl-game .sl-game-summary .sl-broadcast-monogram{
+ display:block!important;width:30px!important;height:42px!important;
+ max-width:100%!important;object-fit:contain!important;margin:0 auto!important;
+}
+body .sl-game .sl-game-summary .sl-broadcast-mark{
+ display:grid!important;place-items:center!important;padding:2px!important;
+ background:#e5d4b3!important;
+}
+@media(max-width:560px){
+ body .sl-game .sl-game-summary .sl-broadcast-monogram{width:25px!important;height:37px!important}
+}
