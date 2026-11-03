@@ -56,3 +56,35 @@ test('new scripts compile and core pages keep mobile-safe rules',()=>{
  assert.ok(css.includes('slt-brand-title'));
  assert.ok(css.includes('--cbb-crimson:#9e1930'));
 });
+
+
+test('mobile repair removes duplicate Hardwood and competing broadcast headers',()=>{
+ const pages=['ncaam.html','college-basketball.html','ncaam-slate.html','cbb-game-center.html','cbb-gamefile.html'];
+ for(const p of pages){
+  const html=read(p);
+  assert.equal((html.match(/cbb-product-v1\.js/g)||[]).length,1,p+' script count');
+  assert.equal((html.match(/cbb-product-v1\.css/g)||[]).length,1,p+' css count');
+  assert.match(html,/cbb-product-v1\.js\?v=20261102-mobile2/);
+  assert.doesNotMatch(html,/slt-courtside-network\.(js|css)/,p+' duplicated Hardwood nav');
+  assert.doesNotMatch(html,/slt-broadcast-overhaul\.(js|css)/,p+' competing broadcast bar');
+ }
+ const shared=read('slt-retro-identity.js');
+ assert.match(shared,/ncaam-slate\|college-basketball\|cbb-game-center\|cbb-gamefile/);
+ const script=read('cbb-product-v1.js');
+ assert.match(script,/nav\.replaceChildren\(\)/);
+ assert.match(script,/mk\('nav','cbb-compact-editions'\)/);
+ assert.match(script,/mk\('div','cbb-navigation'\)/);
+ assert.match(script,/mk\('details','cbb-nav-more'\)/);
+ assert.match(script,/header\.querySelectorAll\('\.slt-courtside-network/);
+ assert.doesNotMatch(script,/nav\.appendChild\(a\).*for \(const \[title,url\] of extras/);
+});
+test('mobile NCAA header uses horizontal-only navigation, bounded MORE dropdown and one edition row',()=>{
+ const css=read('cbb-product-v1.css');
+ assert.match(css,/nav\.cbb-main-nav\{[\s\S]*?flex-flow:row nowrap!important/);
+ assert.match(css,/nav\.cbb-main-nav\{[\s\S]*?overflow-x:auto!important/);
+ assert.match(css,/\.cbb-compact-editions\{[\s\S]*?flex-flow:row nowrap!important/);
+ assert.match(css,/\.cbb-nav-dropdown\{[\s\S]*?position:absolute/);
+ assert.match(css,/\.slt-courtside-network,[\s\S]*?display:none!important/);
+ assert.match(css,/@media\(max-width:700px\)/);
+ assert.match(css,/\.cbb-front-lead \.cbb-front-headline h1/);
+});

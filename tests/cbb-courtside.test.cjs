@@ -175,8 +175,10 @@ const wEvent=women.normalizeEvent({...rawLive,id:'401920983'});
 assert(women.modelFor(wEvent)&&women.modelFor(wEvent).probability===undefined);
 assert(!women.usrsLine(wEvent).includes('pregame</strong>'),'women cannot inherit men probability');
 assert(!css.includes('.cbb-team-identity .mbb-mark::after'),'no extra logo bands');
-for(const page of ['nba.html','ncaam.html','college-basketball.html','euroleague.html','nbl.html'])
+for(const page of ['nba.html','euroleague.html','nbl.html'])
  assert(fs.readFileSync(path.join(root,page),'utf8').includes('slt-courtside-network.js'),page+' Courtside network install');
+for(const page of ['ncaam.html','college-basketball.html'])
+ assert(!fs.readFileSync(path.join(root,page),'utf8').includes('slt-courtside-network.js'),page+' has one college-navigation owner');
 assert(!brandCSS.includes('slt-network-wordmark'),'rejected generated logo CSS removed');
 // The Retro clean-slate newspaper must not pretend the first alphabetical teams are leaders.
 const mbbHome=fs.readFileSync(path.join(root,'mbb-newspaper.js'),'utf8');
