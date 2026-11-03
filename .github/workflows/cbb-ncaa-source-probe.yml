@@ -1,0 +1,49 @@
+name: CourtCast NCAA vs ESPN one-time live source probe
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - scripts/probe_cbb_ncaa_pbp.py
+      - .github/workflows/cbb-ncaa-source-probe.yml
+permissions:
+  contents: write
+concurrency:
+  group: cbb-ncaa-source-probe-oneoff
+  cancel-in-progress: false
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify probe Python compiles
+        run: python -m py_compile scripts/probe_cbb_ncaa_pbp.py
+      - name: Measure real matched basketball games
+        run: python scripts/probe_cbb_ncaa_pbp.py --rounds 4 --interval 20
+      - name: Retain independent audit artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cbb-ncaa-espn-live-source-probe
+          path: data/cbb-ncaa-source-audit.json
+          if-no-files-found: warn
+      - name: Commit observed report without changing live game feeds
+        run: |
+          set -euo pipefail
+          test -s data/cbb-ncaa-source-audit.json
+          git config user.name "sporting-life-times-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/cbb-ncaa-source-audit.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Record measured NCAA vs ESPN CourtCast source probe"
+          for attempt in 1 2 3 4; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$((attempt*2))"
+          done
+          exit 1
