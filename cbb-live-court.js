@@ -163,7 +163,7 @@ function draw(c){
     '<span class="slc-home-name">'+esc(sideName(g.home))+'</span></div>'+
     (flow?flow:(!validation.ok&&validation.sequence.length>=3?
       '<div class="slc-data-conflict" role="status"><strong>GAME FLOW UNAVAILABLE</strong><span>'+esc(validation.reason)+'. The verified score above remains authoritative.</span></div>':
-      '<div class="slc-standby"><strong>SCORED EVENT TIMELINE UNAVAILABLE</strong><span>No certified play-by-play score sequence is available. Recorded plays remain listed at right.</span></div>'))+
+      '<div class="slc-standby"><strong>COURT VIEW NOT AVAILABLE</strong><span>No certified play-by-play score sequence is available. Recorded plays remain listed at right.</span></div>'))+
     (shotPlays.length?'<details class="slc-shot-details"><summary>Verified shot locations ('+shotPlays.length+')</summary><div class="slc-floor">'+lines+
       shotPlays.map(p=>{const xy=location(p);return '<span class="slc-shot'+(p.scoring?' slc-shot-made':'')+(selected?.id===p.id?' slc-shot-current':'')+'" style="--x:'+xy.x+'%;--y:'+xy.y+'%" title="'+esc(p.text)+'" aria-hidden="true"></span>';}).join('')+
       '<span class="slc-court-label">SOURCE-REPORTED SHOT LOCATIONS · HALF-COURT PLOT</span></div></details>':'')+
