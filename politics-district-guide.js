@@ -98,9 +98,24 @@ function census(host,row,r,acs){
  (r["2026_boundaries_revised"]?" CAUTION: This district was redrawn for 2026; these figures describe its PREVIOUS boundary.":""));
  host.append(link("Original Census detailed-table data ↗",acs.source_url));
 }
-function local(host,extra,r){
+function local(host,extra,r,community){
  host.append(el("span","GEOGRAPHY, COMMUNITIES AND CHARACTER","dossier-overline"),el("h3","Where you are—and what makes it different"));
- if(!extra){warn(host,"Community-by-community reporting for "+r.id+" is still being source-checked. The interactive map shows real cities, towns, roads and district boundaries. No town lists have been guessed.");return;}
+ if(!extra){
+  const named=Array.isArray(community?.communities)?community.communities:[];
+  if(named.length){
+   const opener=el("p","Real communities within the official 2026 congressional map, drawn from Census Gazetteer representative points. Cities can straddle district lines; these are mapped points, not claims that entire cities fall within the district.","dossier-local-deck");
+   host.append(opener);
+   const list=el("ul",null,"dossier-community-list");
+   named.slice(0,12).forEach(p=>{
+    const name=p.name.replace(/ (?:city|town|village|CDP|borough|municipality)$/i,"");
+    list.append(el("li",name));
+   });
+   host.append(list);
+   if(community?.geographic_rule)warn(host,community.geographic_rule);
+   host.append(link("Census 2026 national place Gazetteer ↗","https://www.census.gov/geographies/reference-files/time-series/geo/gazetteer-files.html"));
+  }else warn(host,"Verified neighborhood-level detail is still being collected. The district boundary on the map is official; no speculative towns have been added.");
+  return;
+ }
  host.append(el("p",extra.geography_deck,"dossier-local-deck"));
  // Actual geographic photography is never invented or reused for a different
  // district. Display only curated Commons images with verifiable file credits.
@@ -145,7 +160,7 @@ function local(host,extra,r){
  for(const item of extra.sources||[]){if(validSource(item.url))sources.append(link(item.title+" ↗",item.url));}
  host.append(sources);
 }
-function officialMap(r,extra){
+function officialMap(r,extra,community){
  const node=$("dossier-map");if(!node)return;
  if(!window.L){node.textContent="Map library unavailable. Official Census boundaries remain available from the source link.";return;}
  const state=r.state,field=state==="MO"?"CD119":"CD120",name=state+".geojson";
@@ -167,14 +182,16 @@ function officialMap(r,extra){
   // Named locations are plotted at documented town coordinates; the polygons
   // remain U.S. Census data. Marker layers do not imply county boundaries.
   const list=$("dossier-map-town-links");if(list)list.replaceChildren();
-  const places=Array.isArray(extra?.map_places)?extra.map_places.filter(p=>Number.isFinite(p.lat)&&Number.isFinite(p.lon)):[];
+  const existing=Array.isArray(extra?.map_places)?extra.map_places:[];
+  const official=Array.isArray(community?.communities)?community.communities:[];
+  const places=(existing.length?existing:official).filter(p=>Number.isFinite(p.lat)&&Number.isFinite(p.lon));
   const fallbackLayer=L.layerGroup().addTo(map);
   for(const p of places){
     const pin=L.circleMarker([p.lat,p.lon],{radius:6,color:"#fff",weight:2,fillColor:"#b54b40",fillOpacity:1});
     pin.addTo(fallbackLayer);
     pin.bindTooltip(p.name,{direction:"top",permanent:false,opacity:.95});
     if(list){
-      const button=el("button",p.name,"dossier-town-zoom");button.type="button";
+      const button=el("button",p.name.replace(/ (?:city|town|village|CDP|borough|municipality)$/i,""),"dossier-town-zoom");button.type="button";
       button.addEventListener("click",()=>{map.flyTo([p.lat,p.lon],9,{duration:.5});pin.openTooltip();});
       list.append(button);
     }
@@ -210,13 +227,16 @@ async function init(){
  const status=$("dossier-status");
  try{
   const atlas=await dataFile("politics-house-atlas.json");
-  const [censusResult,guideResult]=await Promise.allSettled([
-   dataFile("politics-census-inputs.json"),dataFile("politics-district-guide.json")
+  const [censusResult,guideResult,communitiesResult]=await Promise.allSettled([
+   dataFile("politics-census-inputs.json"),dataFile("politics-district-guide.json"),
+   dataFile("data/politics-district-communities.json")
   ]);
   const census=censusResult.status==="fulfilled"?censusResult.value:null;
   const guide=guideResult.status==="fulfilled"?guideResult.value:{districts:{}};
+  const communities=communitiesResult.status==="fulfilled"?communitiesResult.value:null;
   const r=atlas.districts?.find(x=>x.id===id);if(!r)throw Error("District not found in the official district ledger");
   const extra=guide.districts?.[id];
+  const namedCommunity=communities?.districts?.[id]||null;
   const state=atlas.states?.find(s=>s.code===r.state);
   // Make the local field guide visible in the first viewport, not only below
   // the race graphic. The same bridge works for all 435 shared district URLs.
@@ -228,12 +248,13 @@ async function init(){
     extra.counties.length+" COUNTIES · "+(extra.major_communities||[]).length+" COMMUNITY PROFILES · 2022–2024 VOTE HISTORY":
     "REAL CENSUS DISTRICT MAP · DEMOGRAPHICS · ACTUAL VOTE HISTORY";
   if(newDeskSummary)newDeskSummary.textContent=extra?.geography_deck||
-    "An original-source guide to the geography, people, historical House results and verified polling. Specific towns are displayed only after their locations are researched.";
+    (namedCommunity?.communities?.length?"Census-verified communities in this district include "+namedCommunity.communities.slice(0,4).map(p=>p.name.replace(/ (?:city|town|village|CDP)$/i,"")).join(", ")+". Place reference points are not complete municipal boundaries.":
+    "An original-source guide to the geography, people, historical House results and verified polling.");
   $("district-dossier-title").textContent=extra?.title||"Get to know "+(state?.name||r.state)+"'s "+(r.at_large?"at-large":"District "+Number(r.district))+".";
   $("dossier-kicker").textContent=r.id+" · A FIELD GUIDE TO PLACE, PEOPLE, POLITICS AND PAST ELECTIONS";
   status.textContent="Official Census boundaries · state-verified ballot snapshots · original historical vote sources";
-  officialMap(r,extra);
-  local($("dossier-local"),extra,r);
+  officialMap(r,extra,namedCommunity);
+  local($("dossier-local"),extra,r,namedCommunity);
   historyRows($("dossier-history"),r,extra);
   polling($("dossier-polling"),r);
   if(census)census($("dossier-people"),null,r,census);
