@@ -453,7 +453,7 @@ function card(g,featured){
   '<div class="sl-game-bar"><span class="sl-tag '+(g.phase==='live'?'sl-live':'')+'">'+
   esc(g.kind==='exhibition'?'EXHIBITION':g.phase==='live'?'LIVE':g.phase==='final'?'FINAL':'UPCOMING')+'</span>'+
   '<span class="sl-game-time">'+esc(formatClock(g))+'</span>'+venue+'</div>'+
-  editorialBadges(g)+arenaStage(g)+broadcastBug(g)+
+  '<details class="sl-game-expansion"><summary class="sl-game-summary" aria-label="Show game details">'+broadcastBug(g)+'</summary><div class="sl-game-expanded">'+
   '<div class="sl-game-main sl-game-main--'+esc(g.phase)+'"><div class="sl-game-teams">'+
   '<div class="sl-school">'+team(g.away)+favorite(g.away)+'</div>'+
   '<div class="sl-vs">'+(score?'<strong>'+esc(score)+'</strong>':'<span>VS</span>')+'</div>'+
@@ -467,8 +467,26 @@ function card(g,featured){
   '<a class="sl-details" href="'+esc(href)+'"'+(isExternal?' target="_blank" rel="noopener noreferrer"':'')+'>'+
   (isExternal?'Result source':'Game details')+' <span aria-hidden="true">↗</span></a>'+
   (!women&&g.home?.canonical?'<a class="sl-arena-deep-link" href="ncaam-arena.html?team='+
-    encodeURIComponent(g.home.id)+'">Arena File ↗</a>':'')+'</div></article>';
+    encodeURIComponent(g.home.id)+'">Arena File ↗</a>':'')+'</div>'+
+ (isExternal?'':'<div class="sl-inline-gamefile" data-gamefile="'+esc(href)+'"></div>')+
+ '</div></details></article>';
 }
+/* Load detailed box score and period scoring only after opening its compact scorebug. */
+if(typeof document!=='undefined')document.addEventListener('toggle',event=>{
+ const details=event.target;
+ if(!details.matches?.('.sl-game-expansion')||!details.open)return;
+ const panel=details.querySelector('.sl-inline-gamefile[data-gamefile]');
+ if(!panel||panel.dataset.loaded)return;
+ const source=panel.dataset.gamefile;
+ if(!source||!source.startsWith('cbb-gamefile.html?'))return;
+ const frame=document.createElement('iframe');
+ frame.className='sl-inline-frame';
+ frame.title='Gamefile with box score, period scoring and additional statistics';
+ frame.loading='lazy';
+ frame.src=source;
+ panel.replaceChildren(frame);
+ panel.dataset.loaded='true';
+},true);
 const render=()=>{
  const games=selectGames(loaded,selected,filter,search,followed),shown=games.slice(0,limit);
  document.getElementById('sl-date').textContent=dateLabel(selected);
