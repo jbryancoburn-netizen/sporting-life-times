@@ -21,20 +21,7 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #c481
 .sl-nav{display:flex;align-items:center;gap:28px;padding:13px 8px;background:var(--sl-ink);color:#fffaf0;overflow-x:auto;white-space:nowrap;scrollbar-width:thin;scrollbar-color:#75878c var(--sl-ink);border-bottom:3px solid var(--sl-gold)}
 .sl-nav a{flex:0 0 auto;font:600 14px/1.3 Georgia,serif;padding:2px 0}
 .sl-nav a[aria-current]{color:#e7bd70;border-bottom:2px solid #e7bd70}
-.sl-hero{position:relative;min-height:235px;margin-top:19px;padding:35px 34px 28px;background:#eee8db;display:grid;grid-template-columns:1.4fr .6fr;overflow:hidden;border-top:1px solid #bdac8d;border-bottom:1px solid #b9ad95}
-.sl-hero:after{content:'';position:absolute;top:0;right:0;width:42%;height:100%;background:linear-gradient(90deg,#eee8db,transparent 85%),repeating-linear-gradient(115deg,transparent 0 11px,#9d815321 12px 13px);pointer-events:none}
 .sl-eyebrow{font:800 10px/1.5 'DM Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#81643a}
-.sl-eyebrow i{display:inline-block;width:5px;height:17px;background:var(--sl-gold);transform:skew(-15deg);vertical-align:middle;margin-right:12px}
-.sl-hero h2{font:clamp(52px,8vw,100px)/1 'Libre Caslon Display',Georgia,serif;letter-spacing:-.055em;margin:12px 0 14px}
-.sl-hero h2 em{font-style:italic;font-weight:400}
-.sl-hero p{max-width:540px;margin:0;color:#5c6a6b;font-size:14px}
-.sl-court-art{align-self:stretch;justify-self:stretch;position:relative;z-index:1;opacity:.7;min-height:150px}
-.sl-court-ring{position:absolute;top:-90px;right:0;width:320px;height:320px;border:3px solid #b89c6f9a;border-radius:50%;transform:rotate(-20deg)}
-.sl-court-key{position:absolute;top:-140px;right:112px;width:150px;height:350px;border:3px solid #b89c6f9a;border-radius:0 0 100px 100px;transform:rotate(-20deg)}
-.sl-court-ball{position:absolute;top:25px;right:50px;width:70px;height:70px;border:2px solid #a88c63;border-radius:50%}
-.sl-court-ball:before,.sl-court-ball:after{content:'';position:absolute;background:#a88c63}
-.sl-court-ball:before{height:2px;width:100%;top:50%}
-.sl-court-ball:after{width:2px;height:100%;left:50%}
 .sl-toolbar{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:17px 2px;border-bottom:1px solid var(--sl-line)}
 .sl-day-controls{display:flex;align-items:center;gap:12px;min-width:0}
 .sl-day-controls>button{border:1px solid #c3c9c5;background:transparent;width:38px;height:38px;line-height:1;color:var(--sl-ink);font-size:28px}
@@ -144,12 +131,6 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #c481
  .sl-masthead>span{letter-spacing:.21em;font-size:8px}
  .sl-nav{gap:18px;padding:12px 11px}
  .sl-nav a{font-size:12px}
- .sl-hero{display:block;min-height:0;padding:18px 16px 19px;margin-top:12px}
- .sl-hero:after,.sl-court-art{display:none}
- .sl-hero .sl-eyebrow{font-size:9px;line-height:1.4;letter-spacing:.1em}
- .sl-hero .sl-eyebrow i{width:4px;height:12px;margin-right:7px}
- .sl-hero h2{font:normal clamp(32px,8.5vw,43px)/1.08 Georgia,'Times New Roman',serif;letter-spacing:-.045em;margin:7px 0 7px;overflow-wrap:normal}
- .sl-hero p{font:13px/1.5 Georgia,'Times New Roman',serif;max-width:none;color:#4f483e}
  .sl-toolbar{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;padding:13px 2px;align-items:stretch}
  .sl-day-controls{display:grid;grid-template-columns:40px minmax(0,1fr) 40px;gap:8px;width:100%;min-width:0}
  .sl-day-controls>button{width:40px;height:44px;font-size:26px}
