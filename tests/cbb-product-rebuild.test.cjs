@@ -33,7 +33,7 @@ test('slate presents phase groups with two-line school data and source-safe dots
  const s=read('ncaam-slate.js');
  assert.match(s,/ON THE FLOOR/);assert.match(s,/COMING UP/);assert.match(s,/FINAL SCORES/);
  assert.match(s,/class="sl-broadcast-secondary"/);
- assert.match(s,/window\.SLTCollegeIndicators\.fromGame/);
+ assert.match(s,/window\.SLTCollegeIndicators\?\.fromGame/);
  assert.match(s,/RECORD '\+esc\(r\)/);
  assert.match(s,/:'—'/);
  assert.doesNotMatch(s,/SL<span class="sl-mark-amp">&<\/span>T/);
