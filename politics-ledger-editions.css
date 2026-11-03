@@ -496,3 +496,40 @@ body[data-house-page="district"] .district-lower-edition .district-research-arch
  body[data-house-page="district"] .district-lower-heading{text-align:left;padding-inline:4px}
  body[data-house-page="district"] .district-lower-edition .front-evidence-grid,body[data-house-page="district"] .district-lower-edition .front-graphics-grid,body[data-house-page="district"] .district-lower-edition .dossier-main-story{display:block!important}
 }
+
+/* 2026-11-03: EMPTY-NEWS COMPRESSION — no full-width blank news billboard */
+body[data-house-page="district"] .district-service-desk.district-news-empty{
+ padding:12px 22px 14px!important;margin:20px 0!important;
+ border-top:3px double var(--ledger-ink)!important;
+ border-bottom:1px solid var(--ledger-rule)!important;
+ background:transparent!important;min-height:0!important;
+}
+body[data-house-page="district"] .district-service-desk.district-news-empty .desk-frame{
+ padding:0 0 8px!important;display:flex!important;align-items:center!important;
+}
+body[data-house-page="district"] .district-service-desk.district-news-empty .desk-frame h2{
+ font:700 clamp(22px,2.2vw,30px)/1.2 var(--ledger-display)!important;
+ margin:3px 0!important;
+}
+body[data-house-page="district"] .district-news-empty .desk-switcher{margin:6px 0!important}
+body[data-house-page="district"] .district-news-empty #desk-local-news:not([hidden]){padding:10px 0!important}
+body[data-house-page="district"] .district-news-empty #desk-local-news .desk-intro{
+ display:block!important;padding:0!important;margin:0!important;
+ border:0!important;background:transparent!important;
+}
+body[data-house-page="district"] .district-news-empty #desk-local-news .desk-intro h3{
+ font:700 18px/1.2 var(--ledger-serif)!important;margin:5px 0!important;
+}
+body[data-house-page="district"] .district-news-empty #desk-local-news .desk-intro p{
+ display:none!important;
+}
+body[data-house-page="district"] .district-news-empty #desk-local-news .desk-empty{
+ font:400 14px/1.55 var(--ledger-serif)!important;margin:7px 0!important;
+}
+body[data-house-page="district"] .district-news-empty #desk-local-news .desk-attribution{
+ font:11px/1.5 var(--ledger-sans)!important;margin:6px 0!important;
+}
+body[data-house-page="district"] .desk-local-guide-link{
+ display:inline-block;font:700 12px/1.5 var(--ledger-sans)!important;
+ color:var(--ledger-accent)!important;margin:6px 0!important;
+}
