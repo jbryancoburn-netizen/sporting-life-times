@@ -413,7 +413,8 @@
     if(!old)return false;
     const host=document.createElement('section');host.id='cbb-live-desk';host.className='cbb-live-desk'+(women?' cbb-women':'');
     host.innerHTML='<div class="cbb-desk-header"><div><div class="cbb-kicker">'+(women?'WOMEN’S':'MEN’S')+' DIVISION I</div>'+
-      '<h2>COURTSIDE / THE LIVE DESK</h2><p class="cbb-desk-byline">Verified game states · independent analysis · away team first</p></div>'+
+      '<h2>'+(isStandalone?'COURTSIDE / THE LIVE DESK':'THE SLT SCOREBOARD')+'</h2>'+
+      (isStandalone?'<p class="cbb-desk-byline">Verified game states · independent analysis · away team first</p>':'')+'</div>'+
       (isStandalone?'':'<a class="cbb-center-link" href="'+centerURL()+'">All games →</a>')+'</div>'+
       '<div class="cbb-date-controls"><button type="button" data-cbb-date="-1" aria-label="Previous day">‹</button>'+
       '<label class="cbb-date-label" for="cbb-day-picker"><span>Date</span><input id="cbb-day-picker" type="date" value="'+esc(state.day)+'"></label>'+
@@ -428,6 +429,14 @@
       '<p class="cbb-source-stamp" id="cbb-source-stamp" aria-live="polite">Loading current scores…</p>'+
       '<div id="cbb-feature-host"></div>'+
       '<div class="cbb-cards" id="cbb-cards"><p class="cbb-loading">Checking game data…</p></div>';
+    // The main newspaper opens with actual source-backed games, not a giant billboard.
+    // Move the existing editorial brief *after* the first featured scorebug.
+    // This is a DOM move, not a duplicate data feed or a fabricated headline.
+    if(!isStandalone&&!women){
+      const nationalBrief=document.querySelector('#app > .cbb-front-brief');
+      const otherGames=host.querySelector('#cbb-cards');
+      if(nationalBrief&&otherGames)otherGames.before(nationalBrief);
+    }
     if(isStandalone)old.appendChild(host);
     else old.parentNode.insertBefore(host,old);
     host.addEventListener('click',function(e){
