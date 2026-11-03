@@ -125,7 +125,7 @@ function home(){
  $('#app').innerHTML='<section class="hero cbb-front-lead" aria-label="College Court lead story"><div class="cbb-front-headline">'+
  '<div class="eyebrow">SPORTING LIFE AND TIMES · NATIONAL COLLEGE COURT · 2026–27</div>'+
  '<h1>COLLEGE BASKETBALL.<br>EVERY NIGHT.</h1>'+
- '<p>From the opening tip to the national title: verified scores, the conference races, independent 1500-start RETRO ratings and the stories shaping Division I basketball.</p>'+
+ '<p>Scores, standings and independent ratings for every Division I program. From the opening tip to the national title: verified results, conference races, clean-slate RETRO ratings and the stories shaping the sport.</p>'+
  '<a class="cta" href="ncaam-slate.html">OPEN TODAY’S GAMES →</a> '+
  '<a class="cta" href="cbb-game-center.html">GO COURTSIDE →</a></div>'+
  '<div class="cbb-front-numbers"><div><strong>'+teams.length+'</strong><span>DIVISION I SCHOOLS IN REGISTRY</span></div>'+
