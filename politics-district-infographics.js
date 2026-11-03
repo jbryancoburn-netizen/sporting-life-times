@@ -44,7 +44,7 @@ function getModel(atlas,census,guide,id){
    x.candidates.find(c=>c.party==="R").votes===h.rep_votes).length>0;
  // Curated 2022 and 2024 counts may be compared only when 2024 matches the
  // independently recorded election atlas and no 2026 boundary has changed.
- const comparable=valid&&!r["2026_boundaries_revised"]?
+ const comparable=valid&&r["2022_to_2024_geography_comparison"]==="unchanged_state_vintage"?
     rows.filter(x=>x.year===2022||x.year===2024).sort((x,y)=>x.year-y.year):[];
  return {r,rank:idx>=0?{place:idx+1,total:historical.length,gap:historical[idx].gap}:null,
   closest:historical.slice(0,8),comparable,
@@ -92,6 +92,24 @@ function makeText(svg,x,y,text,cls,anchor){
  if(anchor)e.setAttribute("text-anchor",anchor);e.textContent=text;svg.append(e);return e;
 }
 function drawHistory(host,model){
+ const h=House(model.r);
+ if(h?.finalists?.length===2){
+   host.append(heading("CERTIFIED 2024 HOUSE GENERAL ELECTION","Two finalists, one actual winner"));
+   const figures=el("div",null,"charts-finalists");
+   const twoTotal=h.finalists.reduce((total,c)=>total+c.votes,0);
+   for(const c of h.finalists){
+     const line=el("div",null,"charts-finalist-row"),label=el("strong",c.name+" · "+c.party+" · "+fmt(c.votes)+" votes","charts-finalist-label");
+     const track=el("div",null,"charts-finalist-track"),bar=el("span",null,"charts-finalist-bar");
+     bar.style.display="block";bar.style.width=(100*c.votes/twoTotal).toFixed(2)+"%";bar.style.height="11px";
+     bar.style.background=c.party==="D"?"#35639c":c.party==="R"?"#a54940":"#78838d";
+     track.style.background="#e8e5dc";track.append(bar);line.append(label,track);figures.append(line);
+   }
+   host.append(figures,annotation("2024 winning gap: "+fmt(h.winner_runner_up_margin_votes)+" actual votes. "+
+     (h.finalists[0].party===h.finalists[1].party?"Both finalists belonged to the same party. ":"")+
+     (h.same_2026_geography?"2026 district lines unchanged.":"2026 district boundary overlap not yet verified.")+
+     " These historical votes are not a 2026 prediction."));
+   return;
+ }
  host.append(heading("THE TWO-PARTY ELECTORATE / ACTUAL VOTES ONLY","The margin, election by election"));
  const rows=model.comparable.length>=2?model.comparable:[
    ...(House(model.r)?.both_major_parties&&Number.isFinite(House(model.r).dem_votes)&&
