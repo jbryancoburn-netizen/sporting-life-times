@@ -149,7 +149,7 @@ const url=new URL(location.href),women=url.searchParams.get('gender')==='women';
 let selected=/^\d{4}-\d\d-\d\d$/.test(url.searchParams.get('date')||'')?url.searchParams.get('date'):today();
 let filter=['all','live','final','upcoming','exhibition'].includes(url.searchParams.get('view'))?url.searchParams.get('view'):'all';
 let search='',loaded=[],ratings=new Map(),lastUpdate='',limit=18,loading=false,sourceError='';
-let pollRankings=new Map();
+let pollRankings=new Map(),pollAsOf='';
 let cross={teams:[]},palette={},arenaRegistry={},womenTeams=new Map(),sourceFeed=null,seasonStats=new Map(),liveChanges=new Map(),scoreCalibration=null;
 const insight=window.SLTBasketballInsights;
 // Large source-backed identity and arena references remain stable during a
@@ -431,7 +431,9 @@ const ledgerScorebug=g=>{
  const status=g.phase==='final'?'FINAL':g.phase==='live'?String(g.status||'LIVE'):'UPCOMING';
  const teamRow=t=>{
   const poll=pollRankings.get(String(t.id));
-  const leagueRank=poll?'<span class="ledger26-ap">AP '+poll+'</span>':'';
+  const pollPair=poll?[poll.coaches??'NR',poll.ap??'NR'].join('/'):'';
+  const pollTitle=poll?'Coaches '+(poll.coaches?'#'+poll.coaches:'unranked')+' / AP '+(poll.ap?'#'+poll.ap:'unranked'):'';
+  const leagueRank=pollPair?'<span class="ledger26-poll" title="'+esc(pollTitle)+'" aria-label="'+esc(pollTitle)+'">'+esc(pollPair)+'</span>':'';
   const recordLine=esc(record(t))+' · RETRO '+(rating(t)??'—');
   return '<div class="ledger26-team" style="--ledger26-school:'+brand(t)+'">'+
    '<span class="ledger26-crest">'+emblem(t)+'</span>'+
@@ -480,7 +482,8 @@ const render=()=>{
  const opened=new Set([...document.querySelectorAll('.sl-game-expansion[open]')].map(d=>d.dataset.day+'|'+d.dataset.gameId));
  document.getElementById('sl-date').textContent=dateLabel(selected,window.matchMedia('(max-width:700px)').matches);
  document.getElementById('sl-count').textContent=games.length+' '+(games.length===1?'game':'games');
- document.getElementById('sl-data').textContent=lastUpdate?'Updated '+lastUpdate:'Checking game data…';
+ document.getElementById('sl-data').textContent=(lastUpdate?'Updated '+lastUpdate:'Checking game data…')+
+   (!women&&pollAsOf?' · RANKINGS COACHES/AP · '+pollAsOf:'');
  for(const b of document.querySelectorAll('[data-filter]')){const active=b.dataset.filter===filter;b.classList.toggle('is-active',active);b.setAttribute('aria-pressed',String(active));}
  const empty=sourceError?'<div class="sl-empty"><strong>Data source unavailable.</strong><p>'+esc(sourceError)+'</p><button type="button" id="sl-retry">Retry connection</button></div>':
  '<div class="sl-empty"><strong>No games match this view.</strong><p>Change the date or filter. Only source-backed fixtures are shown.</p></div>';
@@ -514,10 +517,21 @@ async function refresh(){
       throw Error('Men’s scoreboard or certified RETRO feed unavailable');
     cross=c||{teams:[]};ratings=rankingsMap(rank);palette=pal?.mbb||{};
     const schools=new Map((cross.teams||[]).map(t=>[String(t.name||'').trim().toLowerCase(),String(t.espn_id)]));
-    pollRankings=new Map((polls?.season==='2026-27'?polls?.polls?.ap?.rankings||[]:[]).flatMap(r=>{
-      const id=schools.get(String(r.team||'').trim().toLowerCase());
-      return id&&Number.isInteger(r.rank)&&r.rank>=1&&r.rank<=25?[[id,r.rank]]:[];
-    }));
+    // Exact school identity aliases verified against this season's crosswalk.
+    const pollAliases={'Michigan State':'Michigan St.',"St. John's":"St. John's (NY)",'Iowa State':'Iowa St.','USC':'Southern California'};
+    pollRankings=new Map();pollAsOf='';
+    if(polls?.season==='2026-27'&&['coaches','ap'].every(k=>Array.isArray(polls?.polls?.[k]?.rankings)&&polls.polls[k].rankings.length===25)){
+      for(const kind of ['coaches','ap']){
+        for(const row of polls.polls[kind].rankings){
+          const name=String(pollAliases[row.team]||row.team||'').trim().toLowerCase();
+          const id=schools.get(name);
+          if(!id||!Number.isInteger(row.rank)||row.rank<1||row.rank>25)continue;
+          const ranks=pollRankings.get(id)||{coaches:null,ap:null};
+          ranks[kind]=row.rank;pollRankings.set(id,ranks);
+        }
+      }
+      pollAsOf=/^\d{4}-\d{2}-\d{2}$/.test(polls.as_of||'')?polls.as_of:'';
+    }
     arenaRegistry=arenas?.teams||{};scoreCalibration=calibration;
     const before=new Map(loaded.filter(g=>g.phase==='live'&&g.kind==='regular').map(g=>
       [g.id,{id:g.id,day:g.day,away_score:g.away.score,home_score:g.home.score}]));
