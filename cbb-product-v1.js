@@ -8,11 +8,11 @@ if(!pages.has(page))return;
 const params=new URLSearchParams(location.search),women=params.get('gender')==='women';
 const genderLink=(file,isWomen)=>file+(isWomen?'?gender=women':'');
 const sections=[
- ['FRONT PAGE','ncaam.html'],['GAMES','ncaam-slate.html'],['LIVE','cbb-game-center.html'],
- ['RANKINGS','ncaam-elo.html'],['TEAMS','ncaam.html#teams'],['CONFERENCES','ncaam-conference.html']
+ ['FRONT','ncaam.html'],['GAMES','ncaam-slate.html'],['LIVE','cbb-game-center.html'],
+ ['RANKINGS','ncaam-elo.html'],['TEAMS','ncaam.html#teams']
 ];
 const moreSections=[
- ['BRACKET WATCH','ncaam-tournament.html'],['PLAYER LEADERS','ncaam-players.html'],
+ ['CONFERENCES','ncaam-conference.html'],['BRACKET WATCH','ncaam-tournament.html'],['PLAYER LEADERS','ncaam-players.html'],
  ['ARENA FILE','ncaam-arena.html'],['MATCHUP LAB','ncaam-predictor.html'],
  ['RIVALRIES','ncaam-rivalry.html'],['ELO HISTORY','ncaam-history.html'],
  ['ALL SPORTS','sports.html']];
