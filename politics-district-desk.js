@@ -33,6 +33,7 @@ function news(d,host,phase){
  if(articles.length){
   const lead=articles[0],figure=E("article",null,"desk-lead-story");
   figure.append(E("span",lead.topic||"DISTRICT NEWS","desk-overline"),A(lead.title,lead.url),E("p",lead.source+" · "+format(lead.published_at)));
+  if(lead.match_reason)figure.append(E("small",lead.match_reason==="verified_2026_ballot_candidate"?"SOURCE MATCH: state-verified ballot candidate":"SOURCE MATCH: explicitly named congressional district","desk-match-reason"));
   host.append(figure);
   const list=E("div",null,"desk-news-list");
   for(const item of articles.slice(1,9)){
@@ -151,12 +152,26 @@ async function init(){
   }));
   const d=r1.districts?.[id],district=r2.districts?.find(x=>x.id===id);
   if(!district)throw Error("District not in congressional ledger");
+  // Nationwide publisher-linked news lives in its own ledger so it never
+  // overwrites IA-01's surveyed polls or verified congressional roll calls.
+  const fresh=await fetch("data/politics-district-news.json",{cache:"no-cache"})
+    .then(x=>x.ok?x.json():null).catch(()=>null);
+  const latest=fresh?.districts?.[id];
+  const combined=[...(d?.articles||[]),...(latest?.articles||[])];
+  const seen=new Set(),unique=[];
+  for(const story of combined.sort((a,b)=>new Date(b.published_at)-new Date(a.published_at))){
+    const key=String(story.title||"").toLowerCase().replace(/[^a-z0-9]/g,"");
+    if(key&&!seen.has(key)){seen.add(key);unique.push(story);}
+  }
+  const newsEntry={...(d||{}),district_id:id,articles:unique.slice(0,20),
+    news_checked_at:latest?.news_checked_at||d?.news_checked_at,
+    news_updated_at:latest?.news_checked_at||d?.news_updated_at};
   const state=(d?.election?.certified&&d.election.winner)?"certified":electionClosed()?"after":"campaign";
   document.body.dataset.districtEdition=state;
   if(note)note.textContent=state==="campaign"?"ELECTION 2026 / CAMPAIGN & SOURCED EVIDENCE":
    state==="certified"?"CERTIFIED ELECTION / REPRESENTATION & ACCOUNTABILITY":
    "POST-ELECTION / OFFICIAL RESULTS CHECK IN PROGRESS";
-  news(d,$("desk-local-news"),state);
+  news(newsEntry,$("desk-local-news"),state);
   polls(d,district,$("desk-local-polls"),state);
   record(d,$("desk-local-record"));
   // The graphic modules are drawn from the same source ledger as the text,
