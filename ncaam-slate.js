@@ -131,10 +131,10 @@ const rankOf=(side,ratings,women)=>{
   if(!side)return null;
   return ratings.get(String(side.canonical||side.id))||null;
 };
-function selectGames(all,day,view,query,followed){
+function selectGames(all,day,view,query){
   const q=String(query||'').toLowerCase().trim();
   return all.filter(g=>g.day===day&&(
-    view==='all'||(view==='favorites'&&(followed?.has(g.away.id)||followed?.has(g.home.id)))||
+    view==='all'||
     (view==='live'&&g.phase==='live')||(view==='final'&&g.phase==='final'&&g.kind!=='exhibition')||
     (view==='upcoming'&&g.phase==='upcoming')||(view==='exhibition'&&g.kind==='exhibition')
   )&&(!q||[g.away.name,g.away.full,g.home.name,g.home.full].some(t=>String(t||'').toLowerCase().includes(q))))
@@ -147,14 +147,11 @@ function start(){
 const root=document.getElementById('slate-root');if(!root)return;
 const url=new URL(location.href),women=url.searchParams.get('gender')==='women';
 let selected=/^\d{4}-\d\d-\d\d$/.test(url.searchParams.get('date')||'')?url.searchParams.get('date'):today();
-let filter=['all','live','final','upcoming','exhibition','favorites'].includes(url.searchParams.get('view'))?url.searchParams.get('view'):'all';
+let filter=['all','live','final','upcoming','exhibition'].includes(url.searchParams.get('view'))?url.searchParams.get('view'):'all';
 let search='',loaded=[],ratings=new Map(),lastUpdate='',limit=18,loading=false,sourceError='';
 let pollRankings=new Map();
 let cross={teams:[]},palette={},arenaRegistry={},womenTeams=new Map(),sourceFeed=null,seasonStats=new Map(),liveChanges=new Map(),scoreCalibration=null;
 const insight=window.SLTBasketballInsights;
-const favoriteKey='slt-slate-favorites-'+(women?'women':'men');
-let followed=new Set();
-try{followed=new Set(JSON.parse(localStorage.getItem(favoriteKey)||'[]').map(String))}catch{}
 // Large source-backed identity and arena references remain stable during a
 // page session; do not re-download them on every 90-second scoreboard tick.
 const staticData=new Map();
@@ -319,7 +316,6 @@ const team=t=>{const profile=rankOf(t,ratings,women),url=teamPage(t);
   '</span></span>';
  return url?'<a class="sl-team-link" href="'+esc(url)+'" aria-label="Open '+esc(t.name)+' team page">'+body+'</a>':body;
 };
-const favorite=t=>'<button class="sl-follow'+(followed.has(t.id)?' is-followed':'')+'" type="button" data-follow="'+esc(t.id)+'" aria-pressed="'+followed.has(t.id)+'" title="'+(followed.has(t.id)?'Unfollow':'Follow')+' '+esc(t.name)+'">'+(followed.has(t.id)?'★':'☆')+'<span class="sr-only"> Follow '+esc(t.name)+'</span></button>';
 const lens=g=>{
   const a=rating(g.away),h=rating(g.home),has=a!==null&&h!==null;
   const aw=rankOf(g.away,ratings,women),hm=rankOf(g.home,ratings,women);
@@ -461,7 +457,6 @@ function card(g,featured,opened=false){
    '<summary class="ledger26-summary" aria-label="Expand '+esc(g.away.name)+' at '+esc(g.home.name)+' game details">'+
    ledgerScorebug(g)+'<span class="ledger26-instruction">OPEN GAME DETAILS <span aria-hidden="true">+</span></span></summary>'+
    '<div class="ledger26-expanded">'+
-   '<div class="ledger26-follows">'+favorite(g.away)+favorite(g.home)+'</div>'+
    '<div class="sl-game-footer ledger26-links"><span>'+esc(source)+'</span>'+
    (external&&/^https:\/\/[^\s"'<>]+$/.test(g.sourceURL||'')?
      '<a class="sl-details" href="'+esc(g.sourceURL)+'" target="_blank" rel="noopener noreferrer">Cited exhibition result ↗</a>':'')+
@@ -481,7 +476,7 @@ document.addEventListener('toggle',event=>{
  if(d.matches?.('.sl-game-expansion')&&d.open)openGamefile(d);
 },true);
 const render=()=>{
- const games=selectGames(loaded,selected,filter,search,followed),shown=games.slice(0,limit);
+ const games=selectGames(loaded,selected,filter,search),shown=games.slice(0,limit);
  const opened=new Set([...document.querySelectorAll('.sl-game-expansion[open]')].map(d=>d.dataset.day+'|'+d.dataset.gameId));
  document.getElementById('sl-date').textContent=dateLabel(selected);
  document.getElementById('sl-count').textContent=games.length+' '+(games.length===1?'game':'games');
@@ -547,10 +542,6 @@ document.getElementById('sl-filters').addEventListener('click',e=>{const b=e.tar
 document.getElementById('sl-more').addEventListener('click',()=>{limit+=18;render()});
 document.getElementById('sl-reload').addEventListener('click',refresh);
 document.getElementById('sl-games').addEventListener('click',e=>{
- const b=e.target.closest('[data-follow]');if(b){const id=b.dataset.follow;
-   followed.has(id)?followed.delete(id):followed.add(id);
-   try{localStorage.setItem(favoriteKey,JSON.stringify([...followed]))}catch{}
-   render();return}
  if(e.target.id==='sl-retry')refresh();
 });
 document.getElementById('sl-picker').value=selected;
