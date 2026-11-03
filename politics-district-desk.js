@@ -190,7 +190,7 @@ async function init(){
    for(const [name,panel] of Object.entries(panels))if(panel)panel.hidden=name!==which;
   }
   for(const button of selectors)button.addEventListener("click",()=>choose(button.dataset.deskView));
-  choose(state==="campaign"?"news":"record");
+  choose(unique.length?"news":state==="campaign"?"news":"record");
   // Once Iowa polls close, the district and governing record supersede the
   // campaign landing page. Make the campaign material explicitly archival.
   const archive=$("desk-campaign-archive-toggle");
