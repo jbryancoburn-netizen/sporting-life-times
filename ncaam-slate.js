@@ -450,9 +450,7 @@ function card(g,featured){
  const venue=g.venue?'<span class="sl-location">'+esc(g.venue)+'</span>':'';
  return '<article class="sl-game'+(featured?' sl-featured':'')+'" style="--sl-away:'+brand(g.away)+';--sl-home:'+brand(g.home)+
   ';--sl-away-alt:'+secondary(g.away)+';--sl-home-alt:'+secondary(g.home)+'">'+
-  '<div class="sl-game-bar"><span class="sl-tag '+(g.phase==='live'?'sl-live':'')+'">'+
-  esc(g.kind==='exhibition'?'EXHIBITION':g.phase==='live'?'LIVE':g.phase==='final'?'FINAL':'UPCOMING')+'</span>'+
-  '<span class="sl-game-time">'+esc(formatClock(g))+'</span>'+venue+'</div>'+
+  '<div class="sl-game-bar"><span class="sl-game-time">'+esc(formatClock(g))+'</span>'+venue+'</div>'+
   '<details class="sl-game-expansion"><summary class="sl-game-summary" aria-label="Show game details">'+broadcastBug(g)+'</summary><div class="sl-game-expanded">'+
   '<div class="sl-game-main sl-game-main--'+esc(g.phase)+'"><div class="sl-game-teams">'+
   '<div class="sl-school">'+team(g.away)+favorite(g.away)+'</div>'+
