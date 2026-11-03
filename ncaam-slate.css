@@ -939,3 +939,20 @@ body .sl-game .sl-pennant-rating,body .sl-featured .sl-pennant-rating{
 @media(max-width:650px){
  body .sl-game .sl-pennant,body .sl-featured .sl-pennant{height:207px!important;min-height:207px!important;padding:11px 6px!important}
 }
+
+/* Victorian press palette: team color is an ink tint, not a bright fabric banner. */
+body .sl-game .sl-pennant,body .sl-featured .sl-pennant,
+body .sl-game .sl-pennant--tail,body .sl-game .sl-pennant--point,body .sl-game .sl-pennant--shield{
+ background:color-mix(in srgb,var(--pennant) 30%,#4c4234)!important;
+ border-color:color-mix(in srgb,var(--pennant-accent) 26%,#bfa679)!important;
+ outline-color:#554635!important;color:#f7eddb!important;
+}
+body .sl-game .sl-pennant::before,body .sl-featured .sl-pennant::before{
+ border-color:color-mix(in srgb,var(--pennant-accent) 20%,#d6bc88)!important;
+}
+body .sl-game .sl-pennant-name,body .sl-featured .sl-pennant-name{color:#fff2d8!important}
+body .sl-game .sl-pennant-mascot,body .sl-featured .sl-pennant-mascot{color:#e5d1a9!important}
+body .sl-game .sl-pennant-rating,body .sl-featured .sl-pennant-rating{
+ background:#3c3327!important;color:#f7ebd1!important;border-color:#a48d65!important;
+}
+body .sl-game .sl-pennant-row{background:transparent!important}
