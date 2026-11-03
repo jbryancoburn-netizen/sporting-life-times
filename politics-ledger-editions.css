@@ -207,3 +207,90 @@ body[data-house-page="district"] #district-overview-history{font-family:var(--le
  body[data-house-page="state"] .state-metrics .metric span{font-size:10px!important;line-height:1.4}
  body[data-house-page="state"] .state-feature-map{margin-inline:0!important}
 }
+/* Edition readability pass: print hierarchy without decorative clutter */
+body:is([data-house-page="state"],[data-house-page="district"]) .paper{
+  max-width:1280px!important;
+  padding-inline:clamp(14px,2.8vw,40px)!important;
+}
+body:is([data-house-page="state"],[data-house-page="district"]) .mast{
+  padding:24px 12px 19px!important;
+  border-top:4px double #2d2822!important;
+  border-bottom:4px double #2d2822!important;
+  text-align:center;
+}
+body:is([data-house-page="state"],[data-house-page="district"]) .mast h1{
+  font-family:var(--ledger-display)!important;
+  font-size:clamp(34px,5.3vw,72px)!important;
+  line-height:1.09!important;
+  letter-spacing:-.035em!important;
+  font-style:normal!important;
+  text-wrap:balance;
+  max-width:100%;
+}
+body:is([data-house-page="state"],[data-house-page="district"]) .mast .folio,
+body:is([data-house-page="state"],[data-house-page="district"]) .strip{
+  font:700 11px/1.45 var(--ledger-sans)!important;
+  letter-spacing:.12em!important;
+}
+body:is([data-house-page="state"],[data-house-page="district"]) .nav{
+  display:flex!important;flex-wrap:wrap!important;align-items:center;
+  justify-content:center;gap:0 3px!important;
+  padding:10px 0!important;margin:6px 0 16px!important;
+  border-bottom:1px solid #8c8170!important;
+  background:transparent!important;overflow:visible!important;
+}
+body:is([data-house-page="state"],[data-house-page="district"]) .nav a{
+  font:600 11px/1.4 var(--ledger-sans)!important;
+  text-transform:uppercase;letter-spacing:.035em;
+  border:0!important;border-radius:0!important;box-shadow:none!important;
+  background:transparent!important;color:var(--ledger-ink)!important;
+  padding:9px 11px!important;text-decoration:none!important;
+}
+body:is([data-house-page="state"],[data-house-page="district"]) .nav a:hover,
+body:is([data-house-page="state"],[data-house-page="district"]) .nav a:focus-visible{
+  color:var(--ledger-accent)!important;text-decoration:underline!important;
+  text-underline-offset:4px;
+}
+body:is([data-house-page="state"],[data-house-page="district"]) :is(p,li){
+  overflow-wrap:break-word;
+}
+body:is([data-house-page="state"],[data-house-page="district"]) :is(.state-editorial-briefing,.district-overview,.state-races-section,.district-dossier,.dossier-local,.dossier-history,.dossier-polling) p{
+  font-family:var(--ledger-serif)!important;
+  font-size:clamp(14px,1.1vw,16px)!important;
+  line-height:1.72!important;
+  letter-spacing:0!important;
+}
+body:is([data-house-page="state"],[data-house-page="district"]) :is(.section-heading h3,.district-overview h2,.state-editorial-briefing h2,.district-dossier h2){
+  font-family:var(--ledger-display)!important;
+  font-style:normal!important;
+  text-wrap:balance;
+}
+body:is([data-house-page="state"],[data-house-page="district"]) :is(.metric,.panel,.district-card,.dossier-map-panel){
+  border-radius:0!important;box-shadow:none!important;
+}
+body:is([data-house-page="state"],[data-house-page="district"]) :is(button,select,a):focus-visible{
+  outline:3px solid var(--ledger-accent)!important;
+  outline-offset:3px;
+}
+body:is([data-house-page="state"],[data-house-page="district"]) a{
+  text-underline-offset:3px;
+}
+body[data-house-page="state"] .state-edition-line,
+body[data-house-page="district"] .district-overview-label{
+  font:700 11px/1.5 var(--ledger-sans)!important;
+  letter-spacing:.1em!important;
+}
+body[data-house-page="district"] .nav a[href^="#"]{font-size:10px!important}
+@media(max-width:680px){
+ body:is([data-house-page="state"],[data-house-page="district"]) .mast{padding:16px 4px!important}
+ body:is([data-house-page="state"],[data-house-page="district"]) .mast h1{font-size:clamp(30px,9vw,49px)!important}
+ body:is([data-house-page="state"],[data-house-page="district"]) .nav{
+  justify-content:flex-start!important;flex-wrap:nowrap!important;overflow-x:auto!important;
+  overscroll-behavior-inline:contain;scrollbar-width:thin;
+ }
+ body:is([data-house-page="state"],[data-house-page="district"]) .nav a{
+  flex:0 0 auto;white-space:nowrap;padding:10px 9px!important;
+ }
+ body[data-house-page="district"] .district-overview{padding:17px 12px!important}
+ body[data-house-page="state"] .state-graphic-hero{padding:17px 12px!important}
+}
