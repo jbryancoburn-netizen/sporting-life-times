@@ -57,14 +57,15 @@ def check_title(title,row,state_name,people):
     suffix=ordinal(district)
     escaped=re.escape(state_name)
     number=f"0?{district}"
+    federal=r"(?:congressional|U\.?S\.?\s+House|United States House)"
     phrases=[
-        rf"\b{escaped}(?:'s|’s)?\s+(?:{suffix}|{number})(?:\s+|[-–])(congressional\s+|U\.?S\.?\s+house\s+)?district\b",
-        rf"\b{escaped}(?:'s|’s)?\s+(?:congressional\s+|house\s+)?district\s+{number}\b",
-        rf"\b(?:{suffix}|{number})(?:\s+|[-–])(?:congressional|house)\s+district\s+(?:of|in)\s+{escaped}\b"
+        rf"\b{escaped}(?:'s|’s)?\s+(?:{suffix}|{number})\s+{federal}\s+district\b",
+        rf"\b{escaped}(?:'s|’s)?\s+{federal}\s+district\s+{number}\b",
+        rf"\b(?:{suffix}|{number})\s+{federal}\s+district\s+(?:of|in)\s+{escaped}\b"
     ]
     for p in phrases:
         if re.search(p,title,re.I):return "named_2026_district"
-    if row["at_large"] and re.search(rf"\b{escaped}\s+at[- ]large\b",title,re.I) and POLITICS.search(title):
+    if row["at_large"] and re.search(rf"\b{escaped}\s+at[- ]large\b",title,re.I) and re.search(r"congressional|U\\.?S\\.?\\s+House",title,re.I):
         return "state_at_large_seat"
     for name in people:
         if re.search(r"(?<![\w])"+re.escape(name)+r"(?![\w])",title,re.I) and POLITICS.search(title):
@@ -94,6 +95,7 @@ def one(row,state_name):
             published_at=published(node.findtext("pubDate"))
             link=(node.findtext("link") or "").strip()
             title=clean_title(raw_title,publisher)
+            if re.search(r"\\b(latest polls|polling averages|betting odds|election odds)\\b",title,re.I):continue
             if not publisher or not published_at or not link.startswith("https://") or len(title)<16 or len(title)>230:
                 continue
             if published_at>NOW+dt.timedelta(days=1) or NOW-published_at>MAX_AGE:
