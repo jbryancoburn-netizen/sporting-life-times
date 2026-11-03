@@ -65,12 +65,23 @@ jobs:
           git config user.name 'The Political Life & Times District News Desk'
           git config user.email 'politics-district-news@users.noreply.github.com'
           git commit -m 'Refresh district-specific publisher-linked House headlines'
+          if git push origin HEAD:main; then
+            echo 'District source records published'; exit 0
+          fi
+          # Rebuild from the current ledger on push conflict rather than
+          # rebasing JSON and risking stale merges.
           for attempt in 1 2 3; do
             git fetch origin main
-            if git rebase origin/main && git push origin HEAD:main; then
-              echo 'District source records published'; exit 0
+            git reset --hard origin/main
+            python3 -u scripts/collect-politics-district-news.py
+            git add data/politics-district-news.json
+            if git diff --cached --quiet; then
+              echo 'No additional source changes needed'; exit 0
             fi
-            git rebase --abort || true
+            git commit -m 'Refresh district-specific House headlines after concurrent update'
+            if git push origin HEAD:main; then
+              echo 'Recollected and published from current ledger'; exit 0
+            fi
             sleep 3
           done
-          echo 'Could not publish source update without overwriting other edits'; exit 1
+          echo 'Safe publish not possible after retries; original source data preserved'; exit 1
