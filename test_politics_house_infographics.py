@@ -30,6 +30,9 @@ let a=graphic(r('IA-01'));assert.equal(a.type,'poll');close(a.dem,40);close(a.re
 a=graphic(r('IA-03'));assert.equal(a.type,'poll');close(a.dem,42);close(a.rep,48);
 a=graphic(r('IA-04'));assert.equal(a.type,'historical');close(a.dem,32.8);close(a.rep,67.2);assert(a.foot.includes('NOT a 2026 poll'));
 a=graphic(r('FL-22'));assert.equal(a.type,'unavailable');assert.equal(a.dem,null);
+a=graphic(r('CA-12'));assert.equal(a.type,'historical_finalists');assert.equal(a.finalists.length,2);assert.equal(a.finalists[0].name,'Lateefah Simon');assert.equal(a.finalists[1].name,'Jennifer Tran');
+a=graphic(r('WA-09'));assert.equal(a.type,'historical_finalists');assert.equal(a.writeins,5917);
+a=graphic(r('FL-01'));assert.equal(a.type,'historical');assert.equal(r('FL-01')['2024_to_2026_same_geography_verified'],true);
 assert.equal(graphic(r('MA-01')).type,'unavailable');
 const invalid={...r('IA-04'),district_specific_2026_polls:[{question_type:'named_house',candidates:[{party:'D',pct:67},{party:'R',pct:51}]}]};
 assert.equal(graphic(invalid).type,'historical');
