@@ -39,11 +39,8 @@ function render(data,id){
  if(!oldDistrict){
    section.append(elem("p","Census district profile unavailable. Nothing estimated or filled in.","acs-warning"));
  }else{
-   const changed=oldDistrict["2026_boundary_change_requires_remap"]===true;
-   const geo=elem("p",changed?
-     "BOUNDARY WARNING: This state's congressional district lines changed in 2026. These demographic figures apply ONLY to the 2024 district with this number—not necessarily the 2026 constituency.":
-     "The state's numbered congressional boundaries did not change for 2026, but these remain estimates from 2020–2024, not current-year population counts.",
-    changed?"acs-warning":"acs-muted");
+   const state=window.PoliticsCurrentDistrictGeo||null;
+   const geo=elem("p","These 2020–2024 ACS estimates use 119th-Congress boundaries. If the state redrew its map, a comparison of this individual district is needed before treating estimates as 2026 geography.","acs-muted");
    section.append(geo);
    const grid=elem("div",null,"acs-stat-grid");
    const pop=oldDistrict["population_2020_2024_acs_est"];
