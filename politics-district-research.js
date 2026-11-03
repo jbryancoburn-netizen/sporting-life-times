@@ -32,7 +32,7 @@ function election(r){
  }
  if(r.year<=2020)content.append($("small","rd-caption","Earlier district boundaries; do not compare directly with the current numbered district."));
  if(r.year===2022&&r.comparability_to_2024!=="unchanged_state_vintage")content.append($("small","rd-caption","2022-to-2024 geographic overlap not verified."));
- content.append($("div","rd-source",null)).lastChild.append(link(r.source_label||"Historic return",r.source_url));
+ const sourceRow=$("div","rd-source");sourceRow.append(link(r.source_label||"Historic return",r.source_url));content.append(sourceRow);
  row.append(year,content);return row;
 }
 function censusCard(title,value,unit,rank,moe){
