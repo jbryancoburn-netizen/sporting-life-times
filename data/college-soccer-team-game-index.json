@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "source_elo_as_of": "2026-11-02",
+  "source_elo_as_of": "2026-11-03",
   "source_forecasts_published_at": "2026-11-03T11:54:28.917935+00:00",
   "coverage": "partial_verified_finals_plus_locked_forecasts",
   "notice": "Partial schedule index only: official final ledger begins after the pinned baseline; pending fixtures are unverified until official finals arrive. A scheduled game may have already started.",
-  "verified_final_count": 2193,
+  "verified_final_count": 2198,
   "locked_forecast_count": 2197,
   "unresolved": [
     {
@@ -17535,12 +17535,12 @@
           "match_id": "men-6666521",
           "date": "2026-11-03",
           "opponent": "vmi",
-          "opponent_name": "VMI",
           "venue": "away",
-          "status": "live",
+          "status": "final",
+          "goals_for": 0,
+          "goals_against": 1,
           "source_url": "https://www.ncaa.com/game/6666521",
-          "source_type": "ncaa_di_men_2026_scoreboard",
-          "kickoff_utc": "2026-11-03T17:30:00+00:00"
+          "source_type": "verified_official_final"
         }
       ]
     },
@@ -34566,12 +34566,12 @@
           "match_id": "men-6666521",
           "date": "2026-11-03",
           "opponent": "mercer",
-          "opponent_name": "Mercer",
           "venue": "home",
-          "status": "live",
+          "status": "final",
+          "goals_for": 1,
+          "goals_against": 0,
           "source_url": "https://www.ncaa.com/game/6666521",
-          "source_type": "ncaa_di_men_2026_scoreboard",
-          "kickoff_utc": "2026-11-03T17:30:00+00:00"
+          "source_type": "verified_official_final"
         }
       ]
     },
