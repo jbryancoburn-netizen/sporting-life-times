@@ -721,7 +721,7 @@
       ...g.certifiedBox,away_name:teamName(g.away),home_name:teamName(g.home)
     }):players(raw);
     const plays=raw&&window.SLTCourt?.parsePlays?window.SLTCourt.parsePlays(raw):[];
-    const periodName=n=>!n?'GAME':n<=2?'HALF '+n:'OT '+(n-2);
+    const periodName=n=>!n?'GAME':women?(n<=4?'QUARTER '+n:'OT '+(n-4)):(n<=2?'HALF '+n:'OT '+(n-2));
     const chronology=plays.length?'<div class="cbb-plays-count">'+plays.length+' reported events · newest first · source-reported, not simulated</div>'+
       '<ol class="cbb-all-plays">'+plays.slice().reverse().map(p=>
         '<li><span>'+esc(periodName(p.period))+' · '+esc(p.clock||'Time unavailable')+'</span>'+
@@ -871,7 +871,7 @@
     const ap=away?.linescores||[],hp=home?.linescores||[];
     if(!ap.length||!hp.length)return '';
     const count=Math.max(ap.length,hp.length);
-    const cols=Array.from({length:count},(_,i)=>'<th>'+(i<2?'H'+(i+1):'OT'+(i-1))+'</th>').join('');
+    const cols=Array.from({length:count},(_,i)=>'<th>'+(women?(i<4?'Q'+(i+1):'OT'+(i-3)):(i<2?'H'+(i+1):'OT'+(i-1)))+'</th>').join('');
     const cells=team=>Array.from({length:count},(_,i)=>'<td>'+esc(team?.linescores?.[i]?.displayValue??team?.linescores?.[i]?.value??'—')+'</td>').join('');
     return '<div class="cbb-box-section"><h4>Period by Period</h4><div class="cbb-scroll"><table class="cbb-box-table"><thead><tr><th>Team</th>'+cols+'<th>TOT</th></tr></thead><tbody>'+
       '<tr><th>'+esc(code(g.away))+'</th>'+cells(away)+'<td>'+esc(score(g.away)??'—')+'</td></tr>'+
