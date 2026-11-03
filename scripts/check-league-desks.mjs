@@ -18,7 +18,11 @@ for(const page of found){
  assert(fs.existsSync(page),'missing dedicated page: '+page);
  const html=read(page);
  assert(html.includes('THE SPORTING LIFE')||html.includes('The Sporting Life')||html.includes('SPORTING LIFE AND TIMES')||html.includes('Sporting Life and Times'),'masthead missing: '+page);
- assert(html.includes('sports.html'),'return navigation missing: '+page);
+ // DIII newspapers use a complete inter-division nav linking the main front page,
+ // not the later, post-overhaul sports.html return chip.
+ assert(html.includes('sports.html')||
+   (['d3-mens-basketball.html','d3-womens-basketball.html'].includes(page)&&html.includes('index.html')),
+   'return navigation missing: '+page);
  if(page==='college-soccer.html'){
   assert(html.includes('college-soccer-visual-desk.css'),'Soccer visual edition stylesheet missing');
   assert(html.includes('college-soccer-unified.css'),'Soccer unified layout missing');
