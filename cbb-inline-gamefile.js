@@ -12,7 +12,7 @@
  const validURL=v=>/^https:\/\/[^\s"'<>]+$/i.test(String(v||''))?String(v):'';
  const num=v=>v!==null&&v!==undefined&&v!==''&&Number.isFinite(Number(v))?Number(v):null;
  const name=t=>String(t?.name||t?.full||'School');
- const periodTitle=(i,women)=>i<=2?'HALF '+i:(women&&i<=4?'QUARTER '+i:'OT '+(i-(women?4:2)));
+ const periodTitle=(i,women)=>women?(i<=4?'Q'+i:'OT '+(i-4)):(i<=2?'H'+i:'OT '+(i-2));
  const gKey=(g,women)=>(women?'w':'m')+'-'+g.day+'-'+g.id;
  const missing=message=>'<p class="slt-gf-missing">'+esc(message)+'</p>';
  const asScore=t=>num(t?.score);
