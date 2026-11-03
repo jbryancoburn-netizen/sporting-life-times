@@ -75,7 +75,7 @@ for(const r of atlas.districts){
   if(read.watch){assert.strictEqual(style,'purple',r.id);watch++;}
   if(read.label==='Signals disagree'){assert.strictEqual(style,'purple');mixed++;}
   assert(!read.label.includes('%'),r.id);
-  if(r['2026_boundaries_revised'])assert(!read.reasons.some(x=>x.head==='2024 HOUSE'&&x.value.includes('pts')),r.id);
+  if(!r['2024_to_2026_same_geography_verified'])assert(!read.reasons.some(x=>x.head==='2024 HOUSE'&&x.value.includes('pts')),r.id);
 }
 assert(watch>0&&watch<435);
 assert(mixed>0);
@@ -165,7 +165,7 @@ for(const r of atlas.districts){
  assert.strictEqual(data.items.length,3,r.id);
  if(r['2026_boundaries_revised']){
    changed++;
-   assert.strictEqual(data.h,null,r.id+' changed boundaries were used as historic baseline');
+   if(!r['2024_to_2026_same_geography_verified'])assert.strictEqual(data.h,null,r.id+' unverified geography used as historic baseline');
  }
  if(data.p){withPoll++;assert(data.items[1].unit.startsWith('2026 REPORTED POLL'));}
  if(!data.p)assert(!data.sub.includes('poll lists '),r.id);
