@@ -17,7 +17,7 @@ OUTPUT = ROOT / "data" / "mbb-slate-game-sites-2026-27.json"
 SUFFIX = {"Pa": "PA", "Ky": "KY", "N.C": "NC", "S.C": "SC", "Va": "VA", "Fla": "FL", "Tex": "TX", "Calif": "CA"}
 INVALID = ("tba", "tbd", "unknown", "unconfirmed", "to be announced", "n/a", "--", "campus", "home", "away")
 ARENA_PATTERN = re.compile(r"[a-zA-Z]")
-URL = re.compile(r"^https://[^\\s\"'<>]+$")
+URL = re.compile(r"^https://\\S+$")
 
 
 def clean(text):
@@ -30,7 +30,7 @@ def clean(text):
 
 
 def date(value):
-    return str(value or "")[:10] if re.match(r"^202[67]-\\d{2}-\\d{2}", str(value or "")) else ""
+    return str(value or "")[:10] if re.match(r"^202[67]-\d{2}-\d{2}", str(value or "")) else ""
 
 
 def city_state(venue):
@@ -97,7 +97,7 @@ def candidate(event, filepath):
 
 def compatible(a, b):
     for key in ("arena", "city", "state"):
-        if a[key] and b[key] and re.sub(r"\\W", "", a[key].lower()) != re.sub(r"\\W", "", b[key].lower()):
+        if a[key] and b[key] and re.sub(r"\W", "", a[key].lower()) != re.sub(r"\W", "", b[key].lower()):
             return False
     return a["neutral"] == b["neutral"]
 
