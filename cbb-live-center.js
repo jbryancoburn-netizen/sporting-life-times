@@ -868,18 +868,33 @@
       rows.map(([key,label])=>'<div class="cbb-stat-line"><span>'+esc(format(box.away,key))+'</span>'+
         '<b>'+label+'</b><span>'+esc(format(box.home,key))+'</span></div>').join('')+'</div>';
   }
+  // This alternate Game Center uses the same independently verified
+  // snapshot as the Daily Ledger. Never mix stale scoreboard points with
+  // a different provider-update period breakdown.
+  function verifiedPeriodSnapshot(g,summary){
+    const validator=window.SLTInlineGamefile?.periodScoreSnapshot;
+    if(typeof validator!=='function'||!summary||g.disputed||g.statsDisputed)return null;
+    return validator({id:g.id,phase:g.phase,
+      away:{id:String(g.away.team?.id||''),score:score(g.away)},
+      home:{id:String(g.home.team?.id||''),score:score(g.home)}},summary);
+  }
   function periodTable(g,summary){
-    const competitors=summary?.header?.competitions?.[0]?.competitors||[];
-    const find=id=>competitors.find(x=>String(x.id||x.team?.id)===String(id));
-    const away=find(g.away.team?.id),home=find(g.home.team?.id);
-    const ap=away?.linescores||[],hp=home?.linescores||[];
-    if(!ap.length||!hp.length)return '';
-    const count=Math.max(ap.length,hp.length);
-    const cols=Array.from({length:count},(_,i)=>'<th>'+(women?(i<4?'Q'+(i+1):'OT'+(i-3)):(i<2?'H'+(i+1):'OT'+(i-1)))+'</th>').join('');
-    const cells=team=>Array.from({length:count},(_,i)=>'<td>'+esc(team?.linescores?.[i]?.displayValue??team?.linescores?.[i]?.value??'—')+'</td>').join('');
+    if(!summary)return '';
+    const snapshot=verifiedPeriodSnapshot(g,summary);
+    if(!snapshot||snapshot.behind)
+      return '<p class="cbb-empty">Period totals are temporarily unavailable while live sources reconcile.</p>';
+    // Withhold a newer period snapshot until the displayed scorebug catches
+    // up; a single Gamefile must never contradict itself.
+    if(g.phase==='live'&&
+       (score(g.away)!==String(snapshot.awayTotal)||score(g.home)!==String(snapshot.homeTotal)))
+      return '<p class="cbb-empty">The scorebug and period breakdown are refreshing to the same verified score.</p>';
+    const away=snapshot.awayPeriods,home=snapshot.homePeriods;
+    const cols=Array.from({length:away.length},(_,i)=>'<th>'+
+      (women?(i<4?'Q'+(i+1):'OT'+(i-3)):(i<2?'H'+(i+1):'OT'+(i-1)))+'</th>').join('');
+    const cells=arr=>arr.map(n=>'<td>'+n+'</td>').join('');
     return '<div class="cbb-box-section"><h4>Period by Period</h4><div class="cbb-scroll"><table class="cbb-box-table"><thead><tr><th>Team</th>'+cols+'<th>TOT</th></tr></thead><tbody>'+
-      '<tr><th>'+esc(code(g.away))+'</th>'+cells(away)+'<td>'+esc(score(g.away)??'—')+'</td></tr>'+
-      '<tr><th>'+esc(code(g.home))+'</th>'+cells(home)+'<td>'+esc(score(g.home)??'—')+'</td></tr></tbody></table></div></div>';
+      '<tr><th>'+esc(code(g.away))+'</th>'+cells(away)+'<td>'+snapshot.awayTotal+'</td></tr>'+
+      '<tr><th>'+esc(code(g.home))+'</th>'+cells(home)+'<td>'+snapshot.homeTotal+'</td></tr></tbody></table></div></div>';
   }
   function players(summary){
     const blocks=summary?.boxscore?.players||[];
