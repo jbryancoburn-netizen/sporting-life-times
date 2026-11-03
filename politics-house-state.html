@@ -13,6 +13,21 @@
 <div class="state-lead-grid"><div class="state-lead-main"><h2 id="state-edition-heading">The congressional field</h2><p>Verified candidates, published district polling and historical results—one profile for every seat.</p><div class="state-jump-links"><a href="#district-geography">View district map <span aria-hidden="true">↘</span></a><a href="#district-list">Browse the races <span aria-hidden="true">↘</span></a></div></div>
 <aside class="state-context"><span class="state-context-label">THE HISTORICAL BASELINE · 2024</span><p id="state-history">Checking actual statewide presidential returns…</p><span id="state-map-status-pill" class="state-map-status-pill">2026 boundary check pending</span></aside></div>
 </section>
+<section class="district-map-section state-feature-map" id="district-geography">
+<div class="section-heading"><div><span class="ledger-atlas-kicker">PLATE I · THE CONGRESSIONAL ATLAS</span><h3>Explore the state</h3></div><p>Official boundaries · Select a district to open its local edition</p></div>
+<p class="footnote" id="district-map-status" role="status" aria-live="polite">Loading official congressional district geometry…</p>
+<div class="map-actions"><label for="map-district-jump">Find a district<select id="map-district-jump"><option value="">Loading districts…</option></select></label><button type="button" id="map-open-district">Open selected district →</button><span class="map-help">Drag to move · + / − to zoom · select a district directly</span></div>
+<div id="map-real-views" class="map-real-views" hidden aria-label="Choose a geographic view of the actual state map"></div>
+<div class="ledger-map-controls" id="map-shading-controls" role="group" aria-label="District map shading mode"></div>
+<p class="ledger-map-explanation" id="map-shading-explanation">Geographic atlas: neutral district shading, not election results.</p>
+<div class="map-base-legend"><strong>REAL GEOGRAPHY</strong><span>U.S. Census 2026 district boundaries · OpenStreetMap cities, roads and shorelines</span><span>Election evidence is optional, explicitly labeled, and never a 2026 winner prediction.</span></div>
+<div id="geo-district-map" class="geo-district-map" aria-label="Interactive geographic map showing each 2026 U.S. House district in this state"></div>
+<p id="map-base-warning" class="map-base-warning" role="status" hidden></p>
+<p id="map-official-michigan" class="map-official-michigan" hidden><strong>Michigan reference:</strong> <a href="https://www.michigan.gov/dtmb/-/media/Project/Websites/dtmb/Services/GIS/congress21statewide.pdf?hash=869B1FCA0059943658615AAC7546172C&amp;rev=5e90a2d86f9943b893e3f6664b016d90" target="_blank" rel="noopener noreferrer">Michigan state government's original 13-district statewide map (PDF) ↗</a>. That official map includes county and city labels for comparison.</p>
+<p class="callout" id="map-fallback" hidden></p>
+<p class="map-vintage-note" id="map-vintage-note">Boundaries are independent of historical election and polling data.</p>
+<p class="footnote state-map-source">Boundary source: <a id="map-source-link" href="https://www.census.gov/programs-surveys/decennial-census/about/rdo/congressional-districts.120th_Congress.html" target="_blank" rel="noopener noreferrer">Census Bureau redistricting program ↗</a>. Small urban districts may require zooming. The cards below remain a fully accessible alternative.</p>
+</section>
 <section class="state-editorial-briefing" aria-labelledby="state-editorial-title">
 <span class="state-brief-label">THE POLITICAL LIFE & TIMES / THE RACE READ</span>
 <h2 id="state-editorial-title">The races behind the numbers</h2>
@@ -53,21 +68,7 @@
 </section>
 
 <div class="callout" id="boundary-caution" hidden></div>
-<section class="district-map-section state-feature-map" id="district-geography">
-<div class="section-heading"><h3>The district map</h3><p>Tap a district to open its race profile · official Census outlines</p></div>
-<p class="footnote" id="district-map-status" role="status" aria-live="polite">Loading official congressional district geometry…</p>
-<div class="map-actions"><label for="map-district-jump">Find a district<select id="map-district-jump"><option value="">Loading districts…</option></select></label><button type="button" id="map-open-district">Open selected district →</button><span class="map-help">Drag to move · + / − to zoom · select a district directly</span></div>
-<div id="map-real-views" class="map-real-views" hidden aria-label="Choose a geographic view of the actual state map"></div>
-<div class="ledger-map-controls" id="map-shading-controls" role="group" aria-label="District map shading mode"></div>
-<p class="ledger-map-explanation" id="map-shading-explanation">Geographic atlas: neutral district shading, not election results.</p>
-<div class="map-base-legend"><strong>REAL GEOGRAPHY</strong><span>U.S. Census 2026 district boundaries · OpenStreetMap cities, roads and shorelines</span><span>Election evidence is optional, explicitly labeled, and never a 2026 winner prediction.</span></div>
-<div id="geo-district-map" class="geo-district-map" aria-label="Interactive geographic map showing each 2026 U.S. House district in this state"></div>
-<p id="map-base-warning" class="map-base-warning" role="status" hidden></p>
-<p id="map-official-michigan" class="map-official-michigan" hidden><strong>Michigan reference:</strong> <a href="https://www.michigan.gov/dtmb/-/media/Project/Websites/dtmb/Services/GIS/congress21statewide.pdf?hash=869B1FCA0059943658615AAC7546172C&amp;rev=5e90a2d86f9943b893e3f6664b016d90" target="_blank" rel="noopener noreferrer">Michigan state government's original 13-district statewide map (PDF) ↗</a>. That official map includes county and city labels for comparison.</p>
-<p class="callout" id="map-fallback" hidden></p>
-<p class="map-vintage-note" id="map-vintage-note">Boundaries are independent of historical election and polling data.</p>
-<p class="footnote state-map-source">Boundary source: <a id="map-source-link" href="https://www.census.gov/programs-surveys/decennial-census/about/rdo/congressional-districts.120th_Congress.html" target="_blank" rel="noopener noreferrer">Census Bureau redistricting program ↗</a>. Small urban districts may require zooming. The cards below remain a fully accessible alternative.</p>
-</section>
+
 <section id="district-list" class="state-races-section"><div class="section-heading"><h3>Congressional races</h3><p id="district-count">Loading all districts…</p></div>
 <p id="state-watch-count" class="watchlist-count" aria-live="polite">Checking potentially competitive races…</p>
 <div class="toolbar"><label for="district-filter">Show districts<select id="district-filter"><option value="all">All House districts</option><option value="watch">Races to watch</option><option value="poll">2026 polling available</option><option value="ballot">Official candidate slate</option><option value="historical">Comparable 2024 House results</option><option value="missing-ballot">Candidate list not yet verified</option><option value="missing-poll">No published district poll in ledger</option><option value="redrawn">2026 boundaries changed</option></select></label></div>
