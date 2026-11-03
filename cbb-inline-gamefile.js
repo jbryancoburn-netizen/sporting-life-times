@@ -98,8 +98,8 @@
    const row=(t,items,total)=>'<tr><th scope="row">'+esc(name(t))+'</th>'+
      items.map(v=>'<td>'+v+'</td>').join('')+'<td><b>'+total+'</b></td></tr>';
    const note=g.phase==='live'&&(asScore(g.away)!==s.awayTotal||asScore(g.home)!==s.homeTotal)?
-     '<p class="slt-gf-source">ESPN period totals are newer than the separately refreshed newspaper scoreboard. The open scorebug is being synchronized.</p>':'';
-   return note+'<div class="slt-gf-scroll"><table class="slt-gf-table"><caption>Period scoring · consistent ESPN snapshot</caption>'+
+     '<p class="slt-gf-source">Live period totals are newer than the separately refreshed newspaper scoreboard. The open scorebug is being synchronized.</p>':'';
+   return note+'<div class="slt-gf-scroll"><table class="slt-gf-table"><caption>Period scoring · consistent game snapshot</caption>'+
      '<thead><tr><th scope="col">SCHOOL</th>'+headers+'<th scope="col">TOTAL</th></tr></thead><tbody>'+
      row(g.away,s.awayPeriods,s.awayTotal)+row(g.home,s.homePeriods,s.homeTotal)+'</tbody></table></div>';
  }
@@ -127,7 +127,7 @@
      {label:s.label||s.displayName||s.name||'Stat',val:s.displayValue??s.value??'—'}]));
    const a=stats(away),h=stats(home),keys=[...new Set([...a.keys(),...h.keys()])].filter(Boolean);
    if(!keys.length)return '';
-   return '<p class="slt-gf-source">ESPN reported team statistics · secondary provider</p>'+
+   return '<p class="slt-gf-source">Live feed · team statistics</p>'+
     '<div class="slt-gf-stat-head"><b>'+esc(name(g.away))+'</b><b>'+esc(name(g.home))+'</b></div>'+
     keys.map(key=>'<div class="slt-gf-stat-row"><b>'+esc(a.get(key)?.val??'—')+
       '</b><span>'+esc(a.get(key)?.label||h.get(key)?.label||key)+'</span><b>'+esc(h.get(key)?.val??'—')+'</b></div>').join('');
@@ -161,7 +161,7 @@
        const labels=section.labels||section.names||[],players=(section.athletes||[]).filter(p=>p.athlete?.displayName&&Array.isArray(p.stats));
        if(!players.length)return '';
        return '<div class="slt-gf-scroll"><table class="slt-gf-table"><caption>'+
-         esc(name(team))+' · '+esc(section.name||'player statistics')+' (ESPN)</caption>'+
+         esc(name(team))+' · '+esc(section.name||'player statistics')+' · live box score</caption>'+
          '<thead><tr><th scope="col">PLAYER</th>'+labels.map(v=>'<th scope="col">'+esc(v)+'</th>').join('')+
          '</tr></thead><tbody>'+players.map(p=>'<tr><th scope="row">'+esc(p.athlete.displayName)+'</th>'+
          labels.map((_,i)=>'<td>'+esc(p.stats[i]??'—')+'</td>').join('')+
@@ -172,7 +172,7 @@
  function playLog(raw,g){
    const plays=global.SLTCourt?.parsePlays?.(raw)||[];
    if(!plays.length)return missing('No source-reported play-by-play is available for this game.');
-   return '<p class="slt-gf-source">'+plays.length+' source-reported events · chronological order · ESPN play log</p>'+
+   return '<p class="slt-gf-source">'+plays.length+' source-reported events · chronological order · live play log</p>'+
      '<ol class="slt-gf-plays">'+plays.map(p=>'<li><span class="slt-gf-play-clock">'+
        esc(p.period?'P'+p.period:'—')+' · '+esc(p.clock||'—')+'</span><span>'+
        esc(p.text)+'</span><b>'+esc(p.awayScore===null?'':p.awayScore)+
@@ -214,7 +214,7 @@
    const players=ncaaPlayers(playerBox,g)||espnPlayers(raw,g)||
      missing('Player box scores have not been published for this matchup.');
    const periods=lineScore(g,raw,women);
-   const provenance=raw?'ESPN game summary matched to both schools and game ID':
+   const provenance=raw?'Live game summary matched to both schools and game ID':
      'No matching live game summary from the provider';
    const keyPanel=(tab,html)=>'<section role="tabpanel" id="'+key+'-panel-'+tab+
      '" aria-labelledby="'+key+'-tab-'+tab+'" data-inline-panel="'+tab+'">'+html+'</section>';
