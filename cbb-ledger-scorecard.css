@@ -1,0 +1,171 @@
+/* Sporting Life & Times | Canonical Daily Ledger letterpress scorecards (2026).
+   The markup deliberately uses ledger26-* classes. Retired banner/scorebug CSS cannot affect it. */
+.ledger26-card{
+  --ledger26-ink:#33291d;
+  --ledger26-rule:#a58d69;
+  display:block!important;
+  position:relative;
+  background:#f4ebda!important;
+  color:var(--ledger26-ink);
+  border:1px solid var(--ledger26-rule)!important;
+  border-top:3px double #403222!important;
+  box-shadow:none!important;
+  margin:0;
+  min-width:0;
+  overflow:hidden;
+}
+.ledger26-card::before,.ledger26-card::after{content:none!important;display:none!important}
+.ledger26-meta{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
+  border-bottom:1px solid #b9a78a;padding:7px 13px;
+  color:#51422e;font:700 11px/1.3 Georgia,'Times New Roman',serif;
+  font-variant-numeric:tabular-nums;
+}
+.ledger26-time{white-space:nowrap}
+.ledger26-venue{font:400 11px/1.25 Georgia,'Times New Roman',serif;min-width:0;overflow-wrap:anywhere}
+.ledger26-expand{display:block;min-width:0}
+.ledger26-summary{
+  display:block;list-style:none;cursor:pointer;
+  padding:9px 11px 7px;background:#f4ebda;min-width:0;
+}
+.ledger26-summary::-webkit-details-marker{display:none}
+.ledger26-summary:focus-visible{outline:3px solid #754c25;outline-offset:-3px}
+.ledger26-summary:hover,.ledger26-expand[open]>.ledger26-summary{background:#eaddc6}
+.ledger26-scorebug{
+  display:grid;
+  grid-template-columns:52px minmax(0,1fr) 102px;
+  min-height:96px;
+  border:3px double #826d4e;
+  background:#f8f0e0;
+  color:#241b13;
+  box-shadow:none;
+}
+.ledger26-monogram{
+  display:flex;align-items:center;justify-content:center;
+  padding:5px;
+  background:#e8d9bd;
+  border-right:1px solid #a89371;
+  min-width:0;
+}
+.ledger26-monogram img{
+  display:block;width:36px;height:50px;object-fit:contain;
+  max-width:100%;filter:none;mix-blend-mode:multiply;
+}
+.ledger26-teams{min-width:0;display:grid;grid-template-rows:1fr 1fr}
+.ledger26-team{
+  display:grid;grid-template-columns:36px minmax(0,1fr) minmax(25px,auto);
+  align-items:center;gap:8px;min-height:45px;
+  padding:4px 10px 4px 8px;
+  border-left:6px solid var(--ledger26-school,#594631);
+  border-bottom:1px solid #bba989;
+  min-width:0;
+  background:#f8f0e0;
+}
+.ledger26-team:last-child{border-bottom:0}
+.ledger26-crest{
+  display:flex;align-items:center;justify-content:center;
+  width:35px;height:35px;min-width:35px;
+}
+.ledger26-crest .mbb-mark,
+.ledger26-crest .sl-emblem{
+  --mbb-size:34px!important;
+  width:34px!important;height:34px!important;
+  min-width:34px!important;min-height:34px!important;
+  max-width:34px!important;max-height:34px!important;
+  margin:0!important;object-fit:contain!important;
+}
+.ledger26-name{
+  display:block;min-width:0;
+  color:#251e17!important;
+  font:700 14px/1.12 Georgia,'Times New Roman',serif!important;
+  font-variant:normal!important;font-style:normal!important;
+  text-shadow:none!important;
+  -webkit-text-stroke:0!important;
+  letter-spacing:0!important;overflow-wrap:break-word;
+  white-space:normal;text-transform:uppercase;
+  filter:none!important;
+}
+.ledger26-name::before,.ledger26-name::after{content:none!important}
+.ledger26-points{
+  display:block;justify-self:end;min-width:25px;
+  color:#241a11!important;font:800 24px/1 Georgia,'Times New Roman',serif!important;
+  font-variant-numeric:tabular-nums;text-shadow:none!important;
+  letter-spacing:0!important;-webkit-text-stroke:0!important;
+}
+.ledger26-status{
+  display:flex;align-items:center;justify-content:center;
+  min-width:0;padding:6px;
+  background:#e8d8bb;
+  border-left:1px solid #ac9574;
+  text-align:center;
+}
+.ledger26-status strong{
+  color:#342617!important;
+  font:700 12px/1.12 Georgia,'Times New Roman',serif!important;
+  letter-spacing:0!important;
+  text-transform:uppercase;
+  text-shadow:none!important;-webkit-text-stroke:0!important;
+  white-space:normal;overflow-wrap:anywhere;min-width:0;
+}
+.ledger26-status strong::before,.ledger26-status strong::after{content:none!important}
+.ledger26-status[data-phase="live"]{background:#ead4bf}
+.ledger26-status[data-phase="live"] strong{color:#872f26!important}
+.ledger26-instruction{
+  display:block;text-align:right;padding:7px 2px 1px;
+  font:700 10px/1.2 Georgia,'Times New Roman',serif;
+  letter-spacing:.12em;color:#59442d;
+}
+.ledger26-expand[open] .ledger26-instruction{font-size:0}
+.ledger26-expand[open] .ledger26-instruction::after{
+  content:"CLOSE GAMEFILE −";font:700 10px/1.2 Georgia,'Times New Roman',serif;
+}
+.ledger26-expanded{
+  border-top:3px double #a48b67;
+  padding:8px 12px 12px;
+  background:#f4ebda;
+}
+.ledger26-expanded .sl-game-footer{
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+  margin:0!important;padding:6px 0!important;
+  background:transparent!important;
+}
+.ledger26-expanded .sl-details{
+  background:#403322!important;color:#fff4de!important;padding:7px 10px;
+  border:0!important;
+}
+.ledger26-follows{display:flex;gap:10px;justify-content:flex-end}
+.ledger26-follows:empty{display:none}
+.ledger26-gamefile{margin-top:10px}
+.ledger26-gamefile .sl-inline-frame{
+  display:block;width:100%;height:min(72vh,790px);min-height:450px;
+  border:1px solid #ae9673;background:#fff8ea;
+}
+@media(max-width:640px){
+ .ledger26-summary{padding:7px}
+ .ledger26-scorebug{grid-template-columns:43px minmax(0,1fr) 84px;min-height:92px}
+ .ledger26-monogram img{width:31px;height:43px}
+ .ledger26-team{grid-template-columns:33px minmax(0,1fr) minmax(21px,auto);gap:6px;padding:3px 6px;border-left-width:5px}
+ .ledger26-crest{width:32px;height:32px;min-width:32px}
+ .ledger26-crest .mbb-mark,.ledger26-crest .sl-emblem{
+   --mbb-size:31px!important;width:31px!important;height:31px!important;
+   min-width:31px!important;min-height:31px!important;
+   max-width:31px!important;max-height:31px!important;
+ }
+ .ledger26-name{font-size:12px!important}
+ .ledger26-points{font-size:21px!important}
+ .ledger26-status{padding:4px}
+ .ledger26-status strong{font-size:11px!important}
+ .ledger26-gamefile .sl-inline-frame{min-height:480px}
+}
+@media(max-width:360px){
+ .ledger26-scorebug{grid-template-columns:37px minmax(0,1fr) 72px}
+ .ledger26-team{grid-template-columns:28px minmax(0,1fr) 21px;gap:4px;padding:3px;border-left-width:4px}
+ .ledger26-crest{width:28px;height:28px;min-width:28px}
+ .ledger26-crest .mbb-mark,.ledger26-crest .sl-emblem{
+  --mbb-size:27px!important;width:27px!important;height:27px!important;
+  min-width:27px!important;min-height:27px!important;max-width:27px!important;max-height:27px!important;
+ }
+ .ledger26-name{font-size:11px!important}
+ .ledger26-points{font-size:20px!important}
+ .ledger26-status strong{font-size:10px!important}
+}
