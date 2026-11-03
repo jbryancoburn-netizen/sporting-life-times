@@ -351,7 +351,8 @@
       '<div class="cbb-match-rows">'+row(g.away,g.phase,winner&&as>hs)+row(g.home,g.phase,winner&&hs>as)+'</div>'+
       '<div class="cbb-bug-bottom"><span>'+esc(g.venue||localDate(g.date))+'</span>'+prob+
       '<button type="button" class="cbb-box-btn" data-cbb-toggle aria-expanded="'+expanded+
-      '" aria-controls="cbb-inline-'+esc(g.id)+'">'+(expanded?'CLOSE DETAILS ▲':'GAME DETAILS ▼')+'</button></div>'+
+      '" aria-controls="cbb-inline-'+esc(g.id)+'">'+(expanded?'CLOSE DETAILS ▲':'GAME DETAILS ▼')+'</button>'+ 
+      '<a class="cbb-gamefile-link" href="'+esc(gameLink(g))+'" aria-label="Read the complete sourced Gamefile for '+esc(g.away.name)+' versus '+esc(g.home.name)+'">GAMEFILE ↗</a></div>'+
       '<div class="cbb-game-origin">'+esc(g.source||'Source not available')+
       (g.certifiedTeamBox?' · NCAA-origin team totals checked':'')+'</div>'+
       '<div class="cbb-inline-detail" id="cbb-inline-'+esc(g.id)+'" data-cbb-details '+
