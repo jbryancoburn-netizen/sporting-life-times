@@ -16,47 +16,102 @@ async function dataFile(path){
  if(!response.ok)throw Error("Missing "+path);
  return response.json();
 }
-function historyRows(host,r,extra){
- const heading=el("div",null,"dossier-module-head");
- heading.append(el("span","THE RECORD · NOT A FORECAST","dossier-overline"),el("h3","How this district voted"));
- host.append(heading);
- let rows=extra?.congressional_history||[];
- const prior=r["2024_house_result_on_prior_boundaries"];
- if(!rows.length&&prior?.same_2026_geography&&prior?.both_major_parties){
-  rows=[{year:2024,candidates:[{party:"R",name:"Republican candidate",votes:prior.rep_votes},{party:"D",name:"Democratic candidate",votes:prior.dem_votes}],source:"MIT Election Data and Science Lab",source_url:prior.source_url,scope:"2024 actual House vote on comparable boundaries"}];
+function historyRows(host,r,extra,archive,atlas){
+ const title=el("div",null,"dossier-module-head");
+ title.append(el("span","THE 2022 & 2024 HOUSE RETURNS · ACTUAL VOTES","dossier-overline"),
+  el("h3","The real election history"));
+ host.append(title);
+ const old=r["2024_house_result_on_prior_boundaries"],unopposed=r["2024_unopposed_official_context"];
+ const hist=archive?.house||[],get=year=>hist.find(x=>x.id===r.id&&x.year===year);
+ const votes22=get(2022);
+ const specific=extra?.congressional_history||[];
+ const results=[];
+ for(const year of [2022,2024]){
+  const official=specific.find(x=>x.year===year);
+  if(official?.candidates?.length===2){
+   results.push({year,people:official.candidates,source:official.source_url,origin:official.source||"State election office",verified:true});continue;
+  }
+  if(year===2024&&old?.finalists?.length===2){
+   results.push({year,people:old.finalists,source:old.candidate_vote_source_url,origin:old.candidate_vote_source_authority,verified:true});continue;
+  }
+  const x=year===2024?old:votes22;
+  const d=x?.dem_votes,g=x?.rep_votes;
+  if(x?.both_major_parties&&Number.isFinite(d)&&Number.isFinite(g)&&d>0&&g>0)
+   results.push({year,people:[{name:"Democratic candidate",party:"D",votes:d},{name:"Republican candidate",party:"R",votes:g}],
+    source:x.source_url||x.source,origin:"MIT Election Data and Science Lab",verified:false});
+  else if(x)results.push({year,winner:x.winner||x.winner_name,source:x.source_url||x.source,origin:"MEDSL · incomplete candidate pairing"});
+  else if(year===2024&&unopposed)results.push({year,winner:unopposed.winner,source:unopposed.source_url,origin:"Official state return · elected unopposed"});
+  else results.push({year,winner:null});
  }
- if(!rows.length){
-  warn(host,r["2026_boundaries_revised"]?
-   "This district was redrawn for 2026. Older House results under the same number cover different voters, so no misleading history comparison is shown.":
-   "Comparable district-level results have not yet been verified in the historical record.");
-  return;
- }
- rows=rows.slice().sort((a,b)=>b.year-a.year);
  const grid=el("div",null,"dossier-history-grid");
- for(const row of rows){
-  if(!Array.isArray(row.candidates)||row.candidates.length<2)continue;
-  const d=row.candidates.find(c=>c.party==="D"),rep=row.candidates.find(c=>c.party==="R");
-  if(!d||!rep||!Number.isFinite(Number(d.votes))||!Number.isFinite(Number(rep.votes)))continue;
-  const total=Number(d.votes)+Number(rep.votes),margin=Math.abs(Number(d.votes)-Number(rep.votes)),leader=Number(d.votes)>Number(rep.votes)?"Democratic":"Republican";
-  const article=el("article",null,"dossier-history-row");
-  const meta=el("div",null,"dossier-history-meta");
-  meta.append(el("strong",String(row.year)),el("span",leader+" victory · "+fmt(margin)+" votes"));
-  article.append(meta);
-  const chart=el("div",null,"dossier-vote-bar");chart.setAttribute("role","img");
-  chart.setAttribute("aria-label",row.year+" two-party votes: "+fmt(d.votes)+" Democratic and "+fmt(rep.votes)+" Republican.");
-  const barD=el("span",null,"dossier-dem"),barR=el("span",null,"dossier-rep");
-  barD.style.width=(100*Number(d.votes)/total)+"%";barR.style.width=(100*Number(rep.votes)/total)+"%";
-  chart.append(barD,barR);article.append(chart);
-  const legend=el("div",null,"dossier-vote-legend");
-  legend.append(el("span","D "+fmt(d.votes)+" ("+pct(Number(d.votes)/total*100)+" two-party)"),
-    el("span","R "+fmt(rep.votes)+" ("+pct(Number(rep.votes)/total*100)+" two-party)"));
-  article.append(legend);
-  article.append(link(row.source+" ↗",row.source_url));
-  grid.append(article);
+ for(const x of results){
+  const card=el("article",null,"dossier-history-row"),meta=el("div",null,"dossier-history-meta");
+  if(x.people){
+   const [first,second]=x.people,total=first.votes+second.votes;
+   const winner=first.votes>=second.votes?first:second;
+   const same=first.party===second.party;
+   meta.append(el("strong",String(x.year)),el("span",winner.name+" · "+fmt(Math.abs(first.votes-second.votes))+"-vote win"));
+   card.append(meta);
+   const bar=el("div",null,"dossier-vote-bar");bar.setAttribute("role","img");
+   bar.setAttribute("aria-label",x.people.map(c=>c.name+" "+c.party+" "+fmt(c.votes)+" votes").join("; "));
+   x.people.forEach((candidate,index)=>{
+    const seg=el("span",null,candidate.party==="D"?"dossier-dem":candidate.party==="R"?"dossier-rep":"dossier-dem");
+    seg.style.width=(100*candidate.votes/total).toFixed(3)+"%";
+    if(same)seg.style.background=index===0?(candidate.party==="R"?"#9a4439":"#355f8e"):
+      (candidate.party==="R"?"#d6a19a":"#92b6d9");
+    bar.append(seg);
+   });card.append(bar);
+   const text=el("div",null,"dossier-vote-legend");
+   for(const c of x.people)text.append(el("span",c.name+" ("+c.party+") · "+fmt(c.votes)+" · "+pct(c.votes/total*100)+" of two finalists"));
+   card.append(text);
+   if(same)card.append(el("p","Contested SAME-PARTY general election. This is a candidate-to-candidate result, not a Democratic-versus-Republican vote share.","dossier-caution"));
+   else if(!x.verified)card.append(el("p","Party-level vote totals from MIT/MEDSL; individual losing candidate names were not verified in this source.","dossier-caution"));
+  }else{
+   meta.append(el("strong",String(x.year)),el("span",x.winner?x.winner+" · winner recorded; no valid two-candidate margin":"No sourced numeric candidate matchup"));card.append(meta);
+  }
+  if(validSource(x.source))card.append(link((x.origin||"Election source")+" ↗",x.source));
+  grid.append(card);
  }
  host.append(grid);
- warn(host,"Bars show ONLY the Democratic and Republican votes to compare the two major parties. Minor-party and write-in votes may exist; two-party percentages are not total vote shares. Never compare old boundaries as if they were the same electorate.");
+ const comparison=el("div",null,"dossier-history-analysis");
+ if(r["2022_to_2024_geography_comparison"]==="unchanged_state_vintage"&&votes22?.both_major_parties&&old?.both_major_parties
+   &&Number.isFinite(votes22.two_party_margin)&&Number.isFinite(old.dem_two_party_margin_pp)){
+  const swing=Math.round((old.dem_two_party_margin_pp-votes22.two_party_margin)*100)/100;
+  const direction=swing>0?"toward Democrats":swing<0?"toward Republicans":"with no net two-party change";
+  comparison.append(el("strong",swing===0?"No net shift":Math.abs(swing).toFixed(1)+"-point change "+direction),
+    el("p","Comparable 2022–2024 district geography. 2022 D/R vote margin: "+signedParty(votes22.two_party_margin)+
+    "; 2024: "+signedParty(old.dem_two_party_margin_pp)+". These are election results, not a 2026 forecast."));
+ }else comparison.append(el("p",r["2022_to_2024_geography_comparison"]==="pending_district_vintage_audit"?
+  "2022 and 2024 district boundaries require verification before a geographic swing can be calculated.":
+  "No valid 2022–2024 Democratic-versus-Republican margin comparison. Same-party elections and unopposed contests are not fabricated into partisan swings."));
+ const status=r["2024_to_2026_geography_comparison"];
+ comparison.append(el("p",status==="verified_changed_district_blocks"?"2026 boundary audit: official Census-block assignments prove this district changed.":
+  status==="pending_district_block_comparison"?"2026 boundary audit: statewide map redrawn; this individual district's change remains unverified.":
+  "2026 boundary audit: the 2024 district geography remains comparable, but previous votes are not future predictions."));
+ if(old?.both_major_parties){
+  const ranked=(atlas?.districts||[]).filter(x=>x["2024_house_result_on_prior_boundaries"]?.both_major_parties&&
+   x["2024_house_result_on_prior_boundaries"].dem_votes>0&&x["2024_house_result_on_prior_boundaries"].rep_votes>0)
+   .map(x=>({id:x.id,gap:Math.abs(x["2024_house_result_on_prior_boundaries"].dem_votes-x["2024_house_result_on_prior_boundaries"].rep_votes)}))
+   .sort((x,y)=>x.gap-y.gap||x.id.localeCompare(y.id));
+  const place=ranked.findIndex(x=>x.id===r.id);
+  if(place>=0)comparison.append(el("p","2024 closeness ranking: "+(place+1)+" of "+ranked.length+
+   " actual contested D/R House elections nationally, ordered by smallest counted vote margin."));
+ }
+ host.append(comparison);
+ const early=hist.filter(x=>x.id===r.id&&(x.year===2018||x.year===2020));
+ if(early.length){
+  const older=el("details",null,"dossier-earlier-elections");
+  older.append(el("summary","Earlier elections, 2018 and 2020 · different maps"));
+  for(const row of early.sort((x,y)=>y.year-x.year)){
+   const label=row.year+" · "+row.winner_name+" won. "+
+    (row.both_major_parties?"D "+fmt(row.dem_votes)+" · R "+fmt(row.rep_votes)+" counted votes.":"No validated two-party share.")+
+    " The district number may refer to different territory.";
+   older.append(el("p",label));
+   if(validSource(row.source))older.append(link("MEDSL "+row.year+" source ↗",row.source));
+  }host.append(older);
+ }
 }
+function signedParty(n){return n>0?"D +"+n.toFixed(1):n<0?"R +"+Math.abs(n).toFixed(1):"tied";}
 function polling(host,r){
  const head=el("div",null,"dossier-module-head");
  head.append(el("span","THE SURVEY FILE / METHODOLOGY MATTERS","dossier-overline"),el("h3","What the polls actually say"));
@@ -241,13 +296,14 @@ async function init(){
  const status=$("dossier-status");
  try{
   const atlas=await dataFile("politics-house-atlas.json");
-  const [censusResult,guideResult,communitiesResult]=await Promise.allSettled([
+  const [censusResult,guideResult,communitiesResult,historyResult]=await Promise.allSettled([
    dataFile("politics-census-inputs.json"),dataFile("politics-district-guide.json"),
-   dataFile("data/politics-district-communities.json")
+   dataFile("data/politics-district-communities.json"),dataFile("politics-historical-contests.json")
   ]);
   const census=censusResult.status==="fulfilled"?censusResult.value:null;
   const guide=guideResult.status==="fulfilled"?guideResult.value:{districts:{}};
   const communities=communitiesResult.status==="fulfilled"?communitiesResult.value:null;
+  const history=historyResult.status==="fulfilled"?historyResult.value:null;
   const r=atlas.districts?.find(x=>x.id===id);if(!r)throw Error("District not found in the official district ledger");
   const extra=guide.districts?.[id];
   const namedCommunity=communities?.districts?.[id]||null;
@@ -269,7 +325,7 @@ async function init(){
   status.textContent="Official Census boundaries · state-verified ballot snapshots · original historical vote sources";
   officialMap(r,extra,namedCommunity);
   local($("dossier-local"),extra,r,namedCommunity);
-  historyRows($("dossier-history"),r,extra);
+  historyRows($("dossier-history"),r,extra,history,atlas);
   polling($("dossier-polling"),r);
   if(census)census($("dossier-people"),null,r,census);
   else warn($("dossier-people"),"Census details are temporarily unavailable; district geography remains available.");
