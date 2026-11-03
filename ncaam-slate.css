@@ -990,3 +990,25 @@ body .sl-game .sl-broadcast-crest :is(.mbb-mark,.sl-emblem){object-fit:contain!i
  body .sl-game .sl-broadcast-bug{grid-template-columns:45px minmax(0,1fr) 78px!important;margin:0 7px 10px!important}
  body .sl-game .sl-broadcast-row{grid-template-columns:28px minmax(0,1fr) 36px!important;gap:4px!important;padding:2px 4px!important}
 }
+
+/* Compact Victorian scorebug: roughly 64px total height instead of 92px. */
+body .sl-game .sl-broadcast-bug{grid-template-columns:37px minmax(0,1fr) 65px!important;min-height:62px!important;margin:0 9px 9px!important;border-width:2px!important}
+body .sl-game .sl-broadcast-mark{gap:1px!important;padding:2px!important}
+body .sl-game .sl-broadcast-mark b{font-size:15px!important}
+body .sl-game .sl-broadcast-mark span{font-size:6px!important;letter-spacing:0!important}
+body .sl-game .sl-broadcast-row{min-height:30px!important;grid-template-columns:23px minmax(0,1fr) 30px!important;gap:5px!important;padding:1px 5px!important;border-left-width:2px!important}
+body .sl-game .sl-broadcast-crest{width:22px!important;height:22px!important}
+body .sl-game .sl-broadcast-crest :is(.mbb-mark,.sl-emblem){--mbb-size:21px!important;width:21px!important;height:21px!important;min-width:21px!important;min-height:21px!important;max-width:21px!important;max-height:21px!important}
+body .sl-game .sl-broadcast-name{font:700 11px/1.05 Georgia,serif!important;letter-spacing:0!important;overflow-wrap:anywhere}
+body .sl-game .sl-broadcast-points{font:800 18px/1 Georgia,serif!important;font-variant-numeric:tabular-nums}
+body .sl-game .sl-broadcast-status{gap:2px!important;padding:2px!important}
+body .sl-game .sl-broadcast-status strong{font:800 11px/1.05 Georgia,serif!important}
+body .sl-game .sl-broadcast-status small{font:700 8px/1.05 Georgia,serif!important}
+@media(max-width:560px){
+ body .sl-game .sl-broadcast-bug{grid-template-columns:29px minmax(0,1fr) 55px!important;margin:0 5px 7px!important}
+ body .sl-game .sl-broadcast-row{grid-template-columns:19px minmax(0,1fr) 26px!important;gap:3px!important;padding:1px 3px!important}
+ body .sl-game .sl-broadcast-crest{width:19px!important;height:19px!important}
+ body .sl-game .sl-broadcast-crest :is(.mbb-mark,.sl-emblem){--mbb-size:18px!important;width:18px!important;height:18px!important;min-width:18px!important;min-height:18px!important;max-width:18px!important;max-height:18px!important}
+ body .sl-game .sl-broadcast-name{font-size:10px!important}
+ body .sl-game .sl-broadcast-points{font-size:16px!important}
+}
