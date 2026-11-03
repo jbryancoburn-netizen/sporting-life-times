@@ -400,3 +400,12 @@
  .cbb-all-plays li{grid-template-columns:61px minmax(0,1fr) 45px;gap:6px;font-size:11px}
  .cbb-all-plays li span{font-size:9px}
 }
+
+/* The full sourced Gamefile is available without removing inline live details. */
+.cbb-game-card .cbb-bug-bottom{flex-wrap:wrap}
+.cbb-game-card .cbb-gamefile-link{
+ display:inline-block;flex:0 0 auto;color:#235361;font:700 10px/1.35 inherit;
+ letter-spacing:.035em;text-decoration:underline;text-underline-offset:3px;
+ white-space:nowrap;padding:4px 0;
+}
+.cbb-game-card .cbb-gamefile-link:hover,.cbb-game-card .cbb-gamefile-link:focus-visible{color:#87352c}
