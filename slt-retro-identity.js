@@ -11,3 +11,7 @@ function render(container,data){if(typeof container==="string")container=documen
 window.SLTBrand={renderScorebug:render,applyMasthead:brand,version:"1.0"};
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",brand,{once:true});else brand();
 })();
+/* Automatically share the broadcast redesign with all sporting editions using this identity loader. */
+(function(){if(/\/politics(?:-|\.html)/.test(location.pathname))return;const head=document.head;if(!head)return;
+if(!head.querySelector('link[href*="slt-broadcast-overhaul.css"]')){const link=document.createElement('link');link.rel='stylesheet';link.href='slt-broadcast-overhaul.css?v=20261102-visual3';head.append(link)}
+if(!head.querySelector('script[src*="slt-broadcast-overhaul.js"]')){const script=document.createElement('script');script.src='slt-broadcast-overhaul.js?v=20261102-visual3';script.defer=true;head.append(script)}})();

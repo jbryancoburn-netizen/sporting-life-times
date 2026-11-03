@@ -1,0 +1,211 @@
+/* Sporting Life and Times · VISIBLE broadcast edition redesign, v3.
+   Strong CBS-era 1980s editorial forms, upright type. All game data are sourced elsewhere.
+   This file never applies borders or additional rings to team crests. */
+body.slt-overhaul{
+  --slt-page-accent:#153f9b;--slt-page-trim:#d5dbe8;--slt-page-dark:#071d3c;
+  --slt-page-paper:#fff6e0;--slt-page-rule:#d4b46b;
+  background-color:#f2efe6;color:#14263c;
+}
+body.slt-overhaul[data-slt-channel="basketball"]{--slt-page-accent:#a6192e;--slt-page-trim:#e3b8a6}
+body.slt-overhaul[data-slt-channel="football"]{--slt-page-accent:#192f50;--slt-page-trim:#c8d3e0}
+body.slt-overhaul[data-slt-channel="baseball"]{--slt-page-accent:#15613f;--slt-page-trim:#bfd4b9}
+body.slt-overhaul[data-slt-channel="soccer"]{--slt-page-accent:#174cba;--slt-page-trim:#c2d6f7}
+body.slt-overhaul[data-slt-channel="hockey"]{--slt-page-accent:#253541;--slt-page-trim:#c4dce7}
+body.slt-overhaul[data-slt-channel="multi"]{--slt-page-accent:#20447a;--slt-page-trim:#cbd5e5}
+body.slt-overhaul .slt-retro-masthead{margin:8px auto 0!important;padding:6px 0 0!important;border:0!important}
+body.slt-overhaul .slt-retro-masthead .slt-brand-link{
+ display:flex!important;align-items:center!important;
+ background:#081a38!important;
+ border:0!important;outline:0!important;border-radius:0!important;
+ box-shadow:inset 0 5px 0 #e8b842,inset 0 -5px 0 #174b9a!important;
+ color:#fff6e0!important;padding:17px clamp(13px,2.2vw,30px)!important;
+ width:100%!important;max-width:1470px!important;min-height:104px!important;
+ transform:none!important;filter:none!important;
+}
+body.slt-overhaul .slt-retro-masthead .slt-brand-globe{width:clamp(56px,7.2vw,101px);height:clamp(56px,7.2vw,101px)}
+body.slt-overhaul .slt-retro-masthead .slt-brand-divider{background:#efbd42}
+body.slt-overhaul .slt-retro-masthead .slt-brand-title{
+ font-family:Impact,"Arial Narrow","Franklin Gothic Medium",Arial,sans-serif!important;
+ font-size:clamp(20px,4vw,70px)!important;font-weight:900!important;font-style:normal!important;
+ letter-spacing:.013em!important;color:#fff6e0!important;text-shadow:none!important;
+ line-height:1.03!important;
+}
+body.slt-overhaul .slt-retro-masthead .slt-brand-stripes{
+ height:9px!important;border-top:3px solid #edc056!important;border-bottom:3px solid #c9d4e4!important;
+ box-shadow:0 3px #1a53a4!important;margin-top:11px!important;
+}
+body.slt-overhaul .slt-broadcast-ribbon{
+ min-height:47px;display:flex;align-items:stretch;
+ background:var(--slt-page-accent);color:#fff6e0;
+ border-bottom:5px solid #071d3c;border-top:2px solid #e9bc4d;
+ box-shadow:0 3px 0 #c4cbd3;position:relative;z-index:1;overflow:hidden;
+ font-family:Impact,"Arial Narrow",Arial,sans-serif;font-style:normal!important;
+ margin:0 0 7px;max-width:1470px;
+}
+body.slt-overhaul .slt-broadcast-ribbon *{font-style:normal!important;transform:none!important}
+body.slt-overhaul .slt-broadcast-monogram{
+ display:flex;align-items:center;justify-content:center;
+ color:#071d3c;background:#fff6e0;min-width:70px;
+ padding:7px 13px;font:900 clamp(19px,2.4vw,32px)/1 Impact,Arial,sans-serif;
+ border-right:4px solid #e9b941;
+}
+body.slt-overhaul .slt-broadcast-channel{
+ display:flex;align-items:center;padding:8px 16px;
+ min-width:0;font:900 clamp(15px,2.2vw,29px)/1 Impact,"Arial Narrow",Arial,sans-serif;
+ letter-spacing:.035em;white-space:nowrap;
+}
+body.slt-overhaul .slt-broadcast-edition{
+ margin-left:auto;align-self:center;padding:7px 12px;
+ font:800 10px/1.35 Arial,sans-serif;letter-spacing:.075em;text-align:right;
+}
+body.slt-overhaul .slt-broadcast-bars{
+ display:block;flex:0 0 21px;min-width:21px;
+ border-left:6px solid #e7b846;border-right:5px solid #cbd6e8;
+ background:#174c9c;
+}
+body.slt-overhaul .sl-masthead .slt-slate-masthead-title{
+ display:block;padding:14px 10px;background:#081a38!important;
+ border-top:5px solid #e8b842;border-bottom:5px solid #174b9a;color:#fff6e0!important;
+ font:900 clamp(22px,4.4vw,64px)/1.1 Impact,"Arial Narrow",Arial,sans-serif!important;
+ text-align:center;letter-spacing:.02em;text-decoration:none;font-style:normal!important;
+}
+body.slt-overhaul .sl-masthead>span{font-style:normal!important}
+body.slt-overhaul .nav,body.slt-overhaul .nfl-nav,
+body.slt-overhaul .sl-nav,body.slt-overhaul .slt-nav{
+ border-top:0!important;border-bottom:3px solid #091e41!important;
+ background:#fff6e0;padding:9px 8px!important;
+}
+body.slt-overhaul .nav a,body.slt-overhaul .nfl-nav a,
+body.slt-overhaul .sl-nav a{font-style:normal!important}
+body.slt-overhaul .hero,body.slt-overhaul .slt-hero{
+ border-radius:0!important;border:0!important;
+ box-shadow:inset 0 6px #efbd42,inset 0 -6px #0a1b37!important;
+}
+body.slt-overhaul.nba-newspaper:not(.epl-newspaper) .hero,
+body.slt-overhaul[data-slt-channel="basketball"] .hero{
+ background:linear-gradient(115deg,#3e0c19 0%,var(--slt-page-accent) 62%,#7c1023 100%)!important;
+ color:#fff6e0!important;
+}
+body.slt-overhaul.epl-newspaper .slt-hero{
+ background:linear-gradient(115deg,#061b47 0%,#174cba 62%,#05265f 100%)!important;
+ color:#fff6e0!important;
+}
+body.slt-overhaul .hero h1,body.slt-overhaul .slt-hero h1{
+ font-family:Impact,"Arial Narrow",Arial,sans-serif!important;
+ font-style:normal!important;letter-spacing:.02em!important;
+ text-transform:uppercase;
+}
+body.slt-overhaul .hero-art,body.slt-overhaul .slt-hero-art{border-radius:0!important}
+body.slt-overhaul .hero-team img{background-color:#fff6e0}
+body.slt-overhaul .cta,body.slt-overhaul .slt-cta{
+ border-radius:0!important;color:#071d3c!important;background:#f0c04c!important;
+ border:2px solid #fff6e0!important;font-style:normal!important;font-weight:900!important;
+}
+body.slt-overhaul .panel-head{border-bottom:3px solid var(--slt-page-accent);padding-bottom:9px}
+body.slt-overhaul .panel-head h2{font-family:Impact,"Arial Narrow",Arial,sans-serif;font-style:normal;text-transform:uppercase}
+body.slt-overhaul .nba-score-rail{gap:9px}
+body.slt-overhaul .nba-score-rail .score-card{
+ border-radius:0!important;border:2px solid #102a52!important;
+ border-top:0!important;background:#fff6e0!important;
+ padding:0!important;min-width:0!important;
+ box-shadow:0 3px 0 #d4b56c!important;
+}
+body.slt-overhaul .nba-score-rail .score-card>small{
+ display:block!important;margin:0!important;background:#081b38!important;color:#fff6e0!important;
+ border-top:4px solid var(--slt-page-accent)!important;
+ padding:6px 10px!important;font:900 11px/1.25 Arial,sans-serif!important;
+ letter-spacing:.045em!important;
+}
+body.slt-overhaul .nba-score-rail .score-card>a:not(.score-link){display:block!important;padding:8px 10px 5px!important}
+body.slt-overhaul .nba-score-rail .score-card .score-team{
+ background:#fff6e0!important;border-bottom:1px solid #cdd0cb!important;
+ min-height:41px!important;gap:7px!important;padding:4px 2px!important;
+}
+body.slt-overhaul .nba-score-rail .score-card .score-team:last-child{border-bottom:0!important}
+body.slt-overhaul .nba-score-rail .score-card .score-team strong{
+ font-family:Impact,"Arial Narrow",Arial,sans-serif!important;
+ font-size:clamp(19px,2vw,27px)!important;font-style:normal!important;
+}
+body.slt-overhaul .nba-score-rail .score-card .score-link{
+ display:block!important;padding:6px 9px!important;border-top:2px solid #e4d8bf!important;
+ background:#f6e9cc!important;color:#102a52!important;font:800 10px Arial,sans-serif!important;
+}
+body.slt-overhaul .nba-score-rail .score-card em{font-style:normal!important}
+/* NFL has its own sourced matchup and logo rendering: only change the editorial chrome. */
+body.slt-overhaul.nfl-paper #nfl-app .nfl-p26-feature,
+body.slt-overhaul.nfl-paper #nfl-app .nfl-p26-score-stage{
+ border-radius:0!important;
+}
+body.slt-overhaul.nfl-paper #nfl-app .nfl-p26-feature{
+ border:3px solid #142a49!important;box-shadow:0 4px 0 #bcc7d2!important;
+}
+body.slt-overhaul.nfl-paper #nfl-app .nfl-p26-feature-top{
+ background:#091d3c!important;color:#fff6e0!important;border-bottom:4px solid #d9ba66!important;
+}
+body.slt-overhaul.nfl-paper #nfl-app .nfl-p26-hero-identity{font-style:normal!important}
+body.slt-overhaul.nfl-paper .nfl-bar{
+ border-left:5px solid var(--slt-page-accent);background:#e6e9ee;color:#15263c;padding:8px 12px!important;
+}
+/* Generic league desks retain real feeds but get a real division newspaper hierarchy. */
+body.slt-overhaul .league-hub{
+ border-top:4px solid var(--slt-page-accent);padding-top:14px;
+}
+body.slt-overhaul .league-hub>h1{
+ display:block;padding:clamp(15px,3vw,34px) clamp(17px,3vw,40px);
+ background:var(--slt-page-accent);color:#fff6e0;box-shadow:inset 0 5px #edbd46;
+ font:900 clamp(32px,5vw,72px)/1.05 Impact,"Arial Narrow",Arial,sans-serif;
+ font-style:normal;letter-spacing:.02em;text-transform:uppercase;
+ border-radius:0!important;
+}
+body.slt-overhaul .league-hub .hub-feature{
+ border-radius:0!important;border:1px solid #b8c2cb;border-top:5px solid var(--slt-page-accent);
+ background:#fff9ed;
+}
+body.slt-overhaul .league-hub .hub-feature>h2{font-family:Impact,"Arial Narrow",Arial,sans-serif;font-style:normal;text-transform:uppercase;letter-spacing:.035em}
+body.slt-overhaul .league-hub .league-newspaper-grid{gap:12px}
+body.slt-overhaul .hub-kicker{color:var(--slt-page-accent);font-weight:900}
+body.slt-overhaul .nba-news-item h3{font-style:normal!important}
+/* NCAA daily slate: the old single-row dark bug becomes the standard cream broadcast treatment. */
+body.slt-overhaul .sl-game .sl-broadcast-bug{
+ background:#fff6e0!important;color:#071d3c!important;
+ border:2px solid #071d3c!important;border-top:5px solid #edbd46!important;
+ box-shadow:0 3px 0 #bac3c8!important;border-radius:0!important;
+}
+body.slt-overhaul .sl-game .sl-broadcast-mark{
+ background:#071d3c!important;color:#fff6e0!important;border-right:3px solid #edbd46!important;
+}
+body.slt-overhaul .sl-game .sl-broadcast-row{
+ background:#fff6e0!important;color:#071d3c!important;
+ border-bottom:1px solid #ced0d1!important;border-left:5px solid var(--bug-team)!important;
+}
+body.slt-overhaul .sl-game .sl-broadcast-name,
+body.slt-overhaul .sl-game .sl-broadcast-points{
+ color:#071d3c!important;font-style:normal!important;
+}
+body.slt-overhaul .sl-game .sl-broadcast-status{
+ background:#071d3c!important;color:#fff6e0!important;border-left:3px solid #edbd46!important;
+}
+body.slt-overhaul .sl-game .sl-broadcast-status strong,
+body.slt-overhaul .sl-game .sl-broadcast-status small{color:#fff6e0!important;font-style:normal!important}
+body.slt-overhaul .sl-hero{border-radius:0!important;border-top:6px solid var(--slt-page-accent)!important}
+/* College Courtside: preserve existing score source and two-row per team indicator layout. */
+body.slt-overhaul .cbb-game-card{border:2px solid #071d3c!important;border-radius:0!important}
+body.slt-overhaul .cbb-game-card .cbb-bug-top{border-bottom:4px solid #efbd42!important}
+body.slt-overhaul .cbb-game-card .cbb-match-rows{background:#fff6e0!important}
+body.slt-overhaul .cbb-game-card .cbb-bug-bottom{background:#f6ebd0}
+body.slt-overhaul .cbb-feature-marker{color:#a6192e;font-weight:900}
+@media(max-width:700px){
+ body.slt-overhaul .slt-retro-masthead .slt-brand-link{padding:10px 9px!important;min-height:66px!important}
+ body.slt-overhaul .slt-retro-masthead .slt-brand-globe{width:clamp(36px,8vw,59px);height:clamp(36px,8vw,59px)}
+ body.slt-overhaul .slt-retro-masthead .slt-brand-title{font-size:clamp(12px,3.6vw,25px)!important}
+ body.slt-overhaul .slt-retro-masthead .slt-brand-stripes{margin-top:5px!important;height:7px!important}
+ body.slt-overhaul .slt-broadcast-ribbon{min-height:37px;margin-bottom:5px}
+ body.slt-overhaul .slt-broadcast-monogram{min-width:43px;padding:5px 7px;font-size:20px}
+ body.slt-overhaul .slt-broadcast-channel{padding:5px 9px;font-size:clamp(12px,3vw,20px)}
+ body.slt-overhaul .slt-broadcast-edition{font-size:8px;padding:4px 6px;letter-spacing:0}
+ body.slt-overhaul .slt-broadcast-bars{flex-basis:10px;min-width:10px;border-left-width:3px;border-right-width:3px}
+ body.slt-overhaul .nav,body.slt-overhaul .nfl-nav,body.slt-overhaul .sl-nav{padding:7px 3px!important}
+ body.slt-overhaul .league-hub>h1{font-size:clamp(28px,7vw,53px)}
+}
+@media(max-width:390px){body.slt-overhaul .slt-broadcast-edition{display:none}body.slt-overhaul .slt-broadcast-channel{white-space:normal}}
+@media(prefers-reduced-motion:reduce){body.slt-overhaul .slt-broadcast-ribbon *{transition:none!important;animation:none!important}}
