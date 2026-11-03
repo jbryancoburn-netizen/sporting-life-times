@@ -13,12 +13,16 @@ function parse(data){
  for(const [i,period] of data.periods.entries()){
    const events=period?.playbyplayStats||period?.plays||[];
    if(!Array.isArray(events))continue;
-   for(const e of events){
-     const text=pick(e,['description','playDescription','playText','text','summary','action','eventDescription']);
-     if(!text||text.length>350)continue;
-     const clock=pick(e,['clock','gameClock','time','timeRemaining','gameTime']);
-     const periodNumber=Number(period?.periodNumber||period?.number||i+1);
-     rows.push({text,clock,period:periodNumber});
+   for(const block of events){
+     // The NCAA GraphQL feed may group individual plays within a stat object.
+     const plays=Array.isArray(block?.plays)?block.plays:[block];
+     for(const e of plays){
+       const text=pick(e,['description','playDescription','playText','play_by_play_text','text','summary','action','eventDescription','eventDesc']);
+       if(!text||text.length>350)continue;
+       const clock=pick(e,['clock','gameClock','time','timeRemaining','gameTime','clockDisplayValue']);
+       const periodNumber=Number(period?.periodNumber||period?.number||i+1);
+       rows.push({text,clock,period:periodNumber});
+     }
    }
  }
  const seen=new Set();

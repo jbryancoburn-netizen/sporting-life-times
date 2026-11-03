@@ -80,7 +80,8 @@
     if(g.phase==='live'){
       const period=Number(g.period),clock=String(g.clock||'').trim();
       const goodClock=/^\d{1,2}:\d{2}$/.test(clock)&&clock!=='0:00';
-      const half=women?(period>4?'OT':period>0?'Q'+period:''):period>2?'OT':period===1?'1ST HALF':period===2?'2ND HALF':'';
+      const halftime=/half[ -]?time/i.test(String(g.headline||''));
+      const half=halftime?'HALFTIME':women?(period>4?'OT':period>0?'Q'+period:''):period>2?'OT':period===1?'1ST HALF':period===2?'2ND HALF':'';
       return '<span class="cbb-live-pill">LIVE</span>'+
         (half?'<strong class="cbb-period">'+esc(half)+'</strong>':'')+
         (goodClock?'<strong class="cbb-live-clock">'+esc(clock)+'</strong>':'');
@@ -772,7 +773,8 @@
     if(original&&games.length)original.hidden=true;
     else if(original)original.hidden=false;
     state.pending=false;
-    if(!state.fallback)preloadVisibleStats(state.games,generation,day).catch(console.warn);
+    // Scorebugs have no box-score panels. Summary requests occur only in a Gamefile,
+    // avoiding up to nine redundant ESPN requests per scoreboard refresh.
   }
   function statsPairs(g,summary){
     const sections=summary?.boxscore?.teams||[];

@@ -24,4 +24,9 @@ const sandbox={window:{}};
 vm.runInNewContext(p,sandbox);
 const sample={periods:[{number:1,playbyplayStats:[{description:'A made jumper',clock:'18:30'}]}]};
 assert.equal(sandbox.window.SLTNCAAPilot.parse(sample)[0].text,'A made jumper');
+const grouped={periods:[{periodNumber:2,playbyplayStats:[{teamId:'55',plays:[
+  {playText:'Player scores a three',gameClock:'10:03'},{playText:'Rebound',gameClock:'9:57'}
+]}]}]};
+assert.equal(sandbox.window.SLTNCAAPilot.parse(grouped).length,2);
+assert.equal(sandbox.window.SLTNCAAPilot.parse(grouped)[0].text,'Rebound');
 console.log('SLT CourtCast live source-first smoke checks passed');
