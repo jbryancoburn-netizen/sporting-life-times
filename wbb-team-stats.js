@@ -91,7 +91,7 @@ async function render(id){
    const html=data.fields.map(([key,label])=>'<div class="wbb-stat"><small>'+esc(label)+'</small><strong>'+
     esc(data.totals.get(key).displayValue||Number(data.totals.get(key).value).toFixed(1))+'</strong></div>').join('');
    panel.insertAdjacentHTML('beforebegin','<div class="wbb-stat-extra"><h3>Additional Women’s Team Statistics</h3>'+
-     '<div class="wbb-stat-grid">'+html+'</div><p class="wbb-muted">Current 2026–27 ESPN women’s statistics · '+
+     '<div class="wbb-stat-grid">'+html+'</div><p class="wbb-muted">Current 2026–27 women’s statistics · '+
      esc(data.totals.get('gamesPlayed').displayValue)+' reported games. <a href="'+esc(url)+
      '" target="_blank" rel="noopener noreferrer">Statistics source ↗</a></p></div>');
   }
@@ -104,7 +104,7 @@ async function render(id){
     options.map(([key,label])=>'<option value="'+esc(key)+'">'+esc(label)+' / game</option>').join('')+
     '</select></label><div id="wbb-leader-grid" class="wbb-roster-grid"></div>'+
     '<p class="wbb-muted">Current women’s player statistics · <a href="'+esc(url)+
-    '" target="_blank" rel="noopener noreferrer">ESPN source ↗</a></p>';
+    '" target="_blank" rel="noopener noreferrer">Statistical data source ↗</a></p>';
   const select=panel.querySelector('#wbb-leader-stat'),grid=panel.querySelector('#wbb-leader-grid');
   const draw=()=>{
    const selected=select.value;
