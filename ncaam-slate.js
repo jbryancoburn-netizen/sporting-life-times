@@ -25,7 +25,8 @@ function certifiedSite(g,sites){
      !String(proof.venue||'').trim())return g;
   return {...g,venue:String(proof.venue).trim(),
     venueCity:[proof.city,proof.state].filter(Boolean).join(', '),
-    neutral:true,siteEvent:proof.event||'',siteSource:proof.source};
+    neutral:true,siteEvent:proof.event||'',siteSource:proof.source,
+     probability:g.phase==='upcoming'?null:g.probability};
 }
 function normalizeMen(feed,forecasts,crossList,sites){
   const cross=new Map((crossList?.teams||[]).map(t=>[String(t.espn_id),t]));
