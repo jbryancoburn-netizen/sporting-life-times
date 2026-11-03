@@ -28,6 +28,11 @@ for(const page of found){
   assert(html.includes('d2-basketball.css'),'DII newspaper stylesheet missing: '+page);
   for(const id of ['game-grid','elo-board','team-directory','conference-board'])
    assert(html.includes('id="'+id+'"'),'DII desk '+id+' missing: '+page);
+ }else if(['d3-mens-basketball.html','d3-womens-basketball.html'].includes(page)){
+  assert(html.includes('d3-basketball.js'),'DIII newspaper renderer missing: '+page);
+  assert(html.includes('d3-basketball.css'),'DIII newspaper stylesheet missing: '+page);
+  for(const id of ['game-grid','elo-board','team-directory','conference-board'])
+   assert(html.includes('id="'+id+'"'),'DIII desk '+id+' missing: '+page);
  }else if(page==='nfl.html'){
   assert(html.includes('nfl-edition.js'),'NFL edition loader missing');
   assert(html.includes('id="nfl-app"'),'NFL edition mount missing');
