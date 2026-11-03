@@ -88,3 +88,20 @@ test('mobile NCAA header uses horizontal-only navigation, bounded MORE dropdown 
  assert.match(css,/@media\(max-width:700px\)/);
  assert.match(css,/\.cbb-front-lead \.cbb-front-headline h1/);
 });
+
+
+test('iPhone homepage hero uses cream-on-navy colors and a single-column two-row stats layout',()=>{
+ const legacy=read('mbb-newspaper.css'),css=read('cbb-product-v1.css');
+ assert(!legacy.includes('body[data-page="home"]:not([data-gender="women"]) .hero{'),'legacy men-only selector must not override rebuilt hero');
+ assert.match(legacy,/not\(\.cbb-product\) \.hero\{/);
+ assert.match(css,/SCREENSHOT-DRIVEN FRONT PAGE REPAIR/);
+ assert.match(css,/\.cbb-front-headline h1\{[\s\S]*?color:#fff7e5!important/);
+ assert.match(css,/\.cbb-front-headline \.cta\{[\s\S]*?background:#edbd46!important/);
+ assert.match(css,/@media\(max-width:820px\)\{/);
+ assert.match(css,/grid-template-columns:minmax\(0,1fr\)!important/);
+ assert.match(css,/grid-template-rows:repeat\(2,minmax\(59px,auto\)\)!important/);
+ assert.match(css,/\.cbb-desk-header h2\{/);
+ for(const name of ['ncaam.html','college-basketball.html','ncaam-slate.html','cbb-game-center.html','cbb-gamefile.html']){
+  assert.match(read(name),/cbb-product-v1\.css\?v=20261102-hero3/);
+ }
+});
