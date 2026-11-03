@@ -1056,3 +1056,11 @@ body .sl-game .sl-game-expansion[open]>.sl-game-summary{background:#e9dbc0!impor
 body .sl-game .sl-inline-gamefile{background:#f5ead5}
 body .sl-game .sl-game-expanded .sl-game-editorial{display:block}
 @media(max-width:620px){body .sl-game .sl-game-summary .sl-broadcast-name{font-size:10px!important}body .sl-game .sl-game-summary .sl-broadcast-points{font-size:18px!important}}
+
+/* Restore each team's institutional-color vertical scorebug stripe. */
+body .sl-game .sl-game-summary .sl-broadcast-row{
+ border-left:5px solid var(--bug-team)!important;
+ padding-left:5px!important;
+}
+body .sl-game .sl-game-summary .sl-broadcast-row:first-child{border-left-color:var(--bug-team)!important}
+body .sl-game .sl-game-summary .sl-broadcast-row:last-child{border-left-color:var(--bug-team)!important}
