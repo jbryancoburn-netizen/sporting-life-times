@@ -1,0 +1,20 @@
+/* Sporting Life & Times — heritage newspaper interface, v1.
+   Layout-only overrides. Existing data, logos, game renderers and feeds remain authoritative. */
+:root{--slt-press:#261f19;--slt-paper:#f0e6d4;--slt-sheet:#fcf7eb;--slt-ruby:#87332c;--slt-hairline:#ae9d84}
+body:is(.edition-interior,.league-edition),body:has(.wrap>.masthead),body:has(.wrap>header>.masthead){background:var(--slt-paper)!important;color:var(--slt-press)}
+:is(.wrap>header,.wrap>header.masthead,header.masthead){background:transparent!important}
+.wrap .masthead{padding:22px 12px 17px!important;border-top:4px double var(--slt-press)!important;border-bottom:5px double var(--slt-press)!important;background:var(--slt-paper)!important;box-shadow:none!important}
+.wrap .masthead a,.wrap .masthead .newspaper-wordmark-main{font-family:Georgia,'Times New Roman',serif!important;font-weight:900!important;letter-spacing:-.055em!important;color:var(--slt-press)!important;text-decoration:none!important;text-shadow:none!important;font-style:normal!important;font-size:clamp(2.2rem,5.4vw,4.65rem)!important;line-height:1.06!important}
+.wrap .edition-line{font-family:Georgia,'Times New Roman',serif!important;font-weight:700!important;font-size:clamp(1.05rem,2.2vw,1.55rem)!important;letter-spacing:.03em!important;text-transform:uppercase!important;color:var(--slt-ruby)!important;padding:16px 10px 11px!important}
+.wrap .topline{font-family:Georgia,'Times New Roman',serif!important;letter-spacing:.09em!important;text-transform:uppercase!important}
+.wrap .nav,.wrap .site-nav{background:var(--slt-sheet)!important;border-bottom:3px double var(--slt-press)!important;box-shadow:none!important;backdrop-filter:none!important}
+.wrap .nav a,.wrap .site-nav a{font-family:Georgia,'Times New Roman',serif!important;font-weight:700!important}
+.wrap .nav a:hover,.wrap .site-nav a:hover{color:var(--slt-ruby)!important;text-decoration:underline}
+.wrap main h1,.wrap main h2,.wrap main h3,.hub h1,.hub h2{font-family:Georgia,'Times New Roman',serif!important;letter-spacing:-.035em}
+.wrap .stamp{border-bottom:1px solid var(--slt-hairline)!important}
+.wrap .footer{border-top:4px double var(--slt-press)!important;font-family:Georgia,'Times New Roman',serif!important}
+body.edition-interior .masthead a.newspaper-wordmark .newspaper-wordmark-main{font-size:clamp(2.15rem,5.4vw,4.5rem)!important}
+body.edition-interior .masthead{border-bottom:5px double var(--slt-press)!important}
+body.edition-interior .league-hub>h1{font-size:clamp(2.8rem,6vw,5.25rem)!important;line-height:1.03!important;border-bottom:5px double var(--slt-press);padding-bottom:.18em}
+body.edition-interior .league-directory-section h2{border-bottom:3px double var(--slt-press)}
+@media(max-width:700px){.wrap .masthead a,.wrap .masthead .newspaper-wordmark-main{font-size:clamp(1.8rem,7vw,2.8rem)!important}.wrap .edition-line{font-size:1.1rem!important}}
