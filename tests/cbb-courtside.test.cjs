@@ -11,7 +11,7 @@ const css=fs.readFileSync(path.join(root,'cbb-live-center.css'),'utf8');
 const brand=fs.readFileSync(path.join(root,'slt-courtside-network.js'),'utf8');
 const read=n=>JSON.parse(fs.readFileSync(path.join(root,n),'utf8'));
 assert(js.includes('The Courtside Desk')&&css.includes('SLT COURTSIDE EDITION'));
-assert(shell.includes('slt-courtside-network.js'));
+assert(shell.includes('cbb-product-v1.js')&&!shell.includes('slt-courtside-network.js'),'College Game Center uses one canonical navigation owner');
 assert(brand.includes('THE HARDWOOD')&&brand.includes('slt-network-title'),'Hardwood uses text-only editorial branding');
 function load(gender){
   const patch=js.replace(/\s+boot\(\);\s*\}\)\(\);\s*$/,'\n globalThis.SLTTest={state,normalizeEvent,normalizeSnapshot,modelFor,gameEditorial,statEditorial,gamefileStatStrip,storyNote,usrsLine,featuredGame,scorebug,radarBar,gameLink,courtDayFeed,certifiedArchivedFinals};\n})();');
