@@ -578,3 +578,24 @@ body[data-house-page="district"] .district-dossier .dossier-edition-head h2{
  body[data-house-page="district"] .district-service-desk .desk-frame h2{font-size:25px!important}
  body[data-house-page="district"] .district-service-desk .desk-intro h3{font-size:20px!important}
 }
+
+/* FINAL LOWER DESK RESET: retain news functionality but no giant empty panel. */
+body[data-house-page="district"] #district-service-desk.district-news-empty{
+  padding:9px 0!important;min-height:0!important;background:transparent!important;
+}
+body[data-house-page="district"] #district-service-desk.district-news-empty .desk-frame{
+  padding:0 0 8px!important;min-height:0!important;border-bottom:1px solid #857967!important;
+}
+body[data-house-page="district"] #district-service-desk.district-news-empty .desk-frame h2{
+  font:700 24px/1.2 Georgia,'Times New Roman',serif!important;
+  letter-spacing:0!important;margin:0!important;
+}
+body[data-house-page="district"] #district-service-desk.district-news-empty #desk-local-news .desk-intro{display:none!important}
+body[data-house-page="district"] #district-service-desk.district-news-empty #desk-local-news{min-height:0!important;margin:0!important}
+body[data-house-page="district"] #district-service-desk.district-news-empty .desk-empty{
+  font:14px/1.6 Georgia,'Times New Roman',serif!important;max-width:78ch;
+}
+body[data-house-page="district"] #district-service-desk.district-news-empty .desk-switcher button{
+  padding:8px 12px!important;min-height:36px!important;
+}
+body[data-house-page="district"] .plt-public-record{display:none!important}
