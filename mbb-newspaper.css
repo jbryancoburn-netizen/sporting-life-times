@@ -499,3 +499,44 @@ body[data-page="tournament"] .selection-comparison details .region h3{font-size:
 #full-season-schedule .sched-date-cell time{display:inline-block;margin-right:12px;white-space:nowrap}
 #full-season-schedule .sched-date-cell .sched-game-status{display:inline-block;margin-left:0;vertical-align:baseline;white-space:nowrap;line-height:1.45}
 @media(max-width:700px){#full-season-schedule .sched-date-cell time{margin-right:10px}#full-season-schedule .sched-date-cell .sched-game-status{margin-top:3px}}
+
+/* Victorian editorial layout V1: applies to the actual live renderer, not a header overlay. */
+:root{--paper:#f1e7d5;--ink:#28211a;--muted:#695d50;--line:#b7a88f;--orange:#87352c;--teal:#5c3529;--white:#fcf7ed}
+body{background:var(--paper);color:var(--ink);font:15px/1.42 Georgia,'Times New Roman',serif}
+.wrap{max-width:1500px;padding:0 clamp(14px,2vw,32px)}
+.masthead{font:900 clamp(35px,5.5vw,76px)/.98 Georgia,serif;letter-spacing:-.05em;border-bottom:5px double var(--ink);padding:12px 0}
+.edition-line{font:700 12px Georgia,serif;letter-spacing:.13em;margin:13px 0}
+.nav{gap:16px;border-top:2px solid var(--ink);border-bottom:3px double var(--ink);font:700 12px Georgia,serif}
+.eyebrow,.source,.rank-score small,.metric span{color:#85372e;font:700 10px/1.35 Arial,sans-serif;letter-spacing:.09em;text-transform:uppercase}
+h1{font:900 clamp(39px,5vw,76px)/1.03 Georgia,serif;letter-spacing:-.055em}
+h2{font:800 clamp(24px,2.7vw,34px)/1.07 Georgia,serif;letter-spacing:-.035em}
+h3{font:750 23px/1.12 Georgia,serif}
+.hero{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:20px;background:#eee0c5;color:var(--ink);border-top:5px double var(--ink);border-bottom:5px double var(--ink);padding:22px 12px;margin:12px 0 15px;box-shadow:none}
+.hero p{color:#514538}
+.hero .eyebrow{color:#89352b}
+.hero a.cta{background:#29221b;color:#f6eddb}
+.hero-art{border:1px solid var(--line);border-radius:0;background:none}
+.hero-team img{background:transparent;border-radius:0}
+.metrics{margin:12px 0 16px;border-top:3px double var(--ink);border-bottom:3px double var(--ink)}
+.metric{padding:11px 13px}
+.metric b{font:800 30px/1 Georgia,serif}
+.grid{grid-template-columns:minmax(0,1.48fr) minmax(0,1.07fr) minmax(0,1fr);gap:0}
+.grid>.column{padding:0 18px;border-right:1px solid var(--line)}
+.grid>.column:first-child{padding-left:0}
+.grid>.column:last-child{padding-right:0;border-right:0}
+.panel{border-top:4px double var(--ink)!important;padding-top:11px;margin-bottom:18px}
+.panel.orange,.panel.teal{border-color:var(--ink)!important}
+.story{padding:11px 0}
+.story h3,.nba-story h3{font-family:Georgia,serif}
+.rank-row{padding:7px 0}
+.rank-row .rank{font:800 19px Georgia,serif;color:#84352c}
+.rank-score{font:800 17px Georgia,serif;font-variant-numeric:tabular-nums}
+.badge,td .badge{background:transparent!important;padding:0!important;border-radius:0!important;object-fit:contain}
+.score-rail{margin:10px 0 16px;border-top:3px double var(--ink);border-bottom:3px double var(--ink);background:#f7eedf}
+.score-card{padding:9px 12px}
+.score-team b{font:800 20px Georgia,serif;font-variant-numeric:tabular-nums}
+table{font:12px/1.25 Georgia,serif}
+th{font:700 10px Arial,sans-serif;border-color:var(--ink)}
+td{padding:7px 5px}
+.story-img{max-height:235px;object-fit:cover}
+@media(max-width:880px){.grid{display:block}.grid>.column{border-right:0;border-bottom:1px solid var(--line);padding:0}.hero{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
