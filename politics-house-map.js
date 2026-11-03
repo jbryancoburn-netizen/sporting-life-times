@@ -174,7 +174,7 @@
       const describeView=()=>{
         if(viewLegend)viewLegend.textContent=mapView==="geography"?
           "GEOGRAPHY · All districts share neutral newsprint shading. A darker outline marks the selected district. Colors do not indicate political preference.":
-          "DATED ELECTION EVIDENCE · Subdued red and blue appear only where the existing district evidence includes a party and numeric margin. Neutral beige indicates unavailable evidence; this is not a 2026 forecast.";
+          "DATED ELECTION EVIDENCE · Subdued red and blue appear only where the existing district evidence includes a party and numeric margin. Neutral beige indicates unavailable evidence. Historical results are not forecasts and do not predict the 2026 winner.";
       };
       if(viewControls){
         viewControls.replaceChildren();
