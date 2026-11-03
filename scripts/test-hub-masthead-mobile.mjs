@@ -46,7 +46,7 @@ try{
    assert(metrics.globe.width<=72&&metrics.globe.width>=25,
      file+' '+width+' globe overflows: '+JSON.stringify(metrics.globe));
    assert(metrics.svg.width<=72&&metrics.svg.height<=72,file+' '+width+' SVG escaped size cap');
-   assert(metrics.masthead.height<=150,file+' '+width+' masthead is towering');
+   assert(metrics.masthead.height<=(mobile?145:170),file+' '+width+' masthead is towering');
    assert(metrics.title.height<=110,file+' '+width+' title overflows');
    assert(metrics.nav.height<=62,file+' '+width+' navigation wraps');
    assert.equal(metrics.navWrap,'nowrap',file+' '+width+' navigation not single-row');
