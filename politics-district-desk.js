@@ -24,7 +24,7 @@ function news(d,host,phase){
  host.replaceChildren();
  const intro=E("div",null,"desk-intro");
  intro.append(E("span",phase==="campaign"?"THE DISTRICT / ON THE CAMPAIGN TRAIL":"THE DISTRICT / CONTINUING COVERAGE","desk-kicker"),
- E("h3",phase==="campaign"?"News from Iowa's 1st":"What's happening in the district"),
+ E("h3",phase==="campaign"?"Reporting from this district":"What's happening in the district"),
  E("p","Stories must directly concern the district, its communities, or its elected official. Publisher headlines link to the original reporting—not republished articles."));
  host.append(intro);
  if(articles.length){
@@ -41,7 +41,7 @@ function news(d,host,phase){
  const foot=E("p",null,"desk-attribution");
  foot.textContent="District feed last collected: "+(d?.news_updated_at?format(d.news_updated_at):"not yet checked")+". ";
  const checked=d?.news_checked_at;if(checked)foot.textContent+="Source check: "+format(checked)+". ";
- foot.append(A("Iowa Public Radio district reporting ↗","https://www.iowapublicradio.org/iowa-politics"));
+ if(d?.district_id==="IA-01")foot.append(A("Iowa Public Radio district reporting ↗","https://www.iowapublicradio.org/iowa-politics"));
  host.append(foot);
 }
 function polls(d,atlas,host,phase){
