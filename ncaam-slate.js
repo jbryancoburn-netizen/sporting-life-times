@@ -527,7 +527,7 @@ function card(g,featured){
    editorialBadges(g)+
    '<div class="sl-tv-scoreboard" aria-label="'+esc(g.away.name)+(g.neutral?' vs ':' at ')+esc(g.home.name)+'; '+esc(clock)+'">'+
      tvTeam(g.away,'away',g)+tvTeam(g.home,'home',g)+'</div>'+
-   (venueLine||arenaLink?'<div class="sl-tv-venuebar">'+venueLine+sourceLink+arenaLink+'</div>':'')+
+   (venueLine?'<div class="sl-tv-venuebar">'+venueLine+sourceLink+'</div>':'')+
    movement+eloNote+probability+
    '<footer class="sl-tv-footer"><span class="sl-tv-attribution">'+esc(sourceCaption)+' · '+esc(source)+'</span>'+
    '<div class="sl-tv-actions">'+tvFollow(g.away)+tvFollow(g.home)+
