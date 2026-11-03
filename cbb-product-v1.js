@@ -35,18 +35,19 @@ function boot(){
  const mast=header.querySelector('.slt-retro-masthead,.sl-masthead,.masthead')||header;
  mast.insertAdjacentElement('afterend',strip);
  const editions=document.createElement('nav');editions.className='cbb-product-switch';editions.setAttribute('aria-label','College basketball divisions and gender');
+ const genderTarget=page==='cbb-gamefile.html'?'cbb-game-center.html':page==='college-basketball.html'?'ncaam.html':page;
  editions.innerHTML='<span class="cbb-product-switch-name">EDITION</span>'+
-  '<a href="'+dest(page==='college-basketball.html'?'ncaam.html':page,false)+'"'+(!women?' aria-current="page"':'')+'>MEN</a>'+
-  '<a href="'+dest(page==='college-basketball.html'?'ncaam.html':page,true)+'"'+(women?' aria-current="page"':'')+'>WOMEN</a>'+
+  '<a href="'+dest(genderTarget,false)+'"'+(!women?' aria-current="page"':'')+'>MEN</a>'+
+  '<a href="'+dest(genderTarget,true)+'"'+(women?' aria-current="page"':'')+'>WOMEN</a>'+
   '<span class="cbb-product-break" aria-hidden="true"></span>'+
   '<a href="ncaam.html" aria-label="Division I basketball">D-I</a>'+
-  '<a href="d2-mens-basketball.html" aria-label="Division II basketball">D-II</a>'+
-  '<a href="d3-mens-basketball.html" aria-label="Division III basketball">D-III</a>';
+  '<a href="'+(women?'d2-womens-basketball.html':'d2-mens-basketball.html')+'" aria-label="Division II basketball">D-II</a>'+
+  '<a href="'+(women?'d3-womens-basketball.html':'d3-mens-basketball.html')+'" aria-label="Division III basketball">D-III</a>';
  if(nav)nav.insertAdjacentElement('afterend',editions);else header.appendChild(editions);
  const existing=new Set([...(nav?.querySelectorAll('a[href]')||[])].map(a=>a.getAttribute('href').split('?')[0].split('#')[0]));
  if(nav){
  const extras=menus.filter(([,url])=>!existing.has(url.split('#')[0]));
- for(const [title,url] of extras){const a=document.createElement('a');a.textContent=title;a.href=url.includes('#')?url:dest(url,women);a.className='cbb-product-navlink';nav.appendChild(a);}
+ for(const [title,url] of extras){const a=document.createElement('a');a.textContent=title;a.href=url.includes('#')?(women?url.replace('#','?gender=women#'):url):dest(url,women);a.className='cbb-product-navlink';nav.appendChild(a);}
  for(const a of nav.querySelectorAll('a')){a.style.fontStyle='normal';const href=a.getAttribute('href')||'';if(href.split('?')[0]===page)a.setAttribute('aria-current','page')}
  }
  if(page==='ncaam-slate.html'){

@@ -26,8 +26,8 @@ test('front page now includes sourced national features and correct field size',
  assert.match(s,/COLLEGE BASKETBALL\.<br>EVERY NIGHT\./);
  assert.match(s,/class="cbb-front-numbers"/);
  assert.match(s,/teams\.length/);
- assert.match(s,/metric\(68,'Tournament field'\)/);
- assert.ok(!s.includes("metric(76,'Projected field')"));
+ assert.match(s,/metric\(76,'Experimental scenario field'\)/);
+ assert.ok(s.includes('not the official 68-team NCAA'));
 });
 test('slate presents phase groups with two-line school data and source-safe dots',()=>{
  const s=read('ncaam-slate.js');
