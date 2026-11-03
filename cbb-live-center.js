@@ -122,7 +122,7 @@
   function row(t,phase,winning,gamefile=false,g=null){
     const s=phase==='upcoming'?'—':score(t)??'—';
     const link=schoolLink(t),rating=gamefile?teamRating(t):null;
-    const record=rating&&Number.isInteger(Number(rating.wins))&&Number.isInteger(Number(rating.losses))?
+    const record=rating&&Number(rating.games_played)>0&&Number.isInteger(Number(rating.wins))&&Number.isInteger(Number(rating.losses))?
       Number(rating.wins)+'–'+Number(rating.losses):'';
     const context=record?'<small class="cbb-team-context">'+esc(record)+'</small>':'';
     const identity='<span class="cbb-team-identity">'+crest(t)+
