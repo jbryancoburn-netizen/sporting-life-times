@@ -1,0 +1,54 @@
+name: Enrich metropolitan district neighborhoods
+on:
+  push:
+    paths:
+      - 'scripts/enrich-politics-metro-neighborhoods.py'
+      - '.github/workflows/politics-metro-neighborhoods.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: politics-metro-neighborhoods
+  cancel-in-progress: false
+jobs:
+  local-geography:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check metropolitan importer syntax
+        run: python3 -m py_compile scripts/enrich-politics-metro-neighborhoods.py
+      - name: Match official neighborhoods to 2026 district polygons
+        run: python3 -u scripts/enrich-politics-metro-neighborhoods.py
+      - name: Require traceable neighborhoods for every previously unfilled district
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          doc=json.loads(Path('data/politics-district-communities.json').read_text())
+          assert len(doc['districts'])==435
+          missing=doc['districts_still_needing_named_neighborhoods']
+          print('Named geographic coverage:',doc['districts_with_community_or_neighborhood'],'of 435')
+          print('Unfilled:',missing)
+          if missing:raise AssertionError('Unfilled metro districts remain; review polygon matches')
+          PY
+      - name: Commit researched neighborhood coverage, preserving concurrent edits
+        run: |
+          set -euo pipefail
+          git add data/politics-district-communities.json
+          if git diff --cached --quiet; then echo 'No new neighborhood matches'; exit 0; fi
+          git config user.name 'District Geography Desk'
+          git config user.email 'district-geography@users.noreply.github.com'
+          git commit -m 'Add NYC and Philadelphia neighborhood editions from city geography'
+          for attempt in 1 2 3; do
+            git fetch origin main
+            if git rebase origin/main && git push origin HEAD:main; then
+              echo 'Published verified neighborhoods'; exit 0
+            fi
+            git rebase --abort || true
+            sleep 3
+          done
+          exit 1
