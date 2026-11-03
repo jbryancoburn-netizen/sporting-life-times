@@ -249,6 +249,13 @@ def apply_verified_district_evidence(atlas, finalists, comparisons):
         district["2024_to_2026_geography_comparison"]=status
         district["2022_to_2024_geography_comparison"]=evidence["comparison_2022_to_2024"]
         district["2024_to_2026_same_geography_verified"]=match
+        if "matching_2020_blocks" in evidence:
+            district["2024_to_2026_block_comparison"]={
+                "same_blocks":evidence["matching_2020_blocks"],
+                "incoming_blocks":evidence["incoming_2020_blocks"],
+                "outgoing_blocks":evidence["outgoing_2020_blocks"],
+                "source_url":evidence["source_url"],"unweighted":True,
+            }
         result=district.get("2024_house_result_on_prior_boundaries")
         if result:
             result["same_2026_geography"]=match
@@ -279,8 +286,12 @@ def apply_verified_district_evidence(atlas, finalists, comparisons):
     atlas["2024_verified_finalist_contests"]=len(verified)
     atlas["2024_verified_same_party_finalist_contests"]=sum(x["contest_type"]=="same_party_finalists" for x in verified.values())
     atlas["2024_to_2026_district_geography_pending_count"]=sum(x["status"]=="pending_district_block_comparison" for x in boundary.values())
+    atlas["2024_to_2026_geography_verified_same_district_count"]=sum(x["status"]=="verified_same_district_blocks" for x in boundary.values())
+    atlas["2024_to_2026_geography_verified_changed_district_count"]=sum(x["status"]=="verified_changed_district_blocks" for x in boundary.values())
+    if atlas["2024_to_2026_geography_verified_same_district_count"]!=5 or atlas["2024_to_2026_geography_verified_changed_district_count"]!=23:
+        raise ValueError("Verified Florida 28-district block inventory no longer reconciles")
     atlas["source_notes"]["historic_top_two_elections"]="Certified same-party 2024 general election candidates retain individual results and vote margins."
-    atlas["source_notes"]["district_geography_audit"]="One boundary assessment per House district; redraw of a state is not automatic proof its districts changed."
+    atlas["source_notes"]["district_geography_audit"]="Florida official block comparisons prove five districts unchanged and 23 changed; 145 districts elsewhere remain individually pending. State redraw alone never proves every district changed."
     atlas["source_notes"]["district_shading"]="2024 House returns are previous-cycle results and are comparable to 2026 only after district-specific geography review."
     atlas["warning"]="2024 finalists remain on record including same-party races. A revised state map alone does not prove each district changed. Historical votes never become 2026 predictions."
     return atlas
