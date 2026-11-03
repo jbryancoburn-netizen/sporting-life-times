@@ -1,0 +1,57 @@
+name: Build verified communities for all 435 congressional districts
+on:
+  push:
+    paths:
+      - 'scripts/build-politics-district-communities.py'
+      - '.github/workflows/politics-district-communities.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: political-communities-build
+  cancel-in-progress: false
+jobs:
+  census-places:
+    runs-on: ubuntu-latest
+    timeout-minutes: 19
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check Census importer syntax
+        run: python3 -m py_compile scripts/build-politics-district-communities.py
+      - name: Populate district community editions from official Census sources
+        run: python3 -u scripts/build-politics-district-communities.py
+      - name: Verify all 435 districts, sources, coordinates and match counts
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          data=json.loads(Path('data/politics-district-communities.json').read_text())
+          assert len(data['districts'])==435
+          assert data['districts_with_named_places']+len(data['districts_without_named_places'])==435
+          for k,v in data['districts'].items():
+              assert len(v['communities'])<=14
+              for p in v['communities']:
+                  assert p['name'] and -180<=p['lon']<=180 and -90<=p['lat']<=90
+                  assert p['geoid'] and p['population_2020'] is not None
+          print('PASS',data['districts_with_named_places'],'districts with verified Census place names')
+          PY
+      - name: Commit only Census-backed district profile data
+        run: |
+          set -euo pipefail
+          git add data/politics-district-communities.json
+          if git diff --cached --quiet; then echo 'Source data unchanged'; exit 0; fi
+          git config user.name 'District Geography Desk'
+          git config user.email 'district-geography@users.noreply.github.com'
+          git commit -m 'Populate 435 district community dossiers from US Census Gazetteer'
+          for attempt in 1 2 3; do
+            git fetch origin main
+            if git rebase origin/main && git push origin HEAD:main; then
+              echo 'Published verified district community data'; exit 0
+            fi
+            git rebase --abort || true
+            sleep 3
+          done
+          echo 'Could not publish without risking overwrite'; exit 1
