@@ -35,7 +35,7 @@ jobs:
               assert len(v['communities'])<=14
               for p in v['communities']:
                   assert p['name'] and -180<=p['lon']<=180 and -90<=p['lat']<=90
-                  assert p['geoid'] and p['population_2020'] is not None
+                  assert p['geoid'] and p['area_sqmi']>=0
           print('PASS',data['districts_with_named_places'],'districts with verified Census place names')
           PY
       - name: Commit only Census-backed district profile data
