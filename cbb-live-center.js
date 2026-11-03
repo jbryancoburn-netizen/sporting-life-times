@@ -120,7 +120,7 @@
     const context=gamefile?[record,elo].filter(Boolean).join(' · '):'';
     const publishedRecord=!gamefile&&Array.isArray(t?.records)?
       (t.records.find(x=>x?.type==='total'||x?.type==='overall')||t.records[0])?.summary:'';
-    const officialRecord=/^\\d{1,3}[-–]\\d{1,3}$/.test(String(publishedRecord||''))?String(publishedRecord):'';
+    const officialRecord=/^\d{1,3}[-–]\d{1,3}$/.test(String(publishedRecord||''))?String(publishedRecord):'';
     const identity='<span class="cbb-team-identity">'+crest(t)+
       '<span class="cbb-name"><b class="cbb-school-label">'+esc(schoolLabel(t))+(apRank(t)?'<i class="cbb-ap-rank">AP '+esc(apRank(t))+'</i>':'')+'</b>'+
       (mascotLabel(t)?'<small class="cbb-school-mascot">'+esc(mascotLabel(t))+'</small>':'')+
