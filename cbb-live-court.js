@@ -153,19 +153,20 @@ function draw(c){
   const delayed=g.phase==='live'&&aging>60000;
   const pos=selected?location(selected):null,arr=plays.slice(-MAX).reverse();
   const shotPlays=plays.filter(p=>location(p)!==null).slice(-30);
-  const flow=shotPlays.length?'':gameFlow(plays,g);
+  // The sourced lead graph is always available when scores reconcile, even if shot coordinates exist.
+  const flow=gameFlow(plays,g);
   const live=g.phase==='live',final=g.phase==='final';
   c.node.innerHTML='<div class="slc-wrap" style="--slc-away:'+teamColor(g.away,'#23657d')+';--slc-home:'+teamColor(g.home,'#b17931')+'"><header class="slc-head"><div><small>THE SPORTING LIFE & TIMES / GAMEFILE</small>'+
     '<h2>COURTCAST</h2></div><b>'+(delayed?'FEED DELAYED':live?'LIVE PLAY-BY-PLAY':final?'FINAL · PLAY REPLAY':'PREGAME')+'</b></header>'+
     (delayed?'<p class="slc-warning">Live play feed has not refreshed for more than one minute. The events below are the most recent available, not confirmed current.</p>':'')+
     '<div class="slc-columns"><section class="slc-visual"><div class="slc-teams"><span class="slc-away-name">'+esc(sideName(g.away))+'</span>'+
     '<span class="slc-home-name">'+esc(sideName(g.home))+'</span></div>'+
-    (flow?flow:
-      (!validation.ok&&validation.sequence.length>=3?'<div class="slc-data-conflict" role="status"><strong>GAME FLOW UNAVAILABLE</strong><span>'+esc(validation.reason)+'. The verified score above remains authoritative.</span></div>':
-      (shotPlays.length?'<div class="slc-floor">'+lines+
+    (flow?flow:(!validation.ok&&validation.sequence.length>=3?
+      '<div class="slc-data-conflict" role="status"><strong>GAME FLOW UNAVAILABLE</strong><span>'+esc(validation.reason)+'. The verified score above remains authoritative.</span></div>':
+      '<div class="slc-standby"><strong>SCORED EVENT TIMELINE UNAVAILABLE</strong><span>No certified play-by-play score sequence is available. Recorded plays remain listed at right.</span></div>'))+
+    (shotPlays.length?'<details class="slc-shot-details"><summary>Verified shot locations ('+shotPlays.length+')</summary><div class="slc-floor">'+lines+
       shotPlays.map(p=>{const xy=location(p);return '<span class="slc-shot'+(p.scoring?' slc-shot-made':'')+(selected?.id===p.id?' slc-shot-current':'')+'" style="--x:'+xy.x+'%;--y:'+xy.y+'%" title="'+esc(p.text)+'" aria-hidden="true"></span>';}).join('')+
-      '<span class="slc-court-label">SOURCE-REPORTED SHOT LOCATIONS · HALF-COURT PLOT</span></div>':
-      '<div class="slc-standby"><strong>COURT VIEW NOT AVAILABLE</strong><span>No certified shot coordinates or complete score progression are available. Recorded plays remain listed at right.</span></div>')))+
+      '<span class="slc-court-label">SOURCE-REPORTED SHOT LOCATIONS · HALF-COURT PLOT</span></div></details>':'')+
     '<div class="slc-now" aria-live="polite">'+
     (selected?'<small>'+esc(selected.clock||'TIME NOT LISTED')+
       (selected.period?' · PERIOD '+esc(selected.period):'')+'</small><strong>'+esc(selected.text)+'</strong>':
@@ -179,7 +180,7 @@ function draw(c){
       (p.id===selected?.id?' aria-current="true"':'')+'><time>'+esc(p.clock||'—')+
       '</time><span>'+esc(p.text)+'</span></button></li>').join('')+'</ol>':
       '<p>Play-by-play is not available. We do not create simulated events.</p>')+'</aside></div>'+
-    (global.SLTRadio?'':stationLinks(g))+
+    ((global.SLTRadio||c.inline)?'':stationLinks(g))+
     '<footer class="slc-note">Play log: attributed ESPN events. Shot marks appear only where normalized source coordinates exist. '+
     'This is not optical tracking or radio transcription. For ongoing games, score and plays are checked approximately every 15 seconds.</footer></div>';
   c.previousPlay=selected||null;
@@ -203,7 +204,7 @@ function mount(node,game,summary,meta={}){
   const prior=activeByGame.get(key);
   if(prior)stop(prior);
   c={node,game,plays:[],follow:prior?.follow??true,selected:prior?.selected??null,
-     timer:null,previousPlay:prior?.previousPlay??null,updatedAt:meta.updatedAt||0};
+     timer:null,previousPlay:prior?.previousPlay??null,updatedAt:meta.updatedAt||0,inline:meta.inline===true};
   contexts.set(node,c);
   activeByGame.set(key,c);
   if(activeByGame.size>40)activeByGame.delete(activeByGame.keys().next().value);
@@ -215,7 +216,7 @@ function mount(node,game,summary,meta={}){
    if(b.dataset.slcPlay){stop(c);c.follow=false;c.selected=b.dataset.slcPlay;draw(c);}
   });
  }
- c.game=game;c.plays=parsePlays(summary);c.updatedAt=meta.updatedAt||0;
+ c.game=game;c.plays=parsePlays(summary);c.updatedAt=meta.updatedAt||0;c.inline=meta.inline===true;
  if(c.selected&&!c.plays.some(p=>p.id===c.selected)){c.follow=true;c.selected=null;}
  draw(c);
 }
