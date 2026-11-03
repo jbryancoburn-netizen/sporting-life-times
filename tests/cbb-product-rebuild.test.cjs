@@ -23,8 +23,9 @@ test('existing engines remain on each page, without modifying live workflow',()=
 });
 test('front page now includes sourced national features and correct field size',()=>{
  const s=read('mbb-newspaper.js');
- assert.match(s,/COLLEGE BASKETBALL\.<br>EVERY NIGHT\./);
- assert.match(s,/class="cbb-front-numbers"/);
+ assert.match(s,/THE NATIONAL PICTURE/);
+ assert.match(s,/class="cbb-front-statline"/);
+ assert.doesNotMatch(s,/COLLEGE BASKETBALL\.<br>EVERY NIGHT\./);
  assert.match(s,/teams\.length/);
  assert.match(s,/metric\(76,'Experimental scenario field'\)/);
  assert.ok(s.includes('not the official 68-team NCAA'));
@@ -64,7 +65,7 @@ test('mobile repair removes duplicate Hardwood and competing broadcast headers',
   const html=read(p);
   assert.equal((html.match(/cbb-product-v1\.js/g)||[]).length,1,p+' script count');
   assert.equal((html.match(/cbb-product-v1\.css/g)||[]).length,1,p+' css count');
-  assert.match(html,/cbb-product-v1\.js\?v=20261102-mobile2/);
+  assert.match(html,/cbb-product-v1\.js\?v=20261102-courtside2/);
   assert.doesNotMatch(html,/slt-courtside-network\.(js|css)/,p+' duplicated Hardwood nav');
   assert.doesNotMatch(html,/slt-broadcast-overhaul\.(js|css)/,p+' competing broadcast bar');
  }
@@ -86,75 +87,90 @@ test('mobile NCAA header uses horizontal-only navigation, bounded MORE dropdown 
  assert.match(css,/\.cbb-nav-dropdown\{[\s\S]*?position:absolute/);
  assert.match(css,/\.slt-courtside-network,[\s\S]*?display:none!important/);
  assert.match(css,/@media\(max-width:700px\)/);
- assert.match(css,/\.cbb-front-lead \.cbb-front-headline h1/);
+ assert.match(css,/\.cbb-front-brief\{/);
 });
 
 
-test('iPhone homepage hero uses cream-on-navy colors and a single-column two-row stats layout',()=>{
- const legacy=read('mbb-newspaper.css'),css=read('cbb-product-v1.css');
- assert(!legacy.includes('body[data-page="home"]:not([data-gender="women"]) .hero{'),'legacy men-only selector must not override rebuilt hero');
- assert.match(legacy,/not\(\.cbb-product\) \.hero\{/);
- assert.match(css,/SCREENSHOT-DRIVEN FRONT PAGE REPAIR/);
- assert.match(css,/\.cbb-front-headline h1\{[\s\S]*?color:#fff7e5!important/);
- assert.match(css,/\.cbb-front-headline \.cta\{[\s\S]*?background:#edbd46!important/);
- assert.match(css,/@media\(max-width:820px\)\{/);
- assert.match(css,/grid-template-columns:minmax\(0,1fr\)!important/);
- assert.match(css,/grid-template-rows:repeat\(2,minmax\(59px,auto\)\)!important/);
- assert.match(css,/\.cbb-desk-header h2\{/);
- for(const name of ['ncaam.html','college-basketball.html','ncaam-slate.html','cbb-game-center.html','cbb-gamefile.html']){
-  assert.match(read(name),/cbb-product-v1\.css\?v=20261102-hero3/);
+
+test('the approved newspaper puts live games above editorial branding and uses one existing game feed',()=>{
+ const m=read('mbb-newspaper.js'),c=read('cbb-live-center.js'),css=read('cbb-product-v1.css');
+ assert.match(m,/class="cbb-front-brief"/);
+ assert.match(m,/class="cbb-front-statline"/);
+ assert.match(m,/id="score-rail"/);
+ assert.doesNotMatch(m,/COLLEGE BASKETBALL\.<br>EVERY NIGHT\./);
+ assert.match(c,/nationalBrief=document\.querySelector\('#app > \.cbb-front-brief'\)/);
+ assert.match(c,/otherGames\.before\(nationalBrief\)/);
+ assert.match(c,/isStandalone\?'COURTSIDE \/ THE LIVE DESK':'THE SLT SCOREBOARD'/);
+ assert.match(c,/state\.games/);
+ assert.match(c,/rest\.map\(scorebug\)/);
+ assert.match(css,/SCOREBOARD-FIRST NEWSPAPER/);
+ assert.match(css,/\.cbb-front-brief\{/);
+ assert.match(css,/\.cbb-featured \.cbb-match-rows\{/);
+ assert.doesNotMatch(css,/SCREENSHOT-DRIVEN FRONT PAGE REPAIR/);
+ for(const path of ['ncaam.html','college-basketball.html']){
+  const src=read(path);
+  assert.match(src,/cbb-product-v1\.css\?v=20261102-courtside2/);
+  assert.match(src,/mbb-newspaper\.js\?v=20261102-courtside2/);
+  assert.match(src,/cbb-live-center\.js\?v=20261102-courtside2/);
  }
 });
-
-
-test('real Chromium viewport: NCAA headline and CTA stay readable and stats stack below at 390px',async()=>{
+test('real Chromium screenshot-layout contract: cream scorebug ahead of compact editorial on phone and desktop',async()=>{
  const {chromium}=require('playwright');
  const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
  try{
-  const markup='<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"></head>'+
-  '<body class="cbb-product cbb-header-v2" data-page="home"><div class="wrap"><main id="app">'+
-  '<section class="hero cbb-front-lead"><div class="cbb-front-headline">'+
-  '<div class="eyebrow">SPORTING LIFE AND TIMES · NATIONAL COLLEGE COURT</div>'+
-  '<h1>COLLEGE BASKETBALL.<br>EVERY NIGHT.</h1>'+
-  '<p>Scores, standings and independent ratings for every Division I program.</p>'+
-  '<a class="cta" href="#">OPEN TODAY’S GAMES →</a>'+
-  '<a class="cta" href="#">GO COURTSIDE →</a></div>'+
-  '<div class="cbb-front-numbers"><div><strong>365</strong><span>DIVISION I SCHOOLS IN REGISTRY</span></div>'+
-  '<div><strong>9</strong><span>VERIFIED RETRO FINALS</span></div>'+
-  '<div><strong>32</strong><span>CONFERENCES INDEXED</span></div>'+
-  '<div><strong>68</strong><span>NCAA TOURNAMENT FIELD SIZE</span></div></div></section>'+
-  '</main></div></body></html>';
+  const markup=`<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+  <body class="cbb-product cbb-header-v2" data-page="home"><div class="wrap"><main id="app">
+  <section class="cbb-live-desk" id="cbb-live-desk">
+    <div class="cbb-desk-header"><div><div class="cbb-kicker">MEN’S DIVISION I</div><h2>THE SLT SCOREBOARD</h2></div><a class="cbb-center-link" href="#">ALL GAMES →</a></div>
+    <div class="cbb-date-controls"><button data-cbb-date="-1">‹</button><label class="cbb-date-label"><span>Date</span><input type="date" value="2026-11-02"></label><button data-cbb-date="1">›</button><button data-cbb-today>TODAY</button><button data-cbb-refresh>↻</button></div>
+    <div class="cbb-filter-bar"><button>All 189</button><button>Live 84</button><button>Final 79</button><button>Upcoming 26</button></div>
+    <p class="cbb-source-stamp">Source-backed games · NCAA origin checked · ESPN secondary verification</p>
+    <div id="cbb-feature-host" class="cbb-featured"><div class="cbb-feature-marker">FEATURED GAME</div>
+      <article class="cbb-game-card" style="--cbb-away:#a71930;--cbb-home:#1958ae">
+        <div class="cbb-bug-top"><span><b class="slt-cbb-signature">SLT</b>LIVE · 2ND 4:17</span><span class="cbb-bug-network">ESPN</span></div>
+        <div class="cbb-match-rows">
+          <div class="cbb-scorebug-row"><span class="cbb-team-identity"><span class="cbb-name"><b>INDIANA</b><small>5–1 · TO —</small></span></span><span class="cbb-points">62</span></div>
+          <div class="cbb-scorebug-row"><span class="cbb-team-identity"><span class="cbb-name"><b>KENTUCKY</b><small>6–0 · TO —</small></span></span><span class="cbb-points">58</span></div>
+        </div>
+        <div class="cbb-bug-bottom"><span>Source-confirmed game venue</span><a href="#">GAMEFILE →</a></div>
+      </article></div>
+    <section class="cbb-front-brief" aria-label="National picture"><div class="cbb-front-brief-copy">
+      <span class="cbb-front-brief-kicker">THE NATIONAL DESK · 2026–27</span>
+      <h2>THE NATIONAL PICTURE</h2><p>Scores, standings and independent ratings.</p>
+      <div class="cbb-front-brief-links"><a href="#">RANKINGS →</a></div></div>
+      <div class="cbb-front-statline"><span><b>365</b><small>DIVISION I SCHOOLS</small></span><span><b>59</b><small>VERIFIED FINALS</small></span><span><b>32</b><small>CONFERENCES</small></span><span><b>68</b><small>FIELD SIZE</small></span></div>
+    </section>
+    <div id="cbb-cards"></div>
+  </section><div id="score-rail"></div></main></div></body></html>`;
   for(const width of [375,390,430,768,1280]){
    const page=await browser.newPage({viewport:{width,height:844},deviceScaleFactor:1});
    try{
     await page.setContent(markup);
     await page.addStyleTag({content:read('mbb-newspaper.css')});
+    await page.addStyleTag({content:read('cbb-live-center.css')});
     await page.addStyleTag({content:read('cbb-product-v1.css')});
-    const x=await page.evaluate(()=>{
-     const b=el=>{const r=el.getBoundingClientRect();return{left:r.left,top:r.top,right:r.right,bottom:r.bottom,width:r.width,height:r.height}};
-     const h=document.querySelector('.cbb-front-headline'),stats=document.querySelector('.cbb-front-numbers');
-     const headline=document.querySelector('.cbb-front-headline h1');
-     const paragraph=document.querySelector('.cbb-front-headline p');
-     const cta=document.querySelector('.cbb-front-headline .cta');
-     const hero=document.querySelector('.hero');
-     const st=el=>getComputedStyle(el);
-     return {hero:b(hero),intro:b(h),stats:b(stats),scrollWidth:document.documentElement.scrollWidth,
-      headlineColor:st(headline).color,textColor:st(paragraph).color,ctaColor:st(cta).color,
-      ctaBackground:st(cta).backgroundColor,heroBackground:st(hero).backgroundColor,display:st(hero).display};
+    const v=await page.evaluate(()=>{
+     const box=e=>{const r=e.getBoundingClientRect();return{top:r.top,bottom:r.bottom,left:r.left,right:r.right,width:r.width,height:r.height}};
+     const board=document.querySelector('#cbb-live-desk'),score=document.querySelector('.cbb-featured .cbb-game-card'),
+     first=document.querySelector('.cbb-featured .cbb-scorebug-row:first-child'),
+     second=document.querySelector('.cbb-featured .cbb-scorebug-row:nth-child(2)'),
+     brief=document.querySelector('.cbb-front-brief'),
+     stamp=document.querySelector('.cbb-source-stamp');
+     const color=e=>getComputedStyle(e).backgroundColor;
+     return {board:box(board),score:box(score),first:box(first),second:box(second),brief:box(brief),
+       scroll:document.documentElement.scrollWidth,
+       teamColor:color(first),titleColor:getComputedStyle(first.querySelector('b')).color,
+       statusColor:color(document.querySelector('.cbb-bug-top')),stamp:box(stamp)};
     });
-    assert.equal(x.display,'grid',width+'px must use grid, not legacy flex');
-    assert.equal(x.headlineColor,'rgb(255, 247, 229)',width+'px headline must be cream');
-    assert.equal(x.textColor,'rgb(230, 236, 241)',width+'px copy must be readable');
-    assert.equal(x.ctaBackground,'rgb(237, 189, 70)',width+'px CTA must be gold');
-    assert.equal(x.ctaColor,'rgb(8, 28, 56)',width+'px CTA must be navy');
-    assert.equal(x.heroBackground,'rgb(9, 31, 64)',width+'px navy background expected');
-    assert(x.hero.right<=width+1,width+'px hero must fit viewport');
-    assert(x.scrollWidth<=width+1,width+'px document must not overflow');
-    if(width<=768){
-      assert(x.intro.bottom<=x.stats.top+1,width+'px statistics must be BELOW headline, not beside it');
-      assert(Math.abs(x.intro.left-x.stats.left)<2,width+'px stats should be aligned full-width');
-      assert(x.stats.width>=x.intro.width-2,width+'px stats must not be squeezed into sidebar');
-    }else assert(x.intro.right<=x.stats.left+1,'desktop hero should be balanced columns');
+    assert.equal(v.teamColor,'rgb(255, 247, 229)',width+'px cream score panels');
+    assert.equal(v.titleColor,'rgb(9, 31, 61)',width+'px ink text on cream');
+    assert.equal(v.statusColor,'rgb(9, 31, 61)',width+'px navy status header');
+    assert(v.score.top<v.brief.top,width+'px games must appear ahead of editorial');
+    assert(v.score.top<=300,width+'px game scorebug appears without giant billboard');
+    assert(v.brief.height<=210,width+'px compact national context');
+    assert(v.scroll<=width+1,width+'px no full-page horizontal overflow');
+    if(width<760)assert(v.first.bottom<=v.second.top+1,width+'px stack team rows');
+    else assert(v.first.right<=v.second.left+1,width+'px share broadcast row on desktop');
    }finally{await page.close()}
   }
  }finally{await browser.close()}
