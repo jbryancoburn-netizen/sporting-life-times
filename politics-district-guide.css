@@ -181,6 +181,32 @@ body[data-house-page="district"] .dossier-history-row>a{
  font:900 10px/1.45 'DM Sans',sans-serif;
  color:#a03e36;text-underline-offset:3px
 }
+/* The source-led election history is an editorial register, not forecast cards. */
+body[data-house-page="district"] .dossier-history-analysis{
+ margin-top:14px;padding:13px 0 11px;border-block:2px double #847662;
+ color:#302a23;
+}
+body[data-house-page="district"] .dossier-history-analysis strong{
+ display:block;font:700 17px/1.35 Georgia,serif;color:#302a23;
+}
+body[data-house-page="district"] .dossier-history-analysis p{
+ font:13px/1.65 Georgia,serif;color:#4b433a;margin:9px 0;
+}
+body[data-house-page="district"] .dossier-earlier-elections{
+ border-bottom:1px solid #a99b87;padding:10px 0;margin-top:10px;
+}
+body[data-house-page="district"] .dossier-earlier-elections summary{
+ cursor:pointer;color:#703e34;font:700 12px/1.5 Inter,Arial,sans-serif;
+}
+body[data-house-page="district"] .dossier-earlier-elections p{
+ font:12px/1.55 Georgia,serif;color:#4d463d;margin:8px 0;
+}
+body[data-house-page="district"] .dossier-history-row .dossier-caution{
+ font:11px/1.6 Inter,Arial,sans-serif;color:#5a5045;margin:8px 0;
+}
+body[data-house-page="district"] .dossier-history-row .dossier-vote-legend span{
+ overflow-wrap:break-word;
+}
 body[data-house-page="district"] .dossier-polling{padding:30px 25px 26px}
 body[data-house-page="district"] .dossier-polling .dossier-module-head{
  border-bottom:2px solid #1e3a50;padding-bottom:5px
