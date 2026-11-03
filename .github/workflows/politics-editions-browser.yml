@@ -1,0 +1,43 @@
+name: Political editions — browser and mobile acceptance
+on:
+  pull_request:
+    paths:
+      - 'politics-house-state.html'
+      - 'politics-house-district.html'
+      - 'politics-house-map.js'
+      - 'politics-ledger-editions.css'
+      - 'scripts/test-politics-editions-browser.mjs'
+      - 'scripts/audit-politics-editions.cjs'
+      - '.github/workflows/politics-editions-browser.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify-editions:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Playwright Chromium
+        run: |
+          npm install --no-save playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Validate nationwide source and routes
+        run: node scripts/audit-politics-editions.cjs
+      - name: Start local website and capture newspaper layouts
+        run: |
+          mkdir -p artifacts
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/political-editions-http.log 2>&1 &
+          echo $! > /tmp/political-editions-http.pid
+          for i in $(seq 1 20); do curl -fsS http://127.0.0.1:8765/politics-house-state.html >/dev/null && break; sleep 1; done
+          node scripts/test-politics-editions-browser.mjs
+      - name: Preserve desktop/mobile screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: political-editions-desktop-mobile
+          path: artifacts/
+          if-no-files-found: warn
