@@ -63,19 +63,45 @@
    inFlight.set(key,task);
    try{return await task}finally{inFlight.delete(key)}
  }
- function lineScore(g,raw,women){
+ // ESPN period cells, ESPN current score, and provider-reported box score
+ // must describe one snapshot. Never mix these cells with our slower ledger feed.
+ function periodScoreSnapshot(g,raw){
    const competitors=raw?.header?.competitions?.[0]?.competitors||[];
    const away=competitors.find(x=>x.homeAway==='away'),home=competitors.find(x=>x.homeAway==='home');
-   const as=away?.linescores||[],hs=home?.linescores||[];
-   if(!as.length||!hs.length)return missing('Period-by-period scoring is not available from the game feed.');
-   const count=Math.max(as.length,hs.length), cell=(t,i)=>esc(t?.[i]?.displayValue??t?.[i]?.value??'—');
-   const headers=Array.from({length:count},(_,i)=>'<th scope="col">'+esc(periodTitle(i+1,women))+'</th>').join('');
-   const row=(t,pts,items)=>'<tr><th scope="row">'+esc(name(t))+'</th>'+
-     Array.from({length:count},(_,i)=>'<td>'+cell(items,i)+'</td>').join('')+
-     '<td><b>'+esc(pts??'—')+'</b></td></tr>';
-   return '<div class="slt-gf-scroll"><table class="slt-gf-table"><caption>Period scoring · sourced game feed</caption>'+
+   if(String(away?.team?.id||'')!==String(g.away?.id)||
+      String(home?.team?.id||'')!==String(g.home?.id))return null;
+   const as=away?.linescores,hs=home?.linescores;
+   if(!Array.isArray(as)||!Array.isArray(hs)||!as.length||as.length!==hs.length)return null;
+   const valid=n=>Number.isSafeInteger(n)&&n>=0&&n<=500;
+   const parse=xs=>xs.map(x=>num(x?.displayValue??x?.value));
+   const awayPeriods=parse(as),homePeriods=parse(hs);
+   if(!awayPeriods.every(valid)||!homePeriods.every(valid))return null;
+   const awayTotal=awayPeriods.reduce((v,n)=>v+n,0),homeTotal=homePeriods.reduce((v,n)=>v+n,0);
+   if(!valid(awayTotal)||!valid(homeTotal))return null;
+   const sourceTotal=x=>num(x.score?.value??x.score?.displayValue??x.score);
+   const reportedAway=sourceTotal(away),reportedHome=sourceTotal(home);
+   if((reportedAway!==null&&reportedAway!==awayTotal)||
+      (reportedHome!==null&&reportedHome!==homeTotal))return null;
+   const boardAway=asScore(g.away),boardHome=asScore(g.home);
+   if(g.phase==='final'&&((boardAway!==null&&boardAway!==awayTotal)||
+      (boardHome!==null&&boardHome!==homeTotal)))return null;
+   const behind=g.phase==='live'&&
+     ((boardAway!==null&&awayTotal<boardAway)||(boardHome!==null&&homeTotal<boardHome));
+   return {awayPeriods,homePeriods,awayTotal,homeTotal,behind};
+ }
+ function lineScore(g,raw,women){
+   const s=periodScoreSnapshot(g,raw);
+   if(!s)return missing('Period-by-period scoring is withheld: the source has not provided a consistent set of period scores and totals.');
+   if(s.behind)return missing('Period scoring is older than the current live scoreboard and will return once the sources reconcile.');
+   const headers=Array.from({length:s.awayPeriods.length},(_,i)=>'<th scope="col">'+
+     esc(periodTitle(i+1,women))+'</th>').join('');
+   const row=(t,items,total)=>'<tr><th scope="row">'+esc(name(t))+'</th>'+
+     items.map(v=>'<td>'+v+'</td>').join('')+'<td><b>'+total+'</b></td></tr>';
+   const note=g.phase==='live'&&(asScore(g.away)!==s.awayTotal||asScore(g.home)!==s.homeTotal)?
+     '<p class="slt-gf-source">ESPN period totals are newer than the separately refreshed newspaper scoreboard. The open scorebug is being synchronized.</p>':'';
+   return note+'<div class="slt-gf-scroll"><table class="slt-gf-table"><caption>Period scoring · consistent ESPN snapshot</caption>'+
      '<thead><tr><th scope="col">SCHOOL</th>'+headers+'<th scope="col">TOTAL</th></tr></thead><tbody>'+
-     row(g.away,asScore(g.away),as)+row(g.home,asScore(g.home),hs)+'</tbody></table></div>';
+     row(g.away,s.awayPeriods,s.awayTotal)+row(g.home,s.homePeriods,s.homeTotal)+'</tbody></table></div>';
  }
  const ncaaTeamKeys=[
    ['fgm','Field goals made'],['fga','Field goals attempted'],['tpm','3-pointers made'],
@@ -160,6 +186,9 @@
      disputed:false,headline:g.status||'',venue:g.venue||''};
  }
  function flow(raw,g){
+   const snapshot=periodScoreSnapshot(g,raw);
+   if(g.phase==='live'&&(!snapshot||snapshot.behind))
+     return missing('Scoring progression is withheld while the live score sources reconcile.');
    const plays=global.SLTCourt?.parsePlays?.(raw)||[];
    const graph=global.SLTCourt?.gameFlow?.(plays,courtGame(g))||'';
    return graph||missing('A scoring graph will appear when the source provides a consistent sequence of play-by-play scores.');
@@ -232,9 +261,12 @@
    node.innerHTML='<p class="slt-gf-loading" role="status">Retrieving attributed game details…</p>';
    const raw=await getSummary(g,women,options.force);
    if(!node.isConnected||node.dataset.gfileKey!==key)return;
+   const scores=g.phase==='live'?periodScoreSnapshot(g,raw):null;
+   if(scores&&!scores.behind&&typeof options.onLiveScore==='function')
+     options.onLiveScore({away:scores.awayTotal,home:scores.homeTotal,id:g.id,day:g.day});
    node.innerHTML=renderHTML(g,raw,options.feed,women,key);
    node.dataset.snapshot=stamp;
    switchTab(node,selectedTabs.get(key)||'summary');
  }
- return {mount,checkedSummary,checkedBox,playLog,renderHTML};
+ return {mount,checkedSummary,checkedBox,periodScoreSnapshot,playLog,renderHTML};
 });
