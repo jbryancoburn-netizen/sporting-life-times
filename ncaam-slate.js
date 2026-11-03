@@ -150,6 +150,7 @@ let selected=/^\d{4}-\d\d-\d\d$/.test(url.searchParams.get('date')||'')?url.sear
 let filter=['all','live','final','upcoming','exhibition'].includes(url.searchParams.get('view'))?url.searchParams.get('view'):'all';
 let search='',loaded=[],ratings=new Map(),lastUpdate='',limit=18,loading=false,sourceError='';
 let pollRankings=new Map(),pollAsOf='';
+const verifiedLiveScores=new Map();
 let cross={teams:[]},palette={},arenaRegistry={},womenTeams=new Map(),sourceFeed=null,seasonStats=new Map(),liveChanges=new Map(),scoreCalibration=null;
 const insight=window.SLTBasketballInsights;
 // Large source-backed identity and arena references remain stable during a
@@ -453,7 +454,19 @@ const ledgerScorebug=g=>{
   '<div class="ledger26-teams">'+teamRow(g.away)+teamRow(g.home)+'</div>'+
   '<div class="ledger26-status" data-phase="'+esc(g.phase)+'"><strong>'+esc(status)+'</strong></div></div>';
 };
-function card(g,featured,opened=false){
+// The independently refreshed slate can lag a verified game summary.
+// Keep only newer, event-matched live scores when both teams have not decreased.
+const currentScore=g=>{
+ if(g.phase!=='live')return g;
+ const s=verifiedLiveScores.get(g.day+'|'+g.id);
+ if(!s||!Number.isSafeInteger(s.away)||!Number.isSafeInteger(s.home)||
+    s.away<0||s.home<0||s.away>500||s.home>500||
+    (g.away.score!==null&&s.away<g.away.score)||
+    (g.home.score!==null&&s.home<g.home.score))return g;
+ return {...g,away:{...g.away,score:s.away},home:{...g.home,score:s.home}};
+};
+function card(original,featured,opened=false){
+ const g=currentScore(original);
  const external=g.kind==='exhibition';
  const source=external?(g.evidence==='secondary'?'Published secondary result':'University / cited result'):
    g.phase==='final'?(g.evidence==='final-source'?'Attributed final':'Reported final'):
@@ -474,11 +487,20 @@ function card(g,featured,opened=false){
      '<div class="sl-inline-gamefile ledger26-gamefile" data-inline-game-id="'+esc(g.id)+'"></div>')+
    '</div></details></article>';
 }
-const openGamefile=details=>{
- const g=loaded.find(x=>String(x.id)===details.dataset.gameId&&x.day===details.dataset.day);
+const openGamefile=(details,force=false)=>{
+ const base=loaded.find(x=>String(x.id)===details.dataset.gameId&&x.day===details.dataset.day);
  const panel=details.querySelector('[data-inline-game-id]');
- if(!g||!panel||!window.SLTInlineGamefile)return;
- window.SLTInlineGamefile.mount(panel,g,{women,feed:sourceFeed});
+ if(!base||!panel||!window.SLTInlineGamefile)return;
+ const g=currentScore(base);
+ window.SLTInlineGamefile.mount(panel,g,{women,feed:sourceFeed,force,onLiveScore:s=>{
+   if(!details.isConnected||base.phase!=='live'||s.id!==base.id||s.day!==base.day)return;
+   const prior=currentScore(base);
+   if((prior.away.score!==null&&s.away<prior.away.score)||
+      (prior.home.score!==null&&s.home<prior.home.score))return;
+   verifiedLiveScores.set(base.day+'|'+base.id,{away:s.away,home:s.home});
+   const points=details.querySelectorAll('.ledger26-points');
+   if(points.length===2){points[0].textContent=String(s.away);points[1].textContent=String(s.home);}
+ }});
 };
 document.addEventListener('toggle',event=>{
  const d=event.target;
@@ -579,7 +601,7 @@ setInterval(()=>{if(document.hidden||!window.SLTInlineGamefile)return;
  document.querySelectorAll('.sl-game-expansion[open]').forEach(d=>{
   const g=loaded.find(x=>String(x.id)===d.dataset.gameId&&x.day===d.dataset.day);
   const panel=d.querySelector('[data-inline-game-id]');
-  if(g?.phase==='live'&&panel)window.SLTInlineGamefile.mount(panel,g,{women,feed:sourceFeed,force:true});
+  if(g?.phase==='live'&&panel)openGamefile(d,true);
  });
 },30000);
 }
