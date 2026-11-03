@@ -148,3 +148,15 @@ body[data-house-page="district"] .district-lower-edition .district-research-arch
  body[data-house-page="district"] .district-lower-edition .desk-frame{display:block!important}
  body[data-house-page="district"] .district-lower-edition .desk-switcher button{flex:1 1 130px!important}
 }
+
+/* The geographic front page of the remaining 434 editions. */
+body[data-house-page="district"] .orientation-national-edition>h2{
+ font:700 clamp(28px,3.8vw,48px)/1.12 'Bodoni Moda',Georgia,serif;
+ letter-spacing:-.025em;margin:10px 0 14px;color:#292621;
+}
+body[data-house-page="district"] .orientation-national-edition>.orientation-kicker{
+ font:700 11px/1.5 Inter,Arial,sans-serif;letter-spacing:.12em;color:#834033;
+}
+body[data-house-page="district"] .orientation-national-edition .orientation-places p{
+ font:14px/1.75 'Libre Baskerville',Georgia,serif;
+}
