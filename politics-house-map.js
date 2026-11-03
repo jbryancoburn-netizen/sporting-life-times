@@ -116,16 +116,33 @@
       });
       const group=L.featureGroup();
       const layers=new Map();
+      const mapEvidence=new Map();
+      let mapView="geography";
+      let selectedDistrict="";
+      // Geography is the default. Political colors are shown only after an explicit
+      // reader choice and only where the existing evidence source provides them.
+      const districtStyle=id=>{
+        const evidence=mapEvidence.get(id);
+        const chosen=selectedDistrict===id;
+        return {
+          fillColor:mapView==="evidence"&&evidence?evidence.color:"#c9bda7",
+          color:chosen?"#793e32":"#3a352e",
+          weight:chosen?3.7:1.8,
+          fillOpacity:mapView==="evidence"&&evidence?.eligible?0.48:(chosen?0.33:0.18),
+          opacity:1,dashArray:null
+        };
+      };
+      const redraw=()=>layers.forEach((layer,id)=>layer.setStyle(districtStyle(id)));
       let labels=[];
       for(const feature of features){
         const id=featureId(feature,state.code,field),row=byId.get(id);
         const info=districtEvidence(row),paint=color(info.party,info.margin);
-        const layer=L.geoJSON(feature,{style:()=>({fillColor:paint.bg,color:"#263e50",weight:2.1,
-          fillOpacity:0.13,opacity:0.94,dashArray:null}),interactive:true});
+        mapEvidence.set(id,{color:paint.bg,eligible:!!(info.party&&Number.isFinite(Number(info.margin)))});
+        const layer=L.geoJSON(feature,{style:()=>districtStyle(id),interactive:true});
         layer.eachLayer(shape=>{
           shape.bindTooltip(makeInfoNode(id,info),{sticky:true,direction:"top",opacity:0.98,className:"district-map-tip"});
-          shape.on("mouseover",()=>{shape.setStyle({weight:3.5,color:"#142d3b",fillOpacity:0.34});shape.bringToFront();});
-          shape.on("mouseout",()=>layer.resetStyle(shape));
+          shape.on("mouseover",()=>{shape.setStyle({weight:3.1,color:"#7b4034",fillOpacity:0.4});shape.bringToFront();});
+          shape.on("mouseout",()=>shape.setStyle(districtStyle(id)));
           shape.on("click",()=>{location.href=urlForDistrict(id)});
           shape.on("add",()=>{
             const el=shape.getElement();
@@ -152,6 +169,29 @@
         labels.push(marker);
       }
       group.addTo(map);
+      const viewControls=document.getElementById("map-shading-controls");
+      const viewLegend=document.getElementById("map-shading-explanation");
+      const describeView=()=>{
+        if(viewLegend)viewLegend.textContent=mapView==="geography"?
+          "GEOGRAPHY · All districts share neutral newsprint shading. A darker outline marks the selected district. Colors do not indicate political preference.":
+          "DATED ELECTION EVIDENCE · Subdued red and blue appear only where the existing district evidence includes a party and numeric margin. Neutral beige indicates unavailable evidence; this is not a 2026 forecast.";
+      };
+      if(viewControls){
+        viewControls.replaceChildren();
+        for(const [mode,label] of [["geography","Geographic atlas"],["evidence","Election evidence"]]){
+          const button=document.createElement("button");
+          button.type="button";button.textContent=label;
+          button.className="ledger-map-mode";
+          button.setAttribute("aria-pressed",String(mapView===mode));
+          button.addEventListener("click",()=>{
+            mapView=mode;
+            viewControls.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===button)));
+            redraw();describeView();
+          });
+          viewControls.append(button);
+        }
+        describeView();
+      }
       const completeBounds=group.getBounds();
       map.fitBounds(completeBounds,{padding:[32,32],maxZoom:8});
       const michiganSource=document.getElementById("map-official-michigan");
@@ -199,6 +239,7 @@
       JUMP.addEventListener("change",()=>{
         const id=JUMP.value,shape=layers.get(id);
         if(!shape)return;
+        selectedDistrict=id;redraw();
         map.fitBounds(shape.getBounds(),{padding:[35,35],maxZoom:9});
         setStatus(id+" selected. Click the highlighted district or choose “Open selected district.”");
       });
