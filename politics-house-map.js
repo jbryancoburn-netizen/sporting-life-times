@@ -220,16 +220,27 @@
         }
       }
       const toggleLabels=()=>{
-        // Avoid obscuring dozens of narrow congressional seats at small scales.
-        // Metro Detroit labels overlap at the Michigan overview scale.
-        // Keep polygons clickable at every zoom; show number chips only after zoom.
-        const show=state.code==="MI"?map.getZoom()>=8:(map.getZoom()>=5.5||rows.length<=12);
-        labels.forEach(marker=>{
+        // Never let small district badges obscure another badge on a crowded state map.
+        // Geographic polygons remain clickable when a number is hidden.
+        const zoom=map.getZoom();
+        const baseThreshold=rows.length>=25?8:rows.length>=12?6.5:5;
+        const eligible=zoom>=baseThreshold;
+        const occupied=[];
+        for(const marker of labels){
           const el=marker.getElement();
-          if(el)el.style.display=show?"":"none";
-        });
+          if(!el)continue;
+          el.style.display="none";
+          if(!eligible)continue;
+          const point=map.latLngToContainerPoint(marker.getLatLng());
+          const bounds=map.getSize();
+          const rect={x:point.x-19,y:point.y-16,w:38,h:32};
+          if(rect.x<3||rect.y<3||rect.x+rect.w>bounds.x-3||rect.y+rect.h>bounds.y-3)continue;
+          const collides=occupied.some(b=>rect.x<b.x+b.w+8&&rect.x+rect.w+8>b.x&&rect.y<b.y+b.h+6&&rect.y+rect.h+6>b.y);
+          if(!collides){occupied.push(rect);el.style.display="";}
+        }
       };
-      map.on("zoomend",toggleLabels);toggleLabels();
+      map.on("zoomend moveend resize",toggleLabels);
+      requestAnimationFrame(toggleLabels);
       const option0=document.createElement("option");option0.value="";option0.textContent="Find a district on the map";
       JUMP.replaceChildren(option0);
       rows.forEach(row=>{
