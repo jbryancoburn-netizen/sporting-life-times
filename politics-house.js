@@ -147,6 +147,14 @@ function districtEvidence(r){
    return {source:"Official 2024 unopposed result",text:unopposed.winner+" elected unopposed in 2024",
            party:null,margin:null,sub:"Winner verified; no vote-share tally or 2026 lead",dated:"2024",poll:false,source_url:unopposed.source_url};
  }
+ if(h && !h.same_2026_geography){
+   const status=r["2024_to_2026_geography_comparison"];
+   return {source:"2024 certified House winner · past geography",
+      text:partyName(h.party)+" won in 2024; no 2026 district lead inferred",
+      party:null,margin:null,
+      sub:status==="verified_changed_district_blocks"?"2026 district blocks changed — old result retained":"Individual 2026 district map comparison pending",
+      dated:"2024",poll:false,source_url:h.source_url};
+ }
  if(r["2024_to_2026_geography_comparison"]==="pending_district_block_comparison"){
    return {source:"2026 district geography pending",text:"District boundary review pending",party:null,margin:null,
      sub:"State redrawn; individual district overlap not yet verified",dated:"2026",poll:false};
@@ -222,7 +230,7 @@ function districtGraphicData(r){
      caveat:hist.same_2026_geography?"Unchanged district boundary vintage.":"2026 district geography comparison pending; these are 2024 votes only.",
      url:hist.candidate_vote_source_url};
  }
- return {type:"unavailable",label:r["2024_to_2026_geography_comparison"]==="pending_district_block_comparison"?"BOUNDARY REVIEW · PENDING":"DISTRICT EVIDENCE · PENDING",
+ return {type:"unavailable",label:r["2024_to_2026_geography_comparison"]==="verified_changed_district_blocks"?"2026 MAP · DISTRICT CHANGED":r["2024_to_2026_geography_comparison"]==="pending_district_block_comparison"?"BOUNDARY REVIEW · PENDING":"DISTRICT EVIDENCE · PENDING",
    source:"No validated D/R vote-share comparison",dem:null,rep:null,other:null,
    foot:"No comparable D/R percentage can be calculated from verified records.",
    caveat:r["2024_to_2026_geography_comparison"]==="pending_district_block_comparison"?"State map changed, but this district's overlap has not been verified.":"A named-candidate poll or comparable two-party result is not available.",url:null};
@@ -671,7 +679,15 @@ function resultPanel(r,state){
    }
  }else{
    const comparable=h.same_2026_geography;
-   if(!comparable)box.append(newEl("div","BOUNDARY REVIEW: "+state.name+" redrew its map, but whether this individual district changed is not yet established. These are real 2024 votes, not a 2026 margin.","callout"));
+   if(!comparable){
+     const status=r["2024_to_2026_geography_comparison"];
+     const message=status==="verified_changed_district_blocks"?
+       "OFFICIAL BOUNDARY COMPARISON: This district's 2026 Census-block assignments differ from 2024.":
+       "BOUNDARY REVIEW: "+state.name+" redrew its map, but whether this individual district changed remains unverified.";
+     box.append(newEl("div",message+" These 2024 results remain historical, not a 2026 margin.","callout"));
+     const blocks=r["2024_to_2026_block_comparison"];
+     if(blocks)box.append(newEl("p","Geographic audit, unweighted Census blocks: "+fmt(blocks.incoming_blocks)+" added; "+fmt(blocks.outgoing_blocks)+" removed. These are not voters or vote totals.","footnote"));
+   }
    box.append(newEl("div","2024 winner: "+h.winner+" ("+partyName(h.party)+")","big-margin"));
    if(h.finalists?.length===2){
      const [winner,runner]=h.finalists;
@@ -690,7 +706,9 @@ function resultPanel(r,state){
    }else if(!h.finalists?.length){
      box.append(newEl("p","No validated Democrat-versus-Republican two-party margin; no candidate gap is inferred from party-only totals.","footnote"));
    }
-   box.append(newEl("p","Democratic votes: "+fmt(h.dem_votes)+" · Republican votes: "+fmt(h.rep_votes)+" · Other votes: "+fmt(h.other_votes||0),"footnote"));
+   if(!h.finalists?.length){
+     box.append(newEl("p","Democratic votes: "+fmt(h.dem_votes)+" · Republican votes: "+fmt(h.rep_votes)+" · Other votes: "+fmt(h.other_votes||0),"footnote"));
+   }
    if(h.source_url){let link=addLink(box,"Original-source-derived 2024 House return ↗",h.source_url,"src");link.target="_blank";link.rel="noopener noreferrer";}
  }
  box.append(newEl("p","Statewide 2024 presidential outcome (not a district result): "+voters(state)+".","footnote"));
