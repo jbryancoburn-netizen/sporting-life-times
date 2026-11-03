@@ -41,6 +41,7 @@ body[data-house-page="district"] .mast h1 {
   font-weight:700;
   letter-spacing:-.035em;
   line-height:1.04;
+  color:var(--ledger-ink)!important;
 }
 body[data-house-page="state"] h2,
 body[data-house-page="district"] h2,
@@ -59,7 +60,12 @@ body[data-house-page="district"] .dossier-overline {
   font-weight:700;
   letter-spacing:.09em;
 }
-body[data-house-page="state"] .state-edition,
+body[data-house-page="state"] .state-edition {
+  background:var(--ledger-paper-deep)!important;
+  color:var(--ledger-ink)!important;
+  box-shadow:none!important;
+  border-color:var(--ledger-rule)!important;
+}
 body[data-house-page="district"] .district-overview {
   background:transparent!important;
   box-shadow:none!important;
@@ -103,8 +109,9 @@ body[data-house-page="district"] .dossier-map-credit {
 }
 body[data-house-page="state"] .nav,
 body[data-house-page="district"] .nav {
+  position:static;
   border-block:1px solid var(--ledger-rule);
-  background:transparent!important;
+  background:var(--ledger-paper)!important;
   box-shadow:none!important;
 }
 body[data-house-page="state"] .nav a,
@@ -143,9 +150,26 @@ body[data-house-page="state"] .ledger-map-mode[aria-pressed="true"]{background:v
 body[data-house-page="state"] .ledger-map-explanation{font:13px/1.6 var(--ledger-serif);color:var(--ledger-muted);max-width:80ch;margin:5px 0 12px}
 
 /* ATLAS-FIRST LAYOUT · shared by all fifty state and 435 district editions */
-body[data-house-page="state"] .state-graphic-hero{padding:22px 32px!important;min-height:0!important;margin-block:12px!important}
+body[data-house-page="state"] .state-graphic-hero{
+  padding:22px 32px!important;min-height:0!important;margin:12px 0!important;
+  background:var(--ledger-paper-deep)!important;color:var(--ledger-ink)!important;
+  border-block:3px double var(--ledger-ink)!important;border-inline:0!important;
+}
 body[data-house-page="state"] .state-lead-grid{grid-template-columns:minmax(0,1.55fr) minmax(220px,.75fr);gap:25px}
-body[data-house-page="state"] .state-edition h2{font:700 clamp(24px,3vw,38px)/1.12 var(--ledger-serif)}
+body[data-house-page="state"] .state-graphic-hero .state-lead-main h2{
+  font:700 clamp(29px,3.3vw,46px)/1.16 var(--ledger-display)!important;
+  color:var(--ledger-ink)!important;letter-spacing:-.025em!important;max-width:25ch!important;
+  margin:12px 0 13px!important;
+}
+body[data-house-page="state"] .state-graphic-hero .state-lead-main p{
+  font:400 clamp(14px,1.25vw,16px)/1.6 var(--ledger-serif)!important;
+  color:#39362f!important;max-width:68ch!important;
+}
+body[data-house-page="state"] .state-edition-line{
+  color:var(--ledger-muted)!important;border-bottom:1px solid var(--ledger-rule)!important;
+}
+body[data-house-page="state"] .state-edition-line .eyebrow{color:var(--ledger-accent)!important}
+body[data-house-page="state"] .state-hero-watermark{color:#675b4b!important;opacity:.085!important;transform:none!important}
 body[data-house-page="state"] .state-feature-map{padding:26px 32px 22px!important;margin:10px 0 20px!important;position:relative}
 body[data-house-page="state"] .state-feature-map .section-heading{display:flex;justify-content:space-between;align-items:end;gap:20px;border-bottom:2px solid var(--ledger-ink);padding-bottom:14px;margin-bottom:17px}
 body[data-house-page="state"] .state-feature-map .section-heading h3{font:700 clamp(28px,3.6vw,46px)/1.05 var(--ledger-display);margin:3px 0 0}
@@ -192,8 +216,12 @@ body[data-house-page="state"] .state-metrics>.metric{
  background:transparent!important;box-shadow:none!important;padding:12px 18px!important;
 }
 body[data-house-page="state"] .state-metrics>.metric:last-child{border-right:0!important}
-body[data-house-page="state"] .state-metrics .metric b{font-family:var(--ledger-display)!important;font-weight:700}
-body[data-house-page="state"] .state-metrics .metric span{font-family:var(--ledger-sans)!important;letter-spacing:.04em}
+body[data-house-page="state"] .state-metrics .metric b{
+  font:700 clamp(27px,2.8vw,38px)/1.15 var(--ledger-display)!important;color:var(--ledger-ink)!important;
+}
+body[data-house-page="state"] .state-metrics .metric span{
+  font:700 11px/1.45 var(--ledger-sans)!important;letter-spacing:.035em;color:#554e43!important;
+}
 body[data-house-page="state"] .state-feature-map{clear:both}
 body[data-house-page="state"] .state-news-board,
 body[data-house-page="state"] .state-races-section,
@@ -292,7 +320,12 @@ body[data-house-page="district"] .nav a[href^="#"]{font-size:10px!important}
   flex:0 0 auto;white-space:nowrap;padding:10px 9px!important;
  }
  body[data-house-page="district"] .district-overview{padding:17px 12px!important}
- body[data-house-page="state"] .state-graphic-hero{padding:17px 12px!important}
+ body[data-house-page="state"] .state-graphic-hero{padding:17px 12px!important;margin-inline:0!important}
+ body[data-house-page="state"] .state-graphic-hero .state-lead-main h2{font-size:clamp(30px,8vw,38px)!important;max-width:100%!important}
+ body[data-house-page="state"] .state-graphic-hero .state-lead-main p{font-size:14px!important;line-height:1.55!important}
+ body[data-house-page="state"] .state-edition-line{flex-wrap:wrap;gap:5px 12px}
+ body[data-house-page="state"] .state-metrics .metric b{font-size:28px!important}
+ body[data-house-page="state"] .state-metrics .metric span{font-size:10px!important;line-height:1.45!important}
 }
 
 /* 435-EDITION VICTORIAN COMPOSITION — editorial columns, not dashboard cards */
