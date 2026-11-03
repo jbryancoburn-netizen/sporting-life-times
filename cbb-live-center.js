@@ -719,9 +719,10 @@
       ...g.certifiedBox,away_name:teamName(g.away),home_name:teamName(g.home)
     }):players(raw);
     const plays=raw&&window.SLTCourt?.parsePlays?window.SLTCourt.parsePlays(raw):[];
+    const periodName=n=>!n?'GAME':n<=2?'HALF '+n:'OT '+(n-2);
     const chronology=plays.length?'<div class="cbb-plays-count">'+plays.length+' reported events · newest first · source-reported, not simulated</div>'+
       '<ol class="cbb-all-plays">'+plays.slice().reverse().map(p=>
-        '<li><span>'+esc(p.period?('H'+p.period):'GAME')+' · '+esc(p.clock||'Time unavailable')+'</span>'+
+        '<li><span>'+esc(periodName(p.period))+' · '+esc(p.clock||'Time unavailable')+'</span>'+
         '<strong>'+esc(p.text)+'</strong>'+
         (p.awayScore!=null&&p.homeScore!=null?'<small>'+esc(p.awayScore)+'–'+esc(p.homeScore)+'</small>':'')+'</li>').join('')+'</ol>':
       '<p class="cbb-empty">Possession-by-possession events are not supplied for this matchup. A box score does not establish possession order.</p>';
@@ -887,10 +888,11 @@
       const eligible=rows.filter(x=>Array.isArray(x.stats)&&x.athlete?.displayName);
       const pts=labels.findIndex(x=>x==='PTS'),reb=labels.findIndex(x=>x==='REB'),ast=labels.findIndex(x=>x==='AST');
       eligible.sort((a,b)=>Number(b.stats?.[pts]||0)-Number(a.stats?.[pts]||0));
-      const allCols=labels.map((x,i)=>({x,i})).filter(({x})=>['MIN','PTS','REB','AST','FG','3PT','FT','STL','BLK','TO'].includes(x));
+      // Keep every source-supplied column: minutes, shooting, offensive boards, fouls and more.
+      const allCols=labels.map((x,i)=>({x,i}));
       const cols=allCols.length?allCols:displayLabels.map((x,i)=>({x,i}));
       const heading=cols.map(c=>'<th>'+esc(c.x)+'</th>').join('');
-      const body=eligible.slice(0,12).map(p=>'<tr><th>'+esc(p.athlete.displayName)+'</th>'+cols.map(c=>'<td>'+esc(p.stats[c.i]??'—')+'</td>').join('')+'</tr>').join('');
+      const body=eligible.map(p=>'<tr><th>'+esc(p.athlete.displayName)+'</th>'+cols.map(c=>'<td>'+esc(p.stats[c.i]??'—')+'</td>').join('')+'</tr>').join('');
       const leaders=eligible.slice(0,3).map(p=>esc(p.athlete.displayName)+' '+(pts<0?'':esc(p.stats[pts]??'—')+' PTS')+
         (reb<0?'':' · '+esc(p.stats[reb]??'—')+' REB')+(ast<0?'':' · '+esc(p.stats[ast]??'—')+' AST')).join('<br>');
       return '<div class="cbb-box-section"><h4>'+esc(label)+' · ESPN Player Box Score (secondary)</h4>'+
@@ -900,15 +902,17 @@
   }
   function ncaaPlayerBox(box){
     if(!box?.away?.players?.length||!box?.home?.players?.length)return '';
-    const cols=[['pts','PTS'],['reb','REB'],['ast','AST'],['stl','STL'],['blk','BLK'],
+    const cols=[['min','MIN'],['pts','PTS'],['reb','REB'],['oreb','OREB'],['dreb','DREB'],
+      ['ast','AST'],['stl','STL'],['blk','BLK'],['tov','TO'],['pf','PF'],
       ['fgm','FGM'],['fga','FGA'],['tpm','3PM'],['tpa','3PA'],['ftm','FTM'],['fta','FTA']];
     const section=(side,name)=>{
       const rows=box[side].players;
+      const available=cols.filter(([key])=>rows.some(p=>p[key]!=null));
       return '<div class="cbb-box-section"><h4>'+esc(name)+' · NCAA-origin Player Box</h4>'+
         '<div class="cbb-scroll"><table class="cbb-box-table"><thead><tr><th>Player</th>'+
-        cols.map(([k,label])=>'<th>'+label+'</th>').join('')+'</tr></thead><tbody>'+
+        available.map(([k,label])=>'<th>'+label+'</th>').join('')+'</tr></thead><tbody>'+
         rows.map(p=>'<tr><th>'+esc(p.name)+'</th>'+
-          cols.map(([key])=>'<td>'+esc(p[key]??'—')+'</td>').join('')+'</tr>').join('')+
+          available.map(([key])=>'<td>'+esc(p[key]??'—')+'</td>').join('')+'</tr>').join('')+
         '</tbody></table></div></div>';
     };
     return '<p class="cbb-provider-link">NCAA-origin individual totals: game '+esc(box.ncaa_id)+
