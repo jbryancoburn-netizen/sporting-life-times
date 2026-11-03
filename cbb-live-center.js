@@ -413,7 +413,7 @@
     if(!old)return false;
     const host=document.createElement('section');host.id='cbb-live-desk';host.className='cbb-live-desk'+(women?' cbb-women':'');
     host.innerHTML='<div class="cbb-desk-header"><div><div class="cbb-kicker">'+(women?'WOMEN’S':'MEN’S')+' DIVISION I</div>'+
-      '<h2>The Courtside Desk</h2></div>'+
+      '<h2>COURTSIDE / THE LIVE DESK</h2><p class="cbb-desk-byline">Verified game states · independent analysis · away team first</p></div>'+
       (isStandalone?'':'<a class="cbb-center-link" href="'+centerURL()+'">All games →</a>')+'</div>'+
       '<div class="cbb-date-controls"><button type="button" data-cbb-date="-1" aria-label="Previous day">‹</button>'+
       '<label class="cbb-date-label" for="cbb-day-picker"><span>Date</span><input id="cbb-day-picker" type="date" value="'+esc(state.day)+'"></label>'+
@@ -892,10 +892,12 @@
     const espnId=/^\d+$/.test(String(g.espnId||g.id))?String(g.espnId||g.id):null;
     const ext=(hasStats&&espnId)?'https://www.espn.com/'+sport+'/game/_/gameId/'+encodeURIComponent(espnId):
       (g.url||('https://www.ncaa.com/scoreboard/'+(women?'basketball-women':'basketball-men')+'/d1'));
-    node.innerHTML='<header class="cbb-gamefile-hero" style="--cbb-away:'+safeTeamColor(g.away)+';--cbb-home:'+safeTeamColor(g.home)+'"><div class="cbb-gamefile-eyebrow">THE SPORTING LIFE & TIMES · '+(women?'WOMEN’S':'MEN’S')+' D-I · GAMEFILE '+esc(g.id)+'</div>'+
-      '<h1>'+esc(schoolLabel(g.away))+' <em>'+(g.neutral?'vs.':'at')+'</em> '+esc(schoolLabel(g.home))+'</h1>'+
+    node.innerHTML='<header class="cbb-gamefile-hero" style="--cbb-away:'+safeTeamColor(g.away)+';--cbb-home:'+safeTeamColor(g.home)+'"><div class="cbb-gamefile-eyebrow">SPORTING LIFE AND TIMES · '+(women?'WOMEN’S':'MEN’S')+' D-I · GAMEFILE '+esc(g.id)+'</div>'+
+      '<h1>'+esc(schoolLabel(g.away))+' <span class="cbb-gamefile-versus">'+(g.neutral?'VS':'AT')+'</span> '+esc(schoolLabel(g.home))+'</h1>'+
       '<p class="cbb-gamefile-status">'+currentView(g)+' · '+esc(g.venue||'Venue not listed')+(g.broadcast?' · '+esc(g.broadcast):'')+'</p>'+
-      '<div class="cbb-gamefile-score">'+row(g.away,g.phase,false,true,g)+row(g.home,g.phase,false,true,g)+'</div></header>'+
+      '<div class="cbb-gamefile-score">'+row(g.away,g.phase,false,true,g)+row(g.home,g.phase,false,true,g)+'</div>'+
+      '<div class="cbb-gamefile-ledger"><span>AWAY → HOME</span><span>'+esc(g.phase==='final'?'FINAL SCORE':g.phase==='live'?'LIVE REPORTED SCORE':'PREGAME')+'</span>'+
+      '<span>'+esc(g.source||'SOURCE PENDING')+'</span></div></header>'+
       gamefileStatStrip(g,raw)+
       '<nav class="cbb-gamefile-tabs" role="tablist" aria-label="Gamefile statistics">'+
       '<button role="tab" type="button" id="gf-tab-summary" aria-controls="gf-panel-summary" data-gamefile-tab="summary">Game Summary</button>'+

@@ -303,7 +303,7 @@ const emblem=t=>{
     '<span>'+esc(String(t.name).slice(0,2))+'</span>')+'</span>';
 };
 const rating=t=>{const r=rankOf(t,ratings,women);return r&&Number.isFinite(+r.elo)?Math.round(+r.elo):null};
-const record=t=>{const r=rankOf(t,ratings,women);return r&&r.wins!=null&&r.losses!=null?Number(r.wins)+'–'+Number(r.losses):'0–0'};
+const record=t=>{const r=rankOf(t,ratings,women);return r&&r.wins!=null&&r.losses!=null?Number(r.wins)+'–'+Number(r.losses):'—'};
 const team=t=>{const profile=rankOf(t,ratings,women),url=teamPage(t);
  const body='<span class="sl-team">'+emblem(t)+'<span class="sl-team-copy"><strong>'+esc(t.name)+'</strong>'+
   '<small>'+esc(mascot(t)||'')+'</small>'+
@@ -424,15 +424,29 @@ const meter=g=>{
 const broadcastBug=g=>{
  const pts=t=>g.phase==='upcoming'?'—':Number.isFinite(t.score)?String(t.score):'—';
  const status=g.phase==='final'?'FINAL':g.phase==='live'?String(g.status||'LIVE'):'PREGAME';
- return '<div class="sl-broadcast-bug" aria-label="Game scoreboard">'+
-  '<div class="sl-broadcast-mark"><b>SL<span class="sl-mark-amp">&</span>T</b><span>SPORTS</span></div>'+
+ const line=t=>{
+  const r=record(t),elo=rating(t);
+  const meta='<span>RECORD '+esc(r)+'</span>'+(elo!==null?'<span>USRS '+esc(elo)+'</span>':'');
+  if(g.phase!=='live')return meta;
+  const v=window.SLTCollegeIndicators?.fromGame({
+    phase:g.phase,alternatingPossessionTeamId:g.alternatingPossessionTeamId
+  },{team:{id:t.id},timeoutsRemaining:t.timeoutsRemaining,
+     timeoutsTotal:t.timeoutsTotal,challengesRemaining:t.challengesRemaining,
+     challengesTotal:t.challengesTotal,teamFouls:t.teamFouls,
+     bonusStatus:t.bonusStatus},null);
+  return meta+(v?'<span class="sl-broadcast-live">'+window.SLTCollegeIndicators.render(v)+'</span>':
+    '<span class="sl-broadcast-live">TO — · CH — · FOULS —</span>');
+ };
+ return '<div class="sl-broadcast-bug" aria-label="'+esc(g.away.name)+' away, '+esc(g.home.name)+' home scoreboard">'+
+  '<div class="sl-broadcast-mark"><b>SLT</b><span>NCAA</span></div>'+
   '<div class="sl-broadcast-pair">'+
-  [g.away,g.home].map((t,i)=>'<div class="sl-broadcast-row" style="--bug-team:'+brand(t)+';--bug-accent:'+secondary(t)+'">'+
+  [g.away,g.home].map((t,i)=>'<div class="sl-broadcast-row" data-side="'+(i?'home':'away')+'" style="--bug-team:'+brand(t)+';--bug-accent:'+secondary(t)+'">'+
    '<span class="sl-broadcast-crest">'+emblem(t)+'</span>'+
-   '<strong class="sl-broadcast-name">'+esc(t.name)+'</strong>'+
+   '<span class="sl-broadcast-ident"><strong class="sl-broadcast-name">'+esc(t.name)+'</strong>'+
+   '<span class="sl-broadcast-secondary">'+line(t)+favorite(t)+'</span></span>'+
    '<b class="sl-broadcast-points">'+pts(t)+'</b></div>').join('')+
   '</div><div class="sl-broadcast-status"><strong>'+esc(status)+'</strong>'+
-  '<small>'+esc(g.kind==='exhibition'?'EXHIBITION':'COLLEGE HOOPS')+'</small></div></div>';
+  '<small>'+esc(g.kind==='exhibition'?'EXHIBITION':'DIVISION I')+'</small></div></div>';
 };
 function card(g,featured){
  const pair=lens(g),href=gameDetailsHref(g,women);
@@ -477,7 +491,15 @@ const render=()=>{
  for(const b of document.querySelectorAll('[data-filter]')){const active=b.dataset.filter===filter;b.classList.toggle('is-active',active);b.setAttribute('aria-pressed',String(active));}
  const empty=sourceError?'<div class="sl-empty"><strong>Data source unavailable.</strong><p>'+esc(sourceError)+'</p><button type="button" id="sl-retry">Retry connection</button></div>':
  '<div class="sl-empty"><strong>No games match this view.</strong><p>Change the date or filter. Only source-backed fixtures are shown.</p></div>';
- document.getElementById('sl-games').innerHTML=shown.length?shown.map((g,i)=>card(g,i===0)).join(''):empty;
+ const phaseLabel={live:'ON THE FLOOR',upcoming:'COMING UP',final:'FINAL SCORES'};
+ const grouped=filter==='all'?['live','upcoming','final'].map(phase=>{
+   const rows=shown.filter(g=>g.phase===phase);
+   return rows.length?'<section class="sl-game-section" data-slate-phase="'+phase+'">'+
+    '<div class="sl-game-section-head"><h3>'+phaseLabel[phase]+'</h3><span>'+rows.length+
+    ' '+(rows.length===1?'GAME':'GAMES')+'</span></div>'+
+    '<div class="sl-game-section-cards">'+rows.map(g=>card(g,shown.indexOf(g)===0)).join('')+'</div></section>':'';
+ }).join(''):shown.map((g,i)=>card(g,i===0)).join('');
+ document.getElementById('sl-games').innerHTML=shown.length?grouped:empty;
  document.getElementById('sl-more').hidden=games.length<=shown.length;
  document.getElementById('sl-more').textContent='Show more games ('+(games.length-shown.length)+' remaining)';
  document.getElementById('sl-coverage').textContent=women?
