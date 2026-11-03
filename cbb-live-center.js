@@ -10,6 +10,9 @@
   const api='https://site.api.espn.com/apis/site/v2/sports/basketball/'+sport+'/';
   const root=document.getElementById('cbb-center-root');
   const esc=v=>String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  // Keep provider metadata for internal reconciliation, but make the newspaper
+  // source language provider-neutral at its rendering boundary.
+  const publicSource=v=>String(v||'').replace(/\bESPN\b/gi,'secondary feed');
   const cleanURL=v=>{if(typeof v!=='string'||!v.trim())return '';try{const u=new URL(v,location.href);return /^https?:$/.test(u.protocol)?esc(u.href):'';}catch{return '';}};
   const q=s=>document.querySelector(s);
   const etParts=d=>{const o={};for(const p of new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(d)){if(p.type!=='literal')o[p.type]=p.value;}return o.year+'-'+o.month+'-'+o.day;};
@@ -205,7 +208,7 @@
         '<div class="cbb-usrs-odds"><small>'+(state.preseason?'NO POWER EDGE UNTIL VERIFIED FINALS':'NO VERIFIED GAME PROBABILITY')+'</small></div>')+'</div>';
   }
   function gameEditorial(g){
-    if(g.disputed)return 'NCAA-origin data and ESPN reported different final scores. The score is withheld pending reconciliation.';
+    if(g.disputed)return 'Independent source feeds report different final scores. The score is withheld pending reconciliation.';
     const as=score(g.away),hs=score(g.home);
     const away=teamName(g.away),home=teamName(g.home),when=localDate(g.date);
     const p=g.phase;
@@ -353,7 +356,7 @@
       '<button type="button" class="cbb-box-btn" data-cbb-toggle aria-expanded="'+expanded+
       '" aria-controls="cbb-inline-'+esc(g.id)+'">'+(expanded?'CLOSE DETAILS ▲':'GAME DETAILS ▼')+'</button>'+ 
       '<a class="cbb-gamefile-link" href="'+esc(gameLink(g))+'" aria-label="Read the complete sourced Gamefile for '+esc(g.away.name)+' versus '+esc(g.home.name)+'">GAMEFILE ↗</a></div>'+
-      '<div class="cbb-game-origin">'+esc(g.source||'Source not available')+
+      '<div class="cbb-game-origin">'+esc(publicSource(g.source||'Source not available'))+
       (g.certifiedTeamBox?' · NCAA-origin team totals checked':'')+'</div>'+
       '<div class="cbb-inline-detail" id="cbb-inline-'+esc(g.id)+'" data-cbb-details '+
       (expanded?'':'hidden')+'><p class="cbb-loading">Loading this game’s report…</p></div>'+
@@ -741,8 +744,8 @@
       '<section data-cbb-inline-panel="box" hidden>'+(people||unavailable)+'</section>'+
       '<section data-cbb-inline-panel="team" hidden>'+(teams||unavailable)+'</section>'+
       '<section data-cbb-inline-panel="plays" hidden>'+chronology+'</section>'+
-      '<p class="cbb-inline-source">Data: '+esc(g.source||'Game provider not confirmed')+
-      (raw?.boxscore?' · ESPN statistical feed (secondary)':' · No live box-score feed')+
+      '<p class="cbb-inline-source">Data: '+esc(publicSource(g.source||'Game provider not confirmed'))+
+      (raw?.boxscore?' · supplemental statistical feed':' · No live box-score feed')+
       (g.disputed||g.statsDisputed?' · Conflicting statistics withheld':'')+
       (entry?.at?' · Checked '+new Date(entry.at).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/New_York'})+' ET':'')+'</p>';
     selectInlineTab(panel,state.inlineTabs.get(String(g.id))||'summary');
@@ -803,8 +806,8 @@
     if(state.expandedDay!==day){state.expanded.clear();state.inlineTabs.clear();state.expandedDay=day;}
     const feed=await getCourtGames(day);
     let games=feed.games;
-    state.source=feed.officialAsOf?'NCAA-origin + attributed ESPN coverage':
-      'ESPN secondary / published fallback; NCAA crosscheck unavailable';
+    state.source=feed.officialAsOf?'NCAA-origin + cross-checked live coverage':
+      'Secondary feed / published fallback; NCAA crosscheck unavailable';
     state.fallback=feed.snapshot;
     if(!mounted){state.pending=false;return;}
     // Avoid race conditions when the reader changes dates while a prior fetch is still in flight.
@@ -819,9 +822,9 @@
     if(stamp){
       const ncaaStamp=feed.officialAsOf?'NCAA-origin feed checked '+new Date(feed.officialAsOf).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/New_York'})+' ET':'NCAA-origin check unavailable or stale';
       stamp.textContent=ncaaStamp+' · '+feed.officialCount+' NCAA games · '+feed.espnCount+
-        ' ESPN events (secondary) · '+feed.schoolConfirmed+' school fixtures · '+
+        ' live-feed events (secondary) · '+feed.schoolConfirmed+' school fixtures · '+
          (feed.conferenceConfirmed||0)+' conference fixtures'+
-         (feed.networkDisagreements?' · '+feed.networkDisagreements+' TV listings under review':'')+(state.fallback?' · local snapshot, not live':' · ESPN checks every 30s')+
+         (feed.networkDisagreements?' · '+feed.networkDisagreements+' TV listings under review':'')+(state.fallback?' · local snapshot, not live':' · game feeds checked every 30s')+
         ' · scores individually attributed below';
     }
     // Do not hide the original until this desk has a real scoreboard or a valid fallback.
@@ -845,7 +848,7 @@
       if(one==null||two==null)return '';
       return '<div class="cbb-stat-line"><span>'+esc(one)+'</span><b>'+label+'</b><span>'+esc(two)+'</span></div>';
     }).filter(Boolean);
-    return rows.length?'<div class="cbb-box-section"><h4>Team Statistics · ESPN (secondary)</h4><div class="cbb-stat-head"><span>'+esc(code(g.away))+'</span><span>'+esc(code(g.home))+'</span></div>'+rows.join('')+'</div>':'';
+    return rows.length?'<div class="cbb-box-section"><h4>Team Statistics · supplemental live feed</h4><div class="cbb-stat-head"><span>'+esc(code(g.away))+'</span><span>'+esc(code(g.home))+'</span></div>'+rows.join('')+'</div>':'';
   }
   function ncaaTeamStats(g,box){
     if(!box?.away||!box?.home)return '';
@@ -898,7 +901,7 @@
       const body=eligible.map(p=>'<tr><th>'+esc(p.athlete.displayName)+'</th>'+cols.map(c=>'<td>'+esc(p.stats[c.i]??'—')+'</td>').join('')+'</tr>').join('');
       const leaders=eligible.slice(0,3).map(p=>esc(p.athlete.displayName)+' '+(pts<0?'':esc(p.stats[pts]??'—')+' PTS')+
         (reb<0?'':' · '+esc(p.stats[reb]??'—')+' REB')+(ast<0?'':' · '+esc(p.stats[ast]??'—')+' AST')).join('<br>');
-      return '<div class="cbb-box-section"><h4>'+esc(label)+' · ESPN Player Box Score (secondary)</h4>'+
+      return '<div class="cbb-box-section"><h4>'+esc(label)+' · sourced player box score</h4>'+
         (leaders?'<p class="cbb-leaders">'+leaders+'</p>':'')+
         '<div class="cbb-scroll"><table class="cbb-box-table"><thead><tr><th>Player</th>'+heading+'</tr></thead><tbody>'+body+'</tbody></table></div></div>';
     }).filter(Boolean).join('');
@@ -976,12 +979,12 @@
       '<div id="cbb-courtcast-root"></div>'+(periods||missing)+usrsLine(g)+'</section>'+
       '<section role="tabpanel" id="gf-panel-team" aria-labelledby="gf-tab-team" data-gamefile-panel="team">'+(team||missing)+'</section>'+
       '<section role="tabpanel" id="gf-panel-players" aria-labelledby="gf-tab-players" data-gamefile-panel="players">'+(playersHTML||missing)+'</section>'+
-      '<p class="cbb-provider-link">'+esc(g.source||'Source pending')+
+      '<p class="cbb-provider-link">'+esc(publicSource(g.source||'Source pending'))+
       (g.schoolSource?' · <a href="'+cleanURL(g.schoolSource)+'" rel="noopener noreferrer" target="_blank">Verified school schedule ↗</a>':'')+
        (g.conferenceSource?' · <a href="'+cleanURL(g.conferenceSource)+'" rel="noopener noreferrer" target="_blank">Conference schedule ↗</a>':'')+
        (g.conferenceNetworkDisagreement?' · Network listings differ: conference '+esc(g.conferenceNetwork||'disputed')+'; other provider '+esc(g.broadcast||'unlisted'):'')+
       ' · <a href="'+cleanURL(ext)+'" rel="noopener noreferrer" target="_blank">'+
-      (hasStats?'ESPN box statistics (secondary) ↗':'Source scoreboard ↗')+'</a>'+
+      (hasStats?'Live box statistics ↗':'Source scoreboard ↗')+'</a>'+
        (g.certifiedBox?' · NCAA-origin individual totals available under Player Box Score':'')+
        (g.certifiedTeamBox?' · NCAA-origin verified team totals available under Team Statistics':'')+'</p>';
     selectGameTab(state.section);
