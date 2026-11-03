@@ -130,6 +130,12 @@ function districtEvidence(r){
            source_url:poll.source_url,dated:"2026",poll:true};
  }
  const h=r["2024_house_result_on_prior_boundaries"];
+ if(h?.finalists?.length===2){
+   const [winner,runner]=h.finalists;
+   return {source:"Official 2024 general election",text:winner.name+" defeated "+runner.name+" by "+fmt(h.winner_runner_up_margin_votes)+" votes",
+     party:null,margin:null,sub:"Named 2024 finalists · "+(h.same_2026_geography?"verified same geography":"2026 map comparison pending"),
+     source_url:h.candidate_vote_source_url,dated:"2024",poll:false};
+ }
  if(h && h.same_2026_geography){
    const margin=h.dem_two_party_margin_pp;
    return {source:"2024 House result",text:margin==null?partyName(h.party)+" won (no two-party margin)":partyName(h.party)+" +"+one(Math.abs(margin))+" points",
@@ -141,9 +147,9 @@ function districtEvidence(r){
    return {source:"Official 2024 unopposed result",text:unopposed.winner+" elected unopposed in 2024",
            party:null,margin:null,sub:"Winner verified; no vote-share tally or 2026 lead",dated:"2024",poll:false,source_url:unopposed.source_url};
  }
- if(r["2026_boundaries_revised"]){
-   return {source:"2026 district boundaries changed",text:"New 2026 boundaries",party:null,margin:null,
-           sub:"No sourced 2026 district poll yet",dated:"2026",poll:false};
+ if(r["2024_to_2026_geography_comparison"]==="pending_district_block_comparison"){
+   return {source:"2026 district geography pending",text:"District boundary review pending",party:null,margin:null,
+     sub:"State redrawn; individual district overlap not yet verified",dated:"2026",poll:false};
  }
  return {source:"No comparable local observations",text:"Data not available",party:null,margin:null,
           sub:"No sourced district poll or verified margin",dated:"2026",poll:false};
@@ -208,21 +214,46 @@ function districtGraphicData(r){
      caveat:"2024 vote totals: D "+fmt(hist.dem_votes)+" · R "+fmt(hist.rep_votes),
      url:hist.source_url};
  }
- return {type:"unavailable",label:r["2026_boundaries_revised"]?"2026 MAP · REVISED DISTRICTS":"DISTRICT EVIDENCE · PENDING",
+ if(hist?.finalists?.length===2){
+   return {type:"historical_finalists",label:"2024 HOUSE · CERTIFIED FINALISTS",
+     source:hist.candidate_vote_source_authority+" · 2024 general election",
+     finalists:hist.finalists,writeins:hist.write_in_votes||0,
+     foot:"Real general-election candidate votes, not a 2026 polling estimate.",
+     caveat:hist.same_2026_geography?"Unchanged district boundary vintage.":"2026 district geography comparison pending; these are 2024 votes only.",
+     url:hist.candidate_vote_source_url};
+ }
+ return {type:"unavailable",label:r["2024_to_2026_geography_comparison"]==="pending_district_block_comparison"?"BOUNDARY REVIEW · PENDING":"DISTRICT EVIDENCE · PENDING",
    source:"No validated D/R vote-share comparison",dem:null,rep:null,other:null,
    foot:"No comparable D/R percentage can be calculated from verified records.",
-   caveat:r["2026_boundaries_revised"]?"2024 voting districts have different boundaries.":"A named-candidate poll or comparable two-party result is not available.",url:null};
+   caveat:r["2024_to_2026_geography_comparison"]==="pending_district_block_comparison"?"State map changed, but this district's overlap has not been verified.":"A named-candidate poll or comparable two-party result is not available.",url:null};
 }
 function renderDistrictGraphic(r){
  const data=districtGraphicData(r);
  const block=newEl("section",null,"district-infographic "+data.type);
  const head=newEl("div",null,"infographic-head");
- head.append(newEl("strong",data.label,"infographic-label"),newEl("span",data.type==="poll"?"SURVEY":data.type==="historical"?"HISTORY":"NO ESTIMATE","infographic-kind"));
+ head.append(newEl("strong",data.label,"infographic-label"),newEl("span",data.type==="poll"?"SURVEY":data.type.startsWith("historical")?"HISTORY":"NO ESTIMATE","infographic-kind"));
  block.append(head);
  if(data.type==="unavailable"){
    const empty=newEl("div",null,"graphic-empty");
    empty.append(newEl("span","—","graphic-empty-mark"),newEl("span","No sourced comparison to chart","graphic-empty-text"));
    block.append(empty);
+ }else if(data.type==="historical_finalists"){
+   const figures=newEl("div",null,"infographic-figures finalist-vote-figures");
+   const total=data.finalists.reduce((s,c)=>s+c.votes,0);
+   const bar=newEl("div",null,"infographic-track");
+   bar.setAttribute("role","img");
+   bar.setAttribute("aria-label",data.finalists.map(c=>c.name+" "+fmt(c.votes)+" votes").join("; "));
+   const palette={D:["#34649c","#8caed2"],R:["#a54940","#d1a097"]};
+   data.finalists.forEach((c,i)=>{
+     const share=100*c.votes/total;
+     const cell=newEl("span",null,i?"infographic-rep":"infographic-dem");
+     cell.append(newEl("b",fmt(c.votes)),newEl("small",c.name+" · "+partyName(c.party)+" · "+one(share)+"%"));
+     figures.append(cell);
+     const seg=newEl("span",null,i?"infographic-rep-bar":"infographic-dem-bar");
+     seg.style.width=share+"%";seg.style.background=(palette[c.party]||["#75808b","#b2bbc5"])[i];bar.append(seg);
+   });
+   block.append(figures,bar);
+   if(data.writeins)block.append(newEl("p",fmt(data.writeins)+" write-in votes recorded separately.","infographic-caveat"));
  }else{
    const figures=newEl("div",null,"infographic-figures");
    const left=newEl("span",null,"infographic-dem"),right=newEl("span",null,"infographic-rep");
@@ -267,8 +298,8 @@ function preliminaryRaceRead(r){
  const split=pMargin!=null&&oldMargin!=null&&Math.abs(pMargin)>=3&&Math.abs(oldMargin)>=3&&Math.sign(pMargin)!==Math.sign(oldMargin);
  const aligned=pMargin!=null&&oldMargin!=null&&!small&&!historyClose&&Math.sign(pMargin)===Math.sign(oldMargin);
  let label="Evidence incomplete",kind="INSUFFICIENT INPUTS",sub="The desk cannot yet identify a defensible edge.",tag="Needs research",watch=false;
- if(r["2026_boundaries_revised"]&&!pollValid){
-  label="New map, open race";kind="NO COMPARABLE BASELINE";sub="2024 House results do not follow these 2026 district lines.";tag="New boundaries";
+ if(r["2024_to_2026_geography_comparison"]==="pending_district_block_comparison"&&!pollValid){
+  label="Map review pending";kind="DISTRICT OVERLAP UNVERIFIED";sub="The state was redrawn, but a change to this district has not been verified.";tag="Boundary audit";
  }else if(pollValid&&split){
   label="Signals disagree";kind="EARLY RACE READ · NOT ODDS";sub="The 2026 poll and comparable 2024 House result point in different directions.";tag="Race to watch";watch=true;
  }else if(pollValid&&small){
@@ -563,7 +594,7 @@ function renderState(a){
  if(state["2026_congressional_map_changed"]){
   let callout=$("boundary-caution");
   callout.hidden=false;
-  callout.textContent="NEW 2026 MAP: "+state.name+" changed its congressional boundaries. The 2024 House district results use previous lines and do not color today's districts. Only actual 2026 district-specific polling can provide a current-geometry colored margin.";
+  callout.textContent="NEW 2026 STATE MAP: Each district requires its own boundary comparison. A revised state map does not prove every district changed. Unverified overlaps are not treated as current-vintage voting baselines.";
  }
  if(window.PoliticsHouseMap)window.PoliticsHouseMap.drawState({state,rows,districtEvidence,color,urlForDistrict});
 }
@@ -633,21 +664,31 @@ function resultPanel(r,state){
      box.append(newEl("div","2024 winner: "+u.winner+" ("+partyName(u.party)+")","big-margin"));
      box.append(newEl("p","ELECTED UNOPPOSED · Confirmed from state election-office records · No general-election candidate vote totals recorded.","callout"));
      box.append(newEl("p","No vote share, two-party margin or 2026 forecast can be inferred from an unopposed result.","footnote"));
-     if(!u.verified_2026_geographic_comparability)box.append(newEl("p","2026 boundaries differ: the historical district number does not represent the same set of voters.","footnote"));
+     if(!u.verified_2026_geographic_comparability)box.append(newEl("p","Individual 2026 district geographic comparability is not yet verified; this alone does not establish a boundary change.","footnote"));
      const link=addLink(box,"Official original 2024 unopposed winner record ↗",u.source_url,"src");link.target="_blank";link.rel="noopener noreferrer";
    }else{
      box.append(newEl("p","No 2024 counted-vote record or official unopposed winner was found for this district. No margin will be manufactured."));
    }
  }else{
    const comparable=h.same_2026_geography;
-   if(!comparable)box.append(newEl("div","IMPORTANT: This result used the 2024 district boundaries. "+state.name+" changed its House map for 2026, so the result cannot be used as a 2026 district margin.","callout"));
+   if(!comparable)box.append(newEl("div","BOUNDARY REVIEW: "+state.name+" redrew its map, but whether this individual district changed is not yet established. These are real 2024 votes, not a 2026 margin.","callout"));
    box.append(newEl("div","2024 winner: "+h.winner+" ("+partyName(h.party)+")","big-margin"));
+   if(h.finalists?.length===2){
+     const [winner,runner]=h.finalists;
+     box.append(newEl("p",winner.party===runner.party?"CONTESTED SAME-PARTY GENERAL ELECTION":"CONTESTED GENERAL ELECTION","footnote"));
+     for(const c of h.finalists)box.append(newEl("p",c.name+" ("+partyName(c.party)+") · "+fmt(c.votes)+" actual votes","footnote"));
+     box.append(newEl("strong","Winner–runner-up gap: "+fmt(h.winner_runner_up_margin_votes)+" votes","big-margin"));
+     if(h.write_in_votes)box.append(newEl("p","Write-ins: "+fmt(h.write_in_votes),"footnote"));
+     if(h.candidate_vote_source_url){
+       const link=addLink(box,"Official candidate vote certificate ↗",h.candidate_vote_source_url,"src");link.target="_blank";link.rel="noopener noreferrer";
+     }
+   }
    if(h.dem_two_party_margin_pp!=null){
      const margin=h.dem_two_party_margin_pp,ds=Math.max(0,h.dem_votes),rs=Math.max(0,h.rep_votes),sum=ds+rs;
      box.append(newEl("p","2024 two-party House margin: "+(margin>0?"D":"R")+" +"+one(Math.abs(margin))+" percentage points"+(!comparable?" · OLD BOUNDARIES":"")));
      if(sum>0){let bar=newEl("div",null,"vote-bar");let left=newEl("span",null,"dem"),right=newEl("span",null,"rep");left.style.width=(100*ds/sum)+"%";right.style.width=(100*rs/sum)+"%";bar.append(left,right);box.append(bar);}
-   }else{
-     box.append(newEl("p","No valid two-party margin is reported for this election (for example, if only one major party ran). The winner alone does not establish a numeric partisan margin.","footnote"));
+   }else if(!h.finalists?.length){
+     box.append(newEl("p","No validated Democrat-versus-Republican two-party margin; no candidate gap is inferred from party-only totals.","footnote"));
    }
    box.append(newEl("p","Democratic votes: "+fmt(h.dem_votes)+" · Republican votes: "+fmt(h.rep_votes)+" · Other votes: "+fmt(h.other_votes||0),"footnote"));
    if(h.source_url){let link=addLink(box,"Original-source-derived 2024 House return ↗",h.source_url,"src");link.target="_blank";link.rel="noopener noreferrer";}
