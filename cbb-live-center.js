@@ -418,6 +418,8 @@
       const tab=e.target.closest('[data-cbb-inline-tab]');
       if(tab){state.inlineTabs.set(tab.closest('[data-cbb-game]').dataset.cbbGame,tab.dataset.cbbInlineTab);
         selectInlineTab(tab.closest('[data-cbb-details]'),tab.dataset.cbbInlineTab);return;}
+      // Interacting with the report must never collapse the scorebug.
+      if(e.target.closest('[data-cbb-details]'))return;
       const card=e.target.closest('[data-cbb-game]');
       if(!card||!host.contains(card)||e.target.closest('[data-cbb-details]')||(!e.target.closest('[data-cbb-toggle]')&&e.target.closest('a,button,input,select,label')))return;
       const id=card.dataset.cbbGame,open=!state.expanded.has(id);
@@ -765,7 +767,7 @@
     }
     // A refresh may have replaced this exact card while the fetch was in flight.
     const current=document.querySelector('[data-cbb-game="'+id+'"] [data-cbb-details]');
-    if(current&&state.expanded.has(id))renderInlineDetails(g,current,entry);
+    if(current&&state.expanded.has(id))renderInlineDetails(state.games.find(x=>String(x.id)===id)||g,current,entry);
   }
     function renderCards(){
     const countBy=phase=>state.games.filter(g=>g.phase===phase).length;
