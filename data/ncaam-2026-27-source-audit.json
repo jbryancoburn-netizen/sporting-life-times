@@ -1,8 +1,8 @@
 {
-  "as_of": "2026-11-02",
-  "matched_source_games": 362,
-  "completed_unique_games": 6,
-  "upcoming_or_unconfirmed_games": 356,
+  "as_of": "2026-11-03",
+  "matched_source_games": 417,
+  "completed_unique_games": 59,
+  "upcoming_or_unconfirmed_games": 298,
   "excluded": {},
   "unmapped_teams_fatal": false,
   "score_sanity_checked": true,
@@ -14,28 +14,39 @@
     "crosswalk_matched_programs": 365,
     "crosswalk_unmatched_programs": [],
     "fetch_start": "2026-11-01",
-    "fetch_through": "2026-11-09",
-    "provider_events_seen": 522,
-    "provider_events_accepted": 362,
+    "fetch_through": "2026-11-10",
+    "provider_events_seen": 591,
+    "provider_events_accepted": 418,
     "provider_events_excluded": {
-      "unmatched_espn_program": 160
+      "unmatched_espn_program": 173
     },
     "corrected_final_scores": 0,
-    "cached_event_count": 362,
+    "cached_event_count": 417,
     "quarantined_identity_conflicts": [
       {
-        "event_id": "espn:401929356",
+        "event_id": "espn:401921704",
         "cached_teams": [
-          "Portland",
-          "UT Arlington"
+          "Gonzaga",
+          "Purdue"
         ],
         "new_teams": [
-          "UT Arlington",
-          "Portland"
+          "Purdue",
+          "Gonzaga"
+        ]
+      },
+      {
+        "event_id": "espn:401909694",
+        "cached_teams": [
+          "Florida A&M",
+          "Florida St."
+        ],
+        "new_teams": [
+          "Florida St.",
+          "Florida A&M"
         ]
       }
     ],
-    "quarantined_identity_count": 1
+    "quarantined_identity_count": 2
   },
   "independent_reconciliation": {
     "provider": "NCAA.com independent scoreboard",
@@ -47,6 +58,10 @@
       },
       {
         "day": "2026-11-02",
+        "reason": "HTTP Error 404: Not Found"
+      },
+      {
+        "day": "2026-11-03",
         "reason": "HTTP Error 404: Not Found"
       }
     ],
