@@ -17,7 +17,7 @@ OUTPUT = ROOT / "data" / "mbb-slate-game-sites-2026-27.json"
 SUFFIX = {"Pa": "PA", "Ky": "KY", "N.C": "NC", "S.C": "SC", "Va": "VA", "Fla": "FL", "Tex": "TX", "Calif": "CA"}
 INVALID = ("tba", "tbd", "unknown", "unconfirmed", "to be announced", "n/a", "--", "campus", "home", "away")
 ARENA_PATTERN = re.compile(r"[a-zA-Z]")
-URL = re.compile(r"^https://\\S+$")
+URL = re.compile(r"^https://[^ ]+$")
 
 
 def clean(text):
