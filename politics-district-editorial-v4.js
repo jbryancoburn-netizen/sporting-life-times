@@ -44,16 +44,26 @@ async function start(){
    const old=profile?.congressional_history?.find(d=>d.year===2022);
    const current=profile?.congressional_history?.find(d=>d.year===2024);
    const rep=old?.candidates?.find(c=>c.party==="R")?.votes,dem=old?.candidates?.find(c=>c.party==="D")?.votes;
-   if(!district["2026_boundaries_revised"]&&current&&rep!==undefined&&dem!==undefined&&
+   if(district["2022_to_2024_geography_comparison"]==="unchanged_state_vintage"&&current&&rep!==undefined&&dem!==undefined&&
     current.candidates.find(c=>c.party==="R")?.votes===h.rep_votes&&current.candidates.find(c=>c.party==="D")?.votes===h.dem_votes){
     const pastGap=Math.abs(rep-dem);
     $("district-overview-history").textContent="2022: "+digits(pastGap)+"-vote gap. 2024: "+fmt(gap)+"-vote gap. Same district lines; real counted votes, not polls.";
    }else $("district-overview-history").textContent="2024 House result: "+fmt(gap)+"-vote margin. Historic comparisons require matched district boundaries.";
+  }else if(h?.finalists?.length===2){
+   const [winner,runner]=h.finalists,same=winner.party===runner.party;
+   place.textContent=fmt(h.winner_runner_up_margin_votes)+" votes";
+   label.textContent=winner.name+" defeated "+runner.name+" · 2024 actual House vote";
+   rank.textContent=same?"Contested same-party general election · both "+(winner.party==="D"?"Democrats":"Republicans"):
+     "Contested general election · "+winner.party+" versus "+runner.party;
+   $("district-overview-history").textContent="2024 actual: "+winner.name+" "+fmt(winner.votes)+
+     " votes; "+runner.name+" "+fmt(runner.votes)+". "+
+     (h.same_2026_geography?"Unchanged district map vintage.":"2026 district overlap awaiting geographic certification.")+
+     " This is not 2026 polling.";
   }else{
    place.textContent="See the record";
-   label.textContent="Prior district boundaries differ or the 2024 result is unavailable";
-   rank.textContent="No inaccurate historic comparison shown.";
-   $("district-overview-history").textContent="A valid past-election comparison is unavailable for these 2026 district boundaries.";
+   label.textContent="Past candidate gap or map match not yet verified";
+   rank.textContent="No unverifiable historic comparison shown.";
+   $("district-overview-history").textContent="Earlier elections remain archived. Each district requires independent map verification before using its votes as a current-boundary baseline.";
   }
  }catch(error){
   console.warn("District editorial profile:",error);
