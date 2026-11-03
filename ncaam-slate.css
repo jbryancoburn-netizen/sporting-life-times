@@ -956,3 +956,37 @@ body .sl-game .sl-pennant-rating,body .sl-featured .sl-pennant-rating{
  background:#3c3327!important;color:#f7ebd1!important;border-color:#a48d65!important;
 }
 body .sl-game .sl-pennant-row{background:transparent!important}
+
+/* THE DAILY LEDGER — Victorian letterpress scorebug, November 2026 */
+body .sl-game .sl-broadcast-bug{
+ grid-template-columns:58px minmax(0,1fr) 96px!important;
+ min-height:82px!important;margin:0 12px 13px!important;
+ background:#30291f!important;color:#f5ebd5!important;
+ border:3px double #a88d61!important;border-radius:0!important;
+ box-shadow:none!important;
+}
+body .sl-game .sl-broadcast-mark{
+ background:#3d3427!important;border-right:1px solid #a88d61!important;
+}
+body .sl-game .sl-broadcast-mark b{
+ color:#d9ba7b!important;font:800 22px/1 Georgia,serif!important;
+}
+body .sl-game .sl-broadcast-pair{background:#30291f!important}
+body .sl-game .sl-broadcast-row{
+ min-height:40px!important;border-left:3px solid color-mix(in srgb,var(--bug-team) 48%,#97805c)!important;
+ border-bottom:1px solid #736048!important;padding:3px 8px!important;
+ background:#30291f!important;color:#f8edda!important;
+}
+body .sl-game .sl-broadcast-row :is(strong,b){font-family:Georgia,serif!important;font-variant-numeric:tabular-nums}
+body .sl-game .sl-broadcast-status{
+ background:#443729!important;border-left:1px solid #a88d61!important;
+ padding:5px!important;gap:4px!important;
+}
+body .sl-game .sl-broadcast-status strong{font:800 14px/1.1 Georgia,serif!important;color:#f5ead5!important}
+body .sl-game .sl-broadcast-status small{font:700 9px/1.2 Georgia,serif!important;color:#d7c29a!important}
+body .sl-game .sl-broadcast-crest{overflow:visible!important}
+body .sl-game .sl-broadcast-crest :is(.mbb-mark,.sl-emblem){object-fit:contain!important}
+@media(max-width:640px){
+ body .sl-game .sl-broadcast-bug{grid-template-columns:45px minmax(0,1fr) 78px!important;margin:0 7px 10px!important}
+ body .sl-game .sl-broadcast-row{grid-template-columns:28px minmax(0,1fr) 36px!important;gap:4px!important;padding:2px 4px!important}
+}
