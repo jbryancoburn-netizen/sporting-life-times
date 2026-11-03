@@ -16,7 +16,18 @@ const cleanId=x=>String(x||'').replace(/^espn:/,'');
 const validId=x=>/^\d{1,12}$/.test(String(x||''));
 const shortName=(id,cross,full)=>{const canon=cross.get(String(id));if(canon)return canon.name;return String(full||'Team').trim()};
 const gameKey=(id,day)=>String(id||'')+'|'+String(day||'');
-function normalizeMen(feed,forecasts,crossList){
+function certifiedSite(g,sites){
+  const proof=sites?.games?.[String(g.id)];
+  if(!proof||proof.site_verified!==true||proof.neutral!==true||
+     proof.date!==g.day||String(proof.away_id)!==String(g.away?.id)||
+     String(proof.home_id)!==String(g.home?.id)||
+     !/^https:\/\/[^\s"'<>]+$/.test(String(proof.source||''))||
+     !String(proof.venue||'').trim())return g;
+  return {...g,venue:String(proof.venue).trim(),
+    venueCity:[proof.city,proof.state].filter(Boolean).join(', '),
+    neutral:true,siteEvent:proof.event||'',siteSource:proof.source};
+}
+function normalizeMen(feed,forecasts,crossList,sites){
   const cross=new Map((crossList?.teams||[]).map(t=>[String(t.espn_id),t]));
   const canon=new Map((crossList?.teams||[]).map(t=>[String(t.id),t]));
   const result=new Map();
@@ -29,7 +40,7 @@ function normalizeMen(feed,forecasts,crossList){
     result.set(cleanId(g.id),{id:cleanId(g.id),day,date:g.date,phase,
       away:{id:String(away.id),name:shortName(away.id,cross,away.name),full:away.name,canonical:cross.get(String(away.id))?.id||'',score:score(away.score)},
       home:{id:String(home.id),name:shortName(home.id,cross,home.name),full:home.name,canonical:cross.get(String(home.id))?.id||'',score:score(home.score)},
-      status:g.status||'',venue:g.venue||'',broadcast:g.broadcast||'',
+      status:g.status||'',venue:g.venue||'',broadcast:g.broadcast||'',neutral:g.neutral===true||g.neutralSite===true,
       source:g.score_source||'Current sourced scoreboard',evidence:g.score_source?'final-source':'reported',
       timed:true,kind:'regular',probability:null});
   }
@@ -51,7 +62,7 @@ function normalizeMen(feed,forecasts,crossList){
       evidence:'fixture',kind:'regular',
       probability:Number.isFinite(Number(g.home_win_probability))?Math.max(0,Math.min(1,Number(g.home_win_probability))):null});
   }
-  return dedupeFixtures([...result.values()]);
+  return dedupeFixtures([...result.values()]).map(g=>certifiedSite(g,sites));
 }
 // Merge provisional fixtures only when the same two canonical schools meet on the
 // same Eastern date. Preserve distinct live/final event IDs and real doubleheaders.
@@ -158,7 +169,7 @@ try{followed=new Set(JSON.parse(localStorage.getItem(favoriteKey)||'[]').map(Str
 // page session; do not re-download them on every 90-second scoreboard tick.
 const staticData=new Map();
 const staticPaths=new Set(['data/ncaam-2026-27-espn-team-crosswalk.json',
-  'data/dual-ring-team-palette.json','data/mbb-arena-registry.json']);
+  'data/dual-ring-team-palette.json','data/mbb-arena-registry.json','data/mbb-verified-game-sites-2026-27.json']);
 const fetchJSON=async path=>{
  if(staticPaths.has(path)&&staticData.has(path))return staticData.get(path);
  const c=new AbortController(),tm=setTimeout(()=>c.abort(),14000);
@@ -267,13 +278,14 @@ const pennant=t=>{
    (elo!==null?'<span class="sl-pennant-rating">USRS '+elo+'</span>':'')+close;
 };
 const arenaStage=g=>{
- const profile=homeProfile(g),venue=String(g.venue||'').trim();
- const intro=venue?'GAME VENUE':profile?'THE HOME-COURT FILE':'VENUE NOT REPORTED';
- const name=venue||profile?.name||'Venue not confirmed';
- const source=venue?'VENUE REPORTED BY GAME FEED':profile?
-   'DOCUMENTED SCHOOL HOME COURT · NOT CONFIRMED FOR THIS GAME':'VENUE AWAITING SOURCE';
- const link=profile&&!venue?'<a href="'+esc(profile.source)+
-   '" target="_blank" rel="noopener noreferrer">University source ↗</a>':'';
+  const venue=String(g.venue||'').trim();
+  const intro=g.neutral?'NEUTRAL SITE':venue?'GAME VENUE':'GAME SITE NOT VERIFIED';
+  const name=venue?(venue+(g.venueCity?' · '+g.venueCity:'')):'Venue not confirmed';
+  const source=g.siteEvent?g.siteEvent.toUpperCase():g.siteSource?
+    'OFFICIAL UNIVERSITY SCHEDULE':venue?
+    'VENUE REPORTED BY GAME FEED':'NO VERIFIED GAME VENUE · SCHOOL HOME COURT NOT SUBSTITUTED';
+  const link=g.siteSource?'<a href="'+esc(g.siteSource)+
+    '" target="_blank" rel="noopener noreferrer">Official game source ↗</a>':'';
   const phase=g.phase==='final'?'FINAL SCORE':g.phase==='live'?'LIVE FROM THE COURT':'THE MATCHUP';
  const homeLabel=mascot(g.home)||g.home.name;
  const awayLabel=mascot(g.away)||g.away.name;
@@ -482,18 +494,17 @@ const tvFollow=t=>'<button type="button" class="sl-tv-follow'+(followed.has(t.id
  (followed.has(t.id)?'Following ':'Follow ')+esc(t.name)+'</button>';
 function card(g,featured){
  const href=gameDetailsHref(g,women),exhibition=g.kind==='exhibition';
- const profile=homeProfile(g),gameVenue=String(g.venue||'').trim(),fallback=profile?.name||'';
+ const gameVenue=String(g.venue||'').trim();
  const clock=formatClock(g);
  const phase=g.phase==='final'?'FINAL':g.phase==='live'?'LIVE':'UPCOMING';
  const source=String(g.source||'Sourced game feed').trim();
  const broadcaster=String(g.broadcast||'').trim();
- const venueLine=gameVenue?'<span class="sl-tv-venue">AT '+esc(gameVenue)+'</span>':
-   fallback?'<span class="sl-tv-venue">HOME ARENA: '+esc(fallback)+' <span>(GAME SITE UNCONFIRMED)</span></span>':'';
- const sourceLink=profile&&!gameVenue?
-   '<a class="sl-tv-source-link" href="'+esc(profile.source)+'" target="_blank" rel="noopener noreferrer">Arena source ↗</a>':'';
- const arenaLink=!women&&g.home?.canonical?
-   '<a class="sl-tv-source-link" href="ncaam-arena.html?team='+encodeURIComponent(g.home.id)+'">Arena File ↗</a>':'';
- const change=liveChanges.get(g.id);
+ const venueLine=gameVenue?'<span class="sl-tv-venue">'+(g.neutral?'NEUTRAL SITE · ':'AT ')+
+    esc(gameVenue)+(g.venueCity?' · '+esc(g.venueCity):'')+'</span>':
+    g.neutral?'<span class="sl-tv-venue">NEUTRAL SITE · VENUE UNCONFIRMED</span>':'';
+  const sourceLink=g.siteSource?
+    '<a class="sl-tv-source-link" href="'+esc(g.siteSource)+'" target="_blank" rel="noopener noreferrer">Official game source ↗</a>':'';
+  const change=liveChanges.get(g.id);
  const hasChange=g.phase==='live'&&change&&(Number(change.away)>0||Number(change.home)>0);
  const movement=hasChange?'<div class="sl-tv-movement">SCORE CHANGE SINCE PREVIOUS UPDATE <b>'+
    esc(g.away.name)+' +'+change.away+' · '+esc(g.home.name)+' +'+change.home+
@@ -514,7 +525,7 @@ function card(g,featured){
    (broadcaster?'<span class="sl-tv-broadcast">'+esc(broadcaster)+'</span>':'')+
    '<span class="sl-tv-edition">'+(women?'WOMEN':'MEN')+' · D-I</span></div>'+
    editorialBadges(g)+
-   '<div class="sl-tv-scoreboard" aria-label="'+esc(g.away.name)+' at '+esc(g.home.name)+'; '+esc(clock)+'">'+
+   '<div class="sl-tv-scoreboard" aria-label="'+esc(g.away.name)+(g.neutral?' vs ':' at ')+esc(g.home.name)+'; '+esc(clock)+'">'+
      tvTeam(g.away,'away',g)+tvTeam(g.home,'home',g)+'</div>'+
    (venueLine||arenaLink?'<div class="sl-tv-venuebar">'+venueLine+sourceLink+arenaLink+'</div>':'')+
    movement+eloNote+probability+
@@ -552,7 +563,7 @@ const render=()=>{
 async function refresh(){
  if(loading)return;loading=true;const status=document.getElementById('sl-data');status.textContent='Refreshing verified sources…';
  try{
-  const menFiles=['data/mbb-live.json','data/ncaam-2026-27-upcoming-forecasts.json','data/ncaam-2026-27-retro-primary.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json','data/mbb-exhibition-finals-2026-27.json','data/mbb-arena-registry.json','data/ncaam-score-calibration.json'];
+  const menFiles=['data/mbb-live.json','data/ncaam-2026-27-upcoming-forecasts.json','data/ncaam-2026-27-retro-primary.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json','data/mbb-exhibition-finals-2026-27.json','data/mbb-arena-registry.json','data/ncaam-score-calibration.json','data/mbb-verified-game-sites-2026-27.json'];
   const womenFiles=['data/ncaaw-2026-27-games.json','data/ncaaw-2026-27-retro-primary.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json','data/ncaaw-2026-27-teams.json','data/mbb-live.json'];
   const paths=women?womenFiles:menFiles;
   const output=await Promise.all(paths.map(p=>fetchJSON(p).catch(()=>null)));
@@ -565,7 +576,7 @@ async function refresh(){
     loaded=dedupeFixtures(normalizeWomen(results,rank,cross));
     lastUpdate='women’s rolling fixture ledger';
   }else{
-    const [feed,forecast,rank,c,pal,ex,arenas,calibration]=output;
+    const [feed,forecast,rank,c,pal,ex,arenas,calibration,verifiedSites]=output;
     if(!feed||rank?.model!=='retro-clean-slate'||rank.starting_elo!==1500||rank.rankings?.length!==365)
       throw Error('Men’s scoreboard or certified RETRO feed unavailable');
     cross=c||{teams:[]};ratings=rankingsMap(rank);palette=pal?.mbb||{};
@@ -573,7 +584,7 @@ async function refresh(){
     const before=new Map(loaded.filter(g=>g.phase==='live'&&g.kind==='regular').map(g=>
       [g.id,{id:g.id,day:g.day,away_score:g.away.score,home_score:g.home.score}]));
     sourceFeed=feed;seasonStats=insight?.seasonProfiles(rank.events)||new Map();
-    loaded=[...normalizeMen(feed,forecast,cross),...normalizeExhibitions(ex,cross)];
+    loaded=[...normalizeMen(feed,forecast,cross,verifiedSites),...normalizeExhibitions(ex,cross)];
     liveChanges=new Map(loaded.filter(g=>g.phase==='live').flatMap(g=>{
       const delta=insight?.scoreDelta(before.get(g.id),g);
       return delta?[[g.id,delta]]:[];
