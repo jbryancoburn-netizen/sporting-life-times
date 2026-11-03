@@ -17,7 +17,7 @@
   function plusDays(day,n){const d=new Date(day+'T12:00:00Z');d.setUTCDate(d.getUTCDate()+n);return d.toISOString().slice(0,10);}
   function localDate(s){if(!s)return 'Tipoff TBA';const d=new Date(s);return Number.isFinite(+d)?d.toLocaleString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',timeZoneName:'short'}):'Time TBA';}
   function dateLabel(s){return new Date(s+'T12:00:00Z').toLocaleDateString('en-US',{month:'short',day:'numeric',weekday:'short',timeZone:'UTC'});}
-  const state={day:(/^\d{4}-\d{2}-\d{2}$/.test(here.get('day')||'')?here.get('day'):today()),games:[],section:'summary',selected:(/^\d+$/.test(here.get('game')||'')?here.get('game'):null),pending:false,source:'',lastUpdate:null,fallback:false,summaryCache:new Map(),crosswalk:new Map(),schoolNames:new Map(),filter:'all',generation:0,ratings:new Map(),forecast:new Map(),ratingsReady:false,modelDate:null,preseason:false,forecastDate:null,poll:new Map(),pollDate:null};
+  const state={verifiedSites:new Map(),day:(/^\d{4}-\d{2}-\d{2}$/.test(here.get('day')||'')?here.get('day'):today()),games:[],section:'summary',selected:(/^\d+$/.test(here.get('game')||'')?here.get('game'):null),pending:false,source:'',lastUpdate:null,fallback:false,summaryCache:new Map(),crosswalk:new Map(),schoolNames:new Map(),filter:'all',generation:0,ratings:new Map(),forecast:new Map(),ratingsReady:false,modelDate:null,preseason:false,forecastDate:null,poll:new Map(),pollDate:null};
   const tag=women?'Women':'Men';
   const display=women?'WOMEN’S DIVISION I':'MEN’S DIVISION I';
   const gameLink=(g)=>'cbb-gamefile.html?'+(women?'gender=women&':'')+'day='+encodeURIComponent(state.day)+'&game='+encodeURIComponent(g.id);
@@ -366,7 +366,8 @@
       currentView(g)+'</span>'+(network?'<span class="cbb-bug-network">'+network+'</span>':'')+'</div>'+
       '<div class="cbb-match-rows">'+row(g.away,g.phase,winner&&Number(as)>Number(hs),false,g)+
       row(g.home,g.phase,winner&&Number(hs)>Number(as),false,g)+'</div>'+
-      '<div class="cbb-bug-bottom"><span>'+esc(g.venue||((g.phase==='upcoming')?localDate(g.date):''))+
+      '<div class="cbb-bug-bottom"><span>'+(g.neutral?'NEUTRAL SITE · ':'')+
+      esc(g.venue||((g.phase==='upcoming')?localDate(g.date):''))+
       '</span><a class="cbb-box-btn" href="'+gameLink(g)+'">'+
       (g.phase==='live'?'FOLLOW LIVE →':g.phase==='final'?'GAME REPLAY →':'OPEN GAME →')+'</a></div>'+
       '<div class="cbb-game-origin">'+esc(g.source||'Source unavailable')+'</div></article>';
@@ -679,7 +680,20 @@
       archivedFinals:archived.length,
       espnLive:fromEspn.length>0};
   }
-  async function getCourtGames(day){
+  function certifiedGameSite(g,day){
+  if(women)return g;
+  const proof=state.verifiedSites.get(String(g.espnId||g.id).replace(/^espn:/,''));
+  if(!proof||proof.site_verified!==true||proof.neutral!==true||
+     proof.date!==day||String(proof.away_id)!==String(g.away?.team?.id)||
+     String(proof.home_id)!==String(g.home?.team?.id)||
+     !/^https:\/\/[^\s"'<>]+$/.test(String(proof.source||''))||
+     !String(proof.venue||'').trim())return g;
+  return {...g,neutral:true,venue:String(proof.venue).trim()+
+    ([proof.city,proof.state].filter(Boolean).length?
+       ' · '+[proof.city,proof.state].filter(Boolean).join(', '):''),
+    siteSource:proof.source,siteEvent:proof.event||''};
+}
+async function getCourtGames(day){
     const date=day.replaceAll('-','');
     const [data,newsroom,ledger]=await Promise.all([
       fetchJSON(api+'scoreboard?groups=50&limit=1000&dates='+date),
@@ -687,9 +701,9 @@
       women?Promise.resolve(null):fetchJSON('data/mbb-retro-live-finals.json')
     ]);
     const result=courtDayFeed(day,data,newsroom,ledger);
-    if(result.games.length)return {...result,snapshot:false};
+    if(result.games.length)return {...result,games:result.games.map(g=>certifiedGameSite(g,day)),snapshot:false};
     const saved=await fallback();
-    return {...result,games:saved,snapshot:true};
+    return {...result,games:saved.map(g=>certifiedGameSite(g,day)),snapshot:true};
   }
   async function fallback(){
     const [snap,live,verified,registry]=await Promise.all([
@@ -905,9 +919,10 @@
       (g.url||('https://www.ncaa.com/scoreboard/'+(women?'basketball-women':'basketball-men')+'/d1'));
     node.innerHTML='<header class="cbb-gamefile-hero" style="--cbb-away:'+safeTeamColor(g.away)+';--cbb-home:'+safeTeamColor(g.home)+'"><div class="cbb-gamefile-eyebrow">SPORTING LIFE AND TIMES · '+(women?'WOMEN’S':'MEN’S')+' D-I · GAMEFILE '+esc(g.id)+'</div>'+
       '<h1>'+esc(schoolLabel(g.away))+' <span class="cbb-gamefile-versus">'+(g.neutral?'VS':'AT')+'</span> '+esc(schoolLabel(g.home))+'</h1>'+
-      '<p class="cbb-gamefile-status">'+currentView(g)+' · '+esc(g.venue||'Venue not listed')+(g.broadcast?' · '+esc(g.broadcast):'')+'</p>'+
+      '<p class="cbb-gamefile-status">'+currentView(g)+(g.neutral?' · NEUTRAL SITE':'')+
+      ' · '+esc(g.venue||'Venue not listed')+(g.broadcast?' · '+esc(g.broadcast):'')+'</p>'+
       '<div class="cbb-gamefile-score">'+row(g.away,g.phase,false,true,g)+row(g.home,g.phase,false,true,g)+'</div>'+
-      '<div class="cbb-gamefile-ledger"><span>AWAY → HOME</span><span>'+esc(g.phase==='final'?'FINAL SCORE':g.phase==='live'?'LIVE REPORTED SCORE':'PREGAME')+'</span>'+
+      '<div class="cbb-gamefile-ledger"><span>'+(g.neutral?'NEUTRAL GAME · DISPLAY ORDER':'AWAY → HOME')+'</span><span>'+esc(g.phase==='final'?'FINAL SCORE':g.phase==='live'?'LIVE REPORTED SCORE':'PREGAME')+'</span>'+
       '<span>'+esc(g.source||'SOURCE PENDING')+'</span></div></header>'+
       gamefileStatStrip(g,raw)+
       '<nav class="cbb-gamefile-tabs" role="tablist" aria-label="Gamefile statistics">'+
@@ -921,7 +936,8 @@
       '<section role="tabpanel" id="gf-panel-team" aria-labelledby="gf-tab-team" data-gamefile-panel="team">'+(team||missing)+'</section>'+
       '<section role="tabpanel" id="gf-panel-players" aria-labelledby="gf-tab-players" data-gamefile-panel="players">'+(playersHTML||missing)+'</section>'+
       '<p class="cbb-provider-link">'+esc(g.source||'Source pending')+
-      (g.schoolSource?' · <a href="'+cleanURL(g.schoolSource)+'" rel="noopener noreferrer" target="_blank">Verified school schedule ↗</a>':'')+
+      (g.siteSource?' · <a href="'+cleanURL(g.siteSource)+'" rel="noopener noreferrer" target="_blank">Official game venue ↗</a>':'')+
+       (g.schoolSource?' · <a href="'+cleanURL(g.schoolSource)+'" rel="noopener noreferrer" target="_blank">Verified school schedule ↗</a>':'')+
        (g.conferenceSource?' · <a href="'+cleanURL(g.conferenceSource)+'" rel="noopener noreferrer" target="_blank">Conference schedule ↗</a>':'')+
        (g.conferenceNetworkDisagreement?' · Network listings differ: conference '+esc(g.conferenceNetwork||'disputed')+'; other provider '+esc(g.broadcast||'unlisted'):'')+
       ' · <a href="'+cleanURL(ext)+'" rel="noopener noreferrer" target="_blank">'+
@@ -964,12 +980,14 @@
   }
   async function boot(){
     if(window.MBBLogos?.ready)await Promise.race([window.MBBLogos.ready,new Promise(ok=>setTimeout(ok,4500))]);
-    const [xref,ratings,forecast,polls]=await Promise.all([
+    const [xref,ratings,forecast,polls,sites]=await Promise.all([
       !women?fetchJSON('data/ncaam-2026-27-espn-team-crosswalk.json'):Promise.resolve(null),
       fetchJSON(women?'data/ncaaw-2026-27-retro-primary.json':'data/ncaam-2026-27-retro-primary.json'),
       !women?fetchJSON('data/ncaam-2026-27-upcoming-forecasts.json'):Promise.resolve(null),
-      !women?fetchJSON('data/ncaam-2026-27-national-polls.json'):Promise.resolve(null)
+      !women?fetchJSON('data/ncaam-2026-27-national-polls.json'):Promise.resolve(null),
+      !women?fetchJSON('data/mbb-verified-game-sites-2026-27.json'):Promise.resolve(null)
     ]);
+    state.verifiedSites=new Map(Object.entries(sites?.games||{}));
     const menRegistry=new Map((xref?.teams||[]).map(t=>[String(t.id),String(t.espn_id)]));
     for(const t of xref?.teams||[]){
       state.crosswalk.set(String(t.espn_id),String(t.id));
