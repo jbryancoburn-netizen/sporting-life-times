@@ -65,6 +65,13 @@ function buildConference(app,teams,games,conference){
  section.className='panel bten-bracket-section conference-format-section';
  section.id='conference-tournament-watch';
  const formats={
+  'America East':{size:null,kind:'field',note:'2027 championship qualification and matchup structure awaiting conference confirmation.'},
+  'Big South':{size:null,kind:'field',note:'2027 championship eligibility and game placement pending official bracket.'},
+  'Metro':{size:null,kind:'field',note:'2027 Metro championship bracket and byes pending confirmation.'},
+  'NEC':{size:null,kind:'field',note:'NEC tournament field depends on verified postseason eligibility; no unconfirmed teams excluded.'},
+  'Patriot':{size:null,kind:'field',note:'2027 tournament game positions awaiting official bracket.'},
+  'SWAC':{size:null,kind:'field',note:'2027 championship qualification and matchups await official bracket.'},
+  'Southland':{size:null,kind:'field',source:'https://www.southland.org/news/2026/8/12/southland-announces-2026-27-mens-and-womens-basketball-conference-schedules.aspx',note:'Southland championship March 7–11, 2027, Lake Charles; matchups and qualification require verification.'},
   'MVC':{size:10,kind:'mvc10',source:'https://mvc-sports.com/news/2026/8/19/general-missouri-valley-conference-announces-2026-27-championship-schedule.aspx',note:'New 2027 ten-qualifier tournament: 11th-place school excluded; seeds 1–2 enter in semifinals. Remaining pairings not certified.'},
   'CAA':{size:13,kind:'caa13',source:'https://caasports.com/news/2026/7/15/caa-announces-2026-27-mens-basketball-conference-schedule.aspx',note:'Thirteen teams qualify; 12 and 13 open March 5, seeds 5–11 join March 6, seeds 1–4 enter March 7. Precise later matchups provisional.'},
   'Atlantic 10':{size:14,kind:'field',source:'https://atlantic10.com/news/2026/6/16/atlantic-10-releases-2026-27-mens-basketball-schedule-pairings.aspx',note:'All 14 schools, March 10–14 in Brooklyn. Pairings await official bracket.'},
@@ -120,11 +127,7 @@ function buildConference(app,teams,games,conference){
  else if(format?.kind==='mvc10')stages=[
   {name:'Semifinal bye positions (confirmed)',games:[[1,'Quarterfinal winner'],[2,'Quarterfinal winner']]}
  ];
- else if(format?.kind==='caa13')stages=[
-  {name:'First round',games:[[12,13]]},
-  {name:'Second-round entrants',games:[[5,6],[7,8],[9,10],[11,'Winner 12/13']]},
-  {name:'Quarterfinal entrants (byes)',games:[[1,'Second-round winner'],[4,'Second-round winner'],[2,'Second-round winner'],[3,'Second-round winner']]}
- ];
+ else if(format?.kind==='caa13')stages=[{name:'Confirmed first-round matchup',games:[[12,13]]}];
  else if(format?.kind==='ivy4')stages=[
   {name:'Semifinals',games:[[1,4],[2,3]]},
   {name:'Championship',games:[['Semifinal winner','Semifinal winner']]}
