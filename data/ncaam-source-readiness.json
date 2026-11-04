@@ -1,10 +1,8 @@
 {
   "season": "2026-27",
   "ready": true,
-  "score_source": "ESPN final scoreboards",
-  "games": 119,
+  "schedule_source": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/ncaa_mbb_schedule/ncaa_mbb_schedule_2027.csv.gz",
+  "membership_source": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/ncaa_mbb_team_ids/ncaa_mbb_team_ids_2027.csv.gz",
   "teams": 365,
-  "checked_days": 2,
-  "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard",
-  "note": "Independent provisional venue-neutral Elo"
+  "games": 95
 }
