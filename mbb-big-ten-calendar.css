@@ -68,6 +68,7 @@
 
 /* Conference designation is derived from both teams' official league identities. */
 .victorian-conference-game{display:inline-block;margin-left:12px;padding:2px 7px;border:1px solid #9c8060;background:#eadcc5;color:#6d4331;font:700 10px/1.3 Georgia,serif;letter-spacing:.3px;vertical-align:middle;white-space:nowrap}
+.victorian-conference-game .victorian-conf-short{display:none}
 
 /* Badge / school / league: explicit breathing room without altering the match data. */
 .victorian-team-calendar .sched-opponent strong{line-height:1.65;white-space:normal}
@@ -117,6 +118,8 @@
  #full-season-schedule.victorian-team-calendar .victorian-heading-school .victorian-school-name{display:block!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;font:700 clamp(11px,3.45vw,14px)/1.18 Georgia,serif!important}
  #full-season-schedule.victorian-team-calendar .victorian-heading-conference{min-width:0!important;justify-self:end!important}
  #full-season-schedule.victorian-team-calendar .victorian-conference-game{padding:2px 4px!important;font-size:9px!important;white-space:nowrap!important}
+ #full-season-schedule.victorian-team-calendar .victorian-conf-full{display:none}
+ #full-season-schedule.victorian-team-calendar .victorian-conf-short{display:inline}
  #full-season-schedule.victorian-team-calendar .victorian-poll-rank{padding:2px 3px!important;font-size:10px!important;white-space:nowrap!important}
  #full-season-schedule.victorian-team-calendar .victorian-at-game-records{margin-top:3px;padding:4px 0 0;font-size:10px;line-height:1.25}
  #full-season-schedule.victorian-team-calendar .victorian-record-label{font-size:8px;margin-bottom:2px}
