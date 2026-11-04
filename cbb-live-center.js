@@ -20,7 +20,7 @@
   function plusDays(day,n){const d=new Date(day+'T12:00:00Z');d.setUTCDate(d.getUTCDate()+n);return d.toISOString().slice(0,10);}
   function localDate(s){if(!s)return 'Tipoff TBA';const d=new Date(s);return Number.isFinite(+d)?d.toLocaleString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',timeZoneName:'short'}):'Time TBA';}
   function dateLabel(s){return new Date(s+'T12:00:00Z').toLocaleDateString('en-US',{month:'short',day:'numeric',weekday:'short',timeZone:'UTC'});}
-  const state={day:(/^\d{4}-\d{2}-\d{2}$/.test(here.get('day')||'')?here.get('day'):today()),games:[],section:'summary',selected:(/^\d+$/.test(here.get('game')||'')?here.get('game'):null),pending:false,source:'',lastUpdate:null,fallback:false,summaryCache:new Map(),crosswalk:new Map(),schoolNames:new Map(),filter:'all',generation:0,ratings:new Map(),forecast:new Map(),ratingsReady:false,modelDate:null,preseason:false,forecastDate:null,poll:new Map(),pollDate:null,expanded:new Set(),expandedDay:null,inlineTabs:new Map(),inlineRequests:new Map()};
+  const state={day:(/^\d{4}-\d{2}-\d{2}$/.test(here.get('day')||'')?here.get('day'):today()),games:[],section:'summary',selected:(/^\d+$/.test(here.get('game')||'')?here.get('game'):null),pending:false,source:'',lastUpdate:null,fallback:false,summaryCache:new Map(),crosswalk:new Map(),schoolNames:new Map(),filter:'all',generation:0,ratings:new Map(),forecast:new Map(),ratingsReady:false,modelDate:null,preseason:false,forecastDate:null,poll:new Map(),pollDate:null,expanded:new Set(),expandedDay:null,inlineTabs:new Map(),inlineRequests:new Map(),rankTies:new Map()};
   const tag=women?'Women':'Men';
   const display=women?'WOMEN’S DIVISION I':'MEN’S DIVISION I';
   const gameLink=(g)=>'cbb-gamefile.html?'+(women?'gender=women&':'')+'day='+encodeURIComponent(state.day)+'&game='+encodeURIComponent(g.id);
@@ -307,12 +307,9 @@
   }
   function toLetterpressTeam(t,g){
     const profile=teamRating(t),id=String(t.team?.id||'');
-    const valid=profile&&Number.isFinite(Number(profile.elo));
-    const rank=Number(profile?.rank),max=women?363:365;
     const record=profile&&Number.isInteger(Number(profile.wins))&&Number.isInteger(Number(profile.losses))?
       Number(profile.wins)+'–'+Number(profile.losses):'0–0';
-    const elo=valid?'RETRO '+Math.round(Number(profile.elo))+
-      (Number.isInteger(rank)&&rank>=1&&rank<=max?' (#'+rank+')':''):'RETRO —';
+    const elo=window.SLTBasketballScorebug?.formatRetro(profile,state.rankTies,women?363:365)||'RETRO —';
     return {name:schoolLabel(t),score:g.phase==='upcoming'?null:score(t),
       crest:crest(t),color:safeTeamColor(t),record,retro:elo,poll:state.poll.get(id)||null};
   }
@@ -1052,9 +1049,14 @@
         if(id)state.ratings.set(id,t);
       }
       state.ratingsReady=state.ratings.size===expected;
+      state.rankTies=new Map();
+      for(const row of state.ratings.values()){
+        const position=Number(row.rank);
+        if(Number.isInteger(position))state.rankTies.set(position,(state.rankTies.get(position)||0)+1);
+      }
       state.modelDate=ratings.as_of;
       state.preseason=Number(ratings.games_played)===0;
-      if(!state.ratingsReady)state.ratings.clear();
+      if(!state.ratingsReady){state.ratings.clear();state.rankTies.clear();}
     }
     if(!women&&polls?.season===season&&['coaches','ap'].every(k=>
       Array.isArray(polls?.polls?.[k]?.rankings)&&polls.polls[k].rankings.length===25)){
