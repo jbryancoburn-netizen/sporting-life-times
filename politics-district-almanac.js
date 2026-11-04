@@ -72,7 +72,7 @@ function electionNight(host,atlasRow,history,live){
  if(good){
   const label={unofficial:"UNOFFICIAL RETURNS",called:"RACE CALLED · NOT CERTIFIED",certified:"CERTIFIED RESULTS"}[rec.status];
   const total=rec.candidates.reduce((sum,c)=>sum+c.votes,0);
-  s.append(el("p","almanac-boundary",label+" · Source updated "+new Date(rec.updated_at).toLocaleString("en-US")));
+  s.append(el("p","almanac-boundary",label+" · Source updated "+new Date(rec.updated_at).toLocaleString("en-US")+(Number.isFinite(rec.pct_in)?" · "+rec.pct_in.toFixed(1)+"% reporting ("+(rec.reporting_unit||"source units")+")":"")));
   const rows=el("div","almanac-election-candidates");
   for(const c of [...rec.candidates].sort((a,b)=>b.votes-a.votes)){
    const line=el("div","almanac-election-candidate");
@@ -97,6 +97,26 @@ function electionNight(host,atlasRow,history,live){
  s.append(priorBox);host.append(s);
 }
 
+// Direct CORS read: no redistribution, mirroring or paid API. Missing seats are not zero.
+async function currentHouseResults(){
+ const local=await fetchData("data/politics-2026-house-results.json").catch(()=>null);
+ const localRecord=local?.districts?.[id];
+ if(localRecord?.status==="certified"||localRecord?.status==="called")return local;
+ try{
+  const response=await fetch("https://openamerica.io/elections/results.json?year=2026&office=House",{cache:"no-store",credentials:"omit"});
+  if(!response.ok)throw Error("Official-state-feed aggregator HTTP "+response.status);
+  const feed=await response.json();
+  if(feed.api!==1||feed.year!==2026||feed.office!=="House"||!feed.races||typeof feed.races!=="object")throw Error("Unexpected results schema");
+  const race=feed.races[id];
+  if(!race||!Array.isArray(race.cands)||!race.cands.length)return local;
+  const candidates=race.cands.map(c=>({name:c.n,party:c.p,votes:c.v}));
+  if(!candidates.every(c=>typeof c.name==="string"&&Number.isInteger(c.votes)&&c.votes>=0))return local;
+  const stamp=feed.as_of;
+  if(!stamp||!Number.isFinite(Date.parse(stamp)))return local;
+  return {districts:{[id]:{status:"unofficial",candidates,updated_at:stamp,
+   source_url:"https://openamerica.io/elections/api/",pct_in:race.pct_in,reporting_unit:"state-reported units"}}};
+ }catch(error){console.warn("Live House returns temporarily unavailable:",error);return local}
+}
 function areaGuide(host,places){
  const s=section("THE GEOGRAPHIC REGISTER","Places inside the district");
  const locations=places?.districts?.[id];const list=[...(locations?.neighborhoods?.length?locations.neighborhoods:locations?.communities||[])];
@@ -147,7 +167,7 @@ async function run(){
   const [atlas,census,places,dossiers,live]=await Promise.all([
    fetchData("politics-house-atlas.json"),fetchData("politics-census-inputs.json"),
    fetchData("data/politics-district-communities.json"),fetchData("data/politics-district-dossiers.json"),
-   fetchData("data/politics-2026-house-results.json").catch(()=>null)]);
+   currentHouseResults()]);
   if(dossiers.schema_version!==1||dossiers.district_count!==435)throw Error("435-district history archive invalid");
   const research=dossiers.districts?.[id];if(!research)throw Error("Missing record for "+id);
   const history=research.history.map(x=>({
@@ -189,6 +209,7 @@ async function run(){
   const ancillary=el("div","almanac-side");censusGuide(ancillary,census);areaGuide(ancillary,places);ballotGuide(ancillary,row);
   const returns=el("div","almanac-current-returns");electionNight(returns,row,hrows,live);
   content.append(hsection,ancillary);root.replaceChildren(header,returns,content);root.hidden=false;
+  setInterval(async()=>{const latest=await currentHouseResults();returns.replaceChildren();electionNight(returns,row,hrows,latest)},60000);
  }catch(error){root.hidden=false;root.replaceChildren(el("p","almanac-small","The district almanac's verified sources did not load. No substitute data have been generated."));console.warn("Almanac evidence unavailable:",error)}
 }
 if("IntersectionObserver" in window){
