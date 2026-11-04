@@ -186,7 +186,7 @@ function show(){
  $("avg-total").textContent=avg(arr.map(g=>g.as+g.bs));$("avg-margin").textContent=avg(arr.map(g=>Math.abs(g.as-g.bs)));
  $("first-meeting").textContent=arr.length?arr[arr.length-1].date:"—";$("post-meetings").textContent=arr.filter(g=>g.tournament!=="Regular season"&&g.tournament!=="Competition not verified").length;
  const url=new URL(location.href);url.searchParams.set("a",a);url.searchParams.set("b",b);history.replaceState(null,"",url);
- const mklogo=(team,element)=>{const id=currentNcaa.get(String(team));element.innerHTML=id?window.MBBLogos.byNCAA(id,'hero',name(team)):window.MBBLogos.byName(name(team),'hero');element.title=name(team)+" logo"};
+ const mklogo=(team,element)=>{const id=currentNcaa.get(String(team));const size=element.classList.contains('small-logo')?'small':'score';element.innerHTML=id?window.MBBLogos.byNCAA(id,size,name(team)):window.MBBLogos.byName(name(team),size);element.title=name(team)+" logo"};
  $("status").textContent="Showing "+arr.length+" unique recorded games for "+name(a)+" and "+name(b)+"; "+arr.filter(g=>g.tournament==="Competition not verified").length+" lack verified competition classifications."; 
  $("matchup").textContent=name(a)+" vs. "+name(b);$("team-a-name").textContent=name(a);$("team-b-name").textContent=name(b);mklogo(a,$("team-a-logo"));mklogo(b,$("team-b-logo"));
  applyTheme($("hero-a"),a);applyTheme($("hero-b"),b);
