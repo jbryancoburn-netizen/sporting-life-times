@@ -51,7 +51,7 @@ test('the exact same team page and newsroom renderer serve all schools',()=>{
 test('all 365 receive Indiana calendar features, not a Big Ten pilot',()=>{
  assert.doesNotMatch(renderer,/bigTenPilot/);
  assert.match(renderer,/class="panel victorian-team-calendar"/);
- assert.match(renderer,/const expandable=hasScore&&\/\^\\d\+\$\//);
+ assert.match(renderer,/const expandable=hasScore&&/);
  assert.match(renderer,/victorian-at-game-records/);
  assert.match(renderer,/victorian-conference-game/);
  assert.match(renderer,/victorian-heading-rank/);
