@@ -39,13 +39,7 @@ function render(c){
  const intro=app.querySelector('.nba-note');if(intro)intro.insertAdjacentElement('afterend',room);else app.prepend(room);
  function redraw(){room.querySelector('#depth-scout-preview').innerHTML=analysis(c,room.querySelector('#depth-away').value,room.querySelector('#depth-home').value,null)}
  room.querySelector('#depth-away').addEventListener('change',redraw);room.querySelector('#depth-home').addEventListener('change',redraw);document.addEventListener('nba:forecast-ready',redraw);
- const title=[...app.querySelectorAll('h2')].find(x=>x.textContent.trim()==='Coming Up After Today');
- const list=title?.nextElementSibling;
- if(list){
- const day=d=>new Date(d).toLocaleDateString('en-US',{timeZone:'America/New_York'});
- const future=upcoming.filter(g=>day(g.date)!==day(new Date())).slice(0,8);
- const redrawFuture=()=>{if(!list.isConnected)return;list.classList.add('depth-matchup-list');list.innerHTML=future.map(g=>{const a=g.teams.find(x=>x.home_away==='away')?.code,h=g.teams.find(x=>x.home_away==='home')?.code;return c.meta[a]&&c.meta[h]?analysis(c,a,h,g):''}).join('')||'<p class="depth-muted">No scheduled games after today in the current published schedule window.</p>';};redrawFuture();document.addEventListener('nba:forecast-ready',redrawFuture);
- }
+ // Preserve the shared expandable game scorebugs rather than replacing them with oversized scouting cards.
 }
 w.NBAMatchupDepth=render;
 })(window);
