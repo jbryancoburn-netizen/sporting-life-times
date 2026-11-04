@@ -8,6 +8,64 @@
   "fetched_at": "2026-10-27T20:53:14.176125+00:00",
   "events": [
     {
+      "id": "school-2086-2026-10-11-84",
+      "date": "2026-10-11T12:00:00-04:00",
+      "name": "Indiana (Exhibition)",
+      "exhibition": true,
+      "neutralSite": false,
+      "school_source_url": "https://butlersports.com/sports/mens-basketball/schedule/2026-27",
+      "official_source": true,
+      "site_verified": true,
+      "site_source_url": "https://butlersports.com/sports/mens-basketball/schedule/2026-27",
+      "site_verified_via": "official_butler_2026_27_schedule",
+      "official_school_time": "6:30PM ET",
+      "official_school_time_source": "https://butlersports.com/sports/mens-basketball/schedule/2026-27",
+      "broadcast_source_url": "https://butlersports.com/sports/mens-basketball/schedule/2026-27",
+      "competitions": [
+        {
+          "competitors": [
+            {
+              "homeAway": "home",
+              "team": {
+                "id": "2086",
+                "displayName": "Butler Bulldogs",
+                "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2086.png"
+              }
+            },
+            {
+              "homeAway": "away",
+              "team": {
+                "id": "84",
+                "displayName": "Indiana Hoosiers",
+                "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/84.png"
+              }
+            }
+          ],
+          "venue": {
+            "fullName": "Hinkle Fieldhouse",
+            "arenaName": "Hinkle Fieldhouse",
+            "official_school_location": "Indianapolis, Ind. Hinkle Fieldhouse",
+            "official_school_city": "Indianapolis, Ind.",
+            "address": {
+              "city": "Indianapolis",
+              "state": "IN"
+            },
+            "source_url": "https://butlersports.com/sports/mens-basketball/schedule/2026-27",
+            "arena_source_url": "https://butlersports.com/sports/mens-basketball/schedule/2026-27",
+            "arena_source_type": "explicit_official_game_location"
+          },
+          "broadcasts": [
+            {
+              "names": [
+                "WISH-TV"
+              ],
+              "source_url": "https://butlersports.com/sports/mens-basketball/schedule/2026-27"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "school-2086-2026-10-18-7",
       "date": "2026-10-18T12:00:00-05:00",
       "official_time": "",
@@ -62,6 +120,64 @@
       "official_school_time": "6:30PM",
       "official_school_time_source": "https://butlersports.com/sports/mens-basketball/schedule/2026-27",
       "broadcast_source_url": "https://butlersports.com/sports/mens-basketball/schedule/2026-27"
+    },
+    {
+      "id": "school-2086-2026-10-25-194",
+      "date": "2026-10-25T12:00:00-04:00",
+      "name": "Ohio State (Exhibition)",
+      "exhibition": true,
+      "neutralSite": false,
+      "school_source_url": "https://butlersports.com/sports/mens-basketball/schedule/2026-27",
+      "official_source": true,
+      "site_verified": true,
+      "site_source_url": "https://butlersports.com/sports/mens-basketball/schedule/2026-27",
+      "site_verified_via": "official_butler_2026_27_schedule",
+      "official_school_time": "2:00PM ET",
+      "official_school_time_source": "https://butlersports.com/sports/mens-basketball/schedule/2026-27",
+      "broadcast_source_url": "https://butlersports.com/sports/mens-basketball/schedule/2026-27",
+      "competitions": [
+        {
+          "competitors": [
+            {
+              "homeAway": "away",
+              "team": {
+                "id": "2086",
+                "displayName": "Butler Bulldogs",
+                "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2086.png"
+              }
+            },
+            {
+              "homeAway": "home",
+              "team": {
+                "id": "194",
+                "displayName": "Ohio State Buckeyes",
+                "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/194.png"
+              }
+            }
+          ],
+          "venue": {
+            "fullName": "Schottenstein Center",
+            "arenaName": "Schottenstein Center",
+            "official_school_location": "Columbus, Ohio Schottenstein Center",
+            "official_school_city": "Columbus, Ohio",
+            "address": {
+              "city": "Columbus",
+              "state": "OH"
+            },
+            "source_url": "https://butlersports.com/sports/mens-basketball/schedule/2026-27",
+            "arena_source_url": "https://butlersports.com/sports/mens-basketball/schedule/2026-27",
+            "arena_source_type": "explicit_official_game_location"
+          },
+          "broadcasts": [
+            {
+              "names": [
+                "B1G+"
+              ],
+              "source_url": "https://butlersports.com/sports/mens-basketball/schedule/2026-27"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "school-2086-2026-11-02-15",
@@ -1894,5 +2010,15 @@
   "location_normalization": {
     "method": "parsed explicit city/state and facility name from original schedule venue strings; no inferred home court",
     "version": "2026-10-27"
+  },
+  "exhibition_reconciliation": {
+    "audited_on": "2026-11-04",
+    "source_url": "https://butlersports.com/sports/mens-basketball/schedule/2026-27",
+    "rule": "Preserve three university-confirmed 2026 preseason games; exhibitions do not count toward RETRO or official records.",
+    "game_ids": [
+      "school-2086-2026-10-11-84",
+      "school-2086-2026-10-18-7",
+      "school-2086-2026-10-25-194"
+    ]
   }
 }
