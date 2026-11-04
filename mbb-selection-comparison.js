@@ -82,8 +82,9 @@ function buildConference(app,teams,games,conference){
   'Atlantic Sun':{size:8,kind:'field',note:'Eight-team stepladder field; reclassifying-team eligibility must be confirmed.'},
   'United Athletic':{size:8,kind:'field',note:'Eight-team field; final 2027 bracket structure unconfirmed.'}
  };
- const format=formats[conference]||null;
- const american=conference==='American',big12=conference==='Big 12'&&members.length===16;
+ const alias={'AAC':'American','MWC':'Mountain West','C-USA':'Conference USA','MAC':'Mid-American','OVC':'Ohio Valley','SoCon':'Southern','WCC':'West Coast','UAC':'United Athletic'};
+ const format=formats[alias[conference]||conference]||null;
+ const american=conference==='AAC'||conference==='American',big12=conference==='Big 12'&&members.length===16;
  const eligible=o.rows.filter(t=>!(conference==='Horizon'&&/detroit mercy/i.test(t.team)));
  const fieldSize=american?10:big12?16:format?.size||null;
  const seeds=eligible.slice(0,fieldSize||eligible.length);
