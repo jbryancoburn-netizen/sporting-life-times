@@ -1,0 +1,806 @@
+{
+  "title": "Division I M/W Basketball Crest & Full-Season Schedule Audit",
+  "as_of": "2026-11-04",
+  "method": "All 365 source men program calendars and 363 women's master program schedules; current canonical 365 men's verified crest registry plus 39 curated outside-DI logos, ID-exact only.",
+  "verification": "MBB 365-team shared crest contract passed at commit 6dbdfca.",
+  "audit_source_commit": "6dbdfca6018129714e2f884c691594b13512b3cc",
+  "di_crest_identity": {
+    "men_programs": 365,
+    "men_verified_crest_urls": 365,
+    "women_programs": 363,
+    "women_missing_men_crest_identity": 0,
+    "curated_non_di_crests": 39
+  },
+  "men": {
+    "program_calendars_scanned": 365,
+    "game_rows_scanned": 11831,
+    "classification_counts": {
+      "UNRESOLVED_NO_ID": 757,
+      "D1": 11025,
+      "OUTSIDE_LOGO": 46,
+      "OUTSIDE_UNREGISTERED": 3
+    },
+    "source_fields_missing_di_logo": 169,
+    "unique_unresolved_unsupported_identity": 613,
+    "todays_unresolved_game_opponents": [],
+    "prioritized_unresolved": [
+      {
+        "name": "MAC-SBC Challenge",
+        "id": "",
+        "kind": "UNRESOLVED_NO_ID",
+        "visits": 8,
+        "example_school": "2006"
+      },
+      {
+        "name": "Virginia-Lynchburg",
+        "id": "",
+        "kind": "OUTSIDE_LOGO",
+        "visits": 6,
+        "example_school": "151"
+      },
+      {
+        "name": "Virginia University of Lynchburg",
+        "id": "",
+        "kind": "OUTSIDE_LOGO",
+        "visits": 6,
+        "example_school": "2415"
+      },
+      {
+        "name": "Southwestern Athletic Conference",
+        "id": "",
+        "kind": "UNRESOLVED_NO_ID",
+        "visits": 5,
+        "example_school": "2011"
+      },
+      {
+        "name": "Sun Belt Conference",
+        "id": "",
+        "kind": "UNRESOLVED_NO_ID",
+        "visits": 5,
+        "example_school": "2026"
+      },
+      {
+        "name": "Kentucky Christian",
+        "id": "",
+        "kind": "UNRESOLVED_NO_ID",
+        "visits": 5,
+        "example_school": "2198"
+      },
+      {
+        "name": "Toccoa Falls",
+        "id": "",
+        "kind": "UNRESOLVED_NO_ID",
+        "visits": 5,
+        "example_school": "2241"
+      },
+      {
+        "name": "Bethesda",
+        "id": "",
+        "kind": "UNRESOLVED_NO_ID",
+        "visits": 5,
+        "example_school": "250"
+      },
+      {
+        "name": "Atlantic Sun Conference",
+        "id": "",
+        "kind": "UNRESOLVED_NO_ID",
+        "visits": 5,
+        "example_school": "2511"
+      },
+      {
+        "name": "Northwest Indian College",
+        "id": "",
+        "kind": "UNRESOLVED_NO_ID",
+        "visits": 4,
+        "example_school": "147"
+      },
+      {
+        "name": "Champion Christian",
+        "id": "",
+        "kind": "OUTSIDE_LOGO",
+        "visits": 4,
+        "example_school": "2029"
+      },
+      {
+        "name": "Paine College",
+        "id": "",
+        "kind": "UNRESOLVED_NO_ID",
+        "visits": 4,
+        "example_school": "2065"
+      },
+      {
+        "name": "Trinity College of Jacksonville",
+        "id": "",
+        "kind": "UNRESOLVED_NO_ID",
+        "visits": 4,
+        "example_school": "2229"
+      },
+      {
+        "name": "College of Biblical Studies",
+        "id": "",
+        "kind": "UNRESOLVED_NO_ID",
+        "visits": 4,
+        "example_school": "2377"
+      },
+      {
+        "name": "Johnson & Wales",
+        "id": "",
+        "kind": "UNRESOLVED_NO_ID",
+        "visits": 3,
+        "example_school": "104"
+      },
+      {
+        "name": "Lincoln",
+        "id": "",
+        "kind": "UNRESOLVED_NO_ID",
+        "visits": 3,
+        "example_school": "140"
+      },
+      {
+        "name": "Christendom",
+        "id": "",
+        "kind": "OUTSIDE_LOGO",
+        "visits": 3,
+        "example_school": "2026"
+      },
+      {
+        "name": "Ecclesia",
+        "id": "",
+        "kind": "UNRESOLVED_NO_ID",
+        "visits": 3,
+        "example_school": "2029"
+      },
+      {
+        "name": "East-West University",
+        "id": "",
+        "kind": "UNRESOLVED_NO_ID",
+        "visits": 3,
+        "example_school": "2050"
+      },
+      {
+        "name": "Champion Christian College",
+        "id": "",
+        "kind": "OUTSIDE_LOGO",
+        "visits": 3,
+        "example_school": "2110"
+      },
+      {
+        "name": "Cheyney University of Pennsylvania",
+        "id": "",
+        "kind": "UNRESOLVED_NO_ID",
+        "visits": 3,
+        "example_school": "2169"
+      },
+      {
+        "name": "North Carolina A&T State University",
+        "id": "",
+        "kind": "UNRESOLVED_NO_ID",
+        "visits": 3,
+        "example_school": "2169"
+      },
+      {
+        "name": "Big 5 Classic",
+        "id": "",
+        "kind": "UNRESOLVED_NO_ID",
+        "visits": 3,
+        "example_school": "218"
+      },
+      {
+        "name": "Miami",
+        "id": "",
+        "kind": "UNRESOLVED_NO_ID",
+        "visits": 3,
+        "example_school": "221"
+      },
+      {
+        "name": "New College of Florida",
+        "id": "",
+        "kind": "UNRESOLVED_NO_ID",
+        "visits": 3,
+        "example_school": "2229"
+      },
+      {
+        "name": "Lincoln University",
+        "id": "",
+        "kind": "UNRESOLVED_NO_ID",
+        "visits": 3,
+        "example_school": "2239"
+      },
+      {
+        "name": "Erskine",
+        "id": "",
+        "kind": "OUTSIDE_LOGO",
+        "visits": 3,
+        "example_school": "2241"
+      },
+      {
+        "name": "Bob Jones",
+        "id": "",
+        "kind": "OUTSIDE_LOGO",
+        "visits": 3,
+        "example_school": "2241"
+      },
+      {
+        "name": "Regent",
+        "id": "",
+        "kind": "OUTSIDE_LOGO",
+        "visits": 3,
+        "example_school": "2261"
+      },
+      {
+        "name": "Southland Conference",
+        "id": "",
+        "kind": "UNRESOLVED_NO_ID",
+        "visits": 3,
+        "example_school": "2320"
+      },
+      {
+        "name": "Fisk",
+        "id": "",
+        "kind": "UNRESOLVED_NO_ID",
+        "visits": 3,
+        "example_school": "2393"
+      },
+      {
+        "name": "Dallas Christian",
+        "id": "",
+        "kind": "UNRESOLVED_NO_ID",
+        "visits": 3,
+        "example_school": "242"
+      }
+    ]
+  },
+  "women": {
+    "program_calendars_scanned": 363,
+    "game_rows_scanned": 11110,
+    "classification_counts": {
+      "D1": 10656,
+      "OUTSIDE_UNREGISTERED": 401,
+      "OUTSIDE_LOGO": 53
+    },
+    "unique_unregistered_outside_opponents": 319,
+    "todays_unresolved_game_opponents": [],
+    "prioritized_unresolved": [
+      {
+        "name": "Saint Francis Red Wolves",
+        "id": "2598",
+        "kind": "OUTSIDE_UNREGISTERED",
+        "visits": 7,
+        "example_school": "43"
+      },
+      {
+        "name": "Carolina University Bruins",
+        "id": "126756",
+        "kind": "OUTSIDE_UNREGISTERED",
+        "visits": 6,
+        "example_school": "288"
+      },
+      {
+        "name": "Washington Adventist Shock",
+        "id": "408",
+        "kind": "OUTSIDE_UNREGISTERED",
+        "visits": 5,
+        "example_school": "44"
+      },
+      {
+        "name": "Virginia Lynchburg Dragons",
+        "id": "3229",
+        "kind": "OUTSIDE_LOGO",
+        "visits": 5,
+        "example_school": "2379"
+      },
+      {
+        "name": "La Sierra Golden Eagles",
+        "id": "111960",
+        "kind": "OUTSIDE_LOGO",
+        "visits": 4,
+        "example_school": "27"
+      },
+      {
+        "name": "Park University Gilbert Buccaneers",
+        "id": "116420",
+        "kind": "OUTSIDE_LOGO",
+        "visits": 4,
+        "example_school": "253"
+      },
+      {
+        "name": "Fisk Bulldogs",
+        "id": "2225",
+        "kind": "OUTSIDE_UNREGISTERED",
+        "visits": 3,
+        "example_school": "5"
+      },
+      {
+        "name": "District of Columbia DISTRICT OF COLUMBIA",
+        "id": "2177",
+        "kind": "OUTSIDE_LOGO",
+        "visits": 3,
+        "example_school": "45"
+      },
+      {
+        "name": "Fort Lauderdale Eagles",
+        "id": "126864",
+        "kind": "OUTSIDE_UNREGISTERED",
+        "visits": 3,
+        "example_school": "50"
+      },
+      {
+        "name": "Defiance Yellow Jackets",
+        "id": "5793",
+        "kind": "OUTSIDE_UNREGISTERED",
+        "visits": 3,
+        "example_school": "94"
+      },
+      {
+        "name": "Cheyney (PA) Wolves",
+        "id": "2129",
+        "kind": "OUTSIDE_UNREGISTERED",
+        "visits": 3,
+        "example_school": "218"
+      },
+      {
+        "name": "Southern Wesleyan Warriors",
+        "id": "2576",
+        "kind": "OUTSIDE_UNREGISTERED",
+        "visits": 3,
+        "example_school": "231"
+      },
+      {
+        "name": "King (TN) Tornado",
+        "id": "2312",
+        "kind": "OUTSIDE_UNREGISTERED",
+        "visits": 3,
+        "example_school": "236"
+      },
+      {
+        "name": "Westminster (UT) Griffins",
+        "id": "224",
+        "kind": "OUTSIDE_LOGO",
+        "visits": 3,
+        "example_school": "304"
+      },
+      {
+        "name": "Johnson Royals",
+        "id": "128474",
+        "kind": "OUTSIDE_LOGO",
+        "visits": 3,
+        "example_school": "324"
+      },
+      {
+        "name": "Montreat Cavaliers",
+        "id": "2410",
+        "kind": "OUTSIDE_LOGO",
+        "visits": 3,
+        "example_school": "2026"
+      },
+      {
+        "name": "Central Baptist Mustangs",
+        "id": "3079",
+        "kind": "OUTSIDE_UNREGISTERED",
+        "visits": 3,
+        "example_school": "2031"
+      },
+      {
+        "name": "Georgian Court Lions",
+        "id": "110419",
+        "kind": "OUTSIDE_LOGO",
+        "visits": 3,
+        "example_school": "2169"
+      },
+      {
+        "name": "Notre Dame (MD) Gators",
+        "id": "109716",
+        "kind": "OUTSIDE_UNREGISTERED",
+        "visits": 3,
+        "example_school": "2169"
+      },
+      {
+        "name": "Louisiana Christian Wildcats",
+        "id": "2347",
+        "kind": "OUTSIDE_UNREGISTERED",
+        "visits": 3,
+        "example_school": "2320"
+      },
+      {
+        "name": "UNT Dallas Trailblazers",
+        "id": "123546",
+        "kind": "OUTSIDE_UNREGISTERED",
+        "visits": 3,
+        "example_school": "2504"
+      },
+      {
+        "name": "Hannibal LaGrange HANNIBAL LAGRANGE",
+        "id": "533",
+        "kind": "OUTSIDE_UNREGISTERED",
+        "visits": 3,
+        "example_school": "2546"
+      },
+      {
+        "name": "Stillman Tigers",
+        "id": "2948",
+        "kind": "OUTSIDE_UNREGISTERED",
+        "visits": 2,
+        "example_school": "5"
+      },
+      {
+        "name": "Clayton State Lakers",
+        "id": "2861",
+        "kind": "OUTSIDE_LOGO",
+        "visits": 2,
+        "example_school": "6"
+      },
+      {
+        "name": "UC Merced Bobcats",
+        "id": "3185",
+        "kind": "OUTSIDE_UNREGISTERED",
+        "visits": 2,
+        "example_school": "13"
+      },
+      {
+        "name": "Whittier Poets",
+        "id": "110394",
+        "kind": "OUTSIDE_UNREGISTERED",
+        "visits": 2,
+        "example_school": "13"
+      },
+      {
+        "name": "Cal State East Bay Pioneers",
+        "id": "499",
+        "kind": "OUTSIDE_UNREGISTERED",
+        "visits": 2,
+        "example_school": "16"
+      },
+      {
+        "name": "Simpson (CA) Red Hawks",
+        "id": "109604",
+        "kind": "OUTSIDE_UNREGISTERED",
+        "visits": 2,
+        "example_school": "16"
+      },
+      {
+        "name": "Thomas Night Hawks",
+        "id": "2645",
+        "kind": "OUTSIDE_UNREGISTERED",
+        "visits": 2,
+        "example_school": "50"
+      },
+      {
+        "name": "Walla Walla Wolves",
+        "id": "3152",
+        "kind": "OUTSIDE_UNREGISTERED",
+        "visits": 2,
+        "example_school": "70"
+      },
+      {
+        "name": "Grace Lancers",
+        "id": "2252",
+        "kind": "OUTSIDE_UNREGISTERED",
+        "visits": 2,
+        "example_school": "85"
+      },
+      {
+        "name": "IU Southeast Grenadiers",
+        "id": "387",
+        "kind": "OUTSIDE_UNREGISTERED",
+        "visits": 2,
+        "example_school": "88"
+      }
+    ]
+  },
+  "nov04": {
+    "men_external_opponents_with_registered_logo": 16,
+    "women_external_opponents_with_registered_logo": 24,
+    "men_d1_games_with_source_sourced_crest": 0,
+    "men_sourced_outside": [
+      {
+        "school": "149",
+        "opponent": "Salish Kootenai",
+        "opponent_id": "",
+        "kind": "OUTSIDE_LOGO",
+        "source": "https://gogriz.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school": "159",
+        "opponent": "Framingham State Rams",
+        "opponent_id": "126956",
+        "kind": "OUTSIDE_LOGO",
+        "source": "https://dartmouthsports.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school": "2026",
+        "opponent": "Christendom",
+        "opponent_id": "",
+        "kind": "OUTSIDE_LOGO",
+        "source": "https://appstatesports.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school": "2181",
+        "opponent": "Central College Dutch",
+        "opponent_id": "",
+        "kind": "OUTSIDE_LOGO",
+        "source": "https://godrakebulldogs.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school": "231",
+        "opponent": "Bob Jones Bruins",
+        "opponent_id": "",
+        "kind": "OUTSIDE_LOGO",
+        "source": "https://furmanpaladins.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school": "2415",
+        "opponent": "Virginia University of Lynchburg",
+        "opponent_id": "",
+        "kind": "OUTSIDE_LOGO",
+        "source": "https://morganstatebears.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school": "2427",
+        "opponent": "Erskine",
+        "opponent_id": "",
+        "kind": "OUTSIDE_LOGO",
+        "source": "https://uncabulldogs.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school": "2433",
+        "opponent": "Champion Christian",
+        "opponent_id": "",
+        "kind": "OUTSIDE_LOGO",
+        "source": "https://ulmwarhawks.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school": "2450",
+        "opponent": "Randolph",
+        "opponent_id": "",
+        "kind": "OUTSIDE_LOGO",
+        "source": "https://nsuspartans.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school": "2546",
+        "opponent": "Webster",
+        "opponent_id": "",
+        "kind": "OUTSIDE_LOGO",
+        "source": "https://semoredhawks.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school": "2565",
+        "opponent": "Concordia Chicago Cougars",
+        "opponent_id": "",
+        "kind": "OUTSIDE_LOGO",
+        "source": "https://siuecougars.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school": "2635",
+        "opponent": "Blue Mountain Christian Toppers",
+        "opponent_id": "494",
+        "kind": "OUTSIDE_LOGO",
+        "source": "https://soconsports.com/schedule.aspx?schedule=9197"
+      },
+      {
+        "school": "295",
+        "opponent": "Regent",
+        "opponent_id": "",
+        "kind": "OUTSIDE_LOGO",
+        "source": "https://odusports.com/sports/mens-basketball/schedule"
+      },
+      {
+        "school": "3101",
+        "opponent": "Grace University Talons",
+        "opponent_id": "134743",
+        "kind": "OUTSIDE_LOGO",
+        "source": "https://utahtechtrailblazers.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school": "68",
+        "opponent": "West Coast Baptist",
+        "opponent_id": "",
+        "kind": "OUTSIDE_LOGO",
+        "source": "https://broncosports.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school": "88",
+        "opponent": "Saint Mary-of-the-Woods College",
+        "opponent_id": "",
+        "kind": "OUTSIDE_LOGO",
+        "source": "https://usiscreamingeagles.com/sports/mens-basketball/schedule/2026-2027?grid=true"
+      }
+    ],
+    "women_sourced_outside": [
+      {
+        "school": "27",
+        "opponent": "Occidental Tigers",
+        "opponent_id": "2475",
+        "kind": "OUTSIDE_LOGO",
+        "source": ""
+      },
+      {
+        "school": "79",
+        "opponent": "Illinois Springfield Prairie Stars",
+        "opponent_id": "542",
+        "kind": "OUTSIDE_LOGO",
+        "source": ""
+      },
+      {
+        "school": "149",
+        "opponent": "Montana Western Bulldogs",
+        "opponent_id": "2701",
+        "kind": "OUTSIDE_LOGO",
+        "source": ""
+      },
+      {
+        "school": "179",
+        "opponent": "D'Youville Saints",
+        "opponent_id": "128442",
+        "kind": "OUTSIDE_LOGO",
+        "source": ""
+      },
+      {
+        "school": "231",
+        "opponent": "Erskine Flying Fleet",
+        "opponent_id": "2215",
+        "kind": "OUTSIDE_LOGO",
+        "source": ""
+      },
+      {
+        "school": "309",
+        "opponent": "Xavier (LA) Gold Rush",
+        "opponent_id": "2753",
+        "kind": "OUTSIDE_LOGO",
+        "source": ""
+      },
+      {
+        "school": "338",
+        "opponent": "Clayton State Lakers",
+        "opponent_id": "2861",
+        "kind": "OUTSIDE_LOGO",
+        "source": ""
+      },
+      {
+        "school": "2026",
+        "opponent": "Montreat Cavaliers",
+        "opponent_id": "2410",
+        "kind": "OUTSIDE_LOGO",
+        "source": ""
+      },
+      {
+        "school": "2169",
+        "opponent": "Georgian Court Lions",
+        "opponent_id": "110419",
+        "kind": "OUTSIDE_LOGO",
+        "source": ""
+      },
+      {
+        "school": "2272",
+        "opponent": "Wingate Bulldogs",
+        "opponent_id": "351",
+        "kind": "OUTSIDE_LOGO",
+        "source": ""
+      },
+      {
+        "school": "2277",
+        "opponent": "LeTourneau Yellow Jackets",
+        "opponent_id": "2326",
+        "kind": "OUTSIDE_LOGO",
+        "source": ""
+      },
+      {
+        "school": "2427",
+        "opponent": "Clinton Golden Bears",
+        "opponent_id": "130129",
+        "kind": "OUTSIDE_LOGO",
+        "source": ""
+      },
+      {
+        "school": "2428",
+        "opponent": "Johnson C. Smith Golden Bulls",
+        "opponent_id": "2304",
+        "kind": "OUTSIDE_LOGO",
+        "source": ""
+      },
+      {
+        "school": "2450",
+        "opponent": "District of Columbia DISTRICT OF COLUMBIA",
+        "opponent_id": "2177",
+        "kind": "OUTSIDE_LOGO",
+        "source": ""
+      },
+      {
+        "school": "2463",
+        "opponent": "La Sierra Golden Eagles",
+        "opponent_id": "111960",
+        "kind": "OUTSIDE_LOGO",
+        "source": ""
+      },
+      {
+        "school": "2504",
+        "opponent": "Wiley Wildcats",
+        "opponent_id": "2728",
+        "kind": "OUTSIDE_LOGO",
+        "source": ""
+      },
+      {
+        "school": "2540",
+        "opponent": "UC Santa Cruz Banana Slugs",
+        "opponent_id": "498",
+        "kind": "OUTSIDE_LOGO",
+        "source": ""
+      },
+      {
+        "school": "2565",
+        "opponent": "Judson Eagles",
+        "opponent_id": "546",
+        "kind": "OUTSIDE_LOGO",
+        "source": ""
+      },
+      {
+        "school": "2617",
+        "opponent": "Dallas Crusaders",
+        "opponent_id": "2163",
+        "kind": "OUTSIDE_LOGO",
+        "source": ""
+      },
+      {
+        "school": "2692",
+        "opponent": "Westminster (UT) Griffins",
+        "opponent_id": "224",
+        "kind": "OUTSIDE_LOGO",
+        "source": ""
+      },
+      {
+        "school": "2710",
+        "opponent": "Clarke Pride",
+        "opponent_id": "2965",
+        "kind": "OUTSIDE_LOGO",
+        "source": ""
+      },
+      {
+        "school": "2900",
+        "opponent": "Bethel (MN) Royals",
+        "opponent_id": "2802",
+        "kind": "OUTSIDE_LOGO",
+        "source": ""
+      },
+      {
+        "school": "2908",
+        "opponent": "Johnson Royals",
+        "opponent_id": "128474",
+        "kind": "OUTSIDE_LOGO",
+        "source": ""
+      },
+      {
+        "school": "3084",
+        "opponent": "Park University Gilbert Buccaneers",
+        "opponent_id": "116420",
+        "kind": "OUTSIDE_LOGO",
+        "source": ""
+      }
+    ]
+  },
+  "previous_full_schedule_field_gap_snapshots": {
+    "men": {
+      "as_of": "2026-11-01T13:25:45.492791+00:00",
+      "schools": 365,
+      "schools_with_all_fields_present": 24,
+      "games": 11807,
+      "missing_broadcast": 5011,
+      "missing_arena": 313,
+      "missing_city": 110,
+      "missing_tipoff": 482,
+      "missing_site": 85
+    },
+    "women": {
+      "as_of": "2026-10-30",
+      "unique_games": 5782,
+      "paired_games": 5328,
+      "unmatched_rows": 2050
+    }
+  },
+  "open_work": {
+    "d1_logo_field_repair": "Existing source calendar reconciliation script now restores empty DI logo fields by exact verified ESPN school ID. Source-data publication is separate from this audit.",
+    "outside_schools": "Unregistered non-DI opponent names beyond Nov 4 remain a source-by-source recovery backlog, not fabricated assets.",
+    "women_opponent_identity": "Women's calendar entries can contain source data without independent university verification; no mass assertion that every contest is official or exhibition-free.",
+    "official_http_probe": "The 39 hosted external logo URLs have not all passed a same-day browser HTTP/DOM visual audit.",
+    "venue_data": "Prior venue/broadcast/time/source audits show substantial schedule metadata work remains."
+  },
+  "caution": "This classification measures reported school calendars, not unique games, so D-I vs D-I games are counted twice if present in each school's calendar."
+}
