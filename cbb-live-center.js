@@ -189,7 +189,7 @@
       const prob=m.probability>=.5?m.probability:1-m.probability;
       pct='<strong class="cbb-model-favorite">'+esc(code(favor))+' '+Math.round(prob*100)+'% pregame</strong>';
     }
-    return '<div class="cbb-usrs-module"><div class="cbb-usrs-title"><b>USRS</b><span>INDEPENDENT ELO'+(state.preseason?' · CLEAN SLATE':' · MODEL')+'</span></div>'+
+    return '<div class="cbb-usrs-module"><div class="cbb-usrs-title"><b>RETRO</b><span>INDEPENDENT ELO'+(state.preseason?' · CLEAN SLATE':' · MODEL')+'</span></div>'+
       '<div class="cbb-usrs-values"><span>'+esc(code(g.away))+' <strong>'+a+'</strong></span>'+
       '<i aria-hidden="true">↔</i><span>'+esc(code(g.home))+' <strong>'+h+'</strong></span></div>'+
       (pct?'<div class="cbb-usrs-odds">'+pct+'<small>PRE-GAME PROJECTION · NOT LIVE ODDS</small></div>':
@@ -305,7 +305,7 @@
       '<div><strong>'+live.length+'</strong><span>ON THE FLOOR</span></div>'+
       '<div><strong>'+close.length+'</strong><span>LIVE · ≤5 PTS</span></div>'+
       '<div><strong>'+conference.length+'</strong><span>CONFERENCE GAMES</span></div>'+
-      '<div><strong>'+upset.length+'</strong><span>USRS UPSET WATCH</span></div>'+      (women?'':'<div><strong>'+ranked.length+'</strong><span>AP TOP 25 GAMES</span></div>')+
+      '<div><strong>'+upset.length+'</strong><span>RETRO UPSET WATCH</span></div>'+      (women?'':'<div><strong>'+ranked.length+'</strong><span>AP TOP 25 GAMES</span></div>')+
       '</div><p>Watch counts use current sourced scores and identified conference memberships. Upset watch requires a valid pregame model forecast.</p></div>';
   }
   function toLetterpressTeam(t,g){
