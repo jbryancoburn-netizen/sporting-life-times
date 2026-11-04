@@ -253,7 +253,7 @@ const root=document.getElementById('slate-root');if(!root)return;
 const url=new URL(location.href),women=url.searchParams.get('gender')==='women';
 let selected=/^\d{4}-\d\d-\d\d$/.test(url.searchParams.get('date')||'')?url.searchParams.get('date'):today();
 let filter=['all','live','final','upcoming','exhibition'].includes(url.searchParams.get('view'))?url.searchParams.get('view'):'all';
-let search='',loaded=[],ratings=new Map(),retroPublished=null,retroPending=0,lastUpdate='',limit=18,loading=false,sourceError='';
+let search='',loaded=[],ratings=new Map(),retroTies=new Map(),retroPublished=null,retroPending=0,lastUpdate='',limit=18,loading=false,sourceError='';
 let pollRankings=new Map(),pollAsOf='';
 let liveBoard=[],liveCheckedAt=0,liveCheckError='',liveRequest=false;
 const verifiedLiveScores=new Map();
@@ -416,10 +416,9 @@ const emblem=t=>{
 const rating=t=>{const r=rankOf(t,ratings,women);return r&&Number.isFinite(+r.elo)?Math.round(+r.elo):null};
 // Display the published RETRO rank beside Elo; never manufacture standings from game-card order.
 const retroLine=t=>{
- const profile=rankOf(t,ratings,women),elo=rating(t),rank=Number(profile?.rank);
- const maxRank=women?363:365;
- const validRank=Number.isInteger(rank)&&rank>=1&&rank<=maxRank;
- return 'RETRO '+(elo??'—')+(validRank?' (#'+rank+')':'')+(retroPending?' provisional':'');
+ const profile=rankOf(t,ratings,women);
+ return (window.SLTBasketballScorebug?.formatRetro(profile,retroTies,women?363:365)||'RETRO —')+
+  (retroPending?' provisional':'');
 };
 const record=t=>{const r=rankOf(t,ratings,women);return r&&r.wins!=null&&r.losses!=null?Number(r.wins)+'–'+Number(r.losses):'0–0'};
 const team=t=>{const profile=rankOf(t,ratings,women),url=teamPage(t);
@@ -634,7 +633,7 @@ async function refresh(){
   if(women){
     const [results,rank,c,pal,wTeams,feed]=output;
     if(!results||rank?.gender!=='women'||rank.starting_elo!==1500)throw Error('Women’s game or rating data unavailable');
-    cross=c||{teams:[]};retroPublished=rank;ratings=rankingsMap(rank);palette=pal?.wbb||pal?.mbb||{};
+    cross=c||{teams:[]};retroPublished=rank;ratings=rankingsMap(rank);updateRetroTies();palette=pal?.wbb||pal?.mbb||{};
     womenTeams=new Map((wTeams?.teams||[]).map(t=>[String(t.team_id),t]));
     sourceFeed=feed||null;seasonStats=insight?.seasonProfiles(rank.events)||new Map();
     loaded=dedupeFixtures(normalizeWomen(results,rank,cross));
@@ -643,7 +642,7 @@ async function refresh(){
     const [feed,forecast,rank,c,pal,ex,arenas,calibration,polls]=output;
     if(!feed||rank?.model!=='retro-clean-slate'||rank.starting_elo!==1500||rank.rankings?.length!==365)
       throw Error('Men’s scoreboard or certified RETRO feed unavailable');
-    cross=c||{teams:[]};retroPublished=rank;ratings=rankingsMap(rank);palette=pal?.mbb||{};
+    cross=c||{teams:[]};retroPublished=rank;ratings=rankingsMap(rank);updateRetroTies();palette=pal?.mbb||{};
     const schools=new Map((cross.teams||[]).map(t=>[String(t.name||'').trim().toLowerCase(),String(t.espn_id)]));
     // Exact school identity aliases verified against this season's crosswalk.
     const pollAliases={'Michigan State':'Michigan St.',"St. John's":"St. John's (NY)",'Iowa State':'Iowa St.','USC':'Southern California'};
@@ -679,10 +678,18 @@ async function refresh(){
 // When a score becomes fully final, immediately replay the exact independent
 // RETRO method. The next certified JSON release replaces these provisional
 // figures without double counting the same game.
+function updateRetroTies(){
+ retroTies=new Map();
+ for(const row of ratings.values()){
+  const position=Number(row.rank);
+  if(Number.isInteger(position))retroTies.set(position,(retroTies.get(position)||0)+1);
+ }
+}
 function refreshRETRO(){
  const result=provisionalRetro(retroPublished,liveBoard,window.MBB_RETRO,women);
  retroPending=result.pending;
  ratings=rankingsMap(result.rankings?{rankings:result.rankings}:retroPublished);
+ updateRetroTies();
 }
 // Independently fetch live scores without waiting for scheduled GitHub JSON updates.
 async function refreshLive(){
