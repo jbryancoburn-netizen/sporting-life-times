@@ -1,5 +1,5 @@
 /* Canonical compact college basketball navigation. One layout, all CBB desks. */
-nav.cbb-universal-nav{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:14px!important;flex-wrap:wrap!important;width:100%!important;padding:10px 16px!important;margin:0 auto 14px!important;box-sizing:border-box!important;background:#fbf6eb!important;border-top:2px solid #26221b!important;border-bottom:3px double #26221b!important;font-family:Georgia,'Times New Roman',serif!important}
+nav.cbb-universal-nav{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:14px!important;flex-wrap:wrap!important;overflow:visible!important;height:auto!important;max-height:none!important;width:100%!important;padding:10px 16px!important;margin:0 auto 14px!important;box-sizing:border-box!important;background:#fbf6eb!important;border-top:2px solid #26221b!important;border-bottom:3px double #26221b!important;font-family:Georgia,'Times New Roman',serif!important}
 nav.cbb-universal-nav a{display:inline-block!important;padding:2px 0!important;color:#29241e!important;text-decoration:none!important;background:none!important;border:0!important;box-shadow:none!important;font:700 13px/1.25 Georgia,'Times New Roman',serif!important;white-space:nowrap!important;letter-spacing:0!important;text-transform:none!important}
 nav.cbb-universal-nav a:first-child,nav.cbb-universal-nav a[href="ncaam.html#teams"]{color:#853a30!important}
 nav.cbb-universal-nav a[aria-current="page"]{text-decoration:underline!important;text-underline-offset:4px!important}
@@ -7,12 +7,12 @@ nav.cbb-universal-nav a:hover,nav.cbb-universal-nav a:focus-visible{color:#853a3
 @media(max-width:900px){nav.cbb-universal-nav{justify-content:flex-start!important;gap:9px 17px!important;padding:9px 12px!important}nav.cbb-universal-nav a{font-size:12px!important}}
 
 nav.cbb-universal-nav .cbb-rank-menu{position:relative;display:inline-block;align-self:center;z-index:20}
-nav.cbb-universal-nav .cbb-rank-menu>summary,nav.cbb-universal-nav .cbb-find-btn{list-style:none;cursor:pointer;color:#29241e!important;font:700 13px/1.25 Georgia,serif!important;padding:2px 0;background:transparent;border:0;white-space:nowrap}
-nav.cbb-universal-nav .cbb-rank-menu>summary::after{content:" ▾";font-size:10px}
-nav.cbb-universal-nav .cbb-rank-menu>summary::-webkit-details-marker{display:none}
-nav.cbb-universal-nav .cbb-rank-links{position:absolute;left:0;top:100%;display:grid;min-width:130px;padding:5px;background:#f5ebd7;border:3px double #76583a;box-shadow:2px 3px 0 #d5c1a2;z-index:60}
-nav.cbb-universal-nav .cbb-rank-links a{padding:6px 9px!important;border-bottom:1px solid #c6b08e!important;font-size:12px!important}
-nav.cbb-universal-nav .cbb-rank-links a:last-child{border-bottom:0!important}
+nav.cbb-universal-nav .cbb-rank-trigger,nav.cbb-universal-nav .cbb-find-btn{list-style:none;cursor:pointer;color:#29241e!important;font:700 13px/1.25 Georgia,serif!important;padding:2px 0;background:transparent;border:0;white-space:nowrap}
+nav.cbb-universal-nav .cbb-rank-trigger::after{content:" ▾";font-size:10px}
+
+body>.cbb-rank-links{position:fixed;display:grid;min-width:174px;padding:7px;background:#f5ebd7;border:3px double #76583a;box-shadow:3px 4px 0 #d5c1a2;z-index:2147483640;box-sizing:border-box}body>.cbb-rank-links[hidden]{display:none!important}
+body>.cbb-rank-links a{padding:6px 9px!important;border-bottom:1px solid #c6b08e!important;font-size:12px!important}
+body>.cbb-rank-links a:last-child{border-bottom:0!important}
 nav.cbb-universal-nav .cbb-find-btn{color:#853a30!important;text-decoration:underline;text-underline-offset:4px}
 #cbb-team-finder{border:5px double #785b3b;background:#f4ead8;color:#302218;padding:17px;max-width:min(95vw,540px);width:100%;max-height:80vh;font:13px Georgia,serif}
 #cbb-team-finder::backdrop{background:rgba(37,27,17,.6)}
@@ -24,3 +24,5 @@ nav.cbb-universal-nav .cbb-find-btn{color:#853a30!important;text-decoration:unde
 #cbb-team-finder .cbb-find-results a{padding:8px 5px;border-bottom:1px solid #d1bfa3;color:#31251b;text-decoration:none}
 #cbb-team-finder .cbb-find-results a:hover{background:#e7d5ba;text-decoration:underline}
 @media(max-width:900px){nav.cbb-universal-nav .cbb-rank-menu>summary,nav.cbb-universal-nav .cbb-find-btn{font-size:12px!important}}
+
+body>.cbb-rank-links a{display:block;color:#2e251c;text-decoration:none;font:700 13px/1.35 Georgia,serif;padding:9px 12px!important}body>.cbb-rank-links a:hover,body>.cbb-rank-links a:focus-visible{background:#e1cfb4;color:#853a30;text-decoration:underline}nav.cbb-universal-nav .cbb-rank-trigger:hover,nav.cbb-universal-nav .cbb-rank-trigger:focus-visible{color:#853a30!important;text-decoration:underline}
