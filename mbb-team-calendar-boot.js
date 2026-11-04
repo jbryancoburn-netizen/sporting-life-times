@@ -111,6 +111,21 @@ try{
      Math.abs(Date.parse(g.date+'T12:00:00Z')-epoch)===86400000);
    return possible.length===1?possible[0]:null;
  };
+ // Historical D-I records are reconstructed strictly before the game date.
+ // Do not use current season totals as if they were historical.
+ const enteringRecord=(espnId,day)=>{
+  if(!espnId||!validRatings)return '—';
+  let wins=0,losses=0;
+  for(const result of verifiedFinals.values()){
+   if(!result||result.date>=day)continue;
+   if(result.home!==String(espnId)&&result.away!==String(espnId))continue;
+   const selfHome=result.home===String(espnId);
+   const myScore=selfHome?result.home_score:result.away_score;
+   const theirScore=selfHome?result.away_score:result.home_score;
+   if(myScore>theirScore)wins++;else if(myScore<theirScore)losses++;
+  }
+  return wins+'–'+losses;
+ };
  const opponentElo=id=>{const n=ratingBySchool.get(ncaaByEspn.get(String(id)));return Number.isFinite(Number(n))?Math.round(Number(n)).toString():'Not rated';};
  const cells=games.map(e=>{
   const c=e.competitions[0],contestants=c.competitors||[];
@@ -211,6 +226,7 @@ try{
     encodeURIComponent(final.date)+'&amp;game='+encodeURIComponent(final.id)+'">Game file ↗</a>':'';
   const statId=String(final?.id||e.id||'').replace(/^espn:/,'');
   const expandable=bigTenPilot&&hasScore&&/^\d+$/.test(statId);
+  const historicalRecords=bigTenPilot?'<span class="victorian-at-game-records">ENTERING · '+escape(team.name)+' '+escape(enteringRecord(team.espn_id,scheduledDate))+' · '+escape(opponentName)+' '+escape(enteringRecord(opponentId,scheduledDate))+' <em>(verified D-I)</em></span>':'';
   const school=schoolByEspn.get(opponentId);
   const label=escape(school?.name||opponentName);
   const title=school?'<a href="ncaam-team.html?team='+encodeURIComponent(school.id)+'">'+label+'</a>':label;
@@ -219,7 +235,7 @@ try{
   return '<tr '+(expandable?'class="victorian-completed-game" data-stat-id="'+escape(statId)+'" tabindex="0" aria-label="Expand statistics for '+escape(opponentName)+'" ':'')+'data-calendar-state="'+scheduleState+'" data-exhibition="'+(exhibition?'true':'false')+
     '" data-opponent="'+escape((school?.name||opponentName).toLowerCase())+'">'+
     '<td class="sched-date-cell"><time datetime="'+escape(scheduledDate)+'">'+escape(day)+'</time><span class="sched-game-status sched-status--'+(canceled?'canceled':exhibition?'exhibition':hasScore?'final':completed?'pending':'upcoming')+'">'+gameState+'</span></td>'+
-    '<td class="sched-matchup-cell"><div class="sched-matchup">'+emblem+'<span class="sched-opponent"><strong>'+title+'</strong><small>'+vs.replace('SITE UNVERIFIED','LOCATION UNCONFIRMED')+'</small></span></div></td>'+
+    '<td class="sched-matchup-cell"><div class="sched-matchup">'+emblem+'<span class="sched-opponent"><strong>'+title+'</strong><small>'+vs.replace('SITE UNVERIFIED','LOCATION UNCONFIRMED')+'</small>'+historicalRecords+'</span></div></td>'+
     '<td class="sched-venue-cell"><div class="sched-venue"><strong>'+escape(arena)+'</strong><small>'+escape(city)+'</small></div></td>'+
     '<td class="sched-time-cell">'+escape(tip)+'</td>'+
     '<td class="sched-network-cell">'+network+'</td>'+
