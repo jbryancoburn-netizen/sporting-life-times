@@ -67,7 +67,7 @@ async function run(){
  assert(!read('ncaaw-team.html').includes('.wbb-identity .mbb-mark__img{'),'Women-specific image sizing overrides shared badge');
  for(const t of cross.teams)assert(ctx.window.MBBLogos.byESPN(t.espn_id,'score',t.espn_name).includes('data-ring-count="2"'),'Missing shared two-ring contract '+t.name);
  const pages=fs.readdirSync('.').filter(p=>p.endsWith('.html')&&(/^(ncaam(?:[-.]|$))/.test(p)||p==='college-basketball.html'));
- assert.equal(pages.length,13,'Expected all thirteen MBB page templates, including Slate and Arena File');
+ assert(pages.length>=14,'Missing NCAA basketball templates including Rankings, Slate and Arena File: '+pages.length);
  for(const page of pages){
   const html=read(page);
   assert.equal((html.match(/mbb-logo-system\.js\?v=[a-zA-Z0-9._-]+/g)||[]).length,1,page+' must have exactly one shared logo renderer');
