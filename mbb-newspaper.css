@@ -566,3 +566,21 @@ body[data-page="conference"] .conference-news-edition .story-img{max-height:140p
 body[data-page="conference"] .conference-news-edition .story:not(.lead) p{display:none}
 @media(min-width:1150px){body[data-page="conference"] .conference-news-edition .story:not(.lead){padding:9px 0 8px}}
 @media(max-width:700px){body[data-page="conference"] .conference-news-edition{padding:10px}body[data-page="conference"] .conference-news-edition .story h3{font-size:16px}body[data-page="conference"] .conference-news-edition .story.lead h3{font-size:20px}}
+
+/* Conference frontispiece, directly styled for the conference edition. */
+body[data-page="conference"] .conference-editorial-masthead{padding:8px 15px 0!important;margin:0 auto 5px!important;border-top:4px double #3f3125!important;border-bottom:3px double #3f3125!important;background:#f0e3ca!important;min-height:0!important}
+body[data-page="conference"] .conference-editorial-masthead .slt-department-kicker{display:flex;justify-content:space-between;gap:15px;font:700 9px Georgia,serif;letter-spacing:.09em;color:#774739;margin:0 0 3px}
+body[data-page="conference"] .conference-masthead-title{display:flex;align-items:baseline;justify-content:space-between;gap:12px;border-bottom:1px solid #a88d6a;padding:0 0 5px;color:#2d241c}
+body[data-page="conference"] .conference-masthead-title>span{font:800 clamp(20px,2.2vw,31px)/1.08 Georgia,serif;letter-spacing:-.045em}
+body[data-page="conference"] .conference-masthead-title em{font:700 11px Georgia,serif;letter-spacing:.08em;text-transform:uppercase;font-style:normal;white-space:nowrap;color:#6e4934}
+body[data-page="conference"] .conference-editorial-masthead .slt-department-links{padding:5px 0!important;margin:0!important;display:flex;flex-wrap:wrap;gap:5px 18px;border:0!important}
+body[data-page="conference"] .conference-editorial-masthead .slt-department-links a{font:700 10px Georgia,serif;letter-spacing:.04em;color:#623c2d;text-decoration:none}
+body[data-page="conference"] .conference-identity{padding:7px 0 9px;border-bottom:3px double #6d5740;margin-bottom:8px;background:transparent}
+body[data-page="conference"] .conference-identity-upper{display:flex;justify-content:space-between;font:700 9px Georgia,serif;letter-spacing:.12em;color:#794b37}
+body[data-page="conference"] .conference-identity-main{display:flex;align-items:baseline;flex-wrap:wrap;justify-content:space-between;gap:5px 15px;margin:3px 0 6px}
+body[data-page="conference"] .conference-identity-main h1{font:800 clamp(29px,3.7vw,49px)/1.04 Georgia,serif;letter-spacing:-.045em;margin:0;color:#2c211a}
+body[data-page="conference"] .conference-identity-main p{font:italic 14px Georgia,serif;margin:0;color:#6a5640}
+body[data-page="conference"] .conference-identity-meta{display:flex;gap:10px 20px;flex-wrap:wrap;border-top:1px solid #b5a081;padding-top:6px;font:700 11px Georgia,serif;color:#574737}
+body[data-page="conference"] .conference-identity-meta span+span::before{content:"◆";font-size:6px;color:#8e5441;margin-right:15px;vertical-align:middle}
+body[data-page="conference"] .stamp{padding:3px 0!important;margin:0!important;font-size:10px}
+@media(max-width:700px){body[data-page="conference"] .conference-masthead-title{display:block}body[data-page="conference"] .conference-masthead-title em{display:block;margin-top:3px}body[data-page="conference"] .conference-identity-main h1{font-size:34px}body[data-page="conference"] .conference-identity-meta{gap:5px 12px}}
