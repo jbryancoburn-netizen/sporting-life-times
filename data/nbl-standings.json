@@ -6,8 +6,8 @@
   "elo_approved": false,
   "source": "ESPN site API, completed finals since NBL27 regular-season opening",
   "season_start": "2026-09-19",
-  "updated_at": "2026-11-04T11:07:28.594026+00:00",
-  "games_replayed": 52,
+  "updated_at": "2026-11-04T19:20:28.020603+00:00",
+  "games_replayed": 53,
   "teams": 10,
   "rows": [
     {
@@ -31,16 +31,6 @@
       "points_pct": 105.29
     },
     {
-      "team": "Perth Wildcats",
-      "wins": 5,
-      "losses": 4,
-      "played": 9,
-      "win_pct": 0.556,
-      "points_for": 839,
-      "points_against": 870,
-      "points_pct": 96.44
-    },
-    {
       "team": "Melbourne United",
       "wins": 6,
       "losses": 5,
@@ -49,6 +39,16 @@
       "points_for": 1061,
       "points_against": 999,
       "points_pct": 106.21
+    },
+    {
+      "team": "Brisbane Bullets",
+      "wins": 6,
+      "losses": 5,
+      "played": 11,
+      "win_pct": 0.545,
+      "points_for": 1047,
+      "points_against": 1071,
+      "points_pct": 97.76
     },
     {
       "team": "Cairns Taipans",
@@ -61,14 +61,14 @@
       "points_pct": 95.48
     },
     {
-      "team": "Brisbane Bullets",
+      "team": "Perth Wildcats",
       "wins": 5,
       "losses": 5,
       "played": 10,
       "win_pct": 0.5,
-      "points_for": 938,
-      "points_against": 967,
-      "points_pct": 97.0
+      "points_for": 943,
+      "points_against": 979,
+      "points_pct": 96.32
     },
     {
       "team": "Adelaide 36ers",
@@ -112,6 +112,18 @@
     }
   ],
   "recent_finals": [
+    {
+      "id": "401875290",
+      "played_at": "2026-11-04T09:00Z",
+      "home": "Brisbane Bullets",
+      "away": "Perth Wildcats",
+      "home_score": 109,
+      "away_score": 104,
+      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875290/wildcats-bullets",
+      "verified": false,
+      "provider": "espn",
+      "state": "candidate"
+    },
     {
       "id": "401875301",
       "played_at": "2026-11-02T08:30Z",
@@ -216,18 +228,6 @@
       "home_score": 91,
       "away_score": 99,
       "source_url": "https://www.espn.com/nbl/game/_/gameId/401875292/kings-wildcats",
-      "verified": false,
-      "provider": "espn",
-      "state": "candidate"
-    },
-    {
-      "id": "401875284",
-      "played_at": "2026-10-25T06:00Z",
-      "home": "Melbourne United",
-      "away": "Sydney Kings",
-      "home_score": 105,
-      "away_score": 95,
-      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875284/kings-united",
       "verified": false,
       "provider": "espn",
       "state": "candidate"
