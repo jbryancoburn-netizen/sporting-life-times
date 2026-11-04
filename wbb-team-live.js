@@ -35,7 +35,7 @@ function start(teamId,baseGames,siteDisputes,neutralProof){
           else if(outcome.detail)cell.title=outcome.detail;
         }
         const opponent=byId.get(String(game.opponent_id||''));
-        const opponentElo=row.querySelector('.wbb-opp-elo');
+        const opponentElo=row.querySelector('.wbb-opp-elo-value')||row.querySelector('.wbb-opp-elo');
         if(opponentElo)opponentElo.textContent=opponent&&Number.isFinite(Number(opponent.elo))?
           String(Math.round(Number(opponent.elo))):'—';
         const change=row.querySelector('.wbb-opp-change');
