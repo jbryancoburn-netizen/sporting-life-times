@@ -14,6 +14,19 @@
   const tied=(tieCounts?.get(rank)||0)>1;
   return base+' ('+(tied?'T-':'#')+rank+')';
  }
+ function livePanel(g,label){
+  const raw=String(label||'LIVE').trim();
+  const clock=(raw.match(/\b\d{1,2}:\d{2}\b/)||[])[0]||'';
+  const periodMatch=raw.match(/\b(?:1ST|2ND|FIRST|SECOND|3RD|THIRD|4TH|FOURTH)\s*(?:HALF|PERIOD|QUARTER)?\b|\b(?:HALFTIME|OT|OVERTIME|[2-9]OT)\b/i);
+  const p=periodMatch?periodMatch[0].toUpperCase().replace(/^1ST(?:\s+HALF)?$|^FIRST(?:\s+HALF)?$/,'FIRST HALF').replace(/^2ND(?:\s+HALF)?$|^SECOND(?:\s+HALF)?$/,'SECOND HALF').replace(/^OT$/,'OVERTIME'):'';
+  // Accept situation only from caller-provided, verified feed data. Never fabricate possession, bonus or timeouts.
+  const situation=[g.situation,g.possession?String(g.possession)+' BALL':'',g.bonus].find(v=>typeof v==='string'&&v.trim());
+  const line=clock?'<strong class="ledger26-clock">'+esc(clock)+'</strong>':'<strong class="ledger26-clock ledger26-clock--text">'+esc(raw)+'</strong>';
+  const period=p?'<span class="ledger26-period">'+esc(p)+'</span>':'';
+  const bottom=situation?'<small class="ledger26-situation">'+esc(situation)+'</small>':
+    '<small class="ledger26-live-word">LIVE</small>';
+  return '<div class="ledger26-status ledger26-status--stack" data-phase="live">'+line+period+bottom+'</div>';
+ }
  function render(input){
   const g=input||{},phase=['live','final','upcoming'].includes(g.phase)?g.phase:'upcoming';
   const label=(phase==='final'?
@@ -35,10 +48,10 @@
   return '<div class="ledger26-scorebug" role="group" aria-label="'+esc(g.ariaLabel||((g.away?.name||'Away')+' at '+(g.home?.name||'Home')+' scoreboard'))+'">'+
     '<span class="ledger26-monogram"><img src="assets/slt-engraved-black.svg" width="35" height="49" alt="Sporting Life and Times monogram"></span>'+
     '<div class="ledger26-teams">'+team(g.away)+team(g.home)+'</div>'+
-    (label?'<div class="ledger26-status" data-phase="'+phase+'"><strong>'+esc(label)+'</strong></div>':'')+'</div>';
+    (phase==='live'?livePanel(g,label):label?'<div class="ledger26-status" data-phase="'+phase+'"><strong>'+esc(label)+'</strong></div>':'')+'</div>';
  }
  // The Daily Ledger is the universal newspaper model, not a separate sport skin.
  // Keep the old alias for existing college basketball pages.
- root.SLTSportsScorebug={render,formatRetro,version:'shared-letterpress-v5'};
+ root.SLTSportsScorebug={render,formatRetro,version:'shared-letterpress-v6'};
  root.SLTBasketballScorebug=root.SLTSportsScorebug;
 })(typeof window!=='undefined'?window:globalThis);
