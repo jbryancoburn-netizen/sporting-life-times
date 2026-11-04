@@ -42,6 +42,14 @@ test('same official school logo appears on DIII men and women; unresolved marks 
  assert.equal(approved.get('4'),'adrian');
  assert.equal(approved.get('2798'),'albertus-magnus');
 });
+test('DIII publishing workflow persists verified logos on every rebuilt season file',()=>{
+ const publisher=fs.readFileSync('scripts/build_d3_basketball.mjs','utf8');
+ assert(publisher.includes('function applyOfficialLogoCrosswalk(teams)'));
+ assert(publisher.includes('const logoCoverage=applyOfficialLogoCrosswalk(next.teams)'));
+ assert(publisher.includes('next.coverage.verified_logo_slugs=logoCoverage.matched'));
+ assert(publisher.includes("team.logo_source='NCAA school index · exact organization ID'"));
+ assert(publisher.includes("team.slug=match.slug"));
+});
 test('both lower divisions use official NCAA school SVGs before independent mirror',()=>{
  for(const script of [d2,d3]){
   assert(script.includes('https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/'));
