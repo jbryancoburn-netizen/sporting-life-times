@@ -104,6 +104,43 @@ const badForecast={games:[{id:'espn:4444444',date:'2026-11-02',
   away_id:'ncaa:609574',home_id:'ncaa:609673',home_win_probability:.77}]};
 const mismatched=slate.normalizeMen({games:[fixture]},badForecast,cross);
 assert.equal(mismatched[0].probability,null,'disputed matchup cannot receive a false model forecast');
+
+// The Ledger checks today's scoreboard independently of scheduled JSON publishes.
+// Participant IDs, temporal order and official finals remain strict.
+assert(script.includes('refreshLive()')&&script.includes('},30000)'),
+ 'Live Ledger must refresh independently between static publisher runs');
+assert(script.includes('Live scores checked')&&script.includes('Published '),
+ 'Show the separate published snapshot and direct score-check clocks');
+const verifiedTeams={teams:[
+ {id:'canon-1',espn_id:'2747',name:'Wofford',espn_name:'Wofford Terriers'},
+ {id:'canon-2',espn_id:'2633',name:'Tennessee',espn_name:'Tennessee Volunteers'}
+]};
+const sourceEvent=(awayPoints,homePoints,awayId='2747')=>({
+ id:'401906848',date:'2026-11-03T23:00:00Z',
+ status:{type:{state:'in',shortDetail:'11:15 - 2nd'}},
+ competitions:[{competitors:[
+  {homeAway:'away',team:{id:awayId},score:awayPoints},
+  {homeAway:'home',team:{id:'2633'},score:homePoints}
+ ]}]
+});
+const reported=slate.liveEvents({events:[sourceEvent('38','44')]},'2026-11-03',verifiedTeams);
+assert.equal(reported.length,1,'exact team IDs identify the live fixture');
+const oldGame={id:'401906848',day:'2026-11-03',phase:'live',kind:'regular',
+ away:{id:'2747',canonical:'canon-1',score:31},
+ home:{id:'2633',canonical:'canon-2',score:34}};
+const advanced=slate.reconcileLive([oldGame],reported);
+assert.equal(advanced[0].away.score,38,'newer live score supersedes published value');
+assert.equal(advanced[0].home.score,44,'update both teams from the same event');
+const earlier=slate.liveEvents({events:[sourceEvent('22','30')]},'2026-11-03',verifiedTeams);
+assert.equal(slate.reconcileLive([oldGame],earlier)[0].away.score,31,
+ 'older scores cannot move backwards');
+assert.equal(slate.liveEvents({events:[sourceEvent('38','44','999')]},'2026-11-03',verifiedTeams).length,0,
+ 'unknown team identity cannot enter the Ledger');
+assert.equal(slate.liveEvents({events:[sourceEvent('38','44')]},'2026-11-02',verifiedTeams).length,0,
+ 'live fixtures must match the game day');
+assert.equal(slate.reconcileLive([{...oldGame,phase:'final'}],reported)[0].away.score,31,
+ 'certified finals outrank supplemental scores');
+
 console.log('PASS NCAA slate: interactive controls, 365-school identity, sourced scores, 1500 RETRO, men/women separation, search/date, sourced exhibition exclusions.');
 
 // Arena File, box-score provenance and future live-data correctness are release gates.
