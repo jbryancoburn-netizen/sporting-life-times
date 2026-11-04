@@ -1,5 +1,5 @@
 /* Sporting Life & Times — cross-edition Victorian editorial system. Non-destructive: existing live renderers remain in place. */
-:root{--slt-paper:#f1e7d5;--slt-ink:#29231c;--slt-rule:#ae9b7f;--slt-red:#86372e}
+:root{--slt-paper:#f1e7d5;--slt-ink:#29231c;--slt-rule:#ae9b7f;--slt-red:#86372e;--slt-surface:#f8f1e4;--slt-surface-alt:#e9dcc8;--slt-accent:#53605a;--slt-highlight:#8b6c45}
 body{background-color:var(--slt-paper);color:var(--slt-ink)}
 body :is(.wrap,.slt-wrap,.page-wrap,.shell,.sl-shell){max-width:1500px}
 body :is(.masthead,.slt-masthead){font-family:Georgia,'Times New Roman',serif!important;letter-spacing:-.045em!important}
@@ -21,3 +21,19 @@ body :is(.eyebrow,.slt-eyebrow,.source,.section-kicker){font-family:Arial,Helvet
 body :is(.story-img,.player-headshot,.player-image,.nba-player-headshot){object-fit:cover}
 @media(max-width:860px){body :is(.grid,.slt-columns) > :is(.column,.slt-column){margin-right:0!important;padding-right:0!important;border-right:0!important}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* Unified edition furniture: standings, rankings and bracket sheets use ink,
+   paper and engraved rules. Institutional colors stay on logos and narrow rails. */
+body :is(.nba-newspaper,.epl-newspaper){--paper:var(--slt-paper);--ink:var(--slt-ink)}
+body :is(.nba-table,.standings-table,.league-table,.bracket,.bracket-card,.playoff-bracket,.nba-bracket,.ranking-table,.power-table){background:var(--slt-surface);color:var(--slt-ink);border-color:var(--slt-rule);box-shadow:none;border-radius:0}
+body :is(.nba-table,.standings-table,.league-table,.ranking-table,.power-table) thead th{background:var(--slt-surface-alt);color:var(--slt-ink);font:700 11px/1.35 Georgia,'Times New Roman',serif;letter-spacing:.035em}
+body :is(.nba-table,.standings-table,.league-table,.ranking-table,.power-table) tbody tr{background:transparent;color:var(--slt-ink)}
+body :is(.nba-table,.standings-table,.league-table,.ranking-table,.power-table) tbody tr:nth-child(even){background:#f0e6d6}
+body :is(.nba-table,.standings-table,.league-table,.ranking-table,.power-table) :is(td,th){border-color:var(--slt-rule)}
+body :is(.nba-division-card,.nba-static-cover,.nba-power-row,.rank-row,.standing-row,.playoff-team,.bracket-match,.bracket-game,.nba-playoff-card,.nba-seed-card,.nba-prob,.metric){background-color:var(--slt-surface);color:var(--slt-ink);border-color:var(--slt-rule);box-shadow:none;border-radius:0}
+body :is(.nba-power-row,.rank-row,.standing-row,.bracket-match,.bracket-game,.nba-playoff-card) :is(strong,b,small){text-shadow:none}
+body :is(.nba-progress,.nba-prob,.nba-prob-bar,.rating-bar,.bar-track,.progress-track){background-color:#d9ceba;border-radius:0}
+body :is(.nba-progress,.nba-prob,.nba-prob-bar,.rating-bar,.bar-track,.progress-track) :is(span,i){filter:saturate(.48);border-radius:0}
+body :is(.nba-division-card,.nba-static-cover,.playoff-team,.bracket-match,.bracket-game,.nba-playoff-card,.nba-seed-card) :is(h2,h3,strong){font-family:Georgia,'Times New Roman',serif}
+body :is(.nba-live-match,.ledger26-card,.rabby-game) {box-shadow:none;border-radius:0}
+body :is(.nba-live-match,.ledger26-card,.rabby-game):focus-within{outline-offset:2px}
