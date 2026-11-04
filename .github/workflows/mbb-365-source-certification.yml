@@ -1,0 +1,28 @@
+name: Men's 365-team source and template certification
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/mbb-365-source-certification.yml'
+      - 'tests/mbb-team-template-365.test.cjs'
+permissions:
+  contents: read
+jobs:
+  certify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify all 365 schools and 361 documented historical archives
+        run: node --test tests/mbb-team-template-365.test.cjs
+      - name: Verify shared NCAA double-ring logos
+        run: node scripts/audit-mbb-logo-system.cjs
+      - name: JavaScript syntax of the men's team page components
+        run: |
+          node --check mbb-team-calendar-boot.js
+          node --check mbb-newspaper.js
+          node --check mbb-current-roster.js
