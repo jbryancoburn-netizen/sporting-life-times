@@ -93,6 +93,7 @@ async function run(){
   new Function(src);
  }
  // Audit every published school calendar, including non-DI opponent identity.
+ // Recount after source-level D-I crest repair and official fixture ingestion.
  require('./audit-d1-basketball-schedules.cjs')();
  console.log('PASS 365 verified NCAA logos; '+JSON.stringify(kinds)+' artwork flags; '+pages.length+'/'+pages.length+' MBB pages have one owner; no stacked ring imports');
 }
