@@ -45,6 +45,8 @@ jobs:
         run: node scripts/audit-mbb-logo-system.cjs
       - name: Verify women's 363-team master template and source identities
         run: node --test tests/wbb-team-template-363.test.cjs
+      - name: Certify 365 Indiana-template school IDs, data files, mobile contracts and source-backed history
+        run: node --test tests/mbb-team-template-365.test.cjs
       - name: Verify 365 NCAA power ranking rows actually render
         run: node tests/mbb-rankings-runtime.test.cjs
       - name: Validate 25 AP and Coaches poll logo matches
