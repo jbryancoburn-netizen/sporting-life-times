@@ -67,7 +67,6 @@
     const officialHome=window.WBBSiteIntegrity?.officialHome(g,homeProof);
     g=window.WBBSiteIntegrity?.correctedHome(g,homeProof)||g;
     const h=teams.get(String(g.home_id)),a=teams.get(String(g.away_id));
-    const row=(id,name,n)=>'<div class="score-team">'+(teams.has(String(id))?teamName(id):'<span>'+esc(name||'Opponent TBA')+'</span>')+'<b>'+(score(g)?esc(n??'—'):'')+'</b></div>';
     const eventId=String(g.espn_id||g.id||'');
     const day=localDay(g.date);
     const gamefile=/^\d+$/.test(eventId)&&/^\d{4}-\d{2}-\d{2}$/.test(day)?
@@ -78,7 +77,24 @@
     let forecast=siteClaims.length?'<div class="wbb-game-forecast wbb-site-dispute">Venue under review · home-court forecast withheld</div>':'';
     if(!siteClaims.length&&!score(g)&&h&&a){const edge=(certifiedNeutral||g.neutral)?0:Number(ratings.parameters.home_edge)||0,p=100/(1+10**(-((a.elo-h.elo-edge)/400)));forecast='<div class="wbb-game-forecast">Win forecast · '+esc(a.team)+' '+p.toFixed(0)+'% · '+esc(h.team)+' '+(100-p).toFixed(0)+'%</div>';}
     const status=g.status==='review'?'Source conflict · score withheld':g.status==='final'?'Final':g.status==='live'?(g.detail||'Live'):'Scheduled';
-    return '<article class="score-card wbb-score-card"><small>'+esc(status)+' · '+esc(gameWhen(g))+'</small>'+row(g.away_id,g.away_name,g.away_score)+row(g.home_id,g.home_name,g.home_score)+'<div class="wbb-game-detail">'+esc(g.venue||'Arena TBA')+(g.city?' · '+esc(g.city):'')+'</div><div class="wbb-game-detail">'+esc(g.broadcast||'Network TBA')+(g.neutral?' · Neutral site':'')+'</div>'+forecast+
+    const declared=g.status==='review'||g.source_conflict?'upcoming':
+      (g.status==='final'||g.completed)?'final':g.status==='live'?'live':'upcoming';
+    const valid=g.away_score!=null&&g.home_score!=null&&Number.isFinite(Number(g.away_score))&&Number.isFinite(Number(g.home_score));
+    const phase=declared==='final'&&!valid?'upcoming':declared;
+    const profile=(id,title,value)=>{
+      const t=teams.get(String(id)),palette=window.MBBLogos.colorForESPN(id);
+      return {name:t?.team||title||'Opponent',crest:window.MBBLogos.byESPN(String(id),'score',t?.team||title),
+        record:t?record(t):'—',
+        retro:t&&Number.isFinite(Number(t.elo))?'RETRO '+Math.round(Number(t.elo))+(Number.isInteger(Number(t.rank))&&Number(t.rank)>0?' (#'+t.rank+')':''):'RETRO —',
+        color:palette?.primary||'#655239',score:phase==='upcoming'?null:value};
+    };
+    const scorebug=window.SLTSportsScorebug.render({phase,
+      status:g.status==='review'||g.source_conflict?'SOURCE CONFLICT':g.status==='live'?(g.detail||'LIVE'):undefined,
+      away:profile(g.away_id,g.away_name,g.away_score),
+      home:profile(g.home_id,g.home_name,g.home_score)});
+    return '<article class="ledger26-card wbb-score-card">'+
+      '<div class="ledger26-meta"><span>'+esc(status)+' · '+esc(gameWhen(g))+'</span></div>'+
+      scorebug+'<div class="wbb-game-detail">'+esc(g.venue||'Arena TBA')+(g.city?' · '+esc(g.city):'')+'</div><div class="wbb-game-detail">'+esc(g.broadcast||'Network TBA')+(g.neutral?' · Neutral site':'')+'</div>'+forecast+
        (officialHome?'<div class="wbb-game-detail wbb-venue-confirmed">'+
         'Home court confirmed · '+esc(officialHome.venue)+
         ' <a href="'+safe(officialHome.sources[0])+'" target="_blank" rel="noopener noreferrer">University source ↗</a>'+

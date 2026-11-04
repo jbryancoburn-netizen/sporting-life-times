@@ -18,7 +18,7 @@
   const g=input||{},phase=['live','final','upcoming'].includes(g.phase)?g.phase:'upcoming';
   const label=(phase==='final'?
     (/^FINAL(?:\s*\/\s*OT|\s*\(OT\)|\s+AFTER\s+EXTRA\s+TIME)?$/i.test(String(g.status||''))?g.status:'FINAL'):
-    phase==='upcoming'?'UPCOMING':g.status||'LIVE');
+    phase==='upcoming'?(g.status||'UPCOMING'):g.status||'LIVE');
   const team=t=>{
    const x=t||{},poll=x.poll||null;
    const pollText=poll?[poll.coaches??'NR',poll.ap??'NR'].join('/'):'';
@@ -39,6 +39,6 @@
  }
  // The Daily Ledger is the universal newspaper model, not a separate sport skin.
  // Keep the old alias for existing college basketball pages.
- root.SLTSportsScorebug={render,formatRetro,version:'shared-letterpress-v3'};
+ root.SLTSportsScorebug={render,formatRetro,version:'shared-letterpress-v4'};
  root.SLTBasketballScorebug=root.SLTSportsScorebug;
 })(typeof window!=='undefined'?window:globalThis);

@@ -55,25 +55,39 @@ const seedFor=t=>{if(!projection)return '—';for(const [region,slots] of Object
 function stamp(){ $('#access-stamp').textContent='Viewed '+when(new Date().toISOString());$('#data-stamp').innerHTML='<span class="pulse"></span>'+(live?'Ratings through '+esc(data.as_of):'Preseason edition')+' · News '+when(wire?.news_updated_at||news?.updated_at); }
 stamp();
 const gid=g=>[g.home_id||g.home,g.away_id||g.away];
-function gameCard(g,final=false){const [h,a]=gid(g),home=teamMap.get(h),away=teamMap.get(a);if(!home||!away)return '';
-const event=String(g.id||'').match(/^espn:([0-9]+)$/);
-const gameFile=event?'<a class="muted" href="cbb-gamefile.html?day='+encodeURIComponent(String(g.date).slice(0,10))+'&amp;game='+event[1]+'">Live game file ↗</a>':'';
-return '<div class="score-card"><small>'+esc(g.date)+' · '+(final?'FINAL':'Scheduled')+'</small><div class="score-team">'+name(away)+'<b>'+(final?esc(g.away_score):'<em>'+rec(away)+'</em>')+'</b></div><div class="score-team">'+name(home)+'<b>'+(final?esc(g.home_score):'<em>'+rec(home)+'</em>')+'</b></div>'+(g.source_url?'<a class="muted" href="'+url(g.source_url)+'" target="_blank" rel="noopener">Game source ↗</a>':'')+gameFile+'</div>';}
+// The same Daily Ledger renderer owns every men's basketball score.
+const retroTies=new Map();
+teams.forEach(t=>retroTies.set(t.rank,(retroTies.get(t.rank)||0)+1));
+function teamProfile(t,score=null){
+ const palette=window.MBBLogos.colorForESPN(ids.get(t.team_id));
+ return {name:t.team,crest:logo(t,'score'),color:palette?.primary||'#655239',
+   record:rec(t),retro:window.SLTSportsScorebug.formatRetro(t,retroTies,365),score};
+}
+function gameCard(g,final=false){
+ const [h,a]=gid(g),home=teamMap.get(h),away=teamMap.get(a);
+ if(!home||!away)return '';
+ const event=String(g.id||'').match(/^espn:([0-9]+)$/);
+ const day=String(g.date||'').slice(0,10);
+ const link=event?'cbb-gamefile.html?day='+encodeURIComponent(day)+'&game='+event[1]:'';
+ const hasScores=g.away_score!=null&&g.home_score!=null&&Number.isFinite(Number(g.away_score))&&Number.isFinite(Number(g.home_score));
+ const phase=final&&hasScores?'final':'upcoming';
+ return '<article class="ledger26-card"><div class="ledger26-meta"><span class="ledger26-time">'+esc(day)+' · '+(phase==='final'?'FINAL':'SCHEDULED')+'</span></div>'+
+   window.SLTSportsScorebug.render({phase,away:teamProfile(away,phase==='final'?g.away_score:null),home:teamProfile(home,phase==='final'?g.home_score:null)})+
+   (link?'<div class="slt-conference-game-link"><a href="'+esc(link)+'">OPEN GAMEFILE ↗</a></div>':'')+
+   (g.source_url?'<div class="slt-conference-game-link"><a href="'+url(g.source_url)+'" target="_blank" rel="noopener">GAME SOURCE ↗</a></div>':'')+
+   '</article>';
+}
 // Conference upcoming fixtures use the canonical Daily Ledger scorebug renderer.
 function conferenceScoreCard(g){
  const [h,a]=gid(g),home=teamMap.get(h),away=teamMap.get(a);
  if(!home||!away)return '';
- const profile=t=>({
-  name:t.team,crest:logo(t),record:rec(t),
-  retro:Number.isFinite(Number(t.elo))?'RETRO '+Math.round(Number(t.elo))+(Number.isInteger(Number(t.rank))&&Number(t.rank)>0?' (#'+Number(t.rank)+')':''):'RETRO —',
-  color:/^#[0-9a-fA-F]{6}$/.test(t.primary_color||t.color||'')?(t.primary_color||t.color):'#655239'
- });
+
  const event=String(g.id||'').match(/^espn:([0-9]+)$/);
  const link=event?'cbb-gamefile.html?day='+encodeURIComponent(String(g.date).slice(0,10))+'&game='+event[1]:null;
  const date=String(g.date||'').slice(0,10);
  return '<article class="ledger26-card slt-conference-game">'+
    '<div class="ledger26-meta"><span class="ledger26-time">'+esc(date)+' · SCHEDULED</span></div>'+
-   window.SLTSportsScorebug.render({phase:'upcoming',away:profile(away),home:profile(home)})+
+   window.SLTSportsScorebug.render({phase:'upcoming',away:teamProfile(away),home:teamProfile(home)})+
    (link?'<div class="slt-conference-game-link"><a href="'+link+'">OPEN GAMEFILE ↗</a></div>':'')+
    '</article>';
 }
@@ -83,10 +97,37 @@ async function refreshLiveScores(){
  if(!Array.isArray(d?.events))return;
  browserScores=d.events.map(e=>({id:e.id,date:e.date,state:e.status?.type?.state,status:e.status?.type?.shortDetail,teams:[...(e.competitions?.[0]?.competitors||[])].sort((a,b)=>(a.homeAway==='home')-(b.homeAway==='home')).map(t=>({id:t.team?.id,name:t.team?.displayName,logo:t.team?.logo,score:t.score}))}));browserScoresAt=new Date().toISOString();
 }
-function liveRail(){const feeds=browserScores||(wire?.games?.length?wire.games:(scoreboards?.leagues?.find(l=>l.league==="Men's College Basketball")?.games||[]));
+const ncaaByESPN=new Map((cross?.teams||[]).map(t=>[String(t.espn_id),t.id]));
+function liveFeedCard(g){
+ const rows=(g.teams||[]).slice().sort((a,b)=>Number(a.home_away==='home'||a.homeAway==='home')-Number(b.home_away==='home'||b.homeAway==='home'));
+ if(rows.length<2)return '';
+ const [away,home]=rows;
+ const profile=t=>{
+  const school=teamMap.get(ncaaByESPN.get(String(t.id)));
+  return school?teamProfile(school):{name:t.name||'Opponent',crest:window.MBBLogos.byESPN(t.id,'score',t.name),
+    record:'—',retro:'RETRO —',color:window.MBBLogos.colorForESPN(t.id)?.primary||'#655239'};
+ };
+ const scored=t=>t.score!=null&&String(t.score).trim()!==''&&Number.isFinite(Number(t.score));
+ const state=String(g.state||'').toLowerCase(),publishedFinal=state==='post'||/\bfinal\b/i.test(g.status||'');
+ const phase=publishedFinal&&scored(away)&&scored(home)?'final':state==='in'||publishedFinal?'live':'upcoming';
+ const day=easternGameDay(g.date||g.start_time),id=String(g.id||'').replace(/^espn:/,'');
+ const gamefile=/^\d+$/.test(id)&&day?'cbb-gamefile.html?day='+encodeURIComponent(day)+'&game='+id:'';
+ const left=profile(away),right=profile(home);
+ left.score=phase==='upcoming'?null:scored(away)?away.score:null;
+ right.score=phase==='upcoming'?null:scored(home)?home.score:null;
+ const status=publishedFinal&&phase!=='final'?'SCORE PENDING':phase==='live'?g.status||'LIVE':undefined;
+ return '<article class="ledger26-card"><div class="ledger26-meta"><span class="ledger26-time">'+esc(day||'DATE UNCONFIRMED')+' · '+(phase==='upcoming'?'SCHEDULED':phase==='final'?'FINAL':'LIVE')+'</span></div>'+
+   window.SLTSportsScorebug.render({phase,status,away:left,home:right})+
+   (gamefile?'<div class="slt-conference-game-link"><a href="'+esc(gamefile)+'">OPEN GAMEFILE ↗</a></div>':'')+'</article>';
+}
+function liveRail(){
+ const feeds=browserScores||(wire?.games?.length?wire.games:
+    (scoreboards?.leagues?.find(l=>l.league==="Men's College Basketball")?.games||[]));
  const currentGames=feeds.filter(g=>easternGameDay(g.date||g.start_time)===today());
- if(currentGames.length)return currentGames.map(g=>'<div class="score-card"><small>'+esc(g.status||g.state)+' · '+when(g.date)+'</small>'+(g.teams||[]).map(t=>'<div class="score-team"><span class="team-name">'+window.MBBLogos.byESPN(t.id,'score',t.name)+esc(t.name)+'</span><b>'+esc(g.state==='pre'?'':t.score??'')+'</b></div>').join('')+'</div>').join('');
- const upcoming=(schedule?.games||[]).filter(g=>g.date>=today()).slice(0,5);return upcoming.length?upcoming.map(g=>gameCard(g)).join(''):empty('No current games are available in the schedule feed.');}
+ if(currentGames.length)return currentGames.map(liveFeedCard).join('');
+ const upcoming=(schedule?.games||[]).filter(g=>g.date>=today()).slice(0,5);
+ return upcoming.length?upcoming.map(g=>gameCard(g)).join(''):empty('No current games are available in the schedule feed.');
+}
 function stories(team=null,conference=null){
  const curated=(team&&teamNews?.team_id===team.team_id)?teamNews.articles||[]:[];
  const list=[...curated,...(wire?.articles||[]),...(news?.articles||[])].filter(a=>a.category!=='WBB'&&a.title&&url(a.url)&&(curated.includes(a)||/college basketball|ncaa basketball|march madness|ncaam|men.s basketball/i.test([a.title,a.summary,a.category].join(' '))||a.category==='MBB'));
