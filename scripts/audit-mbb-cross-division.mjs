@@ -5,7 +5,7 @@ import path from 'node:path';
 const root=process.cwd(),folder=path.join(root,'data/mbb-schedules-2026-27');
 const cross=JSON.parse(fs.readFileSync(path.join(root,'data/ncaam-2026-27-espn-team-crosswalk.json'),'utf8'));
 const di=new Set((cross.teams||[]).map(t=>String(t.espn_id)));
-const today=new Date().toISOString().slice(0,10),items=[],dedup=new Set();
+const today=new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date()),items=[],dedup=new Set();
 for(const filename of fs.readdirSync(folder).filter(f=>/^\d+\.json$/.test(f))){
  const owner=filename.slice(0,-5),d=JSON.parse(fs.readFileSync(path.join(folder,filename),'utf8'));
  for(const e of d.events||[]){
@@ -32,7 +32,10 @@ for(const filename of fs.readdirSync(folder).filter(f=>/^\d+\.json$/.test(f))){
  }
 }
 items.sort((a,b)=>a.date.localeCompare(b.date)||a.school_espn_id.localeCompare(b.school_espn_id));
-const summary={as_of:today,scope:'Published schedule entries through today; missing IDs are NOT proof of non-DI status',candidate_games:items.length,verified_regular_season_finals:items.filter(x=>x.result_status==='verified_regular_season_final').length,awaiting_verification:items.filter(x=>x.result_status==='needs_source_check').length};
+const summary={as_of:today,scope:'Published schedule entries through today; missing IDs are NOT proof of non-DI status',candidate_games:items.length,verified_regular_season_finals:items.filter(x=>x.result_status==='verified_regular_season_final').length,awaiting_verification:items.filter(x=>x.result_status==='needs_source_check').length,
+ preseason_exhibition_or_event_candidates:items.filter(x=>x.date<'2026-11-01').length,
+ regular_season_candidates:items.filter(x=>x.date>='2026-11-01').length,
+ regular_season_awaiting_source_check:items.filter(x=>x.date>='2026-11-01'&&x.result_status==='needs_source_check').length};
 const report={summary,items};
 const output=process.argv[2];
 if(output)fs.writeFileSync(output,JSON.stringify(report,null,2)+'\n');
