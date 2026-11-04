@@ -33,7 +33,7 @@ function eplLedger(g,done){
     (rankFor.get(t.name)?' ('+rankFor.get(t.name)+')':''):'RETRO —'};
  };
  const bug=window.SLTSportsScorebug?.render({phase:done?'final':'upcoming',
-   away:side(away,g.away_score),home:side(home,g.home_score)
+   time:done?'':date(g.kickoff_utc)+' ET',network:g.network||g.broadcast||'',away:side(away,g.away_score),home:side(home,g.home_score)
  })||'<p>Scorebug unavailable.</p>';
  const path=done?'epl-match-report.html?game='+encodeURIComponent(g.fixture_id):
    'match-center.html?league=Premier%20League&game='+encodeURIComponent(g.fixture_id);
@@ -42,7 +42,10 @@ function eplLedger(g,done){
   '<span>'+esc(date(g.kickoff_utc))+' ET</span></div>'+
   '<details class="ledger26-expand"><summary class="ledger26-summary">'+bug+
   '<span class="ledger26-instruction">OPEN GAME DETAILS +</span></summary>'+
-  '<div class="ledger26-expanded"><p><a href="'+path+'">OPEN FULL MATCH REPORT ↗</a></p></div>'+
+  '<div class="ledger26-expanded"><p><strong>KICKOFF</strong> '+esc(date(g.kickoff_utc))+' ET · <strong>GROUND</strong> '+esc(g.venue||'Venue not published')+'</p>'+ 
+  '<p><strong>'+esc(away.name)+'</strong> '+esc(standingByName.get(away.name)?.won??'—')+' wins · '+esc(standingByName.get(away.name)?.drawn??'—')+' draws · '+esc(standingByName.get(away.name)?.lost??'—')+' losses</p>'+ 
+  '<p><strong>'+esc(home.name)+'</strong> '+esc(standingByName.get(home.name)?.won??'—')+' wins · '+esc(standingByName.get(home.name)?.drawn??'—')+' draws · '+esc(standingByName.get(home.name)?.lost??'—')+' losses</p>'+ 
+  '<p><a href="'+path+'">OPEN FULL MATCH REPORT ↗</a></p></div>'+
   '</details></article>';
 }
 const upcomingTiles=upcomingGames.slice(0,4).map(g=>eplLedger(g,false)).join('');
