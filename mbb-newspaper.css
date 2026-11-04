@@ -587,3 +587,38 @@ body[data-page="conference"] .conference-identity-meta{display:flex;gap:10px 20p
 body[data-page="conference"] .conference-identity-meta span+span::before{content:"◆";font-size:6px;color:#8e5441;margin-right:15px;vertical-align:middle}
 body[data-page="conference"] .stamp{padding:3px 0!important;margin:0!important;font-size:10px}
 @media(max-width:700px){body[data-page="conference"] .conference-masthead-title{display:block}body[data-page="conference"] .conference-masthead-title em{display:block;margin-top:3px}body[data-page="conference"] .conference-identity-main h1{font-size:34px}body[data-page="conference"] .conference-identity-meta{gap:5px 12px}}
+
+/* Indiana reference edition — shared structural treatment for all men's team desks. */
+body[data-page="team"] #app{color:#34271e}
+body[data-page="team"] #app .team-hero{border-top:4px double #5c4530;border-bottom:3px double #8b6c4e;background:#f0e2ca;padding:11px 14px;margin:5px 0 9px;gap:14px}
+body[data-page="team"] #app .team-hero h1{font:800 clamp(29px,3.4vw,49px)/1.04 Georgia,serif;letter-spacing:-.035em;color:#2d2118;margin:0 0 5px}
+body[data-page="team"] #app .team-hero p{font:12px Georgia,serif;color:#684b36;margin:0}
+body[data-page="team"] #app>.metrics{border-top:1px solid #a88c68;border-bottom:3px double #866849;background:#f3e8d6;padding:6px 0;margin-bottom:14px}
+body[data-page="team"] #app .metrics .metric{background:transparent;border-right:1px solid #ac9170;padding:8px 11px}
+body[data-page="team"] #app .metrics .metric:last-child{border-right:0}
+body[data-page="team"] #app .metrics .metric b{color:#35271d;font:800 clamp(19px,2vw,27px)/1 Georgia,serif}
+body[data-page="team"] #app .metrics .metric span{color:#76503a;font:700 10px/1.25 Georgia,serif;text-transform:uppercase;letter-spacing:.045em}
+body[data-page="team"] #app .grid.two{gap:16px;align-items:start}
+body[data-page="team"] #app .grid.two>.column{padding:0 8px;border-color:#c3ad8c}
+body[data-page="team"] #app .grid.two>.column:first-child{padding-left:0}
+body[data-page="team"] #app .grid.two>.column:last-child{padding-right:0}
+body[data-page="team"] #app .grid.two section.panel:not(.mbb-roster-live){border:3px double #836746!important;background:#f4e9d7;padding:11px 13px;margin:0 0 15px;box-shadow:inset 0 0 0 2px #eee0c9}
+body[data-page="team"] #app .grid.two .panel-head{border-bottom:3px double #856c4c;padding-bottom:7px;margin-bottom:9px}
+body[data-page="team"] #app .grid.two .panel-head h2{font:800 clamp(20px,2vw,27px)/1.08 Georgia,serif;color:#30241b;letter-spacing:-.025em}
+body[data-page="team"] #app .grid.two .panel-head .eyebrow{font:700 9px Georgia,serif;letter-spacing:.10em;color:#7c4934}
+body[data-page="team"] #app .grid.two .panel .note{color:#6b553e;font:12px/1.45 Georgia,serif}
+body[data-page="team"] #app #news-list .story{padding:9px 0;border-bottom:1px solid #bda584}
+body[data-page="team"] #app #news-list .story h3,body[data-page="team"] #app #news-list .story.lead h3{font:700 clamp(15px,1.25vw,20px)/1.19 Georgia,serif;color:#30241b}
+body[data-page="team"] #app #news-list .story.lead h3{font-size:clamp(18px,1.5vw,23px)}
+body[data-page="team"] #app #news-list .story .source{color:#86513b;font:700 9px Georgia,serif;letter-spacing:.07em}
+body[data-page="team"] #app .grid.two .panel svg[role="img"],body[data-page="team"] #app .grid.two .panel svg[aria-label]{background:#eee2ca;max-width:100%;height:auto;border:1px solid #c1aa88}
+body[data-page="team"] #app .stat-bars .bar{background:#dfcfb6;border:1px solid #c0a98b}
+body[data-page="team"] #app .stat-bars .bar span{background:#77513a!important}
+body[data-page="team"] #app .grid.two .panel .stat{color:#4b392b;font-family:Georgia,serif}
+body[data-page="team"] #app .grid.two .panel .metrics{background:#f9f0e0;border-top:3px double #987b57;border-bottom:3px double #987b57;gap:0}
+body[data-page="team"] #app .grid.two .panel .metrics .metric{border-right:1px solid #c6ad8a}
+body[data-page="team"] #app .grid.two .panel table{font-family:Georgia,serif}
+body[data-page="team"] #app .grid.two .panel table th{background:#dfcaab;color:#59412c;border-bottom:3px double #896d4d}
+body[data-page="team"] #app .grid.two .panel table td{border-bottom:1px solid #c8b092}
+body[data-page="team"] #app .grid.two .panel .input{border:1px solid #a78e6e;background:#fdf5e7;color:#382a1e;border-radius:0;font:12px Georgia,serif}
+@media(max-width:880px){body[data-page="team"] #app .grid.two>.column{padding:0;border:0}body[data-page="team"] #app .metrics .metric{padding:7px}body[data-page="team"] #app .team-hero h1{font-size:31px}}
