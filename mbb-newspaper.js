@@ -92,24 +92,55 @@ function conferenceScoreCard(g){
    '</article>';
 }
 // Resolve confirmed tipoff and broadcasts by ESPN event ID; never invent missing times/networks.
+// Use the same published school calendars as Team Desks, then ESPN by exact event ID.
 async function hydrateConferenceTipoffs(){
- const meta=[...document.querySelectorAll('.slt-conference-game .slt-fixture-meta[data-fixture-event]')];
- const days=[...new Set(meta.filter(el=>el.dataset.fixtureEvent&&/^\\d{4}-\\d{2}-\\d{2}$/.test(el.dataset.fixtureDay)).map(el=>el.dataset.fixtureDay))];
+ const cards=[...document.querySelectorAll('.slt-conference-game .slt-fixture-meta')];
+ const eventIds=new Set(cards.map(x=>x.dataset.fixtureEvent).filter(Boolean));
+ const gameById=new Map();
+ const addEvent=e=>{if(e?.id&&eventIds.has(String(e.id)))gameById.set(String(e.id),e);};
+ const days=[...new Set(cards.map(x=>x.dataset.fixtureDay).filter(Boolean))];
  await Promise.all(days.map(async day=>{
-  const payload=await get('https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard?groups=50&limit=1000&dates='+day.replaceAll('-',''));
-  if(!Array.isArray(payload?.events))return;
-  const events=new Map(payload.events.map(e=>[String(e.id),e]));
-  meta.filter(el=>el.dataset.fixtureDay===day).forEach(el=>{
-   const e=events.get(el.dataset.fixtureEvent);if(!e)return;
-   const tip=el.querySelector('.slt-fixture-tipoff'),tv=el.querySelector('.slt-fixture-network');
-   if(e.date&&Number.isFinite(+new Date(e.date))&&!e.status?.type?.completed&&!e.competitions?.[0]?.status?.type?.completed){
-    const officialTBA=e.status?.type?.detail?.toLowerCase().includes('tba')||e.timeValid===false;
-    if(!officialTBA)tip.textContent=new Date(e.date).toLocaleTimeString('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit'})+' ET';
-   }
-   const networks=[...(e.competitions?.[0]?.broadcasts||[]),...(e.competitions?.[0]?.geoBroadcasts||[])].flatMap(b=>[...(b.names||[]),b.name,b.media?.shortName]).filter(Boolean);
-   if(networks.length)tv.textContent=[...new Set(networks)].join(' / ');
-  });
+  const feed=await get('https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard?groups=50&limit=1000&dates='+day.replaceAll('-',''));
+  (feed?.events||[]).forEach(addEvent);
  }));
+ // School calendars are the primary site source. Check them for missing time/TV.
+ const calendarIds=[...new Set((schedule?.games||[]).filter(g=>eventIds.has(String(g.id||'').replace(/^espn:/,''))).flatMap(g=>gid(g)).map(id=>ids.get(id)).filter(Boolean))];
+ await Promise.all(calendarIds.map(async eid=>{
+  const local=await get('data/mbb-schedules-2026-27/'+encodeURIComponent(eid)+'.json');
+  const localEvents=local?.events||[];
+  for(const e of localEvents){
+   const id=String(e.id||'');if(!eventIds.has(id))continue;
+   const previous=gameById.get(id);
+   if(!previous||e.official_time||e.competitions?.[0]?.broadcasts?.length)gameById.set(id,{...previous,...e});
+  }
+ }));
+ // If a published school calendar lacks a needed field, check the live team feed.
+ const unresolved=()=>cards.filter(el=>{
+  const e=gameById.get(el.dataset.fixtureEvent),c=e?.competitions?.[0]||{};
+  const hasTime=Boolean(e?.official_time||e?.date&&e.date.includes('T')&&!e?.official_time_tba);
+  return !hasTime||!(c.broadcasts?.length||e?.broadcasts?.length||c.geoBroadcasts?.length);
+ });
+ if(unresolved().length){
+  await Promise.all(calendarIds.map(async eid=>{
+   const feed=await get('https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams/'+encodeURIComponent(eid)+'/schedule?season=2027&limit=400');
+   for(const e of feed?.events||[]){
+    const id=String(e.id||'');if(!eventIds.has(id))continue;
+    const original=gameById.get(id)||{};
+    const oc=original.competitions?.[0]||{},nc=e.competitions?.[0]||{};
+    gameById.set(id,{...original,...e,official_time:original.official_time||e.official_time,competitions:[{...oc,...nc,broadcasts:nc.broadcasts?.length?nc.broadcasts:oc.broadcasts,geoBroadcasts:nc.geoBroadcasts?.length?nc.geoBroadcasts:oc.geoBroadcasts}]});
+   }
+  }));
+ }
+ for(const el of cards){
+  const e=gameById.get(el.dataset.fixtureEvent);if(!e)continue;
+  const time=el.querySelector('.slt-fixture-tipoff'),tv=el.querySelector('.slt-fixture-network');
+  if(e.official_time&&!e.official_time_tba)time.textContent=String(e.official_time);
+  else if(e.date&&e.date.includes('T')&&!e.official_time_tba&&e.timeValid!==false&&Number.isFinite(+new Date(e.date)))
+   time.textContent=new Date(e.date).toLocaleTimeString('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit'})+' ET';
+  const c=e.competitions?.[0]||{};
+  const nets=[...(c.broadcasts||[]),...(e.broadcasts||[]),...(c.geoBroadcasts||[])].flatMap(b=>[...(b.names||[]),b.name,b.media?.shortName,b.media?.name].filter(Boolean));
+  if(nets.length)tv.textContent=[...new Set(nets)].join(' / ');
+ }
 }
 let browserScores=null,browserScoresAt=null;
 async function refreshLiveScores(){
