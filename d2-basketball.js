@@ -21,7 +21,9 @@ function logo(t){
  const colors='style="--c1:'+color(t?.primary)+';--c2:'+color(t?.secondary)+'"';
  const description=branded?(t?.color_provenance||'School colors from source provider'):'Brand colors unavailable; neutral rings used';
  return '<span class="logo-shell '+(branded?'branded':'unbranded')+'" title="'+esc(description)+'" '+colors+'>'+
- (slug?'<img loading="lazy" alt="" src="https://ncaa-api.henrygd.me/logo/'+encodeURIComponent(slug)+'.svg" onerror="this.remove()">':'')+
+ (slug?'<img loading="lazy" alt="" src="https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/'+encodeURIComponent(slug)+'.svg" '+
+ 'data-logo-fallback="https://ncaa-api.henrygd.me/logo/'+encodeURIComponent(slug)+'.svg" '+
+ 'onerror="if(this.dataset.logoFallback){this.src=this.dataset.logoFallback;delete this.dataset.logoFallback}else this.remove()">':'')+
  '<small class="logo-initials">'+esc(initials)+'</small></span>';
 }
 function school(id){return state.teams.get(String(id))||{id:String(id),name:id,slug:''}}
