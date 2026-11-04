@@ -105,8 +105,11 @@
     const primary=valid(t?.team?.color)?'#'+t.team.color.replace(/^#/,''):'#194854';
     let secondary=valid(t?.team?.alternateColor)?'#'+t.team.alternateColor.replace(/^#/,''):'#5c8395';
     if(secondary.toLowerCase()===primary.toLowerCase()||secondary.toLowerCase()==='#ffffff')secondary='#5c8395';
-    return '<span class="cbb-fallback-crest" style="--cbb-primary:'+esc(primary)+';--cbb-secondary:'+esc(secondary)+'">'+
-      (src?'<img src="'+src+'" alt="" loading="lazy">':'<span>'+esc(code(t).slice(0,2))+'</span>')+'</span>';
+    // Outsider/exhibition opponents use the same bounded two-ring component as D-I.
+    // Never render an unstyled, intrinsic-size source image inside a scorebug.
+    return '<span class="mbb-mark mbb-mark--score'+(src?'':' mbb-mark--missing')+'" style="--mbb-primary:'+esc(primary)+';--mbb-secondary:'+esc(secondary)+'" data-ring-count="2" role="img" aria-label="'+esc(n)+' logo">'+
+      '<span class="mbb-mark__initials" aria-hidden="true">'+esc(code(t).slice(0,2))+'</span>'+
+      (src?'<img class="mbb-mark__img" src="'+esc(src)+'" alt="" loading="lazy" decoding="async" onerror="window.MBBLogos&&window.MBBLogos.fail(this)">':'')+'</span>';
   }
   const safeTeamColor=t=>{
     const raw=String(t?.team?.color||'').replace(/^#/,'');
