@@ -1,0 +1,45 @@
+{
+  "as_of": "2026-11-04",
+  "purpose": "Correct university-source calendars for authenticated Nov 4 non-Division I opponents; preserve external school identity and do not add them to D-I RETRO",
+  "fixtures": [
+    {
+      "school": "Dartmouth",
+      "school_id": "159",
+      "date": "2026-11-04",
+      "opponent": "Framingham State Rams",
+      "opponent_id": "126956",
+      "opponent_division": "NCAA DIII",
+      "status": "source_confirmed",
+      "source": "https://dartmouthsports.com/sports/mens-basketball/schedule/2026-27",
+      "logo_source": "https://dartmouthsports.com/sports/mens-basketball/schedule/2026-27"
+    },
+    {
+      "school": "Tennessee Tech",
+      "school_id": "2635",
+      "date": "2026-11-04",
+      "opponent": "Blue Mountain Christian Toppers",
+      "opponent_id": "494",
+      "opponent_division": "NAIA",
+      "status": "missing_fixture_added",
+      "source": "https://soconsports.com/schedule.aspx?schedule=9197",
+      "secondary_source": "https://ssacsports.com/schedule.aspx?schedule=2067",
+      "logo_source": "https://bmcusports.com/"
+    },
+    {
+      "school": "Utah Tech",
+      "school_id": "3101",
+      "date": "2026-11-04",
+      "opponent": "Grace University Talons (Pomona, California)",
+      "opponent_id": "134743",
+      "opponent_division": "CCA / outside NCAA D-I",
+      "status": "incorrect_blank_opponent_identity_resolved",
+      "source": "https://utahtechtrailblazers.com/news/2026/11/3/mens-basketball-trailblazers-host-grace-u-on-wednesday-night-for-home-opener.aspx",
+      "logo_source": "https://www.graceuathletics.com/athletic-branding-logos"
+    }
+  ],
+  "caveats": [
+    "Do not assign non-D-I opponents a 365-program RETRO rating or conference membership.",
+    "This correction does not prove the live score-feed publishes a matching game ID.",
+    "Published school schedules for Tennessee Tech are missing the 11/4 opponent; preserve the independently sourced conference listing on refresh."
+  ]
+}
