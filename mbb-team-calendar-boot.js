@@ -242,7 +242,7 @@ try{
   const ownConference=conferenceById.get(String(team.id));
   const opponentConference=school?conferenceById.get(String(school.id)):null;
   const conferenceTag=!exhibition&&ownConference&&opponentConference&&ownConference===opponentConference?'<span class="victorian-conference-game" title="Conference game">'+escape(ownConference)+'</span>':'';
-  const title='<span class="victorian-opponent-heading">'+badges(school?.name,school?.espn_name,opponentName)+(school?'<a href="ncaam-team.html?team='+encodeURIComponent(school.id)+'">'+label+'</a>':'<span class="victorian-school-name">'+label+'</span>')+conferenceTag+'</span>';
+  const title='<span class="victorian-opponent-heading"><span class="victorian-heading-rank">'+badges(school?.name,school?.espn_name,opponentName)+'</span><span class="victorian-heading-school">'+(school?'<a href="ncaam-team.html?team='+encodeURIComponent(school.id)+'">'+label+'</a>':'<span class="victorian-school-name">'+label+'</span>')+'</span><span class="victorian-heading-conference">'+conferenceTag+'</span></span>';
   const today=new Date().toLocaleDateString('sv-SE',{timeZone:'America/New_York'});
   const scheduleState=hasScore?'final':canceled?'canceled':scheduledDate>=today?'upcoming':'past';
   return '<tr '+(bigTenPilot?'data-game-site="'+(vs==='HOME'?'home':vs==='AWAY'?'away':vs==='NEUTRAL'?'neutral':'unknown')+'" ':'')+(expandable?'class="victorian-completed-game" data-stat-id="'+escape(statId)+'" tabindex="0" aria-label="Expand statistics for '+escape(opponentName)+'" ':'')+'data-calendar-state="'+scheduleState+'" data-exhibition="'+(exhibition?'true':'false')+
