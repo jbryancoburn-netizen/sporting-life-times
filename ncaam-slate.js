@@ -541,24 +541,13 @@ const meter=g=>{
 
 /* The Daily Ledger scorecard — compact scoreboard, native in-place Gamefile. */
 const ledgerScorebug=g=>{
- const pts=t=>g.phase==='upcoming'?'—':Number.isFinite(t.score)?String(t.score):'—';
- const status=g.phase==='final'?'FINAL':g.phase==='live'?String(g.status||'LIVE'):'UPCOMING';
- const teamRow=t=>{
-  const poll=pollRankings.get(String(t.id));
-  const pollPair=poll?[poll.coaches??'NR',poll.ap??'NR'].join('/'):'';
-  const pollTitle=poll?'Coaches '+(poll.coaches?'#'+poll.coaches:'unranked')+' / AP '+(poll.ap?'#'+poll.ap:'unranked'):'';
-  const leagueRank=pollPair?'<span class="ledger26-poll" title="'+esc(pollTitle)+'" aria-label="'+esc(pollTitle)+'">'+esc(pollPair)+'</span>':'';
-  const recordLine=esc(record(t))+' · '+retroLine(t);
-  return '<div class="ledger26-team" style="--ledger26-school:'+brand(t)+'">'+
-   '<span class="ledger26-crest">'+emblem(t)+'</span>'+
-   '<span class="ledger26-identity"><strong class="ledger26-name">'+leagueRank+esc(t.name)+'</strong>'+
-   '<small class="ledger26-record">'+recordLine+'</small></span>'+
-   '<b class="ledger26-points">'+pts(t)+'</b></div>';
- };
- return '<div class="ledger26-scorebug" role="group" aria-label="'+esc(g.away.name)+' at '+esc(g.home.name)+' scoreboard">'+
-  '<span class="ledger26-monogram"><img src="assets/slt-engraved-black.svg" width="35" height="49" alt="Sporting Life and Times monogram"></span>'+
-  '<div class="ledger26-teams">'+teamRow(g.away)+teamRow(g.home)+'</div>'+
-  '<div class="ledger26-status" data-phase="'+esc(g.phase)+'"><strong>'+esc(status)+'</strong></div></div>';
+ // A single first-party scorebug renderer serves both basketball desks.
+ const convert=t=>({name:t.name,score:g.phase==='upcoming'?null:t.score,
+   crest:emblem(t),color:brand(t),record:record(t),retro:retroLine(t),
+   poll:pollRankings.get(String(t.id))||null});
+ return window.SLTBasketballScorebug?.render({
+  phase:g.phase,status:g.status||'LIVE',away:convert(g.away),home:convert(g.home)
+ })||'<p class="sl-empty">Scorebug temporarily unavailable. Refresh the page.</p>';
 };
 // The independently refreshed slate can lag a verified game summary.
 // Keep only newer, event-matched live scores when both teams have not decreased.
