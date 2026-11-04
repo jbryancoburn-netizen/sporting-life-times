@@ -75,12 +75,24 @@ const stand=(conference)=>codes.filter(t=>meta[t][1]===conference).sort((a,b)=>{
 function stamp(){if(!$('#data-stamp'))return;
  const captured=data.archive?.games?.length||0;const newsTime=data.news?.updated_at?date(data.news.updated_at):'unavailable';$('#data-stamp').innerHTML='<span class="pulse"></span>'+esc(data.earned?.games_played??'—')+' Elo finals (through '+(data.earned?.events?.length?date(data.earned.events.at(-1).date):'unavailable')+') · '+captured+' archived box scores · News published '+newsTime+' · Scores '+date(data.schedule?.updated_at);
  $('#access-stamp').textContent='Viewed '+date(new Date().toISOString());}
+// The live NBA rail uses the same Daily Ledger scorebug as every other sport.
 function card(g){
- const ts=g.teams||[],a=ts.find(t=>t.home_away==='away')||ts[0],h=ts.find(t=>t.home_away==='home')||ts[1];if(!a||!h||!meta[a.code]||!meta[h.code])return '';
- const state=g.state==='post'?'FINAL':g.state==='in'?'LIVE':date(g.date),gameId=g.id;
- const dest=g.state==='post'?'nba-game-center.html?game='+encodeURIComponent(gameId):'nba-live-game.html?game='+encodeURIComponent(gameId);
- const side=t=>'<div class="score-team" style="--nba-club-color:'+meta[t.code][3]+'">'+logoImg(t.code,'nba-game-row-crest')+'<span>'+esc(name(t.code))+'</span><strong>'+(g.state==='pre'?'<em>'+rec(t.code)+'</em>':esc(t.score??'—'))+'</strong></div>';
- return '<div class="score-card '+(g.state==='in'?'is-live':'')+'"><small>'+esc(state)+'</small><a href="'+dest+'">'+side(a)+side(h)+'</a><a class="score-link" href="'+dest+'">'+(g.state==='post'?'Box score & game analysis':'Live matchup & game center')+' ↗</a></div>';
+ const ts=g.teams||[],a=ts.find(t=>t.home_away==='away')||ts[0],h=ts.find(t=>t.home_away==='home')||ts[1];
+ if(!a||!h||!meta[a.code]||!meta[h.code])return '';
+ const scored=t=>t.score!=null&&String(t.score).trim()!==''&&Number.isFinite(Number(t.score));
+ const phase=g.state==='post'&&scored(a)&&scored(h)?'final':
+   (g.state==='in'||g.state==='post'?'live':'upcoming');
+ const dest=(phase==='final'?'nba-game-center.html?game=':'nba-live-game.html?game=')+encodeURIComponent(g.id);
+ const profile=t=>({name:name(t.code),crest:logoImg(t.code,'nba-game-row-crest'),
+    color:meta[t.code][3],record:rec(t.code),
+    retro:Number.isFinite(rates[t.code])?'RETRO '+fmt(rates[t.code],0)+' (#'+rank(t.code)+')':'RETRO —',
+    score:phase==='upcoming'?null:scored(t)?t.score:null});
+ return '<article class="ledger26-card"><div class="ledger26-meta"><span>'+esc(date(g.date))+'</span></div>'+
+   window.SLTSportsScorebug.render({phase,
+      status:g.state==='post'&&phase!=='final'?'SCORE PENDING':undefined,
+      away:profile(a),home:profile(h)})+
+   '<div class="slt-conference-game-link"><a href="'+esc(dest)+'">'+
+   (phase==='final'?'BOX SCORE &amp; ANALYSIS':'OPEN GAME CENTER')+' ↗</a></div></article>';
 }
 function gamesFor(days=1,limit=12){const games=[...(data.schedule?.games||[])];
  // Deduplicate by source event ID, never create extra score cards from overlapping feeds.

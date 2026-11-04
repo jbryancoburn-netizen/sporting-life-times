@@ -780,7 +780,7 @@ body.nba-newspaper[data-page="matchups"] .rabby-audit-note{
 body.nba-newspaper{--paper:#f1e7d5;--ink:#29221b;--line:#baa990;--muted:#695b4a;--teal:#6b3b2d;--orange:#84362c;--white:#fcf7ed;background:var(--paper);font:15px/1.43 Georgia,serif}
 body.nba-newspaper .hero{background:#eee0c5;color:#2b231b;border:5px double #30261d;border-left:0;border-right:0;border-radius:0}
 body.nba-newspaper .hero p{color:#594939}
-body.nba-newspaper .nba-score-rail{grid-template-columns:repeat(auto-fit,minmax(205px,1fr));gap:0;border-top:3px double var(--ink);border-bottom:3px double var(--ink);background:#f7efdf}
+body.nba-newspaper .nba-score-rail{grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:0;border-top:3px double var(--ink);border-bottom:3px double var(--ink);background:#f7efdf}
 body.nba-newspaper .nba-score-rail .score-card{background:transparent;border:0;border-right:1px solid var(--line);border-radius:0;padding:11px}
 body.nba-newspaper .nba-score-rail .score-card.is-live{border-top:3px solid #813429}
 body.nba-newspaper .nba-score-rail .score-card .score-team strong{font:800 22px/1 Georgia,serif}
