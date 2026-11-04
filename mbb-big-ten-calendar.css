@@ -86,8 +86,8 @@
 .victorian-team-calendar .sched-matchup{display:flex;align-items:center;gap:12px;min-width:0;width:100%}
 .victorian-team-calendar .sched-opponent{display:flex;flex:1 1 auto;min-width:0;width:100%}
 .victorian-team-calendar .sched-opponent strong{display:block;width:100%;min-width:0;line-height:1.2}
-.victorian-team-calendar .sched-opponent strong .victorian-opponent-heading{display:grid;grid-template-columns:minmax(0,1fr) 74px;align-items:center;column-gap:12px;width:100%;min-width:0;white-space:nowrap}
-.victorian-team-calendar .sched-opponent strong .victorian-opponent-heading.has-poll-rank{grid-template-columns:62px minmax(0,1fr) 74px}
+.victorian-team-calendar .sched-opponent strong .victorian-opponent-heading{display:grid;grid-template-columns:minmax(0,1fr) max-content;align-items:center;column-gap:12px;width:100%;min-width:0;white-space:nowrap}
+.victorian-team-calendar .sched-opponent strong .victorian-opponent-heading.has-poll-rank{grid-template-columns:62px minmax(0,1fr) max-content}
 .victorian-team-calendar .victorian-heading-rank{display:block;white-space:nowrap;min-width:0}
 .victorian-team-calendar .victorian-heading-school{display:block;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .victorian-team-calendar .victorian-heading-school a,.victorian-team-calendar .victorian-heading-school .victorian-school-name{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
