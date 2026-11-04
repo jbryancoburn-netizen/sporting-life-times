@@ -75,3 +75,12 @@ body[data-house-page="district"] .almanac-candidates li{padding:7px 0;border-bot
  body[data-house-page="district"] .almanac-header h2{font-size:29px}
  body[data-house-page="district"] .almanac-metric strong{font-size:17px}
 }
+
+/* Native district-almanac election returns, not a site-wide override. */
+body[data-house-page="district"] .almanac-current-returns{margin:0 0 25px;border-top:1px solid #9c8d76;border-bottom:3px double #302a22;padding:14px 0 18px}
+body[data-house-page="district"] .almanac-election-candidates{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:9px 22px;margin:12px 0}
+body[data-house-page="district"] .almanac-election-candidate{display:grid;grid-template-columns:1fr auto;gap:3px 9px;padding:10px 0;border-bottom:1px solid #b9ad99;font:13px/1.5 Georgia,serif}
+body[data-house-page="district"] .almanac-election-candidate strong{font:700 17px Georgia,serif}
+body[data-house-page="district"] .almanac-election-candidate span:last-child{grid-column:1/-1;font:11px/1.45 Georgia,serif}
+body[data-house-page="district"] .almanac-prior-result{margin-top:16px;padding-top:12px;border-top:1px solid #b9ad99}
+body[data-house-page="district"] .almanac-prior-result>strong{font:700 11px/1.5 Georgia,serif;letter-spacing:.05em}
