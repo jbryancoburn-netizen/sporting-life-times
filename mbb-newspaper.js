@@ -327,45 +327,6 @@ function tournament(){if(!projection){$('#app').innerHTML=empty('The bracket cou
 }
 let archive;
 async function loadArchive(){if(!archive)archive=await get('data/mbb-newspaper-archive.json');return archive;}
-async function fullTeamSchedule(t){
- const eid=ids.get(t.team_id);
- const officialFallback=eid?'https://www.espn.com/mens-college-basketball/team/schedule/_/id/'+encodeURIComponent(eid)+'/season/2027':'';
- const endpoints=eid?[
-  'data/mbb-schedules-2026-27/'+encodeURIComponent(eid)+'.json',
-  'https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams/'+encodeURIComponent(eid)+'/schedule?season=2027&limit=400',
-  'https://site.web.api.espn.com/apis/common/v3/sports/basketball/mens-college-basketball/teams/'+encodeURIComponent(eid)+'/schedule?season=2027&limit=400'
- ]:[];
- let local=null;
- if(endpoints[0])try{
-  const response=await fetch(endpoints[0],{cache:'no-cache',signal:AbortSignal.timeout(45000)});
-  if(!response.ok)throw Error('Schedule HTTP '+response.status);
-  local=await response.json();
- }catch(error){console.error('School calendar file failed to load',t.team_id,endpoints[0],error);}
- const localEvents=local?.events||[];
- const official=local?.verified_from_school&&local?.source_url?local.source_url:officialFallback;
- // Verified complete calendars display immediately; don't wait for slow ESPN endpoints.
- const remote=localEvents.length>=25?[]:await Promise.all(endpoints.slice(1).map(get));
- const events=localEvents.length>=25?localEvents:[...localEvents,...remote.flatMap(d=>d?.events||d?.team?.events||[])];
- const matches=[...new Map(events.filter(e=>e?.id&&e.date&&/^(2026|2027)-/.test(e.date)).map(e=>[String(e.id),e])).values()]
-  .filter(e=>{const date=e.date.slice(0,10);return date>='2026-10-01'&&date<='2027-05-01';})
-  .sort((a,b)=>a.date.localeCompare(b.date));
- const fallback=(schedule?.games||[]).filter(g=>gid(g).includes(t.team_id)).sort((a,b)=>(a.date||'').localeCompare(b.date||''));
- const whenTip=d=>d&&/T\d\d:\d\d/.test(d)?new Date(d).toLocaleTimeString('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit',timeZoneName:'short'}):'TBA';
- const rows=matches.length?matches.map(e=>{
-  const c=e.competitions?.[0]||{},players=c.competitors||[];
-  const self=players.find(p=>String(p.team?.id)===String(eid));
-  const opp=players.find(p=>p!==self);
-  const broadcasts=[...(c.broadcasts||[]),...(e.broadcasts||[])];
-  const network=[...new Set(broadcasts.flatMap(b=>[...(b.names||[]),b.name,b.media?.shortName,b.media?.name].filter(Boolean)))].join(' / ');
-  const completed=e.status?.type?.completed===true;
-  const scheduledTime=e.official_time?String(e.official_time):e.official_time_tba?'TBA · '+(e.time_options_et||[]).join(' / '):whenTip(e.date);
-  return {date:e.date,opponent:opp?.team?.displayName||opp?.team?.name||'Opponent TBA',opponentLogo:opp?.team?.logo||'',opponentId:opp?.team?.id||'',venue:c.venue?.fullName||'Venue TBA',location:[c.venue?.address?.city,c.venue?.address?.state].filter(Boolean).join(', '),site:c.neutralSite?'Neutral':self?.homeAway==='home'?'vs':'@',network:network||'TBA',result:completed?String(self?.score??'')+'–'+String(opp?.score??''):'—',time:completed?'Final':scheduledTime};
- }):fallback.map(g=>({date:g.date,opponent:teamMap.get(gid(g).find(id=>id!==t.team_id))?.team||'Opponent TBA',site:gid(g)[0]===t.team_id?'vs':'@',network:'TBA',venue:'Venue TBA',location:'',opponentLogo:'',opponentId:ids.get(gid(g).find(id=>id!==t.team_id))||'',result:'—',time:'TBA'}));
- const logoForOpponent=g=>window.MBBLogos.byESPN(g.opponentId,'schedule',g.opponent);
- const ratingForOpponent=g=>{const q=String(g.opponent).toLowerCase().replace(/[^a-z0-9]/g,'');const x=teams.find(x=>[x.team,(cross?.teams||[]).find(v=>v.id===x.team_id)?.espn_name].some(n=>String(n||'').toLowerCase().replace(/[^a-z0-9]/g,'')===q));return x?number(x.elo,0):'—';};
- const status=matches.length?'Published team calendar: '+matches.length+' listed games. Future tournament games appear when announced.':'Full team feed not currently available. '+fallback.length+' forecast-list games are shown as a partial fallback, not a full schedule.';
- return '<section class="panel" id="full-season-schedule">'+header('2026–27 · Team calendar','Published Season Schedule')+'<p class="note">'+esc(status)+' Times reflect the official published schedule when school-sourced; unannounced networks and tipoffs marked TBA. '+(official?'<a href="'+official+'" target="_blank" rel="noopener">Official source calendar ↗</a>':'School fixture identity not yet linked.')+'</p>'+(rows.length?'<div class="table-wrap"><table class="mbb-schedule-table"><thead><tr><th>Date</th><th>Opponent</th><th>Venue / City</th><th>ET</th><th>TV / Stream</th><th>Opp. RETRO</th><th>Result</th></tr></thead><tbody>'+rows.map(g=>'<tr><td class="sched-date">'+esc(String(g.date).slice(0,10))+'</td><td><div class="sched-matchup">'+logoForOpponent(g)+'<span class="sched-opponent"><strong>'+esc(g.opponent)+'</strong><small>'+esc(g.site==='vs'?'HOME':g.site==='@'?'AWAY':'NEUTRAL')+'</small></span></div></td><td><div class="sched-venue"><strong>'+esc(g.venue)+'</strong>'+(g.location?'<small>'+esc(g.location)+'</small>':'')+'</div></td><td class="sched-nowrap">'+esc(g.time)+'</td><td class="sched-network">'+esc(g.network)+'</td><td class="sched-elo">'+ratingForOpponent(g)+'</td><td class="sched-nowrap">'+esc(g.result)+'</td></tr>').join('')+'</tbody></table></div>':empty('No confirmed calendar returned. This does not mean the team has no scheduled games.'))+'</section>';
-}
 async function teamPage(){const t=teamMap.get(params.get('team'))||teams.find(t=>t.team===params.get('team'));if(!t){$('#app').innerHTML=empty('Choose a team from the directory.')+'<div class="directory">'+directory()+'</div>';return;}
  document.title=t.team+' Basketball | The Sporting Life & Times';
  // Browser-tab icon follows the selected team's real logo (not a letter badge).
