@@ -118,7 +118,7 @@ body.league-edition[data-league="euroleague"] .el-club-tile-top{display:flex;ali
 body.league-edition[data-league="euroleague"] .el-club-rank{font:700 20px Georgia,serif;color:#e5b86a}
 body.league-edition[data-league="euroleague"] .el-club-tile-top>div{min-width:0}
 body.league-edition[data-league="euroleague"] .el-club-tile h3{font:700 13px/1.2 Georgia,serif;margin:0 0 3px}
-body.league-edition[data-league="euroleague"] .el-club-tile small{font:10px Georgia,serif;color:#c8d3dd}
+body.league-edition[data-league="euroleague"] .el-club-tile small{font:10px Georgia,serif;color:#5c4e40}
 body.league-edition[data-league="euroleague"] .el-club-elo{font:700 36px/1 Georgia,serif;margin:14px 0 11px}
 body.league-edition[data-league="euroleague"] .el-club-elo span{font:10px Georgia,serif;letter-spacing:.1em;color:#e5b86a}
 body.league-edition[data-league="euroleague"] .el-club-statgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 6px}
@@ -273,22 +273,23 @@ body[data-league="euroleague"] .el-live-detail-stats{display:grid;grid-template-
 body[data-league="euroleague"] .el-live-unavailable{font:11px/1.5 system-ui,sans-serif;color:#68727b;margin:8px 0}
 
 
-/* Victorian playoff club cards: desaturated institutional inks on matte paper.
-   Preserve each club's true logo and team-primary token; never recolor crests. */
+/* Press-style playoff register. A thin muted institutional stripe, not a full-color tile.
+   Club colors are supplied by the live renderer; authentic crests remain untouched. */
 body.league-edition[data-league="euroleague"] .el-club-tile{
- background:linear-gradient(155deg,color-mix(in srgb,var(--el-team-primary) 32%,#5b534a),color-mix(in srgb,var(--el-team-primary) 32%,#272522))!important;
- color:#f8f0df!important;
- border:1px solid color-mix(in srgb,var(--el-team-primary) 22%,#93836d)!important;
- border-top:3px solid color-mix(in srgb,var(--el-team-primary) 42%,#ae9979)!important;
- box-shadow:inset 0 0 0 5px #f3e8d00b,inset 0 0 0 6px #efe2cb35!important;
+ background:#f3ead8!important;
+ color:#29221a!important;
+ border:1px solid #b4a187!important;
+ border-left:5px solid color-mix(in srgb,var(--el-team-primary) 52%,#746754)!important;
+ border-top:2px solid #53483b!important;
+ box-shadow:none!important;
  border-radius:0!important;
  text-shadow:none!important;
  position:relative;isolation:isolate
 }
-body.league-edition[data-league="euroleague"] .el-club-tile .el-club-seed{font:600 10px/1.3 Georgia,serif;letter-spacing:.1em;color:#e6d7bd;opacity:1;margin-bottom:8px}
-body.league-edition[data-league="euroleague"] .el-club-tile .el-club-rank{color:#f8edda}
-body.league-edition[data-league="euroleague"] .el-club-tile .el-club-elo span{color:#e6d7bd}
-body.league-edition[data-league="euroleague"] .el-club-tile .el-club-winbar i{background:#dac6a2}
+body.league-edition[data-league="euroleague"] .el-club-tile .el-club-seed{font:700 10px/1.3 Georgia,serif;letter-spacing:.08em;color:#6a5542;opacity:1;margin-bottom:8px}
+body.league-edition[data-league="euroleague"] .el-club-tile .el-club-rank{color:#4e392f}
+body.league-edition[data-league="euroleague"] .el-club-tile .el-club-elo span{color:#594b3c}
+body.league-edition[data-league="euroleague"] .el-club-tile .el-club-winbar i{background:#8c6c53}
 body.league-edition[data-league="euroleague"] #el-club-spotlight{grid-template-columns:repeat(5,minmax(0,1fr))}
 @media(max-width:1200px){body.league-edition[data-league="euroleague"] #el-club-spotlight{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:720px){body.league-edition[data-league="euroleague"] #el-club-spotlight{grid-template-columns:repeat(2,minmax(0,1fr))}}
@@ -310,10 +311,10 @@ body.league-edition[data-league="euroleague"] .el-bracket-team{padding:12px!impo
 body.league-edition[data-league="euroleague"] .el-bracket-identity{display:flex;gap:9px;align-items:center;min-width:0}
 body.league-edition[data-league="euroleague"] .el-bracket-name{min-width:0;flex:1}
 body.league-edition[data-league="euroleague"] .el-bracket-name h3{font:700 15px/1.2 Georgia,serif;margin:0 0 5px}
-body.league-edition[data-league="euroleague"] .el-bracket-record{font:700 22px/1.15 Georgia,serif;color:#f7ebd6}
-body.league-edition[data-league="euroleague"] .el-bracket-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin-top:12px;border-top:1px solid #e3d3b460;padding-top:9px}
+body.league-edition[data-league="euroleague"] .el-bracket-record{font:700 22px/1.15 Georgia,serif;color:#29221a}
+body.league-edition[data-league="euroleague"] .el-bracket-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin-top:12px;border-top:1px solid #b5a48a;padding-top:9px}
 body.league-edition[data-league="euroleague"] .el-bracket-metrics b{display:block;font:700 17px Georgia,serif}
-body.league-edition[data-league="euroleague"] .el-bracket-metrics small{display:block;font:10px/1.3 Georgia,serif;letter-spacing:.035em;color:#e9dbc7}
+body.league-edition[data-league="euroleague"] .el-bracket-metrics small{display:block;font:10px/1.3 Georgia,serif;letter-spacing:.035em;color:#5a4a3a}
 body.league-edition[data-league="euroleague"] .el-bracket-placeholder{display:flex;justify-content:center;flex-direction:column;min-height:130px;border:2px dashed #9c988f;border-radius:6px;padding:14px;font:13px/1.7 Georgia,serif;background:#f4f1eb}
 @media(max-width:1050px){body.league-edition[data-league="euroleague"] .el-bracket-direct{grid-template-columns:repeat(2,minmax(0,1fr))}body.league-edition[data-league="euroleague"] .el-bracket-playin{grid-template-columns:repeat(2,minmax(0,1fr))}body.league-edition[data-league="euroleague"] .el-bracket-outcomes{grid-column:1/-1}}
 @media(max-width:620px){body.league-edition[data-league="euroleague"] .el-bracket-direct,body.league-edition[data-league="euroleague"] .el-bracket-playin{grid-template-columns:1fr}body.league-edition[data-league="euroleague"] .el-bracket-outcomes{grid-column:auto}body.league-edition[data-league="euroleague"] .el-bracket-section>header{display:block}}
@@ -326,7 +327,7 @@ body[data-league="euroleague"] #el-club-spotlight .el-bracket-team{width:100%;mi
 body[data-league="euroleague"] #el-club-spotlight .el-bracket-identity{display:grid;grid-template-columns:25px 42px minmax(0,1fr);gap:9px;align-items:start}
 body[data-league="euroleague"] #el-club-spotlight .el-bracket-identity .el-club-rank{font-size:17px;line-height:42px}
 body[data-league="euroleague"] #el-club-spotlight .el-bracket-name h3{font:700 15px/1.2 Georgia,serif;min-height:38px;margin:0 0 6px;overflow-wrap:break-word}
-body[data-league="euroleague"] #el-club-spotlight .el-bracket-record{display:block;font:700 22px/1.12 Georgia,serif;color:#f7ebd6}
+body[data-league="euroleague"] #el-club-spotlight .el-bracket-record{display:block;font:700 22px/1.12 Georgia,serif;color:#29221a}
 body[data-league="euroleague"] #el-club-spotlight .el-bracket-metrics{margin-top:auto;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
 body[data-league="euroleague"] #el-club-spotlight .el-bracket-metrics b{font-size:16px;white-space:nowrap}
 body[data-league="euroleague"] #el-club-spotlight .el-bracket-playin{align-items:stretch}
