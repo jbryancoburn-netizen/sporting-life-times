@@ -189,7 +189,8 @@ async function render(feed, fixture={}){
 
  const newspaper=fs.readFileSync('mbb-newspaper.js','utf8');
  assert.match(newspaper,/card\.dataset\.eloUpdated/,'ratings refresh needs visible team metric update');
- assert.match(newspaper,/Live game file/);
+ assert.match(newspaper,/cbb-gamefile\.html\?day=/,'college basketball games must retain working Gamefile URLs');
+ assert.match(newspaper,/OPEN GAMEFILE ↗/,'Gamefile links must have a visible action label');
  const dayBody=newspaper.split('const easternGameDay=value=>{')[1]?.split('};')[0];
  assert(dayBody,'Eastern Time date helper not present');
  const day=new Function('const easternGameDay=value=>{'+dayBody+'};return easternGameDay;')();
