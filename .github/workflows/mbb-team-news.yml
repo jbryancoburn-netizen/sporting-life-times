@@ -4,6 +4,7 @@ on:
     paths:
       - 'scripts/refresh_mbb_team_news.py'
       - '.github/workflows/mbb-team-news.yml'
+      - 'scripts/refresh_cbb_national_news.py'
   workflow_dispatch:
   schedule:
     - cron: "13 */3 * * *"
@@ -23,11 +24,13 @@ jobs:
           python-version: "3.12"
       - name: Collect reported school-specific basketball stories
         run: python scripts/refresh_mbb_team_news.py
-      - name: Publish team news
+      - name: Assemble national men's and women's news edition
+        run: python scripts/refresh_cbb_national_news.py
+      - name: Publish team and national news
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/mbb-team-news/
+          git add data/mbb-team-news/ data/cbb-national-news.json
           if ! git diff --cached --quiet; then
             git commit -m "Update MBB team reporting feeds"
             for attempt in 1 2 3 4 5; do
