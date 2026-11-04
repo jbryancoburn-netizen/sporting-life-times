@@ -59,6 +59,44 @@ function outcome(row,atlas){
  if(!named)ref.replaceChildren(link("MEDSL archived House election record",row.source_url));
  area.append(ref);return area;
 }
+
+function electionNight(host,atlasRow,history,live){
+ const s=section("ELECTION RETURNS / NOVEMBER 3, 2026","The latest House election result");
+ s.classList.add("almanac-election-night");
+ const rec=live?.districts?.[id];
+ const good=rec&&["unofficial","called","certified"].includes(rec.status)
+  &&/^https:\/\//.test(rec.source_url||"")&&Array.isArray(rec.candidates)
+  &&rec.candidates.length>0&&rec.candidates.every(c=>typeof c.name==="string"&&c.name.trim()&&Number.isInteger(c.votes)&&c.votes>=0)
+  &&Number.isFinite(Date.parse(rec.updated_at||""));
+ const note=el("p","almanac-small");
+ if(good){
+  const label={unofficial:"UNOFFICIAL RETURNS",called:"RACE CALLED · NOT CERTIFIED",certified:"CERTIFIED RESULTS"}[rec.status];
+  const total=rec.candidates.reduce((sum,c)=>sum+c.votes,0);
+  s.append(el("p","almanac-boundary",label+" · Source updated "+new Date(rec.updated_at).toLocaleString("en-US")));
+  const rows=el("div","almanac-election-candidates");
+  for(const c of [...rec.candidates].sort((a,b)=>b.votes-a.votes)){
+   const line=el("div","almanac-election-candidate");
+   line.append(el("span",null,c.name+" · "+party(c.party)),el("strong",null,number(c.votes)),
+    el("span",null,total?((100*c.votes/total).toFixed(1)+"% of reported candidate votes"):"Percentage unavailable"));
+   rows.append(line);
+  }
+  s.append(rows);
+  note.textContent=rec.status==="certified"?"Results certified by the cited election authority.":
+   "Election-night totals can change. A lead is not a declared winner; no unverified winner is implied.";
+  s.append(note,link("Original election result source",rec.source_url));
+ }else{
+  s.append(el("p","almanac-boundary","2026 RESULTS · VERIFIED DISTRICT RETURNS NOT YET AVAILABLE"));
+  note.textContent="No source-verified 2026 district vote totals are in this newspaper's published results ledger. Historical results below are not 2026 returns.";
+  s.append(note);
+ }
+ const prior=history.find(r=>r.year===2024);
+ const priorBox=el("div","almanac-prior-result");
+ priorBox.append(el("strong",null,"THE PREVIOUS GENERAL ELECTION · 2024"));
+ if(prior)priorBox.append(outcome(prior,atlasRow));
+ else priorBox.append(el("p","almanac-small","2024 numerical result unavailable; consult the historical record below."));
+ s.append(priorBox);host.append(s);
+}
+
 function areaGuide(host,places){
  const s=section("THE GEOGRAPHIC REGISTER","Places inside the district");
  const locations=places?.districts?.[id];const list=[...(locations?.neighborhoods?.length?locations.neighborhoods:locations?.communities||[])];
@@ -106,9 +144,10 @@ function firstFour(history,atlasRow){
 }
 async function run(){
  try{
-  const [atlas,census,places,dossiers]=await Promise.all([
+  const [atlas,census,places,dossiers,live]=await Promise.all([
    fetchData("politics-house-atlas.json"),fetchData("politics-census-inputs.json"),
-   fetchData("data/politics-district-communities.json"),fetchData("data/politics-district-dossiers.json")]);
+   fetchData("data/politics-district-communities.json"),fetchData("data/politics-district-dossiers.json"),
+   fetchData("data/politics-2026-house-results.json").catch(()=>null)]);
   if(dossiers.schema_version!==1||dossiers.district_count!==435)throw Error("435-district history archive invalid");
   const research=dossiers.districts?.[id];if(!research)throw Error("Missing record for "+id);
   const history=research.history.map(x=>({
@@ -148,7 +187,8 @@ async function run(){
   hsection.append(el("p","almanac-small",
     "MEDSL historical election returns are a research archive. Named same-party 2024 finalists are taken from the state-certified ledger. These are not 2026 election returns."));
   const ancillary=el("div","almanac-side");censusGuide(ancillary,census);areaGuide(ancillary,places);ballotGuide(ancillary,row);
-  content.append(hsection,ancillary);root.replaceChildren(header,content);root.hidden=false;
+  const returns=el("div","almanac-current-returns");electionNight(returns,row,hrows,live);
+  content.append(hsection,ancillary);root.replaceChildren(header,returns,content);root.hidden=false;
  }catch(error){root.hidden=false;root.replaceChildren(el("p","almanac-small","The district almanac's verified sources did not load. No substitute data have been generated."));console.warn("Almanac evidence unavailable:",error)}
 }
 if("IntersectionObserver" in window){
