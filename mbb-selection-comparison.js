@@ -65,6 +65,9 @@ function buildConference(app,teams,games,conference){
  section.className='panel bten-bracket-section conference-format-section';
  section.id='conference-tournament-watch';
  const formats={
+  'ACC':{size:15,kind:'acc15',source:'https://goduke.com/news/2026/5/28/mens-basketball-acc-announces-conference-matchups-for-2026-27-mens-basketball-season',note:'Top 15 of 18 teams qualify for the March 9–13 tournament in Greensboro; bottom three are excluded.'},
+  'SEC':{size:16,kind:'sec16',source:'https://www.secsports.com/championships/mens-basketball-championship',note:'All 16 teams; March 10–14 at Bridgestone Arena, Nashville.'},
+  'Ivy League':{size:4,kind:'ivy4',source:'https://ivyleague.com/news/2026/4/6/general-ivy-madness-to-return-to-the-palestra-in-2027-as-part-of-centennial-celebration.aspx',note:'Top four qualify for Ivy Madness at The Palestra in Philadelphia.'},
   'Mountain West':{size:10,kind:'mountain',source:'https://themw.com/news/2026/7/23/mountain-west-announces-2027-credit-union-1-mens-womens-basketball-championships-brackets.aspx',note:'Official July 23, 2026 bracket. Seeds 7–10 open; top six receive first-round byes.'},
   'Big Sky':{size:11,kind:'bigsky',source:'https://bigskyconf.com/news/2026/8/18/big-sky-releases-2026-27-mens-basketball-conference-schedule.aspx',note:'Official expansion to 11 teams; 10 plays 11, winner faces 9. Later entry slots await full bracket verification.'},
   'Big East':{size:11,kind:'field',source:'https://www.bigeast.com/news/2026/9/13/big-east-announces-2026-27-mens-basketball-schedule.aspx',note:'All 11 conference teams; March 10–13 at Madison Square Garden. Matchup placement pending bracket confirmation.'},
@@ -78,7 +81,7 @@ function buildConference(app,teams,games,conference){
   'Southern':{size:11,kind:'field',note:'Eleven-team traditional field; bracket pairings pending official release.'},
   'Ohio Valley':{size:8,kind:'field',note:'Eight qualifiers in a stepladder tournament.'},
   'Mid-American':{size:8,kind:'field',note:'Eight qualifiers in a stepladder championship.'},
-  'ASUN':{size:8,kind:'field',note:'Eight-team stepladder field; reclassifying-team eligibility must be confirmed.'},
+  'ASUN':{size:8,kind:'asun8',source:'https://asunsports.org/news/2026/10/20/general-atlantic-sun-conference-announces-adjusted-eight-team-mens-and-womens-basketball-tournament-brackets.aspx',note:'Official eight-team bracket. Seeds 5–8 enter first, 3–4 enter second, 1–2 enter semifinals.'},
   'Atlantic Sun':{size:8,kind:'field',note:'Eight-team stepladder field; reclassifying-team eligibility must be confirmed.'},
   'United Athletic':{size:8,kind:'field',note:'Eight-team field; final 2027 bracket structure unconfirmed.'}
  };
@@ -100,6 +103,30 @@ function buildConference(app,teams,games,conference){
  else if(big12)stages=[
   {name:'Opening round',games:[[9,16],[12,13],[10,15],[11,14]]},
   {name:'Second round',games:[[8,'Winner 9/16'],[5,'Winner 12/13'],[7,'Winner 10/15'],[6,'Winner 11/14']]},
+  {name:'Quarterfinals',games:[[1,'Second-round winner'],[4,'Second-round winner'],[2,'Second-round winner'],[3,'Second-round winner']]},
+  {name:'Semifinals',games:[['Quarterfinal winner','Quarterfinal winner'],['Quarterfinal winner','Quarterfinal winner']]},
+  {name:'Championship',games:[['Semifinal winner','Semifinal winner']]}
+ ];
+ else if(format?.kind==='ivy4')stages=[
+  {name:'Semifinals',games:[[1,4],[2,3]]},
+  {name:'Championship',games:[['Semifinal winner','Semifinal winner']]}
+ ];
+ else if(format?.kind==='asun8')stages=[
+  {name:'Opening round',games:[[5,8],[6,7]]},
+  {name:'Second round',games:[[3,'Opening-round winner'],[4,'Opening-round winner']]},
+  {name:'Semifinals',games:[[1,'Second-round winner'],[2,'Second-round winner']]},
+  {name:'Championship',games:[['Semifinal winner','Semifinal winner']]}
+ ];
+ else if(format?.kind==='sec16')stages=[
+  {name:'First round',games:[[9,16],[12,13],[10,15],[11,14]]},
+  {name:'Second round',games:[[8,'Winner 9/16'],[5,'Winner 12/13'],[7,'Winner 10/15'],[6,'Winner 11/14']]},
+  {name:'Quarterfinals',games:[[1,'Second-round winner'],[4,'Second-round winner'],[2,'Second-round winner'],[3,'Second-round winner']]},
+  {name:'Semifinals',games:[['Quarterfinal winner','Quarterfinal winner'],['Quarterfinal winner','Quarterfinal winner']]},
+  {name:'Championship',games:[['Semifinal winner','Semifinal winner']]}
+ ];
+ else if(format?.kind==='acc15')stages=[
+  {name:'First round',games:[[10,15],[11,14],[12,13]]},
+  {name:'Second round',games:[[8,9],[5,'Winner 12/13'],[6,'Winner 11/14'],[7,'Winner 10/15']]},
   {name:'Quarterfinals',games:[[1,'Second-round winner'],[4,'Second-round winner'],[2,'Second-round winner'],[3,'Second-round winner']]},
   {name:'Semifinals',games:[['Quarterfinal winner','Quarterfinal winner'],['Quarterfinal winner','Quarterfinal winner']]},
   {name:'Championship',games:[['Semifinal winner','Semifinal winner']]}
