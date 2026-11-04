@@ -79,7 +79,7 @@ test('official 2026 DII opening-game source URLs match each specific result',()=
 
 test('DII game cards publish source-grounded provisional Elo chances and game movement',()=>{
  const script=fs.readFileSync('d2-basketball.js','utf8');
- assert.match(script,/forecast-strip/);assert.match(script,/EXPERIMENTAL/);
+ assert.match(script,/ledger26-scorebug/);assert.match(script,/experimental RETRO model/);
  const categories=['men','women'];
  for(const gender of categories){
   const d=JSON.parse(fs.readFileSync('data/d2-'+gender+'-2026-27.json','utf8'));
@@ -127,8 +127,8 @@ test('DII newspaper provides date navigation, winner markings and exact official
  const js=fs.readFileSync('d2-basketball.js','utf8');
  const css=fs.readFileSync('d2-basketball.css','utf8');
  assert.match(js,/game-day-navigation/);assert.match(js,/OFFICIAL SOURCE/);
- assert.match(js,/winA\?'winner'/);assert.match(js,/WOMEN’S/);
- assert.match(css,/game-day-navigation/);assert.match(js,/forecast-strip/);
+ assert.match(js,/SLTSportsScorebug/);assert.match(js,/ledger26-expand/);
+ assert.match(css,/game-day-navigation/);assert.match(js,/experimental RETRO model/);
 });
 
 test('DII membership and color provenance are labeled honestly',()=>{
