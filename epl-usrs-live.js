@@ -8,7 +8,7 @@ const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'
 const response=await fetch(endpoint,{cache:'no-store'});
 if(!response.ok)throw Error('No published independent EPL feed');
 const data=await response.json();
-if(!/^20\d\d-\d\d-\d\d$/.test(data.as_of_date)||!data.ratings||Object.keys(data.ratings).length!==20||!data.provenance||!data.provenance.source_sha256)throw Error('Invalid USRS provenance');
+if(!/^20\d\d-\d\d-\d\d$/.test(data.as_of_date)||!data.ratings||Object.keys(data.ratings).length!==20||!data.provenance||!data.provenance.source_sha256)throw Error('Invalid RETRO provenance');
 const rows=Object.entries(data.ratings);
 if(rows.some(([name,value])=>!name||typeof value!=='number'||!Number.isFinite(value)))throw Error('Invalid Elo rating');
 rows.sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]));
