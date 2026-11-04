@@ -56,5 +56,9 @@
 .victorian-team-calendar .sched-opponent strong{font:700 14px/1.14 Georgia,serif;color:#30251c;text-align:left}
 .victorian-team-calendar .sched-opponent .sched-matchup-location{display:block;margin:0;color:#75523b;font:700 10px/1.25 Georgia,serif;letter-spacing:.04em;text-transform:none}
 .victorian-team-calendar .sched-matchup-cell{min-width:175px}
-.victorian-team-calendar .victorian-at-game-records{display:none}
+.victorian-team-calendar .victorian-at-game-records{display:block;width:100%;margin-top:5px;padding:5px 0 0;border-top:1px solid #b9a17d;font:11px/1.4 Georgia,serif;color:#4b3929}
+.victorian-team-calendar .victorian-record-label{display:block;font:700 9px/1.4 Georgia,serif;letter-spacing:.075em;text-transform:uppercase;color:#7e583f;margin-bottom:3px}
+.victorian-team-calendar .victorian-record-line{display:flex;justify-content:space-between;align-items:baseline;gap:10px;min-width:0;font-weight:400}
+.victorian-team-calendar .victorian-record-line>span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.victorian-team-calendar .victorian-record-line b{font:700 11px Georgia,serif;white-space:nowrap;font-variant-numeric:tabular-nums}
 @media(max-width:650px){.victorian-team-calendar .sched-matchup .badge{width:30px!important;height:30px!important;min-width:30px!important;flex-basis:30px}.victorian-team-calendar .sched-opponent strong{font-size:12px}}
