@@ -52,13 +52,15 @@ async function refreshRecords(){try{const r=await fetch('data/nba-2026-27-curren
 function render(payload){
  const events=Array.isArray(payload.events)?payload.events:[];
  if(!events.length){root.innerHTML='<p class="hub-small">No NBA games listed for today.</p>';return;}
+ const previouslyOpen=new Set([...document.querySelectorAll('#nba-live-feed details[data-nba-game][open]')].map(el=>el.dataset.nbaGame));
  const mapped=events.map(e=>{
   const co=e.competitions?.[0]||{};const cs=co.competitors||[];
   const away=cs.find(c=>c.homeAway==='away'),home=cs.find(c=>c.homeAway==='home');
   const st=e.status?.type||{},state=st.state||'pre',label=st.shortDetail||st.description||'Scheduled';
   if(!away||!home)return null;
   const team=c=>({name:c.team?.displayName||c.team?.name||'',code:canonicalCode(c.team?.abbreviation),score:c.score??'',record:c.records?.find(r=>r.type==='total')?.summary||fallbackRecords[canonicalCode(c.team?.abbreviation)]||''});
-  return {away:team(away),home:team(home),state,label,date:e.date,id:e.id};
+  const broadcasts=(co.broadcasts||[]).flatMap(b=>b.names||[]).filter(Boolean);
+  return {away:team(away),home:team(home),state,label,date:e.date,id:e.id,network:broadcasts.join(' / ')};
  }).filter(g=>g&&/^[0-9]{7,12}$/.test(String(g.id)));
  if(!mapped.length){root.innerHTML='<p class="hub-small">No game details with valid provider IDs are available. <a href="nba-game-center.html">Verified archive</a>.</p>';return;}
  // Keep live games first, followed by upcoming tipoffs in chronological order;
@@ -69,7 +71,7 @@ function render(payload){
   const playing=g.state==='in';const final=g.state==='post';const pregameSafe=!playing&&!final&&Number.isFinite(Date.parse(g.date))&&Date.parse(g.date)>Date.now()+10*60000;
   const state=playing?'LIVE · '+g.label:final?'FINAL':new Date(g.date).toLocaleTimeString('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit'})+' ET';
   const team=t=>'<div class="nba-live-team" style="--team-color:'+({ATL:'#E03A3E',BOS:'#007A33',BKN:'#242424',CHA:'#1D1160',CHI:'#CE1141',CLE:'#860038',DAL:'#00538C',DEN:'#0E2240',DET:'#C8102E',GSW:'#1D428A',HOU:'#CE1141',IND:'#002D62',LAC:'#C8102E',LAL:'#552583',MEM:'#5D76A9',MIA:'#98002E',MIL:'#00471B',MIN:'#0C2340',NOP:'#0C2340',NYK:'#006BB6',OKC:'#007AC1',ORL:'#0077C0',PHI:'#006BB6',PHX:'#1D1160',POR:'#E03A3E',SAC:'#5A2D81',SAS:'#000000',TOR:'#CE1141',UTA:'#002B5C',WAS:'#002B5C'}[canonicalCode(t.code)]||'#344a58')+'"><img src="'+logo(t.code)+'" alt="" loading="lazy"><span><b>'+esc(t.code)+'</b><small>'+esc(t.record)+'</small></span><strong>'+((playing||final)?esc(t.score):'–')+'</strong></div>';
-  return '<a class="nba-live-match'+(playing?' playing':'')+'" href="nba-live-game.html?game='+encodeURIComponent(g.id)+'" aria-label="View live stats for '+esc(g.away.name)+' versus '+esc(g.home.name)+'"><div class="nba-live-match-head"><b>'+esc(state)+'</b><span>'+ (playing?'IN PROGRESS':final?'FEED FINAL':'TODAY')+'</span></div>'+team(g.away)+team(g.home)+(pregameSafe?projected(g):'')+'</a>'
+  return '<details class="nba-live-match nba-live-expand'+(playing?' playing':'')+'" data-nba-game="'+esc(g.id)+'"'+(previouslyOpen.has(String(g.id))?' open':'')+'><summary class="nba-live-expand-trigger" aria-label="Expand '+esc(g.away.name)+' versus '+esc(g.home.name)+' game details"><div class="nba-live-match-head"><b>'+esc(state)+(g.network?' · '+esc(g.network):'')+'</b><span>'+(playing?'IN PROGRESS':final?'FINAL':'TODAY')+'</span></div>'+team(g.away)+team(g.home)+'<span class="nba-live-expand-label">GAME DETAILS ＋</span></summary><div class="nba-live-expand-body">'+(pregameSafe?projected(g):'<p class="nba-live-expand-note">'+(playing?'Live game in progress':final?'Final score':'Pregame details')+'</p>')+'<a class="nba-live-game-link" href="nba-live-game.html?game='+encodeURIComponent(g.id)+'">OPEN GAME CENTER ↗</a></div></details>'
  }).join('');
 }
 function fromNba(raw){
