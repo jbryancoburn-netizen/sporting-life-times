@@ -5,7 +5,6 @@ const COLORS={'Arsenal':'#ef0107','Aston Villa':'#670e36','Bournemouth':'#d71920
 const FIXED_IDS={"Arsenal":"359","Aston Villa":"362","Bournemouth":"349","Brentford":"337","Brighton":"331","Chelsea":"363","Coventry":"388","Crystal Palace":"384","Everton":"368","Fulham":"370","Hull":"306","Ipswich":"373","Leeds United":"357","Liverpool":"364","Manchester City":"382","Manchester United":"360","Newcastle United":"361","Nott'm Forest":"393","Sunderland":"366","Tottenham":"367"};
 const crest=(name,id)=>{const n=id||FIXED_IDS[name];return n&&/^\d+$/.test(String(n))?'<img class="epl-crest" src="https://a.espncdn.com/i/teamlogos/soccer/500/'+n+'.png" alt="" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'inline-flex\'"><span class="epl-fallback" style="display:none">'+esc(name.slice(0,2).toUpperCase())+'</span>':'<span class="epl-fallback">'+esc(name.slice(0,2).toUpperCase())+'</span>'};
 const team=(name,id)=>'<a class="epl-team" href="epl-club.html?club='+encodeURIComponent(id||FIXED_IDS[name]||'')+'" style="--club:'+esc(COLORS[name]||'#777')+'">'+crest(name,id)+'<span>'+esc(name)+'</span></a>';
-const scoreTeam=(name,id)=>'<span class="epl-team" style="--club:'+esc(COLORS[name]||'#777')+'">'+crest(name,id)+'<span>'+esc(name)+'</span></span>';
 const num=n=>Number(n).toFixed(1);
 const date=s=>new Date(s).toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit',timeZone:'America/New_York'});
 const section=(name,tag,content)=>'<section class="epl-data-section"><div class="epl-section-label"><h2>'+name+'</h2><span>'+tag+'</span></div>'+content+'</section>';
@@ -15,8 +14,39 @@ const [r,f]=await Promise.all(['data/epl-ratings.json','data/epl-match-center.js
 if(!Array.isArray(r.standings)||r.standings.length!==20||!f.fixtures||!Array.isArray(f.recent_results))throw Error('Incomplete EPL data');
 const idByTeam={};for(const g of f.fixtures){idByTeam[g.home.name]=g.home.id;idByTeam[g.away.name]=g.away.id}
 const upcomingGames=f.fixtures.filter(g=>g.home&&g.away&&Number.isFinite(Date.parse(g.kickoff_utc))&&Date.parse(g.kickoff_utc)>Date.now()).sort((a,b)=>Date.parse(a.kickoff_utc)-Date.parse(b.kickoff_utc));
-const upcomingTiles=upcomingGames.slice(0,4).map(g=>'<a class="epl-score-tile slt-next-score" data-epl-fixture="'+esc(g.fixture_id)+'" href="match-center.html?league=Premier%20League&amp;game='+encodeURIComponent(g.fixture_id)+'"><span class="epl-score-date">NEXT · '+date(g.kickoff_utc)+' ET</span><div>'+scoreTeam(g.away.name,g.away.id)+'<b class="slt-versus">—</b></div><div>'+scoreTeam(g.home.name,g.home.id)+'<b class="slt-versus">—</b></div></a>').join('');
-const finals=f.recent_results.slice(0,6).map(g=>'<a class="epl-score-tile" data-epl-fixture="'+esc(g.fixture_id)+'" href="epl-match-report.html?game='+encodeURIComponent(g.fixture_id)+'"><span class="epl-score-date">FINAL · '+date(g.kickoff_utc)+' ET</span><div>'+scoreTeam(g.away,idByTeam[g.away])+'<b>'+g.away_score+'</b></div><div>'+scoreTeam(g.home,idByTeam[g.home])+'<b>'+g.home_score+'</b></div></a>').join('');
+const ratingOrder=Object.entries(r.ratings).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]));
+const rankFor=new Map(ratingOrder.map(([name,value],i)=>{
+ const tie=ratingOrder.findIndex(x=>x[1]===value)+1;
+ const tied=ratingOrder.filter(x=>x[1]===value).length>1;
+ return [name,(tied?'T-':'#')+tie];
+}));
+const standingByName=new Map(r.standings.map(t=>[t.club,t]));
+function eplLedger(g,done){
+ const away=typeof g.away==='string'?{name:g.away,id:idByTeam[g.away]}:g.away;
+ const home=typeof g.home==='string'?{name:g.home,id:idByTeam[g.home]}:g.home;
+ const side=(t,points)=>{
+  const st=standingByName.get(t.name),elo=r.ratings[t.name];
+  return {name:t.name,score:done?points:null,crest:crest(t.name,t.id),
+   color:COLORS[t.name]||'#655239',
+   record:st?st.won+'–'+st.drawn+'–'+st.lost:'Record unavailable',
+   retro:Number.isFinite(Number(elo))?'RETRO '+Math.round(Number(elo))+
+    (rankFor.get(t.name)?' ('+rankFor.get(t.name)+')':''):'RETRO —'};
+ };
+ const bug=window.SLTSportsScorebug?.render({phase:done?'final':'upcoming',
+   away:side(away,g.away_score),home:side(home,g.home_score)
+ })||'<p>Scorebug unavailable.</p>';
+ const path=done?'epl-match-report.html?game='+encodeURIComponent(g.fixture_id):
+   'match-center.html?league=Premier%20League&game='+encodeURIComponent(g.fixture_id);
+ return '<article class="ledger26-card epl-master-card" data-epl-fixture="'+esc(g.fixture_id)+'">'+
+  '<div class="ledger26-meta"><span>'+esc(g.venue||'Premier League')+'</span>'+
+  '<span>'+esc(date(g.kickoff_utc))+' ET</span></div>'+
+  '<details class="ledger26-expand"><summary class="ledger26-summary">'+bug+
+  '<span class="ledger26-instruction">OPEN GAME DETAILS +</span></summary>'+
+  '<div class="ledger26-expanded"><p><a href="'+path+'">OPEN FULL MATCH REPORT ↗</a></p></div>'+
+  '</details></article>';
+}
+const upcomingTiles=upcomingGames.slice(0,4).map(g=>eplLedger(g,false)).join('');
+const finals=f.recent_results.slice(0,6).map(g=>eplLedger(g,true)).join('');
 const rail='<div class="epl-score-rail">'+upcomingTiles+finals+'</div>';
 const sorted=Object.entries(r.ratings).sort((a,b)=>b[1]-a[1]);const min=Math.min(...sorted.map(x=>x[1])),max=Math.max(...sorted.map(x=>x[1]));
 const pulse=(id,value)=>{const node=document.getElementById(id);if(node)node.textContent=value;};
