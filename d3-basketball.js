@@ -54,10 +54,16 @@ const emblem=t=>{
  const secondary=/^#[0-9a-f]{6}$/i.test(t.secondary||'')?t.secondary:'';
  const verified=!!(primary&&secondary&&primary!==secondary&&t.color_source);
  const initials=String(t.name||'?').replace(/\b(university|college|the|of|at)\b/gi,'').trim().split(/\s+/).slice(0,2).map(s=>s[0]||'').join('').toUpperCase();
- const imgSrc=slug?'https://ncaa-api.henrygd.me/logo/'+encodeURIComponent(slug)+'.svg':/^https:\/\/a\.espncdn\.com\/i\/teamlogos\//.test(t.logo_url||'')?t.logo_url:'';
+ const ncaaURL=slug?'https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/'+encodeURIComponent(slug)+'.svg':'';
+ const safeCDN=/^https:\/\/a\.espncdn\.com\/i\/teamlogos\//.test(t.logo_url||'')?t.logo_url:'';
+ const imgSrc=ncaaURL||safeCDN;
+ const fallback=slug?'https://ncaa-api.henrygd.me/logo/'+encodeURIComponent(slug)+'.svg':'';
+
  return '<span class="logo-shell '+(verified?'branded':'unbranded')+'" title="'+esc(title)+'" '+(verified?'style="--c1:'+primary+';--c2:'+secondary+'"':'')+'>'+
-   (imgSrc?'<img loading="lazy" alt="" src="'+esc(imgSrc)+'" onerror="this.remove()">':'')+
-   '<small class="logo-initials">'+esc(initials)+'</small></span>';
+   (imgSrc?'<img loading="lazy" alt="" src="'+esc(imgSrc)+'" '+
+  (fallback?'data-logo-fallback="'+esc(fallback)+'" ':'')+
+  'onerror="if(this.dataset.logoFallback){this.src=this.dataset.logoFallback;delete this.dataset.logoFallback}else this.remove()">':'')+
+ '<small class="logo-initials">'+esc(initials)+'</small></span>';
 };
 const team=id=>state.teams.get(id)||{id,name:id};
 const row=(t,i)=>'<div class="board-row"><span>'+esc(i==null?'':i+1)+'</span>'+emblem(t)+'<a class="school-link" href="'+teamLink(t)+'">'+esc(t.name)+'</a><span>'+esc(t.w||0)+'–'+esc(t.l||0)+'</span><span>'+pct(t)+'%</span><span class="elo">'+Math.round(t.elo||1500)+'</span></div>';
