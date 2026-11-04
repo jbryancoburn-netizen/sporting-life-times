@@ -32,6 +32,15 @@
 .cbb-source-stamp{font:400 10px/1.4 Arial,sans-serif!important;color:#778487!important;
  margin:6px 0 11px!important;letter-spacing:0}
 .cbb-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:10px}
+/* The Courtside Desk now renders the actual Ledger card, not another card type. */
+.cbb-ledger-card{min-width:0}
+.cbb-ledger-card.cbb-expanded{grid-column:1/-1}
+.cbb-ledger-toggle{display:block;width:100%;box-sizing:border-box}
+.cbb-ledger-toggle:focus-visible{outline:3px solid #79512c;outline-offset:-3px}
+.cbb-ledger-card .cbb-inline-detail{background:#f4ebda;border-top:3px double #a48b67}
+.cbb-ledger-card .cbb-inline-tabs button{font-family:Georgia,'Times New Roman',serif}
+.cbb-ledger-card .cbb-inline-source{font-family:Georgia,'Times New Roman',serif;color:#594b38}
+.cbb-ledger-card .ledger26-meta>span:last-child{font-size:11px;max-width:55%;text-align:right}
 .cbb-featured{margin:0 0 11px;display:block}
 .cbb-feature-marker{font:700 10px Arial,sans-serif;letter-spacing:.75px;color:#6a625b;
  text-transform:uppercase;margin:1px 0 7px}
