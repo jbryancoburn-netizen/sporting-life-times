@@ -1,0 +1,78 @@
+name: Certified MBB cross-division schedule audit and overall records
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'data/mbb-schedules-2026-27/*.json'
+      - 'data/ncaam-2026-27-retro-primary.json'
+      - 'data/ncaam-2026-27-espn-team-crosswalk.json'
+      - 'scripts/audit-mbb-cross-division.mjs'
+      - 'scripts/build-mbb-overall-records.mjs'
+      - '.github/workflows/mbb-verified-overall.yml'
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: mbb-verified-overall
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify source code
+        run: |
+          node --check scripts/build-mbb-overall-records.mjs
+          node --check scripts/audit-mbb-cross-division.mjs
+      - name: Rebuild published schedule audit and source-backed overall records
+        run: |
+          node scripts/audit-mbb-cross-division.mjs data/mbb-cross-division-audit.json
+          node scripts/build-mbb-overall-records.mjs
+      - name: Protect RETRO separation and published game totals
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const rec=JSON.parse(fs.readFileSync('data/mbb-overall-records-2026-27.json','utf8'));
+          const retro=JSON.parse(fs.readFileSync('data/ncaam-2026-27-retro-primary.json','utf8'));
+          const audit=JSON.parse(fs.readFileSync('data/mbb-cross-division-audit.json','utf8'));
+          if(Object.keys(rec.records||{}).length!==365||audit.summary?.candidate_games===undefined)process.exit(1);
+          if(rec.summary.verified_non_di_regular_season_finals<21)throw Error('Lost prior source-verified non-DI finals');
+          for(const t of retro.rankings){
+            const r=rec.records[t.team_id];
+            if(!r||r.retro_wins!==t.wins||r.retro_losses!==t.losses||
+               r.overall_wins!==r.retro_wins+r.verified_non_di_wins||
+               r.overall_losses!==r.retro_losses+r.verified_non_di_losses)
+               throw Error('Score or RETRO identity mismatch: '+t.team_id);
+          }
+          console.log(rec.summary,audit.summary);
+          NODE
+      - name: Commit refreshed public data
+        id: update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/mbb-cross-division-audit.json data/mbb-overall-records-2026-27.json
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git commit -m "Publish source-backed MBB overall records and cross-division audit"
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then
+              echo "changed=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            git fetch origin main
+            git rebase origin/main || { git rebase --abort || true; exit 1; }
+            sleep 2
+          done
+          exit 1
+      - name: Request website deployment after data publication
+        if: steps.update.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run publish-newspaper.yml --ref main
