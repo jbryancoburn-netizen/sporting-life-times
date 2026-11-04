@@ -23,14 +23,13 @@
   const periods={'1ST':'FIRST HALF','2ND':'SECOND HALF','FIRST':'FIRST HALF','SECOND':'SECOND HALF',
     '3RD':'THIRD QUARTER','4TH':'FOURTH QUARTER','THIRD':'THIRD QUARTER','FOURTH':'FOURTH QUARTER','OT':'OVERTIME'};
   const periodLabel=periods[period]||period.replace(/^1ST HALF$/,'FIRST HALF').replace(/^2ND HALF$/,'SECOND HALF').replace(/^3RD QUARTER$/,'THIRD QUARTER').replace(/^4TH QUARTER$/,'FOURTH QUARTER');
-  const situation=[g.situation,g.possession?String(g.possession)+' BALL':'',g.bonus].find(v=>typeof v==='string'&&v.trim());
+  const momentum=g.momentum&&typeof g.momentum.text==='string'?g.momentum:null;
   if(halftime)return '<div class="ledger26-status ledger26-status--stack" data-phase="live"><strong class="ledger26-clock ledger26-clock--text">HALFTIME</strong></div>';
   const main=clock||(!periodLabel&&raw!=='LIVE'?raw:'LIVE');
   return '<div class="ledger26-status ledger26-status--stack" data-phase="live">'+
     '<strong class="ledger26-clock'+(clock?'':' ledger26-clock--text')+'">'+esc(main)+'</strong>'+
     (periodLabel?'<span class="ledger26-period">'+esc(periodLabel)+'</span>':'')+
-    (situation?'<small class="ledger26-situation">'+esc(situation)+'</small>':
-      clock?'<small class="ledger26-live-word">LIVE</small>':'')+'</div>';
+    (momentum?'<small class="ledger26-situation ledger26-momentum'+(momentum.kind==='run'?' ledger26-momentum--run':'')+'">'+esc(momentum.text)+'</small>':'')+'</div>';
  }
  function render(input){
   const g=input||{},phase=['live','final','upcoming'].includes(g.phase)?g.phase:'upcoming';
@@ -57,6 +56,6 @@
  }
  // The Daily Ledger is the universal newspaper model, not a separate sport skin.
  // Keep the old alias for existing college basketball pages.
- root.SLTSportsScorebug={render,formatRetro,version:'shared-letterpress-v7'};
+ root.SLTSportsScorebug={render,formatRetro,version:'shared-letterpress-v8'};
  root.SLTBasketballScorebug=root.SLTSportsScorebug;
 })(typeof window!=='undefined'?window:globalThis);
