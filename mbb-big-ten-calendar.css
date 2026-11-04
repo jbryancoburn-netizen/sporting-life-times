@@ -63,7 +63,12 @@
 .victorian-team-calendar .victorian-record-line b{font:700 11px Georgia,serif;white-space:nowrap;font-variant-numeric:tabular-nums}
 @media(max-width:650px){.victorian-team-calendar .sched-matchup .badge{width:30px!important;height:30px!important;min-width:30px!important;flex-basis:30px}.victorian-team-calendar .sched-opponent strong{font-size:12px}}
 
-.victorian-team-calendar .victorian-poll-rank{display:inline-block;margin-left:7px;padding:2px 5px;border:1px solid #b59571;color:#783e2f;background:#f5e5cf;font:700 11px Georgia,serif;white-space:nowrap;vertical-align:middle}
+ .victorian-team-calendar .victorian-poll-rank{display:inline-block;margin-left:0;margin-right:8px;padding:2px 5px;border:1px solid #b59571;color:#783e2f;background:#f5e5cf;font:700 11px Georgia,serif;white-space:nowrap;vertical-align:middle}
 
 /* Conference designation is derived from both teams' official league identities. */
-.victorian-conference-game{display:inline-block;margin-left:9px;padding:2px 7px;border:1px solid #9c8060;background:#eadcc5;color:#6d4331;font:700 10px/1.3 Georgia,serif;letter-spacing:.3px;vertical-align:middle;white-space:nowrap}
+.victorian-conference-game{display:inline-block;margin-left:12px;padding:2px 7px;border:1px solid #9c8060;background:#eadcc5;color:#6d4331;font:700 10px/1.3 Georgia,serif;letter-spacing:.3px;vertical-align:middle;white-space:nowrap}
+
+/* Badge / school / league: explicit breathing room without altering the match data. */
+.victorian-team-calendar .sched-opponent strong{line-height:1.65;white-space:normal}
+.victorian-team-calendar .sched-opponent strong .victorian-poll-rank,.victorian-team-calendar .sched-opponent strong .victorian-conference-game{vertical-align:middle}
+.victorian-team-calendar .sched-opponent strong a{vertical-align:middle}
