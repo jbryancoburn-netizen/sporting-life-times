@@ -253,7 +253,7 @@ const root=document.getElementById('slate-root');if(!root)return;
 const url=new URL(location.href),women=url.searchParams.get('gender')==='women';
 let selected=/^\d{4}-\d\d-\d\d$/.test(url.searchParams.get('date')||'')?url.searchParams.get('date'):today();
 let filter=['all','live','final','upcoming','exhibition'].includes(url.searchParams.get('view'))?url.searchParams.get('view'):'all';
-let search='',loaded=[],ratings=new Map(),lastUpdate='',limit=18,loading=false,sourceError='';
+let search='',loaded=[],ratings=new Map(),retroPublished=null,retroPending=0,lastUpdate='',limit=18,loading=false,sourceError='';
 let pollRankings=new Map(),pollAsOf='';
 let liveBoard=[],liveCheckedAt=0,liveCheckError='',liveRequest=false;
 const verifiedLiveScores=new Map();
@@ -419,7 +419,7 @@ const retroLine=t=>{
  const profile=rankOf(t,ratings,women),elo=rating(t),rank=Number(profile?.rank);
  const maxRank=women?363:365;
  const validRank=Number.isInteger(rank)&&rank>=1&&rank<=maxRank;
- return 'RETRO '+(elo??'—')+(validRank?' (#'+rank+')':'');
+ return 'RETRO '+(elo??'—')+(validRank?' (#'+rank+')':'')+(retroPending?' provisional':'');
 };
 const record=t=>{const r=rankOf(t,ratings,women);return r&&r.wins!=null&&r.losses!=null?Number(r.wins)+'–'+Number(r.losses):'0–0'};
 const team=t=>{const profile=rankOf(t,ratings,women),url=teamPage(t);
@@ -620,6 +620,7 @@ const render=()=>{
  document.getElementById('sl-count').textContent=games.length+' '+(games.length===1?'game':'games');
  const liveStamp=liveCheckedAt?' · Live scores checked '+new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit',second:'2-digit'}).format(new Date(liveCheckedAt))+' ET':'';
  document.getElementById('sl-data').textContent=(lastUpdate?'Published '+lastUpdate:'Published refresh pending')+liveStamp+
+  (retroPending?' · RETRO PROVISIONAL ('+retroPending+' reported final'+(retroPending===1?'':'s')+') pending verification':'')+
   (liveCheckError?' · Live scores unavailable; retrying':'')+
   (!women&&pollAsOf?' · RANKINGS COACHES/AP · '+pollAsOf:'');
  for(const b of document.querySelectorAll('[data-filter]')){const active=b.dataset.filter===filter;b.classList.toggle('is-active',active);b.setAttribute('aria-pressed',String(active));}
@@ -644,7 +645,7 @@ async function refresh(){
   if(women){
     const [results,rank,c,pal,wTeams,feed]=output;
     if(!results||rank?.gender!=='women'||rank.starting_elo!==1500)throw Error('Women’s game or rating data unavailable');
-    cross=c||{teams:[]};ratings=rankingsMap(rank);palette=pal?.wbb||pal?.mbb||{};
+    cross=c||{teams:[]};retroPublished=rank;ratings=rankingsMap(rank);palette=pal?.wbb||pal?.mbb||{};
     womenTeams=new Map((wTeams?.teams||[]).map(t=>[String(t.team_id),t]));
     sourceFeed=feed||null;seasonStats=insight?.seasonProfiles(rank.events)||new Map();
     loaded=dedupeFixtures(normalizeWomen(results,rank,cross));
@@ -653,7 +654,7 @@ async function refresh(){
     const [feed,forecast,rank,c,pal,ex,arenas,calibration,polls]=output;
     if(!feed||rank?.model!=='retro-clean-slate'||rank.starting_elo!==1500||rank.rankings?.length!==365)
       throw Error('Men’s scoreboard or certified RETRO feed unavailable');
-    cross=c||{teams:[]};ratings=rankingsMap(rank);palette=pal?.mbb||{};
+    cross=c||{teams:[]};retroPublished=rank;ratings=rankingsMap(rank);palette=pal?.mbb||{};
     const schools=new Map((cross.teams||[]).map(t=>[String(t.name||'').trim().toLowerCase(),String(t.espn_id)]));
     // Exact school identity aliases verified against this season's crosswalk.
     const pollAliases={'Michigan State':'Michigan St.',"St. John's":"St. John's (NY)",'Iowa State':'Iowa St.','USC':'Southern California'};
@@ -682,9 +683,17 @@ async function refresh(){
     lastUpdate=feed.scores_updated_at?new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit',timeZoneName:'short'}).format(new Date(feed.scores_updated_at)):'source refresh pending';
     await window.MBBLogos?.ready;
   }
-  sourceError='';
+  refreshRETRO();sourceError='';
  }catch(err){if(!loaded.length)sourceError=String(err.message||'Unable to retrieve fixtures');}
  finally{loading=false;render();if(selected===today())void refreshLive()}
+}
+// When a score becomes fully final, immediately replay the exact independent
+// RETRO method. The next certified JSON release replaces these provisional
+// figures without double counting the same game.
+function refreshRETRO(){
+ const result=provisionalRetro(retroPublished,liveBoard,window.MBB_RETRO,women);
+ retroPending=result.pending;
+ ratings=rankingsMap(result.rankings?{rankings:result.rankings}:retroPublished);
 }
 // Independently fetch live scores without waiting for scheduled GitHub JSON updates.
 async function refreshLive(){
@@ -697,7 +706,8 @@ async function refreshLive(){
   const raw=await fetchJSON(path);
   if(!Array.isArray(raw?.events))throw Error('Live scoreboard unavailable');
   if(selected!==day)return;
-  liveBoard=liveEvents(raw,day,cross);
+  liveBoard=liveEvents(raw,day,cross,women,retroPublished?.rankings);
+  refreshRETRO();
   liveCheckedAt=Date.now();liveCheckError='';
  }catch(err){if(selected===day)liveCheckError=String(err?.message||'Current scores unavailable');}
  finally{liveRequest=false;if(selected===day)render()}
