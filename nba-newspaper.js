@@ -87,12 +87,13 @@ function card(g){
     color:meta[t.code][3],record:rec(t.code),
     retro:Number.isFinite(rates[t.code])?'RETRO '+fmt(rates[t.code],0)+' (#'+rank(t.code)+')':'RETRO —',
     score:phase==='upcoming'?null:scored(t)?t.score:null});
- return '<article class="ledger26-card"><div class="ledger26-meta"><span>'+esc(date(g.date))+(g.network||g.broadcast||g.tvNetwork||g.tv?' · '+esc(g.network||g.broadcast||g.tvNetwork||g.tv):'')+'</span></div>'+
+ return '<details class="ledger26-card nba-expand-game"><summary class="nba-expand-trigger"><div class="ledger26-meta"><span>'+esc(date(g.date))+(g.network||g.broadcast||g.tvNetwork||g.tv?' · '+esc(g.network||g.broadcast||g.tvNetwork||g.tv):'')+'</span></div>'+
    window.SLTSportsScorebug.render({phase,
       status:g.state==='post'&&phase!=='final'?'SCORE PENDING':undefined,
-      away:profile(a),home:profile(h)})+
+      away:profile(a),home:profile(h)})+'</summary>'+ 
+   '<div class="nba-expand-content"><p class="nba-game-hint">Game details and live coverage</p>'+ 
    '<div class="slt-conference-game-link"><a href="'+esc(dest)+'">'+
-   (phase==='final'?'BOX SCORE &amp; ANALYSIS':'OPEN GAME CENTER')+' ↗</a></div></article>';
+   (phase==='final'?'BOX SCORE &amp; ANALYSIS':'OPEN GAME CENTER')+' ↗</a></div></div></details>';
 }
 function gamesFor(days=1,limit=12){const games=[...(data.schedule?.games||[])];
  // Deduplicate by source event ID, never create extra score cards from overlapping feeds.
@@ -242,12 +243,12 @@ function matchupCard(g){
    score:phase==='upcoming'?null:scored(t)?t.score:null});
  const odds=phase==='upcoming'&&p!==null?'<div class="nba-prob"><span style="width:'+(100*(1-p)).toFixed(0)+'%"></span></div><div class="nba-game-meta"><span>'+esc(a.code)+' '+fmt(100*(1-p),0)+'%</span><b>Pregame Elo probability</b><span>'+esc(h.code)+' '+fmt(100*p,0)+'%</span></div>':'';
  const dest=(phase==='final'?'nba-game-center.html?game=':'nba-live-game.html?game=')+encodeURIComponent(g.id);
- return '<article class="ledger26-card"><div class="ledger26-meta"><span>'+date(g.date)+' ET'+(g.network||g.broadcast||g.tvNetwork||g.tv?' · '+esc(g.network||g.broadcast||g.tvNetwork||g.tv):'')+'</span></div>'+
+ return '<details class="ledger26-card nba-expand-game"><summary class="nba-expand-trigger"><div class="ledger26-meta"><span>'+date(g.date)+' ET'+(g.network||g.broadcast||g.tvNetwork||g.tv?' · '+esc(g.network||g.broadcast||g.tvNetwork||g.tv):'')+'</span></div>'+
    window.SLTSportsScorebug.render({phase,
       status:g.state==='post'&&phase!=='final'?'SCORE PENDING':undefined,
-      away:profile(a),home:profile(h)})+odds+
+      away:profile(a),home:profile(h)})+'</summary><div class="nba-expand-content">'+odds+
    (phase==='upcoming'&&p===null?'<p class="note">Published current ratings unavailable for probability.</p>':'')+
-   '<div class="nba-section-links"><a href="'+dest+'">'+(phase==='final'?'OPEN BOX SCORE':'OPEN GAME CENTER')+' ↗</a></div></article>';
+   '<div class="nba-section-links"><a href="'+dest+'">'+(phase==='final'?'OPEN BOX SCORE':'OPEN GAME CENTER')+' ↗</a></div></div></details>';
 }
 function matchups(){
  const games=gamesFor(),upcoming=games.filter(g=>g.state==='pre'&&Date.parse(g.date)>Date.now()&&nyday(g.date)!==nyday(new Date())).slice(0,24);
