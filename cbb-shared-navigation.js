@@ -10,12 +10,18 @@ for(const nav of navs){
  links.filter(a=>/Live Game Center/i.test(a.textContent)).forEach(a=>a.remove());
  const rating=links.find(a=>/USRS Rankings|Power Index|^Rankings$/i.test(a.textContent.trim()));
  if(rating){
-   const d=document.createElement('details');d.className='cbb-rank-menu';
-   const sum=document.createElement('summary');sum.textContent='Rankings';sum.setAttribute('aria-label','Rankings: choose RETRO, NET, AP, Coaches or Pomeroy');
-   const list=document.createElement('div');list.className='cbb-rank-links';
+   const d=document.createElement('div');d.className='cbb-rank-menu';
+   const sum=document.createElement('button');sum.type='button';sum.className='cbb-rank-trigger';sum.textContent='Rankings';sum.setAttribute('aria-label','Rankings: choose RETRO, NET, AP, Coaches or Pomeroy');sum.setAttribute('aria-expanded','false');sum.setAttribute('aria-haspopup','true');
+   const list=document.createElement('div');list.className='cbb-rank-links';list.id='cbb-rank-dropdown-'+Math.random().toString(36).slice(2);list.hidden=true;sum.setAttribute('aria-controls',list.id);
    for(const [label,key] of ranks){const a=document.createElement('a');a.href=women?'ncaam.html?gender=women#wbb-rankings':front+'?poll='+key+'#rankings';a.textContent=label;list.append(a);}
-   d.append(sum,list);rating.replaceWith(d);
-   document.addEventListener('click',e=>{if(!d.contains(e.target))d.open=false});
+   d.append(sum);rating.replaceWith(d);document.body.append(list);
+   const close=()=>{list.hidden=true;sum.setAttribute('aria-expanded','false');};
+   const place=()=>{if(list.hidden)return;const box=sum.getBoundingClientRect();const w=list.offsetWidth||180;list.style.left=Math.max(8,Math.min(box.left,innerWidth-w-8))+'px';list.style.top=Math.min(box.bottom+6,innerHeight-list.offsetHeight-8)+'px';};
+   sum.addEventListener('click',()=>{const opening=list.hidden;for(const other of document.querySelectorAll('.cbb-rank-links'))other.hidden=true;list.hidden=!opening;sum.setAttribute('aria-expanded',String(opening));if(opening)place();});
+   document.addEventListener('pointerdown',e=>{if(!d.contains(e.target)&&!list.contains(e.target))close();});
+   document.addEventListener('keydown',e=>{if(e.key==='Escape'){close();sum.focus();}});
+   window.addEventListener('resize',place);window.addEventListener('scroll',place,true);
+   list.addEventListener('click',close);
  }
  const finder=[...nav.querySelectorAll('a')].find(a=>/Find Your Team|Team Directory/i.test(a.textContent));
  if(finder){const btn=document.createElement('button');btn.type='button';btn.className='cbb-find-btn';btn.textContent='Find Your Team';finder.replaceWith(btn);btn.addEventListener('click',openFinder);}
