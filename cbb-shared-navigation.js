@@ -25,6 +25,38 @@ for(const nav of navs){
  }
  const finder=[...nav.querySelectorAll('a')].find(a=>/Find Your Team|Team Directory/i.test(a.textContent));
  if(finder){const btn=document.createElement('button');btn.type='button';btn.className='cbb-find-btn';btn.textContent='Find Your Team';finder.replaceWith(btn);btn.addEventListener('click',openFinder);}
+ // A compact, accessible mobile navigation replaces the multi-row link wall.
+ // Keep the full desktop navigation and original links as the single source of truth.
+ if(!nav.id)nav.id='cbb-navigation';
+ const toolbar=document.createElement('div');
+ toolbar.className='cbb-mobile-toolbar';
+ const genderBar=nav.parentElement?.querySelector('.cbb-gender-bar');
+ nav.parentNode.insertBefore(toolbar,nav);
+ if(genderBar)toolbar.appendChild(genderBar);
+ const mobileButton=document.createElement('button');
+ mobileButton.type='button';
+ mobileButton.className='cbb-mobile-nav-toggle';
+ mobileButton.innerHTML='<span class="cbb-menu-icon" aria-hidden="true">☰</span><span>Sections</span><span class="cbb-menu-chevron" aria-hidden="true">⌄</span>';
+ mobileButton.setAttribute('aria-controls',nav.id);
+ mobileButton.setAttribute('aria-expanded','false');
+ mobileButton.setAttribute('aria-label','Show college basketball sections');
+ toolbar.appendChild(mobileButton);
+ nav.classList.add('cbb-mobile-enhanced');
+ const setMobileOpen=open=>{
+   nav.classList.toggle('is-mobile-open',open);
+   mobileButton.setAttribute('aria-expanded',String(open));
+   mobileButton.setAttribute('aria-label',(open?'Hide':'Show')+' college basketball sections');
+   if(!open)for(const dropdown of document.querySelectorAll('.cbb-rank-links'))dropdown.hidden=true;
+ };
+ mobileButton.addEventListener('click',()=>setMobileOpen(!nav.classList.contains('is-mobile-open')));
+ nav.addEventListener('click',event=>{
+   if(event.target.closest('a'))setMobileOpen(false);
+ });
+ document.addEventListener('keydown',event=>{
+   if(event.key==='Escape'&&nav.classList.contains('is-mobile-open')){
+     setMobileOpen(false);mobileButton.focus();
+   }
+ });
 }
 let index=null;
 async function openFinder(){
