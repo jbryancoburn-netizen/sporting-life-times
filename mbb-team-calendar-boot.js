@@ -241,7 +241,9 @@ try{
   const conferenceById=new Map((ratings?.rankings||[]).map(x=>[String(x.team_id),x.conference]));
   const ownConference=conferenceById.get(String(team.id));
   const opponentConference=school?conferenceById.get(String(school.id)):null;
-  const conferenceTag=!exhibition&&ownConference&&opponentConference&&ownConference===opponentConference?'<span class="victorian-conference-game" title="Conference game">'+escape(ownConference)+'</span>':'';
+  const shortLeagues={'Atlantic 10':'A-10','America East':'Am. East','Summit League':'Summit','Southland':'SLC','Ivy League':'Ivy','Big South':'Big South','Big West':'Big West','Big Sky':'Big Sky','Sun Belt':'Sun Belt'};
+  const conferenceTag=!exhibition&&ownConference&&opponentConference&&ownConference===opponentConference?
+    '<span class="victorian-conference-game" title="'+escape(ownConference)+' conference game"><span class="victorian-conf-full">'+escape(ownConference)+'</span><span class="victorian-conf-short">'+escape(shortLeagues[ownConference]||ownConference)+'</span></span>':'';
   const opponentRank=badges(school?.name,school?.espn_name,opponentName);
   const shortNames={'Southern California':'USC','Michigan State':'Mich. St.','Ohio State':'Ohio St.','Penn State':'Penn St.','Western Illinois':'Western Ill.','Bowling Green':'Bowling Green','Northwestern':'Northwestern','Tennessee Tech':'Tennessee Tech','Central Michigan':'Central Mich.','Eastern Michigan':'Eastern Mich.','Western Michigan':'Western Mich.'};
   const rawOpponent=school?.name||opponentName;
