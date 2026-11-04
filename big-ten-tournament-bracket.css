@@ -38,3 +38,9 @@
 .conference-format-entry a{color:#36281c;text-decoration:none}
 .conference-format-entry a:hover{text-decoration:underline}
 .conference-format-placeholder{font-style:italic;color:#78634a;font-weight:400}
+
+.conference-format-game{border:2px double #aa8962;margin:7px 0;background:#f7efdf;padding:3px 5px}
+.conference-format-game .conference-format-entry{min-height:29px;padding:4px 2px}
+.conference-format-game .conference-format-entry+.conference-format-entry{border-top:1px solid #cab492}
+.conference-format-game .conference-format-entry .bten-seed{flex:0 0 22px;text-align:center}
+.conference-format-section .conference-format-grid{grid-template-columns:repeat(auto-fit,minmax(170px,1fr));align-items:start}
