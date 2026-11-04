@@ -147,12 +147,14 @@
 /* EuroLeague: larger official crests within the same universal letterpress scorebug. */
 #el-live-scorebugs .ledger26-scorebug{--ledger26-crest-size:60px;--ledger26-team-min-height:76px}
 @media(max-width:640px){
- .ledger26-scorebug{--ledger26-crest-size:32px}
+ .ledger26-scorebug{--ledger26-crest-size:45px;--ledger26-team-min-height:56px}
  #el-live-scorebugs .ledger26-scorebug{--ledger26-crest-size:54px;--ledger26-team-min-height:70px}
  .ledger26-summary{padding:7px}
- .ledger26-scorebug{grid-template-columns:43px minmax(0,1fr) 84px;min-height:92px}
+ .ledger26-scorebug{grid-template-columns:43px minmax(0,1fr) 84px;min-height:114px}
  .ledger26-monogram img{width:31px;height:43px}
- .ledger26-team{grid-template-columns:var(--ledger26-crest-size) minmax(0,1fr) minmax(21px,auto);gap:6px;padding:3px 6px;border-left-width:5px}
+ .ledger26-team{grid-template-columns:var(--ledger26-crest-size) minmax(0,1fr) minmax(21px,auto);gap:6px;padding:4px 6px;border-left-width:5px}
+ .ledger26-crest .mbb-mark>img.mbb-mark__img{width:78%!important;height:78%!important;max-width:78%!important;max-height:78%!important}
+ .ledger26-crest .sl-emblem{padding:5px}
  .ledger26-name{font-size:12px!important}
  .ledger26-poll{font-size:11px;margin-right:5px}
  .ledger26-points{font-size:21px!important}
@@ -160,7 +162,7 @@
  .ledger26-status strong{font-size:11px!important}
 }
 @media(max-width:360px){
- .ledger26-scorebug{--ledger26-crest-size:28px;grid-template-columns:37px minmax(0,1fr) 72px}
+ .ledger26-scorebug{--ledger26-crest-size:39px;--ledger26-team-min-height:52px;grid-template-columns:37px minmax(0,1fr) 72px}
  #el-live-scorebugs .ledger26-scorebug{--ledger26-crest-size:46px;--ledger26-team-min-height:65px}
  .ledger26-team{grid-template-columns:var(--ledger26-crest-size) minmax(0,1fr) 21px;gap:4px;padding:3px;border-left-width:4px}
  .ledger26-name{font-size:11px!important}
