@@ -47,7 +47,7 @@ function audit(){
   const h=String(ev.home_id||''),a=String(ev.away_id||'');
   const opid=h===school?a:a===school?h:null;
   if(opid===null)continue;
-  const name=h===school?(ev.away_name||ev.opponent_name||''):(ev.home_name||ev.opponent_name||'');
+  const name=ev.opponent||(h===school?(ev.away_name||ev.opponent_name||''):(ev.home_name||ev.opponent_name||''));
   add(women,school,ev,{id:opid,name,logo:true},'women');
  }
  const out=x=>({entry_count:x.total,classifications:x.classes,
