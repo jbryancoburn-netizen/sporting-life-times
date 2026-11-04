@@ -197,7 +197,13 @@ function show(){
  let streak=0,leader="";for(const g of arr){const thisWinner=won(g)?a:b;if(leader&&leader!==thisWinner)break;leader=thisWinner;streak++}
  $("streak").textContent=streak?name(leader)+" · "+streak:"—";
  const sortedMargins=arr.map(g=>({game:g,margin:Math.abs(g.as-g.bs)})).sort((x,y)=>y.margin-x.margin);
- $("blowout").textContent=sortedMargins.length?sortedMargins[0].margin+" points":"—";
+ const biggestFor=team=>arr.filter(g=>(g.a===team?g.as>g.bs:g.bs>g.as)).map(g=>({g,margin:Math.abs(g.as-g.bs)})).sort((x,y)=>y.margin-x.margin)[0];
+ for(const [team,id] of [[a,"blowout-a"],[b,"blowout-b"]]){
+  const item=biggestFor(team),node=$(id);if(!node)continue;
+  node.querySelector(".almanac-win-team").textContent=name(team);
+  node.querySelector(".almanac-win-margin").textContent=item?"By "+item.margin+" points":"No documented wins";
+  node.querySelector(".almanac-win-detail").textContent=item?(item.g.a===team?item.g.as+"–"+item.g.bs:item.g.bs+"–"+item.g.as)+" · "+item.g.date:"—";
+ }
  $("closest").textContent=arr.length?Math.min(...arr.map(g=>Math.abs(g.as-g.bs)))+" points":"—";
  const counts=new Map();for(const g of arr){const decade=Math.floor(Number(g.date.slice(0,4))/10)*10;const d=counts.get(decade)||{w:0,l:0};d[won(g)?"w":"l"]++;counts.set(decade,d)}
  const decades=$("decades");decades.replaceChildren();for(const [decade,record] of [...counts].sort((x,y)=>x[0]-y[0])){const wrapper=document.createElement("div");wrapper.className="decade-row";const label=document.createElement("span");label.textContent=decade+"s";const bar=document.createElement("div");bar.className="decade-bar";const left=document.createElement("span");left.className="decade-left";left.style.width=(100*record.w/(record.w+record.l))+"%";const right=document.createElement("span");right.className="decade-right";right.style.width=(100*record.l/(record.w+record.l))+"%";bar.append(left,right);const value=document.createElement("b");value.textContent=record.w+"–"+record.l;wrapper.append(label,bar,value);decades.append(wrapper)}
