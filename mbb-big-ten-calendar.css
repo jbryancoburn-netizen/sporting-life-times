@@ -30,3 +30,21 @@
 .victorian-team-calendar .mbb-schedule-table tbody tr:not(.victorian-stat-detail) td:last-child{border-right:4px double #765336!important;border-radius:0 3px 3px 0}
 .victorian-team-calendar .victorian-at-game-records{display:block;margin-top:5px;padding-top:4px;border-top:1px solid #c8ad8a;font:700 10px/1.5 Georgia,serif;color:#69432e;overflow-wrap:anywhere}
 .victorian-team-calendar .victorian-at-game-records em{font-weight:400;color:#856c53}
+
+/* Meaningful Victorian game shading: home / away / neutral / unverified. */
+.victorian-team-calendar .mbb-schedule-table tbody tr[data-game-site="home"] td{background:#dfc9a8!important}
+.victorian-team-calendar .mbb-schedule-table tbody tr[data-game-site="away"] td{background:#f8f0e2!important}
+.victorian-team-calendar .mbb-schedule-table tbody tr[data-game-site="neutral"] td{background:#eae0d0!important}
+.victorian-team-calendar .mbb-schedule-table tbody tr[data-game-site="unknown"] td{background:#f0ece3!important}
+.victorian-team-calendar .mbb-schedule-table tbody tr.victorian-completed-game:hover td,
+.victorian-team-calendar .mbb-schedule-table tbody tr.victorian-completed-game:focus-visible td,
+.victorian-team-calendar .mbb-schedule-table tbody tr.victorian-completed-game:focus-within td{background:#bba07c!important;color:#241a12}
+.victorian-team-calendar .mbb-schedule-table tbody tr.victorian-completed-game:hover .sched-opponent,
+.victorian-team-calendar .mbb-schedule-table tbody tr.victorian-completed-game:focus-visible .sched-opponent{color:#241a12}
+.victorian-team-calendar .victorian-shade-key{display:flex;flex-wrap:wrap;gap:10px 18px;margin:8px 0 12px;font:700 11px Georgia,serif;color:#543d2b}
+.victorian-team-calendar .victorian-shade-key span{display:inline-flex;align-items:center;gap:6px}
+.victorian-team-calendar .victorian-shade-key i{display:inline-block;width:19px;height:12px;border:1px solid #967757}
+.victorian-team-calendar .victorian-shade-key .home{background:#dfc9a8}
+.victorian-team-calendar .victorian-shade-key .away{background:#f8f0e2}
+.victorian-team-calendar .victorian-shade-key .neutral{background:#eae0d0}
+.victorian-team-calendar .victorian-shade-key .stats{background:#bba07c}
