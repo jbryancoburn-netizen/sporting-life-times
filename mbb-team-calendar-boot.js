@@ -245,7 +245,7 @@ try{
   const conferenceTag=!exhibition&&ownConference&&opponentConference&&ownConference===opponentConference?
     '<span class="victorian-conference-game" title="'+escape(ownConference)+' conference game"><span class="victorian-conf-full">'+escape(ownConference)+'</span><span class="victorian-conf-short">'+escape(shortLeagues[ownConference]||ownConference)+'</span></span>':'';
   const opponentRank=badges(school?.name,school?.espn_name,opponentName);
-  const shortNames={'Southern California':'USC','Michigan State':'Mich. St.','Ohio State':'Ohio St.','Penn State':'Penn St.','Western Illinois':'Western Ill.','Bowling Green':'Bowling Green','Northwestern':'Northwestern','Tennessee Tech':'Tennessee Tech','Central Michigan':'Central Mich.','Eastern Michigan':'Eastern Mich.','Western Michigan':'Western Mich.'};
+  const shortNames={'Southern California':'USC','Michigan State':'Mich. St.','Ohio State':'Ohio St.','Penn State':'Penn St.','Western Illinois':'Western Ill.','Bowling Green':'Bowling Green','Northwestern':'Northwestern','Tennessee Tech':'Tennessee Tech','Central Michigan':'Central Mich.','Eastern Michigan':'Eastern Mich.','Western Michigan':'Western Mich.',"St. John's (NY)":"St. John's"};
   const rawOpponent=school?.name||opponentName;
   const compactMichigan=/^michigan\s*(?:state|st\.?)$/i.test(rawOpponent)||/^michigan\s*(?:state|st\.?)$/i.test(opponentName);
   const displayName=escape(compactMichigan?'Mich. St.':(shortNames[rawOpponent]||rawOpponent));
