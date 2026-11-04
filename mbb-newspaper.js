@@ -17,8 +17,8 @@ const easternGameDay=value=>{
  }).format(date):'';
 };
 const page=document.body.dataset.page,params=new URLSearchParams(location.search);
-const files=['data/ncaam-2026-27-preseason-player-quality-live.json','data/ncaam-2026-27-current-provisional.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/ncaam-2026-27-game-ledger.json','data/ncaam-2026-27-upcoming-forecasts.json','data/ncaam-2026-27-national-polls.json','articles.json','multi_scoreboards.json','data/mbb-live.json','data/mbb-current-player-stats.json'];
-let [pre,current,cross,ledger,schedule,polls,news,scoreboards,wire,currentPlayers]=await Promise.all(files.map(get));
+const files=['data/ncaam-2026-27-preseason-player-quality-live.json','data/ncaam-2026-27-current-provisional.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/ncaam-2026-27-game-ledger.json','data/ncaam-2026-27-upcoming-forecasts.json','data/ncaam-2026-27-national-polls.json','articles.json','multi_scoreboards.json','data/mbb-live.json','data/mbb-current-player-stats.json','data/mbb-overall-records-2026-27.json'];
+let [pre,current,cross,ledger,schedule,polls,news,scoreboards,wire,currentPlayers,verifiedOverall]=await Promise.all(files.map(get));
 const selectedTeam=(cross?.teams||[]).find(x=>x.id===params.get('team')||String(x.espn_id)===params.get('team'));
 if(page==='team'&&selectedTeam)params.set('team',selectedTeam.id);
 let teamNews=page==='team'?await get('data/mbb-team-news/'+encodeURIComponent(selectedTeam?.espn_id||'')+'.json'):null;
@@ -34,7 +34,7 @@ const retroInSeason=retroValid&&retroPublication.games_played>0&&retroPublicatio
 let live=Boolean(retroInSeason);
 let data=(retroPreseason||retroInSeason)?retroPublication:pre;
 const referenceById=new Map((valid(pre)?pre.rankings:valid(current)?current.rankings:[]).map(t=>[t.team_id,t]));
-const enrichRankings=rankings=>rankings.map(t=>({...referenceById.get(t.team_id),...t,wins:t.wins??0,losses:t.losses??0,conference_wins:t.conference_wins??0,conference_losses:t.conference_losses??0}));
+const enrichRankings=rankings=>rankings.map(t=>{const v=verifiedOverall?.records?.[t.team_id];return {...referenceById.get(t.team_id),...t,wins:t.wins??0,losses:t.losses??0,conference_wins:t.conference_wins??0,conference_losses:t.conference_losses??0,...(v?{overall_wins:v.overall_wins,overall_losses:v.overall_losses}:{}),};});
 let teams=enrichRankings(data.rankings);
 if(!teams.every(t=>t.conference)){console.warn('MBB: conference reference is missing for some teams');}
 const ratingMethod=(retroPreseason||retroInSeason)?'RETRO · 1500 clean slate':'Legacy Elo fallback — RETRO feed unavailable';
