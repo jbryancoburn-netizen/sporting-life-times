@@ -5,3 +5,22 @@ nav.cbb-universal-nav a:first-child,nav.cbb-universal-nav a[href="ncaam.html#tea
 nav.cbb-universal-nav a[aria-current="page"]{text-decoration:underline!important;text-underline-offset:4px!important}
 nav.cbb-universal-nav a:hover,nav.cbb-universal-nav a:focus-visible{color:#853a30!important;text-decoration:underline!important}
 @media(max-width:900px){nav.cbb-universal-nav{justify-content:flex-start!important;gap:9px 17px!important;padding:9px 12px!important}nav.cbb-universal-nav a{font-size:12px!important}}
+
+nav.cbb-universal-nav .cbb-rank-menu{position:relative;display:inline-block;align-self:center;z-index:20}
+nav.cbb-universal-nav .cbb-rank-menu>summary,nav.cbb-universal-nav .cbb-find-btn{list-style:none;cursor:pointer;color:#29241e!important;font:700 13px/1.25 Georgia,serif!important;padding:2px 0;background:transparent;border:0;white-space:nowrap}
+nav.cbb-universal-nav .cbb-rank-menu>summary::after{content:" ▾";font-size:10px}
+nav.cbb-universal-nav .cbb-rank-menu>summary::-webkit-details-marker{display:none}
+nav.cbb-universal-nav .cbb-rank-links{position:absolute;left:0;top:100%;display:grid;min-width:130px;padding:5px;background:#f5ebd7;border:3px double #76583a;box-shadow:2px 3px 0 #d5c1a2;z-index:60}
+nav.cbb-universal-nav .cbb-rank-links a{padding:6px 9px!important;border-bottom:1px solid #c6b08e!important;font-size:12px!important}
+nav.cbb-universal-nav .cbb-rank-links a:last-child{border-bottom:0!important}
+nav.cbb-universal-nav .cbb-find-btn{color:#853a30!important;text-decoration:underline;text-underline-offset:4px}
+#cbb-team-finder{border:5px double #785b3b;background:#f4ead8;color:#302218;padding:17px;max-width:min(95vw,540px);width:100%;max-height:80vh;font:13px Georgia,serif}
+#cbb-team-finder::backdrop{background:rgba(37,27,17,.6)}
+#cbb-team-finder .cbb-find-head{display:flex;justify-content:space-between;align-items:center;border-bottom:3px double #987b55;margin-bottom:12px;padding-bottom:7px;font:800 24px Georgia,serif}
+#cbb-team-finder .cbb-find-head button{background:none;border:0;font:28px Georgia,serif;cursor:pointer}
+#cbb-team-finder label{display:block;margin-bottom:6px;font-weight:700}
+#cbb-team-finder input{width:100%;padding:10px;background:#fff8ea;border:1px solid #9b7e59;border-radius:0;color:#302218}
+#cbb-team-finder .cbb-find-results{display:grid;max-height:44vh;overflow:auto;margin-top:10px}
+#cbb-team-finder .cbb-find-results a{padding:8px 5px;border-bottom:1px solid #d1bfa3;color:#31251b;text-decoration:none}
+#cbb-team-finder .cbb-find-results a:hover{background:#e7d5ba;text-decoration:underline}
+@media(max-width:900px){nav.cbb-universal-nav .cbb-rank-menu>summary,nav.cbb-universal-nav .cbb-find-btn{font-size:12px!important}}
