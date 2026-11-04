@@ -28,32 +28,36 @@ function school(id){return state.teams.get(String(id))||{id:String(id),name:id,s
 function row(t,i,withRank=true){return '<div class="board-row"><span>'+(withRank?i+1:'')+'</span>'+logo(t)+'<a class="school-link" href="'+link(t)+'">'+name(t)+memberBadge(t)+'</a><span>'+(t.w||0)+'–'+(t.l||0)+'</span><span>'+Math.round(pct(t)*1000)/10+'%</span><span class="elo">'+Number(t.elo||1500).toFixed(0)+'</span></div>'}
 function game(g,includeLink=true){
  const away=school(g.away),home=school(g.home),final=g.status==='final';
- const time=g.start_time||(g.tipoff_as_posted?g.tipoff_as_posted+' · GLIAC TIME ZONE UNCONFIRMED':'Tipoff not announced');
- const broadcast=g.network?(g.stream_url&&/^https:\/\//.test(g.stream_url)?'<a target="_blank" rel="noopener noreferrer" href="'+esc(g.stream_url)+'">'+esc(g.network)+' ↗</a>':esc(g.network)):'TV / STREAM UNCONFIRMED';
- const broadcastType=g.network&&g.broadcast_type?'<small>'+esc(g.broadcast_type)+'</small>':'';
- const winA=final&&Number(g.away_score)>Number(g.home_score);
- const winH=final&&Number(g.home_score)>Number(g.away_score);
+ const live=g.status==='live',scoreShown=final||live;
+ const time=g.start_time||(g.tipoff_as_posted?g.tipoff_as_posted+' · TIME ZONE UNCONFIRMED':'Tipoff TBA');
+ const mode=final?'final':live?'live':'upcoming';
+ const line=t=>({name:t.name||'Unverified school',score:scoreShown?(t.id===away.id?g.away_score:g.home_score):null,
+   crest:logo(t),color:color(t.primary),record:(t.w||0)+'–'+(t.l||0),
+   retro:!t.not_eligible_for_dii_elo&&Number.isFinite(Number(t.elo))?'RETRO '+Math.round(Number(t.elo)):'RETRO —'});
+ const scorebug=window.SLTSportsScorebug?.render({phase:mode,
+  status:live?(g.status_detail||g.period||'LIVE'):'',away:line(away),home:line(home)});
  const probability=(g.pred_home_pct===null||g.pred_home_pct===undefined)?null:Number(g.pred_home_pct);
- const hasProbability=Number.isFinite(probability)&&probability>=0&&probability<=100;
- const formatChange=v=>(Number(v)>0?'+':'')+Number(v).toFixed(1);
- const odds=hasProbability?'<div class="forecast-strip" aria-label="Experimental USRS projected win probabilities">'+
- '<div class="forecast-label"><span>USRS MATCHUP · EXPERIMENTAL</span><small>'+(state.data?.model?.calibrated?'2025–26 NCAA historical fit':'Uncalibrated DII coefficients')+'</small></div>'+
- '<div class="forecast-values"><strong>'+esc((100-probability).toFixed(1))+'% <small>'+esc(away.name)+'</small></strong>'+
- '<strong>'+esc(probability.toFixed(1))+'% <small>'+esc(home.name)+'</small></strong></div>'+
- '<div class="forecast-meter" aria-hidden="true"><span style="width:'+esc(probability.toFixed(1))+'%"></span></div>'+
- (final&&Number.isFinite(Number(g.elo_change_home))?'<p>FINAL ELO MOVEMENT · '+esc(away.name)+' '+esc(formatChange(g.elo_change_away))+
- ' / '+esc(home.name)+' '+esc(formatChange(g.elo_change_home))+'</p>':'')+'</div>':'';
- return '<article class="game-card"><div class="game-head"><span>'+esc(g.date)+' · '+
- esc(final?'FINAL'+(g.start_time?' · '+g.start_time:''):g.status==='live'?'LIVE · '+time:time)+(g.neutral?' · NEUTRAL SITE':'')+'</span><span class="game-broadcast">'+broadcast+broadcastType+'</span></div>'+
- '<div class="game-row '+(winA?'winner':'')+'">'+logo(away)+'<a class="school-link" href="'+link(away)+'">'+name(away)+'</a><b>'+
- (final||g.status==='live'?esc(g.away_score??'—'):'')+'</b></div>'+
- '<div class="game-row '+(winH?'winner':'')+'">'+logo(home)+'<a class="school-link" href="'+link(home)+'">'+name(home)+'</a><b>'+
- (final||g.status==='live'?esc(g.home_score??'—'):'')+'</b></div>'+odds+
- '<div class="game-footer">'+esc(g.venue||(g.venue_city?g.venue_city+' · Arena not confirmed':'Venue awaiting official confirmation'))+
- (g.tournament?' · '+esc(g.tournament):'')+
- (g.source_url?' · <a target="_blank" rel="noopener noreferrer" href="'+esc(g.source_url)+'">SOURCE ↗</a>':'')+
- (includeLink?' · <a class="gamefile-link" href="'+gameLink(g)+'">OPEN GAMEFILE ↗</a>':'')+
- '</div></article>';
+ const validPct=Number.isFinite(probability)&&probability>=0&&probability<=100;
+ const change=v=>(Number(v)>0?'+':'')+Number(v).toFixed(1);
+ const odds=validPct?'<p class="ledger26-detail-note">Pregame home win chance: '+probability.toFixed(1)+
+  '% · experimental RETRO model</p>'+
+  (final&&Number.isFinite(Number(g.elo_change_home))?
+   '<p class="ledger26-detail-note">RETRO change: '+esc(away.name)+' '+esc(change(g.elo_change_away))+
+   ' / '+esc(home.name)+' '+esc(change(g.elo_change_home))+'</p>':''):'';
+ const venue=g.venue||(g.venue_city?g.venue_city+' · Arena not confirmed':'Venue awaiting official confirmation');
+ const broadcast=g.network||'Broadcast unconfirmed';
+ const details='<div class="ledger26-expanded"><p class="ledger26-detail-note">'+
+  esc(g.date+' · '+time+(g.neutral?' · NEUTRAL SITE':''))+'</p>'+odds+
+  '<p class="ledger26-detail-note"><a href="'+link(away)+'">'+name(away)+'</a> · <a href="'+
+  link(home)+'">'+name(home)+'</a></p>'+
+  (g.source_url&&/^https:\/\//.test(g.source_url)?'<p><a href="'+esc(g.source_url)+
+  '" target="_blank" rel="noopener noreferrer">VIEW VERIFIED SOURCE ↗</a></p>':'')+
+  (includeLink?'<p><a href="'+gameLink(g)+'">OPEN FULL GAMEFILE ↗</a></p>':'')+
+  '</div>';
+ return '<article class="game-card ledger26-card"><div class="ledger26-meta"><span>'+esc(venue)+
+  '</span><span>'+esc(broadcast)+'</span></div><details class="ledger26-expand"><summary class="ledger26-summary">'+
+  (scorebug||'<p class="note">Scorebug unavailable</p>')+
+  '<span class="ledger26-instruction">OPEN GAME DETAILS +</span></summary>'+details+'</details></article>';
 }
 function renderHome(d){const teams=(d.teams||[]).slice().sort((a,b)=>Number(!!a.not_eligible_for_dii_elo)-Number(!!b.not_eligible_for_dii_elo)||a.name.localeCompare(b.name));const games=d.games||[];const finals=games.filter(g=>g.status==='final'&&g.elo_eligible);
 $('teams-covered').textContent=teams.length;$('finals-covered').textContent=finals.length;
