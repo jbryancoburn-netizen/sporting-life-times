@@ -80,10 +80,15 @@
 .victorian-player-production th[aria-sort="ascending"] .slt-sort-arrow,.victorian-player-production th[aria-sort="descending"] .slt-sort-arrow{color:#853b2d;opacity:1}
 
 /* A single horizontal masthead for opponent rank, school and league. */
-.victorian-team-calendar .sched-opponent strong .victorian-opponent-heading{display:inline-flex;align-items:center;justify-content:flex-start;gap:8px;white-space:nowrap;max-width:none;vertical-align:middle}
-.victorian-team-calendar .victorian-opponent-heading .victorian-poll-rank{flex:none;margin:0}
-.victorian-team-calendar .victorian-opponent-heading .victorian-conference-game{flex:none;margin:0}
-.victorian-team-calendar .victorian-opponent-heading a,.victorian-team-calendar .victorian-opponent-heading .victorian-school-name{flex:none;white-space:nowrap}
+.victorian-team-calendar .sched-opponent{width:100%;min-width:0}
+.victorian-team-calendar .sched-opponent strong{display:block;width:100%;min-width:0}
+.victorian-team-calendar .sched-opponent strong .victorian-opponent-heading{display:grid;grid-template-columns:48px minmax(0,1fr) 70px;align-items:center;column-gap:8px;width:100%;max-width:100%;white-space:nowrap;vertical-align:middle}
+.victorian-team-calendar .victorian-opponent-heading .victorian-heading-rank{min-width:0}
+.victorian-team-calendar .victorian-opponent-heading .victorian-heading-school{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.victorian-team-calendar .victorian-opponent-heading .victorian-heading-conference{justify-self:end;white-space:nowrap}
+.victorian-team-calendar .victorian-opponent-heading .victorian-poll-rank{margin:0}
+.victorian-team-calendar .victorian-opponent-heading .victorian-conference-game{margin:0}
+.victorian-team-calendar .victorian-opponent-heading a,.victorian-team-calendar .victorian-opponent-heading .victorian-school-name{white-space:nowrap}
 
 /* Canonical aligned columns in the player production register. */
 .victorian-player-production .slt-sortable-production{width:100%;min-width:690px;table-layout:fixed;border-collapse:collapse;font-variant-numeric:tabular-nums}
