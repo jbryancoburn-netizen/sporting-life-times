@@ -6,8 +6,8 @@
   "notes": "Conference-only records and all RETRO calculations remain unchanged. Exhibitions excluded. Unknown/unconfirmed scores excluded.",
   "summary": {
     "division_i_teams": 365,
-    "verified_non_di_regular_season_finals": 21,
-    "schools_with_non_di_finals": 21,
+    "verified_non_di_regular_season_finals": 28,
+    "schools_with_non_di_finals": 28,
     "unverified_or_conflicting_entries": 0
   },
   "records": {
@@ -1386,9 +1386,9 @@
       "team": "Alabama A&M",
       "retro_wins": 0,
       "retro_losses": 0,
-      "verified_non_di_wins": 0,
+      "verified_non_di_wins": 1,
       "verified_non_di_losses": 0,
-      "overall_wins": 0,
+      "overall_wins": 1,
       "overall_losses": 0
     },
     "ncaa:609543": {
@@ -1406,9 +1406,9 @@
       "team": "Austin Peay",
       "retro_wins": 0,
       "retro_losses": 0,
-      "verified_non_di_wins": 0,
+      "verified_non_di_wins": 1,
       "verified_non_di_losses": 0,
-      "overall_wins": 0,
+      "overall_wins": 1,
       "overall_losses": 0
     },
     "ncaa:609633": {
@@ -1546,9 +1546,9 @@
       "team": "Eastern Ky.",
       "retro_wins": 0,
       "retro_losses": 0,
-      "verified_non_di_wins": 0,
+      "verified_non_di_wins": 1,
       "verified_non_di_losses": 0,
-      "overall_wins": 0,
+      "overall_wins": 1,
       "overall_losses": 0
     },
     "ncaa:609727": {
@@ -1576,9 +1576,9 @@
       "team": "FIU",
       "retro_wins": 0,
       "retro_losses": 0,
-      "verified_non_di_wins": 0,
+      "verified_non_di_wins": 1,
       "verified_non_di_losses": 0,
-      "overall_wins": 0,
+      "overall_wins": 1,
       "overall_losses": 0
     },
     "ncaa:609646": {
@@ -1946,9 +1946,9 @@
       "team": "Sacramento St.",
       "retro_wins": 0,
       "retro_losses": 0,
-      "verified_non_di_wins": 0,
+      "verified_non_di_wins": 1,
       "verified_non_di_losses": 0,
-      "overall_wins": 0,
+      "overall_wins": 1,
       "overall_losses": 0
     },
     "ncaa:609854": {
@@ -2116,9 +2116,9 @@
       "team": "Tulsa",
       "retro_wins": 0,
       "retro_losses": 0,
-      "verified_non_di_wins": 0,
+      "verified_non_di_wins": 1,
       "verified_non_di_losses": 0,
-      "overall_wins": 0,
+      "overall_wins": 1,
       "overall_losses": 0
     },
     "ncaa:609618": {
@@ -2266,9 +2266,9 @@
       "team": "VMI",
       "retro_wins": 0,
       "retro_losses": 0,
-      "verified_non_di_wins": 0,
+      "verified_non_di_wins": 1,
       "verified_non_di_losses": 0,
-      "overall_wins": 0,
+      "overall_wins": 1,
       "overall_losses": 0
     },
     "pending-ncaa-id:west-florida": {
@@ -3665,12 +3665,48 @@
   "verified_non_di_finals": [
     {
       "date": "2026-11-02",
+      "team_id": "ncaa:609615",
+      "school": "Alabama A&M",
+      "opponent": "Oakwood",
+      "team_score": 90,
+      "opponent_score": 57,
+      "source_url": "https://aamusports.com/news/2026/11/2/mens-basketball-five-bulldogs-score-in-double-figures-as-alabama-am-tops-oakwood.aspx"
+    },
+    {
+      "date": "2026-11-02",
+      "team_id": "ncaa:609627",
+      "school": "Austin Peay",
+      "opponent": "Lane",
+      "team_score": 109,
+      "opponent_score": 65,
+      "source_url": "https://letsgopeay.com/sports/mens-basketball/stats/2026-27/lane/boxscore/14460"
+    },
+    {
+      "date": "2026-11-02",
       "team_id": "ncaa:609644",
       "school": "Cal Poly",
       "opponent": "Cal State San Marcos",
       "team_score": 78,
       "opponent_score": 62,
       "source_url": "https://gopoly.com/sports/mens-basketball/stats/2026-27/cal-state-san-marcos/boxscore/9852"
+    },
+    {
+      "date": "2026-11-02",
+      "team_id": "ncaa:609724",
+      "school": "Eastern Ky.",
+      "opponent": "Kentucky Christian",
+      "team_score": 105,
+      "opponent_score": 54,
+      "source_url": "https://ekusports.com/news/2026/11/2/mens-basketball-ekuhoops-starts-season-with-win-over-kentucky-christian.aspx"
+    },
+    {
+      "date": "2026-11-02",
+      "team_id": "ncaa:609732",
+      "school": "FIU",
+      "opponent": "New College of Florida",
+      "team_score": 101,
+      "opponent_score": 58,
+      "source_url": "https://fiusports.com/news/2026/11/2/mens-basketball-rings-in-cantens-era-with-dominant-win-over-new-college-of-florida.aspx"
     },
     {
       "date": "2026-11-02",
@@ -3773,6 +3809,15 @@
     },
     {
       "date": "2026-11-02",
+      "team_id": "ncaa:609649",
+      "school": "Sacramento St.",
+      "opponent": "Jessup (Calif.)",
+      "team_score": 90,
+      "opponent_score": 74,
+      "source_url": "https://hornetsports.com/news/2026/11/2/mens-basketball-mens-basketball-opens-season-with-90-74-home-win-over-jessup.aspx"
+    },
+    {
+      "date": "2026-11-02",
       "team_id": "ncaa:609561",
       "school": "Samford",
       "opponent": "Berry",
@@ -3827,6 +3872,15 @@
     },
     {
       "date": "2026-11-02",
+      "team_id": "ncaa:609501",
+      "school": "Tulsa",
+      "opponent": "Ottawa (Kan.)",
+      "team_score": 98,
+      "opponent_score": 50,
+      "source_url": "https://tulsahurricane.com/news/2026/11/2/mens-basketball-tulsa-erupts-for-school-record-19-threes-in-season-opening-win-over-ottawa"
+    },
+    {
+      "date": "2026-11-02",
       "team_id": "ncaa:609650",
       "school": "UC Santa Barbara",
       "opponent": "San Francisco State",
@@ -3842,6 +3896,15 @@
       "team_score": 84,
       "opponent_score": 63,
       "source_url": "https://gouvu.com/sports/mens-basketball/stats/2026-27/western-colorado/boxscore/10477"
+    },
+    {
+      "date": "2026-11-02",
+      "team_id": "ncaa:609511",
+      "school": "VMI",
+      "opponent": "VU Lynchburg",
+      "team_score": 115,
+      "opponent_score": 83,
+      "source_url": "https://vmikeydets.com/news/2026/11/2/mens-basketball-vmi-tops-vu-lynchburg-115-83-in-season-opener.aspx"
     },
     {
       "date": "2026-11-02",
