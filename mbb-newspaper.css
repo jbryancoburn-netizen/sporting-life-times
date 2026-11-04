@@ -551,7 +551,10 @@ td{padding:7px 5px}
 #conf-table .compact-conference-table td:not(:first-child),#conf-table .compact-conference-table th:not(:first-child){text-align:right;font-variant-numeric:tabular-nums}
 
 /* Conference edition: a compact nineteenth-century newspaper news column. */
-body[data-page="conference"] .conference-news-edition{background:#f3ead9;color:#30251b;border:3px double #786347;padding:12px 15px 10px;box-shadow:none}
+body[data-page="conference"] .conference-editorial-row{align-items:stretch}
+body[data-page="conference"] .conference-editorial-row>.column{display:flex;flex-direction:column;min-height:0}
+body[data-page="conference"] .conference-news-edition{background:#f3ead9;color:#30251b;border:3px double #786347;padding:12px 15px 10px;box-shadow:none;flex:1 1 auto;margin-bottom:0;min-height:100%}
+@media(max-width:880px){body[data-page="conference"] .conference-editorial-row>.column{display:block}body[data-page="conference"] .conference-news-edition{min-height:0;margin-bottom:18px}}
 body[data-page="conference"] .conference-news-edition .section-head{border-bottom:3px double #766044;margin-bottom:7px}
 body[data-page="conference"] .conference-news-edition .story{position:relative;padding:11px 0 10px;border-bottom:1px solid #b7a384;background:transparent}
 body[data-page="conference"] .conference-news-edition .story:last-child{border-bottom:0}
