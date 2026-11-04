@@ -64,35 +64,71 @@ function buildConference(app,teams,games,conference){
  const section=document.createElement('section');
  section.className='panel bten-bracket-section conference-format-section';
  section.id='conference-tournament-watch';
- const american=conference==='American';
- const big12=conference==='Big 12'&&members.length===16;
- const entry=american?[[7,10],[8,9]]:big12?[[9,16],[12,13],[10,15],[11,14]]:[];
- const stages=american?[
-  {name:'First round',games:[[7,10],[8,9]]},
+ const formats={
+  'Mountain West':{size:10,kind:'mountain',source:'https://themw.com/news/2026/7/23/mountain-west-announces-2027-credit-union-1-mens-womens-basketball-championships-brackets.aspx',note:'Official July 23, 2026 bracket. Seeds 7–10 open; top six receive first-round byes.'},
+  'Big Sky':{size:11,kind:'bigsky',source:'https://bigskyconf.com/news/2026/8/18/big-sky-releases-2026-27-mens-basketball-conference-schedule.aspx',note:'Official expansion to 11 teams; 10 plays 11, winner faces 9. Later entry slots await full bracket verification.'},
+  'Big East':{size:11,kind:'field',source:'https://www.bigeast.com/news/2026/9/13/big-east-announces-2026-27-mens-basketball-schedule.aspx',note:'All 11 conference teams; March 10–13 at Madison Square Garden. Matchup placement pending bracket confirmation.'},
+  'Summit League':{size:8,kind:'traditional8',note:'Eight-team traditional field; split quarterfinal doubleheaders. Verify final 2027 field eligibility.'},
+  'Conference USA':{size:10,kind:'field',note:'Ten-team field with split quarterfinal doubleheaders; bracket slot mapping awaits official release.'},
+  'Big West':{size:8,kind:'field',note:'Eight-qualifier stepladder; only the top eight of the larger league qualify.'},
+  'West Coast':{size:10,kind:'field',note:'Ten-team stepladder tournament; precise 2027 matchups pending official bracket.'},
+  'Pac-12':{size:9,kind:'field',note:'Nine-team stepladder championship format; final matchups pending official bracket.'},
+  'Horizon':{size:11,kind:'field',note:'Eleven eligible men’s teams; Detroit Mercy is ineligible. Reseeding must be respected.'},
+  'Sun Belt':{size:14,kind:'field',note:'Fourteen-team stepladder tournament; advancing teams never projected.'},
+  'Southern':{size:11,kind:'field',note:'Eleven-team traditional field; bracket pairings pending official release.'},
+  'Ohio Valley':{size:8,kind:'field',note:'Eight qualifiers in a stepladder tournament.'},
+  'Mid-American':{size:8,kind:'field',note:'Eight qualifiers in a stepladder championship.'},
+  'ASUN':{size:8,kind:'field',note:'Eight-team stepladder field; reclassifying-team eligibility must be confirmed.'},
+  'Atlantic Sun':{size:8,kind:'field',note:'Eight-team stepladder field; reclassifying-team eligibility must be confirmed.'},
+  'United Athletic':{size:8,kind:'field',note:'Eight-team field; final 2027 bracket structure unconfirmed.'}
+ };
+ const format=formats[conference]||null;
+ const american=conference==='American',big12=conference==='Big 12'&&members.length===16;
+ const eligible=o.rows.filter(t=>!(conference==='Horizon'&&/detroit mercy/i.test(t.team)));
+ const fieldSize=american?10:big12?16:format?.size||null;
+ const seeds=eligible.slice(0,fieldSize||eligible.length);
+ const slot=n=>typeof n==='number'?(seeds[n-1]?'<span class="bten-seed">'+n+'</span>'+name(seeds[n-1]):'<span class="conference-format-placeholder">Seed '+n+' pending</span>'):'<span class="conference-format-placeholder">'+esc(n)+'</span>';
+ let stages=[];
+ if(american)stages=[
+  {name:'Opening round',games:[[7,10],[8,9]]},
   {name:'Second round',games:[[5,'Winner 8/9'],[6,'Winner 7/10']]},
-  {name:'Quarterfinals',games:[[4,'Winner second-round game'],[3,'Winner second-round game']]},
+  {name:'Quarterfinals',games:[[4,'Second-round winner'],[3,'Second-round winner']]},
   {name:'Semifinals',games:[[1,'Quarterfinal winner'],[2,'Quarterfinal winner']]},
   {name:'Championship',games:[['Semifinal winner','Semifinal winner']]}
- ]:big12?[
-  {name:'First round',games:entry},
+ ];
+ else if(big12)stages=[
+  {name:'Opening round',games:[[9,16],[12,13],[10,15],[11,14]]},
   {name:'Second round',games:[[8,'Winner 9/16'],[5,'Winner 12/13'],[7,'Winner 10/15'],[6,'Winner 11/14']]},
   {name:'Quarterfinals',games:[[1,'Second-round winner'],[4,'Second-round winner'],[2,'Second-round winner'],[3,'Second-round winner']]},
   {name:'Semifinals',games:[['Quarterfinal winner','Quarterfinal winner'],['Quarterfinal winner','Quarterfinal winner']]},
   {name:'Championship',games:[['Semifinal winner','Semifinal winner']]}
- ]:[];
- const slot=n=>typeof n==='number'?(o.rows[n-1]?'<span class="bten-seed">'+n+'</span>'+name(o.rows[n-1]):'Seed '+n):'<span class="conference-format-placeholder">'+esc(n)+'</span>';
- const roundHTML=stages.length?stages.map(stage=>'<div class="conference-format-round"><h3>'+stage.name+'</h3>'+
-  stage.games.map(pair=>'<div class="conference-format-game"><div class="conference-format-entry">'+slot(pair[0])+'</div><div class="conference-format-entry">'+slot(pair[1])+'</div></div>').join('')+'</div>').join(''):
-  '<div class="conference-format-round"><h3>Projected standings order</h3>'+o.rows.map((t,i)=>'<div class="conference-format-entry">'+slot(i+1)+'</div>').join('')+'</div>';
- const verified=american||big12;
- const note=american?'American Conference: confirmed 10-team stepladder, top two into semifinals and seeds 3–4 into quarterfinals.':
-  big12?'Big 12: 16-team bracket, top four into quarterfinals and seeds 5–8 into second round.':
-  '2027 tournament matchup and bye structure has not been verified for this conference. No fictional bracket is shown.';
+ ];
+ else if(format?.kind==='mountain')stages=[
+  {name:'Opening round',games:[[7,10],[8,9]]},
+  {name:'Quarterfinals',games:[[1,'Winner 7/10'],[4,5],[3,6],[2,'Winner 8/9']]},
+  {name:'Semifinals',games:[['Quarterfinal winner','Quarterfinal winner'],['Quarterfinal winner','Quarterfinal winner']]},
+  {name:'Championship',games:[['Semifinal winner','Semifinal winner']]}
+ ];
+ else if(format?.kind==='traditional8')stages=[
+  {name:'Quarterfinals',games:[[1,8],[4,5],[3,6],[2,7]]},
+  {name:'Semifinals',games:[['Quarterfinal winner','Quarterfinal winner'],['Quarterfinal winner','Quarterfinal winner']]},
+  {name:'Championship',games:[['Semifinal winner','Semifinal winner']]}
+ ];
+ else if(format?.kind==='bigsky')stages=[{name:'Opening round (confirmed)',games:[[10,11]]},{name:'Next round (confirmed)',games:[[9,'Winner 10/11']]}];
+ const renderGame=pair=>'<div class="conference-format-game">'+pair.map(t=>'<div class="conference-format-entry">'+slot(t)+'</div>').join('')+'</div>';
+ const confirmed=stages.length?stages.map(stage=>'<div class="conference-format-round"><h3>'+esc(stage.name)+'</h3>'+stage.games.map(renderGame).join('')+'</div>').join(''):'';
+ const seededList='<div class="conference-format-round"><h3>'+esc(stages.length?'Projected qualifying field':'Projected seed order')+'</h3>'+seeds.map((t,i)=>'<div class="conference-format-entry">'+slot(i+1)+'</div>').join('')+'</div>';
+ const roundHTML=(confirmed||'')+(stages.length&&format?.kind!=='bigsky'?'':seededList);
+ const note=american?'American: confirmed top-10 stepladder with two highest seeds entering the semifinals.':
+  big12?'Big 12: all 16 schools enter, with top four joining at the quarterfinals.':
+  format?format.note:'The exact 2027 tournament field, exclusions and matchup structure are not verified for this league; only projected standings are shown.';
+ const ref=format?.source|| (american?'https://theamerican.org/news/2026/9/30/american-conference-announces-2026-27-mens-basketball-conference-schedule.aspx':null);
+ const sourceLink=ref?' <a href="'+esc(ref)+'" target="_blank" rel="noopener">Tournament format source ↗</a>':'';
  section.innerHTML='<div class="eyebrow">'+esc(conference)+' · 2027 Men’s Basketball Championship</div>'+
-  '<h2>Road to the automatic bid</h2><p class="note">'+note+'</p>'+
+  '<h2>Road to the automatic bid</h2><p class="note">'+note+sourceLink+'</p>'+
   '<div class="conference-format-grid">'+roundHTML+'</div>'+
-  '<p class="note">Projected seed positions reflect current published ratings and conference results, not finalized tournament seeding. No advancing teams are predicted.'+
-  (american?' <a target="_blank" rel="noopener" href="https://theamerican.org/news/2026/9/30/american-conference-announces-2026-27-mens-basketball-conference-schedule.aspx">Conference source ↗</a>':'')+'</p>';
+  '<p class="note">Teams are placed using provisional current-season seed order; these are not official seeds. Winner positions remain undecided.'+
+  (fieldSize?' Projected field: '+seeds.length+' of '+members.length+' programs.':' Exact qualification rules still require certification.')+'</p>';
  const target=app.querySelector('.grid.two')||app;target.parentNode.insertBefore(section,target.nextSibling);
 }
 function committee(teams,games,polls){
