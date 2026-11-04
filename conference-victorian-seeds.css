@@ -46,6 +46,35 @@
 .victorian-unified-ledger .conference-ledger .team-name{font:700 14px Georgia,serif;gap:9px;align-items:center}
 .victorian-unified-ledger .conference-ledger .badge{width:37px!important;height:37px!important;object-fit:contain;flex-shrink:0}
 .victorian-unified-ledger .ledger-place{display:inline-grid;place-items:center;min-width:29px;min-height:29px;padding:2px 4px;background:#75402e;border:3px double #d6b78e;color:#fff5dd;font:800 14px Georgia,serif}
+
+/* Date, verified tipoff, and TV always occupy separate aligned columns. */
+.slt-conference-game .slt-fixture-meta{display:grid;grid-template-columns:minmax(90px,1fr) minmax(80px,auto) minmax(90px,1fr);align-items:center;column-gap:10px;padding:7px 12px;font:700 11px Georgia,serif;letter-spacing:.025em}
+.slt-conference-game .slt-fixture-tipoff{text-align:center;white-space:nowrap;color:#33271e}
+.slt-conference-game .slt-fixture-network{text-align:right;color:#6d4931;overflow-wrap:anywhere}
+@media(max-width:520px){.slt-conference-game .slt-fixture-meta{grid-template-columns:minmax(70px,1fr) auto minmax(70px,1fr);gap:5px;padding:7px 8px;font-size:10px}}
+
+.victorian-unified-ledger .conference-ledger td.ledger-retro{white-space:nowrap}
+.victorian-unified-ledger .ledger-retro-value{font-weight:800}
+.victorian-unified-ledger .ledger-retro-rank{display:inline-block;margin-left:6px;font:700 11px Georgia,serif;color:#864837}
+
+/* Structural table changes: place precedes school, records pair with percentages. */
+
+
+/* Authoritative ten-column standings grid. Avoid overrides that merge percentage/RETRO cells. */
+.victorian-unified-ledger .conference-ledger{min-width:1080px!important;table-layout:fixed;border-collapse:separate;border-spacing:0 3px}
+.victorian-unified-ledger .conference-ledger th,.victorian-unified-ledger .conference-ledger td{box-sizing:border-box;overflow:hidden;white-space:nowrap;text-overflow:clip}
+.victorian-unified-ledger .conference-ledger thead th{padding:7px 3px;font-size:9px;line-height:1.25;white-space:normal;overflow-wrap:break-word;text-align:center}
+.victorian-unified-ledger .conference-ledger thead th:nth-child(2){text-align:left}
+.victorian-unified-ledger .conference-ledger tbody td{padding:5px 4px;text-align:center;font-size:12px}
+.victorian-unified-ledger .conference-ledger tbody td:first-child{text-align:center;border-left:3px solid #805d3d}
+.victorian-unified-ledger .conference-ledger tbody td.ledger-university{text-align:left;padding-left:7px}
+.victorian-unified-ledger .conference-ledger td.ledger-university .team-name{display:flex;align-items:center;justify-content:flex-start;width:100%;gap:7px;white-space:nowrap;font-size:13px}
+.victorian-unified-ledger .conference-ledger td.ledger-university .team-name span{overflow:hidden;text-overflow:ellipsis}
+.victorian-unified-ledger .conference-ledger tbody td.ledger-pct,.victorian-unified-ledger .conference-ledger tbody td.ledger-gb,.victorian-unified-ledger .conference-ledger tbody td.ledger-streak{font:700 12px Georgia,serif;text-align:center}
+.victorian-unified-ledger .conference-ledger tbody td.ledger-retro{font:700 15px Georgia,serif;white-space:nowrap}
+.victorian-unified-ledger .conference-ledger .ledger-retro-rank{font-size:10px;margin-left:3px}
+@media(min-width:701px) and (max-width:1100px){.victorian-unified-ledger .conference-ledger-scroll{overflow-x:auto}}
+
 /* Mobile register: four readable columns, two lines per record. No sideways scrolling. */
 @media(max-width:700px){
  .victorian-unified-ledger .conference-ledger-scroll{
@@ -125,32 +154,3 @@
  }
  .victorian-unified-ledger .conference-ledger .badge{width:30px!important;height:30px!important}
 }
-
-
-/* Date, verified tipoff, and TV always occupy separate aligned columns. */
-.slt-conference-game .slt-fixture-meta{display:grid;grid-template-columns:minmax(90px,1fr) minmax(80px,auto) minmax(90px,1fr);align-items:center;column-gap:10px;padding:7px 12px;font:700 11px Georgia,serif;letter-spacing:.025em}
-.slt-conference-game .slt-fixture-tipoff{text-align:center;white-space:nowrap;color:#33271e}
-.slt-conference-game .slt-fixture-network{text-align:right;color:#6d4931;overflow-wrap:anywhere}
-@media(max-width:520px){.slt-conference-game .slt-fixture-meta{grid-template-columns:minmax(70px,1fr) auto minmax(70px,1fr);gap:5px;padding:7px 8px;font-size:10px}}
-
-.victorian-unified-ledger .conference-ledger td.ledger-retro{white-space:nowrap}
-.victorian-unified-ledger .ledger-retro-value{font-weight:800}
-.victorian-unified-ledger .ledger-retro-rank{display:inline-block;margin-left:6px;font:700 11px Georgia,serif;color:#864837}
-
-/* Structural table changes: place precedes school, records pair with percentages. */
-
-
-/* Authoritative ten-column standings grid. Avoid overrides that merge percentage/RETRO cells. */
-.victorian-unified-ledger .conference-ledger{min-width:1080px!important;table-layout:fixed;border-collapse:separate;border-spacing:0 3px}
-.victorian-unified-ledger .conference-ledger th,.victorian-unified-ledger .conference-ledger td{box-sizing:border-box;overflow:hidden;white-space:nowrap;text-overflow:clip}
-.victorian-unified-ledger .conference-ledger thead th{padding:7px 3px;font-size:9px;line-height:1.25;white-space:normal;overflow-wrap:break-word;text-align:center}
-.victorian-unified-ledger .conference-ledger thead th:nth-child(2){text-align:left}
-.victorian-unified-ledger .conference-ledger tbody td{padding:5px 4px;text-align:center;font-size:12px}
-.victorian-unified-ledger .conference-ledger tbody td:first-child{text-align:center;border-left:3px solid #805d3d}
-.victorian-unified-ledger .conference-ledger tbody td.ledger-university{text-align:left;padding-left:7px}
-.victorian-unified-ledger .conference-ledger td.ledger-university .team-name{display:flex;align-items:center;justify-content:flex-start;width:100%;gap:7px;white-space:nowrap;font-size:13px}
-.victorian-unified-ledger .conference-ledger td.ledger-university .team-name span{overflow:hidden;text-overflow:ellipsis}
-.victorian-unified-ledger .conference-ledger tbody td.ledger-pct,.victorian-unified-ledger .conference-ledger tbody td.ledger-gb,.victorian-unified-ledger .conference-ledger tbody td.ledger-streak{font:700 12px Georgia,serif;text-align:center}
-.victorian-unified-ledger .conference-ledger tbody td.ledger-retro{font:700 15px Georgia,serif;white-space:nowrap}
-.victorian-unified-ledger .conference-ledger .ledger-retro-rank{font-size:10px;margin-left:3px}
-@media(max-width:1100px){.victorian-unified-ledger .conference-ledger-scroll{overflow-x:auto}}
