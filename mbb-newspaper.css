@@ -549,3 +549,20 @@ td{padding:7px 5px}
 #conf-table .compact-conference-table .team-name span{overflow-wrap:normal;word-break:normal;min-width:0}
 #conf-table .compact-conference-table .badge{width:27px;height:27px;flex-shrink:0}
 #conf-table .compact-conference-table td:not(:first-child),#conf-table .compact-conference-table th:not(:first-child){text-align:right;font-variant-numeric:tabular-nums}
+
+/* Conference edition: a compact nineteenth-century newspaper news column. */
+body[data-page="conference"] .conference-news-edition{background:#f3ead9;color:#30251b;border:3px double #786347;padding:12px 15px 10px;box-shadow:none}
+body[data-page="conference"] .conference-news-edition .section-head{border-bottom:3px double #766044;margin-bottom:7px}
+body[data-page="conference"] .conference-news-edition .story{position:relative;padding:11px 0 10px;border-bottom:1px solid #b7a384;background:transparent}
+body[data-page="conference"] .conference-news-edition .story:last-child{border-bottom:0}
+body[data-page="conference"] .conference-news-edition .story:first-of-type{border-top:0}
+body[data-page="conference"] .conference-news-edition .story .source{font:700 9px/1.4 Georgia,serif;letter-spacing:.12em;text-transform:uppercase;color:#7c5239;margin:0 0 4px}
+body[data-page="conference"] .conference-news-edition .story h3,body[data-page="conference"] .conference-news-edition .story.lead h3{font:700 clamp(15px,1.18vw,19px)/1.19 Georgia,'Times New Roman',serif;letter-spacing:-.015em;margin:0 0 4px}
+body[data-page="conference"] .conference-news-edition .story.lead h3{font-size:clamp(18px,1.5vw,23px);line-height:1.12}
+body[data-page="conference"] .conference-news-edition .story h3 a{color:#2d231b;text-decoration:none}
+body[data-page="conference"] .conference-news-edition .story h3 a:hover{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+body[data-page="conference"] .conference-news-edition .story p{font:12px/1.4 Georgia,serif;color:#655444;margin:4px 0 0}
+body[data-page="conference"] .conference-news-edition .story-img{max-height:140px;object-fit:cover;filter:sepia(.58) saturate(.48) contrast(.93);border:1px solid #ad9578;padding:3px;background:#e9ddc6;margin-bottom:9px}
+body[data-page="conference"] .conference-news-edition .story:not(.lead) p{display:none}
+@media(min-width:1150px){body[data-page="conference"] .conference-news-edition .story:not(.lead){padding:9px 0 8px}}
+@media(max-width:700px){body[data-page="conference"] .conference-news-edition{padding:10px}body[data-page="conference"] .conference-news-edition .story h3{font-size:16px}body[data-page="conference"] .conference-news-edition .story.lead h3{font-size:20px}}
