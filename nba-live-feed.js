@@ -189,5 +189,15 @@ async function update(){
  status.textContent='NBA score feeds unavailable · no recent game confirmed';
  root.innerHTML='<p class="hub-small">Recent scores could not be verified. <a href="nba-game-center.html">Open the verified game archive</a>.</p>';
 }
-Promise.allSettled([refreshRecords(),loadPregameElo()]).then(update);setInterval(()=>{if(!document.hidden)loadPregameElo().then(update)},60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)update()});
+// Serialize refreshes, so an older response cannot overwrite a newer live score.
+let refreshPromise=null;
+function refreshLive(){
+ if(refreshPromise)return refreshPromise;
+ refreshPromise=update().catch(error=>console.warn('NBA live refresh failed:',error)).finally(()=>{refreshPromise=null;});
+ return refreshPromise;
+}
+Promise.allSettled([refreshRecords(),loadPregameElo()]).then(refreshLive);
+setInterval(()=>{if(!document.hidden)loadPregameElo().then(refreshLive)},60000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshLive()});
+window.addEventListener('slt:nba-rendered',refreshLive);
 })();
