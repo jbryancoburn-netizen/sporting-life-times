@@ -19,31 +19,41 @@ const emblem=t=>{
 const team=id=>state.teams.get(id)||{id,name:id};
 const row=(t,i)=>'<div class="board-row"><span>'+esc(i==null?'':i+1)+'</span>'+emblem(t)+'<a class="school-link" href="'+teamLink(t)+'">'+esc(t.name)+'</a><span>'+esc(t.w||0)+'–'+esc(t.l||0)+'</span><span>'+pct(t)+'%</span><span class="elo">'+Math.round(t.elo||1500)+'</span></div>';
 function card(g){
- if(g.home_away_unresolved){
-  // Opponents and day are verified by two official sources. Neither the
-  // home team nor neutrality is verified; alphabetize for display only.
-  const a=team(g.away),h=team(g.home);
-  const citations=(g.conflict_sources||[]).filter(u=>/^https:\/\//.test(u)).map((u,i)=>
-    '<a href="'+esc(u)+'" target="_blank" rel="noopener noreferrer">OFFICIAL SOURCE '+(i+1)+' ↗</a>').join(' · ');
-  return '<article class="game-card d3-site-dispute"><div class="game-head">'+
-    '<span>'+esc(g.date)+' · SITE / HOME-AWAY UNVERIFIED</span><span>NO ELO PREDICTION</span></div>'+
-    '<div class="game-row">'+emblem(a)+'<a class="school-link" href="'+teamLink(a)+'">'+esc(a.name)+'</a><b>—</b></div>'+
-    '<div class="game-row">'+emblem(h)+'<a class="school-link" href="'+teamLink(h)+'">'+esc(h.name)+'</a><b>—</b></div>'+
-    '<div class="game-footer"><strong>TEAMS SHOWN ALPHABETICALLY — NOT AWAY/HOME ORDER.</strong> '+
-    'Official schedules identify this matchup and date but disagree on site designation. '+
-    'No venue, home-court edge, final score or Elo result is assumed. '+citations+'</div></article>';
- }
-
- const a=g.away_external_label?{name:g.away_external_label}:team(g.away),h=g.home_external_label?{name:g.home_external_label}:team(g.home),final=g.status==='final',live=g.status==='live';
- const identityLabel=t=>t?.name??'Unknown opponent';
- const schoolName=(t,external)=>external?'<span class="school-link" title="Opponent NCAA division not matched">'+esc(identityLabel(t))+'</span>':'<a class="school-link" href="'+teamLink(t)+'">'+esc(identityLabel(t))+'</a>';
- const showScore=final||live,winA=final&&g.away_score>g.home_score,winH=final&&g.home_score>g.away_score;
- const time=final?'FINAL':live?'LIVE · SOURCE SNAPSHOT':g.start_time||(g.tipoff_as_posted?g.tipoff_as_posted+' · POSTED TIME (ZONE UNVERIFIED)':'TIPOFF UNCONFIRMED');
- const p=typeof g.pred_home_pct==='number'&&g.elo_eligible?'<p class="muted">Pregame home win chance: '+esc(g.pred_home_pct)+'% · provisional DIII Elo</p>':'';
- return '<article class="game-card"><div class="game-head"><span>'+esc(g.date)+' · '+esc(time)+(g.neutral?' · NEUTRAL SITE':'')+'</span><span>'+esc(g.network||'')+'</span></div>'+
- '<div class="game-row '+(winA?'winner':'')+'">'+emblem(a)+schoolName(a,!!g.away_external_label)+'<b>'+(showScore?esc(g.away_score??'—'):'')+'</b></div>'+
- '<div class="game-row '+(winH?'winner':'')+'">'+emblem(h)+schoolName(h,!!g.home_external_label)+'<b>'+(showScore?esc(g.home_score??'—'):'')+'</b></div>'+p+
- '<div class="game-footer">'+(g.schedule_only?(g.source_kind==='official_conference'?'VERIFIED CONFERENCE CALENDAR FIXTURE':g.source_kind==='official_conference_and_school'?'UNIVERSITY + CONFERENCE CONFIRMED FIXTURE':g.source_verification==='reciprocal'?'RECIPROCALLY VERIFIED UNIVERSITY FIXTURE':'SCHOOL-PUBLISHED UNIVERSITY FIXTURE')+' · NO GAME RESULT YET':g.elo_eligible?'NCAA-VERIFIED DIII RESULT':'OPPONENT ELIGIBILITY NOT VERIFIED · EXCLUDED FROM ELO')+' · '+source(g)+(g.venue?' · ARENA: '+esc(g.venue):g.schedule_only?' · ARENA NOT VERIFIED':'')+(g.venue_location?' · LOCATION: '+esc(g.venue_location):g.schedule_only?' · LOCATION NOT VERIFIED':'')+'</div></article>';
+ const unresolved=Boolean(g.home_away_unresolved);
+ const a=g.away_external_label?{name:g.away_external_label}:team(g.away);
+ const h=g.home_external_label?{name:g.home_external_label}:team(g.home);
+ const final=!unresolved&&g.status==='final',live=!unresolved&&g.status==='live';
+ const mode=final?'final':live?'live':'upcoming',scoreShown=final||live;
+ const line=(t,points)=>({name:t.name||'Unverified opponent',score:scoreShown?points:null,
+  crest:emblem(t),color:/^#[0-9a-f]{6}$/i.test(t.primary||'')?t.primary:'#655239',
+  record:(t.w||0)+'–'+(t.l||0),
+  retro:t.d3_confirmed&&Number.isFinite(Number(t.elo))?'RETRO '+Math.round(Number(t.elo)):'RETRO —'});
+ const scorebug=window.SLTSportsScorebug?.render({
+  phase:mode,status:live?'LIVE · SOURCE SNAPSHOT':'',
+  ariaLabel:unresolved?'Teams listed alphabetically; home and away unverified':
+   (a.name||'Away')+' at '+(h.name||'Home')+' scoreboard',
+  away:line(a,g.away_score),home:line(h,g.home_score)
+ })||'<p class="note">Scorebug unavailable.</p>';
+ const unresolvedNote=unresolved?
+  '<p class="ledger26-detail-note"><strong>HOME / AWAY AND SITE DISPUTED.</strong> Teams listed alphabetically, not as verified away/home; no score or Elo is inferred.</p>':'';
+ const eligibility=g.schedule_only?'No final result reported':
+  g.elo_eligible?'NCAA-verified DIII result':'Opponent eligibility unverified; excluded from Elo';
+ const citations=(g.conflict_sources||[]).filter(v=>/^https:\/\//.test(v)).map((v,i)=>
+  '<a href="'+esc(v)+'" target="_blank" rel="noopener noreferrer">OFFICIAL SOURCE '+(i+1)+' ↗</a>').join(' · ');
+ const links=(g.away_external_label?'':'<a href="'+teamLink(a)+'">'+esc(a.name)+'</a>')+
+  (g.home_external_label?'':' · <a href="'+teamLink(h)+'">'+esc(h.name)+'</a>');
+ return '<article class="game-card ledger26-card'+(unresolved?' d3-site-dispute':'')+'">'+
+  '<div class="ledger26-meta"><span>'+esc(g.venue||(unresolved?'SITE UNVERIFIED':'Arena not verified'))+
+  '</span><span>'+esc(g.network||'Broadcast unconfirmed')+'</span></div>'+
+  '<details class="ledger26-expand"><summary class="ledger26-summary">'+scorebug+
+  '<span class="ledger26-instruction">OPEN GAME DETAILS +</span></summary>'+
+  '<div class="ledger26-expanded">'+unresolvedNote+
+  '<p class="ledger26-detail-note">'+esc(g.date+' · '+(g.start_time||g.tipoff_as_posted||'Time not verified')+
+   (g.neutral?' · NEUTRAL SITE':''))+'</p>'+
+  '<p class="ledger26-detail-note">'+esc(eligibility)+'</p>'+
+  (g.venue_location?'<p class="ledger26-detail-note">Location: '+esc(g.venue_location)+'</p>':'')+
+  '<p>'+links+'</p><p>'+source(g)+(citations?' · '+citations:'')+'</p>'+
+  '</div></details></article>';
 }
 function renderTeam(d){
  const id=new URLSearchParams(location.search).get('team'),t=team(id),host=$('team-detail');
