@@ -24,4 +24,22 @@
 .mbb-roster-portrait img{width:100%;height:100%;object-fit:cover;z-index:2;filter:saturate(.72)}
 .mbb-roster-portrait i{position:absolute;color:#755c43;font:700 13px Georgia,serif;font-style:normal}
 .mbb-roster-live>.note:last-child{margin:9px 0 0;color:#66513e;font:11px/1.45 Georgia,serif}
-@media(max-width:600px){.mbb-roster-live{padding:9px}.mbb-roster-controls{grid-template-columns:1fr 1fr}.mbb-roster-controls label:first-child{grid-column:1/-1}.mbb-roster-table td{padding:5px 7px}}
+@media(max-width:600px){
+ .mbb-roster-live{padding:9px;min-width:0}
+ .mbb-roster-controls{grid-template-columns:1fr 1fr}
+ .mbb-roster-controls label:first-child{grid-column:1/-1}
+ .mbb-roster-table-scroll{overflow:visible;min-width:0}
+ .mbb-roster-table{display:block;min-width:0;width:100%}
+ .mbb-roster-table thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+ .mbb-roster-table tbody{display:block;width:100%}
+ .mbb-roster-table tbody tr{display:grid;grid-template-columns:minmax(0,1fr) 37px 43px 45px;align-items:center;gap:4px;padding:7px 5px;min-width:0}
+ .mbb-roster-table tbody td{display:block;min-width:0;width:auto;padding:2px!important;white-space:normal!important;text-align:center;font:700 11px/1.2 Georgia,serif}
+ .mbb-roster-table tbody td:first-child{text-align:left}
+ .mbb-roster-table tbody td:not(:first-child)::before{display:block;font:700 8px Georgia,serif;letter-spacing:.3px;color:#86654d;margin-bottom:4px}
+ .mbb-roster-table tbody td:nth-child(2)::before{content:"NO."}
+ .mbb-roster-table tbody td:nth-child(3)::before{content:"POS."}
+ .mbb-roster-table tbody td:nth-child(4)::before{content:"CLASS"}
+ .mbb-roster-person{min-width:0;gap:6px}
+ .mbb-roster-person strong{min-width:0;overflow-wrap:anywhere;font-size:11px;line-height:1.2}
+ .mbb-roster-portrait{width:34px;height:38px;flex-basis:34px}
+}
