@@ -169,3 +169,19 @@
  .ledger26-points{font-size:20px!important}
  .ledger26-status strong{font-size:10px!important}
 }
+
+/* Shared live game clock: typographic hierarchy within the existing fixed-width status panel. */
+.ledger26-status--stack{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:6px 3px}
+.ledger26-status--stack .ledger26-clock{display:block;color:#792e25!important;font:700 27px/1 Georgia,'Times New Roman',serif!important;white-space:nowrap;font-variant-numeric:tabular-nums;letter-spacing:-.025em!important}
+.ledger26-status--stack .ledger26-clock--text{font-size:15px!important;white-space:normal;overflow-wrap:anywhere}
+.ledger26-period{display:block;color:#39291c;font:700 10px/1.15 Georgia,'Times New Roman',serif;letter-spacing:.06em;text-transform:uppercase}
+.ledger26-situation,.ledger26-live-word{display:block;max-width:100%;color:#70452e;font:700 9px/1.2 Georgia,'Times New Roman',serif;letter-spacing:.04em;text-transform:uppercase;overflow-wrap:anywhere}
+.ledger26-live-word{color:#8a382b;letter-spacing:.16em}
+@media(max-width:640px){
+ .ledger26-status--stack{gap:4px;padding:4px 2px}
+ .ledger26-status--stack .ledger26-clock{font-size:23px!important}
+ .ledger26-status--stack .ledger26-clock--text{font-size:12px!important}
+ .ledger26-period{font-size:9px;letter-spacing:0}
+ .ledger26-situation,.ledger26-live-word{font-size:8px}
+}
+@media(max-width:360px){.ledger26-status--stack .ledger26-clock{font-size:20px!important}.ledger26-period{font-size:8px}}
