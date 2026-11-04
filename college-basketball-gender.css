@@ -78,3 +78,11 @@ body:not([data-page]):not(.mbb-newspaper) .cbb-gender-option:hover:not(.is-activ
 
 .wbb-score-card .wbb-venue-confirmed{color:#295949;font-weight:700;font-size:11px;line-height:1.4;margin-top:7px}
 .wbb-score-card .wbb-venue-confirmed a{text-decoration:underline}
+
+/* Rivalry Archive belongs to the parchment edition, not the archived dark labs. */
+body.cbb-rivalry-page .cbb-gender-option{background:#f5ead6!important;border:1px solid #96795a!important;color:#39291b!important;box-shadow:none!important;border-radius:0}
+body.cbb-rivalry-page .cbb-gender-option+.cbb-gender-option{border-left:0!important}
+body.cbb-rivalry-page .cbb-gender-option.is-active,
+body.cbb-rivalry-page .cbb-gender-option[aria-current="page"]{background:#5e4330!important;border-color:#5e4330!important;color:#fff4e1!important}
+body.cbb-rivalry-page .cbb-gender-option:not(.is-active):hover,
+body.cbb-rivalry-page .cbb-gender-option:not(.is-active):focus-visible{background:#e7d4b6!important}
