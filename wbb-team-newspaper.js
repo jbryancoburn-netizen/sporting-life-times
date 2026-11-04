@@ -44,6 +44,7 @@ const fmtElo=x=>x&&Number.isFinite(Number(x.elo))?Math.round(Number(x.elo)).toSt
 const homeEdge=Number(ratings?.parameters?.home_edge)||75;
 const winChance=(ours,theirs,g)=>{if(!ours||!theirs||!Number.isFinite(Number(ours.elo))||!Number.isFinite(Number(theirs.elo)))return '—';const edge=g.site==='home'?homeEdge:g.site==='away'?-homeEdge:0;return (100/(1+Math.pow(10,-((Number(ours.elo)-Number(theirs.elo)+edge)/400)))).toFixed(0)+'%';};
 const site=g=>g.site==='home'?'HOME':g.site==='away'?'AWAY':g.site==='neutral'?'NEUTRAL':'TBA';
+const leagueLabel=c=>({'Big Ten Conference':'Big Ten','Big East Conference':'Big East','Big 12 Conference':'Big 12','Atlantic Coast Conference':'ACC','Southeastern Conference':'SEC','American Athletic Conference':'AAC','Mountain West Conference':'Mountain West','West Coast Conference':'WCC','Atlantic 10 Conference':'Atlantic 10','Missouri Valley Conference':'MVC','Big West Conference':'Big West','United Athletic Conference':'UAC'}[c]||String(c||'').replace(/ Conference$/,''));
 const count=s=>games.filter(g=>g.site===s).length;
 const color=/^[0-9a-fA-F]{6}$/.test(t.color||'')?'#'+t.color:'#7b2429';
 host.style.setProperty('--accent',color);
@@ -53,7 +54,7 @@ const logo=window.MBBLogos.byESPN(id,'hero',t.team);
 const rows=sorted.map(g=>{
   const opp=lookup.get(String(g.opponent_id||''));
   const badge=opp?window.MBBLogos.byESPN(String(opp.team_id),'schedule',opp.team):'';
-  const conferenceTag=opp&&t.conference&&opp.conference&&t.conference===opp.conference?'<span class="wbb-conference-game" title="Conference matchup">'+esc(t.conference)+'</span>':'';
+  const conferenceTag=opp&&t.conference&&opp.conference&&t.conference===opp.conference?'<span class="wbb-conference-game" title="Conference matchup">'+esc(leagueLabel(t.conference))+'</span>':'';
   const d=new Date(g.date);
   const date=Number.isNaN(d.getTime())?esc(g.date||'TBA'):esc(d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric',timeZone:'America/New_York'}));
   const other=rmap.get(String(g.opponent_id||''));
