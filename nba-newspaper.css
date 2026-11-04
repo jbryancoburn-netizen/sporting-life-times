@@ -805,3 +805,16 @@ body.nba-newspaper .nba-tag{background:transparent;border:1px solid var(--line);
 .nba-expand-game>.nba-expand-content{border-top:1px solid #c9bda4;padding:10px 12px 12px;background:#f5f0e5}
 .nba-expand-game .nba-game-hint{font:italic 12px Georgia,serif;color:#4c554e;margin:0 0 6px}
 .nba-expand-game[open]{height:auto}
+
+
+/* NBA front page: genuinely collapsed game cards. Forecast data exists only in the opened body. */
+body.nba-newspaper .nba-live-expand{align-self:start;min-height:0}
+body.nba-newspaper .nba-live-expand>.nba-live-expand-trigger{display:block;list-style:none;cursor:pointer}
+body.nba-newspaper .nba-live-expand>.nba-live-expand-trigger::-webkit-details-marker{display:none}
+body.nba-newspaper .nba-live-expand>.nba-live-expand-trigger:focus-visible{outline:2px solid #254e50;outline-offset:3px}
+body.nba-newspaper .nba-live-expand-label{display:block;border-top:1px solid #d5cab5;margin-top:7px;padding-top:5px;text-align:center;font:700 10px/1.3 Georgia,serif;letter-spacing:.06em;color:#5c4c36}
+body.nba-newspaper .nba-live-expand[open] .nba-live-expand-label{font-size:0}
+body.nba-newspaper .nba-live-expand[open] .nba-live-expand-label::after{content:'CLOSE DETAILS −';font-size:10px}
+body.nba-newspaper .nba-live-expand-body{border-top:1px solid #d2c4a8;padding-top:7px}
+body.nba-newspaper .nba-live-game-link{display:block;text-align:center;margin:9px 0 2px;padding:7px;border:1px solid #b5a98e;font:700 11px Georgia,serif;text-decoration:none;color:#24505b}
+body.nba-newspaper .nba-live-expand-note{font:12px Georgia,serif;color:#675a43;margin:8px 0}
