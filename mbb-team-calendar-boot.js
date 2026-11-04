@@ -238,7 +238,11 @@ try{
    '<span class="victorian-record-line"><span>'+escape(opponentName)+'</span><b>'+escape(enteringRecord(opponentId,scheduledDate))+'</b></span></span>':'';
   const school=schoolByEspn.get(opponentId);
   const label=escape(school?.name||opponentName);
-  const title=(school?'<a href="ncaam-team.html?team='+encodeURIComponent(school.id)+'">'+label+'</a>':label)+badges(school?.name,school?.espn_name,opponentName);
+  const conferenceById=new Map((ratings?.rankings||[]).map(x=>[String(x.team_id),x.conference]));
+  const ownConference=conferenceById.get(String(team.id));
+  const opponentConference=school?conferenceById.get(String(school.id)):null;
+  const conferenceTag=!exhibition&&ownConference&&opponentConference&&ownConference===opponentConference?'<span class="victorian-conference-game" title="Conference game">'+escape(ownConference)+'</span>':'';
+  const title=badges(school?.name,school?.espn_name,opponentName)+(school?'<a href="ncaam-team.html?team='+encodeURIComponent(school.id)+'">'+label+'</a>':label)+conferenceTag;
   const today=new Date().toLocaleDateString('sv-SE',{timeZone:'America/New_York'});
   const scheduleState=hasScore?'final':canceled?'canceled':scheduledDate>=today?'upcoming':'past';
   return '<tr '+(bigTenPilot?'data-game-site="'+(vs==='HOME'?'home':vs==='AWAY'?'away':vs==='NEUTRAL'?'neutral':'unknown')+'" ':'')+(expandable?'class="victorian-completed-game" data-stat-id="'+escape(statId)+'" tabindex="0" aria-label="Expand statistics for '+escape(opponentName)+'" ':'')+'data-calendar-state="'+scheduleState+'" data-exhibition="'+(exhibition?'true':'false')+
