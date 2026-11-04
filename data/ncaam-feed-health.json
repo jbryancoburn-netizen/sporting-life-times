@@ -1,6 +1,6 @@
 {
   "season": "2026-27",
-  "status": "not_released",
+  "status": "ncaa_origin_available_for_reconciliation",
   "official_first": true,
   "sources": {
     "ncaa_team_ids": {
@@ -10,9 +10,9 @@
       "repository": "https://api.github.com/repos/sportsdataverse/sportsdataverse-data/releases/tags/ncaa_mbb_team_ids"
     },
     "ncaa_schedule": {
-      "available": false,
-      "asset": null,
-      "url": null,
+      "available": true,
+      "asset": "ncaa_mbb_schedule_2027.csv.gz",
+      "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/ncaa_mbb_schedule/ncaa_mbb_schedule_2027.csv.gz",
       "repository": "https://api.github.com/repos/sportsdataverse/sportsdataverse-data/releases/tags/ncaa_mbb_schedule"
     },
     "espn_fallback": {
