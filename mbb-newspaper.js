@@ -59,6 +59,24 @@ function gameCard(g,final=false){const [h,a]=gid(g),home=teamMap.get(h),away=tea
 const event=String(g.id||'').match(/^espn:([0-9]+)$/);
 const gameFile=event?'<a class="muted" href="cbb-gamefile.html?day='+encodeURIComponent(String(g.date).slice(0,10))+'&amp;game='+event[1]+'">Live game file ↗</a>':'';
 return '<div class="score-card"><small>'+esc(g.date)+' · '+(final?'FINAL':'Scheduled')+'</small><div class="score-team">'+name(away)+'<b>'+(final?esc(g.away_score):'<em>'+rec(away)+'</em>')+'</b></div><div class="score-team">'+name(home)+'<b>'+(final?esc(g.home_score):'<em>'+rec(home)+'</em>')+'</b></div>'+(g.source_url?'<a class="muted" href="'+url(g.source_url)+'" target="_blank" rel="noopener">Game source ↗</a>':'')+gameFile+'</div>';}
+// Conference upcoming fixtures use the canonical Daily Ledger scorebug renderer.
+function conferenceScoreCard(g){
+ const [h,a]=gid(g),home=teamMap.get(h),away=teamMap.get(a);
+ if(!home||!away)return '';
+ const profile=t=>({
+  name:t.team,crest:logo(t),record:rec(t),
+  retro:Number.isFinite(Number(t.elo))?'RETRO '+Math.round(Number(t.elo))+(Number.isInteger(Number(t.rank))&&Number(t.rank)>0?' (#'+Number(t.rank)+')':''):'RETRO —',
+  color:/^#[0-9a-fA-F]{6}$/.test(t.primary_color||t.color||'')?(t.primary_color||t.color):'#655239'
+ });
+ const event=String(g.id||'').match(/^espn:([0-9]+)$/);
+ const link=event?'cbb-gamefile.html?day='+encodeURIComponent(String(g.date).slice(0,10))+'&game='+event[1]:null;
+ const date=String(g.date||'').slice(0,10);
+ return '<article class="ledger26-card slt-conference-game">'+
+   '<div class="ledger26-meta"><span class="ledger26-time">'+esc(date)+' · SCHEDULED</span></div>'+
+   window.SLTSportsScorebug.render({phase:'upcoming',away:profile(away),home:profile(home)})+
+   (link?'<div class="slt-conference-game-link"><a href="'+link+'">OPEN GAMEFILE ↗</a></div>':'')+
+   '</article>';
+}
 let browserScores=null,browserScoresAt=null;
 async function refreshLiveScores(){
  const d=await get('https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard?groups=50&limit=1000&dates='+today().replaceAll('-',''));
@@ -136,7 +154,7 @@ function conference(){const c=params.get('conference');if(!c){$('#app').innerHTM
  if(!confs.includes(c)){ $('#app').innerHTML=empty('Conference not found. Please choose one from the conference directory.');return;}
  const members=teams.filter(t=>t.conference===c),upcoming=(schedule?.games||[]).filter(g=>g.date>=today()&&gid(g).some(id=>teamMap.get(id)?.conference===c));
  document.title=c+' Basketball | The Sporting Life & Times';
- $('#app').innerHTML='<div class="eyebrow"><a href="ncaam-conference.html">All conferences</a> / Conference desk</div><h1>'+esc(c)+'.</h1><div class="metrics">'+metric(members.length,'Programs')+metric(number(members.reduce((a,t)=>a+t.elo,0)/members.length,0),'Average Elo')+metric(members.filter(t=>projection?.selected.some(x=>x.team_id===t.team_id)).length,'Projected NCAA bids')+metric(members.reduce((a,t)=>a+(t.conference_wins||0),0),'Conference finals')+'</div><div class="grid two"><div class="column"><section class="panel">'+header('The conference race','Current Standings')+standings(c)+'</section><section class="panel orange">'+header('March positioning','Projected Conference Seed Order')+'<p class="note">Elo-based preseason order, distinct from earned seeds. Conference-specific field sizes, byes, eligibility and tiebreakers are not yet certified.</p>'+members.map((t,i)=>'<div class="rank-row"><span class="rank">'+(i+1)+'</span>'+name(t)+'<span class="rank-score">'+number(t.elo,0)+'<small>'+esc(seedFor(t))+'</small></span></div>').join('')+'</section><section class="panel">'+header('The league notebook','Conference News')+stories(null,c)+'</section></div><div class="column"><section class="panel teal">'+header('Next on the schedule','Upcoming Games')+(upcoming.length?upcoming.slice(0,15).map(g=>gameCard(g)).join(''):empty('No upcoming fixtures in the published schedule snapshot.'))+'</section><section class="panel">'+header('Around the league','Team Desks')+members.map(t=>'<div class="rank-row"><span></span>'+name(t)+'<span>'+rec(t)+'</span></div>').join('')+'</section></div></div>';
+ $('#app').innerHTML='<div class="eyebrow"><a href="ncaam-conference.html">All conferences</a> / Conference desk</div><h1>'+esc(c)+'.</h1><div class="metrics">'+metric(members.length,'Programs')+metric(number(members.reduce((a,t)=>a+t.elo,0)/members.length,0),'Average Elo')+metric(members.filter(t=>projection?.selected.some(x=>x.team_id===t.team_id)).length,'Projected NCAA bids')+metric(members.reduce((a,t)=>a+(t.conference_wins||0),0),'Conference finals')+'</div><div class="grid two"><div class="column"><section class="panel">'+header('The conference race','Current Standings')+standings(c)+'</section><section class="panel orange">'+header('March positioning','Projected Conference Seed Order')+'<p class="note">Elo-based preseason order, distinct from earned seeds. Conference-specific field sizes, byes, eligibility and tiebreakers are not yet certified.</p>'+members.map((t,i)=>'<div class="rank-row"><span class="rank">'+(i+1)+'</span>'+name(t)+'<span class="rank-score">'+number(t.elo,0)+'<small>'+esc(seedFor(t))+'</small></span></div>').join('')+'</section><section class="panel">'+header('The league notebook','Conference News')+stories(null,c)+'</section></div><div class="column"><section class="panel teal">'+header('Next on the schedule','Upcoming Games')+(upcoming.length?upcoming.slice(0,15).map(g=>conferenceScoreCard(g)).join(''):empty('No upcoming fixtures in the published schedule snapshot.'))+'</section><section class="panel">'+header('Around the league','Team Desks')+members.map(t=>'<div class="rank-row"><span></span>'+name(t)+'<span>'+rec(t)+'</span></div>').join('')+'</section></div></div>';
 }
 function slotHTML(slot){return '<div class="slot"><span class="seed">'+slot.seed+'</span><div>'+slot.teams.map(name).join('<span class="muted"> / </span>')+'</div></div>';}
 function tournament(){if(!projection){$('#app').innerHTML=empty('The bracket could not be assembled from the current conference registry.');return;}
