@@ -84,3 +84,12 @@
 .victorian-team-calendar .victorian-opponent-heading .victorian-poll-rank{flex:none;margin:0}
 .victorian-team-calendar .victorian-opponent-heading .victorian-conference-game{flex:none;margin:0}
 .victorian-team-calendar .victorian-opponent-heading a,.victorian-team-calendar .victorian-opponent-heading .victorian-school-name{flex:none;white-space:nowrap}
+
+/* Canonical aligned columns in the player production register. */
+.victorian-player-production .slt-sortable-production{width:100%;min-width:690px;table-layout:fixed;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.victorian-player-production .slt-sortable-production th:first-child,.victorian-player-production .slt-sortable-production td:first-child{width:25%;text-align:left}
+.victorian-player-production .slt-sortable-production th:not(:first-child),.victorian-player-production .slt-sortable-production td:not(:first-child){width:9.375%;text-align:right}
+.victorian-player-production .slt-sortable-production th,.victorian-player-production .slt-sortable-production td{box-sizing:border-box;padding:9px 8px;vertical-align:middle;white-space:nowrap}
+.victorian-player-production .slt-sortable-production .slt-sort-heading{justify-content:flex-end;white-space:nowrap}
+.victorian-player-production .slt-sortable-production th:first-child .slt-sort-heading{justify-content:flex-start}
+.victorian-player-production .table-wrap{max-width:100%;overflow-x:auto}
