@@ -86,10 +86,30 @@ function conferenceScoreCard(g){
  const link=event?'cbb-gamefile.html?day='+encodeURIComponent(String(g.date).slice(0,10))+'&game='+event[1]:null;
  const date=String(g.date||'').slice(0,10);
  return '<article class="ledger26-card slt-conference-game">'+
-   '<div class="ledger26-meta"><span class="ledger26-time">'+esc(date)+' · SCHEDULED</span></div>'+
+   '<div class="ledger26-meta slt-fixture-meta" data-fixture-event="'+esc(event?event[1]:'')+'" data-fixture-day="'+esc(date)+'"><span class="ledger26-time">'+esc(date)+'</span><span class="slt-fixture-tipoff">TIME TBA</span><span class="slt-fixture-network">TV TBA</span></div>'+
    window.SLTSportsScorebug.render({phase:'upcoming',away:teamProfile(away),home:teamProfile(home)})+
    (link?'<div class="slt-conference-game-link"><a href="'+link+'">OPEN GAMEFILE ↗</a></div>':'')+
    '</article>';
+}
+// Resolve confirmed tipoff and broadcasts by ESPN event ID; never invent missing times/networks.
+async function hydrateConferenceTipoffs(){
+ const meta=[...document.querySelectorAll('.slt-conference-game .slt-fixture-meta[data-fixture-event]')];
+ const days=[...new Set(meta.filter(el=>el.dataset.fixtureEvent&&/^\\d{4}-\\d{2}-\\d{2}$/.test(el.dataset.fixtureDay)).map(el=>el.dataset.fixtureDay))];
+ await Promise.all(days.map(async day=>{
+  const payload=await get('https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard?groups=50&limit=1000&dates='+day.replaceAll('-',''));
+  if(!Array.isArray(payload?.events))return;
+  const events=new Map(payload.events.map(e=>[String(e.id),e]));
+  meta.filter(el=>el.dataset.fixtureDay===day).forEach(el=>{
+   const e=events.get(el.dataset.fixtureEvent);if(!e)return;
+   const tip=el.querySelector('.slt-fixture-tipoff'),tv=el.querySelector('.slt-fixture-network');
+   if(e.date&&Number.isFinite(+new Date(e.date))&&!e.status?.type?.completed&&!e.competitions?.[0]?.status?.type?.completed){
+    const officialTBA=e.status?.type?.detail?.toLowerCase().includes('tba')||e.timeValid===false;
+    if(!officialTBA)tip.textContent=new Date(e.date).toLocaleTimeString('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit'})+' ET';
+   }
+   const networks=[...(e.competitions?.[0]?.broadcasts||[]),...(e.competitions?.[0]?.geoBroadcasts||[])].flatMap(b=>[...(b.names||[]),b.name,b.media?.shortName]).filter(Boolean);
+   if(networks.length)tv.textContent=[...new Set(networks)].join(' / ');
+  });
+ }));
 }
 let browserScores=null,browserScoresAt=null;
 async function refreshLiveScores(){
@@ -195,6 +215,7 @@ function conference(){const c=params.get('conference');if(!c){$('#app').innerHTM
  const members=teams.filter(t=>t.conference===c),upcoming=(schedule?.games||[]).filter(g=>g.date>=today()&&gid(g).some(id=>teamMap.get(id)?.conference===c));
  document.title=c+' Basketball | The Sporting Life & Times';
  $('#app').innerHTML='<div class="eyebrow"><a href="ncaam-conference.html">All conferences</a> / Conference desk</div><h1>'+esc(c)+'.</h1><div class="metrics">'+metric(members.length,'Programs')+metric(number(members.reduce((a,t)=>a+t.elo,0)/members.length,0),'Average Elo')+metric(members.filter(t=>projection?.selected.some(x=>x.team_id===t.team_id)).length,'Projected NCAA bids')+metric(members.reduce((a,t)=>a+(t.conference_wins||0),0),'Conference finals')+'</div><section class="panel victorian-seed-order victorian-unified-ledger"><div class="victorian-seed-crown" aria-hidden="true">❦ &nbsp; THE CONFERENCE REGISTER &nbsp; ❦</div>'+header('The conference race','Current & Projected Standings')+standings(c)+'</section><div class="grid two"><div class="column"><section class="panel">'+header('The league notebook','Conference News')+stories(null,c)+'</section></div><div class="column"><section class="panel teal">'+header('Next on the schedule','Upcoming Games')+(upcoming.length?upcoming.slice(0,15).map(g=>conferenceScoreCard(g)).join(''):empty('No upcoming fixtures in the published schedule snapshot.'))+'</section><section class="panel">'+header('Around the league','Team Desks')+members.map(t=>'<div class="rank-row"><span></span>'+name(t)+'<span>'+rec(t)+'</span></div>').join('')+'</section></div></div>';
+ hydrateConferenceTipoffs();
 }
 function slotHTML(slot){return '<div class="slot"><span class="seed">'+slot.seed+'</span><div>'+slot.teams.map(name).join('<span class="muted"> / </span>')+'</div></div>';}
 function tournament(){if(!projection){$('#app').innerHTML=empty('The bracket could not be assembled from the current conference registry.');return;}
