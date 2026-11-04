@@ -30,7 +30,7 @@ test('all 363 women have unique identity, women-only RETRO rating and matching t
  }
 });
 
-test('all women's team URLs load the Indiana-standard renderer and mobile newspaper style',()=>{
+test("all women's team URLs load the Indiana-standard renderer and mobile newspaper style",()=>{
  const page=source('ncaaw-team.html');
  const code=source('wbb-team-newspaper.js');
  const css=source('wbb-team-newspaper.css');
@@ -57,7 +57,7 @@ test('all women's team URLs load the Indiana-standard renderer and mobile newspa
  assert.match(css,/wbb-stat-block table tbody tr\{display:grid/);
 });
 
-test('women's navigation searches the women's actual numeric team IDs',()=>{
+test("women's navigation searches the women's actual numeric team IDs",()=>{
  const nav=source('cbb-shared-navigation.js');
  assert.match(nav,/data\/ncaaw-2026-27-teams\.json/);
  assert.match(nav,/ncaaw-team\.html\?team=/);
