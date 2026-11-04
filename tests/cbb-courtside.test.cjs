@@ -6,6 +6,8 @@ const path=require('node:path');
 const vm=require('node:vm');
 const root=path.join(__dirname,'..');
 const js=fs.readFileSync(path.join(root,'cbb-live-center.js'),'utf8');
+const sharedScorebug=fs.readFileSync(path.join(root,'cbb-ledger-scorebug.js'),'utf8');
+const sharedCSS=fs.readFileSync(path.join(root,'cbb-ledger-scorecard.css'),'utf8');
 const shell=fs.readFileSync(path.join(root,'cbb-game-center.html'),'utf8');
 const css=fs.readFileSync(path.join(root,'cbb-live-center.css'),'utf8');
 const brand=fs.readFileSync(path.join(root,'slt-courtside-network.js'),'utf8');
@@ -14,7 +16,7 @@ assert(js.includes('The Courtside Desk')&&css.includes('SLT COURTSIDE EDITION'))
 assert(shell.includes('slt-courtside-network.js'));
 assert(brand.includes('THE HARDWOOD')&&brand.includes('slt-network-title'),'Hardwood uses text-only editorial branding');
 function load(gender){
-  const patch=js.replace(/\s+boot\(\);\s*\}\)\(\);\s*$/,'\n globalThis.SLTTest={state,normalizeEvent,normalizeSnapshot,modelFor,gameEditorial,statEditorial,gamefileStatStrip,storyNote,usrsLine,featuredGame,scorebug,radarBar,gameLink,courtDayFeed,certifiedArchivedFinals};\n})();');
+  const patch=js.replace(/\s+boot\(\);\s*\}\)\(\);\s*$/,'\n globalThis.SLTTest={state,normalizeEvent,normalizeSnapshot,modelFor,gameEditorial,statEditorial,gamefileStatStrip,storyNote,usrsLine,scorebug,radarBar,gameLink,courtDayFeed,certifiedArchivedFinals};\n})();');
   assert(patch.includes('globalThis.SLTTest'),'test harness injection');
   const sandbox={
     console,Date,Intl,URL,URLSearchParams,Number,Map,Set,Math,String,Array,RegExp,Promise,
@@ -22,6 +24,7 @@ function load(gender){
     window:{},
     document:{getElementById:()=>null,querySelector:()=>null,querySelectorAll:()=>[]}
   };
+  vm.runInNewContext(sharedScorebug,sandbox,{filename:'cbb-ledger-scorebug.js'});
   vm.runInNewContext(patch,sandbox,{filename:'cbb-live-center.js'});
   return sandbox.SLTTest;
 }
@@ -40,11 +43,13 @@ assert.equal(live.away.team.id,'87');
 assert.equal(live.home.team.id,'222');
 assert.match(men.gameEditorial(live),/Villanova Wildcats leads by 4/);
 assert(!men.gameEditorial(live).includes('9–2 run'));
-assert.match(men.featuredGame(live),/FEATURED GAME/);
-assert.equal((men.featuredGame(live).match(/cbb-game-card/g)||[]).length,1,'featured matchup must use one scorecard');
-assert.match(men.scorebug(live),/LIVE/);
-assert.match(men.scorebug(live),/cbb-gamefile\.html\?/,'card opens separate Gamefile');
-assert(!men.scorebug(live).includes('data-cbb-open'),'game cards never append an inline box');
+const unified=men.scorebug(live);
+assert.match(unified,/ledger26-scorebug/,'Courtside must use the same canonical scorebug as the Ledger');
+assert.match(unified,/ledger26-monogram/,'one newspaper insignia, not separate scorebug artwork');
+assert.equal((unified.match(/ledger26-scorebug/g)||[]).length,1,'exactly one scorebug per game');
+assert(!unified.includes('cbb-gamefile.html?'),'do not duplicate inline Gamefile with a second link');
+assert.match(unified,/data-cbb-details/,'the scorebug must open its native inline Gamefile');
+assert.match(unified,/data-cbb-toggle/,'scorebug remains expandable');
 assert(!men.scorebug(live).includes('cbb-usrs-module'),'full model ratings must not crowd game cards');
 assert(!men.scorebug(live).includes('cbb-story-note'),'no repetitive editorial prose under every scorecard');
 // Live Gamefile must show named schools and sourced totals, never generic
@@ -117,12 +122,12 @@ for(const [id,full,school] of schoolSamples){
     source:'Verified sample'};
   const markup=men.scorebug(sample);
   const safeSchool=school.replace(/&/g,'&amp;');
-  assert(markup.includes('class="cbb-school-label">'+safeSchool),
+  assert(markup.includes('class="ledger26-name">'+safeSchool),
     'Full canonical school name missing for '+full);
-  assert(!new RegExp('class="cbb-school-label">(?:FS|FA|B|OS|WIN|QUC)<').test(markup),
+  assert(!new RegExp('class="ledger26-name">(?:FS|FA|B|OS|WIN|QUC)<').test(markup),
     'No home-brew first-letter abbreviation may appear as main label');
 }
-assert(css.includes('b.cbb-school-label')&&css.includes('white-space:normal'),
+assert(sharedCSS.includes('.ledger26-name')&&sharedCSS.includes('white-space:normal'),
  'School names must wrap on mobile rather than be abbreviated or truncated');
 const ledger=read('data/mbb-retro-live-finals.json');
 const historical=men.certifiedArchivedFinals('2026-11-01',ledger);
@@ -138,6 +143,20 @@ assert(certified&&certified.phase==='final'&&Number(certified.away.score)===74&&
   'NCAA 74-72 final must supersede stale ESPN 74-70 on historical dates');
 assert.equal(certified.statsDisputed,true,'conflicting ESPN box and play stats must be quarantined');
 assert(!men.scorebug(certified).includes('cbb-micro-statline'),'disputed stats cannot pollute score card');
+assert(!js.includes('function featuredGame('),'retired featured layout must not return');
+assert(!js.includes('function row(t,phase,winning'),'retired scorebug renderer must not return');
+assert(js.includes('letterpressMarkup(g)')&&js.includes('cbb-gamefile-letterpress'),
+ 'Full Gamefile and Courtside must share their letterpress scorebug');
+assert(js.includes("for(const kind of ['coaches','ap'])"),
+ 'Both polls must feed the common scorebug');
+assert(js.includes("RETRO ")&&js.includes("profile?.rank"),
+ 'Published RETRO national ranking must accompany Elo');
+for(const page of ['ncaam.html','cbb-game-center.html','college-basketball.html','cbb-gamefile.html']){
+ const html=fs.readFileSync(path.join(root,page),'utf8');
+ assert(html.includes('cbb-ledger-scorebug.js')&&html.includes('cbb-ledger-scorecard.css'),
+  page+' must load the same renderer and stylesheet');
+}
+
 
 men.state.preseason=true;
 const first=men.modelFor(live);
