@@ -65,6 +65,10 @@ function buildConference(app,teams,games,conference){
  section.className='panel bten-bracket-section conference-format-section';
  section.id='conference-tournament-watch';
  const formats={
+  'MVC':{size:10,kind:'mvc10',source:'https://mvc-sports.com/news/2026/8/19/general-missouri-valley-conference-announces-2026-27-championship-schedule.aspx',note:'New 2027 ten-qualifier tournament: 11th-place school excluded; seeds 1–2 enter in semifinals. Remaining pairings not certified.'},
+  'CAA':{size:13,kind:'caa13',source:'https://caasports.com/news/2026/7/15/caa-announces-2026-27-mens-basketball-conference-schedule.aspx',note:'Thirteen teams qualify; 12 and 13 open March 5, seeds 5–11 join March 6, seeds 1–4 enter March 7. Precise later matchups provisional.'},
+  'Atlantic 10':{size:14,kind:'field',source:'https://atlantic10.com/news/2026/6/16/atlantic-10-releases-2026-27-mens-basketball-schedule-pairings.aspx',note:'All 14 schools, March 10–14 in Brooklyn. Pairings await official bracket.'},
+  'MEAC':{size:8,kind:'traditional8',source:'https://meacsports.com/sports/2025/7/2/2526championships.aspx',note:'Eight-member championship, March 10–13, 2027; eligibility still subject to conference rules.'},
   'ACC':{size:15,kind:'acc15',source:'https://goduke.com/news/2026/5/28/mens-basketball-acc-announces-conference-matchups-for-2026-27-mens-basketball-season',note:'Top 15 of 18 teams qualify for the March 9–13 tournament in Greensboro; bottom three are excluded.'},
   'SEC':{size:16,kind:'sec16',source:'https://www.secsports.com/championships/mens-basketball-championship',note:'All 16 teams; March 10–14 at Bridgestone Arena, Nashville.'},
   'Ivy League':{size:4,kind:'ivy4',source:'https://ivyleague.com/news/2026/4/6/general-ivy-madness-to-return-to-the-palestra-in-2027-as-part-of-centennial-celebration.aspx',note:'Top four qualify for Ivy Madness at The Palestra in Philadelphia.'},
@@ -80,7 +84,7 @@ function buildConference(app,teams,games,conference){
   'Sun Belt':{size:14,kind:'field',note:'Fourteen-team stepladder tournament; advancing teams never projected.'},
   'Southern':{size:11,kind:'field',note:'Eleven-team traditional field; bracket pairings pending official release.'},
   'Ohio Valley':{size:8,kind:'field',note:'Eight qualifiers in a stepladder tournament.'},
-  'Mid-American':{size:8,kind:'field',note:'Eight qualifiers in a stepladder championship.'},
+  'Mid-American':{size:8,kind:'mac8',source:'https://getsomemaction.com/news/2026/8/13/mac-announces-revised-format-for-2027-mens-womens-basketball-tournaments.aspx',note:'Official 2027 eight-team bracket; 1–2 double bye to semifinals, 3–4 bye to quarterfinals, 5–8 start first round.'},
   'ASUN':{size:8,kind:'asun8',source:'https://asunsports.org/news/2026/10/20/general-atlantic-sun-conference-announces-adjusted-eight-team-mens-and-womens-basketball-tournament-brackets.aspx',note:'Official eight-team bracket. Seeds 5–8 enter first, 3–4 enter second, 1–2 enter semifinals.'},
   'Atlantic Sun':{size:8,kind:'field',note:'Eight-team stepladder field; reclassifying-team eligibility must be confirmed.'},
   'United Athletic':{size:8,kind:'field',note:'Eight-team field; final 2027 bracket structure unconfirmed.'}
@@ -106,6 +110,20 @@ function buildConference(app,teams,games,conference){
   {name:'Quarterfinals',games:[[1,'Second-round winner'],[4,'Second-round winner'],[2,'Second-round winner'],[3,'Second-round winner']]},
   {name:'Semifinals',games:[['Quarterfinal winner','Quarterfinal winner'],['Quarterfinal winner','Quarterfinal winner']]},
   {name:'Championship',games:[['Semifinal winner','Semifinal winner']]}
+ ];
+ else if(format?.kind==='mac8')stages=[
+  {name:'Opening round',games:[[5,8],[6,7]]},
+  {name:'Quarterfinals',games:[[3,'Opening-round winner'],[4,'Opening-round winner']]},
+  {name:'Semifinals',games:[[1,'Quarterfinal winner'],[2,'Quarterfinal winner']]},
+  {name:'Championship',games:[['Semifinal winner','Semifinal winner']]}
+ ];
+ else if(format?.kind==='mvc10')stages=[
+  {name:'Semifinal bye positions (confirmed)',games:[[1,'Quarterfinal winner'],[2,'Quarterfinal winner']]}
+ ];
+ else if(format?.kind==='caa13')stages=[
+  {name:'First round',games:[[12,13]]},
+  {name:'Second-round entrants',games:[[5,6],[7,8],[9,10],[11,'Winner 12/13']]},
+  {name:'Quarterfinal entrants (byes)',games:[[1,'Second-round winner'],[4,'Second-round winner'],[2,'Second-round winner'],[3,'Second-round winner']]}
  ];
  else if(format?.kind==='ivy4')stages=[
   {name:'Semifinals',games:[[1,4],[2,3]]},
@@ -146,7 +164,7 @@ function buildConference(app,teams,games,conference){
  const renderGame=pair=>'<div class="conference-format-game">'+pair.map(t=>'<div class="conference-format-entry">'+slot(t)+'</div>').join('')+'</div>';
  const confirmed=stages.length?stages.map(stage=>'<div class="conference-format-round"><h3>'+esc(stage.name)+'</h3>'+stage.games.map(renderGame).join('')+'</div>').join(''):'';
  const seededList='<div class="conference-format-round"><h3>'+esc(stages.length?'Projected qualifying field':'Projected seed order')+'</h3>'+seeds.map((t,i)=>'<div class="conference-format-entry">'+slot(i+1)+'</div>').join('')+'</div>';
- const roundHTML=(confirmed||'')+(stages.length&&format?.kind!=='bigsky'?'':seededList);
+ const roundHTML=(confirmed||'')+(!stages.length||['bigsky','mvc10','caa13'].includes(format?.kind)?seededList:'');
  const note=american?'American: confirmed top-10 stepladder with two highest seeds entering the semifinals.':
   big12?'Big 12: all 16 schools enter, with top four joining at the quarterfinals.':
   format?format.note:'The exact 2027 tournament field, exclusions and matchup structure are not verified for this league; only projected standings are shown.';
