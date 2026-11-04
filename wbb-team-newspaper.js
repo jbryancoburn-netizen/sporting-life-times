@@ -95,7 +95,7 @@ const rows=sorted.map(g=>{
     tentative?'<small class="wbb-tipoff-tentative">Feed-listed start; unverified by school.</small>':
     hasOfficial?'<small class="wbb-tipoff-verified">University-sourced listing</small>':'';
   const result=window.WBBGameResults.scoreFor(g,id);
-  const statAvailable=g.completed&&!g.result_conflict&&/^\\d+$/.test(String(g.id));
+  const statAvailable=g.completed&&!g.result_conflict&&/^\d+$/.test(String(g.id));
   const state=g.completed?'final':new Date(g.date)<new Date()?'past':'upcoming';
   const main='<tr class="wbb-game-entry" data-site="'+esc(g.site||'unknown')+'" data-calendar-state="'+state+'" data-opponent="'+esc((g.opponent||opp?.team||'').toLowerCase())+'" data-game-id="'+esc(g.id)+'">'+
     '<td data-label="Date"><time>'+date+'</time></td>'+
