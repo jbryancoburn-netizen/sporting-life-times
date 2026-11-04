@@ -59,17 +59,18 @@ JS="""() => {
 async def audit(browser, gate, team, size_name, photo):
  async with gate:
   viewport=SIZES[size_name]
-  page=await browser.new_page(viewport={"width":viewport[0],"height":viewport[1]},device_scale_factor=1)
+  page=await browser[size_name].new_page()
   tid=team["id"]
   url=URL+__import__('urllib.parse',fromlist=['quote']).quote(tid,safe='')
-  def block(route):return route.abort()
+  async def block(route):await route.abort()
   await page.route("https://**/*",block)
   error=None; info={}
   try:
    await page.goto(url,wait_until="domcontentloaded",timeout=20000)
    await page.locator(SELECTOR).first.wait_for(state="attached",timeout=17000)
    await page.locator("#app .team-hero h1").first.wait_for(state="visible",timeout=14000)
-   await page.wait_for_timeout(150)
+   try:await page.locator('#mbb-roster-live').wait_for(state='attached',timeout=4000)
+   except PlaywrightTimeoutError:pass
    info=await page.evaluate(JS)
    issues=[]
    if not info["calendarClass"] or not info["schedule"] or not info["gameRows"]:
@@ -98,14 +99,16 @@ async def main(args):
  gate=asyncio.Semaphore(args.concurrency)
  results=[]
  async with async_playwright() as p:
-  browser=await p.chromium.launch(headless=True,args=["--disable-dev-shm-usage","--no-sandbox"])
+  engine=await p.chromium.launch(headless=True,args=["--disable-dev-shm-usage","--no-sandbox"])
+  browser={size:await engine.new_context(viewport={"width":width,"height":height},device_scale_factor=1) for size,(width,height) in SIZES.items()}
   # Both viewports for all teams: the unique shared template is tested on every identity.
   tasks=[asyncio.create_task(audit(browser,gate,team,size,photo=i<args.max_screenshots))
          for i,team in enumerate(cross) for size in SIZES]
   for fut in asyncio.as_completed(tasks):
    entry=await fut;results.append(entry)
    if len(results)%100==0:print("Rendered",len(results),"of",len(tasks),"team/viewport pages",flush=True)
-  await browser.close()
+  for context in browser.values():await context.close()
+  await engine.close()
  summary={"audited_at":datetime.now(timezone.utc).isoformat(),"total_teams":len(cross),
   "expected_page_checks":len(cross)*len(SIZES),"checks_completed":len(results),
   "failures":sum(bool(x["error"]) for x in results),
