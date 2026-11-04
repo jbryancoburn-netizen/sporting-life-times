@@ -79,7 +79,7 @@ test('official 2026 DII opening-game source URLs match each specific result',()=
 
 test('DII game cards publish source-grounded provisional Elo chances and game movement',()=>{
  const script=fs.readFileSync('d2-basketball.js','utf8');
- assert.match(script,/ledger26-scorebug/);assert.match(script,/experimental RETRO model/);
+ assert.match(script,/SLTSportsScorebug/);assert.match(script,/experimental RETRO model/);
  const categories=['men','women'];
  for(const gender of categories){
   const d=JSON.parse(fs.readFileSync('data/d2-'+gender+'-2026-27.json','utf8'));
