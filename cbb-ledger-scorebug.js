@@ -30,10 +30,13 @@
     '<small class="ledger26-record">'+esc(context)+'</small></span>'+
     '<b class="ledger26-points">'+esc(scored)+'</b></div>';
   };
-  return '<div class="ledger26-scorebug" role="group" aria-label="'+esc(g.away?.name||'Away')+' at '+esc(g.home?.name||'Home')+' scoreboard">'+
+  return '<div class="ledger26-scorebug" role="group" aria-label="'+esc(g.ariaLabel||((g.away?.name||'Away')+' at '+(g.home?.name||'Home')+' scoreboard'))+'">'+
     '<span class="ledger26-monogram"><img src="assets/slt-engraved-black.svg" width="35" height="49" alt="Sporting Life and Times monogram"></span>'+
     '<div class="ledger26-teams">'+team(g.away)+team(g.home)+'</div>'+
     '<div class="ledger26-status" data-phase="'+phase+'"><strong>'+esc(label)+'</strong></div></div>';
  }
- root.SLTBasketballScorebug={render,formatRetro,version:'shared-letterpress-v2'};
+ // The Daily Ledger is the universal newspaper model, not a separate sport skin.
+ // Keep the old alias for existing college basketball pages.
+ root.SLTSportsScorebug={render,formatRetro,version:'shared-letterpress-v3'};
+ root.SLTBasketballScorebug=root.SLTSportsScorebug;
 })(typeof window!=='undefined'?window:globalThis);
