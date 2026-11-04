@@ -20,3 +20,26 @@
 .victorian-seed-rating small{display:block;max-width:none;font:700 9px/1.3 Georgia,serif;color:#854432;letter-spacing:.015em;overflow-wrap:anywhere;margin-top:4px}
 .victorian-seed-foot{border-top:3px double #9d7e55;margin-top:4px;padding:7px 5px 3px;text-align:center;color:#75543b;font:700 9px Georgia,serif;letter-spacing:.13em}
 @media(max-width:540px){.panel.victorian-seed-order{padding:12px 9px}.victorian-seed-entry{grid-template-columns:29px minmax(0,1fr) 94px;gap:6px;padding:6px 5px}.victorian-seed-rank{font-size:16px;min-height:31px}.victorian-seed-team,.victorian-seed-team .team-name{font-size:12px}.victorian-seed-team .badge{width:31px!important;height:31px!important}.victorian-seed-rating{padding-left:6px}.victorian-seed-rating strong{font-size:17px}.victorian-seed-rating small{font-size:8px}.victorian-seed-heading{font-size:8px;padding:6px 5px}}
+
+
+/* One full-width conference register: shared fixed columns and authentic data */
+.victorian-unified-ledger{margin-bottom:22px}
+.victorian-unified-ledger .conference-ledger-scroll{width:100%;overflow-x:auto;border:3px double #765a3c;background:#f7eddb;padding:5px;box-sizing:border-box}
+.victorian-unified-ledger .conference-ledger{width:100%;min-width:670px;table-layout:fixed;border-collapse:separate;border-spacing:0 3px;color:#2e241c;background:transparent;font-family:Georgia,'Times New Roman',serif}
+.conference-ledger col.ledger-team-col{width:34%}
+.conference-ledger col.ledger-place-col{width:10%}
+.conference-ledger col.ledger-conf-col{width:12%}
+.conference-ledger col.ledger-overall-col{width:12%}
+.conference-ledger col.ledger-retro-col{width:12%}
+.conference-ledger col.ledger-projection-col{width:20%}
+.victorian-unified-ledger .conference-ledger thead th{padding:9px 6px;background:#e2cfaf;color:#694833;font:700 10px Georgia,serif;letter-spacing:.07em;text-transform:uppercase;border-bottom:3px double #765a3c;text-align:center;vertical-align:middle}
+.victorian-unified-ledger .conference-ledger thead th:first-child{text-align:left}
+.victorian-unified-ledger .conference-ledger tbody td{height:46px;padding:6px 7px;border-top:1px solid #c5ae8d;border-bottom:1px solid #c5ae8d;background:#f4e9d7;text-align:center;vertical-align:middle;font:700 13px Georgia,serif;font-variant-numeric:tabular-nums}
+.victorian-unified-ledger .conference-ledger tbody tr:nth-child(even) td{background:#ecddc5}
+.victorian-unified-ledger .conference-ledger tbody td:first-child{border-left:3px solid #805d3d;text-align:left;white-space:normal}
+.victorian-unified-ledger .conference-ledger tbody td:last-child{border-right:1px solid #c5ae8d;border-left:3px double #9c7854;text-align:center;color:#773e30;font-size:11px;overflow-wrap:anywhere}
+.victorian-unified-ledger .conference-ledger tbody td.ledger-retro{font-size:17px;border-left:1px solid #c5ae8d}
+.victorian-unified-ledger .conference-ledger .team-name{font:700 14px Georgia,serif;gap:9px;align-items:center}
+.victorian-unified-ledger .conference-ledger .badge{width:37px!important;height:37px!important;object-fit:contain;flex-shrink:0}
+.victorian-unified-ledger .ledger-place{display:inline-grid;place-items:center;min-width:29px;min-height:29px;padding:2px 4px;background:#75402e;border:3px double #d6b78e;color:#fff5dd;font:800 14px Georgia,serif}
+@media(max-width:700px){.victorian-unified-ledger .conference-ledger-scroll{scrollbar-width:thin}.victorian-unified-ledger .conference-ledger{min-width:630px}.victorian-unified-ledger .conference-ledger .badge{width:31px!important;height:31px!important}.victorian-unified-ledger .conference-ledger .team-name{font-size:12px}}
