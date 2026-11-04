@@ -1,29 +1,29 @@
 {
-  "title": "Division I M/W Basketball Crest & Full-Season Schedule Audit",
-  "as_of": "2026-11-04",
-  "method": "All 365 source men program calendars and 363 women's master program schedules; current canonical 365 men's verified crest registry plus 39 curated outside-DI logos, ID-exact only.",
-  "verification": "MBB 365-team shared crest contract passed at commit 6dbdfca.",
-  "audit_source_commit": "6dbdfca6018129714e2f884c691594b13512b3cc",
-  "di_crest_identity": {
+  "audit_date": "2026-11-04",
+  "audit_status": "postimport_crest_contract_passed",
+  "source_commit": "c0488b47fc4a974509c0c81332efe2b6f8f576e1",
+  "source_workflow_run": 41835292148,
+  "source_workflow_job": 126592495812,
+  "method": "Scan all school-schedule JSON records, crosswalk exact ESPN identifiers to certified D-I crests, then match external names and IDs to a 39-school curated source registry.",
+  "di": {
     "men_programs": 365,
-    "men_verified_crest_urls": 365,
     "women_programs": 363,
-    "women_missing_men_crest_identity": 0,
-    "curated_non_di_crests": 39
+    "verified_men_urls": 365,
+    "women_programs_without_di_logo_identity": 0
   },
-  "men": {
-    "program_calendars_scanned": 365,
-    "game_rows_scanned": 11831,
+  "mens": {
+    "school_calendars": 365,
+    "calendar_rows": 11842,
+    "source_di_logo_field_blanks_before_repair": 169,
+    "source_di_logo_field_blanks_after_repair": 0,
     "classification_counts": {
-      "UNRESOLVED_NO_ID": 757,
-      "D1": 11025,
+      "UNRESOLVED_NO_ID": 767,
+      "D1": 11026,
       "OUTSIDE_LOGO": 46,
       "OUTSIDE_UNREGISTERED": 3
     },
-    "source_fields_missing_di_logo": 169,
-    "unique_unresolved_unsupported_identity": 613,
-    "todays_unresolved_game_opponents": [],
-    "prioritized_unresolved": [
+    "distinct_non_di_or_blank_id_names": 621,
+    "top_unresolved_source_entries": [
       {
         "name": "MAC-SBC Challenge",
         "id": "",
@@ -248,19 +248,133 @@
         "visits": 3,
         "example_school": "242"
       }
-    ]
+    ],
+    "todays_external_logo_entries": [
+      {
+        "school": "149",
+        "opponent": "Salish Kootenai",
+        "opponent_id": "",
+        "kind": "OUTSIDE_LOGO",
+        "source": "https://gogriz.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school": "159",
+        "opponent": "Framingham State Rams",
+        "opponent_id": "126956",
+        "kind": "OUTSIDE_LOGO",
+        "source": "https://dartmouthsports.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school": "2026",
+        "opponent": "Christendom",
+        "opponent_id": "",
+        "kind": "OUTSIDE_LOGO",
+        "source": "https://appstatesports.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school": "2181",
+        "opponent": "Central College Dutch",
+        "opponent_id": "",
+        "kind": "OUTSIDE_LOGO",
+        "source": "https://godrakebulldogs.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school": "231",
+        "opponent": "Bob Jones Bruins",
+        "opponent_id": "",
+        "kind": "OUTSIDE_LOGO",
+        "source": "https://furmanpaladins.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school": "2415",
+        "opponent": "Virginia University of Lynchburg",
+        "opponent_id": "",
+        "kind": "OUTSIDE_LOGO",
+        "source": "https://morganstatebears.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school": "2427",
+        "opponent": "Erskine",
+        "opponent_id": "",
+        "kind": "OUTSIDE_LOGO",
+        "source": "https://uncabulldogs.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school": "2433",
+        "opponent": "Champion Christian",
+        "opponent_id": "",
+        "kind": "OUTSIDE_LOGO",
+        "source": "https://ulmwarhawks.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school": "2450",
+        "opponent": "Randolph",
+        "opponent_id": "",
+        "kind": "OUTSIDE_LOGO",
+        "source": "https://nsuspartans.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school": "2546",
+        "opponent": "Webster",
+        "opponent_id": "",
+        "kind": "OUTSIDE_LOGO",
+        "source": "https://semoredhawks.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school": "2565",
+        "opponent": "Concordia Chicago Cougars",
+        "opponent_id": "",
+        "kind": "OUTSIDE_LOGO",
+        "source": "https://siuecougars.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school": "2635",
+        "opponent": "Blue Mountain Christian Toppers",
+        "opponent_id": "494",
+        "kind": "OUTSIDE_LOGO",
+        "source": "https://soconsports.com/schedule.aspx?schedule=9197"
+      },
+      {
+        "school": "295",
+        "opponent": "Regent",
+        "opponent_id": "",
+        "kind": "OUTSIDE_LOGO",
+        "source": "https://odusports.com/sports/mens-basketball/schedule"
+      },
+      {
+        "school": "3101",
+        "opponent": "Grace University Talons",
+        "opponent_id": "134743",
+        "kind": "OUTSIDE_LOGO",
+        "source": "https://utahtechtrailblazers.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school": "68",
+        "opponent": "West Coast Baptist",
+        "opponent_id": "",
+        "kind": "OUTSIDE_LOGO",
+        "source": "https://broncosports.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school": "88",
+        "opponent": "Saint Mary-of-the-Woods College",
+        "opponent_id": "",
+        "kind": "OUTSIDE_LOGO",
+        "source": "https://usiscreamingeagles.com/sports/mens-basketball/schedule/2026-2027?grid=true"
+      }
+    ],
+    "todays_unresolved_source_entries": []
   },
-  "women": {
-    "program_calendars_scanned": 363,
-    "game_rows_scanned": 11110,
+  "womens": {
+    "school_calendars": 363,
+    "calendar_rows": 11110,
     "classification_counts": {
       "D1": 10656,
       "OUTSIDE_UNREGISTERED": 401,
       "OUTSIDE_LOGO": 53
     },
-    "unique_unregistered_outside_opponents": 319,
-    "todays_unresolved_game_opponents": [],
-    "prioritized_unresolved": [
+    "distinct_non_di_or_unregistered_names": 319,
+    "top_unresolved_source_entries": [
       {
         "name": "Saint Francis Red Wolves",
         "id": "2598",
@@ -485,127 +599,8 @@
         "visits": 2,
         "example_school": "88"
       }
-    ]
-  },
-  "nov04": {
-    "men_external_opponents_with_registered_logo": 16,
-    "women_external_opponents_with_registered_logo": 24,
-    "men_d1_games_with_source_sourced_crest": 0,
-    "men_sourced_outside": [
-      {
-        "school": "149",
-        "opponent": "Salish Kootenai",
-        "opponent_id": "",
-        "kind": "OUTSIDE_LOGO",
-        "source": "https://gogriz.com/sports/mens-basketball/schedule/text/2026-27"
-      },
-      {
-        "school": "159",
-        "opponent": "Framingham State Rams",
-        "opponent_id": "126956",
-        "kind": "OUTSIDE_LOGO",
-        "source": "https://dartmouthsports.com/sports/mens-basketball/schedule/text/2026-27"
-      },
-      {
-        "school": "2026",
-        "opponent": "Christendom",
-        "opponent_id": "",
-        "kind": "OUTSIDE_LOGO",
-        "source": "https://appstatesports.com/sports/mens-basketball/schedule/text/2026-27"
-      },
-      {
-        "school": "2181",
-        "opponent": "Central College Dutch",
-        "opponent_id": "",
-        "kind": "OUTSIDE_LOGO",
-        "source": "https://godrakebulldogs.com/sports/mens-basketball/schedule/text/2026-27"
-      },
-      {
-        "school": "231",
-        "opponent": "Bob Jones Bruins",
-        "opponent_id": "",
-        "kind": "OUTSIDE_LOGO",
-        "source": "https://furmanpaladins.com/sports/mens-basketball/schedule/text/2026-27"
-      },
-      {
-        "school": "2415",
-        "opponent": "Virginia University of Lynchburg",
-        "opponent_id": "",
-        "kind": "OUTSIDE_LOGO",
-        "source": "https://morganstatebears.com/sports/mens-basketball/schedule/text/2026-27"
-      },
-      {
-        "school": "2427",
-        "opponent": "Erskine",
-        "opponent_id": "",
-        "kind": "OUTSIDE_LOGO",
-        "source": "https://uncabulldogs.com/sports/mens-basketball/schedule/text/2026-27"
-      },
-      {
-        "school": "2433",
-        "opponent": "Champion Christian",
-        "opponent_id": "",
-        "kind": "OUTSIDE_LOGO",
-        "source": "https://ulmwarhawks.com/sports/mens-basketball/schedule/text/2026-27"
-      },
-      {
-        "school": "2450",
-        "opponent": "Randolph",
-        "opponent_id": "",
-        "kind": "OUTSIDE_LOGO",
-        "source": "https://nsuspartans.com/sports/mens-basketball/schedule/text/2026-27"
-      },
-      {
-        "school": "2546",
-        "opponent": "Webster",
-        "opponent_id": "",
-        "kind": "OUTSIDE_LOGO",
-        "source": "https://semoredhawks.com/sports/mens-basketball/schedule/text/2026-27"
-      },
-      {
-        "school": "2565",
-        "opponent": "Concordia Chicago Cougars",
-        "opponent_id": "",
-        "kind": "OUTSIDE_LOGO",
-        "source": "https://siuecougars.com/sports/mens-basketball/schedule/text/2026-27"
-      },
-      {
-        "school": "2635",
-        "opponent": "Blue Mountain Christian Toppers",
-        "opponent_id": "494",
-        "kind": "OUTSIDE_LOGO",
-        "source": "https://soconsports.com/schedule.aspx?schedule=9197"
-      },
-      {
-        "school": "295",
-        "opponent": "Regent",
-        "opponent_id": "",
-        "kind": "OUTSIDE_LOGO",
-        "source": "https://odusports.com/sports/mens-basketball/schedule"
-      },
-      {
-        "school": "3101",
-        "opponent": "Grace University Talons",
-        "opponent_id": "134743",
-        "kind": "OUTSIDE_LOGO",
-        "source": "https://utahtechtrailblazers.com/sports/mens-basketball/schedule/text/2026-27"
-      },
-      {
-        "school": "68",
-        "opponent": "West Coast Baptist",
-        "opponent_id": "",
-        "kind": "OUTSIDE_LOGO",
-        "source": "https://broncosports.com/sports/mens-basketball/schedule/text/2026-27"
-      },
-      {
-        "school": "88",
-        "opponent": "Saint Mary-of-the-Woods College",
-        "opponent_id": "",
-        "kind": "OUTSIDE_LOGO",
-        "source": "https://usiscreamingeagles.com/sports/mens-basketball/schedule/2026-2027?grid=true"
-      }
     ],
-    "women_sourced_outside": [
+    "todays_external_logo_entries": [
       {
         "school": "27",
         "opponent": "Occidental Tigers",
@@ -774,19 +769,21 @@
         "kind": "OUTSIDE_LOGO",
         "source": ""
       }
-    ]
+    ],
+    "todays_unresolved_source_entries": []
   },
-  "previous_full_schedule_field_gap_snapshots": {
+  "roster_outside_logo_registry_entries": 39,
+  "previous_schedule_completeness_snapshots": {
     "men": {
-      "as_of": "2026-11-01T13:25:45.492791+00:00",
+      "as_of": "2026-11-04T13:06:24.356640+00:00",
       "schools": 365,
-      "schools_with_all_fields_present": 24,
-      "games": 11807,
-      "missing_broadcast": 5011,
-      "missing_arena": 313,
-      "missing_city": 110,
-      "missing_tipoff": 482,
-      "missing_site": 85
+      "schools_with_all_fields_present": 25,
+      "games": 11842,
+      "missing_broadcast": 4747,
+      "missing_arena": 247,
+      "missing_city": 74,
+      "missing_tipoff": 350,
+      "missing_site": 74
     },
     "women": {
       "as_of": "2026-10-30",
@@ -795,12 +792,11 @@
       "unmatched_rows": 2050
     }
   },
-  "open_work": {
-    "d1_logo_field_repair": "Existing source calendar reconciliation script now restores empty DI logo fields by exact verified ESPN school ID. Source-data publication is separate from this audit.",
-    "outside_schools": "Unregistered non-DI opponent names beyond Nov 4 remain a source-by-source recovery backlog, not fabricated assets.",
-    "women_opponent_identity": "Women's calendar entries can contain source data without independent university verification; no mass assertion that every contest is official or exhibition-free.",
-    "official_http_probe": "The 39 hosted external logo URLs have not all passed a same-day browser HTTP/DOM visual audit.",
-    "venue_data": "Prior venue/broadcast/time/source audits show substantial schedule metadata work remains."
-  },
-  "caution": "This classification measures reported school calendars, not unique games, so D-I vs D-I games are counted twice if present in each school's calendar."
+  "outstanding": [
+    "Women's source calendar includes 401 future/other-date non-D-I opponent rows not yet matched to the 39-school curated outside logo registry. These are schedule rows, not unique schools.",
+    "Men's school calendars contain blank opponent IDs for future games and placeholders, including tournament labels; these 767 entries are not necessarily 767 missing logos.",
+    "All external image URLs are identity-sourced; there has not been a same-day direct HTTP/image decode test for all 39 on every client.",
+    "Schedule gap snapshots above are older than today's restored crest data. Separate verification is required before declaring 100% arenas, broadcasts, tipoffs, games or exhibitions certified."
+  ],
+  "scope_disclosure": "Dates derive from existing university schedule ingests and published feed snapshots. This report is an identity/crest coverage audit, not independent source recertification for every one of 11,000+ rows per gender."
 }
