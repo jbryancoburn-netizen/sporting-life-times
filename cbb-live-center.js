@@ -111,18 +111,19 @@
   const safeTeamColor=t=>{
     const raw=String(t?.team?.color||'').replace(/^#/,'');
     const branded=window.MBBLogos?.colorForESPN?.(t?.team?.id);
+    if(/^#[0-9a-fA-F]{6}$/.test(branded?.primary||''))return branded.primary;
     if(/^[a-f\d]{6}$/i.test(raw)&&raw.toLowerCase()!=='ffffff')return '#'+raw;
-    return branded?.primary||'#294650';
+    return '#294650';
   };
   function row(t,phase,winning,gamefile=false){
     const s=phase==='upcoming'?'—':score(t)??'—';
     const link=gamefile?schoolLink(t):'',rating=teamRating(t);
     const record=rating&&Number.isInteger(Number(rating.wins))&&Number.isInteger(Number(rating.losses))?
       Number(rating.wins)+'–'+Number(rating.losses):'';
-    const elo=rating&&Number.isFinite(Number(rating.elo))?'USRS '+Math.round(Number(rating.elo)):'';
+    const elo=rating&&Number.isFinite(Number(rating.elo))?'RETRO '+Math.round(Number(rating.elo))+(Number.isInteger(rating.rank)?' (#'+rating.rank+')':''):'';
     const context=[record,elo].filter(Boolean).join(' · ');
     const identity='<span class="cbb-team-identity">'+crest(t)+
-      '<span class="cbb-name"><b class="cbb-school-label">'+esc(schoolLabel(t))+(apRank(t)?'<i class="cbb-ap-rank">AP '+esc(apRank(t))+'</i>':'')+'</b>'+
+      '<span class="cbb-name"><b class="cbb-school-label">'+esc(schoolLabel(t))+(state.poll.get(String(t?.team?.id||''))?'<i class="cbb-ap-rank">'+esc([state.poll.get(String(t.team.id)).coaches??'NR',state.poll.get(String(t.team.id)).ap??'NR'].join('/'))+'</i>':'')+'</b>'+
       (mascotLabel(t)?'<small class="cbb-school-mascot">'+esc(mascotLabel(t))+'</small>':'')+
       (context?'<span class="cbb-team-context">'+esc(context)+'</span>':'')+'</span></span>';
     return '<div class="cbb-scorebug-row'+(winning?' cbb-winner':'')+'" data-team-side="'+esc(t.homeAway||'')+'">'+
@@ -171,7 +172,7 @@
       '</div>';
   }
   function teamRating(t){return state.ratings.get(String(t?.team?.id||''))||null;}
-  function apRank(t){return women?null:state.poll.get(String(t?.team?.id||''))||null;}
+  function apRank(t){return women?null:state.poll.get(String(t?.team?.id||''))?.ap||null;}
   function modelFor(g){
     const a=teamRating(g.away),h=teamRating(g.home);
     if(!a||!h||!state.ratingsReady)return null;
@@ -341,23 +342,35 @@
       '<div><strong>'+upset.length+'</strong><span>USRS UPSET WATCH</span></div>'+      (women?'':'<div><strong>'+ranked.length+'</strong><span>AP TOP 25 GAMES</span></div>')+
       '</div><p>Watch counts use current sourced scores and identified conference memberships. Upset watch requires a valid pregame model forecast.</p></div>';
   }
+  // The Courtside Desk and Daily Ledger share the same Victorian scorebug
+  // renderer, rating terminology, logo system, and original source component.
   function scorebug(g){
-    const as=Number(score(g.away)),hs=Number(score(g.home));
-    const winner=g.phase==='final'&&score(g.away)!=null&&score(g.home)!=null&&as!==hs;
-    const model=modelFor(g),expanded=state.expanded.has(String(g.id));
-    const prob=Number.isFinite(model?.probability)&&g.phase==='upcoming'?
-      '<span class="cbb-model-inline">USRS: '+esc(code(model.probability>.5?g.home:g.away))+' '+
-      Math.round(Math.max(model.probability,1-model.probability)*100)+'% pregame</span>':'';
-    return '<article class="cbb-game-card cbb-'+g.phase+(expanded?' cbb-expanded':'')+
-      '" data-cbb-game="'+esc(g.id)+'" style="--cbb-away:'+safeTeamColor(g.away)+';--cbb-home:'+safeTeamColor(g.home)+'">'+
-      '<div class="cbb-bug-top"><span>'+currentView(g)+'</span><span class="cbb-bug-network">'+esc(g.broadcast||'')+'</span></div>'+
-      '<div class="cbb-match-rows">'+row(g.away,g.phase,winner&&as>hs)+row(g.home,g.phase,winner&&hs>as)+'</div>'+
-      '<div class="cbb-bug-bottom"><span>'+esc(g.venue||localDate(g.date))+'</span>'+prob+
-      '<button type="button" class="cbb-box-btn" data-cbb-toggle aria-expanded="'+expanded+
-      '" aria-controls="cbb-inline-'+esc(g.id)+'">'+(expanded?'CLOSE DETAILS ▲':'GAME DETAILS ▼')+'</button>'+ 
-      '<a class="cbb-gamefile-link" href="'+esc(gameLink(g))+'" aria-label="Read the complete sourced Gamefile for '+esc(g.away.name)+' versus '+esc(g.home.name)+'">GAMEFILE ↗</a></div>'+
-      '<div class="cbb-game-origin">'+esc(publicSource(g.source||'Source not available'))+
-      (g.certifiedTeamBox?' · NCAA-origin team totals checked':'')+'</div>'+
+    const expanded=state.expanded.has(String(g.id));
+    const asTeam=t=>{
+      const profile=teamRating(t),id=String(t.team?.id||'');
+      const valid=profile&&Number.isFinite(Number(profile.elo));
+      const rank=Number(profile?.rank),max=women?363:365;
+      const record=profile&&Number.isInteger(Number(profile.wins))&&Number.isInteger(Number(profile.losses))?
+        Number(profile.wins)+'–'+Number(profile.losses):'0–0';
+      const elo=valid?'RETRO '+Math.round(Number(profile.elo))+
+        (Number.isInteger(rank)&&rank>=1&&rank<=max?' (#'+rank+')':''):'RETRO —';
+      return {name:schoolLabel(t),score:g.phase==='upcoming'?null:score(t),
+        crest:crest(t),color:safeTeamColor(t),record,retro:elo,poll:state.poll.get(id)||null};
+    };
+    const scoreHTML=window.SLTBasketballScorebug?.render({
+      phase:g.phase,status:g.phase==='live'?(g.headline||'LIVE'):
+       g.phase==='final'?'FINAL':'UPCOMING',
+      away:asTeam(g.away),home:asTeam(g.home)
+    })||'<p class="cbb-empty">Scorebug unavailable. Refresh the page.</p>';
+    const metadata=g.phase==='upcoming'?localDate(g.date):(g.venue||'COLLEGE BASKETBALL');
+    return '<article class="ledger26-card cbb-ledger-card cbb-'+esc(g.phase)+
+      (expanded?' cbb-expanded':'')+'" data-cbb-game="'+esc(g.id)+'">'+
+      '<div class="ledger26-meta"><span>'+esc(metadata)+'</span>'+
+      (g.broadcast?'<span>'+esc(g.broadcast)+'</span>':'')+'</div>'+
+      '<div class="ledger26-summary cbb-ledger-toggle" role="button" tabindex="0" data-cbb-toggle aria-expanded="'+expanded+
+      '" aria-controls="cbb-inline-'+esc(g.id)+'" aria-label="Toggle '+esc(schoolLabel(g.away))+' at '+esc(schoolLabel(g.home))+' game details">'+
+      scoreHTML+'<span class="ledger26-instruction" data-cbb-instruction>'+
+      (expanded?'CLOSE DETAILS −':'OPEN GAME DETAILS +')+'</span></div>'+
       '<div class="cbb-inline-detail" id="cbb-inline-'+esc(g.id)+'" data-cbb-details '+
       (expanded?'':'hidden')+'><p class="cbb-loading">Loading this game’s report…</p></div>'+
       '</article>';
