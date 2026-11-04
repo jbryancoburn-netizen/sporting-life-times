@@ -9,9 +9,26 @@ const nowDay=()=>window.NBLFullSchedule.day(new Date().toISOString());
 const dateLabel=d=>new Date(d+'T12:00:00Z').toLocaleDateString('en-AU',{weekday:'short',month:'short',day:'numeric',year:'numeric',timeZone:'UTC'});
 const localTime=d=>new Date(d).toLocaleTimeString('en-AU',{timeZone:'Australia/Sydney',hour:'numeric',minute:'2-digit'});
 const logo=name=>'assets/nbl-logos/'+name.toLowerCase().replace(/[^a-z0-9]/g,'')+'.png';
-const team=name=>'<span class="nbl-sd-team"><img src="'+esc(logo(name))+'" loading="lazy" alt="" onerror="this.hidden=true"><span>'+esc(name)+'</span></span>';
-const status=g=>g.state==='post'?'FINAL':g.state==='in'?'LIVE':localTime(g.date)+' AEDT/AEST';
-const card=g=>'<article class="nbl-sd-game"><div class="nbl-sd-head">'+status(g)+'</div><div class="nbl-sd-row">'+team(g.away)+'<b>'+(g.away_score??'')+'</b></div><div class="nbl-sd-row">'+team(g.home)+'<b>'+(g.home_score??'')+'</b></div><div class="nbl-sd-meta">'+esc(g.venue||'Venue TBA')+' · '+esc(g.broadcasts.join(', ')||'Broadcast TBA')+'</div>'+(g.url?'<a href="'+esc(g.url)+'" target="_blank" rel="noopener noreferrer">Source box score ↗</a>':'')+'</article>';
+const status=g=>g.state==='post'?'FINAL':g.state==='in'?'LIVE':localTime(g.date)+' AET';
+const card=g=>{
+ const mode=g.state==='post'?'final':g.state==='in'?'live':'upcoming';
+ const line=(name,score)=>({name,score:mode==='upcoming'?null:score,
+  crest:'<img src="'+esc(logo(name))+'" loading="lazy" alt="" onerror="this.hidden=true">',
+  color:'#655239',record:'Record pending',retro:'RETRO —'});
+ const scorebug=window.SLTSportsScorebug?.render({phase:mode,
+  status:mode==='live'?'LIVE · '+status(g):status(g),
+  away:line(g.away,g.away_score),home:line(g.home,g.home_score)
+ })||'<p>Scorebug unavailable.</p>';
+ return '<article class="ledger26-card nbl-sd-game">'+
+  '<div class="ledger26-meta"><span>'+esc(g.venue||'Venue TBA')+'</span>'+
+  '<span>'+esc((g.broadcasts||[]).join(', ')||localTime(g.date)+' AET')+'</span></div>'+
+  '<details class="ledger26-expand"><summary class="ledger26-summary">'+scorebug+
+  '<span class="ledger26-instruction">OPEN GAME DETAILS +</span></summary>'+
+  '<div class="ledger26-expanded"><p>'+esc(dateLabel(g.day)+' · '+status(g))+'</p>'+
+  (g.url?'<p><a href="'+esc(g.url)+'" target="_blank" rel="noopener noreferrer">Official NBL box score ↗</a></p>':'')+
+  '<p>RETRO rankings and institutional colors are shown only where verified source data is available.</p>'+
+  '</div></details></article>';
+};
 root.innerHTML='<div class="nbl-sd-top"><h2>FULL-SEASON GAME CENTER</h2><p id="nbl-sd-count">Loading the published 165-game fixture…</p><div class="nbl-sd-controls"><button type="button" id="nbl-sd-prev">← Previous game day</button><label><span id="nbl-sd-day">Select game day</span> <input type="date" id="nbl-sd-date"></label><button type="button" id="nbl-sd-next">Next game day →</button><select id="nbl-sd-filter" aria-label="Game status"><option value="all">All games</option><option value="final">Finals</option><option value="live">Live</option><option value="upcoming">Upcoming</option></select></div></div><div class="nbl-sd-cards" id="nbl-sd-cards"></div><p class="nbl-sd-source" id="nbl-sd-source"></p>';
 function draw(){
  const candidates=games.filter(g=>mode==='all'||(mode==='final'?g.state==='post':mode==='live'?g.state==='in':g.state==='pre'));
