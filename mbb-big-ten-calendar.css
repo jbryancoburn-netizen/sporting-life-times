@@ -129,6 +129,18 @@
  #full-season-schedule.victorian-team-calendar .victorian-record-line b{font-size:10px}
  #full-season-schedule.victorian-team-calendar .mbb-schedule-table > tbody > tr.victorian-stat-detail > td{overflow:visible!important}
 }
+/* Mobile game box scores present every statistic in labeled columns, no sideways panning. */
+@media(max-width:700px){
+ #full-season-schedule.victorian-team-calendar .victorian-stat-block:has(.victorian-player-box){overflow:visible!important;min-width:0}
+ #full-season-schedule.victorian-team-calendar .victorian-stat-block table.victorian-player-box{display:block!important;width:100%!important;min-width:0!important;max-width:100%!important;table-layout:auto!important}
+ #full-season-schedule.victorian-team-calendar .victorian-player-box thead{position:absolute!important;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+ #full-season-schedule.victorian-team-calendar .victorian-player-box tbody{display:block;width:100%}
+ #full-season-schedule.victorian-team-calendar .victorian-player-box tbody tr{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));padding:5px 0 8px;border-bottom:2px double #b49a77;min-width:0}
+ #full-season-schedule.victorian-team-calendar .victorian-player-box tbody tr:nth-child(even){background:#e8d7bb}
+ #full-season-schedule.victorian-team-calendar .victorian-player-box tbody th{grid-column:1/-1;width:auto!important;min-width:0!important;text-align:left!important;padding:5px 6px!important;white-space:normal!important;overflow-wrap:anywhere;font:700 12px/1.3 Georgia,serif!important}
+ #full-season-schedule.victorian-team-calendar .victorian-player-box tbody td{display:flex;flex-direction:column;min-width:0;width:auto!important;max-width:none!important;padding:6px 3px!important;text-align:center!important;font:700 11px/1.3 Georgia,serif!important;white-space:normal!important;word-break:normal}
+ #full-season-schedule.victorian-team-calendar .victorian-player-box tbody td::before{content:attr(data-label);display:block;margin:0 0 2px;color:#765338;font:700 9px/1.25 Georgia,serif!important;letter-spacing:.2px;overflow-wrap:anywhere}
+}
 @media(max-width:350px){
  #full-season-schedule.victorian-team-calendar .sched-matchup{grid-template-columns:40px minmax(0,1fr)!important}
  #full-season-schedule.victorian-team-calendar .sched-matchup>.mbb-mark{--mbb-size:40px;flex-basis:40px!important}
