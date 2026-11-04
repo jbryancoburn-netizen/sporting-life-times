@@ -80,6 +80,7 @@ async function run(){
   const src=read(file);assert(src.includes('MBBLogos.'),'Old page-specific crest renderer '+file);
   new Function(src);
  }
+ require('./audit-d1-basketball-schedules.cjs')();
  console.log('PASS 365 verified NCAA logos; '+JSON.stringify(kinds)+' artwork flags; '+pages.length+'/'+pages.length+' MBB pages have one owner; no stacked ring imports');
 }
 run().catch(e=>{console.error(e);process.exitCode=1});
