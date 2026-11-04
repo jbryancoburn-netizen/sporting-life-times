@@ -27,8 +27,7 @@
 .cbb-filter-bar button[aria-pressed="true"]{color:#0f303c;border-bottom-color:#b05e43}
 .cbb-filter-bar button[aria-pressed="true"] span{color:#0f303c}
 .cbb-filter-bar button:hover{background:#edece7}
-.cbb-filter-bar button:focus-visible,.cbb-date-controls button:focus-visible,
-.cbb-date-controls input:focus-visible,.cbb-box-btn:focus-visible{outline:2px solid #a75c3d;outline-offset:2px}
+.cbb-filter-bar button:focus-visible,.cbb-date-controls button:focus-visible,.cbb-date-controls input:focus-visible{outline:2px solid #a75c3d;outline-offset:2px}
 .cbb-source-stamp{font:400 10px/1.4 Arial,sans-serif!important;color:#778487!important;
  margin:6px 0 11px!important;letter-spacing:0}
 .cbb-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:10px}
@@ -41,69 +40,6 @@
 .cbb-ledger-card .cbb-inline-tabs button{font-family:Georgia,'Times New Roman',serif}
 .cbb-ledger-card .cbb-inline-source{font-family:Georgia,'Times New Roman',serif;color:#594b38}
 .cbb-ledger-card .ledger26-meta>span:last-child{font-size:11px;max-width:55%;text-align:right}
-.cbb-featured{margin:0 0 11px;display:block}
-.cbb-feature-marker{font:700 10px Arial,sans-serif;letter-spacing:.75px;color:#6a625b;
- text-transform:uppercase;margin:1px 0 7px}
-.cbb-featured .cbb-game-card{max-width:none}
-.cbb-game-card{position:relative;min-width:0;border:1px solid #c9cfcc;border-top:2px solid #284954;
- background:#fff;color:var(--ink);box-shadow:none;overflow:hidden;display:flex;flex-direction:column}
-.cbb-live.cbb-game-card{border-top-color:#b44439}
-.cbb-game-card:hover{border-color:#9caeac}
-.cbb-bug-top{display:flex;justify-content:space-between;gap:10px;align-items:center;
- min-height:36px;padding:7px 12px;border-bottom:1px solid #e3e5e1;background:#f6f7f4;
- color:#3d535b;font:700 11px/1.25 Arial,sans-serif}
-.cbb-bug-top>span:first-child{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-.cbb-live-pill{font:800 10px Arial,sans-serif;letter-spacing:.7px;color:#b13e36}
-.cbb-final{font:800 10px Arial,sans-serif;letter-spacing:.6px;color:#3a6262}
-.cbb-bug-network{font:600 10px Arial,sans-serif;color:#747f7e;text-align:right;max-width:125px;
- overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.cbb-match-rows{padding:1px 12px;background:#fff}
-.cbb-scorebug-row{display:flex;align-items:center;gap:10px;min-height:65px;padding:7px 0;
- border-bottom:1px solid #e6e9e6}
-.cbb-match-rows .cbb-scorebug-row:last-child{border-bottom:0}
-.cbb-team-side{display:none}
-.cbb-team-link{min-width:0;flex:1;color:inherit!important;text-decoration:none!important}
-.cbb-team-link:hover .cbb-name b{text-decoration:underline}
-.cbb-team-identity{display:flex;align-items:center;gap:10px;min-width:0;flex:1}
-.cbb-team-identity .mbb-mark,.cbb-team-identity .mbb-mark--score{--mbb-size:47px;
- width:47px!important;height:47px!important;min-width:47px!important;max-width:47px!important;
- min-height:47px!important;max-height:47px!important;flex:0 0 47px!important}
-.cbb-fallback-crest{display:grid;place-items:center;flex:0 0 47px;width:47px;height:47px;
- background:#fff;border-radius:50%;border:3px solid var(--cbb-primary,#1f4c5b);
- box-shadow:inset 0 0 0 2px var(--cbb-secondary,#609ca0);overflow:hidden;padding:5px}
-.cbb-fallback-crest img{display:block;width:100%;height:100%;object-fit:contain;border:0!important;box-shadow:none!important}
-.cbb-name{display:flex;flex-direction:column;min-width:0;gap:3px;text-align:left}
-.cbb-name b{font:800 17px/1.05 Arial,Helvetica,sans-serif;letter-spacing:0;color:#1c343c;
- white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.cbb-name small{font:400 11px/1.3 Arial,sans-serif!important;color:#697b7e!important;
- display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.cbb-ap-rank{font:800 9px Arial,sans-serif;color:#aa5837;border:1px solid #dcbca9;
- font-style:normal;padding:2px 4px;margin-left:6px;vertical-align:middle}
-.cbb-points{font:800 33px/1 Arial,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:-1px;
- color:#1b3540;min-width:48px;text-align:right;margin-left:auto}
-.cbb-winner .cbb-points{color:#132c36}
-.cbb-upcoming .cbb-points{color:#aab2b2}
-.cbb-preview{background:#f7f8f6;margin:0;padding:8px 12px;border-top:1px solid #e3e6e2;min-height:0}
-.cbb-preview-empty{display:none}
-.cbb-micro-wrap{display:grid;gap:5px}
-.cbb-micro-statline{display:flex;justify-content:space-between;align-items:center;gap:9px;flex-wrap:wrap}
-.cbb-micro-stat{display:flex;align-items:center;gap:6px;color:#41585e}
-.cbb-micro-stat b{font:800 11px Arial,sans-serif;font-variant-numeric:tabular-nums;color:#1a3d48}
-.cbb-micro-stat small{font:700 9px Arial,sans-serif;color:#7b8688;letter-spacing:.25px}
-.cbb-leader-ticker{display:flex;gap:5px;align-items:baseline;flex-wrap:wrap;font:400 10px/1.4 Arial,sans-serif;
- color:#4c6166}
-.cbb-leader-ticker>span{font-weight:700;color:#6c7777;text-transform:none}
-.cbb-leader-ticker b{font-weight:600}
-.cbb-leader-ticker em{font-style:normal;color:#33464b;font-weight:700}
-.cbb-leader-ticker i{font-style:normal;color:#929997}
-.cbb-bug-bottom{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;
- padding:9px 12px;border-top:1px solid #e5e8e4;min-height:38px;font:400 10px/1.3 Arial,sans-serif;
- color:#7b8280}
-.cbb-bug-bottom>span:first-child{overflow:hidden;max-width:48%;text-overflow:ellipsis;white-space:nowrap}
-.cbb-model-inline{font:700 10px Arial,sans-serif;color:#526d68}
-.cbb-box-btn{color:#235361!important;text-decoration:none!important;background:transparent;
- font:800 11px Arial,sans-serif;white-space:nowrap;border-bottom:1px solid currentColor;padding:3px 0}
-.cbb-box-btn:hover{color:#a15337!important}
 .cbb-more-games{grid-column:1/-1;text-align:center;padding:14px 7px;border-top:1px solid var(--rule);
  color:#1b515d!important;font:700 11px Arial,sans-serif;letter-spacing:.5px;text-decoration:none!important}
 .cbb-more-games:hover{text-decoration:underline!important}
@@ -144,15 +80,10 @@
  .cbb-cards{grid-template-columns:1fr}
  .cbb-standalone{padding:12px}
  .cbb-desk-header h2{font-size:25px}
- .cbb-bug-bottom>span:first-child{max-width:48%}
- .cbb-game-card{max-width:none}
 }
 @media(max-width:380px){
  .cbb-date-label span{display:none}
  .cbb-filter-bar button{padding:7px}
- .cbb-scorebug-row{gap:7px}
- .cbb-team-identity{gap:7px}
- .cbb-name b{font-size:15px}
  .cbb-points{font-size:30px;min-width:38px}
 }
 
@@ -161,18 +92,15 @@
 .cbb-gamefile-page #cbb-gamefile-root{margin:18px 0 28px}
 .cbb-gamefile-back{border-bottom:3px double #143b4b;padding:12px 4px 14px;margin-bottom:20px}
 .cbb-gamefile-back a{font:900 11px Arial,sans-serif;letter-spacing:1.4px;text-decoration:none;color:#164455}
-.cbb-gamefile-detail{background:#fff;border:1px solid #cfdbde;box-shadow:0 6px 22px #081f2b0c;min-width:0}
-.cbb-gamefile-hero{padding:24px clamp(16px,3.4vw,38px) 20px;background:linear-gradient(125deg,#082839,#0c3346);border-top:5px solid #c9a466;color:#f8faf7}
-.cbb-gamefile-eyebrow{font:900 10px Arial,sans-serif;letter-spacing:1.8px;color:#e4c68b}
-.cbb-gamefile-hero h1{font:700 clamp(27px,4.2vw,47px)/1.12 Georgia,'Times New Roman',serif;margin:13px 0 12px;color:#fff;letter-spacing:-1.1px;overflow-wrap:anywhere}
-.cbb-gamefile-hero h1 em{font-size:.7em;color:#e5c48a}
-.cbb-gamefile-status{font-size:12px;color:#b4d5df;margin:0 0 14px}
+.cbb-gamefile-detail{background:#f9f2e6;border:1px solid #b7a282;box-shadow:none;min-width:0}
+.cbb-gamefile-hero{padding:18px clamp(14px,3vw,30px);background:#f4ebda;border-top:3px double #4f3b29;color:#30271c}
+.cbb-gamefile-eyebrow{font:700 11px Georgia,serif;letter-spacing:.09em;color:#765638}
+.cbb-gamefile-hero h1{font:700 clamp(26px,4vw,42px)/1.12 Georgia,'Times New Roman',serif;margin:12px 0;color:#30271c;letter-spacing:-.035em;overflow-wrap:anywhere}
+.cbb-gamefile-hero h1 em{font-size:.7em;color:#735537}
+.cbb-gamefile-status{font:13px/1.45 Georgia,serif;color:#564534;margin:0 0 14px}
 .cbb-gamefile-status .cbb-live-pill{vertical-align:middle}
-.cbb-gamefile-score{display:grid;grid-template-columns:1fr 1fr;gap:0;background:#0b2230;border:1px solid #356174}
-.cbb-gamefile-score .cbb-scorebug-row{border-bottom:0;min-width:0;background:transparent!important;box-shadow:none!important;min-height:80px}
-.cbb-gamefile-score .cbb-scorebug-row:first-child{border-right:1px solid #396272}
-.cbb-gamefile-score .cbb-name b{font-size:19px}
-.cbb-gamefile-score .cbb-points{font-size:39px;color:#fff}
+.cbb-gamefile-letterpress{max-width:820px;margin:12px 0 0}
+.cbb-gamefile-letterpress .ledger26-scorebug{width:100%}
 .cbb-gamefile-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));background:#f0f2ed;border-bottom:2px solid #b6c9ce;gap:0}
 .cbb-gamefile-tabs button{background:transparent;border:0;border-right:1px solid #d0d9d7;cursor:pointer;
  padding:18px 10px 15px;min-height:52px;text-align:center;color:#45606b;font:900 11px Arial,sans-serif;letter-spacing:.6px}
@@ -197,8 +125,6 @@
  .cbb-gamefile-page{padding:12px}
  .cbb-gamefile-hero{padding:20px 13px}
  .cbb-gamefile-hero h1{font-size:28px}
- .cbb-gamefile-score{grid-template-columns:1fr}
- .cbb-gamefile-score .cbb-scorebug-row:first-child{border-right:0;border-bottom:1px solid #396272}
  .cbb-gamefile-tabs button{padding:13px 5px;font-size:10px;min-height:47px;letter-spacing:0}
  .cbb-gamefile-detail [data-gamefile-panel]{padding:14px 12px 10px}
  .cbb-gamefile-detail .cbb-box-section h4{font-size:20px}
@@ -206,52 +132,6 @@
  .cbb-gamefile-detail .cbb-box-table th,.cbb-gamefile-detail .cbb-box-table td{padding:9px 8px}
 }
 
-.cbb-gamefile-score .cbb-name b{color:#eef5f7!important}
-.cbb-gamefile-score .cbb-name small{color:#bacbd1!important}
-.cbb-gamefile-score .cbb-team-identity{color:#f6f7f5}
-.cbb-gamefile-score .cbb-points{color:#fff}
-
-/* Every Courtside card identifies the evidence actually displayed. */
-.cbb-game-origin{font:600 10px/1.35 Arial,sans-serif;color:#496674;letter-spacing:.1px;padding:5px 11px 8px;border-top:1px solid #dbe5e5;overflow-wrap:anywhere}
-.cbb-game-card.cbb-live .cbb-game-origin{color:#235c68}
-.cbb-game-card .cbb-game-origin:empty{display:none}
-
-
-/* COURTSIDE GAMEFILE · editorial scoreboard and verified statistical rail */
-.cbb-gamefile-hero{
-  padding:20px clamp(14px,3vw,30px) 19px;
-  background:#092936;
-  border-top:4px solid #c2a36c;
-}
-.cbb-gamefile-hero h1{font:700 clamp(24px,3.2vw,39px)/1.12 Georgia,serif;letter-spacing:-.55px;margin:10px 0}
-.cbb-gamefile-hero .cbb-gamefile-status{margin:0 0 15px;line-height:1.5}
-.cbb-gamefile-score{
-  border:1px solid #34515a;
-  background:#0b2733;
-  overflow:hidden;
-}
-.cbb-gamefile-score .cbb-scorebug-row{
-  position:relative;min-height:95px;padding:13px 14px;
-  border:0!important;box-shadow:none!important;
-  border-left:5px solid var(--cbb-away,#307391)!important;
-  background:linear-gradient(90deg,color-mix(in srgb,var(--cbb-away,#307391) 20%,#0b2733),#0b2733 76%)!important;
-}
-.cbb-gamefile-score .cbb-scorebug-row:nth-child(2){
-  border-left-color:var(--cbb-home,#d8aa52)!important;
-  background:linear-gradient(90deg,color-mix(in srgb,var(--cbb-home,#d8aa52) 20%,#0b2733),#0b2733 76%)!important;
-}
-.cbb-gamefile-score .cbb-team-identity{gap:13px}
-.cbb-gamefile-score .cbb-team-identity .mbb-mark,
-.cbb-gamefile-score .cbb-team-identity .mbb-mark--score{
-  --mbb-size:58px;width:58px!important;height:58px!important;
-  min-width:58px!important;max-width:58px!important;min-height:58px!important;max-height:58px!important;
-  flex:0 0 58px!important;
-}
-.cbb-gamefile-score .cbb-name{gap:4px}
-.cbb-gamefile-score .cbb-name b{font-size:clamp(18px,2.5vw,24px);letter-spacing:.01em}
-.cbb-gamefile-score .cbb-name small{font-size:12px!important;color:#d1dfe2!important;line-height:1.25}
-.cbb-gamefile-score .cbb-team-context{font:700 10px/1.3 Arial,sans-serif;color:#dfbb82;letter-spacing:.045em}
-.cbb-gamefile-score .cbb-points{font:800 clamp(40px,5vw,57px)/1 Arial,sans-serif;letter-spacing:-2px;min-width:53px}
 .cbb-gamefile-stats{
   border:1px solid #d6dfdd;background:#f9faf8;margin:0 0 17px;overflow:hidden;
 }
@@ -295,83 +175,12 @@
 @media(max-width:720px){
   .cbb-gamefile-hero{padding:17px 13px}
   .cbb-gamefile-hero h1{font-size:clamp(23px,6vw,30px)}
-  .cbb-gamefile-score{grid-template-columns:1fr}
-  .cbb-gamefile-score .cbb-scorebug-row{min-height:88px;padding:11px 12px;border-right:0!important}
-  .cbb-gamefile-score .cbb-scorebug-row:first-child{border-bottom:1px solid #365561}
-  .cbb-gamefile-score .cbb-team-identity .mbb-mark,
-  .cbb-gamefile-score .cbb-team-identity .mbb-mark--score{
-    --mbb-size:54px;width:54px!important;height:54px!important;
-    min-width:54px!important;max-width:54px!important;min-height:54px!important;max-height:54px!important;
-    flex:0 0 54px!important;
-  }
-  .cbb-gamefile-score .cbb-name b{font-size:21px}
-  .cbb-gamefile-score .cbb-points{font-size:45px}
   .cbb-gamefile-stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .cbb-gamefile-stat:nth-child(3n){border-right:1px solid #e0e8e5}
   .cbb-gamefile-stat:nth-child(2n){border-right:0}
   .cbb-gamefile-tabs button{font-size:10px;letter-spacing:0;min-height:49px;padding:10px 5px}
 }
 @media(prefers-reduced-motion:reduce){.cbb-gamefile-tabs button{transition:none}}
-
-
-/* Compact team-color treatment on the main Courtside game cards, too. */
-.cbb-game-card .cbb-match-rows{padding:0;background:#fff}
-.cbb-game-card .cbb-match-rows .cbb-scorebug-row{
-  padding:9px 12px 9px 10px;min-height:70px;
-  border-bottom:1px solid #dde5e4;
-}
-.cbb-game-card .cbb-match-rows .cbb-scorebug-row:first-child{
-  border-left:4px solid var(--cbb-away,#23657d);
-  background:linear-gradient(90deg,color-mix(in srgb,var(--cbb-away,#23657d) 12%,white),#fff 75%);
-}
-.cbb-game-card .cbb-match-rows .cbb-scorebug-row:nth-child(2){
-  border-left:4px solid var(--cbb-home,#b17931);
-  background:linear-gradient(90deg,color-mix(in srgb,var(--cbb-home,#b17931) 12%,white),#fff 75%);
-}
-.cbb-game-card .cbb-match-rows .cbb-team-identity .mbb-mark{--mbb-size:50px;
-  flex-basis:50px!important;min-width:50px!important;max-width:50px!important;
-  min-height:50px!important;max-height:50px!important;width:50px!important;height:50px!important}
-.cbb-game-card .cbb-match-rows .cbb-name b{font-size:18px}
-@media(max-width:380px){
- .cbb-game-card .cbb-match-rows .cbb-team-identity .mbb-mark{--mbb-size:45px;
-   flex-basis:45px!important;min-width:45px!important;max-width:45px!important;
-   min-height:45px!important;max-height:45px!important;width:45px!important;height:45px!important}
- .cbb-game-card .cbb-match-rows .cbb-name b{font-size:16px}
-}
-
-
-/* A school's actual name is the primary scorebug label.
-   Never ellipsize full names into cryptic 1–2 character school codes. */
-.cbb-game-card .cbb-name b.cbb-school-label,
-.cbb-gamefile-score .cbb-name b.cbb-school-label{
-  display:block;white-space:normal;overflow:visible;text-overflow:clip;
-  line-height:1.14;overflow-wrap:break-word;hyphens:none;
-}
-.cbb-game-card .cbb-school-mascot,
-.cbb-gamefile-score .cbb-school-mascot{
-  display:block;white-space:normal;overflow-wrap:break-word;
-  line-height:1.3;opacity:.93;
-}
-.cbb-game-card .cbb-team-link,
-.cbb-gamefile-score .cbb-team-link,
-.cbb-game-card .cbb-name,
-.cbb-gamefile-score .cbb-name{min-width:0}
-.cbb-game-card .cbb-scorebug-row,
-.cbb-gamefile-score .cbb-scorebug-row{height:auto}
-@media(max-width:540px){
- .cbb-game-card .cbb-name b.cbb-school-label{font-size:17px;line-height:1.15}
- .cbb-gamefile-score .cbb-name b.cbb-school-label{font-size:20px;line-height:1.15}
- .cbb-game-card .cbb-points{flex:0 0 auto}
-}
-
-
-/* Inline game report: a native expansion of the existing Courtside scorebug.
-   All reporting stays in this card, not in an iframe or another page. */
-.cbb-game-card .cbb-box-btn{appearance:none;border:0;border-bottom:1px solid currentColor;border-radius:0;
-  background:transparent;cursor:pointer;font:800 11px Arial,Helvetica,sans-serif;color:#235361;
-  white-space:nowrap;padding:4px 0;min-height:30px}
-.cbb-game-card .cbb-box-btn[aria-expanded="true"]{color:#87352c}
-.cbb-game-card.cbb-expanded{grid-column:1/-1;border-color:#a99c83;border-top-color:#403329}
 .cbb-inline-detail[hidden],.cbb-inline-detail [data-cbb-inline-panel][hidden]{display:none!important}
 .cbb-inline-detail{background:#fcf8ef;border-top:3px double #7b6b55;padding:0 16px 16px;min-width:0;color:#282720}
 .cbb-inline-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;
@@ -410,11 +219,3 @@
  .cbb-all-plays li span{font-size:9px}
 }
 
-/* The full sourced Gamefile is available without removing inline live details. */
-.cbb-game-card .cbb-bug-bottom{flex-wrap:wrap}
-.cbb-game-card .cbb-gamefile-link{
- display:inline-block;flex:0 0 auto;color:#235361;font:700 10px/1.35 Arial,sans-serif;
- letter-spacing:.035em;text-decoration:underline;text-underline-offset:3px;
- white-space:nowrap;padding:4px 0;
-}
-.cbb-game-card .cbb-gamefile-link:hover,.cbb-game-card .cbb-gamefile-link:focus-visible{color:#87352c}
