@@ -421,9 +421,13 @@ const emblem=t=>{
   const marked=outsideMark(t),logo=String(marked?.logo_url||obj.logo||'');
   const primary=brand(t),accent=secondary(t);
   const safe=/^https:\/\/[^\s"'<>]+$/i.test(logo)?logo:'';
+  const altLogo=String(marked?.logo_alternate_url||'');
+  const alternate=/^https:\/\/[^\s"'<>]+$/i.test(altLogo)?altLogo:'';
   const initials=String(t.name).slice(0,2);
+  // Try the vetted second host before returning to text if an image is blocked.
+  const onError="if(this.dataset.logoAlternate){let next=this.dataset.logoAlternate;this.dataset.logoAlternate='';this.src=next}else this.replaceWith(document.createTextNode(this.parentElement.dataset.fallback))";
   return '<span class="sl-emblem" style="--ring1:'+esc(primary)+';--ring2:'+esc(accent)+'" data-fallback="'+esc(initials)+'">'+
-    (safe?'<img loading="lazy" decoding="async" src="'+esc(safe)+'" alt="" onerror="this.replaceWith(document.createTextNode(this.parentElement.dataset.fallback))">':
+    (safe?'<img loading="lazy" decoding="async" src="'+esc(safe)+'" data-logo-alternate="'+esc(alternate)+'" alt="" onerror="'+esc(onError)+'">':
     '<span>'+esc(initials)+'</span>')+'</span>';
 };
 const rating=t=>{const r=rankOf(t,ratings,women);return r&&Number.isFinite(+r.elo)?Math.round(+r.elo):null};
