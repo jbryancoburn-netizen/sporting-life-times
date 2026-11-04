@@ -237,10 +237,11 @@ function home(){
     '<span class="nfl-p26-score-val'+(g.state==='pre'?' blank':'')+'">'+(g.state==='pre'?'—':format(s.score))+'</span></div>';
  }
  function scoreCard(g){
-  return '<a class="nfl-p26-score" href="'+urlGame(g.id)+'"><div class="nfl-p26-score-top"><span>WEEK '+escapeHtml(g.week)+'</span>'+
-   '<span class="'+(g.state==='in'?'in':'')+'">'+(g.state==='in'?'● ':'')+escapeHtml(status(g))+'</span></div>'+
-   scoreRow(g.away,g)+scoreRow(g.home,g)+
-   '<div class="nfl-p26-score-bottom">'+escapeHtml(g.state==='pre'?date(g.date)+(g.broadcast?' · '+g.broadcast:''):g.broadcast||g.last_play||g.venue||'Game center →')+'</div></a>';
+  return '<article class="ledger26-card">'+
+    '<div class="ledger26-meta"><span>WEEK '+escapeHtml(g.week)+'</span><span>'+escapeHtml(status(g))+'</span></div>'+
+    nflLetterpress(g)+
+    '<div class="ledger26-meta"><span>'+escapeHtml(g.state==='pre'?date(g.date)+(g.broadcast?' · '+g.broadcast:''):g.broadcast||g.venue||'')+'</span>'+
+    '<a href="'+urlGame(g.id)+'">OPEN GAME CENTER ↗</a></div></article>';
  }
  function featureTicker(g){
   const tAway=team(g.away.id),tHome=team(g.home.id),pre=g.state==='pre';

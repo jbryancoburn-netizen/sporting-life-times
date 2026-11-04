@@ -58,10 +58,23 @@ try{
   spot.innerHTML=direct+playin;
  }
  const byCode=new Map(teams.map(t=>[t.code,t]));
+ const standingsByCode=new Map(table.map(t=>[t.code,t]));
+ const tied=new Map();teams.forEach(t=>tied.set(t.rank,(tied.get(t.rank)||0)+1));
  $('el-recent-results-list').innerHTML=results.length?results.slice(0,10).map(g=>{
- const away=byCode.get(g.away)||{code:g.away},home=byCode.get(g.home)||{code:g.home};
- const row=(t,score)=>'<div class="el-result-row"><span>'+('<img class="el-result-crest" data-slt-mark-state="1" src="assets/euroleague-logos/'+esc(t.code)+'.png" alt="'+esc(t.name||t.code)+' crest" decoding="async">')+'<span class="el-result-name" title="'+esc(t.name||t.code)+'">'+esc(t.name||t.code)+'</span></span><b>'+esc(score)+'</b></div>';
- return '<article class="el-result-card"><small>'+esc(date(g.date))+' · FINAL</small>'+row(away,g.score?.[1])+row(home,g.score?.[0])+'</article>';
+  const away=byCode.get(g.away)||{code:g.away},home=byCode.get(g.home)||{code:g.home};
+  const verified=Array.isArray(g.score)&&g.score.length===2&&g.score.every(s=>s!=null&&Number.isFinite(Number(s)));
+  const phase=verified?'final':'upcoming';
+  const profile=(t,score)=>{
+   const s=standingsByCode.get(t.code);
+   return {name:t.name||t.code,crest:logo(t),
+     color:/^#[a-f0-9]{6}$/i.test(t.primary||'')?t.primary:'#66503a',
+     record:s?s.wins+'–'+s.losses:'Record pending',
+     retro:window.SLTSportsScorebug.formatRetro(t,tied,teams.length),
+     score:verified?score:null};
+  };
+  return '<article class="ledger26-card"><div class="ledger26-meta"><span>'+esc(date(g.date))+' · '+(verified?'FINAL':'SCORE PENDING')+'</span></div>'+
+    window.SLTSportsScorebug.render({phase,status:verified?undefined:'SCORE PENDING',
+      away:profile(away,g.score?.[1]),home:profile(home,g.score?.[0])})+'</article>';
  }).join(''):'<p class="hub-small">Recent verified finals not yet provided by the model.</p>';
  lastEditionStamp=d.updated_at;
  if($('el-prediction-status'))$('el-prediction-status').textContent=(d.fixtures||[]).length+' future matchups in the published schedule · Elo probabilities use independent ratings; projected scores and spreads remain experimental.';

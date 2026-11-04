@@ -72,7 +72,7 @@ body.nfl-paper[data-page="front"] .nfl-bar{padding:8px 0;color:#6a6a60;line-heig
 .nfl-p26 .nfl-p26-section-head h2{font:700 clamp(25px,2.8vw,38px)/1 Georgia,serif;letter-spacing:-.05em;margin:2px 0 0}
 .nfl-p26 .nfl-p26-section-head p{font:12px/1.35 Arial,sans-serif;margin:2px 0;color:#60645f}
 .nfl-p26 .nfl-p26-section-head a{font:800 10px/1.4 Arial,sans-serif;letter-spacing:.1em;color:#a32d25}
-.nfl-p26 .nfl-p26-score-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:#cacbc3;border:1px solid #cacbc3}
+.nfl-p26 .nfl-p26-score-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:#cacbc3;border:1px solid #cacbc3}
 .nfl-p26 .nfl-p26-score{display:flex;flex-direction:column;background:#fdfcf8;padding:11px 12px 9px;text-decoration:none!important;min-width:0;min-height:153px;transition:background .15s}
 .nfl-p26 .nfl-p26-score:hover{background:#f0eee5}
 .nfl-p26 .nfl-p26-score-top{display:flex;justify-content:space-between;gap:5px;align-items:center;font:800 10px/1.25 Arial,sans-serif;letter-spacing:.06em;color:#74776f;margin-bottom:8px}
@@ -138,7 +138,7 @@ body.nfl-paper[data-page="front"] .nfl-bar{padding:8px 0;color:#6a6a60;line-heig
 .nfl-p26 .nfl-p26-broken{font:12px/1.5 Arial,sans-serif;background:#f0eee5;border-left:3px solid #ae372b;padding:12px;margin:8px 0}
 .nfl-p26 .nfl-p26-method{font:11px/1.45 Arial,sans-serif;color:#6e746d;border-top:1px solid #cccdc5;padding-top:12px;margin-top:13px}
 @media(max-width:1100px){
- .nfl-p26 .nfl-p26-score-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .nfl-p26 .nfl-p26-score-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
  .nfl-p26 .nfl-p26-feature{padding:19px 21px}
  .nfl-p26 .nfl-p26-player-copy strong{font-size:20px}
 }
@@ -169,7 +169,7 @@ body.nfl-paper[data-page="front"] .nfl-bar{padding:8px 0;color:#6a6a60;line-heig
  .nfl-p26 .nfl-p26-big-score{font-size:45px}
  .nfl-p26 .nfl-p26-focus-list{grid-template-columns:1fr;gap:0}
  .nfl-p26 .nfl-p26-focus-rail{padding:15px}
- .nfl-p26 .nfl-p26-score-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .nfl-p26 .nfl-p26-score-grid{grid-template-columns:1fr}
  .nfl-p26 .nfl-p26-score{padding:9px 8px;min-height:145px}
  .nfl-p26 .nfl-p26-score-row{grid-template-columns:29px minmax(0,1fr) auto;gap:4px}
  .nfl-p26 .nfl-p26-score-row .nfl-badge.sm{width:29px;height:29px;flex-basis:29px;--nfl-outer:3px;--nfl-inner:2px}

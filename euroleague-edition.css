@@ -224,7 +224,7 @@ body.league-edition[data-league="euroleague"] .el-odds-bar i{display:block;heigh
 @media(max-width:430px){body.league-edition[data-league="euroleague"] .el-results-list{grid-template-columns:1fr}}
 
 /* Final scorecard correction: team names must never be ellipsized or crushed. */
-body.league-edition[data-league="euroleague"] .el-results-list{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+body.league-edition[data-league="euroleague"] .el-results-list{grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:10px}
 body.league-edition[data-league="euroleague"] .el-result-card{padding:10px 12px}
 body.league-edition[data-league="euroleague"] .el-result-row{grid-template-columns:minmax(0,1fr) 36px;gap:8px;min-height:36px;font-size:13px}
 body.league-edition[data-league="euroleague"] .el-result-row>span{min-width:0;display:flex;align-items:center;gap:8px}
