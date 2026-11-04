@@ -106,7 +106,11 @@ for(let offset=0;offset<dates.length;offset+=8){
 }
 if(failures.length){
  console.warn('Some ESPN daily scoreboards were unavailable; keeping all previously verified and independently archived finals. '+failures.slice(0,8).join(' | '));
- if(!archivedFinals)throw Error('NBA scoreboard unavailable and no independently verified completed boxes');
+ // An already-published, audited final ledger remains a valid fallback when
+ // ESPN and the optional detailed box-score archive both temporarily fail.
+ // Do not turn a provider outage into a broken scheduled workflow; never
+ // manufacture a result or remove a previously certified final.
+ if(!archivedFinals && collected.size===0)throw Error('NBA scoreboard unavailable and no verified final-score ledger to preserve');
 }
 // Fail closed rather than inadvertently dropping or revising an already published result.
 for(const previous of old.events||[]){
