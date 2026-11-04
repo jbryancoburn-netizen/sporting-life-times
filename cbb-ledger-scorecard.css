@@ -170,26 +170,13 @@
  .ledger26-status strong{font-size:10px!important}
 }
 
-/* Shared live game clock: typographic hierarchy within the existing fixed-width status panel. */
-.ledger26-status--stack{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:6px 3px}
-.ledger26-status--stack .ledger26-clock{display:block;color:#792e25!important;font:700 27px/1 Georgia,'Times New Roman',serif!important;white-space:nowrap;font-variant-numeric:tabular-nums;letter-spacing:-.025em!important}
-.ledger26-status--stack .ledger26-clock--text{font-size:15px!important;white-space:normal;overflow-wrap:anywhere}
-.ledger26-period{display:block;color:#39291c;font:700 10px/1.15 Georgia,'Times New Roman',serif;letter-spacing:.06em;text-transform:uppercase}
-.ledger26-situation,.ledger26-live-word{display:block;max-width:100%;color:#70452e;font:700 9px/1.2 Georgia,'Times New Roman',serif;letter-spacing:.04em;text-transform:uppercase;overflow-wrap:anywhere}
-.ledger26-live-word{color:#8a382b;letter-spacing:.16em}
-@media(max-width:640px){
- .ledger26-status--stack{gap:4px;padding:4px 2px}
- .ledger26-status--stack .ledger26-clock{font-size:23px!important}
- .ledger26-status--stack .ledger26-clock--text{font-size:12px!important}
- .ledger26-period{font-size:9px;letter-spacing:0}
- .ledger26-situation,.ledger26-live-word{font-size:8px}
-}
-@media(max-width:360px){.ledger26-status--stack .ledger26-clock{font-size:20px!important}.ledger26-period{font-size:8px}}
-
-/* Ensure all live status elements remain separate, unbroken lines. */
-.ledger26-status--stack{min-width:0;overflow:hidden;gap:5px;flex-wrap:nowrap}
-.ledger26-status--stack .ledger26-clock,.ledger26-status--stack .ledger26-period,.ledger26-status--stack .ledger26-situation,.ledger26-status--stack .ledger26-live-word{width:100%;max-width:100%;display:block;text-align:center;overflow-wrap:normal;word-break:normal;hyphens:none;white-space:nowrap}
-.ledger26-status--stack .ledger26-clock--text{font-size:12px!important;letter-spacing:0!important}
-.ledger26-status--stack .ledger26-period{font-size:9px;letter-spacing:0}
-@media(max-width:640px){.ledger26-status--stack .ledger26-clock--text{font-size:11px!important}.ledger26-status--stack .ledger26-period{font-size:8px}}
-@media(max-width:360px){.ledger26-status--stack .ledger26-clock--text{font-size:9px!important}.ledger26-status--stack .ledger26-period{font-size:7px}}
+/* Canonical live status panel. No separate status-label overlays. */
+.ledger26-status--stack{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px;min-width:0;overflow:hidden;padding:5px 3px}
+.ledger26-status--stack .ledger26-clock,.ledger26-status--stack .ledger26-period,.ledger26-status--stack .ledger26-situation{display:block;width:100%;min-width:0;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:clip;overflow-wrap:normal;word-break:normal;text-align:center;hyphens:none}
+.ledger26-status--stack .ledger26-clock{color:#802f23!important;font:700 27px/1 Georgia,'Times New Roman',serif!important;font-variant-numeric:tabular-nums}
+.ledger26-status--stack .ledger26-clock--text{font-size:12px!important}
+.ledger26-status--stack .ledger26-period{color:#382b20;font:700 10px/1.1 Georgia,'Times New Roman',serif;letter-spacing:0}
+.ledger26-status--stack .ledger26-momentum{border-top:1px solid #a88f70;padding-top:5px;color:#55402d;font:700 9px/1.1 Georgia,'Times New Roman',serif;letter-spacing:0}
+.ledger26-status--stack .ledger26-momentum--run{color:#8d3428}
+@media(max-width:640px){.ledger26-status--stack{gap:5px;padding:4px 2px}.ledger26-status--stack .ledger26-clock{font-size:23px!important}.ledger26-status--stack .ledger26-clock--text{font-size:10px!important}.ledger26-status--stack .ledger26-period{font-size:8px}.ledger26-status--stack .ledger26-momentum{font-size:8px}}
+@media(max-width:360px){.ledger26-status--stack .ledger26-clock{font-size:20px!important}.ledger26-status--stack .ledger26-momentum{font-size:7px}}
