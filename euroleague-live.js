@@ -73,7 +73,6 @@ try{
    return a.status==='final'?bd-ad:ad-bd;
  }).slice(0,24);
  const logo=t=>/^[A-Z]{3}$/.test(String(t?.code||'').toUpperCase())?'<img class="el-official-logo club-logo" data-euroleague-code="'+esc(String(t.code).toUpperCase())+'" alt="'+esc(t.name||t.code)+' crest" src="assets/euroleague-logos/'+esc(String(t.code).toUpperCase())+'.png">':'';
- const team=t=>'<div class="el-live-team">'+logo(t)+'<div class="el-live-team-info"><span class="el-live-team-name">'+esc(clubName(t))+'</span>'+(clubMeta(t)?'<small>'+esc(clubMeta(t))+'</small>':'')+'</div><b>'+esc(t.score??'—')+'</b></div>';
  const forecast=await fetch('data/euroleague-model.json?live='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null);
  clubMap.clear();recordMap.clear();
  for(const item of forecast?.rankings||[])clubMap.set(String(item.code).toUpperCase(),item);
@@ -100,7 +99,26 @@ try{
  const verifiedStats=officialComparison(g);
  const info='<div class="el-live-detail-inner"><h4>QUARTER-BY-QUARTER</h4>'+quarterRows+'<div class="el-live-detail-stats">'+margin+total+'</div>'+seasonComparison(g)+forecastComparison(g,pred)+verifiedStats+(!verifiedStats?'<p class="el-live-unavailable">Verified shooting, rebounding and player box scores are not yet provided by the official live feed. Season scoring averages above are not live game statistics.</p>':'')+'</div>';
  const detail=freshLive?g.status_detail||'In progress':g.status==='live'?'Last verified score · '+(Number.isFinite(scoreStamp)?et(g.score_updated_at):'time unavailable'):'';
- return '<article class="el-live-card el-live-card--enhanced"><div class="el-live-meta"><span class="'+(freshLive?'el-live-now':'')+'">'+esc(label)+'</span><small>'+esc(et(g.date))+'</small></div>'+team(g.away)+team(g.home)+(detail?'<div class="el-live-clock">'+esc(detail)+'</div>':'')+stats+'<details class="el-live-expand" data-game-id="'+esc(g.id)+'"><summary>Game center <span>Quarter scores · records · Elo · stats</span></summary>'+info+'</details><div class="el-live-foot">Official score feed · '+(scoreFresh?'Updated '+esc(et(g.score_updated_at)):'Refresh every 60 sec')+'</div></article>';
+ const rankCounts=new Map();
+ for(const club of forecast?.rankings||[]){const pos=Number(club.rank);if(Number.isInteger(pos))rankCounts.set(pos,(rankCounts.get(pos)||0)+1);}
+ const letterTeam=t=>{
+  const p=profile(t),hex=t.primary||p?.primary||'';
+  return {name:clubName(t),score:scored?t.score:null,crest:logo(t),
+   color:/^#[a-f0-9]{6}$/i.test(hex)?hex:'#66503a',
+   record:wins(t)||'Record pending',
+   retro:window.SLTSportsScorebug?.formatRetro(p,rankCounts,20)||'RETRO —'};
+ };
+ const phase=g.status==='final'?'final':g.status==='scheduled'?'upcoming':'live';
+ const card=window.SLTSportsScorebug?.render({
+  phase,status:detail||label,away:letterTeam(g.away),home:letterTeam(g.home)
+ })||'<p class="hub-small">Scorebug unavailable.</p>';
+ return '<article class="el-live-card ledger26-card">'+
+  '<div class="ledger26-meta"><span>'+esc(g.venue||'EuroLeague')+'</span><span>'+esc(et(g.date))+'</span></div>'+
+  '<details class="ledger26-expand" data-game-id="'+esc(g.id)+'"><summary class="ledger26-summary">'+
+  card+'<span class="ledger26-instruction">OPEN GAME DETAILS +</span></summary>'+
+  '<div class="ledger26-expanded">'+info+
+  '<p class="ledger26-detail-note">Official result feed · '+(scoreFresh?'Updated '+esc(et(g.score_updated_at)):'Latest published snapshot')+'</p>'+
+  '</div></details></article>';
  }).join('')||'<p class="hub-small">No games in this scorebug window.</p>';
  host.querySelectorAll('details[data-game-id]').forEach(el=>{if(expanded.has(el.dataset.gameId))el.open=true});
  const officialLive=Number(d.header_responses)||0;
