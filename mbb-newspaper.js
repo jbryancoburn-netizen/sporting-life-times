@@ -274,19 +274,23 @@ document.querySelectorAll('.nav a').forEach(a=>{if(a.pathname===location.pathnam
 
 
 async function refreshRatings(){
- const [next,log,up]=await Promise.all([get('data/ncaam-2026-27-retro-primary.json'),get(files[3]),get(files[4])]);
+ const [next,log,up,nextOverall]=await Promise.all([get('data/ncaam-2026-27-retro-primary.json'),get(files[3]),get(files[4]),get('data/mbb-overall-records-2026-27.json')]);
  const approved=next?.season==='2026-27'&&next.model==='retro-clean-slate'&&next.starting_elo===1500&&next.rankings?.length===365&&next.rankings.every(t=>t.base_elo===1500&&Number.isFinite(t.elo))&&next.games_played>=0;
  const changed=approved&&JSON.stringify(next.rankings.map(t=>[t.team_id,t.elo,t.games_played]))!==JSON.stringify(teams.map(t=>[t.team_id,t.elo,t.games_played]));
  const scheduleChanged=up&&JSON.stringify(up.games)!==JSON.stringify(schedule?.games);
+ const overallChanged=nextOverall?.records&&JSON.stringify(nextOverall.records)!==JSON.stringify(verifiedOverall?.records);
  if(up)schedule=up;
- if(!changed&&!scheduleChanged)return;
- if(changed){current=next;data=next;teams=enrichRankings(next.rankings);live=next.games_played>0;teamMap.clear();teams.forEach(t=>teamMap.set(t.team_id,t));if(log?.season==='2026-27')ledger=log;games=MBBEngine.verifiedGames(next,ledger);projection=MBBEngine.field(teams,games);resumes.clear();MBBEngine.resume(teams,games).forEach(t=>resumes.set(t.team_id,t.resume));}
+ if(overallChanged)verifiedOverall=nextOverall;
+ if(!changed&&!scheduleChanged&&!overallChanged)return;
+ if(changed||overallChanged){if(changed){current=next;data=next;live=next.games_played>0;}
+  teams=enrichRankings(data.rankings);teamMap.clear();teams.forEach(t=>teamMap.set(t.team_id,t));
+  if(changed){if(log?.season==='2026-27')ledger=log;games=MBBEngine.verifiedGames(next,ledger);projection=MBBEngine.field(teams,games);resumes.clear();MBBEngine.resume(teams,games).forEach(t=>resumes.set(t.team_id,t.resume));}}
  const scroll=window.scrollY,query=$('#team-search')?.value,opponent=$('#opponent')?.value,conf=$('#conf-pick')?.value;
  if(page==='home')home();else if(page==='conference')conference();else if(page==='team'){
   // Fresh ratings must update visible team information without destroying the
   // schedule filters, roster section, or the reader's chosen historical opponent.
   const t=teamMap.get(params.get('team')),card=$('#app .metrics');
-  if(t&&card&&changed){
+  if(t&&card&&(changed||overallChanged)){
    const subtitle=$('#app .team-hero p');
    if(subtitle)subtitle.textContent=t.conference+' · '+rec(t)+
     ' overall · '+(t.conference_wins||0)+'–'+(t.conference_losses||0)+' conference';
