@@ -1,0 +1,17 @@
+/* Independent results ledger: newspaper typography and source-first presentation */
+.election-ledger{margin:24px 0;padding:18px;border:2px solid #45372b;background:#f4eee2;color:#29231f;font-family:Georgia,serif}
+.election-ledger h2{font:700 clamp(25px,3vw,36px)/1.2 Georgia,serif;margin:4px 0 8px;color:#29231f}
+.election-ledger-kicker{font:700 11px Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase}
+.election-ledger-controls{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.election-ledger-controls button{border:1px solid #6b5846;background:transparent;padding:9px 16px;color:#29231f;font:700 12px Arial,sans-serif;cursor:pointer}
+.election-ledger-controls button[aria-pressed="true"]{background:#29231f;color:#fff}
+.election-ledger-status{font:12px/1.5 Georgia,serif;color:#493c30}
+.election-ledger-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(245px,1fr));gap:12px;margin-top:14px}
+.election-ledger-race{min-width:0;border-top:3px double #7e6b55;background:#fffaf0;padding:12px}
+.election-ledger-race-head{display:flex;justify-content:space-between;gap:8px;align-items:baseline;margin-bottom:10px;font-size:16px}
+.election-ledger-race-head span{font:700 9px Arial,sans-serif;white-space:nowrap;color:#695747}
+.election-ledger-candidate{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;border-bottom:1px solid #d6cabc;padding:7px 0;font-size:12px}
+.election-ledger-candidate strong{font-size:13px}.election-ledger-candidate small{font-size:11px}
+.election-ledger-foot,.election-ledger-empty{font:11px/1.6 Georgia,serif;color:#504639}
+.election-ledger a{color:#743d31;text-decoration:underline}
+@media(max-width:650px){.election-ledger{padding:12px}.election-ledger-grid{grid-template-columns:1fr}}
