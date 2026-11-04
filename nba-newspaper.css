@@ -793,3 +793,15 @@ body.nba-newspaper .nba-table th{font:700 10px Arial,sans-serif;border-bottom:2p
 body.nba-newspaper .nba-table td{padding:7px 5px}
 body.nba-newspaper .nba-table tbody tr:hover{background:#e9dac2}
 body.nba-newspaper .nba-tag{background:transparent;border:1px solid var(--line);border-radius:0;color:#74382e}
+
+
+/* Shared Victorian game cards: compact by default, details on deliberate click. */
+.nba-expand-game{overflow:hidden}
+.nba-expand-game>.nba-expand-trigger{display:block;cursor:pointer;list-style:none;position:relative;padding-bottom:4px}
+.nba-expand-game>.nba-expand-trigger::-webkit-details-marker{display:none}
+.nba-expand-game>.nba-expand-trigger::after{content:"＋ DETAILS";display:block;text-align:center;font:700 10px/1.5 Georgia,serif;letter-spacing:.08em;color:#365260;border-top:1px solid #d2c7ae;margin:6px 12px 0;padding:5px}
+.nba-expand-game[open]>.nba-expand-trigger::after{content:"− CLOSE DETAILS"}
+.nba-expand-game>.nba-expand-trigger:focus-visible{outline:2px solid #234d58;outline-offset:-2px}
+.nba-expand-game>.nba-expand-content{border-top:1px solid #c9bda4;padding:10px 12px 12px;background:#f5f0e5}
+.nba-expand-game .nba-game-hint{font:italic 12px Georgia,serif;color:#4c554e;margin:0 0 6px}
+.nba-expand-game[open]{height:auto}
