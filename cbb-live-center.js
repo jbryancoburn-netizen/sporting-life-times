@@ -297,27 +297,6 @@
     const label=g.phase==='upcoming'?'THE MATCHUP FILE':g.phase==='final'?'FINAL LEDGER':'LIVE NOTEBOOK';
     return '<div class="cbb-story-note"><span>'+label+'</span><p>'+esc(note)+'</p></div>';
   }
-  function selectFeatured(games){
-    if(!games.length)return null;
-    const scoreGame=g=>{
-      const phase=g.phase==='live'?10000:g.phase==='upcoming'?4500:1000;
-      const ap=[apRank(g.away),apRank(g.home)].filter(Boolean);
-      const ranked=ap.length?2000+Math.max(...ap.map(x=>26-x))*18:0;
-      const as=score(g.away),hs=score(g.home);
-      const closeness=g.phase==='live'&&as!=null&&hs!=null?
-        Math.max(0,1000-100*Math.abs(Number(as)-Number(hs))):0;
-      const m=modelFor(g);
-      const model=Number.isFinite(m?.probability)?Math.max(0,400-Math.abs(m.probability-.5)*800):0;
-      const soon=g.phase==='upcoming'&&g.date?Math.max(0,400-((Date.parse(g.date)-Date.now())/3600000)):0;
-      return phase+ranked+closeness+model+soon;
-    };
-    // Identity-first: live, ranked, and tight games lead; never invent a "big" game.
-    return games.reduce((best,g)=>!best||scoreGame(g)>scoreGame(best)?g:best,null);
-  }
-  function featuredGame(g){
-    // A single featured scorecard replaces the redundant editorial billboard.
-    return '<div class="cbb-featured"><div class="cbb-feature-marker">FEATURED GAME</div>'+scorebug(g)+'</div>';
-  }
   function radarBar(games){
     const live=games.filter(x=>x.phase==='live'),final=games.filter(x=>x.phase==='final');
     const close=live.filter(x=>score(x.away)!=null&&score(x.home)!=null&&Math.abs(Number(score(x.away))-Number(score(x.home)))<=5);
@@ -421,7 +400,7 @@
       '<button type="button" data-cbb-filter="final" aria-pressed="false">Final <span id="cbb-count-final">0</span></button>'+
       '<button type="button" data-cbb-filter="upcoming" aria-pressed="false">Upcoming <span id="cbb-count-upcoming">0</span></button></div>'+
       '<p class="cbb-source-stamp" id="cbb-source-stamp" aria-live="polite">Loading current scores…</p>'+
-      '<div id="cbb-feature-host"></div>'+
+
       '<div class="cbb-cards" id="cbb-cards"><p class="cbb-loading">Checking game data…</p></div>';
     if(isStandalone)old.appendChild(host);
     else old.parentNode.insertBefore(host,old);
@@ -445,8 +424,14 @@
       const detail=card.querySelector('[data-cbb-details]');
       detail.hidden=!open;
       const button=card.querySelector('[data-cbb-toggle]');
-      button.setAttribute('aria-expanded',String(open));button.textContent=open?'CLOSE DETAILS ▲':'GAME DETAILS ▼';
+      button.setAttribute('aria-expanded',String(open));
+      const caption=button.querySelector('[data-cbb-instruction]');
+      if(caption)caption.textContent=open?'CLOSE DETAILS −':'OPEN GAME DETAILS +';
       if(open)void loadInlineDetails(id,detail);
+    });
+    host.addEventListener('keydown',function(e){
+      const b=e.target.closest('[data-cbb-toggle]');
+      if(b&&(e.key==='Enter'||e.key===' ')){e.preventDefault();b.click();}
     });
     host.querySelector('#cbb-day-picker').addEventListener('change',function(){if(/^\d{4}-\d{2}-\d{2}$/.test(this.value)){state.day=this.value;refresh();}});
     mounted=true;return true;
@@ -799,18 +784,15 @@
     }
     document.querySelectorAll('#cbb-live-desk [data-cbb-filter]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.cbbFilter===state.filter)));
     const matching=state.filter==='all'?state.games:state.games.filter(g=>g.phase===state.filter);
-    const visible=isStandalone?matching:matching.slice(0,4);
-    const hero=selectFeatured(matching);
-    const rest=(hero?matching.filter(x=>x.id!==hero.id):matching).slice(0,isStandalone?matching.length:3);
-    const featured=q('#cbb-feature-host');
-    if(featured)featured.innerHTML=hero?featuredGame(hero):'';
+    // No oversized featured variant; every game uses the identical letterpress
+    // scorebug and expands in place. Homepage shows four, standalone shows all.
+    const shown=isStandalone?matching:matching.slice(0,4);
     const result=q('#cbb-cards');
-    if(result)result.innerHTML=rest.length?rest.map(scorebug).join('')+
-      (!isStandalone&&matching.length>6?'<a class="cbb-more-games" href="'+centerURL()+'">VIEW ALL '+matching.length+' GAMES <span aria-hidden="true">↗</span></a>':''):
-      (hero?'':'<p class="cbb-empty">'+(all?'No '+state.filter+' games on '+dateLabel(state.day)+'. Choose another filter.':
-      'No '+tag.toLowerCase()+'’s Division I games listed for '+dateLabel(state.day)+'. Try another date.')+'</p>');
-    if(result&&hero&&!rest.length&&!isStandalone&&matching.length>6)
-      result.innerHTML='<a class="cbb-more-games" href="'+centerURL()+'">VIEW ALL '+matching.length+' GAMES ↗</a>';
+    if(result)result.innerHTML=shown.length?shown.map(scorebug).join('')+
+      (!isStandalone&&matching.length>shown.length?
+        '<a class="cbb-more-games" href="'+centerURL()+'">VIEW ALL '+matching.length+' GAMES ↗</a>':''):
+      '<p class="cbb-empty">'+(all?'No '+state.filter+' games on '+dateLabel(state.day)+'. Choose another filter.':
+      'No '+tag.toLowerCase()+'’s Division I games listed for '+dateLabel(state.day)+'. Try another date.')+'</p>';
     // Preserve open games and the chosen tab during live score updates.
     for(const id of state.expanded){
       const card=[...document.querySelectorAll('#cbb-live-desk [data-cbb-game]')].find(x=>x.dataset.cbbGame===id);
@@ -1087,12 +1069,20 @@
       state.preseason=Number(ratings.games_played)===0;
       if(!state.ratingsReady)state.ratings.clear();
     }
-    if(!women&&polls?.season===season&&polls?.polls?.ap?.rankings?.length===25){
-      const aliases=new Map();
-      for(const t of xref?.teams||[])aliases.set(String(t.name).toLowerCase(),String(t.espn_id));
-      for(const row of polls.polls.ap.rankings){
-        const id=aliases.get(String(row.team).toLowerCase());
-        if(id&&Number.isInteger(row.rank)&&row.rank>0&&row.rank<=25)state.poll.set(id,row.rank);
+    if(!women&&polls?.season===season&&['coaches','ap'].every(k=>
+      Array.isArray(polls?.polls?.[k]?.rankings)&&polls.polls[k].rankings.length===25)){
+      const schools=new Map((xref?.teams||[]).map(t=>[String(t.name).toLowerCase(),String(t.espn_id)]));
+      const aliases={'Michigan State':'Michigan St.',"St. John's":"St. John's (NY)",
+        'Iowa State':'Iowa St.','USC':'Southern California'};
+      state.poll.clear();
+      for(const kind of ['coaches','ap']){
+        for(const row of polls.polls[kind].rankings){
+          const name=String(aliases[row.team]||row.team||'').toLowerCase();
+          const id=schools.get(name);
+          if(!id||!Number.isInteger(row.rank)||row.rank<1||row.rank>25)continue;
+          const ranking=state.poll.get(id)||{coaches:null,ap:null};
+          ranking[kind]=row.rank;state.poll.set(id,ranking);
+        }
       }
       state.pollDate=polls.as_of;
     }
