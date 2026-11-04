@@ -16,7 +16,7 @@ const card=g=>{
   crest:'<img src="'+esc(logo(name))+'" loading="lazy" alt="" onerror="this.hidden=true">',
   color:'#655239',record:'Record pending',retro:'RETRO —'});
  const scorebug=window.SLTSportsScorebug?.render({phase:mode,
-  status:mode==='live'?'LIVE · '+status(g):status(g),
+  status:mode==='live'?'LIVE · '+status(g):status(g),time:mode==='upcoming'?localTime(g.date)+' AET':'',network:(g.broadcasts||[]).join(', '),
   away:line(g.away,g.away_score),home:line(g.home,g.home_score)
  })||'<p>Scorebug unavailable.</p>';
  return '<article class="ledger26-card nbl-sd-game">'+
@@ -24,7 +24,9 @@ const card=g=>{
   '<span>'+esc((g.broadcasts||[]).join(', ')||localTime(g.date)+' AET')+'</span></div>'+
   '<details class="ledger26-expand"><summary class="ledger26-summary">'+scorebug+
   '<span class="ledger26-instruction">OPEN GAME DETAILS +</span></summary>'+
-  '<div class="ledger26-expanded"><p>'+esc(dateLabel(g.day)+' · '+status(g))+'</p>'+
+  '<div class="ledger26-expanded"><p>'+esc(dateLabel(g.day)+' · '+status(g))+'</p>'+ 
+  '<p><strong>ARENA</strong> '+esc(g.venue||'Venue not published')+' · <strong>BROADCAST</strong> '+esc((g.broadcasts||[]).join(', ')||'Not published')+'</p>'+ 
+  (g.state==='post'?'<p><strong>FINAL</strong> '+esc(g.away)+' '+esc(g.away_score??'—')+' · '+esc(g.home)+' '+esc(g.home_score??'—')+'</p>':'')+
   (g.url?'<p><a href="'+esc(g.url)+'" target="_blank" rel="noopener noreferrer">Official NBL box score ↗</a></p>':'')+
   '<p>RETRO rankings and institutional colors are shown only where verified source data is available.</p>'+
   '</div></details></article>';
