@@ -186,9 +186,10 @@
   #full-season-schedule .panel-head h2{font-size:clamp(22px,6vw,31px)!important;line-height:1.14!important}
 }
 @media(max-width:370px){
-  #full-season-schedule .mbb-schedule-table tbody tr{padding:13px!important;column-gap:12px!important}
-  #full-season-schedule .sched-matchup>.mbb-mark{--mbb-size:52px}
-  #full-season-schedule .sched-opponent strong{font-size:15px!important}
+  #full-season-schedule .mbb-schedule-table tbody tr{padding:9px 8px!important;column-gap:8px!important}
+  #full-season-schedule .sched-matchup>.mbb-mark{--mbb-size:40px}
+  #full-season-schedule .sched-opponent strong{font-size:12px!important}
+  #full-season-schedule .sched-time-cell,#full-season-schedule .sched-network-cell{font-size:11px!important}
 }
 
 /* Definitive opponent logo roundels. Consistent across desktop and mobile. */
