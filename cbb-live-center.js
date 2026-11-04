@@ -115,22 +115,6 @@
     if(/^[a-f\d]{6}$/i.test(raw)&&raw.toLowerCase()!=='ffffff')return '#'+raw;
     return '#294650';
   };
-  function row(t,phase,winning,gamefile=false){
-    const s=phase==='upcoming'?'—':score(t)??'—';
-    const link=gamefile?schoolLink(t):'',rating=teamRating(t);
-    const record=rating&&Number.isInteger(Number(rating.wins))&&Number.isInteger(Number(rating.losses))?
-      Number(rating.wins)+'–'+Number(rating.losses):'';
-    const elo=rating&&Number.isFinite(Number(rating.elo))?'RETRO '+Math.round(Number(rating.elo))+(Number.isInteger(rating.rank)?' (#'+rating.rank+')':''):'';
-    const context=[record,elo].filter(Boolean).join(' · ');
-    const identity='<span class="cbb-team-identity">'+crest(t)+
-      '<span class="cbb-name"><b class="cbb-school-label">'+esc(schoolLabel(t))+(state.poll.get(String(t?.team?.id||''))?'<i class="cbb-ap-rank">'+esc([state.poll.get(String(t.team.id)).coaches??'NR',state.poll.get(String(t.team.id)).ap??'NR'].join('/'))+'</i>':'')+'</b>'+
-      (mascotLabel(t)?'<small class="cbb-school-mascot">'+esc(mascotLabel(t))+'</small>':'')+
-      (context?'<span class="cbb-team-context">'+esc(context)+'</span>':'')+'</span></span>';
-    return '<div class="cbb-scorebug-row'+(winning?' cbb-winner':'')+'" data-team-side="'+esc(t.homeAway||'')+'">'+
-      '<span class="cbb-team-side">'+esc(code(t))+'</span>'+
-      (link?'<a href="'+link+'" class="cbb-team-link">'+identity+'</a>':identity)+
-      '<strong class="cbb-points" aria-label="'+esc(teamName(t))+' score">'+esc(s)+'</strong></div>';
-  }
   function summaryStats(g){
     const raw=state.summaryCache.get(g.id)?.data;
     if(!raw||g.phase==='upcoming'||g.disputed||g.statsDisputed)return '';
@@ -321,26 +305,29 @@
       '<div><strong>'+upset.length+'</strong><span>USRS UPSET WATCH</span></div>'+      (women?'':'<div><strong>'+ranked.length+'</strong><span>AP TOP 25 GAMES</span></div>')+
       '</div><p>Watch counts use current sourced scores and identified conference memberships. Upset watch requires a valid pregame model forecast.</p></div>';
   }
+  function toLetterpressTeam(t,g){
+    const profile=teamRating(t),id=String(t.team?.id||'');
+    const valid=profile&&Number.isFinite(Number(profile.elo));
+    const rank=Number(profile?.rank),max=women?363:365;
+    const record=profile&&Number.isInteger(Number(profile.wins))&&Number.isInteger(Number(profile.losses))?
+      Number(profile.wins)+'–'+Number(profile.losses):'0–0';
+    const elo=valid?'RETRO '+Math.round(Number(profile.elo))+
+      (Number.isInteger(rank)&&rank>=1&&rank<=max?' (#'+rank+')':''):'RETRO —';
+    return {name:schoolLabel(t),score:g.phase==='upcoming'?null:score(t),
+      crest:crest(t),color:safeTeamColor(t),record,retro:elo,poll:state.poll.get(id)||null};
+  }
+  function letterpressMarkup(g){
+    return window.SLTBasketballScorebug?.render({
+      phase:g.phase,status:g.phase==='live'?(g.headline||'LIVE'):
+       g.phase==='final'?'FINAL':'UPCOMING',
+      away:toLetterpressTeam(g.away,g),home:toLetterpressTeam(g.home,g)
+    })||'<p class="cbb-empty">Scorebug unavailable. Refresh the page.</p>';
+  }
   // The Courtside Desk and Daily Ledger share the same Victorian scorebug
   // renderer, rating terminology, logo system, and original source component.
   function scorebug(g){
     const expanded=state.expanded.has(String(g.id));
-    const asTeam=t=>{
-      const profile=teamRating(t),id=String(t.team?.id||'');
-      const valid=profile&&Number.isFinite(Number(profile.elo));
-      const rank=Number(profile?.rank),max=women?363:365;
-      const record=profile&&Number.isInteger(Number(profile.wins))&&Number.isInteger(Number(profile.losses))?
-        Number(profile.wins)+'–'+Number(profile.losses):'0–0';
-      const elo=valid?'RETRO '+Math.round(Number(profile.elo))+
-        (Number.isInteger(rank)&&rank>=1&&rank<=max?' (#'+rank+')':''):'RETRO —';
-      return {name:schoolLabel(t),score:g.phase==='upcoming'?null:score(t),
-        crest:crest(t),color:safeTeamColor(t),record,retro:elo,poll:state.poll.get(id)||null};
-    };
-    const scoreHTML=window.SLTBasketballScorebug?.render({
-      phase:g.phase,status:g.phase==='live'?(g.headline||'LIVE'):
-       g.phase==='final'?'FINAL':'UPCOMING',
-      away:asTeam(g.away),home:asTeam(g.home)
-    })||'<p class="cbb-empty">Scorebug unavailable. Refresh the page.</p>';
+    const scoreHTML=letterpressMarkup(g);
     const metadata=g.phase==='upcoming'?localDate(g.date):(g.venue||'COLLEGE BASKETBALL');
     return '<article class="ledger26-card cbb-ledger-card cbb-'+esc(g.phase)+
       (expanded?' cbb-expanded':'')+'" data-cbb-game="'+esc(g.id)+'">'+
@@ -982,7 +969,7 @@
     node.innerHTML='<header class="cbb-gamefile-hero" style="--cbb-away:'+safeTeamColor(g.away)+';--cbb-home:'+safeTeamColor(g.home)+'"><div class="cbb-gamefile-eyebrow">THE SPORTING LIFE & TIMES · '+(women?'WOMEN’S':'MEN’S')+' D-I · GAMEFILE '+esc(g.id)+'</div>'+
       '<h1>'+esc(schoolLabel(g.away))+' <em>'+(g.neutral?'vs.':'at')+'</em> '+esc(schoolLabel(g.home))+'</h1>'+
       '<p class="cbb-gamefile-status">'+currentView(g)+' · '+esc(g.venue||'Venue not listed')+(g.broadcast?' · '+esc(g.broadcast):'')+'</p>'+
-      '<div class="cbb-gamefile-score">'+row(g.away,g.phase,false,true)+row(g.home,g.phase,false,true)+'</div></header>'+
+      '<div class="cbb-gamefile-letterpress">'+letterpressMarkup(g)+'</div></header>'+
       gamefileStatStrip(g,raw)+
       '<nav class="cbb-gamefile-tabs" role="tablist" aria-label="Gamefile statistics">'+
       '<button role="tab" type="button" id="gf-tab-summary" aria-controls="gf-panel-summary" data-gamefile-tab="summary">Game Summary</button>'+
