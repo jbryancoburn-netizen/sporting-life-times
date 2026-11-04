@@ -145,8 +145,11 @@ function selectGames(all,day,view,query){
 }
 // Independently refresh the real scoreboard between static GitHub publications.
 // Admit only uniquely identified Division I schools from the existing crosswalk.
-function liveEvents(raw,day,registry){
- const schools=new Map((registry?.teams||[]).map(t=>[String(t.espn_id),t]));
+function liveEvents(raw,day,registry,women=false,womenRankings=[]){
+ const schools=women?
+  new Map((womenRankings||[]).map(t=>[String(t.team_id),{id:String(t.team_id),
+    name:String(t.team||'Team'),espn_name:String(t.team||'Team')}])):
+  new Map((registry?.teams||[]).map(t=>[String(t.espn_id),t]));
  const score=v=>{if(v==null||v==='')return null;const n=Number(v);return Number.isSafeInteger(n)&&n>=0&&n<=500?n:null};
  if(!Array.isArray(raw?.events))return[];
  return raw.events.flatMap(event=>{
@@ -157,6 +160,8 @@ function liveEvents(raw,day,registry){
   const a=schools.get(String(away.team?.id)),h=schools.get(String(home.team?.id));
   if(!a||!h||String(a.id)===String(h.id))return[];
   const state=event.status?.type?.state,phase=state==='in'?'live':state==='post'?'final':'upcoming';
+  const completed=phase==='final'&&event.status?.type?.completed===true;
+  const siteVerified=typeof match.neutralSite==='boolean',neutral=!siteVerified||match.neutralSite===true;
   const ap=score(away.score?.value??away.score?.displayValue??away.score);
   const hp=score(home.score?.value??home.score?.displayValue??home.score);
   if(phase==='upcoming'||ap===null||hp===null||(phase==='final'&&ap===hp))return[];
@@ -164,7 +169,7 @@ function liveEvents(raw,day,registry){
     away:{id:String(away.team.id),canonical:String(a.id),name:a.name,full:a.espn_name||a.name,score:ap},
     home:{id:String(home.team.id),canonical:String(h.id),name:h.name,full:h.espn_name||h.name,score:hp},
     venue:match.venue?.fullName||'',broadcast:(match.broadcasts||[]).flatMap(x=>x.names||[]).join(' / '),
-    status:event.status?.type?.shortDetail||'LIVE',timed:true,kind:'regular',
+    status:event.status?.type?.shortDetail||'LIVE',completed,neutral,site_verified:siteVerified,timed:true,kind:'regular',
     evidence:'live-scoreboard',source:phase==='final'?'Reported final · verification pending':'Live score reported',probability:null}];
  });
 }
@@ -182,6 +187,66 @@ function reconcileLive(published,updates){
     venue:g.venue||prior.venue,broadcast:g.broadcast||prior.broadcast,probability:prior.probability});
  }
  return dedupeFixtures([...result.values()]);
+}
+
+/* Exact all-season RETRO replay: reported completed scores are preliminary
+   until they enter the certified source ledger; never infer in-game Elo. */
+function provisionalRetro(published,live,engine,women=false){
+ const count=women?363:365;
+ if(published?.model!=='retro-clean-slate'||published.starting_elo!==1500||
+    published.rankings?.length!==count||!Array.isArray(published.events)||
+    typeof engine?.calculate!=='function')return {rankings:null,pending:0};
+ const roster=new Map(published.rankings.map(t=>[String(t.team_id),t]));
+ if(roster.size!==count)return {rankings:null,pending:0};
+ const existingIds=new Set(),fixtures=new Set();
+ for(const f of published.events){
+  if(!f.id||!roster.has(String(f.home_id))||!roster.has(String(f.away_id)))
+   return {rankings:null,pending:0};
+  existingIds.add(String(f.id));
+  fixtures.add([f.date,f.away_id,f.home_id].join('|'));
+ }
+ const extra=[],newIds=new Set(),newFixtures=new Set();
+ for(const g of live||[]){
+  if(g.phase!=='final'||g.completed!==true||g.kind!=='regular'||
+     !/^\d+$/.test(String(g.id))||!g.day||g.day<'2026-11-01'||g.day>'2027-04-30')continue;
+  const h=String(g.home?.canonical||''),a=String(g.away?.canonical||'');
+  const hs=Number(g.home?.score),as=Number(g.away?.score);
+  if(!roster.has(h)||!roster.has(a)||h===a||!Number.isSafeInteger(hs)||
+     !Number.isSafeInteger(as)||hs<1||as<1||hs>500||as>500||hs===as)continue;
+  const id=(women?'':'espn:')+g.id,key=[g.day,a,h].join('|');
+  if(existingIds.has(id)||fixtures.has(key)||newIds.has(id)||newFixtures.has(key))continue;
+  extra.push({id,date:g.day,away_id:a,home_id:h,away_score:as,home_score:hs,
+   neutral:g.neutral===true||g.site_verified!==true,site_verified:g.site_verified===true});
+  newIds.add(id);newFixtures.add(key);
+ }
+ if(!extra.length)return {rankings:null,pending:0};
+ const homeEdge=Number(published.parameters?.home_edge);
+ const passes=Number(published.parameters?.passes);
+ if(!Number.isFinite(homeEdge)||!Number.isInteger(passes)||passes<1||passes>300)
+  return {rankings:null,pending:0};
+ const all=[...published.events,...extra].sort((a,b)=>
+  a.date.localeCompare(b.date)||String(a.id).localeCompare(String(b.id)));
+ const result=engine.calculate(all,{baseline:1500,homeEdge,passes});
+ if(result.games!==all.length)return {rankings:null,pending:0};
+ const places=women?2:3;
+ const rows=published.rankings.map(t=>({...t,
+  elo:Number((result.ratings[String(t.team_id)]??1500).toFixed(places))}));
+ const index=new Map(rows.map(x=>[String(x.team_id),x]));
+ for(const f of extra){
+  const h=index.get(f.home_id),a=index.get(f.away_id);
+  h.games_played=Number(h.games_played||0)+1;
+  a.games_played=Number(a.games_played||0)+1;
+  const winner=f.home_score>f.away_score?h:a,loser=winner===h?a:h;
+  winner.wins=Number(winner.wins||0)+1;
+  loser.losses=Number(loser.losses||0)+1;
+  if(h.conference&&h.conference===a.conference){
+   winner.conference_wins=Number(winner.conference_wins||0)+1;
+   loser.conference_losses=Number(loser.conference_losses||0)+1;
+  }
+ }
+ rows.sort((a,b)=>b.elo-a.elo||a.team.localeCompare(b.team));
+ rows.forEach((t,i)=>{t.rank=i>0&&t.elo===rows[i-1].elo?rows[i-1].rank:i+1});
+ return {rankings:rows,pending:extra.length};
 }
 function start(){
 const root=document.getElementById('slate-root');if(!root)return;
@@ -667,5 +732,5 @@ setInterval(()=>{if(document.hidden||!window.SLTInlineGamefile)return;
  });
 },30000);
 }
-return{normalizeMen,normalizeWomen,liveEvents,reconcileLive,normalizeExhibitions,selectGames,gameDetailsHref,formatClock,isoDate,shift,start};
+return{normalizeMen,normalizeWomen,liveEvents,reconcileLive,provisionalRetro,normalizeExhibitions,selectGames,gameDetailsHref,formatClock,isoDate,shift,start};
 });
