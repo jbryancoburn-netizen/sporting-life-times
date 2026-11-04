@@ -1,0 +1,24 @@
+/* Big Ten pilot only: scoped Victorian calendar, no impact on other teams */
+#full-season-schedule.victorian-team-calendar{background:#f2e7d3;color:#30251c;border:5px double #5c4432;padding:16px;box-shadow:inset 0 0 0 3px #e3d0b4}
+.victorian-team-calendar .panel-head{border-bottom:4px double #866b4b;margin-bottom:10px;padding-bottom:10px}
+.victorian-team-calendar .panel-head h2{font:800 clamp(21px,2.5vw,29px)/1.15 Georgia,serif;letter-spacing:-.025em}
+.victorian-team-calendar .table-wrap{border:3px double #765c40;background:#f8eedc;padding:5px;overflow-x:auto}
+.victorian-team-calendar .mbb-schedule-table{width:100%;min-width:790px;border-collapse:separate;border-spacing:0 3px;font-family:Georgia,serif;color:#30251c}
+.victorian-team-calendar .mbb-schedule-table thead th{background:#e4d1b2;color:#694833;text-transform:uppercase;letter-spacing:.05em;border-bottom:3px double #7d6146;padding:10px 7px;font:700 10px Georgia,serif;text-align:left}
+.victorian-team-calendar .mbb-schedule-table tbody tr:not(.victorian-stat-detail) td{background:#f4e8d5;border-top:1px solid #cfb99a;border-bottom:1px solid #cfb99a;padding:8px 7px;vertical-align:middle}
+.victorian-team-calendar .mbb-schedule-table tbody tr:not(.victorian-stat-detail):nth-of-type(even) td{background:#ecddc5}
+.victorian-team-calendar .mbb-schedule-table tbody tr:not(.victorian-stat-detail) td:first-child{border-left:3px solid #805b40}
+.victorian-team-calendar .mbb-schedule-table tbody tr:not(.victorian-stat-detail) td:last-child{border-right:1px solid #cfb99a}
+.victorian-team-calendar .sched-matchup .badge{width:40px;height:40px}
+.victorian-team-calendar .victorian-completed-game{cursor:pointer}
+.victorian-team-calendar .victorian-completed-game:hover td,.victorian-team-calendar .victorian-completed-game:focus-visible td{background:#e5cfaa!important}
+.victorian-team-calendar .victorian-stat-toggle{display:inline-block;margin:7px 0 0;padding:5px 8px;border:2px double #88613e;background:#f8edd7;color:#603d2a;font:700 10px Georgia,serif;cursor:pointer}
+.victorian-team-calendar .victorian-stat-detail td{background:#f1e3cb!important;border:3px double #9d7a53;padding:15px!important}
+.victorian-team-calendar .victorian-stat-content{display:grid;gap:12px}
+.victorian-team-calendar .victorian-stat-block{overflow-x:auto}
+.victorian-team-calendar .victorian-stat-block h3{font:700 16px Georgia,serif;border-bottom:3px double #806043;margin:0 0 7px;padding-bottom:6px}
+.victorian-team-calendar .victorian-stat-block table{width:100%;border-collapse:collapse;font:12px Georgia,serif}
+.victorian-team-calendar .victorian-stat-block th,.victorian-team-calendar .victorian-stat-block td{padding:6px 9px;border-bottom:1px solid #c3a986;text-align:center}
+.victorian-team-calendar .victorian-stat-block th:first-child{text-align:left}
+.victorian-team-calendar .victorian-stat-detail[hidden]{display:none!important}
+@media(max-width:650px){#full-season-schedule.victorian-team-calendar{padding:10px}.victorian-team-calendar .table-wrap{padding:3px}}
