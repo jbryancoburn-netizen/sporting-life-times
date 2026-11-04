@@ -332,8 +332,15 @@ assert.match(missingNode.innerHTML,/COURT VIEW NOT AVAILABLE/,'empty feed should
 assert(!missingNode.innerHTML.includes('slc-floor'),'no source events means no mock basketball court');
 assert(courtFile.includes('cbb-live-court.js')&&courtFile.includes('cbb-live-court.css'),
  'CourtCast JS and CSS must actually load in the dedicated Gamefile');
-assert(js.includes("SLTCourt.mount(document.getElementById('cbb-courtcast-root'),g,raw,{updatedAt:entry?.at||0})"),
- 'Gamefile must mount on verified score-and-plays summary, without a separate unverified feed');
+// The safer single-source flow must reconcile live period totals before graphing.
+assert(js.includes("window.SLTInlineGamefile?.periodScoreSnapshot"),
+ 'Game Center must reuse the canonical Gamefile period-score verifier');
+assert(js.includes("flowMatches?raw:null") && js.includes("currentFlow?raw:null"),
+ 'CourtCast must withhold mismatched live feeds in full and inline Gamefiles');
+assert(js.includes("SLTCourt.mount(document.getElementById('cbb-courtcast-root'),g,flowMatches?raw:null,{updatedAt:entry?.at||0})"),
+ 'Full Gamefile must mount sourced score-and-plays data only when verified');
+assert(js.includes("SLTCourt.mount(court,g,currentFlow?raw:null,{updatedAt:entry?.at||0,inline:true})"),
+ 'Inline Gamefile must mount sourced score-and-plays data only when verified');
 assert(courtCSS.includes('prefers-reduced-motion'),'accessible reduced-motion state is required');
 assert(!courtSource.includes("function location(play,g)"), 'remove guessed team-side event positions');
 assert(!courtCSS.includes('.slc-ball{'), 'CSS for invented moving ball must be eliminated');
