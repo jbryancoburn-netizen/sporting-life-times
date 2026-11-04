@@ -24,9 +24,47 @@ function projectedBracket(rows){
  }
  return rounds;
 }
+function bigTenBracket(members,seedRows){
+ const seeded=seedRows.map((t,i)=>({team:t,seed:i+1}));
+ const pick=n=>seeded[n-1];
+ const stages=[[],[],[],[],[],[]],winners=new Map();
+ const match=(round,id,one,two)=>{
+  const a=typeof one==='number'?pick(one):winners.get(one);
+  const b=typeof two==='number'?pick(two):winners.get(two);
+  const winner=a.seed<b.seed?a:b;
+  const game={id,a,b,winner,round};
+  stages[round].push(game);winners.set(id,winner);
+ };
+ // Paths follow the Big Ten's 18-team tournament bracket structure.
+ match(0,'G1',16,17);match(0,'G2',15,18);
+ match(1,'G3','G1',9);match(1,'G4',12,13);
+ match(1,'G5','G2',10);match(1,'G6',11,14);
+ match(2,'G7','G3',8);match(2,'G8','G4',5);
+ match(2,'G9','G5',7);match(2,'G10','G6',6);
+ match(3,'G11','G7',1);match(3,'G12','G8',4);
+ match(3,'G13','G9',2);match(3,'G14','G10',3);
+ match(4,'G15','G11','G12');match(4,'G16','G13','G14');
+ match(5,'G17','G15','G16');
+ const labels=['Mar 9 · First round','Mar 10 · Second round','Mar 11 · Third round','Mar 12 · Quarterfinals','Mar 13 · Semifinals','Mar 14 · Championship'];
+ const teamLine=p=>'<div class="bten-bracket-team"><span class="bten-seed">'+p.seed+'</span>'+name(p.team)+'</div>';
+ return '<div class="bten-bracket-scroll"><div class="bten-bracket-grid">'+stages.map((round,index)=>
+  '<div class="bten-round"><h3>'+labels[index]+'</h3>'+round.map(m=>
+    '<div class="bten-game"><div class="bten-game-id">GAME '+m.id.slice(1)+'</div>'+teamLine(m.a)+teamLine(m.b)+
+    '<div class="bten-pick">Projected: '+esc(m.winner.team.team)+'</div></div>').join('')+
+    '</div>').join('')+'</div></div>';
+}
 function buildConference(app,teams,games,conference){
  const members=teams.filter(t=>t.conference===conference);if(!members.length)return;
  const o=order(members,games),rounds=projectedBracket(o.rows),noFinals=!o.earned;
+ if(conference==='Big Ten'){
+  const section=document.createElement('section');section.className='panel bten-bracket-section';section.id='conference-tournament-watch';
+  section.innerHTML='<div class="eyebrow">2027 Big Ten Men’s Basketball Tournament</div><h2>Road to the automatic bid</h2>'+
+   '<p class="note">Official tournament structure: 18 teams · March 9–14, 2027 · Gainbridge Fieldhouse, Indianapolis. These are <strong>projected seed positions and projected winners</strong>, not official seeds or actual game results. Future tip times and networks are not yet announced.</p>'+
+   '<div class="bten-bracket-key">Seeds 1–4 enter quarterfinals · 5–8 enter third round · 9–14 enter second round · 15–18 begin in the first round</div>'+
+   bigTenBracket(members,o.rows);
+  const target=app.querySelector('.grid.two')||app;target.parentNode.insertBefore(section,target.nextSibling);
+  return;
+ }
  const section=document.createElement('section');section.className='panel';section.id='conference-tournament-watch';
  section.innerHTML='<div class="eyebrow">Conference championship projection</div><h2>Road to the automatic bid</h2><p class="note">Illustrative seed-order bracket — <strong>not an official conference tournament format</strong>. Each league’s actual field size, site, byes, exclusions, reseeding and multi-team tiebreakers must be verified before this becomes an official-format bracket. '+(noFinals?'No conference finals recorded; projected seeds use published Elo.':'Conference game records inform the initial order; tied records are NOT resolved by Elo for official standings. Elo is only a projection tiebreak.')+'</p><div class="metrics"><div><strong>'+members.length+'</strong><small>Conference members</small></div><div><strong>'+rounds.length+'</strong><small>Illustrative stages</small></div></div><div class="bracket-grid" style="grid-template-columns:repeat(auto-fit,minmax(230px,1fr))">'+rounds.map((round,i)=>'<div class="region"><h3>'+(i===rounds.length-1?'Projected final':'Stage '+(i+1))+'</h3>'+round.map(m=>'<div class="match">'+m.teams.map(p=>'<div class="slot"><span class="seed">'+p.seed+'</span>'+name(p.team)+'</div>').join('')+(m.bye?'<small>Illustrative bye</small>':'')+'</div>').join('')+'</div>').join('')+'</div><p class="note">Projected seed order (not certified): '+o.rows.slice(0,12).map((t,i)=>(i+1)+'. '+esc(t.team)+' ('+record(t)+')').join(' · ')+'</p>';
  const target=app.querySelector('.grid.two')||app;target.parentNode.insertBefore(section,target.nextSibling);
