@@ -54,7 +54,7 @@ try{
  // Non-counting October results are maintained in their own evidence ledger.
  // NEVER feed these scores to the RETRO model or call them regular-season finals.
  const exhibitionData=await load('data/mbb-exhibition-finals-2026-27.json').catch(()=>null);
- const bigTenPilot=(ratings?.rankings||[]).some(x=>String(x.team_id)===String(team.id)&&x.conference==='Big Ten');
+ // Indiana is the canonical calendar for the full 365-school men's edition.
  const ratingBySchool=new Map((ratings?.rankings||[]).map(x=>[String(x.team_id),x.elo]));
  const ncaaByEspn=new Map((cross.teams||[]).map(x=>[String(x.espn_id),String(x.id)]));
  const schoolByEspn=new Map((cross.teams||[]).map(x=>[String(x.espn_id),x]));
@@ -231,11 +231,11 @@ try{
   const gameFile=final?'<br><a class="mbb-schedule-gamefile" href="cbb-gamefile.html?day='+
     encodeURIComponent(final.date)+'&amp;game='+encodeURIComponent(final.id)+'">Game file ↗</a>':'';
   const statId=String(final?.id||e.id||'').replace(/^espn:/,'');
-  const expandable=bigTenPilot&&hasScore&&/^\d+$/.test(statId);
-  const historicalRecords=bigTenPilot?
+  const expandable=hasScore&&/^\d+$/.test(statId);
+  const historicalRecords=
    '<span class="victorian-at-game-records"><span class="victorian-record-label">Records entering game</span>'+
    '<span class="victorian-record-line"><span>'+escape(team.name)+'</span><b>'+escape(enteringRecord(team.espn_id,scheduledDate))+'</b></span>'+
-   '<span class="victorian-record-line"><span>'+escape(opponentName)+'</span><b>'+escape(enteringRecord(opponentId,scheduledDate))+'</b></span></span>':'';
+   '<span class="victorian-record-line"><span>'+escape(opponentName)+'</span><b>'+escape(enteringRecord(opponentId,scheduledDate))+'</b></span></span>';
   const school=schoolByEspn.get(opponentId);
   const label=escape(school?.name||opponentName);
   const conferenceById=new Map((ratings?.rankings||[]).map(x=>[String(x.team_id),x.conference]));
@@ -250,7 +250,7 @@ try{
   const title='<span class="victorian-opponent-heading'+(opponentRank?' has-poll-rank':'')+'">'+(opponentRank?'<span class="victorian-heading-rank">'+opponentRank+'</span>':'')+'<span class="victorian-heading-school">'+(school?'<a href="ncaam-team.html?team='+encodeURIComponent(school.id)+'" title="'+label+'">'+displayName+'</a>':'<span class="victorian-school-name" title="'+label+'">'+displayName+'</span>')+'</span><span class="victorian-heading-conference">'+conferenceTag+'</span></span>';
   const today=new Date().toLocaleDateString('sv-SE',{timeZone:'America/New_York'});
   const scheduleState=hasScore?'final':canceled?'canceled':scheduledDate>=today?'upcoming':'past';
-  return '<tr '+(bigTenPilot?'data-game-site="'+(vs==='HOME'?'home':vs==='AWAY'?'away':vs==='NEUTRAL'?'neutral':'unknown')+'" ':'')+(expandable?'class="victorian-completed-game" data-stat-id="'+escape(statId)+'" tabindex="0" aria-label="Expand statistics for '+escape(opponentName)+'" ':'')+'data-calendar-state="'+scheduleState+'" data-exhibition="'+(exhibition?'true':'false')+
+  return '<tr '+'data-game-site="'+(vs==='HOME'?'home':vs==='AWAY'?'away':vs==='NEUTRAL'?'neutral':'unknown')+'" '+(expandable?'class="victorian-completed-game" data-stat-id="'+escape(statId)+'" tabindex="0" aria-label="Expand statistics for '+escape(opponentName)+'" ':'')+'data-calendar-state="'+scheduleState+'" data-exhibition="'+(exhibition?'true':'false')+
     '" data-opponent="'+escape((school?.name||opponentName).toLowerCase())+'">'+
     '<td class="sched-date-cell"><time datetime="'+escape(scheduledDate)+'">'+escape(day)+'</time><span class="sched-game-status sched-status--'+(canceled?'canceled':exhibition?'exhibition':hasScore?'final':completed?'pending':'upcoming')+'">'+gameState+'</span></td>'+
     '<td class="sched-matchup-cell"><div class="sched-matchup">'+emblem+'<span class="sched-opponent"><strong>'+title+'</strong><small>'+vs.replace('SITE UNVERIFIED','LOCATION UNCONFIRMED')+'</small>'+historicalRecords+'</span></div></td>'+
@@ -258,7 +258,7 @@ try{
     '<td class="sched-time-cell">'+escape(tip)+'</td>'+
     '<td class="sched-network-cell">'+network+'</td>'+
     '<td class="sched-elo-cell">'+(exhibition||verifiedNonD1?'Not applicable':escape(opponentElo(opponentId)))+'</td>'+
-    '<td class="sched-result-cell">'+result+(bigTenPilot?'':gameFile)+(expandable?'<button type="button" class="victorian-stat-toggle" aria-expanded="false">GAME STATS ▾</button>':'')+'</td></tr>'+(expandable?'<tr class="victorian-stat-detail" hidden><td colspan="7"><div class="victorian-stat-content">Open for game statistics.</div></td></tr>':'');
+    '<td class="sched-result-cell">'+result+(expandable?'':gameFile)+(expandable?'<button type="button" class="victorian-stat-toggle" aria-expanded="false">GAME STATS ▾</button>':'')+'</td></tr>'+(expandable?'<tr class="victorian-stat-detail" hidden><td colspan="7"><div class="victorian-stat-content">Open for game statistics.</div></td></tr>':'');
  }).join('');
  const scoredExhibitions=games.filter(e=>{
   if(e.date.slice(0,10)>='2026-11-01')return false;
@@ -273,11 +273,11 @@ try{
  const source=/^https:\/\/[^\s"'<>]+$/.test(data.source_url||'')&&!/espn\.com|realgm\.com|wikipedia\.org/i.test(data.source_url)?'<a href="'+escape(data.source_url)+'" target="_blank" rel="noopener">School athletics source ↗</a>':'';
  const savedSearch=host.querySelector('#calendar-opponent')?.value||'';
  const savedView=host.querySelector('#calendar-view')?.value||'all';
- host.innerHTML='<section class="panel '+(bigTenPilot?'victorian-team-calendar':'')+'" id="full-season-schedule"><div class="panel-head"><h2>2026–2027 Schedule</h2></div>'+'<div class="calendar-controls"><label>Opponent <input id="calendar-opponent" class="input" type="search" placeholder="Find an opponent…"></label><label>Show <select id="calendar-view"><option value="all">All games</option><option value="upcoming">Upcoming games</option><option value="final">Finals</option><option value="exhibition">Exhibitions</option></select></label><span id="calendar-count" class="note" aria-live="polite"></span></div><div class="table-wrap"><table class="mbb-schedule-table"><thead><tr><th>Date</th><th>Opponent</th><th>Arena / City</th><th>Tipoff (school listing)</th><th>TV / Stream</th><th>Opp. RETRO</th><th>Result</th></tr></thead><tbody>'+cells+'</tbody></table></div></section>';
+ host.innerHTML='<section class="panel '+'victorian-team-calendar'+'" id="full-season-schedule"><div class="panel-head"><h2>2026–2027 Schedule</h2></div>'+'<div class="calendar-controls"><label>Opponent <input id="calendar-opponent" class="input" type="search" placeholder="Find an opponent…"></label><label>Show <select id="calendar-view"><option value="all">All games</option><option value="upcoming">Upcoming games</option><option value="final">Finals</option><option value="exhibition">Exhibitions</option></select></label><span id="calendar-count" class="note" aria-live="polite"></span></div><div class="table-wrap"><table class="mbb-schedule-table"><thead><tr><th>Date</th><th>Opponent</th><th>Arena / City</th><th>Tipoff (school listing)</th><th>TV / Stream</th><th>Opp. RETRO</th><th>Result</th></tr></thead><tbody>'+cells+'</tbody></table></div></section>';
  const search=host.querySelector('#calendar-opponent'),view=host.querySelector('#calendar-view');
  search.value=savedSearch;view.value=savedView;
  const filter=()=>{let shown=0;for(const row of host.querySelectorAll('#full-season-schedule > .table-wrap > .mbb-schedule-table > tbody > tr:not(.victorian-stat-detail)')){row.hidden=!(row.dataset.opponent.includes(search.value.toLowerCase().trim())&&(view.value==='all'||(view.value==='exhibition'?row.dataset.exhibition==='true':row.dataset.calendarState===view.value)));if(!row.hidden)shown++;const detail=row.nextElementSibling;if(detail?.classList.contains('victorian-stat-detail'))detail.hidden=row.hidden||row.querySelector('.victorian-stat-toggle')?.getAttribute('aria-expanded')!=='true';}host.querySelector('#calendar-count').textContent=shown+' of '+games.length+' games';};
- if(bigTenPilot){
+ if(host.querySelector('.victorian-completed-game')){
   const statTable=(heading,entries)=>'<div class="victorian-stat-block"><h3>'+escape(heading)+'</h3><table><tbody>'+entries.map(([label,values])=>'<tr><th>'+escape(label)+'</th>'+values.map(v=>'<td>'+escape(v)+'</td>').join('')+'</tr>').join('')+'</tbody></table></div>';
   host.querySelectorAll('.victorian-completed-game').forEach(row=>{
    const button=row.querySelector('.victorian-stat-toggle'),detail=row.nextElementSibling;
