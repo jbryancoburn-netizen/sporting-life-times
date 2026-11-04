@@ -217,20 +217,20 @@ function buildTournament(app,teams,games,polls){
  block.innerHTML='<div class="eyebrow">Optional analysis / not official NCAA seeding</div>'+
   '<h2>Where our models disagree</h2><p class="selection-compare-intro">'+esc(explainer)+
   ' '+(proxy.hasPolls?'Published AP and Coaches polls inform the illustration.':'Contemporary polls were unavailable.')+
-  ' Independent USRS Elo ratings are not adjusted by this comparison.</p>'+
+  ' Independent RETRO Elo ratings are not adjusted by this comparison.</p>'+
   '<div class="selection-summary">'+
     '<div><strong>'+shared.length+'</strong><span>Common picks</span></div>'+
     '<div><strong>'+onlyProxy.length+'</strong><span>'+esc(proxy.anyGames?'Résumé-only':'Poll-only')+'</span></div>'+
-    '<div><strong>'+onlyElo.length+'</strong><span>USRS-only</span></div></div>'+
+    '<div><strong>'+onlyElo.length+'</strong><span>RETRO-only</span></div></div>'+
   '<div class="selection-exclusive"><div><h3>'+esc(proxy.anyGames?'Résumé model only':'Poll-adjusted only')+'</h3>'+
    (onlyProxy.length?teamList(onlyProxy,4):'<p>No differences.</p>')+
    (onlyProxy.length>4?'<details><summary>See all '+onlyProxy.length+' differences</summary>'+teamList(onlyProxy)+'</details>':'')+'</div>'+
-  '<div><h3>USRS-only selections</h3>'+(onlyElo.length?teamList(onlyElo,4):'<p>No differences.</p>')+
+  '<div><h3>RETRO-only selections</h3>'+(onlyElo.length?teamList(onlyElo,4):'<p>No differences.</p>')+
    (onlyElo.length>4?'<details><summary>See all '+onlyElo.length+' differences</summary>'+teamList(onlyElo)+'</details>':'')+'</div></div>'+
   '<details class="selection-all"><summary>Compare complete 76-team fields</summary>'+
     '<p class="selection-method-note">Model order is not official NCAA seeding. All automatic bids remain projected.</p>'+
     '<details><summary>'+esc(label)+' · 76 teams</summary>'+teamList(f.selected)+'</details>'+
-    '<details><summary>Independent USRS Elo · 76 teams</summary>'+teamList(elo.selected)+'</details></details>'+
+    '<details><summary>Independent RETRO Elo · 76 teams</summary>'+teamList(elo.selected)+'</details></details>'+
   '<details class="selection-all"><summary>Compare projected regional placements and Opening Round</summary>'+
     '<p class="selection-method-note">These are not approved NCAA assignments.</p>'+
     '<div class="bracket-grid">'+f.regions.map(r=>'<div class="region"><h3>'+esc(r)+'</h3>'+
@@ -247,7 +247,7 @@ function buildTournament(app,teams,games,polls){
  const [retro,ledger,polls]=sources;
  const valid=retro?.season==='2026-27'&&retro.model==='retro-clean-slate'&&retro.starting_elo===1500&&retro.rankings?.length===365&&
   new Set(retro.rankings.map(t=>t.team_id)).size===365&&retro.rankings.every(t=>t.base_elo===1500&&Number.isFinite(t.elo));
- // The comparison must use the same team-only RETRO ratings as the main USRS desk.
+ // The comparison must use the same team-only RETRO ratings as the main RETRO desk.
  if(!valid||!window.MBBEngine?.verifiedGames)return;
  let teams=retro.rankings;
  let games=MBBEngine.verifiedGames(retro,ledger);
