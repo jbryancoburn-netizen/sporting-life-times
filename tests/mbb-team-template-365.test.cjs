@@ -80,3 +80,19 @@ test('mobile roster and player production use in-screen layouts',()=>{
  assert.match(stats,/data-label="/);
  assert.match(stats,/document\.addEventListener\('change'/);
 });
+
+test('all 365 men have an exact, two-color double-ring logo identity',()=>{
+ const cross=read('data/ncaam-2026-27-espn-team-crosswalk.json').teams;
+ const logos=read('data/mbb-logo-registry.json').teams;
+ const colors=read('data/dual-ring-team-palette.json').mbb;
+ assert.equal(Object.keys(logos).length,365);
+ assert.equal(Object.keys(colors).length,365);
+ for(const school of cross){
+  const id=String(school.espn_id);
+  assert.equal(logos[id]?.canonical_id,school.id,school.name+' crest identity');
+  assert.equal(logos[id]?.logo_url_verified,true,school.name+' artwork');
+  assert.match(colors[id]?.primary||'',/^#[0-9a-f]{6}$/i);
+  assert.match(colors[id]?.secondary||'',/^#[0-9a-f]{6}$/i);
+  assert.notEqual(colors[id].primary.toLowerCase(),colors[id].secondary.toLowerCase());
+ }
+});
