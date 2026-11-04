@@ -48,9 +48,9 @@ function bigTenBracket(members,seedRows){
  const labels=['Mar 9 · First round','Mar 10 · Second round','Mar 11 · Third round','Mar 12 · Quarterfinals','Mar 13 · Semifinals','Mar 14 · Championship'];
  const teamLine=p=>'<div class="bten-bracket-team"><span class="bten-seed">'+p.seed+'</span>'+name(p.team)+'</div>';
  return '<div class="bten-bracket-scroll"><div class="bten-bracket-grid">'+stages.map((round,index)=>
-  '<div class="bten-round"><h3>'+labels[index]+'</h3>'+round.map(m=>
-    '<div class="bten-game"><div class="bten-game-id">GAME '+m.id.slice(1)+'</div>'+teamLine(m.a)+teamLine(m.b)+
-    '<div class="bten-pick">Projected: '+esc(m.winner.team.team)+'</div></div>').join('')+
+  '<div class="bten-round"><h3>'+labels[index]+'</h3><div class="bten-round-track">'+round.map((m,i)=>
+    '<div class="bten-game bten-position-'+(index+1)+'-'+(i+1)+'"><div class="bten-game-id">GAME '+m.id.slice(1)+'</div>'+teamLine(m.a)+teamLine(m.b)+
+    '<div class="bten-pick">Projected advance: '+esc(m.winner.team.team)+'</div></div>').join('')+'</div>'+
     '</div>').join('')+'</div></div>';
 }
 function buildConference(app,teams,games,conference){
