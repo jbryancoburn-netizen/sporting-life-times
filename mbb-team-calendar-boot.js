@@ -226,7 +226,10 @@ try{
     encodeURIComponent(final.date)+'&amp;game='+encodeURIComponent(final.id)+'">Game file ↗</a>':'';
   const statId=String(final?.id||e.id||'').replace(/^espn:/,'');
   const expandable=bigTenPilot&&hasScore&&/^\d+$/.test(statId);
-  const historicalRecords='';
+  const historicalRecords=bigTenPilot?
+   '<span class="victorian-at-game-records"><span class="victorian-record-label">Records entering game</span>'+
+   '<span class="victorian-record-line"><span>'+escape(team.name)+'</span><b>'+escape(enteringRecord(team.espn_id,scheduledDate))+'</b></span>'+
+   '<span class="victorian-record-line"><span>'+escape(opponentName)+'</span><b>'+escape(enteringRecord(opponentId,scheduledDate))+'</b></span></span>':'';
   const school=schoolByEspn.get(opponentId);
   const label=escape(school?.name||opponentName);
   const title=school?'<a href="ncaam-team.html?team='+encodeURIComponent(school.id)+'">'+label+'</a>':label;
