@@ -13,8 +13,8 @@ const css=fs.readFileSync(path.join(root,'cbb-live-center.css'),'utf8');
 const brand=fs.readFileSync(path.join(root,'slt-courtside-network.js'),'utf8');
 const read=n=>JSON.parse(fs.readFileSync(path.join(root,n),'utf8'));
 assert(js.includes('The Courtside Desk')&&css.includes('SLT COURTSIDE EDITION'));
-assert(shell.includes('slt-courtside-network.js'));
-assert(brand.includes('THE HARDWOOD')&&brand.includes('slt-network-title'),'Hardwood uses text-only editorial branding');
+assert(!shell.includes('slt-courtside-network.js'),'retired duplicate network must not load in Courtside');
+assert(brand.includes('Retired 2026-11-03'),'duplicate network asset must remain retired');
 function load(gender){
   const patch=js.replace(/\s+boot\(\);\s*\}\)\(\);\s*$/,'\n globalThis.SLTTest={state,normalizeEvent,normalizeSnapshot,modelFor,gameEditorial,statEditorial,gamefileStatStrip,storyNote,usrsLine,scorebug,radarBar,gameLink,courtDayFeed,certifiedArchivedFinals};\n})();');
   assert(patch.includes('globalThis.SLTTest'),'test harness injection');
@@ -78,14 +78,8 @@ assert(!js.includes('id="cbb-radar-host"'),'remove decorative zero-value watch d
 assert(js.includes('isGamefile')&&js.includes('data-gamefile-panel'),'Gamefile has its own tabbed route');
 assert(!js.includes('data-cbb-close'),'scoreboard no longer creates inline box score');
 assert(fs.readFileSync(path.join(root,'cbb-gamefile.html'),'utf8').includes('cbb-gamefile-root'),'dedicated Gamefile HTML exists');
-assert(brand.includes('slt-league-image'),'league navigation retains real league marks');
-assert(!brand.includes('hardwood-wordmark.svg')&&!brand.includes('slt-hardwood-crest.svg'),'rejected brand graphics are absent');
-assert(brand.includes('logo-nba.svg')&&brand.includes('NCAA_logo.svg')&&brand.includes('EuroLeague_logo.svg')&&brand.includes('NBL_Logo.png'),'league logos are used, not fake icons');
-assert(brand.split('NCAA_logo.svg').length===3,'men and women use the same authentic NCAA mark');
-const brandCSS=fs.readFileSync(path.join(root,'slt-courtside-network.css'),'utf8');
-assert(brandCSS.includes('.slt-network-title')&&brandCSS.includes('.slt-league-image'),'typographic masthead and league logos are responsive');
-assert(brandCSS.includes('.cbb-gender-bar'),'redundant gender toggle hidden only when Hardwood is available');
-assert(!brandCSS.includes('.mbb-mark'),'Hardwood does not add a third ring to team logos');
+// The cross-sport logo navigation was intentionally removed; it must stay absent.
+assert(!shell.includes('slt-courtside-network.css'),'retired duplicate logo network CSS must not load');
 const snapshot=men.normalizeSnapshot({id:'401920982',date:'2026-11-01T14:30Z',state:'in',status:'Halftime',teams:[
  {id:'87',home_away:'away',name:'Notre Dame Fighting Irish',score:'31'},
  {id:'222',home_away:'home',name:'Villanova Wildcats',score:'35'}
@@ -219,9 +213,10 @@ const wEvent=women.normalizeEvent({...rawLive,id:'401920983'});
 assert(women.modelFor(wEvent)&&women.modelFor(wEvent).probability===undefined);
 assert(!women.usrsLine(wEvent).includes('pregame</strong>'),'women cannot inherit men probability');
 assert(!css.includes('.cbb-team-identity .mbb-mark::after'),'no extra logo bands');
-for(const page of ['nba.html','ncaam.html','college-basketball.html','euroleague.html','nbl.html'])
- assert(fs.readFileSync(path.join(root,page),'utf8').includes('slt-courtside-network.js'),page+' Courtside network install');
-assert(!brandCSS.includes('slt-network-wordmark'),'rejected generated logo CSS removed');
+for(const page of ['nba.html','ncaam.html','college-basketball.html','euroleague.html','nbl.html']){
+ const html=fs.readFileSync(path.join(root,page),'utf8');
+ assert(!html.includes('slt-courtside-network.js')&&!html.includes('slt-courtside-network.css'),page+' must not revive retired navigation');
+}
 // The Retro clean-slate newspaper must not pretend the first alphabetical teams are leaders.
 const mbbHome=fs.readFileSync(path.join(root,'mbb-newspaper.js'),'utf8');
 const mbbCSS=fs.readFileSync(path.join(root,'mbb-newspaper.css'),'utf8');
