@@ -96,3 +96,26 @@ test('all 365 men have an exact, two-color double-ring logo identity',()=>{
   assert.notEqual(colors[id].primary.toLowerCase(),colors[id].secondary.toLowerCase());
  }
 });
+
+test('source-backed 1985-2024 history covers 361 programs without inventing records',()=>{
+ const cross=read('data/ncaam-2026-27-espn-team-crosswalk.json').teams;
+ const report=read('data/mbb-head-to-head-1985/gap-recovery-status.json');
+ const archiveDir=path.join(__dirname,'..','data/mbb-head-to-head-1985');
+ const archived=cross.filter(t=>fs.existsSync(path.join(archiveDir,t.id.replace(':','-')+'.json')));
+ assert.equal(archived.length,report.total_archive_files);
+ assert.equal(archived.length,361,'Historical recovery coverage unexpectedly changed');
+ assert.deepEqual(
+  cross.filter(t=>!archived.includes(t)).map(t=>t.name).sort(),
+  ['Mercyhurst','New Haven','West Florida','West Ga.'].sort()
+ );
+ const recovered=report.reviewed_aliases.filter(t=>t.status==='partial-source-backed');
+ assert.equal(recovered.length,13);
+ for(const row of recovered){
+  const file=read('data/mbb-head-to-head-1985/'+row.team_id.replace(':','-')+'.json');
+  assert.equal(file.validated,false);
+  assert.equal(file.coverage_status,'PARTIAL_SOURCE_BACKFILL');
+  assert.equal(file.games.length,row.games);
+  assert.ok(file.games.every(g=>g.home_id===row.team_id||g.away_id===row.team_id),row.team+' mismatched game');
+  assert.ok(file.games.every(g=>g.date&&g.source_url&&g.home_score!==g.away_score),row.team+' unverified results');
+ }
+});
