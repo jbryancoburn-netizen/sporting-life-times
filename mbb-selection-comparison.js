@@ -61,8 +61,28 @@ function buildConference(app,teams,games,conference){
   const target=app.querySelector('.grid.two')||app;target.parentNode.insertBefore(section,target.nextSibling);
   return;
  }
- const section=document.createElement('section');section.className='panel';section.id='conference-tournament-watch';
- section.innerHTML='<div class="eyebrow">Conference championship projection</div><h2>Road to the automatic bid</h2><p class="note">Illustrative seed-order bracket — <strong>not an official conference tournament format</strong>. Each league’s actual field size, site, byes, exclusions, reseeding and multi-team tiebreakers must be verified before this becomes an official-format bracket. '+(noFinals?'No conference finals recorded; projected seeds use published Elo.':'Conference game records inform the initial order; tied records are NOT resolved by Elo for official standings. Elo is only a projection tiebreak.')+'</p><div class="metrics"><div><strong>'+members.length+'</strong><small>Conference members</small></div><div><strong>'+rounds.length+'</strong><small>Illustrative stages</small></div></div><div class="bracket-grid" style="grid-template-columns:repeat(auto-fit,minmax(230px,1fr))">'+rounds.map((round,i)=>'<div class="region"><h3>'+(i===rounds.length-1?'Projected final':'Stage '+(i+1))+'</h3>'+round.map(m=>'<div class="match">'+m.teams.map(p=>'<div class="slot"><span class="seed">'+p.seed+'</span>'+name(p.team)+'</div>').join('')+(m.bye?'<small>Illustrative bye</small>':'')+'</div>').join('')+'</div>').join('')+'</div><p class="note">Projected seed order (not certified): '+o.rows.slice(0,12).map((t,i)=>(i+1)+'. '+esc(t.team)+' ('+record(t)+')').join(' · ')+'</p>';
+ const section=document.createElement('section');
+ section.className='panel bten-bracket-section conference-format-section';
+ section.id='conference-tournament-watch';
+ const american=conference==='American';
+ const formatText=american
+  ?'Verified 2027 American Conference format: top 10 qualify. Seeds 1–2 enter semifinals; 3–4 enter quarterfinals. Source: American Conference, September 30, 2026.'
+  :'The 2027 conference tournament format has not yet been certified for this league. No fictional games, byes, or projected advancing teams are shown.';
+ const entryRounds=american?[
+  {title:'Opening round',seeds:[7,8,9,10]},
+  {title:'Second round',seeds:[5,6]},
+  {title:'Quarterfinals',seeds:[3,4]},
+  {title:'Semifinals',seeds:[1,2]},
+  {title:'Championship',seeds:[]}
+ ]:[{title:'Projected seed order — format pending',seeds:o.rows.map((_,i)=>i+1)}];
+ const roundHTML=entryRounds.map(round=>'<div class="conference-format-round"><h3>'+esc(round.title)+'</h3>'+
+  (round.seeds.length?round.seeds.map(n=>'<div class="conference-format-entry"><span class="bten-seed">'+n+'</span>'+name(o.rows[n-1])+'</div>').join(''):'<div class="conference-format-entry conference-format-placeholder">Advancing teams to be determined</div>')+
+  '</div>').join('');
+ section.innerHTML='<div class="eyebrow">'+esc(conference)+' · 2027 Men’s Basketball Championship</div>'+
+  '<h2>Road to the automatic bid</h2><p class="note">'+formatText+'</p>'+
+  '<div class="conference-format-grid">'+roundHTML+'</div>'+
+  '<p class="note">Displayed seeds are projections, not official standings or tournament seeds. No winners are predicted.'+
+  (american?' <a target="_blank" rel="noopener" href="https://theamerican.org/news/2026/9/30/american-conference-announces-2026-27-mens-basketball-conference-schedule.aspx">Official conference format ↗</a>':'')+'</p>';
  const target=app.querySelector('.grid.two')||app;target.parentNode.insertBefore(section,target.nextSibling);
 }
 function committee(teams,games,polls){
