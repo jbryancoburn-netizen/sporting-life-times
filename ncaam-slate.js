@@ -583,7 +583,8 @@ function card(original,featured,opened=false){
    g.phase==='final'?(g.evidence==='final-source'?'Attributed final':'Reported final'):
    g.phase==='live'?'Live scoreboard':'Sourced fixture + RETRO';
  const when=g.phase==='upcoming'?'<span class="ledger26-time">'+esc(formatClock(g))+'</span>':'';
- const venue=g.venue?'<span class="ledger26-venue">'+esc(g.venue)+'</span>':'';
+ const network=String(g.broadcast||'').trim();
+ const venue=network?'<span class="ledger26-network">'+esc(network)+'</span>':g.phase==='upcoming'?'<span class="ledger26-network">TV TBA</span>':g.venue?'<span class="ledger26-venue">'+esc(g.venue)+'</span>':'';
  return '<article class="sl-game ledger26-card'+(featured?' ledger26-featured':'')+'">'+
    (when||venue?'<div class="ledger26-meta">'+when+venue+'</div>':'')+
    '<details class="sl-game-expansion ledger26-expand" data-game-id="'+esc(g.id)+'" data-day="'+esc(g.day)+'"'+(opened?' open':'')+'>'+
