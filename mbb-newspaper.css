@@ -540,3 +540,12 @@ th{font:700 10px Arial,sans-serif;border-color:var(--ink)}
 td{padding:7px 5px}
 .story-img{max-height:235px;object-fit:cover}
 @media(max-width:880px){.grid{display:block}.grid>.column{border-right:0;border-bottom:1px solid var(--line);padding:0}.hero{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* Compact conference record table only for the homepage sidebar. */
+#conf-table .compact-conference-table{width:100%;table-layout:auto;border-collapse:collapse}
+#conf-table .compact-conference-table th,#conf-table .compact-conference-table td{padding:8px 5px;font:12px Georgia,serif;white-space:nowrap;vertical-align:middle}
+#conf-table .compact-conference-table th:first-child,#conf-table .compact-conference-table td:first-child{width:57%;text-align:left}
+#conf-table .compact-conference-table .team-name{display:inline-flex;align-items:center;gap:7px;white-space:normal;overflow-wrap:normal;word-break:normal;font-weight:700}
+#conf-table .compact-conference-table .team-name span{overflow-wrap:normal;word-break:normal;min-width:0}
+#conf-table .compact-conference-table .badge{width:27px;height:27px;flex-shrink:0}
+#conf-table .compact-conference-table td:not(:first-child),#conf-table .compact-conference-table th:not(:first-child){text-align:right;font-variant-numeric:tabular-nums}
