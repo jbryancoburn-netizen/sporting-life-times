@@ -21,6 +21,12 @@ try{
  const path='data/mbb-schedules-2026-27/'+encodeURIComponent(team.espn_id)+'.json';
  host.hidden=false;
  if(!host.dataset.scheduleLoaded)host.innerHTML='<section class="panel" id="full-season-schedule"><h2>'+escape(team.name)+' · 2026–27 Schedule</h2><p class="note">Loading published games…</p></section>';
+ const polls=await load('data/ncaam-2026-27-national-polls.json').catch(()=>null);
+ const rankNorm=x=>String(x||'').toLowerCase().replace(/[^a-z0-9]/g,'');
+ const pollAliases={michiganst:'michiganstate',pennst:'pennstate',ohiost:'ohiostate',southerncalifornia:'usc',connecticut:'uconn',miamifl:'miami',stjohnsny:'stjohns'};
+ const canon=x=>pollAliases[rankNorm(x)]||rankNorm(x);
+ const rankMaps=Object.fromEntries(['coaches','ap'].map(k=>[k,new Map((polls?.polls?.[k]?.rankings||[]).map(p=>[canon(p.team),p.rank]))]));
+ const badges=(...names)=>{const n=names.map(canon),find=k=>{for(const v of n){const r=rankMaps[k].get(v);if(r)return r;}return null;};const c=find('coaches'),a=find('ap');return c||a?'<span class="victorian-poll-rank" title="Coaches / AP rankings">'+(c?'#'+c:'—')+'/'+(a?'#'+a:'—')+'</span>':'';};
  const data=await load(path);
  const valid=(data.events||[]).filter(e=>e.date&&e.competitions?.[0]?.competitors?.length>=2);
  const officialClock=s=>/^(?:(?:[01]?\d|2[0-3]):[0-5]\d(?:\s*(?:a\.?m\.?|p\.?m\.?))?|\d{1,2}\s*(?:a\.?m\.?|p\.?m\.?)|noon|midnight)(?:\s*(?:ET|CT|MT|PT|EST|EDT|CST|CDT|MST|MDT|PST|PDT))?$/i.test(String(s||'').trim());
@@ -232,7 +238,7 @@ try{
    '<span class="victorian-record-line"><span>'+escape(opponentName)+'</span><b>'+escape(enteringRecord(opponentId,scheduledDate))+'</b></span></span>':'';
   const school=schoolByEspn.get(opponentId);
   const label=escape(school?.name||opponentName);
-  const title=school?'<a href="ncaam-team.html?team='+encodeURIComponent(school.id)+'">'+label+'</a>':label;
+  const title=(school?'<a href="ncaam-team.html?team='+encodeURIComponent(school.id)+'">'+label+'</a>':label)+badges(school?.name,school?.espn_name,opponentName);
   const today=new Date().toLocaleDateString('sv-SE',{timeZone:'America/New_York'});
   const scheduleState=hasScore?'final':canceled?'canceled':scheduledDate>=today?'upcoming':'past';
   return '<tr '+(bigTenPilot?'data-game-site="'+(vs==='HOME'?'home':vs==='AWAY'?'away':vs==='NEUTRAL'?'neutral':'unknown')+'" ':'')+(expandable?'class="victorian-completed-game" data-stat-id="'+escape(statId)+'" tabindex="0" aria-label="Expand statistics for '+escape(opponentName)+'" ':'')+'data-calendar-state="'+scheduleState+'" data-exhibition="'+(exhibition?'true':'false')+
