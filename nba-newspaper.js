@@ -227,12 +227,27 @@ function players(){
  const panels=cats.map(([heading,stat,label])=>'<section class="panel"><h2>'+heading+'</h2>'+table([['Player'],['Team'],['GP','num'],[label,'num']],(data.leaders?.rows||[]).filter(x=>x.stat===stat&&Number.isFinite(x.value)).sort((a,b)=>b.value-a.value).slice(0,10).map(x=>'<tr><td>'+esc(x.player)+'</td><td>'+team(x.team)+'</td><td class="num">'+esc(x.gp)+'</td><td class="num"><strong>'+fmt(x.value,1)+'</strong></td></tr>'))+'</section>').join('');
  let totals=(data.leaders?.season_totals||[]).filter(p=>(p.player+' '+p.team).toLowerCase().includes(playerFilter)).sort((a,b)=>b.ppg-a.ppg).slice(0,70);
  return '<div class="eyebrow">Individual achievement · 2026–27</div><h1>PLAYER LEADERS</h1><p class="nba-note">'+esc(data.leaders?.coverage?.completed_boxscores??0)+' captured completed box scores · '+esc(data.leaders?.coverage?.unique_players??0)+' unique player records. These statistics cover captured games only, not necessarily the complete league schedule.</p><div class="nba-mini-grid">'+panels+'</div><section class="panel">'+section('Player Reference','Search the Statistical Notebook')+'<div class="nba-filters"><label for="nba-player-search">Player or franchise</label><input id="nba-player-search" type="search" placeholder="Search player or team" value="'+esc(playerFilter)+'"></div><div id="nba-player-results">'+table([['Player'],['Team'],['GP','num'],['PTS/G','num'],['REB/G','num'],['AST/G','num'],['FG%','num'],['TS%','num']],totals.map(x=>'<tr><td>'+esc(x.player)+'</td><td>'+team(x.team)+'</td><td class="num">'+x.gp+'</td><td class="num">'+fmt(x.ppg,1)+'</td><td class="num">'+fmt(x.rpg,1)+'</td><td class="num">'+fmt(x.apg,1)+'</td><td class="num">'+fmt(x.fg_pct,1)+'</td><td class="num">'+fmt(x.ts_pct,1)+'</td></tr>'))+'</div><p class="note">Showing '+totals.length+' captured player records. Search to narrow the notebook.</p></section>';}
+// The matchup desk uses the identical scoreboard renderer as the live rail.
 function matchupCard(g){
  const a=g.teams?.find(t=>t.home_away==='away'),h=g.teams?.find(t=>t.home_away==='home');
  if(!a||!h||!meta[a.code]||!meta[h.code])return '';
- const p=Number.isFinite(rates[h.code])&&Number.isFinite(rates[a.code])?1/(1+Math.pow(10,-(rates[h.code]+40-rates[a.code])/400)):null;
- const isPre=g.state==='pre',v=isPre?'<div class="nba-prob"><span style="width:'+Math.round((1-p)*100)+'%"></span></div><div class="nba-game-meta"><span>'+esc(a.code)+' '+fmt(100*(1-p),0)+'%</span><b>Elo win probability</b><span>'+esc(h.code)+' '+fmt(100*p,0)+'%</span></div>':'<p class="note">'+esc(g.status||'Result')+' · '+esc(a.score)+'–'+esc(h.score)+'</p>';
- return '<div class="nba-game-card"><div class="nba-game-meta"><span>'+date(g.date)+' ET</span><span>'+esc(g.status||g.state)+'</span></div><div class="nba-versus"><div>'+image(a.code)+'<b>'+esc(a.code)+'</b><small>'+rec(a.code)+'</small></div><div class="vs">AT</div><div>'+image(h.code)+'<b>'+esc(h.code)+'</b><small>'+rec(h.code)+'</small></div></div>'+(p!==null?v:'<p class="note">Published current ratings unavailable for probability.</p>')+'<div class="nba-section-links"><a href="nba-live-game.html?game='+encodeURIComponent(g.id)+'">Live Game Center ↗</a><a href="'+(isPre?'nba-matchups.html':'nba-game-center.html?game='+encodeURIComponent(g.id))+'">'+(isPre?'Matchup overview':'Full box score')+' ↗</a></div></div>';
+ const p=Number.isFinite(rates[h.code])&&Number.isFinite(rates[a.code])?
+   1/(1+Math.pow(10,-(rates[h.code]+40-rates[a.code])/400)):null;
+ const scored=t=>t.score!=null&&String(t.score).trim()!==''&&Number.isFinite(Number(t.score));
+ const phase=g.state==='post'&&scored(a)&&scored(h)?'final':
+   g.state==='in'||g.state==='post'?'live':'upcoming';
+ const profile=t=>({name:name(t.code),crest:logoImg(t.code,'nba-game-row-crest'),
+   color:meta[t.code][3],record:rec(t.code),
+   retro:Number.isFinite(rates[t.code])?'RETRO '+fmt(rates[t.code],0)+' (#'+rank(t.code)+')':'RETRO —',
+   score:phase==='upcoming'?null:scored(t)?t.score:null});
+ const odds=phase==='upcoming'&&p!==null?'<div class="nba-prob"><span style="width:'+(100*(1-p)).toFixed(0)+'%"></span></div><div class="nba-game-meta"><span>'+esc(a.code)+' '+fmt(100*(1-p),0)+'%</span><b>Pregame Elo probability</b><span>'+esc(h.code)+' '+fmt(100*p,0)+'%</span></div>':'';
+ const dest=(phase==='final'?'nba-game-center.html?game=':'nba-live-game.html?game=')+encodeURIComponent(g.id);
+ return '<article class="ledger26-card"><div class="ledger26-meta"><span>'+date(g.date)+' ET</span></div>'+
+   window.SLTSportsScorebug.render({phase,
+      status:g.state==='post'&&phase!=='final'?'SCORE PENDING':undefined,
+      away:profile(a),home:profile(h)})+odds+
+   (phase==='upcoming'&&p===null?'<p class="note">Published current ratings unavailable for probability.</p>':'')+
+   '<div class="nba-section-links"><a href="'+dest+'">'+(phase==='final'?'OPEN BOX SCORE':'OPEN GAME CENTER')+' ↗</a></div></article>';
 }
 function matchups(){
  const games=gamesFor(),upcoming=games.filter(g=>g.state==='pre'&&Date.parse(g.date)>Date.now()&&nyday(g.date)!==nyday(new Date())).slice(0,24);
