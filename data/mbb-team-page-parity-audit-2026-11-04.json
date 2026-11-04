@@ -1,0 +1,70 @@
+{
+  "title": "Sporting Life & Times — Men's CBB Indiana-template parity audit",
+  "season": "2026-27",
+  "audited_on": "2026-11-04",
+  "scope": {
+    "division": "NCAA Division I men",
+    "programs": 365,
+    "conferences": 32,
+    "canonical_page": "ncaam-team.html?team=<NCAA-ID>",
+    "master_reference": "Indiana (ncaa:609574)",
+    "women_in_scope": false
+  },
+  "verified": {
+    "crosswalk": {
+      "count": 365,
+      "unique_ncaa_ids": 365,
+      "unique_espn_ids": 365
+    },
+    "retro": {
+      "count": 365,
+      "all_crosswalk_ids_present": true,
+      "conference_labels_complete": true
+    },
+    "logos": {
+      "registry_entries": 365,
+      "missing_or_id_mismatched": 0
+    },
+    "double_ring_palettes": {
+      "entries": 365,
+      "missing": 0,
+      "identical_primary_secondary": 0
+    },
+    "arena_registry": {
+      "entries": 365,
+      "missing": 0
+    },
+    "published_schedule_files": {
+      "checked": 365,
+      "present_and_parseable": 365,
+      "at_least_25_valid_games": 365,
+      "method": "GitHub file fetch and game-entry schema check; does not establish every future game is announced"
+    },
+    "rosters": {
+      "sampled_conferences": 32,
+      "sample_valid": 32,
+      "total_team_roster_completeness_not_yet_certified": true
+    }
+  },
+  "implementation": {
+    "schedule_rendering": "one source shared by 365 pages; former Big Ten design gate removed",
+    "desktop": "full Victorian opponent cards, conference labels and entering-game records",
+    "mobile": "same card template, responsive conference names and no horizontal scroll for score summaries",
+    "game_stats": "expand after a final when an event has a numeric source ID",
+    "not_guaranteed": "live box scores absent from provider, missing roster photos, unannounced opponents, unknown tipoffs/networks"
+  },
+  "reconciled_exception": {
+    "school": "Clemson",
+    "espn_id": "228",
+    "prior_known_games": 23,
+    "current_known_games": 30,
+    "verified_source_url": "https://clemsontigers.com/sports/mens-basketball/schedule",
+    "pending": "Two Maui Invitational bracket opponent slots intentionally not assigned identities until confirmed"
+  },
+  "limitations": [
+    "No visual screenshot or automated browser test of every viewport completed; deployed site not visually verified.",
+    "Schema-valid published schedules do not prove each university fixture is complete or free of source discrepancies.",
+    "Only one roster file sampled per conference, not all 365 roster files.",
+    "No paid services or workflow changes."
+  ]
+}
