@@ -87,7 +87,7 @@ function card(g){
     color:meta[t.code][3],record:rec(t.code),
     retro:Number.isFinite(rates[t.code])?'RETRO '+fmt(rates[t.code],0)+' (#'+rank(t.code)+')':'RETRO —',
     score:phase==='upcoming'?null:scored(t)?t.score:null});
- return '<article class="ledger26-card"><div class="ledger26-meta"><span>'+esc(date(g.date))+'</span></div>'+
+ return '<article class="ledger26-card"><div class="ledger26-meta"><span>'+esc(date(g.date))+(g.network||g.broadcast||g.tvNetwork||g.tv?' · '+esc(g.network||g.broadcast||g.tvNetwork||g.tv):'')+'</span></div>'+
    window.SLTSportsScorebug.render({phase,
       status:g.state==='post'&&phase!=='final'?'SCORE PENDING':undefined,
       away:profile(a),home:profile(h)})+
@@ -242,7 +242,7 @@ function matchupCard(g){
    score:phase==='upcoming'?null:scored(t)?t.score:null});
  const odds=phase==='upcoming'&&p!==null?'<div class="nba-prob"><span style="width:'+(100*(1-p)).toFixed(0)+'%"></span></div><div class="nba-game-meta"><span>'+esc(a.code)+' '+fmt(100*(1-p),0)+'%</span><b>Pregame Elo probability</b><span>'+esc(h.code)+' '+fmt(100*p,0)+'%</span></div>':'';
  const dest=(phase==='final'?'nba-game-center.html?game=':'nba-live-game.html?game=')+encodeURIComponent(g.id);
- return '<article class="ledger26-card"><div class="ledger26-meta"><span>'+date(g.date)+' ET</span></div>'+
+ return '<article class="ledger26-card"><div class="ledger26-meta"><span>'+date(g.date)+' ET'+(g.network||g.broadcast||g.tvNetwork||g.tv?' · '+esc(g.network||g.broadcast||g.tvNetwork||g.tv):'')+'</span></div>'+
    window.SLTSportsScorebug.render({phase,
       status:g.state==='post'&&phase!=='final'?'SCORE PENDING':undefined,
       away:profile(a),home:profile(h)})+odds+
