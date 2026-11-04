@@ -26,12 +26,14 @@
 .victorian-unified-ledger{margin-bottom:22px}
 .victorian-unified-ledger .conference-ledger-scroll{width:100%;overflow-x:auto;border:3px double #765a3c;background:#f7eddb;padding:5px;box-sizing:border-box}
 .victorian-unified-ledger .conference-ledger{width:100%;min-width:670px;table-layout:fixed;border-collapse:separate;border-spacing:0 3px;color:#2e241c;background:transparent;font-family:Georgia,'Times New Roman',serif}
-.conference-ledger col.ledger-team-col{width:34%}
-.conference-ledger col.ledger-place-col{width:10%}
-.conference-ledger col.ledger-conf-col{width:12%}
-.conference-ledger col.ledger-overall-col{width:12%}
-.conference-ledger col.ledger-retro-col{width:12%}
-.conference-ledger col.ledger-projection-col{width:20%}
+.conference-ledger col.ledger-place-col{width:6%}
+.conference-ledger col.ledger-team-col{width:24%}
+.conference-ledger col.ledger-conf-col{width:10%}
+.conference-ledger col.ledger-conf-pct-col{width:9%}
+.conference-ledger col.ledger-overall-col{width:10%}
+.conference-ledger col.ledger-overall-pct-col{width:9%}
+.conference-ledger col.ledger-retro-col{width:13%}
+.conference-ledger col.ledger-projection-col{width:19%}
 .victorian-unified-ledger .conference-ledger thead th{padding:9px 6px;background:#e2cfaf;color:#694833;font:700 10px Georgia,serif;letter-spacing:.07em;text-transform:uppercase;border-bottom:3px double #765a3c;text-align:center;vertical-align:middle}
 .victorian-unified-ledger .conference-ledger thead th:first-child{text-align:left}
 .victorian-unified-ledger .conference-ledger tbody td{height:46px;padding:6px 7px;border-top:1px solid #c5ae8d;border-bottom:1px solid #c5ae8d;background:#f4e9d7;text-align:center;vertical-align:middle;font:700 13px Georgia,serif;font-variant-numeric:tabular-nums}
@@ -53,3 +55,11 @@
 .victorian-unified-ledger .conference-ledger td.ledger-retro{white-space:nowrap}
 .victorian-unified-ledger .ledger-retro-value{font-weight:800}
 .victorian-unified-ledger .ledger-retro-rank{display:inline-block;margin-left:6px;font:700 11px Georgia,serif;color:#864837}
+
+/* Structural table changes: place precedes school, records pair with percentages. */
+.victorian-unified-ledger .conference-ledger{min-width:850px}
+.victorian-unified-ledger .conference-ledger tbody td.ledger-university{text-align:left;white-space:normal}
+.victorian-unified-ledger .conference-ledger thead th:nth-child(2){text-align:left}
+.victorian-unified-ledger .conference-ledger tbody td:first-child{border-left:3px solid #805d3d;text-align:center}
+.victorian-unified-ledger .conference-ledger tbody td.ledger-pct{font-size:12px;font-variant-numeric:tabular-nums;color:#64442e}
+@media(max-width:700px){.victorian-unified-ledger .conference-ledger{min-width:850px}}
