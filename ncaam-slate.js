@@ -143,6 +143,46 @@ function selectGames(all,day,view,query){
     return p(a)-p(b)||certified(b)-certified(a)||
       (a.date||'').localeCompare(b.date||'')||a.away.name.localeCompare(b.away.name)});
 }
+// Independently refresh the real scoreboard between static GitHub publications.
+// Admit only uniquely identified Division I schools from the existing crosswalk.
+function liveEvents(raw,day,registry){
+ const schools=new Map((registry?.teams||[]).map(t=>[String(t.espn_id),t]));
+ const score=v=>{if(v==null||v==='')return null;const n=Number(v);return Number.isSafeInteger(n)&&n>=0&&n<=500?n:null};
+ if(!Array.isArray(raw?.events))return[];
+ return raw.events.flatMap(event=>{
+  const match=event?.competitions?.[0],t=match?.competitors||[];
+  if(!validId(event?.id)||t.length!==2||isoDate(event.date||match.date)!==day)return[];
+  const away=t.find(x=>x.homeAway==='away'),home=t.find(x=>x.homeAway==='home');
+  if(!away||!home)return[];
+  const a=schools.get(String(away.team?.id)),h=schools.get(String(home.team?.id));
+  if(!a||!h||String(a.id)===String(h.id))return[];
+  const state=event.status?.type?.state,phase=state==='in'?'live':state==='post'?'final':'upcoming';
+  const ap=score(away.score?.value??away.score?.displayValue??away.score);
+  const hp=score(home.score?.value??home.score?.displayValue??home.score);
+  if(phase==='upcoming'||ap===null||hp===null||(phase==='final'&&ap===hp))return[];
+  return [{id:String(event.id),day,date:event.date||match.date,phase,
+    away:{id:String(away.team.id),canonical:String(a.id),name:a.name,full:a.espn_name||a.name,score:ap},
+    home:{id:String(home.team.id),canonical:String(h.id),name:h.name,full:h.espn_name||h.name,score:hp},
+    venue:match.venue?.fullName||'',broadcast:(match.broadcasts||[]).flatMap(x=>x.names||[]).join(' / '),
+    status:event.status?.type?.shortDetail||'LIVE',timed:true,kind:'regular',
+    evidence:'live-scoreboard',source:phase==='final'?'Reported final · verification pending':'Live score reported',probability:null}];
+ });
+}
+function reconcileLive(published,updates){
+ const result=new Map((published||[]).map(g=>[String(g.id),g]));
+ for(const g of updates||[]){
+  const prior=result.get(String(g.id));
+  if(!prior){result.set(String(g.id),g);continue;}
+  if(prior.day!==g.day||String(prior.away.id)!==String(g.away.id)||
+     String(prior.home.id)!==String(g.home.id)||prior.phase==='final')continue;
+  if(prior.phase==='live'&&
+     (g.phase==='upcoming'||(prior.away.score!=null&&g.away.score<prior.away.score)||
+      (prior.home.score!=null&&g.home.score<prior.home.score)))continue;
+  result.set(String(g.id),{...prior,...g,away:{...prior.away,...g.away},home:{...prior.home,...g.home},
+    venue:g.venue||prior.venue,broadcast:g.broadcast||prior.broadcast,probability:prior.probability});
+ }
+ return dedupeFixtures([...result.values()]);
+}
 function start(){
 const root=document.getElementById('slate-root');if(!root)return;
 const url=new URL(location.href),women=url.searchParams.get('gender')==='women';
@@ -605,5 +645,5 @@ setInterval(()=>{if(document.hidden||!window.SLTInlineGamefile)return;
  });
 },30000);
 }
-return{normalizeMen,normalizeWomen,normalizeExhibitions,selectGames,gameDetailsHref,formatClock,isoDate,shift,start};
+return{normalizeMen,normalizeWomen,liveEvents,reconcileLive,normalizeExhibitions,selectGames,gameDetailsHref,formatClock,isoDate,shift,start};
 });
