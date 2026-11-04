@@ -29,7 +29,7 @@ for(const team of published.rankings){
   const other=comps.find(c=>String(c.team?.id)!==espn);
   const otherId=String(other?.team?.id||''),name=other?.team?.displayName||event.name||'Unknown';
   const key=date+'|'+(otherId||name.toLowerCase().trim());
-  if(!/^2026-\d{2}-\d{2}$/.test(date)||date>'2027-04-30'||date>asOf||
+  if(!/^202[67]-\d{2}-\d{2}$/.test(date)||date>'2027-04-30'||date>asOf||
      r.verified!==true||r.classification!=='regular-season'||r.counts_for_retro!==false||
      !validScore(r.team_score)||!validScore(r.opponent_score)||r.team_score===r.opponent_score||
      !/^https:\/\/[^\s"'<>]+$/.test(r.source_url||'')||
