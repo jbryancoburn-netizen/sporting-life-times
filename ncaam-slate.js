@@ -16,10 +16,14 @@ const cleanId=x=>String(x||'').replace(/^espn:/,'');
 const validId=x=>/^\d{1,12}$/.test(String(x||''));
 const shortName=(id,cross,full)=>{const canon=cross.get(String(id));if(canon)return canon.name;return String(full||'Team').trim()};
 const gameKey=(id,day)=>String(id||'')+'|'+String(day||'');
-function normalizeMen(feed,forecasts,crossList){
+function normalizeMen(feed,forecasts,crossList,outside={}){
   const cross=new Map((crossList?.teams||[]).map(t=>[String(t.espn_id),t]));
   const canon=new Map((crossList?.teams||[]).map(t=>[String(t.id),t]));
   const result=new Map();
+  // Prefer an explicitly researched opponent identity to a stale scoreboard
+  // nickname, but never override a verified Division I crosswalk identity.
+  const corrected=t=>cross.has(String(t.id))?t.name:
+    String(outside[String(t.id)]?.corrected_name||t.name);
   for(const g of feed?.games||[]){
     const teams=g.teams||[];if(teams.length!==2)continue;
     const day=isoDate(g.date);if(!day||!validId(g.id))continue;
@@ -27,8 +31,8 @@ function normalizeMen(feed,forecasts,crossList){
     const phase=g.state==='in'?'live':g.state==='post'?'final':'upcoming';
     const score=n=>phase!=='upcoming'&&n!==''&&n!=null&&Number.isFinite(Number(n))?Number(n):null;
     result.set(cleanId(g.id),{id:cleanId(g.id),day,date:g.date,phase,
-      away:{id:String(away.id),name:shortName(away.id,cross,away.name),full:away.name,canonical:cross.get(String(away.id))?.id||'',score:score(away.score)},
-      home:{id:String(home.id),name:shortName(home.id,cross,home.name),full:home.name,canonical:cross.get(String(home.id))?.id||'',score:score(home.score)},
+      away:{id:String(away.id),name:shortName(away.id,cross,corrected(away)),full:corrected(away),canonical:cross.get(String(away.id))?.id||'',score:score(away.score)},
+      home:{id:String(home.id),name:shortName(home.id,cross,corrected(home)),full:corrected(home),canonical:cross.get(String(home.id))?.id||'',score:score(home.score)},
       status:g.status||'',venue:g.venue||'',broadcast:g.broadcast||'',
       source:g.score_source||'Current sourced scoreboard',evidence:g.score_source?'final-source':'reported',
       timed:true,kind:'regular',probability:null});
@@ -674,7 +678,7 @@ async function refresh(){
     const before=new Map(loaded.filter(g=>g.phase==='live'&&g.kind==='regular').map(g=>
       [g.id,{id:g.id,day:g.day,away_score:g.away.score,home_score:g.home.score}]));
     sourceFeed=feed;seasonStats=insight?.seasonProfiles(rank.events)||new Map();
-    loaded=[...normalizeMen(feed,forecast,cross),...normalizeExhibitions(ex,cross)];
+    loaded=[...normalizeMen(feed,forecast,cross,outsideMarks),...normalizeExhibitions(ex,cross)];
     liveChanges=new Map(loaded.filter(g=>g.phase==='live').flatMap(g=>{
       const delta=insight?.scoreDelta(before.get(g.id),g);
       return delta?[[g.id,delta]]:[];
