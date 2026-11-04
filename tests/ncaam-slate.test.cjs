@@ -141,6 +141,36 @@ assert.equal(slate.liveEvents({events:[sourceEvent('38','44')]},'2026-11-02',ver
 assert.equal(slate.reconcileLive([{...oldGame,phase:'final'}],reported)[0].away.score,31,
  'certified finals outrank supplemental scores');
 
+// Retro ratings only change after fully completed source-backed games.
+require('../mbb-retro.js');
+assert(html.indexOf('src="mbb-retro.js')>0 && html.indexOf('src="mbb-retro.js')<html.indexOf('src="ncaam-slate.js'),
+ 'retro engine must load before the game slate');
+assert(script.includes('RETRO PROVISIONAL') && script.includes('refreshRETRO()'));
+const menBase=json('data/ncaam-2026-27-retro-primary.json');
+const womenBase=json('data/ncaaw-2026-27-retro-primary.json');
+const home=menBase.rankings.find(r=>r.team==='Tennessee');
+const away=menBase.rankings.find(r=>r.team==='Wofford');
+assert(home && away);
+const ended={id:'999999991',day:'2026-11-03',kind:'regular',phase:'final',completed:true,neutral:true,site_verified:false,
+ home:{canonical:home.team_id,score:88},away:{canonical:away.team_id,score:70}};
+const updated=slate.provisionalRetro(menBase,[ended],globalThis.MBB_RETRO);
+assert.equal(updated.pending,1);
+assert.equal(updated.rankings.length,365);
+assert.notEqual(updated.rankings.find(r=>r.team_id===home.team_id).elo,home.elo);
+assert.equal(updated.rankings.find(r=>r.team_id===home.team_id).wins,home.wins+1);
+assert.equal(slate.provisionalRetro(menBase,[ended,ended],globalThis.MBB_RETRO).pending,1);
+assert.equal(slate.provisionalRetro(menBase,[{...ended,phase:'live'}],globalThis.MBB_RETRO).pending,0);
+assert.equal(slate.provisionalRetro(menBase,[{...ended,completed:false}],globalThis.MBB_RETRO).pending,0);
+assert.equal(slate.provisionalRetro(menBase,[{...ended,home:{canonical:'unrecognized',score:88}}],globalThis.MBB_RETRO).pending,0);
+const old=menBase.events[0];
+assert.equal(slate.provisionalRetro(menBase,[{...ended,id:String(old.id).replace(/^espn:/,''),day:old.date,
+ home:{canonical:old.home_id,score:old.home_score},away:{canonical:old.away_id,score:old.away_score}}],globalThis.MBB_RETRO).pending,0);
+const wHome=womenBase.rankings[0],wAway=womenBase.rankings[1];
+const wFinal={...ended,home:{canonical:wHome.team_id,score:77},away:{canonical:wAway.team_id,score:65}};
+const wUpdated=slate.provisionalRetro(womenBase,[wFinal],globalThis.MBB_RETRO,true);
+assert.equal(wUpdated.pending,1);
+assert.equal(wUpdated.rankings.length,363);
+assert.notEqual(wUpdated.rankings.find(r=>r.team_id===wHome.team_id).elo,wHome.elo);
 console.log('PASS NCAA slate: interactive controls, 365-school identity, sourced scores, 1500 RETRO, men/women separation, search/date, sourced exhibition exclusions.');
 
 // Arena File, box-score provenance and future live-data correctness are release gates.
