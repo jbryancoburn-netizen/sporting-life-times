@@ -4,13 +4,27 @@
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const norm=v=>String(v||'').normalize('NFKD').toLowerCase().replace(/[^a-z0-9]/g,'');
 const safeURL=v=>{try{let u=new URL(v);return u.protocol==='https:'?u.href:''}catch{return ''}};
-const byNcaa=new Map(),byName=new Map(),ambiguous=new Set();let registry={},palette={};
+const byNcaa=new Map(),byName=new Map(),ambiguous=new Set(),outsideByName=new Map(),outsideAmbiguous=new Set();
+let registry={},palette={},outside={};
+const outsideAliases=t=>[t.school,t.feed_name,t.corrected_name,...(t.aliases||[])].filter(Boolean).map(norm);
+function registerOutside(id,entry){
+ for(const key of outsideAliases(entry)){
+  if(!key||outsideAmbiguous.has(key)||byName.has(key))continue;
+  if(outsideByName.has(key)&&outsideByName.get(key)!==id){outsideByName.delete(key);outsideAmbiguous.add(key);}
+  else outsideByName.set(key,id);
+ }
+}
 function alias(n,id){let key=norm(n);if(!key||ambiguous.has(key))return;if(byName.has(key)&&byName.get(key)!==id){ambiguous.add(key);byName.delete(key)}else byName.set(key,id)}
 const ready=(async()=>{
 try{
-const [reg,cross,colors]=await Promise.all(['data/mbb-logo-registry.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json?v=ncaa-two-rings-20261101b'].map(p=>fetch(p,{cache:'no-cache'}).then(x=>{if(!x.ok)throw Error(p+' '+x.status);return x.json()})));
+const [reg,cross,colors,opponents]=await Promise.all([
+  ...['data/mbb-logo-registry.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json?v=ncaa-two-rings-20261101b']
+    .map(p=>fetch(p,{cache:'no-cache'}).then(x=>{if(!x.ok)throw Error(p+' '+x.status);return x.json()})),
+  fetch('data/mbb-out-of-division-opponent-logos.json?v=opponent-identity-20261104',{cache:'no-cache'})
+    .then(x=>x.ok?x.json():{teams:{}}).catch(()=>({teams:{}}))
+]);
 if(Object.keys(reg.teams||{}).length!==365||cross.teams?.length!==365)throw Error('Incomplete 365-team logo registry');
-registry=reg.teams;palette=colors.mbb||{};
+registry=reg.teams;palette=colors.mbb||{};outside=opponents?.teams||{};
 if(Object.keys(palette).length!==365)throw Error('Incomplete 365-program MBB color palette');
 for(let row of cross.teams){
 const id=String(row.espn_id),found=registry[id];
@@ -20,7 +34,14 @@ const color=palette[id];
 if(!color||!/^#[0-9a-f]{6}$/i.test(color.primary)||!/^#[0-9a-f]{6}$/i.test(color.secondary)||color.primary===color.secondary)throw Error('Missing two distinct logo colors: '+row.name);
 byNcaa.set(row.id,id);for(let name of [row.name,row.espn_name,found.school,found.display_name,found.provider_team_name])alias(name,id);
 }
-if(byNcaa.size!==365)throw Error('Incomplete NCAA crosswalk');return true;
+if(byNcaa.size!==365)throw Error('Incomplete NCAA crosswalk');
+for(const [id,entry] of Object.entries(outside)){
+ if(registry[id]||!safeURL(entry.logo_url)||!/^#[0-9a-f]{6}$/i.test(entry.primary||'')||
+   !/^#[0-9a-f]{6}$/i.test(entry.secondary||'')||
+   entry.primary.toLowerCase()===entry.secondary.toLowerCase())continue;
+ registerOutside(id,entry);
+}
+return true;
 }catch(e){console.error('MBB logo registry:',e);return false}
 })();
 function render(options={}){
@@ -30,15 +51,21 @@ let id=resolved||given||byTitle;
 // When a dated school calendar has a stale ESPN opponent ID, an unambiguous
 // official crosswalk name takes priority. Never substitute a fuzzy match.
 if(!ncaa&&byTitle&&given&&byTitle!==given)id=byTitle;
-if((resolved&&given&&resolved!==given)||!registry[id]||(ncaa&&registry[id].canonical_id!==ncaa))id='';
-const school=registry[id],brand=palette[id],art=school?.artwork_type||'unverified';
-
-const primary=school?.logo_url_verified?safeURL(school.official_logo_url||school.logo_url):'';
-const backup=(school?.provider_logo_candidates||[]).map(safeURL).find(x=>x&&x!==primary)||'';
+if((resolved&&given&&resolved!==given)||(ncaa&&registry[id]?.canonical_id!==ncaa))id='';
+const known=registry[id]||null;
+// Names alone may resolve a curated non-D-I institution only by exact, unique alias.
+// If a source supplies an outside ID, its printed name must match that institution.
+const outsideID=!ncaa&&!known?(outside[id]?id:!given?outsideByName.get(norm(name)):''):null;
+const outsideEntry=outsideID&&outside[outsideID]&&outsideAliases(outside[outsideID]).includes(norm(name))?outside[outsideID]:null;
+const school=known,brand=known?palette[id]:outsideEntry,art=known?school.artwork_type:outsideEntry?'flat':'unverified';
+const primary=known?(school.logo_url_verified?safeURL(school.official_logo_url||school.logo_url):''):
+ outsideEntry?safeURL(outsideEntry.logo_url):'';
+const backup=known?(school.provider_logo_candidates||[]).map(safeURL).find(x=>x&&x!==primary)||'':
+ outsideEntry?safeURL(outsideEntry.logo_alternate_url)||'':'';
 const initials=name.split(/\s+/).slice(0,2).map(v=>v[0]||'').join('').toUpperCase();
 const kind=/^(small|score|power|schedule|hero|featured|history)$/.test(options.size||'')?options.size:'small';
 const clr=brand?.primary||'#385866',alt=brand?.secondary||'#597582';
-return '<span class="mbb-mark mbb-mark--'+kind+' mbb-mark--art-'+art+(primary?'':' mbb-mark--missing')+'" style="--mbb-primary:'+esc(clr)+';--mbb-secondary:'+esc(alt)+'" data-espn-id="'+esc(id)+'" data-artwork="'+esc(art)+'" data-ring-count="2" role="img" aria-label="'+esc(name)+' logo"><span class="mbb-mark__initials" aria-hidden="true">'+esc(initials)+'</span>'+(primary?'<img class="mbb-mark__img" src="'+esc(primary)+'" data-logo-alternate="'+esc(backup)+'" loading="lazy" decoding="async" alt="" onerror="window.MBBLogos.fail(this)">':'')+'</span>';
+return '<span class="mbb-mark mbb-mark--'+kind+' mbb-mark--art-'+art+(primary?'':' mbb-mark--missing')+'" style="--mbb-primary:'+esc(clr)+';--mbb-secondary:'+esc(alt)+'" data-espn-id="'+esc(known?id:(outsideEntry?outsideID:''))+'" data-artwork="'+esc(art)+'" data-ring-count="2" role="img" aria-label="'+esc(name)+' logo"><span class="mbb-mark__initials" aria-hidden="true">'+esc(initials)+'</span>'+(primary?'<img class="mbb-mark__img" src="'+esc(primary)+'" data-logo-alternate="'+esc(backup)+'" loading="lazy" decoding="async" alt="" onerror="window.MBBLogos.fail(this)">':'')+'</span>';
 }
 function fail(img){
 if(!(img instanceof HTMLImageElement))return;
@@ -87,7 +114,7 @@ function upgradeBareLogos(root=document){
   img.replaceWith(temp.firstElementChild);
  }
 }
-w.MBBLogos={ready,render,byNCAA:(id,size,name)=>render({ncaaId:id,name,size}),byESPN:(id,size,name)=>render({espnId:id&&registry[String(id)]?String(id):'',name:name||registry[String(id)]?.school,size}),byName:(name,size)=>render({name,size}),fail,stripLegacyRings,upgradeLegacyCalendar,upgradeBareLogos,logoURL:id=>registry[byNcaa.get(id)]?.logo_url||'',colorForESPN:id=>palette[String(id)]?{...palette[String(id)]}:null,schoolNameForESPN:id=>String(registry[String(id)]?.school||'').replace(/\bSt\.$/,'State')};
+w.MBBLogos={ready,render,byNCAA:(id,size,name)=>render({ncaaId:id,name,size}),byESPN:(id,size,name)=>render({espnId:id&& (registry[String(id)]||outside[String(id)])?String(id):'',name:name||registry[String(id)]?.school||outside[String(id)]?.corrected_name||outside[String(id)]?.school,size}),byName:(name,size)=>render({name,size}),fail,stripLegacyRings,upgradeLegacyCalendar,upgradeBareLogos,logoURL:id=>registry[byNcaa.get(id)]?.logo_url||'',colorForESPN:id=>palette[String(id)]?{...palette[String(id)]}:outside[String(id)]?{primary:outside[String(id)].primary,secondary:outside[String(id)].secondary}:null,schoolNameForESPN:id=>String(registry[String(id)]?.school||outside[String(id)]?.corrected_name||outside[String(id)]?.school||'').replace(/\bSt\.$/,'State')};
 ready.then(ok=>{
  if(!ok)return;
  const run=()=>{stripLegacyRings(document);upgradeLegacyCalendar();upgradeBareLogos(document)};
