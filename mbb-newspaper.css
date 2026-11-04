@@ -639,3 +639,16 @@ body[data-page="team"] #team-player-production-table td{padding:7px 8px;border-b
 body[data-page="team"] #team-player-production-table tbody tr:nth-child(even){background:#edddc4}
 body[data-page="team"] #team-player-production-table .empty{background:#f7ecda!important;border-left:3px solid #896549;color:#69523b;font:italic 12px Georgia,serif}
 body[data-page="team"] #team-player-production .victorian-production-source{margin:8px 0 0!important;font:italic 11px/1.35 Georgia,serif!important}
+
+/* Unified team-season switcher and live selection ledger */
+#season-register-desk #season-switcher{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0 15px}
+#season-register-desk #season-switcher button{cursor:pointer;border:1px solid #886b4c;background:#f5ead8;color:#523926;padding:8px 12px;font:700 12px Georgia,serif}
+#season-register-desk #season-switcher button[aria-pressed="true"]{background:#75563b;color:#fff5e6}
+#season-register-desk .march-resume-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin:9px 0 15px}
+#season-register-desk .march-resume-stat{border:1px solid #c5ad8d;background:#f4e8d6;padding:9px;min-width:0}
+#season-register-desk .march-resume-stat span{display:block;text-transform:uppercase;letter-spacing:.035em;color:#79583b;font:700 10px Georgia,serif}
+#season-register-desk .march-resume-stat strong{display:block;margin-top:3px;color:#362418;font:700 20px Georgia,serif;overflow-wrap:anywhere}
+#season-register-desk .march-resume-status{font:700 12px Georgia,serif;color:#68452c;margin:8px 0}
+#season-register-desk h3{font:700 16px Georgia,serif;border-bottom:2px double #987c5b;margin:12px 0 8px;padding-bottom:5px}
+#historical-archive-panel[hidden],#season-register-desk [hidden]{display:none!important}
+@media(min-width:680px){#season-register-desk .march-resume-stats{grid-template-columns:repeat(3,minmax(0,1fr))}}
