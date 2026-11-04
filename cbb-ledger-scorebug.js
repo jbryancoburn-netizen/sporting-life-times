@@ -4,6 +4,16 @@
  'use strict';
  const esc=v=>String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const color=v=>/^#[0-9a-fA-F]{6}$/.test(String(v||''))?v:'#655239';
+ // A rank shared by multiple equally rated programs must be identified as tied.
+ // This uses the published rank distribution, not alphabetical tiebreakers.
+ function formatRetro(profile,tieCounts,maxRank){
+  const elo=Number(profile?.elo),rank=Number(profile?.rank);
+  if(!profile||!Number.isFinite(elo))return 'RETRO —';
+  const base='RETRO '+Math.round(elo);
+  if(!Number.isInteger(rank)||rank<1||rank>maxRank)return base;
+  const tied=(tieCounts?.get(rank)||0)>1;
+  return base+' ('+(tied?'T-':'#')+rank+')';
+ }
  function render(input){
   const g=input||{},phase=['live','final','upcoming'].includes(g.phase)?g.phase:'upcoming';
   const label=(phase==='final'?'FINAL':phase==='upcoming'?'UPCOMING':g.status||'LIVE');
@@ -25,5 +35,5 @@
     '<div class="ledger26-teams">'+team(g.away)+team(g.home)+'</div>'+
     '<div class="ledger26-status" data-phase="'+phase+'"><strong>'+esc(label)+'</strong></div></div>';
  }
- root.SLTBasketballScorebug={render,version:'shared-letterpress-v1'};
+ root.SLTBasketballScorebug={render,formatRetro,version:'shared-letterpress-v2'};
 })(typeof window!=='undefined'?window:globalThis);
