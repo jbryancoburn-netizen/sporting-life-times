@@ -804,12 +804,14 @@
     const result=q('#cbb-cards'),stamp=q('#cbb-source-stamp');
     renderCards();
     if(stamp){
-      const ncaaStamp=feed.officialAsOf?'NCAA-origin feed checked '+new Date(feed.officialAsOf).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/New_York'})+' ET':'NCAA-origin check unavailable or stale';
-      stamp.textContent=ncaaStamp+' · '+feed.officialCount+' NCAA games · '+feed.espnCount+
-        ' live-feed events (secondary) · '+feed.schoolConfirmed+' school fixtures · '+
-         (feed.conferenceConfirmed||0)+' conference fixtures'+
-         (feed.networkDisagreements?' · '+feed.networkDisagreements+' TV listings under review':'')+(state.fallback?' · local snapshot, not live':' · game feeds checked every 30s')+
-        ' · scores individually attributed below';
+      const checked=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit'}).format(state.lastUpdate);
+      const retroDate=state.modelDate?new Intl.DateTimeFormat('en-US',{
+        timeZone:'UTC',month:'short',day:'numeric',year:'numeric'
+      }).format(new Date(state.modelDate+'T12:00:00Z')):'not yet certified';
+      stamp.textContent='SCORES CHECKED '+checked+' ET · '+
+        state.games.filter(g=>g.phase==='live').length+' LIVE · '+state.games.filter(g=>g.phase==='final').length+' FINAL · '+
+        'RETRO RATINGS AS OF '+retroDate+
+        (state.fallback?' · published scoreboard fallback':' · live scores checked every 30s');
     }
     // Do not hide the original until this desk has a real scoreboard or a valid fallback.
     const original=q(women?'#wbb-score-rail':'#score-rail');
