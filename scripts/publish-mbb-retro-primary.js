@@ -70,49 +70,11 @@ for(const game of games){
   winner.conference_wins++;loser.conference_losses++;
  }
 }
-// Overall team records include verified regular-season opponents outside D-I.
-// Keep these wins/losses separate from RETRO's D-I-only records and Elo replay.
-const crosswalk=read('ncaam-2026-27-espn-team-crosswalk.json').teams||[];
-const espnIdByTeam=new Map(crosswalk.map(t=>[String(t.id),String(t.espn_id)]));
-const diEspnIds=new Set(teams.map(t=>espnIdByTeam.get(t.team_id)).filter(Boolean));
-const crossDivision=new Map();
-const sameDay=(x,y)=>String(x||'').slice(0,10)===String(y||'').slice(0,10);
-for(const school of teams){
- const owner=espnIdByTeam.get(school.team_id);
- const filename=owner&&path+'mbb-schedules-2026-27/'+owner+'.json';
- if(!filename||!fs.existsSync(filename))continue;
- const fixtures=JSON.parse(fs.readFileSync(filename,'utf8')).events||[];
- const seen=new Map();let wins=0,losses=0;
- for(const fixture of fixtures){
-  const result=fixture.verified_non_d1_result;
-  const date=String(fixture.date||'').slice(0,10);
-  const competitors=fixture.competitions?.[0]?.competitors||[];
-  const opp=competitors.find(t=>String(t.team?.id||'')!==owner);
-  const opponentId=String(opp?.team?.id||'');
-  const opponentName=String(opp?.team?.displayName||opp?.team?.name||fixture.name||'').trim();
-  if(!result||!opp||!opponentName||diEspnIds.has(opponentId)||fixture.exhibition===true||
-     result.verified!==true||result.classification!=='regular-season'||
-     result.counts_for_retro!==false||!inSeason(date)||
-     !/^https:\/\/[^\s"'<>]+$/.test(result.source_url||'')||
-     ![result.team_score,result.opponent_score].every(n=>Number.isSafeInteger(n)&&n>=0&&n<=300)||
-     result.team_score===result.opponent_score)continue;
-  const key=date+'|'+opponentName.toLowerCase();
-  if(seen.has(key)){
-   const old=seen.get(key);
-   if(old.team_score!==result.team_score||old.opponent_score!==result.opponent_score)
-    throw Error('Conflicting sourced non-DI finals: '+school.team+' '+key);
-   continue;
-  }
-  seen.set(key,result);
-  if(result.team_score>result.opponent_score)wins++;else losses++;
- }
- crossDivision.set(school.team_id,{wins,losses,games:wins+losses});
-}
 const ranks=teams.map(t=>{
  const r=record.get(t.team_id);
  return {...t,base_elo:1500,elo:Number((rating[t.team_id]??1500).toFixed(3)),
   daily_change:lastDate?Number(((rating[t.team_id]??1500)-(previous[t.team_id]??1500)).toFixed(3)):0,
-  ...r,overall_wins:r.wins+(crossDivision.get(t.team_id)?.wins||0),overall_losses:r.losses+(crossDivision.get(t.team_id)?.losses||0),cross_division_wins:crossDivision.get(t.team_id)?.wins||0,cross_division_losses:crossDivision.get(t.team_id)?.losses||0,retro_coverage:games.length?'completed_verified_2026_27_games':'clean-slate'};
+  ...r,retro_coverage:games.length?'completed_verified_2026_27_games':'clean-slate'};
 }).sort((a,b)=>b.elo-a.elo||a.team.localeCompare(b.team));
 let lastElo=null;
 ranks.forEach((t,i)=>{t.rank=(lastElo===t.elo&&i>0)?ranks[i-1].rank:i+1;lastElo=t.elo;});
