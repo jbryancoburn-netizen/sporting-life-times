@@ -240,7 +240,7 @@ try{
     '<td class="sched-time-cell">'+escape(tip)+'</td>'+
     '<td class="sched-network-cell">'+network+'</td>'+
     '<td class="sched-elo-cell">'+(exhibition||verifiedNonD1?'Not applicable':escape(opponentElo(opponentId)))+'</td>'+
-    '<td class="sched-result-cell">'+result+gameFile+(expandable?'<button type="button" class="victorian-stat-toggle" aria-expanded="false">GAME STATS ▾</button>':'')+'</td></tr>'+(expandable?'<tr class="victorian-stat-detail" hidden><td colspan="7"><div class="victorian-stat-content">Open for game statistics.</div></td></tr>':'');
+    '<td class="sched-result-cell">'+result+(bigTenPilot?'':gameFile)+(expandable?'<button type="button" class="victorian-stat-toggle" aria-expanded="false">GAME STATS ▾</button>':'')+'</td></tr>'+(expandable?'<tr class="victorian-stat-detail" hidden><td colspan="7"><div class="victorian-stat-content">Open for game statistics.</div></td></tr>':'');
  }).join('');
  const scoredExhibitions=games.filter(e=>{
   if(e.date.slice(0,10)>='2026-11-01')return false;
@@ -281,12 +281,34 @@ try{
       const labels=[...new Set(teamStats.flatMap(t=>(t.statistics||[]).map(v=>v.label||v.name).filter(Boolean)))];
       if(labels.length)html+='<div class="victorian-stat-block"><h3>Team Box Score</h3><table><thead><tr><th>Statistic</th>'+teamStats.map(t=>'<th>'+escape(t.team?.displayName||t.team?.name||'Team')+'</th>').join('')+'</tr></thead><tbody>'+labels.map(label=>'<tr><th>'+escape(label)+'</th>'+teamStats.map(t=>{const stat=(t.statistics||[]).find(x=>(x.label||x.name)===label);return '<td>'+escape(stat?.displayValue??stat?.value??'—')+'</td>';}).join('')+'</tr>').join('')+'</tbody></table></div>';
      }
+     // Full player box scores, grouped by team, stay inside the expanded game card.
+     for(const teamBox of box.players||[]){
+      const players=teamBox.statistics?.[0];
+      const athletes=players?.athletes||[];
+      if(!athletes.length)continue;
+      const columns=players.labels||[];
+      html+='<div class="victorian-stat-block"><h3>'+escape(teamBox.team?.displayName||teamBox.team?.name||'Player Box Score')+'</h3><table class="victorian-player-box"><thead><tr><th>Player</th>'+columns.map(c=>'<th>'+escape(c)+'</th>').join('')+'</tr></thead><tbody>'+
+       athletes.map(p=>'<tr><th>'+escape(p.athlete?.displayName||p.athlete?.shortName||'Player')+'</th>'+
+        (p.stats||[]).map(v=>'<td>'+escape(v)+'</td>').join('')+'</tr>').join('')+
+       '</tbody></table></div>';
+     }
+     const details=data.header?.competitions?.[0]||{};
+     const venue=details.venue||{};
+     if(venue.fullName||venue.address?.city||details.attendance){
+      html+='<div class="victorian-stat-block"><h3>Game Details</h3><p>'+
+       [venue.fullName,[venue.address?.city,venue.address?.state].filter(Boolean).join(', '),details.attendance?'Attendance: '+Number(details.attendance).toLocaleString('en-US'):''].filter(Boolean).map(escape).join(' · ')+'</p></div>';
+     }
+     const leaders=data.leaders||[];
+     if(leaders.length){
+      html+='<div class="victorian-stat-block"><h3>Game Leaders</h3>'+
+       leaders.map(t=>'<p><strong>'+escape(t.team?.displayName||'Team')+'</strong> · '+(t.leaders||[]).map(v=>escape(v.displayName||v.name||'')+': '+(v.leaders||[]).slice(0,2).map(p=>escape(p.athlete?.displayName||'')+' '+escape(p.displayValue||'')).join(', ')).join(' | ')+'</p>').join('')+'</div>';
+     }
      body.innerHTML=html||'<p>Detailed statistics have not been published for this game.</p>';
      detail.dataset.loaded='true';
     }catch(error){body.textContent='Game statistics are currently unavailable from the source.';}
    };
    button.addEventListener('click',toggle);
-   row.addEventListener('click',e=>{if(e.target.closest('a,button'))return;toggle();});
+   row.addEventListener('click',e=>{if(e.target.closest('button'))return;if(e.target.closest('a'))e.preventDefault();toggle();});
    row.addEventListener('keydown',e=>{if(e.target===row&&(e.key==='Enter'||e.key===' ')){e.preventDefault();toggle();}});
   });
  }
