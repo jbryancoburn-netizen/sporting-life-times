@@ -232,11 +232,15 @@ try{
     encodeURIComponent(final.date)+'&amp;game='+encodeURIComponent(final.id)+'">Game file ↗</a>':'';
   const statId=String(final?.id||e.id||'').replace(/^espn:/,'');
   const expandable=hasScore&&/^\d+$/.test(statId);
+  const school=schoolByEspn.get(opponentId);
+  // The record ledger always uses the verified school + mascot identity.
+  // Keep these full names separate from abbreviated opponent heading labels.
+  const teamFullName=team.full_team_name||team.espn_name||team.name;
+  const opponentFullName=school?.full_team_name||school?.espn_name||opponent.team?.displayName||opponentName;
   const historicalRecords=
    '<span class="victorian-at-game-records"><span class="victorian-record-label">Records entering game</span>'+
-   '<span class="victorian-record-line"><span>'+escape(team.name)+'</span><b>'+escape(enteringRecord(team.espn_id,scheduledDate))+'</b></span>'+
-   '<span class="victorian-record-line"><span>'+escape(opponentName)+'</span><b>'+escape(enteringRecord(opponentId,scheduledDate))+'</b></span></span>';
-  const school=schoolByEspn.get(opponentId);
+   '<span class="victorian-record-line"><span>'+escape(teamFullName)+'</span><b>'+escape(enteringRecord(team.espn_id,scheduledDate))+'</b></span>'+
+   '<span class="victorian-record-line"><span>'+escape(opponentFullName)+'</span><b>'+escape(enteringRecord(opponentId,scheduledDate))+'</b></span></span>';
   const label=escape(school?.name||opponentName);
   const conferenceById=new Map((ratings?.rankings||[]).map(x=>[String(x.team_id),x.conference]));
   const ownConference=conferenceById.get(String(team.id));
