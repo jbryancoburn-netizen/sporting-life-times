@@ -13,7 +13,7 @@ for(const nav of navs){
    const d=document.createElement('div');d.className='cbb-rank-menu';
    const sum=document.createElement('button');sum.type='button';sum.className='cbb-rank-trigger';sum.textContent='Rankings';sum.setAttribute('aria-label','Rankings: choose RETRO, NET, AP, Coaches or Pomeroy');sum.setAttribute('aria-expanded','false');sum.setAttribute('aria-haspopup','true');
    const list=document.createElement('div');list.className='cbb-rank-links';list.id='cbb-rank-dropdown-'+Math.random().toString(36).slice(2);list.hidden=true;sum.setAttribute('aria-controls',list.id);
-   for(const [label,key] of ranks){const a=document.createElement('a');a.href=women?'ncaam.html?gender=women#wbb-rankings':front+'?poll='+key+'#rankings';a.textContent=label;list.append(a);}
+   for(const [label,key] of ranks){const a=document.createElement('a');a.href='ncaam-rankings.html?poll='+key+(women?'&gender=women':'');a.textContent=label;list.append(a);}
    d.append(sum);rating.replaceWith(d);document.body.append(list);
    const close=()=>{list.hidden=true;sum.setAttribute('aria-expanded','false');};
    const place=()=>{if(list.hidden)return;const box=sum.getBoundingClientRect();const w=list.offsetWidth||180;list.style.left=Math.max(8,Math.min(box.left,innerWidth-w-8))+'px';list.style.top=Math.min(box.bottom+6,innerHeight-list.offsetHeight-8)+'px';};
