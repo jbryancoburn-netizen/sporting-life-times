@@ -14,6 +14,25 @@ for t in teams:
 # Extract facilities only from explicit, game-specific official location text.
 # This recovers named arenas that the schedule renderer can see but the data field lacks.
 FACILITY=re.compile(r"\b(?:[A-Z][A-Za-z0-9'.&-]*\s+){1,7}(?:Arena|Center|Centre|Coliseum|Gymnasium|Fieldhouse|Pavilion|Forum|Stadium|Dome|Auditorium)\b",re.I)
+# Restore source-level crest URLs only for exact verified NCAA Division I IDs.
+# This is an importer fix, not a CSS override or a fuzzy opponent-name guess.
+registry=json.loads((D/'mbb-logo-registry.json').read_text()).get('teams',{})
+known_logo={}
+for identity,t in registry.items():
+ if t.get('logo_url_verified') is True:
+  candidate=t.get('official_logo_url') or t.get('logo_url')
+  if str(candidate or '').startswith('https://'):known_logo[str(identity)]=candidate
+if len(known_logo)!=365:raise SystemExit('Refusing D-I crest repair with incomplete identity registry')
+for owner,(school_path,school_calendar) in docs.items():
+ for source_game in school_calendar.get('events',[]):
+  for competition in source_game.get('competitions',[]):
+   for competitor in competition.get('competitors',[]):
+    school=competitor.get('team') or {}
+    exact_id=str(school.get('id') or '')
+    if exact_id in known_logo and not str(school.get('logo') or '').strip():
+     school['logo']=known_logo[exact_id]
+     counts['division_i_logo_fields_recovered']+=1
+     changed.add(owner)
 for tid,(path,doc) in docs.items():
  for event in doc.get('events',[]):
   comp=(event.get('competitions') or [{}])[0]
