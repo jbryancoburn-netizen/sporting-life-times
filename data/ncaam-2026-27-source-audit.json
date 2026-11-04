@@ -1,7 +1,7 @@
 {
   "as_of": "2026-11-04",
-  "matched_source_games": 467,
-  "completed_unique_games": 130,
+  "matched_source_games": 465,
+  "completed_unique_games": 138,
   "upcoming_or_unconfirmed_games": 327,
   "excluded": {},
   "unmapped_teams_fatal": false,
@@ -54,14 +54,117 @@
     "official_source_absence_is_not_agreement": true,
     "ncaa_origin_archive": {
       "provider": "SportsDataverse NCAA-origin schedule",
-      "status": "UNAVAILABLE_NOT_INDEPENDENTLY_CONFIRMED",
+      "archive_games_with_matched_scores": 95,
+      "archive_unresolved_games": 29,
+      "confirmed_final_count": 85,
+      "confirmed_final_ids": [
+        "espn:401919047",
+        "espn:401919780",
+        "espn:401919803",
+        "espn:401920231",
+        "espn:401920679",
+        "espn:401920690",
+        "espn:401920732",
+        "espn:401920758",
+        "espn:401920769",
+        "espn:401920842",
+        "espn:401920886",
+        "espn:401921060",
+        "espn:401921139",
+        "espn:401921264",
+        "espn:401921423",
+        "espn:401921697",
+        "espn:401921704",
+        "espn:401921731",
+        "espn:401921753",
+        "espn:401921766",
+        "espn:401922020",
+        "espn:401924743",
+        "espn:401925683",
+        "espn:401925733",
+        "espn:401925811",
+        "espn:401925818",
+        "espn:401926771",
+        "espn:401928995",
+        "espn:401906757",
+        "espn:401906848",
+        "espn:401909796",
+        "espn:401920061",
+        "espn:401920376",
+        "espn:401920422",
+        "espn:401920702",
+        "espn:401921165",
+        "espn:401921801",
+        "espn:401921808",
+        "espn:401921819",
+        "espn:401925779"
+      ],
+      "score_conflict_count": 2,
+      "score_conflicts": [
+        {
+          "espn_event_id": "espn:401909694",
+          "date": "2026-11-02",
+          "home": "Florida A&M",
+          "away": "Florida St.",
+          "espn_score": [
+            69,
+            112
+          ],
+          "ncaa_archive_score": [
+            69,
+            113
+          ]
+        },
+        {
+          "espn_event_id": "espn:401921422",
+          "date": "2026-11-02",
+          "home": "App State",
+          "away": "Merrimack",
+          "espn_score": [
+            63,
+            49
+          ],
+          "ncaa_archive_score": [
+            49,
+            63
+          ]
+        }
+      ],
+      "unmatched_does_not_mean_confirmed": true,
+      "status": "AVAILABLE",
       "archive_url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/ncaa_mbb_schedule/ncaa_mbb_schedule_2027.csv.gz",
-      "error": "HTTP Error 404: Not Found",
-      "confirmed_final_count": 0,
-      "score_conflict_count": 0,
-      "score_conflicts": []
+      "archive_source_rows": 124
     },
-    "unresolved_conflicts": [],
-    "quarantined_event_count": 0
+    "unresolved_conflicts": [
+      {
+        "espn_event_id": "espn:401909694",
+        "date": "2026-11-02",
+        "home": "Florida A&M",
+        "away": "Florida St.",
+        "espn_score": [
+          69,
+          112
+        ],
+        "ncaa_archive_score": [
+          69,
+          113
+        ]
+      },
+      {
+        "espn_event_id": "espn:401921422",
+        "date": "2026-11-02",
+        "home": "App State",
+        "away": "Merrimack",
+        "espn_score": [
+          63,
+          49
+        ],
+        "ncaa_archive_score": [
+          49,
+          63
+        ]
+      }
+    ],
+    "quarantined_event_count": 2
   }
 }
