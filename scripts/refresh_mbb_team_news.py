@@ -57,9 +57,9 @@ with ThreadPoolExecutor(max_workers=6) as pool:
 # Assemble a conference-specific desk from the existing 365 school feeds.
 # This is source-side aggregation: no extra paid feeds and no invented articles.
 BIG_TEN = (
-    "Illinois", "Indiana", "Iowa", "Maryland", "Michigan", "Michigan State",
-    "Minnesota", "Nebraska", "Northwestern", "Ohio State", "Oregon",
-    "Penn State", "Purdue", "Rutgers", "UCLA", "USC", "Washington", "Wisconsin"
+    "Illinois", "Indiana", "Iowa", "Maryland", "Michigan", "Michigan St.",
+    "Minnesota", "Nebraska", "Northwestern", "Ohio St.", "Oregon",
+    "Penn St.", "Purdue", "Rutgers", "UCLA", "Southern California", "Washington", "Wisconsin"
 )
 def big_ten_school(team):
     label = (team.get("name") or "").casefold()
