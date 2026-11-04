@@ -162,6 +162,17 @@ try{
   // For non-D-I opponents, an exact university-attested source result may
   // be carried by the schedule record without assigning a false NCAA ID.
   const special=e.exhibition_result;
+  // A sourced regular-season result versus a non-Division I opponent is a final
+  // on the team calendar, but does not enter the Division I RETRO game ledger.
+  const otherDivisionResult=e.verified_non_d1_result;
+  const verifiedNonD1=!exhibition&&!canceled&&!opponentId&&
+    otherDivisionResult?.verified===true&&
+    otherDivisionResult?.classification==='regular-season'&&
+    otherDivisionResult?.counts_for_retro===false&&
+    /^https:\/\/[^\s"'<>]+$/.test(otherDivisionResult?.source_url||'')&&
+    [otherDivisionResult?.team_score,otherDivisionResult?.opponent_score].every(n=>
+      n!==''&&n!=null&&Number.isSafeInteger(Number(n))&&Number(n)>=0&&Number(n)<=300)?
+    otherDivisionResult:null;
   const verifiedSpecial=exhibition&&!canceled&&special?.verified===true&&
     special?.counts_for_retro===false&&
     /^https:\/\/[^\s"'<>]+$/.test(special?.source_url||'')&&
@@ -170,13 +181,13 @@ try{
   const final=!exhibition&&!canceled&&opponentId?schoolFinal(scheduledDate,opponentId,midnight):null;
   const exhibitionFinal=exhibition&&!canceled&&opponentId?
     exhibitionFinals.get(gameKey(scheduledDate,team.espn_id,opponentId)):null;
-  const completed=!!final||!!exhibitionFinal||!!verifiedSpecial||
+  const completed=!!final||!!exhibitionFinal||!!verifiedSpecial||!!verifiedNonD1||
     e.status?.type?.completed===true||e.status?.type?.state==='post';
   const resultRecord=exhibitionFinal||final;
-  const teamPoints=verifiedSpecial?verifiedSpecial.team_score:
+  const teamPoints=verifiedNonD1?verifiedNonD1.team_score:verifiedSpecial?verifiedSpecial.team_score:
     resultRecord?(resultRecord.home===String(team.espn_id)?
     resultRecord.home_score:resultRecord.away_score):(exhibition?null:self?.score);
-  const opponentPoints=verifiedSpecial?verifiedSpecial.opponent_score:
+  const opponentPoints=verifiedNonD1?verifiedNonD1.opponent_score:verifiedSpecial?verifiedSpecial.opponent_score:
     resultRecord?(resultRecord.home===String(team.espn_id)?
     resultRecord.away_score:resultRecord.home_score):(exhibition?null:opponent?.score);
   const hasScore=completed&&teamPoints!=null&&opponentPoints!=null&&
@@ -190,7 +201,7 @@ try{
   const scoreText=hasScore?'<strong class="sched-result-score '+(tied?'sched-tie':winning?'sched-win':'sched-loss')+'">'+
     (tied?'T ':winning?'W ':'L ')+escape(teamPoints)+'–'+escape(opponentPoints)+'</strong>':
     '<span class="sched-result-pending">'+(canceled?'Event canceled':exhibition?'Exhibition result not reported':'Not final')+'</span>';
-  const resultSource=exhibitionFinal||verifiedSpecial;
+  const resultSource=exhibitionFinal||verifiedSpecial||verifiedNonD1;
   const sourceLink=resultSource?'<br><a class="mbb-exhibition-source" href="'+escape(resultSource.source_url)+
     '" rel="noopener noreferrer" target="_blank">'+(resultSource.source_tier==='independent_secondary'?
       'Published score ↗':'University result ↗')+'</a>':'';
