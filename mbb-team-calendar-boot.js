@@ -165,7 +165,7 @@ try{
   // A sourced regular-season result versus a non-Division I opponent is a final
   // on the team calendar, but does not enter the Division I RETRO game ledger.
   const otherDivisionResult=e.verified_non_d1_result;
-  const verifiedNonD1=!exhibition&&!canceled&&!opponentId&&
+  const verifiedNonD1=!exhibition&&!canceled&&!schoolByEspn.has(String(opponentId))&&
     otherDivisionResult?.verified===true&&
     otherDivisionResult?.classification==='regular-season'&&
     otherDivisionResult?.counts_for_retro===false&&
@@ -220,7 +220,7 @@ try{
     '<td class="sched-venue-cell"><div class="sched-venue"><strong>'+escape(arena)+'</strong><small>'+escape(city)+'</small></div></td>'+
     '<td class="sched-time-cell">'+escape(tip)+'</td>'+
     '<td class="sched-network-cell">'+network+'</td>'+
-    '<td class="sched-elo-cell">'+(exhibition?'Not applicable':escape(opponentElo(opponentId)))+'</td>'+
+    '<td class="sched-elo-cell">'+(exhibition||verifiedNonD1?'Not applicable':escape(opponentElo(opponentId)))+'</td>'+
     '<td class="sched-result-cell">'+result+gameFile+'</td></tr>';
  }).join('');
  const scoredExhibitions=games.filter(e=>{
