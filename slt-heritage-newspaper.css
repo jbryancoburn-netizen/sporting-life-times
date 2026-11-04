@@ -3,9 +3,9 @@
 :root{--slt-press:#261f19;--slt-paper:#f0e6d4;--slt-sheet:#fcf7eb;--slt-ruby:#87332c;--slt-hairline:#ae9d84}
 body:is(.edition-interior,.league-edition),body:has(.wrap>.masthead),body:has(.wrap>header>.masthead){background:var(--slt-paper)!important;color:var(--slt-press)}
 :is(.wrap>header,.wrap>header.masthead,header.masthead){background:transparent!important}
-.wrap .masthead{padding:22px 12px 17px!important;border-top:4px double var(--slt-press)!important;border-bottom:5px double var(--slt-press)!important;background:var(--slt-paper)!important;box-shadow:none!important}
-.wrap .masthead a,.wrap .masthead .newspaper-wordmark-main{font-family:Georgia,'Times New Roman',serif!important;font-weight:900!important;letter-spacing:-.055em!important;color:var(--slt-press)!important;text-decoration:none!important;text-shadow:none!important;font-style:normal!important;font-size:clamp(2.2rem,5.4vw,4.65rem)!important;line-height:1.06!important}
-.wrap .edition-line{font-family:Georgia,'Times New Roman',serif!important;font-weight:700!important;font-size:clamp(1.05rem,2.2vw,1.55rem)!important;letter-spacing:.03em!important;text-transform:uppercase!important;color:var(--slt-ruby)!important;padding:16px 10px 11px!important}
+.wrap .masthead{padding:14px 10px 12px!important;border-top:4px double var(--slt-press)!important;border-bottom:5px double var(--slt-press)!important;background:var(--slt-paper)!important;box-shadow:none!important}
+.wrap .masthead a,.wrap .masthead .newspaper-wordmark-main{font-family:Georgia,'Times New Roman',serif!important;font-weight:900!important;letter-spacing:-.055em!important;color:var(--slt-press)!important;text-decoration:none!important;text-shadow:none!important;font-style:normal!important;font-size:clamp(1.9rem,4.2vw,3.7rem)!important;line-height:1.08!important}
+.wrap .edition-line{font-family:Georgia,'Times New Roman',serif!important;font-weight:700!important;font-size:clamp(.95rem,1.9vw,1.3rem)!important;letter-spacing:.03em!important;text-transform:uppercase!important;color:var(--slt-ruby)!important;padding:16px 10px 11px!important}
 .wrap .topline{font-family:Georgia,'Times New Roman',serif!important;letter-spacing:.09em!important;text-transform:uppercase!important}
 .wrap .nav,.wrap .site-nav{background:var(--slt-sheet)!important;border-bottom:3px double var(--slt-press)!important;box-shadow:none!important;backdrop-filter:none!important}
 .wrap .nav a,.wrap .site-nav a{font-family:Georgia,'Times New Roman',serif!important;font-weight:700!important}
@@ -17,12 +17,12 @@ body.edition-interior .masthead a.newspaper-wordmark .newspaper-wordmark-main{fo
 body.edition-interior .masthead{border-bottom:5px double var(--slt-press)!important}
 body.edition-interior .league-hub>h1{font-size:clamp(2.8rem,6vw,5.25rem)!important;line-height:1.03!important;border-bottom:5px double var(--slt-press);padding-bottom:.18em}
 body.edition-interior .league-directory-section h2{border-bottom:3px double var(--slt-press)}
-@media(max-width:700px){.wrap .masthead a,.wrap .masthead .newspaper-wordmark-main{font-size:clamp(1.8rem,7vw,2.8rem)!important}.wrap .edition-line{font-size:1.1rem!important}}
+@media(max-width:700px){.wrap .masthead a,.wrap .masthead .newspaper-wordmark-main{font-size:clamp(1.55rem,6.2vw,2.15rem)!important}.wrap .edition-line{font-size:.95rem!important}}
 
 /* Sporting Life & Times actual editorial frontpage modules */
 .slt-newspaper-front{max-width:1240px;margin:22px auto 30px;padding:0 22px;color:#29231b}
 .slt-newspaper-front .slt-edition-flag{font:700 12px Georgia,serif;letter-spacing:.16em;color:#8e342b;text-transform:uppercase;border-top:5px double #29231b;padding-top:15px}
-.slt-newspaper-front h2{font:900 clamp(40px,7vw,90px)/1.04 Georgia,'Times New Roman',serif!important;letter-spacing:-.06em;margin:13px 0 9px;text-transform:none}
+.slt-newspaper-front h2{font:900 clamp(32px,5vw,58px)/1.04 Georgia,'Times New Roman',serif!important;letter-spacing:-.06em;margin:13px 0 9px;text-transform:none}
 .slt-newspaper-front .slt-deck{font:italic clamp(17px,2.3vw,24px)/1.3 Georgia,serif;margin:8px 0 24px;color:#635746}
 .slt-editorial-grid{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(260px,1fr);gap:26px;border-top:2px solid #29231b;padding:19px 0}
 .slt-editorial-lead{border-right:1px solid #bba98e;padding-right:25px}
@@ -42,7 +42,7 @@ body.edition-interior .league-directory-section h2{border-bottom:3px double var(
 .slt-front-v2-top{display:flex;justify-content:space-between;gap:12px;font:700 11px Georgia,serif;letter-spacing:.095em;border-bottom:2px solid #292219;padding:6px 0 11px}
 .slt-front-v2-title{text-align:center;padding:26px 8px 19px;border-bottom:6px double #241f19}
 .slt-front-v2-title p{font:700 11px Georgia,serif;letter-spacing:.22em;margin:0 0 10px;color:#82382d}
-.slt-front-v2-title h2{font:900 clamp(48px,7.5vw,106px)/.99 Georgia,serif!important;letter-spacing:-.075em!important;margin:0 0 16px!important;color:#231d18}
+.slt-front-v2-title h2{font:900 clamp(36px,5.3vw,74px)/.99 Georgia,serif!important;letter-spacing:-.075em!important;margin:0 0 16px!important;color:#231d18}
 .slt-front-v2-title div{font:700 13px Georgia,serif;letter-spacing:.16em}
 .slt-front-v2-grid{display:grid;grid-template-columns:1.35fr 1fr .89fr;gap:0;padding:22px 0 10px}
 .slt-front-v2-grid>*{min-width:0;padding:8px 24px}
@@ -50,7 +50,7 @@ body.edition-interior .league-directory-section h2{border-bottom:3px double var(
 .slt-front-v2-grid>*:nth-child(2){border-right:1px solid #a99981}
 .slt-front-v2-grid>*:last-child{padding-right:0}
 .slt-front-v2-tag{font:800 11px Georgia,serif;letter-spacing:.13em;color:#913b30}
-.slt-front-v2-lead h3{font:900 clamp(49px,5vw,79px)/1.02 Georgia,serif;letter-spacing:-.065em;margin:20px 0 15px}
+.slt-front-v2-lead h3{font:900 clamp(29px,3.2vw,46px)/1.02 Georgia,serif;letter-spacing:-.065em;margin:20px 0 15px}
 .slt-front-v2-dek{font:italic 23px/1.24 Georgia,serif!important;color:#34281e!important}
 .slt-front-v2-lead>p:not(.slt-front-v2-dek){font:17px/1.5 Georgia,serif}
 .slt-front-v2-rule{height:5px;border-top:1px solid #30251d;border-bottom:1px solid #30251d;margin:20px 0}
