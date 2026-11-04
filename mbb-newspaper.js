@@ -63,34 +63,42 @@ function teamProfile(t,score=null){
  return {name:t.team,crest:logo(t,'score'),color:palette?.primary||'#655239',
    record:rec(t),retro:window.SLTSportsScorebug.formatRetro(t,retroTies,365),score};
 }
-function gameCard(g,final=false){
+function gamefileCard(g,upcoming=false,conference=false){
  const [h,a]=gid(g),home=teamMap.get(h),away=teamMap.get(a);
  if(!home||!away)return '';
  const event=String(g.id||'').match(/^espn:([0-9]+)$/);
  const day=String(g.date||'').slice(0,10);
+ const final=!upcoming&&g.away_score!=null&&g.home_score!=null&&Number.isFinite(Number(g.away_score))&&Number.isFinite(Number(g.home_score));
+ const phase=final?'final':'upcoming';
  const link=event?'cbb-gamefile.html?day='+encodeURIComponent(day)+'&game='+event[1]:'';
- const hasScores=g.away_score!=null&&g.home_score!=null&&Number.isFinite(Number(g.away_score))&&Number.isFinite(Number(g.home_score));
- const phase=final&&hasScores?'final':'upcoming';
- return '<article class="ledger26-card"><div class="ledger26-meta"><span class="ledger26-time">'+esc(day)+' · '+(phase==='final'?'FINAL':'SCHEDULED')+'</span></div>'+
-   window.SLTSportsScorebug.render({phase,away:teamProfile(away,phase==='final'?g.away_score:null),home:teamProfile(home,phase==='final'?g.home_score:null)})+
-   (link?'<div class="slt-conference-game-link"><a href="'+esc(link)+'">OPEN GAMEFILE ↗</a></div>':'')+
-   (g.source_url?'<div class="slt-conference-game-link"><a href="'+url(g.source_url)+'" target="_blank" rel="noopener">GAME SOURCE ↗</a></div>':'')+
-   '</article>';
+ const id=event?event[1]:'';
+ const meta=conference?' slt-fixture-meta':'';
+ const attrs=conference?' data-fixture-event="'+esc(id)+'" data-fixture-day="'+esc(day)+'"':'';
+ const secondary=conference?'<span class="slt-fixture-tipoff">TIME TBA</span><span class="slt-fixture-network">TV TBA</span>':'';
+ const data=id?'<div class="slt-mbb-inline" data-mbb-id="'+esc(id)+'" data-mbb-day="'+esc(day)+'" data-mbb-away="'+esc(away.team)+'" data-mbb-home="'+esc(home.team)+'" data-mbb-away-score="'+(final?esc(g.away_score):'')+'" data-mbb-home-score="'+(final?esc(g.home_score):'')+'" data-mbb-phase="'+phase+'"><p>Open this game to retrieve verified scoring and game statistics.</p></div>':'<p>Verified event-level statistics are not linked for this fixture.</p>';
+ return '<article class="ledger26-card'+(conference?' slt-conference-game':'')+'"><div class="ledger26-meta'+meta+'"'+attrs+'><span class="ledger26-time">'+esc(day)+'</span>'+secondary+'</div>'+
+  '<details class="ledger26-expand"><summary class="ledger26-summary">'+
+  window.SLTSportsScorebug.render({phase,away:teamProfile(away,final?g.away_score:null),home:teamProfile(home,final?g.home_score:null)})+
+  '<span class="ledger26-instruction">OPEN GAME DETAILS +</span></summary><div class="ledger26-expanded">'+data+
+  (link?'<div class="slt-conference-game-link"><a href="'+esc(link)+'">OPEN GAMEFILE ↗</a></div>':'')+
+  (g.source_url?'<div class="slt-conference-game-link"><a href="'+url(g.source_url)+'" target="_blank" rel="noopener">GAME SOURCE ↗</a></div>':'')+
+  '</div></details></article>';
 }
-// Conference upcoming fixtures use the canonical Daily Ledger scorebug renderer.
-function conferenceScoreCard(g){
- const [h,a]=gid(g),home=teamMap.get(h),away=teamMap.get(a);
- if(!home||!away)return '';
-
- const event=String(g.id||'').match(/^espn:([0-9]+)$/);
- const link=event?'cbb-gamefile.html?day='+encodeURIComponent(String(g.date).slice(0,10))+'&game='+event[1]:null;
- const date=String(g.date||'').slice(0,10);
- return '<article class="ledger26-card slt-conference-game">'+
-   '<div class="ledger26-meta slt-fixture-meta" data-fixture-event="'+esc(event?event[1]:'')+'" data-fixture-day="'+esc(date)+'"><span class="ledger26-time">'+esc(date)+'</span><span class="slt-fixture-tipoff">TIME TBA</span><span class="slt-fixture-network">TV TBA</span></div>'+
-   window.SLTSportsScorebug.render({phase:'upcoming',away:teamProfile(away),home:teamProfile(home)})+
-   (link?'<div class="slt-conference-game-link"><a href="'+link+'">OPEN GAMEFILE ↗</a></div>':'')+
-   '</article>';
-}
+function gameCard(g,final=false){return gamefileCard(g,!final,false);}
+function conferenceScoreCard(g){return gamefileCard(g,true,true);}
+document.addEventListener('toggle',async e=>{
+ const details=e.target;
+ if(!details.matches?.('.ledger26-expand[open]'))return;
+ const node=details.querySelector('.slt-mbb-inline');
+ if(!node||node.dataset.loaded||!window.SLTInlineGamefile)return;
+ node.dataset.loaded='true';
+ const getScore=k=>node.dataset[k]!==''?Number(node.dataset[k]):null;
+ const g={id:node.dataset.mbbId,day:node.dataset.mbbDay,kind:'regular',phase:node.dataset.mbbPhase,
+ away:{name:node.dataset.mbbAway,score:getScore('mbbAwayScore')},
+ home:{name:node.dataset.mbbHome,score:getScore('mbbHomeScore')}};
+ try{await window.SLTInlineGamefile.mount(node,g,{women:false});}
+ catch(error){node.textContent='Gamefile could not be retrieved. Open the full gamefile for available details.';}
+},true);
 // Resolve confirmed tipoff and broadcasts by ESPN event ID; never invent missing times/networks.
 // Use the same published school calendars as Team Desks, then ESPN by exact event ID.
 async function hydrateConferenceTipoffs(){
