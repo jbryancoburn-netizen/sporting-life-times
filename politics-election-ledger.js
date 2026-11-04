@@ -3,7 +3,7 @@
 (()=>{"use strict";
 const root=document.getElementById("election-night-results");if(!root)return;
 const feed="https://openamerica.io/elections/results.json?year=2026&office=";
-const offices=["House","Senate","Governor"];let selected="Senate",latest={},busy=false;
+const offices=["House","Senate","Governor"];let selected="Senate",latest={},busy=false,floridaOnly=false;
 const el=(tag,cls,t)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(t!==undefined)n.textContent=String(t);return n};
 const fmt=v=>Number(v).toLocaleString("en-US");
 const stateNames=new Intl.DisplayNames(["en"],{type:"region"});
@@ -30,10 +30,11 @@ function render(){
  const d=latest[selected],body=document.getElementById("election-ledger-content"),status=document.getElementById("election-ledger-status");
  if(!body||!status)return;body.replaceChildren();
  for(const b of root.querySelectorAll("[data-office]")){b.setAttribute("aria-pressed",String(b.dataset.office===selected))}
+ const floridaButton=root.querySelector("[data-florida-only]");if(floridaButton)floridaButton.setAttribute("aria-pressed",String(floridaOnly));
  if(!d){status.textContent="Waiting for a verified "+selected+" data feed. No vote totals inferred.";return}
- const keys=Object.keys(d.races).filter(k=>isObject(d.races[k])&&Array.isArray(d.races[k].cands)&&d.races[k].cands.some(c=>Number.isInteger(c.v)&&c.v>0));
+ const keys=Object.keys(d.races).filter(k=>(!floridaOnly||k.toUpperCase().startsWith("FL-")||k.toUpperCase()==="FL")&&isObject(d.races[k])&&Array.isArray(d.races[k].cands)&&d.races[k].cands.some(c=>Number.isInteger(c.v)&&c.v>0));
  const updated=d.as_of&&Number.isFinite(Date.parse(d.as_of))?d.as_of:null;
- status.textContent=keys.length+" "+selected.toLowerCase()+" races with reported votes in available states · "+(updated?"latest state update "+new Date(updated).toLocaleString():"no state update time")+" · "+(d.stale?"FEED STALE":"STATE COUNTS, NOT RACE CALLS");
+ status.textContent=keys.length+" "+(floridaOnly?"Florida ":"")+selected.toLowerCase()+" races with reported votes in available states · "+(updated?"latest state update "+new Date(updated).toLocaleString():"no state update time")+" · "+(d.stale?"FEED STALE":"STATE COUNTS, NOT RACE CALLS");
  if(!keys.length){body.append(el("p","election-ledger-empty","No verified vote totals yet in this provider's covered states. This is not a nationwide zero count."));return}
  const grid=el("div","election-ledger-grid");for(const key of keys.sort()){grid.append(card(key,d.races[key],selected,updated))}
  body.append(grid);
@@ -49,5 +50,6 @@ async function refresh(){
  finally{busy=false}
 }
 root.querySelectorAll("[data-office]").forEach(b=>b.addEventListener("click",()=>{selected=b.dataset.office;render()}));
+ const floridaButton=root.querySelector("[data-florida-only]");if(floridaButton)floridaButton.addEventListener("click",()=>{floridaOnly=!floridaOnly;render()});
 refresh();setInterval(()=>{if(!document.hidden)refresh()},60000);
 })();
