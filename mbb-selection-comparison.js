@@ -26,16 +26,14 @@ function projectedBracket(rows){
 }
 function bigTenBracket(members,seedRows){
  const seeded=seedRows.map((t,i)=>({team:t,seed:i+1}));
- const pick=n=>seeded[n-1];
- const stages=[[],[],[],[],[],[]],winners=new Map();
+ const stages=[[],[],[],[],[],[]];
+ const games=new Map();
  const match=(round,id,one,two)=>{
-  const a=typeof one==='number'?pick(one):winners.get(one);
-  const b=typeof two==='number'?pick(two):winners.get(two);
-  const winner=a.seed<b.seed?a:b;
-  const game={id,a,b,winner,round};
-  stages[round].push(game);winners.set(id,winner);
+  const slot=value=>typeof value==='number'?seeded[value-1]:null;
+  const game={id,a:slot(one),b:slot(two),one,two};
+  stages[round].push(game);games.set(id,game);
  };
- // Paths follow the Big Ten's 18-team tournament bracket structure.
+ // Actual Big Ten 18-team bracket entry points; no winners are forecast.
  match(0,'G1',16,17);match(0,'G2',15,18);
  match(1,'G3','G1',9);match(1,'G4',12,13);
  match(1,'G5','G2',10);match(1,'G6',11,14);
@@ -45,13 +43,11 @@ function bigTenBracket(members,seedRows){
  match(3,'G13','G9',2);match(3,'G14','G10',3);
  match(4,'G15','G11','G12');match(4,'G16','G13','G14');
  match(5,'G17','G15','G16');
- const labels=['Mar 9 · First round','Mar 10 · Second round','Mar 11 · Third round','Mar 12 · Quarterfinals','Mar 13 · Semifinals','Mar 14 · Championship'];
- const teamLine=p=>'<div class="bten-bracket-team"><span class="bten-seed">'+p.seed+'</span>'+name(p.team)+'</div>';
+ const labels=['Mar 9 · First','Mar 10 · Second','Mar 11 · Third','Mar 12 · Quarters','Mar 13 · Semis','Mar 14 · Final'];
+ const teamLine=(p,source)=>'<div class="bten-bracket-team">'+(p?'<span class="bten-seed">'+p.seed+'</span>'+name(p.team):'<span class="bten-slot">'+esc('Winner '+source.replace(/^G/,'G'))+'</span>')+'</div>';
  return '<div class="bten-bracket-scroll"><div class="bten-bracket-grid">'+stages.map((round,index)=>
   '<div class="bten-round"><h3>'+labels[index]+'</h3><div class="bten-round-track">'+round.map((m,i)=>
-    '<div class="bten-game bten-position-'+(index+1)+'-'+(i+1)+'"><div class="bten-game-id">GAME '+m.id.slice(1)+'</div>'+teamLine(m.a)+teamLine(m.b)+
-    '<div class="bten-pick">Projected advance: '+esc(m.winner.team.team)+'</div></div>').join('')+'</div>'+
-    '</div>').join('')+'</div></div>';
+    '<div class="bten-game bten-position-'+(index+1)+'-'+(i+1)+'"><div class="bten-game-id">GAME '+m.id.slice(1)+'</div>'+teamLine(m.a,m.one)+teamLine(m.b,m.two)+'</div>').join('')+'</div></div>').join('')+'</div></div>';
 }
 function buildConference(app,teams,games,conference){
  const members=teams.filter(t=>t.conference===conference);if(!members.length)return;
@@ -59,7 +55,7 @@ function buildConference(app,teams,games,conference){
  if(conference==='Big Ten'){
   const section=document.createElement('section');section.className='panel bten-bracket-section';section.id='conference-tournament-watch';
   section.innerHTML='<div class="eyebrow">2027 Big Ten Men’s Basketball Tournament</div><h2>Road to the automatic bid</h2>'+
-   '<p class="note">Official tournament structure: 18 teams · March 9–14, 2027 · Gainbridge Fieldhouse, Indianapolis. These are <strong>projected seed positions and projected winners</strong>, not official seeds or actual game results. Future tip times and networks are not yet announced.</p>'+
+   '<p class="note">Official tournament structure: 18 teams · March 9–14, 2027 · Gainbridge Fieldhouse, Indianapolis. These are <strong>projected seed positions</strong>, not official seeds or actual game results. Future tip times and networks are not yet announced.</p>'+
    '<div class="bten-bracket-key">Seeds 1–4 enter quarterfinals · 5–8 enter third round · 9–14 enter second round · 15–18 begin in the first round</div>'+
    bigTenBracket(members,o.rows);
   const target=app.querySelector('.grid.two')||app;target.parentNode.insertBefore(section,target.nextSibling);
