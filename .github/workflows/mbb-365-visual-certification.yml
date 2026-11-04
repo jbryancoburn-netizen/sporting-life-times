@@ -1,0 +1,37 @@
+name: Men's 365-team desktop and mobile certification
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/audit_mbb_365_layout.py'
+      - '.github/workflows/mbb-365-visual-certification.yml'
+permissions:
+  contents: read
+jobs:
+  check-all-teams:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Browser dependencies (free public repository runner)
+        run: |
+          python -m pip install --quiet playwright==1.56.0
+          python -m playwright install --with-deps chromium
+      - name: Start static newspaper server
+        run: |
+          python -m http.server 8765 --bind 127.0.0.1 >/tmp/mbb-audit-server.log 2>&1 &
+          sleep 2
+          curl -fsS http://127.0.0.1:8765/ncaam-team.html >/dev/null
+      - name: Check 365 teams on phone and desktop (730 pages)
+        run: python scripts/audit_mbb_365_layout.py --concurrency 6 --max-screenshots 12
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mbb-365-desktop-mobile-evidence
+          path: artifacts/mbb-365-*
+          retention-days: 14
+          if-no-files-found: warn
