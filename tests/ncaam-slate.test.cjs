@@ -151,7 +151,7 @@ const womenBase=json('data/ncaaw-2026-27-retro-primary.json');
 const home=menBase.rankings.find(r=>r.team==='Tennessee');
 const away=menBase.rankings.find(r=>r.team==='Wofford');
 assert(home && away);
-const ended={id:'999999991',day:'2026-11-03',kind:'regular',phase:'final',completed:true,neutral:true,site_verified:false,
+const ended={id:'999999991',day:'2026-11-05',kind:'regular',phase:'final',completed:true,neutral:true,site_verified:false,
  home:{canonical:home.team_id,score:88},away:{canonical:away.team_id,score:70}};
 const updated=slate.provisionalRetro(menBase,[ended],globalThis.MBB_RETRO);
 assert.equal(updated.pending,1);
