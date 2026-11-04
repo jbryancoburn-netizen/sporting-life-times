@@ -185,3 +185,11 @@
  .ledger26-situation,.ledger26-live-word{font-size:8px}
 }
 @media(max-width:360px){.ledger26-status--stack .ledger26-clock{font-size:20px!important}.ledger26-period{font-size:8px}}
+
+/* Ensure all live status elements remain separate, unbroken lines. */
+.ledger26-status--stack{min-width:0;overflow:hidden;gap:5px;flex-wrap:nowrap}
+.ledger26-status--stack .ledger26-clock,.ledger26-status--stack .ledger26-period,.ledger26-status--stack .ledger26-situation,.ledger26-status--stack .ledger26-live-word{width:100%;max-width:100%;display:block;text-align:center;overflow-wrap:normal;word-break:normal;hyphens:none;white-space:nowrap}
+.ledger26-status--stack .ledger26-clock--text{font-size:12px!important;letter-spacing:0!important}
+.ledger26-status--stack .ledger26-period{font-size:9px;letter-spacing:0}
+@media(max-width:640px){.ledger26-status--stack .ledger26-clock--text{font-size:11px!important}.ledger26-status--stack .ledger26-period{font-size:8px}}
+@media(max-width:360px){.ledger26-status--stack .ledger26-clock--text{font-size:9px!important}.ledger26-status--stack .ledger26-period{font-size:7px}}
