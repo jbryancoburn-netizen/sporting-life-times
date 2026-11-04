@@ -16,7 +16,9 @@
  }
  function render(input){
   const g=input||{},phase=['live','final','upcoming'].includes(g.phase)?g.phase:'upcoming';
-  const label=(phase==='final'?'FINAL':phase==='upcoming'?'UPCOMING':g.status||'LIVE');
+  const label=(phase==='final'?
+    (/^FINAL(?:\s*\/\s*OT|\s*\(OT\)|\s+AFTER\s+EXTRA\s+TIME)?$/i.test(String(g.status||''))?g.status:'FINAL'):
+    phase==='upcoming'?'UPCOMING':g.status||'LIVE');
   const team=t=>{
    const x=t||{},poll=x.poll||null;
    const pollText=poll?[poll.coaches??'NR',poll.ap??'NR'].join('/'):'';
