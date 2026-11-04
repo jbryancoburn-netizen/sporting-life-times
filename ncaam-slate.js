@@ -190,6 +190,7 @@ let selected=/^\d{4}-\d\d-\d\d$/.test(url.searchParams.get('date')||'')?url.sear
 let filter=['all','live','final','upcoming','exhibition'].includes(url.searchParams.get('view'))?url.searchParams.get('view'):'all';
 let search='',loaded=[],ratings=new Map(),lastUpdate='',limit=18,loading=false,sourceError='';
 let pollRankings=new Map(),pollAsOf='';
+let liveBoard=[],liveCheckedAt=0,liveCheckError='',liveRequest=false;
 const verifiedLiveScores=new Map();
 let cross={teams:[]},palette={},arenaRegistry={},womenTeams=new Map(),sourceFeed=null,seasonStats=new Map(),liveChanges=new Map(),scoreCalibration=null;
 const insight=window.SLTBasketballInsights;
@@ -528,7 +529,7 @@ function card(original,featured,opened=false){
    '</div></details></article>';
 }
 const openGamefile=(details,force=false)=>{
- const base=loaded.find(x=>String(x.id)===details.dataset.gameId&&x.day===details.dataset.day);
+ const base=displayGames().find(x=>String(x.id)===details.dataset.gameId&&x.day===details.dataset.day);
  const panel=details.querySelector('[data-inline-game-id]');
  if(!base||!panel||!window.SLTInlineGamefile)return;
  const g=currentScore(base);
@@ -546,13 +547,16 @@ document.addEventListener('toggle',event=>{
  const d=event.target;
  if(d.matches?.('.sl-game-expansion')&&d.open)openGamefile(d);
 },true);
+const displayGames=()=>reconcileLive(loaded,liveBoard);
 const render=()=>{
- const games=selectGames(loaded,selected,filter,search),shown=games.slice(0,limit);
+ const games=selectGames(displayGames(),selected,filter,search),shown=games.slice(0,limit);
  const opened=new Set([...document.querySelectorAll('.sl-game-expansion[open]')].map(d=>d.dataset.day+'|'+d.dataset.gameId));
  document.getElementById('sl-date').textContent=dateLabel(selected,window.matchMedia('(max-width:700px)').matches);
  document.getElementById('sl-count').textContent=games.length+' '+(games.length===1?'game':'games');
- document.getElementById('sl-data').textContent=(lastUpdate?'Updated '+lastUpdate:'Checking game data…')+
-   (!women&&pollAsOf?' · RANKINGS COACHES/AP · '+pollAsOf:'');
+ const liveStamp=liveCheckedAt?' · Live scores checked '+new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit',second:'2-digit'}).format(new Date(liveCheckedAt))+' ET':'';
+ document.getElementById('sl-data').textContent=(lastUpdate?'Published '+lastUpdate:'Published refresh pending')+liveStamp+
+  (liveCheckError?' · Live scores unavailable; retrying':'')+
+  (!women&&pollAsOf?' · RANKINGS COACHES/AP · '+pollAsOf:'');
  for(const b of document.querySelectorAll('[data-filter]')){const active=b.dataset.filter===filter;b.classList.toggle('is-active',active);b.setAttribute('aria-pressed',String(active));}
  const empty=sourceError?'<div class="sl-empty"><strong>Data source unavailable.</strong><p>'+esc(sourceError)+'</p><button type="button" id="sl-retry">Retry connection</button></div>':
  '<div class="sl-empty"><strong>No games match this view.</strong><p>Change the date or filter. Only source-backed fixtures are shown.</p></div>';
@@ -615,15 +619,31 @@ async function refresh(){
   }
   sourceError='';
  }catch(err){if(!loaded.length)sourceError=String(err.message||'Unable to retrieve fixtures');}
- finally{loading=false;render()}
+ finally{loading=false;render();if(selected===today())void refreshLive()}
 }
-document.getElementById('sl-prev').addEventListener('click',()=>{selected=shift(selected,-1);limit=18;render()});
-document.getElementById('sl-next').addEventListener('click',()=>{selected=shift(selected,1);limit=18;render()});
-document.getElementById('sl-picker').addEventListener('change',e=>{if(e.target.value){selected=e.target.value;limit=18;render()}});
+// Independently fetch live scores without waiting for scheduled GitHub JSON updates.
+async function refreshLive(){
+ if(liveRequest||document.hidden||selected!==today()||!cross.teams?.length)return;
+ liveRequest=true;const day=selected;
+ const path='https://site.api.espn.com/apis/site/v2/sports/basketball/'+
+  (women?'womens-college-basketball':'mens-college-basketball')+
+  '/scoreboard?groups=50&limit=1000&dates='+day.replaceAll('-','');
+ try{
+  const raw=await fetchJSON(path);
+  if(!Array.isArray(raw?.events))throw Error('Live scoreboard unavailable');
+  if(selected!==day)return;
+  liveBoard=liveEvents(raw,day,cross);
+  liveCheckedAt=Date.now();liveCheckError='';
+ }catch(err){if(selected===day)liveCheckError=String(err?.message||'Current scores unavailable');}
+ finally{liveRequest=false;if(selected===day)render()}
+}
+document.getElementById('sl-prev').addEventListener('click',()=>{selected=shift(selected,-1);limit=18;liveBoard=[];liveCheckedAt=0;render();if(selected===today())void refreshLive()});
+document.getElementById('sl-next').addEventListener('click',()=>{selected=shift(selected,1);limit=18;liveBoard=[];liveCheckedAt=0;render();if(selected===today())void refreshLive()});
+document.getElementById('sl-picker').addEventListener('change',e=>{if(e.target.value){selected=e.target.value;limit=18;liveBoard=[];liveCheckedAt=0;render();if(selected===today())void refreshLive()}});
 document.getElementById('sl-search').addEventListener('input',e=>{search=e.target.value;limit=18;render()});
 document.getElementById('sl-filters').addEventListener('click',e=>{const b=e.target.closest('[data-filter]');if(!b)return;filter=b.dataset.filter;limit=18;render()});
 document.getElementById('sl-more').addEventListener('click',()=>{limit+=18;render()});
-document.getElementById('sl-reload').addEventListener('click',refresh);
+document.getElementById('sl-reload').addEventListener('click',()=>{void refresh();if(selected===today())void refreshLive()});
 document.getElementById('sl-games').addEventListener('click',e=>{
  if(e.target.id==='sl-retry')refresh();
 });
@@ -636,10 +656,12 @@ document.getElementById('sl-women').classList.toggle('is-active',women);
 document.getElementById('sl-men').classList.toggle('is-active',!women);
 if(women)document.getElementById('sl-filter-exhibitions').hidden=true;
 refresh();setInterval(()=>{if(!document.hidden)refresh()},90000);
+setInterval(()=>{if(!document.hidden&&selected===today())void refreshLive()},30000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&selected===today())void refreshLive()});
 // Detailed live feeds update while expanded, without refreshing or navigating the page.
 setInterval(()=>{if(document.hidden||!window.SLTInlineGamefile)return;
  document.querySelectorAll('.sl-game-expansion[open]').forEach(d=>{
-  const g=loaded.find(x=>String(x.id)===d.dataset.gameId&&x.day===d.dataset.day);
+  const g=displayGames().find(x=>String(x.id)===d.dataset.gameId&&x.day===d.dataset.day);
   const panel=d.querySelector('[data-inline-game-id]');
   if(g?.phase==='live'&&panel)openGamefile(d,true);
  });
