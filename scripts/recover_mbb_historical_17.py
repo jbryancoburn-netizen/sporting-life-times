@@ -10,7 +10,7 @@ import io
 import json
 import re
 from collections import defaultdict
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
 from pathlib import Path
 from urllib.request import Request, urlopen
 
@@ -70,7 +70,7 @@ def main():
   assert by_id[ncaa]["name"]==school,(k,school)
   assert norm(unknown[k])==norm(source_name),(k,unknown[k],source_name)
  teams=fetch("MTeams.csv")
- seasons={int(r["Season"]):date.fromisoformat(r["DayZero"]) for r in fetch("MSeasons.csv")}
+ seasons={int(r["Season"]):(date.fromisoformat(r["DayZero"]) if "-" in r["DayZero"] else datetime.strptime(r["DayZero"],"%m/%d/%Y").date()) for r in fetch("MSeasons.csv")}
  lookup={}
  uncertain=[]
  for row in teams:
