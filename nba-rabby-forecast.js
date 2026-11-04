@@ -27,7 +27,7 @@ function matchup(g,model,ratings,calendar=[]){
  const restPanel='<div class="rabby-rest-context"><small>GAME-DAY REST · COMPLETED + PUBLISHED FIXTURES</small><span>'+esc(a)+': '+esc(window.RabbyPossessionModel.restDisplay(aRest))+'</span><span>'+esc(h)+': '+esc(window.RabbyPossessionModel.restDisplay(hRest))+'</span><small>Schedule information only; fatigue is not assigned untested point deductions.</small></div>';
  const warning=favorite!==scoreFavorite?'<p class="rabby-v2-disagreement">Elo and the possession score favor different teams; neither is a certainty.</p>':'';
  const link=g.id?'<a class="rabby-v2-game-link" href="nba-live-game.html?game='+encodeURIComponent(String(g.id).replace(/^espn-nba-/,''))+'">Game details ↗</a>':'';
- return '<article class="rabby-game rabby-v2-game">'+scorebug+
+ return '<details class="rabby-game rabby-v2-game nba-expand-game" data-game-id="'+esc(g.id||a+'-'+h+'-'+g.date)+'"><summary class="nba-expand-trigger">'+scorebug+'</summary><div class="nba-expand-content">'+
   '<div class="rabby-v2-odds"><div><strong>'+esc(a)+' '+(100*(1-p.homeWin)).toFixed(1)+'%</strong><small>USRS Elo win chances</small><strong>'+esc(h)+' '+(100*p.homeWin).toFixed(1)+'%</strong></div><div class="rabby-v2-prob-bar"><span style="width:'+homeWidth+'%"></span></div></div>'+
   '<div class="rabby-v2-mainstats"><div><small>EXPECTED MARGIN</small><b>'+esc(spreadText)+'</b></div><div><small>PROJECTED TOTAL</small><b>'+p.total.toFixed(1)+'</b></div><div><small>ESTIMATED PACE</small><b>'+p.possessions.toFixed(1)+'</b></div></div>'+
   restPanel+
@@ -35,7 +35,7 @@ function matchup(g,model,ratings,calendar=[]){
   '<div class="rabby-v2-breakdown"><div><small>'+esc(a)+' offensive efficiency</small><b>'+p.awayOffense.toFixed(1)+'</b><small>'+esc(h)+' defensive allowance</small><b>'+p.homeDefense.toFixed(1)+'</b><strong>Matchup: '+p.awayEfficiency.toFixed(1)+'</strong></div>'+
    '<div><small>'+esc(h)+' offensive efficiency</small><b>'+p.homeOffense.toFixed(1)+'</b><small>'+esc(a)+' defensive allowance</small><b>'+p.awayDefense.toFixed(1)+'</b><strong>Matchup: '+p.homeEfficiency.toFixed(1)+'</strong></div></div>'+
   '<p class="rabby-v2-provenance">Points per 100 possessions · '+esc(a)+' '+p.awayGames+' games, '+esc(h)+' '+p.homeGames+' games · 12-game shrinkage · six-game 2025–26 prior · frozen historical calibration</p>'+
-  '<div data-nba-availability-away="'+esc(a)+'" data-nba-availability-home="'+esc(h)+'"></div>'+warning+link+'</article>';
+  '<div data-nba-availability-away="'+esc(a)+'" data-nba-availability-home="'+esc(h)+'"></div>'+warning+link+'</div></details>';
 }
 async function show(){
  if(!window.RabbyPossessionModel||!window.SLTScorebug)throw Error('Shared scoring and scorebug libraries are missing');
@@ -57,7 +57,7 @@ async function show(){
  const calendar=[...(elo.events||[]),...(schedule.games||[])];
  const cards=games.map(g=>matchup(g,model,ratings,calendar)).filter(Boolean);
  const target=$('nba-rabby-games'),status=$('nba-rabby-status');
- if(target)target.innerHTML=cards.length?cards.join(''):'<p class="nba-empty">No future NBA tipoffs in the next 72 hours of the published schedule.</p>';
+ if(target){const openIds=new Set([...target.querySelectorAll('details[data-game-id][open]')].map(x=>x.dataset.gameId));target.innerHTML=cards.length?cards.join(''):'<p class="nba-empty">No future NBA tipoffs in the next 72 hours of the published schedule.</p>';target.querySelectorAll('details[data-game-id]').forEach(x=>{if(openIds.has(x.dataset.gameId))x.open=true;});}
  const cal=model.calibration;
  const holdout=cal&&Number.isFinite(cal.marginMAE)&&Number.isFinite(cal.totalMAE)?' · Original neutral-prior 2025–26 validation: '+cal.testGames+' games, margin MAE '+cal.marginMAE.toFixed(1)+', total MAE '+cal.totalMAE.toFixed(1)+' points':'';
  if(status)status.textContent=model.coverage.games+' attributed, completed team box scores · '+model.coverage.teams+' NBA teams · '+cards.length+' upcoming forecasts'+holdout+' · New hybrid: 26-game exploratory 2026–27 check (not a holdout), margin MAE 12.75 vs 13.23 neutral · Early-season accuracy remains uncertain.';
