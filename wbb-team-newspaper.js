@@ -121,7 +121,10 @@ host.innerHTML='<section class="wbb-mast"><div class="wbb-identity">'+logo+'<div
 '<p class="wbb-result-refresh" id="wbb-result-refresh" role="status">'+reconciled.matched+' published finals matched'+(reconciled.conflicts.length?' · '+reconciled.conflicts.length+' identity conflicts withheld':'')+'</p>'+
 '<div class="wbb-table-wrap"><table class="wbb-schedule-table" aria-label="'+esc(t.team)+' 2026–2027 game schedule"><thead><tr><th>Date</th><th>Opponent</th><th>Arena / City</th><th>Tipoff (school listing)</th><th>TV / Stream</th><th>Opp. RETRO</th><th>Result</th></tr></thead><tbody>'+rows+'</tbody></table></div>'+
 '<p class="wbb-muted">Times and venues show the published school evidence where verified. Conflicting reports remain labeled for review; no unverified result enters RETRO.</p></section>'+
-'<div class="wbb-secondary"><section class="wbb-panel" id="wbb-stats"><div class="eyebrow">The Statistical Notebook · 2026–27</div><h2>Player Production & Team Statistics</h2><div id="wbb-team-stats">Checking verified women’s statistics…</div></section>'+
+'<div class="wbb-secondary"><section class="wbb-panel" id="wbb-reporting"><div class="eyebrow">The National Conversation</div><h2>Latest Women’s Basketball Reporting</h2><div id="wbb-team-news">Checking the women’s national newswire…</div></section>'+
+'<section class="wbb-panel" id="wbb-march-file"><div class="eyebrow">The Selection Ledger</div><h2>The March File</h2><div class="wbb-march-register"><div><small>Women’s RETRO</small><strong>'+(rating?.rank?'#'+esc(rating.rank):'—')+'</strong></div><div><small>Season Record</small><strong>'+esc(record)+'</strong></div><div><small>Conference</small><strong>'+esc((rating?.conference_wins||0)+'–'+(rating?.conference_losses||0))+'</strong></div><div><small>Change from 1500</small><strong>'+(rating&&Number.isFinite(Number(rating.elo))?esc(((Number(rating.elo)-1500)>=0?'+':'')+(Number(rating.elo)-1500).toFixed(1)):'—')+'</strong></div></div>'+
+'<p class="wbb-muted">The women’s RETRO résumé uses women-only verified finals. NCAA NET and tournament quadrant records are not inferred from Elo. <a href="ncaaw-rankings.html?poll=retro">National RETRO register →</a></p><h3>Recent Verified Results</h3><div id="wbb-recent-finals"></div></section>'+
+'<section class="wbb-panel" id="wbb-stats"><div class="eyebrow">The Statistical Notebook · 2026–27</div><h2>Player Production & Team Statistics</h2><div id="wbb-team-stats">Checking verified women’s statistics…</div></section>'+
 '<section class="wbb-panel wbb-roster-full" id="roster"><div class="eyebrow">The Team Register · 2026–27</div><h2>Current Roster</h2><div id="wbb-roster-host"><p class="wbb-muted">Loading women’s roster…</p></div></section></div>';
 const filterSchedule=()=>{
  const input=host.querySelector('#wbb-calendar-search'),sel=host.querySelector('#wbb-calendar-view'),counter=host.querySelector('#wbb-calendar-count');
@@ -140,6 +143,34 @@ const filterSchedule=()=>{
 host.querySelector('#wbb-calendar-search')?.addEventListener('input',filterSchedule);
 host.querySelector('#wbb-calendar-view')?.addEventListener('change',filterSchedule);
 filterSchedule();
+const finals=games.filter(g=>g.completed&&!g.result_conflict)
+ .sort((a,b)=>String(b.date||'').localeCompare(String(a.date||''))).slice(0,5);
+const resultsNode=host.querySelector('#wbb-recent-finals');
+if(resultsNode)resultsNode.innerHTML=finals.length?finals.map(g=>{
+ const result=window.WBBGameResults.scoreFor(g,id);
+ return '<div class="wbb-recent-result"><time>'+esc(String(g.date||'').slice(0,10))+'</time><span>'+esc(g.opponent||'Opponent')+'</span><strong>'+esc(result.value)+'</strong></div>';
+}).join(''):'<p class="wbb-muted">No verified women’s final has been published for this team yet.</p>';
+(async()=>{
+ const node=host.querySelector('#wbb-team-news');if(!node)return;
+ try{
+  const edition=await load('data/cbb-national-news.json');
+  const tokens=String(t.team||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim().split(' ');
+  const first=tokens[0],last=tokens.at(-1);
+  const peers=teams.map(x=>String(x.team||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim().split(' '));
+  const uniqueFirst=first.length>=4&&peers.filter(xs=>xs[0]===first).length===1;
+  const uniqueMascot=last.length>=5&&peers.filter(xs=>xs.at(-1)===last).length===1;
+  const articles=(edition.articles||[]).filter(a=>{
+   if(a.gender!=='women'||!String(a.url||'').startsWith('https://'))return false;
+   const title=' '+String(a.title||'').toLowerCase().replace(/[^a-z0-9]+/g,' ')+' ';
+   return title.includes(' '+tokens.join(' ')+' ')||
+    (uniqueFirst&&title.includes(' '+first+' '))||
+    (uniqueMascot&&title.includes(' '+last+' '));
+  }).slice(0,6);
+  node.innerHTML=articles.length?articles.map(a=>
+   '<article class="wbb-story"><small>'+esc(a.source||'Basketball reporting')+' · '+esc(String(a.published_at||'').slice(0,10))+'</small><h3><a href="'+esc(a.url)+'" target="_blank" rel="noopener noreferrer">'+esc(a.title)+'</a></h3></article>').join(''):
+   '<p class="wbb-muted">No current attributed women’s story is specifically matched to this program. <a href="ncaam.html?gender=women">Read the national women’s edition →</a></p>';
+ }catch(e){node.innerHTML='<p class="wbb-muted">The women’s newswire is temporarily unavailable. <a href="ncaam.html?gender=women">Open the national edition →</a></p>';}
+})();
 window.WBBRosterDesk?.render(id);
 window.WBBTeamStats?.render(id);
 window.WBBTeamLive?.start(id,baseGames,siteDisputes,neutralProof);
