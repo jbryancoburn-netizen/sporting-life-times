@@ -244,7 +244,9 @@ try{
   const conferenceTag=!exhibition&&ownConference&&opponentConference&&ownConference===opponentConference?'<span class="victorian-conference-game" title="Conference game">'+escape(ownConference)+'</span>':'';
   const opponentRank=badges(school?.name,school?.espn_name,opponentName);
   const shortNames={'Southern California':'USC','Michigan State':'Mich. St.','Ohio State':'Ohio St.','Penn State':'Penn St.','Western Illinois':'Western Ill.','Bowling Green':'Bowling Green','Northwestern':'Northwestern','Tennessee Tech':'Tennessee Tech','Central Michigan':'Central Mich.','Eastern Michigan':'Eastern Mich.','Western Michigan':'Western Mich.'};
-  const displayName=escape(shortNames[school?.name||opponentName]||school?.name||opponentName);
+  const rawOpponent=school?.name||opponentName;
+  const compactMichigan=/^michigan\s*(?:state|st\.?)$/i.test(rawOpponent)||/^michigan\s*(?:state|st\.?)$/i.test(opponentName);
+  const displayName=escape(compactMichigan?'Mich. St.':(shortNames[rawOpponent]||rawOpponent));
   const title='<span class="victorian-opponent-heading'+(opponentRank?' has-poll-rank':'')+'">'+(opponentRank?'<span class="victorian-heading-rank">'+opponentRank+'</span>':'')+'<span class="victorian-heading-school">'+(school?'<a href="ncaam-team.html?team='+encodeURIComponent(school.id)+'" title="'+label+'">'+displayName+'</a>':'<span class="victorian-school-name" title="'+label+'">'+displayName+'</span>')+'</span><span class="victorian-heading-conference">'+conferenceTag+'</span></span>';
   const today=new Date().toLocaleDateString('sv-SE',{timeZone:'America/New_York'});
   const scheduleState=hasScore?'final':canceled?'canceled':scheduledDate>=today?'upcoming':'past';
