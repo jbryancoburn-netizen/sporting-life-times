@@ -1,0 +1,59 @@
+name: Recover verified gaps in men's historical series
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/recover_mbb_historical_17.py'
+      - '.github/workflows/mbb-historical-gap-recovery.yml'
+permissions:
+  contents: write
+concurrency:
+  group: mbb-historical-gap-recovery
+  cancel-in-progress: false
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Source-backed archived game recovery, no guessed matchups
+        run: python scripts/recover_mbb_historical_17.py
+      - name: Confirm all historical rows refer to correct school
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('data/mbb-head-to-head-1985')
+          status=json.loads((root/'gap-recovery-status.json').read_text())
+          for entry in status['reviewed_aliases']:
+              if entry['status']!='partial-source-backed':continue
+              doc=json.loads((root/(entry['team_id'].replace(':','-')+'.json')).read_text())
+              assert doc['validated'] is False
+              assert doc['coverage_status']=='PARTIAL_SOURCE_BACKFILL'
+              assert doc['games'] and all(entry['team_id'] in (g['home_id'],g['away_id']) for g in doc['games'])
+              assert all(g['source_url'].startswith('https://') and g['date'] for g in doc['games'])
+          print('Recovered archive files:', status['recovered_school_files'])
+          print('Archives remaining missing:', status['still_missing'])
+          PY
+      - name: Preserve actual results and commit only validated source records
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/mbb-head-to-head-1985/
+          if git diff --cached --quiet; then
+            echo "No new verified historical records"; exit 0
+          fi
+          git commit -m "Backfill partial evidence-linked men's historical series archives"
+          for attempt in 1 2 3 4 5; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$((attempt*2))"
+          done
+          exit 1
