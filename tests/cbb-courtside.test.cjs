@@ -149,8 +149,9 @@ assert(js.includes('letterpressMarkup(g)')&&js.includes('cbb-gamefile-letterpres
  'Full Gamefile and Courtside must share their letterpress scorebug');
 assert(js.includes("for(const kind of ['coaches','ap'])"),
  'Both polls must feed the common scorebug');
-assert(js.includes("RETRO ")&&js.includes("profile?.rank"),
- 'Published RETRO national ranking must accompany Elo');
+assert(js.includes("SLTBasketballScorebug?.formatRetro(profile,state.rankTies") &&
+  sharedScorebug.includes("function formatRetro(profile,tieCounts,maxRank)"),
+ 'Published RETRO Elo and tied national rank must come from the shared renderer');
 for(const page of ['ncaam.html','cbb-game-center.html','college-basketball.html','cbb-gamefile.html']){
  const html=fs.readFileSync(path.join(root,page),'utf8');
  assert(html.includes('cbb-ledger-scorebug.js')&&html.includes('cbb-ledger-scorecard.css'),
