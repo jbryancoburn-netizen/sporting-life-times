@@ -226,6 +226,35 @@
   #full-season-schedule .victorian-stat-block table th:first-child{
     text-align:left!important;white-space:normal!important;font-weight:700!important;
   }
+  /* Team-level comparisons fit on the phone: metric | visiting | home. */
+  #full-season-schedule .victorian-team-box-block{
+    width:100%!important;max-width:100%!important;min-width:0!important;
+    overflow-x:visible!important;
+  }
+  #full-season-schedule .victorian-stat-block table.victorian-team-box{
+    display:table!important;width:100%!important;max-width:100%!important;min-width:0!important;
+    table-layout:fixed!important;border-collapse:collapse!important;
+  }
+  #full-season-schedule .victorian-stat-block table.victorian-team-box :is(th,td){
+    box-sizing:border-box!important;min-width:0!important;max-width:none!important;
+    overflow-wrap:normal!important;white-space:normal!important;
+    padding:6px 4px!important;font:11px/1.28 Georgia,serif!important;
+    vertical-align:middle!important;
+  }
+  #full-season-schedule .victorian-stat-block table.victorian-team-box :is(th,td):first-child{
+    width:42%!important;text-align:left!important;overflow-wrap:break-word!important;
+  }
+  #full-season-schedule .victorian-stat-block table.victorian-team-box :is(th,td):nth-child(2),
+  #full-season-schedule .victorian-stat-block table.victorian-team-box :is(th,td):nth-child(3){
+    width:29%!important;text-align:center!important;white-space:nowrap!important;
+    padding-left:2px!important;padding-right:2px!important;
+    font-variant-numeric:tabular-nums!important;
+  }
+  #full-season-schedule .victorian-team-box .victorian-team-full{display:none!important}
+  #full-season-schedule .victorian-team-box .victorian-team-short{
+    display:inline!important;text-decoration:none!important;border:0!important;
+    font:bold 10px/1.2 Arial,sans-serif!important;letter-spacing:.025em!important;
+  }
   #full-season-schedule .victorian-stat-block table.victorian-player-box{min-width:560px!important}
   #full-season-schedule .victorian-stat-block table.victorian-player-box th:first-child{min-width:130px!important}
 
