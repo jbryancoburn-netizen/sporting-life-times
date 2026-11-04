@@ -27,3 +27,14 @@
 .bten-game-id{font-size:9px;line-height:1.1}.bten-game{height:67px;overflow:hidden}.bten-slot{font:italic clamp(8px,.75vw,11px) Georgia,serif;color:#745f49}.bten-bracket-section .note{margin:5px 0;font-size:11px}.bten-bracket-team a{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.bten-bracket-section>h2{margin:3px 0;font-size:clamp(22px,2.5vw,34px)}@media(max-width:780px){.bten-bracket-grid{column-gap:3px}.bten-game{padding:2px}.bten-bracket-team{gap:1px;font-size:8px}.bten-seed{flex-basis:13px;font-size:8px}.bten-round h3{font-size:8px}.bten-bracket-section{padding:4px}}
 
 .slt-game-day-picker{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:8px 0;padding:8px 10px;border-top:3px double #806c52;border-bottom:1px solid #a98c69;background:#f4ead8;color:#352b22;font:700 12px Georgia,serif}.slt-game-day-picker input{max-width:185px;min-width:0;border:1px solid #9b846b;border-radius:0;background:#fffaf0;color:#34271d;padding:5px 7px;font:12px Georgia,serif;color-scheme:light}#conference-day-games{min-width:0}
+
+/* Shared Victorian conference tournament format register. */
+.conference-format-section{margin-top:12px}
+.conference-format-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:9px;margin:10px 0}
+.conference-format-round{min-width:0;border:3px double #8c704f;background:#faf3e5;padding:7px}
+.conference-format-round h3{margin:0 0 6px;padding:5px 3px;border-bottom:3px double #997a53;text-align:center;font:700 12px Georgia,serif;color:#4a3525}
+.conference-format-entry{display:flex;align-items:center;gap:7px;border-bottom:1px solid #d4c2a8;padding:6px 3px;font:700 12px Georgia,serif;min-height:33px}
+.conference-format-entry:last-child{border-bottom:0}
+.conference-format-entry a{color:#36281c;text-decoration:none}
+.conference-format-entry a:hover{text-decoration:underline}
+.conference-format-placeholder{font-style:italic;color:#78634a;font-weight:400}
