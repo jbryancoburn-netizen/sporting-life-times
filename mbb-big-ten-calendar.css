@@ -114,7 +114,7 @@
  #full-season-schedule.victorian-team-calendar .sched-opponent strong .victorian-opponent-heading{display:grid!important;grid-template-columns:minmax(0,1fr) max-content!important;align-items:center!important;column-gap:6px!important;width:100%!important;min-width:0!important;white-space:nowrap!important}
  #full-season-schedule.victorian-team-calendar .sched-opponent strong .victorian-opponent-heading.has-poll-rank{grid-template-columns:54px minmax(0,1fr) max-content!important}
  #full-season-schedule.victorian-team-calendar .victorian-heading-rank{min-width:0!important;white-space:nowrap!important}
- #full-season-schedule.victorian-team-calendar .victorian-heading-school{min-width:0!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:clip!important}
+ #full-season-schedule.victorian-team-calendar .victorian-heading-school{min-width:0!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
  #full-season-schedule.victorian-team-calendar .victorian-heading-school a,
  #full-season-schedule.victorian-team-calendar .victorian-heading-school .victorian-school-name{display:block!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;font:700 clamp(11px,3.45vw,14px)/1.18 Georgia,serif!important}
  #full-season-schedule.victorian-team-calendar .victorian-heading-conference{display:block!important;grid-column:-2 / -1!important;min-width:max-content!important;justify-self:end!important;white-space:nowrap!important;text-align:right!important}
