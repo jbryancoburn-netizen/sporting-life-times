@@ -708,20 +708,48 @@ def main():
     # Completed regular-season games only; keyed storage makes repeated ingestion idempotent.
     statpath=ROOT/'data/mbb-current-player-stats.json'
     playerdata=json.loads(statpath.read_text()) if statpath.exists() else {'season':'2026-27','games':{},'players':[]}
-    if dt.date(2026,11,1)<=dt.datetime.now().date()<=dt.date(2027,4,30):
-        try:
-            yesterday=(dt.datetime.now(ZoneInfo('America/New_York'))-dt.timedelta(days=1)).strftime('%Y%m%d')
-            events=result.get('events',[]) if 'result' in locals() else []
-            events+=json.loads(fetch(score_url.replace(day,yesterday))).get('events',[])
-            cross=json.loads((ROOT/'data/ncaam-2026-27-espn-team-crosswalk.json').read_text())
-            lookup={str(t['espn_id']):t['id'] for t in cross['teams'] if t.get('espn_id')}
-            finals={e['id']:e for e in events if e.get('status',{}).get('type',{}).get('completed') and e.get('season',{}).get('year')==2027 and e.get('season',{}).get('type') in (2,3)}
-            for event_id in list(finals)[:50]:
+    if dt.date(2026,11,1)<=dt.datetime.now(ZoneInfo('America/New_York')).date()<=dt.date(2027,4,30):
+        # Revisit seven recent game dates, not merely yesterday, so late / temporarily
+        # unavailable box scores are picked up. Each game is isolated: one failed
+        # summary must never suppress the other teams' season statistics.
+        eastern_now=dt.datetime.now(ZoneInfo('America/New_York'))
+        cross=json.loads((ROOT/'data/ncaam-2026-27-espn-team-crosswalk.json').read_text())
+        lookup={str(t['espn_id']):t['id'] for t in cross['teams'] if t.get('espn_id')}
+        finals={}
+        audit={'days_checked':0,'finals_found':0,'new_games':0,'retried':0,'unavailable':0}
+        for offset in range(0,8):
+            day_to_check=(eastern_now-dt.timedelta(days=offset)).strftime('%Y%m%d')
+            try:
+                board=json.loads(fetch(score_url.replace(day,day_to_check)))
+                audit['days_checked']+=1
+                for event in board.get('events',[]):
+                    season=event.get('season',{})
+                    if (event.get('status',{}).get('type',{}).get('completed')
+                        and season.get('year')==2027 and season.get('type') in (2,3)):
+                        finals[str(event['id'])]=event
+            except Exception as exc:
+                out['sources'].append({'source':'Player scoreboards '+day_to_check,
+                    'ok':False,'error':type(exc).__name__})
+        audit['finals_found']=len(finals)
+        missing=[eid for eid in finals if eid not in playerdata.get('games',{})]
+        # Bound network work to protect free Actions time and avoid stressing upstream.
+        # Old missing games are retried on successive 15-minute runs.
+        for event_id in missing[:60]:
+            audit['retried']+=1
+            try:
                 box=json.loads(fetch('https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary?event='+event_id))
                 rows=parse_boxscore(box,lookup)
-                if rows:playerdata['games'][event_id]=rows
-            playerdata['players']=aggregate(playerdata['games']);playerdata['as_of']=now
-        except Exception as e:out['sources'].append({'source':'Player box scores','ok':False,'error':type(e).__name__})
+                if rows:
+                    playerdata.setdefault('games',{})[event_id]=rows
+                    audit['new_games']+=1
+                else:
+                    audit['unavailable']+=1
+            except Exception:
+                audit['unavailable']+=1
+        playerdata['players']=aggregate(playerdata.get('games',{}))
+        playerdata['as_of']=now
+        playerdata['audit']=audit
+        out['sources'].append({'source':'Player boxscore refresh','ok':True,**audit})
     statpath.write_text(json.dumps(playerdata,separators=(',',':'))+'\n')
     # Team branding is refreshed weekly, independently of the news and scores.
     branding=ROOT/'data/mbb-branding.json'
