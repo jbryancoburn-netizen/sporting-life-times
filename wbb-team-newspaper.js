@@ -103,13 +103,13 @@ const rows=sorted.map(g=>{
     '<td data-label="Arena / City">'+location+'</td>'+
     '<td data-label="Tipoff">'+tip+tipNote+'</td>'+
     '<td class="wbb-broadcast" data-label="TV / Stream">'+television+'</td>'+
-    '<td class="wbb-opp-elo" data-label="Opp. RETRO">'+fmtElo(other)+'<small class="wbb-opp-change" title="Opponent daily RETRO change">'+delta+'</small></td>'+
+    '<td class="wbb-opp-elo" data-label="Opp. RETRO"><span class="wbb-opp-elo-value">'+fmtElo(other)+'</span><small class="wbb-opp-change" title="Opponent daily RETRO change">'+delta+'</small></td>'+
     '<td class="wbb-result-cell" data-label="Result" title="'+esc(result.detail)+'"><strong>'+esc(result.value)+'</strong><small class="wbb-result-source">'+esc(result.detail)+'</small>'+
     (statAvailable?'<button type="button" class="wbb-stat-toggle" data-event="'+esc(g.id)+'" aria-expanded="false" aria-controls="wbb-detail-'+esc(g.id)+'">Game Stats ▾</button>':'')+'</td></tr>';
   return main+(statAvailable?'<tr class="wbb-game-detail" id="wbb-detail-'+esc(g.id)+'" hidden><td colspan="7"><div class="wbb-game-stats">Open to view verified game statistics.</div></td></tr>':'');
 }).join('');
 host.innerHTML='<section class="wbb-mast"><div class="wbb-identity">'+logo+'<div><div class="eyebrow"><a href="ncaam.html?gender=women">Women’s Division I</a> / '+esc(t.conference||'Team Desk')+'</div><h1>'+(rating?.rank?'<span class="wbb-rank-tag">RETRO #'+esc(rating.rank)+'</span>':'')+esc(t.team)+'</h1><p>'+esc(t.conference||'Conference unverified')+' · 2026–2027 Season</p></div></div>'+
-'<nav class="wbb-nav" aria-label="Team page sections"><a href="#schedule">Schedule</a><a href="#wbb-stats">Team & Player Stats</a><a href="#roster">Roster</a><a href="ncaam.html?gender=women#wbb-rankings">Women’s Rankings</a><a href="ncaam.html?gender=women#wbb-teams">All 363 Teams</a></nav></section>'+
+'<nav class="wbb-nav" aria-label="Team page sections"><a href="#schedule">Schedule</a><a href="#wbb-stats">Team & Player Stats</a><a href="#roster">Roster</a><a href="ncaaw-rankings.html?poll=retro">Women’s Rankings</a><a href="ncaam.html?gender=women#wbb-teams">All 363 Teams</a></nav></section>'+
 '<section class="wbb-kpis"><div class="wbb-kpi"><small>RETRO Elo</small><strong id="wbb-team-elo">'+esc(rating&&Number.isFinite(Number(rating.elo))?Number(rating.elo).toFixed(0):'—')+'</strong></div>'+
 '<div class="wbb-kpi"><small>Overall</small><strong id="wbb-team-record">'+esc(record)+'</strong></div>'+
 '<div class="wbb-kpi"><small>Conference Record</small><strong>'+esc((rating?.conference_wins||0)+'–'+(rating?.conference_losses||0))+'</strong></div>'+
