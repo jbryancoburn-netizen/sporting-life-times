@@ -31,7 +31,7 @@ const css=read('slt-dual-ring.css');
 assert(css.includes('background:transparent!important'),'Colored ring mask must have no white fill');
 assert(css.includes('transform:translate(-50%,-50%)!important'),'Non-MBB image centering missing');
 const mbbPages=files.filter(p=>/^(?:ncaam(?:[-.]|$)|college-basketball\.html$)/.test(p));
-assert.equal(mbbPages.length,13,'Expected 13 basketball templates including Slate and Arena File');
+assert(mbbPages.length>=14,'Missing basketball templates including Rankings, Slate and Arena File: '+mbbPages.length);
 for(const page of mbbPages){
  const html=read(page);
  const styles=html.match(/mbb-logo-system\.css\?v=[a-zA-Z0-9._-]+/g)||[];
