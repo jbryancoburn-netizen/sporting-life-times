@@ -46,7 +46,86 @@
 .victorian-unified-ledger .conference-ledger .team-name{font:700 14px Georgia,serif;gap:9px;align-items:center}
 .victorian-unified-ledger .conference-ledger .badge{width:37px!important;height:37px!important;object-fit:contain;flex-shrink:0}
 .victorian-unified-ledger .ledger-place{display:inline-grid;place-items:center;min-width:29px;min-height:29px;padding:2px 4px;background:#75402e;border:3px double #d6b78e;color:#fff5dd;font:800 14px Georgia,serif}
-@media(max-width:700px){.victorian-unified-ledger .conference-ledger-scroll{scrollbar-width:thin}.victorian-unified-ledger .conference-ledger{min-width:630px}.victorian-unified-ledger .conference-ledger .badge{width:31px!important;height:31px!important}.victorian-unified-ledger .conference-ledger .team-name{font-size:12px}}
+/* Mobile register: four readable columns, two lines per record. No sideways scrolling. */
+@media(max-width:700px){
+ .victorian-unified-ledger .conference-ledger-scroll{
+  width:100%;min-width:0;max-width:100%;overflow-x:visible;padding:3px;
+ }
+ .victorian-unified-ledger .conference-ledger{
+  display:block;width:100%;min-width:0!important;max-width:100%;
+  table-layout:auto;border-spacing:0;
+ }
+ .victorian-unified-ledger .conference-ledger colgroup{display:none}
+ .victorian-unified-ledger .conference-ledger thead,
+ .victorian-unified-ledger .conference-ledger tbody{display:block;width:100%}
+ .victorian-unified-ledger .conference-ledger thead tr,
+ .victorian-unified-ledger .conference-ledger tbody tr{
+  display:grid;grid-template-columns:35px minmax(0,1fr) minmax(49px,.63fr) minmax(49px,.63fr);
+  width:100%;min-width:0;box-sizing:border-box;
+ }
+ .victorian-unified-ledger .conference-ledger thead tr{align-items:stretch}
+ .victorian-unified-ledger .conference-ledger tbody tr{
+  grid-template-rows:minmax(28px,auto) 22px;align-items:stretch;
+  border:1px solid #c5ae8d;border-left:3px solid #805d3d;
+  background:#f4e9d7;margin:4px 0;
+ }
+ .victorian-unified-ledger .conference-ledger tbody tr:nth-child(even){background:#ecddc5}
+ .victorian-unified-ledger .conference-ledger thead th{
+  min-width:0;white-space:normal;overflow:visible;
+  padding:7px 1px 5px!important;font-size:9px;letter-spacing:0;
+  line-height:1.2;text-align:center!important;overflow-wrap:anywhere;
+ }
+ .victorian-unified-ledger .conference-ledger thead th:nth-child(1){grid-column:1}
+ .victorian-unified-ledger .conference-ledger thead th:nth-child(2){grid-column:2;text-align:left!important;padding-left:6px!important}
+ .victorian-unified-ledger .conference-ledger thead th:nth-child(3){grid-column:3}
+ .victorian-unified-ledger .conference-ledger thead th:nth-child(6){grid-column:4}
+ .victorian-unified-ledger .conference-ledger thead th:nth-child(3)::after,
+ .victorian-unified-ledger .conference-ledger thead th:nth-child(6)::after{
+  content:"W–L / PCT";display:block;margin-top:2px;font-size:8px;letter-spacing:0;
+ }
+ .victorian-unified-ledger .conference-ledger :is(th:nth-child(4),th:nth-child(5),th:nth-child(7),th:nth-child(8),th:nth-child(9),th:nth-child(10),
+ td:nth-child(5),td:nth-child(8),td:nth-child(9),td:nth-child(10)){display:none!important}
+ .victorian-unified-ledger .conference-ledger tbody td{
+  min-width:0;height:auto;overflow:visible;text-overflow:unset;white-space:normal;
+  background:transparent!important;border:0!important;
+  padding:2px 3px!important;box-sizing:border-box;
+  font-size:12px;text-align:center;
+ }
+ .victorian-unified-ledger .conference-ledger tbody td:nth-child(1){
+  grid-column:1;grid-row:1 / 3;display:flex;align-items:center;justify-content:center;
+ }
+ .victorian-unified-ledger .conference-ledger tbody td:nth-child(2){
+  grid-column:2;grid-row:1 / 3;display:flex;align-items:center;text-align:left;
+ }
+ .victorian-unified-ledger .conference-ledger tbody td:nth-child(3){
+  grid-column:3;grid-row:1;align-self:end;padding-bottom:0!important;
+ }
+ .victorian-unified-ledger .conference-ledger tbody td:nth-child(4){
+  grid-column:3;grid-row:2;padding-top:0!important;color:#765640;font-size:11px;
+ }
+ .victorian-unified-ledger .conference-ledger tbody td:nth-child(6){
+  grid-column:4;grid-row:1;align-self:end;padding-bottom:0!important;
+ }
+ .victorian-unified-ledger .conference-ledger tbody td:nth-child(7){
+  grid-column:4;grid-row:2;padding-top:0!important;color:#765640;font-size:11px;
+ }
+ .victorian-unified-ledger .conference-ledger .ledger-place{
+  min-width:26px;min-height:27px;padding:2px;font-size:12px;
+ }
+ .victorian-unified-ledger .conference-ledger td.ledger-university .team-name{
+  display:flex;align-items:center;gap:5px;width:100%;
+  min-width:0;font-size:12px;white-space:normal!important;
+ }
+ .victorian-unified-ledger .conference-ledger td.ledger-university .team-name span{
+  display:block;white-space:normal!important;overflow:visible!important;
+  text-overflow:unset!important;overflow-wrap:normal;line-height:1.15;
+ }
+ .victorian-unified-ledger .conference-ledger .mbb-mark{
+  --mbb-size:30px;flex-shrink:0;
+ }
+ .victorian-unified-ledger .conference-ledger .badge{width:30px!important;height:30px!important}
+}
+
 
 /* Date, verified tipoff, and TV always occupy separate aligned columns. */
 .slt-conference-game .slt-fixture-meta{display:grid;grid-template-columns:minmax(90px,1fr) minmax(80px,auto) minmax(90px,1fr);align-items:center;column-gap:10px;padding:7px 12px;font:700 11px Georgia,serif;letter-spacing:.025em}
