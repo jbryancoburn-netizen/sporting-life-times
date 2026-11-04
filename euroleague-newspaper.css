@@ -1,0 +1,139 @@
+/* The Continental Chronicle — structural styles for the EuroLeague newspaper.
+   Uses the same masthead, department band and folio components as ncaam.html.
+   Live data, clubs and the shared game scorebug remain owned by their existing renderers. */
+body.el-heritage-edition{
+  --el-paper:#f0e5d1;--el-sheet:#f8f0e1;--el-ink:#28221c;
+  --el-rule:#b2a187;--el-ruby:#80382e;--el-muted:#605344;
+  margin:0;background:#e8dbc5;color:var(--el-ink);font:15px/1.48 Georgia,'Times New Roman',serif;
+}
+body.el-heritage-edition .wrap{max-width:1480px;padding:0 clamp(12px,2.25vw,32px);margin:0 auto;background:var(--el-paper);min-width:0}
+body.el-heritage-edition a{color:inherit}
+body.el-heritage-edition a:hover{text-decoration:underline;text-underline-offset:3px}
+body.el-heritage-edition .topline{color:var(--el-ink);border-color:var(--el-ink);font:700 10px/1.4 Georgia,serif;text-transform:uppercase;letter-spacing:.09em}
+body.el-heritage-edition .topline a{text-decoration:none}
+body.el-heritage-edition .slt-department-band{margin:12px auto 9px}
+body.el-heritage-edition .slt-edition-index{margin:0 auto 15px}
+body.el-heritage-edition .el-press-stamp{font:11px/1.4 Georgia,serif;border-top:1px solid var(--el-rule);border-bottom:1px solid var(--el-rule);color:var(--el-muted);padding:10px 3px}
+body.el-heritage-edition .el-press-stamp span:first-child{max-width:75ch}
+body.el-heritage-edition .el-press-main{max-width:none;width:100%;margin:0;padding:0 0 44px;color:var(--el-ink);font:15px/1.45 Georgia,serif}
+body.el-heritage-edition .el-press-main *{box-sizing:border-box}
+body.el-heritage-edition .el-press-main>section,
+body.el-heritage-edition .el-press-main>div{min-width:0}
+body.el-heritage-edition .el-press-opening{padding:14px 0 17px;border-bottom:5px double var(--el-ink);margin-bottom:12px}
+body.el-heritage-edition .el-press-opening-folio{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;border-bottom:1px solid var(--el-rule);padding-bottom:8px;color:var(--el-muted);font:700 10px/1.4 Georgia,serif;letter-spacing:.09em}
+body.el-heritage-edition .el-press-opening h2{font:800 clamp(29px,4vw,47px)/1.06 Georgia,serif!important;letter-spacing:-.055em;margin:10px 0 6px;color:var(--el-ink)}
+body.el-heritage-edition .el-press-opening p{font:15px/1.48 Georgia,serif;max-width:90ch;color:#524739;margin:0}
+body.el-heritage-edition .el-press-eyebrow{margin:0 0 5px;font:700 10px/1.3 Georgia,serif;letter-spacing:.11em;text-transform:uppercase;color:var(--el-ruby)}
+body.el-heritage-edition .el-press-main .hub-feature,
+body.el-heritage-edition .el-press-main .el-results-strip{
+  min-width:0;margin:0;padding:14px 0 18px;border-top:3px double var(--el-ink);
+  border-bottom:0;background:transparent;box-shadow:none;
+}
+body.el-heritage-edition .el-press-main .hub-feature h2,
+body.el-heritage-edition .el-press-main .el-results-strip h2{
+  color:var(--el-ink);font:800 clamp(21px,2.15vw,28px)/1.13 Georgia,serif!important;
+  letter-spacing:-.035em;margin:0 0 12px;
+}
+body.el-heritage-edition .el-press-section-head{display:flex;justify-content:space-between;gap:12px;align-items:end;min-width:0}
+body.el-heritage-edition .el-press-section-head a{font:700 11px/1.4 Georgia,serif;text-transform:uppercase;color:var(--el-ruby);text-align:right}
+body.el-heritage-edition .hub-small{font:12px/1.45 Georgia,serif;color:var(--el-muted);margin:7px 0 9px}
+body.el-heritage-edition .el-press-method{font:11px/1.45 Georgia,serif!important;color:#655b4d;border-top:1px solid var(--el-rule);margin-top:11px!important;padding-top:8px}
+body.el-heritage-edition .el-press-scoreboard{margin:0!important;padding-top:16px!important}
+body.el-heritage-edition .el-press-scoreboard .el-live-board{min-width:0}
+body.el-heritage-edition .el-press-numbers{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin:5px 0 19px;border-top:2px solid var(--el-ink);border-bottom:3px double var(--el-ink);background:var(--el-sheet)}
+body.el-heritage-edition .el-front-number{padding:11px 12px;min-width:0;border-right:1px solid var(--el-rule)}
+body.el-heritage-edition .el-front-number:last-child{border-right:0}
+body.el-heritage-edition .el-front-number small{font:700 10px/1.3 Georgia,serif;color:var(--el-ruby)}
+body.el-heritage-edition .el-front-number strong{font:700 clamp(16px,1.8vw,23px)/1.12 Georgia,serif;color:var(--el-ink);margin:5px 0;overflow-wrap:break-word}
+body.el-heritage-edition .el-front-number span{font:11px/1.38 Georgia,serif;color:var(--el-muted)}
+/* The front page is a three-column news sheet, not a stacked dashboard. */
+body.el-heritage-edition .el-press-front-grid{display:grid;grid-template-columns:minmax(0,1.66fr) minmax(0,.95fr) minmax(0,.95fr);gap:0;margin:15px 0 18px;border-bottom:4px double var(--el-ink);align-items:start}
+body.el-heritage-edition .el-press-front-grid>section{min-width:0;padding:14px 15px 22px!important;border-right:1px solid var(--el-rule)!important;border-top:3px double var(--el-ink)!important}
+body.el-heritage-edition .el-press-front-grid>section:first-child{padding-left:0!important}
+body.el-heritage-edition .el-press-front-grid>section:last-child{padding-right:0!important;border-right:0!important}
+body.el-heritage-edition .el-press-news .nba-news-grid{display:block;min-width:0}
+body.el-heritage-edition .el-press-news .nba-news-item,
+body.el-heritage-edition .el-press-news .nba-news-lead{display:block;grid-column:auto;grid-row:auto;border:0;border-bottom:1px solid var(--el-rule);padding:11px 0!important;min-width:0}
+body.el-heritage-edition .el-press-news .nba-news-item h3,
+body.el-heritage-edition .el-press-news .nba-news-lead h3{font:700 clamp(17px,1.8vw,23px)/1.2 Georgia,serif!important;margin:4px 0 7px}
+body.el-heritage-edition .el-press-news .nba-news-lead h3{font-size:clamp(21px,2.5vw,31px)!important;line-height:1.13}
+body.el-heritage-edition .el-press-news .nba-news-item img{max-width:100%;height:auto;object-fit:cover}
+body.el-heritage-edition .el-press-front-grid .nba-current-table-wrap{width:100%;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+body.el-heritage-edition .el-press-front-grid .nba-current-table{width:100%;min-width:0;border-collapse:collapse;font:11px/1.35 Georgia,serif;font-variant-numeric:tabular-nums;table-layout:auto}
+body.el-heritage-edition .el-press-front-grid .nba-current-table :is(td,th){padding:8px 4px;border-bottom:1px solid var(--el-rule);vertical-align:middle;text-align:right}
+body.el-heritage-edition .el-press-front-grid .nba-current-table th{font:700 10px/1.2 Georgia,serif;text-transform:uppercase;color:var(--el-muted);border-bottom:2px solid var(--el-ink)}
+body.el-heritage-edition .el-press-front-grid .nba-current-table :is(td,th):first-child{text-align:left}
+body.el-heritage-edition .el-press-front-grid .el-club{display:inline-flex;align-items:center;gap:5px;min-width:0;font:11px/1.22 Georgia,serif}
+body.el-heritage-edition .el-press-front-grid .el-club img{width:27px;height:27px;flex:0 0 27px;object-fit:contain}
+body.el-heritage-edition .el-press-ratings .nba-current-table td:nth-child(2){text-align:left}
+body.el-heritage-edition .el-press-ratings .nba-current-table td:nth-child(3){font-weight:700}
+body.el-heritage-edition .el-press-table .el-club-name{white-space:normal;word-break:normal;overflow-wrap:break-word}
+body.el-heritage-edition .el-press-table .el-club-code{display:none}
+body.el-heritage-edition .el-press-main .el-results-list{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+body.el-heritage-edition .el-press-results .el-result-card{background:var(--el-sheet);border:1px solid var(--el-rule);border-top:2px solid var(--el-ink);border-radius:0;box-shadow:none}
+body.el-heritage-edition .el-press-supplement{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,.86fr);gap:20px;align-items:start;margin:19px 0 15px}
+body.el-heritage-edition .el-press-supplement>.hub-feature{min-width:0}
+body.el-heritage-edition .el-press-supplement>.hub-feature+section{border-left:1px solid var(--el-rule);padding-left:20px}
+body.el-heritage-edition .el-bracket-section>header{border-bottom:1px solid var(--el-rule);padding-bottom:7px}
+body.el-heritage-edition .el-bracket-section>header h3{font:700 16px/1.1 Georgia,serif}
+body.el-heritage-edition .el-bracket-section>header p{font:11px/1.4 Georgia,serif;color:var(--el-muted)}
+body.el-heritage-edition .el-bracket-placeholder{background:var(--el-sheet);border:1px dashed var(--el-rule);border-radius:0;color:var(--el-ink)}
+body.el-heritage-edition .el-press-supplement #el-insights-grid{display:grid;grid-template-columns:1fr;gap:15px}
+body.el-heritage-edition .el-chart{border:1px solid var(--el-rule);background:var(--el-sheet);padding:11px;box-shadow:none}
+body.el-heritage-edition .el-chart h3{font:700 16px/1.15 Georgia,serif}
+body.el-heritage-edition .el-chart-track{background:#ded0b6;border-radius:0}
+body.el-heritage-edition .el-chart-track i{background:#816a53;border-radius:0}
+body.el-heritage-edition .el-press-register{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:start;margin:18px 0 16px}
+body.el-heritage-edition .el-press-register>section+section{border-left:1px solid var(--el-rule);padding-left:22px}
+body.el-heritage-edition #el-player-leaders{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+body.el-heritage-edition .el-player-category{background:var(--el-sheet);border:1px solid var(--el-rule);padding:12px;box-shadow:none}
+body.el-heritage-edition .el-player-category header{border-bottom:2px solid var(--el-ink)}
+body.el-heritage-edition .el-player-category h3{font:700 18px/1.15 Georgia,serif}
+body.el-heritage-edition .el-press-register #el-forecasts{display:grid;grid-template-columns:1fr;gap:8px}
+body.el-heritage-edition .el-forecast{padding:11px;border:1px solid var(--el-rule);background:var(--el-sheet);box-shadow:none}
+body.el-heritage-edition .el-odds-bar{background:#decfb5;border-radius:0}
+body.el-heritage-edition .el-odds-bar i{background:#806047;border-radius:0}
+body.el-heritage-edition .el-press-archive{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(250px,.8fr);gap:22px;align-items:start;margin:19px 0 12px}
+body.el-heritage-edition .el-press-archive>section+section{border-left:1px solid var(--el-rule);padding-left:22px}
+body.el-heritage-edition #league-result-ledger{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+body.el-heritage-edition #league-result-ledger .league-score-item{background:var(--el-sheet);border:1px solid var(--el-rule);padding:10px;box-shadow:none}
+body.el-heritage-edition .el-source-coverage{border-top:4px double var(--el-ink)!important;margin-top:21px!important}
+body.el-heritage-edition .el-press-footer{border-top:5px double var(--el-ink);padding:18px 0 34px;font:12px/1.5 Georgia,serif;color:var(--el-muted)}
+body.el-heritage-edition .el-press-footer a{font-weight:700;color:var(--el-ruby)}
+@media(max-width:1160px){
+ body.el-heritage-edition .el-press-front-grid{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr)}
+ body.el-heritage-edition .el-press-front-grid>section:first-child{grid-column:1/-1;padding-right:0!important;border-right:0!important}
+ body.el-heritage-edition .el-press-front-grid>section:nth-child(2){padding-left:0!important}
+ body.el-heritage-edition .el-press-news .nba-news-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 15px}
+ body.el-heritage-edition .el-press-news .nba-news-lead{grid-column:1/-1}
+ body.el-heritage-edition .el-press-results .el-results-list{grid-template-columns:repeat(3,minmax(0,1fr))}
+ body.el-heritage-edition #el-player-leaders{grid-template-columns:1fr}
+}
+@media(max-width:780px){
+ body.el-heritage-edition .el-press-front-grid{display:block}
+ body.el-heritage-edition .el-press-front-grid>section{padding:14px 0 20px!important;border-right:0!important;border-bottom:1px solid var(--el-rule)}
+ body.el-heritage-edition .el-press-supplement,body.el-heritage-edition .el-press-register,body.el-heritage-edition .el-press-archive{display:block}
+ body.el-heritage-edition .el-press-supplement>.hub-feature+section,body.el-heritage-edition .el-press-register>section+section,body.el-heritage-edition .el-press-archive>section+section{padding-left:0;border-left:0;margin-top:12px}
+ body.el-heritage-edition .el-press-numbers{grid-template-columns:repeat(2,minmax(0,1fr))}
+ body.el-heritage-edition .el-front-number:nth-child(2){border-right:0}
+ body.el-heritage-edition .el-front-number:nth-child(-n+2){border-bottom:1px solid var(--el-rule)}
+ body.el-heritage-edition .el-press-results .el-results-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+ body.el-heritage-edition #el-player-leaders{grid-template-columns:repeat(2,minmax(0,1fr))}
+ body.el-heritage-edition #league-result-ledger{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:540px){
+ body.el-heritage-edition .wrap{padding:0 12px}
+ body.el-heritage-edition .topline{gap:8px;flex-wrap:wrap;padding:10px 0}
+ body.el-heritage-edition .nav{gap:12px;padding:12px 0;overflow-x:auto}
+ body.el-heritage-edition .el-press-opening h2{font-size:30px!important}
+ body.el-heritage-edition .el-press-front-grid .nba-current-table{font-size:11px}
+ body.el-heritage-edition .el-press-front-grid .nba-current-table :is(td,th){padding:7px 3px}
+ body.el-heritage-edition .el-press-front-grid .el-club img{width:25px;height:25px;flex-basis:25px}
+ body.el-heritage-edition .el-press-news .nba-news-grid{display:block}
+ body.el-heritage-edition .el-press-section-head{align-items:start}
+ body.el-heritage-edition .el-press-section-head a{font-size:10px}
+ body.el-heritage-edition #el-player-leaders{grid-template-columns:1fr}
+ body.el-heritage-edition #league-result-ledger{grid-template-columns:1fr}
+ body.el-heritage-edition .el-press-results .el-results-list{grid-template-columns:1fr}
+ body.el-heritage-edition .el-press-numbers{margin-bottom:14px}
+}
