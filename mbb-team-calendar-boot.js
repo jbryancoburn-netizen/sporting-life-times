@@ -258,7 +258,7 @@ try{
     '<td class="sched-time-cell">'+escape(tip)+'</td>'+
     '<td class="sched-network-cell">'+network+'</td>'+
     '<td class="sched-elo-cell">'+(exhibition||verifiedNonD1?'Not applicable':escape(opponentElo(opponentId)))+'</td>'+
-    '<td class="sched-result-cell">'+result+(expandable?'':gameFile)+(expandable?'<button type="button" class="victorian-stat-toggle" aria-expanded="false">GAME STATS ▾</button>':'')+'</td></tr>'+(expandable?'<tr class="victorian-stat-detail" hidden><td colspan="7"><div class="victorian-stat-content">Open for game statistics.</div></td></tr>':'');
+    '<td class="sched-result-cell">'+result+gameFile+(expandable?'<button type="button" class="victorian-stat-toggle" aria-expanded="false">GAME STATS ▾</button>':'')+'</td></tr>'+(expandable?'<tr class="victorian-stat-detail" hidden><td colspan="7"><div class="victorian-stat-content">Open for game statistics.</div></td></tr>':'');
  }).join('');
  const scoredExhibitions=games.filter(e=>{
   if(e.date.slice(0,10)>='2026-11-01')return false;
