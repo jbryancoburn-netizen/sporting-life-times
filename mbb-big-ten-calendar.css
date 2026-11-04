@@ -72,3 +72,9 @@
 .victorian-team-calendar .sched-opponent strong{line-height:1.65;white-space:normal}
 .victorian-team-calendar .sched-opponent strong .victorian-poll-rank,.victorian-team-calendar .sched-opponent strong .victorian-conference-game{vertical-align:middle}
 .victorian-team-calendar .sched-opponent strong a{vertical-align:middle}
+
+/* Sortable statistical notebook headings, same engraved tabular aesthetic. */
+.victorian-player-production .slt-sort-heading{display:inline-flex;align-items:center;justify-content:flex-start;gap:4px;width:100%;padding:3px 0;border:0;background:none;color:inherit;font:inherit;font-weight:700;letter-spacing:inherit;cursor:pointer;text-align:left}
+.victorian-player-production .slt-sort-heading:hover,.victorian-player-production .slt-sort-heading:focus-visible{text-decoration:underline;text-underline-offset:3px;outline-offset:3px}
+.victorian-player-production .slt-sort-arrow{font-size:10px;opacity:.65}
+.victorian-player-production th[aria-sort="ascending"] .slt-sort-arrow,.victorian-player-production th[aria-sort="descending"] .slt-sort-arrow{color:#853b2d;opacity:1}
