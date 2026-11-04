@@ -20,7 +20,7 @@ try{
  if(!icon.parentNode)document.head.appendChild(icon);
  const path='data/mbb-schedules-2026-27/'+encodeURIComponent(team.espn_id)+'.json';
  host.hidden=false;
- if(!host.dataset.scheduleLoaded)host.innerHTML='<section class="panel" id="full-season-schedule"><h2>'+escape(team.name)+' · 2026–27 Schedule</h2><p class="note">Loading published games…</p></section>';
+ if(!host.dataset.scheduleLoaded)host.innerHTML='<section class="panel victorian-team-calendar" id="full-season-schedule"><h2>2026–2027 Schedule</h2><p class="note">Loading published games…</p></section>';
  const polls=await load('data/ncaam-2026-27-national-polls.json').catch(()=>null);
  const rankNorm=x=>String(x||'').toLowerCase().replace(/[^a-z0-9]/g,'');
  const pollAliases={michiganst:'michiganstate',pennst:'pennstate',ohiost:'ohiostate',southerncalifornia:'usc',connecticut:'uconn',miamifl:'miami',stjohnsny:'stjohns'};
@@ -331,7 +331,7 @@ try{
     }catch(error){body.textContent='Game statistics are currently unavailable from the source.';}
    };
    button.addEventListener('click',toggle);
-   row.addEventListener('click',e=>{if(e.target.closest('button'))return;if(e.target.closest('a'))e.preventDefault();toggle();});
+   row.addEventListener('click',e=>{if(e.target.closest('button, a'))return;toggle();});
    row.addEventListener('keydown',e=>{if(e.target===row&&(e.key==='Enter'||e.key===' ')){e.preventDefault();toggle();}});
   });
  }
