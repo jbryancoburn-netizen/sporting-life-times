@@ -57,7 +57,7 @@ async function show(){
  const calendar=[...(elo.events||[]),...(schedule.games||[])];
  const cards=games.map(g=>matchup(g,model,ratings,calendar)).filter(Boolean);
  const target=$('nba-rabby-games'),status=$('nba-rabby-status');
- if(target){const openIds=new Set([...target.querySelectorAll('details[data-game-id][open]')].map(x=>x.dataset.gameId));target.innerHTML=cards.length?cards.join(''):'<p class="nba-empty">No future NBA tipoffs in the next 72 hours of the published schedule.</p>';target.querySelectorAll('details[data-game-id]').forEach(x=>{if(openIds.has(x.dataset.gameId))x.open=true;});}
+ if(target){const openIds=new Set([...target.querySelectorAll('details[data-game-id][open]')].map(x=>x.dataset.gameId));target.innerHTML=cards.length?cards.join(''):'<p class="nba-empty">No future NBA tipoffs in the next 72 hours of the published schedule.</p>';target.querySelectorAll('details[data-game-id]').forEach(x=>{if(openIds.has(x.dataset.gameId))x.open=true;});target.dataset.rabbyMounted='yes';}
  const cal=model.calibration;
  const holdout=cal&&Number.isFinite(cal.marginMAE)&&Number.isFinite(cal.totalMAE)?' · Original neutral-prior 2025–26 validation: '+cal.testGames+' games, margin MAE '+cal.marginMAE.toFixed(1)+', total MAE '+cal.totalMAE.toFixed(1)+' points':'';
  if(status)status.textContent=model.coverage.games+' attributed, completed team box scores · '+model.coverage.teams+' NBA teams · '+cards.length+' upcoming forecasts'+holdout+' · New hybrid: 26-game exploratory 2026–27 check (not a holdout), margin MAE 12.75 vs 13.23 neutral · Early-season accuracy remains uncertain.';
@@ -65,10 +65,22 @@ async function show(){
 function unavailable(e){
  const status=$('nba-rabby-status'),target=$('nba-rabby-games');
  if(status)status.textContent='Verified NBA scoring inputs unavailable: '+e.message;
- if(target)target.innerHTML='<p class="nba-empty">Do not substitute a generic league-average score. Waiting for qualified box scores. <a href="nba-game-center.html">Open Game Center ↗</a></p>';
+ if(target){target.dataset.rabbyMounted='yes';target.innerHTML='<p class="nba-empty">Do not substitute a generic league-average score. Waiting for qualified box scores. <a href="nba-game-center.html">Open Game Center ↗</a></p>';}
 }
 async function refresh(){try{await show();}catch(e){console.warn('NBA Rabby forecast:',e);unavailable(e);}}
 refresh();
+// The NBA shell can rebuild #app when data changes. A newly created forecast
+// container must be populated again; otherwise the rendered scorebugs vanish.
+const app=document.getElementById('app');
+if(app){
+ let pending=false;
+ new MutationObserver(()=>{
+  const slot=$('nba-rabby-games');
+  if(!slot||slot.dataset.rabbyMounted==='yes'||pending)return;
+  pending=true;
+  queueMicrotask(async()=>{pending=false;const current=$('nba-rabby-games');if(current&&current.dataset.rabbyMounted!=='yes')await refresh();});
+ }).observe(app,{childList:true,subtree:true});
+}
 setInterval(()=>{if(!document.hidden)refresh();},60000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh();});
 })();
