@@ -25,7 +25,7 @@ for(const nav of navs){
    const d=document.createElement('div');d.className='cbb-rank-menu';
    const sum=document.createElement('button');sum.type='button';sum.className='cbb-rank-trigger';sum.textContent='Rankings';sum.setAttribute('aria-label','Rankings: choose RETRO, NET, AP, Coaches or Pomeroy');sum.setAttribute('aria-expanded','false');sum.setAttribute('aria-haspopup','true');
    const list=document.createElement('div');list.className='cbb-rank-links';list.id='cbb-rank-dropdown-'+Math.random().toString(36).slice(2);list.hidden=true;sum.setAttribute('aria-controls',list.id);
-   for(const [label,key] of ranks){const a=document.createElement('a');a.href='ncaam-rankings.html?poll='+key+(women?'&gender=women':'');a.textContent=label;list.append(a);}
+   for(const [label,key] of ranks){const a=document.createElement('a');a.href=(women?'ncaaw-rankings.html':'ncaam-rankings.html')+'?poll='+key;a.textContent=label;list.append(a);}
    d.append(sum);rating.replaceWith(d);document.body.append(list);
    const close=()=>{list.hidden=true;sum.setAttribute('aria-expanded','false');};
    const place=()=>{if(list.hidden)return;const box=sum.getBoundingClientRect();const w=list.offsetWidth||180;list.style.left=Math.max(8,Math.min(box.left,innerWidth-w-8))+'px';list.style.top=Math.min(box.bottom+6,innerHeight-list.offsetHeight-8)+'px';};
@@ -75,10 +75,23 @@ async function openFinder(){
  let dialog=document.getElementById('cbb-team-finder');
  if(!dialog){dialog=document.createElement('dialog');dialog.id='cbb-team-finder';dialog.innerHTML='<div class="cbb-find-head"><strong>Find Your Team</strong><button type="button" data-close aria-label="Close search">×</button></div><label for="cbb-team-query">Search Division I schools</label><input id="cbb-team-query" type="search" placeholder="University, mascot or nickname" autocomplete="off"><div class="cbb-find-results" aria-live="polite"></div>';document.body.append(dialog);dialog.querySelector('[data-close]').onclick=()=>dialog.close();dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});dialog.querySelector('input').addEventListener('input',render);}
  dialog.showModal();dialog.querySelector('input').focus();
- if(!index){try{const r=await fetch('data/ncaam-2026-27-espn-team-crosswalk.json');if(!r.ok)throw Error('Team index unavailable');index=(await r.json()).teams||[];}catch{dialog.querySelector('.cbb-find-results').textContent='Team directory unavailable. Please try again.';return;}}
+ if(!index){try{const r=await fetch(women?'data/ncaaw-2026-27-teams.json':'data/ncaam-2026-27-espn-team-crosswalk.json');if(!r.ok)throw Error('Team index unavailable');index=(await r.json()).teams||[];}catch{dialog.querySelector('.cbb-find-results').textContent='Team directory unavailable. Please try again.';return;}}
  render();
 }
-function render(){const dialog=document.getElementById('cbb-team-finder');if(!dialog||!index)return;const q=dialog.querySelector('input').value.trim().toLowerCase();const names=index.filter(t=>(t.name+' '+(t.espn_name||'')).toLowerCase().includes(q)).slice(0,30);const res=dialog.querySelector('.cbb-find-results');res.replaceChildren();for(const t of names){const a=document.createElement('a');a.href=women?'ncaaw-team.html?team='+encodeURIComponent(t.id):'ncaam-team.html?team='+encodeURIComponent(t.id);a.textContent=t.name+(t.espn_name&&t.espn_name!==t.name?' · '+t.espn_name:'');res.append(a);}if(!names.length)res.textContent='No matching Division I schools.';}
+function render(){
+ const dialog=document.getElementById('cbb-team-finder');if(!dialog||!index)return;
+ const q=dialog.querySelector('input').value.trim().toLowerCase();
+ const names=index.filter(t=>women?String(t.team||'').toLowerCase().includes(q):
+    (t.name+' '+(t.espn_name||'')).toLowerCase().includes(q)).slice(0,30);
+ const res=dialog.querySelector('.cbb-find-results');res.replaceChildren();
+ for(const t of names){
+  const a=document.createElement('a');
+  a.href=women?'ncaaw-team.html?team='+encodeURIComponent(t.team_id):'ncaam-team.html?team='+encodeURIComponent(t.id);
+  a.textContent=women?t.team:t.name+(t.espn_name&&t.espn_name!==t.name?' · '+t.espn_name:'');
+  res.append(a);
+ }
+ if(!names.length)res.textContent='No matching Division I schools.';
+}
 const selected=new URLSearchParams(location.search).get('poll');
 if(!women&&selected&&ranks.some(x=>x[1]===selected)){
  let tries=0;const timer=setInterval(()=>{const btn=document.querySelector('[data-poll="'+selected+'"]');if(btn){btn.click();clearInterval(timer);const table=document.getElementById('rankings')||btn.closest('section');table?.scrollIntoView({block:'start'});}else if(++tries>45)clearInterval(timer);},200);
