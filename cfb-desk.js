@@ -39,15 +39,18 @@ function drawScores(events,liveFeed){
      retro:Number.isFinite(value)?'RETRO '+Math.round(value)+
       (position?' (#'+position+')':''):'RETRO —'};
   };
+  const broadcasts=(c?.broadcasts||[]).flatMap(b=>b.names||[]).join(', ');
   const bug=window.SLTSportsScorebug?.render({phase:mode,
-   status:status.shortDetail||'LIVE',away:teamData(away),home:teamData(home)
+   status:status.shortDetail||'LIVE',time:mode==='upcoming'?stamp(e.date):'',network:broadcasts,away:teamData(away),home:teamData(home)
   })||'<p class="empty">Scorebug unavailable.</p>';
+  const periods=Array.from({length:Math.max(away.linescores?.length||0,home.linescores?.length||0)},(_,i)=>'<tr><th>'+(i<4?'Q'+(i+1):'OT'+(i-3))+'</th><td>'+esc(away.linescores?.[i]?.displayValue??away.linescores?.[i]?.value??'—')+'</td><td>'+esc(home.linescores?.[i]?.displayValue??home.linescores?.[i]?.value??'—')+'</td></tr>').join('');
+  const periodTable=periods?'<table class="cfb-period-table"><thead><tr><th>PERIOD</th><th>AWAY</th><th>HOME</th></tr></thead><tbody>'+periods+'</tbody></table>':'<p>Period scoring not available from this feed.</p>';
   return '<article class="game-card ledger26-card">'+
    '<div class="ledger26-meta"><span>'+esc(c?.venue?.fullName||'Venue TBA')+'</span>'+
    '<span>'+esc((c?.broadcasts||[]).flatMap(b=>b.names||[]).join(', ')||stamp(e.date))+'</span></div>'+
    '<details class="ledger26-expand"><summary class="ledger26-summary">'+bug+
    '<span class="ledger26-instruction">OPEN GAME DETAILS +</span></summary>'+
-   '<div class="ledger26-expanded"><p>'+esc(stamp(e.date))+'</p>'+
+   '<div class="ledger26-expanded"><p>'+esc(stamp(e.date))+'</p>'+periodTable+
    '<p>'+link(data.teams.get(String(away.team.id))||{id:away.team.id,name:away.team.displayName})+
    ' · '+link(data.teams.get(String(home.team.id))||{id:home.team.id,name:home.team.displayName})+
    '</p><p>Results and live scores use sourced team identities.</p></div></details></article>';
