@@ -1,7 +1,35 @@
-/* Conference Desk: the same letterpress game bug as the Daily Ledger. */
-.slt-conference-game{margin:0 0 12px;max-width:100%}
-.slt-conference-game .ledger26-scorebug{border-left:0;border-right:0;border-top:0;border-bottom:0}
-.slt-conference-game .ledger26-meta{font-variant-numeric:tabular-nums}
-.slt-conference-game-link{padding:7px 12px;border-top:1px solid #b9a78a;text-align:right;font:700 11px/1.3 Georgia,'Times New Roman',serif}
+/* Conference Desk: Victorian engraved frame around the canonical expandable scorebug. */
+.slt-conference-game{
+ margin:0 0 11px;max-width:100%;padding:5px;
+ border:3px double #795f40;background:#eadcc2;
+ box-shadow:inset 0 0 0 1px #f9f2e4;
+}
+.slt-conference-game .ledger26-card{
+ border:1px solid #ad9574!important;border-top:3px double #695338!important;
+ background:#f8f0e1!important;
+}
+.slt-conference-game .ledger26-meta,
+.slt-conference-game .slt-fixture-meta{
+ background:#e9d9bd;border-bottom:3px double #947657!important;
+ color:#4d3928;font:700 10px/1.3 Georgia,serif;
+ padding:6px 9px;
+}
+.slt-conference-game .ledger26-summary{
+ background:#f6eddd;padding:7px 8px 5px;
+}
+.slt-conference-game .ledger26-summary:hover,
+.slt-conference-game .ledger26-expand[open]>.ledger26-summary{background:#eee0c9}
+.slt-conference-game .ledger26-scorebug{
+ border:3px double #a88b66!important;background:#f8f0e1;
+}
+.slt-conference-game .ledger26-team{background:#f8f0e1}
+.slt-conference-game .ledger26-monogram{background:#e8d9bd}
+.slt-conference-game .ledger26-status{background:#ecdfc6}
+.slt-conference-game .slt-conference-game-link{
+ border-top:3px double #af9774;padding:6px 9px;text-align:right;
+ font:700 10px/1.3 Georgia,serif;letter-spacing:.08em;
+ text-transform:uppercase;
+}
 .slt-conference-game-link a{color:#483421;text-decoration:underline;text-underline-offset:3px}
 .slt-conference-game-link a:focus-visible{outline:2px solid #483421;outline-offset:2px}
+@media(max-width:580px){.slt-conference-game{padding:3px;margin-bottom:9px}.slt-conference-game .ledger26-summary{padding:5px}.slt-conference-game .ledger26-meta,.slt-conference-game .slt-fixture-meta{font-size:9px}}
