@@ -60,8 +60,8 @@
 .victorian-team-calendar .victorian-at-game-records{display:block;width:100%;margin-top:5px;padding:5px 0 0;border-top:1px solid #b9a17d;font:11px/1.4 Georgia,serif;color:#4b3929}
 .victorian-team-calendar .victorian-record-label{display:block;font:700 9px/1.4 Georgia,serif;letter-spacing:.075em;text-transform:uppercase;color:#7e583f;margin-bottom:3px}
 .victorian-team-calendar .victorian-record-line{display:flex;justify-content:space-between;align-items:baseline;gap:10px;min-width:0;font-weight:400}
-.victorian-team-calendar .victorian-record-line>span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.victorian-team-calendar .victorian-record-line b{font:700 11px Georgia,serif;white-space:nowrap;font-variant-numeric:tabular-nums}
+.victorian-team-calendar .victorian-record-line>span{flex:1 1 auto;min-width:0;overflow:visible;text-overflow:clip;white-space:normal;overflow-wrap:normal;word-break:normal}
+.victorian-team-calendar .victorian-record-line b{flex:0 0 auto;font:700 11px Georgia,serif;white-space:nowrap;font-variant-numeric:tabular-nums}
 
 
  .victorian-team-calendar .victorian-poll-rank{display:inline-block;margin-left:0;margin-right:8px;padding:2px 5px;border:1px solid #b59571;color:#783e2f;background:#f5e5cf;font:700 11px Georgia,serif;white-space:nowrap;vertical-align:middle}
