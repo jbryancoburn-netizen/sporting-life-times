@@ -43,3 +43,9 @@
 .victorian-unified-ledger .conference-ledger .badge{width:37px!important;height:37px!important;object-fit:contain;flex-shrink:0}
 .victorian-unified-ledger .ledger-place{display:inline-grid;place-items:center;min-width:29px;min-height:29px;padding:2px 4px;background:#75402e;border:3px double #d6b78e;color:#fff5dd;font:800 14px Georgia,serif}
 @media(max-width:700px){.victorian-unified-ledger .conference-ledger-scroll{scrollbar-width:thin}.victorian-unified-ledger .conference-ledger{min-width:630px}.victorian-unified-ledger .conference-ledger .badge{width:31px!important;height:31px!important}.victorian-unified-ledger .conference-ledger .team-name{font-size:12px}}
+
+/* Date, verified tipoff, and TV always occupy separate aligned columns. */
+.slt-conference-game .slt-fixture-meta{display:grid;grid-template-columns:minmax(90px,1fr) minmax(80px,auto) minmax(90px,1fr);align-items:center;column-gap:10px;padding:7px 12px;font:700 11px Georgia,serif;letter-spacing:.025em}
+.slt-conference-game .slt-fixture-tipoff{text-align:center;white-space:nowrap;color:#33271e}
+.slt-conference-game .slt-fixture-network{text-align:right;color:#6d4931;overflow-wrap:anywhere}
+@media(max-width:520px){.slt-conference-game .slt-fixture-meta{grid-template-columns:minmax(70px,1fr) auto minmax(70px,1fr);gap:5px;padding:7px 8px;font-size:10px}}
