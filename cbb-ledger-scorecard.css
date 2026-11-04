@@ -32,11 +32,11 @@
 .ledger26-summary:focus-visible{outline:3px solid #754c25;outline-offset:-3px}
 .ledger26-summary:hover,.ledger26-expand[open]>.ledger26-summary{background:#eaddc6}
 .ledger26-scorebug{
-  --ledger26-crest-size:35px;
-  --ledger26-team-min-height:45px;
+  --ledger26-crest-size:46px;
+  --ledger26-team-min-height:53px;
   display:grid;
   grid-template-columns:52px minmax(0,1fr) 102px;
-  min-height:96px;
+  min-height:112px;
   border:3px double #826d4e;
   background:#f8f0e0;
   color:#241b13;
@@ -147,7 +147,7 @@
 /* EuroLeague: larger official crests within the same universal letterpress scorebug. */
 #el-live-scorebugs .ledger26-scorebug{--ledger26-crest-size:60px;--ledger26-team-min-height:76px}
 @media(max-width:640px){
- .ledger26-scorebug{--ledger26-crest-size:45px;--ledger26-team-min-height:56px}
+ .ledger26-scorebug{--ledger26-crest-size:49px;--ledger26-team-min-height:59px}
  #el-live-scorebugs .ledger26-scorebug{--ledger26-crest-size:54px;--ledger26-team-min-height:70px}
  .ledger26-summary{padding:7px}
  .ledger26-scorebug{grid-template-columns:43px minmax(0,1fr) 84px;min-height:114px}
@@ -162,7 +162,7 @@
  .ledger26-status strong{font-size:11px!important}
 }
 @media(max-width:360px){
- .ledger26-scorebug{--ledger26-crest-size:39px;--ledger26-team-min-height:52px;grid-template-columns:37px minmax(0,1fr) 72px}
+ .ledger26-scorebug{--ledger26-crest-size:43px;--ledger26-team-min-height:54px;grid-template-columns:37px minmax(0,1fr) 72px}
  #el-live-scorebugs .ledger26-scorebug{--ledger26-crest-size:46px;--ledger26-team-min-height:65px}
  .ledger26-team{grid-template-columns:var(--ledger26-crest-size) minmax(0,1fr) 21px;gap:4px;padding:3px;border-left-width:4px}
  .ledger26-name{font-size:11px!important}
