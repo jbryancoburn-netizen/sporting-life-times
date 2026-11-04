@@ -79,20 +79,23 @@
 .victorian-player-production .slt-sort-arrow{font-size:10px;opacity:.65}
 .victorian-player-production th[aria-sort="ascending"] .slt-sort-arrow,.victorian-player-production th[aria-sort="descending"] .slt-sort-arrow{color:#853b2d;opacity:1}
 
-/* A single horizontal masthead for opponent rank, school and league. */
-.victorian-team-calendar .sched-opponent{width:100%;min-width:0}
-.victorian-team-calendar .sched-opponent strong{display:block;width:100%;min-width:0}
-.victorian-team-calendar .sched-opponent strong .victorian-opponent-heading{display:grid;grid-template-columns:48px minmax(0,1fr) 70px;align-items:center;column-gap:8px;width:100%;max-width:100%;white-space:nowrap;vertical-align:middle}
-.victorian-team-calendar .victorian-opponent-heading .victorian-heading-rank{min-width:0}
-.victorian-team-calendar .victorian-opponent-heading .victorian-heading-school{min-width:0;white-space:normal;overflow:visible;text-overflow:clip;overflow-wrap:normal;word-break:normal;line-height:1.2}
-.victorian-team-calendar .victorian-opponent-heading .victorian-heading-conference{justify-self:end;white-space:nowrap}
-.victorian-team-calendar .victorian-opponent-heading .victorian-poll-rank{margin:0}
-.victorian-team-calendar .victorian-opponent-heading .victorian-conference-game{margin:0}
-.victorian-team-calendar .victorian-opponent-heading a,.victorian-team-calendar .victorian-opponent-heading .victorian-school-name{white-space:normal;overflow-wrap:normal;word-break:normal}
-.victorian-team-calendar .sched-matchup-cell{min-width:340px}
-.victorian-team-calendar .sched-opponent strong .victorian-opponent-heading{white-space:normal;grid-template-columns:48px minmax(0,1fr) 74px}
-.victorian-team-calendar .victorian-opponent-heading .victorian-heading-rank,.victorian-team-calendar .victorian-opponent-heading .victorian-heading-conference{white-space:nowrap}
-.victorian-team-calendar .mbb-schedule-table{min-width:1000px}
+/* One authoritative opponent masthead layout: ranking, FULL school name, conference.
+   Reserve independent column space; never ellipsize or let ranking touch school text. */
+.victorian-team-calendar .sched-matchup-cell{min-width:490px;width:490px}
+.victorian-team-calendar .sched-matchup{display:flex;align-items:center;gap:12px;width:100%;min-width:0}
+.victorian-team-calendar .sched-opponent{display:flex;flex:1 1 auto;min-width:0;width:100%}
+.victorian-team-calendar .sched-opponent strong{display:block;width:100%;min-width:0;line-height:1.2}
+.victorian-team-calendar .sched-opponent strong .victorian-opponent-heading{
+ display:grid;grid-template-columns:62px minmax(0,1fr) 74px;
+ align-items:start;column-gap:12px;width:100%;min-width:0;max-width:100%;
+ white-space:normal;vertical-align:middle;
+}
+.victorian-team-calendar .victorian-heading-rank{display:block;min-width:0;white-space:nowrap}
+.victorian-team-calendar .victorian-heading-school{display:block;min-width:0;overflow:visible;text-overflow:clip;white-space:normal;overflow-wrap:normal;word-break:normal;line-height:1.2}
+.victorian-team-calendar .victorian-heading-school a,.victorian-team-calendar .victorian-heading-school .victorian-school-name{white-space:normal;overflow:visible;word-break:normal;overflow-wrap:normal}
+.victorian-team-calendar .victorian-heading-conference{display:block;justify-self:end;white-space:nowrap}
+.victorian-team-calendar .victorian-opponent-heading .victorian-poll-rank,.victorian-team-calendar .victorian-opponent-heading .victorian-conference-game{margin:0;white-space:nowrap}
+.victorian-team-calendar .mbb-schedule-table{min-width:1180px}
 
 /* Canonical aligned columns in the player production register. */
 .victorian-player-production .slt-sortable-production{width:100%;min-width:690px;table-layout:fixed;border-collapse:collapse;font-variant-numeric:tabular-nums}
