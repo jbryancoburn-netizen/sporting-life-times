@@ -219,6 +219,30 @@ function rebuild(gender,previous,results,additionalTeams=[]){
     teams:[...teams.values()].sort((a,b)=>a.name.localeCompare(b.name)),
     games:list.sort((a,b)=>a.date.localeCompare(b.date)||a.id.localeCompare(b.id))};
 }
+// Publisher-side logo identity is taken only from an NCAA-index source whose
+// organization IDs match this year's NCAA sponsorship directory. This prevents
+// every nightly refresh from wiping the web site's restored authentic crests.
+function applyOfficialLogoCrosswalk(teams){
+ const file=path.join(DATA,'d3-verified-logo-slugs-2026-27.json');
+ if(!fs.existsSync(file))return {matched:0,unmatched:teams.length};
+ const source=JSON.parse(fs.readFileSync(file,'utf8'));
+ if(source.source!=='https://www.ncaa.com/json/schools'||
+    source.matching!=='exact_normalized_school_name_only'||
+    !source.schools||Object.keys(source.schools).length!==source.verified_logo_slugs||
+    source.verified_logo_slugs<250)throw Error('NCAA logo crosswalk identity is not certified');
+ let matched=0;
+ for(const team of teams){
+  if(!Number.isInteger(team.ncaa_org_id)||!team.d3_confirmed)continue;
+  const match=source.schools[String(team.ncaa_org_id)];
+  if(!match||match.source!==source.source||match.match!=='exact_normalized_name'||
+     !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(match.slug||''))continue;
+  if(team.slug&&team.slug!==match.slug)continue;
+  team.slug=match.slug;
+  team.logo_source='NCAA school index · exact organization ID';
+  matched++;
+ }
+ return {matched,unmatched:teams.length-matched};
+}
 async function run(gender,deep=false){
   fs.mkdirSync(DATA,{recursive:true});
   const file=path.join(DATA,'d3-'+gender+'-2026-27.json');
@@ -236,6 +260,9 @@ async function run(gender,deep=false){
   if(!successful)throw Error('All NCAA DIII '+gender+' scoreboards failed: retaining previous publication');
   const directory=await officialDirectory(gender);
   const next=rebuild(gender,previous,results,directory.teams);
+  const logoCoverage=applyOfficialLogoCrosswalk(next.teams);
+  next.coverage.verified_logo_slugs=logoCoverage.matched;
+  next.coverage.unmatched_logo_slugs=logoCoverage.unmatched;
   const official=next.teams.filter(t=>t.membership_source&&t.membership_year===2027);
   const target=gender==='men'?407:416;
   next.coverage.membership_certified=!directory.error;
