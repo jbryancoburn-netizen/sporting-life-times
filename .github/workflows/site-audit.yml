@@ -43,6 +43,8 @@ jobs:
         run: node scripts/audit-dual-ring-colors.cjs
       - name: Enforce 365 school roundel-aware logo contracts
         run: node scripts/audit-mbb-logo-system.cjs
+      - name: Verify women's 363-team master template and source identities
+        run: node --test tests/wbb-team-template-363.test.cjs
       - name: Verify 365 NCAA power ranking rows actually render
         run: node tests/mbb-rankings-runtime.test.cjs
       - name: Validate 25 AP and Coaches poll logo matches
