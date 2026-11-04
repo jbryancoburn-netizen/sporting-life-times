@@ -255,6 +255,10 @@ let selected=/^\d{4}-\d\d-\d\d$/.test(url.searchParams.get('date')||'')?url.sear
 let filter=['all','live','final','upcoming','exhibition'].includes(url.searchParams.get('view'))?url.searchParams.get('view'):'all';
 let search='',loaded=[],ratings=new Map(),retroTies=new Map(),retroPublished=null,retroPending=0,lastUpdate='',limit=18,loading=false,sourceError='';
 let pollRankings=new Map(),pollAsOf='';
+ // Authentic opponent marks outside the 365-school Division I RETRO registry.
+ // ESPN event IDs are used only for logos/colors, never team membership.
+ let outsideMarks={};
+ const outsideMark=t=>!palette[String(t?.id)]?outsideMarks[String(t?.id)]||null:null;
 let liveBoard=[],liveCheckedAt=0,liveCheckError='',liveRequest=false;
 const verifiedLiveScores=new Map();
 let cross={teams:[]},palette={},arenaRegistry={},womenTeams=new Map(),sourceFeed=null,seasonStats=new Map(),liveChanges=new Map(),scoreCalibration=null;
@@ -263,7 +267,8 @@ const insight=window.SLTBasketballInsights;
 // page session; do not re-download them on every 90-second scoreboard tick.
 const staticData=new Map();
 const staticPaths=new Set(['data/ncaam-2026-27-espn-team-crosswalk.json',
-  'data/dual-ring-team-palette.json','data/mbb-arena-registry.json']);
+  'data/dual-ring-team-palette.json','data/mbb-arena-registry.json',
+   'data/mbb-out-of-division-opponent-logos.json']);
 const fetchJSON=async path=>{
  if(staticPaths.has(path)&&staticData.has(path))return staticData.get(path);
  const c=new AbortController(),tm=setTimeout(()=>c.abort(),14000);
@@ -275,8 +280,8 @@ const fetchJSON=async path=>{
  }finally{clearTimeout(tm)}
 };
 const saveURL=()=>{const u=new URL(location.href);u.searchParams.set('date',selected);if(filter==='all')u.searchParams.delete('view');else u.searchParams.set('view',filter);history.replaceState({},'',u.pathname+u.search+u.hash)};
-const brand=t=>{if(!t)return '#133a48';const p=palette[String(t.id)];const c=p?.primary||'#234b62';return /^#[0-9a-f]{6}$/i.test(c)?c:'#234b62'};
-const secondary=t=>{const c=palette[String(t?.id)]?.secondary||'#b49864';
+const brand=t=>{if(!t)return '#133a48';const p=palette[String(t.id)];const c=p?.primary||outsideMark(t)?.primary||'#234b62';return /^#[0-9a-f]{6}$/i.test(c)?c:'#234b62'};
+const secondary=t=>{const c=palette[String(t?.id)]?.secondary||outsideMark(t)?.secondary||'#b49864';
   return /^#[0-9a-f]{6}$/i.test(c)&&c.toLowerCase()!=='#ffffff'?c:'#b49864'};
 // Contrast-safe star ink: retain school color, brighten its tint only as needed.
 const rgb=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
@@ -406,12 +411,16 @@ const arenaStage=g=>{
 const emblem=t=>{
   if(window.MBBLogos?.byESPN&&palette[String(t.id)])
     return window.MBBLogos.byESPN(t.id,'featured',t.name);
-  const obj=womenTeams.get(String(t.id))||ratings.get(String(t.id))||{},logo=String(obj.logo||'');
-  const primary=brand(t),secondary=palette[String(t.id)]?.secondary||'#b39a65';
+  const obj=womenTeams.get(String(t.id))||ratings.get(String(t.id))||{};
+  // The external mark comes from the verified opponent-ID registry, never a
+  // guessed ESPN /teamlogos/ URL or a fuzzy match to a Division I school.
+  const marked=outsideMark(t),logo=String(marked?.logo_url||obj.logo||'');
+  const primary=brand(t),accent=secondary(t);
   const safe=/^https:\/\/[^\s"'<>]+$/i.test(logo)?logo:'';
-  return '<span class="sl-emblem" style="--ring1:'+esc(primary)+';--ring2:'+esc(secondary)+'">'+
-    (safe?'<img loading="lazy" decoding="async" src="'+esc(safe)+'" alt="">':
-    '<span>'+esc(String(t.name).slice(0,2))+'</span>')+'</span>';
+  const initials=String(t.name).slice(0,2);
+  return '<span class="sl-emblem" style="--ring1:'+esc(primary)+';--ring2:'+esc(accent)+'" data-fallback="'+esc(initials)+'">'+
+    (safe?'<img loading="lazy" decoding="async" src="'+esc(safe)+'" alt="" onerror="this.replaceWith(document.createTextNode(this.parentElement.dataset.fallback))">':
+    '<span>'+esc(initials)+'</span>')+'</span>';
 };
 const rating=t=>{const r=rankOf(t,ratings,women);return r&&Number.isFinite(+r.elo)?Math.round(+r.elo):null};
 // Display the published RETRO rank beside Elo; never manufacture standings from game-card order.
@@ -626,12 +635,13 @@ const render=()=>{
 async function refresh(){
  if(loading)return;loading=true;const status=document.getElementById('sl-data');status.textContent='Refreshing verified sources…';
  try{
-  const menFiles=['data/mbb-live.json','data/ncaam-2026-27-upcoming-forecasts.json','data/ncaam-2026-27-retro-primary.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json','data/mbb-exhibition-finals-2026-27.json','data/mbb-arena-registry.json','data/ncaam-score-calibration.json','data/ncaam-2026-27-national-polls.json'];
-  const womenFiles=['data/ncaaw-2026-27-games.json','data/ncaaw-2026-27-retro-primary.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json','data/ncaaw-2026-27-teams.json','data/mbb-live.json'];
+  const menFiles=['data/mbb-live.json','data/ncaam-2026-27-upcoming-forecasts.json','data/ncaam-2026-27-retro-primary.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json','data/mbb-exhibition-finals-2026-27.json','data/mbb-arena-registry.json','data/ncaam-score-calibration.json','data/ncaam-2026-27-national-polls.json','data/mbb-out-of-division-opponent-logos.json'];
+  const womenFiles=['data/ncaaw-2026-27-games.json','data/ncaaw-2026-27-retro-primary.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json','data/ncaaw-2026-27-teams.json','data/mbb-live.json','data/mbb-out-of-division-opponent-logos.json'];
   const paths=women?womenFiles:menFiles;
   const output=await Promise.all(paths.map(p=>fetchJSON(p).catch(()=>null)));
   if(women){
-    const [results,rank,c,pal,wTeams,feed]=output;
+    const [results,rank,c,pal,wTeams,feed,otherLogos]=output;
+     outsideMarks=otherLogos?.teams||{};
     if(!results||rank?.gender!=='women'||rank.starting_elo!==1500)throw Error('Women’s game or rating data unavailable');
     cross=c||{teams:[]};retroPublished=rank;ratings=rankingsMap(rank);updateRetroTies();palette=pal?.wbb||pal?.mbb||{};
     womenTeams=new Map((wTeams?.teams||[]).map(t=>[String(t.team_id),t]));
@@ -639,7 +649,8 @@ async function refresh(){
     loaded=dedupeFixtures(normalizeWomen(results,rank,cross));
     lastUpdate='women’s rolling fixture ledger';
   }else{
-    const [feed,forecast,rank,c,pal,ex,arenas,calibration,polls]=output;
+    const [feed,forecast,rank,c,pal,ex,arenas,calibration,polls,otherLogos]=output;
+     outsideMarks=otherLogos?.teams||{};
     if(!feed||rank?.model!=='retro-clean-slate'||rank.starting_elo!==1500||rank.rankings?.length!==365)
       throw Error('Men’s scoreboard or certified RETRO feed unavailable');
     cross=c||{teams:[]};retroPublished=rank;ratings=rankingsMap(rank);updateRetroTies();palette=pal?.mbb||{};
