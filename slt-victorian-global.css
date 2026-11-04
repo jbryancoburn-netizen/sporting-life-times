@@ -24,7 +24,7 @@ body :is(.story-img,.player-headshot,.player-image,.nba-player-headshot){object-
 
 /* Unified edition furniture: standings, rankings and bracket sheets use ink,
    paper and engraved rules. Institutional colors stay on logos and narrow rails. */
-body :is(.nba-newspaper,.epl-newspaper){--paper:var(--slt-paper);--ink:var(--slt-ink)}
+body:is(.nba-newspaper,.epl-newspaper){--paper:var(--slt-paper);--ink:var(--slt-ink)}
 body :is(.nba-table,.standings-table,.league-table,.bracket,.bracket-card,.playoff-bracket,.nba-bracket,.ranking-table,.power-table){background:var(--slt-surface);color:var(--slt-ink);border-color:var(--slt-rule);box-shadow:none;border-radius:0}
 body :is(.nba-table,.standings-table,.league-table,.ranking-table,.power-table) thead th{background:var(--slt-surface-alt);color:var(--slt-ink);font:700 11px/1.35 Georgia,'Times New Roman',serif;letter-spacing:.035em}
 body :is(.nba-table,.standings-table,.league-table,.ranking-table,.power-table) tbody tr{background:transparent;color:var(--slt-ink)}
