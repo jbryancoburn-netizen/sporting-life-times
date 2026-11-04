@@ -1,9 +1,52 @@
 (()=>{'use strict';
 const $=id=>document.getElementById(id),esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const gender=document.body.dataset.gender,own=gender==='women'?'d3-womens-basketball.html':'d3-mens-basketball.html';
-const state={data:null,teams:new Map(),fixtureData:null,fixtureFetchedAt:0},pct=t=>(t.w||0)+(t.l||0)?Math.round(1000*t.w/(t.w+t.l))/10:0;
+const state={data:null,teams:new Map(),fixtureData:null,fixtureFetchedAt:0,logoOverlay:null,logoFetchedAt:0,logoRequest:null},pct=t=>(t.w||0)+(t.l||0)?Math.round(1000*t.w/(t.w+t.l))/10:0;
 const teamLink=t=>own+'?team='+encodeURIComponent(t.id);
 const source=g=>/^https:\/\//.test(g.source_url||'')?'<a href="'+esc(g.source_url)+'" target="_blank" rel="noopener noreferrer">'+(g.schedule_only?(g.source_kind==='official_conference'?'OFFICIAL CONFERENCE SCHEDULE ↗':g.source_kind==='official_conference_and_school'?'UNIVERSITY / CONFERENCE SOURCE ↗':'OFFICIAL UNIVERSITY SCHEDULE ↗'):'NCAA SCOREBOARD SOURCE ↗')+'</a>':'Source link unavailable';
+// Reuse the verified NCAA schools index, keyed by the NCAA organization ID.
+// Never derive a logo slug from a school name or substitute another team's mark.
+async function loadLogoOverlay(){
+ if(state.logoOverlay&&Date.now()-state.logoFetchedAt<15*60000)return state.logoOverlay;
+ if(state.logoRequest)return state.logoRequest;
+ state.logoRequest=(async()=>{
+  try{
+   const response=await fetch('data/d3-verified-logo-slugs-2026-27.json?v=20261104-slugs1',
+    {cache:'no-store'});
+   if(!response.ok)throw Error('NCAA logo registry unavailable');
+   const source=await response.json();
+   if(source.matching!=='exact_normalized_school_name_only'||!source.schools||
+      typeof source.schools!=='object')throw Error('Logo identity registry not certified');
+   const approved=new Map();
+   for(const [id,record] of Object.entries(source.schools)){
+    if(!/^\d+$/.test(id)||record?.match!=='exact_normalized_name'||
+      record?.source!==source.source||source.source!=='https://www.ncaa.com/json/schools'||
+      !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(record?.slug||''))continue;
+    approved.set(id,record.slug);
+   }
+   if(approved.size!==source.verified_logo_slugs||approved.size<250)
+    throw Error('Logo mapping count mismatch');
+   state.logoOverlay=approved;state.logoFetchedAt=Date.now();
+  }catch(err){
+   // Keep previously confirmed logo IDs through a temporary source outage.
+   state.logoFetchedAt=Date.now();
+  }finally{state.logoRequest=null;}
+  return state.logoOverlay;
+ })();
+ return state.logoRequest;
+}
+function mergeVerifiedLogos(teams,approved){
+ let recovered=0;
+ for(const school of teams){
+  const org=school?.ncaa_org_id;
+  const official=Number.isInteger(org)?approved?.get(String(org)):null;
+  if(!official||(school.slug&&school.slug!==official))continue;
+  school.slug=official;
+  school.logo_source='NCAA school index · verified organization ID';
+  recovered++;
+ }
+ return recovered;
+}
 const emblem=t=>{
  const title=t.d3_confirmed?'Official NCAA 2026–27 Division III sport sponsor':'Division membership unconfirmed';
  const slug=String(t.slug||'').replace(/[^a-z0-9-]/g,'');
@@ -112,6 +155,8 @@ async function start(){
   const d=await r.json();
   if(d.gender!==gender||d.division!=='d3'||d.season!=='2026-27'||d.starting_elo!==1500||!Array.isArray(d.games)||!Array.isArray(d.teams))
     throw Error('Wrong division, gender, or Elo dataset refused.');
+  const logoCrosswalk=await loadLogoOverlay();
+  const verifiedLogoCount=mergeVerifiedLogos(d.teams,logoCrosswalk);
   let fixtureData=state.fixtureData;
   // Revalidate full national schedule ledger every 15 minutes, not every minute.
   if(!state.fixtureFetchedAt||Date.now()-state.fixtureFetchedAt>15*60*1000){
@@ -217,12 +262,12 @@ async function start(){
   d.coverage.reciprocal_fixtures=fixtureData?.reciprocal_fixtures??0;
   d.coverage.source_conflicts=fixtureData?.conflicts?.length??0;
   d.coverage.disputed_matchups_displayed=disputed;
-  const version=d.as_of+'|'+(fixtureData?.generated_utc||'');
+  const version=d.as_of+'|'+(fixtureData?.generated_utc||'')+'|'+verifiedLogoCount;
   if(state.version===version)return;
   state.version=version;
   state.data=d;state.teams=new Map(d.teams.map(t=>[t.id,t]));
   for(const id of ['game-date','prev-date','next-date','team-search','conference-select']){const node=$(id);if(node)node.replaceWith(node.cloneNode(true));}
-  $('status').textContent='NCAA DIII game-source edition · '+(d.as_of?new Date(d.as_of).toLocaleString():'Source refresh pending');
+  $('status').textContent='NCAA DIII game-source edition · '+(d.as_of?new Date(d.as_of).toLocaleString():'Source refresh pending')+' · '+verifiedLogoCount+' mapped school logos';
   if(new URLSearchParams(location.search).has('team')){
    $('home-content').hidden=true;$('team-detail').hidden=false;renderTeam(d);
   }else renderHome(d);
