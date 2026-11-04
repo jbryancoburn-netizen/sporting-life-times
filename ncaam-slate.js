@@ -149,6 +149,34 @@ function selectGames(all,day,view,query){
 }
 // Independently refresh the real scoreboard between static GitHub publications.
 // Admit only uniquely identified Division I schools from the existing crosswalk.
+// Use only explicitly published, source-backed stats. Missing values are not inferred from score.
+function momentumFromCompetition(match,away,home){
+ const competitors=[away,home];
+ const explicitRun=competitors.map(t=>{
+  const v=t?.scoringRun??t?.statistics?.scoringRun;
+  const n=Number(typeof v==='object'?v?.points:v);
+  return Number.isInteger(n)&&n>=6&&n<=40?{n,team:t}:null;
+ }).filter(Boolean).sort((a,b)=>b.n-a.n)[0];
+ const abbr=t=>String(t?.team?.abbreviation||t?.team?.shortDisplayName||'TEAM').toUpperCase().slice(0,12);
+ if(explicitRun)return {kind:'run',text:abbr(explicitRun.team)+' '+explicitRun.n+'–0 RUN'};
+ const stats=t=>Array.isArray(t?.statistics)?t.statistics:[];
+ const value=(t,names)=>{
+  const x=stats(t).find(z=>names.some(name=>[z.name,z.abbreviation,z.label].some(y=>String(y||'').toLowerCase()===name)));
+  if(!x)return null;
+  const str=String(x.displayValue??x.value??'').replace('%','').trim();
+  const n=Number(str);
+  return Number.isFinite(n)?n:null;
+ };
+ // Prefer a striking verified shooting mark, then a substantial rebound edge.
+ const shooting=competitors.map(t=>({team:t,n:value(t,['fieldgoalpct','field goal %','fg%','fieldgoalpercentage'])}))
+  .filter(x=>x.n!==null&&x.n>=0&&x.n<=100).sort((a,b)=>b.n-a.n);
+ if(shooting.length&&shooting[0].n>=55)
+  return {kind:'stat',text:abbr(shooting[0].team)+' '+Math.round(shooting[0].n)+'% FG'};
+ const ra=value(away,['totalrebounds','rebounds','reb']),rh=value(home,['totalrebounds','rebounds','reb']);
+ if(ra!==null&&rh!==null&&Math.abs(ra-rh)>=8&&ra>=0&&rh>=0)
+  return {kind:'stat',text:abbr(ra>rh?away:home)+' +'+Math.abs(ra-rh)+' REB'};
+ return null;
+}
 function liveEvents(raw,day,registry,women=false,womenRankings=[]){
  const schools=women?
   new Map((womenRankings||[]).map(t=>[String(t.team_id),{id:String(t.team_id),
@@ -173,7 +201,7 @@ function liveEvents(raw,day,registry,women=false,womenRankings=[]){
     away:{id:String(away.team.id),canonical:String(a.id),name:a.name,full:a.espn_name||a.name,score:ap},
     home:{id:String(home.team.id),canonical:String(h.id),name:h.name,full:h.espn_name||h.name,score:hp},
     venue:match.venue?.fullName||'',broadcast:(match.broadcasts||[]).flatMap(x=>x.names||[]).join(' / '),
-    status:event.status?.type?.shortDetail||'LIVE',completed,neutral,site_verified:siteVerified,timed:true,kind:'regular',
+    status:event.status?.type?.shortDetail||'LIVE',momentum:phase==='live'?momentumFromCompetition(match,away,home):null,completed,neutral,site_verified:siteVerified,timed:true,kind:'regular',
     evidence:'live-scoreboard',source:phase==='final'?'Reported final · verification pending':'Live score reported',probability:null}];
  });
 }
@@ -562,7 +590,7 @@ const ledgerScorebug=g=>{
    crest:emblem(t),color:brand(t),record:record(t),retro:retroLine(t),
    poll:pollRankings.get(String(t.id))||null});
  return window.SLTBasketballScorebug?.render({
-  phase:g.phase,status:g.status||'LIVE',away:convert(g.away),home:convert(g.home)
+  phase:g.phase,status:g.status||'LIVE',momentum:g.momentum||null,away:convert(g.away),home:convert(g.home)
  })||'<p class="sl-empty">Scorebug temporarily unavailable. Refresh the page.</p>';
 };
 // The independently refreshed slate can lag a verified game summary.
