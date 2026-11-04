@@ -1,4 +1,4 @@
-/* Big Ten pilot only: scoped Victorian calendar, no impact on other teams */
+/* Canonical Victorian team calendar for all 365 Division I men's schools. Indiana is the master. */
 #full-season-schedule.victorian-team-calendar{background:#f2e7d3;color:#30251c;border:5px double #5c4432;padding:16px;box-shadow:inset 0 0 0 3px #e3d0b4}
 .victorian-team-calendar .panel-head{border-bottom:4px double #866b4b;margin-bottom:10px;padding-bottom:10px}
 .victorian-team-calendar .panel-head h2{font:800 clamp(21px,2.5vw,29px)/1.15 Georgia,serif;letter-spacing:-.025em}
@@ -109,12 +109,12 @@
  #full-season-schedule.victorian-team-calendar .sched-matchup>.mbb-mark{--mbb-size:47px;flex:0 0 47px!important}
  #full-season-schedule.victorian-team-calendar .sched-matchup .badge{width:47px!important;height:47px!important;min-width:47px!important;flex-basis:47px!important}
  #full-season-schedule.victorian-team-calendar .sched-opponent{width:auto!important;flex:1 1 auto!important;min-width:0!important;gap:2px!important}
- #full-season-schedule.victorian-team-calendar .sched-opponent strong .victorian-opponent-heading{display:grid!important;grid-template-columns:minmax(0,1fr) 57px!important;align-items:center!important;column-gap:6px!important;width:100%!important;min-width:0!important;white-space:nowrap!important}
- #full-season-schedule.victorian-team-calendar .sched-opponent strong .victorian-opponent-heading.has-poll-rank{grid-template-columns:54px minmax(0,1fr) 57px!important}
+ #full-season-schedule.victorian-team-calendar .sched-opponent strong .victorian-opponent-heading{display:grid!important;grid-template-columns:minmax(0,1fr) max-content!important;align-items:center!important;column-gap:6px!important;width:100%!important;min-width:0!important;white-space:nowrap!important}
+ #full-season-schedule.victorian-team-calendar .sched-opponent strong .victorian-opponent-heading.has-poll-rank{grid-template-columns:54px minmax(0,1fr) max-content!important}
  #full-season-schedule.victorian-team-calendar .victorian-heading-rank{min-width:0!important;white-space:nowrap!important}
  #full-season-schedule.victorian-team-calendar .victorian-heading-school{min-width:0!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:clip!important}
  #full-season-schedule.victorian-team-calendar .victorian-heading-school a,
- #full-season-schedule.victorian-team-calendar .victorian-heading-school .victorian-school-name{display:block!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:clip!important;font:700 clamp(11px,3.45vw,14px)/1.18 Georgia,serif!important}
+ #full-season-schedule.victorian-team-calendar .victorian-heading-school .victorian-school-name{display:block!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;font:700 clamp(11px,3.45vw,14px)/1.18 Georgia,serif!important}
  #full-season-schedule.victorian-team-calendar .victorian-heading-conference{min-width:0!important;justify-self:end!important}
  #full-season-schedule.victorian-team-calendar .victorian-conference-game{padding:2px 4px!important;font-size:9px!important;white-space:nowrap!important}
  #full-season-schedule.victorian-team-calendar .victorian-poll-rank{padding:2px 3px!important;font-size:10px!important;white-space:nowrap!important}
@@ -128,8 +128,8 @@
 @media(max-width:350px){
  #full-season-schedule.victorian-team-calendar .sched-matchup>.mbb-mark{--mbb-size:40px;flex-basis:40px!important}
  #full-season-schedule.victorian-team-calendar .sched-matchup .badge{width:40px!important;height:40px!important;min-width:40px!important;flex-basis:40px!important}
- #full-season-schedule.victorian-team-calendar .sched-opponent strong .victorian-opponent-heading.has-poll-rank{grid-template-columns:47px minmax(0,1fr) 52px!important;column-gap:4px!important}
- #full-season-schedule.victorian-team-calendar .sched-opponent strong .victorian-opponent-heading{grid-template-columns:minmax(0,1fr) 52px!important;column-gap:4px!important}
+ #full-season-schedule.victorian-team-calendar .sched-opponent strong .victorian-opponent-heading.has-poll-rank{grid-template-columns:47px minmax(0,1fr) max-content!important;column-gap:4px!important}
+ #full-season-schedule.victorian-team-calendar .sched-opponent strong .victorian-opponent-heading{grid-template-columns:minmax(0,1fr) max-content!important;column-gap:4px!important}
 }
 
 /* Canonical aligned columns in the player production register. */
