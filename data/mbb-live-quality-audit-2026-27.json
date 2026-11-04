@@ -1,12 +1,13 @@
 {
   "summary": {
     "school_files_scanned": 365,
-    "game_records": 11807,
-    "verified_site": 11687,
-    "classified_site": 11806,
-    "missing_broadcast": 5158,
-    "missing_game_arena": 974,
-    "unverified_site": 120,
+    "game_records": 11842,
+    "verified_site": 11768,
+    "classified_site": 11841,
+    "missing_broadcast": 4747,
+    "missing_game_arena": 247,
+    "unverified_site": 74,
+    "contradictory_neutral_flag": 2,
     "unclassified_site": 1,
     "home_arenas_registered": 260,
     "home_arenas_missing": 105
@@ -16,55 +17,16 @@
       "school": "Central Conn. St.",
       "id": "2115",
       "games": 30,
-      "verified_site": 3,
-      "unverified_site": 27,
-      "missing_game_arena": 27
-    },
-    {
-      "school": "South Carolina St.",
-      "id": "2569",
-      "games": 32,
-      "unverified_site": 11,
-      "missing_game_arena": 16,
-      "verified_site": 21
-    },
-    {
-      "school": "Binghamton",
-      "id": "2066",
-      "games": 32,
-      "verified_site": 22,
-      "unverified_site": 10,
-      "missing_game_arena": 9
-    },
-    {
-      "school": "Chicago St.",
-      "id": "2130",
-      "games": 32,
-      "verified_site": 26,
-      "unverified_site": 6,
-      "missing_game_arena": 3
-    },
-    {
-      "school": "UMES",
-      "id": "2379",
-      "games": 31,
-      "verified_site": 25,
-      "unverified_site": 6,
-      "missing_game_arena": 4
-    },
-    {
-      "school": "New Orleans",
-      "id": "2443",
-      "games": 33,
-      "unverified_site": 5,
-      "verified_site": 28
+      "verified_site": 14,
+      "unverified_site": 16,
+      "missing_game_arena": 1
     },
     {
       "school": "Alabama A&M",
       "id": "2010",
       "games": 38,
       "verified_site": 34,
-      "missing_game_arena": 3,
+      "missing_game_arena": 1,
       "unverified_site": 4
     },
     {
@@ -72,48 +34,31 @@
       "id": "2437",
       "games": 31,
       "verified_site": 27,
-      "missing_game_arena": 6,
+      "missing_game_arena": 5,
       "unverified_site": 4
     },
     {
-      "school": "UCF",
-      "id": "2116",
-      "games": 27,
-      "unverified_site": 4,
-      "verified_site": 23,
-      "missing_game_arena": 1
-    },
-    {
-      "school": "Nebraska",
-      "id": "158",
-      "games": 36,
+      "school": "Ark.-Pine Bluff",
+      "id": "2029",
+      "games": 32,
+      "verified_site": 29,
       "unverified_site": 3,
-      "missing_game_arena": 3,
-      "verified_site": 33
+      "missing_game_arena": 3
     },
     {
       "school": "St. Thomas (MN)",
       "id": "2900",
       "games": 28,
       "verified_site": 25,
-      "missing_game_arena": 14,
-      "unverified_site": 3
+      "unverified_site": 3,
+      "missing_game_arena": 2
     },
     {
-      "school": "Virginia Tech",
-      "id": "259",
-      "games": 32,
-      "verified_site": 29,
-      "missing_game_arena": 3,
-      "unverified_site": 3
-    },
-    {
-      "school": "Ark.-Pine Bluff",
-      "id": "2029",
-      "games": 31,
-      "verified_site": 29,
-      "unverified_site": 2,
-      "missing_game_arena": 4
+      "school": "UCF",
+      "id": "2116",
+      "games": 27,
+      "unverified_site": 3,
+      "verified_site": 24
     },
     {
       "school": "Howard",
@@ -121,15 +66,15 @@
       "games": 35,
       "verified_site": 33,
       "unverified_site": 2,
-      "missing_game_arena": 3
+      "missing_game_arena": 1
     },
     {
-      "school": "LIU",
-      "id": "112358",
-      "games": 24,
-      "verified_site": 22,
-      "missing_game_arena": 5,
-      "unverified_site": 2
+      "school": "Nebraska",
+      "id": "158",
+      "games": 36,
+      "unverified_site": 2,
+      "missing_game_arena": 2,
+      "verified_site": 34
     },
     {
       "school": "Notre Dame",
@@ -150,22 +95,45 @@
       "id": "24",
       "games": 33,
       "verified_site": 31,
-      "missing_game_arena": 3,
-      "unverified_site": 2
+      "unverified_site": 2,
+      "missing_game_arena": 2
     },
     {
-      "school": "UTEP",
-      "id": "2638",
-      "games": 32,
-      "unverified_site": 2,
-      "missing_game_arena": 4,
-      "verified_site": 30
+      "school": "Alcorn",
+      "id": "2016",
+      "games": 33,
+      "verified_site": 32,
+      "missing_game_arena": 3,
+      "unverified_site": 1
+    },
+    {
+      "school": "American",
+      "id": "44",
+      "games": 34,
+      "verified_site": 33,
+      "unverified_site": 1
+    },
+    {
+      "school": "App State",
+      "id": "2026",
+      "games": 34,
+      "unverified_site": 1,
+      "verified_site": 33,
+      "missing_game_arena": 2
     },
     {
       "school": "Baylor",
       "id": "239",
       "games": 34,
       "verified_site": 33,
+      "unverified_site": 1
+    },
+    {
+      "school": "Binghamton",
+      "id": "2066",
+      "games": 32,
+      "verified_site": 31,
+      "missing_game_arena": 2,
       "unverified_site": 1
     },
     {
@@ -177,12 +145,12 @@
       "missing_game_arena": 1
     },
     {
-      "school": "Clemson",
-      "id": "228",
-      "games": 23,
-      "verified_site": 22,
+      "school": "Chicago St.",
+      "id": "2130",
+      "games": 32,
+      "verified_site": 31,
       "unverified_site": 1,
-      "missing_game_arena": 1
+      "missing_game_arena": 2
     },
     {
       "school": "Florida St.",
@@ -197,22 +165,28 @@
       "games": 33,
       "verified_site": 32,
       "unverified_site": 1,
-      "missing_game_arena": 6
+      "missing_game_arena": 1
+    },
+    {
+      "school": "Hampton",
+      "id": "2261",
+      "games": 33,
+      "verified_site": 32,
+      "unverified_site": 1
     },
     {
       "school": "Hofstra",
       "id": "2275",
       "games": 32,
       "verified_site": 31,
-      "unverified_site": 1,
-      "missing_game_arena": 1
+      "unverified_site": 1
     },
     {
       "school": "Jacksonville St.",
       "id": "55",
-      "games": 23,
-      "verified_site": 22,
-      "missing_game_arena": 12,
+      "games": 32,
+      "verified_site": 31,
+      "missing_game_arena": 3,
       "unverified_site": 1
     },
     {
@@ -238,11 +212,31 @@
       "unverified_site": 1
     },
     {
+      "school": "Michigan",
+      "id": "130",
+      "games": 33,
+      "verified_site": 32,
+      "unverified_site": 1
+    },
+    {
       "school": "Mississippi Val.",
       "id": "2400",
       "games": 32,
       "verified_site": 31,
-      "missing_game_arena": 3,
+      "unverified_site": 1
+    },
+    {
+      "school": "N.C. Central",
+      "id": "2428",
+      "games": 31,
+      "verified_site": 30,
+      "unverified_site": 1
+    },
+    {
+      "school": "New Orleans",
+      "id": "2443",
+      "games": 33,
+      "verified_site": 32,
       "unverified_site": 1
     }
   ],
@@ -272,10 +266,34 @@
       "site": "neutral"
     },
     {
+      "school": "Alcorn",
+      "date": "2027-02-06T12:00:00-05:00",
+      "opponent": "University of Arkansas - Pine Bluff",
+      "site": "home"
+    },
+    {
+      "school": "American",
+      "date": "2026-11-29T12:00:00-05:00",
+      "opponent": "Hampton",
+      "site": "home"
+    },
+    {
+      "school": "App State",
+      "date": "2026-10-17T12:00:00-05:00",
+      "opponent": "Winthrop (exh.)",
+      "site": "away"
+    },
+    {
       "school": "Ark.-Pine Bluff",
       "date": "2026-11-07T12:00:00-05:00",
       "opponent": "University of Missouri",
       "site": "neutral"
+    },
+    {
+      "school": "Ark.-Pine Bluff",
+      "date": "2027-02-06T12:00:00-05:00",
+      "opponent": "Alcorn State University",
+      "site": "home"
     },
     {
       "school": "Ark.-Pine Bluff",
@@ -288,60 +306,6 @@
       "date": "2026-12-19T12:00:00-05:00",
       "opponent": "Washington",
       "site": "away"
-    },
-    {
-      "school": "Binghamton",
-      "date": "2026-11-11T12:00:00-05:00",
-      "opponent": "Misericordia University",
-      "site": "neutral"
-    },
-    {
-      "school": "Binghamton",
-      "date": "2026-12-05T12:00:00-05:00",
-      "opponent": "Alfred State College",
-      "site": "neutral"
-    },
-    {
-      "school": "Binghamton",
-      "date": "2026-12-29T12:00:00-05:00",
-      "opponent": "Marywood University",
-      "site": "neutral"
-    },
-    {
-      "school": "Binghamton",
-      "date": "2027-01-09T12:00:00-05:00",
-      "opponent": "University at Albany",
-      "site": "neutral"
-    },
-    {
-      "school": "Binghamton",
-      "date": "2027-01-14T12:00:00-05:00",
-      "opponent": "University of Massachusetts Lowell",
-      "site": "neutral"
-    },
-    {
-      "school": "Binghamton",
-      "date": "2027-01-18T12:00:00-05:00",
-      "opponent": "New Jersey Institute of Technology",
-      "site": "neutral"
-    },
-    {
-      "school": "Binghamton",
-      "date": "2027-02-06T12:00:00-05:00",
-      "opponent": "New Jersey Institute of Technology",
-      "site": "neutral"
-    },
-    {
-      "school": "Binghamton",
-      "date": "2027-02-13T12:00:00-05:00",
-      "opponent": "University of Massachusetts Lowell",
-      "site": "neutral"
-    },
-    {
-      "school": "Binghamton",
-      "date": "2027-02-17T12:00:00-05:00",
-      "opponent": "University at Albany",
-      "site": "neutral"
     },
     {
       "school": "Binghamton",
@@ -363,8 +327,38 @@
     },
     {
       "school": "Central Conn. St.",
-      "date": "2026-11-08T19:00Z",
-      "opponent": "Central Connecticut Blue Devils at Dartmouth Big Green",
+      "date": "2026-11-13T00:00Z",
+      "opponent": "Central Connecticut Blue Devils at Sacred Heart Pioneers",
+      "site": "away"
+    },
+    {
+      "school": "Central Conn. St.",
+      "date": "2026-11-18T00:00Z",
+      "opponent": "Vermont State Lyndon Hornets at Central Connecticut Blue Devils",
+      "site": "home"
+    },
+    {
+      "school": "Central Conn. St.",
+      "date": "2026-12-04T00:00Z",
+      "opponent": "Mitchell Mariners at Central Connecticut Blue Devils",
+      "site": "home"
+    },
+    {
+      "school": "Central Conn. St.",
+      "date": "2026-12-16T00:00Z",
+      "opponent": "Central Connecticut Blue Devils at VCU Rams",
+      "site": "away"
+    },
+    {
+      "school": "Central Conn. St.",
+      "date": "2026-12-30T00:00Z",
+      "opponent": "Elms Blazers at Central Connecticut Blue Devils",
+      "site": "home"
+    },
+    {
+      "school": "Central Conn. St.",
+      "date": "2027-01-02T19:00Z",
+      "opponent": "Central Connecticut Blue Devils at Chicago State Cougars",
       "site": "away"
     }
   ],

@@ -60,12 +60,12 @@
       "official_time": "",
       "name": "Detroit Mercy",
       "school_source_url": "https://aamusports.com/sports/mens-basketball/schedule/text/2026-27",
-      "neutralSite": false,
+      "neutralSite": true,
       "competitions": [
         {
           "competitors": [
             {
-              "homeAway": "away",
+              "homeAway": "neutral",
               "team": {
                 "id": "2010",
                 "displayName": "Alabama A&M Bulldogs",
@@ -73,7 +73,7 @@
               }
             },
             {
-              "homeAway": "home",
+              "homeAway": "neutral",
               "team": {
                 "id": "2174",
                 "displayName": "Detroit Mercy Titans",
@@ -87,8 +87,8 @@
               "city": "Detroit",
               "state": "MI"
             },
-            "official_school_city": "Detroit, MI",
-            "city_source_url": "https://aamusports.com/sports/mens-basketball/schedule/2026-27",
+            "official_school_city": "Detroit, Michigan",
+            "city_source_url": "https://wsuathletics.com/news/2026/10/19/mens-basketball-wayne-state-to-host-second-annual-hoops-and-culture-on-oct-24.aspx",
             "arenaName": "Wayne State Fieldhouse",
             "arena_source_url": "https://wsuathletics.com/news/2026/10/19/mens-basketball-wayne-state-to-host-second-annual-hoops-and-culture-on-oct-24.aspx",
             "official_school_location": "Detroit, MI Exhibition Game (at Wayne State)",
@@ -100,7 +100,7 @@
       "official_source": true,
       "site_verified": true,
       "site_verified_via": "specific_event_announcement_and_host_evidence",
-      "site_source_url": "https://aamusports.com/sports/mens-basketball/schedule/2026-27",
+      "site_source_url": "https://detroittitans.com/sports/mens-basketball/schedule/2026-27",
       "source_game_id": "8980",
       "official_school_time": "3:30 p.m.",
       "official_school_time_source": "https://aamusports.com/sports/mens-basketball/schedule/2026-27"
@@ -512,7 +512,14 @@
             "official_school_location": "Florence, AL",
             "source_url": "https://aamusports.com/sports/mens-basketball/schedule/2026-27"
           },
-          "broadcasts": []
+          "broadcasts": [
+            {
+              "names": [
+                "ESPN+"
+              ],
+              "source_url": "https://roarlions.com/sports/mens-basketball/schedule/2026-27"
+            }
+          ]
         }
       ],
       "official_source": true,
@@ -521,7 +528,8 @@
       "site_source_url": "https://aamusports.com/sports/mens-basketball/schedule/2026-27",
       "source_game_id": "8935",
       "official_school_time": "7 p.m.",
-      "official_school_time_source": "https://aamusports.com/sports/mens-basketball/schedule/2026-27"
+      "official_school_time_source": "https://aamusports.com/sports/mens-basketball/schedule/2026-27",
+      "broadcast_source_url": "https://roarlions.com/sports/mens-basketball/schedule/2026-27"
     },
     {
       "id": "school-2010-2026-12-01-65",
@@ -693,7 +701,7 @@
       "site_verified": true,
       "site_source_url": "https://georgiadogs.com/sports/mens-basketball/schedule/text/2026-27",
       "site_verified_via": "reciprocal_official_opponent_schedule",
-      "official_school_time": "1 p.m.",
+      "official_school_time": "1 p.m. (CT)",
       "official_school_time_source": "https://aamusports.com/sports/mens-basketball/schedule/2026-27"
     },
     {
@@ -914,7 +922,7 @@
       "site_verified_via": "reciprocal_official_opponent_schedule",
       "official_watch_url": "https://www.espn.com/watch/",
       "official_watch_source": "https://aamusports.com/sports/mens-basketball/schedule/2026-27",
-      "official_school_time": "12 p.m.",
+      "official_school_time": "12 p.m. (CT)",
       "official_school_time_source": "https://aamusports.com/sports/mens-basketball/schedule/2026-27"
     },
     {
@@ -1870,7 +1878,10 @@
       "site_source_url": "https://aamusports.com/sports/mens-basketball/schedule/2026-27",
       "source_game_id": "8889",
       "official_watch_url": "https://tv.swac.org/",
-      "official_watch_source": "https://aamusports.com/sports/mens-basketball/schedule/2026-27"
+      "official_watch_source": "https://aamusports.com/sports/mens-basketball/schedule/2026-27",
+      "official_school_time": "6:00 P.M. CT",
+      "official_school_time_source": "https://uapblionsroar.com/sports/mens-basketball/schedule/2026-27",
+      "tipoff_verified_via": "reciprocal_official_game_with_explicit_timezone"
     },
     {
       "id": "school-2010-2027-02-18-196",

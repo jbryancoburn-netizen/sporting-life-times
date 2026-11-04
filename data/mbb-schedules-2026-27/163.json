@@ -379,8 +379,20 @@
       "official_source": true,
       "official_school_time": "1:00 PM",
       "official_school_time_source": "https://goprincetontigers.com/sports/mens-basketball/schedule/2026-27",
-      "site_verified": true,
-      "site_source_url": "https://goprincetontigers.com/sports/mens-basketball/schedule/2026-27"
+      "site_verified": false,
+      "site_source_url": "https://goprincetontigers.com/sports/mens-basketball/schedule/2026-27",
+      "site_conflict": {
+        "date": "2026-11-27",
+        "teams": [
+          "163",
+          "350"
+        ],
+        "claimed": [
+          "neutral",
+          "home"
+        ],
+        "reason": "official opponent schedules contradict on home-away-neutral"
+      }
     },
     {
       "id": "school-163-2026-11-28-8",
@@ -602,7 +614,10 @@
           "venue": {
             "fullName": "Brooklyn, N.Y.",
             "official_school_city": "Brooklyn, N.Y.",
-            "city_source_url": "https://goprincetontigers.com/sports/mens-basketball/schedule/2026-27"
+            "city_source_url": "https://goprincetontigers.com/sports/mens-basketball/schedule/2026-27",
+            "arenaName": "Brooklyn Athletic Center",
+            "arena_source_url": "https://goprincetontigers.com/sports/mens-basketball/schedule/text/2026-27",
+            "arenaName_verified_via": "reciprocal_official_game"
           },
           "broadcasts": []
         }
@@ -687,7 +702,7 @@
               "team": {
                 "id": "2608",
                 "displayName": "St. Mary's",
-                "logo": ""
+                "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2608.png"
               }
             }
           ],
