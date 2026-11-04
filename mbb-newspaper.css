@@ -92,64 +92,67 @@
 #full-season-schedule .sched-venue small{font-size:11px;color:var(--muted,#596971)}
 #full-season-schedule .sched-date-cell time{font-variant-numeric:tabular-nums}
 #full-season-schedule .sched-result-cell .mbb-schedule-gamefile{display:inline-block;margin-top:5px;font-size:11px;text-decoration:underline;text-underline-offset:3px}
+/* Team schedule becomes compact full-width newspaper cards on phones.
+   The table remains a genuine accessible table on desktop. */
 @media(max-width:700px){
-  #full-season-schedule .table-wrap{overflow:visible!important;max-width:100%!important}
-  #full-season-schedule .mbb-schedule-table{
-    display:block!important;width:100%!important;min-width:0!important;
-    table-layout:auto!important;border-collapse:separate!important;
-  }
+  #full-season-schedule{min-width:0;max-width:100%;overflow:hidden}
+  #full-season-schedule .table-wrap{display:block;max-width:100%!important;width:100%!important;overflow:visible!important}
+  #full-season-schedule .mbb-schedule-table{display:block!important;width:100%!important;min-width:0!important;max-width:100%!important;table-layout:auto!important;border-collapse:separate!important;border-spacing:0!important}
   #full-season-schedule .mbb-schedule-table thead{display:none!important}
   #full-season-schedule .mbb-schedule-table tbody{display:block!important;width:100%!important}
   #full-season-schedule .mbb-schedule-table tbody tr{
-    display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
-    align-items:start!important;column-gap:18px!important;row-gap:0!important;
+    display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    column-gap:10px!important;row-gap:0!important;align-items:stretch!important;
     height:auto!important;min-height:0!important;max-height:none!important;
-    box-sizing:border-box!important;width:100%!important;
-    padding:15px 17px 14px!important;margin:0 0 10px!important;
-    border:1px solid #d0dad8!important;border-top:3px solid var(--ink,#152a30)!important;
-    border-radius:7px!important;background:#fffefa!important;
-    box-shadow:none!important;overflow:hidden!important;position:relative!important;
+    box-sizing:border-box!important;width:100%!important;min-width:0!important;
+    margin:0 0 9px!important;padding:11px 12px!important;
+    border:1px solid #9b7957!important;border-top:3px solid #76543a!important;
+    border-radius:2px!important;background:#f8f0e2!important;
+    box-shadow:inset 0 0 0 2px #fff8ea!important;overflow:hidden!important;position:relative!important;
   }
-  #full-season-schedule .mbb-schedule-table tbody tr[data-calendar-state="final"]{border-top-color:#087c66!important}
+  #full-season-schedule .mbb-schedule-table tbody tr[data-calendar-state="final"]{border-top-color:#197663!important}
   #full-season-schedule .mbb-schedule-table tbody tr[hidden]{display:none!important}
   #full-season-schedule .mbb-schedule-table tbody td{
     display:block!important;position:static!important;box-sizing:border-box!important;
-    float:none!important;clear:both!important;min-width:0!important;max-width:none!important;
+    float:none!important;clear:both!important;min-width:0!important;max-width:100%!important;
     width:auto!important;height:auto!important;min-height:0!important;max-height:none!important;
-    margin:0!important;border:0!important;transform:none!important;
-    text-align:left!important;white-space:normal!important;overflow-wrap:break-word!important;
-    font-size:12px!important;line-height:1.35!important;
+    margin:0!important;padding:0!important;border:0!important;box-shadow:none!important;
+    transform:none!important;text-align:left!important;white-space:normal!important;
+    overflow-wrap:break-word!important;font-size:12px!important;line-height:1.3!important;
   }
   #full-season-schedule .mbb-schedule-table tbody td.sched-date-cell{
     grid-column:1/-1!important;display:flex!important;align-items:baseline!important;
-    justify-content:space-between!important;gap:12px!important;
-    padding:0 0 11px!important;border-bottom:1px solid #dfe5e3!important;
-    color:var(--muted,#596971)!important;font-weight:800!important;
+    justify-content:space-between!important;gap:8px!important;
+    padding:0 0 7px!important;margin-bottom:9px!important;
+    border-bottom:1px solid #bea587!important;color:#71533d!important;
+    font-weight:800!important;
   }
-  #full-season-schedule .sched-date-cell time{font-size:12px!important;letter-spacing:.025em}
+  #full-season-schedule .sched-date-cell time{font-size:12px!important;letter-spacing:.015em}
   #full-season-schedule .mbb-schedule-table tbody td.sched-matchup-cell{
-    grid-column:1/-1!important;padding:13px 0 11px!important;
+    grid-column:1/-1!important;padding:0 0 8px!important;min-width:0!important;
   }
   #full-season-schedule .sched-matchup{
-    display:flex!important;grid-template-columns:none!important;align-items:center!important;
-    gap:13px!important;text-align:left!important;
+    display:flex!important;grid-template-columns:none!important;
+    align-items:center!important;gap:10px!important;
+    width:100%!important;min-width:0!important;text-align:left!important;
   }
-  #full-season-schedule .sched-matchup>.mbb-mark{--mbb-size:58px}
+  #full-season-schedule .sched-matchup>.mbb-mark{--mbb-size:49px;flex-shrink:0!important}
   #full-season-schedule .sched-opponent{
-    display:flex!important;flex-direction:column!important;align-items:flex-start!important;
-    gap:5px!important;min-width:0!important;
+    display:flex!important;flex:1 1 auto!important;flex-direction:column!important;
+    align-items:stretch!important;justify-content:center!important;
+    gap:3px!important;min-width:0!important;width:auto!important;
   }
-  #full-season-schedule .sched-opponent strong{font-size:17px!important;line-height:1.2!important}
-  #full-season-schedule .sched-opponent small{font-size:10px!important;letter-spacing:.09em!important}
+  #full-season-schedule .sched-opponent strong{font-size:14px!important;line-height:1.18!important;min-width:0!important}
+  #full-season-schedule .sched-opponent small{font-size:10px!important;letter-spacing:.045em!important}
   #full-season-schedule .mbb-schedule-table tbody td.sched-venue-cell{
-    grid-column:1/-1!important;padding:0 0 11px!important;
-    border-bottom:1px solid #e3e8e6!important;
+    grid-column:1/-1!important;padding:7px 0 8px!important;
+    border-top:1px solid #bea587!important;border-bottom:1px solid #bea587!important;
   }
-  #full-season-schedule .sched-venue strong{font-size:13px!important;line-height:1.3!important}
+  #full-season-schedule .sched-venue strong{font-size:13px!important;line-height:1.25!important}
   #full-season-schedule .sched-venue small{font-size:11px!important}
   #full-season-schedule .mbb-schedule-table tbody td.sched-time-cell,
   #full-season-schedule .mbb-schedule-table tbody td.sched-network-cell{
-    padding:11px 0 10px!important;min-width:0!important;
+    padding:8px 0 6px!important;min-width:0!important;
   }
   #full-season-schedule .mbb-schedule-table tbody td.sched-time-cell{grid-column:1!important}
   #full-season-schedule .mbb-schedule-table tbody td.sched-network-cell{grid-column:2!important}
@@ -157,10 +160,8 @@
   #full-season-schedule .sched-network-cell::before,
   #full-season-schedule .sched-elo-cell::before,
   #full-season-schedule .sched-result-cell::before{
-    display:block!important;margin-bottom:4px!important;
-    color:var(--muted,#647479)!important;
-    font:800 9px/1.25 'DM Sans',Arial,sans-serif!important;
-    letter-spacing:.085em!important;text-transform:uppercase!important;
+    display:block!important;margin-bottom:3px!important;color:#70533e!important;
+    font:800 9px/1.2 Arial,sans-serif!important;letter-spacing:.06em!important;text-transform:uppercase!important;
   }
   #full-season-schedule .sched-time-cell::before{content:'Tipoff'}
   #full-season-schedule .sched-network-cell::before{content:'TV / Stream'}
@@ -168,17 +169,21 @@
   #full-season-schedule .sched-result-cell::before{content:'Result'}
   #full-season-schedule .mbb-schedule-table tbody td.sched-elo-cell,
   #full-season-schedule .mbb-schedule-table tbody td.sched-result-cell{
-    padding:10px 0 0!important;border-top:1px solid #e3e8e6!important;
+    padding:7px 0 0!important;border-top:1px solid #bea587!important;
     font-variant-numeric:tabular-nums!important;
   }
   #full-season-schedule .mbb-schedule-table tbody td.sched-elo-cell{grid-column:1!important;font-weight:800!important}
   #full-season-schedule .mbb-schedule-table tbody td.sched-result-cell{grid-column:2!important;text-align:right!important}
   #full-season-schedule .sched-result-cell::before{text-align:right!important}
-  #full-season-schedule .sched-result-score{font-size:16px!important}
+  #full-season-schedule .sched-result-score{font-size:17px!important}
   #full-season-schedule .sched-result-pending{font-size:11px!important}
   #full-season-schedule .sched-result-cell br{display:none!important}
+  #full-season-schedule .mbb-exhibition-source{display:block;margin-top:3px;white-space:normal}
+  #full-season-schedule .victorian-stat-detail{display:block!important}
+  #full-season-schedule .victorian-stat-detail[hidden]{display:none!important}
+  #full-season-schedule .victorian-stat-detail td{display:block!important;width:100%!important;max-width:100%!important}
   #full-season-schedule .panel-head{display:block!important}
-  #full-season-schedule .panel-head h2{font-size:clamp(23px,6vw,34px)!important;line-height:1.14!important}
+  #full-season-schedule .panel-head h2{font-size:clamp(22px,6vw,31px)!important;line-height:1.14!important}
 }
 @media(max-width:370px){
   #full-season-schedule .mbb-schedule-table tbody tr{padding:13px!important;column-gap:12px!important}
