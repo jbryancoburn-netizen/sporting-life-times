@@ -412,7 +412,30 @@ const r=resumes.get(t.team_id);const branding=await get('data/mbb-branding.json'
  $('#opponent').onchange=series;series();
  // Calendar renders through persistent #mbb-calendar-host above the team content.
 }
-function playerTable(rows){return rows.length?'<div class="table-wrap"><table class="slt-sortable-production"><thead><tr>'+[['Player / team','name'],['GP','games'],['PTS','pts'],['REB','reb'],['AST','ast'],['STL','stl'],['BLK','blk'],['FG%','fg'],['TS%','ts']].map(([label,key])=>'<th scope="col" aria-sort="none"><button type="button" class="slt-sort-heading" data-sort="'+key+'" aria-label="Sort by '+label+'">'+label+' <span class="slt-sort-arrow" aria-hidden="true">↕</span></button></th>').join('')+'</tr></thead><tbody>'+rows.map(p=>'<tr><td><strong>'+esc(p.name)+'</strong><br><small>'+(teamMap.has(p.team_id)?'<a href="'+teamURL(teamMap.get(p.team_id))+'">'+esc(teamMap.get(p.team_id).team)+'</a>':'')+'</small></td><td>'+p.games+'</td>'+['pts','reb','ast','stl','blk','fg','ts'].map(k=>'<td>'+number(p[k])+'</td>').join('')+'</tr>').join('')+'</tbody></table></div>':empty('No player statistics in this sample.');}
+function playerTable(rows){
+ if(!rows.length)return empty('No verified player production has been published yet.');
+ const stats=[['GP','games'],['PTS','pts'],['REB','reb'],['AST','ast'],['STL','stl'],['BLK','blk'],['FG%','fg'],['TS%','ts']];
+ const headings=[['Player / team','name'],...stats];
+ const mobileSort='<label class="slt-mobile-production-tools">Sort players <select class="slt-mobile-production-sort" aria-label="Sort player production"><option value="pts">Points</option><option value="reb">Rebounds</option><option value="ast">Assists</option><option value="stl">Steals</option><option value="blk">Blocks</option><option value="fg">Field-goal percentage</option><option value="ts">True-shooting percentage</option><option value="games">Games played</option><option value="name">Name</option></select></label>';
+ return mobileSort+'<div class="table-wrap"><table class="slt-sortable-production"><thead><tr>'+
+ headings.map(([label,key])=>'<th scope="col" aria-sort="none"><button type="button" class="slt-sort-heading" data-sort="'+key+'" aria-label="Sort by '+label+'">'+label+' <span class="slt-sort-arrow" aria-hidden="true">↕</span></button></th>').join('')+
+ '</tr></thead><tbody>'+rows.map(p=>'<tr><td data-label="Player"><strong>'+esc(p.name)+'</strong><br><small>'+(teamMap.has(p.team_id)?'<a href="'+teamURL(teamMap.get(p.team_id))+'">'+esc(teamMap.get(p.team_id).team)+'</a>':'')+'</small></td>'+
+ '<td data-label="GP">'+esc(p.games??'—')+'</td>'+
+ stats.slice(1).map(([label,key])=>'<td data-label="'+label+'">'+number(p[key])+'</td>').join('')+'</tr>').join('')+
+ '</tbody></table></div>';
+}
+// Mobile uses the same sort buttons as desktop; one shared ordering algorithm.
+document.addEventListener('change',event=>{
+ const select=event.target.closest('.slt-mobile-production-sort');if(!select)return;
+ const section=select.closest('.victorian-player-production');
+ const heading=section?.querySelector('.slt-sortable-production .slt-sort-heading[data-sort="'+select.value+'"]');
+ if(!heading)return;
+ const table=heading.closest('table');
+ if(table.dataset.sortKey===select.value&&table.dataset.sortDir==='desc')return;
+ // Changing the selector always selects descending numeric order or alphabetical name.
+ table.dataset.sortKey='';
+ heading.click();
+});
 // Sort the actual production table rows, preserving links and all other table content.
 document.addEventListener('click',e=>{
  const button=e.target.closest('.slt-sortable-production .slt-sort-heading');if(!button)return;
