@@ -66,5 +66,5 @@ test('women's navigation searches the women's actual numeric team IDs',()=>{
  assert.match(rank,/ncaaw-2026-27-retro-primary\.json/);
  assert.match(rank,/ratings\.gender!=='women'/);
  assert.match(rank,/rankings\?\.length!==363/);
- assert.match(rank,/No verified/);
+ assert.match(rank,/no verified/i);
 });
