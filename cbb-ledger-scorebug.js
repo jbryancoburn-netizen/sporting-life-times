@@ -18,7 +18,7 @@
   const g=input||{},phase=['live','final','upcoming'].includes(g.phase)?g.phase:'upcoming';
   const label=(phase==='final'?
     (/^FINAL(?:\s*\/\s*OT|\s*\(OT\)|\s+AFTER\s+EXTRA\s+TIME)?$/i.test(String(g.status||''))?g.status:'FINAL'):
-    phase==='upcoming'?(g.status||'UPCOMING'):g.status||'LIVE');
+    phase==='upcoming'?([g.tipoff||g.time,g.network||g.tv].filter(Boolean).join(' · ')):g.status||'LIVE');
   const team=t=>{
    const x=t||{},poll=x.poll||null;
    const pollText=poll?[poll.coaches??'NR',poll.ap??'NR'].join('/'):'';
@@ -35,10 +35,10 @@
   return '<div class="ledger26-scorebug" role="group" aria-label="'+esc(g.ariaLabel||((g.away?.name||'Away')+' at '+(g.home?.name||'Home')+' scoreboard'))+'">'+
     '<span class="ledger26-monogram"><img src="assets/slt-engraved-black.svg" width="35" height="49" alt="Sporting Life and Times monogram"></span>'+
     '<div class="ledger26-teams">'+team(g.away)+team(g.home)+'</div>'+
-    '<div class="ledger26-status" data-phase="'+phase+'"><strong>'+esc(label)+'</strong></div></div>';
+    (label?'<div class="ledger26-status" data-phase="'+phase+'"><strong>'+esc(label)+'</strong></div>':'')+'</div>';
  }
  // The Daily Ledger is the universal newspaper model, not a separate sport skin.
  // Keep the old alias for existing college basketball pages.
- root.SLTSportsScorebug={render,formatRetro,version:'shared-letterpress-v4'};
+ root.SLTSportsScorebug={render,formatRetro,version:'shared-letterpress-v5'};
  root.SLTBasketballScorebug=root.SLTSportsScorebug;
 })(typeof window!=='undefined'?window:globalThis);
