@@ -143,6 +143,30 @@ assert(certified&&certified.phase==='final'&&Number(certified.away.score)===74&&
   'NCAA 74-72 final must supersede stale ESPN 74-70 on historical dates');
 assert.equal(certified.statsDisputed,true,'conflicting ESPN box and play stats must be quarantined');
 assert(!men.scorebug(certified).includes('cbb-micro-statline'),'disputed stats cannot pollute score card');
+
+// The newspaper scorebug standard is shared across sports. These are actual
+// source integrations, not overlays placed over mismatched old cards.
+const master=fs.readFileSync(path.join(root,'cbb-ledger-scorebug.js'),'utf8');
+assert(master.includes('root.SLTSportsScorebug=')&&master.includes('root.SLTBasketballScorebug=root.SLTSportsScorebug'),
+ 'One sport-agnostic master renderer must serve the existing basketball desks');
+const migrated=[
+ ['nba-game-center.js','nba-game-center.html'],
+ ['d2-basketball.js','d2-mens-basketball.html'],
+ ['d3-basketball.js','d3-mens-basketball.html'],
+ ['euroleague-live.js','euroleague.html'],
+ ['nfl-edition-v3.js','nfl.html'],
+ ['cfb-desk.js','college-football.html']
+];
+for(const [renderer,page] of migrated){
+ const js=fs.readFileSync(path.join(root,renderer),'utf8');
+ const html=fs.readFileSync(path.join(root,page),'utf8');
+ assert(js.includes('SLTSportsScorebug?.render'),renderer+' must use the master scorebug');
+ assert(html.includes('cbb-ledger-scorebug.js')&&html.includes('cbb-ledger-scorecard.css'),
+  page+' must load its real shared renderer and stylesheet');
+ assert(html.indexOf('cbb-ledger-scorebug.js')<html.indexOf(renderer),
+  page+' must load master before its score renderer');
+}
+
 assert(!js.includes('function featuredGame('),'retired featured layout must not return');
 assert(!js.includes('function row(t,phase,winning'),'retired scorebug renderer must not return');
 assert(js.includes('letterpressMarkup(g)')&&js.includes('cbb-gamefile-letterpress'),
