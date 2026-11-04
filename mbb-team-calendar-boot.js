@@ -297,7 +297,12 @@ try{
      }
      if(teamStats.length){
       const labels=[...new Set(teamStats.flatMap(t=>(t.statistics||[]).map(v=>v.label||v.name).filter(Boolean)))];
-      if(labels.length)html+='<div class="victorian-stat-block"><h3>Team Box Score</h3><table><thead><tr><th>Statistic</th>'+teamStats.map(t=>'<th>'+escape(t.team?.shortDisplayName||t.team?.name||t.team?.displayName||'Team')+'</th>').join('')+'</tr></thead><tbody>'+labels.map(label=>'<tr><th>'+escape(label)+'</th>'+teamStats.map(t=>{const stat=(t.statistics||[]).find(x=>(x.label||x.name)===label);return '<td>'+escape(stat?.displayValue??stat?.value??'—')+'</td>';}).join('')+'</tr>').join('')+'</tbody></table></div>';
+      const teamHeading=t=>{
+       const full=String(t.team?.displayName||t.team?.shortDisplayName||t.team?.name||'Team');
+       const short=String(t.team?.abbreviation||full.replace(/[^a-z]/gi,'').slice(0,4).toUpperCase()||'TEAM');
+       return '<th scope="col"><span class="victorian-team-full">'+escape(full)+'</span><abbr class="victorian-team-short" title="'+escape(full)+'">'+escape(short)+'</abbr></th>';
+      };
+      if(labels.length)html+='<div class="victorian-stat-block victorian-team-box-block"><h3>Team Box Score</h3><table class="victorian-team-box"><thead><tr><th scope="col">Statistic</th>'+teamStats.map(teamHeading).join('')+'</tr></thead><tbody>'+labels.map(label=>'<tr><th scope="row">'+escape(label)+'</th>'+teamStats.map(t=>{const stat=(t.statistics||[]).find(x=>(x.label||x.name)===label);return '<td>'+escape(stat?.displayValue??stat?.value??'—')+'</td>';}).join('')+'</tr>').join('')+'</tbody></table></div>';
      }
      // Full player box scores, grouped by team, stay inside the expanded game card.
      for(const teamBox of box.players||[]){
