@@ -48,7 +48,7 @@ async function run(){
   const name=school.feed_name||school.corrected_name||school.school;
   const art=ctx.window.MBBLogos.byESPN(id,'score',name);
   assert(!art.includes('mbb-mark--missing'),'Missing curated outside crest '+name);
-  assert(art.includes(school.logo_url),'Wrong outside school image '+name);
+  assert(art.includes(school.logo_url.replace(/&/g,'&amp;')),'Wrong outside school image '+name);
   assert(art.includes('data-ring-count="2"'),'Outside school lost the double ring '+name);
   assert(art.includes('--mbb-primary:'+school.primary),'Outside primary school identity '+name);
   assert(art.includes('--mbb-secondary:'+school.secondary),'Outside secondary school identity '+name);
