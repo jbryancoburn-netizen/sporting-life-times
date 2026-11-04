@@ -1,0 +1,7 @@
+/* Canonical compact college basketball navigation. One layout, all CBB desks. */
+nav.cbb-universal-nav{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:14px!important;flex-wrap:wrap!important;width:100%!important;padding:10px 16px!important;margin:0 auto 14px!important;box-sizing:border-box!important;background:#fbf6eb!important;border-top:2px solid #26221b!important;border-bottom:3px double #26221b!important;font-family:Georgia,'Times New Roman',serif!important}
+nav.cbb-universal-nav a{display:inline-block!important;padding:2px 0!important;color:#29241e!important;text-decoration:none!important;background:none!important;border:0!important;box-shadow:none!important;font:700 13px/1.25 Georgia,'Times New Roman',serif!important;white-space:nowrap!important;letter-spacing:0!important;text-transform:none!important}
+nav.cbb-universal-nav a:first-child,nav.cbb-universal-nav a[href="ncaam.html#teams"]{color:#853a30!important}
+nav.cbb-universal-nav a[aria-current="page"]{text-decoration:underline!important;text-underline-offset:4px!important}
+nav.cbb-universal-nav a:hover,nav.cbb-universal-nav a:focus-visible{color:#853a30!important;text-decoration:underline!important}
+@media(max-width:900px){nav.cbb-universal-nav{justify-content:flex-start!important;gap:9px 17px!important;padding:9px 12px!important}nav.cbb-universal-nav a{font-size:12px!important}}
