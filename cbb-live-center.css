@@ -30,7 +30,7 @@
 .cbb-filter-bar button:focus-visible,.cbb-date-controls button:focus-visible,.cbb-date-controls input:focus-visible{outline:2px solid #a75c3d;outline-offset:2px}
 .cbb-source-stamp{font:400 10px/1.4 Arial,sans-serif!important;color:#778487!important;
  margin:6px 0 11px!important;letter-spacing:0}
-.cbb-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:10px}
+.cbb-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,500px),1fr));gap:12px}
 /* The Courtside Desk now renders the actual Ledger card, not another card type. */
 .cbb-ledger-card{min-width:0}
 .cbb-ledger-card.cbb-expanded{grid-column:1/-1}
