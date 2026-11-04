@@ -8,6 +8,7 @@ const registry=JSON.parse(read('data/mbb-logo-registry.json'));
 const cross=JSON.parse(read('data/ncaam-2026-27-espn-team-crosswalk.json'));
 const allColors=JSON.parse(read('data/dual-ring-team-palette.json'));
 const colors=allColors.mbb;
+const outside=JSON.parse(read('data/mbb-out-of-division-opponent-logos.json')).teams;
 async function run(){
  assert.equal(Object.keys(registry.teams).length,365);
  assert.equal(cross.teams.length,365);
@@ -26,7 +27,7 @@ async function run(){
  }
  const doc={readyState:'loading',addEventListener(){},querySelectorAll(){return[]}};
  const ctx={window:{},document:doc,URL,console,
-  fetch:async url=>({ok:true,json:async()=>url.includes('logo-registry')?registry:url.includes('dual-ring-team-palette')?allColors:cross})};
+  fetch:async url=>({ok:true,json:async()=>url.includes('out-of-division-opponent-logos')?{teams:outside}:url.includes('logo-registry')?registry:url.includes('dual-ring-team-palette')?allColors:cross})};
  vm.runInNewContext(read('mbb-logo-system.js'),ctx,{filename:'mbb-logo-system.js'});
  assert.equal(await ctx.window.MBBLogos.ready,true,'Single MBB renderer could not initialize');
  for(const t of cross.teams){
@@ -42,6 +43,17 @@ async function run(){
   assert(ctx.window.MBBLogos.byESPN(id,'schedule',t.espn_name).includes(item.logo_url),'Schedule crest '+t.name);
   assert(ctx.window.MBBLogos.byESPN(id,'score',t.espn_name).includes(item.logo_url),'Score crest '+t.name);
  }
+ // Validate exact school identity, not just presence of an image URL.
+ for(const [id,school] of Object.entries(outside)){
+  const name=school.feed_name||school.corrected_name||school.school;
+  const art=ctx.window.MBBLogos.byESPN(id,'score',name);
+  assert(!art.includes('mbb-mark--missing'),'Missing curated outside crest '+name);
+  assert(art.includes(school.logo_url),'Wrong outside school image '+name);
+  assert(art.includes('data-ring-count="2"'),'Outside school lost the double ring '+name);
+  assert(art.includes('--mbb-primary:'+school.primary),'Outside primary school identity '+name);
+  assert(art.includes('--mbb-secondary:'+school.secondary),'Outside secondary school identity '+name);
+ }
+ assert(!ctx.window.MBBLogos.byESPN('126956','score','Grace University Talons').includes('Primary_Logo_.5x.png'),'Outside IDs must never override school name mismatch');
  assert(Object.values(registry.teams).every(t=>!t.ring_override),'Legacy per-school ring exceptions remain');
  assert.equal(kinds.flat,362,'Every visually inspected non-roundel must be classified flat');
  assert.equal(kinds.embedded_roundel,3,'Intrinsic circular team artwork is explicitly documented');
