@@ -181,14 +181,14 @@
 }
 
 /* Canonical live status panel. No separate status-label overlays. */
-.ledger26-status--stack{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px;min-width:0;overflow:hidden;padding:5px 3px}
-.ledger26-status--stack .ledger26-clock,.ledger26-status--stack .ledger26-period,.ledger26-status--stack .ledger26-situation{display:block;width:100%;min-width:0;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:clip;overflow-wrap:normal;word-break:normal;text-align:center;hyphens:none}
-.ledger26-status--stack .ledger26-clock{color:#802f23!important;font:700 27px/1 Georgia,'Times New Roman',serif!important;font-variant-numeric:tabular-nums}
+.ledger26-status--stack{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:3px;min-width:0;min-height:0;box-sizing:border-box;overflow:visible;padding:7px 3px}
+.ledger26-status--stack .ledger26-clock,.ledger26-status--stack .ledger26-period,.ledger26-status--stack .ledger26-situation{display:block;flex:0 0 auto;width:100%;min-width:0;max-width:100%;white-space:nowrap;overflow:visible;overflow-wrap:normal;word-break:normal;text-align:center;hyphens:none}
+.ledger26-status--stack .ledger26-clock{color:#802f23!important;font:700 25px/1.12 Georgia,'Times New Roman',serif!important;font-variant-numeric:tabular-nums}
 .ledger26-status--stack .ledger26-clock--text{font-size:12px!important}
-.ledger26-status--stack .ledger26-period{color:#382b20;font:700 10px/1.1 Georgia,'Times New Roman',serif;letter-spacing:0}
-.ledger26-status--stack .ledger26-momentum{border-top:1px solid #a88f70;padding-top:5px;color:#55402d;font:700 9px/1.1 Georgia,'Times New Roman',serif;letter-spacing:0}
+.ledger26-status--stack .ledger26-period{color:#382b20;font:700 10px/1.2 Georgia,'Times New Roman',serif;letter-spacing:0}
+.ledger26-status--stack .ledger26-momentum{border-top:1px solid #a88f70;padding-top:3px;color:#55402d;font:700 9px/1.1 Georgia,'Times New Roman',serif;letter-spacing:0}
 .ledger26-status--stack .ledger26-momentum--run{color:#8d3428}
-@media(max-width:640px){.ledger26-status--stack{gap:5px;padding:4px 2px}.ledger26-status--stack .ledger26-clock{font-size:23px!important}.ledger26-status--stack .ledger26-clock--text{font-size:10px!important}.ledger26-status--stack .ledger26-period{font-size:8px}.ledger26-status--stack .ledger26-momentum{font-size:8px}}
+@media(max-width:640px){.ledger26-status--stack{gap:3px;padding:6px 2px}.ledger26-status--stack .ledger26-clock{font-size:22px!important}.ledger26-status--stack .ledger26-clock--text{font-size:10px!important}.ledger26-status--stack .ledger26-period{font-size:8px}.ledger26-status--stack .ledger26-momentum{font-size:8px}}
 @media(max-width:360px){.ledger26-status--stack .ledger26-clock{font-size:20px!important}.ledger26-status--stack .ledger26-momentum{font-size:7px}}
 
 /* Pregame Telegraph: separate numeric forecast from team identification. */
