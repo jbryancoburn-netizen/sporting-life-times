@@ -296,6 +296,24 @@ function provisionalRetro(published,live,engine,women=false){
  rows.forEach((t,i)=>{t.rank=i>0&&t.elo===rows[i-1].elo?rows[i-1].rank:i+1});
  return {rankings:rows,pending:extra.length};
 }
+const onlyDraftKings=odds=>{
+ // Never substitute FanDuel, BetMGM, a consensus feed, or an unattributed line.
+ const list=Array.isArray(odds)?odds:odds?.items&&Array.isArray(odds.items)?odds.items:odds?[odds]:[];
+ for(const o of list){
+  const provider=o?.provider||{};
+  if(!(String(provider.id||o?.providerId||'')==='41'||/^draft\s*kings$/i.test(String(provider.name||''))))continue;
+  const home=o.homeTeamOdds||{},away=o.awayTeamOdds||{};
+  let h=Number(home.spread??home.line??home.pointSpread);
+  if(!Number.isFinite(h)){
+   const n=Number(o.spread);
+   if(!Number.isFinite(n)||n===0||!((home.favorite===true&&away.favorite===false)||(away.favorite===true&&home.favorite===false)))continue;
+   h=home.favorite===true?-Math.abs(n):Math.abs(n);
+  }
+  if(Math.abs(h)>75)continue;
+  return {homeSpread:h,book:'DraftKings'};
+ }
+ return null;
+};
 function start(){
 const root=document.getElementById('slate-root');if(!root)return;
 const url=new URL(location.href),women=url.searchParams.get('gender')==='women';
@@ -650,7 +668,7 @@ function card(original,featured,opened=false){
   if(Math.abs(margin)<0.05)return 'EVEN';
   const name=margin>0?g.home.name:g.away.name;
   const n=Math.round(Math.abs(margin)*10)/10;
-  return esc(name)+' −'+n.toFixed(1).replace(/\\.0$/,'');
+  return esc(name)+' −'+n.toFixed(1).replace(/\.0$/,'');
  };
  const retro=g.phase==='upcoming'?'<span class="ledger26-line" title="RETRO projected margin, not sportsbook odds"><small>RETRO PROJECTION</small><strong>'+spreadText(modelMargin)+'</strong></span>':'';
  const dk=g.phase==='upcoming'?'<span class="ledger26-line ledger26-line--book" title="DraftKings only. No substitute sportsbook used."><small>DRAFTKINGS LINE</small><strong>'+(g.draftKings&&Number.isFinite(g.draftKings.homeSpread)?spreadText(-g.draftKings.homeSpread):'NO LINE')+'</strong></span>':'';
@@ -691,24 +709,6 @@ document.addEventListener('toggle',event=>{
 // Enrich by exact event ID AND date; never borrow another fixture's network.
 const broadcastByDate=new Map();
 const draftKingsByDate=new Map();
-const onlyDraftKings=odds=>{
- // Never substitute FanDuel, BetMGM, a consensus feed, or an unattributed line.
- const list=Array.isArray(odds)?odds:odds?.items&&Array.isArray(odds.items)?odds.items:odds?[odds]:[];
- for(const o of list){
-  const provider=o?.provider||{};
-  if(!(String(provider.id||o?.providerId||'')==='41'||/^draft\\s*kings$/i.test(String(provider.name||''))))continue;
-  const home=o.homeTeamOdds||{},away=o.awayTeamOdds||{};
-  let h=Number(home.spread??home.line??home.pointSpread);
-  if(!Number.isFinite(h)){
-   const n=Number(o.spread);
-   if(!Number.isFinite(n)||n===0||!((home.favorite===true&&away.favorite===false)||(away.favorite===true&&home.favorite===false)))continue;
-   h=home.favorite===true?-Math.abs(n):Math.abs(n);
-  }
-  if(Math.abs(h)>75)continue;
-  return {homeSpread:h,book:'DraftKings'};
- }
- return null;
-};
 let broadcastRequestDay='';
 async function refreshBroadcasts(day){
  if(!/^\d{4}-\d{2}-\d{2}$/.test(day)||broadcastRequestDay===day)return;
