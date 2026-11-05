@@ -79,6 +79,7 @@ jobs:
         run: |
           node --check nba-live-feed.js
           node --check nba-newspaper.js
+          node --test tests/nba-division-ledger.test.cjs
       - name: Validate all browser JavaScript before deployment
         continue-on-error: true
         run: |
