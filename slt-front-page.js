@@ -22,6 +22,7 @@ function init(){
    front:'.section-strap'
   };
   if(kind==='nba'||kind==='nfl')return;
+  if(kind==='soccerMen'){const hero=$('.soccer-hero');if(hero?.parentNode){hero.before(node);return;}}
   let anchor=$(after[kind]||'');
   if(anchor&&anchor.parentNode){anchor.after(node);return;}
   const main=$('main');
