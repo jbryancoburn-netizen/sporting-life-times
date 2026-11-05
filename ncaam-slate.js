@@ -666,18 +666,22 @@ function card(original,featured,opened=false){
    Number.isFinite(g.projectedHomeMargin)&&Number.isFinite(g.projectedHomeScore)&&
    Number.isFinite(g.projectedAwayScore);
  const favorite=womenWinForecast?(g.probability>=0.5?g.home.name:g.away.name):'';
- const retro=g.phase==='upcoming'?(women?
-   '<span class="ledger26-line" title="Women-only RETRO historical validation"><small>RETRO WIN CHANCE'+(womenReady?'':' · PROVISIONAL')+'</small><strong>'+
-     (womenWinForecast?esc(favorite)+' '+Math.round(100*Math.max(g.probability,1-g.probability))+'%':'—')+'</strong></span>'+
-   (womenReady?'<span class="ledger26-line"><small>RETRO MARGIN</small><strong>'+spreadText(modelMargin)+'</strong></span>'+
-   '<span class="ledger26-line" title="Illustrative historical average score projection"><small>RETRO EXPECTED SCORE</small><strong>'+
-     esc(g.away.name)+' '+Math.round(g.projectedAwayScore)+' · '+esc(g.home.name)+' '+Math.round(g.projectedHomeScore)+'</strong></span>':''):
-   '<span class="ledger26-line" title="Independent RETRO projected margin"><small>RETRO PROJECTION</small><strong>'+spreadText(modelMargin)+'</strong></span>'):'';
- return '<article class="sl-game ledger26-card'+(featured?' ledger26-featured':'')+'">'+
-   (when||right?'<div class="ledger26-meta'+(g.phase==='upcoming'?' ledger26-meta--pregame':'')+'">'+when+retro+right+'</div>':'')+
+ // The right-hand scorebug rail is the single source for win chance and margin.
+ // Keep the published expected score as a compact editorial footer, not a second forecast banner.
+ const retro=g.phase==='upcoming'&&!women?
+   '<span class="ledger26-line" title="Independent RETRO projected margin"><small>RETRO PROJECTION</small><strong>'+spreadText(modelMargin)+'</strong></span>':'';
+ const scoreNote=womenReady?
+   '<div class="ledger26-score-note" aria-label="RETRO expected final scores">'+
+   '<span class="ledger26-score-note-label">RETRO EXPECTED SCORE</span>'+
+   '<strong>'+esc(g.away.name)+' <span>'+Math.round(g.projectedAwayScore)+'</span>'+
+   '<i aria-hidden="true">·</i>'+esc(g.home.name)+' <span>'+Math.round(g.projectedHomeScore)+'</span></strong>'+
+   '<small>Historical projection · Not a final score</small></div>':'';
+
+ return '<article class="sl-game ledger26-card'+(featured?' ledger26-featured':'')+(women&&g.phase==='upcoming'?' ledger26-card--refined':'')+'">'+
+   (when||right?'<div class="ledger26-meta'+(g.phase==='upcoming'?' ledger26-meta--pregame':'')+(women&&g.phase==='upcoming'?' ledger26-meta--refined':'')+'">'+when+retro+right+'</div>':'')+
    '<details class="sl-game-expansion ledger26-expand" data-game-id="'+esc(g.id)+'" data-day="'+esc(g.day)+'"'+(opened?' open':'')+'>'+
    '<summary class="ledger26-summary" aria-label="Expand '+esc(g.away.name)+' at '+esc(g.home.name)+' game details">'+
-   ledgerScorebug(g)+'<span class="ledger26-instruction">OPEN GAME DETAILS <span aria-hidden="true">+</span></span></summary>'+
+   ledgerScorebug(g)+scoreNote+'<span class="ledger26-instruction">OPEN GAME DETAILS <span aria-hidden="true">+</span></span></summary>'+
    '<div class="ledger26-expanded">'+
    '<div class="sl-game-footer ledger26-links"><span>'+esc(source)+'</span>'+
    (external&&/^https:\/\/[^\s"'<>]+$/.test(g.sourceURL||'')?
