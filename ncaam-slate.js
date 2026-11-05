@@ -760,6 +760,8 @@ const render=()=>{
  document.getElementById('sl-coverage').textContent=women?
   'Women’s RETRO Elo follows verified women-only finals. Win probabilities and expected scores use the independent 2025–26 held-out calibration when available; otherwise probabilities are marked provisional.':
   'Men’s coverage combines the published scoreboard, verified fixtures and independent 1500-reset RETRO. Exhibitions are excluded from Elo.';
+ const liveClock=liveCheckedAt?new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}).format(new Date(liveCheckedAt))+' ET':'not yet checked';
+ document.getElementById('sl-coverage').textContent+=' Published '+(lastUpdate||'snapshot time unavailable')+' · Live scores checked '+liveClock+(liveCheckError?' · '+liveCheckError:'');
  saveURL();
 };
 async function refresh(){
