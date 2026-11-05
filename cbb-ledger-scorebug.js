@@ -34,7 +34,7 @@
  function pregamePanel(g){
   const f=g.forecast;
   if(!f||typeof f.team!=='string'||!Number.isFinite(f.probability)||f.probability<0||f.probability>1)
-    return '<div class="ledger26-status ledger26-status--pregame" data-phase="upcoming"><strong class="ledger26-pregame-empty">PREGAME</strong></div>';
+    return '<div class="ledger26-status ledger26-status--pregame" data-phase="upcoming"><strong class="ledger26-pregame-empty">'+esc(g.time||g.tipoff||'PREGAME')+'</strong></div>';
   const team=f.team.trim(),percent=Math.round(f.probability*100);
   const margin=Number.isFinite(f.margin)&&f.margin>0?'+'+f.margin.toFixed(1):'';
   return '<div class="ledger26-status ledger26-status--pregame" data-phase="upcoming" aria-label="'+
