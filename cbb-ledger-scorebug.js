@@ -61,14 +61,14 @@
  const pressGender=g=>String(g.gender||(typeof document!=='undefined'?document.body?.dataset?.gender:'')||((typeof location!=='undefined'?new URLSearchParams(location.search).get('gender'):''))||'men').toLowerCase().includes('wom')?'women':'men';
  function pressNames(team){
   const full=String(team?.name||'').trim();
-  const arr=[full,full.replace(/\\b(?:Wildcats|Hoosiers|Bulldogs|Tigers|Bears|Eagles|Huskies|Panthers|Cardinals|Spartans|Aggies|Cowboys|Cougars|Golden Eagles|Redhawks|Broncos|Falcons|Terriers|Hawkeyes|Cornhuskers|Gators|Seminoles|Buckeyes|Wolverines|Pirates|Knights|Ducks|Bruins|Trojans|Mountaineers|Rams|Deacons|Rebels|Blue Devils|Tar Heels|Crimson Tide)\\b/gi,'').trim()];
-  if(team?.shortName)arr.push(String(team.shortName));
-  return [...new Set(arr.map(x=>x.toLowerCase()).filter(x=>x.length>=4))];
+  const mascots=/\b(?:Wildcats|Hoosiers|Bulldogs|Tigers|Bears|Eagles|Huskies|Panthers|Cardinals|Spartans|Aggies|Cowboys|Cougars|Redhawks|Broncos|Falcons|Terriers|Hawkeyes|Cornhuskers|Gators|Seminoles|Buckeyes|Wolverines|Pirates|Knights|Ducks|Bruins|Trojans|Mountaineers|Rams|Deacons|Rebels|Blue Devils|Tar Heels|Crimson Tide)\b/gi;
+  const short=full.replace(mascots,'').trim();
+  return [...new Set([full,short,team?.shortName].filter(Boolean).map(x=>String(x).trim().toLowerCase()).filter(x=>x.length>=4))];
  }
  function exactMention(txt,term){return new RegExp('(^|[^a-z])'+term.replace(/[^a-z0-9 ]/gi,'').replace(/ +/g,'\\s+')+'(?=$|[^a-z])','i').test(txt)}
  async function pressArticles(g){
   const gender=pressGender(g);
-  const paths=gender==='women'?['data/cbb-women-front-news.json','data/cbb-national-news.json']:['data/cbb-men-front-news.json','data/cbb-national-news.json'];
+  const paths=gender==='women'?['data/cbb-women-front-news.json','data/cbb-national-news.json','articles.json']:['data/cbb-men-front-news.json','data/cbb-national-news.json','articles.json'];
   const key=gender;
   let promise=pressCache.get(key);
   if(!promise){
