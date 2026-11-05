@@ -122,7 +122,7 @@
    }).join('');
   }catch{target.innerHTML='<p class="ledger26-preview-unavailable">The pregame news wire is temporarily unavailable.</p>'}
  }
- if(typeof document!=='undefined'&&!document.__sltPreviewClickBound){
+ if(typeof document!=='undefined'&&typeof document.addEventListener==='function'&&!document.__sltPreviewClickBound){
   document.__sltPreviewClickBound=true;
   document.addEventListener('click',function(e){
    const open=e.target.closest('[data-slt-preview-open]');
