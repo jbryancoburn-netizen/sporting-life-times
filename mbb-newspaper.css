@@ -734,3 +734,7 @@ body[data-page="team"] #team-player-production .victorian-production-source{marg
 #season-register-desk h3{font:700 16px Georgia,serif;border-bottom:2px double #987c5b;margin:12px 0 8px;padding-bottom:5px}
 #historical-archive-panel[hidden],#season-register-desk [hidden]{display:none!important}
 @media(min-width:680px){#season-register-desk .march-resume-stats{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* One Victorian wordmark across newspaper mastheads; typography only. */
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,800&display=swap');
+.masthead a,.masthead h1{font-family:'Bodoni Moda','Didot','Bodoni MT',Georgia,serif!important;font-weight:800!important;letter-spacing:-.055em!important}
