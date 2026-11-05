@@ -306,7 +306,7 @@ function home(){
    '<div class="nfl-p26-player-photo">'+(photo?'<img loading="lazy" src="'+escapeHtml(photo)+'" alt="">':'')+'</div></a>';
  });
  out+='</div>';
- out+='<div class="nfl-p26-editorial"><div class="nfl-p26-column">'+sectionHead('04 / THE MODEL','Power & probability','nfl-rankings.html','ALL 32 CLUBS',
+ out+='<div class="nfl-p26-editorial"><div class="nfl-p26-column">'+sectionHead('03 / THE MODEL','Power & probability','nfl-rankings.html','ALL 32 CLUBS',
   'Independent USRS ratings. Every team started 2026 at 1,500.')+
   '<div class="nfl-p26-rankings">'+feed.teams.slice(0,8).map((t,i)=>{
     const pct=Math.max(2,Math.min(100,(Number(t.elo)-1250)/500*100));
@@ -317,9 +317,9 @@ function home(){
    }).join('')+'<div class="nfl-p26-power-foot">Historically calibrated · HFA '+format(model.home_advantage_elo)+
    ' Elo · K '+format(model.k_base)+'. Ratings update only when source-confirmed games become final.</div></div></div></div>';
  out+='<div class="nfl-p26-lower"><div class="nfl-p26-results">'+
-  sectionHead('05 / THE FINAL WHISTLE','Latest results','nfl-schedule.html','SEASON SCHEDULE')+
+  sectionHead('04 / THE FINAL WHISTLE','Latest results','nfl-schedule.html','SEASON SCHEDULE')+
   (allFinals.map(gameLine).join('')||'<p class="nfl-p26-broken">No verified final scores available.</p>')+'</div>'+
-  '<div class="nfl-p26-results">'+sectionHead('06 / ON THE HORIZON','Coming up','nfl-schedule.html','UPCOMING GAMES')+
+  '<div class="nfl-p26-results">'+sectionHead('05 / ON THE HORIZON','Coming up','nfl-schedule.html','UPCOMING GAMES')+
   (future.map(gameLine).join('')||'<p class="nfl-p26-broken">No upcoming regular-season fixtures remain.</p>')+'</div></div>';
  out+='<section id="teams" class="nfl-p26-team-list"><div><h2>The 32 clubs.</h2><span class="nfl-p26-eyebrow nfl-p26-red">CHOOSE A TEAM ↘</span></div>'+
  directory()+'</section>';
