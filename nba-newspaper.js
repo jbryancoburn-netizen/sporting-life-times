@@ -290,12 +290,18 @@ function render(){stamp();const app=$('#app');if(!app)return;
  app.innerHTML=html;
  try{const ctx={page,data,meta,rates,seed,prior,records,ordered};if(page==='team'&&window.NBATeamDepth)window.NBATeamDepth(ctx);if(page==='players'&&window.NBAPlayerDepth)window.NBAPlayerDepth(ctx);if(page==='matchups'&&window.NBAMatchupDepth)window.NBAMatchupDepth(ctx);}catch(error){console.error('NBA enhanced desk failed',error);}
  if(page==='home'&&window.__nbaLiveWired)window.dispatchEvent(new Event('slt:nba-rendered'));
- if(page==='home'&&!window.__nbaLiveWired){window.__nbaLiveWired=true;const script=document.createElement('script');script.src='nba-live-feed.js?v=syntax-repair-20261104';script.defer=true;document.body.appendChild(script);}
+ if(page==='home'&&!window.__nbaLiveWired){window.__nbaLiveWired=true;const script=document.createElement('script');script.src='nba-live-feed.js?v=independent-scores-20261104';script.defer=true;document.body.appendChild(script);}
  if(page==='matchups'&&!window.__nbaRabbyWired){window.__nbaRabbyWired=true;const script=document.createElement('script');script.src='nba-rabby-forecast.js?v=remount-fix-20261104';script.defer=true;document.body.appendChild(script);}
  const nav=$('.nav');if(nav){[...nav.querySelectorAll('a')].forEach(a=>{a.removeAttribute('aria-current');if(new URL(a.href).pathname===location.pathname&&!(page==='home'&&a.hash))a.setAttribute('aria-current','page')});}
 }
 await fetchAll();
-if(ordered.length!==30){$('#app').innerHTML='<div class="nba-empty">The published 30-team Elo ratings could not be loaded. The NBA desk will retry automatically. <a href="nba-game-center.html">Existing Game Center →</a></div>';}else render();
+if(ordered.length!==30){
+ const app=$('#app');
+ if(page==='home'){
+  app.innerHTML='<section class="panel"><h1>The NBA Daily Chronicle</h1><p class="nba-note">RETRO standings temporarily unavailable; live scores remain independent.</p><div class="nba-score-rail" id="nba-live-feed" aria-live="polite"></div><p id="nba-live-status" class="note">Connecting to live NBA scores…</p></section>';
+  if(!window.__nbaLiveWired){window.__nbaLiveWired=true;const script=document.createElement('script');script.src='nba-live-feed.js?v=independent-scores-20261104';document.body.appendChild(script)}
+ }else app.innerHTML='<div class="nba-empty">The published 30-team Elo ratings could not be loaded. The NBA desk will retry automatically. <a href="nba-game-center.html">Existing Game Center →</a></div>';
+}else render();
 document.addEventListener('click',e=>{const btn=e.target.closest('[data-franchise-stat]');if(!btn)return;const widget=btn.closest('.nba-franchise-leader-widget');if(!widget)return;widget.querySelectorAll('[data-franchise-stat]').forEach(x=>x.setAttribute('aria-pressed',String(x===btn)));widget.querySelector('.nba-franchise-leader-body').innerHTML=franchiseLeaders(widget.dataset.franchise,btn.dataset.franchiseStat);});
 document.addEventListener('click',e=>{const tab=e.target.closest('[data-leader-stat]');if(!tab)return;const next=tab.getAttribute('data-leader-stat');if(!leaderCategories.some(x=>x[0]===next))return;leaderCategory=next;const content=$('#nba-leader-content');if(content)content.innerHTML=leaders(next,5);document.querySelectorAll('.nba-leader-tab').forEach(b=>{const active=b.getAttribute('data-leader-stat')===next;b.classList.toggle('is-active',active);b.setAttribute('aria-pressed',String(active));});});
 document.addEventListener('input',e=>{
