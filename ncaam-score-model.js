@@ -41,10 +41,7 @@ window.NCAAMScores=(()=>{
    }
    let homeScore=shared.homeScore;
    let awayScore=shared.awayScore;
-   if(homeScore===awayScore){
-     // The shared RETRO output is authoritative; equal scores remain a draw-shaped
-     // central estimate, never a claim that basketball games can end tied.
-   }
+   // The shared score projection is authoritative; do not adjust it independently.
    // Logistic margin distribution chosen to preserve the same neutral-court
    // Elo win probability at the zero threshold. Historical validation pending.
    const marginScale=fit.elo_margin_slope*400/Math.log(10);
