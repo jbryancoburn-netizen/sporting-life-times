@@ -751,6 +751,21 @@ function refreshRETRO(){
  const result=provisionalRetro(retroPublished,liveBoard,window.MBB_RETRO,women);
  retroPending=result.pending;
  ratings=rankingsMap(result.rankings?{rankings:result.rankings}:retroPublished);
+ // One current model computation per game; supersedes stale fixture probabilities.
+ if(!women&&window.RETROForecast){
+  for(const game of loaded){
+   if(game.phase!=='upcoming'||game.kind!=='regular')continue;
+   const away=ratings.get(String(game.away.canonical));
+   const home=ratings.get(String(game.home.canonical));
+   if(!away||!home){game.probability=null;continue;}
+   const site=/\bneutral\b/i.test(String(game.venue||''))?'neutral':
+     /\b(home|campus)\b/i.test(String(game.venue||''))?'home':'neutral';
+   const forecast=window.RETROForecast.predict(home,away,{site});
+   game.probability=forecast?.homeProbability??null;
+   game.forecastModel=forecast?.model||null;
+   game.forecastVenueStatus=site==='home'?'confirmed-home':'neutral-or-venue-unverified';
+  }
+ }
  updateRetroTies();
 }
 // Independently fetch live scores without waiting for scheduled GitHub JSON updates.
