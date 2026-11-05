@@ -595,7 +595,7 @@ const ledgerScorebug=g=>{
    crest:emblem(t),color:brand(t),record:record(t),retro:retroLine(t),
    poll:pollRankings.get(String(t.id))||null});
  return window.SLTBasketballScorebug?.render({
-  phase:g.phase,status:g.status||'LIVE',momentum:g.momentum||null,
+  phase:g.phase,gender:women?'women':'men',status:g.status||'LIVE',momentum:g.momentum||null,
   forecast:(()=>{
     if(g.phase!=='upcoming'||typeof g.probability!=='number'||!Number.isFinite(g.probability)||g.probability<0||g.probability>1)return null;
     const homeFav=g.probability>=0.5,side=homeFav?g.home:g.away;
