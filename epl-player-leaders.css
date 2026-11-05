@@ -1,2 +1,17 @@
-#epl-player-leaders{margin:26px 0 30px;padding-top:4px;border-top:4px double #283b30;font-family:Arial,sans-serif}.epl-player-scope{font:12px/1.55 Georgia,serif;color:#5c625c;margin:10px 0 18px}.epl-player-columns{display:grid;grid-template-columns:1fr 1fr;gap:30px}.epl-player-board h3{font:600 clamp(1.25rem,2vw,1.8rem)/1.1 Georgia,serif;margin:0 0 12px}.epl-player-row{display:grid;grid-template-columns:28px 1fr 36px;gap:10px;align-items:center;border-bottom:1px solid #dedbd1;padding:9px 0}.epl-player-rank{font:700 12px Arial,sans-serif;color:#827a6b}.epl-player-row b{display:block;font:700 13px Arial,sans-serif;color:#25372d}.epl-player-row small{display:block;font:11px Arial,sans-serif;color:#787369;margin-top:2px}.epl-player-row strong{font:700 22px Georgia,serif;text-align:right}@media(max-width:650px){.epl-player-columns{grid-template-columns:1fr;gap:25px}}
-.epl-player-row{grid-template-columns:22px 34px minmax(0,1fr) 34px;gap:9px}.epl-player-crest{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#fffdf6;border:1px solid #dfdacd;box-shadow:0 1px 3px #0002;padding:4px;box-sizing:border-box}.epl-player-crest img{display:block;width:100%;height:100%;object-fit:contain}.epl-player-crest-fallback{width:100%;height:100%;display:grid;place-items:center;font:700 8px Arial,sans-serif;color:#283c32}.epl-player-row>div{min-width:0}.epl-player-row b{overflow-wrap:anywhere}
+/* EPL player registers use the edition's engraved places, ink and paper. */
+#epl-player-leaders{margin:26px 0 30px;padding-top:4px;border-top:4px double var(--line,#ae9b7f);font-family:'DM Sans',Arial,sans-serif;color:var(--ink,#29231c)}
+.epl-player-scope{font:12px/1.55 'DM Sans',Arial,sans-serif;color:var(--muted,#695a48);margin:10px 0 18px}
+.epl-player-columns{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.epl-player-board{min-width:0;border-top:3px double var(--line,#ae9b7f);padding-top:14px}
+.epl-player-board h3{font:normal 24px/1.15 Georgia,'Times New Roman',serif;letter-spacing:-.025em;margin:0 0 14px;color:var(--ink,#29231c)}
+.epl-player-row{display:grid;grid-template-columns:34px 32px minmax(0,1fr) 36px;gap:10px;align-items:center;min-height:62px;box-sizing:border-box;border:1px solid var(--line,#ae9b7f);background:var(--slt-surface,#f8f1e4);padding:10px 8px;margin:0 0 7px}
+.epl-player-row .epl-player-rank{box-sizing:border-box;width:34px;height:34px;min-width:34px;min-height:34px;padding:3px;font:700 15px/1 Georgia,'Times New Roman',serif;color:var(--slt-place-ivory,#fff4dd);background:var(--slt-place-ink,#713d2b)}
+.epl-player-row .epl-player-name{display:block;font:600 12px/1.35 'DM Sans',Arial,sans-serif;color:var(--ink,#29231c);overflow-wrap:normal;word-break:normal}
+.epl-player-row small{display:block;font:normal 10px/1.4 'DM Sans',Arial,sans-serif;color:var(--muted,#695a48);margin-top:3px}
+.epl-player-row>strong{font:normal 24px/1 'Barlow Condensed',Arial,sans-serif;text-align:right;font-variant-numeric:tabular-nums;color:var(--ink,#29231c)}
+.epl-player-row>div{min-width:0}
+.epl-player-crest{display:grid;place-items:center;width:32px;height:32px;box-sizing:border-box}
+.epl-player-crest img{display:block;width:100%;height:100%;object-fit:contain}
+.epl-player-crest-fallback{width:100%;height:100%;display:grid;place-items:center;font:600 9px/1 'DM Sans',Arial,sans-serif;color:var(--ink,#29231c)}
+@media(max-width:650px){.epl-player-columns{grid-template-columns:1fr;gap:25px}}
+@media(max-width:380px){.epl-player-row{grid-template-columns:30px 28px minmax(0,1fr) 30px;gap:7px;padding:9px 6px}.epl-player-row .epl-player-rank{width:30px;height:30px;min-width:30px;min-height:30px}.epl-player-row .epl-badge{--epl-badge-size:28px}}
