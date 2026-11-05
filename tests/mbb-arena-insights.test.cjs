@@ -42,7 +42,8 @@ const slateHTML=fs.readFileSync('ncaam-slate.html','utf8'),slateJS=fs.readFileSy
 const teamHTML=fs.readFileSync('ncaam-team.html','utf8');
 assert(slateHTML.includes('mbb-slate-insights.js'));
 assert(slateHTML.indexOf('mbb-slate-insights.js')<slateHTML.indexOf('ncaam-slate.js'));
-assert(teamHTML.includes('mbb-arena-file.js')&&teamHTML.includes('id="af-inline"'));
+assert(!teamHTML.includes('mbb-arena-file.js')&&!teamHTML.includes('id="af-inline"'),
+ 'retired arena research panel must stay removed from team pages');
 for(const phrase of ['sl-season-comparison','sl-game-analytics','sl-leading-players',
   'sl-live-desk','ncaam-arena.html?team='])
  assert(slateJS.includes(phrase),'missing functioning storytelling module '+phrase);
