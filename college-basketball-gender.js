@@ -76,7 +76,16 @@
     const siteClaims=officialHome?[]:window.WBBSiteIntegrity?.claims(g,siteDisputes,neutralProof)||[];
     const siteSource=siteClaims.find(x=>window.WBBSiteIntegrity.safeURL(x.source_url))?.source_url||'';
     let forecast=siteClaims.length?'<div class="wbb-game-forecast wbb-site-dispute">Venue under review · home-court forecast withheld</div>':'';
-    if(!siteClaims.length&&!score(g)&&h&&a){const edge=(certifiedNeutral||g.neutral)?0:Number(ratings.parameters.home_edge)||0,p=100/(1+10**(-((a.elo-h.elo-edge)/400)));forecast='<div class="wbb-game-forecast">Win forecast · '+esc(a.team)+' '+p.toFixed(0)+'% · '+esc(h.team)+' '+(100-p).toFixed(0)+'%</div>';}
+    let retroForecast=null;
+    if(!siteClaims.length&&!g.source_conflict&&!score(g)&&h&&a&&
+       Number.isFinite(Number(h.elo))&&Number.isFinite(Number(a.elo))){
+      const edge=(certifiedNeutral||g.neutral||g.site_verified!==true)?0:Number(ratings.parameters.home_edge)||0;
+      const p=1/(1+Math.pow(10,-((Number(h.elo)-Number(a.elo)+edge)/400)));
+      retroForecast={team:p>=0.5?h.team:a.team,probability:Math.max(p,1-p)};
+      forecast='<div class="wbb-game-forecast">PROVISIONAL RETRO win forecast · '+
+        esc(a.team)+' '+((1-p)*100).toFixed(0)+'% · '+
+        esc(h.team)+' '+(p*100).toFixed(0)+'% · Point-score calibration pending</div>';
+    }
     const status=g.status==='review'?'Source conflict · score withheld':g.status==='final'?'Final':g.status==='live'?(g.detail||'Live'):'Scheduled';
     const declared=g.status==='review'||g.source_conflict?'upcoming':
       (g.status==='final'||g.completed)?'final':g.status==='live'?'live':'upcoming';
@@ -90,6 +99,8 @@
         color:palette?.primary||'#655239',score:phase==='upcoming'?null:value};
     };
     const scorebug=window.SLTSportsScorebug.render({phase,
+      forecast:retroForecast,
+      gender:'women',
       status:g.status==='review'||g.source_conflict?'SOURCE CONFLICT':g.status==='live'?(g.detail||'LIVE'):undefined,
       away:profile(g.away_id,g.away_name,g.away_score),
       home:profile(g.home_id,g.home_name,g.home_score)});
