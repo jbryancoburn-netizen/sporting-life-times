@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "checked_at_utc": "2026-11-05T22:30:12.367417+00:00",
+  "checked_at_utc": "2026-11-05T22:39:51.231575+00:00",
   "source": "NCAA scoreboard via ncaa-api compatibility endpoint",
   "games": [
     {
@@ -294,7 +294,7 @@
       "cohort": "men-d2",
       "status": "live",
       "home_score": 0,
-      "away_score": 2,
+      "away_score": 4,
       "home_name": "Southern Nazarene",
       "away_name": "Fort Hays St.",
       "home_id": "southern-nazarene",
@@ -319,7 +319,7 @@
       "match_id": "men-6663783",
       "cohort": "men-d2",
       "status": "live",
-      "home_score": 1,
+      "home_score": 2,
       "away_score": 0,
       "home_name": "Westmont",
       "away_name": "Vanguard",
@@ -851,14 +851,14 @@
     {
       "match_id": "men-6666138",
       "cohort": "men-d3",
-      "status": "live",
+      "status": "final",
       "home_score": 1,
       "away_score": 1,
       "home_name": "Oglethorpe",
       "away_name": "Berry",
       "home_id": "oglethorpe",
       "away_id": "berry",
-      "period": "3OT",
+      "period": "FINAL/PK",
       "source_url": "https://www.ncaa.com/game/6666138"
     },
     {
@@ -1144,7 +1144,7 @@
       "away_name": "Liberty",
       "home_id": "east-tenn-st",
       "away_id": "liberty",
-      "period": "2ND HALF",
+      "period": "OT",
       "source_url": "https://www.ncaa.com/game/6666520"
     },
     {
@@ -1566,14 +1566,14 @@
     {
       "match_id": "women-6663615",
       "cohort": "women-d2",
-      "status": "live",
+      "status": "final",
       "home_score": 2,
       "away_score": 0,
       "home_name": "UNC Pembroke",
       "away_name": "Young Harris",
       "home_id": "unc-pembroke",
       "away_id": "young-harris",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6663615"
     },
     {
@@ -2386,7 +2386,7 @@
       "match_id": "women-6666501",
       "cohort": "women-d3",
       "status": "live",
-      "home_score": 2,
+      "home_score": 3,
       "away_score": 1,
       "home_name": "LeTourneau",
       "away_name": "Ozarks (AR)",
