@@ -488,7 +488,7 @@ const rating=t=>{const r=rankOf(t,ratings,women);return r&&Number.isFinite(+r.el
 const retroLine=t=>{
  const profile=rankOf(t,ratings,women);
  return (window.SLTBasketballScorebug?.formatRetro(profile,retroTies,women?363:365)||'RETRO —')+
-  (retroPending?' provisional':'');
+  (retroPending?' · RETRO PROVISIONAL':'');
 };
 const record=t=>{const r=rankOf(t,ratings,women);return r&&r.wins!=null&&r.losses!=null?Number(r.wins)+'–'+Number(r.losses):'0–0'};
 const team=t=>{const profile=rankOf(t,ratings,women),url=teamPage(t);
