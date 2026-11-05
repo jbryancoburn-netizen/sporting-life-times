@@ -321,8 +321,8 @@ try{
       if(!athletes.length)continue;
       const columns=players.labels||[];
       html+='<div class="victorian-stat-block"><h3>'+escape(teamBox.team?.displayName||teamBox.team?.name||'Player Box Score')+'</h3><table class="victorian-player-box"><thead><tr><th>Player</th>'+columns.map(c=>'<th>'+escape(c)+'</th>').join('')+'</tr></thead><tbody>'+
-       athletes.map(p=>'<tr><th>'+escape(p.athlete?.displayName||p.athlete?.shortName||'Player')+'</th>'+
-        (p.stats||[]).map((v,i)=>'<td data-label="'+escape(columns[i]||'Stat '+(i+1))+'">'+escape(v)+'</td>').join('')+'</tr>').join('')+
+       athletes.map(p=>'<tr><th scope="row">'+escape(p.athlete?.displayName||p.athlete?.shortName||'Player')+'</th>'+
+        columns.map((label,i)=>'<td data-label="'+escape(label||'Stat '+(i+1))+'">'+escape(p.stats?.[i]??'—')+'</td>').join('')+'</tr>').join('')+
        '</tbody></table></div>';
      }
      const details=data.header?.competitions?.[0]||{};
