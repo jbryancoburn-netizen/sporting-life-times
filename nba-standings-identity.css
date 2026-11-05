@@ -233,3 +233,36 @@ body.nba-newspaper:is([data-page="standings"],[data-page="conference"]) .nba-tab
   width:40px!important;height:40px!important;min-width:40px!important;min-height:40px!important;max-width:40px!important;max-height:40px!important;
  }
 }
+
+
+/* Division register: give each double-ring NBA crest a genuinely square
+   box. The ledger is a grid rather than a table, so table-only crest
+   safeguards cannot protect these icons. */
+body.nba-newspaper[data-page="standings"] .nba-division-ledger-club .nba-standings-identity{
+ display:flex!important;align-items:center!important;gap:10px!important;
+ min-width:0!important;width:100%!important;max-width:100%!important;
+}
+body.nba-newspaper[data-page="standings"] .nba-division-ledger-club .nba-standings-logo{
+ box-sizing:border-box!important;display:flex!important;align-items:center!important;justify-content:center!important;
+ flex:0 0 46px!important;inline-size:46px!important;block-size:46px!important;
+ width:46px!important;height:46px!important;min-width:46px!important;min-height:46px!important;
+ max-width:46px!important;max-height:46px!important;aspect-ratio:1 / 1!important;
+ border-radius:50%!important;overflow:visible!important;
+}
+body.nba-newspaper[data-page="standings"] .nba-division-ledger-club .nba-standings-logo>img.nba-team-logo{
+ box-sizing:border-box!important;display:block!important;flex:none!important;
+ inline-size:46px!important;block-size:46px!important;width:46px!important;height:46px!important;
+ min-width:46px!important;min-height:46px!important;max-width:46px!important;max-height:46px!important;
+ aspect-ratio:1 / 1!important;object-fit:contain!important;object-position:center!important;
+ border-radius:50%!important;transform:none!important;margin:0!important;
+}
+@media(max-width:700px){
+ body.nba-newspaper[data-page="standings"] .nba-division-ledger-club .nba-standings-logo{
+  flex-basis:40px!important;inline-size:40px!important;block-size:40px!important;width:40px!important;height:40px!important;
+  min-width:40px!important;min-height:40px!important;max-width:40px!important;max-height:40px!important;
+ }
+ body.nba-newspaper[data-page="standings"] .nba-division-ledger-club .nba-standings-logo>img.nba-team-logo{
+  inline-size:40px!important;block-size:40px!important;width:40px!important;height:40px!important;
+  min-width:40px!important;min-height:40px!important;max-width:40px!important;max-height:40px!important;
+ }
+}
