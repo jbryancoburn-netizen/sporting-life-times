@@ -79,3 +79,6 @@ body .power-table tbody td:first-child:not(:has(a,img,button)){
  .rank-row>.rank,.nba-power-row .rank,.standing-row>.rank,
  .epl-power-row .epl-rank){min-width:28px;min-height:28px;padding:2px 3px;font-size:13px}
 }
+
+/* Main masthead navigation is the single section menu; suppress duplicate department link rails across editions. */
+.slt-department-band .slt-department-links, nav.slt-department-links{display:none!important}
