@@ -11,9 +11,16 @@ const section=(name,tag,content)=>'<section class="epl-data-section"><div class=
 async function load(){
 try{
 const [r,f]=await Promise.all(['data/epl-ratings.json','data/epl-match-center.json'].map(async p=>{const x=await fetch(p+'?v='+Date.now(),{cache:'no-store'});if(!x.ok)throw Error(p);return x.json()}));
-if(!Array.isArray(r.standings)||r.standings.length!==20||!f.fixtures||!Array.isArray(f.recent_results))throw Error('Incomplete EPL data');
-const idByTeam={};for(const g of f.fixtures){idByTeam[g.home.name]=g.home.id;idByTeam[g.away.name]=g.away.id}
-const upcomingGames=f.fixtures.filter(g=>g.home&&g.away&&Number.isFinite(Date.parse(g.kickoff_utc))&&Date.parse(g.kickoff_utc)>Date.now()).sort((a,b)=>Date.parse(a.kickoff_utc)-Date.parse(b.kickoff_utc));
+if(!Array.isArray(r.standings)||r.standings.length!==20||!r.ratings||Object.keys(r.ratings).length!==20||!Array.isArray(f.fixtures))throw Error('Incomplete EPL data');
+// Forecast exports may omit finals. The verified season ledger owns results.
+const resultSource=Array.isArray(r.season_results)?r.season_results:f.recent_results;
+if(!Array.isArray(resultSource))throw Error('Verified EPL results unavailable');
+const recentResults=[...resultSource].sort((a,b)=>Date.parse(b.kickoff_utc)-Date.parse(a.kickoff_utc)).slice(0,18);
+// Forecast providers use full club names; reconcile identities by stable club ID.
+const nameById=Object.fromEntries(Object.entries(FIXED_IDS).map(([name,id])=>[id,name]));
+const fixtures=f.fixtures.map(g=>({...g,home:{...g.home,name:nameById[String(g.home?.id)]||g.home?.name},away:{...g.away,name:nameById[String(g.away?.id)]||g.away?.name}}));
+const idByTeam={};for(const g of fixtures){idByTeam[g.home.name]=g.home.id;idByTeam[g.away.name]=g.away.id}
+const upcomingGames=fixtures.filter(g=>g.home&&g.away&&Number.isFinite(Date.parse(g.kickoff_utc))&&Date.parse(g.kickoff_utc)>Date.now()).sort((a,b)=>Date.parse(a.kickoff_utc)-Date.parse(b.kickoff_utc));
 const ratingOrder=Object.entries(r.ratings).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]));
 const rankFor=new Map(ratingOrder.map(([name,value],i)=>{
  const tie=ratingOrder.findIndex(x=>x[1]===value)+1;
@@ -49,7 +56,7 @@ function eplLedger(g,done){
   '</details></article>';
 }
 const upcomingTiles=upcomingGames.slice(0,4).map(g=>eplLedger(g,false)).join('');
-const finals=f.recent_results.slice(0,6).map(g=>eplLedger(g,true)).join('');
+const finals=recentResults.slice(0,6).map(g=>eplLedger(g,true)).join('');
 const rail='<div class="epl-score-rail">'+upcomingTiles+finals+'</div>';
 const sorted=Object.entries(r.ratings).sort((a,b)=>b[1]-a[1]);const min=Math.min(...sorted.map(x=>x[1])),max=Math.max(...sorted.map(x=>x[1]));
 const pulse=(id,value)=>{const node=document.getElementById(id);if(node)node.textContent=value;};
@@ -61,7 +68,7 @@ if(sorted.length)pulse('epl-pulse-power',sorted[0][0]+' · '+num(sorted[0][1]));
 const power=sorted.map(([name,value],i)=>'<div class="epl-power-row"><span class="epl-rank">'+String(i+1).padStart(2,'0')+'</span>'+team(name,idByTeam[name])+'<div class="epl-power-track"><i style="width:'+Math.max(4,100*(value-min)/(max-min||1))+'%;background:'+esc(COLORS[name]||'#52695d')+'"></i></div><strong>'+num(value)+'</strong><span class="epl-elo-delta">'+(r.last_match_elo_delta&&Number.isFinite(r.last_match_elo_delta[name])?(r.last_match_elo_delta[name]>0?'▲ +':r.last_match_elo_delta[name]<0?'▼ ':'')+num(r.last_match_elo_delta[name]):'—')+'</span></div>').join('');
 const rows=r.standings.map((t,i)=>'<tr class="'+(i<4?'epl-zone-top':i>=17?'epl-zone-bottom':'')+'"><td>'+String(i+1).padStart(2,'0')+'</td><td>'+team(t.club,idByTeam[t.club])+'</td><td>'+t.played+'</td><td>'+t.won+'–'+t.drawn+'–'+t.lost+'</td><td>'+t.gf+'</td><td>'+t.ga+'</td><td>'+((t.gd>0?'+':'')+t.gd)+'</td><td class="epl-pts">'+t.points+'</td><td>'+num(r.ratings[t.club])+'</td><td class="epl-form-cell">'+(r.last_five_form?.[t.club]||[]).map(v=>'<span class="epl-form-'+v.toLowerCase()+'">'+v+'</span>').join('')+'</td></tr>').join('');
 const table='<div class="epl-table-scroll"><table class="epl-standings"><thead><tr><th>#</th><th>CLUB</th><th>P</th><th>W–D–L</th><th>GF</th><th>GA</th><th>GD</th><th>PTS</th><th>ELO</th><th>FORM</th></tr></thead><tbody>'+rows+'</tbody></table></div><p class="epl-data-note">Based on '+r.completed_matches+' published finals · '+esc(r.as_of_date)+' · provisional Elo. Elo movement shown only when the replay export includes verified last-match deltas.</p>';
-const forecast=f.fixtures.slice(0,5).map(g=>{const p=g.probabilities;return '<div class="epl-forecast-row"><span class="epl-score-date">'+date(g.kickoff_utc)+'</span><div class="epl-forecast-teams">'+team(g.home.name,g.home.id)+'<strong>vs</strong>'+team(g.away.name,g.away.id)+'</div><div class="epl-probability" aria-label="Home '+Math.round(p.home*100)+' percent, draw '+Math.round(p.draw*100)+' percent, away '+Math.round(p.away*100)+' percent"><i style="width:'+(100*p.home)+'%;background:'+esc(COLORS[g.home.name]||'#52695d')+'"></i><i style="width:'+(100*p.draw)+'%;background:#c1b39b"></i><i style="width:'+(100*p.away)+'%;background:'+esc(COLORS[g.away.name]||'#384b6b')+'"></i></div><div class="epl-prob-labels"><span>'+Math.round(p.home*100)+'% '+esc(g.home.name)+'</span><span>'+Math.round(p.draw*100)+'% draw</span><span>'+Math.round(p.away*100)+'% '+esc(g.away.name)+'</span></div><a class="epl-forecast-open" href="match-center.html?league=Premier%20League&amp;game='+encodeURIComponent(g.fixture_id)+'">Match details</a></div>'}).join('');
+const forecast=fixtures.slice(0,5).map(g=>{const p=g.probabilities;return '<div class="epl-forecast-row"><span class="epl-score-date">'+date(g.kickoff_utc)+'</span><div class="epl-forecast-teams">'+team(g.home.name,g.home.id)+'<strong>vs</strong>'+team(g.away.name,g.away.id)+'</div><div class="epl-probability" aria-label="Home '+Math.round(p.home*100)+' percent, draw '+Math.round(p.draw*100)+' percent, away '+Math.round(p.away*100)+' percent"><i style="width:'+(100*p.home)+'%;background:'+esc(COLORS[g.home.name]||'#52695d')+'"></i><i style="width:'+(100*p.draw)+'%;background:#c1b39b"></i><i style="width:'+(100*p.away)+'%;background:'+esc(COLORS[g.away.name]||'#384b6b')+'"></i></div><div class="epl-prob-labels"><span>'+Math.round(p.home*100)+'% '+esc(g.home.name)+'</span><span>'+Math.round(p.draw*100)+'% draw</span><span>'+Math.round(p.away*100)+'% '+esc(g.away.name)+'</span></div><a class="epl-forecast-open" href="match-center.html?league=Premier%20League&amp;game='+encodeURIComponent(g.fixture_id)+'">Match details</a></div>'}).join('');
 const attacks=[...r.standings].sort((a,b)=>b.gf-a.gf).slice(0,5).map((t,i)=>'<div class="epl-leader-row">'+team(t.club,idByTeam[t.club])+'<strong>'+t.gf+' <small>goals</small></strong></div>').join('');
 const defense=[...r.standings].filter(t=>t.played>0).sort((a,b)=>a.ga/a.played-b.ga/b.played).slice(0,5).map(t=>'<div class="epl-leader-row">'+team(t.club,idByTeam[t.club])+'<strong>'+num(t.ga/t.played)+' <small>GA/GP</small></strong></div>').join('');
 
@@ -70,7 +77,7 @@ const full='<details class="slt-full-table"><summary>Open full statistical table
 const target=id=>document.getElementById(id);
 if(target('epl-score-rail'))target('epl-score-rail').innerHTML=rail||'<p>Verified finals are not available in this match snapshot.</p>';
 if(target('epl-table-board'))target('epl-table-board').innerHTML=section('League table','POINTS · W–D–L · ELO',compact+full);
-if(target('epl-power-board'))target('epl-power-board').innerHTML=section('USRS Power 20','ALL CLUBS · VERIFIED ELO DELTA',power);
+if(target('epl-power-board'))target('epl-power-board').innerHTML=section('RETRO Power 20','ALL CLUBS · VERIFIED ELO DELTA',power);
 if(target('epl-attack-board'))target('epl-attack-board').innerHTML=section('Best attacks','GOALS SCORED',attacks);
 if(target('epl-defense-board'))target('epl-defense-board').innerHTML=section('Tightest defenses','GOALS ALLOWED PER MATCH',defense);
 const top=target('epl-hero-clubs');
@@ -80,6 +87,6 @@ const clubList=target('epl-club-directory');
 if(clubList)clubList.innerHTML=r.standings.map((t,i)=>'<a class="slt-club-link" href="epl-club.html?club='+encodeURIComponent(idByTeam[t.club]||FIXED_IDS[t.club]||'')+'">'+crest(t.club,idByTeam[t.club])+'<span>'+esc(t.club)+'</span><small>'+(i+1)+'. · '+t.points+' pts · '+num(r.ratings[t.club])+' Elo</small></a>').join('');
 root.textContent='Results through '+r.as_of_date+' · '+r.completed_matches+' verified finals · Scores and ratings from the current published edition';
 
-}catch(e){root.innerHTML='<p role="status">EPL visual dashboard unavailable. Published model data could not be verified.</p>';}}
+}catch(e){console.error('EPL dashboard rendering failed:',e);root.innerHTML='<p role="status">EPL visual dashboard unavailable. Published model data could not be verified.</p>';}}
 load();
 })();
