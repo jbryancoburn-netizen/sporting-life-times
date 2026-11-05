@@ -766,7 +766,7 @@ async function refresh(){
   }
   refreshRETRO();sourceError='';
  }catch(err){if(!loaded.length)sourceError=String(err.message||'Unable to retrieve fixtures');}
- finally{loading=false;render();void refreshBroadcasts(selected);if(selected===today())void refreshLive()}
+ finally{loading=false;render();void refreshBroadcasts(selected);if(selected===today()||(women&&selected<today()))void refreshLive()}
 }
 // When a score becomes fully final, immediately replay the exact independent
 // RETRO method. The next certified JSON release replaces these provisional
@@ -786,7 +786,7 @@ function refreshRETRO(){
 }
 // Independently fetch live scores without waiting for scheduled GitHub JSON updates.
 async function refreshLive(){
- if(liveRequest||document.hidden||selected!==today()||!cross.teams?.length)return;
+ if(liveRequest||document.hidden||(selected!==today()&&(!women||selected>today()))||!cross.teams?.length)return;
  liveRequest=true;const day=selected;
  const path='https://site.api.espn.com/apis/site/v2/sports/basketball/'+
   (women?'womens-college-basketball':'mens-college-basketball')+
@@ -813,13 +813,13 @@ async function refreshLive(){
  }catch(err){if(selected===day)liveCheckError=String(err?.message||'Current scores unavailable');}
  finally{liveRequest=false;if(selected===day)render()}
 }
-document.getElementById('sl-prev').addEventListener('click',()=>{selected=shift(selected,-1);limit=18;liveBoard=[];liveCheckedAt=0;render();void refreshBroadcasts(selected);if(selected===today())void refreshLive()});
-document.getElementById('sl-next').addEventListener('click',()=>{selected=shift(selected,1);limit=18;liveBoard=[];liveCheckedAt=0;render();void refreshBroadcasts(selected);if(selected===today())void refreshLive()});
-document.getElementById('sl-picker').addEventListener('change',e=>{if(e.target.value){selected=e.target.value;limit=18;liveBoard=[];liveCheckedAt=0;render();if(selected===today())void refreshLive()}});
+document.getElementById('sl-prev').addEventListener('click',()=>{selected=shift(selected,-1);limit=18;liveBoard=[];liveCheckedAt=0;render();void refreshBroadcasts(selected);if(selected===today()||(women&&selected<today()))void refreshLive()});
+document.getElementById('sl-next').addEventListener('click',()=>{selected=shift(selected,1);limit=18;liveBoard=[];liveCheckedAt=0;render();void refreshBroadcasts(selected);if(selected===today()||(women&&selected<today()))void refreshLive()});
+document.getElementById('sl-picker').addEventListener('change',e=>{if(e.target.value){selected=e.target.value;limit=18;liveBoard=[];liveCheckedAt=0;render();if(selected===today()||(women&&selected<today()))void refreshLive()}});
 document.getElementById('sl-search').addEventListener('input',e=>{search=e.target.value;limit=18;render()});
 document.getElementById('sl-filters').addEventListener('click',e=>{const b=e.target.closest('[data-filter]');if(!b)return;filter=b.dataset.filter;limit=18;render()});
 document.getElementById('sl-more').addEventListener('click',()=>{limit+=18;render()});
-document.getElementById('sl-reload').addEventListener('click',()=>{void refresh();void refreshBroadcasts(selected);if(selected===today())void refreshLive()});
+document.getElementById('sl-reload').addEventListener('click',()=>{void refresh();void refreshBroadcasts(selected);if(selected===today()||(women&&selected<today()))void refreshLive()});
 document.getElementById('sl-games').addEventListener('click',e=>{
  if(e.target.id==='sl-retry')refresh();
 });
@@ -832,8 +832,8 @@ document.getElementById('sl-women').classList.toggle('is-active',women);
 document.getElementById('sl-men').classList.toggle('is-active',!women);
 if(women)document.getElementById('sl-filter-exhibitions').hidden=true;
 refresh();setInterval(()=>{if(!document.hidden)refresh()},90000);
-setInterval(()=>{if(!document.hidden&&selected===today())void refreshLive()},30000);
-document.addEventListener('visibilitychange',()=>{if(!document.hidden&&selected===today())void refreshLive()});
+setInterval(()=>{if(!document.hidden&&(selected===today()||(women&&selected<today())))void refreshLive()},30000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&(selected===today()||(women&&selected<today())))void refreshLive()});
 // Detailed live feeds update while expanded, without refreshing or navigating the page.
 setInterval(()=>{if(document.hidden||!window.SLTInlineGamefile)return;
  document.querySelectorAll('.sl-game-expansion[open]').forEach(d=>{
