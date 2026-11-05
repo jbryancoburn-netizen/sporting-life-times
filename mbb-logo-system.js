@@ -55,7 +55,7 @@ if((resolved&&given&&resolved!==given)||(ncaa&&registry[id]?.canonical_id!==ncaa
 const known=registry[id]||null;
 // Names alone may resolve a curated non-D-I institution only by exact, unique alias.
 // If a source supplies an outside ID, its printed name must match that institution.
-const outsideID=!ncaa&&!known?(outside[id]?id:!given?outsideByName.get(norm(name)):''):null;
+const outsideID=!ncaa&&!known?(outside[id]?id:(outsideByName.get(norm(name))||'')):null;
 const outsideEntry=outsideID&&outside[outsideID]&&outsideAliases(outside[outsideID]).includes(norm(name))?outside[outsideID]:null;
 const school=known,brand=known?palette[id]:outsideEntry,art=known?school.artwork_type:outsideEntry?'flat':'unverified';
 const primary=known?(school.logo_url_verified?safeURL(school.official_logo_url||school.logo_url):''):
