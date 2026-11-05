@@ -97,7 +97,10 @@ function render(payload){
   const nbaClock=String(e.status?.displayClock||'').trim();
   const nbaPeriodLabel=({1:'1ST QUARTER',2:'2ND QUARTER',3:'3RD QUARTER',4:'4TH QUARTER'})[nbaPeriod]||(nbaPeriod>4?(nbaPeriod===5?'OT':(nbaPeriod-4)+'OT'):'');
   const rawLabel=st.shortDetail||st.description||'Scheduled';
-  const label=state==='in'&&nbaPeriodLabel?(nbaClock&&nbaClock!=='0:00'?nbaClock+' ':'')+nbaPeriodLabel:rawLabel;
+  // Some providers only publish the clock inside the status string.
+  const rawClock=(String(rawLabel).match(/\b\d{1,2}:\d{2}\b/)||[])[0]||'';
+  const displayClock=nbaClock&&nbaClock!=='0:00'?nbaClock:rawClock;
+  const label=state==='in'&&nbaPeriodLabel?(displayClock?displayClock+' ':'')+nbaPeriodLabel:rawLabel;
   if(!away||!home)return null;
   const team=c=>({name:c.team?.displayName||c.team?.name||'',code:canonicalCode(c.team?.abbreviation),score:c.score??'',record:c.records?.find(r=>r.type==='total')?.summary||fallbackRecords[canonicalCode(c.team?.abbreviation)]||''});
   const broadcasts=(co.broadcasts||[]).flatMap(b=>b.names||[]).filter(Boolean);
@@ -120,14 +123,24 @@ function render(payload){
  }).join('');
  for(const card of document.querySelectorAll('#nba-live-feed details[data-nba-game][open]'))loadNBABox(card);
 }
+// Normalize the NBA's official game-clock ISO duration at the feed boundary.
+function officialGameClock(value){
+ const raw=String(value||'').trim();
+ if(/^\d{1,3}:\d{2}(?:\.\d+)?$/.test(raw))return raw.replace(/\.\d+$/,'');
+ const duration=raw.match(/^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+(?:\.\d+)?)S)?$/i);
+ if(!duration||!raw.match(/\d/))return '';
+ const minutes=Number(duration[1]||0)*60+Number(duration[2]||0);
+ const seconds=Math.floor(Number(duration[3]||0));
+ return minutes+':'+String(seconds).padStart(2,'0');
+}
 function fromNba(raw){
  const games=raw.scoreboard?.games||raw.games||[];
  const today=Object.fromEntries(new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date()).map(x=>[x.type,x.value]));const todayKey=today.year+today.month+today.day;
  const dated=games.filter(g=>{const d=g.gameTimeUTC||g.gameTime;if(!d)return false;const p=Object.fromEntries(new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date(d)).map(x=>[x.type,x.value]));return p.year+p.month+p.day===todayKey});
  return {events:dated.map(g=>{
-  const home=g.homeTeam||{},away=g.awayTeam||{},st=g.gameStatus||1;
+  const home=g.homeTeam||{},away=g.awayTeam||{},st=Number(g.gameStatus)||1;
   const comp=(t,side)=>({homeAway:side,team:{displayName:t.teamName?((t.teamCity||'')+' '+t.teamName).trim():t.teamTricode,abbreviation:t.teamTricode},score:t.score,records:[]});
-  return {id:String(g.gameId),date:g.gameTimeUTC||g.gameTime,competitions:[{competitors:[comp(away,'away'),comp(home,'home')]}],status:{type:{state:st===3?'post':st===2?'in':'pre',shortDetail:g.gameStatusText||''}}};
+  return {id:String(g.gameId),date:g.gameTimeUTC||g.gameTime,competitions:[{competitors:[comp(away,'away'),comp(home,'home')]}],status:{period:Number(g.period)||0,displayClock:officialGameClock(g.gameClock),type:{state:st===3?'post':st===2?'in':'pre',shortDetail:g.gameStatusText||''}}};
  })};
 }
 function fromArchive(p){return {events:(p.games||[]).map(g=>({id:g.id?.replace(/^espn-nba-/,'')||'',date:g.date,competitions:[{competitors:(g.teams||[]).map(t=>({homeAway:t.home_away,team:{displayName:t.name,abbreviation:t.code},score:t.score}))}],status:{type:{state:g.state==='post'?'post':g.state==='in'?'in':'pre',shortDetail:g.status||'Scheduled'}}}))};}
@@ -158,8 +171,11 @@ async function update(){
   const state=e.status?.type?.state;
   const sides=e.competitions?.[0]?.competitors||[];
   const scores=sides.map(s=>Number(s.score));
+  const total=scores.length===2&&scores.every(Number.isFinite)?scores[0]+scores[1]:0;
+  const clock=String(e.status?.displayClock||'').trim();
+  // Prefer a real clock and period when scoring totals are identical.
   return (state==='post'?1000000:state==='in'?100000:0)+
-    (scores.length===2&&scores.every(Number.isFinite)?scores[0]+scores[1]:0);
+    total*10+(clock&&clock!=='0:00'?6:0)+(Number(e.status?.period)>0?2:0);
  };
  for(const result of fetched){
   if(!result)continue;
