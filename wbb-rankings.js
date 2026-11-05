@@ -7,12 +7,34 @@ const types={retro:'Women’s RETRO Rankings',net:'Women’s NCAA NET Rankings',
 const kind=types[poll]?poll:'retro';
 $('#wbbr-title').textContent=types[kind];document.title=types[kind]+' | Sporting Life & Times';
 for(const a of document.querySelectorAll('.wbbr-tabs a'))if(new URL(a.href).searchParams.get('poll')===kind)a.setAttribute('aria-current','page');
+if(kind==='ap'||kind==='coaches'){
+ $('#wbbr-controls').hidden=true;
+ try{
+  await window.MBBLogos.ready;
+  const req=async p=>{const r=await fetch(p,{cache:'no-store'});if(!r.ok)throw Error('Source unavailable');return r.json()};
+  const [published,directory]=await Promise.all([req('data/ncaaw-2026-27-national-polls.json'),req('data/ncaaw-2026-27-teams.json')]);
+  if(published.gender!=='women'||published.season!=='2026-27'||published.polls?.[kind]?.rankings?.length!==25)throw Error('Verified poll unavailable');
+  const pollData=published.polls[kind],teams=directory.teams||[];
+  const norm=x=>String(x||'').toLowerCase().replace(/[^a-z0-9]/g,'');
+  const aliases={'UConn':'Connecticut','USC':'Southern California','Ole Miss':'Mississippi','NC State':'North Carolina State','TCU':'Texas Christian','LSU':'Louisiana State'};
+  $('#wbbr-status').innerHTML=esc(pollData.title)+' · '+esc(published.type)+' · '+esc(published.as_of)+' · <a href="'+esc(pollData.source_url)+'" target="_blank" rel="noopener noreferrer">'+esc(pollData.source)+'</a>';
+  $('#wbbr-list').innerHTML=pollData.rankings.map(item=>{
+   const target=norm(aliases[item.team]||item.team);
+   const school=teams.find(t=>norm(t.team).startsWith(target));
+   const logo=school?window.MBBLogos.byESPN(String(school.team_id),'score',school.team):'<span aria-hidden="true"></span>';
+   const name=school?'<a href="ncaaw-team.html?team='+encodeURIComponent(school.team_id)+'">'+esc(school.team)+'</a>':esc(item.team);
+   return '<article class="wbbr-entry"><strong class="wbbr-number">#'+item.rank+'</strong>'+logo+'<div class="wbbr-identity">'+name+'</div><div class="wbbr-value">TOP 25</div></article>';
+  }).join('');
+ }catch(e){$('#wbbr-status').textContent='Women’s poll unavailable: '+e.message;$('#wbbr-list').innerHTML='';}
+ return;
+}
 if(kind!=='retro'){
  $('#wbbr-controls').hidden=true;
- $('#wbbr-status').textContent='There is no verified, rights-cleared 2026–27 women’s '+(kind==='kenpom'?'Pomeroy':kind.toUpperCase())+' ranking dataset published in this newspaper yet. These systems will not display fabricated RETRO values in place of their own rankings.';
+ $('#wbbr-status').textContent='No current verified 2026–27 women’s '+kind.toUpperCase()+' table is published here. RETRO is never substituted for outside rankings.';
  $('#wbbr-list').innerHTML='<p class="wbbr-note"><a href="?poll=retro">See women’s RETRO ratings →</a></p>';
  return;
 }
+
 try{
  await window.MBBLogos.ready;
  const req=async p=>{const r=await fetch(p,{cache:'no-store'});if(!r.ok)throw Error(p+' unavailable');return r.json()};
