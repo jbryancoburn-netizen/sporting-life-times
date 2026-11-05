@@ -30,6 +30,15 @@ links('.slt-index-panel.slt-narrow:nth-child(2)',[
 links('.slt-index-panel.slt-narrow:nth-child(3)',[
   ['Women’s Team Directory',desk+'#wbb-teams'],['Full Women’s Edition',desk]
 ]);
+// Women's front page is editorial-first: lead stories immediately under the masthead,
+// followed by the directory of newspaper departments. Move the real DOM section,
+// keeping the existing live news renderer and its refresh schedule intact.
+const newsSection=$('.cbb-front-edition');
+const departmentIndex=$('.slt-edition-index');
+if(newsSection&&departmentIndex){
+ newsSection.after(departmentIndex);
+ departmentIndex.setAttribute('aria-label','Explore the women’s basketball newspaper');
+}
 set('.cbb-front-head span:first-child','SPORTING LIFE & TIMES / THE WOMEN’S BASKETBALL WIRE');
 set('#cbb-front-news-heading','The Leading Women’s Stories');
 set('.cbb-front-deck','The most important reporting from the women’s college game, refreshed throughout the day.');
