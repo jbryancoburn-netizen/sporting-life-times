@@ -607,6 +607,7 @@ const ledgerScorebug=g=>{
    poll:pollRankings.get(String(t.id))||null});
  return window.SLTBasketballScorebug?.render({
   phase:g.phase,gender:women?'women':'men',status:g.status||'LIVE',momentum:g.momentum||null,
+  date:g.day,tipoff:formatClock(g),venue:g.venue||'',network:g.broadcast||'',suppressPress:true,
   forecast:(()=>{
     if(g.phase!=='upcoming'||typeof g.probability!=='number'||!Number.isFinite(g.probability)||g.probability<0||g.probability>1)return null;
     const homeFav=g.probability>=0.5,side=homeFav?g.home:g.away;
@@ -638,8 +639,11 @@ function card(original,featured,opened=false){
  const when=g.phase==='upcoming'?'<span class="ledger26-time">'+esc(formatClock(g))+'</span>':'';
  const network=String(g.broadcast||'').trim();
  const venue=network?'<span class="ledger26-network">'+esc(network)+'</span>':g.phase==='upcoming'?'<span class="ledger26-network">TV TBA</span>':g.venue?'<span class="ledger26-venue">'+esc(g.venue)+'</span>':'';
+ // A press launcher outside <summary> does not toggle the gamefile.
+ const press=g.phase==='upcoming'?'<button type="button" class="slt-team-press-btn" data-slt-ledger-press-open data-game-id="'+esc(g.id)+'" data-day="'+esc(g.day)+'" aria-label="Read pregame press for '+esc(g.away.name)+' at '+esc(g.home.name)+'">PREGAME PRESS ›</button>':'';
+ const right=venue||press?'<span class="ledger26-meta-actions" style="display:flex;justify-content:flex-end;align-items:center;gap:7px;flex-wrap:wrap;min-width:0">'+venue+press+'</span>':'';
  return '<article class="sl-game ledger26-card'+(featured?' ledger26-featured':'')+'">'+
-   (when||venue?'<div class="ledger26-meta">'+when+venue+'</div>':'')+
+   (when||right?'<div class="ledger26-meta">'+when+right+'</div>':'')+
    '<details class="sl-game-expansion ledger26-expand" data-game-id="'+esc(g.id)+'" data-day="'+esc(g.day)+'"'+(opened?' open':'')+'>'+
    '<summary class="ledger26-summary" aria-label="Expand '+esc(g.away.name)+' at '+esc(g.home.name)+' game details">'+
    ledgerScorebug(g)+'<span class="ledger26-instruction">OPEN GAME DETAILS <span aria-hidden="true">+</span></span></summary>'+
@@ -696,7 +700,8 @@ async function refreshBroadcasts(day){
 }
 const verifiedBroadcasts=new Map();
 const displayGames=()=>reconcileLive(loaded,liveBoard).map(g=>{
- const broadcaster=verifiedBroadcasts.get(String(g.id))?.network||broadcastByDate.get(g.day)?.get(String(g.id));
+ const official=verifiedBroadcasts.get(String(g.id));
+ const broadcaster=(official?.day===g.day?official.network:'')||broadcastByDate.get(g.day)?.get(String(g.id));
  return !g.broadcast&&broadcaster?{...g,broadcast:broadcaster}:g;
 });
 const render=()=>{
@@ -845,6 +850,18 @@ document.getElementById('sl-filters').addEventListener('click',e=>{const b=e.tar
 document.getElementById('sl-more').addEventListener('click',()=>{limit+=18;render()});
 document.getElementById('sl-reload').addEventListener('click',()=>{void refresh();void refreshBroadcasts(selected);if(selected===today()||(women&&selected<today()))void refreshLive()});
 document.getElementById('sl-games').addEventListener('click',e=>{
+ const button=e.target.closest?.('[data-slt-ledger-press-open]');
+ if(button){
+  e.preventDefault();e.stopPropagation();
+  const game=displayGames().find(g=>String(g.id)===button.dataset.gameId&&g.day===button.dataset.day);
+  if(game&&window.SLTBasketballScorebug?.openPress){
+   window.SLTBasketballScorebug.openPress({
+    phase:'upcoming',gender:women?'women':'men',date:game.day,tipoff:formatClock(game),
+    venue:game.venue||'',network:game.broadcast||'',away:{name:game.away.name},home:{name:game.home.name}
+   });
+  }
+  return;
+ }
  if(e.target.id==='sl-retry')refresh();
 });
 document.getElementById('sl-picker').value=selected;
