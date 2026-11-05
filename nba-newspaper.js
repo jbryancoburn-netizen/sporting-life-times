@@ -120,6 +120,15 @@ function stories(t){
  return feedNotice+(storiesHtml||blank('No attributed NBA articles matched this desk. Previously published reports will appear when the feed is restored.'));
 }
 function rankRows(list){return list.map(t=>'<div class="rank-row"><span class="rank">'+rank(t)+'</span>'+team(t)+'<span class="rank-score">'+fmt(rates[t],1)+'<small>'+rec(t)+' · '+esc(meta[t][1])+'</small></span></div>').join('')}
+function divisionDeskRows(list){
+ return list.map(t=>'<div class="nba-division-desk-row"><span class="nba-division-desk-seed">'+rank(t)+'</span><div class="nba-division-desk-team">'+standingTeam(t)+'</div><div class="nba-division-desk-figures"><strong class="nba-division-desk-record">'+rec(t)+'</strong><small class="nba-division-desk-rating">RETRO '+fmt(rates[t],0)+'</small></div></div>').join('');
+}
+function divisionRegisterRows(list){
+ return '<div class="nba-division-ledger"><div class="nba-division-ledger-head"><span>Club</span><span>Record</span><span>PCT</span><span>RETRO</span></div>'+
+ list.map(t=>{const r=records[t],pct=r.w+r.l?r.w/(r.w+r.l):0;
+  return '<div class="nba-division-ledger-row"><div class="nba-division-ledger-club">'+standingTeam(t)+'</div><span class="nba-division-ledger-record">'+r.w+'–'+r.l+'</span><span class="nba-division-ledger-pct">'+fmt(pct,3)+'</span><span class="nba-division-ledger-rating">'+fmt(rates[t],0)+'</span></div>';
+ }).join('')+'</div>';
+}
 const leaderCategories=[['ppg','Points','PTS/G'],['rpg','Rebounds','REB/G'],['apg','Assists','AST/G'],['spg','Steals','STL/G'],['bpg','Blocks','BLK/G']];
 let leaderCategory='ppg';
 function leaders(stat=leaderCategory,count=5){
@@ -157,7 +166,7 @@ function standingRows(list){return list.map((t,i)=>{let r=records[t],pct=r.w+r.l
 const standingHeads=[['#','num'],['Club'],['W','num'],['L','num'],['PCT','num'],['Elo #','num'],['RETRO Elo','num'],['Daily Δ','num']];
 function standings(){
  const blocs=['East','West'].map(conf=>'<section class="panel"><div class="eyebrow">Conference Table · 2026–27</div>'+section('Official divisions · independent ledger',conf+'ern Conference','nba-conference.html?conference='+conf,'Full conference →')+table(standingHeads,standingRows(stand(conf)))+'</section>').join('');
- const divisions=['Atlantic','Central','Southeast','Northwest','Pacific','Southwest'].map(d=>{const clubs=codes.filter(t=>meta[t][2]===d).sort((a,b)=>stand(meta[a][1]).indexOf(a)-stand(meta[b][1]).indexOf(b));return '<section class="panel nba-division-paper">'+section('Division register',d)+table([['Club'],['W','num'],['L','num'],['PCT','num'],['RETRO','num']],clubs.map(t=>'<tr><td>'+standingTeam(t)+'</td><td class="num">'+records[t].w+'</td><td class="num">'+records[t].l+'</td><td class="num">'+fmt(records[t].w+records[t].l?records[t].w/(records[t].w+records[t].l):0,3)+'</td><td class="num">'+fmt(rates[t],0)+'</td></tr>'))+'</section>';}).join('');
+ const divisions=['Atlantic','Central','Southeast','Northwest','Pacific','Southwest'].map(d=>{const clubs=codes.filter(t=>meta[t][2]===d).sort((a,b)=>stand(meta[a][1]).indexOf(a)-stand(meta[b][1]).indexOf(b));return '<section class="panel nba-division-paper">'+section('Division register',d)+divisionRegisterRows(clubs)+'</section>';}).join('');
  return '<div class="eyebrow">The NBA · National standings register</div><h1>THE LEAGUE TABLE</h1><p class="nba-note">Records use verified final games; ties are ordered by independent RETRO rather than official NBA tiebreakers.</p><div class="nba-standings-conferences">'+blocs+'</div><h2 class="nba-section-band">The Six Divisions</h2><div class="nba-division-grid">'+divisions+'</div>';
 }
 function powerLog(t){
@@ -339,7 +348,7 @@ function teamDesk(){
 function conference(){
  const params=new URLSearchParams(location.search);const c=params.get('conference')==='West'?'West':'East';const all=stand(c);
  const divs=[...new Set(all.map(t=>meta[t][2]))];
- return '<div class="eyebrow">2026–27 · NBA Conference Desk</div><h1>'+c.toUpperCase()+'ERN CONFERENCE</h1><p class="nba-note">Every club’s record, Elo power position, division race and path into the projected top ten. Ties are ordered here by Elo, not official NBA tiebreakers.</p><nav class="nba-conference-switch" aria-label="Switch conference">'+['East','West'].map(x=>'<a class="nba-conference-tab'+(x===c?' is-current':'')+'"'+(x===c?' aria-current="page"':'')+' href="nba-conference.html?conference='+x+'">'+x+'ern Conference →</a>').join('')+'</nav><section class="panel">'+section('Conference Standings','The '+c+' · All 15')+table(standingHeads,standingRows(all))+'</section><h2>Division Desks</h2><div class="nba-mini-grid">'+divs.map(d=>'<div class="nba-division-card"><h3>'+esc(d)+'</h3>'+rankRows(all.filter(t=>meta[t][2]===d))+'</div>').join('')+'</div><section class="panel teal">'+section('Postseason Outlook','Current Top Ten','nba-playoffs.html','Playoff projections →')+rankRows(all.slice(0,10))+'</section>'+directory();}
+ return '<div class="eyebrow">2026–27 · NBA Conference Desk</div><h1>'+c.toUpperCase()+'ERN CONFERENCE</h1><p class="nba-note">Every club’s record, Elo power position, division race and path into the projected top ten. Ties are ordered here by Elo, not official NBA tiebreakers.</p><nav class="nba-conference-switch" aria-label="Switch conference">'+['East','West'].map(x=>'<a class="nba-conference-tab'+(x===c?' is-current':'')+'"'+(x===c?' aria-current="page"':'')+' href="nba-conference.html?conference='+x+'">'+x+'ern Conference →</a>').join('')+'</nav><section class="panel">'+section('Conference Standings','The '+c+' · All 15')+table(standingHeads,standingRows(all))+'</section><h2>Division Desks</h2><div class="nba-mini-grid">'+divs.map(d=>'<div class="nba-division-card nba-division-desk"><h3>'+esc(d)+'</h3>'+divisionDeskRows(all.filter(t=>meta[t][2]===d))+'</div>').join('')+'</div><section class="panel teal">'+section('Postseason Outlook','Current Top Ten','nba-playoffs.html','Playoff projections →')+rankRows(all.slice(0,10))+'</section>'+directory();}
 const page=document.body.dataset.page;
 function render(){stamp();const app=$('#app');if(!app)return;
  let html=page==='home'?home():page==='standings'?standings():page==='rankings'?rankings():page==='playoffs'?playoff():page==='players'?players():page==='matchups'?matchups():page==='team'?teamDesk():page==='conference'?conference():home();
