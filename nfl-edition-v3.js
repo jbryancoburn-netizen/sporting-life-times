@@ -795,7 +795,7 @@ async function news(){
 const target=document.getElementById("nfl-stories");if(!target)return;
 try{const res=await fetch("articles.json?ts="+Date.now(),{cache:"no-store"});if(!res.ok)throw Error();
 const obj=await res.json(),items=Array.isArray(obj)?obj:(obj.articles||[]);
-const relevant=items.filter(p=>/(\bnfl\b|national football league|super bowl|gridiron)/i.test([p.title,p.summary,p.category].join(" "))).slice(0,7);
+const seen=new Set();const relevant=items.filter(p=>{const text=[p.title,p.summary,p.category].join(" ");const url=String(p.url||"");if(!/^https:\/\//i.test(url)||!p.title||!/\b(nfl|national football league|super bowl|gridiron)\b/i.test(text))return false;if(/\b(college football|fbs|ncaa football)\b/i.test(text)&&!/\b(nfl|national football league|super bowl)\b/i.test(text))return false;if(seen.has(url))return false;seen.add(url);return true}).sort((a,b)=>(Date.parse(b.published_at)||0)-(Date.parse(a.published_at)||0)).slice(0,9);
 target.innerHTML=relevant.length?'<div class="nfl-news">'+relevant.map(a=>'<article class="nfl-story"><a target="_blank" rel="noopener noreferrer" href="'+escapeHtml(a.url||"#")+'">'+escapeHtml(a.title)+'</a><p>'+escapeHtml(a.source||"Source")+' · '+escapeHtml(a.published_at||"")+'</p></article>').join("")+'</div>':note("No sourced NFL headlines in the current site feed.");}
 catch(e){target.innerHTML=note("Headline feed unavailable; game scores and model data remain independent.");}
 }
