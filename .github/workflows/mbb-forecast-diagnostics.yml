@@ -14,12 +14,14 @@ jobs:
         with:
           python-version: '3.12'
       - run: python3 scripts/audit_mbb_forecast.py
+      - name: Compare early-season separation without future-game leakage
+        run: python3 scripts/validate_mbb_rating_separation.py
       - name: Save updated diagnostics
         run: |
-          if ! git diff --quiet -- data/ncaam-forecast-diagnostics.json; then
+          if ! git diff --quiet -- data/ncaam-forecast-diagnostics.json data/ncaam-forecast-early-season-validation.json; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add data/ncaam-forecast-diagnostics.json
+            git add data/ncaam-forecast-diagnostics.json data/ncaam-forecast-early-season-validation.json
             git commit -m "Refresh MBB forecast diagnostic report"
             git push
           fi
