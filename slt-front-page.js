@@ -60,6 +60,9 @@ function init(){
  }
  function positionNative(){
   const current=pickFirst();if(!current)return false;
+  // Avoid an observer loop: rebuilding links mutates the DOM and would
+  // otherwise trigger the same observer indefinitely.
+  if(current===news&&directory?.previousElementSibling===news)return true;
   if(current!==news){news=current;news.classList.add('slt-front-news');}
   if(kind!=='nba'&&kind!=='nfl'&&news.dataset.sltFrontMoved!=='yes'){
    news.dataset.sltFrontMoved='yes';placement(news);
