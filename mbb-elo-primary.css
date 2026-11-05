@@ -75,3 +75,8 @@
 .cbb-elo-power .cbb-elo-power-name{font-size:14px}.cbb-elo-power>b{font-size:16px}
 .cbb-elo-scroller{overflow-x:hidden}
 }
+
+/* Actual square badges within the national register's place column */
+.cbb-elo-table td.cbb-elo-rank{background:#f8efdf;color:#553d29}
+.cbb-elo-table td.cbb-elo-rank .victorian-number{display:inline-grid;place-items:center;min-width:34px;min-height:34px;padding:3px 4px;background:#713d2b;border:3px double #efdfc4;outline:1px solid #71402e;color:#fff4dd;font:700 14px/1 Georgia,serif;white-space:nowrap}
+@media(max-width:650px){.cbb-elo-table td.cbb-elo-rank .victorian-number{min-width:26px;min-height:28px;font-size:11px;padding:2px}}
