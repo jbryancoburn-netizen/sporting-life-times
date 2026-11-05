@@ -42,16 +42,6 @@ if(newsSection&&departmentIndex){
 set('.cbb-front-head span:first-child','SPORTING LIFE & TIMES / THE WOMEN’S BASKETBALL WIRE');
 set('#cbb-front-news-heading','The Leading Women’s Stories');
 set('.cbb-front-deck','The most important reporting from the women’s college game, refreshed throughout the day.');
-const nav=$('nav.cbb-universal-nav');
-if(nav){nav.replaceChildren();
-for(const [name,url] of [
- ['The Front Page','ncaam.html?gender=women'],
- ['Games & Schedule','ncaam-slate.html?gender=women'],
- ['Conferences',desk+'#wbb-standings'],
- ['Women’s Ratings','ncaaw-rankings.html?poll=retro'],
- ['Latest Stories','#cbb-front-news'],
- ['Team Directory',desk+'#wbb-teams'],
- ['All Sports','sports.html']]){
- const a=document.createElement('a');a.href=url;a.textContent=name;if(name==='The Front Page')a.setAttribute('aria-current','page');nav.append(a);
-}}
+// Navigation belongs exclusively to cbb-shared-navigation.js.
+// Do not replace the shared nav: that destroyed the edition toggle on women's pages.
 })();
