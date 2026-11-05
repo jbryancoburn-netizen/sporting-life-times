@@ -165,7 +165,8 @@
     if(!a||!h||!state.ratingsReady)return null;
     const base={away:a,home:h,available:!state.preseason,asOf:state.modelDate};
     // A 1500 clean slate is a tie, not a preseason rating-derived favorite.
-    if(state.preseason)return {...base,available:false,reason:'Both schools start at 1500 Elo'};
+    if(state.preseason&&women)return {...base,available:false,reason:'Both schools start at 1500 Elo'};
+    // Men's 1500-versus-1500 remains an explicit 50/50 RETRO forecast.
     if(women)return base; // Women's independently calibrated forecast probabilities are not yet published.
     // Men's Game Center uses current published RETRO ratings, never a stale
     // separately calculated fixture-feed probability. Neutral court is explicit.
