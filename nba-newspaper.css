@@ -553,58 +553,142 @@ body.nba-newspaper[data-page="players"] #nba-player-search{
  background:#faf4e8;border:1px solid #9a8364;border-radius:0;
  font:13px Georgia,serif;color:#34291f;
 }
-body.nba-newspaper[data-page="players"] #nba-player-results{max-width:100%;overflow:visible;min-width:0}
-body.nba-newspaper[data-page="players"] .nba-player-notebook{width:100%;max-width:100%;overflow:visible;border-top:3px double #67523b;border-bottom:3px double #67523b}
-body.nba-newspaper[data-page="players"] .nba-player-ledger{
- width:100%;border-collapse:collapse;table-layout:auto;
- font:12px/1.3 Georgia,serif;color:#342c24;font-variant-numeric:tabular-nums;
+/* The Player Register is a genuine compact two-line ledger, not a table
+   reassembled into repeated Player/Club/GP cards. Its team mark is prominent. */
+body.nba-newspaper[data-page="players"] #nba-player-results{
+ width:100%;max-width:100%;min-width:0;overflow:visible;
 }
-body.nba-newspaper[data-page="players"] .nba-player-ledger th{
- font:700 11px Georgia,serif;text-transform:uppercase;
- padding:9px 7px;background:#e7dcc9;border-bottom:1px solid #a69276;
+body.nba-newspaper[data-page="players"] .nba-player-notebook{
+ width:100%;max-width:100%;min-width:0;border-top:4px double #5e4a35;
+ border-bottom:4px double #5e4a35;
 }
-body.nba-newspaper[data-page="players"] .nba-player-ledger th:nth-child(n+3){text-align:right}
-body.nba-newspaper[data-page="players"] .nba-player-ledger td{
- padding:8px 7px;border-bottom:1px solid #cfc2ab;
+body.nba-newspaper[data-page="players"] .nba-register-row{
+ display:block;box-sizing:border-box;min-width:0;padding:11px 10px 10px;
+ border-bottom:1px solid #c7b49a;background:transparent;
 }
-body.nba-newspaper[data-page="players"] .nba-player-ledger td:nth-child(n+3){text-align:right}
-body.nba-newspaper[data-page="players"] .nba-player-ledger tbody tr:nth-child(even){background:#f2eadc}
-body.nba-newspaper[data-page="players"] .nba-player-ledger-name{font-weight:700}
-body.nba-newspaper[data-page="players"] .nba-player-ledger td::before{display:none}
+body.nba-newspaper[data-page="players"] .nba-register-row:last-child{border-bottom:0}
+body.nba-newspaper[data-page="players"] .nba-register-row:hover{background:#efe5d5}
+body.nba-newspaper[data-page="players"] .nba-register-heading{
+ display:grid;grid-template-columns:27px 60px minmax(0,1fr) 91px;
+ gap:11px;align-items:center;min-width:0;
+}
+body.nba-newspaper[data-page="players"] .nba-register-order{
+ align-self:center;text-align:center;color:#947b60;
+ font:700 17px/1 Georgia,serif;font-variant-numeric:tabular-nums;
+}
+body.nba-newspaper[data-page="players"] .nba-register-logo{
+ box-sizing:border-box;display:flex;align-items:center;justify-content:center;
+ width:60px;height:60px;min-width:0;max-width:100%;
+ flex:0 0 auto;text-decoration:none;
+}
+body.nba-newspaper[data-page="players"] .nba-register-logo>img.nba-team-logo{
+ display:block;box-sizing:border-box;flex:none;
+ width:54px;height:54px;min-width:54px;max-width:54px;
+ min-height:54px;max-height:54px;
+ aspect-ratio:1/1;object-fit:contain;object-position:center;
+ border-radius:50%;background:#fffdf8;margin:0;
+}
+body.nba-newspaper[data-page="players"] .nba-register-logo>img[hidden]{display:none}
+body.nba-newspaper[data-page="players"] .nba-register-person{min-width:0}
+body.nba-newspaper[data-page="players"] .nba-register-person strong{
+ display:block;color:#33271c;font:700 clamp(17px,2vw,23px)/1.13 Georgia,serif;
+ white-space:normal;overflow-wrap:break-word;letter-spacing:-.012em;
+}
+body.nba-newspaper[data-page="players"] .nba-register-person span{
+ display:block;margin-top:4px;color:#765f4a;font:12px/1.2 Georgia,serif;
+ white-space:normal;overflow-wrap:break-word;
+}
+body.nba-newspaper[data-page="players"] .nba-register-ppg{
+ box-sizing:border-box;display:flex;flex-direction:column;
+ align-items:flex-end;justify-content:center;gap:3px;text-align:right;
+ white-space:nowrap;min-width:0;
+}
+body.nba-newspaper[data-page="players"] .nba-register-ppg b{
+ color:#453025;font:700 clamp(23px,2.5vw,30px)/1 Georgia,serif;
+ font-variant-numeric:tabular-nums;letter-spacing:-.015em;
+}
+body.nba-newspaper[data-page="players"] .nba-register-ppg small{
+ color:#8b4c3e;font:700 10px/1 Georgia,serif;
+ letter-spacing:.035em;
+}
+body.nba-newspaper[data-page="players"] .nba-register-stats{
+ display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;
+ min-width:0;margin:7px 0 0 109px;padding-top:7px;
+ border-top:1px dotted #c1ae94;
+}
+body.nba-newspaper[data-page="players"] .nba-register-stat{
+ display:flex;flex-direction:column;align-items:flex-start;justify-content:center;
+ gap:3px;padding:0 6px;min-width:0;border-right:1px solid #d8cbb7;
+ font-variant-numeric:tabular-nums;
+}
+body.nba-newspaper[data-page="players"] .nba-register-stat:first-child{padding-left:0}
+body.nba-newspaper[data-page="players"] .nba-register-stat:last-child{border-right:0}
+body.nba-newspaper[data-page="players"] .nba-register-stat small{
+ display:block;white-space:nowrap;color:#81654d;
+ font:700 10px/1.2 Georgia,serif;
+}
+body.nba-newspaper[data-page="players"] .nba-register-stat b{
+ display:block;color:#3d3226;font:700 17px/1.15 Georgia,serif;
+}
+body.nba-newspaper[data-page="players"] .nba-player-register-empty{
+ padding:24px 12px;font:14px Georgia,serif;color:#6f5b47;
+ border-top:3px double #594936;border-bottom:3px double #594936;
+}
 body.nba-newspaper[data-page="players"] .depth-star-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-@media(max-width:880px){body.nba-newspaper[data-page="players"] .depth-star-grid{grid-template-columns:1fr}}
+@media(max-width:880px){
+ body.nba-newspaper[data-page="players"] .depth-star-grid{grid-template-columns:1fr}
+}
 @media(max-width:660px){
  body.nba-newspaper[data-page="players"] .nba-player-census>div{padding:10px 7px}
  body.nba-newspaper[data-page="players"] .nba-player-census b{font-size:25px}
  body.nba-newspaper[data-page="players"] .nba-player-census span{font-size:9px}
- body.nba-newspaper[data-page="players"] .nba-player-reference .nba-filters{display:flex;flex-direction:column;align-items:stretch}
+ body.nba-newspaper[data-page="players"] .nba-player-reference .nba-filters{
+  display:flex;flex-direction:column;align-items:stretch;
+ }
  body.nba-newspaper[data-page="players"] #nba-player-search{width:100%;max-width:none}
- body.nba-newspaper[data-page="players"] .nba-player-ledger,.nba-newspaper[data-page="players"] .nba-player-ledger tbody{display:block;width:100%}
- body.nba-newspaper[data-page="players"] .nba-player-ledger thead{display:none}
- body.nba-newspaper[data-page="players"] .nba-player-ledger tbody tr{
-  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
-  padding:7px 9px;gap:0;min-width:0;border-bottom:1px solid #c2b199;
+ body.nba-newspaper[data-page="players"] .nba-register-row{padding:9px 4px 8px}
+ body.nba-newspaper[data-page="players"] .nba-register-heading{
+  grid-template-columns:23px 57px minmax(0,1fr) 67px;gap:7px;
  }
- body.nba-newspaper[data-page="players"] .nba-player-ledger td{
-  display:flex;flex-direction:column;align-items:flex-start;gap:3px;
-  border:0;min-width:0;padding:6px 4px;text-align:left!important;
-  font-size:13px;
+ body.nba-newspaper[data-page="players"] .nba-register-order{font-size:14px}
+ body.nba-newspaper[data-page="players"] .nba-register-logo{
+  width:57px;height:57px;
  }
- body.nba-newspaper[data-page="players"] .nba-player-ledger td::before{
-  display:block;content:attr(data-stat);font:700 9px/1.2 Georgia,serif;color:#82624f;letter-spacing:.035em;
+ body.nba-newspaper[data-page="players"] .nba-register-logo>img.nba-team-logo{
+  width:53px;height:53px;min-width:53px;max-width:53px;
+  min-height:53px;max-height:53px;
  }
- body.nba-newspaper[data-page="players"] .nba-player-ledger td:nth-child(1),
- body.nba-newspaper[data-page="players"] .nba-player-ledger td:nth-child(2){
-  grid-column:1/-1;flex-direction:row;align-items:center;gap:10px;
+ body.nba-newspaper[data-page="players"] .nba-register-person strong{font-size:17px;line-height:1.13}
+ body.nba-newspaper[data-page="players"] .nba-register-person span{font-size:11px}
+ body.nba-newspaper[data-page="players"] .nba-register-ppg b{font-size:24px}
+ body.nba-newspaper[data-page="players"] .nba-register-ppg small{font-size:9px}
+ body.nba-newspaper[data-page="players"] .nba-register-stats{
+  margin-left:30px;margin-top:7px;padding-top:8px;
  }
- body.nba-newspaper[data-page="players"] .nba-player-ledger td:nth-child(1){font-size:16px;padding-bottom:3px}
- body.nba-newspaper[data-page="players"] .nba-player-ledger td:nth-child(2){padding-top:1px;padding-bottom:9px;border-bottom:1px dotted #b2a28e}
- body.nba-newspaper[data-page="players"] .nba-player-ledger td:nth-child(1)::before,
- body.nba-newspaper[data-page="players"] .nba-player-ledger td:nth-child(2)::before{min-width:37px}
- body.nba-newspaper[data-page="players"] .nba-player-ledger td:nth-child(n+3){font-weight:700}
+ body.nba-newspaper[data-page="players"] .nba-register-stat{
+  padding:0 5px;gap:3px;
+ }
+ body.nba-newspaper[data-page="players"] .nba-register-stat small{font-size:9px}
+ body.nba-newspaper[data-page="players"] .nba-register-stat b{font-size:16px}
  body.nba-newspaper[data-page="players"] .nba-player-top-ten{font-size:11px}
  body.nba-newspaper[data-page="players"] .nba-player-top-ten td:nth-child(2){width:65px}
  body.nba-newspaper[data-page="players"] .nba-player-top-ten td{padding:7px 3px}
+}
+@media(max-width:370px){
+ body.nba-newspaper[data-page="players"] .nba-register-heading{
+  grid-template-columns:20px 50px minmax(0,1fr) 60px;gap:5px;
+ }
+ body.nba-newspaper[data-page="players"] .nba-register-logo{width:50px;height:50px}
+ body.nba-newspaper[data-page="players"] .nba-register-logo>img.nba-team-logo{
+  width:47px;height:47px;min-width:47px;max-width:47px;
+  min-height:47px;max-height:47px;
+ }
+ body.nba-newspaper[data-page="players"] .nba-register-person strong{font-size:15px}
+ body.nba-newspaper[data-page="players"] .nba-register-ppg b{font-size:22px}
+ body.nba-newspaper[data-page="players"] .nba-register-stats{margin-left:24px}
+ body.nba-newspaper[data-page="players"] .nba-register-stat{padding:0 3px}
+ body.nba-newspaper[data-page="players"] .nba-register-stat small{font-size:8px}
+ body.nba-newspaper[data-page="players"] .nba-register-stat b{font-size:14px}
 }
 
 /* Front-page player leaders have dedicated compact team marks. */
