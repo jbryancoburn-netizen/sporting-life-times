@@ -17,7 +17,7 @@ function renderTable(){
  const q=filter.trim().toLowerCase();
  const teams=ranked().filter(t=>(!q||[t.team,t.conference].join(' ').toLowerCase().includes(q))&&(!conference||t.conference===conference));
  $('cbb-count').textContent=teams.length+' of 365 programs';
- $('cbb-elo-body').innerHTML=teams.map(t=>'<tr><td class="cbb-elo-rank">'+rankTag(t)+'</td><td><a class="cbb-elo-school" href="'+link(t)+'">'+logo(t)+'<span>'+esc(t.team)+'</span></a></td><td>'+esc(t.conference||'—')+'</td><td class="num">'+(t.wins??0)+'–'+(t.losses??0)+'</td><td class="num"><b>'+format(t.elo)+'</b></td><td class="num">'+delta(t)+'</td><td class="num">'+(t.games_played??0)+'</td></tr>').join('');
+ $('cbb-elo-body').innerHTML=teams.map(t=>'<tr><td class="cbb-elo-rank"><span class="victorian-number">'+rankTag(t)+'</span></td><td><a class="cbb-elo-school" href="'+link(t)+'">'+logo(t)+'<span>'+esc(t.team)+'</span></a></td><td>'+esc(t.conference||'—')+'</td><td class="num">'+(t.wins??0)+'–'+(t.losses??0)+'</td><td class="num"><b>'+format(t.elo)+'</b></td><td class="num">'+delta(t)+'</td><td class="num">'+(t.games_played??0)+'</td></tr>').join('');
  if(!teams.length)$('cbb-elo-body').innerHTML='<tr><td colspan="7">No programs match those filters.</td></tr>';
 }
 function renderMatchup(){
