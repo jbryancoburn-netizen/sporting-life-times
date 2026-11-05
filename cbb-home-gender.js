@@ -25,7 +25,7 @@ links('.slt-index-panel.slt-wide',[
   ['Games & Results','ncaam-slate.html?gender=women'],['Live Gamefile','cbb-game-center.html?gender=women']
 ]);
 links('.slt-index-panel.slt-narrow:nth-child(2)',[
-  ['Women’s Ratings',desk+'#wbb-rankings'],['Conference Desk',desk+'#wbb-standings']
+  ['Women’s Ratings','ncaaw-rankings.html?poll=retro'],['Conference Desk',desk+'#wbb-standings']
 ]);
 links('.slt-index-panel.slt-narrow:nth-child(3)',[
   ['Women’s Team Directory',desk+'#wbb-teams'],['Full Women’s Edition',desk]
@@ -39,7 +39,7 @@ for(const [name,url] of [
  ['The Front Page','ncaam.html?gender=women'],
  ['Games & Schedule','ncaam-slate.html?gender=women'],
  ['Conferences',desk+'#wbb-standings'],
- ['Women’s Ratings',desk+'#wbb-rankings'],
+ ['Women’s Ratings','ncaaw-rankings.html?poll=retro'],
  ['Latest Stories','#cbb-front-news'],
  ['Team Directory',desk+'#wbb-teams'],
  ['All Sports','sports.html']]){
