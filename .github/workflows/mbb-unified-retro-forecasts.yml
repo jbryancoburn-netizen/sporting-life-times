@@ -1,0 +1,34 @@
+name: Unified MBB RETRO forecasts
+on:
+  schedule:
+    - cron: '11,41 * * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'data/ncaam-2026-27-retro-primary.json'
+      - 'data/ncaam-score-calibration.json'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: mbb-unified-retro-forecast
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build one forecast per MBB matchup
+        run: python3 scripts/rebuild_mbb_unified_forecasts.py
+      - name: Publish only changed forecasts
+        run: |
+          if ! git diff --quiet -- data/ncaam-2026-27-upcoming-forecasts.json; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add data/ncaam-2026-27-upcoming-forecasts.json
+            git commit -m "Refresh unified RETRO MBB forecasts"
+            git push
+          fi
