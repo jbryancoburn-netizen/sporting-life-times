@@ -75,7 +75,7 @@ function render(payload){
   const scorebug=window.SLTSportsScorebug?.render({phase,away:side(g.away),home:side(g.home),status:final?'FINAL':g.label,tipoff:time+' ET',network:g.network});
   if(!scorebug)return '';
   const pregameSafe=!playing&&!final&&Date.parse(g.date)>Date.now()+600000;
-  return '<details class="ledger26-card nba-expand-game" data-nba-game="'+esc(g.id)+'"'+(previouslyOpen.has(String(g.id))?' open':'')+'><summary class="nba-expand-trigger">'+scorebug+'</summary><div class="nba-expand-content">'+(pregameSafe?projected(g):'<p class="nba-live-expand-note">'+(playing?'Live game in progress':final?'Final score':'Pregame details')+'</p>')+'<a class="nba-live-game-link" href="nba-live-game.html?game='+encodeURIComponent(g.id)+'">OPEN GAME CENTER ↗</a></div></details>';
+  return '<details class="ledger26-card ledger26-expand nba-expand-game" data-nba-game="'+esc(g.id)+'"'+(previouslyOpen.has(String(g.id))?' open':'')+'><summary class="ledger26-summary nba-expand-trigger">'+scorebug+'</summary><div class="nba-expand-content">'+(pregameSafe?projected(g):'<p class="nba-live-expand-note">'+(playing?'Live game in progress':final?'Final score':'Pregame details')+'</p>')+'<a class="nba-live-game-link" href="nba-live-game.html?game='+encodeURIComponent(g.id)+'">OPEN GAME CENTER ↗</a></div></details>';
  }).join('');
 }
 function fromNba(raw){
