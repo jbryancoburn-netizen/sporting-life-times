@@ -50,8 +50,8 @@ body.nba-newspaper:is([data-page="standings"],[data-page="conference"]) a.nba-st
  position:static!important;transform:none!important;opacity:1!important;visibility:visible!important;
 }
 /* Main East/West conference tables: eight columns on desktop. */
-body.nba-newspaper:is([data-page="standings"],[data-page="conference"]) .nba-table:has(td.nba-standings-club-cell) :is(th,td):nth-child(1){width:5%}
-body.nba-newspaper:is([data-page="standings"],[data-page="conference"]) .nba-table:has(td.nba-standings-club-cell) :is(th,td):nth-child(2){width:34%;text-align:left}
+body.nba-newspaper:is([data-page="standings"],[data-page="conference"]) .nba-table:has(td.nba-standings-club-cell) :is(th,td):nth-child(1){width:8%}
+body.nba-newspaper:is([data-page="standings"],[data-page="conference"]) .nba-table:has(td.nba-standings-club-cell) :is(th,td):nth-child(2){width:31%;text-align:left}
 body.nba-newspaper:is([data-page="standings"],[data-page="conference"]) .nba-table:has(td.nba-standings-club-cell) :is(th,td):nth-child(3),
 body.nba-newspaper:is([data-page="standings"],[data-page="conference"]) .nba-table:has(td.nba-standings-club-cell) :is(th,td):nth-child(4){width:7%}
 body.nba-newspaper:is([data-page="standings"],[data-page="conference"]) .nba-table:has(td.nba-standings-club-cell) :is(th,td):nth-child(5){width:10%}
