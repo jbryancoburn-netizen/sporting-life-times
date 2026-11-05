@@ -90,7 +90,14 @@ function render(payload){
  const mapped=events.map(e=>{
   const co=e.competitions?.[0]||{};const cs=co.competitors||[];
   const away=cs.find(c=>c.homeAway==='away'),home=cs.find(c=>c.homeAway==='home');
-  const st=e.status?.type||{},state=st.state||'pre',label=st.shortDetail||st.description||'Scheduled';
+  const st=e.status?.type||{},state=st.state||'pre';
+  // NBA has four regulation quarters. Use the provider's numeric period, not
+  // the shared college scorebug's default first/second-half label parsing.
+  const nbaPeriod=Number(e.status?.period||0);
+  const nbaClock=String(e.status?.displayClock||'').trim();
+  const nbaPeriodLabel=nbaPeriod>=1&&nbaPeriod<=4?'Q'+nbaPeriod:nbaPeriod>4?'OT'+(nbaPeriod>5?' '+(nbaPeriod-4):''):'';
+  const rawLabel=st.shortDetail||st.description||'Scheduled';
+  const label=state==='in'&&nbaPeriodLabel?(nbaClock&&nbaClock!=='0:00'?nbaClock+' ':'')+nbaPeriodLabel:rawLabel;
   if(!away||!home)return null;
   const team=c=>({name:c.team?.displayName||c.team?.name||'',code:canonicalCode(c.team?.abbreviation),score:c.score??'',record:c.records?.find(r=>r.type==='total')?.summary||fallbackRecords[canonicalCode(c.team?.abbreviation)]||''});
   const broadcasts=(co.broadcasts||[]).flatMap(b=>b.names||[]).filter(Boolean);
