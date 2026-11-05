@@ -7,6 +7,11 @@ const json=path=>JSON.parse(fs.readFileSync(path,'utf8'));
 const html=fs.readFileSync('ncaam-slate.html','utf8');
 const css=fs.readFileSync('ncaam-slate.css','utf8');
 const script=fs.readFileSync('ncaam-slate.js','utf8');
+const scorecardCss=fs.readFileSync('cbb-ledger-scorecard.css','utf8');
+assert(!/draftkings|onlyDraftKings|sportsbook|draftKingsByDate/i.test(script+html+scorecardCss), 'sportsbook lines and lookups must not reappear in the ledger');
+assert(script.includes('RETRO PROJECTION')&&script.includes('modelMargin'), 'RETRO margin must remain visible');
+assert(script.includes('data-slt-ledger-press-open')&&script.includes('ledger26-network'), 'press and network must remain in header');
+assert(script.includes('broadcastByDate')&&script.includes('verifiedBroadcasts'), 'verified TV lookup must remain connected');
 for(const id of ['slate-root','sl-prev','sl-next','sl-picker','sl-games','sl-search','sl-filters','sl-more','sl-reload','sl-women','sl-men','sl-count'])
   assert(html.includes('id="'+id+'"'),'missing real control '+id);
 assert(html.includes('ncaam-slate.js')&&html.includes('ncaam-slate.css'));

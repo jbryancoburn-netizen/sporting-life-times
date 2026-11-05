@@ -233,8 +233,8 @@
 /* Keep the press control above the clickable game-summary surface. */
 .ledger26-scorebug{isolation:isolate;overflow:visible!important}.ledger26-preview-link{z-index:30!important;display:block!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important;right:0!important;bottom:0!important}.ledger26-preview-dialog{z-index:2147483647!important}
 
-/* Daily Ledger pregame information: same DraftKings book for every game. */
-.ledger26-meta--pregame{grid-template-columns:max-content minmax(0,1fr) minmax(0,1fr) minmax(105px,auto);gap:9px}
+/* Daily Ledger pregame information: only RETRO forecast, TV and press. */
+.ledger26-meta--pregame{grid-template-columns:max-content minmax(0,1fr) minmax(105px,auto);gap:9px}
 .ledger26-meta--pregame .ledger26-line{display:flex;flex-direction:column;gap:2px;min-width:0;text-align:center;border-left:1px solid #b9a78a;padding-left:8px}
 .ledger26-meta--pregame .ledger26-line small{font:700 8px/1.15 Georgia,serif;letter-spacing:.04em;color:#755137}
 .ledger26-meta--pregame .ledger26-line strong{font:700 11px/1.2 Georgia,serif;color:#302316;overflow-wrap:normal;word-break:normal}
