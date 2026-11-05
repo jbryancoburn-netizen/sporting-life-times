@@ -1,9 +1,9 @@
 
 /* NBA edition: same editorial system as the college basketball paper. */
 :root{--nba:#133b46;--nba2:#da6532}
-body.nba-newspaper{--teal:#047f88;--orange:#d15c31;--team:#1b5867}
+body.nba-newspaper{--teal:#4d5b55;--orange:#79604d;--team:#5a5a50;--nba:#464c48;--nba2:#87735a}
 body.nba-newspaper .nav{gap:clamp(13px,2vw,28px);scrollbar-width:thin}
-body.nba-newspaper .hero{border-radius:3px;background:linear-gradient(115deg,#102b3e,#144c5b 74%,#235d69);margin-top:16px}
+body.nba-newspaper .hero{border-radius:0;background:#e9e2d2;color:#292921;border-top:4px double #38372e;border-bottom:4px double #38372e;margin-top:16px;box-shadow:none}
 body.nba-newspaper .hero-art{grid-template-columns:repeat(4,minmax(0,1fr))}
 body.nba-newspaper .hero-team img{max-width:100%}
 body.nba-newspaper .panel-head{align-items:end}
@@ -66,9 +66,9 @@ body.nba-newspaper .panel-head{align-items:end}
 .nba-newspaper .nba-division-card h3{font-size:24px}
 .nba-newspaper .nba-filters{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:12px 0 20px}
 .nba-newspaper input[type=search],.nba-newspaper select{background:#fff;border:1px solid #adbbbd;padding:11px 12px;border-radius:3px;min-width:200px;max-width:100%}
-.nba-newspaper .nba-projection{background:#12343b;color:white;padding:18px;margin:15px 0}
+.nba-newspaper .nba-projection{background:#e9e2d2;color:#292921;border:1px solid #948b78;padding:18px;margin:15px 0}
 .nba-newspaper .nba-projection h3{font-size:27px}
-.nba-newspaper .nba-projection small{color:#c8d8d9}
+.nba-newspaper .nba-projection small{color:#575147}
 .nba-newspaper .nba-seeds{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
 .nba-newspaper .nba-seed{display:flex;align-items:center;gap:8px;padding:10px 2px;border-bottom:1px solid #becdce40}
 .nba-newspaper .nba-seed .seed{font:27px/1 'Barlow Condensed',sans-serif;width:27px;color:#f4c35d}
@@ -94,7 +94,7 @@ body.nba-newspaper .panel-head{align-items:end}
 .nba-newspaper .nba-section-links a{font-weight:700;font-size:11px;border-bottom:1px solid var(--orange)}
 .nba-newspaper .nba-ticker{font:11px 'DM Sans',sans-serif;display:flex;align-items:center;gap:12px;justify-content:space-between}
 .nba-newspaper .nba-headline-gallery{display:grid;grid-template-columns:1.25fr 1fr;gap:16px}
-.nba-newspaper .nba-static-cover{padding:22px;border-top:5px solid var(--nba2);background:#e5eded}
+.nba-newspaper .nba-static-cover{padding:18px;border-top:3px double #77715f;background:#eee8db}
 .nba-newspaper .nba-static-cover h2{margin-bottom:6px}
 .nba-newspaper .nba-stat-number{font:46px/1 'Barlow Condensed',sans-serif}
 .nba-edition-shell{font-family:'DM Sans',Arial,sans-serif!important;background:#f5f2ea!important;color:#152a30!important;padding:8px 24px 0!important}
@@ -109,7 +109,7 @@ body.nba-newspaper .panel-head{align-items:end}
 @media(max-width:620px){body.nba-newspaper .wrap{padding:0 15px}.nba-newspaper .nba-score-rail{grid-template-columns:repeat(2,minmax(0,1fr))}.nba-newspaper .nba-mini-grid{grid-template-columns:1fr}.nba-newspaper .nba-team-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.nba-newspaper .nba-versus img{width:43px;height:43px}.nba-newspaper .nba-versus b{font-size:18px}.nba-newspaper .nba-team-identity{gap:12px}.nba-newspaper .nba-team-identity h1{font-size:45px}.nba-edition-shell{padding:5px 14px 0!important}}
 
 /* Replace the college-edition hero caption with NBA-specific language. */
-body.nba-newspaper .hero-art::before{content:'NBA USRS · THE POWER FOUR'}
+body.nba-newspaper .hero-art::before{content:'RETRO · FOUR LEADING CLUBS'}
 
 .nba-newspaper .nba-live-match{display:block;background:#fffefa;color:var(--ink);border:1px solid var(--line);border-top:4px solid #14525f;padding:12px;text-decoration:none;min-width:0}
 .nba-newspaper .nba-live-match.playing{border-top-color:#cb5133}
@@ -818,3 +818,22 @@ body.nba-newspaper .nba-live-expand[open] .nba-live-expand-label::after{content:
 body.nba-newspaper .nba-live-expand-body{border-top:1px solid #d2c4a8;padding-top:7px}
 body.nba-newspaper .nba-live-game-link{display:block;text-align:center;margin:9px 0 2px;padding:7px;border:1px solid #b5a98e;font:700 11px Georgia,serif;text-decoration:none;color:#24505b}
 body.nba-newspaper .nba-live-expand-note{font:12px Georgia,serif;color:#675a43;margin:8px 0}
+
+/* The NBA chronicle is an editorial page, not a saturated dashboard. */
+body.nba-newspaper .nba-editorial-lead h1{font-family:Georgia,'Times New Roman',serif;font-weight:700;font-variant:small-caps;letter-spacing:-.025em;line-height:.95;color:#24251f;text-shadow:none}
+body.nba-newspaper .nba-editorial-lead p{color:#47483f;max-width:48ch;font:15px/1.55 Georgia,serif}
+body.nba-newspaper .nba-editorial-lead .eyebrow{color:#5b5547;letter-spacing:.13em}
+body.nba-newspaper .nba-editorial-lead-links{display:flex;flex-wrap:wrap;gap:14px;margin-top:14px}
+body.nba-newspaper .nba-editorial-lead-links a{font:700 12px Georgia,serif;color:#373b35;border-bottom:1px solid #71695a;text-decoration:none}
+body.nba-newspaper .nba-editorial-lead .hero-art{background:transparent}
+body.nba-newspaper .nba-editorial-lead .hero-team{border-left:1px solid #aaa08c;text-align:center;color:#31342e;text-decoration:none;background:transparent;min-width:0}
+body.nba-newspaper .nba-editorial-lead .hero-team strong{color:#31342e}
+body.nba-newspaper .nba-editorial-lead .hero-team small{color:#545347;white-space:normal}
+body.nba-newspaper .panel{background:transparent;border-radius:0;box-shadow:none}
+body.nba-newspaper .panel-head{border-bottom:3px double #6b675a}
+body.nba-newspaper .panel-head h2,body.nba-newspaper .nba-section-band{font-family:Georgia,'Times New Roman',serif;color:#30332e}
+body.nba-newspaper .nba-score-rail .score-card,body.nba-newspaper .nba-live-match{background:#f1ecdf;border-color:#aaa18d;border-top-width:1px;border-radius:0}
+body.nba-newspaper .nba-team-tile,body.nba-newspaper .nba-division-card,body.nba-newspaper .nba-game-card{background:#f4efe4;border-color:#afa592;border-top-width:2px;border-radius:0}
+body.nba-newspaper .nba-story h3,body.nba-newspaper .nba-story.lead h3{font-family:Georgia,'Times New Roman',serif}
+body.nba-newspaper .nba-note,body.nba-newspaper .nba-empty{background:#ebe5d6;border-left-color:#817766}
+@media(max-width:620px){body.nba-newspaper .nba-editorial-lead .hero-art{grid-template-columns:repeat(2,minmax(0,1fr))}body.nba-newspaper .nba-editorial-lead h1{font-size:clamp(38px,10vw,58px)}body.nba-newspaper .nba-editorial-lead .hero-team{padding:8px 3px}}
