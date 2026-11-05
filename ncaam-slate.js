@@ -194,7 +194,7 @@ function liveEvents(raw,day,registry,women=false,womenRankings=[],publishedGames
   // already identifies this exact event and pair of source team IDs.
   const prior=publishedGames.find(g=>String(g.id)===String(event.id)&&g.day===day&&
     String(g.away?.id)===String(away.team?.id)&&String(g.home?.id)===String(home.team?.id));
-  if((!a||!h)&&(!prior||women))return[];
+  if((!a||!h)&&!prior)return[];
   if(a&&h&&String(a.id)===String(h.id))return[];
   const state=event.status?.type?.state,phase=state==='in'?'live':state==='post'?'final':'upcoming';
   const completed=phase==='final'&&event.status?.type?.completed===true;
