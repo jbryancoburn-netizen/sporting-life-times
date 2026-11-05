@@ -21,8 +21,10 @@
   toggle.innerHTML='<span class="cbb-gender-label">COLLEGE BASKETBALL</span>'+
     '<a class="cbb-gender-option'+(!women?' is-active':'')+'" href="'+menURL+'" '+(!women?'aria-current="page"':'')+'>Men</a>'+
     '<a class="cbb-gender-option'+(women?' is-active':'')+'" href="'+womenURL+'" '+(women?'aria-current="page"':'')+'>Women</a>';
-  if(edition)edition.insertAdjacentElement('afterend',toggle);
-  else nav.parentNode.insertBefore(toggle,nav);
+  if(!document.querySelector('.cbb-edition-switch')){
+    if(edition)edition.insertAdjacentElement('afterend',toggle);
+    else nav.parentNode.insertBefore(toggle,nav);
+  }
   if(!women)return;
   document.body.dataset.gender='women';
   document.title='Women’s College Basketball | The Sporting Life & Times';
