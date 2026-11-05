@@ -80,3 +80,18 @@
 .cbb-elo-table td.cbb-elo-rank{background:#f8efdf;color:#553d29}
 .cbb-elo-table td.cbb-elo-rank .victorian-number{display:inline-grid;place-items:center;min-width:34px;min-height:34px;padding:3px 4px;background:#713d2b;border:3px double #efdfc4;outline:1px solid #71402e;color:#fff4dd;font:700 14px/1 Georgia,serif;white-space:nowrap}
 @media(max-width:650px){.cbb-elo-table td.cbb-elo-rank .victorian-number{min-width:26px;min-height:28px;font-size:11px;padding:2px}}
+
+/* Compact PLACE boxes: reserve only the badge's actual width, not a wide empty cell. */
+@media(min-width:651px){
+.cbb-elo-table{table-layout:fixed}
+.cbb-elo-table th:nth-child(1),.cbb-elo-table td:nth-child(1){width:66px;max-width:66px}
+.cbb-elo-table th:nth-child(2){width:35%}
+.cbb-elo-table th:nth-child(3){width:15%}
+.cbb-elo-table th:nth-child(4){width:9%}
+.cbb-elo-table th:nth-child(5){width:12%}
+.cbb-elo-table th:nth-child(6){width:12%}
+.cbb-elo-table th:nth-child(7){width:auto}
+}
+.cbb-elo-table td.cbb-elo-rank{text-align:center;padding:6px 3px}
+.cbb-elo-table td.cbb-elo-rank .victorian-number{min-width:33px;min-height:33px}
+@media(max-width:650px){.cbb-elo-table th:nth-child(1){width:12%}.cbb-elo-table th:nth-child(2){width:38%}.cbb-elo-table td.cbb-elo-rank{padding:5px 1px}}
