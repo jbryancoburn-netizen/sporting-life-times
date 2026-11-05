@@ -12,6 +12,7 @@ const logo=t=>window.MBBLogos.byNCAA(t.team_id,'power',t.team);
 const link=t=>'ncaam-team.html?team='+encodeURIComponent(t.team_id);
 const ranked=()=>retro?.rankings||[];
 const rankTag=t=>retro.games_played?(t.rank?'#'+t.rank:'—'):'T–1';
+const record=t=>(Number.isFinite(Number(t.overall_wins))&&Number.isFinite(Number(t.overall_losses))?t.overall_wins+'–'+t.overall_losses:(t.wins??0)+'–'+(t.losses??0));
 const delta=t=>{if(!retro.games_played)return '<span class="cbb-elo-flat">—</span>';const n=Number(t.daily_change)||0;return '<span class="'+(n>0?'cbb-elo-pos':n<0?'cbb-elo-neg':'cbb-elo-flat')+'">'+(n>0?'▲ +':n<0?'▼ −':'— ')+format(Math.abs(n))+'</span>';};
 function renderTable(){
  const q=filter.trim().toLowerCase();
@@ -42,7 +43,7 @@ function render(){
  $('cbb-elo-fresh').textContent='Source: verified 2026–27 finals · '+(games?'Last verified game '+retro.as_of:'First ratings change after verified regular-season finals')+' · 365 programs';
  const sorted=[...new Set(ranked().map(t=>t.conference).filter(Boolean))].sort();
  $('cbb-conference').innerHTML='<option value="">All conferences</option>'+sorted.map(c=>'<option value="'+esc(c)+'">'+esc(c)+'</option>').join('');$('cbb-conference').value=conference;
- $('cbb-top-ten').innerHTML=games?ranked().slice(0,10).map((t,i)=>'<a href="'+link(t)+'" class="cbb-elo-power"><span class="cbb-elo-rank">#'+(i+1)+'</span>'+logo(t)+'<span class="cbb-elo-power-name"><strong>'+esc(t.team)+'</strong><small>'+esc(t.conference||'')+'</small></span><b>'+format(t.elo)+'</b></a>').join(''):
+ $('cbb-top-ten').innerHTML=games?ranked().slice(0,10).map((t,i)=>'<a href="'+link(t)+'" class="cbb-elo-power"><span class="cbb-elo-rank">#'+(i+1)+'</span>'+logo(t)+'<span class="cbb-elo-power-name"><strong>'+esc(t.team)+'</strong><small>'+esc(t.conference||'')+' · RETRO '+format(t.elo)+'</small></span><b class="cbb-overall-record">'+record(t)+'</b></a>').join(''):
  '<div class="cbb-elo-preseason"><strong>365 schools. 365 fresh starts.</strong><p>Everyone opens the season at exactly 1500. Competitive rankings begin only when completed 2026–27 games have been verified.</p></div>';
  renderTable();setupMatchups();
 }
