@@ -68,7 +68,7 @@
  function exactMention(txt,term){return new RegExp('(^|[^a-z])'+term.replace(/[^a-z0-9 ]/gi,'').replace(/ +/g,'\\s+')+'(?=$|[^a-z])','i').test(txt)}
  async function pressArticles(g){
   const gender=pressGender(g);
-  const paths=gender==='women'?['data/cbb-women-front-news.json','data/cbb-national-news.json','articles.json']:['data/cbb-men-front-news.json','data/cbb-national-news.json','articles.json'];
+  const paths=gender==='women'?['data/cbb-women-front-news.json','data/cbb-national-news.json','data/mbb-live.json','articles.json']:['data/cbb-men-front-news.json','data/cbb-national-news.json','data/mbb-live.json','articles.json'];
   const key=gender;
   let promise=pressCache.get(key);
   if(!promise){
@@ -80,14 +80,14 @@
   const namesA=pressNames(g.away),namesH=pressNames(g.home),now=Date.now(),seen=new Set();
   const matched=articles.flatMap(a=>{
    if(!a.title||!a.url||!a.source)return [];
-   if(gender==='women'&&a.gender==='men'||gender==='men'&&a.gender==='women')return [];
+   if((gender==='women'&&(a.gender==='men'||a.category==='MBB'))||(gender==='men'&&(a.gender==='women'||a.category==='WBB')))return [];
    let url;try{url=new URL(a.url,location.href);if(!/^https?:$/.test(url.protocol))return []}catch{return []}
    const when=Date.parse(a.published_at||'');if(!Number.isFinite(when)||when>now+86400000||now-when>14*86400000)return [];
-   if(/\\b(recap|postgame|post-game|final score|defeats|defeated|beats|beat|highlights|odds|betting|parlay)\\b/i.test(a.title))return [];
-   const content=String(a.title||'')+' '+String(a.summary||'');
+   if(/\b(recap|postgame|post-game|final score|defeats|defeated|beats|beat|highlights|odds|betting|parlay)\b/i.test(a.title))return [];
+   const content=String(a.title||'')+' '+String(a.summary||'')+' '+String(a.school||'');
    const away=namesA.some(x=>exactMention(content,x)),home=namesH.some(x=>exactMention(content,x));
    if(!away&&!home)return [];
-   const pregame=/\\b(preview|pregame|pre-game|matchup|game notes|scouting|versus|vs\\.?|faces|hosts|travels to|set to face|takes on|ahead of)\\b/i.test(content);
+   const pregame=/\b(preview|pregame|pre-game|matchup|game notes|scouting|versus|vs\.?|faces|hosts|travels to|set to face|takes on|ahead of)\b/i.test(content);
    const id=url.href;if(seen.has(id))return [];seen.add(id);
    if(away&&home&&pregame)return [{...a,pressType:'matchup',pressRank:3}];
    if(pregame)return [{...a,pressType:'team',pressRank:2}];
@@ -137,6 +137,7 @@
     if(dialog&&typeof dialog.showModal==='function'){
      // Dialog must be outside expandable scorecard summaries to avoid native summary clipping/toggling.
      document.body.appendChild(dialog);
+     dialog.addEventListener('close',()=>dialog.remove(),{once:true});
      dialog.showModal();loadPress(dialog)
     }
     return;
@@ -166,7 +167,7 @@
   return '<div class="ledger26-scorebug" role="group" aria-label="'+esc(g.ariaLabel||((g.away?.name||'Away')+' at '+(g.home?.name||'Home')+' scoreboard'))+'">'+
     '<span class="ledger26-monogram"><img src="assets/slt-engraved-black.svg" width="35" height="49" alt="Sporting Life and Times monogram"></span>'+
     '<div class="ledger26-teams">'+team(g.away)+team(g.home)+'</div>'+
-    (phase==='live'?livePanel(g,label):phase==='upcoming'?pregamePanel(g):label?'<div class="ledger26-status" data-phase="'+phase+'"><strong>'+esc(label)+'</strong></div>':'')+(phase==='upcoming'?preview(g):'')+'</div>';
+    (phase==='live'?livePanel(g,label):phase==='upcoming'?pregamePanel(g):label?'<div class="ledger26-status" data-phase="'+phase+'"><strong>'+esc(label)+'</strong></div>':'')+(phase==='upcoming'?preview(g).split('<dialog')[0]:'')+'</div>';
  }
  // The Daily Ledger is the universal newspaper model, not a separate sport skin.
  // Keep the old alias for existing college basketball pages.
@@ -176,6 +177,6 @@
   document.body.appendChild(dialog);dialog.addEventListener('close',()=>dialog.remove(),{once:true});
   dialog.showModal();loadPress(dialog);
  }
- root.SLTSportsScorebug={render,formatRetro,openPress,version:'shared-letterpress-v14-robust-dialog'};
+ root.SLTSportsScorebug={render,formatRetro,openPress,version:'shared-letterpress-v15-press-decoupled'};
  root.SLTBasketballScorebug=root.SLTSportsScorebug;
 })(typeof window!=='undefined'?window:globalThis);
