@@ -18,7 +18,7 @@
 .cbb-elo-power .cbb-elo-power-name{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;font:16px/1.2 Georgia,serif}
 .cbb-elo-power .cbb-elo-power-name small{font:11px/1.4 Georgia,serif;color:#73604c}
 .cbb-elo-power>b{font:normal 19px/1 Georgia,serif;color:#3b3026;font-variant-numeric:tabular-nums;white-space:nowrap}
-.cbb-elo-rank{display:inline-grid;place-items:center;min-width:43px;min-height:43px;padding:3px 5px;border:3px double #7b6348;background:#f0e0c5;font:normal 22px/1 Georgia,serif;white-space:nowrap;color:#533a28;text-align:center;font-variant-numeric:lining-nums}
+.cbb-elo-rank{display:inline-grid;place-items:center;min-width:39px;min-height:37px;padding:4px 5px;border:3px double #efdfc4;outline:1px solid #71402e;outline-offset:0;background:#713d2b;color:#fff4dd;font:700 19px/1 Georgia,serif;white-space:nowrap;text-align:center;font-variant-numeric:lining-nums}
 .cbb-elo-crest{display:inline-grid;place-items:center;position:relative;width:43px;height:43px;min-width:43px;aspect-ratio:1;border:0;border-radius:50%;background:transparent;overflow:visible}
 .cbb-elo-crest img{position:static;width:100%;height:100%;aspect-ratio:1;object-fit:contain;z-index:2}
 .cbb-elo-crest i{font:700 11px Georgia,serif;color:#695744;font-style:normal}
@@ -37,7 +37,7 @@
 .cbb-elo-table td{padding:11px 9px;border-top:3px double #9c8667;border-bottom:3px double #9c8667;background:#f8efdf;font:14px/1.35 Georgia,serif;color:#392f25;vertical-align:middle}
 .cbb-elo-table td:first-child{border-left:3px double #9c8667}
 .cbb-elo-table td:last-child{border-right:3px double #9c8667}
-.cbb-elo-table td.cbb-elo-rank{display:table-cell;min-width:0;min-height:0;border-right:1px solid #bfaa8c;border-radius:0;background:#ecdbc0;font:normal 18px/1 Georgia,serif;text-align:center;color:#553d29}
+.cbb-elo-table td.cbb-elo-rank{display:table-cell;min-width:0;min-height:0;border-right:1px solid #bfaa8c;border-radius:0;background:#ecdbc0;font:normal 18px/1 Georgia,serif;text-align:center;color:#553d29}.cbb-elo-table td.cbb-elo-rank .victorian-number{margin:auto}
 .cbb-elo-table tbody tr:hover td{background:#eedfc6}
 .cbb-elo-table tbody tr:nth-child(even){background:transparent}
 .cbb-elo-table tbody tr:hover{background:transparent}
@@ -71,7 +71,7 @@
 .cbb-elo-table th:nth-child(3),.cbb-elo-table td:nth-child(3),.cbb-elo-table th:nth-child(7),.cbb-elo-table td:nth-child(7){display:none}
 .cbb-elo-table th:nth-child(1){width:8%}.cbb-elo-table th:nth-child(2){width:42%}.cbb-elo-table th:nth-child(4){width:16%}.cbb-elo-table th:nth-child(5){width:19%}.cbb-elo-table th:nth-child(6){width:15%}
 .cbb-elo-school{font-size:12px;gap:5px}.cbb-elo-school img{max-width:29px;max-height:29px}
-.cbb-elo-power{gap:8px}.cbb-elo-rank{font-size:19px;min-width:38px;min-height:38px}.cbb-elo-table td.cbb-elo-rank{font-size:13px;min-width:0;min-height:0}
+.cbb-elo-power{gap:8px}.cbb-elo-rank{font-size:16px;min-width:34px;min-height:34px}.cbb-elo-table td.cbb-elo-rank{font-size:13px;min-width:0;min-height:0}
 .cbb-elo-power .cbb-elo-power-name{font-size:14px}.cbb-elo-power>b{font-size:16px}
 .cbb-elo-scroller{overflow-x:hidden}
 }
