@@ -1192,3 +1192,61 @@ body.nba-newspaper[data-page="rankings"] .nba-retro-pct{font-size:19px}
 body.nba-newspaper[data-page="rankings"] .nba-retro-header>span:nth-child(4){text-align:right}
 @media(max-width:720px){body.nba-newspaper[data-page="rankings"] .nba-retro-record,body.nba-newspaper[data-page="rankings"] .nba-retro-pct{font-size:13px}body.nba-newspaper[data-page="rankings"] .nba-retro-pct{font-size:12px}}
 @media(max-width:385px){body.nba-newspaper[data-page="rankings"] .nba-retro-record,body.nba-newspaper[data-page="rankings"] .nba-retro-pct{font-size:12px}}
+
+
+/* 2026-11-05: Victorian RETRO rank medallions and compact boxed rows. */
+body.nba-newspaper[data-page="rankings"] .nba-retro-table{
+  padding:8px;background:#f7f0e3;border:3px double #8b785b;
+}
+body.nba-newspaper[data-page="rankings"] .nba-retro-row:not(.nba-retro-header){
+  margin:0 0 7px;padding:9px 12px;
+  border:1px solid #b4a185;outline:1px solid #e6d8bd;outline-offset:-4px;
+  background:#fbf6eb;min-height:66px;
+}
+body.nba-newspaper[data-page="rankings"] .nba-retro-row:not(.nba-retro-header) .nba-retro-rank{
+  box-sizing:border-box;display:grid;place-items:center;
+  width:33px;height:33px;min-width:33px;min-height:33px;
+  padding:0;margin:0;
+  background:#f4e9d4;color:#5b3927;
+  border:2px double #7d5d45;outline:1px solid #bda98a;outline-offset:2px;
+  border-radius:50%;font:700 15px/1 Georgia,serif;
+  font-variant-numeric:lining-nums;
+}
+body.nba-newspaper[data-page="rankings"] .nba-retro-row:not(.nba-retro-header) .nba-retro-club{
+  min-width:0;gap:10px;
+}
+body.nba-newspaper[data-page="rankings"] .nba-retro-row:not(.nba-retro-header) .nba-retro-club img.nba-retro-logo{
+  width:44px;height:44px;min-width:44px;min-height:44px;
+  max-width:44px;max-height:44px;flex:0 0 44px;
+  border-radius:50%;aspect-ratio:1;object-fit:contain;
+}
+body.nba-newspaper[data-page="rankings"] .nba-retro-row:not(.nba-retro-header) .nba-retro-club strong{
+  font-size:13px;line-height:1.25;
+}
+body.nba-newspaper[data-page="rankings"] .nba-retro-header{
+  margin-bottom:8px;border:0;border-bottom:3px double #8c785e;
+  padding:9px 12px;background:#eae0cc!important;
+}
+@media(max-width:720px){
+ body.nba-newspaper[data-page="rankings"] .nba-retro-table{padding:5px}
+ body.nba-newspaper[data-page="rankings"] .nba-retro-row:not(.nba-retro-header){
+   grid-template-columns:34px minmax(0,1fr) 51px 48px 58px;
+   gap:5px;min-height:61px;padding:7px 6px;
+ }
+ body.nba-newspaper[data-page="rankings"] .nba-retro-row:not(.nba-retro-header) .nba-retro-rank{
+   width:28px;height:28px;min-width:28px;min-height:28px;font-size:12px;
+ }
+ body.nba-newspaper[data-page="rankings"] .nba-retro-row:not(.nba-retro-header) .nba-retro-club{gap:6px}
+ body.nba-newspaper[data-page="rankings"] .nba-retro-row:not(.nba-retro-header) .nba-retro-club img.nba-retro-logo{
+   width:34px;height:34px;min-width:34px;min-height:34px;max-width:34px;max-height:34px;flex-basis:34px;
+ }
+ body.nba-newspaper[data-page="rankings"] .nba-retro-row:not(.nba-retro-header) .nba-retro-club strong{font-size:11px}
+}
+@media(max-width:385px){
+ body.nba-newspaper[data-page="rankings"] .nba-retro-row:not(.nba-retro-header){
+   grid-template-columns:30px minmax(0,1fr) 44px 43px 52px;gap:3px;
+ }
+ body.nba-newspaper[data-page="rankings"] .nba-retro-row:not(.nba-retro-header) .nba-retro-club img.nba-retro-logo{
+   width:30px;height:30px;min-width:30px;min-height:30px;max-width:30px;max-height:30px;flex-basis:30px;
+ }
+}
