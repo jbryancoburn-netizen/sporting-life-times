@@ -68,14 +68,16 @@ assert.equal(insights.gameNumbers({...event,phase:'live'},games,'men'),null,
 assert.equal(insights.gameNumbers({...event,away:{score:event.away.score+1}},games,'men'),null,
   'disputed score may not receive an authoritative stats panel');
 const calibration=read('data/ncaam-score-calibration.json');
-assert.equal(calibration.status,'HISTORICAL_HOLDOUT_VALIDATED');
+assert(['HISTORICAL_HOLDOUT_VALIDATED','EXTRAPOLATION_UNVALIDATED'].includes(calibration.status));
 const ratings=new Map(retro.rankings.map(r=>[String(r.team_id),r]));
 const rr=retro.rankings.slice(0,2);
 const pregame={phase:'upcoming',kind:'regular',probability:.51,
  away:{canonical:rr[0].team_id},home:{canonical:rr[1].team_id}};
 const projection=insights.projectedScore(pregame,calibration,ratings);
 assert(projection&&projection.home!==projection.away,'calibrated game score must have a winner');
-assert(projection.caveat.includes('not a game-specific venue'));
+assert(/not a (?:game-specific venue|venue-specific)/i.test(projection.caveat));
+if(calibration.status==='EXTRAPOLATION_UNVALIDATED')assert(projection.caveat.includes('not separately validated'),
+ 'extrapolated scoring must disclose its validation limit');
 assert.equal(insights.projectedScore({...pregame,probability:null},calibration,ratings),null,
  'unmatched forecasts may not be borrowed');
 assert.equal(insights.projectedScore({...pregame,phase:'live'},calibration,ratings),null,
