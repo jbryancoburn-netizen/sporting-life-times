@@ -151,7 +151,7 @@ function selectGames(all,day,view,query){
   });
 }
 // Independently refresh the real scoreboard between static GitHub publications.
-// Admit only uniquely identified Division I schools from the existing crosswalk.
+// Admit reported games with at least one Division I school, including verified source-ID opponents outside Division I.
 // Use only explicitly published, source-backed stats. Missing values are not inferred from score.
 function momentumFromCompetition(match,away,home){
  const competitors=[away,home];
@@ -193,11 +193,15 @@ function liveEvents(raw,day,registry,women=false,womenRankings=[],publishedGames
   const away=t.find(x=>x.homeAway==='away'),home=t.find(x=>x.homeAway==='home');
   if(!away||!home)return[];
   const a=schools.get(String(away.team?.id)),h=schools.get(String(home.team?.id));
-  // Non-DI opponents are eligible for live scores only when the published ledger
-  // already identifies this exact event and pair of source team IDs.
+  // Keep a D-I anchor, but do not discard its D-II/D-III/NAIA opponents.
+  // Require stable numeric IDs and named teams directly on the source event.
+  // Published entries can supply known opponent names when the source omits them.
   const prior=publishedGames.find(g=>String(g.id)===String(event.id)&&g.day===day&&
     String(g.away?.id)===String(away.team?.id)&&String(g.home?.id)===String(home.team?.id));
-  if((!a||!h)&&!prior)return[];
+  const named=t=>String(t?.team?.displayName||t?.team?.shortDisplayName||t?.team?.name||'').trim();
+  if((!a&&!h&&!prior)||!validId(away.team?.id)||!validId(home.team?.id)||
+     (!a&&!prior?.away?.name&&!named(away))||
+     (!h&&!prior?.home?.name&&!named(home)))return[];
   if(a&&h&&String(a.id)===String(h.id))return[];
   const state=event.status?.type?.state,phase=state==='in'?'live':state==='post'?'final':'upcoming';
   const completed=phase==='final'&&event.status?.type?.completed===true;
@@ -206,8 +210,8 @@ function liveEvents(raw,day,registry,women=false,womenRankings=[],publishedGames
   const hp=score(home.score?.value??home.score?.displayValue??home.score);
   if(phase==='upcoming'||ap===null||hp===null||(phase==='final'&&ap===hp))return[];
   return [{id:String(event.id),day,date:event.date||match.date,phase,
-    away:{id:String(away.team.id),canonical:a?String(a.id):'',name:a?.name||prior.away.name,full:a?.espn_name||prior.away.full,score:ap},
-    home:{id:String(home.team.id),canonical:h?String(h.id):'',name:h?.name||prior.home.name,full:h?.espn_name||prior.home.full,score:hp},
+    away:{id:String(away.team.id),canonical:a?String(a.id):'',name:a?.name||prior?.away?.name||named(away),full:a?.espn_name||prior?.away?.full||named(away),score:ap},
+    home:{id:String(home.team.id),canonical:h?String(h.id):'',name:h?.name||prior?.home?.name||named(home),full:h?.espn_name||prior?.home?.full||named(home),score:hp},
     venue:match.venue?.fullName||'',broadcast:(match.broadcasts||[]).flatMap(x=>x.names||[]).join(' / '),
     status:event.status?.type?.shortDetail||'LIVE',momentum:phase==='live'?momentumFromCompetition(match,away,home):null,completed,neutral,site_verified:siteVerified,timed:true,kind:'regular',
     evidence:'live-scoreboard',source:phase==='final'?'Reported final · verification pending':'Live score reported',probability:null}];
@@ -293,7 +297,7 @@ const root=document.getElementById('slate-root');if(!root)return;
 const url=new URL(location.href),women=url.searchParams.get('gender')==='women';
 let selected=/^\d{4}-\d\d-\d\d$/.test(url.searchParams.get('date')||'')?url.searchParams.get('date'):today();
 let filter=['all','live','final','upcoming','exhibition'].includes(url.searchParams.get('view'))?url.searchParams.get('view'):'all';
-let search='',loaded=[],ratings=new Map(),retroTies=new Map(),retroPublished=null,retroPending=0,lastUpdate='',limit=18,loading=false,sourceError='';
+let search='',loaded=[],ratings=new Map(),retroTies=new Map(),retroPublished=null,retroPending=0,lastUpdate='',limit=Number.POSITIVE_INFINITY,loading=false,sourceError='';
 let pollRankings=new Map(),pollAsOf='';
  // Authentic opponent marks outside the 365-school Division I RETRO registry.
  // ESPN event IDs are used only for logos/colors, never team membership.
@@ -794,30 +798,46 @@ async function refreshLive(){
  try{
   // The published scoreboard includes verified out-of-division opponents that
   // ESPN's Division I group endpoint can omit. Always fetch both independently.
-  const [publishedResult,apiResult]=await Promise.allSettled([
-   fetchJSON('data/mbb-live.json'),fetchJSON(path)
+  const unrestrictedPath='https://site.api.espn.com/apis/site/v2/sports/basketball/'+
+   'womens-college-basketball/scoreboard?limit=1000&dates='+day.replaceAll('-','');
+  const [publishedResult,apiResult,unrestrictedResult]=await Promise.allSettled([
+   fetchJSON('data/mbb-live.json'),fetchJSON(path),
+   women?fetchJSON(unrestrictedPath):Promise.resolve(null)
   ]);
   if(selected!==day)return;
   const published=publishedResult.status==='fulfilled'?publishedResult.value:null;
-  const raw=apiResult.status==='fulfilled'?apiResult.value:null;
+  const grouped=apiResult.status==='fulfilled'?apiResult.value:null;
+  const unrestricted=unrestrictedResult.status==='fulfilled'?unrestrictedResult.value:null;
+  // The women’s D-I group can omit matchups against D-II/D-III/NAIA schools.
+  // Combine source events by ID, with the normal D-I feed taking precedence.
+  const hasEvents=Array.isArray(grouped?.events)||Array.isArray(unrestricted?.events);
+  const raw=hasEvents?{events:[...new Map([
+    ...(unrestricted?.events||[]),...(grouped?.events||[])
+  ].filter(e=>validId(e?.id)).map(e=>[String(e.id),e])).values()]}:null;
   if(!published&&!Array.isArray(raw?.events))throw Error('Both live scoreboard feeds unavailable');
   const publishedLive=!women&&Array.isArray(published?.games)?
    normalizeMen(published,null,cross,outsideMarks).filter(g=>g.day===day&&g.phase!=='upcoming'):[];
   const apiLive=Array.isArray(raw?.events)?
    liveEvents(raw,day,cross,women,retroPublished?.rankings,loaded):[];
   // Reconcile only matching event/team IDs and never regress a score.
-  liveBoard=reconcileLive(publishedLive,apiLive);
+  const fresh=reconcileLive(publishedLive,apiLive);
+  const present=new Set(fresh.map(g=>String(g.id)+'|'+g.day));
+  // A source refresh must not erase a previously observed final during
+  // this visit merely because an endpoint temporarily stopped listing it.
+  const retained=liveBoard.filter(g=>g.day===day&&g.phase==='final'&&
+    !present.has(String(g.id)+'|'+g.day));
+  liveBoard=dedupeFixtures([...fresh,...retained]);
   refreshRETRO();
   liveCheckedAt=Date.now();
   liveCheckError=raw?'':(publishedLive.length?'Live API partial; using published score feed':'Live API unavailable');
  }catch(err){if(selected===day)liveCheckError=String(err?.message||'Current scores unavailable');}
  finally{liveRequest=false;if(selected===day)render()}
 }
-document.getElementById('sl-prev').addEventListener('click',()=>{selected=shift(selected,-1);limit=18;liveBoard=[];liveCheckedAt=0;render();void refreshBroadcasts(selected);if(selected===today()||(women&&selected<today()))void refreshLive()});
-document.getElementById('sl-next').addEventListener('click',()=>{selected=shift(selected,1);limit=18;liveBoard=[];liveCheckedAt=0;render();void refreshBroadcasts(selected);if(selected===today()||(women&&selected<today()))void refreshLive()});
-document.getElementById('sl-picker').addEventListener('change',e=>{if(e.target.value){selected=e.target.value;limit=18;liveBoard=[];liveCheckedAt=0;render();if(selected===today()||(women&&selected<today()))void refreshLive()}});
-document.getElementById('sl-search').addEventListener('input',e=>{search=e.target.value;limit=18;render()});
-document.getElementById('sl-filters').addEventListener('click',e=>{const b=e.target.closest('[data-filter]');if(!b)return;filter=b.dataset.filter;limit=18;render()});
+document.getElementById('sl-prev').addEventListener('click',()=>{selected=shift(selected,-1);limit=Number.POSITIVE_INFINITY;liveBoard=[];liveCheckedAt=0;render();void refreshBroadcasts(selected);if(selected===today()||(women&&selected<today()))void refreshLive()});
+document.getElementById('sl-next').addEventListener('click',()=>{selected=shift(selected,1);limit=Number.POSITIVE_INFINITY;liveBoard=[];liveCheckedAt=0;render();void refreshBroadcasts(selected);if(selected===today()||(women&&selected<today()))void refreshLive()});
+document.getElementById('sl-picker').addEventListener('change',e=>{if(e.target.value){selected=e.target.value;limit=Number.POSITIVE_INFINITY;liveBoard=[];liveCheckedAt=0;render();if(selected===today()||(women&&selected<today()))void refreshLive()}});
+document.getElementById('sl-search').addEventListener('input',e=>{search=e.target.value;limit=Number.POSITIVE_INFINITY;render()});
+document.getElementById('sl-filters').addEventListener('click',e=>{const b=e.target.closest('[data-filter]');if(!b)return;filter=b.dataset.filter;limit=Number.POSITIVE_INFINITY;render()});
 document.getElementById('sl-more').addEventListener('click',()=>{limit+=18;render()});
 document.getElementById('sl-reload').addEventListener('click',()=>{void refresh();void refreshBroadcasts(selected);if(selected===today()||(women&&selected<today()))void refreshLive()});
 document.getElementById('sl-games').addEventListener('click',e=>{
