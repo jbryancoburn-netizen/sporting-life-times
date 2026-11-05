@@ -13,7 +13,7 @@ target = ROOT / "data/ncaam-2026-27-upcoming-forecasts.json"
 forecasts = load("data/ncaam-2026-27-upcoming-forecasts.json")
 elo = {r["team_id"]: float(r["elo"]) for r in ratings["rankings"]}
 slope = float(cal["parameters"]["elo_margin_slope"])
-cap = float(cal["parameters"]["margin_cap"])
+
 home_bonus = float(ratings.get("parameters", {}).get("home_edge", 100))
 for game in forecasts["games"]:
     away = elo.get(game["away_id"])
@@ -29,19 +29,20 @@ for game in forecasts["games"]:
     bonus = home_bonus if verified else 0
     gap = home - away + bonus
     game["home_win_probability"] = round(1 / (1 + 10 ** (-gap / 400)), 6)
-    game["projected_home_margin"] = round(max(-cap, min(cap, gap * slope)), 3)
+    game["projected_home_margin"] = round(gap * slope, 3)
     game["home_court_elo_applied"] = bonus
-    game["forecast_model"] = "retro-central-elo-neutral-until-verified-v1"
+    game["forecast_model"] = "retro-central-elo-uncapped-v2"
     game["ratings_as_of"] = ratings.get("as_of")
     game.setdefault("venue_verification", "unverified")
 forecasts["forecast_method"] = {
-    "version": "retro-central-elo-neutral-until-verified-v1",
+    "version": "retro-central-elo-uncapped-v2",
     "ratings_source": "data/ncaam-2026-27-retro-primary.json",
     "score_calibration_source": "data/ncaam-score-calibration.json",
     "home_elo_bonus_verified_only": home_bonus,
     "unverified_venue_policy": "no home-court adjustment",
     "win_probability_formula": "1/(1+10^(-(home_elo-away_elo+verified_home_bonus)/400))",
-    "projected_home_margin_formula": "clamp((home_elo-away_elo+verified_home_bonus)*elo_margin_slope,-margin_cap,+margin_cap)",
+    "validation_note": "Uncapped tail behavior not yet separately validated; historical capped calibration slope retained.",
+    "projected_home_margin_formula": "(home_elo-away_elo+verified_home_bonus)*elo_margin_slope",
 }
 target.write_text(json.dumps(forecasts, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 print(f"Rebuilt {len(forecasts['games'])} MBB forecasts from RETRO {ratings.get('as_of')}")
