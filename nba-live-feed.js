@@ -8,22 +8,45 @@ const canonicalCode=c=>({NY:'NYK',SA:'SAS',GS:'GSW',NO:'NOP',WSH:'WAS',UTAH:'UTA
 const logo=c=>'assets/nba-logos/'+canonicalCode(c)+'.png';
 let lastOK=0;let fallbackRecords={};
 let eloRatings={},forecastModel=null,completedEvents=[];
+// RETRO is a published team rating, not an output of the Rabby possession model.
+// Always load the earned 1500-reset ratings independently of forecast availability.
+let retroRanks={};
 async function loadPregameElo(){
  try{
-  const [eloResponse,statResponse,priorResponse]=await Promise.all([
-   fetch('data/nba-elo-shadow-2026-27.json',{cache:'no-store'}),
+  const response=await fetch('data/nba-elo-shadow-2026-27.json?retro='+Math.floor(Date.now()/30000),{cache:'no-store'});
+  if(!response.ok)throw Error('RETRO rating feed HTTP '+response.status);
+  const elo=await response.json();
+  if(elo.league!=='NBA'||elo.season!=='2026-27'||elo.status!=='primary_live_earned_elo'||
+     Number(elo.parameters?.season_start_elo)!==1500||Number(elo.parameters?.home_elo)!==40)
+   throw Error('RETRO feed does not match the active NBA 2026–27 model');
+  const rows=(elo.rankings||[]).filter(x=>nbaPrimaryIds[canonicalCode(x.team)]&&Number.isFinite(Number(x.elo)))
+   .map(x=>({team:canonicalCode(x.team),elo:Number(x.elo)}))
+   .sort((a,b)=>b.elo-a.elo||a.team.localeCompare(b.team));
+  if(rows.length!==30||new Set(rows.map(x=>x.team)).size!==30)
+   throw Error('RETRO rating feed requires 30 unique NBA clubs');
+  // Update independently: possession-model errors must never blank RETRO on scores.
+  eloRatings=Object.fromEntries(rows.map(x=>[x.team,x.elo]));
+  retroRanks=Object.fromEntries(rows.map((x,i)=>[x.team,i+1]));
+  completedEvents=Array.isArray(elo.events)?elo.events:[];
+ }catch(error){
+  console.warn('NBA RETRO: retaining last validated earned rating snapshot:',error.message);
+ }
+ // This optional forecast layer is separate and can fail without hiding Elo.
+ if(!window.RabbyPossessionModel){forecastModel=null;return;}
+ try{
+  const [statResponse,priorResponse]=await Promise.all([
    fetch('data/nba-possession-inputs.json',{cache:'no-store'}),
    fetch('data/nba-2025-26-team-advanced.json',{cache:'no-store'})
   ]);
-  if(!eloResponse.ok||!statResponse.ok||!priorResponse.ok)throw Error('earned Elo or verified possessions unavailable');
-  if(!window.RabbyPossessionModel)throw Error('Rabby possession engine not loaded');
-  const [elo,stats,priors]=await Promise.all([eloResponse.json(),statResponse.json(),priorResponse.json()]);
-  if(elo.status!=='primary_live_earned_elo'||elo.parameters?.season_start_elo!==1500||elo.parameters?.home_elo!==40)throw Error('NBA 1500-reset earned Elo unavailable');
-  const ratings=Object.fromEntries((elo.rankings||[]).filter(r=>nbaPrimaryIds[r.team]&&Number.isFinite(Number(r.elo))).map(r=>[r.team,Number(r.elo)]));
+  if(!statResponse.ok||!priorResponse.ok)throw Error('possession-model inputs unavailable');
+  const [stats,priors]=await Promise.all([statResponse.json(),priorResponse.json()]);
   const model=window.RabbyPossessionModel.build(stats,4,priors);
-  if(Object.keys(ratings).length!==30||!model||model.coverage.teams!==30)throw Error('NBA 30-team scoring coverage incomplete');
-  eloRatings=ratings;forecastModel=model;completedEvents=elo.events||[];
- }catch(error){console.warn('NBA pregame forecast retains last verified snapshot:',error.message);}
+  if(!model||model.coverage?.teams!==30)throw Error('incomplete possession-model coverage');
+  forecastModel=model;
+ }catch(error){
+  forecastModel=null;
+  console.warn('NBA forecast unavailable; RETRO ratings remain visible:',error.message);
+ }
 }
 function projectNumbers(g){
  if(!forecastModel||!window.RabbyPossessionModel)return null;
@@ -115,7 +138,7 @@ function render(payload){
   const playing=g.state==='in',final=g.state==='post';
   const phase=playing?'live':final?'final':'upcoming';
   const time=new Date(g.date).toLocaleTimeString('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit'});
-  const side=t=>({name:t.name||t.code,crest:'<img src="'+logo(t.code)+'" width="36" height="36" loading="lazy" alt="" onerror="this.hidden=true">',color:({ATL:'#E03A3E',BOS:'#007A33',BKN:'#242424',CHA:'#1D1160',CHI:'#CE1141',CLE:'#860038',DAL:'#00538C',DEN:'#0E2240',DET:'#C8102E',GSW:'#1D428A',HOU:'#CE1141',IND:'#002D62',LAC:'#C8102E',LAL:'#552583',MEM:'#5D76A9',MIA:'#98002E',MIL:'#00471B',MIN:'#0C2340',NOP:'#0C2340',NYK:'#006BB6',OKC:'#007AC1',ORL:'#0077C0',PHI:'#006BB6',PHX:'#1D1160',POR:'#E03A3E',SAC:'#5A2D81',SAS:'#343A40',TOR:'#CE1141',UTA:'#002B5C',WAS:'#002B5C'}[t.code]||'#655239'),record:t.record||'—',retro:Number.isFinite(eloRatings[t.code])?'RETRO '+Math.round(eloRatings[t.code]):'RETRO —',score:t.score});
+  const side=t=>({name:t.name||t.code,crest:'<img src="'+logo(t.code)+'" width="36" height="36" loading="lazy" alt="" onerror="this.hidden=true">',color:({ATL:'#E03A3E',BOS:'#007A33',BKN:'#242424',CHA:'#1D1160',CHI:'#CE1141',CLE:'#860038',DAL:'#00538C',DEN:'#0E2240',DET:'#C8102E',GSW:'#1D428A',HOU:'#CE1141',IND:'#002D62',LAC:'#C8102E',LAL:'#552583',MEM:'#5D76A9',MIA:'#98002E',MIL:'#00471B',MIN:'#0C2340',NOP:'#0C2340',NYK:'#006BB6',OKC:'#007AC1',ORL:'#0077C0',PHI:'#006BB6',PHX:'#1D1160',POR:'#E03A3E',SAC:'#5A2D81',SAS:'#343A40',TOR:'#CE1141',UTA:'#002B5C',WAS:'#002B5C'}[t.code]||'#655239'),record:t.record||'—',retro:Number.isFinite(eloRatings[canonicalCode(t.code)])?'RETRO '+Math.round(eloRatings[canonicalCode(t.code)])+' (#'+retroRanks[canonicalCode(t.code)]+')':'RETRO —',score:t.score});
   const scorebug=window.SLTSportsScorebug?.render({phase,periodFormat:'quarters',away:side(g.away),home:side(g.home),status:final?'FINAL':g.label,tipoff:time+' ET',network:g.network});
   if(!scorebug)return '';
   const pregameSafe=!playing&&!final&&Date.parse(g.date)>Date.now()+600000;
