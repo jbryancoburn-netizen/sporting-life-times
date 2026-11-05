@@ -25,12 +25,12 @@ async function refreshScores(){
   const item=g=>{
    const state=g.status==='final'?'FINAL':fresh?'LIVE'+(g.period?' · '+esc(g.period):''):'LAST REPORTED · FEED DELAYED';
    const href='college-soccer-match.html?game='+encodeURIComponent(g.match_id);
-   return '<a class="soccer-score-card" href="'+href+'"><div class="soccer-score-top"><span>MEN’S D-I</span><span class="'+(g.status==='live'&&fresh?'soccer-live':'')+'">'+state+'</span></div><div class="soccer-score-line"><span>'+esc(g.away_name||g.away_id)+'</span><b>'+g.away_score+'</b></div><div class="soccer-score-line"><span>'+esc(g.home_name||g.home_id)+'</span><b>'+g.home_score+'</b></div><span class="soccer-score-link">Match details ↗</span></a>';
+   return '<a class="soccer-score-card" href="'+href+'"><div class="soccer-score-top"><span>MEN’S D-I</span><span class="'+(g.status==='live'&&fresh?'soccer-live':'')+'">'+state+'</span></div><div class="soccer-score-line">'+logo({team_id:g.away_id,team:g.away_name})+'<span class="soccer-score-school">'+esc(g.away_name||g.away_id)+'</span><b>'+g.away_score+'</b></div><div class="soccer-score-line">'+logo({team_id:g.home_id,team:g.home_name})+'<span class="soccer-score-school">'+esc(g.home_name||g.home_id)+'</span><b>'+g.home_score+'</b></div><span class="soccer-score-link">Match details ↗</span></a>';
   };
   if(!rows.length){scoreRoot.innerHTML=bar+note+'<p class="empty">No source-verified Division I men’s scores are available in this published feed.</p>';return}
   const leading=rows.slice(0,8),other=rows.slice(8);
   scoreRoot.innerHTML=bar+note+'<div class="soccer-scores">'+leading.map(item).join('')+'</div>'+(other.length?'<details class="soccer-all-scores"><summary>Show '+other.length+' additional published results</summary><div class="soccer-scores">'+other.map(item).join('')+'</div></details>':'');
  }catch(err){scoreRoot.innerHTML='<p class="empty">The verified matchday feed is temporarily unavailable. <a href="college-soccer.html?cohort=men-d1#cs-current-scoreboard">Open the match centre ↗</a></p>'}
 }
-refreshScores();setInterval(refreshScores,60000);
-run().catch(e=>{$('#data-stamp').textContent='Some desk feeds are unavailable';console.error(e)})})();
+setInterval(refreshScores,60000);
+run().catch(e=>{$('#data-stamp').textContent='Some desk feeds are unavailable';console.error(e)}).finally(refreshScores)})();
