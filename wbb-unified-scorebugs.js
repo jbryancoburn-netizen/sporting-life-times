@@ -60,9 +60,21 @@
    const markup=window.SLTSportsScorebug.render({phase,status:phase==='live'?note:phase==='final'?'FINAL':'',away,home,forecast:null,time:time.split('University-sourced')[0].trim()});
    summary.innerHTML=markup+'<span class="ledger26-instruction">OPEN GAME DETAILS +</span>';
   }
-  function renderAll(){for(const {row,summary} of cards.values())renderOne(row,summary);}
+  function renderAll(){
+   const query=desk.querySelector('#wbb-calendar-search')?.value.trim().toLowerCase()||'';
+   const view=desk.querySelector('#wbb-calendar-view')?.value||'all';
+   for(const {row,summary} of cards.values()){
+    renderOne(row,summary);
+    const current=status(row);
+    const shown=(!query||row.dataset.opponent?.includes(query))&&
+     (view==='all'||(view==='final'&&current==='final')||(view==='upcoming'&&current!=='final'));
+    summary.parentElement.hidden=!shown;
+   }
+  }
   renderAll();
   host.classList.add('wbb-table-source-only');
+  desk.querySelector('#wbb-calendar-search')?.addEventListener('input',renderAll);
+  desk.querySelector('#wbb-calendar-view')?.addEventListener('change',renderAll);
   // Keep source rows as live updater targets; update the presentation when scores change.
   let scheduled=false;
   new MutationObserver(()=>{if(scheduled)return;scheduled=true;queueMicrotask(()=>{scheduled=false;renderAll();});})
