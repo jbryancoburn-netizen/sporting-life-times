@@ -9,10 +9,11 @@ let dataset=null, lastError='';
 const time=raw=>{if(!raw)return 'not verified';const d=new Date(raw);return Number.isNaN(+d)?'not verified':d.toLocaleString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'})+' ET'};
 const cols=[['#','jersey'],['Position','position'],['Height','height'],['Weight','weight'],['Age','age'],['Status','status']];
 function draw(){
- const app=document.getElementById('app'),identity=app?.querySelector('.nba-team-identity');
- if(!identity)return;
+ const app=document.getElementById('app'),slot=app?.querySelector('#nba-team-roster-slot');
+ if(!slot)return;
  let panel=document.getElementById('nba-team-roster');
- if(!panel){panel=document.createElement('section');panel.id='nba-team-roster';panel.className='nba-team-roster panel';identity.insertAdjacentElement('afterend',panel);}
+ if(!panel){panel=document.createElement('section');panel.id='nba-team-roster';panel.className='nba-team-roster panel';}
+ if(panel.parentElement!==slot)slot.appendChild(panel);
  const team=dataset?.teams?.[code],players=team?.players||[];
  const stale=dataset?.stale_teams?.includes(code);
  const signature=JSON.stringify([code,team?.updated_at,players.length,stale,lastError]);
