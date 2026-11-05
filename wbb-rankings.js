@@ -21,7 +21,7 @@ if(kind==='ap'||kind==='coaches'){
   $('#wbbr-list').innerHTML=pollData.rankings.map(item=>{
    const target=norm(aliases[item.team]||item.team);
    const school=teams.find(t=>norm(t.team).startsWith(target));
-   const logo=school?window.MBBLogos.byESPN(String(school.team_id),'score',school.team):'<span aria-hidden="true"></span>';
+   const logo=school?window.MBBLogos.byESPN(String(school.team_id),'score',school.team):window.MBBLogos.byName(item.team,'score');
    const name=school?'<a href="ncaaw-team.html?team='+encodeURIComponent(school.team_id)+'">'+esc(school.team)+'</a>':esc(item.team);
    return '<article class="wbbr-entry"><strong class="wbbr-number">#'+item.rank+'</strong>'+logo+'<div class="wbbr-identity">'+name+'</div><div class="wbbr-value">TOP 25</div></article>';
   }).join('');
