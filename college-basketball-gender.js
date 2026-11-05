@@ -292,15 +292,8 @@
     if(candidates.size){
       live=candidates;
       drawGames();
-      document.getElementById('wbb-score-stamp').textContent='Scoreboard checked '+fmt(new Date())+
-        ' · '+live.size+' games today · '+ncaaMatched+' NCAA-origin crosschecks'+
-        (disputed?' · '+disputed+' disputed scores withheld':'')+
-        ' · secondary scoreboard; season calendar '+games.size.toLocaleString()+' games';
     }else{
       live=new Map();drawGames();
-      document.getElementById('wbb-score-stamp').textContent=
-        'No current scores retrieved. Showing the published women’s schedule; retrying in one minute.'+
-        (current?' NCAA-origin archive checked.':' NCAA-origin crosscheck unavailable or stale.');
     }
     const access=document.getElementById('access-stamp');
     if(access)access.textContent='Viewed '+fmt(new Date());
