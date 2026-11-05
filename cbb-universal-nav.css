@@ -52,3 +52,10 @@ body>.cbb-rank-links a{display:block;color:#2e251c;text-decoration:none;font:700
   .cbb-mobile-toolbar .cbb-gender-option{padding:9px 10px!important}
   .cbb-mobile-nav-toggle{min-width:106px;gap:5px}
 }
+
+/* Edition control lives within the paper's navigation, not above the masthead. */
+nav.cbb-universal-nav .cbb-edition-switch{display:inline-flex;align-items:center;gap:0;flex:0 0 auto;margin:0 12px 0 0!important;font:700 12px Georgia,serif;letter-spacing:0}
+nav.cbb-universal-nav .cbb-edition-switch a,.cbb-mobile-toolbar .cbb-edition-switch a{display:inline-block!important;padding:5px 9px!important;border:1px solid #89745c!important;color:#302419!important;background:transparent!important;text-decoration:none!important;font:700 12px Georgia,serif!important}
+nav.cbb-universal-nav .cbb-edition-switch a+a,.cbb-mobile-toolbar .cbb-edition-switch a+a{border-left:0!important}
+nav.cbb-universal-nav .cbb-edition-switch a.is-active,.cbb-mobile-toolbar .cbb-edition-switch a.is-active{background:#413025!important;color:#f8efdc!important}
+@media(max-width:760px){.cbb-mobile-toolbar .cbb-edition-switch{display:inline-flex!important;margin:0!important;flex-shrink:0}}
