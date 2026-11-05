@@ -314,7 +314,7 @@
 .ledger26-card--refined .ledger26-scorebug{
   --ledger26-crest-size:54px;
   --ledger26-team-min-height:66px;
-  grid-template-columns:40px minmax(0,1fr) 128px;
+  grid-template-columns:minmax(0,1fr) 128px;
   min-height:132px;
   border:3px double #907958;
   background:#f9f2e5;
@@ -390,7 +390,7 @@
  .ledger26-card--refined .ledger26-summary{padding:7px 8px 4px}
  .ledger26-card--refined .ledger26-scorebug{
   --ledger26-crest-size:42px;--ledger26-team-min-height:61px;
-  grid-template-columns:31px minmax(0,1fr) 96px;min-height:122px;
+  grid-template-columns:minmax(0,1fr) 96px;min-height:122px;
  }
  .ledger26-card--refined .ledger26-monogram img{width:23px;height:34px}
  .ledger26-card--refined .ledger26-team{
@@ -409,7 +409,7 @@
 @media(max-width:370px){
  .ledger26-card--refined .ledger26-scorebug{
   --ledger26-crest-size:36px;--ledger26-team-min-height:57px;
-  grid-template-columns:25px minmax(0,1fr) 79px;
+  grid-template-columns:minmax(0,1fr) 79px;
  }
  .ledger26-card--refined .ledger26-team{gap:4px;padding:5px 4px;border-left-width:3px}
  .ledger26-card--refined .ledger26-name{font-size:11px!important}
