@@ -200,3 +200,22 @@
 .ledger26-status--pregame .ledger26-pregame-empty{font:700 12px/1 Georgia,'Times New Roman',serif!important;letter-spacing:.03em}
 @media(max-width:640px){.ledger26-status--pregame{gap:3px;padding:4px 2px}.ledger26-status--pregame .ledger26-pregame-prob{font-size:21px!important}.ledger26-status--pregame .ledger26-pregame-team{font-size:8px}.ledger26-status--pregame .ledger26-pregame-edge{font-size:14px}.ledger26-status--pregame .ledger26-pregame-caption{font-size:7px}}
 @media(max-width:360px){.ledger26-status--pregame .ledger26-pregame-prob{font-size:18px!important}.ledger26-status--pregame .ledger26-pregame-team{font-size:7px}.ledger26-status--pregame .ledger26-pregame-edge{font-size:12px}.ledger26-status--pregame .ledger26-pregame-caption{font-size:6px}}
+
+/* Shared right-hand upcoming-game preview and Victorian matchup dialog. */
+.ledger26-scorebug{position:relative}
+.ledger26-status[data-phase="upcoming"]{padding-bottom:29px}
+.ledger26-preview-link{position:absolute;right:0;bottom:0;width:102px;min-height:27px;padding:5px 2px;border:0;border-top:1px solid #a58c69;border-left:1px solid #ac9574;background:#e2ceb0;color:#392b20;font:700 9px/1.2 Georgia,'Times New Roman',serif;letter-spacing:.04em;cursor:pointer;text-align:center}
+.ledger26-preview-link:hover,.ledger26-preview-link:focus-visible{background:#d4bc95;text-decoration:underline}
+.ledger26-preview-dialog{position:fixed;inset:0;margin:auto;width:min(580px,calc(100vw - 28px));max-height:calc(100dvh - 28px);overflow:auto;box-sizing:border-box;padding:0;border:5px double #6c5335;background:#f7eedc;color:#2b2117;box-shadow:0 14px 50px #0006}
+.ledger26-preview-dialog::backdrop{background:#19140fc9}
+.ledger26-preview-paper{padding:20px 24px 24px;font-family:Georgia,'Times New Roman',serif}
+.ledger26-preview-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:3px double #7f6746;padding-bottom:8px;font:700 10px/1.4 Georgia,serif;letter-spacing:.075em}
+.ledger26-preview-heading button{font:26px/1 Georgia,serif;background:transparent;border:0;cursor:pointer;color:inherit}
+.ledger26-preview-paper h2{font:700 clamp(23px,4vw,36px)/1.1 Georgia,serif;margin:18px 0 8px}
+.ledger26-preview-meta{font-size:13px;line-height:1.5;border-bottom:1px solid #a58e70;padding-bottom:14px}
+.ledger26-preview-teams{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:15px 0 19px}
+.ledger26-preview-side{border:1px solid #a58e70;padding:12px;display:flex;flex-direction:column;gap:6px;font-size:13px}
+.ledger26-preview-side strong{font:700 16px/1.2 Georgia,serif}
+.ledger26-preview-paper h3{font:700 12px Georgia,serif;letter-spacing:.08em;border-bottom:3px double #8c7658;padding-bottom:8px}
+.ledger26-preview-note,.ledger26-preview-unavailable{font-size:12px;color:#654e37}
+@media(max-width:640px){.ledger26-preview-link{width:84px;font-size:8px}.ledger26-preview-paper{padding:15px}.ledger26-preview-teams{gap:8px}}
