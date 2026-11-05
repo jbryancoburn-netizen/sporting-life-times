@@ -142,10 +142,13 @@ function selectGames(all,day,view,query){
     (view==='live'&&g.phase==='live')||(view==='final'&&g.phase==='final'&&g.kind!=='exhibition')||
     (view==='upcoming'&&g.phase==='upcoming')||(view==='exhibition'&&g.kind==='exhibition')
   )&&(!q||[g.away.name,g.away.full,g.home.name,g.home.full].some(t=>String(t||'').toLowerCase().includes(q))))
-  .sort((a,b)=>{const p=g=>g.phase==='live'?0:g.phase==='upcoming'?1:g.phase==='final'?2:3;
-    const certified=g=>Number(Boolean(g.away.canonical))+Number(Boolean(g.home.canonical));
-    return p(a)-p(b)||certified(b)-certified(a)||
-      (a.date||'').localeCompare(b.date||'')||a.away.name.localeCompare(b.away.name)});
+  // One chronological ledger for Division I, non-Division I and exhibition games.
+  // Do not prioritize roster membership or status ahead of the scheduled tipoff.
+  .sort((a,b)=>{
+    const time=g=>{const n=Date.parse(g.date||'');return Number.isFinite(n)?n:Number.POSITIVE_INFINITY;};
+    return time(a)-time(b)||a.away.name.localeCompare(b.away.name)||
+      a.home.name.localeCompare(b.home.name);
+  });
 }
 // Independently refresh the real scoreboard between static GitHub publications.
 // Admit only uniquely identified Division I schools from the existing crosswalk.
