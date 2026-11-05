@@ -1112,3 +1112,6 @@ body .sl-game .sl-game-summary .sl-broadcast-mark{
 @media(max-width:560px){
  body .sl-game .sl-game-summary .sl-broadcast-monogram{width:25px!important;height:37px!important}
 }
+
+/* Matching Victorian wordmark; preserve the existing Daily Ledger layout. */
+.sl-masthead a{font-family:'Bodoni Moda','Didot','Bodoni MT',Georgia,serif!important;font-weight:800!important;letter-spacing:-.055em!important}
