@@ -64,12 +64,17 @@ body.nba-newspaper[data-page="standings"] .nba-division-paper .nba-table :is(th,
  body.nba-newspaper:is([data-page="standings"],[data-page="conference"]) .nba-table :is(th,td){padding:7px 2px!important;font-size:11px!important}
  body.nba-newspaper:is([data-page="standings"],[data-page="conference"]) .nba-table:has(td.nba-standings-club-cell) :is(th,td):nth-child(6),
  body.nba-newspaper:is([data-page="standings"],[data-page="conference"]) .nba-table:has(td.nba-standings-club-cell) :is(th,td):nth-child(8){display:none!important}
- body.nba-newspaper:is([data-page="standings"],[data-page="conference"]) .nba-table:has(td.nba-standings-club-cell) :is(th,td):nth-child(1){width:5%}
- body.nba-newspaper:is([data-page="standings"],[data-page="conference"]) .nba-table:has(td.nba-standings-club-cell) :is(th,td):nth-child(2){width:43%}
+ /* Pixel-sized numeric lanes give the engraved place plate its own space.
+    The club column receives remaining width instead of borrowing from rank. */
+ body.nba-newspaper:is([data-page="standings"],[data-page="conference"]) .nba-table:has(td.nba-standings-club-cell) :is(th,td):nth-child(1){width:38px!important}
+ body.nba-newspaper:is([data-page="standings"],[data-page="conference"]) .nba-table:has(td.nba-standings-club-cell) :is(th,td):nth-child(2){width:auto!important;text-align:left!important}
  body.nba-newspaper:is([data-page="standings"],[data-page="conference"]) .nba-table:has(td.nba-standings-club-cell) :is(th,td):nth-child(3),
- body.nba-newspaper:is([data-page="standings"],[data-page="conference"]) .nba-table:has(td.nba-standings-club-cell) :is(th,td):nth-child(4){width:8%}
- body.nba-newspaper:is([data-page="standings"],[data-page="conference"]) .nba-table:has(td.nba-standings-club-cell) :is(th,td):nth-child(5){width:16%}
- body.nba-newspaper:is([data-page="standings"],[data-page="conference"]) .nba-table:has(td.nba-standings-club-cell) :is(th,td):nth-child(7){width:20%}
+ body.nba-newspaper:is([data-page="standings"],[data-page="conference"]) .nba-table:has(td.nba-standings-club-cell) :is(th,td):nth-child(4){width:24px!important}
+ body.nba-newspaper:is([data-page="standings"],[data-page="conference"]) .nba-table:has(td.nba-standings-club-cell) :is(th,td):nth-child(5){width:48px!important}
+ body.nba-newspaper:is([data-page="standings"],[data-page="conference"]) .nba-table:has(td.nba-standings-club-cell) :is(th,td):nth-child(7){width:59px!important}
+ body.nba-newspaper:is([data-page="standings"],[data-page="conference"]) .nba-table:has(td.nba-standings-club-cell) :is(th,td):nth-child(7){white-space:nowrap!important}
+ body.nba-newspaper:is([data-page="standings"],[data-page="conference"]) .nba-table:has(td.nba-standings-club-cell) thead th:nth-child(7){white-space:normal!important;letter-spacing:0!important;font-size:10px!important;line-height:1.15!important}
+ body.nba-newspaper:is([data-page="standings"],[data-page="conference"]) .nba-table:has(td.nba-standings-club-cell) thead th:nth-child(2){padding-left:4px!important}
  body.nba-newspaper:is([data-page="standings"],[data-page="conference"]) a.nba-standings-identity{gap:5px!important}
  body.nba-newspaper:is([data-page="standings"],[data-page="conference"]) a.nba-standings-identity>.nba-standings-logo{--nba-standings-crest-size:40px}
  body.nba-newspaper:is([data-page="standings"],[data-page="conference"]) a.nba-standings-identity>.nba-standings-name{font-size:11px!important;line-height:1.2!important}
@@ -193,9 +198,12 @@ body.nba-newspaper[data-page="standings"] .nba-table tbody tr{
 body.nba-newspaper[data-page="standings"] .nba-table tbody tr:nth-child(even){background:#f1e7d7!important}
 body.nba-newspaper[data-page="standings"] .nba-table tbody td{border-bottom:1px solid #b7a88e}
 @media(max-width:700px){
- body.nba-newspaper[data-page="standings"] .nba-table tbody td.nba-standing-place-cell{width:35px;min-width:35px;padding:5px 2px!important}
+ body.nba-newspaper[data-page="standings"] .nba-table tbody td.nba-standing-place-cell{
+  width:38px!important;min-width:38px!important;padding:6px 3px!important;
+  overflow:visible!important;border-left:0!important;border-right:0!important;
+ }
  body.nba-newspaper[data-page="standings"] .nba-table tbody td.nba-standing-place-cell .nba-standing-place{
-  width:27px;height:27px;min-width:27px;min-height:27px;font-size:12px;
+  width:28px;height:28px;min-width:28px;min-height:28px;font-size:12px;
  }
 }
 
@@ -265,4 +273,24 @@ body.nba-newspaper[data-page="standings"] .nba-division-ledger-club .nba-standin
   inline-size:40px!important;block-size:40px!important;width:40px!important;height:40px!important;
   min-width:40px!important;min-height:40px!important;max-width:40px!important;max-height:40px!important;
  }
+}
+
+/* Small-screen conference register: retain all visible values without
+   clipping the rightmost RETRO rating or colliding with the club crest. */
+@media(max-width:385px){
+ body.nba-newspaper:is([data-page="standings"],[data-page="conference"]) .nba-table:has(td.nba-standings-club-cell) :is(th,td):nth-child(1){width:35px!important}
+ body.nba-newspaper:is([data-page="standings"],[data-page="conference"]) .nba-table:has(td.nba-standings-club-cell) :is(th,td):nth-child(3),
+ body.nba-newspaper:is([data-page="standings"],[data-page="conference"]) .nba-table:has(td.nba-standings-club-cell) :is(th,td):nth-child(4){width:21px!important}
+ body.nba-newspaper:is([data-page="standings"],[data-page="conference"]) .nba-table:has(td.nba-standings-club-cell) :is(th,td):nth-child(5){width:45px!important}
+ body.nba-newspaper:is([data-page="standings"],[data-page="conference"]) .nba-table:has(td.nba-standings-club-cell) :is(th,td):nth-child(7){width:54px!important}
+ body.nba-newspaper:is([data-page="standings"],[data-page="conference"]) .nba-table tbody td.nba-standing-place-cell{width:35px!important;min-width:35px!important;padding:5px 2px!important}
+ body.nba-newspaper:is([data-page="standings"],[data-page="conference"]) .nba-table .nba-standings-identity>.nba-standings-logo{
+  --nba-standings-crest-size:36px;flex-basis:36px!important;inline-size:36px!important;block-size:36px!important;
+  width:36px!important;height:36px!important;min-width:36px!important;min-height:36px!important;max-width:36px!important;max-height:36px!important;
+ }
+ body.nba-newspaper:is([data-page="standings"],[data-page="conference"]) .nba-table .nba-standings-identity>.nba-standings-logo>img{
+  flex-basis:36px!important;inline-size:36px!important;block-size:36px!important;
+  width:36px!important;height:36px!important;min-width:36px!important;min-height:36px!important;max-width:36px!important;max-height:36px!important;
+ }
+ body.nba-newspaper:is([data-page="standings"],[data-page="conference"]) .nba-table .nba-standings-identity>.nba-standings-name{font-size:10.5px!important}
 }
