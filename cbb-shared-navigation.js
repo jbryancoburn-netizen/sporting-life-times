@@ -23,7 +23,7 @@ for(const nav of navs){
  }
  const links=[...nav.querySelectorAll('a')];
  links.filter(a=>/Live Game Center/i.test(a.textContent)).forEach(a=>a.remove());
- const rating=links.find(a=>/RETRO Rankings|Power Index|^Rankings$/i.test(a.textContent.trim()));
+ const rating=links.find(a=>/RETRO Rankings|USRS Rankings|Power Index|^Rankings$/i.test(a.textContent.trim()));
  if(rating){
    const d=document.createElement('div');d.className='cbb-rank-menu';
    const sum=document.createElement('button');sum.type='button';sum.className='cbb-rank-trigger';sum.textContent='Rankings';sum.setAttribute('aria-label',women?'Women’s rankings: RETRO, AP, Coaches, NET, Massey, Wins Above Bubble, Her Hoop Stats':'Men’s rankings: RETRO, NET, AP, Coaches, Pomeroy');sum.setAttribute('aria-expanded','false');sum.setAttribute('aria-haspopup','true');
