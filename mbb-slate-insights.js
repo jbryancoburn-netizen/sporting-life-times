@@ -74,16 +74,16 @@
   const params=calibration?.parameters||{},model=String(calibration?.model||'');
   if(g?.phase!=='upcoming'||g.kind!=='regular'||g.probability===null||
     !model.startsWith('ncaam-venue-neutral-historical-score')||
-    calibration.status!=='HISTORICAL_HOLDOUT_VALIDATED')return null;
+    !['HISTORICAL_HOLDOUT_VALIDATED','EXTRAPOLATION_UNVALIDATED'].includes(calibration.status))return null;
   const a=ratings?.get(String(g.away.canonical)),h=ratings?.get(String(g.home.canonical));
   const ae=finite(a?.elo),he=finite(h?.elo),mean=finite(params.mean_team_points),
-    slope=finite(params.elo_margin_slope),cap=finite(params.margin_cap);
-  if([ae,he,mean,slope,cap].some(x=>x===null)||cap<=0||mean<=0||slope<=0)return null;
-  let margin=Math.max(-cap,Math.min(cap,(he-ae)*slope));
+    slope=finite(params.elo_margin_slope);
+  if([ae,he,mean,slope].some(x=>x===null)||mean<=0||slope<=0)return null;
+  let margin=(he-ae)*slope;
   let home=Math.round(mean+margin/2),away=Math.round(mean-margin/2);
   if(home===away){if(g.probability>=0.5)home+=1;else away+=1}
   return {away,home,model:'HISTORICAL NEUTRAL-COURT SCORE PROJECTION',
-    caveat:'Illustrative neutral-court scoring means from 2024–25 training and 2025–26 holdout; not a game-specific venue, lineup or opponent-defense possession model. Forecasts are not final scores.'};
+    caveat:'Illustrative uncapped neutral-court scoring means; extrapolation to extreme mismatches is not separately validated. Not a venue-specific or player-availability model.'};
  }
  function scoreDelta(prev,current){
   if(!prev||!current||current.phase!=='live'||prev.day!==current.day||String(prev.id)!==String(current.id))return null;
