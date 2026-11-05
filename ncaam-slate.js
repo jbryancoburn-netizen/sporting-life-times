@@ -663,7 +663,33 @@ document.addEventListener('toggle',event=>{
  const d=event.target;
  if(d.matches?.('.sl-game-expansion')&&d.open)openGamefile(d);
 },true);
-const displayGames=()=>reconcileLive(loaded,liveBoard);
+// Broadcast listings are independent of whether a game has tipped off.
+// Enrich by exact event ID AND date; never borrow another fixture's network.
+const broadcastByDate=new Map();
+let broadcastRequestDay='';
+async function refreshBroadcasts(day){
+ if(!/^\d{4}-\d{2}-\d{2}$/.test(day)||broadcastRequestDay===day)return;
+ broadcastRequestDay=day;
+ try{
+  const sport=women?'womens-college-basketball':'mens-college-basketball';
+  const url='https://site.api.espn.com/apis/site/v2/sports/basketball/'+sport+'/scoreboard?groups=50&limit=1000&dates='+day.replaceAll('-','');
+  const raw=await fetchJSON(url);
+  const byId=new Map();
+  for(const event of raw?.events||[]){
+   if(isoDate(event.date)!==day)continue;
+   const competition=event.competitions?.[0];
+   const names=(competition?.broadcasts||[]).flatMap(b=>b.names||[]).filter(Boolean);
+   if(names.length&&validId(event.id))byId.set(String(event.id),[...new Set(names)].join(' / '));
+  }
+  broadcastByDate.set(day,byId);
+  if(selected===day)render();
+ }catch(e){/* Preserve sourced schedule data if the broadcast endpoint is unavailable. */}
+ finally{broadcastRequestDay=''}
+}
+const displayGames=()=>reconcileLive(loaded,liveBoard).map(g=>{
+ const broadcaster=broadcastByDate.get(g.day)?.get(String(g.id));
+ return !g.broadcast&&broadcaster?{...g,broadcast:broadcaster}:g;
+});
 const render=()=>{
  const games=selectGames(displayGames(),selected,filter,search),shown=games.slice(0,limit);
  const opened=new Set([...document.querySelectorAll('.sl-game-expansion[open]')].map(d=>d.dataset.day+'|'+d.dataset.gameId));
@@ -738,7 +764,7 @@ async function refresh(){
   }
   refreshRETRO();sourceError='';
  }catch(err){if(!loaded.length)sourceError=String(err.message||'Unable to retrieve fixtures');}
- finally{loading=false;render();if(selected===today())void refreshLive()}
+ finally{loading=false;render();void refreshBroadcasts(selected);if(selected===today())void refreshLive()}
 }
 // When a score becomes fully final, immediately replay the exact independent
 // RETRO method. The next certified JSON release replaces these provisional
@@ -785,13 +811,13 @@ async function refreshLive(){
  }catch(err){if(selected===day)liveCheckError=String(err?.message||'Current scores unavailable');}
  finally{liveRequest=false;if(selected===day)render()}
 }
-document.getElementById('sl-prev').addEventListener('click',()=>{selected=shift(selected,-1);limit=18;liveBoard=[];liveCheckedAt=0;render();if(selected===today())void refreshLive()});
-document.getElementById('sl-next').addEventListener('click',()=>{selected=shift(selected,1);limit=18;liveBoard=[];liveCheckedAt=0;render();if(selected===today())void refreshLive()});
+document.getElementById('sl-prev').addEventListener('click',()=>{selected=shift(selected,-1);limit=18;liveBoard=[];liveCheckedAt=0;render();void refreshBroadcasts(selected);if(selected===today())void refreshLive()});
+document.getElementById('sl-next').addEventListener('click',()=>{selected=shift(selected,1);limit=18;liveBoard=[];liveCheckedAt=0;render();void refreshBroadcasts(selected);if(selected===today())void refreshLive()});
 document.getElementById('sl-picker').addEventListener('change',e=>{if(e.target.value){selected=e.target.value;limit=18;liveBoard=[];liveCheckedAt=0;render();if(selected===today())void refreshLive()}});
 document.getElementById('sl-search').addEventListener('input',e=>{search=e.target.value;limit=18;render()});
 document.getElementById('sl-filters').addEventListener('click',e=>{const b=e.target.closest('[data-filter]');if(!b)return;filter=b.dataset.filter;limit=18;render()});
 document.getElementById('sl-more').addEventListener('click',()=>{limit+=18;render()});
-document.getElementById('sl-reload').addEventListener('click',()=>{void refresh();if(selected===today())void refreshLive()});
+document.getElementById('sl-reload').addEventListener('click',()=>{void refresh();void refreshBroadcasts(selected);if(selected===today())void refreshLive()});
 document.getElementById('sl-games').addEventListener('click',e=>{
  if(e.target.id==='sl-retry')refresh();
 });
