@@ -911,12 +911,12 @@
       const allCols=labels.map((x,i)=>({x,i}));
       const cols=allCols.length?allCols:displayLabels.map((x,i)=>({x,i}));
       const heading=cols.map(c=>'<th>'+esc(c.x)+'</th>').join('');
-      const body=eligible.map(p=>'<tr><th>'+esc(p.athlete.displayName)+'</th>'+cols.map(c=>'<td>'+esc(p.stats[c.i]??'—')+'</td>').join('')+'</tr>').join('');
+      const body=eligible.map(p=>'<tr><th scope="row">'+esc(p.athlete.displayName)+'</th>'+cols.map(c=>'<td data-label="'+esc(c.x)+'">'+esc(p.stats[c.i]??'—')+'</td>').join('')+'</tr>').join('');
       const leaders=eligible.slice(0,3).map(p=>esc(p.athlete.displayName)+' '+(pts<0?'':esc(p.stats[pts]??'—')+' PTS')+
         (reb<0?'':' · '+esc(p.stats[reb]??'—')+' REB')+(ast<0?'':' · '+esc(p.stats[ast]??'—')+' AST')).join('<br>');
       return '<div class="cbb-box-section"><h4>'+esc(label)+' · sourced player box score</h4>'+
         (leaders?'<p class="cbb-leaders">'+leaders+'</p>':'')+
-        '<div class="cbb-scroll"><table class="cbb-box-table"><thead><tr><th>Player</th>'+heading+'</tr></thead><tbody>'+body+'</tbody></table></div></div>';
+        '<div class="cbb-scroll cbb-scroll--players"><table class="cbb-box-table cbb-box-table--players"><thead><tr><th>Player</th>'+heading+'</tr></thead><tbody>'+body+'</tbody></table></div></div>';
     }).filter(Boolean).join('');
   }
   function ncaaPlayerBox(box){
@@ -928,10 +928,10 @@
       const rows=box[side].players;
       const available=cols.filter(([key])=>rows.some(p=>p[key]!=null));
       return '<div class="cbb-box-section"><h4>'+esc(name)+' · NCAA-origin Player Box</h4>'+
-        '<div class="cbb-scroll"><table class="cbb-box-table"><thead><tr><th>Player</th>'+
+        '<div class="cbb-scroll cbb-scroll--players"><table class="cbb-box-table cbb-box-table--players"><thead><tr><th>Player</th>'+
         available.map(([k,label])=>'<th>'+label+'</th>').join('')+'</tr></thead><tbody>'+
-        rows.map(p=>'<tr><th>'+esc(p.name)+'</th>'+
-          available.map(([key])=>'<td>'+esc(p[key]??'—')+'</td>').join('')+'</tr>').join('')+
+        rows.map(p=>'<tr><th scope="row">'+esc(p.name)+'</th>'+
+          available.map(([key,label])=>'<td data-label="'+esc(label)+'">'+esc(p[key]??'—')+'</td>').join('')+'</tr>').join('')+
         '</tbody></table></div></div>';
     };
     return '<p class="cbb-provider-link">NCAA-origin individual totals: game '+esc(box.ncaa_id)+
