@@ -15,16 +15,39 @@ if(kind==='ap'||kind==='coaches'){
   const req=async p=>{const r=await fetch(p,{cache:'no-store'});if(!r.ok)throw Error('Source unavailable');return r.json()};
   const [published,directory,ratings]=await Promise.all([req('data/ncaaw-2026-27-national-polls.json'),req('data/ncaaw-2026-27-teams.json'),req('data/ncaaw-2026-27-retro-primary.json').catch(()=>null)]);
   if(published.gender!=='women'||published.season!=='2026-27'||published.polls?.[kind]?.rankings?.length!==25)throw Error('Verified poll unavailable');
-  const pollData=published.polls[kind],teams=directory.teams||[];const byRecord=new Map((ratings?.rankings||[]).map(t=>[String(t.team_id),t]));
+  const pollData=published.polls[kind],teams=directory.teams||[];
+  const byRecord=new Map((ratings?.rankings||[]).map(t=>[String(t.team_id),t]));
   const norm=x=>String(x||'').toLowerCase().replace(/[^a-z0-9]/g,'');
-  const aliases={'UConn':'Connecticut','USC':'Southern California','Ole Miss':'Mississippi','NC State':'North Carolina State','TCU':'Texas Christian','LSU':'Louisiana State'};
+  // Official women-specific directory resolves poll abbreviations before crest and record lookup.
+  const aliases={'UConn':'Connecticut','USC':'Southern California','Ole Miss':'Mississippi','NC State':'North Carolina State','TCU':'TCU','LSU':'LSU'};
+  const mascots={'Michigan':'Wolverines','Michigan State':'Spartans','Oklahoma':'Sooners','Oklahoma State':'Cowgirls','South Carolina':'Gamecocks','North Carolina':'Tar Heels','North Carolina State':'Wolfpack','Southern California':'Trojans','Connecticut':'Huskies','Mississippi':'Rebels','LSU':'Tigers','TCU':'Horned Frogs'};
+  function resolveTeam(label){
+   const stem=aliases[label]||label, prefix=norm(stem);
+   const candidates=teams.filter(t=>norm(t.team).startsWith(prefix));
+   const mascot=mascots[stem];
+   if(mascot){const exact=candidates.find(t=>norm(t.team).endsWith(norm(mascot)));if(exact)return exact;}
+   const boundary=teams.filter(t=>String(t.team).toLowerCase().startsWith(stem.toLowerCase()+' '));
+   if(boundary.length===1)return boundary[0];
+   return candidates.length===1?candidates[0]:null;
+  }
+  function womenLogo(school,label){
+   if(!school)return window.MBBLogos.byName(label,'score');
+   const name=school.team,id=String(school.team_id);
+   const shared=window.MBBLogos.byESPN(id,'score',name);
+   if(shared.includes('<img ')&&!shared.includes('mbb-mark--missing'))return shared;
+   // Some women's school identities are absent from the men's crest crosswalk.
+   // Use the actual women's directory logo, never an unrelated men's lookup.
+   const source=String(school.logo||'');
+   if(!/^https:\/\/a\.espncdn\.com\/i\/teamlogos\/ncaa\/500\/\d+\.png$/.test(source))return shared;
+   return '<span class="mbb-mark mbb-mark--score mbb-mark--art-flat wbbr-women-mark" style="--mbb-primary:#385866;--mbb-secondary:#597582" role="img" aria-label="'+esc(name)+' logo" data-ring-count="2"><span class="mbb-mark__initials" aria-hidden="true">'+esc(name.slice(0,1))+'</span><img class="mbb-mark__img" src="'+esc(source)+'" loading="lazy" decoding="async" alt=""></span>';
+  }
   $('#wbbr-status').innerHTML=esc(pollData.title)+' · '+esc(published.type)+' · '+esc(pollData.published_at||published.as_of)+' · <a href="'+esc(pollData.source_url)+'" target="_blank" rel="noopener noreferrer">'+esc(pollData.source)+'</a>';
   $('#wbbr-list').innerHTML=pollData.rankings.map(item=>{
-   const target=norm(aliases[item.team]||item.team);
-   const school=teams.find(t=>norm(t.team).startsWith(target));
-   const logo=school?window.MBBLogos.byESPN(String(school.team_id),'score',school.team):window.MBBLogos.byName(item.team,'score');
-   const name=school?'<a href="ncaaw-team.html?team='+encodeURIComponent(school.team_id)+'">'+esc(school.team)+'</a>':esc(item.team);
-   return '<article class="wbbr-entry"><strong class="wbbr-number">#'+item.rank+'</strong>'+logo+'<div class="wbbr-identity">'+name+'</div><div class="wbbr-value">TOP 25</div></article>';
+   const school=resolveTeam(item.team);
+   const logo=womenLogo(school,item.team);
+   const name=school?'<a href="ncaaw-team.html?team='+encodeURIComponent(school.team_id)+'">'+esc(school.team)+'</a>':'<span class="wbbr-unresolved">'+esc(item.team)+'</span>';
+   const current=school?byRecord.get(String(school.team_id)):null;
+   return '<article class="wbbr-entry"><strong class="wbbr-number">#'+esc(item.rank)+'</strong>'+logo+'<div class="wbbr-identity">'+name+'</div><div class="wbbr-value" aria-label="Season record">'+esc(current?record(current):'—')+'</div></article>';
   }).join('');
  }catch(e){$('#wbbr-status').textContent='Women’s poll unavailable: '+e.message;$('#wbbr-list').innerHTML='';}
  return;
