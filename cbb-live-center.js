@@ -170,10 +170,10 @@
     if(women)return base; // Women's independently calibrated forecast probabilities are not yet published.
     // Men's Game Center uses current published RETRO ratings, never a stale
     // separately calculated fixture-feed probability. Neutral court is explicit.
-    const prediction=window.RETROForecast?.predict(h,a,{site:g.neutral?'neutral':'home'});
+    const prediction=window.RETROForecast?.predict(h,a,{site:g.neutral?'neutral':'home',gameId:String(g.id)});
     if(!prediction)return base;
     return {...base,probability:prediction.homeProbability,asOf:state.modelDate,
-      forecastModel:prediction.model,venueStatus:g.neutral?'neutral':'listed-home'};
+      forecastModel:prediction.model,projectedHomeScore:prediction.homeScore,projectedAwayScore:prediction.awayScore,venueStatus:g.neutral?'neutral':'listed-home'};
   }
   function usrsLine(g){
     const m=modelFor(g);
@@ -1057,6 +1057,7 @@
         if(Number.isInteger(position))state.rankTies.set(position,(state.rankTies.get(position)||0)+1);
       }
       state.modelDate=ratings.as_of;
+      if(!women)window.RETROForecast?.setRevision(ratings.as_of+'|'+ratings.games_played);
       state.preseason=Number(ratings.games_played)===0;
       if(!state.ratingsReady){state.ratings.clear();state.rankTies.clear();}
     }
