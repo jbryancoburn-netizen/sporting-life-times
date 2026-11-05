@@ -1011,7 +1011,7 @@
       if(busy)return;busy=true;
       try{
         const feed=await getCourtGames(state.day);
-        state.games=feed.games;
+        state.games=withVerifiedNetworks(feed.games);
         if(!state.games.some(g=>g.id===id)){
           q('#cbb-detail').innerHTML='<p class="cbb-empty">This game was not found in the '+esc(dateLabel(state.day))+' feed. Return to the Courtside Desk and choose another matchup.</p>';return;
         }
@@ -1027,8 +1027,11 @@
     },15000);
     document.addEventListener('visibilitychange',()=>{if(!document.hidden)update();});
   }
+  const verifiedNetworks=new Map();
+  function withVerifiedNetworks(games){return (games||[]).map(g=>{const network=verifiedNetworks.get(String(g.id||'').replace(/^espn:/,''));return network&&!g.broadcast?{...g,broadcast:network}:g;});}
   async function boot(){
     if(window.MBBLogos?.ready)await Promise.race([window.MBBLogos.ready,new Promise(ok=>setTimeout(ok,4500))]);
+    if(!women){try{const d=await fetchJSON('data/cbb-verified-broadcasts-2026-27.json');for(const e of d?.entries||[])if(e.id&&e.network)verifiedNetworks.set(String(e.id),e.network)}catch{}}
     const [xref,ratings,forecast,polls]=await Promise.all([
       !women?fetchJSON('data/ncaam-2026-27-espn-team-crosswalk.json'):Promise.resolve(null),
       fetchJSON(women?'data/ncaaw-2026-27-retro-primary.json':'data/ncaam-2026-27-retro-primary.json'),
