@@ -5,6 +5,36 @@ function start(teamId,baseGames,siteDisputes,neutralProof){
   const host=document.getElementById('desk');
   if(!host||!w.WBBGameResults||!Array.isArray(baseGames))return;
   let pending=false;
+  async function refreshLiveScores(){
+    // Direct, date-scoped scoreboard refresh independent of the slower certified-final ledger.
+    const day=new Intl.DateTimeFormat('sv-SE',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+    const url='https://site.api.espn.com/apis/site/v2/sports/basketball/womens-college-basketball/scoreboard?groups=50&limit=1000&dates='+day.replaceAll('-','');
+    try{
+      const response=await fetch(url,{cache:'no-store'});
+      if(!response.ok)return;
+      const feed=await response.json();
+      if(!Array.isArray(feed.events))return;
+      const schedule=new Map(baseGames.map(g=>[String(g.id),g]));
+      for(const event of feed.events){
+        const fixture=schedule.get(String(event.id)),competition=event.competitions?.[0];
+        if(!fixture||!competition||!['in','post'].includes(event.status?.type?.state))continue;
+        const sides=competition.competitors||[];
+        if(sides.length!==2||!sides.some(t=>String(t.team?.id)===String(teamId)))continue;
+        const other=sides.find(t=>String(t.team?.id)!==String(teamId));
+        if(!other||String(other.team?.id)!==String(fixture.opponent_id))continue;
+        const scored=sides.map(t=>({id:String(t.team.id),n:Number(t.score?.value??t.score?.displayValue??t.score)}));
+        if(scored.some(x=>!Number.isSafeInteger(x.n)||x.n<0||x.n>500))continue;
+        const ours=scored.find(x=>x.id===String(teamId)),theirs=scored.find(x=>x.id===String(other.team.id));
+        const row=host.querySelector('tr[data-game-id="'+String(event.id)+'"]');
+        const cell=row?.querySelector('.wbb-result-cell');
+        if(!cell||!ours||!theirs)continue;
+        const final=event.status?.type?.state==='post'&&event.status?.type?.completed===true;
+        const score=cell.querySelector('strong'),note=cell.querySelector('.wbb-result-source');
+        if(score)score.textContent=(final?(ours.n>theirs.n?'W ':'L '):'')+ours.n+'–'+theirs.n;
+        if(note)note.textContent=final?'Reported final · certification pending':String(event.status?.type?.shortDetail||'Live');
+      }
+    }catch(_err){/* Preserve last published result when live source is unavailable. */}
+  }
   async function refresh(){
     if(pending)return;
     pending=true;
@@ -69,11 +99,12 @@ function start(teamId,baseGames,siteDisputes,neutralProof){
   }
   // Refresh immediately on opening a team page, not after the first interval.
   void refresh();
+  void refreshLiveScores();
   if(typeof setInterval==='function')setInterval(()=>{
-    if(typeof document==='undefined'||!document.hidden)void refresh();
+    if(typeof document==='undefined'||!document.hidden){void refresh();void refreshLiveScores();}
   },30000);
   if(typeof document!=='undefined')document.addEventListener('visibilitychange',()=>{
-    if(!document.hidden)void refresh();
+    if(!document.hidden){void refresh();void refreshLiveScores();}
   });
 }
 w.WBBTeamLive={start};
