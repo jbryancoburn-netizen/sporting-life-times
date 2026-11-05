@@ -181,11 +181,12 @@
 @media(max-width:640px){.ledger26-status--stack{gap:5px;padding:4px 2px}.ledger26-status--stack .ledger26-clock{font-size:23px!important}.ledger26-status--stack .ledger26-clock--text{font-size:10px!important}.ledger26-status--stack .ledger26-period{font-size:8px}.ledger26-status--stack .ledger26-momentum{font-size:8px}}
 @media(max-width:360px){.ledger26-status--stack .ledger26-clock{font-size:20px!important}.ledger26-status--stack .ledger26-momentum{font-size:7px}}
 
-/* Pregame Telegraph: established right-hand panel, no duplicated tipoff or broadcast. */
-.ledger26-status--pregame{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;min-width:0;padding:5px 2px;overflow:hidden}
-.ledger26-status--pregame .ledger26-pregame-prob{display:block!important;width:100%;color:#803428!important;font:700 14px/1.1 Georgia,'Times New Roman',serif!important;white-space:nowrap;text-align:center}
-.ledger26-status--pregame .ledger26-pregame-caption{display:block;width:100%;color:#543e2a;font:700 8px/1.1 Georgia,'Times New Roman',serif;white-space:nowrap;text-align:center;letter-spacing:0}
-.ledger26-status--pregame .ledger26-pregame-edge{display:block;width:100%;border-top:1px solid #ad9878;padding-top:5px;color:#30271e;font:700 12px/1.1 Georgia,'Times New Roman',serif;white-space:nowrap;text-align:center}
+/* Pregame Telegraph: separate numeric forecast from team identification. */
+.ledger26-status--pregame{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-width:0;overflow:hidden;padding:4px 3px}
+.ledger26-status--pregame .ledger26-pregame-prob{display:block!important;color:#83352a!important;font:700 25px/1 Georgia,'Times New Roman',serif!important;font-variant-numeric:tabular-nums;white-space:nowrap;text-align:center}
+.ledger26-status--pregame .ledger26-pregame-team{display:block;max-width:100%;color:#37271c;font:700 10px/1.05 Georgia,'Times New Roman',serif;text-align:center;white-space:normal;overflow-wrap:normal;word-break:normal;hyphens:none;text-transform:uppercase}
+.ledger26-status--pregame .ledger26-pregame-caption{display:block;color:#68523a;font:700 8px/1.05 Georgia,'Times New Roman',serif;letter-spacing:0;text-align:center;white-space:nowrap}
+.ledger26-status--pregame .ledger26-pregame-edge{display:block;align-self:stretch;border-top:1px solid #ad9878;margin-top:3px;padding-top:4px;color:#34271b;font:700 17px/1 Georgia,'Times New Roman',serif;text-align:center;white-space:nowrap;font-variant-numeric:tabular-nums}
 .ledger26-status--pregame .ledger26-pregame-empty{font:700 12px/1 Georgia,'Times New Roman',serif!important;letter-spacing:.03em}
-@media(max-width:640px){.ledger26-status--pregame{gap:4px}.ledger26-status--pregame .ledger26-pregame-prob{font-size:11px!important}.ledger26-status--pregame .ledger26-pregame-edge{font-size:10px}.ledger26-status--pregame .ledger26-pregame-caption{font-size:7px}}
-@media(max-width:360px){.ledger26-status--pregame .ledger26-pregame-prob{font-size:9px!important}.ledger26-status--pregame .ledger26-pregame-edge{font-size:9px}.ledger26-status--pregame .ledger26-pregame-caption{font-size:6px}}
+@media(max-width:640px){.ledger26-status--pregame{gap:3px;padding:4px 2px}.ledger26-status--pregame .ledger26-pregame-prob{font-size:21px!important}.ledger26-status--pregame .ledger26-pregame-team{font-size:8px}.ledger26-status--pregame .ledger26-pregame-edge{font-size:14px}.ledger26-status--pregame .ledger26-pregame-caption{font-size:7px}}
+@media(max-width:360px){.ledger26-status--pregame .ledger26-pregame-prob{font-size:18px!important}.ledger26-status--pregame .ledger26-pregame-team{font-size:7px}.ledger26-status--pregame .ledger26-pregame-edge{font-size:12px}.ledger26-status--pregame .ledger26-pregame-caption{font-size:6px}}
