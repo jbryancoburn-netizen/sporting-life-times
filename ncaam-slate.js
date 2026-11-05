@@ -190,7 +190,12 @@ function liveEvents(raw,day,registry,women=false,womenRankings=[]){
   const away=t.find(x=>x.homeAway==='away'),home=t.find(x=>x.homeAway==='home');
   if(!away||!home)return[];
   const a=schools.get(String(away.team?.id)),h=schools.get(String(home.team?.id));
-  if(!a||!h||String(a.id)===String(h.id))return[];
+  // Non-DI opponents are eligible for live scores only when the published ledger
+  // already identifies this exact event and pair of source team IDs.
+  const prior=loaded.find(g=>String(g.id)===String(event.id)&&g.day===day&&
+    String(g.away?.id)===String(away.team?.id)&&String(g.home?.id)===String(home.team?.id));
+  if((!a||!h)&&(!prior||women))return[];
+  if(a&&h&&String(a.id)===String(h.id))return[];
   const state=event.status?.type?.state,phase=state==='in'?'live':state==='post'?'final':'upcoming';
   const completed=phase==='final'&&event.status?.type?.completed===true;
   const siteVerified=typeof match.neutralSite==='boolean',neutral=!siteVerified||match.neutralSite===true;
@@ -198,8 +203,8 @@ function liveEvents(raw,day,registry,women=false,womenRankings=[]){
   const hp=score(home.score?.value??home.score?.displayValue??home.score);
   if(phase==='upcoming'||ap===null||hp===null||(phase==='final'&&ap===hp))return[];
   return [{id:String(event.id),day,date:event.date||match.date,phase,
-    away:{id:String(away.team.id),canonical:String(a.id),name:a.name,full:a.espn_name||a.name,score:ap},
-    home:{id:String(home.team.id),canonical:String(h.id),name:h.name,full:h.espn_name||h.name,score:hp},
+    away:{id:String(away.team.id),canonical:a?String(a.id):'',name:a?.name||prior.away.name,full:a?.espn_name||prior.away.full,score:ap},
+    home:{id:String(home.team.id),canonical:h?String(h.id):'',name:h?.name||prior.home.name,full:h?.espn_name||prior.home.full,score:hp},
     venue:match.venue?.fullName||'',broadcast:(match.broadcasts||[]).flatMap(x=>x.names||[]).join(' / '),
     status:event.status?.type?.shortDetail||'LIVE',momentum:phase==='live'?momentumFromCompetition(match,away,home):null,completed,neutral,site_verified:siteVerified,timed:true,kind:'regular',
     evidence:'live-scoreboard',source:phase==='final'?'Reported final · verification pending':'Live score reported',probability:null}];
