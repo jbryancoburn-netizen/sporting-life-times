@@ -99,7 +99,7 @@
   const away=g.away||{},home=g.home||{};
   const match=(away.name||'Away')+' at '+(home.name||'Home');
   const when=[g.date,g.tipoff||g.time,g.venue||g.arena,g.network||g.tv].filter(Boolean).map(esc).join(' · ');
-  return '<button type="button" class="ledger26-preview-link" data-slt-preview-open aria-label="Read pregame press for '+esc(match)+'">PREGAME PRESS ›</button>'+
+  return '<button type="button" class="ledger26-preview-link" data-slt-preview-open data-slt-press-away="'+esc(away.name||'')+'" data-slt-press-home="'+esc(home.name||'')+'" data-slt-press-gender="'+esc(pressGender(g))+'" aria-label="Read pregame press for '+esc(match)+'">PREGAME PRESS ›</button>'+
    '<dialog class="ledger26-preview-dialog" aria-label="Pregame press: '+esc(match)+'" data-slt-press-away="'+esc(away.name||'')+'" data-slt-press-home="'+esc(home.name||'')+'" data-slt-press-gender="'+esc(pressGender(g))+'"><div class="ledger26-preview-paper">'+
    '<div class="ledger26-preview-heading"><span>SPORTING LIFE &amp; TIMES · FROM THE PRESS BOX</span><button type="button" data-slt-preview-close aria-label="Close pregame press">×</button></div>'+
    '<h2>'+esc(match)+'</h2>'+(when?'<p class="ledger26-preview-meta">'+when+'</p>':'')+
@@ -128,7 +128,12 @@
    const open=e.target.closest('[data-slt-preview-open]');
    if(open){
     e.preventDefault();e.stopImmediatePropagation();
-    const dialog=open.closest('.ledger26-scorebug')?.querySelector('.ledger26-preview-dialog');
+    let dialog=open.closest('.ledger26-scorebug')?.querySelector('.ledger26-preview-dialog');
+    if(!dialog){
+     const temp=document.createElement('div');
+     temp.innerHTML=preview({gender:open.dataset.sltPressGender,away:{name:open.dataset.sltPressAway},home:{name:open.dataset.sltPressHome}});
+     dialog=temp.querySelector('dialog');
+    }
     if(dialog&&typeof dialog.showModal==='function'){
      // Dialog must be outside expandable scorecard summaries to avoid native summary clipping/toggling.
      document.body.appendChild(dialog);
@@ -171,6 +176,6 @@
   document.body.appendChild(dialog);dialog.addEventListener('close',()=>dialog.remove(),{once:true});
   dialog.showModal();loadPress(dialog);
  }
- root.SLTSportsScorebug={render,formatRetro,openPress,version:'shared-letterpress-v13-pregame-press-visible'};
+ root.SLTSportsScorebug={render,formatRetro,openPress,version:'shared-letterpress-v14-robust-dialog'};
  root.SLTBasketballScorebug=root.SLTSportsScorebug;
 })(typeof window!=='undefined'?window:globalThis);
