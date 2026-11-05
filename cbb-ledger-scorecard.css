@@ -180,3 +180,12 @@
 .ledger26-status--stack .ledger26-momentum--run{color:#8d3428}
 @media(max-width:640px){.ledger26-status--stack{gap:5px;padding:4px 2px}.ledger26-status--stack .ledger26-clock{font-size:23px!important}.ledger26-status--stack .ledger26-clock--text{font-size:10px!important}.ledger26-status--stack .ledger26-period{font-size:8px}.ledger26-status--stack .ledger26-momentum{font-size:8px}}
 @media(max-width:360px){.ledger26-status--stack .ledger26-clock{font-size:20px!important}.ledger26-status--stack .ledger26-momentum{font-size:7px}}
+
+/* Pregame Telegraph: established right-hand panel, no duplicated tipoff or broadcast. */
+.ledger26-status--pregame{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;min-width:0;padding:5px 2px;overflow:hidden}
+.ledger26-status--pregame .ledger26-pregame-prob{display:block!important;width:100%;color:#803428!important;font:700 14px/1.1 Georgia,'Times New Roman',serif!important;white-space:nowrap;text-align:center}
+.ledger26-status--pregame .ledger26-pregame-caption{display:block;width:100%;color:#543e2a;font:700 8px/1.1 Georgia,'Times New Roman',serif;white-space:nowrap;text-align:center;letter-spacing:0}
+.ledger26-status--pregame .ledger26-pregame-edge{display:block;width:100%;border-top:1px solid #ad9878;padding-top:5px;color:#30271e;font:700 12px/1.1 Georgia,'Times New Roman',serif;white-space:nowrap;text-align:center}
+.ledger26-status--pregame .ledger26-pregame-empty{font:700 12px/1 Georgia,'Times New Roman',serif!important;letter-spacing:.03em}
+@media(max-width:640px){.ledger26-status--pregame{gap:4px}.ledger26-status--pregame .ledger26-pregame-prob{font-size:11px!important}.ledger26-status--pregame .ledger26-pregame-edge{font-size:10px}.ledger26-status--pregame .ledger26-pregame-caption{font-size:7px}}
+@media(max-width:360px){.ledger26-status--pregame .ledger26-pregame-prob{font-size:9px!important}.ledger26-status--pregame .ledger26-pregame-edge{font-size:9px}.ledger26-status--pregame .ledger26-pregame-caption{font-size:6px}}
