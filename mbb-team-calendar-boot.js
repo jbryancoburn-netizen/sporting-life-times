@@ -268,7 +268,7 @@ try{
     '<td class="sched-time-cell">'+escape(tip)+'</td>'+
     '<td class="sched-network-cell">'+network+'</td>'+
     '<td class="sched-elo-cell">'+(exhibition||verifiedNonD1?'Not applicable':escape(opponentElo(opponentId)))+'</td>'+
-    '<td class="sched-result-cell">'+result+gameFile+(expandable?'<button type="button" class="victorian-stat-toggle" aria-expanded="false">GAME STATS ▾</button>':'')+'</td></tr>'+(expandable?'<tr class="victorian-stat-detail" hidden><td colspan="7"><div class="victorian-stat-content">Open for game statistics.</div></td></tr>':'');
+    '<td class="sched-result-cell">'+(scheduleState==='upcoming'?'<button type="button" class="slt-team-press-btn" data-press-home="'+escape(vs==='HOME'?team.name:(school?.name||opponentName))+'" data-press-away="'+escape(vs==='HOME'?(school?.name||opponentName):team.name)+'">PREGAME PRESS ›</button>':'')+result+gameFile+(expandable?'<button type="button" class="victorian-stat-toggle" aria-expanded="false">GAME STATS ▾</button>':'')+'</td></tr>'+(expandable?'<tr class="victorian-stat-detail" hidden><td colspan="7"><div class="victorian-stat-content">Open for game statistics.</div></td></tr>':'');
  }).join('');
  const scoredExhibitions=games.filter(e=>{
   if(e.date.slice(0,10)>='2026-11-01')return false;
@@ -345,6 +345,7 @@ try{
    row.addEventListener('keydown',e=>{if(e.target===row&&(e.key==='Enter'||e.key===' ')){e.preventDefault();toggle();}});
   });
  }
+ host.addEventListener('click',e=>{const btn=e.target.closest('.slt-team-press-btn');if(!btn)return;e.preventDefault();e.stopPropagation();window.SLTSportsScorebug?.openPress({gender:'men',home:{name:btn.dataset.pressHome},away:{name:btn.dataset.pressAway}});},true);
  search.addEventListener('input',filter);view.addEventListener('change',filter);filter();
  host.dataset.scheduleLoaded=selected;
  if(!host.dataset.calendarPolling){host.dataset.calendarPolling='true';setInterval(()=>{if(!document.hidden)refreshCalendar();},60000);}
