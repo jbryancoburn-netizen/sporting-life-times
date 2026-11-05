@@ -1,0 +1,76 @@
+{
+  "model": "ncaaw-retro-exact-160-pass-forecast-v1",
+  "status": "HISTORICAL_HOLDOUT_VALIDATED",
+  "sport": "NCAA Division I women's basketball",
+  "gender": "women",
+  "training_seasons": [
+    "2021-22",
+    "2022-23",
+    "2023-24",
+    "2024-25"
+  ],
+  "untouched_holdout_season": "2025-26",
+  "rating_engine": {
+    "source": "mbb-retro.js calculate() exactly replayed from 1500 before each date",
+    "passes": 160,
+    "gradient_step": 18.0,
+    "home_edge": 75,
+    "initial_elo": 1500,
+    "no_prior_season_carryover": true,
+    "no_same_day_leakage": true
+  },
+  "parameters": {
+    "probability_scale": 1.15,
+    "elo_margin_slope": 0.05098332,
+    "mean_team_points": 64.93550849
+  },
+  "train": {
+    "games": 21623,
+    "brier": 0.1753250051025086,
+    "log_loss": 0.5231721551274657,
+    "margin_mae": 11.21251436483153,
+    "team_score_mae": 9.474009733967227,
+    "prediction_win_rate": 0.7382416870924479
+  },
+  "holdout": {
+    "games": 5565,
+    "brier": 0.1729898823469173,
+    "log_loss": 0.5163260641718721,
+    "margin_mae": 11.715074580047638,
+    "team_score_mae": 9.478187743991407,
+    "prediction_win_rate": 0.7419586702605571
+  },
+  "holdout_unscaled_probability": {
+    "games": 5565,
+    "brier": 0.1734474222783022,
+    "log_loss": 0.5183611056644967,
+    "margin_mae": 11.715074580047638,
+    "team_score_mae": 9.478187743991407,
+    "prediction_win_rate": 0.7419586702605571
+  },
+  "holdout_constant_baseline": {
+    "games": 5565,
+    "brier": 0.25,
+    "log_loss": 0.6931471805599454,
+    "margin_mae": 15.688948787061994,
+    "team_score_mae": 10.809549438617717,
+    "prediction_win_rate": 0.6017969451931716
+  },
+  "release_checks": {
+    "train_games_minimum": 18000,
+    "holdout_games_minimum": 5000,
+    "strict_date_separation": true,
+    "win_loss_better_than_constant": true,
+    "both_score_and_margin_improve_over_constant": true,
+    "probabilities_not_materially_worse_than_raw_elo": true,
+    "passed": true
+  },
+  "score_method": "Uncapped expected score: mean_team_points +/- 0.5*elo_margin_slope*(home Elo-away Elo+verified home advantage). Home win probability uses the same ratings and verified site, scaled by probability_scale.",
+  "limitations": [
+    "2021-26 historical source is provider scoreboard with D-I-v-D-I only, limited to current registry; no independent confirmation of every historical final.",
+    "Score predictions are expected means, not guaranteed finals; no possession, injury, overtime or roster information.",
+    "Unverified venue is treated as neutral and must be labeled; disputed venue must suppress forecast.",
+    "Early-season 1500 reset may understate large school-strength mismatches.",
+    "Forecasts cover two rated D-I teams only; outside-D-I opponents have no RETRO rating."
+  ]
+}
