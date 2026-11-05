@@ -129,7 +129,11 @@
    if(open){
     e.preventDefault();e.stopPropagation();
     const dialog=open.closest('.ledger26-scorebug')?.querySelector('.ledger26-preview-dialog');
-    if(dialog&&typeof dialog.showModal==='function'){dialog.showModal();loadPress(dialog)}
+    if(dialog&&typeof dialog.showModal==='function'){
+     // Dialog must be outside expandable scorecard summaries to avoid native summary clipping/toggling.
+     document.body.appendChild(dialog);
+     dialog.showModal();loadPress(dialog)
+    }
     return;
    }
    const close=e.target.closest('[data-slt-preview-close]');
@@ -161,6 +165,6 @@
  }
  // The Daily Ledger is the universal newspaper model, not a separate sport skin.
  // Keep the old alias for existing college basketball pages.
- root.SLTSportsScorebug={render,formatRetro,version:'shared-letterpress-v12-pregame-press'};
+ root.SLTSportsScorebug={render,formatRetro,version:'shared-letterpress-v13-pregame-press-visible'};
  root.SLTBasketballScorebug=root.SLTSportsScorebug;
 })(typeof window!=='undefined'?window:globalThis);
