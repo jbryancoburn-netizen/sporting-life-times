@@ -1,14 +1,20 @@
 /* Premier League content in the NBA newspaper's shared editorial shell. */
 body.epl-newspaper{--ep-line:var(--line);--ep-muted:var(--muted)}
-.epl-newspaper .hero-art{display:flex;flex-direction:column;justify-content:center;border-radius:100px;position:relative;padding:42px 18px 24px;min-width:0}
-body.epl-newspaper .hero-art:before{content:'PREMIER LEAGUE USRS · THE POWER FOUR';position:absolute;top:15px;left:12px;right:12px;text-align:center;color:var(--gold);font:700 9px 'DM Sans',Arial,sans-serif;letter-spacing:1px}
-.epl-newspaper .epl-power-four{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;width:100%}
-.epl-newspaper .slt-hero-club{display:block;text-align:center;min-width:0;padding:12px 0}
-.epl-newspaper .slt-hero-club img{width:70px;height:70px;object-fit:contain;background:#fffefa;border-radius:50%;padding:9px}
-.epl-newspaper .slt-hero-club strong{display:block;font:33px 'Barlow Condensed',sans-serif;color:white}
-.epl-newspaper .slt-hero-club small{display:block;color:#e0eded;font-size:10px;overflow-wrap:anywhere}
-.epl-newspaper .slt-hero-art-note{font-size:10px;color:#c6d8d9;text-align:center;margin-top:6px}
-.epl-newspaper .metric b{overflow-wrap:anywhere;font-size:30px}
+body.epl-newspaper .slt-hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);align-items:center;gap:24px;padding:22px 20px;margin:18px 0 16px;min-height:0;border-top:3px double var(--ink);border-bottom:3px double var(--ink);background:var(--slt-surface,#f8f1e4);color:var(--ink);border-radius:0}
+body.epl-newspaper .slt-hero h1{font:normal 34px/1.05 Georgia,'Times New Roman',serif;letter-spacing:-.03em;margin:8px 0 12px;color:var(--ink)}
+body.epl-newspaper .slt-hero p{font:12px/1.55 'DM Sans',Arial,sans-serif;color:var(--muted);max-width:48em}
+body.epl-newspaper .slt-hero .slt-cta{font:600 11px/1.4 'DM Sans',Arial,sans-serif;color:var(--ink)}
+body.epl-newspaper .slt-hero .hero-art{display:flex;flex-direction:column;justify-content:center;border:3px double var(--line);border-radius:0;position:relative;padding:14px 12px;min-width:0;background:transparent;box-shadow:none}
+body.epl-newspaper .slt-hero .hero-art:before{content:'RETRO · THE LEADING FOUR';display:block;position:static;text-align:center;color:var(--ink);font:600 9px/1.4 'DM Sans',Arial,sans-serif;letter-spacing:1px;margin-bottom:10px}
+.epl-newspaper .epl-power-four{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;width:100%}
+body.epl-newspaper .slt-hero-club{display:flex;flex-direction:column;align-items:center;justify-content:start;text-align:center;min-width:0;padding:7px 0;color:var(--ink)}
+.epl-newspaper .slt-hero-club img{width:64px;height:64px;object-fit:contain;background:#fffefa;border-radius:50%;padding:7px}
+body.epl-newspaper .slt-hero-club strong{display:block;font:normal 28px/1.1 'Barlow Condensed',Arial,sans-serif;color:var(--ink);margin-top:9px}
+body.epl-newspaper .slt-hero-club small{display:block;color:var(--ink);font:normal 10px/1.35 'DM Sans',Arial,sans-serif;overflow-wrap:normal;word-break:normal;margin-top:4px}
+body.epl-newspaper .slt-hero-art-note{font:normal 10px/1.5 'DM Sans',Arial,sans-serif;color:var(--muted);text-align:center;margin-top:12px}
+body.epl-newspaper .metric b{overflow-wrap:normal;font:normal 25px/1.15 Georgia,'Times New Roman',serif;color:var(--ink)}
+@media(max-width:900px){body.epl-newspaper .slt-hero{grid-template-columns:1fr;gap:18px}body.epl-newspaper .slt-hero .hero-art{border-radius:0}}
+@media(max-width:450px){body.epl-newspaper .slt-hero{padding:18px 12px}body.epl-newspaper .slt-hero h1{font-size:29px}body.epl-newspaper .slt-hero .hero-art{padding:12px 7px}body.epl-newspaper .slt-hero-club strong{font-size:25px}body.epl-newspaper .epl-power-four{gap:6px}}
 .epl-newspaper #epl-feed-health{flex-basis:100%;font-size:10px;line-height:1.5}
 .epl-newspaper #epl-feed-health[data-stale=true]{color:#9a3f20}
 .epl-newspaper .stamp{flex-wrap:wrap;row-gap:3px}
