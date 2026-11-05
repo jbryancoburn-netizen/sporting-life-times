@@ -449,7 +449,7 @@ const arenaStage=g=>{
   '<strong>'+esc(name)+'</strong><span>'+esc(source)+'</span></div>'+link+courtFile+'</div></div>';
 };
 const emblem=t=>{
-  if(window.MBBLogos?.byESPN&&palette[String(t.id)])
+  if(window.MBBLogos?.byESPN&&(palette[String(t.id)]||outsideMark(t)))
     return window.MBBLogos.byESPN(t.id,'featured',t.name);
   const obj=womenTeams.get(String(t.id))||ratings.get(String(t.id))||{};
   // The external mark comes from the verified opponent-ID registry, never a
