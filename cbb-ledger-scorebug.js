@@ -87,7 +87,7 @@
    const content=String(a.title||'')+' '+String(a.summary||'')+' '+String(a.school||'');
    const away=namesA.some(x=>exactMention(content,x)),home=namesH.some(x=>exactMention(content,x));
    if(!away&&!home)return [];
-   const pregame=/\b(preview|pregame|pre-game|matchup|game notes|scouting|versus|vs\.?|faces|hosts|travels to|set to face|takes on|ahead of)\b/i.test(content);
+   const pregame=a.origin==='official-school-athletics'||/\b(preview|pregame|pre-game|matchup|game notes|scouting|versus|vs\.?|faces|hosts|host|welcome|against|travels to|set to face|takes on|ahead of)\b/i.test(content);
    const id=url.href;if(seen.has(id))return [];seen.add(id);
    if(away&&home&&pregame)return [{...a,pressType:'matchup',pressRank:3}];
    if(pregame)return [{...a,pressType:'team',pressRank:2}];
