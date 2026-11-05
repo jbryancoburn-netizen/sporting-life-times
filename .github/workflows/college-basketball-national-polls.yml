@@ -1,0 +1,31 @@
+name: College basketball AP and Coaches weekly polls
+on:
+  schedule:
+    - cron: '18 19 * * 1,2,3'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: cbb-national-polls
+  cancel-in-progress: false
+jobs:
+  poll-refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate and refresh all four national polls
+        run: python scripts/refresh_college_basketball_polls.py
+      - name: Commit verified editions only
+        run: |
+          git add data/ncaam-2026-27-national-polls.json data/ncaaw-2026-27-national-polls.json
+          if ! git diff --cached --quiet; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'Refresh verified current basketball AP/Coaches poll editions'
+            git push
+          fi
