@@ -641,9 +641,21 @@ function card(original,featured,opened=false){
  const venue=network?'<span class="ledger26-network">'+esc(network)+'</span>':g.phase==='upcoming'?'<span class="ledger26-network">TV TBA</span>':g.venue?'<span class="ledger26-venue">'+esc(g.venue)+'</span>':'';
  // A press launcher outside <summary> does not toggle the gamefile.
  const press=g.phase==='upcoming'?'<button type="button" class="slt-team-press-btn" data-slt-ledger-press-open data-game-id="'+esc(g.id)+'" data-day="'+esc(g.day)+'" aria-label="Read pregame press for '+esc(g.away.name)+' at '+esc(g.home.name)+'">PREGAME PRESS ›</button>':'';
- const right=venue||press?'<span class="ledger26-meta-actions" style="display:flex;justify-content:flex-end;align-items:center;gap:7px;flex-wrap:wrap;min-width:0">'+venue+press+'</span>':'';
+ const right=venue||press?'<span class="ledger26-meta-actions">'+venue+press+'</span>':'';
+ // RETRO is an independent projection; DraftKings is the sole sportsbook shown.
+ const p=insight?.projectedScore(g,scoreCalibration,ratings);
+ const modelMargin=Number.isFinite(g.projectedHomeMargin)?g.projectedHomeMargin:(p&&Number.isFinite(p.home)&&Number.isFinite(p.away)?p.home-p.away:null);
+ const spreadText=(margin)=>{
+  if(!Number.isFinite(margin))return '—';
+  if(Math.abs(margin)<0.05)return 'EVEN';
+  const name=margin>0?g.home.name:g.away.name;
+  const n=Math.round(Math.abs(margin)*10)/10;
+  return esc(name)+' −'+n.toFixed(1).replace(/\\.0$/,'');
+ };
+ const retro=g.phase==='upcoming'?'<span class="ledger26-line" title="RETRO projected margin, not sportsbook odds"><small>RETRO PROJECTION</small><strong>'+spreadText(modelMargin)+'</strong></span>':'';
+ const dk=g.phase==='upcoming'?'<span class="ledger26-line ledger26-line--book" title="DraftKings only. No substitute sportsbook used."><small>DRAFTKINGS LINE</small><strong>'+(g.draftKings&&Number.isFinite(g.draftKings.homeSpread)?spreadText(-g.draftKings.homeSpread):'NO LINE')+'</strong></span>':'';
  return '<article class="sl-game ledger26-card'+(featured?' ledger26-featured':'')+'">'+
-   (when||right?'<div class="ledger26-meta">'+when+right+'</div>':'')+
+   (when||right?'<div class="ledger26-meta'+(g.phase==='upcoming'?' ledger26-meta--pregame':'')+'">'+when+retro+dk+right+'</div>':'')+
    '<details class="sl-game-expansion ledger26-expand" data-game-id="'+esc(g.id)+'" data-day="'+esc(g.day)+'"'+(opened?' open':'')+'>'+
    '<summary class="ledger26-summary" aria-label="Expand '+esc(g.away.name)+' at '+esc(g.home.name)+' game details">'+
    ledgerScorebug(g)+'<span class="ledger26-instruction">OPEN GAME DETAILS <span aria-hidden="true">+</span></span></summary>'+
@@ -678,6 +690,25 @@ document.addEventListener('toggle',event=>{
 // Broadcast listings are independent of whether a game has tipped off.
 // Enrich by exact event ID AND date; never borrow another fixture's network.
 const broadcastByDate=new Map();
+const draftKingsByDate=new Map();
+const onlyDraftKings=odds=>{
+ // Never substitute FanDuel, BetMGM, a consensus feed, or an unattributed line.
+ const list=Array.isArray(odds)?odds:odds?.items&&Array.isArray(odds.items)?odds.items:odds?[odds]:[];
+ for(const o of list){
+  const provider=o?.provider||{};
+  if(!(String(provider.id||o?.providerId||'')==='41'||/^draft\\s*kings$/i.test(String(provider.name||''))))continue;
+  const home=o.homeTeamOdds||{},away=o.awayTeamOdds||{};
+  let h=Number(home.spread??home.line??home.pointSpread);
+  if(!Number.isFinite(h)){
+   const n=Number(o.spread);
+   if(!Number.isFinite(n)||n===0||!((home.favorite===true&&away.favorite===false)||(away.favorite===true&&home.favorite===false)))continue;
+   h=home.favorite===true?-Math.abs(n):Math.abs(n);
+  }
+  if(Math.abs(h)>75)continue;
+  return {homeSpread:h,book:'DraftKings'};
+ }
+ return null;
+};
 let broadcastRequestDay='';
 async function refreshBroadcasts(day){
  if(!/^\d{4}-\d{2}-\d{2}$/.test(day)||broadcastRequestDay===day)return;
@@ -686,14 +717,17 @@ async function refreshBroadcasts(day){
   const sport=women?'womens-college-basketball':'mens-college-basketball';
   const url='https://site.api.espn.com/apis/site/v2/sports/basketball/'+sport+'/scoreboard?groups=50&limit=1000&dates='+day.replaceAll('-','');
   const raw=await fetchJSON(url);
-  const byId=new Map();
+  const byId=new Map(),dkById=new Map();
   for(const event of raw?.events||[]){
-   if(isoDate(event.date)!==day)continue;
+   if(isoDate(event.date)!==day||!validId(event.id))continue;
    const competition=event.competitions?.[0];
    const names=(competition?.broadcasts||[]).flatMap(b=>b.names||[]).filter(Boolean);
-   if(names.length&&validId(event.id))byId.set(String(event.id),[...new Set(names)].join(' / '));
+   if(names.length)byId.set(String(event.id),[...new Set(names)].join(' / '));
+   const line=onlyDraftKings(competition?.odds);
+   if(line)dkById.set(String(event.id),line);
   }
   broadcastByDate.set(day,byId);
+  draftKingsByDate.set(day,{checkedAt:Date.now(),lines:dkById});
   if(selected===day)render();
  }catch(e){/* Preserve sourced schedule data if the broadcast endpoint is unavailable. */}
  finally{broadcastRequestDay=''}
@@ -702,7 +736,9 @@ const verifiedBroadcasts=new Map();
 const displayGames=()=>reconcileLive(loaded,liveBoard).map(g=>{
  const official=verifiedBroadcasts.get(String(g.id));
  const broadcaster=(official?.day===g.day?official.network:'')||broadcastByDate.get(g.day)?.get(String(g.id));
- return !g.broadcast&&broadcaster?{...g,broadcast:broadcaster}:g;
+ const snapshot=draftKingsByDate.get(g.day);
+ const draftKings=snapshot&&Date.now()-snapshot.checkedAt<15*60*1000?snapshot.lines.get(String(g.id)):null;
+ return {...g,broadcast:g.broadcast||broadcaster||'',draftKings:draftKings||null};
 });
 const render=()=>{
  const games=selectGames(displayGames(),selected,filter,search),shown=games.slice(0,limit);
@@ -884,5 +920,5 @@ setInterval(()=>{if(document.hidden||!window.SLTInlineGamefile)return;
  });
 },30000);
 }
-return{normalizeMen,normalizeWomen,liveEvents,reconcileLive,provisionalRetro,normalizeExhibitions,selectGames,gameDetailsHref,formatClock,isoDate,shift,start};
+return{normalizeMen,normalizeWomen,liveEvents,reconcileLive,provisionalRetro,normalizeExhibitions,selectGames,gameDetailsHref,formatClock,isoDate,shift,onlyDraftKings,start};
 });
