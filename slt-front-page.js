@@ -30,7 +30,7 @@ function init(){
   const head=$('header');if(head)head.after(node);
  }
  function linksForPaper(){
-  const nav=$(kind==='front'?'.nav':'header nav')||$('nav[aria-label]');
+  const nav=kind==='front'?$('.nav'):(kind==='nbl'?$('.nbl-jump'):null)||(kind==='soccer'||kind==='echl'?$('.hub-nav'):null)||$('header nav')||$('nav[aria-label]');
   if(!nav)return [];
   const used=new Set(),out=[];
   for(const a of nav.querySelectorAll('a[href]')){
