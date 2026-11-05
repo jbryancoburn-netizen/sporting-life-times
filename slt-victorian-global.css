@@ -82,3 +82,13 @@ body .power-table tbody td:first-child:not(:has(a,img,button)){
 
 /* Main masthead navigation is the single section menu; suppress duplicate department link rails across editions. */
 .slt-department-band .slt-department-links, nav.slt-department-links{display:none!important}
+
+/* Universal engraved ranking furniture: one row enclosure, no second PLACE box.
+   Limit to explicit ranking tables so standings/game tables stay intact. */
+body :is(.ranking-table,.power-table,.rank-table,.cbb-elo-table){border-collapse:separate;border-spacing:0 7px}
+body :is(.ranking-table,.power-table,.rank-table,.cbb-elo-table) tbody tr{background:transparent!important}
+body :is(.ranking-table,.power-table,.rank-table,.cbb-elo-table) tbody td{border-top:3px double #9e8566;border-bottom:3px double #9e8566;background:#f8efdf}
+body :is(.ranking-table,.power-table,.rank-table,.cbb-elo-table) tbody td:first-child{border-left:3px double #9e8566}
+body :is(.ranking-table,.power-table,.rank-table,.cbb-elo-table) tbody td:last-child{border-right:3px double #9e8566}
+body :is(.ranking-table,.power-table,.rank-table,.cbb-elo-table) tbody td:first-child:not(:has(a,img,button)) {color:#553d29;background:#f8efdf;outline:0;box-shadow:none;text-align:center}
+body :is(.ranking-table,.power-table,.rank-table,.cbb-elo-table) tbody td:first-child :is(.rank-number,.victorian-number,.rank){display:inline-grid;place-items:center;background:#713d2b;color:#fff4dd;border:3px double #efdfc4;outline:1px solid #71402e;min-width:32px;min-height:32px;padding:3px 5px;font:700 14px/1 Georgia,serif}
