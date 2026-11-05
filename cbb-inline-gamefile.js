@@ -142,11 +142,11 @@
      ['away','home'].map(side=>{
        const players=box?.[side]?.players||[];
        if(!players.length)return missing(name(g[side])+' player box score is not available.');
-       return '<div class="slt-gf-scroll"><table class="slt-gf-table"><caption>'+
+       return '<div class="slt-gf-scroll slt-gf-scroll--players"><table class="slt-gf-table slt-gf-table--players"><caption>'+
          esc(name(g[side]))+' · player box score</caption><thead><tr><th scope="col">PLAYER</th>'+
          defs.map(([,label])=>'<th scope="col">'+label+'</th>').join('')+'</tr></thead><tbody>'+
          players.map(p=>'<tr><th scope="row">'+esc(p.name||'Unnamed player')+'</th>'+
-           defs.map(([key])=>'<td>'+esc(p[key]??'—')+'</td>').join('')+'</tr>').join('')+
+           defs.map(([key,label])=>'<td data-label="'+esc(label)+'">'+esc(p[key]??'—')+'</td>').join('')+'</tr>').join('')+
          '</tbody></table></div>';
      }).join('');
  }
@@ -160,11 +160,11 @@
      return sections.map(section=>{
        const labels=section.labels||section.names||[],players=(section.athletes||[]).filter(p=>p.athlete?.displayName&&Array.isArray(p.stats));
        if(!players.length)return '';
-       return '<div class="slt-gf-scroll"><table class="slt-gf-table"><caption>'+
+       return '<div class="slt-gf-scroll slt-gf-scroll--players"><table class="slt-gf-table slt-gf-table--players"><caption>'+
          esc(name(team))+' · '+esc(section.name||'player statistics')+' · live box score</caption>'+
          '<thead><tr><th scope="col">PLAYER</th>'+labels.map(v=>'<th scope="col">'+esc(v)+'</th>').join('')+
          '</tr></thead><tbody>'+players.map(p=>'<tr><th scope="row">'+esc(p.athlete.displayName)+'</th>'+
-         labels.map((_,i)=>'<td>'+esc(p.stats[i]??'—')+'</td>').join('')+
+         labels.map((label,i)=>'<td data-label="'+esc(label)+'">'+esc(p.stats[i]??'—')+'</td>').join('')+
          '</tr>').join('')+'</tbody></table></div>';
      }).join('');
    }).join('');
