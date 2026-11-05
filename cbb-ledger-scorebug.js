@@ -31,6 +31,16 @@
     (periodLabel?'<span class="ledger26-period">'+esc(periodLabel)+'</span>':'')+
     (momentum?'<small class="ledger26-situation ledger26-momentum'+(momentum.kind==='run'?' ledger26-momentum--run':'')+'">'+esc(momentum.text)+'</small>':'')+'</div>';
  }
+ function pregamePanel(g){
+  const f=g.forecast;
+  if(!f||typeof f.team!=='string'||!Number.isFinite(f.probability)||f.probability<0||f.probability>1)
+    return '<div class="ledger26-status ledger26-status--pregame" data-phase="upcoming"><strong class="ledger26-pregame-empty">PREGAME</strong></div>';
+  const pct=Math.round(f.probability*100);
+  const edge=Number.isFinite(f.margin)&&f.margin>0?'<small class="ledger26-pregame-edge">'+esc(f.team)+' +'+f.margin.toFixed(1)+'</small><span class="ledger26-pregame-caption">RETRO EDGE</span>':'';
+  return '<div class="ledger26-status ledger26-status--pregame" data-phase="upcoming">'+
+    '<strong class="ledger26-pregame-prob">'+esc(f.team)+' '+pct+'%</strong>'+
+    '<span class="ledger26-pregame-caption">WIN PROBABILITY</span>'+edge+'</div>';
+ }
  function render(input){
   const g=input||{},phase=['live','final','upcoming'].includes(g.phase)?g.phase:'upcoming';
   const label=(phase==='final'?
@@ -52,10 +62,10 @@
   return '<div class="ledger26-scorebug" role="group" aria-label="'+esc(g.ariaLabel||((g.away?.name||'Away')+' at '+(g.home?.name||'Home')+' scoreboard'))+'">'+
     '<span class="ledger26-monogram"><img src="assets/slt-engraved-black.svg" width="35" height="49" alt="Sporting Life and Times monogram"></span>'+
     '<div class="ledger26-teams">'+team(g.away)+team(g.home)+'</div>'+
-    (phase==='live'?livePanel(g,label):label?'<div class="ledger26-status" data-phase="'+phase+'"><strong>'+esc(label)+'</strong></div>':'')+'</div>';
+    (phase==='live'?livePanel(g,label):phase==='upcoming'?pregamePanel(g):label?'<div class="ledger26-status" data-phase="'+phase+'"><strong>'+esc(label)+'</strong></div>':'')+'</div>';
  }
  // The Daily Ledger is the universal newspaper model, not a separate sport skin.
  // Keep the old alias for existing college basketball pages.
- root.SLTSportsScorebug={render,formatRetro,version:'shared-letterpress-v8'};
+ root.SLTSportsScorebug={render,formatRetro,version:'shared-letterpress-v9'};
  root.SLTBasketballScorebug=root.SLTSportsScorebug;
 })(typeof window!=='undefined'?window:globalThis);
