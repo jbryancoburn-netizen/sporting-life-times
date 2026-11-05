@@ -253,11 +253,45 @@ function compactPlayerTeam(t){
  if(!meta[t])return '<span class="nba-player-club-text">'+esc(t||'—')+'</span>';
  return '<a class="nba-player-club" href="'+tl(t)+'" style="--nba-club-color:'+meta[t][3]+'" aria-label="'+esc(name(t))+'"><img src="'+logo(t)+'" loading="lazy" alt="" width="23" height="23" onerror="this.hidden=true"><span>'+esc(t)+'</span></a>';
 }
+function playerNotebookRows(totals){
+ return '<div class="nba-player-notebook"><table class="nba-player-ledger"><thead><tr>'+
+  '<th>Player</th><th>Club</th><th>GP</th><th>PTS/G</th><th>REB/G</th><th>AST/G</th><th>FG%</th><th>TS%</th>'+
+  '</tr></thead><tbody>'+totals.map(x=>'<tr>'+
+  '<td data-stat="Player" class="nba-player-ledger-name">'+esc(x.player)+'</td>'+
+  '<td data-stat="Club" class="nba-player-ledger-team">'+compactPlayerTeam(x.team)+'</td>'+
+  '<td data-stat="GP" class="nba-player-ledger-stat">'+esc(x.gp)+'</td>'+
+  '<td data-stat="PTS/G" class="nba-player-ledger-stat">'+fmt(x.ppg,1)+'</td>'+
+  '<td data-stat="REB/G" class="nba-player-ledger-stat">'+fmt(x.rpg,1)+'</td>'+
+  '<td data-stat="AST/G" class="nba-player-ledger-stat">'+fmt(x.apg,1)+'</td>'+
+  '<td data-stat="FG%" class="nba-player-ledger-stat">'+fmt(x.fg_pct,1)+'</td>'+
+  '<td data-stat="TS%" class="nba-player-ledger-stat">'+fmt(x.ts_pct,1)+'</td>'+
+  '</tr>').join('')+'</tbody></table></div>';
+}
 function players(){
- const cats=[['Scoring','ppg','PPG'],['Rebounds','rpg','RPG'],['Assists','apg','APG'],['Steals','spg','SPG'],['Blocks','bpg','BPG'],['FG Percentage','fg_pct','FG%'],['3PT Percentage','fg3_pct','3PT%'],['Free Throws','ft_pct','FT%']];
- const panels=cats.map(([heading,stat,label])=>'<section class="panel"><h2>'+heading+'</h2>'+table([['Player'],['Team'],['GP','num'],[label,'num']],(data.leaders?.rows||[]).filter(x=>x.stat===stat&&Number.isFinite(x.value)).sort((a,b)=>b.value-a.value).slice(0,10).map(x=>'<tr><td>'+esc(x.player)+'</td><td>'+team(x.team)+'</td><td class="num">'+esc(x.gp)+'</td><td class="num"><strong>'+fmt(x.value,1)+'</strong></td></tr>'))+'</section>').join('');
- let totals=(data.leaders?.season_totals||[]).filter(p=>(p.player+' '+p.team).toLowerCase().includes(playerFilter)).sort((a,b)=>b.ppg-a.ppg).slice(0,70);
- return '<div class="eyebrow">Individual achievement · 2026–27</div><h1>PLAYER LEADERS</h1><p class="nba-note">'+esc(data.leaders?.coverage?.completed_boxscores??0)+' captured completed box scores · '+esc(data.leaders?.coverage?.unique_players??0)+' unique player records. These statistics cover captured games only, not necessarily the complete league schedule.</p><div class="nba-mini-grid">'+panels+'</div><section class="panel">'+section('Player Reference','Search the Statistical Notebook')+'<div class="nba-filters"><label for="nba-player-search">Player or franchise</label><input id="nba-player-search" type="search" placeholder="Search player or team" value="'+esc(playerFilter)+'"></div><div id="nba-player-results">'+table([['Player'],['Team'],['GP','num'],['PTS/G','num'],['REB/G','num'],['AST/G','num'],['FG%','num'],['TS%','num']],totals.map(x=>'<tr><td>'+esc(x.player)+'</td><td>'+team(x.team)+'</td><td class="num">'+x.gp+'</td><td class="num">'+fmt(x.ppg,1)+'</td><td class="num">'+fmt(x.rpg,1)+'</td><td class="num">'+fmt(x.apg,1)+'</td><td class="num">'+fmt(x.fg_pct,1)+'</td><td class="num">'+fmt(x.ts_pct,1)+'</td></tr>'))+'</div><p class="note">Showing '+totals.length+' captured player records. Search to narrow the notebook.</p></section>';}
+ const cats=[['Scoring','ppg','PPG'],['Rebounds','rpg','RPG'],['Assists','apg','APG'],['Steals','spg','SPG'],['Blocks','bpg','BPG'],['Field Goal %','fg_pct','FG%'],['Three-Point %','fg3_pct','3PT%'],['Free Throw %','ft_pct','FT%']];
+ const panels=cats.map(([heading,stat,label],i)=>{
+  const items=(data.leaders?.rows||[]).filter(x=>x.stat===stat&&Number.isFinite(x.value)).sort((a,b)=>b.value-a.value).slice(0,10);
+  return '<section class="panel nba-player-category"><div class="nba-player-category-head"><span>No. '+String(i+1).padStart(2,'0')+'</span><h3>'+heading+'</h3><small>'+label+'</small></div>'+
+  '<div class="nba-table-wrap"><table class="nba-table nba-player-top-ten"><thead><tr><th>Player</th><th>Club</th><th class="num">GP</th><th class="num">'+label+'</th></tr></thead>'+
+  '<tbody>'+items.map(x=>'<tr><td>'+esc(x.player)+'</td><td>'+compactPlayerTeam(x.team)+'</td><td class="num">'+esc(x.gp)+'</td><td class="num"><strong>'+fmt(x.value,1)+'</strong></td></tr>').join('')+'</tbody></table></div></section>';
+ }).join('');
+ const all=(data.leaders?.season_totals||[]);
+ const totals=all.filter(p=>(p.player+' '+p.team).toLowerCase().includes(playerFilter)).sort((a,b)=>b.ppg-a.ppg).slice(0,70);
+ const games=esc(data.leaders?.coverage?.completed_boxscores??0),unique=esc(data.leaders?.coverage?.unique_players??0);
+ return '<header class="nba-press-header"><div class="nba-press-kicker">Sporting Life & Times · NBA Statistical Bureau · 2026–27</div>'+
+  '<h1>The Players’ Register</h1><p class="nba-press-subtitle">The individual performances shaping the season, from scoring to shooting.</p>'+
+  '<p class="nba-press-qualification"><strong>Captured-game sample.</strong> The figures below are not certified full-season NBA leaderboards; shooting percentages do not impose minimum attempts.</p></header>'+
+  '<div class="nba-player-census" aria-label="Player statistics coverage"><div><b>'+games+'</b><span>Completed box scores</span></div>'+
+  '<div><b>'+unique+'</b><span>Players recorded</span></div><div><b>8</b><span>Statistical categories</span></div></div>'+
+  '<section class="nba-player-charts"><div class="nba-player-section-head"><div class="nba-press-kicker">The Leaders of the Day</div>'+
+  '<h2>Names Above the Fold</h2><p>Top performances and comparisons across the captured season.</p></div>'+
+  '<div class="nba-mini-grid">'+panels+'</div></section>'+
+  '<section class="panel nba-player-reference"><div class="nba-press-kicker">The Statistical Notebook</div><h2>Search the Player Register</h2>'+
+  '<p>Search by player or franchise. The index displays up to 70 matching player records, ordered by points per game.</p>'+
+  '<div class="nba-filters"><label for="nba-player-search">Player or franchise</label><input id="nba-player-search" type="search" placeholder="Search names or clubs" value="'+esc(playerFilter)+'" autocomplete="off"></div>'+
+  '<div id="nba-player-results">'+playerNotebookRows(totals)+'</div>'+
+  '<p class="nba-press-footnote">Source: captured box-score statistics · '+all.length+' player records indexed. This sample may not cover every played NBA game.</p></section>';
+}
 // The matchup desk uses the identical scoreboard renderer as the live rail.
 function matchupCard(g){
  const a=g.teams?.find(t=>t.home_away==='away'),h=g.teams?.find(t=>t.home_away==='home');
@@ -339,7 +373,7 @@ document.addEventListener('click',e=>{const btn=e.target.closest('[data-franchis
 document.addEventListener('click',e=>{const tab=e.target.closest('[data-leader-stat]');if(!tab)return;const next=tab.getAttribute('data-leader-stat');if(!leaderCategories.some(x=>x[0]===next))return;leaderCategory=next;const content=$('#nba-leader-content');if(content)content.innerHTML=leaders(next,5);document.querySelectorAll('.nba-leader-tab').forEach(b=>{const active=b.getAttribute('data-leader-stat')===next;b.classList.toggle('is-active',active);b.setAttribute('aria-pressed',String(active));});});
 document.addEventListener('input',e=>{
  if(e.target.id==='nba-team-search'){filter=e.target.value.trim().toLowerCase();const el=$('#nba-team-results');if(el){const entries=codes.filter(t=>name(t).toLowerCase().includes(filter)||t.toLowerCase().includes(filter)).sort((a,b)=>name(a).localeCompare(name(b)));el.innerHTML=entries.map(t=>'<a href="'+tl(t)+'" class="nba-team-tile" style="--team-color:'+meta[t][3]+'">'+image(t)+'<b>'+esc(name(t))+'</b><small>'+rec(t)+' · #'+rank(t)+' Elo</small></a>').join('')||blank('No teams match your search.');}}
- if(e.target.id==='nba-player-search'){playerFilter=e.target.value.trim().toLowerCase();const el=$('#nba-player-results');if(el){let tot=(data.leaders?.season_totals||[]).filter(p=>(p.player+' '+p.team).toLowerCase().includes(playerFilter)).sort((a,b)=>b.ppg-a.ppg).slice(0,70);el.innerHTML=table([['Player'],['Team'],['GP','num'],['PTS/G','num'],['REB/G','num'],['AST/G','num'],['FG%','num'],['TS%','num']],tot.map(x=>'<tr><td>'+esc(x.player)+'</td><td>'+team(x.team)+'</td><td class="num">'+x.gp+'</td><td class="num">'+fmt(x.ppg,1)+'</td><td class="num">'+fmt(x.rpg,1)+'</td><td class="num">'+fmt(x.apg,1)+'</td><td class="num">'+fmt(x.fg_pct,1)+'</td><td class="num">'+fmt(x.ts_pct,1)+'</td></tr>'))}}
+ if(e.target.id==='nba-player-search'){playerFilter=e.target.value.trim().toLowerCase();const el=$('#nba-player-results');if(el){let tot=(data.leaders?.season_totals||[]).filter(p=>(p.player+' '+p.team).toLowerCase().includes(playerFilter)).sort((a,b)=>b.ppg-a.ppg).slice(0,70);el.innerHTML=playerNotebookRows(tot)}}
 });
 document.addEventListener('change',e=>{if(e.target.id==='nba-team-select')location.href=tl(e.target.value);});
 setInterval(async()=>{
