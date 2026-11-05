@@ -2,7 +2,47 @@
 (()=>{'use strict';
 const navs=[...document.querySelectorAll('nav.cbb-universal-nav')];
 if(!navs.length)return;
-const women=new URLSearchParams(location.search).get('gender')==='women'||document.body.dataset.gender==='women'||location.pathname.includes('ncaaw');
+const editionKey='slt-college-basketball-edition';
+const params=new URLSearchParams(location.search);
+const page=location.pathname.split('/').pop();
+const explicit=params.get('gender');
+const womenPage=/^ncaaw/.test(page)||document.body.dataset.gender==='women';
+const menPage=/^ncaam/.test(page)||document.body.dataset.gender==='men';
+let preference=null;
+try{preference=localStorage.getItem(editionKey);}catch(_){}
+const women=explicit==='women'||(explicit!=='men'&&(womenPage||preference==='women'));
+try{
+ if(explicit==='women'||explicit==='men')localStorage.setItem(editionKey,explicit);
+ else if(womenPage)localStorage.setItem(editionKey,'women');
+}catch(_){}
+// Direct visits to a men's URL must honor a previously selected women's edition.
+if(women&&!womenPage&&menPage&&explicit!=='women'){
+ const redirects={
+  'ncaam.html':'ncaam.html?gender=women',
+  'ncaam-team.html':'ncaaw-team.html',
+  'ncaam-rankings.html':'ncaaw-rankings.html',
+  'ncaam-elo.html':'ncaaw-rankings.html?poll=retro',
+  'ncaam-conference.html':'ncaam.html?gender=women#wbb-standings',
+  'ncaam-tournament.html':'ncaam.html?gender=women#wbb-rankings',
+  'ncaam-players.html':'ncaam.html?gender=women#wbb-teams',
+  'ncaam-arena.html':'ncaam.html?gender=women#wbb-teams',
+  'ncaam-history.html':'ncaam.html?gender=women#wbb-rankings',
+  'ncaam-rivalry.html':'ncaam.html?gender=women#wbb-games',
+  'ncaam-predictor.html':'ncaam.html?gender=women#wbb-games'
+ };
+ if(redirects[page]){
+  const next=new URL(redirects[page],location.href);
+  if(page==='ncaam-team.html'&&params.has('team'))next.searchParams.set('team',params.get('team'));
+  if(page==='ncaam-rankings.html'&&params.has('poll'))next.searchParams.set('poll',params.get('poll'));
+  location.replace(next.href);return;
+ }
+}
+document.addEventListener('click',event=>{
+ const switchLink=event.target.closest('a.cbb-gender-option');
+ if(!switchLink)return;
+ const destination=new URL(switchLink.href,location.href);
+ try{localStorage.setItem(editionKey,destination.searchParams.get('gender')==='women'?'women':'men');}catch(_){}
+},true);
 const front=women?'ncaam.html?gender=women':'ncaam.html';
 const ranks=women?
  [['RETRO','retro'],['AP','ap'],['Coaches','coaches'],['NET','net'],
@@ -18,7 +58,7 @@ for(const nav of navs){
  }
  bar.setAttribute('role','group');
  bar.setAttribute('aria-label','College basketball edition');
- bar.innerHTML='<a class="cbb-gender-option'+(women?'':' is-active')+'" href="ncaam.html"'+(women?'':' aria-current="page"')+'>Men</a><a class="cbb-gender-option'+(women?' is-active':'')+'" href="ncaam.html?gender=women"'+(women?' aria-current="page"':'')+'>Women</a>';
+ bar.innerHTML='<a class="cbb-gender-option'+(women?'':' is-active')+'" href="ncaam.html?gender=men"'+(women?'':' aria-current="page"')+'>Men</a><a class="cbb-gender-option'+(women?' is-active':'')+'" href="ncaam.html?gender=women"'+(women?' aria-current="page"':'')+'>Women</a>';
  // Give each edition its own section destinations. Never silently revert to men.
  const sections=women?{
   'The Front Page':'ncaam.html?gender=women',
@@ -58,7 +98,7 @@ for(const nav of navs){
    const anchor=event.target.closest('a[href]');
    if(!anchor||event.defaultPrevented||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey||event.button!==0)return;
    // Edition switches are deliberate changes, never subject to same-edition routing.
-   if(anchor.closest('.cbb-edition-switch'))return;
+   if(anchor.closest('.cbb-edition-switch')||anchor.classList.contains('cbb-gender-option'))return;
    const url=new URL(anchor.href,location.href);
    if(url.origin!==location.origin||url.searchParams.get('gender')==='men'||!targets[url.pathname.split('/').pop()])return;
    if(url.searchParams.get('gender')==='women')return;
