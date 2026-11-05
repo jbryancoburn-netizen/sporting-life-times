@@ -60,6 +60,40 @@ class WomenLiveIngestionTests(unittest.TestCase):
         self.assertEqual(len(release["upcoming"]),1)
         self.assertEqual(release["fetch_window"],{"from":"2026-11-02","through":"2026-11-07"})
 
+    def test_outside_division_final_is_published_and_survives_refresh_without_elo(self):
+        outside=event("401927975","2026-11-05")
+        competitors=outside["competitions"][0]["competitors"]
+        competitors[0]["team"]["displayName"]="Towson Tigers"
+        competitors[0]["score"]="92"
+        competitors[1]["team"]={"id":"341","displayName":"Frostburg State Bobcats"}
+        competitors[1]["score"]="94"
+        with patch.object(wbb,"daily",side_effect=lambda day:
+                          [outside] if day.isoformat()=="2026-11-05" else []):
+            wbb.live(today=wbb.dt.date(2026,11,5))
+        release=self.load("ncaaw-2026-27-games.json")
+        row=next(g for g in release["finals"] if g["id"]=="401927975")
+        self.assertEqual((row["away_id"],row["home_id"]),("341","1"))
+        self.assertEqual(row["away_name"],"Frostburg State Bobcats")
+        self.assertEqual((row["away_score"],row["home_score"]),(94,92))
+        self.assertEqual(self.load("ncaaw-2026-27-verified-games.json")["games"],[])
+        with patch.object(wbb,"daily",return_value=[]):
+            wbb.live(today=wbb.dt.date(2026,11,5))
+        self.assertIn("401927975",
+                      {g["id"] for g in self.load("ncaaw-2026-27-games.json")["finals"]})
+
+    def test_merged_scoreboard_includes_games_missing_from_division_one_group(self):
+        day=wbb.dt.date(2026,11,5)
+        ordinary=event("100","2026-11-05")
+        outsider=event("200","2026-11-05")
+        urls=[]
+        def source(url):
+            urls.append(url)
+            return {"events":[ordinary]} if "groups=50" in url else {"events":[ordinary,outsider]}
+        with patch.object(wbb,"request",side_effect=source):
+            results=wbb.daily(day)
+        self.assertEqual({g["id"] for g in results},{"100","200"})
+        self.assertEqual(len(urls),2)
+
     def test_future_fixture_outage_does_not_block_todays_final(self):
         def dates(day):
             if day.isoformat()=="2026-11-03":
