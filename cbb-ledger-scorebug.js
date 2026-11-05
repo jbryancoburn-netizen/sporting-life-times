@@ -35,11 +35,15 @@
   const f=g.forecast;
   if(!f||typeof f.team!=='string'||!Number.isFinite(f.probability)||f.probability<0||f.probability>1)
     return '<div class="ledger26-status ledger26-status--pregame" data-phase="upcoming"><strong class="ledger26-pregame-empty">PREGAME</strong></div>';
-  const pct=Math.round(f.probability*100);
-  const edge=Number.isFinite(f.margin)&&f.margin>0?'<small class="ledger26-pregame-edge">'+esc(f.team)+' +'+f.margin.toFixed(1)+'</small><span class="ledger26-pregame-caption">RETRO EDGE</span>':'';
-  return '<div class="ledger26-status ledger26-status--pregame" data-phase="upcoming">'+
-    '<strong class="ledger26-pregame-prob">'+esc(f.team)+' '+pct+'%</strong>'+
-    '<span class="ledger26-pregame-caption">WIN PROBABILITY</span>'+edge+'</div>';
+  const team=f.team.trim(),percent=Math.round(f.probability*100);
+  const margin=Number.isFinite(f.margin)&&f.margin>0?'+'+f.margin.toFixed(1):'';
+  return '<div class="ledger26-status ledger26-status--pregame" data-phase="upcoming" aria-label="'+
+    esc(team+' '+percent+' percent win probability'+(margin?', RETRO projected winning margin '+margin+' points':''))+'">'+
+    '<strong class="ledger26-pregame-prob">'+percent+'%</strong>'+
+    '<span class="ledger26-pregame-team" title="'+esc(team)+'">'+esc(team)+'</span>'+
+    '<span class="ledger26-pregame-caption">WIN CHANCE</span>'+
+    (margin?'<span class="ledger26-pregame-edge">'+margin+'</span><span class="ledger26-pregame-caption">RETRO EDGE</span>':'')+
+    '</div>';
  }
  function render(input){
   const g=input||{},phase=['live','final','upcoming'].includes(g.phase)?g.phase:'upcoming';
@@ -66,6 +70,6 @@
  }
  // The Daily Ledger is the universal newspaper model, not a separate sport skin.
  // Keep the old alias for existing college basketball pages.
- root.SLTSportsScorebug={render,formatRetro,version:'shared-letterpress-v9'};
+ root.SLTSportsScorebug={render,formatRetro,version:'shared-letterpress-v10'};
  root.SLTBasketballScorebug=root.SLTSportsScorebug;
 })(typeof window!=='undefined'?window:globalThis);
