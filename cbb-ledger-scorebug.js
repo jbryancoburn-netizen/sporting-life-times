@@ -84,6 +84,13 @@
    let url;try{url=new URL(a.url,location.href);if(!/^https?:$/.test(url.protocol))return []}catch{return []}
    const when=Date.parse(a.published_at||'');if(!Number.isFinite(when)||when>now+86400000||now-when>14*86400000)return [];
    if(/\b(recap|postgame|post-game|final score|defeats|defeated|beats|beat|highlights|odds|betting|parlay)\b/i.test(a.title))return [];
+   // Official school-authored previews must be attributed to one of the actual opponents.
+   // Do not mistake East Texas A&M coverage for the University of Texas, etc.
+   if(a.origin==='official-school-athletics'&&a.school){
+    const schoolKey=v=>String(v||'').toLowerCase().replace(/[^a-z0-9]/g,'');
+    const publishedSchool=schoolKey(a.school);
+    if(![g.away?.name,g.home?.name].some(n=>schoolKey(n)===publishedSchool))return [];
+   }
    const content=String(a.title||'')+' '+String(a.summary||'')+' '+String(a.school||'');
    const away=namesA.some(x=>exactMention(content,x)),home=namesH.some(x=>exactMention(content,x));
    if(!away&&!home)return [];
