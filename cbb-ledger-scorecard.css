@@ -16,13 +16,23 @@
 }
 .ledger26-card::before,.ledger26-card::after{content:none!important;display:none!important}
 .ledger26-meta{
-  display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
-  border-bottom:1px solid #b9a78a;padding:7px 13px;
-  color:#51422e;font:700 11px/1.3 Georgia,'Times New Roman',serif;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  align-items:center;column-gap:12px;
+  border-bottom:1px solid #b9a78a;padding:6px 11px;
+  color:#51422e;font:700 11px/1.25 Georgia,'Times New Roman',serif;
   font-variant-numeric:tabular-nums;
 }
+.ledger26-meta>span{display:block;min-width:0;max-width:100%;margin:0;overflow-wrap:break-word}
+.ledger26-meta>span:only-child{grid-column:1/-1}
+.ledger26-meta>span:last-child:not(:only-child){justify-self:end;text-align:right}
 .ledger26-time{white-space:nowrap}
-.ledger26-venue{font:400 11px/1.25 Georgia,'Times New Roman',serif;min-width:0;overflow-wrap:anywhere}
+.ledger26-venue{font:700 11px/1.25 Georgia,'Times New Roman',serif;min-width:0;overflow-wrap:break-word}
+.ledger26-network{font:700 11px/1.25 Georgia,'Times New Roman',serif;min-width:0;overflow-wrap:break-word}
+@media(max-width:640px){
+ .ledger26-meta{column-gap:8px;padding:6px 9px;font-size:10px}
+ .ledger26-meta .ledger26-venue,.ledger26-meta .ledger26-network{font-size:10px;line-height:1.25}
+}
 .ledger26-expand{display:block;min-width:0}
 .ledger26-summary{
   display:block;list-style:none;cursor:pointer;
