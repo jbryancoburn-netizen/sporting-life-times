@@ -47,8 +47,23 @@ if(kind==='ap'||kind==='coaches'){
    const logo=womenLogo(school,item.team);
    const name=school?'<a href="ncaaw-team.html?team='+encodeURIComponent(school.team_id)+'">'+esc(school.team)+'</a>':'<span class="wbbr-unresolved">'+esc(item.team)+'</span>';
    const current=school?byRecord.get(String(school.team_id)):null;
-   return '<article class="wbbr-entry"><strong class="wbbr-number">#'+esc(item.rank)+'</strong>'+logo+'<div class="wbbr-identity">'+name+'</div><div class="wbbr-value" aria-label="Season record">'+esc(current?record(current):'—')+'</div></article>';
+   return '<article class="wbbr-entry" data-team-id="'+esc(school?.team_id||'')+'"><strong class="wbbr-number">#'+esc(item.rank)+'</strong>'+logo+'<div class="wbbr-identity">'+name+'</div><div class="wbbr-value" aria-label="Season record">'+esc(current?record(current):'—')+'</div></article>';
   }).join('');
+  // The published poll positions stay fixed until the next verified poll;
+  // team records independently refresh from the latest women's RETRO finals.
+  async function refreshRecords(){
+   try{
+    const next=await req('data/ncaaw-2026-27-retro-primary.json?refresh='+Date.now());
+    if(next.gender!=='women'||next.season!=='2026-27')return;
+    const byId=new Map((next.rankings||[]).map(t=>[String(t.team_id),t]));
+    for(const row of document.querySelectorAll('#wbbr-list .wbbr-entry[data-team-id]')){
+     const team=byId.get(row.dataset.teamId),cell=row.querySelector('.wbbr-value');
+     if(team&&cell)cell.textContent=record(team);
+    }
+   }catch(e){console.warn('Women’s poll records refresh unavailable',e)}
+  }
+  const refreshTimer=setInterval(refreshRecords,60000);
+  window.addEventListener('pagehide',()=>clearInterval(refreshTimer),{once:true});
  }catch(e){$('#wbbr-status').textContent='Women’s poll unavailable: '+e.message;$('#wbbr-list').innerHTML='';}
  return;
 }
