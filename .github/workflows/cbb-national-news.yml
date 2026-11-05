@@ -1,0 +1,46 @@
+name: College basketball national news refresh
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '11,41 * * * *'
+permissions:
+  contents: write
+concurrency:
+  group: cbb-national-news-refresh
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Fetch national men's and women's basketball news
+        run: python scripts/refresh_cbb_national_news.py
+      - name: Verify women's wire is present
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('data/cbb-national-news.json').read_text())
+          women=[x for x in d.get('articles',[]) if x.get('gender')=='women' and x.get('url') and x.get('title')]
+          if not women: raise SystemExit('No verified women news stories; skip publication')
+          print('Women news articles:',len(women))
+          PY
+      - name: Publish updated basketball news
+        run: |
+          git config user.name sporting-life-times-bot
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add data/cbb-national-news.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Refresh college basketball national news"
+            for attempt in 1 2 3 4; do
+              if git push origin HEAD:main; then exit 0; fi
+              git fetch origin main
+              git rebase origin/main || { git rebase --abort; exit 1; }
+              sleep $((attempt * 2))
+            done
+            exit 1
+          fi
