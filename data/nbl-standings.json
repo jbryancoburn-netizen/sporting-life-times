@@ -6,8 +6,8 @@
   "elo_approved": false,
   "source": "ESPN site API, completed finals since NBL27 regular-season opening",
   "season_start": "2026-09-19",
-  "updated_at": "2026-11-05T01:29:58.355722+00:00",
-  "games_replayed": 53,
+  "updated_at": "2026-11-05T11:08:04.690406+00:00",
+  "games_replayed": 54,
   "teams": 10,
   "rows": [
     {
@@ -51,16 +51,6 @@
       "points_pct": 97.76
     },
     {
-      "team": "Cairns Taipans",
-      "wins": 6,
-      "losses": 5,
-      "played": 11,
-      "win_pct": 0.545,
-      "points_for": 1014,
-      "points_against": 1062,
-      "points_pct": 95.48
-    },
-    {
       "team": "Perth Wildcats",
       "wins": 5,
       "losses": 5,
@@ -69,6 +59,16 @@
       "points_for": 943,
       "points_against": 979,
       "points_pct": 96.32
+    },
+    {
+      "team": "Cairns Taipans",
+      "wins": 6,
+      "losses": 6,
+      "played": 12,
+      "win_pct": 0.5,
+      "points_for": 1109,
+      "points_against": 1169,
+      "points_pct": 94.87
     },
     {
       "team": "Adelaide 36ers",
@@ -102,16 +102,28 @@
     },
     {
       "team": "Illawarra Hawks",
-      "wins": 3,
+      "wins": 4,
       "losses": 8,
-      "played": 11,
-      "win_pct": 0.273,
-      "points_for": 1057,
-      "points_against": 1149,
-      "points_pct": 91.99
+      "played": 12,
+      "win_pct": 0.333,
+      "points_for": 1164,
+      "points_against": 1244,
+      "points_pct": 93.57
     }
   ],
   "recent_finals": [
+    {
+      "id": "401875295",
+      "played_at": "2026-11-05T08:30Z",
+      "home": "Cairns Taipans",
+      "away": "Illawarra Hawks",
+      "home_score": 95,
+      "away_score": 107,
+      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875295/hawks-taipans",
+      "verified": false,
+      "provider": "espn",
+      "state": "candidate"
+    },
     {
       "id": "401875290",
       "played_at": "2026-11-04T09:00Z",
@@ -216,18 +228,6 @@
       "home_score": 85,
       "away_score": 107,
       "source_url": "https://www.espn.com/nbl/game/_/gameId/401875280/taipans-bullets",
-      "verified": false,
-      "provider": "espn",
-      "state": "candidate"
-    },
-    {
-      "id": "401875292",
-      "played_at": "2026-10-28T10:30Z",
-      "home": "Perth Wildcats",
-      "away": "Sydney Kings",
-      "home_score": 91,
-      "away_score": 99,
-      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875292/kings-wildcats",
       "verified": false,
       "provider": "espn",
       "state": "candidate"
