@@ -57,7 +57,7 @@
    const away=site==='home'?opponentTeam:our;
    const home=site==='home'?our:opponentTeam;
    const time=row.cells[3]?.textContent?.trim()||'TIPOFF TBA';
-   const markup=window.SLTSportsScorebug.render({phase,status:phase==='live'?note:phase==='final'?'FINAL':'',away,home,forecast:null,time:time.split('University-sourced')[0].trim()});
+   const markup=window.SLTSportsScorebug.render({phase,gender:'women',status:phase==='live'?note:phase==='final'?'FINAL':'',away,home,forecast:null,time:time.split('University-sourced')[0].trim()});
    summary.innerHTML=markup+'<span class="ledger26-instruction">OPEN GAME DETAILS +</span>';
   }
   function renderAll(){
