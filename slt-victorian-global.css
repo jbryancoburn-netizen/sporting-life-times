@@ -38,3 +38,44 @@ body :is(.nba-progress,.nba-prob,.nba-prob-bar,.rating-bar,.bar-track,.progress-
 body :is(.nba-division-card,.nba-static-cover,.playoff-team,.bracket-match,.bracket-game,.nba-playoff-card,.nba-seed-card) :is(h2,h3,strong){font-family:Georgia,'Times New Roman',serif}
 body :is(.nba-live-match,.ledger26-card,.rabby-game) {box-shadow:none;border-radius:0}
 body :is(.nba-live-match,.ledger26-card,.rabby-game):focus-within{outline-offset:2px}
+
+/* Universal ranking/place badge: the Sporting Life & Times engraved number.
+   Apply to number-only existing slots; preserve all source rankings and row data. */
+:root{--slt-place-ink:#713d2b;--slt-place-ivory:#fff4dd}
+body :is(.ledger-place,.victorian-seed-rank,.cbb-elo-power .cbb-elo-rank,
+ .wbbr-number,.rank-number,.epl-rank,.nba-seed .seed,
+ .rank-row>.rank,.nba-power-row .rank,.standing-row>.rank,
+ .epl-power-row .epl-rank,.nba-table tbody td:first-child .rank,
+ .nba-table tbody td:first-child .place,
+ .standings-table tbody td:first-child .rank,
+ .ranking-table tbody td:first-child .rank){
+ display:inline-grid;place-items:center;vertical-align:middle;
+ min-width:34px;min-height:34px;padding:3px 5px;
+ background:var(--slt-place-ink);color:var(--slt-place-ivory);
+ border:3px double #efdfc4;outline:1px solid #71402e;
+ border-radius:0;box-shadow:none;text-shadow:none;
+ font:700 16px/1 Georgia,"Times New Roman",serif;
+ font-variant-numeric:lining-nums tabular-nums;
+ white-space:nowrap;text-align:center;
+}
+/* Number cells of ranking and standings registers in common newspaper engines. */
+body.nba-newspaper[data-page="rankings"] .nba-table tbody td:first-child,
+body.nba-newspaper:is([data-page="standings"],[data-page="conference"]) .nba-table tbody td:first-child{
+ font:700 15px/1 Georgia,serif;color:var(--slt-place-ivory);
+ background:var(--slt-place-ink);text-align:center;
+ border:3px double #efdfc4;outline:1px solid #71402e;
+ background-clip:padding-box;
+}
+body .epl-standings tbody td:first-child:not(:has(a,img,button)),
+body .ranking-table tbody td:first-child:not(:has(a,img,button)),
+body .power-table tbody td:first-child:not(:has(a,img,button)){
+ font:700 15px/1.25 Georgia,serif;color:var(--slt-place-ivory);
+ background:var(--slt-place-ink);text-align:center;
+ border:3px double #efdfc4;outline:1px solid #71402e;
+}
+@media(max-width:600px){
+ body :is(.ledger-place,.victorian-seed-rank,.cbb-elo-power .cbb-elo-rank,
+ .wbbr-number,.rank-number,.epl-rank,.nba-seed .seed,
+ .rank-row>.rank,.nba-power-row .rank,.standing-row>.rank,
+ .epl-power-row .epl-rank){min-width:28px;min-height:28px;padding:2px 3px;font-size:13px}
+}
