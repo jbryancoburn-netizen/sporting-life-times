@@ -45,7 +45,7 @@
  function pregamePanel(g){
   const f=g.forecast;
   if(!f||typeof f.team!=='string'||!Number.isFinite(f.probability)||f.probability<0||f.probability>1)
-    return '<div class="ledger26-status ledger26-status--pregame" data-phase="upcoming"><strong class="ledger26-pregame-empty">'+esc(g.time||g.tipoff||'PREGAME')+'</strong></div>';
+    return '<div class="ledger26-status ledger26-status--pregame" data-phase="upcoming"><strong class="ledger26-pregame-empty">'+esc(g.suppressTipoffFallback?'NO FORECAST':(g.time||g.tipoff||'PREGAME'))+'</strong></div>';
   const team=f.team.trim(),percent=Math.round(f.probability*100);
   if(percent===50)return '<div class="ledger26-status ledger26-status--pregame" data-phase="upcoming" aria-label="Even matchup: 50 percent win probability for each team; no projected favorite"><strong class="ledger26-pregame-prob">50%</strong><span class="ledger26-pregame-team">EVEN</span><span class="ledger26-pregame-caption">EACH TEAM · TOSS-UP</span></div>';
   const margin=Number.isFinite(f.margin)&&f.margin>=0.05?'+'+f.margin.toFixed(1):'';
@@ -171,8 +171,8 @@
     '<small class="ledger26-record">'+esc(context)+'</small></span>'+
     '<b class="ledger26-points">'+esc(scored)+'</b></div>';
   };
-  return '<div class="ledger26-scorebug" role="group" aria-label="'+esc(g.ariaLabel||((g.away?.name||'Away')+' at '+(g.home?.name||'Home')+' scoreboard'))+'">'+
-    '<span class="ledger26-monogram"><img src="assets/slt-engraved-black.svg" width="35" height="49" alt="Sporting Life and Times monogram"></span>'+
+  return '<div class="ledger26-scorebug'+(g.suppressMonogram?' ledger26-scorebug--plain':'')+(phase==='upcoming'?' ledger26-scorebug--pregame':'')+'" role="group" aria-label="'+esc(g.ariaLabel||((g.away?.name||'Away')+' at '+(g.home?.name||'Home')+' scoreboard'))+'">'+
+    (g.suppressMonogram?'':'<span class="ledger26-monogram"><img src="assets/slt-engraved-black.svg" width="35" height="49" alt="Sporting Life and Times monogram"></span>')+
     '<div class="ledger26-teams">'+team(g.away)+team(g.home)+'</div>'+
     (phase==='live'?livePanel(g,label):phase==='upcoming'?pregamePanel(g):label?'<div class="ledger26-status" data-phase="'+phase+'"><strong>'+esc(label)+'</strong></div>':'')+(phase==='upcoming'&&!g.suppressPress?preview(g).split('<dialog')[0]:'')+'</div>';
  }
