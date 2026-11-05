@@ -11,67 +11,29 @@
 <link href="epl-player-leaders.css?v=victorian-register-20261105" rel="stylesheet"/>
 <link href="epl-elo-history.css?v=movements2" rel="stylesheet"/>
 
-<link href="mbb-newspaper.css?v=20261026" rel="stylesheet"/><link href="nba-newspaper.css?v=20261027frontleaderfix10" rel="stylesheet"/><link href="epl-newspaper.css?v=victorian-forecast-20261105" rel="stylesheet"/><link rel="stylesheet" href="epl-badges.css?v=20261101-mobile3"><script src="epl-badges.js?v=20261101-mobile3" defer></script><link rel="stylesheet" href="slt-victorian-global.css?v=universal-engraved-place-20261105"><link rel="stylesheet" href="slt-front-page.css?v=20261104-editorial1"><script defer src="slt-front-page.js?v=20261104-editorial1"></script></head>
+<link href="mbb-newspaper.css?v=20261026" rel="stylesheet"/><link href="nba-newspaper.css?v=20261027frontleaderfix10" rel="stylesheet"/><link href="epl-newspaper.css?v=victorian-forecast-20261105" rel="stylesheet"/><link rel="stylesheet" href="epl-badges.css?v=20261101-mobile3"><script src="epl-badges.js?v=20261101-mobile3" defer></script><link rel="stylesheet" href="slt-victorian-global.css?v=universal-engraved-place-20261105"><link rel="stylesheet" href="slt-front-page.css?v=20261104-editorial1"><script defer src="slt-front-page.js?v=20261104-editorial1"></script><style>
+body.epl-newspaper[data-page="home"] .epl-front-heading{border-bottom:3px double #554434;padding:18px 0 14px;margin-bottom:17px}
+body.epl-newspaper[data-page="home"] .epl-front-heading h1{font:700 clamp(31px,4vw,49px)/1.1 Georgia,serif;color:#30271d;margin:5px 0 9px}
+body.epl-newspaper[data-page="home"] .epl-front-heading p{font:14px/1.5 Georgia,serif;color:#5c4b3c}
+body.epl-newspaper[data-page="home"] .epl-directory{margin:24px 0;padding-top:17px;border-top:3px double #5a4936}
+body.epl-newspaper[data-page="home"] .epl-directory h2{font:700 30px/1.2 Georgia,serif;margin:8px 0 20px}
+body.epl-newspaper[data-page="home"] .epl-section-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+body.epl-newspaper[data-page="home"] .epl-section-links a{display:block;text-decoration:none;background:#f7efdf;border:3px double #735d44;padding:16px 14px;color:#302519;min-height:86px}
+body.epl-newspaper[data-page="home"] .epl-section-links a strong{font:700 21px/1.2 Georgia,serif;display:block}
+body.epl-newspaper[data-page="home"] .epl-section-links a span{font:12px/1.4 Georgia,serif;display:block;color:#625344;margin-top:8px}
+body.epl-newspaper[data-page="home"] .epl-section-links a:hover{background:#ecdec5}
+@media(max-width:750px){body.epl-newspaper[data-page="home"] .epl-section-links{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:480px){body.epl-newspaper[data-page="home"] .epl-section-links{grid-template-columns:1fr}}
+</style></head>
 <body class="nba-newspaper epl-newspaper" data-page="home" data-slt-front="epl">
 <div class="slt-wrap wrap">
 <header class="slt-paper-header">
 <div class="slt-topline topline"><a href="index.html">Independent sports journalism &amp; data</a><span>Premier League · 2026–27</span></div>
 <div class="slt-masthead masthead"><a href="index.html">Sporting Life &amp; Times</a></div>
 <div class="slt-edition-line edition-line">The Premier League Edition</div>
-<nav aria-label="Premier League navigation" class="slt-nav nav">
-<a aria-current="page" href="epl.html">The Front Page</a>
-<a href="#slt-matchday">Matchday</a>
-<a href="#slt-news">Latest News</a>
-<a href="#slt-table">League Table</a>
-<a href="#slt-rankings">RETRO Power 20</a>
-<a href="#slt-forecast">Forecasts</a>
-<a href="#slt-clubs">Club Desks</a>
-<a href="#slt-deep">More Data</a>
-<a href="sports.html">All Sports</a>
-</nav></header>
+<nav aria-label="Premier League navigation" class="slt-nav nav"><a aria-current="page" href="epl.html">The Front Page</a><a href="epl-matchday-desk.html">Matchday</a><a href="epl-news.html">Latest News</a><a href="epl-table.html">League Table</a><a href="epl-power20.html">RETRO Power 20</a><a href="epl-forecasts.html">Forecasts</a><a href="epl-clubs.html">Club Desks</a><a href="epl-data.html">More Data</a><a href="sports.html">All Sports</a></nav></header>
 <div class="slt-stamp stamp"><span><i aria-hidden="true" class="slt-pulse"></i>Independent EPL desk · verified-source data</span><span id="epl-viewed"></span></div>
-<main class="slt-main">
-<section aria-labelledby="epl-headline" class="slt-hero hero">
-<div><div class="slt-eyebrow eyebrow">2026–27 · The Premier League Edition</div><h1 id="epl-headline">Twenty clubs.<br/>One league.</h1>
-<p>An independent Elo power table. The news moving the league, live scores, the title race and the next 90 minutes—all in one Premier League newspaper.</p>
-<a class="slt-cta cta" href="#slt-rankings">Explore Premier League Power Rankings ↗</a></div>
-<div class="slt-hero-art hero-art"><div aria-label="RETRO top four" class="slt-hero-clubs epl-power-four" id="epl-hero-clubs">
-<div class="slt-hero-club"><strong>—</strong><small>Loading ratings</small></div></div>
-<div class="slt-hero-art-note" id="epl-hero-note">Checking the latest published RETRO rankings…</div></div></section>
-<section aria-label="Premier League season at a glance" class="slt-pulse-stats metrics" id="epl-season-pulse">
-<div class="slt-metric metric"><b id="epl-pulse-leader">—</b><span>League leader · points</span></div>
-<div class="slt-metric metric"><b id="epl-pulse-finals">—</b><span>Verified finals · of 380 fixtures</span></div>
-<div class="slt-metric metric"><b id="epl-pulse-kickoff">—</b><span id="epl-pulse-next-match">Next league kickoff</span></div>
-<div class="slt-metric metric"><b id="epl-pulse-power">—</b><span>RETRO strength leader</span></div>
-</section>
-<section aria-label="Premier League recent scores" class="slt-score-wrap panel" id="slt-matchday">
-<div class="slt-eyebrow eyebrow">The scoreboard</div><h2>Matchday &amp; Latest Finals</h2><p class="slt-score-note" id="epl-visual-desk" role="status">Connecting to the verified matchday ledger…</p>
-<div id="epl-score-rail"><p class="slt-score-note">Loading the matchday score rail…</p></div></section>
-<div class="slt-columns grid">
-<div class="slt-column column">
-<section class="slt-panel panel orange" id="slt-news"><div class="slt-eyebrow eyebrow">The national conversation</div><h2>Across the League</h2><p class="slt-sub" id="epl-independent-news-status" role="status">Checking independent Premier League reporting…</p><div id="epl-independent-news">Loading sourced stories…</div></section>
-<section class="slt-panel pink panel orange" id="slt-forecast"><div class="slt-eyebrow eyebrow">The next whistle</div><h2>Matchday Forecast</h2><p class="slt-sub" id="forecast-status" role="status">Checking the verified Elo/Poisson forecast…</p><div aria-live="polite" class="slt-forecast-highlight" id="epl-featured"></div><p class="slt-sub"><a href="#slt-all-forecasts">See every published match forecast</a></p></section>
-</div>
-<div class="slt-column column"><section class="slt-panel teal panel" id="slt-rankings"><div class="slt-eyebrow eyebrow">Independent strength ratings</div><div id="epl-power-board"><h2>RETRO Power 20</h2><p>Loading all clubs…</p></div></section>
-
-<section class="slt-panel pink panel orange"><div class="slt-eyebrow eyebrow">The stakes</div><div aria-label="Title, Europe and relegation races" id="epl-race-watch"></div></section>
-<section class="slt-panel teal panel"><div class="slt-eyebrow eyebrow">The attacking game</div><div id="epl-attack-board"></div></section>
-<section class="slt-panel panel"><div class="slt-eyebrow eyebrow">The statistical notebook</div><div aria-label="Verified player events in published match reports" id="epl-player-leaders"></div></section></div>
-<div class="slt-column column"><section class="slt-panel panel" id="slt-table"><div class="slt-eyebrow eyebrow">The traditional race</div><div id="epl-table-board"><h2>Premier League Table</h2><p>Checking verified results…</p></div></section>
-
-<section class="slt-panel pink panel orange"><div class="slt-eyebrow eyebrow">The other half of the game</div><div id="epl-defense-board"></div></section>
-
-</div></div>
-<section class="slt-panel teal panel" id="slt-clubs"><div class="slt-eyebrow eyebrow">Your colors. Your club.</div><h2>Every Club Has a Desk</h2><p class="slt-sub">Explore club Elo, results, fixtures and match history. All 20 teams link to dedicated pages.</p><div class="nba-filters"><label for="epl-club-search">Search club or city</label><input autocomplete="off" id="epl-club-search" placeholder="e.g. Arsenal, Manchester, Tottenham" type="search"/><small class="muted" id="epl-club-count" role="status">20 clubs</small></div><div class="slt-club-directory" id="epl-club-directory"><p>Loading the club directory…</p></div></section>
-<section class="slt-panel pink panel orange" id="slt-all-forecasts"><div class="slt-eyebrow eyebrow">The scouting report</div><h2>Every Upcoming Forecast</h2><p class="slt-sub">RETRO match predictions are estimates, not actual scores. Select a matchup for the Match Center.</p><div aria-live="polite" class="hub-cards" id="forecast-grid"></div></section>
-<div class="slt-more" id="slt-deep">
-<section class="slt-panel teal panel"><div class="slt-eyebrow eyebrow">The Elo tape</div><div aria-label="Match-by-match historical Elo visualizations" id="epl-elo-history"><p>Loading the verified rating history…</p></div></section>
-<section class="slt-panel panel"><div class="slt-eyebrow eyebrow">Season records</div><h2>Results &amp; Research</h2>
-<details class="slt-deep-dive"><summary>Open the complete season results archive</summary><div aria-label="All verified season results" id="epl-season-archive"><p>Loading the final-score ledger…</p></div></details>
-<details class="slt-deep-dive"><summary>Open the independent Elo matchup calculator</summary><div aria-label="Research Elo calculator" id="elo-command"></div></details>
-</section></div>
-<aside class="slt-method"><strong>Reading the numbers:</strong> The official-style league table ranks verified results by points. RETRO Elo is our separate team-strength model; it is not an official league ranking. The forecast layer combines strength with goal probabilities. Goal and assist counts currently represent the published match-report sample, not complete season player totals. The title, European and relegation races use current table positions, not guaranteed future qualification.</aside>
-</main>
+<main class="slt-main"><header class="epl-front-heading"><div class="slt-eyebrow eyebrow">The Premier League Edition · 2026–27</div><h1>The Premier League</h1><p>Independent reporting, dispatches and the latest headlines. Explore the dedicated desks below.</p></header><section class="slt-panel panel orange" id="slt-news"><div class="slt-eyebrow eyebrow">The national conversation</div><h2>Across the League</h2><p class="slt-sub" id="epl-independent-news-status" role="status">Checking independent Premier League reporting…</p><div id="epl-independent-news">Loading sourced stories…</div></section><section aria-label="Inside the Premier League newspaper" class="epl-directory"><div class="slt-eyebrow eyebrow">The newspaper directory</div><h2>Inside This Edition</h2><div class="epl-section-links"><a href="epl-news.html"><strong>Latest News →</strong><span>Reporting and headlines from across the Premier League</span></a><a href="epl-matchday-desk.html"><strong>Matchday →</strong><span>Live scores, results and fixtures</span></a><a href="epl-table.html"><strong>League Table →</strong><span>Standings and the race for the title</span></a><a href="epl-power20.html"><strong>RETRO Power 20 →</strong><span>Independent club strength ratings</span></a><a href="epl-forecasts.html"><strong>Forecasts →</strong><span>Projected scores and win probabilities</span></a><a href="epl-clubs.html"><strong>Club Desks →</strong><span>Individual club newspapers</span></a><a href="epl-data.html"><strong>More Data →</strong><span>Elo history, statistical research and archives</span></a></div></section></main>
 <footer class="slt-footer footer">Sporting Life &amp; Times · Independent Premier League edition · <a href="index.html">Newspaper</a> · <a href="sports.html">All Sports</a> · <a href="match-center.html">Match Center</a> · Source dates and projection limitations accompany the data.</footer>
 </div>
 <script defer="" src="epl-season-archive.js?v=1"></script>
