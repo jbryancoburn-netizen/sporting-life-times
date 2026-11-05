@@ -245,3 +245,141 @@
  .ledger26-meta--pregame .ledger26-line{text-align:left}
  .ledger26-meta--pregame .ledger26-meta-actions{grid-column:1/-1;border-top:1px solid #b9a78a;border-left:0;padding:6px 0 0;justify-content:space-between}
 }
+
+/* Women's Daily Ledger pregame redesign: one forecast, compact press strip and
+   a restrained projected-score footer. The universal renderer is unchanged. */
+.ledger26-card--refined{
+  border-color:#937b59!important;
+  background:#f5ecda!important;
+  box-shadow:inset 0 0 0 2px #fbf4e7!important;
+}
+.ledger26-card--refined .ledger26-meta--refined{
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:8px 16px;padding:8px 13px;
+  border-bottom:1px solid #a99575;background:#efe3ce;
+  font:700 12px/1.25 Georgia,'Times New Roman',serif;
+}
+.ledger26-card--refined .ledger26-meta--refined .ledger26-time{
+  color:#36271b;white-space:nowrap;font-variant-numeric:tabular-nums;
+}
+.ledger26-card--refined .ledger26-meta--refined .ledger26-meta-actions{
+  display:flex;align-items:center;justify-content:flex-end;gap:12px;
+  flex-wrap:wrap;min-width:0;max-width:100%;margin-left:auto;
+  border:0;padding:0;text-align:right;
+}
+.ledger26-card--refined .ledger26-meta--refined .ledger26-network{
+  color:#60482f;font:700 11px/1.2 Georgia,'Times New Roman',serif;
+}
+.ledger26-card--refined .slt-team-press-btn{
+  margin:0;padding:6px 11px;min-height:29px;
+  background:#e0cfb0;border:1px solid #927554;
+  color:#3b2c1c;font:700 10px/1.2 Georgia,'Times New Roman',serif;
+}
+.ledger26-card--refined .ledger26-summary{padding:10px 12px 5px}
+.ledger26-card--refined .ledger26-scorebug{
+  --ledger26-crest-size:54px;
+  --ledger26-team-min-height:66px;
+  grid-template-columns:40px minmax(0,1fr) 128px;
+  min-height:132px;
+  border:3px double #907958;
+  background:#f9f2e5;
+}
+.ledger26-card--refined .ledger26-monogram{
+  background:#eadcc5;border-right:1px solid #b49f80;padding:3px;
+}
+.ledger26-card--refined .ledger26-monogram img{
+  width:29px;height:41px;opacity:.82;
+}
+.ledger26-card--refined .ledger26-team{
+  grid-template-columns:var(--ledger26-crest-size) minmax(0,1fr);
+  min-height:var(--ledger26-team-min-height);gap:10px;
+  border-left-width:5px;padding:7px 12px 7px 10px;
+  background:#f9f2e5;
+}
+.ledger26-card--refined .ledger26-name{
+  font-size:17px!important;line-height:1.16!important;
+  letter-spacing:0!important;white-space:normal;
+}
+.ledger26-card--refined .ledger26-record{
+  font-size:11px;line-height:1.35;margin-top:5px;color:#66543d;
+}
+.ledger26-card--refined .ledger26-points{display:none!important}
+.ledger26-card--refined .ledger26-status--pregame{
+  background:#ebddc5;border-left:1px solid #b39c7a;gap:5px;padding:10px 7px;
+}
+.ledger26-card--refined .ledger26-status--pregame .ledger26-pregame-prob{
+  font-size:30px!important;color:#85382e!important;line-height:1.08!important;
+}
+.ledger26-card--refined .ledger26-status--pregame .ledger26-pregame-team{
+  font-size:10px;line-height:1.16;overflow-wrap:normal;
+}
+.ledger26-card--refined .ledger26-status--pregame .ledger26-pregame-caption{
+  font-size:8px;letter-spacing:.055em;line-height:1.15;
+}
+.ledger26-card--refined .ledger26-status--pregame .ledger26-pregame-edge{
+  font-size:19px;padding-top:9px;margin-top:5px;border-color:#b9a582;
+}
+.ledger26-card--refined .ledger26-score-note{
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:5px 14px;padding:9px 4px 3px;
+  color:#44331f;font-family:Georgia,'Times New Roman',serif;
+}
+.ledger26-card--refined .ledger26-score-note-label{
+  color:#6c5137;font:700 9px/1.2 Georgia,'Times New Roman',serif;
+  letter-spacing:.095em;white-space:nowrap;
+}
+.ledger26-card--refined .ledger26-score-note strong{
+  color:#322417;font:700 13px/1.4 Georgia,'Times New Roman',serif;
+  overflow-wrap:normal;word-break:normal;
+}
+.ledger26-card--refined .ledger26-score-note strong span{
+  color:#7e352c;font-variant-numeric:tabular-nums;
+}
+.ledger26-card--refined .ledger26-score-note strong i{
+  margin:0 8px;color:#a9916d;font-style:normal;font-weight:400;
+}
+.ledger26-card--refined .ledger26-score-note small{
+  color:#7a6750;font:400 10px/1.2 Georgia,'Times New Roman',serif;
+}
+.ledger26-card--refined .ledger26-instruction{
+  padding:6px 2px 3px;color:#59442d;letter-spacing:.08em;
+}
+@media(max-width:640px){
+ .ledger26-card--refined .ledger26-meta--refined{padding:8px 10px;gap:6px 10px}
+ .ledger26-card--refined .ledger26-meta--refined .ledger26-meta-actions{
+  grid-column:auto;border:0;padding:0;margin-left:auto;justify-content:flex-end;gap:7px
+ }
+ .ledger26-card--refined .ledger26-meta--refined .ledger26-network{font-size:10px}
+ .ledger26-card--refined .slt-team-press-btn{font-size:9px;padding:5px 7px;min-height:27px}
+ .ledger26-card--refined .ledger26-summary{padding:7px 8px 4px}
+ .ledger26-card--refined .ledger26-scorebug{
+  --ledger26-crest-size:42px;--ledger26-team-min-height:61px;
+  grid-template-columns:31px minmax(0,1fr) 96px;min-height:122px;
+ }
+ .ledger26-card--refined .ledger26-monogram img{width:23px;height:34px}
+ .ledger26-card--refined .ledger26-team{
+  gap:7px;padding:6px 7px 6px 6px;border-left-width:4px;
+ }
+ .ledger26-card--refined .ledger26-name{font-size:13px!important}
+ .ledger26-card--refined .ledger26-record{font-size:9px;line-height:1.3}
+ .ledger26-card--refined .ledger26-status--pregame{padding:5px 4px;gap:4px}
+ .ledger26-card--refined .ledger26-status--pregame .ledger26-pregame-prob{font-size:23px!important}
+ .ledger26-card--refined .ledger26-status--pregame .ledger26-pregame-team{font-size:8px}
+ .ledger26-card--refined .ledger26-status--pregame .ledger26-pregame-edge{font-size:16px}
+ .ledger26-card--refined .ledger26-score-note{padding:8px 2px 2px;gap:5px 10px}
+ .ledger26-card--refined .ledger26-score-note strong{font-size:12px}
+ .ledger26-card--refined .ledger26-score-note small{display:none}
+}
+@media(max-width:370px){
+ .ledger26-card--refined .ledger26-scorebug{
+  --ledger26-crest-size:36px;--ledger26-team-min-height:57px;
+  grid-template-columns:25px minmax(0,1fr) 79px;
+ }
+ .ledger26-card--refined .ledger26-team{gap:4px;padding:5px 4px;border-left-width:3px}
+ .ledger26-card--refined .ledger26-name{font-size:11px!important}
+ .ledger26-card--refined .ledger26-record{font-size:8px}
+ .ledger26-card--refined .ledger26-status--pregame .ledger26-pregame-prob{font-size:21px!important}
+ .ledger26-card--refined .ledger26-status--pregame .ledger26-pregame-team{font-size:7px}
+ .ledger26-card--refined .ledger26-status--pregame .ledger26-pregame-edge{font-size:14px}
+ .ledger26-card--refined .ledger26-score-note strong{font-size:11px}
+}
