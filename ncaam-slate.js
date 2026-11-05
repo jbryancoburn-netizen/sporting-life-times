@@ -539,7 +539,7 @@ const comparison=g=>{
   '. Home W–L excludes neutral sites and games without a verified court.</p></div>';
 };
 const projectedScoreCard=g=>{
- const projection=insight?.projectedScore(g,scoreCalibration,ratings);
+ const projection=!women&&g.retroForecast?{away:g.retroForecast.awayScore,home:g.retroForecast.homeScore,caveat:'RETRO preliminary score projection · 2026–27 verified-rating snapshot'}:insight?.projectedScore(g,scoreCalibration,ratings);
  if(!projection)return '';
  return '<div class="sl-score-projection"><div><span>THE USRS SCORE FORECAST</span>'+
   '<strong>'+esc(g.away.name)+' '+projection.away+' · '+esc(g.home.name)+' '+projection.home+'</strong></div>'+
@@ -599,7 +599,7 @@ const ledgerScorebug=g=>{
   forecast:(()=>{
     if(g.phase!=='upcoming'||typeof g.probability!=='number'||!Number.isFinite(g.probability)||g.probability<0||g.probability>1)return null;
     const homeFav=g.probability>=0.5,side=homeFav?g.home:g.away;
-    const projection=insight?.projectedScore(g,scoreCalibration,ratings);
+    const projection=!women&&g.retroForecast?{away:g.retroForecast.awayScore,home:g.retroForecast.homeScore}:insight?.projectedScore(g,scoreCalibration,ratings);
     const margin=projection?Math.abs(Number(projection.home)-Number(projection.away)):null;
     const team=String(side.name||'').trim();
     return {team,probability:homeFav?g.probability:1-g.probability,
@@ -752,14 +752,14 @@ function refreshRETRO(){
  retroPending=result.pending;
  ratings=rankingsMap(result.rankings?{rankings:result.rankings}:retroPublished);
  // One current model computation per game; supersedes stale fixture probabilities.
+ window.RETROForecast?.setRevision(retroPublished?.as_of+'|'+(retroPublished?.games_played||0)+'|'+retroPending);
  if(!women&&window.RETROForecast){
   for(const game of loaded){
    if(game.phase!=='upcoming'||game.kind!=='regular')continue;
    const away=ratings.get(String(game.away.canonical));
    const home=ratings.get(String(game.home.canonical));
    if(!away||!home){game.probability=null;continue;}
-   const site=/\bneutral\b/i.test(String(game.venue||''))?'neutral':
-     /\b(home|campus)\b/i.test(String(game.venue||''))?'home':'neutral';
+   const site=/\bneutral\b/i.test(String(game.venue||''))?'neutral':'home';
    const forecast=window.RETROForecast.predict(home,away,{site});
    game.probability=forecast?.homeProbability??null;
    game.forecastModel=forecast?.model||null;
