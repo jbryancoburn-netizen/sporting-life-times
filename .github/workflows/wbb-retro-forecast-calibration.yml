@@ -1,0 +1,61 @@
+name: Women's RETRO Exact Forecast Calibration and Holdout Gate
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/wbb-retro-forecast-calibration.yml'
+      - 'scripts/wbb-retro-forecast-calibration.py'
+      - 'wbb-retro-forecast.js'
+permissions:
+  contents: write
+concurrency:
+  group: wbb-retro-forecast-calibration
+  cancel-in-progress: false
+jobs:
+  exact-backtest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install deterministic vectorized replay dependency
+        run: python -m pip install 'numpy>=1.26,<3'
+      - name: Verify scripts and women's shared forecast module
+        run: |
+          python -m py_compile scripts/wbb-retro-forecast-calibration.py
+          node --check wbb-retro-forecast.js
+      - name: Replay exact 160-pass ratings before every historical game date
+        run: python scripts/wbb-retro-forecast-calibration.py
+      - name: Check the output's provenance, gender and release safety
+        run: |
+          python - <<'PY'
+          import json
+          d=json.load(open('data/ncaaw-score-calibration.json',encoding='utf-8'))
+          assert d['gender']=='women'
+          assert d['untouched_holdout_season']=='2025-26'
+          assert d['rating_engine']['passes']==160
+          assert d['rating_engine']['no_same_day_leakage'] is True
+          assert d['holdout']['games']>=5000
+          assert d['status'] in ('HISTORICAL_HOLDOUT_VALIDATED','HOLDOUT_EVALUATED_NOT_PROMOTED')
+          print('Calibration:',d['status'],'held-out games:',d['holdout']['games'])
+          PY
+      - name: Publish women's calibration report, including non-promotion if it failed
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ncaaw-score-calibration.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Publish women-only RETRO exact-model held-out calibration"
+          for n in 1 2 3; do
+            if git push origin HEAD:main; then exit 0; fi
+            git fetch origin main
+            git rebase origin/main || { git rebase --abort || true; exit 1; }
+            sleep 2
+          done
+          exit 1
