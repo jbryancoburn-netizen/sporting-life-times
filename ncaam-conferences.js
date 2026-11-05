@@ -26,8 +26,7 @@ const teamName=t=>{let id=badges.get(t.team_id);return '<span class="team">'+(id
 const fitted=await get("data/ncaam-score-calibration.json");
 window.NCAAMScores.configure(fitted);
 window.NCAAMScores.configureProfiles(await get("data/ncaam-team-scoring-profiles.json"));
-const scores=(a,b)=>{let p=window.NCAAMScores.predict(a,b);return [p.homeScore,p.awayScore]};
-const prob=(a,b)=>window.NCAAMScores.predict(a,b).homeProbability;
+const forecast=(a,b,gameId)=>window.RETROForecast.predict(a,b,{site:'home',gameId});
 const played=ledger?.games||[];
 function render(){
 $("heading").textContent=conf+" Basketball";
@@ -42,7 +41,7 @@ const odds=window.NCAAMForecast.simulate(projected);
 const chances=new Map(odds.map(x=>[x.team.team_id,x.champion]));
 $("postseason").innerHTML='<p class="tag">Hypothetical all-team seeded knockout · NOT official conference bracket</p><div class="deck">'+projected.map((t,i)=>'<div class="fixture"><strong>'+(i+1)+'. '+esc(t.team)+'</strong>Elo '+t.elo.toFixed(1)+' · '+((chances.get(t.team_id)||0)*100).toFixed(1)+'% tournament champion chance<div class="meter"><span style="width:'+((chances.get(t.team_id)||0)*100).toFixed(1)+'%"></span></div></div>').join("")+'</div>';
 const games=(schedule?.games||[]).filter(g=>g.date>=new Date().toISOString().slice(0,10)&&((byId.get(g.home_id)?.conference===conf)||(byId.get(g.away_id)?.conference===conf))).sort((a,b)=>a.date.localeCompare(b.date)).slice(0,20);
-$("games").innerHTML=games.length?games.map(g=>{const h=byId.get(g.home_id),a=byId.get(g.away_id);if(!h||!a)return"";let p=prob(h,a),s=scores(h,a);return '<div class="fixture"><span class="tag">'+esc(g.date)+' · Projected</span><strong>'+esc(a.team)+' '+s[1]+' — '+s[0]+' '+esc(h.team)+'</strong><div>'+esc(h.team)+' '+(p*100).toFixed(1)+'% to win · '+esc(a.team)+' '+((1-p)*100).toFixed(1)+'%</div><div class="meter"><span style="width:'+(p*100).toFixed(1)+'%"></span></div></div>'}).join(""):'<p class="deck">No upcoming games for this conference in the currently published schedule snapshot. No fixtures invented.</p>';
+$("games").innerHTML=games.length?games.map(g=>{const h=byId.get(g.home_id),a=byId.get(g.away_id);if(!h||!a)return"";let x=forecast(h,a,g.id),p=x.homeProbability,s=[x.homeScore,x.awayScore];return '<div class="fixture"><span class="tag">'+esc(g.date)+' · Projected</span><strong>'+esc(a.team)+' '+s[1]+' — '+s[0]+' '+esc(h.team)+'</strong><div>'+esc(h.team)+' '+(p*100).toFixed(1)+'% to win · '+esc(a.team)+' '+((1-p)*100).toFixed(1)+'%</div><div class="meter"><span style="width:'+(p*100).toFixed(1)+'%"></span></div></div>'}).join(""):'<p class="deck">No upcoming games for this conference in the currently published schedule snapshot. No fixtures invented.</p>';
 $("directory").innerHTML=confs.map(c=>'<a class="fixture" style="display:block;color:inherit" href="ncaam-conference.html?conference='+encodeURIComponent(c)+'">'+esc(c)+'</a>').join("");
 }
 render();
