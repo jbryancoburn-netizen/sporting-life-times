@@ -267,8 +267,8 @@ function home(){
   return '<div class="nfl-p26-section-head"><div><span class="nfl-p26-eyebrow nfl-p26-red">'+escapeHtml(eye)+'</span><h2>'+escapeHtml(title)+'</h2>'+
    (desc?'<p>'+escapeHtml(desc)+'</p>':'')+'</div>'+(href?'<a href="'+href+'">'+escapeHtml(cta||'MORE')+' ↗</a>':'')+'</div>';
  }
- let out='<div class="nfl-p26"><div class="nfl-p26-opening"><div>'+
-  '<p class="nfl-p26-eyebrow">THE SPORTING LIFE &amp; TIMES · NATIONAL FOOTBALL LEAGUE · VOL. 2026</p>'+
+ let out='<div class="nfl-p26"><section id="slt-nfl-front-news" class="slt-front-news"><div class="slt-front-heading"><div><span class="slt-front-eyebrow">THE NFL NEWS WIRE / LATEST DISPATCHES</span><h2>Around the NFL</h2></div></div><div id="nfl-stories" aria-live="polite">Loading sourced NFL headlines…</div></section><div class="nfl-p26-opening"><div>'+
+  '<p class="nfl-p26-eyebrow">SPORTING LIFE &amp; TIMES · NATIONAL FOOTBALL LEAGUE · VOL. 2026</p>'+
   '<h1 class="nfl-p26-main-title">THE GRIDIRON <em>report.</em></h1>'+
   '<p class="nfl-p26-main-deck">The league, as it happens. Real scores, complete gamefiles, the statistical race and independently calibrated USRS Elo.</p></div>'+
   '<div class="nfl-p26-issue"><b>NFL / 2026</b><span>'+escapeHtml(dayText)+'</span><span>THE INDEPENDENT FOOTBALL EDITION</span></div></div>';
@@ -306,10 +306,7 @@ function home(){
    '<div class="nfl-p26-player-photo">'+(photo?'<img loading="lazy" src="'+escapeHtml(photo)+'" alt="">':'')+'</div></a>';
  });
  out+='</div>';
- out+='<div class="nfl-p26-editorial"><div class="nfl-p26-column nfl-p26-news">'+
-  sectionHead('03 / HEADLINES','Around the NFL',null,null,'Reporting from independent and attributed sources.')+
-  panel('NFL TOP STORIES','<div id="nfl-stories">Loading sourced NFL headlines…</div>')+'</div>'+
-  '<div class="nfl-p26-column">'+sectionHead('04 / THE MODEL','Power & probability','nfl-rankings.html','ALL 32 CLUBS',
+ out+='<div class="nfl-p26-editorial"><div class="nfl-p26-column">'+sectionHead('04 / THE MODEL','Power & probability','nfl-rankings.html','ALL 32 CLUBS',
   'Independent USRS ratings. Every team started 2026 at 1,500.')+
   '<div class="nfl-p26-rankings">'+feed.teams.slice(0,8).map((t,i)=>{
     const pct=Math.max(2,Math.min(100,(Number(t.elo)-1250)/500*100));
