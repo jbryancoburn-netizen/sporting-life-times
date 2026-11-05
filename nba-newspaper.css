@@ -890,8 +890,6 @@ body.nba-newspaper[data-page="rankings"] .nba-retro-header>span:nth-child(n+3){t
 body.nba-newspaper[data-page="rankings"] .nba-retro-rank{font:700 15px/1 Georgia,serif}
 body.nba-newspaper[data-page="rankings"] .nba-retro-club{display:flex;align-items:center;gap:9px;min-width:0}
 body.nba-newspaper[data-page="rankings"] .nba-retro-club strong{font:700 12px/1.2 Georgia,serif;min-width:0;overflow-wrap:normal}
-body.nba-newspaper[data-page="rankings"] .nba-retro-crest{box-sizing:border-box;display:grid;place-items:center;flex:0 0 38px;width:38px;height:38px;min-width:38px;border-radius:50%;overflow:hidden}
-body.nba-newspaper[data-page="rankings"] .nba-retro-crest img{width:100%;height:100%;max-width:100%;object-fit:contain;aspect-ratio:1}
 body.nba-newspaper[data-page="rankings"] .nba-retro-record,body.nba-newspaper[data-page="rankings"] .nba-retro-elo,body.nba-newspaper[data-page="rankings"] .nba-retro-change{text-align:right;font-variant-numeric:tabular-nums}
 body.nba-newspaper[data-page="rankings"] .nba-retro-record small{display:block;color:#736857;font-size:10px}
 body.nba-newspaper[data-page="rankings"] .nba-retro-elo{font-weight:700;font-size:14px}
@@ -902,11 +900,16 @@ body.nba-newspaper[data-page="rankings"] .nba-retro-recent i.loss{color:#8b5448}
 @media(max-width:720px){
 body.nba-newspaper[data-page="rankings"] .nba-retro-row{grid-template-columns:19px minmax(0,1fr) 51px 56px 41px;gap:4px;padding:5px 4px;font-size:10px}
 body.nba-newspaper[data-page="rankings"] .nba-retro-header>span:last-child,body.nba-newspaper[data-page="rankings"] .nba-retro-recent{display:none}
-body.nba-newspaper[data-page="rankings"] .nba-retro-crest{flex-basis:29px;width:29px;height:29px;min-width:29px}
 body.nba-newspaper[data-page="rankings"] .nba-retro-club{gap:4px}
 body.nba-newspaper[data-page="rankings"] .nba-retro-club strong{font-size:10px}
 body.nba-newspaper[data-page="rankings"] .nba-retro-elo{font-size:11px}
 body.nba-newspaper[data-page="rankings"] .nba-retro-rank{font-size:12px}
 body.nba-newspaper[data-page="rankings"] .nba-retro-header{font-size:9px;letter-spacing:0}
 }
-@media(max-width:385px){body.nba-newspaper[data-page="rankings"] .nba-retro-row{grid-template-columns:18px minmax(0,1fr) 42px 50px 36px;gap:3px}body.nba-newspaper[data-page="rankings"] .nba-retro-crest{flex-basis:25px;width:25px;height:25px;min-width:25px}body.nba-newspaper[data-page="rankings"] .nba-retro-club strong{font-size:9px}}
+@media(max-width:385px){body.nba-newspaper[data-page="rankings"] .nba-retro-row{grid-template-columns:18px minmax(0,1fr) 42px 50px 36px;gap:3px}body.nba-newspaper[data-page="rankings"] .nba-retro-club strong{font-size:9px}}
+
+/* RETRO 30 uses the same existing NBA logo image and two-ring service as other desks. */
+body.nba-newspaper[data-page="rankings"] .nba-retro-club .nba-standings-logo{display:flex;align-items:center;justify-content:center;flex:0 0 38px;width:38px;height:38px;min-width:38px}
+body.nba-newspaper[data-page="rankings"] .nba-retro-club .nba-standings-logo>img{display:block;width:32px;height:32px;object-fit:contain;max-width:100%;aspect-ratio:1}
+@media(max-width:720px){body.nba-newspaper[data-page="rankings"] .nba-retro-club .nba-standings-logo{flex-basis:29px;width:29px;min-width:29px;height:29px}body.nba-newspaper[data-page="rankings"] .nba-retro-club .nba-standings-logo>img{width:25px;height:25px}}
+@media(max-width:385px){body.nba-newspaper[data-page="rankings"] .nba-retro-club .nba-standings-logo{flex-basis:25px;width:25px;min-width:25px;height:25px}body.nba-newspaper[data-page="rankings"] .nba-retro-club .nba-standings-logo>img{width:21px;height:21px}}
