@@ -118,7 +118,13 @@ function init(){
  }
  // Native editions remain bound to their existing, sport-specific live headline feed.
  if(!positionNative()&&!native[kind]){ensureWire();refreshWire();}
- if(native[kind]&&!news){
+ if(native[kind]&&(kind==='nba'||kind==='nfl')){
+  // These homepages rerender after live score updates. Reattach the department
+  // register to the new headline section each time without accumulating copies.
+  const main=$('main')||document.body;
+  const observer=new MutationObserver(()=>positionNative());
+  observer.observe(main,{childList:true,subtree:true});
+ }else if(native[kind]&&!news){
   const main=$('main')||document.body;
   const observer=new MutationObserver(()=>{if(positionNative())observer.disconnect()});
   observer.observe(main,{childList:true,subtree:true});
