@@ -296,53 +296,82 @@ body.nba-newspaper[data-page="rankings"] table.nba-power-table td.nba-power-club
  display:block;grid-column:2;min-width:0;font-size:12px;line-height:1.2;overflow-wrap:break-word;
 }
 
-/* 2026-27 NBA postseason race: clear vertical seed groups and conference sections. */
-body.nba-newspaper[data-page="playoffs"] .nba-race-key{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:22px 0 14px}
-body.nba-newspaper[data-page="playoffs"] .nba-race-key>div{padding:18px;background:#f2f4f1;border-top:5px solid #237e64;display:flex;flex-direction:column;gap:4px}
-body.nba-newspaper[data-page="playoffs"] .nba-race-key>div:nth-child(2){border-color:#c18325}
-body.nba-newspaper[data-page="playoffs"] .nba-race-key>div:nth-child(3){border-color:#8f9a9a}
-body.nba-newspaper[data-page="playoffs"] .nba-race-key b{font:800 35px/1 'Barlow Condensed',Arial,sans-serif}
-body.nba-newspaper[data-page="playoffs"] .nba-race-key strong{font-size:14px}
-body.nba-newspaper[data-page="playoffs"] .nba-race-key small{font-size:11px;color:var(--muted)}
-body.nba-newspaper[data-page="playoffs"] .nba-race-jump{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 25px}
-body.nba-newspaper[data-page="playoffs"] .nba-race-jump a{padding:10px 16px;background:var(--ink);color:white;text-decoration:none;font-size:12px;font-weight:800}
-body.nba-newspaper[data-page="playoffs"] .nba-race-conferences{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:start}
-body.nba-newspaper[data-page="playoffs"] .nba-race-conference{min-width:0;background:#fff;border:1px solid var(--line);padding:16px}
-body.nba-newspaper[data-page="playoffs"] .nba-race-conference-head{display:flex;justify-content:space-between;align-items:end;gap:8px;border-bottom:3px solid var(--ink);padding-bottom:12px;margin-bottom:15px}
-body.nba-newspaper[data-page="playoffs"] .nba-race-conference-head h2{font:800 29px/1 'Barlow Condensed',Arial,sans-serif;margin:4px 0}
-body.nba-newspaper[data-page="playoffs"] .nba-race-conference-head p{font-size:11px;color:var(--muted);margin:0}
-body.nba-newspaper[data-page="playoffs"] .nba-race-conference-head>a{font-size:11px;white-space:nowrap}
-body.nba-newspaper[data-page="playoffs"] .nba-race-group{margin:14px 0}
-body.nba-newspaper[data-page="playoffs"] .nba-race-group-head{display:flex;justify-content:space-between;gap:8px;align-items:start;padding:10px 12px;background:#e2efe9;border-left:5px solid #237e64}
-body.nba-newspaper[data-page="playoffs"] .nba-race-group.playin .nba-race-group-head{background:#fff1d9;border-color:#c18325}
-body.nba-newspaper[data-page="playoffs"] .nba-race-group.out .nba-race-group-head{background:#ebeeee;border-color:#8f9a9a}
-body.nba-newspaper[data-page="playoffs"] .nba-race-group-head h3{font-size:14px;margin:0 0 3px}
-body.nba-newspaper[data-page="playoffs"] .nba-race-group-head p{font-size:10px;margin:0;color:#526064}
-body.nba-newspaper[data-page="playoffs"] .nba-race-group-head>b{white-space:nowrap;font-size:10px}
-body.nba-newspaper[data-page="playoffs"] .nba-race-team{display:grid;grid-template-columns:25px 43px minmax(0,1fr) auto;align-items:center;gap:9px;padding:7px 6px;border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink);min-width:0}
-body.nba-newspaper[data-page="playoffs"] .nba-race-team:hover{background:#eef4f2}
-body.nba-newspaper[data-page="playoffs"] .nba-race-seed{font:800 22px/1 'Barlow Condensed',Arial,sans-serif;text-align:center}
-body.nba-newspaper[data-page="playoffs"] .nba-race-crest{width:43px;height:43px;display:grid;place-items:center;border:2px solid var(--race-color);border-radius:50%;background:white}
-body.nba-newspaper[data-page="playoffs"] .nba-race-crest img{width:35px!important;height:35px!important;max-width:35px!important;object-fit:contain!important}
+/* Editorial ownership: NBA playoff and player-leader editions.
+   Paper, rules and typography replace the obsolete dashboard panels. */
+body.nba-newspaper:is([data-page="playoffs"],[data-page="players"]) #app{min-width:0;color:#352b21}
+body.nba-newspaper:is([data-page="playoffs"],[data-page="players"]) .nba-press-header{background:#f4ecdf;border-top:4px double #473829;border-bottom:3px double #675440;padding:19px clamp(12px,2vw,24px) 17px;margin:14px 0 17px}
+body.nba-newspaper:is([data-page="playoffs"],[data-page="players"]) .nba-press-kicker,body.nba-newspaper[data-page="playoffs"] .nba-race-kicker{font:700 11px/1.3 Georgia,serif;letter-spacing:.08em;text-transform:uppercase;color:#86463a}
+body.nba-newspaper:is([data-page="playoffs"],[data-page="players"]) .nba-press-header h1{font:700 clamp(34px,4.8vw,62px)/1 Georgia,serif;font-variant:small-caps;letter-spacing:-.03em;margin:10px 0;color:#30271d}
+body.nba-newspaper:is([data-page="playoffs"],[data-page="players"]) .nba-press-subtitle{font:18px/1.4 Georgia,serif;color:#493d30;margin:0 0 12px}
+body.nba-newspaper:is([data-page="playoffs"],[data-page="players"]) .nba-press-qualification{border-top:1px solid #baa990;padding-top:9px;font:12px/1.5 Georgia,serif;color:#625344;margin:0}
+body.nba-newspaper:is([data-page="playoffs"],[data-page="players"]) .nba-press-footnote{font:11px/1.5 Georgia,serif;border-top:1px solid #c3b59d;color:#6c5b4b;padding-top:10px;margin:13px 0 0}
+body.nba-newspaper[data-page="playoffs"] .nba-race-key{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin:16px 0;border-top:3px double #574735;border-bottom:3px double #574735;background:#eee3d0}
+body.nba-newspaper[data-page="playoffs"] .nba-race-key>div{display:grid;grid-template-columns:auto 1fr;column-gap:10px;align-items:center;min-width:0;padding:12px;border-left:3px solid #7a8068;border-right:1px solid #bcaa90;background:transparent}
+body.nba-newspaper[data-page="playoffs"] .nba-race-key>div:nth-child(2){border-left-color:#9a774d}
+body.nba-newspaper[data-page="playoffs"] .nba-race-key>div:nth-child(3){border-left-color:#90847b;border-right:0}
+body.nba-newspaper[data-page="playoffs"] .nba-race-key b{grid-row:1/3;font:700 24px/1 Georgia,serif;color:#32291f;white-space:nowrap}
+body.nba-newspaper[data-page="playoffs"] .nba-race-key strong{font:700 13px/1.3 Georgia,serif;color:#423325}
+body.nba-newspaper[data-page="playoffs"] .nba-race-key small{font:11px/1.3 Georgia,serif;color:#70604c}
+body.nba-newspaper[data-page="playoffs"] .nba-race-jump{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;margin:11px 0 18px}
+body.nba-newspaper[data-page="playoffs"] .nba-race-jump a{padding:6px 0;background:transparent;color:#47392b;font:700 13px Georgia,serif;text-decoration:underline;text-underline-offset:4px}
+body.nba-newspaper[data-page="playoffs"] .nba-race-conferences{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start}
+body.nba-newspaper[data-page="playoffs"] .nba-race-conference{min-width:0;background:#f8f0e3;border:1px solid #bdaf98;border-top:4px double #564533;padding:clamp(9px,1.2vw,15px)}
+body.nba-newspaper[data-page="playoffs"] .nba-race-conference-head{display:flex;align-items:end;justify-content:space-between;flex-wrap:wrap;gap:9px;border-bottom:3px double #806d53;margin:0 0 14px;padding-bottom:11px}
+body.nba-newspaper[data-page="playoffs"] .nba-race-conference-head h2{font:700 clamp(25px,2.7vw,34px)/1.07 Georgia,serif;margin:5px 0;color:#34291f}
+body.nba-newspaper[data-page="playoffs"] .nba-race-conference-head p{font:12px/1.35 Georgia,serif;margin:0;color:#6d5d4c}
+body.nba-newspaper[data-page="playoffs"] .nba-race-conference-head>a{font:700 11px/1.2 Georgia,serif;white-space:nowrap;text-decoration:underline;color:#584534}
+body.nba-newspaper[data-page="playoffs"] .nba-race-group{margin:14px 0 19px}
+body.nba-newspaper[data-page="playoffs"] .nba-race-group-head{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#e6e4d8;border-top:2px solid #7d826e;border-bottom:1px solid #b9ab95;padding:9px}
+body.nba-newspaper[data-page="playoffs"] .nba-race-group.playin .nba-race-group-head{background:#efe3d0;border-top-color:#9b7a51}
+body.nba-newspaper[data-page="playoffs"] .nba-race-group.out .nba-race-group-head{background:#eae5dd;border-top-color:#938880}
+body.nba-newspaper[data-page="playoffs"] .nba-race-group-head h3{font:700 16px/1.25 Georgia,serif;margin:0;color:#3b3024}
+body.nba-newspaper[data-page="playoffs"] .nba-race-group-head p{font:11px/1.3 Georgia,serif;margin:3px 0 0;color:#6d5e4a}
+body.nba-newspaper[data-page="playoffs"] .nba-race-group-head>b{font:700 10px Georgia,serif;white-space:nowrap;color:#65513c}
+body.nba-newspaper[data-page="playoffs"] .nba-race-team{display:grid;grid-template-columns:23px 50px minmax(0,1fr) 60px;gap:8px;align-items:center;min-width:0;padding:8px 4px;border-bottom:1px solid #c7b8a2;background:transparent;text-decoration:none;color:#342b23}
+body.nba-newspaper[data-page="playoffs"] .nba-race-team:hover{background:#eee3d2}
+body.nba-newspaper[data-page="playoffs"] .nba-race-seed{font:700 19px/1 Georgia,serif;text-align:center;color:#7c5742}
+body.nba-newspaper[data-page="playoffs"] .nba-race-crest{display:flex;align-items:center;justify-content:center;width:50px;height:50px;border:0;background:none;padding:0;margin:0;overflow:visible}
+body.nba-newspaper[data-page="playoffs"] .nba-race-crest>img.nba-team-logo{display:block;width:42px;height:42px;min-width:42px;max-width:42px;min-height:42px;max-height:42px;object-fit:contain;box-sizing:border-box;margin:0;transform:none}
 body.nba-newspaper[data-page="playoffs"] .nba-race-identity{min-width:0}
-body.nba-newspaper[data-page="playoffs"] .nba-race-identity strong{display:block;font-size:12px;line-height:1.2}
-body.nba-newspaper[data-page="playoffs"] .nba-race-identity small{display:block;font-size:10px;color:var(--muted);line-height:1.2}
-body.nba-newspaper[data-page="playoffs"] .nba-race-record{font-size:13px;font-weight:800;white-space:nowrap;font-variant-numeric:tabular-nums}
-body.nba-newspaper[data-page="playoffs"] .nba-race-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-body.nba-newspaper[data-page="playoffs"] .nba-race-steps>div{background:#eef3f0;padding:14px}
-body.nba-newspaper[data-page="playoffs"] .nba-race-steps b{display:block;color:#237e64;font-size:24px}
-body.nba-newspaper[data-page="playoffs"] .nba-race-steps strong{display:block;margin:5px 0;font-size:13px}
-body.nba-newspaper[data-page="playoffs"] .nba-race-steps p{font-size:11px;margin:0}
-@media(max-width:1050px){body.nba-newspaper[data-page="playoffs"] .nba-race-conferences{grid-template-columns:1fr}}
-@media(max-width:620px){body.nba-newspaper[data-page="playoffs"] .nba-race-key{grid-template-columns:1fr}body.nba-newspaper[data-page="playoffs"] .nba-race-steps{grid-template-columns:1fr}body.nba-newspaper[data-page="playoffs"] .nba-race-conference{padding:10px}body.nba-newspaper[data-page="playoffs"] .nba-race-team{grid-template-columns:22px 39px minmax(0,1fr) auto;gap:6px}body.nba-newspaper[data-page="playoffs"] .nba-race-crest{width:39px;height:39px}body.nba-newspaper[data-page="playoffs"] .nba-race-crest img{width:31px!important;height:31px!important}}
+body.nba-newspaper[data-page="playoffs"] .nba-race-identity strong{display:block;font:700 13px/1.22 Georgia,serif;white-space:normal;overflow-wrap:break-word}
+body.nba-newspaper[data-page="playoffs"] .nba-race-identity small{display:block;font:10px/1.3 Georgia,serif;color:#6d5d4e;margin-top:3px}
+body.nba-newspaper[data-page="playoffs"] .nba-race-numbers{display:flex;flex-direction:column;align-items:flex-end;min-width:0;gap:3px;font-variant-numeric:tabular-nums;text-align:right}
+body.nba-newspaper[data-page="playoffs"] .nba-race-record{font:700 15px/1.15 Georgia,serif;white-space:nowrap;color:#30271e}
+body.nba-newspaper[data-page="playoffs"] .nba-race-numbers small{font:10px Georgia,serif;white-space:nowrap;color:#6b5a47}
+body.nba-newspaper[data-page="playoffs"] .nba-race-explainer{border-top:4px double #564431!important;border-bottom:3px double #564431;background:#f5ebdb;padding:17px;margin:23px 0}
+body.nba-newspaper[data-page="playoffs"] .nba-race-explainer h2{font:700 clamp(23px,3vw,32px)/1.2 Georgia,serif;margin:5px 0 14px}
+body.nba-newspaper[data-page="playoffs"] .nba-race-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:1px solid #b7a98f;border-bottom:1px solid #b7a98f}
+body.nba-newspaper[data-page="playoffs"] .nba-race-steps>div{padding:12px;border-right:1px solid #b7a98f;background:none}
+body.nba-newspaper[data-page="playoffs"] .nba-race-steps>div:last-child{border-right:0}
+body.nba-newspaper[data-page="playoffs"] .nba-race-steps b{font:700 22px Georgia,serif;color:#8c573b;margin-right:7px}
+body.nba-newspaper[data-page="playoffs"] .nba-race-steps strong{display:inline;font:700 14px/1.3 Georgia,serif}
+body.nba-newspaper[data-page="playoffs"] .nba-race-steps p{font:12px/1.4 Georgia,serif;margin:7px 0 0}
+@media(max-width:1120px){body.nba-newspaper[data-page="playoffs"] .nba-race-conferences{grid-template-columns:1fr}}
+@media(max-width:650px){
+ body.nba-newspaper[data-page="playoffs"] .nba-race-key{grid-template-columns:1fr}
+ body.nba-newspaper[data-page="playoffs"] .nba-race-key>div{padding:9px;grid-template-columns:75px minmax(0,1fr);border-right:0;border-bottom:1px solid #c3b59f}
+ body.nba-newspaper[data-page="playoffs"] .nba-race-key>div:last-child{border-bottom:0}
+ body.nba-newspaper[data-page="playoffs"] .nba-race-key b{font-size:20px}
+ body.nba-newspaper[data-page="playoffs"] .nba-race-conference{padding:8px}
+ body.nba-newspaper[data-page="playoffs"] .nba-race-team{grid-template-columns:19px 44px minmax(0,1fr) 52px;gap:5px;padding:7px 2px}
+ body.nba-newspaper[data-page="playoffs"] .nba-race-crest{width:44px;height:44px}
+ body.nba-newspaper[data-page="playoffs"] .nba-race-crest>img.nba-team-logo{width:38px;height:38px;min-width:38px;max-width:38px;min-height:38px;max-height:38px}
+ body.nba-newspaper[data-page="playoffs"] .nba-race-seed{font-size:16px}
+ body.nba-newspaper[data-page="playoffs"] .nba-race-identity strong{font-size:12px}
+ body.nba-newspaper[data-page="playoffs"] .nba-race-identity small{font-size:9px}
+ body.nba-newspaper[data-page="playoffs"] .nba-race-record{font-size:13px}
+ body.nba-newspaper[data-page="playoffs"] .nba-race-numbers small{font-size:9px}
+ body.nba-newspaper[data-page="playoffs"] .nba-race-steps{grid-template-columns:1fr}
+ body.nba-newspaper[data-page="playoffs"] .nba-race-steps>div{border-right:0;border-bottom:1px solid #b7a98f}
+ body.nba-newspaper[data-page="playoffs"] .nba-race-steps>div:last-child{border-bottom:0}
+ body.nba-newspaper:is([data-page="playoffs"],[data-page="players"]) .nba-press-header{padding:15px 12px}
+ body.nba-newspaper:is([data-page="playoffs"],[data-page="players"]) .nba-press-subtitle{font-size:15px}
+}
 
 /* Definitive NBA logo sizing (override older league-wide crest rules). */
 body.nba-newspaper[data-page="rankings"] table.nba-power-table td.nba-power-club .nba-power-team-link{grid-template-columns:44px minmax(0,1fr)!important;gap:10px!important;min-height:46px}
 body.nba-newspaper[data-page="rankings"] table.nba-power-table td.nba-power-club .nba-power-logo{display:block!important;width:40px!important;height:40px!important;min-width:40px!important;max-width:40px!important;max-height:40px!important;min-height:40px!important;object-fit:contain!important;object-position:center!important;padding:2px!important;border:2px solid #dce5df!important;border-radius:50%!important;background:white!important;grid-column:1;grid-row:1}
-body.nba-newspaper[data-page="playoffs"] .nba-race-crest{box-sizing:border-box!important;flex:none!important;width:44px!important;height:44px!important;min-width:44px!important;min-height:44px!important;max-width:44px!important;max-height:44px!important;overflow:hidden;display:grid!important;place-items:center!important;border:2px solid var(--race-color)!important;border-radius:50%!important;background:white!important}
-body.nba-newspaper[data-page="playoffs"] .nba-race-crest>.nba-team-logo{display:block!important;box-sizing:border-box!important;width:36px!important;height:36px!important;min-width:36px!important;min-height:36px!important;max-width:36px!important;max-height:36px!important;object-fit:contain!important;object-position:center!important;margin:0!important;padding:0!important;border:0!important;transform:none!important}
 body.nba-newspaper[data-page="rankings"] .nba-power-logo[hidden],body.nba-newspaper[data-page="playoffs"] .nba-race-crest>.nba-team-logo[hidden]{display:none!important}
-@media(max-width:620px){body.nba-newspaper[data-page="playoffs"] .nba-race-team{grid-template-columns:22px 44px minmax(0,1fr) auto!important}}
 
 /* Fixed NBA standings/conference crest and naming layout. */
 body.nba-newspaper[data-page="standings"] .nba-standings-conferences{display:grid;grid-template-columns:minmax(0,1fr);gap:22px}
@@ -426,35 +455,12 @@ body.nba-newspaper[data-page="conference"] a.nba-standings-identity .nba-standin
 }
 body.nba-newspaper a.nba-standings-identity .nba-standings-logo>img[hidden]{display:none!important}
 
-/* NBA playoff logos match MBB's existing badge treatment, not layered NBA crest overrides. */
-body.nba-newspaper[data-page="playoffs"] .nba-race-team{grid-template-columns:25px 52px minmax(0,1fr) auto!important;gap:10px!important;min-height:62px!important}
-body.nba-newspaper[data-page="playoffs"] .nba-race-team .nba-race-crest{
- display:flex!important;align-items:center!important;justify-content:center!important;
- box-sizing:border-box!important;flex:0 0 52px!important;width:52px!important;min-width:52px!important;max-width:52px!important;
- height:52px!important;min-height:52px!important;max-height:52px!important;
- padding:0!important;margin:0!important;background:transparent!important;border:0!important;border-radius:0!important;overflow:visible!important;
-}
-body.nba-newspaper[data-page="playoffs"] .nba-race-team .nba-race-crest>img.badge.nba-playoff-badge{
- box-sizing:border-box!important;display:block!important;position:static!important;grid-area:auto!important;
- flex:0 0 52px!important;width:52px!important;height:52px!important;
- min-width:52px!important;max-width:52px!important;min-height:52px!important;max-height:52px!important;
- padding:3px!important;margin:0!important;background:#fff!important;
- border:3px solid var(--logo-ring)!important;border-radius:50%!important;
- object-fit:contain!important;object-position:center!important;aspect-ratio:1!important;
- transform:none!important;box-shadow:0 1px 3px #0002!important;
-}
-body.nba-newspaper[data-page="playoffs"] .nba-race-team .nba-race-identity{display:block!important;min-width:0!important}
-body.nba-newspaper[data-page="playoffs"] .nba-race-team .nba-race-identity strong{font-size:13px!important;line-height:1.3!important}
-@media(max-width:620px){body.nba-newspaper[data-page="playoffs"] .nba-race-team{grid-template-columns:24px 52px minmax(0,1fr) auto!important}}
-
 /* Unified NBA badges: explicit logo and club label placement. */
 body.nba-newspaper .nba-brand-link{display:flex!important;align-items:center!important;gap:10px!important;min-width:0!important;text-align:left!important;white-space:normal!important}
 body.nba-newspaper .nba-brand-link>img.nba-team-logo{box-sizing:border-box!important;display:block!important;position:static!important;grid-area:auto!important;flex:0 0 46px!important;width:46px!important;height:46px!important;min-width:46px!important;max-width:46px!important;min-height:46px!important;max-height:46px!important;border:3px solid var(--nba-club-color,#193f52)!important;border-radius:50%!important;padding:3px!important;background:white!important;object-fit:contain!important;transform:none!important;margin:0!important}
 body.nba-newspaper .nba-brand-link>img[hidden]{display:none!important}
 body.nba-newspaper .nba-brand-link>span{display:block!important;position:static!important;grid-area:auto!important;flex:1 1 auto!important;white-space:normal!important;text-indent:0!important;transform:none!important}
 body.nba-newspaper[data-page="rankings"] table.nba-power-table td.nba-power-club .nba-brand-link{display:flex!important;grid-template-columns:none!important}
-body.nba-newspaper[data-page="playoffs"] .nba-race-team .nba-race-crest.nba-brand-badge{box-sizing:border-box!important;display:flex!important;align-items:center!important;justify-content:center!important;flex:0 0 52px!important;width:52px!important;height:52px!important;min-width:52px!important;min-height:52px!important;max-width:52px!important;max-height:52px!important;border:3px solid var(--nba-club-color)!important;border-radius:50%!important;padding:3px!important;background:white!important;overflow:hidden!important}
-body.nba-newspaper[data-page="playoffs"] .nba-race-team .nba-race-crest.nba-brand-badge>img.nba-team-logo{box-sizing:border-box!important;display:block!important;position:static!important;grid-area:auto!important;flex:0 0 42px!important;width:42px!important;height:42px!important;min-width:42px!important;max-width:42px!important;min-height:42px!important;max-height:42px!important;border:0!important;border-radius:0!important;padding:0!important;margin:0!important;background:transparent!important;object-fit:contain!important;transform:none!important}
 
 /* Player stats: compact team marks never inherit huge newspaper crest dimensions. */
 body.nba-newspaper[data-page="players"] .nba-player-club{display:inline-flex!important;align-items:center!important;gap:6px!important;min-width:0;white-space:nowrap;text-decoration:none;font:700 11px/1.2 Arial,sans-serif}
