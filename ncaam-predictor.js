@@ -11,6 +11,7 @@ const verified=x=>x?.rankings?.length===365&&new Set(x.rankings.map(t=>t.team_id
 if(!verified(pre)||!verified(retro)||retro.model!=="retro-clean-slate"||retro.starting_elo!==1500||retro.rankings.some(x=>x.base_elo!==1500)){$("state").textContent="Verified 365-team 1500-start RETRO data unavailable.";return}
 const isLive=retro.games_played>0;
 const currentRatings=retro;
+ window.RETROForecast?.setRevision(retro.as_of+'|'+retro.games_played);
 const original=new Map(pre.rankings.map(t=>[t.team_id,t]));
 const teams=currentRatings.rankings.map(t=>({...original.get(t.team_id),...t})).sort((a,b)=>a.team.localeCompare(b.team));
 const map=new Map(teams.map(t=>[t.team_id,t]));
