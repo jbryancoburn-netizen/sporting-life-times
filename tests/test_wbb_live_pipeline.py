@@ -30,7 +30,9 @@ class WomenLiveIngestionTests(unittest.TestCase):
         self.original_root=wbb.ROOT
         wbb.ROOT=self.root
         self.addCleanup(setattr,wbb,"ROOT",self.original_root)
-        self.teams=[{"team_id":str(i),"team":"School "+str(i),"conference":"Test"} for i in range(1,364)]
+        self.teams=[{"team_id":str(i),"team":"School "+str(i),"conference":"Test"} for i in range(1,365) if i!=341][:363]
+        # The out-of-division fixture must truly be outside this 363-school roster.
+        assert len(self.teams)==363 and "341" not in {t["team_id"] for t in self.teams}
         p=patch.object(wbb,"team_registry",return_value=self.teams)
         p.start()
         self.addCleanup(p.stop)
