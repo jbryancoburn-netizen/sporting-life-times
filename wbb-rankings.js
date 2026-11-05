@@ -2,6 +2,7 @@
 (async()=>{'use strict';
 const $=x=>document.querySelector(x);
 const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const record=t=>t&&Number.isFinite(Number(t.overall_wins??t.wins))&&Number.isFinite(Number(t.overall_losses??t.losses))?(t.overall_wins??t.wins)+'–'+(t.overall_losses??t.losses):'—';
 const poll=new URLSearchParams(location.search).get('poll')||'retro';
 const types={retro:'Women’s RETRO Rankings',net:'Women’s NCAA NET Rankings',ap:'Women’s AP Poll',coaches:'Women’s Coaches Poll',kenpom:'Women’s Pomeroy Ratings'};
 const kind=types[poll]?poll:'retro';
@@ -12,9 +13,9 @@ if(kind==='ap'||kind==='coaches'){
  try{
   await window.MBBLogos.ready;
   const req=async p=>{const r=await fetch(p,{cache:'no-store'});if(!r.ok)throw Error('Source unavailable');return r.json()};
-  const [published,directory]=await Promise.all([req('data/ncaaw-2026-27-national-polls.json'),req('data/ncaaw-2026-27-teams.json')]);
+  const [published,directory,ratings]=await Promise.all([req('data/ncaaw-2026-27-national-polls.json'),req('data/ncaaw-2026-27-teams.json'),req('data/ncaaw-2026-27-retro-primary.json').catch(()=>null)]);
   if(published.gender!=='women'||published.season!=='2026-27'||published.polls?.[kind]?.rankings?.length!==25)throw Error('Verified poll unavailable');
-  const pollData=published.polls[kind],teams=directory.teams||[];
+  const pollData=published.polls[kind],teams=directory.teams||[];const byRecord=new Map((ratings?.rankings||[]).map(t=>[String(t.team_id),t]));
   const norm=x=>String(x||'').toLowerCase().replace(/[^a-z0-9]/g,'');
   const aliases={'UConn':'Connecticut','USC':'Southern California','Ole Miss':'Mississippi','NC State':'North Carolina State','TCU':'Texas Christian','LSU':'Louisiana State'};
   $('#wbbr-status').innerHTML=esc(pollData.title)+' · '+esc(published.type)+' · '+esc(published.as_of)+' · <a href="'+esc(pollData.source_url)+'" target="_blank" rel="noopener noreferrer">'+esc(pollData.source)+'</a>';
@@ -50,11 +51,11 @@ try{
   $('#wbbr-count').textContent=data.length+' schools';
   $('#wbbr-list').innerHTML=data.map(t=>{
     const school=byId.get(String(t.team_id))||t;
-    const name=t.team||school.team||'School',record=(t.wins||0)+'–'+(t.losses||0);
+    const name=t.team||school.team||'School',overallRecord=record(t);
     return '<article class="wbbr-entry"><strong class="wbbr-number">#'+esc(t.rank)+'</strong>'+
       window.MBBLogos.byESPN(String(t.team_id),'score',name)+
       '<div class="wbbr-identity"><a href="ncaaw-team.html?team='+encodeURIComponent(t.team_id)+'">'+esc(name)+'</a><small>'+esc(t.conference||'Conference unverified')+'</small></div>'+
-      '<div class="wbbr-value">'+Math.round(Number(t.elo)).toLocaleString('en-US')+'<small>'+esc(record)+'</small></div></article>';
+      '<div class="wbbr-value">'+esc(overallRecord)+'<small>RETRO '+Math.round(Number(t.elo)).toLocaleString('en-US')+'</small></div></article>';
   }).join('');
  };
  con.addEventListener('change',render);$('#wbbr-order').addEventListener('change',render);render();
