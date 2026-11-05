@@ -11,7 +11,7 @@ for(const a of document.querySelectorAll('.wbbr-tabs a'))if(new URL(a.href).sear
 if(kind==='ap'||kind==='coaches'){
  $('#wbbr-controls').hidden=true;
  try{
-  await window.MBBLogos.ready;
+  // Women’s rankings must not depend on the men’s logo registry loading.
   const req=async p=>{const r=await fetch(p,{cache:'no-store'});if(!r.ok)throw Error('Source unavailable');return r.json()};
   const [published,directory,ratings]=await Promise.all([req('data/ncaaw-2026-27-national-polls.json'),req('data/ncaaw-2026-27-teams.json'),req('data/ncaaw-2026-27-retro-primary.json').catch(()=>null)]);
   if(published.gender!=='women'||published.season!=='2026-27'||published.polls?.[kind]?.rankings?.length!==25)throw Error('Verified poll unavailable');
@@ -31,15 +31,13 @@ if(kind==='ap'||kind==='coaches'){
    return candidates.length===1?candidates[0]:null;
   }
   function womenLogo(school,label){
-   if(!school)return window.MBBLogos.byName(label,'score');
-   const name=school.team,id=String(school.team_id);
-   const shared=window.MBBLogos.byESPN(id,'score',name);
-   if(shared.includes('<img ')&&!shared.includes('mbb-mark--missing'))return shared;
-   // Some women's school identities are absent from the men's crest crosswalk.
-   // Use the actual women's directory logo, never an unrelated men's lookup.
-   const source=String(school.logo||'');
-   if(!/^https:\/\/a\.espncdn\.com\/i\/teamlogos\/ncaa\/500\/\d+\.png$/.test(source))return shared;
-   return '<span class="mbb-mark mbb-mark--score mbb-mark--art-flat wbbr-women-mark" style="--mbb-primary:#385866;--mbb-secondary:#597582" role="img" aria-label="'+esc(name)+' logo" data-ring-count="2"><span class="mbb-mark__initials" aria-hidden="true">'+esc(name.slice(0,1))+'</span><img class="mbb-mark__img" src="'+esc(source)+'" loading="lazy" decoding="async" alt=""></span>';
+   const name=school?.team||label,id=String(school?.team_id||'');
+   const src=String(school?.logo||'');
+   const safe=/^https:\\/\\/a\\.espncdn\\.com\\/i\\/teamlogos\\/ncaa\\/500\\/\\d+\\.png$/.test(src);
+   const primary=/^[0-9a-f]{6}$/i.test(String(school?.color||''))?'#'+school.color:'#385866';
+   const secondary=primary.toLowerCase()==='#f1e7d5'?'#463322':'#f1e7d5';
+   const initials=name.split(/\\s+/).slice(0,2).map(x=>x[0]||'').join('').toUpperCase();
+   return '<span class="mbb-mark mbb-mark--score mbb-mark--art-flat wbbr-women-mark'+(safe?'':' mbb-mark--missing')+'" style="--mbb-primary:'+primary+';--mbb-secondary:'+secondary+'" data-espn-id="'+esc(id)+'" data-ring-count="2" role="img" aria-label="'+esc(name)+' logo"><span class="mbb-mark__initials" aria-hidden="true">'+esc(initials)+'</span>'+(safe?'<img class="mbb-mark__img" src="'+esc(src)+'" loading="lazy" decoding="async" alt="" onerror="this.parentElement.classList.add(\'mbb-mark--missing\');this.remove()">':'')+'</span>';
   }
   $('#wbbr-status').innerHTML=esc(pollData.title)+' · '+esc(published.type)+' · '+esc(pollData.published_at||published.as_of)+' · <a href="'+esc(pollData.source_url)+'" target="_blank" rel="noopener noreferrer">'+esc(pollData.source)+'</a>';
   $('#wbbr-list').innerHTML=pollData.rankings.map(item=>{
@@ -75,7 +73,7 @@ if(kind!=='retro'){
 }
 
 try{
- await window.MBBLogos.ready;
+ // Women’s rankings must not depend on the men’s logo registry loading.
  const req=async p=>{const r=await fetch(p,{cache:'no-store'});if(!r.ok)throw Error(p+' unavailable');return r.json()};
  const [ratings,directory]=await Promise.all([req('data/ncaaw-2026-27-retro-primary.json'),req('data/ncaaw-2026-27-teams.json')]);
  if(ratings.gender!=='women'||ratings.season!=='2026-27'||ratings.rankings?.length!==363||directory.teams?.length!==363)throw Error('Women’s 363-team ratings source did not validate');
@@ -91,7 +89,7 @@ try{
     const school=byId.get(String(t.team_id))||t;
     const name=t.team||school.team||'School',overallRecord=record(t);
     return '<article class="wbbr-entry"><strong class="wbbr-number">#'+esc(t.rank)+'</strong>'+
-      window.MBBLogos.byESPN(String(t.team_id),'score',name)+
+      womenLogo(school,name)+
       '<div class="wbbr-identity"><a href="ncaaw-team.html?team='+encodeURIComponent(t.team_id)+'">'+esc(name)+'</a><small>'+esc(t.conference||'Conference unverified')+'</small></div>'+
       '<div class="wbbr-value">'+esc(overallRecord)+'<small>RETRO '+Math.round(Number(t.elo)).toLocaleString('en-US')+'</small></div></article>';
   }).join('');
