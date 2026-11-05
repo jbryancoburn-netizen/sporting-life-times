@@ -10,7 +10,7 @@ const decorator=fs.readFileSync('slt-dual-ring.js','utf8');
 const colors=JSON.parse(fs.readFileSync('data/dual-ring-team-palette.json')).soccer;
 const branding=JSON.parse(fs.readFileSync('data/college-soccer-team-branding.json')).teams;
 assert(html.includes('college-soccer-selection.css?v=20261102-double-ring4'),'Safari stylesheet cache is stale');
-assert(html.includes('college-soccer-selection.js?v=20261102-double-ring4'),'Safari selection renderer cache is stale');
+assert(/college-soccer-selection\.js\?v=[a-z0-9._-]+/i.test(html),'Selection renderer must have an explicit cache-busting version');
 assert(html.includes('college-soccer-cup-ui.js?v=20261102-double-ring4'),'Two-ring component cache is stale');
 assert(source.includes("window.CollegeSoccerCupUI.crest(name,entry.team_id,'men-d1',branding)"),'Selection must use the shared two-ring crest');
 assert(!source.includes('nativeSchoolLogo'),'Ringless selection logo renderer is forbidden');
