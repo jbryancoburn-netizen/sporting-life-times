@@ -22,7 +22,14 @@
   const period=m?m[0].trim().toUpperCase():'';
   const periods={'1ST':'FIRST HALF','2ND':'SECOND HALF','FIRST':'FIRST HALF','SECOND':'SECOND HALF',
     '3RD':'THIRD QUARTER','4TH':'FOURTH QUARTER','THIRD':'THIRD QUARTER','FOURTH':'FOURTH QUARTER','OT':'OVERTIME'};
-  const periodLabel=periods[period]||period.replace(/^1ST HALF$/,'FIRST HALF').replace(/^2ND HALF$/,'SECOND HALF').replace(/^3RD QUARTER$/,'THIRD QUARTER').replace(/^4TH QUARTER$/,'FOURTH QUARTER');
+  const womens=String(g.gender||'').toLowerCase()==='women';
+  // NCAA women play four quarters; NCAA men play two halves.
+  // ESPN shortDetail frequently sends "1st", "2nd" etc. without the unit.
+  const n=(period.match(/^(?:1ST|FIRST|2ND|SECOND|3RD|THIRD|4TH|FOURTH)/)||[])[0];
+  const index={'1ST':1,'FIRST':1,'2ND':2,'SECOND':2,'3RD':3,'THIRD':3,'4TH':4,'FOURTH':4}[n];
+  const periodLabel=index?(womens?['','FIRST QUARTER','SECOND QUARTER','THIRD QUARTER','FOURTH QUARTER'][index]:
+    index<=2?['','FIRST HALF','SECOND HALF'][index]:['','','THIRD QUARTER','FOURTH QUARTER'][index]):
+    periods[period]||period;
   const momentum=g.momentum&&typeof g.momentum.text==='string'?g.momentum:null;
   if(halftime)return '<div class="ledger26-status ledger26-status--stack" data-phase="live"><strong class="ledger26-clock ledger26-clock--text">HALFTIME</strong></div>';
   const main=clock||(!periodLabel&&raw!=='LIVE'?raw:'LIVE');
