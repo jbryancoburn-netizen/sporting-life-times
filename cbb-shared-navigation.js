@@ -57,6 +57,8 @@ for(const nav of navs){
   document.addEventListener('click',event=>{
    const anchor=event.target.closest('a[href]');
    if(!anchor||event.defaultPrevented||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey||event.button!==0)return;
+   // Edition switches are deliberate changes, never subject to same-edition routing.
+   if(anchor.closest('.cbb-edition-switch'))return;
    const url=new URL(anchor.href,location.href);
    if(url.origin!==location.origin||url.searchParams.get('gender')==='men'||!targets[url.pathname.split('/').pop()])return;
    if(url.searchParams.get('gender')==='women')return;
@@ -98,7 +100,7 @@ for(const nav of navs){
  toolbar.className='cbb-mobile-toolbar';
  const genderBar=bar;
  nav.parentNode.insertBefore(toolbar,nav);
- if(genderBar && matchMedia('(max-width: 760px)').matches)toolbar.appendChild(genderBar);
+ if(genderBar && matchMedia('(max-width: 700px)').matches)toolbar.appendChild(genderBar);
  const mobileButton=document.createElement('button');
  mobileButton.type='button';
  mobileButton.className='cbb-mobile-nav-toggle';
