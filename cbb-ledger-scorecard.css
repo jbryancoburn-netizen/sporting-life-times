@@ -74,6 +74,10 @@
   background:#f8f0e0;
 }
 .ledger26-team:last-child{border-bottom:0}
+/* Ledger cards use the team crests as the identity; no redundant vertical paper seal. */
+.ledger26-scorebug--plain{grid-template-columns:minmax(0,1fr) 102px}
+.ledger26-scorebug--pregame .ledger26-team{grid-template-columns:var(--ledger26-crest-size) minmax(0,1fr)}
+.ledger26-scorebug--pregame .ledger26-points{display:none}
 .ledger26-crest{
   display:flex;align-items:center;justify-content:center;
   width:var(--ledger26-crest-size);height:var(--ledger26-crest-size);min-width:var(--ledger26-crest-size);
@@ -161,6 +165,8 @@
  #el-live-scorebugs .ledger26-scorebug{--ledger26-crest-size:54px;--ledger26-team-min-height:70px}
  .ledger26-summary{padding:7px}
  .ledger26-scorebug{grid-template-columns:43px minmax(0,1fr) 84px;min-height:114px}
+ .ledger26-scorebug--plain{grid-template-columns:minmax(0,1fr) 90px;min-height:112px}
+ .ledger26-scorebug--plain .ledger26-name{font-size:13px!important}
  .ledger26-monogram img{width:31px;height:43px}
  .ledger26-team{grid-template-columns:var(--ledger26-crest-size) minmax(0,1fr) minmax(21px,auto);gap:6px;padding:4px 6px;border-left-width:5px}
  .ledger26-crest .mbb-mark>img.mbb-mark__img{width:78%!important;height:78%!important;max-width:78%!important;max-height:78%!important}
@@ -173,6 +179,8 @@
 }
 @media(max-width:360px){
  .ledger26-scorebug{--ledger26-crest-size:43px;--ledger26-team-min-height:54px;grid-template-columns:37px minmax(0,1fr) 72px}
+ .ledger26-scorebug--plain{grid-template-columns:minmax(0,1fr) 76px}
+ .ledger26-scorebug--plain .ledger26-name{font-size:12px!important}
  #el-live-scorebugs .ledger26-scorebug{--ledger26-crest-size:46px;--ledger26-team-min-height:65px}
  .ledger26-team{grid-template-columns:var(--ledger26-crest-size) minmax(0,1fr) 21px;gap:4px;padding:3px;border-left-width:4px}
  .ledger26-name{font-size:11px!important}
@@ -241,9 +249,36 @@
 .ledger26-meta-actions{display:flex;align-items:center;justify-content:flex-end;gap:7px;flex-wrap:wrap;min-width:0;max-width:100%;box-sizing:border-box}
 .ledger26-meta--pregame .ledger26-meta-actions{border-left:1px solid #b9a78a;padding-left:8px}
 @media(max-width:700px){
- .ledger26-meta--pregame{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:7px}
- .ledger26-meta--pregame .ledger26-line{text-align:left}
- .ledger26-meta--pregame .ledger26-meta-actions{grid-column:1/-1;border-top:1px solid #b9a78a;border-left:0;padding:6px 0 0;justify-content:space-between}
+ /* One editorial information band: kickoff + network/press, then the RETRO pick. */
+ .ledger26-meta--pregame{
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  grid-template-areas:"kickoff actions" "pick pick";
+  align-items:center;column-gap:8px;row-gap:4px;
+  padding:7px 9px 6px;
+ }
+ .ledger26-meta--pregame>.ledger26-time{grid-area:kickoff;white-space:nowrap}
+ .ledger26-meta--pregame>.ledger26-line{
+  grid-area:pick;display:flex;align-items:baseline;justify-content:flex-start;
+  gap:8px;border-left:0;border-top:1px solid #b9a78a;
+  padding:4px 0 0;text-align:left;
+ }
+ .ledger26-meta--pregame .ledger26-line small{flex:none;font-size:8px}
+ .ledger26-meta--pregame .ledger26-line strong{font-size:11px;line-height:1.2}
+ .ledger26-meta--pregame>.ledger26-meta-actions{
+  grid-area:actions;grid-column:auto;justify-self:end;
+  display:flex;align-items:center;justify-content:flex-end;
+  flex-wrap:nowrap;gap:5px;border:0;padding:0;
+ }
+ .ledger26-meta--pregame .ledger26-network{font-size:10px;white-space:nowrap}
+ .ledger26-meta--pregame .slt-team-press-btn{
+  margin:0;min-height:27px;padding:5px 6px;white-space:nowrap;
+  font-size:9px;line-height:1.15;
+ }
+}
+@media(max-width:375px){
+ .ledger26-meta--pregame{column-gap:5px;padding-inline:7px}
+ .ledger26-meta--pregame .ledger26-network{font-size:9px}
+ .ledger26-meta--pregame .slt-team-press-btn{font-size:8px;padding:4px 5px}
 }
 
 /* Women's Daily Ledger pregame redesign: one forecast, compact press strip and
