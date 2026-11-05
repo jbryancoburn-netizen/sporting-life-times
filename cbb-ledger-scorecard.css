@@ -229,3 +229,6 @@
 .ledger26-press-story a:hover,.ledger26-press-story a:focus-visible{text-decoration:underline}
 
 .slt-team-press-btn{display:inline-block;border:1px solid #8b704f;background:#ead9bb;color:#392918;padding:6px 8px;margin:3px 0;font:700 10px/1.25 Georgia,serif;cursor:pointer;white-space:nowrap}.slt-team-press-btn:hover,.slt-team-press-btn:focus-visible{background:#d5bb91;text-decoration:underline}
+
+/* Keep the press control above the clickable game-summary surface. */
+.ledger26-scorebug{isolation:isolate;overflow:visible!important}.ledger26-preview-link{z-index:30!important;display:block!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important;right:0!important;bottom:0!important}.ledger26-preview-dialog{z-index:2147483647!important}
