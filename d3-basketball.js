@@ -40,7 +40,9 @@ function mergeVerifiedLogos(teams,approved){
  for(const school of teams){
   const org=school?.ncaa_org_id;
   const official=Number.isInteger(org)?approved?.get(String(org)):null;
-  if(!official||(school.slug&&school.slug!==official))continue;
+  if(!official)continue;
+  // The official NCAA organization-ID match is authoritative. Replace stale
+  // feed slugs rather than silently preserving a different school's crest.
   school.slug=official;
   school.logo_source='NCAA school index · verified organization ID';
   recovered++;
