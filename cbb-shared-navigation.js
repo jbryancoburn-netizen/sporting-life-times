@@ -4,7 +4,10 @@ const navs=[...document.querySelectorAll('nav.cbb-universal-nav')];
 if(!navs.length)return;
 const women=new URLSearchParams(location.search).get('gender')==='women'||document.body.dataset.gender==='women'||location.pathname.includes('ncaaw');
 const front=women?'ncaam.html?gender=women':'ncaam.html';
-const ranks=[['RETRO','retro'],['NET','net'],['AP','ap'],['Coaches','coaches'],['Pomeroy','kenpom']];
+const ranks=women?
+ [['RETRO','retro'],['AP','ap'],['Coaches','coaches'],['NET','net'],
+  ['Massey Ratings','massey'],['Wins Above Bubble','wab'],['Her Hoop Stats','herhoopstats']]:
+ [['RETRO','retro'],['NET','net'],['AP','ap'],['Coaches','coaches'],['Pomeroy','kenpom']];
 for(const nav of navs){
  // Every CBB page must keep an independently usable Men/Women switch.
  // Older pages already create one; reuse rather than duplicate it.
@@ -23,9 +26,13 @@ for(const nav of navs){
  const rating=links.find(a=>/RETRO Rankings|Power Index|^Rankings$/i.test(a.textContent.trim()));
  if(rating){
    const d=document.createElement('div');d.className='cbb-rank-menu';
-   const sum=document.createElement('button');sum.type='button';sum.className='cbb-rank-trigger';sum.textContent='Rankings';sum.setAttribute('aria-label','Rankings: choose RETRO, NET, AP, Coaches or Pomeroy');sum.setAttribute('aria-expanded','false');sum.setAttribute('aria-haspopup','true');
+   const sum=document.createElement('button');sum.type='button';sum.className='cbb-rank-trigger';sum.textContent='Rankings';sum.setAttribute('aria-label',women?'Women’s rankings: RETRO, AP, Coaches, NET, Massey, Wins Above Bubble, Her Hoop Stats':'Men’s rankings: RETRO, NET, AP, Coaches, Pomeroy');sum.setAttribute('aria-expanded','false');sum.setAttribute('aria-haspopup','true');
    const list=document.createElement('div');list.className='cbb-rank-links';list.id='cbb-rank-dropdown-'+Math.random().toString(36).slice(2);list.hidden=true;sum.setAttribute('aria-controls',list.id);
-   for(const [label,key] of ranks){const a=document.createElement('a');a.href=(women?'ncaaw-rankings.html':'ncaam-rankings.html')+'?poll='+key;a.textContent=label;list.append(a);}
+   for(const [label,key] of ranks){
+    const a=document.createElement('a');
+    a.href=(women?'ncaaw-rankings.html':'ncaam-rankings.html')+'?poll='+key;
+    a.textContent=label;list.append(a);
+   }
    d.append(sum);rating.replaceWith(d);document.body.append(list);
    const close=()=>{list.hidden=true;sum.setAttribute('aria-expanded','false');};
    const place=()=>{if(list.hidden)return;const box=sum.getBoundingClientRect();const w=list.offsetWidth||180;list.style.left=Math.max(8,Math.min(box.left,innerWidth-w-8))+'px';list.style.top=Math.min(box.bottom+6,innerHeight-list.offsetHeight-8)+'px';};
