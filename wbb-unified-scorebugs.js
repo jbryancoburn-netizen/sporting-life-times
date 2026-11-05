@@ -80,6 +80,18 @@
   new MutationObserver(()=>{if(scheduled)return;scheduled=true;queueMicrotask(()=>{scheduled=false;renderAll();});})
    .observe(body,{subtree:true,characterData:true,childList:true});
  }
- if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(start,1000));
- else setTimeout(start,1000);
+ let started=false;
+ function boot(){
+  if(started)return;
+  if(!document.querySelector('#desk .wbb-schedule-table')||!window.SLTSportsScorebug)return;
+  started=true;observer.disconnect();start();
+ }
+ const observer=new MutationObserver(boot);
+ function watch(){
+  const desk=document.getElementById('desk');
+  if(desk)observer.observe(desk,{childList:true,subtree:true});
+  boot();
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',watch,{once:true});
+ else watch();
 })();
