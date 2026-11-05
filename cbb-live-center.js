@@ -799,7 +799,7 @@
     if(!mounted){state.pending=false;return;}
     // Avoid race conditions when the reader changes dates while a prior fetch is still in flight.
     if(state.day!==day){state.pending=false;queueMicrotask(refresh);return;}
-    state.games=games.sort((a,b)=>{
+    state.games=withVerifiedNetworks(games).sort((a,b)=>{
       const order={live:0,upcoming:1,final:2};
       return order[a.phase]-order[b.phase]||((Date.parse(a.date)||0)-(Date.parse(b.date)||0));
     });
