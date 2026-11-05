@@ -92,12 +92,16 @@ function normalizeWomen(rows,rankings,crossList){
     if(!g||!validId(g.away_id)||!validId(g.home_id))return[];
     const day=isoDate(g.date);if(!day)return[];
     const a=String(g.away_id),h=String(g.home_id),final=g.status==='final';
-    const mk=(id,points)=>({id,name:cross.get(id)?.name||rating.get(id)?.team||'Team '+id,
-       full:rating.get(id)?.team||cross.get(id)?.espn_name||'Team '+id,
-       canonical:id,score:final&&Number.isFinite(Number(points))?Number(points):null});
+    const mk=(id,points,side)=>{
+      const known=cross.get(id),publishedName=String(g[side+'_name']||'').trim();
+      return {id,name:known?.name||publishedName||rating.get(id)?.team||'Team '+id,
+       full:rating.get(id)?.team||known?.espn_name||publishedName||'Team '+id,
+       canonical:known?id:'',score:final&&Number.isFinite(Number(points))?Number(points):null};
+    };
     return[{id:cleanId(g.id),day,date:g.date,phase:final?'final':'upcoming',timed:true,
-      away:mk(a,g.away_score),home:mk(h,g.home_score),venue:g.venue||'',broadcast:g.broadcast||'',
-      status:final?'Final':'Scheduled',source:rows.source||'Women’s published game ledger',
+      away:mk(a,g.away_score,'away'),home:mk(h,g.home_score,'home'),venue:g.venue||'',broadcast:g.broadcast||'',
+      status:final?'Final':'Scheduled',source:g.score_evidence==='secondary_reported'?
+        'Secondary reported final · verification pending':rows.source||'Women’s published game ledger',
       evidence:g.score_evidence||'reported',kind:'regular',probability:null}];
   });
 }
