@@ -35,7 +35,7 @@ function init(){
    const out=[],seen=new Set();
    for(const section of document.querySelectorAll('main section[id]')){
     if(section.id==='league-news'||seen.has(section.id))continue;
-    const label=section.querySelector('h2,h3')?.textContent?.trim().replace(/\\s+/g,' ');
+    const label=section.querySelector('h2,h3')?.textContent?.trim().replace(/\s+/g,' ');
     if(!label)continue;seen.add(section.id);out.push({href:'#'+section.id,label});
    }
    return out.slice(0,14);
