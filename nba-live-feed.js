@@ -95,7 +95,7 @@ function render(payload){
   // the shared college scorebug's default first/second-half label parsing.
   const nbaPeriod=Number(e.status?.period||0);
   const nbaClock=String(e.status?.displayClock||'').trim();
-  const nbaPeriodLabel=nbaPeriod>=1&&nbaPeriod<=4?'Q'+nbaPeriod:nbaPeriod>4?'OT'+(nbaPeriod>5?' '+(nbaPeriod-4):''):'';
+  const nbaPeriodLabel=({1:'1ST QUARTER',2:'2ND QUARTER',3:'3RD QUARTER',4:'4TH QUARTER'})[nbaPeriod]||(nbaPeriod>4?(nbaPeriod===5?'OT':(nbaPeriod-4)+'OT'):'');
   const rawLabel=st.shortDetail||st.description||'Scheduled';
   const label=state==='in'&&nbaPeriodLabel?(nbaClock&&nbaClock!=='0:00'?nbaClock+' ':'')+nbaPeriodLabel:rawLabel;
   if(!away||!home)return null;
