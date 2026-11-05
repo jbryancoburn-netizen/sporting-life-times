@@ -19,6 +19,7 @@ try{
 if(women&&!womenPage&&menPage&&explicit!=='women'){
  const redirects={
   'ncaam.html':'ncaam.html?gender=women',
+  'ncaam-slate.html':'ncaam-slate.html?gender=women',
   'ncaam-team.html':'ncaaw-team.html',
   'ncaam-rankings.html':'ncaaw-rankings.html',
   'ncaam-elo.html':'ncaaw-rankings.html?poll=retro',
@@ -34,6 +35,7 @@ if(women&&!womenPage&&menPage&&explicit!=='women'){
   const next=new URL(redirects[page],location.href);
   if(page==='ncaam-team.html'&&params.has('team'))next.searchParams.set('team',params.get('team'));
   if(page==='ncaam-rankings.html'&&params.has('poll'))next.searchParams.set('poll',params.get('poll'));
+  if(page==='ncaam-slate.html'&&params.has('day'))next.searchParams.set('day',params.get('day'));
   location.replace(next.href);return;
  }
 }
