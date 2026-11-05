@@ -33,10 +33,10 @@ if(kind==='ap'||kind==='coaches'){
   function womenLogo(school,label){
    const name=school?.team||label,id=String(school?.team_id||'');
    const src=String(school?.logo||'');
-   const safe=/^https:\\/\\/a\\.espncdn\\.com\\/i\\/teamlogos\\/ncaa\\/500\\/\\d+\\.png$/.test(src);
+   const safe=src.startsWith('https://a.espncdn.com/i/teamlogos/ncaa/500/') && src.endsWith('.png') && /^\d+$/.test(src.split('/').pop().replace('.png',''));
    const primary=/^[0-9a-f]{6}$/i.test(String(school?.color||''))?'#'+school.color:'#385866';
    const secondary=primary.toLowerCase()==='#f1e7d5'?'#463322':'#f1e7d5';
-   const initials=name.split(/\\s+/).slice(0,2).map(x=>x[0]||'').join('').toUpperCase();
+   const initials=name.split(/\s+/).slice(0,2).map(x=>x[0]||'').join('').toUpperCase();
    return '<span class="mbb-mark mbb-mark--score mbb-mark--art-flat wbbr-women-mark'+(safe?'':' mbb-mark--missing')+'" style="--mbb-primary:'+primary+';--mbb-secondary:'+secondary+'" data-espn-id="'+esc(id)+'" data-ring-count="2" role="img" aria-label="'+esc(name)+' logo"><span class="mbb-mark__initials" aria-hidden="true">'+esc(initials)+'</span>'+(safe?'<img class="mbb-mark__img" src="'+esc(src)+'" loading="lazy" decoding="async" alt="" onerror="this.parentElement.classList.add(\'mbb-mark--missing\');this.remove()">':'')+'</span>';
   }
   $('#wbbr-status').innerHTML=esc(pollData.title)+' · '+esc(published.type)+' · '+esc(pollData.published_at||published.as_of)+' · <a href="'+esc(pollData.source_url)+'" target="_blank" rel="noopener noreferrer">'+esc(pollData.source)+'</a>';
