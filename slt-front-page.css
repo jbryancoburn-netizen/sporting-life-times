@@ -1,0 +1,25 @@
+/* Editorial front pages: one source for Victorian story boxes and department links. */
+.slt-front-news,.slt-front-directory{box-sizing:border-box;max-width:100%;margin:18px 0 24px;padding:16px 18px 20px;color:#30271d;background:#f4eddd;border:4px double #6a5744;box-shadow:inset 0 0 0 3px #f9f4e9}
+.slt-front-news *,.slt-front-directory *{box-sizing:border-box}
+.slt-front-news h2,.slt-front-directory h2{font:normal clamp(27px,3.5vw,42px)/1.12 Georgia,'Times New Roman',serif;color:#2b241c;letter-spacing:-.025em;margin:4px 0 10px}
+.slt-front-news>.slt-front-heading,.slt-front-directory>.slt-front-heading{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;border-bottom:3px double #7c6954;padding:0 0 9px;margin:0 0 15px}
+.slt-front-eyebrow{font:600 10px/1.4 Georgia,serif;letter-spacing:1.7px;text-transform:uppercase;color:#704a35}
+.slt-front-news .slt-front-status{font:normal 11px/1.4 Georgia,serif;color:#685b4e;margin:4px 0 8px}
+.slt-front-grid,.slt-front-directory-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.slt-front-grid article,.slt-front-news .nba-story,.slt-front-news .nfl-story,.slt-front-news .epl-news-article,.slt-front-news .nba-news-item,.slt-front-news .cbb-news-story,.slt-front-news .cs-edit-story,.slt-front-news .cs-edit-lead,.slt-front-news .desk-story{min-width:0;border:2px solid #827461;background:#f8f3e9;padding:15px 16px;box-shadow:none;border-radius:0;overflow-wrap:anywhere}
+.slt-front-grid article:first-child{grid-column:span 2;border:4px double #695646;padding:18px 20px}
+.slt-front-grid article h3,.slt-front-news .nba-story h3,.slt-front-news .epl-news-article h3,.slt-front-news .nba-news-item h3,.slt-front-news .cbb-news-story h3{font:normal clamp(18px,2.3vw,26px)/1.18 Georgia,serif;margin:7px 0}
+.slt-front-grid article:first-child h3{font-size:clamp(23px,2.9vw,34px)}
+.slt-front-grid article h3 a,.slt-front-news article h3 a,.slt-front-directory a{color:#30271d;text-decoration:none}
+.slt-front-grid article h3 a:hover,.slt-front-news article h3 a:hover,.slt-front-directory a:hover{text-decoration:underline}
+.slt-front-grid article p{font:normal 14px/1.48 Georgia,serif;margin:8px 0 0}
+.slt-front-grid .slt-front-byline{font:normal 10px/1.3 Georgia,serif;letter-spacing:.4px;text-transform:uppercase;color:#775d49}
+.slt-front-directory-grid a{display:flex;align-items:center;justify-content:space-between;gap:12px;min-width:0;padding:12px 14px;border:1px solid #9a8871;background:#f8f3e9;font:normal 16px/1.3 Georgia,serif}
+.slt-front-directory-grid a:after{content:'↗';font-size:15px;color:#8a6549;flex:none}
+.slt-front-news .cbb-news-grid{margin:0}.slt-front-news .cbb-news-story.lead{border:4px double #695646}.slt-front-news .cbb-front-head{margin-bottom:8px}
+.slt-front-news .nba-news-grid,.slt-front-news #league-news-grid,.slt-front-news .nfl-news,.slt-front-news #epl-independent-news{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.slt-front-news .nba-story.lead,.slt-front-news .nba-news-lead,.slt-front-news .epl-news-lead{grid-column:span 2}
+.slt-front-news .epl-news-photo{max-width:100%;height:auto;object-fit:cover}
+.slt-front-news .cs-edit-columns{min-width:0;max-width:100%;overflow:hidden}
+.slt-front-news img{max-width:100%}
+@media(max-width:800px){.slt-front-news,.slt-front-directory{margin:14px 0;padding:13px 12px}.slt-front-grid,.slt-front-directory-grid,.slt-front-news .nba-news-grid,.slt-front-news #league-news-grid,.slt-front-news .nfl-news,.slt-front-news #epl-independent-news{grid-template-columns:1fr}.slt-front-grid article:first-child,.slt-front-news .nba-story.lead,.slt-front-news .nba-news-lead,.slt-front-news .epl-news-lead{grid-column:auto}.slt-front-news h2{font-size:29px}.slt-front-directory-grid a{font-size:15px}.slt-front-news .cbb-news-grid{grid-template-columns:1fr}}
