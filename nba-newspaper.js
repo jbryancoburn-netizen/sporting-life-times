@@ -252,18 +252,25 @@ function compactPlayerTeam(t){
  return '<a class="nba-player-club" href="'+tl(t)+'" style="--nba-club-color:'+meta[t][3]+'" aria-label="'+esc(name(t))+'"><img src="'+logo(t)+'" loading="lazy" alt="" width="23" height="23" onerror="this.hidden=true"><span>'+esc(t)+'</span></a>';
 }
 function playerNotebookRows(totals){
- return '<div class="nba-player-notebook"><table class="nba-player-ledger"><thead><tr>'+
-  '<th>Player</th><th>Club</th><th>GP</th><th>PTS/G</th><th>REB/G</th><th>AST/G</th><th>FG%</th><th>TS%</th>'+
-  '</tr></thead><tbody>'+totals.map(x=>'<tr>'+
-  '<td data-stat="Player" class="nba-player-ledger-name">'+esc(x.player)+'</td>'+
-  '<td data-stat="Club" class="nba-player-ledger-team">'+compactPlayerTeam(x.team)+'</td>'+
-  '<td data-stat="GP" class="nba-player-ledger-stat">'+esc(x.gp)+'</td>'+
-  '<td data-stat="PTS/G" class="nba-player-ledger-stat">'+fmt(x.ppg,1)+'</td>'+
-  '<td data-stat="REB/G" class="nba-player-ledger-stat">'+fmt(x.rpg,1)+'</td>'+
-  '<td data-stat="AST/G" class="nba-player-ledger-stat">'+fmt(x.apg,1)+'</td>'+
-  '<td data-stat="FG%" class="nba-player-ledger-stat">'+fmt(x.fg_pct,1)+'</td>'+
-  '<td data-stat="TS%" class="nba-player-ledger-stat">'+fmt(x.ts_pct,1)+'</td>'+
-  '</tr>').join('')+'</tbody></table></div>';
+ if(!totals.length)return '<div class="nba-player-register-empty">No captured player records match that search.</div>';
+ // One player = one compact newspaper row, regardless of viewport.
+ // The markup owns its semantic structure; responsive layout is only a presentation change.
+ const stat=(label,val)=>'<span class="nba-register-stat"><small>'+label+'</small><b>'+esc(val)+'</b></span>';
+ return '<div class="nba-player-notebook" role="list" aria-label="Captured NBA player statistics">'+totals.map((x,i)=>{
+  const club=meta[x.team]?.[0]||x.team||'Club unavailable';
+  const identity=meta[x.team]?'<a class="nba-register-logo" href="'+tl(x.team)+'" aria-label="'+esc(club)+' team desk">'+logoImg(x.team)+'</a>':'<span class="nba-register-logo nba-register-no-logo" aria-hidden="true"></span>';
+  return '<article class="nba-register-row" role="listitem">'+
+   '<div class="nba-register-heading">'+
+    '<span class="nba-register-order" aria-label="Entry '+(i+1)+'">'+String(i+1).padStart(2,'0')+'</span>'+
+    identity+
+    '<div class="nba-register-person"><strong>'+esc(x.player)+'</strong><span>'+esc(club)+'</span></div>'+
+    '<div class="nba-register-ppg"><b>'+fmt(x.ppg,1)+'</b><small>PTS / G</small></div>'+
+   '</div>'+
+   '<div class="nba-register-stats">'+
+    stat('GP',x.gp)+stat('REB / G',fmt(x.rpg,1))+stat('AST / G',fmt(x.apg,1))+
+    stat('FG %',fmt(x.fg_pct,1))+stat('TS %',fmt(x.ts_pct,1))+
+   '</div></article>';
+ }).join('')+'</div>';
 }
 function players(){
  const cats=[['Scoring','ppg','PPG'],['Rebounds','rpg','RPG'],['Assists','apg','APG'],['Steals','spg','SPG'],['Blocks','bpg','BPG'],['Field Goal %','fg_pct','FG%'],['Three-Point %','fg3_pct','3PT%'],['Free Throw %','ft_pct','FT%']];
