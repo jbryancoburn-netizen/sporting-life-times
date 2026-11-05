@@ -4,11 +4,11 @@
   "men": {
     "gender": "men",
     "program_count": 406,
-    "fixture_count": 4371,
-    "missing_arena_fields": 1434,
+    "fixture_count": 4372,
+    "missing_arena_fields": 1435,
     "missing_location_fields": 40,
-    "missing_tipoff_fields": 57,
-    "source_conflict_count": 54,
+    "missing_tipoff_fields": 56,
+    "source_conflict_count": 53,
     "programs": [
       {
         "ncaa_org_id": 987,
@@ -50,6 +50,47 @@
         ],
         "logo_url_present": false,
         "official_logo_slug_present": true,
+        "verified_two_school_colors": false
+      },
+      {
+        "ncaa_org_id": 30264,
+        "school": "Regent University",
+        "gender": "men",
+        "state": "VA",
+        "athletics_site": "https://regentroyals.com",
+        "missing_home_arenas": 14,
+        "missing_game_locations": 0,
+        "missing_tipoffs": 0,
+        "site_conflict_exposures": 0,
+        "venue_example_ids": [
+          "d3-men-2026-11-08-25719-30264",
+          "d3-men-2026-11-11-389-30264",
+          "d3-men-2026-11-14-412-30264",
+          "d3-men-2026-11-28-542-30264",
+          "d3-men-2026-11-28-12973-30264",
+          "d3-men-2026-11-29-542-30264",
+          "d3-men-2026-11-29-12973-30264",
+          "d3-men-2026-12-05-263-30264",
+          "d3-men-2026-12-09-611-30264",
+          "d3-men-2026-12-16-30164-30264",
+          "d3-men-2027-01-09-611-30264",
+          "d3-men-2027-01-12-30236-30264"
+        ],
+        "official_sources": [
+          "https://charlotte.jwuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://knightathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://regentroyals.com/sports/mens-basketball/schedule/2026?grid=true",
+          "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://www.gofalconsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://www.greensborocollegesports.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://www.marybaldwinathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+          "https://www.mumonarchs.com/sports/mens-basketball/schedule?grid=true",
+          "https://www.smcmathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://www.suseagulls.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://www.wilsonphoenix.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        ],
+        "logo_url_present": false,
+        "official_logo_slug_present": false,
         "verified_two_school_colors": false
       },
       {
@@ -134,47 +175,6 @@
         ],
         "logo_url_present": false,
         "official_logo_slug_present": true,
-        "verified_two_school_colors": false
-      },
-      {
-        "ncaa_org_id": 30264,
-        "school": "Regent University",
-        "gender": "men",
-        "state": "VA",
-        "athletics_site": "https://regentroyals.com",
-        "missing_home_arenas": 13,
-        "missing_game_locations": 0,
-        "missing_tipoffs": 0,
-        "site_conflict_exposures": 0,
-        "venue_example_ids": [
-          "d3-men-2026-11-08-25719-30264",
-          "d3-men-2026-11-11-389-30264",
-          "d3-men-2026-11-14-412-30264",
-          "d3-men-2026-11-28-542-30264",
-          "d3-men-2026-11-28-12973-30264",
-          "d3-men-2026-11-29-542-30264",
-          "d3-men-2026-11-29-12973-30264",
-          "d3-men-2026-12-05-263-30264",
-          "d3-men-2026-12-09-611-30264",
-          "d3-men-2026-12-16-30164-30264",
-          "d3-men-2027-01-12-30236-30264",
-          "d3-men-2027-01-23-622-30264"
-        ],
-        "official_sources": [
-          "https://charlotte.jwuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://knightathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://regentroyals.com/sports/mens-basketball/schedule/2026?grid=true",
-          "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://www.gofalconsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://www.greensborocollegesports.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://www.marybaldwinathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true",
-          "https://www.mumonarchs.com/sports/mens-basketball/schedule?grid=true",
-          "https://www.smcmathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://www.suseagulls.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://www.wilsonphoenix.com/sports/mens-basketball/schedule/2026-27?grid=true"
-        ],
-        "logo_url_present": false,
-        "official_logo_slug_present": false,
         "verified_two_school_colors": false
       },
       {
@@ -1680,7 +1680,7 @@
           "https://www.gosaxons.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.hartwickhawks.com/sports/mens-basketball/schedule?grid=true",
           "https://www.keukaathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://www.msmcknights.com/sports/mens-basketball/schedule/2026-27?grid=true"
+          "https://www.msmcknights.com/sports/mens-basketball/schedule?grid=true"
         ],
         "logo_url_present": false,
         "official_logo_slug_present": true,
@@ -2259,42 +2259,32 @@
         "verified_two_school_colors": false
       },
       {
-        "ncaa_org_id": 1434,
-        "school": "Waynesburg University",
+        "ncaa_org_id": 2810,
+        "school": "University of St. Thomas (Texas)",
         "gender": "men",
-        "state": "PA",
-        "athletics_site": "https://www.waynesburgsports.com",
+        "state": "TX",
+        "athletics_site": "https://www.ustcelts.com",
         "missing_home_arenas": 9,
         "missing_game_locations": 0,
         "missing_tipoffs": 0,
         "site_conflict_exposures": 0,
         "venue_example_ids": [
-          "d3-men-2026-11-06-213-1434",
-          "d3-men-2026-11-24-1434-10972",
-          "d3-men-2026-12-04-1434-30036",
-          "d3-men-2026-12-19-19-1434",
-          "d3-men-2027-01-06-265-1434",
-          "d3-men-2027-01-20-1434-30069",
-          "d3-men-2027-01-23-1434-30084",
-          "d3-men-2027-02-06-1434-30064",
-          "d3-men-2027-02-10-600-1434"
+          "d3-men-2026-11-21-1355-2810",
+          "d3-men-2026-12-18-125-2810",
+          "d3-men-2026-12-20-2810-8490",
+          "d3-men-2027-01-15-953-2810",
+          "d3-men-2027-01-17-1044-2810",
+          "d3-men-2027-01-30-154-2810",
+          "d3-men-2027-02-05-2810-24400",
+          "d3-men-2027-02-07-1400-2810",
+          "d3-men-2027-02-19-1124-2810"
         ],
         "official_sources": [
-          "https://athletics.elmira.edu/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://athletics.gcc.edu/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://athletics.geneva.edu/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://athletics.stvincent.edu/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://bethanybison.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://www.alleghenygators.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://www.franciscanathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://www.gochathamcougars.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://www.gopresidents.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://www.mountieathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://www.sfuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://www.waynesburgsports.com/sports/mens-basketball/schedule/2026-27?grid=true"
+          "https://www.letuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://www.ustcelts.com/sports/mens-basketball/schedule/2026-27?grid=true"
         ],
         "logo_url_present": false,
-        "official_logo_slug_present": true,
+        "official_logo_slug_present": false,
         "verified_two_school_colors": false
       },
       {
@@ -2330,6 +2320,44 @@
           "https://www.gobrits.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.muspartans.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.otterbeincardinals.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        ],
+        "logo_url_present": false,
+        "official_logo_slug_present": true,
+        "verified_two_school_colors": false
+      },
+      {
+        "ncaa_org_id": 1355,
+        "school": "Schreiner University",
+        "gender": "men",
+        "state": "TX",
+        "athletics_site": "https://www.schreinermountaineers.com",
+        "missing_home_arenas": 8,
+        "missing_game_locations": 0,
+        "missing_tipoffs": 0,
+        "site_conflict_exposures": 14,
+        "venue_example_ids": [
+          "d3-men-2026-11-06-124-1355",
+          "d3-men-2026-11-10-1355-1400",
+          "d3-men-2026-11-14-953-1355",
+          "d3-men-2026-11-22-1355-2810",
+          "d3-men-2027-01-23-271-1355",
+          "d3-men-2027-02-06-1355-2741",
+          "d3-men-2027-02-18-1062-1355",
+          "d3-men-2027-02-20-1203-1355"
+        ],
+        "official_sources": [
+          "https://ascsports.org/schedule.aspx?schedule=6196",
+          "https://athletics.concordia.edu/sports/mens-basketball/schedule?grid=true",
+          "https://athletics.georgefox.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://blazers.belhaven.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://cruathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+          "https://hsuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://nwcsports.com/schedule.aspx?schedule=2480",
+          "https://nwcsports.com/schedule.aspx?schedule=2501",
+          "https://tlubulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://www.catholicathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://www.goetbutigers.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://www.gomajors.com/sports/mens-basketball/schedule/2026-27?grid=true"
         ],
         "logo_url_present": false,
         "official_logo_slug_present": true,
@@ -2433,7 +2461,7 @@
         ],
         "official_sources": [
           "https://knightathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://ncwsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://ncwsports.com/sports/mens-basketball/schedule?grid=true",
           "https://www.bctornados.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.centrecolonels.com/sports/mens-basketball/schedule?grid=true",
           "https://www.emuroyals.com/sports/mens-basketball/schedule/2026-27?grid=true",
@@ -2484,35 +2512,6 @@
         "verified_two_school_colors": false
       },
       {
-        "ncaa_org_id": 2810,
-        "school": "University of St. Thomas (Texas)",
-        "gender": "men",
-        "state": "TX",
-        "athletics_site": "https://www.ustcelts.com",
-        "missing_home_arenas": 8,
-        "missing_game_locations": 0,
-        "missing_tipoffs": 0,
-        "site_conflict_exposures": 1,
-        "venue_example_ids": [
-          "d3-men-2026-12-18-125-2810",
-          "d3-men-2026-12-20-2810-8490",
-          "d3-men-2027-01-15-953-2810",
-          "d3-men-2027-01-17-1044-2810",
-          "d3-men-2027-01-30-154-2810",
-          "d3-men-2027-02-05-2810-24400",
-          "d3-men-2027-02-07-1400-2810",
-          "d3-men-2027-02-19-1124-2810"
-        ],
-        "official_sources": [
-          "https://ascsports.org/schedule.aspx?schedule=6196",
-          "https://www.letuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://www.ustcelts.com/sports/mens-basketball/schedule/2026-27?grid=true"
-        ],
-        "logo_url_present": false,
-        "official_logo_slug_present": false,
-        "verified_two_school_colors": false
-      },
-      {
         "ncaa_org_id": 962,
         "school": "Bard College",
         "gender": "men",
@@ -2541,7 +2540,7 @@
           "https://www.clarksonathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.gogryphons.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.hwsathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://www.msmcknights.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://www.msmcknights.com/sports/mens-basketball/schedule?grid=true",
           "https://www.ritathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.rpiathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.saintsathletics.com/sports/mens-basketball/schedule?grid=true"
@@ -2574,7 +2573,7 @@
           "https://charlotte.jwuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://collegiateconferenceofthesouth.com/schedule.aspx?schedule=542",
           "https://knightathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://ncwsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://ncwsports.com/sports/mens-basketball/schedule?grid=true",
           "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.bctornados.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.gofalconsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
@@ -2688,7 +2687,7 @@
           "https://www.govaliants.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.johnjayathletics.com/sports/mens-basketball/schedule?grid=true",
           "https://www.maritimeathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://www.msmcknights.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://www.msmcknights.com/sports/mens-basketball/schedule?grid=true",
           "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.purchasecollegeathletics.com/sports/mens-basketball/schedule?grid=true",
           "https://www.sjliathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -2909,37 +2908,38 @@
         "verified_two_school_colors": false
       },
       {
-        "ncaa_org_id": 1355,
-        "school": "Schreiner University",
+        "ncaa_org_id": 1434,
+        "school": "Waynesburg University",
         "gender": "men",
-        "state": "TX",
-        "athletics_site": "https://www.schreinermountaineers.com",
-        "missing_home_arenas": 7,
+        "state": "PA",
+        "athletics_site": "https://www.waynesburgsports.com",
+        "missing_home_arenas": 8,
         "missing_game_locations": 0,
         "missing_tipoffs": 0,
-        "site_conflict_exposures": 15,
+        "site_conflict_exposures": 0,
         "venue_example_ids": [
-          "d3-men-2026-11-06-124-1355",
-          "d3-men-2026-11-10-1355-1400",
-          "d3-men-2026-11-14-953-1355",
-          "d3-men-2027-01-23-271-1355",
-          "d3-men-2027-02-06-1355-2741",
-          "d3-men-2027-02-18-1062-1355",
-          "d3-men-2027-02-20-1203-1355"
+          "d3-men-2026-11-06-213-1434",
+          "d3-men-2026-11-24-1434-10972",
+          "d3-men-2026-12-19-19-1434",
+          "d3-men-2027-01-06-265-1434",
+          "d3-men-2027-01-20-1434-30069",
+          "d3-men-2027-01-23-1434-30084",
+          "d3-men-2027-02-06-1434-30064",
+          "d3-men-2027-02-10-600-1434"
         ],
         "official_sources": [
-          "https://ascsports.org/schedule.aspx?schedule=6196",
-          "https://athletics.concordia.edu/sports/mens-basketball/schedule?grid=true",
-          "https://athletics.georgefox.edu/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://blazers.belhaven.edu/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://cruathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true",
-          "https://hsuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://nwcsports.com/schedule.aspx?schedule=2480",
-          "https://nwcsports.com/schedule.aspx?schedule=2501",
-          "https://tlubulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://www.catholicathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://www.goetbutigers.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://www.gomajors.com/sports/mens-basketball/schedule/2026-27?grid=true"
+          "https://athletics.elmira.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://athletics.gcc.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://athletics.geneva.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://athletics.stvincent.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://bethanybison.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://www.alleghenygators.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://www.franciscanathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://www.gochathamcougars.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://www.gopresidents.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://www.mountieathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://www.sfuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://www.waynesburgsports.com/sports/mens-basketball/schedule/2026-27?grid=true"
         ],
         "logo_url_present": false,
         "official_logo_slug_present": true,
@@ -3108,7 +3108,7 @@
           "https://www.goetbutigers.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.lagrangepanthers.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.owlsathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://www.piedmontlions.com/sports/mens-basketball/schedule?grid=true"
+          "https://www.piedmontlions.com/sports/mens-basketball/schedule/2026-2027?grid=true"
         ],
         "logo_url_present": false,
         "official_logo_slug_present": true,
@@ -3337,7 +3337,7 @@
           "https://cnusports.com/sports/mens-basketball/schedule/2026-2027?grid=true",
           "https://goslugs.com/sports/mens-basketball/schedule/text",
           "https://knightathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://ncwsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://ncwsports.com/sports/mens-basketball/schedule?grid=true",
           "https://www.catholicathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.gobatesbobcats.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.goetbutigers.com/sports/mens-basketball/schedule/2026-27?grid=true",
@@ -3543,7 +3543,7 @@
           "https://www.gopeacepacers.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.gopetrels.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.lagrangepanthers.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://www.piedmontlions.com/sports/mens-basketball/schedule?grid=true",
+          "https://www.piedmontlions.com/sports/mens-basketball/schedule/2026-2027?grid=true",
           "https://www.ritathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
         ],
         "logo_url_present": false,
@@ -3668,7 +3668,7 @@
           "https://www.gogryphons.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.govaliants.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.maritimeathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://www.msmcknights.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://www.msmcknights.com/sports/mens-basketball/schedule?grid=true",
           "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.purchasecollegeathletics.com/sports/mens-basketball/schedule?grid=true",
           "https://www.sjliathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
@@ -3771,7 +3771,7 @@
           "https://www.averettcougars.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.bridgewatereagles.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.emuroyals.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://www.hscathletics.com/sports/mens-basketball/schedule?grid=true",
+          "https://www.hscathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.lbcchargers.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.randolphwildcats.com/sports/mens-basketball/schedule/2026-2027?grid=true",
           "https://www.rmcathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true",
@@ -3911,7 +3911,7 @@
           "https://providence.jwuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.bridgewatereagles.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.emuroyals.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://www.hscathletics.com/sports/mens-basketball/schedule?grid=true",
+          "https://www.hscathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.lynchburgsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.randolphwildcats.com/sports/mens-basketball/schedule/2026-2027?grid=true",
           "https://www.rmcathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true",
@@ -4055,7 +4055,7 @@
           "https://www.govaliants.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.huntercollegeathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.lehmanathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://www.msmcknights.com/sports/mens-basketball/schedule/2026-27?grid=true"
+          "https://www.msmcknights.com/sports/mens-basketball/schedule?grid=true"
         ],
         "logo_url_present": false,
         "official_logo_slug_present": true,
@@ -4138,12 +4138,12 @@
         "athletics_site": "https://www.trinitytigers.com",
         "missing_home_arenas": 5,
         "missing_game_locations": 0,
-        "missing_tipoffs": 1,
+        "missing_tipoffs": 0,
         "site_conflict_exposures": 0,
         "venue_example_ids": [
           "d3-men-2026-11-14-296-715",
           "d3-men-2026-11-21-142-715",
-          "d3-men-2026-11-21-715-2810",
+          "d3-men-2026-11-22-715-2810",
           "d3-men-2026-12-08-715-8746",
           "d3-men-2027-01-15-652-715"
         ],
@@ -4281,7 +4281,7 @@
           "https://www.abingtonsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.cairnhighlanders.com/sports/mens-basketball/schedule?grid=true",
           "https://www.haverfordathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://www.msmcknights.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://www.msmcknights.com/sports/mens-basketball/schedule?grid=true",
           "https://www.notredamegators.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.wilsonphoenix.com/sports/mens-basketball/schedule/2026-27?grid=true"
         ],
@@ -6110,36 +6110,6 @@
         "verified_two_school_colors": false
       },
       {
-        "ncaa_org_id": 8600,
-        "school": "Notre Dame of Maryland University",
-        "gender": "men",
-        "state": "MD",
-        "athletics_site": "https://www.notredamegators.com",
-        "missing_home_arenas": 3,
-        "missing_game_locations": 0,
-        "missing_tipoffs": 0,
-        "site_conflict_exposures": 0,
-        "venue_example_ids": [
-          "d3-men-2026-11-20-578-8600",
-          "d3-men-2026-11-21-737-8600",
-          "d3-men-2026-12-18-753-8600"
-        ],
-        "official_sources": [
-          "https://athletics.alvernia.edu/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://gwyneddathletics.com/sports/mens-basketball/schedule?grid=true",
-          "https://maroons.roanoke.edu/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://www.abingtonsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://www.gokcgiants.com/sports/mens-basketball/schedule/2026-2027?grid=true",
-          "https://www.gomightymacs.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://www.notredamegators.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://www.vassarathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://www.washingtoncollegesports.com/sports/mens-basketball/schedule/2026-27?grid=true"
-        ],
-        "logo_url_present": false,
-        "official_logo_slug_present": true,
-        "verified_two_school_colors": false
-      },
-      {
         "ncaa_org_id": 548,
         "school": "Plymouth State University",
         "gender": "men",
@@ -6294,7 +6264,7 @@
           "https://vwuathletics.com/sports/mens-basketball/schedule?grid=true",
           "https://www.emuroyals.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.gettysburgsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://www.hscathletics.com/sports/mens-basketball/schedule?grid=true",
+          "https://www.hscathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.lynchburgsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.marymountsaints.com/sports/mens-basketball/schedule?grid=true"
         ],
@@ -6595,7 +6565,7 @@
           "https://www.gogryphons.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.goprattgo.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.govaliants.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://www.msmcknights.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://www.msmcknights.com/sports/mens-basketball/schedule?grid=true",
           "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.psuberksathletics.com/sports/mens-basketball/schedule?grid=true",
           "https://www.purchasecollegeathletics.com/sports/mens-basketball/schedule?grid=true",
@@ -7045,7 +7015,7 @@
           "https://www.gokcgiants.com/sports/mens-basketball/schedule/2026-2027?grid=true",
           "https://www.lbcchargers.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.marywoodpacers.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://www.msmcknights.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://www.msmcknights.com/sports/mens-basketball/schedule?grid=true",
           "https://www.smcmathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.uticapioneers.com/sports/mens-basketball/schedule/2026-2027?grid=true",
           "https://www.wilsonphoenix.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -7158,7 +7128,7 @@
           "https://athletics.uwsp.edu/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://franklingrizzlies.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://gogusties.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://ncwsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://ncwsports.com/sports/mens-basketball/schedule?grid=true",
           "https://stoutbluedevils.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://uwoshkoshtitans.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.athletics.augustana.edu/sports/mens-basketball/schedule/2026-27?grid=true",
@@ -7252,7 +7222,7 @@
           "https://www.averettcougars.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.bridgewatereagles.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.gofalconsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://www.hscathletics.com/sports/mens-basketball/schedule?grid=true",
+          "https://www.hscathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.lynchburgsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.marybaldwinathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true",
           "https://www.mumonarchs.com/sports/mens-basketball/schedule?grid=true",
@@ -8136,6 +8106,34 @@
         "verified_two_school_colors": false
       },
       {
+        "ncaa_org_id": 8600,
+        "school": "Notre Dame of Maryland University",
+        "gender": "men",
+        "state": "MD",
+        "athletics_site": "https://www.notredamegators.com",
+        "missing_home_arenas": 2,
+        "missing_game_locations": 0,
+        "missing_tipoffs": 0,
+        "site_conflict_exposures": 0,
+        "venue_example_ids": [
+          "d3-men-2026-11-20-578-8600",
+          "d3-men-2026-11-21-737-8600"
+        ],
+        "official_sources": [
+          "https://athletics.alvernia.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://gwyneddathletics.com/sports/mens-basketball/schedule?grid=true",
+          "https://maroons.roanoke.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://www.abingtonsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://www.gokcgiants.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+          "https://www.gomightymacs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://www.notredamegators.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://www.vassarathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        ],
+        "logo_url_present": false,
+        "official_logo_slug_present": true,
+        "verified_two_school_colors": false
+      },
+      {
         "ncaa_org_id": 515,
         "school": "Oberlin College",
         "gender": "men",
@@ -8394,7 +8392,7 @@
           "https://www.bridgewatereagles.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.emuroyals.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.gettysburgsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://www.hscathletics.com/sports/mens-basketball/schedule?grid=true",
+          "https://www.hscathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.lynchburgsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.rmcathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true",
           "https://www.suhornets.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -8703,7 +8701,7 @@
           "https://www.bctornados.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.gopeacepacers.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.lagrangepanthers.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://www.piedmontlions.com/sports/mens-basketball/schedule?grid=true"
+          "https://www.piedmontlions.com/sports/mens-basketball/schedule/2026-2027?grid=true"
         ],
         "logo_url_present": false,
         "official_logo_slug_present": true,
@@ -8761,7 +8759,7 @@
           "https://www.averettcougars.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.dickinsonathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.emuroyals.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://www.hscathletics.com/sports/mens-basketball/schedule?grid=true",
+          "https://www.hscathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.marybaldwinathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true",
           "https://www.mcscots.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.randolphwildcats.com/sports/mens-basketball/schedule/2026-2027?grid=true",
@@ -8869,7 +8867,7 @@
           "https://guilfordquakers.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://vwuathletics.com/sports/mens-basketball/schedule?grid=true",
           "https://www.bridgewatereagles.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://www.hscathletics.com/sports/mens-basketball/schedule?grid=true",
+          "https://www.hscathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.lynchburgsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.randolphwildcats.com/sports/mens-basketball/schedule/2026-2027?grid=true",
           "https://www.rmcathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true",
@@ -8980,13 +8978,13 @@
           "d3-men-2026-12-04-491-30264"
         ],
         "official_sources": [
-          "https://ncwsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://ncwsports.com/sports/mens-basketball/schedule?grid=true",
           "https://regentroyals.com/sports/mens-basketball/schedule/2026?grid=true",
           "https://uwoshkoshtitans.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.bctornados.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.gopeacepacers.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.greensborocollegesports.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://www.hscathletics.com/sports/mens-basketball/schedule?grid=true",
+          "https://www.hscathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.marybaldwinathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true",
           "https://www.mumonarchs.com/sports/mens-basketball/schedule?grid=true",
           "https://www.randolphwildcats.com/sports/mens-basketball/schedule/2026-2027?grid=true",
@@ -9535,7 +9533,7 @@
           "https://generalssports.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://guilfordquakers.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://knightathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://ncwsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://ncwsports.com/sports/mens-basketball/schedule?grid=true",
           "https://vwuathletics.com/sports/mens-basketball/schedule?grid=true",
           "https://www.averettcougars.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.bridgewatereagles.com/sports/mens-basketball/schedule/2026-27?grid=true",
@@ -9775,7 +9773,7 @@
         "official_sources": [
           "https://charlotte.jwuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://knightathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://ncwsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://ncwsports.com/sports/mens-basketball/schedule?grid=true",
           "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.bctornados.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.gofalconsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
@@ -9837,7 +9835,7 @@
           "https://www.averettcougars.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.bctornados.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.emuroyals.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://www.hscathletics.com/sports/mens-basketball/schedule?grid=true",
+          "https://www.hscathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.mumonarchs.com/sports/mens-basketball/schedule?grid=true",
           "https://www.randolphwildcats.com/sports/mens-basketball/schedule/2026-2027?grid=true",
           "https://www.rmcathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true"
@@ -9933,7 +9931,7 @@
         "official_sources": [
           "https://generalssports.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://knightathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://ncwsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://ncwsports.com/sports/mens-basketball/schedule?grid=true",
           "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.bctornados.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.centrecolonels.com/sports/mens-basketball/schedule?grid=true",
@@ -11176,7 +11174,7 @@
           "https://charlotte.jwuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://generalssports.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://knightathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://ncwsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://ncwsports.com/sports/mens-basketball/schedule?grid=true",
           "https://www.averettcougars.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.bctornados.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.gofalconsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
@@ -11506,7 +11504,7 @@
         "site_conflict_exposures": 0,
         "venue_example_ids": [],
         "official_sources": [
-          "https://www.msmcknights.com/sports/mens-basketball/schedule/2026-27?grid=true"
+          "https://www.msmcknights.com/sports/mens-basketball/schedule?grid=true"
         ],
         "logo_url_present": false,
         "official_logo_slug_present": false,
@@ -11713,7 +11711,7 @@
         "official_sources": [
           "https://guilfordquakers.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://knightathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://ncwsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://ncwsports.com/sports/mens-basketball/schedule?grid=true",
           "https://www.bctornados.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.gofalconsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.gopeacepacers.com/sports/mens-basketball/schedule/2026-27?grid=true",
@@ -12290,7 +12288,7 @@
         "official_sources": [
           "https://charlotte.jwuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://knightathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "https://ncwsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "https://ncwsports.com/sports/mens-basketball/schedule?grid=true",
           "https://regentroyals.com/sports/mens-basketball/schedule/2026?grid=true",
           "https://www.averettcougars.com/sports/mens-basketball/schedule/2026-27?grid=true",
           "https://www.bctornados.com/sports/mens-basketball/schedule/2026-27?grid=true",
@@ -12381,10 +12379,10 @@
   "women": {
     "gender": "women",
     "program_count": 415,
-    "fixture_count": 4497,
-    "missing_arena_fields": 1465,
+    "fixture_count": 4496,
+    "missing_arena_fields": 1460,
     "missing_location_fields": 55,
-    "missing_tipoff_fields": 45,
+    "missing_tipoff_fields": 44,
     "source_conflict_count": 37,
     "programs": [
       {
@@ -12514,48 +12512,6 @@
         "verified_two_school_colors": false
       },
       {
-        "ncaa_org_id": 807,
-        "school": "The College of Wooster",
-        "gender": "women",
-        "state": "OH",
-        "athletics_site": "https://www.woosterathletics.com",
-        "missing_home_arenas": 13,
-        "missing_game_locations": 0,
-        "missing_tipoffs": 0,
-        "site_conflict_exposures": 0,
-        "venue_example_ids": [
-          "d3-women-2026-11-10-807-987",
-          "d3-women-2026-11-13-455-807",
-          "d3-women-2026-11-24-117-807",
-          "d3-women-2026-12-12-807-1163",
-          "d3-women-2026-12-15-807-30084",
-          "d3-women-2026-12-19-595-807",
-          "d3-women-2026-12-20-15-807",
-          "d3-women-2026-12-30-281-807",
-          "d3-women-2027-01-13-335-807",
-          "d3-women-2027-01-16-515-807",
-          "d3-women-2027-01-27-520-807",
-          "d3-women-2027-02-17-806-807"
-        ],
-        "official_sources": [
-          "https://almascots.com/sports/womens-basketball/schedule/2026-27?grid=true",
-          "https://athletics.capital.edu/sports/womens-basketball/schedule/2026-27?grid=true",
-          "https://athletics.geneva.edu/sports/womens-basketball/schedule?grid=true",
-          "https://athletics.kenyon.edu/sports/womens-basketball/schedule/2026-27?grid=true",
-          "https://battlingbishops.com/sports/womens-basketball/schedule/2026-27?grid=true",
-          "https://depauwtigers.com/sports/womens-basketball/schedule/2026-27?grid=true",
-          "https://northcoast.org/schedule.aspx?schedule=2771",
-          "https://oac.org/schedule.aspx?schedule=2390",
-          "https://www.denisonbigred.com/sports/womens-basketball/schedule/2026-27?grid=true",
-          "https://www.gobennies.com/sports/womens-basketball/schedule/2026-27?grid=true",
-          "https://www.gobrits.com/sports/womens-basketball/schedule/2026-27?grid=true",
-          "https://www.goyeo.com/sports/womens-basketball/schedule/2026-27?grid=true"
-        ],
-        "logo_url_present": false,
-        "official_logo_slug_present": false,
-        "verified_two_school_colors": false
-      },
-      {
         "ncaa_org_id": 325,
         "school": "Juniata College",
         "gender": "women",
@@ -12622,7 +12578,7 @@
           "d3-women-2027-02-13-1305-30081"
         ],
         "official_sources": [
-          "https://athletics.pct.edu/sports/womens-basketball/schedule?grid=true",
+          "https://athletics.pct.edu/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://gounitedeast.com/schedule.aspx?schedule=3832",
           "https://gounitedeast.com/schedule.aspx?schedule=3833",
           "https://gwyneddathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
@@ -12976,6 +12932,48 @@
         "verified_two_school_colors": false
       },
       {
+        "ncaa_org_id": 807,
+        "school": "The College of Wooster",
+        "gender": "women",
+        "state": "OH",
+        "athletics_site": "https://www.woosterathletics.com",
+        "missing_home_arenas": 12,
+        "missing_game_locations": 0,
+        "missing_tipoffs": 0,
+        "site_conflict_exposures": 0,
+        "venue_example_ids": [
+          "d3-women-2026-11-10-807-987",
+          "d3-women-2026-11-13-455-807",
+          "d3-women-2026-11-24-117-807",
+          "d3-women-2026-12-12-807-1163",
+          "d3-women-2026-12-15-807-30084",
+          "d3-women-2026-12-20-15-807",
+          "d3-women-2026-12-30-281-807",
+          "d3-women-2027-01-13-335-807",
+          "d3-women-2027-01-16-515-807",
+          "d3-women-2027-01-27-520-807",
+          "d3-women-2027-02-17-806-807",
+          "d3-women-2027-02-20-177-807"
+        ],
+        "official_sources": [
+          "https://almascots.com/sports/womens-basketball/schedule/2026-27?grid=true",
+          "https://athletics.capital.edu/sports/womens-basketball/schedule/2026-27?grid=true",
+          "https://athletics.geneva.edu/sports/womens-basketball/schedule?grid=true",
+          "https://athletics.kenyon.edu/sports/womens-basketball/schedule/2026-27?grid=true",
+          "https://battlingbishops.com/sports/womens-basketball/schedule/2026-27?grid=true",
+          "https://depauwtigers.com/sports/womens-basketball/schedule/2026-27?grid=true",
+          "https://northcoast.org/schedule.aspx?schedule=2771",
+          "https://oac.org/schedule.aspx?schedule=2390",
+          "https://www.denisonbigred.com/sports/womens-basketball/schedule/2026-27?grid=true",
+          "https://www.gobennies.com/sports/womens-basketball/schedule/2026-27?grid=true",
+          "https://www.gobrits.com/sports/womens-basketball/schedule/2026-27?grid=true",
+          "https://www.goyeo.com/sports/womens-basketball/schedule/2026-27?grid=true"
+        ],
+        "logo_url_present": false,
+        "official_logo_slug_present": false,
+        "verified_two_school_colors": false
+      },
+      {
         "ncaa_org_id": 1044,
         "school": "University of Dallas",
         "gender": "women",
@@ -13082,7 +13080,7 @@
           "d3-women-2027-02-13-8600-30189"
         ],
         "official_sources": [
-          "https://athletics.pct.edu/sports/womens-basketball/schedule?grid=true",
+          "https://athletics.pct.edu/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://gobrynmawr.com/sports/womens-basketball/schedule?grid=true",
           "https://gounitedeast.com/schedule.aspx?schedule=3832",
           "https://swarthmoreathletics.com/sports/womens-basketball/schedule?grid=true",
@@ -13130,7 +13128,7 @@
           "https://www.etownbluejays.com/sports/womens-basketball/schedule/2026-2027?grid=true",
           "https://www.gowilkesu.com/sports/womens-basketball/schedule?grid=true",
           "https://www.muhlenbergsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
-          "https://www.wpupioneers.com/sports/womens-basketball/schedule/2026-2027?grid=true"
+          "https://www.wpupioneers.com/sports/womens-basketball/schedule?grid=true"
         ],
         "logo_url_present": false,
         "official_logo_slug_present": false,
@@ -13747,7 +13745,7 @@
           "d3-women-2027-02-10-245-12973"
         ],
         "official_sources": [
-          "https://athletics.pct.edu/sports/womens-basketball/schedule?grid=true",
+          "https://athletics.pct.edu/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://gobrynmawr.com/sports/womens-basketball/schedule?grid=true",
           "https://gounitedeast.com/schedule.aspx?schedule=3833",
           "https://seueagles.com/sports/womens-basketball/schedule/2026-27?grid=true",
@@ -14354,7 +14352,7 @@
         ],
         "official_sources": [
           "https://athletics.gcc.edu/sports/womens-basketball/schedule/2026-27?grid=true",
-          "https://athletics.pct.edu/sports/womens-basketball/schedule?grid=true",
+          "https://athletics.pct.edu/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://gounitedeast.com/schedule.aspx?schedule=3833",
           "https://www.carlow.edu/event/womens-basketball-vs-grove-city/",
           "https://www.carlow.edu/event/womens-basketball-vs-hilbert/",
@@ -14481,7 +14479,7 @@
           "https://www.godutchmen.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://www.marywoodpacers.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://www.stevensducks.com/sports/womens-basketball/schedule/2026-27?grid=true",
-          "https://www.wpupioneers.com/sports/womens-basketball/schedule/2026-2027?grid=true"
+          "https://www.wpupioneers.com/sports/womens-basketball/schedule?grid=true"
         ],
         "logo_url_present": false,
         "official_logo_slug_present": true,
@@ -14589,7 +14587,7 @@
         "official_sources": [
           "https://athletics.baruch.cuny.edu/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://brooklyncollegeathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-          "https://www.ccnyathletics.com/sports/womens-basketball/schedule?grid=true",
+          "https://www.ccnyathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://www.farmingdalesports.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://www.gonyuathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://www.huntercollegeathletics.com/sports/womens-basketball/schedule?grid=true",
@@ -14665,7 +14663,7 @@
           "d3-women-2027-02-17-329-475"
         ],
         "official_sources": [
-          "https://www.ccnyathletics.com/sports/womens-basketball/schedule?grid=true",
+          "https://www.ccnyathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://www.gogryphons.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://www.keanathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://www.montclairathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
@@ -14676,7 +14674,7 @@
           "https://www.scarletraptors.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://www.stocktonathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://www.tcnjathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-          "https://www.wpupioneers.com/sports/womens-basketball/schedule/2026-2027?grid=true"
+          "https://www.wpupioneers.com/sports/womens-basketball/schedule?grid=true"
         ],
         "logo_url_present": false,
         "official_logo_slug_present": true,
@@ -15020,43 +15018,6 @@
         "verified_two_school_colors": false
       },
       {
-        "ncaa_org_id": 118,
-        "school": "Carleton College",
-        "gender": "women",
-        "state": "MN",
-        "athletics_site": "https://apps.carleton.edu/athletics/",
-        "missing_home_arenas": 8,
-        "missing_game_locations": 0,
-        "missing_tipoffs": 0,
-        "site_conflict_exposures": 0,
-        "venue_example_ids": [
-          "d3-women-2026-11-14-84-118",
-          "d3-women-2026-12-09-118-268",
-          "d3-women-2027-01-02-60-118",
-          "d3-women-2027-01-06-118-595",
-          "d3-women-2027-01-13-118-266",
-          "d3-women-2027-01-30-118-376",
-          "d3-women-2027-02-17-118-161",
-          "d3-women-2027-02-20-118-612"
-        ],
-        "official_sources": [
-          "https://athletics.augsburg.edu/sports/womens-basketball/schedule/2026-27?grid=true",
-          "https://athletics.bethel.edu/sports/womens-basketball/schedule/2026-27?grid=true",
-          "https://athletics.macalester.edu/sports/womens-basketball/schedule/2026-27?grid=true",
-          "https://athletics.stolaf.edu/sports/womens-basketball/schedule?grid=true",
-          "https://gogusties.com/sports/womens-basketball/schedule/2026-27?grid=true",
-          "https://miacathletics.com/schedule.aspx?schedule=3671",
-          "https://miacathletics.com/schedule.aspx?schedule=3675",
-          "https://www.bvuathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-          "https://www.gobennies.com/sports/womens-basketball/schedule/2026-27?grid=true",
-          "https://www.hamlineathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-          "https://www.saintmaryssports.com/sports/womens-basketball/schedule/2026-2027?grid=true"
-        ],
-        "logo_url_present": false,
-        "official_logo_slug_present": true,
-        "verified_two_school_colors": false
-      },
-      {
         "ncaa_org_id": 278,
         "school": "Heidelberg University",
         "gender": "women",
@@ -15253,7 +15214,7 @@
           "d3-women-2027-02-06-25719-30253"
         ],
         "official_sources": [
-          "https://athletics.pct.edu/sports/womens-basketball/schedule?grid=true",
+          "https://athletics.pct.edu/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://pittgreensburgathletics.com/sports/womens-basketball/schedule?grid=true",
           "https://www.carlow.edu/event/womens-basketball-at-penn-state-altoona/",
           "https://www.gettysburgsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
@@ -15373,6 +15334,42 @@
           "https://www.dustars.com/sports/womens-basketball/schedule/2026-2027?grid=true",
           "https://www.edgewoodeagles.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://www.rockfordregents.com/sports/womens-basketball/schedule/2026-27?grid=true"
+        ],
+        "logo_url_present": false,
+        "official_logo_slug_present": true,
+        "verified_two_school_colors": false
+      },
+      {
+        "ncaa_org_id": 118,
+        "school": "Carleton College",
+        "gender": "women",
+        "state": "MN",
+        "athletics_site": "https://apps.carleton.edu/athletics/",
+        "missing_home_arenas": 7,
+        "missing_game_locations": 0,
+        "missing_tipoffs": 0,
+        "site_conflict_exposures": 0,
+        "venue_example_ids": [
+          "d3-women-2026-11-14-84-118",
+          "d3-women-2026-12-09-118-268",
+          "d3-women-2027-01-02-60-118",
+          "d3-women-2027-01-13-118-266",
+          "d3-women-2027-01-30-118-376",
+          "d3-women-2027-02-17-118-161",
+          "d3-women-2027-02-20-118-612"
+        ],
+        "official_sources": [
+          "https://athletics.augsburg.edu/sports/womens-basketball/schedule/2026-27?grid=true",
+          "https://athletics.bethel.edu/sports/womens-basketball/schedule/2026-27?grid=true",
+          "https://athletics.macalester.edu/sports/womens-basketball/schedule/2026-27?grid=true",
+          "https://athletics.stolaf.edu/sports/womens-basketball/schedule?grid=true",
+          "https://gogusties.com/sports/womens-basketball/schedule/2026-27?grid=true",
+          "https://miacathletics.com/schedule.aspx?schedule=3671",
+          "https://miacathletics.com/schedule.aspx?schedule=3675",
+          "https://www.bvuathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+          "https://www.gobennies.com/sports/womens-basketball/schedule/2026-27?grid=true",
+          "https://www.hamlineathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+          "https://www.saintmaryssports.com/sports/womens-basketball/schedule/2026-2027?grid=true"
         ],
         "logo_url_present": false,
         "official_logo_slug_present": true,
@@ -15573,7 +15570,7 @@
           "https://www.scarletraptors.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://www.stocktonathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://www.tcnjathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-          "https://www.wpupioneers.com/sports/womens-basketball/schedule/2026-2027?grid=true"
+          "https://www.wpupioneers.com/sports/womens-basketball/schedule?grid=true"
         ],
         "logo_url_present": false,
         "official_logo_slug_present": true,
@@ -15694,7 +15691,7 @@
           "https://athletics.baruch.cuny.edu/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://brooklyncollegeathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://usmmasports.com/sports/womens-basketball/schedule?grid=true",
-          "https://www.ccnyathletics.com/sports/womens-basketball/schedule?grid=true",
+          "https://www.ccnyathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://www.huntercollegeathletics.com/sports/womens-basketball/schedule?grid=true",
           "https://www.johnjayathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://www.lehmanathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
@@ -16361,7 +16358,7 @@
         "official_sources": [
           "https://athletics.baruch.cuny.edu/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://brooklyncollegeathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-          "https://www.ccnyathletics.com/sports/womens-basketball/schedule?grid=true",
+          "https://www.ccnyathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://www.huntercollegeathletics.com/sports/womens-basketball/schedule?grid=true",
           "https://www.johnjayathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://www.lehmanathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
@@ -16390,7 +16387,7 @@
           "d3-women-2027-02-06-30085-30114"
         ],
         "official_sources": [
-          "https://athletics.pct.edu/sports/womens-basketball/schedule?grid=true",
+          "https://athletics.pct.edu/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://gounitedeast.com/schedule.aspx?schedule=3833",
           "https://www.abingtonsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://www.gokcgiants.com/sports/womens-basketball/schedule/2026-2027?grid=true",
@@ -16421,7 +16418,7 @@
         ],
         "official_sources": [
           "https://athletics.baruch.cuny.edu/sports/womens-basketball/schedule/2026-27?grid=true",
-          "https://www.ccnyathletics.com/sports/womens-basketball/schedule?grid=true",
+          "https://www.ccnyathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://www.keanathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://www.mecathletics.com/sports/womens-basketball/schedule?grid=true",
           "https://www.montclairathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
@@ -16615,7 +16612,7 @@
         "athletics_site": "https://umsvathletics.com/",
         "missing_home_arenas": 5,
         "missing_game_locations": 0,
-        "missing_tipoffs": 2,
+        "missing_tipoffs": 1,
         "site_conflict_exposures": 0,
         "venue_example_ids": [
           "d3-women-2026-11-21-451-1468",
@@ -16627,7 +16624,7 @@
         "official_sources": [
           "https://sjbkathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://umsvathletics.com/sports/womens-basketball/schedule?grid=true",
-          "https://www.ccnyathletics.com/sports/womens-basketball/schedule?grid=true",
+          "https://www.ccnyathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://www.farmingdalesports.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://www.gogryphons.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://www.govaliants.com/sports/womens-basketball/schedule/2026-27?grid=true",
@@ -17529,7 +17526,7 @@
         ],
         "official_sources": [
           "https://athletics.houghton.edu/sports/womens-basketball/schedule/2026-2027?grid=true",
-          "https://athletics.pct.edu/sports/womens-basketball/schedule?grid=true",
+          "https://athletics.pct.edu/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://gobrockport.com/sports/womens-basketball/schedule/2026-2027?grid=true",
           "https://oswegolakers.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://www.abingtonsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
@@ -18068,7 +18065,7 @@
         "official_sources": [
           "https://athletics.elmira.edu/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://athletics.houghton.edu/sports/womens-basketball/schedule/2026-2027?grid=true",
-          "https://athletics.pct.edu/sports/womens-basketball/schedule?grid=true",
+          "https://athletics.pct.edu/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://fightingtigers.cobleskill.edu/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://gobrockport.com/sports/womens-basketball/schedule/2026-2027?grid=true",
           "https://morrisvillemustangs.com/sports/womens-basketball/schedule/2026-27?grid=true",
@@ -18395,7 +18392,7 @@
           "https://athletics.baruch.cuny.edu/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://brooklyncollegeathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://umsvathletics.com/sports/womens-basketball/schedule?grid=true",
-          "https://www.ccnyathletics.com/sports/womens-basketball/schedule?grid=true",
+          "https://www.ccnyathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://www.huntercollegeathletics.com/sports/womens-basketball/schedule?grid=true",
           "https://www.johnjayathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://www.keanathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
@@ -18570,39 +18567,6 @@
         ],
         "logo_url_present": false,
         "official_logo_slug_present": true,
-        "verified_two_school_colors": false
-      },
-      {
-        "ncaa_org_id": 30190,
-        "school": "Pennsylvania College of Technology",
-        "gender": "women",
-        "state": "PA",
-        "athletics_site": "https://athletics.pct.edu",
-        "missing_home_arenas": 3,
-        "missing_game_locations": 0,
-        "missing_tipoffs": 0,
-        "site_conflict_exposures": 0,
-        "venue_example_ids": [
-          "d3-women-2026-12-05-8600-30190",
-          "d3-women-2026-12-19-15-30190",
-          "d3-women-2026-12-20-595-30190"
-        ],
-        "official_sources": [
-          "https://athletics.pct.edu/sports/womens-basketball/schedule?grid=true",
-          "https://www.alfredstateathletics.com/sports/womens-basketball/schedule?grid=true",
-          "https://www.cedarcrestathletics.com/sports/womens-basketball/schedule?grid=true",
-          "https://www.gallaudetbison.com/sports/womens-basketball/schedule?grid=true",
-          "https://www.gobennies.com/sports/womens-basketball/schedule/2026-27?grid=true",
-          "https://www.gobrits.com/sports/womens-basketball/schedule/2026-27?grid=true",
-          "https://www.gokcgiants.com/sports/womens-basketball/schedule/2026-2027?grid=true",
-          "https://www.gosaxons.com/sports/womens-basketball/schedule/2026-27?grid=true",
-          "https://www.lbcchargers.com/sports/womens-basketball/schedule/2026-27?grid=true",
-          "https://www.marywoodpacers.com/sports/womens-basketball/schedule/2026-27?grid=true",
-          "https://www.mountieathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-          "https://www.notredamegators.com/sports/womens-basketball/schedule/2026-27?grid=true"
-        ],
-        "logo_url_present": false,
-        "official_logo_slug_present": false,
         "verified_two_school_colors": false
       },
       {
@@ -18785,7 +18749,7 @@
         ],
         "official_sources": [
           "https://athletics.baruch.cuny.edu/sports/womens-basketball/schedule/2026-27?grid=true",
-          "https://athletics.pct.edu/sports/womens-basketball/schedule?grid=true",
+          "https://athletics.pct.edu/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://gwyneddathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
           "https://seueagles.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://www.cairnhighlanders.com/sports/womens-basketball/schedule/2026-2027?grid=true",
@@ -20128,7 +20092,7 @@
         "official_sources": [
           "https://athletics.elmira.edu/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://athletics.houghton.edu/sports/womens-basketball/schedule/2026-2027?grid=true",
-          "https://athletics.pct.edu/sports/womens-basketball/schedule?grid=true",
+          "https://athletics.pct.edu/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://wildcats.sunypoly.edu/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://www.alfredstateathletics.com/sports/womens-basketball/schedule?grid=true",
           "https://www.buffalostateathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
@@ -20506,34 +20470,6 @@
         "verified_two_school_colors": false
       },
       {
-        "ncaa_org_id": 8600,
-        "school": "Notre Dame of Maryland University",
-        "gender": "women",
-        "state": "MD",
-        "athletics_site": "https://www.notredamegators.com",
-        "missing_home_arenas": 2,
-        "missing_game_locations": 0,
-        "missing_tipoffs": 0,
-        "site_conflict_exposures": 0,
-        "venue_example_ids": [
-          "d3-women-2026-11-10-753-8600",
-          "d3-women-2026-11-15-565-8600"
-        ],
-        "official_sources": [
-          "https://athletics.alvernia.edu/sports/womens-basketball/schedule/2026-27?grid=true",
-          "https://regentroyals.com/sports/womens-basketball/schedule/2026?grid=true",
-          "https://www.abingtonsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
-          "https://www.cedarcrestathletics.com/sports/womens-basketball/schedule?grid=true",
-          "https://www.gokcgiants.com/sports/womens-basketball/schedule/2026-2027?grid=true",
-          "https://www.notredamegators.com/sports/womens-basketball/schedule/2026-27?grid=true",
-          "https://www.rmcathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
-          "https://www.washingtoncollegesports.com/sports/womens-basketball/schedule/2026-27?grid=true"
-        ],
-        "logo_url_present": false,
-        "official_logo_slug_present": true,
-        "verified_two_school_colors": false
-      },
-      {
         "ncaa_org_id": 515,
         "school": "Oberlin College",
         "gender": "women",
@@ -20612,6 +20548,38 @@
         ],
         "official_sources": [
           "https://www.goboxers.com/sports/womens-basketball/schedule/2026-27?grid=true"
+        ],
+        "logo_url_present": false,
+        "official_logo_slug_present": false,
+        "verified_two_school_colors": false
+      },
+      {
+        "ncaa_org_id": 30190,
+        "school": "Pennsylvania College of Technology",
+        "gender": "women",
+        "state": "PA",
+        "athletics_site": "https://athletics.pct.edu",
+        "missing_home_arenas": 2,
+        "missing_game_locations": 0,
+        "missing_tipoffs": 0,
+        "site_conflict_exposures": 0,
+        "venue_example_ids": [
+          "d3-women-2026-12-05-8600-30190",
+          "d3-women-2026-12-19-15-30190"
+        ],
+        "official_sources": [
+          "https://athletics.pct.edu/sports/womens-basketball/schedule/2026-27?grid=true",
+          "https://www.alfredstateathletics.com/sports/womens-basketball/schedule?grid=true",
+          "https://www.cedarcrestathletics.com/sports/womens-basketball/schedule?grid=true",
+          "https://www.gallaudetbison.com/sports/womens-basketball/schedule?grid=true",
+          "https://www.gobennies.com/sports/womens-basketball/schedule/2026-27?grid=true",
+          "https://www.gobrits.com/sports/womens-basketball/schedule/2026-27?grid=true",
+          "https://www.gokcgiants.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+          "https://www.gosaxons.com/sports/womens-basketball/schedule/2026-27?grid=true",
+          "https://www.lbcchargers.com/sports/womens-basketball/schedule/2026-27?grid=true",
+          "https://www.marywoodpacers.com/sports/womens-basketball/schedule/2026-27?grid=true",
+          "https://www.mountieathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+          "https://www.notredamegators.com/sports/womens-basketball/schedule/2026-27?grid=true"
         ],
         "logo_url_present": false,
         "official_logo_slug_present": false,
@@ -20941,7 +20909,7 @@
           "https://salemcollegeathletics.com/sports/womens-basketball/schedule?grid=true",
           "https://seueagles.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://swarthmoreathletics.com/sports/womens-basketball/schedule?grid=true",
-          "https://www.ccnyathletics.com/sports/womens-basketball/schedule?grid=true",
+          "https://www.ccnyathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://www.huntercollegeathletics.com/sports/womens-basketball/schedule?grid=true",
           "https://www.lehmanathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://www.mecathletics.com/sports/womens-basketball/schedule?grid=true",
@@ -20979,31 +20947,6 @@
           "https://www.gosaxons.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://www.hiramterriers.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://www.thielathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
-        ],
-        "logo_url_present": false,
-        "official_logo_slug_present": true,
-        "verified_two_school_colors": false
-      },
-      {
-        "ncaa_org_id": 715,
-        "school": "Trinity University (Texas)",
-        "gender": "women",
-        "state": "TX",
-        "athletics_site": "https://www.trinitytigers.com",
-        "missing_home_arenas": 2,
-        "missing_game_locations": 0,
-        "missing_tipoffs": 0,
-        "site_conflict_exposures": 0,
-        "venue_example_ids": [
-          "d3-women-2026-12-11-715-2713",
-          "d3-women-2027-01-15-652-715"
-        ],
-        "official_sources": [
-          "https://cruathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
-          "https://sewaneetigers.com/sports/womens-basketball/schedule/2026-27?grid=true",
-          "https://www.berryvikings.com/sports/womens-basketball/schedule/2026-2027?grid=true",
-          "https://www.gopetrels.com/sports/womens-basketball/schedule/2026-27?grid=true",
-          "https://www.trinitytigers.com/sports/womens-basketball/schedule/2026-27?grid=true"
         ],
         "logo_url_present": false,
         "official_logo_slug_present": true,
@@ -21276,7 +21219,7 @@
           "https://www.corsairathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://www.goanchormen.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://www.nicholsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-          "https://www.wpupioneers.com/sports/womens-basketball/schedule/2026-2027?grid=true"
+          "https://www.wpupioneers.com/sports/womens-basketball/schedule?grid=true"
         ],
         "logo_url_present": false,
         "official_logo_slug_present": true,
@@ -21347,7 +21290,7 @@
           "d3-women-2027-02-06-1305-30189"
         ],
         "official_sources": [
-          "https://athletics.pct.edu/sports/womens-basketball/schedule?grid=true",
+          "https://athletics.pct.edu/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://gounitedeast.com/schedule.aspx?schedule=3832",
           "https://www.abingtonsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://www.cairnhighlanders.com/sports/womens-basketball/schedule/2026-2027?grid=true",
@@ -22440,7 +22383,7 @@
         "official_sources": [
           "https://athletics.baruch.cuny.edu/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://brooklyncollegeathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-          "https://www.ccnyathletics.com/sports/womens-basketball/schedule?grid=true",
+          "https://www.ccnyathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://www.drewrangers.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://www.goprattgo.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://www.huntercollegeathletics.com/sports/womens-basketball/schedule?grid=true",
@@ -22755,6 +22698,32 @@
         "verified_two_school_colors": false
       },
       {
+        "ncaa_org_id": 8600,
+        "school": "Notre Dame of Maryland University",
+        "gender": "women",
+        "state": "MD",
+        "athletics_site": "https://www.notredamegators.com",
+        "missing_home_arenas": 1,
+        "missing_game_locations": 0,
+        "missing_tipoffs": 0,
+        "site_conflict_exposures": 0,
+        "venue_example_ids": [
+          "d3-women-2026-11-15-565-8600"
+        ],
+        "official_sources": [
+          "https://athletics.alvernia.edu/sports/womens-basketball/schedule/2026-27?grid=true",
+          "https://regentroyals.com/sports/womens-basketball/schedule/2026?grid=true",
+          "https://www.abingtonsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
+          "https://www.cedarcrestathletics.com/sports/womens-basketball/schedule?grid=true",
+          "https://www.gokcgiants.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+          "https://www.notredamegators.com/sports/womens-basketball/schedule/2026-27?grid=true",
+          "https://www.rmcathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true"
+        ],
+        "logo_url_present": false,
+        "official_logo_slug_present": true,
+        "verified_two_school_colors": false
+      },
+      {
         "ncaa_org_id": 566,
         "school": "Randolph College",
         "gender": "women",
@@ -22919,6 +22888,30 @@
         ],
         "logo_url_present": false,
         "official_logo_slug_present": false,
+        "verified_two_school_colors": false
+      },
+      {
+        "ncaa_org_id": 715,
+        "school": "Trinity University (Texas)",
+        "gender": "women",
+        "state": "TX",
+        "athletics_site": "https://www.trinitytigers.com",
+        "missing_home_arenas": 1,
+        "missing_game_locations": 0,
+        "missing_tipoffs": 0,
+        "site_conflict_exposures": 0,
+        "venue_example_ids": [
+          "d3-women-2027-01-15-652-715"
+        ],
+        "official_sources": [
+          "https://cruathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+          "https://sewaneetigers.com/sports/womens-basketball/schedule/2026-27?grid=true",
+          "https://www.berryvikings.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+          "https://www.gopetrels.com/sports/womens-basketball/schedule/2026-27?grid=true",
+          "https://www.trinitytigers.com/sports/womens-basketball/schedule/2026-27?grid=true"
+        ],
+        "logo_url_present": false,
+        "official_logo_slug_present": true,
         "verified_two_school_colors": false
       },
       {
@@ -23884,7 +23877,6 @@
           "https://www.dickinsonathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://www.gettysburgsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://www.godiplomats.com/sports/womens-basketball/schedule/2026-27?grid=true",
-          "https://www.gomessiah.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://www.gomustangsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://www.haverfordathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://www.hopkinssports.com/sports/womens-basketball/schedule/2026-27?grid=true",
@@ -24010,7 +24002,7 @@
         "venue_example_ids": [],
         "official_sources": [
           "https://athletics.elmira.edu/sports/womens-basketball/schedule/2026-27?grid=true",
-          "https://athletics.pct.edu/sports/womens-basketball/schedule?grid=true",
+          "https://athletics.pct.edu/sports/womens-basketball/schedule/2026-27?grid=true",
           "https://gounitedeast.com/schedule.aspx?schedule=3832",
           "https://gounitedeast.com/schedule.aspx?schedule=3833",
           "https://www.cairnhighlanders.com/sports/womens-basketball/schedule/2026-2027?grid=true",
@@ -24949,7 +24941,7 @@
         "site_conflict_exposures": 0,
         "venue_example_ids": [],
         "official_sources": [
-          "https://www.wpupioneers.com/sports/womens-basketball/schedule/2026-2027?grid=true"
+          "https://www.wpupioneers.com/sports/womens-basketball/schedule?grid=true"
         ],
         "logo_url_present": false,
         "official_logo_slug_present": false,
