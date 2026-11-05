@@ -1150,15 +1150,15 @@ body.nba-newspaper[data-page="rankings"] .nba-retro-swatch{width:4px;height:14px
 body.nba-newspaper[data-page="rankings"] .nba-retro-swatch.above{background:#67795c}
 body.nba-newspaper[data-page="rankings"] .nba-retro-swatch.below{background:#936859}
 body.nba-newspaper[data-page="rankings"] .nba-retro-table{box-sizing:border-box;width:100%;max-width:100%;min-width:0;overflow:hidden;border:1px solid #8c7a5f;border-top:4px double #635442;border-bottom:4px double #635442;background:#f8f2e7}
-body.nba-newspaper[data-page="rankings"] .nba-retro-row{display:grid;box-sizing:border-box;width:100%;min-width:0;grid-template-columns:29px minmax(0,1fr) 83px 82px 86px 60px 80px;align-items:center;gap:7px;padding:8px 13px 8px 8px;color:#30271e;text-decoration:none;border-bottom:1px solid #cec4b3;border-left:3px solid #8d8170;font:12px/1.25 Georgia,serif}
-body.nba-newspaper[data-page="rankings"] a.nba-retro-row{background:transparent}
+body.nba-newspaper[data-page="rankings"] .nba-retro-row{display:grid;box-sizing:border-box;width:100%;min-width:0;grid-template-columns:39px minmax(0,1fr) 83px 82px 86px 60px 80px;align-items:center;gap:7px;padding:8px 13px 8px 8px;color:#30271e;text-decoration:none;border:3px double #9e8566;margin:0 0 7px;background:#f8efdf;font:12px/1.25 Georgia,serif}
+body.nba-newspaper[data-page="rankings"] a.nba-retro-row{background:#f8efdf}
 body.nba-newspaper[data-page="rankings"] a.nba-retro-row:hover{background:#eee6d7}
-body.nba-newspaper[data-page="rankings"] .nba-retro-row.above{border-left-color:#67795c}
-body.nba-newspaper[data-page="rankings"] .nba-retro-row.below{border-left-color:#936859}
-body.nba-newspaper[data-page="rankings"] .nba-retro-row:last-child{border-bottom:0}
+body.nba-newspaper[data-page="rankings"] .nba-retro-row.above{border-left-color:#9e8566}
+body.nba-newspaper[data-page="rankings"] .nba-retro-row.below{border-left-color:#9e8566}
+body.nba-newspaper[data-page="rankings"] .nba-retro-row:last-child{margin-bottom:0}
 body.nba-newspaper[data-page="rankings"] .nba-retro-header{border-left-color:#655747;background:#f8f2e7!important;font:700 10px/1.2 Georgia,serif;text-transform:uppercase;letter-spacing:.025em}
 body.nba-newspaper[data-page="rankings"] .nba-retro-header>span:nth-child(n+3){text-align:right}
-body.nba-newspaper[data-page="rankings"] .nba-retro-rank{font:700 15px/1 Georgia,serif}
+body.nba-newspaper[data-page="rankings"] .nba-retro-rank{display:inline-grid;place-items:center;min-width:34px;min-height:34px;padding:3px 4px;background:#713d2b;color:#fff4dd;border:3px double #efdfc4;outline:1px solid #71402e;font:700 14px/1 Georgia,serif}
 body.nba-newspaper[data-page="rankings"] .nba-retro-club{display:flex;align-items:center;gap:9px;min-width:0}
 body.nba-newspaper[data-page="rankings"] .nba-retro-club strong{font:700 12px/1.2 Georgia,serif;min-width:0;overflow-wrap:normal}
 body.nba-newspaper[data-page="rankings"] .nba-retro-club img.nba-retro-logo{display:block;box-sizing:border-box;position:static;grid-area:auto;flex:none;width:40px;height:40px;min-width:40px;min-height:40px;max-width:40px;max-height:40px;aspect-ratio:1/1;object-fit:contain;border-radius:50%;vertical-align:middle;transform:none}
@@ -1175,15 +1175,15 @@ body.nba-newspaper[data-page="rankings"] .nba-retro-recent i{display:inline-bloc
 body.nba-newspaper[data-page="rankings"] .nba-retro-recent i.win{color:#4d664a}
 body.nba-newspaper[data-page="rankings"] .nba-retro-recent i.loss{color:#8b5448}
 @media(max-width:720px){
-body.nba-newspaper[data-page="rankings"] .nba-retro-row{grid-template-columns:19px minmax(0,1fr) 51px 48px 58px;gap:4px;padding:7px 9px 7px 5px;font-size:10px}
+body.nba-newspaper[data-page="rankings"] .nba-retro-row{grid-template-columns:31px minmax(0,1fr) 51px 48px 58px;gap:4px;padding:7px 9px 7px 5px;font-size:10px}
 body.nba-newspaper[data-page="rankings"] .nba-retro-header>span:nth-child(n+6),body.nba-newspaper[data-page="rankings"] .nba-retro-change,body.nba-newspaper[data-page="rankings"] .nba-retro-recent{display:none}
 body.nba-newspaper[data-page="rankings"] .nba-retro-club{gap:6px}body.nba-newspaper[data-page="rankings"] .nba-retro-club img.nba-retro-logo{flex-basis:30px;width:30px;height:30px;min-width:30px;min-height:30px;max-width:30px;max-height:30px}
 body.nba-newspaper[data-page="rankings"] .nba-retro-club strong{font-size:10px}body.nba-newspaper[data-page="rankings"] .nba-retro-record b{font-size:13px}body.nba-newspaper[data-page="rankings"] .nba-retro-record small{font-size:10px}
 body.nba-newspaper[data-page="rankings"] .nba-retro-elo{font-size:11px}
-body.nba-newspaper[data-page="rankings"] .nba-retro-rank{font-size:12px}
+body.nba-newspaper[data-page="rankings"] .nba-retro-rank{font-size:11px;min-width:27px;min-height:27px;padding:2px}
 body.nba-newspaper[data-page="rankings"] .nba-retro-header{font-size:9px;letter-spacing:0}
 }
-@media(max-width:385px){body.nba-newspaper[data-page="rankings"] .nba-retro-row{grid-template-columns:18px minmax(0,1fr) 44px 43px 52px;gap:3px;padding-right:7px}body.nba-newspaper[data-page="rankings"] .nba-retro-club strong{font-size:9px}body.nba-newspaper[data-page="rankings"] .nba-retro-club img.nba-retro-logo{flex-basis:26px;width:26px;height:26px;min-width:26px;min-height:26px;max-width:26px;max-height:26px}}
+@media(max-width:385px){body.nba-newspaper[data-page="rankings"] .nba-retro-row{grid-template-columns:28px minmax(0,1fr) 44px 43px 52px;gap:3px;padding-right:7px}body.nba-newspaper[data-page="rankings"] .nba-retro-club strong{font-size:9px}body.nba-newspaper[data-page="rankings"] .nba-retro-club img.nba-retro-logo{flex-basis:26px;width:26px;height:26px;min-width:26px;min-height:26px;max-width:26px;max-height:26px}}
 
 
 /* Separate, legible record and win percentage in RETRO 30. */
