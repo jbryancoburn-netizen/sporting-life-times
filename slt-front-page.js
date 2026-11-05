@@ -117,7 +117,28 @@ function init(){
   all.forEach((v,i)=>{if(v.status!=='fulfilled')return;const d=v.value;times.push(d.updated_at);const source=Array.isArray(d)?d:d.articles||[];for(const a of source){if(!a.title||!a.url||!fits(a))continue;let url;try{url=new URL(a.url);if(!['http:','https:'].includes(url.protocol))continue}catch{continue}items.push(a)}});
   const seen=new Set();items=items.filter(a=>{const key=String(a.url).split('#')[0];if(seen.has(key))return false;seen.add(key);return true});
   items.sort((a,b)=>(Date.parse(b.published_at)||0)-(Date.parse(a.published_at)||0));
-  if(kind==='front'){const seenSports=new Map();items=items.filter(a=>{const k=String(a.category||'').toLowerCase()==='multi-sport'?'general':String(a.category||'general');const n=seenSports.get(k)||0;if(n>=4)return false;seenSports.set(k,n+1);return true})}
+  if(kind==='front'){
+   // A national sports front page needs breadth, not twelve stories about one league.
+   const desk=a=>{
+    if(a.gender==='women')return 'Women’s College Basketball';
+    if(a.gender==='men')return 'Men’s College Basketball';
+    const s=[a.title,a.summary,a.category].join(' ').toLowerCase();
+    if(/\b(nba|lakers|celtics|warriors|knicks|mavericks)\b/.test(s))return 'NBA';
+    if(/\b(nfl|super bowl|quarterback|chiefs|49ers|seahawks|bears)\b/.test(s))return 'NFL';
+    if(/\b(premier league|arsenal|liverpool|chelsea|manchester city|tottenham)\b/.test(s))return 'Premier League';
+    if(/\b(nbl australia|australian nbl|cairns taipans|sydney kings|melbourne united)\b/.test(s))return 'NBL';
+    if(/\b(college football|fbs|cfp|big ten football|bowl game)\b/.test(s))return 'College Football';
+    if(/\b(college basketball|ncaa basketball|march madness|final four|hoops)\b/.test(s))return 'College Basketball';
+    if(/\b(nhl|stanley cup|hockey)\b/.test(s))return 'Hockey';
+    return String(a.category||'Other Sports');
+   };
+   const groups=new Map();
+   for(const a of items){const key=desk(a);if(!groups.has(key))groups.set(key,[]);groups.get(key).push(a)}
+   const order=[...groups].sort((x,y)=>(Date.parse(y[1][0].published_at)||0)-(Date.parse(x[1][0].published_at)||0)).map(x=>x[0]);
+   const balanced=[];
+   for(let round=0;round<3&&balanced.length<12;round++)for(const key of order){const next=groups.get(key)[round];if(next)balanced.push(next);if(balanced.length>=12)break}
+   items=balanced;
+  }
   items=items.slice(0,12);
   const target=wire.querySelector('.slt-front-grid');
   if(items.length){
