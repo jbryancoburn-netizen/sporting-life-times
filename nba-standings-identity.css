@@ -93,3 +93,80 @@ body.nba-newspaper[data-page="conference"] .nba-conference-tab:hover{background:
  body.nba-newspaper[data-page="conference"] .nba-conference-switch{margin:9px 0 12px}
  body.nba-newspaper[data-page="conference"] .nba-conference-tab{font-size:12px;padding:9px 4px}
 }
+
+
+/* Division register and conference division desks: source-owned, responsive newspaper ledgers. */
+body.nba-newspaper[data-page="standings"] .nba-division-ledger{
+ box-sizing:border-box;width:100%;max-width:100%;min-width:0;overflow:hidden;
+ margin:12px 0 4px;border-top:3px double #82725a;border-bottom:3px double #82725a;
+ color:#30291f;background:#f8f2e7;
+}
+body.nba-newspaper[data-page="standings"] .nba-division-ledger-head,
+body.nba-newspaper[data-page="standings"] .nba-division-ledger-row{
+ display:grid;box-sizing:border-box;width:100%;min-width:0;
+ grid-template-columns:minmax(0,1fr) 69px 61px 67px;gap:8px;align-items:center;
+ padding:8px 10px;
+}
+body.nba-newspaper[data-page="standings"] .nba-division-ledger-head{
+ border-bottom:2px solid #73634d;text-transform:uppercase;letter-spacing:.035em;
+ font:700 11px/1.2 Georgia,serif;background:#eee4d2;
+}
+body.nba-newspaper[data-page="standings"] .nba-division-ledger-row{
+ min-height:62px;border-bottom:1px solid #c8baa2;
+}
+body.nba-newspaper[data-page="standings"] .nba-division-ledger-row:last-child{border-bottom:0}
+body.nba-newspaper[data-page="standings"] .nba-division-ledger-head>span:not(:first-child),
+body.nba-newspaper[data-page="standings"] .nba-division-ledger-row>span{text-align:right}
+body.nba-newspaper[data-page="standings"] .nba-division-ledger-club{min-width:0}
+body.nba-newspaper[data-page="standings"] .nba-division-ledger-row>span{
+ min-width:0;font:400 15px/1.2 Georgia,serif;white-space:nowrap;font-variant-numeric:tabular-nums;
+}
+body.nba-newspaper[data-page="standings"] .nba-division-ledger-rating{font-weight:700!important}
+body.nba-newspaper[data-page="conference"] .nba-division-desk{
+ box-sizing:border-box;min-width:0;max-width:100%;padding:10px 12px;
+}
+body.nba-newspaper[data-page="conference"] .nba-division-desk h3{
+ padding:0 0 8px;margin:0 0 4px;border-bottom:3px double #74644d;
+ font:700 20px/1.2 Georgia,serif;
+}
+body.nba-newspaper[data-page="conference"] .nba-division-desk-row{
+ display:grid;grid-template-columns:22px minmax(0,1fr) 80px;gap:8px;
+ align-items:center;box-sizing:border-box;min-width:0;max-width:100%;
+ padding:9px 1px;border-bottom:1px solid #c9bca5;
+}
+body.nba-newspaper[data-page="conference"] .nba-division-desk-row:last-child{border-bottom:0}
+body.nba-newspaper[data-page="conference"] .nba-division-desk-seed{
+ font:700 14px/1 Georgia,serif;color:#675744;text-align:center;
+}
+body.nba-newspaper[data-page="conference"] .nba-division-desk-team{min-width:0;max-width:100%}
+body.nba-newspaper[data-page="conference"] .nba-division-desk-figures{
+ display:flex;flex-direction:column;align-items:flex-end;gap:4px;min-width:0;text-align:right;
+}
+body.nba-newspaper[data-page="conference"] .nba-division-desk-record{
+ display:block;font:700 21px/1 Georgia,serif;font-variant-numeric:tabular-nums;white-space:nowrap;
+}
+body.nba-newspaper[data-page="conference"] .nba-division-desk-rating{
+ display:block;font:400 11px/1.25 Georgia,serif;color:#625846;white-space:nowrap;
+}
+@media(max-width:700px){
+ body.nba-newspaper[data-page="standings"] .nba-division-ledger-head,
+ body.nba-newspaper[data-page="standings"] .nba-division-ledger-row{
+  grid-template-columns:minmax(0,1fr) 50px 51px 56px;gap:5px;padding:8px 5px;
+ }
+ body.nba-newspaper[data-page="standings"] .nba-division-ledger-head{font-size:10px;letter-spacing:0}
+ body.nba-newspaper[data-page="standings"] .nba-division-ledger-row>span{font-size:13px}
+ body.nba-newspaper[data-page="standings"] .nba-division-ledger-row{min-height:66px}
+ body.nba-newspaper[data-page="conference"] .nba-division-desk-row{
+  grid-template-columns:19px minmax(0,1fr) 76px;gap:5px;
+ }
+ body.nba-newspaper[data-page="conference"] .nba-division-desk-record{font-size:20px}
+}
+@media(max-width:365px){
+ body.nba-newspaper[data-page="standings"] .nba-division-ledger-head,
+ body.nba-newspaper[data-page="standings"] .nba-division-ledger-row{
+  grid-template-columns:minmax(0,1fr) 45px 47px 51px;gap:3px;padding-left:3px;padding-right:3px;
+ }
+ body.nba-newspaper[data-page="standings"] .nba-division-ledger-row>span{font-size:12px}
+ body.nba-newspaper[data-page="conference"] .nba-division-desk-row{grid-template-columns:17px minmax(0,1fr) 68px;gap:4px}
+ body.nba-newspaper[data-page="conference"] .nba-division-desk-record{font-size:18px}
+}
