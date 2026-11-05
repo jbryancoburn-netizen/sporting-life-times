@@ -39,11 +39,11 @@ window.NCAAMScores=(()=>{
        mean=Math.max(48,Math.min(100,fit.mean_team_points+0.5*((hp+ap)/2-leagueMean)));
      }
    }
-   let homeScore=Math.round(mean+expectedMargin/2);
-   let awayScore=Math.round(mean-expectedMargin/2);
+   let homeScore=shared.homeScore;
+   let awayScore=shared.awayScore;
    if(homeScore===awayScore){
-     if(difference>=0)homeScore+=fit.minimum_winner_margin;
-     else awayScore+=fit.minimum_winner_margin;
+     // The shared RETRO output is authoritative; equal scores remain a draw-shaped
+     // central estimate, never a claim that basketball games can end tied.
    }
    // Logistic margin distribution chosen to preserve the same neutral-court
    // Elo win probability at the zero threshold. Historical validation pending.
