@@ -1,0 +1,41 @@
+/* Victorian Matchup Lab — scoped to the NBA forecasting desk, without model changes. */
+body.nba-newspaper[data-page="matchups"]{--lab-ink:#362b22;--lab-muted:#695b4a;--lab-rule:#ae9d83;--lab-paper:#f6efe2}
+body.nba-newspaper[data-page="matchups"] #app{min-width:0;color:var(--lab-ink)}
+body.nba-newspaper[data-page="matchups"] #app>h1{font:700 clamp(30px,4.6vw,52px)/1.13 Georgia,serif;letter-spacing:-.03em;text-transform:none;text-align:center;padding:12px 3px;margin:8px 0 12px;border-top:4px double #594735;border-bottom:4px double #594735}
+body.nba-newspaper[data-page="matchups"] #app>.eyebrow{text-align:center;color:#86593d;font:700 11px Georgia,serif;letter-spacing:.13em}
+body.nba-newspaper[data-page="matchups"] #app>h2{font:700 clamp(22px,2.9vw,33px)/1.2 Georgia,serif;border-top:3px double #594735;border-bottom:1px solid #b7a58c;padding:11px 0 9px;margin:28px 0 15px}
+body.nba-newspaper[data-page="matchups"] #app>.nba-note{font:14px/1.6 Georgia,serif;text-align:center;max-width:86ch;margin:13px auto 20px;color:var(--lab-muted)}
+body.nba-newspaper[data-page="matchups"] #app .panel.teal,body.nba-newspaper[data-page="matchups"] .depth-matchroom{background:var(--lab-paper);color:var(--lab-ink);border:1px solid var(--lab-rule);border-top:4px double #544332;border-bottom:3px double #544332;border-radius:0;box-shadow:none;padding:clamp(13px,2.2vw,23px);min-width:0}
+body.nba-newspaper[data-page="matchups"] #app .panel.teal h2,body.nba-newspaper[data-page="matchups"] .depth-matchroom h2{font:700 clamp(22px,2.8vw,32px)/1.2 Georgia,serif;color:var(--lab-ink)}
+body.nba-newspaper[data-page="matchups"] #app .panel.teal .eyebrow,body.nba-newspaper[data-page="matchups"] .depth-label{font:700 11px Georgia,serif;letter-spacing:.11em;color:#855b42}
+body.nba-newspaper[data-page="matchups"] #app .panel.teal .nba-note,body.nba-newspaper[data-page="matchups"] #app .panel.teal .note,body.nba-newspaper[data-page="matchups"] .depth-muted{font:13px/1.55 Georgia,serif;color:var(--lab-muted)}
+body.nba-newspaper[data-page="matchups"] .depth-selectors{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:12px;align-items:end}
+body.nba-newspaper[data-page="matchups"] .depth-selectors label{min-width:0;color:#51402f;font:700 12px Georgia,serif;letter-spacing:.05em}
+body.nba-newspaper[data-page="matchups"] .depth-selectors select{width:100%;min-width:0;max-width:100%;border:1px solid #ae9c83;border-radius:0;background:#fdf8ef;color:#352a20;padding:10px 7px;font:14px Georgia,serif}
+body.nba-newspaper[data-page="matchups"] .depth-selectors>b{font:700 12px Georgia,serif;padding-bottom:11px}
+body.nba-newspaper[data-page="matchups"] .depth-scout-card{background:#fdf8ef;color:#362b22;border:1px solid #ad9b81;border-top:4px double #574535;border-bottom:3px double #574535;border-radius:0;box-shadow:none;padding:clamp(12px,2vw,21px);min-width:0}
+body.nba-newspaper[data-page="matchups"] .depth-scout-top{font:700 11px Georgia,serif;color:#76614b;letter-spacing:.06em;border-bottom:1px solid #c6b59a;padding-bottom:9px}
+body.nba-newspaper[data-page="matchups"] .depth-scout-side b{font:700 clamp(16px,2vw,24px)/1.25 Georgia,serif;color:#382a20;overflow-wrap:anywhere}
+body.nba-newspaper[data-page="matchups"] .depth-scout-side small{font:12px/1.4 Georgia,serif;color:#715e4a}
+body.nba-newspaper[data-page="matchups"] .depth-scout-side img{width:clamp(54px,7vw,78px);height:clamp(54px,7vw,78px);object-fit:contain;aspect-ratio:1;max-width:100%;border-radius:50%}
+body.nba-newspaper[data-page="matchups"] .depth-scout-teams>span{font:700 12px Georgia,serif;color:#77624f}
+body.nba-newspaper[data-page="matchups"] .depth-scout-prob{font:700 clamp(11px,1.5vw,15px)/1.4 Georgia,serif;color:#3c3126;align-items:center}
+body.nba-newspaper[data-page="matchups"] .depth-scout-prob small{text-align:center;font:11px/1.4 Georgia,serif;color:#705e49}
+body.nba-newspaper[data-page="matchups"] .depth-scout-bar{height:9px;border-radius:0;background:#9f8d73;border:1px solid #6f604d}
+body.nba-newspaper[data-page="matchups"] .depth-scout-bar i{background:#594938}
+body.nba-newspaper[data-page="matchups"] .depth-scout-form{border-top:1px solid #bba98f}
+body.nba-newspaper[data-page="matchups"] .depth-scout-form small,body.nba-newspaper[data-page="matchups"] .depth-scout-factors small{font:700 11px Georgia,serif;letter-spacing:.05em;color:#6f523d}
+body.nba-newspaper[data-page="matchups"] .depth-scout-form span,body.nba-newspaper[data-page="matchups"] .depth-scout-form span.win{background:#e9dfcd;color:#594735;border:1px solid #c9b99d;border-radius:0;font:700 11px Georgia,serif}
+body.nba-newspaper[data-page="matchups"] .depth-scout-factors>div{border-top:1px solid #c7b69b}
+body.nba-newspaper[data-page="matchups"] .depth-scout-factors p{font:13px/1.55 Georgia,serif;color:#544535}
+body.nba-newspaper[data-page="matchups"] .depth-scout-link{font:700 13px Georgia,serif;color:#654b37;text-underline-offset:3px}
+body.nba-newspaper[data-page="matchups"] .depth-rabby-preview{background:#efe4d0!important;border:1px solid #b7a48a!important;border-radius:0!important;box-shadow:none!important;color:#382e24!important}
+body.nba-newspaper[data-page="matchups"] .depth-rabby-preview *{font-family:Georgia,serif!important;color:inherit}
+body.nba-newspaper[data-page="matchups"] #nba-rabby-games,body.nba-newspaper[data-page="matchups"] #app>.nba-mini-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;min-width:0}
+body.nba-newspaper[data-page="matchups"] #nba-rabby-games>*,body.nba-newspaper[data-page="matchups"] #app>.nba-mini-grid>*{min-width:0;max-width:100%;box-sizing:border-box}
+body.nba-newspaper[data-page="matchups"] .ledger26-card{border:1px solid #b5a48b!important;border-top:3px double #594735!important;background:#fcf7ee!important;border-radius:0!important;box-shadow:none!important;min-width:0;overflow:hidden}
+body.nba-newspaper[data-page="matchups"] .ledger26-card .nba-expand-content{border-top:1px solid #c4b59e;background:#f5ecdf}
+body.nba-newspaper[data-page="matchups"] .ledger26-card .ledger26-meta{font:12px Georgia,serif;color:#65523e}
+body.nba-newspaper[data-page="matchups"] .nba-section-links a{font-family:Georgia,serif;color:#624631}
+@media(max-width:760px){body.nba-newspaper[data-page="matchups"] #nba-rabby-games,body.nba-newspaper[data-page="matchups"] #app>.nba-mini-grid{grid-template-columns:minmax(0,1fr)}body.nba-newspaper[data-page="matchups"] .depth-scout-teams{grid-template-columns:minmax(0,1fr) 26px minmax(0,1fr);gap:4px}body.nba-newspaper[data-page="matchups"] .depth-scout-prob{display:grid;grid-template-columns:minmax(0,1fr) minmax(65px,.9fr) minmax(0,1fr);gap:5px;text-align:center}body.nba-newspaper[data-page="matchups"] .depth-scout-form,body.nba-newspaper[data-page="matchups"] .depth-scout-factors{grid-template-columns:minmax(0,1fr)}body.nba-newspaper[data-page="matchups"] .depth-selectors{gap:7px}body.nba-newspaper[data-page="matchups"] .depth-scout-side img{width:60px;height:60px}}
+@media(max-width:380px){body.nba-newspaper[data-page="matchups"] .depth-scout-prob{font-size:10px}body.nba-newspaper[data-page="matchups"] .depth-selectors select{font-size:12px;padding:9px 3px}}
