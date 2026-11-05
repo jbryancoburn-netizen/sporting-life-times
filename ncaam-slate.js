@@ -177,7 +177,7 @@ function momentumFromCompetition(match,away,home){
   return {kind:'stat',text:abbr(ra>rh?away:home)+' +'+Math.abs(ra-rh)+' REB'};
  return null;
 }
-function liveEvents(raw,day,registry,women=false,womenRankings=[]){
+function liveEvents(raw,day,registry,women=false,womenRankings=[],publishedGames=[]){
  const schools=women?
   new Map((womenRankings||[]).map(t=>[String(t.team_id),{id:String(t.team_id),
     name:String(t.team||'Team'),espn_name:String(t.team||'Team')}])):
@@ -192,7 +192,7 @@ function liveEvents(raw,day,registry,women=false,womenRankings=[]){
   const a=schools.get(String(away.team?.id)),h=schools.get(String(home.team?.id));
   // Non-DI opponents are eligible for live scores only when the published ledger
   // already identifies this exact event and pair of source team IDs.
-  const prior=loaded.find(g=>String(g.id)===String(event.id)&&g.day===day&&
+  const prior=publishedGames.find(g=>String(g.id)===String(event.id)&&g.day===day&&
     String(g.away?.id)===String(away.team?.id)&&String(g.home?.id)===String(home.team?.id));
   if((!a||!h)&&(!prior||women))return[];
   if(a&&h&&String(a.id)===String(h.id))return[];
@@ -764,7 +764,7 @@ async function refreshLive(){
   const raw=await fetchJSON(path);
   if(!Array.isArray(raw?.events))throw Error('Live scoreboard unavailable');
   if(selected!==day)return;
-  liveBoard=liveEvents(raw,day,cross,women,retroPublished?.rankings);
+  liveBoard=liveEvents(raw,day,cross,women,retroPublished?.rankings,loaded);
   refreshRETRO();
   liveCheckedAt=Date.now();liveCheckError='';
  }catch(err){if(selected===day)liveCheckError=String(err?.message||'Current scores unavailable');}
