@@ -42,36 +42,72 @@
    }
    details.append(summary,detail);wrap.append(details);cards.set(id,{row,summary});
   }
-  function renderOne(row,summary){
+  const formatRecord=p=>p&&Number.isFinite(Number(p.wins))&&Number.isFinite(Number(p.losses))?
+    Number(p.wins)+'–'+Number(p.losses):'—';
+  const formatRetro=(p,ties)=>window.SLTSportsScorebug.formatRetro(p,ties,363);
+  function renderOne(row,summary,byId,ties,edge){
    const opponent=row.querySelector('.wbb-opponent-name')?.textContent?.trim()||'Opponent';
    const opponentCrest=row.querySelector('.wbb-matchup img')?.outerHTML||'';
    const result=row.querySelector('.wbb-result-cell strong')?.textContent?.trim()||'';
    const note=row.querySelector('.wbb-result-source')?.textContent?.trim()||'';
-   const phase=status(row);
-   const scores=result.match(/(\d+)\s*[–-]\s*(\d+)/);
+   const phase=status(row),scores=result.match(/(\\d+)\\s*[–-]\\s*(\\d+)/);
    const ourScore=phase==='upcoming'?null:scores?Number(scores[1]):null;
    const theirScore=phase==='upcoming'?null:scores?Number(scores[2]):null;
-   const site=row.dataset.site;
-   const our={name:title,score:ourScore,crest,color:teamColor,record:'',retro:''};
-   const opponentTeam={name:opponent,score:theirScore,crest:opponentCrest,color:'#655239',record:'',retro:''};
-   const away=site==='home'?opponentTeam:our;
-   const home=site==='home'?our:opponentTeam;
+   const ownRating=byId.get(String(row.dataset.teamId||''));
+   const oppRating=byId.get(String(row.dataset.opponentId||''));
+   const ours={name:title,score:ourScore,crest,color:teamColor,
+     record:formatRecord(ownRating),retro:formatRetro(ownRating,ties)};
+   const opponentTeam={name:opponent,score:theirScore,crest:opponentCrest,
+     color:'#655239',record:formatRecord(oppRating),retro:formatRetro(oppRating,ties)};
+   // Preserve the fixture's actual away/home identities even at a neutral venue.
+   const ownHome=row.dataset.homeId===row.dataset.teamId;
+   const oppHome=row.dataset.homeId===row.dataset.opponentId;
+   const home=ownHome?ours:oppHome?opponentTeam:row.dataset.site==='home'?ours:opponentTeam;
+   const away=home===ours?opponentTeam:ours;
+   const venue=row.dataset.forecastVenue||'unverified';
+   let forecast=null,disclosure='';
+   if(phase==='upcoming'&&venue!=='disputed'&&
+      ownRating&&oppRating&&Number.isFinite(Number(ownRating.elo))&&
+      Number.isFinite(Number(oppRating.elo))){
+    const homeRating=home===ours?ownRating:oppRating;
+    const awayRating=home===ours?oppRating:ownRating;
+    const courtAdjustment=venue==='verified-home'?edge:0;
+    const diff=Number(homeRating.elo)-Number(awayRating.elo)+courtAdjustment;
+    const p=1/(1+Math.pow(10,-diff/400));
+    const favourite=p>=0.5?home:away;
+    forecast={team:favourite.name,probability:Math.max(p,1-p)};
+    disclosure='<small class="wbb-retro-provisional">RETRO WIN FORECAST · PROVISIONAL · Point-score calibration pending'+
+      (venue==='unverified'?' · Unverified court treated as neutral':'')+'</small>';
+   }
    const time=row.cells[3]?.textContent?.trim()||'TIPOFF TBA';
-   const markup=window.SLTSportsScorebug.render({phase,gender:'women',status:phase==='live'?note:phase==='final'?'FINAL':'',away,home,forecast:null,time:time.split('University-sourced')[0].trim()});
-   summary.innerHTML=markup+'<span class="ledger26-instruction">OPEN GAME DETAILS +</span>';
+   const markup=window.SLTSportsScorebug.render({phase,gender:'women',
+     status:phase==='live'?note:phase==='final'?'FINAL':'',away,home,
+     forecast,time:time.split('University-sourced')[0].trim()});
+   summary.innerHTML=markup+disclosure+
+     '<span class="ledger26-instruction">OPEN GAME DETAILS +</span>';
   }
   function renderAll(){
    const query=desk.querySelector('#wbb-calendar-search')?.value.trim().toLowerCase()||'';
    const view=desk.querySelector('#wbb-calendar-view')?.value||'all';
+   const publication=window.WBBRetroSnapshot;
+   const good=publication?.model==='retro-clean-slate'&&publication?.gender==='women'&&
+     publication?.season==='2026-27'&&publication?.starting_elo===1500&&
+     publication?.rankings?.length===363;
+   const byId=new Map((good?publication.rankings:[]).map(p=>[String(p.team_id),p]));
+   const ties=new Map();
+   for(const p of byId.values()){const rank=Number(p.rank);if(Number.isInteger(rank))ties.set(rank,(ties.get(rank)||0)+1);}
+   const edge=good&&Number.isFinite(Number(publication.parameters?.home_edge))?
+     Number(publication.parameters.home_edge):0;
    for(const {row,summary} of cards.values()){
-    renderOne(row,summary);
+    renderOne(row,summary,byId,ties,edge);
     const current=status(row);
     const shown=(!query||row.dataset.opponent?.includes(query))&&
-     (view==='all'||(view==='final'&&current==='final')||(view==='upcoming'&&current!=='final'));
+      (view==='all'||(view==='final'&&current==='final')||(view==='upcoming'&&current!=='final'));
     summary.parentElement.hidden=!shown;
    }
   }
   renderAll();
+  window.addEventListener('wbb-retro-refreshed',renderAll);
   host.classList.add('wbb-table-source-only');
   desk.querySelector('#wbb-calendar-search')?.addEventListener('input',renderAll);
   desk.querySelector('#wbb-calendar-view')?.addEventListener('change',renderAll);
