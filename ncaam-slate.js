@@ -713,6 +713,7 @@ document.addEventListener('toggle',event=>{
 // Broadcast listings are independent of whether a game has tipped off.
 // Enrich by exact event ID AND date; never borrow another fixture's network.
 const broadcastByDate=new Map();
+const confirmedTipoffsByDate=new Map();
 let broadcastRequestDay='';
 async function refreshBroadcasts(day){
  if(!/^\d{4}-\d{2}-\d{2}$/.test(day)||broadcastRequestDay===day)return;
@@ -722,13 +723,17 @@ async function refreshBroadcasts(day){
   const url='https://site.api.espn.com/apis/site/v2/sports/basketball/'+sport+'/scoreboard?groups=50&limit=1000&dates='+day.replaceAll('-','');
   const raw=await fetchJSON(url);
   const byId=new Map();
+  const tipoffs=new Map();
   for(const event of raw?.events||[]){
    if(isoDate(event.date)!==day||!validId(event.id))continue;
    const competition=event.competitions?.[0];
+   const status=[event.status?.type?.detail,event.status?.type?.shortDetail,event.status?.type?.description].filter(Boolean).join(' ');
+   if(event.date&&Number.isFinite(Date.parse(event.date))&&!/\b(TBA|TBD|time to be announced)\b/i.test(status))tipoffs.set(String(event.id),event.date);
    const names=(competition?.broadcasts||[]).flatMap(b=>b.names||[]).filter(Boolean);
    if(names.length)byId.set(String(event.id),[...new Set(names)].join(' / '));
   }
   broadcastByDate.set(day,byId);
+  confirmedTipoffsByDate.set(day,tipoffs);
   if(selected===day)render();
  }catch(e){/* Preserve sourced schedule data if the broadcast endpoint is unavailable. */}
  finally{broadcastRequestDay=''}
@@ -737,7 +742,8 @@ const verifiedBroadcasts=new Map();
 const displayGames=()=>reconcileLive(loaded,liveBoard).map(g=>{
  const official=verifiedBroadcasts.get(String(g.id));
  const broadcaster=(official?.day===g.day?official.network:'')||broadcastByDate.get(g.day)?.get(String(g.id));
- return {...g,broadcast:g.broadcast||broadcaster||''};
+ const confirmedTime=confirmedTipoffsByDate.get(g.day)?.get(String(g.id));
+ return {...g,broadcast:g.broadcast||broadcaster||'',date:g.timed?g.date:(confirmedTime||g.date),timed:g.timed||Boolean(confirmedTime)};
 });
 const render=()=>{
  const games=selectGames(displayGames(),selected,filter,search),shown=games.slice(0,limit);
