@@ -30,7 +30,7 @@ for(const nav of navs){
    const list=document.createElement('div');list.className='cbb-rank-links';list.id='cbb-rank-dropdown-'+Math.random().toString(36).slice(2);list.hidden=true;sum.setAttribute('aria-controls',list.id);
    for(const [label,key] of ranks){
     const a=document.createElement('a');
-    const outside=women?{massey:'https://masseyratings.com/cbw/ncaa-d1/ratings',wab:'https://www.ncaa.com/rankings/basketball-women/d1',herhoopstats:'https://herhoopstats.com/'}:{};
+    const outside=women?{massey:'https://masseyratings.com/cbw/ncaa-d1/ratings',wab:'https://www.ncaa.org/championships/march-madness/selections-101/',herhoopstats:'https://herhoopstats.com/'}:{};
     a.href=outside[key]||((women?'ncaaw-rankings.html':'ncaam-rankings.html')+'?poll='+key);
     if(outside[key]){a.target='_blank';a.rel='noopener noreferrer';a.textContent=label+' ↗';}
     a.textContent=label;list.append(a);
