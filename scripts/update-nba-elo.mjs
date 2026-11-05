@@ -96,8 +96,14 @@ async function fetchDate(date) {
    addVerifiedFinal(result,'ESPN daily scoreboard');
  }
 }
+// Routine runs only recheck the active NBA window. Previously certified finals
+// are replayed from the durable ledger above, so historical results are retained.
+// Use --full-reconcile for a deliberate all-season source audit.
+const fullReconcile=process.argv.includes('--full-reconcile');
+const recentStart=fullReconcile?start:new Date(Math.max(start.getTime(),Date.now()-5*86400000));
+recentStart.setUTCHours(0,0,0,0);
 const dates=[];
-for(let day=new Date(start);day<=end;day.setUTCDate(day.getUTCDate()+1))dates.push(new Date(day));
+for(let day=new Date(recentStart);day<=end;day.setUTCDate(day.getUTCDate()+1))dates.push(new Date(day));
 const failures=[];
 const checkedDates=[];
 for(let offset=0;offset<dates.length;offset+=8){
@@ -170,8 +176,9 @@ const reconciliation={
  verified_finals_total:events.length,verified_finals_today:todayEvents.length,
  verified_finals_today_games:todayEvents.map(({id,away,away_score,home,home_score,date,home_elo_change})=>({id,away,away_score,home,home_score,date,home_elo_change})),
  scoreboard_dates_checked:checkedDates.length,scoreboard_dates_unavailable:failures,
- complete_source_reconciliation:failures.length===0,
- note:failures.length?'Upstream scoreboard days unavailable; full completeness NOT certified.':'All requested ESPN scoreboards retrieved; completed regular-season results processed once.'
+ complete_source_reconciliation:fullReconcile&&failures.length===0,
+ scan_mode:fullReconcile?'full_season':'recent_5_days',
+ note:failures.length?'Some requested scoreboards unavailable; published finals retained.':fullReconcile?'Full historical ESPN scan completed.':'Recent NBA dates checked; previously verified final ledger retained.'
 };
 writeFileSync(new URL('../data/nba-elo-reconciliation.json',import.meta.url),JSON.stringify(reconciliation,null,2)+'\n');
 
