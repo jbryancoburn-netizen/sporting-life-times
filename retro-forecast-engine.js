@@ -21,6 +21,20 @@
   const site=options.site||'neutral';
   if(!['neutral','home','away'].includes(site))throw Error('Invalid RETRO court: '+site);
   const adjusted=site==='home'?homeCourtElo:site==='away'?-homeCourtElo:0;
+  const published=globalThis.RETROForecastPublication;
+  if(options.gameId&&published?.model===version&&published.team_count===365){
+   const requested=String(options.gameId),id=requested.startsWith('espn:')?requested:'espn:'+requested;
+   const row=published.games?.find(g=>g.id===id&&
+     String(g.home_id)===String(a.team_id)&&String(g.away_id)===String(b.team_id)&&
+     Number(g.home_elo)===Number(a.elo)&&Number(g.away_elo)===Number(b.elo));
+   if(row)return Object.freeze({model:version,revision:published.rating_revision,
+     gameId:row.id,site:row.site,homeProbability:row.homeProbability,
+     awayProbability:row.awayProbability,homeScore:row.homeScore,
+     awayScore:row.awayScore,expectedMargin:row.homeScore-row.awayScore,
+     difference:row.home_elo-row.away_elo+(row.site==='home'?homeCourtElo:0),
+     venueAdjustment:row.site==='home'?homeCourtElo:0,
+     status:published.calibration,publication:'central'});
+  }
   const difference=Number(a.elo)-Number(b.elo)+adjusted;
   const key=[version,revision,String(options.gameId||''),String(a.team_id||a.id||''),
    String(b.team_id||b.id||''),Number(a.elo),Number(b.elo),site].join('|');
