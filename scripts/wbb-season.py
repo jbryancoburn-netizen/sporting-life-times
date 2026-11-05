@@ -85,8 +85,31 @@ def team_registry():
     return sorted(teams.values(),key=lambda x:x["team"].casefold())
 
 def daily(day):
-    url=BASE+"/scoreboard?groups=50&limit=500&dates="+day.strftime("%Y%m%d")
-    return request(url).get("events",[])
+    # The conference/group=50 endpoint is not an all-opponents scoreboard:
+    # it can omit D-II, D-III and NAIA teams playing Division I schools.
+    # Merge both feeds by event ID; the D-I feed supplies preferred details.
+    date=day.strftime("%Y%m%d")
+    combined={}
+    errors=[]
+    successful=0
+    for url in (BASE+"/scoreboard?limit=1000&dates="+date,
+                BASE+"/scoreboard?groups=50&limit=1000&dates="+date):
+        try:
+            events=request(url).get("events",[])
+            if not isinstance(events,list):
+                raise RuntimeError("Invalid WBB scoreboard events payload")
+            successful+=1
+            for event in events:
+                eid=str(event.get("id") or "")
+                if eid.isdigit():
+                    combined[eid]=event
+        except (OSError, ValueError, TypeError, RuntimeError) as exc:
+            errors.append(str(exc))
+    if successful==0:
+        raise RuntimeError("Both women’s scoreboard endpoints unavailable: "+"; ".join(errors))
+    if errors:
+        print("Partial WBB scoreboard access; preserving previous finals:",errors)
+    return list(combined.values())
 
 def game(event):
     c=(event.get("competitions") or [{}])[0]
@@ -242,6 +265,13 @@ def live(today=None):
     ledger=ROOT/"ncaaw-2026-27-verified-games.json"
     saved=json.loads(ledger.read_text()).get("games",[]) if ledger.exists() else []
     finals={str(g["id"]):g for g in saved if str(g["home_id"]) in ids and str(g["away_id"]) in ids}
+    # Public D-I-versus-outside-division scores must survive rolling refreshes.
+    # Keep them OUT of the certified all-D-I RETRO input ledger.
+    public_path=ROOT/"ncaaw-2026-27-games.json"
+    prior_public=json.loads(public_path.read_text()).get("finals",[]) if public_path.exists() else []
+    outside_finals={str(g["id"]):g for g in prior_public
+                    if (str(g.get("home_id")) in ids) != (str(g.get("away_id")) in ids)
+                    and str(g.get("id","")).isdigit() and g.get("status")=="final"}
     upcoming={}
     ncaa_rows=ncaa_women_snapshot()
     failed=[]
@@ -253,11 +283,30 @@ def live(today=None):
         try:
             for event in daily(day):
                 g=game(event)
-                if not g or g["home_id"] not in ids or g["away_id"] not in ids:
+                if not g or (g["home_id"] not in ids and g["away_id"] not in ids):
                     continue
                 if not "2026-11-01"<=g["date"][:10]<="2027-04-30":
                     continue
                 g=reconcile_ncaa_origin(g,ncaa_rows)
+                if g["home_id"] not in ids or g["away_id"] not in ids:
+                    sides=(event.get("competitions") or [{}])[0].get("competitors") or []
+                    for side in sides:
+                        team=side.get("team") or {}
+                        name=str(team.get("displayName") or team.get("shortDisplayName") or team.get("name") or "").strip()
+                        if name and str(team.get("id"))==g["away_id"]:
+                            g["away_name"]=name
+                        if name and str(team.get("id"))==g["home_id"]:
+                            g["home_name"]=name
+                    if g["status"]=="final":
+                        old=outside_finals.get(g["id"])
+                        if old and old.get("score_evidence")!="secondary_reported" and any(
+                            old.get(k)!=g.get(k) for k in
+                            ("date","home_id","away_id","home_score","away_score")):
+                            raise RuntimeError("Disputed outside-division game "+g["id"])
+                        outside_finals[g["id"]]=g
+                    elif g["id"] not in outside_finals:
+                        upcoming[g["id"]]=g
+                    continue
                 if g["status"]=="final":
                     old=finals.get(g["id"])
                     if old and any(old.get(k)!=g.get(k) for k in ("date","home_id","away_id","home_score","away_score")):
@@ -284,7 +333,8 @@ def live(today=None):
         "score_source_scope":"ESPN women’s final scores, crosschecked with current NCAA-origin relay evidence when available; individual games retain source evidence",
         "fetch_window":{"from":str(requested_start),"through":str(end)},
         "future_fixture_fetch_warnings":future_warnings,
-        "finals":ordered[-100:],
+        "finals":sorted([*ordered[-100:],*outside_finals.values()],
+                         key=lambda g:(g["date"],g["id"])),
         "upcoming":sorted(upcoming.values(),key=lambda g:(g["date"],g["id"]))})
     print("Women's data:",len(teams),"D-I programs,",len(ordered),"finals,",len(upcoming),
           "upcoming; fetched",str(requested_start),"through",str(end),
