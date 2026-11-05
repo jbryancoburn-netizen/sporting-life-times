@@ -22,7 +22,7 @@ set('.slt-index-panel.slt-narrow:nth-child(2) > p:not(.slt-index-label)','Women-
 set('.slt-index-panel.slt-narrow:nth-child(3) h2','The College Game');
 set('.slt-index-panel.slt-narrow:nth-child(3) > p:not(.slt-index-label)','All 363 Division I programs and national coverage.');
 links('.slt-index-panel.slt-wide',[
-  ['Games & Results',desk+'#wbb-games'],['Live Gamefile','cbb-game-center.html?gender=women']
+  ['Games & Results','ncaam-slate.html?gender=women'],['Live Gamefile','cbb-game-center.html?gender=women']
 ]);
 links('.slt-index-panel.slt-narrow:nth-child(2)',[
   ['Women’s Ratings',desk+'#wbb-rankings'],['Conference Desk',desk+'#wbb-standings']
@@ -37,7 +37,7 @@ const nav=$('nav.cbb-universal-nav');
 if(nav){nav.replaceChildren();
 for(const [name,url] of [
  ['The Front Page','ncaam.html?gender=women'],
- ['Games & Schedule',desk+'#wbb-games'],
+ ['Games & Schedule','ncaam-slate.html?gender=women'],
  ['Conferences',desk+'#wbb-standings'],
  ['Women’s Ratings',desk+'#wbb-rankings'],
  ['Latest Stories','#cbb-front-news'],
