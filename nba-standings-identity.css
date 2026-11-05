@@ -170,3 +170,31 @@ body.nba-newspaper[data-page="conference"] .nba-division-desk-rating{
  body.nba-newspaper[data-page="conference"] .nba-division-desk-row{grid-template-columns:17px minmax(0,1fr) 68px;gap:4px}
  body.nba-newspaper[data-page="conference"] .nba-division-desk-record{font-size:18px}
 }
+
+
+/* Standings rank belongs in its own small engraved plate, not an entire filled cell. */
+body.nba-newspaper[data-page="standings"] .nba-table tbody td.nba-standing-place-cell{
+ background:transparent!important;color:#4f3828!important;
+ border:0!important;border-bottom:1px solid #b7a88e!important;
+ outline:none!important;padding:6px 5px!important;
+ text-align:center!important;vertical-align:middle;
+ width:52px;min-width:52px;
+}
+body.nba-newspaper[data-page="standings"] .nba-table tbody td.nba-standing-place-cell .nba-standing-place{
+ box-sizing:border-box;display:inline-grid;place-items:center;
+ width:34px;height:34px;min-width:34px;min-height:34px;
+ background:#f3e7d2;color:#643e2b;
+ border:3px double #8d6e53;outline:1px solid #c2af93;outline-offset:2px;
+ border-radius:0;font:700 14px/1 Georgia,serif;box-shadow:none;
+}
+body.nba-newspaper[data-page="standings"] .nba-table tbody tr{
+ background:#fbf5e9!important;
+}
+body.nba-newspaper[data-page="standings"] .nba-table tbody tr:nth-child(even){background:#f1e7d7!important}
+body.nba-newspaper[data-page="standings"] .nba-table tbody td{border-bottom:1px solid #b7a88e}
+@media(max-width:700px){
+ body.nba-newspaper[data-page="standings"] .nba-table tbody td.nba-standing-place-cell{width:35px;min-width:35px;padding:5px 2px!important}
+ body.nba-newspaper[data-page="standings"] .nba-table tbody td.nba-standing-place-cell .nba-standing-place{
+  width:27px;height:27px;min-width:27px;min-height:27px;font-size:12px;
+ }
+}
