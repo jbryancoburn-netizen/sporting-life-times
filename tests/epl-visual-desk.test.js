@@ -21,8 +21,9 @@ test('forecast-only exports render verified finals, all clubs and reconciled ide
  const {nodes,errors}=await render(r,f);
  assert.equal(errors.length,0);
  assert.equal(nodes.get('epl-pulse-finals').textContent,String(r.completed_matches));
- assert.equal((nodes.get('epl-power-board').innerHTML.match(/class="epl-power-row"/g)||[]).length,20);
+ assert.equal((nodes.get('epl-power-board').innerHTML.match(/class="epl-register-row epl-power-row"/g)||[]).length,20);
  assert.equal((nodes.get('epl-club-directory').innerHTML.match(/class="slt-club-link"/g)||[]).length,20);
+ assert.equal((nodes.get('epl-table-board').innerHTML.match(/class="epl-register-row"/g)||[]).length,20);
  const rail=nodes.get('epl-score-rail').innerHTML;
  assert.equal((rail.match(/data-phase="final"/g)||[]).length,6);
  const last=[...r.season_results].sort((a,b)=>Date.parse(b.kickoff_utc)-Date.parse(a.kickoff_utc))[0];

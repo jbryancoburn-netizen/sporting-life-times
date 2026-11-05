@@ -62,19 +62,31 @@ pulse('epl-pulse-finals',String(r.completed_matches??'—'));
 const nextGame=upcomingGames[0];if(nextGame){pulse('epl-pulse-kickoff',new Date(nextGame.kickoff_utc).toLocaleString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}));pulse('epl-pulse-next-match',nextGame.home.name+' v '+nextGame.away.name+' · ET');}
 if(sorted.length)pulse('epl-pulse-power',sorted[0][0]+' · '+num(sorted[0][1]));
 
-const power=sorted.map(([name,value],i)=>'<div class="epl-power-row"><span class="epl-rank">'+String(i+1).padStart(2,'0')+'</span>'+team(name,idByTeam[name])+'<div class="epl-power-track"><i style="width:'+Math.max(4,100*(value-min)/(max-min||1))+'%;background:'+esc(COLORS[name]||'#52695d')+'"></i></div><strong>'+num(value)+'</strong><span class="epl-elo-delta">'+(r.last_match_elo_delta&&Number.isFinite(r.last_match_elo_delta[name])?(r.last_match_elo_delta[name]>0?'▲ +':r.last_match_elo_delta[name]<0?'▼ ':'')+num(r.last_match_elo_delta[name]):'—')+'</span></div>').join('');
+// Both registers share one row renderer, including identity, record and place badge.
+function register(items,isPower){
+ const header='<div class="epl-register-head" aria-hidden="true"><span>#</span><span>Club</span><span>W–D–L</span><span>'+(isPower?'RETRO':'Pts')+'</span><span>'+(isPower?'Change':'RETRO')+'</span></div>';
+ const body=items.map((t,i)=>{
+  const value=r.ratings[t.club],delta=r.last_match_elo_delta?.[t.club];
+  const change=Number.isFinite(delta)?(delta>0?'▲ +':delta<0?'▼ ':'')+num(delta):'—';
+  return '<li class="epl-register-row'+(isPower?' epl-power-row':'')+'"><span class="epl-rank">'+(i+1)+'</span>'+team(t.club,idByTeam[t.club])+
+   '<span class="epl-register-record">'+t.won+'–'+t.drawn+'–'+t.lost+'</span><strong class="epl-register-value">'+(isPower?num(value):t.points)+'</strong>'+
+   '<span class="epl-register-secondary">'+(isPower?change:num(value))+'</span></li>';
+ }).join('');
+ return '<div class="epl-register">'+header+'<ol class="epl-register-list" aria-label="'+(isPower?'RETRO power rankings':'Premier League standings')+'">'+body+'</ol></div>';
+}
+const power=register(sorted.map(([club])=>standingByName.get(club)),true);
 const rows=r.standings.map((t,i)=>'<tr class="'+(i<4?'epl-zone-top':i>=17?'epl-zone-bottom':'')+'"><td>'+String(i+1).padStart(2,'0')+'</td><td>'+team(t.club,idByTeam[t.club])+'</td><td>'+t.played+'</td><td>'+t.won+'–'+t.drawn+'–'+t.lost+'</td><td>'+t.gf+'</td><td>'+t.ga+'</td><td>'+((t.gd>0?'+':'')+t.gd)+'</td><td class="epl-pts">'+t.points+'</td><td>'+num(r.ratings[t.club])+'</td><td class="epl-form-cell">'+(r.last_five_form?.[t.club]||[]).map(v=>'<span class="epl-form-'+v.toLowerCase()+'">'+v+'</span>').join('')+'</td></tr>').join('');
 const table='<div class="epl-table-scroll"><table class="epl-standings"><thead><tr><th>#</th><th>CLUB</th><th>P</th><th>W–D–L</th><th>GF</th><th>GA</th><th>GD</th><th>PTS</th><th>ELO</th><th>FORM</th></tr></thead><tbody>'+rows+'</tbody></table></div><p class="epl-data-note">Based on '+r.completed_matches+' published finals · '+esc(r.as_of_date)+' · provisional Elo. Elo movement shown only when the replay export includes verified last-match deltas.</p>';
 const forecast=fixtures.slice(0,5).map(g=>{const p=g.probabilities;return '<div class="epl-forecast-row"><span class="epl-score-date">'+date(g.kickoff_utc)+'</span><div class="epl-forecast-teams">'+team(g.home.name,g.home.id)+'<strong>vs</strong>'+team(g.away.name,g.away.id)+'</div><div class="epl-probability" aria-label="Home '+Math.round(p.home*100)+' percent, draw '+Math.round(p.draw*100)+' percent, away '+Math.round(p.away*100)+' percent"><i style="width:'+(100*p.home)+'%;background:'+esc(COLORS[g.home.name]||'#52695d')+'"></i><i style="width:'+(100*p.draw)+'%;background:#c1b39b"></i><i style="width:'+(100*p.away)+'%;background:'+esc(COLORS[g.away.name]||'#384b6b')+'"></i></div><div class="epl-prob-labels"><span>'+Math.round(p.home*100)+'% '+esc(g.home.name)+'</span><span>'+Math.round(p.draw*100)+'% draw</span><span>'+Math.round(p.away*100)+'% '+esc(g.away.name)+'</span></div><a class="epl-forecast-open" href="match-center.html?league=Premier%20League&amp;game='+encodeURIComponent(g.fixture_id)+'">Match details</a></div>'}).join('');
 const attacks=[...r.standings].sort((a,b)=>b.gf-a.gf).slice(0,5).map((t,i)=>'<div class="epl-leader-row">'+team(t.club,idByTeam[t.club])+'<strong>'+t.gf+' <small>goals</small></strong></div>').join('');
 const defense=[...r.standings].filter(t=>t.played>0).sort((a,b)=>a.ga/a.played-b.ga/b.played).slice(0,5).map(t=>'<div class="epl-leader-row">'+team(t.club,idByTeam[t.club])+'<strong>'+num(t.ga/t.played)+' <small>GA/GP</small></strong></div>').join('');
 
-const compact='<div class="slt-compact-table"><table class="epl-standings"><thead><tr><th>#</th><th>Club</th><th>W–D–L</th><th>Pts</th><th>Elo</th></tr></thead><tbody>'+r.standings.map((t,i)=>'<tr class="'+(i<4?'epl-zone-top':i>=17?'epl-zone-bottom':'')+'"><td>'+(i+1)+'</td><td>'+team(t.club,idByTeam[t.club])+'</td><td>'+t.won+'–'+t.drawn+'–'+t.lost+'</td><td class="epl-pts">'+t.points+'</td><td>'+num(r.ratings[t.club])+'</td></tr>').join('')+'</tbody></table></div>';
+const compact=register(r.standings,false);
 const full='<details class="slt-full-table"><summary>Open full statistical table · GF, GA, GD, form</summary>'+table+'</details>';
 const target=id=>document.getElementById(id);
 if(target('epl-score-rail'))target('epl-score-rail').innerHTML=rail||'<p>Verified finals are not available in this match snapshot.</p>';
-if(target('epl-table-board'))target('epl-table-board').innerHTML=section('League table','POINTS · W–D–L · ELO',compact+full);
-if(target('epl-power-board'))target('epl-power-board').innerHTML=section('RETRO Power 20','ALL CLUBS · VERIFIED ELO DELTA',power);
+if(target('epl-table-board'))target('epl-table-board').innerHTML=section('League Table','ORDERED BY LEAGUE POINTS',compact+full);
+if(target('epl-power-board'))target('epl-power-board').innerHTML=section('RETRO Power 20','ORDERED BY INDEPENDENT RETRO',power);
 if(target('epl-attack-board'))target('epl-attack-board').innerHTML=section('Best attacks','GOALS SCORED',attacks);
 if(target('epl-defense-board'))target('epl-defense-board').innerHTML=section('Tightest defenses','GOALS ALLOWED PER MATCH',defense);
 const top=target('epl-hero-clubs');
