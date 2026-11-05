@@ -937,6 +937,8 @@ feed.teams.forEach(t=>teams[t.id]=t);games=feed.games;
 renderNFL();
 refreshLive();
 setInterval(refreshLive,45000);
+// Keep the attributed NFL news current even on days without score changes.
+if(page==='front'){setInterval(()=>{if(!document.hidden)news()},60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)news()});}
 }catch(e){
 document.getElementById("nfl-stamp").textContent="NFL data verification pending";
 root.innerHTML='<p class="nfl-kicker">THE NFL EDITION</p><h1 class="nfl-title">NFL DATA PUBLICATION PENDING</h1><div class="nfl-error"><p>The NFL newspaper is installed, but a complete sourced 2026 ledger has not been published. No placeholder ratings or invented player statistics will be shown.</p><p>'+escapeHtml(e.message)+'</p>'+link("sports.html","Browse the sports desks")+'</div>';
