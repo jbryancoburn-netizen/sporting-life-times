@@ -70,6 +70,9 @@ async function run(){
  assert(pages.length>=14,'Missing NCAA basketball templates including Rankings, Slate and Arena File: '+pages.length);
  for(const page of pages){
   const html=read(page);
+  // The Arena File is an intentional canonical redirect, not an active page.
+  if(page==='ncaam-arena.html'&&html.includes('The Arena File has been retired.')&&
+     html.includes('http-equiv="refresh"')&&html.includes('href="ncaam.html"'))continue;
   assert.equal((html.match(/mbb-logo-system\.js\?v=[a-zA-Z0-9._-]+/g)||[]).length,1,page+' must have exactly one shared logo renderer');
   assert.equal((html.match(/mbb-logo-system\.css\?v=[a-zA-Z0-9._-]+/g)||[]).length,1,page+' must have exactly one shared logo stylesheet');
   for(const extra of ['shared-team-crests.js','shared-team-crests.css','slt-dual-ring.js','slt-dual-ring.css']){
