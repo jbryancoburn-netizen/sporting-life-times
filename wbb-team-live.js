@@ -67,7 +67,14 @@ function start(teamId,baseGames,siteDisputes,neutralProof){
       if(status)status.textContent='Results temporarily unavailable; showing the last published schedule.';
     }finally{pending=false;}
   }
-  if(typeof setInterval==='function')setInterval(refresh,60000);
+  // Refresh immediately on opening a team page, not after the first interval.
+  void refresh();
+  if(typeof setInterval==='function')setInterval(()=>{
+    if(typeof document==='undefined'||!document.hidden)void refresh();
+  },30000);
+  if(typeof document!=='undefined')document.addEventListener('visibilitychange',()=>{
+    if(!document.hidden)void refresh();
+  });
 }
 w.WBBTeamLive={start};
 })(window);
