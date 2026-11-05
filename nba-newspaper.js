@@ -210,19 +210,44 @@ function rankings(){
 }
 
 function playoff(){
- const seedRow=(t,i)=>'<a href="'+tl(t)+'" class="nba-race-team" style="--race-color:'+meta[t][3]+'"><span class="nba-race-seed">'+(i+1)+'</span><span class="nba-race-crest nba-brand-badge" style="--nba-club-color:'+meta[t][3]+'">'+logoImg(t)+'</span><span class="nba-race-identity"><strong>'+esc(name(t))+'</strong><small>'+esc(meta[t][2])+' · Elo #'+rank(t)+'</small></span><span class="nba-race-record">'+rec(t)+'</span></a>';
- const group=(rows,heading,subtitle,kind,offset)=>'<section class="nba-race-group '+kind+'"><div class="nba-race-group-head"><div><h3>'+heading+'</h3><p>'+subtitle+'</p></div><b>'+rows.length+' teams</b></div><div class="nba-race-list">'+rows.map((t,i)=>seedRow(t,i+offset)).join('')+'</div></section>';
- const conference=c=>{const teams=stand(c);
- return '<section class="nba-race-conference" id="'+c.toLowerCase()+'"><div class="nba-race-conference-head"><div class="eyebrow">2026–27 · '+c+'ern Conference</div><h2>'+c+'ern Conference</h2><p>Ordered by reconstructed win percentage, then independent Elo when tied.</p></div><a href="nba-conference.html?conference='+c+'">Full conference standings ↗</a></div>'+
- group(teams.slice(0,6),'1–6 · Direct Playoff Places','Currently in the six automatic playoff positions.','direct',0)+
- group(teams.slice(6,10),'7–10 · Play-In Tournament','Compete for the final two playoff spots.','playin',6)+
- group(teams.slice(10),'11–15 · Outside the Field','Would miss the postseason if the season ended now.','out',10)+'</section>';};
- return '<div class="eyebrow">NBA · The Postseason Race</div><h1>PLAYOFF PICTURE</h1>'+
- '<p class="nba-note">An <strong>as-of-now snapshot</strong>—not an official bracket or a prediction of final seeds. Teams are ordered by our reconstructed W–L records; ties use independent Elo, not the NBA’s official tiebreakers.</p>'+
- '<div class="nba-race-key" aria-label="Playoff seed guide"><div><b>1–6</b><strong>In the playoffs</strong><small>Automatic first-round berths</small></div><div><b>7–10</b><strong>Play-in territory</strong><small>Four teams chase two spots</small></div><div><b>11–15</b><strong>Outside looking in</strong><small>Not currently in the field</small></div></div>'+
- '<nav class="nba-race-jump" aria-label="Jump to conference"><a href="#east">Eastern Conference ↓</a><a href="#west">Western Conference ↓</a></nav>'+
- '<div class="nba-race-conferences">'+conference('East')+conference('West')+'</div>'+
- '<section class="panel nba-race-explainer"><div class="eyebrow">The Rules, Simplified</div><h2>How the Play-In Works</h2><div class="nba-race-steps"><div><b>01</b><strong>No. 7 hosts No. 8</strong><p>Winner claims the seventh playoff seed.</p></div><div><b>02</b><strong>No. 9 hosts No. 10</strong><p>Loser is eliminated.</p></div><div><b>03</b><strong>One final game</strong><p>7–8 loser hosts 9–10 winner. Winner earns the eighth seed.</p></div></div><p class="nba-note">This page automatically reorders teams as verified finals enter the newspaper. The actual NBA uses additional tiebreakers and determines official seeds at season’s end.</p></section>';
+ // Current positions are reconstructed W-L with RETRO as an approximate tie ordering;
+ // the site must never label them official NBA tiebreak seeds.
+ const percentage=t=>{const r=records[t],gp=r.w+r.l;return gp?fmt(r.w/gp,3).replace(/^0/, ''):'—';};
+ const seedRow=(t,i)=>{
+  const seed=i+1;
+  return '<a href="'+tl(t)+'" class="nba-race-team" style="--race-color:'+meta[t][3]+'" aria-label="'+esc('#'+seed+' '+name(t)+', '+rec(t)+', RETRO '+rank(t))+'">'+
+   '<span class="nba-race-seed">'+seed+'</span>'+
+   '<span class="nba-race-crest nba-brand-badge" style="--nba-club-color:'+meta[t][3]+'">'+logoImg(t)+'</span>'+
+   '<span class="nba-race-identity"><strong>'+esc(name(t))+'</strong><small>'+esc(meta[t][2])+' · RETRO #'+rank(t)+'</small></span>'+
+   '<span class="nba-race-numbers"><b class="nba-race-record">'+rec(t)+'</b><small>'+percentage(t)+' PCT</small></span></a>';
+ };
+ const group=(rows,title,sub,kind,offset)=>'<section class="nba-race-group '+kind+'">'+
+  '<div class="nba-race-group-head"><div><h3>'+title+'</h3><p>'+sub+'</p></div><b>'+rows.length+' clubs</b></div>'+
+  '<div class="nba-race-list">'+rows.map((t,i)=>seedRow(t,i+offset)).join('')+'</div></section>';
+ const conference=c=>{
+  const full=c==='East'?'Eastern':'Western',teams=stand(c);
+  return '<section class="nba-race-conference" id="'+c.toLowerCase()+'" aria-label="'+full+' Conference playoff race">'+
+   '<div class="nba-race-conference-head"><div><div class="nba-race-kicker">Conference Dispatch · '+full+'</div>'+
+   '<h2>'+full+' Conference</h2><p>Fifteen clubs · Eight postseason places</p></div>'+
+   '<a href="nba-conference.html?conference='+c+'">Full table ↗</a></div>'+
+   group(teams.slice(0,6),'I. The First Six','Direct passage to the first round','direct',0)+
+   group(teams.slice(6,10),'II. The Play-In Four','Two places remain to be earned','playin',6)+
+   group(teams.slice(10),'III. Beyond the Cut','Currently outside the field','out',10)+'</section>';
+ };
+ return '<header class="nba-press-header"><div class="nba-press-kicker">Sporting Life & Times · NBA Postseason Bureau · 2026–27</div>'+
+  '<h1>The Playoff Picture</h1><p class="nba-press-subtitle">Thirty clubs. Two conferences. Six guaranteed places and a play-in race in each conference.</p>'+
+  '<p class="nba-press-qualification"><strong>Current position, not an official bracket.</strong> Records come from the verified RETRO game ledger. Equal records are approximately ordered by RETRO, not the NBA’s official multi-team tiebreakers.</p></header>'+
+  '<div class="nba-race-key" aria-label="The three postseason positions">'+
+   '<div><b>01–06</b><strong>First-round berths</strong><small>Direct playoff places</small></div>'+
+   '<div><b>07–10</b><strong>The play-in</strong><small>Four clubs for two places</small></div>'+
+   '<div><b>11–15</b><strong>Outside the cut</strong><small>Not currently in the field</small></div></div>'+
+  '<nav class="nba-race-jump" aria-label="Jump to conference"><a href="#east">Eastern Conference ↓</a><a href="#west">Western Conference ↓</a></nav>'+
+  '<div class="nba-race-conferences">'+conference('East')+conference('West')+'</div>'+
+  '<section class="panel nba-race-explainer"><div class="nba-race-kicker">The Rules of the Play-In</div><h2>A Short Guide to the Final Two Places</h2>'+
+   '<div class="nba-race-steps"><div><b>I</b><strong>Seventh meets eighth</strong><p>No. 7 hosts No. 8. The winner takes the seventh playoff seed.</p></div>'+
+   '<div><b>II</b><strong>Ninth meets tenth</strong><p>No. 9 hosts No. 10. The loser is eliminated.</p></div>'+
+   '<div><b>III</b><strong>The eighth berth</strong><p>The 7–8 loser hosts the 9–10 winner. The winner earns the eighth seed.</p></div></div>'+
+   '<p class="nba-press-footnote">Updated from the verified final-game record. Official NBA tiebreak procedures govern the actual postseason field.</p></section>';
 }
 function compactPlayerTeam(t){
  if(!meta[t])return '<span class="nba-player-club-text">'+esc(t||'—')+'</span>';
