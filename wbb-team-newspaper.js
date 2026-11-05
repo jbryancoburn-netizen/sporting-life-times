@@ -20,6 +20,12 @@ const sorted=games.slice().sort((a,b)=>String(a.date||'').localeCompare(String(b
 const rmap=new Map((ratings?.gender==='women'?ratings.rankings||[]:[]).map(x=>[String(x.team_id),x]));
 // Share the same women-only published ratings with the canonical team scorebugs.
 window.WBBRetroSnapshot=ratings?.model==='retro-clean-slate'&&ratings?.gender==='women'&&ratings?.season==='2026-27'&&ratings?.rankings?.length===363?ratings:null;
+// Load the holdout-gated women-only forecast coefficients without blocking team data.
+window.WBBForecastCalibration=null;
+void load('data/ncaaw-score-calibration.json').then(doc=>{
+  window.WBBForecastCalibration=doc;
+  window.dispatchEvent(new Event('wbb-retro-forecast-ready'));
+}).catch(()=>{/* Keep the provisional women-only probability when calibration is unavailable. */});
 const tvmap=new Map();
 for(const row of scoreboardTV?.gender==='women'&&scoreboardTV?.season==='2026-27'?(scoreboardTV.rows||[]):[]){if(row.game_id&&row.broadcast)tvmap.set(String(row.game_id),row);}
 for(const row of officialTV?.gender==='women'&&officialTV?.season==='2026-27'?(officialTV.rows||[]):[]){if(row.game_id&&row.broadcast&&row.source_url)tvmap.set(String(row.game_id),row);}
