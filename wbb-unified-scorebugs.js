@@ -1,0 +1,73 @@
+/* Women team desk: one shared college basketball scorebug, source rows retained as game details. */
+(function(){
+ 'use strict';
+ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ function start(){
+  const desk=document.getElementById('desk'),table=desk?.querySelector('.wbb-schedule-table');
+  if(!table||!window.SLTSportsScorebug)return;
+  const host=table.closest('.wbb-table-wrap'),body=table.tBodies[0],rows=[...body.querySelectorAll('tr.wbb-game-entry')];
+  if(!rows.length)return;
+  const title=desk.querySelector('.wbb-identity h1')?.textContent?.replace(/^RETRO\s*#\d+/i,'').trim()||'Home team';
+  const crest=desk.querySelector('.wbb-identity img')?.outerHTML||'';
+  const palette=window.getComputedStyle(desk).getPropertyValue('--accent').trim();
+  const teamColor=/^#[a-f\d]{6}$/i.test(palette)?palette:'#704a32';
+  const wrap=document.createElement('div');wrap.className='wbb-scorebug-list';
+  host.parentNode.insertBefore(wrap,host);
+  const status=(row)=>{
+   const result=row.querySelector('.wbb-result-cell strong')?.textContent?.trim()||'';
+   const note=row.querySelector('.wbb-result-source')?.textContent?.trim()||'';
+   if(row.dataset.calendarState==='final'||/^(?:W|L)\s+\d+\s*[–-]\s*\d+/.test(result))return 'final';
+   if(/\b(?:\d{1,2}:\d{2}|halftime|half time|1st|2nd|overtime)\b/i.test(note)&&/\d+\s*[–-]\s*\d+/.test(result))return 'live';
+   return 'upcoming';
+  };
+  const cards=new Map();
+  for(const row of rows){
+   const id=row.dataset.gameId;if(!id)continue;
+   const details=document.createElement('details');details.className='ledger26-card ledger26-expand wbb-scorebug-card';
+   const summary=document.createElement('summary');summary.className='ledger26-summary';
+   const detail=document.createElement('div');detail.className='ledger26-expanded wbb-scorebug-detail';
+   const info=document.createElement('dl');info.className='wbb-scorebug-facts';
+   const headings=[...table.tHead.rows[0].cells].map(x=>x.textContent.trim());
+   [...row.cells].forEach((cell,i)=>{
+    const dt=document.createElement('dt');dt.textContent=headings[i]||'Details';
+    const dd=document.createElement('dd');
+    dd.innerHTML=cell.innerHTML.replace(/<button\b[^>]*class="wbb-stat-toggle"[^>]*>[\s\S]*?<\/button>/g,'');
+    info.append(dt,dd);
+   });
+   detail.append(info);
+   const gameStats=row.nextElementSibling;
+   if(gameStats?.classList.contains('wbb-game-detail')){
+    const link=document.createElement('a');link.href='cbb-gamefile.html?gender=women&game='+encodeURIComponent(id);
+    link.textContent='Open game statistics ↗';link.className='wbb-scorebug-gamefile';detail.append(link);
+   }
+   details.append(summary,detail);wrap.append(details);cards.set(id,{row,summary});
+  }
+  function renderOne(row,summary){
+   const opponent=row.querySelector('.wbb-opponent-name')?.textContent?.trim()||'Opponent';
+   const opponentCrest=row.querySelector('.wbb-matchup img')?.outerHTML||'';
+   const result=row.querySelector('.wbb-result-cell strong')?.textContent?.trim()||'';
+   const note=row.querySelector('.wbb-result-source')?.textContent?.trim()||'';
+   const phase=status(row);
+   const scores=result.match(/(\d+)\s*[–-]\s*(\d+)/);
+   const ourScore=phase==='upcoming'?null:scores?Number(scores[1]):null;
+   const theirScore=phase==='upcoming'?null:scores?Number(scores[2]):null;
+   const site=row.dataset.site;
+   const our={name:title,score:ourScore,crest,color:teamColor,record:'',retro:''};
+   const opponentTeam={name:opponent,score:theirScore,crest:opponentCrest,color:'#655239',record:'',retro:''};
+   const away=site==='home'?opponentTeam:our;
+   const home=site==='home'?our:opponentTeam;
+   const time=row.cells[3]?.textContent?.trim()||'TIPOFF TBA';
+   const markup=window.SLTSportsScorebug.render({phase,status:phase==='live'?note:phase==='final'?'FINAL':'',away,home,forecast:null,time:time.split('University-sourced')[0].trim()});
+   summary.innerHTML=markup+'<span class="ledger26-instruction">OPEN GAME DETAILS +</span>';
+  }
+  function renderAll(){for(const {row,summary} of cards.values())renderOne(row,summary);}
+  renderAll();
+  host.classList.add('wbb-table-source-only');
+  // Keep source rows as live updater targets; update the presentation when scores change.
+  let scheduled=false;
+  new MutationObserver(()=>{if(scheduled)return;scheduled=true;queueMicrotask(()=>{scheduled=false;renderAll();});})
+   .observe(body,{subtree:true,characterData:true,childList:true});
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(start,1000));
+ else setTimeout(start,1000);
+})();
