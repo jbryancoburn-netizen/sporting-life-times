@@ -596,8 +596,7 @@ const ledgerScorebug=g=>{
     const homeFav=g.probability>=0.5,side=homeFav?g.home:g.away;
     const projection=insight?.projectedScore(g,scoreCalibration,ratings);
     const margin=projection?Math.abs(Number(projection.home)-Number(projection.away)):null;
-    const rawName=String(side.name||'').trim();
-    const team=rawName.length>8?rawName.slice(0,8):rawName;
+    const team=String(side.name||'').trim();
     return {team,probability:homeFav?g.probability:1-g.probability,
       margin:Number.isFinite(margin)&&margin>0?margin:null};
   })(),away:convert(g.away),home:convert(g.home)
