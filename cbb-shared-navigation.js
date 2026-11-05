@@ -16,10 +16,12 @@ try{
  else if(womenPage)localStorage.setItem(editionKey,'women');
 }catch(_){}
 // Direct visits to a men's URL must honor a previously selected women's edition.
-if(women&&!womenPage&&menPage&&explicit!=='women'){
+if(women&&!womenPage&&(menPage||page==='cbb-game-center.html'||page==='cbb-gamefile.html')&&explicit!=='women'){
  const redirects={
   'ncaam.html':'ncaam.html?gender=women',
   'ncaam-slate.html':'ncaam-slate.html?gender=women',
+  'cbb-game-center.html':'cbb-game-center.html?gender=women',
+  'cbb-gamefile.html':'cbb-gamefile.html?gender=women',
   'ncaam-team.html':'ncaaw-team.html',
   'ncaam-rankings.html':'ncaaw-rankings.html',
   'ncaam-elo.html':'ncaaw-rankings.html?poll=retro',
@@ -35,7 +37,8 @@ if(women&&!womenPage&&menPage&&explicit!=='women'){
   const next=new URL(redirects[page],location.href);
   if(page==='ncaam-team.html'&&params.has('team'))next.searchParams.set('team',params.get('team'));
   if(page==='ncaam-rankings.html'&&params.has('poll'))next.searchParams.set('poll',params.get('poll'));
-  if(page==='ncaam-slate.html'&&params.has('day'))next.searchParams.set('day',params.get('day'));
+  if(page==='ncaam-slate.html')for(const key of ['date','day','view'])if(params.has(key))next.searchParams.set(key,params.get(key));
+  if(page==='cbb-gamefile.html')for(const key of ['day','game'])if(params.has(key))next.searchParams.set(key,params.get(key));
   location.replace(next.href);return;
  }
 }
