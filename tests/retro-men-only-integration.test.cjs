@@ -10,7 +10,8 @@ const engine=require('../retro-forecast-engine.js');
 for(const [page,consumer] of [
  ['ncaam-elo.html','mbb-elo-primary.js'],
  ['ncaam-predictor.html','ncaam-score-model.js'],
- ['ncaam-slate.html','ncaam-slate.js']
+ ['ncaam-slate.html','ncaam-slate.js'],
+ ['cbb-game-center.html','cbb-live-center.js']
 ]){
  const html=read(page);
  const source=html.indexOf('retro-forecast-engine.js');
@@ -20,6 +21,7 @@ for(const [page,consumer] of [
 assert.match(read('mbb-elo-primary.js'),/RETROForecast\.predict\(A,B/);
 assert.match(read('ncaam-score-model.js'),/RETROForecast\?\.predict\(home,away/);
 assert.match(read('ncaam-slate.js'),/RETROForecast\.predict\(home,away/);
+assert.match(read('cbb-live-center.js'),/RETROForecast\?\.predict\(h,a/);
 assert.match(read('ncaam-forecast-engine.js'),/RETROForecast\.probability\(a,b,'neutral'\)/);
 for(const eloGap of [-300,-100,0,100,300]){
  const a={elo:1500+eloGap},b={elo:1500};
