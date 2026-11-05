@@ -49,6 +49,40 @@ function projected(g){
   '</div>';
 }
 async function refreshRecords(){try{const r=await fetch('data/nba-2026-27-current-provisional.json',{cache:'no-store'});if(!r.ok)return;const data=await r.json(),rec={};for(const e of data.events||[]){if(!Number.isFinite(Number(e.home_score))||!Number.isFinite(Number(e.away_score))||Number(e.home_score)===Number(e.away_score))continue;for(const t of [e.home,e.away])rec[t]??={w:0,l:0};const win=Number(e.home_score)>Number(e.away_score)?e.home:e.away,lose=win===e.home?e.away:e.home;rec[win].w++;rec[lose].l++}fallbackRecords=Object.fromEntries(Object.entries(rec).map(([k,v])=>[k,v.w+'-'+v.l]));}catch(e){console.warn('NBA verified record fallback unavailable',e.message)}}
+const nbaBoxCache=new Map();
+async function loadNBABox(card){
+ const id=String(card.dataset.nbaGame||'').replace(/^espn-nba-/,'');
+ const out=card.querySelector('.nba-live-stat-content');
+ if(!out||!/^\\d{7,12}$/.test(id))return;
+ const cached=nbaBoxCache.get(id);
+ if(cached&&Date.now()-cached.at<25000){out.innerHTML=cached.html;return}
+ out.textContent='Loading live game statistics…';
+ try{
+  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),8000);
+  let response;
+  try{response=await fetch('https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event='+id+'&_='+Date.now(),{cache:'no-store',signal:controller.signal})}finally{clearTimeout(timer)}
+  if(!response.ok)throw Error('HTTP '+response.status);
+  const data=await response.json(),blocks=[];
+  const teams=data.header?.competitions?.[0]?.competitors||[];
+  const lines=teams.map(t=>({name:t.team?.displayName||t.team?.abbreviation||'',scores:t.linescores||[]}));
+  if(lines.some(t=>t.scores.length)){
+   const length=Math.max(...lines.map(t=>t.scores.length));
+   const quarters=Array.from({length},(_,i)=>i<4?'Q'+(i+1):'OT'+(i-3));
+   blocks.push('<section class="nba-live-stat-section"><h4>Quarter scoring</h4><div class="nba-live-stat-scroll"><table><thead><tr><th>Club</th>'+quarters.map(q=>'<th>'+q+'</th>').join('')+'</tr></thead><tbody>'+lines.map(t=>'<tr><th>'+esc(t.name)+'</th>'+quarters.map((_,i)=>'<td>'+esc(t.scores[i]?.displayValue??t.scores[i]?.value??'—')+'</td>').join('')+'</tr>').join('')+'</tbody></table></div></section>');
+  }
+  for(const t of data.boxscore?.players||[]){
+   const group=(t.statistics||[]).find(s=>Array.isArray(s.athletes)&&s.athletes.length);
+   if(!group)continue;
+   const columns=['MIN','PTS','REB','AST','FG','3PT'].map(k=>({k,index:(group.labels||[]).findIndex(label=>String(label).toUpperCase()===k)})).filter(v=>v.index>=0);
+   if(!columns.length)continue;
+   blocks.push('<section class="nba-live-stat-section"><h4>'+esc(t.team?.displayName||'Team')+' · Players</h4><div class="nba-live-stat-scroll"><table><thead><tr><th>Player</th>'+columns.map(v=>'<th>'+v.k+'</th>').join('')+'</tr></thead><tbody>'+(group.athletes||[]).filter(a=>a.athlete?.displayName).slice(0,18).map(a=>'<tr><th>'+esc(a.athlete.displayName)+'</th>'+columns.map(v=>'<td>'+esc(a.stats?.[v.index]??'—')+'</td>').join('')+'</tr>').join('')+'</tbody></table></div></section>');
+  }
+  const html=blocks.join('')||'<p>Detailed box-score statistics are not yet available from the live feed.</p>';
+  nbaBoxCache.set(id,{html,at:Date.now()});
+  if(card.isConnected&&card.open)out.innerHTML=html;
+ }catch(e){if(card.isConnected)out.textContent='Live player statistics temporarily unavailable.';console.warn('NBA box score fetch failed',id,e.message)}
+}
+document.addEventListener('toggle',event=>{const card=event.target;if(card?.matches?.('#nba-live-feed details[data-nba-game]')&&card.open)loadNBABox(card)},true);
 function render(payload){
  const events=Array.isArray(payload.events)?payload.events:[];
  if(!events.length){root.innerHTML='<p class="hub-small">No NBA games listed for today.</p>';return;}
@@ -75,8 +109,9 @@ function render(payload){
   const scorebug=window.SLTSportsScorebug?.render({phase,away:side(g.away),home:side(g.home),status:final?'FINAL':g.label,tipoff:time+' ET',network:g.network});
   if(!scorebug)return '';
   const pregameSafe=!playing&&!final&&Date.parse(g.date)>Date.now()+600000;
-  return '<details class="ledger26-card ledger26-expand nba-expand-game" data-nba-game="'+esc(g.id)+'"'+(previouslyOpen.has(String(g.id))?' open':'')+'><summary class="ledger26-summary nba-expand-trigger">'+scorebug+'</summary><div class="nba-expand-content">'+(pregameSafe?projected(g):'<p class="nba-live-expand-note">'+(playing?'Live game in progress':final?'Final score':'Pregame details')+'</p>')+'<a class="nba-live-game-link" href="nba-live-game.html?game='+encodeURIComponent(g.id)+'">OPEN GAME CENTER ↗</a></div></details>';
+  return '<details class="ledger26-card ledger26-expand nba-expand-game" data-nba-game="'+esc(g.id)+'"'+(previouslyOpen.has(String(g.id))?' open':'')+'><summary class="ledger26-summary nba-expand-trigger">'+scorebug+'</summary><div class="nba-expand-content">'+(pregameSafe?projected(g):'<div class="nba-live-stat-content" aria-live="polite">Opening live statistics…</div>')+'<a class="nba-live-game-link" href="nba-live-game.html?game='+encodeURIComponent(g.id)+'">OPEN GAME CENTER ↗</a></div></details>';
  }).join('');
+ for(const card of document.querySelectorAll('#nba-live-feed details[data-nba-game][open]'))loadNBABox(card);
 }
 function fromNba(raw){
  const games=raw.scoreboard?.games||raw.games||[];
