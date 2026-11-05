@@ -194,11 +194,13 @@ function rankings(){
   '<td class="num nba-power-elo"><strong>'+fmt(rates[t],1)+'</strong></td>'+
   '<td class="num"><span class="nba-power-change '+(negative?'neg':'pos')+'">'+(delta===null?'—':(delta>0?'+':'')+fmt(delta,1))+'</span></td></tr>';
  };
- const header=[['#','num'],['Club'],['W','num'],['L','num'],['PCT','num'],['RETRO','num'],['Δ','num'],['Last 5']];
- const rowCompact=(t,i)=>{const f=forms[t],r=records[t],pct=r.w+r.l?r.w/(r.w+r.l):0,delta=rates[t]-1500;
-  return '<tr><td class="num">'+(i+1)+'</td><td class="nba-standings-club-cell">'+standingTeam(t)+'</td><td class="num">'+r.w+'</td><td class="num">'+r.l+'</td><td class="num">'+fmt(pct,3)+'</td><td class="num nba-power-elo"><strong>'+fmt(rates[t],1)+'</strong></td><td class="num">'+(delta>0?'+':'')+fmt(delta,1)+'</td><td class="nba-power-form">'+(f.last.map(x=>'<i class="'+(x.won?'win':'loss')+'">'+(x.won?'W':'L')+'</i>').join('')||'—')+'</td></tr>';};
- const rows=ordered.map(rowCompact).join('');
- return '<div class="eyebrow">RETRO · Independent national power table</div><h1>THE NBA RETRO 30</h1><p class="nba-note">All 30 clubs open at 1500. '+esc(data.earned?.games_played??'—')+' verified finals. Updated through '+(data.earned?.events?.length?date(data.earned.events.at(-1).date):'unavailable')+'.</p>'+table(header,[rows])+'<p class="nba-power-footnote">The same compact newspaper table as college basketball; final-score ledger controls records and ratings. Equal records are not official NBA tiebreakers.</p>';
+ const legend='<div class="nba-retro-key"><span><i class="nba-retro-swatch above"></i> Above 1500</span><span><i class="nba-retro-swatch even"></i> At 1500</span><span><i class="nba-retro-swatch below"></i> Below 1500</span><small>Row rule shows rating relative to the 1500 preseason baseline; it does not indicate conference or playoff position.</small></div>';
+ const rowCompact=(t,i)=>{const f=forms[t],r=records[t]||{w:0,l:0},games=r.w+r.l,pct=games?r.w/games:0,delta=rates[t]-1500;
+  const movement=delta>.05?'above':delta<-.05?'below':'even';
+  const recent=f.last.map(x=>'<i class="'+(x.won?'win':'loss')+'" aria-label="'+(x.won?'Win':'Loss')+'">'+(x.won?'W':'L')+'</i>').join('')||'—';
+  return '<a class="nba-retro-row '+movement+'" href="'+tl(t)+'" aria-label="#'+(i+1)+' '+esc(name(t))+' RETRO '+fmt(rates[t],1)+'"><span class="nba-retro-rank">'+(i+1)+'</span><span class="nba-retro-club"><span class="team-logo-shell nba-retro-crest" data-team-code="'+esc(t)+'">'+logoImg(t)+'</span><strong>'+esc(name(t))+'</strong></span><span class="nba-retro-record">'+r.w+'–'+r.l+'<small>'+fmt(pct,3)+'</small></span><span class="nba-retro-elo">'+fmt(rates[t],1)+'</span><span class="nba-retro-change">'+(delta>0?'+':'')+fmt(delta,1)+'</span><span class="nba-retro-recent">'+recent+'</span></a>';
+ };
+ return '<div class="eyebrow">RETRO · Independent national power table</div><h1>THE NBA RETRO 30</h1><p class="nba-note">All 30 clubs open at 1500. '+esc(data.earned?.games_played??'—')+' verified finals. Updated through '+(data.earned?.events?.length?date(data.earned.events.at(-1).date):'unavailable')+'.</p>'+legend+'<div class="nba-retro-table"><div class="nba-retro-row nba-retro-header"><span>#</span><span>Club</span><span>W–L / PCT</span><span>RETRO</span><span>± 1500</span><span>Last 5</span></div>'+ordered.map(rowCompact).join('')+'</div><p class="nba-power-footnote">The color rule has one purpose: distance above, at, or below the 1500 starting rating. The last-five results use W and L. RETRO is independent, not an official NBA ranking.</p>';
 }
 
 function playoff(){
