@@ -256,6 +256,17 @@ try{
   const title='<span class="victorian-opponent-heading'+(opponentRank?' has-poll-rank':'')+'">'+(opponentRank?'<span class="victorian-heading-rank">'+opponentRank+'</span>':'')+'<span class="victorian-heading-school">'+(school?'<a href="ncaam-team.html?team='+encodeURIComponent(school.id)+'" title="'+label+'">'+displayName+'</a>':'<span class="victorian-school-name" title="'+label+'">'+displayName+'</span>')+'</span><span class="victorian-heading-conference">'+conferenceTag+'</span></span>';
   const today=new Date().toLocaleDateString('sv-SE',{timeZone:'America/New_York'});
   const scheduleState=hasScore?'final':canceled?'canceled':scheduledDate>=today?'upcoming':'past';
+  // Forecast every upcoming Division I game from the same published RETRO ratings.
+  const ownElo=ratingBySchool.get(String(team.id)),opponentEloValue=school&&ratingBySchool.get(String(school.id));
+  const gameForecast=!exhibition&&!canceled&&!hasScore&&scheduleState==='upcoming'&&
+    Number.isFinite(ownElo)&&Number.isFinite(opponentEloValue)&&window.RETROForecast?
+    window.RETROForecast.predict(
+      {team_id:vs==='AWAY'?school.id:team.id,elo:vs==='AWAY'?opponentEloValue:ownElo},
+      {team_id:vs==='AWAY'?team.id:school.id,elo:vs==='AWAY'?ownElo:opponentEloValue},
+      {site:vs==='NEUTRAL'||vs==='SITE UNVERIFIED'?'neutral':'home',gameId:e.id||e.uid||''}):null;
+  const forecastLine=gameForecast?'<small class="victorian-retro-forecast">RETRO '+(100*(vs==='AWAY'?gameForecast.awayProbability:gameForecast.homeProbability)).toFixed(1)+'% · projected '+
+    (vs==='AWAY'?gameForecast.awayScore:gameForecast.homeScore)+'–'+
+    (vs==='AWAY'?gameForecast.homeScore:gameForecast.awayScore)+'</small>':'';
   return '<tr '+'data-game-site="'+(vs==='HOME'?'home':vs==='AWAY'?'away':vs==='NEUTRAL'?'neutral':'unknown')+'" '+(expandable?'class="victorian-completed-game" data-stat-id="'+escape(statId)+'" tabindex="0" aria-label="Expand statistics for '+escape(opponentName)+'" ':'')+'data-calendar-state="'+scheduleState+'" data-exhibition="'+(exhibition?'true':'false')+
     '" data-opponent="'+escape((school?.name||opponentName).toLowerCase())+'">'+
     '<td class="sched-date-cell"><time datetime="'+escape(scheduledDate)+'">'+escape(day)+'</time><span class="sched-game-status sched-status--'+(canceled?'canceled':exhibition?'exhibition':hasScore?'final':completed?'pending':'upcoming')+'">'+gameState+'</span></td>'+
