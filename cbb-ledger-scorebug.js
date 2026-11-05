@@ -68,7 +68,7 @@
  function exactMention(txt,term){return new RegExp('(^|[^a-z])'+term.replace(/[^a-z0-9 ]/gi,'').replace(/ +/g,'\\s+')+'(?=$|[^a-z])','i').test(txt)}
  async function pressArticles(g){
   const gender=pressGender(g);
-  const paths=gender==='women'?['data/cbb-women-front-news.json','data/cbb-national-news.json','data/mbb-live.json','articles.json']:['data/cbb-men-front-news.json','data/cbb-national-news.json','data/mbb-live.json','articles.json'];
+  const paths=gender==='women'?['data/cbb-women-front-news.json','data/cbb-national-news.json','data/mbb-live.json','articles.json']:['data/cbb-men-pregame-press-2026-27.json','data/cbb-men-front-news.json','data/cbb-national-news.json','data/mbb-live.json','articles.json'];
   const key=gender;
   let promise=pressCache.get(key);
   if(!promise){
