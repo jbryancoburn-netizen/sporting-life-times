@@ -46,7 +46,7 @@ function init(){
   for(const a of nav.querySelectorAll('a[href]')){
    const label=a.textContent.trim().replace(/\s+/g,' ');
    const href=a.getAttribute('href')||'';
-   if(!label||/^(front page|the front page|all sports|sports desks|home|newspaper)$/i.test(label)||samePage(href)||href.startsWith('javascript:'))continue;
+   if(!label||/^(front page|the front page|all sports|sports desks|home|newspaper|latest stories|top stories|latest news)$/i.test(label)||/^#(?:league-news|slt-news|cbb-front-news)$/i.test(href)||samePage(href)||href.startsWith('javascript:'))continue;
    const key=href.replace(/\?.*$/,'')+'|'+label.toLowerCase();
    if(used.has(key))continue;used.add(key);out.push({href,label});
   }
