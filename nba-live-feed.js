@@ -108,7 +108,7 @@ async function loadNBABox(card){
 document.addEventListener('toggle',event=>{const card=event.target;if(card?.matches?.('#nba-live-feed details[data-nba-game]')&&card.open)loadNBABox(card)},true);
 function render(payload){
  const events=Array.isArray(payload.events)?payload.events:[];
- if(!events.length){root.innerHTML='<p class="hub-small">No NBA games listed for today.</p>';return;}
+ if(!events.length){root.innerHTML='<p class="hub-small">No NBA games scheduled for the selected date.</p>';return;}
  const previouslyOpen=new Set([...document.querySelectorAll('#nba-live-feed details[data-nba-game][open]')].map(el=>el.dataset.nbaGame));
  const mapped=events.map(e=>{
   const co=e.competitions?.[0]||{};const cs=co.competitors||[];
@@ -167,16 +167,77 @@ function fromNba(raw){
  })};
 }
 function fromArchive(p){return {events:(p.games||[]).map(g=>({id:g.id?.replace(/^espn-nba-/,'')||'',date:g.date,competitions:[{competitors:(g.teams||[]).map(t=>({homeAway:t.home_away,team:{displayName:t.name,abbreviation:t.code},score:t.score}))}],status:{type:{state:g.state==='post'?'post':g.state==='in'?'in':'pre',shortDetail:g.status||'Scheduled'}}}))};}
+// Date navigation is enabled only in the NBA Game Center; the front-page rail stays on today.
+const nbaDateInput=document.getElementById('nba-game-date');
+const etDay=timestamp=>{
+ const q=Object.fromEntries(new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date(timestamp)).map(x=>[x.type,x.value]));
+ return q.year+q.month+q.day;
+};
+const validDay=key=>/^\d{4}-\d{2}-\d{2}$/.test(key||'')&&new Date(key+'T12:00:00Z').toISOString().slice(0,10)===key;
+const compactDay=key=>key.replaceAll('-','');
+const fullDay=key=>key.slice(0,4)+'-'+key.slice(4,6)+'-'+key.slice(6,8);
+const shiftDay=(key,step)=>{
+ const when=new Date(key+'T12:00:00Z');when.setUTCDate(when.getUTCDate()+step);
+ return when.toISOString().slice(0,10);
+};
+const prettyDay=key=>new Intl.DateTimeFormat('en-US',{timeZone:'UTC',weekday:'short',month:'short',day:'numeric',year:'numeric'}).format(new Date(key+'T12:00:00Z'));
+let chosenDay=null;
+const effectiveDay=()=>chosenDay?compactDay(chosenDay):etDay(Date.now());
+function renderDateNav(){
+ if(!nbaDateInput)return;
+ const now=fullDay(etDay(Date.now())),key=chosenDay||now;
+ nbaDateInput.value=key;
+ const title=document.getElementById('nba-today-heading');
+ if(title)title.textContent=key===now?"Today's NBA Games":'NBA Games · '+prettyDay(key);
+ const note=document.querySelector('.nba-today-section .tools .notice');
+ if(note)note.textContent='Eastern Time calendar · live, final and upcoming games';
+ const todayButton=document.getElementById('nba-date-today');
+ if(todayButton){todayButton.disabled=key===now;todayButton.setAttribute('aria-current',key===now?'date':'false')}
+ const week=document.getElementById('nba-date-week');
+ if(week)week.innerHTML=Array.from({length:7},(_,i)=>{
+  const day=shiftDay(key,i-3),date=new Date(day+'T12:00:00Z');
+  const dow=new Intl.DateTimeFormat('en-US',{timeZone:'UTC',weekday:'short'}).format(date);
+  return '<button type="button" data-nba-day="'+day+'" data-today="'+(day===now)+'" aria-pressed="'+(day===key)+'" aria-label="'+prettyDay(day)+'"><span>'+dow+'</span><b>'+Number(day.slice(-2))+'</b></button>';
+ }).join('');
+}
+function chooseDay(day,push=true){
+ if(!nbaDateInput||!validDay(day))return;
+ chosenDay=day;renderDateNav();
+ if(push){const url=new URL(location.href);url.searchParams.set('date',day);history.pushState(null,'',url.pathname+url.search+url.hash)}
+ root.innerHTML='<p class="hub-small">Loading NBA games for '+esc(prettyDay(day))+'…</p>';
+ status.textContent='Checking NBA schedule for '+prettyDay(day)+'…';
+ if(refreshPromise)refreshPromise.finally(()=>refreshLive());
+ else refreshLive();
+}
+function initDateNav(){
+ if(!nbaDateInput)return;
+ const fromUrl=new URL(location.href).searchParams.get('date');
+ chosenDay=validDay(fromUrl)?fromUrl:fullDay(etDay(Date.now()));
+ renderDateNav();
+ nbaDateInput.addEventListener('change',()=>chooseDay(nbaDateInput.value));
+ document.getElementById('nba-date-previous')?.addEventListener('click',()=>chooseDay(shiftDay(chosenDay,-1)));
+ document.getElementById('nba-date-next')?.addEventListener('click',()=>chooseDay(shiftDay(chosenDay,1)));
+ document.getElementById('nba-date-today')?.addEventListener('click',()=>chooseDay(fullDay(etDay(Date.now()))));
+ document.getElementById('nba-date-week')?.addEventListener('click',e=>{
+  const button=e.target.closest('button[data-nba-day]');
+  if(button)chooseDay(button.dataset.nbaDay);
+ });
+ window.addEventListener('popstate',()=>{
+  const day=new URL(location.href).searchParams.get('date');
+  chooseDay(validDay(day)?day:fullDay(etDay(Date.now())),false);
+ });
+}
 async function update(){
  const easternKey=offset=>{const q=Object.fromEntries(new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date(Date.now()+offset)).map(x=>[x.type,x.value]));return q.year+q.month+q.day};
- const today=easternKey(0),yesterday=easternKey(-24*3600000);
+ const actualToday=easternKey(0),today=effectiveDay(),yesterday=chosenDay?compactDay(shiftDay(fullDay(today),-1)):easternKey(-24*3600000),tomorrow=compactDay(shiftDay(fullDay(today),1));
  // The front-page rail is for today's Eastern-date games only. Tomorrow's
  // fixtures belong on the upcoming schedule, not beneath a TODAY label.
  const gameDay=stamp=>{const d=new Date(stamp);if(!Number.isFinite(+d))return '';const p=Object.fromEntries(new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(d).map(x=>[x.type,x.value]));return p.year+p.month+p.day;};
  const sources=[
-  ['ESPN today','https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates='+today+'&_='+Date.now(),x=>x],
-  ['ESPN previous day','https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates='+yesterday+'&_='+Date.now(),x=>x],
-  ['NBA official fallback','https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json',fromNba]
+  ['ESPN selected day','https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates='+today+'&_='+Date.now(),x=>x],
+  ['ESPN ET boundary (prior)','https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates='+yesterday+'&_='+Date.now(),x=>x],
+  ...(chosenDay?[['ESPN ET boundary (next)','https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates='+tomorrow+'&_='+Date.now(),x=>x]]:[]),
+  ...(today===actualToday?[['NBA official fallback','https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json',fromNba]]:[])
  ];
  const merged=new Map(),successful=[];
  const fetched=await Promise.all(sources.map(async ([name,url,normalize])=>{
@@ -215,29 +276,30 @@ async function update(){
    if(!previous||quality(event)>quality(previous))merged.set(gameKey,event);
   }
  }
- // Merge the published schedule even when a live provider returns an incomplete set.
- // Never let a successful but partial scoreboard silently erase a scheduled matchup.
- try{
-  const response=await fetch('data/nba-upcoming-schedule.json?_='+Date.now(),{cache:'no-store'});
-  if(!response.ok)throw Error('HTTP '+response.status);
-  const snapshot=await response.json();
-  const publishedAt=Date.parse(snapshot.updated_at||'');
-  const stale=!Number.isFinite(publishedAt)||Date.now()-publishedAt>30*60000;
-  for(const event of fromArchive(snapshot).events){
-   const when=Date.parse(event.date||'');
-   if(!Number.isFinite(when)||gameDay(when)!==today)continue;
-   const teams=event.competitions?.[0]?.competitors||[];
-   const away=teams.find(x=>x.homeAway==='away')?.team?.abbreviation||'';
-   const home=teams.find(x=>x.homeAway==='home')?.team?.abbreviation||'';
-   const gameKey=away&&home?away+'-'+home+'-'+new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(when)):String(event.id);
-   if(merged.has(gameKey))continue;
-   if(stale&&event.status?.type?.state==='in'){
-    event.status.type.state='pre';
-    event.status.type.shortDetail='Score update pending';
+ // Published schedules and verified historical box scores fill gaps in dated ESPN results.
+ const snapshots=['data/nba-upcoming-schedule.json',...(chosenDay&&today!==actualToday?['data/nba-game-center.json']:[])];
+ await Promise.all(snapshots.map(async path=>{
+  try{
+   const response=await fetch(path+'?_='+Date.now(),{cache:'no-store'});
+   if(!response.ok)throw Error('HTTP '+response.status);
+   const snapshot=await response.json();
+   const publishedAt=Date.parse(snapshot.updated_at||'');
+   const stale=!Number.isFinite(publishedAt)||Date.now()-publishedAt>30*60000;
+   for(const event of fromArchive(snapshot).events){
+    const when=Date.parse(event.date||'');
+    if(!Number.isFinite(when)||gameDay(when)!==today)continue;
+    const teams=event.competitions?.[0]?.competitors||[];
+    const away=canonicalCode(teams.find(x=>x.homeAway==='away')?.team?.abbreviation);
+    const home=canonicalCode(teams.find(x=>x.homeAway==='home')?.team?.abbreviation);
+    const gameKey=away&&home?away+'-'+home+'-'+gameDay(when):String(event.id);
+    if(merged.has(gameKey))continue;
+    if(stale&&today===actualToday&&event.status?.type?.state==='in'){
+     event.status.type.state='pre';event.status.type.shortDetail='Score update pending';
+    }
+    merged.set(gameKey,event);
    }
-   merged.set(gameKey,event);
-  }
- }catch(e){console.warn('Published NBA schedule unavailable:',e.message)}
+  }catch(error){console.warn('NBA date archive unavailable:',path,error.message)}
+ }));
  // Cross-source match identity: normalize provider abbreviations and collapse
  // stale scheduled copies when an actual live/final version of the game exists.
  const aliases={NY:'NYK',GS:'GSW',SA:'SAS',NO:'NOP',WSH:'WAS',UTAH:'UTA'};
@@ -279,13 +341,21 @@ async function update(){
   clean.push(e);
   for(const t of teams){const a=verified.get(t)||[];a.push(stamp);verified.set(t,a)}
  }
+ // If the reader switched dates during a network request, discard the stale reply.
+ if(today!==effectiveDay())return;
  if(clean.length){
   render({events:clean});lastOK=Date.now();
-  status.textContent=(successful.length?'LIVE SOURCES · '+successful.join(' + '):'Live feeds unavailable · published snapshot')+' · checked '+new Date(lastOK).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/New_York'})+' ET · refreshes every 30 seconds';
+  status.textContent=(successful.length?'SOURCES · '+successful.join(' + '):'Published NBA archive')+' · '+(chosenDay?prettyDay(fullDay(today))+' · ':'')+'checked '+new Date(lastOK).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/New_York'})+' ET'+(today===actualToday?' · refreshes every 30 seconds':'');
   return;
  }
- status.textContent='NBA score feeds unavailable · no recent game confirmed';
- root.innerHTML='<p class="hub-small">Recent scores could not be verified. <a href="nba-game-center.html">Open the verified game archive</a>.</p>';
+ if(successful.length){
+  root.innerHTML='<p class="hub-small">No NBA games listed for '+esc(prettyDay(fullDay(today)))+'. Choose another date above.</p>';
+  status.textContent='No NBA games listed · '+prettyDay(fullDay(today));
+ }else{
+  status.textContent='NBA dated score feeds unavailable · select another date or try again';
+  root.innerHTML='<p class="hub-small">Could not verify NBA games for '+esc(prettyDay(fullDay(today)))+'. The published archive may not cover this date.</p>';
+ }
+
 }
 // Serialize refreshes, so an older response cannot overwrite a newer live score.
 let refreshPromise=null;
@@ -294,8 +364,9 @@ function refreshLive(){
  refreshPromise=update().catch(error=>console.warn('NBA live refresh failed:',error)).finally(()=>{refreshPromise=null;});
  return refreshPromise;
 }
+initDateNav();
 Promise.allSettled([refreshRecords(),loadPregameElo()]).then(refreshLive);
-setInterval(()=>{if(!document.hidden)loadPregameElo().then(refreshLive)},30000);
+setInterval(()=>{if(!document.hidden&&effectiveDay()===etDay(Date.now()))loadPregameElo().then(refreshLive)},30000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshLive()});
 window.addEventListener('slt:nba-rendered',refreshLive);
 })();
