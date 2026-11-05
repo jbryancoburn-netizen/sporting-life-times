@@ -173,3 +173,72 @@ body.epl-newspaper .epl-leader-row>strong small,body.epl-newspaper #epl-race-wat
 body.epl-newspaper :is(.epl-leader-row,.epl-race-club)>.epl-rank{box-sizing:border-box;width:34px;height:34px;min-width:34px;min-height:34px;padding:3px;font:700 15px/1 Georgia,'Times New Roman',serif;color:var(--slt-place-ivory);background:var(--slt-place-ink)}
 body.epl-newspaper .epl-leader-row .epl-badge{--epl-badge-size:32px;flex-shrink:0}
 @media(max-width:380px){body.epl-newspaper .epl-leader-row,body.epl-newspaper #epl-race-watch .epl-race-club{grid-template-columns:30px minmax(0,1fr) auto;gap:7px;padding:9px 6px}body.epl-newspaper :is(.epl-leader-row,.epl-race-club)>.epl-rank{width:30px;height:30px;min-width:30px;min-height:30px}}
+
+
+/* Premier League front-page editorial hero, 2026-11-05.
+   Scoped to the EPL front page to avoid changing other editions. */
+body.epl-newspaper[data-page="home"] .slt-hero{
+  grid-template-columns:minmax(0,1fr) minmax(440px,.94fr);
+  align-items:center;gap:22px;padding:22px 20px;margin:12px 0 10px;
+  background:transparent!important;border-top:3px double #372c22;
+  border-bottom:3px double #372c22;min-height:0;height:auto;
+}
+body.epl-newspaper[data-page="home"] .slt-hero h1{
+  color:#29241f;font-family:Georgia,'Times New Roman',serif;
+  font-size:clamp(30px,3vw,42px);line-height:1.05;
+}
+body.epl-newspaper[data-page="home"] .slt-hero p{
+  color:#4b4136;font:14px/1.5 Georgia,'Times New Roman',serif;
+  max-width:48ch;
+}
+body.epl-newspaper[data-page="home"] .slt-hero .slt-cta{
+  font:700 12px/1.35 Georgia,'Times New Roman',serif;color:#243d42;
+}
+body.epl-newspaper[data-page="home"] .slt-hero .hero-art{
+  border:3px double #5c4a36!important;border-radius:0!important;
+  background:#f4ead8!important;padding:13px 14px!important;
+  box-shadow:none!important;min-width:0;overflow:visible;
+}
+body.epl-newspaper[data-page="home"] .slt-hero .hero-art:before{
+  content:'RETRO  ·  THE LEADING FOUR';
+  color:#33291e!important;font:700 11px/1.3 Georgia,'Times New Roman',serif!important;
+  letter-spacing:.12em;margin-bottom:13px;
+}
+body.epl-newspaper[data-page="home"] .epl-power-four{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;
+  border-top:1px solid #b9a98f;border-bottom:1px solid #b9a98f;
+}
+body.epl-newspaper[data-page="home"] .slt-hero-club{
+  padding:13px 5px 11px;min-width:0;gap:0;color:#31271e!important;
+  border-right:1px solid #c4b69d;
+}
+body.epl-newspaper[data-page="home"] .slt-hero-club:last-child{border-right:0}
+body.epl-newspaper[data-page="home"] .slt-hero-club img{
+  width:66px!important;height:66px!important;aspect-ratio:1/1;
+  flex:none;box-sizing:border-box;object-fit:contain;border-radius:50%!important;
+}
+body.epl-newspaper[data-page="home"] .slt-hero-club strong{
+  color:#25211c!important;opacity:1!important;
+  font:700 clamp(18px,1.7vw,25px)/1.15 Georgia,'Times New Roman',serif!important;
+  margin-top:12px;letter-spacing:-.025em;
+}
+body.epl-newspaper[data-page="home"] .slt-hero-club small{
+  color:#4c3c2f!important;opacity:1!important;
+  font:12px/1.3 Georgia,'Times New Roman',serif!important;
+  overflow-wrap:anywhere;margin-top:6px;
+}
+body.epl-newspaper[data-page="home"] .slt-hero-art-note{
+  color:#5b4c3d!important;opacity:1!important;
+  font:11px/1.3 Georgia,'Times New Roman',serif!important;margin-top:11px;
+}
+@media(max-width:970px){
+  body.epl-newspaper[data-page="home"] .slt-hero{grid-template-columns:1fr;gap:12px}
+}
+@media(max-width:520px){
+  body.epl-newspaper[data-page="home"] .slt-hero{padding:14px 9px}
+  body.epl-newspaper[data-page="home"] .slt-hero .hero-art{padding:10px 7px!important}
+  body.epl-newspaper[data-page="home"] .slt-hero-club{padding:10px 2px}
+  body.epl-newspaper[data-page="home"] .slt-hero-club img{width:clamp(38px,12vw,56px)!important;height:clamp(38px,12vw,56px)!important}
+  body.epl-newspaper[data-page="home"] .slt-hero-club strong{font-size:clamp(14px,4vw,20px)!important}
+  body.epl-newspaper[data-page="home"] .slt-hero-club small{font-size:10px!important}
+}
