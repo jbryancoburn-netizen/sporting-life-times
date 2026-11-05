@@ -20,7 +20,7 @@ try{
 const [reg,cross,colors,opponents]=await Promise.all([
   ...['data/mbb-logo-registry.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json?v=ncaa-two-rings-20261101b']
     .map(p=>fetch(p,{cache:'no-cache'}).then(x=>{if(!x.ok)throw Error(p+' '+x.status);return x.json()})),
-  fetch('data/mbb-out-of-division-opponent-logos.json?v=opponent-identity-20261104',{cache:'no-cache'})
+  fetch('data/mbb-out-of-division-opponent-logos.json?v=opponent-identity-20261105-frostburg',{cache:'no-cache'})
     .then(x=>x.ok?x.json():{teams:{}}).catch(()=>({teams:{}}))
 ]);
 if(Object.keys(reg.teams||{}).length!==365||cross.teams?.length!==365)throw Error('Incomplete 365-team logo registry');
