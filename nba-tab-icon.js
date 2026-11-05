@@ -1,1 +1,1 @@
-(()=>{const l=document.createElement('link');l.rel='icon';l.type='image/svg+xml';l.href='slt-favicon.svg?v=20261105';document.querySelectorAll('link[rel="icon"]').forEach(x=>x.remove());document.head.append(l)})();
+(()=>{const l=document.createElement('link');l.rel='icon';l.type='image/svg+xml';l.href='slt-monogram-favicon.svg?v=20261105b';document.querySelectorAll('link[rel="icon"]').forEach(x=>x.remove());document.head.append(l)})();
