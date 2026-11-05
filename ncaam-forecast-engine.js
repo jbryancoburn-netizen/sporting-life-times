@@ -1,7 +1,7 @@
 /* Deterministic Elo tournament scenario engine. Hypothetical high-v-low seeded
    single-elimination draw, byes to next power of two. NOT official conference formats. */
 window.NCAAMForecast=(()=>{
- const probability=(a,b)=>1/(1+Math.pow(10,-((a.elo-b.elo)/400)));
+ const probability=(a,b)=>window.RETROForecast.probability(a,b,'neutral');
  const bracketSize=n=>2**Math.ceil(Math.log2(Math.max(n,2)));
  const seedPositions=n=>{if(n===1)return [1];const p=seedPositions(n/2);return p.flatMap(x=>[x,n+1-x])};
  function simulate(ranked){
