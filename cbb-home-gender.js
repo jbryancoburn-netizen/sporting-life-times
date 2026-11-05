@@ -25,7 +25,7 @@ links('.slt-index-panel.slt-wide',[
   ['Games & Results','ncaam-slate.html?gender=women'],['Live Gamefile','cbb-game-center.html?gender=women']
 ]);
 links('.slt-index-panel.slt-narrow:nth-child(2)',[
-  ['365-Team Ratings','ncaaw-rankings.html?poll=retro'],['Conference Desk',desk+'#wbb-standings']
+  ['Team Ratings','ncaaw-rankings.html?poll=retro'],['Conference Desk',desk+'#wbb-standings']
 ]);
 links('.slt-index-panel.slt-narrow:nth-child(3)',[
   ['Player Leaders',desk+'#wbb-teams'],['The Arena File',desk+'#wbb-teams']
