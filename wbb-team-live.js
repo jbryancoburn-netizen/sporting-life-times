@@ -88,6 +88,8 @@ function start(teamId,baseGames,siteDisputes,neutralProof){
         if(rank)rank.textContent=Number(ours.elo).toFixed(0);
         if(record)record.textContent=(ours.wins||0)+'–'+(ours.losses||0);
       }
+      // Notify the shared scorebugs when a newer verified women-only RETRO ledger arrives.
+      if(good){w.WBBRetroSnapshot=ratings;w.dispatchEvent(new Event('wbb-retro-refreshed'));}
       const status=host.querySelector('#wbb-result-refresh');
       if(status)status.textContent=merged.matched+' published finals matched to this team schedule'+
         (merged.conflicts.length?' · '+merged.conflicts.length+' identity conflicts withheld':'')+
