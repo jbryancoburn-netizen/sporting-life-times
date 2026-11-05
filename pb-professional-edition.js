@@ -10,7 +10,7 @@ const key=String(query.get('view')||'home').toLowerCase();
 const views=['home','games','standings','rankings','players','matchups','playoffs','teams'];
 const view=views.includes(key)?key:'home';
 const leagueName=league==='euroleague'?'EuroLeague':'Australian NBL';
-document.title=leagueName+' | The Sporting Life & Times · Basketball';
+document.title=leagueName+' | Sporting Life & Times · Basketball';
 const icon=document.querySelector('link[rel=icon]');if(icon)icon.href=league==='euroleague'?'assets/euroleague-tab.svg':'https://en.wikipedia.org/wiki/Special:Redirect/file/NBL_(Australia)_logo.svg';
 const tag=document.querySelector('header .topline span');if(tag)tag.textContent=leagueName+' · 2026–27';
 const edition=document.querySelector('header .edition-line');if(edition)edition.textContent=league==='euroleague'?'The EuroLeague Edition':'The Australian NBL Edition';
@@ -25,7 +25,7 @@ const abbr=s=>String(s).toLowerCase().replace(/[^a-z0-9]/g,'');
 const nav=document.querySelector('header .nav');
 const tabs=[['home','Front Page'],['games','Game Center'],['standings','Standings'],['rankings','USRS Rankings'],['players','Player Leaders'],['matchups','Matchup Lab'],['playoffs','Playoff Picture'],['teams','Club Desks']];
 if(nav){nav.setAttribute('aria-label',leagueName+' newspaper navigation');nav.innerHTML=tabs.map(([k,n])=>'<a href="'+route(k)+'"'+(k===view?' aria-current="page"':'')+'>'+n+'</a>').join('')+'<a href="sports.html">All Sports</a>';}
-const footer=document.querySelector('.footer');if(footer)footer.innerHTML='The Sporting Life &amp; Times · '+leagueName+' · League-specific data and independent Elo · <a href="'+native+'">Original edition</a>';
+const footer=document.querySelector('.footer');if(footer)footer.innerHTML='Sporting Life &amp; Times · '+leagueName+' · League-specific data and independent Elo · <a href="'+native+'">Original edition</a>';
 const pageStamp=document.getElementById('data-stamp'),access=document.getElementById('access-stamp');if(access)access.textContent='Viewed '+stamp(new Date())+' ET';
 const req=async path=>{try{const resp=await fetch(path,{cache:'no-store',signal:AbortSignal.timeout(15000)});return resp.ok?resp.json():null}catch{return null}};
 const loading='<p class="nba-empty">Reading '+leagueName+' verified sources…</p>';el.innerHTML=loading;
