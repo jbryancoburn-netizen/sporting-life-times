@@ -9,14 +9,16 @@ const ranks=women?
   ['Massey Ratings','massey'],['Wins Above Bubble','wab'],['Her Hoop Stats','herhoopstats']]:
  [['RETRO','retro'],['NET','net'],['AP','ap'],['Coaches','coaches'],['Pomeroy','kenpom']];
 for(const nav of navs){
- // One edition switch, inside the navigation rather than a stray line above it.
- nav.parentElement?.querySelectorAll('.cbb-gender-bar').forEach(bar=>bar.remove());
- const bar=document.createElement('div');
- bar.className='cbb-gender-bar cbb-edition-switch';
+ // The edition switch is authored in the page markup; retain it when present.
+ let bar=nav.querySelector('.cbb-edition-switch');
+ if(!bar){
+   bar=document.createElement('div');
+   bar.className='cbb-gender-bar cbb-edition-switch';
+   nav.prepend(bar);
+ }
  bar.setAttribute('role','group');
  bar.setAttribute('aria-label','College basketball edition');
  bar.innerHTML='<a class="cbb-gender-option'+(women?'':' is-active')+'" href="ncaam.html"'+(women?'':' aria-current="page"')+'>Men</a><a class="cbb-gender-option'+(women?' is-active':'')+'" href="ncaam.html?gender=women"'+(women?' aria-current="page"':'')+'>Women</a>';
- nav.prepend(bar);
  // Give each edition its own section destinations. Never silently revert to men.
  const sections=women?{
   'The Front Page':'ncaam.html?gender=women',
