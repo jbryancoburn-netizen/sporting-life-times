@@ -60,7 +60,28 @@ for(const nav of navs){
  }
  bar.setAttribute('role','group');
  bar.setAttribute('aria-label','College basketball edition');
- bar.innerHTML='<a class="cbb-gender-option'+(women?'':' is-active')+'" href="ncaam.html?gender=men"'+(women?'':' aria-current="page"')+'>Men</a><a class="cbb-gender-option'+(women?' is-active':'')+'" href="ncaam.html?gender=women"'+(women?' aria-current="page"':'')+'>Women</a>';
+ const counterParts={
+  'ncaam-slate.html':['ncaam-slate.html?gender=men','ncaam-slate.html?gender=women'],
+  'cbb-game-center.html':['cbb-game-center.html?gender=men','cbb-game-center.html?gender=women'],
+  'cbb-gamefile.html':['cbb-game-center.html?gender=men','cbb-game-center.html?gender=women'],
+  'ncaam-rankings.html':['ncaam-rankings.html','ncaaw-rankings.html'],
+  'ncaaw-rankings.html':['ncaam-rankings.html','ncaaw-rankings.html'],
+  'ncaam-elo.html':['ncaam-rankings.html','ncaaw-rankings.html'],
+  'ncaam-team.html':['ncaam-team.html','ncaaw-team.html'],
+  'ncaaw-team.html':['ncaam-team.html','ncaaw-team.html']
+ };
+ const counterpart=counterParts[page]||['ncaam.html?gender=men','ncaam.html?gender=women'];
+ const linkFor=(index)=>{
+  const dest=new URL(counterpart[index],location.href);
+  if(index===0 && !dest.searchParams.has('gender') && !dest.pathname.includes('ncaam-team'))dest.searchParams.set('gender','men');
+  if(index===1 && !dest.searchParams.has('gender'))dest.searchParams.set('gender','women');
+  if(/rankings.html$/.test(dest.pathname)&&params.has('poll'))dest.searchParams.set('poll',params.get('poll'));
+  if(/-slate.html$/.test(dest.pathname)){
+   for(const key of ['date','day','view'])if(params.has(key))dest.searchParams.set(key,params.get(key));
+  }
+  return dest.pathname.split('/').pop()+dest.search+dest.hash;
+ };
+ bar.innerHTML='<a class="cbb-gender-option'+(women?'':' is-active')+'" href="'+linkFor(0)+'"'+(women?'':' aria-current="page"')+'>Men</a><a class="cbb-gender-option'+(women?' is-active':'')+'" href="'+linkFor(1)+'"'+(women?' aria-current="page"':'')+'>Women</a>';
  // Give each edition its own section destinations. Never silently revert to men.
  const sections=women?{
   'The Front Page':'ncaam.html?gender=women',
