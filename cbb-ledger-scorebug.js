@@ -33,7 +33,7 @@
     periods[period]||period;
   // Keep the canonical period semantics, but use a compact broadcast label in the narrow status column.
   const compactPeriod=index?(quarters?index+'TH QTR':index+'TH HALF'):periodLabel;
-  const displayPeriod=index?(quarters?['','1ST QTR','2ND QTR','3RD QTR','4TH QTR'][index]:['','1ST HALF','2ND HALF','3RD QTR','4TH QTR'][index]):compactPeriod;
+  const displayPeriod=index?(quarters?['','1ST QUARTER','2ND QUARTER','3RD QUARTER','4TH QUARTER'][index]:['','1ST HALF','2ND HALF','3RD QTR','4TH QTR'][index]):compactPeriod;
   const momentum=g.momentum&&typeof g.momentum.text==='string'?g.momentum:null;
   if(halftime)return '<div class="ledger26-status ledger26-status--stack" data-phase="live"><strong class="ledger26-clock ledger26-clock--text">HALFTIME</strong></div>';
   const main=clock||(!periodLabel&&raw!=='LIVE'?raw:'LIVE');
