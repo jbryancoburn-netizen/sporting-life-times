@@ -26,6 +26,7 @@ const teamName=t=>{let id=badges.get(t.team_id);return '<span class="team">'+(id
 const fitted=await get("data/ncaam-score-calibration.json");
 window.NCAAMScores.configure(fitted);
 window.NCAAMScores.configureProfiles(await get("data/ncaam-team-scoring-profiles.json"));
+window.RETROForecast?.setRevision(rating.as_of+'|'+rating.games_played);
 const forecast=(a,b,gameId)=>window.RETROForecast.predict(a,b,{site:'home',gameId});
 const played=ledger?.games||[];
 function render(){
