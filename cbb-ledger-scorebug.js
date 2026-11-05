@@ -31,12 +31,15 @@
   const periodLabel=index?(quarters?['','FIRST QUARTER','SECOND QUARTER','THIRD QUARTER','FOURTH QUARTER'][index]:
     index<=2?['','FIRST HALF','SECOND HALF'][index]:['','','THIRD QUARTER','FOURTH QUARTER'][index]):
     periods[period]||period;
+  // Keep the canonical period semantics, but use a compact broadcast label in the narrow status column.
+  const compactPeriod=index?(quarters?index+'TH QTR':index+'TH HALF'):periodLabel;
+  const displayPeriod=index?(quarters?['','1ST QTR','2ND QTR','3RD QTR','4TH QTR'][index]:['','1ST HALF','2ND HALF','3RD QTR','4TH QTR'][index]):compactPeriod;
   const momentum=g.momentum&&typeof g.momentum.text==='string'?g.momentum:null;
   if(halftime)return '<div class="ledger26-status ledger26-status--stack" data-phase="live"><strong class="ledger26-clock ledger26-clock--text">HALFTIME</strong></div>';
   const main=clock||(!periodLabel&&raw!=='LIVE'?raw:'LIVE');
   return '<div class="ledger26-status ledger26-status--stack" data-phase="live">'+
     '<strong class="ledger26-clock'+(clock?'':' ledger26-clock--text')+'">'+esc(main)+'</strong>'+
-    (periodLabel?'<span class="ledger26-period">'+esc(periodLabel)+'</span>':'')+
+    (periodLabel?'<span class="ledger26-period" title="'+esc(periodLabel)+'" aria-label="'+esc(periodLabel)+'">'+esc(displayPeriod)+'</span>':'')+
     (momentum?'<small class="ledger26-situation ledger26-momentum'+(momentum.kind==='run'?' ledger26-momentum--run':'')+'">'+esc(momentum.text)+'</small>':'')+'</div>';
  }
  function pregamePanel(g){
