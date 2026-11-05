@@ -16,7 +16,7 @@ for(const nav of navs){
  bar.setAttribute('role','group');
  bar.setAttribute('aria-label','College basketball edition');
  bar.innerHTML='<a class="cbb-gender-option'+(women?'':' is-active')+'" href="ncaam.html"'+(women?'':' aria-current="page"')+'>Men</a><a class="cbb-gender-option'+(women?' is-active':'')+'" href="ncaam.html?gender=women"'+(women?' aria-current="page"':'')+'>Women</a>';
- nav.parentElement.insertBefore(bar,nav);
+ nav.prepend(bar);
  // Give each edition its own section destinations. Never silently revert to men.
  const sections=women?{
   'The Front Page':'ncaam.html?gender=women',
@@ -65,7 +65,7 @@ for(const nav of navs){
  toolbar.className='cbb-mobile-toolbar';
  const genderBar=bar;
  nav.parentNode.insertBefore(toolbar,nav);
- if(genderBar)toolbar.appendChild(genderBar);
+ if(genderBar && matchMedia('(max-width: 760px)').matches)toolbar.appendChild(genderBar);
  const mobileButton=document.createElement('button');
  mobileButton.type='button';
  mobileButton.className='cbb-mobile-nav-toggle';
