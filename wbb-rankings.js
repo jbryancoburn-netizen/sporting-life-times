@@ -18,7 +18,7 @@ if(kind==='ap'||kind==='coaches'){
   const pollData=published.polls[kind],teams=directory.teams||[];const byRecord=new Map((ratings?.rankings||[]).map(t=>[String(t.team_id),t]));
   const norm=x=>String(x||'').toLowerCase().replace(/[^a-z0-9]/g,'');
   const aliases={'UConn':'Connecticut','USC':'Southern California','Ole Miss':'Mississippi','NC State':'North Carolina State','TCU':'Texas Christian','LSU':'Louisiana State'};
-  $('#wbbr-status').innerHTML=esc(pollData.title)+' · '+esc(published.type)+' · '+esc(published.as_of)+' · <a href="'+esc(pollData.source_url)+'" target="_blank" rel="noopener noreferrer">'+esc(pollData.source)+'</a>';
+  $('#wbbr-status').innerHTML=esc(pollData.title)+' · '+esc(published.type)+' · '+esc(pollData.published_at||published.as_of)+' · <a href="'+esc(pollData.source_url)+'" target="_blank" rel="noopener noreferrer">'+esc(pollData.source)+'</a>';
   $('#wbbr-list').innerHTML=pollData.rankings.map(item=>{
    const target=norm(aliases[item.team]||item.team);
    const school=teams.find(t=>norm(t.team).startsWith(target));
