@@ -5,7 +5,7 @@ function init(){
  const kind=document.body.dataset.sltFront;if(!kind)return;
  const $=s=>document.querySelector(s);
  const native={
-  cbb:'.cbb-front-edition',euro:'#league-news',epl:'#slt-news',
+  cbb:'.cbb-front-edition',euro:'#league-news',epl:'#slt-news',league:'#league-news',
   nbl:'#league-news',soccer:'#college-soccer-editorial',echl:'#league-news',
   nba:'#slt-nba-front-news',nfl:'#slt-nfl-front-news'
  };
@@ -17,7 +17,7 @@ function init(){
  let wire=null,news=null,directory=null;
  function placement(node){
   const after={
-   cbb:'.slt-department-band',euro:'.slt-department-band',nbl:'.nbl-edition-head',
+   cbb:'.slt-department-band',euro:'.slt-department-band',nbl:'.nbl-edition-head',league:'.hub-intro',
    soccer:'#cs-edition-bar',echl:'.hub-intro',soccerMen:'.soccer-hero',
    front:'.section-strap'
   };
@@ -30,6 +30,16 @@ function init(){
   const head=$('header');if(head)head.after(node);
  }
  function linksForPaper(){
+  if(kind==='league'){
+   // Construct the department register from actual sections, not other sports' navigation.
+   const out=[],seen=new Set();
+   for(const section of document.querySelectorAll('main section[id]')){
+    if(section.id==='league-news'||seen.has(section.id))continue;
+    const label=section.querySelector('h2,h3')?.textContent?.trim().replace(/\\s+/g,' ');
+    if(!label)continue;seen.add(section.id);out.push({href:'#'+section.id,label});
+   }
+   return out.slice(0,14);
+  }
   const nav=kind==='front'?$('.nav'):(kind==='nbl'?$('.nbl-jump'):null)||(kind==='soccer'||kind==='echl'?$('.hub-nav'):null)||$('header nav')||$('nav[aria-label]');
   if(!nav)return [];
   const used=new Set(),out=[];
