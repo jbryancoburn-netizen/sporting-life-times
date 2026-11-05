@@ -96,13 +96,23 @@ function normalizeWomen(rows,rankings,crossList){
       const known=cross.get(id),publishedName=String(g[side+'_name']||'').trim();
       return {id,name:known?.name||publishedName||rating.get(id)?.team||'Team '+id,
        full:rating.get(id)?.team||known?.espn_name||publishedName||'Team '+id,
-       canonical:known?id:'',score:final&&Number.isFinite(Number(points))?Number(points):null};
+       canonical:rating.has(id)?id:known?id:'',score:final&&Number.isFinite(Number(points))?Number(points):null};
     };
+    // Women's predictions use only published women-only RETRO; no men's coefficients.
+    // Historical home advantage is applied only when the game site is verified.
+    const homeRating=rating.get(h),awayRating=rating.get(a);
+    const eligible=!final&&homeRating&&awayRating&&
+      Number.isFinite(Number(homeRating.elo))&&Number.isFinite(Number(awayRating.elo));
+    const court=g.site_verified===true&&g.neutral!==true?
+      Number(rankings?.parameters?.home_edge)||0:0;
+    const p=eligible?1/(1+Math.pow(10,-(Number(homeRating.elo)-Number(awayRating.elo)+court)/400)):null;
     return[{id:cleanId(g.id),day,date:g.date,phase:final?'final':'upcoming',timed:true,
       away:mk(a,g.away_score,'away'),home:mk(h,g.home_score,'home'),venue:g.venue||'',broadcast:g.broadcast||'',
       status:final?'Final':'Scheduled',source:g.score_evidence==='secondary_reported'?
         'Secondary reported final · verification pending':rows.source||'Women’s published game ledger',
-      evidence:g.score_evidence||'reported',kind:'regular',probability:null}];
+      evidence:g.score_evidence||'reported',kind:'regular',probability:p,
+      forecastStatus:p!==null?'PROVISIONAL_NOT_RETRO_HOLDOUT_CALIBRATED':null,
+      neutral:g.neutral===true,site_verified:g.site_verified===true}];
   });
 }
 function normalizeExhibitions(data,crossList){
@@ -550,7 +560,7 @@ const comparison=g=>{
   '. Home W–L excludes neutral sites and games without a verified court.</p></div>';
 };
 const projectedScoreCard=g=>{
- const projection=insight?.projectedScore(g,scoreCalibration,ratings);
+ const projection=women?null:insight?.projectedScore(g,scoreCalibration,ratings);
  if(!projection)return '';
  return '<div class="sl-score-projection"><div><span>THE USRS SCORE FORECAST</span>'+
   '<strong>'+esc(g.away.name)+' '+projection.away+' · '+esc(g.home.name)+' '+projection.home+'</strong></div>'+
@@ -612,7 +622,7 @@ const ledgerScorebug=g=>{
     if(g.phase!=='upcoming'||typeof g.probability!=='number'||!Number.isFinite(g.probability)||g.probability<0||g.probability>1)return null;
     const homeFav=g.probability>=0.5,side=homeFav?g.home:g.away;
     const projection=insight?.projectedScore(g,scoreCalibration,ratings);
-    const margin=Number.isFinite(g.projectedHomeMargin)?Math.abs(g.projectedHomeMargin):null;
+    const margin=women?null:Number.isFinite(g.projectedHomeMargin)?Math.abs(g.projectedHomeMargin):null;
     const team=String(side.name||'').trim();
     return {team,probability:homeFav?g.probability:1-g.probability,
       margin:Number.isFinite(margin)&&margin>0?margin:null};
@@ -643,7 +653,7 @@ function card(original,featured,opened=false){
  const press=g.phase==='upcoming'?'<button type="button" class="slt-team-press-btn" data-slt-ledger-press-open data-game-id="'+esc(g.id)+'" data-day="'+esc(g.day)+'" aria-label="Read pregame press for '+esc(g.away.name)+' at '+esc(g.home.name)+'">PREGAME PRESS ›</button>':'';
  const right=venue||press?'<span class="ledger26-meta-actions">'+venue+press+'</span>':'';
  // RETRO is the only point-spread projection shown.
- const p=insight?.projectedScore(g,scoreCalibration,ratings);
+ const p=women?null:insight?.projectedScore(g,scoreCalibration,ratings);
  const modelMargin=Number.isFinite(g.projectedHomeMargin)?g.projectedHomeMargin:(p&&Number.isFinite(p.home)&&Number.isFinite(p.away)?p.home-p.away:null);
  const spreadText=(margin)=>{
   if(!Number.isFinite(margin))return '—';
@@ -652,7 +662,12 @@ function card(original,featured,opened=false){
   const n=Math.round(Math.abs(margin)*10)/10;
   return esc(name)+' −'+n.toFixed(1).replace(/\.0$/,'');
  };
- const retro=g.phase==='upcoming'?'<span class="ledger26-line" title="Independent RETRO projected margin"><small>RETRO PROJECTION</small><strong>'+spreadText(modelMargin)+'</strong></span>':'';
+ const womenWinForecast=women&&g.phase==='upcoming'&&Number.isFinite(g.probability);
+ const favorite=womenWinForecast?(g.probability>=0.5?g.home.name:g.away.name):'';
+ const retro=g.phase==='upcoming'?(women?
+   '<span class="ledger26-line" title="Women-only RETRO probability; score-margin calibration pending"><small>RETRO WIN CHANCE · PROVISIONAL</small><strong>'+
+     (womenWinForecast?esc(favorite)+' '+Math.round(100*Math.max(g.probability,1-g.probability))+'%':'—')+'</strong></span>':
+   '<span class="ledger26-line" title="Independent RETRO projected margin"><small>RETRO PROJECTION</small><strong>'+spreadText(modelMargin)+'</strong></span>'):'';
  return '<article class="sl-game ledger26-card'+(featured?' ledger26-featured':'')+'">'+
    (when||right?'<div class="ledger26-meta'+(g.phase==='upcoming'?' ledger26-meta--pregame':'')+'">'+when+retro+right+'</div>':'')+
    '<details class="sl-game-expansion ledger26-expand" data-game-id="'+esc(g.id)+'" data-day="'+esc(g.day)+'"'+(opened?' open':'')+'>'+
@@ -733,7 +748,7 @@ const render=()=>{
  document.getElementById('sl-more').hidden=games.length<=shown.length;
  document.getElementById('sl-more').textContent='Show more games ('+(games.length-shown.length)+' remaining)';
  document.getElementById('sl-coverage').textContent=women?
-  'Women’s coverage follows the published rolling scoreboard and independent women’s RETRO ratings.':
+  'Women’s RETRO Elo follows verified women-only finals. Pregame win probabilities are PROVISIONAL; point-score calibration remains pending.':
   'Men’s coverage combines the published scoreboard, verified fixtures and independent 1500-reset RETRO. Exhibitions are excluded from Elo.';
  saveURL();
 };
