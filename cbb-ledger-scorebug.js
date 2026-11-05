@@ -23,11 +23,12 @@
   const periods={'1ST':'FIRST HALF','2ND':'SECOND HALF','FIRST':'FIRST HALF','SECOND':'SECOND HALF',
     '3RD':'THIRD QUARTER','4TH':'FOURTH QUARTER','THIRD':'THIRD QUARTER','FOURTH':'FOURTH QUARTER','OT':'OVERTIME'};
   const womens=String(g.gender||'').toLowerCase()==='women';
+  const quarters=g.periodFormat==='quarters'||womens||/\bQUARTER\b/i.test(raw);
   // NCAA women play four quarters; NCAA men play two halves.
   // ESPN shortDetail frequently sends "1st", "2nd" etc. without the unit.
   const n=(period.match(/^(?:1ST|FIRST|2ND|SECOND|3RD|THIRD|4TH|FOURTH)/)||[])[0];
   const index={'1ST':1,'FIRST':1,'2ND':2,'SECOND':2,'3RD':3,'THIRD':3,'4TH':4,'FOURTH':4}[n];
-  const periodLabel=index?(womens?['','FIRST QUARTER','SECOND QUARTER','THIRD QUARTER','FOURTH QUARTER'][index]:
+  const periodLabel=index?(quarters?['','FIRST QUARTER','SECOND QUARTER','THIRD QUARTER','FOURTH QUARTER'][index]:
     index<=2?['','FIRST HALF','SECOND HALF'][index]:['','','THIRD QUARTER','FOURTH QUARTER'][index]):
     periods[period]||period;
   const momentum=g.momentum&&typeof g.momentum.text==='string'?g.momentum:null;
