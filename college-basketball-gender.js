@@ -28,7 +28,7 @@
   document.title='Women’s College Basketball | The Sporting Life & Times';
   const top=document.querySelector('header .topline span');
   if(top)top.textContent='Women’s Division I · 2026–27';
-  nav.innerHTML='<a href="'+womenURL+'" aria-current="page">Front Page</a><a href="#wbb-games">Daily Schedule</a><a href="cbb-game-center.html?gender=women">Live Game Center</a><a href="#wbb-news">Top Stories</a><a href="#wbb-standings">Conference Standings</a><a href="#wbb-rankings">USRS Rankings</a><a href="#wbb-teams">All 363 Teams</a><a href="sports.html">All Sports</a>';
+  nav.innerHTML='<a href="'+womenURL+'" aria-current="page">Front Page</a><a href="ncaam-slate.html?gender=women">Daily Schedule</a><a href="cbb-game-center.html?gender=women">Live Game Center</a><a href="#wbb-news">Top Stories</a><a href="#wbb-standings">Conference Standings</a><a href="#wbb-rankings">USRS Rankings</a><a href="#wbb-teams">All 363 Teams</a><a href="sports.html">All Sports</a>';
   const footer=document.querySelector('.footer');if(footer)footer.textContent='The Sporting Life & Times · Women’s Division I basketball · Independent 1500-start ratings and sourced women’s results.';
   const app=document.getElementById('app');if(!app)return;
   const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -54,7 +54,6 @@
   const link=id=>'ncaaw-team.html?team='+encodeURIComponent(id);
   let ratings=null,teams=new Map(),games=new Map(),live=new Map(),siteDisputes=new Map(),neutralProof=new Map(),homeProof=new Map(),selected='',manualDate=false,busy=false;
   app.innerHTML='<section class="wbb-edition-lead"><div><div class="eyebrow">Women’s Division I · The national desk</div><h1>The women’s college game.</h1><p>363 programs. Every conference. A clean slate at 1500, and the season’s story as it unfolds.</p></div><div id="wbb-summary" class="wbb-edition-summary">Opening the season ledger…</div></section>'+
-    '<section class="panel" id="wbb-games">'+head('Around the country','The Game Center')+'<div class="wbb-game-controls"><button id="wbb-prev" aria-label="Previous game date">←</button><label>Date <select id="wbb-date"></select></label><button id="wbb-next" aria-label="Next game date">→</button><label>Conference <select id="wbb-game-conf"><option value="">All conferences</option></select></label><label>Team <input id="wbb-game-search" type="search" placeholder="Find a matchup"></label></div><p class="note" id="wbb-score-stamp" role="status">Loading the full women’s season calendar…</p><div id="wbb-score-rail" class="wbb-game-grid"></div></section>'+
     '<div class="grid two"><div class="column"><section class="panel" id="wbb-news">'+head('The national conversation','Across the Women’s Game')+'<div id="wbb-stories">Loading attributed reporting…</div></section><section class="panel" id="wbb-standings">'+head('The conference races','Conference Standings')+'<label class="wbb-team-search">Conference <select id="wbb-conference-select"></select></label><div id="wbb-conference-list"></div></section></div>'+
     '<div class="column"><section class="panel teal" id="wbb-rankings">'+head('Independent ratings · 1500 to start','USRS Women’s Power Board')+'<p class="note" id="wbb-rating-note"></p><div id="wbb-powerboard"></div></section><section class="panel" id="wbb-finals">'+head('The game book','Latest Finals')+'<div id="wbb-recent"></div></section></div></div>'+
     '<section class="panel" id="wbb-teams">'+head('The complete Division I directory','Find Your Women’s Team')+'<label class="wbb-team-search">Search all 363 programs <input id="wbb-team-search" type="search" placeholder="School or conference"></label><div id="wbb-directory-list"></div></section><p class="note wbb-feed-disclosure">Schedules combine women-specific source calendars and cited university checks. Unannounced networks remain TBA; unresolved source discrepancies remain provisional. Scores refresh every minute while this page is open. Elo uses the latest published women-only results.</p>';
@@ -141,13 +140,7 @@
     return [...result.values()].sort((a,b)=>String(a.date).localeCompare(String(b.date)));
   }
   function drawGames(){
-    const all=allGames(),dates=[...new Set(all.map(g=>localDay(g.date)).filter(Boolean))].sort(),dateSelect=document.getElementById('wbb-date');
-    if(!manualDate||!dates.includes(selected))selected=dates.find(d=>d>=today())||dates.at(-1)||today();
-    dateSelect.innerHTML=dates.map(d=>'<option value="'+d+'" '+(d===selected?'selected':'')+'>'+dayLabel(d)+'</option>').join('');
-    const cf=document.getElementById('wbb-game-conf').value,q=document.getElementById('wbb-game-search').value.trim().toLowerCase();
-    const filtered=all.filter(g=>localDay(g.date)===selected&&(!cf||[g.home_id,g.away_id].some(id=>teams.get(String(id))?.conference===cf))&&(!q||[g.home_id,g.away_id].map(id=>teams.get(String(id))?.team||'').join(' ').concat(' '+(g.home_name||'')+' '+(g.away_name||'')).toLowerCase().includes(q)));
-    document.getElementById('wbb-score-rail').innerHTML=filtered.map(card).join('')||empty('No games match these filters.');
-    document.getElementById('wbb-prev').disabled=dates.indexOf(selected)<=0;document.getElementById('wbb-next').disabled=dates.indexOf(selected)>=dates.length-1;
+    const all=allGames();
     document.getElementById('wbb-recent').innerHTML=all.filter(g=>g.status==='final'||g.completed).slice(-6).reverse().map(card).join('')||empty('No completed 2026–27 games have been published yet.');
   }
   const hasFinal=t=>(Number(t?.wins)||0)+(Number(t?.losses)||0)>0;
@@ -194,7 +187,7 @@
         }
       }
       const conferences=[...new Set(r.rankings.map(t=>t.conference).filter(Boolean))].sort();
-      for(const id of ['wbb-conference-select','wbb-game-conf']){const select=document.getElementById(id),old=select.value;select.innerHTML=(id==='wbb-game-conf'?'<option value="">All conferences</option>':'')+conferences.map(c=>'<option>'+esc(c)+'</option>').join('');if(conferences.includes(old))select.value=old;else if(id==='wbb-conference-select')select.value=conferences.includes('Big Ten Conference')?'Big Ten Conference':conferences[0];}
+      {const select=document.getElementById('wbb-conference-select'),old=select.value;select.innerHTML=conferences.map(c=>'<option>'+esc(c)+'</option>').join('');if(conferences.includes(old))select.value=old;else select.value=conferences.includes('Big Ten Conference')?'Big Ten Conference':conferences[0];}
       document.getElementById('wbb-summary').innerHTML='<strong>363 <small>programs</small></strong><strong>'+conferences.length+' <small>conferences</small></strong><strong>'+games.size.toLocaleString()+' <small>season games</small></strong>';
       const activeRatings=r.rankings.filter(hasFinal),unplayed=r.rankings.length-activeRatings.length;
       document.getElementById('wbb-rating-note').textContent=r.games_played?
@@ -212,7 +205,7 @@
       drawDirectory();drawStandings();drawGames();
       const stamp=document.getElementById('data-stamp');if(stamp)stamp.textContent='Women’s edition · '+games.size.toLocaleString()+' season games · Elo '+(r.as_of?'through '+r.as_of:'preseason');
       await refreshLive();
-    }catch(e){document.getElementById('wbb-score-stamp').textContent=e.message+'. Please reload to retry.';}finally{busy=false;}
+    }catch(e){const stamp=document.getElementById('data-stamp');if(stamp)stamp.textContent=e.message+'. Please reload to retry.';}finally{busy=false;}
   }
   async function refreshLive(){
     if(!ratings)return;
@@ -312,10 +305,6 @@
     const access=document.getElementById('access-stamp');
     if(access)access.textContent='Viewed '+fmt(new Date());
   }
-  document.getElementById('wbb-date').addEventListener('change',e=>{selected=e.target.value;manualDate=true;drawGames();});
-  for(const [id,step] of [['wbb-prev',-1],['wbb-next',1]])document.getElementById(id).addEventListener('click',()=>{const select=document.getElementById('wbb-date'),option=select.options[select.selectedIndex+step];if(option){selected=option.value;manualDate=true;drawGames();}});
-  document.getElementById('wbb-game-conf').addEventListener('change',drawGames);
-  document.getElementById('wbb-game-search').addEventListener('input',drawGames);
   document.getElementById('wbb-team-search').addEventListener('input',drawDirectory);
   document.getElementById('wbb-conference-select').addEventListener('change',drawStandings);
   refresh();setInterval(refresh,300000);setInterval(refreshLive,60000);
