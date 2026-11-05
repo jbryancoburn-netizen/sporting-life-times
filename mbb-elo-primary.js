@@ -23,9 +23,10 @@ function renderTable(){
 function renderMatchup(){
  const A=ranked().find(t=>t.team_id===a),B=ranked().find(t=>t.team_id===b);if(!A||!B)return;
  if(A.team_id===B.team_id){$('cbb-matchup-result').textContent='Select two different programs.';return}
- const edge=venue==='a'?100:venue==='b'?-100:0;
- const p=100/(1+10**(((B.elo||1500)-(A.elo||1500)-edge)/400));
- $('cbb-matchup-result').innerHTML='<div class="cbb-matchup-sides"><strong>'+esc(A.team)+'</strong><b>'+p.toFixed(1)+'% · '+(100-p).toFixed(1)+'%</b><strong>'+esc(B.team)+'</strong></div><div class="cbb-matchup-meter"><span style="width:'+p.toFixed(1)+'%"></span></div><p>Independent 1500-start RETRO estimate. Venue adjustment: '+(venue==='neutral'?'none':venue==='a'?'Team A +100 Elo':'Team B +100 Elo')+'. Early-season estimates have limited game evidence.</p>';
+ const site=venue==='a'?'home':venue==='b'?'away':'neutral';
+ const forecast=window.RETROForecast.predict(A,B,{site});
+ const p=100*forecast.homeProbability;
+ $('cbb-matchup-result').innerHTML='<div class="cbb-matchup-sides"><strong>'+esc(A.team)+'</strong><b>'+p.toFixed(1)+'% · '+(100-p).toFixed(1)+'%</b><strong>'+esc(B.team)+'</strong></div><div class="cbb-matchup-meter"><span style="width:'+p.toFixed(1)+'%"></span></div><p>Independent 1500-start RETRO estimate. Venue adjustment: '+(venue==='neutral'?'none':venue==='a'?'Team A +'+window.RETROForecast.homeCourtElo+' Elo':'Team B +'+window.RETROForecast.homeCourtElo+' Elo')+'. Early-season estimates have limited game evidence.</p>';
 }
 function setupMatchups(){
  const options=ranked().slice().sort((x,y)=>x.team.localeCompare(y.team)).map(t=>'<option value="'+esc(t.team_id)+'">'+esc(t.team)+'</option>').join('');

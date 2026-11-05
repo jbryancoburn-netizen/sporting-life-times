@@ -25,8 +25,10 @@ window.NCAAMScores=(()=>{
  };
  const predict=(home,away)=>{
    if(!home||!away||!Number.isFinite(home.elo)||!Number.isFinite(away.elo))return null;
-   const difference=home.elo-away.elo;
-   const homeProbability=1/(1+Math.pow(10,-difference/400));
+   const shared=window.RETROForecast?.predict(home,away,{site:'neutral'});
+   if(!shared)return null;
+   const difference=shared.difference;
+   const homeProbability=shared.homeProbability;
    const expectedMargin=fit.elo_margin_slope*difference;
    const ph=profiles?.get(home.team_id),pa=profiles?.get(away.team_id);
    let mean=fit.mean_team_points;
