@@ -25,3 +25,6 @@
 .slt-index-foot{border-top:1px solid #252019;padding:9px 0;font:11px/1.4 Georgia,serif;color:#62523e}
 @media(max-width:940px){.slt-index-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.slt-index-panel.slt-wide{grid-column:span 4}.slt-index-panel.slt-narrow{grid-column:span 2}.slt-index-panel{border-bottom:1px solid #b6a68c}.slt-index-panel:nth-child(2){border-right:0}}
 @media(max-width:580px){.slt-index-grid{display:block}.slt-index-panel,.slt-index-panel:first-child,.slt-index-panel:last-child{padding:12px 0;border-right:0;border-bottom:1px solid #b6a68c}.slt-index-panel h2{font-size:22px!important}}
+
+/* Main masthead navigation is the single section menu; suppress duplicate department link rails across editions. */
+.slt-department-band .slt-department-links, nav.slt-department-links{display:none!important}
