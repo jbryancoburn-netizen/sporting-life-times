@@ -48,11 +48,8 @@ function eplLedger(g,done){
   '<div class="ledger26-meta"><span>'+esc(g.venue||'Premier League')+'</span>'+
   '<span>'+esc(date(g.kickoff_utc))+' ET</span></div>'+
   '<details class="ledger26-expand"><summary class="ledger26-summary">'+bug+
-  '<span class="ledger26-instruction">OPEN GAME DETAILS +</span></summary>'+
-  '<div class="ledger26-expanded"><p><strong>KICKOFF</strong> '+esc(date(g.kickoff_utc))+' ET · <strong>GROUND</strong> '+esc(g.venue||'Venue not published')+'</p>'+ 
-  '<p><strong>'+esc(away.name)+'</strong> '+esc(standingByName.get(away.name)?.won??'—')+' wins · '+esc(standingByName.get(away.name)?.drawn??'—')+' draws · '+esc(standingByName.get(away.name)?.lost??'—')+' losses</p>'+ 
-  '<p><strong>'+esc(home.name)+'</strong> '+esc(standingByName.get(home.name)?.won??'—')+' wins · '+esc(standingByName.get(home.name)?.drawn??'—')+' draws · '+esc(standingByName.get(home.name)?.lost??'—')+' losses</p>'+ 
-  '<p><a href="'+path+'">OPEN FULL MATCH REPORT ↗</a></p></div>'+
+  '<span class="ledger26-instruction">MATCH STATS · CLICK TO EXPAND +</span></summary>'+
+  '<div class="ledger26-expanded epl-match-stats" aria-live="polite"><p class="epl-stats-note">Open this game to load match statistics.</p></div>'+
   '</details></article>';
 }
 const upcomingTiles=upcomingGames.slice(0,4).map(g=>eplLedger(g,false)).join('');
