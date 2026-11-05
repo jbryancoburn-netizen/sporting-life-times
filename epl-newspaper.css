@@ -242,3 +242,93 @@ body.epl-newspaper[data-page="home"] .slt-hero-art-note{
   body.epl-newspaper[data-page="home"] .slt-hero-club strong{font-size:clamp(14px,4vw,20px)!important}
   body.epl-newspaper[data-page="home"] .slt-hero-club small{font-size:10px!important}
 }
+
+
+/* EPL Victorian forecast register — 2026-11-05. Single owned treatment. */
+body.epl-newspaper #slt-all-forecasts{
+  background:transparent!important;border:3px double #41372b!important;
+  padding:18px 16px 20px!important;box-shadow:none!important;
+}
+body.epl-newspaper #slt-all-forecasts h2{font-family:Georgia,'Times New Roman',serif;color:#2a241d}
+body.epl-newspaper #slt-all-forecasts > .slt-sub{
+  font:13px/1.45 Georgia,'Times New Roman',serif;color:#5c4c3b;
+}
+body.epl-newspaper #forecast-grid{gap:15px!important;align-items:stretch}
+body.epl-newspaper #forecast-grid .hub-match,
+body.epl-newspaper #epl-featured .hub-match{
+  position:relative;background:#f8f0e1!important;color:#30291f!important;
+  border:3px double #705b43!important;border-radius:0!important;
+  box-shadow:inset 0 0 0 5px #f8f0e1,inset 0 0 0 6px #c4b397!important;
+  padding:19px 15px 15px!important;margin:0!important;min-width:0;
+  display:flex;flex-direction:column;overflow:hidden;
+}
+body.epl-newspaper .hub-match::before{
+  content:'THE MATCH FORECAST  ·  RETRO';
+  display:block;text-align:center;letter-spacing:.13em;
+  font:700 10px/1.3 Georgia,'Times New Roman',serif;
+  color:#6a392b;border-bottom:1px solid #b6a389;
+  padding-bottom:8px;margin:0 0 9px;
+}
+body.epl-newspaper .hub-match .hub-small{
+  font:12px/1.45 Georgia,'Times New Roman',serif!important;
+  color:#514536!important;overflow-wrap:anywhere;
+}
+body.epl-newspaper .hub-match > .hub-small:first-of-type{
+  text-align:center;font-size:11px!important;margin:0 0 12px;
+  padding:0 0 9px;border-bottom:1px solid #c6b79b;
+}
+body.epl-newspaper .hub-match-teams{
+  grid-template-columns:minmax(0,1fr) minmax(66px,.57fr) minmax(0,1fr);
+  gap:6px;min-height:116px;align-items:center;
+}
+body.epl-newspaper .hub-club-link{
+  color:#282119!important;text-decoration:none;
+  font:700 13px/1.2 Georgia,'Times New Roman',serif!important;
+  gap:9px;min-width:0;
+}
+body.epl-newspaper .hub-club-link strong{
+  font:700 13px/1.25 Georgia,'Times New Roman',serif!important;
+  color:#30261e;overflow-wrap:anywhere;text-align:center;
+}
+body.epl-newspaper .hub-club-link img{
+  width:62px!important;height:62px!important;aspect-ratio:1/1;
+  object-fit:contain;border-radius:50%!important;box-sizing:border-box;
+}
+body.epl-newspaper .hub-score{
+  font:700 clamp(23px,2vw,31px)/1 Georgia,'Times New Roman',serif!important;
+  color:#30251b!important;text-align:center;white-space:nowrap;
+}
+body.epl-newspaper .hub-score small{
+  margin-top:8px;letter-spacing:.07em;
+  font:700 9px/1.25 Georgia,'Times New Roman',serif!important;
+  color:#6b5643!important;
+}
+body.epl-newspaper .hub-prob{
+  height:8px!important;margin:15px 0 9px!important;
+  border:1px solid #6b5844!important;border-radius:0!important;
+  background:#d8cbb5!important;
+}
+body.epl-newspaper .hub-prob span:first-child{background:#665042!important}
+body.epl-newspaper .hub-prob span:nth-child(2){background:#b3b7ad!important}
+body.epl-newspaper .hub-prob span:last-child{background:#8e3d34!important}
+body.epl-newspaper .hub-prob-labels{
+  font:700 10px/1.3 Georgia,'Times New Roman',serif!important;
+  color:#45362a!important;gap:7px;
+}
+body.epl-newspaper .hub-match > .hub-small:not(:first-of-type){
+  border-top:1px solid #c5b49b;margin:11px 0 0;padding-top:10px;
+}
+body.epl-newspaper .hub-match > a.hub-small{
+  display:block;margin-top:auto!important;padding-top:11px!important;
+  color:#63352d!important;font-weight:700!important;letter-spacing:.035em;
+  text-decoration:underline;text-underline-offset:3px;
+}
+body.epl-newspaper .hub-match a:hover{text-decoration:underline}
+@media(max-width:600px){
+ body.epl-newspaper #slt-all-forecasts{padding:12px 9px!important}
+ body.epl-newspaper #forecast-grid{gap:12px!important}
+ body.epl-newspaper #forecast-grid .hub-match,
+ body.epl-newspaper #epl-featured .hub-match{padding:15px 11px 12px!important}
+ body.epl-newspaper .hub-match-teams{min-height:105px}
+ body.epl-newspaper .hub-club-link img{width:56px!important;height:56px!important}
+}
