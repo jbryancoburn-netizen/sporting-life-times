@@ -617,6 +617,7 @@ const ledgerScorebug=g=>{
  return window.SLTBasketballScorebug?.render({
   phase:g.phase,gender:women?'women':'men',status:g.status||'LIVE',momentum:g.momentum||null,
   date:g.day,tipoff:formatClock(g),venue:g.venue||'',network:g.broadcast||'',suppressPress:true,
+  suppressMonogram:true,suppressTipoffFallback:true,
   forecast:(()=>{
     if(g.phase!=='upcoming'||typeof g.probability!=='number'||!Number.isFinite(g.probability)||g.probability<0||g.probability>1)return null;
     const homeFav=g.probability>=0.5,side=homeFav?g.home:g.away;
@@ -668,7 +669,7 @@ function card(original,featured,opened=false){
  const favorite=womenWinForecast?(g.probability>=0.5?g.home.name:g.away.name):'';
  // The right-hand scorebug rail is the single source for win chance and margin.
  // Keep the published expected score as a compact editorial footer, not a second forecast banner.
- const retro=g.phase==='upcoming'&&!women?
+ const retro=g.phase==='upcoming'&&!women&&Number.isFinite(modelMargin)?
    '<span class="ledger26-line" title="Independent RETRO projected margin"><small>RETRO PROJECTION</small><strong>'+spreadText(modelMargin)+'</strong></span>':'';
  const scoreNote=womenReady?
    '<div class="ledger26-score-note" aria-label="RETRO expected final scores">'+
