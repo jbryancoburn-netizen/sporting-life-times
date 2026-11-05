@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "checked_at_utc": "2026-11-05T08:55:58.108001+00:00",
+  "checked_at_utc": "2026-11-05T16:16:38.576158+00:00",
   "source": "NCAA scoreboard via ncaa-api compatibility endpoint",
   "games": [
     {
@@ -552,14 +552,14 @@
     {
       "match_id": "men-6664835",
       "cohort": "men-d2",
-      "status": "live",
+      "status": "final",
       "home_score": 1,
       "away_score": 2,
       "home_name": "CSU Pueblo",
       "away_name": "Fort Lewis",
       "home_id": "colorado-st-pueblo",
       "away_id": "fort-lewis",
-      "period": "OT",
+      "period": "FINAL (OT)",
       "source_url": "https://www.ncaa.com/game/6664835"
     },
     {
@@ -964,6 +964,19 @@
       "away_id": "longwood",
       "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6666355"
+    },
+    {
+      "match_id": "men-6666567",
+      "cohort": "men-d3",
+      "status": "live",
+      "home_score": 1,
+      "away_score": 0,
+      "home_name": "Salisbury",
+      "away_name": "Warren Wilson",
+      "home_id": "salisbury",
+      "away_id": "warren-wilson-college",
+      "period": "1ST HALF",
+      "source_url": "https://www.ncaa.com/game/6666567"
     },
     {
       "match_id": "women-6607588",
