@@ -53,6 +53,11 @@ async function run(){
   assert(art.includes('--mbb-primary:'+school.primary),'Outside primary school identity '+name);
   assert(art.includes('--mbb-secondary:'+school.secondary),'Outside secondary school identity '+name);
  }
+ assert.equal(outside['112702']?.school,'Frostburg State','Frostburg State must be keyed by its current scoreboard numeric team ID');
+ const frostburgLogo=ctx.window.MBBLogos.byESPN('112702','score','Frostburg State Bobcats');
+ assert(frostburgLogo.includes('Frostburg_paw_logo.png')&&!frostburgLogo.includes('mbb-mark--missing'),
+   'Frostburg State must show its official paw artwork, not initials');
+ assert(frostburgLogo.includes('data-ring-count="2"'),'Frostburg State must retain the existing double-ring shell');
  assert(!ctx.window.MBBLogos.byESPN('126956','score','Grace University Talons').includes('Primary_Logo_.5x.png'),'Outside IDs must never override school name mismatch');
  assert(Object.values(registry.teams).every(t=>!t.ring_override),'Legacy per-school ring exceptions remain');
  assert.equal(kinds.flat,362,'Every visually inspected non-roundel must be classified flat');
