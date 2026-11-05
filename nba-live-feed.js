@@ -53,7 +53,7 @@ const nbaBoxCache=new Map();
 async function loadNBABox(card){
  const id=String(card.dataset.nbaGame||'').replace(/^espn-nba-/,'');
  const out=card.querySelector('.nba-live-stat-content');
- if(!out||!/^\\d{7,12}$/.test(id))return;
+ if(!out||!/^\d{7,12}$/.test(id))return;
  const cached=nbaBoxCache.get(id);
  if(cached&&Date.now()-cached.at<25000){out.innerHTML=cached.html;return}
  out.textContent='Loading live game statistics…';
