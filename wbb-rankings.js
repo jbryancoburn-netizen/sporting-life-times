@@ -20,7 +20,7 @@ if(kind==='ap'||kind==='coaches'){
   const norm=x=>String(x||'').toLowerCase().replace(/[^a-z0-9]/g,'');
   // Official women-specific directory resolves poll abbreviations before crest and record lookup.
   const aliases={'UConn':'UConn','USC':'USC','Ole Miss':'Ole Miss','NC State':'NC State','TCU':'TCU','LSU':'LSU'};
-  const mascots={'Michigan':'Wolverines','Michigan State':'Spartans','Oklahoma':'Sooners','Oklahoma State':'Cowgirls','South Carolina':'Gamecocks','North Carolina':'Tar Heels','NC State':'Wolfpack','USC':'Trojans','UConn':'Huskies','Ole Miss':'Rebels','LSU':'Tigers','TCU':'Horned Frogs'};
+  const mascots={'Texas':'Longhorns','Iowa':'Hawkeyes','Washington':'Huskies','Maryland':'Terrapins','Illinois':'Fighting Illini','Michigan':'Wolverines','Michigan State':'Spartans','Oklahoma':'Sooners','Oklahoma State':'Cowgirls','South Carolina':'Gamecocks','North Carolina':'Tar Heels','NC State':'Wolfpack','USC':'Trojans','UConn':'Huskies','Ole Miss':'Rebels','LSU':'Tigers','TCU':'Horned Frogs'};
   function resolveTeam(label){
    const stem=aliases[label]||label, prefix=norm(stem);
    const candidates=teams.filter(t=>norm(t.team).startsWith(prefix));
