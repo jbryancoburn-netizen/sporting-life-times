@@ -1,10 +1,10 @@
 {
-  "model": "ncaam-venue-neutral-historical-score-v1",
-  "status": "HISTORICAL_HOLDOUT_VALIDATED",
+  "model": "ncaam-venue-neutral-historical-score-v2-uncapped",
+  "status": "EXTRAPOLATION_UNVALIDATED",
   "parameters": {
     "mean_team_points": 72.74794,
     "elo_margin_slope": 0.05681226,
-    "margin_cap": 28,
+    "margin_cap": null,
     "minimum_winner_margin": 1
   },
   "training_seasons": [
@@ -32,6 +32,7 @@
   "known_limits": [
     "Current preseason Elo is player-quality-adjusted, while historical pregame ratings use a simpler replay",
     "No verified court venue, possession totals, player availability, or overtime probabilities",
-    "Model predicts mean scores; final rounded scores are illustrative rather than certainty intervals"
+    "Model predicts mean scores; final rounded scores are illustrative rather than certainty intervals",
+    "The existing historical validation covered the prior capped model; uncapped extreme mismatches have not yet been validated out of sample."
   ]
 }
