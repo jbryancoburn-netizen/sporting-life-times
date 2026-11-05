@@ -33,6 +33,37 @@ for(const nav of navs){
    if(sections[label])link.href=sections[label];
    else if(/Elo History/i.test(label))link.href='ncaam.html?gender=women#wbb-rankings';
  }
+ // Keep internal newspaper links inside the selected edition, including article cards.
+ if(women && !window.__cbbWomenLinkGuard){
+  window.__cbbWomenLinkGuard=true;
+  const targets={
+   'ncaam.html':'ncaam.html?gender=women',
+   'ncaam-slate.html':'ncaam-slate.html?gender=women',
+   'cbb-game-center.html':'cbb-game-center.html?gender=women',
+   'cbb-gamefile.html':'cbb-gamefile.html?gender=women',
+   'ncaam-rankings.html':'ncaaw-rankings.html',
+   'ncaam-elo.html':'ncaaw-rankings.html?poll=retro',
+   'ncaam-conference.html':'ncaam.html?gender=women#wbb-standings',
+   'ncaam-tournament.html':'ncaam.html?gender=women#wbb-rankings',
+   'ncaam-players.html':'ncaam.html?gender=women#wbb-teams',
+   'ncaam-team.html':'ncaam.html?gender=women#wbb-teams',
+   'ncaam-arena.html':'ncaam.html?gender=women#wbb-teams',
+   'ncaam-history.html':'ncaam.html?gender=women#wbb-rankings',
+   'ncaam-rivalry.html':'ncaam.html?gender=women#wbb-games',
+   'ncaam-predictor.html':'ncaam.html?gender=women#wbb-games'
+  };
+  document.addEventListener('click',event=>{
+   const anchor=event.target.closest('a[href]');
+   if(!anchor||event.defaultPrevented||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey||event.button!==0)return;
+   const url=new URL(anchor.href,location.href);
+   if(url.origin!==location.origin||url.searchParams.get('gender')==='men'||!targets[url.pathname.split('/').pop()])return;
+   if(url.searchParams.get('gender')==='women')return;
+   const dest=new URL(targets[url.pathname.split('/').pop()],location.href);
+   if(url.pathname.endsWith('ncaam-rankings.html'))dest.searchParams.set('poll',url.searchParams.get('poll')||'retro');
+   if(url.pathname.endsWith('ncaam-slate.html')&&url.searchParams.has('day'))dest.searchParams.set('day',url.searchParams.get('day'));
+   event.preventDefault();location.assign(dest.href);
+  },true);
+ }
  const links=[...nav.querySelectorAll('a')];
  links.filter(a=>/Live Game Center/i.test(a.textContent)).forEach(a=>a.remove());
  const rating=links.find(a=>/RETRO Rankings|USRS Rankings|Power Index|^Rankings$/i.test(a.textContent.trim()));
