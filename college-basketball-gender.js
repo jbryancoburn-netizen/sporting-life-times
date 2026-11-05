@@ -9,8 +9,8 @@
   const isFront=file==='ncaam.html'||file==='college-basketball.html';
   const menURL='ncaam.html';
   const womenURL='ncaam.html?gender=women';
+  if(women&&params.has('team')&&!isFront){location.replace('ncaaw-team.html?team='+encodeURIComponent(params.get('team')));return;}
   if(women&&!isFront){location.replace(womenURL);return;}
-  if(women&&params.has('team')){location.replace('ncaaw-team.html?team='+encodeURIComponent(params.get('team')));return;}
   const nav=document.querySelector('header .nav')||document.querySelector('main .nav')||document.querySelector('nav')||document.querySelector('main');
   const edition=document.querySelector('header .edition-line');
   if(!nav)return;
