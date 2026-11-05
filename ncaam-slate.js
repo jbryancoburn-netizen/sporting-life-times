@@ -750,11 +750,6 @@ const render=()=>{
  const opened=new Set([...document.querySelectorAll('.sl-game-expansion[open]')].map(d=>d.dataset.day+'|'+d.dataset.gameId));
  document.getElementById('sl-date').textContent=dateLabel(selected,window.matchMedia('(max-width:700px)').matches);
  document.getElementById('sl-count').textContent=games.length+' '+(games.length===1?'game':'games');
- const liveStamp=liveCheckedAt?' · Live scores checked '+new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit',second:'2-digit'}).format(new Date(liveCheckedAt))+' ET':'';
- document.getElementById('sl-data').textContent=(lastUpdate?'Published '+lastUpdate:'Published refresh pending')+liveStamp+
-  (retroPending?' · RETRO PROVISIONAL ('+retroPending+' reported final'+(retroPending===1?'':'s')+') pending verification':'')+
-  (liveCheckError?' · Live scores unavailable; retrying':'')+
-  (!women&&pollAsOf?' · RANKINGS COACHES/AP · '+pollAsOf:'');
  for(const b of document.querySelectorAll('[data-filter]')){const active=b.dataset.filter===filter;b.classList.toggle('is-active',active);b.setAttribute('aria-pressed',String(active));}
  const empty=sourceError?'<div class="sl-empty"><strong>Data source unavailable.</strong><p>'+esc(sourceError)+'</p><button type="button" id="sl-retry">Retry connection</button></div>':
  '<div class="sl-empty"><strong>No games match this view.</strong><p>Change the date or filter. Only source-backed fixtures are shown.</p></div>';
@@ -768,7 +763,7 @@ const render=()=>{
  saveURL();
 };
 async function refresh(){
- if(loading)return;loading=true;const status=document.getElementById('sl-data');status.textContent='Refreshing verified sources…';
+ if(loading)return;loading=true;
  try{
   const menFiles=['data/mbb-live.json','data/ncaam-2026-27-upcoming-forecasts.json','data/ncaam-2026-27-retro-primary.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json','data/mbb-exhibition-finals-2026-27.json','data/mbb-arena-registry.json','data/ncaam-score-calibration.json','data/ncaam-2026-27-national-polls.json','data/mbb-out-of-division-opponent-logos.json'];
   const womenFiles=['data/ncaaw-2026-27-games.json','data/ncaaw-2026-27-retro-primary.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json','data/ncaaw-2026-27-teams.json','data/mbb-live.json','data/mbb-out-of-division-opponent-logos.json','data/ncaaw-score-calibration.json'];
@@ -911,8 +906,6 @@ const originalRender=render;
 const refreshPicker=()=>{document.getElementById('sl-picker').value=selected};
 const changeObserver=new MutationObserver(refreshPicker);changeObserver.observe(document.getElementById('sl-date'),{childList:true});
 document.title=(women?'Women’s':'Men’s')+' College Basketball Games | The Sporting Life & Times';
-document.getElementById('sl-women').classList.toggle('is-active',women);
-document.getElementById('sl-men').classList.toggle('is-active',!women);
 if(women)document.getElementById('sl-filter-exhibitions').hidden=true;
 refresh();setInterval(()=>{if(!document.hidden)refresh()},90000);
 setInterval(()=>{if(!document.hidden&&(selected===today()||(women&&selected<today())))void refreshLive()},30000);
