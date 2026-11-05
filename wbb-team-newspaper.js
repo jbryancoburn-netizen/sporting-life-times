@@ -18,6 +18,8 @@ const reconciled=window.WBBGameResults.merge(baseGames,verifiedFinals,id),games=
 const rating=ratings?.gender==='women'&&ratings?.season==='2026-27'?ratings.rankings?.find(x=>String(x.team_id)===id):null;
 const sorted=games.slice().sort((a,b)=>String(a.date||'').localeCompare(String(b.date||'')));
 const rmap=new Map((ratings?.gender==='women'?ratings.rankings||[]:[]).map(x=>[String(x.team_id),x]));
+// Share the same women-only published ratings with the canonical team scorebugs.
+window.WBBRetroSnapshot=ratings?.model==='retro-clean-slate'&&ratings?.gender==='women'&&ratings?.season==='2026-27'&&ratings?.rankings?.length===363?ratings:null;
 const tvmap=new Map();
 for(const row of scoreboardTV?.gender==='women'&&scoreboardTV?.season==='2026-27'?(scoreboardTV.rows||[]):[]){if(row.game_id&&row.broadcast)tvmap.set(String(row.game_id),row);}
 for(const row of officialTV?.gender==='women'&&officialTV?.season==='2026-27'?(officialTV.rows||[]):[]){if(row.game_id&&row.broadcast&&row.source_url)tvmap.set(String(row.game_id),row);}
@@ -98,7 +100,8 @@ const rows=sorted.map(g=>{
   const result=window.WBBGameResults.scoreFor(g,id);
   const statAvailable=g.completed&&!g.result_conflict&&/^\d+$/.test(String(g.id));
   const state=g.completed?'final':new Date(g.date)<new Date()?'past':'upcoming';
-  const main='<tr class="wbb-game-entry" data-site="'+esc(g.site||'unknown')+'" data-calendar-state="'+state+'" data-opponent="'+esc((g.opponent||opp?.team||'').toLowerCase())+'" data-game-id="'+esc(g.id)+'">'+
+  const court=siteClaims.length?'disputed':neutral||g.site==='neutral'?'neutral':officialHome||g.site_verified===true?'verified-home':'unverified';
+  const main='<tr class="wbb-game-entry" data-site="'+esc(g.site||'unknown')+'" data-team-id="'+esc(id)+'" data-opponent-id="'+esc(g.opponent_id||'')+'" data-home-id="'+esc(g.home_id||'')+'" data-away-id="'+esc(g.away_id||'')+'" data-forecast-venue="'+court+'" data-calendar-state="'+state+'" data-opponent="'+esc((g.opponent||opp?.team||'').toLowerCase())+'" data-game-id="'+esc(g.id)+'">'+
     '<td data-label="Date"><time>'+date+'</time></td>'+
     '<td data-label="Opponent">'+opponent+'</td>'+
     '<td data-label="Arena / City">'+location+'</td>'+
