@@ -101,35 +101,38 @@ async function update(){
   ['NBA official fallback','https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json',fromNba]
  ];
  const merged=new Map(),successful=[];
- for(const [name,url,normalize] of sources){
+ const fetched=await Promise.all(sources.map(async ([name,url,normalize])=>{
+  const ctrl=new AbortController(),timeout=setTimeout(()=>ctrl.abort(),5000);
   try{
-   const ctrl=new AbortController(),timeout=setTimeout(()=>ctrl.abort(),6500);
-   let response;try{response=await fetch(url,{cache:'no-store',signal:ctrl.signal})}finally{clearTimeout(timeout)}
+   const response=await fetch(url,{cache:'no-store',signal:ctrl.signal});
    if(!response.ok)throw Error('HTTP '+response.status);
    const data=normalize(await response.json());
    if(!Array.isArray(data.events))throw Error('invalid events');
-   successful.push(name);
-   for(const event of data.events){
-    const id=String(event.id||'');if(!id||merged.has(id))continue;
-    const when=Date.parse(event.date||'');
-    if(!Number.isFinite(when)||gameDay(when)!==today)continue;
-    const teams=event.competitions?.[0]?.competitors||[];
-    const away=canonicalCode(teams.find(x=>x.homeAway==='away')?.team?.abbreviation);
-    const home=canonicalCode(teams.find(x=>x.homeAway==='home')?.team?.abbreviation);
-    const gameKey=away&&home?away+'-'+home+'-'+new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(when)):id;
-    // A provider that responds first is not necessarily the freshest.
-    // Promote a later LIVE/FINAL state and newer scoring progress for the same fixture.
-    const previous=merged.get(gameKey);
-    const quality=e=>{
-      const state=e.status?.type?.state;
-      const sides=e.competitions?.[0]?.competitors||[];
-      const scores=sides.map(s=>Number(s.score));
-      return (state==='post'?1000000:state==='in'?100000:0)+
-        (scores.length===2&&scores.every(Number.isFinite)?scores[0]+scores[1]:0);
-    };
-    if(!previous||quality(event)>quality(previous))merged.set(gameKey,event);
-   }
-  }catch(e){console.warn('NBA feed failed:',name,e.message)}
+   return {name,events:data.events};
+  }catch(error){console.warn('NBA feed failed:',name,error.message);return null}
+  finally{clearTimeout(timeout)}
+ }));
+ const quality=e=>{
+  const state=e.status?.type?.state;
+  const sides=e.competitions?.[0]?.competitors||[];
+  const scores=sides.map(s=>Number(s.score));
+  return (state==='post'?1000000:state==='in'?100000:0)+
+    (scores.length===2&&scores.every(Number.isFinite)?scores[0]+scores[1]:0);
+ };
+ for(const result of fetched){
+  if(!result)continue;
+  successful.push(result.name);
+  for(const event of result.events){
+   const id=String(event.id||'');if(!id)continue;
+   const when=Date.parse(event.date||'');
+   if(!Number.isFinite(when)||gameDay(when)!==today)continue;
+   const teams=event.competitions?.[0]?.competitors||[];
+   const away=canonicalCode(teams.find(x=>x.homeAway==='away')?.team?.abbreviation);
+   const home=canonicalCode(teams.find(x=>x.homeAway==='home')?.team?.abbreviation);
+   const gameKey=away&&home?away+'-'+home+'-'+gameDay(when):id;
+   const previous=merged.get(gameKey);
+   if(!previous||quality(event)>quality(previous))merged.set(gameKey,event);
+  }
  }
  // Merge the published schedule even when a live provider returns an incomplete set.
  // Never let a successful but partial scoreboard silently erase a scheduled matchup.
@@ -211,7 +214,7 @@ function refreshLive(){
  return refreshPromise;
 }
 Promise.allSettled([refreshRecords(),loadPregameElo()]).then(refreshLive);
-setInterval(()=>{if(!document.hidden)loadPregameElo().then(refreshLive)},60000);
+setInterval(()=>{if(!document.hidden)loadPregameElo().then(refreshLive)},30000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshLive()});
 window.addEventListener('slt:nba-rendered',refreshLive);
 })();
