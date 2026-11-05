@@ -45,12 +45,12 @@
   const formatRecord=p=>p&&Number.isFinite(Number(p.wins))&&Number.isFinite(Number(p.losses))?
     Number(p.wins)+'–'+Number(p.losses):'—';
   const formatRetro=(p,ties)=>window.SLTSportsScorebug.formatRetro(p,ties,363);
-  function renderOne(row,summary,byId,ties,edge){
+  function renderOne(row,summary,byId,ties){
    const opponent=row.querySelector('.wbb-opponent-name')?.textContent?.trim()||'Opponent';
    const opponentCrest=row.querySelector('.wbb-matchup img')?.outerHTML||'';
    const result=row.querySelector('.wbb-result-cell strong')?.textContent?.trim()||'';
    const note=row.querySelector('.wbb-result-source')?.textContent?.trim()||'';
-   const phase=status(row),scores=result.match(/(\\d+)\\s*[–-]\\s*(\\d+)/);
+   const phase=status(row),scores=result.match(/(\d+)\s*[–-]\s*(\d+)/);
    const ourScore=phase==='upcoming'?null:scores?Number(scores[1]):null;
    const theirScore=phase==='upcoming'?null:scores?Number(scores[2]):null;
    const ownRating=byId.get(String(row.dataset.teamId||''));
@@ -66,18 +66,22 @@
    const away=home===ours?opponentTeam:ours;
    const venue=row.dataset.forecastVenue||'unverified';
    let forecast=null,disclosure='';
-   if(phase==='upcoming'&&venue!=='disputed'&&
-      ownRating&&oppRating&&Number.isFinite(Number(ownRating.elo))&&
-      Number.isFinite(Number(oppRating.elo))){
+   if(phase==='upcoming'&&venue!=='disputed'&&ownRating&&oppRating){
     const homeRating=home===ours?ownRating:oppRating;
     const awayRating=home===ours?oppRating:ownRating;
-    const courtAdjustment=venue==='verified-home'?edge:0;
-    const diff=Number(homeRating.elo)-Number(awayRating.elo)+courtAdjustment;
-    const p=1/(1+Math.pow(10,-diff/400));
-    const favourite=p>=0.5?home:away;
-    forecast={team:favourite.name,probability:Math.max(p,1-p)};
-    disclosure='<small class="wbb-retro-provisional">RETRO WIN FORECAST · PROVISIONAL · Point-score calibration pending'+
-      (venue==='unverified'?' · Unverified court treated as neutral':'')+'</small>';
+    const p=window.WBBRetroForecast?.forecast(homeRating,awayRating,venue,
+      window.WBBForecastCalibration,window.WBBRetroSnapshot);
+    if(p){
+     const favourite=p.home_probability>=.5?home:away;
+     forecast={team:favourite.name,probability:Math.max(p.home_probability,p.away_probability),
+       margin:p.calibrated?Math.abs(p.projected_home_margin):null};
+     const label=p.calibrated?'RETRO · HOLDOUT VALIDATED':'RETRO · PROVISIONAL CALIBRATION';
+     disclosure='<small class="wbb-retro-provisional">'+label+
+       (p.calibrated?' · EXPECTED SCORE: '+esc(away.name)+' '+Math.round(p.projected_away_score)+
+         ' · '+esc(home.name)+' '+Math.round(p.projected_home_score):
+         ' · Point-score calibration unavailable')+
+       (venue==='unverified'?' · Unverified court treated as neutral':'')+'</small>';
+    }
    }
    const time=row.cells[3]?.textContent?.trim()||'TIPOFF TBA';
    const markup=window.SLTSportsScorebug.render({phase,gender:'women',
@@ -96,10 +100,9 @@
    const byId=new Map((good?publication.rankings:[]).map(p=>[String(p.team_id),p]));
    const ties=new Map();
    for(const p of byId.values()){const rank=Number(p.rank);if(Number.isInteger(rank))ties.set(rank,(ties.get(rank)||0)+1);}
-   const edge=good&&Number.isFinite(Number(publication.parameters?.home_edge))?
-     Number(publication.parameters.home_edge):0;
+
    for(const {row,summary} of cards.values()){
-    renderOne(row,summary,byId,ties,edge);
+    renderOne(row,summary,byId,ties);
     const current=status(row);
     const shown=(!query||row.dataset.opponent?.includes(query))&&
       (view==='all'||(view==='final'&&current==='final')||(view==='upcoming'&&current!=='final'));
@@ -108,6 +111,7 @@
   }
   renderAll();
   window.addEventListener('wbb-retro-refreshed',renderAll);
+  window.addEventListener('wbb-retro-forecast-ready',renderAll);
   host.classList.add('wbb-table-source-only');
   desk.querySelector('#wbb-calendar-search')?.addEventListener('input',renderAll);
   desk.querySelector('#wbb-calendar-view')?.addEventListener('change',renderAll);
