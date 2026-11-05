@@ -40,3 +40,6 @@
 .score-card .mbb-mark{--mbb-size:44px}.conf-card .mbb-mark{--mbb-size:40px}.big-result .mbb-mark{--mbb-size:72px}
 .cbb-elo-school .mbb-mark,.cbb-elo-power .mbb-mark{--mbb-size:48px}
 @media(max-width:680px){.team-hero .mbb-mark{--mbb-size:84px}.hero-team .mbb-mark{--mbb-size:60px}.cbb-elo-school .mbb-mark,.cbb-elo-power .mbb-mark{--mbb-size:44px}}
+
+/* Columbia International Rams: correct undersized source artwork within the existing two-ring mark. */
+.mbb-mark[data-espn-id="3242"]>img.mbb-mark__img{width:96%!important;height:96%!important;max-width:96%!important;max-height:96%!important}
