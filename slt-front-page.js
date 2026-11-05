@@ -46,7 +46,7 @@ function init(){
   for(const a of nav.querySelectorAll('a[href]')){
    const label=a.textContent.trim().replace(/\s+/g,' ');
    const href=a.getAttribute('href')||'';
-   if(!label||/^(front page|the front page|all sports|sports desks|home|newspaper|latest stories|top stories|latest news)$/i.test(label)||/^#(?:league-news|slt-news|cbb-front-news)$/i.test(href)||samePage(href)||href.startsWith('javascript:'))continue;
+   if((kind==='soccerMen'&&href.startsWith('#'))||!label||/^(front page|the front page|all sports|sports desks|home|newspaper|latest stories|top stories|latest news)$/i.test(label)||/^#(?:league-news|slt-news|cbb-front-news)$/i.test(href)||samePage(href)||href.startsWith('javascript:'))continue;
    const key=href.replace(/\?.*$/,'')+'|'+label.toLowerCase();
    if(used.has(key))continue;used.add(key);out.push({href,label});
   }
@@ -66,7 +66,11 @@ function init(){
   const grid=directory.querySelector('.slt-front-directory-grid');grid.replaceChildren();
   for(const it of items){const a=document.createElement('a');a.href=it.href;a.textContent=it.label;grid.append(a);}
   // The link register follows the day's news, rather than preceding its headlines.
-  if(news.nextElementSibling!==directory)news.after(directory);
+  if(kind==='soccerMen'){
+   const main=$('main'),footer=main?.querySelector(':scope > footer');
+   if(footer&&directory.nextElementSibling!==footer)footer.before(directory);
+   else if(main&&!footer&&directory.parentElement!==main)main.append(directory);
+  }else if(news.nextElementSibling!==directory)news.after(directory);
  }
  function positionNative(){
   const current=pickFirst();if(!current)return false;
