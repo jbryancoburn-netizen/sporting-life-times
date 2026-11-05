@@ -184,7 +184,9 @@
     if(Number.isFinite(m.probability)){
       const favor=m.probability>=.5?g.home:g.away;
       const prob=m.probability>=.5?m.probability:1-m.probability;
-      pct='<strong class="cbb-model-favorite">'+esc(code(favor))+' '+Math.round(prob*100)+'% pregame</strong>';
+      pct='<strong class="cbb-model-favorite">'+esc(code(favor))+' '+Math.round(prob*100)+'% pregame</strong>'+
+        (!women&&Number.isInteger(m.projectedAwayScore)&&Number.isInteger(m.projectedHomeScore)?
+        '<small>RETRO projected score · '+esc(code(g.away))+' '+m.projectedAwayScore+' – '+esc(code(g.home))+' '+m.projectedHomeScore+'</small>':'');
     }
     return '<div class="cbb-usrs-module"><div class="cbb-usrs-title"><b>RETRO</b><span>INDEPENDENT ELO'+(state.preseason?' · CLEAN SLATE':' · MODEL')+'</span></div>'+
       '<div class="cbb-usrs-values"><span>'+esc(code(g.away))+' <strong>'+a+'</strong></span>'+
