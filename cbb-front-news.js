@@ -10,8 +10,8 @@ const time=a=>{let d=new Date(a.published_at);return Number.isFinite(+d)?d.toLoc
 const article=(a,i)=>{let href;try{let u=new URL(a.url);if(!/^https?:$/.test(u.protocol))return '';href=clean(u.href)}catch{return ''}return '<article class="cbb-news-story '+(i===0?'lead':'')+'"><p class="cbb-news-eyebrow">'+clean(a.source||'College basketball')+(time(a)?' · '+clean(time(a)):'')+'</p><h3><a href="'+href+'" target="_blank" rel="noopener noreferrer">'+clean(a.title)+'</a></h3>'+(a.summary&&!low(a)?'<p class="cbb-news-description">'+clean(a.summary.slice(0,235))+'</p>':'')+'</article>'};
 async function refresh(){const [national,bigTen,dedicated]=await Promise.all([get('articles.json'),get('data/mbb-team-news/big-ten.json'),get('data/cbb-national-news.json')]);let sources=[...(dedicated?.articles||[]),...(national?.articles||[]),...(bigTen?.articles||[])].filter(relevant);
 const womens=new URLSearchParams(location.search).get('gender')==='women';
-const explicitWomen=a=>/\\b(?:women(?:'s|’s|s)?|lady|ladies|NCAAW|WBB)\\b/i.test((a.title||'')+' '+(a.summary||'')) && /\\b(?:basketball|hoops|NCAAW|WBB|lady|ladies)\\b/i.test((a.title||'')+' '+(a.summary||''));
-const explicitMen=a=>/\\b(?:men(?:'s|’s|s)? basketball|MBB)\\b/i.test((a.title||'')+' '+(a.summary||''));
+const explicitWomen=a=>/\b(?:women(?:'s|’s|s)?|lady|ladies|NCAAW|WBB)\b/i.test((a.title||'')+' '+(a.summary||'')) && /\b(?:basketball|hoops|NCAAW|WBB|lady|ladies)\b/i.test((a.title||'')+' '+(a.summary||''));
+const explicitMen=a=>/\b(?:men(?:'s|’s|s)? basketball|MBB)\b/i.test((a.title||'')+' '+(a.summary||''));
 if(womens){
   // Feed ingestion can mislabel school news as men, even when the headline explicitly says women.
   sources=sources.filter(a=>explicitWomen(a)||(a.gender==='women'&&!explicitMen(a)));
