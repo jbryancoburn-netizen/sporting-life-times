@@ -58,5 +58,5 @@ async function refresh(){try{
  snapshots={feed,ratings,brands,palette};render();
  }catch(err){if(!snapshots)root.replaceChildren(el('p','Source-backed soccer reporting is temporarily unavailable.','cs-edit-note'));console.warn('College soccer editorial',err)}}
 window.addEventListener('college-soccer:edition',render);
-refresh();setInterval(()=>{if(document.visibilityState==='visible')refresh()},300000);
+refresh();setInterval(()=>{if(document.visibilityState==='visible')refresh()},60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh()});
 })();
