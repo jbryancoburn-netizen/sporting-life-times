@@ -217,7 +217,7 @@ function playoff(){
   const seed=i+1;
   return '<a href="'+tl(t)+'" class="nba-race-team" style="--race-color:'+meta[t][3]+'" aria-label="'+esc('#'+seed+' '+name(t)+', '+rec(t)+', RETRO '+rank(t))+'">'+
    '<span class="nba-race-seed">'+seed+'</span>'+
-   '<span class="nba-race-crest nba-brand-badge" style="--nba-club-color:'+meta[t][3]+'">'+logoImg(t)+'</span>'+
+   '<span class="nba-race-crest">'+logoImg(t)+'</span>'+
    '<span class="nba-race-identity"><strong>'+esc(name(t))+'</strong><small>'+esc(meta[t][2])+' · RETRO #'+rank(t)+'</small></span>'+
    '<span class="nba-race-numbers"><b class="nba-race-record">'+rec(t)+'</b><small>'+percentage(t)+' PCT</small></span></a>';
  };
