@@ -345,7 +345,7 @@ try{
    row.addEventListener('keydown',e=>{if(e.target===row&&(e.key==='Enter'||e.key===' ')){e.preventDefault();toggle();}});
   });
  }
- host.addEventListener('click',e=>{const btn=e.target.closest('.slt-team-press-btn');if(!btn)return;e.preventDefault();e.stopPropagation();window.SLTSportsScorebug?.openPress({gender:'men',home:{name:btn.dataset.pressHome},away:{name:btn.dataset.pressAway}});},true);
+ if(typeof host.addEventListener==='function')host.addEventListener('click',e=>{const btn=e.target.closest('.slt-team-press-btn');if(!btn)return;e.preventDefault();e.stopPropagation();window.SLTSportsScorebug?.openPress({gender:'men',home:{name:btn.dataset.pressHome},away:{name:btn.dataset.pressAway}});},true);
  search.addEventListener('input',filter);view.addEventListener('change',filter);filter();
  host.dataset.scheduleLoaded=selected;
  if(!host.dataset.calendarPolling){host.dataset.calendarPolling='true';setInterval(()=>{if(!document.hidden)refreshCalendar();},60000);}
