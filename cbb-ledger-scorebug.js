@@ -57,24 +57,66 @@
     (margin?'<span class="ledger26-pregame-edge">'+margin+'</span><span class="ledger26-pregame-caption">RETRO EDGE</span>':'')+
     '</div>';
  }
+ const pressCache=new Map();
+ const pressGender=g=>String(g.gender||document?.body?.dataset?.gender||(new URLSearchParams(location.search).get('gender'))||'men').toLowerCase().includes('wom')?'women':'men';
+ function pressNames(team){
+  const full=String(team?.name||'').trim();
+  const arr=[full,full.replace(/\\b(?:Wildcats|Hoosiers|Bulldogs|Tigers|Bears|Eagles|Huskies|Panthers|Cardinals|Spartans|Aggies|Cowboys|Cougars|Golden Eagles|Redhawks|Broncos|Falcons|Terriers|Hawkeyes|Cornhuskers|Gators|Seminoles|Buckeyes|Wolverines|Pirates|Knights|Ducks|Bruins|Trojans|Mountaineers|Rams|Deacons|Rebels|Blue Devils|Tar Heels|Crimson Tide)\\b/gi,'').trim()];
+  if(team?.shortName)arr.push(String(team.shortName));
+  return [...new Set(arr.map(x=>x.toLowerCase()).filter(x=>x.length>=4))];
+ }
+ function exactMention(txt,term){return new RegExp('(^|[^a-z])'+term.replace(/[.*+?^${}()|[\\]\\\\]/g,'\\$&')+'(?=$|[^a-z])','i').test(txt)}
+ async function pressArticles(g){
+  const gender=pressGender(g);
+  const paths=gender==='women'?['data/cbb-women-front-news.json','data/cbb-national-news.json']:['data/cbb-men-front-news.json','data/cbb-national-news.json'];
+  const key=gender;
+  let promise=pressCache.get(key);
+  if(!promise){
+   promise=Promise.all(paths.map(async path=>{try{const response=await fetch(path+'?press='+Math.floor(Date.now()/300000),{cache:'no-store'});if(!response.ok)return [];const data=await response.json();return Array.isArray(data.articles)?data.articles:[]}catch{return []}})).then(groups=>groups.flat());
+   pressCache.set(key,promise);
+   setTimeout(()=>pressCache.delete(key),300000);
+  }
+  const articles=await promise;
+  const namesA=pressNames(g.away),namesH=pressNames(g.home),now=Date.now(),seen=new Set();
+  return articles.filter(a=>{
+   if(!a.title||!a.url||!a.source)return false;
+   if(gender==='women'&&a.gender==='men'||gender==='men'&&a.gender==='women')return false;
+   let url;try{url=new URL(a.url,location.href);if(!/^https?:$/.test(url.protocol))return false}catch{return false}
+   const when=Date.parse(a.published_at||'');if(!Number.isFinite(when)||when>now+86400000||now-when>12*86400000)return false;
+   const content=String(a.title||'')+' '+String(a.summary||'');
+   const both=namesA.some(x=>exactMention(content,x))&&namesH.some(x=>exactMention(content,x));
+   if(!both)return false;
+   if(!/\\b(preview|pregame|pre-game|matchup|game notes|scouting|versus|vs\\.?|faces|hosts|travels to|set to face|takes on|ahead of)\\b/i.test(content))return false;
+   if(/\\b(recap|postgame|post-game|final score|defeats|defeated|beats|beat|highlights|odds|betting|parlay)\\b/i.test(a.title))return false;
+   const id=url.href;if(seen.has(id))return false;seen.add(id);return true;
+  }).sort((a,b)=>Date.parse(b.published_at)-Date.parse(a.published_at)).slice(0,6);
+ }
  function preview(g){
-  const away=g.away||{},home=g.home||{},f=g.forecast||{};
+  const away=g.away||{},home=g.home||{};
   const match=(away.name||'Away')+' at '+(home.name||'Home');
   const when=[g.date,g.tipoff||g.time,g.venue||g.arena,g.network||g.tv].filter(Boolean).map(esc).join(' · ');
-  const team=x=>'<div class="ledger26-preview-side"><strong>'+esc(x.name||'Team')+'</strong><span>'+esc(x.record||'Record unavailable')+'</span><span>'+esc(x.retro||'RETRO rating unavailable')+'</span></div>';
-  let forecast='<p class="ledger26-preview-unavailable">RETRO forecast not yet available.</p>';
-  if(typeof f.team==='string'&&Number.isFinite(f.probability)&&f.probability>=0&&f.probability<=1){
-    const pct=Math.round(f.probability*100);
-    forecast='<p><strong>'+esc(f.team)+'</strong> · '+pct+'% win probability'+(Number.isFinite(f.margin)?' · projected margin '+(f.margin>=0?'+':'')+esc(f.margin.toFixed(1))+' points':'')+'</p>';
-  }
-  return '<button type="button" class="ledger26-preview-link" data-slt-preview-open aria-label="Open game preview for '+esc(match)+'">GAME PREVIEW ›</button>'+
-   '<dialog class="ledger26-preview-dialog" aria-label="Preview: '+esc(match)+'"><div class="ledger26-preview-paper">'+
-   '<div class="ledger26-preview-heading"><span>SPORTING LIFE &amp; TIMES · THE MATCHUP FILE</span><button type="button" data-slt-preview-close aria-label="Close preview">×</button></div>'+
+  return '<button type="button" class="ledger26-preview-link" data-slt-preview-open aria-label="Read pregame press for '+esc(match)+'">PREGAME PRESS ›</button>'+
+   '<dialog class="ledger26-preview-dialog" aria-label="Pregame press: '+esc(match)+'" data-slt-press-away="'+esc(away.name||'')+'" data-slt-press-home="'+esc(home.name||'')+'" data-slt-press-gender="'+esc(pressGender(g))+'"><div class="ledger26-preview-paper">'+
+   '<div class="ledger26-preview-heading"><span>SPORTING LIFE &amp; TIMES · FROM THE PRESS BOX</span><button type="button" data-slt-preview-close aria-label="Close pregame press">×</button></div>'+
    '<h2>'+esc(match)+'</h2>'+(when?'<p class="ledger26-preview-meta">'+when+'</p>':'')+
-   '<div class="ledger26-preview-teams">'+team(away)+team(home)+'</div>'+
-   '<h3>THE RETRO OUTLOOK</h3>'+forecast+
-   '<p class="ledger26-preview-note">Predictions use the latest available published ratings. Actual outcomes may differ.</p>'+
+   '<h3>THE PREGAME PRESS</h3><div class="ledger26-press-stories" aria-live="polite"><p>Checking published matchup coverage…</p></div>'+
+   '<p class="ledger26-preview-note">Original reporting remains with its publisher. Headlines link to the source; no articles are fabricated.</p>'+
    '</div></dialog>';
+ }
+ async function loadPress(dialog){
+  const target=dialog?.querySelector('.ledger26-press-stories');if(!target)return;
+  target.innerHTML='<p>Checking published matchup coverage…</p>';
+  try{
+   const game={away:{name:dialog.dataset.sltPressAway},home:{name:dialog.dataset.sltPressHome},gender:dialog.dataset.sltPressGender};
+   const articles=await pressArticles(game);
+   if(!dialog.open)return;
+   if(!articles.length){target.innerHTML='<p class="ledger26-preview-unavailable">No verified matchup-specific pregame articles are currently available in the newspaper wire. New coverage will appear here as the feed updates.</p>';return}
+   target.innerHTML=articles.map(a=>{
+    const href=esc(new URL(a.url,location.href).href);
+    const date=new Date(a.published_at).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+    return '<article class="ledger26-press-story"><small>'+esc(a.source)+' · '+esc(date)+'</small><a href="'+href+'" target="_blank" rel="noopener noreferrer">'+esc(a.title)+'</a></article>';
+   }).join('');
+  }catch{target.innerHTML='<p class="ledger26-preview-unavailable">The pregame news wire is temporarily unavailable.</p>'}
  }
  if(typeof document!=='undefined'&&!document.__sltPreviewClickBound){
   document.__sltPreviewClickBound=true;
@@ -83,7 +125,7 @@
    if(open){
     e.preventDefault();e.stopPropagation();
     const dialog=open.closest('.ledger26-scorebug')?.querySelector('.ledger26-preview-dialog');
-    if(dialog&&typeof dialog.showModal==='function')dialog.showModal();
+    if(dialog&&typeof dialog.showModal==='function'){dialog.showModal();loadPress(dialog)}
     return;
    }
    const close=e.target.closest('[data-slt-preview-close]');
@@ -115,6 +157,6 @@
  }
  // The Daily Ledger is the universal newspaper model, not a separate sport skin.
  // Keep the old alias for existing college basketball pages.
- root.SLTSportsScorebug={render,formatRetro,version:'shared-letterpress-v11-preview'};
+ root.SLTSportsScorebug={render,formatRetro,version:'shared-letterpress-v12-pregame-press'};
  root.SLTBasketballScorebug=root.SLTSportsScorebug;
 })(typeof window!=='undefined'?window:globalThis);
