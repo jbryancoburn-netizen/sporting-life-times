@@ -1,25 +1,46 @@
-/* RETRO D-I men's basketball forecast core. Shared by rankings, predictor, and bracket.
-   Team-only 1500-reset ratings stay unchanged. Venue points are provisional until holdout calibration.
-   Optional scoring inputs cannot change win probability without independent validation. */
+/* Sporting Life & Times — ONE men's Division I RETRO forecast calculation.
+   All 365 teams: independent in-season 1500-start RETRO ratings only.
+   Preliminary scoring/venue constants are not historically holdout calibrated. */
 (function(root,factory){
-  const api=factory();
-  if(typeof module==='object'&&module.exports)module.exports=api;
-  root.RETROForecast=api;
+ const api=factory();
+ if(typeof module==='object'&&module.exports)module.exports=api;
+ root.RETROForecast=api;
 })(typeof globalThis!=='undefined'?globalThis:this,function(){
-  'use strict';
-  const version='retro-forecast-1.0';
-  const homeCourtElo=100; // Legacy public matchup convention; NOT validated.
-  function predict(a,b,options={}){
-    if(!Number.isFinite(Number(a?.elo))||!Number.isFinite(Number(b?.elo)))return null;
-    const site=options.site||'neutral';
-    if(!['neutral','home','away'].includes(site))throw Error('Invalid RETRO site: '+site);
-    const venue=site==='home'?homeCourtElo:site==='away'?-homeCourtElo:0;
-    const difference=Number(a.elo)-Number(b.elo)+venue;
-    const probability=1/(1+Math.pow(10,-difference/400));
-    return {homeProbability:probability,awayProbability:1-probability,
-      difference,venueAdjustment:venue,site,model:version,
-      status:'PROVISIONAL_NOT_HOLDOUT_CALIBRATED'};
-  }
-  return Object.freeze({version,homeCourtElo,predict,
-    probability:(a,b,site='neutral')=>predict(a,b,{site})?.homeProbability??null});
+ 'use strict';
+ const version='retro-men-2026-27-v2';
+ const homeCourtElo=100,meanTeamPoints=72,eloMarginSlope=1/25;
+ const cache=new Map();
+ let revision='unversioned';
+ function setRevision(next){
+  const id=String(next||'unversioned');
+  if(revision!==id){revision=id;cache.clear();}
+  return revision;
+ }
+ function predict(a,b,options={}){
+  if(!Number.isFinite(Number(a?.elo))||!Number.isFinite(Number(b?.elo)))return null;
+  const site=options.site||'neutral';
+  if(!['neutral','home','away'].includes(site))throw Error('Invalid RETRO court: '+site);
+  const adjusted=site==='home'?homeCourtElo:site==='away'?-homeCourtElo:0;
+  const difference=Number(a.elo)-Number(b.elo)+adjusted;
+  const key=[version,revision,String(options.gameId||''),String(a.team_id||a.id||''),
+   String(b.team_id||b.id||''),Number(a.elo),Number(b.elo),site].join('|');
+  if(cache.has(key))return cache.get(key);
+  const homeProbability=1/(1+Math.pow(10,-difference/400));
+  const margin=eloMarginSlope*difference;
+  const homeScore=Math.max(1,Math.round(meanTeamPoints+margin/2));
+  const awayScore=Math.max(1,Math.round(meanTeamPoints-margin/2));
+  const forecast=Object.freeze({model:version,revision,gameId:options.gameId||null,
+   homeProbability,awayProbability:1-homeProbability,
+   homeScore,awayScore,expectedMargin:margin,difference,
+   venueAdjustment:adjusted,site,status:'PROVISIONAL_NOT_HOLDOUT_CALIBRATED'});
+  cache.set(key,forecast);
+  return forecast;
+ }
+ function forecastGame(game,ratings,options={}){
+  const get=id=>ratings instanceof Map?ratings.get(String(id)):ratings?.[String(id)];
+  const home=get(game.home_id),away=get(game.away_id);
+  return home&&away?predict(home,away,{site:game.site||'neutral',gameId:game.id,...options}):null;
+ }
+ return Object.freeze({version,homeCourtElo,setRevision,predict,forecastGame,
+  probability:(a,b,site='neutral')=>predict(a,b,{site})?.homeProbability??null});
 });
