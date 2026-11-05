@@ -99,11 +99,11 @@ body.epl-newspaper #slt-news .epl-news-photo{display:block;width:100%;aspect-rat
 /* Race tables retain the same row rhythm at narrow phone widths. */
 .epl-newspaper #epl-race-watch .epl-race-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:22px}
 .epl-newspaper #epl-race-watch .epl-race-card{min-width:0;border-top:1px solid var(--line);padding-top:12px}
-.epl-newspaper #epl-race-watch .epl-race-card h3{font:24px/1.15 'Libre Caslon Display',Georgia,serif;margin:0 0 10px}
-.epl-newspaper #epl-race-watch .epl-race-club{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:12px;min-width:0;padding:9px 0;border-bottom:1px solid var(--line)}
+.epl-newspaper #epl-race-watch .epl-race-card h3{font:normal 24px/1.15 Georgia,'Times New Roman',serif;margin:0 0 14px}
+.epl-newspaper #epl-race-watch .epl-race-club{display:grid;grid-template-columns:34px minmax(0,1fr) auto;align-items:center;gap:10px;min-width:0;min-height:62px;box-sizing:border-box;padding:10px 8px;margin-bottom:7px;border:1px solid var(--line);background:var(--slt-surface,#f8f1e4)}
 .epl-newspaper #epl-race-watch .epl-race-identity{display:flex;align-items:center;gap:9px;min-width:0;font:600 12px/1.35 'DM Sans',Arial,sans-serif}
 .epl-newspaper #epl-race-watch .epl-race-identity>span:last-child{min-width:0;overflow-wrap:break-word}
-.epl-newspaper #epl-race-watch .epl-race-club>strong{font:26px/1 'Barlow Condensed',Arial,sans-serif;white-space:nowrap;text-align:right;min-width:50px;font-variant-numeric:tabular-nums}
+.epl-newspaper #epl-race-watch .epl-race-club>strong{font:normal 24px/1 'Barlow Condensed',Arial,sans-serif;white-space:nowrap;text-align:right;min-width:50px;font-variant-numeric:tabular-nums}
 .epl-newspaper #epl-race-watch .epl-race-club>strong small{font:500 10px 'DM Sans',Arial,sans-serif;color:var(--muted)}
 .epl-newspaper #epl-race-watch .epl-race-context{font:11px/1.55 'DM Sans',Arial,sans-serif;color:var(--muted);margin:10px 0 0}
 .epl-newspaper #epl-race-watch .epl-badge{--epl-badge-size:32px}
@@ -157,3 +157,13 @@ body.epl-newspaper .epl-register-row .epl-register-value{font:normal 24px/1 'Bar
   #epl-power-board .epl-register-row>.epl-register-record{grid-column:2;grid-row:2;text-align:left!important}
   #epl-power-board .epl-register-row>.epl-register-secondary{grid-column:3;grid-row:2;text-align:right!important}
 }
+
+/* Secondary registers share the player file's boxed Victorian rows. */
+body.epl-newspaper .epl-leader-row{display:grid;grid-template-columns:34px minmax(0,1fr) auto;align-items:center;gap:10px;min-height:62px;box-sizing:border-box;padding:10px 8px;margin-bottom:7px;border:1px solid var(--line);background:var(--slt-surface,#f8f1e4)}
+body.epl-newspaper .epl-leader-row .epl-team{font:600 12px/1.35 'DM Sans',Arial,sans-serif;min-width:0;gap:9px}
+body.epl-newspaper .epl-leader-row .epl-team>span:last-child{overflow-wrap:normal;word-break:normal;min-width:0}
+body.epl-newspaper .epl-leader-row>strong{font:normal 24px/1 'Barlow Condensed',Arial,sans-serif;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+body.epl-newspaper .epl-leader-row>strong small,body.epl-newspaper #epl-race-watch .epl-race-club>strong small{font:normal 10px/1.4 'DM Sans',Arial,sans-serif;color:var(--muted)}
+body.epl-newspaper :is(.epl-leader-row,.epl-race-club)>.epl-rank{box-sizing:border-box;width:34px;height:34px;min-width:34px;min-height:34px;padding:3px;font:700 15px/1 Georgia,'Times New Roman',serif;color:var(--slt-place-ivory);background:var(--slt-place-ink)}
+body.epl-newspaper .epl-leader-row .epl-badge{--epl-badge-size:32px;flex-shrink:0}
+@media(max-width:380px){body.epl-newspaper .epl-leader-row,body.epl-newspaper #epl-race-watch .epl-race-club{grid-template-columns:30px minmax(0,1fr) auto;gap:7px;padding:9px 6px}body.epl-newspaper :is(.epl-leader-row,.epl-race-club)>.epl-rank{width:30px;height:30px;min-width:30px;min-height:30px}}
