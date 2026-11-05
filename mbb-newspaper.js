@@ -30,6 +30,7 @@ const valid=d=>d?.season==='2026-27'&&d.rankings?.length===365&&new Set(d.rankin
 const retroPublication=await get('data/ncaam-2026-27-retro-primary.json');
 const retroValid=retroPublication?.season==='2026-27'&&retroPublication?.model==='retro-clean-slate'&&retroPublication?.rankings?.length===365&&new Set(retroPublication.rankings.map(t=>t.team_id)).size===365&&retroPublication.rankings.every(t=>t.base_elo===1500&&Number.isFinite(t.elo));
 if(!retroValid&&!valid(pre)){ $('#app').innerHTML='<div class="error">2026–27 basketball ratings could not be loaded. <button onclick="location.reload()">Try again</button></div>';return; }
+window.RETROForecast?.setRevision(retroPublication?.as_of+'|'+retroPublication?.games_played);
 const retroPreseason=retroValid&&retroPublication.games_played===0&&retroPublication.rankings.every(t=>t.elo===1500);
 const retroInSeason=retroValid&&retroPublication.games_played>0&&retroPublication.starting_elo===1500&&retroPublication.status!=='preseason-all-tied';
 let live=Boolean(retroInSeason);
@@ -85,6 +86,8 @@ function gamefileCard(g,upcoming=false,conference=false){
  const meta=conference?' slt-fixture-meta':'';
  const attrs=conference?' data-fixture-event="'+esc(id)+'" data-fixture-day="'+esc(day)+'"':'';
  const secondary=conference?'<span class="slt-fixture-tipoff">TIME TBA</span><span class="slt-fixture-network">TV TBA</span>':'';
+ const retro=phase==='upcoming'?window.RETROForecast?.predict(home,away,{site:/neutral/i.test(String(g.venue||''))?'neutral':'home',gameId:id||g.id}):null;
+ const forecastText=retro?'<p class="note slt-retro-game-forecast">RETRO · '+esc(home.team)+' '+(retro.homeProbability*100).toFixed(1)+'% · '+esc(away.team)+' '+(retro.awayProbability*100).toFixed(1)+'% · projected '+esc(away.team)+' '+retro.awayScore+'–'+retro.homeScore+' '+esc(home.team)+'</p>':'';
  const data=id?'<div class="slt-mbb-inline" data-mbb-id="'+esc(id)+'" data-mbb-day="'+esc(day)+'" data-mbb-away="'+esc(away.team)+'" data-mbb-home="'+esc(home.team)+'" data-mbb-away-score="'+(final?esc(g.away_score):'')+'" data-mbb-home-score="'+(final?esc(g.home_score):'')+'" data-mbb-phase="'+phase+'"><p>Open this game to retrieve verified scoring and game statistics.</p></div>':'<p>Verified event-level statistics are not linked for this fixture.</p>';
  return '<article class="ledger26-card'+(conference?' slt-conference-game':'')+'"><div class="ledger26-meta'+meta+'"'+attrs+'><span class="ledger26-time">'+esc(day)+'</span>'+secondary+'</div>'+
   '<details class="ledger26-expand"><summary class="ledger26-summary">'+
