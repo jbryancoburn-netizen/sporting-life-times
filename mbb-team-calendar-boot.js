@@ -28,6 +28,10 @@ try{
  const rankMaps=Object.fromEntries(['coaches','ap'].map(k=>[k,new Map((polls?.polls?.[k]?.rankings||[]).map(p=>[canon(p.team),p.rank]))]));
  const badges=(...names)=>{const n=names.map(canon),find=k=>{for(const v of n){const r=rankMaps[k].get(v);if(r)return r;}return null;};const c=find('coaches'),a=find('ap');return c||a?'<span class="victorian-poll-rank" title="Coaches / AP rankings">'+(c?'#'+c:'—')+'/'+(a?'#'+a:'—')+'</span>':'';};
  const data=await load(path);
+ const verified=await load('data/cbb-verified-broadcasts-2026-27.json').catch(()=>({entries:[]}));
+ const verifiedNetworks=new Map((verified.entries||[]).filter(x=>x.network).map(x=>[String(x.id),x.network]));
+ for(const event of data.events||[]){const network=verifiedNetworks.get(String(event.id||'').replace(/^espn:/,''));if(network&&!event.broadcast)event.broadcast=network;}
+
  const valid=(data.events||[]).filter(e=>e.date&&e.competitions?.[0]?.competitors?.length>=2);
  const officialClock=s=>/^(?:(?:[01]?\d|2[0-3]):[0-5]\d(?:\s*(?:a\.?m\.?|p\.?m\.?))?|\d{1,2}\s*(?:a\.?m\.?|p\.?m\.?)|noon|midnight)(?:\s*(?:ET|CT|MT|PT|EST|EDT|CST|CDT|MST|MDT|PST|PDT))?$/i.test(String(s||'').trim());
  const dateLabel=s=>/^(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun)[a-z]*\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s+\d{1,2}$/i.test(String(s||'').trim());
