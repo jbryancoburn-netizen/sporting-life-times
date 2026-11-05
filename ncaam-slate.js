@@ -590,7 +590,17 @@ const ledgerScorebug=g=>{
    crest:emblem(t),color:brand(t),record:record(t),retro:retroLine(t),
    poll:pollRankings.get(String(t.id))||null});
  return window.SLTBasketballScorebug?.render({
-  phase:g.phase,status:g.status||'LIVE',momentum:g.momentum||null,away:convert(g.away),home:convert(g.home)
+  phase:g.phase,status:g.status||'LIVE',momentum:g.momentum||null,
+  forecast:(()=>{
+    if(g.phase!=='upcoming'||typeof g.probability!=='number'||!Number.isFinite(g.probability)||g.probability<0||g.probability>1)return null;
+    const homeFav=g.probability>=0.5,side=homeFav?g.home:g.away;
+    const projection=insight?.projectedScore(g,scoreCalibration,ratings);
+    const margin=projection?Math.abs(Number(projection.home)-Number(projection.away)):null;
+    const rawName=String(side.name||'').trim();
+    const team=rawName.length>8?rawName.slice(0,8):rawName;
+    return {team,probability:homeFav?g.probability:1-g.probability,
+      margin:Number.isFinite(margin)&&margin>0?margin:null};
+  })(),away:convert(g.away),home:convert(g.home)
  })||'<p class="sl-empty">Scorebug temporarily unavailable. Refresh the page.</p>';
 };
 // The independently refreshed slate can lag a verified game summary.
