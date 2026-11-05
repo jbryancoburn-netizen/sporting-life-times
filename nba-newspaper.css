@@ -850,7 +850,15 @@ body.nba-newspaper .nba-home-club .team-link img{width:35px;height:35px;flex:non
 body.nba-newspaper .nba-home-club .team-link span{min-width:0;white-space:normal;overflow-wrap:normal}
 body.nba-newspaper .nba-home-record,body.nba-newspaper .nba-home-rating{text-align:right;font:700 12px/1.2 Georgia,serif;font-variant-numeric:tabular-nums}
 body.nba-newspaper .nba-home-rating{font-size:13px}
-body.nba-newspaper .nba-score-rail{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,350px),1fr));gap:12px}
+body.nba-newspaper .nba-score-rail{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
 body.nba-newspaper .nba-score-rail .nba-expand-game{width:100%;min-width:0}
 body.nba-newspaper .nba-score-rail .nba-expand-trigger,body.nba-newspaper .nba-score-rail .ledger26-scorebug{width:100%;min-width:0}
 @media(max-width:620px){body.nba-newspaper .nba-score-rail{grid-template-columns:1fr}body.nba-newspaper .nba-home-row{grid-template-columns:19px minmax(0,1fr) 42px 54px;gap:5px}body.nba-newspaper .nba-home-club .team-link img{width:30px;height:30px}body.nba-newspaper .nba-home-club .team-link{font-size:12px}body.nba-newspaper .nba-home-rating{font-size:12px}}
+
+/* NBA scores share the full horizontal CBB letterpress proportions. */
+body.nba-newspaper .nba-score-rail .nba-expand-game{max-width:none;min-width:0;margin:0}
+body.nba-newspaper .nba-score-rail .ledger26-scorebug{box-sizing:border-box;grid-template-columns:52px minmax(0,1fr) 114px;min-height:122px;--ledger26-crest-size:48px;--ledger26-team-min-height:57px}
+body.nba-newspaper .nba-score-rail .ledger26-name{white-space:normal;overflow-wrap:break-word}
+body.nba-newspaper .nba-score-rail .ledger26-teams{min-width:0}
+@media(max-width:1000px){body.nba-newspaper .nba-score-rail{grid-template-columns:1fr}}
+@media(max-width:620px){body.nba-newspaper .nba-score-rail .ledger26-scorebug{grid-template-columns:37px minmax(0,1fr) 77px;--ledger26-crest-size:39px;--ledger26-team-min-height:54px}}
