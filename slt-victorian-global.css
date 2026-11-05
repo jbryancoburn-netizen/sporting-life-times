@@ -1,8 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,700;6..96,800;6..96,900&display=swap');
 /* Sporting Life & Times — cross-edition Victorian editorial system. Non-destructive: existing live renderers remain in place. */
 :root{--slt-paper:#f1e7d5;--slt-ink:#29231c;--slt-rule:#ae9b7f;--slt-red:#86372e;--slt-surface:#f8f1e4;--slt-surface-alt:#e9dcc8;--slt-accent:#53605a;--slt-highlight:#8b6c45}
 body{background-color:var(--slt-paper);color:var(--slt-ink)}
 body :is(.wrap,.slt-wrap,.page-wrap,.shell,.sl-shell){max-width:1500px}
-body :is(.masthead,.slt-masthead){font-family:Georgia,'Times New Roman',serif!important;letter-spacing:-.045em!important}
+body :is(.masthead,.slt-masthead,.sl-masthead) :is(a,h1){font-family:'Bodoni Moda','Didot','Bodoni MT',Georgia,serif!important;font-weight:800!important;letter-spacing:-.055em!important;font-variant-ligatures:common-ligatures} body :is(.masthead,.slt-masthead,.sl-masthead) i{font-family:inherit!important}
 body :is(.edition-line,.slt-edition-line){font-family:Georgia,'Times New Roman',serif!important;text-transform:uppercase;letter-spacing:.12em}
 body :is(.grid,.slt-columns,.columns){column-gap:0}
 body :is(.grid,.slt-columns) > :is(.column,.slt-column){min-width:0}
