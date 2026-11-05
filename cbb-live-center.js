@@ -320,6 +320,15 @@
     return window.SLTBasketballScorebug?.render({
       phase:g.phase,status:g.phase==='live'?(g.headline||'LIVE'):
        g.phase==='final'?'FINAL':'UPCOMING',
+      gender:women?'women':'men',
+      forecast:(()=>{
+       if(g.phase!=='upcoming')return null;
+       const m=modelFor(g);
+       if(!m||!Number.isFinite(m.probability))return null;
+       const homeFavorite=m.probability>=0.5;
+       const team=homeFavorite?schoolLabel(g.home):schoolLabel(g.away);
+       return {team,probability:homeFavorite?m.probability:1-m.probability};
+      })(),
       away:toLetterpressTeam(g.away,g),home:toLetterpressTeam(g.home,g)
     })||'<p class="cbb-empty">Scorebug unavailable. Refresh the page.</p>';
   }
