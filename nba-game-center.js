@@ -85,7 +85,7 @@ async function boot(){
   const games=(archive.games||[]).filter(g=>g.state==='post'&&g.teams?.length>=2).sort((a,b)=>String(b.date).localeCompare(String(a.date)));
   const selector=$('games');selector.innerHTML='';
   for(const g of games){const a=g.teams.find(t=>t.home_away==='away'),h=g.teams.find(t=>t.home_away==='home');const option=document.createElement('option');option.value=g.id;option.textContent=(a?.code||'Away')+' '+a?.score+' at '+(h?.code||'Home')+' '+h?.score+' · '+fmt(g.date);selector.appendChild(option)}
-  function select(id){const g=games.find(x=>x.id===id)||games[0];if(!g)return;selector.value=g.id;render(g,elo.events||[],elo.rankings||[]);history.replaceState(null,'','?game='+encodeURIComponent(g.id))}
+  function select(id){const g=games.find(x=>x.id===id)||games[0];if(!g)return;selector.value=g.id;render(g,elo.events||[],elo.rankings||[]);const url=new URL(location.href);url.searchParams.set('game',g.id);history.replaceState(null,'',url.pathname+url.search+url.hash)}
   selector.addEventListener('change',()=>select(selector.value));
   select(new URLSearchParams(location.search).get('game'));
  }catch(e){$('game').textContent='Game information unavailable: '+e.message}
