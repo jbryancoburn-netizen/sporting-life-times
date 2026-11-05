@@ -26,12 +26,13 @@ function draw(){
    return '<tr data-name="'+enc(String(p.name||'').toLowerCase())+'" data-position="'+enc(String(p.position||'').toUpperCase())+'"><td class="nba-roster-name"><span class="nba-roster-photo">'+image+'</span><strong>'+enc(p.name)+'</strong></td>'+
    '<td>'+enc(p.jersey||'—')+'</td><td>'+enc(p.position||'—')+'</td><td>'+enc(p.height||'—')+'</td><td>'+enc(p.weight||'—')+'</td><td>'+enc(p.age??'—')+'</td><td>'+status+injury+'</td></tr>';
  }).join('');
- panel.innerHTML='<div class="nba-roster-heading"><div><div class="eyebrow">Official lineup desk · 2026–27</div><h2>Current Team Roster <span>'+players.length+'</span></h2><p>Last verified: '+enc(time(team?.updated_at))+'</p></div><a target="_blank" rel="noopener" href="'+enc(source)+'">Roster source ↗</a></div>'+
+ const wasOpen=panel.querySelector('details')?.open||false;
+ panel.innerHTML='<details class="nba-roster-fold"'+(wasOpen?' open':'')+'><summary class="nba-roster-heading"><span class="nba-roster-summary-title">2026–27 Team Roster <b>'+players.length+' players</b></span><span class="nba-roster-expand-cue">View / Hide Roster ▾</span></summary><div class="nba-roster-body"><div class="nba-roster-source">Last verified: '+enc(time(team?.updated_at))+' · <a target="_blank" rel="noopener" href="'+enc(source)+'">Roster source ↗</a></div>'+
  (stale?'<p class="nba-roster-alert">Source temporarily unavailable: last successfully verified roster retained.</p>':'')+
  (players.length?'<div class="nba-roster-controls"><label>Search players <input id="nba-roster-search" type="search" placeholder="Player name" autocomplete="off"></label><label>Filter by position <select id="nba-roster-position"><option value="">All positions</option>'+options+'</select></label></div>'+
  '<div class="nba-roster-scroll"><table><thead><tr><th>Player</th>'+cols.map(x=>'<th>'+x[0]+'</th>').join('')+'</tr></thead><tbody>'+rows+'</tbody></table></div>':
  '<p class="nba-roster-alert">The current roster feed has not produced a validated team list yet. Previous box-score participants are deliberately not displayed as current roster members.</p>')+
- '<p class="nba-roster-caption">Current team membership is sourced from team roster data, not inferred from historical games or player-stat leaderboards.</p>';
+ '<p class="nba-roster-caption">Current team membership is sourced from team roster data, not inferred from historical games or player-stat leaderboards.</p></div></details>';
  function filter(){const name=panel.querySelector('#nba-roster-search')?.value.trim().toLowerCase()||'';const pos=(panel.querySelector('#nba-roster-position')?.value||'').toUpperCase();panel.querySelectorAll('tbody tr').forEach(tr=>{tr.hidden=!(tr.dataset.name.includes(name)&&(!pos||tr.dataset.position===pos));});}
  panel.querySelector('#nba-roster-search')?.addEventListener('input',filter);
  panel.querySelector('#nba-roster-position')?.addEventListener('change',filter);
