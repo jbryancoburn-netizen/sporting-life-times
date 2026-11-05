@@ -5,7 +5,7 @@
 const host=document.getElementById('sl-games');
 if(!host)return;
 const verified=new Map([["401909726","ESPN2"],["401917177","BTN"],["401916287","Peacock"],["401919804","truTV"],["401925754","Peacock"],["401909491","ESPN+"],["401913526","FS1"],["401909501","truTV"],["401909739","truTV"],["401925031","ESPN+"],["401909563","ACC Network"],["401906770","SEC Network+"],["401906864","SEC Network+"],["401909717","ACCNX"],["401921747","ESPN+"],["401921094","ESPN+"]]);
-const pending=v=>!String(v||'').trim()||/^(?:TV\\s*)?(?:TBA|TBD|unknown|not announced|network unverified)$/i.test(String(v).trim());
+const pending=v=>!String(v||'').trim()||/^(?:TV\s*)?(?:TBA|TBD|unknown|not announced|network unverified)$/i.test(String(v).trim());
 function school(el){
  if(!el)return '';
  const copy=el.cloneNode(true);
