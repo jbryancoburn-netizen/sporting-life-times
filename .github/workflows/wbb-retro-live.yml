@@ -12,6 +12,7 @@ on:
       - '.github/workflows/wbb-retro-live.yml'
       - 'scripts/wbb-season.py'
       - 'scripts/publish-wbb-retro.js'
+      - 'tests/test_wbb_live_pipeline.py'
       # Trigger the women-only publisher when the NCAA-origin relay snapshot is refreshed.
       # This closes gaps when GitHub's best-effort cron jobs are delayed/dropped.
       - 'data/mbb-live.json'
