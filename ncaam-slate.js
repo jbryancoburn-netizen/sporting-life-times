@@ -761,12 +761,24 @@ async function refreshLive(){
   (women?'womens-college-basketball':'mens-college-basketball')+
   '/scoreboard?groups=50&limit=1000&dates='+day.replaceAll('-','');
  try{
-  const raw=await fetchJSON(path);
-  if(!Array.isArray(raw?.events))throw Error('Live scoreboard unavailable');
+  // The published scoreboard includes verified out-of-division opponents that
+  // ESPN's Division I group endpoint can omit. Always fetch both independently.
+  const [publishedResult,apiResult]=await Promise.allSettled([
+   fetchJSON('data/mbb-live.json'),fetchJSON(path)
+  ]);
   if(selected!==day)return;
-  liveBoard=liveEvents(raw,day,cross,women,retroPublished?.rankings,loaded);
+  const published=publishedResult.status==='fulfilled'?publishedResult.value:null;
+  const raw=apiResult.status==='fulfilled'?apiResult.value:null;
+  if(!published&&!Array.isArray(raw?.events))throw Error('Both live scoreboard feeds unavailable');
+  const publishedLive=!women&&Array.isArray(published?.games)?
+   normalizeMen(published,null,cross,outsideMarks).filter(g=>g.day===day&&g.phase!=='upcoming'):[];
+  const apiLive=Array.isArray(raw?.events)?
+   liveEvents(raw,day,cross,women,retroPublished?.rankings,loaded):[];
+  // Reconcile only matching event/team IDs and never regress a score.
+  liveBoard=reconcileLive(publishedLive,apiLive);
   refreshRETRO();
-  liveCheckedAt=Date.now();liveCheckError='';
+  liveCheckedAt=Date.now();
+  liveCheckError=raw?'':(publishedLive.length?'Live API partial; using published score feed':'Live API unavailable');
  }catch(err){if(selected===day)liveCheckError=String(err?.message||'Current scores unavailable');}
  finally{liveRequest=false;if(selected===day)render()}
 }
