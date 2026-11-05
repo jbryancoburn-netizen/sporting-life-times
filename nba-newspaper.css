@@ -476,22 +476,20 @@ body.nba-newspaper[data-page="home"] .nba-leader-club .nba-leader-team>img[hidde
 body.nba-newspaper[data-page="home"] .nba-leader-club .nba-leader-team>span{display:block!important;min-width:0!important;white-space:normal!important;font:600 10px/1.3 Arial,sans-serif!important}
 
 
-/* NBA front-page Power Four: responsive, non-overlapping club badges and Elo.
-   Scoped here so the shared college and women's layouts remain unchanged. */
+/* NBA front page: one source of layout rules for the Power Four and season register.
+   Every team name and ranking is its own field, not a non-wrapping combined label. */
 body.nba-newspaper[data-page="home"] #app .hero{
   display:grid;
   grid-template-columns:minmax(0,1.2fr) minmax(360px,.9fr);
   align-items:center;
-  gap:clamp(18px,2.5vw,32px);
+  gap:clamp(16px,2.5vw,30px);
 }
-body.nba-newspaper[data-page="home"] #app .hero>div:first-child{
-  min-width:0;
-}
+body.nba-newspaper[data-page="home"] #app .hero>div:first-child{min-width:0}
 body.nba-newspaper[data-page="home"] #app .hero-art{
   box-sizing:border-box;
   display:grid;
   grid-template-columns:repeat(4,minmax(0,1fr));
-  align-items:start;
+  align-items:stretch;
   gap:10px;
   width:100%;
   min-width:0;
@@ -500,19 +498,17 @@ body.nba-newspaper[data-page="home"] #app .hero-art{
   border-radius:0;
   background:none;
 }
-body.nba-newspaper[data-page="home"] #app .hero-art::before{
-  content:none!important;
-  display:none!important;
-}
+body.nba-newspaper[data-page="home"] #app .hero-art::before{content:none;display:none}
 body.nba-newspaper[data-page="home"] #app .hero-team{
   display:flex;
   flex-direction:column;
   align-items:center;
-  justify-content:center;
+  justify-content:flex-start;
+  gap:6px;
   min-width:0;
-  gap:5px;
-  padding:8px 0;
+  padding:7px 4px;
   text-align:center;
+  text-decoration:none;
   overflow:visible;
 }
 body.nba-newspaper[data-page="home"] #app .hero-team img{
@@ -525,88 +521,110 @@ body.nba-newspaper[data-page="home"] #app .hero-team img{
   aspect-ratio:1/1;
   object-fit:contain;
 }
-body.nba-newspaper[data-page="home"] #app .hero-team strong{
+body.nba-newspaper[data-page="home"] #app .nba-hero-copy{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:3px;
+  width:100%;
+  min-width:0;
+}
+body.nba-newspaper[data-page="home"] #app .nba-hero-copy strong{
   display:block;
-  color:#183a43;
-  font:700 clamp(22px,2.35vw,29px)/1.05 'Barlow Condensed',Arial,sans-serif;
+  color:#2d332e;
+  font:700 clamp(22px,2.35vw,29px)/1.05 Georgia,serif;
   font-variant-numeric:tabular-nums;
-  letter-spacing:0;
   white-space:nowrap;
 }
-body.nba-newspaper[data-page="home"] #app .hero-team small{
+body.nba-newspaper[data-page="home"] #app .nba-hero-name{
   display:block;
-  color:#5c6d70;
-  font:700 10px/1.3 'DM Sans',Arial,sans-serif;
+  max-width:100%;
+  color:#41443d;
+  font:600 11px/1.25 Georgia,serif;
+  white-space:normal;
+  overflow-wrap:break-word;
+}
+body.nba-newspaper[data-page="home"] #app .nba-hero-copy small{
+  display:block;
+  color:#75634e;
+  font:600 10px/1.2 Georgia,serif;
   white-space:nowrap;
+}
+/* The fourth old counter repeated the same count as verified games.
+   Three figures make a compact newspaper register rather than four dashboard cards. */
+body.nba-newspaper[data-page="home"] #app .nba-front-stats{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:0;
+  margin:12px 0 17px;
+  background:#f6eedf;
+  border-top:3px double #514739;
+  border-bottom:3px double #514739;
+}
+body.nba-newspaper[data-page="home"] #app .nba-front-stats .metric{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  min-width:0;
+  padding:12px clamp(8px,1.5vw,18px);
+  border-right:1px solid #baa991;
+  border-bottom:0;
+}
+body.nba-newspaper[data-page="home"] #app .nba-front-stats .metric:last-child{border-right:0}
+body.nba-newspaper[data-page="home"] #app .nba-front-stats .metric b{
+  display:block;
+  color:#302c25;
+  font:700 clamp(25px,3vw,38px)/1 Georgia,serif;
+  font-variant-numeric:tabular-nums;
+}
+body.nba-newspaper[data-page="home"] #app .nba-front-stats .metric span{
+  display:block;
+  margin-top:5px;
+  color:#784e3a;
+  font:600 10px/1.3 Georgia,serif;
+  letter-spacing:.055em;
+  text-transform:uppercase;
+  overflow-wrap:break-word;
 }
 @media(max-width:960px){
-  body.nba-newspaper[data-page="home"] #app .hero{
-    grid-template-columns:minmax(0,1fr);
-    gap:14px;
-  }
-  body.nba-newspaper[data-page="home"] #app .hero-art{
-    padding-top:12px;
-    border-top:1px solid #cbd2ce;
-  }
-  body.nba-newspaper[data-page="home"] #app .hero-team img{
-    width:60px;
-    height:60px;
-  }
+  body.nba-newspaper[data-page="home"] #app .hero{grid-template-columns:minmax(0,1fr);gap:14px}
+  body.nba-newspaper[data-page="home"] #app .hero-art{padding-top:10px;border-top:1px solid #cbd2ce}
+  body.nba-newspaper[data-page="home"] #app .hero-team img{width:60px;height:60px}
 }
-@media(max-width:600px){
-  body.nba-newspaper[data-page="home"] #app .hero{
-    padding:16px 14px;
-    gap:10px;
-  }
-  body.nba-newspaper[data-page="home"] #app .hero-art{
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:0 12px;
-    padding-top:7px;
-  }
+@media(max-width:620px){
+  body.nba-newspaper[data-page="home"] #app .hero{padding:16px 13px;gap:10px}
+  body.nba-newspaper[data-page="home"] #app .hero-art{grid-template-columns:repeat(2,minmax(0,1fr));gap:0 10px;padding-top:8px}
   body.nba-newspaper[data-page="home"] #app .hero-team{
     display:grid;
-    grid-template-columns:52px minmax(0,1fr);
-    grid-template-rows:auto auto;
-    column-gap:8px;
-    row-gap:2px;
+    grid-template-columns:48px minmax(0,1fr);
     align-items:center;
-    justify-content:stretch;
+    column-gap:8px;
     min-width:0;
-    padding:10px 0;
+    padding:9px 0;
     text-align:left;
     border-bottom:1px solid #d5dcd7;
   }
   body.nba-newspaper[data-page="home"] #app .hero-team img{
     grid-column:1;
-    grid-row:1/3;
-    width:50px;
-    height:50px;
-    max-width:50px;
+    width:47px;height:47px;
+    max-width:47px;
     margin:0;
   }
-  body.nba-newspaper[data-page="home"] #app .hero-team strong{
-    grid-column:2;
-    grid-row:1;
-    font-size:24px;
-    align-self:end;
-  }
-  body.nba-newspaper[data-page="home"] #app .hero-team small{
-    grid-column:2;
-    grid-row:2;
-    font-size:9px;
-    align-self:start;
-  }
+  body.nba-newspaper[data-page="home"] #app .nba-hero-copy{grid-column:2;align-items:flex-start;gap:3px}
+  body.nba-newspaper[data-page="home"] #app .nba-hero-copy strong{font-size:24px}
+  body.nba-newspaper[data-page="home"] #app .nba-hero-name{font-size:10.5px;line-height:1.23}
+  body.nba-newspaper[data-page="home"] #app .nba-hero-copy small{font-size:9px}
+  body.nba-newspaper[data-page="home"] #app .nba-front-stats{margin:10px 0 14px}
+  body.nba-newspaper[data-page="home"] #app .nba-front-stats .metric{padding:11px 7px}
+  body.nba-newspaper[data-page="home"] #app .nba-front-stats .metric b{font-size:29px}
+  body.nba-newspaper[data-page="home"] #app .nba-front-stats .metric span{font-size:9px;line-height:1.28;letter-spacing:.025em}
 }
-@media(max-width:360px){
+@media(max-width:370px){
   body.nba-newspaper[data-page="home"] #app .hero-art{gap:0 8px}
-  body.nba-newspaper[data-page="home"] #app .hero-team{
-    grid-template-columns:44px minmax(0,1fr);
-    column-gap:6px;
-  }
-  body.nba-newspaper[data-page="home"] #app .hero-team img{
-    width:42px;height:42px;max-width:42px;
-  }
-  body.nba-newspaper[data-page="home"] #app .hero-team strong{font-size:22px}
+  body.nba-newspaper[data-page="home"] #app .hero-team{grid-template-columns:40px minmax(0,1fr);column-gap:6px}
+  body.nba-newspaper[data-page="home"] #app .hero-team img{width:40px;height:40px;max-width:40px}
+  body.nba-newspaper[data-page="home"] #app .nba-hero-copy strong{font-size:22px}
+  body.nba-newspaper[data-page="home"] #app .nba-hero-name{font-size:10px}
 }
 
 
