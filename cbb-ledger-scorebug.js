@@ -57,6 +57,39 @@
     (margin?'<span class="ledger26-pregame-edge">'+margin+'</span><span class="ledger26-pregame-caption">RETRO EDGE</span>':'')+
     '</div>';
  }
+ function preview(g){
+  const away=g.away||{},home=g.home||{},f=g.forecast||{};
+  const match=(away.name||'Away')+' at '+(home.name||'Home');
+  const when=[g.date,g.tipoff||g.time,g.venue||g.arena,g.network||g.tv].filter(Boolean).map(esc).join(' · ');
+  const team=x=>'<div class="ledger26-preview-side"><strong>'+esc(x.name||'Team')+'</strong><span>'+esc(x.record||'Record unavailable')+'</span><span>'+esc(x.retro||'RETRO rating unavailable')+'</span></div>';
+  let forecast='<p class="ledger26-preview-unavailable">RETRO forecast not yet available.</p>';
+  if(typeof f.team==='string'&&Number.isFinite(f.probability)&&f.probability>=0&&f.probability<=1){
+    const pct=Math.round(f.probability*100);
+    forecast='<p><strong>'+esc(f.team)+'</strong> · '+pct+'% win probability'+(Number.isFinite(f.margin)?' · projected margin '+(f.margin>=0?'+':'')+esc(f.margin.toFixed(1))+' points':'')+'</p>';
+  }
+  return '<button type="button" class="ledger26-preview-link" data-slt-preview-open aria-label="Open game preview for '+esc(match)+'">GAME PREVIEW ›</button>'+
+   '<dialog class="ledger26-preview-dialog" aria-label="Preview: '+esc(match)+'"><div class="ledger26-preview-paper">'+
+   '<div class="ledger26-preview-heading"><span>SPORTING LIFE &amp; TIMES · THE MATCHUP FILE</span><button type="button" data-slt-preview-close aria-label="Close preview">×</button></div>'+
+   '<h2>'+esc(match)+'</h2>'+(when?'<p class="ledger26-preview-meta">'+when+'</p>':'')+
+   '<div class="ledger26-preview-teams">'+team(away)+team(home)+'</div>'+
+   '<h3>THE RETRO OUTLOOK</h3>'+forecast+
+   '<p class="ledger26-preview-note">Predictions use the latest available published ratings. Actual outcomes may differ.</p>'+
+   '</div></dialog>';
+ }
+ if(typeof document!=='undefined'&&!document.__sltPreviewClickBound){
+  document.__sltPreviewClickBound=true;
+  document.addEventListener('click',function(e){
+   const open=e.target.closest('[data-slt-preview-open]');
+   if(open){
+    e.preventDefault();e.stopPropagation();
+    const dialog=open.closest('.ledger26-scorebug')?.querySelector('.ledger26-preview-dialog');
+    if(dialog&&typeof dialog.showModal==='function')dialog.showModal();
+    return;
+   }
+   const close=e.target.closest('[data-slt-preview-close]');
+   if(close){e.preventDefault();e.stopPropagation();close.closest('dialog')?.close();}
+  });
+ }
  function render(input){
   const g=input||{},phase=['live','final','upcoming'].includes(g.phase)?g.phase:'upcoming';
   const label=(phase==='final'?
@@ -78,10 +111,10 @@
   return '<div class="ledger26-scorebug" role="group" aria-label="'+esc(g.ariaLabel||((g.away?.name||'Away')+' at '+(g.home?.name||'Home')+' scoreboard'))+'">'+
     '<span class="ledger26-monogram"><img src="assets/slt-engraved-black.svg" width="35" height="49" alt="Sporting Life and Times monogram"></span>'+
     '<div class="ledger26-teams">'+team(g.away)+team(g.home)+'</div>'+
-    (phase==='live'?livePanel(g,label):phase==='upcoming'?pregamePanel(g):label?'<div class="ledger26-status" data-phase="'+phase+'"><strong>'+esc(label)+'</strong></div>':'')+'</div>';
+    (phase==='live'?livePanel(g,label):phase==='upcoming'?pregamePanel(g):label?'<div class="ledger26-status" data-phase="'+phase+'"><strong>'+esc(label)+'</strong></div>':'')+(phase==='upcoming'?preview(g):'')+'</div>';
  }
  // The Daily Ledger is the universal newspaper model, not a separate sport skin.
  // Keep the old alias for existing college basketball pages.
- root.SLTSportsScorebug={render,formatRetro,version:'shared-letterpress-v10'};
+ root.SLTSportsScorebug={render,formatRetro,version:'shared-letterpress-v11-preview'};
  root.SLTBasketballScorebug=root.SLTSportsScorebug;
 })(typeof window!=='undefined'?window:globalThis);
