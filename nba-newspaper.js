@@ -140,24 +140,13 @@ function leaderWidget(){
 const searchLinks=()=>'<div class="nba-section-links"><a href="nba-standings.html">Standings</a><a href="nba-rankings.html">RETRO Elo</a><a href="nba-players.html">Player Leaders</a><a href="nba-playoffs.html">Playoff Picture</a><a href="nba-matchups.html">Matchup Lab</a><a href="nba-game-center.html">Game Center</a></div>';
 function directory(){
  let entries=codes.filter(t=>name(t).toLowerCase().includes(filter)||t.toLowerCase().includes(filter)).sort((a,b)=>name(a).localeCompare(name(b)));
- return '<div id="teams">'+section('All 30 franchises','Find Your Team')+'<div class="nba-filters"><label for="nba-team-search">Search team or city</label><input id="nba-team-search" type="search" placeholder="e.g. Indiana, Celtics, Nuggets" value="'+esc(filter)+'" autocomplete="off"><small class="muted">'+entries.length+' teams</small></div><div id="nba-team-results" class="nba-team-grid">'+entries.map(t=>'<a href="'+tl(t)+'" class="nba-team-tile" style="--team-color:'+meta[t][3]+'">'+image(t)+'<b>'+esc(name(t))+'</b><small>'+rec(t)+' · #'+rank(t)+' Elo</small></a>').join('')+'</div></div>';
+ return '<div id="teams">'+section('All 30 franchises','Find Your Team')+'<div class="nba-filters"><label for="nba-team-search">Search team or city</label><input id="nba-team-search" type="search" placeholder="e.g. Indiana, Celtics, Nuggets" value="'+esc(filter)+'" autocomplete="off"><small class="muted">'+entries.length+' teams</small></div><div id="nba-team-results" class="nba-team-grid">'+entries.map(t=>'<a href="'+tl(t)+'" class="nba-team-tile" style="--team-color:'+meta[t][3]+'">'+image(t)+'<b>'+esc(name(t))+'</b><small>'+(ordered.length===30?rec(t)+' · #'+rank(t)+' RETRO':'Team desk →')+'</small></a>').join('')+'</div></div>';
 }
-function stats(){
- const played=(data.current?.events||[]).length;
- const players=data.leaders?.coverage?.unique_players||'—';
- return '<section class="metrics nba-front-stats" aria-label="NBA season at a glance">'+
-  '<div class="metric"><b>30</b><span>Franchise desks</span></div>'+
-  '<div class="metric"><b>'+esc(played)+'</b><span>Verified games</span></div>'+
-  '<div class="metric"><b>'+esc(players)+'</b><span>Box-score players</span></div></section>';
-}
-function nbaHomeTable(list){return '<div class="nba-home-table"><div class="nba-home-row nba-home-head"><span>#</span><span>Club</span><span>W–L</span><span>RETRO</span></div>'+list.map((t,i)=>'<div class="nba-home-row"><span class="nba-home-position">'+(i+1)+'</span><span class="nba-home-club">'+team(t)+'</span><span class="nba-home-record">'+rec(t)+'</span><span class="nba-home-rating">'+fmt(rates[t],1)+'</span></div>').join('')+'</div>';}
+// Reporting first; data tables and scoreboards belong in their departments.
 function home(){
- const top=ordered.slice(0,4);
- const hero='<section class="hero nba-editorial-lead"><div><div class="eyebrow">The National Basketball Association · Season 2026–27</div><h1>The NBA<br>Daily Chronicle</h1><p>Thirty clubs, one national sporting record. Verified results, independent RETRO rankings, the championship race and dispatches from every franchise.</p><div class="nba-editorial-lead-links"><a href="nba-rankings.html">RETRO National Table →</a><a href="nba-game-center.html">The Daily Ledger →</a></div></div><div class="hero-art">'+top.map(t=>'<a class="hero-team" href="'+tl(t)+'"><span class="nba-hero-top">'+image(t)+'<span class="nba-hero-rating"><strong>'+fmt(rates[t],0)+'</strong><small>RETRO #'+rank(t)+'</small></span></span><span class="nba-hero-name">'+esc(name(t))+'</span></a>').join('')+'</div></section>';
- const rail='<section class="panel"><div class="nba-ticker">'+section('The scoreboard','Tonight & Latest Finals','nba-game-center.html','All games →')+'</div><div class="nba-score-rail" id="nba-live-feed" aria-live="polite">'+liveRail()+'</div><p id="nba-live-status" class="note">Connecting to live NBA scoring sources…</p></section>';
- const frontNews='<section id="slt-nba-front-news" class="slt-front-news"><div class="slt-front-heading"><div><span class="slt-front-eyebrow">THE NBA NEWS WIRE / LATEST DISPATCHES</span><h2>Around the Association</h2></div></div><div class="slt-front-grid nba-news-grid">'+stories()+'</div></section>'; 
- const cols='<div class="grid"><div class="column"><section class="panel">'+section('Every City, Every Team','30 Team Desks','nba-team-desk.html?team=IND','Open a team →')+'<p class="note">Club stories, season records, recent games, player production and independent ratings.</p></section></div><div class="column"><section class="panel teal">'+section('RETRO · Independent Ratings','RETRO Power 10','nba-rankings.html','Full rankings →')+nbaHomeTable(ordered.slice(0,10))+'</section><section class="panel">'+section('Individual Performers','Player Leaders','nba-players.html','All categories →')+leaderWidget()+'</section></div><div class="column"><section class="panel">'+section('Postseason Radar','East · West','nba-playoffs.html','Playoff picture →')+['East','West'].map(c=>'<div class="nba-section-band">'+c+'</div>'+nbaHomeTable(stand(c).slice(0,5))).join('')+'<p class="note">Early-season ordering based on verified W–L, with Elo breaking equal records; not official NBA tiebreakers.</p></section><section class="panel teal">'+section('Game Intelligence','Tonight’s Matchups','nba-matchups.html','Forecast lab →')+'<div class="nba-static-cover"><div class="nba-kicker">The Rabby + RETRO Desk</div><h3>Every game has a story before tipoff.</h3><p class="note">Elo-based win chances, both rosters, recent results and a direct route to our detailed game analysis.</p><a class="nba-tag" href="nba-matchups.html">Open Matchups ↗</a></div></section></div></div>';
- return frontNews+hero+stats()+rail+cols+directory();}
+ const frontNews='<section id="slt-nba-front-news" class="slt-front-news"><div class="slt-front-heading"><div><span class="slt-front-eyebrow">THE NBA NEWS WIRE / LATEST DISPATCHES</span><h2>Around the Association</h2></div></div><div class="slt-front-grid nba-news-grid">'+stories()+'</div></section>';
+ return frontNews+directory();
+}
 function table(headers,rows){return '<div class="nba-table-wrap"><table class="nba-table"><thead><tr>'+headers.map(h=>'<th class="'+(h[1]||'')+'">'+h[0]+'</th>').join('')+'</tr></thead><tbody>'+rows.join('')+'</tbody></table></div>';}
 function dailyElo(t){const events=data.earned?.events||[];const latest=events.length?nyday(events.at(-1).date):null;const v=latest?events.filter(g=>nyday(g.date)===latest).reduce((sum,g)=>sum+(g.home===t?g.home_elo_change:g.away===t?-g.home_elo_change:0),0):null;if(!Number.isFinite(v))return '<span class="nba-power-change">—</span>';return '<span class="nba-power-change '+(v<0?'neg':'pos')+'">'+(v>0?'▲ +':v<0?'▼ -':'— ')+fmt(Math.abs(v),3)+'</span>';}
 function standingTeam(t){
@@ -356,23 +345,17 @@ function render(){stamp();const app=$('#app');if(!app)return;
  let html=page==='home'?home():page==='standings'?standings():page==='rankings'?rankings():page==='playoffs'?playoff():page==='players'?players():page==='matchups'?matchups():page==='team'?teamDesk():page==='conference'?conference():home();
  app.innerHTML=html;
  try{const ctx={page,data,meta,rates,seed,prior,records,ordered};if(page==='team'&&window.NBATeamDepth)window.NBATeamDepth(ctx);if(page==='players'&&window.NBAPlayerDepth)window.NBAPlayerDepth(ctx);if(page==='matchups'&&window.NBAMatchupDepth)window.NBAMatchupDepth(ctx);}catch(error){console.error('NBA enhanced desk failed',error);}
- if(page==='home'&&window.__nbaLiveWired)window.dispatchEvent(new Event('slt:nba-rendered'));
- if(page==='home'&&!window.__nbaLiveWired){window.__nbaLiveWired=true;const script=document.createElement('script');script.src='nba-live-feed.js?v=official-clock-20261104';script.defer=true;document.body.appendChild(script);}
  if(page==='matchups'&&!window.__nbaRabbyWired){window.__nbaRabbyWired=true;const script=document.createElement('script');script.src='nba-rabby-forecast.js?v=remount-fix-20261104';script.defer=true;document.body.appendChild(script);}
  const nav=$('.nav');if(nav){[...nav.querySelectorAll('a')].forEach(a=>{a.removeAttribute('aria-current');if(new URL(a.href).pathname===location.pathname&&!(page==='home'&&a.hash))a.setAttribute('aria-current','page')});}
 }
 await fetchAll();
-if(ordered.length!==30){
- const app=$('#app');
- if(page==='home'){
-  app.innerHTML='<section class="panel"><h1>The NBA Daily Chronicle</h1><p class="nba-note">RETRO standings temporarily unavailable; live scores remain independent.</p><div class="nba-score-rail" id="nba-live-feed" aria-live="polite"></div><p id="nba-live-status" class="note">Connecting to live NBA scores…</p></section>';
-  if(!window.__nbaLiveWired){window.__nbaLiveWired=true;const script=document.createElement('script');script.src='nba-live-feed.js?v=official-clock-20261104';document.body.appendChild(script)}
- }else app.innerHTML='<div class="nba-empty">The published 30-team Elo ratings could not be loaded. The NBA desk will retry automatically. <a href="nba-game-center.html">Existing Game Center →</a></div>';
-}else render();
+// Keep the news and 30-club directory available if RETRO is temporarily offline.
+if(page==='home'||ordered.length===30)render();
+else $('#app').innerHTML='<div class="nba-empty">The published 30-team Elo ratings could not be loaded. The NBA desk will retry automatically. <a href="nba-game-center.html">Existing Game Center →</a></div>';
 document.addEventListener('click',e=>{const btn=e.target.closest('[data-franchise-stat]');if(!btn)return;const widget=btn.closest('.nba-franchise-leader-widget');if(!widget)return;widget.querySelectorAll('[data-franchise-stat]').forEach(x=>x.setAttribute('aria-pressed',String(x===btn)));widget.querySelector('.nba-franchise-leader-body').innerHTML=franchiseLeaders(widget.dataset.franchise,btn.dataset.franchiseStat);});
 document.addEventListener('click',e=>{const tab=e.target.closest('[data-leader-stat]');if(!tab)return;const next=tab.getAttribute('data-leader-stat');if(!leaderCategories.some(x=>x[0]===next))return;leaderCategory=next;const content=$('#nba-leader-content');if(content)content.innerHTML=leaders(next,5);document.querySelectorAll('.nba-leader-tab').forEach(b=>{const active=b.getAttribute('data-leader-stat')===next;b.classList.toggle('is-active',active);b.setAttribute('aria-pressed',String(active));});});
 document.addEventListener('input',e=>{
- if(e.target.id==='nba-team-search'){filter=e.target.value.trim().toLowerCase();const el=$('#nba-team-results');if(el){const entries=codes.filter(t=>name(t).toLowerCase().includes(filter)||t.toLowerCase().includes(filter)).sort((a,b)=>name(a).localeCompare(name(b)));el.innerHTML=entries.map(t=>'<a href="'+tl(t)+'" class="nba-team-tile" style="--team-color:'+meta[t][3]+'">'+image(t)+'<b>'+esc(name(t))+'</b><small>'+rec(t)+' · #'+rank(t)+' Elo</small></a>').join('')||blank('No teams match your search.');}}
+ if(e.target.id==='nba-team-search'){filter=e.target.value.trim().toLowerCase();const el=$('#nba-team-results');if(el){const entries=codes.filter(t=>name(t).toLowerCase().includes(filter)||t.toLowerCase().includes(filter)).sort((a,b)=>name(a).localeCompare(name(b)));el.innerHTML=entries.map(t=>'<a href="'+tl(t)+'" class="nba-team-tile" style="--team-color:'+meta[t][3]+'">'+image(t)+'<b>'+esc(name(t))+'</b><small>'+(ordered.length===30?rec(t)+' · #'+rank(t)+' RETRO':'Team desk →')+'</small></a>').join('')||blank('No teams match your search.');}}
  if(e.target.id==='nba-player-search'){playerFilter=e.target.value.trim().toLowerCase();const el=$('#nba-player-results');if(el){let tot=(data.leaders?.season_totals||[]).filter(p=>(p.player+' '+p.team).toLowerCase().includes(playerFilter)).sort((a,b)=>b.ppg-a.ppg).slice(0,70);el.innerHTML=playerNotebookRows(tot)}}
 });
 document.addEventListener('change',e=>{if(e.target.id==='nba-team-select')location.href=tl(e.target.value);});
@@ -381,7 +364,7 @@ setInterval(async()=>{
  try{const old=data,prev=JSON.stringify({r:data.current?.games_played,e:data.earned?.games_played,el:data.earned?.events?.at(-1)?.id,s:data.schedule?.updated_at,n:data.news?.updated_at,p:data.leaders?.updated_at});
  await fetchAll();
  const next=JSON.stringify({r:data.current?.games_played,e:data.earned?.games_played,el:data.earned?.events?.at(-1)?.id,s:data.schedule?.updated_at,n:data.news?.updated_at,p:data.leaders?.updated_at});
- if((prev!==next||!$('#app h1'))&&ordered.length===30){const pos=window.scrollY;render();window.scrollTo(0,pos);}else stamp();
+ if((prev!==next||(page==='home'?!$('#app .slt-front-news'):!$('#app h1')))&&(page==='home'||ordered.length===30)){const pos=window.scrollY;render();window.scrollTo(0,pos);}else stamp();
  }catch(err){console.warn('NBA refresh skipped:',err);}
 },60000);
 })();
