@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,700;6..96,800;6..96,900&display=swap');
+/* One print wordmark across the Sporting Life & Times sports editions. Typography only. */
+:root{--slt-masthead-font:'Bodoni Moda','Didot','Bodoni MT',Georgia,serif}
+html body :is(.masthead,.slt-masthead,.sl-masthead,.nfl-mast) :is(a,h1,.print-name,.newspaper-wordmark,.newspaper-wordmark-main,.newspaper-wordmark-amp){
+ font-family:var(--slt-masthead-font)!important;
+ font-weight:800!important;
+ font-style:normal!important;
+ letter-spacing:-.055em!important;
+ font-variant-ligatures:common-ligatures;
+}
+html body .desk-mast{font-family:var(--slt-masthead-font)!important;font-style:normal!important;font-weight:800!important;letter-spacing:-.055em!important}

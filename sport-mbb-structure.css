@@ -10,7 +10,7 @@ body.slt-mbb-structure[data-league="college-soccer"],body.slt-mbb-structure[data
 body.slt-mbb-structure[data-league="epl"]{--slt-accent:#bb5d82;--slt-deep:#251c43;--slt-gold:#b4e3bc}
 body.slt-mbb-structure :is(.topline,nav.site-nav){font-family:'DM Sans',Arial,sans-serif!important}
 body.slt-mbb-structure .topline{border-bottom:1px solid var(--slt-line)!important;color:var(--slt-muted)!important;letter-spacing:.13em!important;text-transform:uppercase!important;font-size:10px!important}
-body.slt-mbb-structure header.masthead .newspaper-wordmark-main{font:400 clamp(29px,5vw,64px)/1.08 'Libre Caslon Display',Georgia,serif!important;color:var(--slt-ink)!important;letter-spacing:-.04em!important}
+body.slt-mbb-structure header.masthead .newspaper-wordmark-main{font:400 clamp(29px,5vw,64px)/1.08 var(--slt-masthead-font,'Bodoni Moda','Didot','Bodoni MT',Georgia,serif)!important;color:var(--slt-ink)!important;letter-spacing:-.04em!important}
 body.slt-mbb-structure nav.site-nav{display:flex;overflow-x:auto;white-space:nowrap;gap:22px;border-top:3px solid var(--slt-ink)!important;border-bottom:1px solid var(--slt-ink)!important;padding:12px!important;scrollbar-width:thin;max-width:1420px!important}
 body.slt-mbb-structure nav.site-nav a{font:700 12px/1.4 'DM Sans',Arial,sans-serif!important;text-transform:none!important;letter-spacing:0!important;flex:none}
 body.slt-mbb-structure main.hub{max-width:1460px!important;width:100%!important;margin:auto!important;padding:18px clamp(14px,2.5vw,30px) 60px!important;overflow:visible}
