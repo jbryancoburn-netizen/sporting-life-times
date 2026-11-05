@@ -167,16 +167,12 @@
     // A 1500 clean slate is a tie, not a preseason rating-derived favorite.
     if(state.preseason)return {...base,available:false,reason:'Both schools start at 1500 Elo'};
     if(women)return base; // Women's independently calibrated forecast probabilities are not yet published.
-    const row=state.forecast.get(String(g.id));
-    if(!row||row.home_id!==h.team_id||row.away_id!==a.team_id)return base;
-    // Do not reuse predictions where an unverified neutral venue could make home advantage misleading.
-    if(g.neutral)return base;
-    const prob=Number(row.home_win_probability);
-    if(!Number.isFinite(prob)||prob<=0||prob>=1)return base;
-    const modelTime=Date.parse(state.forecastDate||'');
-    const gameTime=Date.parse(g.date||'');
-    if(!Number.isFinite(modelTime)||!Number.isFinite(gameTime)||modelTime>gameTime||gameTime-modelTime>8*864e5)return base;
-    return {...base,probability:prob,asOf:state.forecastDate};
+    // Men's Game Center uses current published RETRO ratings, never a stale
+    // separately calculated fixture-feed probability. Neutral court is explicit.
+    const prediction=window.RETROForecast?.predict(h,a,{site:g.neutral?'neutral':'home'});
+    if(!prediction)return base;
+    return {...base,probability:prediction.homeProbability,asOf:state.modelDate,
+      forecastModel:prediction.model,venueStatus:g.neutral?'neutral':'listed-home'};
   }
   function usrsLine(g){
     const m=modelFor(g);
