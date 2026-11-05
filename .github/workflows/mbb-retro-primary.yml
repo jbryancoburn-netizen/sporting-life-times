@@ -52,6 +52,7 @@ jobs:
           node scripts/publish-mbb-retro-forecasts.js
           node tests/retro-men-only-integration.test.cjs
           node tests/retro-unified-forecast.test.js
+          node tests/retro-central-publication.test.cjs
       - name: Verify clean slate and publish
         id: publish
         run: |
