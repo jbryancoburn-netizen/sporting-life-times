@@ -18,7 +18,7 @@ function schoolRow(entry,branding,kind=''){
 function draw(data,metrics,branding){
  host.replaceChildren();
  const nav=el('div',null,'cs-selection-modes');
- for(const [value,label] of [['ncaa','NCAA COMMITTEE FORECAST'],['usrs','NCAA CRITERIA + USRS ELO']]){
+ for(const [value,label] of [['ncaa','NCAA COMMITTEE FORECAST'],['usrs','NCAA CRITERIA + RETRO ELO']]){
   const b=el('button',label);b.type='button';b.className=mode===value?'active':'';b.setAttribute('aria-pressed',String(mode===value));b.onclick=()=>{mode=value;draw(data,metrics,branding)};nav.append(b)
  }host.append(nav);
  if(Array.isArray(metrics?.field)&&metrics.field.length===48){
@@ -32,7 +32,7 @@ function draw(data,metrics,branding){
   const different=el('div',null,'ncaa-selection-compare-metric');different.append(el('strong',ncaaOnly.length),el('span','EACH MODEL PICKS DIFFERENTLY'));
   stats.append(same,different);comparison.append(stats);
   const lists=el('div',null,'ncaa-selection-compare-lists');
-  for(const [label,rows] of [['NCAA RPI ONLY',ncaaOnly],['USRS ONLY',usrsOnly]]){
+  for(const [label,rows] of [['NCAA RPI ONLY',ncaaOnly],['RETRO ONLY',usrsOnly]]){
    const col=el('section');col.append(el('h3',label));
    for(const x of rows)col.append(schoolRow(x,branding,'ncaa-compare-team'));
    lists.append(col);
@@ -43,18 +43,18 @@ function draw(data,metrics,branding){
  for(const [value,label] of [[48,'FIELD'],[23,'AUTOMATIC'],[25,'AT-LARGE'],[24,'SEEDED'],[16,'BYE TEAMS']]){const x=el('div',null,'cs-selection-metric');x.append(el('strong',value),el('span',label));summary.append(x)}host.append(summary);
  if(mode==='ncaa'){
   host.append(el('h2','NCAA CRITERIA FORECAST'));
-  host.append(el('p','The NCAA view is built around adjusted RPI, strength of schedule, record, nonconference results, head-to-head, common opponents, selected-opponent results and the final eight matches. It does NOT use USRS Elo.','cs-selection-warning'));
+  host.append(el('p','The NCAA view is built around adjusted RPI, strength of schedule, record, nonconference results, head-to-head, common opponents, selected-opponent results and the final eight matches. It does NOT use RETRO Elo.','cs-selection-warning'));
   if(!Array.isArray(metrics?.field)||metrics.field.length!==48){
    host.append(el('h3','NCAA RPI FORECAST SOURCE NOT AVAILABLE'));
    host.append(el('p','The full NCAA résumé data is not available. A provisional NCAA RPI forecast is displayed when the ranking snapshot loads.','cs-selection-warning'));
   }
  }
  const entries=mode==='usrs'?data.field:(Array.isArray(metrics?.field)?metrics.field:[]);
- host.append(el('h2',mode==='usrs'?'USRS SELECTION COMMITTEE · 48-TEAM PROJECTION':'NCAA RPI COMMITTEE FORECAST · 48-TEAM PROJECTION'));
- host.append(el('p',mode==='usrs'?'Your independent USRS ratings replace the committee evaluation tool within the NCAA selection framework. NCAA field sizes, bid allocations, eligibility screening and seed structure remain in force. NCAA hosting/geography rules are not yet fully modeled.':'Projected NCAA committee field from the October 23 RPI table, conference qualification projections and provisional at-large eligibility. It is a forecast, not the official selection committee field.','cs-selection-warning'));
+ host.append(el('h2',mode==='usrs'?'RETRO SELECTION COMMITTEE · 48-TEAM PROJECTION':'NCAA RPI COMMITTEE FORECAST · 48-TEAM PROJECTION'));
+ host.append(el('p',mode==='usrs'?'Your independent RETRO ratings replace the committee evaluation tool within the NCAA selection framework. NCAA field sizes, bid allocations, eligibility screening and seed structure remain in force. NCAA hosting/geography rules are not yet fully modeled.':'Projected NCAA committee field from the October 23 RPI table, conference qualification projections and provisional at-large eligibility. It is a forecast, not the official selection committee field.','cs-selection-warning'));
  const bracket=el('section',null,'ncaa-bracket');
- bracket.append(el('h2',mode==='usrs'?'USRS PROJECTED NCAA BRACKET':'NCAA RPI PROJECTED BRACKET'));
- bracket.append(el('p',mode==='usrs'?'USRS acts as the hypothetical selection committee: 23 projected automatic bids, 25 eligible at-large picks, 24 seeded teams and 16 byes. The model avoids same-conference first-round matches where feasible; hosting and geography are not yet resolved.':'NCAA résumé metrics are still incomplete. These are 48 structural slots, not invented committee selections.','cs-selection-warning'));
+ bracket.append(el('h2',mode==='usrs'?'RETRO PROJECTED NCAA BRACKET':'NCAA RPI PROJECTED BRACKET'));
+ bracket.append(el('p',mode==='usrs'?'RETRO acts as the hypothetical selection committee: 23 projected automatic bids, 25 eligible at-large picks, 24 seeded teams and 16 byes. The model avoids same-conference first-round matches where feasible; hosting and geography are not yet resolved.':'NCAA résumé metrics are still incomplete. These are 48 structural slots, not invented committee selections.','cs-selection-warning'));
  const entrants=mode==='usrs'?data.field:(Array.isArray(metrics?.field)?metrics.field:[]);
  const byRank=n=>entrants[n-1]||null;
  const label=n=>byRank(n)?'#'+n+' '+byRank(n).team:'Unassigned slot '+n;
@@ -96,7 +96,7 @@ function draw(data,metrics,branding){
    second.append(el('strong','SECOND ROUND · #'+p.seed+' BYE'));
    second.append(schoolRow(byRank(p.seed),branding,'ncaa-bracket-team'));
    second.append(p.opening?schoolRow(p.opening,branding,'ncaa-bracket-team'):el('div','First-round winner','ncaa-bracket-team'));
-   if(p.advance)second.append(el('small','USRS ADVANCES · '+p.advance.team,'ncaa-bracket-advance'));
+   if(p.advance)second.append(el('small','RETRO ADVANCES · '+p.advance.team,'ncaa-bracket-advance'));
    card.append(first,second);
    podGrid.append(card);
   }
@@ -106,12 +106,12 @@ function draw(data,metrics,branding){
   quarters.push(quarter);bracket.append(quadrant);
  }
  const semiA=win(quarters[0],quarters[1]),semiB=win(quarters[2],quarters[3]),champ=win(semiA,semiB);
- const finish=el('section',null,'ncaa-bracket-finish');finish.append(el('h3','COLLEGE CUP SEMIFINALS'),el('p',semiA?semiA.team:'Semifinal winner TBD'),el('p',semiB?semiB.team:'Semifinal winner TBD'),el('h3','NATIONAL CHAMPIONSHIP'),el('p',champ?'USRS pick: '+champ.team:'Champion TBD'));bracket.append(finish);host.append(bracket);
+ const finish=el('section',null,'ncaa-bracket-finish');finish.append(el('h3','COLLEGE CUP SEMIFINALS'),el('p',semiA?semiA.team:'Semifinal winner TBD'),el('p',semiB?semiB.team:'Semifinal winner TBD'),el('h3','NATIONAL CHAMPIONSHIP'),el('p',champ?'RETRO pick: '+champ.team:'Champion TBD'));bracket.append(finish);host.append(bracket);
  const groups=[['FIRST 24 · PROJECTED ORDER',entries.slice(0,24)],['REMAINING FIELD',entries.slice(24)],['BUBBLE / NEXT FOUR',mode==='usrs'?data.first_four_out_proxy:metrics.first_four_out||[]]];
  for(const [name,rows] of groups){
   const section=el('section',null,'cs-selection-group');section.append(el('h2',name));
   const table=el('table',null,'cs-selection-table');const head=el('tr');
-  for(const h of ['#','School','Bid path',mode==='usrs'?'USRS':'Résumé score'])head.append(el('th',h));table.append(head);
+  for(const h of ['#','School','Bid path',mode==='usrs'?'RETRO':'Résumé score'])head.append(el('th',h));table.append(head);
   rows.forEach((x,i)=>{const tr=el('tr');for(const v of [x.experimental_strength_order||i+1,x.team,x.bid_type==='projected_aq'?'Projected AQ':'At-large scenario',mode==='usrs'?Math.round(x.elo):x.resume_score??'—'])tr.append(el('td',v));table.append(tr)});
   section.append(table);host.append(section);
  }
