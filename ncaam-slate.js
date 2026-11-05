@@ -45,7 +45,7 @@ function normalizeMen(feed,forecasts,crossList,outside={}){
     if(current){
       if(current.phase==='upcoming'&&current.away.id===String(away.espn_id)&&current.home.id===String(home.espn_id)&&
          current.day===g.date&&Number.isFinite(Number(g.home_win_probability)))
-        current.probability=Math.max(0,Math.min(1,Number(g.home_win_probability)));
+        {current.probability=Math.max(0,Math.min(1,Number(g.home_win_probability)));current.projectedHomeMargin=Number.isFinite(Number(g.projected_home_margin))?Number(g.projected_home_margin):null;}
       continue;
     }
     result.set(id,{id,day:g.date,date:'',phase:'upcoming',timed:false,
@@ -53,7 +53,7 @@ function normalizeMen(feed,forecasts,crossList,outside={}){
       home:{id:String(home.espn_id),name:home.name,full:home.espn_name,canonical:home.id,score:null},
       venue:'',broadcast:'',status:'Tipoff unconfirmed',source:'Independent 2026–27 fixture ledger',
       evidence:'fixture',kind:'regular',
-      probability:Number.isFinite(Number(g.home_win_probability))?Math.max(0,Math.min(1,Number(g.home_win_probability))):null});
+      probability:Number.isFinite(Number(g.home_win_probability))?Math.max(0,Math.min(1,Number(g.home_win_probability))):null,projectedHomeMargin:Number.isFinite(Number(g.projected_home_margin))?Number(g.projected_home_margin):null});
   }
   return dedupeFixtures([...result.values()]);
 }
@@ -600,7 +600,7 @@ const ledgerScorebug=g=>{
     if(g.phase!=='upcoming'||typeof g.probability!=='number'||!Number.isFinite(g.probability)||g.probability<0||g.probability>1)return null;
     const homeFav=g.probability>=0.5,side=homeFav?g.home:g.away;
     const projection=insight?.projectedScore(g,scoreCalibration,ratings);
-    const margin=projection?Math.abs(Number(projection.home)-Number(projection.away)):null;
+    const margin=Number.isFinite(g.projectedHomeMargin)?Math.abs(g.projectedHomeMargin):null;
     const team=String(side.name||'').trim();
     return {team,probability:homeFav?g.probability:1-g.probability,
       margin:Number.isFinite(margin)&&margin>0?margin:null};
