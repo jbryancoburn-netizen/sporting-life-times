@@ -127,7 +127,7 @@
   document.addEventListener('click',function(e){
    const open=e.target.closest('[data-slt-preview-open]');
    if(open){
-    e.preventDefault();e.stopPropagation();
+    e.preventDefault();e.stopImmediatePropagation();
     const dialog=open.closest('.ledger26-scorebug')?.querySelector('.ledger26-preview-dialog');
     if(dialog&&typeof dialog.showModal==='function'){
      // Dialog must be outside expandable scorecard summaries to avoid native summary clipping/toggling.
@@ -138,7 +138,7 @@
    }
    const close=e.target.closest('[data-slt-preview-close]');
    if(close){e.preventDefault();e.stopPropagation();close.closest('dialog')?.close();}
-  });
+  },true);
  }
  function render(input){
   const g=input||{},phase=['live','final','upcoming'].includes(g.phase)?g.phase:'upcoming';
@@ -165,6 +165,12 @@
  }
  // The Daily Ledger is the universal newspaper model, not a separate sport skin.
  // Keep the old alias for existing college basketball pages.
- root.SLTSportsScorebug={render,formatRetro,version:'shared-letterpress-v13-pregame-press-visible'};
+ function openPress(g){
+  const shell=document.createElement('div');shell.innerHTML=preview({...g,phase:'upcoming'});
+  const dialog=shell.querySelector('dialog');if(!dialog)return;
+  document.body.appendChild(dialog);dialog.addEventListener('close',()=>dialog.remove(),{once:true});
+  dialog.showModal();loadPress(dialog);
+ }
+ root.SLTSportsScorebug={render,formatRetro,openPress,version:'shared-letterpress-v13-pregame-press-visible'};
  root.SLTBasketballScorebug=root.SLTSportsScorebug;
 })(typeof window!=='undefined'?window:globalThis);
