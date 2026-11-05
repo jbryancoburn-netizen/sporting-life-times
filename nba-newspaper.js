@@ -197,11 +197,11 @@ function rankings(){
   '<td class="num nba-power-elo"><strong>'+fmt(rates[t],1)+'</strong></td>'+
   '<td class="num"><span class="nba-power-change '+(negative?'neg':'pos')+'">'+(delta===null?'—':(delta>0?'+':'')+fmt(delta,1))+'</span></td></tr>';
  };
- const header=[['#','num'],['Team',''],['Conf.',''],['W–L','num'],['Last 5',''],['Streak','num'],['PF/G','num'],['PA/G','num'],['Margin','num'],['RETRO Elo','num'],['Δ Elo','num']];
- const tableHtml='<div class="nba-table-wrap nba-power-table-wrap" role="region" tabindex="0" aria-label="NBA power rankings, horizontally scrollable on smaller screens"><table class="nba-table nba-power-table"><thead><tr>'+header.map(([label,cls])=>'<th scope="col" class="'+cls+'">'+label+'</th>').join('')+'</tr></thead><tbody>'+ordered.map(row).join('')+'</tbody></table></div>';
- return '<div class="eyebrow">RETRO · Independent basketball ratings</div><h1>NBA POWER RANKINGS</h1><p class="nba-note"><strong>Latest verified final: '+(data.earned?.events?.length?date(data.earned.events.at(-1).date)+' ET':'unavailable')+' · '+esc(data.earned?.games_played??'—')+' games · 1500 season starting rating.</strong></p><p class="nba-note">Ratings and team statistics are calculated from completed games in our verified 2026–27 final-score ledger. All 30 teams start each season at 1500 Elo. Ratings update after verified final scores. No previous-season ratings are carried into the new season.</p>'+
- '<div class="nba-power-table-intro"><div><div class="eyebrow">The complete RETRO 30</div><h2>Power Table</h2></div><small>PF/G = points scored · PA/G = points allowed · Margin = point differential per game · Δ Elo = movement from opening rating</small></div>'+
- tableHtml+'<p class="nba-power-footnote">Last 5 and streak use completed games only. Early-season averages are sensitive to small samples; Elo figures update with verified finals.</p>';
+ const header=[['#','num'],['Club'],['W','num'],['L','num'],['PCT','num'],['RETRO','num'],['Δ','num'],['Last 5']];
+ const rowCompact=(t,i)=>{const f=forms[t],r=records[t],pct=r.w+r.l?r.w/(r.w+r.l):0,delta=rates[t]-1500;
+  return '<tr><td class="num">'+(i+1)+'</td><td class="nba-standings-club-cell">'+standingTeam(t)+'</td><td class="num">'+r.w+'</td><td class="num">'+r.l+'</td><td class="num">'+fmt(pct,3)+'</td><td class="num nba-power-elo"><strong>'+fmt(rates[t],1)+'</strong></td><td class="num">'+(delta>0?'+':'')+fmt(delta,1)+'</td><td class="nba-power-form">'+(f.last.map(x=>'<i class="'+(x.won?'win':'loss')+'">'+(x.won?'W':'L')+'</i>').join('')||'—')+'</td></tr>';};
+ const rows=ordered.map(rowCompact).join('');
+ return '<div class="eyebrow">RETRO · Independent national power table</div><h1>THE NBA RETRO 30</h1><p class="nba-note">All 30 clubs open at 1500. '+esc(data.earned?.games_played??'—')+' verified finals. Updated through '+(data.earned?.events?.length?date(data.earned.events.at(-1).date):'unavailable')+'.</p>'+table(header,[rows])+'<p class="nba-power-footnote">The same compact newspaper table as college basketball; final-score ledger controls records and ratings. Equal records are not official NBA tiebreakers.</p>';
 }
 
 function playoff(){
