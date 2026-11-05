@@ -29,7 +29,7 @@ window.NCAAMScores=(()=>{
    if(!shared)return null;
    const difference=shared.difference;
    const homeProbability=shared.homeProbability;
-   const expectedMargin=fit.elo_margin_slope*difference;
+   const expectedMargin=shared.expectedMargin;
    const ph=profiles?.get(home.team_id),pa=profiles?.get(away.team_id);
    let mean=fit.mean_team_points;
    if(ph&&pa){
