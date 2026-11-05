@@ -1,0 +1,16 @@
+'use strict';
+const assert=require('node:assert/strict');
+const model=require('../retro-forecast-engine.js');
+const a={elo:1600},b={elo:1500};
+const neutral=model.predict(a,b);
+assert.equal(neutral.status,'PROVISIONAL_NOT_HOLDOUT_CALIBRATED');
+assert.equal(neutral.site,'neutral');
+assert.ok(Math.abs(neutral.homeProbability+neutral.awayProbability-1)<1e-12);
+assert.ok(Math.abs(model.probability(a,b)-neutral.homeProbability)<1e-12);
+assert.ok(Math.abs(model.probability(b,a)-(1-neutral.homeProbability))<1e-12);
+assert.ok(model.probability(a,b,'home')>model.probability(a,b,'neutral'));
+assert.ok(model.probability(a,b,'away')<model.probability(a,b,'neutral'));
+assert.equal(model.probability({elo:1500},{elo:1500}),0.5);
+assert.equal(model.probability({elo:1500},{elo:1500},'home'),1/(1+Math.pow(10,-100/400)));
+assert.throws(()=>model.predict(a,b,{site:'bogus'}));
+console.log('RETRO shared forecast core: passed');
