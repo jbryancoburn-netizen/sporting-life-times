@@ -6,6 +6,7 @@ on:
       - '.github/workflows/wbb-retro-forecast-calibration.yml'
       - 'scripts/wbb-retro-forecast-calibration.py'
       - 'wbb-retro-forecast.js'
+      - 'tests/wbb-retro-forecast.test.cjs'
 permissions:
   contents: write
 concurrency:
@@ -29,6 +30,10 @@ jobs:
         run: |
           python -m py_compile scripts/wbb-retro-forecast-calibration.py
           node --check wbb-retro-forecast.js
+          node --check ncaam-slate.js
+          node --check wbb-unified-scorebugs.js
+          node --check wbb-team-newspaper.js
+          node --test tests/wbb-retro-forecast.test.cjs
       - name: Replay exact 160-pass ratings before every historical game date
         run: python scripts/wbb-retro-forecast-calibration.py
       - name: Check the output's provenance, gender and release safety
