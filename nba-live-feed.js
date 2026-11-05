@@ -117,7 +117,17 @@ async function update(){
     const away=canonicalCode(teams.find(x=>x.homeAway==='away')?.team?.abbreviation);
     const home=canonicalCode(teams.find(x=>x.homeAway==='home')?.team?.abbreviation);
     const gameKey=away&&home?away+'-'+home+'-'+new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(when)):id;
-    if(!merged.has(gameKey))merged.set(gameKey,event);
+    // A provider that responds first is not necessarily the freshest.
+    // Promote a later LIVE/FINAL state and newer scoring progress for the same fixture.
+    const previous=merged.get(gameKey);
+    const quality=e=>{
+      const state=e.status?.type?.state;
+      const sides=e.competitions?.[0]?.competitors||[];
+      const scores=sides.map(s=>Number(s.score));
+      return (state==='post'?1000000:state==='in'?100000:0)+
+        (scores.length===2&&scores.every(Number.isFinite)?scores[0]+scores[1]:0);
+    };
+    if(!previous||quality(event)>quality(previous))merged.set(gameKey,event);
    }
   }catch(e){console.warn('NBA feed failed:',name,e.message)}
  }
