@@ -1,4 +1,4 @@
-# The Sporting Life & Times
+# Sporting Life & Times
 
 **Live website:** https://jbryancoburn-netizen.github.io/sporting-life-times/
 
