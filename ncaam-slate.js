@@ -686,8 +686,9 @@ async function refreshBroadcasts(day){
  }catch(e){/* Preserve sourced schedule data if the broadcast endpoint is unavailable. */}
  finally{broadcastRequestDay=''}
 }
+const verifiedBroadcasts=new Map();
 const displayGames=()=>reconcileLive(loaded,liveBoard).map(g=>{
- const broadcaster=broadcastByDate.get(g.day)?.get(String(g.id));
+ const broadcaster=verifiedBroadcasts.get(String(g.id))?.network||broadcastByDate.get(g.day)?.get(String(g.id));
  return !g.broadcast&&broadcaster?{...g,broadcast:broadcaster}:g;
 });
 const render=()=>{
@@ -718,6 +719,7 @@ async function refresh(){
   const menFiles=['data/mbb-live.json','data/ncaam-2026-27-upcoming-forecasts.json','data/ncaam-2026-27-retro-primary.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json','data/mbb-exhibition-finals-2026-27.json','data/mbb-arena-registry.json','data/ncaam-score-calibration.json','data/ncaam-2026-27-national-polls.json','data/mbb-out-of-division-opponent-logos.json'];
   const womenFiles=['data/ncaaw-2026-27-games.json','data/ncaaw-2026-27-retro-primary.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json','data/ncaaw-2026-27-teams.json','data/mbb-live.json','data/mbb-out-of-division-opponent-logos.json'];
   const paths=women?womenFiles:menFiles;
+  if(!women){try{const b=await fetchJSON('data/cbb-verified-broadcasts-2026-27.json');verifiedBroadcasts.clear();for(const e of b.entries||[])if(e.network&&e.id)verifiedBroadcasts.set(String(e.id),e)}catch{}}
   const output=await Promise.all(paths.map(p=>fetchJSON(p).catch(()=>null)));
   if(women){
     const [results,rank,c,pal,wTeams,feed,otherLogos]=output;
