@@ -34,6 +34,10 @@ const mbbPages=files.filter(p=>/^(?:ncaam(?:[-.]|$)|college-basketball\.html$)/.
 assert(mbbPages.length>=14,'Missing basketball templates including Rankings, Slate and Arena File: '+mbbPages.length);
 for(const page of mbbPages){
  const html=read(page);
+ // Retired Arena File is a canonical redirect, not an active MBB template.
+ // Preserve its retirement while still enforcing the logo contract elsewhere.
+ if(page==='ncaam-arena.html'&&html.includes('The Arena File has been retired.')&&
+    html.includes('http-equiv="refresh"')&&html.includes('href="ncaam.html"'))continue;
  const styles=html.match(/mbb-logo-system\.css\?v=[a-zA-Z0-9._-]+/g)||[];
  const renderers=html.match(/mbb-logo-system\.js\?v=[a-zA-Z0-9._-]+/g)||[];
  assert.equal(styles.length,1,page+' must load one versioned shared MBB stylesheet');
