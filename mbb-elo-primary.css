@@ -1,56 +1,73 @@
-/* One-model MBB power desk - matching the NBA newspaper visual system */
-.cbb-elo-wrap{max-width:1350px;margin:auto;padding:28px clamp(12px,3vw,38px) 60px}
-.cbb-elo-title{font-family:Georgia,serif;font-size:clamp(2rem,5vw,4.6rem);line-height:1;letter-spacing:-.045em;color:#1b3340;margin:.2em 0}
-.cbb-elo-intro{color:#455968;max-width:850px;line-height:1.55}
-.cbb-elo-metrics{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:15px;margin:18px 0;border:1px solid #abc9d0;background:#eff8f9}
-.cbb-elo-metrics strong{padding:8px 12px;background:#124a5b;color:white;border-radius:5px;font:700 .8rem system-ui;letter-spacing:.06em}
-.cbb-elo-metrics span{font:500 .87rem system-ui;color:#3c5a64}
-.cbb-elo-grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:22px;margin:24px 0}
-.cbb-elo-card{padding:19px;border:1px solid #c5d6da;background:white;box-shadow:0 10px 26px rgba(12,60,72,.05)}
-.cbb-elo-card h2{font:700 1.5rem Georgia,serif;margin:0 0 16px;color:#193747}
-.cbb-elo-power{display:flex;gap:10px;align-items:center;border-bottom:1px solid #e0ebed;padding:8px 4px;text-decoration:none;color:#173b49;min-height:56px}
-.cbb-elo-power:hover{background:#edf9fa}
-.cbb-elo-power .cbb-elo-power-name{flex:1;display:flex;flex-direction:column;gap:2px;font:500 .87rem system-ui}
-.cbb-elo-power .cbb-elo-power-name small{font-size:.7rem;color:#657a82}
-.cbb-elo-power>b{font:750 .95rem system-ui}
-.cbb-elo-rank{font:800 .83rem system-ui;white-space:nowrap;color:#11687c}
-.cbb-elo-crest{display:inline-grid;place-items:center;position:relative;width:38px;height:38px;min-width:38px;border-radius:50%;border:2px solid var(--school-color,#19798a);background:#fff;overflow:hidden}
-.cbb-elo-crest img{position:absolute;inset:3px;width:calc(100% - 6px);height:calc(100% - 6px);object-fit:contain;z-index:2}
-.cbb-elo-crest i{font:700 .7rem system-ui;color:#4d6c77;font-style:normal}
-.cbb-elo-preseason{padding:24px 10px;color:#244451;font-family:Georgia,serif;font-size:1.2rem;line-height:1.4}
-.cbb-elo-preseason p{font:500 .91rem/1.65 system-ui;color:#596971;margin:12px 0}
-.cbb-elo-controls{display:flex;align-items:end;gap:10px;flex-wrap:wrap;margin:16px 0}
-.cbb-elo-controls label,.cbb-matchup-form label{display:flex;flex-direction:column;gap:5px;color:#365968;font:700 .75rem system-ui}
-.cbb-elo-controls input,.cbb-elo-controls select,.cbb-matchup-form select{background:white;border:1px solid #b5cfd6;color:#1a3b48;border-radius:6px;padding:10px 12px;font:.91rem system-ui;min-height:43px;max-width:100%}
-.cbb-elo-controls label:first-child{flex:2 1 260px}
-.cbb-elo-controls label:nth-child(2){flex:1 1 190px}
-.cbb-elo-scroller{border:1px solid #c2d6da;overflow-x:auto;border-radius:8px}
-.cbb-elo-table{width:100%;border-collapse:collapse;min-width:690px}
-.cbb-elo-table th{background:#163e52;color:white;text-transform:uppercase;letter-spacing:.05em;text-align:left;padding:12px 11px;font:.7rem system-ui}
+/* The Power Index — native Victorian newspaper presentation.
+   Keep RETRO model, selectors, refresh, and the shared logo renderer untouched. */
+.cbb-elo-wrap{max-width:1320px;margin:auto;padding:18px clamp(12px,2.7vw,34px) 55px;color:#2e271f;font-family:Georgia,"Times New Roman",serif}
+.cbb-elo-wrap *, .cbb-elo-wrap *::before,.cbb-elo-wrap *::after{box-sizing:border-box}
+.cbb-elo-wrap .eyebrow{font:700 10px/1.4 Arial,sans-serif;letter-spacing:2px;text-transform:uppercase;color:#754c35;margin:6px 0 10px}
+.cbb-elo-title{font:normal clamp(37px,4.8vw,67px)/.99 Georgia,serif;letter-spacing:-.045em;color:#2b241c;margin:9px 0 13px;text-wrap:balance}
+.cbb-elo-intro{max-width:950px;color:#534737;font:15px/1.55 Georgia,serif;margin:0 0 16px}
+.cbb-elo-metrics{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:9px;padding:10px 1px;margin:17px 0;border-block:4px double #51412e;background:transparent}
+.cbb-elo-metrics strong{padding:0;background:transparent;color:#36281d;border-radius:0;font:700 11px/1.5 Arial,sans-serif;letter-spacing:1.4px}
+.cbb-elo-metrics span{font:12px/1.5 Georgia,serif;color:#6c5946}
+.cbb-elo-grid{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(260px,.85fr);gap:16px;margin:18px 0 25px;align-items:start}
+.cbb-elo-card{min-width:0;padding:19px 20px 22px;border:3px double #867057;background:#f6ecda;box-shadow:inset 0 0 0 2px #fbf3e6}
+.cbb-elo-card h2{font:normal small-caps clamp(23px,2.4vw,33px)/1.1 Georgia,serif;letter-spacing:-.03em;margin:0 0 11px;padding:0 0 11px;color:#2d261f;border-bottom:3px double #64503d}
+.cbb-elo-card .note{font:13px/1.5 Georgia,serif;color:#6b5a48;margin:8px 0 15px}
+.cbb-elo-power{display:flex;gap:12px;align-items:center;border-bottom:1px solid #bca98d;padding:9px 5px;text-decoration:none;color:#33271d;min-height:59px;background:transparent}
+.cbb-elo-power:last-child{border-bottom:0}
+.cbb-elo-power:hover,.cbb-elo-power:focus-visible{background:#ecdec7}
+.cbb-elo-power .cbb-elo-power-name{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;font:16px/1.2 Georgia,serif}
+.cbb-elo-power .cbb-elo-power-name small{font:11px/1.4 Georgia,serif;color:#73604c}
+.cbb-elo-power>b{font:normal 19px/1 Georgia,serif;color:#3b3026;font-variant-numeric:tabular-nums;white-space:nowrap}
+.cbb-elo-rank{min-width:33px;font:normal 22px/1 Georgia,serif;white-space:nowrap;color:#765239;text-align:center;font-variant-numeric:lining-nums}
+.cbb-elo-crest{display:inline-grid;place-items:center;position:relative;width:43px;height:43px;min-width:43px;aspect-ratio:1;border:0;border-radius:50%;background:transparent;overflow:visible}
+.cbb-elo-crest img{position:static;width:100%;height:100%;aspect-ratio:1;object-fit:contain;z-index:2}
+.cbb-elo-crest i{font:700 11px Georgia,serif;color:#695744;font-style:normal}
+.cbb-elo-preseason{padding:22px 7px;color:#3b3127;font:20px/1.4 Georgia,serif}
+.cbb-elo-preseason p{font:14px/1.6 Georgia,serif;color:#635340;margin:12px 0}
+.cbb-elo-controls{display:flex;align-items:end;gap:12px;flex-wrap:wrap;margin:17px 0 9px}
+.cbb-elo-controls label,.cbb-matchup-form label{display:flex;flex-direction:column;gap:7px;color:#584331;font:700 10px/1.4 Arial,sans-serif;letter-spacing:1.2px;text-transform:uppercase}
+.cbb-elo-controls input,.cbb-elo-controls select,.cbb-matchup-form select{width:100%;background:#fffaf1;border:1px solid #9d8c71;color:#30271d;border-radius:0;padding:10px 12px;font:15px Georgia,serif;min-height:44px;max-width:100%;letter-spacing:normal;text-transform:none}
+.cbb-elo-controls input:focus-visible,.cbb-elo-controls select:focus-visible,.cbb-matchup-form select:focus-visible{outline:2px solid #865634;outline-offset:2px}
+.cbb-elo-controls label:first-child{flex:2 1 240px}
+.cbb-elo-controls label:nth-child(2){flex:1 1 185px}
+.cbb-elo-scroller{border-block:4px double #554431;overflow-x:auto;border-radius:0}
+.cbb-elo-table{width:100%;border-collapse:collapse;min-width:0;font-variant-numeric:tabular-nums}
+.cbb-elo-table th{background:transparent;color:#594631;text-transform:uppercase;letter-spacing:1px;text-align:left;padding:12px 9px 10px;border-bottom:2px solid #614e38;font:700 10px/1.3 Arial,sans-serif}
 .cbb-elo-table th.num,.cbb-elo-table td.num{text-align:right}
-.cbb-elo-table td{padding:8px 11px;border-bottom:1px solid #dfebed;font:.82rem system-ui}
-.cbb-elo-table tbody tr:nth-child(even){background:#f3f9fa}
-.cbb-elo-table tbody tr:hover{background:#e1f4f6}
-.cbb-elo-school{display:flex;align-items:center;gap:10px;color:#163c4c;text-decoration:none;font-weight:750}
+.cbb-elo-table td{padding:9px;border-bottom:1px solid #c7b69b;font:14px/1.35 Georgia,serif;color:#392f25;vertical-align:middle}
+.cbb-elo-table tbody tr:nth-child(even){background:rgba(116,81,43,.045)}
+.cbb-elo-table tbody tr:hover{background:#eadbc0}
+.cbb-elo-school{display:flex;align-items:center;gap:10px;color:#33271d;text-decoration:none;font:15px/1.2 Georgia,serif;min-width:0}
 .cbb-elo-school:hover{text-decoration:underline}
-.cbb-elo-pos{color:#127e64;font-weight:bold}
-.cbb-elo-neg{color:#b44a4a;font-weight:bold}
-.cbb-elo-flat{color:#87949c}
-.cbb-matchup-form{display:flex;flex-direction:column;gap:10px}
-.cbb-matchup-meter{height:13px;overflow:hidden;border-radius:20px;background:#e58d74;margin:12px 0}
-.cbb-matchup-meter span{display:block;background:#2489a5;height:100%}
-.cbb-matchup-sides{display:flex;justify-content:space-between;align-items:center;gap:7px;flex-wrap:wrap;font:.75rem system-ui}
-.cbb-matchup-sides b{font-size:1.1rem;color:#124557}
-.cbb-matchup-result p{font:.72rem/1.6 system-ui;color:#576e77}
-.cbb-elo-count{font:.8rem system-ui;color:#59707a;margin:12px 0}
-@media(max-width:870px){.cbb-elo-grid{grid-template-columns:1fr}.cbb-elo-wrap{padding-top:15px}.cbb-elo-card{padding:13px}}
-
-/* Editorial ranking-source switcher */
-.cbb-rating-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0 8px;border-bottom:2px solid #c5d6da;padding-bottom:9px}
-.cbb-rating-tabs button{font:700 .9rem system-ui;border:1px solid #9ab7c1;border-radius:5px;background:#f2f7f8;color:#214353;padding:11px 19px;cursor:pointer}
-.cbb-rating-tabs button.active,.cbb-rating-tabs button[aria-selected="true"]{background:#163e52;color:#fff;border-color:#163e52}
-.cbb-rating-tabs button:focus-visible{outline:3px solid #d29a20;outline-offset:2px}
-.cbb-rating-source{color:#4a6370;font:600 .83rem system-ui;margin-bottom:18px}
+.cbb-elo-school img{flex:0 0 auto}
+.cbb-elo-pos{color:#536543;font-weight:normal}
+.cbb-elo-neg{color:#8a4b3d;font-weight:normal}
+.cbb-elo-flat{color:#8b806f}
+.cbb-matchup-form{display:flex;flex-direction:column;gap:13px}
+.cbb-matchup-meter{height:9px;overflow:hidden;border-radius:0;background:#9e6857;margin:16px 0;border:1px solid #705746}
+.cbb-matchup-meter span{display:block;background:#6c7760;height:100%}
+.cbb-matchup-sides{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;font:13px/1.35 Georgia,serif}
+.cbb-matchup-sides b{font:normal 22px Georgia,serif;color:#30271d}
+.cbb-matchup-result p{font:12px/1.55 Georgia,serif;color:#665544}
+.cbb-elo-count{font:12px/1.5 Georgia,serif;color:#725c46;margin:11px 0}
+.cbb-rating-tabs{display:flex;gap:0;flex-wrap:wrap;margin:20px 0 8px;border-block:3px double #68523c}
+.cbb-rating-tabs button{font:700 12px Georgia,serif;border:0;border-right:1px solid #baa98f;border-radius:0;background:transparent;color:#493a2a;padding:12px 17px;cursor:pointer}
+.cbb-rating-tabs button.active,.cbb-rating-tabs button[aria-selected="true"]{background:#493a2a;color:#f7ecdc}
+.cbb-rating-tabs button:focus-visible{outline:2px solid #805735;outline-offset:2px}
+.cbb-rating-source{color:#655240;font:12px Georgia,serif;margin-bottom:18px}
 #cbb-retro-content[hidden],#cbb-external-content[hidden]{display:none!important}
 #cbb-external-content{margin-top:20px;min-height:210px}
-#cbb-external-content a{font-weight:700;color:#096584}
+#cbb-external-content a{font-weight:normal;color:#65422e}
+@media(max-width:900px){.cbb-elo-grid{grid-template-columns:1fr}.cbb-elo-wrap{padding-top:12px}.cbb-elo-card{padding:15px}}
+@media(max-width:650px){
+.cbb-elo-title{font-size:clamp(34px,9vw,47px)}.cbb-elo-intro{font-size:14px}
+.cbb-elo-table{table-layout:fixed;width:100%}
+.cbb-elo-table th,.cbb-elo-table td{padding:9px 3px;font-size:12px;overflow-wrap:anywhere}
+.cbb-elo-table th{font-size:8px;letter-spacing:0}
+.cbb-elo-table th:nth-child(3),.cbb-elo-table td:nth-child(3),.cbb-elo-table th:nth-child(7),.cbb-elo-table td:nth-child(7){display:none}
+.cbb-elo-table th:nth-child(1){width:8%}.cbb-elo-table th:nth-child(2){width:42%}.cbb-elo-table th:nth-child(4){width:16%}.cbb-elo-table th:nth-child(5){width:19%}.cbb-elo-table th:nth-child(6){width:15%}
+.cbb-elo-school{font-size:12px;gap:5px}.cbb-elo-school img{max-width:29px;max-height:29px}
+.cbb-elo-power{gap:8px}.cbb-elo-rank{font-size:19px;min-width:24px}
+.cbb-elo-power .cbb-elo-power-name{font-size:14px}.cbb-elo-power>b{font-size:16px}
+.cbb-elo-scroller{overflow-x:hidden}
+}
