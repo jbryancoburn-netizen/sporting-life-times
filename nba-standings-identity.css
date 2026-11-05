@@ -178,14 +178,14 @@ body.nba-newspaper[data-page="conference"] .nba-division-desk-rating{
 
 
 /* Standings rank belongs in its own small engraved plate, not an entire filled cell. */
-body.nba-newspaper[data-page="standings"] .nba-table tbody td.nba-standing-place-cell{
+body.nba-newspaper:is([data-page="standings"],[data-page="conference"]) .nba-table tbody td.nba-standing-place-cell{
  background:transparent!important;color:#4f3828!important;
  border:0!important;border-bottom:1px solid #b7a88e!important;
  outline:none!important;padding:6px 5px!important;
  text-align:center!important;vertical-align:middle;
  width:52px;min-width:52px;
 }
-body.nba-newspaper[data-page="standings"] .nba-table tbody td.nba-standing-place-cell .nba-standing-place{
+body.nba-newspaper:is([data-page="standings"],[data-page="conference"]) .nba-table tbody td.nba-standing-place-cell .nba-standing-place{
  box-sizing:border-box;display:inline-grid;place-items:center;
  width:34px;height:34px;min-width:34px;min-height:34px;
  background:#f3e7d2;color:#643e2b;
@@ -198,11 +198,11 @@ body.nba-newspaper[data-page="standings"] .nba-table tbody tr{
 body.nba-newspaper[data-page="standings"] .nba-table tbody tr:nth-child(even){background:#f1e7d7!important}
 body.nba-newspaper[data-page="standings"] .nba-table tbody td{border-bottom:1px solid #b7a88e}
 @media(max-width:700px){
- body.nba-newspaper[data-page="standings"] .nba-table tbody td.nba-standing-place-cell{
+ body.nba-newspaper:is([data-page="standings"],[data-page="conference"]) .nba-table tbody td.nba-standing-place-cell{
   width:38px!important;min-width:38px!important;padding:6px 3px!important;
   overflow:visible!important;border-left:0!important;border-right:0!important;
  }
- body.nba-newspaper[data-page="standings"] .nba-table tbody td.nba-standing-place-cell .nba-standing-place{
+ body.nba-newspaper:is([data-page="standings"],[data-page="conference"]) .nba-table tbody td.nba-standing-place-cell .nba-standing-place{
   width:28px;height:28px;min-width:28px;min-height:28px;font-size:12px;
  }
 }
