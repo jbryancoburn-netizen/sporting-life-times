@@ -78,18 +78,22 @@
   }
   const articles=await promise;
   const namesA=pressNames(g.away),namesH=pressNames(g.home),now=Date.now(),seen=new Set();
-  return articles.filter(a=>{
-   if(!a.title||!a.url||!a.source)return false;
-   if(gender==='women'&&a.gender==='men'||gender==='men'&&a.gender==='women')return false;
-   let url;try{url=new URL(a.url,location.href);if(!/^https?:$/.test(url.protocol))return false}catch{return false}
-   const when=Date.parse(a.published_at||'');if(!Number.isFinite(when)||when>now+86400000||now-when>12*86400000)return false;
+  const matched=articles.flatMap(a=>{
+   if(!a.title||!a.url||!a.source)return [];
+   if(gender==='women'&&a.gender==='men'||gender==='men'&&a.gender==='women')return [];
+   let url;try{url=new URL(a.url,location.href);if(!/^https?:$/.test(url.protocol))return []}catch{return []}
+   const when=Date.parse(a.published_at||'');if(!Number.isFinite(when)||when>now+86400000||now-when>14*86400000)return [];
+   if(/\\b(recap|postgame|post-game|final score|defeats|defeated|beats|beat|highlights|odds|betting|parlay)\\b/i.test(a.title))return [];
    const content=String(a.title||'')+' '+String(a.summary||'');
-   const both=namesA.some(x=>exactMention(content,x))&&namesH.some(x=>exactMention(content,x));
-   if(!both)return false;
-   if(!/\\b(preview|pregame|pre-game|matchup|game notes|scouting|versus|vs\\.?|faces|hosts|travels to|set to face|takes on|ahead of)\\b/i.test(content))return false;
-   if(/\\b(recap|postgame|post-game|final score|defeats|defeated|beats|beat|highlights|odds|betting|parlay)\\b/i.test(a.title))return false;
-   const id=url.href;if(seen.has(id))return false;seen.add(id);return true;
-  }).sort((a,b)=>Date.parse(b.published_at)-Date.parse(a.published_at)).slice(0,6);
+   const away=namesA.some(x=>exactMention(content,x)),home=namesH.some(x=>exactMention(content,x));
+   if(!away&&!home)return [];
+   const pregame=/\\b(preview|pregame|pre-game|matchup|game notes|scouting|versus|vs\\.?|faces|hosts|travels to|set to face|takes on|ahead of)\\b/i.test(content);
+   const id=url.href;if(seen.has(id))return [];seen.add(id);
+   if(away&&home&&pregame)return [{...a,pressType:'matchup',pressRank:3}];
+   if(pregame)return [{...a,pressType:'team',pressRank:2}];
+   return [{...a,pressType:'background',pressRank:1}];
+  }).sort((a,b)=>b.pressRank-a.pressRank||Date.parse(b.published_at)-Date.parse(a.published_at));
+  return matched.slice(0,6);
  }
  function preview(g){
   const away=g.away||{},home=g.home||{};
@@ -114,7 +118,7 @@
    target.innerHTML=articles.map(a=>{
     const href=esc(new URL(a.url,location.href).href);
     const date=new Date(a.published_at).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
-    return '<article class="ledger26-press-story"><small>'+esc(a.source)+' · '+esc(date)+'</small><a href="'+href+'" target="_blank" rel="noopener noreferrer">'+esc(a.title)+'</a></article>';
+    return '<article class="ledger26-press-story"><small>'+esc(a.pressType==='matchup'?'MATCHUP PREVIEW':a.pressType==='team'?'TEAM PREGAME COVERAGE':'TEAM REPORTING')+' · '+esc(a.source)+' · '+esc(date)+'</small><a href="'+href+'" target="_blank" rel="noopener noreferrer">'+esc(a.title)+'</a></article>';
    }).join('');
   }catch{target.innerHTML='<p class="ledger26-preview-unavailable">The pregame news wire is temporarily unavailable.</p>'}
  }
