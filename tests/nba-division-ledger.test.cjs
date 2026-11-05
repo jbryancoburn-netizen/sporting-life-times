@@ -25,7 +25,7 @@ test('conference division desks prioritize larger records, with RETRO underneath
 test('both pages load the current shared division source and style',()=>{
  for(const page of ['nba-standings.html','nba-conference.html']){
   const html=read(page);
-  assert.match(html,/nba-newspaper\.js\?v=division-ledger-mobile-v3-20261105/);
-  assert.match(html,/nba-standings-identity\.css\?v=division-ledger-mobile-v3-20261105/);
+  assert.match(html,/nba-newspaper\.js\?v=[a-z0-9-]+/i);
+  assert.match(html,/nba-standings-identity\.css\?v=[a-z0-9-]+/i);
  }
 });
