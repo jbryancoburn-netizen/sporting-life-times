@@ -11,6 +11,14 @@ test('NBA Game Center keeps the date calendar and clear previous/next/today cont
  assert.match(page,/nba-live-feed\.js\?v=date-calendar-navigation-20261105/);
  assert.match(page,/nba-game-center\.js\?v=date-calendar-navigation-20261105/);
 });
+test('mobile calendar date occupies its own row and buttons cannot overlap it',()=>{
+ assert.match(page,/@media\(max-width:650px\)\{[\s\S]*?\.nba-date-main\{grid-template-columns:repeat\(3,minmax\(0,1fr\)\);grid-template-rows:auto auto/);
+ assert.match(page,/\.nba-date-picker-label\{grid-column:1 \/ -1;grid-row:1;min-width:0;width:100%/);
+ assert.match(page,/#nba-date-previous\{grid-column:1;grid-row:2\}/);
+ assert.match(page,/#nba-date-next\{grid-column:3;grid-row:2\}/);
+ assert.match(page,/\.nba-date-main \.nba-date-today\{grid-column:2;grid-row:2/);
+ assert.match(page,/\.nba-date-picker-label input\{min-width:0;max-width:100%;width:100%;font-size:16px/);
+});
 test('date selection uses selected Eastern date and nearby ESPN schedules',()=>{
  for(const text of ['function initDateNav()','function chooseDay(day,push=true)','function renderDateNav()','const effectiveDay=()','ESPN selected day','ESPN ET boundary (prior)','ESPN ET boundary (next)'])assert.ok(live.includes(text),text+' missing');
  assert.match(live,/gameDay\(when\)!==today/);
