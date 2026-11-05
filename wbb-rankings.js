@@ -68,7 +68,7 @@ if(kind==='ap'||kind==='coaches'){
 }
 if(kind!=='retro'){
  $('#wbbr-controls').hidden=true;
- $('#wbbr-status').textContent='No current verified 2026–27 women’s '+kind.toUpperCase()+' table is published here. RETRO is never substituted for outside rankings.';
+ $('#wbbr-status').textContent='No verified 2026–27 women’s '+kind.toUpperCase()+' table is published here. RETRO is never substituted for outside rankings.';
  $('#wbbr-list').innerHTML='<p class="wbbr-note"><a href="?poll=retro">See women’s RETRO ratings →</a></p>';
  return;
 }
