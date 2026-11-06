@@ -149,8 +149,13 @@ const migrated=[
  ['d3-basketball.js','d3-mens-basketball.html'],
  ['euroleague-live.js','euroleague.html'],
  ['nfl-edition-v3.js','nfl.html'],
- ['cfb-desk.js','college-football.html']
+ ['cfb-desk.js','cfb-scoreboard.html']
 ];
+// The football newspaper front page is news-only. Its scoreboard lives at a dedicated URL.
+const footballFront=fs.readFileSync(path.join(root,'college-football.html'),'utf8');
+assert(footballFront.includes('slt-front-page.js'),'news-only football landing page must load its article feed');
+assert(footballFront.includes('href="cfb-scoreboard.html"'),'football landing page links to its dedicated scoreboard');
+assert(!footballFront.includes('src="cfb-desk.js'),'football landing page must not load the score renderer');
 for(const [renderer,page] of migrated){
  const js=fs.readFileSync(path.join(root,renderer),'utf8');
  const html=fs.readFileSync(path.join(root,page),'utf8');
