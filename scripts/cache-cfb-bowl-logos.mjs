@@ -37,6 +37,7 @@ const alternatives={
     "https://content.sportslogos.net/logos/68/4842/full/military_bowl_logo_primary_2024_sportslogosnet-5649.png"
   ],
   "Alamo Bowl": [
+    "https://www.pikpng.com/pngl/b/446-4464382_alamo-bowl-valero-alamo-bowl-logo-clipart.png",
     "https://www.alamobowl.com/wp-content/uploads/2021/05/card-bowl-logos.jpg"
   ],
   "Gator Bowl": [
