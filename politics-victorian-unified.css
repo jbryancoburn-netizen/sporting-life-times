@@ -23,3 +23,33 @@ section,article{border-color:#b9aa92}
 .plt-return-panel .plt-race{margin:18px 0 24px;border-top:2px solid #82705a;padding-top:10px}
 .plt-return-panel .plt-race h3{font:700 18px Georgia,serif;margin:0 0 8px}
 @media(max-width:650px){.plt-return-panel{padding:12px 10px}.plt-return-panel th,.plt-return-panel td{font-size:12px;padding:6px 3px}.paper{box-shadow:none!important}}
+
+
+/* Engraved election results explorer, compact and interactive */
+.plt-visual-desk{background:#f8f2e6!important;border:5px double #77644b!important;padding:clamp(14px,2.5vw,28px)!important;max-width:100%}
+.plt-visual-desk .plt-lede{font:15px/1.5 "Century Schoolbook",Georgia,serif;max-width:770px}
+.plt-controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:18px 0}
+.plt-controls input,.plt-controls select{flex:1 1 180px;min-width:0;max-width:100%;padding:11px 13px;border:1px solid #9a896e;border-radius:0;background:#fffdf8;color:#2d2922;font:14px "Century Schoolbook",Georgia,serif}
+.plt-controls input:focus,.plt-controls select:focus{outline:2px solid #9b4a35;outline-offset:2px}
+.plt-desk-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:3px double #77644b;border-bottom:3px double #77644b;margin:15px 0 24px}
+.plt-desk-metric{display:flex;flex-direction:column;text-align:center;gap:4px;padding:13px 8px;border-right:1px solid #9d8e78}.plt-desk-metric:last-child{border-right:0}
+.plt-desk-metric strong{font:700 clamp(20px,3vw,34px) Georgia,serif}.plt-desk-metric span{font:11px/1.35 Georgia,serif;text-transform:uppercase;letter-spacing:.8px}
+.plt-card-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.plt-race-card{min-width:0;background:#fffbf2;border:1px solid #a99983;box-shadow:2px 2px 0 #d9cdb9}
+.plt-race-card[open]{grid-column:span 1;border:2px solid #6e5d43}
+.plt-race-card summary{display:block;cursor:pointer;padding:14px 15px;list-style:none}.plt-race-card summary::-webkit-details-marker{display:none}
+.plt-race-card summary:hover,.plt-race-card summary:focus-visible{background:#eee5d5}
+.plt-card-head{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center;border-bottom:1px solid #cabda8;padding-bottom:8px}
+.plt-card-head strong{font:700 17px/1.25 "Century Schoolbook",Georgia,serif}
+.plt-badge{font:700 9px/1.3 Georgia,serif;letter-spacing:.8px;color:#7f4837}
+.plt-race-names{display:flex;justify-content:space-between;gap:8px;font:12px/1.4 Georgia,serif;margin:12px 0 7px}
+.plt-race-names span{max-width:49%}.plt-race-names span:last-child{text-align:right}
+.plt-votebar{height:15px;background:#cbbfaf;display:flex;overflow:hidden;border:1px solid #8f806b}
+.plt-vote-segment{height:100%;display:block;min-width:0;border-right:1px solid #fffaed}
+.plt-card-hint{display:block;margin-top:8px;font:11px/1.35 Georgia,serif;color:#5d5346}
+.plt-card-detail{padding:8px 14px 15px;border-top:2px double #978773;overflow-x:auto}
+.plt-card-detail table{width:100%;font-size:12px}.plt-card-detail th,.plt-card-detail td{padding:7px 3px}
+.plt-card-detail p{font-size:11px;color:#675b4c}.plt-race-link{font-weight:bold;font-size:12px;text-decoration:underline}
+.plt-more,.plt-empty{padding:14px;border:1px dashed #998971;background:#f8f2e8}
+@media(max-width:780px){.plt-card-grid{grid-template-columns:1fr}.plt-desk-metrics{grid-template-columns:repeat(3,minmax(0,1fr))}.plt-card-head strong{font-size:16px}}
+@media(max-width:440px){.plt-desk-metric strong{font-size:19px}.plt-desk-metric span{font-size:9px}.plt-race-names{font-size:11px}}
