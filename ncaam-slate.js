@@ -509,7 +509,15 @@ const retroLine=t=>{
  return (window.SLTBasketballScorebug?.formatRetro(profile,retroTies,women?363:365)||'RETRO —')+
   (retroPending?' · RETRO PROVISIONAL':'');
 };
-const record=t=>{const r=rankOf(t,ratings,women);return r&&r.wins!=null&&r.losses!=null?Number(r.wins)+'–'+Number(r.losses):'0–0'};
+const record=t=>{
+  const r=rankOf(t,ratings,women);
+  // Jacksonville State's official Nov 2 win over Oglethorpe is an overall
+  // regular-season victory, even though non-D-I results do not change RETRO Elo.
+  const wins=r&&r.wins!=null?Number(r.wins):0;
+  const losses=r&&r.losses!=null?Number(r.losses):0;
+  const jsu=women&&String(t?.canonical||t?.id)==='55';
+  return (jsu?Math.max(1,wins):wins)+'–'+losses;
+};
 const team=t=>{const profile=rankOf(t,ratings,women),url=teamPage(t);
  const body='<span class="sl-team">'+emblem(t)+'<span class="sl-team-copy"><strong>'+esc(t.name)+'</strong>'+
   '<small>'+esc(mascot(t)||'')+'</small>'+
