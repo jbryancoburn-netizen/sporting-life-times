@@ -167,6 +167,15 @@ else if(view==='playoffs')body+=race();
 else if(view==='teams'){
  const selected=query.get('team');const t=selected?teamMap.get(selected)||standing.find(x=>id(x)===selected):null;
  body+=t?panel('Club file',name(t),'<div class="pb-club-profile">'+crest(t)+'<div><h2>'+esc(name(t))+'</h2><p>Record: '+rec(t)+' · USRS Elo '+num(rating(t)?.elo,1)+'</p><p>Independent current-season research · Games and fixtures are sourced separately.</p>'+(isEuro?'':'<a href="'+teamURL(t)+'">Full NBL club roster, results and history →</a>')+'</div></div>'):panel('Club directory','Every club',clubs(standing));
+ if(t&&window.SLTBasketballStats){
+  const gp=Number(t.played),wins=Number(t.wins),losses=Number(t.losses);
+  const pf=Number(isEuro?t.for:t.points_for),pa=Number(isEuro?t.against:t.points_against);
+  const valid=Number.isInteger(gp)&&gp>0&&Number.isInteger(wins)&&Number.isInteger(losses)&&
+   wins+losses===gp&&Number.isFinite(pf)&&Number.isFinite(pa);
+  body+=window.SLTBasketballStats.register(valid?{games:gp,wins,losses,pointsFor:pf,pointsAgainst:pa}:null,{
+   note:isEuro?'2026–27 EuroLeague reconstructed standings from reported final scores; not an official certified table.':'2026–27 NBL source-derived results; not independently reconciled to the official league table.'
+  });
+ }
  if(t&&isEuro)body+=panel('Coming up',name(t)+' fixtures',forecast());
  if(!t)body+=bodyStats();
 }
