@@ -35,6 +35,7 @@ if(sort.value==="close")list.sort((a,b)=>(a.margin??Infinity)-(b.margin??Infinit
 grid.replaceChildren();metrics.replaceChildren();
 const close=list.filter(r=>r.margin!==null&&r.margin<5).length;const votes=list.reduce((sum,r)=>sum+r.total,0);
 metrics.append(makeMetric(list.length.toLocaleString(),"Reported races"),makeMetric(close.toLocaleString(),"Within 5 percentage points"),makeMetric(votes.toLocaleString(),"Votes reported in selection"));
+if(page==="politics-house.html"){metrics.append(makeMetric(Math.max(0,435-races.length).toLocaleString(),"House districts without feed records (approximate; verify identifiers)"))}
 const shown=list.slice(0,visibleCount);
 for(const r of shown){
  const card=h("details","plt-race-card");
@@ -64,7 +65,7 @@ async function load(){try{const res=await fetch("https://openamerica.io/election
  for(const code of codes){const opt=h("option",null,states[code]||code);opt.value=code;select.append(opt)}
  if(stateFilter)select.value=stateFilter;
  if(page==="politics-house-district.html")controls.hidden=true;
- status.textContent="Source returned "+races.length+" race records for this view · Unofficial and potentially incomplete · Updated on page load";
+ status.textContent="Source returned "+races.length+" race records for this view · Unofficial and potentially incomplete · No nationwide winner count inferred";
  lastSuccessfulUpdate=new Date();status.textContent+=" · Checked "+lastSuccessfulUpdate.toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit",timeZone:"America/New_York",timeZoneName:"short"})+" (browser retrieval, not source publication time)";
 select.addEventListener("change",()=>{visibleCount=48;render()});sort.addEventListener("change",()=>{visibleCount=48;render()});search.addEventListener("input",()=>{visibleCount=48;render()});render();
  }catch(e){controls.hidden=true;status.textContent="Live results feed unavailable. No election totals or winners are asserted.";grid.append(h("p","plt-empty","Check back when the reporting source is available. Existing historical atlas information remains accessible below."));}}
