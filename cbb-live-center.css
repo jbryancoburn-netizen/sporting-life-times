@@ -220,49 +220,55 @@
 }
 
 
-/* Every dedicated basketball Gamefile uses a readable mobile player ledger.
-   Source columns stay intact; the phone view shows four labeled stats per row. */
+/* Readable compact box score for dedicated Gamefiles and live game reports.
+   Keep player names visible; scroll only the numerical statistic columns. */
 @media(max-width:720px){
- .cbb-scroll--players{width:100%;max-width:100%;min-width:0;overflow:visible!important}
+ .cbb-scroll--players{
+  width:100%!important;max-width:100%!important;min-width:0!important;
+  overflow-x:auto!important;overflow-y:hidden!important;
+  -webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;
+  border:1px solid #cab797;
+ }
  .cbb-scroll--players .cbb-box-table--players{
-  display:block!important;width:100%!important;min-width:0!important;
-  max-width:100%!important;table-layout:auto!important;
-  border-collapse:collapse;background:#f8f0e1;color:#30261c;
+  display:table!important;width:max-content!important;min-width:100%!important;
+  max-width:none!important;table-layout:auto!important;
+  border-collapse:separate!important;border-spacing:0!important;
+  background:#faf4e9;color:#352f27;
  }
- .cbb-scroll--players .cbb-box-table--players thead{display:none!important}
- .cbb-scroll--players .cbb-box-table--players tbody{display:block!important;width:100%}
+ .cbb-scroll--players .cbb-box-table--players thead{display:table-header-group!important}
+ .cbb-scroll--players .cbb-box-table--players tbody{display:table-row-group!important}
  .cbb-scroll--players .cbb-box-table--players tbody tr{
-  display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;
-  gap:0!important;min-width:0!important;max-width:100%;
-  padding:4px 0 7px!important;margin:0!important;
-  border-bottom:2px double #baa280!important;background:#f9f2e6;
+  display:table-row!important;width:auto!important;padding:0!important;
+  margin:0!important;border:0!important;background:#faf4e9!important;
  }
- .cbb-scroll--players .cbb-box-table--players tbody tr:nth-child(even){background:#ecdcc2}
+ .cbb-scroll--players .cbb-box-table--players tbody tr:nth-child(even){background:#f0e4d1!important}
+ .cbb-scroll--players .cbb-box-table--players thead th{
+  display:table-cell!important;padding:8px 7px!important;
+  background:#e7d8bf!important;white-space:nowrap!important;
+  border-bottom:2px solid #ab916b!important;font:700 10px/1.2 Georgia,serif!important;
+ }
+ .cbb-scroll--players .cbb-box-table--players thead th:first-child{
+  position:sticky!important;left:0!important;z-index:4!important;
+  min-width:115px!important;text-align:left!important;
+ }
  .cbb-scroll--players .cbb-box-table--players tbody th{
-  display:block!important;grid-column:1/-1!important;position:static!important;
-  padding:8px 6px!important;text-align:left!important;
-  white-space:normal!important;overflow-wrap:break-word!important;
-  border-bottom:1px solid #cfb99b!important;background:transparent!important;
-  font:700 14px/1.25 Georgia,'Times New Roman',serif!important;
+  display:table-cell!important;grid-column:auto!important;
+  position:sticky!important;left:0!important;z-index:2!important;
+  min-width:115px!important;width:125px!important;max-width:150px!important;
+  padding:7px 8px!important;text-align:left!important;
+  white-space:normal!important;overflow-wrap:normal!important;word-break:normal!important;
+  border:0!important;border-right:1px solid #bda686!important;
+  border-bottom:1px solid #d4c1a6!important;
+  background:#faf4e9!important;font:700 12px/1.2 Georgia,serif!important;
  }
+ .cbb-scroll--players .cbb-box-table--players tbody tr:nth-child(even) th{background:#f0e4d1!important}
  .cbb-scroll--players .cbb-box-table--players tbody td{
-  display:flex!important;flex-direction:column;align-items:center;justify-content:center;
-  min-width:0!important;width:auto!important;max-width:100%!important;
-  padding:7px 2px!important;text-align:center!important;
-  white-space:nowrap!important;overflow:hidden!important;
-  font:700 12px/1.25 Georgia,'Times New Roman',serif!important;
-  border:0!important;border-right:1px solid #d4bd9b!important;
-  font-variant-numeric:tabular-nums;
+  display:table-cell!important;width:auto!important;min-width:42px!important;
+  max-width:none!important;margin:0!important;padding:7px 8px!important;
+  white-space:nowrap!important;overflow:visible!important;
+  border:0!important;border-bottom:1px solid #d4c1a6!important;
+  text-align:center!important;background:transparent!important;
+  font:12px/1.2 Georgia,serif!important;font-variant-numeric:tabular-nums;
  }
- .cbb-scroll--players .cbb-box-table--players tbody td::before{
-  display:block;content:attr(data-label);margin-bottom:3px;
-  font:700 9px/1.2 Georgia,'Times New Roman',serif;
-  color:#775638;white-space:nowrap;letter-spacing:.13px;
- }
-}
-@media(max-width:365px){
- .cbb-scroll--players .cbb-box-table--players tbody tr{
-  grid-template-columns:repeat(3,minmax(0,1fr))!important;
- }
- .cbb-scroll--players .cbb-box-table--players tbody td{border-right:0!important}
+ .cbb-scroll--players .cbb-box-table--players tbody td::before{content:none!important;display:none!important}
 }
