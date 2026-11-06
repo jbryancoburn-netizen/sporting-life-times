@@ -134,3 +134,34 @@
  border:0!important;outline:0!important;background:transparent!important;
  box-shadow:none!important;filter:none!important;
 }
+
+
+/* CFB scoreboard: match the shared college-basketball ledger layout.
+   Exactly two scorebugs across on desktop/tablet, one on narrow phones.
+   Scoped to the live football scoreboard; all other grids are unchanged. */
+.cfb-desk #scores.score-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+  align-items:stretch;
+  max-height:none;
+  overflow:visible;
+  padding-right:0;
+  scrollbar-gutter:auto;
+}
+.cfb-desk #scores > .game-card.ledger26-card{
+  box-sizing:border-box;
+  min-width:0;
+  width:100%;
+  margin:0;
+  padding:0;
+}
+.cfb-desk #scores .ledger26-scorebug,
+.cfb-desk #scores .ledger26-summary,
+.cfb-desk #scores .ledger26-expand{
+  min-width:0;
+  max-width:100%;
+}
+@media(max-width:680px){
+  .cfb-desk #scores.score-grid{grid-template-columns:minmax(0,1fr);gap:9px}
+}
