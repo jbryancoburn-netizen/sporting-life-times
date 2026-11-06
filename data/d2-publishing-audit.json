@@ -6,12 +6,12 @@
   "men": {
     "gender": "men",
     "teams": 301,
-    "games": 3365,
+    "games": 3374,
     "verified_elo_finals": 32,
     "dated_game_days": 104,
-    "no_venue": 2850,
-    "no_network": 3234,
-    "no_tipoff": 925,
+    "no_venue": 2849,
+    "no_network": 3243,
+    "no_tipoff": 923,
     "no_source_url": 0,
     "schools_without_a_published_game": 6,
     "eligible_schools_without_a_published_game": 0,
@@ -147,7 +147,7 @@
           "programs": 9,
           "without_games": 0,
           "with_1_to_6_games": 0,
-          "fixture_appearances": 193,
+          "fixture_appearances": 195,
           "eligible_without_games": 0,
           "excluded_without_games": 0,
           "eligible_with_1_to_6_games": 0
@@ -156,7 +156,7 @@
           "programs": 12,
           "without_games": 0,
           "with_1_to_6_games": 0,
-          "fixture_appearances": 265,
+          "fixture_appearances": 266,
           "eligible_without_games": 0,
           "excluded_without_games": 0,
           "eligible_with_1_to_6_games": 0
@@ -201,7 +201,7 @@
           "programs": 13,
           "without_games": 2,
           "with_1_to_6_games": 0,
-          "fixture_appearances": 234,
+          "fixture_appearances": 235,
           "eligible_without_games": 0,
           "excluded_without_games": 2,
           "eligible_with_1_to_6_games": 0
@@ -210,7 +210,7 @@
           "programs": 1,
           "without_games": 0,
           "with_1_to_6_games": 0,
-          "fixture_appearances": 15,
+          "fixture_appearances": 20,
           "eligible_without_games": 0,
           "excluded_without_games": 0,
           "eligible_with_1_to_6_games": 0
@@ -228,7 +228,7 @@
           "programs": 12,
           "without_games": 0,
           "with_1_to_6_games": 0,
-          "fixture_appearances": 294,
+          "fixture_appearances": 298,
           "eligible_without_games": 0,
           "excluded_without_games": 0,
           "eligible_with_1_to_6_games": 0
@@ -273,7 +273,7 @@
           "programs": 18,
           "without_games": 1,
           "with_1_to_6_games": 0,
-          "fixture_appearances": 385,
+          "fixture_appearances": 390,
           "eligible_without_games": 0,
           "excluded_without_games": 1,
           "eligible_with_1_to_6_games": 0
@@ -337,17 +337,17 @@
       "eligible_with_auto_captured_unreviewed_dates": 16,
       "auto_capture_certification_policy": "Live grid date captures are partial source evidence only; never school-season certifications or independent checks.",
       "unresolved_official_source_games": 1,
-      "role_conflicts": 0,
+      "role_conflicts": 1,
       "tipoff_disagreements": 22,
-      "outside_source_snapshot_games": 65,
-      "unclassified_other_division_source_rows": 155,
+      "outside_source_snapshot_games": 41,
+      "unclassified_other_division_source_rows": 122,
       "unresolved_tournament_placeholders": 0,
       "stage_counts": {
-        "COMPLETE_SEASON_ATTESTATION_REQUIRED": 4,
+        "COMPLETE_SEASON_ATTESTATION_REQUIRED": 6,
         "MEMBERSHIP_EXCLUDED": 7,
         "OFFICIAL_FULL_CALENDAR_REQUIRED": 264,
         "PARTIAL_SOURCE_CAPTURE": 16,
-        "SOURCE_LEDGER_RECONCILIATION": 10
+        "SOURCE_LEDGER_RECONCILIATION": 8
       },
       "schools": [
         {
@@ -2513,7 +2513,7 @@
           "eligible": true,
           "status": "OFFICIAL_FULL_CALENDAR_REQUIRED",
           "certified": false,
-          "published_games": 20,
+          "published_games": 22,
           "official_source_urls": [],
           "official_snapshot_count": 0,
           "live_source_rows_persisted": false,
@@ -2529,8 +2529,16 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 20,
+          "published_games_not_in_source_snapshot": 22,
           "outside_snapshot_examples": [
+            {
+              "date": "2026-11-14",
+              "opponent_id": "west-liberty"
+            },
+            {
+              "date": "2026-11-18",
+              "opponent_id": "salem"
+            },
             {
               "date": "2026-12-04",
               "opponent_id": "millersville"
@@ -2546,14 +2554,6 @@
             {
               "date": "2026-12-20",
               "opponent_id": "kutztown"
-            },
-            {
-              "date": "2027-01-02",
-              "opponent_id": "west-chester"
-            },
-            {
-              "date": "2027-01-09",
-              "opponent_id": "clarion"
             }
           ],
           "attestation_errors": [],
@@ -4110,7 +4110,7 @@
           "eligible": true,
           "status": "OFFICIAL_FULL_CALENDAR_REQUIRED",
           "certified": false,
-          "published_games": 18,
+          "published_games": 20,
           "official_source_urls": [],
           "official_snapshot_count": 0,
           "live_source_rows_persisted": false,
@@ -4126,11 +4126,15 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 18,
+          "published_games_not_in_source_snapshot": 20,
           "outside_snapshot_examples": [
             {
               "date": "2026-11-09",
               "opponent_id": "saint-anselm"
+            },
+            {
+              "date": "2026-11-18",
+              "opponent_id": "fairmont-state"
             },
             {
               "date": "2026-12-03",
@@ -4141,16 +4145,12 @@
               "opponent_id": "molloy"
             },
             {
+              "date": "2026-12-16",
+              "opponent_id": "salem"
+            },
+            {
               "date": "2026-12-30",
               "opponent_id": "assumption"
-            },
-            {
-              "date": "2026-12-31",
-              "opponent_id": "adelphi"
-            },
-            {
-              "date": "2027-01-07",
-              "opponent_id": "st-thomas-aquinas"
             }
           ],
           "attestation_errors": [],
@@ -5163,7 +5163,7 @@
           "eligible": true,
           "status": "SOURCE_LEDGER_RECONCILIATION",
           "certified": false,
-          "published_games": 26,
+          "published_games": 27,
           "official_source_urls": [
             "https://fightingfalcons.com/sports/mens-basketball/schedule/2026-27"
           ],
@@ -5171,15 +5171,10 @@
           "live_source_rows_persisted": false,
           "explicitly_partial_source": false,
           "official_source_rows": 28,
-          "eligible_source_games": 22,
-          "matched_source_games": 22,
-          "unidentified_or_other_division_rows": 6,
+          "eligible_source_games": 25,
+          "matched_source_games": 25,
+          "unidentified_or_other_division_rows": 3,
           "other_division_source_examples": [
-            {
-              "date": "2026-11-18",
-              "opponent": "Daemen University (N.Y.)",
-              "source_url": "https://fightingfalcons.com/sports/mens-basketball/schedule/2026-27"
-            },
             {
               "date": "2026-12-09",
               "opponent": "Shawnee State University (Ohio)",
@@ -5191,18 +5186,8 @@
               "source_url": "https://fightingfalcons.com/sports/mens-basketball/schedule/2026-27"
             },
             {
-              "date": "2027-01-03",
-              "opponent": "Point Park University (Pa.)",
-              "source_url": "https://fightingfalcons.com/sports/mens-basketball/schedule/2026-27"
-            },
-            {
               "date": "2027-01-27",
               "opponent": "Shawnee State University (Ohio)",
-              "source_url": "https://fightingfalcons.com/sports/mens-basketball/schedule/2026-27"
-            },
-            {
-              "date": "2027-02-13",
-              "opponent": "Point Park University (Pa.)",
               "source_url": "https://fightingfalcons.com/sports/mens-basketball/schedule/2026-27"
             }
           ],
@@ -5212,23 +5197,15 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 4,
+          "published_games_not_in_source_snapshot": 2,
           "outside_snapshot_examples": [
             {
               "date": "2026-12-09",
               "opponent_id": "shawnee-state"
             },
             {
-              "date": "2027-01-03",
-              "opponent_id": "point-park"
-            },
-            {
               "date": "2027-01-27",
               "opponent_id": "shawnee-state"
-            },
-            {
-              "date": "2027-02-13",
-              "opponent_id": "point-park"
             }
           ],
           "attestation_errors": [],
@@ -6786,7 +6763,7 @@
           "eligible": true,
           "status": "OFFICIAL_FULL_CALENDAR_REQUIRED",
           "certified": false,
-          "published_games": 23,
+          "published_games": 24,
           "official_source_urls": [],
           "official_snapshot_count": 0,
           "live_source_rows_persisted": false,
@@ -6802,7 +6779,7 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 23,
+          "published_games_not_in_source_snapshot": 24,
           "outside_snapshot_examples": [
             {
               "date": "2026-11-24",
@@ -7352,18 +7329,13 @@
           "live_source_rows_persisted": false,
           "explicitly_partial_source": false,
           "official_source_rows": 29,
-          "eligible_source_games": 20,
-          "matched_source_games": 20,
-          "unidentified_or_other_division_rows": 9,
+          "eligible_source_games": 26,
+          "matched_source_games": 26,
+          "unidentified_or_other_division_rows": 3,
           "other_division_source_examples": [
             {
               "date": "2026-11-09",
               "opponent": "Penn State Du Bois",
-              "source_url": "https://lakeeriestorm.com/sports/mens-basketball/schedule/2026-27?grid=true"
-            },
-            {
-              "date": "2026-11-14",
-              "opponent": "Ferris State University (@LSSU)",
               "source_url": "https://lakeeriestorm.com/sports/mens-basketball/schedule/2026-27?grid=true"
             },
             {
@@ -7372,33 +7344,8 @@
               "source_url": "https://lakeeriestorm.com/sports/mens-basketball/schedule/2026-27?grid=true"
             },
             {
-              "date": "2026-11-24",
-              "opponent": "Indiana University of Pennsylvania",
-              "source_url": "https://lakeeriestorm.com/sports/mens-basketball/schedule/2026-27?grid=true"
-            },
-            {
               "date": "2026-12-01",
               "opponent": "Penn State Beaver",
-              "source_url": "https://lakeeriestorm.com/sports/mens-basketball/schedule/2026-27?grid=true"
-            },
-            {
-              "date": "2026-12-12",
-              "opponent": "Walsh University (Ohio)",
-              "source_url": "https://lakeeriestorm.com/sports/mens-basketball/schedule/2026-27?grid=true"
-            },
-            {
-              "date": "2027-01-16",
-              "opponent": "Tiffin University (Ohio)",
-              "source_url": "https://lakeeriestorm.com/sports/mens-basketball/schedule/2026-27?grid=true"
-            },
-            {
-              "date": "2027-02-11",
-              "opponent": "Walsh University (Ohio)",
-              "source_url": "https://lakeeriestorm.com/sports/mens-basketball/schedule/2026-27?grid=true"
-            },
-            {
-              "date": "2027-02-20",
-              "opponent": "Tiffin University (Ohio)",
               "source_url": "https://lakeeriestorm.com/sports/mens-basketball/schedule/2026-27?grid=true"
             }
           ],
@@ -7408,7 +7355,7 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 4,
-          "published_games_not_in_source_snapshot": 10,
+          "published_games_not_in_source_snapshot": 4,
           "outside_snapshot_examples": [
             {
               "date": "2026-10-31",
@@ -7423,16 +7370,8 @@
               "opponent_id": "hawaii-pacific"
             },
             {
-              "date": "2026-11-14",
-              "opponent_id": "ferris-state"
-            },
-            {
-              "date": "2026-11-24",
-              "opponent_id": "indiana-pa"
-            },
-            {
-              "date": "2026-12-12",
-              "opponent_id": "walsh"
+              "date": "2027-02-14",
+              "opponent_id": "northwood"
             }
           ],
           "attestation_errors": [],
@@ -7453,38 +7392,13 @@
           "live_source_rows_persisted": false,
           "explicitly_partial_source": false,
           "official_source_rows": 28,
-          "eligible_source_games": 22,
-          "matched_source_games": 22,
-          "unidentified_or_other_division_rows": 6,
+          "eligible_source_games": 27,
+          "matched_source_games": 27,
+          "unidentified_or_other_division_rows": 1,
           "other_division_source_examples": [
-            {
-              "date": "2026-11-20",
-              "opponent": "Minnesota State University, Mankato",
-              "source_url": "https://lssulakers.com/sports/mens-basketball/schedule/2026-27?grid=true"
-            },
             {
               "date": "2026-12-12",
               "opponent": "Algoma University",
-              "source_url": "https://lssulakers.com/sports/mens-basketball/schedule/2026-27?grid=true"
-            },
-            {
-              "date": "2027-01-07",
-              "opponent": "Parkside",
-              "source_url": "https://lssulakers.com/sports/mens-basketball/schedule/2026-27?grid=true"
-            },
-            {
-              "date": "2027-01-25",
-              "opponent": "Wayne State University",
-              "source_url": "https://lssulakers.com/sports/mens-basketball/schedule/2026-27?grid=true"
-            },
-            {
-              "date": "2027-01-30",
-              "opponent": "Parkside",
-              "source_url": "https://lssulakers.com/sports/mens-basketball/schedule/2026-27?grid=true"
-            },
-            {
-              "date": "2027-02-13",
-              "opponent": "Wayne State University",
               "source_url": "https://lssulakers.com/sports/mens-basketball/schedule/2026-27?grid=true"
             }
           ],
@@ -7492,31 +7406,10 @@
           "tournament_placeholder_examples": [],
           "missing_source_games_count": 0,
           "missing_source_games": [],
-          "role_conflicts": 0,
+          "role_conflicts": 1,
           "tipoff_disagreements": 1,
-          "published_games_not_in_source_snapshot": 5,
-          "outside_snapshot_examples": [
-            {
-              "date": "2026-11-20",
-              "opponent_id": "minnesota-state"
-            },
-            {
-              "date": "2027-01-07",
-              "opponent_id": "parkside-wisconsin-parkside"
-            },
-            {
-              "date": "2027-01-25",
-              "opponent_id": "wayne-state-mi"
-            },
-            {
-              "date": "2027-01-30",
-              "opponent_id": "parkside-wisconsin-parkside"
-            },
-            {
-              "date": "2027-02-13",
-              "opponent_id": "wayne-state-mi"
-            }
-          ],
+          "published_games_not_in_source_snapshot": 0,
+          "outside_snapshot_examples": [],
           "attestation_errors": [],
           "next_action": "Reconcile exact date/opponent/role/time conflicts without inventing games."
         },
@@ -7633,7 +7526,7 @@
           "eligible": true,
           "status": "OFFICIAL_FULL_CALENDAR_REQUIRED",
           "certified": false,
-          "published_games": 22,
+          "published_games": 23,
           "official_source_urls": [],
           "official_snapshot_count": 0,
           "live_source_rows_persisted": false,
@@ -7649,7 +7542,7 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 22,
+          "published_games_not_in_source_snapshot": 23,
           "outside_snapshot_examples": [
             {
               "date": "2026-11-09",
@@ -9124,7 +9017,7 @@
           "name": "Minnesota State–Moorhead",
           "conference": "NSIC",
           "eligible": true,
-          "status": "SOURCE_LEDGER_RECONCILIATION",
+          "status": "COMPLETE_SEASON_ATTESTATION_REQUIRED",
           "certified": false,
           "published_games": 27,
           "official_source_urls": [
@@ -9134,9 +9027,9 @@
           "live_source_rows_persisted": false,
           "explicitly_partial_source": false,
           "official_source_rows": 29,
-          "eligible_source_games": 23,
-          "matched_source_games": 23,
-          "unidentified_or_other_division_rows": 6,
+          "eligible_source_games": 27,
+          "matched_source_games": 27,
+          "unidentified_or_other_division_rows": 2,
           "other_division_source_examples": [
             {
               "date": "2026-10-22",
@@ -9147,26 +9040,6 @@
               "date": "2026-11-20",
               "opponent": "Wayne State University",
               "source_url": "https://www.msumdragons.com/sports/mens-basketball/schedule/2026-27?grid=true"
-            },
-            {
-              "date": "2027-01-15",
-              "opponent": "Wayne State College",
-              "source_url": "https://www.msumdragons.com/sports/mens-basketball/schedule/2026-27?grid=true"
-            },
-            {
-              "date": "2027-01-16",
-              "opponent": "Augustana University (SD)",
-              "source_url": "https://www.msumdragons.com/sports/mens-basketball/schedule/2026-27?grid=true"
-            },
-            {
-              "date": "2027-01-22",
-              "opponent": "Minnesota State University, Mankato",
-              "source_url": "https://www.msumdragons.com/sports/mens-basketball/schedule/2026-27?grid=true"
-            },
-            {
-              "date": "2027-01-29",
-              "opponent": "University of Sioux Falls (S.D.)",
-              "source_url": "https://www.msumdragons.com/sports/mens-basketball/schedule/2026-27?grid=true"
             }
           ],
           "unresolved_tournament_placeholders": 0,
@@ -9175,27 +9048,10 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 4,
-          "outside_snapshot_examples": [
-            {
-              "date": "2027-01-15",
-              "opponent_id": "wayne-state-ne"
-            },
-            {
-              "date": "2027-01-16",
-              "opponent_id": "augustana"
-            },
-            {
-              "date": "2027-01-22",
-              "opponent_id": "minnesota-state"
-            },
-            {
-              "date": "2027-01-29",
-              "opponent_id": "sioux-falls"
-            }
-          ],
+          "published_games_not_in_source_snapshot": 0,
+          "outside_snapshot_examples": [],
           "attestation_errors": [],
-          "next_action": "Reconcile exact date/opponent/role/time conflicts without inventing games."
+          "next_action": "Verify the stored calendar includes every regular-season game and postseason TBD, classify non-DII opponents, and record independent crosscheck."
         },
         {
           "id": "minnesota-crookston",
@@ -10987,7 +10843,7 @@
           "name": "Parkside (Wisconsin–Parkside)",
           "conference": "GLIAC",
           "eligible": true,
-          "status": "SOURCE_LEDGER_RECONCILIATION",
+          "status": "COMPLETE_SEASON_ATTESTATION_REQUIRED",
           "certified": false,
           "published_games": 26,
           "official_source_urls": [
@@ -10997,9 +10853,9 @@
           "live_source_rows_persisted": false,
           "explicitly_partial_source": false,
           "official_source_rows": 28,
-          "eligible_source_games": 23,
-          "matched_source_games": 23,
-          "unidentified_or_other_division_rows": 5,
+          "eligible_source_games": 26,
+          "matched_source_games": 26,
+          "unidentified_or_other_division_rows": 2,
           "other_division_source_examples": [
             {
               "date": "2026-11-28",
@@ -11010,21 +10866,6 @@
               "date": "2026-12-15",
               "opponent": "Illinois Institute of Technology",
               "source_url": "https://parksiderangers.com/sports/mens-basketball/schedule/2026-27?grid=true"
-            },
-            {
-              "date": "2026-12-19",
-              "opponent": "University of Missouri - St. Louis",
-              "source_url": "https://parksiderangers.com/sports/mens-basketball/schedule/2026-27?grid=true"
-            },
-            {
-              "date": "2027-01-02",
-              "opponent": "Wayne State University",
-              "source_url": "https://parksiderangers.com/sports/mens-basketball/schedule/2026-27?grid=true"
-            },
-            {
-              "date": "2027-02-08",
-              "opponent": "Wayne State University",
-              "source_url": "https://parksiderangers.com/sports/mens-basketball/schedule/2026-27?grid=true"
             }
           ],
           "unresolved_tournament_placeholders": 0,
@@ -11033,23 +10874,10 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 3,
-          "outside_snapshot_examples": [
-            {
-              "date": "2026-12-19",
-              "opponent_id": "umsl-missouri-st-louis"
-            },
-            {
-              "date": "2027-01-02",
-              "opponent_id": "wayne-state-mi"
-            },
-            {
-              "date": "2027-02-08",
-              "opponent_id": "wayne-state-mi"
-            }
-          ],
+          "published_games_not_in_source_snapshot": 0,
+          "outside_snapshot_examples": [],
           "attestation_errors": [],
-          "next_action": "Reconcile exact date/opponent/role/time conflicts without inventing games."
+          "next_action": "Verify the stored calendar includes every regular-season game and postseason TBD, classify non-DII opponents, and record independent crosscheck."
         },
         {
           "id": "pittsburg-state",
@@ -11111,7 +10939,7 @@
           "eligible": true,
           "status": "OFFICIAL_FULL_CALENDAR_REQUIRED",
           "certified": false,
-          "published_games": 24,
+          "published_games": 25,
           "official_source_urls": [],
           "official_snapshot_count": 0,
           "live_source_rows_persisted": false,
@@ -11127,8 +10955,12 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 24,
+          "published_games_not_in_source_snapshot": 25,
           "outside_snapshot_examples": [
+            {
+              "date": "2026-11-13",
+              "opponent_id": "west-liberty"
+            },
             {
               "date": "2026-11-18",
               "opponent_id": "frostburg-state"
@@ -11148,10 +10980,6 @@
             {
               "date": "2026-12-15",
               "opponent_id": "west-chester"
-            },
-            {
-              "date": "2026-12-19",
-              "opponent_id": "millersville"
             }
           ],
           "attestation_errors": [],
@@ -12099,7 +11927,7 @@
           "eligible": true,
           "status": "COMPLETE_SEASON_ATTESTATION_REQUIRED",
           "certified": false,
-          "published_games": 15,
+          "published_games": 20,
           "official_source_urls": [
             "https://salemtigers.com/sports/mens-basketball/schedule/2026-27?grid=true"
           ],
@@ -12107,38 +11935,13 @@
           "live_source_rows_persisted": false,
           "explicitly_partial_source": false,
           "official_source_rows": 27,
-          "eligible_source_games": 15,
-          "matched_source_games": 15,
-          "unidentified_or_other_division_rows": 12,
+          "eligible_source_games": 20,
+          "matched_source_games": 20,
+          "unidentified_or_other_division_rows": 7,
           "other_division_source_examples": [
-            {
-              "date": "2026-11-18",
-              "opponent": "California University of Pennsylvania",
-              "source_url": "https://salemtigers.com/sports/mens-basketball/schedule/2026-27?grid=true"
-            },
-            {
-              "date": "2026-12-16",
-              "opponent": "Daemen University (N.Y.)",
-              "source_url": "https://salemtigers.com/sports/mens-basketball/schedule/2026-27?grid=true"
-            },
-            {
-              "date": "2027-01-06",
-              "opponent": "Tiffin University (Ohio)",
-              "source_url": "https://salemtigers.com/sports/mens-basketball/schedule/2026-27?grid=true"
-            },
-            {
-              "date": "2027-01-10",
-              "opponent": "Lee University (Tenn.)",
-              "source_url": "https://salemtigers.com/sports/mens-basketball/schedule/2026-27?grid=true"
-            },
             {
               "date": "2027-01-23",
               "opponent": "Bryant & Stratton (Ohio)",
-              "source_url": "https://salemtigers.com/sports/mens-basketball/schedule/2026-27?grid=true"
-            },
-            {
-              "date": "2027-01-30",
-              "opponent": "Indiana University of Pennsylvania",
               "source_url": "https://salemtigers.com/sports/mens-basketball/schedule/2026-27?grid=true"
             },
             {
@@ -12371,7 +12174,7 @@
           "eligible": true,
           "status": "OFFICIAL_FULL_CALENDAR_REQUIRED",
           "certified": false,
-          "published_games": 22,
+          "published_games": 23,
           "official_source_urls": [],
           "official_snapshot_count": 0,
           "live_source_rows_persisted": false,
@@ -12387,8 +12190,12 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 22,
+          "published_games_not_in_source_snapshot": 23,
           "outside_snapshot_examples": [
+            {
+              "date": "2026-11-19",
+              "opponent_id": "west-virginia-wesleyan"
+            },
             {
               "date": "2026-12-04",
               "opponent_id": "shepherd"
@@ -12408,10 +12215,6 @@
             {
               "date": "2026-12-20",
               "opponent_id": "west-chester"
-            },
-            {
-              "date": "2027-01-02",
-              "opponent_id": "millersville"
             }
           ],
           "attestation_errors": [],
@@ -14075,7 +13878,7 @@
           "eligible": true,
           "status": "OFFICIAL_FULL_CALENDAR_REQUIRED",
           "certified": false,
-          "published_games": 20,
+          "published_games": 21,
           "official_source_urls": [],
           "official_snapshot_count": 0,
           "live_source_rows_persisted": false,
@@ -14091,7 +13894,7 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 20,
+          "published_games_not_in_source_snapshot": 21,
           "outside_snapshot_examples": [
             {
               "date": "2026-12-03",
@@ -15532,7 +15335,7 @@
           "eligible": true,
           "status": "SOURCE_LEDGER_RECONCILIATION",
           "certified": false,
-          "published_games": 28,
+          "published_games": 30,
           "official_source_urls": [
             "https://hilltoppersports.com/sports/mens-basketball/schedule/2026-27?grid=true"
           ],
@@ -15540,33 +15343,13 @@
           "live_source_rows_persisted": false,
           "explicitly_partial_source": false,
           "official_source_rows": 30,
-          "eligible_source_games": 24,
-          "matched_source_games": 24,
-          "unidentified_or_other_division_rows": 6,
+          "eligible_source_games": 28,
+          "matched_source_games": 28,
+          "unidentified_or_other_division_rows": 2,
           "other_division_source_examples": [
-            {
-              "date": "2026-11-13",
-              "opponent": "Pitt-Johnstown",
-              "source_url": "https://hilltoppersports.com/sports/mens-basketball/schedule/2026-27?grid=true"
-            },
-            {
-              "date": "2026-11-14",
-              "opponent": "Cal (Pa.)",
-              "source_url": "https://hilltoppersports.com/sports/mens-basketball/schedule/2026-27?grid=true"
-            },
             {
               "date": "2026-12-02",
               "opponent": "Shawnee State (Ohio)",
-              "source_url": "https://hilltoppersports.com/sports/mens-basketball/schedule/2026-27?grid=true"
-            },
-            {
-              "date": "2026-12-09",
-              "opponent": "Point Park (Pa.)",
-              "source_url": "https://hilltoppersports.com/sports/mens-basketball/schedule/2026-27?grid=true"
-            },
-            {
-              "date": "2027-01-23",
-              "opponent": "Point Park (Pa.)",
               "source_url": "https://hilltoppersports.com/sports/mens-basketball/schedule/2026-27?grid=true"
             },
             {
@@ -15581,19 +15364,11 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 1,
-          "published_games_not_in_source_snapshot": 4,
+          "published_games_not_in_source_snapshot": 2,
           "outside_snapshot_examples": [
             {
               "date": "2026-12-02",
               "opponent_id": "shawnee-state"
-            },
-            {
-              "date": "2026-12-09",
-              "opponent_id": "point-park"
-            },
-            {
-              "date": "2027-01-23",
-              "opponent_id": "point-park"
             },
             {
               "date": "2027-02-03",
@@ -15716,7 +15491,7 @@
           "eligible": true,
           "status": "SOURCE_LEDGER_RECONCILIATION",
           "certified": false,
-          "published_games": 23,
+          "published_games": 24,
           "official_source_urls": [
             "https://wesleyanbobcats.com/sports/mens-basketball/schedule/2026-27?grid=true"
           ],
@@ -15724,18 +15499,13 @@
           "live_source_rows_persisted": false,
           "explicitly_partial_source": false,
           "official_source_rows": 26,
-          "eligible_source_games": 19,
-          "matched_source_games": 19,
-          "unidentified_or_other_division_rows": 7,
+          "eligible_source_games": 22,
+          "matched_source_games": 22,
+          "unidentified_or_other_division_rows": 4,
           "other_division_source_examples": [
             {
               "date": "2026-11-12",
               "opponent": "Penn State Greater Allegheny",
-              "source_url": "https://wesleyanbobcats.com/sports/mens-basketball/schedule/2026-27?grid=true"
-            },
-            {
-              "date": "2026-11-19",
-              "opponent": "Seton Hill University (Pa.)",
               "source_url": "https://wesleyanbobcats.com/sports/mens-basketball/schedule/2026-27?grid=true"
             },
             {
@@ -15744,18 +15514,8 @@
               "source_url": "https://wesleyanbobcats.com/sports/mens-basketball/schedule/2026-27?grid=true"
             },
             {
-              "date": "2026-12-05",
-              "opponent": "Point Park University (Pa.)",
-              "source_url": "https://wesleyanbobcats.com/sports/mens-basketball/schedule/2026-27?grid=true"
-            },
-            {
               "date": "2027-01-09",
               "opponent": "Shawnee State University (Ohio)",
-              "source_url": "https://wesleyanbobcats.com/sports/mens-basketball/schedule/2026-27?grid=true"
-            },
-            {
-              "date": "2027-01-30",
-              "opponent": "Point Park University (Pa.)",
               "source_url": "https://wesleyanbobcats.com/sports/mens-basketball/schedule/2026-27?grid=true"
             },
             {
@@ -15770,19 +15530,11 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 4,
+          "published_games_not_in_source_snapshot": 2,
           "outside_snapshot_examples": [
-            {
-              "date": "2026-12-05",
-              "opponent_id": "point-park"
-            },
             {
               "date": "2027-01-09",
               "opponent_id": "shawnee-state"
-            },
-            {
-              "date": "2027-01-30",
-              "opponent_id": "point-park"
             },
             {
               "date": "2027-02-06",
@@ -16528,7 +16280,7 @@
       "NCAA scoreboard": 721,
       "NE10 2026-27 official reciprocal school calendars": 65,
       "NSIC 2026-27 reciprocal official school calendars": 132,
-      "Official university 2026-27 school schedule": 337,
+      "Official university 2026-27 school schedule": 346,
       "PBC 2026-27 reciprocal official university calendars": 109,
       "PSAC 2026-27 reciprocal official school schedules": 170,
       "PWC 2026-27 reciprocal official school calendars": 70,
