@@ -56,6 +56,7 @@ const alternatives={
     "https://library.sportingnews.com/styles/twitter_card_120x120/s3/2025-12/Liberty%20Bowl.jpg?itok=_nN75tTR"
   ],
   "Cactus Bowl": [
+    "https://s.yimg.com/ny/api/res/1.2/OCYlAxhrtzRwUv4.rcNv4w--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTk2MDtjZj13ZWJw/https%3A/media.zenfs.com/en/azcentral-the-arizona-republic/ef922bbc261a65cfc521b5f8b28ea952",
     "https://pbs.twimg.com/media/HJ7MTC-bkAAL6a2.jpg"
   ],
   "Puerto Rico Bowl": [
