@@ -50,6 +50,8 @@ concurrency:
   cancel-in-progress: false
 jobs:
   deploy:
+    # Do not redeploy when an upstream publisher fails or is cancelled.
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
