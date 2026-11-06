@@ -35,7 +35,17 @@ const retroInSeason=retroValid&&retroPublication.games_played>0&&retroPublicatio
 let live=Boolean(retroInSeason);
 let data=(retroPreseason||retroInSeason)?retroPublication:pre;
 const referenceById=new Map((valid(pre)?pre.rankings:valid(current)?current.rankings:[]).map(t=>[t.team_id,t]));
-const enrichRankings=rankings=>rankings.map(t=>{const v=verifiedOverall?.records?.[t.team_id];return {...referenceById.get(t.team_id),...t,wins:t.wins??0,losses:t.losses??0,conference_wins:t.conference_wins??0,conference_losses:t.conference_losses??0,...(v?{overall_wins:v.overall_wins,overall_losses:v.overall_losses}:{}),};});
+// Verified cross-division results supplement RETRO; a stale overall-records snapshot
+// must NEVER replace newer Division I final-game results in any newspaper view.
+const enrichRankings=rankings=>rankings.map(t=>{
+ const v=verifiedOverall?.season==='2026-27'?verifiedOverall.records?.[t.team_id]:null;
+ const wins=t.wins??0,losses=t.losses??0;
+ const nonDiWins=Number.isSafeInteger(v?.verified_non_di_wins)&&v.verified_non_di_wins>=0?v.verified_non_di_wins:0;
+ const nonDiLosses=Number.isSafeInteger(v?.verified_non_di_losses)&&v.verified_non_di_losses>=0?v.verified_non_di_losses:0;
+ return {...referenceById.get(t.team_id),...t,wins,losses,
+  conference_wins:t.conference_wins??0,conference_losses:t.conference_losses??0,
+  overall_wins:wins+nonDiWins,overall_losses:losses+nonDiLosses};
+});
 let teams=enrichRankings(data.rankings);
 if(!teams.every(t=>t.conference)){console.warn('MBB: conference reference is missing for some teams');}
 const ratingMethod=(retroPreseason||retroInSeason)?'RETRO · 1500 clean slate':'Legacy Elo fallback — RETRO feed unavailable';
