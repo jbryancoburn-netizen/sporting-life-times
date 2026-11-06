@@ -124,6 +124,7 @@ function renderTeam(d){
  '<section class="panel"><div class="section-head"><h2>THE SCHOOL GAMEFILE</h2><span>AWAY FIRST · HOME SECOND</span></div>'+
  (games.length?games.map(card).join(''):'<p class="note">No school fixtures found in the published NCAA source window. This is not a certified full-season calendar.</p>')+
  '</section>';
+const reg=window.SLTBasketballStats;if(reg){const summary=reg.fromGames(games,id,{requireFinal:true,requireEligible:true});host.querySelector('.team-stats')?.insertAdjacentHTML('afterend',reg.register(summary,{note:'Only published, Elo-eligible Division III finals enter this statistical register. Partial school calendars are not represented as complete.'}));}
 }
 function renderHome(d){
  const teams=d.teams.slice().sort((a,b)=>a.name.localeCompare(b.name)),games=d.games.slice();
