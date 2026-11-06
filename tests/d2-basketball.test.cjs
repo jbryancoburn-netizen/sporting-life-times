@@ -307,7 +307,7 @@ test('DII Charleston official-to-NCAA identity labels are explicitly sourced',()
  ]);
  for(const item of aliases){
   assert.notEqual(item.source_opponent,item.opponent);
-  assert.match(item.opponent_identity_source_url,/^https:\/\//);
+  assert.ok(game.opponent_identity_source_url.startsWith('https://'));
   assert.ok(!Object.hasOwn(item,'away_score')&&!Object.hasOwn(item,'home_score'));
  }
 });
