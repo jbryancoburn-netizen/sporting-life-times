@@ -6,7 +6,7 @@ if(!/^\d+$/.test(team||''))return;
 const table=(heading,columns,rows,klass='')=>{
  if(!rows.length)return '';
  return '<section class="wbb-stat-block"><h3>'+safe(heading)+'</h3><table class="'+klass+'"><thead><tr>'+columns.map(c=>'<th scope="col">'+safe(c)+'</th>').join('')+'</tr></thead><tbody>'+
- rows.map(row=>'<tr>'+row.map((value,i)=>i===0?'<th scope="row">'+safe(value)+'</th>':'<td data-label="'+safe(columns[i]||'')+'">'+safe(value)+'</td>').join('')+'</tr>').join('')+'</tbody></table></section>';
+ rows.map(row=>'<tr><th scope="row">'+safe(row[0]??'—')+'</th>'+columns.slice(1).map((label,i)=>'<td data-label="'+safe(label)+'">'+safe(row[i+1]??'—')+'</td>').join('')+'</tr>').join('')+'</tbody></table></section>';
 };
 async function retrieve(eventId,holder){
  const response=await fetch('https://site.api.espn.com/apis/site/v2/sports/basketball/womens-college-basketball/summary?event='+encodeURIComponent(eventId),{signal:AbortSignal.timeout(14000)});
@@ -20,14 +20,14 @@ async function retrieve(eventId,holder){
  if(periods.length){
   const n=Math.max(...periods.map(c=>c.linescores.length));
   const columns=['University',...Array.from({length:n},(_,i)=>'Period '+(i+1)),'Final'];
-  html+=table('Period by Period',columns,periods.map(c=>[c.team?.displayName||c.team?.name||'School',...Array.from({length:n},(_,i)=>c.linescores[i]?.displayValue??c.linescores[i]?.value??'—'),c.score??'—']));
+  html+=table('Period by Period',columns,periods.map(c=>[c.team?.displayName||c.team?.name||'School',...Array.from({length:n},(_,i)=>c.linescores[i]?.displayValue??c.linescores[i]?.value??'—'),c.score??'—']),'wbb-period-box');
  }
  const teams=box.teams||[];
  if(teams.length){
   const labels=[...new Set(teams.flatMap(t=>(t.statistics||[]).map(s=>s.label||s.name).filter(Boolean)))];
   if(labels.length){
    const columns=['Team Statistic',...teams.map(t=>t.team?.displayName||t.team?.name||'School')];
-   html+=table('Team Box Score',columns,labels.map(label=>[label,...teams.map(t=>{const stat=(t.statistics||[]).find(s=>(s.label||s.name)===label);return stat?.displayValue??stat?.value??'—';})]));
+   html+=table('Team Box Score',columns,labels.map(label=>[label,...teams.map(t=>{const stat=(t.statistics||[]).find(s=>(s.label||s.name)===label);return stat?.displayValue??stat?.value??'—';})]),'wbb-team-box');
   }
  }
  for(const group of box.players||[]){
