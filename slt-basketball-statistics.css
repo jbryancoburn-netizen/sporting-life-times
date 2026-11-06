@@ -1,0 +1,18 @@
+/* Compact Victorian statistics register: one sheet, light rules, no giant cards. */
+.slt-stat-register,.slt-stat-additional{--slt-st-ink:#35291e;--slt-st-rule:#bca486;--slt-st-muted:#765d47;min-width:0;max-width:100%;margin:12px 0 16px;color:var(--slt-st-ink);font-family:Georgia,'Times New Roman',serif;background:transparent}
+.slt-stat-register *,.slt-stat-additional *{box-sizing:border-box}
+.slt-stat-heading{display:flex;align-items:baseline;justify-content:space-between;gap:12px;border-top:3px double #947758;border-bottom:1px solid var(--slt-st-rule);padding:7px 2px 6px;text-transform:uppercase;letter-spacing:.075em}
+.slt-stat-heading strong{font:bold 12px/1.25 Georgia,serif}.slt-stat-heading span{font:11px Georgia,serif;color:var(--slt-st-muted);white-space:nowrap}
+.slt-stat-figures,.slt-stat-other-figures{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));margin:0;padding:0}
+.slt-stat-figures>div,.slt-stat-other-figures>div{min-width:0;padding:10px 9px 8px;border-bottom:1px solid var(--slt-st-rule)}
+.slt-stat-figures>div+div,.slt-stat-other-figures>div+div{border-left:1px solid #d9c7ae}
+.slt-stat-figures dt,.slt-stat-other-figures dt{color:var(--slt-st-muted);font:bold 10px/1.25 Georgia,serif;letter-spacing:.04em;text-transform:uppercase;overflow-wrap:break-word}
+.slt-stat-figures dd{margin:4px 0 0;font:normal clamp(19px,2.2vw,27px)/1.15 Georgia,serif;font-variant-numeric:tabular-nums}
+.slt-stat-additional-head{font:bold 12px Georgia,serif;letter-spacing:.06em;text-transform:uppercase;border-top:3px double #947758;padding:7px 2px}
+.slt-stat-other-figures{grid-template-columns:repeat(7,minmax(0,1fr));border-top:1px solid var(--slt-st-rule)}
+.slt-stat-other-figures dd{margin:5px 0 0;font:normal clamp(17px,2vw,23px)/1.15 Georgia,serif;font-variant-numeric:tabular-nums}
+.slt-stat-provenance{font:11px/1.45 Georgia,serif!important;color:var(--slt-st-muted)!important;margin:7px 1px 0!important}
+.slt-stat-unavailable{padding:10px 3px;margin:0;font:12px/1.5 Georgia,serif;color:var(--slt-st-muted)}
+@media(max-width:850px){.slt-stat-figures{grid-template-columns:repeat(3,minmax(0,1fr))}.slt-stat-figures>div:nth-child(4){border-left:0}.slt-stat-other-figures{grid-template-columns:repeat(4,minmax(0,1fr))}.slt-stat-other-figures>div:nth-child(5){border-left:0}}
+@media(max-width:480px){.slt-stat-figures{grid-template-columns:repeat(2,minmax(0,1fr))}.slt-stat-figures>div:nth-child(odd){border-left:0}.slt-stat-figures>div:nth-child(4){border-left:1px solid #d9c7ae}.slt-stat-other-figures{grid-template-columns:repeat(3,minmax(0,1fr))}.slt-stat-other-figures>div:nth-child(3n+1){border-left:0}.slt-stat-other-figures>div:nth-child(5){border-left:1px solid #d9c7ae}.slt-stat-figures>div,.slt-stat-other-figures>div{padding:9px 6px 8px}.slt-stat-figures dd{font-size:23px}.slt-stat-other-figures dd{font-size:19px}}
+@media(prefers-reduced-motion:reduce){.slt-stat-register,.slt-stat-additional{scroll-behavior:auto}}
