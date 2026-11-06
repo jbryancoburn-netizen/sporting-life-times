@@ -36,19 +36,10 @@ function summarizeFinals(data,teamId){
   asOf:data.as_of||null};
 }
 function teamMarkup(stats){
- if(!stats||!stats.games)return '<div class="wbb-season-awaiting"><strong>2026–27 season statistics</strong><p>No women’s Division I final has been published for this team. Every team began at 1500 Elo; only completed games count toward this record.</p></div>';
- const fields=[
-  ['Record',stats.wins+'–'+stats.losses],
-  ['Games',stats.games],
-  ['Points / game',stats.ppg],
-  ['Allowed / game',stats.allowed],
-  ['Scoring margin',((Number(stats.margin)>0)?'+':'')+stats.margin]
- ];
- return '<div class="wbb-stat-grid wbb-verified-stat-grid">'+fields.map(([name,value])=>
-  '<div class="wbb-stat"><small>'+esc(name)+'</small><strong>'+esc(value)+'</strong></div>').join('')+'</div>'+
-  '<p class="wbb-muted">2026–27 women’s games · calculated exclusively from '+stats.games+
-  ' published final'+(stats.games===1?'':'s')+'. Opponent statistics and scoring margin are results-based, not projections. '+
-  '<a href="ncaam.html?gender=women#wbb-games">Verified women’s results ↗</a></p>';
+ const stat=window.SLTBasketballStats;
+ if(!stats||!stats.games)return stat?.register(null,{note:'2026–27 women-only verified final-score ledger.'})||'<p>No verified final scores yet.</p>';
+ return (stat?.register(stats,{note:'2026–27 women’s Division I finals; scoring and defense based on completed results, not projections.'})||'')+
+ '<p class="wbb-muted"><a href="ncaam.html?gender=women#wbb-games">Verified women’s results ↗</a></p>';
 }
 function validatedESPN(data,teamId){
  if(data?.status!=='success'||Number(data.requestedSeason?.year)!==2027||String(data.team?.id)!==String(teamId))return null;
@@ -90,10 +81,7 @@ async function render(id){
   if(data.fields.length){
    const html=data.fields.map(([key,label])=>'<div class="wbb-stat"><small>'+esc(label)+'</small><strong>'+
     esc(data.totals.get(key).displayValue||Number(data.totals.get(key).value).toFixed(1))+'</strong></div>').join('');
-   panel.insertAdjacentHTML('beforebegin','<div class="wbb-stat-extra"><h3>Additional Women’s Team Statistics</h3>'+
-     '<div class="wbb-stat-grid">'+html+'</div><p class="wbb-muted">Current 2026–27 women’s statistics · '+
-     esc(data.totals.get('gamesPlayed').displayValue)+' reported games. <a href="'+esc(url)+
-     '" target="_blank" rel="noopener noreferrer">Statistics source ↗</a></p></div>');
+   panel.insertAdjacentHTML('beforebegin',(window.SLTBasketballStats?.extras(data.fields.map(([key,label])=>[label,data.totals.get(key).displayValue||Number(data.totals.get(key).value).toFixed(1)]),{heading:'Shooting & possession',note:'2026–27 source-reported women’s totals · '+data.totals.get('gamesPlayed').displayValue+' games.'})||'')+'<p class="wbb-muted"><a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">Statistics source ↗</a></p>');
   }
   const categories=[['avgPoints','Scoring'],['avgRebounds','Rebounding'],['avgAssists','Assists'],
    ['avgSteals','Steals'],['avgBlocks','Blocks']];
