@@ -1,6 +1,10 @@
 name: Certified MBB cross-division schedule audit and overall records
 on:
   workflow_dispatch:
+  # GitHub Actions' bot commits do not trigger downstream push workflows.
+  # Independent checks also catch new verified non-Division I results.
+  schedule:
+    - cron: '13,43 * * * *'
   push:
     branches: [main]
     paths:
