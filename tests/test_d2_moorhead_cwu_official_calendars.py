@@ -69,6 +69,11 @@ class D2SchoolCalendarRecoveryBatch(unittest.TestCase):
                     "men", {}, teams, registry_file=p, live_sources=False,
                     today=dt.date(2026, 11, 5))
             school["fixtures"][0]["start_time"] = "5:00 PM ET"
+            p.write_text(json.dumps({
+                "season": "2026-27", "schema": 1,
+                "schools": [school], "live_school_sources": [],
+                "certification_assertions": [],
+            }), encoding="utf-8")
             games = {}
             counts = apply_official_school_grid_snapshots(
                 "men", games, teams, registry_file=p, live_sources=False,
