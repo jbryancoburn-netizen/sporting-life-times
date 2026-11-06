@@ -11,7 +11,7 @@ const stateFilter=stateCode(params.get("state"));
 const districtParam=norm(params.get("district"));
 const selectDistrict=key=>{const id=norm(key);return id===districtParam||id===districtParam.replace(/^([A-Z]{2})0+(\d)$/,"$1$2")||id===districtParam.replace(/^([A-Z]{2})(\d)$/,"$10$2")};
 const h=(tag,cls,txt)=>{const x=document.createElement(tag);if(cls)x.className=cls;if(txt!==undefined)x.textContent=String(txt);return x};
-const panel=h("section","plt-return-panel plt-visual-desk");panel.setAttribute("aria-label","Interactive 2026 House election returns");
+const panel=h("section","plt-return-panel plt-visual-desk");panel.setAttribute("aria-label","Interactive 2026 House election returns");panel.id="house-returns";
 panel.append(h("div","plt-kicker","NOVEMBER 2026 · THE RESULTS DESK"),h("h2",null,"The House · Interactive Election Atlas"));
 const intro=h("p","plt-lede","Explore reported votes state by state. Select a race to reveal the complete returns and candidate comparison.");panel.append(intro);
 const status=h("p","plt-status","Checking state-reported results…");status.setAttribute("role","status");panel.append(status);
@@ -35,7 +35,7 @@ if(sort.value==="close")list.sort((a,b)=>(a.margin??Infinity)-(b.margin??Infinit
 grid.replaceChildren();metrics.replaceChildren();
 const close=list.filter(r=>r.margin!==null&&r.margin<5).length;const votes=list.reduce((sum,r)=>sum+r.total,0);
 metrics.append(makeMetric(list.length.toLocaleString(),"Reported races"),makeMetric(close.toLocaleString(),"Within 5 percentage points"),makeMetric(votes.toLocaleString(),"Votes reported in selection"));
-if(page==="politics-house.html"){metrics.append(makeMetric(Math.max(0,435-races.length).toLocaleString(),"House districts without feed records (approximate; verify identifiers)"))}
+if(page==="politics-house.html"){metrics.append(makeMetric(Math.max(0,435-new Set(races.map(r=>r.key)).size).toLocaleString(),"Districts not represented in this feed (approximate)"))}
 const shown=list.slice(0,visibleCount);
 for(const r of shown){
  const card=h("details","plt-race-card");
