@@ -1,7 +1,7 @@
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs');
 test('DII papers exist for men and women with shared newspaper renderer',()=>{
 for(const [file,gender] of [['d2-mens-basketball.html','men'],['d2-womens-basketball.html','women']]){
- const s=fs.readFileSync(file,'utf8');assert.match(s,new RegExp('data-gender="'+gender+'"'));assert.match(s,/d2-basketball\.js/);assert.match(s,/d2-basketball\.css/);assert.match(s,/THE SPORTING LIFE/);}
+ const s=fs.readFileSync(file,'utf8');assert.match(s,new RegExp('data-gender="'+gender+'"'));assert.match(s,/d2-basketball\.js/);assert.match(s,/d2-basketball\.css/);assert.match(s,/SPORTING LIFE/);assert.doesNotMatch(s,/THE SPORTING LIFE/);}
 });
 test('both 2026-27 ledgers have isolated sexes, 298 target and a 1500 reset',()=>{
 for(const gender of ['men','women']){const d=JSON.parse(fs.readFileSync('data/d2-'+gender+'-2026-27.json','utf8'));
@@ -414,4 +414,24 @@ test('DII complete-season source recovery keeps 79 DYouville Roberts and Duluth 
  assert.ok(grid.schools.find(s=>s.owner_id==='d-youville').source_references.some(x=>x.includes('millersvilleathletics.com')));
  assert.ok(grid.schools.find(s=>s.owner_id==='roberts-wesleyan').fixtures.some(g=>g.opponent.includes('Exhibition')));
  assert.ok(grid.schools.find(s=>s.owner_id==='minnesota-duluth').fixtures.some(g=>g.opponent==='Carleton College'));
+});
+
+// DII cross-page publication quality: one scorebug, honest branding and legible six-field ledger.
+test('DII team desks use the same live scorebug assets as game and front pages',()=>{
+ const team=fs.readFileSync('d2-team.html','utf8');
+ assert.match(team,/cbb-ledger-scorebug\\.js/);
+ assert.match(team,/cbb-ledger-scorecard\\.css/);
+ for(const page of ['d2-mens-basketball.html','d2-womens-basketball.html','d2-team.html','d2-game.html']){
+  const html=fs.readFileSync(page,'utf8');
+  assert.doesNotMatch(html,/THE SPORTING LIFE|The Sporting Life|USRS/);
+  assert.match(html,/slt-monogram-favicon\\.svg/);
+ }
+});
+test('DII visible scorebug metadata shows tipoff and the full school directory keeps six columns',()=>{
+ const js=fs.readFileSync('d2-basketball.js','utf8');
+ const css=fs.readFileSync('d2-basketball.css','utf8');
+ assert.match(js,/d2-visible-tipoff/);
+ assert.match(js,/ledger26-network/);
+ assert.match(js,/school-count-summary/);
+ assert.match(css,/\\.directory \\.board-row\\{grid-template-columns:15px 39px minmax\\(0,1fr\\) 47px 42px 50px\\}/);
 });
