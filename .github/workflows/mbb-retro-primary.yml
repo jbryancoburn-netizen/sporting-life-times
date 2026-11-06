@@ -46,13 +46,33 @@ jobs:
         run: python3 scripts/collect-mbb-retro-finals.py
       - name: Rebuild 1500-start RETRO ratings
         run: node scripts/publish-mbb-retro-primary.js
+      - name: Rebuild school overall records from the SAME verified RETRO snapshot
+        run: |
+          node --check scripts/build-mbb-overall-records.mjs
+          node scripts/build-mbb-overall-records.mjs
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const retro=JSON.parse(fs.readFileSync('data/ncaam-2026-27-retro-primary.json','utf8'));
+          const overall=JSON.parse(fs.readFileSync('data/mbb-overall-records-2026-27.json','utf8'));
+          if(overall.season!==retro.season||overall.retro_as_of!==retro.as_of||
+             Object.keys(overall.records||{}).length!==365)
+            throw Error('Overall records source is not aligned with current RETRO');
+          for(const t of retro.rankings){
+            const r=overall.records[t.team_id];
+            if(!r||r.retro_wins!==t.wins||r.retro_losses!==t.losses||
+               r.overall_wins!==t.wins+r.verified_non_di_wins||
+               r.overall_losses!==t.losses+r.verified_non_di_losses)
+              throw Error('Stale overall record for '+t.team);
+          }
+          console.log('All 365 school records align with current RETRO');
+          NODE
       - name: Verify clean slate and publish
         id: publish
         run: |
           node -e "const d=require('./data/ncaam-2026-27-retro-primary.json');if(d.starting_elo!==1500||d.rankings.length!==365||d.events.length!==d.games_played||d.rankings.some(x=>x.base_elo!==1500))process.exit(1);"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/ncaam-2026-27-retro-primary.json data/mbb-retro-live-finals.json
+          git add data/ncaam-2026-27-retro-primary.json data/mbb-retro-live-finals.json data/mbb-overall-records-2026-27.json
           if git diff --cached --quiet; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
