@@ -19,7 +19,7 @@ async function retrieve(eventId,holder){
  const periods=competitors.filter(c=>Array.isArray(c.linescores)&&c.linescores.length);
  if(periods.length){
   const n=Math.max(...periods.map(c=>c.linescores.length));
-  const columns=['University',...Array.from({length:n},(_,i)=>'Period '+(i+1)),'Final'];
+  const columns=['University',...Array.from({length:n},(_,i)=>i<4?'Q'+(i+1):'OT'+(i-3)),'Final'];
   html+=table('Period by Period',columns,periods.map(c=>[c.team?.displayName||c.team?.name||'School',...Array.from({length:n},(_,i)=>c.linescores[i]?.displayValue??c.linescores[i]?.value??'—'),c.score??'—']),'wbb-period-box');
  }
  const teams=box.teams||[];
