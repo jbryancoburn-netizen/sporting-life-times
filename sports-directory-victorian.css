@@ -1,0 +1,318 @@
+/* Sporting Life & Times | The Sports Desks
+   A self-contained Victorian directory edition. No global league styles altered. */
+body.league-edition:has(.league-hub){
+  --directory-ink:#2c241c;
+  --directory-quiet:#675a48;
+  --directory-rule:#927c60;
+  --directory-rust:#74402e;
+  --directory-paper:#f2eadb;
+  --directory-sheet:#f8f1e5;
+  background:var(--directory-paper)!important;
+  color:var(--directory-ink);
+}
+body.league-edition #slt-access-clock{
+  background:#e9dfce!important;
+  color:#564a3a!important;
+  border-bottom:1px solid #bca989!important;
+  font-family:Georgia,'Times New Roman',serif!important;
+  letter-spacing:.025em!important;
+}
+body.league-edition .topline{
+  background:#f2eadb!important;
+  color:#574939!important;
+  border-bottom:1px solid #aa977b!important;
+}
+body.league-edition .site-nav{
+  border-top:3px double var(--directory-ink)!important;
+  border-bottom:3px double var(--directory-ink)!important;
+  background:#eee4d3!important;
+}
+body.league-edition .site-nav a{color:var(--directory-ink)!important}
+body.league-edition .site-nav a:hover,
+body.league-edition .site-nav a:focus-visible{color:var(--directory-rust)!important}
+body.league-edition header.masthead .print-subtitle{
+  font-style:normal!important;
+  letter-spacing:.07em!important;
+  text-transform:uppercase!important;
+  font-size:.65rem!important;
+  color:#6d5a44!important;
+}
+body.league-edition main.league-hub{
+  counter-reset:desksection;
+  max-width:1160px!important;
+  padding:24px clamp(18px,3.6vw,44px) 76px!important;
+  margin:0 auto!important;
+  width:100%!important;
+  background:var(--directory-paper)!important;
+  color:var(--directory-ink)!important;
+}
+body.league-edition main.league-hub .hub-nav{display:none!important}
+body.league-edition .directory-title{
+  text-align:center;
+  border-top:5px double var(--directory-ink);
+  border-bottom:5px double var(--directory-ink);
+  padding:20px 12px 22px;
+  margin:6px auto 22px;
+  position:relative;
+}
+body.league-edition .directory-title:before,
+body.league-edition .directory-title:after{
+  content:'❦';
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  background:var(--directory-paper);
+  color:var(--directory-rust);
+  font:22px/1 Georgia,serif;
+  padding:0 15px;
+}
+body.league-edition .directory-title:before{top:-14px}
+body.league-edition .directory-title:after{bottom:-14px}
+body.league-edition main.league-hub .hub-kicker{
+  color:var(--directory-rust)!important;
+  font:700 .69rem/1.3 Georgia,'Times New Roman',serif!important;
+  letter-spacing:.17em!important;
+  margin:2px 0 14px!important;
+  text-transform:uppercase;
+}
+body.league-edition main.league-hub .directory-title h1{
+  display:block;
+  border:0!important;
+  padding:0!important;
+  font:700 clamp(2.55rem,5.5vw,4.8rem)/1.06 Georgia,'Times New Roman',serif!important;
+  letter-spacing:-.045em!important;
+  font-variant:small-caps;
+  text-transform:none!important;
+  margin:0!important;
+}
+body.league-edition main.league-hub .hub-intro{
+  max-width:690px!important;
+  margin:14px auto 0!important;
+  color:#554a3d!important;
+  font:400 clamp(.92rem,1.4vw,1.03rem)/1.55 Georgia,'Times New Roman',serif!important;
+  text-wrap:pretty;
+}
+body.league-edition .directory-finder{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:8px 24px;
+  align-items:end;
+  margin:14px 0 27px;
+  padding:15px 20px 16px;
+  background:var(--directory-sheet);
+  border:3px double var(--directory-rule);
+  box-shadow:inset 0 0 0 5px var(--directory-sheet), inset 0 0 0 6px #d9cab2;
+}
+body.league-edition .directory-finder label{
+  grid-column:1;
+  color:var(--directory-rust)!important;
+  font:700 .73rem/1.4 Georgia,serif!important;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+}
+body.league-edition .directory-finder input.league-search{
+  grid-column:1;
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  padding:12px 13px!important;
+  min-height:44px;
+  color:var(--directory-ink);
+  background:#fbf7ed!important;
+  border:1px solid #a58e71!important;
+  border-radius:0!important;
+  font:400 1rem/1.4 Georgia,serif!important;
+  -webkit-appearance:none;
+  appearance:none;
+}
+body.league-edition .directory-finder input.league-search::placeholder{
+  color:#877968;
+  opacity:1;
+}
+body.league-edition .directory-finder input.league-search:focus-visible{
+  outline:2px solid var(--directory-rust)!important;
+  outline-offset:2px;
+}
+body.league-edition .directory-finder #league-search-summary{
+  grid-column:2;
+  grid-row:2;
+  margin:0 0 11px!important;
+  font:700 .79rem/1.3 Georgia,serif!important;
+  color:var(--directory-quiet)!important;
+  white-space:nowrap;
+}
+body.league-edition main.league-hub .league-directory-section{
+  counter-increment:desksection;
+  margin:24px 0 25px!important;
+  padding:0!important;
+  border:0!important;
+  min-width:0;
+}
+body.league-edition main.league-hub .league-directory-section h2{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin:0 0 8px!important;
+  padding:9px 0 11px!important;
+  border-top:4px double var(--directory-ink)!important;
+  border-bottom:1px solid var(--directory-rule)!important;
+  color:var(--directory-ink)!important;
+  font:700 clamp(1.35rem,2.4vw,1.85rem)/1.16 Georgia,'Times New Roman',serif!important;
+  letter-spacing:-.025em!important;
+  font-variant:small-caps;
+  text-transform:none!important;
+}
+body.league-edition main.league-hub .league-directory-section h2:before{
+  content:counter(desksection,upper-roman);
+  flex:0 0 36px;
+  width:36px;
+  height:36px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff1d7;
+  background:var(--directory-rust);
+  border:3px double #f5e5cb;
+  outline:1px solid var(--directory-rust);
+  font:700 .83rem/1 Georgia,serif;
+  letter-spacing:0;
+}
+body.league-edition main.league-hub .league-directory-grid{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  column-gap:24px!important;
+  row-gap:0!important;
+  margin:0!important;
+}
+body.league-edition main.league-hub a.league-directory-link{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  position:relative;
+  min-width:0;
+  min-height:91px;
+  padding:15px 37px 13px 12px!important;
+  border:0!important;
+  border-bottom:1px solid #b6a58d!important;
+  border-left:2px solid transparent!important;
+  color:var(--directory-ink)!important;
+  background:transparent!important;
+  text-decoration:none!important;
+  transition:none!important;
+}
+body.league-edition main.league-hub a.league-directory-link:after{
+  content:'›';
+  position:absolute;
+  right:13px;
+  top:50%;
+  transform:translateY(-50%);
+  color:var(--directory-rust);
+  font:400 2rem/1 Georgia,serif;
+}
+body.league-edition main.league-hub a.league-directory-link:hover,
+body.league-edition main.league-hub a.league-directory-link:focus-visible{
+  background:#e8dcc8!important;
+  border-left:2px solid var(--directory-rust)!important;
+  outline-offset:-2px;
+}
+body.league-edition main.league-hub .league-directory-link span{display:none!important}
+body.league-edition main.league-hub .league-directory-link strong{
+  display:block!important;
+  font:700 clamp(1.08rem,1.75vw,1.34rem)/1.23 Georgia,'Times New Roman',serif!important;
+  letter-spacing:-.012em!important;
+  margin:0 0 6px!important;
+  overflow-wrap:break-word;
+}
+body.league-edition main.league-hub .league-directory-link small{
+  color:var(--directory-rust)!important;
+  display:block!important;
+  font:700 .63rem/1.4 Georgia,'Times New Roman',serif!important;
+  letter-spacing:.075em;
+  text-transform:uppercase;
+}
+body.league-edition main.league-hub .league-directory-link[hidden],
+body.league-edition main.league-hub .league-directory-section[hidden]{display:none!important}
+body.league-edition main.league-hub .directory-colophon{
+  font:400 .78rem/1.5 Georgia,serif!important;
+  color:var(--directory-quiet)!important;
+  border-top:4px double var(--directory-ink);
+  margin:34px 0 0;
+  padding:13px 0 0;
+  text-align:center;
+}
+body.league-edition main.league-hub #league-empty{
+  padding:20px;
+  margin:0 0 25px;
+  border:1px solid var(--directory-rule);
+  font:400 1rem/1.5 Georgia,serif;
+  color:var(--directory-quiet);
+}
+body.league-edition main.league-hub #league-empty[hidden]{display:none!important}
+@media(min-width:1180px){
+  body.league-edition main.league-hub .league-directory-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  }
+}
+@media(max-width:700px){
+  body.league-edition main.league-hub{
+    width:100%!important;
+    padding:16px 17px 48px!important;
+  }
+  body.league-edition .directory-title{padding:19px 6px 19px;margin:10px 0 19px}
+  body.league-edition main.league-hub .directory-title h1{
+    font-size:clamp(2.1rem,8vw,2.75rem)!important;
+    letter-spacing:-.05em!important;
+  }
+  body.league-edition main.league-hub .hub-kicker{font-size:.59rem!important;letter-spacing:.1em!important}
+  body.league-edition main.league-hub .hub-intro{
+    font-size:.92rem!important;
+    line-height:1.46!important;
+    margin-top:11px!important;
+  }
+  body.league-edition .directory-finder{
+    grid-template-columns:minmax(0,1fr);
+    gap:7px;
+    margin-bottom:21px;
+    padding:13px 15px 12px;
+  }
+  body.league-edition .directory-finder label,
+  body.league-edition .directory-finder input.league-search,
+  body.league-edition .directory-finder #league-search-summary{
+    grid-column:1;
+    grid-row:auto;
+  }
+  body.league-edition .directory-finder #league-search-summary{
+    margin:2px 0 0!important;
+    white-space:normal;
+    font-size:.72rem!important;
+  }
+  body.league-edition main.league-hub .league-directory-section{margin:18px 0 24px!important}
+  body.league-edition main.league-hub .league-directory-section h2{
+    gap:11px;
+    font-size:1.45rem!important;
+    padding:9px 0!important;
+    line-height:1.18!important;
+  }
+  body.league-edition main.league-hub .league-directory-section h2:before{
+    flex-basis:31px;width:31px;height:31px;font-size:.74rem;
+  }
+  body.league-edition main.league-hub .league-directory-grid{
+    grid-template-columns:minmax(0,1fr)!important;
+  }
+  body.league-edition main.league-hub a.league-directory-link{
+    min-height:75px;padding:12px 30px 12px 9px!important;
+  }
+  body.league-edition main.league-hub .league-directory-link strong{font-size:1.14rem!important}
+  body.league-edition main.league-hub .league-directory-link small{font-size:.61rem!important}
+}
+@media(max-width:380px){
+  body.league-edition #slt-access-clock{
+    padding:4px 8px!important;
+    font-size:10px!important;
+  }
+  body.league-edition main.league-hub{padding-inline:13px!important}
+  body.league-edition main.league-hub .directory-title h1{font-size:2.05rem!important}
+}
+@media(prefers-reduced-motion:reduce){
+  body.league-edition main.league-hub a.league-directory-link{transition:none!important}
+}
