@@ -144,7 +144,7 @@ try{
   }
   const scorebug=window.SLTSportsScorebug.render({phase,gender:'women',periodFormat:'quarters',
    away:awayProfile,home:homeProfile,forecast,time:tipoff,network:broadcast,
-   suppressTipoffFallback:!forecast});
+   suppressTipoffFallback:false});
   const source=final?(g.model_final?'RETRO-verified Division I final':'Published final · outside women’s current RETRO snapshot'):
     venue==='unverified'?'Court not independently verified · forecast withheld':'Verified source game listing';
   const data=final?'<div class="slt-wbb-inline" data-wbb-id="'+esc(identifier)+'" data-wbb-day="'+esc(displayedDate(g.date))+'"'+
@@ -213,7 +213,7 @@ try{
  metric(items.reduce((sum,t)=>sum+cw(t),0),'Conference finals')+'</div>'+
  '<section class="panel victorian-seed-order victorian-unified-ledger">'+
  '<div class="victorian-seed-crown" aria-hidden="true">❦ &nbsp; THE CONFERENCE REGISTER &nbsp; ❦</div>'+
- heading('The conference race','Current & Projected Standings')+table+'</section>'+
+ heading('The conference race','Current Conference Standings')+table+'</section>'+
  '<div class="grid two conference-editorial-row"><div class="column">'+
  '<section class="panel conference-news-edition">'+heading('The league notebook','Conference News')+newsHTML+'</section>'+
  '</div><div class="column"><section class="panel teal">'+heading('Next on the schedule','Upcoming Games')+
