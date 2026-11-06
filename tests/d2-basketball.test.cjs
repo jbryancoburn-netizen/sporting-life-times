@@ -307,7 +307,7 @@ test('DII Charleston official-to-NCAA identity labels are explicitly sourced',()
  ]);
  for(const item of aliases){
   assert.notEqual(item.source_opponent,item.opponent);
-  assert.ok(game.opponent_identity_source_url.startsWith('https://'));
+  assert.ok(item.opponent_identity_source_url.startsWith('https://'));
   assert.ok(!Object.hasOwn(item,'away_score')&&!Object.hasOwn(item,'home_score'));
  }
 });
@@ -444,7 +444,7 @@ test('DII saved men's school grids reconcile source-backed opponent aliases with
  assert.equal(resolved.length,33);
  for(const game of resolved){
   assert.ok(game.source_opponent&&game.source_opponent!==game.opponent);
-  assert.match(game.opponent_identity_source_url,/^https:\/\//);
+  assert.ok(game.opponent_identity_source_url.startsWith('https://'));
   assert.ok(!Object.hasOwn(game,'status')&&!Object.hasOwn(game,'away_score')&&!Object.hasOwn(game,'home_score'));
  }
  assert.equal(evidence.certification_assertions.length,0);
