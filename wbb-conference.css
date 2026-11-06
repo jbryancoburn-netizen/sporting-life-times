@@ -1,0 +1,58 @@
+body[data-page="women-conference"]{background:#eee3cd;color:#382b1b}
+body[data-page="women-conference"] #app{max-width:1280px;margin:0 auto}
+.wbc-directory{gap:14px}
+.wbc-card{background:#f5e7cf;border:3px double #8a6d50;box-shadow:none}
+.wbc-card h3{font:700 23px Georgia,serif}
+.wbc-card .logos{display:flex;gap:7px;align-items:center}
+.wbc-card .mbb-mark{--mbb-size:40px!important;flex:0 0 40px!important}
+.wbc-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin:14px 0}
+.wbc-metrics>div{border:3px double #987955;background:#f3e5ce;text-align:center;padding:10px}
+.wbc-metrics strong{display:block;font:700 26px Georgia,serif}
+.wbc-metrics small{display:block;font:700 10px Georgia,serif;text-transform:uppercase}
+.wbc-ledger{width:100%;overflow-x:auto}
+.wbc-table{width:100%;min-width:820px;border-collapse:collapse;font:13px Georgia,serif}
+.wbc-table th{text-align:right;padding:9px 6px;border-bottom:3px double #886c48;background:#e0c8a5}
+.wbc-table td{text-align:right;padding:8px 6px;border-bottom:1px solid #d2bb99;white-space:nowrap}
+.wbc-table th:nth-child(2),.wbc-table td:nth-child(2){text-align:left}
+.wbc-table tbody tr:nth-child(even){background:#ead8bd}
+.wbc-table tbody tr:nth-child(odd){background:#f7ecd9}
+.wbc-table .ledger-place{display:inline-grid;place-items:center;width:33px;height:30px;border:3px double #81613e;border-radius:0;background:#e3cfb0;font:700 14px Georgia,serif;transform:none}
+.wbc-team{display:inline-flex;align-items:center;gap:9px;text-decoration:none;color:#422d1e;min-width:0;font:700 13px/1.25 Georgia,serif}
+.wbc-team .mbb-mark{--mbb-size:37px!important;flex:0 0 37px!important}
+.wbc-team span{min-width:0}
+.wbc-table td:last-child small{display:block;font-size:10px}
+.wbc-members{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.wbc-members .wbc-team{padding:7px;border:1px solid #c2a88b;background:#f7ebd9}
+.wbc-date-controls{display:flex;justify-content:space-between;align-items:end;gap:8px;flex-wrap:wrap;margin:12px 0}
+.wbc-date-controls label{display:grid;gap:4px;font:700 12px Georgia,serif}
+.wbc-date-controls input,.wbc-date-controls button{min-height:39px;border:1px solid #927452;background:#f9efde;color:#3d2b1e;border-radius:0;padding:8px;font:13px Georgia,serif}
+.wbc-day-heading{font:700 17px Georgia,serif;border-bottom:3px double #967b54;padding:7px 0}
+.wbc-game{border:2px solid #a18461;background:#f6ead5;padding:9px;margin:9px 0}
+.wbc-game-teams{display:grid;grid-template-columns:minmax(0,1fr) 18px minmax(0,1fr);gap:5px;align-items:center}
+.wbc-game-teams .wbc-team{font-size:12px}
+.wbc-game-teams .mbb-mark{--mbb-size:29px!important;flex:0 0 29px!important}
+.wbc-game-teams small{text-align:center}
+.wbc-game-score{text-align:center;margin:8px 0}
+.wbc-game-score strong{display:block;font:700 18px Georgia,serif}
+.wbc-game-score small{font-size:10px}
+.wbc-game-facts{display:flex;gap:8px 12px;flex-wrap:wrap;border-top:1px solid #c6ad8d;padding-top:7px;font:11px Georgia,serif;color:#725339}
+.wbc-story{padding:10px 0;border-bottom:1px solid #cab18e}
+.wbc-story h3{font:700 16px Georgia,serif;margin:0 0 4px}
+@media(max-width:850px){
+.wbc-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}
+.wbc-table{min-width:0}
+.wbc-table thead{display:none}
+.wbc-table tbody{display:grid;gap:8px}
+.wbc-table tr{display:grid;grid-template-columns:43px minmax(0,1fr) 85px 85px;border:2px solid #9c805c;background:#f7ebd8}
+.wbc-table td{border:0;padding:6px;background:transparent;white-space:normal;font-size:12px}
+.wbc-table td:nth-child(1){grid-row:1/3;grid-column:1;display:grid;place-items:center}
+.wbc-table td:nth-child(2){grid-row:1;grid-column:2/-1}
+.wbc-table td:nth-child(3){grid-row:2;grid-column:2}
+.wbc-table td:nth-child(4){grid-row:2;grid-column:3}
+.wbc-table td:nth-child(5),.wbc-table td:nth-child(7),.wbc-table td:nth-child(8){display:none}
+.wbc-table td:nth-child(6){grid-row:2;grid-column:4}
+.wbc-table td:nth-child(9){grid-row:3;grid-column:2/-1;text-align:left}
+.wbc-table td[data-label]::before{content:attr(data-label) ' ';display:block;font:700 9px Georgia,serif;color:#81583a}
+.wbc-table td:last-child small{display:inline;margin-left:8px}
+}
+@media(max-width:600px){.wbc-members{grid-template-columns:1fr}.wbc-game-teams .mbb-mark{--mbb-size:26px!important;flex:0 0 26px!important}.wbc-game-teams .wbc-team{font-size:11px}}
