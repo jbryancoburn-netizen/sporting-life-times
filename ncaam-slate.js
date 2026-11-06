@@ -16,7 +16,7 @@ const cleanId=x=>String(x||'').replace(/^espn:/,'');
 const validId=x=>/^\d{1,12}$/.test(String(x||''));
 const shortName=(id,cross,full)=>{const canon=cross.get(String(id));if(canon)return canon.name;return String(full||'Team').trim()};
 const gameKey=(id,day)=>String(id||'')+'|'+String(day||'');
-function normalizeMen(feed,forecasts,crossList,outside={}){
+function normalizeMen(feed,forecasts,crossList,outside={},archivedFinals=null){
   const cross=new Map((crossList?.teams||[]).map(t=>[String(t.espn_id),t]));
   const canon=new Map((crossList?.teams||[]).map(t=>[String(t.id),t]));
   const result=new Map();
@@ -54,6 +54,25 @@ function normalizeMen(feed,forecasts,crossList,outside={}){
       venue:'',broadcast:'',status:'Tipoff unconfirmed',source:'Independent 2026–27 fixture ledger',
       evidence:'fixture',kind:'regular',
       probability:Number.isFinite(Number(g.home_win_probability))?Math.max(0,Math.min(1,Number(g.home_win_probability))):null,projectedHomeMargin:Number.isFinite(Number(g.projected_home_margin))?Number(g.projected_home_margin):null});
+  }
+  // The rolling scoreboard only retains current fixtures. Restore verified
+  // earlier finals from the durable MBB ledger for past-date calendar navigation.
+  for(const f of archivedFinals?.games||[]){
+    const id=cleanId(f.id),day=String(f.date||'');
+    if(!validId(id)||!/^\\d{4}-\\d\\d-\\d\\d$/.test(day)||
+       !Number.isFinite(f.away_score)||!Number.isFinite(f.home_score))continue;
+    const away=canon.get(String(f.away_id)),home=canon.get(String(f.home_id));
+    if(!away||!home)continue;
+    const previous=result.get(id);
+    if(previous?.phase==='final'&&previous.day===day)continue;
+    result.set(id,{id,day,date:day+'T12:00:00Z',phase:'final',timed:false,
+      away:{id:String(away.espn_id),name:away.name,full:away.espn_name,
+        canonical:away.id,score:f.away_score},
+      home:{id:String(home.espn_id),name:home.name,full:home.espn_name,
+        canonical:home.id,score:f.home_score},
+      status:'Final',venue:previous?.venue||'',broadcast:previous?.broadcast||'',
+      source:f.source||'Verified NCAA completed-game ledger',
+      evidence:'final-source',kind:'regular',probability:null});
   }
   return dedupeFixtures([...result.values()]);
 }
@@ -768,7 +787,7 @@ const render=()=>{
 async function refresh(){
  if(loading)return;loading=true;
  try{
-  const menFiles=['data/mbb-live.json','data/ncaam-2026-27-upcoming-forecasts.json','data/ncaam-2026-27-retro-primary.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json','data/mbb-exhibition-finals-2026-27.json','data/mbb-arena-registry.json','data/ncaam-score-calibration.json','data/ncaam-2026-27-national-polls.json','data/mbb-out-of-division-opponent-logos.json'];
+  const menFiles=['data/mbb-live.json','data/ncaam-2026-27-upcoming-forecasts.json','data/ncaam-2026-27-retro-primary.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json','data/mbb-exhibition-finals-2026-27.json','data/mbb-arena-registry.json','data/ncaam-score-calibration.json','data/ncaam-2026-27-national-polls.json','data/mbb-out-of-division-opponent-logos.json','data/mbb-retro-live-finals.json'];
   const womenFiles=['data/ncaaw-2026-27-games.json','data/ncaaw-2026-27-retro-primary.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json','data/ncaaw-2026-27-teams.json','data/mbb-live.json','data/mbb-out-of-division-opponent-logos.json','data/ncaaw-score-calibration.json'];
   const paths=women?womenFiles:menFiles;
   if(!women){try{const b=await fetchJSON('data/cbb-verified-broadcasts-2026-27.json');verifiedBroadcasts.clear();for(const e of b.entries||[])if(e.network&&e.id)verifiedBroadcasts.set(String(e.id),e)}catch{}}
@@ -784,7 +803,7 @@ async function refresh(){
     loaded=dedupeFixtures(normalizeWomen(results,rank,cross,womenCoefficients));
     lastUpdate='women’s rolling fixture ledger';
   }else{
-    const [feed,forecast,rank,c,pal,ex,arenas,calibration,polls,otherLogos]=output;
+    const [feed,forecast,rank,c,pal,ex,arenas,calibration,polls,otherLogos,archivedFinals]=output;
      outsideMarks=otherLogos?.teams||{};
     if(!feed||rank?.model!=='retro-clean-slate'||rank.starting_elo!==1500||rank.rankings?.length!==365)
       throw Error('Men’s scoreboard or certified RETRO feed unavailable');
@@ -809,7 +828,7 @@ async function refresh(){
     const before=new Map(loaded.filter(g=>g.phase==='live'&&g.kind==='regular').map(g=>
       [g.id,{id:g.id,day:g.day,away_score:g.away.score,home_score:g.home.score}]));
     sourceFeed=feed;seasonStats=insight?.seasonProfiles(rank.events)||new Map();
-    loaded=[...normalizeMen(feed,forecast,cross,outsideMarks),...normalizeExhibitions(ex,cross)];
+    loaded=[...normalizeMen(feed,forecast,cross,outsideMarks,archivedFinals),...normalizeExhibitions(ex,cross)];
     liveChanges=new Map(loaded.filter(g=>g.phase==='live').flatMap(g=>{
       const delta=insight?.scoreDelta(before.get(g.id),g);
       return delta?[[g.id,delta]]:[];
