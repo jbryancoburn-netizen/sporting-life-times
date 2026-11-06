@@ -72,3 +72,8 @@ section,article{border-color:#b9aa92}
 .plt-load-more:hover,.plt-load-more:focus-visible{background:#e6d5b9;outline:2px solid #8a5840;outline-offset:2px}
 .plt-more{text-align:center;margin-top:15px}
 @media(max-width:750px){.plt-desk-metrics:has(.plt-desk-metric:nth-child(4)){grid-template-columns:repeat(2,minmax(0,1fr))}.plt-desk-metric:nth-child(2){border-right:0}.plt-desk-metric:nth-child(-n+2){border-bottom:1px solid #9d8e78}}
+
+/* 2026 House edition prominent navigation */
+.plt-primary-link{display:inline-block;padding:11px 19px;background:#533e32;color:#fff9ed!important;text-decoration:none;border:3px double #d8c4a2;font:700 14px "Century Schoolbook",Georgia,serif;letter-spacing:.2px}
+.plt-primary-link:hover,.plt-primary-link:focus-visible{background:#7d5745;color:#fff!important;outline:2px solid #533e32;outline-offset:3px}
+#house-returns{scroll-margin-top:16px}
