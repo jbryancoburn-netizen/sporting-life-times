@@ -1,31 +1,43 @@
 name: Infrastructure workflow audit (read-only)
 
-# Diagnostic only. No schedule, repository writes, or site deployments.
+# Automatically inventory on changes to this audit, plus daily.
+# Never writes to the repository or deploys Pages.
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/infrastructure-audit.yml'
+  schedule:
+    - cron: '17 9 * * *'
 
 permissions:
   actions: read
   contents: read
+
+concurrency:
+  group: infrastructure-workflow-audit
+  cancel-in-progress: true
 
 jobs:
   inventory:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Inventory active workflows and trigger settings
+      - name: Inventory active publishers and recent commits
         env:
           GH_TOKEN: ${{ github.token }}
           REPOSITORY: ${{ github.repository }}
         shell: bash
         run: |
           set -euo pipefail
-          echo "# Workflow and publishing audit" >> "$GITHUB_STEP_SUMMARY"
+          echo "# Publishing audit" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
-          echo "Generated: $(date -u '+%Y-%m-%d %H:%M UTC')" >> "$GITHUB_STEP_SUMMARY"
+          echo "Generated UTC: $(date -u '+%Y-%m-%d %H:%M')" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
-          echo "| Workflow | State | Trigger and concurrency hints |" >> "$GITHUB_STEP_SUMMARY"
-          echo "|---|---|---|" >> "$GITHUB_STEP_SUMMARY"
+          echo "## Active workflow inventory" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Workflow | State | File | Trigger / concurrency hints |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|---|---|---|---|" >> "$GITHUB_STEP_SUMMARY"
           gh api --paginate "repos/$REPOSITORY/actions/workflows?per_page=100" --jq '.workflows[] | [.name, .state, .path] | @tsv' |
           while IFS=$'\t' read -r name state path; do
             hints="unavailable"
@@ -33,12 +45,21 @@ jobs:
               file="$(mktemp)"
               if gh api "repos/$REPOSITORY/contents/$path" -H 'Accept: application/vnd.github.raw+json' > "$file" 2>/dev/null; then
                 hints="$(grep -En '^[[:space:]]*(schedule:|cron:|push:|pull_request:|workflow_run:|workflow_dispatch:|concurrency:|group:|cancel-in-progress:)' "$file" | tr '\n' ' ' | cut -c1-350 || true)"
-                [[ -n "$hints" ]] || hints="no matching trigger hints"
+                [[ -n "$hints" ]] || hints="none detected"
               fi
               rm -f "$file"
             fi
             name="${name//|/ }"; hints="${hints//|/ }"
-            echo "| $name | $state | $hints |" >> "$GITHUB_STEP_SUMMARY"
+            echo "| $name | $state | $path | $hints |" >> "$GITHUB_STEP_SUMMARY"
           done
           echo "" >> "$GITHUB_STEP_SUMMARY"
-          echo "This is an inventory, not a deployment or proof of site freshness." >> "$GITHUB_STEP_SUMMARY"
+          echo "## Latest 30 commits (observe write volume)" >> "$GITHUB_STEP_SUMMARY"
+          echo "| UTC | Commit | Message |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|---|---|---|" >> "$GITHUB_STEP_SUMMARY"
+          gh api "repos/$REPOSITORY/commits?per_page=30" --jq '.[] | [.commit.committer.date, .sha[0:10], (.commit.message | split("\n")[0])] | @tsv' |
+          while IFS=$'\t' read -r date sha message; do
+            message="${message//|/ }"
+            echo "| $date | $sha | $message |" >> "$GITHUB_STEP_SUMMARY"
+          done
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Diagnostic only:** succeeding here does not prove publisher collisions are fixed or production data is fresh." >> "$GITHUB_STEP_SUMMARY"
