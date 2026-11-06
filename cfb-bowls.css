@@ -31,3 +31,35 @@
 #bowl-content .bowl-feature .bowl-card .bowl-match>strong{color:#142338!important}
 #bowl-content .bowl-feature .bowl-card .bowl-team small{color:#3d4c62!important}
 #bowl-content .bowl-feature .bowl-card .bowl-meta{color:#3d4c62!important}
+
+
+/* Newspaper edition: restrained engraved borders, ink and aged paper. */
+body{background:#e9e2d2!important;color:#29251f!important}
+.wrap{background:#f5f0e4!important;border-left:1px solid #b9ab8d;border-right:1px solid #b9ab8d;box-shadow:0 0 0 7px #e2d8c4,0 0 0 8px #aa9977}
+.bowl-hero{background:#efe6d3!important;color:#2b2924!important;border:3px double #6b5a3c;border-radius:0;padding:25px 32px;text-align:center;box-shadow:inset 0 0 0 5px #efe6d3,inset 0 0 0 6px #ac9b78}
+.bowl-hero:before,.bowl-hero:after{content:"❧  ✦  ❧";display:block;color:#7b5e34;font-size:19px;letter-spacing:.28em}
+.bowl-hero h1{font-family:"Century Schoolbook",Georgia,serif;font-weight:800;letter-spacing:.095em;font-size:clamp(34px,5vw,62px);border-top:2px solid #382d24;border-bottom:4px double #382d24;padding:8px 0}
+.bowl-hero p{max-width:770px;margin:13px auto;font-family:"Century Schoolbook",Georgia,serif}
+#bowl-content h2,#cfp-predictor>h2,#non-cfp-bowls>h2{font-family:"Century Schoolbook",Georgia,serif!important;color:#30291f!important;border-bottom:4px double #7a6543!important;letter-spacing:.02em}
+.bowl-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+#cfp-predictor .bowl-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.bowl-card{border:1px solid #8f8066;border-radius:0;background:#fffcf3!important;color:#27251f!important;box-shadow:2px 3px 0 #d2c5a9!important;transition:border-color .15s,box-shadow .15s}
+.bowl-card:hover{transform:none;border-color:#604722;box-shadow:3px 4px 0 #bca982!important}
+.bowl-card-head{background:#e9dfcb!important;color:#302a22!important;border-bottom:3px double #8f7854;min-height:105px;padding:11px 14px;gap:6px}
+.bowl-card-head h3{color:#302a22;font-family:"Century Schoolbook",Georgia,serif;font-size:19px;line-height:1.25;margin:0}
+.bowl-identity-logo{width:auto;max-width:158px;height:65px;max-height:65px;object-fit:contain;filter:drop-shadow(0 1px 1px #685d4733)}
+.bowl-monogram{display:block;color:#85693c;font-family:Georgia,serif;font-size:28px;line-height:1}
+.bowl-card-body{background:#fffcf3!important;color:#27251f!important;padding:16px}
+.bowl-tag{border:1px solid #ad9873;border-radius:0;background:#eee2c9!important;color:#483921!important;font-family:"Century Schoolbook",Georgia,serif;font-size:12px}
+.bowl-meta{color:#534c42!important}
+.bowl-match{border-top:1px solid #b4a386}
+.bowl-feature{background:#e9dfca!important;color:#29251f!important;border:4px double #766546;border-radius:0;padding:23px}
+.bowl-feature h2,.bowl-feature h3,.bowl-feature p,.bowl-feature .bowl-team{color:#302a22!important}
+.bowl-history{background:#eee4d0;border:3px double #927c56;border-left:3px double #927c56;border-radius:0}
+.bowl-history-metrics>div{border-radius:0;background:#faf5ea}
+#bowl-content .bowl-feature .bowl-team strong,#bowl-content .bowl-feature .bowl-match>strong{color:#29251f!important}
+#bowl-content .bowl-feature .bowl-team small{color:#514738!important}
+#bowl-content .bowl-card .bowl-team strong{color:#29251f!important}
+#bowl-content .bowl-card .bowl-team small{color:#514738!important}
+@media(max-width:850px){#cfp-predictor .bowl-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.bowl-grid,#cfp-predictor .bowl-grid,#bowl-content #cfp-predictor .bowl-grid{grid-template-columns:1fr}.bowl-hero{padding:18px 15px}.bowl-card-head{min-height:92px}}
