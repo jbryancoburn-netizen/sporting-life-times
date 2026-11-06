@@ -1,7 +1,7 @@
 name: Unified MBB RETRO forecasts
 on:
   schedule:
-    - cron: '11,41 * * * *'
+    - cron: '6,16,26,36,46,56 * * * *'
   push:
     branches: [main]
     paths:
@@ -12,6 +12,7 @@ on:
   workflow_dispatch:
 permissions:
   contents: write
+  actions: write
 concurrency:
   group: mbb-unified-retro-forecast
   cancel-in-progress: false
@@ -26,11 +27,24 @@ jobs:
       - name: Build one forecast per MBB matchup
         run: python3 scripts/rebuild_mbb_unified_forecasts.py
       - name: Publish only changed forecasts
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           if ! git diff --quiet -- data/ncaam-2026-27-upcoming-forecasts.json; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add data/ncaam-2026-27-upcoming-forecasts.json
             git commit -m "Refresh unified RETRO MBB forecasts"
-            git push
+            for attempt in 1 2 3 4; do
+              if git push origin HEAD:main; then
+                # Action-bot commits do not themselves trigger Pages publication.
+                gh workflow run publish-newspaper.yml --ref main || echo "::warning::Pages dispatch unavailable; scheduled publication remains active"
+                exit 0
+              fi
+              git fetch origin main
+              git rebase origin/main || { git rebase --abort || true; exit 1; }
+              sleep $((attempt * 2))
+            done
+            echo "::error::Could not publish updated MBB forecast snapshot"
+            exit 1
           fi
