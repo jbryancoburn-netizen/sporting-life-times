@@ -13,11 +13,12 @@ const rec=(w,l)=>w+'–'+l,elo=t=>Number.isFinite(Number(t.elo))?Math.round(Numb
 const failure=s=>{app.innerHTML='<section class="panel"><h1>Women’s conference desk unavailable</h1><p>'+esc(s)+'</p><a href="ncaam.html?gender=women">Open the women’s newspaper →</a></section>'};
 try{
  await window.MBBLogos.ready;
- const [directory,conferences,model,master,scoreboard,news,officialTV]=await Promise.all([
+ const [directory,conferences,model,master,scoreboard,news,officialTV,wire]=await Promise.all([
   get('data/ncaaw-2026-27-teams.json'),get('data/ncaaw-2026-27-conferences.json'),
   get('data/ncaaw-2026-27-retro-primary.json'),get('data/ncaaw-schedules-2026-27.json'),
   get('data/ncaaw-2026-27-games.json').catch(()=>null),get('articles.json').catch(()=>null),
-  get('data/ncaaw-2026-27-official-broadcast-overrides.json').catch(()=>null)
+  get('data/ncaaw-2026-27-official-broadcast-overrides.json').catch(()=>null),
+  get('data/mbb-live.json').catch(()=>null)
  ]);
  const roster=directory.teams||[],rankings=model.rankings||[];
  const names=[...new Set(roster.map(t=>t.conference).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
@@ -178,8 +179,17 @@ try{
   }catch(error){node.textContent='Statistics are unavailable in this gamefile. Open the full gamefile for other details.';}
  },true);
 
-  const stories=(news?.articles||[]).filter(a=>a.title&&/^https:\/\//.test(a.url||'')&&(a.category==='WBB'||/women.s.{0,24}basketball|ncaaw/i.test([a.title,a.summary,a.category].join(' ')))&&
-  items.some(t=>(String(a.title)+' '+String(a.summary||'')).toLowerCase().includes(t.team.toLowerCase().split(' ').slice(0,-1).join(' ')))).slice(0,6);
+  const aliases=items.flatMap(t=>{
+  const name=t.team.toLowerCase(),school=name.replace(/\s+(?:nittany lions|tar heels|blue devils|fighting irish|lady volunteers|scarlet knights|boilermakers|cornhuskers|wildcats|buckeyes|hoosiers|huskies|tigers|spartans|bruins|trojans|hawkeyes|wolverines|badgers|gophers|terrapins|ducks|knights|cardinals|bears|eagles|cougars|panthers|bulldogs|rams|pirates|falcons|rebels|mountaineers|gamecocks|aggies|owls|bison|redhawks)$/i,'').trim();
+  return [name,school].filter(x=>x.length>3);
+ });
+ const storyPool=[...(wire?.articles||[]),...(news?.articles||[])].filter(a=>
+  a?.title&&/^https:\/\//.test(a.url||'')&&
+  (a.category==='WBB'||/women.s.{0,30}basketball|ncaaw|women.s march madness/i.test([a.title,a.summary,a.category].join(' '))));
+ const matched=storyPool.filter(a=>aliases.some(s=>(a.title+' '+(a.summary||'')).toLowerCase().includes(s)));
+ const seenStories=new Set();
+ const stories=matched.filter(a=>!seenStories.has(a.url)&&seenStories.add(a.url))
+  .sort((a,b)=>Date.parse(b.published_at||0)-Date.parse(a.published_at||0)).slice(0,8);
  const newsHTML=stories.length?stories.map((a,i)=>
   '<article class="story'+(!i?' lead':'')+'"><p class="source">'+esc(a.source||'Attributed reporting')+
   (a.published_at?' · '+esc(String(a.published_at).slice(0,10)):'')+'</p><h3>'+
