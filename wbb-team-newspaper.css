@@ -140,13 +140,42 @@ body[data-page="women-team"] .wrap{max-width:1350px}
  .wbb-result-source{font-size:10px}
  .wbb-desk .wbb-schedule-table>tbody>tr.wbb-game-detail{display:block;width:100%;margin:-7px 0 9px;padding:8px;border:2px double #b7a082;background:#ecddc4}
  .wbb-game-detail>td{display:block!important;width:100%;padding:3px!important;border:0!important}
- .wbb-stat-block{overflow:visible}
- .wbb-stat-block table{min-width:0!important;display:block;width:100%}
- .wbb-stat-block table thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
- .wbb-stat-block table tbody{display:block;width:100%}
- .wbb-stat-block table tbody tr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;min-width:0;border-bottom:1px solid #bba383}
- .wbb-stat-block table tbody th{grid-column:1/-1;text-align:left;font-size:12px;white-space:normal;overflow-wrap:anywhere}
- .wbb-stat-block table tbody td{display:block;text-align:center;font-size:12px;min-width:0;overflow-wrap:anywhere}
- .wbb-stat-block table tbody td::before{content:attr(data-label);display:block;font:700 9px Georgia,serif;color:#76553b;margin-bottom:3px}
+ /* One shared mobile component with purpose-specific columns for quarters,
+    side-by-side team totals and player-by-player boxes. */
+ .wbb-stat-block{min-width:0;max-width:100%;overflow:visible}
+ .wbb-stat-block table{display:block;width:100%;max-width:100%;min-width:0!important;table-layout:auto}
+ .wbb-stat-block table thead{display:none!important}
+ .wbb-stat-block table tbody{display:block;width:100%;max-width:100%}
+ .wbb-stat-block table tbody tr{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;
+  width:100%;min-width:0;margin:0;padding:4px 0 7px;
+  border-bottom:2px double #bba383;background:#f8efdf
+ }
+ .wbb-stat-block table tbody tr:nth-child(even){background:#eddec7}
+ .wbb-stat-block table tbody th{
+  display:block;grid-column:1/-1;position:static!important;width:100%;min-width:0;
+  padding:7px 6px!important;border-bottom:1px solid #c6ad8a;
+  text-align:left;font:700 14px/1.25 Georgia,serif;
+  white-space:normal;overflow-wrap:break-word;word-break:normal
+ }
+ .wbb-stat-block table tbody td{
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  width:auto;min-width:0;max-width:100%;padding:7px 2px!important;
+  text-align:center;font:700 12px/1.25 Georgia,serif;white-space:normal;
+  overflow-wrap:break-word;font-variant-numeric:tabular-nums
+ }
+ .wbb-stat-block table tbody td::before{
+  content:attr(data-label);display:block;margin:0 0 3px;
+  color:#76553b;font:700 9px/1.2 Georgia,serif;
+  white-space:normal;overflow-wrap:break-word
+ }
+ .wbb-stat-block table.wbb-period-box tbody tr{grid-template-columns:repeat(5,minmax(0,1fr))}
+ .wbb-stat-block table.wbb-team-box tbody tr{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .wbb-stat-block table.wbb-team-box tbody td{padding:9px 4px!important}
+
+}
+@media(max-width:360px){
+ .wbb-stat-block table.wbb-period-box tbody tr,
+ .wbb-stat-block table.wbb-player-game-box tbody tr{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
 @media(max-width:360px){.wbb-opponent-line{gap:4px}.wbb-matchup{gap:7px}.wbb-matchup>.mbb-mark{--mbb-size:41px!important;flex-basis:41px!important}.wbb-conference-game{max-width:84px;overflow:hidden;text-overflow:ellipsis}}
