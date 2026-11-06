@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "checked_at_utc": "2026-11-06T22:11:08.899120+00:00",
+  "checked_at_utc": "2026-11-06T22:24:29.782461+00:00",
   "source": "NCAA scoreboard via ncaa-api compatibility endpoint",
   "games": [
     {
@@ -45,14 +45,14 @@
     {
       "match_id": "men-6663392",
       "cohort": "men-d3",
-      "status": "live",
+      "status": "final",
       "home_score": 1,
-      "away_score": 1,
+      "away_score": 2,
       "home_name": "Huntingdon",
       "away_name": "Covenant",
       "home_id": "huntingdon",
       "away_id": "covenant",
-      "period": "OT",
+      "period": "FINAL (OT)",
       "source_url": "https://www.ncaa.com/game/6663392"
     },
     {
@@ -78,7 +78,7 @@
       "away_name": "Barton",
       "home_id": "francis-marion",
       "away_id": "barton",
-      "period": "1ST HALF",
+      "period": "HALF",
       "source_url": "https://www.ncaa.com/game/6663447"
     },
     {
@@ -189,7 +189,7 @@
       "match_id": "men-6664169",
       "cohort": "men-d2",
       "status": "live",
-      "home_score": 0,
+      "home_score": 1,
       "away_score": 0,
       "home_name": "Lincoln (MO)",
       "away_name": "UIndy",
@@ -487,14 +487,14 @@
     {
       "match_id": "men-6666310",
       "cohort": "men-d1",
-      "status": "live",
+      "status": "final",
       "home_score": 0,
       "away_score": 1,
       "home_name": "George Mason",
       "away_name": "Fordham",
       "home_id": "george-mason",
       "away_id": "fordham",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6666310"
     },
     {
@@ -1372,7 +1372,7 @@
       "match_id": "women-6664910",
       "cohort": "women-d2",
       "status": "live",
-      "home_score": 0,
+      "home_score": 1,
       "away_score": 0,
       "home_name": "Catawba",
       "away_name": "Wingate",
@@ -1411,13 +1411,13 @@
       "match_id": "women-6664989",
       "cohort": "women-d2",
       "status": "live",
-      "home_score": 1,
+      "home_score": 2,
       "away_score": 0,
       "home_name": "Washburn",
       "away_name": "Emporia St.",
       "home_id": "washburn",
       "away_id": "emporia-st",
-      "period": "HALF",
+      "period": "2ND HALF",
       "source_url": "https://www.ncaa.com/game/6664989"
     },
     {
@@ -1580,13 +1580,13 @@
       "match_id": "women-6666128",
       "cohort": "women-d3",
       "status": "live",
-      "home_score": 1,
+      "home_score": 2,
       "away_score": 1,
       "home_name": "Trinity (TX)",
       "away_name": "Sewanee",
       "home_id": "trinity-tx",
       "away_id": "sewanee",
-      "period": "OT",
+      "period": "2OT",
       "source_url": "https://www.ncaa.com/game/6666128"
     },
     {
@@ -1644,14 +1644,14 @@
     {
       "match_id": "women-6666175",
       "cohort": "women-d3",
-      "status": "live",
+      "status": "final",
       "home_score": 0,
       "away_score": 1,
       "home_name": "Lake Forest",
       "away_name": "Lawrence",
       "home_id": "lake-forest",
       "away_id": "lawrence",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6666175"
     },
     {
@@ -1859,7 +1859,7 @@
       "away_name": "LeTourneau",
       "home_id": "st-thomas-tx",
       "away_id": "letourneau",
-      "period": "1ST HALF",
+      "period": "HALF",
       "source_url": "https://www.ncaa.com/game/6666499"
     },
     {
@@ -2145,7 +2145,7 @@
       "away_name": "Shaw",
       "home_id": "virginia-st",
       "away_id": "shaw",
-      "period": "HALF",
+      "period": "2ND HALF",
       "source_url": "https://www.ncaa.com/game/6667538"
     }
   ]
