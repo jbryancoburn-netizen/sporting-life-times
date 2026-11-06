@@ -4,7 +4,7 @@
 const app=document.getElementById('app'),params=new URLSearchParams(location.search);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const get=async p=>{const r=await fetch(p,{cache:'no-store'});if(!r.ok)throw Error(p+' HTTP '+r.status);return r.json()};
-const date=s=>{const d=new Date(s);if(!Number.isFinite(+d))return '';const parts=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(d);const v=k=>parts.find(x=>x.type===k)?.value||'';return v('year')+'-'+v('month')+'-'+v('day')};
+const date=s=>{if(/^\d{4}-\d{2}-\d{2}$/.test(String(s||'')))return String(s);const d=new Date(s);if(!Number.isFinite(+d))return '';const parts=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(d);const v=k=>parts.find(x=>x.type===k)?.value||'';return v('year')+'-'+v('month')+'-'+v('day')};
 const now=()=>date(new Date()),norm=s=>String(s||'').toLowerCase().replace(/\bconference\b/g,'').replace(/[^a-z0-9]/g,'');
 const label=c=>c.replace(/ Conference$/,'').replace('Atlantic Coast','ACC').replace('Southeastern','SEC');
 const url=c=>'ncaaw-conference.html?conference='+encodeURIComponent(c),teamURL=t=>'ncaaw-team.html?team='+encodeURIComponent(t.team_id);
@@ -30,8 +30,14 @@ try{
   throw Error('Women’s 363-team / 32-conference publication check failed; partial records withheld.');
  const all=new Map(roster.map(t=>[String(t.team_id),{...t,...ranked.get(String(t.team_id))}]));
  const members=c=>[...all.values()].filter(t=>t.conference===c);
- const badge=t=>window.MBBLogos.byESPN(String(t.team_id),'small',t.team);
- const link=t=>'<a class="wbc-team" href="'+teamURL(t)+'">'+badge(t)+'<span>'+esc(t.team)+'</span></a>';
+ const badge=(t,size='small')=>window.MBBLogos.byESPN(String(t.team_id),size,t.team);
+ const link=t=>'<a class="team-name" href="'+teamURL(t)+'">'+badge(t)+'<span>'+esc(t.team)+'</span></a>';
+ const heading=(k,title)=>'<div class="panel-head"><div><div class="eyebrow">'+k+'</div><h2>'+title+'</h2></div></div>';
+ const metric=(value,label)=>'<div class="metric"><b>'+value+'</b><span>'+label+'</span></div>';
+ const retroTies=new Map();
+ rankings.forEach(t=>retroTies.set(Number(t.rank),(retroTies.get(Number(t.rank))||0)+1));
+ // The women's edition uses the same letterpress scorebug as the men's Big Ten.
+ window.WBBRetroSnapshot=model;
  const cw=t=>n(t.conference_wins),cl=t=>n(t.conference_losses),ow=t=>n(t.wins),ol=t=>n(t.losses);
  const comp=(a,b,conf)=>{const aw=conf?cw(a):ow(a),al=conf?cl(a):ol(a),bw=conf?cw(b):ow(b),bl=conf?cl(b):ol(b);
   return ratio(bw,bl)-ratio(aw,al)||bw-aw||al-bl;};
@@ -59,15 +65,33 @@ try{
  if(!selected){failure('Conference not found in the women’s 2026–27 registry.');return;}
  const c=selected,{items,played,compare}=ordered(c),leader=items[0];
  const gb=t=>!played?'—':(cw(leader)-cw(t)+cl(t)-cl(leader))/2;
- const table='<div class="wbc-ledger"><table class="conference-ledger wbc-table"><thead><tr><th>Place*</th><th>University</th><th>Conf.</th><th>Conf. PCT</th><th>GB</th><th>Overall</th><th>Overall PCT</th><th>Streak</th><th>RETRO</th></tr></thead><tbody>'+
- items.map(t=>{const place=1+items.filter(other=>compare(other,t)<0).length,tied=items.some(other=>other!==t&&compare(other,t)===0),behind=gb(t);
-  return '<tr><td><span class="ledger-place">'+(tied?'T':'')+place+'</span></td><td>'+link(t)+'</td>'+
-   '<td data-label="Conf.">'+rec(cw(t),cl(t))+'</td><td data-label="Conf. PCT">'+pct(cw(t),cl(t))+'</td>'+
-   '<td>'+(behind==='—'||behind===0?'—':Number.isInteger(behind)?behind:behind.toFixed(1))+'</td>'+
-   '<td data-label="Overall">'+rec(ow(t),ol(t))+'</td><td>'+pct(ow(t),ol(t))+'</td><td>'+streak(t)+'</td>'+
-   '<td data-label="RETRO">'+elo(t)+'<small>'+(t.rank?'#'+t.rank:'—')+'</small></td></tr>'}).join('')+
- '</tbody></table></div><p class="note">*Provisional standing order, not official conference-tournament seeding. Conference winning percentage takes priority once league games are played. Overall results break equal conference records; unresolved ties remain tied. RETRO is calculated from published women’s Division I finals. Unverified NET or bracket seeds are not fabricated.</p>';
- const gameMap=new Map(),memberIds=new Set(items.map(t=>String(t.team_id)));
+ const table='<div class="conference-ledger-scroll"><table class="conference-ledger">'+
+ '<colgroup><col class="ledger-place-col"><col class="ledger-team-col"><col class="ledger-conf-col">'+
+ '<col class="ledger-conf-pct-col"><col class="ledger-gb-col"><col class="ledger-overall-col">'+
+ '<col class="ledger-overall-pct-col"><col class="ledger-streak-col"><col class="ledger-retro-col">'+
+ '<col class="ledger-projection-col"></colgroup>'+
+ '<thead><tr><th>Place*</th><th>University</th><th>Conference</th><th>Conf. PCT</th>'+
+ '<th>GB</th><th>Overall</th><th>Overall PCT</th><th>Streak</th>'+
+ '<th>RETRO</th><th>Projected NCAA seed</th></tr></thead><tbody>'+
+ items.map(t=>{
+  const place=1+items.filter(other=>compare(other,t)<0).length;
+  const tied=items.some(other=>other!==t&&compare(other,t)===0);
+  const behind=gb(t),rank=(n(t.rank)>0?'#'+n(t.rank):'—');
+  return '<tr>'+
+   '<td><span class="ledger-place">'+(tied?'T':'')+place+'</span></td>'+
+   '<td class="ledger-university">'+link(t)+'</td>'+
+   '<td>'+rec(cw(t),cl(t))+'</td>'+
+   '<td class="ledger-pct">'+pct(cw(t),cl(t))+'</td>'+
+   '<td class="ledger-gb">'+(behind==='—'||behind===0?'—':Number.isInteger(behind)?behind:behind.toFixed(1))+'</td>'+
+   '<td>'+rec(ow(t),ol(t))+'</td>'+
+   '<td class="ledger-pct">'+pct(ow(t),ol(t))+'</td>'+
+   '<td class="ledger-streak">'+streak(t)+'</td>'+
+   '<td class="ledger-retro"><span class="ledger-retro-value">'+elo(t)+'</span>'+
+   '<span class="ledger-retro-rank">('+(retroTies.get(n(t.rank))>1?'T-':'')+rank.replace('#','')+(rank==='—'?'':')')+'</span></td>'+
+   '<td class="ledger-projection">—</td></tr>';
+ }).join('')+'</tbody></table></div>'+
+ '<p class="note victorian-seed-note">*Order uses conference record when conference play has begun; otherwise overall record. Overall results break equal conference records. Unresolved ties remain tied until official tiebreakers are verified. GB = conference games behind the leader. Streak includes verified women’s Division I finals only. Projected NCAA seeds are withheld until a validated women’s tournament projection is published.</p>';
+  const gameMap=new Map(),memberIds=new Set(items.map(t=>String(t.team_id)));
  for(const [id,school] of Object.entries(master.teams||{})){if(!memberIds.has(String(id)))continue;
   for(const g of school.games||[]){if(!/^\d+$/.test(String(g.id||'')))continue;
    if(!gameMap.has(String(g.id)))gameMap.set(String(g.id),{...g,origin_id:String(id),origin_name:school.team})}
@@ -78,50 +102,117 @@ try{
   broadcast:g.broadcast_verified?g.broadcast:(f?.broadcast||g.broadcast)};}).filter(g=>date(g.date)).sort((a,b)=>String(a.date).localeCompare(String(b.date)));
  const dates=[...new Set(games.map(g=>date(g.date)))].sort(),upcoming=dates.find(d=>d>=now())||dates[dates.length-1]||now();
  const initial=/^\d{4}-\d{2}-\d{2}$/.test(params.get('day')||'')?params.get('day'):upcoming;
- const gameCard=g=>{const away=all.get(String(g.away_id)),home=all.get(String(g.home_id));
-  const fallback=side=>String(g.origin_id)===String(side)?g.origin_name:(g.opponent||'Other-division opponent');
-  const a=away?link(away):'<span>'+esc(fallback(g.away_id))+'</span>';
-  const h=home?link(home):'<span>'+esc(fallback(g.home_id))+'</span>';
-  const d=new Date(g.date),hour=Number.isFinite(+d)?Number(new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'numeric',hourCycle:'h23'}).format(d)):0;
-  const sourceTime=g.official_tipoff_local||g.official_tipoff_as_printed||g.official_time_as_printed||g.official_school_time||g.verified_tipoff||'';
-  const tip=sourceTime&&!/TBA|TBD/i.test(sourceTime)?sourceTime+' (school listed)':hour?d.toLocaleTimeString('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit'})+' ET':'Time TBA';
-  const result=g.published_final&&Number.isFinite(Number(g.away_score))&&Number.isFinite(Number(g.home_score))?
-   '<strong>'+esc(g.away_score)+' – '+esc(g.home_score)+'</strong><small>'+(g.model_final?'RETRO-verified Division I final':'Published final, not in RETRO')+'</small>':
-   '<strong>'+esc(tip)+'</strong>';
-  const file='cbb-gamefile.html?gender=women&day='+encodeURIComponent(date(g.date))+'&game='+encodeURIComponent(g.id);
-  return '<article class="wbc-game"><div class="wbc-game-teams"><div>'+a+'</div><small>'+(g.neutral||g.site==='neutral'?'vs':'at')+'</small><div>'+h+'</div></div>'+
-   '<div class="wbc-game-score">'+result+'</div><div class="wbc-game-facts"><span>'+esc(g.venue||'Venue TBA')+'</span>'+
-   '<span>'+esc(g.broadcast||'Network TBA')+'</span><a href="'+file+'">Game file →</a></div></article>';
+ const profile=(t,score=null)=>{
+  if(!t)return {name:'Opponent outside Division I',crest:'',record:'—',retro:'RETRO —',color:'#655239',score};
+  const colors=window.MBBLogos.colorForESPN(String(t.team_id));
+  return {name:t.team,crest:badge(t,'score'),color:colors?.primary||'#655239',
+   record:rec(ow(t),ol(t)),retro:window.SLTSportsScorebug.formatRetro(t,retroTies,363),score};
  };
- const stories=(news?.articles||[]).filter(a=>a.title&&/^https:\/\//.test(a.url||'')&&(a.category==='WBB'||/women.s.{0,24}basketball|ncaaw/i.test([a.title,a.summary,a.category].join(' ')))&&
+ const displayedDate=s=>{const d=date(s);return d?d:'Date TBA'};
+ const gameCard=g=>{
+  const away=all.get(String(g.away_id)),home=all.get(String(g.home_id));
+  const outside=id=>String(g.origin_id)===String(id)?g.origin_name:(g.opponent||'Opponent outside Division I');
+  const awayProfile=away?profile(away,g.published_final?g.away_score:null):{...profile(null,g.published_final?g.away_score:null),name:outside(g.away_id)};
+  const homeProfile=home?profile(home,g.published_final?g.home_score:null):{...profile(null,g.published_final?g.home_score:null),name:outside(g.home_id)};
+  const venue=g.neutral===true||g.site==='neutral'?'neutral':g.site_verified===true?'verified-home':'unverified';
+  const when=new Date(g.date),timeFromFeed=Number.isFinite(+when)&&
+   !/^\d{4}-\d{2}-\d{2}$/.test(String(g.date))&&
+   Number(new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'numeric',hourCycle:'h23'}).format(when))!==0?
+   when.toLocaleTimeString('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit'})+' ET':'';
+  const printed=g.official_tipoff_local||g.official_tipoff_as_printed||
+   g.official_time_as_printed||g.official_school_time||g.verified_tipoff||'';
+  const tipoff=printed&&!/^(TBA|TBD|unknown)$/i.test(printed)?printed+' (school local)':timeFromFeed||'TIME TBA';
+  const broadcast=g.broadcast||'TV TBA';
+  const final=g.published_final&&Number.isFinite(Number(g.away_score))&&Number.isFinite(Number(g.home_score));
+  const phase=final?'final':'upcoming',identifier=String(g.id||'');
+  const link='cbb-gamefile.html?gender=women&day='+encodeURIComponent(displayedDate(g.date))+
+   '&game='+encodeURIComponent(identifier);
+  let forecast=null;
+  if(!final&&away&&home&&venue!=='unverified'&&!g.source_conflict&&window.WBBRetroForecast){
+   const p=window.WBBRetroForecast.forecast(home,away,venue,window.WBBForecastCalibration,model);
+   if(p&&Number.isFinite(Number(p.home_probability))){
+    const favorite=p.home_probability>=.5?home:away;
+    forecast={team:favorite.team,probability:Math.max(p.home_probability,1-p.home_probability),
+     margin:p.calibrated&&Number.isFinite(Number(p.projected_home_margin))?Math.abs(Number(p.projected_home_margin)):null};
+   }
+  }
+  const scorebug=window.SLTSportsScorebug.render({phase,gender:'women',periodFormat:'quarters',
+   away:awayProfile,home:homeProfile,forecast,time:tipoff,network:broadcast,
+   suppressTipoffFallback:!forecast});
+  const source=final?(g.model_final?'RETRO-verified Division I final':'Published final · outside women’s current RETRO snapshot'):
+    venue==='unverified'?'Court not independently verified · forecast withheld':'Verified source game listing';
+  const data=final?'<div class="slt-wbb-inline" data-wbb-id="'+esc(identifier)+'" data-wbb-day="'+esc(displayedDate(g.date))+'"'+
+   ' data-wbb-away="'+esc(awayProfile.name)+'" data-wbb-home="'+esc(homeProfile.name)+'"'+
+   ' data-wbb-away-score="'+esc(g.away_score)+'" data-wbb-home-score="'+esc(g.home_score)+'" data-wbb-phase="final">'+
+   '<p>Open this game to retrieve available women’s scoring and statistics.</p></div>':
+   '<div class="note">'+esc(g.venue||'Venue TBA')+' · '+esc(source)+'</div>';
+  return '<article class="ledger26-card slt-conference-game"><div class="ledger26-meta slt-fixture-meta">'+
+   '<span class="ledger26-time">'+esc(displayedDate(g.date))+'</span>'+
+   '<span class="slt-fixture-tipoff">'+esc(final?'FINAL':tipoff)+'</span>'+
+   '<span class="slt-fixture-network">'+esc(broadcast)+'</span></div>'+
+   '<details class="ledger26-expand"><summary class="ledger26-summary">'+scorebug+
+   '<span class="ledger26-instruction">OPEN GAME DETAILS +</span></summary>'+
+   '<div class="ledger26-expanded">'+data+'<p class="note">'+esc(source)+
+   (g.venue?' · '+esc(g.venue):'')+'</p>'+
+   '<div class="slt-conference-game-link"><a href="'+esc(link)+'">OPEN GAMEFILE ↗</a></div>'+
+   '</div></details></article>';
+ };
+ // Delegate stat loading to the same shared inline gamefile used on men's conference cards.
+ document.addEventListener('toggle',async ev=>{
+  const details=ev.target;
+  if(!details.matches?.('.ledger26-expand[open]'))return;
+  const node=details.querySelector('.slt-wbb-inline');
+  if(!node||node.dataset.loaded||!window.SLTInlineGamefile)return;
+  node.dataset.loaded='true';
+  try{
+   await window.SLTInlineGamefile.mount(node,{
+    id:node.dataset.wbbId,day:node.dataset.wbbDay,kind:'regular',phase:node.dataset.wbbPhase,
+    away:{name:node.dataset.wbbAway,score:Number(node.dataset.wbbAwayScore)},
+    home:{name:node.dataset.wbbHome,score:Number(node.dataset.wbbHomeScore)}
+   },{women:true});
+  }catch(error){node.textContent='Statistics are unavailable in this gamefile. Open the full gamefile for other details.';}
+ },true);
+
+  const stories=(news?.articles||[]).filter(a=>a.title&&/^https:\/\//.test(a.url||'')&&(a.category==='WBB'||/women.s.{0,24}basketball|ncaaw/i.test([a.title,a.summary,a.category].join(' ')))&&
   items.some(t=>(String(a.title)+' '+String(a.summary||'')).toLowerCase().includes(t.team.toLowerCase().split(' ').slice(0,-1).join(' ')))).slice(0,6);
- const newsHTML=stories.length?stories.map(a=>'<article class="wbc-story"><h3><a target="_blank" rel="noopener noreferrer" href="'+esc(a.url)+'">'+esc(a.title)+'</a></h3><small>'+esc(a.source||'Attributed report')+'</small></article>').join(''):
-  '<p class="note">No current sourced stories matched specifically to these schools. <a href="ncaam.html?gender=women#wbb-news">National women’s news →</a></p>';
- document.title=label(c)+' Women’s Basketball | Sporting Life & Times';
- app.innerHTML='<p class="eyebrow"><a href="ncaaw-conference.html">All Women’s Conferences</a> / '+esc(c)+'</p>'+
- '<div class="conference-identity"><div class="conference-identity-upper"><span>THE WOMEN’S CONFERENCE REGISTER</span><span>2026–27 SEASON</span></div>'+
- '<div class="conference-identity-main"><h1>'+esc(label(c))+' Basketball</h1><p>The race for the championship</p></div>'+
- '<div class="conference-identity-meta"><span>'+items.length+' member schools</span><span>'+games.length+' published fixtures</span>'+
- '<span>RETRO through '+esc(model.as_of||'latest publication')+'</span></div></div>'+
- '<div class="wbc-metrics"><div><strong>'+items.length+'</strong><small>Programs</small></div>'+
- '<div><strong>'+Math.round(items.reduce((sum,t)=>sum+n(t.elo),0)/items.length)+'</strong><small>Average RETRO</small></div>'+
- '<div><strong>'+items.reduce((sum,t)=>sum+cw(t),0)+'</strong><small>Conference wins</small></div>'+
- '<div><strong>'+n(model.games_played)+'</strong><small>National D-I finals</small></div></div>'+
- '<section class="panel victorian-seed-order victorian-unified-ledger"><div class="victorian-seed-crown">❦ THE CONFERENCE REGISTER ❦</div>'+
- '<div class="panel-head"><div><div class="eyebrow">The conference race</div><h2>Current Standings</h2></div></div>'+table+'</section>'+
- '<div class="grid two"><div class="column"><section class="panel"><div class="eyebrow">The league notebook</div><h2>Conference News</h2>'+newsHTML+'</section>'+
- '<section class="panel"><div class="eyebrow">The school register</div><h2>Every Member School</h2><div class="wbc-members">'+items.map(link).join('')+'</div></section></div>'+
- '<div class="column"><section class="panel teal"><div class="eyebrow">The season game book</div><h2>Schedule &amp; Results</h2>'+
- '<p class="note">Choose past or future games using the calendar. Unverified times and broadcasts remain labeled.</p>'+
- '<div class="wbc-date-controls"><button type="button" id="wbc-prev">‹ Previous games</button><label>Games on <input id="wbc-date" type="date" value="'+esc(initial)+'"></label>'+
- '<button type="button" id="wbc-next">Next games ›</button></div><div id="wbc-schedule"></div></section></div></div>';
- const picker=document.getElementById('wbc-date'),host=document.getElementById('wbc-schedule');
- const render=d=>{const on=games.filter(g=>date(g.date)===d);host.innerHTML='<h3 class="wbc-day-heading">'+esc(new Date(d+'T12:00:00Z').toLocaleDateString('en-US',{timeZone:'UTC',weekday:'short',month:'short',day:'numeric',year:'numeric'}))+'</h3>'+
-  (on.length?on.map(gameCard).join(''):'<p class="note">No published games involving conference teams on this date.</p>')};
- const move=step=>{let index=dates.indexOf(picker.value);if(index<0){index=step>0?dates.findIndex(d=>d>picker.value)-1:dates.findIndex(d=>d>=picker.value)}
-  const i=index+step;if(i>=0&&i<dates.length){picker.value=dates[i];render(picker.value)}};
+ const newsHTML=stories.length?stories.map((a,i)=>
+  '<article class="story'+(!i?' lead':'')+'"><p class="source">'+esc(a.source||'Attributed reporting')+
+  (a.published_at?' · '+esc(String(a.published_at).slice(0,10)):'')+'</p><h3>'+
+  '<a target="_blank" rel="noopener noreferrer" href="'+esc(a.url)+'">'+esc(a.title)+'</a></h3>'+
+  (a.summary?'<p>'+esc(a.summary)+'</p>':'')+'</article>').join(''):
+  '<p class="note">No source-backed conference stories are currently matched to these programs. <a href="ncaam.html?gender=women#wbb-news">Women’s national news →</a></p>';
+
+  document.title=label(c)+' Women’s Basketball | Sporting Life & Times';
+ const datesAvailable=dates.filter(Boolean);
+ const calendar='<div class="slt-game-day-picker"><label for="conference-game-day">Games for</label>'+
+  '<input type="date" id="conference-game-day" value="'+esc(initial)+'" aria-label="Choose women’s conference game date"></div>'+
+  '<div id="conference-day-games"></div>';
+ app.innerHTML='<div class="conference-identity"><div class="conference-identity-upper">'+
+ '<span>THE CONFERENCE REGISTER</span><span>2026–27 WOMEN’S SEASON</span></div>'+
+ '<div class="conference-identity-main"><h1>'+esc(c)+'</h1><p>The race for the championship</p></div>'+
+ '<div class="conference-identity-meta"><span>'+items.length+' member schools</span>'+
+ '<span>Conference leader: '+esc(leader?.team||'To be determined')+'</span>'+
+ '<span><a href="ncaaw-conference.html">All 32 conferences →</a></span></div></div>'+
+ '<div class="metrics">'+metric(items.length,'Programs')+
+ metric(Math.round(items.reduce((sum,t)=>sum+n(t.elo),0)/items.length),'Average Elo')+
+ metric('—','Projected NCAA bids')+
+ metric(items.reduce((sum,t)=>sum+cw(t),0),'Conference finals')+'</div>'+
+ '<section class="panel victorian-seed-order victorian-unified-ledger">'+
+ '<div class="victorian-seed-crown" aria-hidden="true">❦ &nbsp; THE CONFERENCE REGISTER &nbsp; ❦</div>'+
+ heading('The conference race','Current & Projected Standings')+table+'</section>'+
+ '<div class="grid two conference-editorial-row"><div class="column">'+
+ '<section class="panel conference-news-edition">'+heading('The league notebook','Conference News')+newsHTML+'</section>'+
+ '</div><div class="column"><section class="panel teal">'+heading('Next on the schedule','Upcoming Games')+
+ calendar+'</section></div></div>';
+
+  const picker=document.getElementById('conference-game-day'),host=document.getElementById('conference-day-games');
+ const render=d=>{
+  const on=games.filter(g=>date(g.date)===d);
+  host.innerHTML=on.length?on.map(gameCard).join(''):
+   '<p class="note">No published games involving '+esc(label(c))+' members on this date.</p>';
+ };
  picker.addEventListener('change',()=>render(picker.value));
- document.getElementById('wbc-prev').addEventListener('click',()=>move(-1));
- document.getElementById('wbc-next').addEventListener('click',()=>move(1));render(picker.value);
-}catch(err){console.error('Women’s conference desk',err);failure(err.message)}
+ render(picker.value);
+
+ }catch(err){console.error('Women’s conference desk',err);failure(err.message)}
 })();
