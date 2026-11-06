@@ -23,6 +23,7 @@ on:
       - 'tests/cbb-courtside.test.cjs'
       - 'data/cbb-radio-sources.json'
       - 'data/ncaam-2026-27-retro-primary.json'
+      - 'data/ncaam-2026-27-upcoming-forecasts.json'
       - 'data/ncaaw-2026-27-retro-primary.json'
       - 'data/d2-men-2026-27.json'
       - 'data/d2-women-2026-27.json'
@@ -69,6 +70,8 @@ jobs:
         run: python3 scripts/check-nba-logo-contract.py
       - name: Certify rebuilt NCAA game slate source and layout contracts
         run: node tests/ncaam-slate.test.cjs
+      - name: Certify RETRO forecasts cover live Division I fixtures
+        run: node tests/mbb-retro-forecast-coverage.test.cjs
       - name: Protect Courtside sourced scorebugs and independent USRS
         run: node tests/cbb-courtside.test.cjs
       - name: Verify mobile team game cards, midnight final, and verified RETRO values
@@ -230,6 +233,9 @@ jobs:
             git restore -- data/nba-2026-27-current-provisional.json data/nba-elo-reconciliation.json
             node scripts/build-nba-elo-shadow.mjs
           fi
+      - name: Validate RETRO forecast dataset included in Pages artifact
+        run: |
+          node tests/mbb-retro-forecast-coverage.test.cjs
       - uses: actions/configure-pages@v5
       - name: Validate women's individual team-page publication inputs
         continue-on-error: true
