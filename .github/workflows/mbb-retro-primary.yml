@@ -1,22 +1,13 @@
 name: Publish MBB RETRO Primary
 on:
   workflow_dispatch:
-  # Independent fallback when GitHub drops/delays scheduled RETRO runs.
-  # These already-active jobs supply additional triggers without a new service.
-  workflow_run:
-    workflows:
-      - MBB team news
-      - NCAA Basketball Game to Elo Publisher
-    types: [completed]
-    branches: [main]
   push:
+    branches: [main]
     paths:
       - '.github/workflows/mbb-retro-primary.yml'
       - 'scripts/publish-mbb-retro-primary.js'
       - 'scripts/collect-mbb-retro-finals.py'
       - 'scripts/refresh_mbb_newspaper.py'
-      - 'data/mbb-live.json'
-      - 'data/mbb-retro-live-finals.json'
       - 'mbb-retro.js'
   schedule:
     # GitHub's fastest practical cron interval is five minutes, not instant.
