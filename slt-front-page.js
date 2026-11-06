@@ -1,6 +1,33 @@
 /* News-first edition layout. The existing league news renderer remains the authority.
    Where an edition has no native reporting desk, use the published attributed news feeds only. */
 (()=>{'use strict';
+
+// Keep newspaper home links aligned with each sport's actual edition title.
+function sltEditionHomeLabels(){
+ const titles={
+  'ncaam.html':'The Hardwood Chronicle',
+  'ncaaw.html':'The Hardwood Chronicle',
+  'nba.html':'NBA Edition',
+  'nfl.html':'NFL Edition',
+  'epl.html':'The Premier League',
+  'nbl.html':'The Australian NBL',
+  'euroleague.html':'The Continental Chronicle'
+ };
+ document.querySelectorAll('nav a[href], .slt-department-links a[href]').forEach(a=>{
+  const label=(a.textContent||'').trim();
+  if(!/^(?:the\s+)?front page$/i.test(label))return;
+  let filename;try{filename=new URL(a.getAttribute('href'),location.href).pathname.split('/').pop().toLowerCase()}catch(_){return}
+  const title=titles[filename];if(title)a.textContent=title;
+ });
+}
+function sltInstallEditionHomeLabels(){
+ sltEditionHomeLabels();
+ const obs=new MutationObserver(sltEditionHomeLabels);
+ obs.observe(document.documentElement,{subtree:true,childList:true});
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sltInstallEditionHomeLabels,{once:true});
+else sltInstallEditionHomeLabels();
+
 function init(){
  const kind=document.body.dataset.sltFront;if(!kind)return;
  const $=s=>document.querySelector(s);
