@@ -70,6 +70,8 @@ jobs:
         run: python3 scripts/check-nba-logo-contract.py
       - name: Certify rebuilt NCAA game slate source and layout contracts
         run: node tests/ncaam-slate.test.cjs
+      - name: Rebuild current men's RETRO forecasts before verifying and deploying
+        run: python3 scripts/rebuild_mbb_unified_forecasts.py
       - name: Certify RETRO forecasts cover live Division I fixtures
         run: node tests/mbb-retro-forecast-coverage.test.cjs
       - name: Protect Courtside sourced scorebugs and independent USRS
