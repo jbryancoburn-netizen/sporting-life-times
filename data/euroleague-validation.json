@@ -14,31 +14,31 @@
       "season_carry": 0.0
     },
     "selected_holdout": {
-      "n": 91,
-      "log_loss": 0.690713,
-      "brier": 0.248851,
-      "accuracy": 0.5604
+      "n": 96,
+      "log_loss": 0.698849,
+      "brier": 0.252839,
+      "accuracy": 0.5521
     },
     "baseline_holdout": {
-      "n": 91,
-      "log_loss": 0.675744,
-      "brier": 0.241689,
-      "accuracy": 0.5495
+      "n": 96,
+      "log_loss": 0.680116,
+      "brier": 0.243904,
+      "accuracy": 0.5417
     },
     "note": "True season holdout; selections are not retrained on holdout games."
   },
   "scoring_forecast_validation": {
-    "games_evaluated": 1247,
+    "games_evaluated": 1252,
     "minimum_prior_games_per_team": 5,
     "status": "measured",
-    "home_score_mae": 8.36,
-    "away_score_mae": 8.21,
+    "home_score_mae": 8.34,
+    "away_score_mae": 8.22,
     "total_mae": 13.39,
     "margin_mae": 9.38,
-    "league_average_total_mae": 13.92,
-    "zero_margin_baseline_mae": 10.45,
+    "league_average_total_mae": 13.93,
+    "zero_margin_baseline_mae": 10.44,
     "beats_simple_total_baseline": true,
-    "winner_accuracy": 0.6495,
+    "winner_accuracy": 0.6485,
     "by_season": {
       "E2022": {
         "games_evaluated": 283,
@@ -81,14 +81,14 @@
         "winner_accuracy": 0.6619
       },
       "E2026": {
-        "games_evaluated": 41,
-        "home_score_mae": 8.93,
-        "away_score_mae": 9.07,
-        "total_mae": 15.12,
-        "margin_mae": 9.85,
+        "games_evaluated": 46,
+        "home_score_mae": 8.5,
+        "away_score_mae": 9.15,
+        "total_mae": 15.04,
+        "margin_mae": 9.78,
         "league_average_total_mae": 16.36,
-        "zero_margin_baseline_mae": 10.59,
-        "winner_accuracy": 0.5854
+        "zero_margin_baseline_mae": 10.35,
+        "winner_accuracy": 0.5652
       }
     },
     "method": "strict pregame expanding-window; shared published forecast function; 1500 Elo reset each season"
