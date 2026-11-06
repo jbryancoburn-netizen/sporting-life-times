@@ -94,7 +94,7 @@ for(const nav of navs){
  // Give each edition its own section destinations. Never silently revert to men.
  const sections=women?{
   'The Hardwood Chronicle':'ncaam.html?gender=women',
-  'Games & Schedule':'ncaam-slate.html?gender=women',
+  'Daily Ledger':'ncaam-slate.html?gender=women',
   'Conferences':'ncaaw-conference.html',
   'Bracket Watch':'ncaam.html?gender=women#wbb-rankings',
   'Head-to-Head History':'ncaam.html?gender=women#wbb-games',
