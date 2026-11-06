@@ -1134,6 +1134,7 @@ def apply_official_school_grid_snapshots(gender, games, teams, today=None, regis
         evidence["schools"] = list(evidence["schools"]) + calendars
     lookup = build_dii_team_lookup(teams)
     counts = {"source_rows": 0, "created": 0, "matched": 0, "unmatched": 0, "conflicts": 0, "past_unpublished": 0}
+    counts["original_timezone_conversions_verified"] = 0
     counts["live_source_attempted"] = bool(live_sources)
     counts["live_school_sources"] = live_report
     counts["live_calendar_captures"] = captures
@@ -1269,6 +1270,7 @@ def apply_official_school_grid_snapshots(gender, games, teams, today=None, regis
                         f"School source tipoff conversion mismatch: {row['date']} "
                         f"{posted} {tz_name} -> {converted}, stored {clock}"
                     )
+                counts["original_timezone_conversions_verified"] += 1
             if fixture_key in disputed_times:
                 clock = ""  # Conflicting independent school time evidence.
             date = row["date"]
