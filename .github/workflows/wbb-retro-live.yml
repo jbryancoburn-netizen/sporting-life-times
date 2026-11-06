@@ -7,12 +7,14 @@ on:
       - 'scripts/wbb-season.py'
       - 'scripts/publish-wbb-retro.js'
       - 'tests/test_wbb_live_pipeline.py'
+      - 'scripts/check_wbb_workflow_isolation.py'
   push:
     paths:
       - '.github/workflows/wbb-retro-live.yml'
       - 'scripts/wbb-season.py'
       - 'scripts/publish-wbb-retro.js'
       - 'tests/test_wbb_live_pipeline.py'
+      - 'scripts/check_wbb_workflow_isolation.py'
   schedule:
     # Primary game windows: every 15 minutes from early afternoon to late night
     # across daylight-saving changes (UTC 17:00-06:59).
@@ -35,6 +37,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Reject cross-sport trigger regression
+        run: python scripts/check_wbb_workflow_isolation.py
       - name: Validate women-only ingester and regression suite
         run: |
           python -m py_compile scripts/wbb-season.py
@@ -52,6 +56,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Reject cross-sport trigger regression before publishing
+        run: python scripts/check_wbb_workflow_isolation.py
       - name: Validate women-only pipeline before fetching
         run: |
           python -m py_compile scripts/wbb-season.py
