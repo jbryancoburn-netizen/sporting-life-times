@@ -1343,6 +1343,10 @@ def apply_official_school_grid_snapshots(gender, games, teams, today=None, regis
                    (row.get("venue") or (calendar.get("home_venue") if role == "home" else "")) else {}),
             }
             counts["created"] += 1
+    # Audit one unmatched canonical school ID only once even when multiple
+    # source snapshots referenced it; this is an identity error, not fixtures.
+    counts["unmatched_grid_owner_ids"] = sorted(set(
+        counts["unmatched_grid_owner_ids"]))
     return counts
 
 def enforce_dii_elo_member_gate(games, teams):

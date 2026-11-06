@@ -16,7 +16,7 @@ class D2ParksideLakeErieCalendars(unittest.TestCase):
     def test_captured_official_rows_are_unique_and_not_certifications(self):
         d = json.loads(GRID.read_text(encoding="utf-8"))
         self.assertEqual(d["season"], "2026-27")
-        for owner, number in [("wis-parkside", 28), ("lake-erie", 29)]:
+        for owner, number in [("parkside-wisconsin-parkside", 28), ("lake-erie", 29)]:
             rows = [s for s in d["schools"]
                     if s.get("gender") == "men" and s.get("owner_id") == owner]
             self.assertEqual(len(rows), 1, owner)
@@ -36,7 +36,7 @@ class D2ParksideLakeErieCalendars(unittest.TestCase):
             self.assertFalse(any(a.get("gender") == "men" and
                                  a.get("owner_id") == owner
                                  for a in d["certification_assertions"]))
-        parkside = next(s for s in d["schools"] if s.get("owner_id") == "wis-parkside")
+        parkside = next(s for s in d["schools"] if s.get("owner_id") == "parkside-wisconsin-parkside")
         self.assertEqual(next(r["start_time"] for r in parkside["fixtures"]
                               if r["date"] == "2027-01-07"), "7:30 PM ET")
         lake = next(s for s in d["schools"] if s.get("owner_id") == "lake-erie")
