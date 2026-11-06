@@ -52,10 +52,14 @@ let id=resolved||given||byTitle;
 // official crosswalk name takes priority. Never substitute a fuzzy match.
 if(!ncaa&&byTitle&&given&&byTitle!==given)id=byTitle;
 if((resolved&&given&&resolved!==given)||(ncaa&&registry[id]?.canonical_id!==ncaa))id='';
-const known=registry[id]||null;
-// Names alone may resolve a curated non-D-I institution only by exact, unique alias.
-// If a source supplies an outside ID, its printed name must match that institution.
-const outsideID=!ncaa&&!known?(outside[id]?id:(outsideByName.get(norm(name))||'')):null;
+// For an explicitly named non-D-I opponent, the exact curated school identity
+// takes precedence over a stale or reused Division I provider ID. Never infer
+// a non-D-I identity from a numeric ESPN ID alone.
+const outsideNameId=!ncaa?outsideByName.get(norm(name))||'':'';
+const outsideNameEntry=outsideNameId?outside[outsideNameId]:null;
+const outsideExact=outsideNameEntry&&outsideAliases(outsideNameEntry).includes(norm(name));
+const known=outsideExact?null:(registry[id]||null);
+const outsideID=outsideExact?outsideNameId:(!ncaa&&!known&&outside[id]?id:'');
 const outsideEntry=outsideID&&outside[outsideID]&&outsideAliases(outside[outsideID]).includes(norm(name))?outside[outsideID]:null;
 const school=known,brand=known?palette[id]:outsideEntry,art=known?school.artwork_type:outsideEntry?'flat':'unverified';
 const primary=known?(school.logo_url_verified?safeURL(school.official_logo_url||school.logo_url):''):
