@@ -1,0 +1,22 @@
+name: Enforce women's basketball workflow isolation
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/wbb-retro-live.yml'
+      - 'scripts/check_wbb_workflow_isolation.py'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/wbb-retro-live.yml'
+      - 'scripts/check_wbb_workflow_isolation.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  isolation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reject men's basketball triggers in women's RETRO
+        run: python3 scripts/check_wbb_workflow_isolation.py
