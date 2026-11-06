@@ -6,11 +6,11 @@
   "men": {
     "gender": "men",
     "teams": 301,
-    "games": 3366,
+    "games": 3365,
     "verified_elo_finals": 32,
     "dated_game_days": 104,
-    "no_venue": 2851,
-    "no_network": 3235,
+    "no_venue": 2850,
+    "no_network": 3234,
     "no_tipoff": 925,
     "no_source_url": 0,
     "schools_without_a_published_game": 6,
@@ -138,7 +138,7 @@
           "programs": 16,
           "without_games": 0,
           "with_1_to_6_games": 0,
-          "fixture_appearances": 349,
+          "fixture_appearances": 348,
           "eligible_without_games": 0,
           "excluded_without_games": 0,
           "eligible_with_1_to_6_games": 0
@@ -300,7 +300,7 @@
           "programs": 12,
           "without_games": 0,
           "with_1_to_6_games": 0,
-          "fixture_appearances": 285,
+          "fixture_appearances": 284,
           "eligible_without_games": 0,
           "excluded_without_games": 0,
           "eligible_with_1_to_6_games": 0
@@ -336,7 +336,7 @@
       "eligible_without_saved_official_snapshots": 264,
       "eligible_with_auto_captured_unreviewed_dates": 16,
       "auto_capture_certification_policy": "Live grid date captures are partial source evidence only; never school-season certifications or independent checks.",
-      "unresolved_official_source_games": 0,
+      "unresolved_official_source_games": 1,
       "role_conflicts": 0,
       "tipoff_disagreements": 22,
       "outside_source_snapshot_games": 65,
@@ -346,8 +346,8 @@
         "COMPLETE_SEASON_ATTESTATION_REQUIRED": 4,
         "MEMBERSHIP_EXCLUDED": 7,
         "OFFICIAL_FULL_CALENDAR_REQUIRED": 264,
-        "PARTIAL_SOURCE_CAPTURE": 17,
-        "SOURCE_LEDGER_RECONCILIATION": 9
+        "PARTIAL_SOURCE_CAPTURE": 16,
+        "SOURCE_LEDGER_RECONCILIATION": 10
       },
       "schools": [
         {
@@ -802,30 +802,38 @@
           "name": "Anderson",
           "conference": "SAC",
           "eligible": true,
-          "status": "PARTIAL_SOURCE_CAPTURE",
+          "status": "SOURCE_LEDGER_RECONCILIATION",
           "certified": false,
-          "published_games": 28,
+          "published_games": 27,
           "official_source_urls": [
             "https://autrojans.com/sports/mens-basketball/schedule/2026-27?grid=true"
           ],
           "official_snapshot_count": 1,
           "live_source_rows_persisted": false,
-          "explicitly_partial_source": true,
+          "explicitly_partial_source": false,
           "official_source_rows": 28,
           "eligible_source_games": 28,
-          "matched_source_games": 28,
+          "matched_source_games": 27,
           "unidentified_or_other_division_rows": 0,
           "other_division_source_examples": [],
           "unresolved_tournament_placeholders": 0,
           "tournament_placeholder_examples": [],
-          "missing_source_games_count": 0,
-          "missing_source_games": [],
+          "missing_source_games_count": 1,
+          "missing_source_games": [
+            {
+              "date": "2026-11-14",
+              "opponent": "Belmont Abbey",
+              "resolved_id": "belmont-abbey",
+              "source_url": "https://autrojans.com/sports/mens-basketball/schedule/2026-27?grid=true",
+              "reason": "missing from ledger"
+            }
+          ],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
           "published_games_not_in_source_snapshot": 0,
           "outside_snapshot_examples": [],
           "attestation_errors": [],
-          "next_action": "Replace the explicitly partial university fixture excerpt with the complete dated season calendar."
+          "next_action": "Reconcile exact date/opponent/role/time conflicts without inventing games."
         },
         {
           "id": "angelo-state",
@@ -1445,7 +1453,7 @@
           "eligible": true,
           "status": "OFFICIAL_FULL_CALENDAR_REQUIRED",
           "certified": false,
-          "published_games": 22,
+          "published_games": 21,
           "official_source_urls": [],
           "official_snapshot_count": 0,
           "live_source_rows_persisted": false,
@@ -1461,15 +1469,11 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 22,
+          "published_games_not_in_source_snapshot": 21,
           "outside_snapshot_examples": [
             {
               "date": "2026-11-10",
               "opponent_id": "wingate"
-            },
-            {
-              "date": "2026-11-14",
-              "opponent_id": "anderson"
             },
             {
               "date": "2026-11-24",
@@ -1486,6 +1490,10 @@
             {
               "date": "2026-12-12",
               "opponent_id": "emmanuel"
+            },
+            {
+              "date": "2026-12-16",
+              "opponent_id": "barton"
             }
           ],
           "attestation_errors": [],
@@ -16520,7 +16528,7 @@
       "NCAA scoreboard": 721,
       "NE10 2026-27 official reciprocal school calendars": 65,
       "NSIC 2026-27 reciprocal official school calendars": 132,
-      "Official university 2026-27 school schedule": 338,
+      "Official university 2026-27 school schedule": 337,
       "PBC 2026-27 reciprocal official university calendars": 109,
       "PSAC 2026-27 reciprocal official school schedules": 170,
       "PWC 2026-27 reciprocal official school calendars": 70,
