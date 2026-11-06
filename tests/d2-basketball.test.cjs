@@ -419,12 +419,12 @@ test('DII complete-season source recovery keeps 79 DYouville Roberts and Duluth 
 // DII cross-page publication quality: one scorebug, honest branding and legible six-field ledger.
 test('DII team desks use the same live scorebug assets as game and front pages',()=>{
  const team=fs.readFileSync('d2-team.html','utf8');
- assert.match(team,/cbb-ledger-scorebug\\.js/);
- assert.match(team,/cbb-ledger-scorecard\\.css/);
+ assert.match(team,/cbb-ledger-scorebug\.js/);
+ assert.match(team,/cbb-ledger-scorecard\.css/);
  for(const page of ['d2-mens-basketball.html','d2-womens-basketball.html','d2-team.html','d2-game.html']){
   const html=fs.readFileSync(page,'utf8');
   assert.doesNotMatch(html,/THE SPORTING LIFE|The Sporting Life|USRS/);
-  assert.match(html,/slt-monogram-favicon\\.svg/);
+  assert.match(html,/slt-monogram-favicon\.svg/);
  }
 });
 test('DII visible scorebug metadata shows tipoff and the full school directory keeps six columns',()=>{
@@ -433,5 +433,5 @@ test('DII visible scorebug metadata shows tipoff and the full school directory k
  assert.match(js,/d2-visible-tipoff/);
  assert.match(js,/ledger26-network/);
  assert.match(js,/school-count-summary/);
- assert.match(css,/\\.directory \\.board-row\\{grid-template-columns:15px 39px minmax\\(0,1fr\\) 47px 42px 50px\\}/);
+ assert.match(css,/\.directory \.board-row\{grid-template-columns:15px 39px minmax\(0,1fr\) 47px 42px 50px\}/);
 });
