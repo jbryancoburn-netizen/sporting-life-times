@@ -75,19 +75,16 @@
      const favourite=p.home_probability>=.5?home:away;
      forecast={team:favourite.name,probability:Math.max(p.home_probability,p.away_probability),
        margin:p.calibrated?Math.abs(p.projected_home_margin):null};
-     const label=p.calibrated?'RETRO · HOLDOUT VALIDATED':'RETRO · PROVISIONAL CALIBRATION';
-     disclosure='<small class="wbb-retro-provisional">'+label+
-       (p.calibrated?' · EXPECTED SCORE: '+esc(away.name)+' '+Math.round(p.projected_away_score)+
-         ' · '+esc(home.name)+' '+Math.round(p.projected_home_score):
-         ' · Point-score calibration unavailable')+
-       (venue==='unverified'?' · Unverified court treated as neutral':'')+'</small>';
+     disclosure=p.calibrated?'<small class="wbb-retro-provisional">Projected score: '+esc(away.name)+' '+Math.round(p.projected_away_score)+
+       ' · '+esc(home.name)+' '+Math.round(p.projected_home_score)+'</small>':'';
     }
    }
    const time=row.cells[3]?.textContent?.trim()||'TIPOFF TBA';
+   const gameDate=row.cells[0]?.textContent?.trim()||'Date TBA';
    const markup=window.SLTSportsScorebug.render({phase,gender:'women',
      status:phase==='live'?note:phase==='final'?'FINAL':'',away,home,
      forecast,time:time.split('University-sourced')[0].trim()});
-   summary.innerHTML=markup+disclosure+
+   summary.innerHTML='<div class="wbb-game-dateline">'+esc(gameDate)+'</div>'+markup+disclosure+
      '<span class="ledger26-instruction">OPEN GAME DETAILS +</span>';
   }
   function renderAll(){
