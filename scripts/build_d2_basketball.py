@@ -1307,7 +1307,7 @@ def apply_official_school_grid_snapshots(gender, games, teams, today=None, regis
                    if row.get("network") else {}),
                 **({"venue_source_url": source_url}
                    if role in ("home", "neutral") and
-                   (row.get("venue") or calendar.get("home_venue")) else {}),
+                   (row.get("venue") or (calendar.get("home_venue") if role == "home" else "")) else {}),
             }
             counts["created"] += 1
     return counts
