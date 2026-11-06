@@ -7,6 +7,8 @@ on:
     paths:
       - 'data/ncaam-2026-27-retro-primary.json'
       - 'data/ncaam-score-calibration.json'
+      - 'data/mbb-live.json'
+      - 'data/ncaam-2026-27-espn-team-crosswalk.json'
   workflow_dispatch:
 permissions:
   contents: write
