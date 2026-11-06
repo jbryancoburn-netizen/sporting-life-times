@@ -1,0 +1,21 @@
+window.CFB_BOWL_LOCAL_LOGOS={
+  "Gasparilla Bowl": "assets/bowl-logos/gasparilla-bowl.png",
+  "Boca Raton Bowl": "assets/bowl-logos/boca-raton-bowl.png",
+  "Independence Bowl": "assets/bowl-logos/independence-bowl.webp",
+  "New Orleans Bowl": "assets/bowl-logos/new-orleans-bowl.png",
+  "Armed Forces Bowl": "assets/bowl-logos/armed-forces-bowl.png",
+  "Frisco Bowl": "assets/bowl-logos/frisco-bowl.png",
+  "New Mexico Bowl": "assets/bowl-logos/new-mexico-bowl.png",
+  "Hawaii Bowl": "assets/bowl-logos/hawaii-bowl.png",
+  "Birmingham Bowl": "assets/bowl-logos/birmingham-bowl.png",
+  "Pop-Tarts Bowl": "assets/bowl-logos/pop-tarts-bowl.png",
+  "ReliaQuest Bowl": "assets/bowl-logos/reliaquest-bowl.png",
+  "Sun Bowl": "assets/bowl-logos/sun-bowl.png",
+  "Las Vegas Bowl": "assets/bowl-logos/las-vegas-bowl.png",
+  "Texas Bowl": "assets/bowl-logos/texas-bowl.png",
+  "First Responder Bowl": "assets/bowl-logos/first-responder-bowl.webp",
+  "Poinsettia Bowl": "assets/bowl-logos/poinsettia-bowl.webp",
+  "Puerto Rico Bowl": "assets/bowl-logos/puerto-rico-bowl.jpg",
+  "Salute to Veterans Bowl": "assets/bowl-logos/salute-to-veterans-bowl.png",
+  "Cactus Bowl": "assets/bowl-logos/cactus-bowl.jpg"
+};
