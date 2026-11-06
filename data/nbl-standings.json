@@ -6,10 +6,20 @@
   "elo_approved": false,
   "source": "ESPN site API, completed finals since NBL27 regular-season opening",
   "season_start": "2026-09-19",
-  "updated_at": "2026-11-06T01:36:55.323264+00:00",
-  "games_replayed": 54,
+  "updated_at": "2026-11-06T11:04:56.277622+00:00",
+  "games_replayed": 55,
   "teams": 10,
   "rows": [
+    {
+      "team": "Tasmania JackJumpers",
+      "wins": 8,
+      "losses": 3,
+      "played": 11,
+      "win_pct": 0.727,
+      "points_for": 1035,
+      "points_against": 985,
+      "points_pct": 105.08
+    },
     {
       "team": "Sydney Kings",
       "wins": 7,
@@ -19,16 +29,6 @@
       "points_for": 979,
       "points_against": 881,
       "points_pct": 111.12
-    },
-    {
-      "team": "Tasmania JackJumpers",
-      "wins": 7,
-      "losses": 3,
-      "played": 10,
-      "win_pct": 0.7,
-      "points_for": 956,
-      "points_against": 908,
-      "points_pct": 105.29
     },
     {
       "team": "Melbourne United",
@@ -93,12 +93,12 @@
     {
       "team": "New Zealand Breakers",
       "wins": 4,
-      "losses": 7,
-      "played": 11,
-      "win_pct": 0.364,
-      "points_for": 996,
-      "points_against": 1000,
-      "points_pct": 99.6
+      "losses": 8,
+      "played": 12,
+      "win_pct": 0.333,
+      "points_for": 1073,
+      "points_against": 1079,
+      "points_pct": 99.44
     },
     {
       "team": "Illawarra Hawks",
@@ -112,6 +112,18 @@
     }
   ],
   "recent_finals": [
+    {
+      "id": "401875294",
+      "played_at": "2026-11-06T08:30Z",
+      "home": "Tasmania JackJumpers",
+      "away": "New Zealand Breakers",
+      "home_score": 79,
+      "away_score": 77,
+      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875294/breakers-jackjumpers",
+      "verified": false,
+      "provider": "espn",
+      "state": "candidate"
+    },
     {
       "id": "401875295",
       "played_at": "2026-11-05T08:30Z",
@@ -216,18 +228,6 @@
       "home_score": 101,
       "away_score": 108,
       "source_url": "https://www.espn.com/nbl/game/_/gameId/401875293/36ers-breakers",
-      "verified": false,
-      "provider": "espn",
-      "state": "candidate"
-    },
-    {
-      "id": "401875280",
-      "played_at": "2026-10-29T09:00Z",
-      "home": "Brisbane Bullets",
-      "away": "Cairns Taipans",
-      "home_score": 85,
-      "away_score": 107,
-      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875280/taipans-bullets",
       "verified": false,
       "provider": "espn",
       "state": "candidate"
