@@ -26,7 +26,7 @@ panel.append(metrics,grid,note);
 const root=document.querySelector("main")||document.querySelector(".paper")||document.body;
 const anchor=root.querySelector(".hero")||root.querySelector("#coverage-section")||root.querySelector("section");
 if(anchor)anchor.insertAdjacentElement("beforebegin",panel);else root.prepend(panel);
-let races=[];
+let races=[];let visibleCount=48;let lastSuccessfulUpdate=null;
 function raceData(key,r){const candidates=(Array.isArray(r.cands)?r.cands:[]).filter(x=>typeof x.n==="string"&&Number.isInteger(x.v)&&x.v>=0).sort((a,b)=>b.v-a.v);let total=candidates.reduce((s,x)=>s+x.v,0);let code=key.slice(0,2).toUpperCase();let suffix=key.split("-")[1]||"";let title=states[code]||code;title+=" · "+(suffix==="00"?"At-large":("District "+Number(suffix)));return {key,code,title,candidates,total,margin:candidates.length>1&&total?100*(candidates[0].v-candidates[1].v)/total:null};}
 function eligible(r){if(page==="politics-house-state.html")return !!stateFilter&&r.code===stateFilter;if(page==="politics-house-district.html")return !!districtParam&&selectDistrict(r.key);return true}
 function makeMetric(big,label){const x=h("div","plt-desk-metric");x.append(h("strong",null,big),h("span",null,label));return x}
@@ -35,7 +35,7 @@ if(sort.value==="close")list.sort((a,b)=>(a.margin??Infinity)-(b.margin??Infinit
 grid.replaceChildren();metrics.replaceChildren();
 const close=list.filter(r=>r.margin!==null&&r.margin<5).length;const votes=list.reduce((sum,r)=>sum+r.total,0);
 metrics.append(makeMetric(list.length.toLocaleString(),"Reported races"),makeMetric(close.toLocaleString(),"Within 5 percentage points"),makeMetric(votes.toLocaleString(),"Votes reported in selection"));
-const shown=list.slice(0,48);
+const shown=list.slice(0,visibleCount);
 for(const r of shown){
  const card=h("details","plt-race-card");
  const summary=h("summary","plt-race-summary");
@@ -54,7 +54,7 @@ for(const r of shown){
  const a=h("a","plt-race-link","Open district profile →");a.href="politics-house-district.html?district="+encodeURIComponent(r.key);details.append(a);card.append(details);grid.append(card);
 }
 const previous=panel.querySelector(".plt-more");if(previous)previous.remove();
-if(list.length>shown.length){const more=h("p","plt-more", "Showing "+shown.length+" of "+list.length+" matching races. Filter by state or search for others.");grid.after(more)}
+if(list.length>shown.length){const more=h("div","plt-more");const label=h("p",null,"Showing "+shown.length+" of "+list.length+" matching reported races.");const button=h("button","plt-load-more","Show 48 more races");button.type="button";button.addEventListener("click",()=>{visibleCount+=48;render()});more.append(label,button);grid.after(more)}
 if(!list.length)grid.append(h("p","plt-empty","No reported races match this selection. This does not mean no election occurred."));
 }
 async function load(){try{const res=await fetch("https://openamerica.io/elections/results.json?year=2026&office=House",{cache:"no-store"});if(!res.ok)throw Error("Data feed unavailable");const data=await res.json();if(data.api!==1||data.year!==2026||String(data.office).toLowerCase()!=="house"||!data.races||Array.isArray(data.races))throw Error("Unexpected results format");
@@ -65,7 +65,8 @@ async function load(){try{const res=await fetch("https://openamerica.io/election
  if(stateFilter)select.value=stateFilter;
  if(page==="politics-house-district.html")controls.hidden=true;
  status.textContent="Source returned "+races.length+" race records for this view · Unofficial and potentially incomplete · Updated on page load";
- select.addEventListener("change",render);sort.addEventListener("change",render);search.addEventListener("input",render);render();
+ lastSuccessfulUpdate=new Date();status.textContent+=" · Checked "+lastSuccessfulUpdate.toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit",timeZone:"America/New_York",timeZoneName:"short"})+" (browser retrieval, not source publication time)";
+select.addEventListener("change",()=>{visibleCount=48;render()});sort.addEventListener("change",()=>{visibleCount=48;render()});search.addEventListener("input",()=>{visibleCount=48;render()});render();
  }catch(e){controls.hidden=true;status.textContent="Live results feed unavailable. No election totals or winners are asserted.";grid.append(h("p","plt-empty","Check back when the reporting source is available. Existing historical atlas information remains accessible below."));}}
 load();
 })();
