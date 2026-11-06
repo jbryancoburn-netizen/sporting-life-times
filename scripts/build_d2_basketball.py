@@ -1135,6 +1135,7 @@ def apply_official_school_grid_snapshots(gender, games, teams, today=None, regis
     lookup = build_dii_team_lookup(teams)
     counts = {"source_rows": 0, "created": 0, "matched": 0, "unmatched": 0, "conflicts": 0, "past_unpublished": 0}
     counts["original_timezone_conversions_verified"] = 0
+    counts["unmatched_grid_owner_ids"] = []
     counts["live_source_attempted"] = bool(live_sources)
     counts["live_school_sources"] = live_report
     counts["live_calendar_captures"] = captures
@@ -1225,6 +1226,8 @@ def apply_official_school_grid_snapshots(gender, games, teams, today=None, regis
         owner = calendar["owner_id"]
         if owner not in teams or teams[owner].get("not_eligible_for_dii_elo"):
             counts["unmatched"] += len(calendar.get("fixtures", []))
+            if owner not in teams:
+                counts["unmatched_grid_owner_ids"].append(owner)
             continue
         source_url = calendar["source_url"]
         if not source_url.startswith("https://"):

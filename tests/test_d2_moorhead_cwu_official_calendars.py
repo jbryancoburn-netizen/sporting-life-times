@@ -11,8 +11,14 @@ GRID = ROOT / "data" / "d2-official-school-grids-2026-27.json"
 class D2SchoolCalendarRecoveryBatch(unittest.TestCase):
     def test_both_29_row_snapshots_preserve_time_provenance(self):
         data = json.loads(GRID.read_text(encoding="utf-8"))
+        # Men's and women's NCAA lists use different canonical MSUM IDs.
+        # This snapshot is the MEN'S registry identity, not the women's.
+        self.assertFalse(any(
+            s.get("gender") == "men"
+            and s.get("owner_id") == "minnesota-state-university-moorhead"
+            for s in data["schools"]))
         for gender, owner, zone in [
-            ("men", "minnesota-state-university-moorhead", "America/Chicago"),
+            ("men", "minnesota-state-moorhead", "America/Chicago"),
             ("women", "central-washington-university", "America/Los_Angeles"),
         ]:
             school = [x for x in data["schools"]
@@ -84,7 +90,7 @@ class D2SchoolCalendarRecoveryBatch(unittest.TestCase):
     def test_non_dii_and_neutral_games_are_not_removed_from_evidence(self):
         data = json.loads(GRID.read_text(encoding="utf-8"))
         men = next(x for x in data["schools"] if x.get("gender") == "men"
-                   and x.get("owner_id") == "minnesota-state-university-moorhead")
+                   and x.get("owner_id") == "minnesota-state-moorhead")
         women = next(x for x in data["schools"] if x.get("gender") == "women"
                      and x.get("owner_id") == "central-washington-university")
         self.assertIn(("2026-10-22", "North Dakota State University (Exh.)"),
