@@ -20,7 +20,7 @@ try{
 const [reg,cross,colors,opponents]=await Promise.all([
   ...['data/mbb-logo-registry.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json?v=ncaa-two-rings-20261101b']
     .map(p=>fetch(p,{cache:'no-cache'}).then(x=>{if(!x.ok)throw Error(p+' '+x.status);return x.json()})),
-  fetch('data/mbb-out-of-division-opponent-logos.json?v=opponent-identity-20261105-frostburg',{cache:'no-cache'})
+  fetch('data/mbb-out-of-division-opponent-logos.json?v=ncaa-d3-identity-20261106',{cache:'no-cache'})
     .then(x=>x.ok?x.json():{teams:{}}).catch(()=>({teams:{}}))
 ]);
 if(Object.keys(reg.teams||{}).length!==365||cross.teams?.length!==365)throw Error('Incomplete 365-team logo registry');
@@ -55,7 +55,21 @@ if((resolved&&given&&resolved!==given)||(ncaa&&registry[id]?.canonical_id!==ncaa
 // For an explicitly named non-D-I opponent, the exact curated school identity
 // takes precedence over a stale or reused Division I provider ID. Never infer
 // a non-D-I identity from a numeric ESPN ID alone.
-const outsideNameId=!ncaa?outsideByName.get(norm(name))||'':'';
+// Try exact aliases first; fixture feeds often append a mascot to the
+// certified school name. Resolve such a suffix only when there is exactly
+// one eligible outside-division school (never a fuzzy cross-school guess).
+function outsideSchoolId(value){
+ const key=norm(value);
+ if(outsideByName.has(key))return outsideByName.get(key);
+ if(byName.has(key)||key.length<8)return '';
+ const matches=new Set();
+ for(const [alias,id] of outsideByName){
+  if(alias.length>=8&&key.startsWith(alias)&&key.length>alias.length)matches.add(id);
+  if(matches.size>1)return '';
+ }
+ return matches.size===1?[...matches][0]:'';
+}
+const outsideNameId=!ncaa?outsideSchoolId(name):'';
 const outsideNameEntry=outsideNameId?outside[outsideNameId]:null;
 const outsideExact=outsideNameEntry&&outsideAliases(outsideNameEntry).includes(norm(name));
 const known=outsideExact?null:(registry[id]||null);
