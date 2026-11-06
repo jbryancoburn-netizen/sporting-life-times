@@ -9,7 +9,7 @@
     "games": 3349,
     "verified_elo_finals": 32,
     "dated_game_days": 104,
-    "no_venue": 2876,
+    "no_venue": 2867,
     "no_network": 3218,
     "no_tipoff": 938,
     "no_source_url": 0,
@@ -332,22 +332,22 @@
       "certified_schools": 0,
       "uncertified_schools": 294,
       "excluded_membership_schools": 7,
-      "eligible_with_saved_official_snapshots": 26,
-      "eligible_without_saved_official_snapshots": 268,
+      "eligible_with_saved_official_snapshots": 27,
+      "eligible_without_saved_official_snapshots": 267,
       "eligible_with_auto_captured_unreviewed_dates": 16,
       "auto_capture_certification_policy": "Live grid date captures are partial source evidence only; never school-season certifications or independent checks.",
       "unresolved_official_source_games": 0,
       "role_conflicts": 0,
-      "tipoff_disagreements": 18,
-      "outside_source_snapshot_games": 46,
-      "unclassified_other_division_source_rows": 135,
+      "tipoff_disagreements": 22,
+      "outside_source_snapshot_games": 56,
+      "unclassified_other_division_source_rows": 144,
       "unresolved_tournament_placeholders": 0,
       "stage_counts": {
         "COMPLETE_SEASON_ATTESTATION_REQUIRED": 4,
         "MEMBERSHIP_EXCLUDED": 7,
-        "OFFICIAL_FULL_CALENDAR_REQUIRED": 268,
+        "OFFICIAL_FULL_CALENDAR_REQUIRED": 267,
         "PARTIAL_SOURCE_CAPTURE": 16,
-        "SOURCE_LEDGER_RECONCILIATION": 6
+        "SOURCE_LEDGER_RECONCILIATION": 7
       },
       "schools": [
         {
@@ -7357,30 +7357,74 @@
           "name": "Lake Erie",
           "conference": "G-MAC",
           "eligible": true,
-          "status": "OFFICIAL_FULL_CALENDAR_REQUIRED",
+          "status": "SOURCE_LEDGER_RECONCILIATION",
           "certified": false,
           "published_games": 30,
-          "official_source_urls": [],
-          "official_snapshot_count": 0,
+          "official_source_urls": [
+            "https://lakeeriestorm.com/sports/mens-basketball/schedule/2026-27?grid=true"
+          ],
+          "official_snapshot_count": 1,
           "live_source_rows_persisted": false,
           "explicitly_partial_source": false,
-          "official_source_rows": 0,
-          "eligible_source_games": 0,
-          "matched_source_games": 0,
-          "unidentified_or_other_division_rows": 0,
-          "other_division_source_examples": [],
+          "official_source_rows": 29,
+          "eligible_source_games": 20,
+          "matched_source_games": 20,
+          "unidentified_or_other_division_rows": 9,
+          "other_division_source_examples": [
+            {
+              "date": "2026-11-09",
+              "opponent": "Penn State Du Bois",
+              "source_url": "https://lakeeriestorm.com/sports/mens-basketball/schedule/2026-27?grid=true"
+            },
+            {
+              "date": "2026-11-14",
+              "opponent": "Ferris State University (@LSSU)",
+              "source_url": "https://lakeeriestorm.com/sports/mens-basketball/schedule/2026-27?grid=true"
+            },
+            {
+              "date": "2026-11-18",
+              "opponent": "Bryant & Stratton College",
+              "source_url": "https://lakeeriestorm.com/sports/mens-basketball/schedule/2026-27?grid=true"
+            },
+            {
+              "date": "2026-11-24",
+              "opponent": "Indiana University of Pennsylvania",
+              "source_url": "https://lakeeriestorm.com/sports/mens-basketball/schedule/2026-27?grid=true"
+            },
+            {
+              "date": "2026-12-01",
+              "opponent": "Penn State Beaver",
+              "source_url": "https://lakeeriestorm.com/sports/mens-basketball/schedule/2026-27?grid=true"
+            },
+            {
+              "date": "2026-12-12",
+              "opponent": "Walsh University (Ohio)",
+              "source_url": "https://lakeeriestorm.com/sports/mens-basketball/schedule/2026-27?grid=true"
+            },
+            {
+              "date": "2027-01-16",
+              "opponent": "Tiffin University (Ohio)",
+              "source_url": "https://lakeeriestorm.com/sports/mens-basketball/schedule/2026-27?grid=true"
+            },
+            {
+              "date": "2027-02-11",
+              "opponent": "Walsh University (Ohio)",
+              "source_url": "https://lakeeriestorm.com/sports/mens-basketball/schedule/2026-27?grid=true"
+            },
+            {
+              "date": "2027-02-20",
+              "opponent": "Tiffin University (Ohio)",
+              "source_url": "https://lakeeriestorm.com/sports/mens-basketball/schedule/2026-27?grid=true"
+            }
+          ],
           "unresolved_tournament_placeholders": 0,
           "tournament_placeholder_examples": [],
           "missing_source_games_count": 0,
           "missing_source_games": [],
           "role_conflicts": 0,
-          "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 30,
+          "tipoff_disagreements": 4,
+          "published_games_not_in_source_snapshot": 10,
           "outside_snapshot_examples": [
-            {
-              "date": "2026-10-30",
-              "opponent_id": "winona-state"
-            },
             {
               "date": "2026-10-31",
               "opponent_id": "tampa"
@@ -7394,16 +7438,20 @@
               "opponent_id": "hawaii-pacific"
             },
             {
-              "date": "2026-11-13",
-              "opponent_id": "lake-superior-state"
-            },
-            {
               "date": "2026-11-14",
               "opponent_id": "ferris-state"
+            },
+            {
+              "date": "2026-11-24",
+              "opponent_id": "indiana-pa"
+            },
+            {
+              "date": "2026-12-12",
+              "opponent_id": "walsh"
             }
           ],
           "attestation_errors": [],
-          "next_action": "Find and independently verify the school's full official 2026-27 calendar, including non-DII games."
+          "next_action": "Reconcile exact date/opponent/role/time conflicts without inventing games."
         },
         {
           "id": "lake-superior-state",
