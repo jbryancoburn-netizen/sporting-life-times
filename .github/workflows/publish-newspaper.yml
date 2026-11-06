@@ -262,9 +262,11 @@ jobs:
           assert ids <= set(calendars), 'Missing one or more women team schedule records'
           print('Women's page inputs: all 363 IDs and Indiana schedule present')
           PY
+      - name: Stage reader-facing newspaper without unused development and research payloads
+        run: python3 scripts/stage_pages_artifact.py
       - uses: actions/upload-pages-artifact@v4
         with:
-          path: '.'
+          path: _pages_site
       - id: deploy
         uses: actions/deploy-pages@v4
       - name: Verify public Pages is serving the latest MBB RETRO forecasts
