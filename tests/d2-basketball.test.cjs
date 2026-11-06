@@ -435,3 +435,17 @@ test('DII visible scorebug metadata shows tipoff and the full school directory k
  assert.match(js,/school-count-summary/);
  assert.match(css,/\.directory \.board-row\{grid-template-columns:15px 39px minmax\(0,1fr\) 47px 42px 50px\}/);
 });
+
+
+test('DII saved men's school grids reconcile source-backed opponent aliases without inventing results',()=>{
+ const evidence=JSON.parse(fs.readFileSync('data/d2-official-school-grids-2026-27.json','utf8'));
+ const rows=evidence.schools.filter(s=>s.gender==='men').flatMap(s=>s.fixtures);
+ const resolved=rows.filter(x=>String(x.identity_verified_by||'').startsWith('Official school schedule opponent naming matched'));
+ assert.equal(resolved.length,33);
+ for(const game of resolved){
+  assert.ok(game.source_opponent&&game.source_opponent!==game.opponent);
+  assert.match(game.opponent_identity_source_url,/^https:\/\//);
+  assert.ok(!Object.hasOwn(game,'status')&&!Object.hasOwn(game,'away_score')&&!Object.hasOwn(game,'home_score'));
+ }
+ assert.equal(evidence.certification_assertions.length,0);
+});

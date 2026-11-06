@@ -22,7 +22,7 @@ class D2NamedOpponentIdentityRecovery(unittest.TestCase):
                     self.assertNotEqual(fixture["opponent"], fixture["source_opponent"])
                     self.assertRegex(fixture["opponent_identity_source_url"],
                                      r"^https://")
-                    self.assertRegex(fixture["date"], r"^202[67]-\\d\\d-\\d\\d$")
+                    self.assertRegex(fixture["date"], r"^202[67]-\d\d-\d\d$")
                     self.assertNotIn("away_score", fixture)
                     self.assertNotIn("home_score", fixture)
                     self.assertNotIn("status", fixture)
