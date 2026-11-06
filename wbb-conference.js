@@ -13,10 +13,11 @@ const rec=(w,l)=>w+'–'+l,elo=t=>Number.isFinite(Number(t.elo))?Math.round(Numb
 const failure=s=>{app.innerHTML='<section class="panel"><h1>Women’s conference desk unavailable</h1><p>'+esc(s)+'</p><a href="ncaam.html?gender=women">Open the women’s newspaper →</a></section>'};
 try{
  await window.MBBLogos.ready;
- const [directory,conferences,model,master,scoreboard,news]=await Promise.all([
+ const [directory,conferences,model,master,scoreboard,news,officialTV]=await Promise.all([
   get('data/ncaaw-2026-27-teams.json'),get('data/ncaaw-2026-27-conferences.json'),
   get('data/ncaaw-2026-27-retro-primary.json'),get('data/ncaaw-schedules-2026-27.json'),
-  get('data/ncaaw-2026-27-games.json').catch(()=>null),get('articles.json').catch(()=>null)
+  get('data/ncaaw-2026-27-games.json').catch(()=>null),get('articles.json').catch(()=>null),
+  get('data/ncaaw-2026-27-official-broadcast-overrides.json').catch(()=>null)
  ]);
  const roster=directory.teams||[],rankings=model.rankings||[];
  const names=[...new Set(roster.map(t=>t.conference).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
@@ -38,6 +39,7 @@ try{
  rankings.forEach(t=>retroTies.set(Number(t.rank),(retroTies.get(Number(t.rank))||0)+1));
  // The women's edition uses the same letterpress scorebug as the men's Big Ten.
  window.WBBRetroSnapshot=model;
+ window.WBBForecastCalibration=await get('data/ncaaw-score-calibration.json').catch(()=>null);
  const cw=t=>n(t.conference_wins),cl=t=>n(t.conference_losses),ow=t=>n(t.wins),ol=t=>n(t.losses);
  const comp=(a,b,conf)=>{const aw=conf?cw(a):ow(a),al=conf?cl(a):ol(a),bw=conf?cw(b):ow(b),bl=conf?cl(b):ol(b);
   return ratio(bw,bl)-ratio(aw,al)||bw-aw||al-bl;};
@@ -57,8 +59,8 @@ try{
   app.innerHTML='<div class="eyebrow">Women’s Division I · 2026–27</div><h1>The conference desks.</h1>'+
    '<p>Each of the 32 conferences has a complete league newspaper, from the Big Ten to the smallest Division I leagues.</p>'+
    '<p class="note">All 363 teams have verified conference membership and a women-only RETRO rating. Current ratings dated '+esc(model.as_of||'not supplied')+'.</p>'+
-   '<div class="conf-grid wbc-directory">'+names.map(c=>{const items=members(c),leader=ordered(c).items[0];
-    return '<a class="conf-card wbc-card" href="'+url(c)+'"><div class="eyebrow">'+items.length+' member programs</div><h3>'+esc(label(c))+'</h3>'+
+   '<div class="conf-grid">'+names.map(c=>{const items=members(c),leader=ordered(c).items[0];
+    return '<a class="conf-card" href="'+url(c)+'"><div class="eyebrow">'+items.length+' member programs</div><h3>'+esc(label(c))+'</h3>'+
      '<div class="logos">'+items.slice(0,5).map(badge).join('')+'</div><small>'+esc(leader.team)+' · RETRO '+elo(leader)+' →</small></a>'}).join('')+'</div>';
   return;
  }
@@ -87,7 +89,7 @@ try{
    '<td class="ledger-pct">'+pct(ow(t),ol(t))+'</td>'+
    '<td class="ledger-streak">'+streak(t)+'</td>'+
    '<td class="ledger-retro"><span class="ledger-retro-value">'+elo(t)+'</span>'+
-   '<span class="ledger-retro-rank">('+(retroTies.get(n(t.rank))>1?'T-':'')+rank.replace('#','')+(rank==='—'?'':')')+'</span></td>'+
+   '<span class="ledger-retro-rank">('+(retroTies.get(n(t.rank))>1?'T-':'')+rank.replace('#','')+')</span></td>'+
    '<td class="ledger-projection">—</td></tr>';
  }).join('')+'</tbody></table></div>'+
  '<p class="note victorian-seed-note">*Order uses conference record when conference play has begun; otherwise overall record. Overall results break equal conference records. Unresolved ties remain tied until official tiebreakers are verified. GB = conference games behind the leader. Streak includes verified women’s Division I finals only. Projected NCAA seeds are withheld until a validated women’s tournament projection is published.</p>';
@@ -97,9 +99,12 @@ try{
    if(!gameMap.has(String(g.id)))gameMap.set(String(g.id),{...g,origin_id:String(id),origin_name:school.team})}
  }
  const liveMap=new Map([...(scoreboard?.finals||[]),...(scoreboard?.upcoming||[])].map(g=>[String(g.id),g]));
+ const tvMap=new Map((officialTV?.gender==='women'&&officialTV.season==='2026-27'?officialTV.rows||[]:[])
+  .filter(g=>g.game_id&&g.broadcast&&/^https:\/\//.test(g.source_url||''))
+  .map(g=>[String(g.game_id),g.broadcast]));
  const games=[...gameMap.values()].map(g=>{const f=liveMap.get(String(g.id)),v=finals.get(String(g.id));return {...g,...(f||{}),...(v||{}),
   origin_id:g.origin_id,origin_name:g.origin_name,published_final:!!(v||f?.status==='final'),model_final:!!v,
-  broadcast:g.broadcast_verified?g.broadcast:(f?.broadcast||g.broadcast)};}).filter(g=>date(g.date)).sort((a,b)=>String(a.date).localeCompare(String(b.date)));
+  broadcast:tvMap.get(String(g.id))||(g.broadcast_verified?g.broadcast:(f?.broadcast||g.broadcast))};}).filter(g=>date(g.date)).sort((a,b)=>String(a.date).localeCompare(String(b.date)));
  const dates=[...new Set(games.map(g=>date(g.date)))].sort(),upcoming=dates.find(d=>d>=now())||dates[dates.length-1]||now();
  const initial=/^\d{4}-\d{2}-\d{2}$/.test(params.get('day')||'')?params.get('day'):upcoming;
  const profile=(t,score=null)=>{
@@ -114,7 +119,7 @@ try{
   const outside=id=>String(g.origin_id)===String(id)?g.origin_name:(g.opponent||'Opponent outside Division I');
   const awayProfile=away?profile(away,g.published_final?g.away_score:null):{...profile(null,g.published_final?g.away_score:null),name:outside(g.away_id)};
   const homeProfile=home?profile(home,g.published_final?g.home_score:null):{...profile(null,g.published_final?g.home_score:null),name:outside(g.home_id)};
-  const venue=g.neutral===true||g.site==='neutral'?'neutral':g.site_verified===true?'verified-home':'unverified';
+  const venue=g.site_verified!==true?'unverified':g.neutral===true||g.site==='neutral'?'neutral':'verified-home';
   const when=new Date(g.date),timeFromFeed=Number.isFinite(+when)&&
    !/^\d{4}-\d{2}-\d{2}$/.test(String(g.date))&&
    Number(new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'numeric',hourCycle:'h23'}).format(when))!==0?
@@ -183,7 +188,6 @@ try{
   '<p class="note">No source-backed conference stories are currently matched to these programs. <a href="ncaam.html?gender=women#wbb-news">Women’s national news →</a></p>';
 
   document.title=label(c)+' Women’s Basketball | Sporting Life & Times';
- const datesAvailable=dates.filter(Boolean);
  const calendar='<div class="slt-game-day-picker"><label for="conference-game-day">Games for</label>'+
   '<input type="date" id="conference-game-day" value="'+esc(initial)+'" aria-label="Choose women’s conference game date"></div>'+
   '<div id="conference-day-games"></div>';
