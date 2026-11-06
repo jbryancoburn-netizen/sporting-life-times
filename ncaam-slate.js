@@ -59,7 +59,7 @@ function normalizeMen(feed,forecasts,crossList,outside={},archivedFinals=null){
   // earlier finals from the durable MBB ledger for past-date calendar navigation.
   for(const f of archivedFinals?.games||[]){
     const id=cleanId(f.id),day=String(f.date||'');
-    if(!validId(id)||!/^\\d{4}-\\d\\d-\\d\\d$/.test(day)||
+    if(!validId(id)||!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(day)||
        !Number.isFinite(f.away_score)||!Number.isFinite(f.home_score))continue;
     const away=canon.get(String(f.away_id)),home=canon.get(String(f.home_id));
     if(!away||!home)continue;
