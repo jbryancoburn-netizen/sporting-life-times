@@ -1135,6 +1135,7 @@ def apply_official_school_grid_snapshots(gender, games, teams, today=None, regis
     lookup = build_dii_team_lookup(teams)
     counts = {"source_rows": 0, "created": 0, "matched": 0, "unmatched": 0, "conflicts": 0, "past_unpublished": 0}
     counts["original_timezone_conversions_verified"] = 0
+    counts["original_timezone_conversions_withheld"] = 0
     counts["unmatched_grid_owner_ids"] = []
     counts["live_source_attempted"] = bool(live_sources)
     counts["live_school_sources"] = live_report
@@ -1256,24 +1257,30 @@ def apply_official_school_grid_snapshots(gender, games, teams, today=None, regis
             posted = row.get("source_time_as_posted")
             if posted:
                 tz_name = row.get("source_time_zone")
-                if not tz_name or not clock:
-                    raise ValueError("Original school clock needs source timezone and verified ET time")
-                if not re.fullmatch(r"(?:[1-9]|1[0-2]):[0-5][0-9] [AP]M", posted):
-                    raise ValueError("Malformed original school clock")
-                try:
-                    original = dt.datetime.strptime(
-                        row["date"] + " " + posted, "%Y-%m-%d %I:%M %p"
-                    ).replace(tzinfo=ZoneInfo(tz_name))
-                except (ValueError, KeyError, TypeError) as exc:
-                    raise ValueError("Invalid dated source school timezone") from exc
-                converted = original.astimezone(ZoneInfo("America/New_York")).strftime("%I:%M %p")
-                converted = converted.lstrip("0") + " ET"
-                if converted != clock:
-                    raise ValueError(
-                        f"School source tipoff conversion mismatch: {row['date']} "
-                        f"{posted} {tz_name} -> {converted}, stored {clock}"
-                    )
-                counts["original_timezone_conversions_verified"] += 1
+                if not clock or not tz_name or not re.fullmatch(
+                        r"(?:[1-9]|1[0-2]):[0-5][0-9] [AP]M", posted):
+                    # Some older school grids retain the literal publisher
+                    # clock (e.g. "3:00 PM CT as posted") but intentionally
+                    # withhold an ET time until corroborated. That is not a
+                    # false conversion: retain the source row and report
+                    # it separately from machine-verified conversions.
+                    counts["original_timezone_conversions_withheld"] += 1
+                else:
+                    try:
+                        original = dt.datetime.strptime(
+                            row["date"] + " " + posted, "%Y-%m-%d %I:%M %p"
+                        ).replace(tzinfo=ZoneInfo(tz_name))
+                    except (ValueError, KeyError, TypeError) as exc:
+                        raise ValueError("Invalid dated source school timezone") from exc
+                    converted = original.astimezone(
+                        ZoneInfo("America/New_York")).strftime("%I:%M %p")
+                    converted = converted.lstrip("0") + " ET"
+                    if converted != clock:
+                        raise ValueError(
+                            f"School source tipoff conversion mismatch: {row['date']} "
+                            f"{posted} {tz_name} -> {converted}, stored {clock}"
+                        )
+                    counts["original_timezone_conversions_verified"] += 1
             if fixture_key in disputed_times:
                 clock = ""  # Conflicting independent school time evidence.
             date = row["date"]

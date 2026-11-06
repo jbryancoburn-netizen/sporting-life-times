@@ -87,6 +87,38 @@ class D2SchoolCalendarRecoveryBatch(unittest.TestCase):
             self.assertEqual(counts["created"], 1)
             self.assertEqual(next(iter(games.values()))["start_time"], "5:00 PM ET")
 
+    def test_unverified_original_local_clock_does_not_fail_publication(self):
+        import datetime as dt
+        import tempfile
+        from scripts.build_d2_basketball import apply_official_school_grid_snapshots
+        with tempfile.TemporaryDirectory() as tmp:
+            p = Path(tmp) / "school.json"
+            p.write_text(json.dumps({
+                "season": "2026-27", "schema": 1,
+                "schools": [{
+                    "gender": "men", "owner_id": "alpha",
+                    "source_url": "https://alpha.edu/sports/mbb/schedule/2026-27",
+                    "fixtures": [{
+                        "date": "2027-01-08", "role": "home",
+                        "opponent": "Beta University",
+                        "start_time": "",
+                        "source_time_as_posted": "4:00 PM CT as posted",
+                    }],
+                }],
+                "live_school_sources": [], "certification_assertions": [],
+            }), encoding="utf-8")
+            teams = {
+                "alpha": {"id": "alpha", "name": "Alpha University"},
+                "beta": {"id": "beta", "name": "Beta University"},
+            }
+            games = {}
+            quality = apply_official_school_grid_snapshots(
+                "men", games, teams, registry_file=p, live_sources=False,
+                today=dt.date(2026, 11, 5))
+            self.assertEqual(quality["created"], 1)
+            self.assertEqual(quality["original_timezone_conversions_withheld"], 1)
+            self.assertEqual(next(iter(games.values()))["start_time"], "")
+
     def test_non_dii_and_neutral_games_are_not_removed_from_evidence(self):
         data = json.loads(GRID.read_text(encoding="utf-8"))
         men = next(x for x in data["schools"] if x.get("gender") == "men"
