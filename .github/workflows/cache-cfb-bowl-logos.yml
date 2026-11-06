@@ -1,0 +1,48 @@
+name: Cache validated college football bowl logos
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/cache-cfb-bowl-logos.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: cfb-bowl-logo-assets
+  cancel-in-progress: false
+jobs:
+  cache-bowl-logos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Download and validate artwork
+        run: node scripts/cache-cfb-bowl-logos.mjs
+      - name: Commit only bowl assets and their manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "sporting-life-times-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/bowl-logos cfb-bowl-local-logos.js data/cfb-bowl-logo-cache-report.json
+          if git diff --cached --quiet; then
+            echo "No logo changes."
+            exit 0
+          fi
+          git commit -m "Cache and validate bowl logos as local newspaper assets"
+          for attempt in 1 2 3 4 5 6 7 8; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              echo "Bowl logo assets published."
+              exit 0
+            fi
+            sleep 3
+          done
+          echo "Could not publish bowl assets after retries" >&2
+          exit 1
