@@ -58,6 +58,13 @@ jobs:
       - name: Generate current NCAA Elo ledger and forecasts
         if: env.IN_SEASON == 'true'
         run: python scripts/update_ncaam_season.py
+      # The season source collector emits provisional probability-only rows.
+      # Never commit those rows over the single published RETRO forecast engine.
+      - name: Recalculate canonical RETRO probability and margin from the same rating snapshot
+        if: env.IN_SEASON == 'true'
+        run: |
+          python scripts/rebuild_mbb_unified_forecasts.py
+          node tests/mbb-retro-forecast-coverage.test.cjs
       - name: Publish verified season artifacts
         if: success() && env.IN_SEASON == 'true' && github.ref == 'refs/heads/main'
         run: |
