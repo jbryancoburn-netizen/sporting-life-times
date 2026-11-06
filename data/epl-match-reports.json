@@ -1,7 +1,7 @@
 {
   "player_snapshot": {
     "scope": "published_match_reports_only",
-    "matches_covered": 90,
+    "matches_covered": 91,
     "goals": [
       {
         "player": "Erling Haaland",
@@ -31,6 +31,11 @@
       {
         "player": "Nicolas Jackson",
         "team": "Aston Villa",
+        "count": 5
+      },
+      {
+        "player": "Thierno Barry",
+        "team": "Everton",
         "count": 5
       },
       {
@@ -99,6 +104,11 @@
         "count": 3
       },
       {
+        "player": "Kiernan Dewsbury-Hall",
+        "team": "Everton",
+        "count": 3
+      },
+      {
         "player": "Mohamed Belloumi",
         "team": "Hull City",
         "count": 3
@@ -111,11 +121,6 @@
       {
         "player": "Pedro Neto",
         "team": "Chelsea",
-        "count": 3
-      },
-      {
-        "player": "Thierno Barry",
-        "team": "Everton",
         "count": 3
       },
       {
@@ -196,11 +201,6 @@
       {
         "player": "Keane Lewis-Potter",
         "team": "Brentford",
-        "count": 2
-      },
-      {
-        "player": "Kiernan Dewsbury-Hall",
-        "team": "Everton",
         "count": 2
       },
       {
@@ -651,6 +651,11 @@
       {
         "player": "Wilson Isidor",
         "team": "Sunderland",
+        "count": 1
+      },
+      {
+        "player": "Yann Gboho",
+        "team": "Coventry City",
         "count": 1
       },
       {
@@ -1186,6 +1191,11 @@
         "count": 1
       },
       {
+        "player": "Thierno Barry",
+        "team": "Everton",
+        "count": 1
+      },
+      {
         "player": "Thomas Meunier",
         "team": "Sunderland",
         "count": 1
@@ -1203,6 +1213,11 @@
       {
         "player": "Viktor Gyökeres",
         "team": "Arsenal",
+        "count": 1
+      },
+      {
+        "player": "Vitalii Mykolenko",
+        "team": "Everton",
         "count": 1
       },
       {
@@ -1229,7 +1244,7 @@
     "own_goals_not_counted": 12,
     "note": "Event-derived from the published match-report window, not official season leaderboards; unresolved player names are excluded."
   },
-  "updated_at": "2026-11-06T17:29:08.912374+00:00",
+  "updated_at": "2026-11-06T22:23:58.562781+00:00",
   "source": "ESPN event summary; third-party match facts only, not Elo",
   "matches": {
     "401878768": {
@@ -42955,13 +42970,448 @@
         }
       ],
       "source_url": "https://www.espn.com/soccer/match/_/gameId/401878762"
+    },
+    "401879242": {
+      "home": "Everton",
+      "away": "Coventry",
+      "home_score": 3,
+      "away_score": 1,
+      "kickoff_utc": "2026-11-06T20:00:00+00:00",
+      "teams": [
+        {
+          "team": "Everton",
+          "statistics": [
+            {
+              "name": "foulsCommitted",
+              "displayValue": "9",
+              "label": "Fouls"
+            },
+            {
+              "name": "yellowCards",
+              "displayValue": "1",
+              "label": "Yellow Cards"
+            },
+            {
+              "name": "redCards",
+              "displayValue": "0",
+              "label": "Red Cards"
+            },
+            {
+              "name": "offsides",
+              "displayValue": "1",
+              "label": "Offsides"
+            },
+            {
+              "name": "wonCorners",
+              "displayValue": "2",
+              "label": "Corner Kicks"
+            },
+            {
+              "name": "saves",
+              "displayValue": "3",
+              "label": "Saves"
+            },
+            {
+              "name": "possessionPct",
+              "displayValue": "49.8",
+              "label": "Possession"
+            },
+            {
+              "name": "totalShots",
+              "displayValue": "16",
+              "label": "SHOTS"
+            },
+            {
+              "name": "shotsOnTarget",
+              "displayValue": "7",
+              "label": "ON GOAL"
+            },
+            {
+              "name": "shotPct",
+              "displayValue": "0.4",
+              "label": "On Target %"
+            },
+            {
+              "name": "penaltyKickGoals",
+              "displayValue": "0",
+              "label": "Penalty Goals"
+            },
+            {
+              "name": "penaltyKickShots",
+              "displayValue": "0",
+              "label": "Penalty Kicks Taken"
+            },
+            {
+              "name": "accuratePasses",
+              "displayValue": "344",
+              "label": "Accurate Passes"
+            },
+            {
+              "name": "totalPasses",
+              "displayValue": "424",
+              "label": "Passes"
+            },
+            {
+              "name": "passPct",
+              "displayValue": "0.8",
+              "label": "Pass Completion %"
+            },
+            {
+              "name": "accurateCrosses",
+              "displayValue": "7",
+              "label": "Accurate Crosses"
+            },
+            {
+              "name": "totalCrosses",
+              "displayValue": "21",
+              "label": "Crosses"
+            },
+            {
+              "name": "crossPct",
+              "displayValue": "0.3",
+              "label": "Cross %"
+            },
+            {
+              "name": "totalLongBalls",
+              "displayValue": "46",
+              "label": "Long Balls"
+            },
+            {
+              "name": "accurateLongBalls",
+              "displayValue": "17",
+              "label": "Accurate Long Balls"
+            },
+            {
+              "name": "longballPct",
+              "displayValue": "0.4",
+              "label": "Long Balls %"
+            },
+            {
+              "name": "blockedShots",
+              "displayValue": "3",
+              "label": "Blocked Shots"
+            },
+            {
+              "name": "effectiveTackles",
+              "displayValue": "14",
+              "label": "Effective Tackles"
+            },
+            {
+              "name": "totalTackles",
+              "displayValue": "21",
+              "label": "Tackles"
+            },
+            {
+              "name": "tacklePct",
+              "displayValue": "0.7",
+              "label": "Tackle %"
+            },
+            {
+              "name": "interceptions",
+              "displayValue": "8",
+              "label": "Interceptions"
+            },
+            {
+              "name": "effectiveClearance",
+              "displayValue": "33",
+              "label": "Effective Clearances"
+            },
+            {
+              "name": "totalClearance",
+              "displayValue": "33",
+              "label": "Clearances"
+            }
+          ]
+        },
+        {
+          "team": "Coventry City",
+          "statistics": [
+            {
+              "name": "foulsCommitted",
+              "displayValue": "6",
+              "label": "Fouls"
+            },
+            {
+              "name": "yellowCards",
+              "displayValue": "1",
+              "label": "Yellow Cards"
+            },
+            {
+              "name": "redCards",
+              "displayValue": "0",
+              "label": "Red Cards"
+            },
+            {
+              "name": "offsides",
+              "displayValue": "0",
+              "label": "Offsides"
+            },
+            {
+              "name": "wonCorners",
+              "displayValue": "2",
+              "label": "Corner Kicks"
+            },
+            {
+              "name": "saves",
+              "displayValue": "4",
+              "label": "Saves"
+            },
+            {
+              "name": "possessionPct",
+              "displayValue": "50.2",
+              "label": "Possession"
+            },
+            {
+              "name": "totalShots",
+              "displayValue": "15",
+              "label": "SHOTS"
+            },
+            {
+              "name": "shotsOnTarget",
+              "displayValue": "4",
+              "label": "ON GOAL"
+            },
+            {
+              "name": "shotPct",
+              "displayValue": "0.3",
+              "label": "On Target %"
+            },
+            {
+              "name": "penaltyKickGoals",
+              "displayValue": "0",
+              "label": "Penalty Goals"
+            },
+            {
+              "name": "penaltyKickShots",
+              "displayValue": "0",
+              "label": "Penalty Kicks Taken"
+            },
+            {
+              "name": "accuratePasses",
+              "displayValue": "353",
+              "label": "Accurate Passes"
+            },
+            {
+              "name": "totalPasses",
+              "displayValue": "438",
+              "label": "Passes"
+            },
+            {
+              "name": "passPct",
+              "displayValue": "0.8",
+              "label": "Pass Completion %"
+            },
+            {
+              "name": "accurateCrosses",
+              "displayValue": "3",
+              "label": "Accurate Crosses"
+            },
+            {
+              "name": "totalCrosses",
+              "displayValue": "13",
+              "label": "Crosses"
+            },
+            {
+              "name": "crossPct",
+              "displayValue": "0.2",
+              "label": "Cross %"
+            },
+            {
+              "name": "totalLongBalls",
+              "displayValue": "49",
+              "label": "Long Balls"
+            },
+            {
+              "name": "accurateLongBalls",
+              "displayValue": "16",
+              "label": "Accurate Long Balls"
+            },
+            {
+              "name": "longballPct",
+              "displayValue": "0.3",
+              "label": "Long Balls %"
+            },
+            {
+              "name": "blockedShots",
+              "displayValue": "3",
+              "label": "Blocked Shots"
+            },
+            {
+              "name": "effectiveTackles",
+              "displayValue": "13",
+              "label": "Effective Tackles"
+            },
+            {
+              "name": "totalTackles",
+              "displayValue": "19",
+              "label": "Tackles"
+            },
+            {
+              "name": "tacklePct",
+              "displayValue": "0.7",
+              "label": "Tackle %"
+            },
+            {
+              "name": "interceptions",
+              "displayValue": "14",
+              "label": "Interceptions"
+            },
+            {
+              "name": "effectiveClearance",
+              "displayValue": "24",
+              "label": "Effective Clearances"
+            },
+            {
+              "name": "totalClearance",
+              "displayValue": "24",
+              "label": "Clearances"
+            }
+          ]
+        }
+      ],
+      "players": [],
+      "events": [
+        {
+          "clock": "",
+          "text": null,
+          "type": "Kickoff",
+          "team": null
+        },
+        {
+          "clock": "45'+2'",
+          "text": "First Half ends, Everton 0, Coventry City 0.",
+          "type": "Halftime",
+          "team": null
+        },
+        {
+          "clock": "45'",
+          "text": null,
+          "type": "Start 2nd Half",
+          "team": null
+        },
+        {
+          "clock": "47'",
+          "text": null,
+          "type": "Start Delay",
+          "team": "Coventry City"
+        },
+        {
+          "clock": "48'",
+          "text": null,
+          "type": "End Delay",
+          "team": "Coventry City"
+        },
+        {
+          "clock": "52'",
+          "text": "Goal! Everton 0, Coventry City 1. Yann Gboho (Coventry City) right footed shot from the centre of the box to the bottom right corner.",
+          "type": "Goal",
+          "team": "Coventry City"
+        },
+        {
+          "clock": "56'",
+          "text": "Goal! Everton 1, Coventry City 1. Thierno Barry (Everton) header from the centre of the box to the top right corner. Assisted by Vitalii Mykolenko with a cross.",
+          "type": "Goal - Header",
+          "team": "Everton"
+        },
+        {
+          "clock": "61'",
+          "text": "Goal! Everton 2, Coventry City 1. Thierno Barry (Everton) left footed shot from very close range to the bottom right corner.",
+          "type": "Goal",
+          "team": "Everton"
+        },
+        {
+          "clock": "73'",
+          "text": "Substitution, Everton. Jake O'Brien replaces Merlin Röhl.",
+          "type": "Substitution",
+          "team": "Everton"
+        },
+        {
+          "clock": "73'",
+          "text": "Substitution, Everton. Hayden Hackney replaces Harrison Armstrong.",
+          "type": "Substitution",
+          "team": "Everton"
+        },
+        {
+          "clock": "73'",
+          "text": "Substitution, Everton. Brennan Johnson replaces Tyler Dibling.",
+          "type": "Substitution",
+          "team": "Everton"
+        },
+        {
+          "clock": "73'",
+          "text": "Substitution, Coventry City. Brandon Thomas-Asante replaces Yann Gboho.",
+          "type": "Substitution",
+          "team": "Coventry City"
+        },
+        {
+          "clock": "81'",
+          "text": "Goal! Everton 3, Coventry City 1. Kiernan Dewsbury-Hall (Everton) left footed shot from a difficult angle on the left to the bottom left corner. Assisted by Thierno Barry with a through ball.",
+          "type": "Goal",
+          "team": "Everton"
+        },
+        {
+          "clock": "86'",
+          "text": "Substitution, Coventry City. Matt Grimes replaces Victor Torp.",
+          "type": "Substitution",
+          "team": "Coventry City"
+        },
+        {
+          "clock": "86'",
+          "text": "Substitution, Coventry City. Gustavo Hamer replaces Jack Rudoni.",
+          "type": "Substitution",
+          "team": "Coventry City"
+        },
+        {
+          "clock": "86'",
+          "text": "Substitution, Coventry City. Loum Tchaouna replaces Tatsuhiro Sakamoto.",
+          "type": "Substitution",
+          "team": "Coventry City"
+        },
+        {
+          "clock": "87'",
+          "text": "Substitution, Coventry City. Sidiki Cherif replaces Taiwo Awoniyi.",
+          "type": "Substitution",
+          "team": "Coventry City"
+        },
+        {
+          "clock": "88'",
+          "text": "Jarrad Branthwaite (Everton) is shown the yellow card for a bad foul.",
+          "type": "Yellow Card",
+          "team": "Everton"
+        },
+        {
+          "clock": "88'",
+          "text": "Caleb Yirenkyi (Coventry City) is shown the yellow card.",
+          "type": "Yellow Card",
+          "team": "Coventry City"
+        },
+        {
+          "clock": "89'",
+          "text": "Substitution, Everton. Michael Keane replaces Jarrad Branthwaite.",
+          "type": "Substitution",
+          "team": "Everton"
+        },
+        {
+          "clock": "90'",
+          "text": "Substitution, Everton. Charly Alcaraz replaces Tyrique George.",
+          "type": "Substitution",
+          "team": "Everton"
+        },
+        {
+          "clock": "90'+7'",
+          "text": "Second Half ends, Everton 3, Coventry City 1.",
+          "type": "End Regular Time",
+          "team": null
+        }
+      ],
+      "source_url": "https://www.espn.com/soccer/match/_/gameId/401879242"
     }
   },
   "fetch_status": {
-    "successful": 0,
+    "successful": 1,
     "failed": {},
-    "attempted": 0,
-    "season_finals": 90,
-    "detailed_reports": 90
+    "attempted": 1,
+    "season_finals": 91,
+    "detailed_reports": 91
   }
 }
