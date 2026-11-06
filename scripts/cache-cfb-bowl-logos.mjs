@@ -1,0 +1,65 @@
+// One-time, isolated bowl-logo asset cache. No runtime external-image requests for cached marks.
+import fs from 'node:fs';
+import path from 'node:path';
+import vm from 'node:vm';
+const context = {window:{}};
+vm.runInNewContext(fs.readFileSync('cfb-bowl-catalog.js','utf8'), context);
+vm.runInNewContext(fs.readFileSync('cfb-bowl-editorial.js','utf8'), context);
+const catalog=context.window.CFB_BOWL_CATALOG || [];
+const editorial=context.window.CFB_BOWL_EDITORIAL || {};
+const alternatives={
+ 'Boca Raton Bowl':['https://shopbocabowl.com/media/logo/stores/7/9BBrtjqsLNKrYOBpWIN4HQW7MQAmQY4JVI4a6Fge.png'],
+ 'Cactus Bowl':['https://pbs.twimg.com/media/HJ7MTC-bkAAL6a2.jpg'],
+ 'Puerto Rico Bowl':['https://pbs.twimg.com/media/HHzucCYXQAA0Iau.jpg'],
+ 'Poinsettia Bowl':['https://www.snapdragonstadium.com/assets/img/1440-x-500-px-1-a7d88cd384.png'],
+ 'Salute to Veterans Bowl':['https://content.sportslogos.net/logos/68/6926/full/salute-to-veterans-bowl-logo-primary-2024-5879.png']
+};
+const slug=name=>name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+const out='assets/bowl-logos';
+fs.mkdirSync(out,{recursive:true});
+const manifest={}, report=[];
+const sniff=buf=>{
+ if(buf.length>=8 && buf.subarray(0,8).equals(Buffer.from([137,80,78,71,13,10,26,10])))return 'png';
+ if(buf.length>=3 && buf.subarray(0,3).equals(Buffer.from([255,216,255])))return 'jpg';
+ if(buf.length>=6 && buf.toString('ascii',0,3)==='GIF')return 'gif';
+ if(buf.length>=12 && buf.toString('ascii',0,4)==='RIFF' && buf.toString('ascii',8,12)==='WEBP')return 'webp';
+ if(buf.length>=100 && /<svg[\s>]/i.test(buf.toString('utf8',0,1000)))return 'svg';
+ return null;
+};
+async function download(url){
+ const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),16000);
+ try{
+  const res=await fetch(url,{redirect:'follow',signal:controller.signal,headers:{'User-Agent':'Mozilla/5.0 (compatible; SLT-BowlLogo-Cache/1.0)','Accept':'image/avif,image/webp,image/png,image/jpeg,image/svg+xml,image/*;q=0.8,*/*;q=0.2'}});
+  if(!res.ok)throw Error('HTTP '+res.status);
+  const size=Number(res.headers.get('content-length')||0);
+  if(size>4500000)throw Error('too large');
+  const data=Buffer.from(await res.arrayBuffer());
+  if(data.length<100 || data.length>4500000)throw Error('invalid size '+data.length);
+  const ext=sniff(data);
+  if(!ext)throw Error('not an image');
+  return {data,ext};
+ } finally{clearTimeout(timer);}
+}
+for (const b of catalog) {
+ const name=b.name;
+ const opts=[...(alternatives[name]||[]),editorial[name]?.logo,b.logo].filter(Boolean);
+ let found=null,errors=[];
+ for(const url of [...new Set(opts)]){
+  try{found={...await download(url),url};break;}catch(e){errors.push(e.message);}
+ }
+ if(found){
+  const local=out+'/'+slug(name)+'.'+found.ext;
+  fs.writeFileSync(local,found.data);
+  manifest[name]=local;
+  report.push({name,status:'cached',local,bytes:found.data.length,source:found.url});
+ } else {
+  const existing=fs.readdirSync(out).find(f=>f.startsWith(slug(name)+'.'));
+  if(existing){manifest[name]=out+'/'+existing;report.push({name,status:'existing-local',local:manifest[name],errors});}
+  else report.push({name,status:opts.length?'failed':'missing-source',errors});
+ }
+}
+fs.writeFileSync('cfb-bowl-local-logos.js','window.CFB_BOWL_LOCAL_LOGOS='+JSON.stringify(manifest,null,2)+';\n');
+fs.writeFileSync('data/cfb-bowl-logo-cache-report.json',JSON.stringify({updated:new Date().toISOString(),total:catalog.length,cached:Object.keys(manifest).length,report},null,2)+'\n');
+console.log('BOWL LOGOS cached '+Object.keys(manifest).length+' / '+catalog.length);
+for(const row of report)console.log(row.status.padEnd(15),row.name,(row.errors||[]).join(';'));
+if(!Object.keys(manifest).length)process.exitCode=1;
