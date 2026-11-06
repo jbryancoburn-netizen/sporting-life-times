@@ -72,6 +72,11 @@ jobs:
         run: node tests/ncaam-slate.test.cjs
       - name: Rebuild current men's RETRO forecasts before verifying and deploying
         run: python3 scripts/rebuild_mbb_unified_forecasts.py
+      # A rolling schedule collector can replace the central forecast file with
+      # probability-only source rows. Rebuild margin and probability together
+      # from the exact RETRO ratings snapshot in this deployed artifact.
+      - name: Rebuild independent MBB forecasts before publication gate
+        run: python3 scripts/rebuild_mbb_unified_forecasts.py
       - name: Certify RETRO forecasts cover live Division I fixtures
         run: node tests/mbb-retro-forecast-coverage.test.cjs
       - name: Protect Courtside sourced scorebugs and independent USRS
