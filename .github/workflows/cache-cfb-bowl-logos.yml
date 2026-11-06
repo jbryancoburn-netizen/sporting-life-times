@@ -46,3 +46,5 @@ jobs:
           done
           echo "Could not publish bowl assets after retries" >&2
           exit 1
+
+# Bowl asset validation pass 2: retry verified alternate sources.
