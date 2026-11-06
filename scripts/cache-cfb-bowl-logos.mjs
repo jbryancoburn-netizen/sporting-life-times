@@ -8,11 +8,64 @@ vm.runInNewContext(fs.readFileSync('cfb-bowl-editorial.js','utf8'), context);
 const catalog=context.window.CFB_BOWL_CATALOG || [];
 const editorial=context.window.CFB_BOWL_EDITORIAL || {};
 const alternatives={
- 'Boca Raton Bowl':['https://shopbocabowl.com/media/logo/stores/7/9BBrtjqsLNKrYOBpWIN4HQW7MQAmQY4JVI4a6Fge.png'],
- 'Cactus Bowl':['https://pbs.twimg.com/media/HJ7MTC-bkAAL6a2.jpg'],
- 'Puerto Rico Bowl':['https://pbs.twimg.com/media/HHzucCYXQAA0Iau.jpg'],
- 'Poinsettia Bowl':['https://www.snapdragonstadium.com/assets/img/1440-x-500-px-1-a7d88cd384.png'],
- 'Salute to Veterans Bowl':['https://content.sportslogos.net/logos/68/6926/full/salute-to-veterans-bowl-logo-primary-2024-5879.png']
+  "Boca Raton Bowl": [
+    "https://shopbocabowl.com/media/logo/stores/7/9BBrtjqsLNKrYOBpWIN4HQW7MQAmQY4JVI4a6Fge.png"
+  ],
+  "Myrtle Beach Bowl": [
+    "https://s.americanarenas.com/media/myrtle-beach-bowl.jpg"
+  ],
+  "Famous Idaho Potato Bowl": [
+    "https://pbs.twimg.com/profile_images/826205474244669441/llShw20V_400x400.jpg"
+  ],
+  "Cure Bowl": [
+    "https://f002.backblazeb2.com/file/cpbmedia/bowls/2526logos/25cure.jpg",
+    "https://www.curebowl.com/wp-content/uploads/2024/05/2024_StaffDNA_Cure_Bowl-1.png"
+  ],
+  "Pinstripe Bowl": [
+    "https://img.mlbstatic.com/mlb-images/image/private/t_w2208/mlb/dljh3g2nvueibs0pp7cj.png"
+  ],
+  "Fenway Bowl": [
+    "https://cloudfront-us-east-1.images.arcpublishing.com/bostonglobe/VJ7UJ33NBJGVNACVEEYZGNK4HU.jpg"
+  ],
+  "Duke's Mayo Bowl": [
+    "https://cdn.shopify.com/s/files/1/0731/0557/2152/files/DMBowl_Logo_Large_c83b8c8d-bb09-4771-834b-e0db54db9a8c.png?v=1686055004"
+  ],
+  "68 Ventures Bowl": [
+    "https://assets.simpleviewinc.com/simpleview/image/upload/c_limit%2Ch_1200%2Cq_75%2Cw_1200/v1/crm/mobilebay/68-Ventures-Bowl-Primary-Logo_B1511365-DD00-3522-35FE8FB6EAB6F470-b1510e5cf941c9d_b1512dba-f22c-6c0b-a1f870463c3f8b1f.png"
+  ],
+  "Military Bowl": [
+    "https://content.sportslogos.net/logos/68/4842/full/military_bowl_logo_primary_2024_sportslogosnet-5649.png"
+  ],
+  "Alamo Bowl": [
+    "https://www.alamobowl.com/wp-content/uploads/2021/05/card-bowl-logos.jpg"
+  ],
+  "Gator Bowl": [
+    "https://cdn.imgbin.com/14/9/12/taxslayer-gator-bowl-logo-taxslayer-gator-bowl-logo-c4WLBztk.jpg"
+  ],
+  "Music City Bowl": [
+    "https://storage.googleapis.com/purduesports-com-prod/2025/05/16/f4Ab7cGvCJnI2CkV2KkIharUTN9Uu1bfurzscuhv.png"
+  ],
+  "Citrus Bowl": [
+    "https://content.sportslogos.net/logos/68/5478/full/citrus_bowl_logo_primary_2023_sportslogosnet-4876.png"
+  ],
+  "Arizona Bowl": [
+    "https://seatgeekimages.com/performers-landscape/arizona-bowl-79fde5/385214/600x600.jpg"
+  ],
+  "Liberty Bowl": [
+    "https://library.sportingnews.com/styles/twitter_card_120x120/s3/2025-12/Liberty%20Bowl.jpg?itok=_nN75tTR"
+  ],
+  "Cactus Bowl": [
+    "https://pbs.twimg.com/media/HJ7MTC-bkAAL6a2.jpg"
+  ],
+  "Puerto Rico Bowl": [
+    "https://pbs.twimg.com/media/HHzucCYXQAA0Iau.jpg"
+  ],
+  "Poinsettia Bowl": [
+    "https://www.snapdragonstadium.com/assets/img/1440-x-500-px-1-a7d88cd384.png"
+  ],
+  "Salute to Veterans Bowl": [
+    "https://content.sportslogos.net/logos/68/6926/full/salute-to-veterans-bowl-logo-primary-2024-5879.png"
+  ]
 };
 const slug=name=>name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 const out='assets/bowl-logos';
