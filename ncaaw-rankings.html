@@ -19,9 +19,9 @@
 .wbbr-controls select{padding:8px;border:1px solid #a58b6d;background:#fff7e9;font:12px Georgia,serif}
 .wbbr-note{background:#f3e7d3;border-left:4px solid #98764e;padding:10px 13px;color:#654832;line-height:1.45}
 .wbbr-list{border-block:3px double #826442;background:#f5ead6}
-.wbbr-entry{display:grid;grid-template-columns:54px 61px minmax(0,1fr) 120px;align-items:center;gap:13px;padding:9px 14px;border-bottom:1px solid #c4aa87}
+.wbbr-entry{display:grid;grid-template-columns:58px 61px minmax(0,1fr) 120px;align-items:center;gap:13px;padding:9px 14px;border-bottom:1px solid #c4aa87;min-width:0}
 .wbbr-entry:nth-child(even){background:#ebdcc2} .wbbr-entry{border:3px double #9e8566;margin:7px 0;background:#f6ebd7}
-.wbbr-number{display:inline-grid;place-items:center;min-width:36px;min-height:36px;padding:3px 5px;background:#713d2b;border:3px double #efdfc4;outline:1px solid #71402e;color:#fff4dd;font:700 19px/1 Georgia,serif;text-align:center}
+.wbbr-list .wbbr-entry>.wbbr-number{box-sizing:border-box;display:inline-grid;place-items:center;width:54px;min-width:0;max-width:100%;height:48px;min-height:0;padding:3px 3px;background:#713d2b;border:3px double #efdfc4;outline:1px solid #71402e;color:#fff4dd;font:700 16px/1 Georgia,serif;white-space:nowrap;text-align:center;font-variant-numeric:tabular-nums;justify-self:center}
 .wbbr-entry .mbb-mark{--mbb-size:56px!important;flex:0 0 56px!important}
 .wbbr-identity{min-width:0}
 .wbbr-identity a,.wbbr-identity .wbbr-unresolved{display:inline-block;font:700 clamp(16px,1.7vw,21px)/1.2 Georgia,serif;text-decoration:none;color:#33241a}
@@ -29,7 +29,7 @@
 .wbbr-identity small{display:block;font:11px/1.35 Georgia,serif;color:#795c44;margin-top:4px}
 .wbbr-value{text-align:right;font:800 21px Georgia,serif;font-variant-numeric:tabular-nums}
 .wbbr-value small{display:block;font:11px Georgia,serif;color:#735139;margin-top:4px}
-@media(max-width:700px){.wbbr-desk{padding:9px 8px 30px}.wbbr-entry{grid-template-columns:30px 49px minmax(0,1fr) 65px;gap:7px;padding:9px 5px}.wbbr-number{font-size:16px}.wbbr-entry .mbb-mark{--mbb-size:46px!important;flex:0 0 46px!important}.wbbr-identity a,.wbbr-identity .wbbr-unresolved{font-size:15px}.wbbr-identity small{font-size:10px}.wbbr-value{font-size:16px}.wbbr-tabs a{padding:9px;font-size:12px}}
+@media(max-width:700px){.wbbr-desk{padding:9px 8px 30px}.wbbr-entry{grid-template-columns:54px 46px minmax(0,1fr) 58px;gap:8px;padding:9px 7px}.wbbr-list .wbbr-entry>.wbbr-number{width:52px;height:46px;font-size:15px;padding:3px 2px}.wbbr-entry .mbb-mark{--mbb-size:46px!important;flex:0 0 46px!important}.wbbr-identity a,.wbbr-identity .wbbr-unresolved{font-size:15px}.wbbr-identity small{font-size:10px}.wbbr-value{font-size:16px}.wbbr-tabs a{padding:9px;font-size:12px}}
 .wbbr-entry .wbbr-identity{font-size:inherit}.wbbr-entry .mbb-mark{width:56px;height:56px;aspect-ratio:1/1;border-radius:50%;min-width:0}.wbbr-entry .mbb-mark__img{object-fit:contain;max-width:100%;max-height:100%}@media(max-width:700px){.wbbr-entry .mbb-mark{width:46px;height:46px}}
 /* Ranking-specific rules override global newspaper typography and keep crests round. */
 .wbbr-list .wbbr-entry .wbbr-identity :is(a,.wbbr-unresolved){font-family:Georgia,serif!important;font-size:20px!important;font-weight:700!important;line-height:1.25!important;color:#33241a!important}
@@ -37,6 +37,7 @@
 .wbbr-list .wbbr-entry .mbb-mark{box-sizing:border-box!important;width:56px!important;height:56px!important;min-width:56px!important;max-width:56px!important;aspect-ratio:1!important;border-radius:50%!important;overflow:hidden!important;flex:0 0 56px!important}
 .wbbr-list .wbbr-entry .mbb-mark__img{display:block;object-fit:contain!important;max-width:100%;max-height:100%}
 @media(max-width:700px){.wbbr-list .wbbr-entry .wbbr-identity :is(a,.wbbr-unresolved){font-size:15px!important}.wbbr-list .wbbr-entry .wbbr-value{font-size:16px!important}.wbbr-list .wbbr-entry .mbb-mark{width:46px!important;height:46px!important;min-width:46px!important;max-width:46px!important;flex-basis:46px!important}}
+@media(max-width:375px){.wbbr-entry{grid-template-columns:49px 42px minmax(0,1fr) 52px;gap:6px;padding:8px 5px}.wbbr-list .wbbr-entry>.wbbr-number{width:47px;height:44px;font-size:13px;padding:2px}.wbbr-list .wbbr-entry .mbb-mark{width:42px!important;height:42px!important;min-width:42px!important;max-width:42px!important;flex-basis:42px!important}.wbbr-list .wbbr-entry .wbbr-identity :is(a,.wbbr-unresolved){font-size:14px!important}.wbbr-list .wbbr-entry .wbbr-value{font-size:15px!important}}
 </style><link rel="stylesheet" href="slt-victorian-global.css?v=one-frame-all-rankings-20261105"></head>
 <body data-gender="women"><div class="wrap"><header><div class="topline"><a href="index.html">Sporting Life &amp; Times</a><span>Women’s Division I Basketball · 2026–27</span></div><div class="masthead"><a href="index.html">Sporting Life &amp; Times</a></div><div class="edition-line">The Women’s College Basketball Edition</div>
 <nav class="nav cbb-universal-nav" aria-label="Women’s basketball navigation"><div class="cbb-gender-bar cbb-edition-switch" role="group" aria-label="College basketball edition"><a class="cbb-gender-option" href="ncaam.html">Men</a><a class="cbb-gender-option" href="ncaam.html?gender=women">Women</a></div><a href="ncaam.html?gender=women">The Front Page</a><a href="ncaam.html?gender=women#wbb-games">Games &amp; Schedule</a><a href="ncaam.html?gender=women#wbb-standings">Conferences</a><a href="ncaaw-rankings.html?poll=retro">RETRO Rankings</a><a href="ncaam.html?gender=women#wbb-teams">Find Your Team</a><a href="sports.html">All Sports</a></nav></header>
