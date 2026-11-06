@@ -23,6 +23,10 @@ jobs:
           node-version: '22'
       - name: Download and validate artwork
         run: node scripts/cache-cfb-bowl-logos.mjs
+      - name: Isolate bowl emblems from 2026 promotional banners
+        run: |
+          python3 -m pip install --quiet Pillow
+          python3 scripts/crop-cfb-bowl-logos.py
       - name: Commit only bowl assets and their manifest
         shell: bash
         run: |
