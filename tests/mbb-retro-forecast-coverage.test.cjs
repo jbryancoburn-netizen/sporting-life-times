@@ -7,6 +7,7 @@ const path = require('node:path');
 const root = path.resolve(__dirname, '..');
 const read = p => JSON.parse(fs.readFileSync(path.join(root,p),'utf8'));
 const scores = read('data/mbb-live.json');
+const slate = require('../ncaam-slate.js');
 const forecast = read('data/ncaam-2026-27-upcoming-forecasts.json');
 const crosswalk = read('data/ncaam-2026-27-espn-team-crosswalk.json');
 const ratings = read('data/ncaam-2026-27-retro-primary.json');
@@ -47,6 +48,21 @@ for(const g of scores.games||[]){
             Number.isFinite(row.projected_home_margin),
             'Unpublished probability/margin for '+id);
   checked++;
+}
+// Exercise the exact browser transform: a present JSON record must actually
+// attach to the rendered scorebug game, not merely exist in the source file.
+const ledger = slate.normalizeMen(scores,forecast,crosswalk);
+for(const g of scores.games||[]){
+  if(g.state!=='pre'||!Array.isArray(g.teams)||g.teams.length!==2)continue;
+  const day=eastern(g.date);
+  if(day<today)continue;
+  if(!g.teams.every(t=>canonical.has(String(t.id))))continue;
+  const row=ledger.find(x=>String(x.id)===String(g.id)&&x.day===day);
+  assert.ok(row, 'Browser transform dropped the scheduled event '+g.id);
+  assert.ok(row.phase==='upcoming'&&Number.isFinite(row.probability),
+            'Scorebug will show NO FORECAST for event '+g.id);
+  assert.ok(Number.isFinite(row.projectedHomeMargin),
+            'Scorebug margin missing for event '+g.id);
 }
 assert.ok(forecast.games.length>0, 'Published RETRO forecast ledger is empty');
 console.log('PASS MBB RETRO: '+checked+' current/upcoming canonical D-I games have one published probability and margin; '+forecast.games.length+' forecasts checked.');
