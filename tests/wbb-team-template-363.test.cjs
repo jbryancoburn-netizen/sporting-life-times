@@ -54,7 +54,7 @@ test("all women's team URLs load the Indiana-standard renderer and mobile newspa
  assert.match(boxes,/competitors\.some/);
  assert.match(css,/@media\(max-width:700px\)/);
  assert.match(css,/wbb-schedule-table>tbody>tr:not\(\.wbb-game-detail\)\{display:grid/);
- assert.match(css,/wbb-stat-block table tbody tr\{display:grid/);
+ assert.match(css,/wbb-stat-block table tbody tr\s*\{\s*display:grid/);
 });
 
 test("women's navigation searches the women's actual numeric team IDs",()=>{
@@ -67,4 +67,19 @@ test("women's navigation searches the women's actual numeric team IDs",()=>{
  assert.match(rank,/ratings\.gender!=='women'/);
  assert.match(rank,/rankings\?\.length!==363/);
  assert.match(rank,/no verified/i);
+});
+
+test("women's game-stat tables preserve the period, team, and player mobile contracts",()=>{
+ const boxes=source('wbb-game-details.js');
+ const css=source('wbb-team-newspaper.css');
+ const page=source('ncaaw-team.html');
+ for(const type of ['wbb-period-box','wbb-team-box','wbb-player-game-box']){
+  assert.ok(boxes.includes(type),'Missing statistics renderer: '+type);
+  assert.ok(css.includes(type),'Missing responsive style: '+type);
+ }
+ assert.match(boxes,/columns\.slice\(1\)\.map/,'Every provider stat needs a labeled cell');
+ assert.match(css,/table\.wbb-period-box tbody tr\s*\{\s*grid-template-columns:repeat\(5/);
+ assert.match(css,/table\.wbb-team-box tbody tr\s*\{\s*grid-template-columns:repeat\(2/);
+ assert.match(css,/table\.wbb-player-game-box tbody tr\s*\{\s*grid-template-columns:repeat\(3/);
+ assert.match(page,/wbb-game-details\.js/);
 });
