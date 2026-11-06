@@ -1242,12 +1242,33 @@ def apply_official_school_grid_snapshots(gender, games, teams, today=None, regis
             if fixture_key in disputed_courts:
                 counts["conflicts"] += 1
                 continue
-            # All currently registered school grids are Eastern-time campuses.
-            # Reject an unconverted local/Pacific clock rather than silently
-            # presenting it as Eastern to readers or the Elo game center.
+            # Publisher clocks are always Eastern. University sources can
+            # publish their own campus-local times; verify any explicitly
+            # captured original clock against its IANA time zone and game date
+            # before allowing it into the public newspaper.
             clock = row.get("start_time") or ""
             if clock and not re.fullmatch(r"(?:[1-9]|1[0-2]):[0-5][0-9] [AP]M ET", clock):
                 raise ValueError("Official DII school tipoff must be normalized to ET")
+            posted = row.get("source_time_as_posted")
+            if posted:
+                tz_name = row.get("source_time_zone")
+                if not tz_name or not clock:
+                    raise ValueError("Original school clock needs source timezone and verified ET time")
+                if not re.fullmatch(r"(?:[1-9]|1[0-2]):[0-5][0-9] [AP]M", posted):
+                    raise ValueError("Malformed original school clock")
+                try:
+                    original = dt.datetime.strptime(
+                        row["date"] + " " + posted, "%Y-%m-%d %I:%M %p"
+                    ).replace(tzinfo=ZoneInfo(tz_name))
+                except (ValueError, KeyError, TypeError) as exc:
+                    raise ValueError("Invalid dated source school timezone") from exc
+                converted = original.astimezone(ZoneInfo("America/New_York")).strftime("%I:%M %p")
+                converted = converted.lstrip("0") + " ET"
+                if converted != clock:
+                    raise ValueError(
+                        f"School source tipoff conversion mismatch: {row['date']} "
+                        f"{posted} {tz_name} -> {converted}, stored {clock}"
+                    )
             if fixture_key in disputed_times:
                 clock = ""  # Conflicting independent school time evidence.
             date = row["date"]

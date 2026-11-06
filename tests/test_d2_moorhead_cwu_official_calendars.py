@@ -36,6 +36,46 @@ class D2SchoolCalendarRecoveryBatch(unittest.TestCase):
                                  and a.get("gender") == gender
                                  for a in data["certification_assertions"]))
 
+    def test_builder_rejects_unconverted_local_tipoff(self):
+        import datetime as dt
+        import tempfile
+        from scripts.build_d2_basketball import apply_official_school_grid_snapshots
+        with tempfile.TemporaryDirectory() as tmp:
+            p = Path(tmp) / "school.json"
+            school = {
+                "gender": "men",
+                "owner_id": "alpha",
+                "source_url": "https://alpha.edu/sports/mens-basketball/schedule/2026-27",
+                "fixtures": [{
+                    "date": "2027-01-08",
+                    "role": "home",
+                    "opponent": "Beta University",
+                    "source_time_as_posted": "4:00 PM",
+                    "source_time_zone": "America/Chicago",
+                    "start_time": "4:00 PM ET",
+                }],
+            }
+            p.write_text(json.dumps({
+                "season": "2026-27", "schema": 1,
+                "schools": [school], "live_school_sources": [],
+                "certification_assertions": [],
+            }), encoding="utf-8")
+            teams = {
+                "alpha": {"id": "alpha", "name": "Alpha University", "slug": "alpha"},
+                "beta": {"id": "beta", "name": "Beta University", "slug": "beta"},
+            }
+            with self.assertRaisesRegex(ValueError, "conversion mismatch"):
+                apply_official_school_grid_snapshots(
+                    "men", {}, teams, registry_file=p, live_sources=False,
+                    today=dt.date(2026, 11, 5))
+            school["fixtures"][0]["start_time"] = "5:00 PM ET"
+            games = {}
+            counts = apply_official_school_grid_snapshots(
+                "men", games, teams, registry_file=p, live_sources=False,
+                today=dt.date(2026, 11, 5))
+            self.assertEqual(counts["created"], 1)
+            self.assertEqual(next(iter(games.values()))["start_time"], "5:00 PM ET")
+
     def test_non_dii_and_neutral_games_are_not_removed_from_evidence(self):
         data = json.loads(GRID.read_text(encoding="utf-8"))
         men = next(x for x in data["schools"] if x.get("gender") == "men"
