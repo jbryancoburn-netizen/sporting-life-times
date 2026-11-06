@@ -65,3 +65,10 @@ section,article{border-color:#b9aa92}
 .plt-called-rep{background:#e9d6d1!important;border:2px solid #9a6861!important}.plt-called-rep summary:hover{background:#e2c6bf!important}
 .plt-called-dem .plt-badge{color:#284d75}.plt-called-rep .plt-badge{color:#81392f}
 @media(max-width:480px){.plt-portrait{width:60px;height:73px}.plt-candidate-photos{gap:5px}}
+
+/* Election coverage and accessible progressive results */
+.plt-desk-metrics:has(.plt-desk-metric:nth-child(4)){grid-template-columns:repeat(4,minmax(0,1fr))}
+.plt-load-more{border:2px solid #65523b;background:#f8f1e4;padding:10px 18px;color:#392d21;font:700 14px "Century Schoolbook",Georgia,serif;cursor:pointer}
+.plt-load-more:hover,.plt-load-more:focus-visible{background:#e6d5b9;outline:2px solid #8a5840;outline-offset:2px}
+.plt-more{text-align:center;margin-top:15px}
+@media(max-width:750px){.plt-desk-metrics:has(.plt-desk-metric:nth-child(4)){grid-template-columns:repeat(2,minmax(0,1fr))}.plt-desk-metric:nth-child(2){border-right:0}.plt-desk-metric:nth-child(-n+2){border-bottom:1px solid #9d8e78}}
