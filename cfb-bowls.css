@@ -63,3 +63,30 @@ body{background:#e9e2d2!important;color:#29251f!important}
 #bowl-content .bowl-card .bowl-team small{color:#514738!important}
 @media(max-width:850px){#cfp-predictor .bowl-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){.bowl-grid,#cfp-predictor .bowl-grid,#bowl-content #cfp-predictor .bowl-grid{grid-template-columns:1fr}.bowl-hero{padding:18px 15px}.bowl-card-head{min-height:92px}}
+
+/* CFP 2026: rule-correct field, fixed paths, and compact newspaper styling. */
+#cfp-predictor .bowl-feature{padding:22px;background:#ede3ce!important}
+#cfp-predictor .cfp-field{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:20px 0 25px}
+#cfp-predictor .cfp-entry{background:#fffaf0;border:1px solid #b2a081;padding:12px;min-width:0}
+#cfp-predictor .cfp-entry-top{display:flex;align-items:center;gap:10px;padding-bottom:8px;border-bottom:1px solid #cbb99b}
+#cfp-predictor .cfp-entry-top>b{font:700 23px "Century Schoolbook",Georgia,serif}
+#cfp-predictor .cfp-entry-top span{font:12px/1.4 "Century Schoolbook",Georgia,serif}
+#cfp-predictor .cfp-name{display:flex;gap:9px;align-items:center;margin:10px 0 6px}
+#cfp-predictor .cfp-name img{width:39px;height:39px;object-fit:contain}
+#cfp-predictor .cfp-name b{font:700 16px/1.4 "Century Schoolbook",Georgia,serif}
+#cfp-predictor .cfp-entry>small{font:12px/1.5 "Century Schoolbook",Georgia,serif}
+#cfp-predictor .cfp-bracket{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+#cfp-predictor .cfp-half{padding:13px;background:#f9f2e5;border:3px double #987f59}
+#cfp-predictor .cfp-half h4{font:700 18px "Century Schoolbook",Georgia,serif;border-bottom:1px solid #a18d69;padding:0 0 8px;margin:0 0 12px}
+#cfp-predictor .cfp-routes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+#cfp-predictor .cfp-game{background:#fffaf0;border:1px solid #bbab8d;padding:10px;margin-bottom:8px;display:flex;flex-direction:column;gap:6px}
+#cfp-predictor .cfp-game small,#cfp-predictor .cfp-semi small,#cfp-predictor .cfp-title small{font:700 11px/1.5 "Century Schoolbook",Georgia,serif;text-transform:uppercase;color:#685738}
+#cfp-predictor .cfp-game b{font:700 14px/1.4 "Century Schoolbook",Georgia,serif;overflow-wrap:anywhere}
+#cfp-predictor .cfp-game i{font-size:11px;font-style:normal;color:#847354}
+#cfp-predictor .cfp-seed{display:inline-block;background:#735936;color:#fff;padding:1px 5px}
+#cfp-predictor .cfp-semi,#cfp-predictor .cfp-title{text-align:center;background:#e7dbc3;border:2px solid #9c8561;padding:11px}
+#cfp-predictor .cfp-semi>b,#cfp-predictor .cfp-title>b{display:block;margin-top:7px;font:700 15px/1.5 "Century Schoolbook",Georgia,serif}
+#cfp-predictor .cfp-title{max-width:650px;margin:15px auto;border:4px double #816d4c}
+#cfp-predictor .cfp-note{font-size:13px;line-height:1.6;color:#554a39!important}
+@media(max-width:1020px){#cfp-predictor .cfp-field{grid-template-columns:repeat(2,minmax(0,1fr))}#cfp-predictor .cfp-bracket{grid-template-columns:1fr}}
+@media(max-width:580px){#cfp-predictor .cfp-field,#cfp-predictor .cfp-routes{grid-template-columns:1fr}#cfp-predictor .bowl-feature{padding:12px}}
