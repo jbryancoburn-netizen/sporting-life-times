@@ -437,7 +437,7 @@ test('DII visible scorebug metadata shows tipoff and the full school directory k
 });
 
 
-test('DII saved men's school grids reconcile source-backed opponent aliases without inventing results',()=>{
+test('DII saved mens school grids reconcile source-backed opponent aliases without inventing results',()=>{
  const evidence=JSON.parse(fs.readFileSync('data/d2-official-school-grids-2026-27.json','utf8'));
  const rows=evidence.schools.filter(s=>s.gender==='men').flatMap(s=>s.fixtures);
  const resolved=rows.filter(x=>String(x.identity_verified_by||'').startsWith('Official school schedule opponent naming matched'));
