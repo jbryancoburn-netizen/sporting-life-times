@@ -1,7 +1,7 @@
 {
-  "updated": "2026-11-06T21:27:16.537Z",
+  "updated": "2026-11-06T21:29:37.877Z",
   "total": 34,
-  "cached": 19,
+  "cached": 32,
   "report": [
     {
       "name": "Gasparilla Bowl",
@@ -19,30 +19,30 @@
     },
     {
       "name": "Myrtle Beach Bowl",
-      "status": "failed",
-      "errors": [
-        "HTTP 404"
-      ]
+      "status": "cached",
+      "local": "assets/bowl-logos/myrtle-beach-bowl.jpg",
+      "bytes": 28927,
+      "source": "https://s.americanarenas.com/media/myrtle-beach-bowl.jpg"
     },
     {
       "name": "Famous Idaho Potato Bowl",
-      "status": "failed",
-      "errors": [
-        "HTTP 429"
-      ]
+      "status": "cached",
+      "local": "assets/bowl-logos/famous-idaho-potato-bowl.jpg",
+      "bytes": 25452,
+      "source": "https://pbs.twimg.com/profile_images/826205474244669441/llShw20V_400x400.jpg"
     },
     {
       "name": "Cure Bowl",
-      "status": "failed",
-      "errors": [
-        "HTTP 400"
-      ]
+      "status": "cached",
+      "local": "assets/bowl-logos/cure-bowl.jpg",
+      "bytes": 273546,
+      "source": "https://f002.backblazeb2.com/file/cpbmedia/bowls/2526logos/25cure.jpg"
     },
     {
       "name": "Independence Bowl",
       "status": "cached",
-      "local": "assets/bowl-logos/independence-bowl.webp",
-      "bytes": 114328,
+      "local": "assets/bowl-logos/independence-bowl.png",
+      "bytes": 161755,
       "source": "https://radiancetechnologiesindependencebowl.com/wp-content/uploads/2020/12/Radiance-Technologies-Logo_NO-DATE.png"
     },
     {
@@ -82,38 +82,38 @@
     },
     {
       "name": "Pinstripe Bowl",
-      "status": "failed",
-      "errors": [
-        "HTTP 429"
-      ]
+      "status": "cached",
+      "local": "assets/bowl-logos/pinstripe-bowl.png",
+      "bytes": 315224,
+      "source": "https://img.mlbstatic.com/mlb-images/image/private/t_w2208/mlb/dljh3g2nvueibs0pp7cj.png"
     },
     {
       "name": "Fenway Bowl",
-      "status": "failed",
-      "errors": [
-        "HTTP 429"
-      ]
+      "status": "cached",
+      "local": "assets/bowl-logos/fenway-bowl.jpg",
+      "bytes": 210879,
+      "source": "https://cloudfront-us-east-1.images.arcpublishing.com/bostonglobe/VJ7UJ33NBJGVNACVEEYZGNK4HU.jpg"
     },
     {
       "name": "Duke's Mayo Bowl",
-      "status": "failed",
-      "errors": [
-        "HTTP 400"
-      ]
+      "status": "cached",
+      "local": "assets/bowl-logos/duke-s-mayo-bowl.webp",
+      "bytes": 289572,
+      "source": "https://cdn.shopify.com/s/files/1/0731/0557/2152/files/DMBowl_Logo_Large_c83b8c8d-bb09-4771-834b-e0db54db9a8c.png?v=1686055004"
     },
     {
       "name": "68 Ventures Bowl",
-      "status": "failed",
-      "errors": [
-        "HTTP 429"
-      ]
+      "status": "cached",
+      "local": "assets/bowl-logos/68-ventures-bowl.png",
+      "bytes": 145094,
+      "source": "https://assets.simpleviewinc.com/simpleview/image/upload/c_limit%2Ch_1200%2Cq_75%2Cw_1200/v1/crm/mobilebay/68-Ventures-Bowl-Primary-Logo_B1511365-DD00-3522-35FE8FB6EAB6F470-b1510e5cf941c9d_b1512dba-f22c-6c0b-a1f870463c3f8b1f.png"
     },
     {
       "name": "Military Bowl",
-      "status": "failed",
-      "errors": [
-        "HTTP 429"
-      ]
+      "status": "cached",
+      "local": "assets/bowl-logos/military-bowl.png",
+      "bytes": 214703,
+      "source": "https://content.sportslogos.net/logos/68/4842/full/military_bowl_logo_primary_2024_sportslogosnet-5649.png"
     },
     {
       "name": "Birmingham Bowl",
@@ -133,22 +133,23 @@
       "name": "Alamo Bowl",
       "status": "failed",
       "errors": [
+        "fetch failed",
         "HTTP 400"
       ]
     },
     {
       "name": "Gator Bowl",
-      "status": "failed",
-      "errors": [
-        "HTTP 400"
-      ]
+      "status": "cached",
+      "local": "assets/bowl-logos/gator-bowl.jpg",
+      "bytes": 175844,
+      "source": "https://cdn.imgbin.com/14/9/12/taxslayer-gator-bowl-logo-taxslayer-gator-bowl-logo-c4WLBztk.jpg"
     },
     {
       "name": "Music City Bowl",
-      "status": "failed",
-      "errors": [
-        "HTTP 429"
-      ]
+      "status": "cached",
+      "local": "assets/bowl-logos/music-city-bowl.png",
+      "bytes": 316929,
+      "source": "https://storage.googleapis.com/purduesports-com-prod/2025/05/16/f4Ab7cGvCJnI2CkV2KkIharUTN9Uu1bfurzscuhv.png"
     },
     {
       "name": "ReliaQuest Bowl",
@@ -167,8 +168,8 @@
     {
       "name": "Las Vegas Bowl",
       "status": "cached",
-      "local": "assets/bowl-logos/las-vegas-bowl.png",
-      "bytes": 126631,
+      "local": "assets/bowl-logos/las-vegas-bowl.webp",
+      "bytes": 30602,
       "source": "https://www.srsdistribution.com/contentassets/7dc3aeb9fd4249888f04fbbbb0c494e6/imagen0fdc.png"
     },
     {
@@ -180,10 +181,10 @@
     },
     {
       "name": "Citrus Bowl",
-      "status": "failed",
-      "errors": [
-        "HTTP 429"
-      ]
+      "status": "cached",
+      "local": "assets/bowl-logos/citrus-bowl.png",
+      "bytes": 68194,
+      "source": "https://content.sportslogos.net/logos/68/5478/full/citrus_bowl_logo_primary_2023_sportslogosnet-4876.png"
     },
     {
       "name": "First Responder Bowl",
@@ -194,17 +195,17 @@
     },
     {
       "name": "Arizona Bowl",
-      "status": "failed",
-      "errors": [
-        "HTTP 429"
-      ]
+      "status": "cached",
+      "local": "assets/bowl-logos/arizona-bowl.jpg",
+      "bytes": 30178,
+      "source": "https://seatgeekimages.com/performers-landscape/arizona-bowl-79fde5/385214/600x600.jpg"
     },
     {
       "name": "Liberty Bowl",
-      "status": "failed",
-      "errors": [
-        "HTTP 404"
-      ]
+      "status": "cached",
+      "local": "assets/bowl-logos/liberty-bowl.jpg",
+      "bytes": 286942,
+      "source": "https://library.sportingnews.com/styles/twitter_card_120x120/s3/2025-12/Liberty%20Bowl.jpg?itok=_nN75tTR"
     },
     {
       "name": "Poinsettia Bowl",
