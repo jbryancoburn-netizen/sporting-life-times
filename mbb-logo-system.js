@@ -71,10 +71,10 @@ function outsideSchoolId(value){
 }
 const outsideNameId=!ncaa?outsideSchoolId(name):'';
 const outsideNameEntry=outsideNameId?outside[outsideNameId]:null;
-const outsideExact=outsideNameEntry&&outsideAliases(outsideNameEntry).includes(norm(name));
+const outsideExact=!!outsideNameEntry&&outsideSchoolId(name)===outsideNameId;
 const known=outsideExact?null:(registry[id]||null);
 const outsideID=outsideExact?outsideNameId:(!ncaa&&!known&&outside[id]?id:'');
-const outsideEntry=outsideID&&outside[outsideID]&&outsideAliases(outside[outsideID]).includes(norm(name))?outside[outsideID]:null;
+const outsideEntry=outsideID&&outside[outsideID]&&outsideSchoolId(name)===outsideID?outside[outsideID]:null;
 const school=known,brand=known?palette[id]:outsideEntry,art=known?school.artwork_type:outsideEntry?'flat':'unverified';
 const primary=known?(school.logo_url_verified?safeURL(school.official_logo_url||school.logo_url):''):
  outsideEntry?safeURL(outsideEntry.logo_url):'';
