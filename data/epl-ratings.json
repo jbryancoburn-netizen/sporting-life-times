@@ -1,6 +1,6 @@
 {
   "as_of_date": "2026-11-06",
-  "completed_matches": 90,
+  "completed_matches": 91,
   "elo_history": {
     "Arsenal": [
       {
@@ -490,6 +490,13 @@
         "fixture_id": "401879247",
         "match": 9,
         "opponent": "Sunderland"
+      },
+      {
+        "date": "2026-11-06",
+        "elo": 1464.88028,
+        "fixture_id": "401879242",
+        "match": 10,
+        "opponent": "Everton"
       }
     ],
     "Crystal Palace": [
@@ -630,6 +637,13 @@
         "fixture_id": "401878762",
         "match": 9,
         "opponent": "Newcastle United"
+      },
+      {
+        "date": "2026-11-06",
+        "elo": 1517.90828,
+        "fixture_id": "401879242",
+        "match": 10,
+        "opponent": "Coventry"
       }
     ],
     "Fulham": [
@@ -1448,10 +1462,10 @@
     ],
     "Coventry": [
       "W",
+      "L",
+      "L",
       "W",
-      "L",
-      "L",
-      "W"
+      "L"
     ],
     "Crystal Palace": [
       "D",
@@ -1461,10 +1475,10 @@
       "L"
     ],
     "Everton": [
-      "W",
       "D",
       "L",
       "L",
+      "W",
       "W"
     ],
     "Fulham": [
@@ -1552,9 +1566,9 @@
     "Brentford": 7.41774,
     "Brighton": 12.24431,
     "Chelsea": 7.65151,
-    "Coventry": 8.44635,
+    "Coventry": -7.37811,
     "Crystal Palace": -7.86356,
-    "Everton": 11.55458,
+    "Everton": 7.37811,
     "Fulham": 2.16704,
     "Hull": -1.75818,
     "Ipswich": 1.75818,
@@ -1574,8 +1588,8 @@
     "fixture_policy": "only feed-confirmed future fixtures",
     "rating_origin": "neutral baseline; no independently sourced prior-season ratings",
     "season": "2026-2027",
-    "source_fixtures": 90,
-    "source_sha256": "82c65abf68c6d1c0cfb49e1d512cc0fe13fc558921be6cc6670aa1e3d0c494c5"
+    "source_fixtures": 91,
+    "source_sha256": "accf150f97f60c8be49a67c0b157668ef29b668f05cf8d7ede471658c6919b0f"
   },
   "ratings": {
     "Arsenal": 1565.65075,
@@ -1584,9 +1598,9 @@
     "Brentford": 1515.31888,
     "Brighton": 1540.20731,
     "Chelsea": 1516.21525,
-    "Coventry": 1472.25838,
+    "Coventry": 1464.88028,
     "Crystal Palace": 1464.80639,
-    "Everton": 1510.53018,
+    "Everton": 1517.90828,
     "Fulham": 1485.9853,
     "Hull": 1495.14962,
     "Ipswich": 1491.9393,
@@ -2319,6 +2333,14 @@
       "home": "Newcastle United",
       "home_score": 0,
       "kickoff_utc": "2026-11-02T20:00:00+00:00"
+    },
+    {
+      "away": "Coventry",
+      "away_score": 1,
+      "fixture_id": "401879242",
+      "home": "Everton",
+      "home_score": 3,
+      "kickoff_utc": "2026-11-06T20:00:00+00:00"
     }
   ],
   "standings": [
@@ -2367,6 +2389,17 @@
       "won": 5
     },
     {
+      "club": "Everton",
+      "drawn": 4,
+      "ga": 10,
+      "gd": 2,
+      "gf": 12,
+      "lost": 2,
+      "played": 10,
+      "points": 16,
+      "won": 4
+    },
+    {
       "club": "Liverpool",
       "drawn": 3,
       "ga": 9,
@@ -2386,17 +2419,6 @@
       "lost": 1,
       "played": 9,
       "points": 14,
-      "won": 3
-    },
-    {
-      "club": "Everton",
-      "drawn": 4,
-      "ga": 9,
-      "gd": 0,
-      "gf": 9,
-      "lost": 2,
-      "played": 9,
-      "points": 13,
       "won": 3
     },
     {
@@ -2490,11 +2512,11 @@
     {
       "club": "Coventry",
       "drawn": 0,
-      "ga": 16,
-      "gd": -7,
-      "gf": 9,
-      "lost": 6,
-      "played": 9,
+      "ga": 19,
+      "gd": -9,
+      "gf": 10,
+      "lost": 7,
+      "played": 10,
       "points": 9,
       "won": 3
     },

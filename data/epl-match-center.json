@@ -3,32 +3,6 @@
   "fixtures": [
     {
       "away": {
-        "elo": 1472.2583841030557,
-        "expected_goals": 1.1256376095095926,
-        "id": "388",
-        "name": "Coventry"
-      },
-      "fixture_id": "401879242",
-      "home": {
-        "elo": 1510.5301769708612,
-        "expected_goals": 1.5743623904904074,
-        "id": "368",
-        "name": "Everton"
-      },
-      "kickoff_utc": "2026-11-06T20:00:00+00:00",
-      "probabilities": {
-        "away": 0.24390538366122005,
-        "draw": 0.25,
-        "home": 0.50609461633878
-      },
-      "projected_score": {
-        "away": 1,
-        "home": 2,
-        "method": "heuristic_unvalidated_goal_rates"
-      }
-    },
-    {
-      "away": {
         "elo": 1500.9222202781616,
         "expected_goals": 1.1802043151039512,
         "id": "367",
@@ -368,22 +342,22 @@
     {
       "away": {
         "elo": 1464.8063891709285,
-        "expected_goals": 1.1667306734238303,
+        "expected_goals": 1.176568150321463,
         "id": "384",
         "name": "Crystal Palace"
       },
       "fixture_id": "401879235",
       "home": {
-        "elo": 1472.2583841030557,
-        "expected_goals": 1.5332693265761697,
+        "elo": 1464.8802764298314,
+        "expected_goals": 1.5234318496785373,
         "id": "388",
         "name": "Coventry"
       },
       "kickoff_utc": "2026-11-21T15:00:00+00:00",
       "probabilities": {
-        "away": 0.28607998228947495,
+        "away": 0.29639953957457044,
         "draw": 0.25,
-        "home": 0.46392001771052505
+        "home": 0.45360046042542956
       },
       "projected_score": {
         "away": 1,
@@ -497,23 +471,23 @@
     },
     {
       "away": {
-        "elo": 1510.5301769708612,
-        "expected_goals": 1.1702817333956637,
+        "elo": 1517.9082846440856,
+        "expected_goals": 1.180119210293296,
         "id": "368",
         "name": "Everton"
       },
       "fixture_id": "401879237",
       "home": {
         "elo": 1515.3188769241135,
-        "expected_goals": 1.5297182666043363,
+        "expected_goals": 1.519880789706704,
         "id": "337",
         "name": "Brentford"
       },
       "kickoff_utc": "2026-11-23T20:00:00+00:00",
       "probabilities": {
-        "away": 0.2897965457240983,
+        "away": 0.3001420493100714,
         "draw": 0.25,
-        "home": 0.4602034542759017
+        "home": 0.4498579506899286
       },
       "projected_score": {
         "away": 1,
@@ -522,8 +496,16 @@
       }
     }
   ],
-  "issued_at_utc": "2026-11-06T17:26:35.628331+00:00",
+  "issued_at_utc": "2026-11-06T22:22:13.759957+00:00",
   "recent_results": [
+    {
+      "away": "Coventry",
+      "away_score": 1,
+      "fixture_id": "401879242",
+      "home": "Everton",
+      "home_score": 3,
+      "kickoff_utc": "2026-11-06T20:00:00+00:00"
+    },
     {
       "away": "Everton",
       "away_score": 1,
@@ -658,14 +640,6 @@
       "fixture_id": "401879255",
       "home": "Coventry",
       "home_score": 0,
-      "kickoff_utc": "2026-10-24T14:00:00+00:00"
-    },
-    {
-      "away": "Everton",
-      "away_score": 0,
-      "fixture_id": "401878768",
-      "home": "Arsenal",
-      "home_score": 2,
       "kickoff_utc": "2026-10-24T14:00:00+00:00"
     }
   ],

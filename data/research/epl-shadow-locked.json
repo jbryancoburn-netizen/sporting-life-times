@@ -49,6 +49,22 @@
         "log_loss": 1.3734857910951361
       }
     },
+    "401879242": {
+      "away": "Coventry",
+      "away_score": 1,
+      "baseline": {
+        "brier": 0.37212838036563467,
+        "log_loss": 0.6893158797085663
+      },
+      "fixture_id": "401879242",
+      "home": "Everton",
+      "home_score": 3,
+      "outcome": "home",
+      "research": {
+        "brier": 0.41339219085837703,
+        "log_loss": 0.7440303766430392
+      }
+    },
     "401879245": {
       "away": "Brighton",
       "away_score": 1,
@@ -677,19 +693,19 @@
   "schema_version": 1,
   "status": "research_only_not_for_live_promotion",
   "summary": {
-    "graded_count": 10,
+    "graded_count": 11,
     "locked_count": 30,
-    "new_grades": 0,
-    "new_locks": 1,
+    "new_grades": 1,
+    "new_locks": 0,
     "note": "Paired pregame outcomes only; a small sample cannot validate superiority.",
     "scores": {
       "baseline": {
-        "brier": 0.610605,
-        "log_loss": 1.017558
+        "brier": 0.588925,
+        "log_loss": 0.987718
       },
       "research": {
-        "brier": 0.618678,
-        "log_loss": 1.02918
+        "brier": 0.600016,
+        "log_loss": 1.003257
       }
     }
   }
