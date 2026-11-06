@@ -1204,6 +1204,8 @@ def apply_official_school_grid_snapshots(gender, games, teams, today=None, regis
         if calendar.get("gender") != gender or owner not in teams or teams[owner].get("not_eligible_for_dii_elo"):
             continue
         for row in calendar.get("fixtures", []):
+            if row.get("hold_for_review"):
+                continue  # Conflicting independent school dates may not decide home or time.
             opponent = resolve_dii_team_id({"name": row.get("opponent")}, lookup)
             if not opponent or owner == opponent:
                 continue
@@ -1235,6 +1237,27 @@ def apply_official_school_grid_snapshots(gender, games, teams, today=None, regis
             raise ValueError("Missing official school calendar URL")
         for row in calendar.get("fixtures", []):
             counts["source_rows"] += 1
+            if row.get("hold_for_review"):
+                counts["held_source_rows"] = counts.get("held_source_rows", 0) + 1
+                opponent = resolve_dii_team_id({"name": row.get("opponent")}, lookup)
+                if opponent and opponent != owner:
+                    # Revoke only unplayed synthetic games previously generated
+                    # from THIS exact disputed official school date/source.
+                    # Never erase a canonical NCAA ID, a final, or any other source.
+                    stale = [gid for gid, old in games.items()
+                             if (gid.startswith("d2schoolgrid-2026-") and
+                                 old.get("date") == row.get("date") and
+                                 {old.get("away"), old.get("home")} == {owner, opponent} and
+                                 old.get("source_url") == source_url and
+                                 old.get("status") == "scheduled" and
+                                 old.get("away_score") is None and
+                                 old.get("home_score") is None and
+                                 not old.get("ncaa_id"))]
+                    for gid in stale:
+                        del games[gid]
+                    counts["held_synthetic_games_removed"] = (
+                        counts.get("held_synthetic_games_removed", 0) + len(stale))
+                continue
             opponent = resolve_dii_team_id({"name": row["opponent"]}, lookup)
             if not opponent or owner == opponent:
                 counts["unmatched"] += 1
