@@ -1,0 +1,25 @@
+/* Political Life and Times | unified Victorian edition */
+:root{--paper:#f3eee3;--white:#fffaf0;--ink:#25231f;--muted:#615949;--line:#b9aa92;--teal:#634c38;--orange:#813d34;--blue:#344b68;--red:#923e37;--light:#e8dfcf}
+body{background:#d9d1c3!important;color:#25231f!important;font-family:"Century Schoolbook","New Century Schoolbook",Georgia,serif!important}
+.paper,.wrap{background-color:#f3eee3}
+.paper{box-shadow:0 0 0 1px #9a896e,0 10px 35px #32281a25!important}
+.masthead,.mast{border-bottom:5px double #463c30!important}
+.masthead h1,.mast h1,.masthead h1 a,.mast h1 a{font-family:"Century Schoolbook",Georgia,serif!important;font-style:normal!important;letter-spacing:-1.6px!important}
+.masthead em,.mast em{font-style:normal!important;color:inherit!important}
+.top-strip,.strip,.folio,.nav,.main-nav,.deck,.section-heading,.section-heading h3{font-family:"Century Schoolbook",Georgia,serif!important}
+.main-nav,.nav{border-top:1px solid #8e806c!important;border-bottom:3px double #8e806c!important}
+h2,h3,.section-heading h3,.desk-rail-head h3{font-family:"Century Schoolbook",Georgia,serif!important}
+section,article{border-color:#b9aa92}
+.election-ledger,.hero,.caution,.metric,.evidence-coverage-grid,.national-watch-section{border-color:#a9977d!important}
+.election-ledger{background:#fbf7ee!important;outline:1px solid #ad9e85;outline-offset:3px}
+.election-ledger h2{color:#3f3228!important}
+.plt-return-panel{background:#faf5eb;border:4px double #776751;padding:18px 22px;margin:24px 0;color:#2c2924}
+.plt-return-panel h2{font:700 clamp(22px,3vw,32px)/1.2 "Century Schoolbook",Georgia,serif;margin:4px 0 12px}
+.plt-return-panel .plt-kicker{font:700 11px "Century Schoolbook",Georgia,serif;letter-spacing:1.6px;text-transform:uppercase;color:#813d34}
+.plt-return-panel .plt-meta{font-size:12px;color:#625747;margin-top:12px}
+.plt-return-panel table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
+.plt-return-panel th,.plt-return-panel td{border-bottom:1px solid #b9aa92;padding:8px 6px;text-align:left}
+.plt-return-panel td:nth-child(n+2),.plt-return-panel th:nth-child(n+2){text-align:right}
+.plt-return-panel .plt-race{margin:18px 0 24px;border-top:2px solid #82705a;padding-top:10px}
+.plt-return-panel .plt-race h3{font:700 18px Georgia,serif;margin:0 0 8px}
+@media(max-width:650px){.plt-return-panel{padding:12px 10px}.plt-return-panel th,.plt-return-panel td{font-size:12px;padding:6px 3px}.paper{box-shadow:none!important}}
