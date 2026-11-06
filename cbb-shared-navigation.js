@@ -25,7 +25,7 @@ if(women&&!womenPage&&(menPage||page==='cbb-game-center.html'||page==='cbb-gamef
   'ncaam-team.html':'ncaaw-team.html',
   'ncaam-rankings.html':'ncaaw-rankings.html',
   'ncaam-elo.html':'ncaaw-rankings.html?poll=retro',
-  'ncaam-conference.html':'ncaam.html?gender=women#wbb-standings',
+  'ncaam-conference.html':'ncaaw-conference.html',
   'ncaam-tournament.html':'ncaam.html?gender=women#wbb-rankings',
   'ncaam-players.html':'ncaam.html?gender=women#wbb-teams',
   'ncaam-arena.html':'ncaam.html?gender=women#wbb-teams',
@@ -35,7 +35,8 @@ if(women&&!womenPage&&(menPage||page==='cbb-game-center.html'||page==='cbb-gamef
  };
  if(redirects[page]){
   const next=new URL(redirects[page],location.href);
-  if(page==='ncaam-team.html'&&params.has('team'))next.searchParams.set('team',params.get('team'));
+  if(page==='ncaam-conference.html'&&params.has('conference'))next.searchParams.set('conference',params.get('conference'));
+   if(page==='ncaam-team.html'&&params.has('team'))next.searchParams.set('team',params.get('team'));
   if(page==='ncaam-rankings.html'&&params.has('poll'))next.searchParams.set('poll',params.get('poll'));
   if(page==='ncaam-slate.html')for(const key of ['date','day','view'])if(params.has(key))next.searchParams.set(key,params.get(key));
   if(page==='cbb-gamefile.html')for(const key of ['day','game'])if(params.has(key))next.searchParams.set(key,params.get(key));
@@ -71,14 +72,19 @@ for(const nav of navs){
   'ncaaw-rankings.html':['ncaam-rankings.html','ncaaw-rankings.html'],
   'ncaam-elo.html':['ncaam-rankings.html','ncaaw-rankings.html'],
   'ncaam-team.html':['ncaam-team.html','ncaaw-team.html'],
-  'ncaaw-team.html':['ncaam-team.html','ncaaw-team.html']
+  'ncaaw-team.html':['ncaam-team.html','ncaaw-team.html'],
+   'ncaam-conference.html':['ncaam-conference.html','ncaaw-conference.html'],
+   'ncaaw-conference.html':['ncaam-conference.html','ncaaw-conference.html']
  };
  const counterpart=counterParts[page]||['ncaam.html?gender=men','ncaam.html?gender=women'];
  const linkFor=(index)=>{
   const dest=new URL(counterpart[index],location.href);
   if(index===0 && !dest.searchParams.has('gender') && !dest.pathname.includes('ncaam-team'))dest.searchParams.set('gender','men');
   if(index===1 && !dest.searchParams.has('gender'))dest.searchParams.set('gender','women');
-  if(/rankings.html$/.test(dest.pathname)&&params.has('poll'))dest.searchParams.set('poll',params.get('poll'));
+  if(/-conference.html$/.test(dest.pathname)&&params.has('conference')){
+    dest.searchParams.set('conference',index===0?params.get('conference').replace(/ Conference$/,''):params.get('conference'));
+   }
+   if(/rankings.html$/.test(dest.pathname)&&params.has('poll'))dest.searchParams.set('poll',params.get('poll'));
   if(/-slate.html$/.test(dest.pathname)){
    for(const key of ['date','day','view'])if(params.has(key))dest.searchParams.set(key,params.get(key));
   }
@@ -89,7 +95,7 @@ for(const nav of navs){
  const sections=women?{
   'The Front Page':'ncaam.html?gender=women',
   'Games & Schedule':'ncaam-slate.html?gender=women',
-  'Conferences':'ncaam.html?gender=women#wbb-standings',
+  'Conferences':'ncaaw-conference.html',
   'Bracket Watch':'ncaam.html?gender=women#wbb-rankings',
   'Head-to-Head History':'ncaam.html?gender=women#wbb-games',
   'Player Leaders':'ncaam.html?gender=women#wbb-teams',
@@ -111,7 +117,7 @@ for(const nav of navs){
    'cbb-gamefile.html':'cbb-gamefile.html?gender=women',
    'ncaam-rankings.html':'ncaaw-rankings.html',
    'ncaam-elo.html':'ncaaw-rankings.html?poll=retro',
-   'ncaam-conference.html':'ncaam.html?gender=women#wbb-standings',
+   'ncaam-conference.html':'ncaaw-conference.html',
    'ncaam-tournament.html':'ncaam.html?gender=women#wbb-rankings',
    'ncaam-players.html':'ncaam.html?gender=women#wbb-teams',
    'ncaam-team.html':'ncaam.html?gender=women#wbb-teams',
