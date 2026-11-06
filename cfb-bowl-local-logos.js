@@ -22,14 +22,14 @@ window.CFB_BOWL_LOCAL_LOGOS={
   "Music City Bowl": "assets/bowl-logos/music-city-bowl.png",
   "ReliaQuest Bowl": "assets/bowl-logos/reliaquest-bowl.png",
   "Sun Bowl": "assets/bowl-logos/sun-bowl.png",
-  "Las Vegas Bowl": "assets/bowl-logos/las-vegas-bowl.webp",
+  "Las Vegas Bowl": "assets/bowl-logos/las-vegas-bowl.png",
   "Texas Bowl": "assets/bowl-logos/texas-bowl.png",
   "Citrus Bowl": "assets/bowl-logos/citrus-bowl.png",
   "First Responder Bowl": "assets/bowl-logos/first-responder-bowl.webp",
   "Arizona Bowl": "assets/bowl-logos/arizona-bowl.jpg",
   "Liberty Bowl": "assets/bowl-logos/liberty-bowl.jpg",
-  "Poinsettia Bowl": "assets/bowl-logos/poinsettia-bowl.webp",
+  "Poinsettia Bowl": "assets/bowl-logos/poinsettia-bowl.png",
   "Puerto Rico Bowl": "assets/bowl-logos/puerto-rico-bowl.jpg",
   "Salute to Veterans Bowl": "assets/bowl-logos/salute-to-veterans-bowl.png",
-  "Cactus Bowl": "assets/bowl-logos/cactus-bowl.jpg"
+  "Cactus Bowl": "assets/bowl-logos/cactus-bowl.webp"
 };
