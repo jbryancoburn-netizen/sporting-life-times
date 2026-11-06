@@ -1316,6 +1316,12 @@ def apply_official_school_grid_snapshots(gender, games, teams, today=None, regis
                 if row.get("network") and not old.get("network"):
                     old["network"] = row["network"]
                     old["broadcast_source_url"] = source_url
+                # Preserve the literal athletics-school name separately from
+                # the canonical DII identity. A school nickname is not a new
+                # team and must never override the scoreboard's NCAA ID.
+                if row.get("source_opponent") and not old.get("official_source_opponent_label"):
+                    old["official_source_opponent_label"] = row["source_opponent"]
+                    old["official_source_opponent_url"] = source_url
                 counts["matched"] += 1
                 continue
             if dt.date.fromisoformat(date) < today:
@@ -1336,6 +1342,9 @@ def apply_official_school_grid_snapshots(gender, games, teams, today=None, regis
                 "elo_eligible": True, "verified": True,
                 "source": "Official university 2026-27 school schedule",
                 "source_url": source_url,
+                **({"official_source_opponent_label": row["source_opponent"],
+                     "official_source_opponent_url": source_url}
+                   if row.get("source_opponent") else {}),
                 **({"broadcast_source_url": source_url}
                    if row.get("network") else {}),
                 **({"venue_source_url": source_url}
