@@ -81,9 +81,10 @@
    }
    const time=row.cells[3]?.textContent?.trim()||'TIPOFF TBA';
    const gameDate=row.cells[0]?.textContent?.trim()||'Date TBA';
+   const compactTipoff=time.match(/\b\d{1,2}:\d{2}\s*(?:AM|PM)\b/i)?.[0]||(/\bTBA\b/i.test(time)?'TIPOFF TBA':'TIPOFF TBA');
    const markup=window.SLTSportsScorebug.render({phase,gender:'women',
      status:phase==='live'?note:phase==='final'?'FINAL':'',away,home,
-     forecast,time:time.split('University-sourced')[0].trim()});
+     forecast,time:compactTipoff});
    summary.innerHTML='<div class="wbb-game-dateline">'+esc(gameDate)+'</div>'+markup+disclosure+
      '<span class="ledger26-instruction">OPEN GAME DETAILS +</span>';
   }
