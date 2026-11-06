@@ -53,3 +53,15 @@ section,article{border-color:#b9aa92}
 .plt-more,.plt-empty{padding:14px;border:1px dashed #998971;background:#f8f2e8}
 @media(max-width:780px){.plt-card-grid{grid-template-columns:1fr}.plt-desk-metrics{grid-template-columns:repeat(3,minmax(0,1fr))}.plt-card-head strong{font-size:16px}}
 @media(max-width:440px){.plt-desk-metric strong{font-size:19px}.plt-desk-metric span{font-size:9px}.plt-race-names{font-size:11px}}
+
+
+.plt-candidate-photos{display:flex;gap:12px;justify-content:space-around;margin:12px 0 8px}
+.plt-candidate-photo{display:flex;flex:1;min-width:0;flex-direction:column;align-items:center;gap:3px;text-align:center;font:12px/1.3 Georgia,serif}
+.plt-portrait{display:grid;place-items:center;width:72px;height:86px;overflow:hidden;background:#e6dfd2;border:3px double #87745e;box-shadow:2px 2px 0 #b7a793;font:700 25px Georgia,serif;color:#64513a}
+.plt-portrait img{width:100%;height:100%;object-fit:cover;object-position:center top}
+.plt-photo-name{font-weight:700;overflow-wrap:anywhere}.plt-candidate-photo small{color:#675c51}
+.plt-portrait-winner .plt-portrait{outline:2px solid #77644b;outline-offset:2px}
+.plt-called-dem{background:#d5e0e9!important;border:2px solid #607b96!important}.plt-called-dem summary:hover{background:#c6d5e3!important}
+.plt-called-rep{background:#e9d6d1!important;border:2px solid #9a6861!important}.plt-called-rep summary:hover{background:#e2c6bf!important}
+.plt-called-dem .plt-badge{color:#284d75}.plt-called-rep .plt-badge{color:#81392f}
+@media(max-width:480px){.plt-portrait{width:60px;height:73px}.plt-candidate-photos{gap:5px}}
