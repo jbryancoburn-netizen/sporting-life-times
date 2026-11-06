@@ -93,7 +93,7 @@ for(const nav of navs){
  bar.innerHTML='<a class="cbb-gender-option'+(women?'':' is-active')+'" href="'+linkFor(0)+'"'+(women?'':' aria-current="page"')+'>Men</a><a class="cbb-gender-option'+(women?' is-active':'')+'" href="'+linkFor(1)+'"'+(women?' aria-current="page"':'')+'>Women</a>';
  // Give each edition its own section destinations. Never silently revert to men.
  const sections=women?{
-  'The Front Page':'ncaam.html?gender=women',
+  'The Hardwood Chronicle':'ncaam.html?gender=women',
   'Games & Schedule':'ncaam-slate.html?gender=women',
   'Conferences':'ncaaw-conference.html',
   'Bracket Watch':'ncaam.html?gender=women#wbb-rankings',
