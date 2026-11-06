@@ -184,6 +184,33 @@
   document.body.appendChild(dialog);dialog.addEventListener('close',()=>dialog.remove(),{once:true});
   dialog.showModal();loadPress(dialog);
  }
+
+// Keep newspaper home links aligned with each sport's actual edition title.
+function sltEditionHomeLabels(){
+ const titles={
+  'ncaam.html':'The Hardwood Chronicle',
+  'ncaaw.html':'The Hardwood Chronicle',
+  'nba.html':'NBA Edition',
+  'nfl.html':'NFL Edition',
+  'epl.html':'The Premier League',
+  'nbl.html':'The Australian NBL',
+  'euroleague.html':'The Continental Chronicle'
+ };
+ document.querySelectorAll('nav a[href], .slt-department-links a[href]').forEach(a=>{
+  const label=(a.textContent||'').trim();
+  if(!/^(?:the\s+)?front page$/i.test(label))return;
+  let filename;try{filename=new URL(a.getAttribute('href'),location.href).pathname.split('/').pop().toLowerCase()}catch(_){return}
+  const title=titles[filename];if(title)a.textContent=title;
+ });
+}
+function sltInstallEditionHomeLabels(){
+ sltEditionHomeLabels();
+ const obs=new MutationObserver(sltEditionHomeLabels);
+ obs.observe(document.documentElement,{subtree:true,childList:true});
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sltInstallEditionHomeLabels,{once:true});
+else sltInstallEditionHomeLabels();
+
  root.SLTSportsScorebug={render,formatRetro,openPress,version:'shared-letterpress-v15-press-decoupled'};
  root.SLTBasketballScorebug=root.SLTSportsScorebug;
 })(typeof window!=='undefined'?window:globalThis);
