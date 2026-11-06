@@ -1,0 +1,44 @@
+name: Infrastructure workflow audit (read-only)
+
+# Diagnostic only. No schedule, repository writes, or site deployments.
+on:
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  inventory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Inventory active workflows and trigger settings
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "# Workflow and publishing audit" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "Generated: $(date -u '+%Y-%m-%d %H:%M UTC')" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Workflow | State | Trigger and concurrency hints |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|---|---|---|" >> "$GITHUB_STEP_SUMMARY"
+          gh api --paginate "repos/$REPOSITORY/actions/workflows?per_page=100" --jq '.workflows[] | [.name, .state, .path] | @tsv' |
+          while IFS=$'\t' read -r name state path; do
+            hints="unavailable"
+            if [[ "$path" == .github/workflows/* ]]; then
+              file="$(mktemp)"
+              if gh api "repos/$REPOSITORY/contents/$path" -H 'Accept: application/vnd.github.raw+json' > "$file" 2>/dev/null; then
+                hints="$(grep -En '^[[:space:]]*(schedule:|cron:|push:|pull_request:|workflow_run:|workflow_dispatch:|concurrency:|group:|cancel-in-progress:)' "$file" | tr '\n' ' ' | cut -c1-350 || true)"
+                [[ -n "$hints" ]] || hints="no matching trigger hints"
+              fi
+              rm -f "$file"
+            fi
+            name="${name//|/ }"; hints="${hints//|/ }"
+            echo "| $name | $state | $hints |" >> "$GITHUB_STEP_SUMMARY"
+          done
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "This is an inventory, not a deployment or proof of site freshness." >> "$GITHUB_STEP_SUMMARY"
