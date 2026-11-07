@@ -1194,7 +1194,7 @@ body.nba-newspaper[data-page="rankings"] .nba-retro-header>span:nth-child(4){tex
 @media(max-width:385px){body.nba-newspaper[data-page="rankings"] .nba-retro-record,body.nba-newspaper[data-page="rankings"] .nba-retro-pct{font-size:12px}}
 
 
-/* 2026-11-05: Victorian RETRO rank medallions and compact boxed rows. */
+/* 2026-11-07: Compact RETRO rows; retain the engraved square rank numbers declared above. */
 body.nba-newspaper[data-page="rankings"] .nba-retro-table{
   padding:8px;background:#f7f0e3;border:3px double #8b785b;
 }
@@ -1202,15 +1202,6 @@ body.nba-newspaper[data-page="rankings"] .nba-retro-row:not(.nba-retro-header){
   margin:0 0 7px;padding:9px 12px;
   border:1px solid #b4a185;outline:1px solid #e6d8bd;outline-offset:-4px;
   background:#fbf6eb;min-height:66px;
-}
-body.nba-newspaper[data-page="rankings"] .nba-retro-row:not(.nba-retro-header) .nba-retro-rank{
-  box-sizing:border-box;display:grid;place-items:center;
-  width:33px;height:33px;min-width:33px;min-height:33px;
-  padding:0;margin:0;
-  background:#f4e9d4;color:#5b3927;
-  border:2px double #7d5d45;outline:1px solid #bda98a;outline-offset:2px;
-  border-radius:50%;font:700 15px/1 Georgia,serif;
-  font-variant-numeric:lining-nums;
 }
 body.nba-newspaper[data-page="rankings"] .nba-retro-row:not(.nba-retro-header) .nba-retro-club{
   min-width:0;gap:10px;
@@ -1232,9 +1223,6 @@ body.nba-newspaper[data-page="rankings"] .nba-retro-header{
  body.nba-newspaper[data-page="rankings"] .nba-retro-row:not(.nba-retro-header){
    grid-template-columns:34px minmax(0,1fr) 51px 48px 58px;
    gap:5px;min-height:61px;padding:7px 6px;
- }
- body.nba-newspaper[data-page="rankings"] .nba-retro-row:not(.nba-retro-header) .nba-retro-rank{
-   width:28px;height:28px;min-width:28px;min-height:28px;font-size:12px;
  }
  body.nba-newspaper[data-page="rankings"] .nba-retro-row:not(.nba-retro-header) .nba-retro-club{gap:6px}
  body.nba-newspaper[data-page="rankings"] .nba-retro-row:not(.nba-retro-header) .nba-retro-club img.nba-retro-logo{
