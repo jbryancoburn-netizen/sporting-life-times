@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "checked_at_utc": "2026-11-07T01:55:41.867878+00:00",
+  "checked_at_utc": "2026-11-07T02:09:37.581000+00:00",
   "source": "NCAA scoreboard via ncaa-api compatibility endpoint",
   "games": [
     {
@@ -34,7 +34,7 @@
       "cohort": "men-d1",
       "status": "live",
       "home_score": 3,
-      "away_score": 1,
+      "away_score": 2,
       "home_name": "Providence",
       "away_name": "St. John's (NY)",
       "home_id": "providence",
@@ -52,7 +52,7 @@
       "away_name": "Grand Canyon",
       "home_id": "air-force",
       "away_id": "grand-canyon",
-      "period": "1ST HALF",
+      "period": "HALF",
       "source_url": "https://www.ncaa.com/game/6616255"
     },
     {
@@ -78,7 +78,7 @@
       "away_name": "Seattle U",
       "home_id": "denver",
       "away_id": "seattle",
-      "period": "1ST HALF",
+      "period": "HALF",
       "source_url": "https://www.ncaa.com/game/6616399"
     },
     {
@@ -106,6 +106,19 @@
       "away_id": "xavier",
       "period": "2ND HALF",
       "source_url": "https://www.ncaa.com/game/6616946"
+    },
+    {
+      "match_id": "men-6617076",
+      "cohort": "men-d1",
+      "status": "live",
+      "home_score": 0,
+      "away_score": 0,
+      "home_name": "UC Davis",
+      "away_name": "San Jose St.",
+      "home_id": "uc-davis",
+      "away_id": "san-jose-st",
+      "period": "1ST HALF",
+      "source_url": "https://www.ncaa.com/game/6617076"
     },
     {
       "match_id": "men-6619358",
@@ -364,7 +377,7 @@
       "away_name": "Truman St.",
       "home_id": "mo-st-louis",
       "away_id": "truman",
-      "period": "HALF",
+      "period": "2ND HALF",
       "source_url": "https://www.ncaa.com/game/6664170"
     },
     {
@@ -578,14 +591,14 @@
     {
       "match_id": "men-6666167",
       "cohort": "men-d3",
-      "status": "live",
+      "status": "final",
       "home_score": 0,
       "away_score": 5,
       "home_name": "Dickinson",
       "away_name": "Haverford",
       "home_id": "dickinson",
       "away_id": "haverford",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6666167"
     },
     {
@@ -728,7 +741,7 @@
       "away_name": "Wis.-Stevens Point",
       "home_id": "wis-platteville",
       "away_id": "wis-stevens-point",
-      "period": "1ST HALF",
+      "period": "HALF",
       "source_url": "https://www.ncaa.com/game/6666268"
     },
     {
@@ -748,7 +761,7 @@
       "match_id": "men-6666299",
       "cohort": "men-d1",
       "status": "live",
-      "home_score": 1,
+      "home_score": 2,
       "away_score": 5,
       "home_name": "Fla. Atlantic",
       "away_name": "Memphis",
@@ -1027,7 +1040,7 @@
       "away_name": "St. Thomas (MN)",
       "home_id": "oral-roberts",
       "away_id": "st-thomas-mn",
-      "period": "HALF",
+      "period": "2ND HALF",
       "source_url": "https://www.ncaa.com/game/6666771"
     },
     {
@@ -1382,6 +1395,19 @@
       "source_url": "https://www.ncaa.com/game/6609104"
     },
     {
+      "match_id": "women-6609159",
+      "cohort": "women-d1",
+      "status": "live",
+      "home_score": 0,
+      "away_score": 0,
+      "home_name": "UTEP",
+      "away_name": "Grand Canyon",
+      "home_id": "utep",
+      "away_id": "grand-canyon",
+      "period": "1ST HALF",
+      "source_url": "https://www.ncaa.com/game/6609159"
+    },
+    {
       "match_id": "women-6609213",
       "cohort": "women-d1",
       "status": "final",
@@ -1599,7 +1625,7 @@
       "away_name": "UAH",
       "home_id": "lee",
       "away_id": "ala-huntsville",
-      "period": "2ND HALF",
+      "period": "2OT",
       "source_url": "https://www.ncaa.com/game/6663609"
     },
     {
@@ -1755,7 +1781,7 @@
       "away_name": "Carson-Newman",
       "home_id": "lenoir-rhyne",
       "away_id": "carson-newman",
-      "period": "HALF",
+      "period": "1ST HALF",
       "source_url": "https://www.ncaa.com/game/6664911"
     },
     {
@@ -2073,14 +2099,14 @@
     {
       "match_id": "women-6666181",
       "cohort": "women-d3",
-      "status": "live",
+      "status": "final",
       "home_score": 0,
       "away_score": 1,
       "home_name": "Swarthmore",
       "away_name": "Dickinson",
       "home_id": "swarthmore",
       "away_id": "dickinson",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6666181"
     },
     {
@@ -2502,14 +2528,14 @@
     {
       "match_id": "women-6666648",
       "cohort": "women-d1",
-      "status": "live",
+      "status": "final",
       "home_score": 3,
       "away_score": 4,
       "home_name": "The Citadel",
       "away_name": "Western Caro.",
       "home_id": "citadel",
       "away_id": "western-caro",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6666648"
     },
     {
@@ -2593,14 +2619,14 @@
     {
       "match_id": "women-6667147",
       "cohort": "women-d1",
-      "status": "live",
+      "status": "final",
       "home_score": 2,
       "away_score": 0,
       "home_name": "Dayton",
       "away_name": "George Washington",
       "home_id": "dayton",
       "away_id": "george-washington",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6667147"
     },
     {
