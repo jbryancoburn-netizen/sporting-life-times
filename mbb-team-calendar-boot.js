@@ -28,6 +28,44 @@ try{
  const rankMaps=Object.fromEntries(['coaches','ap'].map(k=>[k,new Map((polls?.polls?.[k]?.rankings||[]).map(p=>[canon(p.team),p.rank]))]));
  const badges=(...names)=>{const n=names.map(canon),find=k=>{for(const v of n){const r=rankMaps[k].get(v);if(r)return r;}return null;};const c=find('coaches'),a=find('ap');return c||a?'<span class="victorian-poll-rank" title="Coaches / AP rankings">'+(c?'#'+c:'—')+'/'+(a?'#'+a:'—')+'</span>':'';};
  const data=await load(path);
+ // Verified finals against D-II, D-III, NAIA, and other outside-D-I
+ // opponents count toward a school record, never its RETRO Elo.
+ const outside=await load('data/mbb-non-di-verified-finals-2026-27.json').catch(()=>null);
+ const outsideGames=outside?.season==='2026-27'&&outside.counts_for_retro===false?
+  (outside.games||[]).filter(g=>g.verified===true&&g.classification==='regular-season'&&
+   g.counts_for_retro===false&&String(g.division_i_espn_id)===String(team.espn_id)&&
+   Number.isSafeInteger(g.team_score)&&Number.isSafeInteger(g.opponent_score)&&
+   g.team_score!==g.opponent_score&&/^https:\/\/[^\s"'<>]+$/.test(g.source_url||'')):[];
+ const calendarRows=data.events||[];
+ const comparable=n=>String(n||'').toLowerCase().replace(/[^a-z0-9]/g,'');
+ for(const g of outsideGames){
+  const match=calendarRows.find(e=>{
+   const comps=e.competitions?.[0]?.competitors||[];
+   const self=comps.find(x=>String(x.team?.id)===String(team.espn_id));
+   const other=comps.find(x=>x!==self);
+   return self&&(String(e.id||'').replace(/^espn:/,'')===String(g.id)||
+    (String(e.date||'').slice(0,10)===g.date&&
+     (String(other?.team?.id||'')===String(g.opponent_espn_id)||
+      comparable(other?.team?.displayName)===comparable(g.opponent_name))));
+  });
+  const final={verified:true,classification:'regular-season',counts_for_retro:false,
+    team_score:g.team_score,opponent_score:g.opponent_score,
+    source_url:g.source_url,source_tier:'independent_secondary'};
+  if(match){
+    if(!match.verified_non_d1_result)match.verified_non_d1_result=final;
+    continue; // University-verified score has precedence.
+  }
+  const home=String(g.home_espn_id)===String(team.espn_id);
+  const own=team.espn_name||team.name;
+  calendarRows.push({id:String(g.id),date:g.date+'T17:00:00Z',
+   name:own+' vs '+g.opponent_name,site_verified:false,neutralSite:g.neutral===true,
+   verified_non_d1_result:final,status:{type:{state:'post',completed:true}},
+   competitions:[{competitors:[
+    {homeAway:home?'home':'away',team:{id:String(team.espn_id),displayName:own},score:g.team_score},
+    {homeAway:home?'away':'home',team:{id:String(g.opponent_espn_id),displayName:g.opponent_name},score:g.opponent_score}
+   ]}]});
+ }
+
  const verified=await load('data/cbb-verified-broadcasts-2026-27.json').catch(()=>({entries:[]}));
  const verifiedNetworks=new Map((verified.entries||[]).filter(x=>x.network).map(x=>[String(x.id),x.network]));
  for(const event of data.events||[]){const network=verifiedNetworks.get(String(event.id||'').replace(/^espn:/,''));if(network&&!event.broadcast)event.broadcast=network;}
@@ -133,6 +171,11 @@ try{
    const myScore=selfHome?result.home_score:result.away_score;
    const theirScore=selfHome?result.away_score:result.home_score;
    if(myScore>theirScore)wins++;else if(myScore<theirScore)losses++;
+  }
+  for(const g of outsideGames){
+   if(String(g.division_i_espn_id)!==String(espnId)||g.date>=day)continue;
+   if(g.team_score>g.opponent_score)wins++;
+   else if(g.team_score<g.opponent_score)losses++;
   }
   return wins+'–'+losses;
  };

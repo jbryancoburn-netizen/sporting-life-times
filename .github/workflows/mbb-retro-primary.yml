@@ -15,6 +15,8 @@ on:
       - '.github/workflows/mbb-retro-primary.yml'
       - 'scripts/publish-mbb-retro-primary.js'
       - 'scripts/collect-mbb-retro-finals.py'
+      - 'scripts/collect-mbb-non-di-finals.py'
+      - 'scripts/build-mbb-overall-records.mjs'
       - 'scripts/refresh_mbb_newspaper.py'
       - 'mbb-retro.js'
   schedule:
@@ -48,6 +50,10 @@ jobs:
         run: python3 scripts/collect-mbb-retro-finals.py
       - name: Rebuild 1500-start RETRO ratings
         run: node scripts/publish-mbb-retro-primary.js
+      - name: Collect completed games against non-D-I opponents
+        run: |
+          python3 -m py_compile scripts/collect-mbb-non-di-finals.py
+          python3 scripts/collect-mbb-non-di-finals.py
       - name: Rebuild school overall records from the SAME verified RETRO snapshot
         run: |
           node --check scripts/build-mbb-overall-records.mjs
@@ -74,7 +80,7 @@ jobs:
           node -e "const d=require('./data/ncaam-2026-27-retro-primary.json');if(d.starting_elo!==1500||d.rankings.length!==365||d.events.length!==d.games_played||d.rankings.some(x=>x.base_elo!==1500))process.exit(1);"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/ncaam-2026-27-retro-primary.json data/mbb-retro-live-finals.json data/mbb-overall-records-2026-27.json
+          git add data/ncaam-2026-27-retro-primary.json data/mbb-retro-live-finals.json data/mbb-overall-records-2026-27.json data/mbb-non-di-verified-finals-2026-27.json
           if git diff --cached --quiet; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0

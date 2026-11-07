@@ -11,8 +11,25 @@ if(published.season!=='2026-27'||published.model!=='retro-clean-slate'||publishe
 const di=new Set(cross.teams.map(t=>String(t.espn_id)));
 const ncaaToEspn=new Map(cross.teams.map(t=>[String(t.id),String(t.espn_id)]));
 const asOf=new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
-const records={},exceptions=[],finals=[];
 const validScore=x=>Number.isSafeInteger(x)&&x>=0&&x<=300;
+const records={},exceptions=[],finals=[];
+const extraFile=path.join(base,'mbb-non-di-verified-finals-2026-27.json');
+const outside=fs.existsSync(extraFile)?load('mbb-non-di-verified-finals-2026-27.json'):{season:'2026-27',games:[]};
+if(outside.season!=='2026-27'||!Array.isArray(outside.games)||outside.counts_for_retro===true)
+ throw Error('Invalid outside-D-I final-game ledger');
+const extraBySchool=new Map(),normalize=s=>String(s||'').toLowerCase().replace(/[^a-z0-9]/g,'');
+for(const g of outside.games){
+ if(g.verified!==true||g.classification!=='regular-season'||g.counts_for_retro!==false||
+    !validScore(g.team_score)||!validScore(g.opponent_score)||g.team_score===g.opponent_score||
+    !/^https:\/\/[^\s"'<>]+$/.test(g.source_url||'')||g.date<'2026-11-01'||g.date>asOf||
+    di.has(String(g.opponent_espn_id))||
+    ncaaToEspn.get(String(g.division_i_ncaa_id))!==String(g.division_i_espn_id)){
+    exceptions.push({event_id:g.id,reason:'outside-D-I source row failed validation'});
+    continue;
+ }
+ const a=extraBySchool.get(String(g.division_i_ncaa_id))||[];
+ a.push(g);extraBySchool.set(String(g.division_i_ncaa_id),a);
+}
 for(const team of published.rankings){
  const id=String(team.team_id),espn=ncaaToEspn.get(id);
  const record={team_id:id,team:team.team,retro_wins:team.wins||0,retro_losses:team.losses||0,
@@ -48,6 +65,25 @@ for(const team of published.rankings){
   record['overall_'+(win?'wins':'losses')]++;
   finals.push({date,team_id:id,school:team.team,opponent:name,team_score:r.team_score,
    opponent_score:r.opponent_score,source_url:r.source_url});
+ }
+ // Append independently verified completed games with outside-D-I opponents.
+ // University-verified schedule scores win any conflicting-source dispute.
+ for(const g of extraBySchool.get(id)||[]){
+   const old=finals.find(f=>f.team_id===id&&f.date===g.date&&(
+     normalize(f.opponent)===normalize(g.opponent_name)||
+     (f.team_score===g.team_score&&f.opponent_score===g.opponent_score)));
+   if(old){
+     if(old.team_score!==g.team_score||old.opponent_score!==g.opponent_score)
+       exceptions.push({team:id,event_id:g.id,reason:'conflict with university final'});
+     continue;
+   }
+   const outcome=g.team_score>g.opponent_score?'wins':'losses';
+   record['verified_non_di_'+outcome]++;
+   record['overall_'+outcome]++;
+   finals.push({date:g.date,team_id:id,school:team.team,opponent:g.opponent_name,
+      opponent_espn_id:String(g.opponent_espn_id),event_id:String(g.id),
+      team_score:g.team_score,opponent_score:g.opponent_score,
+      source_url:g.source_url,source_tier:'independent_secondary'});
  }
 }
 if(Object.keys(records).length!==365)throw Error('Overall record count mismatch');
