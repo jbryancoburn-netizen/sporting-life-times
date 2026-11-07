@@ -2,7 +2,7 @@
   "league": "NBA",
   "season": "2026-27",
   "status": "provisional_live_from_historical_baseline",
-  "games_played": 125,
+  "games_played": 126,
   "preseason_status": "provisional_historical_regression_only",
   "source": "ESPN FINAL NBA regular-season scores; Sporting Life & Times independent Elo",
   "rankings": [
@@ -27,10 +27,6 @@
       "elo": 1620.485
     },
     {
-      "team": "PHI",
-      "elo": 1609.587
-    },
-    {
       "team": "HOU",
       "elo": 1608.296
     },
@@ -43,6 +39,10 @@
       "elo": 1596.387
     },
     {
+      "team": "PHI",
+      "elo": 1593.281
+    },
+    {
       "team": "POR",
       "elo": 1572.611
     },
@@ -52,7 +52,7 @@
     },
     {
       "team": "CLE",
-      "elo": 1548.68
+      "elo": 1564.985
     },
     {
       "team": "ATL",
@@ -1252,6 +1252,15 @@
       "away_score": 119,
       "date": "2026-11-07T00:00:00.000Z",
       "home_elo_change": -13.135043
+    },
+    {
+      "id": "espn-nba-401909289",
+      "home": "CLE",
+      "away": "PHI",
+      "home_score": 119,
+      "away_score": 95,
+      "date": "2026-11-07T00:30:00.000Z",
+      "home_elo_change": 16.305104
     }
   ],
   "movement": {
@@ -1262,13 +1271,13 @@
       "NYK": 0,
       "DET": 0,
       "BOS": 13.135043,
-      "PHI": 0,
       "HOU": 0,
       "LAL": 0,
       "MIN": 0,
+      "PHI": -16.305104,
       "POR": 0,
       "DEN": 0,
-      "CLE": 0,
+      "CLE": 16.305104,
       "ATL": 6.150418,
       "TOR": 0,
       "GSW": 0,
@@ -1295,10 +1304,10 @@
       "NYK": 1623.285,
       "DET": 1629.4,
       "BOS": 1602.746,
-      "PHI": 1573.601,
       "HOU": 1596.146,
       "LAL": 1570.402,
       "MIN": 1583.104,
+      "PHI": 1573.6,
       "POR": 1534.353,
       "DEN": 1575.521,
       "CLE": 1557.825,

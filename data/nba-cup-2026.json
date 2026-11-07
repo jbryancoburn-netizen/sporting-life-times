@@ -256,7 +256,13 @@
       "broadcast": "Prime Video",
       "venue": "Rocket Arena",
       "verified_source": "NBA.com official 2026 group play schedule",
-      "result": null,
+      "result": {
+        "away_score": 95,
+        "home_score": 119,
+        "game_id": "espn-nba-401909289",
+        "source": "data/nba-upcoming-schedule.json",
+        "source_date": "2026-11-07T00:30Z"
+      },
       "location": "Cleveland, OH",
       "venue_source": "https://www.nba.com/news/all-30-nba-arenas-by-team",
       "venue_verification": "NBA official home arena matched to official Cup home team; game-specific exceptions not independently certified"
@@ -921,5 +927,5 @@
     }
   ],
   "venue_source": "https://www.nba.com/news/all-30-nba-arenas-by-team",
-  "results_synced_at": "2026-11-07T03:19:02.929Z"
+  "results_synced_at": "2026-11-07T03:19:24.748950+00:00"
 }
