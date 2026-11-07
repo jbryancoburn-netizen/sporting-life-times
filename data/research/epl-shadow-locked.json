@@ -1,6 +1,22 @@
 {
   "competition": "EPL",
   "graded": {
+    "401878758": {
+      "away": "Tottenham",
+      "away_score": 0,
+      "baseline": {
+        "brier": 0.4168413481030405,
+        "log_loss": 0.7485065169271359
+      },
+      "fixture_id": "401878758",
+      "home": "Leeds United",
+      "home_score": 1,
+      "outcome": "home",
+      "research": {
+        "brier": 0.4353038974350396,
+        "log_loss": 0.7729860728610737
+      }
+    },
     "401878761": {
       "away": "Crystal Palace",
       "away_score": 0,
@@ -693,19 +709,19 @@
   "schema_version": 1,
   "status": "research_only_not_for_live_promotion",
   "summary": {
-    "graded_count": 11,
+    "graded_count": 12,
     "locked_count": 30,
     "new_grades": 1,
     "new_locks": 0,
     "note": "Paired pregame outcomes only; a small sample cannot validate superiority.",
     "scores": {
       "baseline": {
-        "brier": 0.588925,
-        "log_loss": 0.987718
+        "brier": 0.574585,
+        "log_loss": 0.967784
       },
       "research": {
-        "brier": 0.600016,
-        "log_loss": 1.003257
+        "brier": 0.58629,
+        "log_loss": 0.984068
       }
     }
   }

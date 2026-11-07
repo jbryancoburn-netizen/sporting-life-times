@@ -1,6 +1,6 @@
 {
   "as_of_date": "2026-11-07",
-  "completed_matches": 91,
+  "completed_matches": 92,
   "elo_history": {
     "Arsenal": [
       {
@@ -924,6 +924,13 @@
         "fixture_id": "401879251",
         "match": 9,
         "opponent": "Bournemouth"
+      },
+      {
+        "date": "2026-11-07",
+        "elo": 1506.77362,
+        "fixture_id": "401878758",
+        "match": 10,
+        "opponent": "Tottenham"
       }
     ],
     "Liverpool": [
@@ -1414,6 +1421,13 @@
         "fixture_id": "401878761",
         "match": 9,
         "opponent": "Crystal Palace"
+      },
+      {
+        "date": "2026-11-07",
+        "elo": 1492.41758,
+        "fixture_id": "401878758",
+        "match": 10,
+        "opponent": "Leeds United"
       }
     ]
   },
@@ -1503,11 +1517,11 @@
       "D"
     ],
     "Leeds United": [
-      "D",
       "L",
       "D",
       "D",
-      "L"
+      "L",
+      "W"
     ],
     "Liverpool": [
       "W",
@@ -1552,11 +1566,11 @@
       "L"
     ],
     "Tottenham": [
-      "L",
       "D",
       "W",
       "W",
-      "W"
+      "W",
+      "L"
     ]
   },
   "last_match_elo_delta": {
@@ -1572,14 +1586,14 @@
     "Fulham": 2.16704,
     "Hull": -1.75818,
     "Ipswich": 1.75818,
-    "Leeds United": -8.83215,
+    "Leeds United": 8.50464,
     "Liverpool": -10.8508,
     "Manchester City": -12.24431,
     "Manchester United": -7.65151,
     "Newcastle United": -11.55458,
     "Nott'm Forest": -7.41774,
     "Sunderland": -8.44635,
-    "Tottenham": 7.86356
+    "Tottenham": -8.50464
   },
   "model_status": "provisional_unvalidated",
   "note": "Independent 1500-initialized Elo, K=20, 55-point home advantage, heuristic draw prior; not independently calibrated.",
@@ -1588,8 +1602,8 @@
     "fixture_policy": "only feed-confirmed future fixtures",
     "rating_origin": "neutral baseline; no independently sourced prior-season ratings",
     "season": "2026-2027",
-    "source_fixtures": 91,
-    "source_sha256": "accf150f97f60c8be49a67c0b157668ef29b668f05cf8d7ede471658c6919b0f"
+    "source_fixtures": 92,
+    "source_sha256": "968821a6a23b1783ba1feca8690dc580e6a47a00e562756cfc0fdbdad3b87307"
   },
   "ratings": {
     "Arsenal": 1565.65075,
@@ -1604,14 +1618,14 @@
     "Fulham": 1485.9853,
     "Hull": 1495.14962,
     "Ipswich": 1491.9393,
-    "Leeds United": 1498.26898,
+    "Leeds United": 1506.77362,
     "Liverpool": 1518.58047,
     "Manchester City": 1540.04407,
     "Manchester United": 1472.76547,
     "Newcastle United": 1486.87415,
     "Nott'm Forest": 1463.68845,
     "Sunderland": 1455.94555,
-    "Tottenham": 1500.92222
+    "Tottenham": 1492.41758
   },
   "season_results": [
     {
@@ -2341,6 +2355,14 @@
       "home": "Everton",
       "home_score": 3,
       "kickoff_utc": "2026-11-06T20:00:00+00:00"
+    },
+    {
+      "away": "Tottenham",
+      "away_score": 0,
+      "fixture_id": "401878758",
+      "home": "Leeds United",
+      "home_score": 1,
+      "kickoff_utc": "2026-11-07T12:30:00+00:00"
     }
   ],
   "standings": [
@@ -2422,6 +2444,17 @@
       "won": 3
     },
     {
+      "club": "Leeds United",
+      "drawn": 5,
+      "ga": 8,
+      "gd": 2,
+      "gf": 10,
+      "lost": 2,
+      "played": 10,
+      "points": 14,
+      "won": 3
+    },
+    {
       "club": "Bournemouth",
       "drawn": 3,
       "ga": 13,
@@ -2435,11 +2468,11 @@
     {
       "club": "Tottenham",
       "drawn": 3,
-      "ga": 10,
-      "gd": 0,
+      "ga": 11,
+      "gd": -1,
       "gf": 10,
-      "lost": 3,
-      "played": 9,
+      "lost": 4,
+      "played": 10,
       "points": 12,
       "won": 3
     },
@@ -2460,17 +2493,6 @@
       "ga": 10,
       "gd": 1,
       "gf": 11,
-      "lost": 2,
-      "played": 9,
-      "points": 11,
-      "won": 2
-    },
-    {
-      "club": "Leeds United",
-      "drawn": 5,
-      "ga": 8,
-      "gd": 1,
-      "gf": 9,
       "lost": 2,
       "played": 9,
       "points": 11,
