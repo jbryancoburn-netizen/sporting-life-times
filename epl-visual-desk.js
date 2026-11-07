@@ -1,5 +1,9 @@
 (()=>{'use strict';
-const root=document.querySelector('#epl-visual-desk');if(!root)return;
+const root=document.querySelector('#epl-visual-desk');
+const status=document.getElementById('epl-viewed')||root;
+// These registers live on separate newspaper pages; the legacy visual-desk mount is optional.
+const mounts=['epl-table-board','epl-power-board','epl-attack-board','epl-defense-board','epl-score-rail','epl-hero-clubs','epl-club-directory','epl-pulse-leader','epl-pulse-finals','epl-pulse-power'];
+if(!status&&!mounts.some(id=>document.getElementById(id)))return;
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const COLORS={'Arsenal':'#ef0107','Aston Villa':'#670e36','Bournemouth':'#d71920','Brentford':'#e30613','Brighton':'#0057b8','Chelsea':'#034694','Coventry':'#77c8e8','Crystal Palace':'#1b458f','Everton':'#003399','Fulham':'#252525','Hull':'#f18a00','Ipswich':'#0044a9','Leeds United':'#ffcd00','Liverpool':'#c8102e','Manchester City':'#6cabdd','Manchester United':'#da291c','Newcastle United':'#242424',"Nott'm Forest":'#dd0000','Sunderland':'#eb172b','Tottenham':'#132257'};
 const FIXED_IDS={"Arsenal":"359","Aston Villa":"362","Bournemouth":"349","Brentford":"337","Brighton":"331","Chelsea":"363","Coventry":"388","Crystal Palace":"384","Everton":"368","Fulham":"370","Hull":"306","Ipswich":"373","Leeds United":"357","Liverpool":"364","Manchester City":"382","Manchester United":"360","Newcastle United":"361","Nott'm Forest":"393","Sunderland":"366","Tottenham":"367"};
@@ -10,8 +14,12 @@ const date=s=>new Date(s).toLocaleString('en-US',{month:'short',day:'numeric',ho
 const section=(name,tag,content)=>'<section class="epl-data-section"><div class="epl-section-label"><h2>'+name+'</h2><span>'+tag+'</span></div>'+content+'</section>';
 async function load(){
 try{
-const [r,f]=await Promise.all(['data/epl-ratings.json','data/epl-match-center.json'].map(async p=>{const x=await fetch(p+'?v='+Date.now(),{cache:'no-store'});if(!x.ok)throw Error(p);return x.json()}));
-if(!Array.isArray(r.standings)||r.standings.length!==20||!r.ratings||Object.keys(r.ratings).length!==20||!Array.isArray(f.fixtures))throw Error('Incomplete EPL data');
+const readJson=async p=>{const x=await fetch(p+'?v='+Date.now(),{cache:'no-store'});if(!x.ok)throw Error(p+' HTTP '+x.status);return x.json();};
+const r=await readJson('data/epl-ratings.json');
+if(!Array.isArray(r.standings)||r.standings.length!==20||!r.ratings||Object.keys(r.ratings).length!==20)throw Error('Incomplete EPL standings data');
+// Standings and RETRO rankings must still render if the separate forecast feed fails.
+const forecastData=await readJson('data/epl-match-center.json').catch(e=>{console.warn('EPL forecasts unavailable; displaying verified standings:',e);return null;});
+const f={fixtures:Array.isArray(forecastData?.fixtures)?forecastData.fixtures:[],recent_results:Array.isArray(forecastData?.recent_results)?forecastData.recent_results:[]};
 // Forecast exports may omit finals. The verified season ledger owns results.
 const resultSource=Array.isArray(r.season_results)?r.season_results:f.recent_results;
 if(!Array.isArray(resultSource))throw Error('Verified EPL results unavailable');
@@ -94,8 +102,15 @@ if(top)top.innerHTML=sorted.slice(0,4).map(([club,rating],i)=>'<a class="slt-her
 const heroNote=target('epl-hero-note');if(heroNote)heroNote.textContent='Rating edition '+r.as_of_date+' · '+r.completed_matches+' verified final scores';
 const clubList=target('epl-club-directory');
 if(clubList)clubList.innerHTML=r.standings.map((t,i)=>'<a class="slt-club-link" href="epl-club.html?club='+encodeURIComponent(idByTeam[t.club]||FIXED_IDS[t.club]||'')+'">'+crest(t.club,idByTeam[t.club])+'<span>'+esc(t.club)+'</span><small>'+(i+1)+'. · '+t.points+' pts · '+num(r.ratings[t.club])+' Elo</small></a>').join('');
-root.textContent='Results through '+r.as_of_date+' · '+r.completed_matches+' verified finals · Scores and ratings from the current published edition';
+if(status)status.textContent='Results through '+r.as_of_date+' · '+r.completed_matches+' verified finals · Scores and ratings from the current published edition';
 
-}catch(e){console.error('EPL dashboard rendering failed:',e);root.innerHTML='<p role="status">EPL visual dashboard unavailable. Published model data could not be verified.</p>';}}
+}catch(e){
+ console.error('EPL dashboard rendering failed:',e);
+ if(status)status.textContent='EPL standings data currently unavailable.';
+ for(const id of ['epl-table-board','epl-power-board','epl-attack-board','epl-defense-board','epl-score-rail','epl-club-directory']){
+  const mount=document.getElementById(id);
+  if(mount)mount.innerHTML='<p role="status">Verified Premier League data could not be loaded. Please try again shortly.</p>';
+ }
+}}
 load();
 })();
