@@ -1,6 +1,22 @@
 {
   "competition": "EPL",
   "graded": {
+    "401878757": {
+      "away": "Manchester City",
+      "away_score": 1,
+      "baseline": {
+        "brier": 0.6717947878700098,
+        "log_loss": 1.0865099088378605
+      },
+      "fixture_id": "401878757",
+      "home": "Nott'm Forest",
+      "home_score": 3,
+      "outcome": "home",
+      "research": {
+        "brier": 0.5413357464457879,
+        "log_loss": 0.9132817314892081
+      }
+    },
     "401878758": {
       "away": "Tottenham",
       "away_score": 0,
@@ -15,6 +31,22 @@
       "research": {
         "brier": 0.4353038974350396,
         "log_loss": 0.7729860728610737
+      }
+    },
+    "401878760": {
+      "away": "Hull",
+      "away_score": 0,
+      "baseline": {
+        "brier": 0.3290770895115446,
+        "log_loss": 0.6311516430899496
+      },
+      "fixture_id": "401878760",
+      "home": "Arsenal",
+      "home_score": 1,
+      "outcome": "home",
+      "research": {
+        "brier": 0.39049314352487996,
+        "log_loss": 0.7137045789983493
       }
     },
     "401878761": {
@@ -63,6 +95,22 @@
       "research": {
         "brier": 0.8504776700365279,
         "log_loss": 1.3734857910951361
+      }
+    },
+    "401879241": {
+      "away": "Newcastle United",
+      "away_score": 1,
+      "baseline": {
+        "brier": 0.850446663126362,
+        "log_loss": 1.3862943611198906
+      },
+      "fixture_id": "401879241",
+      "home": "Fulham",
+      "home_score": 1,
+      "outcome": "draw",
+      "research": {
+        "brier": 0.8433133294480286,
+        "log_loss": 1.3678942718028562
       }
     },
     "401879242": {
@@ -709,19 +757,19 @@
   "schema_version": 1,
   "status": "research_only_not_for_live_promotion",
   "summary": {
-    "graded_count": 12,
+    "graded_count": 15,
     "locked_count": 30,
-    "new_grades": 1,
+    "new_grades": 3,
     "new_locks": 0,
     "note": "Paired pregame outcomes only; a small sample cannot validate superiority.",
     "scores": {
       "baseline": {
-        "brier": 0.574585,
-        "log_loss": 0.967784
+        "brier": 0.583089,
+        "log_loss": 0.981157
       },
       "research": {
-        "brier": 0.58629,
-        "log_loss": 0.984068
+        "brier": 0.587375,
+        "log_loss": 0.986913
       }
     }
   }

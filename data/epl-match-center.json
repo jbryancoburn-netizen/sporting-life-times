@@ -1,2593 +1,544 @@
 {
-  "schema_version": 1,
   "competition": "EPL",
-  "status": "provisional_research",
-  "model": "eps-9.2-elo-poisson-50-50-research",
-  "issued_at_utc": "2026-11-07T15:44:11.737992+00:00",
-  "source_provider": "espn-eng1",
-  "source_sha256": "e44ad7376907e4abe53b0815ed8ffe33aaca72b58abf0286add29d96e4c36649",
-  "settled_unique_fixtures": 22,
   "fixtures": [
     {
-      "fixture_id": "401878757",
-      "kickoff_utc": "2026-11-07T17:30:00+00:00",
-      "home": {
-        "id": "393",
-        "name": "Nottingham Forest",
-        "elo": 1461.9962186904402,
-        "expected_goals": 0.831511839708561
-      },
       "away": {
-        "id": "382",
-        "name": "Manchester City",
-        "elo": 1542.041134248134,
-        "expected_goals": 1.3488430024815472
+        "elo": 1515.3188769241135,
+        "expected_goals": 1.1434820892769837,
+        "id": "337",
+        "name": "Brentford"
       },
-      "probabilities": {
-        "home": 0.2849639279876791,
-        "draw": 0.2650160682494983,
-        "away": 0.4500200037628225
-      },
-      "projected_score": {
-        "home": 0,
-        "away": 1,
-        "probability": 0.15242118253090828,
-        "method": "most_likely_exact_score_from_poisson"
-      },
-      "coherent_projected_score": {
-        "home": 0,
-        "away": 1,
-        "probability": 0.1402539822320983,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_goal_markets": {
-        "over_2_5": 0.3741007188426792,
-        "under_2_5": 0.6258992811573207,
-        "both_teams_to_score_yes": 0.4155601006145564,
-        "both_teams_to_score_no": 0.5844398993854436,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_outcomes": {
-        "home": 0.28496392798767894,
-        "draw": 0.26501606824949836,
-        "away": 0.4500200037628224
-      },
-      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
-      "goal_markets": {
-        "over_2_5": 0.37201395996541936,
-        "under_2_5": 0.6279860400345807,
-        "both_teams_to_score_yes": 0.41807050351120456,
-        "both_teams_to_score_no": 0.5819294964887954,
-        "method": "poisson_only_not_blended_elo"
-      },
-      "scenario_factors": {
-        "elo_difference": -80.04,
-        "expected_goal_difference": -0.517,
-        "historical_results_used": 92
-      },
-      "cold_start": false,
-      "issued_at_utc": "2026-11-07T15:44:11.737992+00:00"
-    },
-    {
-      "fixture_id": "401878759",
-      "kickoff_utc": "2026-11-08T14:00:00+00:00",
-      "home": {
-        "id": "373",
-        "name": "Ipswich Town",
-        "elo": 1491.2085585021828,
-        "expected_goals": 1.6515270604087133
-      },
-      "away": {
-        "id": "349",
-        "name": "AFC Bournemouth",
-        "elo": 1502.314945713064,
-        "expected_goals": 1.3960749033719844
-      },
-      "probabilities": {
-        "home": 0.4370528498001828,
-        "draw": 0.24437065536356967,
-        "away": 0.31857649483624756
-      },
-      "projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.10945552746420456,
-        "method": "most_likely_exact_score_from_poisson"
-      },
-      "coherent_projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.11203640835399116,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_goal_markets": {
-        "over_2_5": 0.5856530107921245,
-        "under_2_5": 0.4143469892078755,
-        "both_teams_to_score_yes": 0.6095174060784313,
-        "both_teams_to_score_no": 0.3904825939215687,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_outcomes": {
-        "home": 0.43705284980018294,
-        "draw": 0.2443706553635697,
-        "away": 0.3185764948362476
-      },
-      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
-      "goal_markets": {
-        "over_2_5": 0.5873897060524685,
-        "under_2_5": 0.41261029394753146,
-        "both_teams_to_score_yes": 0.6081489855451406,
-        "both_teams_to_score_no": 0.39185101445485937,
-        "method": "poisson_only_not_blended_elo"
-      },
-      "scenario_factors": {
-        "elo_difference": -11.11,
-        "expected_goal_difference": 0.255,
-        "historical_results_used": 92
-      },
-      "cold_start": false,
-      "issued_at_utc": "2026-11-07T15:44:11.737992+00:00"
-    },
-    {
-      "fixture_id": "401879239",
-      "kickoff_utc": "2026-11-08T14:00:00+00:00",
-      "home": {
-        "id": "366",
-        "name": "Sunderland",
-        "elo": 1453.6236506204452,
-        "expected_goals": 1.141785812311301
-      },
-      "away": {
-        "id": "363",
-        "name": "Chelsea",
-        "elo": 1516.9825372002988,
-        "expected_goals": 1.2200199285365219
-      },
-      "probabilities": {
-        "home": 0.3521880238969881,
-        "draw": 0.2644952567140848,
-        "away": 0.3833167193889271
-      },
-      "projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.1312902170770962,
-        "method": "most_likely_exact_score_from_poisson"
-      },
-      "coherent_projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.12446889051227587,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_goal_markets": {
-        "over_2_5": 0.4248497951815221,
-        "under_2_5": 0.5751502048184779,
-        "both_teams_to_score_yes": 0.47612610350528595,
-        "both_teams_to_score_no": 0.523873896494714,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_outcomes": {
-        "home": 0.35218802389698817,
-        "draw": 0.26449525671408486,
-        "away": 0.38331671938892725
-      },
-      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
-      "goal_markets": {
-        "over_2_5": 0.4202813511182771,
-        "under_2_5": 0.579718648881723,
-        "both_teams_to_score_yes": 0.4797772003725,
-        "both_teams_to_score_no": 0.5202227996275,
-        "method": "poisson_only_not_blended_elo"
-      },
-      "scenario_factors": {
-        "elo_difference": -63.36,
-        "expected_goal_difference": -0.078,
-        "historical_results_used": 92
-      },
-      "cold_start": false,
-      "issued_at_utc": "2026-11-07T15:44:11.737992+00:00"
-    },
-    {
-      "fixture_id": "401879243",
-      "kickoff_utc": "2026-11-08T14:00:00+00:00",
-      "home": {
-        "id": "384",
-        "name": "Crystal Palace",
-        "elo": 1462.4803765656181,
-        "expected_goals": 1.2484068168775109
-      },
-      "away": {
-        "id": "364",
-        "name": "Liverpool",
-        "elo": 1519.4673965240463,
-        "expected_goals": 1.8804922475454264
-      },
-      "probabilities": {
-        "home": 0.3126209687050336,
-        "draw": 0.237541419148946,
-        "away": 0.4498376121460204
-      },
-      "projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.10274580063618692,
-        "method": "most_likely_exact_score_from_poisson"
-      },
-      "coherent_projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.108432892881923,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_goal_markets": {
-        "over_2_5": 0.5981084724735992,
-        "under_2_5": 0.4018915275264008,
-        "both_teams_to_score_yes": 0.6098391969410852,
-        "both_teams_to_score_no": 0.39016080305891476,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_outcomes": {
-        "home": 0.3126209687050336,
-        "draw": 0.23754141914894605,
-        "away": 0.44983761214602047
-      },
-      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
-      "goal_markets": {
-        "over_2_5": 0.6050602418014589,
-        "under_2_5": 0.3949397581985411,
-        "both_teams_to_score_yes": 0.6042893268312679,
-        "both_teams_to_score_no": 0.3957106731687321,
-        "method": "poisson_only_not_blended_elo"
-      },
-      "scenario_factors": {
-        "elo_difference": -56.99,
-        "expected_goal_difference": -0.632,
-        "historical_results_used": 92
-      },
-      "cold_start": false,
-      "issued_at_utc": "2026-11-07T15:44:11.737992+00:00"
-    },
-    {
       "fixture_id": "401879244",
+      "home": {
+        "elo": 1540.2073099663758,
+        "expected_goals": 1.5565179107230163,
+        "id": "331",
+        "name": "Brighton"
+      },
       "kickoff_utc": "2026-11-08T14:00:00+00:00",
-      "home": {
-        "id": "331",
-        "name": "Brighton & Hove Albion",
-        "elo": 1543.2170906887825,
-        "expected_goals": 2.0825011852184545
-      },
-      "away": {
-        "id": "337",
-        "name": "Brentford",
-        "elo": 1516.325195238483,
-        "expected_goals": 0.947081484866371
-      },
       "probabilities": {
-        "home": 0.563064777311512,
-        "draw": 0.2261756720485762,
-        "away": 0.21075955063991175
+        "away": 0.2620155281510892,
+        "draw": 0.25,
+        "home": 0.4879844718489108
       },
       "projected_score": {
-        "home": 2,
-        "away": 0,
-        "probability": 0.10481163185594991,
-        "method": "most_likely_exact_score_from_poisson"
-      },
-      "coherent_projected_score": {
-        "home": 1,
         "away": 1,
-        "probability": 0.10655684753297058,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_goal_markets": {
-        "over_2_5": 0.5697091169470271,
-        "under_2_5": 0.4302908830529729,
-        "both_teams_to_score_yes": 0.5459993069895611,
-        "both_teams_to_score_no": 0.4540006930104389,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_outcomes": {
-        "home": 0.5630647773115122,
-        "draw": 0.22617567204857614,
-        "away": 0.21075955063991172
-      },
-      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
-      "goal_markets": {
-        "over_2_5": 0.5834048909316009,
-        "under_2_5": 0.41659510906839914,
-        "both_teams_to_score_yes": 0.5358462951794917,
-        "both_teams_to_score_no": 0.46415370482050833,
-        "method": "poisson_only_not_blended_elo"
-      },
-      "scenario_factors": {
-        "elo_difference": 26.89,
-        "expected_goal_difference": 1.135,
-        "historical_results_used": 92
-      },
-      "cold_start": false,
-      "issued_at_utc": "2026-11-07T15:44:11.737992+00:00"
+        "home": 2,
+        "method": "heuristic_unvalidated_goal_rates"
+      }
     },
     {
+      "away": {
+        "elo": 1518.5804676587925,
+        "expected_goals": 1.2483654379838187,
+        "id": "364",
+        "name": "Liverpool"
+      },
+      "fixture_id": "401879243",
+      "home": {
+        "elo": 1464.8063891709285,
+        "expected_goals": 1.4516345620161812,
+        "id": "384",
+        "name": "Crystal Palace"
+      },
+      "kickoff_utc": "2026-11-08T14:00:00+00:00",
+      "probabilities": {
+        "away": 0.37323576444730533,
+        "draw": 0.25,
+        "home": 0.37676423555269467
+      },
+      "projected_score": {
+        "away": 1,
+        "home": 1,
+        "method": "heuristic_unvalidated_goal_rates"
+      }
+    },
+    {
+      "away": {
+        "elo": 1501.6943972996094,
+        "expected_goals": 1.1896734626392256,
+        "id": "349",
+        "name": "Bournemouth"
+      },
+      "fixture_id": "401878759",
+      "home": {
+        "elo": 1491.9393003201901,
+        "expected_goals": 1.5103265373607744,
+        "id": "373",
+        "name": "Ipswich"
+      },
+      "kickoff_utc": "2026-11-08T14:00:00+00:00",
+      "probabilities": {
+        "away": 0.3102529444378761,
+        "draw": 0.25,
+        "home": 0.4397470555621239
+      },
+      "projected_score": {
+        "away": 1,
+        "home": 2,
+        "method": "heuristic_unvalidated_goal_rates"
+      }
+    },
+    {
+      "away": {
+        "elo": 1516.2152466410437,
+        "expected_goals": 1.2570262658883575,
+        "id": "363",
+        "name": "Chelsea"
+      },
+      "fixture_id": "401879239",
+      "home": {
+        "elo": 1455.9455472247755,
+        "expected_goals": 1.4429737341116424,
+        "id": "366",
+        "name": "Sunderland"
+      },
+      "kickoff_utc": "2026-11-08T14:00:00+00:00",
+      "probabilities": {
+        "away": 0.3825831255837153,
+        "draw": 0.25,
+        "home": 0.36741687441628473
+      },
+      "projected_score": {
+        "away": 1,
+        "home": 1,
+        "method": "heuristic_unvalidated_goal_rates"
+      }
+    },
+    {
+      "away": {
+        "elo": 1503.1548887278761,
+        "expected_goals": 1.2171858910705853,
+        "id": "362",
+        "name": "Aston Villa"
+      },
       "fixture_id": "401879240",
+      "home": {
+        "elo": 1472.7654704249371,
+        "expected_goals": 1.4828141089294147,
+        "id": "360",
+        "name": "Manchester United"
+      },
       "kickoff_utc": "2026-11-08T16:30:00+00:00",
-      "home": {
-        "id": "360",
-        "name": "Manchester United",
-        "elo": 1471.2857296673246,
-        "expected_goals": 1.498635127379794
-      },
-      "away": {
-        "id": "362",
-        "name": "Aston Villa",
-        "elo": 1503.1471677894665,
-        "expected_goals": 1.2991914345372961
-      },
       "probabilities": {
-        "home": 0.4138366335156951,
-        "draw": 0.2507471272613468,
-        "away": 0.33541623922295816
+        "away": 0.3396416440462008,
+        "draw": 0.25,
+        "home": 0.4103583559537992
       },
       "projected_score": {
-        "home": 1,
         "away": 1,
-        "probability": 0.11865564912222584,
-        "method": "most_likely_exact_score_from_poisson"
-      },
-      "coherent_projected_score": {
         "home": 1,
-        "away": 1,
-        "probability": 0.11830315252010559,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_goal_markets": {
-        "over_2_5": 0.5301758714113629,
-        "under_2_5": 0.4698241285886371,
-        "both_teams_to_score_yes": 0.5646300785597521,
-        "both_teams_to_score_no": 0.4353699214402479,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_outcomes": {
-        "home": 0.41383663351569505,
-        "draw": 0.2507471272613468,
-        "away": 0.335416239222958
-      },
-      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
-      "goal_markets": {
-        "over_2_5": 0.5300280614692099,
-        "under_2_5": 0.4699719385307901,
-        "both_teams_to_score_yes": 0.5647552190011352,
-        "both_teams_to_score_no": 0.43524478099886477,
-        "method": "poisson_only_not_blended_elo"
-      },
-      "scenario_factors": {
-        "elo_difference": -31.86,
-        "expected_goal_difference": 0.199,
-        "historical_results_used": 92
-      },
-      "cold_start": false,
-      "issued_at_utc": "2026-11-07T15:44:11.737992+00:00"
+        "method": "heuristic_unvalidated_goal_rates"
+      }
     },
     {
+      "away": {
+        "elo": 1484.44032580046,
+        "expected_goals": 1.116680196713303,
+        "id": "370",
+        "name": "Fulham"
+      },
       "fixture_id": "401879233",
+      "home": {
+        "elo": 1529.4301782654827,
+        "expected_goals": 1.5833198032866969,
+        "id": "382",
+        "name": "Manchester City"
+      },
       "kickoff_utc": "2026-11-21T12:30:00+00:00",
-      "home": {
-        "id": "382",
-        "name": "Manchester City",
-        "elo": 1542.041134248134,
-        "expected_goals": 1.4506000209950876
-      },
-      "away": {
-        "id": "370",
-        "name": "Fulham",
-        "elo": 1485.4608042116881,
-        "expected_goals": 1.0244517577584353
-      },
       "probabilities": {
-        "home": 0.49970445310134604,
-        "draw": 0.25705855501581193,
-        "away": 0.24323699188284204
+        "away": 0.23494845780799622,
+        "draw": 0.25,
+        "home": 0.5150515421920038
       },
       "projected_score": {
-        "home": 1,
         "away": 1,
-        "probability": 0.12506559725140623,
-        "method": "most_likely_exact_score_from_poisson"
-      },
-      "coherent_projected_score": {
-        "home": 1,
-        "away": 0,
-        "probability": 0.1300357449040031,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_goal_markets": {
-        "over_2_5": 0.45312982058375806,
-        "under_2_5": 0.5468701794162419,
-        "both_teams_to_score_yes": 0.4883210003341519,
-        "both_teams_to_score_no": 0.5116789996658482,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_outcomes": {
-        "home": 0.49970445310134576,
-        "draw": 0.25705855501581193,
-        "away": 0.24323699188284217
-      },
-      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
-      "goal_markets": {
-        "over_2_5": 0.449771497483993,
-        "under_2_5": 0.550228502516007,
-        "both_teams_to_score_yes": 0.49073582258620807,
-        "both_teams_to_score_no": 0.5092641774137919,
-        "method": "poisson_only_not_blended_elo"
-      },
-      "scenario_factors": {
-        "elo_difference": 56.58,
-        "expected_goal_difference": 0.426,
-        "historical_results_used": 92
-      },
-      "cold_start": false,
-      "issued_at_utc": "2026-11-07T15:44:11.737992+00:00"
+        "home": 2,
+        "method": "heuristic_unvalidated_goal_rates"
+      }
     },
     {
-      "fixture_id": "401878754",
-      "kickoff_utc": "2026-11-21T15:00:00+00:00",
-      "home": {
-        "id": "367",
-        "name": "Tottenham Hotspur",
-        "elo": 1492.2546461377185,
-        "expected_goals": 1.8731987078719619
-      },
       "away": {
-        "id": "373",
-        "name": "Ipswich Town",
-        "elo": 1491.2085585021828,
-        "expected_goals": 1.427148498166245
+        "elo": 1474.302343740811,
+        "expected_goals": 1.1401439285882689,
+        "id": "393",
+        "name": "Nott'm Forest"
       },
-      "probabilities": {
-        "home": 0.46799221485800435,
-        "draw": 0.23726320898059378,
-        "away": 0.2947445761614019
-      },
-      "projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.09856674941833049,
-        "method": "most_likely_exact_score_from_poisson"
-      },
-      "coherent_projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.10415818093094863,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_goal_markets": {
-        "over_2_5": 0.636493659470053,
-        "under_2_5": 0.363506340529947,
-        "both_teams_to_score_yes": 0.6465409639698589,
-        "both_teams_to_score_no": 0.35345903603014106,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_outcomes": {
-        "home": 0.46799221485800435,
-        "draw": 0.2372632089805938,
-        "away": 0.294744576161402
-      },
-      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
-      "goal_markets": {
-        "over_2_5": 0.6406432578943269,
-        "under_2_5": 0.35935674210567314,
-        "both_teams_to_score_yes": 0.6432466247672082,
-        "both_teams_to_score_no": 0.3567533752327918,
-        "method": "poisson_only_not_blended_elo"
-      },
-      "scenario_factors": {
-        "elo_difference": 1.05,
-        "expected_goal_difference": 0.446,
-        "historical_results_used": 92
-      },
-      "cold_start": false,
-      "issued_at_utc": "2026-11-07T15:44:11.737992+00:00"
-    },
-    {
-      "fixture_id": "401878756",
-      "kickoff_utc": "2026-11-21T15:00:00+00:00",
-      "home": {
-        "id": "362",
-        "name": "Aston Villa",
-        "elo": 1503.1471677894665,
-        "expected_goals": 1.774438879712766
-      },
-      "away": {
-        "id": "366",
-        "name": "Sunderland",
-        "elo": 1453.6236506204452,
-        "expected_goals": 1.2721065419985853
-      },
-      "probabilities": {
-        "home": 0.5066298967474295,
-        "draw": 0.2414307399822551,
-        "away": 0.2519393632703153
-      },
-      "projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.10727207101202112,
-        "method": "most_likely_exact_score_from_poisson"
-      },
-      "coherent_projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.11121966367219017,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_goal_markets": {
-        "over_2_5": 0.5850684669998588,
-        "under_2_5": 0.4149315330001412,
-        "both_teams_to_score_yes": 0.5993437606379769,
-        "both_teams_to_score_no": 0.4006562393620231,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_outcomes": {
-        "home": 0.5066298967474294,
-        "draw": 0.24143073998225506,
-        "away": 0.2519393632703153
-      },
-      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
-      "goal_markets": {
-        "over_2_5": 0.5871567385083849,
-        "under_2_5": 0.4128432614916151,
-        "both_teams_to_score_yes": 0.5977035748012495,
-        "both_teams_to_score_no": 0.40229642519875053,
-        "method": "poisson_only_not_blended_elo"
-      },
-      "scenario_factors": {
-        "elo_difference": 49.52,
-        "expected_goal_difference": 0.502,
-        "historical_results_used": 92
-      },
-      "cold_start": false,
-      "issued_at_utc": "2026-11-07T15:44:11.737992+00:00"
-    },
-    {
-      "fixture_id": "401879235",
-      "kickoff_utc": "2026-11-21T15:00:00+00:00",
-      "home": {
-        "id": "388",
-        "name": "Coventry City",
-        "elo": 1463.1528825638322,
-        "expected_goals": 1.7231460208329734
-      },
-      "away": {
-        "id": "384",
-        "name": "Crystal Palace",
-        "elo": 1462.4803765656181,
-        "expected_goals": 1.149310013948774
-      },
-      "probabilities": {
-        "home": 0.4812426188838588,
-        "draw": 0.24393570845240328,
-        "away": 0.2748216726637379
-      },
-      "projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.11201275184935915,
-        "method": "most_likely_exact_score_from_poisson"
-      },
-      "coherent_projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.11486840383605815,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_goal_markets": {
-        "over_2_5": 0.544556175657175,
-        "under_2_5": 0.45544382434282504,
-        "both_teams_to_score_yes": 0.5635380787452394,
-        "both_teams_to_score_no": 0.4364619212547606,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_outcomes": {
-        "home": 0.48124261888385844,
-        "draw": 0.24393570845240328,
-        "away": 0.2748216726637376
-      },
-      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
-      "goal_markets": {
-        "over_2_5": 0.5476367592254884,
-        "under_2_5": 0.4523632407745116,
-        "both_teams_to_score_yes": 0.5612008358882596,
-        "both_teams_to_score_no": 0.43879916411174036,
-        "method": "poisson_only_not_blended_elo"
-      },
-      "scenario_factors": {
-        "elo_difference": 0.67,
-        "expected_goal_difference": 0.574,
-        "historical_results_used": 92
-      },
-      "cold_start": false,
-      "issued_at_utc": "2026-11-07T15:44:11.737992+00:00"
-    },
-    {
-      "fixture_id": "401879236",
-      "kickoff_utc": "2026-11-21T15:00:00+00:00",
-      "home": {
-        "id": "363",
-        "name": "Chelsea",
-        "elo": 1516.9825372002988,
-        "expected_goals": 1.6756790515535698
-      },
-      "away": {
-        "id": "357",
-        "name": "Leeds United",
-        "elo": 1507.1469109904367,
-        "expected_goals": 1.0868808858536045
-      },
-      "probabilities": {
-        "home": 0.48924464298280335,
-        "draw": 0.24617444633335228,
-        "away": 0.2645809106838444
-      },
-      "projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.11497628044781423,
-        "method": "most_likely_exact_score_from_poisson"
-      },
-      "coherent_projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.11679121727878032,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_goal_markets": {
-        "over_2_5": 0.519317039387677,
-        "under_2_5": 0.48068296061232296,
-        "both_teams_to_score_yes": 0.5403323418956818,
-        "both_teams_to_score_no": 0.4596676581043182,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_outcomes": {
-        "home": 0.4892446429828034,
-        "draw": 0.24617444633335234,
-        "away": 0.2645809106838442
-      },
-      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
-      "goal_markets": {
-        "over_2_5": 0.5215741590797588,
-        "under_2_5": 0.4784258409202412,
-        "both_teams_to_score_yes": 0.5386820933208161,
-        "both_teams_to_score_no": 0.46131790667918393,
-        "method": "poisson_only_not_blended_elo"
-      },
-      "scenario_factors": {
-        "elo_difference": 9.84,
-        "expected_goal_difference": 0.589,
-        "historical_results_used": 92
-      },
-      "cold_start": false,
-      "issued_at_utc": "2026-11-07T15:44:11.737992+00:00"
-    },
-    {
       "fixture_id": "401879238",
+      "home": {
+        "elo": 1501.6943972996094,
+        "expected_goals": 1.559856071411731,
+        "id": "349",
+        "name": "Bournemouth"
+      },
       "kickoff_utc": "2026-11-21T15:00:00+00:00",
-      "home": {
-        "id": "349",
-        "name": "AFC Bournemouth",
-        "elo": 1502.314945713064,
-        "expected_goals": 1.573093333793985
-      },
-      "away": {
-        "id": "393",
-        "name": "Nottingham Forest",
-        "elo": 1461.9962186904402,
-        "expected_goals": 1.0395436077470956
-      },
       "probabilities": {
-        "home": 0.5029902786691866,
-        "draw": 0.2510946810093081,
-        "away": 0.24591504032150527
+        "away": 0.2586021220728719,
+        "draw": 0.25,
+        "home": 0.4913978779271281
       },
       "projected_score": {
-        "home": 1,
         "away": 1,
-        "probability": 0.11993429759364765,
-        "method": "most_likely_exact_score_from_poisson"
-      },
-      "coherent_projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.11941369752991146,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_goal_markets": {
-        "over_2_5": 0.48534957492088926,
-        "under_2_5": 0.5146504250791107,
-        "both_teams_to_score_yes": 0.5118860157575609,
-        "both_teams_to_score_no": 0.4881139842424391,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_outcomes": {
-        "home": 0.5029902786691862,
-        "draw": 0.25109468100930815,
-        "away": 0.24591504032150535
-      },
-      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
-      "goal_markets": {
-        "over_2_5": 0.4847382150603306,
-        "under_2_5": 0.5152617849396695,
-        "both_teams_to_score_yes": 0.5123222366502631,
-        "both_teams_to_score_no": 0.4876777633497369,
-        "method": "poisson_only_not_blended_elo"
-      },
-      "scenario_factors": {
-        "elo_difference": 40.32,
-        "expected_goal_difference": 0.534,
-        "historical_results_used": 92
-      },
-      "cold_start": false,
-      "issued_at_utc": "2026-11-07T15:44:11.737992+00:00"
+        "home": 2,
+        "method": "heuristic_unvalidated_goal_rates"
+      }
     },
     {
+      "away": {
+        "elo": 1455.9455472247755,
+        "expected_goals": 1.1137208779958658,
+        "id": "366",
+        "name": "Sunderland"
+      },
+      "fixture_id": "401878756",
+      "home": {
+        "elo": 1503.1548887278761,
+        "expected_goals": 1.5862791220041341,
+        "id": "362",
+        "name": "Aston Villa"
+      },
+      "kickoff_utc": "2026-11-21T15:00:00+00:00",
+      "probabilities": {
+        "away": 0.23201025575767886,
+        "draw": 0.25,
+        "home": 0.5179897442423211
+      },
+      "projected_score": {
+        "away": 1,
+        "home": 2,
+        "method": "heuristic_unvalidated_goal_rates"
+      }
+    },
+    {
+      "away": {
+        "elo": 1506.7736209416862,
+        "expected_goals": 1.1640778324008567,
+        "id": "357",
+        "name": "Leeds United"
+      },
+      "fixture_id": "401879236",
+      "home": {
+        "elo": 1516.2152466410437,
+        "expected_goals": 1.5359221675991432,
+        "id": "363",
+        "name": "Chelsea"
+      },
+      "kickoff_utc": "2026-11-21T15:00:00+00:00",
+      "probabilities": {
+        "away": 0.283310082746445,
+        "draw": 0.25,
+        "home": 0.466689917253555
+      },
+      "projected_score": {
+        "away": 1,
+        "home": 2,
+        "method": "heuristic_unvalidated_goal_rates"
+      }
+    },
+    {
+      "away": {
+        "elo": 1464.8063891709285,
+        "expected_goals": 1.176568150321463,
+        "id": "384",
+        "name": "Crystal Palace"
+      },
+      "fixture_id": "401879235",
+      "home": {
+        "elo": 1464.8802764298314,
+        "expected_goals": 1.5234318496785373,
+        "id": "388",
+        "name": "Coventry"
+      },
+      "kickoff_utc": "2026-11-21T15:00:00+00:00",
+      "probabilities": {
+        "away": 0.29639953957457044,
+        "draw": 0.25,
+        "home": 0.45360046042542956
+      },
+      "projected_score": {
+        "away": 1,
+        "home": 2,
+        "method": "heuristic_unvalidated_goal_rates"
+      }
+    },
+    {
+      "away": {
+        "elo": 1491.9393003201901,
+        "expected_goals": 1.1760289560446888,
+        "id": "373",
+        "name": "Ipswich"
+      },
+      "fixture_id": "401878754",
+      "home": {
+        "elo": 1492.4175832866736,
+        "expected_goals": 1.5239710439553111,
+        "id": "367",
+        "name": "Tottenham"
+      },
+      "kickoff_utc": "2026-11-21T15:00:00+00:00",
+      "probabilities": {
+        "away": 0.29583205323313266,
+        "draw": 0.25,
+        "home": 0.45416794676686734
+      },
+      "projected_score": {
+        "away": 1,
+        "home": 2,
+        "method": "heuristic_unvalidated_goal_rates"
+      }
+    },
+    {
+      "away": {
+        "elo": 1572.1878553565011,
+        "expected_goals": 1.288358308238085,
+        "id": "359",
+        "name": "Arsenal"
+      },
       "fixture_id": "401879232",
+      "home": {
+        "elo": 1488.4191241779374,
+        "expected_goals": 1.411641691761915,
+        "id": "361",
+        "name": "Newcastle United"
+      },
       "kickoff_utc": "2026-11-21T17:30:00+00:00",
-      "home": {
-        "id": "361",
-        "name": "Newcastle United",
-        "elo": 1486.255996602792,
-        "expected_goals": 1.0637312522506601
-      },
-      "away": {
-        "id": "359",
-        "name": "Arsenal",
-        "elo": 1568.1214286907812,
-        "expected_goals": 1.1895549472518685
-      },
       "probabilities": {
-        "home": 0.33093274305843634,
-        "draw": 0.2682203053393384,
-        "away": 0.4008469516022253
+        "away": 0.4163071699093861,
+        "draw": 0.25,
+        "home": 0.33369283009061385
       },
       "projected_score": {
+        "away": 1,
         "home": 1,
-        "away": 1,
-        "probability": 0.13293111999424703,
-        "method": "most_likely_exact_score_from_poisson"
-      },
-      "coherent_projected_score": {
-        "home": 0,
-        "away": 1,
-        "probability": 0.12906853701887175,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_goal_markets": {
-        "over_2_5": 0.3972507373927534,
-        "under_2_5": 0.6027492626072466,
-        "both_teams_to_score_yes": 0.4509756460549663,
-        "both_teams_to_score_no": 0.5490243539450337,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_outcomes": {
-        "home": 0.3309327430584363,
-        "draw": 0.26822030533933844,
-        "away": 0.400846951602225
-      },
-      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
-      "goal_markets": {
-        "over_2_5": 0.3915373033748706,
-        "under_2_5": 0.6084626966251294,
-        "both_teams_to_score_yes": 0.4555312364264997,
-        "both_teams_to_score_no": 0.5444687635735004,
-        "method": "poisson_only_not_blended_elo"
-      },
-      "scenario_factors": {
-        "elo_difference": -81.87,
-        "expected_goal_difference": -0.126,
-        "historical_results_used": 92
-      },
-      "cold_start": false,
-      "issued_at_utc": "2026-11-07T15:44:11.737992+00:00"
+        "method": "heuristic_unvalidated_goal_rates"
+      }
     },
     {
+      "away": {
+        "elo": 1540.2073099663758,
+        "expected_goals": 1.2454597292913159,
+        "id": "331",
+        "name": "Brighton"
+      },
       "fixture_id": "401879234",
+      "home": {
+        "elo": 1488.6125129978889,
+        "expected_goals": 1.454540270708684,
+        "id": "306",
+        "name": "Hull"
+      },
       "kickoff_utc": "2026-11-22T14:00:00+00:00",
-      "home": {
-        "id": "306",
-        "name": "Hull City",
-        "elo": 1495.1878765969232,
-        "expected_goals": 1.3480143032355025
-      },
-      "away": {
-        "id": "331",
-        "name": "Brighton & Hove Albion",
-        "elo": 1543.2170906887825,
-        "expected_goals": 1.4795163929356407
-      },
       "probabilities": {
-        "home": 0.3649864734676599,
-        "draw": 0.25038628471815133,
-        "away": 0.38462724181418884
+        "away": 0.3700996758186499,
+        "draw": 0.25,
+        "home": 0.3799003241813501
       },
       "projected_score": {
-        "home": 1,
         "away": 1,
-        "probability": 0.11798676755362504,
-        "method": "most_likely_exact_score_from_poisson"
-      },
-      "coherent_projected_score": {
         "home": 1,
-        "away": 1,
-        "probability": 0.11780502325299246,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_goal_markets": {
-        "over_2_5": 0.5370027314030342,
-        "under_2_5": 0.46299726859696577,
-        "both_teams_to_score_yes": 0.5717038249640062,
-        "both_teams_to_score_no": 0.4282961750359938,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_outcomes": {
-        "home": 0.36498647346765983,
-        "draw": 0.25038628471815144,
-        "away": 0.38462724181418895
-      },
-      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
-      "goal_markets": {
-        "over_2_5": 0.5370830062472288,
-        "under_2_5": 0.4629169937527712,
-        "both_teams_to_score_yes": 0.5716554075734179,
-        "both_teams_to_score_no": 0.42834459242658207,
-        "method": "poisson_only_not_blended_elo"
-      },
-      "scenario_factors": {
-        "elo_difference": -48.03,
-        "expected_goal_difference": -0.132,
-        "historical_results_used": 92
-      },
-      "cold_start": false,
-      "issued_at_utc": "2026-11-07T15:44:11.737992+00:00"
+        "method": "heuristic_unvalidated_goal_rates"
+      }
     },
     {
+      "away": {
+        "elo": 1472.7654704249371,
+        "expected_goals": 1.1155800036881929,
+        "id": "360",
+        "name": "Manchester United"
+      },
       "fixture_id": "401878755",
+      "home": {
+        "elo": 1518.5804676587925,
+        "expected_goals": 1.584419996311807,
+        "id": "364",
+        "name": "Liverpool"
+      },
       "kickoff_utc": "2026-11-22T16:30:00+00:00",
-      "home": {
-        "id": "364",
-        "name": "Liverpool",
-        "elo": 1519.4673965240463,
-        "expected_goals": 1.2611212173961572
-      },
-      "away": {
-        "id": "360",
-        "name": "Manchester United",
-        "elo": 1471.2857296673246,
-        "expected_goals": 1.0395436077470956
-      },
       "probabilities": {
-        "home": 0.46658644297839347,
-        "draw": 0.2657029564796244,
-        "away": 0.26771060054198215
+        "away": 0.23385487547207917,
+        "draw": 0.25,
+        "home": 0.5161451245279208
       },
       "projected_score": {
-        "home": 1,
         "away": 1,
-        "probability": 0.13135103716883628,
-        "method": "most_likely_exact_score_from_poisson"
-      },
-      "coherent_projected_score": {
-        "home": 1,
-        "away": 0,
-        "probability": 0.14243876295514152,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_goal_markets": {
-        "over_2_5": 0.41004514284607707,
-        "under_2_5": 0.5899548571539229,
-        "both_teams_to_score_yes": 0.4588016526008681,
-        "both_teams_to_score_no": 0.541198347399132,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_outcomes": {
-        "home": 0.46658644297839325,
-        "draw": 0.2657029564796244,
-        "away": 0.26771060054198204
-      },
-      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
-      "goal_markets": {
-        "over_2_5": 0.4041374678365098,
-        "under_2_5": 0.5958625321634903,
-        "both_teams_to_score_yes": 0.4632400116214513,
-        "both_teams_to_score_no": 0.5367599883785488,
-        "method": "poisson_only_not_blended_elo"
-      },
-      "scenario_factors": {
-        "elo_difference": 48.18,
-        "expected_goal_difference": 0.222,
-        "historical_results_used": 92
-      },
-      "cold_start": false,
-      "issued_at_utc": "2026-11-07T15:44:11.737992+00:00"
+        "home": 2,
+        "method": "heuristic_unvalidated_goal_rates"
+      }
     },
     {
+      "away": {
+        "elo": 1517.9082846440856,
+        "expected_goals": 1.180119210293296,
+        "id": "368",
+        "name": "Everton"
+      },
       "fixture_id": "401879237",
+      "home": {
+        "elo": 1515.3188769241135,
+        "expected_goals": 1.519880789706704,
+        "id": "337",
+        "name": "Brentford"
+      },
       "kickoff_utc": "2026-11-23T20:00:00+00:00",
-      "home": {
-        "id": "337",
-        "name": "Brentford",
-        "elo": 1516.325195238483,
-        "expected_goals": 1.4743335056347888
-      },
-      "away": {
-        "id": "368",
-        "name": "Everton",
-        "elo": 1518.329452757542,
-        "expected_goals": 0.837164373472927
-      },
       "probabilities": {
-        "home": 0.4862354107584309,
-        "draw": 0.25739339181421295,
-        "away": 0.25637119742735615
+        "away": 0.3001420493100714,
+        "draw": 0.25,
+        "home": 0.4498579506899286
       },
       "projected_score": {
-        "home": 1,
-        "away": 0,
-        "probability": 0.146125147172444,
-        "method": "most_likely_exact_score_from_poisson"
-      },
-      "coherent_projected_score": {
-        "home": 1,
-        "away": 0,
-        "probability": 0.13616826805904103,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_goal_markets": {
-        "over_2_5": 0.4068017269929105,
-        "under_2_5": 0.5931982730070895,
-        "both_teams_to_score_yes": 0.4366351817511865,
-        "both_teams_to_score_no": 0.5633648182488136,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_outcomes": {
-        "home": 0.4862354107584311,
-        "draw": 0.25739339181421306,
-        "away": 0.2563711974273564
-      },
-      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
-      "goal_markets": {
-        "over_2_5": 0.40700792447988016,
-        "under_2_5": 0.5929920755201199,
-        "both_teams_to_score_yes": 0.4372449933728507,
-        "both_teams_to_score_no": 0.5627550066271493,
-        "method": "poisson_only_not_blended_elo"
-      },
-      "scenario_factors": {
-        "elo_difference": -2.0,
-        "expected_goal_difference": 0.637,
-        "historical_results_used": 92
-      },
-      "cold_start": false,
-      "issued_at_utc": "2026-11-07T15:44:11.737992+00:00"
-    },
-    {
-      "fixture_id": "401879225",
-      "kickoff_utc": "2026-11-27T20:00:00+00:00",
-      "home": {
-        "id": "393",
-        "name": "Nottingham Forest",
-        "elo": 1461.9962186904402,
-        "expected_goals": 1.0537340619307833
-      },
-      "away": {
-        "id": "363",
-        "name": "Chelsea",
-        "elo": 1516.9825372002988,
-        "expected_goals": 1.1290404473131384
-      },
-      "probabilities": {
-        "home": 0.35489967323854865,
-        "draw": 0.2712077795502933,
-        "away": 0.37389254721115806
-      },
-      "projected_score": {
-        "home": 1,
         "away": 1,
-        "probability": 0.13411383914843117,
-        "method": "most_likely_exact_score_from_poisson"
-      },
-      "coherent_projected_score": {
-        "home": 0,
-        "away": 1,
-        "probability": 0.12764620516423422,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_goal_markets": {
-        "over_2_5": 0.37908513341082645,
-        "under_2_5": 0.6209148665891735,
-        "both_teams_to_score_yes": 0.4355810828456331,
-        "both_teams_to_score_no": 0.5644189171543669,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_outcomes": {
-        "home": 0.3548996732385488,
-        "draw": 0.2712077795502934,
-        "away": 0.3738925472111581
-      },
-      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
-      "goal_markets": {
-        "over_2_5": 0.372663820639612,
-        "under_2_5": 0.627336179360388,
-        "both_teams_to_score_yes": 0.44075146146434013,
-        "both_teams_to_score_no": 0.5592485385356598,
-        "method": "poisson_only_not_blended_elo"
-      },
-      "scenario_factors": {
-        "elo_difference": -54.99,
-        "expected_goal_difference": -0.075,
-        "historical_results_used": 92
-      },
-      "cold_start": false,
-      "issued_at_utc": "2026-11-07T15:44:11.737992+00:00"
-    },
-    {
-      "fixture_id": "401879226",
-      "kickoff_utc": "2026-11-28T15:00:00+00:00",
-      "home": {
-        "id": "360",
-        "name": "Manchester United",
-        "elo": 1471.2857296673246,
-        "expected_goals": 1.498635127379794
-      },
-      "away": {
-        "id": "337",
-        "name": "Brentford",
-        "elo": 1516.325195238483,
-        "expected_goals": 1.492958372206673
-      },
-      "probabilities": {
-        "home": 0.3844430989688493,
-        "draw": 0.24669419959355748,
-        "away": 0.3688627014375932
-      },
-      "projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.11233395708900033,
-        "method": "most_likely_exact_score_from_poisson"
-      },
-      "coherent_projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.11385972266469083,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_goal_markets": {
-        "over_2_5": 0.573865945086341,
-        "under_2_5": 0.42613405491365897,
-        "both_teams_to_score_yes": 0.6029007794438607,
-        "both_teams_to_score_no": 0.39709922055613933,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_outcomes": {
-        "home": 0.38444309896884943,
-        "draw": 0.24669419959355754,
-        "away": 0.36886270143759325
-      },
-      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
-      "goal_markets": {
-        "over_2_5": 0.57492387499376,
-        "under_2_5": 0.42507612500624004,
-        "both_teams_to_score_yes": 0.6020655506103856,
-        "both_teams_to_score_no": 0.3979344493896144,
-        "method": "poisson_only_not_blended_elo"
-      },
-      "scenario_factors": {
-        "elo_difference": -45.04,
-        "expected_goal_difference": 0.006,
-        "historical_results_used": 92
-      },
-      "cold_start": false,
-      "issued_at_utc": "2026-11-07T15:44:11.737992+00:00"
-    },
-    {
-      "fixture_id": "401879227",
-      "kickoff_utc": "2026-11-28T15:00:00+00:00",
-      "home": {
-        "id": "357",
-        "name": "Leeds United",
-        "elo": 1507.1469109904367,
-        "expected_goals": 1.6481196773134792
-      },
-      "away": {
-        "id": "388",
-        "name": "Coventry City",
-        "elo": 1463.1528825638322,
-        "expected_goals": 0.7747352453777578
-      },
-      "probabilities": {
-        "home": 0.5479661722090748,
-        "draw": 0.24679151003897565,
-        "away": 0.2052423177519495
-      },
-      "projected_score": {
-        "home": 1,
-        "away": 0,
-        "probability": 0.14613566533376923,
-        "method": "most_likely_exact_score_from_poisson"
-      },
-      "coherent_projected_score": {
-        "home": 1,
-        "away": 0,
-        "probability": 0.13754217369002442,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_goal_markets": {
-        "over_2_5": 0.4322929382833549,
-        "under_2_5": 0.5677070617166451,
-        "both_teams_to_score_yes": 0.4376708943187437,
-        "both_teams_to_score_no": 0.5623291056812563,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_outcomes": {
-        "home": 0.5479661722090747,
-        "draw": 0.24679151003897568,
-        "away": 0.20524231775194937
-      },
-      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
-      "goal_markets": {
-        "over_2_5": 0.4362509691383343,
-        "under_2_5": 0.5637490308616657,
-        "both_teams_to_score_yes": 0.435430980409585,
-        "both_teams_to_score_no": 0.5645690195904149,
-        "method": "poisson_only_not_blended_elo"
-      },
-      "scenario_factors": {
-        "elo_difference": 43.99,
-        "expected_goal_difference": 0.873,
-        "historical_results_used": 92
-      },
-      "cold_start": false,
-      "issued_at_utc": "2026-11-07T15:44:11.737992+00:00"
-    },
-    {
-      "fixture_id": "401878752",
-      "kickoff_utc": "2026-11-28T17:30:00+00:00",
-      "home": {
-        "id": "373",
-        "name": "Ipswich Town",
-        "elo": 1491.2085585021828,
-        "expected_goals": 1.4152256905456995
-      },
-      "away": {
-        "id": "362",
-        "name": "Aston Villa",
-        "elo": 1503.1471677894665,
-        "expected_goals": 1.1408484225357474
-      },
-      "probabilities": {
-        "home": 0.4347182418054043,
-        "draw": 0.25677062986710986,
-        "away": 0.30851112832748584
-      },
-      "projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.12530395163501207,
-        "method": "most_likely_exact_score_from_poisson"
-      },
-      "coherent_projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.12208477191999326,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_goal_markets": {
-        "over_2_5": 0.47264844980170057,
-        "under_2_5": 0.5273515501982995,
-        "both_teams_to_score_yes": 0.5134707672942717,
-        "both_teams_to_score_no": 0.48652923270572834,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_outcomes": {
-        "home": 0.43471824180540414,
-        "draw": 0.25677062986710986,
-        "away": 0.3085111283274863
-      },
-      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
-      "goal_markets": {
-        "over_2_5": 0.4704880492260245,
-        "under_2_5": 0.5295119507739755,
-        "both_teams_to_score_yes": 0.5151902377806187,
-        "both_teams_to_score_no": 0.4848097622193813,
-        "method": "poisson_only_not_blended_elo"
-      },
-      "scenario_factors": {
-        "elo_difference": -11.94,
-        "expected_goal_difference": 0.274,
-        "historical_results_used": 92
-      },
-      "cold_start": false,
-      "issued_at_utc": "2026-11-07T15:44:11.737992+00:00"
-    },
-    {
-      "fixture_id": "401879229",
-      "kickoff_utc": "2026-11-29T12:00:00+00:00",
-      "home": {
-        "id": "368",
-        "name": "Everton",
-        "elo": 1518.329452757542,
-        "expected_goals": 1.2806509008619946
-      },
-      "away": {
-        "id": "364",
-        "name": "Liverpool",
-        "elo": 1519.4673965240463,
-        "expected_goals": 1.2886845261895241
-      },
-      "probabilities": {
-        "home": 0.40856648704313864,
-        "draw": 0.2578737874178205,
-        "away": 0.3335597255390408
-      },
-      "projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.12639479067481826,
-        "method": "most_likely_exact_score_from_poisson"
-      },
-      "coherent_projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.12264986200290486,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_goal_markets": {
-        "over_2_5": 0.4763659486202022,
-        "under_2_5": 0.5236340513797978,
-        "both_teams_to_score_yes": 0.5210904722878817,
-        "both_teams_to_score_no": 0.47890952771211825,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_outcomes": {
-        "home": 0.4085664870431387,
-        "draw": 0.2578737874178205,
-        "away": 0.33355972553904073
-      },
-      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
-      "goal_markets": {
-        "over_2_5": 0.47384530446462053,
-        "under_2_5": 0.5261546955353795,
-        "both_teams_to_score_yes": 0.5230969082875246,
-        "both_teams_to_score_no": 0.47690309171247536,
-        "method": "poisson_only_not_blended_elo"
-      },
-      "scenario_factors": {
-        "elo_difference": -1.14,
-        "expected_goal_difference": -0.008,
-        "historical_results_used": 92
-      },
-      "cold_start": false,
-      "issued_at_utc": "2026-11-07T15:44:11.737992+00:00"
-    },
-    {
-      "fixture_id": "401879224",
-      "kickoff_utc": "2026-11-29T14:05:00+00:00",
-      "home": {
-        "id": "366",
-        "name": "Sunderland",
-        "elo": 1453.6236506204452,
-        "expected_goals": 0.9428216068683168
-      },
-      "away": {
-        "id": "367",
-        "name": "Tottenham Hotspur",
-        "elo": 1492.2546461377185,
-        "expected_goals": 0.9069280712623377
-      },
-      "probabilities": {
-        "home": 0.3732736431842537,
-        "draw": 0.28669481695648263,
-        "away": 0.3400315398592636
-      },
-      "projected_score": {
-        "home": 0,
-        "away": 0,
-        "probability": 0.15727653114176293,
-        "method": "most_likely_exact_score_from_poisson"
-      },
-      "coherent_projected_score": {
-        "home": 1,
-        "away": 0,
-        "probability": 0.1590493080872678,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_goal_markets": {
-        "over_2_5": 0.29278903239156556,
-        "under_2_5": 0.7072109676084344,
-        "both_teams_to_score_yes": 0.3558597253469856,
-        "both_teams_to_score_no": 0.6441402746530144,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_outcomes": {
-        "home": 0.37327364318425366,
-        "draw": 0.28669481695648263,
-        "away": 0.34003153985926377
-      },
-      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
-      "goal_markets": {
-        "over_2_5": 0.2827346212046252,
-        "under_2_5": 0.7172653787953748,
-        "both_teams_to_score_yes": 0.3639866894721452,
-        "both_teams_to_score_no": 0.6360133105278548,
-        "method": "poisson_only_not_blended_elo"
-      },
-      "scenario_factors": {
-        "elo_difference": -38.63,
-        "expected_goal_difference": 0.036,
-        "historical_results_used": 92
-      },
-      "cold_start": false,
-      "issued_at_utc": "2026-11-07T15:44:11.737992+00:00"
-    },
-    {
-      "fixture_id": "401879228",
-      "kickoff_utc": "2026-11-29T14:05:00+00:00",
-      "home": {
-        "id": "370",
-        "name": "Fulham",
-        "elo": 1485.4608042116881,
-        "expected_goals": 1.7488634378820773
-      },
-      "away": {
-        "id": "349",
-        "name": "AFC Bournemouth",
-        "elo": 1502.314945713064,
-        "expected_goals": 1.5898418410413613
-      },
-      "probabilities": {
-        "home": 0.4244782946265052,
-        "draw": 0.23901368949665458,
-        "away": 0.3365080158768402
-      },
-      "projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.09865714456138673,
-        "method": "most_likely_exact_score_from_poisson"
-      },
-      "coherent_projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.1034104247521687,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_goal_markets": {
-        "over_2_5": 0.6450288781368065,
-        "under_2_5": 0.35497112186319346,
-        "both_teams_to_score_yes": 0.6601101657997762,
-        "both_teams_to_score_no": 0.3398898342002238,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_outcomes": {
-        "home": 0.4244782946265051,
-        "draw": 0.23901368949665458,
-        "away": 0.3365080158768405
-      },
-      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
-      "goal_markets": {
-        "over_2_5": 0.6482873593357342,
-        "under_2_5": 0.3517126406642658,
-        "both_teams_to_score_yes": 0.6575534408522724,
-        "both_teams_to_score_no": 0.3424465591477276,
-        "method": "poisson_only_not_blended_elo"
-      },
-      "scenario_factors": {
-        "elo_difference": -16.85,
-        "expected_goal_difference": 0.159,
-        "historical_results_used": 92
-      },
-      "cold_start": false,
-      "issued_at_utc": "2026-11-07T15:44:11.737992+00:00"
-    },
-    {
-      "fixture_id": "401879230",
-      "kickoff_utc": "2026-11-29T14:05:00+00:00",
-      "home": {
-        "id": "384",
-        "name": "Crystal Palace",
-        "elo": 1462.4803765656181,
-        "expected_goals": 1.4152256905456995
-      },
-      "away": {
-        "id": "306",
-        "name": "Hull City",
-        "elo": 1495.1878765969232,
-        "expected_goals": 1.5367059525396192
-      },
-      "probabilities": {
-        "home": 0.3788829169290484,
-        "draw": 0.24737861115499454,
-        "away": 0.373738471915957
-      },
-      "projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.11360798411842972,
-        "method": "most_likely_exact_score_from_poisson"
-      },
-      "coherent_projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.11482474372805802,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_goal_markets": {
-        "over_2_5": 0.5648445896329803,
-        "under_2_5": 0.43515541036701966,
-        "both_teams_to_score_yes": 0.5951508041038424,
-        "both_teams_to_score_no": 0.40484919589615764,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_outcomes": {
-        "home": 0.3788829169290483,
-        "draw": 0.24737861115499457,
-        "away": 0.37373847191595705
-      },
-      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
-      "goal_markets": {
-        "over_2_5": 0.5659547976067256,
-        "under_2_5": 0.4340452023932744,
-        "both_teams_to_score_yes": 0.5942794609542065,
-        "both_teams_to_score_no": 0.4057205390457935,
-        "method": "poisson_only_not_blended_elo"
-      },
-      "scenario_factors": {
-        "elo_difference": -32.71,
-        "expected_goal_difference": -0.121,
-        "historical_results_used": 92
-      },
-      "cold_start": false,
-      "issued_at_utc": "2026-11-07T15:44:11.737992+00:00"
-    },
-    {
-      "fixture_id": "401879231",
-      "kickoff_utc": "2026-11-29T14:05:00+00:00",
-      "home": {
-        "id": "331",
-        "name": "Brighton & Hove Albion",
-        "elo": 1543.2170906887825,
-        "expected_goals": 2.3143124485365667
-      },
-      "away": {
-        "id": "361",
-        "name": "Newcastle United",
-        "elo": 1486.255996602792,
-        "expected_goals": 0.947081484866371
-      },
-      "probabilities": {
-        "home": 0.6053107058647207,
-        "draw": 0.21564660921359352,
-        "away": 0.17904268492168574
-      },
-      "projected_score": {
         "home": 2,
-        "away": 0,
-        "probability": 0.10266173474211467,
-        "method": "most_likely_exact_score_from_poisson"
-      },
-      "coherent_projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.09994590942554465,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_goal_markets": {
-        "over_2_5": 0.6150754477150894,
-        "under_2_5": 0.3849245522849106,
-        "both_teams_to_score_yes": 0.5651798247723565,
-        "both_teams_to_score_no": 0.4348201752276435,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_outcomes": {
-        "home": 0.605310705864721,
-        "draw": 0.2156466092135935,
-        "away": 0.1790426849216857
-      },
-      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
-      "goal_markets": {
-        "over_2_5": 0.6327614245214233,
-        "under_2_5": 0.36723857547857675,
-        "both_teams_to_score_yes": 0.5516294285730082,
-        "both_teams_to_score_no": 0.44837057142699177,
-        "method": "poisson_only_not_blended_elo"
-      },
-      "scenario_factors": {
-        "elo_difference": 56.96,
-        "expected_goal_difference": 1.367,
-        "historical_results_used": 92
-      },
-      "cold_start": false,
-      "issued_at_utc": "2026-11-07T15:44:11.737992+00:00"
-    },
-    {
-      "fixture_id": "401878753",
-      "kickoff_utc": "2026-11-29T16:30:00+00:00",
-      "home": {
-        "id": "359",
-        "name": "Arsenal",
-        "elo": 1568.1214286907812,
-        "expected_goals": 1.456854305461986
-      },
-      "away": {
-        "id": "382",
-        "name": "Manchester City",
-        "elo": 1542.041134248134,
-        "expected_goals": 1.2401515584242493
-      },
-      "probabilities": {
-        "home": 0.45559094181712584,
-        "draw": 0.25329264425958253,
-        "away": 0.2911164139232917
-      },
-      "projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.12178565066965534,
-        "method": "most_likely_exact_score_from_poisson"
-      },
-      "coherent_projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.12022282987859893,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_goal_markets": {
-        "over_2_5": 0.5073021711084595,
-        "under_2_5": 0.49269782889154046,
-        "both_teams_to_score_yes": 0.543860688560186,
-        "both_teams_to_score_no": 0.456139311439814,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_outcomes": {
-        "home": 0.45559094181712606,
-        "draw": 0.25329264425958253,
-        "away": 0.29111641392329174
-      },
-      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
-      "goal_markets": {
-        "over_2_5": 0.5056417686383263,
-        "under_2_5": 0.4943582313616737,
-        "both_teams_to_score_yes": 0.5450987047394682,
-        "both_teams_to_score_no": 0.4549012952605318,
-        "method": "poisson_only_not_blended_elo"
-      },
-      "scenario_factors": {
-        "elo_difference": 26.08,
-        "expected_goal_difference": 0.217,
-        "historical_results_used": 92
-      },
-      "cold_start": false,
-      "issued_at_utc": "2026-11-07T15:44:11.737992+00:00"
-    },
-    {
-      "fixture_id": "401879221",
-      "kickoff_utc": "2026-12-01T20:00:00+00:00",
-      "home": {
-        "id": "388",
-        "name": "Coventry City",
-        "elo": 1463.1528825638322,
-        "expected_goals": 1.8731987078719619
-      },
-      "away": {
-        "id": "373",
-        "name": "Ipswich Town",
-        "elo": 1491.2085585021828,
-        "expected_goals": 1.7049869823837158
-      },
-      "probabilities": {
-        "home": 0.41907133465499724,
-        "draw": 0.23467583186328467,
-        "away": 0.3462528334817181
-      },
-      "projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.08919050368580093,
-        "method": "most_likely_exact_score_from_poisson"
-      },
-      "coherent_projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.09542145836131813,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_goal_markets": {
-        "over_2_5": 0.6889366839560896,
-        "under_2_5": 0.31106331604391035,
-        "both_teams_to_score_yes": 0.6960284868811795,
-        "both_teams_to_score_no": 0.30397151311882054,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_outcomes": {
-        "home": 0.41907133465499724,
-        "draw": 0.23467583186328464,
-        "away": 0.34625283348171804
-      },
-      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
-      "goal_markets": {
-        "over_2_5": 0.6933720269859642,
-        "under_2_5": 0.30662797301403577,
-        "both_teams_to_score_yes": 0.6925201139987278,
-        "both_teams_to_score_no": 0.3074798860012722,
-        "method": "poisson_only_not_blended_elo"
-      },
-      "scenario_factors": {
-        "elo_difference": -28.06,
-        "expected_goal_difference": 0.168,
-        "historical_results_used": 92
-      },
-      "cold_start": false,
-      "issued_at_utc": "2026-11-07T15:44:11.737992+00:00"
-    },
-    {
-      "fixture_id": "401879218",
-      "kickoff_utc": "2026-12-02T19:30:00+00:00",
-      "home": {
-        "id": "382",
-        "name": "Manchester City",
-        "elo": 1542.041134248134,
-        "expected_goals": 1.541448687607716
-      },
-      "away": {
-        "id": "357",
-        "name": "Leeds United",
-        "elo": 1507.1469109904367,
-        "expected_goals": 1.0244517577584353
-      },
-      "probabilities": {
-        "home": 0.4971447763935467,
-        "draw": 0.2527036612911433,
-        "away": 0.25015156231531
-      },
-      "projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.12135681774826791,
-        "method": "most_likely_exact_score_from_poisson"
-      },
-      "coherent_projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.12007217278490118,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_goal_markets": {
-        "over_2_5": 0.47400410612733396,
-        "under_2_5": 0.5259958938726661,
-        "both_teams_to_score_yes": 0.5030038870038803,
-        "both_teams_to_score_no": 0.4969961129961197,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_outcomes": {
-        "home": 0.4971447763935466,
-        "draw": 0.2527036612911433,
-        "away": 0.25015156231531005
-      },
-      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
-      "goal_markets": {
-        "over_2_5": 0.4729766383590985,
-        "under_2_5": 0.5270233616409015,
-        "both_teams_to_score_yes": 0.5037859693453971,
-        "both_teams_to_score_no": 0.4962140306546029,
-        "method": "poisson_only_not_blended_elo"
-      },
-      "scenario_factors": {
-        "elo_difference": 34.89,
-        "expected_goal_difference": 0.517,
-        "historical_results_used": 92
-      },
-      "cold_start": false,
-      "issued_at_utc": "2026-11-07T15:44:11.737992+00:00"
-    },
-    {
-      "fixture_id": "401879219",
-      "kickoff_utc": "2026-12-02T19:30:00+00:00",
-      "home": {
-        "id": "364",
-        "name": "Liverpool",
-        "elo": 1519.4673965240463,
-        "expected_goals": 1.576919223394374
-      },
-      "away": {
-        "id": "366",
-        "name": "Sunderland",
-        "elo": 1453.6236506204452,
-        "expected_goals": 1.1945855639147556
-      },
-      "probabilities": {
-        "home": 0.502139409334281,
-        "draw": 0.24951587829620253,
-        "away": 0.2483447123695165
-      },
-      "projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.11786299533610128,
-        "method": "most_likely_exact_score_from_poisson"
-      },
-      "coherent_projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.11809212287749424,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_goal_markets": {
-        "over_2_5": 0.5248315909530975,
-        "under_2_5": 0.4751684090469025,
-        "both_teams_to_score_yes": 0.5523896481521541,
-        "both_teams_to_score_no": 0.4476103518478459,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_outcomes": {
-        "home": 0.5021394093342811,
-        "draw": 0.24951587829620256,
-        "away": 0.24834471236951636
-      },
-      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
-      "goal_markets": {
-        "over_2_5": 0.5237262686838302,
-        "under_2_5": 0.4762737313161698,
-        "both_teams_to_score_yes": 0.5531277110920609,
-        "both_teams_to_score_no": 0.44687228890793906,
-        "method": "poisson_only_not_blended_elo"
-      },
-      "scenario_factors": {
-        "elo_difference": 65.84,
-        "expected_goal_difference": 0.382,
-        "historical_results_used": 92
-      },
-      "cold_start": false,
-      "issued_at_utc": "2026-11-07T15:44:11.737992+00:00"
-    },
-    {
-      "fixture_id": "401879220",
-      "kickoff_utc": "2026-12-02T19:30:00+00:00",
-      "home": {
-        "id": "306",
-        "name": "Hull City",
-        "elo": 1495.1878765969232,
-        "expected_goals": 1.573093333793985
-      },
-      "away": {
-        "id": "393",
-        "name": "Nottingham Forest",
-        "elo": 1461.9962186904402,
-        "expected_goals": 1.1170645858309256
-      },
-      "probabilities": {
-        "home": 0.4890628526428632,
-        "draw": 0.25048292050976406,
-        "away": 0.26045422684737274
-      },
-      "projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.11926473138717501,
-        "method": "most_likely_exact_score_from_poisson"
-      },
-      "coherent_projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.11903523647008035,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_goal_markets": {
-        "over_2_5": 0.5045084492717985,
-        "under_2_5": 0.4954915507282015,
-        "both_teams_to_score_yes": 0.5328531528976463,
-        "both_teams_to_score_no": 0.46714684710235366,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_outcomes": {
-        "home": 0.48906285264286337,
-        "draw": 0.25048292050976395,
-        "away": 0.2604542268473725
-      },
-      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
-      "goal_markets": {
-        "over_2_5": 0.5039614847667514,
-        "under_2_5": 0.4960385152332486,
-        "both_teams_to_score_yes": 0.5332286289328598,
-        "both_teams_to_score_no": 0.4667713710671402,
-        "method": "poisson_only_not_blended_elo"
-      },
-      "scenario_factors": {
-        "elo_difference": 33.19,
-        "expected_goal_difference": 0.456,
-        "historical_results_used": 92
-      },
-      "cold_start": false,
-      "issued_at_utc": "2026-11-07T15:44:11.737992+00:00"
-    },
-    {
-      "fixture_id": "401879222",
-      "kickoff_utc": "2026-12-02T19:30:00+00:00",
-      "home": {
-        "id": "363",
-        "name": "Chelsea",
-        "elo": 1516.9825372002988,
-        "expected_goals": 2.2682380205087456
-      },
-      "away": {
-        "id": "384",
-        "name": "Crystal Palace",
-        "elo": 1462.4803765656181,
-        "expected_goals": 1.0868808858536045
-      },
-      "probabilities": {
-        "home": 0.5835077056814469,
-        "draw": 0.22049810669100464,
-        "away": 0.19599418762754842
-      },
-      "projected_score": {
-        "home": 2,
-        "away": 1,
-        "probability": 0.09759320488441707,
-        "method": "most_likely_exact_score_from_poisson"
-      },
-      "coherent_projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.09934386618007718,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_goal_markets": {
-        "over_2_5": 0.6384904460812977,
-        "under_2_5": 0.3615095539187023,
-        "both_teams_to_score_yes": 0.6045087698178165,
-        "both_teams_to_score_no": 0.39549123018218346,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_outcomes": {
-        "home": 0.5835077056814468,
-        "draw": 0.22049810669100464,
-        "away": 0.19599418762754844
-      },
-      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
-      "goal_markets": {
-        "over_2_5": 0.6515226823941921,
-        "under_2_5": 0.3484773176058079,
-        "both_teams_to_score_yes": 0.5941440164313777,
-        "both_teams_to_score_no": 0.4058559835686223,
-        "method": "poisson_only_not_blended_elo"
-      },
-      "scenario_factors": {
-        "elo_difference": 54.5,
-        "expected_goal_difference": 1.181,
-        "historical_results_used": 92
-      },
-      "cold_start": false,
-      "issued_at_utc": "2026-11-07T15:44:11.737992+00:00"
-    },
-    {
-      "fixture_id": "401878750",
-      "kickoff_utc": "2026-12-02T20:15:00+00:00",
-      "home": {
-        "id": "337",
-        "name": "Brentford",
-        "elo": 1516.325195238483,
-        "expected_goals": 1.300547333956099
-      },
-      "away": {
-        "id": "359",
-        "name": "Arsenal",
-        "elo": 1568.1214286907812,
-        "expected_goals": 0.8995935015680964
-      },
-      "probabilities": {
-        "home": 0.4189812286339616,
-        "draw": 0.2668115671219484,
-        "away": 0.3142072042440899
-      },
-      "projected_score": {
-        "home": 1,
-        "away": 0,
-        "probability": 0.1440844585627996,
-        "method": "most_likely_exact_score_from_poisson"
-      },
-      "coherent_projected_score": {
-        "home": 1,
-        "away": 0,
-        "probability": 0.13170812789440892,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_goal_markets": {
-        "over_2_5": 0.38053645573768324,
-        "under_2_5": 0.6194635442623168,
-        "both_teams_to_score_yes": 0.42847186458040876,
-        "both_teams_to_score_no": 0.5715281354195912,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_outcomes": {
-        "home": 0.41898122863396126,
-        "draw": 0.2668115671219484,
-        "away": 0.3142072042440901
-      },
-      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
-      "goal_markets": {
-        "over_2_5": 0.37732401391243625,
-        "under_2_5": 0.6226759860875637,
-        "both_teams_to_score_yes": 0.43166992323107956,
-        "both_teams_to_score_no": 0.5683300767689204,
-        "method": "poisson_only_not_blended_elo"
-      },
-      "scenario_factors": {
-        "elo_difference": -51.8,
-        "expected_goal_difference": 0.401,
-        "historical_results_used": 92
-      },
-      "cold_start": false,
-      "issued_at_utc": "2026-11-07T15:44:11.737992+00:00"
-    },
-    {
-      "fixture_id": "401878751",
-      "kickoff_utc": "2026-12-02T20:15:00+00:00",
-      "home": {
-        "id": "362",
-        "name": "Aston Villa",
-        "elo": 1503.1471677894665,
-        "expected_goals": 1.205872777743081
-      },
-      "away": {
-        "id": "368",
-        "name": "Everton",
-        "elo": 1518.329452757542,
-        "expected_goals": 1.107003352505152
-      },
-      "probabilities": {
-        "home": 0.40762544221810326,
-        "draw": 0.26615454447097586,
-        "away": 0.3262200133109209
-      },
-      "projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.13212380934425313,
-        "method": "most_likely_exact_score_from_poisson"
-      },
-      "coherent_projected_score": {
-        "home": 1,
-        "away": 0,
-        "probability": 0.12696091132708812,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_goal_markets": {
-        "over_2_5": 0.41261124590497517,
-        "under_2_5": 0.5873887540950249,
-        "both_teams_to_score_yes": 0.46485725066406997,
-        "both_teams_to_score_no": 0.53514274933593,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_outcomes": {
-        "home": 0.4076254422181033,
-        "draw": 0.26615454447097586,
-        "away": 0.32622001331092093
-      },
-      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
-      "goal_markets": {
-        "over_2_5": 0.40737282476886794,
-        "under_2_5": 0.5926271752311321,
-        "both_teams_to_score_yes": 0.46899761001997076,
-        "both_teams_to_score_no": 0.5310023899800292,
-        "method": "poisson_only_not_blended_elo"
-      },
-      "scenario_factors": {
-        "elo_difference": -15.18,
-        "expected_goal_difference": 0.099,
-        "historical_results_used": 92
-      },
-      "cold_start": false,
-      "issued_at_utc": "2026-11-07T15:44:11.737992+00:00"
-    },
-    {
-      "fixture_id": "401879217",
-      "kickoff_utc": "2026-12-02T20:15:00+00:00",
-      "home": {
-        "id": "361",
-        "name": "Newcastle United",
-        "elo": 1486.255996602792,
-        "expected_goals": 1.4190850659817131
-      },
-      "away": {
-        "id": "360",
-        "name": "Manchester United",
-        "elo": 1471.2857296673246,
-        "expected_goals": 1.107003352505152
-      },
-      "probabilities": {
-        "home": 0.4579289175374534,
-        "draw": 0.25722621268774837,
-        "away": 0.28484486977479817
-      },
-      "projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.1256293477156095,
-        "method": "most_likely_exact_score_from_poisson"
-      },
-      "coherent_projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.12219650195846783,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_goal_markets": {
-        "over_2_5": 0.4655641939364824,
-        "under_2_5": 0.5344358060635176,
-        "both_teams_to_score_yes": 0.5054178565189368,
-        "both_teams_to_score_no": 0.4945821434810632,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_outcomes": {
-        "home": 0.4579289175374535,
-        "draw": 0.25722621268774826,
-        "away": 0.2848448697747981
-      },
-      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
-      "goal_markets": {
-        "over_2_5": 0.4628613020014871,
-        "under_2_5": 0.5371386979985129,
-        "both_teams_to_score_yes": 0.5074879384759292,
-        "both_teams_to_score_no": 0.4925120615240708,
-        "method": "poisson_only_not_blended_elo"
-      },
-      "scenario_factors": {
-        "elo_difference": 14.97,
-        "expected_goal_difference": 0.312,
-        "historical_results_used": 92
-      },
-      "cold_start": false,
-      "issued_at_utc": "2026-11-07T15:44:11.737992+00:00"
-    },
-    {
-      "fixture_id": "401879223",
-      "kickoff_utc": "2026-12-02T20:15:00+00:00",
-      "home": {
-        "id": "349",
-        "name": "AFC Bournemouth",
-        "elo": 1502.314945713064,
-        "expected_goals": 1.3480143032355025
-      },
-      "away": {
-        "id": "331",
-        "name": "Brighton & Hove Albion",
-        "elo": 1543.2170906887825,
-        "expected_goals": 1.3768423315373768
-      },
-      "probabilities": {
-        "home": 0.3801352814002925,
-        "draw": 0.2533906048879254,
-        "away": 0.3664741137117822
-      },
-      "projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.12167140132014977,
-        "method": "most_likely_exact_score_from_poisson"
-      },
-      "coherent_projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.12006482096173125,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_goal_markets": {
-        "over_2_5": 0.513514809972395,
-        "under_2_5": 0.48648519002760504,
-        "both_teams_to_score_yes": 0.5525749129190894,
-        "both_teams_to_score_no": 0.44742508708091056,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_outcomes": {
-        "home": 0.38013528140029246,
-        "draw": 0.25339060488792553,
-        "away": 0.36647411371178246
-      },
-      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
-      "goal_markets": {
-        "over_2_5": 0.5124447439602317,
-        "under_2_5": 0.48755525603976835,
-        "both_teams_to_score_yes": 0.5534258455433154,
-        "both_teams_to_score_no": 0.4465741544566846,
-        "method": "poisson_only_not_blended_elo"
-      },
-      "scenario_factors": {
-        "elo_difference": -40.9,
-        "expected_goal_difference": -0.029,
-        "historical_results_used": 92
-      },
-      "cold_start": false,
-      "issued_at_utc": "2026-11-07T15:44:11.737992+00:00"
-    },
-    {
-      "fixture_id": "401878749",
-      "kickoff_utc": "2026-12-03T20:00:00+00:00",
-      "home": {
-        "id": "367",
-        "name": "Tottenham Hotspur",
-        "elo": 1492.2546461377185,
-        "expected_goals": 1.197961616196514
-      },
-      "away": {
-        "id": "370",
-        "name": "Fulham",
-        "elo": 1485.4608042116881,
-        "expected_goals": 0.962022629663266
-      },
-      "probabilities": {
-        "home": 0.4383948396049365,
-        "draw": 0.27090230470035337,
-        "away": 0.2907028556947101
-      },
-      "projected_score": {
-        "home": 1,
-        "away": 0,
-        "probability": 0.13815724491828008,
-        "method": "most_likely_exact_score_from_poisson"
-      },
-      "coherent_projected_score": {
-        "home": 1,
-        "away": 0,
-        "probability": 0.1463733709752901,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_goal_markets": {
-        "over_2_5": 0.3732500613079668,
-        "under_2_5": 0.6267499386920332,
-        "both_teams_to_score_yes": 0.4261409864857719,
-        "both_teams_to_score_no": 0.5738590135142281,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_outcomes": {
-        "home": 0.43839483960493647,
-        "draw": 0.2709023047003534,
-        "away": 0.2907028556947102
-      },
-      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
-      "goal_markets": {
-        "over_2_5": 0.3665379368163451,
-        "under_2_5": 0.6334620631836549,
-        "both_teams_to_score_yes": 0.4313989322758087,
-        "both_teams_to_score_no": 0.5686010677241913,
-        "method": "poisson_only_not_blended_elo"
-      },
-      "scenario_factors": {
-        "elo_difference": 6.79,
-        "expected_goal_difference": 0.236,
-        "historical_results_used": 92
-      },
-      "cold_start": false,
-      "issued_at_utc": "2026-11-07T15:44:11.737992+00:00"
-    },
-    {
-      "fixture_id": "401879213",
-      "kickoff_utc": "2026-12-05T12:30:00+00:00",
-      "home": {
-        "id": "363",
-        "name": "Chelsea",
-        "elo": 1516.9825372002988,
-        "expected_goals": 1.60133934483811
-      },
-      "away": {
-        "id": "364",
-        "name": "Liverpool",
-        "elo": 1519.4673965240463,
-        "expected_goals": 1.5569772091163534
-      },
-      "probabilities": {
-        "home": 0.42078138896355577,
-        "draw": 0.2429745881580378,
-        "away": 0.33624402287840643
-      },
-      "projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.10595615216245491,
-        "method": "most_likely_exact_score_from_poisson"
-      },
-      "coherent_projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.1091110078722866,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_goal_markets": {
-        "over_2_5": 0.6092148318836921,
-        "under_2_5": 0.3907851681163079,
-        "both_teams_to_score_yes": 0.6317598532749045,
-        "both_teams_to_score_no": 0.36824014672509553,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_outcomes": {
-        "home": 0.4207813889635553,
-        "draw": 0.24297458815803777,
-        "away": 0.33624402287840655
-      },
-      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
-      "goal_markets": {
-        "over_2_5": 0.6113289738709357,
-        "under_2_5": 0.38867102612906435,
-        "both_teams_to_score_yes": 0.6300987031336387,
-        "both_teams_to_score_no": 0.3699012968663613,
-        "method": "poisson_only_not_blended_elo"
-      },
-      "scenario_factors": {
-        "elo_difference": -2.48,
-        "expected_goal_difference": 0.044,
-        "historical_results_used": 92
-      },
-      "cold_start": false,
-      "issued_at_utc": "2026-11-07T15:44:11.737992+00:00"
-    },
-    {
-      "fixture_id": "401879210",
-      "kickoff_utc": "2026-12-05T15:00:00+00:00",
-      "home": {
-        "id": "360",
-        "name": "Manchester United",
-        "elo": 1471.2857296673246,
-        "expected_goals": 1.691328807430312
-      },
-      "away": {
-        "id": "388",
-        "name": "Coventry City",
-        "elo": 1463.1528825638322,
-        "expected_goals": 1.1098227375716383
-      },
-      "probabilities": {
-        "home": 0.48725059497256445,
-        "draw": 0.2454141921102234,
-        "away": 0.2673352129172122
-      },
-      "projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.11401369095017932,
-        "method": "most_likely_exact_score_from_poisson"
-      },
-      "coherent_projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.11618471777990422,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_goal_markets": {
-        "over_2_5": 0.5283451073396584,
-        "under_2_5": 0.47165489266034155,
-        "both_teams_to_score_yes": 0.5486901103203855,
-        "both_teams_to_score_no": 0.4513098896796145,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_outcomes": {
-        "home": 0.48725059497256473,
-        "draw": 0.24541419211022347,
-        "away": 0.2673352129172124
-      },
-      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
-      "goal_markets": {
-        "over_2_5": 0.5308207714186194,
-        "under_2_5": 0.4691792285813806,
-        "both_teams_to_score_yes": 0.546848196817822,
-        "both_teams_to_score_no": 0.45315180318217796,
-        "method": "poisson_only_not_blended_elo"
-      },
-      "scenario_factors": {
-        "elo_difference": 8.13,
-        "expected_goal_difference": 0.582,
-        "historical_results_used": 92
-      },
-      "cold_start": false,
-      "issued_at_utc": "2026-11-07T15:44:11.737992+00:00"
-    },
-    {
-      "fixture_id": "401879211",
-      "kickoff_utc": "2026-12-05T15:00:00+00:00",
-      "home": {
-        "id": "357",
-        "name": "Leeds United",
-        "elo": 1507.1469109904367,
-        "expected_goals": 1.8731987078719619
-      },
-      "away": {
-        "id": "373",
-        "name": "Ipswich Town",
-        "elo": 1491.2085585021828,
-        "expected_goals": 1.149310013948774
-      },
-      "probabilities": {
-        "home": 0.5092461097011844,
-        "draw": 0.2376796638853306,
-        "away": 0.253074226413485
-      },
-      "projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.10480021675220472,
-        "method": "most_likely_exact_score_from_poisson"
-      },
-      "coherent_projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.11052961747437648,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_goal_markets": {
-        "over_2_5": 0.5762908158162122,
-        "under_2_5": 0.4237091841837878,
-        "both_teams_to_score_yes": 0.5824963372736852,
-        "both_teams_to_score_no": 0.4175036627263148,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_outcomes": {
-        "home": 0.5092461097011844,
-        "draw": 0.23767966388533068,
-        "away": 0.2530742264134849
-      },
-      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
-      "goal_markets": {
-        "over_2_5": 0.5818338488934718,
-        "under_2_5": 0.4181661511065282,
-        "both_teams_to_score_yes": 0.5781921705183336,
-        "both_teams_to_score_no": 0.4218078294816664,
-        "method": "poisson_only_not_blended_elo"
-      },
-      "scenario_factors": {
-        "elo_difference": 15.94,
-        "expected_goal_difference": 0.724,
-        "historical_results_used": 92
-      },
-      "cold_start": false,
-      "issued_at_utc": "2026-11-07T15:44:11.737992+00:00"
-    },
-    {
-      "fixture_id": "401879215",
-      "kickoff_utc": "2026-12-05T15:00:00+00:00",
-      "home": {
-        "id": "362",
-        "name": "Aston Villa",
-        "elo": 1503.1471677894665,
-        "expected_goals": 1.632297354220345
-      },
-      "away": {
-        "id": "384",
-        "name": "Crystal Palace",
-        "elo": 1462.4803765656181,
-        "expected_goals": 1.0244517577584353
-      },
-      "probabilities": {
-        "home": 0.5124199293376221,
-        "draw": 0.24835872711216223,
-        "away": 0.23922134355021563
-      },
-      "projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.1173489774175952,
-        "method": "most_likely_exact_score_from_poisson"
-      },
-      "coherent_projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.1181296343664784,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_goal_markets": {
-        "over_2_5": 0.4950571224989567,
-        "under_2_5": 0.5049428775010433,
-        "both_teams_to_score_yes": 0.5162045049268968,
-        "both_teams_to_score_no": 0.48379549507310315,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_outcomes": {
-        "home": 0.5124199293376219,
-        "draw": 0.24835872711216223,
-        "away": 0.23922134355021568
-      },
-      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
-      "goal_markets": {
-        "over_2_5": 0.4957218914775804,
-        "under_2_5": 0.5042781085224196,
-        "both_teams_to_score_yes": 0.5157027877424155,
-        "both_teams_to_score_no": 0.4842972122575845,
-        "method": "poisson_only_not_blended_elo"
-      },
-      "scenario_factors": {
-        "elo_difference": 40.67,
-        "expected_goal_difference": 0.608,
-        "historical_results_used": 92
-      },
-      "cold_start": false,
-      "issued_at_utc": "2026-11-07T15:44:11.737992+00:00"
-    },
-    {
-      "fixture_id": "401879216",
-      "kickoff_utc": "2026-12-05T15:00:00+00:00",
-      "home": {
-        "id": "349",
-        "name": "AFC Bournemouth",
-        "elo": 1502.314945713064,
-        "expected_goals": 1.3790702896923421
-      },
-      "away": {
-        "id": "306",
-        "name": "Hull City",
-        "elo": 1495.1878765969232,
-        "expected_goals": 0.9800094614168985
-      },
-      "probabilities": {
-        "home": 0.4620284628688487,
-        "draw": 0.26122406768279793,
-        "away": 0.2767474694483534
-      },
-      "projected_score": {
-        "home": 1,
-        "away": 0,
-        "probability": 0.13033200727183428,
-        "method": "most_likely_exact_score_from_poisson"
-      },
-      "coherent_projected_score": {
-        "home": 1,
-        "away": 0,
-        "probability": 0.1307391022897456,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_goal_markets": {
-        "over_2_5": 0.42297381982031834,
-        "under_2_5": 0.5770261801796817,
-        "both_teams_to_score_yes": 0.4646374039296423,
-        "both_teams_to_score_no": 0.5353625960703576,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_outcomes": {
-        "home": 0.4620284628688486,
-        "draw": 0.2612240676827979,
-        "away": 0.2767474694483533
-      },
-      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
-      "goal_markets": {
-        "over_2_5": 0.4195646239649724,
-        "under_2_5": 0.5804353760350276,
-        "both_teams_to_score_yes": 0.46738704840626544,
-        "both_teams_to_score_no": 0.5326129515937346,
-        "method": "poisson_only_not_blended_elo"
-      },
-      "scenario_factors": {
-        "elo_difference": 7.13,
-        "expected_goal_difference": 0.399,
-        "historical_results_used": 92
-      },
-      "cold_start": false,
-      "issued_at_utc": "2026-11-07T15:44:11.737992+00:00"
-    },
-    {
-      "fixture_id": "401878747",
-      "kickoff_utc": "2026-12-05T17:30:00+00:00",
-      "home": {
-        "id": "393",
-        "name": "Nottingham Forest",
-        "elo": 1461.9962186904402,
-        "expected_goals": 0.9213955443463641
-      },
-      "away": {
-        "id": "331",
-        "name": "Brighton & Hove Albion",
-        "elo": 1543.2170906887825,
-        "expected_goals": 1.3803489593173721
-      },
-      "probabilities": {
-        "home": 0.29403326399998836,
-        "draw": 0.26202396934621386,
-        "away": 0.4439427666537977
-      },
-      "projected_score": {
-        "home": 0,
-        "away": 1,
-        "probability": 0.13815097537320273,
-        "method": "most_likely_exact_score_from_poisson"
-      },
-      "coherent_projected_score": {
-        "home": 0,
-        "away": 1,
-        "probability": 0.12905780372943787,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_goal_markets": {
-        "over_2_5": 0.40650486093677407,
-        "under_2_5": 0.5934951390632259,
-        "both_teams_to_score_yes": 0.4484785217520387,
-        "both_teams_to_score_no": 0.5515214782479614,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_outcomes": {
-        "home": 0.2940332639999885,
-        "draw": 0.2620239693462139,
-        "away": 0.4439427666537975
-      },
-      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
-      "goal_markets": {
-        "over_2_5": 0.4044237369294891,
-        "under_2_5": 0.5955762630705109,
-        "both_teams_to_score_yes": 0.4506300386008914,
-        "both_teams_to_score_no": 0.5493699613991085,
-        "method": "poisson_only_not_blended_elo"
-      },
-      "scenario_factors": {
-        "elo_difference": -81.22,
-        "expected_goal_difference": -0.459,
-        "historical_results_used": 92
-      },
-      "cold_start": false,
-      "issued_at_utc": "2026-11-07T15:44:11.737992+00:00"
-    },
-    {
-      "fixture_id": "401879214",
-      "kickoff_utc": "2026-12-05T20:00:00+00:00",
-      "home": {
-        "id": "337",
-        "name": "Brentford",
-        "elo": 1516.325195238483,
-        "expected_goals": 1.4089262784524406
-      },
-      "away": {
-        "id": "382",
-        "name": "Manchester City",
-        "elo": 1542.041134248134,
-        "expected_goals": 1.245085848444505
-      },
-      "probabilities": {
-        "home": 0.41258550845998837,
-        "draw": 0.2548709332238827,
-        "away": 0.3325435583161289
-      },
-      "projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.12344251027643861,
-        "method": "most_likely_exact_score_from_poisson"
-      },
-      "coherent_projected_score": {
-        "home": 1,
-        "away": 1,
-        "probability": 0.12112759573159411,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_goal_markets": {
-        "over_2_5": 0.49665574890633996,
-        "under_2_5": 0.5033442510936601,
-        "both_teams_to_score_yes": 0.5367735114285639,
-        "both_teams_to_score_no": 0.4632264885714361,
-        "method": "outcome_reconciled_poisson_conditional_scores"
-      },
-      "coherent_outcomes": {
-        "home": 0.4125855084599885,
-        "draw": 0.2548709332238827,
-        "away": 0.332543558316129
-      },
-      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
-      "goal_markets": {
-        "over_2_5": 0.4950438147854594,
-        "under_2_5": 0.5049561852145406,
-        "both_teams_to_score_yes": 0.5380465635564393,
-        "both_teams_to_score_no": 0.4619534364435607,
-        "method": "poisson_only_not_blended_elo"
-      },
-      "scenario_factors": {
-        "elo_difference": -25.72,
-        "expected_goal_difference": 0.164,
-        "historical_results_used": 92
-      },
-      "cold_start": false,
-      "issued_at_utc": "2026-11-07T15:44:11.737992+00:00"
+        "method": "heuristic_unvalidated_goal_rates"
+      }
     }
   ],
-  "disclaimer": "Research forecasts, not verified betting odds. Provider fixture details require independent cross-check."
+  "issued_at_utc": "2026-11-07T19:41:27.073760+00:00",
+  "recent_results": [
+    {
+      "away": "Manchester City",
+      "away_score": 1,
+      "fixture_id": "401878757",
+      "home": "Nott'm Forest",
+      "home_score": 3,
+      "kickoff_utc": "2026-11-07T17:30:00+00:00"
+    },
+    {
+      "away": "Newcastle United",
+      "away_score": 1,
+      "fixture_id": "401879241",
+      "home": "Fulham",
+      "home_score": 1,
+      "kickoff_utc": "2026-11-07T15:00:00+00:00"
+    },
+    {
+      "away": "Hull",
+      "away_score": 0,
+      "fixture_id": "401878760",
+      "home": "Arsenal",
+      "home_score": 1,
+      "kickoff_utc": "2026-11-07T15:00:00+00:00"
+    },
+    {
+      "away": "Tottenham",
+      "away_score": 0,
+      "fixture_id": "401878758",
+      "home": "Leeds United",
+      "home_score": 1,
+      "kickoff_utc": "2026-11-07T12:30:00+00:00"
+    },
+    {
+      "away": "Coventry",
+      "away_score": 1,
+      "fixture_id": "401879242",
+      "home": "Everton",
+      "home_score": 3,
+      "kickoff_utc": "2026-11-06T20:00:00+00:00"
+    },
+    {
+      "away": "Everton",
+      "away_score": 1,
+      "fixture_id": "401878762",
+      "home": "Newcastle United",
+      "home_score": 0,
+      "kickoff_utc": "2026-11-02T20:00:00+00:00"
+    },
+    {
+      "away": "Arsenal",
+      "away_score": 1,
+      "fixture_id": "401879246",
+      "home": "Liverpool",
+      "home_score": 0,
+      "kickoff_utc": "2026-11-01T16:30:00+00:00"
+    },
+    {
+      "away": "Fulham",
+      "away_score": 1,
+      "fixture_id": "401879250",
+      "home": "Aston Villa",
+      "home_score": 1,
+      "kickoff_utc": "2026-10-31T20:00:00+00:00"
+    },
+    {
+      "away": "Crystal Palace",
+      "away_score": 0,
+      "fixture_id": "401878761",
+      "home": "Tottenham",
+      "home_score": 2,
+      "kickoff_utc": "2026-10-31T17:30:00+00:00"
+    },
+    {
+      "away": "Leeds United",
+      "away_score": 0,
+      "fixture_id": "401879251",
+      "home": "Bournemouth",
+      "home_score": 2,
+      "kickoff_utc": "2026-10-31T15:00:00+00:00"
+    },
+    {
+      "away": "Nott'm Forest",
+      "away_score": 0,
+      "fixture_id": "401879249",
+      "home": "Brentford",
+      "home_score": 2,
+      "kickoff_utc": "2026-10-31T15:00:00+00:00"
+    },
+    {
+      "away": "Sunderland",
+      "away_score": 1,
+      "fixture_id": "401879247",
+      "home": "Coventry",
+      "home_score": 3,
+      "kickoff_utc": "2026-10-31T15:00:00+00:00"
+    },
+    {
+      "away": "Brighton",
+      "away_score": 1,
+      "fixture_id": "401879245",
+      "home": "Manchester City",
+      "home_score": 0,
+      "kickoff_utc": "2026-10-31T15:00:00+00:00"
+    },
+    {
+      "away": "Ipswich",
+      "away_score": 2,
+      "fixture_id": "401878763",
+      "home": "Hull",
+      "home_score": 2,
+      "kickoff_utc": "2026-10-31T15:00:00+00:00"
+    },
+    {
+      "away": "Manchester United",
+      "away_score": 0,
+      "fixture_id": "401879248",
+      "home": "Chelsea",
+      "home_score": 2,
+      "kickoff_utc": "2026-10-31T12:30:00+00:00"
+    },
+    {
+      "away": "Leeds United",
+      "away_score": 0,
+      "fixture_id": "401878764",
+      "home": "Sunderland",
+      "home_score": 0,
+      "kickoff_utc": "2026-10-25T16:30:00+00:00"
+    },
+    {
+      "away": "Newcastle United",
+      "away_score": 2,
+      "fixture_id": "401879254",
+      "home": "Crystal Palace",
+      "home_score": 0,
+      "kickoff_utc": "2026-10-25T14:00:00+00:00"
+    },
+    {
+      "away": "Bournemouth",
+      "away_score": 3,
+      "fixture_id": "401879252",
+      "home": "Manchester United",
+      "home_score": 0,
+      "kickoff_utc": "2026-10-25T14:00:00+00:00"
+    }
+  ],
+  "schema_version": 1,
+  "status": "provisional_research"
 }

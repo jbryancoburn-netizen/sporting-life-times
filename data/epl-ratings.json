@@ -1,6 +1,6 @@
 {
   "as_of_date": "2026-11-07",
-  "completed_matches": 92,
+  "completed_matches": 95,
   "elo_history": {
     "Arsenal": [
       {
@@ -70,6 +70,13 @@
         "fixture_id": "401879246",
         "match": 9,
         "opponent": "Liverpool"
+      },
+      {
+        "date": "2026-11-07",
+        "elo": 1572.18786,
+        "fixture_id": "401878760",
+        "match": 10,
+        "opponent": "Hull"
       }
     ],
     "Aston Villa": [
@@ -714,6 +721,13 @@
         "fixture_id": "401879250",
         "match": 9,
         "opponent": "Aston Villa"
+      },
+      {
+        "date": "2026-11-07",
+        "elo": 1484.44033,
+        "fixture_id": "401879241",
+        "match": 10,
+        "opponent": "Newcastle United"
       }
     ],
     "Hull": [
@@ -784,6 +798,13 @@
         "fixture_id": "401878763",
         "match": 9,
         "opponent": "Ipswich"
+      },
+      {
+        "date": "2026-11-07",
+        "elo": 1488.61251,
+        "fixture_id": "401878760",
+        "match": 10,
+        "opponent": "Arsenal"
       }
     ],
     "Ipswich": [
@@ -1071,6 +1092,13 @@
         "fixture_id": "401879245",
         "match": 9,
         "opponent": "Brighton"
+      },
+      {
+        "date": "2026-11-07",
+        "elo": 1529.43018,
+        "fixture_id": "401878757",
+        "match": 10,
+        "opponent": "Nott'm Forest"
       }
     ],
     "Manchester United": [
@@ -1211,6 +1239,13 @@
         "fixture_id": "401878762",
         "match": 9,
         "opponent": "Everton"
+      },
+      {
+        "date": "2026-11-07",
+        "elo": 1488.41912,
+        "fixture_id": "401879241",
+        "match": 10,
+        "opponent": "Fulham"
       }
     ],
     "Nott'm Forest": [
@@ -1281,6 +1316,13 @@
         "fixture_id": "401879249",
         "match": 9,
         "opponent": "Brentford"
+      },
+      {
+        "date": "2026-11-07",
+        "elo": 1474.30234,
+        "fixture_id": "401878757",
+        "match": 10,
+        "opponent": "Manchester City"
       }
     ],
     "Sunderland": [
@@ -1433,7 +1475,7 @@
   },
   "last_five_form": {
     "Arsenal": [
-      "L",
+      "W",
       "W",
       "W",
       "W",
@@ -1496,18 +1538,18 @@
       "W"
     ],
     "Fulham": [
-      "D",
       "L",
       "W",
       "W",
+      "D",
       "D"
     ],
     "Hull": [
-      "L",
       "D",
       "L",
       "D",
-      "D"
+      "D",
+      "L"
     ],
     "Ipswich": [
       "L",
@@ -1533,7 +1575,7 @@
     "Manchester City": [
       "W",
       "W",
-      "W",
+      "L",
       "L",
       "L"
     ],
@@ -1545,18 +1587,18 @@
       "L"
     ],
     "Newcastle United": [
-      "W",
       "L",
       "L",
       "W",
-      "L"
+      "L",
+      "D"
     ],
     "Nott'm Forest": [
       "L",
       "L",
-      "L",
       "D",
-      "L"
+      "L",
+      "W"
     ],
     "Sunderland": [
       "L",
@@ -1574,7 +1616,7 @@
     ]
   },
   "last_match_elo_delta": {
-    "Arsenal": 10.8508,
+    "Arsenal": 6.53711,
     "Aston Villa": -2.16704,
     "Bournemouth": 8.83215,
     "Brentford": 7.41774,
@@ -1583,15 +1625,15 @@
     "Coventry": -7.37811,
     "Crystal Palace": -7.86356,
     "Everton": 7.37811,
-    "Fulham": 2.16704,
-    "Hull": -1.75818,
+    "Fulham": -1.54497,
+    "Hull": -6.53711,
     "Ipswich": 1.75818,
     "Leeds United": 8.50464,
     "Liverpool": -10.8508,
-    "Manchester City": -12.24431,
+    "Manchester City": -10.61389,
     "Manchester United": -7.65151,
-    "Newcastle United": -11.55458,
-    "Nott'm Forest": -7.41774,
+    "Newcastle United": 1.54497,
+    "Nott'm Forest": 10.61389,
     "Sunderland": -8.44635,
     "Tottenham": -8.50464
   },
@@ -1602,11 +1644,11 @@
     "fixture_policy": "only feed-confirmed future fixtures",
     "rating_origin": "neutral baseline; no independently sourced prior-season ratings",
     "season": "2026-2027",
-    "source_fixtures": 92,
-    "source_sha256": "968821a6a23b1783ba1feca8690dc580e6a47a00e562756cfc0fdbdad3b87307"
+    "source_fixtures": 95,
+    "source_sha256": "75adbca901d586ebfc06ea52ee720fdf88fdc3252de001b9f7f50c70f0e4b3ea"
   },
   "ratings": {
-    "Arsenal": 1565.65075,
+    "Arsenal": 1572.18786,
     "Aston Villa": 1503.15489,
     "Bournemouth": 1501.6944,
     "Brentford": 1515.31888,
@@ -1615,15 +1657,15 @@
     "Coventry": 1464.88028,
     "Crystal Palace": 1464.80639,
     "Everton": 1517.90828,
-    "Fulham": 1485.9853,
-    "Hull": 1495.14962,
+    "Fulham": 1484.44033,
+    "Hull": 1488.61251,
     "Ipswich": 1491.9393,
     "Leeds United": 1506.77362,
     "Liverpool": 1518.58047,
-    "Manchester City": 1540.04407,
+    "Manchester City": 1529.43018,
     "Manchester United": 1472.76547,
-    "Newcastle United": 1486.87415,
-    "Nott'm Forest": 1463.68845,
+    "Newcastle United": 1488.41912,
+    "Nott'm Forest": 1474.30234,
     "Sunderland": 1455.94555,
     "Tottenham": 1492.41758
   },
@@ -2363,6 +2405,30 @@
       "home": "Leeds United",
       "home_score": 1,
       "kickoff_utc": "2026-11-07T12:30:00+00:00"
+    },
+    {
+      "away": "Hull",
+      "away_score": 0,
+      "fixture_id": "401878760",
+      "home": "Arsenal",
+      "home_score": 1,
+      "kickoff_utc": "2026-11-07T15:00:00+00:00"
+    },
+    {
+      "away": "Newcastle United",
+      "away_score": 1,
+      "fixture_id": "401879241",
+      "home": "Fulham",
+      "home_score": 1,
+      "kickoff_utc": "2026-11-07T15:00:00+00:00"
+    },
+    {
+      "away": "Manchester City",
+      "away_score": 1,
+      "fixture_id": "401878757",
+      "home": "Nott'm Forest",
+      "home_score": 3,
+      "kickoff_utc": "2026-11-07T17:30:00+00:00"
     }
   ],
   "standings": [
@@ -2370,21 +2436,21 @@
       "club": "Arsenal",
       "drawn": 0,
       "ga": 5,
-      "gd": 9,
-      "gf": 14,
+      "gd": 10,
+      "gf": 15,
       "lost": 1,
-      "played": 9,
-      "points": 24,
-      "won": 8
+      "played": 10,
+      "points": 27,
+      "won": 9
     },
     {
       "club": "Manchester City",
       "drawn": 0,
-      "ga": 10,
-      "gd": 10,
-      "gf": 20,
-      "lost": 2,
-      "played": 9,
+      "ga": 13,
+      "gd": 8,
+      "gf": 21,
+      "lost": 3,
+      "played": 10,
       "points": 21,
       "won": 7
     },
@@ -2477,6 +2543,17 @@
       "won": 3
     },
     {
+      "club": "Newcastle United",
+      "drawn": 3,
+      "ga": 16,
+      "gd": -3,
+      "gf": 13,
+      "lost": 4,
+      "played": 10,
+      "points": 12,
+      "won": 3
+    },
+    {
       "club": "Aston Villa",
       "drawn": 3,
       "ga": 13,
@@ -2490,24 +2567,13 @@
     {
       "club": "Hull",
       "drawn": 5,
-      "ga": 10,
-      "gd": 1,
+      "ga": 11,
+      "gd": 0,
       "gf": 11,
-      "lost": 2,
-      "played": 9,
+      "lost": 3,
+      "played": 10,
       "points": 11,
       "won": 2
-    },
-    {
-      "club": "Newcastle United",
-      "drawn": 2,
-      "ga": 15,
-      "gd": -3,
-      "gf": 12,
-      "lost": 4,
-      "played": 9,
-      "points": 11,
-      "won": 3
     },
     {
       "club": "Ipswich",
@@ -2522,12 +2588,23 @@
     },
     {
       "club": "Fulham",
-      "drawn": 3,
-      "ga": 11,
+      "drawn": 4,
+      "ga": 12,
       "gd": -2,
-      "gf": 9,
+      "gf": 10,
       "lost": 4,
-      "played": 9,
+      "played": 10,
+      "points": 10,
+      "won": 2
+    },
+    {
+      "club": "Nott'm Forest",
+      "drawn": 3,
+      "ga": 13,
+      "gd": -4,
+      "gf": 9,
+      "lost": 5,
+      "played": 10,
       "points": 9,
       "won": 2
     },
@@ -2563,17 +2640,6 @@
       "played": 9,
       "points": 7,
       "won": 2
-    },
-    {
-      "club": "Nott'm Forest",
-      "drawn": 3,
-      "ga": 12,
-      "gd": -6,
-      "gf": 6,
-      "lost": 5,
-      "played": 9,
-      "points": 6,
-      "won": 1
     },
     {
       "club": "Sunderland",
