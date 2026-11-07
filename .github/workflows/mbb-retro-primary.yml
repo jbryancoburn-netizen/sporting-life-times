@@ -1,5 +1,8 @@
 name: Publish MBB RETRO Primary
 on:
+  workflow_run:
+    workflows: ['MBB newspaper refresh and publish']
+    types: [completed]
   workflow_dispatch:
   # Trigger after upstream men's results are refreshed, independently of
   # GitHub's best-effort scheduled execution.
@@ -41,7 +44,9 @@ jobs:
         with:
           node-version: '22'
       - name: Validate MBB replay sources
-        run: node --check scripts/publish-mbb-retro-primary.js
+        run: |
+          node --check scripts/publish-mbb-retro-primary.js
+          python3 -m unittest discover -s tests -p test_mbb_retro_source_coverage.py -v
       - name: Collect recent verified Division I final scores
         run: python3 scripts/collect-mbb-retro-finals.py
       - name: Rebuild 1500-start RETRO ratings

@@ -55,6 +55,37 @@ def valid(event):
                 site_verified=isinstance(neutral,bool),
                 source='ESPN completed D-I scoreboard', source_event_id=event_id)
 
+def scoreboard_events(day):
+    """Union the complete and Division I scoreboard views by stable event ID.
+
+    The grouped feed alone can omit finished Division I games. The grouped
+    view wins any duplicate because it supplies preferred D-I metadata.
+    A single working feed is acceptable; losing both is a hard failure.
+    """
+    date = day.strftime('%Y%m%d')
+    merged = {}
+    errors = []
+    successful = 0
+    for query in ('?limit=1000&dates='+date, '?groups=50&limit=1000&dates='+date):
+        try:
+            req = urllib.request.Request(BASE+query, headers={
+                'User-Agent':'SportingLifeTimes/1.0', 'Accept':'application/json'})
+            with urllib.request.urlopen(req, timeout=18) as response:
+                payload = json.load(response)
+            if not isinstance(payload.get('events'), list):
+                raise ValueError('Invalid scoreboard event list')
+            successful += 1
+            for event in payload['events']:
+                eid = str(event.get('id') or '')
+                if eid.isdigit():
+                    merged[eid] = event
+        except (OSError, ValueError, TypeError, KeyError) as exc:
+            errors.append(query+': '+str(exc)[:140])
+    if not successful:
+        raise RuntimeError('Both scoreboard feeds unavailable for '+day.isoformat()+
+                           ': '+'; '.join(errors))
+    return list(merged.values()), errors
+
 def main():
     old = json.loads(TARGET.read_text()) if TARGET.exists() else {}
     collected = {x['id']:x for x in old.get('games',[]) if x.get('id')}
@@ -102,65 +133,48 @@ def main():
     failures = []
     queried = 0
     new = 0
+    unavailable_days = []
     for offset in range(3):
-        day = (today-timedelta(days=offset))
+        day = today-timedelta(days=offset)
         if not ('2026-11-01' <= day.isoformat() <= '2027-04-30'):
             continue
-        # The D-I grouped feed can omit finals carried by the unfiltered
-        # scoreboard. Merge both, only accepting completed, mapped D-I games.
-        urls = (BASE+'?groups=50&limit=1000&dates='+day.strftime('%Y%m%d'),
-                BASE+'?limit=1000&dates='+day.strftime('%Y%m%d'))
-        daily = {}
-        successful_feeds = 0
-        for url in urls:
-            try:
-                req = urllib.request.Request(url,headers={'User-Agent':'SportingLifeTimes/1.0','Accept':'application/json'})
-                with urllib.request.urlopen(req,timeout=18) as response:
-                    payload=json.load(response)
-                if not isinstance(payload.get('events'),list):
-                    raise ValueError('Invalid scoreboard event list')
-                successful_feeds += 1
-                for event in payload['events']:
-                    row = valid(event)
-                    if not row:
-                        continue
-                    prior = daily.get(row['id'])
-                    if prior and any(prior[k] != row[k] for k in
-                                     ('date','home_id','away_id','home_score','away_score')):
-                        failures.append(day.isoformat()+': scoreboard views disagree for '+row['id'])
-                        continue
-                    daily[row['id']] = row
-            except (OSError,ValueError,TypeError,KeyError) as exc:
-                failures.append(day.isoformat()+': '+str(exc)[:140])
-        if not successful_feeds:
+        try:
+            events, feed_errors = scoreboard_events(day)
+        except RuntimeError as exc:
+            unavailable_days.append(str(exc))
             continue
+        failures.extend(day.isoformat()+': '+err for err in feed_errors)
         queried += 1
-        for row in daily.values():
+        for event in events:
+            row = valid(event)
+            if not row:
+                continue
             previous = collected.get(row['id'])
             if row['id'] in official:
-                if any(row[key] != official[row['id']][key] for key in
-                       ('home_id','away_id','date')):
-                    failures.append(day.isoformat()+': ESPN versus NCAA identity conflict for '+row['id'])
-                elif (row['home_score'],row['away_score']) != (
-                    official[row['id']]['home_score'],official[row['id']]['away_score']):
+                for key in ('home_id', 'away_id', 'date'):
+                    if row[key] != official[row['id']][key]:
+                        raise ValueError('ESPN versus NCAA fixture identity conflict: '+row['id'])
+                if (row['home_score'], row['away_score']) != (
+                    official[row['id']]['home_score'], official[row['id']]['away_score']):
                     failures.append(day.isoformat()+': ESPN score differs from NCAA official final for '+row['id'])
-                # Retain official results when either scoreboard view lags.
+                # Keep independently verified NCAA scores and conservative
+                # venue handling regardless of ESPN cache state.
                 continue
             if previous:
-                if any(previous[k] != row[k] for k in
-                       ('home_id','away_id','home_score','away_score','date')):
-                    failures.append(day.isoformat()+': Published final revised: '+row['id'])
-                    continue
+                for key in ('home_id', 'away_id', 'home_score', 'away_score', 'date'):
+                    if previous[key] != row[key]:
+                        raise ValueError('Published final revised: '+row['id']+' '+key)
                 if previous.get('site_verified') and not row.get('site_verified'):
                     continue
             else:
                 new += 1
             collected[row['id']] = row
+    # A green run with missing scoreboard days falsely signals that RETRO is
+    # up to date. Preserve the published ledger, fail and retry next run.
+    if unavailable_days:
+        raise SystemExit('MBB scoreboard coverage incomplete; existing finals preserved: '+
+                         '; '.join(unavailable_days))
     games = sorted(collected.values(),key=lambda x:(x['date'],x['id']))
-    if not queried and '2026-11-01' <= today.isoformat() <= '2027-04-30':
-        if not old.get('games') and not official:
-            raise SystemExit('All current NCAA final-score sources failed with no preserved history: '+str(failures))
-        print('WARN: ESPN provider unavailable; retaining independently verified finals:',failures)
     output = {'season':'2026-27','source':'Verified NCAA-origin results preferred over ESPN completed D-I scoreboard',
               'games':games, 'score_conflicts':failures}
     if not old or old.get('games') != games or old.get('source') != output['source']:
