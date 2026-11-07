@@ -35,6 +35,8 @@ if(!color||!/^#[0-9a-f]{6}$/i.test(color.primary)||!/^#[0-9a-f]{6}$/i.test(color
 byNcaa.set(row.id,id);for(let name of [row.name,row.espn_name,found.school,found.display_name,found.provider_team_name])alias(name,id);
 }
 if(byNcaa.size!==365)throw Error('Incomplete NCAA crosswalk');
+// Official schedule lists UT Chattanooga; this is the NCAA Division I Chattanooga Mocs.
+alias('UT Chattanooga','236');
 for(const [id,entry] of Object.entries(outside)){
  if(registry[id]||!safeURL(entry.logo_url)||!/^#[0-9a-f]{6}$/i.test(entry.primary||'')||
    !/^#[0-9a-f]{6}$/i.test(entry.secondary||'')||
