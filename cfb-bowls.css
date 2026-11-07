@@ -90,3 +90,6 @@ body{background:#e9e2d2!important;color:#29251f!important}
 #cfp-predictor .cfp-note{font-size:13px;line-height:1.6;color:#554a39!important}
 @media(max-width:1020px){#cfp-predictor .cfp-field{grid-template-columns:repeat(2,minmax(0,1fr))}#cfp-predictor .cfp-bracket{grid-template-columns:1fr}}
 @media(max-width:580px){#cfp-predictor .cfp-field,#cfp-predictor .cfp-routes{grid-template-columns:1fr}#cfp-predictor .bowl-feature{padding:12px}}
+
+/* Contract-aware secondary bowl selections: compact, non-intrusive provenance. */
+#non-cfp-bowls .bowl-at-large,.bowl-feature .bowl-at-large{font:12px/1.5 "Century Schoolbook",Georgia,serif;color:#725535!important;margin:8px 0 0;border-top:1px dotted #c0b090;padding-top:6px}
