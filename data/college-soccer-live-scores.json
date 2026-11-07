@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "checked_at_utc": "2026-11-07T19:18:06.438120+00:00",
+  "checked_at_utc": "2026-11-07T19:31:58.267112+00:00",
   "source": "NCAA scoreboard via ncaa-api compatibility endpoint",
   "games": [
     {
@@ -117,7 +117,7 @@
       "away_name": "Yale",
       "home_id": "brown",
       "away_id": "yale",
-      "period": "HALF",
+      "period": "2ND HALF",
       "source_url": "https://www.ncaa.com/game/6616586"
     },
     {
@@ -307,7 +307,7 @@
       "cohort": "men-d2",
       "status": "live",
       "home_score": 2,
-      "away_score": 1,
+      "away_score": 2,
       "home_name": "Trevecca Nazarene",
       "away_name": "West Ala.",
       "home_id": "trevecca-nazarene",
@@ -552,14 +552,14 @@
     {
       "match_id": "men-6664406",
       "cohort": "men-d3",
-      "status": "live",
+      "status": "final",
       "home_score": 2,
       "away_score": 2,
       "home_name": "Williams",
       "away_name": "Amherst",
       "home_id": "williams",
       "away_id": "amherst",
-      "period": "2OT",
+      "period": "FINAL/PK",
       "source_url": "https://www.ncaa.com/game/6664406"
     },
     {
@@ -644,7 +644,7 @@
       "match_id": "men-6665166",
       "cohort": "men-d3",
       "status": "live",
-      "home_score": 0,
+      "home_score": 1,
       "away_score": 1,
       "home_name": "Thomas (ME)",
       "away_name": "Husson",
@@ -734,14 +734,14 @@
     {
       "match_id": "men-6666152",
       "cohort": "men-d1",
-      "status": "live",
-      "home_score": 0,
-      "away_score": 0,
+      "status": "final",
+      "home_score": 2,
+      "away_score": 2,
       "home_name": "Rhode Island",
       "away_name": "Davidson",
       "home_id": "rhode-island",
       "away_id": "davidson",
-      "period": "1ST HALF",
+      "period": "FINAL/PK",
       "source_url": "https://www.ncaa.com/game/6666152"
     },
     {
@@ -864,14 +864,14 @@
     {
       "match_id": "men-6666304",
       "cohort": "men-d1",
-      "status": "live",
+      "status": "final",
       "home_score": 1,
       "away_score": 3,
       "home_name": "West Florida",
       "away_name": "Queens (NC)",
       "home_id": "west-florida",
       "away_id": "queens-nc",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6666304"
     },
     {
@@ -996,7 +996,7 @@
       "cohort": "men-d1",
       "status": "live",
       "home_score": 1,
-      "away_score": 0,
+      "away_score": 2,
       "home_name": "Massachusetts",
       "away_name": "Delaware",
       "home_id": "massachusetts",
@@ -1178,7 +1178,7 @@
       "cohort": "women-d2",
       "status": "live",
       "home_score": 2,
-      "away_score": 0,
+      "away_score": 1,
       "home_name": "Columbus St.",
       "away_name": "North Georgia",
       "home_id": "columbus-st",
@@ -1229,8 +1229,8 @@
       "match_id": "women-6664703",
       "cohort": "women-d3",
       "status": "live",
-      "home_score": 0,
-      "away_score": 2,
+      "home_score": 2,
+      "away_score": 0,
       "home_name": "Immaculata",
       "away_name": "Marymount (VA)",
       "home_id": "immaculata",
@@ -1255,13 +1255,13 @@
       "match_id": "women-6664765",
       "cohort": "women-d3",
       "status": "live",
-      "home_score": 1,
+      "home_score": 2,
       "away_score": 1,
       "home_name": "Tufts",
       "away_name": "Hamilton",
       "home_id": "tufts",
       "away_id": "hamilton",
-      "period": "1ST HALF",
+      "period": "HALF",
       "source_url": "https://www.ncaa.com/game/6664765"
     },
     {
@@ -1339,7 +1339,7 @@
       "away_name": "Suffolk",
       "home_id": "hartford",
       "away_id": "suffolk",
-      "period": "HALF",
+      "period": "2ND HALF",
       "source_url": "https://www.ncaa.com/game/6664953"
     },
     {
@@ -1352,7 +1352,7 @@
       "away_name": "Georgian Court",
       "home_id": "philadelphia-u",
       "away_id": "georgian-court",
-      "period": "1ST HALF",
+      "period": "2ND HALF",
       "source_url": "https://www.ncaa.com/game/6664958"
     },
     {
@@ -1633,7 +1633,7 @@
       "cohort": "women-d1",
       "status": "live",
       "home_score": 0,
-      "away_score": 0,
+      "away_score": 2,
       "home_name": "Youngstown St.",
       "away_name": "Wright St.",
       "home_id": "youngstown-st",
@@ -1645,7 +1645,7 @@
       "match_id": "women-6666478",
       "cohort": "women-d1",
       "status": "live",
-      "home_score": 0,
+      "home_score": 1,
       "away_score": 2,
       "home_name": "Northern Ky.",
       "away_name": "IU Indy",
