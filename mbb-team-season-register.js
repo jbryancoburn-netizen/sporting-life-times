@@ -18,13 +18,22 @@ function quad(rank,site){
  return 0;
 }
 async function update(){
- const [retro,net]=await Promise.all([
+ const [retro,net,overall]=await Promise.all([
  fetchJSON('data/ncaam-2026-27-retro-primary.json'),
- fetchJSON('data/mbb-official-net-2026-27.json')]);
+ fetchJSON('data/mbb-official-net-2026-27.json'),
+ fetchJSON('data/mbb-overall-records-2026-27.json')]);
  const root=document.getElementById('season-register-desk');if(!root)return;
  if(!retro||retro.season!=='2026-27'||retro.model!=='retro-clean-slate'||!Array.isArray(retro.events))return;
  const ranking=retro.rankings.find(x=>x.team_id===teamId);
  if(!ranking)return;
+ // The selection register's Overall line must match the verified school
+ // record, not the D-I-only RETRO ledger. Never update RETRO itself.
+ const extra=overall?.season==='2026-27'?overall.records?.[teamId]:null;
+ const extraW=Number(extra?.verified_non_di_wins),extraL=Number(extra?.verified_non_di_losses);
+ const outsideW=Number.isSafeInteger(extraW)&&extraW>=0?extraW:0;
+ const outsideL=Number.isSafeInteger(extraL)&&extraL>=0?extraL:0;
+ const overallW=Number(ranking.wins||0)+outsideW;
+ const overallL=Number(ranking.losses||0)+outsideL;
  const games=retro.events.filter(g=>g.home_id===teamId||g.away_id===teamId);
  const home=games.filter(g=>g.home_id===teamId&&!g.neutral).length;
  const road=games.filter(g=>g.away_id===teamId&&!g.neutral).length;
@@ -46,7 +55,7 @@ async function update(){
  }
  const latest=esc(retro.as_of||'unavailable');
  const current='<p class="march-resume-status">2026–27 · Verified RETRO results through '+latest+'</p>'+
- '<div class="march-resume-stats">'+stat('Overall',ranking.wins+'–'+ranking.losses)+stat('Road victories',roadWins+' / '+road)+stat('RETRO rank','#'+ranking.rank)+stat('RETRO Elo',Math.round(ranking.elo))+stat('Projected NCAA position',seed)+'</div>'+
+ '<div class="march-resume-stats">'+stat('Overall',overallW+'–'+overallL)+stat('Non-D-I regular-season',outsideW+'–'+outsideL)+stat('RETRO road victories',roadWins+' / '+road)+stat('RETRO rank','#'+ranking.rank)+stat('RETRO Elo',Math.round(ranking.elo))+stat('Projected NCAA position',seed)+'</div>'+
  '<h3>Official NET &amp; quadrant ledger</h3>'+
  '<div class="march-resume-stats">'+stat('Official NET',ownNET?'#'+ownNET:'Not published')+
  (netValid?qs.map((q,i)=>stat('Quad '+(i+1),q.w+'–'+q.l)).join(''):stat('Quad 1–4','Awaiting verified NET'))+'</div>'+
