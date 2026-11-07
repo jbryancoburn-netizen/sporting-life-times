@@ -37,6 +37,15 @@ byNcaa.set(row.id,id);for(let name of [row.name,row.espn_name,found.school,found
 if(byNcaa.size!==365)throw Error('Incomplete NCAA crosswalk');
 // Official schedule lists UT Chattanooga; this is the NCAA Division I Chattanooga Mocs.
 alias('UT Chattanooga','236');
+// Reviewed official-school labels that differ from the provider's directory names.
+alias("University of Mississippi","145");
+alias("Central Connecticut State University","2115");
+alias("North Carolina A&T State University","2448");
+alias("Bethune-Cookman University","2065");
+alias("Texas-Arlington","250");
+alias("Tennessee-Martin","2630");
+alias("University of Tennessee at Martin","2630");
+alias("University of Tennessee at Chattanooga","236");
 for(const [id,entry] of Object.entries(outside)){
  if(registry[id]||!safeURL(entry.logo_url)||!/^#[0-9a-f]{6}$/i.test(entry.primary||'')||
    !/^#[0-9a-f]{6}$/i.test(entry.secondary||'')||
@@ -67,6 +76,9 @@ function outsideSchoolId(value){
  const matches=new Set();
  for(const [alias,id] of outsideByName){
   if(alias.length>=8&&key.startsWith(alias)&&key.length>alias.length)matches.add(id);
+  // Allow shorter exact school labels when the catalog lists the full university
+  // name or a mascot suffix. Only a unique school survives the ambiguity guard.
+  if(key.length>=8&&alias.startsWith(key)&&alias.length>key.length)matches.add(id);
   if(matches.size>1)return '';
  }
  return matches.size===1?[...matches][0]:'';
