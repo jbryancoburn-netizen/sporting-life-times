@@ -131,5 +131,43 @@ function project(){
 
 }
 
-async function refresh(){try{const q='?v='+Math.floor(Date.now()/60000);const [a,b,elo,cup,possessionInputs]=await Promise.all(['data/nba-upcoming-schedule.json','data/nba-game-center.json','data/nba-elo-shadow-2026-27.json','data/nba-cup-2026.json','data/nba-possession-inputs.json'].map((p,i)=>fetch(p+q,{cache:'no-store'}).then(r=>{if(!r.ok&&i!==4)throw Error(p);return r.ok?r.json():null}))); ledger=cup;ratings=Object.fromEntries((elo.rankings||[]).map(x=>[x.team,Number(x.elo)]));scoringModel=window.RabbyPossessionModel?.build(possessionInputs)||null;earlyModel=window.RabbyEarlyScore?.build(elo.events||[])||null;scoringSource=scoringModel?'Rabby possession-based offense/defense':earlyModel?'Rabby early-season fallback':'Elo-implied fallback';document.getElementById('cup-model-name').textContent=scoringSource;document.getElementById('cup-model-info').textContent='RETRO Elo win probabilities · '+(scoringModel?'Rabby opponent-adjusted scoring · '+scoringModel.coverage.games+' eligible games':'Possession data not yet qualified; fallback scoring')+' · 3,000 tournament simulations';const map=new Map();for(const raw of [...(a.games||[]),...(b.games||[])]){const g=decode(raw);if(!g||!g.id)continue;const old=map.get(g.id);if(!old||({post:3,in:2,pre:1}[g.state]||0)>({post:3,in:2,pre:1}[old.state]||0))map.set(g.id,g)}last=[...map.values()];document.getElementById('status').textContent='Feed updated '+format(a.updated_at||new Date())+' · '+scoringSource+' · 3,000 simulations · Auto-refresh every 5 minutes.'}catch(e){document.getElementById('status').textContent='Score feed temporarily unavailable; official group assignments remain visible.'}draw();project();draw()}draw();refresh();setInterval(refresh,300000);
+async function refresh(){
+ const fileNames=['data/nba-upcoming-schedule.json','data/nba-game-center.json','data/nba-elo-shadow-2026-27.json','data/nba-cup-2026.json','data/nba-possession-inputs.json'];
+ const q='?v='+Math.floor(Date.now()/60000);
+ // An unavailable large box-score archive must not suppress the smaller live
+ // scoreboard, confirmed Cup results, or standings.
+ const fetchOne=async p=>{
+  const controller=new AbortController();
+  const timer=setTimeout(()=>controller.abort(),12000);
+  try{const r=await fetch(p+q,{cache:'no-store',signal:controller.signal});if(!r.ok)throw Error(p+': '+r.status);return await r.json()}
+  finally{clearTimeout(timer)}
+ };
+ const settled=await Promise.allSettled(fileNames.map(fetchOne));
+ const [a,b,elo,cup,possessionInputs]=settled.map(x=>x.status==='fulfilled'?x.value:null);
+ if(cup?.fixtures?.length)ledger=cup;
+ if(Array.isArray(elo?.rankings))ratings=Object.fromEntries(elo.rankings.map(x=>[x.team,Number(x.elo)]));
+ if(possessionInputs)scoringModel=window.RabbyPossessionModel?.build(possessionInputs)||null;
+ if(elo?.events)earlyModel=window.RabbyEarlyScore?.build(elo.events)||null;
+ scoringSource=scoringModel?'Rabby possession-based offense/defense':earlyModel?'Rabby early-season fallback':'Elo-implied fallback';
+ document.getElementById('cup-model-name').textContent=scoringSource;
+ document.getElementById('cup-model-info').textContent='RETRO Elo win probabilities · '+(scoringModel?'Rabby opponent-adjusted scoring · '+scoringModel.coverage.games+' eligible games':'Possession data not yet qualified; fallback scoring')+' · 3,000 tournament simulations';
+ const map=new Map();
+ for(const raw of [...(a?.games||[]),...(b?.games||[])]){
+  const g=decode(raw);if(!g||!g.id)continue;
+  const old=map.get(g.id);
+  if(!old||({post:3,in:2,pre:1}[g.state]||0)>({post:3,in:2,pre:1}[old.state]||0))map.set(g.id,g);
+ }
+ if(map.size)last=[...map.values()];
+ const stamp=a?.updated_at||b?.updated_at||cup?.results_synced_at;
+ const age=stamp?Date.now()-new Date(stamp).getTime():Infinity;
+ const old=age>20*60*1000;
+ const dataReady=!!(a||b||ledger);
+ document.getElementById('status').textContent=!dataReady?
+  'NBA Cup feeds unavailable. Retrying in five minutes.':
+  (old?'Scoreboard delayed — last available update ':'NBA Cup scoreboard updated ')+(stamp?format(stamp):'time unavailable')+
+  ' · '+scoringSource+' · auto-refresh every 5 minutes'+(settled.some(x=>x.status==='rejected')?' · some secondary feeds unavailable':'')+'.';
+ draw();
+ project();
+}
+draw();refresh();setInterval(refresh,300000);
 </script></body></html>

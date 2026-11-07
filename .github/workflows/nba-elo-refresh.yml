@@ -10,6 +10,8 @@ on:
       - 'scripts/update-nba-forecast-ledger.mjs'
       - 'scripts/test-nba-forecast-ledger.mjs'
       - 'tests/nba-rabby-refresh.test.cjs'
+      - 'scripts/persist_nba_cup_results.py'
+      - 'scripts/test-nba-cup-results.py'
       - 'nba-rabby-possession.js'
   schedule:
     - cron: '*/5 * * * *'
@@ -59,6 +61,10 @@ jobs:
         run: |
           node scripts/reconcile-nba-schedule.mjs
           node scripts/reconcile-nba-schedule.mjs --check
+      - name: Synchronize NBA Cup finals using the same verified NBA score feeds
+        run: |
+          python scripts/test-nba-cup-results.py
+          python scripts/persist_nba_cup_results.py
       - name: Verify all rankings, Elo deltas and dated finals before publication
         run: |
           node scripts/audit-nba-elo.mjs
@@ -74,13 +80,13 @@ jobs:
           node scripts/update-nba-forecast-ledger.mjs
       - name: Publish new verified game results, if any
         run: |
-          if git diff --quiet -- data/nba-2026-27-current-provisional.json && git diff --quiet -- data/nba-elo-reconciliation.json && git diff --quiet -- data/nba-elo-shadow-2026-27.json && git diff --quiet -- data/nba-upcoming-schedule.json && test -z "$(git status --porcelain -- data/nba-rabby-forecast-ledger.json)" && test -f data/nba-elo-reconciliation.json; then
+          if git diff --quiet -- data/nba-2026-27-current-provisional.json && git diff --quiet -- data/nba-elo-reconciliation.json && git diff --quiet -- data/nba-elo-shadow-2026-27.json && git diff --quiet -- data/nba-upcoming-schedule.json && git diff --quiet -- data/nba-cup-2026.json && test -z "$(git status --porcelain -- data/nba-rabby-forecast-ledger.json)" && test -f data/nba-elo-reconciliation.json; then
             echo "No new completed games; no commit."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/nba-2026-27-current-provisional.json data/nba-elo-reconciliation.json data/nba-elo-shadow-2026-27.json data/nba-upcoming-schedule.json
+          git add data/nba-2026-27-current-provisional.json data/nba-elo-reconciliation.json data/nba-elo-shadow-2026-27.json data/nba-upcoming-schedule.json data/nba-cup-2026.json
           if test -f data/nba-rabby-forecast-ledger.json; then git add data/nba-rabby-forecast-ledger.json; fi
           git commit -m "Update independent provisional NBA Elo with verified final scores"
           for attempt in 1 2 3; do
@@ -95,13 +101,14 @@ jobs:
             node scripts/update-nba-elo.mjs
             node scripts/build-nba-elo-shadow.mjs --write
             node scripts/reconcile-nba-schedule.mjs
+            python scripts/persist_nba_cup_results.py
             if ! node scripts/update-nba-forecast-ledger.mjs; then
               echo "::warning::Rabby archive unavailable on retry; publish verified NBA Elo without altering previous forecasts."
             fi
             node scripts/audit-nba-elo.mjs
             node scripts/audit-nba-boxscore-elo.mjs
             node scripts/reconcile-nba-schedule.mjs --check
-            git add data/nba-2026-27-current-provisional.json data/nba-elo-reconciliation.json data/nba-elo-shadow-2026-27.json data/nba-upcoming-schedule.json
+            git add data/nba-2026-27-current-provisional.json data/nba-elo-reconciliation.json data/nba-elo-shadow-2026-27.json data/nba-upcoming-schedule.json data/nba-cup-2026.json
           if test -f data/nba-rabby-forecast-ledger.json; then git add data/nba-rabby-forecast-ledger.json; fi
             if git diff --cached --quiet; then echo "Remote NBA data already up-to-date"; exit 0; fi
             git commit -m "Reconcile verified NBA finals and current scoreboard"
