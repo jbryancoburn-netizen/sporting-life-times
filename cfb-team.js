@@ -8,6 +8,7 @@ const dt=x=>new Date(x).toLocaleDateString('en-US',{timeZone:'America/New_York',
 const tm=x=>new Date(x).toLocaleTimeString('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit'});
 const fullDate=x=>new Date(x).toLocaleString('en-US',{timeZone:'America/New_York',weekday:'long',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});
 const done=e=>e?.status?.type?.completed===true||e?.status?.type?.state==='post';
+const points=c=>{const s=c?.score,v=s&&typeof s==='object'?(s.value??s.displayValue):s;return v===null||v===undefined||String(v).trim()===''?null:(Number.isFinite(Number(v))?Number(v):null)};
 const logo=t=>t?.logos?.[0]?.href||t?.logo||(t?.id?'https://a.espncdn.com/i/teamlogos/ncaa/500/'+encodeURIComponent(t.id)+'.png':'');
 if(!/^\d+$/.test(id)){$('team-heading').textContent='Select a school from the college football directory.';return}
 let snapshot=null,events=[],roster=[],brands=new Map(),schools=new Map(),team=null,scoreRecord=null,statsData=null,rosterAvailable=false;
@@ -24,26 +25,40 @@ function mark(t){const b=published(t?.id)||{},a={...b,...t};
  const {primary,secondary}=window.CFB_DESK.ringColors(a);
  return '<span class="cfb-team-mark" style="--primary:'+primary+';--secondary:'+secondary+'">'+window.CFB_DESK.ringArtwork(primary,secondary)+window.CFB_DESK.imageMarkup(logo(a),a)+'</span>';
 }
-function normalizeSchedules(saved,fixture,finals){const map=new Map();
- for(const e of fixture||[])if(e?.id)map.set(String(e.id),e);
- for(const e of saved||[])if(e?.id&&e.competitions?.[0]?.competitors?.some(c=>String(c.team?.id)===id))map.set(String(e.id),e);
- for(const g of finals||[]){if(!g.teams?.some(t=>String(t.id)===id))continue;
- const old=map.get(String(g.id));if(old&&done(old))continue;
- const sides=g.teams.map(t=>({team:{id:String(t.id),displayName:t.name,logo:logo(published(t.id)||{id:t.id})},score:String(t.score),homeAway:t.homeAway}));
- map.set(String(g.id),{...old,id:String(g.id),date:g.date,status:{type:{completed:true,state:'post',shortDetail:'Final'}},competitions:[{...(old?.competitions?.[0]||{}),competitors:sides,neutralSite:g.neutral}]});
+function normalizeSchedules(saved,fixture,finals,live){
+ const map=new Map();
+ const rank=e=>done(e)?3:e?.status?.type?.state==='in'?2:1;
+ const belongs=e=>e?.competitions?.[0]?.competitors?.some(c=>String(c.team?.id)===id);
+ const add=e=>{
+  if(!e?.id||!belongs(e))return;
+  const key=String(e.id),old=map.get(key);
+  // Do not let older cached fixtures turn an already-live or final game backward.
+  if(!old||rank(e)>=rank(old))map.set(key,e);
+ };
+ // A historical cache is only a fallback. An official final, a fresh team
+ // schedule, and finally the current scoreboard each have higher priority.
+ for(const e of saved||[])add(e);
+ for(const g of finals||[]){
+  if(!g.teams?.some(t=>String(t.id)===id))continue;
+  const old=map.get(String(g.id));
+  const sides=g.teams.map(t=>({team:{id:String(t.id),displayName:t.name,logo:logo(published(t.id)||{id:t.id})},score:String(t.score),homeAway:t.homeAway}));
+  add({...old,id:String(g.id),date:g.date,status:{type:{completed:true,state:'post',shortDetail:'Final'}},competitions:[{...(old?.competitions?.[0]||{}),competitors:sides,neutralSite:g.neutral}]});
  }
- return [...map.values()].filter(e=>e.competitions?.[0]?.competitors?.some(t=>String(t.team?.id)===id)).sort((a,b)=>Date.parse(a.date)-Date.parse(b.date));
+ for(const e of fixture||[])add(e);
+ for(const e of live||[])add(e);
+ return [...map.values()].sort((a,b)=>Date.parse(a.date)-Date.parse(b.date));
 }
 function tally(list){let w=0,l=0,t=0,pf=0,pa=0;const finished=[];
  for(const e of list){if(!done(e))continue;const sides=e.competitions?.[0]?.competitors||[],a=sides.find(x=>String(x.team?.id)===id),b=sides.find(x=>String(x.team?.id)!==id);if(!a||!b)continue;
- const aa=Number(a.score),bb=Number(b.score);if(!Number.isFinite(aa)||!Number.isFinite(bb))continue;finished.push(e);pf+=aa;pa+=bb;if(aa>bb)w++;else if(aa<bb)l++;else t++;
+ const aa=points(a),bb=points(b);if(aa===null||bb===null)continue;finished.push(e);pf+=aa;pa+=bb;if(aa>bb)w++;else if(aa<bb)l++;else t++;
  }return{w,l,t,pf,pa,gp:finished.length,finished};
 }
 function drawSchedule(){const filter=$('schedule-filter').value;
  const chosen=events.filter(e=>{const us=e.competitions?.[0]?.competitors?.find(s=>String(s.team?.id)===id);return filter==='all'||filter==='final'&&done(e)||filter==='upcoming'&&!done(e)||filter==='home'&&us?.homeAway==='home'||filter==='away'&&us?.homeAway==='away'});
  $('team-games').innerHTML=chosen.length?chosen.map(e=>{const comp=e.competitions?.[0]||{},sides=comp.competitors||[],us=sides.find(x=>String(x.team?.id)===id),op=sides.find(x=>String(x.team?.id)!==id),opp={...published(op?.team?.id),...op?.team},final=done(e),live=e.status?.type?.state==='in';
- const win=final&&Number(us?.score)>Number(op?.score),loss=final&&Number(us?.score)<Number(op?.score);
- const result=final?(win?'W ':loss?'L ':'T ')+esc(us?.score)+'–'+esc(op?.score):live?'LIVE '+esc(us?.score)+'–'+esc(op?.score):'Scheduled';
+ const usScore=points(us),opScore=points(op),scored=usScore!==null&&opScore!==null;
+ const win=final&&scored&&usScore>opScore,loss=final&&scored&&usScore<opScore;
+ const result=final?(scored?(win?'W ':loss?'L ':'T ')+usScore+'–'+opScore:'Final · score pending'):live?(scored?'LIVE '+usScore+'–'+opScore:'LIVE · score pending'):'Scheduled';
  const venue=comp.venue?.fullName||'Venue TBA',tv=(comp.broadcasts||[]).flatMap(b=>b.names||[]).join(', ')||'Network TBD';
  const where=comp.neutralSite?'Neutral':us?.homeAway==='home'?'Home':'Away',time=(!final&&!live&&/TBD/i.test(e.status?.type?.shortDetail||''))?'TBD':tm(e.date);
  return '<div class="team-game'+(final?' is-final':'')+'"><time>'+esc(dt(e.date))+'<br>'+esc(time)+'</time><div class="team-game-opponent">'+mark(opp)+'<div><strong>'+esc(opp.displayName||'Opponent')+'</strong><small>'+esc(where+' · '+tv+' · '+venue)+'</small></div></div><div class="team-game-score '+(win?'team-win':loss?'team-loss':'')+'">'+result+'</div></div>';
@@ -64,7 +79,7 @@ function renderStats(){let html=statsData?providerStats(statsData):'';const r=sc
 function renderRating(){const r=window.CFB_RATINGS?.[id],rate=Number.isFinite(r?.adjustedElo)?Math.round(r.adjustedElo):null,rec=scoreRecord;if(!rec)return;
  $('team-kpis').innerHTML=[[(rec.w+'–'+rec.l+(rec.t?'–'+rec.t:'')),'Completed record'],[rate??'—','RETRO rating'],[events.length,'Scheduled games'],[rec.gp,'Final results']].map(([v,l])=>'<div class="team-kpi"><b>'+esc(v)+'</b><small>'+esc(l)+'</small></div>').join('');
  $('team-record').innerHTML='<div class="team-info-row"><span>Completed games</span><strong>'+rec.w+'–'+rec.l+(rec.t?'–'+rec.t:'')+'</strong></div><div class="team-info-row"><span>Remaining games</span><strong>'+Math.max(0,events.length-rec.gp)+'</strong></div><div class="team-info-row"><span>RETRO starting point</span><strong>1500</strong></div><div class="team-info-row"><span>Current RETRO</span><strong>'+(rate??'Calculating…')+'</strong></div><p class="team-subtle">Completed results are verified against the 2026 FBS master ledger. RETRO uses the same independent model as the CFB power table.</p>';
- const forms=rec.finished.slice(-6).map(e=>{const a=e.competitions?.[0]?.competitors||[],us=a.find(t=>String(t.team?.id)===id),op=a.find(t=>String(t.team?.id)!==id);return Number(us?.score)>Number(op?.score)?'W':Number(us?.score)<Number(op?.score)?'L':'T'}),pct=Math.round(100*rec.w/Math.max(1,rec.gp));
+ const forms=rec.finished.slice(-6).map(e=>{const a=e.competitions?.[0]?.competitors||[],us=a.find(t=>String(t.team?.id)===id),op=a.find(t=>String(t.team?.id)!==id);return points(us)>points(op)?'W':points(us)<points(op)?'L':'T'}),pct=Math.round(100*rec.w/Math.max(1,rec.gp));
  let box='<p class="team-subtle">Last six completed results</p><div class="team-form-row">'+(forms.length?forms.map(v=>'<span class="team-form-pill '+(v==='L'?'loss':'')+'">'+v+'</span>').join(''):'No finals yet')+'</div><div class="team-meter"><span style="width:'+pct+'%"></span></div><p class="team-subtle">'+pct+'% win rate through completed games.</p>';
  const upcoming=events.find(e=>!done(e)&&e.status?.type?.state!=='in'&&Date.parse(e.date)>=Date.now()-86400000);
  if(upcoming){const a=upcoming.competitions?.[0]?.competitors||[],us=a.find(x=>String(x.team?.id)===id),op=a.find(x=>String(x.team?.id)!==id),opp={...published(op?.team?.id),...op?.team},oppRate=window.CFB_RATINGS?.[String(op?.team?.id)]?.adjustedElo;
@@ -79,6 +94,33 @@ function conferenceView(tree){const groups=[];
  function walk(n){if(!n||typeof n!=='object')return;const list=n.standings?.entries||n.entries||[];if(list.some(e=>String(e.team?.id)===id))groups.push({name:n.name||n.abbreviation||'Conference',entries:list});for(const c of n.children||n.groups||[])walk(c)}
  walk(tree);const best=groups.sort((a,b)=>b.entries.length-a.entries.length)[0];
  $('team-conference').innerHTML=best?'<h3>'+esc(team?.conference||best.name)+'</h3>'+best.entries.map(e=>'<div class="team-info-row"><span>'+esc(e.team?.shortDisplayName||e.team?.displayName)+'</span><strong>'+esc((e.stats||[]).find(x=>x.name==='overall'||x.name==='overallRecord')?.displayValue||'—')+'</strong></div>').join(''):msg('Conference table unavailable.');}
+let scoreRefreshPending=false,lastScoreAttempt=0,lastScoreSuccess=0;
+function easternDay(){
+ const parts=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());
+ return ['year','month','day'].map(k=>parts.find(p=>p.type===k)?.value).join('');
+}
+async function refreshScores(){
+ if(scoreRefreshPending||document.hidden)return;
+ scoreRefreshPending=true;lastScoreAttempt=Date.now();
+ try{
+  const day=easternDay(),[schedule,board]=await Promise.allSettled([
+   source('teams/'+id+'/schedule?season=2026&ts='+Date.now()),
+   source('scoreboard?dates='+day+'&groups=80&limit=500&ts='+Date.now())
+  ]);
+  const fixture=schedule.status==='fulfilled'?schedule.value.events:null;
+  const today=board.status==='fulfilled'?board.value.events:null;
+  if(!Array.isArray(fixture)&&!Array.isArray(today)){
+   $('team-stamp').textContent='Live score sources unreachable · showing last available results'+(lastScoreSuccess?' · last checked '+new Date(lastScoreSuccess).toLocaleTimeString('en-US',{timeZone:'America/New_York'}):'');
+   return;
+  }
+  events=normalizeSchedules(snapshot?.feeds?.scoreboard?.data?.events,Array.isArray(fixture)?fixture:events,snapshot?.games,Array.isArray(today)?today:[]);
+  scoreRecord=tally(events);drawSchedule();renderStats();renderRating();
+  lastScoreSuccess=Date.now();
+  const available=[Array.isArray(fixture)?'team schedule':null,Array.isArray(today)?'live scoreboard':null].filter(Boolean).join(' + ');
+  $('team-stamp').textContent='Scores checked '+new Date(lastScoreSuccess).toLocaleTimeString('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit'})+' ET · '+available+' · '+scoreRecord.gp+' completed games · automatic 60-second refresh';
+ }catch(e){console.warn('College football score check failed',e)}
+ finally{scoreRefreshPending=false}
+}
 async function start(){
  const requestsPending=Promise.allSettled([source('teams/'+id),source('teams/'+id+'/schedule?season=2026'),source('teams/'+id+'/roster?season=2026'),source('teams/'+id+'/statistics?season=2026'),get('data/cfb-2026-results.json?ts='+Date.now()),get('https://site.api.espn.com/apis/v2/sports/football/college-football/standings?season=2026&group=80')]);
  await window.CFB_DESK.logosReady;
@@ -107,7 +149,11 @@ async function start(){
  conferenceView(standings.status==='fulfilled'?standings.value:snapshot?.feeds?.standings?.data);
  renderRating();
  const sources=requests.filter(x=>x.status==='fulfilled').length;
- $('team-stamp').textContent='Updated '+new Date().toLocaleString('en-US',{timeZone:'America/New_York'})+' ET · '+(snapshot?'Verified season ledger: '+snapshot.audit.games+' finals · ':'Master ledger unavailable · ')+sources+'/6 feeds available · game results override stale team schedules';
+ $('team-stamp').textContent='Team data loaded · '+(snapshot?'Verified season ledger: '+snapshot.audit.games+' finals · ':'Master ledger unavailable · ')+sources+'/6 feeds available · checking live scores…';
+ void refreshScores();
+ setInterval(()=>{if(!document.hidden)void refreshScores()},60000);
+ document.addEventListener('visibilitychange',()=>{if(!document.hidden)void refreshScores()});
+ window.addEventListener('focus',()=>{if(Date.now()-lastScoreAttempt>30000)void refreshScores()});
 }
 document.addEventListener('cfb-ratings-ready',renderRating);
 start().catch(e=>{$('team-stamp').textContent='Team desk could not finish loading: '+e.message;console.error(e)});
