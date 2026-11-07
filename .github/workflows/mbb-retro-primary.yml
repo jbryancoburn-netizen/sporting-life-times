@@ -1,8 +1,5 @@
 name: Publish MBB RETRO Primary
 on:
-  workflow_run:
-    workflows: ['MBB newspaper refresh and publish']
-    types: [completed]
   workflow_dispatch:
   # Trigger after upstream men's results are refreshed, independently of
   # GitHub's best-effort scheduled execution.
