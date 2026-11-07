@@ -46,6 +46,39 @@ alias("Texas-Arlington","250");
 alias("Tennessee-Martin","2630");
 alias("University of Tennessee at Martin","2630");
 alias("University of Tennessee at Chattanooga","236");
+// Exact identities from the 365-school crosswalk, reviewed against schedule labels.
+alias("University of Southern Mississippi","2572");
+alias("Southern Mississippi","2572");
+alias("University of Nebraska at Omaha","2437");
+alias("UMKC","140");
+alias("Missouri-Kansas City","140");
+alias("California State University at Fullerton","2239");
+alias("University of North Carolina Wilmington","350");
+alias("University of Illinois Chicago","82");
+alias("Stephen F. Austin","2617");
+alias("McNeese State","2377");
+alias("McNeese State University","2377");
+alias("San Jose State","23");
+alias("Brigham Young","252");
+alias("Arkansas State University","2032");
+alias("Arkansas Little Rock","2031");
+alias("University of California Santa Barbara","2540");
+alias("Central Connecticut State","2115");
+alias("North Carolina A&T State","2448");
+alias("Texas A&M - Corpus Christi","357");
+alias("Texas A&M-Corpus Christi","357");
+alias("Univ. of Washington","264");
+alias("Univ. of Seattle","2547");
+alias("Florida International University","2229");
+alias("Long Beach State University","299");
+alias("Virginia Commonwealth University","2670");
+alias("South Carolina State University","2569");
+alias("SC State","2569");
+alias("Ragin' Cajuns","309");
+alias("University of North Carolina at Wilmington","350");
+alias("University of California at Santa Barbara","2540");
+alias("University of California, Santa Barbara","2540");
+alias("California State University Fullerton","2239");
 for(const [id,entry] of Object.entries(outside)){
  if(registry[id]||!safeURL(entry.logo_url)||!/^#[0-9a-f]{6}$/i.test(entry.primary||'')||
    !/^#[0-9a-f]{6}$/i.test(entry.secondary||'')||
