@@ -6,8 +6,8 @@
   "elo_approved": false,
   "source": "ESPN site API, completed finals since NBL27 regular-season opening",
   "season_start": "2026-09-19",
-  "updated_at": "2026-11-07T00:58:36.632976+00:00",
-  "games_replayed": 55,
+  "updated_at": "2026-11-07T10:24:19.276227+00:00",
+  "games_replayed": 56,
   "teams": 10,
   "rows": [
     {
@@ -51,6 +51,16 @@
       "points_pct": 97.76
     },
     {
+      "team": "Adelaide 36ers",
+      "wins": 6,
+      "losses": 6,
+      "played": 12,
+      "win_pct": 0.5,
+      "points_for": 1107,
+      "points_against": 1109,
+      "points_pct": 99.82
+    },
+    {
       "team": "Perth Wildcats",
       "wins": 5,
       "losses": 5,
@@ -69,16 +79,6 @@
       "points_for": 1109,
       "points_against": 1169,
       "points_pct": 94.87
-    },
-    {
-      "team": "Adelaide 36ers",
-      "wins": 5,
-      "losses": 6,
-      "played": 11,
-      "win_pct": 0.455,
-      "points_for": 1001,
-      "points_against": 1031,
-      "points_pct": 97.09
     },
     {
       "team": "South East Melbourne Phoenix",
@@ -103,15 +103,27 @@
     {
       "team": "Illawarra Hawks",
       "wins": 4,
-      "losses": 8,
-      "played": 12,
-      "win_pct": 0.333,
-      "points_for": 1164,
-      "points_against": 1244,
-      "points_pct": 93.57
+      "losses": 9,
+      "played": 13,
+      "win_pct": 0.308,
+      "points_for": 1242,
+      "points_against": 1350,
+      "points_pct": 92.0
     }
   ],
   "recent_finals": [
+    {
+      "id": "401875289",
+      "played_at": "2026-11-07T06:30Z",
+      "home": "Adelaide 36ers",
+      "away": "Illawarra Hawks",
+      "home_score": 106,
+      "away_score": 78,
+      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875289/hawks-36ers",
+      "verified": false,
+      "provider": "espn",
+      "state": "candidate"
+    },
     {
       "id": "401875294",
       "played_at": "2026-11-06T08:30Z",
@@ -216,18 +228,6 @@
       "home_score": 68,
       "away_score": 71,
       "source_url": "https://www.espn.com/nbl/game/_/gameId/401875278/kings-jackjumpers",
-      "verified": false,
-      "provider": "espn",
-      "state": "candidate"
-    },
-    {
-      "id": "401875293",
-      "played_at": "2026-10-30T06:30Z",
-      "home": "New Zealand Breakers",
-      "away": "Adelaide 36ers",
-      "home_score": 101,
-      "away_score": 108,
-      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875293/36ers-breakers",
       "verified": false,
       "provider": "espn",
       "state": "candidate"
