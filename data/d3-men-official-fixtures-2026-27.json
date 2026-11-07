@@ -3,7 +3,7 @@
   "division": "d3",
   "gender": "men",
   "season": "2026-27",
-  "generated_utc": "2026-11-07T14:56:32.716387+00:00",
+  "generated_utc": "2026-11-07T23:40:20.334625+00:00",
   "source": "NCAA 2026-27 member directory + year/gender-validated official school athletics calendars",
   "scope": "NCAA membership-wide first pass; sources without independently validated 2026-27 schedules excluded",
   "ncaa_confirmed_programs": 406,
@@ -14,8 +14,8 @@
   "school_calendars_unresolved": 17,
   "source_status_counts": {
     "parsed": 358,
-    "failed": 17,
-    "parsed_conference": 31
+    "parsed_conference": 31,
+    "failed": 17
   },
   "last_verified_school_source": {
     "4": "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
@@ -371,7 +371,7 @@
     "30190": "https://athletics.pct.edu/sports/mens-basketball/schedule?grid=true",
     "30197": "https://blazers.belhaven.edu/sports/mens-basketball/schedule/2026-27?grid=true",
     "30219": "https://www.deanbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
-    "30236": "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true",
+    "30236": "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true",
     "30243": "https://www.asburyeagles.com/sports/mens-basketball/schedule/2026-27?grid=true",
     "30245": "https://charlotte.jwuathletics.com/sports/mens-basketball/schedule?grid=true",
     "30253": "https://www.carlow.edu/events/tag/mens-basketball/",
@@ -1220,7 +1220,7 @@
       "excluded_rows": {
         "missing_or_ambiguous_ncaa_opponent": 1
       },
-      "failed_school_calendar_urls": 16
+      "failed_school_calendar_urls": 9
     },
     {
       "owner_org_id": 120,
@@ -2515,8 +2515,7 @@
       "readable_rows": 28,
       "verified_member_opponents": 24,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 1,
-        "conditional_or_ambiguous_opponent": 3
+        "conditional_or_ambiguous_opponent": 4
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -4328,9 +4327,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 2,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://usmmasports.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 727,
@@ -4484,10 +4483,10 @@
       "owner_org_id": 755,
       "source_url": "https://washubears.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "readable_rows": 27,
-      "verified_member_opponents": 23,
+      "verified_member_opponents": 24,
       "excluded_rows": {
         "identity_not_d3_matched_but_posted": 2,
-        "conditional_or_ambiguous_opponent": 2
+        "conditional_or_ambiguous_opponent": 1
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -6216,9 +6215,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://www.letuathletics.com/sports/mens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 8530,
@@ -6261,9 +6260,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 4,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://www.mlcknights.com/sports/mens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 8600,
@@ -7115,9 +7114,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://athletics.geneva.edu/sports/mens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 30085,
@@ -7255,10 +7254,10 @@
     {
       "owner_org_id": 30170,
       "source_url": "https://www.alfredstateathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "readable_rows": 30,
+      "readable_rows": 29,
       "verified_member_opponents": 9,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 19,
+        "identity_not_d3_matched_but_posted": 18,
         "conditional_or_ambiguous_opponent": 2
       },
       "status": "parsed",
@@ -7442,7 +7441,7 @@
     },
     {
       "owner_org_id": 30236,
-      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true",
       "readable_rows": 25,
       "verified_member_opponents": 12,
       "excluded_rows": {
@@ -7450,9 +7449,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 1,
-      "verified_direct_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "discovery_method": "previously_verified_source"
+      "candidate_urls_tried": 3,
+      "verified_direct_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true",
+      "discovery_method": "official_school_url_or_vendor_variant"
     },
     {
       "owner_org_id": 30243,
@@ -7551,18 +7550,6 @@
       "source_urls": [
         "https://www.catholicathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.ursinusathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
-      ]
-    },
-    {
-      "date": "2026-11-07",
-      "members": [
-        281,
-        1094
-      ],
-      "problem": "home/away or neutral-site source disagreement",
-      "source_urls": [
-        "https://athletics.georgefox.edu/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://www.hiramterriers.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ]
     },
     {
@@ -8202,9 +8189,9 @@
       ]
     }
   ],
-  "fixture_count": 4388,
-  "reciprocal_fixtures": 2616,
-  "unresolved_opponent_fixture_count": 1663,
+  "fixture_count": 4389,
+  "reciprocal_fixtures": 2618,
+  "unresolved_opponent_fixture_count": 1661,
   "unresolved_opponent_fixtures": [
     {
       "id": "d3-men-2026-11-06-18-other-7e7a67cf3608",
@@ -8882,21 +8869,6 @@
       "venue_location": "Moorhead, Minn."
     },
     {
-      "id": "d3-men-2026-11-07-373-other-7165e2d562e8",
-      "date": "2026-11-07",
-      "source_owner_org_id": 373,
-      "external_opponent_label": "MCLA/RIT",
-      "placement": "away",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://lycomingathletics.com/sports/mens-basketball/schedule?grid=true",
-      "tipoff_as_posted": "3 p.m.",
-      "venue_location": "Rochester, N.Y."
-    },
-    {
       "id": "d3-men-2026-11-07-452-other-c694664eacc6",
       "date": "2026-11-07",
       "source_owner_org_id": 452,
@@ -8942,10 +8914,10 @@
       "venue_location": "Fulton, MO"
     },
     {
-      "id": "d3-men-2026-11-07-515-other-277846bb927f",
+      "id": "d3-men-2026-11-07-515-other-c3f036fe845c",
       "date": "2026-11-07",
       "source_owner_org_id": 515,
-      "external_opponent_label": "Hiram College vs George Fox",
+      "external_opponent_label": "George Fox vs Hiram",
       "placement": "neutral",
       "status": "scheduled",
       "elo_eligible": false,
@@ -9092,11 +9064,11 @@
       "venue_location": "Annandale-on-Hudson, NY"
     },
     {
-      "id": "d3-men-2026-11-07-755-other-31b4d7bde19a",
+      "id": "d3-men-2026-11-07-755-other-de31cbdbcc80",
       "date": "2026-11-07",
       "source_owner_org_id": 755,
-      "external_opponent_label": "Lopata Classic Consolation",
-      "placement": "home",
+      "external_opponent_label": "Transylvania vs. Bethany Lutheran",
+      "placement": "neutral",
       "status": "scheduled",
       "elo_eligible": false,
       "opponent_d3_identity_unverified": true,
@@ -9375,21 +9347,6 @@
       "source_url": "https://fightingtigers.cobleskill.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "2:00 PM",
       "venue_location": "Cobleskill, NY / Iorio Gymnasium"
-    },
-    {
-      "id": "d3-men-2026-11-07-30170-other-3d98d5ae1e1b",
-      "date": "2026-11-07",
-      "source_owner_org_id": 30170,
-      "external_opponent_label": "PS Berks vs Carlow",
-      "placement": "home",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://www.alfredstateathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "3 pm",
-      "venue_location": "Alfred, NY / Orvis Gym"
     },
     {
       "id": "d3-men-2026-11-08-137-other-6fe90ed7c73e",
@@ -10272,7 +10229,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "7:00 P.M.",
       "venue_location": "Purcellville, VA"
     },
@@ -11802,7 +11759,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "4:00 P.M.",
       "venue_location": "Swanannoa, NC / Devries Athletic Center"
     },
@@ -16557,7 +16514,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "7:00 P.M.",
       "venue_location": "Charleston, SC"
     },
@@ -22947,7 +22904,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "3:00 P.M.",
       "venue_location": "Swanannoa, NC / Devries Athletic Center"
     },
@@ -24747,7 +24704,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "3:00 P.M.",
       "venue_location": "Swanannoa, NC / Devries Athletic Center"
     },
@@ -24897,7 +24854,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "8:00 P.M.",
       "venue_location": "Swanannoa, NC / Devries Athletic Center"
     },
@@ -26487,7 +26444,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "7:00 P.M.",
       "venue_location": "Swanannoa, NC / Devries Athletic Center"
     },
@@ -27342,7 +27299,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "2:00 P.M.",
       "venue_location": "Winston-Salem, NC"
     },
@@ -27492,7 +27449,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "7:00 P.M.",
       "venue_location": "Greenville, SC"
     },
@@ -28092,7 +28049,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "6 p.m.",
       "venue_location": "Charlotte, NC"
     },
@@ -30042,7 +29999,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "3:00 P.M.",
       "venue_location": "Charlotte, NC"
     },
@@ -33290,7 +33247,7 @@
       "home_org_id": 64,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://sliac.org/schedule.aspx?schedule=2030",
+      "source_url": "https://www.illinoiscollegeathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://sliac.org/schedule.aspx?schedule=2030",
         "https://www.illinoiscollegeathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -33301,7 +33258,7 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7:00 P.M.",
+      "tipoff_as_posted": "7:00 PM",
       "venue": "",
       "venue_location": "Carlinville, IL",
       "network_as_posted": "",
@@ -35315,7 +35272,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "single_official_school",
-      "tipoff_as_posted": "12:00pm",
+      "tipoff_as_posted": "Noon",
       "venue": "",
       "venue_location": "Meadville, PA",
       "network_as_posted": "",
@@ -35622,7 +35579,7 @@
       "venue_location": "Los Angeles, CA",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 76-62",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -35717,7 +35674,7 @@
       ],
       "source_kind": "official_conference",
       "source_verification": "single_official_conference",
-      "tipoff_as_posted": "3:00 P.M.",
+      "tipoff_as_posted": "",
       "venue": "",
       "venue_location": "",
       "network_as_posted": "",
@@ -35772,7 +35729,7 @@
       "venue_location": "Kenosha, Wis.",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 85-56",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -35846,7 +35803,7 @@
       "venue_location": "Standish, ME",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "L, 78-94",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -36296,6 +36253,30 @@
       "neutral_home_designation_unconfirmed": true
     },
     {
+      "id": "d3-men-2026-11-07-266-755",
+      "date": "2026-11-07",
+      "away_org_id": 266,
+      "home_org_id": 755,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://washubears.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://washubears.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        755
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "6 p.m.",
+      "venue": "Field House",
+      "venue_location": "St. Louis, Mo.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "42nd Annual Lopata Classic",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2026-11-07-268-30031",
       "date": "2026-11-07",
       "away_org_id": 30031,
@@ -36446,6 +36427,32 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2026-11-07-281-1094",
+      "date": "2026-11-07",
+      "away_org_id": 281,
+      "home_org_id": 1094,
+      "neutral": true,
+      "status": "scheduled",
+      "source_url": "https://athletics.georgefox.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://athletics.georgefox.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.hiramterriers.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        281,
+        1094
+      ],
+      "source_kind": "official_school",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "1:00 PM EST/ 10:00 AM PST",
+      "venue": "",
+      "venue_location": "Oberlin, Ohio",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "Tip-Off Classic",
+      "neutral_home_designation_unconfirmed": true
+    },
+    {
       "id": "d3-men-2026-11-07-286-2694",
       "date": "2026-11-07",
       "away_org_id": 2694,
@@ -36522,30 +36529,6 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
-      "id": "d3-men-2026-11-07-335-530",
-      "date": "2026-11-07",
-      "away_org_id": 335,
-      "home_org_id": 530,
-      "neutral": true,
-      "status": "scheduled",
-      "source_url": "https://athletics.kenyon.edu/sports/mens-basketball/schedule/2026-27?grid=true",
-      "official_schedule_sources": [
-        "https://athletics.kenyon.edu/sports/mens-basketball/schedule/2026-27?grid=true"
-      ],
-      "verified_by_org_ids": [
-        335
-      ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
-      "tipoff_as_posted": "12:00PM",
-      "venue": "",
-      "venue_location": "Cleveland, Ohio",
-      "network_as_posted": "",
-      "radio_as_posted": "",
-      "tournament": "2026-27 Bill Sudeck Tournament",
-      "neutral_home_designation_unconfirmed": true
-    },
-    {
       "id": "d3-men-2026-11-07-335-30037",
       "date": "2026-11-07",
       "away_org_id": 335,
@@ -36554,13 +36537,15 @@
       "status": "scheduled",
       "source_url": "https://trinethunder.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://athletics.kenyon.edu/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://trinethunder.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
+        335,
         30037
       ],
       "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "12:00 p.m.",
       "venue": "",
       "venue_location": "Cleveland, OH",
@@ -36989,7 +36974,7 @@
       ],
       "source_kind": "official_conference",
       "source_verification": "single_official_conference",
-      "tipoff_as_posted": "2:00 P.M.",
+      "tipoff_as_posted": "",
       "venue": "",
       "venue_location": "Olivet, MI",
       "network_as_posted": "",
@@ -37640,7 +37625,7 @@
       "venue_location": "Albany, NY",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "L, 75-97",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -37690,7 +37675,7 @@
       "venue_location": "St. Louis, Mo.",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "L, 74-89",
       "neutral_home_designation_unconfirmed": true
     },
     {
@@ -38476,9 +38461,9 @@
       "home_org_id": 30236,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true",
         "https://www.bctornados.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
@@ -38988,30 +38973,6 @@
       "tipoff_as_posted": "7:00 PM ET",
       "venue": "COLUMBIA GYM",
       "venue_location": "Louisville, KY",
-      "network_as_posted": "",
-      "radio_as_posted": "",
-      "tournament": "",
-      "neutral_home_designation_unconfirmed": false
-    },
-    {
-      "id": "d3-men-2026-11-10-1159-30067",
-      "date": "2026-11-10",
-      "away_org_id": 1159,
-      "home_org_id": 30067,
-      "neutral": false,
-      "status": "scheduled",
-      "source_url": "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "official_schedule_sources": [
-        "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-27?grid=true"
-      ],
-      "verified_by_org_ids": [
-        30067
-      ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
-      "tipoff_as_posted": "7:30 PM",
-      "venue": "",
-      "venue_location": "Morrisville, N.Y.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -40870,6 +40831,30 @@
       "tipoff_as_posted": "7:00 PM",
       "venue": "",
       "venue_location": "Marshall, TX",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-11-11-1159-30067",
+      "date": "2026-11-11",
+      "away_org_id": 1159,
+      "home_org_id": 30067,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        30067
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7:30 PM",
+      "venue": "",
+      "venue_location": "Morrisville, N.Y.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -48954,9 +48939,9 @@
       "home_org_id": 30236,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true",
         "https://www.gopeacepacers.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
@@ -53359,7 +53344,7 @@
       "source_url": "https://knightathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://knightathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         30164,
@@ -59280,7 +59265,7 @@
       "status": "scheduled",
       "source_url": "https://www.mumonarchs.com/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true",
         "https://www.mumonarchs.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
@@ -62340,7 +62325,7 @@
       "status": "scheduled",
       "source_url": "https://www.bctornados.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true",
         "https://www.bctornados.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
@@ -66540,9 +66525,9 @@
       "home_org_id": 30236,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true",
         "https://www.piedmontlions.com/sports/mens-basketball/schedule/2026-2027?grid=true"
       ],
       "verified_by_org_ids": [
@@ -84542,7 +84527,7 @@
       "status": "scheduled",
       "source_url": "https://www.piedmontlions.com/sports/mens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
-        "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true",
         "https://www.piedmontlions.com/sports/mens-basketball/schedule/2026-2027?grid=true"
       ],
       "verified_by_org_ids": [
@@ -91278,7 +91263,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "single_official_school",
-      "tipoff_as_posted": "TBA",
+      "tipoff_as_posted": "3:00 PM",
       "venue": "",
       "venue_location": "Swarthmore, PA",
       "network_as_posted": "",
@@ -91829,9 +91814,9 @@
       "home_org_id": 30236,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true",
         "https://www.lagrangepanthers.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
@@ -93068,7 +93053,7 @@
       "source_url": "https://regentroyals.com/sports/mens-basketball/schedule/2026?grid=true",
       "official_schedule_sources": [
         "https://regentroyals.com/sports/mens-basketball/schedule/2026?grid=true",
-        "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         30236,
@@ -101457,10 +101442,10 @@
       "home_org_id": 30236,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://regentroyals.com/sports/mens-basketball/schedule/2026?grid=true",
-        "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         30236,
@@ -117993,7 +117978,7 @@
       "status": "scheduled",
       "source_url": "https://www.lagrangepanthers.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true",
         "https://www.lagrangepanthers.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
@@ -119003,10 +118988,10 @@
       "home_org_id": 30236,
       "neutral": true,
       "status": "scheduled",
-      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://bergathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://warrenwilsonowls.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         278,
@@ -121624,7 +121609,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "single_official_school",
-      "tipoff_as_posted": "TBA",
+      "tipoff_as_posted": "8:00 PM",
       "venue": "",
       "venue_location": "Collegeville, PA",
       "network_as_posted": "",
@@ -126308,7 +126293,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "single_official_school",
-      "tipoff_as_posted": "TBA",
+      "tipoff_as_posted": "2:00 PM",
       "venue": "",
       "venue_location": "Westminster, MD",
       "network_as_posted": "",
