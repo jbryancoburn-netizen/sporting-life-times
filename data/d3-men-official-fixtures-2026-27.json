@@ -3,19 +3,19 @@
   "division": "d3",
   "gender": "men",
   "season": "2026-27",
-  "generated_utc": "2026-11-06T15:58:16.429077+00:00",
+  "generated_utc": "2026-11-07T00:09:26.337928+00:00",
   "source": "NCAA 2026-27 member directory + year/gender-validated official school athletics calendars",
   "scope": "NCAA membership-wide first pass; sources without independently validated 2026-27 schedules excluded",
   "ncaa_confirmed_programs": 406,
   "verified_source_calendars": 358,
-  "official_conference_calendar_fallbacks": 31,
+  "official_conference_calendar_fallbacks": 30,
   "school_calendars_checked": 406,
   "school_calendars_missing": 48,
-  "school_calendars_unresolved": 17,
+  "school_calendars_unresolved": 18,
   "source_status_counts": {
     "parsed": 358,
-    "failed": 17,
-    "parsed_conference": 31
+    "parsed_conference": 30,
+    "failed": 18
   },
   "last_verified_school_source": {
     "4": "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
@@ -170,7 +170,7 @@
     "515": "https://www.goyeo.com/sports/mens-basketball/schedule/2026-27?grid=true",
     "516": "https://www.oxyathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
     "520": "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true",
-    "524": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule/2026-27?grid=true",
+    "524": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule?grid=true",
     "526": "https://www.oneontaathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
     "530": "https://oswegolakers.com/sports/mens-basketball/schedule/2026-27?grid=true",
     "531": "https://www.otterbeincardinals.com/sports/mens-basketball/schedule/2026-27?grid=true",
@@ -206,7 +206,7 @@
     "612": "https://www.saintmaryssports.com/sports/mens-basketball/schedule/2026-2027?grid=true",
     "614": "https://athletics.snc.edu/sports/mens-basketball/schedule?grid=true",
     "615": "https://athletics.stolaf.edu/sports/mens-basketball/schedule/2026-27?grid=true",
-    "618": "https://www.csssaints.com/sports/mens-basketball/schedule/2026-27?grid=true",
+    "618": "https://www.csssaints.com/sports/mens-basketball/schedule?grid=true",
     "622": "https://www.suseagulls.com/sports/mens-basketball/schedule/2026-27?grid=true",
     "623": "https://www.salveathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
     "633": "https://athletics.scranton.edu/sports/mens-basketball/schedule/2026-27?grid=true",
@@ -281,7 +281,7 @@
     "1133": "https://www.hussoneagles.com/sports/mens-basketball/schedule/2026-27?grid=true",
     "1159": "https://www.keukaathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
     "1162": "https://www.lagrangepanthers.com/sports/mens-basketball/schedule/2026-27?grid=true",
-    "1164": "https://lakelandmuskies.com/sports/mens-basketball/schedule?grid=true",
+    "1164": "https://lakelandmuskies.com/sports/mens-basketball/schedule/2026-27?grid=true",
     "1179": "https://golinfieldwildcats.com/sports/mens-basketball/schedule/2026-27?grid=true",
     "1192": "https://www.muspartans.com/sports/mens-basketball/schedule/2026-27?grid=true",
     "1194": "https://mbusabercats.com/sports/mens-basketball/schedule?grid=true",
@@ -341,7 +341,7 @@
     "28749": "https://www.transysports.com/sports/mens-basketball/schedule/2026-27?grid=true",
     "30029": "https://www.purchasecollegeathletics.com/sports/mens-basketball/schedule?grid=true",
     "30031": "https://unweagles.com/sports/mens-basketball/schedule/2026-27?grid=true",
-    "30035": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+    "30035": "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true",
     "30036": "https://www.mountieathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
     "30037": "https://trinethunder.com/sports/mens-basketball/schedule/2026-27?grid=true",
     "30038": "https://www.blcvikings.com/sports/mens-basketball/schedule/2026-27?grid=true",
@@ -426,6 +426,22 @@
         "https://cnesports.org/schedule.aspx?schedule=4111",
         "https://www.brandeisjudges.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://wheatoncollegelyons.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ]
+    },
+    {
+      "ncaa_org_id": 119,
+      "school": "Carnegie Mellon University",
+      "conference": "University Athletic Association",
+      "category": "server_refused_method",
+      "failed_url": "https://athletics.cmu.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "last_successful_school_schedule_url": "",
+      "discovered_schedule_links": [],
+      "checked_schedule_candidates": 9,
+      "next_action": "Inspect official school schedule platform's public print/text calendar; do not circumvent access controls",
+      "opponent_published_fixtures": 2,
+      "opponent_source_examples": [
+        "https://www.geneseoknights.com/sports/mens-basketball/schedule?grid=true",
+        "https://www.emoryathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ]
     },
     {
@@ -702,11 +718,11 @@
     }
   ],
   "unverified_school_summary": {
-    "remaining_unverified_school_calendars": 17,
+    "remaining_unverified_school_calendars": 18,
     "missing_schools_with_at_least_10_opponent_sourced_games": 14,
     "missing_schools_with_zero_opponent_sourced_games": 0,
     "recovery_reason_counts": {
-      "server_refused_method": 4,
+      "server_refused_method": 5,
       "calendar_path_unavailable": 1,
       "season_heading_not_verified": 12
     }
@@ -1042,10 +1058,10 @@
     {
       "owner_org_id": 75,
       "source_url": "https://www.bridgewatereagles.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "readable_rows": 24,
+      "readable_rows": 26,
       "verified_member_opponents": 20,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 4
+        "identity_not_d3_matched_but_posted": 6
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -1212,15 +1228,16 @@
     },
     {
       "owner_org_id": 119,
-      "source_url": "https://uaasports.info/schedule.aspx?schedule=1162",
-      "status": "parsed_conference",
-      "calendar_origin": "official_conference_team_calendar",
-      "readable_rows": 25,
-      "verified_member_opponents": 24,
-      "excluded_rows": {
-        "missing_or_ambiguous_ncaa_opponent": 1
-      },
-      "failed_school_calendar_urls": 9
+      "source_url": "https://athletics.cmu.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "status": "failed",
+      "error": "HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not ",
+      "candidate_urls_tried": 9,
+      "rejected_page_evidence": [],
+      "conference_page_evidence": [],
+      "discovered_schedule_links": [],
+      "calendar_origin": "NCAA_directory_athletics_hostname",
+      "retained_previous_fixtures": 24,
+      "retained_verified_fixtures": 24
     },
     {
       "owner_org_id": 120,
@@ -1320,9 +1337,9 @@
       },
       "status": "parsed",
       "calendar_origin": "independently_verified_athletics_host",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://athletics.central.edu/sports/mens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 132,
@@ -2484,11 +2501,11 @@
     {
       "owner_org_id": 364,
       "source_url": "https://www.duhawks.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "readable_rows": 27,
+      "readable_rows": 29,
       "verified_member_opponents": 20,
       "excluded_rows": {
         "conditional_or_ambiguous_opponent": 3,
-        "identity_not_d3_matched_but_posted": 4
+        "identity_not_d3_matched_but_posted": 6
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -2884,10 +2901,10 @@
     {
       "owner_org_id": 452,
       "source_url": "https://athletics.mountunion.edu/sports/mens-basketball/schedule/2026-27?grid=true",
-      "readable_rows": 25,
+      "readable_rows": 27,
       "verified_member_opponents": 18,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 5,
+        "identity_not_d3_matched_but_posted": 7,
         "conditional_or_ambiguous_opponent": 2
       },
       "status": "parsed",
@@ -3246,7 +3263,7 @@
     },
     {
       "owner_org_id": 524,
-      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule?grid=true",
       "readable_rows": 24,
       "verified_member_opponents": 12,
       "excluded_rows": {
@@ -3255,9 +3272,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 1,
-      "verified_direct_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "discovery_method": "previously_verified_source"
+      "candidate_urls_tried": 3,
+      "verified_direct_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule?grid=true",
+      "discovery_method": "official_school_url_or_vendor_variant"
     },
     {
       "owner_org_id": 525,
@@ -3911,7 +3928,7 @@
     },
     {
       "owner_org_id": 618,
-      "source_url": "https://www.csssaints.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.csssaints.com/sports/mens-basketball/schedule?grid=true",
       "readable_rows": 25,
       "verified_member_opponents": 14,
       "excluded_rows": {
@@ -3920,9 +3937,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 1,
-      "verified_direct_url": "https://www.csssaints.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "discovery_method": "previously_verified_source"
+      "candidate_urls_tried": 3,
+      "verified_direct_url": "https://www.csssaints.com/sports/mens-basketball/schedule?grid=true",
+      "discovery_method": "official_school_url_or_vendor_variant"
     },
     {
       "owner_org_id": 621,
@@ -4404,9 +4421,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 2,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://vwuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 747,
@@ -4419,9 +4436,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://sports.wabash.edu/sports/mens-basketball/schedule/2026-2027?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 750,
@@ -5628,7 +5645,7 @@
     },
     {
       "owner_org_id": 1164,
-      "source_url": "https://lakelandmuskies.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://lakelandmuskies.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "readable_rows": 25,
       "verified_member_opponents": 15,
       "excluded_rows": {
@@ -5636,9 +5653,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 1,
-      "verified_direct_url": "https://lakelandmuskies.com/sports/mens-basketball/schedule?grid=true",
-      "discovery_method": "previously_verified_source"
+      "candidate_urls_tried": 2,
+      "verified_direct_url": "https://lakelandmuskies.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "discovery_method": "official_school_url_or_vendor_variant"
     },
     {
       "owner_org_id": 1179,
@@ -5973,9 +5990,9 @@
       },
       "status": "parsed",
       "calendar_origin": "independently_verified_athletics_host",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://athletics.westminster.edu/sports/mens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 1454,
@@ -6880,7 +6897,7 @@
     },
     {
       "owner_org_id": 30035,
-      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true",
       "readable_rows": 28,
       "verified_member_opponents": 15,
       "excluded_rows": {
@@ -6889,9 +6906,9 @@
       },
       "status": "parsed",
       "calendar_origin": "independently_verified_athletics_host",
-      "candidate_urls_tried": 1,
-      "verified_direct_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
-      "discovery_method": "previously_verified_source"
+      "candidate_urls_tried": 3,
+      "verified_direct_url": "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true",
+      "discovery_method": "official_school_url_or_vendor_variant"
     },
     {
       "owner_org_id": 30036,
@@ -8177,7 +8194,7 @@
   ],
   "fixture_count": 4367,
   "reciprocal_fixtures": 2607,
-  "unresolved_opponent_fixture_count": 1663,
+  "unresolved_opponent_fixture_count": 1669,
   "unresolved_opponent_fixtures": [
     {
       "id": "d3-men-2026-11-06-18-other-7e7a67cf3608",
@@ -8313,6 +8330,21 @@
       "source_url": "https://www.owlsathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "7 p.m.",
       "venue_location": "Huntsville, AL"
+    },
+    {
+      "id": "d3-men-2026-11-06-452-other-48deec078f9a",
+      "date": "2026-11-06",
+      "source_owner_org_id": 452,
+      "external_opponent_label": "Muskingum vs Penn State Brandywine",
+      "placement": "neutral",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://athletics.mountunion.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "5 pm",
+      "venue_location": "Alliance, OH / Timken Gymnasium"
     },
     {
       "id": "d3-men-2026-11-06-453-other-1cd58871b9e6",
@@ -8465,21 +8497,6 @@
       "venue_location": "Haverford, PA"
     },
     {
-      "id": "d3-men-2026-11-06-745-other-dc3cb76c7136",
-      "date": "2026-11-06",
-      "source_owner_org_id": 745,
-      "external_opponent_label": "Maryville vs. Washington & Lee University",
-      "placement": "neutral",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://vwuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "7:00 PM",
-      "venue_location": "Virginia Beach, VA / TowneBank Arena"
-    },
-    {
       "id": "d3-men-2026-11-06-755-other-06f70ecf7dc6",
       "date": "2026-11-06",
       "source_owner_org_id": 755,
@@ -8528,7 +8545,7 @@
       "id": "d3-men-2026-11-06-1094-other-258c86e6eec3",
       "date": "2026-11-06",
       "source_owner_org_id": 1094,
-      "external_opponent_label": "York (PA)",
+      "external_opponent_label": "York (Pa.)",
       "placement": "neutral",
       "status": "scheduled",
       "elo_eligible": false,
@@ -8685,7 +8702,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "7:00 pm",
       "venue_location": "St. Bonifacius, Minn. / Teal Athletic Center"
     },
@@ -8900,21 +8917,6 @@
       "venue_location": "Rochester, N.Y."
     },
     {
-      "id": "d3-men-2026-11-07-396-other-ffe0995aa7f7",
-      "date": "2026-11-07",
-      "source_owner_org_id": 396,
-      "external_opponent_label": "Batten / St. John Fisher",
-      "placement": "neutral",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://www.mcscots.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "",
-      "venue_location": "Virginia Beach, Va."
-    },
-    {
       "id": "d3-men-2026-11-07-442-other-5df54fa99886",
       "date": "2026-11-07",
       "source_owner_org_id": 442,
@@ -8928,6 +8930,21 @@
       "source_url": "https://www.montclairathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true",
       "tipoff_as_posted": "TBD",
       "venue_location": "Farmingdale, NY"
+    },
+    {
+      "id": "d3-men-2026-11-07-452-other-c694664eacc6",
+      "date": "2026-11-07",
+      "source_owner_org_id": 452,
+      "external_opponent_label": "Muskingum vs Franklin & Marshall",
+      "placement": "neutral",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://athletics.mountunion.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "3 pm",
+      "venue_location": "Alliance, OH / Timken Gymnasium"
     },
     {
       "id": "d3-men-2026-11-07-462-other-9acebff66281",
@@ -8970,7 +8987,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "12:00 PM",
       "venue_location": "Old Westbury, NY / Clark Athletic Center"
     },
@@ -9031,7 +9048,7 @@
       "schedule_only": true,
       "source_kind": "official_school",
       "source_url": "https://www.saintmaryssports.com/sports/mens-basketball/schedule/2026-2027?grid=true",
-      "tipoff_as_posted": "4 PM",
+      "tipoff_as_posted": "5 PM",
       "venue_location": "Minneapolis, MN. / Clark-Danielson Gymnasium"
     },
     {
@@ -9045,7 +9062,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.csssaints.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.csssaints.com/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "3:00 PM",
       "venue_location": "Bemidji, Minn."
     },
@@ -9108,6 +9125,21 @@
       "source_url": "https://www.ursinusathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "3:00 p.m. / 5:00 p.m.",
       "venue_location": "Collegeville, PA / Helfferich Hall"
+    },
+    {
+      "id": "d3-men-2026-11-07-745-other-3d1fbf492844",
+      "date": "2026-11-07",
+      "source_owner_org_id": 745,
+      "external_opponent_label": "Maryville vs. Washington & Lee University",
+      "placement": "neutral",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://vwuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "4:00 PM",
+      "venue_location": "Virginia Beach, VA / TowneBank Arena"
     },
     {
       "id": "d3-men-2026-11-07-753-other-ddbf7f501517",
@@ -9286,7 +9318,7 @@
       "schedule_only": true,
       "source_kind": "official_school",
       "source_url": "https://www.goeasterneagles.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "7:00 PM",
+      "tipoff_as_posted": "8:00 PM",
       "venue_location": "Middletown, Pa.."
     },
     {
@@ -9468,6 +9500,21 @@
       "source_url": "https://www.gomightymacs.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "1 p.m.",
       "venue_location": "Middletown, Pa."
+    },
+    {
+      "id": "d3-men-2026-11-08-396-other-77f7efef85a7",
+      "date": "2026-11-08",
+      "source_owner_org_id": 396,
+      "external_opponent_label": "Batten / St. John Fisher",
+      "placement": "neutral",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://www.mcscots.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "12:00 or 2:00",
+      "venue_location": "Virginia Beach, Va."
     },
     {
       "id": "d3-men-2026-11-08-403-other-26b1d559598c",
@@ -9885,7 +9932,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://lakelandmuskies.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://lakelandmuskies.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "7 p.m.",
       "venue_location": "Chicago, Ill."
     },
@@ -10830,7 +10877,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://lakelandmuskies.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://lakelandmuskies.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "7 p.m.",
       "venue_location": "St. Paul, Minn."
     },
@@ -11013,6 +11060,21 @@
       "source_url": "https://athletics.bethel.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "12 p.m.",
       "venue_location": "Arden Hills, Minn. / Robertson Center Gym"
+    },
+    {
+      "id": "d3-men-2026-11-14-75-other-0f987df3b7f5",
+      "date": "2026-11-14",
+      "source_owner_org_id": 75,
+      "external_opponent_label": "EMU vs Mid-Atlantic Christian",
+      "placement": "neutral",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://www.bridgewatereagles.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "8 PM",
+      "venue_location": "Bridgewater, Va. / Nininger Hall"
     },
     {
       "id": "d3-men-2026-11-14-75-other-ccff22e79580",
@@ -11295,7 +11357,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "1:00 PM",
       "venue_location": "Wayne, NJ"
     },
@@ -11866,7 +11928,22 @@
       "schedule_only": true,
       "source_kind": "official_school",
       "source_url": "https://www.bridgewatereagles.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "1 PM",
+      "tipoff_as_posted": "2 PM",
+      "venue_location": "Bridgewater, Va. / Nininger Hall"
+    },
+    {
+      "id": "d3-men-2026-11-15-75-other-c0913216c6d7",
+      "date": "2026-11-15",
+      "source_owner_org_id": 75,
+      "external_opponent_label": "EMU vs PSU Hazleton",
+      "placement": "neutral",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://www.bridgewatereagles.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "4 PM",
       "venue_location": "Bridgewater, Va. / Nininger Hall"
     },
     {
@@ -14430,7 +14507,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "7:00 pm",
       "venue_location": "Ellendale, ND / Ray Ulmer Field House"
     },
@@ -14595,7 +14672,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "7:00 pm",
       "venue_location": "Fayette, IA / Dorman Memorial Gymnasium"
     },
@@ -15390,7 +15467,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://lakelandmuskies.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://lakelandmuskies.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "7 p.m.",
       "venue_location": "Chicago, Ill."
     },
@@ -15435,7 +15512,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "6:45 pm",
       "venue_location": "St. Bonifacius, Minn. / Teal Athletic Center"
     },
@@ -17221,7 +17298,7 @@
       "schedule_only": true,
       "source_kind": "official_school",
       "source_url": "https://www.benueagles.com/sports/mens-basketball/schedule?grid=true",
-      "tipoff_as_posted": "TBA",
+      "tipoff_as_posted": "3:15 PM",
       "venue_location": "Fond du Lac, WI"
     },
     {
@@ -17310,7 +17387,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "12:00 PM",
       "venue_location": "Old Westbury, NY / Clark Athletic Center"
     },
@@ -17970,7 +18047,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "",
       "venue_location": "Fayette, IA / Dorman Memorial Gymnasium"
     },
@@ -20100,7 +20177,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "3:00 pm",
       "venue_location": "St. Bonifacius, Minn. / Teal Athletic Center"
     },
@@ -20550,7 +20627,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.csssaints.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.csssaints.com/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "1:00 PM",
       "venue_location": "Duluth, Minn. / Reif Gym (Burns Wellness Commons)"
     },
@@ -20685,7 +20762,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "2:45 pm",
       "venue_location": "St. Paul, Minn. / Ericksen Center"
     },
@@ -21150,7 +21227,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "6:00 PM",
       "venue_location": "Brooklyn, NY"
     },
@@ -21795,7 +21872,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "12:00 PM",
       "venue_location": "Old Westbury, NY / Clark Athletic Center"
     },
@@ -22095,7 +22172,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "2:45 pm",
       "venue_location": "Minneapolis, MN / Clark-Danielson Gymnasium"
     },
@@ -23130,7 +23207,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "1:00 PM",
       "venue_location": "Old Westbury, NY / Clark Athletic Center"
     },
@@ -24495,7 +24572,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.csssaints.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.csssaints.com/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "1:00 PM",
       "venue_location": "Collegeville, MN"
     },
@@ -24660,7 +24737,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "2:45 pm",
       "venue_location": "St. Bonifacius, Minn. / Teal Athletic Center"
     },
@@ -25140,7 +25217,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://lakelandmuskies.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://lakelandmuskies.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "7 p.m.",
       "venue_location": "Home / Woltzen Gymnasium"
     },
@@ -25725,7 +25802,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "1:00 PM",
       "venue_location": "Old Westbury, NY / Clark Athletic Center"
     },
@@ -26010,7 +26087,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "2:45 pm",
       "venue_location": "St. Bonifacius, Minn. / Teal Athletic Center"
     },
@@ -26925,7 +27002,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "",
       "venue_location": "Patchogue, NY"
     },
@@ -27240,7 +27317,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "5:00 pm",
       "venue_location": "St. Bonifacius, Minn. / Teal Athletic Center"
     },
@@ -28260,7 +28337,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "1:00 PM",
       "venue_location": "Old Westbury, NY / Clark Athletic Center"
     },
@@ -28380,7 +28457,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.csssaints.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.csssaints.com/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "1:00 PM",
       "venue_location": "Moorhead, Minn."
     },
@@ -28545,7 +28622,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "2:45 pm",
       "venue_location": "St. Paul, Minn. / Ericksen Center"
     },
@@ -28980,7 +29057,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "7:00 PM",
       "venue_location": "Kings Point, NY"
     },
@@ -30455,11 +30532,11 @@
       "venue_location": ""
     },
     {
-      "id": "d3-men-2027-02-23-364-other-c4ee01ce773a",
+      "id": "d3-men-2027-02-23-364-other-2897f9ba2d6b",
       "date": "2027-02-23",
       "source_owner_org_id": 364,
       "external_opponent_label": "American Rivers Conference",
-      "placement": "away",
+      "placement": "neutral",
       "status": "scheduled",
       "elo_eligible": false,
       "opponent_d3_identity_unverified": true,
@@ -31445,6 +31522,21 @@
       "venue_location": "Newport News, Va. / Freeman Center"
     },
     {
+      "id": "d3-men-2027-02-25-364-other-714cbdb8f5e3",
+      "date": "2027-02-25",
+      "source_owner_org_id": 364,
+      "external_opponent_label": "American Rivers Conference",
+      "placement": "neutral",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://www.duhawks.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "TBA",
+      "venue_location": "Cedar Rapids, Iowa"
+    },
+    {
       "id": "d3-men-2027-02-25-396-other-426b8f5bad19",
       "date": "2027-02-25",
       "source_owner_org_id": 396,
@@ -31953,6 +32045,21 @@
       "source_url": "https://www.goforesters.com/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "TBD",
       "venue_location": ""
+    },
+    {
+      "id": "d3-men-2027-02-27-364-other-08250bf3c900",
+      "date": "2027-02-27",
+      "source_owner_org_id": 364,
+      "external_opponent_label": "American Rivers Conference",
+      "placement": "neutral",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://www.duhawks.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "TBA",
+      "venue_location": "Cedar Rapids, Iowa"
     },
     {
       "id": "d3-men-2027-02-27-379-other-2fc47916c0e8",
@@ -33211,10 +33318,10 @@
       "home_org_id": 1164,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://lakelandmuskies.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://lakelandmuskies.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://beloitcollegeathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true",
-        "https://lakelandmuskies.com/sports/mens-basketball/schedule?grid=true"
+        "https://lakelandmuskies.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         53,
@@ -33507,7 +33614,7 @@
       "venue_location": "Abilene, TX",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "HSU Classic",
       "neutral_home_designation_unconfirmed": true
     },
     {
@@ -33838,7 +33945,7 @@
       "venue": "Esbjornson Gymnasium",
       "venue_location": "Glassboro, NJ",
       "network_as_posted": "",
-      "radio_as_posted": "WGLS 89.7 FM",
+      "radio_as_posted": "",
       "tournament": "",
       "neutral_home_designation_unconfirmed": false
     },
@@ -34243,30 +34350,6 @@
       "neutral_home_designation_unconfirmed": true
     },
     {
-      "id": "d3-men-2026-11-06-396-752",
-      "date": "2026-11-06",
-      "away_org_id": 396,
-      "home_org_id": 752,
-      "neutral": true,
-      "status": "scheduled",
-      "source_url": "https://www.mcscots.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "official_schedule_sources": [
-        "https://www.mcscots.com/sports/mens-basketball/schedule/2026-27?grid=true"
-      ],
-      "verified_by_org_ids": [
-        396
-      ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
-      "tipoff_as_posted": "7:00 PM",
-      "venue": "",
-      "venue_location": "Virginia Beach, Va.",
-      "network_as_posted": "",
-      "radio_as_posted": "",
-      "tournament": "TowneBank Tipoff Tournament",
-      "neutral_home_designation_unconfirmed": true
-    },
-    {
       "id": "d3-men-2026-11-06-412-611",
       "date": "2026-11-06",
       "away_org_id": 412,
@@ -34662,32 +34745,6 @@
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
-      "neutral_home_designation_unconfirmed": false
-    },
-    {
-      "id": "d3-men-2026-11-06-601-745",
-      "date": "2026-11-06",
-      "away_org_id": 601,
-      "home_org_id": 745,
-      "neutral": false,
-      "status": "scheduled",
-      "source_url": "https://vwuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "official_schedule_sources": [
-        "https://vwuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://www.sjfathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
-      ],
-      "verified_by_org_ids": [
-        601,
-        745
-      ],
-      "source_kind": "official_school",
-      "source_verification": "reciprocal",
-      "tipoff_as_posted": "5:00 PM",
-      "venue": "TowneBank Arena",
-      "venue_location": "Virginia Beach, VA",
-      "network_as_posted": "",
-      "radio_as_posted": "",
-      "tournament": "TowneBank Tipoff Tournament",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -35597,7 +35654,7 @@
       "venue_location": "Abilene, TX",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "HSU Classic",
       "neutral_home_designation_unconfirmed": true
     },
     {
@@ -36290,7 +36347,7 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "5:30 P.M.",
+      "tipoff_as_posted": "7:00 P.M.",
       "venue": "",
       "venue_location": "Indianola, Iowa",
       "network_as_posted": "",
@@ -36449,6 +36506,30 @@
       "radio_as_posted": "",
       "tournament": "Hilton Scranton Invitational",
       "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-11-07-396-752",
+      "date": "2026-11-07",
+      "away_org_id": 396,
+      "home_org_id": 752,
+      "neutral": true,
+      "status": "scheduled",
+      "source_url": "https://www.mcscots.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://www.mcscots.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        396
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "4:00 PM",
+      "venue": "",
+      "venue_location": "Virginia Beach, Va.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "TowneBank Tipoff Tournament",
+      "neutral_home_designation_unconfirmed": true
     },
     {
       "id": "d3-men-2026-11-07-397-783",
@@ -36698,6 +36779,32 @@
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-11-07-601-745",
+      "date": "2026-11-07",
+      "away_org_id": 601,
+      "home_org_id": 745,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://vwuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://vwuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.sjfathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        601,
+        745
+      ],
+      "source_kind": "official_school",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "2:00 PM",
+      "venue": "TowneBank Arena",
+      "venue_location": "Virginia Beach, VA",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "TowneBank Tipoff Tournament",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -37090,7 +37197,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "single_official_school",
-      "tipoff_as_posted": "12:00 PM",
+      "tipoff_as_posted": "8:00 PM",
       "venue": "",
       "venue_location": "Harrisburg, Pa.",
       "network_as_posted": "",
@@ -37390,7 +37497,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "single_official_school",
-      "tipoff_as_posted": "2:00 PM",
+      "tipoff_as_posted": "1:00 PM",
       "venue": "",
       "venue_location": "Harrisburg, Pa.",
       "network_as_posted": "",
@@ -39435,9 +39542,9 @@
       "home_org_id": 30035,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         30035
@@ -39509,9 +39616,9 @@
       "home_org_id": 524,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         524
@@ -41687,9 +41794,9 @@
       "home_org_id": 618,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.csssaints.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.csssaints.com/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://www.csssaints.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.csssaints.com/sports/mens-basketball/schedule?grid=true",
         "https://www.morriscougars.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
@@ -46759,7 +46866,7 @@
       "home_org_id": 119,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.gopresidents.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://uaasports.info/schedule.aspx?schedule=1162",
       "official_schedule_sources": [
         "https://uaasports.info/schedule.aspx?schedule=1162",
         "https://www.gopresidents.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -47703,9 +47810,9 @@
       "home_org_id": 524,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         524
@@ -47879,9 +47986,9 @@
       "home_org_id": 1164,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://lakelandmuskies.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://lakelandmuskies.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://lakelandmuskies.com/sports/mens-basketball/schedule?grid=true",
+        "https://lakelandmuskies.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://riponredhawks.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
@@ -47957,9 +48064,9 @@
       "home_org_id": 30035,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         30035
@@ -47983,7 +48090,7 @@
       "status": "scheduled",
       "source_url": "https://www.uwsyellowjackets.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.csssaints.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.csssaints.com/sports/mens-basketball/schedule?grid=true",
         "https://www.uwsyellowjackets.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
@@ -49297,9 +49404,9 @@
       "home_org_id": 1099,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         524
@@ -51585,9 +51692,9 @@
       "home_org_id": 770,
       "neutral": true,
       "status": "scheduled",
-      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         524
@@ -52007,9 +52114,9 @@
       "home_org_id": 618,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         30035
@@ -53517,7 +53624,7 @@
       "home_org_id": 119,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.stvincent.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://uaasports.info/schedule.aspx?schedule=1162",
       "official_schedule_sources": [
         "https://athletics.stvincent.edu/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://uaasports.info/schedule.aspx?schedule=1162"
@@ -53895,10 +54002,10 @@
       "home_org_id": 524,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://athletics.amherst.edu/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         24,
@@ -55841,9 +55948,9 @@
       "home_org_id": 1164,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://lakelandmuskies.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://lakelandmuskies.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://lakelandmuskies.com/sports/mens-basketball/schedule?grid=true"
+        "https://lakelandmuskies.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         1164
@@ -55865,9 +55972,9 @@
       "home_org_id": 795,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.csssaints.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.csssaints.com/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://www.csssaints.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.csssaints.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         618
@@ -60909,10 +61016,10 @@
       "home_org_id": 618,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.csssaints.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.csssaints.com/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://athletics.stolaf.edu/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://www.csssaints.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.csssaints.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         615,
@@ -63265,9 +63372,9 @@
       "home_org_id": 163,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         524
@@ -65093,7 +65200,7 @@
       "status": "scheduled",
       "source_url": "https://www.uwrfsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.csssaints.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.csssaints.com/sports/mens-basketball/schedule?grid=true",
         "https://www.uwrfsports.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
@@ -65669,9 +65776,9 @@
       "home_org_id": 1164,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://lakelandmuskies.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://lakelandmuskies.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://lakelandmuskies.com/sports/mens-basketball/schedule?grid=true",
+        "https://lakelandmuskies.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.wlcsports.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
@@ -65869,9 +65976,9 @@
       "home_org_id": 30035,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         30035
@@ -68249,9 +68356,9 @@
       "home_org_id": 30038,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         30035
@@ -71025,9 +71132,9 @@
       "home_org_id": 30035,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         30035
@@ -71550,7 +71657,7 @@
       "source_url": "https://www.bvuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.bvuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://www.csssaints.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.csssaints.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         84,
@@ -75231,9 +75338,9 @@
       "home_org_id": 1226,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         30035
@@ -81403,7 +81510,7 @@
       "status": "scheduled",
       "source_url": "https://vikings.lawrence.edu/sports/mens-basketball/schedule/2026?grid=true",
       "official_schedule_sources": [
-        "https://lakelandmuskies.com/sports/mens-basketball/schedule?grid=true",
+        "https://lakelandmuskies.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://vikings.lawrence.edu/sports/mens-basketball/schedule/2026?grid=true"
       ],
       "verified_by_org_ids": [
@@ -82531,7 +82638,7 @@
       "home_org_id": 119,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.dickinsonathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://uaasports.info/schedule.aspx?schedule=1162",
       "official_schedule_sources": [
         "https://uaasports.info/schedule.aspx?schedule=1162",
         "https://www.dickinsonathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -85185,10 +85292,10 @@
       "home_org_id": 618,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.csssaints.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.csssaints.com/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://gogusties.com/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://www.csssaints.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.csssaints.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         266,
@@ -86333,9 +86440,9 @@
       "home_org_id": 1164,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://lakelandmuskies.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://lakelandmuskies.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://lakelandmuskies.com/sports/mens-basketball/schedule?grid=true",
+        "https://lakelandmuskies.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.edgewoodeagles.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
@@ -86635,9 +86742,9 @@
       "home_org_id": 30035,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         30035
@@ -89255,7 +89362,7 @@
       "status": "scheduled",
       "source_url": "https://www.hamlineathletics.com/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://www.csssaints.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.csssaints.com/sports/mens-basketball/schedule?grid=true",
         "https://www.hamlineathletics.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
@@ -94099,7 +94206,7 @@
       "source_url": "https://athletics.macalester.edu/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://athletics.macalester.edu/sports/mens-basketball/schedule?grid=true",
-        "https://www.csssaints.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.csssaints.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         376,
@@ -94479,9 +94586,9 @@
       "home_org_id": 27892,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         524
@@ -95311,9 +95418,9 @@
       "home_org_id": 8597,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         30035
@@ -97545,9 +97652,9 @@
       "home_org_id": 1164,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://lakelandmuskies.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://lakelandmuskies.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://lakelandmuskies.com/sports/mens-basketball/schedule?grid=true",
+        "https://lakelandmuskies.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.cucougars.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
@@ -98342,7 +98449,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "single_official_school",
-      "tipoff_as_posted": "TBA",
+      "tipoff_as_posted": "1:00 PM",
       "venue": "",
       "venue_location": "Milwaukee, WI",
       "network_as_posted": "",
@@ -100108,9 +100215,9 @@
       "home_org_id": 30035,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         30035
@@ -102029,7 +102136,7 @@
       "source_url": "https://athletics.augsburg.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.augsburg.edu/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://www.csssaints.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.csssaints.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         38,
@@ -103624,9 +103731,9 @@
       "home_org_id": 814,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         524
@@ -104184,7 +104291,7 @@
       "status": "scheduled",
       "source_url": "https://www.wlcsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://lakelandmuskies.com/sports/mens-basketball/schedule?grid=true",
+        "https://lakelandmuskies.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.wlcsports.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
@@ -104710,7 +104817,7 @@
       "home_org_id": 119,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.emoryathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://uaasports.info/schedule.aspx?schedule=1162",
       "official_schedule_sources": [
         "https://uaasports.info/schedule.aspx?schedule=1162",
         "https://www.emoryathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -105649,7 +105756,7 @@
       "source_url": "https://athletics.aurora.edu/sports/mens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
         "https://athletics.aurora.edu/sports/mens-basketball/schedule/2026-2027?grid=true",
-        "https://lakelandmuskies.com/sports/mens-basketball/schedule?grid=true"
+        "https://lakelandmuskies.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         42,
@@ -107846,9 +107953,9 @@
       "home_org_id": 524,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         524
@@ -109446,7 +109553,7 @@
       "home_org_id": 119,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://uofrathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://uaasports.info/schedule.aspx?schedule=1162",
       "official_schedule_sources": [
         "https://uaasports.info/schedule.aspx?schedule=1162",
         "https://uofrathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -111806,9 +111913,9 @@
       "home_org_id": 382,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         524
@@ -112584,9 +112691,9 @@
       "home_org_id": 804,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         30035
@@ -113340,7 +113447,7 @@
       "home_org_id": 119,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.uchicago.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://uaasports.info/schedule.aspx?schedule=1162",
       "official_schedule_sources": [
         "https://athletics.uchicago.edu/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://uaasports.info/schedule.aspx?schedule=1162"
@@ -115661,7 +115768,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "single_official_school",
-      "tipoff_as_posted": "TBA",
+      "tipoff_as_posted": "1:00 PM",
       "venue": "",
       "venue_location": "De Pere. WI",
       "network_as_posted": "",
@@ -116744,9 +116851,9 @@
       "home_org_id": 1164,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://lakelandmuskies.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://lakelandmuskies.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://lakelandmuskies.com/sports/mens-basketball/schedule?grid=true",
+        "https://lakelandmuskies.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.rockfordregents.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
@@ -118026,7 +118133,7 @@
       "home_org_id": 119,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://washubears.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://uaasports.info/schedule.aspx?schedule=1162",
       "official_schedule_sources": [
         "https://uaasports.info/schedule.aspx?schedule=1162",
         "https://washubears.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -119144,10 +119251,10 @@
       "home_org_id": 618,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.csssaints.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.csssaints.com/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://athletics.augsburg.edu/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://www.csssaints.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.csssaints.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         38,
@@ -120662,9 +120769,9 @@
       "home_org_id": 451,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         524
@@ -121427,7 +121534,7 @@
       "source_url": "https://go-raiders.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://go-raiders.com/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://lakelandmuskies.com/sports/mens-basketball/schedule?grid=true"
+        "https://lakelandmuskies.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         1164,
@@ -121698,9 +121805,9 @@
       "home_org_id": 30038,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         30035
@@ -127819,7 +127926,7 @@
       "source_url": "https://athletics.carleton.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.carleton.edu/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://www.csssaints.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.csssaints.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         118,
@@ -129303,9 +129410,9 @@
       "home_org_id": 614,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://lakelandmuskies.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://lakelandmuskies.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://lakelandmuskies.com/sports/mens-basketball/schedule?grid=true"
+        "https://lakelandmuskies.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         1164
@@ -129603,9 +129710,9 @@
       "home_org_id": 30035,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         30035
@@ -130407,7 +130514,7 @@
       "home_org_id": 119,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.gonyuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://uaasports.info/schedule.aspx?schedule=1162",
       "official_schedule_sources": [
         "https://uaasports.info/schedule.aspx?schedule=1162",
         "https://www.gonyuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -132852,7 +132959,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "single_official_school",
-      "tipoff_as_posted": "TBA",
+      "tipoff_as_posted": "1:00 PM",
       "venue": "",
       "venue_location": "Madison, WI",
       "network_as_posted": "",
@@ -134390,9 +134497,9 @@
       "home_org_id": 1164,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://lakelandmuskies.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://lakelandmuskies.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://lakelandmuskies.com/sports/mens-basketball/schedule?grid=true",
+        "https://lakelandmuskies.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.cuwfalcons.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
@@ -135146,7 +135253,7 @@
       "home_org_id": 119,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.brandeisjudges.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://uaasports.info/schedule.aspx?schedule=1162",
       "official_schedule_sources": [
         "https://uaasports.info/schedule.aspx?schedule=1162",
         "https://www.brandeisjudges.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -135928,9 +136035,9 @@
       "home_org_id": 1164,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://lakelandmuskies.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://lakelandmuskies.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://lakelandmuskies.com/sports/mens-basketball/schedule?grid=true",
+        "https://lakelandmuskies.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://mbusabercats.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
@@ -137063,7 +137170,7 @@
       "source_url": "https://gogusties.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://gogusties.com/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://www.csssaints.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.csssaints.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         266,
@@ -138470,9 +138577,9 @@
       "home_org_id": 30035,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         30035
@@ -140032,7 +140139,7 @@
       "status": "scheduled",
       "source_url": "https://www.cucougars.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://lakelandmuskies.com/sports/mens-basketball/schedule?grid=true",
+        "https://lakelandmuskies.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.cucougars.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
@@ -141021,10 +141128,10 @@
       "home_org_id": 618,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.csssaints.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.csssaints.com/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://athletics.macalester.edu/sports/mens-basketball/schedule?grid=true",
-        "https://www.csssaints.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.csssaints.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         376,
@@ -141427,9 +141534,9 @@
       "home_org_id": 524,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         524
@@ -142437,9 +142544,9 @@
       "home_org_id": 1226,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://athletics.crown.edu/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         30035
@@ -143085,7 +143192,7 @@
       "home_org_id": 119,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.case.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://uaasports.info/schedule.aspx?schedule=1162",
       "official_schedule_sources": [
         "https://athletics.case.edu/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://uaasports.info/schedule.aspx?schedule=1162"
