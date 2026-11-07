@@ -133,6 +133,40 @@ function normalizeWomen(rows,rankings,crossList,calibration=null){
       neutral:g.neutral===true,site_verified:g.site_verified===true}];
   });
 }
+// Archived, independently verified regular-season finals against programs
+// outside the 365-school registry. These count for overall W-L, NEVER RETRO.
+function normalizeOutsideFinals(data,crossList,existing=[]){
+ if(data?.season!=='2026-27'||data.counts_for_retro!==false||!Array.isArray(data.games))return[];
+ const cross=new Map((crossList?.teams||[]).map(t=>[String(t.espn_id),t]));
+ const already=new Set(existing.filter(g=>g.phase==='final').map(g=>cleanId(g.id)));
+ const taken=new Set(),results=[];
+ for(const g of data.games){
+  const id=cleanId(g.id),di=String(g.division_i_espn_id||''),other=String(g.opponent_espn_id||'');
+  if(g.verified!==true||g.classification!=='regular-season'||g.counts_for_retro!==false||
+    !validId(id)||already.has(id)||taken.has(id)||!cross.has(di)||cross.has(other)||
+    cross.get(di).id!==g.division_i_ncaa_id||!validId(other)||
+    !/^2026-\d\d-\d\d$/.test(g.date||'')||g.date<'2026-11-01'||
+    ![g.home_score,g.away_score,g.team_score,g.opponent_score].every(n=>Number.isSafeInteger(n)&&n>=0&&n<=300)||
+    g.home_score===g.away_score||!/^https:\/\//.test(g.source_url||''))continue;
+  const homeIsDI=String(g.home_espn_id)===di;
+  if(!homeIsDI&&String(g.away_espn_id)!==di)continue;
+  if(homeIsDI?g.home_score!==g.team_score||g.away_score!==g.opponent_score:
+    g.away_score!==g.team_score||g.home_score!==g.opponent_score)continue;
+  const school=cross.get(di),outsideName=String(g.opponent_name||'').trim();
+  if(!outsideName)continue;
+  const diSide={id:di,canonical:school.id,name:school.name,full:school.espn_name||school.name,
+    score:g.team_score};
+  const outsideSide={id:other,canonical:'',name:outsideName,full:outsideName,
+    score:g.opponent_score};
+  taken.add(id);
+  results.push({id,day:g.date,date:g.event_date||g.date+'T12:00:00Z',
+    timed:Boolean(g.event_date),phase:'final',kind:'regular',
+    away:homeIsDI?outsideSide:diSide,home:homeIsDI?diSide:outsideSide,
+    status:'Final',venue:'',broadcast:'',source:'Verified non-Division I regular-season final',
+    sourceURL:g.source_url,evidence:'final-source',probability:null});
+ }
+ return results;
+}
 function normalizeExhibitions(data,crossList){
   const cross=new Map((crossList?.teams||[]).map(t=>[String(t.espn_id),t]));
   if(data?.retro_included!==false)return[];
@@ -337,7 +371,7 @@ let pollRankings=new Map(),pollAsOf='';
  const outsideMark=t=>!palette[String(t?.id)]?outsideMarks[String(t?.id)]||null:null;
 let liveBoard=[],liveCheckedAt=0,liveCheckError='',liveRequest=false;
 const verifiedLiveScores=new Map();
-let cross={teams:[]},palette={},arenaRegistry={},womenTeams=new Map(),sourceFeed=null,seasonStats=new Map(),liveChanges=new Map(),scoreCalibration=null;
+let cross={teams:[]},palette={},arenaRegistry={},womenTeams=new Map(),sourceFeed=null,seasonStats=new Map(),liveChanges=new Map(),scoreCalibration=null,verifiedOverall=new Map();
 const insight=window.SLTBasketballInsights;
 // Large source-backed identity and arena references remain stable during a
 // page session; do not re-download them on every 90-second scoreboard tick.
@@ -512,11 +546,17 @@ const retroLine=t=>{
 };
 const record=t=>{
   const r=rankOf(t,ratings,women);
-  // Jacksonville State's official Nov 2 win over Oglethorpe is an overall
-  // regular-season victory, even though non-D-I results do not change RETRO Elo.
-  const wins=r&&r.wins!=null?Number(r.wins):0;
-  const losses=r&&r.losses!=null?Number(r.losses):0;
-  const jsu=women&&String(t?.canonical||t?.id)==='55';
+  const wins=Number(r?.wins??0),losses=Number(r?.losses??0);
+  if(!women){
+    // Overall and RETRO share the same verified D-I results. Add only the
+    // independent non-D-I totals so a newer RETRO release cannot be lost.
+    const extra=verifiedOverall.get(String(t?.canonical||''));
+    const ew=Number(extra?.verified_non_di_wins),el=Number(extra?.verified_non_di_losses);
+    return (wins+(Number.isSafeInteger(ew)&&ew>=0?ew:0))+'–'+
+      (losses+(Number.isSafeInteger(el)&&el>=0?el:0));
+  }
+  // Existing women's non-D-I safeguard is unchanged by this men's-only fix.
+  const jsu=String(t?.canonical||t?.id)==='55';
   return (jsu?Math.max(1,wins):wins)+'–'+losses;
 };
 const team=t=>{const profile=rankOf(t,ratings,women),url=teamPage(t);
@@ -796,7 +836,7 @@ const render=()=>{
 async function refresh(){
  if(loading)return;loading=true;
  try{
-  const menFiles=['data/mbb-live.json','data/ncaam-2026-27-upcoming-forecasts.json','data/ncaam-2026-27-retro-primary.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json','data/mbb-exhibition-finals-2026-27.json','data/mbb-arena-registry.json','data/ncaam-score-calibration.json','data/ncaam-2026-27-national-polls.json','data/mbb-out-of-division-opponent-logos.json','data/mbb-retro-live-finals.json'];
+  const menFiles=['data/mbb-live.json','data/ncaam-2026-27-upcoming-forecasts.json','data/ncaam-2026-27-retro-primary.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json','data/mbb-exhibition-finals-2026-27.json','data/mbb-arena-registry.json','data/ncaam-score-calibration.json','data/ncaam-2026-27-national-polls.json','data/mbb-out-of-division-opponent-logos.json','data/mbb-retro-live-finals.json','data/mbb-overall-records-2026-27.json','data/mbb-non-di-verified-finals-2026-27.json'];
   const womenFiles=['data/ncaaw-2026-27-games.json','data/ncaaw-2026-27-retro-primary.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json','data/ncaaw-2026-27-teams.json','data/mbb-live.json','data/mbb-out-of-division-opponent-logos.json','data/ncaaw-score-calibration.json'];
   const paths=women?womenFiles:menFiles;
   if(!women){try{const b=await fetchJSON('data/cbb-verified-broadcasts-2026-27.json');verifiedBroadcasts.clear();for(const e of b.entries||[])if(e.network&&e.id)verifiedBroadcasts.set(String(e.id),e)}catch{}}
@@ -812,11 +852,12 @@ async function refresh(){
     loaded=dedupeFixtures(normalizeWomen(results,rank,cross,womenCoefficients));
     lastUpdate='women’s rolling fixture ledger';
   }else{
-    const [feed,forecast,rank,c,pal,ex,arenas,calibration,polls,otherLogos,archivedFinals]=output;
+    const [feed,forecast,rank,c,pal,ex,arenas,calibration,polls,otherLogos,archivedFinals,overall,outside]=output;
      outsideMarks=otherLogos?.teams||{};
     if(!feed||rank?.model!=='retro-clean-slate'||rank.starting_elo!==1500||rank.rankings?.length!==365)
       throw Error('Men’s scoreboard or certified RETRO feed unavailable');
     cross=c||{teams:[]};retroPublished=rank;ratings=rankingsMap(rank);updateRetroTies();palette=pal?.mbb||{};
+    verifiedOverall=new Map(overall?.season==='2026-27'?Object.entries(overall.records||{}):[]);
     const schools=new Map((cross.teams||[]).map(t=>[String(t.name||'').trim().toLowerCase(),String(t.espn_id)]));
     // Exact school identity aliases verified against this season's crosswalk.
     const pollAliases={'Michigan State':'Michigan St.',"St. John's":"St. John's (NY)",'Iowa State':'Iowa St.','USC':'Southern California'};
@@ -837,7 +878,8 @@ async function refresh(){
     const before=new Map(loaded.filter(g=>g.phase==='live'&&g.kind==='regular').map(g=>
       [g.id,{id:g.id,day:g.day,away_score:g.away.score,home_score:g.home.score}]));
     sourceFeed=feed;seasonStats=insight?.seasonProfiles(rank.events)||new Map();
-    loaded=[...normalizeMen(feed,forecast,cross,outsideMarks,archivedFinals),...normalizeExhibitions(ex,cross)];
+    const menGames=normalizeMen(feed,forecast,cross,outsideMarks,archivedFinals);
+    loaded=[...menGames,...normalizeOutsideFinals(outside,cross,menGames),...normalizeExhibitions(ex,cross)];
     liveChanges=new Map(loaded.filter(g=>g.phase==='live').flatMap(g=>{
       const delta=insight?.scoreDelta(before.get(g.id),g);
       return delta?[[g.id,delta]]:[];
@@ -950,5 +992,5 @@ setInterval(()=>{if(document.hidden||!window.SLTInlineGamefile)return;
  });
 },30000);
 }
-return{normalizeMen,normalizeWomen,liveEvents,reconcileLive,provisionalRetro,normalizeExhibitions,selectGames,gameDetailsHref,formatClock,isoDate,shift,start};
+return{normalizeMen,normalizeOutsideFinals,normalizeWomen,liveEvents,reconcileLive,provisionalRetro,normalizeExhibitions,selectGames,gameDetailsHref,formatClock,isoDate,shift,start};
 });
