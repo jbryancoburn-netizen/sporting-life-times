@@ -165,9 +165,12 @@
    const badge=pollText?'<span class="ledger26-poll" title="'+esc(pollTitle)+'" aria-label="'+esc(pollTitle)+'">'+esc(pollText)+'</span>':'';
    const scored=phase==='upcoming'?'—':x.score==null?'—':String(x.score);
    const context=[x.record||'0–0',x.retro||'RETRO —'].join(' · ');
+   const href=/^ncaam-team\.html\?team=ncaa%3A\d+$|^ncaaw-team\.html\?team=\d+$/i.test(String(x.teamHref||''))?x.teamHref:'';
+   const label=esc(x.name||'School');
+   const linkedName=href?'<a class="ledger26-team-link" href="'+esc(href)+'" aria-label="Open '+label+' team page">'+label+'</a>':label;
    return '<div class="ledger26-team" style="--ledger26-school:'+color(x.color)+'">'+
     '<span class="ledger26-crest">'+(x.crest||'')+'</span>'+
-    '<span class="ledger26-identity"><strong class="ledger26-name">'+badge+esc(x.name||'School')+'</strong>'+
+    '<span class="ledger26-identity"><strong class="ledger26-name">'+badge+linkedName+'</strong>'+
     '<small class="ledger26-record">'+esc(context)+'</small></span>'+
     '<b class="ledger26-points">'+esc(scored)+'</b></div>';
   };

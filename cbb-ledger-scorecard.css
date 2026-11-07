@@ -109,6 +109,14 @@
   filter:none!important;
 }
 .ledger26-name::before,.ledger26-name::after{content:none!important}
+.ledger26-name .ledger26-team-link,.ledger26-name .ledger26-team-link:visited{
+  color:inherit!important;font:inherit;text-decoration:none!important;
+  cursor:pointer;
+}
+.ledger26-name .ledger26-team-link:hover,.ledger26-name .ledger26-team-link:focus-visible{
+  text-decoration:underline!important;text-underline-offset:3px;
+}
+.ledger26-name .ledger26-team-link:focus-visible{outline:2px solid #754c25;outline-offset:2px}
 .ledger26-poll{display:inline-block;margin-right:6px;color:#8a3c28;font:700 12px/1.12 Georgia,'Times New Roman',serif;white-space:nowrap;font-variant-numeric:tabular-nums;letter-spacing:0}
 .ledger26-points{
   display:block;justify-self:end;min-width:25px;

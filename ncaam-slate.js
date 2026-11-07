@@ -433,8 +433,8 @@ const mascot=t=>{const full=String(t?.full||'').trim(),school=String(t?.name||''
   return label&&label.length<=35?label:'';
 };
 const teamPage=t=>women?
-  (validId(t?.id)?'ncaaw-team.html?team='+encodeURIComponent(t.id):''):
-  (String(t?.canonical||'').startsWith('ncaa:')?'ncaam-team.html?team='+encodeURIComponent(t.id):'');
+  (validId(t?.canonical)?'ncaaw-team.html?team='+encodeURIComponent(t.canonical):''):
+  (String(t?.canonical||'').startsWith('ncaa:')?'ncaam-team.html?team='+encodeURIComponent(t.canonical):'');
 const homeProfile=g=>{
   if(women||g.kind==='exhibition'||!g.home?.canonical)return null;
   const info=arenaRegistry[String(g.home.id)];
@@ -681,7 +681,7 @@ const ledgerScorebug=g=>{
  // A single first-party scorebug renderer serves both basketball desks.
  const convert=t=>({name:t.name,score:g.phase==='upcoming'?null:t.score,
    crest:emblem(t),color:brand(t),record:record(t),retro:retroLine(t),
-   poll:pollRankings.get(String(t.id))||null});
+   teamHref:teamPage(t),poll:pollRankings.get(String(t.id))||null});
  return window.SLTBasketballScorebug?.render({
   phase:g.phase,gender:women?'women':'men',status:g.status||'LIVE',momentum:g.momentum||null,
   date:g.day,tipoff:formatClock(g),venue:g.venue||'',network:g.broadcast||'',suppressPress:true,
@@ -827,6 +827,9 @@ const render=()=>{
  const empty=sourceError?'<div class="sl-empty"><strong>Data source unavailable.</strong><p>'+esc(sourceError)+'</p><button type="button" id="sl-retry">Retry connection</button></div>':
  '<div class="sl-empty"><strong>No games match this view.</strong><p>Change the date or filter. Only source-backed fixtures are shown.</p></div>';
  document.getElementById('sl-games').innerHTML=shown.length?shown.map((g,i)=>card(g,i===0,opened.has(g.day+'|'+g.id))).join(''):empty;
+ // School names navigate; the rest of the scorebug retains the native details toggle.
+ document.querySelectorAll('#sl-games .ledger26-team-link').forEach(link=>
+   link.addEventListener('click',event=>event.stopPropagation()));
  document.querySelectorAll('.sl-game-expansion[open]').forEach(openGamefile);
  document.getElementById('sl-more').hidden=games.length<=shown.length;
  document.getElementById('sl-more').textContent='Show more games ('+(games.length-shown.length)+' remaining)';
@@ -974,6 +977,13 @@ document.getElementById('sl-games').addEventListener('click',e=>{
     venue:game.venue||'',network:game.broadcast||'',away:{name:game.away.name},home:{name:game.home.name}
    });
   }
+  return;
+ }
+ // The date and network strip belongs to the same expandable game card.
+ const meta=e.target.closest?.('.ledger26-meta');
+ if(meta&&!e.target.closest('a,button,[role="button"]')){
+  const details=meta.closest('.ledger26-card')?.querySelector('.sl-game-expansion');
+  if(details)details.open=!details.open;
   return;
  }
  if(e.target.id==='sl-retry')refresh();
