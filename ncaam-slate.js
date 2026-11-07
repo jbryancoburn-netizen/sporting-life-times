@@ -784,8 +784,11 @@ document.addEventListener('toggle',event=>{
 const broadcastByDate=new Map();
 const confirmedTipoffsByDate=new Map();
 let broadcastRequestDay='';
-async function refreshBroadcasts(day){
+const broadcastCheckedAt=new Map();
+async function refreshBroadcasts(day,force=false){
  if(!/^\d{4}-\d{2}-\d{2}$/.test(day)||broadcastRequestDay===day)return;
+ // Retry unconfirmed listings regularly: networks are often announced after fixtures.
+ if(!force&&Date.now()-(broadcastCheckedAt.get(day)||0)<60000)return;
  broadcastRequestDay=day;
  try{
   const sport=women?'womens-college-basketball':'mens-college-basketball';
@@ -803,6 +806,7 @@ async function refreshBroadcasts(day){
   }
   broadcastByDate.set(day,byId);
   confirmedTipoffsByDate.set(day,tipoffs);
+  broadcastCheckedAt.set(day,Date.now());
   if(selected===day)render();
  }catch(e){/* Preserve sourced schedule data if the broadcast endpoint is unavailable. */}
  finally{broadcastRequestDay=''}
@@ -812,7 +816,7 @@ const displayGames=()=>reconcileLive(loaded,liveBoard).map(g=>{
  const official=verifiedBroadcasts.get(String(g.id));
  const broadcaster=(official?.day===g.day?official.network:'')||broadcastByDate.get(g.day)?.get(String(g.id));
  const confirmedTime=confirmedTipoffsByDate.get(g.day)?.get(String(g.id));
- return {...g,broadcast:g.broadcast||broadcaster||'',date:g.timed?g.date:(confirmedTime||g.date),timed:g.timed||Boolean(confirmedTime)};
+ return {...g,broadcast:broadcaster||g.broadcast||'',date:g.timed?g.date:(confirmedTime||g.date),timed:g.timed||Boolean(confirmedTime)};
 });
 const render=()=>{
  const games=selectGames(displayGames(),selected,filter,search),shown=games.slice(0,limit);
@@ -954,11 +958,11 @@ async function refreshLive(){
 }
 document.getElementById('sl-prev').addEventListener('click',()=>{selected=shift(selected,-1);limit=Number.POSITIVE_INFINITY;liveBoard=[];liveCheckedAt=0;render();void refreshBroadcasts(selected);if(selected===today()||(women&&selected<today()))void refreshLive()});
 document.getElementById('sl-next').addEventListener('click',()=>{selected=shift(selected,1);limit=Number.POSITIVE_INFINITY;liveBoard=[];liveCheckedAt=0;render();void refreshBroadcasts(selected);if(selected===today()||(women&&selected<today()))void refreshLive()});
-document.getElementById('sl-picker').addEventListener('change',e=>{if(e.target.value){selected=e.target.value;limit=Number.POSITIVE_INFINITY;liveBoard=[];liveCheckedAt=0;render();if(selected===today()||(women&&selected<today()))void refreshLive()}});
+document.getElementById('sl-picker').addEventListener('change',e=>{if(e.target.value){selected=e.target.value;limit=Number.POSITIVE_INFINITY;liveBoard=[];liveCheckedAt=0;render();void refreshBroadcasts(selected);if(selected===today()||(women&&selected<today()))void refreshLive()}});
 document.getElementById('sl-search').addEventListener('input',e=>{search=e.target.value;limit=Number.POSITIVE_INFINITY;render()});
 document.getElementById('sl-filters').addEventListener('click',e=>{const b=e.target.closest('[data-filter]');if(!b)return;filter=b.dataset.filter;limit=Number.POSITIVE_INFINITY;render()});
 document.getElementById('sl-more').addEventListener('click',()=>{limit+=18;render()});
-document.getElementById('sl-reload').addEventListener('click',()=>{void refresh();void refreshBroadcasts(selected);if(selected===today()||(women&&selected<today()))void refreshLive()});
+document.getElementById('sl-reload').addEventListener('click',()=>{void refresh();void refreshBroadcasts(selected,true);if(selected===today()||(women&&selected<today()))void refreshLive()});
 document.getElementById('sl-games').addEventListener('click',e=>{
  const button=e.target.closest?.('[data-slt-ledger-press-open]');
  if(button){
