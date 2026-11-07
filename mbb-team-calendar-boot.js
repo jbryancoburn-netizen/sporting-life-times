@@ -105,7 +105,7 @@ try{
  const matches=new Map();
  for(const entry of cross.teams||[]){for(const n of [entry.name,entry.espn_name]){const k=norm(n);if(!k)continue;if(!matches.has(k))matches.set(k,new Set());matches.get(k).add(String(entry.espn_id));}}
  // Reviewed official-school abbreviations, never fuzzy or guessed logos.
- const schoolAliases={'mdeasternshore':'2379','marylandeasternshore':'2379','etsu':'2193'};
+ const schoolAliases={'mdeasternshore':'2379','marylandeasternshore':'2379','etsu':'2193','utchattanooga':'236'};
  const exactId=n=>{const ids=matches.get(norm(n));if(ids?.size===1)return [...ids][0];
    const reviewed=schoolAliases[norm(n)];return reviewed&&schoolByCross.has(reviewed)?reviewed:'';};
  const schoolByCross=new Map((cross.teams||[]).map(t=>[String(t.espn_id),t]));
