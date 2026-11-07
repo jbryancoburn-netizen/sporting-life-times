@@ -348,7 +348,8 @@ const staticPaths=new Set(['data/ncaam-2026-27-espn-team-crosswalk.json',
 const fetchJSON=async path=>{
  if(staticPaths.has(path)&&staticData.has(path))return staticData.get(path);
  const c=new AbortController(),tm=setTimeout(()=>c.abort(),14000);
- try{const r=await fetch(path,{cache:staticPaths.has(path)?'default':'no-store',signal:c.signal});
+ try{const requestPath=path==='data/mbb-out-of-division-opponent-logos.json'?path+'?v=nov7-six-opponents-20261107':path;
+  const r=await fetch(requestPath,{cache:staticPaths.has(path)?'default':'no-store',signal:c.signal});
   if(!r.ok)throw Error('HTTP '+r.status);
   const data=await r.json();
   if(staticPaths.has(path))staticData.set(path,data);
