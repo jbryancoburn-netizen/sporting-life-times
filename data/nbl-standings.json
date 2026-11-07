@@ -6,8 +6,8 @@
   "elo_approved": false,
   "source": "ESPN site API, completed finals since NBL27 regular-season opening",
   "season_start": "2026-09-19",
-  "updated_at": "2026-11-07T10:24:19.276227+00:00",
-  "games_replayed": 56,
+  "updated_at": "2026-11-07T17:46:25.475817+00:00",
+  "games_replayed": 57,
   "teams": 10,
   "rows": [
     {
@@ -32,23 +32,13 @@
     },
     {
       "team": "Melbourne United",
-      "wins": 6,
+      "wins": 7,
       "losses": 5,
-      "played": 11,
-      "win_pct": 0.545,
-      "points_for": 1061,
-      "points_against": 999,
-      "points_pct": 106.21
-    },
-    {
-      "team": "Brisbane Bullets",
-      "wins": 6,
-      "losses": 5,
-      "played": 11,
-      "win_pct": 0.545,
-      "points_for": 1047,
-      "points_against": 1071,
-      "points_pct": 97.76
+      "played": 12,
+      "win_pct": 0.583,
+      "points_for": 1181,
+      "points_against": 1091,
+      "points_pct": 108.25
     },
     {
       "team": "Adelaide 36ers",
@@ -69,6 +59,16 @@
       "points_for": 943,
       "points_against": 979,
       "points_pct": 96.32
+    },
+    {
+      "team": "Brisbane Bullets",
+      "wins": 6,
+      "losses": 6,
+      "played": 12,
+      "win_pct": 0.5,
+      "points_for": 1139,
+      "points_against": 1191,
+      "points_pct": 95.63
     },
     {
       "team": "Cairns Taipans",
@@ -112,6 +112,18 @@
     }
   ],
   "recent_finals": [
+    {
+      "id": "401875286",
+      "played_at": "2026-11-07T08:30Z",
+      "home": "Melbourne United",
+      "away": "Brisbane Bullets",
+      "home_score": 120,
+      "away_score": 92,
+      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875286/bullets-united",
+      "verified": false,
+      "provider": "espn",
+      "state": "candidate"
+    },
     {
       "id": "401875289",
       "played_at": "2026-11-07T06:30Z",
@@ -216,18 +228,6 @@
       "home_score": 97,
       "away_score": 113,
       "source_url": "https://www.espn.com/nbl/game/_/gameId/401875291/united-taipans",
-      "verified": false,
-      "provider": "espn",
-      "state": "candidate"
-    },
-    {
-      "id": "401875278",
-      "played_at": "2026-10-30T08:30Z",
-      "home": "Tasmania JackJumpers",
-      "away": "Sydney Kings",
-      "home_score": 68,
-      "away_score": 71,
-      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875278/kings-jackjumpers",
       "verified": false,
       "provider": "espn",
       "state": "candidate"
