@@ -30,6 +30,7 @@ async function render(feed, fixture={}){
   fetch:async url=>({ok:true,json:async()=>url.includes('crosswalk')?{teams:[selectedTeam,selectedFoe]}:
    url.includes('retro-primary')?feed:
    url.includes('exhibition-finals')?(fixture.exhibitions||{season:'2026-27',retro_included:false,games:[]}):
+   url.includes('non-di-verified-finals')?(fixture.crossDivision||{season:'2026-27',counts_for_retro:false,games:[]}):
    selectedSchedule}),
   URLSearchParams,Intl,Date,Map,Set,Number,Boolean,String,Promise,console,encodeURIComponent,setInterval:()=>0};
  vm.runInNewContext(source,context,{filename:'mbb-team-calendar-boot.js'});
@@ -165,6 +166,30 @@ async function render(feed, fixture={}){
    verified:false}};
  assert.doesNotMatch(await render(ratings([]),{team:wyoming,foe,
    schedule:{...schedule,events:[unknown]}}),/W 76–61/,'unverified source score must fail closed');
+ // A distinct scoreboard spelling must fill the university fixture, not
+ // duplicate it. These wins count overall but are excluded from D-I RETRO.
+ const boise={id:'ncaa:609633',espn_id:'68',name:'Boise St.',espn_name:'Boise State Broncos'};
+ const nonDi={season:'2026-27',counts_for_retro:false,games:[{
+   id:'401999991',date:'2026-11-04',division_i_espn_id:'68',
+   opponent_espn_id:'900001',opponent_name:'West Coast Baptist Eagles',
+   home_espn_id:'68',away_espn_id:'900001',team_score:132,opponent_score:53,
+   verified:true,classification:'regular-season',counts_for_retro:false,
+   source_tier:'independent_secondary',source_url:'https://example.org/verified/401999991'}]};
+ const schoolGame={id:'university-68-2026-11-04',date:'2026-11-04T12:00:00-05:00',
+   name:'West Coast Baptist',competitions:[{competitors:[
+     {homeAway:'home',team:{id:'68',displayName:'Boise State Broncos'}},
+     {homeAway:'away',team:{id:'',displayName:'West Coast Baptist'}}
+   ]}]};
+ const schoolHTML=await render(ratings([]),{team:boise,foe, 
+   schedule:{season:'2026-27',events:[schoolGame]},crossDivision:nonDi});
+ assert.match(schoolHTML,/W 132–53/);
+ assert.equal((schoolHTML.match(/data-calendar-state="final"/g)||[]).length,1,
+   'alternate non-D-I school names must not create duplicate game cards');
+ const sourceOnly=await render(ratings([]),{team:boise,foe,
+   schedule:{season:'2026-27',events:[]},crossDivision:nonDi});
+ assert.match(sourceOnly,/W 132–53/,'verified non-D-I final absent from school feed must be listed');
+ assert.match(sourceOnly,/West Coast Baptist Eagles/);
+ assert.equal((sourceOnly.match(/data-calendar-state="final"/g)||[]).length,1);
  const cross=JSON.parse(fs.readFileSync('data/ncaam-2026-27-espn-team-crosswalk.json','utf8'));
  const actualPairs=JSON.parse(fs.readFileSync('data/mbb-exhibition-finals-2026-27.json','utf8'));
  assert.equal(actualPairs.retro_included,false);

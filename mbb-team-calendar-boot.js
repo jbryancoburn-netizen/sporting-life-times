@@ -38,16 +38,33 @@ try{
    g.team_score!==g.opponent_score&&/^https:\/\/[^\s"'<>]+$/.test(g.source_url||'')):[];
  const calendarRows=data.events||[];
  const comparable=n=>String(n||'').toLowerCase().replace(/[^a-z0-9]/g,'');
+ const divisionOneIds=new Set((cross.teams||[]).map(t=>String(t.espn_id)));
  for(const g of outsideGames){
-  const match=calendarRows.find(e=>{
+  // First try exact event identity. University calendars often abbreviate a
+  // non-D-I opponent (West Coast Baptist vs West Coast Baptist Eagles).
+  // When a date contains only one outside-D-I opponent, matching that unique
+  // fixture is safer than adding a duplicate game.
+  const candidates=calendarRows.filter(e=>{
+   if(e.exhibition===true||/exhibition|scrimmage/i.test(e.name||''))return false;
    const comps=e.competitions?.[0]?.competitors||[];
    const self=comps.find(x=>String(x.team?.id)===String(team.espn_id));
    const other=comps.find(x=>x!==self);
-   return self&&(String(e.id||'').replace(/^espn:/,'')===String(g.id)||
-    (String(e.date||'').slice(0,10)===g.date&&
-     (String(other?.team?.id||'')===String(g.opponent_espn_id)||
-      comparable(other?.team?.displayName)===comparable(g.opponent_name))));
+   return self&&other&&!divisionOneIds.has(String(other.team?.id||''))&&
+    (String(e.id||'').replace(/^espn:/,'')===String(g.id)||
+     String(e.date||'').slice(0,10)===g.date);
   });
+  const match=candidates.find(e=>{
+   const parts=e.competitions?.[0]?.competitors||[];
+   const other=parts.find(x=>String(x.team?.id)!==String(team.espn_id));
+   const name=comparable(other?.team?.displayName);
+   const feedName=comparable(g.opponent_name);
+   const certified=e.verified_non_d1_result;
+   return String(e.id||'').replace(/^espn:/,'')===String(g.id)||
+    String(other?.team?.id||'')===String(g.opponent_espn_id)||
+    (name&&feedName&&(name===feedName||name.startsWith(feedName)||feedName.startsWith(name)))||
+    (certified?.verified===true&&certified.team_score===g.team_score&&
+     certified.opponent_score===g.opponent_score);
+  })||(candidates.length===1?candidates[0]:null);
   const final={verified:true,classification:'regular-season',counts_for_retro:false,
     team_score:g.team_score,opponent_score:g.opponent_score,
     source_url:g.source_url,source_tier:'independent_secondary'};
