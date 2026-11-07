@@ -1,7 +1,7 @@
 {
   "player_snapshot": {
     "scope": "published_match_reports_only",
-    "matches_covered": 91,
+    "matches_covered": 92,
     "goals": [
       {
         "player": "Erling Haaland",
@@ -221,6 +221,11 @@
       {
         "player": "Maxim De Cuyper",
         "team": "Brighton and Hove Albion",
+        "count": 2
+      },
+      {
+        "player": "Noah Okafor",
+        "team": "Leeds United",
         "count": 2
       },
       {
@@ -546,11 +551,6 @@
       {
         "player": "Neco Williams",
         "team": "Nottingham Forest",
-        "count": 1
-      },
-      {
-        "player": "Noah Okafor",
-        "team": "Leeds United",
         "count": 1
       },
       {
@@ -1244,7 +1244,7 @@
     "own_goals_not_counted": 12,
     "note": "Event-derived from the published match-report window, not official season leaderboards; unresolved player names are excluded."
   },
-  "updated_at": "2026-11-07T09:15:08.198026+00:00",
+  "updated_at": "2026-11-07T15:41:29.058097+00:00",
   "source": "ESPN event summary; third-party match facts only, not Elo",
   "matches": {
     "401878768": {
@@ -43405,13 +43405,556 @@
         }
       ],
       "source_url": "https://www.espn.com/soccer/match/_/gameId/401879242"
+    },
+    "401878758": {
+      "home": "Leeds United",
+      "away": "Tottenham",
+      "home_score": 1,
+      "away_score": 0,
+      "kickoff_utc": "2026-11-07T12:30:00+00:00",
+      "teams": [
+        {
+          "team": "Leeds United",
+          "statistics": [
+            {
+              "name": "foulsCommitted",
+              "displayValue": "11",
+              "label": "Fouls"
+            },
+            {
+              "name": "yellowCards",
+              "displayValue": "2",
+              "label": "Yellow Cards"
+            },
+            {
+              "name": "redCards",
+              "displayValue": "0",
+              "label": "Red Cards"
+            },
+            {
+              "name": "offsides",
+              "displayValue": "2",
+              "label": "Offsides"
+            },
+            {
+              "name": "wonCorners",
+              "displayValue": "6",
+              "label": "Corner Kicks"
+            },
+            {
+              "name": "saves",
+              "displayValue": "4",
+              "label": "Saves"
+            },
+            {
+              "name": "possessionPct",
+              "displayValue": "39.2",
+              "label": "Possession"
+            },
+            {
+              "name": "totalShots",
+              "displayValue": "16",
+              "label": "SHOTS"
+            },
+            {
+              "name": "shotsOnTarget",
+              "displayValue": "4",
+              "label": "ON GOAL"
+            },
+            {
+              "name": "shotPct",
+              "displayValue": "0.3",
+              "label": "On Target %"
+            },
+            {
+              "name": "penaltyKickGoals",
+              "displayValue": "0",
+              "label": "Penalty Goals"
+            },
+            {
+              "name": "penaltyKickShots",
+              "displayValue": "0",
+              "label": "Penalty Kicks Taken"
+            },
+            {
+              "name": "accuratePasses",
+              "displayValue": "246",
+              "label": "Accurate Passes"
+            },
+            {
+              "name": "totalPasses",
+              "displayValue": "310",
+              "label": "Passes"
+            },
+            {
+              "name": "passPct",
+              "displayValue": "0.8",
+              "label": "Pass Completion %"
+            },
+            {
+              "name": "accurateCrosses",
+              "displayValue": "5",
+              "label": "Accurate Crosses"
+            },
+            {
+              "name": "totalCrosses",
+              "displayValue": "29",
+              "label": "Crosses"
+            },
+            {
+              "name": "crossPct",
+              "displayValue": "0.2",
+              "label": "Cross %"
+            },
+            {
+              "name": "totalLongBalls",
+              "displayValue": "47",
+              "label": "Long Balls"
+            },
+            {
+              "name": "accurateLongBalls",
+              "displayValue": "21",
+              "label": "Accurate Long Balls"
+            },
+            {
+              "name": "longballPct",
+              "displayValue": "0.4",
+              "label": "Long Balls %"
+            },
+            {
+              "name": "blockedShots",
+              "displayValue": "4",
+              "label": "Blocked Shots"
+            },
+            {
+              "name": "effectiveTackles",
+              "displayValue": "12",
+              "label": "Effective Tackles"
+            },
+            {
+              "name": "totalTackles",
+              "displayValue": "22",
+              "label": "Tackles"
+            },
+            {
+              "name": "tacklePct",
+              "displayValue": "0.5",
+              "label": "Tackle %"
+            },
+            {
+              "name": "interceptions",
+              "displayValue": "11",
+              "label": "Interceptions"
+            },
+            {
+              "name": "effectiveClearance",
+              "displayValue": "37",
+              "label": "Effective Clearances"
+            },
+            {
+              "name": "totalClearance",
+              "displayValue": "37",
+              "label": "Clearances"
+            }
+          ]
+        },
+        {
+          "team": "Tottenham Hotspur",
+          "statistics": [
+            {
+              "name": "foulsCommitted",
+              "displayValue": "15",
+              "label": "Fouls"
+            },
+            {
+              "name": "yellowCards",
+              "displayValue": "3",
+              "label": "Yellow Cards"
+            },
+            {
+              "name": "redCards",
+              "displayValue": "0",
+              "label": "Red Cards"
+            },
+            {
+              "name": "offsides",
+              "displayValue": "1",
+              "label": "Offsides"
+            },
+            {
+              "name": "wonCorners",
+              "displayValue": "4",
+              "label": "Corner Kicks"
+            },
+            {
+              "name": "saves",
+              "displayValue": "2",
+              "label": "Saves"
+            },
+            {
+              "name": "possessionPct",
+              "displayValue": "60.8",
+              "label": "Possession"
+            },
+            {
+              "name": "totalShots",
+              "displayValue": "7",
+              "label": "SHOTS"
+            },
+            {
+              "name": "shotsOnTarget",
+              "displayValue": "4",
+              "label": "ON GOAL"
+            },
+            {
+              "name": "shotPct",
+              "displayValue": "0.6",
+              "label": "On Target %"
+            },
+            {
+              "name": "penaltyKickGoals",
+              "displayValue": "0",
+              "label": "Penalty Goals"
+            },
+            {
+              "name": "penaltyKickShots",
+              "displayValue": "0",
+              "label": "Penalty Kicks Taken"
+            },
+            {
+              "name": "accuratePasses",
+              "displayValue": "420",
+              "label": "Accurate Passes"
+            },
+            {
+              "name": "totalPasses",
+              "displayValue": "508",
+              "label": "Passes"
+            },
+            {
+              "name": "passPct",
+              "displayValue": "0.8",
+              "label": "Pass Completion %"
+            },
+            {
+              "name": "accurateCrosses",
+              "displayValue": "6",
+              "label": "Accurate Crosses"
+            },
+            {
+              "name": "totalCrosses",
+              "displayValue": "23",
+              "label": "Crosses"
+            },
+            {
+              "name": "crossPct",
+              "displayValue": "0.3",
+              "label": "Cross %"
+            },
+            {
+              "name": "totalLongBalls",
+              "displayValue": "59",
+              "label": "Long Balls"
+            },
+            {
+              "name": "accurateLongBalls",
+              "displayValue": "22",
+              "label": "Accurate Long Balls"
+            },
+            {
+              "name": "longballPct",
+              "displayValue": "0.4",
+              "label": "Long Balls %"
+            },
+            {
+              "name": "blockedShots",
+              "displayValue": "0",
+              "label": "Blocked Shots"
+            },
+            {
+              "name": "effectiveTackles",
+              "displayValue": "11",
+              "label": "Effective Tackles"
+            },
+            {
+              "name": "totalTackles",
+              "displayValue": "15",
+              "label": "Tackles"
+            },
+            {
+              "name": "tacklePct",
+              "displayValue": "0.7",
+              "label": "Tackle %"
+            },
+            {
+              "name": "interceptions",
+              "displayValue": "4",
+              "label": "Interceptions"
+            },
+            {
+              "name": "effectiveClearance",
+              "displayValue": "32",
+              "label": "Effective Clearances"
+            },
+            {
+              "name": "totalClearance",
+              "displayValue": "32",
+              "label": "Clearances"
+            }
+          ]
+        }
+      ],
+      "players": [],
+      "events": [
+        {
+          "clock": "",
+          "text": null,
+          "type": "Kickoff",
+          "team": null
+        },
+        {
+          "clock": "5'",
+          "text": null,
+          "type": "Start Delay",
+          "team": "Leeds United"
+        },
+        {
+          "clock": "5'",
+          "text": null,
+          "type": "End Delay",
+          "team": "Leeds United"
+        },
+        {
+          "clock": "10'",
+          "text": "Delay in match (Tottenham Hotspur).",
+          "type": "Start Delay",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "clock": "10'",
+          "text": null,
+          "type": "Start Delay",
+          "team": "Leeds United"
+        },
+        {
+          "clock": "10'",
+          "text": "Delay over. They are ready to continue.",
+          "type": "End Delay",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "clock": "10'",
+          "text": null,
+          "type": "End Delay",
+          "team": "Leeds United"
+        },
+        {
+          "clock": "15'",
+          "text": "Micky van de Ven (Tottenham Hotspur) is shown the yellow card for a bad foul.",
+          "type": "Yellow Card",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "clock": "22'",
+          "text": "Sean Longstaff (Leeds United) is shown the yellow card for a bad foul.",
+          "type": "Yellow Card",
+          "team": "Leeds United"
+        },
+        {
+          "clock": "35'",
+          "text": "Delay in match because of an injury Mathys Tel (Tottenham Hotspur).",
+          "type": "Start Delay",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "clock": "35'",
+          "text": null,
+          "type": "Start Delay",
+          "team": "Leeds United"
+        },
+        {
+          "clock": "35'",
+          "text": "Delay over. They are ready to continue.",
+          "type": "End Delay",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "clock": "35'",
+          "text": null,
+          "type": "End Delay",
+          "team": "Leeds United"
+        },
+        {
+          "clock": "35'",
+          "text": null,
+          "type": "Start Delay",
+          "team": "Leeds United"
+        },
+        {
+          "clock": "38'",
+          "text": null,
+          "type": "End Delay",
+          "team": "Leeds United"
+        },
+        {
+          "clock": "42'",
+          "text": "Delay in match because of an injury Mathys Tel (Tottenham Hotspur).",
+          "type": "Start Delay",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "clock": "42'",
+          "text": null,
+          "type": "Start Delay",
+          "team": "Leeds United"
+        },
+        {
+          "clock": "43'",
+          "text": "Delay over. They are ready to continue.",
+          "type": "End Delay",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "clock": "43'",
+          "text": null,
+          "type": "End Delay",
+          "team": "Leeds United"
+        },
+        {
+          "clock": "43'",
+          "text": "Substitution, Tottenham Hotspur. Dominic Solanke replaces Mathys Tel because of an injury.",
+          "type": "Substitution",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "clock": "45'+7'",
+          "text": null,
+          "type": "Halftime",
+          "team": null
+        },
+        {
+          "clock": "45'",
+          "text": "Substitution, Leeds United. Melvin Bard replaces Gabriel Gudmundsson.",
+          "type": "Substitution",
+          "team": "Leeds United"
+        },
+        {
+          "clock": "45'",
+          "text": "Second Half begins Leeds United 0, Tottenham Hotspur 0.",
+          "type": "Start 2nd Half",
+          "team": null
+        },
+        {
+          "clock": "51'",
+          "text": "Pedro Porro (Tottenham Hotspur) is shown the yellow card for a bad foul.",
+          "type": "Yellow Card",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "clock": "65'",
+          "text": "Substitution, Tottenham Hotspur. Conor Gallagher replaces Pedro Porro.",
+          "type": "Substitution",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "clock": "65'",
+          "text": "Substitution, Tottenham Hotspur. Dejan Kulusevski replaces Omar Marmoush.",
+          "type": "Substitution",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "clock": "65'",
+          "text": "Substitution, Tottenham Hotspur. Rodrigo Bentancur replaces Mateus Fernandes.",
+          "type": "Substitution",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "clock": "77'",
+          "text": "Substitution, Leeds United. Harry Wilson replaces Ao Tanaka.",
+          "type": "Substitution",
+          "team": "Leeds United"
+        },
+        {
+          "clock": "77'",
+          "text": "Substitution, Leeds United. Noah Okafor replaces Lukas Nmecha.",
+          "type": "Substitution",
+          "team": "Leeds United"
+        },
+        {
+          "clock": "79'",
+          "text": "Goal! Leeds United 1, Tottenham Hotspur 0. Noah Okafor (Leeds United) right footed shot from the centre of the box to the bottom left corner.",
+          "type": "Goal",
+          "team": "Leeds United"
+        },
+        {
+          "clock": "80'",
+          "text": "Noah Okafor (Leeds United) is shown the yellow card for excessive celebration.",
+          "type": "Yellow Card",
+          "team": "Leeds United"
+        },
+        {
+          "clock": "81'",
+          "text": null,
+          "type": "Start Delay",
+          "team": "Leeds United"
+        },
+        {
+          "clock": "81'",
+          "text": "Delay in match (Tottenham Hotspur).",
+          "type": "Start Delay",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "clock": "82'",
+          "text": "Delay over. They are ready to continue.",
+          "type": "End Delay",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "clock": "82'",
+          "text": null,
+          "type": "End Delay",
+          "team": "Leeds United"
+        },
+        {
+          "clock": "83'",
+          "text": "Substitution, Tottenham Hotspur. Luca Williams-Barnett replaces Mohammed Kudus.",
+          "type": "Substitution",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "clock": "88'",
+          "text": "Sandro Tonali (Tottenham Hotspur) is shown the yellow card for a bad foul.",
+          "type": "Yellow Card",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "clock": "90'+3'",
+          "text": "Substitution, Leeds United. Joe Rodon replaces Jayden Bogle.",
+          "type": "Substitution",
+          "team": "Leeds United"
+        },
+        {
+          "clock": "90'+3'",
+          "text": "Substitution, Leeds United. Ilia Gruev replaces Sean Longstaff.",
+          "type": "Substitution",
+          "team": "Leeds United"
+        },
+        {
+          "clock": "90'+5'",
+          "text": "Second Half ends, Leeds United 1, Tottenham Hotspur 0.",
+          "type": "End Regular Time",
+          "team": null
+        }
+      ],
+      "source_url": "https://www.espn.com/soccer/match/_/gameId/401878758"
     }
   },
   "fetch_status": {
-    "successful": 0,
+    "successful": 1,
     "failed": {},
-    "attempted": 0,
-    "season_finals": 91,
-    "detailed_reports": 91
+    "attempted": 1,
+    "season_finals": 92,
+    "detailed_reports": 92
   }
 }
