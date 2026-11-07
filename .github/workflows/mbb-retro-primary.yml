@@ -1,6 +1,14 @@
 name: Publish MBB RETRO Primary
 on:
   workflow_dispatch:
+  # Trigger after upstream men's results are refreshed, independently of
+  # GitHub's best-effort scheduled execution.
+  workflow_run:
+    workflows:
+      - MBB newspaper refresh and publish
+      - NCAA Basketball Game to Elo Publisher
+    types: [completed]
+    branches: [main]
   push:
     branches: [main]
     paths:
@@ -23,6 +31,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   publish:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
