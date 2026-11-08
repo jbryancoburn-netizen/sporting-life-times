@@ -11,6 +11,20 @@ class Ingestion(unittest.TestCase):
  def test_bad_rss_date_not_made_fresh(self):
   rss=b'<rss><channel><item><title>News</title><link>https://example.org/story</link><pubDate>bad</pubDate></item></channel></rss>'
   self.assertEqual(parse_rss(rss,'Source'),[])
+ def test_scoreboard_keeps_real_television_network(self):
+  payload={'events':[{'id':'401920424','date':'2026-11-08T18:00Z',
+   'status':{'type':{'state':'pre','shortDetail':'1 PM ET'}},
+   'competitions':[{'competitors':[{'homeAway':'away','team':{'id':'8'}},
+                                   {'homeAway':'home','team':{'id':'258'}}],
+                    'broadcasts':[{'names':['ESPN','ESPN Deportes']}]}]}]}
+  rows=parse_scores(payload)
+  self.assertEqual(len(rows),1)
+  self.assertEqual(rows[0]['broadcast'],'ESPN / ESPN Deportes')
+  self.assertEqual([t['id'] for t in rows[0]['teams']],['8','258'])
+ def test_scoreboard_does_not_claim_unannounced_tv(self):
+  event={'id':'401920424','competitions':[{'competitors':[],
+          'broadcasts':[{'names':['<TBD>','TV TBA']}]}]}
+  self.assertEqual(parse_scores({'events':[event]})[0]['broadcast'],'')
  def test_empty_scoreboard_is_valid(self):self.assertEqual(parse_scores({'events':[]}),[])
  def test_ncaa_official_scores_have_independent_provenance(self):
   cross={'teams':[{'id':'ncaa:1','espn_id':'1','name':'Indiana','espn_name':'Indiana Hoosiers'},

@@ -12,6 +12,8 @@ assert(!/draftkings|onlyDraftKings|sportsbook|draftKingsByDate/i.test(script+htm
 assert(script.includes('RETRO PROJECTION')&&script.includes('modelMargin'), 'RETRO margin must remain visible');
 assert(script.includes('data-slt-ledger-press-open')&&script.includes('ledger26-network'), 'press and network must remain in header');
 assert(script.includes('broadcastByDate')&&script.includes('verifiedBroadcasts'), 'verified TV lookup must remain connected');
+assert(script.includes('cbb-published-networks-2026-27.json')&&script.includes('publishedBroadcasts'),
+ 'persistent men and women network cache must remain loaded');
 for(const id of ['slate-root','sl-prev','sl-next','sl-picker','sl-games','sl-search','sl-filters','sl-more','sl-reload','sl-women','sl-men','sl-count'])
   assert(html.includes('id="'+id+'"'),'missing real control '+id);
 assert(html.includes('ncaam-slate.js')&&html.includes('ncaam-slate.css'));
@@ -59,6 +61,24 @@ assert.equal(ratings.model,'retro-clean-slate');
 assert.equal(ratings.rankings.length,365);
 const feed=json('data/mbb-live.json'),forecast=json('data/ncaam-2026-27-upcoming-forecasts.json');
 const men=slate.normalizeMen(feed,forecast,cross);
+const officialTV=slate.normalizeMen({
+ games:[{id:'401920424',date:'2026-11-08T18:00:00Z',state:'pre',
+   teams:[{id:'8',name:'Arkansas Razorbacks'}, {id:'258',name:'Virginia Cavaliers'}]}],
+ conference_fixtures:{day:'2026-11-08',games:[
+  {team_ids:['8','258'],network_announced:'ESPN',network_conflict:false}
+ ]}
+},{games:[]},cross);
+assert.equal(officialTV[0].broadcast,'ESPN',
+ 'exact school and date TV announcement must survive an empty scoreboard broadcast');
+const placeholderTV=slate.normalizeMen({
+ games:[{id:'401920424',date:'2026-11-08T18:00:00Z',state:'pre',
+   teams:[{id:'8',name:'Arkansas Razorbacks'}, {id:'258',name:'Virginia Cavaliers'}]}],
+ conference_fixtures:{day:'2026-11-08',games:[
+  {team_ids:['8','258'],network_announced:'<TBD>',network_conflict:false}
+ ]}
+},{games:[]},cross);
+assert.equal(placeholderTV[0].broadcast,'',
+ 'unannounced broadcast placeholders must never be displayed as real stations');
 const historicalFinals=json('data/mbb-retro-live-finals.json');
 const overnightFinal=historicalFinals.games.find(g=>g.date==='2026-11-05');
 assert(overnightFinal,'retain the 2026-11-05 verified scoreboard results');

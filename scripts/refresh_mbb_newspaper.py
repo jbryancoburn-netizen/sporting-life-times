@@ -44,7 +44,23 @@ def parse_scores(data):
     for event in data.get('events',[]):
         comp=(event.get('competitions') or [{}])[0];status=event.get('status',{}).get('type',{})
         competitors=sorted(comp.get('competitors',[]),key=lambda x:x.get('homeAway')=='home')
-        out.append({'id':event['id'],'date':event.get('date'),'state':status.get('state'),'status':status.get('shortDetail'),'teams':[{'id':t.get('team',{}).get('id'),'name':t.get('team',{}).get('displayName'),'logo':t.get('team',{}).get('logo'),'score':t.get('score')} for t in competitors]})
+        # The Ledger reads this published field. Never discard ESPN's television
+        # listings while reducing the large scoreboard payload to a game record.
+        names=[]
+        for item in comp.get('broadcasts') or event.get('broadcasts') or []:
+            if isinstance(item,dict):
+                names.extend(item.get('names') or [])
+        if not names:
+            for item in comp.get('geoBroadcasts') or event.get('geoBroadcasts') or []:
+                if isinstance(item,dict):
+                    media=item.get('media') or {}
+                    if isinstance(media,dict) and media.get('shortName'):
+                        names.append(media['shortName'])
+        names=[str(n).strip() for n in names
+               if isinstance(n,str) and n.strip() and
+               n.strip().upper() not in ('TBA','TBD','<TBD>','<TBA>','TV TBA')]
+        network=' / '.join(dict.fromkeys(names))
+        out.append({'id':event['id'],'date':event.get('date'),'state':status.get('state'),'status':status.get('shortDetail'),'broadcast':network,'teams':[{'id':t.get('team',{}).get('id'),'name':t.get('team',{}).get('displayName'),'logo':t.get('team',{}).get('logo'),'score':t.get('score')} for t in competitors]})
     return out
 
 def reconcile_ncaa_final_scores(espn_games, official_rows):
@@ -508,7 +524,19 @@ def main():
     score_url='https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard?groups=50&limit=1000&dates='+day
     try:
         result=json.loads(fetch(score_url));assert 'events' in result
-        out['games']=parse_scores(result);out['scores_updated_at']=now
+        updated_games=parse_scores(result)
+        # A provider may temporarily omit a network that it published earlier.
+        # Retain the prior assignment ONLY for the same event, teams and day.
+        older={str(g.get('id')):g for g in old.get('games',[])}
+        for g in updated_games:
+            prior=older.get(str(g.get('id'))) or {}
+            current_ids=[str(t.get('id')) for t in g.get('teams',[])]
+            previous_ids=[str(t.get('id')) for t in prior.get('teams',[])]
+            if (not g.get('broadcast') and prior.get('broadcast') and
+                g.get('date','')[:10]==str(prior.get('date',''))[:10] and
+                current_ids==previous_ids):
+                g['broadcast']=prior['broadcast']
+        out['games']=updated_games;out['scores_updated_at']=now
         out['sources'].append({'source':'ESPN scores','url':score_url,'ok':True})
     except Exception as e:out['sources'].append({'source':'ESPN scores','url':score_url,'ok':False,'error':type(e).__name__})
     # University athletics calendars are independent dated fixture evidence.

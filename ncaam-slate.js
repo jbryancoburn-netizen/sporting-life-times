@@ -74,6 +74,18 @@ function normalizeMen(feed,forecasts,crossList,outside={},archivedFinals=null){
       source:f.source||'Verified NCAA completed-game ledger',
       evidence:'final-source',kind:'regular',probability:null});
   }
+  // Reuse exact-match dated announcements already published by conference offices.
+  const sourceDay=feed?.conference_fixtures?.day,announced=new Map();
+  for(const row of feed?.conference_fixtures?.games||[]){
+    const ids=row.team_ids||[],network=String(row.network_announced||'').trim();
+    if(ids.length===2&&!row.network_conflict&&network&&!/^(?:<[^>]*>|TV TBA|TBA|TBD)$/i.test(network))
+      announced.set(sourceDay+'|'+ids.map(String).sort((a,b)=>Number(a)-Number(b)).join('|'),network);
+  }
+  for(const game of result.values()){
+    if(game.broadcast)continue;
+    const key=game.day+'|'+[game.away.id,game.home.id].sort((a,b)=>Number(a)-Number(b)).join('|');
+    game.broadcast=announced.get(key)||'';
+  }
   return dedupeFixtures([...result.values()]);
 }
 // Merge provisional fixtures only when the same two canonical schools meet on the
@@ -811,11 +823,14 @@ async function refreshBroadcasts(day,force=false){
  finally{broadcastRequestDay=''}
 }
 const verifiedBroadcasts=new Map();
+const publishedBroadcasts=new Map();
+const broadcastPairKey=(gender,day,a,b)=>gender+'|'+day+'|'+[String(a),String(b)].sort((x,y)=>Number(x)-Number(y)).join('|');
 const displayGames=()=>reconcileLive(loaded,liveBoard).map(g=>{
  const official=verifiedBroadcasts.get(String(g.id));
  const broadcaster=(official?.day===g.day?official.network:'')||broadcastByDate.get(g.day)?.get(String(g.id));
+ const cached=publishedBroadcasts.get(broadcastPairKey(women?'women':'men',g.day,g.away.id,g.home.id));
  const confirmedTime=confirmedTipoffsByDate.get(g.day)?.get(String(g.id));
- return {...g,broadcast:broadcaster||g.broadcast||'',date:g.timed?g.date:(confirmedTime||g.date),timed:g.timed||Boolean(confirmedTime)};
+ return {...g,broadcast:broadcaster||g.broadcast||cached||'',date:g.timed?g.date:(confirmedTime||g.date),timed:g.timed||Boolean(confirmedTime)};
 });
 const render=()=>{
  const games=selectGames(displayGames(),selected,filter,search),shown=games.slice(0,limit);
@@ -842,6 +857,17 @@ const render=()=>{
 async function refresh(){
  if(loading)return;loading=true;
  try{
+  try{
+    const published=await fetchJSON('data/cbb-published-networks-2026-27.json');
+    if(published?.season==='2026-27'&&Array.isArray(published.entries)){
+      const next=new Map();
+      for(const row of published.entries){
+        if(!row?.network||!['women','men'].includes(row.gender)||!row.day||row.team_ids?.length!==2)continue;
+        next.set(broadcastPairKey(row.gender,row.day,row.team_ids[0],row.team_ids[1]),row.network);
+      }
+      publishedBroadcasts.clear();for(const [k,v] of next)publishedBroadcasts.set(k,v);
+    }
+  }catch{/* Keep previous cache when the newest broadcast publication is unavailable. */}
   const menFiles=['data/mbb-live.json','data/ncaam-2026-27-upcoming-forecasts.json','data/ncaam-2026-27-retro-primary.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json','data/mbb-exhibition-finals-2026-27.json','data/mbb-arena-registry.json','data/ncaam-score-calibration.json','data/ncaam-2026-27-national-polls.json','data/mbb-out-of-division-opponent-logos.json','data/mbb-retro-live-finals.json','data/mbb-overall-records-2026-27.json','data/mbb-non-di-verified-finals-2026-27.json'];
   const womenFiles=['data/ncaaw-2026-27-games.json','data/ncaaw-2026-27-retro-primary.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json','data/ncaaw-2026-27-teams.json','data/mbb-live.json','data/mbb-out-of-division-opponent-logos.json','data/ncaaw-score-calibration.json'];
   const paths=women?womenFiles:menFiles;

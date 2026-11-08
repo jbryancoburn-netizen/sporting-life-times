@@ -2,7 +2,7 @@ name: MBB newspaper refresh and publish
 on:
   push:
     branches: [main]
-    paths: ['scripts/*mbb_newspaper.py', 'scripts/mbb_player_boxscores.py', '.github/workflows/mbb-newspaper.yml']
+    paths: ['scripts/*mbb_newspaper.py', 'scripts/mbb_player_boxscores.py', 'scripts/build_cbb_published_networks.py', 'tests/test_cbb_published_networks.py', 'ncaam-slate.js', '.github/workflows/mbb-newspaper.yml']
   workflow_dispatch:
   schedule:
     - cron: '3,18,33,48 * * * *'
@@ -33,11 +33,25 @@ jobs:
         run: python scripts/build_mbb_newspaper.py
       - name: Refresh independent MBB news and score snapshot
         run: python scripts/refresh_mbb_newspaper.py
+      - name: Verify dated, team-exact TV preservation
+        run: python -m unittest discover -s tests -p test_cbb_published_networks.py -v
+      - name: Build persistent men and women television cache from published evidence
+        run: python scripts/build_cbb_published_networks.py
+      - name: Validate nonempty independent gender coverage
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('data/cbb-published-networks-2026-27.json').read_text())
+          assert d['men_count']>0 and d['women_count']>0, 'A CBB broadcast edition has no source-backed networks'
+          assert all(len(e['team_ids'])==2 and e['network'] and e['day'] for e in d['entries'])
+          print('CBB networks:',d['men_count'],'men,',d['women_count'],'women')
+          PY
       - name: Commit refreshed datasets
         run: |
           git config user.name sporting-life-times-bot
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add data/mbb-newspaper-archive.json data/mbb-live.json data/mbb-current-player-stats.json
+          git add data/mbb-newspaper-archive.json data/mbb-live.json data/mbb-current-player-stats.json data/cbb-published-networks-2026-27.json
           if test -f data/mbb-branding.json; then git add data/mbb-branding.json; fi
           if ! git diff --cached --quiet; then
             git commit -m "Refresh MBB newspaper data"
