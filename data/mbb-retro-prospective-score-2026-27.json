@@ -3,7 +3,7 @@
   "status": "VERIFIED_PRETIPOFF_MARGIN_AUDIT",
   "method": "Saved pregame GitHub forecast versions (Nov 6-7) plus immutable pretipoff captures, exact game/team IDs, no postgame ratings. Errors in points. Zero projected margin means no winner pick.",
   "source_finals": "data/mbb-retro-live-finals.json",
-  "results_through": "2026-11-07",
+  "results_through": "2026-11-08",
   "baseline": {
     "games": 107,
     "correct_winners": 73,
@@ -84,7 +84,7 @@
     }
   ],
   "exclusions": {
-    "unmatched": 0,
+    "unmatched": 179,
     "late_or_invalid_tipoff": 0,
     "placeholder_tipoff": 0,
     "team_conflict": 0,
