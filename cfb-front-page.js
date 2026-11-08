@@ -3,8 +3,8 @@
 (()=>{'use strict';
  const grid=document.getElementById('cfb-headlines'),status=document.getElementById('cfb-news-status');
  if(!grid||!status)return;
- const filter=/\\b(college football|ncaa football|fbs|cfp|college football playoff|bowl season)\\b/i;
- const nonCfb=/\\bnfl\\b|professional football/i;
+ const filter=/\b(college football|ncaa football|fbs|cfp|college football playoff|bowl season)\b/i;
+ const nonCfb=/\bnfl\b|professional football/i;
  const displayDate=s=>{const d=new Date(s||'');return Number.isFinite(+d)?d.toLocaleString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}):'Date unavailable'};
  function article(a,i){
   const item=document.createElement('article');
