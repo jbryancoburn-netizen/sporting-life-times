@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Tests for automatic NFL final-game reconciliation."""
 import unittest
-from nfl_finalization_guard import compare, verify
+import datetime as dt
+from nfl_finalization_guard import compare, verify, overlay_recent_live_finals
 
 
 def fixture():
@@ -45,6 +46,35 @@ class FinalizationTests(unittest.TestCase):
         l["games"][0]["state"] = "in"
         l["games"][0]["home"]["score"] = 30
         self.assertEqual(compare(e, l, b), ([], []))
+
+    def test_fresh_scoreboard_final_updates_weekly_ledger(self):
+        e, l, _ = fixture()
+        now = dt.datetime(2026, 11, 8, 21, 0, tzinfo=dt.timezone.utc)
+        l["updated_at"] = now.isoformat()
+        e["games"][0]["state"] = "in"
+        reconciled = overlay_recent_live_finals(
+            {g["id"]: g for g in e["games"]}, l, now)
+        self.assertEqual(reconciled["100"]["state"], "post")
+        self.assertEqual(reconciled["100"]["away"]["score"], 21)
+
+    def test_stale_snapshot_cannot_override_newer_weekly_score(self):
+        e, l, _ = fixture()
+        now = dt.datetime(2026, 11, 8, 21, 0, tzinfo=dt.timezone.utc)
+        l["updated_at"] = (now - dt.timedelta(hours=2)).isoformat()
+        e["games"][0]["state"] = "in"
+        reconciled = overlay_recent_live_finals(
+            {g["id"]: g for g in e["games"]}, l, now)
+        self.assertEqual(reconciled["100"]["state"], "in")
+
+    def test_live_in_progress_game_cannot_finalize(self):
+        e, l, _ = fixture()
+        now = dt.datetime(2026, 11, 8, 21, 0, tzinfo=dt.timezone.utc)
+        l["updated_at"] = now.isoformat()
+        l["games"][0]["state"] = "in"
+        e["games"][0]["state"] = "pre"
+        reconciled = overlay_recent_live_finals(
+            {g["id"]: g for g in e["games"]}, l, now)
+        self.assertEqual(reconciled["100"]["state"], "pre")
 
 
 if __name__ == "__main__":
