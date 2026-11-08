@@ -1,0 +1,37 @@
+{
+  "title": "MBB RETRO prospective home-court shadow (research only)",
+  "season": "2026-27",
+  "created_on": "2026-11-08",
+  "status": "EXPLORATORY_SOURCE_COVERAGE_AND_COUNTERFACTUAL_NOT_FUTURE_VALIDATION",
+  "premise": "Correct missing verified home venue metadata; keep ratings and score calibration unchanged; do not infer sites from nominal home status.",
+  "evidence": {
+    "exact_official_match_requires": "Exact game date + ESPN away/home identifiers + first-party documented venue + exact home arena registry match + two HTTPS references, conflicting and neutral sites excluded.",
+    "source_game_sites": "data/mbb-slate-game-sites-2026-27.json",
+    "home_arenas": "data/mbb-arena-registry.json",
+    "historical_forecasts": "data/mbb-retro-spread-benchmark-2026-11-06-07.json",
+    "verified_final_scores": "data/mbb-retro-live-finals.json"
+  },
+  "historical_nov_6_7": {
+    "games": 107,
+    "verified_home_games": 51,
+    "original": {
+      "winner_accuracy": 0.6822,
+      "margin_mae": 14.46,
+      "brier": 0.1936
+    },
+    "counterfactual_verified_home_only": {
+      "winner_accuracy": 0.7196,
+      "margin_mae": 13.5605,
+      "brier": 0.17642
+    },
+    "constraint": "Computed after games finished as a source-backed scenario, not a prospective 2026-27 holdout; improvement is not guaranteed in future games."
+  },
+  "fixture_coverage_at_analysis": {
+    "fixtures": 201,
+    "exact_official_site_match": 123,
+    "strict_verified_home": 82,
+    "remaining_unverified": 119,
+    "notes": "Match count uses published 2026-11-08 to 2026-11-13 forecasts at audit time. Live count changes as games roll forward. Do not treat unverified as neutral."
+  },
+  "caveat": "RETRO home-court coefficient 100 Elo was previously studied retrospectively; exact source matching does not by itself provide independent future validation of the coefficient."
+}

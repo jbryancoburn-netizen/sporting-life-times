@@ -76,6 +76,16 @@ def merge_live_upcoming_fixtures(document):
 
 live_added = merge_live_upcoming_fixtures(forecasts)
 
+# Source-backed venue correction: no home advantage without an exact official
+# game-site match to that school's verified home arena. No assumed home sites.
+from mbb_verified_home_sites import apply_verified_home_sites
+venue_audit = apply_verified_home_sites(
+    forecasts["games"],
+    load("data/ncaam-2026-27-espn-team-crosswalk.json"),
+    load("data/mbb-slate-game-sites-2026-27.json"),
+    load("data/mbb-arena-registry.json"),
+)
+
 elo = {r["team_id"]: float(r["elo"]) for r in ratings["rankings"]}
 slope = float(cal["parameters"]["elo_margin_slope"])
 
@@ -111,3 +121,4 @@ forecasts["forecast_method"] = {
 }
 target.write_text(json.dumps(forecasts, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 print(f"Rebuilt {len(forecasts['games'])} MBB forecasts from RETRO {ratings.get('as_of')}; added {live_added} current/upcoming D-I fixtures")
+print("Verified game-site home-court audit:", json.dumps(venue_audit, sort_keys=True))
