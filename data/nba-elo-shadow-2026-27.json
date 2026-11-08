@@ -4,7 +4,7 @@
   "status": "primary_live_earned_elo",
   "model": "team_only_reset1500_home40_k24_sqrt_mov",
   "source": "data/nba-2026-27-current-provisional.json",
-  "games_played": 135,
+  "games_played": 136,
   "parameters": {
     "season_start_elo": 1500,
     "home_elo": 40,
@@ -102,20 +102,20 @@
       "difference_from_live": 121.675
     },
     {
+      "team": "NYK",
+      "elo": 1528.83,
+      "games": 9,
+      "forecast_prior": 1716.1215,
+      "live_elo": 1645.287,
+      "difference_from_live": -116.457
+    },
+    {
       "team": "ATL",
       "elo": 1527.436,
       "games": 11,
       "forecast_prior": 1545.8452499999999,
       "live_elo": 1549.137,
       "difference_from_live": -21.701
-    },
-    {
-      "team": "CLE",
-      "elo": 1526.028,
-      "games": 9,
-      "forecast_prior": 1575.834,
-      "live_elo": 1564.985,
-      "difference_from_live": -38.957
     },
     {
       "team": "DEN",
@@ -134,12 +134,12 @@
       "difference_from_live": -9.167
     },
     {
-      "team": "NYK",
-      "elo": 1513.721,
-      "games": 8,
-      "forecast_prior": 1716.1215,
-      "live_elo": 1631.735,
-      "difference_from_live": -118.014
+      "team": "CLE",
+      "elo": 1510.919,
+      "games": 10,
+      "forecast_prior": 1575.834,
+      "live_elo": 1551.433,
+      "difference_from_live": -40.514
     },
     {
       "team": "DAL",
@@ -2532,6 +2532,23 @@
       "home_elo_change": 4.6286085544598246,
       "home_after": 1527.4361748045392,
       "away_after": 1452.249929795554
+    },
+    {
+      "id": "espn-nba-401909940",
+      "date": "2026-11-08T01:00:00.000Z",
+      "home": "CLE",
+      "away": "NYK",
+      "home_score": 97,
+      "away_score": 109,
+      "home_before": 1526.0283207170442,
+      "away_before": 1513.7207872704855,
+      "home_win_probability": 0.5747129550983204,
+      "forecast_home_win_probability": 0.48221146345300986,
+      "forecast_prior_weight_home": 0.39473684210526316,
+      "forecast_prior_weight_away": 0.4166666666666667,
+      "home_elo_change": -15.10959598069458,
+      "home_after": 1510.9187247363495,
+      "away_after": 1528.8303832511801
     },
     {
       "id": "espn-nba-401909941",
