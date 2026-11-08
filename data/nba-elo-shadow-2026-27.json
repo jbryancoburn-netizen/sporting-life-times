@@ -4,7 +4,7 @@
   "status": "primary_live_earned_elo",
   "model": "team_only_reset1500_home40_k24_sqrt_mov",
   "source": "data/nba-2026-27-current-provisional.json",
-  "games_played": 138,
+  "games_played": 139,
   "parameters": {
     "season_start_elo": 1500,
     "home_elo": 40,
@@ -13,6 +13,14 @@
     "historical_prediction_prior": "2025-26 final team Elo, regression .75; prediction blend weight .75*10/(10+team_games), never applied to earned Elo"
   },
   "rankings": [
+    {
+      "team": "SAS",
+      "elo": 1577.673,
+      "games": 10,
+      "forecast_prior": 1686.2685,
+      "live_elo": 1671.572,
+      "difference_from_live": -93.899
+    },
     {
       "team": "MIN",
       "elo": 1572.458,
@@ -46,14 +54,6 @@
       "difference_from_live": -33.335
     },
     {
-      "team": "SAS",
-      "elo": 1557.989,
-      "games": 9,
-      "forecast_prior": 1686.2685,
-      "live_elo": 1658.399,
-      "difference_from_live": -100.41
-    },
-    {
       "team": "DET",
       "elo": 1556.257,
       "games": 8,
@@ -70,14 +70,6 @@
       "difference_from_live": -65.503
     },
     {
-      "team": "POR",
-      "elo": 1554.928,
-      "games": 8,
-      "forecast_prior": 1520.0812500000002,
-      "live_elo": 1561.882,
-      "difference_from_live": -6.954
-    },
-    {
       "team": "GSW",
       "elo": 1547.845,
       "games": 10,
@@ -92,6 +84,14 @@
       "forecast_prior": 1532.3115,
       "live_elo": 1593.281,
       "difference_from_live": -53.339
+    },
+    {
+      "team": "POR",
+      "elo": 1535.244,
+      "games": 9,
+      "forecast_prior": 1520.0812500000002,
+      "live_elo": 1548.709,
+      "difference_from_live": -13.465
     },
     {
       "team": "MEM",
@@ -2600,6 +2600,23 @@
       "home_elo_change": 7.753559696344199,
       "home_after": 1471.6392260126324,
       "away_after": 1559.2396409816809
+    },
+    {
+      "id": "espn-nba-401909944",
+      "date": "2026-11-08T03:00:00.000Z",
+      "home": "POR",
+      "away": "SAS",
+      "home_score": 103,
+      "away_score": 125,
+      "home_before": 1554.9280363994912,
+      "away_before": 1557.9886693434692,
+      "home_win_probability": 0.5529606179169556,
+      "forecast_home_win_probability": 0.4594816580434345,
+      "forecast_prior_weight_home": 0.4166666666666667,
+      "forecast_prior_weight_away": 0.39473684210526316,
+      "home_elo_change": -19.684155350492205,
+      "home_after": 1535.2438810489991,
+      "away_after": 1577.6728246939613
     }
   ]
 }
