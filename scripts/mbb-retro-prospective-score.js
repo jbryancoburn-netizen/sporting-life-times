@@ -25,7 +25,12 @@ for(const [source,rows] of [['archived_git_snapshot',baseline.forecasts],['daily
     if(!Number.isFinite(rec)||!Number.isFinite(tip)||rec>=tip){exclusions.late_or_invalid_tipoff++;continue;}
     if(eastern.format(new Date(tip))==='23:59'){exclusions.placeholder_tipoff++;continue;}
     if(String(p.home_id)!==String(g.home_id)||String(p.away_id)!==String(g.away_id)){exclusions.team_conflict++;continue;}
-    if(!p.ratings_as_of||p.ratings_as_of>=p.game_date){exclusions.postgame_ratings++;continue;}
+    // Current-day ratings can be legitimate if a pretipoff capture proves the
+    // predicted matchup's own result was absent from the rated source snapshot.
+    if(!p.ratings_as_of || p.ratings_as_of>p.game_date ||
+      (p.ratings_as_of===p.game_date && p.pregame_source_snapshot_verified!==true)){
+      exclusions.postgame_ratings++;continue;
+    }
     const forecast=p.projected_home_margin,prob=p.home_win_probability;
     if(typeof forecast!=='number'||!Number.isFinite(forecast)||typeof prob!=='number'||prob<=0||prob>=1){exclusions.invalid_forecast++;continue;}
     const h=g.home_score,a=g.away_score;

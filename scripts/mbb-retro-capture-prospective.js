@@ -7,6 +7,7 @@ const load = file => JSON.parse(fs.readFileSync(file, 'utf8'));
 const save = (file, data) => fs.writeFileSync(file, JSON.stringify(data, null, 2) + '\n');
 const verified = load('data/mbb-retro-verified-upcoming-2026-27.json');
 const published = load('data/ncaam-2026-27-upcoming-forecasts.json');
+const ratings = load('data/ncaam-2026-27-retro-primary.json');
 const oldFile = 'data/mbb-retro-prospective-predictions-2026-27.json';
 const spreadFile = 'data/mbb-retro-pregame-spreads-2026-27.json';
 const legacy = fs.existsSync(oldFile) ? load(oldFile) : {season:'2026-27', predictions:[]};
@@ -16,6 +17,8 @@ const publishedById = new Map(published.games.map(g => [String(g.id),g]));
 const oldSeen = new Set(legacy.predictions.map(g => String(g.game_id)));
 const spreadSeen = new Set(archive.forecasts.map(g => String(g.game_id)));
 const now = new Date(), eastern = new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'2-digit',minute:'2-digit',hourCycle:'h23'});
+const completedRatingIds = new Set((ratings.events || []).map(e => String(e.id)));
+if(ratings.model!=='retro-clean-slate' || ratings.season!=='2026-27' || !Array.isArray(ratings.events)) throw Error('Unverifiable rating snapshot');
 let captured=0, skipped=0, legacyCaptured=0;
 for(const g of verified.games){
   const id=String(g.id||''), f=publishedById.get(id), tip=Date.parse(g.tipoff_at);
@@ -23,7 +26,8 @@ for(const g of verified.games){
      !['home','neutral'].includes(g.site) || g.home_score!=null || g.away_score!=null ||
      f.home_score!=null || f.away_score!=null || f.home_id!==g.home_id || f.away_id!==g.away_id ||
      f.date!==g.date || f.forecast_model!=='retro-central-elo-uncapped-v2' ||
-     !f.ratings_as_of || f.ratings_as_of>=f.date ||
+     !f.ratings_as_of || f.ratings_as_of>f.date || f.ratings_as_of!==ratings.as_of ||
+     completedRatingIds.has(id) ||
      !Number.isFinite(f.projected_home_margin) ||
      !Number.isFinite(f.home_win_probability) || f.home_win_probability<=0 || f.home_win_probability>=1 ||
      eastern.format(new Date(tip))==='23:59'){
@@ -35,6 +39,7 @@ for(const g of verified.games){
       recorded_at:now.toISOString(), tipoff_at:new Date(tip).toISOString(),
       projected_home_margin:f.projected_home_margin, home_win_probability:f.home_win_probability,
       ratings_as_of:f.ratings_as_of, venue_verification:f.venue_verification||'unverified',
+      pregame_source_snapshot_verified:true, rated_events_at_capture:ratings.events.length,
       forecast_model:f.forecast_model, venue_schedule_flag:g.site,
       note:'Exact published unified forecast. Unverified venues receive no home-edge bonus.'
     });

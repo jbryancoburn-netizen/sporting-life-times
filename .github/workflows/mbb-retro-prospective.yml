@@ -2,7 +2,8 @@ name: MBB RETRO single-model 100 forecast capture
 on:
   workflow_dispatch:
   schedule:
-    - cron: '15 12 * * *'
+    # Three independent pregame captures each day; UTC, including daytime and evening slates.
+    - cron: '15 12,17,22 * * *'
 permissions:
   contents: write
 concurrency:
@@ -20,6 +21,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Check integrity of prospective capture and scoring scripts
+        run: |
+          node --check scripts/mbb-retro-capture-prospective.js
+          node --check scripts/mbb-retro-prospective-score.js
+          node --check scripts/mbb-retro-build-results.js
       - name: Verify upcoming venues and UTC tipoffs
         run: python scripts/mbb-retro-verified-feed.py
       - name: Capture RETRO 100 forecasts before tipoff

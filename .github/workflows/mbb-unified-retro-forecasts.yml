@@ -9,6 +9,12 @@ on:
       - 'data/ncaam-score-calibration.json'
       - 'data/mbb-live.json'
       - 'data/ncaam-2026-27-espn-team-crosswalk.json'
+      - 'data/mbb-slate-game-sites-2026-27.json'
+      - 'data/mbb-arena-registry.json'
+      - 'scripts/rebuild_mbb_unified_forecasts.py'
+      - 'scripts/mbb_verified_home_sites.py'
+      - 'scripts/validate_mbb_unified_forecasts.py'
+      - 'tests/test_mbb_verified_home_sites.py'
   workflow_dispatch:
 permissions:
   contents: write
@@ -24,8 +30,12 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Verify source-backed home-court assignment regression tests
+        run: python3 -m unittest discover -s tests -p 'test_mbb_verified_home_sites.py' -v
       - name: Build one forecast per MBB matchup
         run: python3 scripts/rebuild_mbb_unified_forecasts.py
+      - name: Validate published home edges and model arithmetic before release
+        run: python3 scripts/validate_mbb_unified_forecasts.py
       - name: Publish only changed forecasts
         env:
           GH_TOKEN: ${{ github.token }}
