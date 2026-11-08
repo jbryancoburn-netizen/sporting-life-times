@@ -17,6 +17,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Verify college-basketball broadcast publication before UI regressions
+        run: |
+          python3 -m unittest discover -s tests -p test_cbb_published_networks.py -v
+          python3 -m unittest discover -s tests -p test_mbb_ingestion.py -v
+          python3 scripts/build_cbb_published_networks.py
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('data/cbb-published-networks-2026-27.json').read_text())
+          assert d['men_count']>0 and d['women_count']>0
+          print('Publishable network cache:',d['men_count'],'men,',d['women_count'],'women')
+          PY
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
