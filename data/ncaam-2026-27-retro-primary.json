@@ -2,7 +2,7 @@
   "model": "retro-clean-slate",
   "season": "2026-27",
   "status": "verified-inseason",
-  "games_played": 302,
+  "games_played": 317,
   "starting_elo": 1500,
   "as_of": "2026-11-08",
   "source_season": null,
@@ -21,16 +21,46 @@
     },
     {
       "name": "verified MBB season results",
-      "rows": 300
+      "rows": 301
     },
     {
       "name": "rolling official-scoreboard completed finals",
-      "rows": 302
+      "rows": 317
     }
   ],
   "excluded_unverified_rows": 0,
   "note": "RETRO is the sole published MBB rating. All 365 programs begin every season at 1500. No last-season or roster adjustment. Only verified final scores move ratings. Incomplete site classification does not earn home advantage.",
   "rankings": [
+    {
+      "team_id": "ncaa:609513",
+      "team": "Virginia",
+      "conference": "ACC",
+      "base_elo": 1500,
+      "elo": 1709.357,
+      "daily_change": 54.279,
+      "wins": 3,
+      "losses": 0,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 3,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 1
+    },
+    {
+      "team_id": "ncaa:609668",
+      "team": "Michigan St.",
+      "conference": "Big Ten",
+      "base_elo": 1500,
+      "elo": 1696.996,
+      "daily_change": 13.916,
+      "wins": 2,
+      "losses": 0,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 2
+    },
     {
       "team_id": "ncaa:609489",
       "team": "Texas A&M",
@@ -44,7 +74,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 1
+      "rank": 3
     },
     {
       "team_id": "ncaa:609692",
@@ -59,7 +89,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 2
+      "rank": 4
     },
     {
       "team_id": "ncaa:609530",
@@ -74,22 +104,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 3
-    },
-    {
-      "team_id": "ncaa:609866",
-      "team": "Saint Louis",
-      "conference": "Atlantic 10",
-      "base_elo": 1500,
-      "elo": 1680.135,
-      "daily_change": 0,
-      "wins": 2,
-      "losses": 0,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 4
+      "rank": 5
     },
     {
       "team_id": "ncaa:609870",
@@ -104,30 +119,15 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 5
-    },
-    {
-      "team_id": "ncaa:609668",
-      "team": "Michigan St.",
-      "conference": "Big Ten",
-      "base_elo": 1500,
-      "elo": 1678.382,
-      "daily_change": -4.698,
-      "wins": 2,
-      "losses": 0,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
       "rank": 6
     },
     {
-      "team_id": "ncaa:609671",
-      "team": "Minnesota",
-      "conference": "Big Ten",
+      "team_id": "ncaa:609528",
+      "team": "Wright St.",
+      "conference": "Horizon",
       "base_elo": 1500,
-      "elo": 1676.104,
-      "daily_change": 0,
+      "elo": 1674.352,
+      "daily_change": 9.275,
       "wins": 2,
       "losses": 0,
       "conference_wins": 0,
@@ -156,8 +156,8 @@
       "team": "St. John's (NY)",
       "conference": "Big East",
       "base_elo": 1500,
-      "elo": 1672.514,
-      "daily_change": 98.214,
+      "elo": 1669.64,
+      "daily_change": 95.34,
       "wins": 2,
       "losses": 0,
       "conference_wins": 0,
@@ -171,8 +171,8 @@
       "team": "Oklahoma St.",
       "conference": "Big 12",
       "base_elo": 1500,
-      "elo": 1668.228,
-      "daily_change": 0,
+      "elo": 1668.208,
+      "daily_change": -0.02,
       "wins": 2,
       "losses": 0,
       "conference_wins": 0,
@@ -197,21 +197,6 @@
       "rank": 11
     },
     {
-      "team_id": "ncaa:609528",
-      "team": "Wright St.",
-      "conference": "Horizon",
-      "base_elo": 1500,
-      "elo": 1665.077,
-      "daily_change": 0,
-      "wins": 2,
-      "losses": 0,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 12
-    },
-    {
       "team_id": "ncaa:609494",
       "team": "Texas",
       "conference": "SEC",
@@ -224,20 +209,35 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 13
+      "rank": 12
     },
     {
       "team_id": "ncaa:609608",
       "team": "High Point",
       "conference": "Big South",
       "base_elo": 1500,
-      "elo": 1663.477,
+      "elo": 1663.478,
       "daily_change": 0,
       "wins": 3,
       "losses": 0,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 13
+    },
+    {
+      "team_id": "ncaa:609700",
+      "team": "Cincinnati",
+      "conference": "Big 12",
+      "base_elo": 1500,
+      "elo": 1662.321,
+      "daily_change": 24.637,
+      "wins": 2,
+      "losses": 0,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
       "rank": 14
     },
@@ -261,8 +261,8 @@
       "team": "BYU",
       "conference": "Big 12",
       "base_elo": 1500,
-      "elo": 1661.174,
-      "daily_change": 0,
+      "elo": 1660.993,
+      "daily_change": -0.182,
       "wins": 2,
       "losses": 0,
       "conference_wins": 0,
@@ -276,8 +276,8 @@
       "team": "Alabama",
       "conference": "SEC",
       "base_elo": 1500,
-      "elo": 1660.765,
-      "daily_change": -0.02,
+      "elo": 1660.864,
+      "daily_change": 0.079,
       "wins": 2,
       "losses": 0,
       "conference_wins": 0,
@@ -332,12 +332,12 @@
       "rank": 20
     },
     {
-      "team_id": "ncaa:609686",
-      "team": "Nebraska",
+      "team_id": "ncaa:609671",
+      "team": "Minnesota",
       "conference": "Big Ten",
       "base_elo": 1500,
-      "elo": 1658.954,
-      "daily_change": 0,
+      "elo": 1658.817,
+      "daily_change": -17.287,
       "wins": 2,
       "losses": 0,
       "conference_wins": 0,
@@ -347,12 +347,12 @@
       "rank": 21
     },
     {
-      "team_id": "ncaa:609513",
-      "team": "Virginia",
-      "conference": "ACC",
+      "team_id": "ncaa:609866",
+      "team": "Saint Louis",
+      "conference": "Atlantic 10",
       "base_elo": 1500,
-      "elo": 1655.078,
-      "daily_change": 0,
+      "elo": 1657.714,
+      "daily_change": -22.422,
       "wins": 2,
       "losses": 0,
       "conference_wins": 0,
@@ -360,6 +360,21 @@
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
       "rank": 22
+    },
+    {
+      "team_id": "ncaa:609686",
+      "team": "Nebraska",
+      "conference": "Big Ten",
+      "base_elo": 1500,
+      "elo": 1654.925,
+      "daily_change": -4.028,
+      "wins": 2,
+      "losses": 0,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 23
     },
     {
       "team_id": "ncaa:609705",
@@ -374,21 +389,6 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 23
-    },
-    {
-      "team_id": "ncaa:609710",
-      "team": "Creighton",
-      "conference": "Big East",
-      "base_elo": 1500,
-      "elo": 1654.143,
-      "daily_change": 0,
-      "wins": 2,
-      "losses": 0,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
       "rank": 24
     },
     {
@@ -396,8 +396,8 @@
       "team": "Vanderbilt",
       "conference": "SEC",
       "base_elo": 1500,
-      "elo": 1654.064,
-      "daily_change": 0,
+      "elo": 1654.07,
+      "daily_change": 0.006,
       "wins": 2,
       "losses": 0,
       "conference_wins": 0,
@@ -405,6 +405,21 @@
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
       "rank": 25
+    },
+    {
+      "team_id": "ncaa:609710",
+      "team": "Creighton",
+      "conference": "Big East",
+      "base_elo": 1500,
+      "elo": 1654.041,
+      "daily_change": -0.102,
+      "wins": 2,
+      "losses": 0,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 26
     },
     {
       "team_id": "ncaa:609492",
@@ -419,7 +434,22 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 26
+      "rank": 27
+    },
+    {
+      "team_id": "ncaa:609482",
+      "team": "Syracuse",
+      "conference": "ACC",
+      "base_elo": 1500,
+      "elo": 1653.208,
+      "daily_change": 25.955,
+      "wins": 2,
+      "losses": 0,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 28
     },
     {
       "team_id": "ncaa:609805",
@@ -434,7 +464,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 27
+      "rank": 29
     },
     {
       "team_id": "ncaa:609742",
@@ -449,7 +479,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 28
+      "rank": 30
     },
     {
       "team_id": "ncaa:609697",
@@ -464,7 +494,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 29
+      "rank": 31
     },
     {
       "team_id": "ncaa:609549",
@@ -479,7 +509,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 30
+      "rank": 32
     },
     {
       "team_id": "ncaa:609664",
@@ -494,7 +524,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 31
+      "rank": 33
     },
     {
       "team_id": "ncaa:609634",
@@ -509,37 +539,22 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 32
+      "rank": 34
     },
     {
       "team_id": "ncaa:609739",
       "team": "Georgetown",
       "conference": "Big East",
       "base_elo": 1500,
-      "elo": 1647.578,
-      "daily_change": 0,
+      "elo": 1647.668,
+      "daily_change": 0.09,
       "wins": 2,
       "losses": 0,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 33
-    },
-    {
-      "team_id": "ncaa:609554",
-      "team": "Illinois",
-      "conference": "Big Ten",
-      "base_elo": 1500,
-      "elo": 1647.299,
-      "daily_change": 0,
-      "wins": 2,
-      "losses": 0,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 34
+      "rank": 35
     },
     {
       "team_id": "ncaa:609682",
@@ -554,7 +569,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 35
+      "rank": 36
     },
     {
       "team_id": "ncaa:609658",
@@ -562,21 +577,6 @@
       "conference": "Big East",
       "base_elo": 1500,
       "elo": 1646.005,
-      "daily_change": 0,
-      "wins": 2,
-      "losses": 0,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 36
-    },
-    {
-      "team_id": "ncaa:609490",
-      "team": "TCU",
-      "conference": "Big 12",
-      "base_elo": 1500,
-      "elo": 1645.977,
       "daily_change": 0,
       "wins": 2,
       "losses": 0,
@@ -602,6 +602,21 @@
       "rank": 38
     },
     {
+      "team_id": "ncaa:609554",
+      "team": "Illinois",
+      "conference": "Big Ten",
+      "base_elo": 1500,
+      "elo": 1644.603,
+      "daily_change": -2.696,
+      "wins": 2,
+      "losses": 0,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 39
+    },
+    {
       "team_id": "ncaa:609591",
       "team": "LSU",
       "conference": "SEC",
@@ -614,7 +629,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 39
+      "rank": 40
     },
     {
       "team_id": "ncaa:609555",
@@ -629,30 +644,15 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 40
-    },
-    {
-      "team_id": "ncaa:609577",
-      "team": "Iowa",
-      "conference": "Big Ten",
-      "base_elo": 1500,
-      "elo": 1642.691,
-      "daily_change": 0,
-      "wins": 2,
-      "losses": 0,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
       "rank": 41
     },
     {
-      "team_id": "ncaa:609864",
-      "team": "Saint Joseph's",
-      "conference": "Atlantic 10",
+      "team_id": "ncaa:609810",
+      "team": "Old Dominion",
+      "conference": "Sun Belt",
       "base_elo": 1500,
-      "elo": 1641.685,
-      "daily_change": 0,
+      "elo": 1640.931,
+      "daily_change": 12.489,
       "wins": 2,
       "losses": 0,
       "conference_wins": 0,
@@ -660,6 +660,51 @@
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
       "rank": 42
+    },
+    {
+      "team_id": "ncaa:609490",
+      "team": "TCU",
+      "conference": "Big 12",
+      "base_elo": 1500,
+      "elo": 1640.703,
+      "daily_change": -5.274,
+      "wins": 2,
+      "losses": 0,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 43
+    },
+    {
+      "team_id": "ncaa:609577",
+      "team": "Iowa",
+      "conference": "Big Ten",
+      "base_elo": 1500,
+      "elo": 1640.506,
+      "daily_change": -2.185,
+      "wins": 2,
+      "losses": 0,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 44
+    },
+    {
+      "team_id": "ncaa:609584",
+      "team": "Kentucky",
+      "conference": "SEC",
+      "base_elo": 1500,
+      "elo": 1640.424,
+      "daily_change": 15.817,
+      "wins": 2,
+      "losses": 0,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 45
     },
     {
       "team_id": "ncaa:609683",
@@ -674,7 +719,22 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 43
+      "rank": 46
+    },
+    {
+      "team_id": "ncaa:609864",
+      "team": "Saint Joseph's",
+      "conference": "Atlantic 10",
+      "base_elo": 1500,
+      "elo": 1639.354,
+      "daily_change": -2.331,
+      "wins": 2,
+      "losses": 0,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 47
     },
     {
       "team_id": "ncaa:609595",
@@ -689,7 +749,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 44
+      "rank": 48
     },
     {
       "team_id": "ncaa:609654",
@@ -704,7 +764,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 45
+      "rank": 49
     },
     {
       "team_id": "ncaa:609801",
@@ -712,14 +772,14 @@
       "conference": "ACC",
       "base_elo": 1500,
       "elo": 1638.423,
-      "daily_change": 0.015,
+      "daily_change": 0.014,
       "wins": 2,
       "losses": 0,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 46
+      "rank": 50
     },
     {
       "team_id": "ncaa:609714",
@@ -734,7 +794,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 47
+      "rank": 51
     },
     {
       "team_id": "ncaa:609558",
@@ -749,7 +809,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 48
+      "rank": 52
     },
     {
       "team_id": "ncaa:609733",
@@ -764,7 +824,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 49
+      "rank": 53
     },
     {
       "team_id": "ncaa:609533",
@@ -779,22 +839,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 50
-    },
-    {
-      "team_id": "ncaa:609700",
-      "team": "Cincinnati",
-      "conference": "Big 12",
-      "base_elo": 1500,
-      "elo": 1637.684,
-      "daily_change": 0,
-      "wins": 2,
-      "losses": 0,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 51
+      "rank": 54
     },
     {
       "team_id": "ncaa:609744",
@@ -809,60 +854,15 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 52
-    },
-    {
-      "team_id": "ncaa:609556",
-      "team": "NC State",
-      "conference": "ACC",
-      "base_elo": 1500,
-      "elo": 1635.604,
-      "daily_change": 0,
-      "wins": 2,
-      "losses": 0,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 53
+      "rank": 55
     },
     {
       "team_id": "ncaa:609622",
       "team": "Arizona St.",
       "conference": "Big 12",
       "base_elo": 1500,
-      "elo": 1635.519,
-      "daily_change": 0,
-      "wins": 2,
-      "losses": 0,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 54
-    },
-    {
-      "team_id": "ncaa:609643",
-      "team": "Butler",
-      "conference": "Big East",
-      "base_elo": 1500,
-      "elo": 1633.126,
-      "daily_change": 0,
-      "wins": 2,
-      "losses": 0,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 55
-    },
-    {
-      "team_id": "ncaa:609680",
-      "team": "Murray St.",
-      "conference": "MVC",
-      "base_elo": 1500,
-      "elo": 1632.978,
-      "daily_change": 0,
+      "elo": 1635.228,
+      "daily_change": -0.291,
       "wins": 2,
       "losses": 0,
       "conference_wins": 0,
@@ -872,12 +872,12 @@
       "rank": 56
     },
     {
-      "team_id": "ncaa:609672",
-      "team": "Mississippi St.",
-      "conference": "SEC",
+      "team_id": "ncaa:609635",
+      "team": "Boston U.",
+      "conference": "Patriot",
       "base_elo": 1500,
-      "elo": 1632.938,
-      "daily_change": 0,
+      "elo": 1634.004,
+      "daily_change": 18.221,
       "wins": 2,
       "losses": 0,
       "conference_wins": 0,
@@ -902,12 +902,12 @@
       "rank": 58
     },
     {
-      "team_id": "ncaa:609512",
-      "team": "Virginia Tech",
-      "conference": "ACC",
+      "team_id": "ncaa:609680",
+      "team": "Murray St.",
+      "conference": "MVC",
       "base_elo": 1500,
-      "elo": 1632.202,
-      "daily_change": 0,
+      "elo": 1632.915,
+      "daily_change": -0.063,
       "wins": 2,
       "losses": 0,
       "conference_wins": 0,
@@ -917,12 +917,12 @@
       "rank": 59
     },
     {
-      "team_id": "ncaa:609505",
-      "team": "Utah St.",
-      "conference": "Pac-12",
+      "team_id": "ncaa:609672",
+      "team": "Mississippi St.",
+      "conference": "SEC",
       "base_elo": 1500,
-      "elo": 1630.5,
-      "daily_change": 0,
+      "elo": 1632.87,
+      "daily_change": -0.068,
       "wins": 2,
       "losses": 0,
       "conference_wins": 0,
@@ -930,6 +930,21 @@
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
       "rank": 60
+    },
+    {
+      "team_id": "ncaa:609512",
+      "team": "Virginia Tech",
+      "conference": "ACC",
+      "base_elo": 1500,
+      "elo": 1632.151,
+      "daily_change": -0.051,
+      "wins": 2,
+      "losses": 0,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 61
     },
     {
       "team_id": "ncaa:609688",
@@ -944,7 +959,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 61
+      "rank": 62
     },
     {
       "team_id": "ncaa:609593",
@@ -952,21 +967,6 @@
       "conference": "ACC",
       "base_elo": 1500,
       "elo": 1629.027,
-      "daily_change": 0,
-      "wins": 2,
-      "losses": 0,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 62
-    },
-    {
-      "team_id": "ncaa:609810",
-      "team": "Old Dominion",
-      "conference": "Sun Belt",
-      "base_elo": 1500,
-      "elo": 1628.441,
       "daily_change": 0,
       "wins": 2,
       "losses": 0,
@@ -992,12 +992,12 @@
       "rank": 64
     },
     {
-      "team_id": "ncaa:609482",
-      "team": "Syracuse",
-      "conference": "ACC",
+      "team_id": "ncaa:609518",
+      "team": "West Virginia",
+      "conference": "Big 12",
       "base_elo": 1500,
-      "elo": 1627.253,
-      "daily_change": 0,
+      "elo": 1627.2,
+      "daily_change": 1.54,
       "wins": 2,
       "losses": 0,
       "conference_wins": 0,
@@ -1007,12 +1007,12 @@
       "rank": 65
     },
     {
-      "team_id": "ncaa:609841",
-      "team": "Rhode Island",
-      "conference": "Atlantic 10",
+      "team_id": "ncaa:609594",
+      "team": "UMass Lowell",
+      "conference": "America East",
       "base_elo": 1500,
-      "elo": 1627.052,
-      "daily_change": 3.173,
+      "elo": 1627.182,
+      "daily_change": 57.888,
       "wins": 2,
       "losses": 0,
       "conference_wins": 0,
@@ -1020,6 +1020,36 @@
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
       "rank": 66
+    },
+    {
+      "team_id": "ncaa:609841",
+      "team": "Rhode Island",
+      "conference": "Atlantic 10",
+      "base_elo": 1500,
+      "elo": 1626.986,
+      "daily_change": 3.108,
+      "wins": 2,
+      "losses": 0,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 67
+    },
+    {
+      "team_id": "ncaa:609901",
+      "team": "South Carolina",
+      "conference": "SEC",
+      "base_elo": 1500,
+      "elo": 1626.713,
+      "daily_change": 57.321,
+      "wins": 2,
+      "losses": 0,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 68
     },
     {
       "team_id": "ncaa:609526",
@@ -1034,22 +1064,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 67
-    },
-    {
-      "team_id": "ncaa:609518",
-      "team": "West Virginia",
-      "conference": "Big 12",
-      "base_elo": 1500,
-      "elo": 1625.66,
-      "daily_change": 0,
-      "wins": 2,
-      "losses": 0,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 68
+      "rank": 69
     },
     {
       "team_id": "ncaa:609736",
@@ -1064,30 +1079,15 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 69
-    },
-    {
-      "team_id": "ncaa:609584",
-      "team": "Kentucky",
-      "conference": "SEC",
-      "base_elo": 1500,
-      "elo": 1624.607,
-      "daily_change": 0,
-      "wins": 2,
-      "losses": 0,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
       "rank": 70
     },
     {
-      "team_id": "ncaa:609574",
-      "team": "Indiana",
-      "conference": "Big Ten",
+      "team_id": "ncaa:609556",
+      "team": "NC State",
+      "conference": "ACC",
       "base_elo": 1500,
-      "elo": 1624.047,
-      "daily_change": 0,
+      "elo": 1624.389,
+      "daily_change": -11.215,
       "wins": 2,
       "losses": 0,
       "conference_wins": 0,
@@ -1097,12 +1097,12 @@
       "rank": 71
     },
     {
-      "team_id": "ncaa:609824",
-      "team": "Pittsburgh",
-      "conference": "ACC",
+      "team_id": "ncaa:609505",
+      "team": "Utah St.",
+      "conference": "Pac-12",
       "base_elo": 1500,
-      "elo": 1623.977,
-      "daily_change": -0.003,
+      "elo": 1624.133,
+      "daily_change": -6.367,
       "wins": 2,
       "losses": 0,
       "conference_wins": 0,
@@ -1112,12 +1112,12 @@
       "rank": 72
     },
     {
-      "team_id": "ncaa:609712",
-      "team": "Davidson",
-      "conference": "Atlantic 10",
+      "team_id": "ncaa:609574",
+      "team": "Indiana",
+      "conference": "Big Ten",
       "base_elo": 1500,
-      "elo": 1623.719,
-      "daily_change": 0,
+      "elo": 1623.988,
+      "daily_change": -0.059,
       "wins": 2,
       "losses": 0,
       "conference_wins": 0,
@@ -1127,12 +1127,12 @@
       "rank": 73
     },
     {
-      "team_id": "ncaa:609737",
-      "team": "George Mason",
+      "team_id": "ncaa:609712",
+      "team": "Davidson",
       "conference": "Atlantic 10",
       "base_elo": 1500,
-      "elo": 1623.388,
-      "daily_change": 0,
+      "elo": 1623.718,
+      "daily_change": -0.001,
       "wins": 2,
       "losses": 0,
       "conference_wins": 0,
@@ -1140,36 +1140,6 @@
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
       "rank": 74
-    },
-    {
-      "team_id": "ncaa:609630",
-      "team": "Baylor",
-      "conference": "Big 12",
-      "base_elo": 1500,
-      "elo": 1623.108,
-      "daily_change": 0,
-      "wins": 2,
-      "losses": 0,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 75
-    },
-    {
-      "team_id": "ncaa:609472",
-      "team": "SMU",
-      "conference": "ACC",
-      "base_elo": 1500,
-      "elo": 1622.249,
-      "daily_change": 0,
-      "wins": 2,
-      "losses": 0,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 76
     },
     {
       "team_id": "ncaa:609540",
@@ -1184,7 +1154,52 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 75
+    },
+    {
+      "team_id": "ncaa:609737",
+      "team": "George Mason",
+      "conference": "Atlantic 10",
+      "base_elo": 1500,
+      "elo": 1621.367,
+      "daily_change": -2.021,
+      "wins": 2,
+      "losses": 0,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 76
+    },
+    {
+      "team_id": "ncaa:609824",
+      "team": "Pittsburgh",
+      "conference": "ACC",
+      "base_elo": 1500,
+      "elo": 1620.512,
+      "daily_change": -3.468,
+      "wins": 2,
+      "losses": 0,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
       "rank": 77
+    },
+    {
+      "team_id": "ncaa:609630",
+      "team": "Baylor",
+      "conference": "Big 12",
+      "base_elo": 1500,
+      "elo": 1620.004,
+      "daily_change": -3.104,
+      "wins": 2,
+      "losses": 0,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 78
     },
     {
       "team_id": "ncaa:609874",
@@ -1199,7 +1214,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 78
+      "rank": 79
     },
     {
       "team_id": "ncaa:609507",
@@ -1214,30 +1229,15 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 79
-    },
-    {
-      "team_id": "ncaa:609743",
-      "team": "Georgia",
-      "conference": "SEC",
-      "base_elo": 1500,
-      "elo": 1617.295,
-      "daily_change": 0,
-      "wins": 2,
-      "losses": 0,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
       "rank": 80
     },
     {
-      "team_id": "ncaa:609635",
-      "team": "Boston U.",
-      "conference": "Patriot",
+      "team_id": "ncaa:609472",
+      "team": "SMU",
+      "conference": "ACC",
       "base_elo": 1500,
-      "elo": 1615.783,
-      "daily_change": 0,
+      "elo": 1617.414,
+      "daily_change": -4.835,
       "wins": 2,
       "losses": 0,
       "conference_wins": 0,
@@ -1245,21 +1245,6 @@
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
       "rank": 81
-    },
-    {
-      "team_id": "ncaa:609762",
-      "team": "New Hampshire",
-      "conference": "America East",
-      "base_elo": 1500,
-      "elo": 1614.696,
-      "daily_change": 0,
-      "wins": 2,
-      "losses": 0,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 82
     },
     {
       "team_id": "ncaa:609819",
@@ -1274,6 +1259,21 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 82
+    },
+    {
+      "team_id": "ncaa:609743",
+      "team": "Georgia",
+      "conference": "SEC",
+      "base_elo": 1500,
+      "elo": 1613.898,
+      "daily_change": -3.397,
+      "wins": 2,
+      "losses": 0,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
       "rank": 83
     },
     {
@@ -1281,8 +1281,8 @@
       "team": "UC Irvine",
       "conference": "Big West",
       "base_elo": 1500,
-      "elo": 1613.673,
-      "daily_change": 0,
+      "elo": 1613.666,
+      "daily_change": -0.006,
       "wins": 1,
       "losses": 0,
       "conference_wins": 0,
@@ -1290,6 +1290,21 @@
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
       "rank": 84
+    },
+    {
+      "team_id": "ncaa:609702",
+      "team": "Clemson",
+      "conference": "ACC",
+      "base_elo": 1500,
+      "elo": 1613.49,
+      "daily_change": 2.151,
+      "wins": 2,
+      "losses": 0,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 85
     },
     {
       "team_id": "ncaa:609783",
@@ -1304,22 +1319,22 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 85
+      "rank": 86
     },
     {
       "team_id": "ncaa:609752",
       "team": "Houston",
       "conference": "Big 12",
       "base_elo": 1500,
-      "elo": 1612.732,
-      "daily_change": 0,
+      "elo": 1612.749,
+      "daily_change": 0.017,
       "wins": 1,
       "losses": 0,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 86
+      "rank": 87
     },
     {
       "team_id": "ncaa:609543",
@@ -1334,21 +1349,6 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 87
-    },
-    {
-      "team_id": "ncaa:609702",
-      "team": "Clemson",
-      "conference": "ACC",
-      "base_elo": 1500,
-      "elo": 1611.339,
-      "daily_change": 0,
-      "wins": 2,
-      "losses": 0,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
       "rank": 88
     },
     {
@@ -1356,8 +1356,8 @@
       "team": "Miami (OH)",
       "conference": "MAC",
       "base_elo": 1500,
-      "elo": 1610.994,
-      "daily_change": 0,
+      "elo": 1611.457,
+      "daily_change": 0.463,
       "wins": 2,
       "losses": 0,
       "conference_wins": 0,
@@ -1401,8 +1401,8 @@
       "team": "Seton Hall",
       "conference": "Big East",
       "base_elo": 1500,
-      "elo": 1607.819,
-      "daily_change": 0,
+      "elo": 1607.865,
+      "daily_change": 0.046,
       "wins": 2,
       "losses": 0,
       "conference_wins": 0,
@@ -1410,6 +1410,21 @@
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
       "rank": 92
+    },
+    {
+      "team_id": "ncaa:609621",
+      "team": "App State",
+      "conference": "Sun Belt",
+      "base_elo": 1500,
+      "elo": 1605.189,
+      "daily_change": 32.884,
+      "wins": 1,
+      "losses": 0,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 1,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 93
     },
     {
       "team_id": "ncaa:609477",
@@ -1424,30 +1439,15 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 93
-    },
-    {
-      "team_id": "ncaa:609501",
-      "team": "Tulsa",
-      "conference": "AAC",
-      "base_elo": 1500,
-      "elo": 1601.589,
-      "daily_change": -0.165,
-      "wins": 1,
-      "losses": 0,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 1,
-      "retro_coverage": "completed_verified_2026_27_games",
       "rank": 94
     },
     {
-      "team_id": "ncaa:609711",
-      "team": "Dartmouth",
-      "conference": "Ivy League",
+      "team_id": "ncaa:609633",
+      "team": "Boise St.",
+      "conference": "Pac-12",
       "base_elo": 1500,
-      "elo": 1598.489,
-      "daily_change": 0,
+      "elo": 1603.413,
+      "daily_change": 103.413,
       "wins": 1,
       "losses": 0,
       "conference_wins": 0,
@@ -1455,6 +1455,36 @@
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
       "rank": 95
+    },
+    {
+      "team_id": "ncaa:609501",
+      "team": "Tulsa",
+      "conference": "AAC",
+      "base_elo": 1500,
+      "elo": 1601.572,
+      "daily_change": -0.182,
+      "wins": 1,
+      "losses": 0,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 1,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 96
+    },
+    {
+      "team_id": "ncaa:609483",
+      "team": "Temple",
+      "conference": "AAC",
+      "base_elo": 1500,
+      "elo": 1599.833,
+      "daily_change": 28.761,
+      "wins": 1,
+      "losses": 0,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 1,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 97
     },
     {
       "team_id": "ncaa:609685",
@@ -1469,7 +1499,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 96
+      "rank": 98
     },
     {
       "team_id": "ncaa:609562",
@@ -1484,7 +1514,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 97
+      "rank": 99
     },
     {
       "team_id": "ncaa:609883",
@@ -1499,7 +1529,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 98
+      "rank": 100
     },
     {
       "team_id": "ncaa:609747",
@@ -1514,7 +1544,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 99
+      "rank": 101
     },
     {
       "team_id": "ncaa:609815",
@@ -1529,22 +1559,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 100
-    },
-    {
-      "team_id": "ncaa:609907",
-      "team": "Southeast Mo. St.",
-      "conference": "OVC",
-      "base_elo": 1500,
-      "elo": 1583.411,
-      "daily_change": 0,
-      "wins": 1,
-      "losses": 0,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 1,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 101
+      "rank": 102
     },
     {
       "team_id": "ncaa:609732",
@@ -1559,7 +1574,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 102
+      "rank": 103
     },
     {
       "team_id": "ncaa:609592",
@@ -1574,7 +1589,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 102
+      "rank": 103
     },
     {
       "team_id": "ncaa:609469",
@@ -1582,21 +1597,6 @@
       "conference": "Big Ten",
       "base_elo": 1500,
       "elo": 1581.262,
-      "daily_change": 0,
-      "wins": 1,
-      "losses": 0,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 1,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 104
-    },
-    {
-      "team_id": "ncaa:609625",
-      "team": "Arkansas",
-      "conference": "SEC",
-      "base_elo": 1500,
-      "elo": 1580.515,
       "daily_change": 0,
       "wins": 1,
       "losses": 0,
@@ -1622,12 +1622,12 @@
       "rank": 106
     },
     {
-      "team_id": "ncaa:609487",
-      "team": "Tennessee",
-      "conference": "SEC",
+      "team_id": "ncaa:609851",
+      "team": "Rutgers",
+      "conference": "Big Ten",
       "base_elo": 1500,
-      "elo": 1579.41,
-      "daily_change": 0,
+      "elo": 1580.026,
+      "daily_change": 0.99,
       "wins": 1,
       "losses": 0,
       "conference_wins": 0,
@@ -1637,11 +1637,11 @@
       "rank": 107
     },
     {
-      "team_id": "ncaa:609851",
-      "team": "Rutgers",
-      "conference": "Big Ten",
+      "team_id": "ncaa:609487",
+      "team": "Tennessee",
+      "conference": "SEC",
       "base_elo": 1500,
-      "elo": 1579.036,
+      "elo": 1579.41,
       "daily_change": 0,
       "wins": 1,
       "losses": 0,
@@ -1667,21 +1667,6 @@
       "rank": 109
     },
     {
-      "team_id": "ncaa:609529",
-      "team": "Wyoming",
-      "conference": "MWC",
-      "base_elo": 1500,
-      "elo": 1578.875,
-      "daily_change": 0,
-      "wins": 1,
-      "losses": 0,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 1,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 110
-    },
-    {
       "team_id": "ncaa:609689",
       "team": "Nevada",
       "conference": "MWC",
@@ -1694,7 +1679,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 111
+      "rank": 110
     },
     {
       "team_id": "ncaa:609698",
@@ -1709,7 +1694,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 112
+      "rank": 111
     },
     {
       "team_id": "ncaa:609817",
@@ -1724,7 +1709,22 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 112
+      "rank": 111
+    },
+    {
+      "team_id": "ncaa:609838",
+      "team": "Quinnipiac",
+      "conference": "Metro",
+      "base_elo": 1500,
+      "elo": 1577.333,
+      "daily_change": 54.08,
+      "wins": 2,
+      "losses": 1,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 3,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 113
     },
     {
       "team_id": "ncaa:609566",
@@ -1761,8 +1761,8 @@
       "team": "Grambling",
       "conference": "SWAC",
       "base_elo": 1500,
-      "elo": 1576.493,
-      "daily_change": -0.127,
+      "elo": 1576.48,
+      "daily_change": -0.14,
       "wins": 1,
       "losses": 0,
       "conference_wins": 0,
@@ -1847,12 +1847,12 @@
       "rank": 121
     },
     {
-      "team_id": "ncaa:609621",
-      "team": "App State",
-      "conference": "Sun Belt",
+      "team_id": "ncaa:609516",
+      "team": "Washington",
+      "conference": "Big Ten",
       "base_elo": 1500,
-      "elo": 1572.305,
-      "daily_change": 0,
+      "elo": 1571.139,
+      "daily_change": 0.471,
       "wins": 1,
       "losses": 0,
       "conference_wins": 0,
@@ -1860,36 +1860,6 @@
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
       "rank": 122
-    },
-    {
-      "team_id": "ncaa:609483",
-      "team": "Temple",
-      "conference": "AAC",
-      "base_elo": 1500,
-      "elo": 1571.072,
-      "daily_change": 0,
-      "wins": 1,
-      "losses": 0,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 1,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 123
-    },
-    {
-      "team_id": "ncaa:609516",
-      "team": "Washington",
-      "conference": "Big Ten",
-      "base_elo": 1500,
-      "elo": 1570.668,
-      "daily_change": 0,
-      "wins": 1,
-      "losses": 0,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 1,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 124
     },
     {
       "team_id": "ncaa:609597",
@@ -1904,52 +1874,22 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 125
+      "rank": 123
     },
     {
-      "team_id": "ncaa:609832",
-      "team": "Princeton",
-      "conference": "Ivy League",
+      "team_id": "ncaa:609529",
+      "team": "Wyoming",
+      "conference": "MWC",
       "base_elo": 1500,
-      "elo": 1570.127,
-      "daily_change": 0,
+      "elo": 1570.103,
+      "daily_change": -8.772,
       "wins": 1,
       "losses": 0,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 125
-    },
-    {
-      "team_id": "ncaa:609901",
-      "team": "South Carolina",
-      "conference": "SEC",
-      "base_elo": 1500,
-      "elo": 1569.392,
-      "daily_change": 0,
-      "wins": 1,
-      "losses": 0,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 1,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 127
-    },
-    {
-      "team_id": "ncaa:609594",
-      "team": "UMass Lowell",
-      "conference": "America East",
-      "base_elo": 1500,
-      "elo": 1569.293,
-      "daily_change": 0,
-      "wins": 1,
-      "losses": 0,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 1,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 128
+      "rank": 124
     },
     {
       "team_id": "ncaa:609541",
@@ -1964,7 +1904,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 129
+      "rank": 125
     },
     {
       "team_id": "ncaa:609612",
@@ -1979,7 +1919,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 130
+      "rank": 126
     },
     {
       "team_id": "ncaa:609750",
@@ -1994,7 +1934,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 131
+      "rank": 127
     },
     {
       "team_id": "ncaa:609522",
@@ -2009,22 +1949,37 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 132
+      "rank": 128
     },
     {
       "team_id": "ncaa:609678",
       "team": "Morgan St.",
       "conference": "MEAC",
       "base_elo": 1500,
-      "elo": 1565.991,
-      "daily_change": 0,
+      "elo": 1566.041,
+      "daily_change": 0.05,
       "wins": 1,
       "losses": 0,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 133
+      "rank": 129
+    },
+    {
+      "team_id": "ncaa:609643",
+      "team": "Butler",
+      "conference": "Big East",
+      "base_elo": 1500,
+      "elo": 1565.79,
+      "daily_change": -67.336,
+      "wins": 2,
+      "losses": 1,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 3,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 130
     },
     {
       "team_id": "ncaa:609693",
@@ -2039,7 +1994,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 134
+      "rank": 131
     },
     {
       "team_id": "ncaa:609899",
@@ -2054,7 +2009,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 135
+      "rank": 132
     },
     {
       "team_id": "ncaa:609650",
@@ -2069,22 +2024,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 136
-    },
-    {
-      "team_id": "ncaa:609618",
-      "team": "UAlbany",
-      "conference": "America East",
-      "base_elo": 1500,
-      "elo": 1563.506,
-      "daily_change": 0,
-      "wins": 1,
-      "losses": 0,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 1,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 137
+      "rank": 133
     },
     {
       "team_id": "ncaa:609636",
@@ -2099,7 +2039,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 138
+      "rank": 134
     },
     {
       "team_id": "ncaa:609727",
@@ -2114,7 +2054,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 139
+      "rank": 135
     },
     {
       "team_id": "ncaa:609601",
@@ -2129,22 +2069,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 140
-    },
-    {
-      "team_id": "ncaa:609576",
-      "team": "Iona",
-      "conference": "Metro",
-      "base_elo": 1500,
-      "elo": 1549.194,
-      "daily_change": -78.223,
-      "wins": 2,
-      "losses": 1,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 3,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 141
+      "rank": 136
     },
     {
       "team_id": "ncaa:609796",
@@ -2159,22 +2084,37 @@
       "conference_losses": 0,
       "games_played": 3,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 142
+      "rank": 137
     },
     {
       "team_id": "ncaa:609803",
       "team": "Ohio St.",
       "conference": "Big Ten",
       "base_elo": 1500,
-      "elo": 1543.398,
-      "daily_change": 0,
+      "elo": 1543.366,
+      "daily_change": -0.033,
       "wins": 1,
       "losses": 1,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 143
+      "rank": 138
+    },
+    {
+      "team_id": "ncaa:609550",
+      "team": "Drake",
+      "conference": "MVC",
+      "base_elo": 1500,
+      "elo": 1543.144,
+      "daily_change": 43.144,
+      "wins": 1,
+      "losses": 0,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 1,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 139
     },
     {
       "team_id": "ncaa:609706",
@@ -2189,52 +2129,37 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 144
+      "rank": 140
     },
     {
-      "team_id": "ncaa:609564",
-      "team": "Vermont",
-      "conference": "America East",
+      "team_id": "ncaa:609576",
+      "team": "Iona",
+      "conference": "Metro",
       "base_elo": 1500,
-      "elo": 1538.842,
-      "daily_change": 12.074,
+      "elo": 1538.323,
+      "daily_change": -89.094,
+      "wins": 2,
+      "losses": 1,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 3,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 141
+    },
+    {
+      "team_id": "ncaa:609525",
+      "team": "Green Bay",
+      "conference": "Horizon",
+      "base_elo": 1500,
+      "elo": 1533.166,
+      "daily_change": 107.768,
       "wins": 1,
       "losses": 1,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 145
-    },
-    {
-      "team_id": "ncaa:609834",
-      "team": "Providence",
-      "conference": "Big East",
-      "base_elo": 1500,
-      "elo": 1538.13,
-      "daily_change": 0,
-      "wins": 1,
-      "losses": 1,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 146
-    },
-    {
-      "team_id": "ncaa:609675",
-      "team": "Missouri",
-      "conference": "SEC",
-      "base_elo": 1500,
-      "elo": 1533.688,
-      "daily_change": 0,
-      "wins": 1,
-      "losses": 1,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 147
+      "rank": 142
     },
     {
       "team_id": "ncaa:609905",
@@ -2249,7 +2174,37 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 148
+      "rank": 143
+    },
+    {
+      "team_id": "ncaa:609675",
+      "team": "Missouri",
+      "conference": "SEC",
+      "base_elo": 1500,
+      "elo": 1529.421,
+      "daily_change": -4.268,
+      "wins": 1,
+      "losses": 1,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 144
+    },
+    {
+      "team_id": "ncaa:609907",
+      "team": "Southeast Mo. St.",
+      "conference": "OVC",
+      "base_elo": 1500,
+      "elo": 1527.268,
+      "daily_change": -56.144,
+      "wins": 1,
+      "losses": 1,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 145
     },
     {
       "team_id": "ncaa:609545",
@@ -2264,22 +2219,22 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 149
+      "rank": 146
     },
     {
       "team_id": "ncaa:609571",
       "team": "Queens (NC)",
       "conference": "ASUN",
       "base_elo": 1500,
-      "elo": 1526.785,
-      "daily_change": 0,
+      "elo": 1526.694,
+      "daily_change": -0.091,
       "wins": 2,
       "losses": 1,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 150
+      "rank": 147
     },
     {
       "team_id": "ncaa:609567",
@@ -2294,7 +2249,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 151
+      "rank": 148
     },
     {
       "team_id": "ncaa:609536",
@@ -2309,7 +2264,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 152
+      "rank": 149
     },
     {
       "team_id": "ncaa:609808",
@@ -2324,7 +2279,22 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 153
+      "rank": 150
+    },
+    {
+      "team_id": "ncaa:609762",
+      "team": "New Hampshire",
+      "conference": "America East",
+      "base_elo": 1500,
+      "elo": 1523.135,
+      "daily_change": -91.561,
+      "wins": 2,
+      "losses": 1,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 3,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 151
     },
     {
       "team_id": "ncaa:609623",
@@ -2339,7 +2309,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 154
+      "rank": 152
     },
     {
       "team_id": "ncaa:609599",
@@ -2354,15 +2324,45 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 155
+      "rank": 153
     },
     {
       "team_id": "ncaa:609876",
       "team": "San Jose St.",
       "conference": "MWC",
       "base_elo": 1500,
-      "elo": 1520.656,
-      "daily_change": 0,
+      "elo": 1520.628,
+      "daily_change": -0.028,
+      "wins": 1,
+      "losses": 1,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 154
+    },
+    {
+      "team_id": "ncaa:609834",
+      "team": "Providence",
+      "conference": "Big East",
+      "base_elo": 1500,
+      "elo": 1519.613,
+      "daily_change": -18.516,
+      "wins": 1,
+      "losses": 1,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 155
+    },
+    {
+      "team_id": "ncaa:609509",
+      "team": "Villanova",
+      "conference": "Big East",
+      "base_elo": 1500,
+      "elo": 1518.874,
+      "daily_change": 0.102,
       "wins": 1,
       "losses": 1,
       "conference_wins": 0,
@@ -2372,12 +2372,12 @@
       "rank": 156
     },
     {
-      "team_id": "ncaa:609588",
-      "team": "Lehigh",
-      "conference": "Patriot",
+      "team_id": "ncaa:609854",
+      "team": "Sacred Heart",
+      "conference": "Metro",
       "base_elo": 1500,
-      "elo": 1519.937,
-      "daily_change": 0,
+      "elo": 1518.151,
+      "daily_change": 113.59,
       "wins": 1,
       "losses": 1,
       "conference_wins": 0,
@@ -2387,12 +2387,12 @@
       "rank": 157
     },
     {
-      "team_id": "ncaa:609509",
-      "team": "Villanova",
-      "conference": "Big East",
+      "team_id": "ncaa:609625",
+      "team": "Arkansas",
+      "conference": "SEC",
       "base_elo": 1500,
-      "elo": 1518.876,
-      "daily_change": 0.104,
+      "elo": 1516.449,
+      "daily_change": -64.066,
       "wins": 1,
       "losses": 1,
       "conference_wins": 0,
@@ -2466,8 +2466,8 @@
       "team": "Maryland",
       "conference": "Big Ten",
       "base_elo": 1500,
-      "elo": 1505.997,
-      "daily_change": 0,
+      "elo": 1506.441,
+      "daily_change": 0.444,
       "wins": 1,
       "losses": 1,
       "conference_wins": 0,
@@ -2511,8 +2511,8 @@
       "team": "Kansas City",
       "conference": "Summit League",
       "base_elo": 1500,
-      "elo": 1504.434,
-      "daily_change": 0,
+      "elo": 1504.416,
+      "daily_change": -0.018,
       "wins": 1,
       "losses": 1,
       "conference_wins": 0,
@@ -2520,51 +2520,6 @@
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
       "rank": 166
-    },
-    {
-      "team_id": "ncaa:609838",
-      "team": "Quinnipiac",
-      "conference": "Metro",
-      "base_elo": 1500,
-      "elo": 1503.106,
-      "daily_change": -20.147,
-      "wins": 1,
-      "losses": 1,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 167
-    },
-    {
-      "team_id": "ncaa:609728",
-      "team": "Fairfield",
-      "conference": "Metro",
-      "base_elo": 1500,
-      "elo": 1502.671,
-      "daily_change": 102.918,
-      "wins": 1,
-      "losses": 1,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 168
-    },
-    {
-      "team_id": "ncaa:609889",
-      "team": "St. Thomas (MN)",
-      "conference": "Summit League",
-      "base_elo": 1500,
-      "elo": 1502.61,
-      "daily_change": 0,
-      "wins": 1,
-      "losses": 1,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 169
     },
     {
       "team_id": "ncaa:609897",
@@ -2579,22 +2534,22 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 170
+      "rank": 167
     },
     {
       "team_id": "ncaa:609514",
       "team": "Wake Forest",
       "conference": "ACC",
       "base_elo": 1500,
-      "elo": 1500.87,
-      "daily_change": 0,
+      "elo": 1500.871,
+      "daily_change": 0.001,
       "wins": 1,
       "losses": 1,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 171
+      "rank": 168
     },
     {
       "team_id": "ncaa:609721",
@@ -2609,7 +2564,22 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 172
+      "rank": 169
+    },
+    {
+      "team_id": "ncaa:609624",
+      "team": "Arkansas St.",
+      "conference": "Sun Belt",
+      "base_elo": 1500,
+      "elo": 1500.521,
+      "daily_change": 0.405,
+      "wins": 1,
+      "losses": 1,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 170
     },
     {
       "team_id": "ncaa:609615",
@@ -2624,37 +2594,7 @@
       "conference_losses": 0,
       "games_played": 0,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 173
-    },
-    {
-      "team_id": "ncaa:609624",
-      "team": "Arkansas St.",
-      "conference": "Sun Belt",
-      "base_elo": 1500,
-      "elo": 1500,
-      "daily_change": -0.116,
-      "wins": 1,
-      "losses": 1,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 173
-    },
-    {
-      "team_id": "ncaa:609633",
-      "team": "Boise St.",
-      "conference": "Pac-12",
-      "base_elo": 1500,
-      "elo": 1500,
-      "daily_change": 0,
-      "wins": 0,
-      "losses": 0,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 0,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 173
+      "rank": 171
     },
     {
       "team_id": "ncaa:609539",
@@ -2669,7 +2609,7 @@
       "conference_losses": 0,
       "games_played": 0,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 173
+      "rank": 171
     },
     {
       "team_id": "ncaa:609645",
@@ -2684,22 +2624,7 @@
       "conference_losses": 0,
       "games_played": 0,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 173
-    },
-    {
-      "team_id": "ncaa:609550",
-      "team": "Drake",
-      "conference": "MVC",
-      "base_elo": 1500,
-      "elo": 1500,
-      "daily_change": 0,
-      "wins": 0,
-      "losses": 0,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 0,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 173
+      "rank": 171
     },
     {
       "team_id": "ncaa:609724",
@@ -2714,7 +2639,7 @@
       "conference_losses": 0,
       "games_played": 0,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 173
+      "rank": 171
     },
     {
       "team_id": "ncaa:609746",
@@ -2729,7 +2654,7 @@
       "conference_losses": 0,
       "games_played": 0,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 173
+      "rank": 171
     },
     {
       "team_id": "ncaa:609476",
@@ -2744,7 +2669,7 @@
       "conference_losses": 0,
       "games_played": 0,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 173
+      "rank": 171
     },
     {
       "team_id": "ncaa:609773",
@@ -2759,7 +2684,7 @@
       "conference_losses": 0,
       "games_played": 0,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 173
+      "rank": 171
     },
     {
       "team_id": "ncaa:609480",
@@ -2774,7 +2699,7 @@
       "conference_losses": 0,
       "games_played": 0,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 173
+      "rank": 171
     },
     {
       "team_id": "ncaa:609475",
@@ -2789,7 +2714,7 @@
       "conference_losses": 0,
       "games_played": 0,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 173
+      "rank": 171
     },
     {
       "team_id": "ncaa:609523",
@@ -2804,7 +2729,7 @@
       "conference_losses": 0,
       "games_played": 0,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 173
+      "rank": 171
     },
     {
       "team_id": "ncaa:609578",
@@ -2819,7 +2744,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 186
+      "rank": 181
     },
     {
       "team_id": "ncaa:609519",
@@ -2834,7 +2759,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 187
+      "rank": 182
     },
     {
       "team_id": "ncaa:609740",
@@ -2849,7 +2774,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 188
+      "rank": 183
     },
     {
       "team_id": "ncaa:609663",
@@ -2864,7 +2789,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 189
+      "rank": 184
     },
     {
       "team_id": "ncaa:609669",
@@ -2879,37 +2804,52 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 190
+      "rank": 185
     },
     {
       "team_id": "ncaa:609679",
       "team": "Mount St. Mary's",
       "conference": "Metro",
       "base_elo": 1500,
-      "elo": 1495.58,
-      "daily_change": 0,
+      "elo": 1495.582,
+      "daily_change": 0.002,
       "wins": 1,
       "losses": 1,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 191
+      "rank": 186
+    },
+    {
+      "team_id": "ncaa:609719",
+      "team": "Drexel",
+      "conference": "CAA",
+      "base_elo": 1500,
+      "elo": 1494.627,
+      "daily_change": 12.305,
+      "wins": 1,
+      "losses": 1,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 187
     },
     {
       "team_id": "ncaa:609538",
       "team": "Longwood",
       "conference": "Big South",
       "base_elo": 1500,
-      "elo": 1494.775,
-      "daily_change": 0,
+      "elo": 1494.222,
+      "daily_change": -0.553,
       "wins": 1,
       "losses": 1,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 192
+      "rank": 188
     },
     {
       "team_id": "ncaa:609504",
@@ -2924,14 +2864,14 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 193
+      "rank": 189
     },
     {
       "team_id": "ncaa:609699",
       "team": "Chicago St.",
       "conference": "NEC",
       "base_elo": 1500,
-      "elo": 1491.769,
+      "elo": 1491.768,
       "daily_change": 0,
       "wins": 1,
       "losses": 1,
@@ -2939,7 +2879,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 194
+      "rank": 190
     },
     {
       "team_id": "ncaa:609603",
@@ -2954,52 +2894,52 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 195
+      "rank": 191
+    },
+    {
+      "team_id": "ncaa:609728",
+      "team": "Fairfield",
+      "conference": "Metro",
+      "base_elo": 1500,
+      "elo": 1491.192,
+      "daily_change": 91.438,
+      "wins": 1,
+      "losses": 1,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 192
     },
     {
       "team_id": "ncaa:609531",
       "team": "Youngstown St.",
       "conference": "Horizon",
       "base_elo": 1500,
-      "elo": 1490.898,
-      "daily_change": 0,
+      "elo": 1490.891,
+      "daily_change": -0.007,
       "wins": 1,
       "losses": 1,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 196
-    },
-    {
-      "team_id": "ncaa:609657",
-      "team": "Marist",
-      "conference": "Metro",
-      "base_elo": 1500,
-      "elo": 1490.702,
-      "daily_change": 0,
-      "wins": 1,
-      "losses": 1,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 197
+      "rank": 193
     },
     {
       "team_id": "ncaa:609731",
       "team": "Fla. Atlantic",
       "conference": "AAC",
       "base_elo": 1500,
-      "elo": 1488.137,
-      "daily_change": 0,
+      "elo": 1490.273,
+      "daily_change": 2.136,
       "wins": 1,
       "losses": 1,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 198
+      "rank": 194
     },
     {
       "team_id": "ncaa:609573",
@@ -3014,7 +2954,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 199
+      "rank": 195
     },
     {
       "team_id": "ncaa:609647",
@@ -3029,37 +2969,37 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 200
+      "rank": 196
     },
     {
-      "team_id": "ncaa:609781",
-      "team": "North Dakota",
-      "conference": "Summit League",
+      "team_id": "ncaa:609880",
+      "team": "Merrimack",
+      "conference": "Metro",
       "base_elo": 1500,
-      "elo": 1485.48,
-      "daily_change": 0,
+      "elo": 1484.942,
+      "daily_change": 125.353,
       "wins": 1,
-      "losses": 1,
+      "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
-      "games_played": 2,
+      "games_played": 3,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 201
+      "rank": 197
     },
     {
       "team_id": "ncaa:609632",
       "team": "Binghamton",
       "conference": "America East",
       "base_elo": 1500,
-      "elo": 1484.914,
-      "daily_change": 0,
+      "elo": 1484.915,
+      "daily_change": 0.001,
       "wins": 1,
       "losses": 1,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 202
+      "rank": 198
     },
     {
       "team_id": "ncaa:609725",
@@ -3074,7 +3014,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 203
+      "rank": 199
     },
     {
       "team_id": "ncaa:609609",
@@ -3089,15 +3029,75 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 200
+    },
+    {
+      "team_id": "ncaa:609521",
+      "team": "Western Mich.",
+      "conference": "MAC",
+      "base_elo": 1500,
+      "elo": 1483.469,
+      "daily_change": 57.086,
+      "wins": 1,
+      "losses": 1,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 201
+    },
+    {
+      "team_id": "ncaa:609781",
+      "team": "North Dakota",
+      "conference": "Summit League",
+      "base_elo": 1500,
+      "elo": 1481.484,
+      "daily_change": -3.996,
+      "wins": 1,
+      "losses": 1,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 202
+    },
+    {
+      "team_id": "ncaa:609639",
+      "team": "Brown",
+      "conference": "Ivy League",
+      "base_elo": 1500,
+      "elo": 1478.019,
+      "daily_change": 89.348,
+      "wins": 1,
+      "losses": 2,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 3,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 203
+    },
+    {
+      "team_id": "ncaa:609832",
+      "team": "Princeton",
+      "conference": "Ivy League",
+      "base_elo": 1500,
+      "elo": 1475.371,
+      "daily_change": -94.756,
+      "wins": 1,
+      "losses": 1,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
       "rank": 204
     },
     {
-      "team_id": "ncaa:609719",
-      "team": "Drexel",
-      "conference": "CAA",
+      "team_id": "ncaa:609856",
+      "team": "St. Bonaventure",
+      "conference": "Atlantic 10",
       "base_elo": 1500,
-      "elo": 1482.322,
-      "daily_change": 0,
+      "elo": 1475.047,
+      "daily_change": -0.001,
       "wins": 1,
       "losses": 1,
       "conference_wins": 0,
@@ -3105,21 +3105,6 @@
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
       "rank": 205
-    },
-    {
-      "team_id": "ncaa:609856",
-      "team": "St. Bonaventure",
-      "conference": "Atlantic 10",
-      "base_elo": 1500,
-      "elo": 1475.048,
-      "daily_change": 0,
-      "wins": 1,
-      "losses": 1,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 206
     },
     {
       "team_id": "ncaa:609500",
@@ -3134,20 +3119,35 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 207
+      "rank": 206
     },
     {
       "team_id": "ncaa:609659",
       "team": "Marshall",
       "conference": "Sun Belt",
       "base_elo": 1500,
-      "elo": 1474.026,
-      "daily_change": -0.143,
+      "elo": 1474.562,
+      "daily_change": 0.392,
       "wins": 1,
       "losses": 1,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 207
+    },
+    {
+      "team_id": "ncaa:609696",
+      "team": "Central Conn. St.",
+      "conference": "NEC",
+      "base_elo": 1500,
+      "elo": 1472.647,
+      "daily_change": 112.023,
+      "wins": 1,
+      "losses": 2,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 3,
       "retro_coverage": "completed_verified_2026_27_games",
       "rank": 208
     },
@@ -3182,12 +3182,12 @@
       "rank": 210
     },
     {
-      "team_id": "ncaa:609713",
-      "team": "Dayton",
-      "conference": "Atlantic 10",
+      "team_id": "ncaa:609502",
+      "team": "Air Force",
+      "conference": "MWC",
       "base_elo": 1500,
-      "elo": 1470.427,
-      "daily_change": -3.501,
+      "elo": 1470.038,
+      "daily_change": 43.108,
       "wins": 1,
       "losses": 1,
       "conference_wins": 0,
@@ -3195,6 +3195,21 @@
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
       "rank": 211
+    },
+    {
+      "team_id": "ncaa:609713",
+      "team": "Dayton",
+      "conference": "Atlantic 10",
+      "base_elo": 1500,
+      "elo": 1469.965,
+      "daily_change": -3.963,
+      "wins": 1,
+      "losses": 1,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 212
     },
     {
       "team_id": "ncaa:609542",
@@ -3209,30 +3224,15 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 212
+      "rank": 213
     },
     {
       "team_id": "ncaa:609585",
       "team": "La Salle",
       "conference": "Atlantic 10",
       "base_elo": 1500,
-      "elo": 1467.984,
-      "daily_change": 0,
-      "wins": 1,
-      "losses": 1,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 213
-    },
-    {
-      "team_id": "ncaa:609709",
-      "team": "Cornell",
-      "conference": "Ivy League",
-      "base_elo": 1500,
-      "elo": 1467.139,
-      "daily_change": 0,
+      "elo": 1468.051,
+      "daily_change": 0.068,
       "wins": 1,
       "losses": 1,
       "conference_wins": 0,
@@ -3246,8 +3246,8 @@
       "team": "Toledo",
       "conference": "MAC",
       "base_elo": 1500,
-      "elo": 1463.991,
-      "daily_change": -0.777,
+      "elo": 1467.199,
+      "daily_change": 2.432,
       "wins": 1,
       "losses": 2,
       "conference_wins": 0,
@@ -3257,34 +3257,64 @@
       "rank": 215
     },
     {
-      "team_id": "ncaa:609655",
-      "team": "Maine",
+      "team_id": "ncaa:609564",
+      "team": "Vermont",
       "conference": "America East",
       "base_elo": 1500,
-      "elo": 1459.45,
-      "daily_change": 0,
-      "wins": 1,
-      "losses": 1,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 216
-    },
-    {
-      "team_id": "ncaa:609792",
-      "team": "NIU",
-      "conference": "Horizon",
-      "base_elo": 1500,
-      "elo": 1459.032,
-      "daily_change": -0.647,
+      "elo": 1466.042,
+      "daily_change": -60.726,
       "wins": 1,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
       "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 216
+    },
+    {
+      "team_id": "ncaa:609895",
+      "team": "Siena",
+      "conference": "Metro",
+      "base_elo": 1500,
+      "elo": 1465.986,
+      "daily_change": 69.202,
+      "wins": 1,
+      "losses": 1,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
       "rank": 217
+    },
+    {
+      "team_id": "ncaa:609792",
+      "team": "NIU",
+      "conference": "Horizon",
+      "base_elo": 1500,
+      "elo": 1458.956,
+      "daily_change": -0.723,
+      "wins": 1,
+      "losses": 2,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 3,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 218
+    },
+    {
+      "team_id": "ncaa:609711",
+      "team": "Dartmouth",
+      "conference": "Ivy League",
+      "base_elo": 1500,
+      "elo": 1458.126,
+      "daily_change": -140.363,
+      "wins": 1,
+      "losses": 1,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 219
     },
     {
       "team_id": "ncaa:609614",
@@ -3299,7 +3329,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 218
+      "rank": 220
     },
     {
       "team_id": "ncaa:609611",
@@ -3314,22 +3344,22 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 219
+      "rank": 221
     },
     {
       "team_id": "ncaa:609496",
       "team": "UTSA",
       "conference": "AAC",
       "base_elo": 1500,
-      "elo": 1449.404,
-      "daily_change": 0,
+      "elo": 1449.273,
+      "daily_change": -0.131,
       "wins": 1,
       "losses": 1,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 220
+      "rank": 222
     },
     {
       "team_id": "ncaa:609843",
@@ -3344,7 +3374,52 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 221
+      "rank": 223
+    },
+    {
+      "team_id": "ncaa:609618",
+      "team": "UAlbany",
+      "conference": "America East",
+      "base_elo": 1500,
+      "elo": 1444.431,
+      "daily_change": -119.075,
+      "wins": 1,
+      "losses": 1,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 224
+    },
+    {
+      "team_id": "ncaa:609656",
+      "team": "Manhattan",
+      "conference": "Metro",
+      "base_elo": 1500,
+      "elo": 1442.705,
+      "daily_change": 72.251,
+      "wins": 1,
+      "losses": 2,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 3,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 225
+    },
+    {
+      "team_id": "ncaa:609709",
+      "team": "Cornell",
+      "conference": "Ivy League",
+      "base_elo": 1500,
+      "elo": 1442.289,
+      "daily_change": -24.85,
+      "wins": 1,
+      "losses": 1,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 226
     },
     {
       "team_id": "ncaa:609649",
@@ -3359,7 +3434,22 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 222
+      "rank": 227
+    },
+    {
+      "team_id": "ncaa:609657",
+      "team": "Marist",
+      "conference": "Metro",
+      "base_elo": 1500,
+      "elo": 1437.285,
+      "daily_change": -53.417,
+      "wins": 1,
+      "losses": 2,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 3,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 228
     },
     {
       "team_id": "ncaa:609758",
@@ -3374,7 +3464,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 223
+      "rank": 229
     },
     {
       "team_id": "ncaa:609775",
@@ -3389,7 +3479,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 224
+      "rank": 230
     },
     {
       "team_id": "ncaa:609756",
@@ -3404,22 +3494,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 225
-    },
-    {
-      "team_id": "ncaa:609610",
-      "team": "Lipscomb",
-      "conference": "ASUN",
-      "base_elo": 1500,
-      "elo": 1432.901,
-      "daily_change": 0,
-      "wins": 1,
-      "losses": 2,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 3,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 226
+      "rank": 231
     },
     {
       "team_id": "ncaa:609481",
@@ -3434,7 +3509,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 227
+      "rank": 232
     },
     {
       "team_id": "ncaa:609589",
@@ -3449,7 +3524,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 228
+      "rank": 233
     },
     {
       "team_id": "ncaa:609684",
@@ -3464,7 +3539,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 229
+      "rank": 234
     },
     {
       "team_id": "ncaa:609616",
@@ -3479,7 +3554,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 230
+      "rank": 235
     },
     {
       "team_id": "ncaa:609627",
@@ -3494,22 +3569,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 231
-    },
-    {
-      "team_id": "ncaa:609748",
-      "team": "Hofstra",
-      "conference": "CAA",
-      "base_elo": 1500,
-      "elo": 1429.873,
-      "daily_change": 0,
-      "wins": 0,
-      "losses": 1,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 1,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 231
+      "rank": 236
     },
     {
       "team_id": "ncaa:609561",
@@ -3524,22 +3584,22 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 233
+      "rank": 237
     },
     {
       "team_id": "ncaa:609868",
       "team": "Sam Houston",
       "conference": "C-USA",
       "base_elo": 1500,
-      "elo": 1428.551,
-      "daily_change": -0.003,
+      "elo": 1428.569,
+      "daily_change": 0.015,
       "wins": 0,
       "losses": 1,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 234
+      "rank": 238
     },
     {
       "team_id": "ncaa:609716",
@@ -3554,7 +3614,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 235
+      "rank": 239
     },
     {
       "team_id": "ncaa:609707",
@@ -3569,52 +3629,22 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 236
-    },
-    {
-      "team_id": "ncaa:609502",
-      "team": "Air Force",
-      "conference": "MWC",
-      "base_elo": 1500,
-      "elo": 1426.93,
-      "daily_change": 0,
-      "wins": 0,
-      "losses": 1,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 1,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 237
+      "rank": 240
     },
     {
       "team_id": "ncaa:609653",
       "team": "LMU (CA)",
       "conference": "WCC",
       "base_elo": 1500,
-      "elo": 1426.48,
-      "daily_change": 0,
+      "elo": 1426.465,
+      "daily_change": -0.015,
       "wins": 0,
       "losses": 1,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 238
-    },
-    {
-      "team_id": "ncaa:609521",
-      "team": "Western Mich.",
-      "conference": "MAC",
-      "base_elo": 1500,
-      "elo": 1426.383,
-      "daily_change": 0,
-      "wins": 0,
-      "losses": 1,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 1,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 239
+      "rank": 241
     },
     {
       "team_id": "ncaa:609670",
@@ -3629,7 +3659,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 240
+      "rank": 242
     },
     {
       "team_id": "ncaa:609580",
@@ -3644,22 +3674,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 241
-    },
-    {
-      "team_id": "ncaa:609525",
-      "team": "Green Bay",
-      "conference": "Horizon",
-      "base_elo": 1500,
-      "elo": 1425.399,
-      "daily_change": 0,
-      "wins": 0,
-      "losses": 1,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 1,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 242
+      "rank": 243
     },
     {
       "team_id": "ncaa:609677",
@@ -3674,7 +3689,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 243
+      "rank": 244
     },
     {
       "team_id": "ncaa:609828",
@@ -3689,7 +3704,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 244
+      "rank": 245
     },
     {
       "team_id": "ncaa:609690",
@@ -3704,30 +3719,15 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 244
-    },
-    {
-      "team_id": "ncaa:609694",
-      "team": "Campbell",
-      "conference": "CAA",
-      "base_elo": 1500,
-      "elo": 1423.847,
-      "daily_change": 0,
-      "wins": 0,
-      "losses": 1,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 1,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 246
+      "rank": 245
     },
     {
       "team_id": "ncaa:609485",
       "team": "Tennessee Tech",
       "conference": "SoCon",
       "base_elo": 1500,
-      "elo": 1423.765,
-      "daily_change": 0,
+      "elo": 1423.751,
+      "daily_change": -0.014,
       "wins": 0,
       "losses": 1,
       "conference_wins": 0,
@@ -3797,6 +3797,21 @@
       "rank": 251
     },
     {
+      "team_id": "ncaa:609610",
+      "team": "Lipscomb",
+      "conference": "ASUN",
+      "base_elo": 1500,
+      "elo": 1422.285,
+      "daily_change": -10.616,
+      "wins": 1,
+      "losses": 2,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 3,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 252
+    },
+    {
       "team_id": "ncaa:609503",
       "team": "Army West Point",
       "conference": "Patriot",
@@ -3809,7 +3824,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 252
+      "rank": 253
     },
     {
       "team_id": "ncaa:609887",
@@ -3824,30 +3839,15 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 253
+      "rank": 254
     },
     {
       "team_id": "ncaa:609790",
       "team": "Northern Colo.",
       "conference": "Big Sky",
       "base_elo": 1500,
-      "elo": 1420.667,
-      "daily_change": 0,
-      "wins": 0,
-      "losses": 1,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 1,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 254
-    },
-    {
-      "team_id": "ncaa:609572",
-      "team": "Lindenwood",
-      "conference": "OVC",
-      "base_elo": 1500,
-      "elo": 1420.236,
-      "daily_change": 0,
+      "elo": 1420.604,
+      "daily_change": -0.062,
       "wins": 0,
       "losses": 1,
       "conference_wins": 0,
@@ -3855,21 +3855,6 @@
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
       "rank": 255
-    },
-    {
-      "team_id": "ncaa:609821",
-      "team": "Penn",
-      "conference": "Ivy League",
-      "base_elo": 1500,
-      "elo": 1419.952,
-      "daily_change": 0,
-      "wins": 0,
-      "losses": 1,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 1,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 256
     },
     {
       "team_id": "ncaa:609575",
@@ -3884,7 +3869,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 257
+      "rank": 256
     },
     {
       "team_id": "ncaa:609885",
@@ -3899,6 +3884,21 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 257
+    },
+    {
+      "team_id": "ncaa:609821",
+      "team": "Penn",
+      "conference": "Ivy League",
+      "base_elo": 1500,
+      "elo": 1419.29,
+      "daily_change": -0.662,
+      "wins": 0,
+      "losses": 1,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 1,
+      "retro_coverage": "completed_verified_2026_27_games",
       "rank": 258
     },
     {
@@ -3906,8 +3906,8 @@
       "team": "Tennessee St.",
       "conference": "OVC",
       "base_elo": 1500,
-      "elo": 1419.152,
-      "daily_change": 0,
+      "elo": 1419.138,
+      "daily_change": -0.013,
       "wins": 0,
       "losses": 1,
       "conference_wins": 0,
@@ -3932,6 +3932,21 @@
       "rank": 260
     },
     {
+      "team_id": "ncaa:609572",
+      "team": "Lindenwood",
+      "conference": "OVC",
+      "base_elo": 1500,
+      "elo": 1418.938,
+      "daily_change": -1.298,
+      "wins": 0,
+      "losses": 1,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 1,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 261
+    },
+    {
       "team_id": "ncaa:609730",
       "team": "Florida A&M",
       "conference": "SWAC",
@@ -3944,7 +3959,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 261
+      "rank": 262
     },
     {
       "team_id": "ncaa:609765",
@@ -3959,7 +3974,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 262
+      "rank": 263
     },
     {
       "team_id": "ncaa:609583",
@@ -3974,7 +3989,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 263
+      "rank": 264
     },
     {
       "team_id": "pending-ncaa-id:west-florida",
@@ -3989,7 +4004,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 263
+      "rank": 264
     },
     {
       "team_id": "ncaa:609718",
@@ -4004,7 +4019,22 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 265
+      "rank": 266
+    },
+    {
+      "team_id": "ncaa:609588",
+      "team": "Lehigh",
+      "conference": "Patriot",
+      "base_elo": 1500,
+      "elo": 1416.383,
+      "daily_change": -103.554,
+      "wins": 1,
+      "losses": 2,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 3,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 267
     },
     {
       "team_id": "ncaa:609637",
@@ -4019,22 +4049,37 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 266
+      "rank": 268
     },
     {
-      "team_id": "ncaa:609822",
-      "team": "Pepperdine",
-      "conference": "WCC",
+      "team_id": "ncaa:609889",
+      "team": "St. Thomas (MN)",
+      "conference": "Summit League",
       "base_elo": 1500,
-      "elo": 1413.629,
-      "daily_change": 0,
-      "wins": 0,
-      "losses": 1,
+      "elo": 1413.636,
+      "daily_change": -88.973,
+      "wins": 1,
+      "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
-      "games_played": 1,
+      "games_played": 3,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 267
+      "rank": 269
+    },
+    {
+      "team_id": "ncaa:609640",
+      "team": "Bryant",
+      "conference": "America East",
+      "base_elo": 1500,
+      "elo": 1413.171,
+      "daily_change": -61.55,
+      "wins": 1,
+      "losses": 2,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 3,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 270
     },
     {
       "team_id": "ncaa:609646",
@@ -4049,7 +4094,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 268
+      "rank": 271
     },
     {
       "team_id": "ncaa:609579",
@@ -4064,7 +4109,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 269
+      "rank": 272
     },
     {
       "team_id": "ncaa:609495",
@@ -4079,37 +4124,37 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 270
+      "rank": 273
     },
     {
-      "team_id": "ncaa:609471",
-      "team": "SIUE",
-      "conference": "OVC",
+      "team_id": "ncaa:609748",
+      "team": "Hofstra",
+      "conference": "CAA",
       "base_elo": 1500,
-      "elo": 1405.939,
-      "daily_change": 0,
+      "elo": 1408.636,
+      "daily_change": -21.237,
       "wins": 0,
       "losses": 1,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 271
+      "rank": 274
     },
     {
-      "team_id": "ncaa:609854",
-      "team": "Sacred Heart",
-      "conference": "Metro",
+      "team_id": "ncaa:609822",
+      "team": "Pepperdine",
+      "conference": "WCC",
       "base_elo": 1500,
-      "elo": 1404.561,
-      "daily_change": 0,
+      "elo": 1408.42,
+      "daily_change": -5.209,
       "wins": 0,
       "losses": 1,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 272
+      "rank": 275
     },
     {
       "team_id": "ncaa:609587",
@@ -4124,22 +4169,37 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 273
+      "rank": 276
     },
     {
-      "team_id": "ncaa:609470",
-      "team": "Southern Ill.",
-      "conference": "MVC",
+      "team_id": "ncaa:609471",
+      "team": "SIUE",
+      "conference": "OVC",
       "base_elo": 1500,
-      "elo": 1400.188,
-      "daily_change": 0,
+      "elo": 1403.625,
+      "daily_change": -2.314,
       "wins": 0,
       "losses": 1,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 274
+      "rank": 277
+    },
+    {
+      "team_id": "ncaa:609470",
+      "team": "Southern Ill.",
+      "conference": "MVC",
+      "base_elo": 1500,
+      "elo": 1400.185,
+      "daily_change": -0.003,
+      "wins": 0,
+      "losses": 1,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 1,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 278
     },
     {
       "team_id": "ncaa:609715",
@@ -4154,7 +4214,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 275
+      "rank": 279
     },
     {
       "team_id": "ncaa:609836",
@@ -4169,7 +4229,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 276
+      "rank": 280
     },
     {
       "team_id": "ncaa:609826",
@@ -4184,7 +4244,22 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 277
+      "rank": 281
+    },
+    {
+      "team_id": "ncaa:609786",
+      "team": "Northeastern",
+      "conference": "CAA",
+      "base_elo": 1500,
+      "elo": 1393.006,
+      "daily_change": 12.035,
+      "wins": 0,
+      "losses": 2,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 282
     },
     {
       "team_id": "ncaa:609644",
@@ -4199,7 +4274,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 278
+      "rank": 283
     },
     {
       "team_id": "ncaa:609629",
@@ -4214,7 +4289,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 279
+      "rank": 284
     },
     {
       "team_id": "ncaa:609771",
@@ -4229,7 +4304,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 280
+      "rank": 285
     },
     {
       "team_id": "ncaa:609473",
@@ -4244,7 +4319,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 281
+      "rank": 286
     },
     {
       "team_id": "ncaa:609673",
@@ -4259,7 +4334,7 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 282
+      "rank": 287
     },
     {
       "team_id": "ncaa:609535",
@@ -4274,37 +4349,22 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 283
+      "rank": 288
     },
     {
-      "team_id": "ncaa:609639",
-      "team": "Brown",
-      "conference": "Ivy League",
-      "base_elo": 1500,
-      "elo": 1388.67,
-      "daily_change": 0,
-      "wins": 0,
-      "losses": 2,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 284
-    },
-    {
-      "team_id": "ncaa:609640",
-      "team": "Bryant",
+      "team_id": "ncaa:609655",
+      "team": "Maine",
       "conference": "America East",
       "base_elo": 1500,
-      "elo": 1387.033,
-      "daily_change": -87.689,
+      "elo": 1388.022,
+      "daily_change": -71.428,
       "wins": 1,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 285
+      "rank": 289
     },
     {
       "team_id": "ncaa:609745",
@@ -4319,7 +4379,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 286
+      "rank": 290
     },
     {
       "team_id": "ncaa:609486",
@@ -4334,7 +4394,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 287
+      "rank": 291
     },
     {
       "team_id": "ncaa:609515",
@@ -4349,7 +4409,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 288
+      "rank": 292
     },
     {
       "team_id": "ncaa:609812",
@@ -4364,52 +4424,37 @@
       "conference_losses": 0,
       "games_played": 1,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 289
+      "rank": 293
+    },
+    {
+      "team_id": "ncaa:609537",
+      "team": "James Madison",
+      "conference": "Sun Belt",
+      "base_elo": 1500,
+      "elo": 1383.153,
+      "daily_change": 2.683,
+      "wins": 0,
+      "losses": 2,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 294
     },
     {
       "team_id": "ncaa:609676",
       "team": "Monmouth",
       "conference": "CAA",
       "base_elo": 1500,
-      "elo": 1383.432,
-      "daily_change": 17.927,
+      "elo": 1383.014,
+      "daily_change": 17.509,
       "wins": 0,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 290
-    },
-    {
-      "team_id": "ncaa:609722",
-      "team": "ETSU",
-      "conference": "SoCon",
-      "base_elo": 1500,
-      "elo": 1382.982,
-      "daily_change": 0,
-      "wins": 0,
-      "losses": 2,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 291
-    },
-    {
-      "team_id": "ncaa:609703",
-      "team": "Cleveland St.",
-      "conference": "Horizon",
-      "base_elo": 1500,
-      "elo": 1382.846,
-      "daily_change": 0,
-      "wins": 0,
-      "losses": 1,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 1,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 292
+      "rank": 295
     },
     {
       "team_id": "ncaa:609498",
@@ -4424,7 +4469,22 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 293
+      "rank": 296
+    },
+    {
+      "team_id": "ncaa:609703",
+      "team": "Cleveland St.",
+      "conference": "Horizon",
+      "base_elo": 1500,
+      "elo": 1381.599,
+      "daily_change": -1.247,
+      "wins": 0,
+      "losses": 1,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 1,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 297
     },
     {
       "team_id": "ncaa:609741",
@@ -4439,37 +4499,37 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 294
+      "rank": 298
     },
     {
-      "team_id": "ncaa:609786",
-      "team": "Northeastern",
-      "conference": "CAA",
+      "team_id": "ncaa:609722",
+      "team": "ETSU",
+      "conference": "SoCon",
       "base_elo": 1500,
-      "elo": 1380.971,
-      "daily_change": 0,
+      "elo": 1381.024,
+      "daily_change": -1.957,
       "wins": 0,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 295
+      "rank": 299
     },
     {
-      "team_id": "ncaa:609537",
-      "team": "James Madison",
-      "conference": "Sun Belt",
+      "team_id": "ncaa:609620",
+      "team": "American",
+      "conference": "Patriot",
       "base_elo": 1500,
-      "elo": 1380.469,
-      "daily_change": 0,
+      "elo": 1380.794,
+      "daily_change": 4.658,
       "wins": 0,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 296
+      "rank": 300
     },
     {
       "team_id": "ncaa:609717",
@@ -4484,7 +4544,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 297
+      "rank": 301
     },
     {
       "team_id": "ncaa:609788",
@@ -4499,7 +4559,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 298
+      "rank": 302
     },
     {
       "team_id": "ncaa:609569",
@@ -4514,52 +4574,22 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 299
-    },
-    {
-      "team_id": "ncaa:609586",
-      "team": "Lafayette",
-      "conference": "Patriot",
-      "base_elo": 1500,
-      "elo": 1377.467,
-      "daily_change": 0,
-      "wins": 0,
-      "losses": 2,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 300
+      "rank": 303
     },
     {
       "team_id": "ncaa:609570",
       "team": "Le Moyne",
       "conference": "NEC",
       "base_elo": 1500,
-      "elo": 1377.406,
-      "daily_change": 0,
+      "elo": 1376.71,
+      "daily_change": -0.696,
       "wins": 0,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 301
-    },
-    {
-      "team_id": "ncaa:609620",
-      "team": "American",
-      "conference": "Patriot",
-      "base_elo": 1500,
-      "elo": 1376.136,
-      "daily_change": 0,
-      "wins": 0,
-      "losses": 2,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 302
+      "rank": 304
     },
     {
       "team_id": "ncaa:609726",
@@ -4574,7 +4604,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 303
+      "rank": 305
     },
     {
       "team_id": "ncaa:609596",
@@ -4589,22 +4619,22 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 304
+      "rank": 306
     },
     {
       "team_id": "ncaa:609665",
       "team": "Mercer",
       "conference": "SoCon",
       "base_elo": 1500,
-      "elo": 1374.711,
-      "daily_change": 0,
+      "elo": 1374.704,
+      "daily_change": -0.007,
       "wins": 0,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 305
+      "rank": 307
     },
     {
       "team_id": "ncaa:609568",
@@ -4619,7 +4649,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 306
+      "rank": 308
     },
     {
       "team_id": "ncaa:609779",
@@ -4634,36 +4664,6 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 307
-    },
-    {
-      "team_id": "ncaa:609895",
-      "team": "Siena",
-      "conference": "Metro",
-      "base_elo": 1500,
-      "elo": 1373.35,
-      "daily_change": -23.434,
-      "wins": 0,
-      "losses": 1,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 1,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 308
-    },
-    {
-      "team_id": "ncaa:609474",
-      "team": "Southern U.",
-      "conference": "SWAC",
-      "base_elo": 1500,
-      "elo": 1373.136,
-      "daily_change": 0,
-      "wins": 0,
-      "losses": 2,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
       "rank": 309
     },
     {
@@ -4671,8 +4671,8 @@
       "team": "Omaha",
       "conference": "Summit League",
       "base_elo": 1500,
-      "elo": 1372.563,
-      "daily_change": 0,
+      "elo": 1371.379,
+      "daily_change": -1.183,
       "wins": 0,
       "losses": 2,
       "conference_wins": 0,
@@ -4686,8 +4686,8 @@
       "team": "Coppin St.",
       "conference": "MEAC",
       "base_elo": 1500,
-      "elo": 1371.594,
-      "daily_change": 0,
+      "elo": 1371.27,
+      "daily_change": -0.324,
       "wins": 0,
       "losses": 2,
       "conference_wins": 0,
@@ -4695,36 +4695,6 @@
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
       "rank": 311
-    },
-    {
-      "team_id": "ncaa:609848",
-      "team": "Rider",
-      "conference": "Metro",
-      "base_elo": 1500,
-      "elo": 1370.484,
-      "daily_change": 0,
-      "wins": 0,
-      "losses": 2,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 312
-    },
-    {
-      "team_id": "ncaa:609656",
-      "team": "Manhattan",
-      "conference": "Metro",
-      "base_elo": 1500,
-      "elo": 1370.453,
-      "daily_change": 0,
-      "wins": 0,
-      "losses": 2,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 313
     },
     {
       "team_id": "ncaa:609491",
@@ -4739,7 +4709,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 314
+      "rank": 312
     },
     {
       "team_id": "ncaa:609488",
@@ -4754,22 +4724,22 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 315
+      "rank": 313
     },
     {
-      "team_id": "ncaa:609723",
-      "team": "Eastern Ill.",
-      "conference": "OVC",
+      "team_id": "ncaa:610406",
+      "team": "New Haven",
+      "conference": "NEC",
       "base_elo": 1500,
-      "elo": 1367.778,
-      "daily_change": 0,
+      "elo": 1367.567,
+      "daily_change": 4.199,
       "wins": 0,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 316
+      "rank": 314
     },
     {
       "team_id": "ncaa:609520",
@@ -4784,7 +4754,22 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 317
+      "rank": 315
+    },
+    {
+      "team_id": "ncaa:609723",
+      "team": "Eastern Ill.",
+      "conference": "OVC",
+      "base_elo": 1500,
+      "elo": 1367.391,
+      "daily_change": -0.387,
+      "wins": 0,
+      "losses": 2,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 316
     },
     {
       "team_id": "ncaa:609534",
@@ -4799,22 +4784,22 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 318
+      "rank": 317
     },
     {
-      "team_id": "ncaa:609729",
-      "team": "FDU",
-      "conference": "NEC",
+      "team_id": "ncaa:609694",
+      "team": "Campbell",
+      "conference": "CAA",
       "base_elo": 1500,
-      "elo": 1367.313,
-      "daily_change": 0,
+      "elo": 1366.675,
+      "daily_change": -57.172,
       "wins": 0,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 319
+      "rank": 318
     },
     {
       "team_id": "ncaa:609527",
@@ -4829,7 +4814,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 320
+      "rank": 319
     },
     {
       "team_id": "ncaa:609840",
@@ -4838,6 +4823,21 @@
       "base_elo": 1500,
       "elo": 1366.367,
       "daily_change": 0,
+      "wins": 0,
+      "losses": 2,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 320
+    },
+    {
+      "team_id": "ncaa:609769",
+      "team": "Niagara",
+      "conference": "Metro",
+      "base_elo": 1500,
+      "elo": 1365.665,
+      "daily_change": 0.276,
       "wins": 0,
       "losses": 2,
       "conference_wins": 0,
@@ -4862,21 +4862,6 @@
       "rank": 322
     },
     {
-      "team_id": "ncaa:609769",
-      "team": "Niagara",
-      "conference": "Metro",
-      "base_elo": 1500,
-      "elo": 1365.389,
-      "daily_change": 0,
-      "wins": 0,
-      "losses": 2,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 323
-    },
-    {
       "team_id": "ncaa:609517",
       "team": "Weber St.",
       "conference": "Big Sky",
@@ -4889,37 +4874,22 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 323
+    },
+    {
+      "team_id": "ncaa:609586",
+      "team": "Lafayette",
+      "conference": "Patriot",
+      "base_elo": 1500,
+      "elo": 1362.496,
+      "daily_change": -14.972,
+      "wins": 0,
+      "losses": 2,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
       "rank": 324
-    },
-    {
-      "team_id": "ncaa:610406",
-      "team": "New Haven",
-      "conference": "NEC",
-      "base_elo": 1500,
-      "elo": 1363.367,
-      "daily_change": 0,
-      "wins": 0,
-      "losses": 2,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 325
-    },
-    {
-      "team_id": "ncaa:609696",
-      "team": "Central Conn. St.",
-      "conference": "NEC",
-      "base_elo": 1500,
-      "elo": 1360.624,
-      "daily_change": 0,
-      "wins": 0,
-      "losses": 2,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 326
     },
     {
       "team_id": "ncaa:609605",
@@ -4934,22 +4904,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 327
-    },
-    {
-      "team_id": "ncaa:609880",
-      "team": "Merrimack",
-      "conference": "Metro",
-      "base_elo": 1500,
-      "elo": 1359.589,
-      "daily_change": 0,
-      "wins": 0,
-      "losses": 2,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 328
+      "rank": 325
     },
     {
       "team_id": "ncaa:609544",
@@ -4964,37 +4919,22 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 329
-    },
-    {
-      "team_id": "ncaa:609753",
-      "team": "Idaho St.",
-      "conference": "Big Sky",
-      "base_elo": 1500,
-      "elo": 1358.186,
-      "daily_change": 0,
-      "wins": 0,
-      "losses": 2,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 330
+      "rank": 326
     },
     {
       "team_id": "ncaa:609777",
       "team": "N.C. Central",
       "conference": "MEAC",
       "base_elo": 1500,
-      "elo": 1357.964,
-      "daily_change": 0,
+      "elo": 1357.344,
+      "daily_change": -0.62,
       "wins": 0,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 331
+      "rank": 327
     },
     {
       "team_id": "ncaa:609547",
@@ -5009,37 +4949,22 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 332
+      "rank": 328
     },
     {
       "team_id": "ncaa:609560",
       "team": "Saint Peter's",
       "conference": "Metro",
       "base_elo": 1500,
-      "elo": 1356.325,
-      "daily_change": 0,
+      "elo": 1356.332,
+      "daily_change": 0.007,
       "wins": 0,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 333
-    },
-    {
-      "team_id": "ncaa:609511",
-      "team": "VMI",
-      "conference": "SoCon",
-      "base_elo": 1500,
-      "elo": 1355.561,
-      "daily_change": 0,
-      "wins": 0,
-      "losses": 2,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 334
+      "rank": 329
     },
     {
       "team_id": "ncaa:609903",
@@ -5054,15 +4979,90 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 330
+    },
+    {
+      "team_id": "ncaa:609511",
+      "team": "VMI",
+      "conference": "SoCon",
+      "base_elo": 1500,
+      "elo": 1354.728,
+      "daily_change": -0.833,
+      "wins": 0,
+      "losses": 2,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 331
+    },
+    {
+      "team_id": "ncaa:609548",
+      "team": "Colgate",
+      "conference": "Patriot",
+      "base_elo": 1500,
+      "elo": 1354.559,
+      "daily_change": 2.227,
+      "wins": 0,
+      "losses": 2,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 332
+    },
+    {
+      "team_id": "ncaa:609652",
+      "team": "Loyola Maryland",
+      "conference": "Patriot",
+      "base_elo": 1500,
+      "elo": 1353.707,
+      "daily_change": 0.012,
+      "wins": 0,
+      "losses": 2,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 333
+    },
+    {
+      "team_id": "ncaa:609604",
+      "team": "UIW",
+      "conference": "Southland",
+      "base_elo": 1500,
+      "elo": 1353.529,
+      "daily_change": -0.002,
+      "wins": 0,
+      "losses": 2,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 334
+    },
+    {
+      "team_id": "ncaa:609662",
+      "team": "UMES",
+      "conference": "MEAC",
+      "base_elo": 1500,
+      "elo": 1353.332,
+      "daily_change": 0,
+      "wins": 0,
+      "losses": 2,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
       "rank": 335
     },
     {
-      "team_id": "ncaa:609598",
-      "team": "Presbyterian",
-      "conference": "Big South",
+      "team_id": "ncaa:609729",
+      "team": "FDU",
+      "conference": "NEC",
       "base_elo": 1500,
-      "elo": 1354.944,
-      "daily_change": 0,
+      "elo": 1353.238,
+      "daily_change": -14.075,
       "wins": 0,
       "losses": 2,
       "conference_wins": 0,
@@ -5072,12 +5072,12 @@
       "rank": 336
     },
     {
-      "team_id": "ncaa:609652",
-      "team": "Loyola Maryland",
-      "conference": "Patriot",
+      "team_id": "ncaa:609848",
+      "team": "Rider",
+      "conference": "Metro",
       "base_elo": 1500,
-      "elo": 1353.695,
-      "daily_change": 0,
+      "elo": 1352.592,
+      "daily_change": -17.893,
       "wins": 0,
       "losses": 2,
       "conference_wins": 0,
@@ -5085,36 +5085,6 @@
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
       "rank": 337
-    },
-    {
-      "team_id": "ncaa:609604",
-      "team": "UIW",
-      "conference": "Southland",
-      "base_elo": 1500,
-      "elo": 1353.531,
-      "daily_change": 0,
-      "wins": 0,
-      "losses": 2,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 338
-    },
-    {
-      "team_id": "ncaa:609662",
-      "team": "UMES",
-      "conference": "MEAC",
-      "base_elo": 1500,
-      "elo": 1353.331,
-      "daily_change": 0,
-      "wins": 0,
-      "losses": 2,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 339
     },
     {
       "team_id": "ncaa:609499",
@@ -5129,52 +5099,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 340
-    },
-    {
-      "team_id": "ncaa:609548",
-      "team": "Colgate",
-      "conference": "Patriot",
-      "base_elo": 1500,
-      "elo": 1352.332,
-      "daily_change": 0,
-      "wins": 0,
-      "losses": 2,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 341
-    },
-    {
-      "team_id": "ncaa:609600",
-      "team": "Ark.-Pine Bluff",
-      "conference": "SWAC",
-      "base_elo": 1500,
-      "elo": 1352.152,
-      "daily_change": 0,
-      "wins": 0,
-      "losses": 2,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 342
-    },
-    {
-      "team_id": "ncaa:609524",
-      "team": "Winthrop",
-      "conference": "Big South",
-      "base_elo": 1500,
-      "elo": 1352.081,
-      "daily_change": 0,
-      "wins": 0,
-      "losses": 2,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 343
+      "rank": 338
     },
     {
       "team_id": "ncaa:609878",
@@ -5189,22 +5114,22 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 344
+      "rank": 339
     },
     {
-      "team_id": "ncaa:609660",
-      "team": "UMBC",
-      "conference": "America East",
+      "team_id": "ncaa:609524",
+      "team": "Winthrop",
+      "conference": "Big South",
       "base_elo": 1500,
-      "elo": 1350.642,
-      "daily_change": 0,
+      "elo": 1351.386,
+      "daily_change": -0.695,
       "wins": 0,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 345
+      "rank": 340
     },
     {
       "team_id": "ncaa:609850",
@@ -5219,7 +5144,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 346
+      "rank": 341
     },
     {
       "team_id": "ncaa:609565",
@@ -5234,7 +5159,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 347
+      "rank": 342
     },
     {
       "team_id": "ncaa:609619",
@@ -5249,7 +5174,22 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 348
+      "rank": 343
+    },
+    {
+      "team_id": "ncaa:609641",
+      "team": "Bucknell",
+      "conference": "Patriot",
+      "base_elo": 1500,
+      "elo": 1346.769,
+      "daily_change": 1.976,
+      "wins": 0,
+      "losses": 2,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 344
     },
     {
       "team_id": "ncaa:609631",
@@ -5264,7 +5204,7 @@
       "conference_losses": 0,
       "games_played": 3,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 349
+      "rank": 345
     },
     {
       "team_id": "ncaa:609606",
@@ -5279,7 +5219,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 350
+      "rank": 346
     },
     {
       "team_id": "ncaa:609478",
@@ -5294,22 +5234,22 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 351
+      "rank": 347
     },
     {
-      "team_id": "ncaa:609641",
-      "team": "Bucknell",
-      "conference": "Patriot",
+      "team_id": "ncaa:609474",
+      "team": "Southern U.",
+      "conference": "SWAC",
       "base_elo": 1500,
-      "elo": 1344.793,
-      "daily_change": 0,
+      "elo": 1344.561,
+      "daily_change": -28.575,
       "wins": 0,
-      "losses": 2,
+      "losses": 3,
       "conference_wins": 0,
       "conference_losses": 0,
-      "games_played": 2,
+      "games_played": 3,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 352
+      "rank": 348
     },
     {
       "team_id": "ncaa:609681",
@@ -5324,22 +5264,22 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 353
+      "rank": 349
     },
     {
       "team_id": "ncaa:609749",
       "team": "Holy Cross",
       "conference": "Patriot",
       "base_elo": 1500,
-      "elo": 1343.562,
-      "daily_change": 0.517,
+      "elo": 1343.553,
+      "daily_change": 0.508,
       "wins": 0,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 354
+      "rank": 350
     },
     {
       "team_id": "ncaa:609648",
@@ -5354,22 +5294,22 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 355
+      "rank": 351
     },
     {
       "team_id": "ncaa:609882",
       "team": "Bellarmine",
       "conference": "ASUN",
       "base_elo": 1500,
-      "elo": 1340.953,
-      "daily_change": 0,
+      "elo": 1340.998,
+      "daily_change": 0.045,
       "wins": 0,
       "losses": 3,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 356
+      "rank": 352
     },
     {
       "team_id": "ncaa:609628",
@@ -5384,7 +5324,7 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 357
+      "rank": 353
     },
     {
       "team_id": "ncaa:609626",
@@ -5399,35 +5339,95 @@
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 358
+      "rank": 354
     },
     {
-      "team_id": "ncaa:609642",
-      "team": "Buffalo",
-      "conference": "MAC",
+      "team_id": "ncaa:609660",
+      "team": "UMBC",
+      "conference": "America East",
       "base_elo": 1500,
-      "elo": 1337.438,
-      "daily_change": -0.029,
+      "elo": 1338.798,
+      "daily_change": -11.844,
       "wins": 0,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
-      "rank": 359
+      "rank": 355
+    },
+    {
+      "team_id": "ncaa:609642",
+      "team": "Buffalo",
+      "conference": "MAC",
+      "base_elo": 1500,
+      "elo": 1337.071,
+      "daily_change": -0.396,
+      "wins": 0,
+      "losses": 2,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 356
+    },
+    {
+      "team_id": "ncaa:609600",
+      "team": "Ark.-Pine Bluff",
+      "conference": "SWAC",
+      "base_elo": 1500,
+      "elo": 1336.732,
+      "daily_change": -15.42,
+      "wins": 0,
+      "losses": 2,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 357
     },
     {
       "team_id": "ncaa:609797",
       "team": "Northwestern St.",
       "conference": "Southland",
       "base_elo": 1500,
-      "elo": 1336.38,
-      "daily_change": 0,
+      "elo": 1335.936,
+      "daily_change": -0.444,
       "wins": 0,
       "losses": 3,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 358
+    },
+    {
+      "team_id": "ncaa:609563",
+      "team": "Stetson",
+      "conference": "ASUN",
+      "base_elo": 1500,
+      "elo": 1334.899,
+      "daily_change": 9.356,
+      "wins": 0,
+      "losses": 3,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 3,
+      "retro_coverage": "completed_verified_2026_27_games",
+      "rank": 359
+    },
+    {
+      "team_id": "ncaa:609598",
+      "team": "Presbyterian",
+      "conference": "Big South",
+      "base_elo": 1500,
+      "elo": 1334.232,
+      "daily_change": -20.712,
+      "wins": 0,
+      "losses": 2,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
       "retro_coverage": "completed_verified_2026_27_games",
       "rank": 360
     },
@@ -5447,12 +5447,12 @@
       "rank": 361
     },
     {
-      "team_id": "ncaa:609563",
-      "team": "Stetson",
-      "conference": "ASUN",
+      "team_id": "ncaa:609753",
+      "team": "Idaho St.",
+      "conference": "Big Sky",
       "base_elo": 1500,
-      "elo": 1325.544,
-      "daily_change": 0,
+      "elo": 1322.219,
+      "daily_change": -35.967,
       "wins": 0,
       "losses": 3,
       "conference_wins": 0,
@@ -5466,8 +5466,8 @@
       "team": "NJIT",
       "conference": "America East",
       "base_elo": 1500,
-      "elo": 1321.235,
-      "daily_change": -14.244,
+      "elo": 1319.164,
+      "daily_change": -16.316,
       "wins": 0,
       "losses": 2,
       "conference_wins": 0,
@@ -5496,8 +5496,8 @@
       "team": "LIU",
       "conference": "NEC",
       "base_elo": 1500,
-      "elo": 1300.662,
-      "daily_change": 0,
+      "elo": 1301.046,
+      "daily_change": 0.384,
       "wins": 0,
       "losses": 3,
       "conference_wins": 0,
@@ -8809,10 +8809,153 @@
       "source": "NCAA verified final-game ledger"
     },
     {
+      "id": "espn:401902277",
+      "home_id": "ncaa:609633",
+      "away_id": "ncaa:609643",
+      "home_score": 100,
+      "away_score": 81,
+      "date": "2026-11-08",
+      "neutral": false,
+      "site_verified": true,
+      "source": "rolling official-scoreboard completed finals"
+    },
+    {
+      "id": "espn:401911306",
+      "home_id": "ncaa:609588",
+      "away_id": "ncaa:609639",
+      "home_score": 55,
+      "away_score": 65,
+      "date": "2026-11-08",
+      "neutral": false,
+      "site_verified": true,
+      "source": "rolling official-scoreboard completed finals"
+    },
+    {
+      "id": "espn:401911335",
+      "home_id": "ncaa:609502",
+      "away_id": "ncaa:609753",
+      "home_score": 89,
+      "away_score": 82,
+      "date": "2026-11-08",
+      "neutral": false,
+      "site_verified": true,
+      "source": "rolling official-scoreboard completed finals"
+    },
+    {
+      "id": "espn:401920233",
+      "home_id": "ncaa:609711",
+      "away_id": "ncaa:609696",
+      "home_score": 71,
+      "away_score": 78,
+      "date": "2026-11-08",
+      "neutral": false,
+      "site_verified": true,
+      "source": "rolling official-scoreboard completed finals"
+    },
+    {
+      "id": "espn:401920424",
+      "home_id": "ncaa:609513",
+      "away_id": "ncaa:609625",
+      "home_score": 91,
+      "away_score": 72,
+      "date": "2026-11-08",
+      "neutral": true,
+      "site_verified": true,
+      "source": "rolling official-scoreboard completed finals"
+    },
+    {
+      "id": "espn:401920692",
+      "home_id": "ncaa:609564",
+      "away_id": "ncaa:609838",
+      "home_score": 76,
+      "away_score": 79,
+      "date": "2026-11-08",
+      "neutral": false,
+      "site_verified": true,
+      "source": "rolling official-scoreboard completed finals"
+    },
+    {
+      "id": "espn:401920739",
+      "home_id": "ncaa:609521",
+      "away_id": "ncaa:609694",
+      "home_score": 87,
+      "away_score": 71,
+      "date": "2026-11-08",
+      "neutral": false,
+      "site_verified": true,
+      "source": "rolling official-scoreboard completed finals"
+    },
+    {
+      "id": "espn:401920843",
+      "home_id": "ncaa:609889",
+      "away_id": "ncaa:609525",
+      "home_score": 67,
+      "away_score": 76,
+      "date": "2026-11-08",
+      "neutral": false,
+      "site_verified": true,
+      "source": "rolling official-scoreboard completed finals"
+    },
+    {
       "id": "espn:401921683",
       "home_id": "ncaa:609640",
       "away_id": "ncaa:609728",
       "home_score": 59,
+      "away_score": 68,
+      "date": "2026-11-08",
+      "neutral": false,
+      "site_verified": true,
+      "source": "verified MBB season results"
+    },
+    {
+      "id": "espn:401921684",
+      "home_id": "ncaa:609655",
+      "away_id": "ncaa:609656",
+      "home_score": 62,
+      "away_score": 68,
+      "date": "2026-11-08",
+      "neutral": false,
+      "site_verified": true,
+      "source": "rolling official-scoreboard completed finals"
+    },
+    {
+      "id": "espn:401921685",
+      "home_id": "ncaa:609762",
+      "away_id": "ncaa:609854",
+      "home_score": 76,
+      "away_score": 81,
+      "date": "2026-11-08",
+      "neutral": false,
+      "site_verified": true,
+      "source": "rolling official-scoreboard completed finals"
+    },
+    {
+      "id": "espn:401921686",
+      "home_id": "ncaa:609618",
+      "away_id": "ncaa:609880",
+      "home_score": 60,
+      "away_score": 73,
+      "date": "2026-11-08",
+      "neutral": false,
+      "site_verified": true,
+      "source": "rolling official-scoreboard completed finals"
+    },
+    {
+      "id": "espn:401921687",
+      "home_id": "ncaa:609594",
+      "away_id": "ncaa:609657",
+      "home_score": 63,
+      "away_score": 61,
+      "date": "2026-11-08",
+      "neutral": false,
+      "site_verified": true,
+      "source": "rolling official-scoreboard completed finals"
+    },
+    {
+      "id": "espn:401921820",
+      "home_id": "ncaa:609901",
+      "away_id": "ncaa:609907",
+      "home_score": 78,
       "away_score": 68,
       "date": "2026-11-08",
       "neutral": false,
@@ -8829,6 +8972,28 @@
       "neutral": true,
       "site_verified": false,
       "source": "NCAA verified final-game ledger"
+    },
+    {
+      "id": "espn:401924734",
+      "home_id": "ncaa:609895",
+      "away_id": "ncaa:609832",
+      "home_score": 82,
+      "away_score": 68,
+      "date": "2026-11-08",
+      "neutral": false,
+      "site_verified": true,
+      "source": "rolling official-scoreboard completed finals"
+    },
+    {
+      "id": "espn:401927362",
+      "home_id": "ncaa:609550",
+      "away_id": "ncaa:609474",
+      "home_score": 75,
+      "away_score": 68,
+      "date": "2026-11-08",
+      "neutral": false,
+      "site_verified": true,
+      "source": "rolling official-scoreboard completed finals"
     }
   ]
 }
