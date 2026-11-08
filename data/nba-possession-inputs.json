@@ -1,9 +1,34 @@
 {
   "source_type": "attributed_nba_boxscores",
   "source_url": "Attribution retained per game",
-  "updated_at": "2026-11-07T21:49:01.763026+00:00",
+  "updated_at": "2026-11-08T01:05:00.167462+00:00",
   "coverage": "captured completed games, not necessarily full NBA season",
   "games": [
+    {
+      "id": "espn-nba-401909938",
+      "date": "2026-11-07T22:00Z",
+      "minutes": 48,
+      "final": true,
+      "regular_season": true,
+      "source": "ESPN completed-game team box score",
+      "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909938",
+      "home": {
+        "code": "IND",
+        "points": 102,
+        "fga": 92,
+        "oreb": 6,
+        "tov": 10,
+        "fta": 7
+      },
+      "away": {
+        "code": "DEN",
+        "points": 114,
+        "fga": 96,
+        "oreb": 9,
+        "tov": 5,
+        "fta": 19
+      }
+    },
     {
       "id": "espn-nba-401909295",
       "date": "2026-11-07T03:00Z",
