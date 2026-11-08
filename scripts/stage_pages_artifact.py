@@ -83,6 +83,8 @@ required = [
     "data/ncaaw-2026-27-games.json",
     "data/ncaaw-2026-27-retro-primary.json",
     "data/d2-men-2026-27.json", "data/d2-women-2026-27.json",
+    "nfl-edition-v3.js", "nfl-standings.html", "nfl-team.html", "nfl-players.html",
+    "data/nfl-2026-edition.json", "data/nfl-2026-boxscores.json", "data/nfl-live.json",
 ]
 missing = [p for p in required if not (OUT / p).is_file()]
 if missing:
