@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Guard NFL game finalization against missing season records or box scores."""
 import argparse
+import copy
+import datetime as dt
 import json
 from pathlib import Path
 
@@ -34,6 +36,53 @@ def compare(edition, live, boxes):
             missing_boxes.append(event)
     return unfinished, missing_boxes
 
+
+
+def overlay_recent_live_finals(games, live, now):
+    """Ingest fresh verified scoreboard finals when ESPN's weekly cache lags.
+
+    A live update must be fresh, regular-season identified by a canonical game,
+    and have the same two team IDs. Never infer a result from in-game scores.
+    """
+    if live.get("season") != 2026:
+        return games
+    try:
+        stamp = dt.datetime.fromisoformat(live["updated_at"].replace("Z", "+00:00"))
+        age = (now - stamp).total_seconds()
+    except (ValueError, TypeError, KeyError):
+        return games
+    if stamp.tzinfo is None or not 0 <= age <= 900:
+        return games
+    merged = dict(games)
+    for sourced in live.get("games", []):
+        if sourced.get("state") != "post":
+            continue
+        event = str(sourced.get("id"))
+        canonical = merged.get(event)
+        if not canonical or any(
+            str(canonical.get(side, {}).get("id")) != str(sourced.get(side, {}).get("id"))
+            for side in ("away", "home")
+        ):
+            continue
+        scores = [sourced.get(side, {}).get("score") for side in ("away", "home")]
+        if not all(isinstance(x, int) and x >= 0 for x in scores):
+            continue
+        updated = copy.deepcopy(canonical)
+        updated["state"] = "post"
+        updated["status"] = sourced.get("status") or "Final"
+        for side in ("away", "home"):
+            score = sourced[side]["score"]
+            if updated[side].get("score") != score:
+                updated[side]["linescores"] = []
+            updated[side]["score"] = score
+            lines = sourced[side].get("linescores") or []
+            if lines and all(isinstance(x, dict) and isinstance(x.get("score"), int)
+                             and x["score"] >= 0 for x in lines) and sum(
+                                 x["score"] for x in lines
+                             ) == score:
+                updated[side]["linescores"] = lines
+        merged[event] = updated
+    return merged
 
 def verify(edition, live, boxes):
     unfinished, missing_boxes = compare(edition, live, boxes)
