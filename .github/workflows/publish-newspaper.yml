@@ -270,6 +270,59 @@ jobs:
           path: _pages_site
       - id: deploy
         uses: actions/deploy-pages@v4
+      - name: Verify public NFL finals, player statistics and current browser scripts
+        env:
+          PAGE_URL: ${{ steps.deploy.outputs.page_url }}
+        run: |
+          python3 - <<'PY'
+          import json, os, re, time, urllib.request
+          from pathlib import Path
+          site = os.environ["PAGE_URL"].rstrip("/") + "/"
+          wanted = json.loads(Path("data/nfl-2026-edition.json").read_text())
+          boxes = json.loads(Path("data/nfl-2026-boxscores.json").read_text())
+          pages = ("nfl-standings.html", "nfl-team.html", "nfl-players.html", "nfl-game.html")
+          def fetch(path, n):
+              req = urllib.request.Request(
+                  site + path + "?nfl_verify=" + os.environ.get("GITHUB_RUN_ID", "") + "-" + str(n),
+                  headers={"Cache-Control": "no-cache", "Pragma": "no-cache"})
+              with urllib.request.urlopen(req, timeout=25) as response:
+                  return response.read()
+          error = "not attempted"
+          for n in range(8):
+              try:
+                  actual = json.loads(fetch("data/nfl-2026-edition.json", n))
+                  assert actual.get("season") == 2026 and len(actual.get("games", [])) == 272
+                  assert len(actual.get("teams", [])) == 32
+                  assert actual["coverage"]["finals"] >= wanted["coverage"]["finals"], "NFL final records stale"
+                  assert actual["coverage"]["boxscores"] >= wanted["coverage"]["boxscores"], "NFL player stats stale"
+                  expected_finals = {g["id"]:g for g in wanted["games"] if g["state"] == "post"}
+                  deployed_finals = {g["id"]:g for g in actual["games"] if g["state"] == "post"}
+                  for eid, g in expected_finals.items():
+                      live = deployed_finals.get(eid)
+                      assert live, "Missing NFL final " + eid
+                      assert all(live[side]["score"] == g[side]["score"] for side in ("away","home")), "NFL score stale " + eid
+                  if actual["coverage"]["finals"] == wanted["coverage"]["finals"]:
+                      assert actual["teams"] == wanted["teams"], "NFL standings or team stats differ"
+                      assert actual["leaders"] == wanted["leaders"], "NFL player leaders differ"
+                  published_boxes = json.loads(fetch("data/nfl-2026-boxscores.json", n))
+                  assert set(boxes["games"]).issubset(published_boxes["games"]), "Missing NFL box scores"
+                  for page in pages:
+                      html = fetch(page, n).decode("utf-8")
+                      local = Path(page).read_text()
+                      version = re.search('src="nfl-edition-v3.js[?]v=([^"]+)"', local)
+                      assert version and version.group(0) in html, "Old NFL script on " + page
+                  script = fetch("nfl-edition-v3.js", n).decode("utf-8")
+                  assert "async function refreshSeason()" in script, "Outdated NFL statistics renderer"
+                  print("PASS PUBLIC NFL:",actual["coverage"]["finals"],"finals;",
+                        actual["coverage"]["boxscores"],"boxes; all four pages and records verified.")
+                  break
+              except Exception as exc:
+                  error = str(exc)
+                  print("NFL public verification attempt",n+1,"failed:",error)
+                  if n < 7: time.sleep(7)
+          else:
+              raise SystemExit("Public NFL data does not match repository: " + error)
+          PY
       - name: Verify public Pages is serving the latest MBB RETRO forecasts
         env:
           PAGE_URL: ${{ steps.deploy.outputs.page_url }}
