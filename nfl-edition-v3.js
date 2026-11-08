@@ -857,6 +857,8 @@ function renderNFL(){
  let stamp=page==="front"?"SEASON DATA · "+date(feed.updated_at):
    "Verified NFL season ledger · "+date(feed.updated_at)+" · "+feed.coverage.games+" fixtures · "+feed.coverage.finals+" finals · "+feed.coverage.boxscores+" boxes";
  if(liveFeed)stamp+=" · "+(Date.now()-new Date(liveFeed.updated_at).getTime()<600000?"LIVE SCORES":"LIVE FEED DELAYED")+" "+date(liveFeed.updated_at)+" ("+liveSource+")";
+ if(liveFeed&&(liveFeed.games||[]).some(g=>g.state==="post"&&feed.games.some(x=>x.id===g.id&&x.state!=="post")))
+  stamp+=" · NEW FINALS: SEASON TOTALS RECONCILING";
  document.getElementById("nfl-stamp").textContent=stamp;
  if(page==="front"){news();featuredLiveStats();}
  if(page==="game")featuredLiveStats();
@@ -930,6 +932,20 @@ async function refreshLive(){
  else document.getElementById('nfl-stamp').textContent+=' · Live source '+date(incoming.updated_at);
 }
 
+async function refreshSeason(){
+ try{
+  const response=await fetch("data/nfl-2026-edition.json?t="+Date.now(),{cache:"no-store"});
+  if(!response.ok)return;
+  const current=await response.json();
+  if(current.season!==2026||!Array.isArray(current.games)||current.games.length!==272||
+     !Array.isArray(current.teams)||current.teams.length!==32)return;
+  const previousAt=Date.parse(feed.updated_at)||0,currentAt=Date.parse(current.updated_at)||0;
+  if(!currentAt||currentAt<=previousAt)return;
+  feed=current;teams={};current.teams.forEach(t=>teams[t.id]=t);
+  games=current.games;lastLiveSignature='';
+  renderNFL();refreshLive();
+ }catch(_){/* Preserve the last published verified edition if GitHub is delayed. */}
+}
 async function main(){
 try{const res=await fetch("data/nfl-2026-edition.json?t="+Date.now(),{cache:"no-store"});if(!res.ok)throw Error("The NFL season data has not published yet");
 feed=await res.json();if(feed.season!==2026||!Array.isArray(feed.games)||feed.games.length<200||feed.teams.length!==32)throw Error("Incomplete season feed; publication blocked");
@@ -937,6 +953,8 @@ feed.teams.forEach(t=>teams[t.id]=t);games=feed.games;
 renderNFL();
 refreshLive();
 setInterval(refreshLive,45000);
+setInterval(refreshSeason,60000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshSeason()});
 // Keep the attributed NFL news current even on days without score changes.
 if(page==='front'){setInterval(()=>{if(!document.hidden)news()},60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)news()});}
 }catch(e){
