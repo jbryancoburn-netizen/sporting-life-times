@@ -1921,58 +1921,20 @@
           ]
         },
         {
-          "id": "401879244",
-          "name": "Brentford at Brighton",
-          "date": "2026-11-08T14:00:00+00:00",
-          "status": "Scheduled",
-          "state": "pre",
-          "teams": [
-            {
-              "name": "Brighton",
-              "score": "",
-              "home_away": "home"
-            },
-            {
-              "name": "Brentford",
-              "score": "",
-              "home_away": "away"
-            }
-          ]
-        },
-        {
-          "id": "401879243",
-          "name": "Liverpool at Crystal Palace",
-          "date": "2026-11-08T14:00:00+00:00",
-          "status": "Scheduled",
-          "state": "pre",
-          "teams": [
-            {
-              "name": "Crystal Palace",
-              "score": "",
-              "home_away": "home"
-            },
-            {
-              "name": "Liverpool",
-              "score": "",
-              "home_away": "away"
-            }
-          ]
-        },
-        {
           "id": "401878759",
           "name": "Bournemouth at Ipswich",
           "date": "2026-11-08T14:00:00+00:00",
-          "status": "Scheduled",
-          "state": "pre",
+          "status": "Final",
+          "state": "post",
           "teams": [
             {
               "name": "Ipswich",
-              "score": "",
+              "score": "1",
               "home_away": "home"
             },
             {
               "name": "Bournemouth",
-              "score": "",
+              "score": "2",
               "home_away": "away"
             }
           ]
@@ -1981,17 +1943,55 @@
           "id": "401879239",
           "name": "Chelsea at Sunderland",
           "date": "2026-11-08T14:00:00+00:00",
-          "status": "Scheduled",
-          "state": "pre",
+          "status": "Final",
+          "state": "post",
           "teams": [
             {
               "name": "Sunderland",
-              "score": "",
+              "score": "1",
               "home_away": "home"
             },
             {
               "name": "Chelsea",
-              "score": "",
+              "score": "0",
+              "home_away": "away"
+            }
+          ]
+        },
+        {
+          "id": "401879243",
+          "name": "Liverpool at Crystal Palace",
+          "date": "2026-11-08T14:00:00+00:00",
+          "status": "Final",
+          "state": "post",
+          "teams": [
+            {
+              "name": "Crystal Palace",
+              "score": "1",
+              "home_away": "home"
+            },
+            {
+              "name": "Liverpool",
+              "score": "3",
+              "home_away": "away"
+            }
+          ]
+        },
+        {
+          "id": "401879244",
+          "name": "Brentford at Brighton",
+          "date": "2026-11-08T14:00:00+00:00",
+          "status": "Final",
+          "state": "post",
+          "teams": [
+            {
+              "name": "Brighton",
+              "score": "2",
+              "home_away": "home"
+            },
+            {
+              "name": "Brentford",
+              "score": "0",
               "home_away": "away"
             }
           ]
@@ -2210,7 +2210,7 @@
       "error": null,
       "game_count": 1,
       "provider": "reconciled",
-      "updated_at": "2026-11-08T09:27:29.644646+00:00"
+      "updated_at": "2026-11-08T16:17:15.423165+00:00"
     },
     {
       "league": "College Football",

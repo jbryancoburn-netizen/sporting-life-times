@@ -1,6 +1,6 @@
 {
   "as_of_date": "2026-11-08",
-  "completed_matches": 95,
+  "completed_matches": 99,
   "elo_history": {
     "Arsenal": [
       {
@@ -217,6 +217,13 @@
         "fixture_id": "401879251",
         "match": 9,
         "opponent": "Leeds United"
+      },
+      {
+        "date": "2026-11-08",
+        "elo": 1512.98934,
+        "fixture_id": "401878759",
+        "match": 10,
+        "opponent": "Ipswich"
       }
     ],
     "Brentford": [
@@ -287,6 +294,13 @@
         "fixture_id": "401879249",
         "match": 9,
         "opponent": "Nott'm Forest"
+      },
+      {
+        "date": "2026-11-08",
+        "elo": 1507.57857,
+        "fixture_id": "401879244",
+        "match": 10,
+        "opponent": "Brighton"
       }
     ],
     "Brighton": [
@@ -357,6 +371,13 @@
         "fixture_id": "401879245",
         "match": 9,
         "opponent": "Manchester City"
+      },
+      {
+        "date": "2026-11-08",
+        "elo": 1547.94762,
+        "fixture_id": "401879244",
+        "match": 10,
+        "opponent": "Brentford"
       }
     ],
     "Chelsea": [
@@ -427,6 +448,13 @@
         "fixture_id": "401879248",
         "match": 9,
         "opponent": "Manchester United"
+      },
+      {
+        "date": "2026-11-08",
+        "elo": 1506.06358,
+        "fixture_id": "401879239",
+        "match": 10,
+        "opponent": "Sunderland"
       }
     ],
     "Coventry": [
@@ -574,6 +602,13 @@
         "fixture_id": "401878761",
         "match": 9,
         "opponent": "Tottenham"
+      },
+      {
+        "date": "2026-11-08",
+        "elo": 1454.7711,
+        "fixture_id": "401879243",
+        "match": 10,
+        "opponent": "Liverpool"
       }
     ],
     "Everton": [
@@ -875,6 +910,13 @@
         "fixture_id": "401878763",
         "match": 9,
         "opponent": "Hull"
+      },
+      {
+        "date": "2026-11-08",
+        "elo": 1480.64436,
+        "fixture_id": "401878759",
+        "match": 10,
+        "opponent": "Bournemouth"
       }
     ],
     "Leeds United": [
@@ -1022,6 +1064,13 @@
         "fixture_id": "401879246",
         "match": 9,
         "opponent": "Arsenal"
+      },
+      {
+        "date": "2026-11-08",
+        "elo": 1528.61575,
+        "fixture_id": "401879243",
+        "match": 10,
+        "opponent": "Crystal Palace"
       }
     ],
     "Manchester City": [
@@ -1393,6 +1442,13 @@
         "fixture_id": "401879247",
         "match": 9,
         "opponent": "Coventry"
+      },
+      {
+        "date": "2026-11-08",
+        "elo": 1466.09721,
+        "fixture_id": "401879239",
+        "match": 10,
+        "opponent": "Chelsea"
       }
     ],
     "Tottenham": [
@@ -1490,31 +1546,31 @@
     ],
     "Bournemouth": [
       "L",
-      "L",
+      "W",
       "W",
       "W",
       "W"
     ],
     "Brentford": [
-      "W",
       "D",
       "L",
       "D",
-      "W"
+      "W",
+      "L"
     ],
     "Brighton": [
       "W",
       "W",
-      "W",
       "L",
+      "W",
       "W"
     ],
     "Chelsea": [
-      "L",
       "W",
       "W",
       "L",
-      "W"
+      "W",
+      "L"
     ],
     "Coventry": [
       "W",
@@ -1524,8 +1580,8 @@
       "L"
     ],
     "Crystal Palace": [
-      "D",
       "W",
+      "L",
       "L",
       "L",
       "L"
@@ -1552,11 +1608,11 @@
       "L"
     ],
     "Ipswich": [
-      "L",
       "W",
       "L",
       "D",
-      "D"
+      "D",
+      "L"
     ],
     "Leeds United": [
       "L",
@@ -1566,11 +1622,11 @@
       "W"
     ],
     "Liverpool": [
-      "W",
       "L",
       "W",
       "W",
-      "L"
+      "L",
+      "W"
     ],
     "Manchester City": [
       "W",
@@ -1603,9 +1659,9 @@
     "Sunderland": [
       "L",
       "L",
-      "L",
       "D",
-      "L"
+      "L",
+      "W"
     ],
     "Tottenham": [
       "D",
@@ -1618,23 +1674,23 @@
   "last_match_elo_delta": {
     "Arsenal": 6.53711,
     "Aston Villa": -2.16704,
-    "Bournemouth": 8.83215,
-    "Brentford": 7.41774,
-    "Brighton": 12.24431,
-    "Chelsea": 7.65151,
+    "Bournemouth": 11.29494,
+    "Brentford": -7.74031,
+    "Brighton": 7.74031,
+    "Chelsea": -10.15166,
     "Coventry": -7.37811,
-    "Crystal Palace": -7.86356,
+    "Crystal Palace": -10.03528,
     "Everton": 7.37811,
     "Fulham": -1.54497,
     "Hull": -6.53711,
-    "Ipswich": 1.75818,
+    "Ipswich": -11.29494,
     "Leeds United": 8.50464,
-    "Liverpool": -10.8508,
+    "Liverpool": 10.03528,
     "Manchester City": -10.61389,
     "Manchester United": -7.65151,
     "Newcastle United": 1.54497,
     "Nott'm Forest": 10.61389,
-    "Sunderland": -8.44635,
+    "Sunderland": 10.15166,
     "Tottenham": -8.50464
   },
   "model_status": "provisional_unvalidated",
@@ -1644,29 +1700,29 @@
     "fixture_policy": "only feed-confirmed future fixtures",
     "rating_origin": "neutral baseline; no independently sourced prior-season ratings",
     "season": "2026-2027",
-    "source_fixtures": 95,
-    "source_sha256": "75adbca901d586ebfc06ea52ee720fdf88fdc3252de001b9f7f50c70f0e4b3ea"
+    "source_fixtures": 99,
+    "source_sha256": "482ba46648103a932298b05abccbb33ace5c93e55ab965805f31dd0fe311d33b"
   },
   "ratings": {
     "Arsenal": 1572.18786,
     "Aston Villa": 1503.15489,
-    "Bournemouth": 1501.6944,
-    "Brentford": 1515.31888,
-    "Brighton": 1540.20731,
-    "Chelsea": 1516.21525,
+    "Bournemouth": 1512.98934,
+    "Brentford": 1507.57857,
+    "Brighton": 1547.94762,
+    "Chelsea": 1506.06358,
     "Coventry": 1464.88028,
-    "Crystal Palace": 1464.80639,
+    "Crystal Palace": 1454.7711,
     "Everton": 1517.90828,
     "Fulham": 1484.44033,
     "Hull": 1488.61251,
-    "Ipswich": 1491.9393,
+    "Ipswich": 1480.64436,
     "Leeds United": 1506.77362,
-    "Liverpool": 1518.58047,
+    "Liverpool": 1528.61575,
     "Manchester City": 1529.43018,
     "Manchester United": 1472.76547,
     "Newcastle United": 1488.41912,
     "Nott'm Forest": 1474.30234,
-    "Sunderland": 1455.94555,
+    "Sunderland": 1466.09721,
     "Tottenham": 1492.41758
   },
   "season_results": [
@@ -2429,6 +2485,38 @@
       "home": "Nott'm Forest",
       "home_score": 3,
       "kickoff_utc": "2026-11-07T17:30:00+00:00"
+    },
+    {
+      "away": "Bournemouth",
+      "away_score": 2,
+      "fixture_id": "401878759",
+      "home": "Ipswich",
+      "home_score": 1,
+      "kickoff_utc": "2026-11-08T14:00:00+00:00"
+    },
+    {
+      "away": "Chelsea",
+      "away_score": 0,
+      "fixture_id": "401879239",
+      "home": "Sunderland",
+      "home_score": 1,
+      "kickoff_utc": "2026-11-08T14:00:00+00:00"
+    },
+    {
+      "away": "Liverpool",
+      "away_score": 3,
+      "fixture_id": "401879243",
+      "home": "Crystal Palace",
+      "home_score": 1,
+      "kickoff_utc": "2026-11-08T14:00:00+00:00"
+    },
+    {
+      "away": "Brentford",
+      "away_score": 0,
+      "fixture_id": "401879244",
+      "home": "Brighton",
+      "home_score": 2,
+      "kickoff_utc": "2026-11-08T14:00:00+00:00"
     }
   ],
   "standings": [
@@ -2444,6 +2532,17 @@
       "won": 9
     },
     {
+      "club": "Brighton",
+      "drawn": 1,
+      "ga": 7,
+      "gd": 19,
+      "gf": 26,
+      "lost": 2,
+      "played": 10,
+      "points": 22,
+      "won": 7
+    },
+    {
       "club": "Manchester City",
       "drawn": 0,
       "ga": 13,
@@ -2455,24 +2554,24 @@
       "won": 7
     },
     {
-      "club": "Brighton",
-      "drawn": 1,
-      "ga": 7,
-      "gd": 17,
-      "gf": 24,
+      "club": "Liverpool",
+      "drawn": 3,
+      "ga": 10,
+      "gd": 4,
+      "gf": 14,
       "lost": 2,
-      "played": 9,
-      "points": 19,
-      "won": 6
+      "played": 10,
+      "points": 18,
+      "won": 5
     },
     {
       "club": "Chelsea",
       "drawn": 1,
-      "ga": 15,
-      "gd": 4,
+      "ga": 16,
+      "gd": 3,
       "gf": 19,
-      "lost": 3,
-      "played": 9,
+      "lost": 4,
+      "played": 10,
       "points": 16,
       "won": 5
     },
@@ -2488,24 +2587,24 @@
       "won": 4
     },
     {
-      "club": "Liverpool",
+      "club": "Bournemouth",
       "drawn": 3,
-      "ga": 9,
+      "ga": 14,
       "gd": 2,
-      "gf": 11,
-      "lost": 2,
-      "played": 9,
+      "gf": 16,
+      "lost": 3,
+      "played": 10,
       "points": 15,
       "won": 4
     },
     {
       "club": "Brentford",
       "drawn": 5,
-      "ga": 9,
-      "gd": 7,
+      "ga": 11,
+      "gd": 5,
       "gf": 16,
-      "lost": 1,
-      "played": 9,
+      "lost": 2,
+      "played": 10,
       "points": 14,
       "won": 3
     },
@@ -2518,17 +2617,6 @@
       "lost": 2,
       "played": 10,
       "points": 14,
-      "won": 3
-    },
-    {
-      "club": "Bournemouth",
-      "drawn": 3,
-      "ga": 13,
-      "gd": 1,
-      "gf": 14,
-      "lost": 3,
-      "played": 9,
-      "points": 12,
       "won": 3
     },
     {
@@ -2578,11 +2666,11 @@
     {
       "club": "Ipswich",
       "drawn": 2,
-      "ga": 18,
-      "gd": -4,
-      "gf": 14,
-      "lost": 4,
-      "played": 9,
+      "ga": 20,
+      "gd": -5,
+      "gf": 15,
+      "lost": 5,
+      "played": 10,
       "points": 11,
       "won": 3
     },
@@ -2620,6 +2708,17 @@
       "won": 3
     },
     {
+      "club": "Sunderland",
+      "drawn": 2,
+      "ga": 17,
+      "gd": -9,
+      "gf": 8,
+      "lost": 6,
+      "played": 10,
+      "points": 8,
+      "won": 2
+    },
+    {
       "club": "Manchester United",
       "drawn": 4,
       "ga": 15,
@@ -2633,24 +2732,13 @@
     {
       "club": "Crystal Palace",
       "drawn": 1,
-      "ga": 21,
-      "gd": -12,
-      "gf": 9,
-      "lost": 6,
-      "played": 9,
+      "ga": 24,
+      "gd": -14,
+      "gf": 10,
+      "lost": 7,
+      "played": 10,
       "points": 7,
       "won": 2
-    },
-    {
-      "club": "Sunderland",
-      "drawn": 2,
-      "ga": 17,
-      "gd": -10,
-      "gf": 7,
-      "lost": 6,
-      "played": 9,
-      "points": 5,
-      "won": 1
     }
   ],
   "standings_note": "Calculated from verified feed finals; no disciplinary deductions or head-to-head tiebreaks."

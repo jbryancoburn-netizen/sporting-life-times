@@ -33,6 +33,22 @@
         "log_loss": 0.7729860728610737
       }
     },
+    "401878759": {
+      "away": "Bournemouth",
+      "away_score": 2,
+      "baseline": {
+        "brier": 0.7543766635175502,
+        "log_loss": 1.2030696131216991
+      },
+      "fixture_id": "401878759",
+      "home": "Ipswich",
+      "home_score": 1,
+      "outcome": "away",
+      "research": {
+        "brier": 0.7645344230523526,
+        "log_loss": 1.220111838957428
+      }
+    },
     "401878760": {
       "away": "Hull",
       "away_score": 0,
@@ -97,6 +113,22 @@
         "log_loss": 1.3734857910951361
       }
     },
+    "401879239": {
+      "away": "Chelsea",
+      "away_score": 0,
+      "baseline": {
+        "brier": 0.5630794921674734,
+        "log_loss": 0.9401277760000504
+      },
+      "fixture_id": "401879239",
+      "home": "Sunderland",
+      "home_score": 1,
+      "outcome": "home",
+      "research": {
+        "brier": 0.4987572648329871,
+        "log_loss": 0.856801763559228
+      }
+    },
     "401879241": {
       "away": "Newcastle United",
       "away_score": 1,
@@ -127,6 +159,38 @@
       "research": {
         "brier": 0.41339219085837703,
         "log_loss": 0.7440303766430392
+      }
+    },
+    "401879243": {
+      "away": "Liverpool",
+      "away_score": 3,
+      "baseline": {
+        "brier": 0.5886934337107954,
+        "log_loss": 0.974092773092436
+      },
+      "fixture_id": "401879243",
+      "home": "Crystal Palace",
+      "home_score": 1,
+      "outcome": "away",
+      "research": {
+        "brier": 0.6927882331748065,
+        "log_loss": 1.1187427440635709
+      }
+    },
+    "401879244": {
+      "away": "Brentford",
+      "away_score": 0,
+      "baseline": {
+        "brier": 0.40363470185524675,
+        "log_loss": 0.7311131999635442
+      },
+      "fixture_id": "401879244",
+      "home": "Brighton",
+      "home_score": 2,
+      "outcome": "home",
+      "research": {
+        "brier": 0.4289977483835835,
+        "log_loss": 0.7646568144655823
       }
     },
     "401879245": {
@@ -757,19 +821,19 @@
   "schema_version": 1,
   "status": "research_only_not_for_live_promotion",
   "summary": {
-    "graded_count": 15,
+    "graded_count": 19,
     "locked_count": 30,
-    "new_grades": 3,
+    "new_grades": 4,
     "new_locks": 0,
     "note": "Paired pregame outcomes only; a small sample cannot validate superiority.",
     "scores": {
       "baseline": {
-        "brier": 0.583089,
-        "log_loss": 0.981157
+        "brier": 0.581901,
+        "log_loss": 0.977145
       },
       "research": {
-        "brier": 0.587375,
-        "log_loss": 0.986913
+        "brier": 0.589247,
+        "log_loss": 0.987579
       }
     }
   }
