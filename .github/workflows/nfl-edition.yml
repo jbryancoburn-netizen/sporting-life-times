@@ -16,6 +16,7 @@ on:
   workflow_dispatch:
 permissions:
   contents: write
+  actions: write
 concurrency:
   group: nfl-2026-verified-publication
   cancel-in-progress: false
@@ -73,18 +74,21 @@ jobs:
           print('NFL publication integrity PASSED:',f['coverage'])
           PY
       - name: Publish NFL ledger, player boxscores and rosters
+        id: publish
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/nfl-2026-edition.json data/nfl-2026-boxscores.json data/nfl-2026-rosters.json data/nfl-elo-calibration.json
           if git diff --cached --quiet; then
             echo "Verified NFL data unchanged"
+            echo "published=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           git commit -m "Publish verified NFL 2026 games, independent Elo and stats"
           for attempt in 1 2 3; do
             if git push origin HEAD:main; then
               echo "NFL newspaper data published"
+              echo "published=true" >> "$GITHUB_OUTPUT"
               exit 0
             fi
             echo "Main changed; rebuild on latest published data"
@@ -93,11 +97,23 @@ jobs:
             python scripts/calibrate_nfl_elo.py
             python scripts/build_nfl_edition.py --fast
             python scripts/test_nfl_edition.py
-          python scripts/test_nfl_finalization_guard.py
+            python scripts/test_nfl_finalization_guard.py
             git add data/nfl-2026-edition.json data/nfl-2026-boxscores.json data/nfl-2026-rosters.json data/nfl-elo-calibration.json
-            if git diff --cached --quiet; then exit 0; fi
+            if git diff --cached --quiet; then echo "published=false" >> "$GITHUB_OUTPUT"; exit 0; fi
             git commit -m "Reconcile NFL 2026 verified results and independent Elo"
             sleep 2
           done
           echo "NFL data push failed after retries" >&2
           exit 1
+      - name: Dispatch existing Pages publisher when NFL season records or stats change
+        if: steps.publish.outputs.published == 'true'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'publish-newspaper.yml',
+              ref: 'main',
+            });

@@ -86,6 +86,14 @@ class FinalizationTests(unittest.TestCase):
         self.assertIn("steps.reconcile.outputs.finalization_required == 'true' && steps.publish.outputs.published == 'true'", workflow)
         self.assertIn("workflow_id: 'publish-newspaper.yml'", workflow)
 
+    def test_season_writer_redeploys_verified_nfl_updates(self):
+        workflow = (Path(__file__).resolve().parents[1] /
+                    ".github/workflows/nfl-edition.yml").read_text()
+        self.assertIn("actions: write", workflow)
+        self.assertIn("id: publish", workflow)
+        self.assertIn("steps.publish.outputs.published == 'true'", workflow)
+        self.assertIn("workflow_id: 'publish-newspaper.yml'", workflow)
+
 
 if __name__ == "__main__":
     unittest.main()
