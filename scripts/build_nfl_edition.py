@@ -372,6 +372,10 @@ def run(fast):
         # Preserve the last source-verified complete periods only if the final score
         # still matches; never keep an obsolete quarter line after a correction.
         previous=oldgames.get(eid) or {}
+        # A transient scoreboard regression must never undo a certified final.
+        if previous.get("state")=="post" and g["state"]!="post":
+            games[eid]=previous
+            continue
         for side in ("home","away"):
             incoming=g[side].get("linescores") or []
             earlier=(previous.get(side) or {}).get("linescores") or []
