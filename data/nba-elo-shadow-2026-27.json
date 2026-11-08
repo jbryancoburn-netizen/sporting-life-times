@@ -4,7 +4,7 @@
   "status": "primary_live_earned_elo",
   "model": "team_only_reset1500_home40_k24_sqrt_mov",
   "source": "data/nba-2026-27-current-provisional.json",
-  "games_played": 139,
+  "games_played": 140,
   "parameters": {
     "season_start_elo": 1500,
     "home_elo": 40,
@@ -79,11 +79,11 @@
     },
     {
       "team": "PHI",
-      "elo": 1539.942,
-      "games": 10,
+      "elo": 1547.074,
+      "games": 11,
       "forecast_prior": 1532.3115,
-      "live_elo": 1593.281,
-      "difference_from_live": -53.339
+      "live_elo": 1600.087,
+      "difference_from_live": -53.013
     },
     {
       "team": "POR",
@@ -230,14 +230,6 @@
       "difference_from_live": -60.635
     },
     {
-      "team": "CHI",
-      "elo": 1417.609,
-      "games": 8,
-      "forecast_prior": 1374.9705000000001,
-      "live_elo": 1361.398,
-      "difference_from_live": 56.211
-    },
-    {
       "team": "UTA",
       "elo": 1415.568,
       "games": 9,
@@ -252,6 +244,14 @@
       "forecast_prior": 1401.576,
       "live_elo": 1355.085,
       "difference_from_live": 57.853
+    },
+    {
+      "team": "CHI",
+      "elo": 1410.476,
+      "games": 9,
+      "forecast_prior": 1374.9705000000001,
+      "live_elo": 1354.593,
+      "difference_from_live": 55.883
     }
   ],
   "events": [
@@ -2617,6 +2617,23 @@
       "home_elo_change": -19.684155350492205,
       "home_after": 1535.2438810489991,
       "away_after": 1577.6728246939613
+    },
+    {
+      "id": "espn-nba-401909945",
+      "date": "2026-11-08T20:30:00.000Z",
+      "home": "CHI",
+      "away": "PHI",
+      "home_score": 121,
+      "away_score": 127,
+      "home_before": 1417.6085546500537,
+      "away_before": 1539.941689845732,
+      "home_win_probability": 0.38368232046236717,
+      "forecast_home_win_probability": 0.3636064582581962,
+      "forecast_prior_weight_home": 0.4166666666666667,
+      "forecast_prior_weight_away": 0.375,
+      "home_elo_change": -7.132777139447834,
+      "home_after": 1410.475777510606,
+      "away_after": 1547.07446698518
     }
   ]
 }
