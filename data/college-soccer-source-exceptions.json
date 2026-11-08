@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "policy": "Only exact game, gender, teams, date and both source score variants may receive a published-data exception. Keep original ledger and cite independent primary reporting; every other discrepancy remains fail-closed.",
+  "policy": "Exact verified source-score exceptions preserve university-confirmed finals. Independently verified one-day date-only corrections may update the ledger and trigger full Elo replay; all changed scores, teams or unverified date differences remain fail-closed.",
   "exceptions": [
     {
       "match_id": "women-6664706",
@@ -20,6 +20,24 @@
       "independent_source": "https://gwyneddathletics.com/news/2026/10/31/womens-soccer-wincos-last-second-goal-leads-griffins-to-aec-semifinals.aspx",
       "reviewed_on": "2026-11-01",
       "explanation": "Home institution's women's soccer game report explicitly documents a 1-0 final and winning goal with 1.7 seconds left. University's separate men's soccer report documents a 3-1 final on the same date against the same opponent. Do not overwrite the independently supported women's 1-0 Elo result with a potentially cross-feed or stale scoreboard score."
+    },
+    {
+      "match_id": "men-6664974",
+      "gender": "men",
+      "home_team": "hanover",
+      "away_team": "earlham",
+      "source_game": "https://www.ncaa.com/game/6664974",
+      "correction_type": "date_only",
+      "ledger_date": "2026-11-04",
+      "corrected_date": "2026-11-03",
+      "ledger_score": [
+        1,
+        3
+      ],
+      "independent_source": "https://athletics.hanover.edu/news/2026/11/3/mens-soccer-surrenders-hcac-tournament-contest-with-earlham.aspx",
+      "secondary_source": "https://goearlham.com/news/2026/11/3/mens-soccer-mens-soccer-advances-to-hcac-championship-match.aspx",
+      "reviewed_on": "2026-11-07",
+      "explanation": "Hanover and Earlham official men's soccer recaps both document a 3–1 Earlham win on Tuesday November 3, 2026; the ledger entered November 4 from an earlier scoreboard date. Correct only the calendar date, preserving game ID, identity, score and one Elo application."
     }
   ]
 }

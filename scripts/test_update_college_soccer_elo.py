@@ -121,6 +121,37 @@ class TestCollegeSoccerLive(unittest.TestCase):
         self.assertEqual(audit["independently_verified_discrepancy_count"], 1)
         self.assertEqual(audit["status"], "provisional_independent_source_verified")
 
+    def test_primary_source_verified_date_correction_replays_once(self):
+        previous_game = game(date="2026-10-24")
+        first, _, _ = c.update(self.b, self.l, [previous_game])
+        correction = game(date="2026-10-23")
+        exception = {
+            "match_id": "men-100", "gender": "men",
+            "home_team": "men-d1-a", "away_team": "men-d1-b",
+            "source_game": "https://www.ncaa.com/game/100",
+            "correction_type": "date_only",
+            "ledger_date": "2026-10-24", "corrected_date": "2026-10-23",
+            "ledger_score": [2, 0],
+            "independent_source": "https://example.edu/game-recap",
+            "reviewed_on": "2026-11-07",
+            "explanation": "Verified date against university recap."
+        }
+        fixed, model, audit = c.update(self.b, first, [correction], {"men-100": exception})
+        self.assertEqual(fixed["results"], [correction])
+        self.assertEqual(audit["unresolved_source_correction_count"], 0)
+        self.assertEqual(audit["independently_verified_discrepancy_count"], 1)
+        self.assertEqual(audit["applied_finals"], 1)
+        self.assertEqual(model["as_of"], "2026-10-23")
+        again, _, a = c.update(self.b, fixed, [correction], {"men-100": exception})
+        self.assertEqual(again, fixed)
+        self.assertEqual(a["new_games_seen"], 0)
+        bad, _, blocked = c.update(self.b, first, [game(date="2026-10-23", hg=3)], {"men-100": exception})
+        self.assertEqual(bad, first)
+        self.assertEqual(blocked["unresolved_source_correction_count"], 1)
+        bad, _, blocked = c.update(self.b, first, [game(date="2026-10-22")], {"men-100": exception})
+        self.assertEqual(bad, first)
+        self.assertEqual(blocked["new_games_seen"], 0)  # Reject baseline overlap.
+
     def test_source_exception_wrong_score_still_fails_closed(self):
         first, previous_model, _ = c.update(self.b, self.l, [game(hg=1, ag=0)])
         exception = {

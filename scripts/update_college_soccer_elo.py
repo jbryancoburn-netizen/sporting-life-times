@@ -287,6 +287,31 @@ def update(baseline: dict, ledger: dict, incoming: list[dict], verified_exceptio
                            and exception.get("reported_feed_score") == reported
                            and str(exception.get("independent_source", "")).startswith("https://")
                            and exception.get("reviewed_on") and exception.get("explanation"))
+                # A scoreboard may correct a game's calendar date after its score was
+                # first published. Accept only a specifically attested date correction;
+                # never permit changed teams, scores, or identity through this path.
+                date_fields = ("match_id", "gender", "home_team", "away_team",
+                               "home_goals", "away_goals", "source_game")
+                attested_date = (
+                    exception.get("correction_type") == "date_only"
+                    and all(previous[field] == game[field] for field in date_fields)
+                    and all(exception.get(field) == previous[field] for field in
+                            ("match_id", "gender", "home_team", "away_team", "source_game"))
+                    and exception.get("ledger_date") == previous["date"]
+                    and exception.get("corrected_date") == game["date"]
+                    and exception.get("ledger_score") == expected_original == reported
+                    and abs((dt.date.fromisoformat(previous["date"]) -
+                             dt.date.fromisoformat(game["date"])).days) == 1
+                    and str(exception.get("independent_source", "")).startswith("https://")
+                    and exception.get("reviewed_on") and exception.get("explanation")
+                )
+                if attested_date:
+                    lookup[key] = game  # Replaying below preserves causal Elo order.
+                    verified.append({"match_id": key, "ledger_date": previous["date"],
+                                     "corrected_date": game["date"],
+                                     "independent_source": exception["independent_source"],
+                                     "reviewed_on": exception["reviewed_on"]})
+                    continue
                 if matches:
                     verified.append({"match_id":key, "ledger_score":expected_original,
                                      "feed_score":reported, "independent_source":exception["independent_source"],
