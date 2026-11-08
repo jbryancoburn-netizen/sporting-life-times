@@ -1,6 +1,13 @@
 name: MBB RETRO single-model 100 forecast capture
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/mbb-retro-prospective.yml'
+      - 'scripts/mbb-retro-capture-prospective.js'
+      - 'scripts/mbb-retro-prospective-score.js'
+      - 'scripts/mbb-retro-build-results.js'
   schedule:
     # Three independent pregame captures each day; UTC, including daytime and evening slates.
     - cron: '15 12,17,22 * * *'
