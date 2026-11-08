@@ -1,0 +1,42 @@
+name: NFL finalization integrity
+on:
+  pull_request:
+    paths:
+      - 'scripts/build_nfl_edition.py'
+      - 'scripts/nfl_finalization_guard.py'
+      - 'scripts/test_nfl_finalization_guard.py'
+      - 'nfl-edition-v3.js'
+      - '.github/workflows/nfl-edition.yml'
+      - '.github/workflows/nfl-gameday-live.yml'
+      - '.github/workflows/nfl-finalization-check.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/build_nfl_edition.py'
+      - 'scripts/nfl_finalization_guard.py'
+      - 'scripts/test_nfl_finalization_guard.py'
+      - 'nfl-edition-v3.js'
+      - '.github/workflows/nfl-finalization-check.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  finalization:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check NFL JavaScript and Python syntax
+        run: |
+          node --check nfl-edition-v3.js
+          python -m py_compile scripts/build_nfl_edition.py scripts/nfl_finalization_guard.py scripts/test_nfl_finalization_guard.py
+      - name: Test finalization and independent NFL season engine
+        run: |
+          python scripts/test_nfl_finalization_guard.py
+          python scripts/test_nfl_edition.py

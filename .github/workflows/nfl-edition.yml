@@ -17,7 +17,7 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: nfl-2026-edition-data
+  group: nfl-2026-verified-publication
   cancel-in-progress: false
 jobs:
   publish:
@@ -38,12 +38,13 @@ jobs:
         run: |
           python -m py_compile scripts/build_nfl_edition.py scripts/calibrate_nfl_elo.py
           python scripts/test_nfl_edition.py
+          python scripts/test_nfl_finalization_guard.py
       - name: Recover and backtest NFL historical Elo parameters
         run: |
           python scripts/calibrate_nfl_elo.py
       - name: Fetch full 2026 NFL season or nearby weeks
         run: |
-          if [ "$(date -u +%H%M)" = "1013" ]; then
+          if [ "${{ github.event.schedule }}" = "13 10 * * *" ]; then
             python scripts/build_nfl_edition.py
           else
             python scripts/build_nfl_edition.py --fast
@@ -92,6 +93,7 @@ jobs:
             python scripts/calibrate_nfl_elo.py
             python scripts/build_nfl_edition.py --fast
             python scripts/test_nfl_edition.py
+          python scripts/test_nfl_finalization_guard.py
             git add data/nfl-2026-edition.json data/nfl-2026-boxscores.json data/nfl-2026-rosters.json data/nfl-elo-calibration.json
             if git diff --cached --quiet; then exit 0; fi
             git commit -m "Reconcile NFL 2026 verified results and independent Elo"
