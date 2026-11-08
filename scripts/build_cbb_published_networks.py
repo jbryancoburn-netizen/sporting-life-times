@@ -22,7 +22,7 @@ CONFERENCES = (
     "mbb-network-grid-evidence.json",
 )
 UNANNOUNCED = {"", "TBA", "TBD", "<TBA>", "<TBD>", "TV TBA", "N/A", "NA",
-               "TO BE ANNOUNCED", "TO BE DETERMINED", "TBC", "—", "-"}
+               "TO BE ANNOUNCED", "TO BE DETERMINED", "NETWORK TBD", "NETWORK TBA", "TBC", "—", "-"}
 
 
 def read(path):
@@ -34,7 +34,7 @@ def read(path):
 
 def day_of(value):
     value = str(value or "")
-    if not re.match(r"^2026-\d\d-\d\d", value):
+    if not re.match(r"^202[67]-\d\d-\d\d", value):
         return ""
     try:
         instant = dt.datetime.fromisoformat(value.replace("Z", "+00:00"))

@@ -18,7 +18,8 @@ class BroadcastPublication(unittest.TestCase):
     def test_dates_and_placeholders(self):
         self.assertEqual(day_of("2026-11-09T01:00:00Z"), "2026-11-08")
         self.assertEqual(day_of("2026-11-08T18:00:00-05:00"), "2026-11-08")
-        for value in ("<TBD>", "TV TBA", "TBD", ""):
+        self.assertEqual(day_of("2027-02-12T19:00:00Z"), "2027-02-12")
+        for value in ("<TBD>", "TV TBA", "TBD", "Network TBD", "Network TBA", ""):
             self.assertEqual(clean_network(value), "")
 
     def test_official_network_matches_both_schools_and_date(self):
