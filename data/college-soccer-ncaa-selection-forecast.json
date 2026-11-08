@@ -13,7 +13,7 @@
     "audit_status": "provisional",
     "source_certified": false,
     "excluded_finals": 26,
-    "quarantined_source_rows": 2,
+    "quarantined_source_rows": 0,
     "source_checked_through": "2026-11-08",
     "warning": "Selection forecast is provisional until source quarantines and excluded games have been reconciled"
   },
@@ -68,7 +68,7 @@
       "conference_name": "ACC",
       "team_id": "smu",
       "team": "SMU",
-      "elo": 1700.063,
+      "elo": 1717.736,
       "method": "elo_simulation_placeholder_from_available_tournament_field",
       "official_aq": false
     },
@@ -104,7 +104,7 @@
       "conference_name": "Sun Belt",
       "team_id": "marshall",
       "team": "Marshall",
-      "elo": 1658.42,
+      "elo": 1668.866,
       "method": "elo_simulation_placeholder_from_available_tournament_field",
       "official_aq": false
     },
@@ -201,9 +201,9 @@
     {
       "conference": "men-d1:caa",
       "conference_name": "CAA",
-      "team_id": "stony-brook",
-      "team": "Stony Brook",
-      "elo": 1623.753,
+      "team_id": "hofstra",
+      "team": "Hofstra",
+      "elo": 1629.228,
       "method": "elo_placeholder_without_verified_tournament_field",
       "official_aq": false
     },
@@ -270,16 +270,16 @@
       "conference": "men-d1:big-east"
     },
     {
+      "team_id": "west-virginia",
+      "team": "West Virginia",
+      "elo": 1664.816,
+      "conference": "men-d1:sun-belt"
+    },
+    {
       "team_id": "washington",
       "team": "Washington",
       "elo": 1662.68,
       "conference": "men-d1:big-ten"
-    },
-    {
-      "team_id": "west-virginia",
-      "team": "West Virginia",
-      "elo": 1651.323,
-      "conference": "men-d1:sun-belt"
     },
     {
       "team_id": "creighton",
@@ -318,10 +318,10 @@
       "conference": "men-d1:acc"
     },
     {
-      "team_id": "ucla",
-      "team": "UCLA",
-      "elo": 1616.625,
-      "conference": "men-d1:big-ten"
+      "team_id": "north-carolina-st",
+      "team": "NC State",
+      "elo": 1621.362,
+      "conference": "men-d1:acc"
     },
     {
       "team_id": "gardner-webb",
@@ -336,10 +336,10 @@
       "conference": "men-d1:sun-belt"
     },
     {
-      "team_id": "hofstra",
-      "team": "Hofstra",
-      "elo": 1607.592,
-      "conference": "men-d1:caa"
+      "team_id": "rutgers",
+      "team": "Rutgers",
+      "elo": 1602.948,
+      "conference": "men-d1:big-ten"
     },
     {
       "team_id": "oregon-st",
@@ -348,10 +348,16 @@
       "conference": "men-d1:pac-12"
     },
     {
-      "team_id": "wake-forest",
-      "team": "Wake Forest",
-      "elo": 1594.255,
-      "conference": "men-d1:acc"
+      "team_id": "stony-brook",
+      "team": "Stony Brook",
+      "elo": 1602.117,
+      "conference": "men-d1:caa"
+    },
+    {
+      "team_id": "ucla",
+      "team": "UCLA",
+      "elo": 1598.148,
+      "conference": "men-d1:big-ten"
     },
     {
       "team_id": "stanford",
@@ -376,12 +382,6 @@
       "team": "UAlbany",
       "elo": 1585.135,
       "conference": "men-d1:america-east"
-    },
-    {
-      "team_id": "rutgers",
-      "team": "Rutgers",
-      "elo": 1584.472,
-      "conference": "men-d1:big-ten"
     },
     {
       "team_id": "penn",
@@ -422,6 +422,12 @@
       "conference": "men-d1:acc"
     },
     {
+      "team_id": "wake-forest",
+      "team": "Wake Forest",
+      "elo": 1573.765,
+      "conference": "men-d1:acc"
+    },
+    {
       "team_id": "uc-irvine",
       "team": "UC Irvine",
       "elo": 1573.337,
@@ -432,12 +438,6 @@
       "team": "Delaware",
       "elo": 1570.955,
       "conference": "men-d1:summit"
-    },
-    {
-      "team_id": "xavier",
-      "team": "Xavier",
-      "elo": 1570.419,
-      "conference": "men-d1:big-east"
     }
   ],
   "field": [
@@ -456,7 +456,7 @@
       "team_id": "smu",
       "team": "SMU",
       "conference": "men-d1:acc",
-      "elo": 1700.063,
+      "elo": 1717.736,
       "bid_type": "projected_aq",
       "experimental_strength_order": 2,
       "ncaa_seed": null,
@@ -497,12 +497,23 @@
       "seeded_24_candidate": true
     },
     {
+      "team_id": "marshall",
+      "team": "Marshall",
+      "conference": "men-d1:sun-belt",
+      "elo": 1668.866,
+      "bid_type": "projected_aq",
+      "experimental_strength_order": 6,
+      "ncaa_seed": null,
+      "first_round_bye_candidate": true,
+      "seeded_24_candidate": true
+    },
+    {
       "team_id": "cornell",
       "team": "Cornell",
       "conference": "men-d1:ivy",
       "elo": 1666.437,
       "bid_type": "projected_aq",
-      "experimental_strength_order": 6,
+      "experimental_strength_order": 7,
       "ncaa_seed": null,
       "first_round_bye_candidate": true,
       "seeded_24_candidate": true
@@ -513,7 +524,18 @@
       "conference": "men-d1:big-ten",
       "elo": 1665.342,
       "bid_type": "projected_aq",
-      "experimental_strength_order": 7,
+      "experimental_strength_order": 8,
+      "ncaa_seed": null,
+      "first_round_bye_candidate": true,
+      "seeded_24_candidate": true
+    },
+    {
+      "team_id": "west-virginia",
+      "team": "West Virginia",
+      "conference": "men-d1:sun-belt",
+      "elo": 1664.816,
+      "bid_type": "proxy_at_large",
+      "experimental_strength_order": 9,
       "ncaa_seed": null,
       "first_round_bye_candidate": true,
       "seeded_24_candidate": true
@@ -523,28 +545,6 @@
       "team": "Washington",
       "conference": "men-d1:big-ten",
       "elo": 1662.68,
-      "bid_type": "proxy_at_large",
-      "experimental_strength_order": 8,
-      "ncaa_seed": null,
-      "first_round_bye_candidate": true,
-      "seeded_24_candidate": true
-    },
-    {
-      "team_id": "marshall",
-      "team": "Marshall",
-      "conference": "men-d1:sun-belt",
-      "elo": 1658.42,
-      "bid_type": "projected_aq",
-      "experimental_strength_order": 9,
-      "ncaa_seed": null,
-      "first_round_bye_candidate": true,
-      "seeded_24_candidate": true
-    },
-    {
-      "team_id": "west-virginia",
-      "team": "West Virginia",
-      "conference": "men-d1:sun-belt",
-      "elo": 1651.323,
       "bid_type": "proxy_at_large",
       "experimental_strength_order": 10,
       "ncaa_seed": null,
@@ -629,10 +629,10 @@
       "seeded_24_candidate": true
     },
     {
-      "team_id": "umkc",
-      "team": "Kansas City",
-      "conference": "men-d1:summit",
-      "elo": 1626.377,
+      "team_id": "hofstra",
+      "team": "Hofstra",
+      "conference": "men-d1:caa",
+      "elo": 1629.228,
       "bid_type": "projected_aq",
       "experimental_strength_order": 18,
       "ncaa_seed": null,
@@ -640,12 +640,23 @@
       "seeded_24_candidate": true
     },
     {
-      "team_id": "stony-brook",
-      "team": "Stony Brook",
-      "conference": "men-d1:caa",
-      "elo": 1623.753,
+      "team_id": "umkc",
+      "team": "Kansas City",
+      "conference": "men-d1:summit",
+      "elo": 1626.377,
       "bid_type": "projected_aq",
       "experimental_strength_order": 19,
+      "ncaa_seed": null,
+      "first_round_bye_candidate": false,
+      "seeded_24_candidate": true
+    },
+    {
+      "team_id": "north-carolina-st",
+      "team": "NC State",
+      "conference": "men-d1:acc",
+      "elo": 1621.362,
+      "bid_type": "proxy_at_large",
+      "experimental_strength_order": 20,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
       "seeded_24_candidate": true
@@ -656,7 +667,7 @@
       "conference": "men-d1:pac-12",
       "elo": 1621.169,
       "bid_type": "projected_aq",
-      "experimental_strength_order": 20,
+      "experimental_strength_order": 21,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
       "seeded_24_candidate": true
@@ -667,17 +678,6 @@
       "conference": "men-d1:american",
       "elo": 1617.973,
       "bid_type": "projected_aq",
-      "experimental_strength_order": 21,
-      "ncaa_seed": null,
-      "first_round_bye_candidate": false,
-      "seeded_24_candidate": true
-    },
-    {
-      "team_id": "ucla",
-      "team": "UCLA",
-      "conference": "men-d1:big-ten",
-      "elo": 1616.625,
-      "bid_type": "proxy_at_large",
       "experimental_strength_order": 22,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
@@ -717,23 +717,12 @@
       "seeded_24_candidate": false
     },
     {
-      "team_id": "hofstra",
-      "team": "Hofstra",
-      "conference": "men-d1:caa",
-      "elo": 1607.592,
-      "bid_type": "proxy_at_large",
-      "experimental_strength_order": 26,
-      "ncaa_seed": null,
-      "first_round_bye_candidate": false,
-      "seeded_24_candidate": false
-    },
-    {
       "team_id": "fdu",
       "team": "FDU",
       "conference": "men-d1:nec",
       "elo": 1605.639,
       "bid_type": "projected_aq",
-      "experimental_strength_order": 27,
+      "experimental_strength_order": 26,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
       "seeded_24_candidate": false
@@ -744,7 +733,7 @@
       "conference": "men-d1:atlantic-10",
       "elo": 1604.913,
       "bid_type": "projected_aq",
-      "experimental_strength_order": 28,
+      "experimental_strength_order": 27,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
       "seeded_24_candidate": false
@@ -755,6 +744,17 @@
       "conference": "men-d1:mountain-west",
       "elo": 1604.579,
       "bid_type": "projected_aq",
+      "experimental_strength_order": 28,
+      "ncaa_seed": null,
+      "first_round_bye_candidate": false,
+      "seeded_24_candidate": false
+    },
+    {
+      "team_id": "rutgers",
+      "team": "Rutgers",
+      "conference": "men-d1:big-ten",
+      "elo": 1602.948,
+      "bid_type": "proxy_at_large",
       "experimental_strength_order": 29,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
@@ -772,23 +772,34 @@
       "seeded_24_candidate": false
     },
     {
-      "team_id": "north-florida",
-      "team": "North Florida",
-      "conference": "men-d1:asun",
-      "elo": 1598.753,
-      "bid_type": "projected_aq",
+      "team_id": "stony-brook",
+      "team": "Stony Brook",
+      "conference": "men-d1:caa",
+      "elo": 1602.117,
+      "bid_type": "proxy_at_large",
       "experimental_strength_order": 31,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
       "seeded_24_candidate": false
     },
     {
-      "team_id": "wake-forest",
-      "team": "Wake Forest",
-      "conference": "men-d1:acc",
-      "elo": 1594.255,
-      "bid_type": "proxy_at_large",
+      "team_id": "north-florida",
+      "team": "North Florida",
+      "conference": "men-d1:asun",
+      "elo": 1598.753,
+      "bid_type": "projected_aq",
       "experimental_strength_order": 32,
+      "ncaa_seed": null,
+      "first_round_bye_candidate": false,
+      "seeded_24_candidate": false
+    },
+    {
+      "team_id": "ucla",
+      "team": "UCLA",
+      "conference": "men-d1:big-ten",
+      "elo": 1598.148,
+      "bid_type": "proxy_at_large",
+      "experimental_strength_order": 33,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
       "seeded_24_candidate": false
@@ -799,7 +810,7 @@
       "conference": "men-d1:acc",
       "elo": 1594.212,
       "bid_type": "proxy_at_large",
-      "experimental_strength_order": 33,
+      "experimental_strength_order": 34,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
       "seeded_24_candidate": false
@@ -810,7 +821,7 @@
       "conference": "men-d1:maac",
       "elo": 1593.016,
       "bid_type": "projected_aq",
-      "experimental_strength_order": 34,
+      "experimental_strength_order": 35,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
       "seeded_24_candidate": false
@@ -821,7 +832,7 @@
       "conference": "men-d1:caa",
       "elo": 1590.066,
       "bid_type": "proxy_at_large",
-      "experimental_strength_order": 35,
+      "experimental_strength_order": 36,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
       "seeded_24_candidate": false
@@ -832,7 +843,7 @@
       "conference": "men-d1:american",
       "elo": 1586.66,
       "bid_type": "proxy_at_large",
-      "experimental_strength_order": 36,
+      "experimental_strength_order": 37,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
       "seeded_24_candidate": false
@@ -842,17 +853,6 @@
       "team": "UAlbany",
       "conference": "men-d1:america-east",
       "elo": 1585.135,
-      "bid_type": "proxy_at_large",
-      "experimental_strength_order": 37,
-      "ncaa_seed": null,
-      "first_round_bye_candidate": false,
-      "seeded_24_candidate": false
-    },
-    {
-      "team_id": "rutgers",
-      "team": "Rutgers",
-      "conference": "men-d1:big-ten",
-      "elo": 1584.472,
       "bid_type": "proxy_at_large",
       "experimental_strength_order": 38,
       "ncaa_seed": null,
