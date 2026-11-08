@@ -153,7 +153,14 @@ const migrated=[
 ];
 // The football newspaper front page is news-only. Its scoreboard lives at a dedicated URL.
 const footballFront=fs.readFileSync(path.join(root,'college-football.html'),'utf8');
-assert(footballFront.includes('slt-front-page.js'),'news-only football landing page must load its article feed');
+const cfbFrontRenderer=fs.readFileSync(path.join(root,'cfb-front-page.js'),'utf8');
+assert(footballFront.includes('cfb-front-page.js')&&cfbFrontRenderer.includes("fetch('articles.json?cfb_news="),
+  'news-only football landing page must load its attributed college football article feed');
+assert(footballFront.includes('id="cfb-news"')&&footballFront.includes('id="cfb-departments"')&&
+  (footballFront.match(/class="slt-front-byline"/g)||[]).length>=6,
+  'football front page must provide sourced headlines and working departments before scripts run');
+assert(cfbFrontRenderer.includes('grid.replaceChildren')&&cfbFrontRenderer.includes('Live refresh temporarily unavailable'),
+  'football edition must refresh articles without clearing sourced fallback on errors');
 assert(footballFront.includes('href="cfb-scoreboard.html"'),'football landing page links to its dedicated scoreboard');
 assert(!footballFront.includes('src="cfb-desk.js'),'football landing page must not load the score renderer');
 for(const [renderer,page] of migrated){
