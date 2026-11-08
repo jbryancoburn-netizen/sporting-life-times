@@ -2,7 +2,7 @@ name: MBB newspaper refresh and publish
 on:
   push:
     branches: [main]
-    paths: ['scripts/*mbb_newspaper.py', 'scripts/mbb_player_boxscores.py', 'scripts/build_cbb_published_networks.py', 'tests/test_cbb_published_networks.py', 'ncaam-slate.js', '.github/workflows/mbb-newspaper.yml']
+    paths: ['scripts/*mbb_newspaper.py', 'scripts/mbb_player_boxscores.py', 'scripts/build_cbb_published_networks.py', 'data/cbb-verified-broadcasts-2026-27.json', 'tests/test_cbb_published_networks.py', 'ncaam-slate.js', '.github/workflows/mbb-newspaper.yml']
   workflow_dispatch:
   schedule:
     - cron: '3,18,33,48 * * * *'
