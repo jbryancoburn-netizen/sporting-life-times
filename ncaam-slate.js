@@ -377,12 +377,11 @@ const insight=window.SLTBasketballInsights;
 // page session; do not re-download them on every 90-second scoreboard tick.
 const staticData=new Map();
 const staticPaths=new Set(['data/ncaam-2026-27-espn-team-crosswalk.json',
-  'data/dual-ring-team-palette.json','data/mbb-arena-registry.json',
-   'data/mbb-out-of-division-opponent-logos.json']);
+  'data/dual-ring-team-palette.json','data/mbb-arena-registry.json']);
 const fetchJSON=async path=>{
  if(staticPaths.has(path)&&staticData.has(path))return staticData.get(path);
  const c=new AbortController(),tm=setTimeout(()=>c.abort(),14000);
- try{const requestPath=path==='data/mbb-out-of-division-opponent-logos.json'?path+'?v=nov7-six-opponents-20261107':path;
+ try{const requestPath=path==='data/mbb-out-of-division-opponent-logos.json'?path+'?v=nov8-seven-opponents-20261108':path;
   const r=await fetch(requestPath,{cache:staticPaths.has(path)?'default':'no-store',signal:c.signal});
   if(!r.ok)throw Error('HTTP '+r.status);
   const data=await r.json();
