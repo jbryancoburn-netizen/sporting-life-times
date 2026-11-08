@@ -3,7 +3,7 @@
   "division": "d3",
   "gender": "men",
   "season": "2026-27",
-  "generated_utc": "2026-11-07T23:40:20.334625+00:00",
+  "generated_utc": "2026-11-08T15:16:09.331777+00:00",
   "source": "NCAA 2026-27 member directory + year/gender-validated official school athletics calendars",
   "scope": "NCAA membership-wide first pass; sources without independently validated 2026-27 schedules excluded",
   "ncaa_confirmed_programs": 406,
@@ -14,8 +14,8 @@
   "school_calendars_unresolved": 17,
   "source_status_counts": {
     "parsed": 358,
-    "parsed_conference": 31,
-    "failed": 17
+    "failed": 17,
+    "parsed_conference": 31
   },
   "last_verified_school_source": {
     "4": "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
@@ -115,7 +115,7 @@
     "303": "https://www.gomightymacs.com/sports/mens-basketball/schedule/2026-27?grid=true",
     "313": "https://athletics.ithaca.edu/sports/mens-basketball/schedule/2026-27?grid=true",
     "320": "https://www.jcusports.com/sports/mens-basketball/schedule/2026-27?grid=true",
-    "321": "https://www.johnjayathletics.com/sports/mens-basketball/schedule?grid=true",
+    "321": "https://www.johnjayathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
     "322": "https://www.hopkinssports.com/sports/mens-basketball/schedule/2026-27?grid=true",
     "326": "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true",
     "329": "https://www.keanathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
@@ -314,7 +314,7 @@
     "8490": "https://www.letuathletics.com/sports/mens-basketball/schedule?grid=true",
     "8530": "https://www.mcmurrysports.com/sports/mens-basketball/schedule/2026-2027?grid=true",
     "8567": "https://www.msjlions.com/sports/mens-basketball/schedule/2026-27?grid=true",
-    "8597": "https://www.mlcknights.com/sports/mens-basketball/schedule?grid=true",
+    "8597": "https://www.mlcknights.com/sports/mbball/schedule?grid=true",
     "8600": "https://www.notredamegators.com/sports/mens-basketball/schedule/2026-27?grid=true",
     "8746": "https://www.southwesternpirates.com/sports/mens-basketball/schedule/2026-27?grid=true",
     "8911": "https://www.wlcsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
@@ -324,7 +324,7 @@
     "10972": "https://www.gochathamcougars.com/sports/mens-basketball/schedule/2026-27?grid=true",
     "11839": "https://pittgreensburgathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true",
     "12399": "https://gwyneddathletics.com/sports/mens-basketball/schedule?grid=true",
-    "12884": "https://www.centenarycyclones.com/sports/mens-basketball/schedule?grid=true",
+    "12884": "https://www.centenarycyclones.com/sports/mens-basketball/schedule/2026-27?grid=true",
     "12973": "https://www.wilsonphoenix.com/sports/mens-basketball/schedule/2026-27?grid=true",
     "16142": "https://athletics.misericordia.edu/sports/mens-basketball/schedule/2026-2027?grid=true",
     "17094": "https://www.gopeacepacers.com/sports/mens-basketball/schedule/2026-27?grid=true",
@@ -348,7 +348,7 @@
     "30039": "https://www.ncurams.com/sports/mens-basketball/schedule/2026-27?grid=true",
     "30040": "https://owls.umpi.edu/sports/mens-basketball/schedule/2026-27?grid=true",
     "30044": "https://www.psuberksathletics.com/sports/mens-basketball/schedule?grid=true",
-    "30047": "https://www.gokcgiants.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+    "30047": "https://www.gokcgiants.com/sports/mens-basketball/schedule?grid=true",
     "30064": "https://athletics.stvincent.edu/sports/mens-basketball/schedule/2026-27?grid=true",
     "30065": "https://www.lyndonhornets.com/sports/mens-basketball/schedule/2026-27?grid=true",
     "30067": "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-27?grid=true",
@@ -2038,10 +2038,10 @@
     {
       "owner_org_id": 271,
       "source_url": "https://hsuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "readable_rows": 27,
+      "readable_rows": 26,
       "verified_member_opponents": 18,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 7,
+        "identity_not_d3_matched_but_posted": 6,
         "conditional_or_ambiguous_opponent": 1,
         "preseason_or_exhibition": 1
       },
@@ -2277,7 +2277,7 @@
     },
     {
       "owner_org_id": 321,
-      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "readable_rows": 29,
       "verified_member_opponents": 15,
       "excluded_rows": {
@@ -2286,9 +2286,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 1,
-      "verified_direct_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule?grid=true",
-      "discovery_method": "previously_verified_source"
+      "candidate_urls_tried": 2,
+      "verified_direct_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "discovery_method": "official_school_url_or_vendor_variant"
     },
     {
       "owner_org_id": 322,
@@ -2329,7 +2329,7 @@
       "verified_member_opponents": 18,
       "excluded_rows": {},
       "approved_at": "2024-10-08",
-      "university_source_failure": "HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not ",
+      "university_source_failure": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
       "university_source_status": "failed"
     },
     {
@@ -2661,9 +2661,9 @@
       "owner_org_id": 396,
       "source_url": "https://www.mcscots.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "readable_rows": 26,
-      "verified_member_opponents": 16,
+      "verified_member_opponents": 17,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 8,
+        "identity_not_d3_matched_but_posted": 7,
         "conditional_or_ambiguous_opponent": 2
       },
       "status": "parsed",
@@ -3789,10 +3789,10 @@
       "owner_org_id": 601,
       "source_url": "https://www.sjfathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "readable_rows": 25,
-      "verified_member_opponents": 15,
+      "verified_member_opponents": 16,
       "excluded_rows": {
-        "conditional_or_ambiguous_opponent": 2,
-        "identity_not_d3_matched_but_posted": 8
+        "identity_not_d3_matched_but_posted": 8,
+        "conditional_or_ambiguous_opponent": 1
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -4215,10 +4215,10 @@
     {
       "owner_org_id": 686,
       "source_url": "https://swarthmoreathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "readable_rows": 26,
+      "readable_rows": 25,
       "verified_member_opponents": 21,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 4,
+        "identity_not_d3_matched_but_posted": 3,
         "conditional_or_ambiguous_opponent": 1
       },
       "status": "parsed",
@@ -4392,11 +4392,11 @@
     {
       "owner_org_id": 745,
       "source_url": "https://vwuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "readable_rows": 27,
+      "readable_rows": 28,
       "verified_member_opponents": 20,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 3,
-        "conditional_or_ambiguous_opponent": 4
+        "identity_not_d3_matched_but_posted": 5,
+        "conditional_or_ambiguous_opponent": 3
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -4453,10 +4453,10 @@
       "owner_org_id": 752,
       "source_url": "https://generalssports.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "readable_rows": 36,
-      "verified_member_opponents": 19,
+      "verified_member_opponents": 20,
       "excluded_rows": {
         "identity_not_d3_matched_but_posted": 8,
-        "conditional_or_ambiguous_opponent": 9
+        "conditional_or_ambiguous_opponent": 8
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -6251,7 +6251,7 @@
     },
     {
       "owner_org_id": 8597,
-      "source_url": "https://www.mlcknights.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.mlcknights.com/sports/mbball/schedule?grid=true",
       "readable_rows": 26,
       "verified_member_opponents": 14,
       "excluded_rows": {
@@ -6260,9 +6260,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 1,
-      "verified_direct_url": "https://www.mlcknights.com/sports/mens-basketball/schedule?grid=true",
-      "discovery_method": "previously_verified_source"
+      "candidate_urls_tried": 5,
+      "verified_direct_url": "https://www.mlcknights.com/sports/mbball/schedule?grid=true",
+      "discovery_method": "official_school_url_or_vendor_variant"
     },
     {
       "owner_org_id": 8600,
@@ -6437,7 +6437,7 @@
     },
     {
       "owner_org_id": 12884,
-      "source_url": "https://www.centenarycyclones.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.centenarycyclones.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "readable_rows": 25,
       "verified_member_opponents": 18,
       "excluded_rows": {
@@ -6445,9 +6445,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 1,
-      "verified_direct_url": "https://www.centenarycyclones.com/sports/mens-basketball/schedule?grid=true",
-      "discovery_method": "previously_verified_source"
+      "candidate_urls_tried": 2,
+      "verified_direct_url": "https://www.centenarycyclones.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "discovery_method": "official_school_url_or_vendor_variant"
     },
     {
       "owner_org_id": 12973,
@@ -6991,7 +6991,7 @@
     },
     {
       "owner_org_id": 30047,
-      "source_url": "https://www.gokcgiants.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.gokcgiants.com/sports/mens-basketball/schedule?grid=true",
       "readable_rows": 25,
       "verified_member_opponents": 20,
       "excluded_rows": {
@@ -6999,9 +6999,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 1,
-      "verified_direct_url": "https://www.gokcgiants.com/sports/mens-basketball/schedule/2026-2027?grid=true",
-      "discovery_method": "previously_verified_source"
+      "candidate_urls_tried": 3,
+      "verified_direct_url": "https://www.gokcgiants.com/sports/mens-basketball/schedule?grid=true",
+      "discovery_method": "official_school_url_or_vendor_variant"
     },
     {
       "owner_org_id": 30064,
@@ -7449,9 +7449,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 30243,
@@ -8005,7 +8005,7 @@
       "problem": "home/away or neutral-site source disagreement",
       "source_urls": [
         "https://gounitedeast.com/schedule.aspx?schedule=3822",
-        "https://www.gokcgiants.com/sports/mens-basketball/schedule/2026-2027?grid=true"
+        "https://www.gokcgiants.com/sports/mens-basketball/schedule?grid=true"
       ]
     },
     {
@@ -8053,7 +8053,7 @@
       "problem": "home/away or neutral-site source disagreement",
       "source_urls": [
         "https://mbusabercats.com/sports/mens-basketball/schedule?grid=true",
-        "https://www.mlcknights.com/sports/mens-basketball/schedule?grid=true"
+        "https://www.mlcknights.com/sports/mbball/schedule?grid=true"
       ]
     },
     {
@@ -8189,9 +8189,9 @@
       ]
     }
   ],
-  "fixture_count": 4389,
-  "reciprocal_fixtures": 2618,
-  "unresolved_opponent_fixture_count": 1661,
+  "fixture_count": 4391,
+  "reciprocal_fixtures": 2619,
+  "unresolved_opponent_fixture_count": 1659,
   "unresolved_opponent_fixtures": [
     {
       "id": "d3-men-2026-11-06-18-other-7e7a67cf3608",
@@ -8824,21 +8824,6 @@
       "venue_location": "St. Paul, Minn. / Hutton Arena"
     },
     {
-      "id": "d3-men-2026-11-07-271-other-43567e5d4de5",
-      "date": "2026-11-07",
-      "source_owner_org_id": 271,
-      "external_opponent_label": "Trinity vs. California Lutheran",
-      "placement": "home",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://hsuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "4:30 p.m.",
-      "venue_location": "Abilene, Texas / Mabee Complex"
-    },
-    {
       "id": "d3-men-2026-11-07-276-other-e2ce311516f1",
       "date": "2026-11-07",
       "source_owner_org_id": 276,
@@ -9017,21 +9002,6 @@
       "source_url": "https://corsairathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "2:00 PM",
       "venue_location": "Dartmouth, Mass. / Tripp Athletic Center"
-    },
-    {
-      "id": "d3-men-2026-11-07-686-other-dba45c117eac",
-      "date": "2026-11-07",
-      "source_owner_org_id": 686,
-      "external_opponent_label": "Haverford vs. Rutgers-Camden",
-      "placement": "neutral",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://swarthmoreathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "5:00 PM",
-      "venue_location": "Swarthmore, PA / Tarble Pavilion"
     },
     {
       "id": "d3-men-2026-11-07-745-other-3d1fbf492844",
@@ -9254,7 +9224,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.centenarycyclones.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.centenarycyclones.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "1PM",
       "venue_location": "Hackettstown, N.J. / John M. Reeves Student Recreation Center"
     },
@@ -9379,21 +9349,6 @@
       "venue_location": "Middletown, Pa."
     },
     {
-      "id": "d3-men-2026-11-08-396-other-77f7efef85a7",
-      "date": "2026-11-08",
-      "source_owner_org_id": 396,
-      "external_opponent_label": "Batten / St. John Fisher",
-      "placement": "neutral",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://www.mcscots.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "12:00 or 2:00",
-      "venue_location": "Virginia Beach, Va."
-    },
-    {
       "id": "d3-men-2026-11-08-403-other-26b1d559598c",
       "date": "2026-11-08",
       "source_owner_org_id": 403,
@@ -9437,6 +9392,21 @@
       "source_url": "https://sewaneetigers.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "3 PM ET/2 PM CT",
       "venue_location": "Louisville, KY"
+    },
+    {
+      "id": "d3-men-2026-11-08-745-other-bc1c23e23c41",
+      "date": "2026-11-08",
+      "source_owner_org_id": 745,
+      "external_opponent_label": "St. John Fisher University vs. Washington & Lee",
+      "placement": "neutral",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://vwuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "12:00 PM",
+      "venue_location": "Virginia Beach, VA / TowneBank Arena"
     },
     {
       "id": "d3-men-2026-11-08-23260-other-edf611f8d089",
@@ -9689,7 +9659,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "7:00 PM",
       "venue_location": "Madison, NJ"
     },
@@ -9782,21 +9752,6 @@
       "source_url": "https://www.hendrixwarriors.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "7:00 PM",
       "venue_location": "Arkadelphia, Ark."
-    },
-    {
-      "id": "d3-men-2026-11-10-1159-other-92f505d7042f",
-      "date": "2026-11-10",
-      "source_owner_org_id": 1159,
-      "external_opponent_label": "SUNY Morrisville",
-      "placement": "away",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://www.keukaathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "7:30 PM",
-      "venue_location": "Morrisville, New York"
     },
     {
       "id": "d3-men-2026-11-10-1164-other-57110eae3453",
@@ -10084,6 +10039,21 @@
       "venue_location": "Timken Gymnasium"
     },
     {
+      "id": "d3-men-2026-11-11-1159-other-39bf98f0b303",
+      "date": "2026-11-11",
+      "source_owner_org_id": 1159,
+      "external_opponent_label": "SUNY Morrisville",
+      "placement": "away",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://www.keukaathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "7:30 PM",
+      "venue_location": "Morrisville, New York"
+    },
+    {
       "id": "d3-men-2026-11-11-1226-other-04e679aaa83e",
       "date": "2026-11-11",
       "source_owner_org_id": 1226,
@@ -10139,7 +10109,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.centenarycyclones.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.centenarycyclones.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "7PM",
       "venue_location": "Hackettstown, N.J. / John M. Reeves Student Recreation Center"
     },
@@ -10334,7 +10304,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.gokcgiants.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.gokcgiants.com/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "5:00 PM",
       "venue_location": "La Plume, PA / Gambal Athletic Center"
     },
@@ -11669,7 +11639,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.gokcgiants.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.gokcgiants.com/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "2:00 PM",
       "venue_location": "Potsdam, NY"
     },
@@ -12314,7 +12284,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.gokcgiants.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.gokcgiants.com/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "5:00 PM",
       "venue_location": "La Plume, PA / Gambal Athletic Center"
     },
@@ -13604,7 +13574,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.centenarycyclones.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.centenarycyclones.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "1PM",
       "venue_location": "Hackettstown, N.J. / John M. Reeves Student Recreation Center"
     },
@@ -16305,7 +16275,7 @@
       "schedule_only": true,
       "source_kind": "official_school",
       "source_url": "https://www.marinersports.org/sports/mens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "TBD",
+      "tipoff_as_posted": "2 p.m.",
       "venue_location": "Hanover, N.H."
     },
     {
@@ -17954,7 +17924,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.gokcgiants.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.gokcgiants.com/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "6:00 PM",
       "venue_location": "La Plume, PA / Gambal Athletic Center"
     },
@@ -19634,7 +19604,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "2:00 PM",
       "venue_location": "Newburgh, NY"
     },
@@ -20039,7 +20009,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.centenarycyclones.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.centenarycyclones.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "2PM",
       "venue_location": "Hackettstown, N.J. / John M. Reeves Student Recreation Center"
     },
@@ -20399,7 +20369,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "TBA",
       "venue_location": "Albany, NY"
     },
@@ -21616,7 +21586,7 @@
       "source_kind": "official_school",
       "source_url": "https://www.clusports.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "4 PM",
-      "venue_location": "Claremont, Calif. / Roberts Pavillion"
+      "venue_location": "Claremont, Calif. / Roberts Pavilion"
     },
     {
       "id": "d3-men-2027-01-09-137-other-c50c00e5f189",
@@ -23999,7 +23969,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "7:00 PM",
       "venue_location": "New York, NY"
     },
@@ -26624,7 +26594,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.gokcgiants.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.gokcgiants.com/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "6:00 PM",
       "venue_location": "La Plume, PA / Gambal Athletic Center"
     },
@@ -28154,7 +28124,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "3:00 PM",
       "venue_location": "New York, NY / The Doghouse"
     },
@@ -29489,7 +29459,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "1:00 PM",
       "venue_location": "HIGHER SEED"
     },
@@ -34033,9 +34003,9 @@
       "home_org_id": 2715,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.johnjayathletics.com/sports/mens-basketball/schedule?grid=true"
+        "https://www.johnjayathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         321
@@ -34309,7 +34279,7 @@
       "status": "scheduled",
       "source_url": "https://www.nazathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.gokcgiants.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+        "https://www.gokcgiants.com/sports/mens-basketball/schedule?grid=true",
         "https://www.nazathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
@@ -34759,9 +34729,9 @@
       "home_org_id": 12884,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.centenarycyclones.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.centenarycyclones.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.centenarycyclones.com/sports/mens-basketball/schedule?grid=true"
+        "https://www.centenarycyclones.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         12884
@@ -35429,7 +35399,7 @@
       "venue_location": "Beloit, Wis.",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 85-48",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -35479,7 +35449,7 @@
       "venue_location": "Marietta, OH",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "L, 82-94",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -35655,7 +35625,7 @@
       "venue_location": "Columbus, Ohio",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 78-74",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -35755,7 +35725,7 @@
       "venue_location": "Abilene, Texas",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 81-73",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -35851,7 +35821,7 @@
       "venue_location": "Lyndonville, VT.",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 103-70",
       "neutral_home_designation_unconfirmed": true
     },
     {
@@ -36201,7 +36171,7 @@
       "venue_location": "Fredonia, N.Y.",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "L, 46-66",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -36561,7 +36531,7 @@
       "home_org_id": 641,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://rollrivers.com/schedule.aspx?schedule=2841",
+      "source_url": "https://prairiefire.knox.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://prairiefire.knox.edu/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://rollrivers.com/schedule.aspx?schedule=2841"
@@ -36574,10 +36544,10 @@
       "source_verification": "reciprocal",
       "tipoff_as_posted": "7:00 P.M.",
       "venue": "",
-      "venue_location": "Indianola, Iowa",
+      "venue_location": "Indianola, IA",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "L, 48-78",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -36601,7 +36571,7 @@
       "venue_location": "Appleton, WI",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "L, 65-75",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -36839,9 +36809,9 @@
       "home_org_id": 30047,
       "neutral": true,
       "status": "scheduled",
-      "source_url": "https://www.gokcgiants.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.gokcgiants.com/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://www.gokcgiants.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+        "https://www.gokcgiants.com/sports/mens-basketball/schedule?grid=true",
         "https://www.muhlenbergsports.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
@@ -37055,7 +37025,7 @@
       "venue_location": "River Forest, IL",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 70-67",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -37081,7 +37051,7 @@
       "venue_location": "Tacoma, Wash.",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 74-64",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -37298,7 +37268,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "6:00 PM",
+      "tipoff_as_posted": "6:45 PM",
       "venue": "Salvitti Family Gymnasium",
       "venue_location": "Washington, Pa.",
       "network_as_posted": "",
@@ -37377,7 +37347,7 @@
       "venue_location": "Whittier, Calif.",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 80-79",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -37981,6 +37951,30 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2026-11-08-396-745",
+      "date": "2026-11-08",
+      "away_org_id": 396,
+      "home_org_id": 745,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.mcscots.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://www.mcscots.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        396
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "2:00 PM",
+      "venue": "",
+      "venue_location": "Virginia Beach, Va.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "TowneBank Tipoff Tournament",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2026-11-08-403-1468",
       "date": "2026-11-08",
       "away_org_id": 403,
@@ -38101,6 +38095,32 @@
       "radio_as_posted": "",
       "tournament": "",
       "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-11-08-601-752",
+      "date": "2026-11-08",
+      "away_org_id": 601,
+      "home_org_id": 752,
+      "neutral": true,
+      "status": "scheduled",
+      "source_url": "https://generalssports.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://generalssports.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.sjfathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        601,
+        752
+      ],
+      "source_kind": "official_school",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "12 p.m.",
+      "venue": "",
+      "venue_location": "Virginia Beach, Va.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "TowneBank Tip-Off Tournament",
+      "neutral_home_designation_unconfirmed": true
     },
     {
       "id": "d3-men-2026-11-08-814-8687",
@@ -39038,7 +39058,7 @@
       "source_url": "https://athletics.misericordia.edu/sports/mens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
         "https://athletics.misericordia.edu/sports/mens-basketball/schedule/2026-2027?grid=true",
-        "https://www.gokcgiants.com/sports/mens-basketball/schedule/2026-2027?grid=true"
+        "https://www.gokcgiants.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         16142,
@@ -41843,10 +41863,10 @@
       "home_org_id": 8597,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.mlcknights.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.mlcknights.com/sports/mbball/schedule?grid=true",
       "official_schedule_sources": [
         "https://vikings.lawrence.edu/sports/mens-basketball/schedule/2026?grid=true",
-        "https://www.mlcknights.com/sports/mens-basketball/schedule?grid=true"
+        "https://www.mlcknights.com/sports/mbball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         348,
@@ -43734,7 +43754,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "single_official_school",
-      "tipoff_as_posted": "1 p.m. ET",
+      "tipoff_as_posted": "3 p.m. ET",
       "venue": "",
       "venue_location": "West Hartford, Conn.",
       "network_as_posted": "",
@@ -43923,9 +43943,9 @@
       "home_org_id": 601,
       "neutral": true,
       "status": "scheduled",
-      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.johnjayathletics.com/sports/mens-basketball/schedule?grid=true"
+        "https://www.johnjayathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         321
@@ -45107,9 +45127,9 @@
       "home_org_id": 8597,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.mlcknights.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.mlcknights.com/sports/mbball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://www.mlcknights.com/sports/mens-basketball/schedule?grid=true"
+        "https://www.mlcknights.com/sports/mbball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         8597
@@ -45229,9 +45249,9 @@
       "home_org_id": 30163,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.centenarycyclones.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.centenarycyclones.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.centenarycyclones.com/sports/mens-basketball/schedule?grid=true"
+        "https://www.centenarycyclones.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         12884
@@ -46238,7 +46258,7 @@
       "source_url": "https://www.hamlineathletics.com/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://www.hamlineathletics.com/sports/mens-basketball/schedule?grid=true",
-        "https://www.mlcknights.com/sports/mens-basketball/schedule?grid=true"
+        "https://www.mlcknights.com/sports/mbball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         268,
@@ -46435,9 +46455,9 @@
       "home_org_id": 397,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.centenarycyclones.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.centenarycyclones.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.centenarycyclones.com/sports/mens-basketball/schedule?grid=true"
+        "https://www.centenarycyclones.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         12884
@@ -48081,9 +48101,9 @@
       "home_org_id": 321,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.johnjayathletics.com/sports/mens-basketball/schedule?grid=true"
+        "https://www.johnjayathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         321
@@ -49293,10 +49313,10 @@
       "home_org_id": 30047,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.gokcgiants.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.gokcgiants.com/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://gounitedeast.com/schedule.aspx?schedule=3821",
-        "https://www.gokcgiants.com/sports/mens-basketball/schedule/2026-2027?grid=true"
+        "https://www.gokcgiants.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         30047,
@@ -54175,9 +54195,9 @@
       "home_org_id": 321,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.johnjayathletics.com/sports/mens-basketball/schedule?grid=true"
+        "https://www.johnjayathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         321
@@ -54299,7 +54319,7 @@
       "status": "scheduled",
       "source_url": "https://www.keukaathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.gokcgiants.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+        "https://www.gokcgiants.com/sports/mens-basketball/schedule?grid=true",
         "https://www.keukaathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
@@ -56621,9 +56641,9 @@
       "home_org_id": 30047,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.gokcgiants.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.gokcgiants.com/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://www.gokcgiants.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+        "https://www.gokcgiants.com/sports/mens-basketball/schedule?grid=true",
         "https://www.uticapioneers.com/sports/mens-basketball/schedule/2026-2027?grid=true"
       ],
       "verified_by_org_ids": [
@@ -58247,9 +58267,9 @@
       "home_org_id": 382,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.johnjayathletics.com/sports/mens-basketball/schedule?grid=true"
+        "https://www.johnjayathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         321
@@ -60118,7 +60138,7 @@
       "source_url": "https://brooklyncollegeathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://brooklyncollegeathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://www.centenarycyclones.com/sports/mens-basketball/schedule?grid=true"
+        "https://www.centenarycyclones.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         79,
@@ -62150,7 +62170,7 @@
       "source_url": "https://athletics.pct.edu/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://athletics.pct.edu/sports/mens-basketball/schedule?grid=true",
-        "https://www.gokcgiants.com/sports/mens-basketball/schedule/2026-2027?grid=true"
+        "https://www.gokcgiants.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         30047,
@@ -64481,9 +64501,9 @@
       "home_org_id": 321,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.johnjayathletics.com/sports/mens-basketball/schedule?grid=true"
+        "https://www.johnjayathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         321
@@ -66805,9 +66825,9 @@
       "home_org_id": 30085,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.centenarycyclones.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.centenarycyclones.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.centenarycyclones.com/sports/mens-basketball/schedule?grid=true"
+        "https://www.centenarycyclones.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         12884
@@ -68049,7 +68069,7 @@
       "status": "scheduled",
       "source_url": "https://www.lehmanathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.centenarycyclones.com/sports/mens-basketball/schedule?grid=true",
+        "https://www.centenarycyclones.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.lehmanathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
@@ -68225,10 +68245,10 @@
       "home_org_id": 8597,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.mlcknights.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.mlcknights.com/sports/mbball/schedule?grid=true",
       "official_schedule_sources": [
         "https://athletics.macalester.edu/sports/mens-basketball/schedule?grid=true",
-        "https://www.mlcknights.com/sports/mens-basketball/schedule?grid=true"
+        "https://www.mlcknights.com/sports/mbball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         376,
@@ -71829,10 +71849,10 @@
       "home_org_id": 12884,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.centenarycyclones.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.centenarycyclones.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.cairnhighlanders.com/sports/mens-basketball/schedule?grid=true",
-        "https://www.centenarycyclones.com/sports/mens-basketball/schedule?grid=true"
+        "https://www.centenarycyclones.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         1305,
@@ -71903,10 +71923,10 @@
       "home_org_id": 8597,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.mlcknights.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.mlcknights.com/sports/mbball/schedule?grid=true",
       "official_schedule_sources": [
         "https://www.blcvikings.com/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://www.mlcknights.com/sports/mens-basketball/schedule?grid=true"
+        "https://www.mlcknights.com/sports/mbball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         8597,
@@ -71956,7 +71976,7 @@
       "source_url": "https://seueagles.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://seueagles.com/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://www.gokcgiants.com/sports/mens-basketball/schedule/2026-2027?grid=true"
+        "https://www.gokcgiants.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         9684,
@@ -73741,9 +73761,9 @@
       "home_org_id": 8597,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.mlcknights.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.mlcknights.com/sports/mbball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://www.mlcknights.com/sports/mens-basketball/schedule?grid=true",
+        "https://www.mlcknights.com/sports/mbball/schedule?grid=true",
         "https://www.morriscougars.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
@@ -74068,7 +74088,7 @@
       "source_url": "https://athletics.alvernia.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.alvernia.edu/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://www.gokcgiants.com/sports/mens-basketball/schedule/2026-2027?grid=true"
+        "https://www.gokcgiants.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         938,
@@ -75735,9 +75755,9 @@
       "home_org_id": 8597,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.mlcknights.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.mlcknights.com/sports/mbball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://www.mlcknights.com/sports/mens-basketball/schedule?grid=true",
+        "https://www.mlcknights.com/sports/mbball/schedule?grid=true",
         "https://www.uwsyellowjackets.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
@@ -76937,10 +76957,10 @@
       "home_org_id": 12884,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.centenarycyclones.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.centenarycyclones.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.alvernia.edu/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://www.centenarycyclones.com/sports/mens-basketball/schedule?grid=true"
+        "https://www.centenarycyclones.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         938,
@@ -82057,9 +82077,9 @@
       "home_org_id": 30047,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.gokcgiants.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.gokcgiants.com/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://www.gokcgiants.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+        "https://www.gokcgiants.com/sports/mens-basketball/schedule?grid=true",
         "https://www.marywoodpacers.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
@@ -82433,9 +82453,9 @@
       "home_org_id": 633,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.centenarycyclones.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.centenarycyclones.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.centenarycyclones.com/sports/mens-basketball/schedule?grid=true"
+        "https://www.centenarycyclones.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         12884
@@ -84473,10 +84493,10 @@
       "home_org_id": 12884,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.centenarycyclones.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.centenarycyclones.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://gounitedeast.com/schedule.aspx?schedule=3821",
-        "https://www.centenarycyclones.com/sports/mens-basketball/schedule?grid=true"
+        "https://www.centenarycyclones.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         12884,
@@ -84551,9 +84571,9 @@
       "home_org_id": 30047,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.gokcgiants.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.gokcgiants.com/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://www.gokcgiants.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+        "https://www.gokcgiants.com/sports/mens-basketball/schedule?grid=true",
         "https://www.lbcchargers.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
@@ -87975,9 +87995,9 @@
       "home_org_id": 292,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.johnjayathletics.com/sports/mens-basketball/schedule?grid=true"
+        "https://www.johnjayathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         321
@@ -89658,7 +89678,7 @@
       "source_url": "https://www.gallaudetbison.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.gallaudetbison.com/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://www.gokcgiants.com/sports/mens-basketball/schedule/2026-2027?grid=true"
+        "https://www.gokcgiants.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         245,
@@ -93336,9 +93356,9 @@
       "home_org_id": 321,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.johnjayathletics.com/sports/mens-basketball/schedule?grid=true"
+        "https://www.johnjayathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         321
@@ -96041,10 +96061,10 @@
       "home_org_id": 30047,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.gokcgiants.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.gokcgiants.com/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://gounitedeast.com/schedule.aspx?schedule=3821",
-        "https://www.gokcgiants.com/sports/mens-basketball/schedule/2026-2027?grid=true"
+        "https://www.gokcgiants.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         30047,
@@ -96713,9 +96733,9 @@
       "home_org_id": 403,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.johnjayathletics.com/sports/mens-basketball/schedule?grid=true"
+        "https://www.johnjayathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         321
@@ -100360,7 +100380,7 @@
       "status": "scheduled",
       "source_url": "https://www.uwsyellowjackets.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.mlcknights.com/sports/mens-basketball/schedule?grid=true",
+        "https://www.mlcknights.com/sports/mbball/schedule?grid=true",
         "https://www.uwsyellowjackets.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
@@ -100762,9 +100782,9 @@
       "home_org_id": 12884,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.centenarycyclones.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.centenarycyclones.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.centenarycyclones.com/sports/mens-basketball/schedule?grid=true"
+        "https://www.centenarycyclones.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         12884
@@ -100914,7 +100934,7 @@
       "status": "scheduled",
       "source_url": "https://www.notredamegators.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.gokcgiants.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+        "https://www.gokcgiants.com/sports/mens-basketball/schedule?grid=true",
         "https://www.notredamegators.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
@@ -102784,9 +102804,9 @@
       "home_org_id": 321,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.johnjayathletics.com/sports/mens-basketball/schedule?grid=true"
+        "https://www.johnjayathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         321
@@ -104891,7 +104911,7 @@
       "source_url": "https://www.blcvikings.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.blcvikings.com/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://www.mlcknights.com/sports/mens-basketball/schedule?grid=true"
+        "https://www.mlcknights.com/sports/mbball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         8597,
@@ -104917,7 +104937,7 @@
       "source_url": "https://gwyneddathletics.com/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://gwyneddathletics.com/sports/mens-basketball/schedule?grid=true",
-        "https://www.centenarycyclones.com/sports/mens-basketball/schedule?grid=true"
+        "https://www.centenarycyclones.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         12399,
@@ -113240,7 +113260,7 @@
       "status": "scheduled",
       "source_url": "https://www.morriscougars.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.mlcknights.com/sports/mens-basketball/schedule?grid=true",
+        "https://www.mlcknights.com/sports/mbball/schedule?grid=true",
         "https://www.morriscougars.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
@@ -113469,7 +113489,7 @@
       "source_url": "https://seueagles.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://seueagles.com/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://www.centenarycyclones.com/sports/mens-basketball/schedule?grid=true"
+        "https://www.centenarycyclones.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         9684,
@@ -113595,7 +113615,7 @@
       "source_url": "https://www.abingtonsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.abingtonsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://www.gokcgiants.com/sports/mens-basketball/schedule/2026-2027?grid=true"
+        "https://www.gokcgiants.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         30047,
@@ -116184,9 +116204,9 @@
       "home_org_id": 321,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.johnjayathletics.com/sports/mens-basketball/schedule?grid=true"
+        "https://www.johnjayathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         321
@@ -116258,9 +116278,9 @@
       "home_org_id": 12884,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.centenarycyclones.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.centenarycyclones.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.centenarycyclones.com/sports/mens-basketball/schedule?grid=true"
+        "https://www.centenarycyclones.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         12884
@@ -118354,9 +118374,9 @@
       "home_org_id": 30047,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.gokcgiants.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.gokcgiants.com/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://www.gokcgiants.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+        "https://www.gokcgiants.com/sports/mens-basketball/schedule?grid=true",
         "https://www.wilsonphoenix.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
@@ -118813,7 +118833,7 @@
       "source_url": "https://mbusabercats.com/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://mbusabercats.com/sports/mens-basketball/schedule?grid=true",
-        "https://www.mlcknights.com/sports/mens-basketball/schedule?grid=true"
+        "https://www.mlcknights.com/sports/mbball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         1194,
@@ -118836,9 +118856,9 @@
       "home_org_id": 58,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.johnjayathletics.com/sports/mens-basketball/schedule?grid=true"
+        "https://www.johnjayathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         321
@@ -119418,10 +119438,10 @@
       "home_org_id": 30047,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.gokcgiants.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.gokcgiants.com/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://www.cairnhighlanders.com/sports/mens-basketball/schedule?grid=true",
-        "https://www.gokcgiants.com/sports/mens-basketball/schedule/2026-2027?grid=true"
+        "https://www.gokcgiants.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         1305,
@@ -122938,9 +122958,9 @@
       "home_org_id": 321,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.johnjayathletics.com/sports/mens-basketball/schedule?grid=true"
+        "https://www.johnjayathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         321
@@ -126990,9 +127010,9 @@
       "home_org_id": 2715,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.centenarycyclones.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.centenarycyclones.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.centenarycyclones.com/sports/mens-basketball/schedule?grid=true"
+        "https://www.centenarycyclones.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         12884
@@ -128270,9 +128290,9 @@
       "home_org_id": 79,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.johnjayathletics.com/sports/mens-basketball/schedule?grid=true"
+        "https://www.johnjayathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         321
@@ -130509,10 +130529,10 @@
       "home_org_id": 8597,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.mlcknights.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.mlcknights.com/sports/mbball/schedule?grid=true",
       "official_schedule_sources": [
         "https://www.blcvikings.com/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://www.mlcknights.com/sports/mens-basketball/schedule?grid=true"
+        "https://www.mlcknights.com/sports/mbball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         8597,
@@ -130609,10 +130629,10 @@
       "home_org_id": 12884,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.centenarycyclones.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.centenarycyclones.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://gwyneddathletics.com/sports/mens-basketball/schedule?grid=true",
-        "https://www.centenarycyclones.com/sports/mens-basketball/schedule?grid=true"
+        "https://www.centenarycyclones.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         12399,
@@ -130637,7 +130657,7 @@
       "status": "scheduled",
       "source_url": "https://www.psuberksathletics.com/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://www.gokcgiants.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+        "https://www.gokcgiants.com/sports/mens-basketball/schedule?grid=true",
         "https://www.psuberksathletics.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
@@ -134460,9 +134480,9 @@
       "home_org_id": 30047,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.gokcgiants.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.gokcgiants.com/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://www.gokcgiants.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+        "https://www.gokcgiants.com/sports/mens-basketball/schedule?grid=true",
         "https://www.smcmathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
@@ -135148,9 +135168,9 @@
       "home_org_id": 8597,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.mlcknights.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.mlcknights.com/sports/mbball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://www.mlcknights.com/sports/mens-basketball/schedule?grid=true",
+        "https://www.mlcknights.com/sports/mbball/schedule?grid=true",
         "https://www.morriscougars.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
@@ -136132,9 +136152,9 @@
       "home_org_id": 279,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.johnjayathletics.com/sports/mens-basketball/schedule?grid=true"
+        "https://www.johnjayathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         321
@@ -139050,10 +139070,10 @@
       "home_org_id": 12884,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.centenarycyclones.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.centenarycyclones.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://seueagles.com/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://www.centenarycyclones.com/sports/mens-basketball/schedule?grid=true"
+        "https://www.centenarycyclones.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         9684,
@@ -141248,9 +141268,9 @@
       "home_org_id": 303,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.centenarycyclones.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.centenarycyclones.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.centenarycyclones.com/sports/mens-basketball/schedule?grid=true"
+        "https://www.centenarycyclones.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         12884
