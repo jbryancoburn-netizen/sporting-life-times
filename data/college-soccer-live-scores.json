@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "checked_at_utc": "2026-11-08T02:28:56.335844+00:00",
+  "checked_at_utc": "2026-11-08T04:36:30.314424+00:00",
   "source": "NCAA scoreboard via ncaa-api compatibility endpoint",
   "games": [
     {
@@ -771,6 +771,19 @@
       "source_url": "https://www.ncaa.com/game/6664796"
     },
     {
+      "match_id": "men-6664804",
+      "cohort": "men-d2",
+      "status": "live",
+      "home_score": 4,
+      "away_score": 1,
+      "home_name": "Regis (CO)",
+      "away_name": "Fort Lewis",
+      "home_id": "regis-co",
+      "away_id": "fort-lewis",
+      "period": "2ND HALF",
+      "source_url": "https://www.ncaa.com/game/6664804"
+    },
+    {
       "match_id": "men-6664853",
       "cohort": "men-d3",
       "status": "final",
@@ -786,14 +799,14 @@
     {
       "match_id": "men-6664884",
       "cohort": "men-d3",
-      "status": "live",
+      "status": "final",
       "home_score": 1,
       "away_score": 1,
       "home_name": "Grove City",
       "away_name": "Allegheny",
       "home_id": "grove-city",
       "away_id": "allegheny",
-      "period": "2ND HALF",
+      "period": "FINAL/PK",
       "source_url": "https://www.ncaa.com/game/6664884"
     },
     {
@@ -877,14 +890,14 @@
     {
       "match_id": "men-6665072",
       "cohort": "men-d2",
-      "status": "live",
-      "home_score": 1,
-      "away_score": 0,
+      "status": "final",
+      "home_score": 3,
+      "away_score": 1,
       "home_name": "Midwestern St.",
       "away_name": "St. Mary's (TX)",
       "home_id": "midwestern-st",
       "away_id": "st-marys-tx",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6665072"
     },
     {
@@ -1326,7 +1339,7 @@
       "away_name": "UC Santa Barbara",
       "home_id": "uc-irvine",
       "away_id": "uc-santa-barbara",
-      "period": "1ST HALF",
+      "period": "OT",
       "source_url": "https://www.ncaa.com/game/6666504"
     },
     {
@@ -1462,15 +1475,28 @@
     {
       "match_id": "men-6667021",
       "cohort": "men-d1",
-      "status": "live",
+      "status": "final",
       "home_score": 1,
       "away_score": 0,
       "home_name": "Bucknell",
       "away_name": "Loyola Maryland",
       "home_id": "bucknell",
       "away_id": "loyola-maryland",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6667021"
+    },
+    {
+      "match_id": "men-6674341",
+      "cohort": "men-d1",
+      "status": "live",
+      "home_score": 1,
+      "away_score": 0,
+      "home_name": "California Baptist",
+      "away_name": "San Diego St.",
+      "home_id": "california-baptist",
+      "away_id": "san-diego-st",
+      "period": "2ND HALF",
+      "source_url": "https://www.ncaa.com/game/6674341"
     },
     {
       "match_id": "women-6607096",
@@ -1523,6 +1549,19 @@
       "away_id": "san-diego",
       "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6607264"
+    },
+    {
+      "match_id": "women-6607605",
+      "cohort": "women-d1",
+      "status": "live",
+      "home_score": 1,
+      "away_score": 1,
+      "home_name": "New Mexico",
+      "away_name": "Air Force",
+      "home_id": "new-mexico",
+      "away_id": "air-force",
+      "period": "2ND HALF",
+      "source_url": "https://www.ncaa.com/game/6607605"
     },
     {
       "match_id": "women-6607657",
@@ -2093,7 +2132,7 @@
       "away_name": "Colorado Mesa",
       "home_id": "colorado-mines",
       "away_id": "colorado-mesa",
-      "period": "FINAL (2OT)",
+      "period": "FINAL/PK",
       "source_url": "https://www.ncaa.com/game/6664828"
     },
     {
@@ -2632,15 +2671,28 @@
     {
       "match_id": "women-6666422",
       "cohort": "women-d1",
-      "status": "live",
-      "home_score": 2,
+      "status": "final",
+      "home_score": 3,
       "away_score": 0,
       "home_name": "Utah Valley",
       "away_name": "Cal Poly",
       "home_id": "utah-valley",
       "away_id": "cal-poly",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6666422"
+    },
+    {
+      "match_id": "women-6666423",
+      "cohort": "women-d1",
+      "status": "live",
+      "home_score": 1,
+      "away_score": 0,
+      "home_name": "UC San Diego",
+      "away_name": "Cal St. Fullerton",
+      "home_id": "uc-san-diego",
+      "away_id": "cal-st-fullerton",
+      "period": "HALF",
+      "source_url": "https://www.ncaa.com/game/6666423"
     },
     {
       "match_id": "women-6666469",
