@@ -6,10 +6,20 @@
   "elo_approved": false,
   "source": "ESPN site API, completed finals since NBL27 regular-season opening",
   "season_start": "2026-09-19",
-  "updated_at": "2026-11-07T21:58:14.129232+00:00",
-  "games_replayed": 57,
+  "updated_at": "2026-11-08T06:15:18.548147+00:00",
+  "games_replayed": 58,
   "teams": 10,
   "rows": [
+    {
+      "team": "Sydney Kings",
+      "wins": 8,
+      "losses": 3,
+      "played": 11,
+      "win_pct": 0.727,
+      "points_for": 1089,
+      "points_against": 980,
+      "points_pct": 111.12
+    },
     {
       "team": "Tasmania JackJumpers",
       "wins": 8,
@@ -19,16 +29,6 @@
       "points_for": 1035,
       "points_against": 985,
       "points_pct": 105.08
-    },
-    {
-      "team": "Sydney Kings",
-      "wins": 7,
-      "losses": 3,
-      "played": 10,
-      "win_pct": 0.7,
-      "points_for": 979,
-      "points_against": 881,
-      "points_pct": 111.12
     },
     {
       "team": "Melbourne United",
@@ -83,12 +83,12 @@
     {
       "team": "South East Melbourne Phoenix",
       "wins": 4,
-      "losses": 6,
-      "played": 10,
-      "win_pct": 0.4,
-      "points_for": 969,
-      "points_against": 943,
-      "points_pct": 102.76
+      "losses": 7,
+      "played": 11,
+      "win_pct": 0.364,
+      "points_for": 1068,
+      "points_against": 1053,
+      "points_pct": 101.42
     },
     {
       "team": "New Zealand Breakers",
@@ -112,6 +112,18 @@
     }
   ],
   "recent_finals": [
+    {
+      "id": "401875307",
+      "played_at": "2026-11-08T04:00Z",
+      "home": "Sydney Kings",
+      "away": "South East Melbourne Phoenix",
+      "home_score": 110,
+      "away_score": 99,
+      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875307/phoenix-kings",
+      "verified": false,
+      "provider": "espn",
+      "state": "candidate"
+    },
     {
       "id": "401875286",
       "played_at": "2026-11-07T08:30Z",
@@ -216,18 +228,6 @@
       "home_score": 98,
       "away_score": 105,
       "source_url": "https://www.espn.com/nbl/game/_/gameId/401875285/hawks-wildcats",
-      "verified": false,
-      "provider": "espn",
-      "state": "candidate"
-    },
-    {
-      "id": "401875291",
-      "played_at": "2026-10-31T08:30Z",
-      "home": "Cairns Taipans",
-      "away": "Melbourne United",
-      "home_score": 97,
-      "away_score": 113,
-      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875291/united-taipans",
       "verified": false,
       "provider": "espn",
       "state": "candidate"
