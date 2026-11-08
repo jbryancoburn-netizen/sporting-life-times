@@ -18,6 +18,8 @@ from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 from zoneinfo import ZoneInfo
 
+from nfl_finalization_guard import overlay_recent_live_finals
+
 ROOT = Path(__file__).resolve().parents[1]
 EDITION = ROOT / "data/nfl-2026-edition.json"
 BOXES = ROOT / "data/nfl-2026-boxscores.json"
@@ -386,6 +388,9 @@ def run(fast):
                     and sum(q["score"] for q in earlier)==score):
                 g[side]["linescores"]=earlier
         games[eid]=g
+    # The game-day publisher polls the fresh ESPN date feed. It is sometimes
+    # ahead of the ESPN weekly cache; use only verified, recent final states.
+    games=overlay_recent_live_finals(games,load(ROOT/"data/nfl-live.json",{}),now)
     games=sorted(games.values(),key=lambda g:(g["date"] or "",g["id"]))
     if len(games)!=272 or len({g["id"] for g in games})!=272:
         raise RuntimeError("NFL 2026 regular-season ledger must contain exactly 272 distinct games; found "+str(len(games)))
