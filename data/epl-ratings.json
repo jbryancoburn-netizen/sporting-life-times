@@ -1,6 +1,6 @@
 {
   "as_of_date": "2026-11-08",
-  "completed_matches": 99,
+  "completed_matches": 100,
   "elo_history": {
     "Arsenal": [
       {
@@ -147,6 +147,13 @@
         "fixture_id": "401879250",
         "match": 9,
         "opponent": "Fulham"
+      },
+      {
+        "date": "2026-11-08",
+        "elo": 1503.86206,
+        "fixture_id": "401879240",
+        "match": 10,
+        "opponent": "Manchester United"
       }
     ],
     "Bournemouth": [
@@ -1218,6 +1225,13 @@
         "fixture_id": "401879248",
         "match": 9,
         "opponent": "Chelsea"
+      },
+      {
+        "date": "2026-11-08",
+        "elo": 1472.0583,
+        "fixture_id": "401879240",
+        "match": 10,
+        "opponent": "Aston Villa"
       }
     ],
     "Newcastle United": [
@@ -1538,10 +1552,10 @@
       "W"
     ],
     "Aston Villa": [
-      "W",
       "D",
       "W",
       "W",
+      "D",
       "D"
     ],
     "Bournemouth": [
@@ -1638,9 +1652,9 @@
     "Manchester United": [
       "D",
       "D",
-      "D",
       "L",
-      "L"
+      "L",
+      "D"
     ],
     "Newcastle United": [
       "L",
@@ -1673,7 +1687,7 @@
   },
   "last_match_elo_delta": {
     "Arsenal": 6.53711,
-    "Aston Villa": -2.16704,
+    "Aston Villa": 0.70717,
     "Bournemouth": 11.29494,
     "Brentford": -7.74031,
     "Brighton": 7.74031,
@@ -1687,7 +1701,7 @@
     "Leeds United": 8.50464,
     "Liverpool": 10.03528,
     "Manchester City": -10.61389,
-    "Manchester United": -7.65151,
+    "Manchester United": -0.70717,
     "Newcastle United": 1.54497,
     "Nott'm Forest": 10.61389,
     "Sunderland": 10.15166,
@@ -1700,12 +1714,12 @@
     "fixture_policy": "only feed-confirmed future fixtures",
     "rating_origin": "neutral baseline; no independently sourced prior-season ratings",
     "season": "2026-2027",
-    "source_fixtures": 99,
-    "source_sha256": "482ba46648103a932298b05abccbb33ace5c93e55ab965805f31dd0fe311d33b"
+    "source_fixtures": 100,
+    "source_sha256": "14584f41943d28b6cf74f0d63523d38d4b0a11d7f33f10320202a829faf76cbf"
   },
   "ratings": {
     "Arsenal": 1572.18786,
-    "Aston Villa": 1503.15489,
+    "Aston Villa": 1503.86206,
     "Bournemouth": 1512.98934,
     "Brentford": 1507.57857,
     "Brighton": 1547.94762,
@@ -1719,7 +1733,7 @@
     "Leeds United": 1506.77362,
     "Liverpool": 1528.61575,
     "Manchester City": 1529.43018,
-    "Manchester United": 1472.76547,
+    "Manchester United": 1472.0583,
     "Newcastle United": 1488.41912,
     "Nott'm Forest": 1474.30234,
     "Sunderland": 1466.09721,
@@ -2517,6 +2531,14 @@
       "home": "Brighton",
       "home_score": 2,
       "kickoff_utc": "2026-11-08T14:00:00+00:00"
+    },
+    {
+      "away": "Aston Villa",
+      "away_score": 4,
+      "fixture_id": "401879240",
+      "home": "Manchester United",
+      "home_score": 4,
+      "kickoff_utc": "2026-11-08T16:30:00+00:00"
     }
   ],
   "standings": [
@@ -2620,6 +2642,17 @@
       "won": 3
     },
     {
+      "club": "Aston Villa",
+      "drawn": 4,
+      "ga": 17,
+      "gd": -3,
+      "gf": 14,
+      "lost": 3,
+      "played": 10,
+      "points": 13,
+      "won": 3
+    },
+    {
       "club": "Tottenham",
       "drawn": 3,
       "ga": 11,
@@ -2638,17 +2671,6 @@
       "gf": 13,
       "lost": 4,
       "played": 10,
-      "points": 12,
-      "won": 3
-    },
-    {
-      "club": "Aston Villa",
-      "drawn": 3,
-      "ga": 13,
-      "gd": -3,
-      "gf": 10,
-      "lost": 3,
-      "played": 9,
       "points": 12,
       "won": 3
     },
@@ -2708,6 +2730,17 @@
       "won": 3
     },
     {
+      "club": "Manchester United",
+      "drawn": 5,
+      "ga": 19,
+      "gd": -5,
+      "gf": 14,
+      "lost": 4,
+      "played": 10,
+      "points": 8,
+      "won": 1
+    },
+    {
       "club": "Sunderland",
       "drawn": 2,
       "ga": 17,
@@ -2717,17 +2750,6 @@
       "played": 10,
       "points": 8,
       "won": 2
-    },
-    {
-      "club": "Manchester United",
-      "drawn": 4,
-      "ga": 15,
-      "gd": -5,
-      "gf": 10,
-      "lost": 4,
-      "played": 9,
-      "points": 7,
-      "won": 1
     },
     {
       "club": "Crystal Palace",

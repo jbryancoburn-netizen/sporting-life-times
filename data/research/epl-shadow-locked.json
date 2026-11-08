@@ -129,6 +129,22 @@
         "log_loss": 0.856801763559228
       }
     },
+    "401879240": {
+      "away": "Aston Villa",
+      "away_score": 4,
+      "baseline": {
+        "brier": 0.8474828703370361,
+        "log_loss": 1.3862943611198906
+      },
+      "fixture_id": "401879240",
+      "home": "Manchester United",
+      "home_score": 4,
+      "outcome": "draw",
+      "research": {
+        "brier": 0.8402810034225237,
+        "log_loss": 1.3655380373246508
+      }
+    },
     "401879241": {
       "away": "Newcastle United",
       "away_score": 1,
@@ -821,19 +837,19 @@
   "schema_version": 1,
   "status": "research_only_not_for_live_promotion",
   "summary": {
-    "graded_count": 19,
+    "graded_count": 20,
     "locked_count": 30,
-    "new_grades": 4,
+    "new_grades": 1,
     "new_locks": 0,
     "note": "Paired pregame outcomes only; a small sample cannot validate superiority.",
     "scores": {
       "baseline": {
-        "brier": 0.581901,
-        "log_loss": 0.977145
+        "brier": 0.59518,
+        "log_loss": 0.997603
       },
       "research": {
-        "brier": 0.589247,
-        "log_loss": 0.987579
+        "brier": 0.601799,
+        "log_loss": 1.006477
       }
     }
   }

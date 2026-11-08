@@ -3,32 +3,6 @@
   "fixtures": [
     {
       "away": {
-        "elo": 1503.1548887278761,
-        "expected_goals": 1.2171858910705853,
-        "id": "362",
-        "name": "Aston Villa"
-      },
-      "fixture_id": "401879240",
-      "home": {
-        "elo": 1472.7654704249371,
-        "expected_goals": 1.4828141089294147,
-        "id": "360",
-        "name": "Manchester United"
-      },
-      "kickoff_utc": "2026-11-08T16:30:00+00:00",
-      "probabilities": {
-        "away": 0.3396416440462008,
-        "draw": 0.25,
-        "home": 0.4103583559537992
-      },
-      "projected_score": {
-        "away": 1,
-        "home": 1,
-        "method": "heuristic_unvalidated_goal_rates"
-      }
-    },
-    {
-      "away": {
         "elo": 1484.44032580046,
         "expected_goals": 1.116680196713303,
         "id": "370",
@@ -82,22 +56,22 @@
     {
       "away": {
         "elo": 1466.0972097364497,
-        "expected_goals": 1.1272564280114314,
+        "expected_goals": 1.12631353851933,
         "id": "366",
         "name": "Sunderland"
       },
       "fixture_id": "401878756",
       "home": {
-        "elo": 1503.1548887278761,
-        "expected_goals": 1.5727435719885685,
+        "elo": 1503.8620558469522,
+        "expected_goals": 1.57368646148067,
         "id": "362",
         "name": "Aston Villa"
       },
       "kickoff_utc": "2026-11-21T15:00:00+00:00",
       "probabilities": {
-        "away": 0.24553400796407499,
+        "away": 0.2445850462788688,
         "draw": 0.25,
-        "home": 0.504465992035925
+        "home": 0.5054149537211312
       },
       "projected_score": {
         "away": 1,
@@ -237,23 +211,23 @@
     },
     {
       "away": {
-        "elo": 1472.7654704249371,
-        "expected_goals": 1.1021996240734544,
+        "elo": 1472.058303305861,
+        "expected_goals": 1.1012567345813529,
         "id": "360",
         "name": "Manchester United"
       },
       "fixture_id": "401878755",
       "home": {
         "elo": 1528.6157523698464,
-        "expected_goals": 1.5978003759265458,
+        "expected_goals": 1.598743265418647,
         "id": "364",
         "name": "Liverpool"
       },
       "kickoff_utc": "2026-11-22T16:30:00+00:00",
       "probabilities": {
-        "away": 0.22067491534901684,
+        "away": 0.21975475006532696,
         "draw": 0.25,
-        "home": 0.5293250846509832
+        "home": 0.530245249934673
       },
       "projected_score": {
         "away": 1,
@@ -288,8 +262,16 @@
       }
     }
   ],
-  "issued_at_utc": "2026-11-08T16:17:15.423165+00:00",
+  "issued_at_utc": "2026-11-08T20:38:04.401431+00:00",
   "recent_results": [
+    {
+      "away": "Aston Villa",
+      "away_score": 4,
+      "fixture_id": "401879240",
+      "home": "Manchester United",
+      "home_score": 4,
+      "kickoff_utc": "2026-11-08T16:30:00+00:00"
+    },
     {
       "away": "Brentford",
       "away_score": 0,
@@ -424,14 +406,6 @@
       "fixture_id": "401879245",
       "home": "Manchester City",
       "home_score": 0,
-      "kickoff_utc": "2026-10-31T15:00:00+00:00"
-    },
-    {
-      "away": "Ipswich",
-      "away_score": 2,
-      "fixture_id": "401878763",
-      "home": "Hull",
-      "home_score": 2,
       "kickoff_utc": "2026-10-31T15:00:00+00:00"
     }
   ],
