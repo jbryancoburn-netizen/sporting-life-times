@@ -12,6 +12,7 @@ on:
       - '.github/workflows/nfl-gameday-live.yml'
 permissions:
   contents: write
+  actions: write
 concurrency:
   group: nfl-2026-verified-publication
   cancel-in-progress: false
@@ -41,23 +42,27 @@ jobs:
           print('NFL live scoreboard integrity PASSED')
           PY
       - name: Reconcile completed games across the NFL newspaper
+        id: reconcile
         run: |
           python scripts/test_nfl_finalization_guard.py
           if python scripts/nfl_finalization_guard.py needs-refresh; then
+            echo "finalization_required=true" >> "$GITHUB_OUTPUT"
             python scripts/build_nfl_edition.py --fast
           else
+            echo "finalization_required=false" >> "$GITHUB_OUTPUT"
             echo "Published season records already include all nearby finals"
           fi
           python scripts/nfl_finalization_guard.py verify
       - name: Publish live scores and certified final-game season statistics
+        id: publish
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/nfl-live.json data/nfl-2026-edition.json data/nfl-2026-boxscores.json data/nfl-2026-rosters.json
-          if git diff --cached --quiet; then exit 0; fi
+          if git diff --cached --quiet; then echo "published=false" >> "$GITHUB_OUTPUT"; exit 0; fi
           git commit -m "Refresh sourced NFL in-game scoreboard and stats"
           for attempt in 1 2 3; do
-            if git push origin HEAD:main; then exit 0; fi
+            if git push origin HEAD:main; then echo "published=true" >> "$GITHUB_OUTPUT"; exit 0; fi
             git fetch origin main
             git reset --hard origin/main
             python scripts/update_nfl_live.py
@@ -66,8 +71,21 @@ jobs:
             fi
             python scripts/nfl_finalization_guard.py verify
             git add data/nfl-live.json data/nfl-2026-edition.json data/nfl-2026-boxscores.json data/nfl-2026-rosters.json
-            if git diff --cached --quiet; then exit 0; fi
+            if git diff --cached --quiet; then echo "published=false" >> "$GITHUB_OUTPUT"; exit 0; fi
             git commit -m "Refresh reconciled NFL live scoreboard"
             sleep 2
           done
           exit 1
+      - name: Deploy updated Pages edition after verified NFL finals
+        if: steps.reconcile.outputs.finalization_required == 'true' && steps.publish.outputs.published == 'true'
+        continue-on-error: true
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'publish-newspaper.yml',
+              ref: 'main',
+            });

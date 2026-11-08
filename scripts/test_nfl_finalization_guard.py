@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Tests for automatic NFL final-game reconciliation."""
 import unittest
+from pathlib import Path
 import datetime as dt
 from nfl_finalization_guard import compare, verify, overlay_recent_live_finals
 
@@ -75,6 +76,15 @@ class FinalizationTests(unittest.TestCase):
         reconciled = overlay_recent_live_finals(
             {g["id"]: g for g in e["games"]}, l, now)
         self.assertEqual(reconciled["100"]["state"], "pre")
+
+    def test_pages_dispatch_requires_published_new_final(self):
+        workflow = (Path(__file__).resolve().parents[1] /
+                    ".github/workflows/nfl-gameday-live.yml").read_text()
+        self.assertIn("actions: write", workflow)
+        self.assertIn("id: reconcile", workflow)
+        self.assertIn("id: publish", workflow)
+        self.assertIn("steps.reconcile.outputs.finalization_required == 'true' && steps.publish.outputs.published == 'true'", workflow)
+        self.assertIn("workflow_id: 'publish-newspaper.yml'", workflow)
 
 
 if __name__ == "__main__":
