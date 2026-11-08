@@ -1,14 +1,14 @@
 {
   "schema_version": 1,
-  "checked_at_utc": "2026-11-08T23:26:13.227169+00:00",
+  "checked_at_utc": "2026-11-08T23:58:33.742519+00:00",
   "source": "NCAA scoreboard via ncaa-api compatibility endpoint",
   "games": [
     {
       "match_id": "men-6615647",
       "cohort": "men-d1",
       "status": "live",
-      "home_score": 1,
-      "away_score": 1,
+      "home_score": 2,
+      "away_score": 2,
       "home_name": "New Haven",
       "away_name": "Stonehill",
       "home_id": "new-haven",
@@ -260,7 +260,7 @@
       "away_name": "CSUSB",
       "home_id": "cal-st-la",
       "away_id": "cal-st-san-bdino",
-      "period": "HALF",
+      "period": "2ND HALF",
       "source_url": "https://www.ncaa.com/game/6663240"
     },
     {
@@ -877,14 +877,14 @@
     {
       "match_id": "men-6666170",
       "cohort": "men-d3",
-      "status": "live",
+      "status": "final",
       "home_score": 1,
       "away_score": 0,
       "home_name": "La Verne",
       "away_name": "Whittier",
       "home_id": "la-verne",
       "away_id": "whittier",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6666170"
     },
     {
@@ -1040,7 +1040,7 @@
       "away_name": "Syracuse",
       "home_id": "stanford",
       "away_id": "syracuse",
-      "period": "1ST HALF",
+      "period": "HALF",
       "source_url": "https://www.ncaa.com/game/6666315"
     },
     {
@@ -1139,12 +1139,12 @@
       "cohort": "men-d1",
       "status": "live",
       "home_score": 1,
-      "away_score": 1,
+      "away_score": 2,
       "home_name": "UNCW",
       "away_name": "Col. of Charleston",
       "home_id": "unc-wilmington",
       "away_id": "col-of-charleston",
-      "period": "1ST HALF",
+      "period": "HALF",
       "source_url": "https://www.ncaa.com/game/6666507"
     },
     {
@@ -1152,7 +1152,7 @@
       "cohort": "men-d1",
       "status": "live",
       "home_score": 0,
-      "away_score": 0,
+      "away_score": 1,
       "home_name": "Wofford",
       "away_name": "UNC Greensboro",
       "home_id": "wofford",
@@ -1242,8 +1242,8 @@
       "match_id": "men-6666732",
       "cohort": "men-d1",
       "status": "live",
-      "home_score": 0,
-      "away_score": 0,
+      "home_score": 1,
+      "away_score": 1,
       "home_name": "Western Ill.",
       "away_name": "Houston Christian",
       "home_id": "western-ill",
@@ -1709,14 +1709,14 @@
     {
       "match_id": "women-6613048",
       "cohort": "women-d3",
-      "status": "live",
+      "status": "final",
       "home_score": 1,
       "away_score": 0,
       "home_name": "Linfield",
       "away_name": "Pacific (OR)",
       "home_id": "linfield",
       "away_id": "pacific-or",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6613048"
     },
     {
@@ -1735,14 +1735,14 @@
     {
       "match_id": "women-6613149",
       "cohort": "women-d3",
-      "status": "live",
+      "status": "final",
       "home_score": 0,
-      "away_score": 3,
+      "away_score": 4,
       "home_name": "Whitworth",
       "away_name": "Puget Sound",
       "home_id": "whitworth",
       "away_id": "puget-sound",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6613149"
     },
     {
@@ -1800,14 +1800,14 @@
     {
       "match_id": "women-6615132",
       "cohort": "women-d3",
-      "status": "live",
+      "status": "final",
       "home_score": 1,
       "away_score": 0,
       "home_name": "Whitman",
       "away_name": "Pacific Lutheran",
       "home_id": "whitman",
       "away_id": "pacific-lutheran",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6615132"
     },
     {
@@ -2177,14 +2177,14 @@
     {
       "match_id": "women-6664909",
       "cohort": "women-d2",
-      "status": "live",
+      "status": "final",
       "home_score": 0,
       "away_score": 1,
       "home_name": "Catawba",
       "away_name": "Lenoir-Rhyne",
       "home_id": "catawba",
       "away_id": "lenoir-rhyne",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6664909"
     },
     {
@@ -2516,7 +2516,7 @@
       "match_id": "women-6666229",
       "cohort": "women-d1",
       "status": "live",
-      "home_score": 1,
+      "home_score": 2,
       "away_score": 2,
       "home_name": "Purdue",
       "away_name": "Wisconsin",
@@ -2658,14 +2658,14 @@
     {
       "match_id": "women-6666486",
       "cohort": "women-d1",
-      "status": "live",
+      "status": "final",
       "home_score": 2,
       "away_score": 0,
       "home_name": "Bryant",
       "away_name": "Maine",
       "home_id": "bryant",
       "away_id": "maine",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6666486"
     },
     {
@@ -2957,14 +2957,14 @@
     {
       "match_id": "women-6667154",
       "cohort": "women-d1",
-      "status": "live",
+      "status": "final",
       "home_score": 2,
-      "away_score": 0,
+      "away_score": 1,
       "home_name": "Liberty",
       "away_name": "Sam Houston",
       "home_id": "liberty",
       "away_id": "sam-houston-st",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6667154"
     },
     {
@@ -3023,13 +3023,13 @@
       "match_id": "women-6667239",
       "cohort": "women-d1",
       "status": "live",
-      "home_score": 0,
-      "away_score": 0,
+      "home_score": 1,
+      "away_score": 1,
       "home_name": "Tarleton St.",
       "away_name": "Austin Peay",
       "home_id": "tarleton-st",
       "away_id": "austin-peay",
-      "period": "HALF",
+      "period": "2ND HALF",
       "source_url": "https://www.ncaa.com/game/6667239"
     },
     {
@@ -3068,7 +3068,7 @@
       "away_name": "UTSA",
       "home_id": "rice",
       "away_id": "utsa",
-      "period": "HALF",
+      "period": "2ND HALF",
       "source_url": "https://www.ncaa.com/game/6667245"
     },
     {
@@ -3101,13 +3101,13 @@
       "match_id": "women-6667553",
       "cohort": "women-d1",
       "status": "live",
-      "home_score": 0,
+      "home_score": 1,
       "away_score": 0,
       "home_name": "Wake Forest",
       "away_name": "Duke",
       "home_id": "wake-forest",
       "away_id": "duke",
-      "period": "1ST HALF",
+      "period": "HALF",
       "source_url": "https://www.ncaa.com/game/6667553"
     },
     {
