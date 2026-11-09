@@ -20,7 +20,7 @@ assert(selection.includes("window.CollegeSoccerCupUI.crest(name,entry.team_id,'m
 assert(!selection.includes('nativeSchoolLogo'),'An unframed selection exception has reappeared');
 assert(!fs.readFileSync('college-soccer-selection.css','utf8').includes('.ncaa-native-mark'),'Ringless legacy CSS must not exist');
 class Element{
- constructor(tag){this.tag=tag;this.className='';this.children=[];this.events={};this.attrs={};this.removed=false;this.naturalWidth=0;this.dataset={};this.style={
+ constructor(tag){this.tag=tag;this.className='';this.children=[];this.events={};this.attrs={};this.removed=false;this.naturalWidth=0;this.naturalHeight=0;this.dataset={};this.style={
   cssText:'',props:{},setProperty:(k,v,p)=>{this.style.props[k]={value:v,priority:p||''}}
  };this.textContent='';}
  append(...items){for(const item of items){this.children.push(item);if(item instanceof Element)item.parent=this}}
@@ -55,7 +55,7 @@ for(const id of selectionIds){
  assert(crestCss.includes('width:72%!important'),'Shared CBB artwork must fill the crest without crossing the rings '+id);
  assert(crestCss.includes('object-fit:contain!important'),'School artwork must be centered and contained '+id);
  assert(image.src.startsWith('https://'),'Invalid image source for '+id);
- image.naturalWidth=400;image.events.load();
+ image.naturalWidth=400;image.naturalHeight=400;image.events.load();
  assert.equal(image.style.props.display.value,'block','Image not visible when loaded '+id);
  assert.equal(fallback.style.props.display.value,'none','Initials overlay loaded image '+id);
 }
@@ -64,7 +64,7 @@ const missing=crest('Unknown School','no-asset-school!','women-d3',fallbackSchoo
 assert.equal(missing.children.filter(c=>c.tag==='img').length,0);
 assert(missing.children.some(c=>c.className==='mbb-mark__initials'),'No fallback for missing asset');
 const broken=crest('Broken Logo','bad-school','men-d1',{teams:{'men-d1:bad-school':{logo_url:'https://invalid.example/a.png',primary:'#112244'}},soccer_palette:{},crest_overrides:{}});
-const img=broken.children.find(c=>c.tag==='img'),initials=broken.children.find(c=>c.className==='soccer-school-fallback');
+const img=broken.children.find(c=>c.tag==='img'),initials=broken.children.find(c=>c.className==='mbb-mark__initials');
 assert(img&&img.events.error);
 for(let i=0;i<6&&!img.removed;i++)img.events.error();
 assert(img.removed,'Failed logo did not exhaust alternate verified school paths');
