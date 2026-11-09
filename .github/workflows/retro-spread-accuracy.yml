@@ -6,6 +6,7 @@ on:
       - 'data/ncaam-2026-27-retro-primary.json'
       - 'data/ncaam-2026-27-upcoming-forecasts.json'
       - '.github/workflows/retro-spread-accuracy.yml'
+      - 'scripts/retro_regularization_forward.py'
   schedule:
     - cron: '8,38 * * * *'
   workflow_dispatch:
@@ -26,14 +27,16 @@ jobs:
         with:
           python-version: '3.11'
       - name: Freeze scheduled pregame spreads and score verified finals
-        run: python3 scripts/retro_spread_accuracy.py
+        run: |
+          python3 scripts/retro_spread_accuracy.py
+          python3 scripts/retro_regularization_forward.py
       - name: Commit only updated audit outputs
         shell: bash
         run: |
           set -euo pipefail
           git config user.name "RETRO Forecast Auditor"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/retro-pregame-archive-2026-27.json data/retro-spread-accuracy-2026-27.json
+          git add data/retro-pregame-archive-2026-27.json data/retro-spread-accuracy-2026-27.json data/retro-regularization-forward-2026-27.json data/retro-regularization-forward-score-2026-27.json
           if git diff --cached --quiet; then echo "No new predictions or scores"; exit 0; fi
           for attempt in 1 2 3; do
             git commit -m "data: update immutable RETRO spread audit" || true
