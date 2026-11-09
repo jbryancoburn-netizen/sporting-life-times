@@ -48,3 +48,36 @@
 .g6-destination #g6-odds td{padding:6px}
 @media(max-width:1150px){.g6-destination .bracket-rounds{grid-template-columns:repeat(2,minmax(0,1fr))}.g6-league-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:700px){.g6-destination .desk-lead{grid-template-columns:1fr;padding:21px}.g6-destination .g6-crown-feature{border-left:0;border-top:3px double #c8b58d}.g6-destination .bracket-rounds{grid-template-columns:1fr}.g6-league-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.g6-destination .g6-field-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.g6-destination .desk-lead:after{font-size:7px;letter-spacing:0}}
+
+/* Road to the Championship editorial feature */
+.g6-destination .g6-road{border:3px double #9c8150;padding:20px;background:#f8f1e3;margin:22px 0 30px}
+.g6-road-heading{display:flex;justify-content:space-between;align-items:center;gap:15px;border-bottom:2px solid #b39b6e;padding-bottom:13px;margin-bottom:16px}
+.g6-destination .g6-road-heading h2{font:clamp(30px,4vw,49px) Georgia,serif;margin:5px 0}
+.g6-road-seal{display:block;flex:0 0 110px;border:3px double #8d703e;border-radius:50%;width:110px;height:110px;text-align:center;padding-top:23px;box-sizing:border-box;color:#78572e;font:700 11px/1.5 Georgia,serif;letter-spacing:1px}
+.g6-road-features{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.g6-road-card{min-width:0;border:1px solid #c9b58e;border-top:4px double #99773f;background:#fffaf0;padding:14px}
+.g6-road-card>small,.g6-upset-feature small{display:block;color:#805c31;font:700 10px Georgia,serif;letter-spacing:1.2px;margin-bottom:8px}
+.g6-road-identity .team-identity{font:700 17px Georgia,serif}
+.g6-road-identity .cfb-crest{width:58px;height:58px;flex-basis:58px}
+.g6-road-card>strong{display:block;font:24px Georgia,serif;color:#496045;margin:12px 0 5px}
+.g6-road-card p{font:12px/1.45 Georgia,serif;margin:0}
+.g6-upset-feature{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:17px;margin:15px 0;border:1px solid #bd9a64;background:#e9ddc6}
+.g6-upset-feature h3{font:26px Georgia,serif;margin:0 0 5px}
+.g6-upset-feature p{font:13px/1.5 Georgia,serif;max-width:720px;margin:0}
+.g6-upset-marks{display:flex;gap:12px;flex:0 0 auto}
+.g6-upset-marks .team-identity{flex-direction:column;font-size:10px;text-align:center;max-width:130px}
+.g6-upset-marks .cfb-crest{width:60px;height:60px;flex-basis:60px}
+.g6-path-explorer{border-top:3px double #ab9165;padding-top:16px}
+.g6-path-explorer label{display:inline-block;font:700 20px Georgia,serif;margin-right:12px}
+#g6-path-team{border:1px solid #b09a74;background:#fffaf0;padding:9px;font:14px Georgia,serif;max-width:100%}
+.g6-path-team{display:flex;align-items:center;gap:18px;margin:15px 0}
+.g6-path-team .team-identity{font:700 20px Georgia,serif}
+.g6-path-team .cfb-crest{width:61px;height:61px;flex-basis:61px}
+.g6-path-team>span{font-size:12px}
+.g6-path-stages{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.g6-path-stages>div{min-width:0;background:#fffcf5;border:1px solid #c9b996;padding:12px}
+.g6-path-stages small{display:block;color:#7e6039;font:700 10px Georgia,serif;letter-spacing:1px}
+.g6-path-stages strong{display:block;font:700 13px/1.45 Georgia,serif;margin:9px 0;overflow-wrap:anywhere}
+.g6-path-stages span{display:block;color:#59655b;font-size:10px}
+@media(max-width:800px){.g6-road-features{grid-template-columns:1fr}.g6-path-stages{grid-template-columns:repeat(2,minmax(0,1fr))}.g6-upset-feature{flex-direction:column;align-items:start}}
+@media(max-width:480px){.g6-road-seal{display:none}.g6-path-stages{grid-template-columns:1fr}.g6-path-team{flex-wrap:wrap}.g6-destination .g6-road{padding:12px}}
