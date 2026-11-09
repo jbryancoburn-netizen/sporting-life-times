@@ -21,6 +21,9 @@ function draw(data,metrics,branding){
  for(const [value,label] of [['ncaa','NCAA COMMITTEE FORECAST'],['usrs','NCAA CRITERIA + RETRO ELO']]){
   const b=el('button',label);b.type='button';b.className=mode===value?'active':'';b.setAttribute('aria-pressed',String(mode===value));b.onclick=()=>{mode=value;draw(data,metrics,branding)};nav.append(b)
  }host.append(nav);
+ const verifiedAqs=(data.automatic_bid_scenarios||[]).filter(x=>x.official_aq===true);
+ const forecastStamp=el('p','RETRO rating cutoff: '+(data.rating_cutoff||'unverified')+' · '+verifiedAqs.length+' of '+(data.automatic_bids||23)+' automatic qualifiers officially confirmed in this feed · Remaining AQ places are predictions.','cs-selection-warning');
+ host.append(forecastStamp);
  if(Array.isArray(metrics?.field)&&metrics.field.length===48){
   const nIds=new Set(metrics.field.map(x=>x.team_id)),uIds=new Set(data.field.map(x=>x.team_id));
   const ncaaOnly=metrics.field.filter(x=>!uIds.has(x.team_id));
@@ -112,7 +115,7 @@ function draw(data,metrics,branding){
   const section=el('section',null,'cs-selection-group');section.append(el('h2',name));
   const table=el('table',null,'cs-selection-table');const head=el('tr');
   for(const h of ['#','School','Bid path',mode==='usrs'?'RETRO':'Résumé score'])head.append(el('th',h));table.append(head);
-  rows.forEach((x,i)=>{const tr=el('tr');for(const v of [x.experimental_strength_order||i+1,x.team,x.bid_type==='projected_aq'?'Projected AQ':'At-large scenario',mode==='usrs'?Math.round(x.elo):x.resume_score??'—'])tr.append(el('td',v));table.append(tr)});
+  rows.forEach((x,i)=>{const tr=el('tr');for(const v of [x.experimental_strength_order||i+1,x.team,x.bid_type==='official_aq'?'Confirmed AQ':x.bid_type==='projected_aq'?'Predicted AQ':'At-large scenario',mode==='usrs'?Math.round(x.elo):x.resume_score??'—'])tr.append(el('td',v));table.append(tr)});
   section.append(table);host.append(section);
  }
 }
