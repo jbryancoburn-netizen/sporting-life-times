@@ -4,7 +4,7 @@
   "status": "primary_live_earned_elo",
   "model": "team_only_reset1500_home40_k24_sqrt_mov",
   "source": "data/nba-2026-27-current-provisional.json",
-  "games_played": 144,
+  "games_played": 146,
   "parameters": {
     "season_start_elo": 1500,
     "home_elo": 40,
@@ -151,11 +151,11 @@
     },
     {
       "team": "NOP",
-      "elo": 1497.023,
-      "games": 9,
+      "elo": 1481.335,
+      "games": 10,
       "forecast_prior": 1414.635,
-      "live_elo": 1430.987,
-      "difference_from_live": 66.036
+      "live_elo": 1418.939,
+      "difference_from_live": 62.396
     },
     {
       "team": "PHX",
@@ -175,11 +175,19 @@
     },
     {
       "team": "MIA",
-      "elo": 1460.165,
-      "games": 9,
+      "elo": 1469.447,
+      "games": 10,
       "forecast_prior": 1506.4537500000001,
-      "live_elo": 1472.06,
-      "difference_from_live": -11.895
+      "live_elo": 1482.497,
+      "difference_from_live": -13.05
+    },
+    {
+      "team": "LAC",
+      "elo": 1461.066,
+      "games": 9,
+      "forecast_prior": 1534.00725,
+      "live_elo": 1465.792,
+      "difference_from_live": -4.726
     },
     {
       "team": "IND",
@@ -188,14 +196,6 @@
       "forecast_prior": 1352.5605,
       "live_elo": 1350.303,
       "difference_from_live": 101.481
-    },
-    {
-      "team": "LAC",
-      "elo": 1445.378,
-      "games": 8,
-      "forecast_prior": 1534.00725,
-      "live_elo": 1453.744,
-      "difference_from_live": -8.366
     },
     {
       "team": "ORL",
@@ -214,14 +214,6 @@
       "difference_from_live": 97.871
     },
     {
-      "team": "SAC",
-      "elo": 1419.68,
-      "games": 9,
-      "forecast_prior": 1377.94875,
-      "live_elo": 1349.35,
-      "difference_from_live": 70.33
-    },
-    {
       "team": "CHA",
       "elo": 1418.329,
       "games": 10,
@@ -236,6 +228,14 @@
       "forecast_prior": 1374.9705000000001,
       "live_elo": 1354.593,
       "difference_from_live": 55.883
+    },
+    {
+      "team": "SAC",
+      "elo": 1410.398,
+      "games": 10,
+      "forecast_prior": 1377.94875,
+      "live_elo": 1338.913,
+      "difference_from_live": 71.485
     },
     {
       "team": "UTA",
@@ -2702,6 +2702,40 @@
       "home_elo_change": -12.12474726603282,
       "home_after": 1400.8135195240095,
       "away_after": 1567.1069979123315
+    },
+    {
+      "id": "espn-nba-401909950",
+      "date": "2026-11-09T02:00:00.000Z",
+      "home": "LAC",
+      "away": "NOP",
+      "home_score": 139,
+      "away_score": 123,
+      "home_before": 1445.3782633317085,
+      "away_before": 1497.022593782684,
+      "home_win_probability": 0.48324873297054294,
+      "forecast_home_win_probability": 0.5824300752482031,
+      "forecast_prior_weight_home": 0.4166666666666667,
+      "forecast_prior_weight_away": 0.39473684210526316,
+      "home_elo_change": 15.687465480873186,
+      "home_after": 1461.0657288125817,
+      "away_after": 1481.3351283018108
+    },
+    {
+      "id": "espn-nba-401909951",
+      "date": "2026-11-09T02:00:00.000Z",
+      "home": "SAC",
+      "away": "MIA",
+      "home_score": 108,
+      "away_score": 114,
+      "home_before": 1419.6804290098003,
+      "away_before": 1460.1648524673674,
+      "home_win_probability": 0.49930285905669625,
+      "forecast_home_win_probability": 0.4494738802886202,
+      "forecast_prior_weight_home": 0.39473684210526316,
+      "forecast_prior_weight_away": 0.39473684210526316,
+      "home_elo_change": -9.282199957633601,
+      "home_after": 1410.3982290521667,
+      "away_after": 1469.447052425001
     }
   ]
 }
