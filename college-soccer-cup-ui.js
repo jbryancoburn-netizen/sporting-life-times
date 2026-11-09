@@ -25,8 +25,8 @@ function crest(name,id,cohort,branding){
  mark.dataset.colorVerification=palette.primary&&palette.secondary?'palette':overrides.primary&&overrides.secondary?'override':'provisional';
  mark.style.cssText='display:inline-flex!important;align-items:center!important;justify-content:center!important;'+
   'position:relative!important;isolation:isolate!important;box-sizing:border-box!important;'+
-  'width:28px;height:28px;min-width:28px;min-height:28px;'+
-  'max-width:28px;max-height:28px;flex:0 0 28px;'+
+  'width:40px;height:40px;min-width:40px;min-height:40px;'+
+  'max-width:40px;max-height:40px;flex:0 0 40px;'+
   'border:2px solid '+primary+'!important;border-radius:50%!important;'+
   'background:#fff!important;overflow:visible!important;outline:none!important;'+
   'box-shadow:none!important;padding:0!important;aspect-ratio:1/1!important;';
@@ -41,11 +41,11 @@ function crest(name,id,cohort,branding){
  // Keep the logo in its own centered, square viewport. The circular shell
  // clips nothing: only the two independent strokes form circles.
  const fallback=node('span','soccer-school-fallback',String(info.badge_text||name||id).replace(/[^A-Za-z0-9 ]/g,'').split(/\\s+/).filter(Boolean).map(w=>w[0]).join('').slice(0,3).toUpperCase()||'SC');
- fallback.style.cssText='display:flex;align-items:center;justify-content:center;position:absolute;inset:27%;'+
-  'font:800 9px/1 Arial,sans-serif;color:'+primary+';background:transparent;border:0;';
+ fallback.style.cssText='display:flex;align-items:center;justify-content:center;position:absolute;inset:25%;'+
+  'font:800 11px/1 Arial,sans-serif;color:'+primary+';background:transparent;border:0;';
  const art=node('span','soccer-school-artwork');
  // The square's diagonal fits inside the inner ring. Entire logos remain visible.
- art.style.cssText='position:absolute!important;inset:27%!important;display:none!important;'+
+ art.style.cssText='position:absolute!important;inset:25%!important;display:none!important;'+
   'background-position:center!important;background-repeat:no-repeat!important;'+
   'background-size:contain!important;border:0!important;border-radius:0!important;'+
   'clip-path:none!important;mask:none!important;transform:none!important;'+
