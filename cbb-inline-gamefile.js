@@ -172,8 +172,8 @@
  function playLog(raw,g){
    const plays=global.SLTCourt?.parsePlays?.(raw)||[];
    if(!plays.length)return missing('No source-reported play-by-play is available for this game.');
-   return '<p class="slt-gf-source">'+plays.length+' source-reported events · chronological order · live play log</p>'+
-     '<ol class="slt-gf-plays">'+plays.map(p=>'<li><span class="slt-gf-play-clock">'+
+   return '<p class="slt-gf-source">'+plays.length+' source-reported events · newest first · live play log</p>'+
+     '<ol class="slt-gf-plays">'+plays.slice().reverse().map(p=>'<li><span class="slt-gf-play-clock">'+
        esc(p.period?'P'+p.period:'—')+' · '+esc(p.clock||'—')+'</span><span>'+
        esc(p.text)+'</span><b>'+esc(p.awayScore===null?'':p.awayScore)+
        (p.awayScore!==null&&p.homeScore!==null?'–':'')+esc(p.homeScore===null?'':p.homeScore)+
