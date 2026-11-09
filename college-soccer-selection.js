@@ -2,7 +2,7 @@
 const host=document.getElementById('ncaa-selection-forecast');if(!host)return;
 const el=(tag,txt,cls)=>{const x=document.createElement(tag);if(txt!==undefined&&txt!==null)x.textContent=String(txt);if(cls)x.className=cls;return x};
 const file=async path=>{const r=await fetch(path+'?t='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error(path+' unavailable');return r.json()};
-let mode='ncaa';
+let mode='usrs';
 // The shared NCAA soccer crest renderer is the sole owner of both school-color rings.
 const brandFor=(entry,branding)=>branding?.teams?.['men-d1:'+entry?.team_id]||{};
 function schoolRow(entry,branding,kind=''){
@@ -10,7 +10,7 @@ function schoolRow(entry,branding,kind=''){
  if(!entry){line.append(el('span','TO BE SELECTED','ncaa-school-placeholder'));return line}
  const name=entry.team||entry.team_id;
  const crest=window.CollegeSoccerCupUI.crest(name,entry.team_id,'men-d1',branding);
- const meta=el('span',null,'ncaa-school-meta');meta.append(el('strong',name),el('small',(entry.conference||'').replace('men-d1:','').toUpperCase()+' · '+(entry.bid_type==='projected_aq'?'PREDICTED AQ':'AT-LARGE')));
+ const meta=el('span',null,'ncaa-school-meta');meta.append(el('strong',name),el('small',(entry.conference||'').replace('men-d1:','').toUpperCase()+' · '+(entry.bid_type==='official_aq'?'CONFIRMED AQ':entry.bid_type==='projected_aq'?'PREDICTED AQ':'AT-LARGE')));
  const schoolColor=branding?.soccer_palette?.['men-d1:'+entry.team_id]?.primary||brandFor(entry,branding).primary;
  if(/^#[0-9a-f]{6}$/i.test(schoolColor||''))line.style.setProperty('--school-accent',schoolColor);
  line.append(crest,meta);return line;
@@ -27,6 +27,14 @@ function draw(data,metrics,branding){
  }
  const forecastStamp=el('p','RETRO rating cutoff: '+(data.rating_cutoff||'unverified')+' · '+verifiedAqs.length+' of '+(data.automatic_bids||23)+' automatic qualifiers officially confirmed in this feed · Remaining AQ places are predictions.','cs-selection-warning');
  host.append(forecastStamp);
+ const official=(data.automatic_bid_scenarios||[]).filter(x=>x.official_aq);
+ const status=el('section',null,'cs-selection-source-status');
+ status.append(el('h2','CONFERENCE AUTOMATIC BIDS · LIVE FORECAST'));
+ const line=el('p',official.length+' confirmed · '+((data.automatic_bid_scenarios||[]).length-official.length)+' predicted · refreshed from games through '+(data.rating_cutoff||'unknown'),'cs-selection-warning');
+ status.append(line);
+ if(official.length){for(const x of official)status.append(el('p',x.conference_name+': '+x.team+' · CONFIRMED NCAA AQ'));}
+ const candidates=el('p','Tournament losers are excluded from the projected AQ for conferences whose official bracket results have been entered. This is a RETRO forecast, not a declaration of NCAA selection.','cs-selection-warning');
+ status.append(candidates);host.append(status);
  if(Array.isArray(metrics?.field)&&metrics.field.length===48){
   const nIds=new Set(metrics.field.map(x=>x.team_id)),uIds=new Set(data.field.map(x=>x.team_id));
   const ncaaOnly=metrics.field.filter(x=>!uIds.has(x.team_id));
