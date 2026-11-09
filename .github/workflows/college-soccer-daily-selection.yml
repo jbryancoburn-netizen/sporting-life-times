@@ -28,7 +28,7 @@ jobs:
           out=Path("data/college-soccer-selection-update-status.json")
           run=subprocess.run([sys.executable,"scripts/rebuild_soccer_daily_selection.py"],capture_output=True,text=True)
           state={"checked_at_utc":datetime.now(timezone.utc).isoformat(),"status":"published" if run.returncode==0 else "blocked_missing_verified_selection_inputs","reason":(run.stdout if run.returncode==0 else run.stderr)[-600:]}
-          out.write_text(json.dumps(state,indent=2)+"\\n")
+          out.write_text(json.dumps(state,indent=2)+chr(10))
           print(state)
           PY
           python -m json.tool data/college-soccer-ncaa-selection-forecast.json >/dev/null
