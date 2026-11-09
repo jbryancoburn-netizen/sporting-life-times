@@ -61,7 +61,8 @@ def headline_match(title, team):
     text = title.lower()
     if name in text:
         return True
-    return bool(re.search(r"\b" + re.escape(nick) + r"\b", text, re.I))
+    keywords = [nick] + team.get("aliases", [])
+    return any(re.search(r"\b" + re.escape(k.lower()) + r"\b", text, re.I) for k in keywords)
 
 def category(title):
     if INJURY.search(title):
@@ -77,9 +78,9 @@ def fetch(url):
     with urllib.request.urlopen(req, timeout=18) as response:
         return response.read(2_000_000)
 
-def search_url(team, sources):
+def search_url(team, sources, search_term=None):
     domains = " OR ".join("site:" + s["domain"] for s in sources)
-    q = '"' + team["name"] + '" (' + domains + ') when:7d'
+    q = '"' + (search_term or team["name"]) + '" (' + domains + ') when:7d'
     return "https://news.google.com/rss/search?q=" + urllib.parse.quote_plus(q) + "&hl=en-US&gl=US&ceid=US:en"
 
 def parse_feed(payload, team, now, limit):
@@ -176,7 +177,13 @@ def rebuild(now=None, fetcher=fetch, resolver=resolve_google):
         team, family, sources, limit = job
         try:
             items = parse_feed(fetcher(search_url(team, sources)), team, now, limit)
-            return job, items, None
+            if family == "local" and len(items) < 3:
+                # Local desks often shorten a team name to Bucs, Rams or Giants.
+                short = (team.get("aliases") or [team["name"].split(" ")[-1]])[0]
+                more = parse_feed(fetcher(search_url(team, sources, short)), team, now, limit)
+                seen = {a["discovery_url"] for a in items}
+                items.extend(a for a in more if a["discovery_url"] not in seen)
+            return job, items[:limit], None
         except Exception as exc:
             return job, [], str(exc)[:160]
     with ThreadPoolExecutor(max_workers=8) as pool:

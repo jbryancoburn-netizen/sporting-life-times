@@ -33,6 +33,8 @@ class LocalPressTests(unittest.TestCase):
     def test_headline_and_category(self):
         self.assertTrue(press.headline_match("Chicago Bears overcome five turnovers", self.bears))
         self.assertFalse(press.headline_match("Chicago Cubs overcome five turnovers", self.bears))
+        bucs = next(t for t in self.registry["teams"] if t["id"] == "27")
+        self.assertTrue(press.headline_match("Bucs suffer defeat after late field goal", bucs))
         self.assertEqual(press.category("Bears postgame reaction and takeaways"), "Post-Game")
         self.assertEqual(press.category("Bears injury report after win"), "Injuries")
 
