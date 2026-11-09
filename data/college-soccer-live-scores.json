@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "checked_at_utc": "2026-11-09T21:06:33.265514+00:00",
+  "checked_at_utc": "2026-11-09T23:10:45.896179+00:00",
   "source": "NCAA scoreboard via ncaa-api compatibility endpoint",
   "games": [
     {
@@ -604,14 +604,14 @@
     {
       "match_id": "men-6667347",
       "cohort": "men-d3",
-      "status": "live",
-      "home_score": 0,
+      "status": "final",
+      "home_score": 2,
       "away_score": 0,
       "home_name": "Crown (MN)",
       "away_name": "North Central (MN)",
       "home_id": "crown-mn",
       "away_id": "north-central-mn",
-      "period": "1ST HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6667347"
     },
     {
@@ -1150,15 +1150,28 @@
     {
       "match_id": "women-6666603",
       "cohort": "women-d1",
-      "status": "live",
-      "home_score": 3,
+      "status": "final",
+      "home_score": 5,
       "away_score": 1,
       "home_name": "Old Dominion",
       "away_name": "Marshall",
       "home_id": "old-dominion",
       "away_id": "marshall",
-      "period": "1ST HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6666603"
+    },
+    {
+      "match_id": "women-6666605",
+      "cohort": "women-d1",
+      "status": "live",
+      "home_score": 0,
+      "away_score": 0,
+      "home_name": "Georgia St.",
+      "away_name": "South Alabama",
+      "home_id": "georgia-st",
+      "away_id": "south-ala",
+      "period": "1ST HALF",
+      "source_url": "https://www.ncaa.com/game/6666605"
     },
     {
       "match_id": "women-6666633",
@@ -1514,14 +1527,14 @@
     {
       "match_id": "women-6667564",
       "cohort": "women-d1",
-      "status": "live",
+      "status": "final",
       "home_score": 1,
-      "away_score": 0,
+      "away_score": 1,
       "home_name": "BYU",
       "away_name": "West Virginia",
       "home_id": "byu",
       "away_id": "west-virginia",
-      "period": "1ST HALF",
+      "period": "FINAL/PK",
       "source_url": "https://www.ncaa.com/game/6667564"
     },
     {
