@@ -36,6 +36,10 @@ jobs:
           import json
           from pathlib import Path
           d=json.loads(Path('data/college-soccer-ncaa-selection-forecast.json').read_text())
+          status=json.loads(Path('data/college-soccer-selection-update-status.json').read_text())
+          if status['status']!='published':
+              print('NCAA verified sources missing; retained previous projection and published blocked status')
+              raise SystemExit(0)
           assert len(d['field'])==48
           assert len(d['automatic_bid_scenarios'])==23
           assert len(set(x['team_id'] for x in d['field']))==48
