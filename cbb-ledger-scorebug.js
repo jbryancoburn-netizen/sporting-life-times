@@ -48,13 +48,14 @@
     return '<div class="ledger26-status ledger26-status--pregame" data-phase="upcoming"><strong class="ledger26-pregame-empty">'+esc(g.suppressTipoffFallback?'NO FORECAST':(g.time||g.tipoff||'PREGAME'))+'</strong></div>';
   const team=f.team.trim(),percent=Math.round(f.probability*100);
   if(percent===50)return '<div class="ledger26-status ledger26-status--pregame" data-phase="upcoming" aria-label="Even matchup: 50 percent win probability for each team; no projected favorite"><strong class="ledger26-pregame-prob">50%</strong><span class="ledger26-pregame-team">EVEN</span><span class="ledger26-pregame-caption">EACH TEAM · TOSS-UP</span></div>';
-  const margin=Number.isFinite(f.margin)&&f.margin>=0.05?'+'+f.margin.toFixed(1):'';
+  const halfPoint=Number.isFinite(f.margin)?Math.round(Math.abs(f.margin)*2)/2:0;
+  const margin=halfPoint>0?'−'+halfPoint.toFixed(1):'';
   return '<div class="ledger26-status ledger26-status--pregame" data-phase="upcoming" aria-label="'+
     esc(team+' '+percent+' percent win probability'+(margin?', RETRO projected winning margin '+margin+' points':''))+'">'+
     '<strong class="ledger26-pregame-prob">'+percent+'%</strong>'+
     '<span class="ledger26-pregame-team" title="'+esc(team)+'">'+esc(team)+'</span>'+
     '<span class="ledger26-pregame-caption">WIN CHANCE</span>'+
-    (margin?'<span class="ledger26-pregame-edge">'+margin+'</span><span class="ledger26-pregame-caption">RETRO EDGE</span>':'')+
+    (margin?'<span class="ledger26-pregame-edge">'+margin+'</span><span class="ledger26-pregame-caption">PROJECTED SPREAD</span>':'')+
     '</div>';
  }
  const pressCache=new Map();
