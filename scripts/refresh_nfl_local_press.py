@@ -78,15 +78,23 @@ def fetch(url):
     with urllib.request.urlopen(req, timeout=18) as response:
         return response.read(2_000_000)
 
-def search_url(team, sources, search_term=None):
+def search_url(team, sources, search_term=None, unrestricted=False):
     domains = " OR ".join("site:" + s["domain"] for s in sources)
-    q = '"' + (search_term or team["name"]) + '" (' + domains + ') when:7d'
+    domain_clause = "" if unrestricted else " (" + domains + ")"
+    q = '"' + (search_term or team["name"]) + '"' + domain_clause + ' when:7d'
     return "https://news.google.com/rss/search?q=" + urllib.parse.quote_plus(q) + "&hl=en-US&gl=US&ceid=US:en"
 
-def parse_feed(payload, team, now, limit):
+def parse_feed(payload, team, now, limit, allowed_sources=None):
     root = ET.fromstring(payload)
     found = []
     for item in root.findall("./channel/item"):
+        if allowed_sources is not None:
+            source_el = item.find("source")
+            source_url = source_el.attrib.get("url", "") if source_el is not None else ""
+            host = (urllib.parse.urlsplit(source_url).hostname or "").lower()
+            if not any(host == s["domain"].split("/")[0] or host.endswith("." + s["domain"].split("/")[0])
+                       for s in allowed_sources):
+                continue
         title = clean(item.findtext("title"))
         publisher = clean(item.findtext("source"))
         title = re.sub(r"\s+-\s+" + re.escape(publisher) + r"$", "", title, flags=re.I).strip() if publisher else title
@@ -183,6 +191,12 @@ def rebuild(now=None, fetcher=fetch, resolver=resolve_google):
                 more = parse_feed(fetcher(search_url(team, sources, short)), team, now, limit)
                 seen = {a["discovery_url"] for a in items}
                 items.extend(a for a in more if a["discovery_url"] not in seen)
+                seen.update(a["discovery_url"] for a in items)
+                if len(items) < 3:
+                    # Some papers are indexed in general search but not a multi-domain site: query.
+                    wider = parse_feed(fetcher(search_url(team, sources, short, unrestricted=True)),
+                                       team, now, limit, allowed_sources=sources)
+                    items.extend(a for a in wider if a["discovery_url"] not in seen)
             return job, items[:limit], None
         except Exception as exc:
             return job, [], str(exc)[:160]

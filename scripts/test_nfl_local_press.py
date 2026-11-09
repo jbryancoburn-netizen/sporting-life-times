@@ -44,6 +44,10 @@ class LocalPressTests(unittest.TestCase):
         result = press.parse_feed(rss, self.bears, now, 10)
         self.assertEqual(len(result), 1)
         self.assertEqual(result[0]["category"], "Post-Game")
+        broader = b'<rss><channel><item><title>Bears win after late kick</title><source url="https://www.chicagotribune.com">Chicago Tribune</source><link>https://news.google.com/rss/articles/abcd</link><pubDate>Mon, 09 Nov 2026 11:00:00 GMT</pubDate></item><item><title>Bears win a game</title><source url="https://www.espn.com">ESPN</source><link>https://news.google.com/rss/articles/efgh</link><pubDate>Mon, 09 Nov 2026 11:00:00 GMT</pubDate></item></channel></rss>'
+        self.assertEqual(len(press.parse_feed(broader, self.bears, now, 10,
+                         allowed_sources=self.bears["local_sources"])), 1)
+        self.assertNotIn("site:", press.search_url(self.bears, self.bears["local_sources"], "Bears", unrestricted=True))
 
     def test_freshness_and_dedupe(self):
         now = dt.datetime(2026, 11, 9, 13, tzinfo=dt.timezone.utc)
