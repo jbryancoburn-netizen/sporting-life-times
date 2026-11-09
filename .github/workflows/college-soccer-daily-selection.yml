@@ -44,6 +44,20 @@ jobs:
           assert len(d['automatic_bid_scenarios'])==23
           assert len(set(x['team_id'] for x in d['field']))==48
           assert sum(x['official_aq'] for x in d['automatic_bid_scenarios'])==d['daily_rebuild']['official_automatic_bids']
+          assert d['rating_cutoff']==json.loads(Path('data/college-soccer-elo.json').read_text())['as_of']
+          assert d['status'] in ('retro_daily_experimental_not_ncaa_selection','provisional_rpi_resume_proxy')
+          for bid in d['automatic_bid_scenarios']:
+              assert bid['team_id'] in {x['team_id'] for x in d['field']}
+              assert bid['official_aq'] is True or bid['method']!='verified_championship_result'
+          # Regression: completed certified Big Ten quarterfinals eliminate losing teams
+          b=json.loads(Path('data/college-soccer-men-d1-big-ten-standings.json').read_text())
+          defeated=set()
+          for m in b.get('tournament_bracket',{}).get('matches',[]):
+              if m.get('status')=='final' and m.get('winner_id') in (m.get('home_id'),m.get('away_id')):
+                  defeated.add(m['away_id'] if m['winner_id']==m['home_id'] else m['home_id'])
+          for bid in d['automatic_bid_scenarios']:
+              if bid['conference']=='men-d1:big-ten':
+                  assert bid['team_id'] not in defeated, 'Eliminated team projected as Big Ten automatic qualifier'
           print('Validated daily experimental RETRO forecast; NCAA committee selections remain separate')
           PY
       - name: Publish only the selection forecast when changed
