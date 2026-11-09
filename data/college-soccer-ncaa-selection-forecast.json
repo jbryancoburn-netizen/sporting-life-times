@@ -14,7 +14,7 @@
     "source_certified": false,
     "excluded_finals": 26,
     "quarantined_source_rows": 0,
-    "source_checked_through": "2026-11-08",
+    "source_checked_through": "2026-11-09",
     "warning": "Selection forecast is provisional until source quarantines and excluded games have been reconciled"
   },
   "selection_policy": {
@@ -324,16 +324,16 @@
       "conference": "men-d1:acc"
     },
     {
+      "team_id": "oregon-st",
+      "team": "Oregon St.",
+      "elo": 1611.51,
+      "conference": "men-d1:pac-12"
+    },
+    {
       "team_id": "rutgers",
       "team": "Rutgers",
       "elo": 1602.948,
       "conference": "men-d1:big-ten"
-    },
-    {
-      "team_id": "oregon-st",
-      "team": "Oregon St.",
-      "elo": 1602.522,
-      "conference": "men-d1:pac-12"
     },
     {
       "team_id": "stony-brook",
@@ -684,12 +684,23 @@
       "seeded_24_candidate": true
     },
     {
+      "team_id": "oregon-st",
+      "team": "Oregon St.",
+      "conference": "men-d1:pac-12",
+      "elo": 1611.51,
+      "bid_type": "proxy_at_large",
+      "experimental_strength_order": 23,
+      "ncaa_seed": null,
+      "first_round_bye_candidate": false,
+      "seeded_24_candidate": true
+    },
+    {
       "team_id": "fdu",
       "team": "FDU",
       "conference": "men-d1:nec",
       "elo": 1605.639,
       "bid_type": "projected_aq",
-      "experimental_strength_order": 23,
+      "experimental_strength_order": 24,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
       "seeded_24_candidate": true
@@ -700,10 +711,10 @@
       "conference": "men-d1:atlantic-10",
       "elo": 1604.913,
       "bid_type": "projected_aq",
-      "experimental_strength_order": 24,
+      "experimental_strength_order": 25,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
-      "seeded_24_candidate": true
+      "seeded_24_candidate": false
     },
     {
       "team_id": "grand-canyon",
@@ -711,7 +722,7 @@
       "conference": "men-d1:mountain-west",
       "elo": 1604.579,
       "bid_type": "projected_aq",
-      "experimental_strength_order": 25,
+      "experimental_strength_order": 26,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
       "seeded_24_candidate": false
@@ -721,17 +732,6 @@
       "team": "Rutgers",
       "conference": "men-d1:big-ten",
       "elo": 1602.948,
-      "bid_type": "proxy_at_large",
-      "experimental_strength_order": 26,
-      "ncaa_seed": null,
-      "first_round_bye_candidate": false,
-      "seeded_24_candidate": false
-    },
-    {
-      "team_id": "oregon-st",
-      "team": "Oregon St.",
-      "conference": "men-d1:pac-12",
-      "elo": 1602.522,
       "bid_type": "proxy_at_large",
       "experimental_strength_order": 27,
       "ncaa_seed": null,
