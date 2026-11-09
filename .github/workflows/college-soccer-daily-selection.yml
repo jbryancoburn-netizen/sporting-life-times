@@ -27,7 +27,7 @@ jobs:
           from pathlib import Path
           out=Path("data/college-soccer-selection-update-status.json")
           run=subprocess.run([sys.executable,"scripts/rebuild_soccer_daily_selection.py"],capture_output=True,text=True)
-          state={"checked_at_utc":datetime.now(timezone.utc).isoformat(),"status":"published" if run.returncode==0 else "blocked_missing_verified_selection_inputs","reason":(run.stdout if run.returncode==0 else run.stderr)[-600:]}
+          state={"checked_at_utc":datetime.now(timezone.utc).isoformat(),"status":"retro_projection_updated" if run.returncode==0 else "rebuild_failed","reason":(run.stdout if run.returncode==0 else run.stderr)[-600:]}
           out.write_text(json.dumps(state,indent=2)+chr(10))
           print(state)
           PY
@@ -37,14 +37,14 @@ jobs:
           from pathlib import Path
           d=json.loads(Path('data/college-soccer-ncaa-selection-forecast.json').read_text())
           status=json.loads(Path('data/college-soccer-selection-update-status.json').read_text())
-          if status['status']!='published':
-              print('NCAA verified sources missing; retained previous projection and published blocked status')
+          if status['status']!='retro_projection_updated':
+              print('RETRO rebuild failed; previous projection retained and failure status published')
               raise SystemExit(0)
           assert len(d['field'])==48
           assert len(d['automatic_bid_scenarios'])==23
           assert len(set(x['team_id'] for x in d['field']))==48
           assert sum(x['official_aq'] for x in d['automatic_bid_scenarios'])==d['daily_rebuild']['official_automatic_bids']
-          print('Validated daily RETRO selection forecast')
+          print('Validated daily experimental RETRO forecast; NCAA committee selections remain separate')
           PY
       - name: Publish only the selection forecast when changed
         run: |
@@ -56,4 +56,5 @@ jobs:
             exit 0
           fi
           git commit -m 'Refresh daily NCAA soccer RETRO selection projection'
-          git push
+          git pull --rebase origin main
+          git push origin HEAD:main
