@@ -95,3 +95,9 @@
 .g6-race-table .school{text-align:left}
 .g6-race-empty{font:15px/1.6 Georgia,serif;border:1px solid #c3ad87;padding:16px}
 @media(max-width:700px){.g6-register-movements{grid-template-columns:1fr}.g6-destination .g6-race{padding:12px}}
+
+/* Bracket hierarchy: seed at far left, then school crest and name, selection at right. */
+.g6-destination .bracket-game button{justify-content:flex-start;gap:9px;text-align:left}
+.g6-destination .bracket-game .g6-seed-badge{order:0;flex:0 0 28px;min-width:28px;text-align:center;font:700 17px Georgia,serif;color:#674f2f}
+.g6-destination .bracket-game .g6-bracket-team{order:1;flex:1 1 auto;min-width:0}
+.g6-destination .bracket-game .g6-winner-mark{order:2;flex:0 0 auto;color:#2c6346;font-weight:800}
