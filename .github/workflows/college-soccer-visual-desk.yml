@@ -276,7 +276,7 @@ jobs:
 
           const shared=fs.readFileSync('college-soccer-cup-ui.js','utf8');
           assert(shared.includes('cs-cup-bracket'));
-          assert(shared.includes('info.logo_url') && shared.includes('soccer-school-fallback'),'Verified crest must use school branding with a fallback');
+          assert(shared.includes('info.logo_url') && shared.includes('mbb-mark__initials') && shared.includes('soccer-school-mark mbb-mark slt-dual-shell'),'Verified crest must use school branding, the shared dual-ring shell, and an initials fallback');
           const mjs=fs.readFileSync('college-soccer-postseason.js','utf8');
           const cjs=fs.readFileSync('college-soccer-cciw.js','utf8');
           const wjs=fs.readFileSync('college-soccer-women-miaa.js','utf8');
