@@ -28,7 +28,7 @@ function crest(name,id,cohort,branding){
   'width:28px;height:28px;min-width:28px;min-height:28px;'+
   'max-width:28px;max-height:28px;flex:0 0 28px;'+
   'border:2px solid '+primary+'!important;border-radius:50%!important;'+
-  'background:#fff!important;overflow:hidden!important;outline:none!important;'+
+  'background:#fff!important;overflow:visible!important;outline:none!important;'+
   'box-shadow:none!important;padding:0!important;aspect-ratio:1/1!important;';
  mark.style.setProperty('--crest-primary',primary);
  mark.style.setProperty('--crest-secondary',secondary);
@@ -38,34 +38,39 @@ function crest(name,id,cohort,branding){
  inner.style.cssText='position:absolute!important;inset:0!important;border:2px solid '+secondary+'!important;'+
   'border-radius:50%!important;background:transparent!important;pointer-events:none!important;'+
   'z-index:3!important;box-shadow:none!important;outline:0!important;';
- const fallback=node('span','soccer-school-fallback',String(info.badge_text||name||id).replace(/[^A-Za-z0-9 ]/g,'').split(/\s+/).filter(Boolean).map(w=>w[0]).join('').slice(0,3).toUpperCase()||'SC');
- fallback.style.cssText='display:flex!important;align-items:center!important;justify-content:center!important;'+
-  'position:absolute!important;inset:5px!important;font:800 11px/1 Arial,sans-serif!important;'+
-  'color:'+primary+'!important;background:#fff!important;border:0!important;box-shadow:none!important;';
- mark.append(fallback,inner);
- const candidates=[info.logo_url,palette.logo_url,overrides.logo_url,
+ // Keep the logo in its own centered, square viewport. The circular shell
+ // clips nothing: only the two independent strokes form circles.
+ const fallback=node('span','soccer-school-fallback',String(info.badge_text||name||id).replace(/[^A-Za-z0-9 ]/g,'').split(/\\s+/).filter(Boolean).map(w=>w[0]).join('').slice(0,3).toUpperCase()||'SC');
+ fallback.style.cssText='display:flex;align-items:center;justify-content:center;position:absolute;inset:27%;'+
+  'font:800 9px/1 Arial,sans-serif;color:'+primary+';background:transparent;border:0;';
+ const art=node('span','soccer-school-artwork');
+ // The square's diagonal fits inside the inner ring. Entire logos remain visible.
+ art.style.cssText='position:absolute!important;inset:27%!important;display:none!important;'+
+  'background-position:center!important;background-repeat:no-repeat!important;'+
+  'background-size:contain!important;border:0!important;border-radius:0!important;'+
+  'clip-path:none!important;mask:none!important;transform:none!important;'+
+  'z-index:2!important;pointer-events:none!important;';
+ mark.append(fallback,art,inner);
+ const candidates=[overrides.logo_url,info.logo_url,palette.logo_url,
   /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(String(id))?'https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/'+id+'.svg':null]
-  .filter(Boolean).filter((url,i,arr)=>arr.indexOf(url)===i);
- if(candidates.length){
-  const img=node('img','soccer-school-image');
-  img.alt=name+' logo';img.loading='eager';img.decoding='async';
-  // Fit the ENTIRE rectangular logo inside the inner circular ring. A 45% square
-  // stays within the inscribed square of a 28px circle after two 2px strokes.
-  // Preserve all artwork with object-fit:contain; never clip the logo itself.
-  img.style.cssText='display:none!important;position:absolute!important;top:50%!important;left:50%!important;'+
-   'right:auto!important;bottom:auto!important;transform:translate(-50%,-50%)!important;'+
-   'width:45%;height:45%;min-width:0;min-height:0;'+
-   'max-width:45%;max-height:45%;padding:0!important;margin:0!important;'+
-   'box-sizing:border-box!important;object-fit:contain!important;object-position:center!important;'+
-   'background:transparent!important;border:0!important;border-radius:0!important;'+
-   'clip-path:none!important;mask:none!important;box-shadow:none!important;filter:none!important;'+
-   'opacity:1!important;z-index:2!important;';
-  let nextIndex=0;
-  const next=()=>{if(nextIndex<candidates.length){img.src=candidates[nextIndex++];}else{img.remove();fallback.style.setProperty('display','flex','important')}};
-  img.addEventListener('load',()=>{if(img.naturalWidth>0){img.style.setProperty('display','block','important');fallback.style.setProperty('display','none','important')}else next()});
-  img.addEventListener('error',next);
-  mark.append(img);next();
- }
+  .filter(url=>typeof url==='string'&&/^https:\/\//i.test(url))
+  .filter((url,i,arr)=>arr.indexOf(url)===i);
+ let nextIndex=0;
+ const tryNext=()=>{
+  if(nextIndex>=candidates.length){fallback.style.display='flex';art.style.display='none';return;}
+  const url=candidates[nextIndex++];
+  const image=new Image();
+  image.onload=()=>{
+   if(image.naturalWidth>0&&image.naturalHeight>0){
+    art.style.backgroundImage='url('+JSON.stringify(url)+')';
+    art.style.setProperty('display','block','important');
+    fallback.style.display='none';
+   }else tryNext();
+  };
+  image.onerror=tryNext;
+  image.src=url;
+ };
+ tryNext();
  return mark;
 }
 
