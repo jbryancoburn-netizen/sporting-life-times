@@ -75,7 +75,7 @@ test('complete play log uses all source reported events, not just recent twelve'
     assert(html.indexOf('Sourced event 15')<html.indexOf('Sourced event 0'));
     const womenHTML=inline.renderHTML(game,summary(),{},true,'w-2026-11-03-401999999');
     assert(womenHTML.indexOf('Sourced event 16')<womenHTML.indexOf('Sourced event 0'));
-    assert.equal(inline.playLog(summary(),game).match(/Sourced event \\d+/g)?.length,17);
+    assert.equal(inline.playLog(summary(),game).match(/Sourced event [0-9]+/g)?.length,17);
   }finally{global.SLTCourt=prior;}
 });
 test('Daily Ledger integration contains no iframe and loads one native owner',()=>{
