@@ -30,10 +30,11 @@ function crest(name,id,cohort,branding){
  mark.style.setProperty('--slt-dual-secondary',secondary);
  mark.style.cssText+='width:40px;height:40px;min-width:40px;min-height:40px;max-width:40px;max-height:40px;flex:0 0 40px;';
  const fallback=node('span','mbb-mark__initials',String(info.badge_text||name||id)
-  .replace(/[^A-Za-z0-9 ]/g,'').split(/\\s+/).filter(Boolean)
+  .replace(/[^A-Za-z0-9 ]/g,'').split(/\s+/).filter(Boolean)
   .map(w=>w[0]).join('').slice(0,3).toUpperCase()||'SC');
- fallback.style.cssText='display:flex;align-items:center;justify-content:center;position:absolute;inset:5px;'+
-  'font:800 10px/1 Arial,sans-serif;color:'+primary+';background:transparent;z-index:2;';
+ fallback.style.cssText='display:flex!important;align-items:center!important;justify-content:center!important;position:absolute!important;inset:4px!important;'+
+  'font:800 10px/1 Arial,sans-serif!important;color:'+primary+'!important;'+
+  'background:#fff!important;z-index:2!important;';
  mark.append(fallback);
  const candidates=[overrides.logo_url,info.logo_url,palette.logo_url,
   /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(String(id))?
@@ -44,18 +45,32 @@ function crest(name,id,cohort,branding){
   const img=node('img','mbb-mark__img soccer-school-image');
   img.alt=name+' logo';img.loading='eager';img.decoding='async';
   img.style.setProperty('display','none','important');
+  mark.append(img);
   let index=0;
-  const next=()=>{if(index<candidates.length)img.src=candidates[index++];
-    else{img.remove();fallback.style.display='flex'}};
-  img.addEventListener('load',()=>{
-    if(img.naturalWidth&&img.naturalHeight){
-      img.style.setProperty('display','block','important');
-      fallback.style.display='none';
-    }else next();
-  });
-  img.addEventListener('error',next);
-  mark.append(img);next();
- }
+  const next=()=>{
+    if(index>=candidates.length){
+      img.remove();
+      fallback.style.setProperty('display','flex','important');
+      mark.dataset.logoStatus='fallback';
+      return;
+    }
+    // Fetch through a fresh probe and do not hide the fallback until an
+    // actual image has loaded and has positive natural dimensions.
+    const source=candidates[index++];
+    const probe=new Image();
+    probe.onload=()=>{
+      if(probe.naturalWidth>0&&probe.naturalHeight>0){
+        img.src=source;
+        img.style.setProperty('display','block','important');
+        fallback.style.setProperty('display','none','important');
+        mark.dataset.logoStatus='loaded';
+      }else next();
+    };
+    probe.onerror=next;
+    probe.src=source;
+  };
+  next();
+ }else mark.dataset.logoStatus='fallback';
  return mark;
 }
 
