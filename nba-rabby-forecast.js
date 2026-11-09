@@ -20,7 +20,8 @@ function matchup(g,model,ratings,calendar=[]){
   away:{code:a,name:names.away},home:{code:h,name:names.home},
   awayScore:p.awayScore,homeScore:p.homeScore,footer:''});
  const edge=p.margin>=0?h:a;
- const spreadText=Math.abs(p.margin)<0.5?'EVEN':edge+' −'+Math.abs(p.margin).toFixed(1);
+ const roundedMargin=Math.round(Math.abs(p.margin)*2)/2;
+ const spreadText=roundedMargin===0?'EVEN':edge+' −'+roundedMargin.toFixed(1);
  const homeWidth=(100*p.homeWin).toFixed(1);
  const aRest=window.RabbyPossessionModel.scheduleContext(a,g.date,calendar);
  const hRest=window.RabbyPossessionModel.scheduleContext(h,g.date,calendar);
