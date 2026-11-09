@@ -531,7 +531,7 @@ const arenaStage=g=>{
   '<strong>'+esc(name)+'</strong><span>'+esc(source)+'</span></div>'+link+courtFile+'</div></div>';
 };
 const emblem=t=>{
-  if(window.MBBLogos?.byESPN&&(palette[String(t.id)]||outsideMark(t)))
+  if(window.MBBLogos?.byESPN)
     return window.MBBLogos.byESPN(t.id,'featured',t.name);
   const obj=womenTeams.get(String(t.id))||ratings.get(String(t.id))||{};
   // The external mark comes from the verified opponent-ID registry, never a
@@ -917,8 +917,9 @@ async function refresh(){
       return delta?[[g.id,delta]]:[];
     }));
     lastUpdate=feed.scores_updated_at?new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit',timeZoneName:'short'}).format(new Date(feed.scores_updated_at)):'source refresh pending';
-    await window.MBBLogos?.ready;
   }
+  // Load the shared NCAA logo identities for both men's and women's ledgers.
+  await window.MBBLogos?.ready;
   refreshRETRO();sourceError='';
  }catch(err){if(!loaded.length)sourceError=String(err.message||'Unable to retrieve fixtures');}
  finally{loading=false;render();void refreshBroadcasts(selected);if(selected===today()||(women&&selected<today()))void refreshLive()}
