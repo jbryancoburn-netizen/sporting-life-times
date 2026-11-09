@@ -1,0 +1,34 @@
+name: College basketball logo coverage (men and women)
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'data/mbb-out-of-division-opponent-logos.json'
+      - 'scripts/audit-d1-basketball-schedules.cjs'
+      - '.github/workflows/audit-cbb-logos.yml'
+  schedule:
+    - cron: '39 10 * * *'
+permissions:
+  contents: read
+concurrency:
+  group: cbb-logo-audit
+  cancel-in-progress: true
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Audit every men's and women's Division I schedule
+        run: |
+          node -e 'const report=require("./scripts/audit-d1-basketball-schedules.cjs")(); if(report.men.files!==365||report.women.files!==363){throw new Error("Incomplete school calendar inventory");} require("node:fs").writeFileSync("cbb-logo-audit.json",JSON.stringify(report,null,2)+"\n")'
+      - name: Preserve missing-crest and school-identity coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: college-basketball-logo-coverage
+          path: cbb-logo-audit.json
+          if-no-files-found: warn

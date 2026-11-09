@@ -3,6 +3,7 @@
 const fs=require('fs'),path=require('path');
 const read=p=>JSON.parse(fs.readFileSync(p,'utf8'));
 const norm=x=>String(x||'').toLowerCase().replace(/[^a-z0-9]/g,'');
+const today=new Date().toISOString().slice(0,10);
 function audit(){
  const r=read('data/mbb-logo-registry.json').teams, c=read('data/ncaam-2026-27-espn-team-crosswalk.json').teams;
  const w=read('data/ncaaw-2026-27-teams.json').teams, ext=read('data/mbb-out-of-division-opponent-logos.json').teams;
@@ -28,7 +29,7 @@ function audit(){
    const old=data.unknown.get(k)||{name:opp.name,id:opp.id,kind,visits:0,example_school:school};
    old.visits++;data.unknown.set(k,old);
   }
-  if(String(event.date||'').startsWith('2026-11-04')&&kind!=='D1')
+  if(String(event.date||'').startsWith(today)&&kind!=='D1')
    data.today.push({school,opponent:opp.name,opponent_id:opp.id,kind,source:event.school_source_url||event.source_url||''});
  };
  let menFiles=0;
@@ -54,7 +55,7 @@ function audit(){
    di_source_logo_field_blanks:x.di_logo_blank,unique_nonD1_or_unresolved:x.unknown.size,
    highest_priority:[...x.unknown.values()].sort((a,b)=>b.visits-a.visits).slice(0,32),today:x.today.slice(0,35)});
  const gapM=read('data/mbb-schedule-completion-audit.json'),gapW=read('data/ncaaw-2026-27-schedule-first-full-coverage-audit.json');
- const results={date:'2026-11-04',men_logo_registry:mid.size,men_logo_verified:Object.values(r).filter(t=>t.logo_url_verified).length,
+ const results={date:today,men_logo_registry:mid.size,men_logo_verified:Object.values(r).filter(t=>t.logo_url_verified).length,
    women_logo_registry:wid.size,women_not_in_men_registry:[...wid].filter(id=>!mid.has(id)),
    external_logo_registry:Object.keys(ext).length,men:{files:menFiles,...out(men)},women:{files:Object.keys(member).length,...out(women)},
    baseline_schedule_gaps:{men:{as_of:gapM.checked_at,...gapM.summary},
