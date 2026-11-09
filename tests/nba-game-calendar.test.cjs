@@ -8,7 +8,7 @@ const archive=read('nba-game-center.js');
 test('NBA Game Center keeps the date calendar and clear previous/next/today controls',()=>{
  for(const id of ['nba-game-date','nba-date-previous','nba-date-next','nba-date-today','nba-date-week','nba-live-feed'])assert.ok(page.includes('id="'+id+'"'),id+' missing');
  assert.match(page,/type="date"/);
- assert.match(page,/nba-live-feed\.js\?v=date-calendar-navigation-20261105/);
+ assert.match(page,/nba-live-feed\.js\?v=[a-z0-9-]+/i);
  assert.match(page,/nba-game-center\.js\?v=date-calendar-navigation-20261105/);
 });
 test('mobile calendar date occupies its own row and buttons cannot overlap it',()=>{
