@@ -19,58 +19,43 @@ function crest(name,id,cohort,branding){
  const primary=[palette.primary,overrides.primary,info.primary].find(hex)||'#294c58';
  let secondary=[palette.secondary,overrides.secondary,info.secondary,info.accent].find(c=>hex(c)&&c.toLowerCase()!==primary.toLowerCase())||tone(primary);
  if(!hex(secondary)||secondary.toLowerCase()===primary.toLowerCase())secondary='#83918f';
- const mark=node('span','soccer-school-mark');
+ // Share the SAME roundel renderer and two-color ring geometry as college
+ // basketball: .mbb-mark.slt-dual-shell and its .mbb-mark__img artwork.
+ // Do not draw a second soccer-specific ring or a tiny background-image inset.
+ const mark=node('span','soccer-school-mark mbb-mark slt-dual-shell');
  mark.dataset.soccerCrestOwner='cup-ui';
  mark.dataset.ringCount='2';
  mark.dataset.colorVerification=palette.primary&&palette.secondary?'palette':overrides.primary&&overrides.secondary?'override':'provisional';
- mark.style.cssText='display:inline-flex!important;align-items:center!important;justify-content:center!important;'+
-  'position:relative!important;isolation:isolate!important;box-sizing:border-box!important;'+
-  'width:40px;height:40px;min-width:40px;min-height:40px;'+
-  'max-width:40px;max-height:40px;flex:0 0 40px;'+
-  'border:2px solid '+primary+'!important;border-radius:50%!important;'+
-  'background:#fff!important;overflow:visible!important;outline:none!important;'+
-  'box-shadow:none!important;padding:0!important;aspect-ratio:1/1!important;';
- mark.style.setProperty('--crest-primary',primary);
- mark.style.setProperty('--crest-secondary',secondary);
- // Distinct second school-color ring sits INSIDE the outside stroke.
- const inner=node('span','soccer-school-inner-ring');
- inner.setAttribute('aria-hidden','true');
- inner.style.cssText='position:absolute!important;inset:3px!important;border:1px solid '+secondary+'!important;'+
-  'border-radius:50%!important;background:transparent!important;pointer-events:none!important;'+
-  'z-index:3!important;box-shadow:none!important;outline:0!important;';
- // Keep the logo in its own centered, square viewport. The circular shell
- // clips nothing: only the two independent strokes form circles.
- const fallback=node('span','soccer-school-fallback',String(info.badge_text||name||id).replace(/[^A-Za-z0-9 ]/g,'').split(/\\s+/).filter(Boolean).map(w=>w[0]).join('').slice(0,3).toUpperCase()||'SC');
- fallback.style.cssText='display:flex;align-items:center;justify-content:center;position:absolute;inset:25%;'+
-  'font:800 11px/1 Arial,sans-serif;color:'+primary+';background:transparent;border:0;';
- const art=node('span','soccer-school-artwork');
- // The square's diagonal fits inside the inner ring. Entire logos remain visible.
- art.style.cssText='position:absolute!important;inset:25%!important;display:none!important;'+
-  'background-position:center!important;background-repeat:no-repeat!important;'+
-  'background-size:contain!important;border:0!important;border-radius:0!important;'+
-  'clip-path:none!important;mask:none!important;transform:none!important;'+
-  'z-index:2!important;pointer-events:none!important;';
- mark.append(fallback,art,inner);
+ mark.style.setProperty('--slt-dual-primary',primary);
+ mark.style.setProperty('--slt-dual-secondary',secondary);
+ mark.style.cssText+='width:40px;height:40px;min-width:40px;min-height:40px;max-width:40px;max-height:40px;flex:0 0 40px;';
+ const fallback=node('span','mbb-mark__initials',String(info.badge_text||name||id)
+  .replace(/[^A-Za-z0-9 ]/g,'').split(/\\s+/).filter(Boolean)
+  .map(w=>w[0]).join('').slice(0,3).toUpperCase()||'SC');
+ fallback.style.cssText='display:flex;align-items:center;justify-content:center;position:absolute;inset:5px;'+
+  'font:800 10px/1 Arial,sans-serif;color:'+primary+';background:transparent;z-index:2;';
+ mark.append(fallback);
  const candidates=[overrides.logo_url,info.logo_url,palette.logo_url,
-  /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(String(id))?'https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/'+id+'.svg':null]
+  /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(String(id))?
+   'https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/'+id+'.svg':null]
   .filter(url=>typeof url==='string'&&/^https:\/\//i.test(url))
   .filter((url,i,arr)=>arr.indexOf(url)===i);
- let nextIndex=0;
- const tryNext=()=>{
-  if(nextIndex>=candidates.length){fallback.style.display='flex';art.style.display='none';return;}
-  const url=candidates[nextIndex++];
-  const image=new Image();
-  image.onload=()=>{
-   if(image.naturalWidth>0&&image.naturalHeight>0){
-    art.style.backgroundImage='url('+JSON.stringify(url)+')';
-    art.style.setProperty('display','block','important');
-    fallback.style.display='none';
-   }else tryNext();
-  };
-  image.onerror=tryNext;
-  image.src=url;
- };
- tryNext();
+ if(candidates.length){
+  const img=node('img','mbb-mark__img soccer-school-image');
+  img.alt=name+' logo';img.loading='eager';img.decoding='async';
+  img.style.display='none';
+  let index=0;
+  const next=()=>{if(index<candidates.length)img.src=candidates[index++];
+    else{img.remove();fallback.style.display='flex'}};
+  img.addEventListener('load',()=>{
+    if(img.naturalWidth&&img.naturalHeight){
+      img.style.removeProperty('display');
+      fallback.style.display='none';
+    }else next();
+  });
+  img.addEventListener('error',next);
+  mark.append(img);next();
+ }
  return mark;
 }
 
