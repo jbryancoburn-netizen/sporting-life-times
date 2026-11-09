@@ -119,3 +119,15 @@
  #ncaa-selection-forecast .ncaa-school-row .soccer-school-mark{flex:0 0 48px!important}
  #ncaa-selection-forecast .ncaa-compare-team .ncaa-school-meta strong{font-size:15px!important}
 }
+
+/* Tournament field: smaller crests throughout the bracket and selection tables. */
+#ncaa-selection-forecast .soccer-school-mark{
+  width:24px!important;height:24px!important;min-width:24px!important;min-height:24px!important;
+  max-width:24px!important;max-height:24px!important;flex:0 0 24px!important;
+}
+#ncaa-selection-forecast .soccer-school-mark>img.soccer-school-image{
+  width:72%!important;height:72%!important;max-width:72%!important;max-height:72%!important;
+  padding:0!important;object-fit:contain!important;
+}
+#ncaa-selection-forecast .ncaa-school-row{min-height:32px!important;padding:3px 2px!important;gap:7px!important}
+#ncaa-selection-forecast .ncaa-school-meta strong{font-size:12px!important}
