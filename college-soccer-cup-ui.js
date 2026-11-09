@@ -49,11 +49,13 @@ function crest(name,id,cohort,branding){
  if(candidates.length){
   const img=node('img','soccer-school-image');
   img.alt=name+' logo';img.loading='eager';img.decoding='async';
-  // Preserve 100% of the image: no clip-path, CSS rings on the shell only.
+  // Fit the ENTIRE rectangular logo inside the inner circular ring. A 45% square
+  // stays within the inscribed square of a 28px circle after two 2px strokes.
+  // Preserve all artwork with object-fit:contain; never clip the logo itself.
   img.style.cssText='display:none!important;position:absolute!important;top:50%!important;left:50%!important;'+
    'right:auto!important;bottom:auto!important;transform:translate(-50%,-50%)!important;'+
-   'width:74%;height:74%;min-width:0;min-height:0;'+
-   'max-width:74%;max-height:74%;padding:0!important;margin:0!important;'+
+   'width:45%;height:45%;min-width:0;min-height:0;'+
+   'max-width:45%;max-height:45%;padding:0!important;margin:0!important;'+
    'box-sizing:border-box!important;object-fit:contain!important;object-position:center!important;'+
    'background:transparent!important;border:0!important;border-radius:0!important;'+
    'clip-path:none!important;mask:none!important;box-shadow:none!important;filter:none!important;'+
