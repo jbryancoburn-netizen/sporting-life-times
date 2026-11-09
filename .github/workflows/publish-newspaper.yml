@@ -106,8 +106,10 @@ jobs:
           node tests/mbb-poll-logos.test.cjs
       # The dedicated newspaper regression workflow runs full Playwright tests.
       # Keep routine publication fast and independent of browser installation.
+      # Safety fallback: scheduled NBA news collection may be delayed by Actions load.
+      # Refresh the Pages artifact independently, without touching other sports or
+      # committing generated files. Keep the previously attributed feed on failures.
       - name: Refresh NBA headlines inside the deployable Pages artifact
-        if: ${{ false }} # Dedicated league workflows own data collection; never block Pages publishing.
         continue-on-error: true
         run: |
           set -euo pipefail
@@ -123,6 +125,7 @@ jobs:
           print('Rebuilt NBA headlines within Pages artifact:',len(data['articles']),'as of',updated.isoformat())
           PY
           else
+            git restore -- data/nba-top-stories.json
             echo "::warning::NBA source collection failed; retaining last-attributed feed with its original timestamp"
           fi
       - name: Check installed authentic EuroLeague team marks
