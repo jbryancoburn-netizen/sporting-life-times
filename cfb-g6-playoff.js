@@ -40,7 +40,7 @@ let raceArchive=[];
 const signed=n=>(n>0?'+':'')+n;
 function drawRace(){
  const root=$('g6-race-content');if(!root||!field.length)return;
- const valid=raceArchive.filter(s=>s&&/^\\d{4}-\\d{2}-\\d{2}$/.test(s.date)&&Array.isArray(s.teams)&&s.teams.length===12&&new Set(s.teams.map(t=>String(t.id))).size===12).sort((a,b)=>a.date.localeCompare(b.date));
+ const valid=raceArchive.filter(s=>s&&/^\d{4}-\d{2}-\d{2}$/.test(s.date)&&Array.isArray(s.teams)&&s.teams.length===12&&new Set(s.teams.map(t=>String(t.id))).size===12).sort((a,b)=>a.date.localeCompare(b.date));
  if(!valid.length){root.innerHTML='<p class="g6-race-empty">The weekly register has not yet published its first verified snapshot. Current projections appear above; movement will begin once two distinct weekly records exist.</p>';return}
  const current=valid[valid.length-1],previous=valid.length>1?valid[valid.length-2]:null;
  const previousById=new Map((previous?.teams||[]).map(t=>[String(t.id),t]));
