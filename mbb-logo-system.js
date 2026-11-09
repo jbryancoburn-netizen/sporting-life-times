@@ -7,11 +7,25 @@ const safeURL=v=>{try{let u=new URL(v);return u.protocol==='https:'?u.href:''}ca
 const byNcaa=new Map(),byName=new Map(),ambiguous=new Set(),outsideByName=new Map(),outsideAmbiguous=new Set();
 let registry={},palette={},outside={};
 const outsideAliases=t=>[t.school,t.feed_name,t.corrected_name,...(t.aliases||[])].filter(Boolean).map(norm);
+// Independent NCAA and ESPN identifiers may name the same real university.
+// Do not mark a school's name ambiguous when verified records describe the
+// SAME identity. Prefer the numeric scoreboard key and keep both source IDs.
+function sameOutsideSchool(a,b){
+ const x=norm(a?.school),y=norm(b?.school);
+ if(!x||!y)return false;
+ if(x===y)return true;
+ return (x.startsWith(y)||y.startsWith(x))&&
+   safeURL(a?.logo_url)&&safeURL(a?.logo_url)===safeURL(b?.logo_url);
+}
 function registerOutside(id,entry){
  for(const key of outsideAliases(entry)){
   if(!key||outsideAmbiguous.has(key)||byName.has(key))continue;
-  if(outsideByName.has(key)&&outsideByName.get(key)!==id){outsideByName.delete(key);outsideAmbiguous.add(key);}
-  else outsideByName.set(key,id);
+  const prior=outsideByName.get(key);
+  if(prior&&prior!==id){
+   if(sameOutsideSchool(outside[prior],entry)){
+    if(/^\\d+$/.test(id)&&!/^\\d+$/.test(prior))outsideByName.set(key,id);
+   }else{outsideByName.delete(key);outsideAmbiguous.add(key);}
+  }else outsideByName.set(key,id);
  }
 }
 function alias(n,id){let key=norm(n);if(!key||ambiguous.has(key))return;if(byName.has(key)&&byName.get(key)!==id){ambiguous.add(key);byName.delete(key)}else byName.set(key,id)}
@@ -20,7 +34,7 @@ try{
 const [reg,cross,colors,opponents]=await Promise.all([
   ...['data/mbb-logo-registry.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json?v=ncaa-two-rings-20261101b']
     .map(p=>fetch(p,{cache:'no-cache'}).then(x=>{if(!x.ok)throw Error(p+' '+x.status);return x.json()})),
-  fetch('data/mbb-out-of-division-opponent-logos.json?v=nov8-seven-opponents-20261108',{cache:'no-cache'})
+  fetch('data/mbb-out-of-division-opponent-logos.json?v=nov9-crest-identity-20261109b',{cache:'no-cache'})
     .then(x=>x.ok?x.json():{teams:{}}).catch(()=>({teams:{}}))
 ]);
 if(Object.keys(reg.teams||{}).length!==365||cross.teams?.length!==365)throw Error('Incomplete 365-team logo registry');

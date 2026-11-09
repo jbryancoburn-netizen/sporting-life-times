@@ -11,10 +11,16 @@ function audit(){
  const womenFull=read('data/ncaaw-schedules-2026-27.json'), mid=new Set(Object.keys(r)),wid=new Set(w.map(x=>String(x.team_id)));
  const di=new Map(),outside=new Map(),outsideAmbiguous=new Set();
  for(const t of c)for(const n of [t.name,t.espn_name,r[t.espn_id]?.school])if(n)di.set(norm(n),String(t.espn_id));
+ di.set(norm('Missouri-Kansas City'),'140');
  for(const [id,t] of Object.entries(ext))for(const n of [t.school,t.feed_name,t.corrected_name,...(t.aliases||[])]){
   const key=norm(n);if(!key||outsideAmbiguous.has(key)||di.has(key))continue;
-  if(outside.has(key)&&outside.get(key)!==id){outside.delete(key);outsideAmbiguous.add(key)}
-  else outside.set(key,id);
+  const prior=outside.get(key);
+  if(prior&&prior!==id){
+   const a=ext[prior],x=norm(a?.school),y=norm(t.school);
+   const same=!!x&&!!y&&(x===y||((x.startsWith(y)||y.startsWith(x))&&a?.logo_url===t.logo_url));
+   if(same){if(/^\\d+$/.test(id)&&!/^\\d+$/.test(prior))outside.set(key,id)}
+   else {outside.delete(key);outsideAmbiguous.add(key)}
+  }else outside.set(key,id);
  }
  // Mirror the shared crest renderer: a school can be resolved by its
  // verified name even when the calendar omits an opponent ID or ESPN uses
