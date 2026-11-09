@@ -20,6 +20,7 @@ class LocalPressTests(unittest.TestCase):
         self.assertEqual(len({t["id"] for t in self.registry["teams"]}), 32)
         self.assertTrue(all(len(t["local_sources"]) >= 2 for t in self.registry["teams"]))
         self.assertIn("chicagotribune.com", [s["domain"] for s in self.bears["local_sources"]])
+        self.assertIn("rss2.0.xml", next(t for t in self.registry["teams"] if t["id"] == "14")["direct_rss_feeds"][0])
 
     def test_direct_domain_required(self):
         paper = {"name": "Chicago Tribune", "domain": "chicagotribune.com"}

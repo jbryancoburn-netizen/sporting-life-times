@@ -197,6 +197,16 @@ def rebuild(now=None, fetcher=fetch, resolver=resolve_google):
                     wider = parse_feed(fetcher(search_url(team, sources, short, unrestricted=True)),
                                        team, now, limit, allowed_sources=sources)
                     items.extend(a for a in wider if a["discovery_url"] not in seen)
+            if family == "local":
+                for feed in team.get("direct_rss_feeds", []):
+                    try:
+                        direct = parse_feed(fetcher(feed), team, now, limit)
+                        known = {a["discovery_url"] for a in items}
+                        items.extend(a for a in direct if a["discovery_url"] not in known
+                                     and source_for_url(a["discovery_url"], sources))
+                    except Exception as feed_exc:
+                        print("Optional local publisher RSS unavailable:", team["name"], feed,
+                              str(feed_exc)[:100])
             return job, items[:limit], None
         except Exception as exc:
             return job, [], str(exc)[:160]
