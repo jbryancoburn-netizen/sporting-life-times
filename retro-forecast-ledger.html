@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RETRO Forecast Ledger | Sporting Life &amp; Times</title>
+<style>
+:root{color-scheme:light}body{background:#f4efe2;color:#26231e;font:16px Georgia,serif;max-width:1120px;margin:auto;padding:24px}
+h1{font-variant:small-caps;text-align:center;font-size:clamp(2rem,5vw,3.5rem);margin:8px 0}
+header{border-block:5px double #3c352a;margin-bottom:18px;text-align:center}
+.eyebrow{letter-spacing:.2em;text-transform:uppercase;font-size:.8rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:20px}
+.card{border:2px solid #665b48;padding:15px;text-align:center;background:#fcf8ef}
+.card strong{display:block;font-size:2rem}table{width:100%;border-collapse:collapse;background:#fcf8ef}
+th,td{padding:9px;border-bottom:1px solid #978c7e;text-align:right}th:first-child,td:first-child{text-align:left}
+table caption{text-align:left;font-weight:bold;font-size:1.5rem;padding:10px 0}
+.note{font-size:.9rem}a{color:#343e49}
+</style></head><body>
+<header><div class="eyebrow">Sporting Life &amp; Times · Independent Forecasting</div><h1>The RETRO Forecast Ledger</h1><p>2026–27 College Basketball · Pregame Point Spreads and Verified Results</p></header>
+<p class="note">Predictions are captured before game day, then scored against verified Division I finals. No rewritten predictions, no sportsbook lines. A missing value means no scored games yet.</p>
+<div class="cards" id="metrics"><div class="card">Loading verified statistics…</div></div>
+<p id="fresh" aria-live="polite"></p>
+<table><caption>Daily Forecast Accuracy</caption><thead><tr><th>Date</th><th>Games</th><th>Correct Winners</th><th>Winner %</th><th>Spread Error (MAE)</th></tr></thead><tbody id="days"><tr><td colspan="5">Loading…</td></tr></tbody></table>
+<p class="note">Spread error is the absolute difference between the predicted and actual home margin. Lower is better. Ratings and forecast models remain independent of the auditing process.</p>
+<script>
+const safe=v=>v===null||v===undefined?'—':String(v);
+const pct=v=>v==null?'—':(100*v).toFixed(1)+'%';
+fetch('data/retro-spread-accuracy-2026-27.json?ts='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Data unavailable');return r.json()}).then(d=>{
+ const m=d.summary, cards=[['Predictions Archived',d.archived_predictions],['Games Scored',m.games],['Winner Accuracy',pct(m.winner_accuracy)],['Spread Error',m.margin_mae==null?'—':m.margin_mae.toFixed(2)+' pts'],['Brier Score',m.brier==null?'—':m.brier.toFixed(4)],['Awaiting Finals',d.pending_finals]];
+ document.getElementById('metrics').innerHTML=cards.map(([k,v])=>'<div class="card"><small>'+k+'</small><strong>'+safe(v)+'</strong></div>').join('');
+ document.getElementById('fresh').textContent='Last audit: '+d.updated_at_utc+' · Men’s D-I only';
+ const dates=Object.entries(d.by_date||{}).sort((a,b)=>b[0].localeCompare(a[0]));
+ document.getElementById('days').innerHTML=dates.length?dates.map(([day,v])=>'<tr><td>'+day+'</td><td>'+v.games+'</td><td>'+v.correct_winners+'</td><td>'+pct(v.winner_accuracy)+'</td><td>'+v.margin_mae.toFixed(2)+'</td></tr>').join(''):'<tr><td colspan="5">No archived pregame spreads have reached final yet.</td></tr>';
+}).catch(e=>{document.getElementById('metrics').textContent='Accuracy data not yet published.';document.getElementById('days').textContent=e.message});
+</script></body></html>
