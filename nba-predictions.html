@@ -64,7 +64,7 @@ else if(order==='close')list.sort((a,b)=>Math.abs(a.p.margin)-Math.abs(b.p.margi
 else list.sort((a,b)=>Date.parse(a.g.date)-Date.parse(b.g.date));
 $('games').innerHTML=list.length?list.map(({g,a,h,p})=>{
  const favored=p.margin>=0?h.code:a.code,margin=Math.abs(p.margin);
- const side=p.margin>=0?'home':'away';
+ const roundedMargin=Math.round(margin*2)/2;
  const awayPct=100*(1-p.homeWin),homePct=100*p.homeWin;
  const eloFav=p.homeWin>=.5?h.code:a.code;
  const discrepancy=eloFav!==favored?'<div class="meta"><strong>Model disagreement:</strong> RETRO Elo favors '+escapeHtml(eloFav)+' while projected points favor '+escapeHtml(favored)+'.</div>':'';
@@ -73,7 +73,7 @@ $('games').innerHTML=list.length?list.map(({g,a,h,p})=>{
  return '<article class="game"><div class="kicker"><span>'+escapeHtml(tip(g.date))+'</span><span>Independent RETRO forecast</span></div>'+
  '<div class="teams"><div class="club"><img loading="lazy" src="'+teamLogo(a.code)+'" alt=""><span>'+escapeHtml(a.name||a.code)+'</span><small>AWAY · '+escapeHtml(a.code)+'</small></div>'+
  '<div class="club"><img loading="lazy" src="'+teamLogo(h.code)+'" alt=""><span>'+escapeHtml(h.name||h.code)+'</span><small>HOME · '+escapeHtml(h.code)+'</small></div></div>'+
- '<div class="projections"><div><small>Projected final</small><strong>'+p.awayScore+'–'+p.homeScore+'</strong></div><div><small>Likely spread</small><strong class="winner">'+(margin<.05?'EVEN':favored+' −'+margin.toFixed(1))+'</strong></div><div><small>Expected total</small><strong>'+p.total.toFixed(1)+'</strong></div></div>'+
+ '<div class="projections"><div><small>Projected final</small><strong>'+p.awayScore+'–'+p.homeScore+'</strong></div><div><small>Likely spread</small><strong class="winner">'+(roundedMargin===0?'EVEN':favored+' −'+roundedMargin.toFixed(1))+'</strong></div><div><small>Expected total</small><strong>'+p.total.toFixed(1)+'</strong></div></div>'+
  '<div class="meta">RETRO Elo win chances: '+escapeHtml(a.code)+' <strong>'+awayPct.toFixed(1)+'%</strong> · '+escapeHtml(h.code)+' <strong>'+homePct.toFixed(1)+'%</strong></div>'+
  '<div class="meter" aria-hidden="true"><i style="width:'+homePct.toFixed(1)+'%"></i></div>'+
  '<div class="meta">Possession estimate: '+p.possessions.toFixed(1)+' · Scoring samples: '+escapeHtml(a.code)+' '+p.awayGames+' games, '+escapeHtml(h.code)+' '+p.homeGames+' games</div>'+discrepancy+
