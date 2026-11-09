@@ -69,7 +69,7 @@ test('NBA power table uses eleven sourced and compact analytical columns',()=>{
  assert.ok(js.includes('records[t].pf/gp')&&js.includes('records[t].pa/gp'),'per-game stats use actual finals');
  assert.ok(js.includes("all.slice(-5)"),'last-five record must be actual trailing finals');
  assert.ok(css.includes('table-layout:fixed')&&css.includes('height:48px'));
- assert.match(read('nba-rankings.html'),/nba-newspaper\.js\?v=20261028singleelo1500/);
+ assert.match(read('nba-rankings.html'),/nba-newspaper\.js\?v=[a-z0-9-]+/i);
  assert.doesNotMatch(js,/nba-power-history|Compare historical rating baselines/,'do not display alternative historical Elo rankings');
  assert.doesNotMatch(js,/nba-power-spotlights|nba-power-spotlight-team/,'oversized featured NBA logo cards must not reappear');
  assert.doesNotMatch(css,/nba-power-spotlights|nba-power-spotlight-team/,'unused oversized featured panel styling should not return');

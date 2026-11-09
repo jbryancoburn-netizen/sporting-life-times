@@ -49,10 +49,12 @@ async function news(){
 }
 async function desk(){
  try{
- const [elo,gameCenter]=await Promise.all([
+ const [elo,gameCenter,finalLedger]=await Promise.all([
   fetchJSON('data/nba-elo-shadow-2026-27.json'),
-  fetchJSON('data/nba-game-center.json')
+  fetchJSON('data/nba-game-center.json').catch(()=>({games:[]})),
+  fetchJSON('data/nba-2026-27-current-provisional.json')
  ]);
+ if(!Array.isArray(finalLedger.events)||finalLedger.events.length!==finalLedger.games_played)throw Error('Incomplete primary NBA final-game ledger');
  let schedule;
  try{schedule=await fetchJSON('data/nba-upcoming-schedule.json')}
  catch(e){
@@ -87,7 +89,10 @@ async function desk(){
  };
  const daily=t=>movement.available?dailyMarkup(movement.daily[t]):'N/A';
  const records=Object.fromEntries(Object.keys(names).map(t=>[t,{w:0,l:0}]));
- const ledger=(elo.events||[]).filter(g=>Number.isFinite(g.home_score)&&Number.isFinite(g.away_score));
+ // Record W-L from the primary verified finals, never from the asynchronously rebuilt ratings.
+ const ledger=finalLedger.events.filter(g=>Number.isInteger(g.home_score)&&Number.isInteger(g.away_score));
+ const ratingFinals=new Map((elo.events||[]).map(g=>[g.id,g]));
+ const ratingSyncPending=elo.games_played!==ledger.length||ledger.some(g=>{const e=ratingFinals.get(g.id);return !e||['home','away','home_score','away_score'].some(k=>e[k]!==g[k]);});
  for(const g of ledger){if(!records[g.home]||!records[g.away])continue;const winner=g.home_score>g.away_score?g.home:g.away,loser=winner===g.home?g.away:g.home;records[winner].w++;records[loser].l++}
 
  const analyses=ledger.slice(-8).reverse().map(g=>{
@@ -116,7 +121,7 @@ async function desk(){
  const finals=games.filter(g=>g.state==='post'||/final/i.test(g.status||''));
  const ledgerKeys=new Set(ledger.map(g=>[g.home,g.away,g.home_score,g.away_score].join('|')));
  const pending=finals.filter(g=>{const h=g.teams?.find(t=>t.home_away==='home'),a=g.teams?.find(t=>t.home_away==='away');const hc=code(h?.name),ac=code(a?.name);return hc&&ac&&Number.isFinite(Number(h?.score))&&Number.isFinite(Number(a?.score))&&!ledgerKeys.has([hc,ac,Number(h.score),Number(a.score)].join('|'))});
- const syncLabel=pending.length?' · '+pending.length+' final game(s) awaiting Elo/standings synchronization':' · Verified Elo ledger aligned with available finals';
+ const syncLabel=(pending.length?' · '+pending.length+' additional reported finals awaiting published standings':'')+(ratingSyncPending?' · RETRO ratings pending synchronization':' · RETRO synchronized with final-game ledger');
 
  const divisions=[
  ['ATLANTIC',['BOS','BKN','NYK','PHI','TOR']],
@@ -129,10 +134,10 @@ async function desk(){
  const division=(label,keys)=>{const arr=[...keys].sort((a,b)=>{const x=records[a],y=records[b];return y.w-x.w||x.l-y.l||ratings[b]-ratings[a]});
  const high=Math.max(...arr.map(t=>ratings[t])),low=Math.min(...arr.map(t=>ratings[t])),span=Math.max(1,high-low);
  return '<section class="nba-division nba-visual-division"><h3>'+label+'</h3><div class="nba-visual-standings">'+arr.map((t,i)=>{const r=records[t],percent=r.w+r.l?r.w/(r.w+r.l):null;const bar=12+88*(ratings[t]-low)/span;const change=movement.available?movement.daily[t]:null;return '<a class="nba-visual-row" href="nba-team-desk.html?team='+encodeURIComponent(t)+'"><span class="nba-standing-rank">'+(i+1)+'</span><img class="nba-standing-logo" src="'+logo(t)+'" loading="lazy" alt=""><span class="nba-standing-team">'+esc(names[t])+'<small>'+t+'</small></span><span class="nba-standing-record">'+r.w+'–'+r.l+'<small>'+(percent===null?'No finals':(percent*100).toFixed(0)+'% wins')+'</small></span><span class="nba-standing-strength"><span class="nba-standing-strength-track"><span style="width:'+bar.toFixed(0)+'%"></span></span><small>Elo '+ratings[t].toFixed(0)+'</small></span><span class="nba-standing-trend">'+(Number.isFinite(change)?(change>0?'▲ +':change<0?'▼ ':'— ')+Math.abs(change).toFixed(1):'N/A')+'</span></a>'}).join('')+'</div></section>'};
- $('nba-conference-standings').innerHTML='<p class="hub-small">'+(pending.length?'<strong>UPDATE PENDING: '+pending.length+' reported finals are not yet reflected in W–L or Elo.</strong> ':'')+'Six NBA divisions · Provisional records from '+ledger.length+' verified completed games in the Elo ledger. <strong>Not full official season standings.</strong> Elo is independent of W–L. <a href="https://www.nba.com/standings">Official NBA standings ↗</a></p><div class="nba-divisions">'+divisions.map(([label,keys])=>division(label,keys)).join('')+'</div>';
+ $('nba-conference-standings').innerHTML='<p class="hub-small">'+(pending.length?'<strong>UPDATE PENDING: '+pending.length+' additional reported finals are not yet reflected in W–L.</strong> ':'')+(ratingSyncPending?'<strong>RETRO ratings are catching up to verified standings.</strong> ':'')+'Six NBA divisions · Provisional records from '+ledger.length+' verified completed games in the Elo ledger. <strong>Not full official season standings.</strong> Elo is independent of W–L. <a href="https://www.nba.com/standings">Official NBA standings ↗</a></p><div class="nba-divisions">'+divisions.map(([label,keys])=>division(label,keys)).join('')+'</div>';
  const results=ledger.slice(-16).reverse().map(g=>{
   const h=g.home,a=g.away,homeWon=g.home_score>g.away_score;
-  const delta=Number(g.home_elo_change),stamp=g.date&&Number.isFinite(Date.parse(g.date))?date(g.date):'Date unavailable';
+  const delta=Number(ratingFinals.get(g.id)?.home_elo_change),stamp=g.date&&Number.isFinite(Date.parse(g.date))?date(g.date):'Date unavailable';
   const bug=window.SLTScorebug.render({mode:'final',subtitle:stamp,away:{code:a,name:names[a],logo:logo(a)},home:{code:h,name:names[h],logo:logo(h)},awayScore:g.away_score,homeScore:g.home_score,winner:homeWon?h:a});
   const movement=Number.isFinite(delta)?'<div><span>'+esc(a)+' Elo '+(-delta>=0?'+':'')+(-delta).toFixed(2)+'</span><span>'+esc(h)+' Elo '+(delta>=0?'+':'')+delta.toFixed(2)+'</span></div>':'';
   return '<details class="nba-scorebug"><summary>'+bug+'<span class="slt-scorebug-expand">Game details ▾</span></summary><div class="nba-scorebug-details">'+movement+'<p><a href="nba-game-center.html?game='+encodeURIComponent(g.id)+'">Full game center ↗</a></p><p>Independent Elo: '+esc(a)+' '+ratings[a].toFixed(1)+' · '+esc(h)+' '+ratings[h].toFixed(1)+'</p></div></details>';
