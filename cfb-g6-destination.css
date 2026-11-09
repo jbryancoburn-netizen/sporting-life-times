@@ -1,0 +1,50 @@
+/* G6 destination edition: scoped, no global football styling changes. */
+.g6-destination{--g6-paper:#fbf7ec;--g6-ink:#27312d;--g6-gold:#aa8243}
+.g6-destination .wrap{max-width:1480px}
+.g6-destination main{background:transparent}
+.g6-destination .desk-lead{background:#f4ecda;border:1px solid #c9b995;border-top:5px double #755d39;padding:clamp(20px,3vw,42px);grid-template-columns:minmax(0,1.7fr) minmax(260px,.8fr);margin:22px 0 18px;position:relative}
+.g6-destination .desk-lead:after{content:"✦  THE SPORTING LIFE CHAMPIONSHIP  ✦";position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);background:var(--g6-paper);padding:3px 20px;color:#765c35;font-size:9px;letter-spacing:1.5px;white-space:nowrap}
+.g6-destination .desk-lead h1{font:clamp(41px,5vw,78px)/.99 Georgia,serif;letter-spacing:-1.8px;max-width:900px;color:#27332d}
+.g6-destination .desk-lead h1 em{color:#9c713a;font-weight:normal}
+.g6-destination .desk-lead p{font:clamp(13px,1.3vw,17px)/1.5 Georgia,serif;max-width:630px}
+.g6-destination .g6-crown-feature{border-left:3px double #c8b58d;text-align:center;align-items:center;padding:18px;gap:13px}
+.g6-trophy{font:84px Georgia,serif;color:#a27b3b;line-height:.85;text-shadow:0 2px #e8d8ad}
+.g6-destination .g6-crown-feature strong{font:clamp(23px,2.5vw,35px)/1.08 Georgia,serif;max-width:380px}
+.g6-hero-cta{display:inline-block;background:#253f35;color:#fff9e8!important;border:1px solid #a38c57;padding:12px 15px;text-decoration:none;font-size:12px;letter-spacing:.5px;font-weight:bold}
+.g6-section-kicker{text-align:center;letter-spacing:2px;font:700 11px Georgia,serif;color:#745932;margin:0 0 11px}
+.g6-conference-showcase{margin:24px 0 18px}
+.g6-league-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
+.g6-league{min-width:0;border:1px solid #cbbc9e;background:#faf5e9;text-align:center;padding:13px 7px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.g6-league small{font:bold 11px/1.25 Georgia,serif;min-height:27px}
+.g6-league .cfb-crest{width:62px;height:62px;flex-basis:62px}
+.g6-league .team-identity{flex-direction:column;gap:7px;font-size:11px;text-align:center;justify-content:center}
+.g6-league span{font-size:10px;color:#6a7165}
+.g6-destination .format-grid{background:#ece4d3;padding:13px;gap:12px;border-top:1px solid #bba77f;border-bottom:1px solid #bba77f}
+.g6-destination .format-card{padding:10px 12px;border-top:2px solid #8d7149}
+.g6-destination .format-card b{font-family:Georgia,serif;color:#745630}
+.g6-destination .seed-card{border:1px solid #cdbfa3;border-top:3px solid #a58957;box-shadow:0 2px 5px #47392410;padding:13px;min-height:128px}
+.g6-destination .seed-card .cfb-crest{width:59px;height:59px;flex-basis:59px}
+.g6-destination .seed-card .team-identity{font:700 13px Georgia,serif}
+.g6-destination .panel h2{font-family:Georgia,serif}
+.g6-destination .bracket-rounds{grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;align-items:start}
+.g6-destination .bracket-round{min-width:0}
+.g6-destination .bracket-round h3{text-align:center;border-bottom:3px double #ad966d;padding-bottom:10px;font:22px Georgia,serif}
+.g6-destination .bracket-game{background:#faf6eb;border:1px solid #cabb9c;padding:10px}
+.g6-destination .bracket-game button{display:flex;align-items:center;justify-content:space-between;gap:6px;min-height:62px;background:#fffdf7;border:1px solid #d9cfbc;cursor:pointer}
+.g6-destination .bracket-game button[aria-pressed=true]{background:#e3e9d9;border:2px solid #41654c}
+.g6-destination .g6-bracket-team{min-width:0;display:flex;align-items:center;text-align:left;flex:1}
+.g6-destination .g6-bracket-team .team-identity{gap:6px;font-size:11px}
+.g6-destination .g6-bracket-team .cfb-crest{width:37px;height:37px;flex-basis:37px}
+.g6-seed-badge{font:700 17px Georgia,serif;color:#735937}
+.g6-bracket-banner{text-align:center;padding:16px 10px;border-block:4px double #9f875a;margin:14px 0 20px;background:#f0e9d9;display:flex;flex-direction:column;gap:4px}
+.g6-bracket-banner span{letter-spacing:1.8px;font-size:10px}
+.g6-bracket-banner strong{font:clamp(25px,3vw,40px) Georgia,serif}
+.g6-champion-spotlight{border:2px solid #a68a51;background:#f3ead6;text-align:center;padding:17px 10px;margin:0 auto 25px;max-width:650px}
+.g6-champion-label{font:700 11px Georgia,serif;letter-spacing:2px;color:#795b30}
+.g6-champion-team .team-identity{font:700 clamp(19px,2.5vw,31px) Georgia,serif;justify-content:center;margin:10px auto}
+.g6-champion-team .cfb-crest{width:75px;height:75px;flex-basis:75px}
+.g6-champion-meta{font-size:11px;color:#625b4d}
+.g6-destination #g6-odds .cfb-crest{width:34px;height:34px;flex-basis:34px}
+.g6-destination #g6-odds td{padding:6px}
+@media(max-width:1150px){.g6-destination .bracket-rounds{grid-template-columns:repeat(2,minmax(0,1fr))}.g6-league-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:700px){.g6-destination .desk-lead{grid-template-columns:1fr;padding:21px}.g6-destination .g6-crown-feature{border-left:0;border-top:3px double #c8b58d}.g6-destination .bracket-rounds{grid-template-columns:1fr}.g6-league-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.g6-destination .g6-field-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.g6-destination .desk-lead:after{font-size:7px;letter-spacing:0}}
