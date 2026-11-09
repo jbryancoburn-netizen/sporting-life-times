@@ -21,7 +21,16 @@ jobs:
           python-version: '3.11'
       - name: Rebuild and validate 48-team soccer projection
         run: |
-          python scripts/rebuild_soccer_daily_selection.py
+          python - <<'PY'
+          import json,subprocess,sys
+          from datetime import datetime,timezone
+          from pathlib import Path
+          out=Path("data/college-soccer-selection-update-status.json")
+          run=subprocess.run([sys.executable,"scripts/rebuild_soccer_daily_selection.py"],capture_output=True,text=True)
+          state={"checked_at_utc":datetime.now(timezone.utc).isoformat(),"status":"published" if run.returncode==0 else "blocked_missing_verified_selection_inputs","reason":(run.stdout if run.returncode==0 else run.stderr)[-600:]}
+          out.write_text(json.dumps(state,indent=2)+"\\n")
+          print(state)
+          PY
           python -m json.tool data/college-soccer-ncaa-selection-forecast.json >/dev/null
           python - <<'PY'
           import json
@@ -35,12 +44,12 @@ jobs:
           PY
       - name: Publish only the selection forecast when changed
         run: |
-          if git diff --quiet -- data/college-soccer-ncaa-selection-forecast.json; then
+          if git diff --quiet -- data/college-soccer-ncaa-selection-forecast.json data/college-soccer-selection-update-status.json; then
             echo 'No selection forecast changes'
             exit 0
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/college-soccer-ncaa-selection-forecast.json
+          git add data/college-soccer-ncaa-selection-forecast.json data/college-soccer-selection-update-status.json
           git commit -m 'Refresh daily NCAA soccer RETRO selection projection'
           git push
