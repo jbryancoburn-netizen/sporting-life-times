@@ -26,7 +26,11 @@ const {chromium}=require('playwright');
   let history={schema:1,snapshots:[]};
   if(fs.existsSync(path))history=JSON.parse(fs.readFileSync(path,'utf8'));
   if(!Array.isArray(history.snapshots))throw Error('Invalid G6 archive');
-  const latest=history.snapshots.at(-1);\n  const sameGames=latest&&JSON.stringify(latest.completed||[])===JSON.stringify(result.completed);\n  const mandatory=process.env.G6_WEEKLY==='true';\n  if(latest?.date===date){console.log('Edition already exists for '+date);return}\n  if(!mandatory&&sameGames){console.log('No newly completed G6 games since last edition');return}
+  const latest=history.snapshots.at(-1);
+  const sameGames=latest&&JSON.stringify(latest.completed||[])===JSON.stringify(result.completed);
+  const mandatory=process.env.G6_WEEKLY==='true';
+  if(latest?.date===date){console.log('Edition already exists for '+date);return}
+  if(!mandatory&&sameGames){console.log('No newly completed G6 games since last edition');return}
   history.snapshots.push({date,sourceStamp:result.stamp,completed:result.completed,teams:result.teams});
   history.snapshots.sort((a,b)=>a.date.localeCompare(b.date));
   fs.mkdirSync('data',{recursive:true});fs.writeFileSync(path,JSON.stringify(history,null,2)+'\n');
