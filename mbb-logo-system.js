@@ -23,7 +23,7 @@ function registerOutside(id,entry){
   const prior=outsideByName.get(key);
   if(prior&&prior!==id){
    if(sameOutsideSchool(outside[prior],entry)){
-    if(/^\\d+$/.test(id)&&!/^\\d+$/.test(prior))outsideByName.set(key,id);
+    if(/^[0-9]+$/.test(id)&&!/^[0-9]+$/.test(prior))outsideByName.set(key,id);
    }else{outsideByName.delete(key);outsideAmbiguous.add(key);}
   }else outsideByName.set(key,id);
  }

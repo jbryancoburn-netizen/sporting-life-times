@@ -18,7 +18,7 @@ function audit(){
   if(prior&&prior!==id){
    const a=ext[prior],x=norm(a?.school),y=norm(t.school);
    const same=!!x&&!!y&&(x===y||((x.startsWith(y)||y.startsWith(x))&&a?.logo_url===t.logo_url));
-   if(same){if(/^\\d+$/.test(id)&&!/^\\d+$/.test(prior))outside.set(key,id)}
+   if(same){if(/^[0-9]+$/.test(id)&&!/^[0-9]+$/.test(prior))outside.set(key,id)}
    else {outside.delete(key);outsideAmbiguous.add(key)}
   }else outside.set(key,id);
  }
