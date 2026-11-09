@@ -736,10 +736,10 @@ function card(original,featured,opened=false){
  const modelMargin=Number.isFinite(g.projectedHomeMargin)?g.projectedHomeMargin:(p&&Number.isFinite(p.home)&&Number.isFinite(p.away)?p.home-p.away:null);
  const spreadText=(margin)=>{
   if(!Number.isFinite(margin))return '—';
-  if(Math.abs(margin)<0.05)return 'EVEN';
+  const rounded=Math.round(Math.abs(margin)*2)/2;
+  if(rounded===0)return 'EVEN';
   const name=margin>0?g.home.name:g.away.name;
-  const n=Math.round(Math.abs(margin)*10)/10;
-  return esc(name)+' −'+n.toFixed(1).replace(/\.0$/,'');
+  return esc(name)+' −'+rounded.toFixed(1);
  };
  const womenWinForecast=women&&g.phase==='upcoming'&&Number.isFinite(g.probability);
  const womenReady=womenWinForecast&&g.forecastStatus==='HISTORICAL_HOLDOUT_VALIDATED'&&
