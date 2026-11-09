@@ -25,8 +25,8 @@ function crest(name,id,cohort,branding){
  mark.dataset.colorVerification=palette.primary&&palette.secondary?'palette':overrides.primary&&overrides.secondary?'override':'provisional';
  mark.style.cssText='display:inline-flex!important;align-items:center!important;justify-content:center!important;'+
   'position:relative!important;isolation:isolate!important;box-sizing:border-box!important;'+
-  'width:48px!important;height:48px!important;min-width:48px!important;min-height:48px!important;'+
-  'max-width:48px!important;max-height:48px!important;flex:0 0 48px!important;'+
+  'width:40px!important;height:40px!important;min-width:40px!important;min-height:40px!important;'+
+  'max-width:40px!important;max-height:40px!important;flex:0 0 40px!important;'+
   'border:2px solid '+primary+'!important;border-radius:50%!important;'+
   'background:#fff!important;overflow:hidden!important;outline:none!important;'+
   'box-shadow:none!important;padding:0!important;aspect-ratio:1/1!important;';
