@@ -79,6 +79,7 @@ def main():
                     and numeric(e.get("away_score"))}
     matched = []
     pending = 0
+    mismatched_events = []
     for p in records:
         f = final_by_key.get((p["date"], p["id"]))
         if not f:
@@ -86,7 +87,8 @@ def main():
             continue
         if (str(f.get("home_id")) != str(p.get("home_id")) or
                 str(f.get("away_id")) != str(p.get("away_id"))):
-            raise ValueError("Team mismatch for event " + p["id"])
+            mismatched_events.append(p["id"])
+            continue  # flag identity errors, never contaminate margin statistics
         actual = f["home_score"] - f["away_score"]
         prediction = p["projected_home_margin"]
         home_wins = actual > 0
@@ -114,7 +116,7 @@ def main():
         "season": SEASON, "sport": "NCAA men's Division I basketball",
         "method": "Immutable before-game-day forecasts versus verified in-season D-I finals",
         "updated_at_utc": now, "archived_predictions": len(records),
-        "pending_finals": pending, "summary": metrics(matched),
+        "pending_finals": pending, "excluded_orientation_mismatches": mismatched_events, "summary": metrics(matched),
         "by_date": {day: metrics(rows) for day, rows in sorted(groups.items())},
         "games": sorted(matched, key=lambda x: (x["date"], x["id"]))
     }
