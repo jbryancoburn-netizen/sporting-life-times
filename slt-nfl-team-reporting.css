@@ -1,0 +1,25 @@
+/* Original-publisher reporting desk on NFL team pages. */
+body.nfl-paper[data-page="team"] .nfl-press{margin:19px 0 24px;padding:17px 19px 20px;border:3px double #29251f;background:#f8f5ed;color:#27221d;box-shadow:0 1px 0 #cabfae}
+.nfl-press-kicker{margin:0 0 6px;color:#9c3b2c;font:700 10px/1.5 Arial,sans-serif;letter-spacing:.15em;text-transform:uppercase}
+.nfl-press-title{display:flex;justify-content:space-between;align-items:flex-end;gap:10px 20px;flex-wrap:wrap;border-bottom:1px solid #938774;padding-bottom:12px}
+.nfl-press-title h2{margin:0 0 5px!important;font:700 clamp(23px,3vw,33px)/1.15 Georgia,serif!important;text-transform:none!important;letter-spacing:-.025em}
+.nfl-press-title p{margin:0;font:13px/1.4 Georgia,serif;color:#66594c}
+#nfl-press-status{font:700 10px/1.45 Arial,sans-serif;color:#676056;text-transform:uppercase;letter-spacing:.05em}
+.nfl-press-tabs{display:flex;flex-wrap:wrap;gap:5px;margin:12px 0 15px}
+.nfl-press-tabs button{border:1px solid #ab9d8a;background:#f3eee4;padding:7px 11px;color:#40382e;cursor:pointer;font:700 11px/1.1 Arial,sans-serif;text-transform:uppercase}
+.nfl-press-tabs button[aria-pressed="true"]{background:#2d2924;color:#fff;border-color:#2d2924}
+.nfl-press-tabs button:disabled{opacity:.42;cursor:default}
+.nfl-press-tabs small{font-size:10px;opacity:.77;padding-left:3px}
+.nfl-press-tabs button:focus-visible,.nfl-press-item a:focus-visible{outline:3px solid #b8462d;outline-offset:2px}
+.nfl-press-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 22px}
+.nfl-press-item{padding:14px 0 15px;border-top:1px solid #d4c7b5;min-width:0}
+.nfl-press-item:nth-child(-n+2){border-top:2px solid #3e3830}
+.nfl-press-byline{font:700 10px/1.5 Arial,sans-serif;color:#8c3a2c;text-transform:uppercase;letter-spacing:.035em;margin-bottom:6px}
+.nfl-press-paid{display:inline-block;border:1px solid #996f46;color:#79542c;padding:1px 4px;font:700 9px/1.2 Arial,sans-serif;white-space:nowrap;margin-left:4px}
+.nfl-press-item h3{font:700 18px/1.22 Georgia,serif!important;letter-spacing:-.014em;margin:0 0 5px!important}
+.nfl-press-item h3 a{text-decoration:none;color:#211e1a}
+.nfl-press-item h3 a:hover{text-decoration:underline;text-decoration-color:#a03c2d}
+.nfl-press-item p{font:13px/1.5 Georgia,serif;margin:0;color:#5e544a}
+.nfl-press-empty{grid-column:1/-1;padding:18px 0;color:#65584b}
+.nfl-press-foot{border-top:1px solid #d7cdbb;margin:12px 0 0;padding-top:10px;font:11px/1.5 Arial,sans-serif;color:#6e6256}
+@media(max-width:680px){body.nfl-paper[data-page="team"] .nfl-press{padding:13px 12px}.nfl-press-list{grid-template-columns:1fr}.nfl-press-item:nth-child(2){border-top:1px solid #d4c7b5}.nfl-press-title{display:block}#nfl-press-status{display:block;margin-top:10px}.nfl-press-tabs button{font-size:10px;padding:7px}}
