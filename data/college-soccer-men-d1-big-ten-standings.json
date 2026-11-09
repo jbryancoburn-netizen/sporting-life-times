@@ -4,7 +4,7 @@
   "source_url": "https://bigten.org/standings.aspx?path=msoc",
   "snapshot_checked_date": "2026-10-24",
   "last_verified_game_date": null,
-  "note": "Published official standings snapshot. Not confirmed final seeds; later matches and official tie rules can change order.",
+  "note": "Standings records were last verified on October 24 and are historical, NOT current. Tournament seeds and results verified separately through November 9; do not treat the standings snapshot as final.",
   "rows": [
     {
       "team_id": "indiana",
@@ -83,5 +83,65 @@
       "conference_games": 9,
       "overall_record": "2-8-3"
     }
-  ]
+  ],
+  "tournament_seeds": [
+    "indiana",
+    "washington",
+    "rutgers",
+    "michigan-st",
+    "maryland",
+    "ucla"
+  ],
+  "tournament_bracket": {
+    "status": "official",
+    "source_url": "https://bigten.org/news/2026/11/5/indiana-claims-big-ten-mens-soccer-crown.aspx",
+    "results_sources": [
+      "https://msuspartans.com/news/2026/11/8/mens-soccer-short-handed-spartans-fall-to-maryland-in-the-big-ten-tournament-quarterfinals",
+      "https://uclabruins.com/news/2026/11/8/mens-soccer-falls-to-rutgers-in-big-ten-tournament-quarterfinal-2-0"
+    ],
+    "verified_through": "2026-11-09",
+    "matches": [
+      {
+        "round": "QUARTERFINALS · NOV 8",
+        "home_id": "michigan-st",
+        "away_id": "maryland",
+        "home_score": 1,
+        "away_score": 2,
+        "status": "final",
+        "winner_id": "maryland",
+        "kickoff": "Nov 8 · 1 p.m. ET"
+      },
+      {
+        "round": "QUARTERFINALS · NOV 8",
+        "home_id": "rutgers",
+        "away_id": "ucla",
+        "home_score": 2,
+        "away_score": 0,
+        "status": "final",
+        "winner_id": "rutgers",
+        "kickoff": "Nov 8 · 3 p.m. ET"
+      },
+      {
+        "round": "SEMIFINALS · NOV 11",
+        "home_id": "indiana",
+        "away_id": "maryland",
+        "status": "scheduled",
+        "kickoff": "Nov 11 · 6 p.m. ET · BTN"
+      },
+      {
+        "round": "SEMIFINALS · NOV 11",
+        "home_id": "washington",
+        "away_id": "rutgers",
+        "status": "scheduled",
+        "kickoff": "Nov 11 · 9 p.m. ET · BTN"
+      },
+      {
+        "round": "CHAMPIONSHIP · NOV 15",
+        "home_id": null,
+        "away_id": null,
+        "status": "scheduled",
+        "kickoff": "Nov 15 · 3 p.m. ET · BTN"
+      }
+    ]
+  }
 }
