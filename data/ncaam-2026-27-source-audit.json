@@ -1,8 +1,8 @@
 {
-  "as_of": "2026-11-08",
-  "matched_source_games": 640,
-  "completed_unique_games": 317,
-  "upcoming_or_unconfirmed_games": 323,
+  "as_of": "2026-11-09",
+  "matched_source_games": 660,
+  "completed_unique_games": 323,
+  "upcoming_or_unconfirmed_games": 335,
   "excluded": {},
   "unmapped_teams_fatal": false,
   "score_sanity_checked": true,
@@ -13,26 +13,45 @@
     "season": "2026-27",
     "crosswalk_matched_programs": 365,
     "crosswalk_unmatched_programs": [],
-    "fetch_start": "2026-11-05",
-    "fetch_through": "2026-11-15",
-    "provider_events_seen": 625,
-    "provider_events_accepted": 492,
+    "fetch_start": "2026-11-06",
+    "fetch_through": "2026-11-16",
+    "provider_events_seen": 593,
+    "provider_events_accepted": 471,
     "provider_events_excluded": {
-      "unmatched_espn_program": 133
+      "unmatched_espn_program": 122
     },
     "corrected_final_scores": 0,
-    "cached_event_count": 642,
-    "quarantined_identity_conflicts": [],
-    "quarantined_identity_count": 0
+    "cached_event_count": 662,
+    "quarantined_identity_conflicts": [
+      {
+        "event_id": "espn:401918053",
+        "cached_teams": [
+          "Houston",
+          "California"
+        ],
+        "new_teams": [
+          "California",
+          "Houston"
+        ]
+      },
+      {
+        "event_id": "espn:401919029",
+        "cached_teams": [
+          "Southern California",
+          "Wichita St."
+        ],
+        "new_teams": [
+          "Wichita St.",
+          "Southern California"
+        ]
+      }
+    ],
+    "quarantined_identity_count": 2
   },
   "independent_reconciliation": {
     "provider": "NCAA.com independent scoreboard",
     "available_days": [],
     "unavailable_days": [
-      {
-        "day": "2026-11-04",
-        "reason": "HTTP Error 404: Not Found"
-      },
       {
         "day": "2026-11-05",
         "reason": "HTTP Error 404: Not Found"
@@ -47,6 +66,10 @@
       },
       {
         "day": "2026-11-08",
+        "reason": "HTTP Error 404: Not Found"
+      },
+      {
+        "day": "2026-11-09",
         "reason": "HTTP Error 404: Not Found"
       }
     ],
