@@ -81,3 +81,17 @@
 .g6-path-stages span{display:block;color:#59655b;font-size:10px}
 @media(max-width:800px){.g6-road-features{grid-template-columns:1fr}.g6-path-stages{grid-template-columns:repeat(2,minmax(0,1fr))}.g6-upset-feature{flex-direction:column;align-items:start}}
 @media(max-width:480px){.g6-road-seal{display:none}.g6-path-stages{grid-template-columns:1fr}.g6-path-team{flex-wrap:wrap}.g6-destination .g6-road{padding:12px}}
+
+.g6-destination .g6-race{border:3px double #ad9463;background:#f9f4e8;padding:20px;margin:25px 0}
+.g6-register-intro{display:flex;justify-content:space-between;flex-wrap:wrap;gap:9px;margin:0 0 16px;font:14px Georgia,serif}
+.g6-register-intro strong{font-size:19px}
+.g6-register-movements{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px}
+.g6-register-movements>div{border:1px solid #c8b693;background:#fffaf1;padding:13px}
+.g6-register-movements small{display:block;color:#78562c;font:bold 10px Georgia,serif;letter-spacing:1px;margin-bottom:8px}
+.g6-register-movements strong{font:15px/1.35 Georgia,serif}
+.g6-race-table{background:#fffaf0}
+.g6-race-table th{background:#e8ddc7}
+.g6-race-table td{text-align:right}
+.g6-race-table .school{text-align:left}
+.g6-race-empty{font:15px/1.6 Georgia,serif;border:1px solid #c3ad87;padding:16px}
+@media(max-width:700px){.g6-register-movements{grid-template-columns:1fr}.g6-destination .g6-race{padding:12px}}
