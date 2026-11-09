@@ -1,0 +1,496 @@
+{
+  "schema_version": 1,
+  "description": "Editorial discovery targets for all 32 NFL club press desks. Domain allowlist is validated after Google News link resolution.",
+  "national_subscriber_sources": [
+    {
+      "name": "The Athletic",
+      "domain": "nytimes.com/athletic"
+    },
+    {
+      "name": "The Athletic",
+      "domain": "theathletic.com"
+    },
+    {
+      "name": "The New York Times",
+      "domain": "nytimes.com"
+    },
+    {
+      "name": "The Washington Post",
+      "domain": "washingtonpost.com"
+    },
+    {
+      "name": "The Wall Street Journal",
+      "domain": "wsj.com"
+    }
+  ],
+  "teams": [
+    {
+      "id": "3",
+      "name": "Chicago Bears",
+      "local_sources": [
+        {
+          "domain": "chicagotribune.com",
+          "name": "Chicago Tribune"
+        },
+        {
+          "domain": "suntimes.com",
+          "name": "Chicago Sun-Times"
+        },
+        {
+          "domain": "dailyherald.com",
+          "name": "Daily Herald"
+        }
+      ]
+    },
+    {
+      "id": "25",
+      "name": "San Francisco 49ers",
+      "local_sources": [
+        {
+          "domain": "sfchronicle.com",
+          "name": "San Francisco Chronicle"
+        },
+        {
+          "domain": "mercurynews.com",
+          "name": "The Mercury News"
+        }
+      ]
+    },
+    {
+      "id": "7",
+      "name": "Denver Broncos",
+      "local_sources": [
+        {
+          "domain": "denverpost.com",
+          "name": "The Denver Post"
+        },
+        {
+          "domain": "9news.com",
+          "name": "9NEWS Denver"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Buffalo Bills",
+      "local_sources": [
+        {
+          "domain": "buffalonews.com",
+          "name": "The Buffalo News"
+        },
+        {
+          "domain": "wgrz.com",
+          "name": "WGRZ Buffalo"
+        }
+      ]
+    },
+    {
+      "id": "16",
+      "name": "Minnesota Vikings",
+      "local_sources": [
+        {
+          "domain": "startribune.com",
+          "name": "The Minnesota Star Tribune"
+        },
+        {
+          "domain": "twincities.com",
+          "name": "St. Paul Pioneer Press"
+        }
+      ]
+    },
+    {
+      "id": "23",
+      "name": "Pittsburgh Steelers",
+      "local_sources": [
+        {
+          "domain": "post-gazette.com",
+          "name": "Pittsburgh Post-Gazette"
+        },
+        {
+          "domain": "triblive.com",
+          "name": "Tribune-Review"
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "name": "Cincinnati Bengals",
+      "local_sources": [
+        {
+          "domain": "cincinnati.com",
+          "name": "The Cincinnati Enquirer"
+        },
+        {
+          "domain": "wcpo.com",
+          "name": "WCPO Cincinnati"
+        }
+      ]
+    },
+    {
+      "id": "8",
+      "name": "Detroit Lions",
+      "local_sources": [
+        {
+          "domain": "freep.com",
+          "name": "Detroit Free Press"
+        },
+        {
+          "domain": "detroitnews.com",
+          "name": "The Detroit News"
+        }
+      ]
+    },
+    {
+      "id": "30",
+      "name": "Jacksonville Jaguars",
+      "local_sources": [
+        {
+          "domain": "jacksonville.com",
+          "name": "Florida Times-Union"
+        },
+        {
+          "domain": "news4jax.com",
+          "name": "News4JAX"
+        }
+      ]
+    },
+    {
+      "id": "9",
+      "name": "Green Bay Packers",
+      "local_sources": [
+        {
+          "domain": "jsonline.com",
+          "name": "Milwaukee Journal Sentinel"
+        },
+        {
+          "domain": "greenbaypressgazette.com",
+          "name": "Green Bay Press-Gazette"
+        }
+      ]
+    },
+    {
+      "id": "12",
+      "name": "Kansas City Chiefs",
+      "local_sources": [
+        {
+          "domain": "kansascity.com",
+          "name": "The Kansas City Star"
+        },
+        {
+          "domain": "kmbc.com",
+          "name": "KMBC Kansas City"
+        }
+      ]
+    },
+    {
+      "id": "19",
+      "name": "New York Giants",
+      "local_sources": [
+        {
+          "domain": "nypost.com",
+          "name": "New York Post"
+        },
+        {
+          "domain": "nydailynews.com",
+          "name": "New York Daily News"
+        },
+        {
+          "domain": "nj.com",
+          "name": "NJ Advance Media"
+        }
+      ]
+    },
+    {
+      "id": "14",
+      "name": "Los Angeles Rams",
+      "local_sources": [
+        {
+          "domain": "latimes.com",
+          "name": "Los Angeles Times"
+        },
+        {
+          "domain": "ocregister.com",
+          "name": "Orange County Register"
+        }
+      ]
+    },
+    {
+      "id": "26",
+      "name": "Seattle Seahawks",
+      "local_sources": [
+        {
+          "domain": "seattletimes.com",
+          "name": "The Seattle Times"
+        },
+        {
+          "domain": "seattlepi.com",
+          "name": "Seattle Post-Intelligencer"
+        }
+      ]
+    },
+    {
+      "id": "17",
+      "name": "New England Patriots",
+      "local_sources": [
+        {
+          "domain": "bostonglobe.com",
+          "name": "The Boston Globe"
+        },
+        {
+          "domain": "bostonherald.com",
+          "name": "Boston Herald"
+        },
+        {
+          "domain": "masslive.com",
+          "name": "MassLive"
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "name": "Cleveland Browns",
+      "local_sources": [
+        {
+          "domain": "cleveland.com",
+          "name": "The Plain Dealer"
+        },
+        {
+          "domain": "beaconjournal.com",
+          "name": "Akron Beacon Journal"
+        }
+      ]
+    },
+    {
+      "id": "27",
+      "name": "Tampa Bay Buccaneers",
+      "local_sources": [
+        {
+          "domain": "tampabay.com",
+          "name": "Tampa Bay Times"
+        },
+        {
+          "domain": "wfla.com",
+          "name": "WFLA Tampa Bay"
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "name": "Dallas Cowboys",
+      "local_sources": [
+        {
+          "domain": "dallasnews.com",
+          "name": "The Dallas Morning News"
+        },
+        {
+          "domain": "star-telegram.com",
+          "name": "Fort Worth Star-Telegram"
+        }
+      ]
+    },
+    {
+      "id": "13",
+      "name": "Las Vegas Raiders",
+      "local_sources": [
+        {
+          "domain": "reviewjournal.com",
+          "name": "Las Vegas Review-Journal"
+        },
+        {
+          "domain": "lasvegassun.com",
+          "name": "Las Vegas Sun"
+        }
+      ]
+    },
+    {
+      "id": "18",
+      "name": "New Orleans Saints",
+      "local_sources": [
+        {
+          "domain": "nola.com",
+          "name": "The Times-Picayune / NOLA.com"
+        },
+        {
+          "domain": "theadvocate.com",
+          "name": "The Advocate"
+        }
+      ]
+    },
+    {
+      "id": "34",
+      "name": "Houston Texans",
+      "local_sources": [
+        {
+          "domain": "houstonchronicle.com",
+          "name": "Houston Chronicle"
+        },
+        {
+          "domain": "click2houston.com",
+          "name": "KPRC Houston"
+        }
+      ]
+    },
+    {
+      "id": "33",
+      "name": "Baltimore Ravens",
+      "local_sources": [
+        {
+          "domain": "baltimoresun.com",
+          "name": "The Baltimore Sun"
+        },
+        {
+          "domain": "thebaltimorebanner.com",
+          "name": "The Baltimore Banner"
+        }
+      ]
+    },
+    {
+      "id": "29",
+      "name": "Carolina Panthers",
+      "local_sources": [
+        {
+          "domain": "charlotteobserver.com",
+          "name": "The Charlotte Observer"
+        },
+        {
+          "domain": "wcnc.com",
+          "name": "WCNC Charlotte"
+        }
+      ]
+    },
+    {
+      "id": "1",
+      "name": "Atlanta Falcons",
+      "local_sources": [
+        {
+          "domain": "ajc.com",
+          "name": "The Atlanta Journal-Constitution"
+        },
+        {
+          "domain": "atlantanewsfirst.com",
+          "name": "Atlanta News First"
+        }
+      ]
+    },
+    {
+      "id": "28",
+      "name": "Washington Commanders",
+      "local_sources": [
+        {
+          "domain": "washingtonpost.com",
+          "name": "The Washington Post"
+        },
+        {
+          "domain": "washingtontimes.com",
+          "name": "The Washington Times"
+        },
+        {
+          "domain": "wusa9.com",
+          "name": "WUSA9"
+        }
+      ]
+    },
+    {
+      "id": "22",
+      "name": "Arizona Cardinals",
+      "local_sources": [
+        {
+          "domain": "azcentral.com",
+          "name": "The Arizona Republic"
+        },
+        {
+          "domain": "azfamily.com",
+          "name": "Arizona's Family"
+        }
+      ]
+    },
+    {
+      "id": "20",
+      "name": "New York Jets",
+      "local_sources": [
+        {
+          "domain": "nypost.com",
+          "name": "New York Post"
+        },
+        {
+          "domain": "nydailynews.com",
+          "name": "New York Daily News"
+        },
+        {
+          "domain": "nj.com",
+          "name": "NJ Advance Media"
+        }
+      ]
+    },
+    {
+      "id": "11",
+      "name": "Indianapolis Colts",
+      "local_sources": [
+        {
+          "domain": "indystar.com",
+          "name": "The Indianapolis Star"
+        },
+        {
+          "domain": "wthr.com",
+          "name": "WTHR Indianapolis"
+        }
+      ]
+    },
+    {
+      "id": "15",
+      "name": "Miami Dolphins",
+      "local_sources": [
+        {
+          "domain": "miamiherald.com",
+          "name": "Miami Herald"
+        },
+        {
+          "domain": "sun-sentinel.com",
+          "name": "South Florida Sun Sentinel"
+        }
+      ]
+    },
+    {
+      "id": "10",
+      "name": "Tennessee Titans",
+      "local_sources": [
+        {
+          "domain": "tennessean.com",
+          "name": "The Tennessean"
+        },
+        {
+          "domain": "nashvillescene.com",
+          "name": "Nashville Scene"
+        }
+      ]
+    },
+    {
+      "id": "21",
+      "name": "Philadelphia Eagles",
+      "local_sources": [
+        {
+          "domain": "inquirer.com",
+          "name": "The Philadelphia Inquirer"
+        },
+        {
+          "domain": "phillyvoice.com",
+          "name": "PhillyVoice"
+        }
+      ]
+    },
+    {
+      "id": "24",
+      "name": "Los Angeles Chargers",
+      "local_sources": [
+        {
+          "domain": "latimes.com",
+          "name": "Los Angeles Times"
+        },
+        {
+          "domain": "ocregister.com",
+          "name": "Orange County Register"
+        }
+      ]
+    }
+  ]
+}

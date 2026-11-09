@@ -1,0 +1,63 @@
+name: NFL local press desks — all 32 clubs
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/refresh_nfl_local_press.py'
+      - 'scripts/test_nfl_local_press.py'
+      - 'data/nfl-local-sources.json'
+      - '.github/workflows/nfl-local-press.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '13,43 * * * *'
+permissions:
+  contents: write
+concurrency:
+  group: nfl-local-press-publish
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate code and all 32 publisher registries
+        run: |
+          python -m py_compile scripts/refresh_nfl_local_press.py
+          python -m unittest -v scripts/test_nfl_local_press.py
+      - name: Discover verified local and subscriber reporting
+        run: python scripts/refresh_nfl_local_press.py
+      - name: Ensure fresh and attributed output
+        run: |
+          python - <<'PY'
+          import datetime, json
+          from pathlib import Path
+          d=json.loads(Path('data/nfl-local-reporting.json').read_text())
+          age=(datetime.datetime.now(datetime.timezone.utc)-datetime.datetime.fromisoformat(d['updated_at'])).total_seconds()
+          assert 0 <= age < 1800, 'Local press collector snapshot is stale'
+          assert d['health']['teams_configured']==32
+          assert d['health']['queries_ok']>=8
+          assert d['articles'] and all(a['url'].startswith('https://') and 'news.google.com' not in a['url'] for a in d['articles'])
+          print('NFL local news valid:',len(d['articles']),'direct publisher links')
+          PY
+      - name: Publish local press independently of scores, standings, and RETRO
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/nfl-local-reporting.json
+          if git diff --cached --quiet; then
+            echo "Local press desk unchanged"
+            exit 0
+          fi
+          git commit -m "Refresh local NFL reporting for 32 club press desks"
+          for attempt in 1 2 3 4; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then exit 0; fi
+            sleep $((attempt * 3))
+          done
+          exit 1

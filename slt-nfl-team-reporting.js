@@ -51,7 +51,7 @@ function matches(s,n){
 function rank(s){
  const age=Math.max(0,(Date.now()-dateValue(s.published_at))/86400000);
  const src=who(s);
- return (src.weight+(teamId==="3"&&src.name==="Chicago Tribune"?3:0))*3-age*1.7;
+ return (src.weight+(s.origin==="local"?7:0)+(teamId==="3"&&src.name==="Chicago Tribune"?4:0))*3-age*1.7;
 }
 function ensure(){
  const anchor=app.querySelector(".nfl-team-statline")||app.querySelector(".nfl-team-head");
@@ -97,20 +97,20 @@ async function load(url){
 }
 async function update(){
  const n=teamName();if(!n)return;
- const urls=["data/nfl-subscriber-reporting.json","articles.json","https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/"+encodeURIComponent(teamId)+"/news?limit=30"];
+ const urls=["data/nfl-local-reporting.json","data/nfl-subscriber-reporting.json","articles.json","https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/"+encodeURIComponent(teamId)+"/news?limit=30"];
  const res=await Promise.allSettled(urls.map(load));
  const all=[];
  res.forEach((r,i)=>{
   if(r.status!=="fulfilled")return;
   const d=r.value;
   const list=Array.isArray(d)?d:Array.isArray(d.articles)?d.articles:[];
-  list.forEach(item=>{const v=normalized(item,i===0?"curated":i===1?"general":"espn");if(v&&matches(v,n))all.push(v)});
+  list.forEach(item=>{const v=normalized(item,i===0?(item.origin==="local"?"local":"subscriber"):i===1?"curated":i===2?"general":"espn");if(v&&matches(v,n))all.push(v)});
  });
  const seen=new Set();
  stories=all.sort((a,b)=>rank(b)-rank(a)||dateValue(b.published_at)-dateValue(a.published_at)).filter(s=>{
   const key=s.url.replace(/[#?].*$/,"").replace(/\/$/,"");
   if(seen.has(key))return false;seen.add(key);return true;
- }).slice(0,45);
+ }).slice(0,70);
  ready=true;checked=Date.now();render();
 }
 let pending=false;
