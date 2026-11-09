@@ -13,6 +13,16 @@ def write(name, obj):
 
 def main():
     previous=read("college-soccer-ncaa-selection-forecast.json")
+    # Fail closed until selection evidence satisfies the 2026 NCAA manual.
+    # The daily pipeline must never publish Elo-only at-large picks as NCAA-compliant.
+    verified_rpi_path=DATA/"college-soccer-ncaa-verified-selection-inputs-2026.json"
+    if not verified_rpi_path.exists():
+        raise ValueError("NCAA selection rebuild blocked: missing certified 2026 adjusted RPI, DI-only records and eligibility inputs")
+    verified=read("college-soccer-ncaa-verified-selection-inputs-2026.json")
+    if verified.get("status")!="verified" or verified.get("season")!=2026 or not isinstance(verified.get("teams"),dict):
+        raise ValueError("NCAA selection rebuild blocked: selection input verification incomplete")
+    if any(not all(k in v for k in ("adjusted_rpi_rank","di_wins","di_losses","di_ties","eligible")) for v in verified["teams"].values()):
+        raise ValueError("NCAA selection rebuild blocked: incomplete eligibility or RPI evidence")
     ratings=read("college-soccer-elo.json")
     directory=read("college-soccer-conferences.json")
     audit=read("college-soccer-elo-live-audit.json")
@@ -59,8 +69,16 @@ def main():
             official_aq=bool(champion),
             source_url=bracket["source_url"] if champion else None))
     if len(scenarios)!=23: raise ValueError("Expected 23 conference bids")
-    atlarge=sorted((x for x in ranked if x["team_id"] not in used),
-                   key=lambda x:(-x["elo"],x["team_id"]))[:29]
+    # NCAA 2026 manual: at-large teams must be eligible and .500 or better in DI games.
+    # RPI is the primary transparent proxy here, NOT a claim to replicate committee deliberation.
+    def eligible(x):
+        v=verified["teams"].get(x["team_id"],{})
+        w,l,t=(v.get("di_wins"),v.get("di_losses"),v.get("di_ties"))
+        if not all(isinstance(n,int) and n>=0 for n in (w,l,t)) or not v.get("eligible"):
+            return False
+        return w+l+t>0 and 2*w+t>=w+l+t and isinstance(v.get("adjusted_rpi_rank"),int)
+    atlarge=sorted((x for x in ranked if x["team_id"] not in used and eligible(x)),
+                   key=lambda x:(verified["teams"][x["team_id"]]["adjusted_rpi_rank"],x["team_id"]))[:29]
     if len(atlarge)<29: raise ValueError("Insufficient at-large candidates")
     def entry(x,kind,conf):
         return dict(team_id=x["team_id"],team=x["team"],conference=conf,
@@ -89,7 +107,7 @@ def main():
         source_checked_through=audit.get("checked_through"),
         source_certified=(audit.get("status")=="certified"))
     previous["methodology"]["automatic_bids"]="Official AQ only from a source-linked championship match with verified final score; otherwise highest-rated eligible conference member is an explicitly hypothetical RETRO pick."
-    previous["methodology"]["at_large"]="Highest rated remaining programs by RETRO Elo; provisional proxy, not NCAA committee selection."
+    previous["methodology"]["at_large"]="Verified .500 Division I eligibility gate, followed by verified adjusted RPI ranking as a transparent proxy. Full committee decision also considers SOS, head-to-head, common opponents and other NCAA criteria; NOT an official committee result."
     previous["daily_rebuild"]={"rating_cutoff":ratings["as_of"],
         "official_automatic_bids":sum(x["official_aq"] for x in scenarios),
         "projected_automatic_bids":sum(not x["official_aq"] for x in scenarios),
