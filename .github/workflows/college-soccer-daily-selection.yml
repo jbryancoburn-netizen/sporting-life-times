@@ -1,0 +1,46 @@
+name: College Soccer RETRO Daily Selection
+on:
+  schedule:
+    - cron: '40 11 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: college-soccer-selection-only
+  cancel-in-progress: false
+jobs:
+  rebuild-selection:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Rebuild and validate 48-team soccer projection
+        run: |
+          python scripts/rebuild_soccer_daily_selection.py
+          python -m json.tool data/college-soccer-ncaa-selection-forecast.json >/dev/null
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('data/college-soccer-ncaa-selection-forecast.json').read_text())
+          assert len(d['field'])==48
+          assert len(d['automatic_bid_scenarios'])==23
+          assert len(set(x['team_id'] for x in d['field']))==48
+          assert sum(x['official_aq'] for x in d['automatic_bid_scenarios'])==d['daily_rebuild']['official_automatic_bids']
+          print('Validated daily RETRO selection forecast')
+          PY
+      - name: Publish only the selection forecast when changed
+        run: |
+          if git diff --quiet -- data/college-soccer-ncaa-selection-forecast.json; then
+            echo 'No selection forecast changes'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/college-soccer-ncaa-selection-forecast.json
+          git commit -m 'Refresh daily NCAA soccer RETRO selection projection'
+          git push
