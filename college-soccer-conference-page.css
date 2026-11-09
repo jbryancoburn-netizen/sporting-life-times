@@ -1,36 +1,167 @@
-.cs-conf-page{max-width:1210px;margin:0 auto;padding:1.2rem clamp(1rem,3vw,2rem) 4rem;color:#253b49;background:#fff;font-family:Arial,Helvetica,sans-serif}.cs-conf-page *{box-sizing:border-box}.cs-conf-breadcrumb{padding:.5rem 0 1rem;border-bottom:1px solid #cbd6dc;font:700 .75rem Arial,sans-serif}.cs-conf-breadcrumb a,.cs-conference-nav a{color:#2d566c!important}.cs-conference-hero{border-top:5px solid #283f4e;margin:1rem 0 0;padding:1rem 0;border-bottom:3px double #aabcc6}.cs-conference-kicker{font:800 .65rem Arial,sans-serif;letter-spacing:.12em;color:#8b6a46}.cs-conference-title{font:700 clamp(1.9rem,4.5vw,3.7rem) Georgia,serif;margin:.3rem 0;color:#193548;letter-spacing:-.04em}.cs-conference-deck{font:italic .9rem/1.5 Georgia,serif;color:#506878}.cs-conference-nav{display:flex;gap:.65rem 1.4rem;flex-wrap:wrap;padding:.85rem 0;border-bottom:1px solid #d0dce0;font:800 .7rem Arial,sans-serif}.cs-conference-nav a{text-decoration:underline;text-underline-offset:4px}.cs-conference-stamp{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.4rem;font:600 .65rem Arial,sans-serif;color:#74848e;margin:.6rem 0 1rem}.cs-conference-columns{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(260px,.75fr);gap:clamp(1.2rem,3vw,2.5rem)}.cs-conf-page h2{font:700 1.2rem Georgia,serif;color:#223b4c;margin:.7rem 0;border-top:2px solid #294759;padding-top:.6rem}.cs-conference-table{width:100%;border-collapse:collapse;font:.76rem Arial,sans-serif;font-variant-numeric:tabular-nums}.cs-conference-table th,.cs-conference-table td{padding:.55rem .4rem;text-align:right;border-bottom:1px solid #dce6ea}.cs-conference-table th{background:#f0f5f7;color:#657c88;font-size:.65rem}.cs-conference-table th:nth-child(2),.cs-conference-table td:nth-child(2){text-align:left}.cs-conference-table .cutoff{border-bottom:3px solid #b28d50}.cs-conference-table a{color:#214b66!important;font-weight:700;text-decoration:none!important}.cs-conf-caption{font:italic .72rem/1.55 Georgia,serif;color:#71828b;margin:.75rem 0}.cs-conf-oddsline{padding:.5rem 0;border-bottom:1px solid #e0e8eb}.cs-conf-oddslabel{display:flex;justify-content:space-between;gap:.6rem;font:.76rem Arial,sans-serif}.cs-conf-oddslabel strong{font-weight:700}.cs-conf-rail{height:8px;background:#e3eaed;margin-top:.35rem}.cs-conf-rail i{display:block;height:100%;background:#49748a}.cs-conference-bracket-section{margin-top:1.2rem}.cs-conference-rules{margin:1.5rem 0;border-top:1px solid #cbd8de;padding:.5rem 0}.cs-conference-rules p{font:.82rem/1.55 Georgia,serif}.cs-conference-rules>a{display:inline-block;margin:.4rem 1rem .4rem 0;font:.7rem Arial,sans-serif;color:#285a75!important;text-decoration:underline!important}@media(max-width:800px){.cs-conference-columns{grid-template-columns:1fr}}@media(max-width:520px){.cs-conference-table{font-size:.68rem}.cs-conference-table th,.cs-conference-table td{padding:.44rem .22rem}}
-
-/* Visual source-backed qualification watch when postseason field remains unverified. */
-.cs-conf-unverified-bracket{background:#f3f7f8;border:1px solid #c9d9e1;padding:1rem;margin:.7rem 0 1.2rem}
-.cs-conf-unverified-bracket>strong{font:800 .76rem Arial,sans-serif;letter-spacing:.08em;color:#3c647b}
-.cs-conf-qualifier-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.6rem;margin:.85rem 0}
-.cs-conf-qualifier{background:white;padding:.65rem .5rem;border-top:3px solid #52738a;min-width:0;display:flex;flex-direction:column;gap:.55rem}
-.cs-conf-qualifier>span:first-child{font:700 .55rem Arial,sans-serif;letter-spacing:.05em;color:#778b95}
-.cs-conf-qualifier .cs-cup-school{gap:.35rem;align-items:center;overflow-wrap:anywhere}
-.cs-conf-qualifier .cs-cup-teamname{font-size:.72rem}
-@media(max-width:700px){.cs-conf-qualifier-strip{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:420px){.cs-conf-qualifier-strip{grid-template-columns:1fr}}
-
-/* Sourced tournament fixtures — never generated from Elo */
-.cs-official-rounds{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:1rem;margin:1rem 0}
-.cs-official-round{padding:.8rem;border-top:3px solid #294759;background:#f5f8f9;min-width:0}
-.cs-official-round h3{font:700 .84rem Georgia,serif;color:#223b4c;margin:.1rem 0 .75rem}
-.cs-official-match{padding:.65rem;background:#fff;border:1px solid #d4e0e5;margin-bottom:.65rem}
-.cs-official-match-names{display:flex;flex-direction:column;gap:.4rem}
-.cs-official-team{min-width:0}
-.cs-official-result,.cs-official-kickoff{display:block;margin:.55rem 0 0;font:700 .72rem Arial,sans-serif;color:#35556c}
-
-/* CBB-owned crest treatment. Soccer only determines the slot size;
-   slt-dual-ring.css owns both rings and the 72% centered school artwork. */
-.cs-conf-page .soccer-school-mark.mbb-mark.slt-dual-shell{
-  width:40px!important;height:40px!important;
-  min-width:40px!important;min-height:40px!important;
-  max-width:40px!important;max-height:40px!important;flex:0 0 40px!important;
+/* NCAA SOCCER CONFERENCE DESK • single shared Victorian newspaper design.
+   Every conference and both genders use this stylesheet. */
+.cs-conf-page{
+ --paper:#faf8f2;--ink:#292a27;--muted:#625f56;--rule:#c7beab;--accent:#835a36;
+ color:var(--ink);background:var(--paper);max-width:1280px;margin:0 auto;
+ padding:clamp(14px,2.6vw,34px) clamp(14px,3vw,40px) 70px;
+ font-family:"Century Schoolbook","Century Schoolbook L",Georgia,serif;
 }
-.cs-conf-page .cs-cup-table-school,.cs-conf-page .cs-cup-school{
-  display:inline-flex;align-items:center;gap:8px;min-width:0;
+.cs-conf-page *{box-sizing:border-box}
+.cs-conf-page a{color:#294b58}
+.cs-conf-page a:focus-visible{outline:2px solid #865f35;outline-offset:3px}
+.cs-conf-breadcrumb{border-bottom:1px solid var(--rule);padding:0 0 13px;margin-bottom:16px;font:700 .76rem/1.35 "Century Schoolbook",Georgia,serif}
+.cs-conf-breadcrumb a{text-decoration:none;color:#3c4b4c!important}
+.cs-conf-breadcrumb a:hover{text-decoration:underline}
+.cs-conference-hero{
+ display:grid;grid-template-columns:minmax(0,1fr) minmax(100px,140px);
+ grid-template-rows:auto auto 1fr;column-gap:20px;align-items:center;
+ margin:0;padding:22px clamp(16px,2.5vw,32px) 26px;
+ background:#f0ece1;border-top:5px double #42392e;border-bottom:4px double #42392e;
+ position:relative;
 }
-.cs-conf-page .cs-official-team .cs-cup-school{width:100%}
-.cs-conf-page .cs-conf-header-emblem img{
-  width:auto!important;height:auto!important;max-width:230px!important;max-height:80px!important;
+.cs-conference-hero:not(:has(.cs-conf-header-emblem)){grid-template-columns:1fr}
+.cs-conference-kicker{grid-column:1;grid-row:1;font:700 .72rem/1.35 Georgia,serif;letter-spacing:.14em;color:#77512e;text-transform:uppercase}
+.cs-conference-title{grid-column:1;grid-row:2;margin:7px 0!important;color:#2c322f!important;letter-spacing:-.025em;font:700 clamp(2rem,4.7vw,4.3rem)/1.08 "Century Schoolbook",Georgia,serif!important;text-transform:uppercase;overflow-wrap:break-word}
+.cs-conference-deck{grid-column:1;grid-row:3;align-self:start;color:#57564f;font:italic clamp(.88rem,1.5vw,1.02rem)/1.5 "Century Schoolbook",Georgia,serif;max-width:720px;margin:4px 0 0}
+.cs-conf-header-emblem{grid-column:2;grid-row:1 / 4;display:grid;place-items:center;
+ min-width:0;width:100%;min-height:104px;padding:12px;background:#faf8f2;
+ border:1px solid var(--rule);color:#574e42;
+ font:700 1.15rem/1.3 "Century Schoolbook",Georgia,serif;text-align:center}
+.cs-conf-page .cs-conf-header-emblem img{display:block;max-width:100%!important;max-height:98px!important;width:auto!important;height:auto!important;object-fit:contain}
+.cs-conference-folio{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-bottom:1px solid #b8ad99;gap:0;margin:0 0 12px}
+.cs-conf-fact{min-width:0;padding:14px 14px 13px;border-right:1px solid #d7cebf}
+.cs-conf-fact:last-child{border-right:0}
+.cs-conf-fact-label{display:block;font:700 .64rem/1.3 Georgia,serif;letter-spacing:.10em;text-transform:uppercase;color:#7d684f;margin-bottom:4px}
+.cs-conf-fact-value{display:block;color:#292d2a;font:700 clamp(.86rem,1.2vw,1.02rem)/1.35 "Century Schoolbook",Georgia,serif;overflow-wrap:anywhere}
+.cs-conference-nav{display:flex;gap:5px 22px;align-items:center;flex-wrap:wrap;border-bottom:2px solid #353b36;padding:14px 0 15px;margin:0 0 18px}
+.cs-conference-nav a{font:700 .74rem/1.5 "Century Schoolbook",Georgia,serif;letter-spacing:.025em;text-transform:uppercase;text-decoration:none!important;color:#343a35!important;padding:6px 0;border-bottom:2px solid transparent}
+.cs-conference-nav a:hover,.cs-conference-nav a:focus-visible{border-color:#926d3e;color:#764e24!important}
+.cs-conference-stamp{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;color:#685e52;font-size:.76rem}
+.cs-conference-columns{display:grid;grid-template-columns:minmax(0,1.62fr) minmax(290px,.88fr);gap:clamp(20px,3vw,38px);align-items:start}
+.cs-conf-page h2{margin:0 0 13px!important;padding:0 0 9px!important;border-top:0!important;border-bottom:3px double #665b47;color:#292e2c!important;
+ font:700 clamp(1.1rem,1.8vw,1.38rem)/1.2 "Century Schoolbook",Georgia,serif!important;letter-spacing:.015em;text-transform:uppercase}
+.cs-conf-standings,.cs-conf-model{min-width:0}
+.cs-conf-standings{margin-bottom:12px}
+.cs-conference-table{width:100%;border-collapse:collapse;table-layout:auto;font:400 .81rem/1.4 "Century Schoolbook",Georgia,serif;font-variant-numeric:tabular-nums}
+.cs-conference-table th{background:#eae5d8;border-top:1px solid #c6b99f;border-bottom:2px solid #746853;color:#514b41;font:700 .69rem/1.35 Georgia,serif;letter-spacing:.025em;text-align:right;padding:10px 9px;white-space:nowrap}
+.cs-conference-table td{border-bottom:1px solid #dad1bf;text-align:right;padding:9px 9px;white-space:nowrap;color:#3d3d37;vertical-align:middle}
+.cs-conference-table th:nth-child(2),.cs-conference-table td:nth-child(2){text-align:left;width:48%;white-space:normal}
+.cs-conference-table tbody tr:nth-child(even){background:#f1eee6}
+.cs-conference-table tbody tr:hover{background:#eae6db}
+.cs-conference-table tbody tr.cutoff{border-bottom:3px solid #997443}
+.cs-conference-table tbody tr.cs-conf-infield td:first-child{color:#795733}
+.cs-conf-rank{display:inline-grid;place-items:center;width:30px;height:30px;min-width:30px;border:1px solid #6b685b;background:#fdfbf6;font:700 .82rem Georgia,serif;color:#323b36}
+.cs-conference-table tr.cs-conf-infield .cs-conf-rank{border:2px solid #a17a44}
+.cs-conference-table a{display:inline-flex;align-items:center;gap:9px;color:#2f4445!important;font-weight:700;text-decoration:none!important;line-height:1.25;overflow-wrap:anywhere}
+.cs-conference-table a:hover{text-decoration:underline!important}
+.cs-conference-table td:last-child{font-weight:700}
+.cs-conf-page .cs-conference-table .soccer-school-mark.mbb-mark.slt-dual-shell{width:38px!important;height:38px!important;min-width:38px!important;min-height:38px!important;max-width:38px!important;max-height:38px!important;flex:0 0 38px!important}
+.cs-conf-page .soccer-school-mark.mbb-mark.slt-dual-shell{border-radius:50%!important;overflow:hidden!important}
+.cs-conf-page .soccer-school-mark.mbb-mark.slt-dual-shell>img.mbb-mark__img.soccer-school-image{
+ width:72%!important;height:72%!important;max-width:72%!important;max-height:72%!important;
+ object-fit:contain!important;clip-path:none!important;border-radius:0!important;
+ top:50%!important;left:50%!important;transform:translate(-50%,-50%)!important;
 }
+.cs-conf-caption{color:#625f55;font:italic .77rem/1.55 "Century Schoolbook",Georgia,serif;margin:10px 0 14px}
+.cs-conf-model{border:1px solid #cfc4ae;background:#f2eee5;padding:16px clamp(13px,1.7vw,21px) 12px}
+.cs-conf-model h2{font-size:1.06rem!important}
+.cs-conf-oddsline{border-bottom:1px solid #d3c8b7;padding:9px 0 10px}
+.cs-conf-oddslabel{display:flex;justify-content:space-between;gap:12px;align-items:baseline;font:.80rem/1.4 "Century Schoolbook",Georgia,serif}
+.cs-conf-oddslabel strong{font-weight:700;overflow-wrap:anywhere}
+.cs-conf-oddslabel span{flex:0 0 auto;font-variant-numeric:tabular-nums;font-weight:700}
+.cs-conf-rail{height:6px;background:#ddd4c5;margin-top:6px}
+.cs-conf-rail i{display:block;height:100%;background:#60756e;max-width:100%}
+.cs-conference-bracket-section{margin-top:26px;min-width:0}
+.cs-conference-bracket-section>h2{margin-bottom:12px!important}
+.cs-conf-unverified-bracket{border:1px solid #c4b69f;border-top:4px solid #77674a;background:#f2eee5;padding:17px;margin:13px 0 22px}
+.cs-conf-unverified-bracket>strong{font:700 .78rem Georgia,serif;letter-spacing:.045em}
+.cs-conf-qualifier-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:14px 0}
+.cs-conf-qualifier{min-width:0;background:#fbf9f4;border:1px solid #d7ccb8;border-top:3px solid #9d7c4e;padding:12px;display:flex;flex-direction:column;gap:8px}
+.cs-conf-qualifier>span:first-child{font:700 .65rem Georgia,serif;color:#6c5c44;letter-spacing:.04em}
+.cs-conf-qualifier .cs-cup-teamname{font:.80rem/1.3 Georgia,serif!important}
+.cs-official-rounds{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:14px 0}
+.cs-official-round{min-width:0;background:#f1ede4;border:1px solid #c7baa4;border-top:4px solid #75644a;padding:13px}
+.cs-official-round h3{font:700 .86rem/1.35 "Century Schoolbook",Georgia,serif;margin:0 0 10px;text-transform:uppercase;color:#3d3b35}
+.cs-official-match{background:#fcfbf7;border:1px solid #d3c8b5;padding:12px;margin:0 0 10px;min-width:0}
+.cs-official-match strong{font:700 .81rem/1.35 Georgia,serif;overflow-wrap:anywhere}
+.cs-official-match-names{display:grid;gap:7px}
+.cs-official-team{min-width:0;display:flex;align-items:center}
+.cs-official-team .cs-cup-school{width:100%;display:flex;align-items:center;min-width:0}
+.cs-official-team .cs-cup-teamname{font-size:.81rem!important}
+.cs-official-result,.cs-official-kickoff{display:block;border-top:1px solid #ddd2bf;padding-top:7px;margin:8px 0 0;font:700 .78rem Georgia,serif;color:#3d534c}
+.cs-conf-page .cs-cup-bracket{display:grid;gap:0;border:1px solid #c7baa4;background:#f1ede4;margin:13px 0 20px;min-width:0}
+.cs-conf-page .cs-cup-round{border-right:1px solid #cfc2ae;padding:14px clamp(8px,1.5vw,18px);gap:14px;min-width:0}
+.cs-conf-page .cs-cup-round:last-of-type{border-right:0}
+.cs-conf-page .cs-cup-round-title{font:700 .74rem/1.35 "Century Schoolbook",Georgia,serif;color:#493f32;letter-spacing:.045em;text-transform:uppercase;background:#f1ede4}
+.cs-conf-page .cs-cup-match{background:#fcfaf5;border:1px solid #cfc2aa;box-shadow:none;padding:11px 9px}
+.cs-conf-page .cs-cup-match-label{font:700 .68rem/1.35 Georgia,serif;color:#755b36;margin-bottom:6px}
+.cs-conf-page .cs-cup-school{display:flex;gap:8px;align-items:center;min-height:43px;min-width:0}
+.cs-conf-page .cs-cup-school .soccer-school-mark.mbb-mark.slt-dual-shell{width:36px!important;height:36px!important;min-width:36px!important;min-height:36px!important;max-width:36px!important;max-height:36px!important;flex:0 0 36px!important}
+.cs-conf-page .cs-cup-teamname{font:700 .78rem/1.25 "Century Schoolbook",Georgia,serif!important;color:#303f40!important;overflow-wrap:anywhere}
+.cs-conf-page .cs-cup-seed{font:700 .72rem Georgia,serif;color:#665944;min-width:17px}
+.cs-conf-page .cs-cup-prediction-label{display:block;color:#596b5e;margin-top:7px;font:700 .69rem/1.4 Georgia,serif}
+.cs-conf-page .cs-cup-caveat{grid-column:1/-1;margin:0;padding:10px 13px;border-top:0;border-bottom:1px solid #cfc2ae;color:#655d51;font:italic .76rem/1.5 Georgia,serif;background:#f6f2e9}
+.cs-conf-page .cs-cup-final{background:#f9f6ee;border:2px double #9a7748;min-height:110px}
+.cs-conf-page .cs-cup-final strong,.cs-conf-page .cs-cup-final span{font-family:"Century Schoolbook",Georgia,serif}
+.cs-conference-rules{margin:25px 0 0;border-top:3px double #4e463a;padding:18px 0 0}
+.cs-conference-rules p{max-width:1100px;font:.86rem/1.6 "Century Schoolbook",Georgia,serif;color:#44453d}
+.cs-conference-rules>a{display:inline-block;margin:6px 18px 6px 0;color:#325457!important;font:700 .77rem/1.4 "Century Schoolbook",Georgia,serif;text-decoration:underline;text-underline-offset:3px}
+.cs-conf-page :target{scroll-margin-top:16px}
+@media(max-width:1000px){
+ .cs-conference-columns{grid-template-columns:minmax(0,1fr) minmax(270px,.75fr);gap:20px}
+ .cs-conf-page .cs-cup-bracket-fifteen{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .cs-conf-page .cs-cup-bracket-fifteen .cs-cup-round.championship{grid-column:auto}
+}
+@media(max-width:820px){
+ .cs-conference-columns{grid-template-columns:minmax(0,1fr)}
+ .cs-conference-folio{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .cs-conf-fact:nth-child(2){border-right:0}
+ .cs-conf-fact:nth-child(-n+2){border-bottom:1px solid #d7cebf}
+ .cs-conf-model{margin:0 0 6px}
+ .cs-conf-page .cs-cup-bracket{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .cs-conf-page .cs-cup-round:nth-of-type(2n){border-right:0}
+ .cs-conf-page .cs-cup-round.championship{grid-column:auto}
+}
+@media(max-width:650px){
+ .cs-conf-page{padding:15px 12px 50px}
+ .cs-conference-hero{grid-template-columns:minmax(0,1fr) 86px;column-gap:10px;padding:15px 11px 18px}
+ .cs-conf-header-emblem{min-height:78px;padding:7px}
+ .cs-conf-page .cs-conf-header-emblem img{max-height:70px!important}
+ .cs-conference-title{font-size:clamp(1.62rem,7vw,2.4rem)!important;line-height:1.1!important}
+ .cs-conference-kicker{font-size:.59rem}
+ .cs-conference-deck{font-size:.77rem;line-height:1.45}
+ .cs-conference-nav{gap:0 15px;padding:10px 0}
+ .cs-conference-nav a{font-size:.67rem;padding:9px 0}
+ .cs-conference-table,.cs-conference-table tbody,.cs-conference-table tr{display:block;width:100%}
+ .cs-conference-table thead{display:none}
+ .cs-conference-table tbody{display:grid;grid-template-columns:1fr;gap:8px}
+ .cs-conference-table tbody tr{
+  display:grid;grid-template-columns:46px minmax(0,1fr) minmax(0,1fr);
+  background:#fdfbf6!important;border:1px solid #d0c5b3!important;
+  padding:8px 10px 9px;gap:6px 10px;align-items:center;min-width:0
+ }
+ .cs-conference-table tbody tr.cutoff{border-bottom:3px solid #997443!important}
+ .cs-conference-table td{border:0!important;background:none!important;padding:0!important;text-align:left!important;white-space:normal;min-width:0}
+ .cs-conference-table td:first-child{grid-column:1;grid-row:1}
+ .cs-conference-table td:nth-child(2){grid-column:2 / 4;grid-row:1;width:auto;font-size:.91rem}
+ .cs-conference-table td:nth-child(3){grid-column:1;grid-row:2}
+ .cs-conference-table td:nth-child(4){grid-column:2;grid-row:2}
+ .cs-conference-table td:nth-child(5){grid-column:3;grid-row:2}
+ .cs-conference-table td:nth-child(n+3){padding-top:7px!important;border-top:1px solid #e4dccd!important;font-size:.74rem;font-variant-numeric:tabular-nums}
+ .cs-conference-table td:nth-child(n+3)::before{content:attr(data-label);display:block;margin-bottom:2px;font:700 .59rem Georgia,serif;letter-spacing:.025em;color:#736753;text-transform:uppercase}
+ .cs-conf-page .cs-conference-table .soccer-school-mark.mbb-mark.slt-dual-shell{width:38px!important;height:38px!important;min-width:38px!important;min-height:38px!important;max-width:38px!important;max-height:38px!important;flex:0 0 38px!important}
+ .cs-conf-qualifier-strip{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .cs-conf-page .cs-cup-bracket,.cs-conf-page .cs-cup-bracket-fifteen{grid-template-columns:1fr}
+ .cs-conf-page .cs-cup-round,.cs-conf-page .cs-cup-round:nth-of-type(2n){grid-column:auto!important;border-right:0;border-bottom:1px solid #cfc2ae;padding:13px 10px}
+ .cs-conf-page .cs-cup-round:last-of-type{border-bottom:0}
+ .cs-conf-page .cs-cup-teamname{font-size:.85rem!important}
+ .cs-conf-page .cs-cup-match-label{font-size:.72rem}
+}
+@media(max-width:370px){
+ .cs-conf-fact{padding:11px 8px}
+ .cs-conf-page .cs-conference-hero{grid-template-columns:minmax(0,1fr) 68px}
+ .cs-conf-header-emblem{min-height:67px}
+ .cs-conf-page .cs-conf-header-emblem img{max-height:59px!important}
+ .cs-conf-qualifier-strip{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){.cs-conf-page *{scroll-behavior:auto!important}}
