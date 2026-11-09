@@ -54,21 +54,16 @@ function crest(name,id,cohort,branding){
       mark.dataset.logoStatus='fallback';
       return;
     }
-    // Fetch through a fresh probe and do not hide the fallback until an
-    // actual image has loaded and has positive natural dimensions.
-    const source=candidates[index++];
-    const probe=new Image();
-    probe.onload=()=>{
-      if(probe.naturalWidth>0&&probe.naturalHeight>0){
-        img.src=source;
-        img.style.setProperty('display','block','important');
-        fallback.style.setProperty('display','none','important');
-        mark.dataset.logoStatus='loaded';
-      }else next();
-    };
-    probe.onerror=next;
-    probe.src=source;
+    img.src=candidates[index++];
   };
+  img.addEventListener('load',()=>{
+    if(img.naturalWidth>0&&img.naturalHeight>0){
+      img.style.setProperty('display','block','important');
+      fallback.style.setProperty('display','none','important');
+      mark.dataset.logoStatus='loaded';
+    }else next();
+  });
+  img.addEventListener('error',next);
   next();
  }else mark.dataset.logoStatus='fallback';
  return mark;
