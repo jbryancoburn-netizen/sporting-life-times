@@ -1,0 +1,41 @@
+{
+  "created_on": "2026-11-09",
+  "scope": "Initial diagnostic replay; NCAA historical finals include non-D-I opponents; venue neutral due to absent location evidence; current Elo-to-margin coefficient 0.05681226",
+  "method": "160-pass date-separated season-reset replay (games on each date excluded from that date's rating fit), margin conversion shared by both models",
+  "baseline_regularization": 0.006,
+  "challenger_regularization": 0.002,
+  "seasons": {
+    "2024-25": {
+      "games": 6346,
+      "baseline": {
+        "margin_mae": 12.8649638551,
+        "brier": 0.2066700755,
+        "winner_accuracy": 0.6801134573
+      },
+      "challenger": {
+        "margin_mae": 13.1147569892,
+        "brier": 0.2076849487,
+        "winner_accuracy": 0.6810589348
+      }
+    },
+    "2025-26": {
+      "games": 6331,
+      "baseline": {
+        "margin_mae": 13.1390320197,
+        "brier": 0.2085402468,
+        "winner_accuracy": 0.6769862581
+      },
+      "challenger": {
+        "margin_mae": 13.3286039007,
+        "brier": 0.2100075363,
+        "winner_accuracy": 0.679513505
+      }
+    }
+  },
+  "verdict": "Do not promote challenger: inferior historical margin MAE and Brier in both seasons; winner accuracy difference minimal.",
+  "limitations": [
+    "not production-equivalent venue handling",
+    "non-D-I games included in historical CSV archives",
+    "future 2026-27 outcomes required for independent forward comparison"
+  ]
+}
