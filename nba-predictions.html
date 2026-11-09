@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NBA RETRO Forecast Desk | Sporting Life &amp; Times</title>
+<link rel="icon" href="slt-monogram-favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="slt-sections-nav.css?v=20261109a">
+<script defer src="slt-sections-nav.js?v=20261109a"></script>
+<script defer src="nba-rabby-possession.js?v=20261109"></script>
+<style>
+:root{color-scheme:light;--paper:#f3eee3;--ink:#27241f;--muted:#6d6559;--rule:#a59985;--red:#7f2c2c}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:"Century Schoolbook",Georgia,serif}
+a{color:inherit}.wrap{max-width:1150px;margin:auto;padding:0 20px 50px}
+.topline{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--rule);font-size:12px}
+.masthead{text-align:center;padding:15px 0 8px;font-variant:small-caps;font-size:clamp(26px,5vw,46px);font-weight:700;letter-spacing:-.035em}
+.masthead a{text-decoration:none}.edition{text-align:center;font-size:12px;letter-spacing:.16em;text-transform:uppercase;border-top:4px double var(--ink);border-bottom:4px double var(--ink);padding:9px}
+nav{display:flex;flex-wrap:wrap;gap:15px;padding:12px 0;font-size:13px;border-bottom:1px solid var(--rule)}
+nav a{text-decoration:none}nav a[aria-current]{text-decoration:underline;font-weight:bold}
+h1{font-size:clamp(25px,4vw,39px);margin:18px 0 8px}.dek{max-width:900px;line-height:1.55;font-size:15px;margin-bottom:18px}
+.tools{display:flex;flex-wrap:wrap;align-items:center;gap:12px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:12px 0}
+.tools label{font-weight:700;font-size:13px}.tools select{background:#fffdf8;border:1px solid var(--rule);padding:8px;font:inherit}
+#status{font-size:12px;line-height:1.5;color:var(--muted);margin:13px 0}
+.games{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.game{background:#fffcf5;border:1px solid var(--rule);padding:14px;min-width:0}
+.kicker{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;border-bottom:1px solid #ccc2b2;padding-bottom:8px;font-size:11px;color:var(--muted)}
+.teams{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px 0;align-items:center}
+.club{display:flex;flex-direction:column;align-items:center;text-align:center;gap:5px;min-width:0;font-size:13px;font-weight:bold}
+.club img{width:51px;height:51px;object-fit:contain}.club small{font-weight:400;color:var(--muted)}
+.projections{display:grid;grid-template-columns:repeat(3,1fr);border-top:3px double var(--ink);border-bottom:1px solid var(--rule);padding:10px 0;gap:8px;text-align:center}
+.projections small,.metric small{display:block;text-transform:uppercase;font:10px/1.5 Arial,sans-serif;letter-spacing:.08em;color:var(--muted)}
+.projections strong{display:block;font-size:clamp(15px,2.3vw,22px);margin:4px 0}
+.winner{color:var(--red)}.meta{margin-top:10px;font-size:12px;line-height:1.5}
+.meter{height:8px;border:1px solid var(--rule);background:#d8d1c4;margin:8px 0}
+.meter i{display:block;height:100%;background:#694c39}
+.links{display:flex;flex-wrap:wrap;gap:12px;margin-top:9px;font-size:12px}
+footer{border-top:3px double var(--ink);margin-top:24px;padding-top:12px;font-size:12px;line-height:1.6;color:var(--muted)}
+.note{padding:10px 0;border-bottom:1px solid var(--rule);font-size:12px;line-height:1.5}
+@media(max-width:760px){.games{grid-template-columns:1fr}.wrap{padding:0 12px 40px}}
+</style></head><body><div class="wrap">
+<header><div class="topline"><a href="index.html">Sporting Life &amp; Times</a><span>NBA · 2026–27 Season</span></div>
+<div class="masthead"><a href="nba.html">Sporting Life &amp; Times</a></div><div class="edition">The NBA RETRO Forecast Desk</div>
+<nav aria-label="NBA edition"><a href="nba.html">Front Page</a><a href="nba-game-center.html">Game Center</a><a href="nba-rankings.html">RETRO Rankings</a><a href="nba-standings.html">Standings</a><a href="nba-matchups.html">Matchup Lab</a><a href="nba-predictions.html" aria-current="page">Predictions</a></nav></header>
+<main><h1>Projected Scores &amp; Likely Spreads</h1>
+<p class="dek">Independent pregame forecasts for scheduled NBA games. Projected scores and point margins come from the verified possession-efficiency model; win percentages come from RETRO team-only Elo with the existing 40-point home-court adjustment. These are <strong>RETRO projections, not sportsbook lines</strong>.</p>
+<div class="tools"><label for="day">Game date</label><select id="day"><option value="all">All available upcoming games</option></select><label for="sort">Order</label><select id="sort"><option value="tip">Tipoff</option><option value="edge">Largest projected margin</option><option value="close">Closest projected matchup</option></select></div>
+<p id="status" role="status">Reading published NBA scoring inputs and upcoming games…</p><div id="games" class="games"></div>
+<p class="note"><strong>Reading the spread:</strong> “BOS −4.2” means RETRO projects Boston to win by 4.2 points. A projected score is rounded to whole points, so its displayed difference may not equal the decimal margin. A negative spread is not a wager recommendation.</p>
+<p class="note"><strong>Model boundaries:</strong> Injuries, confirmed lineups, travel and fatigue are not assigned untested point adjustments. Forecasts are provisional, especially early in the season. Games without validated team inputs are omitted rather than filled with invented projections.</p>
+</main><footer>Sporting Life &amp; Times · NBA forecasts derive from verified 2026–27 NBA team box scores, sourced 2025–26 priors, frozen historical scoring calibration, and separately maintained RETRO Elo ratings. Current probabilities and spread estimates are different models; disagreement is displayed rather than concealed.</footer>
+</div><script>
+(()=>{'use strict';
+const $=id=>document.getElementById(id);
+const escapeHtml=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const allowed=new Set('ATL BOS BKN CHA CHI CLE DAL DEN DET GSW HOU IND LAC LAL MEM MIA MIL MIN NOP NYK OKC ORL PHI PHX POR SAC SAS TOR UTA WAS'.split(' '));
+const path='assets/nba-logos/';
+const teamLogo=t=>path+t+'.png';
+const nyDate=s=>new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(s));
+const tip=s=>new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}).format(new Date(s))+' ET';
+async function get(file){const r=await fetch(file+'?v='+Math.floor(Date.now()/60000),{cache:'no-store',signal:AbortSignal.timeout(12000)});if(!r.ok)throw Error(file+' unavailable ('+r.status+')');return r.json();}
+let rows=[];
+function render(){
+const selected=$('day').value,order=$('sort').value;
+let list=rows.filter(x=>selected==='all'||x.day===selected);
+if(order==='edge')list.sort((a,b)=>Math.abs(b.p.margin)-Math.abs(a.p.margin));
+else if(order==='close')list.sort((a,b)=>Math.abs(a.p.margin)-Math.abs(b.p.margin));
+else list.sort((a,b)=>Date.parse(a.g.date)-Date.parse(b.g.date));
+$('games').innerHTML=list.length?list.map(({g,a,h,p})=>{
+ const favored=p.margin>=0?h.code:a.code,margin=Math.abs(p.margin);
+ const side=p.margin>=0?'home':'away';
+ const awayPct=100*(1-p.homeWin),homePct=100*p.homeWin;
+ const eloFav=p.homeWin>=.5?h.code:a.code;
+ const discrepancy=eloFav!==favored?'<div class="meta"><strong>Model disagreement:</strong> RETRO Elo favors '+escapeHtml(eloFav)+' while projected points favor '+escapeHtml(favored)+'.</div>':'';
+ const linkId=String(g.id||'').replace(/^espn-nba-/,'');
+ const gameLink=/^\d+$/.test(linkId)?'<a href="nba-live-game.html?game='+encodeURIComponent(linkId)+'">Game details</a>':'';
+ return '<article class="game"><div class="kicker"><span>'+escapeHtml(tip(g.date))+'</span><span>Independent RETRO forecast</span></div>'+
+ '<div class="teams"><div class="club"><img loading="lazy" src="'+teamLogo(a.code)+'" alt=""><span>'+escapeHtml(a.name||a.code)+'</span><small>AWAY · '+escapeHtml(a.code)+'</small></div>'+
+ '<div class="club"><img loading="lazy" src="'+teamLogo(h.code)+'" alt=""><span>'+escapeHtml(h.name||h.code)+'</span><small>HOME · '+escapeHtml(h.code)+'</small></div></div>'+
+ '<div class="projections"><div><small>Projected final</small><strong>'+p.awayScore+'–'+p.homeScore+'</strong></div><div><small>Likely spread</small><strong class="winner">'+(margin<.05?'EVEN':favored+' −'+margin.toFixed(1))+'</strong></div><div><small>Expected total</small><strong>'+p.total.toFixed(1)+'</strong></div></div>'+
+ '<div class="meta">RETRO Elo win chances: '+escapeHtml(a.code)+' <strong>'+awayPct.toFixed(1)+'%</strong> · '+escapeHtml(h.code)+' <strong>'+homePct.toFixed(1)+'%</strong></div>'+
+ '<div class="meter" aria-hidden="true"><i style="width:'+homePct.toFixed(1)+'%"></i></div>'+
+ '<div class="meta">Possession estimate: '+p.possessions.toFixed(1)+' · Scoring samples: '+escapeHtml(a.code)+' '+p.awayGames+' games, '+escapeHtml(h.code)+' '+p.homeGames+' games</div>'+discrepancy+
+ '<div class="links">'+gameLink+'<a href="nba-matchups.html">Detailed Matchup Lab</a></div></article>';
+ }).join(''):'<p>No valid projections for this date in the current published schedule window.</p>';
+}
+async function load(){
+try{
+if(!window.RabbyPossessionModel)throw Error('Shared possession forecasting model did not load');
+const [elo,stats,schedule,priors]=await Promise.all([get('data/nba-elo-shadow-2026-27.json'),get('data/nba-possession-inputs.json'),get('data/nba-upcoming-schedule.json'),get('data/nba-2025-26-team-advanced.json')]);
+if(elo.status!=='primary_live_earned_elo'||elo.parameters?.season_start_elo!==1500||elo.parameters?.home_elo!==40)throw Error('Verified RETRO Elo feed is not ready');
+const ratings=Object.fromEntries((elo.rankings||[]).filter(r=>allowed.has(r.team)&&Number.isFinite(r.elo)).map(r=>[r.team,r.elo]));
+const model=window.RabbyPossessionModel.build(stats,4,priors);
+if(Object.keys(ratings).length!==30||!model||model.coverage.teams!==30)throw Error('All 30 teams require verified scoring and RETRO data');
+const now=Date.now();
+rows=(schedule.games||[]).filter(g=>g.state==='pre'&&Date.parse(g.date)>now).map(g=>{
+const a=g.teams?.find(t=>t.home_away==='away'),h=g.teams?.find(t=>t.home_away==='home');
+if(!a||!h||!allowed.has(a.code)||!allowed.has(h.code))return null;
+const p=window.RabbyPossessionModel.project(h.code,a.code,model,ratings);
+return p?{g,a,h,p,day:nyDate(g.date)}:null;
+}).filter(Boolean).sort((x,y)=>Date.parse(x.g.date)-Date.parse(y.g.date));
+const before=$('day').value,days=[...new Set(rows.map(x=>x.day))];
+$('day').innerHTML='<option value="all">All available upcoming games</option>'+days.map(d=>'<option value="'+d+'">'+d+'</option>').join('');
+if(days.includes(before))$('day').value=before;
+const scheduleStamp=schedule.updated_at?new Date(schedule.updated_at).toLocaleString('en-US',{timeZone:'America/New_York'}):'not stated';
+const stale=Date.now()-Date.parse(schedule.updated_at)>12*3600000;
+$('status').textContent=rows.length+' upcoming game forecasts · '+model.coverage.games+' attributed completed box scores · 30 RETRO-rated teams · Schedule refreshed '+scheduleStamp+' ET'+(stale?' · WARNING: published schedule appears stale':'')+'. Only games present in the published schedule are shown.';
+render();
+}catch(e){$('status').textContent='Forecasts unavailable: '+e.message;$('games').innerHTML='<p>No estimates are displayed until the verified NBA inputs load correctly.</p>';}
+}
+$('day').addEventListener('change',render);$('sort').addEventListener('change',render);
+load();setInterval(()=>{if(!document.hidden)load()},60000);
+})();
+</script></body></html>
