@@ -52,3 +52,31 @@ a.cs-cup-table-school{display:inline-flex;align-items:center;gap:.45rem;min-widt
  .cs-cup-bracket-fifteen .cs-cup-school{min-height:35px}
  .cs-cup-bracket-fifteen .cs-cup-crest{width:29px!important;height:29px!important}
 }
+
+/* Shared CBB-native soccer roundel: reliable fallback and full artwork. */
+.soccer-school-mark.mbb-mark.slt-dual-shell{
+  position:relative!important;isolation:isolate!important;
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  box-sizing:border-box!important;flex-shrink:0!important;aspect-ratio:1/1!important;
+  border:2px solid var(--slt-dual-primary,#36566b)!important;
+  border-radius:50%!important;background:#fff!important;
+  overflow:hidden!important;padding:0!important;outline:0!important;box-shadow:none!important;
+}
+.soccer-school-mark.mbb-mark.slt-dual-shell::before{
+  content:""!important;position:absolute!important;inset:1px!important;
+  border:2px solid var(--slt-dual-secondary,#a0aab5)!important;
+  border-radius:50%!important;background:transparent!important;
+  box-shadow:none!important;pointer-events:none!important;z-index:3!important;
+}
+.soccer-school-mark.mbb-mark.slt-dual-shell>img.mbb-mark__img.soccer-school-image{
+  display:block;position:absolute!important;top:50%!important;left:50%!important;
+  right:auto!important;bottom:auto!important;transform:translate(-50%,-50%)!important;
+  width:62%!important;height:62%!important;min-width:0!important;min-height:0!important;
+  max-width:62%!important;max-height:62%!important;object-fit:contain!important;
+  object-position:center!important;border:0!important;border-radius:0!important;
+  clip-path:none!important;mask:none!important;box-shadow:none!important;
+  padding:0!important;margin:0!important;background:transparent!important;z-index:2!important;
+}
+.soccer-school-mark.mbb-mark.slt-dual-shell>.mbb-mark__initials{
+  z-index:2!important;
+}
