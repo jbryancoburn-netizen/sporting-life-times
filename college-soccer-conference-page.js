@@ -76,7 +76,7 @@ async function render(){
  }
  const projectedTable=projections.conferences?.[key];
  const projectionUsable=Array.isArray(projectedTable?.rows)&&Array.isArray(baseTable.rows)&&projectedTable.rows.length===baseTable.rows.length&&new Set(projectedTable.rows.map(r=>r.team_id)).size===baseTable.rows.length&&projectedTable.rows.every(r=>baseTable.rows.some(b=>b.team_id===r.team_id)&&Number.isFinite(r.conference_points))&&String(projectedTable.snapshot_checked_date||'')>=String(baseTable.snapshot_checked_date||'')&&(!projectedTable.projected_through||Date.parse(projectedTable.projected_through)>=Date.parse(baseTable.snapshot_checked_date));
- const table=projectionUsable?projectedTable:baseTable;
+ const table=baseTable.tournament_bracket?.status==='official'?baseTable:(projectionUsable?projectedTable:baseTable);
  const signal=JSON.stringify([table.checked_at_utc||table.snapshot_checked_date,table.tournament_bracket,table.tournament_seeds,elo.as_of,elo.applied_finals_since_baseline,rules.updated,branding?.teams]);
  if(signal===previous)return;
  const member=directory.conferences?.[key]?.teams,rule=rules.conferences?.[key],rated=elo.cohorts?.[cfg.cohort];
@@ -93,7 +93,8 @@ async function render(){
  const nav=E('nav',null,'cs-conference-nav');nav.append(A('STANDINGS','#conference-table'),A('PROJECTED BRACKET','#conference-bracket'),A('TITLE FORECAST','#conference-odds'),A('OFFICIAL RULES','#conference-rules'));if(cfg.other)nav.append(A('OTHER GENDER DESK',cfg.other));root.append(nav);
  
  const columns=E('div',null,'cs-conference-columns'),standSection=E('section',null,'cs-conf-standings'),modelSection=E('aside',null,'cs-conf-model');standSection.id='conference-table';modelSection.id='conference-odds';columns.append(standSection,modelSection);root.append(columns);
- standSection.append(E('h2','Conference standings · projected positions'));
+ standSection.append(E('h2','Conference standings · '+(table.snapshot_checked_date||'unverified date')));
+ if(table.note)standSection.append(E('p',table.note,'cs-conf-caption'));
  const unresolved=new Set((table.unresolved_tie_groups||[]).flatMap(g=>g.teams||[]));
  if(unresolved.size)standSection.append(E('p','† Teams level on points: their order is provisional until conference tiebreakers are resolved.','cs-conf-caption'));
  const t=E('table',null,'cs-conference-table');const hd=E('thead'),hr=E('tr');for(const name of ['#','School','Conf. W–L–D','Overall','Pts'])hr.append(E('th',name));hd.append(hr);const tb=E('tbody');
@@ -130,7 +131,7 @@ async function render(){
 })();
  const provisional=!officialSeeds;
  const officialBracket=table.tournament_bracket;
- const bracketVerified=officialBracket?.status==='official'&&typeof officialBracket.source_url==='string'&&/^https:\/\//.test(officialBracket.source_url)&&Array.isArray(officialBracket.matches)&&officialBracket.matches.length>0&&officialBracket.matches.every(match=>match.round&&match.home_id&&match.away_id&&member.includes(match.home_id)&&member.includes(match.away_id)&&match.home_id!==match.away_id);
+ const bracketVerified=officialBracket?.status==='official'&&typeof officialBracket.source_url==='string'&&/^https:\/\//.test(officialBracket.source_url)&&Array.isArray(officialBracket.matches)&&officialBracket.matches.length>0&&officialBracket.matches.every(match=>match.round&&(!match.home_id||member.includes(match.home_id))&&(!match.away_id||member.includes(match.away_id))&&(!match.home_id||!match.away_id||match.home_id!==match.away_id));
 
  if(formatCertified&&(field===6||field===8)&&entrants.length===field&&entrants.every(t=>Number.isFinite(t.elo))){
   const probs=bracketOdds(entrants,!!rule.tournament?.reseed);
@@ -156,7 +157,7 @@ async function render(){
   const rounds=E('div',null,'cs-official-rounds');
   const groups=new Map();
   for(const match of officialBracket.matches){if(!groups.has(match.round))groups.set(match.round,[]);groups.get(match.round).push(match)}
-  for(const [roundName,matches] of groups){const group=E('section',null,'cs-official-round');group.append(E('h3',roundName));for(const match of matches){const card=E('article',null,'cs-official-match');const names=[match.home_id,match.away_id].map(id=>teams.find(t=>t.id===id));const label=E('div',null,'cs-official-match-names');for(const team of names){const cell=E('div',null,'cs-official-team');if(cup)cell.append(cup.school(team.name,team.id,cfg.cohort,branding));else cell.append(A(team.name,'college-soccer-team.html?team='+encodeURIComponent(cfg.cohort+':'+team.id)));label.append(cell)}card.append(label);
+  for(const [roundName,matches] of groups){const group=E('section',null,'cs-official-round');group.append(E('h3',roundName));for(const match of matches){const card=E('article',null,'cs-official-match');const names=[match.home_id,match.away_id].map(id=>teams.find(t=>t.id===id));const label=E('div',null,'cs-official-match-names');for(const team of names){const cell=E('div',null,'cs-official-team');if(!team)cell.append(E('strong','To be determined'));else if(cup)cell.append(cup.school(team.name,team.id,cfg.cohort,branding));else cell.append(A(team.name,'college-soccer-team.html?team='+encodeURIComponent(cfg.cohort+':'+team.id)));label.append(cell)}card.append(label);
     if(match.status==='final'&&Number.isInteger(match.home_score)&&Number.isInteger(match.away_score))card.append(E('strong',match.home_score+' – '+match.away_score+' · FINAL','cs-official-result'));
     else if(match.kickoff)card.append(E('span',String(match.kickoff),'cs-official-kickoff'));
     group.append(card)}rounds.append(group)}bracket.append(rounds,A('Official tournament bracket source',officialBracket.source_url));
@@ -205,7 +206,7 @@ async function render(){
   bracket.append(note);
  }root.append(bracket);
  const rulesSection=E('section',null,'cs-conference-rules');rulesSection.id='conference-rules';rulesSection.append(E('h2','CHAMPIONSHIP FORMAT'));
- rulesSection.append(E('p','Field: '+(rule.tournament?.field||'unverified')+' provisional entrants. '+(rule.tournament?.status||'')+' '+(rule.projection_warning||'')));
+ rulesSection.append(E('p','Field: '+(rule.tournament?.field||'unverified')+(officialSeeds?' verified tournament seeds. ':' provisional entrants. ')+(rule.tournament?.status||'')+' '+(rule.projection_warning||'')));
  if(rule.tournament?.automatic_qualifier)rulesSection.append(E('p',rule.tournament.automatic_qualifier));
  if(table.source_url)rulesSection.append(A('Official conference standings ↗',table.source_url));
  for(const url of rule.tournament?.sources||[])rulesSection.append(A('Official championship source ↗',url));
