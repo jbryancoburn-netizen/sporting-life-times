@@ -2,7 +2,7 @@
   "league": "NBA",
   "season": "2026-27",
   "status": "provisional_live_from_historical_baseline",
-  "games_played": 140,
+  "games_played": 141,
   "preseason_status": "provisional_historical_regression_only",
   "source": "ESPN FINAL NBA regular-season scores; Sporting Life & Times independent Elo",
   "rankings": [
@@ -19,16 +19,16 @@
       "elo": 1645.287
     },
     {
-      "team": "DET",
-      "elo": 1625.832
+      "team": "LAL",
+      "elo": 1623.567
     },
     {
       "team": "BOS",
       "elo": 1620.485
     },
     {
-      "team": "LAL",
-      "elo": 1608.113
+      "team": "DET",
+      "elo": 1610.378
     },
     {
       "team": "MIN",
@@ -1387,6 +1387,15 @@
       "away_score": 127,
       "date": "2026-11-08T20:30:00.000Z",
       "home_elo_change": -6.805377
+    },
+    {
+      "id": "espn-nba-401909946",
+      "home": "DET",
+      "away": "LAL",
+      "home_score": 116,
+      "away_score": 121,
+      "date": "2026-11-08T23:00:00.000Z",
+      "home_elo_change": -15.454319
     }
   ],
   "movement": {
@@ -1395,9 +1404,9 @@
       "OKC": 0,
       "SAS": 0,
       "NYK": 0,
-      "DET": 0,
+      "LAL": 15.454319,
       "BOS": 0,
-      "LAL": 0,
+      "DET": -15.454319,
       "MIN": 0,
       "PHI": 6.805377,
       "HOU": 0,
@@ -1428,9 +1437,9 @@
       "OKC": 1658.594,
       "SAS": 1645.182,
       "NYK": 1623.285,
-      "DET": 1629.4,
-      "BOS": 1615.896,
       "LAL": 1580.463,
+      "BOS": 1615.896,
+      "DET": 1629.4,
       "MIN": 1572.784,
       "PHI": 1587.08,
       "HOU": 1613.03,
