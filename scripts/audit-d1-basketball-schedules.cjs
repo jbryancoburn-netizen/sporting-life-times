@@ -9,15 +9,41 @@ function audit(){
  const r=read('data/mbb-logo-registry.json').teams, c=read('data/ncaam-2026-27-espn-team-crosswalk.json').teams;
  const w=read('data/ncaaw-2026-27-teams.json').teams, ext=read('data/mbb-out-of-division-opponent-logos.json').teams;
  const womenFull=read('data/ncaaw-schedules-2026-27.json'), mid=new Set(Object.keys(r)),wid=new Set(w.map(x=>String(x.team_id)));
- const di=new Map(),outside=new Map();
+ const di=new Map(),outside=new Map(),outsideAmbiguous=new Set();
  for(const t of c)for(const n of [t.name,t.espn_name,r[t.espn_id]?.school])if(n)di.set(norm(n),String(t.espn_id));
- for(const [id,t] of Object.entries(ext))for(const n of [t.school,t.feed_name,t.corrected_name,...(t.aliases||[])])if(n)outside.set(norm(n),id);
+ for(const [id,t] of Object.entries(ext))for(const n of [t.school,t.feed_name,t.corrected_name,...(t.aliases||[])]){
+  const key=norm(n);if(!key||outsideAmbiguous.has(key)||di.has(key))continue;
+  if(outside.has(key)&&outside.get(key)!==id){outside.delete(key);outsideAmbiguous.add(key)}
+  else outside.set(key,id);
+ }
+ // Mirror the shared crest renderer: a school can be resolved by its
+ // verified name even when the calendar omits an opponent ID or ESPN uses
+ // a different outside-D-I provider ID. Never infer a D-I school from a
+ // numeric opponent ID alone.
+ const byOutsideName=name=>{
+  const key=norm(name);if(outside.has(key))return outside.get(key);
+  if(di.has(key)||key.length<8)return '';
+  const matches=new Set();
+  for(const [alias,id] of outside){
+   if((alias.length>=8&&key.startsWith(alias)&&key.length>alias.length)||
+      (alias.length>key.length&&alias.startsWith(key)&&key.length>=8))
+    matches.add(id);
+   if(matches.size>1)return '';
+  }
+  return matches.size===1?[...matches][0]:'';
+ };
  const classify=(id,name,gender)=>{
   id=String(id||'');name=String(name||'');
   if((gender==='women'?wid:mid).has(id))return 'D1';
-  if(!id&&di.has(norm(name)))return 'D1_MISSING_ID';
-  const eid=ext[id]?id:!id?outside.get(norm(name)):null;
-  if(eid){const t=ext[eid];return [t.school,t.feed_name,t.corrected_name,...(t.aliases||[])].some(n=>norm(n)===norm(name))?'OUTSIDE_LOGO':'EXTERNAL_ID_MISMATCH';}
+  if(di.has(norm(name)))return 'D1_MISSING_ID';
+  const nameID=byOutsideName(name),candidate=ext[id];
+  if(candidate){
+   if([candidate.school,candidate.feed_name,candidate.corrected_name,...(candidate.aliases||[])].some(n=>norm(n)===norm(name)))
+    return 'OUTSIDE_LOGO';
+   if(nameID)return 'OUTSIDE_LOGO_BY_NAME';
+   return 'EXTERNAL_ID_MISMATCH';
+  }
+  if(nameID)return 'OUTSIDE_LOGO_BY_NAME';
   return id?'OUTSIDE_UNREGISTERED':'UNRESOLVED_NO_ID';
  };
  const start=()=>({total:0,di_logo_blank:0,classes:{},unknown:new Map(),today:[]});
@@ -54,7 +80,7 @@ function audit(){
  }
  const out=x=>({entry_count:x.total,classifications:x.classes,
    di_source_logo_field_blanks:x.di_logo_blank,unique_nonD1_or_unresolved:x.unknown.size,
-   highest_priority:[...x.unknown.values()].sort((a,b)=>b.visits-a.visits).slice(0,32),today:x.today.slice(0,35)});
+   highest_priority:[...x.unknown.values()].filter(v=>['OUTSIDE_UNREGISTERED','UNRESOLVED_NO_ID','EXTERNAL_ID_MISMATCH'].includes(v.kind)).sort((a,b)=>b.visits-a.visits).slice(0,70),today:x.today.slice(0,35)});
  const gapM=read('data/mbb-schedule-completion-audit.json'),gapW=read('data/ncaaw-2026-27-schedule-first-full-coverage-audit.json');
  const results={date:today,men_logo_registry:mid.size,men_logo_verified:Object.values(r).filter(t=>t.logo_url_verified).length,
    women_logo_registry:wid.size,women_not_in_men_registry:[...wid].filter(id=>!mid.has(id)),
