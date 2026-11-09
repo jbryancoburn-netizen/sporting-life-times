@@ -1,0 +1,99 @@
+name: Verify public NBA newspaper
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '7,37 * * * *'
+  push:
+    branches: [main]
+    paths:
+      - nba.html
+      - nba-game-center.html
+      - nba-predictions.html
+      - nba-live-feed.js
+      - nba-newspaper.js
+      - nba-retro-ledger-forecast.js
+      - data/nba-game-predictions.json
+      - .github/workflows/verify-public-nba.yml
+permissions:
+  contents: read
+jobs:
+  verify-public:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Verify published URLs and forecast visibility
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json, time, urllib.request, urllib.error, pathlib, sys
+          base="https://jbryancoburn-netizen.github.io/sporting-life-times/"
+          checks={
+            "NBA homepage":"nba.html",
+            "NBA Daily Ledger":"nba-game-center.html",
+            "NBA Predictions page":"nba-predictions.html",
+            "Daily Ledger script":"nba-live-feed.js",
+            "Shared forecast display":"nba-retro-ledger-forecast.js",
+            "NBA published schedule":"data/nba-upcoming-schedule.json",
+            "NBA Elo":"data/nba-elo-shadow-2026-27.json",
+            "NBA possession inputs":"data/nba-possession-inputs.json",
+          }
+          contents={}
+          errors=[]
+          for name,path in checks.items():
+              for attempt in range(1,5):
+                  try:
+                      req=urllib.request.Request(base+path+"?check="+str(int(time.time())),headers={"User-Agent":"SLT-Public-Verification/1.0","Cache-Control":"no-cache"})
+                      with urllib.request.urlopen(req,timeout=18) as resp:
+                          raw=resp.read()
+                          if resp.status!=200 or not raw:
+                              raise RuntimeError(f"HTTP {resp.status}, bytes={len(raw)}")
+                          contents[path]=raw.decode("utf-8")
+                          print(f"PASS {name}: HTTP 200 ({len(raw)} bytes)")
+                          break
+                  except Exception as e:
+                      if attempt==4:
+                          errors.append(f"{name} ({path}): {type(e).__name__}: {e}")
+                          print("FAIL "+errors[-1])
+                      else:
+                          time.sleep(attempt*4)
+          if "nba.html" in contents and "nba-retro-ledger-forecast.js" not in contents["nba.html"]:
+              errors.append("NBA homepage does not load shared forecast display script")
+          if "nba-game-center.html" in contents and "nba-retro-ledger-forecast.js" not in contents["nba-game-center.html"]:
+              errors.append("Daily Ledger does not load shared forecast display script")
+          for key in ["data/nba-upcoming-schedule.json","data/nba-elo-shadow-2026-27.json","data/nba-possession-inputs.json"]:
+              if key in contents:
+                  try: json.loads(contents[key])
+                  except Exception as e: errors.append(f"{key}: invalid JSON: {e}")
+          prediction="data/nba-game-predictions.json"
+          try:
+              req=urllib.request.Request(base+prediction+"?check="+str(int(time.time())),headers={"User-Agent":"SLT-Public-Verification/1.0"})
+              with urllib.request.urlopen(req,timeout=18) as resp:
+                  payload=json.loads(resp.read())
+                  expected=payload.get("coverage",{}).get("scheduled_upcoming")
+                  actual=payload.get("coverage",{}).get("projected_upcoming")
+                  if not isinstance(expected,int) or expected<1 or expected!=actual or len(payload.get("games",[]))!=expected:
+                      errors.append(f"Published forecast coverage mismatch: scheduled={expected}, projected={actual}, rows={len(payload.get('games',[]))}")
+                  elif any(round(float(g["spread_points"])*2)!=float(g["spread_points"])*2 for g in payload["games"]):
+                      errors.append("Published forecast includes a non-half-point spread")
+                  else:
+                      print(f"PASS forecast dataset: {actual}/{expected} upcoming games, 0.5-point spreads")
+          except Exception as e:
+              errors.append(f"Published prediction dataset unavailable: {type(e).__name__}: {e}")
+          report={"base_url":base,"checked_at":time.strftime("%Y-%m-%dT%H:%M:%SZ",time.gmtime()),"passed":not errors,"errors":errors,"checked_paths":list(contents)}
+          pathlib.Path("public-nba-verification.json").write_text(json.dumps(report,indent=2))
+          with open(__import__("os").environ["GITHUB_STEP_SUMMARY"],"a") as f:
+              f.write("## Public NBA website verification\n\n")
+              f.write("**"+("PASS" if not errors else "FAIL")+"**\n\n")
+              for error in errors: f.write("- "+error+"\n")
+              if not errors:f.write("All public endpoints and forecast coverage checks passed.\n")
+          if errors:
+              print("\n".join(errors),file=sys.stderr)
+              sys.exit(1)
+          PY
+      - name: Upload public verification report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: public-nba-verification
+          path: public-nba-verification.json
+          if-no-files-found: warn
