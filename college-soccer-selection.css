@@ -74,7 +74,7 @@
  padding:7px 3px!important;border-top:0!important;border-bottom:1px solid #e1e5df!important;
 }
 #ncaa-selection-forecast .ncaa-compare-team .soccer-school-mark{
- flex:0 0 48px!important;margin:0!important;vertical-align:middle!important;
+ flex:0 0 24px!important;margin:0!important;vertical-align:middle!important;
 }
 #ncaa-selection-forecast .ncaa-compare-team .ncaa-school-meta{
  min-width:0!important;gap:3px!important;
@@ -102,7 +102,7 @@
 /* NCAA selection rows use the same single-owner two-color crest as all
    conference and tournament pages. Never add a third ring here. */
 #ncaa-selection-forecast .ncaa-school-row .soccer-school-mark{
- flex:0 0 48px!important;margin:0!important;outline:0!important;
+ flex:0 0 24px!important;margin:0!important;outline:0!important;
  box-shadow:none!important;vertical-align:middle!important;
 }
 #ncaa-selection-forecast .ncaa-school-row .soccer-school-inner-ring{
@@ -116,7 +116,7 @@
  border-left:3px solid var(--school-accent,#476958)!important;padding-left:10px!important;
 }
 @media(max-width:620px){
- #ncaa-selection-forecast .ncaa-school-row .soccer-school-mark{flex:0 0 48px!important}
+ #ncaa-selection-forecast .ncaa-school-row .soccer-school-mark{flex:0 0 24px!important}
  #ncaa-selection-forecast .ncaa-compare-team .ncaa-school-meta strong{font-size:15px!important}
 }
 
@@ -126,7 +126,7 @@
   max-width:24px!important;max-height:24px!important;flex:0 0 24px!important;
 }
 #ncaa-selection-forecast .soccer-school-mark>img.soccer-school-image{
-  width:72%!important;height:72%!important;max-width:72%!important;max-height:72%!important;
+  width:42%!important;height:42%!important;max-width:42%!important;max-height:42%!important;
   padding:0!important;object-fit:contain!important;
 }
 #ncaa-selection-forecast .ncaa-school-row{min-height:32px!important;padding:3px 2px!important;gap:7px!important}
