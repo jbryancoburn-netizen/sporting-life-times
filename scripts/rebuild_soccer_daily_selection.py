@@ -13,16 +13,12 @@ def write(name, obj):
 
 def main():
     previous=read("college-soccer-ncaa-selection-forecast.json")
-    # Fail closed until selection evidence satisfies the 2026 NCAA manual.
-    # The daily pipeline must never publish Elo-only at-large picks as NCAA-compliant.
-    verified_rpi_path=DATA/"college-soccer-ncaa-verified-selection-inputs-2026.json"
-    if not verified_rpi_path.exists():
-        raise ValueError("NCAA selection rebuild blocked: missing certified 2026 adjusted RPI, DI-only records and eligibility inputs")
-    verified=read("college-soccer-ncaa-verified-selection-inputs-2026.json")
-    if verified.get("status")!="verified" or verified.get("season")!=2026 or not isinstance(verified.get("teams"),dict):
-        raise ValueError("NCAA selection rebuild blocked: selection input verification incomplete")
-    if any(not all(k in v for k in ("adjusted_rpi_rank","di_wins","di_losses","di_ties","eligible")) for v in verified["teams"].values()):
-        raise ValueError("NCAA selection rebuild blocked: incomplete eligibility or RPI evidence")
+    # A daily independent RETRO scenario can refresh without the certified RPI file.
+    # It must NEVER be labeled as an NCAA committee selection.
+    verified_path=DATA/"college-soccer-ncaa-verified-selection-inputs-2026.json"
+    verified=read(verified_path.name) if verified_path.exists() else None
+    certified=bool(verified and verified.get("status")=="verified" and
+                   verified.get("season")==2026 and isinstance(verified.get("teams"),dict))
     ratings=read("college-soccer-elo.json")
     directory=read("college-soccer-conferences.json")
     audit=read("college-soccer-elo-live-audit.json")
@@ -59,7 +55,28 @@ def main():
                 if match.get("winner_id") and match["winner_id"]!=winner:
                     raise ValueError("Conflicting winner in official championship: "+key)
                 champion=by_id[winner]
-        pick=champion or max(choices,key=lambda x:(x["elo"],x["team_id"]))
+        # A published official bracket defines the eligible remaining contenders.
+        # Never predict a team eliminated by a certified final.
+        contenders=choices
+        if bracket and bracket.get("status")=="official" and bracket.get("source_url"):
+            seed_ids=read(Path(source).name).get("tournament_seeds") if source else None
+            if seed_ids:
+                contenders=[x for x in choices if x["team_id"] in seed_ids]
+            eliminated=set()
+            for match in bracket.get("matches",[]):
+                if match.get("status")!="final": continue
+                a,b=match.get("home_id"),match.get("away_id")
+                if a not in by_id or b not in by_id or a==b: continue
+                winner=match.get("winner_id")
+                if winner not in (a,b):
+                    hs,vs=match.get("home_score"),match.get("away_score")
+                    if isinstance(hs,int) and isinstance(vs,int) and hs!=vs:
+                        winner=a if hs>vs else b
+                if winner in (a,b): eliminated.add(b if winner==a else a)
+            contenders=[x for x in contenders if x["team_id"] not in eliminated]
+            if not contenders and not champion:
+                raise ValueError("All tournament contenders eliminated: "+key)
+        pick=champion or max(contenders,key=lambda x:(x["elo"],x["team_id"]))
         if pick["team_id"] in used:
             raise ValueError("Duplicate automatic qualifier "+pick["team_id"])
         used.add(pick["team_id"])
@@ -69,16 +86,21 @@ def main():
             official_aq=bool(champion),
             source_url=bracket["source_url"] if champion else None))
     if len(scenarios)!=23: raise ValueError("Expected 23 conference bids")
-    # NCAA 2026 manual: at-large teams must be eligible and .500 or better in DI games.
-    # RPI is the primary transparent proxy here, NOT a claim to replicate committee deliberation.
+    # Certified RPI/eligibility, when available, guides the NCAA-résumé proxy.
+    # Without it, compute a clearly labeled independent RETRO-only scenario.
     def eligible(x):
-        v=verified["teams"].get(x["team_id"],{})
-        w,l,t=(v.get("di_wins"),v.get("di_losses"),v.get("di_ties"))
-        if not all(isinstance(n,int) and n>=0 for n in (w,l,t)) or not v.get("eligible"):
-            return False
-        return w+l+t>0 and 2*w+t>=w+l+t and isinstance(v.get("adjusted_rpi_rank"),int)
-    atlarge=sorted((x for x in ranked if x["team_id"] not in used and eligible(x)),
-                   key=lambda x:(verified["teams"][x["team_id"]]["adjusted_rpi_rank"],x["team_id"]))[:29]
+        if certified:
+            v=verified["teams"].get(x["team_id"],{})
+            w,l,t=v.get("di_wins"),v.get("di_losses"),v.get("di_ties")
+            return (all(isinstance(n,int) and n>=0 for n in (w,l,t)) and
+                    v.get("eligible") is True and w+l+t>0 and
+                    2*w+t>=w+l+t and isinstance(v.get("adjusted_rpi_rank"),int))
+        return True  # Experimental RETRO only; NCAA eligibility NOT verified.
+    if certified:
+        rank_key=lambda x:(verified["teams"][x["team_id"]]["adjusted_rpi_rank"],x["team_id"])
+    else:
+        rank_key=lambda x:(-x["elo"],x["team_id"])
+    atlarge=sorted((x for x in ranked if x["team_id"] not in used and eligible(x)),key=rank_key)[:29]
     if len(atlarge)<29: raise ValueError("Insufficient at-large candidates")
     def entry(x,kind,conf):
         return dict(team_id=x["team_id"],team=x["team"],conference=conf,
@@ -96,22 +118,24 @@ def main():
         x.update(experimental_strength_order=i,ncaa_seed=None,
                  first_round_bye_candidate=i<=16,seeded_24_candidate=i<=24)
     previous["rating_cutoff"]=ratings["as_of"]
-    previous["status"]="retro_daily_provisional_official_aq_when_verified"
+    previous["status"]="provisional_rpi_resume_proxy" if certified else "retro_daily_experimental_not_ncaa_selection"
     previous["automatic_bid_scenarios"]=scenarios
     previous["at_large_proxy"]=at
     previous["first_four_out_proxy"]=[entry(x,"outside_field_proxy",reverse_confs.get(x["team_id"],"")) for x in atlarge[25:29]]
     previous["field"]=field
+    previous["selection_policy"]["at_large_record_gate"]="Verified Division I .500 eligibility" if certified else "NOT VERIFIED: RETRO scenario, not eligible NCAA field"
     previous["elo_reconciliation"].update(
         audit_status=audit.get("status","unverified"),
         excluded_finals=audit.get("excluded_finals"),
         source_checked_through=audit.get("checked_through"),
         source_certified=(audit.get("status")=="certified"))
     previous["methodology"]["automatic_bids"]="Official AQ only from a source-linked championship match with verified final score; otherwise highest-rated eligible conference member is an explicitly hypothetical RETRO pick."
-    previous["methodology"]["at_large"]="Verified .500 Division I eligibility gate, followed by verified adjusted RPI ranking as a transparent proxy. Full committee decision also considers SOS, head-to-head, common opponents and other NCAA criteria; NOT an official committee result."
+    previous["methodology"]["at_large"]=("Verified DI .500 eligibility and adjusted RPI provisional résumé ordering, NOT the committee decision." if certified else "Independent RETRO Elo at-large scenario only; NCAA .500 DI eligibility and RPI are NOT verified. This is NOT an NCAA committee selection.")
     previous["daily_rebuild"]={"rating_cutoff":ratings["as_of"],
         "official_automatic_bids":sum(x["official_aq"] for x in scenarios),
         "projected_automatic_bids":sum(not x["official_aq"] for x in scenarios),
-        "source_checked_through":audit.get("checked_through")}
+        "source_checked_through":audit.get("checked_through"),
+        "selection_inputs_verified":certified}
     write("college-soccer-ncaa-selection-forecast.json",previous)
     print("RETRO soccer selection:",len(field),"teams,",sum(x["official_aq"] for x in scenarios),"confirmed AQs, cutoff",ratings["as_of"])
 
