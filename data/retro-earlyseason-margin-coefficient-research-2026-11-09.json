@@ -1,0 +1,64 @@
+{
+  "report": "RETRO forecast margin coefficient by games played",
+  "date": "2026-11-09",
+  "status": "RESEARCH_ONLY_NOT_APPROVED_FOR_PRODUCTION",
+  "train_season": "2024-25",
+  "holdout_season": "2025-26",
+  "model": "160 passes 1500 reset 0.006 regularization; neutral venue assumption, Elo difference converted to margin with candidate slope",
+  "baseline_slope": 0.05681226,
+  "grid_tested": [
+    0.035,
+    0.045,
+    0.05,
+    0.05681226,
+    0.065,
+    0.075,
+    0.085,
+    0.095
+  ],
+  "cohorts": [
+    {
+      "group": "all",
+      "holdout_games": 6331,
+      "selected_slope": 0.045,
+      "baseline_mae": 13.1189,
+      "selected_mae": 13.0296
+    },
+    {
+      "group": "min_previous_games_0",
+      "holdout_games": 529,
+      "selected_slope": 0.045,
+      "baseline_mae": 33.2926,
+      "selected_mae": 33.2867
+    },
+    {
+      "group": "min_previous_games_1_2",
+      "holdout_games": 504,
+      "selected_slope": 0.095,
+      "baseline_mae": 20.2096,
+      "selected_mae": 19.0919
+    },
+    {
+      "group": "min_previous_games_3_5",
+      "holdout_games": 565,
+      "selected_slope": 0.05681226,
+      "baseline_mae": 12.2666,
+      "selected_mae": 12.2666
+    },
+    {
+      "group": "min_previous_games_6plus",
+      "holdout_games": 4733,
+      "selected_slope": 0.035,
+      "baseline_mae": 10.2108,
+      "selected_mae": 10.0382
+    }
+  ],
+  "interpretation": "Potential strength of conditional early-season forecast calibration; must validate against 2026-27 forward data and verified venue handling.",
+  "limits": [
+    "NCAA historical CSV includes non-D-I opponents, whereas production RETRO ratings use D-I finals",
+    "Venue classification not available in this comparison, so venues treated as neutral",
+    "Team identities matched by historical source string, not verified 365 D-I crosswalk",
+    "This test independently varies the spread conversion coefficient, not the Elo rating formula",
+    "Coarse coefficient grid and a single holdout season; do not promote automatically"
+  ]
+}
