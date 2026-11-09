@@ -1,0 +1,17 @@
+/* Shared Sections dropdown. Desktop navigation remains unchanged. */
+.slt-sections-toolbar{display:none}
+@media(max-width:700px){
+  .slt-sections-toolbar{display:flex!important;justify-content:flex-end;align-items:center;box-sizing:border-box;width:100%;margin:6px auto 9px;padding:0 12px;position:relative;z-index:40}
+  .slt-sections-button{appearance:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-width:120px;min-height:40px;padding:7px 12px;background:#f5e9d4;color:#33271c;border:1px solid #856e52;border-radius:0;box-shadow:none;font:700 13px/1.2 'Century Schoolbook',Georgia,serif;letter-spacing:0;text-transform:none;cursor:pointer}
+  .slt-sections-button:hover{background:#eddfc7}
+  .slt-sections-button:focus-visible{outline:2px solid #873b2c;outline-offset:2px}
+  .slt-sections-icon{font:18px/1 Arial,sans-serif}.slt-sections-chevron{font:18px/1 Georgia,serif}
+  nav.slt-sections-collapsible:not(.slt-sections-open){display:none!important}
+  nav.slt-sections-collapsible.slt-sections-open{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:0!important;float:none!important;clear:both!important;position:relative!important;top:auto!important;left:auto!important;right:auto!important;transform:none!important;width:calc(100% - 24px)!important;min-width:0!important;height:auto!important;max-height:none!important;min-height:0!important;overflow:visible!important;box-sizing:border-box!important;margin:0 12px 12px!important;padding:5px!important;background:#f6eddb!important;border:3px double #745c40!important;text-align:left!important;z-index:39!important}
+  nav.slt-sections-open>a,nav.slt-sections-open>button,nav.slt-sections-open>details{display:block!important;position:relative!important;float:none!important;min-width:0!important;width:100%!important;height:auto!important;margin:0!important;box-sizing:border-box!important;padding:12px 9px!important;border:0!important;border-bottom:1px solid #c9b89d!important;border-radius:0!important;background:transparent!important;color:#2b241d!important;text-align:left!important;text-decoration:none!important;font:700 12px/1.35 'Century Schoolbook',Georgia,serif!important;letter-spacing:0!important;white-space:normal!important;text-transform:none!important}
+  nav.slt-sections-open>a:hover,nav.slt-sections-open>a:focus-visible,nav.slt-sections-open>button:hover{background:#e8d6bb!important;text-decoration:underline!important}
+  nav.slt-sections-open>a[aria-current='page']{color:#853a30!important;text-decoration:underline!important;text-underline-offset:3px}
+  nav.slt-sections-open>div,nav.slt-sections-open>form{grid-column:1/-1!important;min-width:0!important;max-width:100%!important;box-sizing:border-box!important}
+  nav.slt-sections-open>details>.desk-menu{position:static!important;max-width:100%;width:100%;box-sizing:border-box;box-shadow:none}
+}
+@media(max-width:380px){nav.slt-sections-collapsible.slt-sections-open{grid-template-columns:1fr!important}}
