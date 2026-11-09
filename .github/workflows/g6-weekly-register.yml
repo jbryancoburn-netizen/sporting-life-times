@@ -1,7 +1,10 @@
-name: G6 weekly championship register
+name: G6 championship race register
 on:
   schedule:
-    - cron: '15 12 * * 2'
+    # Mondays 12:15 UTC; weekly baseline
+    - cron: '15 12 * * 1'
+    # Daily 11:15 UTC; captures only when a new G6 result is published
+    - cron: '15 11 * * *'
   workflow_dispatch:
 permissions:
   contents: write
@@ -22,15 +25,17 @@ jobs:
           npm install --no-save --no-package-lock playwright
           npx playwright install --with-deps chromium
       - name: Capture verified live G6 field and odds
+        env:
+          G6_WEEKLY: ${{ github.event.schedule == '15 12 * * 1' || github.event_name == 'workflow_dispatch' }}
         run: node scripts/capture-g6-race.cjs
       - name: Commit only the historical G6 register when changed
         run: |
           if git diff --quiet -- data/g6-race-history.json; then
-            echo "No new weekly edition"
+            echo "No new edition"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/g6-race-history.json
-          git commit -m "Archive weekly G6 championship race"
+          git commit -m "Archive G6 championship race after weekly check or completed game"
           git push
