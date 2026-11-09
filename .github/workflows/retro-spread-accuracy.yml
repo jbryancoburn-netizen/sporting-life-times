@@ -1,12 +1,17 @@
 name: RETRO Spread Accuracy (isolated)
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/ncaam-2026-27-retro-primary.json'
+      - 'data/ncaam-2026-27-upcoming-forecasts.json'
   schedule:
     - cron: '8,38 * * * *'
   workflow_dispatch:
 permissions:
   contents: write
 concurrency:
-  group: retro-spread-accuracy
+  group: retro-spread-accuracy-main
   cancel-in-progress: false
 jobs:
   audit:
