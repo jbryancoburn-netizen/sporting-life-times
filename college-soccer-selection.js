@@ -10,7 +10,7 @@ function schoolRow(entry,branding,kind=''){
  if(!entry){line.append(el('span','TO BE SELECTED','ncaa-school-placeholder'));return line}
  const name=entry.team||entry.team_id;
  const crest=window.CollegeSoccerCupUI.crest(name,entry.team_id,'men-d1',branding);
- const meta=el('span',null,'ncaa-school-meta');meta.append(el('strong',name),el('small',(entry.conference||'').replace('men-d1:','').toUpperCase()+' · '+(entry.bid_type==='projected_aq'?'AUTO BID':'AT-LARGE')));
+ const meta=el('span',null,'ncaa-school-meta');meta.append(el('strong',name),el('small',(entry.conference||'').replace('men-d1:','').toUpperCase()+' · '+(entry.bid_type==='projected_aq'?'PREDICTED AQ':'AT-LARGE')));
  const schoolColor=branding?.soccer_palette?.['men-d1:'+entry.team_id]?.primary||brandFor(entry,branding).primary;
  if(/^#[0-9a-f]{6}$/i.test(schoolColor||''))line.style.setProperty('--school-accent',schoolColor);
  line.append(crest,meta);return line;
@@ -18,10 +18,13 @@ function schoolRow(entry,branding,kind=''){
 function draw(data,metrics,branding){
  host.replaceChildren();
  const nav=el('div',null,'cs-selection-modes');
- for(const [value,label] of [['ncaa','NCAA COMMITTEE FORECAST'],['usrs','NCAA CRITERIA + RETRO ELO']]){
+ for(const [value,label] of [['ncaa','NCAA RÉSUMÉ PROXY'],['usrs','RETRO 48-TEAM PREDICTION']]){
   const b=el('button',label);b.type='button';b.className=mode===value?'active':'';b.setAttribute('aria-pressed',String(mode===value));b.onclick=()=>{mode=value;draw(data,metrics,branding)};nav.append(b)
  }host.append(nav);
  const verifiedAqs=(data.automatic_bid_scenarios||[]).filter(x=>x.official_aq===true);
+ if(data.elo_reconciliation?.source_certified!==true){
+   host.append(el('p','SOURCE AUDIT: Provisional ratings. NCAA-compliant selection inputs remain unverified; the bracket is illustrative and must not be presented as the official tournament field.','cs-selection-warning'));
+ }
  const forecastStamp=el('p','RETRO rating cutoff: '+(data.rating_cutoff||'unverified')+' · '+verifiedAqs.length+' of '+(data.automatic_bids||23)+' automatic qualifiers officially confirmed in this feed · Remaining AQ places are predictions.','cs-selection-warning');
  host.append(forecastStamp);
  if(Array.isArray(metrics?.field)&&metrics.field.length===48){
@@ -45,7 +48,7 @@ function draw(data,metrics,branding){
  const summary=el('div',null,'cs-selection-summary');
  for(const [value,label] of [[48,'FIELD'],[23,'AUTOMATIC'],[25,'AT-LARGE'],[24,'SEEDED'],[16,'BYE TEAMS']]){const x=el('div',null,'cs-selection-metric');x.append(el('strong',value),el('span',label));summary.append(x)}host.append(summary);
  if(mode==='ncaa'){
-  host.append(el('h2','NCAA CRITERIA FORECAST'));
+  host.append(el('h2','NCAA RÉSUMÉ PROXY · NOT OFFICIAL'));
   host.append(el('p','The NCAA view is built around adjusted RPI, strength of schedule, record, nonconference results, head-to-head, common opponents, selected-opponent results and the final eight matches. It does NOT use RETRO Elo.','cs-selection-warning'));
   if(!Array.isArray(metrics?.field)||metrics.field.length!==48){
    host.append(el('h3','NCAA RPI FORECAST SOURCE NOT AVAILABLE'));
@@ -53,10 +56,10 @@ function draw(data,metrics,branding){
   }
  }
  const entries=mode==='usrs'?data.field:(Array.isArray(metrics?.field)?metrics.field:[]);
- host.append(el('h2',mode==='usrs'?'RETRO SELECTION COMMITTEE · 48-TEAM PROJECTION':'NCAA RPI COMMITTEE FORECAST · 48-TEAM PROJECTION'));
+ host.append(el('h2',mode==='usrs'?'RETRO SELECTION COMMITTEE · 48-TEAM PROJECTION':'PROVISIONAL RPI SNAPSHOT · 48-TEAM SCENARIO'));
  host.append(el('p',mode==='usrs'?'Your independent RETRO ratings replace the committee evaluation tool within the NCAA selection framework. NCAA field sizes, bid allocations, eligibility screening and seed structure remain in force. NCAA hosting/geography rules are not yet fully modeled.':'Projected NCAA committee field from the October 23 RPI table, conference qualification projections and provisional at-large eligibility. It is a forecast, not the official selection committee field.','cs-selection-warning'));
  const bracket=el('section',null,'ncaa-bracket');
- bracket.append(el('h2',mode==='usrs'?'RETRO PROJECTED NCAA BRACKET':'NCAA RPI PROJECTED BRACKET'));
+ bracket.append(el('h2',mode==='usrs'?'RETRO PROJECTED NCAA BRACKET':'PROVISIONAL RPI-BASED BRACKET'));
  bracket.append(el('p',mode==='usrs'?'RETRO acts as the hypothetical selection committee: 23 projected automatic bids, 25 eligible at-large picks, 24 seeded teams and 16 byes. The model avoids same-conference first-round matches where feasible; hosting and geography are not yet resolved.':'NCAA résumé metrics are still incomplete. These are 48 structural slots, not invented committee selections.','cs-selection-warning'));
  const entrants=mode==='usrs'?data.field:(Array.isArray(metrics?.field)?metrics.field:[]);
  const byRank=n=>entrants[n-1]||null;
