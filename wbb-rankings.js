@@ -24,7 +24,7 @@ if(kind==='ap'||kind==='coaches'){
   // Women’s rankings must not depend on the men’s logo registry loading.
   const req=async p=>{const r=await fetch(p,{cache:'no-store'});if(!r.ok)throw Error('Source unavailable');return r.json()};
   const [published,directory,ratings]=await Promise.all([req('data/ncaaw-2026-27-national-polls.json'),req('data/ncaaw-2026-27-teams.json'),req('data/ncaaw-2026-27-retro-primary.json').catch(()=>null)]);
-  if(published.gender!=='women'||published.season!=='2026-27'||published.polls?.[kind]?.rankings?.length!==25)throw Error('Verified poll unavailable');
+  if(published.gender!=='women'||published.season!=='2026-27'||!(published.polls?.[kind]?.rankings?.length>=25&&published.polls?.[kind]?.rankings?.length<=26))throw Error('Verified poll unavailable');
   const pollData=published.polls[kind],teams=directory.teams||[];
   const byRecord=new Map((ratings?.rankings||[]).map(t=>[String(t.team_id),t]));
   const norm=x=>String(x||'').toLowerCase().replace(/[^a-z0-9]/g,'');
@@ -40,7 +40,7 @@ if(kind==='ap'||kind==='coaches'){
    if(boundary.length===1)return boundary[0];
    return candidates.length===1?candidates[0]:null;
   }
-  $('#wbbr-status').innerHTML=esc(pollData.title)+' · '+esc(published.type)+' · '+esc(pollData.published_at||published.as_of)+' · <a href="'+esc(pollData.source_url)+'" target="_blank" rel="noopener noreferrer">'+esc(pollData.source)+'</a>';
+  $('#wbbr-status').innerHTML=esc(pollData.title)+' · '+esc(pollData.type||published.type)+' · '+esc(pollData.published_at||published.as_of)+' · <a href="'+esc(pollData.source_url)+'" target="_blank" rel="noopener noreferrer">'+esc(pollData.source)+'</a>';
   $('#wbbr-list').innerHTML=pollData.rankings.map(item=>{
    const school=resolveTeam(item.team);
    const logo=womenLogo(school,item.team);
