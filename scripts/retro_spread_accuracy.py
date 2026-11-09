@@ -118,7 +118,11 @@ def main():
         "by_date": {day: metrics(rows) for day, rows in sorted(groups.items())},
         "games": sorted(matched, key=lambda x: (x["date"], x["id"]))
     }
-    # Report changes on every run, but GitHub will commit only on newly captured/scored games.
+    # Leave the timestamp unchanged when the underlying metrics have not changed.
+    previous = load(REPORT, {})
+    comparable = lambda d: {k: v for k, v in d.items() if k != 'updated_at_utc'}
+    if comparable(previous) == comparable(report) and previous.get('updated_at_utc'):
+        report['updated_at_utc'] = previous['updated_at_utc']
     write_if_changed(ARCHIVE, archived)
     write_if_changed(REPORT, report)
     print(f"RETRO: +{added} captured; {len(records)} archived; {len(matched)} scored; {pending} pending")
