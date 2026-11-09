@@ -7,6 +7,7 @@ const css=fs.readFileSync('college-soccer-selection.css','utf8');
 const html=fs.readFileSync('college-soccer-selection.html','utf8');
 const component=fs.readFileSync('college-soccer-cup-ui.js','utf8');
 const decorator=fs.readFileSync('slt-dual-ring.js','utf8');
+const dualCss=fs.readFileSync('slt-dual-ring.css','utf8');
 const colors=JSON.parse(fs.readFileSync('data/dual-ring-team-palette.json')).soccer;
 const branding=JSON.parse(fs.readFileSync('data/college-soccer-team-branding.json')).teams;
 assert(html.includes('college-soccer-selection.css?v=20261102-double-ring4'),'Safari stylesheet cache is stale');
@@ -15,8 +16,8 @@ assert(html.includes('college-soccer-cup-ui.js?v=20261102-double-ring4'),'Two-ri
 assert(source.includes("window.CollegeSoccerCupUI.crest(name,entry.team_id,'men-d1',branding)"),'Selection must use the shared two-ring crest');
 assert(!source.includes('nativeSchoolLogo'),'Ringless selection logo renderer is forbidden');
 assert(!css.includes('.ncaa-native-mark'),'Ringless CSS must not be reintroduced');
-assert(component.includes("node('span','soccer-school-mark')"),'Shared crest needs exactly one owned shell');
-assert(component.includes("node('span','soccer-school-inner-ring')"),'Secondary-color ring missing');
+assert(component.includes("node('span','soccer-school-mark mbb-mark slt-dual-shell')"),'Shared crest must use the basketball two-ring shell');
+assert(dualCss.includes('.mbb-mark.slt-dual-shell::before'),'Secondary-color ring missing from shared CSS');
 assert(decorator.includes('.soccer-school-mark'),'Shared decorator must not stack generic rings');
 const ids=['pittsburgh','south-carolina','michigan-st','xavier','notre-dame','uc-santa-barbara','syracuse','old-dominion','duquesne','unlv','cleveland-st','belmont','california-baptist','stony-brook','gardner-webb','utah-valley','grand-canyon','hofstra'];
 for(const id of ids){
