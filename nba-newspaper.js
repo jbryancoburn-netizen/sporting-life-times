@@ -14,7 +14,9 @@ const date=s=>{let d=new Date(s);return Number.isFinite(+d)?d.toLocaleString('en
 const nyday=s=>{let d=new Date(s);return Number.isFinite(+d)?new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).format(d):''};
 const load=async path=>{try{
  // Per-minute versioning avoids a stale Pages CDN response for the separately updated news wire.
- const url=path==='data/nba-top-stories.json'?path+'?edition='+Math.floor(Date.now()/60000):path;
+ // Refresh game results and ratings independently of a stale Pages edge cache.
+  const freshPaths=new Set(['data/nba-top-stories.json','data/nba-2026-27-current-provisional.json','data/nba-elo-shadow-2026-27.json','data/nba-upcoming-schedule.json']);
+  const url=freshPaths.has(path)?path+'?edition='+Math.floor(Date.now()/60000):path;
  const r=await fetch(url,{cache:'no-store',signal:AbortSignal.timeout(12000)});
  return r.ok?await r.json():null;
  }catch{return null}};
@@ -41,7 +43,7 @@ const image=t=>logoImg(t);
 
 const section=(k,h,path,label)=>'<div class="panel-head"><div><div class="eyebrow">'+k+'</div><h2>'+h+'</h2></div>'+(path?'<a href="'+path+'">'+(label||'Explore →')+'</a>':'')+'</div>';
 const blank=t=>'<div class="nba-empty">'+esc(t)+'</div>';
-let data={},rates={},seed={},prior={},records={},ordered=[],lastState='',filter='',playerFilter='';
+let data={},rates={},seed={},prior={},records={},ordered=[],lastState='',filter='',playerFilter='',eloAligned=false;
 const gets=[['current','data/nba-2026-27-current-provisional.json'],['earned','data/nba-elo-shadow-2026-27.json'],['schedule','data/nba-upcoming-schedule.json'],['archive','data/nba-game-center.json'],['leaders','data/nba-player-leaders.json'],['news','data/nba-top-stories.json'],['wire','data/nba-roster-wire-snapshot.json']];
 async function fetchAll(){let result=await Promise.all(gets.map(async x=>[x[0],await load(x[1])]));
  // Keep the last successfully read news and data if a single refresh request fails.
@@ -49,13 +51,17 @@ async function fetchAll(){let result=await Promise.all(gets.map(async x=>[x[0],a
  rates=Object.fromEntries((data.earned?.rankings||[]).filter(x=>meta[x.team]&&Number.isFinite(x.elo)).map(x=>[x.team,x.elo]));
  seed=Object.fromEntries(codes.map(t=>[t,1500]));
  records=Object.fromEntries(codes.map(t=>[t,{w:0,l:0,pf:0,pa:0}]));
- // W-L standings and power rankings MUST share one published final-game ledger.
- // Detailed player box scores can lag; never count them before Elo sees the final.
- const earnedEvents=Array.isArray(data.earned?.events) &&
-  data.earned.events.length===data.earned.games_played ? data.earned.events : [];
- data.current={...(data.current||{}),events:earnedEvents};
+ // Verified final-score results are authoritative for W-L on every NBA desk.
+ // RETRO is a separate derived product; a lagging Elo rebuild must not hold team records back.
+ const ledgerReady=x=>Array.isArray(x?.events)&&Number.isInteger(x.games_played)&&x.events.length===x.games_played;
+ const primaryReady=ledgerReady(data.current),shadowReady=ledgerReady(data.earned);
+ const finalEvents=primaryReady?data.current.events:(shadowReady?data.earned.events:[]);
+ eloAligned=primaryReady&&shadowReady&&data.current.games_played===data.earned.games_played&&
+  finalEvents.every((g,i)=>{const e=data.earned.events[i];return g.id===e.id&&g.home===e.home&&g.away===e.away&&g.home_score===e.home_score&&g.away_score===e.away_score;});
+ // The same primary final ledger now drives form, team pages, standings and conferences.
+ data.current={...(data.current||{}),events:finalEvents};
  const seen=new Set();
- for(const g of earnedEvents){
+ for(const g of finalEvents){
   if(!meta[g.home]||!meta[g.away]||!Number.isInteger(+g.home_score)||
      !Number.isInteger(+g.away_score)||+g.home_score===+g.away_score||
      seen.has(g.id))continue;
@@ -65,7 +71,7 @@ async function fetchAll(){let result=await Promise.all(gets.map(async x=>[x[0],a
   a.pf+=+g.away_score;a.pa+=+g.home_score;
   if(+g.home_score>+g.away_score){h.w++;a.l++}else{a.w++;h.l++}
  }
- if(seen.size!==data.earned?.games_played)rates={};
+ if(seen.size!==finalEvents.length)rates={};
  ordered=codes.filter(t=>Number.isFinite(rates[t])).sort((a,b)=>rates[b]-rates[a]||name(a).localeCompare(name(b)));
 }
 const rank=t=>ordered.indexOf(t)+1,rec=t=>records[t].w+'–'+records[t].l;
@@ -73,7 +79,7 @@ const stand=(conference)=>codes.filter(t=>meta[t][1]===conference).sort((a,b)=>{
  let x=records[a],y=records[b],px=(x.w+x.l)?x.w/(x.w+x.l):0,py=(y.w+y.l)?y.w/(y.w+y.l):0;
  return py-px||y.w-x.w||((rates[b]||0)-(rates[a]||0))||name(a).localeCompare(name(b));});
 function stamp(){if(!$('#data-stamp'))return;
- const captured=data.archive?.games?.length||0;const newsTime=data.news?.updated_at?date(data.news.updated_at):'unavailable';$('#data-stamp').innerHTML='<span class="pulse"></span>'+esc(data.earned?.games_played??'—')+' Elo finals (through '+(data.earned?.events?.length?date(data.earned.events.at(-1).date):'unavailable')+') · '+captured+' archived box scores · News published '+newsTime+' · Scores '+date(data.schedule?.updated_at);
+ const captured=data.archive?.games?.length||0;const newsTime=data.news?.updated_at?date(data.news.updated_at):'unavailable';const finals=data.current?.events||[];$('#data-stamp').innerHTML='<span class="pulse"></span>'+finals.length+' verified finals (through '+(finals.length?date(finals.at(-1).date):'unavailable')+') · '+(eloAligned?'RETRO synchronized':'RETRO ratings syncing')+' · '+captured+' archived box scores · News published '+newsTime+' · Scores '+date(data.schedule?.updated_at);
  $('#access-stamp').textContent='Viewed '+date(new Date().toISOString());}
 // The live NBA rail uses the same Daily Ledger scorebug as every other sport.
 function card(g){
@@ -167,7 +173,7 @@ const standingHeads=[['#','num'],['Club'],['W','num'],['L','num'],['PCT','num'],
 function standings(){
  const blocs=['East','West'].map(conf=>'<section class="panel"><div class="eyebrow">Conference Table · 2026–27</div>'+section('Official divisions · independent ledger',conf+'ern Conference','nba-conference.html?conference='+conf,'Full conference →')+table(standingHeads,standingRows(stand(conf)))+'</section>').join('');
  const divisions=['Atlantic','Central','Southeast','Northwest','Pacific','Southwest'].map(d=>{const clubs=codes.filter(t=>meta[t][2]===d).sort((a,b)=>stand(meta[a][1]).indexOf(a)-stand(meta[b][1]).indexOf(b));return '<section class="panel nba-division-paper">'+section('Division register',d)+divisionRegisterRows(clubs)+'</section>';}).join('');
- return '<div class="eyebrow">The NBA · National standings register</div><h1>THE LEAGUE TABLE</h1><p class="nba-note">Records use verified final games; ties are ordered by independent RETRO rather than official NBA tiebreakers.</p><div class="nba-standings-conferences">'+blocs+'</div><h2 class="nba-section-band">The Six Divisions</h2><div class="nba-division-grid">'+divisions+'</div>';
+ return '<div class="eyebrow">The NBA · National standings register</div><h1>THE LEAGUE TABLE</h1><p class="nba-note">Records use verified final games; ties are ordered by independent RETRO rather than official NBA tiebreakers.</p>'+(eloAligned?'':'<p class="nba-note"><strong>RETRO ratings syncing:</strong> team W–L records follow the primary verified finals while the independent rating update catches up.</p>')+'<div class="nba-standings-conferences">'+blocs+'</div><h2 class="nba-section-band">The Six Divisions</h2><div class="nba-division-grid">'+divisions+'</div>';
 }
 function powerLog(t){
  return (data.current?.events||[]).filter(g=>(g.home===t||g.away===t)&&Number.isFinite(+g.home_score)&&Number.isFinite(+g.away_score)&&+g.home_score!==+g.away_score)

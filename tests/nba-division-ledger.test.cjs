@@ -29,3 +29,11 @@ test('both pages load the current shared division source and style',()=>{
   assert.match(html,/nba-standings-identity\.css\?v=[a-z0-9-]+/i);
  }
 });
+
+test('standings W-L uses verified primary finals even when RETRO is delayed',()=>{
+ assert.match(src,/const primaryReady=ledgerReady\(data\.current\)/);
+ assert.match(src,/const finalEvents=primaryReady\?data\.current\.events/);
+ assert.match(src,/for\(const g of finalEvents\)/);
+ assert.match(src,/RETRO ratings syncing/);
+ assert.doesNotMatch(src,/events:earnedEvents/);
+});
