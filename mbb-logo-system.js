@@ -133,8 +133,12 @@ function outsideSchoolId(value){
 const outsideNameId=!ncaa?outsideSchoolId(name):'';
 const outsideNameEntry=outsideNameId?outside[outsideNameId]:null;
 const outsideExact=!!outsideNameEntry&&outsideSchoolId(name)===outsideNameId;
-const known=outsideExact?null:(registry[id]||null);
-const outsideID=outsideExact?outsideNameId:(!ncaa&&!known&&outside[id]&&outsideAliases(outside[id]).includes(norm(name))?id:'');
+// A supplied provider ID with a matching school alias retains THAT verified
+// artwork, even if another provider has the same university under a different
+// numeric or NCAA ID. A stale or mismatched ID is still rejected by name.
+const directOutside=!ncaa&&!registry[id]&&!!outside[id]&&outsideAliases(outside[id]).includes(norm(name));
+const known=(outsideExact||directOutside)?null:(registry[id]||null);
+const outsideID=directOutside?id:outsideExact?outsideNameId:'';
 const outsideEntry=outsideID&&outside[outsideID]&&(outsideSchoolId(name)===outsideID||outsideAliases(outside[outsideID]).includes(norm(name)))?outside[outsideID]:null;
 const school=known,brand=known?palette[id]:outsideEntry,art=known?school.artwork_type:outsideEntry?'flat':'unverified';
 const primary=known?(school.logo_url_verified?safeURL(school.official_logo_url||school.logo_url):''):
