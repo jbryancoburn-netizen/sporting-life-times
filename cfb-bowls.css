@@ -111,3 +111,10 @@ body{background:#e9e2d2!important;color:#29251f!important}
 @media(max-width:600px){#cfp-predictor .cfp-site-grid{grid-template-columns:1fr}}
 
 #cfp-predictor .cfp-game-location{font:12px/1.45 'Century Schoolbook',Georgia,serif;color:#5a4631;background:#f0e4ca;border-left:2px solid #94784a;padding:5px 8px;margin:3px 0 7px}
+
+/* Authentic bowl insignia inside projected CFP games. */
+#cfp-predictor .cfp-bowl-heading{display:flex;align-items:center;gap:10px;text-align:left;min-width:0;margin-bottom:9px}
+#cfp-predictor .cfp-bowl-heading>div{min-width:0;flex:1}
+#cfp-predictor .cfp-projected-bowl-logo{width:58px;height:58px;max-width:58px;max-height:58px;object-fit:contain;flex:0 0 58px;background:transparent;border:0;box-shadow:none}
+#cfp-predictor .cfp-projected-bowl-mark{width:58px;height:58px;flex:0 0 58px;display:inline-flex;align-items:center;justify-content:center;font:33px Georgia,serif;color:#7a6038}
+#cfp-predictor .cfp-bowl-heading .cfp-game-location{margin-top:5px}
