@@ -1,6 +1,8 @@
 name: MBB 365-team shared crest contract
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '17 11 * * *'
   push:
     paths:
       - 'mbb-logo-system.js'
@@ -13,6 +15,8 @@ on:
       - 'ncaam-rivalry.js'
       - 'ncaam-rivalry.html'
       - 'data/mbb-logo-registry.json'
+      - 'data/mbb-out-of-division-opponent-logos.json'
+      - 'scripts/audit-d1-basketball-schedules.cjs'
       - 'data/ncaam-2026-27-espn-team-crosswalk.json'
       - 'scripts/audit-mbb-logo-system.cjs'
       - 'tests/mbb-rankings-runtime.test.cjs'
@@ -31,6 +35,8 @@ jobs:
           node-version: '22'
       - name: Validate all 365 shared college basketball team crests
         run: node scripts/audit-mbb-logo-system.cjs
+      - name: Audit every men's and women's Division I school calendar for unmatched opponent crests
+        run: node scripts/audit-d1-basketball-schedules.cjs
       - name: Validate 365 NCAA power ranking rows render in DOM
         run: node tests/mbb-rankings-runtime.test.cjs
       - name: Match AP and Coaches Top 25 identities to registered school logos

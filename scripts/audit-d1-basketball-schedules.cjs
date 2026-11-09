@@ -4,6 +4,7 @@ const fs=require('fs'),path=require('path');
 const read=p=>JSON.parse(fs.readFileSync(p,'utf8'));
 const norm=x=>String(x||'').toLowerCase().replace(/[^a-z0-9]/g,'');
 const today=new Date().toISOString().slice(0,10);
+const asOf=new Date().toISOString().slice(0,10);
 function audit(){
  const r=read('data/mbb-logo-registry.json').teams, c=read('data/ncaam-2026-27-espn-team-crosswalk.json').teams;
  const w=read('data/ncaaw-2026-27-teams.json').teams, ext=read('data/mbb-out-of-division-opponent-logos.json').teams;
