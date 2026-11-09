@@ -93,7 +93,7 @@ function card(g){
     color:meta[t.code][3],record:rec(t.code),
     retro:Number.isFinite(rates[t.code])?'RETRO '+fmt(rates[t.code],0)+' (#'+rank(t.code)+')':'RETRO —',
     score:phase==='upcoming'?null:scored(t)?t.score:null});
- return '<details class="ledger26-card nba-expand-game"><summary class="nba-expand-trigger"><div class="ledger26-meta"><span>'+esc(date(g.date))+(g.network||g.broadcast||g.tvNetwork||g.tv?' · '+esc(g.network||g.broadcast||g.tvNetwork||g.tv):'')+'</span></div>'+
+ return '<details class="ledger26-card nba-expand-game" data-nba-game="'+esc(g.id)+'" data-nba-home="'+esc(h.code)+'" data-nba-away="'+esc(a.code)+'" data-nba-phase="'+(phase==='upcoming'?'pre':phase)+'"><summary class="nba-expand-trigger"><div class="ledger26-meta"><span>'+esc(date(g.date))+(g.network||g.broadcast||g.tvNetwork||g.tv?' · '+esc(g.network||g.broadcast||g.tvNetwork||g.tv):'')+'</span></div>'+
    window.SLTSportsScorebug.render({phase,periodFormat:'quarters',
       status:g.state==='post'&&phase!=='final'?'SCORE PENDING':undefined,
       away:profile(a),home:profile(h)})+'</summary>'+ 
