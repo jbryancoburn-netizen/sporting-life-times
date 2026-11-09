@@ -43,13 +43,13 @@ function crest(name,id,cohort,branding){
  if(candidates.length){
   const img=node('img','mbb-mark__img soccer-school-image');
   img.alt=name+' logo';img.loading='eager';img.decoding='async';
-  img.style.display='none';
+  img.style.setProperty('display','none','important');
   let index=0;
   const next=()=>{if(index<candidates.length)img.src=candidates[index++];
     else{img.remove();fallback.style.display='flex'}};
   img.addEventListener('load',()=>{
     if(img.naturalWidth&&img.naturalHeight){
-      img.style.removeProperty('display');
+      img.style.setProperty('display','block','important');
       fallback.style.display='none';
     }else next();
   });
