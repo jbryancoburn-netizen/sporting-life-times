@@ -166,11 +166,39 @@ async function start(){
     matches.push({date:g.date,season:year,a:h,b:a,as:hs,bs:as,historical:false,tournament,round:bracket?.round||secondary?.round||null,source:confirmed?(bracket?.source||secondary?.source||"2021 verified postseason results"):"NCAA schedules"});recent++}
   }catch(e){failed.push(year)}
  }
+ // Merge the same published, durable 2026–27 final-game ledger used by the Daily Ledger.
+ // The historical CSV archive stops before this season; do not confuse its 2026 label
+ // (the 2025–26 basketball season) with the current 2026–27 calendar.
+ let currentSeasonFinals=0,currentSeasonUnmatched=0,currentSeasonUnavailable=false;
+ try{
+  const response=await fetch("data/mbb-retro-live-finals.json",{cache:"no-store"});
+  if(!response.ok)throw Error("HTTP "+response.status);
+  const ledger=await response.json();
+  if(ledger.season!=="2026-27"||!Array.isArray(ledger.games))throw Error("Unexpected current-season final ledger");
+  const reverse=new Map();
+  const crossResponse=await fetch("data/ncaam-2026-27-espn-team-crosswalk.json",{cache:"no-store"});
+  if(!crossResponse.ok)throw Error("Current school identity crosswalk unavailable");
+  const cross=await crossResponse.json();
+  for(const t of cross.teams||[]){
+   const canonical=resolve(t.name)||resolve(t.espn_name);
+   if(canonical&&t.id&&t.match_method!=="exact-team-name-fallback")reverse.set(String(t.id),canonical);
+  }
+  for(const g of ledger.games){
+   if(!/^2026-\d{2}-\d{2}$/.test(String(g.date||"")))continue;
+   const h=reverse.get(String(g.home_id)),a=reverse.get(String(g.away_id));
+   const hs=Number(g.home_score),as=Number(g.away_score);
+   if(!h||!a||h===a){currentSeasonUnmatched++;continue}
+   if(g.home_score==null||g.away_score==null||!Number.isFinite(hs)||!Number.isFinite(as)||hs===as)continue;
+   matches.push({date:g.date,season:2027,a:h,b:a,as:hs,bs:as,historical:false,
+     tournament:"Competition not verified",source:g.source||"Published 2026–27 final-game ledger"});
+   currentSeasonFinals++;
+  }
+ }catch(error){currentSeasonUnavailable=true;console.warn("Current 2026–27 rivalry finals could not be loaded",error)}
  for(const game of matches){known.add(game.a);known.add(game.b)}
  const options=[...known].sort((a,b)=>name(a).localeCompare(name(b)));
  for(const element of [$("home"),$("away")]){element.replaceChildren();for(const id of options){const o=document.createElement("option");o.value=id;o.textContent=name(id);element.appendChild(o)}}
  const qs=new URLSearchParams(location.search);const valid=new Set(options);$("home").value=valid.has(qs.get("a"))?qs.get("a"):resolve("Indiana")||options[0];$("away").value=valid.has(qs.get("b"))?qs.get("b"):resolve("Purdue")||options[1];
- $("status").textContent="Archive loaded. "+historical.toLocaleString()+" regular-season historical games plus "+postCount.toLocaleString()+" documented postseason games (1985–2018), and "+recent.toLocaleString()+" identity-matched recent games (2020–2026), including "+classified+" verified postseason classifications from 2021–2026."+(unmatched.size?" Some recent school-name aliases are unmatched and excluded.":"")+(failed.length?" Unavailable recent files: "+failed.join(", "):"")+(failedHistorical.length?" Unavailable historical files: "+failedHistorical.join(", "):"")+" Current team logos mapped: "+logos.size+".";
+ $("status").textContent="Archive loaded. "+historical.toLocaleString()+" regular-season historical games plus "+postCount.toLocaleString()+" documented postseason games (1985–2018), and "+recent.toLocaleString()+" identity-matched recent games (2020–2026), including "+classified+" verified postseason classifications from 2021–2026."+(unmatched.size?" Some recent school-name aliases are unmatched and excluded.":"")+(failed.length?" Unavailable recent files: "+failed.join(", "):"")+(failedHistorical.length?" Unavailable historical files: "+failedHistorical.join(", "):"")+" Current-season matched finals: "+currentSeasonFinals+"."+(currentSeasonUnmatched?" Current-season identities still unmatched: "+currentSeasonUnmatched+".":"")+(currentSeasonUnavailable?" Current-season finals unavailable; series may be incomplete.":"")+" Current team logos mapped: "+logos.size+".";
  show();
 }
 function show(){
