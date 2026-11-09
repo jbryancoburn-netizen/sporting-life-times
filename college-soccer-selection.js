@@ -78,25 +78,45 @@ function draw(data,metrics,branding){
  // Seeds 1-16 have byes; seeds 17-24 join 24 unseeded teams in round one.
  // Only eight first-round matches contain a 17-24 seed.
  const conference=n=>byRank(n)?.conference||null;
- const conflict=(x,y)=>x&&y&&conference(x)&&conference(x)===conference(y);
- const entrantsPool=Array.from({length:24},(_,i)=>25+i);
- const pairings=[];
- for(let i=0;i<8;i++)pairings.push([17+i,null]);
- for(let i=0;i<8;i++)pairings.push([null,null]);
- // Assign unseeded teams to opening games, preferring no intraconference match.
- for(let i=0;i<16;i++){
-   for(let side=0;side<2;side++){
-     if(pairings[i][side]!==null)continue;
-     const other=pairings[i][1-side];
-     let idx=entrantsPool.findIndex(n=>!conflict(n,other));
-     if(idx<0)idx=0;
-     pairings[i][side]=entrantsPool.splice(idx,1)[0];
+ const conflict=(x,y)=>Boolean(x&&y&&conference(x)&&conference(x)===conference(y));
+ // NCAA 2026: 16 byes, plus 16 first-round games. Eight games
+ // include seeds 17–24. Protect every possible first- AND second-round
+ // same-conference pairing, including the bye team in each pod.
+ const slots=order.map((seed,i)=>({seed,x:i<8?17+i:null,y:null}));
+ const pool=Array.from({length:24},(_,i)=>25+i);
+ const counts=new Map();
+ for(const n of pool)counts.set(conference(n),(counts.get(conference(n))||0)+1);
+ let states=0;
+ function place(remaining){
+   if(!remaining.length)return true;
+   if(++states>200000)return false;
+   let chosen=-1,options=null;
+   for(let i=0;i<slots.length;i++){
+     const p=slots[i],occupied=[p.seed,p.x,p.y].filter(Boolean);
+     if(p.x&&p.y)continue;
+     const choices=remaining.filter(n=>occupied.every(v=>!conflict(v,n)));
+     if(!choices.length)return false;
+     if(!options||choices.length<options.length){chosen=i;options=choices;}
    }
+   if(chosen<0)return false;
+   options.sort((a,b)=>(counts.get(conference(a))||0)-(counts.get(conference(b))||0)||a-b);
+   const p=slots[chosen],slot=p.x?'y':'x';
+   for(const n of options){
+     p[slot]=n;
+     if(place(remaining.filter(x=>x!==n)))return true;
+     p[slot]=null;
+   }
+   return false;
  }
- if(entrantsPool.length)throw Error('Unassigned tournament entrants');
- const unresolvedOpening=pairings.filter(([x,y])=>conflict(x,y)).length;
- if(unresolvedOpening)bracket.append(el('p',unresolvedOpening+' same-conference opening-round pairing(s) remain; placement needs review.','cs-selection-warning'));
- const pods=order.map((seed,i)=>{const [x,y]=pairings[i],opening=win(byRank(x),byRank(y));return {seed,x,y,opening,advance:win(byRank(seed),opening)}});
+ if(!place(pool)){
+   bracket.append(el('p','CONFERENCE CONSTRAINT FAILURE: a first- and second-round-safe bracket could not be generated. Matchups withheld until the field or placement changes.','cs-selection-warning'));
+   host.append(bracket);return;
+ }
+ if(slots.some(p=>!p.x||!p.y||conflict(p.x,p.y)||conflict(p.seed,p.x)||conflict(p.seed,p.y))){
+   throw Error('Conference rematch constraint failed');
+ }
+ const pods=slots.map(p=>{const opening=win(byRank(p.x),byRank(p.y));return {seed:p.seed,x:p.x,y:p.y,opening,advance:win(byRank(p.seed),opening)};});
+ bracket.append(el('p','PLACEMENT CHECK: No potential same-conference matchups in rounds one or two. Host sites, geography and official committee pairings remain unverified.','cs-selection-warning'));
  const quarters=[];
  for(let q=0;q<4;q++){
   const quadrant=el('section',null,'ncaa-bracket-quadrant');quadrant.append(el('h3','REGION '+(q+1)));
