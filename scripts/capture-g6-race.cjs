@@ -6,7 +6,7 @@ const {chromium}=require('playwright');
  try{
   const page=await browser.newPage();
   await page.goto('https://jbryancoburn-netizen.github.io/sporting-life-times/cfb-g6-playoff.html',{waitUntil:'domcontentloaded',timeout:45000});
-  await page.waitForFunction(()=>window.CFB_G6_FIELD?.length===12&&window.CFB_G6_SIMULATION?.draws===2000,{timeout:90000});
+  await page.waitForFunction(()=>window.CFB_G6_FIELD?.length===12&&window.CFB_G6_SIMULATION?.draws===2000,null,{timeout:90000});
   const result=await page.evaluate(()=>{
    const field=window.CFB_G6_FIELD,sim=window.CFB_G6_SIMULATION;
    const cards=[...document.querySelectorAll('#g6-field .seed-card')];
