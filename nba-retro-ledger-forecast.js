@@ -22,6 +22,8 @@ async function prepare(){
 }
 function apply(){
  const cards=[...document.querySelectorAll('.ledger26-card[data-nba-game]')];
+ const board=document.getElementById('nba-retro-forecast-board');
+ const boardRows=[];
  for(const card of cards){
   const home=card.dataset.nbaHome,away=card.dataset.nbaAway,phase=card.dataset.nbaPhase;
   const summary=card.querySelector('summary');
@@ -37,6 +39,11 @@ function apply(){
   const html='<strong>RETRO PROJECTION</strong><span>'+esc(spread)+'</span><span>Projected '+p.awayScore+'–'+p.homeScore+'</span><span>'+chance+'% Elo '+esc(favorite)+'</span>';
   if(!strip){strip=document.createElement('div');strip.className='nba-retro-schedule-forecast';summary.append(strip);}
   if(strip.innerHTML!==html)strip.innerHTML=html;
+  boardRows.push('<div class="nba-retro-board-row"><span>'+esc(away)+' at '+esc(home)+'</span><strong>'+esc(spread)+'</strong><span>Projected '+p.awayScore+'–'+p.homeScore+'</span></div>');
+ }
+ if(board){
+  const html=boardRows.length?'<div class="nba-retro-board-count">'+boardRows.length+' upcoming game forecasts · spreads rounded to 0.5</div>'+boardRows.join(''):'<p class="nba-retro-board-empty">No upcoming-game projections are available for the selected date. Live and final games do not receive new pregame forecasts.</p>';
+  if(board.innerHTML!==html)board.innerHTML=html;
  }
 }
 function queue(){
