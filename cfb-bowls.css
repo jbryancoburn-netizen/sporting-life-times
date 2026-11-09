@@ -93,3 +93,19 @@ body{background:#e9e2d2!important;color:#29251f!important}
 
 /* Contract-aware secondary bowl selections: compact, non-intrusive provenance. */
 #non-cfp-bowls .bowl-at-large,.bowl-feature .bowl-at-large{font:12px/1.5 "Century Schoolbook",Georgia,serif;color:#725535!important;margin:8px 0 0;border-top:1px dotted #c0b090;padding-top:6px}
+
+/* CFP matchup school identity: left-aligned seeds, crests, and team names. */
+#cfp-predictor .cfp-bracket-team{display:flex;align-items:center;gap:9px;min-height:47px;font:700 13px/1.35 "Century Schoolbook",Georgia,serif}
+#cfp-predictor .cfp-bracket-team img{width:37px;height:37px;flex:0 0 37px;object-fit:contain;background:transparent;border:0}
+#cfp-predictor .cfp-bracket-seed{display:inline-flex;justify-content:center;align-items:center;min-width:31px;height:31px;border:1px solid #937850;color:#403421;background:#efe1c6;font:700 16px Georgia,serif;flex:0 0 31px}
+#cfp-predictor .cfp-bracket-pending{font:italic 12px Georgia,serif;color:#695b46}
+#cfp-predictor .cfp-site-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:15px 0}
+#cfp-predictor .cfp-site-card{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid #bbaa88;background:#fffaf0;min-width:0}
+#cfp-predictor .cfp-site-card img{width:70px;height:70px;object-fit:contain;flex:0 0 70px;max-width:70px;max-height:70px}
+#cfp-predictor .cfp-site-star{font:35px Georgia,serif;color:#806439}
+#cfp-predictor .cfp-site-card div{min-width:0}
+#cfp-predictor .cfp-site-card small,#cfp-predictor .cfp-site-card span{display:block;font:11px/1.5 Georgia,serif;color:#5b4b37}
+#cfp-predictor .cfp-site-card strong{display:block;font:700 17px/1.35 "Century Schoolbook",Georgia,serif;color:#2c281f}
+#non-cfp-bowls .bowl-card .bowl-match,#non-cfp-bowls .bowl-card .bowl-team,#non-cfp-bowls .bowl-card .bowl-team strong,#non-cfp-bowls .bowl-card .bowl-team small{background:transparent!important;background-color:transparent!important;box-shadow:none!important}
+@media(max-width:1050px){#cfp-predictor .cfp-site-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){#cfp-predictor .cfp-site-grid{grid-template-columns:1fr}}
