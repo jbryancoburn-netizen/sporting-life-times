@@ -133,6 +133,18 @@ function draw(data,metrics,branding){
 async function show(){try{const data=await file('data/college-soccer-ncaa-selection-forecast.json');if(data.field?.length!==48)throw Error('Invalid field');const metrics=await file('data/college-soccer-ncaa-rpi-forecast-2026.json').catch(()=>({status:'not_ready'}));const branding=await file('data/college-soccer-team-branding.json').catch(()=>({teams:{}}));
  const [palette,overrides]=await Promise.all([file('data/dual-ring-team-palette.json').catch(()=>({soccer:{}})),file('data/college-soccer-crest-overrides.json').catch(()=>({schools:{}}))]);
  branding.soccer_palette=palette.soccer||{};branding.crest_overrides=overrides.schools||{};
- draw(data,metrics,branding)}catch(e){host.replaceChildren(el('p','Selection forecast unavailable: '+e.message))}}
+ draw(data,metrics,branding);
+ const audit=document.getElementById('cs-selection-audit');
+ if(audit){
+   const state=await file('data/college-soccer-selection-update-status.json').catch(()=>null);
+   audit.replaceChildren(el('strong','NCAA SOCCER · FORECAST PUBLICATION AUDIT'));
+   audit.append(el('p','RETRO games through '+(data.rating_cutoff||'unverified')+' · 48 projected programs · '+(data.automatic_bid_scenarios||[]).filter(x=>x.official_aq).length+' officially confirmed automatic bids in published data.'));
+   if(state){
+     audit.append(el('p','Daily publisher: '+(state.status||'unknown')+' · Checked '+(state.checked_at_utc||'unverified')));
+     if(state.status!=='retro_projection_updated'&&state.status!=='published')audit.append(el('p','Publishing issue: '+String(state.reason||'unknown').slice(0,240)));
+   }else audit.append(el('p','No verified daily workflow execution report is available yet.'));
+   audit.append(el('p','Independent RETRO forecasts update separately from NCAA committee selection. Verified DI records and adjusted RPI are required for an NCAA-résumé-based forecast.'));
+ }
+ }catch(e){host.replaceChildren(el('p','Selection forecast unavailable: '+e.message))}}
 show();setInterval(show,60000);
 })();
