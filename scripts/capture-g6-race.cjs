@@ -8,7 +8,10 @@ const {chromium}=require('playwright');
   await page.goto('https://jbryancoburn-netizen.github.io/sporting-life-times/cfb-g6-playoff.html',{waitUntil:'domcontentloaded',timeout:45000});
   await page.waitForFunction(()=>window.CFB_G6_FIELD?.length===12&&window.CFB_G6_SIMULATION?.draws===2000,null,{timeout:90000});
   const result=await page.evaluate(async()=>{
-   const field=window.CFB_G6_FIELD,sim=window.CFB_G6_SIMULATION;\n   const snap=await window.CFB_DESK.promise;\n   const g6Ids=new Set([...snap.teams.values()].filter(t=>window.CFB_DESK.G6.includes(t.conference)).map(t=>String(t.id)));\n   const completed=(snap.payload.games||[]).filter(g=>(g.teams||[]).some(t=>g6Ids.has(String(t.id)))).map(g=>{const teams=g.teams||[];return String(g.id||g.uid||'')+'|'+teams.map(t=>String(t.id)+':'+String(t.score)).sort().join(',')}).sort();
+   const field=window.CFB_G6_FIELD,sim=window.CFB_G6_SIMULATION;
+   const snap=await window.CFB_DESK.promise;
+   const g6Ids=new Set([...snap.teams.values()].filter(t=>window.CFB_DESK.G6.includes(t.conference)).map(t=>String(t.id)));
+   const completed=(snap.payload.games||[]).filter(g=>(g.teams||[]).some(t=>g6Ids.has(String(t.id)))).map(g=>{const teams=g.teams||[];return String(g.id||g.uid||'')+'|'+teams.map(t=>String(t.id)+':'+String(t.score)).sort().join(',')}).sort();
    const cards=[...document.querySelectorAll('#g6-field .seed-card')];
    return {completed,stamp:document.querySelector('#data-stamp')?.textContent||'',teams:field.map((t,i)=>({
      id:String(t.id),name:cards[i]?.querySelector('.team-identity')?.textContent?.trim()||String(t.id),
