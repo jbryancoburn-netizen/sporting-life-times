@@ -48,12 +48,12 @@ jobs:
           PY
       - name: Publish only the selection forecast when changed
         run: |
-          if git diff --quiet -- data/college-soccer-ncaa-selection-forecast.json data/college-soccer-selection-update-status.json; then
-            echo 'No selection forecast changes'
-            exit 0
-          fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add data/college-soccer-ncaa-selection-forecast.json data/college-soccer-selection-update-status.json
+          if git diff --cached --quiet; then
+            echo 'No selection output changes'
+            exit 0
+          fi
           git commit -m 'Refresh daily NCAA soccer RETRO selection projection'
           git push
