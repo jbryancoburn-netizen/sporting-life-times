@@ -363,6 +363,34 @@ assert.match(teamFlow,/MERRIMACK 4/); // Endpoint names use schools, not provide
 assert.match(teamFlow,/#135b84/);
 assert.match(teamFlow,/#e0b43e/);
 assert(!teamFlow.includes('AWAY LEAD'));
+assert.match(teamFlow,/LATEST REPORTED MARGIN/);
+assert.match(teamFlow,/MERRIMACK \+1 POINT/,'latest actual margin is clearly named');
+assert.match(teamFlow,/MERRIMACK \+2/,'away largest reported lead is sourced');
+assert.match(teamFlow,/APP STATE \+1/,'home largest reported lead is sourced');
+assert.match(teamFlow,/slc-flow-zero/,'zero-point tie baseline must be visible');
+assert.match(teamFlow,/slc-flow-tick/,'numerical point difference is labeled on vertical axis');
+assert.match(teamFlow,/ACTUAL POINT MARGIN/,'chart is not a pregame betting spread');
+const tiePlays=court.parsePlays({plays:[
+ {id:'t1',text:'Away two',awayScore:2,homeScore:0},
+ {id:'t2',text:'Home one',awayScore:2,homeScore:1},
+ {id:'t3',text:'Home one',awayScore:2,homeScore:2}
+]});
+assert.match(court.gameFlow(tiePlays,namedGame),/TIED · 0 POINTS/,'ties must not incorrectly declare a leader');
+const homeAhead=court.parsePlays({plays:[
+ {id:'h1',text:'Away two',awayScore:2,homeScore:0},
+ {id:'h2',text:'Home three',awayScore:2,homeScore:3},
+ {id:'h3',text:'Home two',awayScore:2,homeScore:5}
+]});
+assert.match(court.gameFlow(homeAhead,namedGame),/APP STATE \+3 POINTS/,'home lead uses actual score margin');
+const bigMargin=court.parsePlays({plays:[
+ {id:'b1',text:'Away two',awayScore:2,homeScore:0},
+ {id:'b2',text:'Away scores',awayScore:15,homeScore:3},
+ {id:'b3',text:'Away scores',awayScore:35,homeScore:3}
+]});
+const bigChart=court.gameFlow(bigMargin,namedGame);
+assert.match(bigChart,/MERRIMACK \+32 POINTS/,'large real margins must not be capped');
+assert.match(bigChart,/slc-flow-tick/,'wide margins must still render scaled tick labels');
+
 const namedNode={innerHTML:'',isConnected:true,addEventListener:()=>{},querySelector:()=>null};
 court.mount(namedNode,{...namedGame,id:'named-match'}, {plays:realScorePlays});
 assert.match(namedNode.innerHTML,/slc-away-name/);

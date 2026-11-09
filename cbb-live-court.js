@@ -82,41 +82,79 @@ function verifyPlayScores(plays,game){
  return {ok:true,reason:'',sequence};
 }
 function gameFlow(plays,game){
- // Real scoreboard events only. Reject reversed scores and conflicting finals.
+ // Use validated, chronological, source-reported scoring events only.
+ // The graph is the ACTUAL point margin, never the pregame RETRO spread.
  const audit=verifyPlayScores(plays,game);
  if(!audit.ok)return '';
  const scoring=audit.sequence;
+ const margin=p=>p.awayScore-p.homeScore;
  const sampled=scoring.length>300?scoring.filter((p,i)=>i%Math.ceil(scoring.length/300)===0||i===scoring.length-1):scoring;
- const max=Math.max(6,...sampled.map(p=>Math.abs(p.awayScore-p.homeScore)));
- const xy=sampled.map((p,i)=>[
-   46+(848*i/Math.max(1,sampled.length-1)),
-   204-((p.awayScore-p.homeScore)/max)*146
- ]);
-
- const last=scoring[scoring.length-1];
+ const margins=scoring.map(margin);
+ const awayMax=Math.max(0,...margins),homeMax=Math.max(0,...margins.map(n=>-n));
+ const scale=Math.max(10,Math.ceil(Math.max(awayMax,homeMax)/10)*10);
+ const left=116,right=876,mid=210,extent=128;
+ const x=i=>left+(right-left)*i/Math.max(1,sampled.length-1);
+ const y=lead=>mid-lead/scale*extent;
+ const xy=sampled.map((p,i)=>[x(i),y(margin(p))]);
+ const last=scoring.at(-1),latest=margin(last);
  const away=game?sideName(game.away):'AWAY',home=game?sideName(game.home):'HOME';
- const awayCode=game?name(game.away):'AWAY',homeCode=game?name(game.home):'HOME';
  const awayColor=teamColor(game?.away,'#23657d'),homeColor=teamColor(game?.home,'#b17931');
- const segments=xy.slice(1).map(([x,y],i)=>{
-   const [px,py]=xy[i],p=sampled[i+1];
-   const color=p.awayScore>=p.homeScore?awayColor:homeColor;
-   return '<line x1="'+px.toFixed(1)+'" y1="'+py.toFixed(1)+'" x2="'+x.toFixed(1)+'" y2="'+y.toFixed(1)+
-     '" stroke="'+color+'" stroke-width="6" stroke-linecap="round"/>';
+ const leader=latest>0?away:latest<0?home:'TIED';
+ const latestLabel=latest===0?'TIED · 0 POINTS':leader+' +'+Math.abs(latest)+' POINT'+(Math.abs(latest)===1?'':'S');
+ const a11y=latest===0?'tied':leader+' leads by '+Math.abs(latest)+' points';
+ const drawLine=(p,q,color)=>'<line x1="'+p[0].toFixed(1)+'" y1="'+p[1].toFixed(1)+
+   '" x2="'+q[0].toFixed(1)+'" y2="'+q[1].toFixed(1)+
+   '" stroke="'+color+'" stroke-width="5" stroke-linecap="round"/>';
+ const segments=xy.slice(1).map((current,i)=>{
+   const previous=xy[i],m1=margin(sampled[i]),m2=margin(sampled[i+1]);
+   if(m1*m2<0){
+     // Break the stroke exactly at the tied score, not at the next event.
+     const fraction=Math.abs(m1)/(Math.abs(m1)+Math.abs(m2));
+     const equal=[previous[0]+(current[0]-previous[0])*fraction,mid];
+     return drawLine(previous,equal,m1>0?awayColor:homeColor)+
+       drawLine(equal,current,m2>0?awayColor:homeColor);
+   }
+   return drawLine(previous,current,(m1||m2)>=0?awayColor:homeColor);
  }).join('');
- const leaderColor=last.awayScore>=last.homeScore?awayColor:homeColor;
+ const tickMargins=[scale,scale/2,0,-scale/2,-scale];
+ const grid=tickMargins.map(n=>{
+   const position=y(n),zero=n===0;
+   const label=zero?'TIED':(n>0?'+':'−')+Math.abs(n);
+   return '<line x1="'+left+'" y1="'+position+'" x2="'+right+'" y2="'+position+
+     '" class="'+(zero?'slc-flow-zero':'slc-flow-grid')+'"/>'+
+     '<text class="slc-flow-tick'+(zero?' slc-flow-tick--zero':'')+
+     '" x="'+(left-14)+'" y="'+(position+5)+'" text-anchor="end">'+label+'</text>';
+ }).join('');
+ const lastPoint=xy.at(-1),marker=latest>0?awayColor:latest<0?homeColor:'#455b60';
  return '<div class="slc-flow" style="--slc-away:'+awayColor+';--slc-home:'+homeColor+
-   '" role="img" aria-label="Verified scoring margin. '+esc(away)+' leads above center; '+esc(home)+' leads below.">'+
-   '<div class="slc-flow-heading"><strong>GAME FLOW</strong><span>SCORING MARGIN · SOURCE-REPORTED PLAYS</span></div>'+
-   '<div class="slc-flow-key"><span><i class="slc-away-dot"></i>'+esc(away)+'</span><span><i class="slc-home-dot"></i>'+esc(home)+'</span></div>'+
+   '" role="img" aria-label="Scoring margin by reported play. Latest: '+esc(a11y)+
+   '. Largest reported leads: '+esc(away)+' '+awayMax+' points, '+esc(home)+' '+homeMax+
+   ' points. Positive values favor the away team.">'+
+   '<div class="slc-flow-heading"><strong>GAME FLOW</strong><span>ACTUAL POINT MARGIN · NOT A BETTING SPREAD</span></div>'+
+   '<div class="slc-flow-status"><span>LATEST REPORTED MARGIN</span><strong>'+esc(latestLabel)+
+   '</strong><small>'+esc(away)+' '+last.awayScore+' · '+esc(home)+' '+last.homeScore+'</small></div>'+
+   '<div class="slc-flow-key"><span><i class="slc-away-dot"></i>'+esc(away)+' LEAD (ABOVE ZERO)</span>'+
+   '<span><i class="slc-home-dot"></i>'+esc(home)+' LEAD (BELOW ZERO)</span></div>'+
+   '<div class="slc-flow-lead-list"><span>LARGEST REPORTED LEAD</span><b>'+esc(away)+
+   ' +'+awayMax+'</b><b>'+esc(home)+' +'+homeMax+'</b></div>'+
    '<svg viewBox="0 0 940 410" preserveAspectRatio="xMidYMid meet" aria-hidden="true">'+
-   '<line x1="46" y1="204" x2="894" y2="204" stroke="#aab9b6" stroke-dasharray="5 6" stroke-width="2"/>'+
-   '<text x="48" y="32">'+esc(away)+' LEAD</text><text x="48" y="379">'+esc(home)+' LEAD</text>'+
+   '<rect x="'+left+'" y="'+(mid-extent)+'" width="'+(right-left)+'" height="'+extent+
+   '" fill="'+awayColor+'" opacity=".065"/>'+
+   '<rect x="'+left+'" y="'+mid+'" width="'+(right-left)+'" height="'+extent+
+   '" fill="'+homeColor+'" opacity=".065"/>'+
+   grid+
+   '<text class="slc-flow-side" x="'+left+'" y="43">'+esc(away)+' LEAD</text>'+
+   '<text class="slc-flow-side" x="'+left+'" y="371">'+esc(home)+' LEAD</text>'+
    segments+
-   '<circle cx="'+xy.at(-1)[0]+'" cy="'+xy.at(-1)[1]+'" r="10" fill="'+leaderColor+'" stroke="#fff" stroke-width="3"/>'+
-   '<text x="860" y="32" text-anchor="end">'+esc(awayCode)+' '+last.awayScore+'</text>'+
-   '<text x="860" y="379" text-anchor="end">'+esc(homeCode)+' '+last.homeScore+'</text></svg>'+
-   '<p>Each mark is a sourced score update—not elapsed game time. Last reported play: '+esc(last.clock||'time not reported')+
-   '. This is not an official shot chart.</p></div>';
+   '<circle cx="'+lastPoint[0].toFixed(1)+'" cy="'+lastPoint[1].toFixed(1)+
+   '" r="9" fill="'+marker+'" stroke="#fff" stroke-width="3"/>'+
+   '<text class="slc-flow-score" x="'+right+'" y="43" text-anchor="end">'+esc(away)+' '+last.awayScore+'</text>'+
+   '<text class="slc-flow-score" x="'+right+'" y="371" text-anchor="end">'+esc(home)+' '+last.homeScore+'</text>'+
+   '<text class="slc-flow-axis" x="'+left+'" y="401">EARLIER PLAYS</text>'+
+   '<text class="slc-flow-axis" x="'+right+'" y="401" text-anchor="end">LATEST PLAY →</text></svg>'+
+   '<p>Above the TIED line: '+esc(away)+' ahead. Below: '+esc(home)+
+   ' ahead. Each step is a reported score update, not equal time intervals. '+
+   'Latest available event: '+esc(last.clock||'time not reported')+'.</p></div>';
 }
 function stationLinks(g){
  const id=String(g.id||'');
