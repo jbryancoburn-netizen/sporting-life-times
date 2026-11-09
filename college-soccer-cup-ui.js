@@ -157,10 +157,10 @@ function predictiveBracket(parent,teams,cohort,branding,labels={}){
  const odds=(a,b)=>1/(1+Math.pow(10,-((a.elo-b.elo)/400)));
  const decide=(a,b)=>({winner:odds(a,b)>=.5?a:b,prob:Math.max(odds(a,b),1-odds(a,b))});
  const root=node('div','cs-cup-bracket cs-cup-prediction-bracket');
- root.setAttribute('aria-label','USRS predicted conference tournament bracket, hypothetical games');
- root.append(node('p','cs-cup-caveat','IF PLAYED WITH THE CURRENT CONFERENCE TABLE · Forecast winners and advancement are based on USRS Elo. Team positions follow published standings, never Elo. This is NOT the official bracket.'));
+ root.setAttribute('aria-label','RETRO predicted conference tournament bracket, hypothetical games');
+ root.append(node('p','cs-cup-caveat','IF PLAYED WITH THE CURRENT CONFERENCE TABLE · Forecast winners and advancement are based on RETRO Elo. Team positions follow published standings, never Elo. This is NOT the official bracket.'));
  const round=(title)=>{const r=node('section','cs-cup-round');r.append(node('h4','cs-cup-round-title',title));root.append(r);return r;};
- const game=(group,label,a,b)=>{const d=decide(a,b);const card=pair(label,a,b,cohort,branding);card.classList.add('cs-cup-predicted-match');card.append(node('small','cs-cup-prediction-label','USRS PICK: '+d.winner.name+' · '+Math.round(100*d.prob)+'%'));group.append(card);return d.winner;};
+ const game=(group,label,a,b)=>{const d=decide(a,b);const card=pair(label,a,b,cohort,branding);card.classList.add('cs-cup-predicted-match');card.append(node('small','cs-cup-prediction-label','RETRO PICK: '+d.winner.name+' · '+Math.round(100*d.prob)+'%'));group.append(card);return d.winner;};
  let finalists=[];
  if(t.length===4){
   const semi=round(labels.s||'SEMIFINALS');
@@ -187,7 +187,7 @@ function predictiveBracket(parent,teams,cohort,branding,labels={}){
  }
  const f=round(labels.f||'CHAMPIONSHIP');
  const champion=game(f,'PROJECTED CONFERENCE FINAL',finalists[0],finalists[1]);
- f.append(node('strong','cs-cup-projected-champion','USRS PROJECTED CHAMPION: '+champion.name));
+ f.append(node('strong','cs-cup-projected-champion','RETRO PROJECTED CHAMPION: '+champion.name));
  parent.append(root);return root;
 }
 function decorateTable(table,teams,cohort,branding){

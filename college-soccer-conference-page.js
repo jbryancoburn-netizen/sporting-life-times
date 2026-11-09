@@ -89,8 +89,11 @@ async function render(){
  root.replaceChildren();
  const hero=E('header',null,'cs-conference-hero');const identity=conferenceIdentity[conferenceSlug];if(identity){host.style.setProperty('--conference-primary',identity.color);const emblem=E('div',null,'cs-conf-header-emblem');const logo=E('img');logo.alt=cfg.name+' conference logo';logo.loading='eager';logo.src='https://commons.wikimedia.org/wiki/Special:FilePath/'+encodeURIComponent(identity.file);logo.onerror=()=>{logo.remove();emblem.textContent=cfg.name};emblem.append(logo);hero.append(emblem)}
  const kicker=E('span',cfg.gender+' · NCAA DIVISION '+(cfg.cohort.endsWith('d1')?'I':cfg.cohort.endsWith('d2')?'II':'III')+' · 2026','cs-conference-kicker');
- hero.append(kicker,E('h1',cfg.name+' SOCCER','cs-conference-title'),E('p','The conference race, independent Elo ratings and the road to the NCAA championship.','cs-conference-deck'));root.append(hero);
- const nav=E('nav',null,'cs-conference-nav');nav.append(A('STANDINGS','#conference-table'),A('PROJECTED BRACKET','#conference-bracket'),A('TITLE FORECAST','#conference-odds'),A('OFFICIAL RULES','#conference-rules'));if(cfg.other)nav.append(A('OTHER GENDER DESK',cfg.other));root.append(nav);
+ hero.append(kicker,E('h1',cfg.name+' SOCCER','cs-conference-title'),E('p','The conference race, verified results and the road to the NCAA championship.','cs-conference-deck'));root.append(hero);
+  const folio=E('section',null,'cs-conference-folio');folio.setAttribute('aria-label','Conference at a glance');
+  const facts=[['TABLE LEADER',teams[0]?.name||'Not reported'],['MEMBER SCHOOLS',String(teams.length)],['LISTED TOURNAMENT FIELD',Number(rule.tournament?.field)?String(rule.tournament.field)+' places':'Not verified'],['STANDINGS SNAPSHOT',table.snapshot_checked_date||'Not dated']];
+  for(const [label,value] of facts){const item=E('div',null,'cs-conf-fact');item.append(E('span',label,'cs-conf-fact-label'),E('strong',value,'cs-conf-fact-value'));folio.append(item)}root.append(folio);
+ const nav=E('nav',null,'cs-conference-nav');nav.setAttribute('aria-label','Conference desk sections');nav.append(A('STANDINGS','#conference-table'),A('TOURNAMENT','#conference-bracket'),A('RETRO FORECAST','#conference-odds'),A('FORMAT & SOURCES','#conference-rules'));const oppositeKey=(cfg.gender==='MEN'?'women':'men')+'-'+cfg.cohort.split('-')[1]+':'+conferenceSlug;const otherPage=directory.conferences?.[oppositeKey]?.page||cfg.other;if(otherPage)nav.append(A(cfg.gender==='MEN'?'WOMEN’S DESK':'MEN’S DESK',otherPage));root.append(nav);
  
  const columns=E('div',null,'cs-conference-columns'),standSection=E('section',null,'cs-conf-standings'),modelSection=E('aside',null,'cs-conf-model');standSection.id='conference-table';modelSection.id='conference-odds';columns.append(standSection,modelSection);root.append(columns);
  standSection.append(E('h2','Conference standings · '+(table.snapshot_checked_date||'unverified date')));
@@ -98,7 +101,7 @@ async function render(){
  const unresolved=new Set((table.unresolved_tie_groups||[]).flatMap(g=>g.teams||[]));
  if(unresolved.size)standSection.append(E('p','† Teams level on points: their order is provisional until conference tiebreakers are resolved.','cs-conf-caption'));
  const t=E('table',null,'cs-conference-table');const hd=E('thead'),hr=E('tr');for(const name of ['#','School','Conf. W–L–D','Overall','Pts'])hr.append(E('th',name));hd.append(hr);const tb=E('tbody');
- teams.forEach((team,i)=>{const row=E('tr');const field=Number(rule.tournament?.field)||0;if(field&&i===field-1)row.classList.add('cutoff');row.append(E('td',String(i+1)+(unresolved.has(team.id)?' †':'')));const school=E('td');school.append(A(team.name,'college-soccer-team.html?team='+encodeURIComponent(cfg.cohort+':'+team.id)));row.append(school,E('td',team.conference_record||'—'),E('td',team.overall_record||'—'),E('td',team.conference_points??'—'));tb.append(row)});
+ teams.forEach((team,i)=>{const row=E('tr');const field=Number(rule.tournament?.field)||0;if(field&&i===field-1)row.classList.add('cutoff');if(field&&i<field)row.classList.add('cs-conf-infield');const rank=E('td');rank.append(E('span',String(i+1)+(unresolved.has(team.id)?' †':''),'cs-conf-rank'));row.append(rank);const school=E('td');school.append(A(team.name,'college-soccer-team.html?team='+encodeURIComponent(cfg.cohort+':'+team.id)));row.append(school);for(const [label,value] of [['Conf. W–L–D',team.conference_record||'—'],['Overall',team.overall_record||'—'],['Pts',team.conference_points??'—']]){const cell=E('td',value);cell.dataset.label=label;row.append(cell)}tb.append(row)});
  t.append(hd,tb);standSection.append(t);
  const cup=window.CollegeSoccerCupUI;
  // Use the same school crest component in standings, title forecasts, and brackets.
@@ -109,7 +112,7 @@ async function render(){
   if(cup)link.prepend(cup.crest(team.name,team.id,cfg.cohort,branding));
  }
 
- modelSection.append(E('h2','USRS ELO · PREDICTED TITLE ODDS'));
+ modelSection.append(E('h2','RETRO · CONFERENCE TITLE FORECAST'));
  const field=Number(rule.tournament?.field)||0;
  const snapshot=table.checked_at_utc||table.snapshot_checked_date;
  const age=snapshot?(Date.now()-Date.parse(snapshot))/86400000:Infinity;
@@ -153,7 +156,7 @@ async function render(){
   }
   const final=E('section',null,'cs-official-round');final.append(E('h3','CONFERENCE CHAMPIONSHIP'),E('p','Divisional pathways converge in the championship. Exact matchups and venues await the official bracket.','cs-conf-caption'));rounds.append(final);bracket.append(rounds);
  }else if(bracketVerified){
-  const note=E('p','Actual announced tournament matchups; sourced from the conference. USRS Elo does not determine these pairings.','cs-conf-caption');bracket.append(note);
+  const note=E('p','Actual announced tournament matchups; sourced from the conference. RETRO Elo does not determine these pairings.','cs-conf-caption');bracket.append(note);
   const rounds=E('div',null,'cs-official-rounds');
   const groups=new Map();
   for(const match of officialBracket.matches){if(!groups.has(match.round))groups.set(match.round,[]);groups.get(match.round).push(match)}
