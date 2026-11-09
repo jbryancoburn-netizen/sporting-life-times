@@ -32,10 +32,10 @@ function crest(name,id,cohort,branding){
   'box-shadow:none!important;padding:0!important;aspect-ratio:1/1!important;';
  mark.style.setProperty('--crest-primary',primary);
  mark.style.setProperty('--crest-secondary',secondary);
- // Secondary ring is a single child border, not another external outline or shadow.
+ // Distinct second school-color ring sits INSIDE the outside stroke.
  const inner=node('span','soccer-school-inner-ring');
  inner.setAttribute('aria-hidden','true');
- inner.style.cssText='position:absolute!important;inset:0!important;border:2px solid '+secondary+'!important;'+
+ inner.style.cssText='position:absolute!important;inset:3px!important;border:1px solid '+secondary+'!important;'+
   'border-radius:50%!important;background:transparent!important;pointer-events:none!important;'+
   'z-index:3!important;box-shadow:none!important;outline:0!important;';
  // Keep the logo in its own centered, square viewport. The circular shell
