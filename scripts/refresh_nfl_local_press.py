@@ -143,7 +143,7 @@ def unique(articles, limit):
     seen = set()
     result = []
     for a in sorted(articles, key=lambda x: x["published_at"], reverse=True):
-        identity = re.sub(r"[?#].*$", "", a["url"]).rstrip("/").lower()
+        identity = (re.sub(r"[?#].*$", "", a["url"]).rstrip("/").lower(), tuple(sorted(a.get("team_ids", []))))
         if identity in seen:
             continue
         seen.add(identity)

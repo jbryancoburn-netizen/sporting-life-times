@@ -51,6 +51,8 @@ class LocalPressTests(unittest.TestCase):
                    {"url":"https://www.chicagotribune.com/bears","published_at":"2026-11-09T00:00:00+00:00"}]
         self.assertEqual(len(press.unique(entries, 5)), 1)
         self.assertEqual(press.unique(entries, 5)[0]["published_at"], "2026-11-09T00:00:00+00:00")
+        across_teams = [dict(entries[0], team_ids=["3"]), dict(entries[1], team_ids=["27"])]
+        self.assertEqual(len(press.unique(across_teams, 5)), 2)
 
 if __name__ == "__main__":
     unittest.main()
