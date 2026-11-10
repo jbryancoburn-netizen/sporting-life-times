@@ -1,0 +1,50 @@
+name: CBB final-score publication watchdog
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/cbb-final-publication-watchdog.yml'
+      - 'scripts/check_cbb_finals_health.py'
+  schedule:
+    # Independent of men's and women's publisher schedules, including overnight.
+    - cron: '2,12,22,32,42,52 * * * *'
+permissions:
+  contents: read
+  actions: write
+concurrency:
+  group: cbb-final-publication-watchdog
+  cancel-in-progress: false
+jobs:
+  check:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Independently compare ESPN finals, published RETRO and live website
+        id: freshness
+        run: python3 scripts/check_cbb_finals_health.py
+      - name: Recover missing men's finals and team schedules
+        if: steps.freshness.outputs.refresh_men == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run mbb-retro-primary.yml --ref main
+      - name: Recover missing women's finals and team schedules
+        if: steps.freshness.outputs.refresh_women == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run wbb-retro-live.yml --ref main
+      - name: Recover a lagging public Pages deployment
+        if: steps.freshness.outputs.deploy == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run publish-newspaper.yml --ref main
+      - name: Never report success when overdue finals or Pages data are stale
+        if: steps.freshness.outputs.stale == 'true'
+        run: |
+          echo "::error::CBB final scores or public RETRO files remain stale. Recovery workflows requested."
+          exit 1
