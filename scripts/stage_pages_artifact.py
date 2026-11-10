@@ -6,6 +6,7 @@ read-only view of the current checkout, including the latest MBB forecasts
 rebuilt earlier in the publication job.
 """
 from pathlib import Path
+import json
 import shutil
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -13,6 +14,7 @@ OUT = ROOT / "_pages_site"
 
 EXCLUDED_DIRS = {
     ".git", ".github", "scripts", "tests", "docs", "historical-report",
+    "historical-normalized",
     "public_ratings", "_pages_site", "__pycache__", "node_modules",
     "data/mbb-official-source-cache", "data/mbb-official-game-evidence",
     "data/ncaam-historical-bulk-discovery",
@@ -65,8 +67,20 @@ def visit(source: Path) -> None:
     target = OUT / relative
     target.parent.mkdir(parents=True, exist_ok=True)
     shutil.copy2(source, target)
+    # Exact same JSON values with no pretty-print whitespace. This substantially
+    # reduces Pages syncing_files work for the active 365-school archive and
+    # full college basketball calendars without removing any reader data.
+    if source.suffix.lower() == ".json" and source.stat().st_size >= 65536:
+        try:
+            data = json.loads(source.read_text(encoding="utf-8"))
+            compact = json.dumps(data, ensure_ascii=False, separators=(",", ":")) + "\n"
+            if len(compact.encode("utf-8")) < source.stat().st_size:
+                target.write_text(compact, encoding="utf-8")
+        except (UnicodeError, ValueError, TypeError):
+            # Do not change non-standard historical research assets.
+            pass
     copied += 1
-    bytes_copied += source.stat().st_size
+    bytes_copied += target.stat().st_size
 
 if OUT.exists():
     shutil.rmtree(OUT)
