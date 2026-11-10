@@ -155,7 +155,8 @@ def women(check=False):
             games = schedule["games"]
             found = [e for e in games if str(e.get("id")) == str(g["id"])]
             if len(found) > 1:
-                raise ValueError("Duplicate women's schedule event " + str(g["id"]))
+                conflicts.append({"game_id": str(g["id"]), "team_id": team_id, "reason": "duplicate schedule game ID"})
+                continue
             if found:
                 event = found[0]
                 same = str(event.get("home_id")) == home and str(event.get("away_id")) == away
@@ -165,14 +166,17 @@ def women(check=False):
                 if (not (same or flipped) or
                     str(event.get("opponent_id")) != opponent_id or
                     day_delta(event.get("date"), g.get("date")) > 2):
-                    raise ValueError("Women's calendar identity conflict " + str(g["id"]))
+                    conflicts.append({"game_id": str(g["id"]), "team_id": team_id, "reason": "different teams or date",
+                                      "published_opponent": event.get("opponent_id"), "verified_opponent": opponent_id})
+                    continue
                 # A neutral-site school's home/away listing may be reversed
                 # relative to the scoreboard. Scores follow team identities.
                 oriented_home = g["away_score"] if flipped else g["home_score"]
                 oriented_away = g["home_score"] if flipped else g["away_score"]
                 if event.get("completed") and (event.get("home_score") not in (None, oriented_home) or
                                              event.get("away_score") not in (None, oriented_away)):
-                    raise ValueError("Conflicting women's published final " + str(g["id"]))
+                    conflicts.append({"game_id": str(g["id"]), "team_id": team_id, "reason": "two incompatible final scores"})
+                    continue
                 for k, val in (("completed", True), ("home_score", oriented_home),
                                ("away_score", oriented_away)):
                     if event.get(k) != val:
