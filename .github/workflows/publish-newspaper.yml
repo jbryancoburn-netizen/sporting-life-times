@@ -17,6 +17,9 @@ on:
       - 'data/epl-*.json'
       - 'data/mbb-schedules-2026-27/*.json'
       - 'data/mbb-external-top25.json'
+      - 'data/cbb-national-news.json'
+      - 'scripts/verify_cbb_news.py'
+      - 'tests/cbb-front-news.test.cjs'
       # Direct source or verified rating updates should publish immediately.
       # GitHub Actions-origin commits use workflow_dispatch from the Elo job.
       - 'data/mbb-live.json'
@@ -40,6 +43,7 @@ on:
       - NBA full 30-team roster refresh
       - DII basketball — independent men and women editions
       - MBB Exhibition Scores
+      - College basketball national news refresh
     types: [completed]
     branches: [main]
   schedule:
@@ -298,6 +302,15 @@ jobs:
           assert ids <= set(calendars), 'Missing one or more women team schedule records'
           print('Women's page inputs: all 363 IDs and Indiana schedule present')
           PY
+      - name: Refresh the CBB national wire if the scheduled collector fell behind
+        run: |
+          if ! python3 scripts/verify_cbb_news.py --max-age 60; then
+            if ! python3 scripts/refresh_cbb_national_news.py || ! python3 scripts/verify_cbb_news.py; then
+              git restore -- data/cbb-national-news.json
+              echo "::warning::CBB news source unavailable; preserving the last attributed edition"
+            fi
+          fi
+          node tests/cbb-front-news.test.cjs
       - name: Stage reader-facing newspaper without unused development and research payloads
         run: python3 scripts/stage_pages_artifact.py
       - uses: actions/upload-pages-artifact@v4
@@ -586,3 +599,9 @@ jobs:
           done
           echo "::error::Public college basketball shared logo system missing or out-of-order" >&2
           exit 1
+
+      - name: Verify both CBB news editions on public Pages
+        if: ${{ !cancelled() && steps.deploy.outcome == 'success' }}
+        env:
+          PAGE_URL: ${{ steps.deploy.outputs.page_url }}
+        run: python3 scripts/verify_cbb_news.py --public "$PAGE_URL" --max-age 120

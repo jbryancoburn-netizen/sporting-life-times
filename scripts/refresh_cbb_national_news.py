@@ -57,6 +57,9 @@ def prior_school():
  return result
 with ThreadPoolExecutor(max_workers=4) as pool:
  fresh=[a for batch in pool.map(rss,QUERIES) for a in batch]
+if {a["gender"] for a in fresh} != {"men", "women"}:
+ print("National reporting unavailable for one or both editions; preserving the last edition")
+ raise SystemExit(1)
 fresh.extend(prior_school())
 if OUT.exists():
  try: old=json.loads(OUT.read_text()).get("articles",[])
@@ -78,8 +81,8 @@ def priority(a):
  return impact+specificity+max(0,48-hours)
 men=sorted((a for a in unique.values() if a.get("gender")=="men"),key=priority,reverse=True)[:100]
 women=sorted((a for a in unique.values() if a.get("gender")=="women"),key=priority,reverse=True)[:100]
-if not men and not women:
- print("No valid reporting; existing published edition preserved");raise SystemExit(0)
+if not men or not women:
+ print("Incomplete reporting; preserving the last edition");raise SystemExit(1)
 OUT.parent.mkdir(parents=True,exist_ok=True)
 OUT.write_text(json.dumps({"edition":"Sporting Life & Times","season":"2026-27","updated_at":NOW.isoformat(),"sources":["Google News RSS","existing school reporting"],"coverage":{"men":len(men),"women":len(women)},"articles":men+women},indent=2,ensure_ascii=False)+"\n")
 print("National basketball reporting:",len(men),"men",len(women),"women")

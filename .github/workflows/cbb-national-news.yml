@@ -19,16 +19,8 @@ jobs:
           python-version: '3.12'
       - name: Fetch national men's and women's basketball news
         run: python scripts/refresh_cbb_national_news.py
-      - name: Verify women's wire is present
-        run: |
-          python - <<'PY'
-          import json
-          from pathlib import Path
-          d=json.loads(Path('data/cbb-national-news.json').read_text())
-          women=[x for x in d.get('articles',[]) if x.get('gender')=='women' and x.get('url') and x.get('title')]
-          if not women: raise SystemExit('No verified women news stories; skip publication')
-          print('Women news articles:',len(women))
-          PY
+      - name: Verify both national editions are fresh
+        run: python scripts/verify_cbb_news.py
       - name: Publish updated basketball news
         run: |
           git config user.name sporting-life-times-bot
