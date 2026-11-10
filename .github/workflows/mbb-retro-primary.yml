@@ -7,6 +7,7 @@ on:
     workflows:
       - MBB newspaper refresh and publish
       - NCAA Basketball Game to Elo Publisher
+      - MBB 2026-27 full team calendars
     types: [completed]
     branches: [main]
   push:
@@ -17,6 +18,7 @@ on:
       - 'scripts/collect-mbb-retro-finals.py'
       - 'scripts/collect-mbb-non-di-finals.py'
       - 'scripts/build-mbb-overall-records.mjs'
+      - 'scripts/sync_cbb_final_calendars.py'
       - 'scripts/refresh_mbb_newspaper.py'
       - 'mbb-retro.js'
   schedule:
@@ -74,13 +76,15 @@ jobs:
           }
           console.log('All 365 school records align with current RETRO');
           NODE
+      - name: Reconcile verified Division I finals to all 365 men's school calendars
+        run: python3 scripts/sync_cbb_final_calendars.py --gender men
       - name: Verify clean slate and publish
         id: publish
         run: |
           node -e "const d=require('./data/ncaam-2026-27-retro-primary.json');if(d.starting_elo!==1500||d.rankings.length!==365||d.events.length!==d.games_played||d.rankings.some(x=>x.base_elo!==1500))process.exit(1);"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/ncaam-2026-27-retro-primary.json data/mbb-retro-live-finals.json data/mbb-overall-records-2026-27.json data/mbb-non-di-verified-finals-2026-27.json
+          git add data/ncaam-2026-27-retro-primary.json data/mbb-retro-live-finals.json data/mbb-overall-records-2026-27.json data/mbb-non-di-verified-finals-2026-27.json data/mbb-schedules-2026-27/
           if git diff --cached --quiet; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
