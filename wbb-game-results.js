@@ -24,6 +24,8 @@ function merge(schedule,ledger,teamId){
     const key=String(g.id??'');
     if(!byId.has(key))continue;
     const f=byId.get(key),sameSide=String(g.home_id)===String(f.home_id)&&String(g.away_id)===String(f.away_id);
+    const reversedNeutral=String(g.home_id)===String(f.away_id)&&String(g.away_id)===String(f.home_id)&&
+      g.site==='neutral'&&f.neutral===true;
     const current=String(teamId);
     const opponent=String(g.opponent_id??'');
     const rightTeam=(String(f.home_id)===current||String(f.away_id)===current)&&
@@ -35,15 +37,15 @@ function merge(schedule,ledger,teamId){
     const statusOK=f.status==='final'&&f.completed!==false;
     const seasonOK=String(f.date||'').slice(0,10)>='2026-11-01'&&
       String(f.date||'').slice(0,10)<='2027-04-30';
-    if(invalid.has(key)||!sameSide||!rightTeam||!dateOK||!scoresOK||!statusOK||!seasonOK){
+    if(invalid.has(key)||!(sameSide||reversedNeutral)||!rightTeam||!dateOK||!scoresOK||!statusOK||!seasonOK){
       conflicts.push(key);
       g.result_conflict=true;
       // A discredited ledger row must never overwrite the schedule's identities.
       continue;
     }
     g.completed=true;
-    g.home_score=Number(f.home_score);
-    g.away_score=Number(f.away_score);
+    g.home_score=Number(reversedNeutral?f.away_score:f.home_score);
+    g.away_score=Number(reversedNeutral?f.home_score:f.away_score);
     g.result_provenance=states.has(f.score_evidence)?f.score_evidence:'espn_only';
     matched++;
   }
