@@ -151,8 +151,10 @@ def women():
             candidates = [e for e in schedules[school]["games"] if str(e.get("id")) == str(g["id"])]
             if not any(e.get("completed") is True and
                        {str(e.get("home_id")), str(e.get("away_id"))} == {home, away} and
-                       int(e.get("home_score") or 0) + int(e.get("away_score") or 0) ==
-                       int(g["home_score"]) + int(g["away_score"])
+                       int(e.get("home_score") or 0) ==
+                       int(g["home_score"] if str(e.get("home_id")) == home else g["away_score"]) and
+                       int(e.get("away_score") or 0) ==
+                       int(g["away_score"] if str(e.get("away_id")) == away else g["home_score"])
                        for e in candidates):
                 errors.append("Women's schedule omits verified final " + str(g["id"]) + " for " + school)
     recent, warnings = source_finals("women", set(schedules))
