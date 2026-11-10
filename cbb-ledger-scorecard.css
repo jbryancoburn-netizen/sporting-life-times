@@ -460,3 +460,11 @@
 /* Rivalry uses the existing record line; mobile retains the symbol alone. */
 .ledger26-record .ledger26-rivalry{display:inline;font:700 9px/1.15 Georgia,serif;white-space:nowrap}
 @media(max-width:640px){.ledger26-record .ledger26-rivalry-text{display:none}}
+
+/* Men's ledger: scale the artwork inside the existing gender-shared circle.
+   Both editions retain the same 46px desktop / 49px mobile crest frames,
+   the same two-ring construction, and the same game-card dimensions. */
+.ledger26-card--men .ledger26-crest .mbb-mark>img.mbb-mark__img{
+ width:78%!important;height:78%!important;max-width:78%!important;max-height:78%!important;
+ object-fit:contain!important;
+}
