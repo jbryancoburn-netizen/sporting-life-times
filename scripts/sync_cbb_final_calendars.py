@@ -157,16 +157,23 @@ def women(check=False):
                 raise ValueError("Duplicate women's schedule event " + str(g["id"]))
             if found:
                 event = found[0]
-                if (str(event.get("home_id")) != home or
-                    str(event.get("away_id")) != away or
+                same = str(event.get("home_id")) == home and str(event.get("away_id")) == away
+                flipped = (str(event.get("home_id")) == away and
+                           str(event.get("away_id")) == home and
+                           g.get("neutral") is True and event.get("site") == "neutral")
+                if (not (same or flipped) or
                     str(event.get("opponent_id")) != opponent_id or
                     day_delta(event.get("date"), g.get("date")) > 2):
                     raise ValueError("Women's calendar identity conflict " + str(g["id"]))
-                if event.get("completed") and (event.get("home_score") not in (None, g["home_score"]) or
-                                             event.get("away_score") not in (None, g["away_score"])):
+                # A neutral-site school's home/away listing may be reversed
+                # relative to the scoreboard. Scores follow team identities.
+                oriented_home = g["away_score"] if flipped else g["home_score"]
+                oriented_away = g["home_score"] if flipped else g["away_score"]
+                if event.get("completed") and (event.get("home_score") not in (None, oriented_home) or
+                                             event.get("away_score") not in (None, oriented_away)):
                     raise ValueError("Conflicting women's published final " + str(g["id"]))
-                for k, val in (("completed", True), ("home_score", g["home_score"]),
-                               ("away_score", g["away_score"])):
+                for k, val in (("completed", True), ("home_score", oriented_home),
+                               ("away_score", oriented_away)):
                     if event.get(k) != val:
                         event[k] = val
                         changed += 1
