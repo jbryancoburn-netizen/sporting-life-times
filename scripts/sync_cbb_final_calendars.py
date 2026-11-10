@@ -141,6 +141,7 @@ def women(check=False):
         raise ValueError("Refusing incomplete women-only final or schedule sources")
     names = {str(t["team_id"]): t["team"] for t in teams["teams"]}
     changed = added = updated = 0
+    conflicts = []
     for g in finals.get("games", []):
         if g.get("status") != "final" or not score_valid(g):
             continue
@@ -198,7 +199,16 @@ def women(check=False):
         for team in doc["teams"].values():
             team["games"].sort(key=lambda x: str(x.get("date", "")))
         write_if_changed(path, doc, check)
-    return {"women_modified_fields_or_added": changed, "women_added": added, "women_matched": updated}
+    audit = {"season": "2026-27", "gender": "women", "verified_final_games": len(finals.get("games", [])),
+             "changed_fields_or_games": changed, "quarantined_schedule_conflicts": conflicts}
+    audit_path = DATA / "wbb-final-calendar-reconciliation-audit.json"
+    contents = json.dumps(audit, ensure_ascii=False, indent=2) + "\n"
+    if not check and (not audit_path.exists() or audit_path.read_text(encoding="utf-8") != contents):
+        audit_path.write_text(contents, encoding="utf-8")
+    if conflicts:
+        print("WBB schedule conflicts quarantined:", len(conflicts), conflicts[:10])
+    return {"women_modified_fields_or_added": changed, "women_added": added, "women_matched": updated,
+            "women_conflicts_quarantined": len(conflicts)}
 
 
 def main():
