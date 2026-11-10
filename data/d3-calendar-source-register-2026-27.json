@@ -1,20 +1,20 @@
 {
   "division": "d3",
   "season": "2026-27",
-  "updated_utc": "2026-11-09T18:54:15.281066+00:00",
+  "updated_utc": "2026-11-10T02:49:20.703794+00:00",
   "summary": {
     "men": {
       "ncaa_teams": 406,
       "verified_university": 358,
-      "verified_conference": 31,
-      "unresolved": 17,
+      "verified_conference": 30,
+      "unresolved": 18,
       "partial_first_party_event_archives": 1
     },
     "women": {
       "ncaa_teams": 415,
-      "verified_university": 364,
-      "verified_conference": 30,
-      "unresolved": 21,
+      "verified_university": 365,
+      "verified_conference": 31,
+      "unresolved": 19,
       "partial_first_party_event_archives": 1
     }
   },
@@ -1333,22 +1333,24 @@
       "school": "Carnegie Mellon University",
       "conference": "University Athletic Association",
       "ncaa_athletics_url": "https://athletics.cmu.edu",
-      "status": "verified_conference",
-      "verified_2026_27_schedule_url": "https://uaasports.info/schedule.aspx?schedule=1162",
+      "status": "unresolved",
+      "verified_2026_27_schedule_url": "",
       "previously_verified_university_url": "",
-      "discovery_method": "official_conference_team_calendar",
-      "verified_opponent_rows": 24,
+      "discovery_method": "NCAA_directory_athletics_hostname",
+      "verified_opponent_rows": 0,
       "calendar_scope": "conference_or_unresolved",
       "dated_games_from_other_official_sources": 1,
-      "opponent_source_examples": [],
-      "attempted_source_urls": 0,
+      "opponent_source_examples": [
+        "https://www.geneseoknights.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "attempted_source_urls": 9,
       "additional_candidate_links": [],
-      "failure_category": "",
-      "next_manual_action": "",
-      "source_error": "",
+      "failure_category": "server_refused_method",
+      "next_manual_action": "Inspect official school schedule platform's public print/text calendar; do not circumvent access controls",
+      "source_error": "HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not ",
       "rejected_page_evidence": [],
       "conference_page_evidence": [],
-      "refresh_rule": "Recheck official conference schedule; do not certify university calendar"
+      "refresh_rule": "Follow official university sports navigation, conference calendars and opponent evidence without inventing missing games"
     },
     {
       "gender": "men",
@@ -1706,14 +1708,14 @@
       "conference": "New England Small College Athletic Conference",
       "ncaa_athletics_url": "https://www.colby.edu/athletics",
       "status": "verified_university",
-      "verified_2026_27_schedule_url": "https://colbyathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "previously_verified_university_url": "https://colbyathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "discovery_method": "previously_verified_source",
+      "verified_2026_27_schedule_url": "https://colbyathletics.com/sports/mens-basketball/schedule?grid=true",
+      "previously_verified_university_url": "https://colbyathletics.com/sports/mens-basketball/schedule?grid=true",
+      "discovery_method": "official_school_url_or_vendor_variant",
       "verified_opponent_rows": 20,
       "calendar_scope": "verified_university_calendar",
       "dated_games_from_other_official_sources": 3,
       "opponent_source_examples": [],
-      "attempted_source_urls": 1,
+      "attempted_source_urls": 3,
       "additional_candidate_links": [],
       "failure_category": "",
       "next_manual_action": "",
@@ -1847,7 +1849,7 @@
       "verified_2026_27_schedule_url": "https://www.cuwfalcons.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "previously_verified_university_url": "https://www.cuwfalcons.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "discovery_method": "previously_verified_source",
-      "verified_opponent_rows": 15,
+      "verified_opponent_rows": 16,
       "calendar_scope": "verified_university_calendar",
       "dated_games_from_other_official_sources": 2,
       "opponent_source_examples": [],
@@ -2419,14 +2421,14 @@
       "conference": "Great Northeast Athletic Conference",
       "ncaa_athletics_url": "https://www.goecsaints.com",
       "status": "verified_university",
-      "verified_2026_27_schedule_url": "https://www.goecsaints.com/sports/mens-basketball/schedule?grid=true",
-      "previously_verified_university_url": "https://www.goecsaints.com/sports/mens-basketball/schedule?grid=true",
-      "discovery_method": "previously_verified_source",
+      "verified_2026_27_schedule_url": "https://www.goecsaints.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "previously_verified_university_url": "https://www.goecsaints.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "discovery_method": "official_school_url_or_vendor_variant",
       "verified_opponent_rows": 24,
       "calendar_scope": "verified_university_calendar",
       "dated_games_from_other_official_sources": 0,
       "opponent_source_examples": [],
-      "attempted_source_urls": 1,
+      "attempted_source_urls": 2,
       "additional_candidate_links": [],
       "failure_category": "",
       "next_manual_action": "",
@@ -2570,10 +2572,83 @@
       ],
       "attempted_source_urls": 15,
       "additional_candidate_links": [],
-      "failure_category": "server_refused_method",
-      "next_manual_action": "Inspect official school schedule platform's public print/text calendar; do not circumvent access controls",
-      "source_error": "HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not ",
-      "rejected_page_evidence": [],
+      "failure_category": "season_heading_not_verified",
+      "next_manual_action": "Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar",
+      "source_error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
+      "rejected_page_evidence": [
+        {
+          "url": "https://www.fitchburgfalcons.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fitchburgfalcons.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fitchburgfalcons.com/sports/mens-basketball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fitchburgfalcons.com/sports/mens-basketball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fitchburgfalcons.com/sports/mbball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fitchburgfalcons.com/sports/mbball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fitchburgfalcons.com/sports/mbkb/2026-27/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fitchburgfalcons.com/sports/mbkb/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        }
+      ],
       "conference_page_evidence": [],
       "refresh_rule": "Follow official university sports navigation, conference calendars and opponent evidence without inventing missing games"
     },
@@ -2597,10 +2672,83 @@
       ],
       "attempted_source_urls": 15,
       "additional_candidate_links": [],
-      "failure_category": "server_refused_method",
-      "next_manual_action": "Inspect official school schedule platform's public print/text calendar; do not circumvent access controls",
-      "source_error": "HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not ",
-      "rejected_page_evidence": [],
+      "failure_category": "season_heading_not_verified",
+      "next_manual_action": "Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar",
+      "source_error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
+      "rejected_page_evidence": [
+        {
+          "url": "https://www.fsurams.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fsurams.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fsurams.com/sports/mens-basketball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fsurams.com/sports/mens-basketball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fsurams.com/sports/mbball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fsurams.com/sports/mbball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fsurams.com/sports/mbkb/2026-27/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fsurams.com/sports/mbkb/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        }
+      ],
       "conference_page_evidence": [],
       "refresh_rule": "Follow official university sports navigation, conference calendars and opponent evidence without inventing missing games"
     },
@@ -3073,12 +3221,12 @@
       "status": "verified_university",
       "verified_2026_27_schedule_url": "https://hsuathletics.com/sports/mens-basketball/schedule?grid=true",
       "previously_verified_university_url": "https://hsuathletics.com/sports/mens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant",
+      "discovery_method": "previously_verified_source",
       "verified_opponent_rows": 18,
       "calendar_scope": "verified_university_calendar",
       "dated_games_from_other_official_sources": 5,
       "opponent_source_examples": [],
-      "attempted_source_urls": 3,
+      "attempted_source_urls": 1,
       "additional_candidate_links": [],
       "failure_category": "",
       "next_manual_action": "",
@@ -7545,12 +7693,12 @@
       "status": "verified_university",
       "verified_2026_27_schedule_url": "https://www.geneseoknights.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "previously_verified_university_url": "https://www.geneseoknights.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant",
+      "discovery_method": "previously_verified_source",
       "verified_opponent_rows": 19,
       "calendar_scope": "verified_university_calendar",
       "dated_games_from_other_official_sources": 0,
       "opponent_source_examples": [],
-      "attempted_source_urls": 2,
+      "attempted_source_urls": 1,
       "additional_candidate_links": [],
       "failure_category": "",
       "next_manual_action": "",
@@ -7614,12 +7762,12 @@
       "status": "verified_university",
       "verified_2026_27_schedule_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "previously_verified_university_url": "https://www.oldwestburypanthers.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant",
+      "discovery_method": "previously_verified_source",
       "verified_opponent_rows": 12,
       "calendar_scope": "verified_university_calendar",
       "dated_games_from_other_official_sources": 0,
       "opponent_source_examples": [],
-      "attempted_source_urls": 2,
+      "attempted_source_urls": 1,
       "additional_candidate_links": [],
       "failure_category": "",
       "next_manual_action": "",
@@ -8189,12 +8337,12 @@
       "status": "verified_university",
       "verified_2026_27_schedule_url": "https://usmmasports.com/sports/mens-basketball/schedule?grid=true",
       "previously_verified_university_url": "https://usmmasports.com/sports/mens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant",
+      "discovery_method": "previously_verified_source",
       "verified_opponent_rows": 10,
       "calendar_scope": "verified_university_calendar",
       "dated_games_from_other_official_sources": 0,
       "opponent_source_examples": [],
-      "attempted_source_urls": 3,
+      "attempted_source_urls": 1,
       "additional_candidate_links": [],
       "failure_category": "",
       "next_manual_action": "",
@@ -8603,12 +8751,12 @@
       "status": "verified_university",
       "verified_2026_27_schedule_url": "https://athletics.une.edu/sports/mens-basketball/schedule?grid=true",
       "previously_verified_university_url": "https://athletics.une.edu/sports/mens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant",
+      "discovery_method": "previously_verified_source",
       "verified_opponent_rows": 16,
       "calendar_scope": "verified_university_calendar",
       "dated_games_from_other_official_sources": 0,
       "opponent_source_examples": [],
-      "attempted_source_urls": 3,
+      "attempted_source_urls": 1,
       "additional_candidate_links": [],
       "failure_category": "",
       "next_manual_action": "",
@@ -9005,7 +9153,7 @@
       "discovery_method": "previously_verified_source",
       "verified_opponent_rows": 23,
       "calendar_scope": "verified_university_calendar",
-      "dated_games_from_other_official_sources": 1,
+      "dated_games_from_other_official_sources": 2,
       "opponent_source_examples": [],
       "attempted_source_urls": 1,
       "additional_candidate_links": [],
@@ -10049,12 +10197,12 @@
       "status": "verified_university",
       "verified_2026_27_schedule_url": "https://www.wilsonphoenix.com/sports/mens-basketball/schedule?grid=true",
       "previously_verified_university_url": "https://www.wilsonphoenix.com/sports/mens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant",
+      "discovery_method": "previously_verified_source",
       "verified_opponent_rows": 25,
       "calendar_scope": "verified_university_calendar",
       "dated_games_from_other_official_sources": 0,
       "opponent_source_examples": [],
-      "attempted_source_urls": 3,
+      "attempted_source_urls": 1,
       "additional_candidate_links": [],
       "failure_category": "",
       "next_manual_action": "",
@@ -10867,26 +11015,22 @@
       "school": "Babson College",
       "conference": "New England Women's and Men's Athletic Conference",
       "ncaa_athletics_url": "https://www.babsonathletics.com",
-      "status": "unresolved",
-      "verified_2026_27_schedule_url": "",
+      "status": "verified_university",
+      "verified_2026_27_schedule_url": "https://babsonathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "previously_verified_university_url": "https://babsonathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "discovery_method": "pinned_official_url",
-      "verified_opponent_rows": 0,
-      "calendar_scope": "conference_or_unresolved",
+      "discovery_method": "previously_verified_source",
+      "verified_opponent_rows": 18,
+      "calendar_scope": "verified_university_calendar",
       "dated_games_from_other_official_sources": 6,
-      "opponent_source_examples": [
-        "https://www.stevensducks.com/sports/womens-basketball/schedule/2026-27?grid=true",
-        "https://bantamsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
-        "https://athletics.wesleyan.edu/sports/womens-basketball/schedule/2026-27?grid=true"
-      ],
+      "opponent_source_examples": [],
       "attempted_source_urls": 1,
       "additional_candidate_links": [],
-      "failure_category": "temporary_network_failure",
-      "next_manual_action": "Retry prior official published schedule without deleting verified entries",
-      "source_error": "The read operation timed out",
+      "failure_category": "",
+      "next_manual_action": "",
+      "source_error": "",
       "rejected_page_evidence": [],
       "conference_page_evidence": [],
-      "refresh_rule": "Follow official university sports navigation, conference calendars and opponent evidence without inventing missing games"
+      "refresh_rule": "Refresh exact URL and reverify season/gender/opponents/date; never infer scores"
     },
     {
       "gender": "women",
@@ -11694,7 +11838,7 @@
       "opponent_source_examples": [
         "https://gogusties.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
-      "attempted_source_urls": 9,
+      "attempted_source_urls": 15,
       "additional_candidate_links": [],
       "failure_category": "season_heading_not_verified",
       "next_manual_action": "Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar",
@@ -12092,12 +12236,12 @@
       "status": "verified_university",
       "verified_2026_27_schedule_url": "https://www.gochathamcougars.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "previously_verified_university_url": "https://www.gochathamcougars.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant",
+      "discovery_method": "previously_verified_source",
       "verified_opponent_rows": 17,
       "calendar_scope": "verified_university_calendar",
       "dated_games_from_other_official_sources": 7,
       "opponent_source_examples": [],
-      "attempted_source_urls": 2,
+      "attempted_source_urls": 1,
       "additional_candidate_links": [],
       "failure_category": "",
       "next_manual_action": "",
@@ -12343,14 +12487,14 @@
       "conference": "Northern Athletics Collegiate Conference",
       "ncaa_athletics_url": "https://www.CUCougars.com",
       "status": "verified_university",
-      "verified_2026_27_schedule_url": "https://www.cucougars.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "previously_verified_university_url": "https://www.cucougars.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "discovery_method": "previously_verified_source",
+      "verified_2026_27_schedule_url": "https://www.cucougars.com/sports/womens-basketball/schedule?grid=true",
+      "previously_verified_university_url": "https://www.cucougars.com/sports/womens-basketball/schedule?grid=true",
+      "discovery_method": "official_school_url_or_vendor_variant",
       "verified_opponent_rows": 13,
       "calendar_scope": "verified_university_calendar",
       "dated_games_from_other_official_sources": 9,
       "opponent_source_examples": [],
-      "attempted_source_urls": 1,
+      "attempted_source_urls": 3,
       "additional_candidate_links": [],
       "failure_category": "",
       "next_manual_action": "",
@@ -12987,14 +13131,14 @@
       "conference": "University Athletic Association",
       "ncaa_athletics_url": "https://www.emoryathletics.com",
       "status": "verified_university",
-      "verified_2026_27_schedule_url": "https://www.emoryathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "previously_verified_university_url": "https://www.emoryathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "discovery_method": "previously_verified_source",
+      "verified_2026_27_schedule_url": "https://www.emoryathletics.com/sports/womens-basketball/schedule?grid=true",
+      "previously_verified_university_url": "https://www.emoryathletics.com/sports/womens-basketball/schedule?grid=true",
+      "discovery_method": "official_school_url_or_vendor_variant",
       "verified_opponent_rows": 17,
       "calendar_scope": "verified_university_calendar",
       "dated_games_from_other_official_sources": 8,
       "opponent_source_examples": [],
-      "attempted_source_urls": 1,
+      "attempted_source_urls": 3,
       "additional_candidate_links": [],
       "failure_category": "",
       "next_manual_action": "",
@@ -13649,12 +13793,12 @@
       "status": "verified_university",
       "verified_2026_27_schedule_url": "https://gwyneddathletics.com/sports/womens-basketball/schedule?grid=true",
       "previously_verified_university_url": "https://gwyneddathletics.com/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant",
+      "discovery_method": "previously_verified_source",
       "verified_opponent_rows": 20,
       "calendar_scope": "verified_university_calendar",
       "dated_games_from_other_official_sources": 4,
       "opponent_source_examples": [],
-      "attempted_source_urls": 3,
+      "attempted_source_urls": 1,
       "additional_candidate_links": [],
       "failure_category": "",
       "next_manual_action": "",
@@ -13923,14 +14067,14 @@
       "conference": "Old Dominion Athletic Conf.",
       "ncaa_athletics_url": "https://www.hollinssports.com",
       "status": "verified_university",
-      "verified_2026_27_schedule_url": "https://www.hollinssports.com/sports/womens-basketball/schedule?grid=true",
-      "previously_verified_university_url": "https://www.hollinssports.com/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "previously_verified_source",
+      "verified_2026_27_schedule_url": "https://www.hollinssports.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "previously_verified_university_url": "https://www.hollinssports.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "discovery_method": "official_school_url_or_vendor_variant",
       "verified_opponent_rows": 21,
       "calendar_scope": "verified_university_calendar",
       "dated_games_from_other_official_sources": 4,
       "opponent_source_examples": [],
-      "attempted_source_urls": 1,
+      "attempted_source_urls": 2,
       "additional_candidate_links": [],
       "failure_category": "",
       "next_manual_action": "",
@@ -15557,14 +15701,14 @@
       "conference": "USA South Athletic Conference",
       "ncaa_athletics_url": "https://www.goavengingangels.com",
       "status": "verified_university",
-      "verified_2026_27_schedule_url": "https://www.goavengingangels.com/sports/womens-basketball/schedule?grid=true",
-      "previously_verified_university_url": "https://www.goavengingangels.com/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "previously_verified_source",
+      "verified_2026_27_schedule_url": "https://www.goavengingangels.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "previously_verified_university_url": "https://www.goavengingangels.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "discovery_method": "official_school_url_or_vendor_variant",
       "verified_opponent_rows": 18,
       "calendar_scope": "verified_university_calendar",
       "dated_games_from_other_official_sources": 2,
       "opponent_source_examples": [],
-      "attempted_source_urls": 1,
+      "attempted_source_urls": 2,
       "additional_candidate_links": [],
       "failure_category": "",
       "next_manual_action": "",
@@ -15970,98 +16114,22 @@
       "school": "Muskingum University",
       "conference": "Ohio Athletic Conference",
       "ncaa_athletics_url": "https://www.fightingmuskies.com/landing/index",
-      "status": "unresolved",
-      "verified_2026_27_schedule_url": "",
+      "status": "verified_conference",
+      "verified_2026_27_schedule_url": "https://oac.org/schedule.aspx?schedule=2390",
       "previously_verified_university_url": "",
-      "discovery_method": "NCAA_directory_athletics_hostname",
-      "verified_opponent_rows": 0,
+      "discovery_method": "official_conference_team_calendar",
+      "verified_opponent_rows": 22,
       "calendar_scope": "conference_or_unresolved",
       "dated_games_from_other_official_sources": 3,
-      "opponent_source_examples": [
-        "https://athletics.westminster.edu/sports/womens-basketball/schedule/2026-27?grid=true",
-        "https://wilmingtonquakers.com/sports/womens-basketball/schedule/2026-27?grid=true"
-      ],
-      "attempted_source_urls": 9,
+      "opponent_source_examples": [],
+      "attempted_source_urls": 0,
       "additional_candidate_links": [],
-      "failure_category": "season_heading_not_verified",
-      "next_manual_action": "Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar",
-      "source_error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
-      "rejected_page_evidence": [
-        {
-          "url": "https://www.fightingmuskies.com/sports/womens-basketball/schedule/2026-27?grid=true",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.fightingmuskies.com/sports/womens-basketball/schedule/2026-2027?grid=true",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.fightingmuskies.com/sports/womens-basketball/schedule?grid=true",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.fightingmuskies.com/sports/womens-basketball/schedule",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.fightingmuskies.com/sports/wbball/schedule?grid=true",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.fightingmuskies.com/sports/wbball/schedule",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.fightingmuskies.com/sports/wbkb/2026-27/schedule",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.fightingmuskies.com/sports/wbkb/schedule",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        }
-      ],
+      "failure_category": "",
+      "next_manual_action": "",
+      "source_error": "",
+      "rejected_page_evidence": [],
       "conference_page_evidence": [],
-      "refresh_rule": "Follow official university sports navigation, conference calendars and opponent evidence without inventing missing games"
+      "refresh_rule": "Recheck official conference schedule; do not certify university calendar"
     },
     {
       "gender": "women",
@@ -16118,12 +16186,12 @@
       "status": "verified_university",
       "verified_2026_27_schedule_url": "https://www.neumannathletics.com/sports/womens-basketball/schedule?grid=true",
       "previously_verified_university_url": "https://www.neumannathletics.com/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant",
+      "discovery_method": "previously_verified_source",
       "verified_opponent_rows": 24,
       "calendar_scope": "verified_university_calendar",
       "dated_games_from_other_official_sources": 0,
       "opponent_source_examples": [],
-      "attempted_source_urls": 3,
+      "attempted_source_urls": 1,
       "additional_candidate_links": [],
       "failure_category": "",
       "next_manual_action": "",
@@ -16208,14 +16276,14 @@
       "conference": "USA South Athletic Conference",
       "ncaa_athletics_url": "https://ncwsports.com/",
       "status": "verified_university",
-      "verified_2026_27_schedule_url": "https://ncwsports.com/sports/womens-basketball/schedule?grid=true",
-      "previously_verified_university_url": "https://ncwsports.com/sports/womens-basketball/schedule?grid=true",
+      "verified_2026_27_schedule_url": "https://ncwsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "previously_verified_university_url": "https://ncwsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "discovery_method": "official_school_url_or_vendor_variant",
       "verified_opponent_rows": 21,
       "calendar_scope": "verified_university_calendar",
       "dated_games_from_other_official_sources": 0,
       "opponent_source_examples": [],
-      "attempted_source_urls": 3,
+      "attempted_source_urls": 2,
       "additional_candidate_links": [],
       "failure_category": "",
       "next_manual_action": "",
@@ -16607,14 +16675,14 @@
       "conference": "United East Conference",
       "ncaa_athletics_url": "https://www.psuberksathletics.com",
       "status": "verified_university",
-      "verified_2026_27_schedule_url": "https://www.psuberksathletics.com/sports/womens-basketball/schedule?grid=true",
-      "previously_verified_university_url": "https://www.psuberksathletics.com/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "previously_verified_source",
+      "verified_2026_27_schedule_url": "https://www.psuberksathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+      "previously_verified_university_url": "https://www.psuberksathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+      "discovery_method": "official_school_url_or_vendor_variant",
       "verified_opponent_rows": 22,
       "calendar_scope": "verified_university_calendar",
       "dated_games_from_other_official_sources": 0,
       "opponent_source_examples": [],
-      "attempted_source_urls": 1,
+      "attempted_source_urls": 3,
       "additional_candidate_links": [],
       "failure_category": "",
       "next_manual_action": "",
@@ -17134,7 +17202,7 @@
       "discovery_method": "previously_verified_source",
       "verified_opponent_rows": 19,
       "calendar_scope": "verified_university_calendar",
-      "dated_games_from_other_official_sources": 4,
+      "dated_games_from_other_official_sources": 5,
       "opponent_source_examples": [],
       "attempted_source_urls": 1,
       "additional_candidate_links": [],
@@ -17454,7 +17522,7 @@
       "verified_2026_27_schedule_url": "https://www.rowanathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "previously_verified_university_url": "https://www.rowanathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "discovery_method": "previously_verified_source",
-      "verified_opponent_rows": 12,
+      "verified_opponent_rows": 13,
       "calendar_scope": "verified_university_calendar",
       "dated_games_from_other_official_sources": 12,
       "opponent_source_examples": [],
@@ -17909,7 +17977,7 @@
       "discovery_method": "previously_verified_source",
       "verified_opponent_rows": 19,
       "calendar_scope": "verified_university_calendar",
-      "dated_games_from_other_official_sources": 4,
+      "dated_games_from_other_official_sources": 5,
       "opponent_source_examples": [],
       "attempted_source_urls": 1,
       "additional_candidate_links": [],
@@ -18088,14 +18156,14 @@
       "conference": "Southern Athletic Association",
       "ncaa_athletics_url": "https://www.southwesternpirates.com",
       "status": "verified_university",
-      "verified_2026_27_schedule_url": "https://www.southwesternpirates.com/sports/womens-basketball/schedule?grid=true",
-      "previously_verified_university_url": "https://www.southwesternpirates.com/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "previously_verified_source",
+      "verified_2026_27_schedule_url": "https://www.southwesternpirates.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "previously_verified_university_url": "https://www.southwesternpirates.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "discovery_method": "official_school_url_or_vendor_variant",
       "verified_opponent_rows": 16,
       "calendar_scope": "verified_university_calendar",
       "dated_games_from_other_official_sources": 0,
       "opponent_source_examples": [],
-      "attempted_source_urls": 1,
+      "attempted_source_urls": 2,
       "additional_candidate_links": [],
       "failure_category": "",
       "next_manual_action": "",
@@ -18857,12 +18925,12 @@
       "status": "verified_university",
       "verified_2026_27_schedule_url": "https://tlubulldogs.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "previously_verified_university_url": "https://tlubulldogs.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant",
+      "discovery_method": "previously_verified_source",
       "verified_opponent_rows": 20,
       "calendar_scope": "verified_university_calendar",
       "dated_games_from_other_official_sources": 4,
       "opponent_source_examples": [],
-      "attempted_source_urls": 2,
+      "attempted_source_urls": 1,
       "additional_candidate_links": [],
       "failure_category": "",
       "next_manual_action": "",
@@ -18878,14 +18946,14 @@
       "conference": "City University of New York Athletic Conference",
       "ncaa_athletics_url": "https://www.ccnyathletics.com",
       "status": "verified_university",
-      "verified_2026_27_schedule_url": "https://www.ccnyathletics.com/sports/womens-basketball/schedule?grid=true",
-      "previously_verified_university_url": "https://www.ccnyathletics.com/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "previously_verified_source",
+      "verified_2026_27_schedule_url": "https://www.ccnyathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "previously_verified_university_url": "https://www.ccnyathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "discovery_method": "official_school_url_or_vendor_variant",
       "verified_opponent_rows": 17,
       "calendar_scope": "verified_university_calendar",
       "dated_games_from_other_official_sources": 5,
       "opponent_source_examples": [],
-      "attempted_source_urls": 1,
+      "attempted_source_urls": 2,
       "additional_candidate_links": [],
       "failure_category": "",
       "next_manual_action": "",
@@ -19639,12 +19707,12 @@
       "status": "verified_university",
       "verified_2026_27_schedule_url": "https://unweagles.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "previously_verified_university_url": "https://unweagles.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant",
+      "discovery_method": "previously_verified_source",
       "verified_opponent_rows": 18,
       "calendar_scope": "verified_university_calendar",
       "dated_games_from_other_official_sources": 0,
       "opponent_source_examples": [],
-      "attempted_source_urls": 2,
+      "attempted_source_urls": 1,
       "additional_candidate_links": [],
       "failure_category": "",
       "next_manual_action": "",
@@ -20572,7 +20640,7 @@
       "verified_2026_27_schedule_url": "https://athletics.wesleyan.edu/sports/womens-basketball/schedule/2026-27?grid=true",
       "previously_verified_university_url": "https://athletics.wesleyan.edu/sports/womens-basketball/schedule/2026-27?grid=true",
       "discovery_method": "previously_verified_source",
-      "verified_opponent_rows": 17,
+      "verified_opponent_rows": 19,
       "calendar_scope": "verified_university_calendar",
       "dated_games_from_other_official_sources": 0,
       "opponent_source_examples": [],
@@ -20993,12 +21061,12 @@
       "status": "verified_university",
       "verified_2026_27_schedule_url": "https://www.gopeacepacers.com/sports/womens-basketball/schedule?grid=true",
       "previously_verified_university_url": "https://www.gopeacepacers.com/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant",
+      "discovery_method": "previously_verified_source",
       "verified_opponent_rows": 20,
       "calendar_scope": "verified_university_calendar",
       "dated_games_from_other_official_sources": 3,
       "opponent_source_examples": [],
-      "attempted_source_urls": 3,
+      "attempted_source_urls": 1,
       "additional_candidate_links": [],
       "failure_category": "",
       "next_manual_action": "",
