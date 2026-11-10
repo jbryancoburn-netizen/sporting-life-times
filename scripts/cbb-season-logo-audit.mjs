@@ -64,6 +64,22 @@ async function imageWorks(url){
  checkedURL.set(url,ok);return ok;
 }
 function teamInfo(raw){return raw?.team||raw?.sports?.[0]?.leagues?.[0]?.teams?.[0]?.team||null}
+// The NCAA school directory supplies authenticated slugs for D-II / D-III artwork.
+// Match exact school abbreviations, never generate a slug from an opponent name.
+let ncaaDirectory=await fetchJSON('https://ncaa-api.henrygd.me/schools-index');
+if(!Array.isArray(ncaaDirectory))ncaaDirectory=await fetchJSON('https://www.ncaa.com/json/schools');
+if(!Array.isArray(ncaaDirectory))ncaaDirectory=[];
+const ncaaMatches=name=>{
+ const n=norm(name);
+ if(n.length<11)return [];
+ return ncaaDirectory.filter(row=>{
+  const short=norm(row.name),long=norm(row.long||row.long_name);
+  // A long-enough directory school label must be an exact prefix followed by
+  // a mascot. Never match an entire different school's name by 8-char prefix.
+  return short.length>=11&&(n===short||n.startsWith(short))&&
+    (!long||long.startsWith(short)||short.startsWith(long));
+ }).filter(row=>row.slug&&/^[a-z0-9-]+$/.test(row.slug));
+};
 const unresolved=[],added=[];
 let next=0;
 async function worker(){
@@ -89,6 +105,15 @@ async function worker(){
     const candidate=validURL(item.href);
     if(candidate&&await imageWorks(candidate)){picked=candidate;source=url;break}
    }}
+  }
+  if(!picked){
+   const matches=new Map();
+   for(const name of names)for(const row of ncaaMatches(name))matches.set(row.slug,row);
+   if(matches.size===1){
+    const row=[...matches.values()][0];
+    const candidate='https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/'+row.slug+'.svg';
+    if(await imageWorks(candidate)){picked=candidate;source='https://www.ncaa.com/schools-index#'+row.slug}
+   }
   }
   if(!picked){unresolved.push({id:entry.id,name:names[0],reason:'no verified accessible school logo',appearances:entry.appearances});continue}
   // A distinct neutral fallback is explicitly documented when colors are not supplied.
