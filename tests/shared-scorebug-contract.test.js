@@ -24,3 +24,23 @@ test('men and women use the same renderer',()=>{
   assert.doesNotMatch(source,/<(?:div|article) class="score-card/);
  }
 });
+
+test('desktop intelligence preserves row order and hides missing data',()=>{
+ const html=render({phase:'live',away,home,status:'2nd 4:44'});
+ assert.ok(html.indexOf('Away &amp; Town')<html.indexOf('Home'));
+ assert.doesNotMatch(html,/ledger26-timeouts|ledger26-possession|ledger26-points--upset|ledger26-team-run/);
+});
+test('verified live symbols are conditional and never appear in final or pregame',()=>{
+ const road={...away,name:'Road',abbreviation:'RD',poll:{ap:20},score:61,timeoutsRemaining:2};
+ const host={...home,poll:{ap:4},score:58,timeoutsRemaining:1};
+ const data={away:road,home:host,possession:'away',momentum:{kind:'run',text:'RD 10–0 RUN'}};
+ const live=render({...data,phase:'live'});
+ assert.match(live,/ledger26-points--upset/);
+ assert.match(live,/ledger26-possession/);
+ assert.match(live,/ledger26-timeouts/);
+ assert.equal((live.match(/ledger26-team-run"/g)||[]).length,1);
+ const final=render({...data,phase:'final'});
+ assert.doesNotMatch(final,/ledger26-possession|ledger26-team-run|ledger26-points--upset|ledger26-timeouts/);
+ const upcoming=render({...data,phase:'upcoming',suppressPress:true});
+ assert.doesNotMatch(upcoming,/ledger26-possession|ledger26-team-run|ledger26-points--upset|ledger26-timeouts/);
+});

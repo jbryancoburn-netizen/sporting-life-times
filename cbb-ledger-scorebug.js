@@ -171,13 +171,13 @@
    const other=side==='away'?g.home:g.away;
    const upset=phase==='live'&&ownRank!==null&&otherRank!==null&&ownRank>otherRank&&
      Number.isFinite(Number(x.score))&&Number.isFinite(Number(other?.score))&&Number(x.score)>Number(other.score);
-   const timeouts=Number.isInteger(x.timeoutsRemaining)&&x.timeoutsRemaining>=0&&x.timeoutsRemaining<=8?
+   const timeouts=phase==='live'&&Number.isInteger(x.timeoutsRemaining)&&x.timeoutsRemaining>=0&&x.timeoutsRemaining<=8?
      '<span class="ledger26-timeouts" title="'+x.timeoutsRemaining+' timeouts remaining" aria-label="'+x.timeoutsRemaining+' timeouts remaining">'+
        '<span class="ledger26-timeout-label">TO</span>'+Array.from({length:x.timeoutsRemaining},()=>'<i aria-hidden="true"></i>').join('')+'</span>':'';
    const possession=phase==='live'&&g.possession===side?
      '<span class="ledger26-possession" title="Possession" aria-label="Possession">◆</span>':'';
    const momentum=phase==='live'&&g.momentum?.kind==='run'&&
-     String(g.momentum.text||'').toUpperCase().includes(String(x.abbreviation||x.name||'').toUpperCase())?
+     Boolean(x.abbreviation||x.name)&&String(g.momentum.text||'').toUpperCase().startsWith(String(x.abbreviation||x.name||'').toUpperCase()+' ')?
      '<span class="ledger26-team-run" title="'+esc(g.momentum.text)+'" aria-label="Scoring run">↗</span>':'';
    const scoreClass=upset?' ledger26-points--upset':'';
    const context=[x.record||'0–0',x.retro||'RETRO —'].join(' · ');
@@ -187,7 +187,7 @@
    return '<div class="ledger26-team" style="--ledger26-school:'+color(x.color)+'">'+
     '<span class="ledger26-crest">'+(x.crest||'')+'</span>'+
     '<span class="ledger26-identity"><strong class="ledger26-name">'+badge+linkedName+'</strong>'+
-    '<small class="ledger26-record">'+esc(context)+'</small>'+timeouts+'</span>'+possession+momentum+
+    '<small class="ledger26-record">'+esc(context)+'</small>'+timeouts+possession+momentum+'</span>'+
     '<b class="ledger26-points'+scoreClass+'"'+(upset?' title="Upset watch: lower-ranked team leads"':'')+'>'+esc(scored)+'</b></div>';
   };
   return '<div class="ledger26-scorebug'+(g.suppressMonogram?' ledger26-scorebug--plain':'')+(phase==='upcoming'?' ledger26-scorebug--pregame':'')+'" role="group" aria-label="'+esc(g.ariaLabel||((g.away?.name||'Away')+' at '+(g.home?.name||'Home')+' scoreboard'))+'">'+

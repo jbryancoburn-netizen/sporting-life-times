@@ -288,8 +288,8 @@ function liveEvents(raw,day,registry,women=false,womenRankings=[],publishedGames
   const hp=score(home.score?.value??home.score?.displayValue??home.score);
   if(phase==='upcoming'||ap===null||hp===null||(phase==='final'&&ap===hp))return[];
   return [{id:String(event.id),day,date:event.date||match.date,phase,
-    away:{id:String(away.team.id),canonical:a?String(a.id):'',name:a?.name||prior?.away?.name||named(away),full:a?.espn_name||prior?.away?.full||named(away),score:ap},
-    home:{id:String(home.team.id),canonical:h?String(h.id):'',name:h?.name||prior?.home?.name||named(home),full:h?.espn_name||prior?.home?.full||named(home),score:hp},
+    away:{id:String(away.team.id),canonical:a?String(a.id):'',name:a?.name||prior?.away?.name||named(away),full:a?.espn_name||prior?.away?.full||named(away),abbreviation:away.team?.abbreviation||'',timeoutsRemaining:Number.isInteger(away.timeoutsRemaining)?away.timeoutsRemaining:null,score:ap},
+    home:{id:String(home.team.id),canonical:h?String(h.id):'',name:h?.name||prior?.home?.name||named(home),full:h?.espn_name||prior?.home?.full||named(home),abbreviation:home.team?.abbreviation||'',timeoutsRemaining:Number.isInteger(home.timeoutsRemaining)?home.timeoutsRemaining:null,score:hp},
     venue:match.venue?.fullName||'',broadcast:(match.broadcasts||[]).flatMap(x=>x.names||[]).join(' / '),
     status:event.status?.type?.shortDetail||'LIVE',momentum:phase==='live'?momentumFromCompetition(match,away,home):null,
     possession:phase==='live'&&[away.team.id,home.team.id].includes(String(match?.possession))?
