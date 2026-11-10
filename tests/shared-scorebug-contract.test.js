@@ -44,3 +44,12 @@ test('verified live symbols are conditional and never appear in final or pregame
  const upcoming=render({...data,phase:'upcoming',suppressPress:true});
  assert.doesNotMatch(upcoming,/ledger26-possession|ledger26-team-run|ledger26-points--upset|ledger26-timeouts/);
 });
+
+test('mobile rules keep compact live symbols and omit extra labels',()=>{
+ const stylesheet=fs.readFileSync(require('node:path').join(__dirname,'..','cbb-ledger-scorecard.css'),'utf8');
+ assert.match(stylesheet,/\.ledger26-points--upset\{border:2px solid/);
+ const mobile=stylesheet.slice(stylesheet.lastIndexOf('@media(max-width:640px)'));
+ assert.match(mobile,/\.ledger26-timeout-label\{display:none\}/);
+ assert.match(mobile,/\.ledger26-timeouts i\{width:4px;height:4px\}/);
+ assert.doesNotMatch(mobile,/ledger26-timeouts,.ledger26-possession,.ledger26-team-run\{display:none\}/);
+});

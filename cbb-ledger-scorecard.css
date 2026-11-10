@@ -428,12 +428,17 @@
  .ledger26-card--refined .ledger26-score-note strong{font-size:11px}
 }
 
-/* Desktop scorebug intelligence: use existing space, never change outer dimensions. */
-@media(min-width:641px){
- .ledger26-timeouts{display:inline-flex;align-items:center;gap:3px;margin-top:3px;vertical-align:middle;color:#59442d;font:700 9px/1 Georgia,serif}
- .ledger26-timeout-label{margin-right:2px}
- .ledger26-timeouts i{display:block;width:5px;height:5px;border-radius:50%;background:#794b31;border:1px solid #794b31}
- .ledger26-possession,.ledger26-team-run{font:700 12px/1 Georgia,serif;align-self:center;color:#713624;white-space:nowrap}
- .ledger26-points--upset{border:2px solid #a12828;border-radius:3px;padding:2px 4px;box-sizing:border-box}
+/* Compact live scorebug signals, shared by desktop and mobile. Keep existing dimensions. */
+.ledger26-timeouts{display:inline-flex;align-items:center;gap:3px;margin-top:3px;vertical-align:middle;color:#59442d;font:700 9px/1 Georgia,serif}
+.ledger26-timeout-label{margin-right:2px}
+.ledger26-timeouts i{display:block;width:5px;height:5px;border-radius:50%;background:#794b31;border:1px solid #794b31}
+.ledger26-possession,.ledger26-team-run{display:inline-block;margin-left:5px;font:700 12px/1 Georgia,serif;color:#713624;white-space:nowrap}
+.ledger26-points--upset{border:2px solid #a12828;border-radius:3px;padding:2px 4px;box-sizing:border-box}
+@media(max-width:640px){
+ /* Symbols only: no new prose or panel; keep the original mobile scorebug grid. */
+ .ledger26-timeout-label{display:none}
+ .ledger26-timeouts{gap:2px;margin-top:2px}
+ .ledger26-timeouts i{width:4px;height:4px}
+ .ledger26-possession,.ledger26-team-run{font-size:10px;margin-left:3px}
+ .ledger26-points--upset{padding:1px 2px}
 }
-@media(max-width:640px){.ledger26-timeouts,.ledger26-possession,.ledger26-team-run{display:none}}
