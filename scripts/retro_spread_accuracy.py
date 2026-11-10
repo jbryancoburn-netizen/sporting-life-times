@@ -62,7 +62,8 @@ def main():
             continue
         records.append({
             "date": date, "id": event_id, "home_id": p.get("home_id"),
-            "away_id": p.get("away_id"), "projected_home_margin": round(margin * 2) / 2,\n            "raw_model_home_margin": margin,
+            "away_id": p.get("away_id"), "projected_home_margin": round(margin * 2) / 2,
+            "raw_model_home_margin": margin,
             "home_win_probability": probability,
             "forecast_model": p.get("forecast_model"),
             "ratings_as_of": p.get("ratings_as_of"),
