@@ -1,0 +1,53 @@
+name: CBB final-to-RETRO and team schedules integrity
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/audit_cbb_final_pipeline.py'
+      - '.github/workflows/cbb-final-integrity.yml'
+  schedule:
+    # Independent safety net when GitHub drops an upstream five-minute cron.
+    - cron: '7,22,37,52 * * * *'
+  workflow_run:
+    workflows:
+      - Publish MBB RETRO Primary
+      - Women's College Basketball Independent RETRO
+    types: [completed]
+    branches: [main]
+permissions:
+  contents: read
+  actions: write
+concurrency:
+  group: cbb-final-integrity
+  cancel-in-progress: false
+jobs:
+  verify:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Independently validate final-game source, both RETRO lists and school calendars
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -uo pipefail
+          failed=0
+          for edition in men women; do
+            if python3 scripts/audit_cbb_final_pipeline.py --gender "$edition"; then
+              echo "PASS: $edition verified finals, RETRO and both team schedules reconcile."
+            else
+              echo "::error::$edition final-game results or calendars are stale/inconsistent"
+              if [ "$edition" = men ]; then
+                gh workflow run mbb-retro-primary.yml --ref main || true
+              else
+                gh workflow run wbb-retro-live.yml --ref main || true
+              fi
+              failed=1
+            fi
+          done
+          exit "$failed"
