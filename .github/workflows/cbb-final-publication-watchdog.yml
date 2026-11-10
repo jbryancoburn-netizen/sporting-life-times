@@ -32,17 +32,29 @@ jobs:
         if: steps.freshness.outputs.refresh_men == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh workflow run mbb-retro-primary.yml --ref main
+        run: |
+          active="$(gh run list --workflow mbb-retro-primary.yml --branch main --limit 12 --json status --jq 'any(.[]; .status != "completed")')"
+          if [[ "$active" == "false" ]]; then
+            gh workflow run mbb-retro-primary.yml --ref main
+          fi
       - name: Recover missing women's finals and team schedules
         if: steps.freshness.outputs.refresh_women == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh workflow run wbb-retro-live.yml --ref main
+        run: |
+          active="$(gh run list --workflow wbb-retro-live.yml --branch main --limit 12 --json status --jq 'any(.[]; .status != "completed")')"
+          if [[ "$active" == "false" ]]; then
+            gh workflow run wbb-retro-live.yml --ref main
+          fi
       - name: Recover a lagging public Pages deployment
         if: steps.freshness.outputs.deploy == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh workflow run publish-newspaper.yml --ref main
+        run: |
+          active="$(gh run list --workflow publish-newspaper.yml --branch main --limit 12 --json status --jq 'any(.[]; .status != "completed")')"
+          if [[ "$active" == "false" ]]; then
+            gh workflow run publish-newspaper.yml --ref main
+          fi
       - name: Never report success when overdue finals or Pages data are stale
         if: steps.freshness.outputs.stale == 'true'
         run: |

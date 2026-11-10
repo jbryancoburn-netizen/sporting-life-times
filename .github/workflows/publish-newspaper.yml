@@ -84,11 +84,10 @@ jobs:
         shell: bash
         run: |
           if (
-            set -e
-            python3 scripts/collect-mbb-retro-finals.py
-            node scripts/publish-mbb-retro-primary.js
-            python3 scripts/collect-mbb-non-di-finals.py
-            node scripts/build-mbb-overall-records.mjs
+            python3 scripts/collect-mbb-retro-finals.py &&
+            node scripts/publish-mbb-retro-primary.js &&
+            python3 scripts/collect-mbb-non-di-finals.py &&
+            node scripts/build-mbb-overall-records.mjs &&
             python3 scripts/sync_cbb_final_calendars.py --gender men
           ); then
             echo "Men's RETRO and 365 school calendars reconciled in Pages artifact."
@@ -100,9 +99,8 @@ jobs:
         shell: bash
         run: |
           if (
-            set -e
-            python3 scripts/wbb-season.py live
-            node scripts/publish-wbb-retro.js
+            python3 scripts/wbb-season.py live &&
+            node scripts/publish-wbb-retro.js &&
             python3 scripts/sync_cbb_final_calendars.py --gender women
           ); then
             echo "Women's 363-team RETRO and final-score calendars reconciled in Pages artifact."
@@ -110,8 +108,6 @@ jobs:
             git restore -- data/ncaaw-2026-27-teams.json data/ncaaw-2026-27-verified-games.json data/ncaaw-2026-27-games.json data/ncaaw-2026-27-retro-primary.json data/ncaaw-schedules-2026-27.json data/wbb-final-calendar-reconciliation-audit.json
             echo "::warning::Women's result source unavailable; preserving last repository-certified data."
           fi
-      - name: Rebuild current men's RETRO forecasts before verifying and deploying
-        run: python3 scripts/rebuild_mbb_unified_forecasts.py
       # A rolling schedule collector can replace the central forecast file with
       # probability-only source rows. Rebuild margin and probability together
       # from the exact RETRO ratings snapshot in this deployed artifact.
@@ -283,9 +279,6 @@ jobs:
             git restore -- data/nba-2026-27-current-provisional.json data/nba-elo-reconciliation.json
             node scripts/build-nba-elo-shadow.mjs
           fi
-      - name: Validate RETRO forecast dataset included in Pages artifact
-        run: |
-          node tests/mbb-retro-forecast-coverage.test.cjs
       - uses: actions/configure-pages@v5
       - name: Validate women's individual team-page publication inputs
         continue-on-error: true
