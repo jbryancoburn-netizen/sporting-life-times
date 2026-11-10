@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - scripts/cbb-season-logo-audit.mjs
+      - data/mbb-out-of-division-opponent-logos.json
       - .github/workflows/cbb-season-logo-audit.yml
   schedule:
     - cron: '25 12 * * *'
