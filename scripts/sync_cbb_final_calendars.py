@@ -160,7 +160,7 @@ def women(check=False):
                 same = str(event.get("home_id")) == home and str(event.get("away_id")) == away
                 flipped = (str(event.get("home_id")) == away and
                            str(event.get("away_id")) == home and
-                           g.get("neutral") is True and event.get("site") == "neutral")
+                           g.get("status") == "final")
                 if (not (same or flipped) or
                     str(event.get("opponent_id")) != opponent_id or
                     day_delta(event.get("date"), g.get("date")) > 2):
@@ -177,6 +177,9 @@ def women(check=False):
                     if event.get(k) != val:
                         event[k] = val
                         changed += 1
+                if flipped and event.get("site") != "neutral":
+                    event["result_site_conflict"] = True
+                    changed += 1
                 updated += 1
             else:
                 games.append({
