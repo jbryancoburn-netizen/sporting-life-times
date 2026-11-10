@@ -91,6 +91,7 @@ for child in ROOT.iterdir():
 
 required = [
     "index.html", "college-basketball.html", "ncaam-slate.js",
+    "ncaam.html", "cbb-front-news.js", "data/cbb-national-news.json",
     "data/mbb-live.json", "data/mbb-retro-live-finals.json",
     "data/ncaam-2026-27-retro-primary.json",
     "data/ncaam-2026-27-upcoming-forecasts.json",

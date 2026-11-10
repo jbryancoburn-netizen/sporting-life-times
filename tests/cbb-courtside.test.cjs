@@ -208,7 +208,8 @@ if(men.state.forecast.has(live.id)){
 // Exercise an actual upcoming source fixture rather than assuming the first
 // November 1 game remains upcoming after its verified final is ingested.
 const scheduled=forecasts.games.find(f=>byNCAA.has(String(f.home_id))&&byNCAA.has(String(f.away_id))&&
-  Number.isFinite(Number(f.home_win_probability)));
+  f.date>=forecasts.as_of && f.date<=new Date(Date.parse(forecasts.as_of)+7*864e5).toISOString().slice(0,10) &&
+  Number.isFinite(f.home_win_probability) && f.home_win_probability>0 && f.home_win_probability<1);
 assert(scheduled,'at least one verified upcoming matchup should be available');
 const forthcoming={...nonneutral,id:String(scheduled.id).replace(/^espn:/,''),
   date:scheduled.date+'T19:00:00Z',
