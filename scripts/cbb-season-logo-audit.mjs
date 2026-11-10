@@ -47,7 +47,6 @@ for(const [teamID,d] of Object.entries(women)){
   add(teamID,d.team,'women');
  }
 }
-const missing=[...expected.values()].filter(x=>!reg[x.id]?.logo_url_verified&&!catalog.teams[x.id]?.logo_url);
 const checkedURL=new Map();
 async function fetchJSON(url){
  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),14000);
@@ -63,6 +62,27 @@ async function imageWorks(url){
  catch{}finally{clearTimeout(timer)}
  checkedURL.set(url,ok);return ok;
 }
+// Recheck newly curated artwork from the previous audit's unresolved list.
+// An HTTPS string alone is not evidence that the logo actually loads.
+const previouslyUnresolved=(read('data/cbb-season-logo-audit.json').unresolved||[])
+ .map(x=>String(x.id));
+const invalidCurated=[];
+let checkIndex=0;
+await Promise.all(Array.from({length:8},async()=>{
+ while(checkIndex<previouslyUnresolved.length){
+  const id=previouslyUnresolved[checkIndex++];
+  const entry=catalog.teams[id];
+  if(!entry?.logo_url)continue;
+  if(!await imageWorks(entry.logo_url)){
+    invalidCurated.push({id,school:entry.school,url:entry.logo_url});
+    delete catalog.teams[id];
+  }
+ }
+}));
+if(invalidCurated.length){
+ console.error('Unreachable curated school logos:',JSON.stringify(invalidCurated));
+}
+const missing=[...expected.values()].filter(x=>!reg[x.id]?.logo_url_verified&&!catalog.teams[x.id]?.logo_url);
 function teamInfo(raw){return raw?.team||raw?.sports?.[0]?.leagues?.[0]?.teams?.[0]?.team||null}
 // The NCAA school directory supplies authenticated slugs for D-II / D-III artwork.
 // Match exact school abbreviations, never generate a slug from an opponent name.
@@ -138,7 +158,7 @@ async function worker(){
 }
 await Promise.all(Array.from({length:8},()=>worker()));
 catalog.updated_at=new Date().toISOString().slice(0,10);
-if(added.length)write(catalogPath,catalog);
+if(added.length||invalidCurated.length)write(catalogPath,catalog);
 const remaining=[...expected.values()].filter(x=>!reg[x.id]?.logo_url_verified&&!catalog.teams[x.id]?.logo_url);
 const report={
  generated_at:new Date().toISOString(),window:['2026-11-01','2027-03-31'],
@@ -146,7 +166,7 @@ const report={
  men_calendar_events:menEvents,women_calendar_events:womenEvents,
  unique_scheduled_team_ids:expected.size,missing_before:missing.length,
  verified_new_logos:added.length,missing_after:remaining.length,
- added,unresolved:unresolved.sort((a,b)=>b.appearances-a.appearances),
+ added,invalid_curated:invalidCurated,unresolved:unresolved.sort((a,b)=>b.appearances-a.appearances),
  note:'HTTP image success does not prove browser display; test published pages separately.'
 };
 write('data/cbb-season-logo-audit.json',report);
