@@ -24,8 +24,8 @@ function merge(schedule,ledger,teamId){
     const key=String(g.id??'');
     if(!byId.has(key))continue;
     const f=byId.get(key),sameSide=String(g.home_id)===String(f.home_id)&&String(g.away_id)===String(f.away_id);
-    const reversedNeutral=String(g.home_id)===String(f.away_id)&&String(g.away_id)===String(f.home_id)&&
-      g.site==='neutral'&&f.neutral===true;
+    const reversedSides=String(g.home_id)===String(f.away_id)&&String(g.away_id)===String(f.home_id);
+    const disputedSite=reversedSides&&!(g.site==='neutral'&&f.neutral===true);
     const current=String(teamId);
     const opponent=String(g.opponent_id??'');
     const rightTeam=(String(f.home_id)===current||String(f.away_id)===current)&&
@@ -37,15 +37,16 @@ function merge(schedule,ledger,teamId){
     const statusOK=f.status==='final'&&f.completed!==false;
     const seasonOK=String(f.date||'').slice(0,10)>='2026-11-01'&&
       String(f.date||'').slice(0,10)<='2027-04-30';
-    if(invalid.has(key)||!(sameSide||reversedNeutral)||!rightTeam||!dateOK||!scoresOK||!statusOK||!seasonOK){
+    if(invalid.has(key)||!(sameSide||reversedSides)||!rightTeam||!dateOK||!scoresOK||!statusOK||!seasonOK){
       conflicts.push(key);
       g.result_conflict=true;
       // A discredited ledger row must never overwrite the schedule's identities.
       continue;
     }
     g.completed=true;
-    g.home_score=Number(reversedNeutral?f.away_score:f.home_score);
-    g.away_score=Number(reversedNeutral?f.home_score:f.away_score);
+    g.home_score=Number(reversedSides?f.away_score:f.home_score);
+    g.away_score=Number(reversedSides?f.home_score:f.away_score);
+    if(disputedSite)g.result_site_conflict=true;
     g.result_provenance=states.has(f.score_evidence)?f.score_evidence:'espn_only';
     matched++;
   }
@@ -62,7 +63,8 @@ function scoreFor(g,teamId){
     g.result_provenance==='ncaa_origin_final_espn_fixture'?'NCAA-origin final':
     g.result_provenance==='espn_final_ncaa_pending'?'Final reported; NCAA check pending':
     'Final on published scoreboard';
-  return {value:(ours>theirs?'W ':'L ')+ours+'–'+theirs,detail:label};
+  return {value:(ours>theirs?'W ':'L ')+ours+'–'+theirs,
+    detail:label+(g.result_site_conflict?' · Home/away site disputed':'')};
 }
 w.WBBGameResults={merge,scoreFor};
 })(window);
