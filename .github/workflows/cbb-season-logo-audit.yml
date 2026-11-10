@@ -35,3 +35,20 @@ jobs:
             git pull --rebase
             git push
           fi
+      - name: Require complete school-logo coverage before reporting success
+        run: |
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const report = JSON.parse(fs.readFileSync('data/cbb-season-logo-audit.json', 'utf8'));
+          const unresolved = report.unresolved || [];
+          const missing = Number(report.missing_after || 0);
+          console.log('Calendars: ' + report.men_calendars + ' men, ' + report.women_calendars + ' women');
+          console.log('Unresolved scheduled school logos: ' + missing);
+          for (const row of unresolved) {
+            console.log('MISSING LOGO | ' + row.id + ' | ' + row.name + ' | appearances=' + row.appearances);
+          }
+          if (missing || unresolved.length) {
+            console.error('Full-season logo audit INCOMPLETE: unresolved team identities must be repaired and verified.');
+            process.exitCode = 1;
+          }
+          NODE
