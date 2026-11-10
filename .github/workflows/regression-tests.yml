@@ -17,6 +17,19 @@ concurrency:
   group: newspaper-regression-${{ github.ref }}
   cancel-in-progress: true
 jobs:
+  scorebug-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check shared scorebug and slate scripts compile
+        run: |
+          node --check cbb-ledger-scorebug.js
+          node --check ncaam-slate.js
+      - name: Verify away/home, live and pregame indicators, and mobile presentation
+        run: node --test tests/shared-scorebug-contract.test.js
   editorial-tests:
     runs-on: ubuntu-latest
     steps:
