@@ -74,6 +74,39 @@ jobs:
         run: python3 scripts/check-nba-logo-contract.py
       - name: Certify rebuilt NCAA game slate source and layout contracts
         run: node tests/ncaam-slate.test.cjs
+      # Safety net: GitHub's best-effort scheduled jobs can miss game windows.
+      # Rebuild the two gender-specific result streams INSIDE this Pages artifact
+      # without modifying or committing the independent source publisher history.
+      - name: Catch up men's completed games and school calendars for this reader edition
+        shell: bash
+        run: |
+          if (
+            set -e
+            python3 scripts/collect-mbb-retro-finals.py
+            node scripts/publish-mbb-retro-primary.js
+            python3 scripts/collect-mbb-non-di-finals.py
+            node scripts/build-mbb-overall-records.mjs
+            python3 scripts/sync_cbb_final_calendars.py --gender men
+          ); then
+            echo "Men's RETRO and 365 school calendars reconciled in Pages artifact."
+          else
+            git restore -- data/mbb-retro-live-finals.json data/ncaam-2026-27-retro-primary.json data/mbb-non-di-verified-finals-2026-27.json data/mbb-overall-records-2026-27.json data/mbb-schedules-2026-27/
+            echo "::warning::Men's result source unavailable; preserving last repository-certified data."
+          fi
+      - name: Catch up women's completed games and school calendars for this reader edition
+        shell: bash
+        run: |
+          if (
+            set -e
+            python3 scripts/wbb-season.py live
+            node scripts/publish-wbb-retro.js
+            python3 scripts/sync_cbb_final_calendars.py --gender women
+          ); then
+            echo "Women's 363-team RETRO and final-score calendars reconciled in Pages artifact."
+          else
+            git restore -- data/ncaaw-2026-27-teams.json data/ncaaw-2026-27-verified-games.json data/ncaaw-2026-27-games.json data/ncaaw-2026-27-retro-primary.json data/ncaaw-schedules-2026-27.json data/wbb-final-calendar-reconciliation-audit.json
+            echo "::warning::Women's result source unavailable; preserving last repository-certified data."
+          fi
       - name: Rebuild current men's RETRO forecasts before verifying and deploying
         run: python3 scripts/rebuild_mbb_unified_forecasts.py
       # A rolling schedule collector can replace the central forecast file with
@@ -280,6 +313,7 @@ jobs:
         uses: actions/deploy-pages@v4
         with:
           artifact_name: github-pages-${{ github.run_id }}-${{ github.run_attempt }}
+          timeout: 1200000
       - name: Verify public NFL finals, player statistics and current browser scripts
         env:
           PAGE_URL: ${{ steps.deploy.outputs.page_url }}
