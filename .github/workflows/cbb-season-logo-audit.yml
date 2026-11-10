@@ -1,0 +1,37 @@
+name: CBB season-long logo catalog audit
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - scripts/cbb-season-logo-audit.mjs
+      - .github/workflows/cbb-season-logo-audit.yml
+  schedule:
+    - cron: '25 12 * * *'
+permissions:
+  contents: write
+concurrency:
+  group: cbb-season-logo-audit
+  cancel-in-progress: false
+jobs:
+  logo-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Audit every published 2026-27 team calendar and repair verified logo identities
+        run: node scripts/cbb-season-logo-audit.mjs
+      - name: Publish catalog and audit report when changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/mbb-out-of-division-opponent-logos.json data/cbb-season-logo-audit.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Refresh validated full-season CBB logo catalog"
+            git pull --rebase
+            git push
+          fi
