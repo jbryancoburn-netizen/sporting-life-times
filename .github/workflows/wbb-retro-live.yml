@@ -16,6 +16,7 @@ on:
       - 'scripts/publish-wbb-retro.js'
       - 'tests/test_wbb_live_pipeline.py'
       - 'scripts/check_wbb_workflow_isolation.py'
+      - 'scripts/sync_cbb_final_calendars.py'
   schedule:
     # Primary game windows: every 5 minutes from early afternoon to late night
     # across daylight-saving changes (UTC 17:00-06:59).
