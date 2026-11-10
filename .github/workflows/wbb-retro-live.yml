@@ -9,7 +9,10 @@ on:
       - 'tests/test_wbb_live_pipeline.py'
       - 'scripts/check_wbb_workflow_isolation.py'
       - 'scripts/sync_cbb_final_calendars.py'
+      - 'scripts/apply_wbb_official_replacements.py'
+      - 'data/wbb-official-fixture-replacements-2026-27.json'
       - 'wbb-game-results.js'
+      - 'wbb-team-newspaper.js'
       - 'tests/wbb-team-results.test.cjs'
   push:
     paths:
