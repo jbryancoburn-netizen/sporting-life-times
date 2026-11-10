@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "source_elo_as_of": "2026-11-09",
+  "source_elo_as_of": "2026-11-10",
   "source_forecasts_published_at": "2026-11-10T14:33:50.974193+00:00",
   "coverage": "partial_verified_finals_plus_locked_forecasts",
   "notice": "Partial schedule index only: official final ledger begins after the pinned baseline; pending fixtures are unverified until official finals arrive. A scheduled game may have already started.",
-  "verified_final_count": 2920,
+  "verified_final_count": 2925,
   "locked_forecast_count": 2516,
   "unresolved": [
     {
@@ -880,12 +880,12 @@
           "match_id": "men-6667019",
           "date": "2026-11-10",
           "opponent": "bucknell",
-          "opponent_name": "Bucknell",
           "venue": "home",
-          "status": "live",
+          "status": "final",
+          "goals_for": 1,
+          "goals_against": 2,
           "source_url": "https://www.ncaa.com/game/6667019",
-          "source_type": "ncaa_di_men_2026_scoreboard",
-          "kickoff_utc": "2026-11-10T17:00:00+00:00"
+          "source_type": "verified_official_final"
         }
       ]
     },
@@ -3178,12 +3178,12 @@
           "match_id": "men-6667019",
           "date": "2026-11-10",
           "opponent": "american",
-          "opponent_name": "American",
           "venue": "away",
-          "status": "live",
+          "status": "final",
+          "goals_for": 2,
+          "goals_against": 1,
           "source_url": "https://www.ncaa.com/game/6667019",
-          "source_type": "ncaa_di_men_2026_scoreboard",
-          "kickoff_utc": "2026-11-10T17:00:00+00:00"
+          "source_type": "verified_official_final"
         }
       ]
     },
@@ -9073,12 +9073,12 @@
           "match_id": "men-6666306",
           "date": "2026-11-10",
           "opponent": "fordham",
-          "opponent_name": "Fordham",
           "venue": "home",
-          "status": "scheduled",
+          "status": "final",
+          "goals_for": 2,
+          "goals_against": 5,
           "source_url": "https://www.ncaa.com/game/6666306",
-          "source_type": "ncaa_di_men_2026_scoreboard",
-          "kickoff_utc": "2026-11-10T18:00:00+00:00"
+          "source_type": "verified_official_final"
         }
       ]
     },
@@ -11028,12 +11028,12 @@
           "match_id": "men-6666306",
           "date": "2026-11-10",
           "opponent": "duquesne",
-          "opponent_name": "Duquesne",
           "venue": "away",
-          "status": "scheduled",
+          "status": "final",
+          "goals_for": 5,
+          "goals_against": 2,
           "source_url": "https://www.ncaa.com/game/6666306",
-          "source_type": "ncaa_di_men_2026_scoreboard",
-          "kickoff_utc": "2026-11-10T18:00:00+00:00"
+          "source_type": "verified_official_final"
         }
       ]
     },
