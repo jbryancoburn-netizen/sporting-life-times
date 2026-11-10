@@ -2,7 +2,7 @@
   "league": "NBA",
   "season": "2026-27",
   "status": "provisional_live_from_historical_baseline",
-  "games_played": 150,
+  "games_played": 152,
   "preseason_status": "provisional_historical_regression_only",
   "source": "ESPN FINAL NBA regular-season scores; Sporting Life & Times independent Elo",
   "rankings": [
@@ -35,16 +35,16 @@
       "elo": 1609.162
     },
     {
+      "team": "HOU",
+      "elo": 1604.364
+    },
+    {
       "team": "PHI",
       "elo": 1600.087
     },
     {
-      "team": "HOU",
-      "elo": 1592.575
-    },
-    {
       "team": "DEN",
-      "elo": 1578.74
+      "elo": 1566.95
     },
     {
       "team": "POR",
@@ -88,7 +88,7 @@
     },
     {
       "team": "DAL",
-      "elo": 1456.838
+      "elo": 1464.153
     },
     {
       "team": "MEM",
@@ -107,12 +107,12 @@
       "elo": 1354.593
     },
     {
-      "team": "IND",
-      "elo": 1350.303
-    },
-    {
       "team": "MIL",
       "elo": 1348.374
+    },
+    {
+      "team": "IND",
+      "elo": 1342.988
     },
     {
       "team": "SAC",
@@ -1477,6 +1477,24 @@
       "away_score": 118,
       "date": "2026-11-10T00:30:00.000Z",
       "home_elo_change": -21.479714
+    },
+    {
+      "id": "espn-nba-401909956",
+      "home": "DAL",
+      "away": "IND",
+      "home_score": 125,
+      "away_score": 122,
+      "date": "2026-11-10T01:00:00.000Z",
+      "home_elo_change": 7.315264
+    },
+    {
+      "id": "espn-nba-401909957",
+      "home": "HOU",
+      "away": "DEN",
+      "home_score": 110,
+      "away_score": 100,
+      "date": "2026-11-10T01:30:00.000Z",
+      "home_elo_change": 11.789419
     }
   ],
   "movement": {
@@ -1489,9 +1507,9 @@
       "BOS": 0,
       "DET": 4.406652,
       "MIN": 0,
+      "HOU": 11.789419,
       "PHI": 0,
-      "HOU": 0,
-      "DEN": 0,
+      "DEN": -11.789419,
       "POR": 0,
       "ATL": -12.968509,
       "CLE": -15.596283,
@@ -1502,13 +1520,13 @@
       "MIA": 0,
       "ORL": 0,
       "LAC": 0,
-      "DAL": 0,
+      "DAL": 7.315264,
       "MEM": 21.479714,
       "NOP": 0,
       "WAS": -4.406652,
       "CHI": 0,
-      "IND": 0,
       "MIL": 0,
+      "IND": -7.315264,
       "SAC": 0,
       "BKN": 0,
       "UTA": 0
@@ -1522,8 +1540,8 @@
       "BOS": 1602.775,
       "DET": 1642.788,
       "MIN": 1578.532,
+      "HOU": 1626.15,
       "PHI": 1592.631,
-      "HOU": 1626.151,
       "DEN": 1558.68,
       "POR": 1560.057,
       "ATL": 1527.372,
@@ -1535,13 +1553,13 @@
       "MIA": 1472.524,
       "ORL": 1494.865,
       "LAC": 1466.19,
-      "DAL": 1443.439,
+      "DAL": 1443.438,
       "MEM": 1435.418,
       "NOP": 1432.425,
       "WAS": 1379.543,
       "CHI": 1366.08,
-      "IND": 1340.6,
       "MIL": 1369.904,
+      "IND": 1340.601,
       "SAC": 1362.52,
       "BKN": 1333.045,
       "UTA": 1318.966
