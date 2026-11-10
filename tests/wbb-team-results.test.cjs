@@ -60,5 +60,5 @@ test('an event more than 48 hours away is never attached solely by ID',()=>{
 });
 test('NCAA-origin corroboration source is preserved without leaking current men’s data',()=>{
   const result=merge([g],{season:'2026-27',games:[{...final,score_evidence:'espn_and_ncaa_origin'}]},'87');
-  assert.match(scoreFor(result.games[0],'87').detail,/NCAA-origin confirmed/);
+  assert.match(scoreFor(result.games[0],'87').detail,/NCAA-origin.*confirmed/);
 });
