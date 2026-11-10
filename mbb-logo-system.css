@@ -46,3 +46,14 @@
 
 /* Stanton University Elks: fill the standard double-ring mark without changing its frame. */
 .mbb-mark[data-espn-id="128501"]>img.mbb-mark__img{width:96%!important;height:96%!important;max-width:96%!important;max-height:96%!important}
+
+/* Source-identity artwork refinements: preserve the existing two-ring badge
+   and use institution-specific image framing rather than generic tiny art. */
+.mbb-mark[data-espn-id="3111"]>img.mbb-mark__img{
+ width:88%!important;height:88%!important;max-width:88%!important;max-height:88%!important;
+ border-radius:50%!important;object-fit:cover!important;
+}
+.mbb-mark[data-espn-id="135043"]>img.mbb-mark__img{
+ width:92%!important;height:92%!important;max-width:92%!important;max-height:92%!important;
+ object-fit:contain!important;
+}
