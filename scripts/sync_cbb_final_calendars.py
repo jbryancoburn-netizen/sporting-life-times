@@ -142,6 +142,8 @@ def women(check=False):
     names = {str(t["team_id"]): t["team"] for t in teams["teams"]}
     changed = added = updated = 0
     conflicts = []
+    from apply_wbb_official_replacements import apply
+    changed += apply(doc, finals, names, DATA)
     for g in finals.get("games", []):
         if g.get("status") != "final" or not score_valid(g):
             continue
