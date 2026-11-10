@@ -456,3 +456,7 @@
  .ledger26-form i{width:5px;height:5px}
  .ledger26-rivalry{font-size:9px;max-width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
 }
+
+/* Rivalry uses the existing record line; mobile retains the symbol alone. */
+.ledger26-record .ledger26-rivalry{display:inline;font:700 9px/1.15 Georgia,serif;white-space:nowrap}
+@media(max-width:640px){.ledger26-record .ledger26-rivalry-text{display:none}}

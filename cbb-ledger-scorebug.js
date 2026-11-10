@@ -199,12 +199,12 @@
    return '<div class="ledger26-team" style="--ledger26-school:'+color(x.color)+'">'+
     '<span class="ledger26-crest">'+(x.crest||'')+'</span>'+
     '<span class="ledger26-identity"><strong class="ledger26-name">'+badge+linkedName+'</strong>'+
-    '<small class="ledger26-record">'+esc(context)+'</small>'+scout+
+    '<small class="ledger26-record">'+esc(context)+
     (phase==='upcoming'&&side==='home'&&g.rivalry&&g.rivalry.name?
-      '<small class="ledger26-rivalry" title="'+esc(g.rivalry.name)+'">◆ '+esc(g.rivalry.name)+
+      '<span class="ledger26-rivalry" title="'+esc(g.rivalry.name)+'"><span aria-hidden="true"> ◆</span><span class="ledger26-rivalry-text"> '+esc(g.rivalry.name)+
       (g.rivalry.seasonH2H&&Number.isInteger(g.rivalry.seasonH2H.away)&&Number.isInteger(g.rivalry.seasonH2H.home)?
-       ' · 2026–27 H2H '+g.rivalry.seasonH2H.away+'–'+g.rivalry.seasonH2H.home:'')+'</small>':'')+
-    timeouts+possession+momentum+'</span>'+
+       ' · 2026–27 H2H '+g.rivalry.seasonH2H.away+'–'+g.rivalry.seasonH2H.home:'')+'</span></span>':'')+
+    '</small>'+scout+timeouts+possession+momentum+'</span>'+
     '<b class="ledger26-points'+scoreClass+'"'+(upset?' title="Upset watch: lower-ranked team leads"':'')+'>'+esc(scored)+'</b></div>';
   };
   return '<div class="ledger26-scorebug'+(g.suppressMonogram?' ledger26-scorebug--plain':'')+(phase==='upcoming'?' ledger26-scorebug--pregame':'')+'" role="group" aria-label="'+esc(g.ariaLabel||((g.away?.name||'Away')+' at '+(g.home?.name||'Home')+' scoreboard'))+'">'+
