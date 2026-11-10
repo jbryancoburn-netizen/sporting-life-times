@@ -18,8 +18,16 @@ test('neutral-site game final arrives on women’s team schedule with correct W/
   assert.equal(scoreFor(home.games[0],'222').value,'L 75–99');
   assert.equal(g.completed,false,'master schedule is never mutated');
 });
-test('ledger cannot silently attach a final to wrong opponent or swapped site identity',()=>{
-  const result=merge([g],{season:'2026-27',games:[{...final,home_id:'87',away_id:'222'}]},'87');
+test('swapped non-neutral site identity keeps correct result while requiring site review',()=>{
+  const game={...g,site:'away'};
+  const reversed={...final,home_id:'87',away_id:'222',home_score:99,away_score:75};
+  const result=merge([game],{season:'2026-27',games:[reversed]},'87');
+  assert.equal(result.matched,1);
+  assert.equal(scoreFor(result.games[0],'87').value,'W 99–75');
+  assert.match(scoreFor(result.games[0],'87').detail,/site disputed/);
+});
+test('ledger cannot silently attach a final to a different opponent',()=>{
+  const result=merge([{...g,opponent_id:'999'}],ledger,'87');
   assert.equal(result.matched,0);
   assert.deepEqual(Array.from(result.conflicts),['401920983']);
   assert.equal(scoreFor(result.games[0],'87').value,'Review');
