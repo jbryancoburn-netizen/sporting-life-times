@@ -24,6 +24,17 @@ test('ledger cannot silently attach a final to wrong opponent or swapped site id
   assert.deepEqual(Array.from(result.conflicts),['401920983']);
   assert.equal(scoreFor(result.games[0],'87').value,'Review');
 });
+
+test('neutral-site reversed home designations orient scores to each actual school',()=>{
+  const swapped={...final,home_id:'87',away_id:'222',home_score:99,away_score:75,neutral:true};
+  const away=merge([g],{season:'2026-27',games:[swapped]},'87');
+  const home=merge([{...g,opponent_id:'87'}],{season:'2026-27',games:[swapped]},'222');
+  assert.equal(away.matched,1);
+  assert.equal(home.matched,1);
+  assert.equal(scoreFor(away.games[0],'87').value,'W 99–75');
+  assert.equal(scoreFor(home.games[0],'222').value,'L 75–99');
+});
+
 test('only the women’s 2026–27 season is accepted',()=>{
   const result=merge([g],{season:'2025-26',games:[final]},'87');
   assert.equal(result.matched,0);
