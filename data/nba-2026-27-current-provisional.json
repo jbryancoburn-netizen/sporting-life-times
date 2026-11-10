@@ -2,7 +2,7 @@
   "league": "NBA",
   "season": "2026-27",
   "status": "provisional_live_from_historical_baseline",
-  "games_played": 149,
+  "games_played": 150,
   "preseason_status": "provisional_historical_regression_only",
   "source": "ESPN FINAL NBA regular-season scores; Sporting Life & Times independent Elo",
   "rankings": [
@@ -59,12 +59,12 @@
       "elo": 1535.837
     },
     {
-      "team": "TOR",
-      "elo": 1529.383
-    },
-    {
       "team": "GSW",
       "elo": 1518.222
+    },
+    {
+      "team": "TOR",
+      "elo": 1507.903
     },
     {
       "team": "CHA",
@@ -91,12 +91,12 @@
       "elo": 1456.838
     },
     {
-      "team": "NOP",
-      "elo": 1418.939
+      "team": "MEM",
+      "elo": 1432.015
     },
     {
-      "team": "MEM",
-      "elo": 1410.535
+      "team": "NOP",
+      "elo": 1418.939
     },
     {
       "team": "WAS",
@@ -1468,6 +1468,15 @@
       "away_score": 111,
       "date": "2026-11-10T00:00:00.000Z",
       "home_elo_change": 4.406652
+    },
+    {
+      "id": "espn-nba-401909955",
+      "home": "TOR",
+      "away": "MEM",
+      "home_score": 102,
+      "away_score": 118,
+      "date": "2026-11-10T00:30:00.000Z",
+      "home_elo_change": -21.479714
     }
   ],
   "movement": {
@@ -1486,16 +1495,16 @@
       "POR": 0,
       "ATL": -12.968509,
       "CLE": -15.596283,
-      "TOR": 0,
       "GSW": 0,
+      "TOR": -21.479714,
       "CHA": 15.596283,
       "PHX": 0,
       "MIA": 0,
       "ORL": 0,
       "LAC": 0,
       "DAL": 0,
+      "MEM": 21.479714,
       "NOP": 0,
-      "MEM": 0,
       "WAS": -4.406652,
       "CHI": 0,
       "IND": 0,
@@ -1519,16 +1528,16 @@
       "POR": 1560.057,
       "ATL": 1527.372,
       "CLE": 1556.601,
-      "TOR": 1531.217,
       "GSW": 1494.479,
+      "TOR": 1531.217,
       "CHA": 1511.452,
       "PHX": 1466.378,
       "MIA": 1472.524,
       "ORL": 1494.865,
       "LAC": 1466.19,
       "DAL": 1443.439,
-      "NOP": 1432.425,
       "MEM": 1435.418,
+      "NOP": 1432.425,
       "WAS": 1379.543,
       "CHI": 1366.08,
       "IND": 1340.6,

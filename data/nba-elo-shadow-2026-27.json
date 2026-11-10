@@ -4,7 +4,7 @@
   "status": "primary_live_earned_elo",
   "model": "team_only_reset1500_home40_k24_sqrt_mov",
   "source": "data/nba-2026-27-current-provisional.json",
-  "games_played": 149,
+  "games_played": 150,
   "parameters": {
     "season_start_elo": 1500,
     "home_elo": 40,
@@ -70,6 +70,14 @@
       "difference_from_live": -59.237
     },
     {
+      "team": "MEM",
+      "elo": 1548.61,
+      "games": 10,
+      "forecast_prior": 1322.1195,
+      "live_elo": 1432.015,
+      "difference_from_live": 116.595
+    },
+    {
       "team": "GSW",
       "elo": 1547.845,
       "games": 10,
@@ -92,14 +100,6 @@
       "forecast_prior": 1520.0812500000002,
       "live_elo": 1548.709,
       "difference_from_live": -13.465
-    },
-    {
-      "team": "MEM",
-      "elo": 1532.21,
-      "games": 9,
-      "forecast_prior": 1322.1195,
-      "live_elo": 1410.535,
-      "difference_from_live": 121.675
     },
     {
       "team": "NYK",
@@ -126,20 +126,20 @@
       "difference_from_live": -57.354
     },
     {
-      "team": "TOR",
-      "elo": 1520.216,
-      "games": 9,
-      "forecast_prior": 1529.99775,
-      "live_elo": 1529.383,
-      "difference_from_live": -9.167
-    },
-    {
       "team": "ATL",
       "elo": 1515.707,
       "games": 12,
       "forecast_prior": 1545.8452499999999,
       "live_elo": 1536.168,
       "difference_from_live": -20.461
+    },
+    {
+      "team": "TOR",
+      "elo": 1503.816,
+      "games": 10,
+      "forecast_prior": 1529.99775,
+      "live_elo": 1507.903,
+      "difference_from_live": -4.087
     },
     {
       "team": "CLE",
@@ -316,7 +316,7 @@
       "home_before": 1500,
       "away_before": 1500,
       "home_win_probability": 0.5573116337622928,
-      "forecast_home_win_probability": 0.5567084050143039,
+      "forecast_home_win_probability": 0.556708405014304,
       "forecast_prior_weight_home": 0.75,
       "forecast_prior_weight_away": 0.75,
       "home_elo_change": -11.190728790991413,
@@ -945,7 +945,7 @@
       "home_before": 1525.7465519054049,
       "away_before": 1507.2642612881452,
       "home_win_probability": 0.5833768128514305,
-      "forecast_home_win_probability": 0.7077294569495597,
+      "forecast_home_win_probability": 0.7077294569495596,
       "forecast_prior_weight_home": 0.625,
       "forecast_prior_weight_away": 0.625,
       "home_elo_change": 8.365727203546399,
@@ -1353,7 +1353,7 @@
       "home_before": 1480.992682724889,
       "away_before": 1476.813889962971,
       "home_win_probability": 0.5632379321654385,
-      "forecast_home_win_probability": 0.4080803123121413,
+      "forecast_home_win_probability": 0.4080803123121412,
       "forecast_prior_weight_home": 0.5769230769230769,
       "forecast_prior_weight_away": 0.5769230769230769,
       "home_elo_change": -15.41256116972852,
@@ -1387,7 +1387,7 @@
       "home_before": 1493.367778427785,
       "away_before": 1543.6591641824189,
       "home_win_probability": 0.4851938354306142,
-      "forecast_home_win_probability": 0.28893830334687615,
+      "forecast_home_win_probability": 0.2889383033468761,
       "forecast_prior_weight_home": 0.5357142857142857,
       "forecast_prior_weight_away": 0.5357142857142857,
       "home_elo_change": 19.1408227382606,
@@ -1437,11 +1437,11 @@
       "away_score": 120,
       "home_before": 1465.5801215551605,
       "away_before": 1444.663079139654,
-      "home_win_probability": 0.5867792388155703,
+      "home_win_probability": 0.5867792388155701,
       "forecast_home_win_probability": 0.5985185219744625,
       "forecast_prior_weight_home": 0.5357142857142857,
       "forecast_prior_weight_away": 0.5357142857142857,
-      "home_elo_change": 10.863855942248032,
+      "home_elo_change": 10.863855942248033,
       "home_after": 1476.4439774974085,
       "away_after": 1433.799223197406
     },
@@ -1692,11 +1692,11 @@
       "away_score": 105,
       "home_before": 1561.545855836183,
       "away_before": 1433.799223197406,
-      "home_win_probability": 0.7242470563899187,
+      "home_win_probability": 0.7242470563899188,
       "forecast_home_win_probability": 0.6076043709286032,
       "forecast_prior_weight_home": 0.5,
       "forecast_prior_weight_away": 0.5,
-      "home_elo_change": 11.652315785294604,
+      "home_elo_change": 11.6523157852946,
       "home_after": 1573.1981716214775,
       "away_after": 1422.1469074121114
     },
@@ -2543,7 +2543,7 @@
       "home_before": 1526.0283207170442,
       "away_before": 1513.7207872704855,
       "home_win_probability": 0.5747129550983204,
-      "forecast_home_win_probability": 0.48221146345300997,
+      "forecast_home_win_probability": 0.48221146345300986,
       "forecast_prior_weight_home": 0.39473684210526316,
       "forecast_prior_weight_away": 0.4166666666666667,
       "home_elo_change": -15.10959598069458,
@@ -2787,6 +2787,23 @@
       "home_elo_change": 8.510973313731895,
       "home_after": 1555.5470491297872,
       "away_after": 1461.84221724769
+    },
+    {
+      "id": "espn-nba-401909955",
+      "date": "2026-11-10T00:30:00.000Z",
+      "home": "TOR",
+      "away": "MEM",
+      "home_score": 102,
+      "away_score": 118,
+      "home_before": 1520.2156976869808,
+      "away_before": 1532.2103255626287,
+      "home_win_probability": 0.5402159094270189,
+      "forecast_home_win_probability": 0.6594459955454285,
+      "forecast_prior_weight_home": 0.39473684210526316,
+      "forecast_prior_weight_away": 0.39473684210526316,
+      "home_elo_change": -16.399801939666624,
+      "home_after": 1503.8158957473142,
+      "away_after": 1548.6101275022952
     }
   ]
 }
