@@ -23,6 +23,8 @@ on:
       # Direct source or verified rating updates should publish immediately.
       # GitHub Actions-origin commits use workflow_dispatch from the Elo job.
       - 'data/mbb-live.json'
+      - 'data/mbb-out-of-division-opponent-logos.json'
+      - 'data/cbb-season-logo-audit.json'
       - 'data/mbb-exhibition-finals-2026-27.json'
       - 'tests/cbb-courtside.test.cjs'
       - 'tests/nba-game-calendar.test.cjs'
