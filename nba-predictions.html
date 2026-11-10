@@ -105,6 +105,10 @@ render();
 }catch(e){$('status').textContent='Forecasts unavailable: '+e.message;$('games').innerHTML='<p>No estimates are displayed until the verified NBA inputs load correctly.</p>';}
 }
 $('day').addEventListener('change',render);$('sort').addEventListener('change',render);
-load();setInterval(()=>{if(!document.hidden)load()},60000);
+// Deferred forecast-model scripts run before DOMContentLoaded; do not initialize from the parser-time inline script.
+document.addEventListener('DOMContentLoaded',()=>{
+ load();
+ setInterval(()=>{if(!document.hidden)load()},60000);
+});
 })();
 </script></body></html>
