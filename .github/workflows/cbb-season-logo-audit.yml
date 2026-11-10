@@ -33,8 +33,22 @@ jobs:
           git add data/mbb-out-of-division-opponent-logos.json data/cbb-season-logo-audit.json
           if ! git diff --cached --quiet; then
             git commit -m "Refresh validated full-season CBB logo catalog"
-            git pull --rebase
-            git push
+            # Multiple data publishers may update main concurrently. Rebase against
+            # the latest remote immediately before every bounded push attempt.
+            published=0
+            for attempt in 1 2 3 4 5 6 7 8; do
+              git fetch origin main
+              git rebase origin/main || { git rebase --abort || true; exit 1; }
+              if git push origin HEAD:main; then
+                published=1
+                break
+              fi
+              sleep "$((attempt * 2))"
+            done
+            if [ "$published" -ne 1 ]; then
+              echo "Logo catalog publication failed after 8 concurrent-writer retries" >&2
+              exit 1
+            fi
           fi
       - name: Require complete school-logo coverage before reporting success
         run: |
