@@ -66,7 +66,9 @@ jobs:
           python -m py_compile scripts/wbb-season.py
           node --check scripts/publish-wbb-retro.js
       - name: Test women-only refresh safety (no network)
-        run: python -m unittest discover -s tests -p 'test_wbb_live_pipeline.py' -v
+        run: |
+          python -m unittest discover -s tests -p 'test_wbb_live_pipeline.py' -v
+          node --test tests/wbb-team-results.test.cjs
       - name: Fetch women's Division I roster and ESPN finals
         run: python scripts/wbb-season.py live
       - name: Recalculate 1500-start women-only RETRO
@@ -78,7 +80,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/ncaaw-2026-27-teams.json data/ncaaw-2026-27-verified-games.json data/ncaaw-2026-27-games.json data/ncaaw-2026-27-retro-primary.json data/ncaaw-schedules-2026-27.json
+          git add data/ncaaw-2026-27-teams.json data/ncaaw-2026-27-verified-games.json data/ncaaw-2026-27-games.json data/ncaaw-2026-27-retro-primary.json data/ncaaw-schedules-2026-27.json data/wbb-final-calendar-reconciliation-audit.json
           if git diff --cached --quiet; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
