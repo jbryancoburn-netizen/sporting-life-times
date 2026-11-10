@@ -442,3 +442,18 @@
  .ledger26-possession,.ledger26-team-run{font-size:10px;margin-left:3px}
  .ledger26-points--upset{padding:1px 2px}
 }
+
+/* Pregame scouting uses existing identity whitespace and vanishes on LIVE or FINAL. */
+.ledger26-scout{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-top:2px;color:#59442d;font:700 9px/1.15 Georgia,serif;font-variant-numeric:tabular-nums}
+.ledger26-scout-stat+.ledger26-scout-stat::before{content:"· ";color:#977e5d}
+.ledger26-form{display:inline-flex;gap:2px;align-items:center}
+.ledger26-form i{display:block;width:6px;height:6px;border-radius:50%;border:1px solid #806d55}
+.ledger26-form-w{background:#4f6a43}.ledger26-form-l{background:#f8f0e0}
+.ledger26-rivalry{grid-column:1/-1;justify-self:center;color:#6d4933;font:700 9px/1.2 Georgia,serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;padding:0 4px}
+@media(max-width:640px){
+ .ledger26-scout{gap:3px;font-size:8px}
+ .ledger26-scout-defense{display:none}
+ .ledger26-form i{width:5px;height:5px}
+ .ledger26-rivalry{font-size:0;line-height:0}
+ .ledger26-rivalry::first-letter{font-size:10px}
+}

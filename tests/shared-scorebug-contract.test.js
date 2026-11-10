@@ -53,3 +53,18 @@ test('mobile rules keep compact live symbols and omit extra labels',()=>{
  assert.match(mobile,/\.ledger26-timeouts i\{width:4px;height:4px\}/);
  assert.doesNotMatch(mobile,/ledger26-timeouts,.ledger26-possession,.ledger26-team-run\{display:none\}/);
 });
+
+test('pregame scouting uses verified samples and is absent after tipoff',()=>{
+ const info={games:3,pointsFor:82.4,pointsAgainst:69.1,lastFive:['W','L','W']};
+ const a={...away,scouting:info},h={...home,scouting:info};
+ const game={away:a,home:h,rivalry:{name:'Regional rivalry',seasonH2H:{away:1,home:0}},suppressPress:true};
+ const pre=render({...game,phase:'upcoming'});
+ assert.match(pre,/82.4 PPG/);
+ assert.match(pre,/69.1 allowed/);
+ assert.match(pre,/2026–27 H2H 1–0/);
+ assert.equal((pre.match(/ledger26-form-w/g)||[]).length,4);
+ for(const phase of ['live','final']){
+  const out=render({...game,phase});
+  assert.doesNotMatch(out,/ledger26-scout|ledger26-rivalry|82.4 PPG|2026–27 H2H/);
+ }
+});

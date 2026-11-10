@@ -695,7 +695,13 @@ const ledgerScorebug=g=>{
  // A single first-party scorebug renderer serves both basketball desks.
  const convert=t=>({name:t.name,abbreviation:t.abbreviation||'',timeoutsRemaining:t.timeoutsRemaining,score:g.phase==='upcoming'?null:t.score,
    crest:emblem(t),color:brand(t),record:record(t),retro:retroLine(t),
-   teamHref:teamPage(t),poll:pollRankings.get(String(t.id))||null});
+   teamHref:teamPage(t),poll:pollRankings.get(String(t.id))||null,
+   scouting:(()=>{
+     if(g.phase!=='upcoming')return null;
+     const p=seasonStats.get(String(t.canonical||''));if(!p||!Number.isInteger(p.g)||p.g<1)return null;
+     return {games:p.g,pointsFor:p.pf/p.g,pointsAgainst:p.pa/p.g,
+       lastFive:Array.isArray(p.results)?p.results.slice(-5).map(r=>r.result):[]};
+   })()});
  return window.SLTBasketballScorebug?.render({
   phase:g.phase,gender:women?'women':'men',status:g.status||'LIVE',momentum:g.momentum||null,possession:g.possession||null,
   date:g.day,tipoff:formatClock(g),venue:g.venue||'',network:g.broadcast||'',suppressPress:true,
@@ -708,6 +714,25 @@ const ledgerScorebug=g=>{
     const team=String(side.name||'').trim();
     return {team,probability:homeFav?g.probability:1-g.probability,
       margin:Number.isFinite(margin)&&margin>0?margin:null};
+  })(),
+  rivalry:(()=>{
+    if(g.phase!=='upcoming'||g.kind==='exhibition')return null;
+    const key=[String(g.away.id),String(g.home.id)].sort((a,b)=>Number(a)-Number(b)).join('|');
+    const entry=!women?rivalryLedger[key]:null;
+    // Verified current-season H2H only, never an inferred all-time series.
+    const events=retroPublished?.events;
+    const h2h=Array.isArray(events)?events.filter(e=>{
+      const pair=[String(e.home_id),String(e.away_id)].sort().join('|');
+      return pair===[String(g.home.canonical),String(g.away.canonical)].sort().join('|')&&
+        Number.isFinite(Number(e.home_score))&&Number.isFinite(Number(e.away_score))&&Number(e.home_score)!==Number(e.away_score);
+    }):[];
+    if(!entry&&!h2h.length)return null;
+    let aw=0,ho=0;
+    for(const e of h2h){
+      const winner=Number(e.home_score)>Number(e.away_score)?String(e.home_id):String(e.away_id);
+      if(winner===String(g.away.canonical))aw++;else if(winner===String(g.home.canonical))ho++;
+    }
+    return {name:entry?.name||'Season series',seasonH2H:h2h.length?{away:aw,home:ho}:null};
   })(),away:convert(g.away),home:convert(g.home)
  })||'<p class="sl-empty">Scorebug temporarily unavailable. Refresh the page.</p>';
 };

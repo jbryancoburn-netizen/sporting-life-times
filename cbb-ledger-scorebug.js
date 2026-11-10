@@ -181,18 +181,30 @@
      '<span class="ledger26-team-run" title="'+esc(g.momentum.text)+'" aria-label="Scoring run">↗</span>':'';
    const scoreClass=upset?' ledger26-points--upset':'';
    const context=[x.record||'0–0',x.retro||'RETRO —'].join(' · ');
+   // Pregame-only verified scouting lines; zero-game or missing samples are never shown.
+   const profile=phase==='upcoming'&&x.scouting&&Number.isInteger(x.scouting.games)&&x.scouting.games>0?x.scouting:null;
+   const ppg=profile&&Number.isFinite(profile.pointsFor)?profile.pointsFor.toFixed(1):null;
+   const papg=profile&&Number.isFinite(profile.pointsAgainst)?profile.pointsAgainst.toFixed(1):null;
+   const form=profile&&Array.isArray(profile.lastFive)?profile.lastFive.filter(v=>v==='W'||v==='L').slice(-5):[];
+   const scout=profile&&(ppg!==null||papg!==null||form.length)?
+    '<small class="ledger26-scout" title="2026–27 verified regular-season finals: '+profile.games+' games">'+
+    (ppg!==null?'<span class="ledger26-scout-stat">'+esc(ppg)+' PPG</span>':'')+
+    (papg!==null?'<span class="ledger26-scout-stat ledger26-scout-defense">'+esc(papg)+' allowed</span>':'')+
+    (form.length?'<span class="ledger26-form" aria-label="Last '+form.length+' verified games: '+form.join(', ')+'">'+form.map(v=>'<i class="ledger26-form-'+v.toLowerCase()+'" aria-hidden="true" title="'+(v==='W'?'Win':'Loss')+'"></i>').join('')+'</span>':'')+
+    '</small>':'';
+
    const href=/^ncaam-team\.html\?team=ncaa%3A\d+$|^ncaaw-team\.html\?team=\d+$/i.test(String(x.teamHref||''))?x.teamHref:'';
    const label=esc(x.name||'School');
    const linkedName=href?'<a class="ledger26-team-link" href="'+esc(href)+'" aria-label="Open '+label+' team page">'+label+'</a>':label;
    return '<div class="ledger26-team" style="--ledger26-school:'+color(x.color)+'">'+
     '<span class="ledger26-crest">'+(x.crest||'')+'</span>'+
     '<span class="ledger26-identity"><strong class="ledger26-name">'+badge+linkedName+'</strong>'+
-    '<small class="ledger26-record">'+esc(context)+'</small>'+timeouts+possession+momentum+'</span>'+
+    '<small class="ledger26-record">'+esc(context)+'</small>'+scout+timeouts+possession+momentum+'</span>'+
     '<b class="ledger26-points'+scoreClass+'"'+(upset?' title="Upset watch: lower-ranked team leads"':'')+'>'+esc(scored)+'</b></div>';
   };
   return '<div class="ledger26-scorebug'+(g.suppressMonogram?' ledger26-scorebug--plain':'')+(phase==='upcoming'?' ledger26-scorebug--pregame':'')+'" role="group" aria-label="'+esc(g.ariaLabel||((g.away?.name||'Away')+' at '+(g.home?.name||'Home')+' scoreboard'))+'">'+
     (g.suppressMonogram?'':'<span class="ledger26-monogram"><img src="assets/slt-engraved-black.svg" width="35" height="49" alt="Sporting Life and Times monogram"></span>')+
-    '<div class="ledger26-teams">'+team(g.away)+team(g.home)+'</div>'+
+    '<div class="ledger26-teams">'+team(g.away)+team(g.home)+rivalry+'</div>'+
     (phase==='live'?livePanel(g,label):phase==='upcoming'?pregamePanel(g):label?'<div class="ledger26-status" data-phase="'+phase+'"><strong>'+esc(label)+'</strong></div>':'')+(phase==='upcoming'&&!g.suppressPress?preview(g).split('<dialog')[0]:'')+'</div>';
  }
  // The Daily Ledger is the universal newspaper model, not a separate sport skin.
