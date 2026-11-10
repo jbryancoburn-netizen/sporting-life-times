@@ -53,6 +53,7 @@ function merge(schedule,ledger,teamId){
   return {games:result,matched,conflicts,source:'wbb_verified_finals'};
 }
 function scoreFor(g,teamId){
+  if(g.cancelled===true)return {value:'Canceled',detail:String(g.cancellation_reason||'Game canceled')};
   if(g.result_conflict)return {value:'Review',detail:'Result identity conflict — review required'};
   if(!g.completed||!finiteScore(g.home_score)||!finiteScore(g.away_score))return {value:'—',detail:''};
   const home=String(g.home_id)===String(teamId),away=String(g.away_id)===String(teamId);
