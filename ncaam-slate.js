@@ -803,7 +803,7 @@ function card(original,featured,opened=false){
    '<i aria-hidden="true">·</i>'+esc(g.home.name)+' <span>'+Math.round(g.projectedHomeScore)+'</span></strong>'+
    '<small>Historical projection · Not a final score</small></div>':'';
 
- return '<article class="sl-game ledger26-card'+(featured?' ledger26-featured':'')+(women&&g.phase==='upcoming'?' ledger26-card--refined':'')+'">'+
+ return '<article class="sl-game ledger26-card'+(women?' ledger26-card--women':' ledger26-card--men')+(featured?' ledger26-featured':'')+(women&&g.phase==='upcoming'?' ledger26-card--refined':'')+'">'+
    (when||right?'<div class="ledger26-meta'+(g.phase==='upcoming'?' ledger26-meta--pregame':'')+(women&&g.phase==='upcoming'?' ledger26-meta--refined':'')+'">'+when+retro+right+'</div>':'')+
    '<details class="sl-game-expansion ledger26-expand" data-game-id="'+esc(g.id)+'" data-day="'+esc(g.day)+'"'+(opened?' open':'')+'>'+
    '<summary class="ledger26-summary" aria-label="Expand '+esc(g.away.name)+' at '+esc(g.home.name)+' game details">'+
