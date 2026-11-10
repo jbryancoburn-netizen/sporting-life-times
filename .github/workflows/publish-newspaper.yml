@@ -12,6 +12,7 @@ on:
       - 'assets/**'
       - '.github/workflows/publish-newspaper.yml'
       - 'scripts/inject-team-crests.py'
+      - 'scripts/stage_pages_artifact.py'
       - 'data/nba-*.json'
       - 'data/epl-*.json'
       - 'data/mbb-schedules-2026-27/*.json'
@@ -61,6 +62,8 @@ jobs:
       url: ${{ steps.deploy.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main  # Always publish latest verified data, not an outdated queued event SHA.
       - name: Verify homepage is Sports Desks
         run: |
           test -f index.html
