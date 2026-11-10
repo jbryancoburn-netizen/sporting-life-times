@@ -31,8 +31,8 @@ function normalizeMen(feed,forecasts,crossList,outside={},archivedFinals=null){
     const phase=g.state==='in'?'live':g.state==='post'?'final':'upcoming';
     const score=n=>phase!=='upcoming'&&n!==''&&n!=null&&Number.isFinite(Number(n))?Number(n):null;
     result.set(cleanId(g.id),{id:cleanId(g.id),day,date:g.date,phase,
-      away:{id:String(away.id),name:shortName(away.id,cross,corrected(away)),full:corrected(away),canonical:cross.get(String(away.id))?.id||'',score:score(away.score)},
-      home:{id:String(home.id),name:shortName(home.id,cross,corrected(home)),full:corrected(home),canonical:cross.get(String(home.id))?.id||'',score:score(home.score)},
+      away:{id:String(away.id),name:shortName(away.id,cross,corrected(away)),full:corrected(away),canonical:cross.get(String(away.id))?.id||'',feedLogo:away.logo||'',score:score(away.score)},
+      home:{id:String(home.id),name:shortName(home.id,cross,corrected(home)),full:corrected(home),canonical:cross.get(String(home.id))?.id||'',feedLogo:home.logo||'',score:score(home.score)},
       status:g.status||'',venue:g.venue||'',broadcast:g.broadcast||'',
       source:g.score_source||'Current sourced scoreboard',evidence:g.score_source?'final-source':'reported',
       timed:true,kind:'regular',probability:null});
@@ -531,8 +531,26 @@ const arenaStage=g=>{
   '<strong>'+esc(name)+'</strong><span>'+esc(source)+'</span></div>'+link+courtFile+'</div></div>';
 };
 const emblem=t=>{
-  if(window.MBBLogos?.byESPN)
-    return window.MBBLogos.byESPN(t.id,'featured',t.name);
+  if(window.MBBLogos?.byESPN){
+    const mark=window.MBBLogos.byESPN(t.id,'featured',t.name);
+    // An exact scoreboard competitor can supply its own ESPN-hosted artwork.
+    // Do not discard that source image merely because the season-long outside-
+    // division catalog has not yet verified an entry for the opponent.
+    const sourceLogo=String(t.feedLogo||'');
+    const expected='https://a.espncdn.com/i/teamlogos/ncaa/';
+    if(mark.includes('mbb-mark--missing')&&sourceLogo.startsWith(expected)&&
+       /^https:\/\/a\.espncdn\.com\/i\/teamlogos\/ncaa\/(?:500|500-dark|500-light)\/\d+\.png$/.test(sourceLogo)&&
+       sourceLogo.endsWith('/'+String(t.id)+'.png')){
+      const initials=String(t.name).split(/\s+/).slice(0,2).map(x=>x[0]||'').join('').toUpperCase();
+      return '<span class="mbb-mark mbb-mark--featured mbb-mark--art-flat" style="--mbb-primary:'+
+        esc(brand(t))+';--mbb-secondary:'+esc(secondary(t))+
+        '" data-espn-id="'+esc(t.id)+'" data-ring-count="2" role="img" aria-label="'+esc(t.name)+
+        ' logo"><span class="mbb-mark__initials" aria-hidden="true">'+esc(initials)+
+        '</span><img class="mbb-mark__img" src="'+esc(sourceLogo)+
+        '" loading="lazy" decoding="async" alt="" onerror="window.MBBLogos.fail(this)"></span>';
+    }
+    return mark;
+  }
   const obj=womenTeams.get(String(t.id))||ratings.get(String(t.id))||{};
   // The external mark comes from the verified opponent-ID registry, never a
   // guessed ESPN /teamlogos/ URL or a fuzzy match to a Division I school.
