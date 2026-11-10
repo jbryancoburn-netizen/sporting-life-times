@@ -69,16 +69,25 @@ function teamInfo(raw){return raw?.team||raw?.sports?.[0]?.leagues?.[0]?.teams?.
 let ncaaDirectory=await fetchJSON('https://ncaa-api.henrygd.me/schools-index');
 if(!Array.isArray(ncaaDirectory))ncaaDirectory=await fetchJSON('https://www.ncaa.com/json/schools');
 if(!Array.isArray(ncaaDirectory))ncaaDirectory=[];
+// Compare whole school-name tokens, not character prefixes: "Grace" cannot
+// accidentally resolve to "Grace Christian", and "St. Thomas" cannot resolve
+// to "St. Thomas Aquinas". A mascot suffix is allowed only after a full label.
+const tokens=s=>String(s||'').normalize('NFKD').toLowerCase()
+ .replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,' ').trim().split(/\s+/).filter(Boolean);
+const schoolLabelMatches=(fixture,school)=>{
+ const a=tokens(fixture),b=tokens(school);
+ return b.length>0&&a.length>=b.length&&b.every((token,i)=>a[i]===token);
+};
 const ncaaMatches=name=>{
- const n=norm(name);
- if(n.length<11)return [];
- return ncaaDirectory.filter(row=>{
-  const short=norm(row.name),long=norm(row.long||row.long_name);
-  // A long-enough directory school label must be an exact prefix followed by
-  // a mascot. Never match an entire different school's name by 8-char prefix.
-  return short.length>=11&&(n===short||n.startsWith(short))&&
-    (!long||long.startsWith(short)||short.startsWith(long));
- }).filter(row=>row.slug&&/^[a-z0-9-]+$/.test(row.slug));
+ const candidateRows=ncaaDirectory.filter(row=>{
+  if(!row.slug||!/^[a-z0-9-]+$/.test(row.slug))return false;
+  const labels=[row.name,row.long,row.long_name].filter(Boolean);
+  return labels.some(label=>schoolLabelMatches(name,label));
+ });
+ // Competing NCAA directory labels make the identity ambiguous. Never
+ // substitute an arbitrary school's artwork in that case.
+ const unique=new Map(candidateRows.map(row=>[row.slug,row]));
+ return unique.size===1?[...unique.values()]:[];
 };
 const unresolved=[],added=[];
 let next=0;
