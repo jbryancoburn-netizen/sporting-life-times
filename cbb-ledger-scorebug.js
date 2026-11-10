@@ -199,12 +199,17 @@
    return '<div class="ledger26-team" style="--ledger26-school:'+color(x.color)+'">'+
     '<span class="ledger26-crest">'+(x.crest||'')+'</span>'+
     '<span class="ledger26-identity"><strong class="ledger26-name">'+badge+linkedName+'</strong>'+
-    '<small class="ledger26-record">'+esc(context)+'</small>'+scout+timeouts+possession+momentum+'</span>'+
+    '<small class="ledger26-record">'+esc(context)+'</small>'+scout+
+    (phase==='upcoming'&&side==='home'&&g.rivalry&&g.rivalry.name?
+      '<small class="ledger26-rivalry" title="'+esc(g.rivalry.name)+'">◆ '+esc(g.rivalry.name)+
+      (g.rivalry.seasonH2H&&Number.isInteger(g.rivalry.seasonH2H.away)&&Number.isInteger(g.rivalry.seasonH2H.home)?
+       ' · 2026–27 H2H '+g.rivalry.seasonH2H.away+'–'+g.rivalry.seasonH2H.home:'')+'</small>':'')+
+    timeouts+possession+momentum+'</span>'+
     '<b class="ledger26-points'+scoreClass+'"'+(upset?' title="Upset watch: lower-ranked team leads"':'')+'>'+esc(scored)+'</b></div>';
   };
   return '<div class="ledger26-scorebug'+(g.suppressMonogram?' ledger26-scorebug--plain':'')+(phase==='upcoming'?' ledger26-scorebug--pregame':'')+'" role="group" aria-label="'+esc(g.ariaLabel||((g.away?.name||'Away')+' at '+(g.home?.name||'Home')+' scoreboard'))+'">'+
     (g.suppressMonogram?'':'<span class="ledger26-monogram"><img src="assets/slt-engraved-black.svg" width="35" height="49" alt="Sporting Life and Times monogram"></span>')+
-    '<div class="ledger26-teams">'+team(g.away)+team(g.home)+rivalry+'</div>'+
+    '<div class="ledger26-teams">'+team(g.away)+team(g.home)+'</div>'+
     (phase==='live'?livePanel(g,label):phase==='upcoming'?pregamePanel(g):label?'<div class="ledger26-status" data-phase="'+phase+'"><strong>'+esc(label)+'</strong></div>':'')+(phase==='upcoming'&&!g.suppressPress?preview(g).split('<dialog')[0]:'')+'</div>';
  }
  // The Daily Ledger is the universal newspaper model, not a separate sport skin.

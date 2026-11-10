@@ -724,7 +724,7 @@ const ledgerScorebug=g=>{
     const h2h=Array.isArray(events)?events.filter(e=>{
       const pair=[String(e.home_id),String(e.away_id)].sort().join('|');
       return pair===[String(g.home.canonical),String(g.away.canonical)].sort().join('|')&&
-        Number.isFinite(Number(e.home_score))&&Number.isFinite(Number(e.away_score))&&Number(e.home_score)!==Number(e.away_score);
+        e.home_score!==null&&e.home_score!==undefined&&e.away_score!==null&&e.away_score!==undefined&&Number.isFinite(Number(e.home_score))&&Number.isFinite(Number(e.away_score))&&Number(e.home_score)!==Number(e.away_score);
     }):[];
     if(!entry&&!h2h.length)return null;
     let aw=0,ho=0;
