@@ -291,7 +291,10 @@ function liveEvents(raw,day,registry,women=false,womenRankings=[],publishedGames
     away:{id:String(away.team.id),canonical:a?String(a.id):'',name:a?.name||prior?.away?.name||named(away),full:a?.espn_name||prior?.away?.full||named(away),score:ap},
     home:{id:String(home.team.id),canonical:h?String(h.id):'',name:h?.name||prior?.home?.name||named(home),full:h?.espn_name||prior?.home?.full||named(home),score:hp},
     venue:match.venue?.fullName||'',broadcast:(match.broadcasts||[]).flatMap(x=>x.names||[]).join(' / '),
-    status:event.status?.type?.shortDetail||'LIVE',momentum:phase==='live'?momentumFromCompetition(match,away,home):null,completed,neutral,site_verified:siteVerified,timed:true,kind:'regular',
+    status:event.status?.type?.shortDetail||'LIVE',momentum:phase==='live'?momentumFromCompetition(match,away,home):null,
+    possession:phase==='live'&&[away.team.id,home.team.id].includes(String(match?.possession))?
+      (String(match.possession)===String(away.team.id)?'away':'home'):null,
+    completed,neutral,site_verified:siteVerified,timed:true,kind:'regular',
     evidence:'live-scoreboard',source:phase==='final'?'Reported final · verification pending':'Live score reported',probability:null}];
  });
 }
@@ -690,11 +693,11 @@ const meter=g=>{
 /* The Daily Ledger scorecard — compact scoreboard, native in-place Gamefile. */
 const ledgerScorebug=g=>{
  // A single first-party scorebug renderer serves both basketball desks.
- const convert=t=>({name:t.name,score:g.phase==='upcoming'?null:t.score,
+ const convert=t=>({name:t.name,abbreviation:t.abbreviation||'',timeoutsRemaining:t.timeoutsRemaining,score:g.phase==='upcoming'?null:t.score,
    crest:emblem(t),color:brand(t),record:record(t),retro:retroLine(t),
    teamHref:teamPage(t),poll:pollRankings.get(String(t.id))||null});
  return window.SLTBasketballScorebug?.render({
-  phase:g.phase,gender:women?'women':'men',status:g.status||'LIVE',momentum:g.momentum||null,
+  phase:g.phase,gender:women?'women':'men',status:g.status||'LIVE',momentum:g.momentum||null,possession:g.possession||null,
   date:g.day,tipoff:formatClock(g),venue:g.venue||'',network:g.broadcast||'',suppressPress:true,
   suppressMonogram:true,suppressTipoffFallback:true,
   forecast:(()=>{

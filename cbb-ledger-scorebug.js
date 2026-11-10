@@ -165,6 +165,21 @@
    const pollTitle=poll?'Coaches '+(poll.coaches?'#'+poll.coaches:'unranked')+' / AP '+(poll.ap?'#'+poll.ap:'unranked'):'';
    const badge=pollText?'<span class="ledger26-poll" title="'+esc(pollTitle)+'" aria-label="'+esc(pollTitle)+'">'+esc(pollText)+'</span>':'';
    const scored=phase==='upcoming'?'—':x.score==null?'—':String(x.score);
+   const side=x===g.away?'away':'home';
+   const rank=t=>{const n=Number(t?.poll?.ap);return Number.isInteger(n)&&n>=1&&n<=25?n:null;};
+   const ownRank=rank(x),otherRank=rank(side==='away'?g.home:g.away);
+   const other=side==='away'?g.home:g.away;
+   const upset=phase==='live'&&ownRank!==null&&otherRank!==null&&ownRank>otherRank&&
+     Number.isFinite(Number(x.score))&&Number.isFinite(Number(other?.score))&&Number(x.score)>Number(other.score);
+   const timeouts=Number.isInteger(x.timeoutsRemaining)&&x.timeoutsRemaining>=0&&x.timeoutsRemaining<=8?
+     '<span class="ledger26-timeouts" title="'+x.timeoutsRemaining+' timeouts remaining" aria-label="'+x.timeoutsRemaining+' timeouts remaining">'+
+       '<span class="ledger26-timeout-label">TO</span>'+Array.from({length:x.timeoutsRemaining},()=>'<i aria-hidden="true"></i>').join('')+'</span>':'';
+   const possession=phase==='live'&&g.possession===side?
+     '<span class="ledger26-possession" title="Possession" aria-label="Possession">◆</span>':'';
+   const momentum=phase==='live'&&g.momentum?.kind==='run'&&
+     String(g.momentum.text||'').toUpperCase().includes(String(x.abbreviation||x.name||'').toUpperCase())?
+     '<span class="ledger26-team-run" title="'+esc(g.momentum.text)+'" aria-label="Scoring run">↗</span>':'';
+   const scoreClass=upset?' ledger26-points--upset':'';
    const context=[x.record||'0–0',x.retro||'RETRO —'].join(' · ');
    const href=/^ncaam-team\.html\?team=ncaa%3A\d+$|^ncaaw-team\.html\?team=\d+$/i.test(String(x.teamHref||''))?x.teamHref:'';
    const label=esc(x.name||'School');
@@ -172,8 +187,8 @@
    return '<div class="ledger26-team" style="--ledger26-school:'+color(x.color)+'">'+
     '<span class="ledger26-crest">'+(x.crest||'')+'</span>'+
     '<span class="ledger26-identity"><strong class="ledger26-name">'+badge+linkedName+'</strong>'+
-    '<small class="ledger26-record">'+esc(context)+'</small></span>'+
-    '<b class="ledger26-points">'+esc(scored)+'</b></div>';
+    '<small class="ledger26-record">'+esc(context)+'</small>'+timeouts+'</span>'+possession+momentum+
+    '<b class="ledger26-points'+scoreClass+'"'+(upset?' title="Upset watch: lower-ranked team leads"':'')+'>'+esc(scored)+'</b></div>';
   };
   return '<div class="ledger26-scorebug'+(g.suppressMonogram?' ledger26-scorebug--plain':'')+(phase==='upcoming'?' ledger26-scorebug--pregame':'')+'" role="group" aria-label="'+esc(g.ariaLabel||((g.away?.name||'Away')+' at '+(g.home?.name||'Home')+' scoreboard'))+'">'+
     (g.suppressMonogram?'':'<span class="ledger26-monogram"><img src="assets/slt-engraved-black.svg" width="35" height="49" alt="Sporting Life and Times monogram"></span>')+
