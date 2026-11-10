@@ -70,12 +70,12 @@ const rows=sorted.map(g=>{
     (other?.rank?'<span class="wbb-opponent-rank" title="Women’s RETRO rank">#'+esc(other.rank)+'</span>':'')+
     '<span class="wbb-opponent-name">'+(opp?'<a href="ncaaw-team.html?team='+encodeURIComponent(opp.team_id)+'">'+esc(g.opponent||opp.team)+'</a>':esc(g.opponent||'Opponent TBA'))+'</span>'+
     conferenceTag+'</div><span class="wbb-site-label">'+esc(site(g))+'</span>'+
-    '<span class="wbb-win-probability">'+(g.completed?'Final':winChance(rating,other,g))+'</span></div></div>';
+    '<span class="wbb-win-probability">'+(g.cancelled?'Canceled':g.completed?'Final':winChance(rating,other,g))+'</span></div></div>';
   const tv=tvmap.get(String(g.id)),tvName=tv?.broadcast||g.broadcast||'Network TBA',tvUrl=tv?.source_url||g.broadcast_source_url||'';
   const television=tvUrl.startsWith('https://')?'<a href="'+esc(tvUrl)+'" target="_blank" rel="noopener noreferrer">'+esc(tvName)+' ↗</a>':esc(tvName);const neutral=window.WBBSiteIntegrity?.certifiedNeutral(g,neutralProof);
   const officialHome=window.WBBSiteIntegrity?.officialHome(g,homeProof);
   const siteClaims=officialHome?[]:window.WBBSiteIntegrity?.claims(g,siteDisputes,neutralProof)||[];
-  const probability=g.completed?'Final':siteClaims.length?'Venue review':winChance(rating,other,neutral?{...g,site:'neutral'}:g);const delta=other&&Number.isFinite(other.daily_change)?(other.daily_change>0?'+':'')+other.daily_change.toFixed(1):'—';
+  const probability=g.cancelled?'Canceled':g.completed?'Final':siteClaims.length?'Venue review':winChance(rating,other,neutral?{...g,site:'neutral'}:g);const delta=other&&Number.isFinite(other.daily_change)?(other.daily_change>0?'+':'')+other.daily_change.toFixed(1):'—';
   const city=String(g.city||g.city_state||g.official_location_as_printed||'').trim();
   const source=(siteClaims.find(x=>window.WBBSiteIntegrity.safeURL(x.source_url))||{}).source_url;
   const siteLabel=officialHome?
@@ -94,7 +94,7 @@ const rows=sorted.map(g=>{
   const disputed=!!dispute;
   const hasOfficial=!!officialTip&&!/TBA|TBD/i.test(officialTip);
   const tentative=(!disputed&&!hasOfficial&&!g.completed)?listedTipoff(g):'';
-  const tip=disputed?'Disputed — verify':hasOfficial?esc(officialTip):tentative?esc(tentative):'TBA';
+  const tip=g.cancelled?'Canceled':disputed?'Disputed — verify':hasOfficial?esc(officialTip):tentative?esc(tentative):'TBA';
   const disagreement=dispute?.cross_school_disagreement?
     'Universities report different tipoffs; organizer confirmation required.':
     'Official university and published calendar times differ; confirmation pending.';
@@ -104,8 +104,8 @@ const rows=sorted.map(g=>{
     tentative?'<small class="wbb-tipoff-tentative">Feed-listed start; unverified by school.</small>':
     hasOfficial?'<small class="wbb-tipoff-verified">University-sourced listing</small>':'';
   const result=window.WBBGameResults.scoreFor(g,id);
-  const statAvailable=g.completed&&!g.result_conflict&&/^\d+$/.test(String(g.id));
-  const state=g.completed?'final':new Date(g.date)<new Date()?'past':'upcoming';
+  const statAvailable=g.completed&&!g.cancelled&&!g.result_conflict&&/^\d+$/.test(String(g.id));
+  const state=g.cancelled?'canceled':g.completed?'final':new Date(g.date)<new Date()?'past':'upcoming';
   const court=siteClaims.length?'disputed':neutral||g.site==='neutral'?'neutral':officialHome||g.site_verified===true?'verified-home':'unverified';
   const main='<tr class="wbb-game-entry" data-site="'+esc(g.site||'unknown')+'" data-team-id="'+esc(id)+'" data-opponent-id="'+esc(g.opponent_id||'')+'" data-home-id="'+esc(g.home_id||'')+'" data-away-id="'+esc(g.away_id||'')+'" data-forecast-venue="'+court+'" data-calendar-state="'+state+'" data-opponent="'+esc((g.opponent||opp?.team||'').toLowerCase())+'" data-game-id="'+esc(g.id)+'">'+
     '<td data-label="Date"><time>'+date+'</time></td>'+
