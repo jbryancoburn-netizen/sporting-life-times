@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "checked_at_utc": "2026-11-09T23:10:45.896179+00:00",
+  "checked_at_utc": "2026-11-10T03:30:01.919105+00:00",
   "source": "NCAA scoreboard via ncaa-api compatibility endpoint",
   "games": [
     {
@@ -327,6 +327,32 @@
       "away_id": "wis-eau-claire",
       "period": "FINAL (OT)",
       "source_url": "https://www.ncaa.com/game/6666266"
+    },
+    {
+      "match_id": "men-6666301",
+      "cohort": "men-d1",
+      "status": "final",
+      "home_score": 3,
+      "away_score": 1,
+      "home_name": "North Florida",
+      "away_name": "Stetson",
+      "home_id": "north-florida",
+      "away_id": "stetson",
+      "period": "FINAL",
+      "source_url": "https://www.ncaa.com/game/6666301"
+    },
+    {
+      "match_id": "men-6666302",
+      "cohort": "men-d1",
+      "status": "final",
+      "home_score": 0,
+      "away_score": 1,
+      "home_name": "Central Ark.",
+      "away_name": "Queens (NC)",
+      "home_id": "central-ark",
+      "away_id": "queens-nc",
+      "period": "FINAL",
+      "source_url": "https://www.ncaa.com/game/6666302"
     },
     {
       "match_id": "men-6666314",
@@ -914,6 +940,19 @@
       "source_url": "https://www.ncaa.com/game/6665594"
     },
     {
+      "match_id": "women-6666025",
+      "cohort": "women-d3",
+      "status": "final",
+      "home_score": 1,
+      "away_score": 0,
+      "home_name": "Crown (MN)",
+      "away_name": "Faith Bapt. Bible",
+      "home_id": "crown-mn",
+      "away_id": "faith-bapt-bible",
+      "period": "FINAL",
+      "source_url": "https://www.ncaa.com/game/6666025"
+    },
+    {
       "match_id": "women-6666118",
       "cohort": "women-d2",
       "status": "final",
@@ -1163,15 +1202,28 @@
     {
       "match_id": "women-6666605",
       "cohort": "women-d1",
-      "status": "live",
-      "home_score": 0,
-      "away_score": 0,
+      "status": "final",
+      "home_score": 1,
+      "away_score": 2,
       "home_name": "Georgia St.",
       "away_name": "South Alabama",
       "home_id": "georgia-st",
       "away_id": "south-ala",
-      "period": "1ST HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6666605"
+    },
+    {
+      "match_id": "women-6666606",
+      "cohort": "women-d1",
+      "status": "live",
+      "home_score": 1,
+      "away_score": 0,
+      "home_name": "James Madison",
+      "away_name": "Southern Miss.",
+      "home_id": "james-madison",
+      "away_id": "southern-miss",
+      "period": "2ND HALF",
+      "source_url": "https://www.ncaa.com/game/6666606"
     },
     {
       "match_id": "women-6666633",
@@ -1538,6 +1590,32 @@
       "source_url": "https://www.ncaa.com/game/6667564"
     },
     {
+      "match_id": "women-6667565",
+      "cohort": "women-d1",
+      "status": "final",
+      "home_score": 2,
+      "away_score": 0,
+      "home_name": "Texas Tech",
+      "away_name": "UCF",
+      "home_id": "texas-tech",
+      "away_id": "ucf",
+      "period": "FINAL",
+      "source_url": "https://www.ncaa.com/game/6667565"
+    },
+    {
+      "match_id": "women-6667566",
+      "cohort": "women-d1",
+      "status": "live",
+      "home_score": 0,
+      "away_score": 0,
+      "home_name": "Baylor",
+      "away_name": "Houston",
+      "home_id": "baylor",
+      "away_id": "houston",
+      "period": "HALF",
+      "source_url": "https://www.ncaa.com/game/6667566"
+    },
+    {
       "match_id": "women-6667570",
       "cohort": "women-d1",
       "status": "final",
@@ -1575,6 +1653,19 @@
       "away_id": "catholic",
       "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6667779"
+    },
+    {
+      "match_id": "women-6675274",
+      "cohort": "women-d3",
+      "status": "live",
+      "home_score": 0,
+      "away_score": 1,
+      "home_name": "Spurgeon",
+      "away_name": "North Central (MN)",
+      "home_id": "spurgeon",
+      "away_id": "north-central-mn",
+      "period": "2ND HALF",
+      "source_url": "https://www.ncaa.com/game/6675274"
     }
   ]
 }
