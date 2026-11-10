@@ -43,6 +43,9 @@
     (momentum?'<small class="ledger26-situation ledger26-momentum'+(momentum.kind==='run'?' ledger26-momentum--run':'')+'">'+esc(momentum.text)+'</small>':'')+'</div>';
  }
  function pregamePanel(g){
+  // Do not conceal a known source conflict behind an ordinary pregame forecast.
+  if(/\b(?:SOURCE CONFLICT|REVIEW|DISPUTED)\b/i.test(String(g.status||'')))
+    return '<div class="ledger26-status ledger26-status--pregame" data-phase="upcoming"><strong>'+esc(g.status)+'</strong></div>';
   const f=g.forecast;
   if(!f||typeof f.team!=='string'||!Number.isFinite(f.probability)||f.probability<0||f.probability>1)
     return '<div class="ledger26-status ledger26-status--pregame" data-phase="upcoming"><strong class="ledger26-pregame-empty">'+esc(g.suppressTipoffFallback?'NO FORECAST':(g.time||g.tipoff||'PREGAME'))+'</strong></div>';
