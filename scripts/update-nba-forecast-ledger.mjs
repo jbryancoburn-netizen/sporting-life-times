@@ -76,7 +76,10 @@ function updateLedger(previous,sources,now=new Date().toISOString()){
  assert.ok(Array.isArray(schedule?.games),'NBA schedule unavailable');
  const scheduleStamp=Date.parse(schedule.updated_at||'');
  // Grade existing forecasts even when schedules are stale, but never freeze new ones.
- const freshSchedule=Number.isFinite(scheduleStamp)&&scheduleStamp<=t+300000&&t-scheduleStamp<=60*60000;
+ // Dated NBA schedules are still usable for prospective snapshots when the refresh
+ // is delayed by a transient provider outage. Never create forecasts after tipoff.
+ // A six-hour limit tolerates brief upstream outages while rejecting old editions.
+ const freshSchedule=Number.isFinite(scheduleStamp)&&scheduleStamp<=t+300000&&t-scheduleStamp<=6*60*60000;
  assert.equal(earned.status,'primary_live_earned_elo','Forecasts require true earned USRS Elo');
  assert.equal(earned.parameters?.season_start_elo,1500);
  assert.equal(earned.parameters?.home_elo,40);
@@ -203,5 +206,14 @@ if(process.argv[1]&&fileURLToPath(import.meta.url)===process.argv[1]){
  };
  const {ledger,added,graded,flagged,skippedStale,changed}=updateLedger(previous,sources);
  if(changed||!existsSync(path))writeFileSync(path,JSON.stringify(ledger,null,2)+'\n');
+ // Explicit failure when a healthy upcoming slate has no archived forecast.
+ // This must be reported by Actions, not disguised as a successful zero-change run.
+ const now=Date.now(),fresh=Number.isFinite(Date.parse(sources.schedule.updated_at))&&
+   now-Date.parse(sources.schedule.updated_at)<=6*3600000;
+ const eligible=(sources.schedule.games||[]).filter(g=>g.state==='pre'&&
+   Date.parse(g.date)-now>10*60000&&Date.parse(g.date)-now<=24*3600000);
+ const pending=eligible.filter(g=>!ledger.forecasts.some(f=>f.id===g.id));
+ if(fresh&&pending.length)throw Error('NBA forecast archive incomplete: '+pending.length+
+   ' eligible pregame fixtures missing frozen snapshots: '+pending.map(g=>g.id).join(', '));
  console.log('Rabby NBA forecast ledger:',ledger.forecasts.length,'frozen,',added,'new,',graded,'graded,',flagged,'reschedules,',skippedStale,'stale withheld; early',ledger.metrics.early?.sample||0,'near-tipoff',ledger.metrics.near_tipoff?.sample||0);
 }
