@@ -155,9 +155,20 @@ function headline(g){return g.phase==='live'?'● LIVE DISPATCH':g.phase==='fina
 function crest(t){
  return '<span class="vld-crest" style="--side:'+t.color+'">'+(t.logo?'<img src="'+esc(t.logo)+'" alt="" loading="lazy" onerror="this.hidden=true">':'<span class="vld-monogram">'+esc(t.code||t.short.slice(0,2))+'</span>')+'</span>';
 }
+function reportedFouls(g,side){
+ const source=g.boxstats?.[side]||[];
+ for(const value of source){
+  const name=String(value?.name||value?.label||value?.abbreviation||'').toLowerCase().replace(/[^a-z]/g,'');
+  if(!['teamfouls','totalfouls','personalfouls','foulspersonal'].includes(name))continue;
+  const count=num(value.displayValue??value.value);
+  if(Number.isInteger(count)&&count>=0&&count<=200)return count;
+ }
+ return null;
+}
 function scoreboard(g){
  const line=(t)=>'<div class="vld-team vld-team--'+t.side+'" style="--side:'+t.color+'">'+crest(t)+
- '<div class="vld-identity"><strong>'+esc(t.name)+'</strong><span>'+esc(t.code)+(t.record?' · '+esc(t.record):'')+'</span></div>'+
+ '<div class="vld-identity"><strong>'+esc(t.name)+'</strong><span>'+esc(t.code)+(t.record?' · '+esc(t.record):'')+'</span>'+
+ (reportedFouls(g,t.side)!==null?'<small class="vld-fouls">REPORTED FOULS · '+reportedFouls(g,t.side)+'</small>':'')+'</div>'+
  '<b class="vld-points">'+(g.phase==='upcoming'?'—':t.score??'—')+'</b></div>';
  return '<section class="vld-score"><div class="vld-score-kicker"><span>'+headline(g)+'</span><span>'+esc(g.detail)+'</span></div>'+
  line(g.a)+line(g.h)+'<div class="vld-score-footer">'+
