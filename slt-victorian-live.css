@@ -131,3 +131,6 @@ body.vld-body{margin:0;color:var(--vld-ink);background:#e9e0cd;font-family:"Cent
  .vld-live-grid .vld-floor,.vld-shot-floor{aspect-ratio:auto;padding:3px;border-width:3px}
  .vld-floor-caption{font-size:9px}
 }
+
+/* Do not squeeze the regulation aspect ratio in the wider shot-details panel. */
+.vld-shot-floor .vld-court-svg--basketball{max-height:none;height:auto}
