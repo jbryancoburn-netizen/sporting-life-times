@@ -150,6 +150,22 @@ class WomenLiveIngestionTests(unittest.TestCase):
                 wbb.live(today=wbb.dt.date(2026,11,1))
         self.assertFalse((self.root/"ncaaw-2026-27-verified-games.json").exists())
 
+    def test_confirmed_ncaa_score_evidence_survives_later_espn_only_refresh(self):
+        # The official relay can become unavailable after a score is certified.
+        # Re-fetching an unchanged ESPN final must not erase that provenance.
+        (self.root/"mbb-live.json").write_text(json.dumps(self.ncaa_feed(75,78)))
+        def dates(day):
+            return [event("401920983","2026-11-01",done=True)] if day.isoformat()=="2026-11-01" else []
+        with patch.object(wbb,"daily",side_effect=dates):
+            wbb.live(today=wbb.dt.date(2026,11,1))
+            first=self.load("ncaaw-2026-27-verified-games.json")["games"][0]
+            self.assertEqual(first["score_evidence"],"espn_and_ncaa_origin")
+            (self.root/"mbb-live.json").unlink()
+            wbb.live(today=wbb.dt.date(2026,11,1))
+        again=self.load("ncaaw-2026-27-verified-games.json")["games"][0]
+        self.assertEqual((again["home_score"],again["away_score"]),(75,78))
+        self.assertEqual(again["score_evidence"],"espn_and_ncaa_origin")
+
     def test_stale_ncaa_snapshot_does_not_pretend_to_confirm_a_score(self):
         stale=(wbb.dt.datetime.now(wbb.dt.timezone.utc)-wbb.dt.timedelta(hours=3)).isoformat()
         (self.root/"mbb-live.json").write_text(json.dumps(self.ncaa_feed(75,78,checked_at=stale)))
