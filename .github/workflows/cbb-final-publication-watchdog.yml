@@ -6,6 +6,12 @@ on:
     paths:
       - '.github/workflows/cbb-final-publication-watchdog.yml'
       - 'scripts/check_cbb_finals_health.py'
+  workflow_run:
+    workflows:
+      - MBB newspaper refresh and publish
+      - Publish MBB RETRO Primary
+    types: [completed]
+    branches: [main]
   schedule:
     # Independent of men's and women's publisher schedules, including overnight.
     - cron: '*/5 * * * *'
@@ -28,8 +34,31 @@ jobs:
       - name: Independently compare ESPN finals, published RETRO and live website
         id: freshness
         run: python3 scripts/check_cbb_finals_health.py
+      - name: Recover stale published men's live scoreboard
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          python3 - <<'PY' > /tmp/slt-mbb-stale
+          import datetime as dt,json
+          from pathlib import Path
+          feed=json.loads(Path('data/mbb-live.json').read_text())
+          try:
+              stamp=dt.datetime.fromisoformat(feed.get('scores_updated_at') or '')
+              age=dt.datetime.now(dt.timezone.utc)-stamp.astimezone(dt.timezone.utc)
+              print('true' if age>dt.timedelta(minutes=12) else 'false')
+          except (ValueError,TypeError,AttributeError):
+              print('true')
+          PY
+          if [[ "$(cat /tmp/slt-mbb-stale)" == "true" ]]; then
+            active="$(gh run list --workflow mbb-newspaper.yml --branch main --limit 12 --json status --jq 'any(.[]; .status != "completed")')"
+            if [[ "$active" == "false" ]]; then
+              gh workflow run mbb-newspaper.yml --ref main
+            fi
+          fi
       - name: Recover missing men's finals and team schedules
-        if: steps.freshness.outputs.refresh_men == 'true'
+        if: ${{ always() && steps.freshness.outputs.refresh_men == 'true' }}
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -38,7 +67,7 @@ jobs:
             gh workflow run mbb-retro-primary.yml --ref main
           fi
       - name: Recover missing women's finals and team schedules
-        if: steps.freshness.outputs.refresh_women == 'true'
+        if: ${{ always() && steps.freshness.outputs.refresh_women == 'true' }}
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -47,7 +76,7 @@ jobs:
             gh workflow run wbb-retro-live.yml --ref main
           fi
       - name: Recover a lagging public Pages deployment
-        if: steps.freshness.outputs.deploy == 'true'
+        if: ${{ always() && steps.freshness.outputs.deploy == 'true' }}
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
