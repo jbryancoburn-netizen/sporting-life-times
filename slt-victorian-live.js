@@ -4,7 +4,7 @@
 (function () {
 'use strict';
 const q=id=>document.getElementById(id);
-const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','"':'&quot;',"'":'&#39;'}[c]));
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const params=new URLSearchParams(location.search);
 const league=String(params.get('league')||'').toLowerCase();
 const id=String(params.get('game')||'').replace(/^espn:/,'');
@@ -90,8 +90,67 @@ function normalize(raw){
  const location=[addr.city,addr.state||addr.country].filter(Boolean).join(', ');
  const broadcasters=(comp?.broadcasts||[]).flatMap(x=>x.names||[]).join(', ');
  const detail=String(status.type?.shortDetail||status.type?.description||status.displayClock||comp?.status?.type?.description||'Match details');
- return {id,a,h,phase,detail,venue,location,broadcasters,plays,boxstats,boxPlayers,raw};
+ return {id,a,h,phase,detail,venue,location,broadcasters,plays,boxstats,boxPlayers,raw,source:'ESPN game summary'};
 }
+
+function nbaOfficial(raw,playFeed){
+ const g=raw?.game||raw;if(!g?.awayTeam||!g?.homeTeam)throw Error('NBA official game report lacks teams');
+ if(String(g.gameId||'')!==id)throw Error('NBA official game identifier differs from the selected game');
+ const phase=Number(g.gameStatus)===3?'final':Number(g.gameStatus)===2?'live':'upcoming';
+ const parts=[g.awayTeam,g.homeTeam];
+ const pick=(t,side)=>({
+  side,id:String(t.teamId||''),name:[t.teamCity,t.teamName].filter(Boolean).join(' ')||String(t.teamTricode||'Team'),
+  short:String(t.teamName||t.teamTricode||'Team'),code:String(t.teamTricode||'').slice(0,8),
+  logo:sourceLogo('https://cdn.nba.com/logos/nba/'+String(t.teamId||'')+'/primary/L/logo.svg'),
+  color:'#'+(side==='away'?'702e31':'294d60'),score:safeScore(t.score),record:'',
+  lines:(t.periods||[]).map(x=>({value:x.score}))
+ });
+ const a=pick(parts[0],'away'),h=pick(parts[1],'home');
+ const names=[['pointsInThePaint','Paint points'],['reboundsTotal','Rebounds'],['assists','Assists'],
+  ['turnovers','Turnovers'],['blocks','Blocks'],['steals','Steals'],['foulsPersonal','Personal fouls']];
+ const stats=t=>names.filter(([key])=>t.statistics?.[key]!=null).map(([key,name])=>({name,displayValue:String(t.statistics[key])}));
+ const boxstats={away:stats(parts[0]),home:stats(parts[1])};
+ const labels=['MIN','PTS','REB','AST','STL','BLK','FGM','FGA','3PM','3PA','FTM','FTA'];
+ const statKeys=['minutes','points','reboundsTotal','assists','steals','blocks','fieldGoalsMade','fieldGoalsAttempted','threePointersMade','threePointersAttempted','freeThrowsMade','freeThrowsAttempted'];
+ const boxPlayers=parts.map(t=>({team:{displayName:[t.teamCity,t.teamName].filter(Boolean).join(' ')},
+  statistics:[{labels,athletes:(t.players||[]).map(p=>({athlete:{displayName:p.name||p.nameI||''},
+   stats:statKeys.map(k=>String(p.statistics?.[k]??'—'))}))}]}));
+ const duration=v=>{const m=/^PT(?:(\d+)M)?(?:(\d+(?:\.\d+)?)S)?$/.exec(String(v||''));
+  return m?String(Number(m[1]||0))+':'+String(Math.floor(Number(m[2]||0))).padStart(2,'0'):String(v||'');};
+ const actions=playFeed?.game?.actions||playFeed?.actions||[];
+ const plays=actions.flatMap((p,i)=>{
+  const text=String(p.description||'').trim();if(!text)return[];
+  return [{id:String(p.actionNumber??i),i,period:Number(p.period)||0,clock:duration(p.clock),text,
+   awayScore:safeScore(p.scoreAway),homeScore:safeScore(p.scoreHome),teamId:String(p.teamId||''),
+   scoring:p.isFieldGoal===1||p.actionType==='freethrow',shooting:false,
+   shotSchema:'',shotX:null,shotY:null}];
+ });
+ const site=g.arena||{},location=[site.arenaCity,site.arenaState].filter(Boolean).join(', ');
+ return {id,a,h,phase,detail:String(g.gameStatusText||'NBA game'),venue:String(site.arenaName||''),
+  location,broadcasters:'',plays,boxstats,boxPlayers,raw,source:'NBA official live box score'+(plays.length?' and play register':'')};
+}
+async function getJSON(url){
+ const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),11000);
+ try{const response=await fetch(url+(url.includes('?')?'&':'?')+'_='+Date.now(),{cache:'no-store',signal:controller.signal});
+  if(!response.ok)throw Error('HTTP '+response.status);
+  return response.json();
+ }finally{clearTimeout(timer);}
+}
+async function loadGame(){
+ const sources=league==='nba'&&id.startsWith('00')?['nba','espn']:['espn',...(league==='nba'?['nba']:[])];
+ let lastError=null;
+ for(const source of sources){
+  try{
+   if(source==='espn')return normalize(await getJSON(endpoint));
+   const box=await getJSON('https://cdn.nba.com/static/json/liveData/boxscore/boxscore_'+id+'.json');
+   let plays=null;
+   try{plays=await getJSON('https://cdn.nba.com/static/json/liveData/playbyplay/playbyplay_'+id+'.json');}catch{}
+   return nbaOfficial(box,plays);
+  }catch(e){lastError=e;console.warn(source+' unavailable for '+id,e);}
+ }
+ throw lastError||Error('No trusted source responded');
+}
+
 function headline(g){return g.phase==='live'?'● LIVE DISPATCH':g.phase==='final'?'FINAL EDITION':'PREGAME EDITION';}
 function crest(t){
  return '<span class="vld-crest" style="--side:'+t.color+'">'+(t.logo?'<img src="'+esc(t.logo)+'" alt="" loading="lazy" onerror="this.hidden=true">':'<span class="vld-monogram">'+esc(t.code||t.short.slice(0,2))+'</span>')+'</span>';
@@ -188,7 +247,7 @@ function now(g){
  const last=g.plays[g.plays.length-1],game=String(g.detail||'');
  return '<section class="vld-now"><div class="vld-now-head"><span>◈ THE LATEST DISPATCH</span><time>'+esc(last?(periodLabel(last.period||1)+' · '+(last.clock||'clock unavailable')):game)+'</time></div>'+
  '<p>'+esc(last?.text|| (g.phase==='upcoming'?'Awaiting tipoff.':'No sourced play-by-play has been reported for this game.'))+'</p>'+
- (last?.awayScore!==null&&last?.homeScore!==null?'<small>Reported play score: '+esc(g.a.code)+' '+last.awayScore+' · '+esc(g.h.code)+' '+last.homeScore+'</small>':'')+'</section>';
+ (last&&last.awayScore!==null&&last.homeScore!==null?'<small>Reported play score: '+esc(g.a.code)+' '+last.awayScore+' · '+esc(g.h.code)+' '+last.homeScore+'</small>':'')+'</section>';
 }
 function teamStats(g){
  const groups=['away','home'].map(s=>new Map((g.boxstats[s]||[]).map(row=>
@@ -230,7 +289,7 @@ function page(g){
  panel('players','<section class="vld-paper"><h2>Player Box Scores</h2>'+players(g)+'</section>')+
  panel('plays','<section class="vld-paper"><h2>The Play Register</h2>'+eventLog(g)+'</section>')+
  panel('shots','<section class="vld-paper"><h2>Shot Locations</h2><div class="vld-shot-floor">'+courtSVG()+shots(g)+'</div></section>')+
- '<p class="vld-attribution">Source: ESPN game summary for this exact event. Live and final scores, play accounts and statistics are independently reported by the provider. RETRO pregame forecasts and predictions are not represented as in-game win probabilities. No fabricated possessions or shot locations.</p>';
+ '<p class="vld-attribution">Source: '+esc(g.source)+'. Live and final scores, play accounts and statistics are independently reported by the provider. RETRO pregame forecasts and predictions are not represented as in-game win probabilities. No fabricated possessions or shot locations.</p>';
 }
 function choose(tab,focus){
  chosenTab=tab;
@@ -254,10 +313,7 @@ function paint(g){
 async function update(){
  if(busy||document.hidden)return;busy=true;const request=++requestNo;
  try{
-  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),12000);let response;
-  try{response=await fetch(endpoint+'&_='+Date.now(),{cache:'no-store',signal:controller.signal});}finally{clearTimeout(timer);}
-  if(!response.ok)throw Error('HTTP '+response.status);
-  const data=await response.json(),game=normalize(data);
+  const game=await loadGame();
   if(request===requestNo)paint(game);
  }catch(error){
   console.warn('Victorian live desk:',error);
