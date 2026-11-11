@@ -346,6 +346,13 @@ def live(today=None):
                     old=finals.get(g["id"])
                     if old and any(old.get(k)!=g.get(k) for k in ("date","home_id","away_id","home_score","away_score")):
                         raise RuntimeError("Disputed game "+g["id"])
+                    # Never downgrade earlier NCAA-origin corroboration merely
+                    # because the relay is unavailable on a later ESPN refresh.
+                    # The exact identity and score equality gate above is required.
+                    if (old and old.get("score_evidence") in
+                        ("espn_and_ncaa_origin","ncaa_origin_final_espn_fixture")
+                        and g.get("score_evidence") in ("espn_only","espn_final_ncaa_pending")):
+                        g["score_evidence"]=old["score_evidence"]
                     finals[g["id"]]=g
                 elif g["id"] not in finals:
                     upcoming[g["id"]]=g
