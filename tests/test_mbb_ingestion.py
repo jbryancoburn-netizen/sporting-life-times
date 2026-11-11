@@ -2,7 +2,7 @@ import sys,unittest
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 from mbb_player_boxscores import parse_boxscore,aggregate
-from refresh_mbb_newspaper import parse_rss,parse_scores,parse_ncaa_crosscheck,fetch_ncaa_scoreboard,conference_schedule_fixtures,women_school_fixtures,parse_ncaa_player_boxscore,parse_ncaa_team_boxscore
+from refresh_mbb_newspaper import parse_rss,parse_scores,parse_ncaa_crosscheck,fetch_ncaa_scoreboard,conference_schedule_fixtures,women_school_fixtures,parse_ncaa_player_boxscore,parse_ncaa_team_boxscore,fetch_men_scoreboards
 class Ingestion(unittest.TestCase):
  def test_boxscore_and_replay(self):
   data={'boxscore':{'players':[{'team':{'id':'1'},'statistics':[{'labels':['PTS','REB','AST','FG','FT','STL','BLK'],'athletes':[{'athlete':{'id':'8','displayName':'A Player'},'stats':['20','5','3','7-14','4-5','2','1']},{'didNotPlay':True}]}]}]}}
@@ -11,6 +11,26 @@ class Ingestion(unittest.TestCase):
  def test_bad_rss_date_not_made_fresh(self):
   rss=b'<rss><channel><item><title>News</title><link>https://example.org/story</link><pubDate>bad</pubDate></item></channel></rss>'
   self.assertEqual(parse_rss(rss,'Source'),[])
+ def test_full_national_scoreboard_recovers_games_missing_in_grouped_feed(self):
+  import json
+  def event(id,state='pre',score='0'):
+   return {'id':id,'status':{'type':{'state':state}},
+           'competitions':[{'competitors':[{'score':score}]}]}
+  def fake(url):
+   if 'groups=50' in url:
+    return json.dumps({'events':[event('1','pre'),event('2')]}).encode()
+   return json.dumps({'events':[event('1','post','70'),event('3')]}).encode()
+  merged,audit=fetch_men_scoreboards('20261111',fake)
+  self.assertEqual({x['id'] for x in merged['events']},{'1','2','3'})
+  self.assertEqual(next(e for e in merged['events'] if e['id']=='1')['status']['type']['state'],'post')
+  self.assertTrue(all(s['ok'] for s in audit))
+ def test_unrestricted_scoreboard_survives_grouped_feed_failure(self):
+  def fake(url):
+   if 'groups=50' in url:raise OSError('feed down')
+   return b'{"events":[{"id":"777","status":{"type":{"state":"in"}},"competitions":[]}]}'
+  merged,audit=fetch_men_scoreboards('20261111',fake)
+  self.assertEqual(len(merged['events']),1)
+  self.assertFalse(audit[0]['ok'])
  def test_scoreboard_keeps_real_television_network(self):
   payload={'events':[{'id':'401920424','date':'2026-11-08T18:00Z',
    'status':{'type':{'state':'pre','shortDetail':'1 PM ET'}},
