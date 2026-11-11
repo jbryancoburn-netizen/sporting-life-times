@@ -856,7 +856,8 @@ function card(original,featured,opened=false){
  const tv=network?'<span class="ledger26-network">'+esc(network)+'</span>':g.phase==='upcoming'?'<span class="ledger26-network">TV TBA</span>':'';
  // A press launcher outside <summary> does not toggle the gamefile.
  const press=g.phase==='upcoming'?'<button type="button" class="slt-team-press-btn" data-slt-ledger-press-open data-game-id="'+esc(g.id)+'" data-day="'+esc(g.day)+'" aria-label="Read pregame press for '+esc(g.away.name)+' at '+esc(g.home.name)+'">PREGAME PRESS ›</button>':'';
- const right=tv||press?'<span class="ledger26-meta-actions">'+tv+press+'</span>':'';
+ const theatre=g.kind!=='exhibition'&&validId(g.id)&&g.phase==='live'?'<a class="vld-link" href="live-game.html?league='+(women?'ncaaw':'ncaam')+'&game='+encodeURIComponent(g.id)+'" aria-label="Open Victorian live dispatch for '+esc(g.away.name)+' at '+esc(g.home.name)+'">◈ LIVE DISPATCH</a>':'';
+ const right=tv||press||theatre?'<span class="ledger26-meta-actions">'+tv+press+theatre+'</span>':'';
  // RETRO is the only point-spread projection shown.
  const p=women?null:insight?.projectedScore(g,scoreCalibration,ratings);
  const modelMargin=Number.isFinite(g.projectedHomeMargin)?g.projectedHomeMargin:(p&&Number.isFinite(p.home)&&Number.isFinite(p.away)?p.home-p.away:null);
