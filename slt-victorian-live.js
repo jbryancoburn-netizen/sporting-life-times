@@ -230,29 +230,75 @@ function trend(g){
  '<g fill="none" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">'+paths+'</g>'+
  '</svg><p class="vld-source">'+label+'Actual point margin by reported scoring events; horizontal spacing represents event order, not elapsed time. Not a betting projection.</p>';
 }
+/* One SVG unit = one tenth of a foot. Court and markings use real 94' × 50'
+   geometry; only floor colors and line thickness are editorial treatments. */
+function basketballCourtSVG(){
+ const nba=league==='nba';
+ const restricted=league!=='ncaaw'; // Women's 2026-27 rules define under-basket area without a painted arc.
+ const keyHalf=nba?80:60; // NBA 16' lane; NCAA 12' lane.
+ const radius=nba?237.5:221.4583333; // NBA 23'9"; NCAA 22'1¾".
+ const cornerY=nba?30:34; // NBA 3' from sidelines; NCAA 3'4.875" rounded for SVG.
+ const junction=52.5+Math.sqrt(radius*radius-(250-cornerY)**2);
+ const j=junction.toFixed(2),other=(940-junction).toFixed(2),lower=500-cornerY;
+ const ftMarks=[30,70,100,130,160].map(x=>
+  '<line x1="'+x+'" y1="'+(250-keyHalf)+'" x2="'+x+'" y2="'+(243-keyHalf)+'"/>'+
+  '<line x1="'+x+'" y1="'+(250+keyHalf)+'" x2="'+x+'" y2="'+(257+keyHalf)+'"/>'+
+  '<line x1="'+(940-x)+'" y1="'+(250-keyHalf)+'" x2="'+(940-x)+'" y2="'+(243-keyHalf)+'"/>'+
+  '<line x1="'+(940-x)+'" y1="'+(250+keyHalf)+'" x2="'+(940-x)+'" y2="'+(257+keyHalf)+'"/>').join('');
+ const grain=Array.from({length:25},(_,i)=>
+  '<rect class="vld-plank" x="'+i*38+'" y="0" width="38" height="500" opacity="'+(i%2?.13:.07)+'"/>'+
+  '<line class="vld-plank-joint" x1="'+i*38+'" y1="0" x2="'+i*38+'" y2="500"/>').join('');
+ const ends=[0,1].map((_,side)=>{
+  const right=side===1,origin=right?940:0,free=right?750:190,board=right?900:40,rim=right?887.5:52.5;
+  return '<g class="vld-court-end" data-end="'+(right?'right':'left')+'">'+
+   '<rect class="vld-paint" x="'+(right?750:0)+'" y="'+(250-keyHalf)+'" width="190" height="'+2*keyHalf+'"/>'+
+   '<path class="vld-keyline" d="M'+origin+' '+(250-keyHalf)+' H'+free+' V'+(250+keyHalf)+' H'+origin+'"/>'+
+   // The free-throw arc faces midcourt; the dashed half is inside the paint.
+   '<path class="vld-court-line" d="M'+free+' 190 A60 60 0 0 '+(right?0:1)+' '+free+' 310"/>'+
+   '<path class="vld-ft-dash" d="M'+free+' 190 A60 60 0 0 '+(right?1:0)+' '+free+' 310"/>'+
+   '<line class="vld-backboard" x1="'+board+'" y1="220" x2="'+board+'" y2="280"/>'+
+   '<circle class="vld-rim" cx="'+rim+'" cy="250" r="7.5"/>'+
+   (restricted?'<path class="vld-restricted" d="M'+board+' 210 H'+rim+' A40 40 0 0 '+(right?0:1)+' '+rim+' 290 H'+board+'"/>':'')+
+   '</g>';
+ }).join('');
+ const perimeter='<path class="vld-court-line vld-three-point" d="M0 '+cornerY+' H'+j+' A'+radius+' '+radius+' 0 0 1 '+j+' '+lower+' H0"/>'+
+  '<path class="vld-court-line vld-three-point" d="M940 '+cornerY+' H'+other+' A'+radius+' '+radius+' 0 0 0 '+other+' '+lower+' H940"/>';
+ const label=nba?'NBA':'NCAA';
+ return '<svg class="vld-court-svg vld-court-svg--basketball" viewBox="-18 -18 976 536" role="img" '+
+  'aria-label="'+label+' regulation full basketball court: 94 feet long by 50 feet wide; two goals, correctly proportioned lanes, free-throw circles, three-point arcs, midcourt and center circle.">'+
+  '<rect class="vld-wood" x="0" y="0" width="940" height="500"/>'+
+  '<g class="vld-grain">'+grain+'</g>'+
+  ends+
+  '<g class="vld-court-markings">'+
+  '<rect class="vld-boundary" x="0" y="0" width="940" height="500"/>'+
+  '<path class="vld-court-line" d="M470 0 V500"/>'+
+  '<circle class="vld-court-line" cx="470" cy="250" r="60"/>'+
+  perimeter+ftMarks+
+  (nba?'<path class="vld-court-line" d="M280 0 V30 M660 0 V30 M280 500 V470 M660 500 V470"/>':'')+
+  '</g>'+
+  '<circle class="vld-center-medallion" cx="470" cy="250" r="44"/>'+
+  '<text class="vld-center-monogram" x="470" y="255" text-anchor="middle">SLT</text>'+
+  '</svg>';
+}
 function courtSVG(){
  if(config.kind==='football')return '<svg class="vld-court-svg" viewBox="0 0 640 340" aria-hidden="true"><rect x="15" y="25" width="610" height="290" rx="1"/>'+
  Array.from({length:9},(_,i)=>'<line x1="'+(76+i*61)+'" y1="25" x2="'+(76+i*61)+'" y2="315"/>').join('')+
  '<line x1="50" y1="25" x2="50" y2="315"/><line x1="590" y1="25" x2="590" y2="315"/></svg>';
  if(config.kind==='soccer')return '<svg class="vld-court-svg" viewBox="0 0 640 340" aria-hidden="true"><rect x="15" y="25" width="610" height="290"/><line x1="320" y1="25" x2="320" y2="315"/><circle cx="320" cy="170" r="60"/><rect x="15" y="90" width="90" height="160"/><rect x="535" y="90" width="90" height="160"/><rect x="15" y="125" width="30" height="90"/><rect x="595" y="125" width="30" height="90"/></svg>';
- return '<svg class="vld-court-svg" viewBox="0 0 640 340" aria-hidden="true"><rect x="22" y="20" width="596" height="300"/>'+
- '<line x1="320" y1="20" x2="320" y2="320"/><circle cx="320" cy="170" r="51"/>'+
- '<rect x="22" y="105" width="118" height="130"/><rect x="500" y="105" width="118" height="130"/>'+
- '<circle cx="72" cy="170" r="11"/><circle cx="568" cy="170" r="11"/>'+
- '<path d="M22 56 A161 161 0 0 1 22 284 M618 56 A161 161 0 0 0 618 284"/>'+
- '<path d="M140 105 A70 70 0 0 1 140 235 M500 105 A70 70 0 0 0 500 235"/></svg>';
+ return basketballCourtSVG();
 }
 function shots(g){
- if(config.kind!=='basketball')return '<p class="vld-empty">Court plotting is available for basketball only. Location tracking is not supplied for this sport.</p>';
+ if(config.kind!=='basketball')return '<p class="vld-empty">Shot-chart data is available only for basketball.</p>';
  const verified=g.plays.filter(p=>p.shooting&&p.shotSchema==='halfcourt_feet_v1'&&
   p.shotX!==null&&p.shotY!==null&&num(p.shotX)!==null&&num(p.shotY)!==null&&
   num(p.shotX)>=0&&num(p.shotX)<=50&&num(p.shotY)>=0&&num(p.shotY)<=47&&!/free throw/i.test(p.text));
- if(!verified.length)return '<p class="vld-empty">No certified shot coordinates have been supplied. The court is a diagram, not a live player-tracking animation.</p>';
- return '<div class="vld-shot-marks">'+verified.slice(-40).map(p=>{
-  const x=5+(num(p.shotX)/50)*90,y=5+(1-num(p.shotY)/47)*90;
-  const color=p.teamId===g.a.id?g.a.color:g.h.color;
-  return '<i class="vld-shot" style="left:'+x+'%;top:'+y+'%;background:'+color+'" title="'+esc(p.text)+'"></i>';
- }).join('')+'</div><p class="vld-source">Certified half-court locations only; dots mark reported shots, not ball movement.</p>';
+ if(!verified.length)return '<p class="vld-empty">No court coordinates have been certified for this match. The regulation court above remains visible, but no player or shot locations are invented.</p>';
+ // Half-court source coordinates alone do not say which direction each team
+ // attacked in every period. Never draw them in a guessed full-court location.
+ return '<div class="vld-coordinate-register"><h3 class="vld-subheading">Source-reported shot coordinates</h3>'+
+  '<p class="vld-source">Verified half-court coordinate records are listed below. They are not projected onto the full court until basket direction can be independently established.</p>'+
+  '<ol class="vld-plays">'+verified.slice(-40).reverse().map(p=>'<li><span>'+esc(periodLabel(p.period||1))+' · '+esc(p.clock||'—')+'</span>'+
+  '<p>'+esc(p.text)+'</p><b>'+esc(p.shotX)+', '+esc(p.shotY)+'</b></li>').join('')+'</ol></div>';
 }
 function now(g){
  const last=g.plays[g.plays.length-1],game=String(g.detail||'');
@@ -290,7 +336,7 @@ function page(g){
  const tabs=[['live','Live dispatch'],['stats','Statistics'],['players','Players'],['plays','Every play'],['shots','Court & shots']];
  const section='<section class="vld-paper vld-live-grid">'+
   '<div class="vld-live-main"><h2>The game in motion</h2>'+
-  '<div class="vld-floor">'+courtSVG()+(config.kind==='basketball'?'<span class="vld-floor-caption">ILLUSTRATED COURT · NO SIMULATED POSSESSIONS</span>':'<span class="vld-floor-caption">FIELD DIAGRAM · NOT PLAYER TRACKING</span>')+'</div>'+
+  '<div class="vld-floor">'+courtSVG()+'</div><p class="vld-floor-caption">'+(config.kind==='basketball'?(league==='nba'?'NBA REGULATION · 94 × 50 FT · 16-FT LANE':'NCAA REGULATION · 94 × 50 FT · 12-FT LANE'):'FIELD DIAGRAM · NOT PLAYER TRACKING')+'</p>'+
   now(g)+'</div><aside class="vld-flow"><h2>The Lead Ledger</h2>'+trend(g)+'</aside></section>';
  return scoreboard(g)+
  '<section class="vld-paper"><h2>Period Scoring</h2>'+lineScore(g)+'</section>'+
@@ -299,7 +345,7 @@ function page(g){
  panel('stats','<section class="vld-paper"><h2>Official Team Totals</h2>'+teamStats(g)+'</section>')+
  panel('players','<section class="vld-paper"><h2>Player Box Scores</h2>'+players(g)+'</section>')+
  panel('plays','<section class="vld-paper"><h2>The Play Register</h2>'+eventLog(g)+'</section>')+
- panel('shots','<section class="vld-paper"><h2>Shot Locations</h2><div class="vld-shot-floor">'+courtSVG()+shots(g)+'</div></section>')+
+ panel('shots','<section class="vld-paper"><h2>Court &amp; Reported Shots</h2><div class="vld-shot-floor">'+courtSVG()+'</div>'+shots(g)+'</section>')+
  '<p class="vld-attribution">Source: '+esc(g.source)+'. Live and final scores, play accounts and statistics are independently reported by the provider. RETRO pregame forecasts and predictions are not represented as in-game win probabilities. No fabricated possessions or shot locations.</p>';
 }
 function choose(tab,focus){
