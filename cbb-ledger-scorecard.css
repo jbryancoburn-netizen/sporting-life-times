@@ -468,3 +468,29 @@
  width:78%!important;height:78%!important;max-width:78%!important;max-height:78%!important;
  object-fit:contain!important;
 }
+
+/* Scorebug venue: always visible in the existing metadata rail, including with TV listings.
+   Do not infer a home arena for neutral-site or unverified games. */
+.ledger26-meta .ledger26-time--venue{
+ display:flex;flex-direction:column;align-items:flex-start;gap:3px;
+ min-width:0;white-space:normal;text-align:left;
+}
+.ledger26-time--venue .ledger26-tipoff{
+ display:block;font:700 11px/1.2 Georgia,'Times New Roman',serif;
+ font-variant-numeric:tabular-nums;white-space:nowrap;
+}
+.ledger26-time--venue .ledger26-venue{
+ display:block;max-width:100%;min-width:0;white-space:normal;
+ font:700 10px/1.25 Georgia,'Times New Roman',serif;
+ color:#55422e;overflow-wrap:break-word;word-break:normal;
+}
+.ledger26-time--venue .ledger26-venue-heading{
+ color:#805a39;letter-spacing:.05em;
+ font:700 8px/1.15 Georgia,'Times New Roman',serif;white-space:nowrap;
+}
+.ledger26-time--venue .ledger26-venue--missing{font-style:italic;font-weight:400}
+@media(max-width:700px){
+ .ledger26-meta .ledger26-time--venue{gap:2px;min-width:0;white-space:normal}
+ .ledger26-time--venue .ledger26-venue{font-size:9px;line-height:1.2}
+ .ledger26-time--venue .ledger26-tipoff{font-size:10px}
+}
