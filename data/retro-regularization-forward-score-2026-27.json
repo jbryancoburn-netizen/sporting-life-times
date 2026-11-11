@@ -2,34 +2,36 @@
   "season": "2026-27",
   "method": "Frozen future-date predictions; 1500 reset; previous-days-only D-I results",
   "archived": 204,
-  "excluded_identity_mismatches": [],
+  "excluded_identity_mismatches": [
+    "espn:401918992"
+  ],
   "baseline_006": {
-    "games": 4,
-    "margin_mae": 13.0,
-    "brier": 0.301921,
-    "winner_accuracy": 0.75
+    "games": 5,
+    "margin_mae": 15.0,
+    "brier": 0.342321,
+    "winner_accuracy": 0.6
   },
   "challenger_002": {
-    "games": 4,
-    "margin_mae": 14.375,
-    "brier": 0.329781,
-    "winner_accuracy": 0.75
+    "games": 5,
+    "margin_mae": 16.9,
+    "brier": 0.388055,
+    "winner_accuracy": 0.6
   },
   "by_date": {
     "2026-11-11": {
       "0.006": {
-        "games": 4,
-        "margin_mae": 13.0,
-        "brier": 0.301921,
-        "winner_accuracy": 0.75
+        "games": 5,
+        "margin_mae": 15.0,
+        "brier": 0.342321,
+        "winner_accuracy": 0.6
       },
       "0.002": {
-        "games": 4,
-        "margin_mae": 14.375,
-        "brier": 0.329781,
-        "winner_accuracy": 0.75
+        "games": 5,
+        "margin_mae": 16.9,
+        "brier": 0.388055,
+        "winner_accuracy": 0.6
       }
     }
   },
-  "last_changed_utc": "2026-11-11T21:29:21+00:00"
+  "last_changed_utc": "2026-11-11T23:28:00+00:00"
 }
