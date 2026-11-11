@@ -10,8 +10,15 @@ on:
       - '.github/workflows/retro-spread-accuracy.yml'
       - 'scripts/retro_regularization_forward.py'
       - 'scripts/retro_spread_accuracy.py'
+      - 'scripts/verify_retro_spread_coverage.py'
   schedule:
     - cron: '8,18,28,38,48,58 * * * *'
+  workflow_run:
+    workflows:
+      - Publish MBB RETRO Primary
+      - MBB RETRO single-model 100 forecast capture
+    types: [completed]
+    branches: [main]
   workflow_dispatch:
 permissions:
   contents: write
@@ -21,6 +28,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   audit:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 8
     steps:
@@ -35,6 +43,7 @@ jobs:
           python3 -m py_compile scripts/retro_spread_accuracy.py scripts/retro_regularization_forward.py
           python3 scripts/retro_spread_accuracy.py
           python3 scripts/retro_regularization_forward.py
+          python3 scripts/verify_retro_spread_coverage.py
       - name: Reconcile and commit only updated audit outputs
         id: publish
         shell: bash
@@ -50,6 +59,7 @@ jobs:
             python3 -m py_compile scripts/retro_spread_accuracy.py scripts/retro_regularization_forward.py
             python3 scripts/retro_spread_accuracy.py
             python3 scripts/retro_regularization_forward.py
+            python3 scripts/verify_retro_spread_coverage.py
             git add data/retro-pregame-archive-2026-27.json data/retro-spread-accuracy-2026-27.json data/retro-regularization-forward-2026-27.json data/retro-regularization-forward-score-2026-27.json
             if git diff --cached --quiet; then
               echo "No new predictions or scores"
