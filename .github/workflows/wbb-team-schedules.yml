@@ -55,7 +55,14 @@ jobs:
               exit 0
             fi
             git fetch origin main
-            git rebase origin/main || { git rebase --abort || true; exit 1; }
+            # In a rebase, 'ours' is the up-to-date main branch. Never let a
+            # slow full-calendar rebuild overwrite newer verified final scores.
+            git rebase -X ours origin/main || { git rebase --abort || true; exit 1; }
+            # Reapply finals from the refreshed verified ledger after rebasing.
+            # This also restores the latest per-team final reconciliation audit.
+            python3 scripts/sync_cbb_final_calendars.py --gender women
+            git add data/ncaaw-schedules-2026-27.json data/wbb-final-calendar-reconciliation-audit.json
+            if ! git diff --cached --quiet; then git commit --amend --no-edit; fi
             sleep 2
           done
           exit 1
