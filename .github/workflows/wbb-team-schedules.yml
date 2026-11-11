@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - '.github/workflows/wbb-team-schedules.yml'
+      - 'scripts/wbb-reconcile-schedule-evidence.py'
   schedule:
     # One weekly source refresh; avoid expensive repeating full-team polls.
     - cron: '27 11 * * 2'
