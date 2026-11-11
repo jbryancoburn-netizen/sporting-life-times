@@ -6,8 +6,8 @@
   "elo_approved": false,
   "source": "ESPN site API, completed finals since NBL27 regular-season opening",
   "season_start": "2026-09-19",
-  "updated_at": "2026-11-11T06:40:43.013446+00:00",
-  "games_replayed": 59,
+  "updated_at": "2026-11-11T17:15:19.514938+00:00",
+  "games_replayed": 60,
   "teams": 10,
   "rows": [
     {
@@ -81,14 +81,24 @@
       "points_pct": 95.92
     },
     {
+      "team": "Illawarra Hawks",
+      "wins": 5,
+      "losses": 9,
+      "played": 14,
+      "win_pct": 0.357,
+      "points_for": 1362,
+      "points_against": 1460,
+      "points_pct": 93.29
+    },
+    {
       "team": "South East Melbourne Phoenix",
       "wins": 4,
-      "losses": 7,
-      "played": 11,
-      "win_pct": 0.364,
-      "points_for": 1068,
-      "points_against": 1053,
-      "points_pct": 101.42
+      "losses": 8,
+      "played": 12,
+      "win_pct": 0.333,
+      "points_for": 1178,
+      "points_against": 1173,
+      "points_pct": 100.43
     },
     {
       "team": "New Zealand Breakers",
@@ -99,19 +109,21 @@
       "points_for": 1073,
       "points_against": 1079,
       "points_pct": 99.44
-    },
-    {
-      "team": "Illawarra Hawks",
-      "wins": 4,
-      "losses": 9,
-      "played": 13,
-      "win_pct": 0.308,
-      "points_for": 1242,
-      "points_against": 1350,
-      "points_pct": 92.0
     }
   ],
   "recent_finals": [
+    {
+      "id": "401875326",
+      "played_at": "2026-11-11T08:30Z",
+      "home": "South East Melbourne Phoenix",
+      "away": "Illawarra Hawks",
+      "home_score": 110,
+      "away_score": 120,
+      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875326/hawks-phoenix",
+      "verified": false,
+      "provider": "espn",
+      "state": "candidate"
+    },
     {
       "id": "401875296",
       "played_at": "2026-11-08T06:00Z",
@@ -216,18 +228,6 @@
       "home_score": 89,
       "away_score": 96,
       "source_url": "https://www.espn.com/nbl/game/_/gameId/401875288/bullets-36ers",
-      "verified": false,
-      "provider": "espn",
-      "state": "candidate"
-    },
-    {
-      "id": "401875313",
-      "played_at": "2026-11-01T04:00Z",
-      "home": "South East Melbourne Phoenix",
-      "away": "Tasmania JackJumpers",
-      "home_score": 89,
-      "away_score": 98,
-      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875313/jackjumpers-phoenix",
       "verified": false,
       "provider": "espn",
       "state": "candidate"
