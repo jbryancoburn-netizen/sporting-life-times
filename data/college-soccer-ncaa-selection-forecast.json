@@ -14,7 +14,7 @@
     "source_certified": false,
     "excluded_finals": 27,
     "quarantined_source_rows": 0,
-    "source_checked_through": "2026-11-10",
+    "source_checked_through": "2026-11-11",
     "warning": "Selection forecast is provisional until source quarantines and excluded games have been reconciled"
   },
   "selection_policy": {
@@ -149,7 +149,7 @@
       "conference_name": "Patriot",
       "team_id": "boston-u",
       "team": "Boston U.",
-      "elo": 1558.05,
+      "elo": 1533.505,
       "method": "elo_simulation_placeholder_from_available_tournament_field",
       "official_aq": false
     },
@@ -248,7 +248,7 @@
       "conference_name": "Mountain West",
       "team_id": "grand-canyon",
       "team": "Grand Canyon",
-      "elo": 1604.579,
+      "elo": 1613.718,
       "method": "elo_placeholder_without_verified_tournament_field",
       "official_aq": false
     },
@@ -695,15 +695,26 @@
       "seeded_24_candidate": true
     },
     {
+      "team_id": "grand-canyon",
+      "team": "Grand Canyon",
+      "conference": "men-d1:mountain-west",
+      "elo": 1613.718,
+      "bid_type": "projected_aq",
+      "experimental_strength_order": 24,
+      "ncaa_seed": null,
+      "first_round_bye_candidate": false,
+      "seeded_24_candidate": true
+    },
+    {
       "team_id": "oregon-st",
       "team": "Oregon St.",
       "conference": "men-d1:pac-12",
       "elo": 1611.51,
       "bid_type": "proxy_at_large",
-      "experimental_strength_order": 24,
+      "experimental_strength_order": 25,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
-      "seeded_24_candidate": true
+      "seeded_24_candidate": false
     },
     {
       "team_id": "north-florida",
@@ -711,7 +722,7 @@
       "conference": "men-d1:asun",
       "elo": 1609.713,
       "bid_type": "projected_aq",
-      "experimental_strength_order": 25,
+      "experimental_strength_order": 26,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
       "seeded_24_candidate": false
@@ -721,17 +732,6 @@
       "team": "FDU",
       "conference": "men-d1:nec",
       "elo": 1605.639,
-      "bid_type": "projected_aq",
-      "experimental_strength_order": 26,
-      "ncaa_seed": null,
-      "first_round_bye_candidate": false,
-      "seeded_24_candidate": false
-    },
-    {
-      "team_id": "grand-canyon",
-      "team": "Grand Canyon",
-      "conference": "men-d1:mountain-west",
-      "elo": 1604.579,
       "bid_type": "projected_aq",
       "experimental_strength_order": 27,
       "ncaa_seed": null,
@@ -926,23 +926,12 @@
       "seeded_24_candidate": false
     },
     {
-      "team_id": "boston-u",
-      "team": "Boston U.",
-      "conference": "men-d1:patriot",
-      "elo": 1558.05,
-      "bid_type": "projected_aq",
-      "experimental_strength_order": 45,
-      "ncaa_seed": null,
-      "first_round_bye_candidate": false,
-      "seeded_24_candidate": false
-    },
-    {
       "team_id": "evansville",
       "team": "Evansville",
       "conference": "men-d1:mvc",
       "elo": 1551.3,
       "bid_type": "projected_aq",
-      "experimental_strength_order": 46,
+      "experimental_strength_order": 45,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
       "seeded_24_candidate": false
@@ -953,7 +942,7 @@
       "conference": "men-d1:ovc",
       "elo": 1548.028,
       "bid_type": "projected_aq",
-      "experimental_strength_order": 47,
+      "experimental_strength_order": 46,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
       "seeded_24_candidate": false
@@ -963,6 +952,17 @@
       "team": "Purdue Fort Wayne",
       "conference": "men-d1:horizon",
       "elo": 1535.528,
+      "bid_type": "projected_aq",
+      "experimental_strength_order": 47,
+      "ncaa_seed": null,
+      "first_round_bye_candidate": false,
+      "seeded_24_candidate": false
+    },
+    {
+      "team_id": "boston-u",
+      "team": "Boston U.",
+      "conference": "men-d1:patriot",
+      "elo": 1533.505,
       "bid_type": "projected_aq",
       "experimental_strength_order": 48,
       "ncaa_seed": null,
