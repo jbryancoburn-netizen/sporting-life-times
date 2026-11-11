@@ -22,6 +22,8 @@ jobs:
           python-version: "3.12"
       - name: Fetch all 365 full team calendars
         run: python scripts/refresh_mbb_calendars.py
+      - name: Restore verified men's RETRO finals to both school calendars
+        run: python3 scripts/sync_cbb_final_calendars.py --gender men
       - name: Publish updated calendars
         run: |
           git config user.name "github-actions[bot]"
