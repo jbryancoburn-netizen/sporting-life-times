@@ -53,7 +53,7 @@ function drawScores(events,liveFeed){
    '<div class="ledger26-expanded"><p>'+esc(stamp(e.date))+'</p>'+periodTable+
    '<p>'+link(data.teams.get(String(away.team.id))||{id:away.team.id,name:away.team.displayName})+
    ' · '+link(data.teams.get(String(home.team.id))||{id:home.team.id,name:home.team.displayName})+
-   '</p><p>Results and live scores use sourced team identities.</p></div></details></article>';
+   '</p>'+(mode==='live'&&/^\d{7,12}$/.test(String(e.id))?'<p><a class="vld-link" href="live-game.html?league=cfb&game='+encodeURIComponent(e.id)+'">◈ OPEN VICTORIAN LIVE DISPATCH</a></p>':'')+'<p>Results and live scores use sourced team identities.</p></div></details></article>';
  }).join('');
  $('scores').innerHTML=games.length?html:'<p class="empty">No '+
   (phase==='all'?'':phase==='in'?'live ':phase==='post'?'completed ':'upcoming ')+

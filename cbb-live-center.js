@@ -341,7 +341,8 @@
     return '<article class="ledger26-card cbb-ledger-card cbb-'+esc(g.phase)+
       (expanded?' cbb-expanded':'')+'" data-cbb-game="'+esc(g.id)+'">'+
       '<div class="ledger26-meta"><span class="ledger26-venue">'+esc(metadata)+'</span>'+
-      (g.broadcast?'<span class="ledger26-network">'+esc(g.broadcast)+'</span>':'')+'</div>'+
+      (g.broadcast?'<span class="ledger26-network">'+esc(g.broadcast)+'</span>':'')+
+      (g.phase==='live'&&/^\d{7,12}$/.test(String(g.espnId||g.id))?'<a class="vld-link" href="live-game.html?league='+(women?'ncaaw':'ncaam')+'&game='+encodeURIComponent(g.espnId||g.id)+'">◈ LIVE DISPATCH</a>':'')+'</div>'+
       '<div class="ledger26-summary cbb-ledger-toggle" role="button" tabindex="0" data-cbb-toggle aria-expanded="'+expanded+
       '" aria-controls="cbb-inline-'+esc(g.id)+'" aria-label="Toggle '+esc(schoolLabel(g.away))+' at '+esc(schoolLabel(g.home))+' game details">'+
       scoreHTML+'<span class="ledger26-instruction" data-cbb-instruction>'+

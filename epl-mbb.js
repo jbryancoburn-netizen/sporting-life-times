@@ -33,6 +33,11 @@ async function updateLive(){
     container.prepend(row);
    }
    row.dataset.eplToday=String(e.id);
+   if(state==='in'&&/^\d{7,12}$/.test(String(e.id))&&!row.querySelector('.vld-link')){
+    const link=document.createElement('a');link.className='vld-link';link.href='live-game.html?league=epl&game='+encodeURIComponent(e.id);
+    link.textContent='◈ LIVE MATCH DISPATCH';link.setAttribute('aria-label','Open Victorian live match report');
+    row.querySelector('.ledger26-meta')?.append(link);
+   }
    row.querySelectorAll('.ledger26-points').forEach((node,i)=>{node.textContent=state==='pre'?'—':String(c[i]?.score??'—')});
    const label=row.querySelector('.ledger26-status');
    if(label){label.dataset.phase=phase;label.textContent=state==='pre'?localTime(e.date):(state==='in'?'LIVE · ':'FINAL · ')+status;}

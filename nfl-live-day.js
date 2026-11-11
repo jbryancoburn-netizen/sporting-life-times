@@ -77,7 +77,7 @@ function liveStatus(g){
 function card(g){
  const title=liveStatus(g),k=g.state==="in"?"live":"",isLive=g.state==="in"&&!g.stale;
  const venue=g.broadcast||g.venue||"Game details";
- return '<a class="nfl-live-card '+(isLive?"live-now":"")+'" href="'+gameUrl(g.id)+'" aria-label="'+html(g.away.name+" at "+g.home.name+", "+title)+'">'+
+ return '<a class="nfl-live-card '+(isLive?"live-now":"")+'" href="'+(isLive&&/^\d{7,12}$/.test(String(g.id))?'live-game.html?league=nfl&game='+encodeURIComponent(g.id):gameUrl(g.id))+'" aria-label="'+html(g.away.name+" at "+g.home.name+", "+title)+'">'+
  '<div class="nfl-live-meta"><span>WEEK '+html(g.week||"—")+'</span><span class="'+k+'">'+(isLive?'<i class="nfl-live-dot"></i>':"")+html(title)+'</span></div>'+
  teamRow(g.away,g.state)+teamRow(g.home,g.state)+
  '<div class="nfl-live-footer">'+html(venue)+(g.stale?' · Saved snapshot':'')+'</div></a>';
