@@ -3,19 +3,19 @@
   "division": "d3",
   "gender": "women",
   "season": "2026-27",
-  "generated_utc": "2026-11-11T00:43:27.633827+00:00",
+  "generated_utc": "2026-11-11T16:15:07.945131+00:00",
   "source": "NCAA 2026-27 member directory + year/gender-validated official school athletics calendars",
   "scope": "NCAA membership-wide first pass; sources without independently validated 2026-27 schedules excluded",
   "ncaa_confirmed_programs": 415,
   "verified_source_calendars": 365,
-  "official_conference_calendar_fallbacks": 32,
+  "official_conference_calendar_fallbacks": 33,
   "school_calendars_checked": 415,
   "school_calendars_missing": 50,
-  "school_calendars_unresolved": 18,
+  "school_calendars_unresolved": 17,
   "source_status_counts": {
     "parsed": 365,
-    "parsed_conference": 32,
-    "failed": 18
+    "failed": 17,
+    "parsed_conference": 33
   },
   "last_verified_school_source": {
     "4": "https://adrianbulldogs.com/sports/womens-basketball/schedule/2026-27?grid=true",
@@ -396,6 +396,7 @@
     "443": "https://landmarkconference.org/schedule.aspx?schedule=2618",
     "449": "https://newmacsports.com/schedule.aspx?schedule=3965",
     "455": "https://oac.org/schedule.aspx?schedule=2390",
+    "517": "https://oac.org/schedule.aspx?schedule=2391",
     "525": "https://miaa.org/schedule.aspx?schedule=2274",
     "532": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634829&OrgDir=gnac&TeamID=14305309",
     "569": "https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634829&OrgDir=gnac&TeamID=14305315",
@@ -522,23 +523,6 @@
       ]
     },
     {
-      "ncaa_org_id": 517,
-      "school": "Ohio Northern University",
-      "conference": "Ohio Athletic Conference",
-      "category": "season_heading_not_verified",
-      "failed_url": "https://onusports.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "last_successful_school_schedule_url": "",
-      "discovered_schedule_links": [],
-      "checked_schedule_candidates": 15,
-      "next_action": "Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar",
-      "opponent_published_fixtures": 24,
-      "opponent_source_examples": [
-        "https://www.nazathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-        "https://trinethunder.com/sports/womens-basketball/schedule/2026-27?grid=true",
-        "https://www.woosterathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
-      ]
-    },
-    {
       "ncaa_org_id": 538,
       "school": "Pennsylvania State Univ. Erie, the Behrend College",
       "conference": "Allegheny Mountain Collegiate Conference",
@@ -548,11 +532,11 @@
       "discovered_schedule_links": [],
       "checked_schedule_candidates": 15,
       "next_action": "Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar",
-      "opponent_published_fixtures": 16,
+      "opponent_published_fixtures": 17,
       "opponent_source_examples": [
+        "https://oac.org/schedule.aspx?schedule=2391",
         "https://www.alleghenygators.com/sports/womens-basketball/schedule/2026-27?grid=true",
-        "https://uofrathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-        "https://gobrockport.com/sports/womens-basketball/schedule/2026-2027?grid=true"
+        "https://uofrathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ]
     },
     {
@@ -727,11 +711,11 @@
     }
   ],
   "unverified_school_summary": {
-    "remaining_unverified_school_calendars": 18,
-    "missing_schools_with_at_least_10_opponent_sourced_games": 14,
+    "remaining_unverified_school_calendars": 17,
+    "missing_schools_with_at_least_10_opponent_sourced_games": 13,
     "missing_schools_with_zero_opponent_sourced_games": 0,
     "recovery_reason_counts": {
-      "season_heading_not_verified": 17,
+      "season_heading_not_verified": 16,
       "calendar_path_unavailable": 1
     }
   },
@@ -3560,89 +3544,15 @@
     },
     {
       "owner_org_id": 517,
-      "source_url": "https://onusports.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "status": "failed",
-      "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
-      "candidate_urls_tried": 15,
-      "rejected_page_evidence": [
-        {
-          "url": "https://onusports.com/sports/womens-basketball/schedule/2026-27?grid=true",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://onusports.com/sports/womens-basketball/schedule/2026-2027?grid=true",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://onusports.com/sports/womens-basketball/schedule?grid=true",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://onusports.com/sports/womens-basketball/schedule",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://onusports.com/sports/wbball/schedule?grid=true",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://onusports.com/sports/wbball/schedule",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://onusports.com/sports/wbkb/2026-27/schedule",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://onusports.com/sports/wbkb/schedule",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        }
-      ],
-      "conference_page_evidence": [],
-      "discovered_schedule_links": [],
-      "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0,
-      "retained_verified_fixtures": 0
+      "source_url": "https://oac.org/schedule.aspx?schedule=2391",
+      "status": "parsed_conference",
+      "calendar_origin": "official_conference_team_calendar",
+      "readable_rows": 11,
+      "verified_member_opponents": 10,
+      "excluded_rows": {
+        "missing_or_ambiguous_ncaa_opponent": 1
+      },
+      "failed_school_calendar_urls": 15
     },
     {
       "owner_org_id": 520,
@@ -4275,10 +4185,10 @@
     {
       "owner_org_id": 611,
       "source_url": "https://www.smcmathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "readable_rows": 27,
-      "verified_member_opponents": 17,
+      "readable_rows": 30,
+      "verified_member_opponents": 19,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 9,
+        "identity_not_d3_matched_but_posted": 10,
         "conditional_or_ambiguous_opponent": 1
       },
       "status": "parsed",
@@ -8488,9 +8398,9 @@
       ]
     }
   ],
-  "fixture_count": 4525,
-  "reciprocal_fixtures": 2691,
-  "unresolved_opponent_fixture_count": 1588,
+  "fixture_count": 4528,
+  "reciprocal_fixtures": 2700,
+  "unresolved_opponent_fixture_count": 1589,
   "unresolved_opponent_fixtures": [
     {
       "id": "d3-women-2026-11-06-73-other-3415eb321a6f",
@@ -10199,7 +10109,7 @@
       "schedule_only": true,
       "source_kind": "official_school",
       "source_url": "https://athletics.apu.edu/sports/womens-basketball/schedule?grid=true",
-      "tipoff_as_posted": "5:00 PM",
+      "tipoff_as_posted": "7:00 PM",
       "venue_location": "Santa Clarita, Calif."
     },
     {
@@ -19741,6 +19651,21 @@
       "source_url": "https://www.sfuathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "2:00 P.M.",
       "venue_location": "Newark, DE"
+    },
+    {
+      "id": "d3-women-2026-12-30-611-other-eab75aa6d85e",
+      "date": "2026-12-30",
+      "source_owner_org_id": 611,
+      "external_opponent_label": "William Smith",
+      "placement": "neutral",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://www.smcmathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "5:00 PM",
+      "venue_location": "Naples, FL"
     },
     {
       "id": "d3-women-2026-12-30-652-other-b8b7d2a2a5f8",
@@ -32361,7 +32286,7 @@
       "venue_location": "Westerville, Ohio",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "W, 80-43",
+      "tournament": "",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -35407,6 +35332,30 @@
       "neutral_home_designation_unconfirmed": true
     },
     {
+      "id": "d3-women-2026-11-07-517-538",
+      "date": "2026-11-07",
+      "away_org_id": 517,
+      "home_org_id": 538,
+      "neutral": true,
+      "status": "scheduled",
+      "source_url": "https://oac.org/schedule.aspx?schedule=2391",
+      "official_schedule_sources": [
+        "https://oac.org/schedule.aspx?schedule=2391"
+      ],
+      "verified_by_org_ids": [
+        517
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "single_official_conference",
+      "tipoff_as_posted": "",
+      "venue": "",
+      "venue_location": "Meadville, PA",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": true
+    },
+    {
       "id": "d3-women-2026-11-07-520-800",
       "date": "2026-11-07",
       "away_org_id": 520,
@@ -36651,13 +36600,15 @@
       "status": "scheduled",
       "source_url": "https://www.nazathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://oac.org/schedule.aspx?schedule=2391",
         "https://www.nazathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
-        461
+        461,
+        517
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "3 pm",
       "venue": "",
       "venue_location": "Meadville, PA",
@@ -37335,7 +37286,7 @@
       "venue_location": "Owings Mills, MD.",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 78-54",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -37459,7 +37410,7 @@
       "venue_location": "Haverford, Pa.",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 62-51",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -37559,7 +37510,7 @@
       "venue_location": "Staunton, VA",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 63-60",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -43067,16 +43018,18 @@
       "home_org_id": 517,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://trinethunder.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://oac.org/schedule.aspx?schedule=2391",
       "official_schedule_sources": [
+        "https://oac.org/schedule.aspx?schedule=2391",
         "https://trinethunder.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
+        517,
         30037
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
-      "tipoff_as_posted": "3:00 p.m.",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "3:00 P.M.",
       "venue": "",
       "venue_location": "Ada, OH",
       "network_as_posted": "",
@@ -47285,16 +47238,18 @@
       "home_org_id": 517,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.woosterathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://oac.org/schedule.aspx?schedule=2391",
       "official_schedule_sources": [
+        "https://oac.org/schedule.aspx?schedule=2391",
         "https://www.woosterathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
+        517,
         807
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
-      "tipoff_as_posted": "7:00 PM",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "7:00 P.M.",
       "venue": "",
       "venue_location": "Ada, OH",
       "network_as_posted": "",
@@ -47495,30 +47450,6 @@
       "tipoff_as_posted": "5:30 pm",
       "venue": "Maggs Physical Activities Center",
       "venue_location": "Salisbury, MD",
-      "network_as_posted": "",
-      "radio_as_posted": "",
-      "tournament": "",
-      "neutral_home_designation_unconfirmed": false
-    },
-    {
-      "id": "d3-women-2026-11-18-642-713",
-      "date": "2026-11-18",
-      "away_org_id": 713,
-      "home_org_id": 642,
-      "neutral": false,
-      "status": "scheduled",
-      "source_url": "https://bantamsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "official_schedule_sources": [
-        "https://bantamsports.com/sports/womens-basketball/schedule/2026-27?grid=true"
-      ],
-      "verified_by_org_ids": [
-        713
-      ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
-      "tipoff_as_posted": "7:00 p.m.",
-      "venue": "",
-      "venue_location": "Saratoga Springs, NY",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -48221,6 +48152,30 @@
       "tipoff_as_posted": "6:30 PM ET",
       "venue": "O'Keefe Center",
       "venue_location": "Salem, Mass.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-women-2026-11-19-642-713",
+      "date": "2026-11-19",
+      "away_org_id": 713,
+      "home_org_id": 642,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://bantamsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://bantamsports.com/sports/womens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        713
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7:00 p.m.",
+      "venue": "",
+      "venue_location": "Saratoga Springs, NY",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -50485,13 +50440,15 @@
       "status": "scheduled",
       "source_url": "https://www.denisonbigred.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://oac.org/schedule.aspx?schedule=2391",
         "https://www.denisonbigred.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
-        182
+        182,
+        517
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "1 P.M.",
       "venue": "Livingston Gymnasium",
       "venue_location": "Granville, Ohio",
@@ -55075,18 +55032,20 @@
       "home_org_id": 517,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://battlingbishops.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://oac.org/schedule.aspx?schedule=2391",
       "official_schedule_sources": [
-        "https://battlingbishops.com/sports/womens-basketball/schedule/2026-27?grid=true"
+        "https://battlingbishops.com/sports/womens-basketball/schedule/2026-27?grid=true",
+        "https://oac.org/schedule.aspx?schedule=2391"
       ],
       "verified_by_org_ids": [
+        517,
         520
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
-      "tipoff_as_posted": "1 p.m.",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "1:00 P.M.",
       "venue": "",
-      "venue_location": "Ada, Ohio",
+      "venue_location": "Ada, OH",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -64557,18 +64516,20 @@
       "home_org_id": 517,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://northcoast.org/schedule.aspx?schedule=2771",
+      "source_url": "https://oac.org/schedule.aspx?schedule=2391",
       "official_schedule_sources": [
-        "https://northcoast.org/schedule.aspx?schedule=2771"
+        "https://northcoast.org/schedule.aspx?schedule=2771",
+        "https://oac.org/schedule.aspx?schedule=2391"
       ],
       "verified_by_org_ids": [
+        517,
         806
       ],
       "source_kind": "official_conference",
-      "source_verification": "single_official_conference",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "1:00 P.M.",
       "venue": "",
-      "venue_location": "",
+      "venue_location": "Ada, OH",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -74240,7 +74201,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "5:00 PM",
+      "tipoff_as_posted": "1:00 PM",
       "venue": "",
       "venue_location": "San Juan, Puerto Rico",
       "network_as_posted": "",
@@ -75606,7 +75567,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "2:00 PM AST",
+      "tipoff_as_posted": "12:00 PM",
       "venue": "",
       "venue_location": "San Juan, Puerto Rico",
       "network_as_posted": "",
@@ -75741,6 +75702,30 @@
       "radio_as_posted": "",
       "tournament": "",
       "neutral_home_designation_unconfirmed": true
+    },
+    {
+      "id": "d3-women-2026-12-19-611-1467",
+      "date": "2026-12-19",
+      "away_org_id": 1467,
+      "home_org_id": 611,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.smcmathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://www.smcmathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        611
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "",
+      "venue": "Michael P. O'Brien Athletics & Recreation Center Arena",
+      "venue_location": "St. Mary's City, MD",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
     },
     {
       "id": "d3-women-2026-12-19-614-1164",
@@ -76284,12 +76269,12 @@
       ],
       "source_kind": "official_school",
       "source_verification": "single_official_school",
-      "tipoff_as_posted": "TBA",
+      "tipoff_as_posted": "11:30 a.m. (12:30 p.m. AT)",
       "venue": "",
       "venue_location": "San Juan, Puerto Rico",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "Puerto Rico Classico (Dec. 20-21)",
+      "tournament": "Puerto Rico Clasico (Dec. 20-21)",
       "neutral_home_designation_unconfirmed": true
     },
     {
@@ -76477,13 +76462,15 @@
       "status": "scheduled",
       "source_url": "https://www.goetbutigers.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://oac.org/schedule.aspx?schedule=2391",
         "https://www.goetbutigers.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
+        517,
         1062
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "3:00 PM (EST)",
       "venue": "",
       "venue_location": "Daytona Beach, FL",
@@ -76734,12 +76721,12 @@
       ],
       "source_kind": "official_school",
       "source_verification": "single_official_school",
-      "tipoff_as_posted": "TBA",
+      "tipoff_as_posted": "9 a.m. (10 a.m. AT)",
       "venue": "",
       "venue_location": "San Juan, Puerto Rico",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "Puerto Rico Classico (Dec. 20-21)",
+      "tournament": "Puerto Rico Clasico (Dec. 20-21)",
       "neutral_home_designation_unconfirmed": true
     },
     {
@@ -78301,7 +78288,7 @@
       "venue_location": "Westerville, Ohio",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "Smokey Ballenger Classic",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -78475,6 +78462,30 @@
       "radio_as_posted": "",
       "tournament": "UW-Oshkosh BSN Winter Classic",
       "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-women-2026-12-29-611-717",
+      "date": "2026-12-29",
+      "away_org_id": 611,
+      "home_org_id": 717,
+      "neutral": true,
+      "status": "scheduled",
+      "source_url": "https://www.smcmathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://www.smcmathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        611
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "5:00 PM",
+      "venue": "",
+      "venue_location": "Naples, FL",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "NAPLES SHOOTOUT",
+      "neutral_home_designation_unconfirmed": true
     },
     {
       "id": "d3-women-2026-12-29-612-641",
@@ -91333,13 +91344,15 @@
       "status": "scheduled",
       "source_url": "https://oac.org/schedule.aspx?schedule=2390",
       "official_schedule_sources": [
-        "https://oac.org/schedule.aspx?schedule=2390"
+        "https://oac.org/schedule.aspx?schedule=2390",
+        "https://oac.org/schedule.aspx?schedule=2391"
       ],
       "verified_by_org_ids": [
-        455
+        455,
+        517
       ],
       "source_kind": "official_conference",
-      "source_verification": "single_official_conference",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "1:00 P.M.",
       "venue": "",
       "venue_location": "New Concord, OH",
@@ -136357,15 +136370,17 @@
       "home_org_id": 517,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://oac.org/schedule.aspx?schedule=2390",
+      "source_url": "https://oac.org/schedule.aspx?schedule=2391",
       "official_schedule_sources": [
-        "https://oac.org/schedule.aspx?schedule=2390"
+        "https://oac.org/schedule.aspx?schedule=2390",
+        "https://oac.org/schedule.aspx?schedule=2391"
       ],
       "verified_by_org_ids": [
-        455
+        455,
+        517
       ],
       "source_kind": "official_conference",
-      "source_verification": "single_official_conference",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "1:00 P.M.",
       "venue": "",
       "venue_location": "",

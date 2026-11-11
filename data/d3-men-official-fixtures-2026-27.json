@@ -3,7 +3,7 @@
   "division": "d3",
   "gender": "men",
   "season": "2026-27",
-  "generated_utc": "2026-11-11T00:42:10.160342+00:00",
+  "generated_utc": "2026-11-11T16:13:47.318949+00:00",
   "source": "NCAA 2026-27 member directory + year/gender-validated official school athletics calendars",
   "scope": "NCAA membership-wide first pass; sources without independently validated 2026-27 schedules excluded",
   "ncaa_confirmed_programs": 406,
@@ -14,8 +14,8 @@
   "school_calendars_unresolved": 17,
   "source_status_counts": {
     "parsed": 358,
-    "parsed_conference": 31,
-    "failed": 17
+    "failed": 17,
+    "parsed_conference": 31
   },
   "last_verified_school_source": {
     "4": "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
@@ -3219,10 +3219,10 @@
       "source_url": "https://oac.org/schedule.aspx?schedule=2382",
       "status": "parsed_conference",
       "calendar_origin": "official_conference_team_calendar",
-      "readable_rows": 15,
-      "verified_member_opponents": 13,
+      "readable_rows": 23,
+      "verified_member_opponents": 20,
       "excluded_rows": {
-        "missing_or_ambiguous_ncaa_opponent": 2
+        "missing_or_ambiguous_ncaa_opponent": 3
       },
       "failed_school_calendar_urls": 9
     },
@@ -7996,18 +7996,6 @@
       ]
     },
     {
-      "date": "2027-01-23",
-      "members": [
-        30047,
-        30081
-      ],
-      "problem": "home/away or neutral-site source disagreement",
-      "source_urls": [
-        "https://gounitedeast.com/schedule.aspx?schedule=3822",
-        "https://www.gokcgiants.com/sports/mens-basketball/schedule?grid=true"
-      ]
-    },
-    {
       "date": "2027-01-30",
       "members": [
         211,
@@ -8188,8 +8176,8 @@
       ]
     }
   ],
-  "fixture_count": 4395,
-  "reciprocal_fixtures": 2620,
+  "fixture_count": 4396,
+  "reciprocal_fixtures": 2628,
   "unresolved_opponent_fixture_count": 1654,
   "unresolved_opponent_fixtures": [
     {
@@ -38571,7 +38559,7 @@
       "venue_location": "Winchester, Virginia",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "L, 53-62",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -38645,7 +38633,7 @@
       "venue_location": "Appleton, WI",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 82-69",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -38819,7 +38807,7 @@
       "venue_location": "Canton, N.Y.",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "L, 72-74",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -38843,7 +38831,7 @@
       "venue_location": "Duluth, Minn.",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "L, 60-65",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -39592,7 +39580,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "6:00 PM",
+      "tipoff_as_posted": "7:00 PM",
       "venue": "R.A. Faganel Hall",
       "venue_location": "Elmhurst, Ill.",
       "network_as_posted": "",
@@ -40365,13 +40353,15 @@
       "status": "scheduled",
       "source_url": "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://oac.org/schedule.aspx?schedule=2382"
       ],
       "verified_by_org_ids": [
+        517,
         520
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "7 p.m.",
       "venue": "Branch Rickey Arena",
       "venue_location": "Delaware, Ohio",
@@ -44401,16 +44391,18 @@
       "home_org_id": 517,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.muspartans.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://oac.org/schedule.aspx?schedule=2382",
       "official_schedule_sources": [
+        "https://oac.org/schedule.aspx?schedule=2382",
         "https://www.muspartans.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
+        517,
         1192
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
-      "tipoff_as_posted": "1:00 PM",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "1:00 P.M.",
       "venue": "",
       "venue_location": "Ada, OH",
       "network_as_posted": "",
@@ -52111,13 +52103,15 @@
       "status": "scheduled",
       "source_url": "https://trinethunder.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://oac.org/schedule.aspx?schedule=2382",
         "https://trinethunder.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
+        517,
         30037
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "1:30 p.m.",
       "venue": "",
       "venue_location": "Ada, OH",
@@ -55863,13 +55857,15 @@
       "status": "scheduled",
       "source_url": "https://athletics.kenyon.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://athletics.kenyon.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://athletics.kenyon.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://oac.org/schedule.aspx?schedule=2382"
       ],
       "verified_by_org_ids": [
-        335
+        335,
+        517
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "2:00PM",
       "venue": "",
       "venue_location": "Gambier, OH",
@@ -59807,13 +59803,15 @@
       "status": "scheduled",
       "source_url": "https://www.gobrits.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://oac.org/schedule.aspx?schedule=2382",
         "https://www.gobrits.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
-        15
+        15,
+        517
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "7:00 PM",
       "venue": "The Ohio Northern University Sports Center",
       "venue_location": "Ada, OH",
@@ -63147,13 +63145,15 @@
       "status": "scheduled",
       "source_url": "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://oac.org/schedule.aspx?schedule=2382"
       ],
       "verified_by_org_ids": [
-        21
+        21,
+        517
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "3 p.m.",
       "venue": "Art Smith Arena",
       "venue_location": "Alma, Michigan",
@@ -72426,7 +72426,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "single_official_school",
-      "tipoff_as_posted": "7 PM",
+      "tipoff_as_posted": "3:30 PM",
       "venue": "Felix Event Center",
       "venue_location": "Azusa, Calif.",
       "network_as_posted": "",
@@ -76803,13 +76803,15 @@
       "status": "scheduled",
       "source_url": "https://cruathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
-        "https://cruathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true"
+        "https://cruathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+        "https://oac.org/schedule.aspx?schedule=2382"
       ],
       "verified_by_org_ids": [
+        517,
         1203
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "3:00 PM (ET) / 2:00 PM (CT)",
       "venue": "Mayborn Campus Center",
       "venue_location": "Daytona Beach, FL",
@@ -109956,6 +109958,32 @@
       "tipoff_as_posted": "3:00 PM",
       "venue": "",
       "venue_location": "Boston, MA",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-01-23-30047-30081",
+      "date": "2027-01-23",
+      "away_org_id": 30081,
+      "home_org_id": 30047,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.gokcgiants.com/sports/mens-basketball/schedule?grid=true",
+      "official_schedule_sources": [
+        "https://gounitedeast.com/schedule.aspx?schedule=3822",
+        "https://www.gokcgiants.com/sports/mens-basketball/schedule?grid=true"
+      ],
+      "verified_by_org_ids": [
+        30047,
+        30081
+      ],
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "3:30 PM",
+      "venue": "Gambal Athletic Center",
+      "venue_location": "La Plume, PA",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",

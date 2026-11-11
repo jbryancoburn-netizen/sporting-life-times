@@ -8,8 +8,8 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 |---|---:|---:|
 | NCAA-listed teams | 406 | 415 |
 | University schedules | 358 | 365 |
-| Official conference calendars | 31 | 32 |
-| School and conference calendars unresolved | 17 | 18 |
+| Official conference calendars | 31 | 33 |
+| School and conference calendars unresolved | 17 | 17 |
 
 ## Men — verified calendar source URLs
 
@@ -231,7 +231,7 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | Oberlin College (515) | verified_university | [Exact verified URL](https://www.goyeo.com/sports/mens-basketball/schedule/2026-27?grid=true) | 21 |
 | Occidental College (516) | verified_university | [Exact verified URL](https://www.oxyathletics.com/sports/mens-basketball/schedule/2026-27?grid=true) | 20 |
 | Oglethorpe University (2713) | verified_university | [Exact verified URL](https://www.gopetrels.com/sports/mens-basketball/schedule/2026-27?grid=true) | 14 |
-| Ohio Northern University (517) | verified_conference | [Exact verified URL](https://oac.org/schedule.aspx?schedule=2382) | 13 |
+| Ohio Northern University (517) | verified_conference | [Exact verified URL](https://oac.org/schedule.aspx?schedule=2382) | 20 |
 | Ohio Wesleyan University (520) | verified_university | [Exact verified URL](https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true) | 25 |
 | Otterbein University (531) | verified_university | [Exact verified URL](https://www.otterbeincardinals.com/sports/mens-basketball/schedule/2026-27?grid=true) | 22 |
 | Pacific Lutheran University (1297) | verified_university | [Exact verified URL](https://www.golutes.com/sports/mens-basketball/schedule/2026-27?grid=true) | 17 |
@@ -655,6 +655,7 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | Oberlin College (515) | verified_university | [Exact verified URL](https://www.goyeo.com/sports/womens-basketball/schedule/2026-27?grid=true) | 24 |
 | Occidental College (516) | verified_university | [Exact verified URL](https://www.oxyathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 18 |
 | Oglethorpe University (2713) | verified_university | [Exact verified URL](https://www.gopetrels.com/sports/womens-basketball/schedule/2026-27?grid=true) | 16 |
+| Ohio Northern University (517) | verified_conference | [Exact verified URL](https://oac.org/schedule.aspx?schedule=2391) | 10 |
 | Ohio Wesleyan University (520) | verified_university | [Exact verified URL](https://battlingbishops.com/sports/womens-basketball/schedule/2026-27?grid=true) | 22 |
 | Otterbein University (531) | verified_university | [Exact verified URL](https://www.otterbeincardinals.com/sports/womens-basketball/schedule/2026-27?grid=true) | 22 |
 | Pacific Lutheran University (1297) | verified_university | [Exact verified URL](https://www.golutes.com/sports/womens-basketball/schedule/2026-27?grid=true) | 19 |
@@ -714,7 +715,7 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | St. Joseph's University NY (Brooklyn) (30072) | verified_university | [Exact verified URL](https://sjbkathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 11 |
 | St. Joseph's University, New York L.I. (1340) | verified_university | [Exact verified URL](https://www.sjliathletics.com/sports/womens-basketball/schedule?grid=true) | 15 |
 | St. Lawrence University (607) | verified_university | [Exact verified URL](https://www.saintsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 17 |
-| St. Mary's College of Maryland (611) | verified_university | [Exact verified URL](https://www.smcmathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 17 |
+| St. Mary's College of Maryland (611) | verified_university | [Exact verified URL](https://www.smcmathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 19 |
 | St. Norbert College (614) | verified_university | [Exact verified URL](https://athletics.snc.edu/sports/womens-basketball/schedule/2026-27?grid=true) | 8 |
 | St. Olaf College (615) | verified_university | [Exact verified URL](https://athletics.stolaf.edu/sports/womens-basketball/schedule?grid=true) | 18 |
 | State University of New York Polytechnic Institute (9500) | verified_university | [Exact verified URL](https://wildcats.sunypoly.edu/sports/womens-basketball/schedule/2026-27?grid=true) | 20 |
@@ -841,9 +842,8 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | La Roche University (1163) | [NCAA athletics](https://larochesports.com) | season_heading_not_verified; Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar; 15 URLs checked | 18 |
 | Lesley University (24317) | [NCAA athletics](https://lesleyathletics.com) | season_heading_not_verified; Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar; 15 URLs checked | 18 |
 | Massachusetts College of Liberal Arts (486) | [NCAA athletics](https://athletics.mcla.edu/) | season_heading_not_verified; Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar; 15 URLs checked | 6 |
-| Ohio Northern University (517) | [NCAA athletics](https://onusports.com/landing/index) | season_heading_not_verified; Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar; 15 URLs checked | 24 |
 | Penn State University, Altoona (25719) | [NCAA athletics](https://www.psaltoonalions.com) | season_heading_not_verified; Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar; 15 URLs checked | 18 |
-| Pennsylvania State Univ. Erie, the Behrend College (538) | [NCAA athletics](https://PSBLions.com) | season_heading_not_verified; Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar; 15 URLs checked | 16 |
+| Pennsylvania State Univ. Erie, the Behrend College (538) | [NCAA athletics](https://PSBLions.com) | season_heading_not_verified; Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar; 15 URLs checked | 17 |
 | Russell Sage College (11036) | [NCAA athletics](https://www.sagegators.com) | season_heading_not_verified; Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar; 15 URLs checked | 21 |
 | Salem State University (621) | [NCAA athletics](https://www.salemstatevikings.com) | season_heading_not_verified; Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar; 15 URLs checked | 10 |
 | State University of New York at Delhi (30225) | [NCAA athletics](https://delhibroncos.com/landing/index) | season_heading_not_verified; Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar; 15 URLs checked | 16 |
