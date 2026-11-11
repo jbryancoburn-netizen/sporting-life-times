@@ -8,7 +8,7 @@ on:
       - 'scripts/check_cbb_finals_health.py'
   schedule:
     # Independent of men's and women's publisher schedules, including overnight.
-    - cron: '2,12,22,32,42,52 * * * *'
+    - cron: '*/5 * * * *'
 permissions:
   contents: read
   actions: write
