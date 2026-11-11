@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "checked_at_utc": "2026-11-10T23:47:27.542728+00:00",
+  "checked_at_utc": "2026-11-11T00:47:38.317578+00:00",
   "source": "NCAA scoreboard via ncaa-api compatibility endpoint",
   "games": [
     {
@@ -45,14 +45,14 @@
     {
       "match_id": "men-6666307",
       "cohort": "men-d1",
-      "status": "live",
+      "status": "final",
       "home_score": 1,
       "away_score": 0,
       "home_name": "Saint Louis",
       "away_name": "Davidson",
       "home_id": "saint-louis",
       "away_id": "davidson",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6666307"
     },
     {
@@ -60,12 +60,12 @@
       "cohort": "men-d1",
       "status": "live",
       "home_score": 1,
-      "away_score": 0,
+      "away_score": 1,
       "home_name": "Boston U.",
       "away_name": "Lehigh",
       "home_id": "boston-u",
       "away_id": "lehigh",
-      "period": "1ST HALF",
+      "period": "2ND HALF",
       "source_url": "https://www.ncaa.com/game/6667018"
     },
     {
@@ -97,14 +97,14 @@
     {
       "match_id": "men-6675545",
       "cohort": "men-d3",
-      "status": "live",
-      "home_score": 2,
-      "away_score": 1,
+      "status": "final",
+      "home_score": 4,
+      "away_score": 2,
       "home_name": "Crown (MN)",
       "away_name": "Faith Bapt. Bible",
       "home_id": "crown-mn",
       "away_id": "faith-bapt-bible",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6675545"
     },
     {
@@ -130,7 +130,7 @@
       "away_name": "High Point",
       "home_id": "unc-asheville",
       "away_id": "high-point",
-      "period": "1ST HALF",
+      "period": "2ND HALF",
       "source_url": "https://www.ncaa.com/game/6666480"
     },
     {
@@ -138,12 +138,12 @@
       "cohort": "women-d1",
       "status": "live",
       "home_score": 1,
-      "away_score": 1,
+      "away_score": 2,
       "home_name": "USC Upstate",
       "away_name": "Radford",
       "home_id": "usc-upstate",
       "away_id": "radford",
-      "period": "1ST HALF",
+      "period": "2ND HALF",
       "source_url": "https://www.ncaa.com/game/6666481"
     },
     {
@@ -162,14 +162,14 @@
     {
       "match_id": "women-6666597",
       "cohort": "women-d1",
-      "status": "live",
+      "status": "final",
       "home_score": 2,
       "away_score": 0,
       "home_name": "Western Mich.",
       "away_name": "Miami (OH)",
       "home_id": "western-mich",
       "away_id": "miami-oh",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6666597"
     },
     {
@@ -238,6 +238,19 @@
       "source_url": "https://www.ncaa.com/game/6667150"
     },
     {
+      "match_id": "women-6667151",
+      "cohort": "women-d1",
+      "status": "live",
+      "home_score": 1,
+      "away_score": 0,
+      "home_name": "Liberty",
+      "away_name": "New Mexico St.",
+      "home_id": "liberty",
+      "away_id": "new-mexico-st",
+      "period": "1ST HALF",
+      "source_url": "https://www.ncaa.com/game/6667151"
+    },
+    {
       "match_id": "women-6667159",
       "cohort": "women-d1",
       "status": "final",
@@ -268,12 +281,12 @@
       "cohort": "women-d1",
       "status": "live",
       "home_score": 0,
-      "away_score": 1,
+      "away_score": 2,
       "home_name": "Vanderbilt",
       "away_name": "Texas",
       "home_id": "vanderbilt",
       "away_id": "texas",
-      "period": "1ST HALF",
+      "period": "2ND HALF",
       "source_url": "https://www.ncaa.com/game/6667161"
     },
     {
