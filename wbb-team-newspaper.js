@@ -184,5 +184,34 @@ if(resultsNode)resultsNode.innerHTML=finals.length?finals.map(g=>{
 window.WBBRosterDesk?.render(id);
 window.WBBTeamStats?.render(id);
 window.WBBTeamLive?.start(id,baseGames,siteDisputes,neutralProof);
+// Keep an already-open women's team page current without periodically wiping
+// the reader's filters or scrolling position. Reload only when this team's
+// published RETRO rating or verified final scores actually change.
+const ownRating=doc=>doc?.rankings?.find(x=>String(x.team_id)===id);
+const ownFinals=doc=>(doc?.games||[])
+  .filter(g=>String(g.home_id)===id||String(g.away_id)===id)
+  .map(g=>[String(g.id),g.status,g.home_score,g.away_score])
+  .sort((a,b)=>a[0].localeCompare(b[0]));
+const editionKey=(retro,finals)=>JSON.stringify([
+  ownRating(retro)?.elo,ownRating(retro)?.wins,ownRating(retro)?.losses,
+  ownFinals(finals)
+]);
+const initialEdition=editionKey(ratings,verifiedFinals);
+let checkingEdition=false;
+async function checkTeamFinals(){
+  if(document.hidden||checkingEdition)return;
+  checkingEdition=true;
+  try{
+    const stamp=Math.floor(Date.now()/60000);
+    const [nextRetro,nextFinals]=await Promise.all([
+      load('data/ncaaw-2026-27-retro-primary.json?fresh='+stamp),
+      load('data/ncaaw-2026-27-verified-games.json?fresh='+stamp)
+    ]);
+    if(editionKey(nextRetro,nextFinals)!==initialEdition)location.reload();
+  }catch(error){console.warn('Women team final refresh unavailable',error);}
+  finally{checkingEdition=false;}
+}
+setInterval(checkTeamFinals,60000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)void checkTeamFinals();});
 }catch(e){host.innerHTML='<section class="wbb-panel wbb-error"><h2>Women’s team desk unavailable</h2><p>'+esc(e.message)+'</p><p><a href="ncaam.html?gender=women#wbb-teams">Browse women’s teams</a></p></section>'}
 })();
