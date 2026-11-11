@@ -1,7 +1,7 @@
 {
   "as_of": "2026-11-11",
-  "matched_source_games": 773,
-  "completed_unique_games": 417,
+  "matched_source_games": 772,
+  "completed_unique_games": 416,
   "upcoming_or_unconfirmed_games": 356,
   "excluded": {},
   "unmapped_teams_fatal": false,
@@ -58,52 +58,52 @@
     "official_source_absence_is_not_agreement": true,
     "ncaa_origin_archive": {
       "provider": "SportsDataverse NCAA-origin schedule",
-      "archive_games_with_matched_scores": 288,
-      "archive_unresolved_games": 110,
-      "confirmed_final_count": 276,
+      "archive_games_with_matched_scores": 324,
+      "archive_unresolved_games": 114,
+      "confirmed_final_count": 311,
       "confirmed_final_ids": [
-        "espn:401928788",
-        "espn:401902277",
-        "espn:401909707",
-        "espn:401911274",
-        "espn:401911306",
-        "espn:401911335",
-        "espn:401911453",
-        "espn:401919029",
-        "espn:401920134",
-        "espn:401920233",
-        "espn:401920424",
-        "espn:401920692",
-        "espn:401920739",
-        "espn:401920843",
-        "espn:401920865",
-        "espn:401921684",
-        "espn:401921820",
-        "espn:401924646",
-        "espn:401925894",
-        "espn:401927362",
-        "espn:401906759",
-        "espn:401906781",
-        "espn:401906793",
-        "espn:401906803",
-        "espn:401906849",
-        "espn:401906865",
-        "espn:401909502",
-        "espn:401909718",
-        "espn:401911010",
-        "espn:401916305",
-        "espn:401917978",
-        "espn:401918074",
-        "espn:401919016",
-        "espn:401919806",
-        "espn:401919846",
         "espn:401920686",
         "espn:401921720",
         "espn:401921815",
         "espn:401925681",
-        "espn:401926132"
+        "espn:401926132",
+        "espn:401906771",
+        "espn:401909492",
+        "espn:401909514",
+        "espn:401909533",
+        "espn:401909543",
+        "espn:401909727",
+        "espn:401909740",
+        "espn:401909752",
+        "espn:401909786",
+        "espn:401911011",
+        "espn:401911187",
+        "espn:401911209",
+        "espn:401912228",
+        "espn:401913101",
+        "espn:401917979",
+        "espn:401918957",
+        "espn:401918969",
+        "espn:401919003",
+        "espn:401920063",
+        "espn:401920356",
+        "espn:401920425",
+        "espn:401920704",
+        "espn:401920817",
+        "espn:401921025",
+        "espn:401921699",
+        "espn:401921733",
+        "espn:401921740",
+        "espn:401921755",
+        "espn:401924952",
+        "espn:401925685",
+        "espn:401925773",
+        "espn:401926731",
+        "espn:401927386",
+        "espn:401928828",
+        "espn:401929180"
       ],
-      "score_conflict_count": 2,
+      "score_conflict_count": 3,
       "score_conflicts": [
         {
           "espn_event_id": "espn:401909694",
@@ -132,12 +132,26 @@
             49,
             63
           ]
+        },
+        {
+          "espn_event_id": "espn:401920378",
+          "date": "2026-11-10",
+          "home": "Iowa",
+          "away": "Virginia Tech",
+          "espn_score": [
+            88,
+            93
+          ],
+          "ncaa_archive_score": [
+            89,
+            93
+          ]
         }
       ],
       "unmatched_does_not_mean_confirmed": true,
       "status": "AVAILABLE",
       "archive_url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/ncaa_mbb_schedule/ncaa_mbb_schedule_2027.csv.gz",
-      "archive_source_rows": 398
+      "archive_source_rows": 438
     },
     "unresolved_conflicts": [
       {
@@ -167,8 +181,22 @@
           49,
           63
         ]
+      },
+      {
+        "espn_event_id": "espn:401920378",
+        "date": "2026-11-10",
+        "home": "Iowa",
+        "away": "Virginia Tech",
+        "espn_score": [
+          88,
+          93
+        ],
+        "ncaa_archive_score": [
+          89,
+          93
+        ]
       }
     ],
-    "quarantined_event_count": 2
+    "quarantined_event_count": 3
   }
 }
