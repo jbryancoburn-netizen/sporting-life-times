@@ -78,6 +78,38 @@ function normalizeMen(feed,forecasts,crossList,outside={},archivedFinals=null){
       source:g.score_source||'Current sourced scoreboard',evidence:g.score_source?'final-source':'reported',
       timed:true,kind:'regular',probability:null});
   }
+  // NCAA-origin games may be omitted from ESPN's restricted daily feed.
+  // Preserve exact NCAA IDs and identities without making up tipoff times.
+  const ncaa=feed?.ncaa_crosscheck;
+  if(ncaa?.day&&Array.isArray(ncaa.games)){
+    for(const g of ncaa.games){
+      if(g.day!==ncaa.day||!validId(g.ncaa_id)||!validId(g.away_id)||!validId(g.home_id))continue;
+      const away=cross.get(String(g.away_id)),home=cross.get(String(g.home_id));
+      if(!away||!home||away.id===home.id)continue;
+      const id=validId(g.espn_id)?String(g.espn_id):'ncaa:'+g.ncaa_id;
+      const phase=['final','live'].includes(g.phase)?g.phase:'upcoming';
+      const number=v=>Number.isSafeInteger(v)&&v>=0&&v<=500?v:null;
+      const as=phase==='upcoming'?null:number(g.away_score),hs=phase==='upcoming'?null:number(g.home_score);
+      if(phase!=='upcoming'&&(as===null||hs===null||(phase==='final'&&as===hs)))continue;
+      const previous=result.get(id);
+      if(previous){
+        if(phase==='final'&&previous.day===g.day&&
+           previous.away.id===String(g.away_id)&&previous.home.id===String(g.home_id)){
+          previous.phase='final';previous.status='Final';
+          previous.away.score=as;previous.home.score=hs;previous.completed=true;
+          previous.source='NCAA-origin verified final';previous.evidence='final-source';
+        }
+        continue;
+      }
+      result.set(id,{id,day:g.day,date:g.date||'',phase,
+        away:{id:String(g.away_id),name:away.name,full:away.espn_name||away.name,canonical:away.id,score:as},
+        home:{id:String(g.home_id),name:home.name,full:home.espn_name||home.name,canonical:home.id,score:hs},
+        status:phase==='final'?'Final':phase==='live'?'LIVE':'Tipoff unconfirmed',
+        venue:'',broadcast:'',source:'NCAA-origin verified Division I scoreboard',
+        evidence:phase==='final'?'final-source':'ncaa-fixture',
+        completed:phase==='final',timed:Boolean(g.date),kind:'regular',probability:null});
+    }
+  }
   for(const g of forecasts?.games||[]){
     if(!/^2026-\d\d-\d\d$/.test(g.date||''))continue;
     const id=cleanId(g.id),away=canon.get(String(g.away_id)),home=canon.get(String(g.home_id));
@@ -1063,10 +1095,11 @@ async function refreshLive(){
   // The published scoreboard includes verified out-of-division opponents that
   // ESPN's Division I group endpoint can omit. Always fetch both independently.
   const unrestrictedPath='https://site.api.espn.com/apis/site/v2/sports/basketball/'+
-   'womens-college-basketball/scoreboard?limit=1000&dates='+day.replaceAll('-','');
+   (women?'womens-college-basketball':'mens-college-basketball')+
+   '/scoreboard?limit=1000&dates='+day.replaceAll('-','');
   const [publishedResult,apiResult,unrestrictedResult]=await Promise.allSettled([
    fetchJSON('data/mbb-live.json'),fetchJSON(path),
-   women?fetchJSON(unrestrictedPath):Promise.resolve(null)
+   fetchJSON(unrestrictedPath)
   ]);
   if(selected!==day)return;
   const published=publishedResult.status==='fulfilled'?publishedResult.value:null;
