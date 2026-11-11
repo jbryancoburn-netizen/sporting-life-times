@@ -34,6 +34,29 @@ function sourcedGameVenues(raw,day,knownGames){
  }
  return venues;
 }
+// Extract the source-provided address for an already-validated game ID, date,
+// and pair of teams. Never substitute a home-school address for a game site.
+function sourcedGameLocations(raw,day,knownGames){
+ const names=sourcedGameVenues(raw,day,knownGames),sites=new Map();
+ for(const event of raw?.events||[]){
+  const key=gameKey(event?.id,day);
+  if(!names.has(key))continue;
+  const address=event?.competitions?.[0]?.venue?.address||{};
+  const city=String(address.city||'').trim();
+  const state=String(address.state||address.stateCode||'').trim();
+  const country=String(address.country||'').trim();
+  const region=state||(country&&!/^(?:US|USA|United States|United States of America)$/i.test(country)?country:'');
+  sites.set(key,{name:names.get(key),city:city.length<=80?city:'',region:region.length<=80?region:''});
+ }
+ return sites;
+}
+function enrichGameLocation(g,site){
+ const published=String(g.venue||'').trim(),reported=String(site?.name||'').trim();
+ const venue=published||reported;
+ // Do not attach the ESPN address to a different officially verified arena.
+ const match=Boolean(reported&&venue&&reported.toLowerCase()===venue.toLowerCase());
+ return {...g,venue,venueCity:match?String(site.city||''):'',venueRegion:match?String(site.region||''):''};
+}
 function normalizeMen(feed,forecasts,crossList,outside={},archivedFinals=null){
   const cross=new Map((crossList?.teams||[]).map(t=>[String(t.espn_id),t]));
   const canon=new Map((crossList?.teams||[]).map(t=>[String(t.id),t]));
@@ -790,12 +813,13 @@ function card(original,featured,opened=false){
  const source=external?(g.evidence==='secondary'?'Published secondary result':'University / cited result'):
    g.phase==='final'?(g.evidence==='final-source'?'Attributed final':'Reported final'):
    g.phase==='live'?'Live scoreboard':'Sourced fixture + RETRO';
- // The venue belongs to every scorebug, even when a broadcast is listed.
- // Show sourced game locations only; never substitute a team's home arena for an unverified site.
+ // Arena, city and state share one line; no visible location heading.
  const venueName=String(g.venue||'').trim();
+ const siteCity=String(g.venueCity||'').trim(),siteRegion=String(g.venueRegion||'').trim();
+ const locationText=(venueName+(siteCity&&siteRegion?' · '+siteCity+', '+siteRegion:''))||'Location not reported';
  const when='<span class="ledger26-time ledger26-time--venue">'+
    (g.phase==='upcoming'?'<span class="ledger26-tipoff">'+esc(formatClock(g))+'</span>':'')+
-   '<span class="ledger26-venue'+(venueName?'':' ledger26-venue--missing')+'" title="'+esc(venueName?'Venue: '+venueName:'Game venue not reported')+'"><span class="ledger26-venue-heading">VENUE ·</span> '+esc(venueName||'Not reported')+'</span></span>';
+   '<span class="ledger26-venue'+(venueName?'':' ledger26-venue--missing')+'" title="'+esc('Game location: '+locationText)+'">'+esc(locationText)+'</span></span>';
  const network=String(g.broadcast||'').trim();
  const tv=network?'<span class="ledger26-network">'+esc(network)+'</span>':g.phase==='upcoming'?'<span class="ledger26-network">TV TBA</span>':'';
  // A press launcher outside <summary> does not toggle the gamefile.
@@ -896,12 +920,12 @@ const verifiedBroadcasts=new Map();
 const publishedBroadcasts=new Map();
 const broadcastPairKey=(gender,day,a,b)=>gender+'|'+day+'|'+[String(a),String(b)].sort((x,y)=>Number(x)-Number(y)).join('|');
 const displayGames=()=>reconcileLive(loaded,liveBoard).map(g=>{
- const venue=g.venue||sourcedVenueByGame.get(gameKey(g.id,g.day))||'';
+ const site=sourcedVenueByGame.get(gameKey(g.id,g.day));
  const official=verifiedBroadcasts.get(String(g.id));
  const broadcaster=(official?.day===g.day?official.network:'')||broadcastByDate.get(g.day)?.get(String(g.id));
  const cached=publishedBroadcasts.get(broadcastPairKey(women?'women':'men',g.day,g.away.id,g.home.id));
  const confirmedTime=confirmedTipoffsByDate.get(g.day)?.get(String(g.id));
- return {...g,venue,broadcast:broadcaster||g.broadcast||cached||'',date:g.timed?g.date:(confirmedTime||g.date),timed:g.timed||Boolean(confirmedTime)};
+ return enrichGameLocation({...g,broadcast:broadcaster||g.broadcast||cached||'',date:g.timed?g.date:(confirmedTime||g.date),timed:g.timed||Boolean(confirmedTime)},site);
 });
 const render=()=>{
  const games=selectGames(displayGames(),selected,filter,search),shown=games.slice(0,limit);
@@ -993,7 +1017,7 @@ async function refresh(){
   await window.MBBLogos?.ready;
   refreshRETRO();sourceError='';
  }catch(err){if(!loaded.length)sourceError=String(err.message||'Unable to retrieve fixtures');}
- finally{loading=false;render();void refreshBroadcasts(selected);if(!women)void refreshVenues(selected);if(selected===today()||(women&&selected<today()))void refreshLive()}
+ finally{loading=false;render();void refreshBroadcasts(selected);void refreshVenues(selected);if(selected===today()||(women&&selected<today()))void refreshLive()}
 }
 // When a score becomes fully final, immediately replay the exact independent
 // RETRO method. The next certified JSON release replaces these provisional
@@ -1014,15 +1038,16 @@ function refreshRETRO(){
 // Enrich men's pregame and past-date cards directly from event-scoped site reports.
 // No home-arena fallback: neutral or off-campus games must retain their true sites.
 async function refreshVenues(day,force=false){
- if(women||document.hidden||!cross.teams?.length||!/^202[67]-\d\d-\d\d$/.test(day))return;
+ if(document.hidden||!cross.teams?.length||!/^202[67]-\d\d-\d\d$/.test(day))return;
  const checked=venueCheckedAt.get(day)||0;
  if(!force&&Date.now()-checked<15*60*1000)return;
  venueCheckedAt.set(day,Date.now());
  try{
-  const url='https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard?limit=1000&dates='+day.replaceAll('-','');
+  const sport=women?'womens-college-basketball':'mens-college-basketball';
+  const url='https://site.api.espn.com/apis/site/v2/sports/basketball/'+sport+'/scoreboard?limit=1000&dates='+day.replaceAll('-','');
   const data=await fetchJSON(url);
   if(selected!==day)return;
-  const sites=sourcedGameVenues(data,day,[...loaded,...liveBoard]);
+  const sites=sourcedGameLocations(data,day,[...loaded,...liveBoard]);
   for(const [key,site] of sites)sourcedVenueByGame.set(key,site);
   if(sites.size)render();
  }catch{venueCheckedAt.delete(day);}
@@ -1056,8 +1081,8 @@ async function refreshLive(){
   if(!published&&!Array.isArray(raw?.events))throw Error('Both live scoreboard feeds unavailable');
   const publishedLive=!women&&Array.isArray(published?.games)?
    normalizeMen(published,null,cross,outsideMarks).filter(g=>g.day===day&&g.phase!=='upcoming'):[];
-  if(!women&&Array.isArray(raw?.events))
-   for(const [key,site] of sourcedGameVenues(raw,day,[...loaded,...liveBoard]))
+  if(Array.isArray(raw?.events))
+   for(const [key,site] of sourcedGameLocations(raw,day,[...loaded,...liveBoard]))
     sourcedVenueByGame.set(key,site);
   const apiLive=Array.isArray(raw?.events)?
    liveEvents(raw,day,cross,women,retroPublished?.rankings,loaded):[];
@@ -1075,13 +1100,13 @@ async function refreshLive(){
  }catch(err){if(selected===day)liveCheckError=String(err?.message||'Current scores unavailable');}
  finally{liveRequest=false;if(selected===day)render()}
 }
-document.getElementById('sl-prev').addEventListener('click',()=>{selected=shift(selected,-1);limit=Number.POSITIVE_INFINITY;liveBoard=[];liveCheckedAt=0;render();void refreshBroadcasts(selected);if(selected===today()||(women&&selected<today()))void refreshLive();if(!women)void refreshVenues(selected)});
-document.getElementById('sl-next').addEventListener('click',()=>{selected=shift(selected,1);limit=Number.POSITIVE_INFINITY;liveBoard=[];liveCheckedAt=0;render();void refreshBroadcasts(selected);if(selected===today()||(women&&selected<today()))void refreshLive();if(!women)void refreshVenues(selected)});
-document.getElementById('sl-picker').addEventListener('change',e=>{if(e.target.value){selected=e.target.value;limit=Number.POSITIVE_INFINITY;liveBoard=[];liveCheckedAt=0;render();void refreshBroadcasts(selected);if(selected===today()||(women&&selected<today()))void refreshLive();if(!women)void refreshVenues(selected)}});
+document.getElementById('sl-prev').addEventListener('click',()=>{selected=shift(selected,-1);limit=Number.POSITIVE_INFINITY;liveBoard=[];liveCheckedAt=0;render();void refreshBroadcasts(selected);if(selected===today()||(women&&selected<today()))void refreshLive();void refreshVenues(selected)});
+document.getElementById('sl-next').addEventListener('click',()=>{selected=shift(selected,1);limit=Number.POSITIVE_INFINITY;liveBoard=[];liveCheckedAt=0;render();void refreshBroadcasts(selected);if(selected===today()||(women&&selected<today()))void refreshLive();void refreshVenues(selected)});
+document.getElementById('sl-picker').addEventListener('change',e=>{if(e.target.value){selected=e.target.value;limit=Number.POSITIVE_INFINITY;liveBoard=[];liveCheckedAt=0;render();void refreshBroadcasts(selected);if(selected===today()||(women&&selected<today()))void refreshLive();void refreshVenues(selected)}});
 document.getElementById('sl-search').addEventListener('input',e=>{search=e.target.value;limit=Number.POSITIVE_INFINITY;render()});
 document.getElementById('sl-filters').addEventListener('click',e=>{const b=e.target.closest('[data-filter]');if(!b)return;filter=b.dataset.filter;limit=Number.POSITIVE_INFINITY;render()});
 document.getElementById('sl-more').addEventListener('click',()=>{limit+=18;render()});
-document.getElementById('sl-reload').addEventListener('click',()=>{void refresh();void refreshBroadcasts(selected,true);if(selected===today()||(women&&selected<today()))void refreshLive();if(!women)void refreshVenues(selected,true)});
+document.getElementById('sl-reload').addEventListener('click',()=>{void refresh();void refreshBroadcasts(selected,true);if(selected===today()||(women&&selected<today()))void refreshLive();void refreshVenues(selected,true)});
 document.getElementById('sl-games').addEventListener('click',e=>{
  const button=e.target.closest?.('[data-slt-ledger-press-open]');
  if(button){
@@ -1112,7 +1137,7 @@ document.title=(women?'Women’s':'Men’s')+' College Basketball Games | The Sp
 if(women)document.getElementById('sl-filter-exhibitions').hidden=true;
 refresh();setInterval(()=>{if(!document.hidden)refresh()},90000);
 setInterval(()=>{if(!document.hidden&&(selected===today()||(women&&selected<today())))void refreshLive()},30000);
-document.addEventListener('visibilitychange',()=>{if(!document.hidden&&(selected===today()||(women&&selected<today())))void refreshLive()});
+document.addEventListener('visibilitychange',()=>{if(!document.hidden){void refreshVenues(selected);if(selected===today()||(women&&selected<today()))void refreshLive()}});
 // Detailed live feeds update while expanded, without refreshing or navigating the page.
 setInterval(()=>{if(document.hidden||!window.SLTInlineGamefile)return;
  document.querySelectorAll('.sl-game-expansion[open]').forEach(d=>{
@@ -1122,5 +1147,5 @@ setInterval(()=>{if(document.hidden||!window.SLTInlineGamefile)return;
  });
 },30000);
 }
-return{sourcedGameVenues,normalizeMen,normalizeOutsideFinals,normalizeWomen,liveEvents,reconcileLive,provisionalRetro,normalizeExhibitions,selectGames,gameDetailsHref,formatClock,isoDate,shift,start};
+return{sourcedGameVenues,sourcedGameLocations,enrichGameLocation,normalizeMen,normalizeOutsideFinals,normalizeWomen,liveEvents,reconcileLive,provisionalRetro,normalizeExhibitions,selectGames,gameDetailsHref,formatClock,isoDate,shift,start};
 });
