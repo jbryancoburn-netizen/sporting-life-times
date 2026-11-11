@@ -81,6 +81,9 @@ def main():
     old=json.loads(PATH.read_text(encoding='utf-8'))
     feed,sources=fetch_men_scoreboards(day)
     result,changes=update(old,parse_scores(feed),now,day[:4]+'-'+day[4:6]+'-'+day[6:])
+    if not changes:
+        print(json.dumps({'day':day,'changed':0,'message':'Already current; no redundant data commit'}))
+        return
     result['sources']=[s for s in (result.get('sources') or [])
                        if s.get('source') not in ('ESPN scores','ESPN unrestricted scores')]+sources
     PATH.write_text(json.dumps(result,separators=(',',':'))+'\n',encoding='utf-8')
