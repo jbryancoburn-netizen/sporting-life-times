@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "checked_at_utc": "2026-11-11T00:47:38.317578+00:00",
+  "checked_at_utc": "2026-11-11T03:10:18.622225+00:00",
   "source": "NCAA scoreboard via ncaa-api compatibility endpoint",
   "games": [
     {
@@ -56,16 +56,42 @@
       "source_url": "https://www.ncaa.com/game/6666307"
     },
     {
-      "match_id": "men-6667018",
+      "match_id": "men-6666724",
       "cohort": "men-d1",
       "status": "live",
       "home_score": 1,
-      "away_score": 1,
+      "away_score": 0,
+      "home_name": "Grand Canyon",
+      "away_name": "Air Force",
+      "home_id": "grand-canyon",
+      "away_id": "air-force",
+      "period": "HALF",
+      "source_url": "https://www.ncaa.com/game/6666724"
+    },
+    {
+      "match_id": "men-6666725",
+      "cohort": "men-d1",
+      "status": "live",
+      "home_score": 0,
+      "away_score": 0,
+      "home_name": "UNLV",
+      "away_name": "San Jose St.",
+      "home_id": "unlv",
+      "away_id": "san-jose-st",
+      "period": "HALF",
+      "source_url": "https://www.ncaa.com/game/6666725"
+    },
+    {
+      "match_id": "men-6667018",
+      "cohort": "men-d1",
+      "status": "final",
+      "home_score": 1,
+      "away_score": 2,
       "home_name": "Boston U.",
       "away_name": "Lehigh",
       "home_id": "boston-u",
       "away_id": "lehigh",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6667018"
     },
     {
@@ -123,27 +149,27 @@
     {
       "match_id": "women-6666480",
       "cohort": "women-d1",
-      "status": "live",
+      "status": "final",
       "home_score": 0,
       "away_score": 0,
       "home_name": "UNC Asheville",
       "away_name": "High Point",
       "home_id": "unc-asheville",
       "away_id": "high-point",
-      "period": "2ND HALF",
+      "period": "FINAL/PK",
       "source_url": "https://www.ncaa.com/game/6666480"
     },
     {
       "match_id": "women-6666481",
       "cohort": "women-d1",
-      "status": "live",
-      "home_score": 1,
-      "away_score": 2,
+      "status": "final",
+      "home_score": 2,
+      "away_score": 3,
       "home_name": "USC Upstate",
       "away_name": "Radford",
       "home_id": "usc-upstate",
       "away_id": "radford",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6666481"
     },
     {
@@ -240,14 +266,14 @@
     {
       "match_id": "women-6667151",
       "cohort": "women-d1",
-      "status": "live",
+      "status": "final",
       "home_score": 1,
-      "away_score": 0,
+      "away_score": 1,
       "home_name": "Liberty",
       "away_name": "New Mexico St.",
       "home_id": "liberty",
       "away_id": "new-mexico-st",
-      "period": "1ST HALF",
+      "period": "FINAL/PK",
       "source_url": "https://www.ncaa.com/game/6667151"
     },
     {
@@ -279,15 +305,28 @@
     {
       "match_id": "women-6667161",
       "cohort": "women-d1",
-      "status": "live",
-      "home_score": 0,
+      "status": "final",
+      "home_score": 1,
       "away_score": 2,
       "home_name": "Vanderbilt",
       "away_name": "Texas",
       "home_id": "vanderbilt",
       "away_id": "texas",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6667161"
+    },
+    {
+      "match_id": "women-6667162",
+      "cohort": "women-d1",
+      "status": "live",
+      "home_score": 0,
+      "away_score": 1,
+      "home_name": "Kentucky",
+      "away_name": "Arkansas",
+      "home_id": "kentucky",
+      "away_id": "arkansas",
+      "period": "2ND HALF",
+      "source_url": "https://www.ncaa.com/game/6667162"
     },
     {
       "match_id": "women-6667563",
@@ -368,6 +407,19 @@
       "source_url": "https://www.ncaa.com/game/6667761"
     },
     {
+      "match_id": "women-6667762",
+      "cohort": "women-d1",
+      "status": "live",
+      "home_score": 1,
+      "away_score": 1,
+      "home_name": "Houston Christian",
+      "away_name": "East Texas A&M",
+      "home_id": "houston-christian",
+      "away_id": "tex-am-commerce",
+      "period": "OT",
+      "source_url": "https://www.ncaa.com/game/6667762"
+    },
+    {
       "match_id": "women-6675274",
       "cohort": "women-d3",
       "status": "final",
@@ -379,6 +431,19 @@
       "away_id": "north-central-mn",
       "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6675274"
+    },
+    {
+      "match_id": "women-6677496",
+      "cohort": "women-d3",
+      "status": "live",
+      "home_score": 6,
+      "away_score": 1,
+      "home_name": "Crown (MN)",
+      "away_name": "North Central (MN)",
+      "home_id": "crown-mn",
+      "away_id": "north-central-mn",
+      "period": "2ND HALF",
+      "source_url": "https://www.ncaa.com/game/6677496"
     }
   ]
 }
