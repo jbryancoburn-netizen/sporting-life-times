@@ -27,6 +27,19 @@ def write_if_changed(path, obj, check=False):
     return True
 
 
+def verified_team_name(team):
+    """Use a verified crosswalk label even when ESPN's display name is absent.
+
+    The crosswalk includes source-backed full team names for schools without
+    an ESPN label. Do not fabricate or silently publish an unnamed opponent.
+    """
+    for field in ("espn_name", "full_team_name", "name"):
+        value = team.get(field)
+        if isinstance(value, str) and value.strip():
+            return value.strip()
+    raise ValueError("Verified MBB team has no display name: " + str(team.get("id")))
+
+
 def score_valid(game):
     a, h = game.get("away_score"), game.get("home_score")
     return (isinstance(a, int) and not isinstance(a, bool) and
@@ -108,14 +121,14 @@ def men(check=False):
                 event = {
                     "id": event_id, "date": final["date"] + "T12:00:00-05:00",
                     "date_time_placeholder": True,
-                    "name": away["espn_name"] + " at " + home["espn_name"],
+                    "name": verified_team_name(away) + " at " + verified_team_name(home),
                     "neutralSite": bool(final.get("neutral")),
                     "site_verified": bool(final.get("site_verified")),
                     "retro_verified_final": final["id"],
                     "status": {"type": {"state": "post", "completed": True}},
                     "competitions": [{"competitors": [
-                        {"homeAway": "home", "team": {"id": str(home["espn_id"]), "displayName": home["espn_name"]}, "score": final["home_score"]},
-                        {"homeAway": "away", "team": {"id": str(away["espn_id"]), "displayName": away["espn_name"]}, "score": final["away_score"]},
+                        {"homeAway": "home", "team": {"id": str(home["espn_id"]), "displayName": verified_team_name(home)}, "score": final["home_score"]},
+                        {"homeAway": "away", "team": {"id": str(away["espn_id"]), "displayName": verified_team_name(away)}, "score": final["away_score"]},
                     ]}],
                 }
                 events.append(event)
