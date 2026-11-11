@@ -1,11 +1,11 @@
 {
   "season": "2026-27",
-  "updated_at": "2026-11-06T21:02:32.849167+00:00",
-  "checked_at": "2026-11-11T17:46:28.944996+00:00",
+  "updated_at": "2026-11-11T23:43:52.538162+00:00",
+  "checked_at": "2026-11-11T23:43:52.538162+00:00",
   "source": "EuroLeague per-game Header plus verified Sporting Life & Times model finals",
   "refresh_target_seconds": 300,
-  "header_responses": 0,
-  "live_scores_refreshed": 0,
+  "header_responses": 2,
+  "live_scores_refreshed": 1,
   "provider_degraded": false,
   "games": [
     {
@@ -23,24 +23,6 @@
         "code": "ULK",
         "name": "Fenerbahce Tarfin Istanbul",
         "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCiezrk/aa39750a-6203-49ee-a87d-edd0c6f0397d.png",
-        "score": null
-      }
-    },
-    {
-      "id": "102",
-      "date": "2026-11-11T19:45:00Z",
-      "status": "scheduled",
-      "status_detail": "Scheduled",
-      "home": {
-        "code": "PAR",
-        "name": "Partizan Mozzart Bet Belgrade",
-        "logo": "https://media-cdn.incrowdsports.com/2681304e-77dd-4331-88b1-683078c0fb49.png",
-        "score": null
-      },
-      "away": {
-        "code": "BAS",
-        "name": "Kosner Baskonia Vitoria-Gasteiz",
-        "logo": "https://media-cdn.cortextech.io/cbc49cb0-99ce-4462-bdb7-56983ee03cf4.png",
         "score": null
       }
     },
@@ -187,6 +169,26 @@
         "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjChWbHH/b05e3c54-e672-4b31-9f86-c91e9de7715c.png",
         "score": null
       }
+    },
+    {
+      "id": "102",
+      "date": "2026-11-11T19:45:00Z",
+      "status": "final",
+      "status_detail": "Final · EuroLeague completed periods",
+      "home": {
+        "code": "PAR",
+        "name": "Partizan Mozzart Bet Belgrade",
+        "logo": "https://media-cdn.incrowdsports.com/2681304e-77dd-4331-88b1-683078c0fb49.png",
+        "score": 80
+      },
+      "away": {
+        "code": "BAS",
+        "name": "Kosner Baskonia Vitoria-Gasteiz",
+        "logo": "https://media-cdn.cortextech.io/cbc49cb0-99ce-4462-bdb7-56983ee03cf4.png",
+        "score": 66
+      },
+      "score_updated_at": "2026-11-11T23:43:52.538162+00:00",
+      "final_source": "https://live.euroleague.net/api/Header?gamecode=102&seasoncode=E2026"
     }
   ]
 }
