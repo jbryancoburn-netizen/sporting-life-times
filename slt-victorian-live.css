@@ -1,0 +1,72 @@
+/* Sporting Life & Times · Victorian Live Dispatch · 2026 */
+:root{--vld-paper:#f6efdf;--vld-ink:#28241e;--vld-rule:#a88c64;--vld-copper:#8b382b}
+*{box-sizing:border-box}
+body.vld-body{margin:0;color:var(--vld-ink);background:#e9e0cd;font-family:"Century Schoolbook",Georgia,"Times New Roman",serif}
+.vld-skip{position:absolute;left:-9999px;top:0;background:#fff;color:#111;padding:10px;z-index:20}.vld-skip:focus{left:10px}
+.vld-shell{max-width:1180px;margin:auto;min-height:100vh;background:var(--vld-paper);border-left:1px solid #c5b38f;border-right:1px solid #c5b38f;padding:0 clamp(10px,2.1vw,26px) 60px}
+.vld-topline{padding:10px 3px 8px;border-bottom:1px solid var(--vld-ink);font:700 10px/1.35 Georgia,serif;letter-spacing:.12em;display:flex;justify-content:space-between;gap:12px}
+.vld-topline a{color:inherit}
+.vld-mast{font-size:clamp(28px,5.8vw,58px);font-weight:bold;letter-spacing:-.045em;text-align:center;padding:13px 0 7px;line-height:1.1;font-variant:small-caps;border-bottom:5px double #31291f}
+.vld-mast a{color:inherit;text-decoration:none}
+.vld-mast span{font-size:.75em;font-style:italic}
+.vld-dept{display:flex;align-items:center;justify-content:space-between;gap:9px;border-bottom:1px solid #a99779;padding:9px 0;font:700 11px/1.3 Georgia,serif;letter-spacing:.07em}
+.vld-dept a,.vld-quick a{color:#562f23}
+.vld-heading{text-align:center;padding:16px 0 12px}.vld-heading h1{font-variant:small-caps;font-size:clamp(26px,3.8vw,42px);line-height:1.04;letter-spacing:.02em;margin:0}.vld-heading p{margin:6px 0;color:#725c43;font-size:13px}
+.vld-statusbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:7px 0 14px;padding:10px 12px;border:1px solid var(--vld-rule);background:#f3e7cf;font-size:12px}
+.vld-statusbar button{border:1px solid #5a3928;background:#f9f2e4;color:#4e281e;padding:8px 13px;cursor:pointer;font:700 12px Georgia,serif}
+.vld-statusbar button:hover,.vld-statusbar button:focus-visible{background:#442b21;color:#fff}
+.vld-score{border:4px double #393126;background:#efe1c9;margin-bottom:16px}
+.vld-score-kicker{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;background:#292922;color:#fbedd6;padding:9px 14px;font:700 12px/1.25 Georgia,serif;letter-spacing:.06em}
+.vld-score-kicker span:first-child{color:#f8d6a1}
+.vld-team{display:grid;grid-template-columns:67px minmax(0,1fr) auto;gap:17px;align-items:center;padding:11px 18px;border-bottom:1px solid #bcab8c;border-left:6px solid var(--side);min-height:92px}
+.vld-team--home{background:#e7d8bd}
+.vld-identity{min-width:0}.vld-identity strong{display:block;font-size:clamp(17px,2.5vw,27px);line-height:1.15;overflow-wrap:anywhere;font-variant:small-caps}
+.vld-identity span{display:block;font-size:12px;color:#65513d;margin-top:5px}
+.vld-points{font-size:clamp(34px,5.4vw,58px);font-variant-numeric:tabular-nums;line-height:1;font-weight:700}
+.vld-crest{display:flex;align-items:center;justify-content:center;width:65px;height:65px;border:3px solid var(--side);box-shadow:0 0 0 3px #efe1c9,inset 0 0 0 3px var(--side);border-radius:50%;background:#efe5d2;overflow:hidden;padding:8px}
+.vld-crest img{width:100%;height:100%;object-fit:contain;display:block}.vld-monogram{font-size:15px;font-weight:700;color:var(--side)}
+.vld-score-footer{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:9px 14px;font:11px/1.35 Georgia,serif;color:#604937}
+.vld-paper{border:1px solid var(--vld-rule);background:#faf5eb;padding:clamp(11px,2vw,19px);margin:13px 0}
+.vld-paper h2{font:700 clamp(17px,2.5vw,24px) Georgia,serif;font-variant:small-caps;margin:0 0 12px;border-bottom:3px double #8b7455;padding-bottom:8px}
+.vld-scroll{width:100%;overflow:auto;-webkit-overflow-scrolling:touch}
+.vld-table{border-collapse:collapse;width:100%;min-width:360px;text-align:center;font-size:13px;font-variant-numeric:tabular-nums}
+.vld-table th,.vld-table td{padding:8px 10px;border-bottom:1px solid #cdbc9f}
+.vld-table thead th{background:#e5d6b9;font-size:11px;letter-spacing:.04em}
+.vld-table th:first-child{text-align:left}.vld-table tbody tr:nth-child(even){background:#f5eddf}
+.vld-tabs{display:flex;flex-wrap:wrap;gap:3px;border-bottom:2px solid #47382b;margin-top:20px}
+.vld-tabs button{border:1px solid #b39c78;border-bottom:0;background:#ede2cb;color:#4a3b2c;font:700 12px/1.3 Georgia,serif;cursor:pointer;padding:11px 13px;flex:1 0 auto;white-space:nowrap}
+.vld-tabs button[aria-selected="true"]{background:#302921;color:#fff}.vld-tabs button:focus-visible{outline:3px solid #a33f2f;outline-offset:2px}
+.vld-panel[hidden]{display:none!important}
+.vld-live-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:15px;background:transparent;border:0;padding:0}
+.vld-live-grid>div,.vld-live-grid>aside{background:#faf5eb;border:1px solid var(--vld-rule);padding:clamp(10px,1.8vw,18px);min-width:0}
+.vld-floor,.vld-shot-floor{position:relative;overflow:hidden;background:repeating-linear-gradient(0deg,#e8d8bc,#e8d8bc 13px,#e5d3b4 14px);border:6px solid #6c4b32;padding:10px;aspect-ratio:1.9}
+.vld-court-svg{display:block;width:100%;height:100%}.vld-court-svg rect,.vld-court-svg circle,.vld-court-svg line,.vld-court-svg path{fill:none;stroke:#8d6c4c;stroke-width:2.3}
+.vld-floor-caption{position:absolute;bottom:6px;left:0;right:0;text-align:center;background:#eadbc6dc;color:#594633;font:700 9px Georgia,serif;letter-spacing:.09em}
+.vld-now{margin-top:10px;border-left:5px solid #9a3529;background:#f0e3cd;padding:12px 13px;min-height:105px}
+.vld-now-head{display:flex;gap:10px;justify-content:space-between;align-items:center;font:700 10px Georgia,serif;letter-spacing:.05em;color:#703125}
+.vld-now p{font-size:clamp(14px,1.65vw,17px);line-height:1.4;margin:10px 0 5px;font-weight:700}.vld-now small{font-size:11px;color:#594b38}
+.vld-flow-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;text-align:center;margin-bottom:12px;font:11px/1.3 Georgia,serif}
+.vld-flow-summary span{border:1px solid #c2ad8e;background:#f0e4ce;padding:8px 5px}
+.vld-flow-summary strong{display:block;font-size:18px;margin-top:5px}
+.vld-chart{width:100%;display:block;height:auto;background:#faf5eb}
+.vld-chart text{font:700 15px Georgia,serif;fill:#4e493b}.vld-zero{stroke:#635441;stroke-width:2;stroke-dasharray:6 4}
+.vld-source,.vld-attribution{font:11px/1.5 Georgia,serif;color:#6e5b43;margin:10px 0}
+.vld-attribution{border-top:1px solid #b6a68f;padding:13px 6px}
+.vld-plays{list-style:none;padding:0;margin:0;max-height:900px;overflow-y:auto}
+.vld-plays li{display:grid;grid-template-columns:95px minmax(0,1fr) 65px;gap:12px;padding:10px 7px;border-bottom:1px solid #d9c8ab;font-size:13px;line-height:1.35}
+.vld-plays li:nth-child(odd){background:#f1e7d4}.vld-plays li span{color:#6a5239;font-weight:bold}.vld-plays li p{margin:0}.vld-plays li b{text-align:right}
+.vld-subheading{font:700 17px Georgia,serif;font-variant:small-caps;border-bottom:1px solid #baa888;margin:16px 0 7px}
+.vld-empty{padding:20px 13px;border:1px dashed #bba68a;background:#f2e7d3;color:#5a4836;line-height:1.5;font-size:13px}
+.vld-shot-floor{aspect-ratio:auto;min-height:220px;padding:15px}.vld-shot-floor .vld-court-svg{max-height:340px}
+.vld-shot-marks{position:absolute;inset:20px;pointer-events:none}
+.vld-shot{position:absolute;width:10px;height:10px;border-radius:50%;border:2px solid #f9eddb;box-shadow:0 0 0 1px #3b2a1e}
+.vld-quick{display:flex;gap:16px;flex-wrap:wrap;margin-top:18px;padding:12px 3px;border-top:4px double #40372d;font:12px Georgia,serif}
+@media(max-width:700px){
+ .vld-topline{font-size:9px}.vld-dept{font-size:10px}.vld-team{grid-template-columns:50px minmax(0,1fr) auto;gap:10px;padding:10px 9px;min-height:76px;border-left-width:4px}
+ .vld-crest{width:48px;height:48px;padding:6px}.vld-identity strong{font-size:17px}.vld-identity span{font-size:10px}.vld-points{font-size:36px}
+ .vld-score-kicker{font-size:10px}.vld-live-grid{grid-template-columns:1fr}.vld-tabs button{flex:1 1 30%;padding:10px 5px;font-size:11px}
+ .vld-flow-summary{font-size:9px}.vld-flow-summary strong{font-size:15px}
+ .vld-plays li{grid-template-columns:63px minmax(0,1fr) 40px;gap:6px;font-size:11px;padding:10px 3px}
+ .vld-floor{aspect-ratio:1.5}.vld-heading{padding:12px 0}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
