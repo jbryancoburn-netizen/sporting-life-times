@@ -66,9 +66,10 @@ def final_key(game):
 def public_calendars(gender, scoreboard, public_data, now):
     """Check the actual team-page inputs for today's completed games."""
     today = now.astimezone(EASTERN).date()
+    recent_days = {today, today - timedelta(days=1)}
     checks = {}
     for eid, (home, away, hs, ass, tip) in scoreboard.items():
-        if tip.astimezone(EASTERN).date() != today:
+        if tip.astimezone(EASTERN).date() not in recent_days:
             continue
         for school in (home, away):
             checks.setdefault(school, []).append((eid, {home: hs, away: ass}, tip))
