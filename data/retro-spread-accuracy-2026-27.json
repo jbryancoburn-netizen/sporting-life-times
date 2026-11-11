@@ -2,19 +2,19 @@
   "season": "2026-27",
   "sport": "NCAA men's Division I basketball",
   "method": "Immutable prior-day and independently verified pretipoff forecasts versus verified in-season D-I finals",
-  "updated_at_utc": "2026-11-11T15:25:52+00:00",
+  "updated_at_utc": "2026-11-11T20:06:49+00:00",
   "archived_predictions": 426,
-  "pending_finals": 200,
+  "pending_finals": 197,
   "excluded_orientation_mismatches": [
     "espn:401918053",
     "espn:401919029"
   ],
   "summary": {
-    "games": 224,
-    "correct_winners": 163,
-    "winner_accuracy": 0.72768,
-    "margin_mae": 13.6652,
-    "brier": 0.185128
+    "games": 227,
+    "correct_winners": 165,
+    "winner_accuracy": 0.72687,
+    "margin_mae": 13.6894,
+    "brier": 0.187491
   },
   "by_date": {
     "2026-11-06": {
@@ -51,6 +51,13 @@
       "winner_accuracy": 0.76786,
       "margin_mae": 11.8036,
       "brier": 0.14078
+    },
+    "2026-11-11": {
+      "games": 3,
+      "correct_winners": 2,
+      "winner_accuracy": 0.66667,
+      "margin_mae": 15.5,
+      "brier": 0.363915
     }
   },
   "games": [
@@ -3189,6 +3196,48 @@
       "brier": 0.10199209,
       "forecast_model": "retro-central-elo-uncapped-v2",
       "captured_at_utc": "2026-11-08T21:51:03.631Z"
+    },
+    {
+      "date": "2026-11-11",
+      "id": "espn:401919759",
+      "home_id": "ncaa:609533",
+      "away_id": "ncaa:609729",
+      "predicted_home_margin": 16.5,
+      "actual_home_margin": -4,
+      "absolute_margin_error": 20.5,
+      "predicted_home_win_probability": 0.841762,
+      "winner_correct": false,
+      "brier": 0.70856326,
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "captured_at_utc": "2026-11-10T18:48:01+00:00"
+    },
+    {
+      "date": "2026-11-11",
+      "id": "espn:401920234",
+      "home_id": "ncaa:609618",
+      "away_id": "ncaa:609711",
+      "predicted_home_margin": -0.5,
+      "actual_home_margin": -9,
+      "absolute_margin_error": 8.5,
+      "predicted_home_win_probability": 0.485568,
+      "winner_correct": true,
+      "brier": 0.23577628,
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "captured_at_utc": "2026-11-10T18:48:01+00:00"
+    },
+    {
+      "date": "2026-11-11",
+      "id": "espn:401921005",
+      "home_id": "ncaa:609730",
+      "away_id": "ncaa:609602",
+      "predicted_home_margin": -4.5,
+      "actual_home_margin": -22,
+      "absolute_margin_error": 17.5,
+      "predicted_home_win_probability": 0.383936,
+      "winner_correct": true,
+      "brier": 0.14740685,
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "captured_at_utc": "2026-11-10T18:48:01+00:00"
     }
   ]
 }

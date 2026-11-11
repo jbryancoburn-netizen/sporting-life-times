@@ -4,17 +4,32 @@
   "archived": 200,
   "excluded_identity_mismatches": [],
   "baseline_006": {
-    "games": 0,
-    "margin_mae": null,
-    "brier": null,
-    "winner_accuracy": null
+    "games": 3,
+    "margin_mae": 15.5,
+    "brier": 0.363915,
+    "winner_accuracy": 0.66667
   },
   "challenger_002": {
-    "games": 0,
-    "margin_mae": null,
-    "brier": null,
-    "winner_accuracy": null
+    "games": 3,
+    "margin_mae": 17.8333,
+    "brier": 0.407865,
+    "winner_accuracy": 0.66667
   },
-  "by_date": {},
-  "last_changed_utc": "2026-11-11T08:20:58+00:00"
+  "by_date": {
+    "2026-11-11": {
+      "0.006": {
+        "games": 3,
+        "margin_mae": 15.5,
+        "brier": 0.363915,
+        "winner_accuracy": 0.66667
+      },
+      "0.002": {
+        "games": 3,
+        "margin_mae": 17.8333,
+        "brier": 0.407865,
+        "winner_accuracy": 0.66667
+      }
+    }
+  },
+  "last_changed_utc": "2026-11-11T20:06:49+00:00"
 }
