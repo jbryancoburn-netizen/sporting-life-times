@@ -771,12 +771,17 @@ function card(original,featured,opened=false){
  const source=external?(g.evidence==='secondary'?'Published secondary result':'University / cited result'):
    g.phase==='final'?(g.evidence==='final-source'?'Attributed final':'Reported final'):
    g.phase==='live'?'Live scoreboard':'Sourced fixture + RETRO';
- const when=g.phase==='upcoming'?'<span class="ledger26-time">'+esc(formatClock(g))+'</span>':'';
+ // The venue belongs to every scorebug, even when a broadcast is listed.
+ // Show sourced game locations only; never substitute a team's home arena for an unverified site.
+ const venueName=String(g.venue||'').trim();
+ const when='<span class="ledger26-time ledger26-time--venue">'+
+   (g.phase==='upcoming'?'<span class="ledger26-tipoff">'+esc(formatClock(g))+'</span>':'')+
+   '<span class="ledger26-venue'+(venueName?'':' ledger26-venue--missing')+'" title="'+esc(venueName?'Venue: '+venueName:'Game venue not reported')+'"><span class="ledger26-venue-heading">VENUE ·</span> '+esc(venueName||'Not reported')+'</span></span>';
  const network=String(g.broadcast||'').trim();
- const venue=network?'<span class="ledger26-network">'+esc(network)+'</span>':g.phase==='upcoming'?'<span class="ledger26-network">TV TBA</span>':g.venue?'<span class="ledger26-venue">'+esc(g.venue)+'</span>':'';
+ const tv=network?'<span class="ledger26-network">'+esc(network)+'</span>':g.phase==='upcoming'?'<span class="ledger26-network">TV TBA</span>':'';
  // A press launcher outside <summary> does not toggle the gamefile.
  const press=g.phase==='upcoming'?'<button type="button" class="slt-team-press-btn" data-slt-ledger-press-open data-game-id="'+esc(g.id)+'" data-day="'+esc(g.day)+'" aria-label="Read pregame press for '+esc(g.away.name)+' at '+esc(g.home.name)+'">PREGAME PRESS ›</button>':'';
- const right=venue||press?'<span class="ledger26-meta-actions">'+venue+press+'</span>':'';
+ const right=tv||press?'<span class="ledger26-meta-actions">'+tv+press+'</span>':'';
  // RETRO is the only point-spread projection shown.
  const p=women?null:insight?.projectedScore(g,scoreCalibration,ratings);
  const modelMargin=Number.isFinite(g.projectedHomeMargin)?g.projectedHomeMargin:(p&&Number.isFinite(p.home)&&Number.isFinite(p.away)?p.home-p.away:null);
