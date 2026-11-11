@@ -55,8 +55,8 @@ def source_finals(gender, known):
                 continue
             try:
                 tip = datetime.fromisoformat(ev["date"].replace("Z", "+00:00"))
-                if datetime.now(timezone.utc) - tip < timedelta(minutes=150):
-                    continue
+                # A completed scoreboard game is immediately eligible for verification.
+                # Scheduled tipoff age is not a finalization timestamp.
             except (ValueError, KeyError, TypeError):
                 continue
             sides = ev.get("competitions", [{}])[0].get("competitors", [])
