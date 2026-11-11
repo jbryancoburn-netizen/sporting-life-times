@@ -313,6 +313,18 @@ jobs:
             fi
           fi
           node tests/cbb-front-news.test.cjs
+      # The long MBB newsroom collector is scheduled only every 15 minutes,
+      # and GitHub can delay cron jobs. Refresh current scores in the deployed
+      # Pages edition independently so an old pregame or halftime score is not
+      # republished simply because a static-data deployment succeeded.
+      - name: Refresh men's live scores immediately before Pages artifact
+        run: |
+          python3 -m unittest discover -s tests -p test_mbb_fast_scores.py -v
+          if python3 scripts/refresh_mbb_live_scores.py; then
+            echo "PASS: latest national scoreboard incorporated in this Pages artifact."
+          else
+            echo "::warning::Live ESPN scoreboard unavailable; this edition contains last-known scores."
+          fi
       - name: Stage reader-facing newspaper without unused development and research payloads
         run: python3 scripts/stage_pages_artifact.py
       - uses: actions/upload-pages-artifact@v4
