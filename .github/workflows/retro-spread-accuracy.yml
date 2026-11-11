@@ -35,21 +35,36 @@ jobs:
           python3 -m py_compile scripts/retro_spread_accuracy.py scripts/retro_regularization_forward.py
           python3 scripts/retro_spread_accuracy.py
           python3 scripts/retro_regularization_forward.py
-      - name: Commit only updated audit outputs
+      - name: Reconcile and commit only updated audit outputs
         id: publish
         shell: bash
         run: |
           set -euo pipefail
           git config user.name "RETRO Forecast Auditor"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/retro-pregame-archive-2026-27.json data/retro-spread-accuracy-2026-27.json data/retro-regularization-forward-2026-27.json data/retro-regularization-forward-score-2026-27.json
-          if git diff --cached --quiet; then echo "No new predictions or scores"; echo "changed=false" >> "$GITHUB_OUTPUT"; exit 0; fi
-          for attempt in 1 2 3; do
-            git commit -m "data: update immutable RETRO spread audit" || true
-            if git pull --rebase origin main && git push origin HEAD:main; then echo "changed=true" >> "$GITHUB_OUTPUT"; exit 0; fi
-            sleep 4
+          # Another publisher may have committed new final scores while this job ran.
+          # Rebuild against the newest main snapshot instead of rebasing generated JSON.
+          for attempt in 1 2 3 4; do
+            git fetch origin main
+            git reset --hard origin/main
+            python3 -m py_compile scripts/retro_spread_accuracy.py scripts/retro_regularization_forward.py
+            python3 scripts/retro_spread_accuracy.py
+            python3 scripts/retro_regularization_forward.py
+            git add data/retro-pregame-archive-2026-27.json data/retro-spread-accuracy-2026-27.json data/retro-regularization-forward-2026-27.json data/retro-regularization-forward-score-2026-27.json
+            if git diff --cached --quiet; then
+              echo "No new predictions or scores"
+              echo "changed=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            git commit -m "data: update immutable RETRO spread audit"
+            if git push origin HEAD:main; then
+              echo "changed=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            echo "::warning::Upstream main changed while auditing; rebuilding from newest snapshot"
+            sleep 2
           done
-          echo "Could not publish accuracy update after retries" >&2
+          echo "::error::Could not publish accuracy update after four fresh rebuilds" >&2
           exit 1
       - name: Publish refreshed accuracy to the public newspaper
         if: steps.publish.outputs.changed == 'true'
