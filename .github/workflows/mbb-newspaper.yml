@@ -51,16 +51,24 @@ jobs:
         run: |
           git config user.name sporting-life-times-bot
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add data/mbb-newspaper-archive.json data/mbb-live.json data/mbb-current-player-stats.json data/cbb-published-networks-2026-27.json
-          if test -f data/mbb-branding.json; then git add data/mbb-branding.json; fi
-          if ! git diff --cached --quiet; then
+          # Rebuild against the latest upstream commit on a rejected push.
+          # Rebasing generated JSON creates content conflicts and permanently
+          # loses this refresh; regenerate instead of merging stale snapshots.
+          for attempt in 1 2 3 4 5; do
+            git add data/mbb-newspaper-archive.json data/mbb-live.json data/mbb-current-player-stats.json data/cbb-published-networks-2026-27.json
+            if test -f data/mbb-branding.json; then git add data/mbb-branding.json; fi
+            if git diff --cached --quiet; then exit 0; fi
             git commit -m "Refresh MBB newspaper data"
-            for attempt in 1 2 3 4; do
-              if git push origin HEAD:main; then exit 0; fi
-              git fetch origin main
-              git rebase origin/main || { git rebase --abort || true; exit 1; }
-              sleep $((attempt * 2))
-            done
-            echo "Could not publish MBB newsroom data after four synchronized attempts" >&2
-            exit 1
-          fi
+            if git push origin HEAD:main; then exit 0; fi
+            echo "Concurrent publisher updated main; regenerating scores on latest main (attempt $attempt)" >&2
+            git fetch origin main
+            git reset --hard origin/main
+            # Refresh from verified upstream sources AFTER the reset so a
+            # stale 0-0 scoreboard can never overwrite a newer final.
+            python scripts/build_mbb_newspaper.py
+            python scripts/refresh_mbb_newspaper.py
+            python scripts/build_cbb_published_networks.py
+            sleep $((attempt * 2))
+          done
+          echo "Could not publish MBB newsroom data after five regenerated attempts" >&2
+          exit 1
