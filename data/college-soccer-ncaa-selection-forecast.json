@@ -12,7 +12,7 @@
   "elo_reconciliation": {
     "audit_status": "provisional",
     "source_certified": false,
-    "excluded_finals": 26,
+    "excluded_finals": 27,
     "quarantined_source_rows": 0,
     "source_checked_through": "2026-11-10",
     "warning": "Selection forecast is provisional until source quarantines and excluded games have been reconciled"
@@ -140,7 +140,7 @@
       "conference_name": "A-10",
       "team_id": "saint-louis",
       "team": "Saint Louis",
-      "elo": 1604.913,
+      "elo": 1616.139,
       "method": "elo_simulation_placeholder_from_available_tournament_field",
       "official_aq": false
     },
@@ -684,12 +684,23 @@
       "seeded_24_candidate": true
     },
     {
+      "team_id": "saint-louis",
+      "team": "Saint Louis",
+      "conference": "men-d1:atlantic-10",
+      "elo": 1616.139,
+      "bid_type": "projected_aq",
+      "experimental_strength_order": 23,
+      "ncaa_seed": null,
+      "first_round_bye_candidate": false,
+      "seeded_24_candidate": true
+    },
+    {
       "team_id": "oregon-st",
       "team": "Oregon St.",
       "conference": "men-d1:pac-12",
       "elo": 1611.51,
       "bid_type": "proxy_at_large",
-      "experimental_strength_order": 23,
+      "experimental_strength_order": 24,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
       "seeded_24_candidate": true
@@ -700,27 +711,16 @@
       "conference": "men-d1:asun",
       "elo": 1609.713,
       "bid_type": "projected_aq",
-      "experimental_strength_order": 24,
-      "ncaa_seed": null,
-      "first_round_bye_candidate": false,
-      "seeded_24_candidate": true
-    },
-    {
-      "team_id": "fdu",
-      "team": "FDU",
-      "conference": "men-d1:nec",
-      "elo": 1605.639,
-      "bid_type": "projected_aq",
       "experimental_strength_order": 25,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
       "seeded_24_candidate": false
     },
     {
-      "team_id": "saint-louis",
-      "team": "Saint Louis",
-      "conference": "men-d1:atlantic-10",
-      "elo": 1604.913,
+      "team_id": "fdu",
+      "team": "FDU",
+      "conference": "men-d1:nec",
+      "elo": 1605.639,
       "bid_type": "projected_aq",
       "experimental_strength_order": 26,
       "ncaa_seed": null,

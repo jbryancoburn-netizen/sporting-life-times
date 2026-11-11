@@ -4,7 +4,7 @@
   "source_forecasts_published_at": "2026-11-10T20:25:04.539161+00:00",
   "coverage": "partial_verified_finals_plus_locked_forecasts",
   "notice": "Partial schedule index only: official final ledger begins after the pinned baseline; pending fixtures are unverified until official finals arrive. A scheduled game may have already started.",
-  "verified_final_count": 2925,
+  "verified_final_count": 2931,
   "locked_forecast_count": 2527,
   "unresolved": [
     {
@@ -75,6 +75,11 @@
     {
       "match_id": "women-6662931",
       "team_id": "judson-il",
+      "reason": "ambiguous_or_missing_division"
+    },
+    {
+      "match_id": "men-6675545",
+      "team_id": "faith-bapt-bible",
       "reason": "ambiguous_or_missing_division"
     }
   ],
@@ -7307,12 +7312,12 @@
           "match_id": "men-6666307",
           "date": "2026-11-10",
           "opponent": "saint-louis",
-          "opponent_name": "Saint Louis",
           "venue": "away",
-          "status": "scheduled",
+          "status": "final",
+          "goals_for": 0,
+          "goals_against": 1,
           "source_url": "https://www.ncaa.com/game/6666307",
-          "source_type": "ncaa_di_men_2026_scoreboard",
-          "kickoff_utc": "2026-11-10T23:00:00+00:00"
+          "source_type": "verified_official_final"
         }
       ]
     },
@@ -28592,12 +28597,12 @@
           "match_id": "men-6666307",
           "date": "2026-11-10",
           "opponent": "davidson",
-          "opponent_name": "Davidson",
           "venue": "home",
-          "status": "scheduled",
+          "status": "final",
+          "goals_for": 1,
+          "goals_against": 0,
           "source_url": "https://www.ncaa.com/game/6666307",
-          "source_type": "ncaa_di_men_2026_scoreboard",
-          "kickoff_utc": "2026-11-10T23:00:00+00:00"
+          "source_type": "verified_official_final"
         }
       ]
     },
