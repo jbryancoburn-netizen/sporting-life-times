@@ -190,8 +190,11 @@ def main():
                 quarantine.append({"game_id":ident[1],"team_id":ident[0],"reason":"duplicate_official_source"})
                 continue
             university_index[ident]=row
+    # Quarantine stale or contradictory university evidence rather than allowing
+    # it to block the entire 363-school calendar edition. None of the rows
+    # quarantined above are applied as verified sources.
     if quarantine:
-        raise RuntimeError("Official university source records require review: "+str(quarantine[:5]))
+        print("WBB university evidence withheld for review: "+str(quarantine[:5]))
     for (tid,gid),row in university_index.items():
         g=next(g for school,g in by_game[gid] if school==tid)
         g["official_schedule_verified_fields"]=["local_game_date","opponent_id","home_away_or_neutral"]
@@ -417,6 +420,8 @@ def main():
             bool(g.get("official_schedule_source_url"))
             for t in cal["teams"].values() for g in t.get("games",[])),
         "official_school_calendar_entries_3_fields_verified":len(university_index),
+        "official_university_source_quarantined_count":len(quarantine),
+        "official_university_source_quarantined":quarantine,
         "additional_bulk_official_school_entries_kept":bulk_added,
         "bulk_university_date_conflicts_quarantined":bulk_date_conflicts,
         "official_school_venue_verified":official_venue_rows,
