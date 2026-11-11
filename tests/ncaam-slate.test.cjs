@@ -61,6 +61,15 @@ assert.equal(ratings.model,'retro-clean-slate');
 assert.equal(ratings.rankings.length,365);
 const feed=json('data/mbb-live.json'),forecast=json('data/ncaam-2026-27-upcoming-forecasts.json');
 const men=slate.normalizeMen(feed,forecast,cross);
+const officialOnly=slate.normalizeMen({games:[],ncaa_crosscheck:{day:'2026-11-11',games:[
+ {ncaa_id:'6655395',day:'2026-11-11',away_id:'161',home_id:'2837',phase:'upcoming',date:null}
+]}},{games:[]},cross);
+assert.equal(officialOnly.length,1,'missing grouped ESPN game must remain visible from NCAA');
+assert.equal(officialOnly[0].id,'ncaa:6655395');
+assert.equal(officialOnly[0].timed,false,'no invented tipoff for NCAA-only game');
+assert.equal(officialOnly[0].phase,'upcoming');
+assert.equal(slate.gameDetailsHref(officialOnly[0],false),'#');
+
 const officialTV=slate.normalizeMen({
  games:[{id:'401920424',date:'2026-11-08T18:00:00Z',state:'pre',
    teams:[{id:'8',name:'Arkansas Razorbacks'}, {id:'258',name:'Virginia Cavaliers'}]}],
