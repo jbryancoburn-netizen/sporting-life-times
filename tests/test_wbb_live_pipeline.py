@@ -188,7 +188,7 @@ class WomenLiveIngestionTests(unittest.TestCase):
         outsider=event("401922658","2026-11-10")
         outsider["competitions"][0]["competitors"][1]["team"]={"id":"341"}
         old=wbb.game(outsider)
-        old["away_id"]="342"
+        old["away_id"]="999"
         old["score_evidence"]="espn_only"
         (self.root/"ncaaw-2026-27-games.json").write_text(
             json.dumps({"finals":[old],"upcoming":[]}))
@@ -198,7 +198,7 @@ class WomenLiveIngestionTests(unittest.TestCase):
             wbb.live(today=wbb.dt.date(2026,11,10))
         release=self.load("ncaaw-2026-27-games.json")
         self.assertEqual(
-            next(g for g in release["finals"] if g["id"]=="401922658")["away_id"],"342")
+            next(g for g in release["finals"] if g["id"]=="401922658")["away_id"],"999")
         self.assertEqual(release["outside_division_identity_conflicts"][0]["game_id"],
                          "401922658")
         self.assertEqual(len(self.load("ncaaw-2026-27-verified-games.json")["games"]),1)
