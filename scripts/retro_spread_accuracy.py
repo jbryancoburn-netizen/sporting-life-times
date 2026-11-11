@@ -14,6 +14,8 @@ DATA = ROOT / "data"
 ARCHIVE = DATA / "retro-pregame-archive-2026-27.json"
 REPORT = DATA / "retro-spread-accuracy-2026-27.json"
 SOURCE = DATA / "ncaam-2026-27-upcoming-forecasts.json"
+# A separate publisher already saves exact pretipoff spreads with UTC capture and tipoff times.
+VERIFIED_PRETIPOFF = DATA / "mbb-retro-pregame-spreads-2026-27.json"
 FINALS = DATA / "ncaam-2026-27-retro-primary.json"
 SEASON = "2026-27"
 
@@ -34,6 +36,23 @@ def write_if_changed(path, obj):
 
 def numeric(value):
     return isinstance(value, (int, float)) and not isinstance(value, bool)
+
+def pretipoff_capture_is_valid(p):
+    """Do not count a retrospective forecast as a real pregame prediction."""
+    try:
+        captured = datetime.fromisoformat(str(p["recorded_at"]).replace("Z", "+00:00"))
+        tipoff = datetime.fromisoformat(str(p["tipoff_at"]).replace("Z", "+00:00"))
+        return (captured.tzinfo is not None and tipoff.tzinfo is not None
+                and captured < tipoff and p.get("pregame_source_snapshot_verified") is True
+                and p.get("forecast_model") == "retro-central-elo-uncapped-v2"
+                and numeric(p.get("projected_home_margin"))
+                and numeric(p.get("home_win_probability"))
+                and 0 <= p["home_win_probability"] <= 1
+                and isinstance(p.get("game_date"), str)
+                and isinstance(p.get("game_id"), str)
+                and p.get("home_id") and p.get("away_id"))
+    except (KeyError, TypeError, ValueError, OverflowError):
+        return False
 
 def main():
     now = datetime.now(timezone.utc).isoformat(timespec="seconds")
@@ -69,6 +88,34 @@ def main():
             "ratings_as_of": p.get("ratings_as_of"),
             "venue_verification": p.get("venue_verification", "unknown"),
             "captured_at_utc": now, "source_as_of": source.get("as_of")
+        })
+        keys.add(key)
+        added += 1
+    # Import immutable real pretipoff captures from the other forecast publisher.
+    # This repairs missing audit dates without using any postgame RETRO ratings.
+    pretipoff = load(VERIFIED_PRETIPOFF, {"season": SEASON, "forecasts": []})
+    if pretipoff.get("season") != SEASON:
+        raise ValueError("Pretipoff spread archive season mismatch")
+    for p in pretipoff.get("forecasts", []):
+        if not pretipoff_capture_is_valid(p):
+            continue
+        key = (p["game_date"], p["game_id"])
+        if key in keys:
+            continue  # Existing predictions are immutable; never overwrite them.
+        margin = p["projected_home_margin"]
+        records.append({
+            "date": p["game_date"], "id": p["game_id"],
+            "home_id": p["home_id"], "away_id": p["away_id"],
+            "projected_home_margin": round(margin * 2) / 2,
+            "raw_model_home_margin": margin,
+            "home_win_probability": p["home_win_probability"],
+            "forecast_model": p["forecast_model"],
+            "ratings_as_of": p.get("ratings_as_of"),
+            "venue_verification": p.get("venue_verification", "unknown"),
+            "captured_at_utc": p["recorded_at"],
+            "tipoff_at_utc": p["tipoff_at"],
+            "capture_source": "independently_verified_pretipoff_spread_archive",
+            "source_as_of": p.get("ratings_as_of")
         })
         keys.add(key)
         added += 1
@@ -115,7 +162,7 @@ def main():
         groups[row["date"]].append(row)
     report = {
         "season": SEASON, "sport": "NCAA men's Division I basketball",
-        "method": "Immutable before-game-day forecasts versus verified in-season D-I finals",
+        "method": "Immutable prior-day and independently verified pretipoff forecasts versus verified in-season D-I finals",
         "updated_at_utc": now, "archived_predictions": len(records),
         "pending_finals": pending, "excluded_orientation_mismatches": mismatched_events, "summary": metrics(matched),
         "by_date": {day: metrics(rows) for day, rows in sorted(groups.items())},
