@@ -3,7 +3,7 @@
   "division": "d3",
   "gender": "men",
   "season": "2026-27",
-  "generated_utc": "2026-11-10T16:30:02.699482+00:00",
+  "generated_utc": "2026-11-11T00:42:10.160342+00:00",
   "source": "NCAA 2026-27 member directory + year/gender-validated official school athletics calendars",
   "scope": "NCAA membership-wide first pass; sources without independently validated 2026-27 schedules excluded",
   "ncaa_confirmed_programs": 406,
@@ -14,8 +14,8 @@
   "school_calendars_unresolved": 17,
   "source_status_counts": {
     "parsed": 358,
-    "failed": 17,
-    "parsed_conference": 31
+    "parsed_conference": 31,
+    "failed": 17
   },
   "last_verified_school_source": {
     "4": "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
@@ -585,12 +585,12 @@
       "ncaa_org_id": 939,
       "school": "Anderson University (Indiana)",
       "conference": "Heartland Collegiate Athletic Conference",
-      "category": "source_unavailable_or_unverified",
+      "category": "season_heading_not_verified",
       "failed_url": "https://athletics.anderson.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "last_successful_school_schedule_url": "",
       "discovered_schedule_links": [],
       "checked_schedule_candidates": 15,
-      "next_action": "Locate an official school or conference 2026-27 calendar",
+      "next_action": "Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar",
       "opponent_published_fixtures": 19,
       "opponent_source_examples": [
         "https://athletics.hope.edu/sports/mens-basketball/schedule/2026-27?grid=true",
@@ -708,8 +708,7 @@
     "recovery_reason_counts": {
       "server_refused_method": 4,
       "calendar_path_unavailable": 1,
-      "season_heading_not_verified": 11,
-      "source_unavailable_or_unverified": 1
+      "season_heading_not_verified": 12
     }
   },
   "no_athletics_host": 0,
@@ -1221,7 +1220,7 @@
       "excluded_rows": {
         "missing_or_ambiguous_ncaa_opponent": 1
       },
-      "failed_school_calendar_urls": 16
+      "failed_school_calendar_urls": 9
     },
     {
       "owner_org_id": 120,
@@ -2128,10 +2127,9 @@
     {
       "owner_org_id": 281,
       "source_url": "https://www.hiramterriers.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "readable_rows": 26,
+      "readable_rows": 25,
       "verified_member_opponents": 18,
       "excluded_rows": {
-        "preseason_or_exhibition": 1,
         "identity_not_d3_matched_but_posted": 6,
         "conditional_or_ambiguous_opponent": 1
       },
@@ -2969,8 +2967,8 @@
     {
       "owner_org_id": 475,
       "source_url": "https://www.nphawks.com/sports/mens-basketball/schedule/2026-2027?grid=true",
-      "readable_rows": 28,
-      "verified_member_opponents": 17,
+      "readable_rows": 29,
+      "verified_member_opponents": 18,
       "excluded_rows": {
         "identity_not_d3_matched_but_posted": 8,
         "conditional_or_ambiguous_opponent": 3
@@ -5110,9 +5108,82 @@
       "owner_org_id": 939,
       "source_url": "https://athletics.anderson.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "status": "failed",
-      "error": "<urlopen error [Errno -3] Temporary failure in name resolution> | <urlopen error [Errno -3] Temporary failure in name resolution> | <urlopen error [Errno -3] Temporary failure in name resolution> | <urlopen error [Errno -3] Temporary failure in name resolution",
+      "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
       "candidate_urls_tried": 15,
-      "rejected_page_evidence": [],
+      "rejected_page_evidence": [
+        {
+          "url": "https://athletics.anderson.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://athletics.anderson.edu/sports/mens-basketball/schedule/2026-2027?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://athletics.anderson.edu/sports/mens-basketball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://athletics.anderson.edu/sports/mens-basketball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://athletics.anderson.edu/sports/mbball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://athletics.anderson.edu/sports/mbball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://athletics.anderson.edu/sports/mbkb/2026-27/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://athletics.anderson.edu/sports/mbkb/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        }
+      ],
       "conference_page_evidence": [],
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -8117,7 +8188,7 @@
       ]
     }
   ],
-  "fixture_count": 4394,
+  "fixture_count": 4395,
   "reciprocal_fixtures": 2620,
   "unresolved_opponent_fixture_count": 1654,
   "unresolved_opponent_fixtures": [
@@ -10083,7 +10154,7 @@
       "schedule_only": true,
       "source_kind": "official_school",
       "source_url": "https://warrenwilsonowls.com/sports/mens-basketball/schedule?grid=true",
-      "tipoff_as_posted": "7:00 P.M.",
+      "tipoff_as_posted": "5:00 P.M.",
       "venue_location": "Purcellville, VA"
     },
     {
@@ -10098,7 +10169,7 @@
       "schedule_only": true,
       "source_kind": "official_school",
       "source_url": "https://goslugs.com/sports/mens-basketball/schedule/text",
-      "tipoff_as_posted": "",
+      "tipoff_as_posted": "7:00 PM",
       "venue_location": "Merced, CA"
     },
     {
@@ -27078,7 +27149,7 @@
       "schedule_only": true,
       "source_kind": "official_school",
       "source_url": "https://sjbkathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "1:00 PM",
+      "tipoff_as_posted": "2:30 PM",
       "venue_location": "Brooklyn, N.Y. (The Hill Center)"
     },
     {
@@ -51043,7 +51114,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "single_official_school",
-      "tipoff_as_posted": "7:00 PM",
+      "tipoff_as_posted": "6:30 PM",
       "venue": "",
       "venue_location": "Eureka, IL",
       "network_as_posted": "",
@@ -63088,7 +63159,7 @@
       "venue_location": "Alma, Michigan",
       "network_as_posted": "MIAA Sports Network",
       "radio_as_posted": "104.9 WQBX",
-      "tournament": "",
+      "tournament": "Holiday Hoops",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -66588,6 +66659,30 @@
       "tipoff_as_posted": "2:00pm",
       "venue": "Alumni Gym",
       "venue_location": "Danville, KY",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-12-06-163-475",
+      "date": "2026-12-06",
+      "away_org_id": 163,
+      "home_org_id": 475,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.nphawks.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+      "official_schedule_sources": [
+        "https://www.nphawks.com/sports/mens-basketball/schedule/2026-2027?grid=true"
+      ],
+      "verified_by_org_ids": [
+        475
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "2 PM",
+      "venue": "Hawk Center",
+      "venue_location": "New Paltz, NY",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -109257,7 +109352,7 @@
       "venue_location": "Mequon, Wis.",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "Mel's Charities / Special Olympics Game",
       "neutral_home_designation_unconfirmed": false
     },
     {
