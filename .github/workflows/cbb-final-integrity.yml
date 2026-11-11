@@ -31,6 +31,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Prevent regression to delayed final-game checks
+        run: python3 -m unittest discover -s tests -p test_cbb_recent_finals.py -v
       - name: Independently validate final-game source, both RETRO lists and school calendars
         env:
           GH_TOKEN: ${{ github.token }}
