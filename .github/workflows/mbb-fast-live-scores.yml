@@ -64,3 +64,32 @@ jobs:
           done
           echo "::error::Fresh MBB score snapshot could not reach main"
           exit 1
+
+      - name: Recover new Division I finals into RETRO and both team calendars
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          python3 - <<'PY' > /tmp/slt-new-mbb-finals
+          import json
+          from pathlib import Path
+          feed=json.loads(Path('data/mbb-live.json').read_text())
+          cross=json.loads(Path('data/ncaam-2026-27-espn-team-crosswalk.json').read_text())
+          retro=json.loads(Path('data/ncaam-2026-27-retro-primary.json').read_text())
+          di={str(t['espn_id']) for t in cross['teams'] if t.get('espn_id')}
+          recorded={str(x['id']).removeprefix('espn:') for x in retro['events']}
+          missing=[str(g['id']) for g in feed.get('games',[])
+                   if g.get('state')=='post'
+                   and {str(t.get('id')) for t in g.get('teams',[])} <= di
+                   and len(g.get('teams',[]))==2
+                   and str(g['id']) not in recorded]
+          print(' '.join(missing))
+          PY
+          pending="$(cat /tmp/slt-new-mbb-finals)"
+          if [[ -n "$pending" ]]; then
+            echo "Missing verified-publisher finals: $pending"
+            active="$(gh run list --workflow mbb-retro-primary.yml --branch main --limit 12 --json status --jq 'any(.[]; .status != "completed")')"
+            if [[ "$active" == "false" ]]; then
+              gh workflow run mbb-retro-primary.yml --ref main
+            fi
+          fi
