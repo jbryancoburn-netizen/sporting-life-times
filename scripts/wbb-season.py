@@ -273,6 +273,10 @@ def live(today=None):
                     if (str(g.get("home_id")) in ids) != (str(g.get("away_id")) in ids)
                     and str(g.get("id","")).isdigit() and g.get("status")=="final"}
     upcoming={}
+    # Outside-division games never count toward D-I RETRO. A source revision
+    # must be recorded, but cannot block unrelated certified D-I finals.
+    outside_revisions=[]
+    outside_conflicts=[]
     ncaa_rows=ncaa_women_snapshot()
     failed=[]
     day=max(dt.date(2026,11,1),today-dt.timedelta(days=3))
@@ -299,10 +303,36 @@ def live(today=None):
                             g["home_name"]=name
                     if g["status"]=="final":
                         old=outside_finals.get(g["id"])
-                        if old and old.get("score_evidence")!="secondary_reported" and any(
-                            old.get(k)!=g.get(k) for k in
-                            ("date","home_id","away_id","home_score","away_score")):
-                            raise RuntimeError("Disputed outside-division game "+g["id"])
+                        if old:
+                            identity_keys=("date","home_id","away_id")
+                            identity_changes=[key for key in identity_keys
+                                              if old.get(key)!=g.get(key)]
+                            if identity_changes:
+                                # Never assign an old result to a different opponent
+                                # or date on the strength of a changed provider row.
+                                # Preserve and flag it, while processing D-I results.
+                                outside_conflicts.append({
+                                    "game_id":g["id"],"reason":"fixture identity changed",
+                                    "changed_fields":identity_changes})
+                                continue
+                            old_scores=(old.get("home_score"),old.get("away_score"))
+                            new_scores=(g.get("home_score"),g.get("away_score"))
+                            if old_scores!=new_scores:
+                                # A corrected final from the fresh scoreboard
+                                # replaces an outdated public score, with a
+                                # traceable revision record. It is not a D-I
+                                # RETRO input and never adjusts D-I ratings.
+                                outside_revisions.append({
+                                    "game_id":g["id"],"date":g["date"],
+                                    "previous_home_score":old_scores[0],
+                                    "previous_away_score":old_scores[1],
+                                    "revised_home_score":new_scores[0],
+                                    "revised_away_score":new_scores[1],
+                                    "source":"fresh ESPN completed scoreboard",
+                                    "previous_evidence":old.get("score_evidence"),
+                                    "revised_evidence":g.get("score_evidence")})
+                                g["score_evidence"]="espn_revised_final" if (
+                                    g.get("score_evidence")=="espn_only") else g.get("score_evidence")
                         outside_finals[g["id"]]=g
                     elif g["id"] not in outside_finals:
                         upcoming[g["id"]]=g
@@ -333,12 +363,16 @@ def live(today=None):
         "score_source_scope":"ESPN women’s final scores, crosschecked with current NCAA-origin relay evidence when available; individual games retain source evidence",
         "fetch_window":{"from":str(requested_start),"through":str(end)},
         "future_fixture_fetch_warnings":future_warnings,
+        "outside_division_score_revisions":outside_revisions,
+        "outside_division_identity_conflicts":outside_conflicts,
         "finals":sorted([*ordered[-100:],*outside_finals.values()],
                          key=lambda g:(g["date"],g["id"])),
         "upcoming":sorted(upcoming.values(),key=lambda g:(g["date"],g["id"]))})
     print("Women's data:",len(teams),"D-I programs,",len(ordered),"finals,",len(upcoming),
           "upcoming; fetched",str(requested_start),"through",str(end),
-          "; optional future date warnings:",len(future_warnings))
+          "; optional future date warnings:",len(future_warnings),
+          "; outside-division score revisions:",len(outside_revisions),
+          "; outside-division identity conflicts:",len(outside_conflicts))
 
 if __name__=="__main__":
     if sys.argv[1:2]==["live"]:
