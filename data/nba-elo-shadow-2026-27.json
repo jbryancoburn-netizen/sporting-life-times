@@ -4,7 +4,7 @@
   "status": "primary_live_earned_elo",
   "model": "team_only_reset1500_home40_k24_sqrt_mov",
   "source": "data/nba-2026-27-current-provisional.json",
-  "games_played": 154,
+  "games_played": 155,
   "parameters": {
     "season_start_elo": 1500,
     "home_elo": 40,
@@ -94,20 +94,20 @@
       "difference_from_live": -53.013
     },
     {
+      "team": "NYK",
+      "elo": 1540.656,
+      "games": 10,
+      "forecast_prior": 1716.1215,
+      "live_elo": 1649.228,
+      "difference_from_live": -108.572
+    },
+    {
       "team": "POR",
       "elo": 1535.244,
       "games": 9,
       "forecast_prior": 1520.0812500000002,
       "live_elo": 1548.709,
       "difference_from_live": -13.465
-    },
-    {
-      "team": "NYK",
-      "elo": 1528.83,
-      "games": 9,
-      "forecast_prior": 1716.1215,
-      "live_elo": 1645.287,
-      "difference_from_live": -116.457
     },
     {
       "team": "DAL",
@@ -247,11 +247,11 @@
     },
     {
       "team": "MIL",
-      "elo": 1400.814,
-      "games": 10,
+      "elo": 1388.988,
+      "games": 11,
       "forecast_prior": 1401.576,
-      "live_elo": 1348.374,
-      "difference_from_live": 52.44
+      "live_elo": 1344.433,
+      "difference_from_live": 44.555
     }
   ],
   "events": [
@@ -2872,6 +2872,23 @@
       "home_elo_change": 19.04292983261573,
       "home_after": 1566.8877982344873,
       "away_after": 1462.292198469195
+    },
+    {
+      "id": "espn-nba-401909960",
+      "date": "2026-11-11T00:30:00.000Z",
+      "home": "NYK",
+      "away": "MIL",
+      "home_score": 117,
+      "away_score": 85,
+      "home_before": 1528.8303832511801,
+      "away_before": 1400.8135195240095,
+      "home_win_probability": 0.7245576169821545,
+      "forecast_home_win_probability": 0.8007703799800044,
+      "forecast_prior_weight_home": 0.39473684210526316,
+      "forecast_prior_weight_away": 0.375,
+      "home_elo_change": 11.825431532398776,
+      "home_after": 1540.655814783579,
+      "away_after": 1388.9880879916107
     }
   ]
 }
