@@ -160,5 +160,48 @@ class WomenLiveIngestionTests(unittest.TestCase):
         row=self.load("ncaaw-2026-27-verified-games.json")["games"][0]
         self.assertEqual(row["score_evidence"],"espn_only")
 
+
+    def test_corrected_outside_division_score_does_not_block_di_final(self):
+        outsider=event("401922658","2026-11-10")
+        outsider["competitions"][0]["competitors"][1]["team"]={
+            "id":"341","displayName":"LSU Alexandria Generals"}
+        outsider["competitions"][0]["competitors"][0]["score"]="83"
+        outsider["competitions"][0]["competitors"][1]["score"]="40"
+        stale=wbb.game(outsider)
+        stale["home_score"]=84
+        stale["score_evidence"]="espn_only"
+        (self.root/"ncaaw-2026-27-games.json").write_text(
+            json.dumps({"finals":[stale],"upcoming":[]}))
+        di=event("401930020","2026-11-10")
+        with patch.object(wbb,"daily",side_effect=lambda day:
+                          [outsider,di] if day.isoformat()=="2026-11-10" else []):
+            wbb.live(today=wbb.dt.date(2026,11,10))
+        release=self.load("ncaaw-2026-27-games.json")
+        fixed=next(g for g in release["finals"] if g["id"]=="401922658")
+        self.assertEqual((fixed["home_score"],fixed["away_score"]),(83,40))
+        correction=release["outside_division_score_revisions"][0]
+        self.assertEqual((correction["previous_home_score"],correction["revised_home_score"]),(84,83))
+        self.assertEqual(len(self.load("ncaaw-2026-27-verified-games.json")["games"]),1)
+        self.assertEqual(self.load("ncaaw-2026-27-verified-games.json")["games"][0]["id"],"401930020")
+
+    def test_outside_division_identity_conflict_is_quarantined_not_reassigned(self):
+        outsider=event("401922658","2026-11-10")
+        outsider["competitions"][0]["competitors"][1]["team"]={"id":"341"}
+        old=wbb.game(outsider)
+        old["away_id"]="342"
+        old["score_evidence"]="espn_only"
+        (self.root/"ncaaw-2026-27-games.json").write_text(
+            json.dumps({"finals":[old],"upcoming":[]}))
+        di=event("401930021","2026-11-10")
+        with patch.object(wbb,"daily",side_effect=lambda day:
+                          [outsider,di] if day.isoformat()=="2026-11-10" else []):
+            wbb.live(today=wbb.dt.date(2026,11,10))
+        release=self.load("ncaaw-2026-27-games.json")
+        self.assertEqual(
+            next(g for g in release["finals"] if g["id"]=="401922658")["away_id"],"342")
+        self.assertEqual(release["outside_division_identity_conflicts"][0]["game_id"],
+                         "401922658")
+        self.assertEqual(len(self.load("ncaaw-2026-27-verified-games.json")["games"]),1)
+
 if __name__=="__main__":
     unittest.main()
