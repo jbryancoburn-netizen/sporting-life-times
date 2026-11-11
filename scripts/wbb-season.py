@@ -268,14 +268,15 @@ def live(today=None):
     # Public D-I-versus-outside-division scores must survive rolling refreshes.
     # Keep them OUT of the certified all-D-I RETRO input ledger.
     public_path=ROOT/"ncaaw-2026-27-games.json"
-    prior_public=json.loads(public_path.read_text()).get("finals",[]) if public_path.exists() else []
+    prior_release=json.loads(public_path.read_text()) if public_path.exists() else {}
+    prior_public=prior_release.get("finals",[])
     outside_finals={str(g["id"]):g for g in prior_public
                     if (str(g.get("home_id")) in ids) != (str(g.get("away_id")) in ids)
                     and str(g.get("id","")).isdigit() and g.get("status")=="final"}
     upcoming={}
     # Outside-division games never count toward D-I RETRO. A source revision
     # must be recorded, but cannot block unrelated certified D-I finals.
-    outside_revisions=[]
+    outside_revisions=list(prior_release.get("outside_division_score_revisions", []))
     outside_conflicts=[]
     ncaa_rows=ncaa_women_snapshot()
     failed=[]
@@ -333,6 +334,10 @@ def live(today=None):
                                     "revised_evidence":g.get("score_evidence")})
                                 g["score_evidence"]="espn_revised_final" if (
                                     g.get("score_evidence")=="espn_only") else g.get("score_evidence")
+                            elif old.get("score_evidence")=="espn_revised_final" and g.get("score_evidence")=="espn_only":
+                                # Keep the provenance of an already-logged
+                                # correction on subsequent identical refreshes.
+                                g["score_evidence"]="espn_revised_final"
                         outside_finals[g["id"]]=g
                     elif g["id"] not in outside_finals:
                         upcoming[g["id"]]=g
