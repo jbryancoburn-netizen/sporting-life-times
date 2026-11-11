@@ -18,7 +18,7 @@ const check=(league,paint,arc,corner,restricted)=>{
  assert.equal((svg.match(/class="vld-backboard"/g)||[]).length,2,'both backboards required');
  assert.equal((svg.match(/class="vld-paint"/g)||[]).length,2,'both painted keys required');
  assert.equal((svg.match(/class="vld-ft-dash"/g)||[]).length,2,'both free-throw circles required');
- assert.equal((svg.match(/class="vld-three-point"/g)||[]).length,2,'two three-point arcs required');
+ assert.equal((svg.match(/\bvld-three-point"/g)||[]).length,2,'two three-point arcs required');
  assert.match(svg,/cx="470" cy="250" r="60"/,'six-foot center circle missing');
  assert.match(svg,new RegExp('height="'+paint+'"'),'lane must match league dimensions');
  assert.equal((svg.match(/class="vld-restricted"/g)||[]).length,restricted?2:0,
