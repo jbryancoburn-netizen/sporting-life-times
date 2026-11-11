@@ -504,6 +504,44 @@ def women_school_fixtures(root, day):
         rows.append(item)
     return rows
 
+def fetch_men_scoreboards(day, fetcher=fetch):
+    """Merge grouped and full national scoreboards by verified ESPN game ID."""
+    base='https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard'
+    urls=[('ESPN scores',base+'?groups=50&limit=1000&dates='+day),
+          ('ESPN unrestricted scores',base+'?limit=1000&dates='+day)]
+    data=[];audit=[]
+    for name,url in urls:
+        try:
+            response=json.loads(fetcher(url))
+            if not isinstance(response,dict) or not isinstance(response.get('events'),list):
+                raise ValueError('Missing ESPN scoreboard events')
+            data.append(response)
+            audit.append({'source':name,'url':url,'ok':True,'events':len(response['events'])})
+        except Exception as exc:
+            audit.append({'source':name,'url':url,'ok':False,'error':type(exc).__name__})
+    if not data:raise ValueError('Both national scoreboards unavailable')
+    def progress(event):
+        phase=((event.get('status') or {}).get('type') or {}).get('state')
+        priority={'pre':0,'in':1,'post':2}.get(phase,0)
+        comp=(event.get('competitions') or [{}])[0]
+        points=0
+        for side in comp.get('competitors') or []:
+            score=side.get('score')
+            if isinstance(score,dict):score=score.get('value',score.get('displayValue'))
+            try:points+=max(0,int(score))
+            except (TypeError,ValueError):pass
+        return priority,points
+    merged={}
+    for response in data:
+        for event in response['events']:
+            if not isinstance(event,dict) or not str(event.get('id') or '').isdigit():
+                continue
+            key=str(event['id'])
+            if key not in merged or progress(event)>progress(merged[key]):
+                merged[key]=event
+    return {'events':list(merged.values())},audit
+
+
 def main():
     now=dt.datetime.now(dt.timezone.utc).isoformat();old=json.loads(OUT.read_text()) if OUT.exists() else {}
     out={**old,'attempted_at':now,'sources':[]}; articles=[]
@@ -523,7 +561,7 @@ def main():
     day=dt.datetime.now(ZoneInfo('America/New_York')).strftime('%Y%m%d')
     score_url='https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard?groups=50&limit=1000&dates='+day
     try:
-        result=json.loads(fetch(score_url));assert 'events' in result
+        result,score_sources=fetch_men_scoreboards(day)
         updated_games=parse_scores(result)
         # A provider may temporarily omit a network that it published earlier.
         # Retain the prior assignment ONLY for the same event, teams and day.
@@ -537,7 +575,7 @@ def main():
                 current_ids==previous_ids):
                 g['broadcast']=prior['broadcast']
         out['games']=updated_games;out['scores_updated_at']=now
-        out['sources'].append({'source':'ESPN scores','url':score_url,'ok':True})
+        out['sources'].extend(score_sources)
     except Exception as e:out['sources'].append({'source':'ESPN scores','url':score_url,'ok':False,'error':type(e).__name__})
     # University athletics calendars are independent dated fixture evidence.
     # They never certify a live score, final, or an unprinted tipoff time.
