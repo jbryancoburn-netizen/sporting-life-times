@@ -32,3 +32,12 @@ assert(!noImage.includes("const logo="));
 assert(noImage.includes('slt-scorebug-id'));
 const unsafe=render({mode:'live',away:{code:'IND',name:'Indiana',logo:'x" onerror="alert(1)'},home:{code:'NYK',name:'New York Knicks'},awayScore:10,homeScore:9});
 assert(!unsafe.includes('alert(1)'));
+
+assert.equal((final.match(/<img class="slt-nba-team-logo"/g)||[]).length,2,'Render exactly one logo per team');
+assert(final.includes('src="https://example.test/chi.png"'),'Away team uses its supplied logo');
+assert(final.includes('src="https://example.test/mil.png"'),'Home team uses its supplied logo');
+assert.equal((final.match(/Chicago Bulls/g)||[]).length,1,'Away team name is not duplicated');
+assert.equal((final.match(/Milwaukee Bucks/g)||[]).length,1,'Home team name is not duplicated');
+assert.equal((noImage.match(/<img class="slt-nba-team-logo"/g)||[]).length,2,'Fallback renders both local images');
+assert(!unsafe.includes('onerror='),'Reject unsafe image attributes instead of injecting markup');
+console.log('PASS: scorebug logo markup, fallback, XSS safety, and no duplicate team labels');
