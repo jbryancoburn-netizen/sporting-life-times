@@ -194,3 +194,17 @@
 .cs-conf-verified-results .cs-official-team{min-height:42px}
 .cs-conf-verified-results .cs-official-match>a{font:700 12px/1.4 Georgia,serif}
 @media(max-width:750px){.cs-conf-verified-results .cs-official-round{grid-template-columns:minmax(0,1fr)}}
+
+/* Fixed tournament seeds appear with each school in every certified bracket round. */
+.cs-conf-page .cs-official-team .cs-tournament-seed{
+ display:inline-flex;align-items:center;justify-content:center;
+ flex:0 0 29px;width:29px;height:29px;min-width:29px;
+ border:1px solid #83735e;background:#f5efe3;color:#322b22;
+ border-radius:2px;font:700 13px/1 "Century Schoolbook",Georgia,serif;
+ font-variant-numeric:tabular-nums;white-space:nowrap;
+}
+.cs-conf-page .cs-official-team .cs-tournament-seed.cs-seed-unverified{
+ flex-basis:42px;width:42px;min-width:42px;font-size:9px;
+}
+.cs-conf-page .cs-official-team .cs-cup-school{flex:1 1 auto;min-width:0}
+.cs-conf-page .cs-official-team .cs-official-score{flex:0 0 auto}

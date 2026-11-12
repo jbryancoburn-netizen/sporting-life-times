@@ -144,6 +144,17 @@ async function render(){
  const provisional=!officialSeeds;
  const officialBracket=table.tournament_bracket;
  const bracketVerified=officialBracket?.status==='official'&&typeof officialBracket.source_url==='string'&&/^https:\/\//.test(officialBracket.source_url)&&Array.isArray(officialBracket.matches)&&officialBracket.matches.length>0&&officialBracket.matches.every(match=>match.round&&(!match.home_id||member.includes(match.home_id))&&(!match.away_id||member.includes(match.away_id))&&(!match.home_id||!match.away_id||match.home_id!==match.away_id));
+ // Conference tournament seed is a fixed property of the participant across
+ // EVERY round, including upsets and championship games. Never use RETRO order.
+ // Field-size validation is independent: Mountain West has an official four-
+ // seed bracket although the generic format rule reports field: 0.
+ const listedSeeds=Array.isArray(table.tournament_seeds)?table.tournament_seeds:[];
+ const tournamentSeedsVerified=bracketVerified&&listedSeeds.length>0&&
+  new Set(listedSeeds).size===listedSeeds.length&&listedSeeds.every(id=>member.includes(id))&&
+  officialBracket.matches.every(m=>(!m.home_id||listedSeeds.includes(m.home_id))&&
+   (!m.away_id||listedSeeds.includes(m.away_id)));
+ const tournamentSeedByTeam=new Map(tournamentSeedsVerified?
+  listedSeeds.map((id,i)=>[id,i+1]):[]);
 
  // Only teams still alive in the VERIFIED tournament may receive current RETRO title odds.
  const titleFixture=bracketVerified?officialBracket.matches.find(m=>/championship|final/i.test(m.round)&&!/semi|quarter/i.test(m.round)):null;
@@ -234,7 +245,14 @@ async function render(){
   const rounds=E('div',null,'cs-official-rounds');
   const groups=new Map();
   for(const match of officialBracket.matches){if(!groups.has(match.round))groups.set(match.round,[]);groups.get(match.round).push(match)}
-  for(const [roundName,matches] of groups){const group=E('section',null,'cs-official-round');group.append(E('h3',roundName));for(const match of matches){const card=E('article',null,'cs-official-match');const names=[match.home_id,match.away_id].map(id=>teams.find(t=>t.id===id));const label=E('div',null,'cs-official-match-names');for(const [index,team] of names.entries()){const cell=E('div',null,'cs-official-team');if(match.status==='final'&&match.winner_id===(index===0?match.home_id:match.away_id))cell.classList.add('cs-official-winner');if(!team)cell.append(E('strong','To be determined'));else if(cup)cell.append(cup.school(team.name,team.id,cfg.cohort,branding));else cell.append(A(team.name,'college-soccer-team.html?team='+encodeURIComponent(cfg.cohort+':'+team.id)));
+  for(const [roundName,matches] of groups){const group=E('section',null,'cs-official-round');group.append(E('h3',roundName));for(const match of matches){const card=E('article',null,'cs-official-match');const names=[match.home_id,match.away_id].map(id=>teams.find(t=>t.id===id));const label=E('div',null,'cs-official-match-names');for(const [index,team] of names.entries()){const cell=E('div',null,'cs-official-team');if(match.status==='final'&&match.winner_id===(index===0?match.home_id:match.away_id))cell.classList.add('cs-official-winner');if(!team)cell.append(E('strong','To be determined'));else{
+  const seed=tournamentSeedByTeam.get(team.id);
+  const seedLabel=E('span',Number.isInteger(seed)?'#'+seed:'SEED ?','cs-tournament-seed'+(Number.isInteger(seed)?'':' cs-seed-unverified'));
+  seedLabel.title=Number.isInteger(seed)?'Verified conference tournament seed':'Official conference tournament seed not yet verified';
+  cell.append(seedLabel);
+  if(cup)cell.append(cup.school(team.name,team.id,cfg.cohort,branding));
+  else cell.append(A(team.name,'college-soccer-team.html?team='+encodeURIComponent(cfg.cohort+':'+team.id)));
+ }
  const score=index===0?match.home_score:match.away_score;
  if(match.status==='final'&&Number.isInteger(score))cell.append(E('strong',score,'cs-official-score'));
  label.append(cell)}card.append(label);
