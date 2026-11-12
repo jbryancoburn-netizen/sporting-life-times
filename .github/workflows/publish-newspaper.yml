@@ -329,7 +329,7 @@ jobs:
           ids={str(t['team_id']) for t in teams}
           assert len(ids)==363 and '84' in ids
           assert ids <= set(calendars), 'Missing one or more women team schedule records'
-          print('Women's page inputs: all 363 IDs and Indiana schedule present')
+          print("Women's page inputs: all 363 IDs and Indiana schedule present")
           PY
       - name: Refresh the CBB national wire if the scheduled collector fell behind
         run: |
@@ -399,58 +399,12 @@ jobs:
           else:
               raise SystemExit('FAIL: Victorian Game Center public assets not deployed: '+failure)
           PY
+      - name: Test public MBB score-verification rules
+        run: python3 -m unittest discover -s tests -p test_mbb_pages_publication.py -v
       - name: Verify live MBB scores actually reached the public newspaper
         env:
           PAGE_URL: ${{ steps.deploy.outputs.page_url }}
-        run: |
-          python3 - <<'PY'
-          import datetime as dt
-          import json,os,time,urllib.request
-          from pathlib import Path
-          from zoneinfo import ZoneInfo
-          eastern=ZoneInfo('America/New_York')
-          day=dt.datetime.now(eastern).date()
-          def current(g):
-              try:
-                  return dt.datetime.fromisoformat(g['date'].replace('Z','+00:00')).astimezone(eastern).date()==day
-              except (ValueError,KeyError,TypeError):
-                  return False
-          def record(g):
-              return (str(g.get('state')),tuple((str(t.get('id')),str(t.get('score'))) for t in g.get('teams',[])))
-          local=json.loads(Path('data/mbb-live.json').read_text())
-          required={str(g['id']):record(g) for g in local.get('games',[])
-                    if current(g) and g.get('state') in ('in','post')}
-          assert required,'No source-reported active or final MBB games available to verify'
-          url=os.environ['PAGE_URL'].rstrip('/')+'/data/mbb-live.json'
-          error='not yet attempted'
-          for attempt in range(10):
-              try:
-                  req=urllib.request.Request(url+'?verify_mbb='+str(time.time_ns()),
-                                            headers={'Cache-Control':'no-cache','Pragma':'no-cache'})
-                  with urllib.request.urlopen(req,timeout=25) as response:
-                      public=json.load(response)
-                  actual={str(g['id']):record(g) for g in public.get('games',[]) if current(g)}
-                  stale=[]
-                  for eid,(phase,teams) in required.items():
-                      new=actual.get(eid)
-                      if not new or len(new[1])!=len(teams) or tuple(x[0] for x in new[1])!=tuple(x[0] for x in teams):
-                          stale.append(eid);continue
-                      if (phase=='post' and (new[0]!='post' or new[1]!=teams)) or (
-                          phase=='in' and new[0]=='pre'):
-                          stale.append(eid);continue
-                      if phase=='in' and new[0]=='in' and any(int(a[1])<int(b[1]) for a,b in zip(new[1],teams)):
-                          stale.append(eid)
-                  if not stale:
-                      print('PASS: public Pages has current or newer status and scores for',len(required),'MBB live/final games')
-                      break
-                  error='Public scores stale for event IDs: '+','.join(stale[:20])
-              except Exception as exc:
-                  error=repr(exc)
-              print('MBB public verification attempt',attempt+1,':',error)
-              if attempt<9:time.sleep(7)
-          else:
-              raise SystemExit('Public MBB score publication failed: '+error)
-          PY
+        run: python3 scripts/verify_mbb_publication.py
       - name: Verify public NFL finals, player statistics and current browser scripts
         env:
           PAGE_URL: ${{ steps.deploy.outputs.page_url }}
