@@ -380,16 +380,39 @@ def analyze():
         results[gender]["unresolved_games"]=sum(bool(x["issues"]) for x in all_rows if x["gender"]==gender)
         results[gender]["critical_game_discrepancies"]=sum(
             any(y["severity"]=="critical" for y in x["issues"]) for x in all_rows if x["gender"]==gender)
-    # Audited player file publication provenance; not an invented per-game validation.
+    # Compare the actual published aggregate/game player-statistics document.
+    # This is a separate production source from the live NCAA relay boxscores.
     player_file_local=DATA/"mbb-current-player-stats.json"
-    local_digest=hashlib.sha256(player_file_local.read_bytes()).hexdigest() if player_file_local.exists() else None
+    source_current=load("mbb-current-player-stats.json") if player_file_local.exists() else None
     published_current=(public.get("mbb-current-player-stats.json") or {}).get("content")
-    # Re-encode only as additional descriptive info: public JSON whitespace may differ.
-    player_file={"source_sha256":local_digest,
-                 "source_bytes":player_file_local.stat().st_size if player_file_local.exists() else 0,
-                 "public_available":published_current is not None,
-                 "public_schema_keys":list(published_current)[:20] if isinstance(published_current,dict) else [],
-                 "source_note":"Aggregate player statistics cannot certify every game without a linked game ID"}
+    parity=(source_current is not None and published_current==source_current)
+    game_rows=(source_current or {}).get("games") or {}
+    player_rows=(source_current or {}).get("players") or {}
+    sample=next(iter(game_rows.values() if isinstance(game_rows,dict) else game_rows),{})
+    player_file={
+        "source_sha256":hashlib.sha256(player_file_local.read_bytes()).hexdigest()
+                         if player_file_local.exists() else None,
+        "source_bytes":player_file_local.stat().st_size if player_file_local.exists() else 0,
+        "source_schema_keys":list(source_current)[:25] if isinstance(source_current,dict) else [],
+        "source_games_count":len(game_rows),"source_players_count":len(player_rows),
+        "game_record_sample_fields":list(sample)[:25] if isinstance(sample,dict) else [],
+        "public_available":published_current is not None,
+        "public_games_count":len(published_current.get("games") or [])
+                              if isinstance(published_current,dict) else None,
+        "public_players_count":len(published_current.get("players") or [])
+                                if isinstance(published_current,dict) else None,
+        "public_matches_source":parity,
+        "source_note":"Aggregate player stats and per-game NCAA relay boxscores are separate evidence. "
+                      "Only records with actual game IDs can certify a specific final."
+    }
+    if not parity:
+        misc.append({
+            "gender":"men","type":"current_player_stats_public_snapshot_mismatch",
+            "severity":"critical",
+            "expected":"Published current player statistics equal latest repository source",
+            "actual":"Different or missing JSON document",
+            "url":public_link("mbb-current-player-stats.json")
+        })
     report={
         "schema_version":1,"generated_at":NOW.isoformat(),"season":"2026-27",
         "scope":"All verified D-I men's and women's season finals, all school calendars, public Pages, RETRO, records, player and venue source coverage",
