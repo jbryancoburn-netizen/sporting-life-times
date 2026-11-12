@@ -41,6 +41,24 @@
 .cbb-elo-school .mbb-mark,.cbb-elo-power .mbb-mark{--mbb-size:48px}
 @media(max-width:680px){.team-hero .mbb-mark{--mbb-size:84px}.hero-team .mbb-mark{--mbb-size:60px}.cbb-elo-school .mbb-mark,.cbb-elo-power .mbb-mark{--mbb-size:44px}}
 
+
+/* Artwork-aware crest scaling.
+   Both variants retain the same two colored rings and do not crop artwork.
+   Embedded roundels already carry a circular element in the SOURCE image:
+   keep a smaller containing frame, rather than using object-fit: cover. */
+.mbb-mark--art-flat>img.mbb-mark__img{
+ width:74%!important;height:74%!important;
+ max-width:74%!important;max-height:74%!important;
+ object-fit:contain!important;object-position:center!important;
+}
+.mbb-mark--art-embedded_roundel>img.mbb-mark__img{
+ width:70%!important;height:70%!important;
+ max-width:70%!important;max-height:70%!important;
+ object-fit:contain!important;object-position:center!important;
+}
+/* Source-specific restorations below remain intentionally more specific.
+   Never upscale a tiny source file merely to fill the badge. */
+
 /* Columbia International Rams: correct undersized source artwork within the existing two-ring mark. */
 .mbb-mark[data-espn-id="3242"]>img.mbb-mark__img{width:96%!important;height:96%!important;max-width:96%!important;max-height:96%!important}
 
