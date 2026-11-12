@@ -224,6 +224,14 @@ def first_differences(source,public,limit=30):
     return result
 
 
+def player_stat_content_matches(source,public):
+    """Timestamp-only publication delay is not a fabricated player-stat error."""
+    if not isinstance(source,dict) or not isinstance(public,dict):
+        return False
+    return {k:v for k,v in source.items() if k!="as_of"} == {
+        k:v for k,v in public.items() if k!="as_of"}
+
+
 def analyze():
     cross=load("ncaam-2026-27-espn-team-crosswalk.json")["teams"]
     ncaa_to_espn={str(x["id"]):str(x["espn_id"]) for x in cross if x.get("espn_id")}
@@ -416,6 +424,7 @@ def analyze():
     source_current=load("mbb-current-player-stats.json") if player_file_local.exists() else None
     published_current=(public.get("mbb-current-player-stats.json") or {}).get("content")
     parity=(source_current is not None and published_current==source_current)
+    content_parity=player_stat_content_matches(source_current,published_current)
     game_rows=(source_current or {}).get("games") or {}
     player_rows=(source_current or {}).get("players") or {}
     sample=next(iter(game_rows.values() if isinstance(game_rows,dict) else game_rows),{})
@@ -432,6 +441,7 @@ def analyze():
         "public_players_count":len(published_current.get("players") or [])
                                 if isinstance(published_current,dict) else None,
         "public_matches_source":parity,
+        "public_game_and_player_content_matches":content_parity,
         "source_as_of":source_current.get("as_of") if isinstance(source_current,dict) else None,
         "public_as_of":published_current.get("as_of") if isinstance(published_current,dict) else None,
         "source_games_type":type(game_rows).__name__,
@@ -440,12 +450,20 @@ def analyze():
         "source_note":"Aggregate player stats and per-game NCAA relay boxscores are separate evidence. "
                       "Only records with actual game IDs can certify a specific final."
     }
-    if not parity:
+    if not content_parity:
         misc.append({
-            "gender":"men","type":"current_player_stats_public_snapshot_mismatch",
+            "gender":"men","type":"current_player_stats_public_content_mismatch",
             "severity":"critical",
-            "expected":"Published current player statistics equal latest repository source",
-            "actual":"Different or missing JSON document",
+            "expected":"Published game/player statistics match latest repository values",
+            "actual":"Substantive JSON field mismatch or missing data; see first_differences",
+            "url":public_link("mbb-current-player-stats.json")
+        })
+    elif not parity:
+        misc.append({
+            "gender":"men","type":"current_player_stats_as_of_timestamp_behind",
+            "severity":"warning",
+            "expected":player_file["source_as_of"],
+            "actual":player_file["public_as_of"],
             "url":public_link("mbb-current-player-stats.json")
         })
     report={

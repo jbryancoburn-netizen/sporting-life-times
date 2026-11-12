@@ -3,7 +3,7 @@ import unittest
 from datetime import datetime
 from scripts.audit_cbb_baseline_reconciliation import (
     identity, schedule_match, venue_agrees, inspect_player,
-    index_games, normalized_id, first_differences
+    index_games, normalized_id, first_differences, player_stat_content_matches
 )
 
 SOURCE_M={"id":"espn:401900111","date":"2026-11-11",
@@ -103,6 +103,16 @@ class BaselineTests(unittest.TestCase):
     def test_same_player_snapshots_have_no_differences(self):
         self.assertEqual(first_differences({"players":[{"pts":81}]},
                                            {"players":[{"pts":81}]}),[])
+
+    def test_timestamp_only_drift_is_not_a_player_score_difference(self):
+        a={"as_of":"2026-11-12T15:46:00Z","games":{"401":{"pts":81}}}
+        b={"as_of":"2026-11-12T15:23:00Z","games":{"401":{"pts":81}}}
+        self.assertTrue(player_stat_content_matches(a,b))
+
+    def test_actual_player_score_change_is_critical(self):
+        a={"as_of":"2026-11-12T15:46:00Z","games":{"401":{"pts":81}}}
+        b={"as_of":"2026-11-12T15:23:00Z","games":{"401":{"pts":82}}}
+        self.assertFalse(player_stat_content_matches(a,b))
 
     def test_source_score_identity_requires_exact_values(self):
         different=dict(SOURCE_M,home_score=79)
