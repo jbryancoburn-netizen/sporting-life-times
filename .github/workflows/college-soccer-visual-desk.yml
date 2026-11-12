@@ -57,6 +57,8 @@ on:
       - 'data/college-soccer-women-d2-gliac-standings.json'
       - 'data/college-soccer-men-d1-big-ten-standings.json'
       - 'scripts/test_college_soccer_big_ten_verified.py'
+      - 'scripts/test_college_soccer_all_conference_results.cjs'
+      - 'data/college-soccer-conference-tournament-results-2026.json'
       - 'scripts/test_college_soccer_official_bracket.cjs'
       - 'data/college-soccer-women-d1-big-ten-standings.json'
       - 'data/college-soccer-women-d3-miac-standings.json'
@@ -110,6 +112,7 @@ jobs:
           node --check college-soccer-conference-index.js
           node --check college-soccer-cup-ui.js
           node --check college-soccer-conference-page.js
+          node scripts/test_college_soccer_all_conference_results.cjs
           node scripts/test_college_soccer_official_bracket.cjs
       - name: Protect verified Big Ten tournament results and outcome-first presentation
         run: python scripts/test_college_soccer_big_ten_verified.py

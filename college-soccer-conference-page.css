@@ -184,3 +184,13 @@
 .cs-conf-title-forecast p{font:700 17px Georgia,serif;margin:8px 0}
 .cs-conf-title-forecast small{display:block;font:12px/1.4 Georgia,serif}
 .cs-official-match>a{display:inline-block;margin-top:8px;font:12px Georgia,serif}
+
+/* Verified results take priority when the official postseason bracket is incomplete. */
+.cs-conf-verified-results{display:block}
+.cs-conf-verified-results .cs-official-round{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.cs-conf-verified-results .cs-official-round h3{grid-column:1/-1;margin-bottom:0}
+.cs-conf-verified-results .cs-official-match{margin:0}
+.cs-conf-verified-results .cs-official-match-names{gap:6px}
+.cs-conf-verified-results .cs-official-team{min-height:42px}
+.cs-conf-verified-results .cs-official-match>a{font:700 12px/1.4 Georgia,serif}
+@media(max-width:750px){.cs-conf-verified-results .cs-official-round{grid-template-columns:minmax(0,1fr)}}
