@@ -169,7 +169,7 @@ async function liveScoreboard(){
   lastGood?.raw?.header?.competitions?.[0]?.startDate;
  if(base&&Number.isFinite(Date.parse(base)))candidate.add(easternDay(new Date(base)));
  // Previous-day college games may finish after midnight local.
- const previous=new Date();previous.setDate(previous.getDate()-1);
+ const previous=new Date(Date.now()-24*60*60*1000);
  candidate.add(easternDay(previous));
  let lastError=null;
  for(const day of candidate){
@@ -606,12 +606,12 @@ function paint(g){
   g.sourceTier==='cached'?'last confirmed game report':g.source;
  const sourceTime=g.sourceTier==='published'||g.sourceTier==='cached'?
   ' · source '+timeET(g.fetchedAt||updatedAt)+' ET':'';
- const warning=g.isStale?'LAST KNOWN · not current · ':g.phase==='live'?'LIVE · ':
-  g.phase==='final'?'FINAL · ':'PREGAME · ';
+ const warning=g.isStale?'LAST KNOWN · not current · ':g.sourceTier==='published'?'PUBLISHED SNAPSHOT · ':
+  g.phase==='live'?'LIVE · ':g.phase==='final'?'FINAL · ':'PREGAME · ';
  q('vld-status').textContent=warning+sourceLabel+sourceTime+
   ' · checked '+timeET(updatedAt)+' ET'+
-  (g.phase==='live'&&!g.isStale?' · checks for updates every 15 sec':'')+
-  (g.sourceTier==='published'?' · play-by-play may be unavailable':'');
+  (g.phase==='live'&&!g.isStale&&g.sourceTier!=='published'?' · checks for updates every 15 sec':'')+
+  (g.sourceTier==='published'?' · snapshot publication frequency varies · plays may be unavailable':'');
 }
 async function update(){
  if(busy||document.hidden)return;busy=true;const request=++requestNo;
