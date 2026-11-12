@@ -161,6 +161,17 @@ function crest(t){
   if(window.MBBLogos?.render)return window.MBBLogos.render({espnId:t.id,name:t.name,size:'schedule'});
   return '<span class="vld-mark-unavailable" role="img" aria-label="'+esc(t.name)+' logo not loaded">'+esc(t.code||'—')+'</span>';
  }
+ if(league==='nba'){
+  // Use the same local thirty-team primary-logo catalog as the NBA scorebug.
+  // Its single team-colored ring must not acquire a second or third wrapper.
+  const code=String(t.code||'').toUpperCase();
+  const allowed='ATL BOS BKN CHA CHI CLE DAL DEN DET GSW HOU IND LAC LAL MEM MIA MIL MIN NOP NYK OKC ORL PHI PHX POR SAC SAS TOR UTA WAS'.split(' ');
+  if(!allowed.includes(code))return '<span class="vld-mark-unavailable" role="img" aria-label="'+esc(t.name)+' logo not verified">'+esc(code||'—')+'</span>';
+  const teamColor=window.SLTScorebug?.color?.(code)||'#56534c';
+  return '<span class="vld-nba-logo" style="--nba-team-color:'+esc(teamColor)+'" role="img" aria-label="'+esc(t.name)+' logo">'+
+   '<img src="assets/nba-logos/'+code+'.png" alt="" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add(\'vld-mark-unavailable\')">'+
+   '</span>';
+ }
  return '<span class="vld-crest" style="--side:'+t.color+'">'+(t.logo?'<img src="'+esc(t.logo)+'" alt="" loading="lazy" onerror="this.hidden=true">':'<span class="vld-monogram">'+esc(t.code||t.short.slice(0,2))+'</span>')+'</span>';
 }
 function reportedFouls(g,side){
