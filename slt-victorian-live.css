@@ -29,6 +29,11 @@ body.vld-body{margin:0;color:var(--vld-ink);background:#e9e0cd;font-family:"Cent
    Never apply another border, shadow or circular wrapper to an .mbb-mark. */
 .vld-team>.mbb-mark--schedule{--mbb-size:54px}
 .vld-mark-unavailable{display:inline-flex;align-items:center;justify-content:center;width:54px;height:54px;font:700 12px Georgia,serif;color:#665743;background:#e5d8c2;letter-spacing:.02em}
+/* NBA thirty-team verified local artwork: ONE team-color ring, no feed logo.
+   This is intentionally separate from the NCAA canonical two-ring badge. */
+.vld-team>.vld-nba-logo{box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;flex:0 0 54px;width:54px;height:54px;min-width:54px;border:3px solid var(--nba-team-color,#474b53);border-radius:50%;box-shadow:none;outline:0;background:#fff;overflow:hidden;padding:4px}
+.vld-team>.vld-nba-logo>img{display:block;width:100%;height:100%;max-width:100%;max-height:100%;object-fit:contain;object-position:center;border:0!important;outline:0!important;box-shadow:none!important;background:transparent;padding:0;transform:none}
+
 .vld-score-footer{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:9px 14px;font:11px/1.35 Georgia,serif;color:#604937}
 .vld-paper{border:1px solid var(--vld-rule);background:#faf5eb;padding:clamp(11px,2vw,19px);margin:13px 0}
 .vld-paper h2{font:700 clamp(17px,2.5vw,24px) Georgia,serif;font-variant:small-caps;margin:0 0 12px;border-bottom:3px double #8b7455;padding-bottom:8px}
@@ -67,7 +72,7 @@ body.vld-body{margin:0;color:var(--vld-ink);background:#e9e0cd;font-family:"Cent
 .vld-quick{display:flex;gap:16px;flex-wrap:wrap;margin-top:18px;padding:12px 3px;border-top:4px double #40372d;font:12px Georgia,serif}
 @media(max-width:700px){
  .vld-topline{font-size:9px}.vld-dept{font-size:10px}.vld-team{grid-template-columns:50px minmax(0,1fr) auto;gap:10px;padding:10px 9px;min-height:76px;border-left-width:4px}
- .vld-crest{width:48px;height:48px;padding:6px}.vld-team>.mbb-mark--schedule{--mbb-size:46px}.vld-mark-unavailable{width:46px;height:46px}.vld-identity strong{font-size:17px}.vld-identity span{font-size:10px}.vld-points{font-size:36px}
+ .vld-crest{width:48px;height:48px;padding:6px}.vld-team>.mbb-mark--schedule{--mbb-size:46px}.vld-team>.vld-nba-logo{flex-basis:46px;width:46px;height:46px;min-width:46px;padding:3px}.vld-mark-unavailable{width:46px;height:46px}.vld-identity strong{font-size:17px}.vld-identity span{font-size:10px}.vld-points{font-size:36px}
  .vld-score-kicker{font-size:10px}.vld-live-grid{grid-template-columns:1fr}.vld-tabs button{flex:1 1 30%;padding:10px 5px;font-size:11px}
  .vld-flow-summary{font-size:9px}.vld-flow-summary strong{font-size:15px}
  .vld-plays li{grid-template-columns:63px minmax(0,1fr) 40px;gap:6px;font-size:11px;padding:10px 3px}
