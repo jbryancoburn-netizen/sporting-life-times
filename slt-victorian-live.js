@@ -28,6 +28,7 @@ q('vld-back').href=config.back;
 q('vld-sport').textContent=config.kind==='basketball'?'THE COURTSIDE DISPATCH':config.kind==='football'?'THE GRIDIRON DISPATCH':'THE TOUCHLINE DISPATCH';
 document.title=config.label+' · Live Game | Sporting Life & Times';
 let lastGood=null,updatedAt=0,busy=false,chosenTab='live',requestNo=0;
+let lastEventChangeAt=0,lastScoreChangeSide='',latestSourceFailure='';
 let retroArchive={status:'checking',payload:null};
 const timeET=t=>new Date(t).toLocaleTimeString('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit'});
 const num=v=>v===null||v===undefined||v===''?null:(Number.isFinite(Number(v))?Number(v):null);
@@ -135,26 +136,124 @@ function nbaOfficial(raw,playFeed){
  return {id,a,h,phase,detail:String(g.gameStatusText||'NBA game'),venue:String(site.arenaName||''),
   location,broadcasters:'',plays,boxstats,boxPlayers,raw,source:'NBA official live box score'+(plays.length?' and play register':'')};
 }
-async function getJSON(url){
- const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),11000);
- try{const response=await fetch(url+(url.includes('?')?'&':'?')+'_='+Date.now(),{cache:'no-store',signal:controller.signal});
+async function getJSON(url,timeoutMs=7000){
+ const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),timeoutMs);
+ try{
+  const sep=url.includes('?')?'&':'?';
+  const response=await fetch(url+sep+'_='+Date.now(),{cache:'no-store',signal:controller.signal});
   if(!response.ok)throw Error('HTTP '+response.status);
   return response.json();
  }finally{clearTimeout(timer);}
 }
-async function loadGame(){
- const sources=league==='nba'&&id.startsWith('00')?['nba','espn']:['espn',...(league==='nba'?['nba']:[])];
+function easternDay(date=new Date()){
+ const p=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',
+  year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(date);
+ const get=k=>p.find(x=>x.type===k)?.value||'';
+ return get('year')+get('month')+get('day');
+}
+function normalizeScoreboardEvent(event){
+ const comp=event?.competitions?.[0];
+ if(String(event?.id)!==id||!Array.isArray(comp?.competitors))throw Error('Scoreboard event identity mismatch');
+ const clean={...comp,date:comp.date||event.date,status:comp.status?.type?comp.status:event.status};
+ const g=normalize({header:{id,competitions:[clean]},plays:[],boxscore:{teams:[],players:[]}});
+ g.source='ESPN live scoreboard';
+ g.sourceTier='scoreboard';
+ g.fetchedAt=Date.now();
+ return g;
+}
+async function liveScoreboard(){
+ // The ESPN scoreboard can continue publishing game clocks and scores even
+ // when the large per-event summary is temporarily missing or inaccessible.
+ const candidate=new Set([easternDay()]);
+ const base=lastGood?.raw?.header?.competitions?.[0]?.date||
+  lastGood?.raw?.header?.competitions?.[0]?.startDate;
+ if(base&&Number.isFinite(Date.parse(base)))candidate.add(easternDay(new Date(base)));
+ // Previous-day college games may finish after midnight local.
+ const previous=new Date();previous.setDate(previous.getDate()-1);
+ candidate.add(easternDay(previous));
  let lastError=null;
+ for(const day of candidate){
+  try{
+   const url='https://site.api.espn.com/apis/site/v2/sports/'+config.path+
+    '/scoreboard?dates='+day+'&limit=500';
+   const response=await getJSON(url,5500);
+   const event=(response?.events||[]).find(x=>String(x?.id)===id);
+   if(event)return normalizeScoreboardEvent(event);
+  }catch(e){lastError=e;}
+ }
+ throw lastError||Error('Requested match was not found on current or previous live scoreboards');
+}
+function normalizePublishedMBB(data){
+ if(league!=='ncaam')throw Error('Only verified men’s live-score snapshots are supported by this archive');
+ const row=(data?.games||[]).find(x=>String(x?.id)===id);
+ if(!row||!Array.isArray(row.teams)||row.teams.length!==2)throw Error('Game not in the latest published men’s scoreboard');
+ const checked=Date.parse(data.scores_updated_at||'');
+ if(!Number.isFinite(checked))throw Error('Published score data has no valid update timestamp');
+ const mk=(t,side)=>({
+  side,id:String(t.id||''),name:String(t.name||'Unknown team'),
+  short:String(t.name||'Team'),code:'',logo:'',
+  color:side==='away'?'#762c2c':'#19394b',
+  score:safeScore(t.score),record:'',lines:[]
+ });
+ const a=mk(row.teams[0],'away'),h=mk(row.teams[1],'home');
+ if(!a.id||!h.id||a.id===h.id)throw Error('Published scoreboard has conflicting team identities');
+ const state=String(row.state||'').toLowerCase();
+ const phase=state==='post'?'final':state==='in'?'live':'upcoming';
+ return {id,a,h,phase,detail:String(row.status||'Reported game'),
+  venue:'',location:'',broadcasters:String(row.broadcast||''),
+  plays:[],boxstats:{},boxPlayers:[],raw:{header:{id,competitions:[{date:row.date}]}},
+  source:'Sporting Life & Times verified men’s scoreboard ('+String(row.score_source||'published feed')+')',
+  sourceTier:'published',fetchedAt:checked,
+  isStale:Date.now()-checked>5*60*1000};
+}
+function preserveVerifiedDetail(g){
+ const old=lastGood;
+ if(!old||old.id!==g.id||old.a.id!==g.a.id||old.h.id!==g.h.id)return g;
+ if(old.phase==='final'&&g.phase!=='final')return old;
+ if(old.phase==='live'&&g.phase==='upcoming')return old;
+ const oldScores=[old.a.score,old.h.score],newScores=[g.a.score,g.h.score];
+ if(g.sourceTier!=='summary'&&oldScores.every(Number.isInteger)&&newScores.every(Number.isInteger)&&
+  newScores.every((n,i)=>n<=oldScores[i])&&newScores.some((n,i)=>n<oldScores[i])){
+  // A cached fallback must not overwrite a newer, verified game report.
+  return {...old,sourceTier:'cached',isStale:true};
+ }
+ if(g.sourceTier!=='summary'){
+  if(old.plays?.length)g.plays=old.plays;
+  if(old.boxPlayers?.length)g.boxPlayers=old.boxPlayers;
+  if(Object.keys(old.boxstats||{}).length)g.boxstats=old.boxstats;
+  if(!g.venue)g.venue=old.venue;
+  if(!g.location)g.location=old.location;
+  if(!g.broadcasters)g.broadcasters=old.broadcasters;
+ }
+ return g;
+}
+async function loadGame(){
+ const sources=league==='nba'&&id.startsWith('00')?['nba','espn','scoreboard']:
+  ['espn',...(league==='nba'?['nba']:[]),'scoreboard',...(league==='ncaam'?['published']:[])];
+ const errors=[];
  for(const source of sources){
   try{
-   if(source==='espn')return normalize(await getJSON(endpoint));
-   const box=await getJSON('https://cdn.nba.com/static/json/liveData/boxscore/boxscore_'+id+'.json');
-   let plays=null;
-   try{plays=await getJSON('https://cdn.nba.com/static/json/liveData/playbyplay/playbyplay_'+id+'.json');}catch{}
-   return nbaOfficial(box,plays);
-  }catch(e){lastError=e;console.warn(source+' unavailable for '+id,e);}
+   let result;
+   if(source==='espn'){
+    result=normalize(await getJSON(endpoint,6500));
+    result.sourceTier='summary';result.fetchedAt=Date.now();
+   }else if(source==='nba'){
+    const box=await getJSON('https://cdn.nba.com/static/json/liveData/boxscore/boxscore_'+id+'.json',6000);
+    let plays=null;
+    try{plays=await getJSON('https://cdn.nba.com/static/json/liveData/playbyplay/playbyplay_'+id+'.json',4000);}catch{}
+    result=nbaOfficial(box,plays);
+    result.sourceTier='summary';result.fetchedAt=Date.now();
+   }else if(source==='scoreboard'){
+    result=await liveScoreboard();
+   }else{
+    result=normalizePublishedMBB(await getJSON('data/mbb-live.json',5500));
+   }
+   latestSourceFailure=errors.join(' · ');
+   return preserveVerifiedDetail(result);
+  }catch(e){errors.push(source+': '+String(e.message||e).slice(0,90));}
  }
- throw lastError||Error('No trusted source responded');
+ latestSourceFailure=errors.join(' · ');
+ throw Error('All game sources failed ('+latestSourceFailure+')');
 }
 
 function headline(g){return g.phase==='live'?'● LIVE DISPATCH':g.phase==='final'?'FINAL EDITION':'PREGAME EDITION';}
