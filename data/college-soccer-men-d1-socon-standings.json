@@ -3,7 +3,7 @@
   "source_name": "Southern Conference 2026 men's soccer source snapshot",
   "source_url": "https://soconsports.com/standings.aspx?path=msoc",
   "snapshot_checked_date": "2026-10-25",
-  "note": "Format awaiting independent 2026 verification.",
+  "note": "Older dated regular-season table: not final overall records. 2026 conference tournament seeds and bracket verified from the league's championship announcement; completed scores are matched to the NCAA final-score ledger. RETRO does not override actual results.",
   "rows": [
     {
       "team_id": "wofford",
@@ -47,5 +47,93 @@
       "conference_points": 0,
       "overall_record": "4-11-1"
     }
-  ]
+  ],
+  "tournament_seeds": [
+    "furman",
+    "wofford",
+    "unc-greensboro",
+    "east-tenn-st",
+    "liberty",
+    "vmi",
+    "mercer"
+  ],
+  "tournament_bracket": {
+    "status": "official",
+    "source_url": "https://uncgspartans.com/news/2026/11/1/mens-soccer-earns-the-third-seed-hosts-winner-of-no-6-vmi-no-7-mercer-on-thursday.aspx",
+    "seed_source_url": "https://uncgspartans.com/news/2026/11/1/mens-soccer-earns-the-third-seed-hosts-winner-of-no-6-vmi-no-7-mercer-on-thursday.aspx",
+    "verified_through": "2026-11-12",
+    "matches": [
+      {
+        "id": "R11",
+        "round": "FIRST ROUND · NOV 3",
+        "home_id": "vmi",
+        "away_id": "mercer",
+        "status": "final",
+        "home_score": 1,
+        "away_score": 0,
+        "result_date": "2026-11-03",
+        "source_url": "https://www.ncaa.com/game/6666521",
+        "winner_id": "vmi"
+      },
+      {
+        "id": "QF1",
+        "round": "QUARTERFINALS · NOV 5",
+        "home_id": "unc-greensboro",
+        "away_id": "vmi",
+        "status": "final",
+        "home_score": 4,
+        "away_score": 1,
+        "result_date": "2026-11-05",
+        "source_url": "https://www.ncaa.com/game/6666519",
+        "winner_id": "unc-greensboro"
+      },
+      {
+        "id": "QF2",
+        "round": "QUARTERFINALS · NOV 5",
+        "home_id": "east-tenn-st",
+        "away_id": "liberty",
+        "status": "final",
+        "home_score": 2,
+        "away_score": 2,
+        "result_date": "2026-11-05",
+        "source_url": "https://www.ncaa.com/game/6666520",
+        "winner_id": "liberty",
+        "decision": "penalties",
+        "home_penalties": 1,
+        "away_penalties": 3,
+        "penalty_source_url": "https://libertyflames.com/news/2026/11/5/mens-soccer-liberty-advances-to-socon-semifinals-on-pks-3-1"
+      },
+      {
+        "id": "SF1",
+        "round": "SEMIFINALS · NOV 8",
+        "home_id": "wofford",
+        "away_id": "unc-greensboro",
+        "status": "final",
+        "home_score": 0,
+        "away_score": 1,
+        "result_date": "2026-11-08",
+        "source_url": "https://www.ncaa.com/game/6666517",
+        "winner_id": "unc-greensboro"
+      },
+      {
+        "id": "SF2",
+        "round": "SEMIFINALS · NOV 8",
+        "home_id": "furman",
+        "away_id": "liberty",
+        "status": "final",
+        "home_score": 2,
+        "away_score": 3,
+        "result_date": "2026-11-08",
+        "source_url": "https://www.ncaa.com/game/6666518",
+        "winner_id": "liberty"
+      },
+      {
+        "id": "F1",
+        "round": "CHAMPIONSHIP · NOV 14",
+        "home_id": "unc-greensboro",
+        "away_id": "liberty",
+        "status": "scheduled"
+      }
+    ]
+  }
 }

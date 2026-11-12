@@ -3,7 +3,7 @@
   "source_name": "Summit League 2026 men's soccer source snapshot",
   "source_url": "https://thesummitleague.org/standings.aspx?path=msoc",
   "snapshot_checked_date": "2026-10-25",
-  "note": "2026 tournament format, site and dates TBD per conference; standings are an earlier source snapshot.",
+  "note": "Older dated regular-season table: not final overall records. 2026 conference tournament seeds and bracket verified from the league's championship announcement; completed scores are matched to the NCAA final-score ledger. RETRO does not override actual results.",
   "rows": [
     {
       "team_id": "umkc",
@@ -41,5 +41,84 @@
       "conference_points": 0,
       "overall_record": "1-3-2"
     }
-  ]
+  ],
+  "tournament_seeds": [
+    "umkc",
+    "neb-omaha",
+    "massachusetts",
+    "oral-roberts",
+    "st-thomas-mn",
+    "delaware"
+  ],
+  "tournament_bracket": {
+    "status": "official",
+    "source_url": "https://thesummitleague.org/news/2026/11/1/mens-soccer-roos-garner-top-seed-in-2026-summitmsoc-championship-bracket.aspx",
+    "seed_source_url": "https://thesummitleague.org/news/2026/11/1/mens-soccer-roos-garner-top-seed-in-2026-summitmsoc-championship-bracket.aspx",
+    "verified_through": "2026-11-12",
+    "matches": [
+      {
+        "id": "QF1",
+        "round": "QUARTERFINALS · NOV 6",
+        "home_id": "oral-roberts",
+        "away_id": "st-thomas-mn",
+        "status": "final",
+        "home_score": 0,
+        "away_score": 0,
+        "result_date": "2026-11-06",
+        "source_url": "https://www.ncaa.com/game/6666771",
+        "winner_id": "st-thomas-mn",
+        "decision": "penalties",
+        "home_penalties": 2,
+        "away_penalties": 4,
+        "penalty_source_url": "https://thesummitleague.org/news/2026/11/7/mens-soccer-tommies-advance-to-summitmsoc-semifinal-match-after-pk-victory-over-oral-roberts.aspx"
+      },
+      {
+        "id": "QF2",
+        "round": "QUARTERFINALS · NOV 7",
+        "home_id": "massachusetts",
+        "away_id": "delaware",
+        "status": "final",
+        "home_score": 2,
+        "away_score": 3,
+        "result_date": "2026-11-07",
+        "source_url": "https://www.ncaa.com/game/6666770",
+        "winner_id": "delaware"
+      },
+      {
+        "id": "SF1",
+        "round": "SEMIFINALS · NOV 11",
+        "home_id": "neb-omaha",
+        "away_id": "delaware",
+        "status": "final",
+        "home_score": 1,
+        "away_score": 0,
+        "result_date": "2026-11-11",
+        "source_url": "https://www.ncaa.com/game/6666768",
+        "winner_id": "neb-omaha"
+      },
+      {
+        "id": "SF2",
+        "round": "SEMIFINALS · NOV 11",
+        "home_id": "umkc",
+        "away_id": "st-thomas-mn",
+        "status": "final",
+        "home_score": 2,
+        "away_score": 2,
+        "result_date": "2026-11-11",
+        "source_url": "https://www.ncaa.com/game/6666769",
+        "winner_id": "st-thomas-mn",
+        "decision": "penalties",
+        "home_penalties": 4,
+        "away_penalties": 5,
+        "penalty_source_url": "https://thesummitleague.org/news/2026/11/12/mens-soccer-st-thomas-makes-history-advances-to-first-division-i-championship-match-after-pk-victory-over-kansas-city.aspx"
+      },
+      {
+        "id": "F1",
+        "round": "CHAMPIONSHIP · NOV 14",
+        "home_id": "neb-omaha",
+        "away_id": "st-thomas-mn",
+        "status": "scheduled"
+      }
+    ]
+  }
 }

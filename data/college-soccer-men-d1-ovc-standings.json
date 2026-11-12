@@ -3,7 +3,7 @@
   "source_name": "Ohio Valley Conference official 2026 men's soccer table snapshot",
   "source_url": "https://ovcsports.com/standings.aspx?path=msoc",
   "snapshot_checked_date": "2026-10-25",
-  "note": "Official order snapshot; OVC top-two seeds from separate pods may differ from standings order. No certification of exact tournament seeds.",
+  "note": "Older dated regular-season table: not final overall records. 2026 conference tournament seeds and bracket verified from the league's championship announcement; completed scores are matched to the NCAA final-score ledger. RETRO does not override actual results.",
   "rows": [
     {
       "team_id": "siu-edwardsville",
@@ -53,5 +53,80 @@
       "conference_points": 6,
       "overall_record": "3-5-4"
     }
-  ]
+  ],
+  "tournament_seeds": [
+    "lindenwood-mo",
+    "siu-edwardsville",
+    "uiw",
+    "houston-christian",
+    "western-ill",
+    "eastern-ill"
+  ],
+  "tournament_bracket": {
+    "status": "official",
+    "source_url": "https://ovcsports.com/news/2026/10/29/2026-ovc-mens-soccer-championship-field-set.aspx",
+    "seed_source_url": "https://ovcsports.com/news/2026/10/29/2026-ovc-mens-soccer-championship-field-set.aspx",
+    "verified_through": "2026-11-12",
+    "matches": [
+      {
+        "id": "QF1",
+        "round": "QUARTERFINALS · NOV 8",
+        "home_id": "houston-christian",
+        "away_id": "western-ill",
+        "status": "final",
+        "home_score": 1,
+        "away_score": 1,
+        "result_date": "2026-11-08",
+        "source_url": "https://www.ncaa.com/game/6666732",
+        "winner_id": "houston-christian",
+        "decision": "penalties",
+        "home_penalties": 5,
+        "away_penalties": 4,
+        "penalty_source_url": "https://hcuhuskies.com/news/2026/11/8/mens-soccer-msoc-hcu-outlasts-western-illinois-advances-to-ovc-semifinals-on-penalties.aspx"
+      },
+      {
+        "id": "QF2",
+        "round": "QUARTERFINALS · NOV 8",
+        "home_id": "uiw",
+        "away_id": "eastern-ill",
+        "status": "final",
+        "home_score": 2,
+        "away_score": 5,
+        "result_date": "2026-11-08",
+        "source_url": "https://www.ncaa.com/game/6666733",
+        "winner_id": "eastern-ill"
+      },
+      {
+        "id": "SF1",
+        "round": "SEMIFINALS · NOV 11",
+        "home_id": "lindenwood-mo",
+        "away_id": "houston-christian",
+        "status": "final",
+        "home_score": 1,
+        "away_score": 2,
+        "result_date": "2026-11-11",
+        "source_url": "https://www.ncaa.com/game/6666730",
+        "winner_id": "houston-christian"
+      },
+      {
+        "id": "SF2",
+        "round": "SEMIFINALS · NOV 11",
+        "home_id": "siu-edwardsville",
+        "away_id": "eastern-ill",
+        "status": "final",
+        "home_score": 1,
+        "away_score": 2,
+        "result_date": "2026-11-11",
+        "source_url": "https://www.ncaa.com/game/6666731",
+        "winner_id": "eastern-ill"
+      },
+      {
+        "id": "F1",
+        "round": "CHAMPIONSHIP · NOV 14",
+        "home_id": "houston-christian",
+        "away_id": "eastern-ill",
+        "status": "scheduled"
+      }
+    ]
+  }
 }

@@ -3,7 +3,7 @@
   "source_name": "America East 2026 Official Men's Soccer Standings",
   "source_url": "https://americaeast.com/standings.aspx?path=msoc",
   "snapshot_checked_date": "2026-10-25",
-  "note": "Official conference table observed 2026-10-25. Retains published tiebreak order, not Elo order. Future changes depend on a refreshed feed.",
+  "note": "Older dated regular-season table: not final overall records. 2026 conference tournament seeds and bracket verified from the league's championship announcement; completed scores are matched to the NCAA final-score ledger. RETRO does not override actual results.",
   "rows": [
     {
       "team_id": "vermont",
@@ -53,5 +53,80 @@
       "overall_record": "3-6-2",
       "conference_points": 1
     }
-  ]
+  ],
+  "tournament_seeds": [
+    "albany-ny",
+    "vermont",
+    "bryant",
+    "njit",
+    "new-hampshire",
+    "binghamton"
+  ],
+  "tournament_bracket": {
+    "status": "official",
+    "source_url": "https://americaeast.com/news/2026/11/4/2026-msoc-bracket-release.aspx",
+    "seed_source_url": "https://americaeast.com/news/2026/11/4/2026-msoc-bracket-release.aspx",
+    "verified_through": "2026-11-12",
+    "matches": [
+      {
+        "id": "QF1",
+        "round": "QUARTERFINALS · NOV 7",
+        "home_id": "bryant",
+        "away_id": "binghamton",
+        "status": "final",
+        "home_score": 3,
+        "away_score": 2,
+        "result_date": "2026-11-07",
+        "source_url": "https://www.ncaa.com/game/6666235",
+        "winner_id": "bryant"
+      },
+      {
+        "id": "QF2",
+        "round": "QUARTERFINALS · NOV 7",
+        "home_id": "njit",
+        "away_id": "new-hampshire",
+        "status": "final",
+        "home_score": 2,
+        "away_score": 1,
+        "result_date": "2026-11-07",
+        "source_url": "https://www.ncaa.com/game/6666236",
+        "winner_id": "njit"
+      },
+      {
+        "id": "SF1",
+        "round": "SEMIFINALS · NOV 11",
+        "home_id": "albany-ny",
+        "away_id": "njit",
+        "status": "final",
+        "home_score": 0,
+        "away_score": 1,
+        "result_date": "2026-11-11",
+        "source_url": "https://www.ncaa.com/game/6666233",
+        "winner_id": "njit"
+      },
+      {
+        "id": "SF2",
+        "round": "SEMIFINALS · NOV 11",
+        "home_id": "vermont",
+        "away_id": "bryant",
+        "status": "final",
+        "home_score": 1,
+        "away_score": 1,
+        "result_date": "2026-11-11",
+        "source_url": "https://www.ncaa.com/game/6666234",
+        "winner_id": "bryant",
+        "decision": "penalties",
+        "home_penalties": 3,
+        "away_penalties": 4,
+        "penalty_source_url": "https://americaeast.com/news/2026/11/12/2026-aemsoc-semifinals.aspx"
+      },
+      {
+        "id": "F1",
+        "round": "CHAMPIONSHIP · NOV 15",
+        "home_id": "bryant",
+        "away_id": "njit",
+        "status": "scheduled"
+      }
+    ]
+  }
 }

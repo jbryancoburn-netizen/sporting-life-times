@@ -3,7 +3,7 @@
   "source_name": "BIG EAST 2026 official men's soccer standings",
   "source_url": "https://www.bigeast.com/standings.aspx?standings=1131",
   "snapshot_checked_date": "2026-10-25",
-  "note": "Official BIG EAST East/Midwest divisional presentation retained in source order. Snapshot may lag latest games. Table position is not postseason seed.",
+  "note": "Older dated regular-season table: not final overall records. 2026 conference tournament seeds and bracket verified from the league's championship announcement; completed scores are matched to the NCAA final-score ledger. RETRO does not override actual results.",
   "rows": [
     {
       "team_id": "georgetown",
@@ -89,5 +89,43 @@
       "conference_points": 3,
       "overall_record": "8-5-1"
     }
-  ]
+  ],
+  "tournament_seeds": [
+    "georgetown",
+    "creighton",
+    "akron",
+    "seton-hall"
+  ],
+  "tournament_bracket": {
+    "status": "official",
+    "source_url": "https://www.bigeast.com/news/2026/11/7/2026-big-east-mens-soccer-championship-bracket-set.aspx",
+    "seed_source_url": "https://www.bigeast.com/news/2026/11/7/2026-big-east-mens-soccer-championship-bracket-set.aspx",
+    "verified_through": "2026-11-12",
+    "matches": [
+      {
+        "id": "SF1",
+        "round": "SEMIFINALS · NOV 12",
+        "home_id": "creighton",
+        "away_id": "akron",
+        "status": "scheduled"
+      },
+      {
+        "id": "SF2",
+        "round": "SEMIFINALS · NOV 12",
+        "home_id": "georgetown",
+        "away_id": "seton-hall",
+        "status": "scheduled"
+      },
+      {
+        "id": "F1",
+        "round": "CHAMPIONSHIP · NOV 15",
+        "home_id": null,
+        "away_id": null,
+        "status": "scheduled",
+        "home_from": "SF1",
+        "away_from": "SF2",
+        "round_note": "Championship participants follow the certified semifinal winners."
+      }
+    ]
+  }
 }

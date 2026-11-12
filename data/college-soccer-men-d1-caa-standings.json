@@ -3,7 +3,7 @@
   "source_name": "Coastal Athletic Association 2026 men's soccer source snapshot",
   "source_url": "https://caasports.com/standings.aspx?path=msoc",
   "snapshot_checked_date": "2026-10-25",
-  "note": "Six qualify, top three in each division. Specialized divisional bracket pending.",
+  "note": "Older dated regular-season table: not final overall records. 2026 conference tournament seeds and bracket verified from the league's championship announcement; completed scores are matched to the NCAA final-score ledger. RETRO does not override actual results.",
   "rows": [
     {
       "team_id": "unc-wilmington",
@@ -65,5 +65,85 @@
       "conference_points": 0,
       "overall_record": "0-12-2"
     }
-  ]
+  ],
+  "tournament_seed_labels": {
+    "stony-brook": "N#1",
+    "hofstra": "N#2",
+    "drexel": "N#3",
+    "unc-wilmington": "S#1",
+    "elon": "S#2",
+    "col-of-charleston": "S#3"
+  },
+  "tournament_seeds": [
+    "stony-brook",
+    "unc-wilmington",
+    "hofstra",
+    "elon",
+    "drexel",
+    "col-of-charleston"
+  ],
+  "tournament_bracket": {
+    "status": "official",
+    "source_url": "https://caasports.com/news/2026/11/1/2026-caa-mens-soccer-championship-bracket-announced.aspx",
+    "seed_source_url": "https://caasports.com/news/2026/11/1/2026-caa-mens-soccer-championship-bracket-announced.aspx",
+    "verified_through": "2026-11-12",
+    "matches": [
+      {
+        "id": "QF1",
+        "round": "QUARTERFINALS · NOV 5",
+        "home_id": "hofstra",
+        "away_id": "drexel",
+        "status": "final",
+        "home_score": 3,
+        "away_score": 2,
+        "result_date": "2026-11-05",
+        "source_url": "https://www.ncaa.com/game/6666508",
+        "winner_id": "hofstra"
+      },
+      {
+        "id": "QF2",
+        "round": "QUARTERFINALS · NOV 5",
+        "home_id": "elon",
+        "away_id": "col-of-charleston",
+        "status": "final",
+        "home_score": 0,
+        "away_score": 2,
+        "result_date": "2026-11-05",
+        "source_url": "https://www.ncaa.com/game/6666509",
+        "winner_id": "col-of-charleston"
+      },
+      {
+        "id": "SF1",
+        "round": "SEMIFINALS · NOV 8",
+        "home_id": "stony-brook",
+        "away_id": "hofstra",
+        "status": "final",
+        "home_score": 0,
+        "away_score": 1,
+        "result_date": "2026-11-08",
+        "source_url": "https://www.ncaa.com/game/6666506",
+        "winner_id": "hofstra"
+      },
+      {
+        "id": "SF2",
+        "round": "SEMIFINALS · NOV 8",
+        "home_id": "unc-wilmington",
+        "away_id": "col-of-charleston",
+        "status": "final",
+        "home_score": 1,
+        "away_score": 2,
+        "result_date": "2026-11-08",
+        "source_url": "https://www.ncaa.com/game/6666507",
+        "winner_id": "col-of-charleston"
+      },
+      {
+        "id": "F1",
+        "round": "CHAMPIONSHIP · NOV 14",
+        "home_id": "hofstra",
+        "away_id": "col-of-charleston",
+        "status": "scheduled"
+      }
+    ],
+    "regional_seeding": true
+  }
 }

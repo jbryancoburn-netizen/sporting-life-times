@@ -4,7 +4,7 @@
   "source_url": "https://theacc.com/standings.aspx?path=msoc",
   "snapshot_checked_date": "2026-10-24",
   "last_verified_game_date": null,
-  "note": "Official standings snapshot observed Oct 24 2026 Eastern. Matches after source cutoff may alter conference race. Tournament uses all 15 members, not a six-team cutoff.",
+  "note": "Older dated regular-season table: not final overall records. 2026 conference tournament seeds and bracket verified from the league's championship announcement; completed scores are matched to the NCAA final-score ledger. RETRO does not override actual results.",
   "rows": [
     {
       "team_id": "smu",
@@ -111,5 +111,202 @@
       "conference_games": 8,
       "overall_record": "5-6-3"
     }
-  ]
+  ],
+  "tournament_seeds": [
+    "smu",
+    "clemson",
+    "wake-forest",
+    "pittsburgh",
+    "louisville",
+    "virginia-tech",
+    "north-carolina",
+    "notre-dame",
+    "virginia",
+    "california",
+    "north-carolina-st",
+    "stanford",
+    "syracuse",
+    "boston-college",
+    "duke"
+  ],
+  "tournament_bracket": {
+    "status": "official",
+    "source_url": "https://theacc.com/news/2026/11/11/semifinals-of-2026-acc-mens-soccer-championship-slated-for-thursday.aspx",
+    "seed_source_url": "https://theacc.com/news/2026/11/11/semifinals-of-2026-acc-mens-soccer-championship-slated-for-thursday.aspx",
+    "verified_through": "2026-11-12",
+    "matches": [
+      {
+        "id": "R11",
+        "round": "FIRST ROUND · NOV 4",
+        "home_id": "notre-dame",
+        "away_id": "virginia",
+        "status": "final",
+        "home_score": 2,
+        "away_score": 2,
+        "result_date": "2026-11-04",
+        "source_url": "https://www.ncaa.com/game/6666318",
+        "winner_id": "virginia",
+        "decision": "penalties",
+        "home_penalties": 4,
+        "away_penalties": 5,
+        "penalty_source_url": "https://theacc.com/news/2026/11/9/unc-nc-state-smu-syracuse-clinch-semifinals-berths-in-2026-acc-mens-soccer-championship.aspx"
+      },
+      {
+        "id": "R12",
+        "round": "FIRST ROUND · NOV 4",
+        "home_id": "pittsburgh",
+        "away_id": "syracuse",
+        "status": "final",
+        "home_score": 1,
+        "away_score": 1,
+        "result_date": "2026-11-04",
+        "source_url": "https://www.ncaa.com/game/6666319",
+        "winner_id": "syracuse",
+        "decision": "penalties",
+        "home_penalties": 6,
+        "away_penalties": 7,
+        "penalty_source_url": "https://theacc.com/news/2026/11/9/unc-nc-state-smu-syracuse-clinch-semifinals-berths-in-2026-acc-mens-soccer-championship.aspx"
+      },
+      {
+        "id": "R13",
+        "round": "FIRST ROUND · NOV 4",
+        "home_id": "louisville",
+        "away_id": "stanford",
+        "status": "final",
+        "home_score": 1,
+        "away_score": 2,
+        "result_date": "2026-11-04",
+        "source_url": "https://www.ncaa.com/game/6666320",
+        "winner_id": "stanford"
+      },
+      {
+        "id": "R14",
+        "round": "FIRST ROUND · NOV 4",
+        "home_id": "wake-forest",
+        "away_id": "boston-college",
+        "status": "final",
+        "home_score": 1,
+        "away_score": 1,
+        "result_date": "2026-11-04",
+        "source_url": "https://www.ncaa.com/game/6666321",
+        "winner_id": "wake-forest",
+        "decision": "penalties",
+        "home_penalties": 6,
+        "away_penalties": 5,
+        "penalty_source_url": "https://theacc.com/news/2026/11/9/unc-nc-state-smu-syracuse-clinch-semifinals-berths-in-2026-acc-mens-soccer-championship.aspx"
+      },
+      {
+        "id": "R15",
+        "round": "FIRST ROUND · NOV 4",
+        "home_id": "virginia-tech",
+        "away_id": "north-carolina-st",
+        "status": "final",
+        "home_score": 1,
+        "away_score": 2,
+        "result_date": "2026-11-04",
+        "source_url": "https://www.ncaa.com/game/6666322",
+        "winner_id": "north-carolina-st"
+      },
+      {
+        "id": "R16",
+        "round": "FIRST ROUND · NOV 4",
+        "home_id": "north-carolina",
+        "away_id": "california",
+        "status": "final",
+        "home_score": 1,
+        "away_score": 1,
+        "result_date": "2026-11-04",
+        "source_url": "https://www.ncaa.com/game/6666323",
+        "winner_id": "north-carolina",
+        "decision": "penalties",
+        "home_penalties": 4,
+        "away_penalties": 3,
+        "penalty_source_url": "https://theacc.com/news/2026/11/9/unc-nc-state-smu-syracuse-clinch-semifinals-berths-in-2026-acc-mens-soccer-championship.aspx"
+      },
+      {
+        "id": "R17",
+        "round": "FIRST ROUND · NOV 4",
+        "home_id": "clemson",
+        "away_id": "duke",
+        "status": "final",
+        "home_score": 2,
+        "away_score": 1,
+        "result_date": "2026-11-04",
+        "source_url": "https://www.ncaa.com/game/6666324",
+        "winner_id": "clemson"
+      },
+      {
+        "id": "QF1",
+        "round": "QUARTERFINALS · NOV 8",
+        "home_id": "smu",
+        "away_id": "virginia",
+        "status": "final",
+        "home_score": 6,
+        "away_score": 0,
+        "result_date": "2026-11-08",
+        "source_url": "https://www.ncaa.com/game/6666314",
+        "winner_id": "smu"
+      },
+      {
+        "id": "QF2",
+        "round": "QUARTERFINALS · NOV 8",
+        "home_id": "stanford",
+        "away_id": "syracuse",
+        "status": "final",
+        "home_score": 1,
+        "away_score": 2,
+        "result_date": "2026-11-08",
+        "source_url": "https://www.ncaa.com/game/6666315",
+        "winner_id": "syracuse"
+      },
+      {
+        "id": "QF3",
+        "round": "QUARTERFINALS · NOV 8",
+        "home_id": "wake-forest",
+        "away_id": "north-carolina-st",
+        "status": "final",
+        "home_score": 0,
+        "away_score": 1,
+        "result_date": "2026-11-08",
+        "source_url": "https://www.ncaa.com/game/6666316",
+        "winner_id": "north-carolina-st"
+      },
+      {
+        "id": "QF4",
+        "round": "QUARTERFINALS · NOV 8",
+        "home_id": "clemson",
+        "away_id": "north-carolina",
+        "status": "final",
+        "home_score": 2,
+        "away_score": 3,
+        "result_date": "2026-11-08",
+        "source_url": "https://www.ncaa.com/game/6666317",
+        "winner_id": "north-carolina"
+      },
+      {
+        "id": "SF1",
+        "round": "SEMIFINALS · NOV 12",
+        "home_id": "north-carolina-st",
+        "away_id": "north-carolina",
+        "status": "scheduled"
+      },
+      {
+        "id": "SF2",
+        "round": "SEMIFINALS · NOV 12",
+        "home_id": "syracuse",
+        "away_id": "smu",
+        "status": "scheduled"
+      },
+      {
+        "id": "F1",
+        "round": "CHAMPIONSHIP · NOV 15",
+        "home_id": null,
+        "away_id": null,
+        "status": "scheduled",
+        "home_from": "SF1",
+        "away_from": "SF2",
+        "round_note": "Championship participants follow the certified semifinal winners."
+      }
+    ]
+  }
 }

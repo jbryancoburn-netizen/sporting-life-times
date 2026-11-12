@@ -3,7 +3,7 @@
   "source_name": "Horizon League official 2026 men's soccer standings snapshot",
   "source_url": "https://horizonleague.org/standings.aspx?path=msoc",
   "snapshot_checked_date": "2026-10-25",
-  "note": "2026 Nov 8/11/14 tournament rounds confirmed by school schedule. Six-team format carried forward provisionally; league tiebreakers required.",
+  "note": "Older dated regular-season table: not final overall records. 2026 conference tournament seeds and bracket verified from the league's championship announcement; completed scores are matched to the NCAA final-score ledger. RETRO does not override actual results.",
   "rows": [
     {
       "team_id": "northern-ill",
@@ -71,5 +71,76 @@
       "conference_points": 2,
       "overall_record": "3-7-3"
     }
-  ]
+  ],
+  "tournament_seeds": [
+    "milwaukee",
+    "ipfw",
+    "robert-morris",
+    "northern-ill",
+    "wright-st",
+    "cleveland-st"
+  ],
+  "tournament_bracket": {
+    "status": "official",
+    "source_url": "https://horizonleague.org/news/2026/11/4/mens-soccer-2026-hlmsoc-championship-bracket-set-with-milwaukee-earning-no-1-seed.aspx",
+    "seed_source_url": "https://horizonleague.org/news/2026/11/4/mens-soccer-2026-hlmsoc-championship-bracket-set-with-milwaukee-earning-no-1-seed.aspx",
+    "verified_through": "2026-11-12",
+    "matches": [
+      {
+        "id": "QF1",
+        "round": "QUARTERFINALS · NOV 8",
+        "home_id": "robert-morris",
+        "away_id": "cleveland-st",
+        "status": "final",
+        "home_score": 1,
+        "away_score": 2,
+        "result_date": "2026-11-08",
+        "source_url": "https://www.ncaa.com/game/6667022",
+        "winner_id": "cleveland-st"
+      },
+      {
+        "id": "QF2",
+        "round": "QUARTERFINALS · NOV 8",
+        "home_id": "northern-ill",
+        "away_id": "wright-st",
+        "status": "final",
+        "home_score": 0,
+        "away_score": 1,
+        "result_date": "2026-11-08",
+        "source_url": "https://www.ncaa.com/game/6667023",
+        "winner_id": "wright-st"
+      },
+      {
+        "id": "SF1",
+        "round": "SEMIFINALS · NOV 11",
+        "home_id": "milwaukee",
+        "away_id": "cleveland-st",
+        "status": "final",
+        "home_score": 0,
+        "away_score": 1,
+        "result_date": "2026-11-11",
+        "source_url": "https://www.ncaa.com/game/6666511",
+        "winner_id": "cleveland-st"
+      },
+      {
+        "id": "SF2",
+        "round": "SEMIFINALS · NOV 11",
+        "home_id": "ipfw",
+        "away_id": "wright-st",
+        "status": "final",
+        "home_score": 2,
+        "away_score": 0,
+        "result_date": "2026-11-11",
+        "source_url": "https://www.ncaa.com/game/6666512",
+        "winner_id": "ipfw"
+      },
+      {
+        "id": "F1",
+        "round": "CHAMPIONSHIP · NOV 14",
+        "home_id": "ipfw",
+        "away_id": "cleveland-st",
+        "status": "scheduled"
+      }
+    ]
+  }
 }

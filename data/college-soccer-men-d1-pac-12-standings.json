@@ -3,7 +3,7 @@
   "source_name": "2026 Pac-12 official men's soccer standings",
   "source_url": "https://pac-12.com/standings.aspx?standings=246",
   "snapshot_checked_date": "2026-10-25",
-  "note": "Official table retrieved 2026-10-25. Conference tiebreak procedure still controls equal-point seed positions.",
+  "note": "Older dated regular-season table: not final overall records. 2026 conference tournament seeds and bracket verified from the league's championship announcement; completed scores are matched to the NCAA final-score ledger. RETRO does not override actual results.",
   "rows": [
     {
       "team_id": "california-baptist",
@@ -47,5 +47,50 @@
       "conference_points": 3,
       "overall_record": "5-8-3"
     }
-  ]
+  ],
+  "tournament_seeds": [
+    "oregon-st",
+    "california-baptist",
+    "san-diego-st",
+    "uc-riverside"
+  ],
+  "tournament_bracket": {
+    "status": "official",
+    "source_url": "https://pac-12.com/news/2026/11/1/beavers-clinch-regular-season-title-seeding-set-for-pac-12-mens-soccer-championship.aspx",
+    "seed_source_url": "https://pac-12.com/news/2026/11/1/beavers-clinch-regular-season-title-seeding-set-for-pac-12-mens-soccer-championship.aspx",
+    "verified_through": "2026-11-12",
+    "matches": [
+      {
+        "id": "SF1",
+        "round": "SEMIFINALS · NOV 7",
+        "home_id": "california-baptist",
+        "away_id": "san-diego-st",
+        "status": "final",
+        "home_score": 1,
+        "away_score": 2,
+        "result_date": "2026-11-07",
+        "source_url": "https://www.ncaa.com/game/6674341",
+        "winner_id": "san-diego-st"
+      },
+      {
+        "id": "SF2",
+        "round": "SEMIFINALS · NOV 8",
+        "home_id": "oregon-st",
+        "away_id": "uc-riverside",
+        "status": "final",
+        "home_score": 3,
+        "away_score": 1,
+        "result_date": "2026-11-08",
+        "source_url": "https://www.ncaa.com/game/6674342",
+        "winner_id": "oregon-st"
+      },
+      {
+        "id": "F1",
+        "round": "CHAMPIONSHIP · NOV 13",
+        "home_id": "oregon-st",
+        "away_id": "san-diego-st",
+        "status": "scheduled"
+      }
+    ]
+  }
 }

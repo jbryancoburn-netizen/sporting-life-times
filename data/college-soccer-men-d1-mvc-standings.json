@@ -3,7 +3,7 @@
   "source_name": "Missouri Valley Conference 2026 official men's soccer table",
   "source_url": "https://mvc-sports.com/standings.aspx?path=msoc",
   "snapshot_checked_date": "2026-10-25",
-  "note": "2026 postseason dates verified. Field size and byes not yet verified; bracket withheld.",
+  "note": "Older dated regular-season table: not final overall records. 2026 conference tournament seeds and bracket verified from the league's championship announcement; completed scores are matched to the NCAA final-score ledger. RETRO does not override actual results.",
   "rows": [
     {
       "team_id": "bowling-green",
@@ -47,5 +47,76 @@
       "conference_points": 0,
       "overall_record": "2-5-5"
     }
-  ]
+  ],
+  "tournament_seeds": [
+    "bowling-green",
+    "evansville",
+    "western-mich",
+    "belmont",
+    "ill-chicago",
+    "drake"
+  ],
+  "tournament_bracket": {
+    "status": "official",
+    "source_url": "https://mvc-sports.com/news/2026/11/5/bowling-green-and-evansville-share-regular-season-mens-soccer-title-championship-bracket-announced.aspx",
+    "seed_source_url": "https://mvc-sports.com/news/2026/11/5/bowling-green-and-evansville-share-regular-season-mens-soccer-title-championship-bracket-announced.aspx",
+    "verified_through": "2026-11-12",
+    "matches": [
+      {
+        "id": "QF1",
+        "round": "QUARTERFINALS · NOV 7",
+        "home_id": "belmont",
+        "away_id": "ill-chicago",
+        "status": "final",
+        "home_score": 0,
+        "away_score": 1,
+        "result_date": "2026-11-07",
+        "source_url": "https://www.ncaa.com/game/6666721",
+        "winner_id": "ill-chicago"
+      },
+      {
+        "id": "QF2",
+        "round": "QUARTERFINALS · NOV 7",
+        "home_id": "western-mich",
+        "away_id": "drake",
+        "status": "final",
+        "home_score": 1,
+        "away_score": 0,
+        "result_date": "2026-11-07",
+        "source_url": "https://www.ncaa.com/game/6666722",
+        "winner_id": "western-mich"
+      },
+      {
+        "id": "SF1",
+        "round": "SEMIFINALS · NOV 11",
+        "home_id": "bowling-green",
+        "away_id": "ill-chicago",
+        "status": "final",
+        "home_score": 2,
+        "away_score": 1,
+        "result_date": "2026-11-11",
+        "source_url": "https://www.ncaa.com/game/6666719",
+        "winner_id": "bowling-green"
+      },
+      {
+        "id": "SF2",
+        "round": "SEMIFINALS · NOV 11",
+        "home_id": "evansville",
+        "away_id": "western-mich",
+        "status": "final",
+        "home_score": 1,
+        "away_score": 3,
+        "result_date": "2026-11-11",
+        "source_url": "https://www.ncaa.com/game/6666720",
+        "winner_id": "western-mich"
+      },
+      {
+        "id": "F1",
+        "round": "CHAMPIONSHIP · NOV 14",
+        "home_id": "bowling-green",
+        "away_id": "western-mich",
+        "status": "scheduled"
+      }
+    ]
+  }
 }

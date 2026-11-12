@@ -3,7 +3,7 @@
   "source_name": "ASUN Conference official 2026 men's soccer standings snapshot",
   "source_url": "https://asunsports.org/sports/msoc/2025-26/standings",
   "snapshot_checked_date": "2026-10-25",
-  "note": "Six-team playoff structure carried forward provisionally from prior championship; West Florida in NCAA transition and may not be eligible. Model qualifying field must not be presented as verified until eligibility and seeds are resolved.",
+  "note": "Older dated regular-season table: not final overall records. 2026 conference tournament seeds and bracket verified from the league's championship announcement; completed scores are matched to the NCAA final-score ledger. RETRO does not override actual results.",
   "rows": [
     {
       "team_id": "north-florida",
@@ -59,5 +59,76 @@
       "conference_points": 5,
       "overall_record": "5-6-3"
     }
-  ]
+  ],
+  "tournament_seeds": [
+    "north-florida",
+    "central-ark",
+    "west-florida",
+    "stetson",
+    "bellarmine",
+    "queens-nc"
+  ],
+  "tournament_bracket": {
+    "status": "official",
+    "source_url": "https://asunsports.org/news/2026/10/26/2026-asun-mens-soccer-championship-field-set.aspx",
+    "seed_source_url": "https://asunsports.org/news/2026/10/26/2026-asun-mens-soccer-championship-field-set.aspx",
+    "verified_through": "2026-11-12",
+    "matches": [
+      {
+        "id": "QF1",
+        "round": "QUARTERFINALS · NOV 7",
+        "home_id": "stetson",
+        "away_id": "bellarmine",
+        "status": "final",
+        "home_score": 1,
+        "away_score": 0,
+        "result_date": "2026-11-07",
+        "source_url": "https://www.ncaa.com/game/6666303",
+        "winner_id": "stetson"
+      },
+      {
+        "id": "QF2",
+        "round": "QUARTERFINALS · NOV 7",
+        "home_id": "west-florida",
+        "away_id": "queens-nc",
+        "status": "final",
+        "home_score": 1,
+        "away_score": 3,
+        "result_date": "2026-11-07",
+        "source_url": "https://www.ncaa.com/game/6666304",
+        "winner_id": "queens-nc"
+      },
+      {
+        "id": "SF1",
+        "round": "SEMIFINALS · NOV 9",
+        "home_id": "north-florida",
+        "away_id": "stetson",
+        "status": "final",
+        "home_score": 3,
+        "away_score": 1,
+        "result_date": "2026-11-09",
+        "source_url": "https://www.ncaa.com/game/6666301",
+        "winner_id": "north-florida"
+      },
+      {
+        "id": "SF2",
+        "round": "SEMIFINALS · NOV 9",
+        "home_id": "central-ark",
+        "away_id": "queens-nc",
+        "status": "final",
+        "home_score": 0,
+        "away_score": 1,
+        "result_date": "2026-11-09",
+        "source_url": "https://www.ncaa.com/game/6666302",
+        "winner_id": "queens-nc"
+      },
+      {
+        "id": "F1",
+        "round": "CHAMPIONSHIP · NOV 14",
+        "home_id": "north-florida",
+        "away_id": "queens-nc",
+        "status": "scheduled"
+      }
+    ]
+  }
 }

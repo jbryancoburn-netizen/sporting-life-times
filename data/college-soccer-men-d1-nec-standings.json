@@ -3,7 +3,7 @@
   "source_name": "Northeast Conference 2026 men's soccer source snapshot",
   "source_url": "https://necsports.com/sports/msoc/standings",
   "snapshot_checked_date": "2026-10-25",
-  "note": "Four qualifiers, Nov 12 semifinal and Nov 15 final. Championship eligibility differs from NCAA national eligibility for some reclassifying schools.",
+  "note": "Older dated regular-season table: not final overall records. 2026 conference tournament seeds and bracket verified from the league's championship announcement; completed scores are matched to the NCAA final-score ledger. RETRO does not override actual results.",
   "rows": [
     {
       "team_id": "long-island",
@@ -59,5 +59,43 @@
       "conference_points": 1,
       "overall_record": "0-12-1"
     }
-  ]
+  ],
+  "tournament_seeds": [
+    "long-island",
+    "fdu",
+    "central-conn-st",
+    "mercyhurst"
+  ],
+  "tournament_bracket": {
+    "status": "official",
+    "source_url": "https://hurstathletics.com/news/2026/11/10/mens-soccer-set-for-first-ever-nec-postseason-appearance-at-top-seeded-liu.aspx",
+    "seed_source_url": "https://hurstathletics.com/news/2026/11/10/mens-soccer-set-for-first-ever-nec-postseason-appearance-at-top-seeded-liu.aspx",
+    "verified_through": "2026-11-12",
+    "matches": [
+      {
+        "id": "SF1",
+        "round": "SEMIFINALS · NOV 12",
+        "home_id": "long-island",
+        "away_id": "mercyhurst",
+        "status": "scheduled"
+      },
+      {
+        "id": "SF2",
+        "round": "SEMIFINALS · NOV 12",
+        "home_id": "fdu",
+        "away_id": "central-conn-st",
+        "status": "scheduled"
+      },
+      {
+        "id": "F1",
+        "round": "CHAMPIONSHIP · NOV 15",
+        "home_id": null,
+        "away_id": null,
+        "status": "scheduled",
+        "home_from": "SF1",
+        "away_from": "SF2",
+        "round_note": "Championship participants follow the certified semifinal winners."
+      }
+    ]
+  }
 }
