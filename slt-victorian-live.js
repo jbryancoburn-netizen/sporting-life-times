@@ -43,7 +43,12 @@ function periodLabel(n){
  if(config.periods==='halves')return n<=2?'H'+n:'OT'+(n-2);
  return n<=4?'Q'+n:'OT'+(n-4);
 }
-const teamCode=t=>String(t?.team?.abbreviation||'').trim().toUpperCase().slice(0,8);
+const nbaAliases={NY:'NYK',SA:'SAS',GS:'GSW',NO:'NOP',WSH:'WAS',UTAH:'UTA'};
+const canonicalNBA=c=>nbaAliases[String(c||'').toUpperCase()]||String(c||'').toUpperCase();
+const teamCode=t=>{
+ const code=String(t?.team?.abbreviation||'').trim().toUpperCase().slice(0,8);
+ return league==='nba'?canonicalNBA(code):code;
+};
 function normalize(raw){
  const head=raw?.header,comp=head?.competitions?.[0],members=comp?.competitors||[];
  if(String(comp?.id||head?.id||'')&&String(comp?.id||head?.id||'')!==id)throw Error('Source game identifier does not match the requested match');
@@ -101,7 +106,7 @@ function nbaOfficial(raw,playFeed){
  const parts=[g.awayTeam,g.homeTeam];
  const pick=(t,side)=>({
   side,id:String(t.teamId||''),name:[t.teamCity,t.teamName].filter(Boolean).join(' ')||String(t.teamTricode||'Team'),
-  short:String(t.teamName||t.teamTricode||'Team'),code:String(t.teamTricode||'').slice(0,8),
+  short:String(t.teamName||t.teamTricode||'Team'),code:canonicalNBA(String(t.teamTricode||'').slice(0,8)),
   logo:sourceLogo('https://cdn.nba.com/logos/nba/'+String(t.teamId||'')+'/primary/L/logo.svg'),
   color:'#'+(side==='away'?'702e31':'294d60'),score:safeScore(t.score),record:'',
   lines:(t.periods||[]).map(x=>({value:x.score}))
@@ -164,7 +169,7 @@ function crest(t){
  if(league==='nba'){
   // Use the same local thirty-team primary-logo catalog as the NBA scorebug.
   // Its single team-colored ring must not acquire a second or third wrapper.
-  const code=String(t.code||'').toUpperCase();
+  const code=canonicalNBA(t.code);
   const allowed='ATL BOS BKN CHA CHI CLE DAL DEN DET GSW HOU IND LAC LAL MEM MIA MIL MIN NOP NYK OKC ORL PHI PHX POR SAC SAS TOR UTA WAS'.split(' ');
   if(!allowed.includes(code))return '<span class="vld-mark-unavailable" role="img" aria-label="'+esc(t.name)+' logo not verified">'+esc(code||'—')+'</span>';
   const teamColor=window.SLTScorebug?.color?.(code)||'#56534c';
