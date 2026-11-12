@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Retro Basketball Design Lab | Sporting Life &amp; Times</title>
+<style>
+*{box-sizing:border-box}
+:root{color-scheme:dark;font-family:Arial,Helvetica,sans-serif}
+body{--back:#061334;--panel:#112e75;--panel2:#1d4fa5;--text:#f5f8ff;--muted:#bbcff6;--accent:#ffe53c;--edge:#a9c5f3;--sub:#e03d36;margin:0;min-height:100vh;background:radial-gradient(circle at 68% 0%,var(--panel2),var(--back) 55%);color:var(--text);transition:background .25s}
+body.look-nbc{--back:#111725;--panel:#33445f;--panel2:#667a98;--text:#f8fbff;--muted:#d0d8e1;--accent:#e8f2ff;--edge:#c8d4e8;--sub:#c6294c}
+body.look-arena{--back:#050706;--panel:#101713;--panel2:#1e2b20;--text:#eeeddd;--muted:#a7b4a3;--accent:#ffbd47;--edge:#657b66;--sub:#ed5141}
+body.look-deco{--back:#09151a;--panel:#13252b;--panel2:#233c3e;--text:#fff4d7;--muted:#c4bca6;--accent:#edc77b;--edge:#b99858;--sub:#e6c782}
+button{font:inherit;cursor:pointer;touch-action:manipulation}
+button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1100px;padding:24px 17px 52px;margin:auto}
+.kicker{display:flex;justify-content:space-between;gap:10px;font-size:11px;text-transform:uppercase;letter-spacing:.15em;font-weight:800;color:var(--muted)}
+.kicker b{color:var(--accent)}
+h1{margin:17px 0 5px;font:900 clamp(28px,5vw,55px)/1 Impact,"Arial Black",sans-serif;text-transform:uppercase;letter-spacing:.05em}
+.sub{color:var(--muted);margin:0 0 20px;font-size:13px}
+.choices{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:15px 0 17px}
+.choices button,.leagues button{background:var(--panel);border:1px solid var(--edge);color:var(--text);font-weight:800;padding:14px 5px;font-size:11px;letter-spacing:.07em;text-transform:uppercase}
+.choices button[aria-pressed=true],.leagues button[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:#111822}
+.presentation{position:relative;overflow:hidden;border:4px solid var(--edge);background:linear-gradient(128deg,var(--panel2),var(--panel) 55%,var(--back));box-shadow:0 12px 0 #0006,0 19px 30px #0005}
+.presentation:after{content:"";position:absolute;right:-90px;top:-150px;width:420px;height:420px;border:23px solid #ffffff12;border-radius:50%;pointer-events:none}
+.look-deco .presentation{border:1px solid var(--edge);outline:3px double var(--accent);outline-offset:5px;margin:8px;background:repeating-linear-gradient(90deg,transparent 0,transparent 53px,#e5bd5910 54px,#e5bd5910 55px),linear-gradient(130deg,#162c30,#060e13)}
+.look-deco .presentation:after{border:1px solid #d8b66c44;border-radius:0;right:16px;left:16px;top:16px;bottom:16px;width:auto;height:auto}
+.look-nbc .presentation{border:3px solid #bfcbdc;background:linear-gradient(140deg,#768aa6,#2f435f 36%,#0e182d 85%);box-shadow:inset 0 0 0 5px #203a5c,0 11px 22px #0009}
+.look-nbc .presentation:after{border:45px solid #ffffff17;transform:rotate(-25deg);border-radius:0}
+.look-arena .presentation{border:9px solid #384437;outline:2px solid #a2ac8e;background:repeating-linear-gradient(0deg,#070b08 0px,#070b08 7px,#101910 8px);box-shadow:inset 0 0 28px black,0 14px 22px #000}
+.topbar{position:relative;z-index:1;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 18px;border-bottom:4px solid var(--accent);background:#0005;color:var(--accent);font-size:11px;font-weight:800;letter-spacing:.16em}
+.look-nbc .topbar{background:linear-gradient(90deg,#0e2a5b,#ba2139,#2c527c);border-bottom:4px solid #e1e9f2;color:#fff}
+.look-arena .topbar{background:#101612;border-bottom:2px solid #a6442e;color:#ffae30}
+.look-deco .topbar{background:transparent;border-bottom:1px solid var(--edge);margin:13px 16px 0;padding:8px 4px;text-align:center;justify-content:center}
+.look-deco .topbar span:last-child{display:none}
+.hero{position:relative;z-index:1;text-align:center;padding:28px 15px 18px}
+.overline{color:var(--muted);font-weight:800;font-size:11px;letter-spacing:.26em}
+.hero-title{font:900 clamp(44px,8vw,88px)/.9 Impact,"Arial Black",sans-serif;letter-spacing:.02em;color:var(--accent);margin:12px 0 7px;text-shadow:4px 4px 0 #0007}
+.look-nbc .hero-title{font-family:"Arial Black",Arial,sans-serif;font-style:italic;font-size:clamp(38px,7vw,72px);letter-spacing:-.075em;color:white;text-shadow:3px 3px 0 #a71831,6px 6px 0 #0c2b58}
+.look-arena .hero-title{font-family:"Courier New",monospace;font-size:clamp(31px,6vw,62px);letter-spacing:.08em;color:#ffbd47;text-shadow:0 0 12px #e886205c}
+.look-deco .hero{padding-top:37px}
+.look-deco .hero-title{font-family:"Century Gothic","Avenir Next",Futura,Arial,sans-serif;font-weight:300;letter-spacing:.15em;text-transform:uppercase;font-size:clamp(32px,6vw,66px);text-shadow:0 0 0 transparent;transform:scaleX(.83)}
+.look-deco .overline{color:var(--accent)}
+.fan{height:17px;max-width:410px;margin:7px auto 0;background:repeating-linear-gradient(90deg,transparent 0 8px,var(--accent) 8px 9px,transparent 9px 17px);opacity:.65}
+.look-deco .fan{height:46px;width:270px;clip-path:polygon(50% 0,100% 100%,0 100%);background:repeating-conic-gradient(from 260deg at 50% 0%,transparent 0 9deg,var(--accent) 9deg 10deg,transparent 10deg 20deg);opacity:.8}
+.board{position:relative;z-index:1;margin:14px 21px 22px;background:#03132cc9;border:2px solid var(--edge)}
+.look-nbc .board{background:linear-gradient(#101c31,#0b1425);border:2px solid #d4dee8;border-radius:8px;box-shadow:inset 0 0 0 2px #63748c}
+.look-arena .board{background:#050805;border:2px solid #5d7852;box-shadow:inset 0 0 0 6px #121a12}
+.look-deco .board{background:#0e1b20;border:1px solid var(--edge);outline:1px solid var(--edge);outline-offset:5px;margin:17px 35px 33px}
+.board-heading{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:11px 15px;border-bottom:1px solid var(--edge);color:var(--accent);font-weight:900;letter-spacing:.15em;font-size:12px}
+.look-arena .board-heading{font-family:monospace;letter-spacing:.23em}
+.look-deco .board-heading{justify-content:center;font-weight:400;letter-spacing:.3em}
+.board-heading .right{font-size:9px;color:var(--muted)}
+.look-deco .board-heading .right{display:none}
+.score-row{display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px;padding:8px 16px;border-bottom:1px solid #ffffff25}
+.score-row:last-of-type{border-bottom:0}
+.team small{display:block;color:var(--muted);font-size:10px;letter-spacing:.18em;font-weight:700}
+.team strong{font:900 clamp(22px,5vw,40px)/1.08 Impact,"Arial Black",sans-serif;letter-spacing:.05em}
+.look-nbc .team strong{font-style:italic}
+.look-arena .team strong{font-family:"Courier New",monospace;font-size:clamp(18px,3vw,26px);letter-spacing:.08em;color:#ffc870}
+.look-deco .team strong{font-family:"Century Gothic","Avenir Next",Arial,sans-serif;font-weight:400;letter-spacing:.14em;font-size:clamp(18px,4vw,30px)}
+.score-value{min-width:120px;text-align:right;color:var(--accent);font:900 clamp(59px,10vw,103px)/1 Impact,"Arial Black",sans-serif;letter-spacing:.015em}
+.look-nbc .score-value{font-family:Arial,"Arial Black",sans-serif;font-style:italic;letter-spacing:-.08em;font-weight:900;color:#fff;text-shadow:4px 4px 0 #a6283d}
+.look-deco .score-value{font-family:"Century Gothic","Avenir Next","Futura",Arial,sans-serif;font-size:clamp(65px,10vw,105px);font-weight:300;letter-spacing:.08em;text-shadow:2px 0 0 #e0bb72;transform:scaleX(.8);transform-origin:right}
+.look-arena .score-value{display:none}
+.digits{display:none;justify-content:flex-end;gap:5px}
+.look-arena .digits{display:flex}
+.digit{display:grid;grid-template-columns:repeat(5,6px);grid-template-rows:repeat(7,6px);gap:3px;padding:5px;background:#080d08}
+.dot{width:6px;height:6px;border-radius:50%;background:#45361d;box-shadow:inset 0 0 1px #000}
+.dot.on{background:#ffc04a;box-shadow:0 0 5px #ff951b,0 0 8px #ff951b88}
+.board-foot{display:grid;grid-template-columns:repeat(3,1fr);text-align:center;border-top:2px solid var(--edge)}
+.board-foot div{padding:10px 3px;border-right:1px solid #ffffff29}
+.board-foot div:last-child{border-right:0}
+.board-foot b{display:block;color:var(--accent);font-size:17px}
+.board-foot small{font-size:9px;color:var(--muted);font-weight:700;letter-spacing:.07em}
+.look-deco .board-foot b{font-family:"Century Gothic",Arial,sans-serif;font-weight:300;font-size:24px}
+.look-arena .board-foot b{font-family:monospace}
+.controlbar{margin-top:25px;border:1px solid var(--edge);background:#0003;padding:15px}
+.controlbar h2{margin:0 0 10px;font-size:13px;color:var(--accent);letter-spacing:.12em}
+.leagues{display:flex;gap:8px;flex-wrap:wrap}
+.leagues button{flex:1;min-width:75px;padding:10px 4px}
+.adjust{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.adjust button{flex:1;min-width:100px;padding:11px;border:1px solid var(--edge);color:var(--text);background:var(--panel);font-weight:bold}
+.caption{margin-top:13px;color:var(--muted);font-size:11px;line-height:1.5}
+#description{border-left:3px solid var(--accent);padding:9px 14px;background:#0003;font-size:13px;line-height:1.6;margin-top:20px}
+@media(max-width:500px){.choices{grid-template-columns:repeat(2,1fr)}.topbar{font-size:9px}.score-value{min-width:75px}.score-row{padding:11px 8px}.board{margin:12px 9px 14px}.look-deco .board{margin:15px 17px 22px}.board-heading{font-size:9px}.digit{grid-template-columns:repeat(5,4px);grid-template-rows:repeat(7,4px);gap:2px;padding:2px}.dot{width:4px;height:4px}.hero{padding-top:22px}.team strong{font-size:20px}.look-deco .team strong{font-size:18px}}
+@media(prefers-reduced-motion:reduce){body{transition:none}}
+</style>
+</head>
+<body class="look-cbs">
+<div class="wrap">
+<div class="kicker"><span>Sporting Life <b>&amp; Times</b></span><span>Isolated design experiment</span></div>
+<h1>Retro Basketball Design Lab</h1>
+<p class="sub">Four styles. One scoreboard. No photographs, image assets, or live-data dependencies.</p>
+<nav class="choices" aria-label="Choose design style">
+<button type="button" data-look="cbs" aria-pressed="true">CBS • 1980s</button>
+<button type="button" data-look="nbc" aria-pressed="false">NBC • 1990s</button>
+<button type="button" data-look="arena" aria-pressed="false">Arena • Lighted Dots</button>
+<button type="button" data-look="deco" aria-pressed="false">Art Deco • Gold</button>
+</nav>
+<main class="presentation" aria-label="Interactive style preview">
+<div class="topbar"><span id="top-left">NATIONAL BASKETBALL BROADCAST</span><span id="top-right">SUNDAY SHOWCASE</span></div>
+<div class="hero"><div class="overline" id="overline">THE GAME OF THE WEEK</div><div class="hero-title" id="hero-title">COURTSIDE '86</div><div class="fan"></div></div>
+<section class="board">
+<div class="board-heading"><span id="board-title">TONIGHT'S FEATURED MATCHUP</span><span class="right">DEMO • NOT A REAL RESULT</span></div>
+<div class="score-row"><div class="team"><small>AWAY</small><strong id="away">BOSTON CELTICS</strong></div><div><div class="score-value" id="away-score">104</div><div class="digits" id="away-digits" aria-hidden="true"></div></div></div>
+<div class="score-row"><div class="team"><small>HOME</small><strong id="home">LOS ANGELES LAKERS</strong></div><div><div class="score-value" id="home-score">101</div><div class="digits" id="home-digits" aria-hidden="true"></div></div></div>
+<div class="board-foot"><div><b id="fg">51%</b><small>FIELD GOALS</small></div><div><b id="reb">+6</b><small>REBOUND EDGE</small></div><div><b id="streak">W4</b><small>WIN / LOSS STREAK</small></div></div>
+</section>
+</main>
+<div id="description" aria-live="polite"><strong>1980s CBS-inspired:</strong> deep royal blues, punchy yellow display lettering, square-edged TV graphics, and beveled rules.</div>
+<section class="controlbar" aria-label="Preview controls"><h2>SWITCH LEAGUE / TEST THE DIGITS</h2>
+<div class="leagues"><button type="button" data-league="nba" aria-pressed="true">NBA</button><button type="button" data-league="men" aria-pressed="false">NCAA MEN</button><button type="button" data-league="women" aria-pressed="false">NCAA WOMEN</button></div>
+<div class="adjust"><button type="button" id="plus-away">AWAY +1</button><button type="button" id="plus-home">HOME +1</button><button type="button" id="reset">RESET SCORES</button></div>
+<p class="caption">All matchups, scores, and statistics are illustrative design data. This file is independent of production pages, publishing workflows, and live feeds.</p>
+</section>
+</div>
+<script>
+(function(){
+const root=document.body;
+const $=id=>document.getElementById(id);
+const presets={
+nba:{a:"BOSTON CELTICS",h:"LOS ANGELES LAKERS",as:104,hs:101,fg:"51%",reb:"+6",streak:"W4"},
+men:{a:"INDIANA HOOSIERS",h:"PURDUE BOILERMAKERS",as:74,hs:71,fg:"47%",reb:"+3",streak:"W3"},
+women:{a:"UCONN HUSKIES",h:"TENNESSEE LADY VOLS",as:79,hs:77,fg:"49%",reb:"+8",streak:"W6"}
+};
+const looks={
+cbs:{top:"NATIONAL BASKETBALL BROADCAST",right:"SUNDAY SHOWCASE",over:"THE GAME OF THE WEEK",title:"COURTSIDE '86",board:"TONIGHT'S FEATURED MATCHUP",desc:"<strong>1980s CBS-inspired:</strong> deep royal blues, punchy yellow display lettering, square-edged TV graphics, and beveled rules."},
+nbc:{top:"NATIONAL HOOPS PRESENTATION",right:"PRIMETIME • 1996",over:"THE MATCHUP THAT MATTERS",title:"TIP-OFF '96",board:"FEATURED GAME",desc:"<strong>1990s NBC-inspired:</strong> metallic slate and blue, diagonal italic broadcast lettering, red accent bars, and glossy late-90s title-card energy."},
+arena:{top:"FIELDHOUSE SCOREBOARD",right:"HOME / AWAY",over:"UNDER THE LIGHTS",title:"ARENA VISION",board:"ELECTRONIC SCOREBOARD",desc:"<strong>Classic arena matrix:</strong> near-black cabinet, illuminated amber score bulbs, faint unlit dots, and programmable 5-by-7 light matrices. The dots are actual HTML elements, not an image."},
+deco:{top:"THE GRAND BASKETBALL PALACE",right:"",over:"AN EVENING AT THE ARENA",title:"GOLDEN AGE",board:"THE EVENING'S CONTEST",desc:"<strong>Art Deco:</strong> tall, narrowly spaced geometric numerals, champagne-gold keylines, stepped framing, and symmetrical fan motifs. This style can also frame the lighted-dot scoreboard."}
+};
+const glyph={
+"0":["11111","10001","10011","10101","11001","10001","11111"],
+"1":["00100","01100","00100","00100","00100","00100","01110"],
+"2":["11111","00001","00001","11111","10000","10000","11111"],
+"3":["11111","00001","00001","01111","00001","00001","11111"],
+"4":["10001","10001","10001","11111","00001","00001","00001"],
+"5":["11111","10000","10000","11111","00001","00001","11111"],
+"6":["11111","10000","10000","11111","10001","10001","11111"],
+"7":["11111","00001","00010","00100","00100","00100","00100"],
+"8":["11111","10001","10001","11111","10001","10001","11111"],
+"9":["11111","10001","10001","11111","00001","00001","11111"]
+};
+let league="nba",look="cbs",a=104,h=101;
+function digits(target,score){
+const el=$(target);el.textContent="";
+String(score).split("").forEach(n=>{const grid=document.createElement("span");grid.className="digit";grid.setAttribute("aria-hidden","true");const bits=glyph[n]||glyph["0"];bits.forEach(row=>row.split("").forEach(bit=>{const dot=document.createElement("span");dot.className="dot"+(bit==="1"?" on":"");grid.appendChild(dot)}));el.appendChild(grid)});
+}
+function render(){
+const p=presets[league],style=looks[look];root.className="look-"+look;
+$("away").textContent=p.a;$("home").textContent=p.h;
+$("away-score").textContent=a;$("home-score").textContent=h;
+$("fg").textContent=p.fg;$("reb").textContent=p.reb;$("streak").textContent=p.streak;
+$("top-left").textContent=style.top;$("top-right").textContent=style.right;$("overline").textContent=style.over;$("hero-title").textContent=style.title;$("board-title").textContent=style.board;
+$("description").innerHTML=style.desc;digits("away-digits",a);digits("home-digits",h);
+document.querySelectorAll("[data-look]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.look===look)));
+document.querySelectorAll("[data-league]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.league===league)));
+}
+document.querySelectorAll("[data-look]").forEach(b=>b.addEventListener("click",()=>{look=b.dataset.look;render()}));
+document.querySelectorAll("[data-league]").forEach(b=>b.addEventListener("click",()=>{league=b.dataset.league;a=presets[league].as;h=presets[league].hs;render()}));
+$("plus-away").addEventListener("click",()=>{a++;render()});
+$("plus-home").addEventListener("click",()=>{h++;render()});
+$("reset").addEventListener("click",()=>{a=presets[league].as;h=presets[league].hs;render()});
+render();
+})();
+</script>
+</body></html>
