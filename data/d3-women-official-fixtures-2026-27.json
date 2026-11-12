@@ -3,7 +3,7 @@
   "division": "d3",
   "gender": "women",
   "season": "2026-27",
-  "generated_utc": "2026-11-11T16:15:07.945131+00:00",
+  "generated_utc": "2026-11-12T01:57:15.523599+00:00",
   "source": "NCAA 2026-27 member directory + year/gender-validated official school athletics calendars",
   "scope": "NCAA membership-wide first pass; sources without independently validated 2026-27 schedules excluded",
   "ncaa_confirmed_programs": 415,
@@ -142,7 +142,7 @@
     "396": "https://www.mcscots.com/sports/womens-basketball/schedule/2026-27?grid=true",
     "397": "https://www.marywoodpacers.com/sports/womens-basketball/schedule/2026-27?grid=true",
     "398": "https://mitathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-    "401": "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+    "401": "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
     "403": "https://www.mecathletics.com/sports/womens-basketball/schedule?grid=true",
     "409": "https://www.goavengingangels.com/sports/womens-basketball/schedule/2026-27?grid=true",
     "411": "https://www.gomessiah.com/sports/womens-basketball/schedule/2026-27?grid=true",
@@ -1181,9 +1181,9 @@
       "owner_org_id": 82,
       "source_url": "https://gobrynmawr.com/sports/womens-basketball/schedule?grid=true",
       "readable_rows": 25,
-      "verified_member_opponents": 20,
+      "verified_member_opponents": 22,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 3,
+        "identity_not_d3_matched_but_posted": 1,
         "conditional_or_ambiguous_opponent": 2
       },
       "status": "parsed",
@@ -1300,8 +1300,8 @@
       "source_url": "https://miacathletics.com/schedule.aspx?schedule=3675",
       "status": "parsed_conference",
       "calendar_origin": "official_conference_team_calendar",
-      "readable_rows": 25,
-      "verified_member_opponents": 17,
+      "readable_rows": 24,
+      "verified_member_opponents": 16,
       "excluded_rows": {
         "missing_or_ambiguous_ncaa_opponent": 8
       },
@@ -2416,9 +2416,9 @@
       "owner_org_id": 279,
       "source_url": "https://www.lehmanathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "readable_rows": 29,
-      "verified_member_opponents": 18,
+      "verified_member_opponents": 17,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 10,
+        "identity_not_d3_matched_but_posted": 11,
         "conditional_or_ambiguous_opponent": 1
       },
       "status": "parsed",
@@ -3018,7 +3018,7 @@
     },
     {
       "owner_org_id": 401,
-      "source_url": "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "readable_rows": 26,
       "verified_member_opponents": 23,
       "excluded_rows": {
@@ -3027,9 +3027,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 1,
-      "verified_direct_url": "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
-      "discovery_method": "previously_verified_source"
+      "candidate_urls_tried": 2,
+      "verified_direct_url": "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "discovery_method": "official_school_url_or_vendor_variant"
     },
     {
       "owner_org_id": 403,
@@ -3552,7 +3552,7 @@
       "excluded_rows": {
         "missing_or_ambiguous_ncaa_opponent": 1
       },
-      "failed_school_calendar_urls": 15
+      "failed_school_calendar_urls": 9
     },
     {
       "owner_org_id": 520,
@@ -4753,10 +4753,10 @@
     {
       "owner_org_id": 750,
       "source_url": "https://www.go-knights.net/sports/womens-basketball/schedule/2026-27?grid=true",
-      "readable_rows": 31,
+      "readable_rows": 30,
       "verified_member_opponents": 18,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 6,
+        "identity_not_d3_matched_but_posted": 5,
         "conditional_or_ambiguous_opponent": 7
       },
       "status": "parsed",
@@ -5406,8 +5406,8 @@
     {
       "owner_org_id": 814,
       "source_url": "https://www.yumacs.com/sports/womens-basketball/schedule?grid=true",
-      "readable_rows": 23,
-      "verified_member_opponents": 10,
+      "readable_rows": 24,
+      "verified_member_opponents": 11,
       "excluded_rows": {
         "identity_not_d3_matched_but_posted": 12,
         "conditional_or_ambiguous_opponent": 1
@@ -8399,8 +8399,8 @@
     }
   ],
   "fixture_count": 4528,
-  "reciprocal_fixtures": 2700,
-  "unresolved_opponent_fixture_count": 1589,
+  "reciprocal_fixtures": 2701,
+  "unresolved_opponent_fixture_count": 1586,
   "unresolved_opponent_fixtures": [
     {
       "id": "d3-women-2026-11-06-73-other-3415eb321a6f",
@@ -9273,21 +9273,6 @@
       "venue_location": "Utica, NY / Miga Court at the Clark Athletic Center Gymnasium"
     },
     {
-      "id": "d3-women-2026-11-07-750-other-aa6a906dab3a",
-      "date": "2026-11-07",
-      "source_owner_org_id": 750,
-      "external_opponent_label": "Dubuque vs Carleton",
-      "placement": "home",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://www.go-knights.net/sports/womens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "1 PM",
-      "venue_location": "Waverly, Iowa / Levick Arena"
-    },
-    {
       "id": "d3-women-2026-11-07-750-other-d82a84379cb0",
       "date": "2026-11-07",
       "source_owner_org_id": 750,
@@ -9973,7 +9958,7 @@
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "6:00 PM",
       "venue_location": "Boston, MA"
     },
@@ -11684,7 +11669,7 @@
       "schedule_only": true,
       "source_kind": "official_school",
       "source_url": "https://www.ncurams.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "3:00 PM",
+      "tipoff_as_posted": "2:00 PM",
       "venue_location": "Fond du Lac, WI / Sadoff Gymnasium"
     },
     {
@@ -14309,7 +14294,7 @@
       "schedule_only": true,
       "source_kind": "official_school",
       "source_url": "https://www.udallasathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "",
+      "tipoff_as_posted": "6:30PM",
       "venue_location": "Denton, TX"
     },
     {
@@ -19544,7 +19529,7 @@
       "schedule_only": true,
       "source_kind": "official_school",
       "source_url": "https://www.marywoodpacers.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "6:00 pm",
+      "tipoff_as_posted": "2:00 pm",
       "venue_location": "Syracuse, NY"
     },
     {
@@ -21766,21 +21751,6 @@
       "source_url": "https://fightingtigers.cobleskill.edu/sports/womens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "5:30 PM",
       "venue_location": "Cobleskill, NY / Iorio Gymnasium"
-    },
-    {
-      "id": "d3-women-2027-01-13-82-other-b95a5837411c",
-      "date": "2027-01-13",
-      "source_owner_org_id": 82,
-      "external_opponent_label": "Muhlenburg College * *",
-      "placement": "home",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://gobrynmawr.com/sports/womens-basketball/schedule?grid=true",
-      "tipoff_as_posted": "7:00 PM",
-      "venue_location": "Bryn Mawr, PA / Class of 1958 Gymnasium"
     },
     {
       "id": "d3-women-2027-01-13-160-other-fa66a194b409",
@@ -26881,21 +26851,6 @@
       "source_url": "https://athletics.baruch.cuny.edu/sports/womens-basketball/schedule?grid=true",
       "tipoff_as_posted": "5:00 PM",
       "venue_location": "Jamaica, NY"
-    },
-    {
-      "id": "d3-women-2027-02-10-82-other-80b4ed564540",
-      "date": "2027-02-10",
-      "source_owner_org_id": 82,
-      "external_opponent_label": "Muhlenburg College * *",
-      "placement": "away",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://gobrynmawr.com/sports/womens-basketball/schedule?grid=true",
-      "tipoff_as_posted": "7:00 PM",
-      "venue_location": "Allentown, PA"
     },
     {
       "id": "d3-women-2027-02-10-89-other-0c0d6870e720",
@@ -38000,7 +37955,7 @@
       "home_org_id": 179,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://gomacsports.com/schedule.aspx?schedule=7633",
+      "source_url": "https://gobrynmawr.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://gobrynmawr.com/sports/womens-basketball/schedule?grid=true",
         "https://gomacsports.com/schedule.aspx?schedule=7633"
@@ -38011,12 +37966,12 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "5:00 p.m.",
+      "tipoff_as_posted": "5:00 PM",
       "venue": "",
-      "venue_location": "Doylestown, PA",
+      "venue_location": "Doylestown,PA",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "L, 41-49",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -38342,7 +38297,7 @@
       "venue_location": "Elmira, N.Y.",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "L, 56-72",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -38838,7 +38793,7 @@
       "venue_location": "Danbury, Conn.",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 56-49",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -38912,7 +38867,7 @@
       "venue_location": "Memphis, TN",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 71-66",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -38936,7 +38891,7 @@
       "venue_location": "Camden, NJ",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "Military Appreciation Game",
+      "tournament": "",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -39164,7 +39119,7 @@
       "venue_location": "/ Marts Center",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 80-42",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -39416,7 +39371,7 @@
       "venue_location": "Swannanoa, NC",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "L, 33-75",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -42671,7 +42626,7 @@
       "source_url": "https://cnesports.org/schedule.aspx?schedule=4118",
       "official_schedule_sources": [
         "https://cnesports.org/schedule.aspx?schedule=4118",
-        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true"
+        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         401,
@@ -47110,10 +47065,10 @@
       "home_org_id": 449,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://newmacsports.com/schedule.aspx?schedule=3965",
-        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true"
+        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         401,
@@ -47797,7 +47752,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7 PM",
+      "tipoff_as_posted": "6 PM",
       "venue": "Luce Center Gym",
       "venue_location": "Wilmore, Ky.",
       "network_as_posted": "",
@@ -60044,7 +59999,7 @@
       "status": "scheduled",
       "source_url": "https://www.southernmainehuskies.com/sports/womens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
-        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.southernmainehuskies.com/sports/womens-basketball/schedule/2026-2027?grid=true"
       ],
       "verified_by_org_ids": [
@@ -63908,9 +63863,9 @@
       "home_org_id": 401,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true"
+        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         401
@@ -68486,9 +68441,9 @@
       "home_org_id": 401,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true"
+        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         401
@@ -70522,9 +70477,9 @@
       "home_org_id": 569,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true"
+        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         401
@@ -72104,13 +72059,15 @@
       "status": "scheduled",
       "source_url": "https://www.gonyuathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.gonyuathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
+        "https://www.gonyuathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+        "https://www.yumacs.com/sports/womens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
-        479
+        479,
+        814
       ],
       "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "8:00 PM",
       "venue": "John A. Paulson Center",
       "venue_location": "New York, NY",
@@ -72660,9 +72617,9 @@
       "home_org_id": 401,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true"
+        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         401
@@ -75559,7 +75516,7 @@
       "source_url": "https://riponredhawks.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://riponredhawks.com/sports/womens-basketball/schedule?grid=true",
-        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true"
+        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         401,
@@ -78122,10 +78079,10 @@
       "home_org_id": 401,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://cnesports.org/schedule.aspx?schedule=4122",
-        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true"
+        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         401,
@@ -81628,10 +81585,10 @@
       "home_org_id": 401,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://gowarriorathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true"
+        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         200,
@@ -84499,7 +84456,7 @@
       "source_url": "https://westconnathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://westconnathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true"
+        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         401,
@@ -87904,9 +87861,9 @@
       "home_org_id": 401,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.corsairathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
@@ -94426,18 +94383,20 @@
       "home_org_id": 82,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.muhlenbergsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://gobrynmawr.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
+        "https://gobrynmawr.com/sports/womens-basketball/schedule?grid=true",
         "https://www.muhlenbergsports.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
+        82,
         453
       ],
       "source_kind": "official_school",
-      "source_verification": "single_official_school",
-      "tipoff_as_posted": "7:00",
-      "venue": "",
-      "venue_location": "Bryn Mawr, Pa.",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "7:00 PM",
+      "venue": "Class of 1958 Gymnasium",
+      "venue_location": "Bryn Mawr, PA",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -94578,20 +94537,18 @@
       "home_org_id": 118,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://miacathletics.com/schedule.aspx?schedule=3675",
+      "source_url": "https://gogusties.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://gogusties.com/sports/womens-basketball/schedule/2026-27?grid=true",
-        "https://miacathletics.com/schedule.aspx?schedule=3675"
+        "https://gogusties.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
-        118,
         266
       ],
-      "source_kind": "official_conference_and_school",
-      "source_verification": "reciprocal",
-      "tipoff_as_posted": "7:00 P.M.",
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7:00 PM",
       "venue": "",
-      "venue_location": "Northfield, MN // West Gym",
+      "venue_location": "Northfield, Minn.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -95669,7 +95626,7 @@
       "source_url": "https://athletics.plymouth.edu/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.plymouth.edu/sports/womens-basketball/schedule/2026-27?grid=true",
-        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true"
+        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         401,
@@ -100452,9 +100409,9 @@
       "home_org_id": 401,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.goanchormen.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
@@ -102918,7 +102875,7 @@
       "venue_location": "Dudley, Mass.",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "Staff & Faculty Game",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -103970,7 +103927,7 @@
       "status": "scheduled",
       "source_url": "https://www.castletonsports.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.castletonsports.com/sports/womens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
@@ -108908,7 +108865,7 @@
       "status": "scheduled",
       "source_url": "https://www.keeneowls.com/sports/womens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
-        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.keeneowls.com/sports/womens-basketball/schedule/2026-2027?grid=true"
       ],
       "verified_by_org_ids": [
@@ -113872,9 +113829,9 @@
       "home_org_id": 401,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.southernmainehuskies.com/sports/womens-basketball/schedule/2026-2027?grid=true"
       ],
       "verified_by_org_ids": [
@@ -117419,7 +117376,7 @@
       "source_url": "https://gowarriorathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://gowarriorathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true"
+        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         200,
@@ -117824,20 +117781,18 @@
       "home_org_id": 279,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.lehmanathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.mecathletics.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://www.lehmanathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.mecathletics.com/sports/womens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
-        279,
         403
       ],
       "source_kind": "official_school",
-      "source_verification": "reciprocal",
-      "tipoff_as_posted": "3:00 PM",
-      "venue": "APEX Main Gym",
-      "venue_location": "Bronx, NY",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "3:00pm",
+      "venue": "",
+      "venue_location": "The APEX Center (Bronx, NY)",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -122782,10 +122737,10 @@
       "home_org_id": 401,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://westconnathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true"
+        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         401,
@@ -127210,7 +127165,7 @@
       "status": "scheduled",
       "source_url": "https://www.goanchormen.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.goanchormen.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
@@ -130384,13 +130339,15 @@
       "status": "scheduled",
       "source_url": "https://www.muhlenbergsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://gobrynmawr.com/sports/womens-basketball/schedule?grid=true",
         "https://www.muhlenbergsports.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
+        82,
         453
       ],
       "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "7:00",
       "venue": "",
       "venue_location": "Memorial Hall",
@@ -130536,9 +130493,9 @@
       "home_org_id": 401,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.castletonsports.com/sports/womens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
@@ -136216,10 +136173,10 @@
       "home_org_id": 401,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.plymouth.edu/sports/womens-basketball/schedule/2026-27?grid=true",
-        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true"
+        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
         401,
@@ -140490,7 +140447,7 @@
       "status": "scheduled",
       "source_url": "https://www.corsairathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+        "https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.corsairathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
