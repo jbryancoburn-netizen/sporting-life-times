@@ -167,9 +167,9 @@
     {
       "conference": "men-d1:patriot",
       "conference_name": "Patriot",
-      "team_id": "boston-u",
-      "team": "Boston U.",
-      "elo": 1533.505,
+      "team_id": "bucknell",
+      "team": "Bucknell",
+      "elo": 1530.351,
       "method": "retro_highest_rated_conference_member_projection",
       "official_aq": false,
       "source_url": null,
@@ -200,9 +200,9 @@
     {
       "conference": "men-d1:big-west",
       "conference_name": "Big West",
-      "team_id": "utah-valley",
-      "team": "Utah Valley",
-      "elo": 1579.101,
+      "team_id": "uc-santa-barbara",
+      "team": "UC Santa Barbara",
+      "elo": 1550.09,
       "method": "retro_highest_rated_conference_member_projection",
       "official_aq": false,
       "source_url": null,
@@ -530,6 +530,17 @@
       "seeded_24_candidate": false
     },
     {
+      "team_id": "utah-valley",
+      "team": "Utah Valley",
+      "conference": "men-d1:big-west",
+      "elo": 1579.101,
+      "bid_type": "at_large_proxy",
+      "experimental_strength_order": 39,
+      "ncaa_seed": null,
+      "first_round_bye_candidate": false,
+      "seeded_24_candidate": false
+    },
+    {
       "team_id": "seton-hall",
       "team": "Seton Hall",
       "conference": "men-d1:big-east",
@@ -572,20 +583,16 @@
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
       "seeded_24_candidate": false
-    },
+    }
+  ],
+  "first_four_out_proxy": [
     {
       "team_id": "fairfield",
       "team": "Fairfield",
       "conference": "men-d1:maac",
       "elo": 1572.686,
-      "bid_type": "at_large_proxy",
-      "experimental_strength_order": 44,
-      "ncaa_seed": null,
-      "first_round_bye_candidate": false,
-      "seeded_24_candidate": false
-    }
-  ],
-  "first_four_out_proxy": [
+      "bid_type": "outside_field_proxy"
+    },
     {
       "team_id": "xavier",
       "team": "Xavier",
@@ -605,13 +612,6 @@
       "team": "South Carolina",
       "conference": "men-d1:sun-belt",
       "elo": 1568.28,
-      "bid_type": "outside_field_proxy"
-    },
-    {
-      "team_id": "elon",
-      "team": "Elon",
-      "conference": "men-d1:caa",
-      "elo": 1566.739,
       "bid_type": "outside_field_proxy"
     }
   ],
@@ -1039,7 +1039,7 @@
       "team": "Utah Valley",
       "conference": "men-d1:big-west",
       "elo": 1579.101,
-      "bid_type": "projected_aq",
+      "bid_type": "at_large_proxy",
       "experimental_strength_order": 39,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
@@ -1090,21 +1090,21 @@
       "seeded_24_candidate": false
     },
     {
-      "team_id": "fairfield",
-      "team": "Fairfield",
-      "conference": "men-d1:maac",
-      "elo": 1572.686,
-      "bid_type": "at_large_proxy",
+      "team_id": "cleveland-st",
+      "team": "Cleveland St.",
+      "conference": "men-d1:horizon",
+      "elo": 1553.23,
+      "bid_type": "projected_aq",
       "experimental_strength_order": 44,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
       "seeded_24_candidate": false
     },
     {
-      "team_id": "cleveland-st",
-      "team": "Cleveland St.",
-      "conference": "men-d1:horizon",
-      "elo": 1553.23,
+      "team_id": "uc-santa-barbara",
+      "team": "UC Santa Barbara",
+      "conference": "men-d1:big-west",
+      "elo": 1550.09,
       "bid_type": "projected_aq",
       "experimental_strength_order": 45,
       "ncaa_seed": null,
@@ -1134,10 +1134,10 @@
       "seeded_24_candidate": false
     },
     {
-      "team_id": "boston-u",
-      "team": "Boston U.",
+      "team_id": "bucknell",
+      "team": "Bucknell",
       "conference": "men-d1:patriot",
-      "elo": 1533.505,
+      "elo": 1530.351,
       "bid_type": "projected_aq",
       "experimental_strength_order": 48,
       "ncaa_seed": null,
