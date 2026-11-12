@@ -46,6 +46,26 @@ class CalendarIdentityTests(unittest.TestCase):
         self.assertFalse(calendar_matches_verified_final(
             game(id="official-other", away="222", home="777", official=True), ID, SCORES, TIP))
 
+    def test_verified_school_retro_alias_accepts_real_indiana_final(self):
+        row=game(id="indiana-official-2027-1")
+        row["retro_verified_final"]="espn:"+ID
+        row["site_verified"]=True
+        row["site_source_url"]="https://iuhoosiers.com/sports/mens-basketball/schedule/print"
+        self.assertTrue(calendar_matches_verified_final(row,ID,SCORES,TIP))
+
+    def test_school_retro_alias_rejects_unverified_linkage(self):
+        row=game(id="indiana-official-2027-1")
+        row["retro_verified_final"]="espn:"+ID
+        row["site_source_url"]="https://iuhoosiers.com/sports/mens-basketball/schedule/print"
+        self.assertFalse(calendar_matches_verified_final(row,ID,SCORES,TIP))
+
+    def test_school_retro_alias_rejects_wrong_score(self):
+        row=game(id="indiana-official-2027-1",home_score=77)
+        row["retro_verified_final"]="espn:"+ID
+        row["site_verified"]=True
+        row["site_source_url"]="https://iuhoosiers.com/sports/mens-basketball/schedule/print"
+        self.assertFalse(calendar_matches_verified_final(row,ID,SCORES,TIP))
+
     def test_bad_score_is_rejected_even_with_matching_id(self):
         self.assertFalse(calendar_matches_verified_final(
             game(home_score=79), ID, SCORES, TIP))
