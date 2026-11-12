@@ -3,7 +3,7 @@ import unittest
 from datetime import datetime
 from scripts.audit_cbb_baseline_reconciliation import (
     identity, schedule_match, venue_agrees, inspect_player,
-    index_games, normalized_id
+    index_games, normalized_id, first_differences
 )
 
 SOURCE_M={"id":"espn:401900111","date":"2026-11-11",
@@ -92,6 +92,17 @@ class BaselineTests(unittest.TestCase):
         notes,problems=inspect_player("men",SOURCE_M,[("ncaa_player_boxscores",entry)])
         self.assertEqual(len(problems),1)
         self.assertEqual(len(notes),1)
+
+    def test_player_public_diff_identifies_changed_field(self):
+        left={"as_of":"2026-11-11","games":{"401":{"pts":81}}}
+        right={"as_of":"2026-11-11","games":{"401":{"pts":82}}}
+        changes=first_differences(left,right)
+        self.assertEqual(changes[0]["path"],"$.games.401.pts")
+        self.assertEqual(len(changes),1)
+
+    def test_same_player_snapshots_have_no_differences(self):
+        self.assertEqual(first_differences({"players":[{"pts":81}]},
+                                           {"players":[{"pts":81}]}),[])
 
     def test_source_score_identity_requires_exact_values(self):
         different=dict(SOURCE_M,home_score=79)
