@@ -7,6 +7,8 @@ on:
     paths:
       - 'mbb-logo-system.js'
       - 'mbb-logo-system.css'
+      - 'tests/cbb-logo-publication-contract.test.cjs'
+      - '.github/workflows/publish-newspaper.yml'
       - 'mbb-elo-primary.js'
       - 'mbb-newspaper.js'
       - 'mbb-team-calendar-boot.js'
@@ -22,6 +24,13 @@ on:
       - 'tests/mbb-rankings-runtime.test.cjs'
       - 'tests/mbb-poll-logos.test.cjs'
       - '.github/workflows/mbb-logo-contract.yml'
+  pull_request:
+    paths:
+      - 'mbb-logo-system.css'
+      - 'mbb-logo-system.js'
+      - 'tests/cbb-logo-publication-contract.test.cjs'
+      - '.github/workflows/mbb-logo-contract.yml'
+      - '.github/workflows/publish-newspaper.yml'
 permissions:
   contents: read
 jobs:
@@ -33,6 +42,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Verify critical public Pages logo gate fails closed
+        run: node tests/cbb-logo-publication-contract.test.cjs
       - name: Validate all 365 shared college basketball team crests
         run: node scripts/audit-mbb-logo-system.cjs
       - name: Audit every men's and women's Division I school calendar for unmatched opponent crests

@@ -314,7 +314,6 @@ jobs:
           fi
       - uses: actions/configure-pages@v5
       - name: Validate women's individual team-page publication inputs
-        continue-on-error: true
         run: |
           set -euo pipefail
           test -s ncaaw-team.html
@@ -603,7 +602,6 @@ jobs:
           exit 1
 
       - name: Verify published 365-school MBB RETRO rankings and team rosters
-        continue-on-error: true
         env:
           PAGE_URL: ${{ steps.deploy.outputs.page_url }}
         shell: bash
@@ -640,7 +638,6 @@ jobs:
           exit 1
 
       - name: Verify published shared college basketball logo system
-        continue-on-error: true
         env:
           PAGE_URL: ${{ steps.deploy.outputs.page_url }}
         shell: bash
