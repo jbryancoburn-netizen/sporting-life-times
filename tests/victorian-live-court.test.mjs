@@ -38,8 +38,12 @@ check('nba',160,23.75*10,30,true);
 assert(css.includes('.vld-court-svg--basketball'),'basketball court-specific styling missing');
 assert(css.includes('.vld-shot-floor .vld-court-svg--basketball{max-height:none'),
   'shot tab must preserve full-court proportions');
-const jsVersion=page.match(/slt-victorian-live\\.js\\?v=([A-Za-z0-9_-]+)/)?.[1];
-const cssVersion=page.match(/slt-victorian-live\\.css\\?v=([A-Za-z0-9_-]+)/)?.[1];
+const assetVersion=name=>{
+ const token=name+'?v=',start=page.indexOf(token);
+ return start<0?null:page.slice(start+token.length).split('"')[0];
+};
+const jsVersion=assetVersion('slt-victorian-live.js');
+const cssVersion=assetVersion('slt-victorian-live.css');
 assert(jsVersion&&cssVersion,'live Game Center must load versioned CSS and JavaScript');
 assert.equal(jsVersion,cssVersion,'live Game Center CSS and JS must use the same release version');
 assert(src.includes('Half-court source coordinates alone do not say which direction'),
