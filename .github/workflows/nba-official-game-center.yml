@@ -1,21 +1,7 @@
 name: Official NBA game-center refresh
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/nba-official-game-center.yml'
-      - 'scripts/collect_nba_game_center.py'
-      - 'scripts/backfill-nba-boxscores.py'
-      - 'scripts/backfill-nba-espn.py'
-      - 'scripts/collect-nba-schedule.py'
-      - 'scripts/enrich-nba-game-details.py'
-      - 'scripts/test-nba-game-details.py'
-      - 'scripts/collect-nba-player-leaders.py'
-      - 'scripts/build-nba-possession-inputs.mjs'
-      - 'scripts/test-nba-ingestion.py'
-      - 'scripts/test-nba-espn-backfill.py'
-  # Five-minute NBA Elo publisher now owns scheduled box-score publication.
-  # Retain this workflow as a manual/source-code recovery job only.
+  # Manual recovery only. All automatic NBA final writes are owned by the
+  # five-minute Elo workflow; automatic code pushes can race its JSON commit.
   workflow_dispatch:
 permissions:
   contents: write
