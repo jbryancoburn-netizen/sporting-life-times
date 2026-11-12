@@ -56,6 +56,7 @@ on:
       - 'data/college-soccer-men-d2-gliac-standings.json'
       - 'data/college-soccer-women-d2-gliac-standings.json'
       - 'data/college-soccer-men-d1-big-ten-standings.json'
+      - 'scripts/test_college_soccer_big_ten_verified.py'
       - 'data/college-soccer-women-d1-big-ten-standings.json'
       - 'data/college-soccer-women-d3-miac-standings.json'
       - 'data/college-soccer-women-d3-cciw-standings.json'
@@ -108,6 +109,8 @@ jobs:
           node --check college-soccer-conference-index.js
           node --check college-soccer-cup-ui.js
           node --check college-soccer-conference-page.js
+      - name: Protect verified Big Ten tournament results and outcome-first presentation
+        run: python scripts/test_college_soccer_big_ten_verified.py
       - name: Validate NCAA postseason rules and normalized MIAA probabilities
         run: python -m unittest discover -s scripts -p test_college_soccer_postseason.py -v
       - name: Validate MIAC collector parsing
