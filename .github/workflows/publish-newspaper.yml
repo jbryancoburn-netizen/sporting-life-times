@@ -285,19 +285,25 @@ jobs:
         run: |
           set -euo pipefail
           if (
-            python3 scripts/collect-nba-schedule.py --fast
-            node scripts/update-nba-elo.mjs
-            node scripts/build-nba-elo-shadow.mjs --write
-            node scripts/reconcile-nba-schedule.mjs
+            python3 scripts/collect-nba-schedule.py --fast &&
+            node scripts/update-nba-elo.mjs &&
+            node scripts/build-nba-elo-shadow.mjs --write &&
+            node scripts/reconcile-nba-schedule.mjs &&
             node scripts/audit-nba-elo.mjs
           ); then
             if ! python3 scripts/collect_nba_game_center.py; then echo "::warning::Official NBA box scores unavailable; using ESPN"; fi
             if ! python3 scripts/backfill-nba-espn.py; then echo "::warning::Player box scores pending"; fi
             if ! python3 scripts/enrich-nba-game-details.py; then echo "::warning::Some NBA details pending"; fi
-            python3 scripts/collect-nba-player-leaders.py
-            node scripts/build-nba-possession-inputs.mjs
-            node scripts/audit-nba-boxscore-elo.mjs
-            python3 scripts/audit-nba-stat-coverage.py || echo "::warning::NBA player-stat coverage is incomplete"
+            if (
+              python3 scripts/collect-nba-player-leaders.py &&
+              node scripts/build-nba-possession-inputs.mjs &&
+              node scripts/audit-nba-boxscore-elo.mjs
+            ); then
+              python3 scripts/audit-nba-stat-coverage.py || echo "::warning::NBA player-stat coverage is incomplete"
+            else
+              git restore -- data/nba-game-center.json data/nba-player-leaders.json data/nba-possession-inputs.json data/nba-stat-coverage-audit.json
+              echo "::warning::NBA stats publication failed; preserving last verified player archive"
+            fi
             echo "NBA Pages: verified finals, RETRO, standings and available stats reconciled"
           else
             git restore -- data/nba-2026-27-current-provisional.json data/nba-elo-reconciliation.json data/nba-elo-shadow-2026-27.json data/nba-upcoming-schedule.json
