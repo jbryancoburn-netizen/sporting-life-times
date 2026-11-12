@@ -1,64 +1,54 @@
-name: MBB logo and mobile visual audit
+name: CBB browser artwork and layout verification
 on:
-  push:
-    paths:
-      - '.github/workflows/mbb-logo-mobile-audit.yml'
   workflow_dispatch:
+  pull_request:
+    paths:
+      - 'scripts/cbb_visual_browser_audit.py'
+      - '.github/workflows/mbb-logo-mobile-audit.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/cbb_visual_browser_audit.py'
+      - '.github/workflows/mbb-logo-mobile-audit.yml'
+  schedule:
+    - cron: '19 14 * * *'
 permissions:
-  contents: write
+  contents: read
+concurrency:
+  group: cbb-browser-visual-audit
+  cancel-in-progress: false
 jobs:
-  audit:
+  validate-script:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 3
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
-      - run: pip install requests playwright
-      - run: python -m playwright install --with-deps chromium
-      - run: python scripts/mbb_logo_http_audit.py
-      - name: Mobile browser rendering checks
+          python-version: '3.12'
+      - name: Compile independent visual auditor
+        run: python3 -m py_compile scripts/cbb_visual_browser_audit.py
+  browser-audit:
+    needs: validate-script
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Chromium and Playwright
         run: |
-          python - <<'PY'
-          import json
-          from playwright.sync_api import sync_playwright
-          examples=['609554','609574','609758']
-          results=[]
-          with sync_playwright() as p:
-            browser=p.chromium.launch()
-            for tid in examples:
-              page=browser.new_page(viewport={'width':390,'height':844},device_scale_factor=1)
-              page.goto('https://jbryancoburn-netizen.github.io/sporting-life-times/ncaam-team.html?team=ncaa%3A'+tid,wait_until='domcontentloaded',timeout=45000)
-              try:page.wait_for_selector('#full-season-schedule tbody tr',timeout=18000)
-              except Exception:pass
-              info=page.evaluate("""() => {
-                const schedule=document.querySelector('#full-season-schedule');
-                const rows=[...document.querySelectorAll('#full-season-schedule tbody tr')];
-                const overlaps=rows.filter(row=>{
-                  const cells=[...row.querySelectorAll('td')].filter(c=>getComputedStyle(c).display!=='none');
-                  return cells.some((a,i)=>cells.slice(i+1).some(b=>{
-                    const x=a.getBoundingClientRect(),y=b.getBoundingClientRect();
-                    return x.width>0&&y.width>0&&Math.min(x.right,y.right)-Math.max(x.left,y.left)>3&&Math.min(x.bottom,y.bottom)-Math.max(x.top,y.top)>3;
-                  }));
-                }).length;
-                const overflow=!!schedule && schedule.getBoundingClientRect().right>innerWidth+2;
-                const broken=[...document.querySelectorAll('#full-season-schedule img')].filter(i=>!i.complete||i.naturalWidth===0).length;
-                return {rows:rows.length,overlaps,overflow,broken};
-              }""")
-              results.append({'team_id':tid,**info})
-              page.close()
-            browser.close()
-          open('data/mbb-mobile-render-audit.json','w').write(json.dumps({'pages':results},indent=2))
-          print(json.dumps(results,indent=2))
-          PY
-      - name: Commit audits
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/mbb-logo-http-audit.json data/mbb-mobile-render-audit.json
-          if ! git diff --cached --quiet; then
-            git commit -m "Publish MBB image and mobile visual QA results"
-            git pull --rebase origin main
-            git push
-          fi
+          python3 -m pip install playwright
+          python3 -m playwright install --with-deps chromium
+      - name: Check real live men's and women's team pages at desktop and mobile widths
+        run: python3 scripts/cbb_visual_browser_audit.py
+      - name: Preserve screenshots, failed image URLs, and browser audit report even on failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cbb-browser-visual-evidence
+          path: artifacts/cbb-visual/
+          retention-days: 14
+          if-no-files-found: warn
