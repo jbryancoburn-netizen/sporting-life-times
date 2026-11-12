@@ -29,6 +29,7 @@ on:
       - 'tests/cbb-courtside.test.cjs'
       - 'tests/victorian-live-court.test.mjs'
       - 'tests/victorian-live-retro.test.mjs'
+      - 'tests/victorian-live-logos.test.mjs'
       - 'tests/nba-game-calendar.test.cjs'
       - 'data/cbb-radio-sources.json'
       - 'data/ncaam-2026-27-retro-primary.json'
@@ -139,6 +140,8 @@ jobs:
         run: node tests/victorian-live-court.test.mjs
       - name: Verify source-locked Victorian live RETRO projections
         run: node tests/victorian-live-retro.test.mjs
+      - name: Verify Game Center canonical basketball logo contracts
+        run: node tests/victorian-live-logos.test.mjs
       - name: Validate all browser JavaScript before deployment
         continue-on-error: true
         run: |

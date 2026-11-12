@@ -1,6 +1,9 @@
 /* One NCAA Division I men's basketball logo identity + rendering contract. */
 (function(w){
 'use strict';
+// Do not redecorate football or soccer logos in the shared live-game page.
+const onVictorianLivePage=/\/live-game\.html$/i.test(String(w.location?.pathname||''));
+if(onVictorianLivePage&&!['ncaam','ncaaw'].includes(new URLSearchParams(String(w.location?.search||'')).get('league')))return;
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const norm=v=>String(v||'').normalize('NFKD').toLowerCase().replace(/[^a-z0-9]/g,'');
 const safeURL=v=>{try{let u=new URL(v);return u.protocol==='https:'?u.href:''}catch{return ''}};

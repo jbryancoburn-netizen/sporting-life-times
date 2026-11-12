@@ -43,7 +43,12 @@ function periodLabel(n){
  if(config.periods==='halves')return n<=2?'H'+n:'OT'+(n-2);
  return n<=4?'Q'+n:'OT'+(n-4);
 }
-const teamCode=t=>String(t?.team?.abbreviation||'').trim().toUpperCase().slice(0,8);
+const nbaAliases={NY:'NYK',SA:'SAS',GS:'GSW',NO:'NOP',WSH:'WAS',UTAH:'UTA'};
+const canonicalNBA=c=>nbaAliases[String(c||'').toUpperCase()]||String(c||'').toUpperCase();
+const teamCode=t=>{
+ const code=String(t?.team?.abbreviation||'').trim().toUpperCase().slice(0,8);
+ return league==='nba'?canonicalNBA(code):code;
+};
 function normalize(raw){
  const head=raw?.header,comp=head?.competitions?.[0],members=comp?.competitors||[];
  if(String(comp?.id||head?.id||'')&&String(comp?.id||head?.id||'')!==id)throw Error('Source game identifier does not match the requested match');
@@ -101,7 +106,7 @@ function nbaOfficial(raw,playFeed){
  const parts=[g.awayTeam,g.homeTeam];
  const pick=(t,side)=>({
   side,id:String(t.teamId||''),name:[t.teamCity,t.teamName].filter(Boolean).join(' ')||String(t.teamTricode||'Team'),
-  short:String(t.teamName||t.teamTricode||'Team'),code:String(t.teamTricode||'').slice(0,8),
+  short:String(t.teamName||t.teamTricode||'Team'),code:canonicalNBA(String(t.teamTricode||'').slice(0,8)),
   logo:sourceLogo('https://cdn.nba.com/logos/nba/'+String(t.teamId||'')+'/primary/L/logo.svg'),
   color:'#'+(side==='away'?'702e31':'294d60'),score:safeScore(t.score),record:'',
   lines:(t.periods||[]).map(x=>({value:x.score}))
@@ -154,6 +159,24 @@ async function loadGame(){
 
 function headline(g){return g.phase==='live'?'● LIVE DISPATCH':g.phase==='final'?'FINAL EDITION':'PREGAME EDITION';}
 function crest(t){
+ // College basketball must use the single site-wide 365-school identity,
+ // vetted artwork and TWO-ring school-color mark. Never add our own ring
+ // or place a raw, possibly misidentified ESPN logo in a competing shell.
+ if(league==='ncaam'||league==='ncaaw'){
+  if(window.MBBLogos?.render)return window.MBBLogos.render({espnId:t.id,name:t.name,size:'schedule'});
+  return '<span class="vld-mark-unavailable" role="img" aria-label="'+esc(t.name)+' logo not loaded">'+esc(t.code||'—')+'</span>';
+ }
+ if(league==='nba'){
+  // Use the same local thirty-team primary-logo catalog as the NBA scorebug.
+  // Its single team-colored ring must not acquire a second or third wrapper.
+  const code=canonicalNBA(t.code);
+  const allowed='ATL BOS BKN CHA CHI CLE DAL DEN DET GSW HOU IND LAC LAL MEM MIA MIL MIN NOP NYK OKC ORL PHI PHX POR SAC SAS TOR UTA WAS'.split(' ');
+  if(!allowed.includes(code))return '<span class="vld-mark-unavailable" role="img" aria-label="'+esc(t.name)+' logo not verified">'+esc(code||'—')+'</span>';
+  const teamColor=window.SLTScorebug?.color?.(code)||'#56534c';
+  return '<span class="vld-nba-logo" style="--nba-team-color:'+esc(teamColor)+'" role="img" aria-label="'+esc(t.name)+' logo">'+
+   '<img src="assets/nba-logos/'+code+'.png" alt="" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add(\'vld-mark-unavailable\')">'+
+   '</span>';
+ }
  return '<span class="vld-crest" style="--side:'+t.color+'">'+(t.logo?'<img src="'+esc(t.logo)+'" alt="" loading="lazy" onerror="this.hidden=true">':'<span class="vld-monogram">'+esc(t.code||t.short.slice(0,2))+'</span>')+'</span>';
 }
 function reportedFouls(g,side){
@@ -465,6 +488,10 @@ async function update(){
 q('vld-reload').addEventListener('click',update);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)update();});
 setInterval(()=>{if(!document.hidden)update();},15000);
+// MBB/WBB logo identity is loaded asynchronously from the shared registry.
+// Replace any initial fallback as soon as the verified catalog is ready.
+if(league==='ncaam'||league==='ncaaw')
+ window.MBBLogos?.ready?.then(ok=>{if(ok&&lastGood)paint(lastGood);});
 loadRetroArchive();
 update();
 })();
