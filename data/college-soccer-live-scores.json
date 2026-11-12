@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "checked_at_utc": "2026-11-12T16:25:08.783329+00:00",
+  "checked_at_utc": "2026-11-12T18:59:43.424448+00:00",
   "source": "NCAA scoreboard via ncaa-api compatibility endpoint",
   "games": [
     {
@@ -422,14 +422,14 @@
     {
       "match_id": "women-6667552",
       "cohort": "women-d1",
-      "status": "live",
+      "status": "final",
       "home_score": 0,
-      "away_score": 0,
+      "away_score": 1,
       "home_name": "Notre Dame",
       "away_name": "Virginia",
       "home_id": "notre-dame",
       "away_id": "virginia",
-      "period": "1ST HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6667552"
     },
     {
@@ -457,6 +457,19 @@
       "away_id": "colorado",
       "period": "FINAL/PK",
       "source_url": "https://www.ncaa.com/game/6667562"
+    },
+    {
+      "match_id": "women-6667568",
+      "cohort": "women-d1",
+      "status": "live",
+      "home_score": 0,
+      "away_score": 0,
+      "home_name": "Quinnipiac",
+      "away_name": "Siena",
+      "home_id": "quinnipiac",
+      "away_id": "siena",
+      "period": "HALF",
+      "source_url": "https://www.ncaa.com/game/6667568"
     },
     {
       "match_id": "women-6667755",
@@ -513,14 +526,14 @@
     {
       "match_id": "women-6667769",
       "cohort": "women-d1",
-      "status": "live",
-      "home_score": 0,
-      "away_score": 0,
+      "status": "final",
+      "home_score": 3,
+      "away_score": 1,
       "home_name": "Jackson St.",
       "away_name": "Prairie View",
       "home_id": "jackson-st",
       "away_id": "prairie-view",
-      "period": "1ST HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6667769"
     },
     {
@@ -600,6 +613,32 @@
       "away_id": "seattle",
       "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6675065"
+    },
+    {
+      "match_id": "women-6675276",
+      "cohort": "women-d1",
+      "status": "live",
+      "home_score": 0,
+      "away_score": 0,
+      "home_name": "Central Conn. St.",
+      "away_name": "Wagner",
+      "home_id": "central-conn-st",
+      "away_id": "wagner",
+      "period": "HALF",
+      "source_url": "https://www.ncaa.com/game/6675276"
+    },
+    {
+      "match_id": "women-6675277",
+      "cohort": "women-d1",
+      "status": "live",
+      "home_score": 0,
+      "away_score": 0,
+      "home_name": "FDU",
+      "away_name": "Stonehill",
+      "home_id": "fdu",
+      "away_id": "stonehill",
+      "period": "1ST HALF",
+      "source_url": "https://www.ncaa.com/game/6675277"
     }
   ]
 }
