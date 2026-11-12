@@ -114,3 +114,22 @@
   border-left:3px solid var(--school-accent,#476958)!important;
   padding-left:10px!important;
 }
+
+/* Tournament winner status and clearer reading order */
+.cs-aq-ledger{padding:17px;margin:22px 0;border:3px double #3e3830;background:#fcfbf7}
+.cs-aq-ledger h2{font:700 20px Georgia,serif}
+.cs-aq-legend{font:12px/1.5 Georgia,serif}
+.cs-aq-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(205px,1fr));gap:9px}
+.cs-aq-card{padding:12px;border:1px solid #aaa49a;display:flex;flex-direction:column;gap:7px;background:#fff;min-width:0}
+.cs-aq-card h3{font:700 14px Georgia,serif;margin:0}.cs-aq-card h3 a{color:inherit}
+.cs-aq-status{font:700 10px Arial,sans-serif}.cs-aq-team{font:700 18px Georgia,serif}
+.cs-aq-card>a{font:12px Georgia,serif}
+.cs-aq-confirmed{border-left:5px solid #315a40}.cs-aq-confirmed .cs-aq-status{color:#26523b}
+.cs-aq-projected{border-left:5px solid #aa956d}.cs-aq-projected .cs-aq-status{color:#735b30}
+.ncaa-region-jump{display:flex;flex-wrap:wrap;gap:7px;margin:14px 0}
+.ncaa-region-jump a{padding:9px 12px;border:1px solid #6c6354;font:700 12px Arial,sans-serif;text-decoration:none;color:#222;background:#f1eee7}
+.ncaa-round-guide{font:italic 13px Georgia,serif}.ncaa-bracket-pod{border-left:4px solid #625840}
+.ncaa-bracket-advance{display:block;font:700 11px/1.4 Georgia,serif}
+.ncaa-bracket-finish>strong{display:block;margin:7px 0 16px;font:700 14px Georgia,serif}
+@media(max-width:700px){.cs-aq-grid{grid-template-columns:1fr 1fr}.ncaa-bracket-pod{grid-template-columns:1fr;gap:9px}.ncaa-round-one:after{display:none}.ncaa-round-two{margin-left:5px}}
+@media(max-width:470px){.cs-aq-grid{grid-template-columns:1fr}}

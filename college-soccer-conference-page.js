@@ -143,6 +143,18 @@ async function render(){
  modelSection.append(E('p',provisional?'Field and seeds are a hypothetical snapshot of the published table, NOT confirmed qualifiers or official seed positions.':'Tournament seeds are supplied explicitly by the conference standings dataset.','cs-conf-caption'));
  modelSection.append(E('p','Elo is used solely to forecast possible match outcomes after a hypothetical field and seed order have been supplied from standings data. These are experimental predictions, not actual brackets or NCAA selection probabilities. Home advantage is a modeling assumption, not a verified venue.','cs-conf-caption'));
  const bracket=E('section',null,'cs-conference-bracket-section');bracket.id='conference-bracket';bracket.append(E('h2',bracketVerified?'OFFICIAL TOURNAMENT MATCHUPS':'ROAD TO THE TITLE · '+(provisional?'PROVISIONAL FIELD':'VERIFIED SEEDS')));
+ if(bracketVerified){
+  const titleMatch=officialBracket.matches.find(m=>/championship|final/i.test(m.round)&&!/semi|quarter/i.test(m.round));
+  const decided=titleMatch?.status==='final'&&titleMatch.winner_id&&Number.isInteger(titleMatch.home_score)&&Number.isInteger(titleMatch.away_score);
+  const banner=E('div',null,'cs-tournament-title-status '+(decided?'cs-title-decided':'cs-title-pending'));
+  if(decided)banner.append(E('strong','★ OFFICIAL CONFERENCE TOURNAMENT CHAMPION'),E('p',teams.find(t=>t.id===titleMatch.winner_id)?.name||titleMatch.winner_id));
+  else{
+   banner.append(E('strong','TOURNAMENT IN PROGRESS · NO CHAMPION CONFIRMED'));
+   if(titleMatch?.home_id&&titleMatch.away_id)banner.append(E('p',(teams.find(t=>t.id===titleMatch.home_id)?.name||'TBD')+' vs '+(teams.find(t=>t.id===titleMatch.away_id)?.name||'TBD')+' · '+(titleMatch.kickoff||'date pending')));
+  }
+  bracket.append(banner);
+ }
+
  if(key==='men-d1:caa'&&!bracketVerified){
   const note=E('p','2026 CAA championship: three qualifiers from each division. Division-specific official seeds are not supplied in this snapshot; matchups cannot be assigned from one overall conference table.','cs-conf-caption');
   bracket.append(note);
@@ -160,8 +172,12 @@ async function render(){
   const rounds=E('div',null,'cs-official-rounds');
   const groups=new Map();
   for(const match of officialBracket.matches){if(!groups.has(match.round))groups.set(match.round,[]);groups.get(match.round).push(match)}
-  for(const [roundName,matches] of groups){const group=E('section',null,'cs-official-round');group.append(E('h3',roundName));for(const match of matches){const card=E('article',null,'cs-official-match');const names=[match.home_id,match.away_id].map(id=>teams.find(t=>t.id===id));const label=E('div',null,'cs-official-match-names');for(const team of names){const cell=E('div',null,'cs-official-team');if(!team)cell.append(E('strong','To be determined'));else if(cup)cell.append(cup.school(team.name,team.id,cfg.cohort,branding));else cell.append(A(team.name,'college-soccer-team.html?team='+encodeURIComponent(cfg.cohort+':'+team.id)));label.append(cell)}card.append(label);
-    if(match.status==='final'&&Number.isInteger(match.home_score)&&Number.isInteger(match.away_score))card.append(E('strong',match.home_score+' – '+match.away_score+' · FINAL','cs-official-result'));
+  for(const [roundName,matches] of groups){const group=E('section',null,'cs-official-round');group.append(E('h3',roundName));for(const match of matches){const card=E('article',null,'cs-official-match');const names=[match.home_id,match.away_id].map(id=>teams.find(t=>t.id===id));const label=E('div',null,'cs-official-match-names');for(const [team,index] of names.entries()){const cell=E('div',null,'cs-official-team');if(match.status==='final'&&match.winner_id===(index===0?match.home_id:match.away_id))cell.classList.add('cs-official-winner');if(!team)cell.append(E('strong','To be determined'));else if(cup)cell.append(cup.school(team.name,team.id,cfg.cohort,branding));else cell.append(A(team.name,'college-soccer-team.html?team='+encodeURIComponent(cfg.cohort+':'+team.id)));label.append(cell)}card.append(label);
+    if(match.status==='final'&&Number.isInteger(match.home_score)&&Number.isInteger(match.away_score)){
+      const shootout=match.decision==='penalties'&&Number.isInteger(match.home_penalties)&&Number.isInteger(match.away_penalties)?' · PENALTIES '+match.home_penalties+'–'+match.away_penalties:'';
+      card.append(E('strong','FINAL · '+match.home_score+'–'+match.away_score+shootout,'cs-official-result'));
+      if(match.winner_id)card.append(E('strong','✓ ADVANCES: '+(teams.find(t=>t.id===match.winner_id)?.name||match.winner_id),'cs-official-advances'));
+    }
     else if(match.kickoff)card.append(E('span',String(match.kickoff),'cs-official-kickoff'));
     if(match.status!=='final'&&names[0]&&names[1]&&Number.isFinite(names[0].elo)&&Number.isFinite(names[1].elo)){
       // A two-way RETRO advancement estimate. Ties/penalties are NOT modeled.

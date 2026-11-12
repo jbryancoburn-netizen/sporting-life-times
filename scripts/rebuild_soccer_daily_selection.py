@@ -38,6 +38,7 @@ def main():
         if source and (DATA/Path(source).name).exists():
             bracket=read(Path(source).name).get("tournament_bracket")
         champion=None
+        champion_match=None
         if bracket and bracket.get("status")=="official" and bracket.get("source_url"):
             # An official champion is accepted only from a final championship match
             # whose score, winner and opponent are fully specified.
@@ -49,12 +50,13 @@ def main():
                     or a==b or a not in conf.get("teams",[]) or b not in conf.get("teams",[])
                     or not isinstance(match.get("home_score"),int)
                     or not isinstance(match.get("away_score"),int)
-                    or match["home_score"]==match["away_score"]):
+                    or (match["home_score"]==match["away_score"] and not (match.get("decision")=="penalties" and match.get("winner_id") in (a,b) and isinstance(match.get("home_penalties"),int) and isinstance(match.get("away_penalties"),int) and match["home_penalties"]!=match["away_penalties"]))):
                     continue
-                winner=a if match["home_score"]>match["away_score"] else b
+                winner=(a if match["home_penalties"]>match["away_penalties"] else b) if match["home_score"]==match["away_score"] else (a if match["home_score"]>match["away_score"] else b)
                 if match.get("winner_id") and match["winner_id"]!=winner:
                     raise ValueError("Conflicting winner in official championship: "+key)
                 champion=by_id[winner]
+                champion_match=match
         # A published official bracket defines the eligible remaining contenders.
         # Never predict a team eliminated by a certified final.
         contenders=choices
@@ -84,7 +86,8 @@ def main():
             team_id=pick["team_id"],team=pick["team"],elo=pick["elo"],
             method="verified_championship_result" if champion else "retro_highest_rated_conference_member_projection",
             official_aq=bool(champion),
-            source_url=bracket["source_url"] if champion else None))
+            source_url=(champion_match.get("source_url") or bracket["source_url"]) if champion else None,
+            championship_result=({"opponent_id":champion_match["away_id"] if champion_match["home_id"]==champion["team_id"] else champion_match["home_id"],"home_score":champion_match["home_score"],"away_score":champion_match["away_score"],"decision":champion_match.get("decision","regulation"),"home_penalties":champion_match.get("home_penalties"),"away_penalties":champion_match.get("away_penalties")} if champion else None)))
     if len(scenarios)!=23: raise ValueError("Expected 23 conference bids")
     # Certified RPI/eligibility, when available, guides the NCAA-résumé proxy.
     # Without it, compute a clearly labeled independent RETRO-only scenario.

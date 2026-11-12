@@ -27,14 +27,24 @@ function draw(data,metrics,branding){
  }
  const forecastStamp=el('p','RETRO rating cutoff: '+(data.rating_cutoff||'unverified')+' · '+verifiedAqs.length+' of '+(data.automatic_bids||23)+' automatic qualifiers officially confirmed in this feed · Remaining AQ places are predictions.','cs-selection-warning');
  host.append(forecastStamp);
- const official=(data.automatic_bid_scenarios||[]).filter(x=>x.official_aq);
- const status=el('section',null,'cs-selection-source-status');
- status.append(el('h2','CONFERENCE AUTOMATIC BIDS · LIVE FORECAST'));
- const line=el('p',official.length+' confirmed · '+((data.automatic_bid_scenarios||[]).length-official.length)+' predicted · refreshed from games through '+(data.rating_cutoff||'unknown'),'cs-selection-warning');
- status.append(line);
- if(official.length){for(const x of official)status.append(el('p',x.conference_name+': '+x.team+' · CONFIRMED NCAA AQ'));}
- const candidates=el('p','Tournament losers are excluded from the projected AQ for conferences whose official bracket results have been entered. This is a RETRO forecast, not a declaration of NCAA selection.','cs-selection-warning');
- status.append(candidates);host.append(status);
+ const official=(data.automatic_bid_scenarios||[]).filter(x=>x.official_aq===true);
+ const scenarios=(data.automatic_bid_scenarios||[]).filter(x=>x.official_aq!==true);
+ const status=el('section',null,'cs-selection-source-status cs-aq-ledger');
+ status.append(el('h2','CONFERENCE TOURNAMENT TRACKER · 23 AUTOMATIC BIDS'));
+ status.append(el('p',official.length+' confirmed champions · '+scenarios.length+' tournaments not decided in the verified feed. RETRO picks are NOT official champions. Ratings through '+(data.rating_cutoff||'unknown')+'.','cs-selection-warning'));
+ status.append(el('p','OFFICIAL CHAMPION = verified conference tournament winner · RETRO PICK = forecast only. The regular-season champion is not automatically the tournament champion.','cs-aq-legend'));
+ const gallery=el('div',null,'cs-aq-grid');
+ for(const x of [...official,...scenarios].sort((a,b)=>(a.official_aq===b.official_aq?String(a.conference_name).localeCompare(String(b.conference_name)):a.official_aq?-1:1))){
+   const card=el('article',null,'cs-aq-card '+(x.official_aq?'cs-aq-confirmed':'cs-aq-projected'));
+   const slug=String(x.conference||'').replace(/^men-d1:/,'');
+   const title=el('h3'),conferenceLink=el('a',x.conference_name||slug);
+   conferenceLink.href='college-soccer-'+slug+'-men.html';title.append(conferenceLink);card.append(title);
+   card.append(el('span',x.official_aq?'★ CONFIRMED TOURNAMENT CHAMPION':'◇ RETRO PICK · TITLE UNCONFIRMED','cs-aq-status'));
+   card.append(el('strong',x.team||x.team_id,'cs-aq-team'));
+   if(x.official_aq&&x.source_url){const proof=el('a','Verified championship result');proof.href=x.source_url;proof.target='_blank';proof.rel='noopener noreferrer';card.append(proof);}
+   gallery.append(card);
+ }
+ status.append(gallery);host.append(status);
  if(Array.isArray(metrics?.field)&&metrics.field.length===48){
   const nIds=new Set(metrics.field.map(x=>x.team_id)),uIds=new Set(data.field.map(x=>x.team_id));
   const ncaaOnly=metrics.field.filter(x=>!uIds.has(x.team_id));
@@ -68,6 +78,7 @@ function draw(data,metrics,branding){
  host.append(el('p',mode==='usrs'?'Your independent RETRO ratings replace the committee evaluation tool within the NCAA selection framework. NCAA field sizes, bid allocations, eligibility screening and seed structure remain in force. NCAA hosting/geography rules are not yet fully modeled.':'Projected NCAA committee field from the October 23 RPI table, conference qualification projections and provisional at-large eligibility. It is a forecast, not the official selection committee field.','cs-selection-warning'));
  const bracket=el('section',null,'ncaa-bracket');
  bracket.append(el('h2',mode==='usrs'?'RETRO PROJECTED NCAA BRACKET':'PROVISIONAL RPI-BASED BRACKET'));
+ bracket.append(el('p','How to read this projection: first-round opponents → seeded second-round opponent → third round → quarterfinal → College Cup. Advancing teams are RETRO picks, not NCAA results.','cs-selection-warning'));
  bracket.append(el('p',mode==='usrs'?'RETRO acts as the hypothetical selection committee: 23 projected automatic bids, 25 eligible at-large picks, 24 seeded teams and 16 byes. The model avoids same-conference first-round matches where feasible; hosting and geography are not yet resolved.':'NCAA résumé metrics are still incomplete. These are 48 structural slots, not invented committee selections.','cs-selection-warning'));
  const entrants=mode==='usrs'?data.field:(Array.isArray(metrics?.field)?metrics.field:[]);
  const byRank=n=>entrants[n-1]||null;
@@ -118,29 +129,32 @@ function draw(data,metrics,branding){
  const pods=slots.map(p=>{const opening=win(byRank(p.x),byRank(p.y));return {seed:p.seed,x:p.x,y:p.y,opening,advance:win(byRank(p.seed),opening)};});
  bracket.append(el('p','PLACEMENT CHECK: No potential same-conference matchups in rounds one or two. Host sites, geography and official committee pairings remain unverified.','cs-selection-warning'));
  const quarters=[];
+ const jumps=el('nav',null,'ncaa-region-jump');jumps.setAttribute('aria-label','Jump to bracket quadrant');for(let j=0;j<4;j++){const a=el('a','QUADRANT '+(j+1));a.href='#ncaa-region-'+(j+1);jumps.append(a)}bracket.append(jumps);
  for(let q=0;q<4;q++){
-  const quadrant=el('section',null,'ncaa-bracket-quadrant');quadrant.append(el('h3','REGION '+(q+1)));
+  const quadrant=el('section',null,'ncaa-bracket-quadrant');quadrant.id='ncaa-region-'+(q+1);quadrant.append(el('h3','QUADRANT '+(q+1)+' · PATH TO THE COLLEGE CUP'),el('p','Round 1 → Round 2 → Round 3 → Quarterfinal','ncaa-round-guide'));
   const podGrid=el('div',null,'ncaa-bracket-pods');
   for(let i=q*4;i<q*4+4;i++){
    const p=pods[i],card=el('article',null,'ncaa-bracket-pod');
    const first=el('div',null,'ncaa-round-one');
    first.append(el('strong','FIRST ROUND · '+p.x+' vs '+p.y));
-   first.append(schoolRow(byRank(p.x),branding,'ncaa-bracket-team'),schoolRow(byRank(p.y),branding,'ncaa-bracket-team'));
+   first.append(schoolRow(byRank(p.x),branding,'ncaa-bracket-team'),schoolRow(byRank(p.y),branding,'ncaa-bracket-team'));if(p.opening)first.append(el('small','RETRO advances → '+p.opening.team,'ncaa-bracket-advance'));
    const second=el('div',null,'ncaa-round-two');
    second.append(el('strong','SECOND ROUND · #'+p.seed+' BYE'));
    second.append(schoolRow(byRank(p.seed),branding,'ncaa-bracket-team'));
    second.append(p.opening?schoolRow(p.opening,branding,'ncaa-bracket-team'):el('div','First-round winner','ncaa-bracket-team'));
-   if(p.advance)second.append(el('small','RETRO ADVANCES · '+p.advance.team,'ncaa-bracket-advance'));
+   if(p.advance)second.append(el('small','RETRO advances → '+p.advance.team,'ncaa-bracket-advance'));
    card.append(first,second);
    podGrid.append(card);
   }
   quadrant.append(podGrid);
   const thirdA=win(pods[q*4].advance,pods[q*4+1].advance),thirdB=win(pods[q*4+2].advance,pods[q*4+3].advance),quarter=win(thirdA,thirdB);
-  const path=el('div',null,'ncaa-bracket-path');path.append(el('strong','THIRD ROUND'),el('p',thirdA?thirdA.team:'Winner of pods 1 and 2'),el('p',thirdB?thirdB.team:'Winner of pods 3 and 4'),el('strong','QUARTERFINAL'),el('p',quarter?quarter.team:'Third-round winners'));quadrant.append(path);
+  const path=el('div',null,'ncaa-bracket-path');path.append(el('strong','THIRD ROUND · RETRO PICKS'),el('p',thirdA?'① '+thirdA.team:'Opening pods 1–2'),el('p',thirdB?'② '+thirdB.team:'Opening pods 3–4'),el('strong','QUARTERFINAL · RETRO ADVANCES'),el('p',quarter?'→ '+quarter.team:'Third-round winners'));quadrant.append(path);
   quarters.push(quarter);bracket.append(quadrant);
  }
  const semiA=win(quarters[0],quarters[1]),semiB=win(quarters[2],quarters[3]),champ=win(semiA,semiB);
- const finish=el('section',null,'ncaa-bracket-finish');finish.append(el('h3','COLLEGE CUP SEMIFINALS'),el('p',semiA?semiA.team:'Semifinal winner TBD'),el('p',semiB?semiB.team:'Semifinal winner TBD'),el('h3','NATIONAL CHAMPIONSHIP'),el('p',champ?'RETRO pick: '+champ.team:'Champion TBD'));bracket.append(finish);host.append(bracket);
+ const finish=el('section',null,'ncaa-bracket-finish');
+ finish.append(el('h3','COLLEGE CUP · PROJECTED SEMIFINALS'),el('p',(quarters[0]?.team||'Quadrant 1 winner')+' vs '+(quarters[1]?.team||'Quadrant 2 winner')),el('strong',semiA?'RETRO advances → '+semiA.team:'Semifinal 1 pending'),el('p',(quarters[2]?.team||'Quadrant 3 winner')+' vs '+(quarters[3]?.team||'Quadrant 4 winner')),el('strong',semiB?'RETRO advances → '+semiB.team:'Semifinal 2 pending'),el('h3','PROJECTED NATIONAL CHAMPIONSHIP'),el('p',(semiA?.team||'Semifinal 1 winner')+' vs '+(semiB?.team||'Semifinal 2 winner')),el('strong',champ?'RETRO national title pick → '+champ.team:'Champion TBD'));
+ bracket.append(finish);host.append(bracket);
  const groups=[['FIRST 24 · PROJECTED ORDER',entries.slice(0,24)],['REMAINING FIELD',entries.slice(24)],['BUBBLE / NEXT FOUR',mode==='usrs'?data.first_four_out_proxy:metrics.first_four_out||[]]];
  for(const [name,rows] of groups){
   const section=el('section',null,'cs-selection-group');section.append(el('h2',name));

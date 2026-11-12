@@ -165,3 +165,11 @@
  .cs-conf-qualifier-strip{grid-template-columns:1fr}
 }
 @media(prefers-reduced-motion:reduce){.cs-conf-page *{scroll-behavior:auto!important}}
+
+/* Verified conference tournament outcomes and progress */
+.cs-tournament-title-status{padding:14px 16px;margin:12px 0 18px;border:3px double #696255;background:#f8f6f0}
+.cs-tournament-title-status strong{font:700 13px Georgia,serif}
+.cs-tournament-title-status p{font:700 19px Georgia,serif;margin:8px 0 0}
+.cs-title-decided{border-color:#315e44}.cs-title-pending{border-color:#a39470}
+.cs-official-team.cs-official-winner{border-left:4px solid #315e44;padding-left:7px;background:#eef3ed}
+.cs-official-advances{display:block;font:700 12px Georgia,serif;color:#265039;margin:9px 0}

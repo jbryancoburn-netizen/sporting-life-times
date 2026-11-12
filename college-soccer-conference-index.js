@@ -8,7 +8,7 @@ const legacy={
  '#college-soccer-women-miaa':'college-soccer-miaa-women.html'
 };
 if(legacy[location.hash]){location.replace(legacy[location.hash]);return;}
-Promise.all(['data/college-soccer-conferences.json','data/college-soccer-elo.json'].map(p=>fetch(p+'?v='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error(p+' '+r.status);return r.json()}))).then(([data,elo])=>{
+Promise.all(['data/college-soccer-conferences.json','data/college-soccer-elo.json','data/college-soccer-ncaa-selection-forecast.json'].map(p=>fetch(p+'?v='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error(p+' '+r.status);return r.json()}))).then(([data,elo,forecast])=>{
  root.replaceChildren();
  let selectedCohort=window.CollegeSoccerEdition?.get()||'men-d1';
  const mast=node('div',null,'cs-conf-directory-heading');mast.append(node('h2','THE CONFERENCE DIRECTORY'),node('span','CONFERENCE RACES · NCAA POSTSEASON'));root.append(mast);
@@ -17,6 +17,7 @@ Promise.all(['data/college-soccer-conferences.json','data/college-soccer-elo.jso
  const [cohort,league]=key.split(':');const [sex,division]=cohort.split('-');
  return {key,cohort,label:v.short||v.name||league,sex:sex==='women'?'Women':'Men',division:division==='d1'?'I':division==='d2'?'II':'III',href:v.page};
 }).sort((a,b)=>a.division.localeCompare(b.division)||a.sex.localeCompare(b.sex)||a.label.localeCompare(b.label));
+ const aqByConf=new Map((forecast.automatic_bid_scenarios||[]).map(x=>[x.conference,x]));
  const mapped=Object.keys(data.conferences||{}).length;
  const coverage=node('p',groups.length+' verified conference desks · Division I: '+groups.filter(g=>g.division==='I').length+' · Division II: '+groups.filter(g=>g.division==='II').length+' · Division III: '+groups.filter(g=>g.division==='III').length+'. All other conferences are still being mapped.','cs-conf-directory-coverage');root.append(coverage);
  const audit=node('div',null,'cs-conf-cohort-coverage');audit.setAttribute('aria-label','Verified NCAA soccer conference coverage by division');
@@ -42,7 +43,9 @@ for(const conf of groups){const meta=data.conferences[conf.key];
   const link=node('a',null,'cs-conf-directory-link');link.href=conf.href;link.dataset.search=(conf.label+' '+meta.name+' '+conf.key).toLowerCase();link.dataset.division=conf.division;link.dataset.gender=conf.sex;link.dataset.cohort=conf.cohort;
   const kicker=node('span',conf.sex.toUpperCase()+' · DIVISION '+(conf.division),'cs-conf-directory-kicker');
   const name=node('strong',conf.label,'cs-conf-directory-name');
-  const count=node('span',meta.teams.length+' programs · Tournament race','cs-conf-directory-count');
+  const aq=aqByConf.get(conf.key);
+  const count=node('span',meta.teams.length+' programs · '+(aq?(aq.official_aq?'★ CONFIRMED CHAMPION: '+aq.team:'RETRO PICK: '+aq.team+' · title pending'):'Tournament race'),'cs-conf-directory-count');
+  if(aq?.official_aq)link.classList.add('cs-conf-champion');
   link.append(kicker,name,count);rail.append(link);
 
  }

@@ -2,7 +2,7 @@
   "schema_version": 1,
   "source_name": "Big Ten Conference official 2026 soccer standings",
   "source_url": "https://bigten.org/standings.aspx?path=msoc",
-  "snapshot_checked_date": "2026-11-09",
+  "snapshot_checked_date": "2026-11-12",
   "last_verified_game_date": "2026-11-08",
   "note": "Official Big Ten 2026 published final regular-season conference table; overall records reflect currently published tournament-era results. Tournament seeds and real advancement are separately verified.",
   "rows": [
@@ -98,9 +98,11 @@
     "results_sources": [
       "https://msuspartans.com/news/2026/11/8/mens-soccer-short-handed-spartans-fall-to-maryland-in-the-big-ten-tournament-quarterfinals",
       "https://uclabruins.com/news/2026/11/8/mens-soccer-falls-to-rutgers-in-big-ten-tournament-quarterfinal-2-0",
-      "https://bigten.org/news/2026/11/9/mens-soccer-maryland-rutgers-advance-to-semifinal-clashes-with-indiana-washington.aspx"
+      "https://bigten.org/news/2026/11/9/mens-soccer-maryland-rutgers-advance-to-semifinal-clashes-with-indiana-washington.aspx",
+      "https://umterps.com/news/2026/11/11/mens-soccer-msoc-indiana-big-ten-tournament-recap",
+      "https://scarletknights.com/news/2026/11/12/no-15-mens-soccer-falls-at-no-11-washington-in-big-ten-semifinals"
     ],
-    "verified_through": "2026-11-09",
+    "verified_through": "2026-11-11",
     "matches": [
       {
         "round": "QUARTERFINALS · NOV 8",
@@ -126,20 +128,31 @@
         "round": "SEMIFINALS · NOV 11",
         "home_id": "indiana",
         "away_id": "maryland",
-        "status": "scheduled",
-        "kickoff": "Nov 11 · 6 p.m. ET · BTN"
+        "status": "final",
+        "kickoff": "Nov 11 · 6 p.m. ET · BTN",
+        "home_score": 1,
+        "away_score": 0,
+        "winner_id": "indiana",
+        "source_url": "https://umterps.com/news/2026/11/11/mens-soccer-msoc-indiana-big-ten-tournament-recap"
       },
       {
         "round": "SEMIFINALS · NOV 11",
         "home_id": "washington",
         "away_id": "rutgers",
-        "status": "scheduled",
-        "kickoff": "Nov 11 · 9 p.m. ET · BTN"
+        "status": "final",
+        "kickoff": "Nov 11 · 9 p.m. ET · BTN",
+        "home_score": 1,
+        "away_score": 1,
+        "winner_id": "washington",
+        "decision": "penalties",
+        "home_penalties": 3,
+        "away_penalties": 2,
+        "source_url": "https://scarletknights.com/news/2026/11/12/no-15-mens-soccer-falls-at-no-11-washington-in-big-ten-semifinals"
       },
       {
         "round": "CHAMPIONSHIP · NOV 15",
-        "home_id": null,
-        "away_id": null,
+        "home_id": "indiana",
+        "away_id": "washington",
         "status": "scheduled",
         "kickoff": "Nov 15 · 3 p.m. ET · BTN"
       }

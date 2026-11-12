@@ -65,7 +65,9 @@ jobs:
       - name: Update provisional conference standings and postseason seeds
         run: python scripts/build_college_soccer_conference_projections.py
       - name: Update experimental NCAA selection forecast
-        run: python scripts/build_college_soccer_ncaa_selection.py
+        run: |
+          python scripts/build_college_soccer_ncaa_selection.py
+          python scripts/rebuild_soccer_daily_selection.py
       - name: Audit previously disputed soccer game scores
         run: python scripts/audit_college_soccer_score_corrections.py
       - name: Rebuild Elo parameter sensitivity audit
@@ -136,6 +138,7 @@ jobs:
             python scripts/build_college_soccer_team_game_index.py
             python scripts/build_college_soccer_conference_projections.py
             python scripts/build_college_soccer_ncaa_selection.py
+            python scripts/rebuild_soccer_daily_selection.py
             python scripts/audit_college_soccer_score_corrections.py
             python scripts/audit_college_soccer_elo_parameters.py
             python scripts/publish_college_soccer_dynamic.py
