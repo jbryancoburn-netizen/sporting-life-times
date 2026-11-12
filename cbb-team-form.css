@@ -1,0 +1,29 @@
+/* A single compact Victorian Form Book for both team editions. */
+.cbb-team-form{margin:13px 0 20px;padding:16px 18px 12px;border:1px solid #755b43;border-top:4px double #755b43;border-bottom:4px double #755b43;background:#faf6ec;color:#33291f;font-family:"Century Schoolbook",Georgia,serif;box-sizing:border-box}
+.cbb-team-form *{box-sizing:border-box}
+.cbb-form-heading{display:flex;align-items:end;justify-content:space-between;flex-wrap:wrap;gap:5px 14px;padding-bottom:9px;border-bottom:1px solid #aa957d}
+.cbb-form-heading h2,.cbb-team-form>h2{margin:2px 0;font:700 clamp(21px,2.2vw,28px)/1.2 "Century Schoolbook",Georgia,serif;color:#3c2b1e}
+.cbb-form-kicker{display:block;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#755b43}
+.cbb-form-asof{font-size:11px;color:#614b37;white-space:nowrap}
+.cbb-form-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-bottom:1px solid #aa957d}
+.cbb-form-stat{min-width:0;padding:10px 12px;border-right:1px solid #cfc2af;text-align:center}
+.cbb-form-stat:last-child{border-right:0}
+.cbb-form-stat small{display:block;font:700 10px/1.4 Georgia,serif;text-transform:uppercase;letter-spacing:.3px;color:#755b43}
+.cbb-form-stat strong{display:block;margin-top:4px;font:700 clamp(20px,2.3vw,30px)/1.15 "Century Schoolbook",Georgia,serif;font-variant-numeric:tabular-nums;color:#39291c}
+.cbb-form-lower{display:grid;grid-template-columns:minmax(140px,.68fr) minmax(0,2fr);gap:17px;padding-top:12px}
+.cbb-form-lower h3{margin:0 0 8px;font:bold 13px/1.2 Georgia,serif;color:#493b2c}
+.cbb-form-marks{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.cbb-form-mark{display:inline-flex;width:28px;height:28px;align-items:center;justify-content:center;border:1px solid #927b64;background:#f2ebdc;font:bold 14px/1 Georgia,serif}
+.cbb-form-mark.is-win{color:#225140;border-color:#699486}
+.cbb-form-mark.is-loss{color:#863b33;border-color:#bb897d}
+.cbb-form-unknown{font-size:11px;color:#735f49}
+.cbb-form-recent ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 18px}
+.cbb-form-recent li{display:grid;grid-template-columns:50px minmax(0,1fr) 82px;gap:6px;align-items:baseline;padding:5px 0;border-bottom:1px dotted #c9baa4;font-size:12px;min-width:0}
+.cbb-form-recent time{font-size:10px;color:#6b5844;white-space:nowrap}
+.cbb-form-recent li span{overflow-wrap:anywhere}
+.cbb-form-recent li strong{text-align:right;white-space:nowrap;font-size:12px;font-variant-numeric:tabular-nums}
+.cbb-form-recent .is-win{color:#225140}
+.cbb-form-recent .is-loss{color:#863b33}
+.cbb-form-recent .cbb-form-empty{display:block;color:#735f49}
+.cbb-form-status{margin:10px 0 0!important;font:11px/1.4 Georgia,serif;color:#695844}
+@media(max-width:720px){.cbb-team-form{padding:13px 11px}.cbb-form-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.cbb-form-stat:nth-child(2){border-right:0}.cbb-form-stat:nth-child(-n+2){border-bottom:1px solid #cfc2af}.cbb-form-lower{grid-template-columns:1fr;gap:12px}.cbb-form-recent ol{grid-template-columns:1fr}.cbb-form-recent li{grid-template-columns:50px minmax(0,1fr) 83px}.cbb-form-asof{white-space:normal}}
