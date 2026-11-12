@@ -4,7 +4,7 @@
   "source_forecasts_published_at": "2026-11-12T18:58:33.737345+00:00",
   "coverage": "partial_verified_finals_plus_locked_forecasts",
   "notice": "Partial schedule index only: official final ledger begins after the pinned baseline; pending fixtures are unverified until official finals arrive. A scheduled game may have already started.",
-  "verified_final_count": 2987,
+  "verified_final_count": 3003,
   "locked_forecast_count": 2644,
   "unresolved": [
     {
@@ -80,6 +80,11 @@
     {
       "match_id": "men-6675545",
       "team_id": "faith-bapt-bible",
+      "reason": "ambiguous_or_missing_division"
+    },
+    {
+      "match_id": "men-6666803",
+      "team_id": "bry-strat-syr",
       "reason": "ambiguous_or_missing_division"
     }
   ],
@@ -6366,14 +6371,13 @@
         {
           "match_id": "men-6666514",
           "date": "2026-11-12",
-          "kickoff_utc": "2026-11-12T20:30:00+00:00",
-          "opponent": "Harvard",
+          "opponent": "harvard",
           "venue": "home",
-          "status": "unverified",
-          "goals_for": null,
-          "goals_against": null,
+          "status": "final",
+          "goals_for": 2,
+          "goals_against": 1,
           "source_url": "https://www.ncaa.com/game/6666514",
-          "source_type": "timestamped_pregame_forecast"
+          "source_type": "verified_official_final"
         }
       ]
     },
@@ -12209,14 +12213,13 @@
         {
           "match_id": "men-6666514",
           "date": "2026-11-12",
-          "kickoff_utc": "2026-11-12T20:30:00+00:00",
-          "opponent": "Cornell",
+          "opponent": "cornell",
           "venue": "away",
-          "status": "unverified",
-          "goals_for": null,
-          "goals_against": null,
+          "status": "final",
+          "goals_for": 1,
+          "goals_against": 2,
           "source_url": "https://www.ncaa.com/game/6666514",
-          "source_type": "timestamped_pregame_forecast"
+          "source_type": "verified_official_final"
         }
       ]
     },
@@ -16091,14 +16094,13 @@
         {
           "match_id": "men-6666727",
           "date": "2026-11-12",
-          "kickoff_utc": "2026-11-12T18:00:00+00:00",
-          "opponent": "Mercyhurst",
+          "opponent": "mercyhurst",
           "venue": "home",
-          "status": "unverified",
-          "goals_for": null,
-          "goals_against": null,
+          "status": "final",
+          "goals_for": 1,
+          "goals_against": 0,
           "source_url": "https://www.ncaa.com/game/6666727",
-          "source_type": "timestamped_pregame_forecast"
+          "source_type": "verified_official_final"
         }
       ]
     },
@@ -18536,14 +18538,13 @@
         {
           "match_id": "men-6666727",
           "date": "2026-11-12",
-          "kickoff_utc": "2026-11-12T18:00:00+00:00",
-          "opponent": "LIU",
+          "opponent": "long-island",
           "venue": "away",
-          "status": "unverified",
-          "goals_for": null,
-          "goals_against": null,
+          "status": "final",
+          "goals_for": 0,
+          "goals_against": 1,
           "source_url": "https://www.ncaa.com/game/6666727",
-          "source_type": "timestamped_pregame_forecast"
+          "source_type": "verified_official_final"
         }
       ]
     },
@@ -65166,6 +65167,21 @@
           "goals_against": null,
           "source_url": "https://www.ncaa.com/game/6612930",
           "source_type": "timestamped_pregame_forecast"
+        }
+      ]
+    },
+    "women-d3:us-sports-academy": {
+      "games": [
+        {
+          "match_id": "women-6666848",
+          "date": "2026-11-12",
+          "opponent": "salem-intl",
+          "venue": "home",
+          "status": "final",
+          "goals_for": 0,
+          "goals_against": 3,
+          "source_url": "https://www.ncaa.com/game/6666848",
+          "source_type": "verified_official_final"
         }
       ]
     },
