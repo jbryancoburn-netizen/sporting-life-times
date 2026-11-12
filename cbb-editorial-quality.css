@@ -1,0 +1,50 @@
+/* Sporting Life & Times / College basketball editorial quality pass.
+   Shared across men's and women's desks. Designed to preserve existing
+   team identity, two-ring colors, and game-state semantics. */
+:root{--cbbq-paper:#f3ead8;--cbbq-ink:#30261d;--cbbq-rule:#b6a083;--cbbq-highlight:#fffaf0}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{font-synthesis:none}
+:is(.wrap,.sl-shell,.rank-paper,.wbbr-desk){min-width:0}
+:is(.wrap,.sl-shell,.rank-paper,.wbbr-desk) img{image-rendering:auto;max-width:100%}
+:is(.wrap,.sl-shell,.rank-paper,.wbbr-desk) :is(h1,h2,h3){text-wrap:balance}
+:is(.wrap,.sl-shell,.rank-paper,.wbbr-desk) :is(p,.rank-intro){overflow-wrap:break-word}
+:is(.wrap,.sl-shell,.rank-paper,.wbbr-desk) :is(a,button,input,select):focus-visible{outline:3px solid #97622c;outline-offset:3px}
+:is(.rank-table,.wbbr-list,.sl-content) {font-variant-numeric:tabular-nums}
+:is(.rank-table td,.rank-table th,.wbbr-entry,.sl-game,.sl-content-head){min-width:0}
+.rank-table th{white-space:normal;line-height:1.35}
+.rank-table td{vertical-align:middle}
+.rank-school .mbb-mark,.wbbr-entry .mbb-mark{flex-shrink:0}
+.rank-school a,.wbbr-identity a{text-underline-offset:3px}
+.rank-table tbody tr:hover td,.wbbr-entry:hover{background:#fff8e9}
+.wbbr-entry{box-shadow:none}
+.wbbr-list{background:transparent}
+.sl-game{box-shadow:none}
+.sl-game-bar{line-height:1.5}
+.sl-game-editorial:after{display:none}
+.sl-team-copy strong{line-height:1.14}
+.sl-team-copy small,.sl-record{line-height:1.45}
+.cbb-news-story{box-shadow:none}
+.cbb-news-story h3{line-height:1.2}
+.cbb-front-deck,.cbb-news-description{line-height:1.5}
+.mbb-mark>img.mbb-mark__img{image-rendering:auto!important;filter:none!important}
+@media(max-width:760px){
+  :is(.wrap,.sl-shell,.rank-paper,.wbbr-desk){max-width:100%}
+  .sl-meta{flex-wrap:wrap;gap:5px 12px}
+  .sl-tools-row{flex-wrap:wrap}
+  .sl-search{flex:1 1 190px;min-width:0}
+  .sl-content-head{align-items:start;flex-wrap:wrap}
+  .sl-count-wrap{flex-wrap:wrap;white-space:normal}
+  .rank-table-wrap{overscroll-behavior-inline:contain}
+  .rank-school{min-width:120px}
+  .cbb-news-story.lead{padding:18px}
+}
+@media(max-width:400px){
+  .sl-shell{padding-inline:10px}
+  .sl-day-controls{gap:5px}
+  .sl-day-picker{padding-inline:5px}
+  .sl-filters button{padding:7px 9px}
+  .wbbr-entry{gap:5px}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+}
