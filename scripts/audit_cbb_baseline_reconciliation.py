@@ -194,6 +194,36 @@ def inspect_player(gender,game,evidence):
                     notes.append("team "+side+" reconciled")
     return notes,problems
 
+def first_differences(source,public,limit=30):
+    """Bounded, content-aware diff so timestamps can't masquerade as score errors."""
+    result=[]
+    def walk(a,b,path):
+        if len(result)>=limit or a==b:
+            return
+        if isinstance(a,dict) and isinstance(b,dict):
+            for key in sorted(set(a)|set(b)):
+                if len(result)>=limit:
+                    return
+                if key not in a or key not in b:
+                    result.append({"path":path+"."+str(key),"kind":"missing_key"})
+                else:
+                    walk(a[key],b[key],path+"."+str(key))
+            return
+        if isinstance(a,list) and isinstance(b,list):
+            if len(a)!=len(b):
+                result.append({"path":path,"kind":"length",
+                               "repository":len(a),"published":len(b)})
+            for idx in range(min(len(a),len(b))):
+                if len(result)>=limit:
+                    return
+                walk(a[idx],b[idx],path+"["+str(idx)+"]")
+            return
+        result.append({"path":path,"kind":"value","repository":str(a)[:120],
+                       "published":str(b)[:120]})
+    walk(source,public,"$")
+    return result
+
+
 def analyze():
     cross=load("ncaam-2026-27-espn-team-crosswalk.json")["teams"]
     ncaa_to_espn={str(x["id"]):str(x["espn_id"]) for x in cross if x.get("espn_id")}
@@ -402,6 +432,11 @@ def analyze():
         "public_players_count":len(published_current.get("players") or [])
                                 if isinstance(published_current,dict) else None,
         "public_matches_source":parity,
+        "source_as_of":source_current.get("as_of") if isinstance(source_current,dict) else None,
+        "public_as_of":published_current.get("as_of") if isinstance(published_current,dict) else None,
+        "source_games_type":type(game_rows).__name__,
+        "source_game_sample":str(sample)[:380],
+        "first_differences":first_differences(source_current,published_current),
         "source_note":"Aggregate player stats and per-game NCAA relay boxscores are separate evidence. "
                       "Only records with actual game IDs can certify a specific final."
     }
