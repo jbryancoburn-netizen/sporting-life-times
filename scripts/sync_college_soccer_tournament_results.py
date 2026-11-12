@@ -69,6 +69,39 @@ def verified_score(match, results):
                 status="final", source_url=url, result_date=played)
 
 
+
+def propagate_winners(matches, membership):
+    """Fill only championship slots explicitly linked to certified semifinal winners."""
+    indexed = {}
+    for m in matches:
+        if m.get("id"):
+            if m["id"] in indexed:
+                raise ValueError("Duplicate tournament match ID " + str(m["id"]))
+            indexed[m["id"]] = m
+    changed = False
+    for match in matches:
+        for side in ("home", "away"):
+            source = match.get(side + "_from")
+            if not source:
+                continue
+            earlier = indexed.get(source)
+            if not earlier:
+                raise ValueError("Missing certified feeder match " + str(source))
+            if earlier.get("status") != "final":
+                continue
+            winner = earlier.get("winner_id")
+            if winner not in membership:
+                continue  # A tied fixture without certified shootout winner is unresolved.
+            previous = match.get(side + "_id")
+            if previous is None:
+                match[side + "_id"] = winner
+                changed = True
+            elif previous != winner:
+                raise ValueError("Finalist conflicts with certified semifinal winner: " + str(source))
+        if match.get("home_id") and match.get("home_id") == match.get("away_id"):
+            raise ValueError("Team cannot play itself in championship bracket")
+    return changed
+
 def update_all():
     directory = load("college-soccer-conferences.json")
     ledger = load("college-soccer-elo-final-ledger.json")
@@ -93,24 +126,30 @@ def update_all():
         if not membership:
             continue
         dirty = False
-        for match in bracket.get("matches", []):
-            if match.get("status") == "final":
-                continue
-            if not {match.get("home_id"), match.get("away_id")} <= membership:
-                continue
-            if not match.get("home_id") or not match.get("away_id"):
-                continue
-            checked += 1
-            result = verified_score(match, records)
-            if result:
-                match.update(result)
+        # Run once for seeded matchups and once after semifinal winners are
+        # propagated into future championship fixtures. An unconfirmed
+        # shootout never produces a winner or advances a club.
+        for pass_number in range(2):
+            if propagate_winners(bracket.get("matches", []), membership):
                 dirty = True
-                print(f"FINAL {key}: {match['home_id']} {result['home_score']} - "
-                      f"{result['away_score']} {match['away_id']} [{result['source_url']}]")
-            else:
-                # A scoreless/unresolved game remains clearly unconfirmed.
-                unresolved.append(f"{key}: {match.get('round')} "
-                                  f"{match['home_id']} vs {match['away_id']}")
+            for match in bracket.get("matches", []):
+                if match.get("status") == "final":
+                    continue
+                if not {match.get("home_id"), match.get("away_id")} <= membership:
+                    continue
+                if not match.get("home_id") or not match.get("away_id"):
+                    continue
+                checked += 1
+                result = verified_score(match, records)
+                if result:
+                    match.update(result)
+                    dirty = True
+                    print(f"FINAL {key}: {match['home_id']} {result['home_score']} - "
+                          f"{result['away_score']} {match['away_id']} [{result['source_url']}]")
+                else:
+                    # A scoreless/unresolved game remains clearly unconfirmed.
+                    unresolved.append(f"{key}: {match.get('round')} "
+                                      f"{match['home_id']} vs {match['away_id']}")
         if dirty:
             dates = [m.get("result_date") for m in bracket["matches"] if m.get("result_date")]
             if dates:
@@ -139,6 +178,30 @@ def self_test():
     assert verified_score(template, [{**records[0], "away_goals": 0}]) is None
     assert verified_score(template, [{**records[0], "date": "2026-10-14"}]) is None
     assert fixture_date("QUARTERFINALS · NOV 7 (RESUMED)") == date(2026, 11, 7)
+    semis=[
+        {"id":"SF1","round":"SEMIFINALS · NOV 12",
+         "status":"final","winner_id":"cornell","home_id":"cornell","away_id":"harvard",
+         "home_score":2,"away_score":1},
+        {"id":"SF2","round":"SEMIFINALS · NOV 12",
+         "status":"scheduled","home_id":"penn","away_id":"yale"},
+        {"id":"F1","round":"CHAMPIONSHIP · NOV 15",
+         "status":"scheduled","home_id":None,"away_id":None,
+         "home_from":"SF1","away_from":"SF2"},
+    ]
+    members={"cornell","harvard","penn","yale"}
+    assert propagate_winners(semis,members)
+    assert semis[2]["home_id"]=="cornell" and semis[2]["away_id"] is None
+    semis[1].update(status="final",winner_id="yale",home_score=0,away_score=2)
+    assert propagate_winners(semis,members)
+    assert semis[2]["away_id"]=="yale"
+    assert not propagate_winners(semis,members)
+    semis[1]["winner_id"]="penn"
+    try:
+        propagate_winners(semis,members)
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("Conflicting conference finalist accepted")
     print("PASS: conference score matching, home/away reversal, and draw safety")
 
 
