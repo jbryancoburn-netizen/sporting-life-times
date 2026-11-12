@@ -73,7 +73,7 @@ for(const feed of [
    const row=label.children[i];
    assert.equal(row.css,'cs-official-team');
    assert(tournamentSeedByTeam.has(id),'Official match team lacks a seed: '+id+' / '+feed);
-   assert.equal(row.children[0].css,'cs-tournament-seed','Tournament seed not beside team');
+   assert(row.children[0].css.split(' ').includes('cs-tournament-seed'),'Tournament seed not beside team');
    assert.equal(row.children[0].text,officialRegionalSeedLabels[id]||'#'+tournamentSeedByTeam.get(id),'Wrong permanent official conference seed');
    assert.equal(row.children[1].kind,'school','Known club cannot render as TBD');
    assert.equal(row.children[1].id,id,'Wrong crest/team mapped to matchup row');
