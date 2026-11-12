@@ -108,8 +108,14 @@ def schedule_match(row,game,ids,gender):
         if scores != ids or not final_state(row):
             return False
         if normalized_id(row.get("id"))!=normalized_id(game.get("id")):
-            if not (row.get("official_source") is True and
-                    str(row.get("school_source_url","")).startswith("https://")):
+            official_fixture = (row.get("official_source") is True and
+                str(row.get("school_source_url","")).startswith("https://"))
+            verified_retro_alias = (
+                normalized_id(row.get("retro_verified_final")) ==
+                normalized_id(game.get("id")) and
+                row.get("site_verified") is True and
+                str(row.get("site_source_url","")).startswith("https://"))
+            if not (official_fixture or verified_retro_alias):
                 return False
     else:
         if normalized_id(row.get("id"))!=normalized_id(game.get("id")) or not row.get("completed"):

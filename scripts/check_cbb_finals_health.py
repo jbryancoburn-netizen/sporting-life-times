@@ -79,10 +79,16 @@ def calendar_matches_verified_final(row, event_id, source_scores, tip):
         return False
     published_id = str(row.get("id", "")).removeprefix("espn:")
     if published_id != event_id:
-        # University schedule archives use a distinct, documented fixture ID.
-        # An arbitrary row sharing a date and 78-72 score is NOT enough.
-        if not (row.get("official_source") is True and
-                str(row.get("school_source_url", "")).startswith("https://")):
+        # University's original fixture may use a different internal ID.
+        # It must carry official source evidence AND the exact verified
+        # scoreboard final linkage. A date/score coincidence never suffices.
+        documented_fixture = (row.get("official_source") is True and
+            str(row.get("school_source_url", "")).startswith("https://"))
+        verified_retro_alias = (
+            str(row.get("retro_verified_final", "")).removeprefix("espn:") == event_id
+            and row.get("site_verified") is True
+            and str(row.get("site_source_url", "")).startswith("https://"))
+        if not (documented_fixture or verified_retro_alias):
             return False
     return str(row.get("date", ""))[:10] in {
         tip.date().isoformat(), tip.astimezone(EASTERN).date().isoformat()

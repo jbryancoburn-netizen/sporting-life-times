@@ -44,6 +44,20 @@ class BaselineTests(unittest.TestCase):
         self.assertTrue(schedule_match(mrow("school-record-123",official=True),
                                        SOURCE_M,SCORES_M,"men"))
 
+    def test_iu_official_retro_final_link_passes(self):
+        row=mrow("indiana-official-2027-1")
+        row["retro_verified_final"]=SOURCE_M["id"]
+        row["site_verified"]=True
+        row["site_source_url"]="https://iuhoosiers.com/sports/mens-basketball/schedule/print"
+        self.assertTrue(schedule_match(row,SOURCE_M,SCORES_M,"men"))
+
+    def test_official_alias_with_wrong_retro_event_fails(self):
+        row=mrow("indiana-official-2027-1")
+        row["retro_verified_final"]="espn:999999"
+        row["site_verified"]=True
+        row["site_source_url"]="https://iuhoosiers.com/sports/mens-basketball/schedule/print"
+        self.assertFalse(schedule_match(row,SOURCE_M,SCORES_M,"men"))
+
     def test_unfinished_game_does_not_pass(self):
         self.assertFalse(schedule_match(mrow(completed=False),SOURCE_M,SCORES_M,"men"))
 
