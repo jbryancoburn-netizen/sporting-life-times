@@ -26,9 +26,9 @@ for(const name of [
   "Validate women's individual team-page publication inputs",
   "Verify published 365-school MBB RETRO rankings and team rosters"
 ]){
- const first=workflow.indexOf('      - name: '+name+'\\n');
+ const first=workflow.indexOf('      - name: '+name+'\n');
  assert(first>=0,'Missing critical Pages acceptance check '+name);
- const following=workflow.indexOf('\\n      - name:',first+10);
+ const following=workflow.indexOf('\n      - name:',first+10);
  const body=workflow.slice(first,following<0?undefined:following);
  assert(!body.includes('continue-on-error: true'),
         'Critical CBB verification cannot be soft failed: '+name);
