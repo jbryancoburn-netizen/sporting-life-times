@@ -14,7 +14,7 @@ const men=mbb.predictions.find(x=>x.id==='espn:401925717');
 assert(men&&men.captured_at_utc,'sample prospective college forecast is absent');
 const college={a:{code:'BCU'},h:{code:'SDSU'},raw:{header:{competitions:[{date:'2026-11-11T22:00:00Z'}]}}};
 const result=run('ncaam','401925717',men,college);
-assert(result,'verified men's pregame forecast must load');
+assert(result,"verified men's pregame forecast must load");
 assert.equal(result.home,men.home_win_probability);
 assert.equal(result.margin,men.projected_home_margin);
 assert.equal(run('ncaam','401925717',{...men,captured_at_utc:null},college),null,'uncaptured model must be withheld');
