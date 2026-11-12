@@ -134,3 +134,25 @@ body.vld-body{margin:0;color:var(--vld-ink);background:#e9e0cd;font-family:"Cent
 
 /* Do not squeeze the regulation aspect ratio in the wider shot-details panel. */
 .vld-shot-floor .vld-court-svg--basketball{max-height:none;height:auto}
+
+
+/* Frozen, timestamp-verified RETRO forecasts. Clearly separate from live play. */
+.vld-retro{border:2px double #80694b;background:#f1e5ce;padding:clamp(12px,2.5vw,24px)}
+.vld-retro-flag{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+ margin-bottom:16px;border-bottom:1px solid #c2ae8b;padding-bottom:10px}
+.vld-retro-flag strong{font:700 12px Georgia,serif;letter-spacing:.07em;color:#763c2f}
+.vld-retro-flag span{font:italic 12px Georgia,serif;color:#654f39}
+.vld-retro-labels{display:flex;gap:16px;justify-content:space-between;align-items:end;margin-bottom:12px}
+.vld-retro-labels span{min-width:0;max-width:48%;font:700 clamp(13px,1.7vw,18px)/1.3 Georgia,serif;overflow-wrap:anywhere}
+.vld-retro-labels span:last-child{text-align:right}
+.vld-retro-labels b{display:block;font-size:clamp(21px,3vw,31px);font-variant-numeric:tabular-nums}
+.vld-retro-meter{display:flex;height:23px;background:#d8c3a0;border:1px solid #6e5542;overflow:hidden;gap:0}
+.vld-retro-meter span{display:block;height:100%;min-width:0}
+.vld-retro-margin{margin:16px 0 8px;font-size:14px;line-height:1.4}
+.vld-retro-margin strong{display:block;font-size:clamp(18px,2.5vw,25px);color:#653528;margin-top:4px}
+@media(max-width:700px){
+ .vld-retro{padding:12px}
+ .vld-retro-flag span{font-size:11px}
+ .vld-retro-labels span{font-size:12px}
+ .vld-retro-labels b{font-size:22px}
+}
