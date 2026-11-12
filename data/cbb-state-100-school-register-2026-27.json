@@ -1,0 +1,927 @@
+{
+  "schema_version": 1,
+  "title": "Sporting Life & Times — Fifty States, One Hundred Schools",
+  "season": "2026-27",
+  "status": "proposed_roster_not_live_rankings",
+  "as_of": "2026-11-08",
+  "purpose": "Two representatives per state; independent men's and women's rankings after roster and division-bridging methodology approval.",
+  "selection_policy": "Prefer University of [State] and [State] State. Where exact names do not exist or programs are in another division, propose the closest eligible institutional representative without claiming nonexistent schools. All pairs provisional until user approves exception policy.",
+  "ranking_status": {
+    "men": "not_yet_calculated",
+    "women": "not_yet_calculated"
+  },
+  "cross_division_note": "RETRO values from separate D1/D2/D3 engines must NOT be ordered together without validated cross-division normalization. NJCAA lacks comparable existing feed. No fake or placeholder ranking numbers are permitted.",
+  "counts": {
+    "states": 50,
+    "slots": 100,
+    "unique": 100,
+    "byDivision": {
+      "D1": 88,
+      "D2": 8,
+      "D3": 3,
+      "NJCAA_D1": 1
+    }
+  },
+  "states": [
+    {
+      "state": "Alabama",
+      "abbr": "AL",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "Alabama",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "Alabama State",
+          "division": "D1"
+        }
+      ],
+      "selection_note": "literal",
+      "review_required": false
+    },
+    {
+      "state": "Alaska",
+      "abbr": "AK",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "Alaska Anchorage",
+          "division": "D2"
+        },
+        {
+          "slot": 2,
+          "name": "Alaska Fairbanks",
+          "division": "D2"
+        }
+      ],
+      "selection_note": "two university of alaska campuses; no D1 teams",
+      "review_required": true
+    },
+    {
+      "state": "Arizona",
+      "abbr": "AZ",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "Arizona",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "Arizona State",
+          "division": "D1"
+        }
+      ],
+      "selection_note": "literal",
+      "review_required": false
+    },
+    {
+      "state": "Arkansas",
+      "abbr": "AR",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "Arkansas",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "Arkansas State",
+          "division": "D1"
+        }
+      ],
+      "selection_note": "literal",
+      "review_required": false
+    },
+    {
+      "state": "California",
+      "abbr": "CA",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "California (Berkeley)",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "Cal State Fullerton",
+          "division": "D1"
+        }
+      ],
+      "selection_note": "CSU campus rather than standalone California State",
+      "review_required": true
+    },
+    {
+      "state": "Colorado",
+      "abbr": "CO",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "Colorado",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "Colorado State",
+          "division": "D1"
+        }
+      ],
+      "selection_note": "literal",
+      "review_required": false
+    },
+    {
+      "state": "Connecticut",
+      "abbr": "CT",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "Connecticut",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "Central Connecticut State",
+          "division": "D1"
+        }
+      ],
+      "selection_note": "closest state naming variant",
+      "review_required": true
+    },
+    {
+      "state": "Delaware",
+      "abbr": "DE",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "Delaware",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "Delaware State",
+          "division": "D1"
+        }
+      ],
+      "selection_note": "literal",
+      "review_required": false
+    },
+    {
+      "state": "Florida",
+      "abbr": "FL",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "Florida",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "Florida State",
+          "division": "D1"
+        }
+      ],
+      "selection_note": "literal",
+      "review_required": false
+    },
+    {
+      "state": "Georgia",
+      "abbr": "GA",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "Georgia",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "Georgia State",
+          "division": "D1"
+        }
+      ],
+      "selection_note": "literal",
+      "review_required": false
+    },
+    {
+      "state": "Hawaii",
+      "abbr": "HI",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "Hawaii (Manoa)",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "Hawaii Hilo",
+          "division": "D2"
+        }
+      ],
+      "selection_note": "no Hawaii State D1 school",
+      "review_required": true
+    },
+    {
+      "state": "Idaho",
+      "abbr": "ID",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "Idaho",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "Idaho State",
+          "division": "D1"
+        }
+      ],
+      "selection_note": "literal",
+      "review_required": false
+    },
+    {
+      "state": "Illinois",
+      "abbr": "IL",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "Illinois",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "Illinois State",
+          "division": "D1"
+        }
+      ],
+      "selection_note": "literal",
+      "review_required": false
+    },
+    {
+      "state": "Indiana",
+      "abbr": "IN",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "Indiana",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "Indiana State",
+          "division": "D1"
+        }
+      ],
+      "selection_note": "literal",
+      "review_required": false
+    },
+    {
+      "state": "Iowa",
+      "abbr": "IA",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "Iowa",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "Iowa State",
+          "division": "D1"
+        }
+      ],
+      "selection_note": "literal",
+      "review_required": false
+    },
+    {
+      "state": "Kansas",
+      "abbr": "KS",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "Kansas",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "Kansas State",
+          "division": "D1"
+        }
+      ],
+      "selection_note": "literal",
+      "review_required": false
+    },
+    {
+      "state": "Kentucky",
+      "abbr": "KY",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "Kentucky",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "Kentucky State",
+          "division": "D2"
+        }
+      ],
+      "selection_note": "literal naming but second school D2",
+      "review_required": true
+    },
+    {
+      "state": "Louisiana",
+      "abbr": "LA",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "Louisiana (Lafayette)",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "Louisiana State (LSU)",
+          "division": "D1"
+        }
+      ],
+      "selection_note": "literal with LSU branding",
+      "review_required": false
+    },
+    {
+      "state": "Maine",
+      "abbr": "ME",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "Maine",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "Southern Maine",
+          "division": "D3"
+        }
+      ],
+      "selection_note": "no second Maine D1 school",
+      "review_required": true
+    },
+    {
+      "state": "Maryland",
+      "abbr": "MD",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "Maryland",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "Maryland Eastern Shore",
+          "division": "D1"
+        }
+      ],
+      "selection_note": "second University of Maryland system D1 basketball program",
+      "review_required": true
+    },
+    {
+      "state": "Massachusetts",
+      "abbr": "MA",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "Massachusetts (Amherst)",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "UMass Lowell",
+          "division": "D1"
+        }
+      ],
+      "selection_note": "no Massachusetts State D1 school",
+      "review_required": true
+    },
+    {
+      "state": "Michigan",
+      "abbr": "MI",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "Michigan",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "Michigan State",
+          "division": "D1"
+        }
+      ],
+      "selection_note": "literal",
+      "review_required": false
+    },
+    {
+      "state": "Minnesota",
+      "abbr": "MN",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "Minnesota",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "Minnesota State (Mankato)",
+          "division": "D2"
+        }
+      ],
+      "selection_note": "literal naming but second school D2",
+      "review_required": true
+    },
+    {
+      "state": "Mississippi",
+      "abbr": "MS",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "Mississippi (Ole Miss)",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "Mississippi State",
+          "division": "D1"
+        }
+      ],
+      "selection_note": "literal",
+      "review_required": false
+    },
+    {
+      "state": "Missouri",
+      "abbr": "MO",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "Missouri",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "Missouri State",
+          "division": "D1"
+        }
+      ],
+      "selection_note": "literal",
+      "review_required": false
+    },
+    {
+      "state": "Montana",
+      "abbr": "MT",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "Montana",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "Montana State",
+          "division": "D1"
+        }
+      ],
+      "selection_note": "literal",
+      "review_required": false
+    },
+    {
+      "state": "Nebraska",
+      "abbr": "NE",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "Nebraska (Lincoln)",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "Nebraska Omaha",
+          "division": "D1"
+        }
+      ],
+      "selection_note": "same university system campus; no Nebraska State D1 school",
+      "review_required": true
+    },
+    {
+      "state": "Nevada",
+      "abbr": "NV",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "Nevada (Reno)",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "UNLV",
+          "division": "D1"
+        }
+      ],
+      "selection_note": "University of Nevada campuses; Nevada State currently NAIA",
+      "review_required": true
+    },
+    {
+      "state": "New Hampshire",
+      "abbr": "NH",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "New Hampshire",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "Southern New Hampshire",
+          "division": "D2"
+        }
+      ],
+      "selection_note": "no separate New Hampshire State university",
+      "review_required": true
+    },
+    {
+      "state": "New Jersey",
+      "abbr": "NJ",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "Rutgers (State University of New Jersey)",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "New Jersey Institute of Technology",
+          "division": "D1"
+        }
+      ],
+      "selection_note": "no University of New Jersey / New Jersey State D1 pair",
+      "review_required": true
+    },
+    {
+      "state": "New Mexico",
+      "abbr": "NM",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "New Mexico",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "New Mexico State",
+          "division": "D1"
+        }
+      ],
+      "selection_note": "literal",
+      "review_required": false
+    },
+    {
+      "state": "New York",
+      "abbr": "NY",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "New York University",
+          "division": "D3"
+        },
+        {
+          "slot": 2,
+          "name": "SUNY Buffalo",
+          "division": "D1"
+        }
+      ],
+      "selection_note": "NYU D3 and State University of New York campus D1",
+      "review_required": true
+    },
+    {
+      "state": "North Carolina",
+      "abbr": "NC",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "North Carolina (Chapel Hill)",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "NC State",
+          "division": "D1"
+        }
+      ],
+      "selection_note": "literal",
+      "review_required": false
+    },
+    {
+      "state": "North Dakota",
+      "abbr": "ND",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "North Dakota",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "North Dakota State",
+          "division": "D1"
+        }
+      ],
+      "selection_note": "literal",
+      "review_required": false
+    },
+    {
+      "state": "Ohio",
+      "abbr": "OH",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "Ohio",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "Ohio State",
+          "division": "D1"
+        }
+      ],
+      "selection_note": "literal",
+      "review_required": false
+    },
+    {
+      "state": "Oklahoma",
+      "abbr": "OK",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "Oklahoma",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "Oklahoma State",
+          "division": "D1"
+        }
+      ],
+      "selection_note": "literal",
+      "review_required": false
+    },
+    {
+      "state": "Oregon",
+      "abbr": "OR",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "Oregon",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "Oregon State",
+          "division": "D1"
+        }
+      ],
+      "selection_note": "literal",
+      "review_required": false
+    },
+    {
+      "state": "Pennsylvania",
+      "abbr": "PA",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "Pennsylvania (Penn)",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "Penn State",
+          "division": "D1"
+        }
+      ],
+      "selection_note": "literal despite Penn being private",
+      "review_required": false
+    },
+    {
+      "state": "Rhode Island",
+      "abbr": "RI",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "Rhode Island",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "Brown University",
+          "division": "D1"
+        }
+      ],
+      "selection_note": "no Rhode Island State D1 university",
+      "review_required": true
+    },
+    {
+      "state": "South Carolina",
+      "abbr": "SC",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "South Carolina",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "South Carolina State",
+          "division": "D1"
+        }
+      ],
+      "selection_note": "literal",
+      "review_required": false
+    },
+    {
+      "state": "South Dakota",
+      "abbr": "SD",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "South Dakota",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "South Dakota State",
+          "division": "D1"
+        }
+      ],
+      "selection_note": "literal",
+      "review_required": false
+    },
+    {
+      "state": "Tennessee",
+      "abbr": "TN",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "Tennessee",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "Tennessee State",
+          "division": "D1"
+        }
+      ],
+      "selection_note": "literal",
+      "review_required": false
+    },
+    {
+      "state": "Texas",
+      "abbr": "TX",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "Texas (Austin)",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "Texas State",
+          "division": "D1"
+        }
+      ],
+      "selection_note": "literal",
+      "review_required": false
+    },
+    {
+      "state": "Utah",
+      "abbr": "UT",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "Utah",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "Utah State",
+          "division": "D1"
+        }
+      ],
+      "selection_note": "literal",
+      "review_required": false
+    },
+    {
+      "state": "Vermont",
+      "abbr": "VT",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "Vermont",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "Vermont State (Castleton)",
+          "division": "D3"
+        }
+      ],
+      "selection_note": "state university is NCAA D3",
+      "review_required": true
+    },
+    {
+      "state": "Virginia",
+      "abbr": "VA",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "Virginia",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "Virginia State",
+          "division": "D2"
+        }
+      ],
+      "selection_note": "literal naming but second school D2",
+      "review_required": true
+    },
+    {
+      "state": "Washington",
+      "abbr": "WA",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "Washington",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "Washington State",
+          "division": "D1"
+        }
+      ],
+      "selection_note": "literal",
+      "review_required": false
+    },
+    {
+      "state": "West Virginia",
+      "abbr": "WV",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "West Virginia",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "West Virginia State",
+          "division": "D2"
+        }
+      ],
+      "selection_note": "literal naming but second school D2",
+      "review_required": true
+    },
+    {
+      "state": "Wisconsin",
+      "abbr": "WI",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "Wisconsin (Madison)",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "Wisconsin Milwaukee",
+          "division": "D1"
+        }
+      ],
+      "selection_note": "same university system campus; no Wisconsin State D1 university",
+      "review_required": true
+    },
+    {
+      "state": "Wyoming",
+      "abbr": "WY",
+      "schools": [
+        {
+          "slot": 1,
+          "name": "Wyoming",
+          "division": "D1"
+        },
+        {
+          "slot": 2,
+          "name": "Casper College",
+          "division": "NJCAA_D1"
+        }
+      ],
+      "selection_note": "provisional waiver: WY has only one four-year public university; second school is two-year college",
+      "review_required": true
+    }
+  ]
+}
