@@ -2,13 +2,13 @@
   "league": "NBA",
   "season": "2026-27",
   "status": "provisional_live_from_historical_baseline",
-  "games_played": 163,
+  "games_played": 167,
   "preseason_status": "provisional_historical_regression_only",
   "source": "ESPN FINAL NBA regular-season scores; Sporting Life & Times independent Elo",
   "rankings": [
     {
       "team": "SAS",
-      "elo": 1681.183
+      "elo": 1685.512
     },
     {
       "team": "OKC",
@@ -20,7 +20,7 @@
     },
     {
       "team": "LAL",
-      "elo": 1636.536
+      "elo": 1642.098
     },
     {
       "team": "NYK",
@@ -43,12 +43,12 @@
       "elo": 1583.845
     },
     {
-      "team": "POR",
-      "elo": 1568.075
+      "team": "DEN",
+      "elo": 1576.742
     },
     {
-      "team": "DEN",
-      "elo": 1566.95
+      "team": "POR",
+      "elo": 1568.075
     },
     {
       "team": "CLE",
@@ -92,11 +92,15 @@
     },
     {
       "team": "MEM",
-      "elo": 1432.015
+      "elo": 1422.222
     },
     {
       "team": "NOP",
-      "elo": 1408.702
+      "elo": 1387.306
+    },
+    {
+      "team": "BKN",
+      "elo": 1358.841
     },
     {
       "team": "IND",
@@ -104,19 +108,15 @@
     },
     {
       "team": "CHI",
-      "elo": 1354.593
-    },
-    {
-      "team": "MIL",
-      "elo": 1344.433
+      "elo": 1350.264
     },
     {
       "team": "WAS",
       "elo": 1341.697
     },
     {
-      "team": "BKN",
-      "elo": 1337.445
+      "team": "MIL",
+      "elo": 1338.871
     },
     {
       "team": "SAC",
@@ -1594,22 +1594,58 @@
       "away_score": 98,
       "date": "2026-11-12T00:00:00.000Z",
       "home_elo_change": -9.771046
+    },
+    {
+      "id": "espn-nba-401909969",
+      "home": "CHI",
+      "away": "SAS",
+      "home_score": 119,
+      "away_score": 124,
+      "date": "2026-11-12T01:00:00.000Z",
+      "home_elo_change": -4.329056
+    },
+    {
+      "id": "espn-nba-401909970",
+      "home": "MEM",
+      "away": "DEN",
+      "home_score": 118,
+      "away_score": 123,
+      "date": "2026-11-12T01:00:00.000Z",
+      "home_elo_change": -9.79217
+    },
+    {
+      "id": "espn-nba-401909971",
+      "home": "MIL",
+      "away": "LAL",
+      "home_score": 112,
+      "away_score": 123,
+      "date": "2026-11-12T01:00:00.000Z",
+      "home_elo_change": -5.562915
+    },
+    {
+      "id": "espn-nba-401909972",
+      "home": "NOP",
+      "away": "BKN",
+      "home_score": 111,
+      "away_score": 145,
+      "date": "2026-11-12T01:00:00.000Z",
+      "home_elo_change": -21.395719
     }
   ],
   "movement": {
     "as_of_eastern_date": "2026-11-11",
     "daily_change": {
-      "SAS": 0,
+      "SAS": 4.329056,
       "OKC": 0,
       "BOS": 9.771046,
-      "LAL": 0,
+      "LAL": 5.562915,
       "NYK": -19.713031,
       "DET": 0,
       "MIN": 0,
       "HOU": 0,
       "PHI": 0,
+      "DEN": 9.79217,
       "POR": 0,
-      "DEN": 0,
       "CLE": 19.713031,
       "ATL": 0,
       "GSW": 0,
@@ -1620,13 +1656,13 @@
       "ORL": 0,
       "DAL": 0,
       "LAC": 0,
-      "MEM": 0,
-      "NOP": 0,
+      "MEM": -9.79217,
+      "NOP": -21.395719,
+      "BKN": 21.395719,
       "IND": 13.199595,
-      "CHI": 0,
-      "MIL": 0,
+      "CHI": -4.329056,
       "WAS": -13.199595,
-      "BKN": 0,
+      "MIL": -5.562915,
       "SAC": 0,
       "UTA": 0
     },
@@ -1635,14 +1671,14 @@
       "SAS": 1652.794,
       "OKC": 1677.916,
       "BOS": 1607.349,
-      "LAL": 1597.384,
+      "LAL": 1597.383,
       "NYK": 1631.735,
       "DET": 1625.832,
       "MIN": 1596.387,
       "HOU": 1608.295,
       "PHI": 1609.586,
-      "POR": 1572.611,
       "DEN": 1570.758,
+      "POR": 1572.611,
       "CLE": 1548.68,
       "ATL": 1537.927,
       "GSW": 1494.48,
@@ -1653,13 +1689,13 @@
       "ORL": 1494.865,
       "DAL": 1439.144,
       "LAC": 1453.744,
-      "MEM": 1417.734,
+      "MEM": 1417.733,
       "NOP": 1440.227,
+      "BKN": 1352.398,
       "IND": 1358.284,
       "CHI": 1361.398,
-      "MIL": 1365.329,
       "WAS": 1368.989,
-      "BKN": 1352.397,
+      "MIL": 1365.33,
       "SAC": 1354.955,
       "UTA": 1311.165
     }
