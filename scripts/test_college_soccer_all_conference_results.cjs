@@ -7,9 +7,16 @@ const render=fs.readFileSync('college-soccer-conference-page.js','utf8');
 const rules=JSON.parse(fs.readFileSync('data/college-soccer-postseason-rules.json','utf8'));
 assert.equal(feed.season,2026);assert.equal(feed.scope,'men-d1');
 assert(render.includes("recentScores.length"),"Actual-score-first guard removed");
+assert(render.includes("tournamentSeedByTeam"),"Verified conference tournament seed map missing");
+assert(render.includes("'cs-tournament-seed'"),"Seed chips must appear next to every confirmed bracket school");
 assert(render.includes("ACTUAL NCAA RESULTS · OFFICIAL BRACKET PENDING"),"Missing real result heading");
 assert(render.includes("m.source_url"),"No NCAA game evidence links");
 assert(render.includes("Recent games have FINAL scores. RETRO bracket/title predictions are withheld"),"No safeguard against stale playoff forecasts");
+for(const [id,c] of Object.entries(dir.conferences)){
+ const page=fs.readFileSync(c.page,'utf8');
+ assert(page.includes('college-soccer-conference-page.js?v=20261112-seeded-brackets'),id+' missing refreshed seed-label renderer');
+ assert(page.includes('college-soccer-conference-page.css?v=20261112-seeded-brackets'),id+' missing refreshed seed-label styling');
+}
 const keys=Object.keys(dir.conferences).filter(k=>k.startsWith('men-d1:'));
 assert.equal(keys.length,23);assert.equal(Object.keys(feed.conferences).length,23);
 let total=0,withMatches=0,official=0;
@@ -23,8 +30,8 @@ for(const key of keys){
  assert(Number.isInteger(source.total_verified_window_games));
  assert(source.total_verified_window_games>=source.games.length);
  const page=fs.readFileSync(c.page,'utf8');
- assert(page.includes('college-soccer-conference-page.js?v=20261112-all-verified-final-results'),key+' stale browser JS cache');
- assert(page.includes('college-soccer-conference-page.css?v=20261112-all-verified-final-results'),key+' stale browser CSS cache');
+ assert(page.includes('college-soccer-conference-page.js?v=20261112-seeded-brackets'),key+' stale browser JS cache');
+ assert(page.includes('college-soccer-conference-page.css?v=20261112-seeded-brackets'),key+' stale browser CSS cache');
  const members=new Set(c.teams);
  const seen=new Set();
  for(const m of source.games){
