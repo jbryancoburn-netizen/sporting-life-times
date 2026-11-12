@@ -173,3 +173,14 @@
 .cs-title-decided{border-color:#315e44}.cs-title-pending{border-color:#a39470}
 .cs-official-team.cs-official-winner{border-left:4px solid #315e44;padding-left:7px;background:#eef3ed}
 .cs-official-advances{display:block;font:700 12px Georgia,serif;color:#265039;margin:9px 0}
+
+
+/* Verified tournament scorebug: actual goals remain visible beside their clubs. */
+.cs-official-team{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.cs-official-team .cs-official-score{margin-left:auto;font:700 23px/1 Georgia,serif;font-variant-numeric:tabular-nums;color:#202322;min-width:22px;text-align:right}
+.cs-official-team.cs-official-winner .cs-official-score{color:#25482c}
+.cs-conf-title-forecast{border:2px solid #7a6950;background:#f9f6ef;padding:14px;margin:10px 0}
+.cs-conf-title-forecast>strong{font:700 13px Georgia,serif}
+.cs-conf-title-forecast p{font:700 17px Georgia,serif;margin:8px 0}
+.cs-conf-title-forecast small{display:block;font:12px/1.4 Georgia,serif}
+.cs-official-match>a{display:inline-block;margin-top:8px;font:12px Georgia,serif}
