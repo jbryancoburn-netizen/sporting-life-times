@@ -640,7 +640,6 @@ jobs:
           exit 1
 
       - name: Verify published shared college basketball logo system
-        continue-on-error: true
         env:
           PAGE_URL: ${{ steps.deploy.outputs.page_url }}
         shell: bash
