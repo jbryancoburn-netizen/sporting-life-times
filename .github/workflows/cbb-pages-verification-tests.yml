@@ -1,0 +1,29 @@
+name: CBB Pages score verifier regression suite
+on:
+  pull_request:
+    paths:
+      - 'scripts/verify_mbb_publication.py'
+      - 'tests/test_mbb_pages_publication.py'
+      - '.github/workflows/publish-newspaper.yml'
+      - '.github/workflows/cbb-pages-verification-tests.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/verify_mbb_publication.py'
+      - 'tests/test_mbb_pages_publication.py'
+      - '.github/workflows/cbb-pages-verification-tests.yml'
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile MBB public verifier
+        run: python3 -m py_compile scripts/verify_mbb_publication.py
+      - name: Test pregame, live, final, off-day and stale Pages coverage
+        run: python3 -m unittest discover -s tests -p test_mbb_pages_publication.py -v
