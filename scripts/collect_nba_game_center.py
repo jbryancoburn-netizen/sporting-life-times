@@ -53,8 +53,9 @@ def main():
         with ThreadPoolExecutor(max_workers=6) as pool:
             current=[g for g in pool.map(game_record,raw) if g]
     except (OSError,ValueError,KeyError,TypeError) as exc:
-        current=[]
+        # Do not falsely refresh the timestamp of an unchanged archive.
         print("NBA official feed unavailable: "+type(exc).__name__+"; retaining last verified archive")
+        raise RuntimeError("NBA official feed failed; run ESPN box-score fallback") from exc
     for game in current:
         old=prior.get(game["id"])
         if old and old.get("state")=="post" and old.get("players") and not game.get("players"):continue

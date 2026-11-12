@@ -278,21 +278,30 @@ jobs:
           else
             echo "EuroLeague snapshot already saved in main"
           fi
-      - name: Reconcile NBA finals and rebuild 1500-start power rankings inside the published edition
-        if: ${{ false }} # Dedicated league workflows own data collection; never block Pages publishing.
-        continue-on-error: true
+      # Pages also runs on a five-minute clock. Reconcile finals here when
+      # the source publisher's scheduled job is delayed or dropped.
+      - name: Catch up NBA finals, RETRO and player stats inside Pages artifact
+        shell: bash
         run: |
           set -euo pipefail
-          if node scripts/update-nba-elo.mjs; then
+          if (
+            python3 scripts/collect-nba-schedule.py --fast
+            node scripts/update-nba-elo.mjs
             node scripts/build-nba-elo-shadow.mjs --write
-            node scripts/build-nba-elo-shadow.mjs
+            node scripts/reconcile-nba-schedule.mjs
             node scripts/audit-nba-elo.mjs
+          ); then
+            if ! python3 scripts/collect_nba_game_center.py; then echo "::warning::Official NBA box scores unavailable; using ESPN"; fi
+            if ! python3 scripts/backfill-nba-espn.py; then echo "::warning::Player box scores pending"; fi
+            if ! python3 scripts/enrich-nba-game-details.py; then echo "::warning::Some NBA details pending"; fi
+            python3 scripts/collect-nba-player-leaders.py
+            node scripts/build-nba-possession-inputs.mjs
             node scripts/audit-nba-boxscore-elo.mjs
-            echo "NBA published Elo model: 30 teams, season starts at 1500"
+            python3 scripts/audit-nba-stat-coverage.py || echo "::warning::NBA player-stat coverage is incomplete"
+            echo "NBA Pages: verified finals, RETRO, standings and available stats reconciled"
           else
-            echo "::warning::NBA scoreboard unavailable; publishing only the previously verified 1500-start Elo snapshot"
-            git restore -- data/nba-2026-27-current-provisional.json data/nba-elo-reconciliation.json
-            node scripts/build-nba-elo-shadow.mjs
+            git restore -- data/nba-2026-27-current-provisional.json data/nba-elo-reconciliation.json data/nba-elo-shadow-2026-27.json data/nba-upcoming-schedule.json
+            echo "::warning::NBA final-score source unavailable; retain last audited snapshot"
           fi
       - uses: actions/configure-pages@v5
       - name: Validate women's individual team-page publication inputs
