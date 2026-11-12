@@ -14,6 +14,7 @@ const t=lookup.get(id),entry=master.teams?.[id];
 if(!t||!entry)throw Error('No published women’s schedule found for team '+id);
 const homeProof=window.WBBSiteIntegrity?.verifiedHomeCourts(verifiedHomeEvidence)||new Map();
 const baseGames=(entry.games||[]).map(g=>window.WBBSiteIntegrity?.correctedHome(g,homeProof,id)||g);
+window.CBBTeamGlance?.acceptSchedule(baseGames);
 const reconciled=window.WBBGameResults.merge(baseGames,verifiedFinals,id),games=reconciled.games;
 const rating=ratings?.gender==='women'&&ratings?.season==='2026-27'?ratings.rankings?.find(x=>String(x.team_id)===id):null;
 const sorted=games.slice().sort((a,b)=>String(a.date||'').localeCompare(String(b.date||'')));
