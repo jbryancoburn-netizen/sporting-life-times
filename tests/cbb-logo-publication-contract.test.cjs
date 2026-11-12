@@ -21,6 +21,18 @@ const next=workflow.indexOf('\n      - name:',index+10);
 const section=workflow.slice(index,next<0?undefined:next);
 assert(!section.includes('continue-on-error: true'),
        'critical CBB logo verification must fail the Pages workflow');
+
+for(const name of [
+  "Validate women's individual team-page publication inputs",
+  "Verify published 365-school MBB RETRO rankings and team rosters"
+]){
+ const first=workflow.indexOf('      - name: '+name+'\\n');
+ assert(first>=0,'Missing critical Pages acceptance check '+name);
+ const following=workflow.indexOf('\\n      - name:',first+10);
+ const body=workflow.slice(first,following<0?undefined:following);
+ assert(!body.includes('continue-on-error: true'),
+        'Critical CBB verification cannot be soft failed: '+name);
+}
 assert(section.includes('Artwork-aware MBB renderer not published'),
        'Pages must verify that artwork-specific rules were actually published');
 console.log('PASS: CBB artwork-specific crest rules and public Pages fail-closed logo gate');
