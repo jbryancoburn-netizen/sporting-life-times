@@ -15,6 +15,7 @@ on:
       - 'scripts/build_college_soccer_conference_projections.py'
       - 'scripts/build_college_soccer_ncaa_selection.py'
       - 'scripts/sync_college_soccer_tournament_results.py'
+      - 'scripts/bootstrap_verified_soccer_conference_brackets_2026.py'
       - 'scripts/build_college_soccer_tournament_results.py'
       - 'data/college-soccer-men-d1-*-standings.json'
       - 'scripts/test_update_college_soccer_elo.py'
@@ -57,6 +58,8 @@ jobs:
           python-version: '3.12'
       - name: Verify source parser and no-duplicate Elo replay
         run: python -m unittest discover -s scripts -p test_update_college_soccer_elo.py -v
+      - name: Test 2026 conference bracket importer
+        run: python scripts/bootstrap_verified_soccer_conference_brackets_2026.py --self-test
       - name: Verify official tournament result synchronizer
         run: python scripts/sync_college_soccer_tournament_results.py --self-test
       - name: Test score-ledger results for all 23 conference desks
@@ -71,6 +74,8 @@ jobs:
         run: python scripts/build_college_soccer_team_game_index.py
       - name: Update provisional conference standings and postseason seeds
         run: python scripts/build_college_soccer_conference_projections.py
+      - name: Load verified 2026 conference tournament brackets
+        run: python scripts/bootstrap_verified_soccer_conference_brackets_2026.py
       - name: Advance verified conference tournament brackets from NCAA finals
         run: python scripts/sync_college_soccer_tournament_results.py
       - name: Publish actual NCAA finals to every conference desk
@@ -148,6 +153,7 @@ jobs:
             python scripts/update_college_soccer_elo.py --lookback 7
             python scripts/build_college_soccer_team_game_index.py
             python scripts/build_college_soccer_conference_projections.py
+            python scripts/bootstrap_verified_soccer_conference_brackets_2026.py
             python scripts/sync_college_soccer_tournament_results.py
             python scripts/build_college_soccer_tournament_results.py
             python scripts/build_college_soccer_ncaa_selection.py
