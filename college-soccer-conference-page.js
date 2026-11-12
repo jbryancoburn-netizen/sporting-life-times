@@ -136,7 +136,31 @@ async function render(){
  const officialBracket=table.tournament_bracket;
  const bracketVerified=officialBracket?.status==='official'&&typeof officialBracket.source_url==='string'&&/^https:\/\//.test(officialBracket.source_url)&&Array.isArray(officialBracket.matches)&&officialBracket.matches.length>0&&officialBracket.matches.every(match=>match.round&&(!match.home_id||member.includes(match.home_id))&&(!match.away_id||member.includes(match.away_id))&&(!match.home_id||!match.away_id||match.home_id!==match.away_id));
 
- if(formatCertified&&(field===6||field===8)&&entrants.length===field&&entrants.every(t=>Number.isFinite(t.elo))){
+ // Only teams still alive in the VERIFIED tournament may receive current RETRO title odds.
+ const titleFixture=bracketVerified?officialBracket.matches.find(m=>/championship|final/i.test(m.round)&&!/semi|quarter/i.test(m.round)):null;
+ const decidedTitle=titleFixture?.status==='final'&&titleFixture.winner_id&&Number.isInteger(titleFixture.home_score)&&Number.isInteger(titleFixture.away_score);
+ const remaining=bracketVerified?(()=>{
+  const lost=new Set();
+  for(const m of officialBracket.matches){
+   if(m.status!=='final'||!m.winner_id||!m.home_id||!m.away_id)continue;
+   if(m.winner_id===m.home_id)lost.add(m.away_id);
+   else if(m.winner_id===m.away_id)lost.add(m.home_id);
+  }
+  return entrants.filter(t=>!lost.has(t.id));
+ })():entrants;
+ if(decidedTitle){
+  modelSection.append(E('p','Tournament completed. Official champion: '+(teams.find(t=>t.id===titleFixture.winner_id)?.name||titleFixture.winner_id)+'. RETRO picks do not replace played results.','cs-conf-caption'));
+ }else if(bracketVerified&&titleFixture?.home_id&&titleFixture?.away_id){
+  const a=teams.find(t=>t.id===titleFixture.home_id),b=teams.find(t=>t.id===titleFixture.away_id);
+  if(a&&b&&Number.isFinite(a.elo)&&Number.isFinite(b.elo)){
+   const p=1/(1+Math.pow(10,-((a.elo-b.elo+55)/400)));
+   const forecast=E('div',null,'cs-conf-title-forecast');
+   forecast.append(E('strong','RETRO · CHAMPIONSHIP PREDICTION'),E('p',a.name+' '+pct(p)+' · '+b.name+' '+pct(1-p)),E('small','55-point modeled home advantage · penalty shootouts excluded · NOT an actual result'));
+   modelSection.append(forecast);
+  }else modelSection.append(E('p','Finalists confirmed; RETRO odds unavailable until both ratings are verified.','cs-conf-caption'));
+ }else if(bracketVerified){
+  modelSection.append(E('p',remaining.length+' verified remaining contenders. Eliminated teams excluded from forecasts; future matchups await official reporting.','cs-conf-caption'));
+ }else if(formatCertified&&(field===6||field===8)&&entrants.length===field&&entrants.every(t=>Number.isFinite(t.elo))){
   const probs=bracketOdds(entrants,!!rule.tournament?.reseed);
   for(const x of probs){const line=E('div',null,'cs-conf-oddsline'),label=E('div',null,'cs-conf-oddslabel');label.append(E('strong',x.name),E('span',pct(x.p)));line.append(label);const rail=E('div',null,'cs-conf-rail'),bar=E('i');bar.style.width=pct(x.p);rail.append(bar);line.append(rail);modelSection.append(line)}
  }else modelSection.append(E('p','Title probabilities withheld: tournament format or a required Elo rating is unverified.','cs-conf-caption'));
@@ -172,7 +196,10 @@ async function render(){
   const rounds=E('div',null,'cs-official-rounds');
   const groups=new Map();
   for(const match of officialBracket.matches){if(!groups.has(match.round))groups.set(match.round,[]);groups.get(match.round).push(match)}
-  for(const [roundName,matches] of groups){const group=E('section',null,'cs-official-round');group.append(E('h3',roundName));for(const match of matches){const card=E('article',null,'cs-official-match');const names=[match.home_id,match.away_id].map(id=>teams.find(t=>t.id===id));const label=E('div',null,'cs-official-match-names');for(const [team,index] of names.entries()){const cell=E('div',null,'cs-official-team');if(match.status==='final'&&match.winner_id===(index===0?match.home_id:match.away_id))cell.classList.add('cs-official-winner');if(!team)cell.append(E('strong','To be determined'));else if(cup)cell.append(cup.school(team.name,team.id,cfg.cohort,branding));else cell.append(A(team.name,'college-soccer-team.html?team='+encodeURIComponent(cfg.cohort+':'+team.id)));label.append(cell)}card.append(label);
+  for(const [roundName,matches] of groups){const group=E('section',null,'cs-official-round');group.append(E('h3',roundName));for(const match of matches){const card=E('article',null,'cs-official-match');const names=[match.home_id,match.away_id].map(id=>teams.find(t=>t.id===id));const label=E('div',null,'cs-official-match-names');for(const [team,index] of names.entries()){const cell=E('div',null,'cs-official-team');if(match.status==='final'&&match.winner_id===(index===0?match.home_id:match.away_id))cell.classList.add('cs-official-winner');if(!team)cell.append(E('strong','To be determined'));else if(cup)cell.append(cup.school(team.name,team.id,cfg.cohort,branding));else cell.append(A(team.name,'college-soccer-team.html?team='+encodeURIComponent(cfg.cohort+':'+team.id)));
+ const score=index===0?match.home_score:match.away_score;
+ if(match.status==='final'&&Number.isInteger(score))cell.append(E('strong',score,'cs-official-score'));
+ label.append(cell)}card.append(label);
     if(match.status==='final'&&Number.isInteger(match.home_score)&&Number.isInteger(match.away_score)){
       const shootout=match.decision==='penalties'&&Number.isInteger(match.home_penalties)&&Number.isInteger(match.away_penalties)?' · PENALTIES '+match.home_penalties+'–'+match.away_penalties:'';
       card.append(E('strong','FINAL · '+match.home_score+'–'+match.away_score+shootout,'cs-official-result'));
@@ -185,6 +212,7 @@ async function render(){
       const p=1/(1+Math.pow(10,-((names[0].elo-names[1].elo+hostBonus)/400)));
       card.append(E('small','RETRO ADVANCEMENT ESTIMATE · '+names[0].name+' '+Math.round(100*p)+'% / '+names[1].name+' '+Math.round(100*(1-p))+'% · EXCLUDES PENALTY MODEL','cs-conf-caption'));
     }
+    if(match.source_url)card.append(A('Verified match report',match.source_url));
     group.append(card)}rounds.append(group)}bracket.append(rounds,A('Official tournament bracket source',officialBracket.source_url));
  }else 
  if(cup&&hasStandings&&(field===4||field===6||field===8||field===15)&&entrants.length===field&&!/format.*unverified|eligibility.*unverified|inferred from|based on official 2025/i.test(rule.tournament?.status||'')){const visual=entrants.every(t=>t.elo!==null&&Number.isFinite(t.elo))&&cup.predictiveBracket?cup.predictiveBracket:(field===15?cup.bracketFifteen:field===8?cup.bracketEight:cup.bracket);bracket.append(E('p','CURRENT STANDINGS PROJECTION · Tied teams retain published order provisionally. Seed positions and projected results update from the data feeds, not from Elo rankings.','cs-conf-caption'));visual(bracket,entrants,cfg.cohort,branding,{q:rule.tournament?.first_round_date||rule.tournament?.quarterfinal_date||'OPENING ROUND',quarter:rule.tournament?.quarterfinal_date||'QUARTERFINALS',s:rule.tournament?.semifinal_date||rule.tournament?.semifinals_date||'SEMIFINALS',f:rule.tournament?.final_date||'CHAMPIONSHIP'});}else {
