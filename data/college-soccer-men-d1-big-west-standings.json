@@ -3,7 +3,7 @@
   "source_name": "Big West Conference official 2026 men's soccer standings snapshot",
   "source_url": "https://bigwest.org/standings.aspx?path=msoc",
   "snapshot_checked_date": "2026-10-25",
-  "note": "2026 4-team playoff explicitly confirmed: 1-v-4 and 2-v-3 semis Nov 7; higher seed hosts championship Nov 13. Seeds reflect source table snapshot, not final official tiebreakers.",
+  "note": "2026 4-team playoff explicitly confirmed: 1-v-4 and 2-v-3 semis Nov 7; higher seed hosts championship Nov 13. Seeds reflect source table snapshot, not final official tiebreakers. CAUTION: The conference standings rows are an older dated snapshot, not certified final standings. The tournament seeds, pairings and played results below were checked from current official conference or team reports November 12. RETRO picks do not replace those results.",
   "rows": [
     {
       "team_id": "uc-irvine",
@@ -47,5 +47,48 @@
       "conference_points": 0,
       "overall_record": "4-9-4"
     }
-  ]
+  ],
+  "tournament_seeds": [
+    "utah-valley",
+    "uc-irvine",
+    "uc-santa-barbara",
+    "bakersfield"
+  ],
+  "tournament_bracket": {
+    "status": "official",
+    "source_url": "https://bigwest.org/news/2026/11/8/penalty-kick-perfection-propels-third-seeded-uc-santa-barbara-to-big-west-mens-soccer-championship.aspx",
+    "verified_through": "2026-11-12",
+    "matches": [
+      {
+        "round": "SEMIFINALS · NOV 7",
+        "home_id": "utah-valley",
+        "away_id": "bakersfield",
+        "status": "final",
+        "home_score": 0,
+        "away_score": 1,
+        "winner_id": "bakersfield",
+        "source_url": "https://bigwest.org/news/2026/11/8/mens-soccer-no-4-seed-cal-state-bakersfield-earns-a-1-0-shutout-win-to-advance-to-big-west-championship-final.aspx"
+      },
+      {
+        "round": "SEMIFINALS · NOV 7",
+        "home_id": "uc-irvine",
+        "away_id": "uc-santa-barbara",
+        "status": "final",
+        "home_score": 0,
+        "away_score": 0,
+        "winner_id": "uc-santa-barbara",
+        "decision": "penalties",
+        "home_penalties": 2,
+        "away_penalties": 4,
+        "source_url": "https://bigwest.org/news/2026/11/8/penalty-kick-perfection-propels-third-seeded-uc-santa-barbara-to-big-west-mens-soccer-championship.aspx"
+      },
+      {
+        "round": "CHAMPIONSHIP · NOV 13",
+        "home_id": "uc-santa-barbara",
+        "away_id": "bakersfield",
+        "status": "scheduled",
+        "kickoff": "Nov 13 · 7 p.m. PT · Harder Stadium, Santa Barbara"
+      }
+    ]
+  }
 }

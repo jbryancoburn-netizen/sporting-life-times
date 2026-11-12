@@ -3,7 +3,7 @@
   "source_name": "Big South Conference 2026 official men's soccer table",
   "source_url": "https://bigsouthsports.com/standings.aspx?path=msoc",
   "snapshot_checked_date": "2026-10-25",
-  "note": "Official standings snapshot; top six qualify. Tiebreakers not independently certified.",
+  "note": "Official standings snapshot; top six qualify. Tiebreakers not independently certified. CAUTION: The conference standings rows are an older dated snapshot, not certified final standings. The tournament seeds, pairings and played results below were checked from current official conference or team reports November 12. RETRO picks do not replace those results.",
   "rows": [
     {
       "team_id": "high-point",
@@ -53,5 +53,63 @@
       "conference_points": 1,
       "overall_record": "0-13-1"
     }
-  ]
+  ],
+  "tournament_seeds": [
+    "high-point",
+    "gardner-webb",
+    "unc-asheville",
+    "winthrop",
+    "longwood",
+    "usc-upstate"
+  ],
+  "tournament_bracket": {
+    "status": "official",
+    "source_url": "https://bigsouthsports.com/sports/2026/9/30/MSOC_0930264746.aspx",
+    "verified_through": "2026-11-12",
+    "matches": [
+      {
+        "round": "FIRST ROUND · NOV 4",
+        "home_id": "unc-asheville",
+        "away_id": "usc-upstate",
+        "status": "final",
+        "home_score": 0,
+        "away_score": 1,
+        "winner_id": "usc-upstate"
+      },
+      {
+        "round": "FIRST ROUND · NOV 4",
+        "home_id": "winthrop",
+        "away_id": "longwood",
+        "status": "final",
+        "home_score": 0,
+        "away_score": 4,
+        "winner_id": "longwood"
+      },
+      {
+        "round": "SEMIFINALS · NOV 8",
+        "home_id": "high-point",
+        "away_id": "longwood",
+        "status": "final",
+        "home_score": 1,
+        "away_score": 3,
+        "winner_id": "longwood"
+      },
+      {
+        "round": "SEMIFINALS · NOV 8",
+        "home_id": "gardner-webb",
+        "away_id": "usc-upstate",
+        "status": "final",
+        "home_score": 3,
+        "away_score": 0,
+        "winner_id": "gardner-webb"
+      },
+      {
+        "round": "CHAMPIONSHIP · NOV 14",
+        "home_id": "gardner-webb",
+        "away_id": "longwood",
+        "status": "scheduled",
+        "kickoff": "Nov 14 · 7 p.m. ET · Gardner-Webb"
+      }
+    ]
+  }
 }

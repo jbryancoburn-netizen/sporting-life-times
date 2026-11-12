@@ -3,7 +3,7 @@
   "source_name": "Sun Belt Conference 2026 official men's soccer table snapshot",
   "source_url": "https://sunbeltsports.org/standings.aspx?path=msoc",
   "snapshot_checked_date": "2026-10-25",
-  "note": "Source-order snapshot; automatic ingestion of future results not yet verified. Table positions are only provisional bracket seeding.",
+  "note": "Source-order snapshot; automatic ingestion of future results not yet verified. Table positions are only provisional bracket seeding. CAUTION: The conference standings rows are an older dated snapshot, not certified final standings. The tournament seeds, pairings and played results below were checked from current official conference or team reports November 12. RETRO picks do not replace those results.",
   "rows": [
     {
       "team_id": "james-madison",
@@ -65,5 +65,83 @@
       "conference_points": 4,
       "overall_record": "1-9-3"
     }
-  ]
+  ],
+  "tournament_seeds": [
+    "west-virginia",
+    "marshall",
+    "ucf",
+    "james-madison",
+    "coastal-caro",
+    "south-carolina",
+    "kentucky",
+    "ga-southern"
+  ],
+  "tournament_bracket": {
+    "status": "official",
+    "source_url": "https://sunbeltsports.org/news/2026/11/12/west-virginia-and-south-carolina-punch-tickets-to-sun-belt-mens-soccer-championship-final.aspx",
+    "verified_through": "2026-11-12",
+    "matches": [
+      {
+        "round": "QUARTERFINALS · NOV 8",
+        "home_id": "west-virginia",
+        "away_id": "ga-southern",
+        "status": "final",
+        "home_score": 4,
+        "away_score": 0,
+        "winner_id": "west-virginia"
+      },
+      {
+        "round": "QUARTERFINALS · NOV 8",
+        "home_id": "james-madison",
+        "away_id": "coastal-caro",
+        "status": "final",
+        "home_score": 1,
+        "away_score": 2,
+        "winner_id": "coastal-caro"
+      },
+      {
+        "round": "QUARTERFINALS · NOV 8",
+        "home_id": "marshall",
+        "away_id": "kentucky",
+        "status": "final",
+        "home_score": 4,
+        "away_score": 1,
+        "winner_id": "marshall"
+      },
+      {
+        "round": "QUARTERFINALS · NOV 8",
+        "home_id": "ucf",
+        "away_id": "south-carolina",
+        "status": "final",
+        "home_score": 1,
+        "away_score": 2,
+        "winner_id": "south-carolina"
+      },
+      {
+        "round": "SEMIFINALS · NOV 11",
+        "home_id": "west-virginia",
+        "away_id": "coastal-caro",
+        "status": "final",
+        "home_score": 1,
+        "away_score": 0,
+        "winner_id": "west-virginia"
+      },
+      {
+        "round": "SEMIFINALS · NOV 11",
+        "home_id": "marshall",
+        "away_id": "south-carolina",
+        "status": "final",
+        "home_score": 3,
+        "away_score": 4,
+        "winner_id": "south-carolina"
+      },
+      {
+        "round": "CHAMPIONSHIP · NOV 15",
+        "home_id": "west-virginia",
+        "away_id": "south-carolina",
+        "status": "scheduled",
+        "kickoff": "Nov 15 · 1 p.m. ET · Morgantown, West Virginia"
+      }
+    ]
+  }
 }

@@ -3,7 +3,7 @@
   "source_name": "Mountain West Conference 2026 verified membership",
   "source_url": "https://themw.com/standings.aspx?path=msoc",
   "snapshot_checked_date": "2026-10-25",
-  "note": "Official conference standings retrieved October 25 2026. Equal-point seed positions provisional until conference tiebreaks applied.",
+  "note": "Official conference standings retrieved October 25 2026. Equal-point seed positions provisional until conference tiebreaks applied. CAUTION: The conference standings rows are an older dated snapshot, not certified final standings. The tournament seeds, pairings and played results below were checked from current official conference or team reports November 12. RETRO picks do not replace those results.",
   "rows": [
     {
       "team_id": "grand-canyon",
@@ -41,5 +41,45 @@
       "conference_points": 4,
       "overall_record": "1-10-4"
     }
-  ]
+  ],
+  "tournament_seeds": [
+    "grand-canyon",
+    "unlv",
+    "san-jose-st",
+    "air-force"
+  ],
+  "tournament_bracket": {
+    "status": "official",
+    "source_url": "https://themw.com/news/2026/11/7/2026-credit-union-1-mw-mens-soccer-championship-presented-by-palms-casino-resort-bracket-announced.aspx",
+    "verified_through": "2026-11-12",
+    "matches": [
+      {
+        "round": "SEMIFINALS · NOV 10",
+        "home_id": "grand-canyon",
+        "away_id": "air-force",
+        "status": "final",
+        "home_score": 3,
+        "away_score": 0,
+        "winner_id": "grand-canyon",
+        "source_url": "https://www.ncaa.com/game/6666724"
+      },
+      {
+        "round": "SEMIFINALS · NOV 10",
+        "home_id": "unlv",
+        "away_id": "san-jose-st",
+        "status": "final",
+        "home_score": 2,
+        "away_score": 0,
+        "winner_id": "unlv",
+        "source_url": "https://www.ncaa.com/game/6666725"
+      },
+      {
+        "round": "CHAMPIONSHIP · NOV 14",
+        "home_id": "grand-canyon",
+        "away_id": "unlv",
+        "status": "scheduled",
+        "kickoff": "Nov 14 · 7 p.m. MT · GCU Stadium, Phoenix, Arizona"
+      }
+    ]
+  }
 }

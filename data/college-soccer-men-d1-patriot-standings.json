@@ -3,7 +3,7 @@
   "source_name": "Patriot League official 2026 men's soccer standings",
   "source_url": "https://patriotleague.org/standings.aspx?path=msoc",
   "snapshot_checked_date": "2026-10-25",
-  "note": "Official 2026 points standings; Patriot League championship seeding requires conference tiebreaker application.",
+  "note": "Official 2026 points standings; Patriot League championship seeding requires conference tiebreaker application. CAUTION: The conference standings rows are an older dated snapshot, not certified final standings. The tournament seeds, pairings and played results below were checked from current official conference or team reports November 12. RETRO picks do not replace those results.",
   "rows": [
     {
       "team_id": "boston-u",
@@ -65,5 +65,65 @@
       "conference_points": 0,
       "overall_record": "1-8-3"
     }
-  ]
+  ],
+  "tournament_seeds": [
+    "boston-u",
+    "american",
+    "bucknell",
+    "lehigh",
+    "lafayette",
+    "loyola-maryland"
+  ],
+  "tournament_bracket": {
+    "status": "official",
+    "source_url": "https://patriotleague.org/news/2026/11/8/no-3-bucknell-and-no-4-lehigh-advance-to-the-2026-patriot-league-mens-soccer-semifinals-11-7-26.aspx",
+    "verified_through": "2026-11-12",
+    "matches": [
+      {
+        "round": "FIRST ROUND · NOV 7",
+        "home_id": "lehigh",
+        "away_id": "lafayette",
+        "status": "final",
+        "home_score": 3,
+        "away_score": 2,
+        "winner_id": "lehigh"
+      },
+      {
+        "round": "FIRST ROUND · NOV 7",
+        "home_id": "bucknell",
+        "away_id": "loyola-maryland",
+        "status": "final",
+        "home_score": 1,
+        "away_score": 0,
+        "winner_id": "bucknell"
+      },
+      {
+        "round": "SEMIFINALS · NOV 10",
+        "home_id": "american",
+        "away_id": "bucknell",
+        "status": "final",
+        "home_score": 1,
+        "away_score": 2,
+        "winner_id": "bucknell",
+        "source_url": "https://bucknellbison.com/news/2026/11/10/mens-soccer-lucas-hidalgo-score-to-send-bison-to-patriot-league-championship-match-after-defeating-american-2-1-in-semifinal"
+      },
+      {
+        "round": "SEMIFINALS · NOV 10",
+        "home_id": "boston-u",
+        "away_id": "lehigh",
+        "status": "final",
+        "home_score": 1,
+        "away_score": 2,
+        "winner_id": "lehigh",
+        "source_url": "https://lehighsports.com/news/2026/11/10/mens-soccer-sheelers-double-overtime-header-sends-no-4-lehigh-to-patriot-league-championship-game"
+      },
+      {
+        "round": "CHAMPIONSHIP · NOV 14",
+        "home_id": "bucknell",
+        "away_id": "lehigh",
+        "status": "scheduled",
+        "kickoff": "Nov 14 · Time TBA · Bucknell"
+      }
+    ]
+  }
 }
