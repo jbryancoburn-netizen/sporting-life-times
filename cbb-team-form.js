@@ -160,7 +160,7 @@
   const mark = g => g.won ? 'W' : 'L';
   function draw(form, source) {
     const node = mount();
-    if (!node) return;
+    if (!node) return false;
     const cell = (title, value) => '<div class="cbb-form-stat"><small>' + esc(title) +
       '</small><strong>' + esc(value) + '</strong></div>';
     const formMarks = form.lastFive.length
@@ -190,6 +190,7 @@
       '</div><div class="cbb-form-recent"><h3>Recent verified results</h3><ol>' + recent +
       '</ol></div></div><p class="cbb-form-status">' + esc(source.source) +
       '. Exhibition games excluded. ' + esc(source.note) + '</p>';
+    return true;
   }
   let pending = false, lastDisplay = '';
   async function refresh() {
@@ -220,8 +221,7 @@
       const form = calculate(teamId, register);
       const signature = JSON.stringify({form, note: register.note});
       if (signature !== lastDisplay || !document.getElementById('cbb-team-form')) {
-        draw(form, register);
-        lastDisplay = signature;
+        if (draw(form, register)) lastDisplay = signature;
       }
     } catch (error) {
       const panel = mount();
@@ -238,7 +238,7 @@
     const observer = new MutationObserver(() => {
       if (!document.getElementById('cbb-team-form')) {
         mount();
-        if (lastDisplay) void refresh();
+        void refresh();
       }
     });
     observer.observe(root, {childList: true, subtree: false});
