@@ -40,5 +40,7 @@ assert "college-soccer-conference-page.js?v=" in page and "college-soccer-confer
 assert "root.insertBefore(bracket,columns)" in js, "Official bracket must appear before rankings and forecasts"
 assert "const bracketVerified=" in js and "if(bracketVerified)" in js
 assert "cs-official-winner" in js and "cs-official-score" in js, "Played match winner/score labels missing"
+assert "for(const [index,team] of names.entries())" in js, "Club/index order reversed in official bracket"
+assert "for(const [team,index] of names.entries())" not in js, "Broken renderer reintroduced"
 assert "if(decidedTitle)" in js and "titleFixture?.home_id&&titleFixture?.away_id" in js
 print("PASS: Big Ten four real knockout results, shootout winner, future-safe championship, bracket first, RETRO separately identified")
