@@ -132,8 +132,10 @@ async function render(){
  t.append(hd,tb);standSection.append(t);
  const cup=window.CollegeSoccerCupUI;
  // Use the same school crest component in standings, title forecasts, and brackets.
+ const displayedSchoolRows=Array.from(tb.rows).filter(row=>!row.classList.contains('cs-conf-division-row'));
+ if(displayedSchoolRows.length!==teams.length)throw Error('Conference standings table row/crest alignment failure');
  for(let i=0;i<teams.length;i++){
-  const team=teams[i],link=tb.rows[i]?.cells[1]?.querySelector('a');
+  const team=teams[i],link=displayedSchoolRows[i]?.cells[1]?.querySelector('a');
   if(!link)continue;
   link.classList.add('cs-cup-table-school');
   if(cup)link.prepend(cup.crest(team.name,team.id,cfg.cohort,branding));
