@@ -51,11 +51,11 @@ function menResults(retro,outside){
                          String(retro.events.find(e=>e.id===g.id)?.away_id)===String(teamId));
  return {games:rows.concat(other.filter(g=>!ids.has(g.id))),ranking:retro.rankings.find(r=>String(r.team_id)===String(teamId))||null};
 }
-function womenResults(master,ledger,ratings){
- if(ledger?.season!==season||!Array.isArray(ledger.games)||!master?.teams?.[teamId]||
+function womenResults(schedule,ledger,ratings){
+ if(ledger?.season!==season||!Array.isArray(ledger.games)||!Array.isArray(schedule)||
    !window.WBBGameResults?.merge)throw Error('Women’s verified schedule/final ledger unavailable');
  // Reuse the newspaper’s exact match and conflict quarantine, never a score-only join.
- const merged=window.WBBGameResults.merge(master.teams[teamId].games||[],ledger,teamId);
+ const merged=window.WBBGameResults.merge(schedule,ledger,teamId);
  const occur=new Map();
  for(const g of ledger.games||[]){const id=String(g.id||'');occur.set(id,(occur.get(id)||0)+1);}
  const games=merged.games.filter(g=>g.completed===true&&!g.result_conflict&&g.result_provenance&&
@@ -97,7 +97,7 @@ function render(data){
    'women’s season ledger':'men’s Division I and separately verified non-Division I regular-season results')+
   ' · excludes exhibitions, forecasts and disputed scores.</p>';
 }
-let latest=null,loading=false;
+let latest=null,loading=false,womenSchedule=null;
 function mount(){
  const anchor=document.querySelector(women?'#desk .wbb-kpis':'#app .team-hero');
  if(!anchor)return;
@@ -110,15 +110,17 @@ function mount(){
  }
 }
 async function update(){
- if(loading||document.hidden)return;
+ if(loading||document.hidden||(women&&!womenSchedule))return;
  loading=true;
  try{
   let data;
   if(women){
-   const [master,ledger,ratings]=await Promise.all([
-    get('data/ncaaw-schedules-2026-27.json'),get('data/ncaaw-2026-27-verified-games.json'),
-    get('data/ncaaw-2026-27-retro-primary.json').catch(()=>null)]);
-   data=womenResults(master,ledger,ratings);
+   // The women's page already loads the 10 MB season schedule. Reuse that
+   // immutable in-memory schedule; only the much smaller published ledgers refresh.
+   const [ledger,ratings]=await Promise.all([
+    get('data/ncaaw-2026-27-verified-games.json'),
+    window.WBBRetroSnapshot||get('data/ncaaw-2026-27-retro-primary.json').catch(()=>null)]);
+   data=womenResults(womenSchedule,ledger,ratings);
   }else{
    const [retro,outside]=await Promise.all([get('data/ncaam-2026-27-retro-primary.json'),
      get('data/mbb-non-di-verified-finals-2026-27.json').catch(()=>null)]);
@@ -132,6 +134,9 @@ async function update(){
   console.warn('Team glance: '+e.message);
  }finally{loading=false;}
 }
+if(women)window.CBBTeamGlance={acceptSchedule(games){
+ if(Array.isArray(games)){womenSchedule=games;void update();}
+}};
 function start(){
  mount();
  const obs=new MutationObserver(mount);obs.observe(document.body,{childList:true,subtree:true});
