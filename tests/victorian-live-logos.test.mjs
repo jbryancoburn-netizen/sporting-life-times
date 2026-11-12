@@ -29,6 +29,8 @@ assert(css.includes('.vld-team>.mbb-mark--schedule'),
 const first=js.indexOf('function crest(t){'),last=js.indexOf('function reportedFouls(',first);
 assert(first>=0&&last>first,'Game Center crest renderer missing');
 const source=js.slice(first,last);
+const helper=js.slice(js.indexOf('const nbaAliases='),js.indexOf('const teamCode='));
+assert(helper.includes('const canonicalNBA='),'NBA alias normalization missing');
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({
  '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
 }[c]));
@@ -38,7 +40,7 @@ for(const league of ['ncaam','ncaaw']){
   requested=options;
   return '<span class="mbb-mark mbb-mark--schedule" data-ring-count="2"></span>';
  }}};
- const crest=new Function('league','window','esc',source+'return crest;')(league,window,esc);
+ const crest=new Function('league','window','esc',helper+source+'return crest;')(league,window,esc);
  for(const [id,name] of [['219','Pennsylvania Quakers'],['2426','Navy Midshipmen']]){
   const mark=crest({id,name,code:id,logo:'https://a.espncdn.com/i/teamlogos/ncaa/500/999.png'});
   assert.equal(requested.espnId,id,'Must resolve logo by exact ESPN team ID');
@@ -48,7 +50,7 @@ for(const league of ['ncaam','ncaaw']){
   assert(!mark.includes('999.png'),'Raw ESPN logo must not override verified identity');
   assert(!mark.includes('vld-crest'),'Must not add a third circular wrapper');
  }
- const fallback=new Function('league','window','esc',source+'return crest;')(
+ const fallback=new Function('league','window','esc',helper+source+'return crest;')(
   league,{},esc)({id:'219',name:'Pennsylvania Quakers',code:'PENN',logo:'raw-logo'});
  assert(fallback.includes('vld-mark-unavailable')&&!fallback.includes('raw-logo'),
    'Failed catalog should show neutral fallback, never an unverified logo');
@@ -65,7 +67,7 @@ const nbaFiles=fs.readdirSync('assets/nba-logos').filter(x=>/^[A-Z]{2,3}\.png$/.
 assert.equal(nbaFiles.length,30,'The same 30 local NBA crests must be present');
 const nbaPalette={CLE:'#860038',NYK:'#006BB6'};
 const nbaWindow={SLTScorebug:{color:code=>nbaPalette[code]||'#56534c'}};
-const nbaCrest=new Function('league','window','esc',source+'return crest;')('nba',nbaWindow,esc);
+const nbaCrest=new Function('league','window','esc',helper+source+'return crest;')('nba',nbaWindow,esc);
 for(const [code,name] of [['CLE','Cleveland Cavaliers'],['NYK','New York Knicks']]){
  const mark=nbaCrest({code,name,id:'ignored',logo:'https://cdn.nba.com/fake-unapproved.svg'});
  assert(mark.includes('assets/nba-logos/'+code+'.png'),'NBA must use local crest for '+code);
@@ -75,10 +77,15 @@ for(const [code,name] of [['CLE','Cleveland Cavaliers'],['NYK','New York Knicks'
  assert(!mark.includes('fake-unapproved.svg'),'NBA may not render raw source logo');
  assert(!mark.includes('mbb-mark'),'NBA may not inherit the NCAA two-ring badge');
 }
+const alias=nbaCrest({code:'NY',name:'New York Knicks',logo:'https://cdn.nba.com/unapproved.svg'});
+assert(alias.includes('assets/nba-logos/NYK.png'),'NY must resolve to the existing New York Knicks local logo');
+assert(js.includes('SA:\'SAS\'')&&js.includes('GS:\'GSW\''),'Existing NBA scoreboard alias set must be preserved');
 const invalid=nbaCrest({code:'FAKE',name:'Unknown NBA Club',logo:'https://cdn.nba.com/logo.svg'});
 assert(invalid.includes('vld-mark-unavailable')&&!invalid.includes('cdn.nba.com'),
   'Unknown NBA clubs must never render unverified logo art');
 assert(css.includes('.vld-team>.vld-nba-logo'),'NBA single-ring logo must have scoped styling');
 assert(css.includes('--nba-team-color'),'NBA ring must follow verified existing team palette');
 
+assert(fs.readFileSync('mbb-logo-system.js','utf8').includes('onVictorianLivePage'),
+  'Shared NCAA logo code must not mutate non-basketball Game Center editions');
 console.log('PASS: Penn/Navy canonical NCAA two-rings and Cavs/Knicks verified local NBA one-ring marks');
