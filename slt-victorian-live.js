@@ -256,7 +256,7 @@ async function loadGame(){
  throw Error('All game sources failed ('+latestSourceFailure+')');
 }
 
-function headline(g){return g.phase==='live'?'● LIVE DISPATCH':g.phase==='final'?'FINAL EDITION':'PREGAME EDITION';}
+function headline(g){return g.isStale?'LAST KNOWN · NOT LIVE':g.phase==='live'?'● LIVE DISPATCH':g.phase==='final'?'FINAL EDITION':'PREGAME EDITION';}
 function crest(t){
  // College basketball must use the single site-wide 365-school identity,
  // vetted artwork and TWO-ring school-color mark. Never add our own ring
@@ -425,9 +425,29 @@ function shots(g){
 }
 function now(g){
  const last=g.plays[g.plays.length-1],game=String(g.detail||'');
+ const hasScore=Number.isInteger(g.a.score)&&Number.isInteger(g.h.score);
+ const playBehind=last&&hasScore&&Number.isInteger(last.awayScore)&&Number.isInteger(last.homeScore)&&
+  (last.awayScore!==g.a.score||last.homeScore!==g.h.score);
+ const text=last?.text||(g.phase==='upcoming'?'Awaiting tipoff.':g.phase==='live'?
+  'Live score and game clock are available. The play-by-play provider has not supplied individual plays.':
+  'No sourced play-by-play has been reported for this game.');
  return '<section class="vld-now"><div class="vld-now-head"><span>◈ THE LATEST DISPATCH</span><time>'+esc(last?(periodLabel(last.period||1)+' · '+(last.clock||'clock unavailable')):game)+'</time></div>'+
- '<p>'+esc(last?.text|| (g.phase==='upcoming'?'Awaiting tipoff.':'No sourced play-by-play has been reported for this game.'))+'</p>'+
- (last&&last.awayScore!==null&&last.homeScore!==null?'<small>Reported play score: '+esc(g.a.code)+' '+last.awayScore+' · '+esc(g.h.code)+' '+last.homeScore+'</small>':'')+'</section>';
+ '<p>'+esc(text)+'</p>'+
+ (last&&last.awayScore!==null&&last.homeScore!==null?'<small>Reported play score: '+esc(g.a.code)+' '+last.awayScore+' · '+esc(g.h.code)+' '+last.homeScore+'</small>':'')+
+ (playBehind?'<small class="vld-play-delay">The verified play register trails the current scoreboard.</small>':'')+
+ '</section>';
+}
+function courtUpdate(g){
+ if(config.kind!=='basketball')return '';
+ const live=g.phase==='live'&&!g.isStale;
+ const recent=live&&lastEventChangeAt>0&&Date.now()-lastEventChangeAt<14000;
+ const updated=recent?(lastScoreChangeSide==='away'?g.a.name+' scored':
+  lastScoreChangeSide==='home'?g.h.name+' scored':'New play reported'):
+  g.phase==='final'?'Final game report':g.isStale?'Score source is stale':
+  live?'Awaiting the next verified event':'Pregame court';
+ return '<div class="vld-court-update'+(recent?' vld-court-update--fresh':'')+'" role="status" aria-live="polite">'+
+  '<span class="vld-court-update-dot" aria-hidden="true"></span><strong>'+esc(updated)+'</strong>'+
+  '<span>'+esc(live?'The court reacts to reported scoring events, not inferred player movement.':'No live player-position tracking.')+'</span></div>';
 }
 function teamStats(g){
  const groups=['away','home'].map(s=>new Map((g.boxstats[s]||[]).map(row=>
@@ -539,7 +559,7 @@ function page(g){
  const tabs=[['live','Live dispatch'],['retro','RETRO'],['stats','Statistics'],['players','Players'],['plays','Every play'],['shots','Court & shots']];
  const section='<section class="vld-paper vld-live-grid">'+
   '<div class="vld-live-main"><h2>The game in motion</h2>'+
-  '<div class="vld-floor">'+courtSVG()+'</div><p class="vld-floor-caption">'+(config.kind==='basketball'?(league==='nba'?'NBA REGULATION · 94 × 50 FT · 16-FT LANE':'NCAA REGULATION · 94 × 50 FT · 12-FT LANE'):'FIELD DIAGRAM · NOT PLAYER TRACKING')+'</p>'+
+  '<div class="vld-floor">'+courtSVG()+'</div>'+courtUpdate(g)+'<p class="vld-floor-caption">'+(config.kind==='basketball'?(league==='nba'?'NBA REGULATION · 94 × 50 FT · 16-FT LANE':'NCAA REGULATION · 94 × 50 FT · 12-FT LANE'):'FIELD DIAGRAM · NOT PLAYER TRACKING')+'</p>'+
   now(g)+'</div><aside class="vld-flow"><h2>The Lead Ledger</h2>'+trend(g)+'</aside></section>';
  return scoreboard(g)+
  '<section class="vld-paper"><h2>Period Scoring</h2>'+lineScore(g)+'</section>'+
@@ -566,10 +586,32 @@ q('vld-main').addEventListener('keydown',e=>{
  choose(document.querySelector('[data-vld-tab][aria-selected=true]').dataset.vldTab,true);
 });
 function paint(g){
+ const previous=lastGood;
+ const oldPlay=previous?.plays?.at(-1),currentPlay=g.plays?.at(-1);
+ const scoreChanged=previous?.id===g.id&&(
+  (Number.isInteger(g.a.score)&&Number.isInteger(previous.a.score)&&g.a.score!==previous.a.score)||
+  (Number.isInteger(g.h.score)&&Number.isInteger(previous.h.score)&&g.h.score!==previous.h.score));
+ const playChanged=previous?.id===g.id&&currentPlay&&oldPlay&&currentPlay.id!==oldPlay.id;
+ if(g.phase==='live'&&!g.isStale&&(scoreChanged||playChanged)){
+  lastEventChangeAt=Date.now();
+  const awayDelta=(g.a.score??0)-(previous.a.score??0);
+  const homeDelta=(g.h.score??0)-(previous.h.score??0);
+  lastScoreChangeSide=awayDelta>0&&awayDelta>homeDelta?'away':
+   homeDelta>0&&homeDelta>awayDelta?'home':'';
+ }
  lastGood=g;updatedAt=Date.now();q('vld-main').innerHTML=page(g);
  choose(chosenTab,false);
- q('vld-status').textContent=(g.phase==='live'?'LIVE · ':g.phase==='final'?'FINAL · ':'PREGAME · ')+
-  'Checked '+timeET(updatedAt)+' ET · '+(g.phase==='live'?'updates every 15 seconds':'refreshes periodically');
+ const sourceLabel=g.sourceTier==='published'?'SLT published score snapshot':
+  g.sourceTier==='scoreboard'?'ESPN live scoreboard':
+  g.sourceTier==='cached'?'last confirmed game report':g.source;
+ const sourceTime=g.sourceTier==='published'||g.sourceTier==='cached'?
+  ' · source '+timeET(g.fetchedAt||updatedAt)+' ET':'';
+ const warning=g.isStale?'LAST KNOWN · not current · ':g.phase==='live'?'LIVE · ':
+  g.phase==='final'?'FINAL · ':'PREGAME · ';
+ q('vld-status').textContent=warning+sourceLabel+sourceTime+
+  ' · checked '+timeET(updatedAt)+' ET'+
+  (g.phase==='live'&&!g.isStale?' · checks for updates every 15 sec':'')+
+  (g.sourceTier==='published'?' · play-by-play may be unavailable':'');
 }
 async function update(){
  if(busy||document.hidden)return;busy=true;const request=++requestNo;
