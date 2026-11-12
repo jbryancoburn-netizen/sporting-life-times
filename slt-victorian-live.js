@@ -154,6 +154,13 @@ async function loadGame(){
 
 function headline(g){return g.phase==='live'?'● LIVE DISPATCH':g.phase==='final'?'FINAL EDITION':'PREGAME EDITION';}
 function crest(t){
+ // College basketball must use the single site-wide 365-school identity,
+ // vetted artwork and TWO-ring school-color mark. Never add our own ring
+ // or place a raw, possibly misidentified ESPN logo in a competing shell.
+ if(league==='ncaam'||league==='ncaaw'){
+  if(window.MBBLogos?.render)return window.MBBLogos.render({espnId:t.id,name:t.name,size:'schedule'});
+  return '<span class="vld-mark-unavailable" role="img" aria-label="'+esc(t.name)+' logo not loaded">'+esc(t.code||'—')+'</span>';
+ }
  return '<span class="vld-crest" style="--side:'+t.color+'">'+(t.logo?'<img src="'+esc(t.logo)+'" alt="" loading="lazy" onerror="this.hidden=true">':'<span class="vld-monogram">'+esc(t.code||t.short.slice(0,2))+'</span>')+'</span>';
 }
 function reportedFouls(g,side){
@@ -465,6 +472,10 @@ async function update(){
 q('vld-reload').addEventListener('click',update);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)update();});
 setInterval(()=>{if(!document.hidden)update();},15000);
+// MBB/WBB logo identity is loaded asynchronously from the shared registry.
+// Replace any initial fallback as soon as the verified catalog is ready.
+if(league==='ncaam'||league==='ncaaw')
+ window.MBBLogos?.ready?.then(ok=>{if(ok&&lastGood)paint(lastGood);});
 loadRetroArchive();
 update();
 })();
