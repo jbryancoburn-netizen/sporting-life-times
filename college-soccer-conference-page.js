@@ -91,7 +91,10 @@ async function render(){
  const kicker=E('span',cfg.gender+' · NCAA DIVISION '+(cfg.cohort.endsWith('d1')?'I':cfg.cohort.endsWith('d2')?'II':'III')+' · 2026','cs-conference-kicker');
  hero.append(kicker,E('h1',cfg.name+' SOCCER','cs-conference-title'),E('p','The conference race, verified results and the road to the NCAA championship.','cs-conference-deck'));root.append(hero);
   const folio=E('section',null,'cs-conference-folio');folio.setAttribute('aria-label','Conference at a glance');
-  const facts=[['TABLE LEADER',teams[0]?.name||'Not reported'],['MEMBER SCHOOLS',String(teams.length)],['LISTED TOURNAMENT FIELD',Number(rule.tournament?.field)?String(rule.tournament.field)+' places':'Not verified'],['STANDINGS SNAPSHOT',table.snapshot_checked_date||'Not dated']];
+  const confirmedFinal=table.tournament_bracket?.status==='official'?table.tournament_bracket.matches?.find(m=>/championship|final/i.test(m.round)&&!/semi|quarter/i.test(m.round)):null;
+  const titleState=confirmedFinal?.status==='final'&&confirmedFinal.winner_id?'Champion: '+(teams.find(t=>t.id===confirmedFinal.winner_id)?.name||confirmedFinal.winner_id):
+    confirmedFinal?.home_id&&confirmedFinal.away_id?(teams.find(t=>t.id===confirmedFinal.home_id)?.name||'TBD')+' vs '+(teams.find(t=>t.id===confirmedFinal.away_id)?.name||'TBD')+' · FINAL PENDING':'Not confirmed';
+  const facts=[['REGULAR-SEASON TABLE LEADER',teams[0]?.name||'Not reported'],['TOURNAMENT STATUS',titleState],['MEMBER SCHOOLS',String(teams.length)],['RESULTS VERIFIED THROUGH',table.tournament_bracket?.verified_through||table.last_verified_game_date||table.snapshot_checked_date||'Not dated']];
   for(const [label,value] of facts){const item=E('div',null,'cs-conf-fact');item.append(E('span',label,'cs-conf-fact-label'),E('strong',value,'cs-conf-fact-value'));folio.append(item)}root.append(folio);
  const nav=E('nav',null,'cs-conference-nav');nav.setAttribute('aria-label','Conference desk sections');nav.append(A('STANDINGS','#conference-table'),A('TOURNAMENT','#conference-bracket'),A('RETRO FORECAST','#conference-odds'),A('FORMAT & SOURCES','#conference-rules'));const oppositeKey=(cfg.gender==='MEN'?'women':'men')+'-'+cfg.cohort.split('-')[1]+':'+conferenceSlug;const otherPage=directory.conferences?.[oppositeKey]?.page||cfg.other;if(otherPage)nav.append(A(cfg.gender==='MEN'?'WOMEN’S DESK':'MEN’S DESK',otherPage));root.append(nav);
  
@@ -166,7 +169,10 @@ async function render(){
  }else modelSection.append(E('p','Title probabilities withheld: tournament format or a required Elo rating is unverified.','cs-conf-caption'));
  modelSection.append(E('p',provisional?'Field and seeds are a hypothetical snapshot of the published table, NOT confirmed qualifiers or official seed positions.':'Tournament seeds are supplied explicitly by the conference standings dataset.','cs-conf-caption'));
  modelSection.append(E('p','Elo is used solely to forecast possible match outcomes after a hypothetical field and seed order have been supplied from standings data. These are experimental predictions, not actual brackets or NCAA selection probabilities. Home advantage is a modeling assumption, not a verified venue.','cs-conf-caption'));
- const bracket=E('section',null,'cs-conference-bracket-section');bracket.id='conference-bracket';bracket.append(E('h2',bracketVerified?'OFFICIAL TOURNAMENT MATCHUPS':'ROAD TO THE TITLE · '+(provisional?'PROVISIONAL FIELD':'VERIFIED SEEDS')));
+ const bracket=E('section',null,'cs-conference-bracket-section');bracket.id='conference-bracket';bracket.append(E('h2',bracketVerified?'OFFICIAL TOURNAMENT RESULTS & BRACKET':'ROAD TO THE TITLE · '+(provisional?'PROVISIONAL FIELD':'VERIFIED SEEDS')));
+ if(bracketVerified){
+  bracket.append(E('p','Verified match results through '+(officialBracket.verified_through||table.last_verified_game_date||'date unverified')+'. Winners advance in the official conference bracket. RETRO predictions appear in a separate section below.','cs-conf-caption'));
+ }
  if(bracketVerified){
   const titleMatch=officialBracket.matches.find(m=>/championship|final/i.test(m.round)&&!/semi|quarter/i.test(m.round));
   const decided=titleMatch?.status==='final'&&titleMatch.winner_id&&Number.isInteger(titleMatch.home_score)&&Number.isInteger(titleMatch.away_score);
@@ -192,7 +198,7 @@ async function render(){
   }
   const final=E('section',null,'cs-official-round');final.append(E('h3','CONFERENCE CHAMPIONSHIP'),E('p','Divisional pathways converge in the championship. Exact matchups and venues await the official bracket.','cs-conf-caption'));rounds.append(final);bracket.append(rounds);
  }else if(bracketVerified){
-  const note=E('p','Actual announced tournament matchups; sourced from the conference. RETRO Elo does not determine these pairings.','cs-conf-caption');bracket.append(note);
+  const note=E('p','Official seeds, played match scores and knockout advancement. The championship remains pending until a verified final result is available.','cs-conf-caption');bracket.append(note);
   const rounds=E('div',null,'cs-official-rounds');
   const groups=new Map();
   for(const match of officialBracket.matches){if(!groups.has(match.round))groups.set(match.round,[]);groups.get(match.round).push(match)}
@@ -206,6 +212,7 @@ async function render(){
       if(match.winner_id)card.append(E('strong','✓ ADVANCES: '+(teams.find(t=>t.id===match.winner_id)?.name||match.winner_id),'cs-official-advances'));
     }
     else if(match.kickoff)card.append(E('span',String(match.kickoff),'cs-official-kickoff'));
+    if(match.venue)card.append(E('span',match.venue,'cs-official-kickoff'));
     if(match.status!=='final'&&names[0]&&names[1]&&Number.isFinite(names[0].elo)&&Number.isFinite(names[1].elo)){
       // A two-way RETRO advancement estimate. Ties/penalties are NOT modeled.
       const hostBonus=match.home_id=== 'indiana'||match.home_id==='washington'?55:0;
@@ -257,7 +264,7 @@ async function render(){
     note.replaceChildren(E('h3','CURRENT CONFERENCE QUALIFICATION RACE'));note.append(E('p','The 2026 championship format or complete seeding criteria are not yet verified. Current table positions appear below; they are not tournament seeds or invented matchups.','cs-conf-caption'),strip);
   }
   bracket.append(note);
- }root.append(bracket);
+ }root.insertBefore(bracket,columns);
  const rulesSection=E('section',null,'cs-conference-rules');rulesSection.id='conference-rules';rulesSection.append(E('h2','CHAMPIONSHIP FORMAT'));
  rulesSection.append(E('p','Field: '+(rule.tournament?.field||'unverified')+(officialSeeds?' verified tournament seeds. ':' provisional entrants. ')+(rule.tournament?.status||'')+' '+(rule.projection_warning||'')));
  if(rule.tournament?.automatic_qualifier)rulesSection.append(E('p',rule.tournament.automatic_qualifier));
