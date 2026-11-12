@@ -13,7 +13,7 @@ class FixedDate extends Date{
 }
 const settle=()=>new Promise(resolve=>setImmediate(resolve));
 async function desk(){
- const nodes={'nba-rabby-status':{},'nba-rabby-games':{}};
+ const nodes={'nba-rabby-status':{},'nba-rabby-games':{dataset:{},querySelectorAll:()=>[]}};
  const state={fail:false,interval:null,refresh:null,events:[]};
  const window={RabbyPossessionModel:scorer,SLTScorebug:{
   render:g=>'<div class="test-scorebug">'+g.away.code+' '+g.awayScore+' @ '+g.home.code+' '+g.homeScore+'</div>'
