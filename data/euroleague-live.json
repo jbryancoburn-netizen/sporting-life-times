@@ -1,31 +1,13 @@
 {
   "season": "2026-27",
   "updated_at": "2026-11-11T23:43:52.538162+00:00",
-  "checked_at": "2026-11-11T23:43:52.538162+00:00",
+  "checked_at": "2026-11-12T04:22:00.274448+00:00",
   "source": "EuroLeague per-game Header plus verified Sporting Life & Times model finals",
   "refresh_target_seconds": 300,
-  "header_responses": 2,
-  "live_scores_refreshed": 1,
+  "header_responses": 0,
+  "live_scores_refreshed": 0,
   "provider_degraded": false,
   "games": [
-    {
-      "id": "101",
-      "date": "2026-11-11T19:45:00Z",
-      "status": "scheduled",
-      "status_detail": "Scheduled",
-      "home": {
-        "code": "PRS",
-        "name": "Paris Basketball",
-        "logo": "https://media-cdn.incrowdsports.com/a033e5b3-0de7-48a3-98d9-d9a4b9df1f39.png",
-        "score": null
-      },
-      "away": {
-        "code": "ULK",
-        "name": "Fenerbahce Tarfin Istanbul",
-        "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCiezrk/aa39750a-6203-49ee-a87d-edd0c6f0397d.png",
-        "score": null
-      }
-    },
     {
       "id": "103",
       "date": "2026-11-12T19:05:00Z",
@@ -171,10 +153,29 @@
       }
     },
     {
+      "id": "101",
+      "date": "2026-11-11T19:45:00Z",
+      "status": "final",
+      "status_detail": "Final",
+      "home": {
+        "code": "PRS",
+        "name": "Paris Basketball",
+        "logo": "https://media-cdn.incrowdsports.com/a033e5b3-0de7-48a3-98d9-d9a4b9df1f39.png",
+        "score": 111
+      },
+      "away": {
+        "code": "ULK",
+        "name": "Fenerbahce Tarfin Istanbul",
+        "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCiezrk/aa39750a-6203-49ee-a87d-edd0c6f0397d.png",
+        "score": 109
+      },
+      "score_updated_at": "2026-11-12T02:59:04.033996+00:00"
+    },
+    {
       "id": "102",
       "date": "2026-11-11T19:45:00Z",
       "status": "final",
-      "status_detail": "Final · EuroLeague completed periods",
+      "status_detail": "Final",
       "home": {
         "code": "PAR",
         "name": "Partizan Mozzart Bet Belgrade",
@@ -187,8 +188,7 @@
         "logo": "https://media-cdn.cortextech.io/cbc49cb0-99ce-4462-bdb7-56983ee03cf4.png",
         "score": 66
       },
-      "score_updated_at": "2026-11-11T23:43:52.538162+00:00",
-      "final_source": "https://live.euroleague.net/api/Header?gamecode=102&seasoncode=E2026"
+      "score_updated_at": "2026-11-12T02:59:04.033996+00:00"
     }
   ]
 }
