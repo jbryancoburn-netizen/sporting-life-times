@@ -190,6 +190,7 @@
       '</div><div class="cbb-form-recent"><h3>Recent verified results</h3><ol>' + recent +
       '</ol></div></div><p class="cbb-form-status">' + esc(source.source) +
       '. Exhibition games excluded. ' + esc(source.note) + '</p>';
+    node.dataset.rendered = 'true';
     return true;
   }
   let pending = false, lastDisplay = '';
@@ -220,7 +221,7 @@
       }
       const form = calculate(teamId, register);
       const signature = JSON.stringify({form, note: register.note});
-      if (signature !== lastDisplay || !document.getElementById('cbb-team-form')) {
+      if (signature !== lastDisplay || document.getElementById('cbb-team-form')?.dataset.rendered !== 'true') {
         if (draw(form, register)) lastDisplay = signature;
       }
     } catch (error) {
