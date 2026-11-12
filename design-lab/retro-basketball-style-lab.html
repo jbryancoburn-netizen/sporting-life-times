@@ -18,7 +18,7 @@ button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 .kicker b{color:var(--accent)}
 h1{margin:17px 0 5px;font:900 clamp(28px,5vw,55px)/1 Impact,"Arial Black",sans-serif;text-transform:uppercase;letter-spacing:.05em}
 .sub{color:var(--muted);margin:0 0 20px;font-size:13px}
-.choices{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:15px 0 17px}
+.choices{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:15px 0 17px}
 .choices button,.leagues button{background:var(--panel);border:1px solid var(--edge);color:var(--text);font-weight:800;padding:14px 5px;font-size:11px;letter-spacing:.07em;text-transform:uppercase}
 .choices button[aria-pressed=true],.leagues button[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:#111822}
 .presentation{position:relative;overflow:hidden;border:4px solid var(--edge);background:linear-gradient(128deg,var(--panel2),var(--panel) 55%,var(--back));box-shadow:0 12px 0 #0006,0 19px 30px #0005}
@@ -65,6 +65,10 @@ h1{margin:17px 0 5px;font:900 clamp(28px,5vw,55px)/1 Impact,"Arial Black",sans-s
 .look-arena .score-value{display:none}
 .digits{display:none;justify-content:flex-end;gap:5px}
 .look-arena .digits{display:flex}
+body.deco-dots .digits{display:flex}
+body.deco-dots .score-value{display:none}
+body.deco-dots .dot{background:#3c3527}
+body.deco-dots .dot.on{background:#eeca7a;box-shadow:0 0 4px #d7a44a,0 0 9px #d7a44a88}
 .digit{display:grid;grid-template-columns:repeat(5,6px);grid-template-rows:repeat(7,6px);gap:3px;padding:5px;background:#080d08}
 .dot{width:6px;height:6px;border-radius:50%;background:#45361d;box-shadow:inset 0 0 1px #000}
 .dot.on{background:#ffc04a;box-shadow:0 0 5px #ff951b,0 0 8px #ff951b88}
@@ -97,6 +101,7 @@ h1{margin:17px 0 5px;font:900 clamp(28px,5vw,55px)/1 Impact,"Arial Black",sans-s
 <button type="button" data-look="nbc" aria-pressed="false">NBC • 1990s</button>
 <button type="button" data-look="arena" aria-pressed="false">Arena • Lighted Dots</button>
 <button type="button" data-look="deco" aria-pressed="false">Art Deco • Gold</button>
+<button type="button" data-look="decodots" aria-pressed="false">Deco • Lit Dots</button>
 </nav>
 <main class="presentation" aria-label="Interactive style preview">
 <div class="topbar"><span id="top-left">NATIONAL BASKETBALL BROADCAST</span><span id="top-right">SUNDAY SHOWCASE</span></div>
@@ -148,12 +153,12 @@ const el=$(target);el.textContent="";
 String(score).split("").forEach(n=>{const grid=document.createElement("span");grid.className="digit";grid.setAttribute("aria-hidden","true");const bits=glyph[n]||glyph["0"];bits.forEach(row=>row.split("").forEach(bit=>{const dot=document.createElement("span");dot.className="dot"+(bit==="1"?" on":"");grid.appendChild(dot)}));el.appendChild(grid)});
 }
 function render(){
-const p=presets[league],style=looks[look];root.className="look-"+look;
+const p=presets[league],style=looks[look==="decodots"?"deco":look];root.className=look==="decodots"?"look-deco deco-dots":"look-"+look;
 $("away").textContent=p.a;$("home").textContent=p.h;
 $("away-score").textContent=a;$("home-score").textContent=h;
 $("fg").textContent=p.fg;$("reb").textContent=p.reb;$("streak").textContent=p.streak;
 $("top-left").textContent=style.top;$("top-right").textContent=style.right;$("overline").textContent=style.over;$("hero-title").textContent=style.title;$("board-title").textContent=style.board;
-$("description").innerHTML=style.desc;digits("away-digits",a);digits("home-digits",h);
+$("description").innerHTML=look==="decodots"?"<strong>Art Deco + arena bulbs:</strong> warm golden dot-matrix numerals within a symmetrical 1930s-inspired architectural frame; this hybrid mixes the two nostalgic details.":style.desc;digits("away-digits",a);digits("home-digits",h);
 document.querySelectorAll("[data-look]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.look===look)));
 document.querySelectorAll("[data-league]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.league===league)));
 }
