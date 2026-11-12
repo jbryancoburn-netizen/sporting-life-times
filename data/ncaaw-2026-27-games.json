@@ -2584,20 +2584,6 @@
       "away_name": "Park University Gilbert Buccaneers"
     },
     {
-      "id": "401917692",
-      "date": "2026-11-10T02:00Z",
-      "home_id": "2540",
-      "away_id": "2547",
-      "neutral": false,
-      "site_verified": true,
-      "venue": "The Thunderdome",
-      "broadcast": "ESPN+",
-      "status": "final",
-      "home_score": 92,
-      "away_score": 48,
-      "score_evidence": "espn_only"
-    },
-    {
       "id": "401917693",
       "date": "2026-11-10T02:00Z",
       "home_id": "299",
@@ -4430,9 +4416,7 @@
       "home_score": 55,
       "away_score": 64,
       "score_evidence": "espn_only"
-    }
-  ],
-  "upcoming": [
+    },
     {
       "id": "401918658",
       "date": "2026-11-12T16:00Z",
@@ -4442,7 +4426,9 @@
       "site_verified": true,
       "venue": "Cam Henderson Center",
       "broadcast": "ESPN+",
-      "status": "scheduled",
+      "status": "final",
+      "home_score": 73,
+      "away_score": 60,
       "score_evidence": "espn_only",
       "home_name": "Marshall Thundering Herd",
       "away_name": "West Virginia State Yellow Jackets"
@@ -4456,8 +4442,10 @@
       "site_verified": true,
       "venue": "Truist Arena",
       "broadcast": "ESPN+",
-      "status": "scheduled",
-      "score_evidence": "espn_only"
+      "status": "final",
+      "home_score": 67,
+      "away_score": 75,
+      "score_evidence": "espn_and_ncaa_origin"
     },
     {
       "id": "401930885",
@@ -4468,11 +4456,15 @@
       "site_verified": true,
       "venue": "Al Lawson Center",
       "broadcast": "SWAC TV",
-      "status": "scheduled",
+      "status": "final",
+      "home_score": 74,
+      "away_score": 67,
       "score_evidence": "espn_only",
       "home_name": "Florida A&M Rattlers",
       "away_name": "Albany State Golden Rams"
-    },
+    }
+  ],
+  "upcoming": [
     {
       "id": "401906105",
       "date": "2026-11-12T16:30Z",
@@ -4483,7 +4475,7 @@
       "venue": "LJVM Coliseum",
       "broadcast": "ACCNX",
       "status": "scheduled",
-      "score_evidence": "espn_only"
+      "score_evidence": "fixture_identity_crosschecked"
     },
     {
       "id": "401919709",
