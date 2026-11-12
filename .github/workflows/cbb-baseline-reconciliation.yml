@@ -1,0 +1,54 @@
+name: CBB full-season public baseline reconciliation
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'scripts/audit_cbb_baseline_reconciliation.py'
+      - 'tests/test_cbb_baseline_reconciliation.py'
+      - '.github/workflows/cbb-baseline-reconciliation.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/audit_cbb_baseline_reconciliation.py'
+      - 'tests/test_cbb_baseline_reconciliation.py'
+      - '.github/workflows/cbb-baseline-reconciliation.yml'
+  schedule:
+    - cron: '46 15 * * *'
+permissions:
+  contents: read
+concurrency:
+  group: cbb-public-baseline-reconciliation
+  cancel-in-progress: false
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Syntax-check the comprehensive baseline
+        run: python3 -m py_compile scripts/audit_cbb_baseline_reconciliation.py
+      - name: Test event identities, final status, standings evidence, box scores and venues
+        run: python3 -m unittest discover -s tests -p test_cbb_baseline_reconciliation.py -v
+  public-reconciliation:
+    needs: regression
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 28
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Reconcile all published men's and women's finals, both calendars, records, boxscores and venues
+        run: python3 scripts/audit_cbb_baseline_reconciliation.py
+      - name: Always preserve per-game discrepancy evidence and public URLs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cbb-full-baseline-reconciliation
+          path: artifacts/cbb-baseline/
+          retention-days: 30
+          if-no-files-found: warn
