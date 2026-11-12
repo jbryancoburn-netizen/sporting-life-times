@@ -78,6 +78,23 @@ class CalendarIdentityTests(unittest.TestCase):
         self.assertFalse(calendar_matches_verified_final(
             game(date="2026-11-08T23:00:00Z"), ID, SCORES, TIP))
 
+    def test_women_quarantined_final_is_not_silently_accepted(self):
+        from unittest.mock import patch
+        source = {ID: ("84", "153", 78, 72, TIP)}
+        published = {"teams": {
+            "84": {"games": [{"id": ID, "completed": True, "home_id": "84",
+                              "away_id": "153", "home_score": 78, "away_score": 72}]},
+            "153": {"games": [{"id": ID, "completed": True, "home_id": "84",
+                               "away_id": "153", "home_score": 78, "away_score": 72}]},
+        }}
+        quarantine = {"quarantined_schedule_conflicts": [
+            {"game_id": ID, "team_id": "84", "reason": "duplicate schedule game ID"}]}
+        with patch("check_cbb_finals_health.read", return_value=quarantine):
+            missing, quarantined = public_calendars(
+                "women", source, lambda path: published, TIP)
+        self.assertEqual(missing, [ID + "/84"])
+        self.assertEqual(quarantined, 1)
+
     def test_public_calendar_reconciliation_detects_unrelated_game(self):
         source = {ID: ("84", "153", 78, 72, TIP)}
         bogus = game(id="another-game", away="333", home="444")
