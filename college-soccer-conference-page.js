@@ -99,8 +99,9 @@ async function render(){
   const confirmedFinal=table.tournament_bracket?.status==='official'?table.tournament_bracket.matches?.find(m=>/championship|final/i.test(m.round)&&!/semi|quarter/i.test(m.round)):null;
   const titleState=confirmedFinal?.status==='final'&&confirmedFinal.winner_id?'Champion: '+(teams.find(t=>t.id===confirmedFinal.winner_id)?.name||confirmedFinal.winner_id):
     confirmedFinal?.home_id&&confirmedFinal.away_id?(teams.find(t=>t.id===confirmedFinal.home_id)?.name||'TBD')+' vs '+(teams.find(t=>t.id===confirmedFinal.away_id)?.name||'TBD')+' · FINAL PENDING':
-    recentScores.length?recentScores.length+' real NCAA scores · bracket not certified':'Not confirmed';
-  const facts=[['REGULAR-SEASON TABLE LEADER',teams[0]?.name||'Not reported'],['TOURNAMENT STATUS',titleState],['MEMBER SCHOOLS',String(teams.length)],['RESULTS VERIFIED THROUGH',table.tournament_bracket?.verified_through||table.last_verified_game_date||table.snapshot_checked_date||'Not dated']];
+    confirmedFinal?'Official semifinals set · championship pending':
+    recentScores.length?recentScores.length+' recent NCAA final scores · bracket unverified':'Not confirmed';
+  const facts=[['REGULAR-SEASON TABLE LEADER',teams[0]?.name||'Not reported'],['TOURNAMENT STATUS',titleState],['MEMBER SCHOOLS',String(teams.length)],[key==='men-d1:big-east'?'FINAL STANDINGS AS OF':'RESULTS VERIFIED THROUGH',key==='men-d1:big-east'?(table.standings_final_date||table.snapshot_checked_date):table.tournament_bracket?.verified_through||table.last_verified_game_date||table.snapshot_checked_date||'Not dated']];
   for(const [label,value] of facts){const item=E('div',null,'cs-conf-fact');item.append(E('span',label,'cs-conf-fact-label'),E('strong',value,'cs-conf-fact-value'));folio.append(item)}root.append(folio);
  const nav=E('nav',null,'cs-conference-nav');nav.setAttribute('aria-label','Conference desk sections');nav.append(A('STANDINGS','#conference-table'),A('TOURNAMENT','#conference-bracket'),A('RETRO FORECAST','#conference-odds'),A('FORMAT & SOURCES','#conference-rules'));const oppositeKey=(cfg.gender==='MEN'?'women':'men')+'-'+cfg.cohort.split('-')[1]+':'+conferenceSlug;const otherPage=directory.conferences?.[oppositeKey]?.page||cfg.other;if(otherPage)nav.append(A(cfg.gender==='MEN'?'WOMEN’S DESK':'MEN’S DESK',otherPage));root.append(nav);
  
@@ -109,8 +110,25 @@ async function render(){
  if(table.note)standSection.append(E('p',table.note,'cs-conf-caption'));
  const unresolved=new Set((table.unresolved_tie_groups||[]).flatMap(g=>g.teams||[]));
  if(unresolved.size)standSection.append(E('p','† Teams level on points: their order is provisional until conference tiebreakers are resolved.','cs-conf-caption'));
- const t=E('table',null,'cs-conference-table');const hd=E('thead'),hr=E('tr');for(const name of ['#','School','Conf. W–L–D','Overall','Pts'])hr.append(E('th',name));hd.append(hr);const tb=E('tbody');
- teams.forEach((team,i)=>{const row=E('tr');const field=Number(rule.tournament?.field)||0;if(field&&i===field-1)row.classList.add('cutoff');if(field&&i<field)row.classList.add('cs-conf-infield');const rank=E('td');rank.append(E('span',String(i+1)+(unresolved.has(team.id)?' †':''),'cs-conf-rank'));row.append(rank);const school=E('td');school.append(A(team.name,'college-soccer-team.html?team='+encodeURIComponent(cfg.cohort+':'+team.id)));row.append(school);for(const [label,value] of [['Conf. W–L–D',team.conference_record||'—'],['Overall',team.overall_record||'—'],['Pts',team.conference_points??'—']]){const cell=E('td',value);cell.dataset.label=label;row.append(cell)}tb.append(row)});
+ const t=E('table',null,'cs-conference-table');const hd=E('thead'),hr=E('tr');for(const name of [key==='men-d1:big-east'?'Div. #':'#','School','Conf. W–L–D','Overall','Pts'])hr.append(E('th',name));hd.append(hr);const tb=E('tbody');
+ const confirmedEntrants=new Set(Array.isArray(table.tournament_seeds)?table.tournament_seeds:[]);
+ let activeDivision='',divisionPosition=0;
+ teams.forEach((team,i)=>{
+  if(key==='men-d1:big-east'&&team.division!==activeDivision){
+   activeDivision=team.division;divisionPosition=0;
+   const groupRow=E('tr',null,'cs-conf-division-row'),groupHeading=E('th',activeDivision.toUpperCase()+' DIVISION');
+   groupHeading.colSpan=5;groupRow.append(groupHeading);tb.append(groupRow);
+  }
+  const row=E('tr');const field=Number(rule.tournament?.field)||0;
+  if(key!=='men-d1:big-east'&&field&&i===field-1)row.classList.add('cutoff');
+  if(confirmedEntrants.size?confirmedEntrants.has(team.id):field&&i<field)row.classList.add('cs-conf-infield');
+  const place=key==='men-d1:big-east'?++divisionPosition:i+1;
+  const rank=E('td');rank.append(E('span',String(place)+(unresolved.has(team.id)?' †':''),'cs-conf-rank'));row.append(rank);
+  const school=E('td');school.append(A(team.name,'college-soccer-team.html?team='+encodeURIComponent(cfg.cohort+':'+team.id)));
+  if(key==='men-d1:big-east'&&confirmedEntrants.has(team.id))school.append(E('small','QUALIFIED','cs-conf-qualified'));
+  row.append(school);
+  for(const [label,value] of [['Conf. W–L–D',team.conference_record||'—'],['Overall',team.overall_record||'—'],['Pts',team.conference_points??'—']]){const cell=E('td',value);cell.dataset.label=label;row.append(cell)}tb.append(row)
+ });
  t.append(hd,tb);standSection.append(t);
  const cup=window.CollegeSoccerCupUI;
  // Use the same school crest component in standings, title forecasts, and brackets.
@@ -175,9 +193,11 @@ async function render(){
  }else if(bracketVerified&&titleFixture?.home_id&&titleFixture?.away_id){
   const a=teams.find(t=>t.id===titleFixture.home_id),b=teams.find(t=>t.id===titleFixture.away_id);
   if(a&&b&&Number.isFinite(a.elo)&&Number.isFinite(b.elo)){
-   const p=1/(1+Math.pow(10,-((a.elo-b.elo+55)/400)));
+   const neutral=titleFixture.venue_type==='neutral';
+   const homeBonus=neutral?0:55;
+   const p=1/(1+Math.pow(10,-((a.elo-b.elo+homeBonus)/400)));
    const forecast=E('div',null,'cs-conf-title-forecast');
-   forecast.append(E('strong','RETRO · CHAMPIONSHIP PREDICTION'),E('p',a.name+' '+pct(p)+' · '+b.name+' '+pct(1-p)),E('small','55-point modeled home advantage · penalty shootouts excluded · NOT an actual result'));
+   forecast.append(E('strong','RETRO · CHAMPIONSHIP PREDICTION'),E('p',a.name+' '+pct(p)+' · '+b.name+' '+pct(1-p)),E('small',(neutral?'Neutral site · no home advantage':'55-point modeled home advantage')+' · penalty shootouts excluded · NOT an actual result'));
    modelSection.append(forecast);
   }else modelSection.append(E('p','Finalists confirmed; RETRO odds unavailable until both ratings are verified.','cs-conf-caption'));
  }else if(bracketVerified){
@@ -203,8 +223,9 @@ async function render(){
   const banner=E('div',null,'cs-tournament-title-status '+(decided?'cs-title-decided':'cs-title-pending'));
   if(decided)banner.append(E('strong','★ OFFICIAL CONFERENCE TOURNAMENT CHAMPION'),E('p',teams.find(t=>t.id===titleMatch.winner_id)?.name||titleMatch.winner_id));
   else{
-   banner.append(E('strong','TOURNAMENT IN PROGRESS · NO CHAMPION CONFIRMED'));
+   banner.append(E('strong',key==='men-d1:big-east'?'OFFICIAL SEMIFINALS · NOVEMBER 12 · CHAMPION NOT YET DECIDED':'TOURNAMENT IN PROGRESS · NO CHAMPION CONFIRMED'));
    if(titleMatch?.home_id&&titleMatch.away_id)banner.append(E('p',(teams.find(t=>t.id===titleMatch.home_id)?.name||'TBD')+' vs '+(teams.find(t=>t.id===titleMatch.away_id)?.name||'TBD')+' · '+(titleMatch.kickoff||'date pending')));
+   else if(titleMatch?.home_from&&titleMatch.away_from)banner.append(E('p','Championship · '+(titleMatch.kickoff||'date pending')+' · winners of the two semifinals','cs-conf-title-pending'));
   }
   bracket.append(banner);
  }
@@ -250,7 +271,16 @@ async function render(){
   const rounds=E('div',null,'cs-official-rounds');
   const groups=new Map();
   for(const match of officialBracket.matches){if(!groups.has(match.round))groups.set(match.round,[]);groups.get(match.round).push(match)}
-  for(const [roundName,matches] of groups){const group=E('section',null,'cs-official-round');group.append(E('h3',roundName));for(const match of matches){const card=E('article',null,'cs-official-match');const names=[match.home_id,match.away_id].map(id=>teams.find(t=>t.id===id));const label=E('div',null,'cs-official-match-names');for(const [index,team] of names.entries()){const cell=E('div',null,'cs-official-team');if(match.status==='final'&&match.winner_id===(index===0?match.home_id:match.away_id))cell.classList.add('cs-official-winner');if(!team)cell.append(E('strong','To be determined'));else{
+  const feederLabel=(sourceId)=>{
+   const feeder=officialBracket.matches.find(m=>m.id===sourceId);
+   if(!feeder)return 'Awaiting semifinal winner';
+   const participant=(id)=>{const seed=tournamentSeedByTeam.get(id);const team=teams.find(t=>t.id===id);return (Number.isInteger(seed)?'#'+seed+' ':'')+(team?.name||'TBD')};
+   return feeder.home_id&&feeder.away_id?'Winner of '+participant(feeder.home_id)+' vs. '+participant(feeder.away_id):'Awaiting earlier-round winner';
+  };
+  for(const [roundName,matches] of groups){const group=E('section',null,'cs-official-round');group.append(E('h3',roundName));for(const match of matches){const card=E('article',null,'cs-official-match');const names=[match.home_id,match.away_id].map(id=>teams.find(t=>t.id===id));const label=E('div',null,'cs-official-match-names');for(const [index,team] of names.entries()){const cell=E('div',null,'cs-official-team');if(match.status==='final'&&match.winner_id===(index===0?match.home_id:match.away_id))cell.classList.add('cs-official-winner');if(!team){
+   const from=index===0?match.home_from:match.away_from;
+   cell.append(E('strong',from?feederLabel(from):'Awaiting official matchup','cs-conf-winner-slot'));
+  }else{
   const seed=tournamentSeedByTeam.get(team.id);
   const regionalLabel=tournamentSeedsVerified&&typeof officialRegionalSeedLabels[team.id]==='string'?
    officialRegionalSeedLabels[team.id]:null;
@@ -275,7 +305,9 @@ async function render(){
       // A two-way RETRO advancement estimate. Ties/penalties are NOT modeled.
       const hostBonus=match.home_id=== 'indiana'||match.home_id==='washington'?55:0;
       const p=1/(1+Math.pow(10,-((names[0].elo-names[1].elo+hostBonus)/400)));
-      card.append(E('small','RETRO ADVANCEMENT ESTIMATE · '+names[0].name+' '+Math.round(100*p)+'% / '+names[1].name+' '+Math.round(100*(1-p))+'% · EXCLUDES PENALTY MODEL','cs-conf-caption'));
+      const estimate='RETRO · '+names[0].name+' '+Math.round(100*p)+'% / '+names[1].name+' '+Math.round(100*(1-p))+'% · penalties not modeled';
+      if(key==='men-d1:big-east')modelSection.append(E('p',estimate,'cs-conf-caption'));
+      else card.append(E('small','RETRO ADVANCEMENT ESTIMATE · '+names[0].name+' '+Math.round(100*p)+'% / '+names[1].name+' '+Math.round(100*(1-p))+'% · EXCLUDES PENALTY MODEL','cs-conf-caption'));
     }
     if(match.source_url)card.append(A('Verified match report',match.source_url));
     group.append(card)}rounds.append(group)}bracket.append(rounds,A('Official tournament bracket source',officialBracket.source_url));
