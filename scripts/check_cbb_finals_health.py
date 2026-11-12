@@ -63,6 +63,32 @@ def final_key(game):
              (str(game["away_id"]), int(game["away_score"])))
     return str(game["date"])[:10], tuple(sorted(sides))
 
+def calendar_matches_verified_final(row, event_id, source_scores, tip):
+    """Accept the exact scoreboard ID, or a sourced university alternate ID.
+
+    Equal scores on the same day never establish game identity on their own.
+    Every match must contain the two expected teams with their actual scores.
+    """
+    if row.get("status", {}).get("type", {}).get("completed") is not True:
+        return False
+    sides = (row.get("competitions") or [{}])[0].get("competitors") or []
+    if len(sides) != 2:
+        return False
+    actual = {str(side.get("team", {}).get("id")): score(side) for side in sides}
+    if len(actual) != 2 or actual != source_scores:
+        return False
+    published_id = str(row.get("id", "")).removeprefix("espn:")
+    if published_id != event_id:
+        # University schedule archives use a distinct, documented fixture ID.
+        # An arbitrary row sharing a date and 78-72 score is NOT enough.
+        if not (row.get("official_source") is True and
+                str(row.get("school_source_url", "")).startswith("https://")):
+            return False
+    return str(row.get("date", ""))[:10] in {
+        tip.date().isoformat(), tip.astimezone(EASTERN).date().isoformat()
+    }
+
+
 def public_calendars(gender, scoreboard, public_data, now):
     """Check the actual team-page inputs for today's completed games."""
     today = now.astimezone(EASTERN).date()
@@ -96,18 +122,9 @@ def public_calendars(gender, scoreboard, public_data, now):
     def check_men(item):
         school, games = item
         rows = public_data(f"mbb-schedules-2026-27/{school}.json").get("events", [])
-        finals = []
-        for row in rows:
-            if row.get("status", {}).get("type", {}).get("completed") is not True:
-                continue
-            sides = (row.get("competitions") or [{}])[0].get("competitors", [])
-            scores = {str(side.get("team", {}).get("id")): score(side) for side in sides}
-            finals.append((str(row.get("id", "")).removeprefix("espn:"), scores,
-                           str(row.get("date", ""))[:10]))
-        return [f"{eid}/{school}" for eid, scores, tip in games
-                if not any(actual == scores and (key == eid or day in {
-                    tip.date().isoformat(), tip.astimezone(EASTERN).date().isoformat(),
-                }) for key, actual, day in finals)]
+        return [f"{eid}/{school}" for eid, source_scores, tip in games
+                if not any(calendar_matches_verified_final(
+                    row, eid, source_scores, tip) for row in rows)]
 
     with ThreadPoolExecutor(max_workers=12) as workers:
         return [missing for group in workers.map(check_men, checks.items()) for missing in group], 0
