@@ -50,9 +50,27 @@ for(const key of keys){
  const b=table.tournament_bracket;
  if(b?.status==='official'){
   official++;assert(b.source_url.startsWith('https://'),key+' missing conference bracket citation');
+  const seeds=table.tournament_seeds;
+  assert(Array.isArray(seeds)&&seeds.length>=4,key+' official tournament seed list missing');
+  assert.equal(new Set(seeds).size,seeds.length,key+' duplicated tournament seed');
+  assert(seeds.every(team=>members.has(team)),key+' seeded school outside conference');
+  for(const match of b.matches)for(const id of [match.home_id,match.away_id]){
+    if(id!==null&&id!==undefined)assert(seeds.includes(id),key+' tournament game includes non-seeded school '+id);
+  }
+  if(key==='men-d1:caa'){
+    assert.equal(table.tournament_seed_labels['stony-brook'],'N#1');
+    assert.equal(table.tournament_seed_labels['unc-wilmington'],'S#1');
+    assert.equal(table.tournament_seed_labels['hofstra'],'N#2');
+    assert.equal(table.tournament_seed_labels['col-of-charleston'],'S#3');
+  }
   assert(b.matches.length>=3,key+' missing verified fixtures');
   for(const m of b.matches){
-   assert(members.has(m.home_id)&&members.has(m.away_id));
+   assert((m.home_id===null||members.has(m.home_id))&&(m.away_id===null||members.has(m.away_id)),key+' unknown official tournament participant');
+   if(m.home_id===null||m.away_id===null){
+    assert.equal(m.status,'scheduled',key+' cannot decide an unnamed championship game');
+    assert(m.home_from&&m.away_from,key+' has ungrounded TBD championship slots');
+    assert(b.matches.some(x=>x.id===m.home_from)&&b.matches.some(x=>x.id===m.away_from),key+' placeholder refers to absent semifinal');
+   }
    if(m.status==='final'){
     assert(Number.isInteger(m.home_score)&&Number.isInteger(m.away_score));
     assert(m.winner_id===m.home_id||m.winner_id===m.away_id);
@@ -64,5 +82,5 @@ for(const key of keys){
  assert(rules.conferences[key],key+' missing championship schedule');
 }
 assert(withMatches>=15,'Expected post-season period results from at least 15 conferences');
-assert(official>=7,'Verified tournament brackets missing');
-console.log('PASS: '+withMatches+'/23 conference pages display actual NCAA final results, '+total+' sourced games; '+official+' official league brackets; no fabricated tournament rounds');
+assert.equal(official,23,'Official tournament seeds/brackets must cover all 23 men’s Division I conferences');
+console.log('PASS: '+withMatches+'/23 conference pages display actual NCAA scores, '+total+' sourced games; ALL '+official+' conferences have source-backed tournament seeds and brackets; no fabricated advancement');

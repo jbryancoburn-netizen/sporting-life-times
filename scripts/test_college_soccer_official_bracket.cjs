@@ -33,7 +33,23 @@ for(const feed of [
  'data/college-soccer-men-d1-mountain-west-standings.json',
  'data/college-soccer-men-d1-big-south-standings.json',
  'data/college-soccer-men-d1-big-west-standings.json',
- 'data/college-soccer-men-d1-sun-belt-standings.json'
+ 'data/college-soccer-men-d1-sun-belt-standings.json',
+ 'data/college-soccer-men-d1-acc-standings.json',
+ 'data/college-soccer-men-d1-big-east-standings.json',
+ 'data/college-soccer-men-d1-america-east-standings.json',
+ 'data/college-soccer-men-d1-american-standings.json',
+ 'data/college-soccer-men-d1-ivy-standings.json',
+ 'data/college-soccer-men-d1-wcc-standings.json',
+ 'data/college-soccer-men-d1-ovc-standings.json',
+ 'data/college-soccer-men-d1-mvc-standings.json',
+ 'data/college-soccer-men-d1-asun-standings.json',
+ 'data/college-soccer-men-d1-horizon-standings.json',
+ 'data/college-soccer-men-d1-caa-standings.json',
+ 'data/college-soccer-men-d1-nec-standings.json',
+ 'data/college-soccer-men-d1-socon-standings.json',
+ 'data/college-soccer-men-d1-summit-standings.json',
+ 'data/college-soccer-men-d1-maac-standings.json',
+ 'data/college-soccer-men-d1-pac-12-standings.json'
 ]){
  const data=JSON.parse(fs.readFileSync(feed,'utf8'));
  assert.equal(data.tournament_bracket.status,'official');
@@ -42,18 +58,23 @@ for(const feed of [
  assert.equal(new Set(seeds).size,seeds.length,'Duplicate seeds: '+feed);
  const tournamentSeedByTeam=new Map(seeds.map((id,i)=>[id,i+1]));
  const schools=new Map(data.rows.map(t=>[t.team_id,{id:t.team_id,name:t.team_id.replaceAll('-',' ')}]));
+ const officialRegionalSeedLabels=data.tournament_seed_labels||{};
  for(const match of data.tournament_bracket.matches){
+  if(!match.home_id||!match.away_id){
+   assert.equal(match.status,'scheduled','A TBD final must not be scored');
+   continue;
+  }
   const names=[schools.get(match.home_id),schools.get(match.away_id)];
   assert(names.every(Boolean),'Fixture references an unknown school: '+feed);
   const label={children:[],append(node){this.children.push(node);}};
-  vm.runInNewContext(code,{names,match,cfg:{cohort:'men-d1'},branding:{},E,A,cup,label,tournamentSeedByTeam});
+  vm.runInNewContext(code,{names,match,cfg:{cohort:'men-d1'},branding:{},E,A,cup,label,tournamentSeedByTeam,tournamentSeedsVerified:true,officialRegionalSeedLabels});
   assert.equal(label.children.length,2,'Each match must render two clubs');
   for(const [i,id] of [match.home_id,match.away_id].entries()){
    const row=label.children[i];
    assert.equal(row.css,'cs-official-team');
    assert(tournamentSeedByTeam.has(id),'Official match team lacks a seed: '+id+' / '+feed);
    assert.equal(row.children[0].css,'cs-tournament-seed','Tournament seed not beside team');
-   assert.equal(row.children[0].text,'#'+tournamentSeedByTeam.get(id),'Wrong permanent conference seed');
+   assert.equal(row.children[0].text,officialRegionalSeedLabels[id]||'#'+tournamentSeedByTeam.get(id),'Wrong permanent official conference seed');
    assert.equal(row.children[1].kind,'school','Known club cannot render as TBD');
    assert.equal(row.children[1].id,id,'Wrong crest/team mapped to matchup row');
    assert.equal(row.children[1].name,schools.get(id).name,'Wrong name attached to team');
@@ -70,6 +91,6 @@ for(const feed of [
   matchCount++;
  }
 }
-assert(matchCount>=30,'Expected actual certified fixtures across all seven conferences');
+assert(matchCount>=85,'Expected certified tournament fixtures across all 23 conferences');
 assert.equal(logoCalls.length,matchCount*2,'Every participating club must get its correct crest');
-console.log('PASS: '+matchCount+' official tournament fixtures, '+(2*matchCount)+' verified permanent seeds, club names/crests, winner markers and score sides');
+console.log('PASS: '+matchCount+' fixtures across all 23 official tournaments, '+(2*matchCount)+' correct permanent conference seeds, logos, score sides and winner markers');
