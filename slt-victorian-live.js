@@ -28,6 +28,7 @@ q('vld-back').href=config.back;
 q('vld-sport').textContent=config.kind==='basketball'?'THE COURTSIDE DISPATCH':config.kind==='football'?'THE GRIDIRON DISPATCH':'THE TOUCHLINE DISPATCH';
 document.title=config.label+' · Live Game | Sporting Life & Times';
 let lastGood=null,updatedAt=0,busy=false,chosenTab='live',requestNo=0;
+let retroArchive={status:'checking',payload:null};
 const timeET=t=>new Date(t).toLocaleTimeString('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit'});
 const num=v=>v===null||v===undefined||v===''?null:(Number.isFinite(Number(v))?Number(v):null);
 const safeScore=v=>{const n=num(v?.value??v?.displayValue??v);return Number.isInteger(n)&&n>=0&&n<=500?n:null;};
@@ -326,6 +327,86 @@ function players(g){
    '</tbody></table></div>';
  }).join('')||'<p class="vld-empty">Player statistics are not available.</p>';
 }
+
+/* The model's locked prospective archive is the only authority here. Never
+   treat pregame chances as a live in-game win probability. */
+function qualifiedPregame(row,game){
+ if(!row||!game||!['ncaam','nba'].includes(league))return null;
+ const gameStart=Date.parse(game.raw?.header?.competitions?.[0]?.date||
+  game.raw?.header?.competitions?.[0]?.startDate||game.raw?.game?.gameTimeUTC||'');
+ const dateInET=Number.isFinite(gameStart)?
+  new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'})
+   .format(new Date(gameStart)):'';
+ const captured=league==='nba'?row.captured_at:row.captured_at_utc;
+ const capturedMs=Date.parse(captured||'');
+ if(!Number.isFinite(capturedMs))return null;
+ // If the feed omitted the tipoff timestamp, only accept a forecast recorded
+ // before the event's stated calendar date (a conservative fallback).
+ const scheduled=league==='nba'?Date.parse(row.date||''):Date.parse((row.date||'')+'T00:00:00Z');
+ if((Number.isFinite(gameStart)&&capturedMs>=gameStart)||
+   (!Number.isFinite(gameStart)&&(!Number.isFinite(scheduled)||capturedMs>=scheduled)))return null;
+ if(league==='ncaam'){
+  if(String(row.id)!=='espn:'+id||row.forecast_model!=='retro-central-elo-uncapped-v2')return null;
+  if(dateInET&&row.date!==dateInET)return null;
+  const chance=Number(row.home_win_probability),margin=Number(row.projected_home_margin);
+  if(!Number.isFinite(chance)||chance<0||chance>1||
+    row.home_win_probability==null||!Number.isFinite(margin)||row.projected_home_margin==null)return null;
+  return {home:chance,margin,captured,model:'RETRO central Elo',source:'Certified pregame archive'};
+ }
+ if(String(row.id)!=='espn-nba-'+id||
+    String(row.away||'')!==game.a.code||String(row.home||'')!==game.h.code)return null;
+ const chance=Number(row.home_win_prob),margin=Number(row.margin);
+ if(row.home_win_prob==null||!Number.isFinite(chance)||chance<0||chance>1||
+    row.margin==null||!Number.isFinite(margin))return null;
+ return {home:chance,margin,captured,model:'RETRO NBA possession model',source:'Locked NBA prospective ledger'};
+}
+function archivedPregame(game){
+ if(retroArchive.status!=='ready')return null;
+ const payload=retroArchive.payload;
+ if(payload?.season!=='2026-27')return null;
+ const records=league==='ncaam'?payload.predictions:league==='nba'?payload.forecasts:[];
+ if(!Array.isArray(records))return null;
+ const row=records.find(r=>String(r.id)===(league==='nba'?'espn-nba-':'espn:')+id);
+ return qualifiedPregame(row,game);
+}
+function retroPanel(g){
+ const unavailable=retroArchive.status==='checking'?'Retrieving the locked forecast archive…':
+  retroArchive.status==='error'?'The archived predictions could not be loaded.':
+  !['ncaam','nba'].includes(league)?'A certified RETRO pregame archive is not available for this competition.':
+  'No timestamp-verified pregame forecast is stored for this match.';
+ const p=archivedPregame(g);
+ if(!p)return '<div class="vld-empty">'+esc(unavailable)+' No probability has been estimated from the current score.</div>';
+ const away=(1-p.home)*100,home=p.home*100;
+ const margin=Math.round(Math.abs(p.margin)*2)/2;
+ const favorite=margin<0?g.a.name:margin>0?g.h.name:'Even';
+ const line=margin===0?'EVEN':favorite+' −'+margin.toFixed(1);
+ const captured=new Date(p.captured).toLocaleString('en-US',{timeZone:'America/New_York',
+  month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'});
+ return '<section class="vld-retro"><div class="vld-retro-flag"><strong>FROZEN BEFORE TIPOFF</strong>'+
+  '<span>Historical pregame chances · NOT live win probability</span></div>'+
+  '<div class="vld-retro-labels"><span>'+esc(g.a.name)+' <b>'+away.toFixed(1)+'%</b></span>'+
+  '<span>'+esc(g.h.name)+' <b>'+home.toFixed(1)+'%</b></span></div>'+
+  '<div class="vld-retro-meter" role="img" aria-label="RETRO pregame win probabilities: '+
+   esc(g.a.name)+' '+away.toFixed(1)+' percent, '+esc(g.h.name)+' '+home.toFixed(1)+' percent">'+
+  '<span style="width:'+away.toFixed(2)+'%;background:'+g.a.color+'"></span>'+
+  '<span style="width:'+home.toFixed(2)+'%;background:'+g.h.color+'"></span></div>'+
+  '<p class="vld-retro-margin">RETRO pregame projected margin: <strong>'+esc(line)+'</strong></p>'+
+  '<p class="vld-source">'+esc(p.source)+' · '+esc(p.model)+
+  ' · Captured '+esc(captured)+' ET. The forecast stays frozen after tipoff and is not recalculated from the live score.</p>'+
+  '</section>';
+}
+async function loadRetroArchive(){
+ if(!['ncaam','nba'].includes(league)){
+  retroArchive={status:'unsupported',payload:null};return;
+ }
+ const path=league==='nba'?'data/nba-rabby-forecast-ledger.json':'data/retro-pregame-archive-2026-27.json';
+ try{
+  const payload=await getJSON(path);
+  retroArchive={status:payload?.season==='2026-27'?'ready':'error',payload};
+ }catch(e){console.warn('RETRO archive unavailable:',e);retroArchive={status:'error',payload:null};}
+ if(lastGood){q('vld-main').innerHTML=page(lastGood);choose(chosenTab,false);}
+}
+
 function eventLog(g){
  return g.plays.length?'<ol class="vld-plays">'+g.plays.slice().reverse().map(p=>'<li><span>'+esc(periodLabel(p.period||1))+' '+esc(p.clock||'')+'</span><p>'+esc(p.text)+'</p><b>'+
   (p.awayScore!==null&&p.homeScore!==null?esc(p.awayScore)+'–'+esc(p.homeScore):'')+'</b></li>').join('')+'</ol>':
@@ -333,7 +414,7 @@ function eventLog(g){
 }
 function panel(tab,content){return '<section class="vld-panel" data-vld-panel="'+tab+'" role="tabpanel" id="vld-panel-'+tab+'" aria-labelledby="vld-tab-'+tab+'"'+(tab!==chosenTab?' hidden':'')+'>'+content+'</section>';}
 function page(g){
- const tabs=[['live','Live dispatch'],['stats','Statistics'],['players','Players'],['plays','Every play'],['shots','Court & shots']];
+ const tabs=[['live','Live dispatch'],['retro','RETRO'],['stats','Statistics'],['players','Players'],['plays','Every play'],['shots','Court & shots']];
  const section='<section class="vld-paper vld-live-grid">'+
   '<div class="vld-live-main"><h2>The game in motion</h2>'+
   '<div class="vld-floor">'+courtSVG()+'</div><p class="vld-floor-caption">'+(config.kind==='basketball'?(league==='nba'?'NBA REGULATION · 94 × 50 FT · 16-FT LANE':'NCAA REGULATION · 94 × 50 FT · 12-FT LANE'):'FIELD DIAGRAM · NOT PLAYER TRACKING')+'</p>'+
@@ -342,6 +423,7 @@ function page(g){
  '<section class="vld-paper"><h2>Period Scoring</h2>'+lineScore(g)+'</section>'+
  '<nav class="vld-tabs" role="tablist" aria-label="Game view">'+tabs.map(([k,t])=>'<button type="button" role="tab" id="vld-tab-'+k+'" aria-controls="vld-panel-'+k+'" data-vld-tab="'+k+'" aria-selected="'+(k===chosenTab)+'">'+t+'</button>').join('')+'</nav>'+
  panel('live',section)+
+ panel('retro','<section class="vld-paper"><h2>RETRO · The Pregame Forecast Ledger</h2>'+retroPanel(g)+'</section>')+
  panel('stats','<section class="vld-paper"><h2>Official Team Totals</h2>'+teamStats(g)+'</section>')+
  panel('players','<section class="vld-paper"><h2>Player Box Scores</h2>'+players(g)+'</section>')+
  panel('plays','<section class="vld-paper"><h2>The Play Register</h2>'+eventLog(g)+'</section>')+
@@ -383,5 +465,6 @@ async function update(){
 q('vld-reload').addEventListener('click',update);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)update();});
 setInterval(()=>{if(!document.hidden)update();},15000);
+loadRetroArchive();
 update();
 })();
