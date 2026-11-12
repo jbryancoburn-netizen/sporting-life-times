@@ -343,6 +343,41 @@ jobs:
         with:
           artifact_name: github-pages-${{ github.run_id }}-${{ github.run_attempt }}
           timeout: 1200000
+      - name: Verify Victorian Game Center is publicly deployed
+        env:
+          PAGE_URL: ${{ steps.deploy.outputs.page_url }}
+        run: |
+          python3 - <<'PY'
+          import os,time,urllib.request
+          from pathlib import Path
+          base=os.environ['PAGE_URL'].rstrip('/')+'/'
+          files=['live-game.html','slt-victorian-live.js','slt-victorian-live.css']
+          expected={p:(Path('_pages_site')/p).read_bytes() for p in files}
+          failure=''
+          for attempt in range(1,9):
+              stale=[]
+              for filename in files:
+                  url=base+filename+'?edition='+os.environ.get('GITHUB_SHA','')+'-'+str(attempt)
+                  try:
+                      req=urllib.request.Request(url,headers={
+                          'User-Agent':'SLT-GameCenter-Public-Verification/1.0',
+                          'Cache-Control':'no-cache'})
+                      with urllib.request.urlopen(req,timeout=20) as response:
+                          public=response.read()
+                          if response.status!=200 or public!=expected[filename]:
+                              stale.append(filename+': HTTP '+str(response.status)+
+                                  ', different content ('+str(len(public))+' bytes)')
+                  except Exception as e:
+                      stale.append(filename+': '+type(e).__name__+': '+str(e))
+              if not stale:
+                  print('PASS: public Pages matches all three staged Victorian Game Center assets')
+                  break
+              failure='; '.join(stale)
+              print('Victorian Game Center publication check',attempt,'/8:',failure)
+              if attempt<8:time.sleep(10)
+          else:
+              raise SystemExit('FAIL: Victorian Game Center public assets not deployed: '+failure)
+          PY
       - name: Verify live MBB scores actually reached the public newspaper
         env:
           PAGE_URL: ${{ steps.deploy.outputs.page_url }}
