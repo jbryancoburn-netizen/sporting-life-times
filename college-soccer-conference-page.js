@@ -20,6 +20,7 @@ const E=(tag,text,cls)=>{const x=document.createElement(tag);if(text!==null&&tex
 const A=(label,href)=>{const a=E('a',label);a.href=href;if(/^https:/.test(href)){a.rel='noopener noreferrer';a.target='_blank'}return a};
 const get=async p=>{const r=await fetch(p+'?t='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error('Missing '+p);return r.json()};
 const pct=x=>(100*x).toFixed(1)+'%';
+const memberSafeContains=(home,away,members)=>Array.isArray(members)&&home!==away&&members.includes(home)&&members.includes(away);
 const modelOdds=(six)=>{
  const seeds=new Map(six.map((t,i)=>[t.id,i]));
  const win=(a,b)=>1/(1+Math.pow(10,-((a.elo-b.elo+(seeds.get(a.id)<seeds.get(b.id)?55:-55))/400)));
@@ -66,7 +67,7 @@ async function render(){
  if(!conferenceMeta?.teams?.length||!conferenceMeta.standings_feed||!conferenceMeta.page)throw Error('Conference membership, standings feed or page not certified');
  cfg.name=conferenceMeta.short||conferenceMeta.name||cfg.name;
  cfg.standings=conferenceMeta.standings_feed;
- const [baseTable,elo,rules,branding,projections]=await Promise.all([get(cfg.standings),get('data/college-soccer-elo.json'),get('data/college-soccer-postseason-rules.json'),get('data/college-soccer-team-branding.json').catch(()=>({teams:{}})),get('data/college-soccer-projected-standings.json').catch(()=>({conferences:{}}))]);
+ const [baseTable,elo,rules,branding,projections,verifiedResultsFeed]=await Promise.all([get(cfg.standings),get('data/college-soccer-elo.json'),get('data/college-soccer-postseason-rules.json'),get('data/college-soccer-team-branding.json').catch(()=>({teams:{}})),get('data/college-soccer-projected-standings.json').catch(()=>({conferences:{}})),get('data/college-soccer-conference-tournament-results-2026.json').catch(()=>({conferences:{}}))]);
  const [teamPalette,crestOverrides,d2ArtColors]=await Promise.all([get('data/dual-ring-team-palette.json').catch(()=>({soccer:{}})),get('data/college-soccer-crest-overrides.json').catch(()=>({schools:{}})),get('data/d2-logo-artwork-palette-2026.json').catch(()=>({teams:{}}))]);
  branding.soccer_palette={...(teamPalette.soccer||{})};branding.crest_overrides=crestOverrides.schools||{};
  // The university colors remain the same across school sports. Reuse published
@@ -77,7 +78,11 @@ async function render(){
  const projectedTable=projections.conferences?.[key];
  const projectionUsable=Array.isArray(projectedTable?.rows)&&Array.isArray(baseTable.rows)&&projectedTable.rows.length===baseTable.rows.length&&new Set(projectedTable.rows.map(r=>r.team_id)).size===baseTable.rows.length&&projectedTable.rows.every(r=>baseTable.rows.some(b=>b.team_id===r.team_id)&&Number.isFinite(r.conference_points))&&String(projectedTable.snapshot_checked_date||'')>=String(baseTable.snapshot_checked_date||'')&&(!projectedTable.projected_through||Date.parse(projectedTable.projected_through)>=Date.parse(baseTable.snapshot_checked_date));
  const table=baseTable.tournament_bracket?.status==='official'?baseTable:(projectionUsable?projectedTable:baseTable);
- const signal=JSON.stringify([table.checked_at_utc||table.snapshot_checked_date,table.tournament_bracket,table.tournament_seeds,elo.as_of,elo.applied_finals_since_baseline,rules.updated,branding?.teams]);
+ const recentVerified=verifiedResultsFeed?.conferences?.[key];
+ const recentScores=Array.isArray(recentVerified?.games)?recentVerified.games.filter(m=>
+  m.status==='final'&&memberSafeContains(m.home_id,m.away_id,conferenceMeta.teams)&&
+  Number.isInteger(m.home_score)&&Number.isInteger(m.away_score)&&/^https:\/\/www\.ncaa\.com\/game\/\d+$/.test(m.source_url||'')): [];
+ const signal=JSON.stringify([table.checked_at_utc||table.snapshot_checked_date,table.tournament_bracket,table.tournament_seeds,elo.as_of,elo.applied_finals_since_baseline,rules.updated,branding?.teams,verifiedResultsFeed?.source_checked_through,recentScores]);
  if(signal===previous)return;
  const member=directory.conferences?.[key]?.teams,rule=rules.conferences?.[key],rated=elo.cohorts?.[cfg.cohort];
  if(!member||!rule||!rated||!Array.isArray(table.rows))throw Error('One or more required verified feeds unavailable');
@@ -93,7 +98,8 @@ async function render(){
   const folio=E('section',null,'cs-conference-folio');folio.setAttribute('aria-label','Conference at a glance');
   const confirmedFinal=table.tournament_bracket?.status==='official'?table.tournament_bracket.matches?.find(m=>/championship|final/i.test(m.round)&&!/semi|quarter/i.test(m.round)):null;
   const titleState=confirmedFinal?.status==='final'&&confirmedFinal.winner_id?'Champion: '+(teams.find(t=>t.id===confirmedFinal.winner_id)?.name||confirmedFinal.winner_id):
-    confirmedFinal?.home_id&&confirmedFinal.away_id?(teams.find(t=>t.id===confirmedFinal.home_id)?.name||'TBD')+' vs '+(teams.find(t=>t.id===confirmedFinal.away_id)?.name||'TBD')+' · FINAL PENDING':'Not confirmed';
+    confirmedFinal?.home_id&&confirmedFinal.away_id?(teams.find(t=>t.id===confirmedFinal.home_id)?.name||'TBD')+' vs '+(teams.find(t=>t.id===confirmedFinal.away_id)?.name||'TBD')+' · FINAL PENDING':
+    recentScores.length?recentScores.length+' real NCAA scores · bracket not certified':'Not confirmed';
   const facts=[['REGULAR-SEASON TABLE LEADER',teams[0]?.name||'Not reported'],['TOURNAMENT STATUS',titleState],['MEMBER SCHOOLS',String(teams.length)],['RESULTS VERIFIED THROUGH',table.tournament_bracket?.verified_through||table.last_verified_game_date||table.snapshot_checked_date||'Not dated']];
   for(const [label,value] of facts){const item=E('div',null,'cs-conf-fact');item.append(E('span',label,'cs-conf-fact-label'),E('strong',value,'cs-conf-fact-value'));folio.append(item)}root.append(folio);
  const nav=E('nav',null,'cs-conference-nav');nav.setAttribute('aria-label','Conference desk sections');nav.append(A('STANDINGS','#conference-table'),A('TOURNAMENT','#conference-bracket'),A('RETRO FORECAST','#conference-odds'),A('FORMAT & SOURCES','#conference-rules'));const oppositeKey=(cfg.gender==='MEN'?'women':'men')+'-'+cfg.cohort.split('-')[1]+':'+conferenceSlug;const otherPage=directory.conferences?.[oppositeKey]?.page||cfg.other;if(otherPage)nav.append(A(cfg.gender==='MEN'?'WOMEN’S DESK':'MEN’S DESK',otherPage));root.append(nav);
@@ -163,13 +169,15 @@ async function render(){
   }else modelSection.append(E('p','Finalists confirmed; RETRO odds unavailable until both ratings are verified.','cs-conf-caption'));
  }else if(bracketVerified){
   modelSection.append(E('p',remaining.length+' verified remaining contenders. Eliminated teams excluded from forecasts; future matchups await official reporting.','cs-conf-caption'));
+ }else if(recentScores.length){
+  modelSection.append(E('p','Recent games have FINAL scores. RETRO bracket/title predictions are withheld until actual tournament seeds, eliminations and pending matchups are certified. No played game is simulated as upcoming.','cs-conf-caption'));
  }else if(formatCertified&&(field===6||field===8)&&entrants.length===field&&entrants.every(t=>Number.isFinite(t.elo))){
   const probs=bracketOdds(entrants,!!rule.tournament?.reseed);
   for(const x of probs){const line=E('div',null,'cs-conf-oddsline'),label=E('div',null,'cs-conf-oddslabel');label.append(E('strong',x.name),E('span',pct(x.p)));line.append(label);const rail=E('div',null,'cs-conf-rail'),bar=E('i');bar.style.width=pct(x.p);rail.append(bar);line.append(rail);modelSection.append(line)}
  }else modelSection.append(E('p','Title probabilities withheld: tournament format or a required Elo rating is unverified.','cs-conf-caption'));
  modelSection.append(E('p',provisional?'Field and seeds are a hypothetical snapshot of the published table, NOT confirmed qualifiers or official seed positions.':'Tournament seeds are supplied explicitly by the conference standings dataset.','cs-conf-caption'));
  modelSection.append(E('p','Elo is used solely to forecast possible match outcomes after a hypothetical field and seed order have been supplied from standings data. These are experimental predictions, not actual brackets or NCAA selection probabilities. Home advantage is a modeling assumption, not a verified venue.','cs-conf-caption'));
- const bracket=E('section',null,'cs-conference-bracket-section');bracket.id='conference-bracket';bracket.append(E('h2',bracketVerified?'OFFICIAL TOURNAMENT RESULTS & BRACKET':'ROAD TO THE TITLE · '+(provisional?'PROVISIONAL FIELD':'VERIFIED SEEDS')));
+ const bracket=E('section',null,'cs-conference-bracket-section');bracket.id='conference-bracket';bracket.append(E('h2',bracketVerified?'OFFICIAL TOURNAMENT RESULTS & BRACKET':recentScores.length?'ACTUAL NCAA RESULTS · OFFICIAL BRACKET PENDING':'ROAD TO THE TITLE · '+(provisional?'PROVISIONAL FIELD':'VERIFIED SEEDS')));
  if(bracketVerified){
   bracket.append(E('p','Verified match results through '+(officialBracket.verified_through||table.last_verified_game_date||'date unverified')+'. Winners advance in the official conference bracket. RETRO predictions appear in a separate section below.','cs-conf-caption'));
  }
@@ -185,7 +193,31 @@ async function render(){
   bracket.append(banner);
  }
 
- if(key==='men-d1:caa'&&!bracketVerified){
+ if(!bracketVerified&&recentScores.length){
+  const note=E('p','These are verified NCAA final scores between conference members since '+(recentVerified.window_start||'the postseason window')+'. The NCAA scores do not by themselves certify the tournament round, seed or advancing team. Official tournament pairings have NOT been loaded yet; previously simulated brackets are hidden.','cs-conf-caption');
+  bracket.append(note);
+  const rounds=E('div',null,'cs-official-rounds cs-conf-verified-results');
+  const group=E('section',null,'cs-official-round');
+  group.append(E('h3','VERIFIED PLAYED MATCHES · MOST RECENT FIRST'));
+  for(const m of recentScores){
+   const card=E('article',null,'cs-official-match');
+   const label=E('div',null,'cs-official-match-names');
+   for(const [index,id] of [m.home_id,m.away_id].entries()){
+    const team=teams.find(t=>t.id===id);
+    if(!team)continue;
+    const cell=E('div',null,'cs-official-team');
+    if(cup)cell.append(cup.school(team.name,team.id,cfg.cohort,branding));
+    else cell.append(A(team.name,'college-soccer-team.html?team='+encodeURIComponent(cfg.cohort+':'+team.id)));
+    cell.append(E('strong',index===0?m.home_score:m.away_score,'cs-official-score'));
+    label.append(cell);
+   }
+   card.append(label,E('span','FINAL · '+m.date,'cs-official-result'),A('NCAA verified box score',m.source_url));
+   if(m.home_score===m.away_score)card.append(E('small','Level score · any tournament shootout/advancement requires separate confirmation','cs-conf-caption'));
+   group.append(card);
+  }
+  rounds.append(group);bracket.append(rounds);
+  if(recentVerified.total_verified_window_games>recentScores.length)bracket.append(E('p','Showing '+recentScores.length+' of '+recentVerified.total_verified_window_games+' recent verified intraconference results.','cs-conf-caption'));
+ }else if(key==='men-d1:caa'&&!bracketVerified){
   const note=E('p','2026 CAA championship: three qualifiers from each division. Division-specific official seeds are not supplied in this snapshot; matchups cannot be assigned from one overall conference table.','cs-conf-caption');
   bracket.append(note);
   const rounds=E('div',null,'cs-official-rounds');
