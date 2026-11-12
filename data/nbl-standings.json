@@ -6,8 +6,8 @@
   "elo_approved": false,
   "source": "ESPN site API, completed finals since NBL27 regular-season opening",
   "season_start": "2026-09-19",
-  "updated_at": "2026-11-12T00:49:30.984587+00:00",
-  "games_replayed": 60,
+  "updated_at": "2026-11-12T11:27:34.943344+00:00",
+  "games_replayed": 61,
   "teams": 10,
   "rows": [
     {
@@ -33,12 +33,22 @@
     {
       "team": "Melbourne United",
       "wins": 7,
-      "losses": 5,
-      "played": 12,
-      "win_pct": 0.583,
-      "points_for": 1181,
-      "points_against": 1091,
-      "points_pct": 108.25
+      "losses": 6,
+      "played": 13,
+      "win_pct": 0.538,
+      "points_for": 1274,
+      "points_against": 1192,
+      "points_pct": 106.88
+    },
+    {
+      "team": "Adelaide 36ers",
+      "wins": 7,
+      "losses": 6,
+      "played": 13,
+      "win_pct": 0.538,
+      "points_for": 1208,
+      "points_against": 1202,
+      "points_pct": 100.5
     },
     {
       "team": "Cairns Taipans",
@@ -49,16 +59,6 @@
       "points_for": 1209,
       "points_against": 1261,
       "points_pct": 95.88
-    },
-    {
-      "team": "Adelaide 36ers",
-      "wins": 6,
-      "losses": 6,
-      "played": 12,
-      "win_pct": 0.5,
-      "points_for": 1107,
-      "points_against": 1109,
-      "points_pct": 99.82
     },
     {
       "team": "Brisbane Bullets",
@@ -112,6 +112,18 @@
     }
   ],
   "recent_finals": [
+    {
+      "id": "401875328",
+      "played_at": "2026-11-12T08:30Z",
+      "home": "Adelaide 36ers",
+      "away": "Melbourne United",
+      "home_score": 101,
+      "away_score": 93,
+      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875328/united-36ers",
+      "verified": false,
+      "provider": "espn",
+      "state": "candidate"
+    },
     {
       "id": "401875326",
       "played_at": "2026-11-11T08:30Z",
@@ -216,18 +228,6 @@
       "home_score": 94,
       "away_score": 74,
       "source_url": "https://www.espn.com/nbl/game/_/gameId/401875301/breakers-united",
-      "verified": false,
-      "provider": "espn",
-      "state": "candidate"
-    },
-    {
-      "id": "401875288",
-      "played_at": "2026-11-01T06:00Z",
-      "home": "Adelaide 36ers",
-      "away": "Brisbane Bullets",
-      "home_score": 89,
-      "away_score": 96,
-      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875288/bullets-36ers",
       "verified": false,
       "provider": "espn",
       "state": "candidate"
