@@ -120,7 +120,7 @@ def public_calendars(gender, scoreboard, public_data, now):
                 str(row["away_id"]): row.get("away_score"),
             } for row in rows if row.get("completed") is True}
             for eid, scores, _ in games:
-                if (eid, school) not in conflicts and finals.get(eid) != scores:
+                if (eid, school) in conflicts or finals.get(eid) != scores:
                     missing.append(f"{eid}/{school}")
         return missing, len(conflicts & {(eid, school) for school, games in checks.items()
                                          for eid, _, _ in games})
@@ -190,9 +190,9 @@ def main():
     if outputs:
         with open(outputs,"a",encoding="utf-8") as f:
             f.write("refresh_men="+str(bool(result["men"]["missing_finals"])).lower()+"\n")
-            f.write("refresh_women="+str(bool(result["women"]["missing_finals"])).lower()+"\n")
+            f.write("refresh_women="+str(bool(result["women"]["missing_finals"] or result["women"]["quarantined_calendar_entries"])).lower()+"\n")
             f.write("deploy="+str(any(not r["public_retro_covers_repository"] or
-                                     r["missing_public_calendar_entries"] for r in result.values())).lower()+"\n")
+                                     (r["missing_public_calendar_entries"] or r["quarantined_calendar_entries"]) for r in result.values())).lower()+"\n")
             f.write("stale="+str(any(r["missing_public_finals"] or r["missing_public_calendar_entries"] or
                                     not r["public_retro_covers_repository"] for r in result.values())).lower()+"\n")
 
