@@ -67,7 +67,17 @@ async function run(){
  assert(css.includes('border:var(--mbb-ring) solid var(--mbb-secondary'),'Secondary inner stroke missing');
  assert(css.includes('inset:0!important'),'White spacer between rings returned');
  assert(css.includes('.mbb-mark::after{content:none!important'),'Third decorative band returned');
- assert(!css.includes('--art-')&&!css.includes('corrected-two-rings'),'Artwork metadata must not change the two-ring shell');
+ // Source-artwork sizing is permitted; only the shared shell controls the two rings.
+ assert(!css.includes('corrected-two-rings'),'Legacy third-ring override returned');
+ for(const type of ['flat','embedded_roundel']){
+  const selector='.mbb-mark--art-'+type+'>img.mbb-mark__img';
+  const start=css.indexOf(selector+'{');
+  assert(start>=0,'Missing artwork-aware image sizing for '+type);
+  const style=css.slice(start+selector.length+1,css.indexOf('}',start));
+  assert(style.includes('object-fit:contain!important'),'Artwork type '+type+' may crop the source logo');
+  assert(!/(?:^|[;\\s])(?:border|outline|box-shadow)\\s*:/.test(style),
+    'Artwork type '+type+' must not alter the two-ring shell');
+ }
  for(const must of ['object-fit:contain!important','transform:translate(-50%,-50%)!important','clip-path:none!important'])assert(css.includes(must),'Missing safe centering rule '+must);
  assert(!read('ncaaw-team.html').includes('.wbb-identity .mbb-mark__img{'),'Women-specific image sizing overrides shared badge');
  for(const t of cross.teams)assert(ctx.window.MBBLogos.byESPN(t.espn_id,'score',t.espn_name).includes('data-ring-count="2"'),'Missing shared two-ring contract '+t.name);
