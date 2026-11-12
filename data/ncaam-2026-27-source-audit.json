@@ -1,8 +1,8 @@
 {
-  "as_of": "2026-11-11",
-  "matched_source_games": 771,
-  "completed_unique_games": 419,
-  "upcoming_or_unconfirmed_games": 352,
+  "as_of": "2026-11-12",
+  "matched_source_games": 797,
+  "completed_unique_games": 445,
+  "upcoming_or_unconfirmed_games": 333,
   "excluded": {},
   "unmapped_teams_fatal": false,
   "score_sanity_checked": true,
@@ -13,38 +13,22 @@
     "season": "2026-27",
     "crosswalk_matched_programs": 365,
     "crosswalk_unmatched_programs": [],
-    "fetch_start": "2026-11-08",
-    "fetch_through": "2026-11-18",
+    "fetch_start": "2026-11-09",
+    "fetch_through": "2026-11-19",
     "provider_events_seen": 597,
-    "provider_events_accepted": 475,
+    "provider_events_accepted": 471,
     "provider_events_excluded": {
-      "unmatched_espn_program": 122
+      "unmatched_espn_program": 126
     },
     "corrected_final_scores": 0,
-    "cached_event_count": 774,
-    "quarantined_identity_conflicts": [
-      {
-        "event_id": "espn:401918992",
-        "cached_teams": [
-          "Saint Joseph's",
-          "South Fla."
-        ],
-        "new_teams": [
-          "South Fla.",
-          "Saint Joseph's"
-        ]
-      }
-    ],
-    "quarantined_identity_count": 1
+    "cached_event_count": 800,
+    "quarantined_identity_conflicts": [],
+    "quarantined_identity_count": 0
   },
   "independent_reconciliation": {
     "provider": "NCAA.com independent scoreboard",
     "available_days": [],
     "unavailable_days": [
-      {
-        "day": "2026-11-07",
-        "reason": "HTTP Error 404: Not Found"
-      },
       {
         "day": "2026-11-08",
         "reason": "HTTP Error 404: Not Found"
@@ -59,6 +43,10 @@
       },
       {
         "day": "2026-11-11",
+        "reason": "HTTP Error 404: Not Found"
+      },
+      {
+        "day": "2026-11-12",
         "reason": "HTTP Error 404: Not Found"
       }
     ],
