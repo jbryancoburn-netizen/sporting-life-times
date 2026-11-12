@@ -208,3 +208,9 @@
 }
 .cs-conf-page .cs-official-team .cs-cup-school{flex:1 1 auto;min-width:0}
 .cs-conf-page .cs-official-team .cs-official-score{flex:0 0 auto}
+
+/* CAA soccer seeds are independent North/South divisional ranks. */
+.cs-conf-page .cs-official-team .cs-tournament-seed.cs-regional-seed {
+ flex-basis:39px;width:39px;min-width:39px;
+ font-size:12px;letter-spacing:-.025em;
+}
