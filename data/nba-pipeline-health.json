@@ -1,44 +1,48 @@
 {
-  "checked_at": "2026-11-12T03:16:02.459643+00:00",
+  "checked_at": "2026-11-12T11:42:00.790827+00:00",
   "elo": {
     "teams": 30,
-    "completed_games": 163,
-    "games_played": 163,
+    "completed_games": 167,
+    "games_played": 167,
     "missing_final_ids": [],
     "conflicting_final_ids": [],
     "invalid_final_ids": []
   },
   "box_scores": {
-    "completed_games": 163,
-    "player_lines": 3681,
-    "updated_at": "2026-11-12T03:15:04.576366+00:00",
-    "age_hours": 0.02,
+    "completed_games": 167,
+    "player_lines": 3780,
+    "updated_at": "2026-11-12T04:13:40.914737+00:00",
+    "age_hours": 7.47,
     "fixtures_missing_player_boxes": 0
   },
   "scoreboard": {
-    "updated_at": "2026-11-12T03:15:03.985470+00:00",
-    "age_hours": 0.02,
+    "updated_at": "2026-11-12T04:13:40.283611+00:00",
+    "age_hours": 7.47,
     "games": 76,
-    "live_games": 7,
+    "live_games": 3,
     "overdue_scheduled_ids": []
   },
   "player_stats": {
-    "players": 463,
+    "players": 465,
     "leader_rows": 120,
-    "updated_at": "2026-11-12T03:15:08.358764+00:00",
-    "age_hours": 0.02
+    "updated_at": "2026-11-12T04:13:45.008431+00:00",
+    "age_hours": 7.47
   },
   "news": {
     "stories": 100,
-    "updated_at": "2026-11-12T02:59:47.451844+00:00",
-    "age_hours": 0.27
+    "updated_at": "2026-11-12T11:09:15.423439+00:00",
+    "age_hours": 0.55
   },
   "roster": {
-    "injuries": 91,
+    "injuries": 97,
     "transactions": 10,
-    "injury_age_hours": 0.76,
+    "injury_age_hours": 1.42,
     "transaction_age_hours": null
   },
-  "issues": [],
-  "status": "healthy"
+  "issues": [
+    "box_scores_stale",
+    "player_stats_stale",
+    "scoreboard_stale"
+  ],
+  "status": "attention"
 }
