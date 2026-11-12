@@ -38,10 +38,14 @@ check('nba',160,23.75*10,30,true);
 assert(css.includes('.vld-court-svg--basketball'),'basketball court-specific styling missing');
 assert(css.includes('.vld-shot-floor .vld-court-svg--basketball{max-height:none'),
   'shot tab must preserve full-court proportions');
-assert(page.includes('slt-victorian-live.js?v=20261111-regulation-court'),
-  'live game HTML must request latest court implementation');
-assert(page.includes('slt-victorian-live.css?v=20261111-regulation-court'),
-  'live game HTML must request latest court styling');
+const assetVersion=name=>{
+ const token=name+'?v=',start=page.indexOf(token);
+ return start<0?null:page.slice(start+token.length).split('"')[0];
+};
+const jsVersion=assetVersion('slt-victorian-live.js');
+const cssVersion=assetVersion('slt-victorian-live.css');
+assert(jsVersion&&cssVersion,'live Game Center must load versioned CSS and JavaScript');
+assert.equal(jsVersion,cssVersion,'live Game Center CSS and JS must use the same release version');
 assert(src.includes('Half-court source coordinates alone do not say which direction'),
   'unoriented source shot coordinates must not become fabricated full-court markers');
 console.log('PASS: NCAA men, NCAA women and NBA 94x50 court geometry, rim and lane placement, source gates, responsive assets');
