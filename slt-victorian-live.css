@@ -165,3 +165,20 @@ body.vld-body{margin:0;color:var(--vld-ink);background:#e9e0cd;font-family:"Cent
  .vld-retro-labels span{font-size:12px}
  .vld-retro-labels b{font-size:22px}
 }
+
+
+/* A sourced event changes the Game Center without inventing tracking data.
+   Do not place fake player dots or simulated possessions on the regulation court. */
+.vld-court-update{display:flex;align-items:center;flex-wrap:wrap;column-gap:10px;row-gap:4px;
+ border:1px solid #bbaa8d;border-top:0;background:#eee2cb;padding:8px 10px;
+ font:11px/1.3 Georgia,serif;color:#544639;min-height:34px}
+.vld-court-update strong{font:700 12px Georgia,serif;color:#614134}
+.vld-court-update>span:last-child{color:#766650}
+.vld-court-update-dot{display:inline-block;width:9px;height:9px;flex:0 0 9px;
+ border-radius:50%;background:#8e8170;border:1px solid #f5e9d6}
+.vld-court-update--fresh{border-color:#995641;background:#f4dfba}
+.vld-court-update--fresh .vld-court-update-dot{background:#aa4b33;animation:vld-flash 1s ease-out 2}
+.vld-court-update--fresh strong{color:#842e22}
+.vld-now .vld-play-delay{display:block;font-size:11px;color:#95523a;margin-top:6px}
+@keyframes vld-flash{0%{box-shadow:0 0 0 0 #a24a3959}75%{box-shadow:0 0 0 11px #a24a3900}100%{box-shadow:0 0 0 0 #a24a3900}}
+@media(prefers-reduced-motion:reduce){.vld-court-update--fresh .vld-court-update-dot{animation:none}}
