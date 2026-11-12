@@ -55,4 +55,30 @@ for(const league of ['ncaam','ncaaw']){
 }
 assert(js.includes("window.MBBLogos?.ready?.then("),
   'Live game must refresh canonical logos when the identity catalog loads');
-console.log('PASS: verified Penn/Navy names, NCAA men/women canonical marks, two rings, no wrong raw ESPN logos');
+
+/* NBA's established thirty local marks have one colored ring, never the
+   NCAA two-ring wrapper or a remote CDN primary. */
+assert(html.includes('nba-scorebug.js?'),'Game Center must use the NBA scorebug team-color contract');
+assert(html.indexOf('nba-scorebug.js?')<html.indexOf('slt-victorian-live.js?'),
+  'Existing NBA color source must initialize before Game Center JS');
+const nbaFiles=fs.readdirSync('assets/nba-logos').filter(x=>/^[A-Z]{2,3}\.png$/.test(x));
+assert.equal(nbaFiles.length,30,'The same 30 local NBA crests must be present');
+const nbaPalette={CLE:'#860038',NYK:'#006BB6'};
+const nbaWindow={SLTScorebug:{color:code=>nbaPalette[code]||'#56534c'}};
+const nbaCrest=new Function('league','window','esc',source+'return crest;')('nba',nbaWindow,esc);
+for(const [code,name] of [['CLE','Cleveland Cavaliers'],['NYK','New York Knicks']]){
+ const mark=nbaCrest({code,name,id:'ignored',logo:'https://cdn.nba.com/fake-unapproved.svg'});
+ assert(mark.includes('assets/nba-logos/'+code+'.png'),'NBA must use local crest for '+code);
+ assert(mark.includes('--nba-team-color:'+nbaPalette[code]),'NBA must use existing team color for '+code);
+ assert(mark.includes('class="vld-nba-logo"'),'NBA must use single-ring mark');
+ assert(!mark.includes('vld-crest'),'NBA may not use custom Victorian multi-ring logo');
+ assert(!mark.includes('fake-unapproved.svg'),'NBA may not render raw source logo');
+ assert(!mark.includes('mbb-mark'),'NBA may not inherit the NCAA two-ring badge');
+}
+const invalid=nbaCrest({code:'FAKE',name:'Unknown NBA Club',logo:'https://cdn.nba.com/logo.svg'});
+assert(invalid.includes('vld-mark-unavailable')&&!invalid.includes('cdn.nba.com'),
+  'Unknown NBA clubs must never render unverified logo art');
+assert(css.includes('.vld-team>.vld-nba-logo'),'NBA single-ring logo must have scoped styling');
+assert(css.includes('--nba-team-color'),'NBA ring must follow verified existing team palette');
+
+console.log('PASS: Penn/Navy canonical NCAA two-rings and Cavs/Knicks verified local NBA one-ring marks');
