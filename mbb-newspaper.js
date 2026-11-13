@@ -357,28 +357,67 @@ async function teamPage(){const t=teamMap.get(params.get('team'))||teams.find(t=
  const scheduleHTML='<section class="panel" id="full-season-schedule">'+header('2026–27 · Full season','Complete Published Schedule')+'<p class="note">Loading published games, tipoff times and TV networks…</p></section>';const upcoming=(schedule?.games||[]).filter(g=>g.date>=today()&&gid(g).includes(t.team_id));const history=[...(a?.games||[]),...games].filter(g=>gid(g).includes(t.team_id)).sort((a,b)=>b.date.localeCompare(a.date));
 const statisticalRegister=window.SLTBasketballStats;const seasonFinals=ledger?.season==='2026-27'&&Array.isArray(ledger.games)?ledger.games:[];const seasonStats=statisticalRegister?.fromGames(seasonFinals,t.team_id,{homeKey:'home_id',awayKey:'away_id'});const statsSheet=statisticalRegister?.register(seasonStats,{note:'2026–27 Division I final-score ledger. Results outside this verified dataset are not included in these averages.'})||'';
 const r=resumes.get(t.team_id);const branding=await get('data/mbb-branding.json');const color=branding?.teams?.[ids.get(t.team_id)]?.color||window.MBBLogos.colorForESPN(ids.get(t.team_id))?.primary?.replace('#','');if(/^[a-f0-9]{6}$/i.test(color||''))document.documentElement.style.setProperty('--team','#'+color);
- $('#app').innerHTML='<div class="eyebrow"><a href="'+confURL(t.conference)+'">'+esc(t.conference)+'</a> / Team desk</div><div class="team-hero">'+logo(t,'hero')+'<div><div class="eyebrow">2026–27</div><h1>'+pollRankBadge(t)+esc(t.team)+'</h1><p>'+esc(t.conference)+' · '+rec(t)+' overall · '+(t.conference_wins||0)+'–'+(t.conference_losses||0)+' conference</p></div></div><div class="metrics">'+metric(live?'#'+t.rank:'Tied','RETRO national rank')+metric(number(t.elo,0),'RETRO Elo')+metric((t.overall_wins??t.wins??0)+(t.overall_losses??t.losses??0),'2026–27 games played')+metric(esc(seedFor(t)),'Projected NCAA placement')+'</div>'+statsSheet+'<div class="grid two"><div class="column"><section class="panel">'+header('The team notebook','Latest Reporting')+'<div id="news-list">'+stories(t)+'</div></section><section class="panel teal">'+header('Who is on campus','Current Roster')+'<p class="note roster-note">2026–27 roster snapshot. Previous-season statistics are labeled 2025–26, including records from former schools where available. Missing values are displayed as —.</p>'+(rosterRows.length?'<div class="table-wrap roster-table-wrap"><table><thead><tr><th>Player</th><th>Pos.</th><th>25–26 GP</th><th>25–26 PPG</th><th>RPG</th><th>APG</th></tr></thead><tbody>'+rosterRows.map(p=>'<tr><td>'+portrait(p)+esc(p.name)+'</td><td>'+esc(p.role||'—')+'</td><td>'+esc(p.prior?.games??'—')+'</td><td>'+number(p.prior?.pts)+'</td><td>'+number(p.prior?.reb)+'</td><td>'+number(p.prior?.ast)+'</td></tr>').join('')+'</tbody></table></div>':empty('No current roster records are available.'))+'</section><section class="panel victorian-player-production" id="team-player-production">'+header('The statistical notebook','Player Production')+'<div class="victorian-production-edition"><span>2026–27 Season Register</span><span>Verified final box scores</span></div><div id="team-player-production-table">'+playerTable((currentPlayers?.players||[]).filter(p=>p.team_id===t.team_id))+'</div><p class="note victorian-production-source">Season averages · Updated from completed-game box scores · Last collection: '+when(currentPlayers?.as_of)+'</p></section><section class="panel orange">'+header('The matchup archive','Who Has the Edge?')+'<p class="note">Target coverage: every verified game since 1985, including postseason. Until historical backfill is complete, records are labeled partial.</p><label for="opponent">Choose an opponent</label><select class="input" id="opponent">'+teams.filter(x=>x.team_id!==t.team_id).sort((a,b)=>a.team.localeCompare(b.team)).map(x=>'<option value="'+esc(x.team_id)+'">'+esc(x.team)+'</option>').join('')+'</select><div id="series"></div></section></div><div class="column">' + '<section class="panel">'+header('The selection ledger','The March File')+
+ $('#app').innerHTML='<div class="eyebrow"><a href="'+confURL(t.conference)+'">'+esc(t.conference)+'</a> / Team desk</div><div class="team-hero">'+logo(t,'hero')+'<div><div class="eyebrow">2026–27</div><h1>'+pollRankBadge(t)+esc(t.team)+'</h1><p>'+esc(t.conference)+' · '+rec(t)+' overall · '+(t.conference_wins||0)+'–'+(t.conference_losses||0)+' conference</p></div></div><div class="metrics">'+metric(live?'#'+t.rank:'Tied','RETRO national rank')+metric(number(t.elo,0),'RETRO Elo')+metric((t.overall_wins??t.wins??0)+(t.overall_losses??t.losses??0),'2026–27 games played')+metric(esc(seedFor(t)),'Projected NCAA placement')+'</div>'+statsSheet+'<div class="grid two"><div class="column"><section class="panel">'+header('The team notebook','Latest Reporting')+'<div id="news-list">'+stories(t)+'</div></section><section class="panel teal">'+header('Who is on campus','Current Roster')+'<p class="note roster-note">2026–27 roster snapshot. Previous-season statistics are labeled 2025–26, including records from former schools where available. Missing values are displayed as —.</p>'+(rosterRows.length?'<div class="table-wrap roster-table-wrap"><table><thead><tr><th>Player</th><th>Pos.</th><th>25–26 GP</th><th>25–26 PPG</th><th>RPG</th><th>APG</th></tr></thead><tbody>'+rosterRows.map(p=>'<tr><td>'+portrait(p)+esc(p.name)+'</td><td>'+esc(p.role||'—')+'</td><td>'+esc(p.prior?.games??'—')+'</td><td>'+number(p.prior?.pts)+'</td><td>'+number(p.prior?.reb)+'</td><td>'+number(p.prior?.ast)+'</td></tr>').join('')+'</tbody></table></div>':empty('No current roster records are available.'))+'</section><section class="panel victorian-player-production" id="team-player-production">'+header('The statistical notebook','Player Production')+'<div class="victorian-production-edition"><span>2026–27 Season Register</span><span>Verified final box scores</span></div><div id="team-player-production-table">'+playerTable((currentPlayers?.players||[]).filter(p=>p.team_id===t.team_id))+'</div><p class="note victorian-production-source">Season averages · Updated from completed-game box scores · Last collection: '+when(currentPlayers?.as_of)+'</p></section><section class="panel orange">'+header('The matchup archive','Who Has the Edge?')+'<p class="note">Historical head-to-head records include documented pre-1985 games where available. Early sources are incomplete; totals are not certified all-time.</p><label for="opponent">Choose an opponent</label><select class="input" id="opponent">'+teams.filter(x=>x.team_id!==t.team_id).sort((a,b)=>a.team.localeCompare(b.team)).map(x=>'<option value="'+esc(x.team_id)+'">'+esc(x.team)+'</option>').join('')+'</select><div id="series"></div></section></div><div class="column">' + '<section class="panel">'+header('The selection ledger','The March File')+
 (r.n?'<div class="metrics">'+metric(number(r.wab,2),'Experimental Elo WAB')+metric(number(r.sos,0),'Opponent Elo')+metric(r.road,'Road wins')+'</div><p class="note">Based on '+r.n+' verified games. Not an official NET or selection projection.</p>':'<p class="note"><strong>Awaiting verified regular-season results.</strong> The March résumé populates after final games. No invented NET or quadrant figures.</p>')+
 '<p class="note"><a href="ncaam-elo.html">RETRO rankings →</a> · <a href="ncaam-tournament.html">Bracket watch →</a></p></section><section class="panel">'+header('The game log','Recent Meetings')+history.slice(0,4).map(g=>gameCard(g,true)).join('')+'</section></div></div>';
  $('#app').querySelector('.metrics')?.after(calendarHost);
  const known=history.map(g=>gid(g).find(id=>id!==t.team_id)).find(id=>teamMap.has(id));if(known)$('#opponent').value=known;
+ // The partial CC0 school-schedule fixture source does not verify venue or completeness.
+ const earlyHistoryPromise=(async()=>{
+  try{
+   const normalize=x=>String(x||'').toLowerCase().replace(/&/g,'and').replace(/[^a-z0-9]/g,'');
+   const nameIds=new Map();
+   const register=(value,id)=>{
+    const key=normalize(value);if(!key||!id)return;
+    if(nameIds.has(key)&&nameIds.get(key)!==id)nameIds.set(key,null);
+    else if(!nameIds.has(key))nameIds.set(key,id);
+   };
+   for(const team of teams)register(team.team,team.team_id);
+   for(const team of cross?.teams||[])if(teamMap.has(team.id)){
+    register(team.name,team.id);register(team.espn_name,team.id);
+   }
+   const response=await fetch('data/ncaam-pre1985-verified-fixtures.csv',{cache:'force-cache',signal:AbortSignal.timeout(10000)});
+   if(!response.ok)throw Error('Early archival CSV not yet published');
+   const rows=(await response.text()).trim().split(/\r?\n/);const header=rows.shift().split(',');
+   return rows.map(line=>{
+    const cells=line.split(','),r=Object.fromEntries(header.map((key,i)=>[key,cells[i]||'']));
+    const a=nameIds.get(normalize(r.team_a)),b=nameIds.get(normalize(r.team_b));
+    const year=Number(r.season),as=Number(r.score_a),bs=Number(r.score_b);
+    if(!a||!b||a===b||year<1950||year>1984||!/^19\d{2}-\d{2}-\d{2}$/.test(r.date)||
+       !Number.isInteger(as)||!Number.isInteger(bs)||as<0||bs<0||as===bs)return null;
+    return {date:r.date,home_id:a,away_id:b,home_score:as,away_score:bs,
+      venue_unverified:true,source_url:'https://github.com/joongsup/uncmbb',source_name:r.sources};
+   }).filter(Boolean);
+  }catch(error){console.warn('Partial early head-to-head source unavailable',error);return []}
+ })();
  const series=async()=>{const opp=teamMap.get($('#opponent').value);if(!opp)return;const node=$('#series');const choice=opp.team_id;node.innerHTML='<p class="note">Checking historical game archive…</p>';
  const teamArchiveId=t.team_id.replace(':','-');
  let archive=null;
  try{const response=await fetch('data/mbb-head-to-head-1985/'+teamArchiveId+'.json',{cache:'force-cache',signal:AbortSignal.timeout(45000)});if(response.ok)archive=await response.json();else throw Error('Historical archive HTTP '+response.status);}catch(err){console.error('MBB historical archive',err);}
  if($('#opponent').value!==choice)return;
  const historical=Array.isArray(archive?.games)?archive.games.filter(g=>gid(g).includes(choice)):[];
+ const early=(await earlyHistoryPromise).filter(g=>gid(g).includes(t.team_id)&&gid(g).includes(choice));
+ if($('#opponent').value!==choice)return;
  const sample=history.filter(g=>gid(g).includes(choice));
- const dedup=new Map([...historical,...sample].map(g=>[[g.date,...gid(g).slice().sort()].join('|'),g]));
+ const dedup=new Map([...historical,...sample,...early].map(g=>[[g.date,...gid(g).slice().sort()].join('|'),g]));
  const rows=[...dedup.values()].sort((a,b)=>String(b.date||'').localeCompare(String(a.date||'')));
  const wins=rows.filter(g=>{const h=gid(g)[0]===t.team_id;return (h?g.home_score:g.away_score)>(h?g.away_score:g.home_score)}).length;
  const archiveStart=Number(archive?.coverage_start_year);
  const archiveEnd=Number(archive?.coverage_end_year);
  const datedRange=Number.isInteger(archiveStart)&&Number.isInteger(archiveEnd)?archiveStart+'–'+archiveEnd:'available seasons';
- const label=historical.length?
-  'Documented results '+datedRange+' · '+(archive?.coverage_status==='PARTIAL_SOURCE_BACKFILL'?'partial identity-recovered archive':'historical source not certified complete')+' · not an all-time record':
+ const oldest=rows.at(-1)?.date?.slice(0,4),newest=rows[0]?.date?.slice(0,4);
+ const label=rows.length?
+  'Documented results '+oldest+'–'+newest+' · historical source coverage is incomplete; not an all-time record':
   'Historical archive incomplete or unavailable · showing only available recent verified meetings; not an all-time record';
- const gamesHTML=rows.length?rows.map(g=>gameCard(g,true)).join(''):empty('No verified games loaded for this matchup; this is not an all-time record.');
+ const renderHistoricalGame=g=>{
+  if(!g.venue_unverified)return gameCard(g,true);
+  const first=teamMap.get(g.home_id),second=teamMap.get(g.away_id);
+  if(!first||!second)return '';
+  return '<article class="ledger26-card"><div class="ledger26-meta">'+esc(g.date)+' · Historical result · Venue not verified</div>'+
+   '<div class="ledger26-summary">'+logo(first)+esc(first.team)+' <strong>'+esc(g.home_score)+'–'+esc(g.away_score)+'</strong> '+logo(second)+esc(second.team)+'</div>'+
+   '<p class="note">Partial historical source: <a href="'+esc(g.source_url)+'" target="_blank" rel="noopener noreferrer">UNC/Duke archival game data</a></p></article>';
+ };
+ const gamesHTML=rows.length?rows.map(renderHistoricalGame).join(''):empty('No verified games loaded for this matchup; this is not an all-time record.');
  node.innerHTML='<div class="vs-panel"><div class="big-result"><div>'+logo(t)+'<br><b>'+wins+'</b><br>'+esc(t.team)+'</div><span>WINS</span><div>'+logo(opp)+'<br><b>'+(rows.length-wins)+'</b><br>'+esc(opp.team)+'</div></div><p class="muted">'+rows.length+' games shown · '+label+'</p></div>'+gamesHTML;
  };const teamStats=$('#app .metrics');if(teamStats)teamStats.after(calendarHost);
  $('#opponent').onchange=series;series();

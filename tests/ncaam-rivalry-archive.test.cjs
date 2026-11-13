@@ -51,5 +51,14 @@ test('The remaining twelve 2022-2024 NCAA First Four match records are complete'
 test('Script still compiles and page references the latest script',()=>{
  new Function(archive);
  const html=fs.readFileSync('ncaam-rivalry.html','utf8');
- assert.match(html,/ncaam-rivalry\.js\?v=28/);
+ assert.match(html,/ncaam-rivalry\.js\?v=alltime-archive-stage-20261113/);
+});
+
+test('Partial historical archive links sourced pre-1985 fixture data without claiming complete all-time series',()=>{
+ assert.match(archive,/ncaam-pre1985-verified-fixtures\.csv/);
+ assert.match(archive,/earlyUnmatched/);
+ assert.match(archive,/Historical coverage before 1985 is incomplete/);
+ assert.match(archive,/Competition not verified/);
+ const html=fs.readFileSync('ncaam-rivalry.html','utf8');
+ assert.match(html,/series totals represent documented games/);
 });

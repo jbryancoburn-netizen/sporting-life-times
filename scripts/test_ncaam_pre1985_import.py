@@ -15,10 +15,10 @@ with tempfile.TemporaryDirectory() as td:
   w=csv.writer(f);w.writerow(fields);w.writerows(rows)
  subprocess.run([sys.executable,"scripts/import_ncaam_pre1985_unc_duke.py","--input",str(source),"--output",str(out)],check=True)
  d=json.loads(out.read_text())
- assert d["verified_imported_rows"]==3,d
- assert d["seasons_present"]==2,d
+ assert d["verified_imported_rows"]==2,d
+ assert d["seasons_present"]==1,d
  assert d["season_coverage"][0]["season"]==1950,d
- assert d["season_coverage"][-1]["season"]==1985,d
- assert d["exclusions"]["duplicate_fixture"]==2,d
+ assert d["season_coverage"][-1]["season"]==1950,d
+ assert d["exclusions"]["duplicate_fixture"]==1,d
  assert d["not_a_national_rankings_history"] is True,d
  print("PASS pre-1985 fixture importer smoke test")

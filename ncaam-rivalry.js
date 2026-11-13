@@ -73,6 +73,24 @@ async function start(){
    postCount++;
   }
  }
+ // Optional, source-authorized partial early fixtures. Never call this complete all-time history.
+ let earlyGames=0,earlyUnmatched=0,earlyUnavailable=false;
+ try{
+  const response=await fetch("data/ncaam-pre1985-verified-fixtures.csv",{cache:"no-cache"});
+  if(!response.ok)throw Error("HTTP "+response.status);
+  for(const row of parseCSV(await response.text())){
+   const season=Number(row.season),date=String(row.date||"");
+   const a=resolve(row.team_a),b=resolve(row.team_b);
+   const as=Number(row.score_a),bs=Number(row.score_b);
+   if(!a||!b||a===b){earlyUnmatched++;continue}
+   if(season<1950||season>1984||!/^19\d{2}-\d{2}-\d{2}$/.test(date)||
+     Number(date.slice(0,4))<season-1||Number(date.slice(0,4))>season||
+     !Number.isInteger(as)||!Number.isInteger(bs)||as<0||bs<0||as===bs)continue;
+   matches.push({date,season,a,b,as,bs,historical:true,
+     tournament:"Competition not verified",source:row.sources||"Documented pre-1985 source"});
+   earlyGames++;
+  }
+ }catch(error){earlyUnavailable=true;console.warn("Pre-1985 partial archive unavailable",error)}
  let verified2021=new Map();try{const response=await fetch("data/ncaam-postseason-2021-verified.json",{cache:"force-cache"});if(response.ok){const dataset=await response.json();for(const g of dataset.games||[]){const key=[g.season,g.winner,g.loser,g.ws,g.ls].join("|");verified2021.set(key,g.tournament)}}}catch(e){console.warn("2021 tournament classification unavailable",e)}
  // A separate score-and-identity match to published NCAA bracket results classifies 2022–2024.
  // No date inference: only exact season, winner, loser and both final scores qualifies.
@@ -198,7 +216,7 @@ async function start(){
  const options=[...known].sort((a,b)=>name(a).localeCompare(name(b)));
  for(const element of [$("home"),$("away")]){element.replaceChildren();for(const id of options){const o=document.createElement("option");o.value=id;o.textContent=name(id);element.appendChild(o)}}
  const qs=new URLSearchParams(location.search);const valid=new Set(options);$("home").value=valid.has(qs.get("a"))?qs.get("a"):resolve("Indiana")||options[0];$("away").value=valid.has(qs.get("b"))?qs.get("b"):resolve("Purdue")||options[1];
- $("status").textContent="Archive loaded. "+historical.toLocaleString()+" regular-season historical games plus "+postCount.toLocaleString()+" documented postseason games (1985–2018), and "+recent.toLocaleString()+" identity-matched recent games (2020–2026), including "+classified+" verified postseason classifications from 2021–2026."+(unmatched.size?" Some recent school-name aliases are unmatched and excluded.":"")+(failed.length?" Unavailable recent files: "+failed.join(", "):"")+(failedHistorical.length?" Unavailable historical files: "+failedHistorical.join(", "):"")+" Current-season matched finals: "+currentSeasonFinals+"."+(currentSeasonUnmatched?" Current-season identities still unmatched: "+currentSeasonUnmatched+".":"")+(currentSeasonUnavailable?" Current-season finals unavailable; series may be incomplete.":"")+" Current team logos mapped: "+logos.size+".";
+ $("status").textContent="Archive loaded. "+earlyGames.toLocaleString()+" source-backed but incomplete pre-1985 games"+(earlyUnmatched?" ("+earlyUnmatched+" unmapped early school identities)":"")+(earlyUnavailable?"; early source not yet published":"")+", plus "+historical.toLocaleString()+" regular-season historical games plus "+postCount.toLocaleString()+" documented postseason games (1985–2018), and "+recent.toLocaleString()+" identity-matched recent games (2020–2026), including "+classified+" verified postseason classifications from 2021–2026."+(unmatched.size?" Some recent school-name aliases are unmatched and excluded.":"")+(failed.length?" Unavailable recent files: "+failed.join(", "):"")+(failedHistorical.length?" Unavailable historical files: "+failedHistorical.join(", "):"")+" Current-season matched finals: "+currentSeasonFinals+"."+(currentSeasonUnmatched?" Current-season identities still unmatched: "+currentSeasonUnmatched+".":"")+(currentSeasonUnavailable?" Current-season finals unavailable; series may be incomplete.":"")+" Current team logos mapped: "+logos.size+".";
  show();
 }
 function show(){
@@ -215,7 +233,7 @@ function show(){
  $("first-meeting").textContent=arr.length?arr[arr.length-1].date:"—";$("post-meetings").textContent=arr.filter(g=>g.tournament!=="Regular season"&&g.tournament!=="Competition not verified").length;
  const url=new URL(location.href);url.searchParams.set("a",a);url.searchParams.set("b",b);history.replaceState(null,"",url);
  const mklogo=(team,element)=>{const id=currentNcaa.get(String(team));const size=element.classList.contains('small-logo')?'small':'score';element.innerHTML=id?window.MBBLogos.byNCAA(id,size,name(team)):window.MBBLogos.byName(name(team),size);element.title=name(team)+" logo"};
- $("status").textContent="Showing "+arr.length+" unique recorded games for "+name(a)+" and "+name(b)+"; "+arr.filter(g=>g.tournament==="Competition not verified").length+" lack verified competition classifications."; 
+ $("status").textContent="Showing "+arr.length+" unique documented games for "+name(a)+" and "+name(b)+"; "+arr.filter(g=>g.tournament==="Competition not verified").length+" lack verified competition classifications. Historical coverage before 1985 is incomplete; totals are not certified all-time."; 
  $("matchup").textContent=name(a)+" vs. "+name(b);$("team-a-name").textContent=name(a);$("team-b-name").textContent=name(b);mklogo(a,$("team-a-logo"));mklogo(b,$("team-b-logo"));
  applyTheme($("hero-a"),a);applyTheme($("hero-b"),b);
  $("meetings").textContent=arr.length;$("record").textContent=wins+"–"+losses;$("recent").textContent=arr.length?arr[0].date:"None";
