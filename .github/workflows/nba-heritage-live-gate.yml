@@ -1,0 +1,50 @@
+name: NBA Historical Crest Live Gate
+on:
+  push:
+    branches:
+      - release/nba-heritage-live-20261113
+    paths:
+      - 'nba*.html'
+      - 'nba*.css'
+      - 'nba*.js'
+      - 'slt-dual-ring.*'
+      - 'data/nba-vintage-logos.json'
+      - 'assets/nba-vintage-logos/**'
+      - 'scripts/test-nba-heritage-live.mjs'
+      - '.github/workflows/nba-heritage-live-gate.yml'
+  pull_request:
+    paths:
+      - 'nba*.html'
+      - 'nba*.css'
+      - 'nba*.js'
+      - 'slt-dual-ring.*'
+      - 'data/nba-vintage-logos.json'
+      - 'assets/nba-vintage-logos/**'
+      - 'scripts/test-nba-heritage-live.mjs'
+      - '.github/workflows/nba-heritage-live-gate.yml'
+permissions:
+  contents: read
+jobs:
+  heritage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate all 30 local crest files and page includes
+        run: python3 scripts/check-nba-logo-contract.py
+      - name: Install browser test runner
+        run: |
+          npm install --no-save playwright@1.56.1
+          if command -v google-chrome >/dev/null 2>&1; then
+            echo "PLAYWRIGHT_CHROME_CHANNEL=chrome" >> "$GITHUB_ENV"
+          else
+            npx playwright install chromium
+          fi
+      - name: Render 30 local vintage logos and audit NBA home rings at two widths
+        run: node scripts/test-nba-heritage-live.mjs
