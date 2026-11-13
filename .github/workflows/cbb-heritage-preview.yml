@@ -8,6 +8,11 @@ on:
       - 'ncaam-slate.html'
       - 'wbb-team-newspaper.css'
       - 'mbb-logo-system.css'
+      - 'cbb-ledger-scorebug.js'
+      - 'cbb-final-impact.js'
+      - 'ncaam-slate.js'
+      - 'tests/shared-scorebug-contract.test.js'
+      - 'tests/cbb-final-impact.test.cjs'
       - 'cbb-team-form.js'
       - 'tests/cbb-team-form.test.cjs'
       - 'tests/cbb-double-ring.test.cjs'
@@ -34,7 +39,10 @@ jobs:
       - name: Test shared Form Book fixture labels and double-ring CSS
         run: |
           node --check cbb-team-form.js
-          node --test tests/cbb-team-form.test.cjs tests/cbb-double-ring.test.cjs
+          node --check cbb-final-impact.js
+          node --check cbb-ledger-scorebug.js
+          node --check ncaam-slate.js
+          node --test tests/cbb-team-form.test.cjs tests/cbb-double-ring.test.cjs tests/cbb-final-impact.test.cjs tests/shared-scorebug-contract.test.js
       - name: Install Chromium browser for local-branch visual comparison
         run: |
           python3 -m pip install playwright==1.56.0

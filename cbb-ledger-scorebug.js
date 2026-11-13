@@ -157,6 +157,31 @@
    if(close){e.preventDefault();e.stopPropagation();close.closest('dialog')?.close();}
   },true);
  }
+ function finalImpactPanel(g,label){
+  const info=g.finalImpact;
+  if(!info)return '<div class="ledger26-status" data-phase="final"><strong>'+esc(label||'FINAL')+'</strong></div>';
+  const contents=side=>{
+    if(!side||typeof side.record!=='string')return '';
+    const publishedChange=typeof side.dayChange==='number'&&Number.isFinite(side.dayChange);
+    const movement=publishedChange?(side.dayChange>0?'▲ +':side.dayChange<0?'▼ −':'= ')+Math.abs(side.dayChange).toFixed(1):
+      Number.isInteger(side.rank)?'#'+side.rank:'—';
+    const kind=publishedChange?'DAY':'RANK';
+    const letter=side.won?'W':'L';
+    const detail=side.conferenceRecord?'CONF '+side.conferenceRecord:'W–L '+side.record;
+    const explanation=(publishedChange?'Published RETRO daily change (not single-game Elo): ':'Current RETRO rank: ')+movement+
+      '. Current '+(side.conferenceRecord?'conference':'overall')+' record: '+detail+'. Recorded final: '+(side.won?'win':'loss')+'. As of '+side.asOf;
+    return '<span class="ledger26-final-team" title="'+esc(explanation)+'" aria-label="'+esc(explanation)+'">'+
+      '<span class="ledger26-final-retro"><small>'+kind+'</small><b class="'+(publishedChange?(side.dayChange>0?'is-rise':side.dayChange<0?'is-fall':'is-level'):'')+'">'+esc(movement)+'</b></span>'+
+      '<span class="ledger26-final-record"><small>'+esc(letter)+'</small><b>'+esc(detail)+'</b></span></span>';
+  };
+  if(info.state==='not-rated')
+    return '<div class="ledger26-status ledger26-status--final-impact" data-phase="final"><strong class="ledger26-final-heading">'+esc(label||'FINAL')+'</strong><span class="ledger26-final-unrated" title="'+esc(info.reason||'Not rated')+'">NO RETRO</span></div>';
+  if(info.state!=='published'||!info.away||!info.home)
+    return '<div class="ledger26-status ledger26-status--final-impact" data-phase="final"><strong class="ledger26-final-heading">'+esc(label||'FINAL')+'</strong><span class="ledger26-final-pending">RETRO / RECORD PENDING</span></div>';
+  return '<div class="ledger26-status ledger26-status--final-impact" data-phase="final">'+
+    '<strong class="ledger26-final-heading">'+esc(label||'FINAL')+'</strong>'+
+    '<div class="ledger26-final-rows">'+contents(info.away)+contents(info.home)+'</div></div>';
+ }
  function render(input){
   const g=input||{},phase=['live','final','upcoming'].includes(g.phase)?g.phase:'upcoming';
   const label=(phase==='final'?
@@ -183,7 +208,8 @@
      Boolean(x.abbreviation||x.name)&&String(g.momentum.text||'').toUpperCase().startsWith(String(x.abbreviation||x.name||'').toUpperCase()+' ')?
      '<span class="ledger26-team-run" title="'+esc(g.momentum.text)+'" aria-label="Scoring run">↗</span>':'';
    const scoreClass=upset?' ledger26-points--upset':'';
-   const context=[x.record||'0–0',x.retro||'RETRO —'].join(' · ');
+   const contextRecord=String(x.record||'0–0');
+   const contextRetro=String(x.retro||'RETRO —');
    // Pregame-only verified scouting lines; zero-game or missing samples are never shown.
    const profile=phase==='upcoming'&&x.scouting&&Number.isInteger(x.scouting.games)&&x.scouting.games>0?x.scouting:null;
    const ppg=profile&&Number.isFinite(profile.pointsFor)?profile.pointsFor.toFixed(1):null;
@@ -202,7 +228,7 @@
    return '<div class="ledger26-team" style="--ledger26-school:'+color(x.color)+'">'+
     '<span class="ledger26-crest">'+(x.crest||'')+'</span>'+
     '<span class="ledger26-identity"><strong class="ledger26-name">'+badge+linkedName+'</strong>'+
-    '<small class="ledger26-record">'+esc(context)+
+    '<small class="ledger26-record"><span class="ledger26-record-overall">'+esc(contextRecord)+'</span> <span class="ledger26-retro-brief">'+esc(contextRetro)+'</span>'+
     (phase==='upcoming'&&side==='home'&&g.rivalry&&g.rivalry.name?
       '<span class="ledger26-rivalry" title="'+esc(g.rivalry.name)+'"><span aria-hidden="true"> ◆</span><span class="ledger26-rivalry-text"> '+esc(g.rivalry.name)+
       (g.rivalry.seasonH2H&&Number.isInteger(g.rivalry.seasonH2H.away)&&Number.isInteger(g.rivalry.seasonH2H.home)?
@@ -213,7 +239,10 @@
   return '<div class="ledger26-scorebug'+(g.suppressMonogram?' ledger26-scorebug--plain':'')+(phase==='upcoming'?' ledger26-scorebug--pregame':'')+'" role="group" aria-label="'+esc(g.ariaLabel||((g.away?.name||'Away')+' at '+(g.home?.name||'Home')+' scoreboard'))+'">'+
     (g.suppressMonogram?'':'<span class="ledger26-monogram"><img src="assets/slt-engraved-black.svg" width="35" height="49" alt="Sporting Life and Times monogram"></span>')+
     '<div class="ledger26-teams">'+team(g.away)+team(g.home)+'</div>'+
-    (phase==='live'?livePanel(g,label):phase==='upcoming'?pregamePanel(g):label?'<div class="ledger26-status" data-phase="'+phase+'"><strong>'+esc(label)+'</strong></div>':'')+(phase==='upcoming'&&!g.suppressPress?preview(g).split('<dialog')[0]:'')+'</div>';
+    (phase==='live'?livePanel(g,label):phase==='upcoming'?pregamePanel(g):
+      phase==='final'?finalImpactPanel(g,label):
+      label?'<div class="ledger26-status" data-phase="'+phase+'"><strong>'+esc(label)+'</strong></div>':'')+
+    (phase==='upcoming'&&!g.suppressPress?preview(g).split('<dialog')[0]:'')+'</div>';
  }
  // The Daily Ledger is the universal newspaper model, not a separate sport skin.
  // Keep the old alias for existing college basketball pages.

@@ -55,6 +55,8 @@ with sync_playwright() as playwright:
                     viewportWidth: window.innerWidth,
                     foundMain: !!stage,
                     scorebugCrestSize: first ? getComputedStyle(first).getPropertyValue('--ledger26-crest-size').trim() : null,
+                    finalImpactRows: document.querySelectorAll('.ledger26-status--final-impact').length,
+                    finalDisplay: document.querySelector('.ledger26-status--final-impact')?.innerText?.slice(0,140) || '',
                     teamCrestWidth: logo ? Math.round(logo.getBoundingClientRect().width) : null,
                     teamCrestHeight: logo ? Math.round(logo.getBoundingClientRect().height) : null,
                     outerRingWidth: outer ? parseFloat(outer.borderLeftWidth) : null,

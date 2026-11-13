@@ -393,3 +393,84 @@ body.slt-cbb-heritage .ledger26-crest img {
     scroll-behavior: auto;
   }
 }
+
+
+/* The Heritage Press scorebug: RETRO remains legible in the team identity line. */
+body.slt-cbb-heritage .ledger26-record {
+  display:flex; align-items:baseline; flex-wrap:wrap; gap:2px 7px;
+  font-variant-numeric:tabular-nums; line-height:1.25;
+}
+body.slt-cbb-heritage .ledger26-retro-brief {
+  color:#713d30; font-weight:700;
+}
+body.slt-cbb-heritage .ledger26-record-overall {
+  color:var(--press-muted);
+}
+/* FINAL: one compact published-impact register in the formerly empty status
+   column, with first/second row mapping exactly to away/home team order. */
+body.slt-cbb-heritage .ledger26-scorebug:has(.ledger26-status--final-impact) {
+  grid-template-columns: minmax(0,1fr) 118px;
+}
+body.slt-cbb-heritage .ledger26-status--final-impact {
+  display:flex; flex-direction:column; justify-content:flex-start;
+  text-align:center; padding:5px 3px; overflow:hidden;
+  background:#f0e3ce; gap:3px;
+}
+body.slt-cbb-heritage .ledger26-status--final-impact .ledger26-final-heading {
+  font:700 10px/1.2 Georgia,serif!important;
+  border-bottom:1px solid var(--press-rule); padding:0 0 3px; width:100%;
+}
+body.slt-cbb-heritage .ledger26-final-rows {
+  display:grid; grid-template-rows:1fr 1fr; flex:1;
+  width:100%; gap:2px; min-height:0;
+}
+body.slt-cbb-heritage .ledger26-final-team {
+  display:flex; flex-direction:column; gap:1px; justify-content:center;
+  min-width:0; padding:2px 0; border-bottom:1px dotted var(--press-rule);
+}
+body.slt-cbb-heritage .ledger26-final-team:last-child{border-bottom:0}
+body.slt-cbb-heritage .ledger26-final-retro,
+body.slt-cbb-heritage .ledger26-final-record {
+  display:flex; gap:4px; align-items:baseline; justify-content:center;
+  white-space:nowrap; line-height:1.05;
+}
+body.slt-cbb-heritage .ledger26-final-retro small,
+body.slt-cbb-heritage .ledger26-final-record small {
+  font:700 8px/1 Georgia,serif; color:#756451;
+}
+body.slt-cbb-heritage .ledger26-final-retro b {
+  font:700 13px/1 var(--press-numerals); color:var(--press-ink);
+  font-variant-numeric:tabular-nums;
+}
+body.slt-cbb-heritage .ledger26-final-retro b.is-rise {color:#285a42}
+body.slt-cbb-heritage .ledger26-final-retro b.is-fall {color:#963b31}
+body.slt-cbb-heritage .ledger26-final-record b {
+  font:700 9px/1.1 Georgia,serif;
+  color:var(--press-ink); font-variant-numeric:tabular-nums;
+}
+body.slt-cbb-heritage .ledger26-final-unrated,
+body.slt-cbb-heritage .ledger26-final-pending {
+  display:block; font:700 9px/1.3 Georgia,serif;
+  color:var(--press-muted); padding:15px 2px;
+}
+@media(max-width:640px) {
+  body.slt-cbb-heritage .ledger26-record {
+    font-size:10px; gap:1px 4px;
+  }
+  body.slt-cbb-heritage .ledger26-retro-brief {
+    font-size:10px; display:block;
+  }
+  body.slt-cbb-heritage .ledger26-scorebug:has(.ledger26-status--final-impact) {
+    grid-template-columns:minmax(0,1fr) 105px;
+  }
+  body.slt-cbb-heritage .ledger26-status--final-impact {padding:4px 2px;gap:2px}
+  body.slt-cbb-heritage .ledger26-final-retro b {font-size:12px}
+}
+@media(max-width:360px) {
+  body.slt-cbb-heritage .ledger26-scorebug:has(.ledger26-status--final-impact) {
+    grid-template-columns:minmax(0,1fr) 97px;
+  }
+  body.slt-cbb-heritage .ledger26-record {font-size:9px}
+  body.slt-cbb-heritage .ledger26-retro-brief {font-size:9px}
+  body.slt-cbb-heritage .ledger26-final-record b {font-size:8px}
+}
