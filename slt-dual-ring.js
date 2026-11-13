@@ -5,7 +5,7 @@ const league=document.currentScript?.dataset?.sltLeague;
 if(!['nba','euroleague','mbb','soccer'].includes(league))return;
 // Men's D-I basketball has its own roundel-aware renderer. Never decorate it twice.
 if(league==='mbb')return;
-let colors={};let socByESPN=new Map(),socByURL=new Map(),eurByURL=new Map(),nbaByID=new Map();
+let colors={};let vintageByTeam={};let socByESPN=new Map(),socByURL=new Map(),eurByURL=new Map(),nbaByID=new Map();
 const hex=v=>/^#[a-f0-9]{6}$/i.test(v||'');
 const pathname=v=>{try{return new URL(v,location.href).pathname.toLowerCase()}catch{return ''}};
 const suffix={ny:'NYK',wsh:'WAS',gs:'GSW',sa:'SAS',no:'NOP',utah:'UTA'};
@@ -49,6 +49,43 @@ function identity(img){
  }
  return null;
 }
+/* The archive uses one vetted mark per franchise, with the original local logo
+   retained as an automatic fallback. Score/data handling is deliberately untouched. */
+function archivalNBAImage(img,entry){
+ if(league!=='nba'||!entry?.id)return;
+ const mark=vintageByTeam[entry.id];
+ const historical='assets/nba-vintage-logos/'+entry.id+'.png';
+ if(!mark||mark.logo_url!==historical)return;
+ const original=img.getAttribute('src')||'';
+ if(img.dataset.sltVintageStatus)return;
+ if(!/(?:\/nba-logos\/|\/nba-vintage-logos\/|\/teamlogos\/nba\/(?:500|500-dark)\/|\/logos\/nba\/)/i.test(original))return;
+ // Every vintage image is a verified local file in the repo; no external
+ // CDN hosts are read, even as a fallback. A failed local-era mark falls
+ // back to a second locally stored official NBA logo.
+ const fallback=mark.fallback_url;
+ if(!/^assets\/nba-logos\/[A-Z]{2,3}\.png$/.test(fallback))return;
+ img.dataset.teamCode=entry.id;
+ img.dataset.sltVintageOriginal=original;
+ img.dataset.sltVintageStatus='loading';
+ // Some legacy NBA <img> elements carry an inline onerror that switches
+ // to an external ESPN URL. This feature is local-only, including fallback.
+ img.removeAttribute('onerror');
+ img.onerror=null;
+ img.addEventListener('error',()=>{
+  if(img.getAttribute('src')===historical){
+   img.dataset.sltVintageStatus='fallback';
+   img.setAttribute('src',fallback);
+  }
+ });
+ img.addEventListener('load',()=>{
+  const source=img.getAttribute('src');
+  if(source===historical||source===fallback){
+    img.dataset.sltVintageStatus=source===historical?'loaded':'fallback-loaded';
+    img.hidden=false;
+  }
+ });
+ img.setAttribute('src',historical);
+}
 function paint(el,entry){
  el.style.setProperty('--slt-dual-primary',entry.primary);
  el.style.setProperty('--slt-dual-secondary',entry.secondary);
@@ -66,16 +103,40 @@ function apply(img){
  // Applying this site's generic two-ring treatment here caused FOUR overlapping rings.
  if(img.closest('.pb-club-crest'))return;
  if(img.closest('.team-hero-logo-bg,.story-img,.news-photo,.hero-watermark,.player-photo,.player-portrait,.player-headshot'))return;
- const entry=identity(img);if(!entry)return;
+ const base=identity(img);if(!base)return;
+ const era=vintageByTeam[base.id];
+ const entry=league==='nba'&&hex(era?.ring_primary)&&hex(era?.ring_secondary)
+  ?{...base,primary:era.ring_primary,secondary:era.ring_secondary}:base;
+ archivalNBAImage(img,entry);
  const host=img.closest(hostSelector);
  if(host&&host.querySelectorAll('img').length===1){
   host.classList.add('slt-dual-shell');paint(host,entry);
   img.classList.remove('slt-dual-image');
-  for(const prop of ['border','box-shadow','padding'])img.style.removeProperty(prop);
+  if(league==='nba'){
+   /* Existing NBA stylesheets include stronger !important single-ring rules.
+      Inline overrides make the shared shell the ONLY source of both rings. */
+   const set=(k,v)=>img.style.setProperty(k,v,'important');
+   host.style.setProperty('border','var(--slt-nba-crest-stroke,4px) solid '+entry.primary,'important');
+   host.style.setProperty('box-sizing','border-box','important');
+   host.style.setProperty('border-radius','50%','important');
+   host.style.setProperty('position','relative','important');
+   host.style.setProperty('overflow','hidden','important');
+   host.style.setProperty('padding','0','important');
+   set('position','absolute');set('top','50%');set('left','50%');
+   set('right','auto');set('bottom','auto');
+   set('transform','translate(-50%,-50%)');
+   set('width','calc(100% - var(--slt-nba-artwork-inset,17px))');set('height','calc(100% - var(--slt-nba-artwork-inset,17px))');
+   set('max-width','calc(100% - var(--slt-nba-artwork-inset,17px))');set('max-height','calc(100% - var(--slt-nba-artwork-inset,17px))');
+   set('min-width','0');set('min-height','0');
+   set('border','0');set('box-shadow','none');set('padding','0');
+   set('margin','0');set('background','transparent');set('object-fit','contain');
+   set('clip-path','circle(50% at 50%)');
+  }else for(const prop of ['border','box-shadow','padding'])img.style.removeProperty(prop);
  }else{
   img.classList.add('slt-dual-image');paint(img,entry);
   const set=(k,v)=>img.style.setProperty(k,v,'important');
-  set('border','3px solid '+entry.secondary);set('box-shadow','0 0 0 3px '+entry.primary);
+  const stroke=league==='nba'?'var(--slt-nba-crest-stroke,4px)':'3px';
+  set('border',stroke+' solid '+entry.secondary);set('box-shadow','0 0 0 '+stroke+' '+entry.primary);
   set('border-radius','50%');set('background','#fff');set('padding','3px');
   set('box-sizing','border-box');set('object-fit','contain');set('aspect-ratio','1 / 1');
  }
@@ -100,8 +161,24 @@ async function init(){
  try{
   const res=await fetch('data/dual-ring-team-palette.json?v=nonwhite-rings-20261029',{cache:'force-cache'});
   if(!res.ok)throw Error('Palette download HTTP '+res.status);
-  prepare(await res.json());schedule(document.body);
-  new MutationObserver(items=>{for(const m of items)for(const n of m.addedNodes)if(n.nodeType===1)schedule(n)}).observe(document.body,{childList:true,subtree:true});
+  prepare(await res.json());
+  if(league==='nba'){
+   document.body.classList.add('slt-nba-bold-rings');
+   try{
+    const archive=await fetch('data/nba-vintage-logos.json?v=20261113a',{cache:'force-cache'});
+    if(!archive.ok)throw Error('NBA vintage catalogue HTTP '+archive.status);
+    const catalog=await archive.json();
+    if(Object.keys(catalog.teams||{}).length!==30)throw Error('NBA vintage catalogue is incomplete');
+    vintageByTeam=catalog.teams;
+   }catch(error){console.error('NBA historic marks unavailable; retaining current artwork:',error);}
+  }
+  schedule(document.body);
+  new MutationObserver(items=>{
+   for(const m of items){
+    if(m.type==='attributes'){schedule(m.target);continue;}
+    for(const n of m.addedNodes)if(n.nodeType===1)schedule(n);
+   }
+  }).observe(document.body,{childList:true,subtree:true,attributes:league==='nba',attributeFilter:league==='nba'?['src']:undefined});
  }catch(error){console.error('Two-tone logo registry:',error)}
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();

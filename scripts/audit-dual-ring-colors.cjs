@@ -18,12 +18,15 @@ for(const [kind,expected] of Object.entries({nba:30,euroleague:20,mbb:365,soccer
   count++;
  }
 }
-const version='two-clean-rings-20261029';
+const historicNbaVersion='20261113-vintage-bold-rings';
+const defaultVersion='two-clean-rings-20261029';
 const files=fs.readdirSync('.').filter(p=>p.endsWith('.html'));
 const pages=files.filter(p=>read(p).includes('data-slt-league='));
-assert(pages.length>=40&&pages.length<=45,'Unexpected shared two-ring page population: '+pages.length);
+// The NBA predictions page now opts into the two-tone renderer too.
+assert(pages.length>=40&&pages.length<=46,'Unexpected shared two-ring page population: '+pages.length);
 for(const page of pages){
  const html=read(page);
+ const version=html.includes('data-slt-league="nba"')?historicNbaVersion:defaultVersion;
  assert(html.includes('slt-dual-ring.css?v='+version),'Stale double-ring geometry on '+page);
  assert(html.includes('slt-dual-ring.js?v='+version),'Stale color lookup on '+page);
 }
