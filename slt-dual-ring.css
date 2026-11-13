@@ -75,7 +75,7 @@ body .cbb-elo-power .mbb-mark.slt-dual-shell{
 
 /* NBA-only 1980s edition: two broad, touching team-color strokes.
    Never add a white spacer or shadow ring, and never change the NCAA layout. */
-body.slt-nba-bold-rings{--slt-nba-crest-stroke:4px}
+body.slt-nba-bold-rings{--slt-nba-crest-stroke:4px;--slt-nba-artwork-inset:17px}
 body.slt-nba-bold-rings .slt-dual-shell{
  border-width:4px!important;
  box-shadow:0 1px 2px rgba(0,0,0,.10)!important;
@@ -86,10 +86,10 @@ body.slt-nba-bold-rings .slt-dual-shell::before{
  box-shadow:none!important;
 }
 body.slt-nba-bold-rings .slt-dual-shell>img:not(.player-photo):not(.player-portrait):not(.team-hero-logo-bg){
- width:59%!important;height:59%!important;max-width:59%!important;max-height:59%!important;
+ width:calc(100% - var(--slt-nba-artwork-inset,17px))!important;height:calc(100% - var(--slt-nba-artwork-inset,17px))!important;max-width:calc(100% - var(--slt-nba-artwork-inset,17px))!important;max-height:calc(100% - var(--slt-nba-artwork-inset,17px))!important;
 }
 @media(max-width:580px){
- body.slt-nba-bold-rings{--slt-nba-crest-stroke:3.5px}
+ body.slt-nba-bold-rings{--slt-nba-crest-stroke:3.5px;--slt-nba-artwork-inset:15px}
  body.slt-nba-bold-rings .slt-dual-shell{border-width:3.5px!important}
  body.slt-nba-bold-rings .slt-dual-shell::before{border-width:3.5px!important}
 }
