@@ -37,6 +37,7 @@ def get_school(row):
  if (start,end) not in matches and not (end==9999 and any(a==start and b==9999 for a,b in matches)):
   raise ValueError(f"School source lacks independently dated {start}-{end} primary mark; periods {periods[:20]}")
  images=[]
+ if id=="84":print("RAW_IMAGES",json.dumps([(x.get("src"),x.get("data-src"),x.get("alt")) for x in soup.find_all("img")][:25]),flush=True)
  for img in soup.find_all("img"):
   src=img.get("data-src") or img.get("src") or ""
   src=requests.compat.urljoin(url,src)
