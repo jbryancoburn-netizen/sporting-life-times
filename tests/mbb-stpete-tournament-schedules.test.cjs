@@ -41,3 +41,21 @@ test('Bradley–George Mason fixture carries verified site, tipoff and both offi
     assert.match(e.opponent_official_source, /^https:\/\/(?:gomason\.com|bradleybraves\.com)\//);
   }
 });
+
+test('future source-backed event-organizer fixtures are present on both school schedules', () => {
+  const registry = JSON.parse(fs.readFileSync(path.join(root, 'data/mbb-organizer-game-evidence.json'), 'utf8'));
+  assert.equal(registry.season, '2026-27');
+  const future = registry.games.filter(g => g.date >= '2026-11-13' && Array.isArray(g.team_ids) && g.team_ids.length === 2);
+  assert.ok(future.length >= 11, 'Unexpectedly missing organizer evidence register');
+  for (const g of future) {
+    for (const owner of g.team_ids) {
+      const matches = read(owner).events.filter(e => {
+        const ids = (e.competitions?.[0]?.competitors || []).map(c => String(c.team?.id));
+        return e.date.slice(0, 10) === g.date &&
+          ids.length === 2 && g.team_ids.every(id => ids.includes(String(id)));
+      });
+      assert.equal(matches.length, 1,
+        `Organizer-backed game ${g.team_ids.join(' vs ')} on ${g.date} absent/duplicated on ${owner}: ${g.source_url}`);
+    }
+  }
+});
