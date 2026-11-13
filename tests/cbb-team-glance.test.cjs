@@ -22,12 +22,13 @@ const makeWomenWindow=()=>{
  new Function('window',read('wbb-game-results.js'))(win);
  return win;
 };
-test('both team pages load the shared glance stylesheet and script',()=>{
+test('both team pages use the Form Book without the redundant season glance',()=>{
  for(const path of ['ncaam-team.html','ncaaw-team.html']){
-  assert.match(read(path),/cbb-team-glance\.css\?v=20261112/);
-  assert.match(read(path),/cbb-team-glance\.js\?v=20261112/);
+  assert.doesNotMatch(read(path),/cbb-team-glance\.(css|js)/);
+  assert.match(read(path),/cbb-team-form\.css/);
+  assert.match(read(path),/cbb-team-form\.js/);
  }
- assert.match(read('wbb-team-newspaper.js'),/CBBTeamGlance\?\.acceptSchedule\(baseGames\)/);
+ assert.doesNotMatch(read('wbb-team-newspaper.js'),/CBBTeamGlance/);
 });
 test('men: 365 glance records reconcile to published overall record audit',()=>{
  const retro=json('data/ncaam-2026-27-retro-primary.json');
