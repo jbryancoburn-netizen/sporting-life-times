@@ -39,11 +39,34 @@
     const key=String(id||'').trim(),t=manifest.outside_di_overrides[key];if(!t)return null;
     return Object.freeze({id:key,team:t.school,src:safe(t.modern_logo),fallback:null,identity_status:t.identity_status,division_one:false});
   }
+  /* Browser-side fail-safe: do not show a low-resolution retro asset when the
+     original team artwork is clearer. The fallback never fabricates artwork. */
+  function mountImage(img,record,opts){
+    if(!img||!record)throw Error('A DOM image and valid logo record are required');
+    const target=safe(record.src),fallback=safe(record.fallback);
+    const minimum=Number(opts?.minimumIntrinsicPx)||240;
+    if(!target&&!fallback){img.removeAttribute('src');img.dataset.logoQuality='missing';return img}
+    let fallbackActive=false;
+    function swap(reason){
+      if(fallback&&!fallbackActive&&fallback!==img.src&&!String(img.src).endsWith(fallback)){
+        fallbackActive=true;img.dataset.logoQuality='fallback-'+reason;img.src=fallback;
+      }else{img.dataset.logoQuality='failed-'+reason}
+    }
+    img.decoding='async';img.loading='lazy';
+    img.onerror=function(){swap('unavailable')};
+    img.onload=function(){
+      if((img.naturalWidth<minimum||img.naturalHeight<minimum)&&!fallbackActive){swap('low-resolution');return}
+      img.dataset.logoQuality=fallbackActive?'fallback-loaded':'resolution-pass';
+    };
+    img.src=target||fallback;
+    return img;
+  }
   root.SLTBasketballRetroLogos=Object.freeze({
     load,
     nba:async(code,opts)=>resolvedNBA(await load(),code,opts),
     college:async(id,opts)=>resolvedCollege(await load(),id,opts),
     opponent:async id=>resolvedOpponent(await load(),id),
+    mountImage,
     counts:async()=>{const r=await load();return Object.freeze({...r.stats})}
   });
 })(typeof window!=='undefined'?window:globalThis);
