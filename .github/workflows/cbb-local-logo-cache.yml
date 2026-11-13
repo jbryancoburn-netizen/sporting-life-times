@@ -42,9 +42,10 @@ jobs:
           git add assets/cbb-school-logos/ data/cbb-local-logos.json
           if git diff --cached --quiet; then exit 0; fi
           git commit -m "Cache 365 D-I and verified opponent logos in local assets"
-          for attempt in 1 2 3 4 5; do
+          for attempt in $(seq 1 30); do
             git fetch origin feat/cbb-large-local-1980s-big-ten-20261113
             git rebase origin/feat/cbb-large-local-1980s-big-ten-20261113
+            sleep 2
             if git push origin HEAD:feat/cbb-large-local-1980s-big-ten-20261113; then exit 0; fi
           done
           exit 1
