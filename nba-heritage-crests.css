@@ -132,3 +132,150 @@ body.nba-newspaper.slt-nba-bold-rings .nba-team-tile>img.nba-team-logo.slt-dual-
     max-width:84px!important;max-height:84px!important;
   }
 }
+
+
+/* NBA CREST / TEXT CLEARANCE — responsive layout audit, November 13.
+   The 1980s artwork remains large. Explicitly allocate its space in each
+   row: legacy 40–52px columns were overlapping the new 60–78px crests.
+   Only NBA editors are affected; never alter CBB or other sport identities. */
+body.nba-newspaper.slt-nba-bold-rings :is(
+ .nba-standings-identity,.nba-brand-link,.nba-live-team,.score-team,
+ .nba-div-team,.nba-race-team,.nba-team-identity,.slt-scorebug-team
+){box-sizing:border-box;min-width:0!important;}
+body.nba-newspaper.slt-nba-bold-rings :is(
+ .nba-standings-name,.nba-race-identity,.nba-brand-link>span,
+ .nba-live-team>span,.score-team>span,.nba-team-identity>div
+){min-width:0!important;max-width:100%!important;overflow-wrap:break-word!important;}
+body.nba-newspaper.slt-nba-bold-rings .nba-team-identity>div{
+ flex:1 1 0!important;
+}
+body.nba-newspaper.slt-nba-bold-rings .nba-team-identity h1{
+ overflow-wrap:anywhere!important;line-height:1.08!important;
+}
+/* Legacy standings identity had min-width:250px, width:max-content. It
+   cannot live inside a 31%-wide table cell on a narrow phone. */
+body.nba-newspaper.slt-nba-bold-rings:is([data-page="standings"],[data-page="conference"])
+ a.nba-standings-identity{
+ display:flex!important;flex-flow:row nowrap!important;
+ width:100%!important;min-width:0!important;max-width:100%!important;
+ gap:9px!important;align-items:center!important;
+}
+body.nba-newspaper.slt-nba-bold-rings:is([data-page="standings"],[data-page="conference"])
+ a.nba-standings-identity>.nba-standings-name{
+ flex:1 1 0!important;width:auto!important;min-width:0!important;
+ max-width:100%!important;white-space:normal!important;
+ overflow-wrap:break-word!important;word-break:normal!important;
+}
+body.nba-newspaper.slt-nba-bold-rings:is([data-page="standings"],[data-page="conference"])
+ .nba-standings-identity .nba-standings-logo{
+ flex:0 0 62px!important;width:62px!important;height:62px!important;
+ min-width:62px!important;min-height:62px!important;
+ max-width:62px!important;max-height:62px!important;
+}
+body.nba-newspaper.slt-nba-bold-rings:is([data-page="standings"],[data-page="conference"])
+ .nba-standings-identity .nba-standings-logo>img.nba-team-logo.slt-dual-image{
+ flex:0 0 56px!important;width:56px!important;height:56px!important;
+ min-width:56px!important;min-height:56px!important;
+ max-width:56px!important;max-height:56px!important;
+}
+/* The playoff bracket was still a 50px CSS grid column with a 78px logo.
+   Match the grid's reserved track to the logo instead of painting over names. */
+body.nba-newspaper.slt-nba-bold-rings[data-page="playoffs"] .nba-race-team{
+ grid-template-columns:23px 80px minmax(0,1fr) 60px!important;
+ column-gap:9px!important;min-width:0!important;
+}
+body.nba-newspaper.slt-nba-bold-rings[data-page="playoffs"] .nba-race-identity{
+ min-width:0!important;overflow-wrap:break-word!important;
+}
+body.nba-newspaper.slt-nba-bold-rings[data-page="playoffs"] .nba-race-team .nba-race-crest{
+ justify-self:center!important;
+}
+/* Front-page scorerails can afford a generous badge only if the score and
+   club-name columns have distinct width and may wrap naturally. */
+body.nba-newspaper.slt-nba-bold-rings .nba-score-rail .score-card .score-team{
+ display:flex!important;align-items:center!important;gap:9px!important;
+ min-width:0!important;
+}
+body.nba-newspaper.slt-nba-bold-rings .nba-score-rail .score-card .score-team>span{
+ flex:1 1 0!important;min-width:0!important;white-space:normal!important;
+ overflow-wrap:break-word!important;text-overflow:clip!important;
+}
+body.nba-newspaper.slt-nba-bold-rings .nba-score-rail .score-card .score-team>strong{
+ flex:0 0 auto!important;
+}
+body.nba-newspaper.slt-nba-bold-rings .nba-live-team>span{flex:1 1 0!important;min-width:0!important;}
+body.nba-newspaper.slt-nba-bold-rings .nba-live-team>strong{flex:0 0 auto!important;}
+body.nba-newspaper.slt-nba-bold-rings .slt-scorebug-identity{min-width:0!important;max-width:100%!important;}
+body.nba-newspaper.slt-nba-bold-rings .slt-scorebug-identity>span{
+ min-width:0!important;flex:1 1 0!important;overflow-wrap:break-word!important;
+}
+body.nba-newspaper.slt-nba-bold-rings .slt-scorebug-number{flex:0 0 auto!important;}
+body.nba-newspaper.slt-nba-bold-rings[data-page="rankings"] .nba-brand-link{
+ display:flex!important;align-items:center!important;min-width:0!important;
+ max-width:100%!important;gap:10px!important;
+}
+body.nba-newspaper.slt-nba-bold-rings[data-page="rankings"] .nba-brand-link>span{
+ flex:1 1 0!important;min-width:0!important;white-space:normal!important;
+ overflow-wrap:break-word!important;text-overflow:clip!important;
+}
+body.nba-newspaper.slt-nba-bold-rings .nba-team-tile{
+ display:flex!important;flex-direction:column!important;
+ align-items:center!important;justify-content:flex-start!important;gap:6px!important;
+ min-width:0!important;
+}
+body.nba-newspaper.slt-nba-bold-rings .nba-team-tile>b,
+body.nba-newspaper.slt-nba-bold-rings .nba-team-tile>small{
+ max-width:100%!important;overflow-wrap:break-word!important;
+}
+/* Compact conference tables keep an actual 44–48px circular crest rather
+   than removing rings or placing a 60px badge on a 40px text column. */
+@media(max-width:700px){
+ body.nba-newspaper.slt-nba-bold-rings:is([data-page="standings"],[data-page="conference"])
+ a.nba-standings-identity{gap:5px!important;}
+ body.nba-newspaper.slt-nba-bold-rings:is([data-page="standings"],[data-page="conference"])
+ .nba-standings-identity .nba-standings-logo{
+  flex:0 0 48px!important;width:48px!important;height:48px!important;
+  min-width:48px!important;min-height:48px!important;max-width:48px!important;max-height:48px!important;
+ }
+ body.nba-newspaper.slt-nba-bold-rings:is([data-page="standings"],[data-page="conference"])
+ .nba-standings-identity .nba-standings-logo>img.nba-team-logo.slt-dual-image{
+  flex:0 0 44px!important;width:44px!important;height:44px!important;
+  min-width:44px!important;min-height:44px!important;max-width:44px!important;max-height:44px!important;
+ }
+ body.nba-newspaper.slt-nba-bold-rings[data-page="playoffs"] .nba-race-team{
+  grid-template-columns:19px 66px minmax(0,1fr) 52px!important;
+  column-gap:6px!important;
+ }
+ body.nba-newspaper.slt-nba-bold-rings[data-page="rankings"] .nba-brand-link{gap:7px!important;}
+ body.nba-newspaper.slt-nba-bold-rings[data-page="team"] .nba-team-identity h1{
+  font-size:clamp(23px,5.8vw,35px)!important;
+ }
+}
+@media(max-width:540px){
+ body.nba-newspaper.slt-nba-bold-rings .nba-score-rail{
+  grid-template-columns:1fr!important;
+ }
+ body.nba-newspaper.slt-nba-bold-rings .nba-live-team{gap:9px!important;}
+ body.nba-newspaper.slt-nba-bold-rings .nba-team-identity{gap:10px!important;}
+ body.nba-newspaper.slt-nba-bold-rings[data-page="team"] .nba-team-identity img.slt-dual-image{
+  width:100px!important;height:100px!important;min-width:100px!important;min-height:100px!important;
+  max-width:100px!important;max-height:100px!important;
+ }
+ body.nba-newspaper.slt-nba-bold-rings[data-page="rankings"]
+ :is(.nba-brand-link>img.nba-team-logo.slt-dual-image,table.nba-power-table td.nba-power-club img.nba-power-logo.slt-dual-image){
+  flex:0 0 44px!important;width:44px!important;height:44px!important;
+  min-width:44px!important;min-height:44px!important;max-width:44px!important;max-height:44px!important;
+ }
+}
+@media(max-width:390px){
+ body.nba-newspaper.slt-nba-bold-rings:is([data-page="standings"],[data-page="conference"])
+ .nba-standings-identity .nba-standings-logo{
+  flex:0 0 44px!important;width:44px!important;height:44px!important;
+  min-width:44px!important;min-height:44px!important;max-width:44px!important;max-height:44px!important;
+ }
+ body.nba-newspaper.slt-nba-bold-rings:is([data-page="standings"],[data-page="conference"])
+ .nba-standings-identity .nba-standings-logo>img.nba-team-logo.slt-dual-image{
+  flex:0 0 40px!important;width:40px!important;height:40px!important;
+  min-width:40px!important;min-height:40px!important;max-width:40px!important;max-height:40px!important;
+ }
+}

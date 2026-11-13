@@ -59,7 +59,7 @@ for name in pages:
     html = (ROOT / name).read_text()
     assert "slt-dual-ring.css?v=20261113-vintage-bold-rings" in html, f"Ring CSS not loaded by {name}"
     assert "slt-dual-ring.js?v=20261113-vintage-bold-rings" in html, f"Ring JS not loaded by {name}"
-    assert 'nba-heritage-crests.css?v=20261113-large-2ring' in html, f"Large crest sizing missing on {name}"
+    assert 'nba-heritage-crests.css?v=20261113-text-clearance' in html, f"Large crest sizing missing on {name}"
 
 preview = (ROOT / "nba-heritage-preview.html").read_text()
 assert preview.count('assets/nba-vintage-logos/') >= 30, "Historical preview must use all 30 locally stored images"

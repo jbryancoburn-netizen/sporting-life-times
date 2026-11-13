@@ -1,0 +1,47 @@
+name: NBA crest text collision audit
+on:
+  push:
+    branches:
+      - fix/nba-crest-text-collision-20261113
+    paths:
+      - 'scripts/audit-nba-crest-collisions.mjs'
+      - 'nba-heritage-crests.css'
+      - '.github/workflows/nba-crest-collision-audit.yml'
+  pull_request:
+    paths:
+      - 'scripts/audit-nba-crest-collisions.mjs'
+      - 'nba-heritage-crests.css'
+      - '.github/workflows/nba-crest-collision-audit.yml'
+permissions:
+  contents: read
+jobs:
+  collision-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Chrome browser audit tool
+        run: |
+          npm install --no-save playwright@1.56.1
+          if command -v google-chrome >/dev/null 2>&1; then
+            echo "PLAYWRIGHT_CHROME_CHANNEL=chrome" >> "$GITHUB_ENV"
+          else
+            npx playwright install chromium
+          fi
+      - name: Check real text and crest rectangles at four widths on twelve NBA pages
+        env:
+          STRICT_LAYOUT: '1'
+        run: node scripts/audit-nba-crest-collisions.mjs
+      - name: Publish collision evidence and screenshots
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nba-crest-text-collision-audit
+          path: test-artifacts
+          if-no-files-found: ignore
