@@ -22,7 +22,10 @@
     id: String(id), date: day(g.date),
     home: String(g.home_id), away: String(g.away_id),
     homeScore: score(g.home_score), awayScore: score(g.away_score),
-    neutral: g.neutral === true, siteVerified: g.site_verified === true,
+    // Only published and explicitly verified neutral venues qualify for the (N) marker.
+    // Unverified men's RETRO events may carry neutral=true as a placeholder.
+    neutral: g.neutral === true && g.site_verified === true,
+    siteVerified: g.site_verified === true,
     otherName: g.otherName || '', outside: g.outside === true
   });
   const unique = games => {
