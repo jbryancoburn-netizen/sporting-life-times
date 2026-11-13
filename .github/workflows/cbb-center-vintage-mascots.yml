@@ -1,0 +1,57 @@
+name: Center all 1980s Big Ten logos and restore vintage Bucky and Pete
+on:
+  push:
+    branches: [feat/cbb-large-local-1980s-big-ten-20261113]
+    paths:
+      - scripts/center-big-ten-vintage-mascots.py
+      - .github/workflows/cbb-center-vintage-mascots.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: cbb-center-big-ten-mascots
+  cancel-in-progress: false
+jobs:
+  normalize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install archive image tools
+        run: python -m pip install --quiet Pillow requests
+      - name: Fetch vintage mascots and visually center ten logos
+        run: python -u scripts/center-big-ten-vintage-mascots.py
+      - name: Validate authentic logo names and non-cropped ring geometry
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('data/cbb-big-ten-1980s.json').read_text())
+          assert len(d['teams'])==10
+          assert 'Bucky Badger' in d['teams']['275']['variant']
+          assert 'Purdue Pete' in d['teams']['2509']['variant']
+          for id,row in d['teams'].items():
+            assert Path(row['logo_path']).is_file()
+            assert len(row['centered_geometry']['visible_bounds'])==4
+            assert max(map(abs,row['centered_geometry']['center_offset_px']))<=1.5
+          print('PASS: original 1980s-era mascot artwork and centered PNGs')
+          PY
+      - name: Commit all 10 normalized historical images with provenance on feature branch only
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/cbb-big-ten-1980s/ data/cbb-big-ten-1980s.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Restore historical Bucky and Purdue Pete, center all ten Big Ten source marks"
+          for attempt in $(seq 1 15); do
+            git fetch origin feat/cbb-large-local-1980s-big-ten-20261113
+            git rebase origin/feat/cbb-large-local-1980s-big-ten-20261113 || exit 1
+            if git push origin HEAD:feat/cbb-large-local-1980s-big-ten-20261113; then exit 0; fi
+            sleep 2
+          done
+          exit 1
