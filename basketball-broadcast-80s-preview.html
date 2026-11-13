@@ -67,6 +67,11 @@ main{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(270px,1fr);gap:22
 @media(max-width:850px){header.mainhead{align-items:flex-start;flex-direction:column}nav.links{justify-content:flex-start}.hero-main{grid-template-columns:1fr .65fr;padding:29px 23px}.hero-art{transform:scale(.78);min-height:220px}main{grid-template-columns:1fr}.side-stack{grid-template-columns:1fr 1fr}.side-stack .panel,.side-stack .data-card{min-width:0}}
 @media(max-width:630px){.shell{padding:0 12px 28px}.microbar{padding:9px 12px;flex-direction:column;align-items:flex-start;gap:3px}.preview-ribbon{align-items:flex-start;flex-direction:column;gap:2px}.preview-ribbon small{text-align:left}.hero-main{display:block;padding:28px 20px 20px;min-height:0}.hero-title{font-size:clamp(65px,15vw,100px)}.hero-art{transform:scale(.64);height:160px;min-height:160px;margin-top:-15px}.channel-bar{padding:10px}.channel{display:grid;grid-template-columns:repeat(3,1fr);width:100%}.channel button{font-size:10px;padding:10px 7px}.matchup-head{gap:6px}.team-circle{height:60px;width:60px;font-size:18px;border-width:3px}.team .nickname{font-size:clamp(16px,5vw,27px)}.team .city{font-size:9px}.scoreline .scores{font-size:clamp(29px,8vw,48px)}.scoreline .separator{margin:0 1px}.scoreline .period{font-size:9px}.side-stack,.bottom{grid-template-columns:1fr}.panel-heading h2{font-size:21px}.panel-heading small{font-size:9px}.ball{height:190px;width:190px}.stat b{font-size:18px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* Preserve original historical artwork proportions; never crop, distort, invent or upscale. */
+.team-circle{background:transparent!important;border:0!important;box-shadow:none!important;text-shadow:none!important;width:clamp(68px,7.8vw,107px)!important;height:clamp(68px,7.8vw,107px)!important;overflow:visible!important;display:grid!important;place-items:center!important}
+.team-circle img{display:block;width:100%;height:100%;object-fit:contain;image-rendering:auto}
+.team-circle.logo-missing{font:900 18px Arial,sans-serif;background:#0c1c49!important;border:1px solid #8a9bc4!important}
 </style>
 </head>
 <body>
@@ -101,7 +106,7 @@ main{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(270px,1fr);gap:22
   <section class="panel" aria-label="Featured matchup">
     <div class="panel-heading"><h2>GAME OF THE WEEK</h2><small id="feature-label">A CLASSIC RIVALRY · SAMPLE DATA</small></div>
     <div class="game-content">
-      <div class="broadcast-note">NATIONAL SPOTLIGHT / THIS IS A STATIC DESIGN EXAMPLE</div>
+      <div class="broadcast-note">NATIONAL SPOTLIGHT / GENUINE LOGOS · HISTORICAL IMAGE QUALITY UNDER REVIEW</div>
       <div class="matchup-head">
         <div class="team"><div id="badge-a" class="team-circle">BOS</div><div id="city-a" class="city">BOSTON</div><div id="name-a" class="nickname">CELTICS</div></div>
         <div class="scoreline"><div class="scores"><span id="score-a">112</span><span class="separator">–</span><span id="score-b">109</span></div><span id="period" class="period">SAMPLE FINAL</span><span class="qualifier">FICTIONAL SCORE FOR LAYOUT TEST</span></div>
@@ -129,17 +134,18 @@ main{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(270px,1fr);gap:22
 (function(){
 "use strict";
 var demos={
- nba:{title:"NBA SHOWCASE",label:"A CLASSIC RIVALRY · SAMPLE DATA",teams:[{abbr:"BOS",city:"BOSTON",name:"CELTICS",bg:"#08704b",fg:"#fff"},{abbr:"LAL",city:"LOS ANGELES",name:"LAKERS",bg:"#643a92",fg:"#ffe563"}],scores:["112","109"],stats:["52%","+7","4–1"],line:"CLASSIC PRO BASKETBALL SHOWCASE / DESIGN ONLY",list:[["INDIANA","NEW YORK"],["CHICAGO","DETROIT"],["PHILADELPHIA","MILWAUKEE"]],desk:"nba-predictions.html"},
- men:{title:"NCAA MEN",label:"BIG TEN SHOWDOWN · SAMPLE DATA",teams:[{abbr:"IND",city:"INDIANA",name:"HOOSIERS",bg:"#9b0c27",fg:"#fff"},{abbr:"PUR",city:"PURDUE",name:"BOILERMAKERS",bg:"#1f1f1f",fg:"#e3c579"}],scores:["78","75"],stats:["47%","+5","3–2"],line:"COLLEGE BASKETBALL / SAMPLE MATCHUP ONLY",list:[["DUKE","NORTH CAROLINA"],["KANSAS","KENTUCKY"],["MICHIGAN","MICHIGAN STATE"]],desk:"ncaam-elo.html"},
- women:{title:"NCAA WOMEN",label:"WOMEN'S HOOPS SPOTLIGHT · SAMPLE DATA",teams:[{abbr:"CONN",city:"CONNECTICUT",name:"HUSKIES",bg:"#123d75",fg:"#fff"},{abbr:"TENN",city:"TENNESSEE",name:"LADY VOLS",bg:"#f27c20",fg:"#fff"}],scores:["82","79"],stats:["50%","+8","5–0"],line:"WOMEN'S COLLEGE BASKETBALL / SAMPLE MATCHUP ONLY",list:[["SOUTH CAROLINA","LSU"],["UCLA","USC"],["NOTRE DAME","LOUISVILLE"]],desk:"ncaaw-elo.html"}
+ nba:{title:"NBA SHOWCASE",label:"A CLASSIC RIVALRY · SAMPLE DATA",teams:[{abbr:"BOS",city:"BOSTON",name:"CELTICS",bg:"#08704b",fg:"#fff",logo:"https://i.logocdn.com/nba/1976/boston-celtics@3x.png",fallback:"assets/nba-logos/BOS.png"},{abbr:"LAL",city:"LOS ANGELES",name:"LAKERS",bg:"#643a92",fg:"#ffe563",logo:"https://i.logocdn.com/nba/1976/los-angeles-lakers@3x.png",fallback:"assets/nba-logos/LAL.png"}],scores:["112","109"],stats:["52%","+7","4–1"],line:"CLASSIC PRO BASKETBALL SHOWCASE / DESIGN ONLY",list:[["INDIANA","NEW YORK"],["CHICAGO","DETROIT"],["PHILADELPHIA","MILWAUKEE"]],desk:"nba-predictions.html"},
+ men:{title:"NCAA MEN",label:"BIG TEN SHOWDOWN · SAMPLE DATA",teams:[{abbr:"IND",city:"INDIANA",name:"HOOSIERS",bg:"#9b0c27",fg:"#fff",logo:"https://a.espncdn.com/i/teamlogos/ncaa/500/84.png",fallback:"https://a.espncdn.com/i/teamlogos/ncaa/500/84.png"},{abbr:"PUR",city:"PURDUE",name:"BOILERMAKERS",bg:"#1f1f1f",fg:"#e3c579",logo:"https://a.espncdn.com/i/teamlogos/ncaa/500/2509.png",fallback:"https://a.espncdn.com/i/teamlogos/ncaa/500/2509.png"}],scores:["78","75"],stats:["47%","+5","3–2"],line:"COLLEGE BASKETBALL / SAMPLE MATCHUP ONLY",list:[["DUKE","NORTH CAROLINA"],["KANSAS","KENTUCKY"],["MICHIGAN","MICHIGAN STATE"]],desk:"ncaam-elo.html"},
+ women:{title:"NCAA WOMEN",label:"WOMEN'S HOOPS SPOTLIGHT · SAMPLE DATA",teams:[{abbr:"CONN",city:"CONNECTICUT",name:"HUSKIES",bg:"#123d75",fg:"#fff",logo:"https://a.espncdn.com/i/teamlogos/ncaa/500/41.png",fallback:"https://a.espncdn.com/i/teamlogos/ncaa/500/41.png"},{abbr:"TENN",city:"TENNESSEE",name:"LADY VOLS",bg:"#f27c20",fg:"#fff",logo:"https://a.espncdn.com/i/teamlogos/ncaa/500/2633.png",fallback:"https://a.espncdn.com/i/teamlogos/ncaa/500/2633.png"}],scores:["82","79"],stats:["50%","+8","5–0"],line:"WOMEN'S COLLEGE BASKETBALL / SAMPLE MATCHUP ONLY",list:[["SOUTH CAROLINA","LSU"],["UCLA","USC"],["NOTRE DAME","LOUISVILLE"]],desk:"ncaaw-elo.html"}
 };
 function id(name){return document.getElementById(name)}
 function setText(name,value){id(name).textContent=value}
+function setLogo(name,team){var slot=id(name);slot.replaceChildren();var img=document.createElement('img');img.alt=team.name+' official team artwork';img.loading='lazy';img.decoding='async';img.referrerPolicy='no-referrer';var usedFallback=false;img.onerror=function(){if(!usedFallback&&team.fallback&&team.fallback!==team.logo){usedFallback=true;img.src=team.fallback;}else{slot.textContent=team.abbr;slot.classList.add('logo-missing')}};img.src=team.logo||team.fallback;slot.append(img)}
 function draw(key){
  var d=demos[key];if(!d)return;
  document.querySelectorAll("[data-league]").forEach(function(b){var on=b.dataset.league===key;b.classList.toggle("active",on);b.setAttribute("aria-pressed",String(on))});
  setText("channel-title",d.title);setText("feature-label",d.label);
- for(var i=0;i<2;i++){var suffix=i===0?"a":"b";var t=d.teams[i];setText("badge-"+suffix,t.abbr);setText("city-"+suffix,t.city);setText("name-"+suffix,t.name);setText("score-"+suffix,d.scores[i]);id("badge-"+suffix).style.setProperty("--team-bg",t.bg);id("badge-"+suffix).style.setProperty("--team-fg",t.fg)}
+ for(var i=0;i<2;i++){var suffix=i===0?"a":"b";var t=d.teams[i];setLogo("badge-"+suffix,t);setText("city-"+suffix,t.city);setText("name-"+suffix,t.name);setText("score-"+suffix,d.scores[i]);id("badge-"+suffix).style.setProperty("--team-bg",t.bg);id("badge-"+suffix).style.setProperty("--team-fg",t.fg)}
  setText("matchup-line",d.line);
  for(var j=0;j<3;j++)setText("stat-"+(j+1),d.stats[j]);
  id("lineup").replaceChildren();
