@@ -4,7 +4,7 @@
   "status": "primary_live_earned_elo",
   "model": "team_only_reset1500_home40_k24_sqrt_mov",
   "source": "data/nba-2026-27-current-provisional.json",
-  "games_played": 173,
+  "games_played": 174,
   "parameters": {
     "season_start_elo": 1500,
     "home_elo": 40,
@@ -150,20 +150,20 @@
       "difference_from_live": -2.625
     },
     {
+      "team": "PHX",
+      "elo": 1478.895,
+      "games": 11,
+      "forecast_prior": 1498.8225,
+      "live_elo": 1499.186,
+      "difference_from_live": -20.291
+    },
+    {
       "team": "MIA",
       "elo": 1478.18,
       "games": 11,
       "forecast_prior": 1506.4537500000001,
       "live_elo": 1490.837,
       "difference_from_live": -12.657
-    },
-    {
-      "team": "PHX",
-      "elo": 1472.303,
-      "games": 10,
-      "forecast_prior": 1498.8225,
-      "live_elo": 1487.499,
-      "difference_from_live": -15.196
     },
     {
       "team": "ORL",
@@ -215,11 +215,11 @@
     },
     {
       "team": "CHA",
-      "elo": 1433.449,
-      "games": 11,
+      "elo": 1426.857,
+      "games": 12,
       "forecast_prior": 1587.2549999999999,
-      "live_elo": 1494.561,
-      "difference_from_live": -61.112
+      "live_elo": 1482.874,
+      "difference_from_live": -56.017
     },
     {
       "team": "CHI",
@@ -3195,6 +3195,23 @@
       "home_elo_change": 17.623888780516914,
       "home_after": 1597.2400301121502,
       "away_after": 1510.9079159775554
+    },
+    {
+      "id": "espn-nba-401909979",
+      "date": "2026-11-13T02:00:00.000Z",
+      "home": "PHX",
+      "away": "CHA",
+      "home_score": 101,
+      "away_score": 96,
+      "home_before": 1472.3028263600968,
+      "away_before": 1433.4487118116106,
+      "home_win_probability": 0.6115710271536801,
+      "forecast_home_win_probability": 0.5485864226674293,
+      "forecast_prior_weight_home": 0.375,
+      "forecast_prior_weight_away": 0.35714285714285715,
+      "home_elo_change": 6.591858257014997,
+      "home_after": 1478.8946846171118,
+      "away_after": 1426.8568535545955
     }
   ]
 }

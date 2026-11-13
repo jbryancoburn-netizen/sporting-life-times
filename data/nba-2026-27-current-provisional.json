@@ -2,7 +2,7 @@
   "league": "NBA",
   "season": "2026-27",
   "status": "provisional_live_from_historical_baseline",
-  "games_played": 173,
+  "games_played": 174,
   "preseason_status": "provisional_historical_regression_only",
   "source": "ESPN FINAL NBA regular-season scores; Sporting Life & Times independent Elo",
   "rankings": [
@@ -63,8 +63,8 @@
       "elo": 1519.402
     },
     {
-      "team": "CHA",
-      "elo": 1494.561
+      "team": "PHX",
+      "elo": 1499.186
     },
     {
       "team": "MIA",
@@ -79,8 +79,8 @@
       "elo": 1488.959
     },
     {
-      "team": "PHX",
-      "elo": 1487.499
+      "team": "CHA",
+      "elo": 1482.874
     },
     {
       "team": "DAL",
@@ -1684,6 +1684,15 @@
       "away_score": 94,
       "date": "2026-11-13T01:00:00.000Z",
       "home_elo_change": 8.233914
+    },
+    {
+      "id": "espn-nba-401909979",
+      "home": "PHX",
+      "away": "CHA",
+      "home_score": 101,
+      "away_score": 96,
+      "date": "2026-11-13T02:00:00.000Z",
+      "home_elo_change": 11.686418
     }
   ],
   "movement": {
@@ -1703,11 +1712,11 @@
       "CLE": 0,
       "ATL": 0,
       "GSW": 0,
-      "CHA": 0,
+      "PHX": 11.686418,
       "MIA": 0,
       "TOR": -9.170983,
       "ORL": 0,
-      "PHX": 0,
+      "CHA": -11.686418,
       "DAL": -8.233914,
       "LAC": 0,
       "MEM": 0,
@@ -1736,11 +1745,11 @@
       "CLE": 1548.68,
       "ATL": 1537.927,
       "GSW": 1507.389,
-      "CHA": 1492.1,
+      "PHX": 1468.242,
       "MIA": 1472.061,
       "TOR": 1519.139,
       "ORL": 1480.446,
-      "PHX": 1468.242,
+      "CHA": 1492.099,
       "DAL": 1439.145,
       "LAC": 1453.744,
       "MEM": 1417.733,
