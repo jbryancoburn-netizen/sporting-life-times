@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "checked_at_utc": "2026-11-13T00:01:19.196303+00:00",
+  "checked_at_utc": "2026-11-13T02:43:46.495411+00:00",
   "source": "NCAA scoreboard via ncaa-api compatibility endpoint",
   "games": [
     {
@@ -56,16 +56,29 @@
       "source_url": "https://www.ncaa.com/game/6666297"
     },
     {
-      "match_id": "men-6666313",
+      "match_id": "men-6666312",
       "cohort": "men-d1",
       "status": "live",
-      "home_score": 0,
+      "home_score": 1,
+      "away_score": 0,
+      "home_name": "SMU",
+      "away_name": "Syracuse",
+      "home_id": "smu",
+      "away_id": "syracuse",
+      "period": "HALF",
+      "source_url": "https://www.ncaa.com/game/6666312"
+    },
+    {
+      "match_id": "men-6666313",
+      "cohort": "men-d1",
+      "status": "final",
+      "home_score": 1,
       "away_score": 0,
       "home_name": "North Carolina",
       "away_name": "NC State",
       "home_id": "north-carolina",
       "away_id": "north-carolina-st",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6666313"
     },
     {
@@ -106,6 +119,19 @@
       "away_id": "harvard",
       "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6666514"
+    },
+    {
+      "match_id": "men-6666515",
+      "cohort": "men-d1",
+      "status": "final",
+      "home_score": 1,
+      "away_score": 3,
+      "home_name": "Yale",
+      "away_name": "Penn",
+      "home_id": "yale",
+      "away_id": "penn",
+      "period": "FINAL",
+      "source_url": "https://www.ncaa.com/game/6666515"
     },
     {
       "match_id": "men-6666712",
@@ -175,14 +201,14 @@
     {
       "match_id": "men-6666728",
       "cohort": "men-d1",
-      "status": "live",
-      "home_score": 0,
+      "status": "final",
+      "home_score": 2,
       "away_score": 0,
       "home_name": "FDU",
       "away_name": "Central Conn. St.",
       "home_id": "fdu",
       "away_id": "central-conn-st",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6666728"
     },
     {
@@ -331,15 +357,28 @@
     {
       "match_id": "men-6672840",
       "cohort": "men-d1",
-      "status": "live",
+      "status": "final",
       "home_score": 0,
       "away_score": 4,
       "home_name": "Creighton",
       "away_name": "Akron",
       "home_id": "creighton",
       "away_id": "akron",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6672840"
+    },
+    {
+      "match_id": "men-6672841",
+      "cohort": "men-d1",
+      "status": "live",
+      "home_score": 2,
+      "away_score": 0,
+      "home_name": "Georgetown",
+      "away_name": "Seton Hall",
+      "home_id": "georgetown",
+      "away_id": "seton-hall",
+      "period": "2ND HALF",
+      "source_url": "https://www.ncaa.com/game/6672841"
     },
     {
       "match_id": "women-6662662",
@@ -407,6 +446,19 @@
       "source_url": "https://www.ncaa.com/game/6666547"
     },
     {
+      "match_id": "women-6666548",
+      "cohort": "women-d1",
+      "status": "final",
+      "home_score": 0,
+      "away_score": 2,
+      "home_name": "Southeast Mo. St.",
+      "away_name": "Southern Ind.",
+      "home_id": "southeast-mo-st",
+      "away_id": "southern-ind",
+      "period": "FINAL",
+      "source_url": "https://www.ncaa.com/game/6666548"
+    },
+    {
       "match_id": "women-6666601",
       "cohort": "women-d1",
       "status": "final",
@@ -444,6 +496,19 @@
       "away_id": "south-dakota",
       "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6666834"
+    },
+    {
+      "match_id": "women-6666835",
+      "cohort": "women-d1",
+      "status": "final",
+      "home_score": 3,
+      "away_score": 0,
+      "home_name": "Oral Roberts",
+      "away_name": "St. Thomas (MN)",
+      "home_id": "oral-roberts",
+      "away_id": "st-thomas-mn",
+      "period": "FINAL",
+      "source_url": "https://www.ncaa.com/game/6666835"
     },
     {
       "match_id": "women-6666848",
@@ -485,16 +550,29 @@
       "source_url": "https://www.ncaa.com/game/6667144"
     },
     {
-      "match_id": "women-6667158",
+      "match_id": "women-6667157",
       "cohort": "women-d1",
       "status": "live",
+      "home_score": 2,
+      "away_score": 0,
+      "home_name": "South Carolina",
+      "away_name": "Alabama",
+      "home_id": "south-carolina",
+      "away_id": "alabama",
+      "period": "2ND HALF",
+      "source_url": "https://www.ncaa.com/game/6667157"
+    },
+    {
+      "match_id": "women-6667158",
+      "cohort": "women-d1",
+      "status": "final",
       "home_score": 2,
       "away_score": 2,
       "home_name": "Arkansas",
       "away_name": "Texas",
       "home_id": "arkansas",
       "away_id": "texas",
-      "period": "OT",
+      "period": "FINAL/PK",
       "source_url": "https://www.ncaa.com/game/6667158"
     },
     {
@@ -602,6 +680,19 @@
       "source_url": "https://www.ncaa.com/game/6667552"
     },
     {
+      "match_id": "women-6667556",
+      "cohort": "women-d1",
+      "status": "final",
+      "home_score": 1,
+      "away_score": 0,
+      "home_name": "Drake",
+      "away_name": "Murray St.",
+      "home_id": "drake",
+      "away_id": "murray-st",
+      "period": "FINAL",
+      "source_url": "https://www.ncaa.com/game/6667556"
+    },
+    {
       "match_id": "women-6667557",
       "cohort": "women-d1",
       "status": "final",
@@ -656,14 +747,14 @@
     {
       "match_id": "women-6667569",
       "cohort": "women-d1",
-      "status": "live",
-      "home_score": 1,
-      "away_score": 3,
+      "status": "final",
+      "home_score": 2,
+      "away_score": 6,
       "home_name": "Niagara",
       "away_name": "Fairfield",
       "home_id": "niagara",
       "away_id": "fairfield",
-      "period": "HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6667569"
     },
     {
@@ -704,6 +795,19 @@
       "away_id": "uiw",
       "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6667758"
+    },
+    {
+      "match_id": "women-6667759",
+      "cohort": "women-d1",
+      "status": "live",
+      "home_score": 0,
+      "away_score": 1,
+      "home_name": "Houston Christian",
+      "away_name": "Northwestern St.",
+      "home_id": "houston-christian",
+      "away_id": "northwestern-st",
+      "period": "2ND HALF",
+      "source_url": "https://www.ncaa.com/game/6667759"
     },
     {
       "match_id": "women-6667764",
@@ -760,15 +864,28 @@
     {
       "match_id": "women-6667771",
       "cohort": "women-d1",
-      "status": "live",
+      "status": "final",
       "home_score": 0,
       "away_score": 0,
       "home_name": "Grambling",
       "away_name": "Southern U.",
       "home_id": "grambling",
       "away_id": "southern-u",
-      "period": "2ND HALF",
+      "period": "FINAL/PK",
       "source_url": "https://www.ncaa.com/game/6667771"
+    },
+    {
+      "match_id": "women-6667772",
+      "cohort": "women-d1",
+      "status": "live",
+      "home_score": 1,
+      "away_score": 0,
+      "home_name": "Alcorn",
+      "away_name": "Alabama St.",
+      "home_id": "alcorn",
+      "away_id": "alabama-st",
+      "period": "HALF",
+      "source_url": "https://www.ncaa.com/game/6667772"
     },
     {
       "match_id": "women-6675055",
@@ -821,6 +938,19 @@
       "away_id": "air-force",
       "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6675059"
+    },
+    {
+      "match_id": "women-6675061",
+      "cohort": "women-d1",
+      "status": "final",
+      "home_score": 0,
+      "away_score": 2,
+      "home_name": "Dartmouth",
+      "away_name": "Brown",
+      "home_id": "dartmouth",
+      "away_id": "brown",
+      "period": "FINAL",
+      "source_url": "https://www.ncaa.com/game/6675061"
     },
     {
       "match_id": "women-6675062",
