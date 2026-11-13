@@ -1,7 +1,7 @@
 /* One NCAA badge for men's and women's pages: two adjacent colored strokes.
    Logo artwork is preserved; no page may add a border around the image. */
 .mbb-mark{
- --mbb-size:36px;--mbb-ring:clamp(2px,calc(var(--mbb-size) * .04),5px);
+ --mbb-size:44px;--mbb-ring:clamp(3px,calc(var(--mbb-size) * .075),6px);
  display:inline-grid!important;place-items:center!important;
  position:relative!important;isolation:isolate!important;box-sizing:border-box!important;
  flex:0 0 var(--mbb-size)!important;width:var(--mbb-size)!important;height:var(--mbb-size)!important;
@@ -33,13 +33,13 @@
 .mbb-mark__initials{display:none!important;position:absolute!important;inset:0!important;z-index:2!important;align-items:center!important;justify-content:center!important;font:700 calc(var(--mbb-size) * .25)/1 Arial,sans-serif!important;color:var(--mbb-primary)!important;background:transparent!important;font-style:normal!important}
 .mbb-mark--missing>.mbb-mark__initials{display:flex!important}
 .mbb-mark--missing>img.mbb-mark__img{display:none!important}
-.mbb-mark--small{--mbb-size:40px}.mbb-mark--score{--mbb-size:44px}.mbb-mark--power{--mbb-size:48px}.mbb-mark--schedule{--mbb-size:54px}.mbb-mark--featured{--mbb-size:80px}.mbb-mark--hero{--mbb-size:120px}.mbb-mark--history{--mbb-size:72px}
-#full-season-schedule .sched-matchup{grid-template-columns:54px minmax(0,1fr)!important}
-#full-season-schedule .sched-matchup>.mbb-mark{--mbb-size:54px}
-.team-hero .mbb-mark{--mbb-size:120px}.hero-team .mbb-mark{--mbb-size:80px;margin:auto!important}
-.score-card .mbb-mark{--mbb-size:44px}.conf-card .mbb-mark{--mbb-size:40px}.big-result .mbb-mark{--mbb-size:72px}
-.cbb-elo-school .mbb-mark,.cbb-elo-power .mbb-mark{--mbb-size:48px}
-@media(max-width:680px){.team-hero .mbb-mark{--mbb-size:84px}.hero-team .mbb-mark{--mbb-size:60px}.cbb-elo-school .mbb-mark,.cbb-elo-power .mbb-mark{--mbb-size:44px}}
+.mbb-mark--small{--mbb-size:48px}.mbb-mark--score{--mbb-size:58px}.mbb-mark--power{--mbb-size:60px}.mbb-mark--schedule{--mbb-size:64px}.mbb-mark--featured{--mbb-size:96px}.mbb-mark--hero{--mbb-size:144px}.mbb-mark--history{--mbb-size:84px}
+#full-season-schedule .sched-matchup{grid-template-columns:64px minmax(0,1fr)!important}
+#full-season-schedule .sched-matchup>.mbb-mark{--mbb-size:64px}
+.team-hero .mbb-mark{--mbb-size:144px}.hero-team .mbb-mark{--mbb-size:96px;margin:auto!important}
+.score-card .mbb-mark{--mbb-size:58px}.conf-card .mbb-mark{--mbb-size:52px}.big-result .mbb-mark{--mbb-size:88px}
+.cbb-elo-school .mbb-mark,.cbb-elo-power .mbb-mark{--mbb-size:58px}
+@media(max-width:680px){.team-hero .mbb-mark{--mbb-size:104px}.hero-team .mbb-mark{--mbb-size:72px}.cbb-elo-school .mbb-mark,.cbb-elo-power .mbb-mark{--mbb-size:50px}}
 
 
 /* Artwork-aware crest scaling.
@@ -47,12 +47,14 @@
    Embedded roundels already carry a circular element in the SOURCE image:
    keep a smaller containing frame, rather than using object-fit: cover. */
 .mbb-mark--art-flat>img.mbb-mark__img{
- width:74%!important;height:74%!important;
+ width:min(74%,calc(100% - 2 * var(--mbb-ring) - 3px))!important;
+ height:min(74%,calc(100% - 2 * var(--mbb-ring) - 3px))!important;
  max-width:74%!important;max-height:74%!important;
  object-fit:contain!important;object-position:center!important;
 }
 .mbb-mark--art-embedded_roundel>img.mbb-mark__img{
- width:70%!important;height:70%!important;
+ width:min(70%,calc(100% - 2 * var(--mbb-ring) - 3px))!important;
+ height:min(70%,calc(100% - 2 * var(--mbb-ring) - 3px))!important;
  max-width:70%!important;max-height:70%!important;
  object-fit:contain!important;object-position:center!important;
 }
@@ -74,4 +76,59 @@
 .mbb-mark[data-espn-id="135043"]>img.mbb-mark__img{
  width:92%!important;height:92%!important;max-width:92%!important;max-height:92%!important;
  object-fit:contain!important;
+}
+
+
+/* Enlarged NBA-weight CBB crests. Every badge keeps exactly one pair of
+   touching school-color rings; these rules never add a third wrapper. */
+.ledger26-scorebug{
+ --ledger26-crest-size:64px!important;
+ --ledger26-team-min-height:74px!important;
+}
+.ledger26-team{
+ grid-template-columns:var(--ledger26-crest-size) minmax(0,1fr) minmax(25px,auto)!important;
+ column-gap:10px!important;min-width:0!important;
+}
+.ledger26-scorebug--pregame .ledger26-team{
+ grid-template-columns:var(--ledger26-crest-size) minmax(0,1fr)!important;
+}
+.ledger26-team :is(.ledger26-team-name,.ledger26-team-name-link,.ledger26-team-copy){
+ min-width:0!important;max-width:100%!important;overflow-wrap:break-word!important;
+}
+.ledger26-crest{flex:0 0 var(--ledger26-crest-size)!important;}
+.ledger26-crest .mbb-mark{
+ --mbb-size:calc(var(--ledger26-crest-size) - 1px)!important;
+}
+/* Team names must receive actual width instead of being covered by rings. */
+.team-name,.cbb-school-name,.team-school,.sched-opponent,
+.conf-card .team-name,.score-card .team-name{
+ min-width:0!important;overflow-wrap:break-word!important;
+}
+.team-name>span,.score-card .score-team>span,.sched-opponent>strong{
+ min-width:0!important;max-width:100%!important;overflow-wrap:break-word!important;
+}
+#full-season-schedule .sched-matchup>.mbb-mark{
+ flex:0 0 var(--mbb-size)!important;
+}
+@media(max-width:700px){
+ .mbb-mark--small{--mbb-size:43px}
+ .mbb-mark--score{--mbb-size:50px}
+ .mbb-mark--power{--mbb-size:52px}
+ .mbb-mark--schedule{--mbb-size:55px}
+ .mbb-mark--featured{--mbb-size:74px}
+ .mbb-mark--history{--mbb-size:70px}
+ .score-card .mbb-mark{--mbb-size:50px}
+ .conf-card .mbb-mark{--mbb-size:46px}
+ .ledger26-scorebug{--ledger26-crest-size:52px!important;--ledger26-team-min-height:64px!important}
+ .ledger26-team{column-gap:8px!important}
+ #full-season-schedule .sched-matchup{
+  grid-template-columns:55px minmax(0,1fr)!important;
+ }
+ #full-season-schedule .sched-matchup>.mbb-mark{--mbb-size:55px}
+}
+@media(max-width:380px){
+ .mbb-mark--score{--mbb-size:46px}
+ .mbb-mark--small{--mbb-size:40px}
+ .ledger26-scorebug{--ledger26-crest-size:45px!important;--ledger26-team-min-height:60px!important}
+ .ledger26-team{column-gap:6px!important}
 }
