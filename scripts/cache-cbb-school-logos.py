@@ -18,12 +18,11 @@ assert len(reg)==365, "Missing certified 365-school registry"
 assert len(outside)>500, "Missing non-D-I schedule opponent catalog"
 
 def trustworthy(url,primary):
-    # Division-I identity sources are locked to the verified ESPN or NCAA
-    # registry. Curated non-DI opponents include school-owned athletics sites,
-    # Wikimedia assets, and official school CDNs with established provenance.
+    # D-I artwork is restricted to the known verified identities.
+    # Curated non-D-I IDs use their verified official university/CDN URL.
     if primary:
-        return bool(re.match(r"^https://(?:a\\.espncdn\\.com/i/teamlogos/ncaa/|www\\.ncaa\\.com/sites/default/files/images/logos/schools/)",url or "",re.I))
-    return bool(re.match(r"^https://(?!localhost[/:])(?!127\\.)(?!10\\.)(?!192\\.168\\.)[a-z0-9][a-z0-9.-]+/",url or "",re.I))
+        return bool(re.match(r"^https://(?:a\.espncdn\.com/i/teamlogos/ncaa/|www\.ncaa\.com/sites/default/files/images/logos/schools/)",url or "",re.I))
+    return bool(re.match(r"^https://(?!localhost[/:])(?!127\.)(?!10\.)(?!192\.168\.)[a-z0-9][a-z0-9.-]+/",url or "",re.I))
 def get_one(code,row,primary):
     urls=[]
     for candidate in ([row.get("official_logo_url"),row.get("logo_url")] + list(row.get("provider_logo_candidates") or [])+[row.get("logo_alternate_url")]):
