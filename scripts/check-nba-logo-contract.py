@@ -40,7 +40,8 @@ css = (ROOT / "slt-dual-ring.css").read_text()
 assert "archivalNBAImage(img,entry)" in js, "Missing historic image substitution"
 assert "assets/nba-vintage-logos/" in js, "NBA heritage assets must be local"
 assert "assets.logocdn.com" not in js and "i.logocdn.com" not in js, "External archive requests forbidden in NBA runtime"
-assert "img.setAttribute('src',original)" in js, "Missing local fallback on image error"
+assert "img.setAttribute('src',fallback)" in js, "Missing verified local fallback on image error"
+assert "img.removeAttribute('onerror')" in js, "Legacy external error handlers may not remain"
 assert "if(league==='nba')" in js, "Changes should be NBA-scoped"
 assert "slt-nba-bold-rings" in js and "slt-nba-bold-rings" in css
 # The NBA-only size sheet deliberately increases both the circle and the artwork.
@@ -60,9 +61,9 @@ for name in pages:
     assert "slt-dual-ring.js?v=20261113-vintage-bold-rings" in html, f"Ring JS not loaded by {name}"
     assert 'nba-heritage-crests.css?v=20261113-large-2ring' in html, f"Large crest sizing missing on {name}"
 
-gallery = (ROOT / "nba-vintage-logo-gallery.html").read_text()
-assert "https://i.logocdn.com/nba/" not in gallery, "Gallery still references broken image hostname"
-assert "https://assets.logocdn.com/images/sports/nba/" in gallery
+preview = (ROOT / "nba-heritage-preview.html").read_text()
+assert preview.count('assets/nba-vintage-logos/') >= 30, "Historical preview must use all 30 locally stored images"
+assert 'assets.logocdn.com' not in preview and 'i.logocdn.com' not in preview, "Preview must not load external historical images"
 core = (ROOT / "nba-newspaper.js").read_text()
 assert "const logo=c=>'assets/nba-logos/'" in core, "Modern local fallback source must stay intact"
 print("PASS: NBA 30-team vintage catalog, larger circles and rings, 12 page includes, modern local fallback.")
