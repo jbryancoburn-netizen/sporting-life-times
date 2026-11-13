@@ -9,6 +9,12 @@ const cross=JSON.parse(read('data/ncaam-2026-27-espn-team-crosswalk.json'));
 const allColors=JSON.parse(read('data/dual-ring-team-palette.json'));
 const colors=allColors.mbb;
 const outside=JSON.parse(read('data/mbb-out-of-division-opponent-logos.json')).teams;
+const cached=JSON.parse(read('data/cbb-local-logos.json'));
+const archive=JSON.parse(read('data/cbb-big-ten-1980s.json'));
+const local=id=>cached.teams[String(id)]?.path||'';
+const historical=id=>archive.teams[String(id)]?.logo_path||'';
+assert.equal(cached.division_i_count,365,'All 365 Division I images must be cached');
+assert.equal(archive.confirmed,10,'Original 1980s Big Ten membership marks must be cached');
 async function run(){
  assert.equal(Object.keys(registry.teams).length,365);
  assert.equal(cross.teams.length,365);
@@ -27,7 +33,7 @@ async function run(){
  }
  const doc={readyState:'loading',addEventListener(){},querySelectorAll(){return[]}};
  const ctx={window:{},document:doc,URL,console,
-  fetch:async url=>({ok:true,json:async()=>url.includes('out-of-division-opponent-logos')?{teams:outside}:url.includes('logo-registry')?registry:url.includes('dual-ring-team-palette')?allColors:cross})};
+  fetch:async url=>({ok:true,json:async()=>url.includes('cbb-local-logos')?cached:url.includes('big-ten-1980s')?archive:url.includes('out-of-division-opponent-logos')?{teams:outside}:url.includes('logo-registry')?registry:url.includes('dual-ring-team-palette')?allColors:cross})};
  vm.runInNewContext(read('mbb-logo-system.js'),ctx,{filename:'mbb-logo-system.js'});
  assert.equal(await ctx.window.MBBLogos.ready,true,'Single MBB renderer could not initialize');
  for(const t of cross.teams){
@@ -35,33 +41,46 @@ async function run(){
   const crest=ctx.window.MBBLogos.byNCAA(t.id,'hero',t.name);
   assert(crest.includes('data-espn-id="'+id+'"'),'Wrong MBB logo identity '+t.name);
   assert(crest.includes('data-artwork="'+item.artwork_type+'"'),'Wrong artwork flag '+t.name);
-  assert(crest.includes(item.logo_url),'Wrong logo URL '+t.name);
+  assert(crest.includes(historical(id)||local(id)),'Wrong logo URL '+t.name);
   assert(crest.includes('--mbb-primary:'+brand.primary),'Wrong primary team color '+t.name);
   assert(crest.includes('--mbb-secondary:'+brand.secondary),'Wrong secondary team color '+t.name);
   assert(!crest.includes('slt-mark')&&!crest.includes('slt-dual-shell'),'Nested generic ring on '+t.name);
-  assert(ctx.window.MBBLogos.byNCAA(t.id,'power',t.name).includes(item.logo_url),'Ranking crest '+t.name);
-  assert(ctx.window.MBBLogos.byESPN(id,'schedule',t.espn_name).includes(item.logo_url),'Schedule crest '+t.name);
-  assert(ctx.window.MBBLogos.byESPN(id,'score',t.espn_name).includes(item.logo_url),'Score crest '+t.name);
+  assert(ctx.window.MBBLogos.byNCAA(t.id,'power',t.name).includes(historical(id)||local(id)),'Ranking crest '+t.name);
+  assert(ctx.window.MBBLogos.byESPN(id,'schedule',t.espn_name).includes(historical(id)||local(id)),'Schedule crest '+t.name);
+  assert(ctx.window.MBBLogos.byESPN(id,'score',t.espn_name).includes(historical(id)||local(id)),'Score crest '+t.name);
  }
- // Validate exact school identity, not just presence of an image URL.
+ // Verify cached identities, retain an explicit missing marker if the
+ // source could not be retrieved; NEVER fall back to a third-party URL.
  for(const [id,school] of Object.entries(outside)){
-  const name=school.feed_name||school.corrected_name||school.school;
-  const art=ctx.window.MBBLogos.byESPN(id,'score',name);
-  assert(!art.includes('mbb-mark--missing'),'Missing curated outside crest '+name);
-  assert(art.includes(school.logo_url.replace(/&/g,'&amp;')),'Wrong outside school image '+name);
-  assert(art.includes('data-ring-count="2"'),'Outside school lost the double ring '+name);
-  assert(art.includes('--mbb-primary:'+school.primary),'Outside primary school identity '+name);
-  assert(art.includes('--mbb-secondary:'+school.secondary),'Outside secondary school identity '+name);
+   const name=school.feed_name||school.corrected_name||school.school;
+   const art=ctx.window.MBBLogos.byESPN(id,'score',name);
+   if(local(id)){
+     assert(!art.includes('mbb-mark--missing'),'Missing local outside crest '+name);
+     assert(art.includes(local(id)),'Wrong school-specific local asset '+name);
+   }else assert(art.includes('mbb-mark--missing'),'Unverified outside should have a missing mark '+name);
+   assert(!art.includes('src="https://'),'External logo runtime forbidden '+name);
+   assert(art.includes('data-ring-count="2"'),'Outside school lost the double ring '+name);
+   assert(art.includes('--mbb-primary:'+school.primary),'Outside primary color mismatch '+name);
+   assert(art.includes('--mbb-secondary:'+school.secondary),'Outside secondary color mismatch '+name);
  }
  assert.equal(outside['112702']?.school,'Frostburg State','Frostburg State must be keyed by its current scoreboard numeric team ID');
+ assert(local('112702'),'Frostburg State paw must be a local image');
  const frostburgLogo=ctx.window.MBBLogos.byESPN('112702','score','Frostburg State Bobcats');
- assert(frostburgLogo.includes('Frostburg_paw_logo.png')&&!frostburgLogo.includes('mbb-mark--missing'),
-   'Frostburg State must show its official paw artwork, not initials');
+ assert(frostburgLogo.includes(local('112702'))&&!frostburgLogo.includes('mbb-mark--missing'),'Frostburg must display cached official paw');
  assert(frostburgLogo.includes('data-ring-count="2"'),'Frostburg State must retain the existing double-ring shell');
  assert(!ctx.window.MBBLogos.byESPN('126956','score','Grace University Talons').includes('Primary_Logo_.5x.png'),'Outside IDs must never override school name mismatch');
  assert(Object.values(registry.teams).every(t=>!t.ring_override),'Legacy per-school ring exceptions remain');
  assert.equal(kinds.flat,362,'Every visually inspected non-roundel must be classified flat');
  assert.equal(kinds.embedded_roundel,3,'Intrinsic circular team artwork is explicitly documented');
+ for(const [id,mark] of Object.entries(archive.teams)){
+   assert(mark.era&&mark.logo_path===`assets/cbb-big-ten-1980s/${id}.png`,'Invalid period asset '+id);
+   assert(fs.statSync(mark.logo_path).size>1400,'Invalid historical PNG '+id);
+   assert(local(id),'No modern local Big Ten fallback '+id);
+ }
+ for(const [id,mark] of Object.entries(cached.teams)){
+   assert(mark.path===`assets/cbb-school-logos/${id}.png`,'Unverified school path '+id);
+   assert(fs.statSync(mark.path).size>700,'Broken CBB PNG '+id);
+ }
  const css=read('mbb-logo-system.css');
  assert(css.includes('border:var(--mbb-ring) solid var(--mbb-primary'),'Primary outer stroke missing');
  assert(css.includes('border:var(--mbb-ring) solid var(--mbb-secondary'),'Secondary inner stroke missing');
