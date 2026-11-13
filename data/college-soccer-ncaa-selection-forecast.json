@@ -14,7 +14,7 @@
     "source_certified": false,
     "excluded_finals": 29,
     "quarantined_source_rows": 0,
-    "source_checked_through": "2026-11-12",
+    "source_checked_through": "2026-11-13",
     "warning": "Selection forecast is provisional until source quarantines and excluded games have been reconciled"
   },
   "selection_policy": {
@@ -70,7 +70,7 @@
       "conference_name": "ACC",
       "team_id": "smu",
       "team": "SMU",
-      "elo": 1717.736,
+      "elo": 1728.516,
       "method": "retro_highest_rated_conference_member_projection",
       "official_aq": false,
       "source_url": null,
@@ -81,7 +81,7 @@
       "conference_name": "BIG EAST",
       "team_id": "georgetown",
       "team": "Georgetown",
-      "elo": 1741.099,
+      "elo": 1749.796,
       "method": "retro_highest_rated_conference_member_projection",
       "official_aq": false,
       "source_url": null,
@@ -246,7 +246,7 @@
       "conference_name": "NEC",
       "team_id": "fdu",
       "team": "FDU",
-      "elo": 1605.639,
+      "elo": 1612.958,
       "method": "retro_highest_rated_conference_member_projection",
       "official_aq": false,
       "source_url": null,
@@ -313,9 +313,9 @@
       "team_id": "akron",
       "team": "Akron",
       "conference": "men-d1:big-east",
-      "elo": 1678.09,
+      "elo": 1708.894,
       "bid_type": "at_large_proxy",
-      "experimental_strength_order": 4,
+      "experimental_strength_order": 3,
       "ncaa_seed": null,
       "first_round_bye_candidate": true,
       "seeded_24_candidate": true
@@ -343,10 +343,10 @@
       "seeded_24_candidate": true
     },
     {
-      "team_id": "creighton",
-      "team": "Creighton",
-      "conference": "men-d1:big-east",
-      "elo": 1645.118,
+      "team_id": "north-carolina",
+      "team": "North Carolina",
+      "conference": "men-d1:acc",
+      "elo": 1647.555,
       "bid_type": "at_large_proxy",
       "experimental_strength_order": 11,
       "ncaa_seed": null,
@@ -387,34 +387,12 @@
       "seeded_24_candidate": true
     },
     {
-      "team_id": "north-carolina",
-      "team": "North Carolina",
-      "conference": "men-d1:acc",
-      "elo": 1632.964,
-      "bid_type": "at_large_proxy",
-      "experimental_strength_order": 15,
-      "ncaa_seed": null,
-      "first_round_bye_candidate": true,
-      "seeded_24_candidate": true
-    },
-    {
       "team_id": "maryland",
       "team": "Maryland",
       "conference": "men-d1:big-ten",
       "elo": 1622.043,
       "bid_type": "at_large_proxy",
-      "experimental_strength_order": 18,
-      "ncaa_seed": null,
-      "first_round_bye_candidate": false,
-      "seeded_24_candidate": true
-    },
-    {
-      "team_id": "north-carolina-st",
-      "team": "NC State",
-      "conference": "men-d1:acc",
-      "elo": 1621.362,
-      "bid_type": "at_large_proxy",
-      "experimental_strength_order": 19,
+      "experimental_strength_order": 17,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
       "seeded_24_candidate": true
@@ -425,7 +403,7 @@
       "conference": "men-d1:pac-12",
       "elo": 1621.169,
       "bid_type": "at_large_proxy",
-      "experimental_strength_order": 20,
+      "experimental_strength_order": 18,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
       "seeded_24_candidate": true
@@ -436,7 +414,18 @@
       "conference": "men-d1:summit",
       "elo": 1616.072,
       "bid_type": "at_large_proxy",
-      "experimental_strength_order": 23,
+      "experimental_strength_order": 21,
+      "ncaa_seed": null,
+      "first_round_bye_candidate": false,
+      "seeded_24_candidate": true
+    },
+    {
+      "team_id": "creighton",
+      "team": "Creighton",
+      "conference": "men-d1:big-east",
+      "elo": 1614.314,
+      "bid_type": "at_large_proxy",
+      "experimental_strength_order": 22,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
       "seeded_24_candidate": true
@@ -448,6 +437,17 @@
       "elo": 1608.685,
       "bid_type": "at_large_proxy",
       "experimental_strength_order": 27,
+      "ncaa_seed": null,
+      "first_round_bye_candidate": false,
+      "seeded_24_candidate": false
+    },
+    {
+      "team_id": "north-carolina-st",
+      "team": "NC State",
+      "conference": "men-d1:acc",
+      "elo": 1606.771,
+      "bid_type": "at_large_proxy",
+      "experimental_strength_order": 29,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
       "seeded_24_candidate": false
@@ -486,12 +486,23 @@
       "seeded_24_candidate": false
     },
     {
+      "team_id": "penn",
+      "team": "Penn",
+      "conference": "men-d1:ivy",
+      "elo": 1596.98,
+      "bid_type": "at_large_proxy",
+      "experimental_strength_order": 33,
+      "ncaa_seed": null,
+      "first_round_bye_candidate": false,
+      "seeded_24_candidate": false
+    },
+    {
       "team_id": "ucf",
       "team": "UCF",
       "conference": "men-d1:sun-belt",
       "elo": 1589.952,
       "bid_type": "at_large_proxy",
-      "experimental_strength_order": 34,
+      "experimental_strength_order": 35,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
       "seeded_24_candidate": false
@@ -502,7 +513,7 @@
       "conference": "men-d1:socon",
       "elo": 1587.476,
       "bid_type": "at_large_proxy",
-      "experimental_strength_order": 35,
+      "experimental_strength_order": 36,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
       "seeded_24_candidate": false
@@ -512,17 +523,6 @@
       "team": "Missouri St.",
       "conference": "men-d1:american",
       "elo": 1586.945,
-      "bid_type": "at_large_proxy",
-      "experimental_strength_order": 36,
-      "ncaa_seed": null,
-      "first_round_bye_candidate": false,
-      "seeded_24_candidate": false
-    },
-    {
-      "team_id": "penn",
-      "team": "Penn",
-      "conference": "men-d1:ivy",
-      "elo": 1579.932,
       "bid_type": "at_large_proxy",
       "experimental_strength_order": 37,
       "ncaa_seed": null,
@@ -552,23 +552,12 @@
       "seeded_24_candidate": false
     },
     {
-      "team_id": "seton-hall",
-      "team": "Seton Hall",
-      "conference": "men-d1:big-east",
-      "elo": 1576.121,
-      "bid_type": "at_large_proxy",
-      "experimental_strength_order": 40,
-      "ncaa_seed": null,
-      "first_round_bye_candidate": false,
-      "seeded_24_candidate": false
-    },
-    {
       "team_id": "louisville",
       "team": "Louisville",
       "conference": "men-d1:acc",
       "elo": 1574.547,
       "bid_type": "at_large_proxy",
-      "experimental_strength_order": 41,
+      "experimental_strength_order": 40,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
       "seeded_24_candidate": false
@@ -579,6 +568,17 @@
       "conference": "men-d1:acc",
       "elo": 1573.765,
       "bid_type": "at_large_proxy",
+      "experimental_strength_order": 41,
+      "ncaa_seed": null,
+      "first_round_bye_candidate": false,
+      "seeded_24_candidate": false
+    },
+    {
+      "team_id": "uc-irvine",
+      "team": "UC Irvine",
+      "conference": "men-d1:big-west",
+      "elo": 1573.337,
+      "bid_type": "at_large_proxy",
       "experimental_strength_order": 42,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
@@ -586,13 +586,6 @@
     }
   ],
   "first_four_out_proxy": [
-    {
-      "team_id": "uc-irvine",
-      "team": "UC Irvine",
-      "conference": "men-d1:big-west",
-      "elo": 1573.337,
-      "bid_type": "outside_field_proxy"
-    },
     {
       "team_id": "fairfield",
       "team": "Fairfield",
@@ -613,6 +606,13 @@
       "conference": "men-d1:acc",
       "elo": 1570.019,
       "bid_type": "outside_field_proxy"
+    },
+    {
+      "team_id": "south-carolina",
+      "team": "South Carolina",
+      "conference": "men-d1:sun-belt",
+      "elo": 1568.28,
+      "bid_type": "outside_field_proxy"
     }
   ],
   "field": [
@@ -620,7 +620,7 @@
       "team_id": "georgetown",
       "team": "Georgetown",
       "conference": "men-d1:big-east",
-      "elo": 1741.099,
+      "elo": 1749.796,
       "bid_type": "projected_aq",
       "experimental_strength_order": 1,
       "ncaa_seed": null,
@@ -631,9 +631,20 @@
       "team_id": "smu",
       "team": "SMU",
       "conference": "men-d1:acc",
-      "elo": 1717.736,
+      "elo": 1728.516,
       "bid_type": "projected_aq",
       "experimental_strength_order": 2,
+      "ncaa_seed": null,
+      "first_round_bye_candidate": true,
+      "seeded_24_candidate": true
+    },
+    {
+      "team_id": "akron",
+      "team": "Akron",
+      "conference": "men-d1:big-east",
+      "elo": 1708.894,
+      "bid_type": "at_large_proxy",
+      "experimental_strength_order": 3,
       "ncaa_seed": null,
       "first_round_bye_candidate": true,
       "seeded_24_candidate": true
@@ -644,17 +655,6 @@
       "conference": "men-d1:big-ten",
       "elo": 1679.044,
       "bid_type": "projected_aq",
-      "experimental_strength_order": 3,
-      "ncaa_seed": null,
-      "first_round_bye_candidate": true,
-      "seeded_24_candidate": true
-    },
-    {
-      "team_id": "akron",
-      "team": "Akron",
-      "conference": "men-d1:big-east",
-      "elo": 1678.09,
-      "bid_type": "at_large_proxy",
       "experimental_strength_order": 4,
       "ncaa_seed": null,
       "first_round_bye_candidate": true,
@@ -727,10 +727,10 @@
       "seeded_24_candidate": true
     },
     {
-      "team_id": "creighton",
-      "team": "Creighton",
-      "conference": "men-d1:big-east",
-      "elo": 1645.118,
+      "team_id": "north-carolina",
+      "team": "North Carolina",
+      "conference": "men-d1:acc",
+      "elo": 1647.555,
       "bid_type": "at_large_proxy",
       "experimental_strength_order": 11,
       "ncaa_seed": null,
@@ -771,23 +771,12 @@
       "seeded_24_candidate": true
     },
     {
-      "team_id": "north-carolina",
-      "team": "North Carolina",
-      "conference": "men-d1:acc",
-      "elo": 1632.964,
-      "bid_type": "at_large_proxy",
-      "experimental_strength_order": 15,
-      "ncaa_seed": null,
-      "first_round_bye_candidate": true,
-      "seeded_24_candidate": true
-    },
-    {
       "team_id": "hofstra",
       "team": "Hofstra",
       "conference": "men-d1:caa",
       "elo": 1629.228,
       "bid_type": "projected_aq",
-      "experimental_strength_order": 16,
+      "experimental_strength_order": 15,
       "ncaa_seed": null,
       "first_round_bye_candidate": true,
       "seeded_24_candidate": true
@@ -798,9 +787,9 @@
       "conference": "men-d1:big-south",
       "elo": 1622.537,
       "bid_type": "projected_aq",
-      "experimental_strength_order": 17,
+      "experimental_strength_order": 16,
       "ncaa_seed": null,
-      "first_round_bye_candidate": false,
+      "first_round_bye_candidate": true,
       "seeded_24_candidate": true
     },
     {
@@ -809,18 +798,7 @@
       "conference": "men-d1:big-ten",
       "elo": 1622.043,
       "bid_type": "at_large_proxy",
-      "experimental_strength_order": 18,
-      "ncaa_seed": null,
-      "first_round_bye_candidate": false,
-      "seeded_24_candidate": true
-    },
-    {
-      "team_id": "north-carolina-st",
-      "team": "NC State",
-      "conference": "men-d1:acc",
-      "elo": 1621.362,
-      "bid_type": "at_large_proxy",
-      "experimental_strength_order": 19,
+      "experimental_strength_order": 17,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
       "seeded_24_candidate": true
@@ -831,7 +809,7 @@
       "conference": "men-d1:pac-12",
       "elo": 1621.169,
       "bid_type": "at_large_proxy",
-      "experimental_strength_order": 20,
+      "experimental_strength_order": 18,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
       "seeded_24_candidate": true
@@ -842,7 +820,7 @@
       "conference": "men-d1:american",
       "elo": 1617.688,
       "bid_type": "projected_aq",
-      "experimental_strength_order": 21,
+      "experimental_strength_order": 19,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
       "seeded_24_candidate": true
@@ -853,7 +831,7 @@
       "conference": "men-d1:atlantic-10",
       "elo": 1616.139,
       "bid_type": "projected_aq",
-      "experimental_strength_order": 22,
+      "experimental_strength_order": 20,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
       "seeded_24_candidate": true
@@ -864,7 +842,18 @@
       "conference": "men-d1:summit",
       "elo": 1616.072,
       "bid_type": "at_large_proxy",
-      "experimental_strength_order": 23,
+      "experimental_strength_order": 21,
+      "ncaa_seed": null,
+      "first_round_bye_candidate": false,
+      "seeded_24_candidate": true
+    },
+    {
+      "team_id": "creighton",
+      "team": "Creighton",
+      "conference": "men-d1:big-east",
+      "elo": 1614.314,
+      "bid_type": "at_large_proxy",
+      "experimental_strength_order": 22,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
       "seeded_24_candidate": true
@@ -874,6 +863,17 @@
       "team": "Grand Canyon",
       "conference": "men-d1:mountain-west",
       "elo": 1613.718,
+      "bid_type": "projected_aq",
+      "experimental_strength_order": 23,
+      "ncaa_seed": null,
+      "first_round_bye_candidate": false,
+      "seeded_24_candidate": true
+    },
+    {
+      "team_id": "fdu",
+      "team": "FDU",
+      "conference": "men-d1:nec",
+      "elo": 1612.958,
       "bid_type": "projected_aq",
       "experimental_strength_order": 24,
       "ncaa_seed": null,
@@ -925,11 +925,11 @@
       "seeded_24_candidate": false
     },
     {
-      "team_id": "fdu",
-      "team": "FDU",
-      "conference": "men-d1:nec",
-      "elo": 1605.639,
-      "bid_type": "projected_aq",
+      "team_id": "north-carolina-st",
+      "team": "NC State",
+      "conference": "men-d1:acc",
+      "elo": 1606.771,
+      "bid_type": "at_large_proxy",
       "experimental_strength_order": 29,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
@@ -969,12 +969,23 @@
       "seeded_24_candidate": false
     },
     {
+      "team_id": "penn",
+      "team": "Penn",
+      "conference": "men-d1:ivy",
+      "elo": 1596.98,
+      "bid_type": "at_large_proxy",
+      "experimental_strength_order": 33,
+      "ncaa_seed": null,
+      "first_round_bye_candidate": false,
+      "seeded_24_candidate": false
+    },
+    {
       "team_id": "unc-greensboro",
       "team": "UNC Greensboro",
       "conference": "men-d1:socon",
       "elo": 1593.968,
       "bid_type": "projected_aq",
-      "experimental_strength_order": 33,
+      "experimental_strength_order": 34,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
       "seeded_24_candidate": false
@@ -985,7 +996,7 @@
       "conference": "men-d1:sun-belt",
       "elo": 1589.952,
       "bid_type": "at_large_proxy",
-      "experimental_strength_order": 34,
+      "experimental_strength_order": 35,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
       "seeded_24_candidate": false
@@ -996,7 +1007,7 @@
       "conference": "men-d1:socon",
       "elo": 1587.476,
       "bid_type": "at_large_proxy",
-      "experimental_strength_order": 35,
+      "experimental_strength_order": 36,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
       "seeded_24_candidate": false
@@ -1006,17 +1017,6 @@
       "team": "Missouri St.",
       "conference": "men-d1:american",
       "elo": 1586.945,
-      "bid_type": "at_large_proxy",
-      "experimental_strength_order": 36,
-      "ncaa_seed": null,
-      "first_round_bye_candidate": false,
-      "seeded_24_candidate": false
-    },
-    {
-      "team_id": "penn",
-      "team": "Penn",
-      "conference": "men-d1:ivy",
-      "elo": 1579.932,
       "bid_type": "at_large_proxy",
       "experimental_strength_order": 37,
       "ncaa_seed": null,
@@ -1046,23 +1046,12 @@
       "seeded_24_candidate": false
     },
     {
-      "team_id": "seton-hall",
-      "team": "Seton Hall",
-      "conference": "men-d1:big-east",
-      "elo": 1576.121,
-      "bid_type": "at_large_proxy",
-      "experimental_strength_order": 40,
-      "ncaa_seed": null,
-      "first_round_bye_candidate": false,
-      "seeded_24_candidate": false
-    },
-    {
       "team_id": "louisville",
       "team": "Louisville",
       "conference": "men-d1:acc",
       "elo": 1574.547,
       "bid_type": "at_large_proxy",
-      "experimental_strength_order": 41,
+      "experimental_strength_order": 40,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
       "seeded_24_candidate": false
@@ -1072,6 +1061,17 @@
       "team": "Wake Forest",
       "conference": "men-d1:acc",
       "elo": 1573.765,
+      "bid_type": "at_large_proxy",
+      "experimental_strength_order": 41,
+      "ncaa_seed": null,
+      "first_round_bye_candidate": false,
+      "seeded_24_candidate": false
+    },
+    {
+      "team_id": "uc-irvine",
+      "team": "UC Irvine",
+      "conference": "men-d1:big-west",
+      "elo": 1573.337,
       "bid_type": "at_large_proxy",
       "experimental_strength_order": 42,
       "ncaa_seed": null,
@@ -1149,7 +1149,7 @@
     "rating_cutoff": "2026-11-12",
     "official_automatic_bids": 0,
     "projected_automatic_bids": 23,
-    "source_checked_through": "2026-11-12",
+    "source_checked_through": "2026-11-13",
     "selection_inputs_verified": false
   }
 }
