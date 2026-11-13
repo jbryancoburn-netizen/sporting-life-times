@@ -113,11 +113,25 @@ jobs:
           assert d['not_a_national_rankings_history']
           assert d['status']=='PARTIAL_1949_1984_SCHOOL_SAMPLE_NOT_FULL_NCAA_ELO'
           PY
+      - name: Stage source-backed pre-1985 fixtures for the Rivalry Archive
+        run: |
+          cp historical-normalized/pre1985-approved/verified-national-fixtures.csv data/ncaam-pre1985-verified-fixtures.csv
+          python - <<'PY'
+          import csv
+          from pathlib import Path
+          path=Path('data/ncaam-pre1985-verified-fixtures.csv')
+          rows=list(csv.DictReader(path.open()))
+          assert len(rows)>=1800, 'Unexpectedly sparse authorized source fixture data'
+          assert all(r['season'] and r['date'] and r['team_a'] and r['team_b'] and r['score_a'] and r['score_b'] and r['sources'] for r in rows)
+          assert all(1950<=int(r['season'])<=1984 for r in rows)
+          assert len({(r['season'],r['date'],tuple(sorted((r['team_a'],r['team_b'])))) for r in rows})==len(rows), 'Duplicate pre-1985 fixture'
+          print('Audited published early fixtures:',len(rows))
+          PY
       - name: Publish partial historical research with provenance
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/ncaam-pre1985-unc-duke-replay.json data/ncaam-pre1985-national-coverage.json data/ncaam-pre1985-approved-national-inventory.json
+          git add data/ncaam-pre1985-unc-duke-replay.json data/ncaam-pre1985-national-coverage.json data/ncaam-pre1985-approved-national-inventory.json data/ncaam-pre1985-verified-fixtures.csv
           if ! git diff --cached --quiet; then
             git commit -m 'data: document and replay 1949-1984 partial historical game evidence'
             git pull --rebase
