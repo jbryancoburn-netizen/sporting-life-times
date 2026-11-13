@@ -61,15 +61,23 @@ function archivalNBAImage(img,entry){
  img.dataset.sltVintageOriginal=original;
  img.dataset.sltVintageStatus='loading';
  img.referrerPolicy='no-referrer';
+ // Both archive host patterns are historical sources; if neither works,
+ // restore the site's existing local NBA mark instead of showing initials.
+ const secondaryArchive=archived.replace('https://assets.logocdn.com/images/sports/nba/','https://i.logocdn.com/nba/');
  img.addEventListener('error',()=>{
-  if(img.getAttribute('src')===archived){
+  const current=img.getAttribute('src');
+  if(current===archived){
+   img.dataset.sltVintageStatus='alternate';
+   img.setAttribute('src',secondaryArchive);
+  }else if(current===secondaryArchive){
    img.dataset.sltVintageStatus='fallback';
    img.setAttribute('src',original);
   }
- },{once:true});
+ });
  img.addEventListener('load',()=>{
-  if(img.getAttribute('src')===archived)img.dataset.sltVintageStatus='loaded';
-  if(img.dataset.sltVintageStatus==='fallback')img.hidden=false;
+  const current=img.getAttribute('src');
+  if(current===archived||current===secondaryArchive)img.dataset.sltVintageStatus='loaded';
+  else if(img.dataset.sltVintageStatus==='fallback')img.hidden=false;
  });
  img.setAttribute('src',archived);
 }
