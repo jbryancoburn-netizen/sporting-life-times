@@ -36,7 +36,7 @@ jobs:
           fi
       - name: Check real text and crest rectangles at four widths on twelve NBA pages
         env:
-          STRICT_LAYOUT: '0'
+          STRICT_LAYOUT: '1'
         run: node scripts/audit-nba-crest-collisions.mjs
       - name: Publish collision evidence and screenshots
         uses: actions/upload-artifact@v4
