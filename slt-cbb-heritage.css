@@ -474,3 +474,18 @@ body.slt-cbb-heritage .ledger26-final-pending {
   body.slt-cbb-heritage .ledger26-retro-brief {font-size:9px}
   body.slt-cbb-heritage .ledger26-final-record b {font-size:8px}
 }
+
+
+/* Phone-sized final movement register: spend space on readable values, not labels. */
+@media(max-width:640px){
+ body.slt-cbb-heritage .ledger26-final-retro--rank small{display:none}
+ body.slt-cbb-heritage .ledger26-final-retro--day small{font-size:8px}
+ body.slt-cbb-heritage .ledger26-final-retro b{font-size:15px}
+ body.slt-cbb-heritage .ledger26-final-record-kind{display:none}
+ body.slt-cbb-heritage .ledger26-final-record b{font-size:11px}
+ body.slt-cbb-heritage .ledger26-final-record small{font-size:9px;color:#51432e}
+}
+@media(max-width:360px){
+ body.slt-cbb-heritage .ledger26-final-retro b{font-size:14px}
+ body.slt-cbb-heritage .ledger26-final-record b{font-size:10px}
+}

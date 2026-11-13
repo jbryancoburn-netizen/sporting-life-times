@@ -167,12 +167,14 @@
       Number.isInteger(side.rank)?'#'+side.rank:'—';
     const kind=publishedChange?'DAY':'RANK';
     const letter=side.won?'W':'L';
-    const detail=side.conferenceRecord?'CONF '+side.conferenceRecord:'W–L '+side.record;
+    const kind=side.conferenceRecord?'CONF':'W–L';
+    const recordValue=side.conferenceRecord||side.record;
+    const detail=kind+' '+recordValue;
     const explanation=(publishedChange?'Published RETRO daily change (not single-game Elo): ':'Current RETRO rank: ')+movement+
       '. Current '+(side.conferenceRecord?'conference':'overall')+' record: '+detail+'. Recorded final: '+(side.won?'win':'loss')+'. As of '+side.asOf;
     return '<span class="ledger26-final-team" title="'+esc(explanation)+'" aria-label="'+esc(explanation)+'">'+
-      '<span class="ledger26-final-retro"><small>'+kind+'</small><b class="'+(publishedChange?(side.dayChange>0?'is-rise':side.dayChange<0?'is-fall':'is-level'):'')+'">'+esc(movement)+'</b></span>'+
-      '<span class="ledger26-final-record"><small>'+esc(letter)+'</small><b>'+esc(detail)+'</b></span></span>';
+      '<span class="ledger26-final-retro'+(publishedChange?' ledger26-final-retro--day':' ledger26-final-retro--rank')+'"><small>'+kind+'</small><b class="'+(publishedChange?(side.dayChange>0?'is-rise':side.dayChange<0?'is-fall':'is-level'):'')+'">'+esc(movement)+'</b></span>'+
+      '<span class="ledger26-final-record"><small>+'+esc(letter)+'</small><b><span class="ledger26-final-record-kind">'+esc(kind)+' </span>'+esc(recordValue)+'</b></span></span>';
   };
   if(info.state==='not-rated')
     return '<div class="ledger26-status ledger26-status--final-impact" data-phase="final"><strong class="ledger26-final-heading">'+esc(label||'FINAL')+'</strong><span class="ledger26-final-unrated" title="'+esc(info.reason||'Not rated')+'">NO RETRO</span></div>';

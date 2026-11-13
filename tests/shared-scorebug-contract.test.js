@@ -77,6 +77,8 @@ test('FINAL optional impact uses away/home ordered RETRO day changes and standin
  const out=render({phase:'final',away,home,finalImpact:impact});
  assert.match(out,/ledger26-status--final-impact/);
  assert.match(out,/DAY/);
+ assert.match(out,/ledger26-final-retro--day/);
+ assert.match(out,/\+W/);
  assert.match(out,/▲ \+12\.4/);
  assert.match(out,/▼ −9\.8/);
  assert.ok(out.indexOf('1–0')<out.indexOf('0–1'));
