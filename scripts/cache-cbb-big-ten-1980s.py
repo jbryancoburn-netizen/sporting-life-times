@@ -47,14 +47,14 @@ def get_school(row):
   near=[]
   for sib in (img.find_previous(string=re.compile(r"\d{4}\s*[-–]\s*(?:\d{4}|Present)",re.I)),img.find_next(string=re.compile(r"\d{4}\s*[-–]\s*(?:\d{4}|Present)",re.I))):
    near.append(str(sib or "").strip()[:100])
-  period_match=re.search(r"Primary Logo\\s+(\\d{4})\\s*[-–]\\s*(\\d{4}|Present)",alt,re.I)
+  period_match=re.search(r"Primary Logo\s+(\d{4})\s*[-–]\s*(\d{4}|Present)",alt,re.I)
   if not period_match:continue
   actual_start=int(period_match.group(1))
   actual_end=9999 if period_match.group(2).lower()=="present" else int(period_match.group(2))
   # Never trust a basename substring or adjacent history blurb in place of
   # the exact vintage period in the logo image's own archival alt label.
   if actual_start!=start or abs(actual_end-end)>1:continue
-  score=200+(30 if re.search(r"(?<!\\d)"+str(start)+r"(?!\\d)",src.split("/")[-1]) else 0)+(10 if (img.get("width")=="250" or img.get("height")=="250") else 0)
+  score=200+(30 if re.search(r"(?<!\d)"+str(start)+r"(?!\d)",src.split("/")[-1]) else 0)+(10 if (img.get("width")=="250" or img.get("height")=="250") else 0)
   images.append((score,src,alt,near))
  images.sort(reverse=True)
  print("SOURCE_CANDIDATES",name,"era",start,end,"found",len(images),json.dumps(images[:10]),flush=True)
