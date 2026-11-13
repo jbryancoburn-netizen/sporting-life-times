@@ -5,7 +5,7 @@ const fs = require('node:fs');
 
 const css = fs.readFileSync('mbb-logo-system.css', 'utf8');
 test('two wider adjacent colored strokes use one shared responsive ring token', () => {
-  assert.match(css, /--mbb-ring:clamp\(2\.5px,calc\(var\(--mbb-size\) \* \.058\),7\.5px\)/);
+  assert.match(css, /--mbb-ring:clamp\(3px,calc\(var\(--mbb-size\) \* \.058\),7\.5px\)/);
   const outer = css.match(/\.mbb-mark\s*\{([\s\S]*?)\n\}/);
   const inner = css.match(/\.mbb-mark::before\s*\{([\s\S]*?)\n\}/);
   assert.ok(outer, 'outer ring CSS available');
