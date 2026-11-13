@@ -39,8 +39,10 @@ def get_school(row):
  images=[]
  if id=="84":print("RAW_IMAGE_ELEMENTS",json.dumps([str(x)[:1100] for x in soup.find_all("img") if "1979" in str(x.get("alt",""))][:3]),flush=True)
  for img in soup.find_all("img"):
-  src=img.get("data-src") or img.get("src") or ""
-  src=requests.compat.urljoin(url,src)
+  src=img.get("nitro-lazy-src") or img.get("data-src") or img.get("src") or ""
+  if "sportslogohistory.com/wp-content/uploads/" in src:
+   src="https://sportslogohistory.com/wp-content/uploads/"+src.split("sportslogohistory.com/wp-content/uploads/",1)[1]
+  else:src=requests.compat.urljoin(url,src)
   if not re.match(r"https://(?:www\.)?sportslogohistory\.com/wp-content/uploads/.+\.(?:png|jpg|jpeg|webp)",src,re.I):continue
   alt=img.get("alt","")
   near=[]
