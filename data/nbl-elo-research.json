@@ -3,9 +3,9 @@
   "production_approved": false,
   "model": "nbl-retro-season-network-v1",
   "season": "2026-27",
-  "calculated_at": "2026-11-13T01:55:01.164460+00:00",
+  "calculated_at": "2026-11-13T11:11:37.119590+00:00",
   "historical_training_games": 337,
-  "current_regular_season_games": 62,
+  "current_regular_season_games": 64,
   "parameters": {
     "k": 20,
     "home_advantage_elo": 65,
@@ -15,14 +15,14 @@
   "retro_iterations_max": 160,
   "chronological_comparator": {
     "Adelaide 36ers": 1511.02,
-    "Brisbane Bullets": 1500.4,
-    "Cairns Taipans": 1510.97,
+    "Brisbane Bullets": 1491.47,
+    "Cairns Taipans": 1519.94,
     "Illawarra Hawks": 1478.61,
     "Melbourne United": 1512.31,
-    "New Zealand Breakers": 1472.91,
+    "New Zealand Breakers": 1481.83,
     "Perth Wildcats": 1484.76,
     "South East Melbourne Phoenix": 1460.3,
-    "Sydney Kings": 1540.1,
+    "Sydney Kings": 1531.13,
     "Tasmania JackJumpers": 1528.63
   },
   "season_start_elo": 1500,
@@ -36,95 +36,75 @@
     {
       "rank": 1,
       "team": "Sydney Kings",
-      "elo": 1597.09,
+      "elo": 1575.08,
       "wins": 8,
-      "losses": 3
+      "losses": 4
     },
     {
       "rank": 2,
       "team": "Tasmania JackJumpers",
-      "elo": 1569.42,
+      "elo": 1568.96,
       "wins": 8,
       "losses": 4
     },
     {
       "rank": 3,
       "team": "Cairns Taipans",
-      "elo": 1525.91,
-      "wins": 7,
+      "elo": 1543.42,
+      "wins": 8,
       "losses": 6
     },
     {
       "rank": 4,
       "team": "Melbourne United",
-      "elo": 1522.22,
+      "elo": 1522.86,
       "wins": 7,
       "losses": 6
     },
     {
       "rank": 5,
       "team": "Adelaide 36ers",
-      "elo": 1519.57,
+      "elo": 1520.51,
       "wins": 7,
       "losses": 6
     },
     {
       "rank": 6,
       "team": "Brisbane Bullets",
-      "elo": 1502.43,
+      "elo": 1484.91,
       "wins": 6,
-      "losses": 6
+      "losses": 7
     },
     {
       "rank": 7,
-      "team": "Perth Wildcats",
-      "elo": 1467.39,
-      "wins": 6,
-      "losses": 6
+      "team": "New Zealand Breakers",
+      "elo": 1467.37,
+      "wins": 5,
+      "losses": 8
     },
     {
       "rank": 8,
-      "team": "New Zealand Breakers",
-      "elo": 1447.48,
-      "wins": 4,
-      "losses": 8
+      "team": "Perth Wildcats",
+      "elo": 1467.28,
+      "wins": 6,
+      "losses": 6
     },
     {
       "rank": 9,
       "team": "Illawarra Hawks",
-      "elo": 1441.68,
+      "elo": 1440.55,
       "wins": 5,
       "losses": 9
     },
     {
       "rank": 10,
       "team": "South East Melbourne Phoenix",
-      "elo": 1410.88,
+      "elo": 1410.02,
       "wins": 4,
       "losses": 8
     }
   ],
   "recent_results": [
-    {
-      "id": "401875290",
-      "played_at": "2026-11-04T09:00Z",
-      "home": "Brisbane Bullets",
-      "away": "Perth Wildcats",
-      "home_score": 109,
-      "away_score": 104,
-      "elo_delta_home": 7.979,
-      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875290/wildcats-bullets"
-    },
-    {
-      "id": "401875295",
-      "played_at": "2026-11-05T08:30Z",
-      "home": "Cairns Taipans",
-      "away": "Illawarra Hawks",
-      "home_score": 95,
-      "away_score": 107,
-      "elo_delta_home": -13.24,
-      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875295/hawks-taipans"
-    },
     {
       "id": "401875294",
       "played_at": "2026-11-06T08:30Z",
@@ -204,6 +184,26 @@
       "away_score": 92,
       "elo_delta_home": 9.965,
       "source_url": "https://www.espn.com/nbl/game/_/gameId/401875297/jackjumpers-wildcats"
+    },
+    {
+      "id": "401875310",
+      "played_at": "2026-11-13T06:30Z",
+      "home": "New Zealand Breakers",
+      "away": "Brisbane Bullets",
+      "home_score": 94,
+      "away_score": 90,
+      "elo_delta_home": 8.925,
+      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875310/bullets-breakers"
+    },
+    {
+      "id": "401875299",
+      "played_at": "2026-11-13T08:30Z",
+      "home": "Cairns Taipans",
+      "away": "Sydney Kings",
+      "home_score": 84,
+      "away_score": 82,
+      "elo_delta_home": 8.971,
+      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875299/kings-taipans"
     }
   ],
   "prediction_certified": false,

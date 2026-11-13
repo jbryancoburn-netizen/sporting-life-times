@@ -6,19 +6,19 @@
   "elo_approved": false,
   "source": "ESPN site API, completed finals since NBL27 regular-season opening",
   "season_start": "2026-09-19",
-  "updated_at": "2026-11-13T01:55:01.103149+00:00",
-  "games_replayed": 62,
+  "updated_at": "2026-11-13T11:11:37.059699+00:00",
+  "games_replayed": 64,
   "teams": 10,
   "rows": [
     {
       "team": "Sydney Kings",
       "wins": 8,
-      "losses": 3,
-      "played": 11,
-      "win_pct": 0.727,
-      "points_for": 1089,
-      "points_against": 980,
-      "points_pct": 111.12
+      "losses": 4,
+      "played": 12,
+      "win_pct": 0.667,
+      "points_for": 1171,
+      "points_against": 1064,
+      "points_pct": 110.06
     },
     {
       "team": "Tasmania JackJumpers",
@@ -29,6 +29,16 @@
       "points_for": 1127,
       "points_against": 1083,
       "points_pct": 104.06
+    },
+    {
+      "team": "Cairns Taipans",
+      "wins": 8,
+      "losses": 6,
+      "played": 14,
+      "win_pct": 0.571,
+      "points_for": 1293,
+      "points_against": 1343,
+      "points_pct": 96.28
     },
     {
       "team": "Melbourne United",
@@ -51,16 +61,6 @@
       "points_pct": 100.5
     },
     {
-      "team": "Cairns Taipans",
-      "wins": 7,
-      "losses": 6,
-      "played": 13,
-      "win_pct": 0.538,
-      "points_for": 1209,
-      "points_against": 1261,
-      "points_pct": 95.88
-    },
-    {
       "team": "Perth Wildcats",
       "wins": 6,
       "losses": 6,
@@ -73,12 +73,22 @@
     {
       "team": "Brisbane Bullets",
       "wins": 6,
-      "losses": 6,
-      "played": 12,
-      "win_pct": 0.5,
-      "points_for": 1139,
-      "points_against": 1191,
-      "points_pct": 95.63
+      "losses": 7,
+      "played": 13,
+      "win_pct": 0.462,
+      "points_for": 1229,
+      "points_against": 1285,
+      "points_pct": 95.64
+    },
+    {
+      "team": "New Zealand Breakers",
+      "wins": 5,
+      "losses": 8,
+      "played": 13,
+      "win_pct": 0.385,
+      "points_for": 1167,
+      "points_against": 1169,
+      "points_pct": 99.83
     },
     {
       "team": "Illawarra Hawks",
@@ -99,19 +109,33 @@
       "points_for": 1178,
       "points_against": 1173,
       "points_pct": 100.43
-    },
-    {
-      "team": "New Zealand Breakers",
-      "wins": 4,
-      "losses": 8,
-      "played": 12,
-      "win_pct": 0.333,
-      "points_for": 1073,
-      "points_against": 1079,
-      "points_pct": 99.44
     }
   ],
   "recent_finals": [
+    {
+      "id": "401875299",
+      "played_at": "2026-11-13T08:30Z",
+      "home": "Cairns Taipans",
+      "away": "Sydney Kings",
+      "home_score": 84,
+      "away_score": 82,
+      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875299/kings-taipans",
+      "verified": false,
+      "provider": "espn",
+      "state": "candidate"
+    },
+    {
+      "id": "401875310",
+      "played_at": "2026-11-13T06:30Z",
+      "home": "New Zealand Breakers",
+      "away": "Brisbane Bullets",
+      "home_score": 94,
+      "away_score": 90,
+      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875310/bullets-breakers",
+      "verified": false,
+      "provider": "espn",
+      "state": "candidate"
+    },
     {
       "id": "401875297",
       "played_at": "2026-11-12T10:30Z",
@@ -204,30 +228,6 @@
       "home_score": 79,
       "away_score": 77,
       "source_url": "https://www.espn.com/nbl/game/_/gameId/401875294/breakers-jackjumpers",
-      "verified": false,
-      "provider": "espn",
-      "state": "candidate"
-    },
-    {
-      "id": "401875295",
-      "played_at": "2026-11-05T08:30Z",
-      "home": "Cairns Taipans",
-      "away": "Illawarra Hawks",
-      "home_score": 95,
-      "away_score": 107,
-      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875295/hawks-taipans",
-      "verified": false,
-      "provider": "espn",
-      "state": "candidate"
-    },
-    {
-      "id": "401875290",
-      "played_at": "2026-11-04T09:00Z",
-      "home": "Brisbane Bullets",
-      "away": "Perth Wildcats",
-      "home_score": 109,
-      "away_score": 104,
-      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875290/wildcats-bullets",
       "verified": false,
       "provider": "espn",
       "state": "candidate"
