@@ -39,7 +39,14 @@ assert "archivalNBAImage(img,entry)" in js, "Missing historic image substitution
 assert "img.setAttribute('src',original)" in js, "Missing local fallback on image error"
 assert "if(league==='nba')" in js, "Changes should be NBA-scoped"
 assert "slt-nba-bold-rings" in js and "slt-nba-bold-rings" in css
-assert "--slt-nba-crest-stroke:4px" in css and "--slt-nba-crest-stroke:3.5px" in css
+# The NBA-only size sheet deliberately increases both the circle and the artwork.
+size_css=(ROOT / "nba-heritage-crests.css").read_text()
+assert "--slt-nba-crest-stroke: 5px" in size_css and "--slt-nba-crest-stroke:4px" in size_css, "Desktop/mobile ring weights must be visible"
+assert "--slt-nba-artwork-inset: 20px" in size_css and "--slt-nba-artwork-inset:16px" in size_css
+assert "width:138px!important;height:138px!important" in size_css, "Large team hero missing"
+assert "width:58px!important;height:58px!important" in size_css, "Larger scorebug logo missing"
+assert "width:104px!important;height:104px!important" in size_css, "Larger directory art missing"
+assert "body.slt-nba-bold-rings" in size_css and "body.nba-newspaper.slt-nba-bold-rings" in size_css, "Sizing escapes the NBA scope"
 assert "body.slt-nba-bold-rings .slt-dual-shell::before" in css, "Inner-color border not controlled"
 assert "shared-team-crests.js" not in (ROOT / "nba.html").read_text(), "Competing global logo wrappers"
 
@@ -47,10 +54,11 @@ for name in pages:
     html = (ROOT / name).read_text()
     assert "slt-dual-ring.css?v=20261113-vintage-bold-rings" in html, f"Ring CSS not loaded by {name}"
     assert "slt-dual-ring.js?v=20261113-vintage-bold-rings" in html, f"Ring JS not loaded by {name}"
+    assert 'nba-heritage-crests.css?v=20261113-large-2ring' in html, f"Large crest sizing missing on {name}"
 
 gallery = (ROOT / "nba-vintage-logo-gallery.html").read_text()
 assert "https://i.logocdn.com/nba/" not in gallery, "Gallery still references broken image hostname"
 assert "https://assets.logocdn.com/images/sports/nba/" in gallery
 core = (ROOT / "nba-newspaper.js").read_text()
 assert "const logo=c=>'assets/nba-logos/'" in core, "Modern local fallback source must stay intact"
-print("PASS: NBA 30-team vintage catalog, wider two-color rings, 12 page includes, modern local fallback.")
+print("PASS: NBA 30-team vintage catalog, larger circles and rings, 12 page includes, modern local fallback.")
