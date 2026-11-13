@@ -6,16 +6,16 @@
     "espn:401918992"
   ],
   "baseline_006": {
-    "games": 71,
-    "margin_mae": 12.0845,
-    "brier": 0.210712,
-    "winner_accuracy": 0.69014
+    "games": 72,
+    "margin_mae": 11.9931,
+    "brier": 0.212653,
+    "winner_accuracy": 0.68056
   },
   "challenger_002": {
-    "games": 71,
-    "margin_mae": 13.0211,
-    "brier": 0.222725,
-    "winner_accuracy": 0.69014
+    "games": 72,
+    "margin_mae": 12.9375,
+    "brier": 0.225102,
+    "winner_accuracy": 0.68056
   },
   "by_date": {
     "2026-11-11": {
@@ -45,7 +45,21 @@
         "brier": 0.218261,
         "winner_accuracy": 0.75
       }
+    },
+    "2026-11-13": {
+      "0.006": {
+        "games": 1,
+        "margin_mae": 5.5,
+        "brier": 0.350485,
+        "winner_accuracy": 0.0
+      },
+      "0.002": {
+        "games": 1,
+        "margin_mae": 7.0,
+        "brier": 0.393867,
+        "winner_accuracy": 0.0
+      }
     }
   },
-  "last_changed_utc": "2026-11-13T11:37:56+00:00"
+  "last_changed_utc": "2026-11-13T23:56:42+00:00"
 }

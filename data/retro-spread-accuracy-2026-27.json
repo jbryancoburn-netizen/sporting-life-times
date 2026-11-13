@@ -2,20 +2,20 @@
   "season": "2026-27",
   "sport": "NCAA men's Division I basketball",
   "method": "Immutable prior-day and independently verified pretipoff forecasts versus verified in-season D-I finals",
-  "updated_at_utc": "2026-11-13T11:37:56+00:00",
+  "updated_at_utc": "2026-11-13T23:56:42+00:00",
   "archived_predictions": 498,
-  "pending_finals": 200,
+  "pending_finals": 199,
   "excluded_orientation_mismatches": [
     "espn:401918053",
     "espn:401919029",
     "espn:401918992"
   ],
   "summary": {
-    "games": 295,
+    "games": 296,
     "correct_winners": 212,
-    "winner_accuracy": 0.71864,
-    "margin_mae": 13.2847,
-    "brier": 0.191286
+    "winner_accuracy": 0.71622,
+    "margin_mae": 13.2584,
+    "brier": 0.191824
   },
   "by_date": {
     "2026-11-06": {
@@ -66,6 +66,13 @@
       "winner_accuracy": 0.75,
       "margin_mae": 9.6667,
       "brier": 0.208394
+    },
+    "2026-11-13": {
+      "games": 1,
+      "correct_winners": 0,
+      "winner_accuracy": 0.0,
+      "margin_mae": 5.5,
+      "brier": 0.350486
     }
   },
   "games": [
@@ -4196,6 +4203,20 @@
       "predicted_home_win_probability": 0.385081,
       "winner_correct": true,
       "brier": 0.14828738,
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "captured_at_utc": "2026-11-10T18:48:01+00:00"
+    },
+    {
+      "date": "2026-11-13",
+      "id": "espn:401921167",
+      "home_id": "ncaa:609703",
+      "away_id": "pending-ncaa-id:west-florida",
+      "predicted_home_margin": -3.5,
+      "actual_home_margin": 2,
+      "absolute_margin_error": 5.5,
+      "predicted_home_win_probability": 0.407981,
+      "winner_correct": false,
+      "brier": 0.3504865,
       "forecast_model": "retro-central-elo-uncapped-v2",
       "captured_at_utc": "2026-11-10T18:48:01+00:00"
     }
