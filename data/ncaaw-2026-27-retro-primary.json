@@ -6,11 +6,11 @@
   "starting_elo": 1500,
   "result_source_audit": {
     "ncaa_origin_corroborated": 62,
-    "espn_final_without_current_ncaa_crosscheck": 448,
+    "espn_final_without_current_ncaa_crosscheck": 450,
     "note": "The NCAA-origin source is relayed through a third party. Each stored final records score_evidence. A live NCAA/ESPN conflict blocks publication."
   },
   "status": "in-season",
-  "games_played": 510,
+  "games_played": 512,
   "as_of": "2026-11-13",
   "parameters": {
     "baseline": 1500,
@@ -20,6 +20,23 @@
   },
   "note": "Every women’s team starts at 1500. Historical seasons calibrate home advantage only, never seed ratings. Provisional conference standings exclude non-D-I games.",
   "rankings": [
+    {
+      "team_id": "130",
+      "team": "Michigan Wolverines",
+      "conference": "Big Ten Conference",
+      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/130.png",
+      "color": "00274c",
+      "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
+      "base_elo": 1500,
+      "elo": 1762.39,
+      "daily_change": 95.75,
+      "wins": 3,
+      "losses": 0,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 3,
+      "rank": 1
+    },
     {
       "team_id": "2579",
       "team": "South Carolina Gamecocks",
@@ -35,23 +52,6 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 1
-    },
-    {
-      "team_id": "130",
-      "team": "Michigan Wolverines",
-      "conference": "Big Ten Conference",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/130.png",
-      "color": "00274c",
-      "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
-      "base_elo": 1500,
-      "elo": 1759.05,
-      "daily_change": 92.41,
-      "wins": 3,
-      "losses": 0,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 3,
       "rank": 2
     },
     {
@@ -62,8 +62,8 @@
       "color": "eaaa00",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1738.13,
-      "daily_change": 11.31,
+      "elo": 1738.66,
+      "daily_change": 11.84,
       "wins": 3,
       "losses": 0,
       "conference_wins": 0,
@@ -113,8 +113,8 @@
       "color": "5e0a2f",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1726.07,
-      "daily_change": -0.9,
+      "elo": 1726.09,
+      "daily_change": -0.88,
       "wins": 3,
       "losses": 0,
       "conference_wins": 0,
@@ -130,8 +130,8 @@
       "color": "00205b",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1721.54,
-      "daily_change": 14.49,
+      "elo": 1721.82,
+      "daily_change": 14.77,
       "wins": 4,
       "losses": 0,
       "conference_wins": 0,
@@ -140,20 +140,20 @@
       "rank": 7
     },
     {
-      "team_id": "344",
-      "team": "Mississippi State Bulldogs",
-      "conference": "Southeastern Conference",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/344.png",
-      "color": "5d1725",
+      "team_id": "163",
+      "team": "Princeton Tigers",
+      "conference": "Ivy League",
+      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/163.png",
+      "color": "000000",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1716.7,
-      "daily_change": -8.16,
-      "wins": 3,
+      "elo": 1721.33,
+      "daily_change": 11.47,
+      "wins": 4,
       "losses": 0,
       "conference_wins": 0,
       "conference_losses": 0,
-      "games_played": 3,
+      "games_played": 4,
       "rank": 8
     },
     {
@@ -164,31 +164,14 @@
       "color": "c9001f",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1716.65,
-      "daily_change": 42.97,
+      "elo": 1716.66,
+      "daily_change": 42.98,
       "wins": 5,
       "losses": 0,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 5,
       "rank": 9
-    },
-    {
-      "team_id": "163",
-      "team": "Princeton Tigers",
-      "conference": "Ivy League",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/163.png",
-      "color": "000000",
-      "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
-      "base_elo": 1500,
-      "elo": 1715.1,
-      "daily_change": 5.24,
-      "wins": 4,
-      "losses": 0,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 4,
-      "rank": 10
     },
     {
       "team_id": "258",
@@ -198,31 +181,14 @@
       "color": "232d4b",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1711.8,
-      "daily_change": -6.83,
+      "elo": 1711.98,
+      "daily_change": -6.65,
       "wins": 4,
       "losses": 0,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 4,
-      "rank": 11
-    },
-    {
-      "team_id": "239",
-      "team": "Baylor Bears",
-      "conference": "Big 12 Conference",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/239.png",
-      "color": "154734",
-      "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
-      "base_elo": 1500,
-      "elo": 1711.33,
-      "daily_change": 35.37,
-      "wins": 4,
-      "losses": 0,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 4,
-      "rank": 12
+      "rank": 10
     },
     {
       "team_id": "38",
@@ -239,7 +205,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 13
+      "rank": 11
     },
     {
       "team_id": "2541",
@@ -256,7 +222,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 14
+      "rank": 12
     },
     {
       "team_id": "150",
@@ -273,7 +239,24 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 15
+      "rank": 13
+    },
+    {
+      "team_id": "239",
+      "team": "Baylor Bears",
+      "conference": "Big 12 Conference",
+      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/239.png",
+      "color": "154734",
+      "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
+      "base_elo": 1500,
+      "elo": 1707.01,
+      "daily_change": 31.05,
+      "wins": 4,
+      "losses": 0,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 4,
+      "rank": 14
     },
     {
       "team_id": "145",
@@ -283,14 +266,14 @@
       "color": "13294b",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1706.36,
-      "daily_change": -0.76,
+      "elo": 1706.12,
+      "daily_change": -1,
       "wins": 3,
       "losses": 0,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 16
+      "rank": 15
     },
     {
       "team_id": "2628",
@@ -307,7 +290,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 5,
-      "rank": 17
+      "rank": 16
     },
     {
       "team_id": "252",
@@ -324,7 +307,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 4,
-      "rank": 18
+      "rank": 17
     },
     {
       "team_id": "96",
@@ -334,14 +317,14 @@
       "color": "0033a0",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1705.53,
-      "daily_change": 0.05,
+      "elo": 1705.24,
+      "daily_change": -0.24,
       "wins": 4,
       "losses": 0,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 4,
-      "rank": 19
+      "rank": 18
     },
     {
       "team_id": "154",
@@ -358,6 +341,23 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 4,
+      "rank": 19
+    },
+    {
+      "team_id": "344",
+      "team": "Mississippi State Bulldogs",
+      "conference": "Southeastern Conference",
+      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/344.png",
+      "color": "5d1725",
+      "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
+      "base_elo": 1500,
+      "elo": 1703.84,
+      "daily_change": -21.02,
+      "wins": 3,
+      "losses": 0,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 3,
       "rank": 20
     },
     {
@@ -385,8 +385,8 @@
       "color": "21304e",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1701.38,
-      "daily_change": 8.93,
+      "elo": 1701.39,
+      "daily_change": 8.94,
       "wins": 3,
       "losses": 0,
       "conference_wins": 0,
@@ -436,8 +436,8 @@
       "color": "0c2340",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1696.05,
-      "daily_change": 22.33,
+      "elo": 1696.55,
+      "daily_change": 22.83,
       "wins": 3,
       "losses": 1,
       "conference_wins": 0,
@@ -453,8 +453,8 @@
       "color": "000000",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1695.49,
-      "daily_change": 5.7,
+      "elo": 1695.5,
+      "daily_change": 5.71,
       "wins": 4,
       "losses": 0,
       "conference_wins": 0,
@@ -487,8 +487,8 @@
       "color": "f47423",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1690.6,
-      "daily_change": 20.44,
+      "elo": 1690.61,
+      "daily_change": 20.45,
       "wins": 4,
       "losses": 0,
       "conference_wins": 0,
@@ -538,8 +538,8 @@
       "color": "f1b82d",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1687.1,
-      "daily_change": 20.37,
+      "elo": 1686.76,
+      "daily_change": 20.03,
       "wins": 4,
       "losses": 0,
       "conference_wins": 0,
@@ -555,8 +555,8 @@
       "color": "EE3024",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1685.78,
-      "daily_change": 1.64,
+      "elo": 1685.81,
+      "daily_change": 1.67,
       "wins": 4,
       "losses": 0,
       "conference_wins": 0,
@@ -623,31 +623,14 @@
       "color": "0d1361",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1680.66,
-      "daily_change": 21.55,
+      "elo": 1680.67,
+      "daily_change": 21.56,
       "wins": 4,
       "losses": 0,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 4,
       "rank": 36
-    },
-    {
-      "team_id": "164",
-      "team": "Rutgers Scarlet Knights",
-      "conference": "Big Ten Conference",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/164.png",
-      "color": "ce0e2d",
-      "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
-      "base_elo": 1500,
-      "elo": 1678.92,
-      "daily_change": -1.4,
-      "wins": 4,
-      "losses": 0,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 4,
-      "rank": 37
     },
     {
       "team_id": "2287",
@@ -657,13 +640,30 @@
       "color": "CE1126",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1678.8,
-      "daily_change": 0.46,
+      "elo": 1679.36,
+      "daily_change": 1.02,
       "wins": 3,
       "losses": 0,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
+      "rank": 37
+    },
+    {
+      "team_id": "164",
+      "team": "Rutgers Scarlet Knights",
+      "conference": "Big Ten Conference",
+      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/164.png",
+      "color": "ce0e2d",
+      "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
+      "base_elo": 1500,
+      "elo": 1679.16,
+      "daily_change": -1.16,
+      "wins": 4,
+      "losses": 0,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 4,
       "rank": 38
     },
     {
@@ -691,8 +691,8 @@
       "color": "062340",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1674.78,
-      "daily_change": 9.31,
+      "elo": 1674.89,
+      "daily_change": 9.42,
       "wins": 3,
       "losses": 0,
       "conference_wins": 0,
@@ -827,8 +827,8 @@
       "color": "782f40",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1671.23,
-      "daily_change": 6.59,
+      "elo": 1671.24,
+      "daily_change": 6.6,
       "wins": 4,
       "losses": 0,
       "conference_wins": 0,
@@ -878,8 +878,8 @@
       "color": "af5c37",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1669.62,
-      "daily_change": 5.21,
+      "elo": 1669.55,
+      "daily_change": 5.14,
       "wins": 3,
       "losses": 0,
       "conference_wins": 0,
@@ -922,6 +922,23 @@
       "rank": 53
     },
     {
+      "team_id": "326",
+      "team": "Texas State Bobcats",
+      "conference": "Pac-12 Conference",
+      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/326.png",
+      "color": "501214",
+      "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
+      "base_elo": 1500,
+      "elo": 1667.11,
+      "daily_change": 26.44,
+      "wins": 3,
+      "losses": 0,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 3,
+      "rank": 54
+    },
+    {
       "team_id": "2567",
       "team": "SMU Mustangs",
       "conference": "Atlantic Coast Conference",
@@ -929,14 +946,14 @@
       "color": "a80000",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1666.67,
-      "daily_change": 0.34,
+      "elo": 1666.9,
+      "daily_change": 0.57,
       "wins": 4,
       "losses": 0,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 4,
-      "rank": 54
+      "rank": 55
     },
     {
       "team_id": "219",
@@ -953,7 +970,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 55
+      "rank": 56
     },
     {
       "team_id": "9",
@@ -970,7 +987,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 56
+      "rank": 57
     },
     {
       "team_id": "2305",
@@ -987,7 +1004,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 57
+      "rank": 58
     },
     {
       "team_id": "66",
@@ -997,14 +1014,14 @@
       "color": "ae192d",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1661.34,
-      "daily_change": 34.88,
+      "elo": 1661.33,
+      "daily_change": 34.87,
       "wins": 4,
       "losses": 0,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 4,
-      "rank": 58
+      "rank": 59
     },
     {
       "team_id": "8",
@@ -1021,7 +1038,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 4,
-      "rank": 59
+      "rank": 60
     },
     {
       "team_id": "2",
@@ -1031,14 +1048,14 @@
       "color": "002b5c",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1657.72,
-      "daily_change": 6.3,
+      "elo": 1657.96,
+      "daily_change": 6.54,
       "wins": 3,
       "losses": 0,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 60
+      "rank": 61
     },
     {
       "team_id": "333",
@@ -1055,7 +1072,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 5,
-      "rank": 61
+      "rank": 62
     },
     {
       "team_id": "2803",
@@ -1065,14 +1082,14 @@
       "color": "000000",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1656.3,
-      "daily_change": -7.97,
+      "elo": 1656.29,
+      "daily_change": -7.98,
       "wins": 3,
       "losses": 0,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 62
+      "rank": 63
     },
     {
       "team_id": "2272",
@@ -1089,7 +1106,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 63
+      "rank": 64
     },
     {
       "team_id": "99",
@@ -1106,7 +1123,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 64
+      "rank": 65
     },
     {
       "team_id": "248",
@@ -1123,7 +1140,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 65
+      "rank": 66
     },
     {
       "team_id": "2000",
@@ -1140,7 +1157,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 66
+      "rank": 67
     },
     {
       "team_id": "2253",
@@ -1157,7 +1174,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 67
+      "rank": 68
     },
     {
       "team_id": "2306",
@@ -1167,14 +1184,14 @@
       "color": "330a57",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1642.6,
-      "daily_change": 0.54,
+      "elo": 1642.61,
+      "daily_change": 0.55,
       "wins": 4,
       "losses": 0,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 4,
-      "rank": 68
+      "rank": 69
     },
     {
       "team_id": "349",
@@ -1184,14 +1201,14 @@
       "color": "000000",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1641.38,
-      "daily_change": 0.44,
+      "elo": 1641.39,
+      "daily_change": 0.45,
       "wins": 2,
       "losses": 0,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 69
+      "rank": 70
     },
     {
       "team_id": "233",
@@ -1208,7 +1225,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 70
+      "rank": 71
     },
     {
       "team_id": "221",
@@ -1218,14 +1235,14 @@
       "color": "003594",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1640.05,
-      "daily_change": 5.41,
+      "elo": 1640.38,
+      "daily_change": 5.74,
       "wins": 3,
       "losses": 0,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 71
+      "rank": 72
     },
     {
       "team_id": "183",
@@ -1242,23 +1259,6 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 72
-    },
-    {
-      "team_id": "326",
-      "team": "Texas State Bobcats",
-      "conference": "Pac-12 Conference",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/326.png",
-      "color": "501214",
-      "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
-      "base_elo": 1500,
-      "elo": 1639.51,
-      "daily_change": -1.16,
-      "wins": 2,
-      "losses": 0,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
       "rank": 73
     },
     {
@@ -1303,14 +1303,31 @@
       "color": "000000",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1637.51,
-      "daily_change": -1.13,
+      "elo": 1637.74,
+      "daily_change": -0.9,
       "wins": 2,
       "losses": 0,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
       "rank": 76
+    },
+    {
+      "team_id": "2599",
+      "team": "St. John's Red Storm",
+      "conference": "Big East Conference",
+      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2599.png",
+      "color": "d10000",
+      "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
+      "base_elo": 1500,
+      "elo": 1635.04,
+      "daily_change": -9.5,
+      "wins": 3,
+      "losses": 0,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 3,
+      "rank": 77
     },
     {
       "team_id": "2099",
@@ -1327,23 +1344,6 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 77
-    },
-    {
-      "team_id": "2599",
-      "team": "St. John's Red Storm",
-      "conference": "Big East Conference",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2599.png",
-      "color": "d10000",
-      "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
-      "base_elo": 1500,
-      "elo": 1634.94,
-      "daily_change": -9.6,
-      "wins": 3,
-      "losses": 0,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 3,
       "rank": 78
     },
     {
@@ -1364,6 +1364,23 @@
       "rank": 79
     },
     {
+      "team_id": "171",
+      "team": "Columbia Lions",
+      "conference": "Ivy League",
+      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/171.png",
+      "color": "7ba4db",
+      "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
+      "base_elo": 1500,
+      "elo": 1631.16,
+      "daily_change": -54.24,
+      "wins": 3,
+      "losses": 1,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 4,
+      "rank": 80
+    },
+    {
       "team_id": "2717",
       "team": "Western Carolina Catamounts",
       "conference": "Southern Conference",
@@ -1378,7 +1395,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 80
+      "rank": 81
     },
     {
       "team_id": "2619",
@@ -1395,7 +1412,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 81
+      "rank": 82
     },
     {
       "team_id": "2483",
@@ -1412,7 +1429,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 4,
-      "rank": 82
+      "rank": 83
     },
     {
       "team_id": "228",
@@ -1429,7 +1446,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 4,
-      "rank": 83
+      "rank": 84
     },
     {
       "team_id": "356",
@@ -1446,7 +1463,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 84
+      "rank": 85
     },
     {
       "team_id": "2509",
@@ -1456,14 +1473,14 @@
       "color": "ceb888",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1623.96,
-      "daily_change": 0.14,
+      "elo": 1623.97,
+      "daily_change": 0.15,
       "wins": 3,
       "losses": 0,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 85
+      "rank": 86
     },
     {
       "team_id": "245",
@@ -1480,7 +1497,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 86
+      "rank": 87
     },
     {
       "team_id": "2351",
@@ -1497,23 +1514,6 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 87
-    },
-    {
-      "team_id": "171",
-      "team": "Columbia Lions",
-      "conference": "Ivy League",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/171.png",
-      "color": "7ba4db",
-      "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
-      "base_elo": 1500,
-      "elo": 1616.8,
-      "daily_change": -68.6,
-      "wins": 3,
-      "losses": 1,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 4,
       "rank": 88
     },
     {
@@ -1524,8 +1524,8 @@
       "color": "0021a5",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1614.62,
-      "daily_change": 0.89,
+      "elo": 1616.09,
+      "daily_change": 2.36,
       "wins": 3,
       "losses": 1,
       "conference_wins": 0,
@@ -1541,8 +1541,8 @@
       "color": "231f20",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1614.54,
-      "daily_change": 49.41,
+      "elo": 1614.61,
+      "daily_change": 49.48,
       "wins": 3,
       "losses": 1,
       "conference_wins": 0,
@@ -1558,8 +1558,8 @@
       "color": "127dbe",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1609.98,
-      "daily_change": -10.69,
+      "elo": 1610,
+      "daily_change": -10.67,
       "wins": 2,
       "losses": 0,
       "conference_wins": 0,
@@ -1575,8 +1575,8 @@
       "color": "3D2777",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1609.86,
-      "daily_change": -2.8,
+      "elo": 1609.82,
+      "daily_change": -2.84,
       "wins": 3,
       "losses": 1,
       "conference_wins": 0,
@@ -1592,8 +1592,8 @@
       "color": "da291c",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1609.69,
-      "daily_change": 0.07,
+      "elo": 1609.72,
+      "daily_change": 0.1,
       "wins": 2,
       "losses": 0,
       "conference_wins": 0,
@@ -1626,14 +1626,31 @@
       "color": "cc0000",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1605.34,
-      "daily_change": -0.25,
+      "elo": 1605.3,
+      "daily_change": -0.29,
       "wins": 3,
       "losses": 1,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 4,
       "rank": 95
+    },
+    {
+      "team_id": "58",
+      "team": "South Florida Bulls",
+      "conference": "American Conference",
+      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/58.png",
+      "color": "006747",
+      "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
+      "base_elo": 1500,
+      "elo": 1603.67,
+      "daily_change": 17.42,
+      "wins": 3,
+      "losses": 1,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 4,
+      "rank": 96
     },
     {
       "team_id": "2405",
@@ -1643,14 +1660,14 @@
       "color": "051844",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1603.02,
-      "daily_change": 2.64,
+      "elo": 1603.05,
+      "daily_change": 2.67,
       "wins": 2,
       "losses": 1,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 96
+      "rank": 97
     },
     {
       "team_id": "107",
@@ -1667,7 +1684,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 4,
-      "rank": 97
+      "rank": 98
     },
     {
       "team_id": "82",
@@ -1677,14 +1694,14 @@
       "color": "001e62",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1601.56,
-      "daily_change": 3.22,
+      "elo": 1602.15,
+      "daily_change": 3.81,
       "wins": 3,
       "losses": 1,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 4,
-      "rank": 98
+      "rank": 99
     },
     {
       "team_id": "68",
@@ -1701,7 +1718,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 99
+      "rank": 100
     },
     {
       "team_id": "59",
@@ -1711,14 +1728,14 @@
       "color": "b3a369",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1599.26,
-      "daily_change": 31.93,
+      "elo": 1599.35,
+      "daily_change": 32.02,
       "wins": 3,
       "losses": 1,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 4,
-      "rank": 100
+      "rank": 101
     },
     {
       "team_id": "5",
@@ -1735,7 +1752,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 1,
-      "rank": 101
+      "rank": 102
     },
     {
       "team_id": "2230",
@@ -1745,30 +1762,13 @@
       "color": "830032",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1593.72,
-      "daily_change": 0,
+      "elo": 1593.74,
+      "daily_change": 0.02,
       "wins": 2,
       "losses": 0,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 102
-    },
-    {
-      "team_id": "58",
-      "team": "South Florida Bulls",
-      "conference": "American Conference",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/58.png",
-      "color": "006747",
-      "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
-      "base_elo": 1500,
-      "elo": 1591.87,
-      "daily_change": 5.62,
-      "wins": 3,
-      "losses": 1,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 4,
       "rank": 103
     },
     {
@@ -1796,8 +1796,8 @@
       "color": "ba0c2f",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1588.27,
-      "daily_change": 4.37,
+      "elo": 1588.47,
+      "daily_change": 4.57,
       "wins": 3,
       "losses": 1,
       "conference_wins": 0,
@@ -1864,8 +1864,8 @@
       "color": "660819",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1582.64,
-      "daily_change": -6.68,
+      "elo": 1582.32,
+      "daily_change": -7,
       "wins": 3,
       "losses": 1,
       "conference_wins": 0,
@@ -1898,8 +1898,8 @@
       "color": "000000",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1578.14,
-      "daily_change": 0.42,
+      "elo": 1578.41,
+      "daily_change": 0.69,
       "wins": 3,
       "losses": 1,
       "conference_wins": 0,
@@ -1915,8 +1915,8 @@
       "color": "091f3f",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1572.98,
-      "daily_change": 31.63,
+      "elo": 1577.63,
+      "daily_change": 36.28,
       "wins": 2,
       "losses": 2,
       "conference_wins": 0,
@@ -1932,8 +1932,8 @@
       "color": "110E42",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1572.28,
-      "daily_change": -4.7,
+      "elo": 1572.3,
+      "daily_change": -4.68,
       "wins": 3,
       "losses": 1,
       "conference_wins": 0,
@@ -2085,8 +2085,8 @@
       "color": "CC0001",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1561.45,
-      "daily_change": -0.47,
+      "elo": 1561.44,
+      "daily_change": -0.48,
       "wins": 2,
       "losses": 1,
       "conference_wins": 0,
@@ -2136,8 +2136,8 @@
       "color": "154734",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1550.79,
-      "daily_change": 0.28,
+      "elo": 1550.76,
+      "daily_change": 0.25,
       "wins": 1,
       "losses": 0,
       "conference_wins": 0,
@@ -2153,8 +2153,8 @@
       "color": "002843",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1550.68,
-      "daily_change": 0.92,
+      "elo": 1550.75,
+      "daily_change": 0.99,
       "wins": 1,
       "losses": 1,
       "conference_wins": 0,
@@ -2238,8 +2238,8 @@
       "color": "00614A",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1548.02,
-      "daily_change": 8.66,
+      "elo": 1548.03,
+      "daily_change": 8.67,
       "wins": 2,
       "losses": 2,
       "conference_wins": 0,
@@ -2255,8 +2255,8 @@
       "color": "0857B1",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1546.15,
-      "daily_change": -59.79,
+      "elo": 1546.16,
+      "daily_change": -59.78,
       "wins": 2,
       "losses": 1,
       "conference_wins": 0,
@@ -2306,31 +2306,14 @@
       "color": "9e0712",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1540.06,
-      "daily_change": 3.13,
+      "elo": 1541.01,
+      "daily_change": 4.08,
       "wins": 2,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 4,
       "rank": 135
-    },
-    {
-      "team_id": "2110",
-      "team": "Central Arkansas Sugar Bears",
-      "conference": "United Athletic Conference",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2110.png",
-      "color": "a7a9ac",
-      "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
-      "base_elo": 1500,
-      "elo": 1536.26,
-      "daily_change": 6.92,
-      "wins": 1,
-      "losses": 1,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "rank": 136
     },
     {
       "team_id": "2382",
@@ -2347,7 +2330,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 137
+      "rank": 136
     },
     {
       "team_id": "2335",
@@ -2357,31 +2340,31 @@
       "color": "0a254e",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1535.56,
-      "daily_change": -0.46,
+      "elo": 1535.55,
+      "daily_change": -0.47,
+      "wins": 1,
+      "losses": 1,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "rank": 137
+    },
+    {
+      "team_id": "2110",
+      "team": "Central Arkansas Sugar Bears",
+      "conference": "United Athletic Conference",
+      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2110.png",
+      "color": "a7a9ac",
+      "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
+      "base_elo": 1500,
+      "elo": 1535.46,
+      "daily_change": 6.12,
       "wins": 1,
       "losses": 1,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
       "rank": 138
-    },
-    {
-      "team_id": "2653",
-      "team": "Troy Trojans",
-      "conference": "Sun Belt Conference",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2653.png",
-      "color": "862633",
-      "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
-      "base_elo": 1500,
-      "elo": 1534.09,
-      "daily_change": -1.44,
-      "wins": 1,
-      "losses": 1,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "rank": 139
     },
     {
       "team_id": "2572",
@@ -2391,14 +2374,14 @@
       "color": "ffc72c",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1533.17,
-      "daily_change": 36.21,
+      "elo": 1533.28,
+      "daily_change": 36.32,
       "wins": 2,
       "losses": 1,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 140
+      "rank": 139
     },
     {
       "team_id": "93",
@@ -2408,14 +2391,14 @@
       "color": "002148",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1527.29,
-      "daily_change": 3.53,
+      "elo": 1528.02,
+      "daily_change": 4.26,
       "wins": 2,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 4,
-      "rank": 141
+      "rank": 140
     },
     {
       "team_id": "2655",
@@ -2425,14 +2408,14 @@
       "color": "006747",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1526.91,
-      "daily_change": 24.33,
+      "elo": 1526.92,
+      "daily_change": 24.34,
       "wins": 2,
       "losses": 1,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 142
+      "rank": 141
     },
     {
       "team_id": "2454",
@@ -2442,14 +2425,14 @@
       "color": "004B8D",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1525.39,
-      "daily_change": 74.39,
+      "elo": 1525.38,
+      "daily_change": 74.38,
       "wins": 1,
       "losses": 1,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 143
+      "rank": 142
     },
     {
       "team_id": "2908",
@@ -2466,7 +2449,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 144
+      "rank": 143
     },
     {
       "team_id": "119",
@@ -2476,14 +2459,14 @@
       "color": "FFC229",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1524.74,
-      "daily_change": 58.52,
+      "elo": 1524.76,
+      "daily_change": 58.54,
       "wins": 2,
       "losses": 1,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 145
+      "rank": 144
     },
     {
       "team_id": "70",
@@ -2500,7 +2483,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 146
+      "rank": 145
     },
     {
       "team_id": "269",
@@ -2510,14 +2493,14 @@
       "color": "003366",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1523.83,
-      "daily_change": -4.55,
+      "elo": 1523.92,
+      "daily_change": -4.46,
       "wins": 2,
       "losses": 1,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 147
+      "rank": 146
     },
     {
       "team_id": "2084",
@@ -2534,7 +2517,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 148
+      "rank": 147
     },
     {
       "team_id": "24",
@@ -2551,7 +2534,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 149
+      "rank": 148
     },
     {
       "team_id": "300",
@@ -2568,7 +2551,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 150
+      "rank": 149
     },
     {
       "team_id": "98",
@@ -2578,14 +2561,14 @@
       "color": "e13a3e",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1520.27,
-      "daily_change": 1.21,
+      "elo": 1520.21,
+      "daily_change": 1.15,
       "wins": 1,
       "losses": 1,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 151
+      "rank": 150
     },
     {
       "team_id": "295",
@@ -2595,14 +2578,14 @@
       "color": "003768",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1519.17,
-      "daily_change": 1.19,
+      "elo": 1519.37,
+      "daily_change": 1.39,
       "wins": 2,
       "losses": 1,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 152
+      "rank": 151
     },
     {
       "team_id": "2520",
@@ -2619,7 +2602,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 153
+      "rank": 152
     },
     {
       "team_id": "256",
@@ -2636,7 +2619,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 4,
-      "rank": 154
+      "rank": 153
     },
     {
       "team_id": "2244",
@@ -2646,14 +2629,14 @@
       "color": "016600",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1518.3,
-      "daily_change": 2.78,
+      "elo": 1518.31,
+      "daily_change": 2.79,
       "wins": 2,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 4,
-      "rank": 155
+      "rank": 154
     },
     {
       "team_id": "2754",
@@ -2670,7 +2653,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 156
+      "rank": 155
     },
     {
       "team_id": "204",
@@ -2687,7 +2670,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 157
+      "rank": 156
     },
     {
       "team_id": "139",
@@ -2704,7 +2687,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 158
+      "rank": 157
     },
     {
       "team_id": "2710",
@@ -2721,7 +2704,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 159
+      "rank": 158
     },
     {
       "team_id": "294",
@@ -2738,7 +2721,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 160
+      "rank": 159
     },
     {
       "team_id": "2226",
@@ -2755,7 +2738,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 4,
-      "rank": 161
+      "rank": 160
     },
     {
       "team_id": "265",
@@ -2772,7 +2755,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 162
+      "rank": 161
     },
     {
       "team_id": "2132",
@@ -2789,7 +2772,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 163
+      "rank": 162
     },
     {
       "team_id": "2739",
@@ -2799,14 +2782,14 @@
       "color": "006633",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1512.26,
-      "daily_change": 6.72,
+      "elo": 1512.34,
+      "daily_change": 6.8,
       "wins": 1,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 164
+      "rank": 163
     },
     {
       "team_id": "278",
@@ -2823,7 +2806,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 165
+      "rank": 164
     },
     {
       "team_id": "2729",
@@ -2833,14 +2816,14 @@
       "color": "115740",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1511.04,
-      "daily_change": -1.21,
+      "elo": 1511.08,
+      "daily_change": -1.17,
       "wins": 1,
       "losses": 1,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 166
+      "rank": 165
     },
     {
       "team_id": "2005",
@@ -2857,7 +2840,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 167
+      "rank": 166
     },
     {
       "team_id": "350",
@@ -2874,7 +2857,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 168
+      "rank": 167
     },
     {
       "team_id": "2492",
@@ -2891,7 +2874,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 169
+      "rank": 168
     },
     {
       "team_id": "2627",
@@ -2908,7 +2891,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 170
+      "rank": 169
     },
     {
       "team_id": "2523",
@@ -2918,14 +2901,14 @@
       "color": "00214D",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1503.35,
-      "daily_change": 9.61,
+      "elo": 1503.48,
+      "daily_change": 9.74,
       "wins": 2,
       "losses": 1,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 171
+      "rank": 170
     },
     {
       "team_id": "2393",
@@ -2942,7 +2925,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 172
+      "rank": 171
     },
     {
       "team_id": "2046",
@@ -2952,14 +2935,14 @@
       "color": "8e0b0b",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1500.82,
-      "daily_change": -0.58,
+      "elo": 1500.9,
+      "daily_change": -0.5,
       "wins": 1,
       "losses": 1,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 173
+      "rank": 172
     },
     {
       "team_id": "13",
@@ -2976,7 +2959,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 174
+      "rank": 173
     },
     {
       "team_id": "526",
@@ -2993,7 +2976,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 175
+      "rank": 174
     },
     {
       "team_id": "140",
@@ -3010,7 +2993,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 176
+      "rank": 175
     },
     {
       "team_id": "2275",
@@ -3020,14 +3003,14 @@
       "color": "003594",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1496.56,
-      "daily_change": 5.71,
+      "elo": 1496.58,
+      "daily_change": 5.73,
       "wins": 1,
       "losses": 1,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 177
+      "rank": 176
     },
     {
       "team_id": "2184",
@@ -3044,24 +3027,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 178
-    },
-    {
-      "team_id": "2453",
-      "team": "North Alabama Lions",
-      "conference": "United Athletic Conference",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2453.png",
-      "color": "000000",
-      "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
-      "base_elo": 1500,
-      "elo": 1495.98,
-      "daily_change": -1.29,
-      "wins": 1,
-      "losses": 2,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 3,
-      "rank": 178
+      "rank": 177
     },
     {
       "team_id": "2547",
@@ -3078,7 +3044,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 4,
-      "rank": 180
+      "rank": 178
     },
     {
       "team_id": "2065",
@@ -3095,7 +3061,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 181
+      "rank": 179
     },
     {
       "team_id": "2747",
@@ -3112,7 +3078,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 182
+      "rank": 180
     },
     {
       "team_id": "2698",
@@ -3129,7 +3095,24 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 183
+      "rank": 181
+    },
+    {
+      "team_id": "2453",
+      "team": "North Alabama Lions",
+      "conference": "United Athletic Conference",
+      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2453.png",
+      "color": "000000",
+      "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
+      "base_elo": 1500,
+      "elo": 1494.04,
+      "daily_change": -3.23,
+      "wins": 1,
+      "losses": 2,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 3,
+      "rank": 182
     },
     {
       "team_id": "2870",
@@ -3146,7 +3129,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 4,
-      "rank": 184
+      "rank": 183
     },
     {
       "team_id": "2535",
@@ -3156,14 +3139,14 @@
       "color": "005485",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1493.19,
-      "daily_change": 7.48,
+      "elo": 1493.21,
+      "daily_change": 7.5,
       "wins": 1,
       "losses": 1,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 185
+      "rank": 184
     },
     {
       "team_id": "113",
@@ -3180,7 +3163,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 186
+      "rank": 185
     },
     {
       "team_id": "71",
@@ -3197,7 +3180,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 187
+      "rank": 186
     },
     {
       "team_id": "2350",
@@ -3207,14 +3190,14 @@
       "color": "9d1244",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1482.59,
-      "daily_change": 2.31,
+      "elo": 1482.65,
+      "daily_change": 2.37,
       "wins": 2,
       "losses": 1,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 188
+      "rank": 187
     },
     {
       "team_id": "2565",
@@ -3231,7 +3214,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 189
+      "rank": 188
     },
     {
       "team_id": "2250",
@@ -3248,7 +3231,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 190
+      "rank": 189
     },
     {
       "team_id": "249",
@@ -3258,14 +3241,14 @@
       "color": "068f33",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1478.75,
-      "daily_change": 0.19,
+      "elo": 1478.76,
+      "daily_change": 0.2,
       "wins": 1,
       "losses": 1,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 191
+      "rank": 190
     },
     {
       "team_id": "2168",
@@ -3275,14 +3258,14 @@
       "color": "004B8D",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1473.37,
-      "daily_change": 0.09,
+      "elo": 1473.47,
+      "daily_change": 0.19,
       "wins": 1,
       "losses": 1,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 192
+      "rank": 191
     },
     {
       "team_id": "2670",
@@ -3299,7 +3282,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 193
+      "rank": 192
     },
     {
       "team_id": "2174",
@@ -3309,14 +3292,14 @@
       "color": "165b9e",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1464.09,
-      "daily_change": -5.35,
+      "elo": 1464.11,
+      "daily_change": -5.33,
       "wins": 1,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 194
+      "rank": 193
     },
     {
       "team_id": "222",
@@ -3326,14 +3309,14 @@
       "color": "00205b",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1462.79,
-      "daily_change": 56.11,
+      "elo": 1463.41,
+      "daily_change": 56.73,
       "wins": 1,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 195
+      "rank": 194
     },
     {
       "team_id": "232",
@@ -3350,7 +3333,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 196
+      "rank": 195
     },
     {
       "team_id": "153",
@@ -3367,7 +3350,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 197
+      "rank": 196
     },
     {
       "team_id": "2515",
@@ -3377,14 +3360,14 @@
       "color": "BC1515",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1461.52,
-      "daily_change": -12.42,
+      "elo": 1461.51,
+      "daily_change": -12.43,
       "wins": 1,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 198
+      "rank": 197
     },
     {
       "team_id": "161",
@@ -3394,31 +3377,14 @@
       "color": "72293c",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1460.53,
-      "daily_change": 48.05,
+      "elo": 1459.98,
+      "daily_change": 47.5,
       "wins": 1,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 199
-    },
-    {
-      "team_id": "2630",
-      "team": "UT Martin Skyhawks",
-      "conference": "Ohio Valley Conference",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2630.png",
-      "color": "FF6700",
-      "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
-      "base_elo": 1500,
-      "elo": 1459.33,
-      "daily_change": -36.07,
-      "wins": 1,
-      "losses": 2,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 3,
-      "rank": 200
+      "rank": 198
     },
     {
       "team_id": "2571",
@@ -3428,14 +3394,14 @@
       "color": "0033a0",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1458.29,
-      "daily_change": -8.7,
+      "elo": 1458.28,
+      "daily_change": -8.71,
       "wins": 1,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 201
+      "rank": 199
     },
     {
       "team_id": "325",
@@ -3452,7 +3418,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 202
+      "rank": 200
     },
     {
       "team_id": "2182",
@@ -3462,14 +3428,14 @@
       "color": "020260",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1458.04,
-      "daily_change": -2.4,
+      "elo": 1458.06,
+      "daily_change": -2.38,
       "wins": 1,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 203
+      "rank": 201
     },
     {
       "team_id": "2649",
@@ -3486,7 +3452,24 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 204
+      "rank": 202
+    },
+    {
+      "team_id": "2630",
+      "team": "UT Martin Skyhawks",
+      "conference": "Ohio Valley Conference",
+      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2630.png",
+      "color": "FF6700",
+      "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
+      "base_elo": 1500,
+      "elo": 1456.63,
+      "daily_change": -38.77,
+      "wins": 1,
+      "losses": 2,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 3,
+      "rank": 203
     },
     {
       "team_id": "2441",
@@ -3503,7 +3486,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 1,
-      "rank": 205
+      "rank": 204
     },
     {
       "team_id": "2439",
@@ -3520,7 +3503,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 206
+      "rank": 205
     },
     {
       "team_id": "202",
@@ -3537,7 +3520,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 207
+      "rank": 206
     },
     {
       "team_id": "288",
@@ -3547,14 +3530,14 @@
       "color": "20366C",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1453.6,
-      "daily_change": 48.43,
+      "elo": 1453.72,
+      "daily_change": 48.55,
       "wins": 1,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 208
+      "rank": 207
     },
     {
       "team_id": "2329",
@@ -3564,14 +3547,14 @@
       "color": "6c2b2a",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1452.86,
-      "daily_change": 8.24,
+      "elo": 1452.87,
+      "daily_change": 8.25,
       "wins": 1,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 209
+      "rank": 208
     },
     {
       "team_id": "236",
@@ -3581,14 +3564,14 @@
       "color": "00386b",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1452.74,
-      "daily_change": 0.35,
+      "elo": 1452.38,
+      "daily_change": -0.01,
       "wins": 1,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 210
+      "rank": 209
     },
     {
       "team_id": "2016",
@@ -3598,14 +3581,14 @@
       "color": "4b0058",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1450.36,
-      "daily_change": -0.13,
+      "elo": 1450.32,
+      "daily_change": -0.17,
       "wins": 0,
       "losses": 1,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 1,
-      "rank": 211
+      "rank": 210
     },
     {
       "team_id": "2638",
@@ -3622,7 +3605,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 212
+      "rank": 211
     },
     {
       "team_id": "279",
@@ -3639,7 +3622,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 1,
-      "rank": 213
+      "rank": 212
     },
     {
       "team_id": "160",
@@ -3656,7 +3639,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 214
+      "rank": 213
     },
     {
       "team_id": "103",
@@ -3673,7 +3656,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 215
+      "rank": 214
     },
     {
       "team_id": "331",
@@ -3690,7 +3673,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 216
+      "rank": 215
     },
     {
       "team_id": "2737",
@@ -3707,24 +3690,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 1,
-      "rank": 217
-    },
-    {
-      "team_id": "357",
-      "team": "Texas A&M-Corpus Christi Islanders",
-      "conference": "Southland Conference",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/357.png",
-      "color": "0067c5",
-      "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
-      "base_elo": 1500,
-      "elo": 1448.39,
-      "daily_change": 7.31,
-      "wins": 0,
-      "losses": 1,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 1,
-      "rank": 218
+      "rank": 216
     },
     {
       "team_id": "2504",
@@ -3734,14 +3700,14 @@
       "color": "582c83",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1447.95,
-      "daily_change": -52.05,
+      "elo": 1447.1,
+      "daily_change": -52.9,
       "wins": 0,
       "losses": 1,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 1,
-      "rank": 219
+      "rank": 217
     },
     {
       "team_id": "2934",
@@ -3758,7 +3724,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 1,
-      "rank": 220
+      "rank": 218
     },
     {
       "team_id": "253",
@@ -3775,7 +3741,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 1,
-      "rank": 221
+      "rank": 219
     },
     {
       "team_id": "77",
@@ -3785,14 +3751,14 @@
       "color": "492f92",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1445.44,
-      "daily_change": 13.49,
+      "elo": 1445.51,
+      "daily_change": 13.56,
       "wins": 1,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 222
+      "rank": 220
     },
     {
       "team_id": "322",
@@ -3802,14 +3768,14 @@
       "color": "790000",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1443.26,
-      "daily_change": -13.31,
+      "elo": 1443.41,
+      "daily_change": -13.16,
       "wins": 1,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 223
+      "rank": 221
     },
     {
       "team_id": "47",
@@ -3819,14 +3785,14 @@
       "color": "003a63",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1443.11,
-      "daily_change": -30.91,
+      "elo": 1443.08,
+      "daily_change": -30.94,
       "wins": 1,
       "losses": 3,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 4,
-      "rank": 224
+      "rank": 222
     },
     {
       "team_id": "3084",
@@ -3843,7 +3809,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 1,
-      "rank": 225
+      "rank": 223
     },
     {
       "team_id": "2534",
@@ -3860,7 +3826,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 1,
-      "rank": 226
+      "rank": 224
     },
     {
       "team_id": "2837",
@@ -3870,14 +3836,14 @@
       "color": "000000",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1442.38,
-      "daily_change": -0.11,
+      "elo": 1442.41,
+      "daily_change": -0.08,
       "wins": 1,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 227
+      "rank": 225
     },
     {
       "team_id": "2617",
@@ -3894,7 +3860,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 1,
-      "rank": 228
+      "rank": 226
     },
     {
       "team_id": "2426",
@@ -3911,7 +3877,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 229
+      "rank": 227
     },
     {
       "team_id": "2636",
@@ -3928,7 +3894,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 230
+      "rank": 228
     },
     {
       "team_id": "2154",
@@ -3945,7 +3911,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 231
+      "rank": 229
     },
     {
       "team_id": "2458",
@@ -3955,14 +3921,14 @@
       "color": "13558D",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1440.65,
-      "daily_change": 1.15,
+      "elo": 1440.64,
+      "daily_change": 1.14,
       "wins": 0,
       "losses": 1,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 1,
-      "rank": 232
+      "rank": 230
     },
     {
       "team_id": "2459",
@@ -3979,7 +3945,24 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 233
+      "rank": 231
+    },
+    {
+      "team_id": "2653",
+      "team": "Troy Trojans",
+      "conference": "Sun Belt Conference",
+      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2653.png",
+      "color": "862633",
+      "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
+      "base_elo": 1500,
+      "elo": 1438.93,
+      "daily_change": -96.6,
+      "wins": 1,
+      "losses": 2,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 3,
+      "rank": 232
     },
     {
       "team_id": "2010",
@@ -3996,7 +3979,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 1,
-      "rank": 234
+      "rank": 233
     },
     {
       "team_id": "2916",
@@ -4013,7 +3996,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 235
+      "rank": 234
     },
     {
       "team_id": "2463",
@@ -4030,7 +4013,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 1,
-      "rank": 236
+      "rank": 235
     },
     {
       "team_id": "2229",
@@ -4047,7 +4030,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 237
+      "rank": 236
     },
     {
       "team_id": "302",
@@ -4064,7 +4047,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 238
+      "rank": 237
     },
     {
       "team_id": "2377",
@@ -4081,7 +4064,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 239
+      "rank": 238
     },
     {
       "team_id": "2751",
@@ -4098,7 +4081,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 240
+      "rank": 239
     },
     {
       "team_id": "261",
@@ -4115,7 +4098,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 241
+      "rank": 240
     },
     {
       "team_id": "85",
@@ -4125,14 +4108,14 @@
       "color": "A81F30",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1423.23,
-      "daily_change": 0.16,
+      "elo": 1423.24,
+      "daily_change": 0.17,
       "wins": 1,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 242
+      "rank": 241
     },
     {
       "team_id": "2050",
@@ -4149,7 +4132,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 243
+      "rank": 242
     },
     {
       "team_id": "2460",
@@ -4159,13 +4142,30 @@
       "color": "473282",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1421.63,
-      "daily_change": -40.18,
+      "elo": 1421.64,
+      "daily_change": -40.17,
       "wins": 1,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
+      "rank": 243
+    },
+    {
+      "team_id": "2057",
+      "team": "Belmont Bruins",
+      "conference": "Missouri Valley Conference",
+      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2057.png",
+      "color": "182142",
+      "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
+      "base_elo": 1500,
+      "elo": 1421.3,
+      "daily_change": 74.19,
+      "wins": 1,
+      "losses": 3,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 4,
       "rank": 244
     },
     {
@@ -4193,14 +4193,31 @@
       "color": "0067AC",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1416.88,
-      "daily_change": 0.04,
+      "elo": 1416.91,
+      "daily_change": 0.07,
       "wins": 0,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
       "rank": 246
+    },
+    {
+      "team_id": "357",
+      "team": "Texas A&M-Corpus Christi Islanders",
+      "conference": "Southland Conference",
+      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/357.png",
+      "color": "0067c5",
+      "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
+      "base_elo": 1500,
+      "elo": 1413.25,
+      "daily_change": -27.83,
+      "wins": 0,
+      "losses": 2,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "rank": 247
     },
     {
       "team_id": "2429",
@@ -4210,14 +4227,14 @@
       "color": "005035",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1412.23,
-      "daily_change": 0.4,
+      "elo": 1412.42,
+      "daily_change": 0.59,
       "wins": 1,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 247
+      "rank": 248
     },
     {
       "team_id": "2447",
@@ -4234,7 +4251,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 248
+      "rank": 249
     },
     {
       "team_id": "282",
@@ -4244,14 +4261,14 @@
       "color": "00669a",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1411.96,
-      "daily_change": -8.25,
+      "elo": 1411.98,
+      "daily_change": -8.23,
       "wins": 1,
       "losses": 3,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 4,
-      "rank": 249
+      "rank": 250
     },
     {
       "team_id": "3101",
@@ -4268,7 +4285,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 1,
-      "rank": 250
+      "rank": 251
     },
     {
       "team_id": "2448",
@@ -4285,7 +4302,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 251
+      "rank": 252
     },
     {
       "team_id": "2635",
@@ -4295,14 +4312,14 @@
       "color": "5A4099",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1410.22,
-      "daily_change": 6.37,
+      "elo": 1410.18,
+      "daily_change": 6.33,
       "wins": 0,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 252
+      "rank": 253
     },
     {
       "team_id": "2330",
@@ -4312,14 +4329,14 @@
       "color": "000000",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1410.06,
-      "daily_change": 2.62,
+      "elo": 1410.09,
+      "daily_change": 2.65,
       "wins": 0,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 253
+      "rank": 254
     },
     {
       "team_id": "23",
@@ -4336,7 +4353,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 254
+      "rank": 255
     },
     {
       "team_id": "2349",
@@ -4353,7 +4370,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 255
+      "rank": 256
     },
     {
       "team_id": "2511",
@@ -4370,7 +4387,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 256
+      "rank": 257
     },
     {
       "team_id": "2473",
@@ -4387,7 +4404,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 257
+      "rank": 258
     },
     {
       "team_id": "2427",
@@ -4404,7 +4421,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 258
+      "rank": 259
     },
     {
       "team_id": "2501",
@@ -4421,7 +4438,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 259
+      "rank": 260
     },
     {
       "team_id": "2325",
@@ -4431,14 +4448,14 @@
       "color": "003356",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1405.78,
-      "daily_change": -8.28,
+      "elo": 1405.8,
+      "daily_change": -8.26,
       "wins": 1,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 260
+      "rank": 261
     },
     {
       "team_id": "172",
@@ -4448,14 +4465,14 @@
       "color": "b31b1b",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1403.9,
-      "daily_change": 3.29,
+      "elo": 1403.97,
+      "daily_change": 3.36,
       "wins": 0,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 261
+      "rank": 262
     },
     {
       "team_id": "2545",
@@ -4472,7 +4489,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 262
+      "rank": 263
     },
     {
       "team_id": "2750",
@@ -4482,14 +4499,14 @@
       "color": "cba052",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1402.97,
-      "daily_change": 12.49,
+      "elo": 1403.31,
+      "daily_change": 12.83,
       "wins": 0,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 263
+      "rank": 264
     },
     {
       "team_id": "2561",
@@ -4499,14 +4516,14 @@
       "color": "037961",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1402.44,
-      "daily_change": 0.67,
+      "elo": 1402.45,
+      "daily_change": 0.68,
       "wins": 1,
       "losses": 3,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 4,
-      "rank": 264
+      "rank": 265
     },
     {
       "team_id": "2379",
@@ -4516,14 +4533,31 @@
       "color": "5c2301",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1400.53,
-      "daily_change": -52.42,
+      "elo": 1400.56,
+      "daily_change": -52.39,
       "wins": 0,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 265
+      "rank": 266
+    },
+    {
+      "team_id": "231",
+      "team": "Furman Paladins",
+      "conference": "Southern Conference",
+      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/231.png",
+      "color": "582c83",
+      "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
+      "base_elo": 1500,
+      "elo": 1398.86,
+      "daily_change": 4.1,
+      "wins": 0,
+      "losses": 2,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "rank": 267
     },
     {
       "team_id": "250",
@@ -4540,7 +4574,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 266
+      "rank": 268
     },
     {
       "team_id": "79",
@@ -4550,31 +4584,31 @@
       "color": "85283D",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1397.98,
-      "daily_change": -1.17,
+      "elo": 1397.93,
+      "daily_change": -1.22,
       "wins": 0,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 267
+      "rank": 269
     },
     {
-      "team_id": "231",
-      "team": "Furman Paladins",
-      "conference": "Southern Conference",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/231.png",
-      "color": "582c83",
+      "team_id": "2166",
+      "team": "Davidson Wildcats",
+      "conference": "Atlantic 10 Conference",
+      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2166.png",
+      "color": "000000",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1396.74,
-      "daily_change": 1.98,
-      "wins": 0,
-      "losses": 2,
+      "elo": 1397.36,
+      "daily_change": -6.2,
+      "wins": 1,
+      "losses": 3,
       "conference_wins": 0,
       "conference_losses": 0,
-      "games_played": 2,
-      "rank": 268
+      "games_played": 4,
+      "rank": 270
     },
     {
       "team_id": "2900",
@@ -4591,7 +4625,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 1,
-      "rank": 268
+      "rank": 271
     },
     {
       "team_id": "62",
@@ -4608,7 +4642,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 270
+      "rank": 272
     },
     {
       "team_id": "299",
@@ -4625,7 +4659,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 271
+      "rank": 273
     },
     {
       "team_id": "2241",
@@ -4642,24 +4676,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 1,
-      "rank": 272
-    },
-    {
-      "team_id": "2166",
-      "team": "Davidson Wildcats",
-      "conference": "Atlantic 10 Conference",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2166.png",
-      "color": "000000",
-      "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
-      "base_elo": 1500,
-      "elo": 1396,
-      "daily_change": -7.56,
-      "wins": 1,
-      "losses": 3,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 4,
-      "rank": 273
+      "rank": 274
     },
     {
       "team_id": "2169",
@@ -4669,14 +4686,14 @@
       "color": "009cdb",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1393.74,
-      "daily_change": 55.57,
+      "elo": 1393.79,
+      "daily_change": 55.62,
       "wins": 1,
       "losses": 3,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 4,
-      "rank": 274
+      "rank": 275
     },
     {
       "team_id": "2507",
@@ -4693,7 +4710,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 275
+      "rank": 276
     },
     {
       "team_id": "2011",
@@ -4703,14 +4720,14 @@
       "color": "e9a900",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1392.17,
-      "daily_change": 1.01,
+      "elo": 1392.2,
+      "daily_change": 1.04,
       "wins": 0,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 276
+      "rank": 277
     },
     {
       "team_id": "270",
@@ -4720,14 +4737,14 @@
       "color": "000000",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1391.98,
-      "daily_change": 74.25,
+      "elo": 1391.99,
+      "daily_change": 74.26,
       "wins": 1,
       "losses": 3,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 4,
-      "rank": 277
+      "rank": 278
     },
     {
       "team_id": "50",
@@ -4737,30 +4754,13 @@
       "color": "F89728",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1390.48,
-      "daily_change": 1.05,
+      "elo": 1390.53,
+      "daily_change": 1.1,
       "wins": 0,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 278
-    },
-    {
-      "team_id": "94",
-      "team": "Northern Kentucky Norse",
-      "conference": "Horizon League",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/94.png",
-      "color": "ffc82e",
-      "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
-      "base_elo": 1500,
-      "elo": 1390.43,
-      "daily_change": 0.04,
-      "wins": 1,
-      "losses": 2,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 3,
       "rank": 279
     },
     {
@@ -4781,6 +4781,23 @@
       "rank": 280
     },
     {
+      "team_id": "2130",
+      "team": "Chicago State Cougars",
+      "conference": "Northeast Conference",
+      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2130.png",
+      "color": "006700",
+      "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
+      "base_elo": 1500,
+      "elo": 1389.93,
+      "daily_change": 0.39,
+      "wins": 1,
+      "losses": 3,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 4,
+      "rank": 281
+    },
+    {
       "team_id": "55",
       "team": "Jacksonville State Gamecocks",
       "conference": "Conference USA",
@@ -4788,14 +4805,14 @@
       "color": "cc0000",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1389.06,
-      "daily_change": -0.3,
+      "elo": 1388.61,
+      "daily_change": -0.75,
       "wins": 0,
       "losses": 1,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 1,
-      "rank": 281
+      "rank": 282
     },
     {
       "team_id": "2815",
@@ -4812,24 +4829,24 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 4,
-      "rank": 282
+      "rank": 283
     },
     {
-      "team_id": "2130",
-      "team": "Chicago State Cougars",
-      "conference": "Northeast Conference",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2130.png",
-      "color": "006700",
+      "team_id": "94",
+      "team": "Northern Kentucky Norse",
+      "conference": "Horizon League",
+      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/94.png",
+      "color": "ffc82e",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1384.79,
-      "daily_change": -4.75,
+      "elo": 1387.04,
+      "daily_change": -3.35,
       "wins": 1,
-      "losses": 3,
+      "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
-      "games_played": 4,
-      "rank": 283
+      "games_played": 3,
+      "rank": 284
     },
     {
       "team_id": "198",
@@ -4846,7 +4863,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 284
+      "rank": 285
     },
     {
       "team_id": "309",
@@ -4863,7 +4880,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 285
+      "rank": 286
     },
     {
       "team_id": "151",
@@ -4880,7 +4897,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 286
+      "rank": 287
     },
     {
       "team_id": "91",
@@ -4897,7 +4914,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 287
+      "rank": 288
     },
     {
       "team_id": "2172",
@@ -4914,7 +4931,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 4,
-      "rank": 288
+      "rank": 289
     },
     {
       "team_id": "338",
@@ -4931,7 +4948,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 289
+      "rank": 290
     },
     {
       "team_id": "48",
@@ -4948,7 +4965,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 290
+      "rank": 291
     },
     {
       "team_id": "6",
@@ -4958,14 +4975,14 @@
       "color": "00205b",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1375.5,
-      "daily_change": 1.73,
+      "elo": 1375.53,
+      "daily_change": 1.76,
       "wins": 1,
       "losses": 3,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 4,
-      "rank": 291
+      "rank": 292
     },
     {
       "team_id": "2142",
@@ -4982,7 +4999,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 1,
-      "rank": 292
+      "rank": 293
     },
     {
       "team_id": "2464",
@@ -4999,7 +5016,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 293
+      "rank": 294
     },
     {
       "team_id": "155",
@@ -5016,7 +5033,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 1,
-      "rank": 294
+      "rank": 295
     },
     {
       "team_id": "2437",
@@ -5033,7 +5050,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 295
+      "rank": 296
     },
     {
       "team_id": "2466",
@@ -5050,7 +5067,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 296
+      "rank": 297
     },
     {
       "team_id": "2415",
@@ -5067,7 +5084,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 297
+      "rank": 298
     },
     {
       "team_id": "2697",
@@ -5084,7 +5101,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 298
+      "rank": 299
     },
     {
       "team_id": "2634",
@@ -5094,14 +5111,14 @@
       "color": "171796",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1362.97,
-      "daily_change": -0.04,
+      "elo": 1363,
+      "daily_change": -0.01,
       "wins": 0,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 299
+      "rank": 300
     },
     {
       "team_id": "2344",
@@ -5111,14 +5128,14 @@
       "color": "003273",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1362.78,
-      "daily_change": -1.07,
+      "elo": 1362.82,
+      "daily_change": -1.03,
       "wins": 0,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 300
+      "rank": 301
     },
     {
       "team_id": "2612",
@@ -5128,14 +5145,14 @@
       "color": "004CC2",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1362.41,
-      "daily_change": -21.17,
+      "elo": 1362.45,
+      "daily_change": -21.13,
       "wins": 0,
       "losses": 3,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 301
+      "rank": 302
     },
     {
       "team_id": "2296",
@@ -5145,14 +5162,14 @@
       "color": "123297",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1361.67,
-      "daily_change": -43.43,
+      "elo": 1361.68,
+      "daily_change": -43.42,
       "wins": 0,
       "losses": 3,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 302
+      "rank": 303
     },
     {
       "team_id": "2450",
@@ -5169,7 +5186,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 303
+      "rank": 304
     },
     {
       "team_id": "2440",
@@ -5186,7 +5203,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 304
+      "rank": 305
     },
     {
       "team_id": "2582",
@@ -5203,7 +5220,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 305
+      "rank": 306
     },
     {
       "team_id": "2029",
@@ -5220,7 +5237,24 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 306
+      "rank": 307
+    },
+    {
+      "team_id": "112358",
+      "team": "Long Island University Sharks",
+      "conference": "Northeast Conference",
+      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/112358.png",
+      "color": "50c9f7",
+      "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
+      "base_elo": 1500,
+      "elo": 1357.46,
+      "daily_change": 3.17,
+      "wins": 0,
+      "losses": 4,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 4,
+      "rank": 308
     },
     {
       "team_id": "2529",
@@ -5237,7 +5271,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 307
+      "rank": 309
     },
     {
       "team_id": "56",
@@ -5254,7 +5288,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 308
+      "rank": 310
     },
     {
       "team_id": "2546",
@@ -5271,7 +5305,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 309
+      "rank": 311
     },
     {
       "team_id": "2608",
@@ -5288,7 +5322,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 310
+      "rank": 312
     },
     {
       "team_id": "2640",
@@ -5298,14 +5332,14 @@
       "color": "860038",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1355.47,
-      "daily_change": -11.15,
+      "elo": 1355.49,
+      "daily_change": -11.13,
       "wins": 0,
       "losses": 3,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 311
+      "rank": 313
     },
     {
       "team_id": "104",
@@ -5315,31 +5349,14 @@
       "color": "cc0000",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1354.74,
-      "daily_change": -0.09,
+      "elo": 1354.73,
+      "daily_change": -0.1,
       "wins": 0,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 312
-    },
-    {
-      "team_id": "112358",
-      "team": "Long Island University Sharks",
-      "conference": "Northeast Conference",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/112358.png",
-      "color": "50c9f7",
-      "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
-      "base_elo": 1500,
-      "elo": 1354.74,
-      "daily_change": 0.45,
-      "wins": 0,
-      "losses": 4,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 4,
-      "rank": 312
+      "rank": 314
     },
     {
       "team_id": "292",
@@ -5356,7 +5373,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 314
+      "rank": 315
     },
     {
       "team_id": "44",
@@ -5366,14 +5383,14 @@
       "color": "c41130",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1354.26,
-      "daily_change": -79.41,
+      "elo": 1354.27,
+      "daily_change": -79.4,
       "wins": 0,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 315
+      "rank": 316
     },
     {
       "team_id": "314",
@@ -5390,7 +5407,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 316
+      "rank": 317
     },
     {
       "team_id": "2506",
@@ -5400,14 +5417,14 @@
       "color": "194896",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1351.65,
-      "daily_change": -2.89,
+      "elo": 1351.66,
+      "daily_change": -2.88,
       "wins": 0,
       "losses": 3,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 317
+      "rank": 318
     },
     {
       "team_id": "2755",
@@ -5424,7 +5441,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 318
+      "rank": 319
     },
     {
       "team_id": "167",
@@ -5441,7 +5458,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 319
+      "rank": 320
     },
     {
       "team_id": "2320",
@@ -5451,14 +5468,14 @@
       "color": "000000",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1348.05,
-      "daily_change": 0.01,
+      "elo": 1348.06,
+      "daily_change": 0.02,
       "wins": 0,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 320
+      "rank": 321
     },
     {
       "team_id": "225",
@@ -5468,14 +5485,14 @@
       "color": "411e09",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1347.73,
-      "daily_change": 0.16,
+      "elo": 1347.74,
+      "daily_change": 0.17,
       "wins": 1,
       "losses": 3,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 4,
-      "rank": 321
+      "rank": 322
     },
     {
       "team_id": "2239",
@@ -5492,7 +5509,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 322
+      "rank": 323
     },
     {
       "team_id": "2363",
@@ -5502,14 +5519,14 @@
       "color": "4f8537",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1346.4,
-      "daily_change": -43.28,
+      "elo": 1346.32,
+      "daily_change": -43.36,
       "wins": 0,
       "losses": 3,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 323
+      "rank": 324
     },
     {
       "team_id": "2724",
@@ -5519,14 +5536,14 @@
       "color": "ffcd00",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1345.6,
-      "daily_change": 0.25,
+      "elo": 1345.61,
+      "daily_change": 0.26,
       "wins": 0,
       "losses": 3,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 324
+      "rank": 325
     },
     {
       "team_id": "27",
@@ -5543,7 +5560,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 325
+      "rank": 326
     },
     {
       "team_id": "2433",
@@ -5553,14 +5570,14 @@
       "color": "840029",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1345.12,
-      "daily_change": 1.62,
+      "elo": 1344.93,
+      "daily_change": 1.43,
       "wins": 0,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 326
+      "rank": 327
     },
     {
       "team_id": "2385",
@@ -5570,14 +5587,14 @@
       "color": "000000",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1343.06,
-      "daily_change": -8.39,
+      "elo": 1343.08,
+      "daily_change": -8.37,
       "wins": 0,
       "losses": 3,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 327
+      "rank": 328
     },
     {
       "team_id": "2210",
@@ -5587,14 +5604,14 @@
       "color": "020303",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1341.1,
-      "daily_change": -8.84,
+      "elo": 1341.09,
+      "daily_change": -8.85,
       "wins": 0,
       "losses": 2,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 2,
-      "rank": 328
+      "rank": 329
     },
     {
       "team_id": "339",
@@ -5604,14 +5621,14 @@
       "color": "663399",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1339,
-      "daily_change": 1.29,
+      "elo": 1338.98,
+      "daily_change": 1.27,
       "wins": 0,
       "losses": 3,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 329
+      "rank": 330
     },
     {
       "team_id": "2449",
@@ -5628,7 +5645,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 330
+      "rank": 331
     },
     {
       "team_id": "2199",
@@ -5638,25 +5655,8 @@
       "color": "006938",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1336.31,
-      "daily_change": 1.41,
-      "wins": 0,
-      "losses": 3,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 3,
-      "rank": 331
-    },
-    {
-      "team_id": "2057",
-      "team": "Belmont Bruins",
-      "conference": "Missouri Valley Conference",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2057.png",
-      "color": "182142",
-      "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
-      "base_elo": 1500,
-      "elo": 1335.66,
-      "daily_change": -11.45,
+      "elo": 1336.36,
+      "daily_change": 1.46,
       "wins": 0,
       "losses": 3,
       "conference_wins": 0,
@@ -5672,8 +5672,8 @@
       "color": "00539c",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1335.18,
-      "daily_change": 1.14,
+      "elo": 1335.2,
+      "daily_change": 1.16,
       "wins": 0,
       "losses": 3,
       "conference_wins": 0,
@@ -5689,8 +5689,8 @@
       "color": "000000",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1334.99,
-      "daily_change": 1.27,
+      "elo": 1335.01,
+      "daily_change": 1.29,
       "wins": 0,
       "losses": 3,
       "conference_wins": 0,
@@ -5723,31 +5723,14 @@
       "color": "000000",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1327.96,
-      "daily_change": 10.56,
+      "elo": 1327.97,
+      "daily_change": 10.57,
       "wins": 0,
       "losses": 4,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 4,
       "rank": 336
-    },
-    {
-      "team_id": "2309",
-      "team": "Kent State Golden Flashes",
-      "conference": "Mid-American Conference",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2309.png",
-      "color": "002664",
-      "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
-      "base_elo": 1500,
-      "elo": 1327.82,
-      "daily_change": -0.3,
-      "wins": 0,
-      "losses": 2,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 2,
-      "rank": 337
     },
     {
       "team_id": "2443",
@@ -5764,7 +5747,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 4,
-      "rank": 338
+      "rank": 337
     },
     {
       "team_id": "2413",
@@ -5774,14 +5757,14 @@
       "color": "094FA3",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1326.93,
-      "daily_change": -0.09,
+      "elo": 1326.96,
+      "daily_change": -0.06,
       "wins": 0,
       "losses": 4,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 4,
-      "rank": 339
+      "rank": 338
     },
     {
       "team_id": "2031",
@@ -5791,14 +5774,14 @@
       "color": "AD0000",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1326.01,
-      "daily_change": -51.05,
+      "elo": 1325.97,
+      "daily_change": -51.09,
       "wins": 0,
       "losses": 3,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 340
+      "rank": 339
     },
     {
       "team_id": "2006",
@@ -5815,7 +5798,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 341
+      "rank": 340
     },
     {
       "team_id": "88",
@@ -5825,14 +5808,14 @@
       "color": "000000",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1321,
-      "daily_change": 6.52,
+      "elo": 1321.15,
+      "daily_change": 6.67,
       "wins": 0,
       "losses": 3,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 342
+      "rank": 341
     },
     {
       "team_id": "2428",
@@ -5849,7 +5832,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 343
+      "rank": 342
     },
     {
       "team_id": "2368",
@@ -5866,7 +5849,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 4,
-      "rank": 344
+      "rank": 343
     },
     {
       "team_id": "328",
@@ -5883,7 +5866,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 345
+      "rank": 344
     },
     {
       "team_id": "2514",
@@ -5900,7 +5883,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 346
+      "rank": 345
     },
     {
       "team_id": "2032",
@@ -5917,7 +5900,7 @@
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 347
+      "rank": 346
     },
     {
       "team_id": "2117",
@@ -5927,14 +5910,14 @@
       "color": "4c0027",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1313.83,
-      "daily_change": 3.89,
+      "elo": 1313.88,
+      "daily_change": 3.94,
       "wins": 0,
       "losses": 3,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 348
+      "rank": 347
     },
     {
       "team_id": "2674",
@@ -5944,14 +5927,14 @@
       "color": "794500",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1313.3,
-      "daily_change": -38.17,
+      "elo": 1313.31,
+      "daily_change": -38.16,
       "wins": 0,
       "losses": 3,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 349
+      "rank": 348
     },
     {
       "team_id": "213",
@@ -5961,14 +5944,14 @@
       "color": "061440",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1308.69,
-      "daily_change": 0.03,
+      "elo": 1308.7,
+      "daily_change": 0.04,
       "wins": 0,
       "losses": 3,
       "conference_wins": 0,
       "conference_losses": 0,
       "games_played": 3,
-      "rank": 350
+      "rank": 349
     },
     {
       "team_id": "2569",
@@ -5980,6 +5963,23 @@
       "base_elo": 1500,
       "elo": 1307.62,
       "daily_change": 0,
+      "wins": 0,
+      "losses": 2,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 2,
+      "rank": 350
+    },
+    {
+      "team_id": "2309",
+      "team": "Kent State Golden Flashes",
+      "conference": "Mid-American Conference",
+      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2309.png",
+      "color": "002664",
+      "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
+      "base_elo": 1500,
+      "elo": 1305.03,
+      "daily_change": -23.09,
       "wins": 0,
       "losses": 2,
       "conference_wins": 0,
@@ -6012,8 +6012,8 @@
       "color": "000060",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1302.72,
-      "daily_change": 0.11,
+      "elo": 1302.85,
+      "daily_change": 0.24,
       "wins": 0,
       "losses": 3,
       "conference_wins": 0,
@@ -6029,8 +6029,8 @@
       "color": "2f4f93",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1301.61,
-      "daily_change": -48.88,
+      "elo": 1301.72,
+      "daily_change": -48.77,
       "wins": 0,
       "losses": 4,
       "conference_wins": 0,
@@ -6073,6 +6073,23 @@
       "rank": 356
     },
     {
+      "team_id": "2681",
+      "team": "Wagner Seahawks",
+      "conference": "Northeast Conference",
+      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2681.png",
+      "color": "00483A",
+      "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
+      "base_elo": 1500,
+      "elo": 1293.61,
+      "daily_change": -60.14,
+      "wins": 0,
+      "losses": 3,
+      "conference_wins": 0,
+      "conference_losses": 0,
+      "games_played": 3,
+      "rank": 357
+    },
+    {
       "team_id": "2352",
       "team": "Loyola Maryland Greyhounds",
       "conference": "Patriot League",
@@ -6082,23 +6099,6 @@
       "base_elo": 1500,
       "elo": 1292.8,
       "daily_change": -48.51,
-      "wins": 0,
-      "losses": 3,
-      "conference_wins": 0,
-      "conference_losses": 0,
-      "games_played": 3,
-      "rank": 357
-    },
-    {
-      "team_id": "2681",
-      "team": "Wagner Seahawks",
-      "conference": "Northeast Conference",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2681.png",
-      "color": "00483A",
-      "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
-      "base_elo": 1500,
-      "elo": 1292.74,
-      "daily_change": -61.01,
       "wins": 0,
       "losses": 3,
       "conference_wins": 0,
@@ -6114,8 +6114,8 @@
       "color": "005328",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1265.78,
-      "daily_change": -31.21,
+      "elo": 1266.6,
+      "daily_change": -30.39,
       "wins": 0,
       "losses": 4,
       "conference_wins": 0,
@@ -6131,8 +6131,8 @@
       "color": "005596",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1245.43,
-      "daily_change": 0.59,
+      "elo": 1245.42,
+      "daily_change": 0.58,
       "wins": 0,
       "losses": 4,
       "conference_wins": 0,
@@ -6182,8 +6182,8 @@
       "color": "000000",
       "conference_source": "2026-27 ESPN women-specific Division I conference team membership",
       "base_elo": 1500,
-      "elo": 1227.35,
-      "daily_change": -3.42,
+      "elo": 1227.54,
+      "daily_change": -3.23,
       "wins": 0,
       "losses": 4,
       "conference_wins": 0,
@@ -13208,6 +13208,20 @@
       "score_evidence": "espn_and_ncaa_origin"
     },
     {
+      "id": "401919663",
+      "date": "2026-11-13",
+      "home_id": "2057",
+      "away_id": "2653",
+      "neutral": false,
+      "site_verified": true,
+      "venue": "Curb Event Center Arena",
+      "broadcast": "ESPN+",
+      "status": "final",
+      "home_score": 72,
+      "away_score": 46,
+      "score_evidence": "espn_final_ncaa_pending"
+    },
+    {
       "id": "401919981",
       "date": "2026-11-13",
       "home_id": "2294",
@@ -13234,6 +13248,20 @@
       "home_score": 75,
       "away_score": 64,
       "score_evidence": "espn_and_ncaa_origin"
+    },
+    {
+      "id": "401920440",
+      "date": "2026-11-13",
+      "home_id": "326",
+      "away_id": "357",
+      "neutral": false,
+      "site_verified": true,
+      "venue": "Strahan Arena at the University Events Center",
+      "broadcast": "YouTube",
+      "status": "final",
+      "home_score": 63,
+      "away_score": 47,
+      "score_evidence": "espn_final_ncaa_pending"
     },
     {
       "id": "401920563",
