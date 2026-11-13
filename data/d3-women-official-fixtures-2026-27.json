@@ -3,19 +3,19 @@
   "division": "d3",
   "gender": "women",
   "season": "2026-27",
-  "generated_utc": "2026-11-12T16:54:18.054491+00:00",
+  "generated_utc": "2026-11-13T01:08:21.339811+00:00",
   "source": "NCAA 2026-27 member directory + year/gender-validated official school athletics calendars",
   "scope": "NCAA membership-wide first pass; sources without independently validated 2026-27 schedules excluded",
   "ncaa_confirmed_programs": 415,
   "verified_source_calendars": 365,
-  "official_conference_calendar_fallbacks": 32,
+  "official_conference_calendar_fallbacks": 33,
   "school_calendars_checked": 415,
   "school_calendars_missing": 50,
-  "school_calendars_unresolved": 18,
+  "school_calendars_unresolved": 17,
   "source_status_counts": {
     "parsed": 365,
-    "failed": 18,
-    "parsed_conference": 32
+    "failed": 17,
+    "parsed_conference": 33
   },
   "last_verified_school_source": {
     "4": "https://adrianbulldogs.com/sports/womens-basketball/schedule/2026-27?grid=true",
@@ -693,19 +693,6 @@
       ]
     },
     {
-      "ncaa_org_id": 30189,
-      "school": "Penn State Brandywine",
-      "conference": "United East Conference",
-      "category": "season_heading_not_verified",
-      "failed_url": "https://www.psubrandywineathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "last_successful_school_schedule_url": "",
-      "discovered_schedule_links": [],
-      "checked_schedule_candidates": 9,
-      "next_action": "Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar",
-      "opponent_published_fixtures": 0,
-      "opponent_source_examples": []
-    },
-    {
       "ncaa_org_id": 30225,
       "school": "State University of New York at Delhi",
       "conference": "State University of New York Athletic Conference",
@@ -724,11 +711,11 @@
     }
   ],
   "unverified_school_summary": {
-    "remaining_unverified_school_calendars": 18,
+    "remaining_unverified_school_calendars": 17,
     "missing_schools_with_at_least_10_opponent_sourced_games": 13,
-    "missing_schools_with_zero_opponent_sourced_games": 1,
+    "missing_schools_with_zero_opponent_sourced_games": 0,
     "recovery_reason_counts": {
-      "season_heading_not_verified": 17,
+      "season_heading_not_verified": 16,
       "calendar_path_unavailable": 1
     }
   },
@@ -894,9 +881,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://athletics.aurora.edu/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 44,
@@ -917,10 +904,10 @@
       "owner_org_id": 45,
       "source_url": "https://babsonathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "readable_rows": 26,
-      "verified_member_opponents": 18,
+      "verified_member_opponents": 16,
       "excluded_rows": {
         "conditional_or_ambiguous_opponent": 7,
-        "identity_not_d3_matched_but_posted": 1
+        "identity_not_d3_matched_but_posted": 3
       },
       "status": "parsed",
       "calendar_origin": "pinned_official_url",
@@ -1013,9 +1000,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://athletics.bethel.edu/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 64,
@@ -1186,9 +1173,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://brooklyncollegeathletics.com/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 82,
@@ -1401,9 +1388,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://www.catholicathletics.com/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 125,
@@ -1738,9 +1725,9 @@
       },
       "status": "parsed",
       "calendar_origin": "independently_verified_athletics_host",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://www.cortlandreddragons.com/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 170,
@@ -2616,9 +2603,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://www.johnjayathletics.com/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 322,
@@ -2861,9 +2848,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://www.lynchburgsports.com/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 376,
@@ -3070,9 +3057,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://www.goavengingangels.com/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 411,
@@ -3301,9 +3288,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://www.nwusports.com/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 467,
@@ -3331,9 +3318,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://www.nphawks.com/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 479,
@@ -3376,9 +3363,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://www.nicholsathletics.com/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 486,
@@ -3536,9 +3523,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://www.goyeo.com/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 516,
@@ -3560,10 +3547,10 @@
       "source_url": "https://oac.org/schedule.aspx?schedule=2391",
       "status": "parsed_conference",
       "calendar_origin": "official_conference_team_calendar",
-      "readable_rows": 11,
-      "verified_member_opponents": 10,
+      "readable_rows": 25,
+      "verified_member_opponents": 22,
       "excluded_rows": {
-        "missing_or_ambiguous_ncaa_opponent": 1
+        "missing_or_ambiguous_ncaa_opponent": 3
       },
       "failed_school_calendar_urls": 9
     },
@@ -3868,9 +3855,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://www.ramapoathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 565,
@@ -4000,9 +3987,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://maroons.roanoke.edu/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 580,
@@ -4511,9 +4498,9 @@
       },
       "status": "parsed",
       "calendar_origin": "independently_verified_athletics_host",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://springfieldcollegepride.com/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 679,
@@ -4541,9 +4528,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://www.stocktonathletics.com/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 684,
@@ -4641,9 +4628,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://www.trinitytigers.com/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 717,
@@ -4864,9 +4851,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 2,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://www.wellesleyblue.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 762,
@@ -5136,9 +5123,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://www.wpupioneers.com/sports/womens-basketball/schedule/2026-2027?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 789,
@@ -5181,9 +5168,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://www.uwlathletics.com/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 798,
@@ -5278,17 +5265,17 @@
     {
       "owner_org_id": 805,
       "source_url": "https://www.uwwsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "readable_rows": 25,
+      "readable_rows": 27,
       "verified_member_opponents": 22,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 2,
+        "identity_not_d3_matched_but_posted": 4,
         "conditional_or_ambiguous_opponent": 1
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 2,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://www.uwwsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 806,
@@ -5311,9 +5298,9 @@
       "excluded_rows": {},
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://www.woosterathletics.com/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 808,
@@ -5741,9 +5728,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://athletics.hanover.edu/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 1124,
@@ -5970,9 +5957,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 5,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://www.sabreathletics.com/sports/wbball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 1203,
@@ -6273,9 +6260,9 @@
       },
       "status": "parsed",
       "calendar_origin": "independently_verified_athletics_host",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://wilmingtonquakers.com/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 1467,
@@ -6361,9 +6348,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 5,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://www.yorkathletics.com/sports/wbball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 2741,
@@ -6651,9 +6638,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://wildcats.sunypoly.edu/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 9684,
@@ -6886,9 +6873,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 2,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://www.gopeacepacers.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 18422,
@@ -6901,9 +6888,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://www.rivierathletics.com/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 20220,
@@ -7368,9 +7355,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 2,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://owls.umpi.edu/sports/womens-basketball/schedule/2026-27?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 30041,
@@ -7412,9 +7399,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://www.psuberksathletics.com/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 30047,
@@ -7426,9 +7413,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 5,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://www.gokcgiants.com/sports/wbball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 30064,
@@ -7456,9 +7443,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://www.lyndonhornets.com/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 30067,
@@ -7556,9 +7543,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://www.lbcchargers.com/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 30094,
@@ -7586,9 +7573,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 3,
+      "candidate_urls_tried": 1,
       "verified_direct_url": "https://athletics.covenant.edu/sports/womens-basketball/schedule?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 30114,
@@ -7724,89 +7711,15 @@
     },
     {
       "owner_org_id": 30189,
-      "source_url": "https://www.psubrandywineathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "status": "failed",
-      "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
-      "candidate_urls_tried": 9,
-      "rejected_page_evidence": [
-        {
-          "url": "https://www.psubrandywineathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.psubrandywineathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.psubrandywineathletics.com/sports/womens-basketball/schedule?grid=true",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.psubrandywineathletics.com/sports/womens-basketball/schedule",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.psubrandywineathletics.com/sports/wbball/schedule?grid=true",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.psubrandywineathletics.com/sports/wbball/schedule",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.psubrandywineathletics.com/sports/wbkb/2026-27/schedule",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.psubrandywineathletics.com/sports/wbkb/schedule",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        }
-      ],
-      "conference_page_evidence": [],
-      "discovered_schedule_links": [],
-      "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 22,
-      "retained_verified_fixtures": 22
+      "source_url": "https://gounitedeast.com/schedule.aspx?schedule=3832",
+      "status": "parsed_conference",
+      "calendar_origin": "official_conference_team_calendar",
+      "readable_rows": 26,
+      "verified_member_opponents": 22,
+      "excluded_rows": {
+        "missing_or_ambiguous_ncaa_opponent": 4
+      },
+      "failed_school_calendar_urls": 15
     },
     {
       "owner_org_id": 30190,
@@ -8187,18 +8100,6 @@
     {
       "date": "2026-11-20",
       "members": [
-        16,
-        390
-      ],
-      "problem": "home/away or neutral-site source disagreement",
-      "source_urls": [
-        "https://www.albrightathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
-        "https://www.umweagles.com/sports/womens-basketball/schedule/2026-27?grid=true"
-      ]
-    },
-    {
-      "date": "2026-11-20",
-      "members": [
         114,
         800
       ],
@@ -8206,18 +8107,6 @@
       "source_urls": [
         "https://calvinknights.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.letsgopioneers.com/sports/womens-basketball/schedule/2026-27?grid=true"
-      ]
-    },
-    {
-      "date": "2026-11-21",
-      "members": [
-        16,
-        637
-      ],
-      "problem": "home/away or neutral-site source disagreement",
-      "source_urls": [
-        "https://www.albrightathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
-        "https://www.suhornets.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ]
     },
     {
@@ -8437,6 +8326,18 @@
       ]
     },
     {
+      "date": "2027-01-27",
+      "members": [
+        278,
+        517
+      ],
+      "problem": "home/away or neutral-site source disagreement",
+      "source_urls": [
+        "https://bergathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+        "https://oac.org/schedule.aspx?schedule=2391"
+      ]
+    },
+    {
       "date": "2027-01-30",
       "members": [
         1355,
@@ -8485,9 +8386,9 @@
       ]
     }
   ],
-  "fixture_count": 4526,
-  "reciprocal_fixtures": 2702,
-  "unresolved_opponent_fixture_count": 1586,
+  "fixture_count": 4527,
+  "reciprocal_fixtures": 2713,
+  "unresolved_opponent_fixture_count": 1588,
   "unresolved_opponent_fixtures": [
     {
       "id": "d3-women-2026-11-06-73-other-3415eb321a6f",
@@ -10815,6 +10716,21 @@
       "venue_location": "Norton, MA / Emerson Gymnasium"
     },
     {
+      "id": "d3-women-2026-11-13-805-other-259f3e8b719a",
+      "date": "2026-11-13",
+      "source_owner_org_id": 805,
+      "external_opponent_label": "Augsburg vs. Millikin",
+      "placement": "neutral",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://www.uwwsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "6 PM",
+      "venue_location": "Whitewater, WI / Kachel Gymnasium in Williams Center"
+    },
+    {
       "id": "d3-women-2026-11-13-815-other-8fea00c56401",
       "date": "2026-11-13",
       "source_owner_org_id": 815,
@@ -11505,6 +11421,21 @@
       "venue_location": "Williamstown, Mass. / Chandler Gymnasium"
     },
     {
+      "id": "d3-women-2026-11-14-805-other-fa07f8a6e080",
+      "date": "2026-11-14",
+      "source_owner_org_id": 805,
+      "external_opponent_label": "Illinois Wesleyan vs. Augsburg",
+      "placement": "neutral",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://www.uwwsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "3 PM",
+      "venue_location": "Whitewater, WI / Kachel Gymnasium in Williams Center"
+    },
+    {
       "id": "d3-women-2026-11-14-815-other-63c17c824a04",
       "date": "2026-11-14",
       "source_owner_org_id": 815,
@@ -11771,7 +11702,7 @@
       "schedule_only": true,
       "source_kind": "official_school",
       "source_url": "https://sjbkathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "",
+      "tipoff_as_posted": "1:00 PM",
       "venue_location": "New York, N.Y."
     },
     {
@@ -39714,7 +39645,7 @@
       "venue_location": "Demorest, Georgia",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 67-56",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -41854,32 +41785,6 @@
       "tipoff_as_posted": "4 PM",
       "venue": "",
       "venue_location": "Madison, NJ",
-      "network_as_posted": "",
-      "radio_as_posted": "",
-      "tournament": "",
-      "neutral_home_designation_unconfirmed": false
-    },
-    {
-      "id": "d3-women-2026-11-14-195-278",
-      "date": "2026-11-14",
-      "away_org_id": 278,
-      "home_org_id": 195,
-      "neutral": false,
-      "status": "scheduled",
-      "source_url": "https://www.goearlham.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "official_schedule_sources": [
-        "https://bergathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-        "https://www.goearlham.com/sports/womens-basketball/schedule/2026-27?grid=true"
-      ],
-      "verified_by_org_ids": [
-        195,
-        278
-      ],
-      "source_kind": "official_school",
-      "source_verification": "reciprocal",
-      "tipoff_as_posted": "1:00 PM",
-      "venue": "Druley Performance Gym",
-      "venue_location": "Richmond, IN",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -47912,7 +47817,7 @@
       "home_org_id": 30189,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://gounitedeast.com/schedule.aspx?schedule=3832",
+      "source_url": "https://gobrynmawr.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://gobrynmawr.com/sports/womens-basketball/schedule?grid=true",
         "https://gounitedeast.com/schedule.aspx?schedule=3832"
@@ -48328,6 +48233,32 @@
       "neutral_home_designation_unconfirmed": true
     },
     {
+      "id": "d3-women-2026-11-20-16-390",
+      "date": "2026-11-20",
+      "away_org_id": 16,
+      "home_org_id": 390,
+      "neutral": true,
+      "status": "scheduled",
+      "source_url": "https://www.umweagles.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://www.albrightathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+        "https://www.umweagles.com/sports/womens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        16,
+        390
+      ],
+      "source_kind": "official_school",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "8:00 PM",
+      "venue": "",
+      "venue_location": "Lancaster, PA",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": true
+    },
+    {
       "id": "d3-women-2026-11-20-18-25719",
       "date": "2026-11-20",
       "away_org_id": 18,
@@ -48386,15 +48317,13 @@
       "status": "scheduled",
       "source_url": "https://www.gobatesbobcats.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://babsonathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.gobatesbobcats.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
-        45,
         50
       ],
       "source_kind": "official_school",
-      "source_verification": "reciprocal",
+      "source_verification": "single_official_school",
       "tipoff_as_posted": "7:30 p.m.",
       "venue": "Murray Center",
       "venue_location": "Providence, R.I.",
@@ -49626,6 +49555,32 @@
       "radio_as_posted": "",
       "tournament": "",
       "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-women-2026-11-21-16-637",
+      "date": "2026-11-21",
+      "away_org_id": 16,
+      "home_org_id": 637,
+      "neutral": true,
+      "status": "scheduled",
+      "source_url": "https://www.suhornets.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://www.albrightathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+        "https://www.suhornets.com/sports/womens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        16,
+        637
+      ],
+      "source_kind": "official_school",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "4:00 PM",
+      "venue": "",
+      "venue_location": "Annville, PA",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "Lebanon Valley Tournament",
+      "neutral_home_designation_unconfirmed": true
     },
     {
       "id": "d3-women-2026-11-21-19-745",
@@ -57458,6 +57413,32 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-women-2026-11-30-195-278",
+      "date": "2026-11-30",
+      "away_org_id": 278,
+      "home_org_id": 195,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.goearlham.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://bergathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+        "https://www.goearlham.com/sports/womens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        195,
+        278
+      ],
+      "source_kind": "official_school",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "6:30 PM",
+      "venue": "Druley Performance Gym",
+      "venue_location": "Richmond, IN",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-women-2026-11-30-217-2713",
       "date": "2026-11-30",
       "away_org_id": 217,
@@ -62658,7 +62639,7 @@
       "venue_location": "Brockport, NY",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "Morgan's Message Game - Taking a Shot at Mental Health | Youth Day",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -66614,7 +66595,7 @@
       "home_org_id": 30189,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://gounitedeast.com/schedule.aspx?schedule=3832",
+      "source_url": "https://swarthmoreathletics.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://gounitedeast.com/schedule.aspx?schedule=3832",
         "https://swarthmoreathletics.com/sports/womens-basketball/schedule?grid=true"
@@ -67068,7 +67049,7 @@
       "venue_location": "Brockport, NY",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "Drive to the Hoop. Get Home Safe - Impaired Driving Awareness Night",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -69506,13 +69487,15 @@
       "status": "scheduled",
       "source_url": "https://athletics.capital.edu/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://athletics.capital.edu/sports/womens-basketball/schedule/2026-27?grid=true"
+        "https://athletics.capital.edu/sports/womens-basketball/schedule/2026-27?grid=true",
+        "https://oac.org/schedule.aspx?schedule=2391"
       ],
       "verified_by_org_ids": [
-        117
+        117,
+        517
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "1:00 PM",
       "venue": "The Capital Center Performance Arena",
       "venue_location": "Columbus, Ohio",
@@ -82288,16 +82271,18 @@
       "home_org_id": 517,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.mountunion.edu/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://oac.org/schedule.aspx?schedule=2391",
       "official_schedule_sources": [
-        "https://athletics.mountunion.edu/sports/womens-basketball/schedule/2026-27?grid=true"
+        "https://athletics.mountunion.edu/sports/womens-basketball/schedule/2026-27?grid=true",
+        "https://oac.org/schedule.aspx?schedule=2391"
       ],
       "verified_by_org_ids": [
-        452
+        452,
+        517
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
-      "tipoff_as_posted": "1 pm",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "1:00 P.M.",
       "venue": "",
       "venue_location": "Ada, OH",
       "network_as_posted": "",
@@ -86214,16 +86199,18 @@
       "home_org_id": 517,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://bergathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://oac.org/schedule.aspx?schedule=2391",
       "official_schedule_sources": [
-        "https://bergathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
+        "https://bergathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+        "https://oac.org/schedule.aspx?schedule=2391"
       ],
       "verified_by_org_ids": [
-        278
+        278,
+        517
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
-      "tipoff_as_posted": "7:00 PM",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "7:00 P.M.",
       "venue": "",
       "venue_location": "Ada, OH",
       "network_as_posted": "",
@@ -87702,7 +87689,7 @@
       "home_org_id": 30189,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://gounitedeast.com/schedule.aspx?schedule=3832",
+      "source_url": "https://www.psuberksathletics.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://gounitedeast.com/schedule.aspx?schedule=3832",
         "https://www.psuberksathletics.com/sports/womens-basketball/schedule?grid=true"
@@ -92962,7 +92949,7 @@
       "home_org_id": 30189,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://gounitedeast.com/schedule.aspx?schedule=3832",
+      "source_url": "https://athletics.pct.edu/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.pct.edu/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://gounitedeast.com/schedule.aspx?schedule=3832"
@@ -95890,13 +95877,15 @@
       "status": "scheduled",
       "source_url": "https://www.otterbeincardinals.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://oac.org/schedule.aspx?schedule=2391",
         "https://www.otterbeincardinals.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
+        517,
         531
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "7 PM",
       "venue": "Rike Center",
       "venue_location": "Westerville, Ohio",
@@ -98698,7 +98687,7 @@
       "venue_location": "Brockport, NY",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "We Back Pat - Alzheimer\u2019s Awareness Game",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -100352,16 +100341,18 @@
       "home_org_id": 517,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://pioneers.marietta.edu/sports/womens-basketball/schedule?grid=true",
+      "source_url": "https://oac.org/schedule.aspx?schedule=2391",
       "official_schedule_sources": [
+        "https://oac.org/schedule.aspx?schedule=2391",
         "https://pioneers.marietta.edu/sports/womens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
-        385
+        385,
+        517
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
-      "tipoff_as_posted": "1:00 p.m.",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "1:00 P.M.",
       "venue": "",
       "venue_location": "Ada, OH",
       "network_as_posted": "",
@@ -102294,7 +102285,7 @@
       "home_org_id": 30189,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://gounitedeast.com/schedule.aspx?schedule=3832",
+      "source_url": "https://www.abingtonsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://gounitedeast.com/schedule.aspx?schedule=3832",
         "https://www.abingtonsports.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -103284,7 +103275,7 @@
       "home_org_id": 30189,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://gounitedeast.com/schedule.aspx?schedule=3832",
+      "source_url": "https://www.wilsonphoenix.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://gounitedeast.com/schedule.aspx?schedule=3832",
         "https://www.wilsonphoenix.com/sports/womens-basketball/schedule?grid=true"
@@ -103644,13 +103635,15 @@
       "status": "scheduled",
       "source_url": "https://www.bwyellowjackets.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://oac.org/schedule.aspx?schedule=2391",
         "https://www.bwyellowjackets.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
-        46
+        46,
+        517
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "7 PM",
       "venue": "Ursprung Gymnasium",
       "venue_location": "Berea, OH",
@@ -109390,13 +109383,15 @@
       "status": "scheduled",
       "source_url": "https://athletics.mountunion.edu/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://athletics.mountunion.edu/sports/womens-basketball/schedule/2026-27?grid=true"
+        "https://athletics.mountunion.edu/sports/womens-basketball/schedule/2026-27?grid=true",
+        "https://oac.org/schedule.aspx?schedule=2391"
       ],
       "verified_by_org_ids": [
-        452
+        452,
+        517
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "1 pm",
       "venue": "Timken Gymnasium",
       "venue_location": "HOME - Alliance, OH",
@@ -113386,30 +113381,6 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
-      "id": "d3-women-2027-01-27-278-517",
-      "date": "2027-01-27",
-      "away_org_id": 517,
-      "home_org_id": 278,
-      "neutral": false,
-      "status": "scheduled",
-      "source_url": "https://bergathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "official_schedule_sources": [
-        "https://bergathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
-      ],
-      "verified_by_org_ids": [
-        278
-      ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
-      "tipoff_as_posted": "7:00 PM",
-      "venue": "",
-      "venue_location": "/ Seiberling Gymnasium",
-      "network_as_posted": "",
-      "radio_as_posted": "",
-      "tournament": "",
-      "neutral_home_designation_unconfirmed": false
-    },
-    {
       "id": "d3-women-2027-01-27-284-578",
       "date": "2027-01-27",
       "away_org_id": 578,
@@ -116884,18 +116855,20 @@
       "home_org_id": 517,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.capital.edu/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://oac.org/schedule.aspx?schedule=2391",
       "official_schedule_sources": [
-        "https://athletics.capital.edu/sports/womens-basketball/schedule/2026-27?grid=true"
+        "https://athletics.capital.edu/sports/womens-basketball/schedule/2026-27?grid=true",
+        "https://oac.org/schedule.aspx?schedule=2391"
       ],
       "verified_by_org_ids": [
-        117
+        117,
+        517
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
-      "tipoff_as_posted": "1:00 PM",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "1:00 P.M.",
       "venue": "",
-      "venue_location": "Ada, Ohio",
+      "venue_location": "Ada, OH",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -120188,7 +120161,7 @@
       "home_org_id": 30189,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://gounitedeast.com/schedule.aspx?schedule=3832",
+      "source_url": "https://www.psuberksathletics.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://gounitedeast.com/schedule.aspx?schedule=3832",
         "https://www.psuberksathletics.com/sports/womens-basketball/schedule?grid=true"
@@ -124286,7 +124259,7 @@
       "venue_location": "Brockport, NY",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "National Girls and Women in Sports Day",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -130212,13 +130185,15 @@
       "status": "scheduled",
       "source_url": "https://www.bwyellowjackets.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://oac.org/schedule.aspx?schedule=2391",
         "https://www.bwyellowjackets.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
-        46
+        46,
+        517
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "7 PM",
       "venue": "ONU Sports Center",
       "venue_location": "Ada, OH",
@@ -133138,7 +133113,7 @@
       "venue_location": "Brockport, NY",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "Play4Kay - Fight Against Cancers Affecting Women",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -137768,7 +137743,7 @@
       "home_org_id": 30189,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://gounitedeast.com/schedule.aspx?schedule=3832",
+      "source_url": "https://www.notredamegators.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://gounitedeast.com/schedule.aspx?schedule=3832",
         "https://www.notredamegators.com/sports/womens-basketball/schedule?grid=true"
@@ -139230,20 +139205,18 @@
       "home_org_id": 644,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://babsonathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.gosmithbears.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://babsonathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.gosmithbears.com/sports/womens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
-        45,
         644
       ],
       "source_kind": "official_school",
-      "source_verification": "reciprocal",
-      "tipoff_as_posted": "7:00 pm",
-      "venue": "Ainsworth Gymnasium",
-      "venue_location": "Northampton, Mass.",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7:00 PM",
+      "venue": "",
+      "venue_location": "Northampton, MA",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -140740,13 +140713,15 @@
       "status": "scheduled",
       "source_url": "https://www.otterbeincardinals.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://oac.org/schedule.aspx?schedule=2391",
         "https://www.otterbeincardinals.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
+        517,
         531
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "7 PM",
       "venue": "ONU Sports Center",
       "venue_location": "Ada, Ohio",
@@ -144188,13 +144163,15 @@
       "status": "scheduled",
       "source_url": "https://pioneers.marietta.edu/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
+        "https://oac.org/schedule.aspx?schedule=2391",
         "https://pioneers.marietta.edu/sports/womens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
-        385
+        385,
+        517
       ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_kind": "official_conference_and_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "1:00 p.m.",
       "venue": "Ban Johnson Arena",
       "venue_location": "Marietta, OH",
