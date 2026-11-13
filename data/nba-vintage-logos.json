@@ -9,7 +9,9 @@
       "era": "1972–1994",
       "logo_url": "https://assets.logocdn.com/images/sports/nba/1972/atlanta-hawks@3x.png",
       "fallback_url": "assets/nba-logos/ATL.png",
-      "historical_identity": "Atlanta Hawks"
+      "historical_identity": "Atlanta Hawks",
+      "ring_primary": "#e31837",
+      "ring_secondary": "#f4b21a"
     },
     "BOS": {
       "team": "Boston Celtics",
@@ -23,7 +25,9 @@
       "era": "1978–1990",
       "logo_url": "https://assets.logocdn.com/images/sports/nba/1978/new-jersey-nets@3x.png",
       "fallback_url": "assets/nba-logos/BKN.png",
-      "historical_identity": "New Jersey Nets"
+      "historical_identity": "New Jersey Nets",
+      "ring_primary": "#35436e",
+      "ring_secondary": "#b3352a"
     },
     "CHA": {
       "team": "Charlotte Hornets",
@@ -44,14 +48,18 @@
       "era": "1983–1994",
       "logo_url": "https://assets.logocdn.com/images/sports/nba/1983/cleveland-cavaliers@3x.png",
       "fallback_url": "assets/nba-logos/CLE.png",
-      "historical_identity": "Cleveland Cavaliers"
+      "historical_identity": "Cleveland Cavaliers",
+      "ring_primary": "#ee2430",
+      "ring_secondary": "#173766"
     },
     "DAL": {
       "team": "Dallas Mavericks",
       "era": "1980–1993",
       "logo_url": "https://assets.logocdn.com/images/sports/nba/1980/dallas-mavericks@3x.png",
       "fallback_url": "assets/nba-logos/DAL.png",
-      "historical_identity": "Dallas Mavericks"
+      "historical_identity": "Dallas Mavericks",
+      "ring_primary": "#002b5b",
+      "ring_secondary": "#008e40"
     },
     "DEN": {
       "team": "Denver Nuggets",
@@ -79,7 +87,9 @@
       "era": "1972–1995",
       "logo_url": "https://assets.logocdn.com/images/sports/nba/1972/houston-rockets@3x.png",
       "fallback_url": "assets/nba-logos/HOU.png",
-      "historical_identity": "Houston Rockets"
+      "historical_identity": "Houston Rockets",
+      "ring_primary": "#ec0033",
+      "ring_secondary": "#ffbd00"
     },
     "IND": {
       "team": "Indiana Pacers",
@@ -107,7 +117,9 @@
       "era": "1995–2001",
       "logo_url": "https://assets.logocdn.com/images/sports/nba/1995/vancouver-grizzlies@3x.png",
       "fallback_url": "assets/nba-logos/MEM.png",
-      "historical_identity": "Vancouver Grizzlies"
+      "historical_identity": "Vancouver Grizzlies",
+      "ring_primary": "#00aaa5",
+      "ring_secondary": "#793f45"
     },
     "MIA": {
       "team": "Miami Heat",
@@ -121,7 +133,9 @@
       "era": "1968–1993",
       "logo_url": "https://assets.logocdn.com/images/sports/nba/1968/milwaukee-bucks@3x.png",
       "fallback_url": "assets/nba-logos/MIL.png",
-      "historical_identity": "Milwaukee Bucks"
+      "historical_identity": "Milwaukee Bucks",
+      "ring_primary": "#008c32",
+      "ring_secondary": "#f6a614"
     },
     "MIN": {
       "team": "Minnesota Timberwolves",
@@ -135,7 +149,9 @@
       "era": "2002–2004",
       "logo_url": "https://assets.logocdn.com/images/sports/nba/2002/new-orleans-hornets@3x.png",
       "fallback_url": "assets/nba-logos/NOP.png",
-      "historical_identity": "New Orleans Hornets"
+      "historical_identity": "New Orleans Hornets",
+      "ring_primary": "#0095b8",
+      "ring_secondary": "#292b8f"
     },
     "NYK": {
       "team": "New York Knicks",
@@ -149,7 +165,9 @@
       "era": "1975–1995",
       "logo_url": "https://assets.logocdn.com/images/sports/nba/1975/seattle-supersonics@3x.png",
       "fallback_url": "assets/nba-logos/OKC.png",
-      "historical_identity": "Seattle SuperSonics"
+      "historical_identity": "Seattle SuperSonics",
+      "ring_primary": "#006b3d",
+      "ring_secondary": "#ffbd00"
     },
     "ORL": {
       "team": "Orlando Magic",
@@ -184,7 +202,9 @@
       "era": "1985–1994",
       "logo_url": "https://assets.logocdn.com/images/sports/nba/1985/sacramento-kings@3x.png",
       "fallback_url": "assets/nba-logos/SAC.png",
-      "historical_identity": "Sacramento Kings"
+      "historical_identity": "Sacramento Kings",
+      "ring_primary": "#0063aa",
+      "ring_secondary": "#d90050"
     },
     "SAS": {
       "team": "San Antonio Spurs",
@@ -198,14 +218,18 @@
       "era": "1995–2008",
       "logo_url": "https://assets.logocdn.com/images/sports/nba/1995/toronto-raptors@3x.png",
       "fallback_url": "assets/nba-logos/TOR.png",
-      "historical_identity": "Toronto Raptors"
+      "historical_identity": "Toronto Raptors",
+      "ring_primary": "#7736c8",
+      "ring_secondary": "#d50032"
     },
     "UTA": {
       "team": "Utah Jazz",
       "era": "1979–1996",
       "logo_url": "https://assets.logocdn.com/images/sports/nba/1979/utah-jazz@3x.png",
       "fallback_url": "assets/nba-logos/UTA.png",
-      "historical_identity": "Utah Jazz"
+      "historical_identity": "Utah Jazz",
+      "ring_primary": "#5a286b",
+      "ring_secondary": "#efb700"
     },
     "WAS": {
       "team": "Washington Wizards",
@@ -214,5 +238,6 @@
       "fallback_url": "assets/nba-logos/WAS.png",
       "historical_identity": "Washington Bullets"
     }
-  }
+  },
+  "ring_policy": "Default to verified current franchise palette except when the chosen historic mark calls for a distinct original-era color pair; legacy pairs are visual design approximations."
 }
