@@ -8,7 +8,9 @@ const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const norm=v=>String(v||'').normalize('NFKD').toLowerCase().replace(/[^a-z0-9]/g,'');
 const safeURL=v=>{try{let u=new URL(v);return u.protocol==='https:'?u.href:''}catch{return ''}};
 const byNcaa=new Map(),byName=new Map(),ambiguous=new Set(),outsideByName=new Map(),outsideAmbiguous=new Set();
-let registry={},palette={},outside={};
+let registry={},palette={},outside={},localCache={},bigTenArchive={};
+const localLogo=(id,entry)=>{const path=String(entry?.path||'');return path==='assets/cbb-school-logos/'+id+'.png'?path:'';};
+const historicLogo=(id,entry)=>{const path=String(entry?.logo_path||'');return path==='assets/cbb-big-ten-1980s/'+id+'.png'?path:'';};
 const outsideAliases=t=>[t.school,t.feed_name,t.corrected_name,...(t.aliases||[])].filter(Boolean).map(norm);
 // Independent NCAA and ESPN identifiers may name the same real university.
 // Do not mark a school's name ambiguous when verified records describe the
@@ -34,14 +36,23 @@ function registerOutside(id,entry){
 function alias(n,id){let key=norm(n);if(!key||ambiguous.has(key))return;if(byName.has(key)&&byName.get(key)!==id){ambiguous.add(key);byName.delete(key)}else byName.set(key,id)}
 const ready=(async()=>{
 try{
-const [reg,cross,colors,opponents]=await Promise.all([
+const [reg,cross,colors,opponents,cached,heritage]=await Promise.all([
   ...['data/mbb-logo-registry.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json?v=ncaa-two-rings-20261101b']
     .map(p=>fetch(p,{cache:'no-cache'}).then(x=>{if(!x.ok)throw Error(p+' '+x.status);return x.json()})),
   fetch('data/mbb-out-of-division-opponent-logos.json?v=nov9-crest-identity-20261109b',{cache:'no-cache'})
+    .then(x=>x.ok?x.json():{teams:{}}).catch(()=>({teams:{}})),
+  fetch('data/cbb-local-logos.json?v=20261113-cbb-local-heritage',{cache:'no-cache'})
+    .then(x=>{if(!x.ok)throw Error('Local CBB logo catalog unavailable '+x.status);return x.json()}),
+  fetch('data/cbb-big-ten-1980s.json?v=20261113-big-ten-historical',{cache:'no-cache'})
     .then(x=>x.ok?x.json():{teams:{}}).catch(()=>({teams:{}}))
 ]);
 if(Object.keys(reg.teams||{}).length!==365||cross.teams?.length!==365)throw Error('Incomplete 365-team logo registry');
 registry=reg.teams;palette=colors.mbb||{};outside=opponents?.teams||{};
+localCache=cached?.teams||{};bigTenArchive=heritage?.teams||{};
+if(cached.division_i_count!==365)throw Error('Local 365-team logo registry incomplete');
+for(const id of Object.keys(registry))if(!localLogo(id,localCache[id]))throw Error('Missing independently verified local school artwork '+id);
+// Historical archives are optional at runtime; unverified schools always retain
+// their cached modern logo. CI gates the required ten historical overrides.
 if(Object.keys(palette).length!==365)throw Error('Incomplete 365-program MBB color palette');
 for(let row of cross.teams){
 const id=String(row.espn_id),found=registry[id];
@@ -144,10 +155,12 @@ const known=(outsideExact||directOutside)?null:(registry[id]||null);
 const outsideID=directOutside?id:outsideExact?outsideNameId:'';
 const outsideEntry=outsideID&&outside[outsideID]&&(outsideSchoolId(name)===outsideID||outsideAliases(outside[outsideID]).includes(norm(name)))?outside[outsideID]:null;
 const school=known,brand=known?palette[id]:outsideEntry,art=known?school.artwork_type:outsideEntry?'flat':'unverified';
-const primary=known?(school.logo_url_verified?safeURL(school.official_logo_url||school.logo_url):''):
- outsideEntry?safeURL(outsideEntry.logo_url):'';
-const backup=known?(school.provider_logo_candidates||[]).map(safeURL).find(x=>x&&x!==primary)||'':
- outsideEntry?safeURL(outsideEntry.logo_alternate_url)||'':'';
+// No college basketball logo ever hotlinks an archive or ESPN server.
+// All original provider URLs remain in source data solely as provenance.
+const modern=localLogo(id,localCache[id]);
+const period=known?historicLogo(id,bigTenArchive[id]):'';
+const primary=known?(period||modern):outsideEntry?localLogo(outsideID,localCache[outsideID]):'';
+const backup=period?modern:'';
 const initials=name.split(/\s+/).slice(0,2).map(v=>v[0]||'').join('').toUpperCase();
 const kind=/^(small|score|power|schedule|hero|featured|history)$/.test(options.size||'')?options.size:'small';
 const clr=brand?.primary||'#385866',alt=brand?.secondary||'#597582';
@@ -155,8 +168,10 @@ return '<span class="mbb-mark mbb-mark--'+kind+' mbb-mark--art-'+art+(primary?''
 }
 function fail(img){
 if(!(img instanceof HTMLImageElement))return;
-const alt=safeURL(img.dataset.logoAlternate);
-if(alt&&img.src!==alt){img.dataset.logoAlternate='';img.src=alt;return;}
+const alt=String(img.dataset.logoAlternate||'');
+if(/^assets\/cbb-school-logos\/\d+\.png$/.test(alt)&&!img.src.endsWith('/'+alt)){
+ img.dataset.logoAlternate='';img.src=alt;return;
+}
 img.closest('.mbb-mark')?.classList.add('mbb-mark--missing');img.remove();
 }
 // Repair wrappers left by an older cached publisher decorator. The marker
@@ -200,7 +215,7 @@ function upgradeBareLogos(root=document){
   img.replaceWith(temp.firstElementChild);
  }
 }
-w.MBBLogos={ready,render,byNCAA:(id,size,name)=>render({ncaaId:id,name,size}),byESPN:(id,size,name)=>render({espnId:id&& (registry[String(id)]||outside[String(id)])?String(id):'',name:name||registry[String(id)]?.school||outside[String(id)]?.corrected_name||outside[String(id)]?.school,size}),byName:(name,size)=>render({name,size}),fail,stripLegacyRings,upgradeLegacyCalendar,upgradeBareLogos,logoURL:id=>registry[byNcaa.get(id)]?.logo_url||'',colorForESPN:id=>palette[String(id)]?{...palette[String(id)]}:outside[String(id)]?{primary:outside[String(id)].primary,secondary:outside[String(id)].secondary}:null,schoolNameForESPN:id=>String(registry[String(id)]?.school||outside[String(id)]?.corrected_name||outside[String(id)]?.school||'').replace(/\bSt\.$/,'State')};
+w.MBBLogos={ready,render,byNCAA:(id,size,name)=>render({ncaaId:id,name,size}),byESPN:(id,size,name)=>render({espnId:id&& (registry[String(id)]||outside[String(id)])?String(id):'',name:name||registry[String(id)]?.school||outside[String(id)]?.corrected_name||outside[String(id)]?.school,size}),byName:(name,size)=>render({name,size}),fail,stripLegacyRings,upgradeLegacyCalendar,upgradeBareLogos,logoURL:id=>{const key=byNcaa.get(id);return key?(historicLogo(key,bigTenArchive[key])||localLogo(key,localCache[key])):''},colorForESPN:id=>palette[String(id)]?{...palette[String(id)]}:outside[String(id)]?{primary:outside[String(id)].primary,secondary:outside[String(id)].secondary}:null,schoolNameForESPN:id=>String(registry[String(id)]?.school||outside[String(id)]?.corrected_name||outside[String(id)]?.school||'').replace(/\bSt\.$/,'State')};
 ready.then(ok=>{
  if(!ok)return;
  const run=()=>{stripLegacyRings(document);upgradeLegacyCalendar();upgradeBareLogos(document)};
