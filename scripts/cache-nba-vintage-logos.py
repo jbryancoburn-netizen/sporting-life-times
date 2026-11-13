@@ -39,7 +39,7 @@ def fetch_image(url):
 
 results={};errors=[]
 for code,mark in sorted(teams.items()):
-    url=mark["logo_url"]
+    url=mark["archive_source_url"]
     if not url.startswith("https://assets.logocdn.com/images/sports/nba/"):
        errors.append(code+": untrusted source host");continue
     candidates=[url,url.replace("https://assets.logocdn.com/images/sports/nba/","https://i.logocdn.com/nba/")]
