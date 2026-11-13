@@ -14,31 +14,31 @@
       "season_carry": 0.0
     },
     "selected_holdout": {
-      "n": 102,
-      "log_loss": 0.698427,
-      "brier": 0.252736,
-      "accuracy": 0.549
+      "n": 107,
+      "log_loss": 0.688602,
+      "brier": 0.248025,
+      "accuracy": 0.5701
     },
     "baseline_holdout": {
-      "n": 102,
-      "log_loss": 0.679143,
-      "brier": 0.243493,
-      "accuracy": 0.5392
+      "n": 107,
+      "log_loss": 0.672616,
+      "brier": 0.240328,
+      "accuracy": 0.5514
     },
     "note": "True season holdout; selections are not retrained on holdout games."
   },
   "scoring_forecast_validation": {
-    "games_evaluated": 1258,
+    "games_evaluated": 1263,
     "minimum_prior_games_per_team": 5,
     "status": "measured",
-    "home_score_mae": 8.38,
-    "away_score_mae": 8.25,
-    "total_mae": 13.47,
-    "margin_mae": 9.39,
-    "league_average_total_mae": 14.01,
-    "zero_margin_baseline_mae": 10.45,
+    "home_score_mae": 8.39,
+    "away_score_mae": 8.24,
+    "total_mae": 13.45,
+    "margin_mae": 9.4,
+    "league_average_total_mae": 14.0,
+    "zero_margin_baseline_mae": 10.47,
     "beats_simple_total_baseline": true,
-    "winner_accuracy": 0.6478,
+    "winner_accuracy": 0.6492,
     "by_season": {
       "E2022": {
         "games_evaluated": 283,
@@ -81,14 +81,14 @@
         "winner_accuracy": 0.6619
       },
       "E2026": {
-        "games_evaluated": 52,
-        "home_score_mae": 9.4,
-        "away_score_mae": 9.77,
-        "total_mae": 16.6,
-        "margin_mae": 10.02,
-        "league_average_total_mae": 17.92,
-        "zero_margin_baseline_mae": 10.62,
-        "winner_accuracy": 0.5577
+        "games_evaluated": 57,
+        "home_score_mae": 9.46,
+        "away_score_mae": 9.4,
+        "total_mae": 16.05,
+        "margin_mae": 10.19,
+        "league_average_total_mae": 17.34,
+        "zero_margin_baseline_mae": 11.0,
+        "winner_accuracy": 0.5965
       }
     },
     "method": "strict pregame expanding-window; shared published forecast function; 1500 Elo reset each season"
