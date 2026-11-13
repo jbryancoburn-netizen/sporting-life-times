@@ -167,9 +167,9 @@
       Number.isInteger(side.rank)?'#'+side.rank:'—';
     const kind=publishedChange?'DAY':'RANK';
     const letter=side.won?'W':'L';
-    const kind=side.conferenceRecord?'CONF':'W–L';
+    const recordKind=side.conferenceRecord?'CONF':'W–L';
     const recordValue=side.conferenceRecord||side.record;
-    const detail=kind+' '+recordValue;
+    const detail=recordKind+' '+recordValue;
     const explanation=(publishedChange?'Published RETRO daily change (not single-game Elo): ':'Current RETRO rank: ')+movement+
       '. Current '+(side.conferenceRecord?'conference':'overall')+' record: '+detail+'. Recorded final: '+(side.won?'win':'loss')+'. As of '+side.asOf;
     return '<span class="ledger26-final-team" title="'+esc(explanation)+'" aria-label="'+esc(explanation)+'">'+
