@@ -1,0 +1,51 @@
+name: CBB local 1980s crest browser clearance gate
+on:
+  push:
+    branches: [feat/cbb-large-local-1980s-big-ten-20261113]
+    paths:
+      - scripts/audit-cbb-crest-collisions.mjs
+      - mbb-logo-system.css
+      - mbb-logo-system.js
+      - data/cbb-big-ten-1980s.json
+      - data/cbb-local-logos.json
+      - .github/workflows/cbb-crest-collision-gate.yml
+  pull_request:
+    paths:
+      - scripts/audit-cbb-crest-collisions.mjs
+      - mbb-logo-system.css
+      - mbb-logo-system.js
+      - data/cbb-big-ten-1980s.json
+      - data/cbb-local-logos.json
+      - .github/workflows/cbb-crest-collision-gate.yml
+permissions: {contents: read}
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 16
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Verify NCAA school/logo identity & independent CBB double ring owner
+        run: node scripts/audit-mbb-logo-system.cjs
+      - name: Install Chrome test runner
+        run: |
+          npm install --no-save playwright@1.56.1
+          if command -v google-chrome >/dev/null 2>&1; then
+            echo "PLAYWRIGHT_CHROME_CHANNEL=chrome" >> "$GITHUB_ENV"
+          else
+            npx playwright install chromium
+          fi
+      - name: Audit logo/text clearance, local assets, dual rings for men and women
+        env:
+          STRICT_LAYOUT: '1'
+        run: node scripts/audit-cbb-crest-collisions.mjs
+      - name: Preserve 40-view visual audit and photos
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cbb-1980s-logo-layout-audit
+          path: test-artifacts
+          if-no-files-found: ignore
