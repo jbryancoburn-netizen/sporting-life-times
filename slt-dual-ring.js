@@ -67,6 +67,10 @@ function archivalNBAImage(img,entry){
  img.dataset.teamCode=entry.id;
  img.dataset.sltVintageOriginal=original;
  img.dataset.sltVintageStatus='loading';
+ // Some legacy NBA <img> elements carry an inline onerror that switches
+ // to an external ESPN URL. This feature is local-only, including fallback.
+ img.removeAttribute('onerror');
+ img.onerror=null;
  img.addEventListener('error',()=>{
   if(img.getAttribute('src')===historical){
    img.dataset.sltVintageStatus='fallback';
