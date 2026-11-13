@@ -19,8 +19,10 @@ assert set(teams) == expected, "Historical NBA manifest must cover exactly 30 te
 assert set(palette) == expected, "Two-color NBA palette must cover exactly 30 teams"
 assert {p.stem for p in (ROOT / "assets/nba-logos").glob("*.png")} == expected, "Local modern-logo fallback incomplete"
 for code, mark in teams.items():
-    assert mark["logo_url"].startswith("https://assets.logocdn.com/images/sports/nba/"), code
-    assert "i.logocdn.com" not in mark["logo_url"], code
+    assert mark["logo_url"] == f"assets/nba-vintage-logos/{code}.png", code
+    assert mark["archive_source_url"].startswith("https://assets.logocdn.com/images/sports/nba/"), code
+    assert (ROOT / mark["logo_url"]).is_file(), f"Archived asset missing for {code}"
+    assert (ROOT / mark["logo_url"]).stat().st_size > 10000, f"Cached historical logo too small: {code}"
     assert mark["fallback_url"] == f"assets/nba-logos/{code}.png", code
     assert mark["team"] and mark["historical_identity"] and mark["era"], code
     lo = int(re.search(r"\d{4}", mark["era"]).group())
@@ -36,6 +38,8 @@ for code, mark in teams.items():
 js = (ROOT / "slt-dual-ring.js").read_text()
 css = (ROOT / "slt-dual-ring.css").read_text()
 assert "archivalNBAImage(img,entry)" in js, "Missing historic image substitution"
+assert "assets/nba-vintage-logos/" in js, "NBA heritage assets must be local"
+assert "assets.logocdn.com" not in js and "i.logocdn.com" not in js, "External archive requests forbidden in NBA runtime"
 assert "img.setAttribute('src',original)" in js, "Missing local fallback on image error"
 assert "if(league==='nba')" in js, "Changes should be NBA-scoped"
 assert "slt-nba-bold-rings" in js and "slt-nba-bold-rings" in css
