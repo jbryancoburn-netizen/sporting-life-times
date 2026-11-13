@@ -1,7 +1,8 @@
-/* One NCAA badge for men's and women's pages: two adjacent colored strokes.
-   Logo artwork is preserved; no page may add a border around the image. */
+/* One NCAA badge for men's and women's pages: two adjacent, more legible
+   school-color strokes. The same token feeds both rings at every crest size;
+   no spacer, added circle, logo substitution, or cropped artwork. */
 .mbb-mark{
- --mbb-size:36px;--mbb-ring:clamp(2px,calc(var(--mbb-size) * .04),5px);
+ --mbb-size:36px;--mbb-ring:clamp(2.5px,calc(var(--mbb-size) * .058),7.5px);
  display:inline-grid!important;place-items:center!important;
  position:relative!important;isolation:isolate!important;box-sizing:border-box!important;
  flex:0 0 var(--mbb-size)!important;width:var(--mbb-size)!important;height:var(--mbb-size)!important;

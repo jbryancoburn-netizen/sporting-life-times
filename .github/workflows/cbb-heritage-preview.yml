@@ -7,6 +7,10 @@ on:
       - 'ncaaw-team.html'
       - 'ncaam-slate.html'
       - 'wbb-team-newspaper.css'
+      - 'mbb-logo-system.css'
+      - 'cbb-team-form.js'
+      - 'tests/cbb-team-form.test.cjs'
+      - 'tests/cbb-double-ring.test.cjs'
       - 'scripts/test_cbb_heritage_press.py'
       - 'scripts/cbb_heritage_preview.py'
       - '.github/workflows/cbb-heritage-preview.yml'
@@ -24,6 +28,13 @@ jobs:
           python-version: '3.12'
       - name: Validate shared editorial design contract
         run: python3 -m unittest scripts/test_cbb_heritage_press.py -v
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test shared Form Book fixture labels and double-ring CSS
+        run: |
+          node --check cbb-team-form.js
+          node --test tests/cbb-team-form.test.cjs tests/cbb-double-ring.test.cjs
       - name: Install Chromium browser for local-branch visual comparison
         run: |
           python3 -m pip install playwright==1.56.0

@@ -43,6 +43,9 @@ with sync_playwright() as playwright:
                   const press = getComputedStyle(document.body);
                   const first = document.querySelector('.ledger26-scorebug');
                   const logo = document.querySelector('.team-hero .mbb-mark, .wbb-identity .mbb-mark');
+                  const crest = logo || document.querySelector('.ledger26-scorebug .mbb-mark');
+                  const outer = crest ? getComputedStyle(crest) : null;
+                  const inner = crest ? getComputedStyle(crest, '::before') : null;
                   const stage = document.querySelector('.team-hero, .wbb-identity, .ledger26-scorebug');
                   return {
                     scoped: document.body.classList.contains('slt-cbb-heritage'),
@@ -53,7 +56,11 @@ with sync_playwright() as playwright:
                     foundMain: !!stage,
                     scorebugCrestSize: first ? getComputedStyle(first).getPropertyValue('--ledger26-crest-size').trim() : null,
                     teamCrestWidth: logo ? Math.round(logo.getBoundingClientRect().width) : null,
-                    teamCrestHeight: logo ? Math.round(logo.getBoundingClientRect().height) : null
+                    teamCrestHeight: logo ? Math.round(logo.getBoundingClientRect().height) : null,
+                    outerRingWidth: outer ? parseFloat(outer.borderLeftWidth) : null,
+                    innerRingWidth: inner ? parseFloat(inner.borderLeftWidth) : null,
+                    outerRingColor: outer ? outer.borderLeftColor : null,
+                    innerRingColor: inner ? inner.borderLeftColor : null
                   };
                 }""")
                 entry.update(evidence)
@@ -63,6 +70,15 @@ with sync_playwright() as playwright:
                     entry["errors"].append("Unexpected paper token")
                 if evidence["scrollWidth"] > evidence["viewportWidth"] + 2:
                     entry["errors"].append("Unexpected horizontal page overflow")
+                if evidence["outerRingWidth"] is None or evidence["innerRingWidth"] is None:
+                    entry["errors"].append("No two-ring school crest detected")
+                elif evidence["outerRingWidth"] < 2.49 or evidence["innerRingWidth"] < 2.49:
+                    entry["errors"].append("Both school-color rings must be visibly wider")
+                elif abs(evidence["outerRingWidth"] - evidence["innerRingWidth"]) > 0.25:
+                    entry["errors"].append("Two school-color rings have inconsistent widths")
+                if (evidence["outerRingColor"] and evidence["innerRingColor"] and
+                        evidence["outerRingColor"] == evidence["innerRingColor"]):
+                    entry["errors"].append("School-color strokes lack distinct colors")
                 if "ledger" in name:
                     expected = "40px" if width <= 390 else "56px"
                     if evidence["scorebugCrestSize"] != expected:

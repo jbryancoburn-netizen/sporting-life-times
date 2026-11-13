@@ -106,6 +106,9 @@
       const other = home ? g.away : g.home;
       return {...g, ours, theirs, won: ours > theirs,
         opponent: g.outside ? g.otherName : (register.names.get(other) || 'Opponent unavailable'),
+        // Preserve published home/away team designation even if site evidence is unverified.
+        // A neutral-site (N) suffix requires independently verified venue evidence.
+        designatedSide: home ? 'home' : 'away',
         location: g.neutral ? 'neutral' : !g.siteVerified ? 'unverified' : home ? 'home' : 'away'};
     }).sort((a, b) => b.date.localeCompare(a.date) || b.id.localeCompare(a.id));
     const wins = played.filter(g => g.won).length, losses = played.length - wins;
@@ -123,8 +126,16 @@
       lastFive: played.slice(0, 5).reverse().map(g => g.won ? 'W' : 'L'),
       recent: played.slice(0, 5), latest: played[0]?.date || null};
   }
+  function formatOpponent(g) {
+    // Use the scheduled matchup side, never infer a neutral court from an ESPN
+    // home/away identifier. A confirmed neutral game always uses vs. and (N).
+    const road = g.location === 'away' ||
+      (g.location === 'unverified' && g.designatedSide === 'away');
+    return (road ? '@ ' : 'vs. ') + String(g.opponent || 'Opponent unavailable') +
+      (g.location === 'neutral' ? ' (N)' : '');
+  }
   if (typeof module !== 'undefined' && module.exports) {
-    module.exports = {normalizeMen, normalizeWomen, calculate};
+    module.exports = {normalizeMen, normalizeWomen, calculate, formatOpponent};
   }
   if (typeof document === 'undefined' || typeof location === 'undefined') return;
   const women = document.body?.dataset.page === 'women-team';
@@ -171,10 +182,10 @@
       : '<span class="cbb-form-unknown">No final games yet</span>';
     const recent = form.recent.length
       ? form.recent.map(g => {
-        const place = g.location === 'away' ? 'at ' :
-          g.location === 'neutral' ? 'vs ' : g.location === 'home' ? 'vs ' : 'against ';
         return '<li><time datetime="' + esc(g.date) + '">' + dateText(g.date) + '</time>' +
-          '<span>' + esc(place + g.opponent) + (g.location === 'neutral' ? ' (N)' : '') + '</span>' +
+          '<span' + (g.location === 'unverified'
+            ? ' title="Home/away follows the published fixture; court location unverified"' : '') +
+          '>' + esc(formatOpponent(g)) + '</span>' +
           '<strong class="' + (g.won ? 'is-win' : 'is-loss') + '">' +
           mark(g) + ' ' + esc(g.ours) + '–' + esc(g.theirs) + '</strong></li>';
       }).join('')
