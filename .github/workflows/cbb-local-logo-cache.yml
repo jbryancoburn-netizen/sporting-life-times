@@ -1,0 +1,50 @@
+name: Cache authenticated CBB logos for men and women
+on:
+  push:
+    branches:
+      - feat/cbb-large-local-1980s-big-ten-20261113
+    paths:
+      - scripts/cache-cbb-school-logos.py
+      - .github/workflows/cbb-local-logo-cache.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: cbb-local-cache
+  cancel-in-progress: false
+jobs:
+  cache:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: true}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Install image integrity dependencies
+        run: python -m pip install --quiet pillow cairosvg
+      - name: Cache official logos locally for all 365 DI and verified other schools
+        run: python -u scripts/cache-cbb-school-logos.py
+      - name: Validate all 365 DI marks are present before committing
+        run: |
+          python - <<'PY'
+          import json,pathlib
+          d=json.loads(pathlib.Path('data/cbb-local-logos.json').read_text())
+          assert d['division_i_count']==365
+          assert len(list(pathlib.Path('assets/cbb-school-logos').glob('*.png')))==d['verified_count']
+          for team in d['teams'].values():assert pathlib.Path(team['path']).stat().st_size>700
+          print('PASS',d['verified_count'],'real stored school images, no guessed identities')
+          PY
+      - name: Commit cached images and identity manifest on feature branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/cbb-school-logos/ data/cbb-local-logos.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Cache 365 D-I and verified opponent logos in local assets"
+          for attempt in 1 2 3 4 5; do
+            git fetch origin feat/cbb-large-local-1980s-big-ten-20261113
+            git rebase origin/feat/cbb-large-local-1980s-big-ten-20261113
+            if git push origin HEAD:feat/cbb-large-local-1980s-big-ten-20261113; then exit 0; fi
+          done
+          exit 1
