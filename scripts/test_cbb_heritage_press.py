@@ -4,7 +4,6 @@ Run: python3 -m unittest scripts/test_cbb_heritage_press.py
 These assertions do not replace browser visual QA or GitHub Pages verification.
 """
 from pathlib import Path
-import re
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -20,7 +19,7 @@ class HeritagePressContract(unittest.TestCase):
                 self.assertEqual(text.count('href="' + SHEET + '?'), 1)
                 head = text.split("</head>", 1)[0]
                 self.assertIn(SHEET, head)
-                self.assertEqual(head.rfind('<link rel="stylesheet"'), head.find(SHEET) - len('href="'))
+                self.assertTrue(head.rstrip().endswith('<link rel="stylesheet" href="' + SHEET + '?v=20261113-press1">'))
                 self.assertIn("cbb-ledger-scorebug.js", text)
 
     def test_mens_and_womens_crest_size_share_a_rule(self):
