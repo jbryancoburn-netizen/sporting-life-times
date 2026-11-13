@@ -24,9 +24,9 @@ const makeWomenWindow=()=>{
 };
 test('both team pages use the Form Book without the redundant season glance',()=>{
  for(const path of ['ncaam-team.html','ncaaw-team.html']){
-  assert.doesNotMatch(read(path),/cbb-team-glance\\.(css|js)/);
-  assert.match(read(path),/cbb-team-form\\.css/);
-  assert.match(read(path),/cbb-team-form\\.js/);
+  assert.doesNotMatch(read(path),/cbb-team-glance\.(css|js)/);
+  assert.match(read(path),/cbb-team-form\.css/);
+  assert.match(read(path),/cbb-team-form\.js/);
  }
  assert.doesNotMatch(read('wbb-team-newspaper.js'),/CBBTeamGlance/);
 });
