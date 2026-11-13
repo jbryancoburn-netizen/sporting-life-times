@@ -2,20 +2,20 @@
   "season": "2026-27",
   "sport": "NCAA men's Division I basketball",
   "method": "Immutable prior-day and independently verified pretipoff forecasts versus verified in-season D-I finals",
-  "updated_at_utc": "2026-11-13T03:40:22+00:00",
+  "updated_at_utc": "2026-11-13T04:08:53+00:00",
   "archived_predictions": 475,
-  "pending_finals": 181,
+  "pending_finals": 179,
   "excluded_orientation_mismatches": [
     "espn:401918053",
     "espn:401919029",
     "espn:401918992"
   ],
   "summary": {
-    "games": 291,
-    "correct_winners": 209,
-    "winner_accuracy": 0.71821,
-    "margin_mae": 13.433,
-    "brier": 0.191257
+    "games": 293,
+    "correct_winners": 211,
+    "winner_accuracy": 0.72014,
+    "margin_mae": 13.3447,
+    "brier": 0.190847
   },
   "by_date": {
     "2026-11-06": {
@@ -61,11 +61,11 @@
       "brier": 0.211896
     },
     "2026-11-12": {
-      "games": 20,
-      "correct_winners": 15,
-      "winner_accuracy": 0.75,
-      "margin_mae": 11.1,
-      "brier": 0.211392
+      "games": 22,
+      "correct_winners": 17,
+      "winner_accuracy": 0.77273,
+      "margin_mae": 10.1364,
+      "brier": 0.204102
     }
   },
   "games": [
@@ -4061,6 +4061,20 @@
     },
     {
       "date": "2026-11-12",
+      "id": "espn:401921741",
+      "home_id": "ncaa:609638",
+      "away_id": "ncaa:609546",
+      "predicted_home_margin": 15,
+      "actual_home_margin": 15,
+      "absolute_margin_error": 0,
+      "predicted_home_win_probability": 0.823423,
+      "winner_correct": true,
+      "brier": 0.03117944,
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "captured_at_utc": "2026-11-10T18:48:01+00:00"
+    },
+    {
+      "date": "2026-11-12",
       "id": "espn:401921768",
       "home_id": "ncaa:609518",
       "away_id": "ncaa:609665",
@@ -4084,6 +4098,20 @@
       "predicted_home_win_probability": 0.714706,
       "winner_correct": true,
       "brier": 0.08139267,
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "captured_at_utc": "2026-11-10T18:48:01+00:00"
+    },
+    {
+      "date": "2026-11-12",
+      "id": "espn:401922250",
+      "home_id": "ncaa:609615",
+      "away_id": "pending-ncaa-id:west-florida",
+      "predicted_home_margin": 1,
+      "actual_home_margin": 2,
+      "absolute_margin_error": 1,
+      "predicted_home_win_probability": 0.519147,
+      "winner_correct": true,
+      "brier": 0.23121961,
       "forecast_model": "retro-central-elo-uncapped-v2",
       "captured_at_utc": "2026-11-10T18:48:01+00:00"
     },
