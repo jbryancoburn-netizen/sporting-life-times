@@ -100,7 +100,7 @@ function apply(img){
    /* Existing NBA stylesheets include stronger !important single-ring rules.
       Inline overrides make the shared shell the ONLY source of both rings. */
    const set=(k,v)=>img.style.setProperty(k,v,'important');
-   host.style.setProperty('border','4px solid '+entry.primary,'important');
+   host.style.setProperty('border','var(--slt-nba-crest-stroke,4px) solid '+entry.primary,'important');
    host.style.setProperty('box-sizing','border-box','important');
    host.style.setProperty('border-radius','50%','important');
    host.style.setProperty('position','relative','important');
@@ -109,8 +109,8 @@ function apply(img){
    set('position','absolute');set('top','50%');set('left','50%');
    set('right','auto');set('bottom','auto');
    set('transform','translate(-50%,-50%)');
-   set('width','calc(100% - 17px)');set('height','calc(100% - 17px)');
-   set('max-width','calc(100% - 17px)');set('max-height','calc(100% - 17px)');
+   set('width','calc(100% - var(--slt-nba-artwork-inset,17px))');set('height','calc(100% - var(--slt-nba-artwork-inset,17px))');
+   set('max-width','calc(100% - var(--slt-nba-artwork-inset,17px))');set('max-height','calc(100% - var(--slt-nba-artwork-inset,17px))');
    set('min-width','0');set('min-height','0');
    set('border','0');set('box-shadow','none');set('padding','0');
    set('margin','0');set('background','transparent');set('object-fit','contain');
