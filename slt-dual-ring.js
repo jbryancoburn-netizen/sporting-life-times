@@ -90,7 +90,10 @@ function apply(img){
  // Applying this site's generic two-ring treatment here caused FOUR overlapping rings.
  if(img.closest('.pb-club-crest'))return;
  if(img.closest('.team-hero-logo-bg,.story-img,.news-photo,.hero-watermark,.player-photo,.player-portrait,.player-headshot'))return;
- const entry=identity(img);if(!entry)return;
+ const base=identity(img);if(!base)return;
+ const era=vintageByTeam[base.id];
+ const entry=league==='nba'&&hex(era?.ring_primary)&&hex(era?.ring_secondary)
+  ?{...base,primary:era.ring_primary,secondary:era.ring_secondary}:base;
  archivalNBAImage(img,entry);
  const host=img.closest(hostSelector);
  if(host&&host.querySelectorAll('img').length===1){
