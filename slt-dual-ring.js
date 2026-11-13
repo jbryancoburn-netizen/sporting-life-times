@@ -52,34 +52,35 @@ function identity(img){
 /* The archive uses one vetted mark per franchise, with the original local logo
    retained as an automatic fallback. Score/data handling is deliberately untouched. */
 function archivalNBAImage(img,entry){
- if(league!=='nba'||!entry?.id||img.dataset.sltVintageStatus)return;
+ if(league!=='nba'||!entry?.id)return;
+ const mark=vintageByTeam[entry.id];
+ const historical='assets/nba-vintage-logos/'+entry.id+'.png';
+ if(!mark||mark.logo_url!==historical)return;
  const original=img.getAttribute('src')||'';
- if(!/(?:\/nba-logos\/|\/teamlogos\/nba\/(?:500|500-dark)\/|\/logos\/nba\/)/i.test(original))return;
- const archived=vintageByTeam[entry.id]?.logo_url;
- if(!archived||!/^https:\/\/assets\.logocdn\.com\/images\/sports\/nba\/[a-z0-9/@.\-]+$/i.test(archived))return;
+ if(img.dataset.sltVintageStatus)return;
+ if(!/(?:\/nba-logos\/|\/nba-vintage-logos\/|\/teamlogos\/nba\/(?:500|500-dark)\/|\/logos\/nba\/)/i.test(original))return;
+ // Every vintage image is a verified local file in the repo; no external
+ // CDN hosts are read, even as a fallback. A failed local-era mark falls
+ // back to a second locally stored official NBA logo.
+ const fallback=mark.fallback_url;
+ if(!/^assets\/nba-logos\/[A-Z]{2,3}\.png$/.test(fallback))return;
  img.dataset.teamCode=entry.id;
  img.dataset.sltVintageOriginal=original;
  img.dataset.sltVintageStatus='loading';
- img.referrerPolicy='no-referrer';
- // Both archive host patterns are historical sources; if neither works,
- // restore the site's existing local NBA mark instead of showing initials.
- const secondaryArchive=archived.replace('https://assets.logocdn.com/images/sports/nba/','https://i.logocdn.com/nba/');
  img.addEventListener('error',()=>{
-  const current=img.getAttribute('src');
-  if(current===archived){
-   img.dataset.sltVintageStatus='alternate';
-   img.setAttribute('src',secondaryArchive);
-  }else if(current===secondaryArchive){
+  if(img.getAttribute('src')===historical){
    img.dataset.sltVintageStatus='fallback';
-   img.setAttribute('src',original);
+   img.setAttribute('src',fallback);
   }
  });
  img.addEventListener('load',()=>{
-  const current=img.getAttribute('src');
-  if(current===archived||current===secondaryArchive)img.dataset.sltVintageStatus='loaded';
-  else if(img.dataset.sltVintageStatus==='fallback')img.hidden=false;
+  const source=img.getAttribute('src');
+  if(source===historical||source===fallback){
+    img.dataset.sltVintageStatus=source===historical?'loaded':'fallback-loaded';
+    img.hidden=false;
+  }
  });
- img.setAttribute('src',archived);
+ img.setAttribute('src',historical);
 }
 function paint(el,entry){
  el.style.setProperty('--slt-dual-primary',entry.primary);
