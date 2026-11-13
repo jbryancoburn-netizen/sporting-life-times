@@ -3,7 +3,7 @@
   "division": "d3",
   "gender": "women",
   "season": "2026-27",
-  "generated_utc": "2026-11-13T01:08:21.339811+00:00",
+  "generated_utc": "2026-11-13T16:30:09.284855+00:00",
   "source": "NCAA 2026-27 member directory + year/gender-validated official school athletics calendars",
   "scope": "NCAA membership-wide first pass; sources without independently validated 2026-27 schedules excluded",
   "ncaa_confirmed_programs": 415,
@@ -7719,7 +7719,7 @@
       "excluded_rows": {
         "missing_or_ambiguous_ncaa_opponent": 4
       },
-      "failed_school_calendar_urls": 15
+      "failed_school_calendar_urls": 9
     },
     {
       "owner_org_id": 30190,
@@ -7910,7 +7910,7 @@
       "discovery_method": "verified_official_university_event_card_archive",
       "candidate_urls_tried": 21,
       "refresh_rule": "Recheck individually linked school event pages and replace with full live school calendar when available",
-      "live_university_event_refresh_error": "ValueError: Carlow event date absent or ambiguous: []"
+      "live_university_event_refresh_error": "ValueError: Carlow university tag pagination is incomplete"
     },
     {
       "owner_org_id": 30264,
@@ -8386,8 +8386,8 @@
       ]
     }
   ],
-  "fixture_count": 4527,
-  "reciprocal_fixtures": 2713,
+  "fixture_count": 4526,
+  "reciprocal_fixtures": 2714,
   "unresolved_opponent_fixture_count": 1588,
   "unresolved_opponent_fixtures": [
     {
@@ -12816,21 +12816,6 @@
       "venue_location": "Richmond, IN / Druley Performance Gym"
     },
     {
-      "id": "d3-women-2026-11-20-200-other-1eea32b6851a",
-      "date": "2026-11-20",
-      "source_owner_org_id": 200,
-      "external_opponent_label": "SUNY Oneonta",
-      "placement": "away",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://gowarriorathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "7:00 PM",
-      "venue_location": "Oneonta, N.Y."
-    },
-    {
       "id": "d3-women-2026-11-20-258-other-c0c171c046cc",
       "date": "2026-11-20",
       "source_owner_org_id": 258,
@@ -13309,6 +13294,21 @@
       "source_url": "https://colbyathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "12:00pm or 2:00pm",
       "venue_location": "Bridgewater, MA"
+    },
+    {
+      "id": "d3-women-2026-11-21-200-other-20d9180d8ba6",
+      "date": "2026-11-21",
+      "source_owner_org_id": 200,
+      "external_opponent_label": "SUNY Oneonta",
+      "placement": "away",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://gowarriorathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "12:00 PM",
+      "venue_location": "Oneonta, N.Y."
     },
     {
       "id": "d3-women-2026-11-21-213-other-ad0ab68438bc",
@@ -33719,7 +33719,7 @@
       "source_kind": "official_school",
       "source_verification": "single_official_school",
       "tipoff_as_posted": "6:00 PM",
-      "venue": "Harrington Auditorium",
+      "venue": "WPI Sports & Recreation Center",
       "venue_location": "Worcester, MA",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -39569,7 +39569,7 @@
       "venue_location": "Memorial Hall",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 66-62",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -41509,7 +41509,7 @@
       "venue_location": "Washington, D.C.",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "Jamie Lynn Roberts Fairfield Inn DC Holiday Classic",
+      "tournament": "Jamie Lynn Roberts Celebration Classic",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -44065,7 +44065,7 @@
       "venue_location": "Washington, D.C.",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "Jamie Lynn Roberts Fairfield Inn DC Holiday Classic",
+      "tournament": "Jamie Lynn Roberts Celebration Classic",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -48663,13 +48663,15 @@
       "status": "scheduled",
       "source_url": "https://www.hartwickhawks.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://gowarriorathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.hartwickhawks.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
+        200,
         273
       ],
       "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "7 PM",
       "venue": "Lambros Arena",
       "venue_location": "Oneonta, NY`",
@@ -49001,7 +49003,7 @@
       "tipoff_as_posted": "6 p.m.",
       "venue": "Sorrentino Gymnasium",
       "venue_location": "Annville, Pa.",
-      "network_as_posted": "",
+      "network_as_posted": "MACtv",
       "radio_as_posted": "",
       "tournament": "Hoops for Hope Tournament",
       "neutral_home_designation_unconfirmed": false
@@ -50435,30 +50437,6 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
-      "id": "d3-women-2026-11-21-200-273",
-      "date": "2026-11-21",
-      "away_org_id": 200,
-      "home_org_id": 273,
-      "neutral": false,
-      "status": "scheduled",
-      "source_url": "https://gowarriorathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "official_schedule_sources": [
-        "https://gowarriorathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
-      ],
-      "verified_by_org_ids": [
-        200
-      ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
-      "tipoff_as_posted": "12:00 PM",
-      "venue": "",
-      "venue_location": "Oneonta, N.Y.",
-      "network_as_posted": "",
-      "radio_as_posted": "",
-      "tournament": "Oneonta & Hartwick Classic",
-      "neutral_home_designation_unconfirmed": false
-    },
-    {
       "id": "d3-women-2026-11-21-200-526",
       "date": "2026-11-21",
       "away_org_id": 200,
@@ -51033,7 +51011,7 @@
       "tipoff_as_posted": "2 p.m.",
       "venue": "Sorrentino Gymnasium",
       "venue_location": "Annville, Pa.",
-      "network_as_posted": "",
+      "network_as_posted": "MACtv",
       "radio_as_posted": "",
       "tournament": "Hoops for Hope Tournament",
       "neutral_home_designation_unconfirmed": false
@@ -51126,7 +51104,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "single_official_school",
-      "tipoff_as_posted": "",
+      "tipoff_as_posted": "1:00 PM",
       "venue": "",
       "venue_location": "Purchase, NY",
       "network_as_posted": "",
@@ -56831,7 +56809,7 @@
       "venue_location": "Alma, Michigan",
       "network_as_posted": "MIAA Sports Network",
       "radio_as_posted": "104.9 WQBX",
-      "tournament": "Youth Team Night",
+      "tournament": "Youth Team Day",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -69099,7 +69077,7 @@
       "venue_location": "Alma, Michigan",
       "network_as_posted": "MIAA Sports Network",
       "radio_as_posted": "104.9 WQBX",
-      "tournament": "Teacher Appreciation / Alma Schools Night",
+      "tournament": "Teacher Appreciation / Alma Schools Day",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -81073,7 +81051,7 @@
       "venue_location": "Alma, Michigan",
       "network_as_posted": "MIAA Sports Network",
       "radio_as_posted": "104.9 WQBX",
-      "tournament": "Nurses Appreciation Night",
+      "tournament": "Nurses Appreciation Day",
       "neutral_home_designation_unconfirmed": false
     },
     {
