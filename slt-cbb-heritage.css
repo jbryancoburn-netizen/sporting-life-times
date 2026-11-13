@@ -75,6 +75,27 @@ body.slt-cbb-heritage :is(.stamp, .sl-provenance) {
   color: var(--press-muted);
   font-family: Georgia, serif;
 }
+/* A single press measure for the men's and women's feature pages. */
+body.slt-cbb-heritage .wbb-desk {
+  width: 100%;
+  max-width: 100%;
+  margin-inline: 0;
+  padding: 12px 0 48px;
+  color: var(--press-ink);
+}
+@media (min-width: 901px) {
+  /* Keep the dense desktop section index on one deliberate line when it fits. */
+  body.slt-cbb-heritage nav.cbb-universal-nav {
+    justify-content: flex-start !important;
+    gap: 9px !important;
+    padding: 10px 12px !important;
+  }
+  body.slt-cbb-heritage nav.cbb-universal-nav a,
+  body.slt-cbb-heritage nav.cbb-universal-nav .cbb-rank-trigger,
+  body.slt-cbb-heritage nav.cbb-universal-nav .cbb-find-btn {
+    font-size: 12px !important;
+  }
+}
 /* SCHOOL EDITIONS — one matched arrangement, genuine logo source preserved. */
 body.slt-cbb-heritage :is(.team-hero, .wbb-mast) {
   margin: 13px 0 12px;
