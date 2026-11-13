@@ -1,67 +1,13 @@
 {
   "season": "2026-27",
-  "updated_at": "2026-11-12T20:45:15.905336+00:00",
-  "checked_at": "2026-11-13T16:44:56.910914+00:00",
+  "updated_at": "2026-11-13T22:14:15.880593+00:00",
+  "checked_at": "2026-11-13T22:14:15.880593+00:00",
   "source": "EuroLeague per-game Header plus verified Sporting Life & Times model finals",
   "refresh_target_seconds": 300,
-  "header_responses": 0,
-  "live_scores_refreshed": 0,
+  "header_responses": 3,
+  "live_scores_refreshed": 3,
   "provider_degraded": false,
   "games": [
-    {
-      "id": "109",
-      "date": "2026-11-13T17:30:00Z",
-      "status": "scheduled",
-      "status_detail": "Scheduled",
-      "home": {
-        "code": "IST",
-        "name": "Anadolu Efes Istanbul",
-        "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCgOCxM/a844756c-a58d-4666-93b8-48f7337bc79d.png",
-        "score": null
-      },
-      "away": {
-        "code": "VIR",
-        "name": "Virtus Bologna",
-        "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCiezvk/a92d4c3b-9f9c-4163-8a10-bcf8fc15893e.png",
-        "score": null
-      }
-    },
-    {
-      "id": "110",
-      "date": "2026-11-13T19:15:00Z",
-      "status": "scheduled",
-      "status_detail": "Scheduled",
-      "home": {
-        "code": "PAN",
-        "name": "Panathinaikos AKTOR Athens",
-        "logo": "https://media-cdn.incrowdsports.com/e3dff28a-9ec6-4faf-9d96-ecbc68f75780.png",
-        "score": null
-      },
-      "away": {
-        "code": "BAR",
-        "name": "FC Barcelona",
-        "logo": "https://media-cdn.incrowdsports.com/35dfa503-e417-481f-963a-bdf6f013763e.png",
-        "score": null
-      }
-    },
-    {
-      "id": "108",
-      "date": "2026-11-13T19:30:00Z",
-      "status": "scheduled",
-      "status_detail": "Scheduled",
-      "home": {
-        "code": "ASV",
-        "name": "LDLC ASVEL Villeurbanne",
-        "logo": "https://media-cdn.incrowdsports.com/e33c6d1a-95ca-4dbc-b8cb-0201812104cc.png",
-        "score": null
-      },
-      "away": {
-        "code": "BES",
-        "name": "Besiktas Istanbul",
-        "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjChWbHH/b05e3c54-e672-4b31-9f86-c91e9de7715c.png",
-        "score": null
-      }
-    },
     {
       "id": "101",
       "date": "2026-11-11T19:45:00Z",
@@ -194,6 +140,66 @@
         "score": 84
       },
       "score_updated_at": "2026-11-13T16:23:39.874983+00:00"
+    },
+    {
+      "id": "109",
+      "date": "2026-11-13T17:30:00Z",
+      "status": "final",
+      "status_detail": "Final · EuroLeague completed periods",
+      "home": {
+        "code": "IST",
+        "name": "Anadolu Efes Istanbul",
+        "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCgOCxM/a844756c-a58d-4666-93b8-48f7337bc79d.png",
+        "score": 103
+      },
+      "away": {
+        "code": "VIR",
+        "name": "Virtus Bologna",
+        "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCiezvk/a92d4c3b-9f9c-4163-8a10-bcf8fc15893e.png",
+        "score": 91
+      },
+      "score_updated_at": "2026-11-13T22:14:15.880593+00:00",
+      "final_source": "https://live.euroleague.net/api/Header?gamecode=109&seasoncode=E2026"
+    },
+    {
+      "id": "110",
+      "date": "2026-11-13T19:15:00Z",
+      "status": "final",
+      "status_detail": "Final · EuroLeague completed periods",
+      "home": {
+        "code": "PAN",
+        "name": "Panathinaikos AKTOR Athens",
+        "logo": "https://media-cdn.incrowdsports.com/e3dff28a-9ec6-4faf-9d96-ecbc68f75780.png",
+        "score": 74
+      },
+      "away": {
+        "code": "BAR",
+        "name": "FC Barcelona",
+        "logo": "https://media-cdn.incrowdsports.com/35dfa503-e417-481f-963a-bdf6f013763e.png",
+        "score": 76
+      },
+      "score_updated_at": "2026-11-13T22:14:15.880593+00:00",
+      "final_source": "https://live.euroleague.net/api/Header?gamecode=110&seasoncode=E2026"
+    },
+    {
+      "id": "108",
+      "date": "2026-11-13T19:30:00Z",
+      "status": "final",
+      "status_detail": "Final · EuroLeague completed periods",
+      "home": {
+        "code": "ASV",
+        "name": "LDLC ASVEL Villeurbanne",
+        "logo": "https://media-cdn.incrowdsports.com/e33c6d1a-95ca-4dbc-b8cb-0201812104cc.png",
+        "score": 91
+      },
+      "away": {
+        "code": "BES",
+        "name": "Besiktas Istanbul",
+        "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjChWbHH/b05e3c54-e672-4b31-9f86-c91e9de7715c.png",
+        "score": 95
+      },
+      "score_updated_at": "2026-11-13T22:14:15.880593+00:00",
+      "final_source": "https://live.euroleague.net/api/Header?gamecode=108&seasoncode=E2026"
     }
   ]
 }
