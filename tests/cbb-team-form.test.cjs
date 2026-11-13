@@ -1,7 +1,7 @@
 'use strict';
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const {normalizeMen, normalizeWomen, calculate} = require('../cbb-team-form.js');
+const {normalizeMen, normalizeWomen, calculate, formatOpponent} = require('../cbb-team-form.js');
 const roster = {season: '2026-27', teams: [
   {team_id: '1', team: 'Alpha Wildcats'}, {team_id: '2', team: 'Bravo Bears'}
 ]};
@@ -87,4 +87,37 @@ test('women: neutral designation requires verified site evidence as well', () =>
   ]};
   const form = calculate('1',normalizeWomen(finals,roster));
   assert.deepEqual(form.recent.map(game => game.location), ['unverified','neutral']);
+});
+
+test('Form Book renders verified home/away/neutral with matching prefixes for both editions', () => {
+  const men = calculate('ncaa:1', normalizeMen(retro(), null, crosswalk));
+  assert.deepEqual(men.recent.map(formatOpponent), ['@ Bravo', 'vs. Bravo']);
+  const womenFinals = {season: '2026-27', games: [
+    {id:'401',date:'2026-11-02',home_id:'1',away_id:'2',
+      home_score:68,away_score:61,status:'final',site_verified:true},
+    {id:'402',date:'2026-11-04',home_id:'2',away_id:'1',
+      home_score:56,away_score:72,status:'final',site_verified:true},
+    {id:'403',date:'2026-11-06',home_id:'1',away_id:'2',
+      home_score:77,away_score:69,status:'final',neutral:true,site_verified:true}
+  ]};
+  const women = calculate('1', normalizeWomen(womenFinals, roster));
+  assert.deepEqual(women.recent.map(formatOpponent), [
+    'vs. Bravo Bears (N)', '@ Bravo Bears', 'vs. Bravo Bears'
+  ]);
+  assert.equal(women.recent[0].location, 'neutral');
+});
+
+test('Form Book never marks a court neutral without verified site evidence', () => {
+  const source = retro();
+  source.events[0].neutral = true;
+  source.events[0].site_verified = false;
+  source.events[1].neutral = true;
+  source.events[1].site_verified = true;
+  const men = calculate('ncaa:1',normalizeMen(source,null,crosswalk));
+  assert.equal(formatOpponent(men.recent[0]), 'vs. Bravo (N)');
+  assert.equal(formatOpponent(men.recent[1]), 'vs. Bravo');
+  assert.equal(men.recent[1].location,'unverified');
+  assert.equal(men.recent[1].designatedSide,'home');
+  const awayUnverified = { ...men.recent[1], designatedSide:'away' };
+  assert.equal(formatOpponent(awayUnverified), '@ Bravo');
 });

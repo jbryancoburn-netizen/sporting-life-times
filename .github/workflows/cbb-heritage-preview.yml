@@ -1,0 +1,64 @@
+name: CBB Heritage Press branch visual preview
+on:
+  pull_request:
+    paths:
+      - 'slt-cbb-heritage.css'
+      - 'ncaam-team.html'
+      - 'ncaaw-team.html'
+      - 'ncaam-slate.html'
+      - 'wbb-team-newspaper.css'
+      - 'mbb-logo-system.css'
+      - 'cbb-ledger-scorebug.js'
+      - 'cbb-final-impact.js'
+      - 'ncaam-slate.js'
+      - 'tests/shared-scorebug-contract.test.js'
+      - 'tests/cbb-final-impact.test.cjs'
+      - 'cbb-team-form.js'
+      - 'tests/cbb-team-form.test.cjs'
+      - 'tests/cbb-double-ring.test.cjs'
+      - 'scripts/test_cbb_heritage_press.py'
+      - 'scripts/cbb_heritage_preview.py'
+      - '.github/workflows/cbb-heritage-preview.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  visual-preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate shared editorial design contract
+        run: python3 -m unittest scripts/test_cbb_heritage_press.py -v
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test shared Form Book fixture labels and double-ring CSS
+        run: |
+          node --check cbb-team-form.js
+          node --check cbb-final-impact.js
+          node --check cbb-ledger-scorebug.js
+          node --check ncaam-slate.js
+          node --test tests/cbb-team-form.test.cjs tests/cbb-double-ring.test.cjs tests/cbb-final-impact.test.cjs tests/shared-scorebug-contract.test.js
+      - name: Install Chromium browser for local-branch visual comparison
+        run: |
+          python3 -m pip install playwright==1.56.0
+          python3 -m playwright install --with-deps chromium
+      - name: Serve this PR checkout locally (never production)
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/slt-heritage-preview.log 2>&1 &
+          sleep 3
+          curl --fail --silent http://127.0.0.1:8765/ncaam-team.html > /dev/null
+      - name: Screenshot men's and women's team editions and Ledger at five widths
+        run: python3 scripts/cbb_heritage_preview.py
+      - name: Upload screenshots and explicit failures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cbb-heritage-press-branch-preview
+          path: artifacts/cbb-heritage-preview/
+          retention-days: 14
+          if-no-files-found: warn

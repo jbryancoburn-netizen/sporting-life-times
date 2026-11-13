@@ -68,3 +68,21 @@ test('pregame scouting uses verified samples and is absent after tipoff',()=>{
   assert.doesNotMatch(out,/ledger26-scout|ledger26-rivalry|82.4 PPG|2026–27 H2H/);
  }
 });
+
+test('FINAL optional impact uses away/home ordered RETRO day changes and standings records',()=>{
+ const impact={
+  state:'published',away:{record:'4–0',conferenceRecord:'1–0',dayChange:12.4,rank:3,won:true,asOf:'2026-11-13'},
+  home:{record:'2–2',conferenceRecord:'0–1',dayChange:-9.8,rank:34,won:false,asOf:'2026-11-13'}
+ };
+ const out=render({phase:'final',away,home,finalImpact:impact});
+ assert.match(out,/ledger26-status--final-impact/);
+ assert.match(out,/DAY/);
+ assert.match(out,/ledger26-final-retro--day/);
+ assert.match(out,/\+W/);
+ assert.match(out,/▲ \+12\.4/);
+ assert.match(out,/▼ −9\.8/);
+ assert.ok(out.indexOf('1–0')<out.indexOf('0–1'));
+ assert.doesNotMatch(render({phase:'live',away,home,finalImpact:impact}),/ledger26-final-rows/);
+ assert.doesNotMatch(render({phase:'upcoming',away,home,finalImpact:impact,suppressPress:true}),/ledger26-final-rows/);
+ assert.match(render({phase:'final',away,home,finalImpact:{state:'pending'}}),/RETRO \/ RECORD PENDING/);
+});

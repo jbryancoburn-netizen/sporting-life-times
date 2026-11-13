@@ -1,0 +1,491 @@
+/*
+ * SPORTING LIFE & TIMES — The Heritage Sporting Press, edition I.
+ * Single scoped presentation system for the men's & women's team desks
+ * and the Daily Ledger. Existing data/renderers and logo registry are owners
+ * of the content; this file owns typography, spacing, paper and layout only.
+ *
+ * Keep this stylesheet last on the three opted-in pages. Do not duplicate
+ * these rules in page-local <style> blocks or legacy global stylesheets.
+ */
+body.slt-cbb-heritage {
+  --press-paper: #f2e8d6;
+  --press-surface: #fcf7ed;
+  --press-ink: #28231e;
+  --press-muted: #665a4a;
+  --press-rule: #b4a287;
+  --press-crimson: #873c32;
+  --press-brass: #a18452;
+  --press-face: "Century Schoolbook", Georgia, "Times New Roman", serif;
+  --press-numerals: "Bodoni Moda", Georgia, serif;
+  --paper: var(--press-paper);
+  --ink: var(--press-ink);
+  --sl-paper: var(--press-paper);
+  --sl-ink: var(--press-ink);
+  --sl-card: var(--press-surface);
+  background: var(--press-paper);
+  color: var(--press-ink);
+  font-family: var(--press-face);
+}
+body.slt-cbb-heritage :is(.wrap, .sl-shell) {
+  width: 100%;
+  max-width: 1460px;
+  margin-inline: auto;
+}
+body.slt-cbb-heritage :is(.topline, .sl-meta) {
+  color: var(--press-muted);
+  border-top: 1px solid var(--press-ink);
+  border-bottom: 1px solid var(--press-rule);
+  padding-block: 8px;
+  font: 700 10px/1.45 Georgia, serif;
+  text-transform: uppercase;
+  letter-spacing: .09em;
+}
+body.slt-cbb-heritage :is(.masthead, .sl-masthead) {
+  text-align: center;
+  padding: clamp(12px, 1.8vw, 22px) 0 12px;
+  margin: 0;
+  border-bottom: 4px double var(--press-ink);
+}
+body.slt-cbb-heritage :is(.masthead, .sl-masthead) a {
+  color: var(--press-ink);
+  font-size: clamp(37px, 5.7vw, 75px);
+  line-height: 1.06;
+  text-decoration: none;
+}
+body.slt-cbb-heritage .sl-masthead i { font-style: normal; font-weight: inherit; }
+body.slt-cbb-heritage .sl-masthead > span,
+body.slt-cbb-heritage .edition-line {
+  color: var(--press-muted);
+  text-transform: uppercase;
+  font: 700 10px/1.5 Georgia, serif;
+  letter-spacing: .18em;
+  margin: 6px 0 12px;
+}
+body.slt-cbb-heritage :is(.eyebrow, .sl-eyebrow) {
+  color: var(--press-crimson);
+  font: 700 10px/1.4 Georgia, serif;
+  letter-spacing: .105em;
+  text-transform: uppercase;
+}
+body.slt-cbb-heritage :is(a, button, summary, input, select):focus-visible {
+  outline: 3px solid var(--press-crimson);
+  outline-offset: 3px;
+}
+body.slt-cbb-heritage :is(.stamp, .sl-provenance) {
+  color: var(--press-muted);
+  font-family: Georgia, serif;
+}
+/* A single press measure for the men's and women's feature pages. */
+body.slt-cbb-heritage .wbb-desk {
+  width: 100%;
+  max-width: 100%;
+  margin-inline: 0;
+  padding: 12px 0 48px;
+  color: var(--press-ink);
+}
+@media (min-width: 901px) {
+  /* Keep the dense desktop section index on one deliberate line when it fits. */
+  body.slt-cbb-heritage nav.cbb-universal-nav {
+    justify-content: flex-start !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    gap: 7px !important;
+    padding: 10px 12px !important;
+    scrollbar-width: thin;
+  }
+  body.slt-cbb-heritage nav.cbb-universal-nav a,
+  body.slt-cbb-heritage nav.cbb-universal-nav .cbb-rank-trigger,
+  body.slt-cbb-heritage nav.cbb-universal-nav .cbb-find-btn {
+    font-size: 12px !important;
+  }
+}
+/* SCHOOL EDITIONS — one matched arrangement, genuine logo source preserved. */
+body.slt-cbb-heritage :is(.team-hero, .wbb-mast) {
+  margin: 13px 0 12px;
+  padding: clamp(15px, 2vw, 25px);
+  background: var(--press-surface);
+  border: 1px solid var(--press-rule);
+  border-top: 3px solid var(--press-ink);
+  border-bottom: 3px double var(--press-ink);
+  box-shadow: none;
+}
+body.slt-cbb-heritage .team-hero {
+  border-left: 4px solid var(--team, var(--press-crimson));
+  gap: clamp(14px, 2vw, 28px);
+}
+body.slt-cbb-heritage .wbb-identity {
+  gap: clamp(14px, 2vw, 28px);
+}
+body.slt-cbb-heritage :is(.team-hero h1, .wbb-identity h1) {
+  color: var(--press-ink);
+  font: 700 clamp(30px, 3.6vw, 54px)/1.08 Georgia, "Times New Roman", serif;
+  letter-spacing: -.035em;
+  margin: 4px 0 8px;
+  overflow-wrap: anywhere;
+}
+body.slt-cbb-heritage :is(.team-hero p, .wbb-identity p) {
+  color: var(--press-muted);
+  font: 14px/1.4 var(--press-face);
+  margin: 0;
+}
+body.slt-cbb-heritage .team-hero .mbb-mark,
+body.slt-cbb-heritage .wbb-identity .mbb-mark {
+  --mbb-size: 112px;
+  width: 112px;
+  height: 112px;
+  min-width: 112px;
+  flex: 0 0 112px;
+}
+body.slt-cbb-heritage .team-hero .badge {
+  width: 112px;
+  height: 112px;
+  object-fit: contain;
+  padding: 5px;
+  background: transparent;
+}
+/* Statistics and the existing Form Book are shared print furniture. */
+body.slt-cbb-heritage :is(.metrics, .wbb-kpis) {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 3px double var(--press-ink);
+  border-bottom: 1px solid var(--press-ink);
+  background: var(--press-surface);
+  margin: 14px 0 17px;
+  gap: 0;
+}
+body.slt-cbb-heritage :is(.metrics .metric, .wbb-kpi) {
+  min-width: 0;
+  padding: 13px clamp(9px, 1.35vw, 20px);
+  border-right: 1px solid var(--press-rule);
+  text-align: center;
+}
+body.slt-cbb-heritage :is(.metrics .metric, .wbb-kpi):last-child {
+  border-right: 0;
+}
+body.slt-cbb-heritage :is(.metrics .metric b, .wbb-kpi strong) {
+  display: block;
+  margin: 4px 0;
+  color: var(--press-ink);
+  font: 700 clamp(24px, 2.6vw, 38px)/1.07 var(--press-numerals);
+  font-variant-numeric: tabular-nums lining-nums;
+  overflow-wrap: anywhere;
+}
+body.slt-cbb-heritage :is(.metrics .metric span, .wbb-kpi small) {
+  display: block;
+  color: var(--press-muted);
+  font: 700 10px/1.35 Georgia, serif;
+  text-transform: uppercase;
+  letter-spacing: .055em;
+}
+body.slt-cbb-heritage .cbb-team-form {
+  border: 1px solid var(--press-rule);
+  border-top: 3px solid var(--press-ink);
+  border-bottom: 3px double var(--press-ink);
+  background: var(--press-surface);
+  color: var(--press-ink);
+  padding: 16px clamp(12px, 1.7vw, 23px);
+}
+body.slt-cbb-heritage .cbb-form-heading h2 {
+  color: var(--press-ink);
+  font-family: var(--press-face);
+  letter-spacing: -.025em;
+}
+body.slt-cbb-heritage .cbb-form-stat strong {
+  color: var(--press-ink);
+  font-variant-numeric: tabular-nums;
+}
+body.slt-cbb-heritage :is(.panel, .wbb-panel, .victorian-team-calendar) {
+  background: var(--press-surface);
+  border-radius: 0;
+  box-shadow: none;
+}
+body.slt-cbb-heritage :is(.wbb-panel, .victorian-team-calendar) {
+  border: 1px solid var(--press-rule);
+  border-top: 3px double var(--press-ink);
+  padding: clamp(11px, 1.3vw, 20px);
+}
+body.slt-cbb-heritage :is(.panel h2, .wbb-panel h2, .victorian-team-calendar h2) {
+  color: var(--press-ink);
+  font-family: var(--press-face);
+  font-size: clamp(22px, 2.5vw, 31px);
+  font-weight: 700;
+  letter-spacing: -.025em;
+  border-bottom-color: var(--press-rule);
+}
+body.slt-cbb-heritage :is(.mbb-schedule-table, .wbb-schedule-table) {
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+body.slt-cbb-heritage :is(.mbb-schedule-table, .wbb-schedule-table) th {
+  color: var(--press-muted);
+  background: #e9ddca;
+  border-bottom: 2px solid var(--press-ink);
+  font: 700 10px/1.4 Georgia, serif;
+  text-transform: uppercase;
+  letter-spacing: .025em;
+  padding: 10px 8px;
+}
+body.slt-cbb-heritage :is(.mbb-schedule-table, .wbb-schedule-table) td {
+  border-bottom: 1px solid var(--press-rule);
+  color: var(--press-ink);
+  padding: 10px 8px;
+  line-height: 1.4;
+}
+body.slt-cbb-heritage :is(.mbb-schedule-table, .wbb-schedule-table) tbody tr:not([hidden]):hover td {
+  background: #f1e6d3;
+}
+body.slt-cbb-heritage :is(.table-wrap, .wbb-table-wrap) {
+  max-width: 100%;
+  overflow-x: auto;
+}
+body.slt-cbb-heritage .wbb-nav {
+  border-top-color: var(--press-rule);
+}
+/* DAILY LEDGER — the same print hierarchy, no score/source changes. */
+body.slt-cbb-heritage .slt-department-band {
+  margin-top: 14px;
+  background: transparent;
+}
+body.slt-cbb-heritage .slt-department-band h1 {
+  color: var(--press-ink);
+  font: 700 clamp(32px, 4.2vw, 57px)/1.05 Georgia, serif;
+  letter-spacing: -.035em;
+}
+body.slt-cbb-heritage .sl-content-head {
+  border-bottom: 3px double var(--press-ink);
+}
+body.slt-cbb-heritage .sl-content-head h2 {
+  color: var(--press-ink);
+  font: 700 clamp(25px, 3vw, 38px)/1.14 var(--press-face);
+}
+body.slt-cbb-heritage :is(.sl-day-picker, .sl-filters button, .sl-search input) {
+  color: var(--press-ink);
+  background: var(--press-surface);
+  border-color: var(--press-rule);
+  border-radius: 0;
+}
+body.slt-cbb-heritage #sl-games {
+  gap: 15px;
+}
+body.slt-cbb-heritage .ledger26-card {
+  background: var(--press-surface) !important;
+  border: 1px solid var(--press-rule) !important;
+  border-top: 3px solid var(--press-ink) !important;
+  box-shadow: none;
+}
+body.slt-cbb-heritage .ledger26-meta {
+  background: #eee2d0;
+  color: var(--press-muted);
+  border-bottom: 1px solid var(--press-rule);
+  font: 700 11px/1.35 Georgia, serif;
+  padding: 8px 12px;
+}
+body.slt-cbb-heritage .ledger26-summary {
+  background: var(--press-surface);
+  padding: 9px 11px 6px;
+}
+body.slt-cbb-heritage .ledger26-summary:hover,
+body.slt-cbb-heritage .ledger26-expand[open] > .ledger26-summary {
+  background: #f3e8d7;
+}
+body.slt-cbb-heritage .ledger26-scorebug {
+  --ledger26-crest-size: 56px;
+  --ledger26-team-min-height: 64px;
+  background: var(--press-surface);
+  border: 1px solid var(--press-rule);
+}
+body.slt-cbb-heritage .ledger26-team {
+  background: var(--press-surface);
+  border-bottom-color: var(--press-rule);
+  border-left-width: 4px;
+}
+body.slt-cbb-heritage .ledger26-name {
+  font-size: 16px !important;
+  line-height: 1.18 !important;
+  text-transform: none;
+  letter-spacing: -.012em !important;
+}
+body.slt-cbb-heritage .ledger26-points {
+  font: 700 30px/1 var(--press-numerals) !important;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+body.slt-cbb-heritage .ledger26-status {
+  background: #eee2d0;
+  border-left-color: var(--press-rule);
+}
+body.slt-cbb-heritage .ledger26-status[data-phase="live"] {
+  background: #f4e2d8;
+}
+body.slt-cbb-heritage .ledger26-instruction {
+  color: var(--press-muted);
+  font: 700 10px/1.2 Georgia, serif;
+  letter-spacing: .05em;
+}
+body.slt-cbb-heritage .ledger26-expanded {
+  background: var(--press-surface);
+  border-top: 2px solid var(--press-rule);
+}
+body.slt-cbb-heritage .ledger26-crest img {
+  object-fit: contain;
+}
+/* Responsive newspaper furniture: shared across the two school editions. */
+@media (max-width: 760px) {
+  body.slt-cbb-heritage :is(.metrics, .wbb-kpis) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  body.slt-cbb-heritage :is(.metrics .metric, .wbb-kpi):nth-child(2) {
+    border-right: 0;
+  }
+  body.slt-cbb-heritage :is(.metrics .metric, .wbb-kpi):nth-child(-n+2) {
+    border-bottom: 1px solid var(--press-rule);
+  }
+  body.slt-cbb-heritage .ledger26-scorebug {
+    --ledger26-crest-size: 48px;
+    --ledger26-team-min-height: 61px;
+  }
+  body.slt-cbb-heritage .ledger26-name {
+    font-size: 13px !important;
+  }
+  body.slt-cbb-heritage .ledger26-points {
+    font-size: 24px !important;
+  }
+  body.slt-cbb-heritage :is(.team-hero .mbb-mark, .wbb-identity .mbb-mark) {
+    --mbb-size: 75px;
+    width: 75px;
+    height: 75px;
+    min-width: 75px;
+    flex-basis: 75px;
+  }
+  body.slt-cbb-heritage .team-hero .badge {
+    width: 75px;
+    height: 75px;
+  }
+}
+@media (max-width: 390px) {
+  body.slt-cbb-heritage :is(.topline, .sl-meta) {
+    font-size: 9px;
+    letter-spacing: .02em;
+    flex-wrap: wrap;
+  }
+  body.slt-cbb-heritage :is(.masthead, .sl-masthead) a {
+    font-size: clamp(30px, 8.4vw, 39px);
+  }
+  body.slt-cbb-heritage :is(.team-hero, .wbb-mast) {
+    padding: 11px;
+  }
+  body.slt-cbb-heritage :is(.team-hero h1, .wbb-identity h1) {
+    font-size: 27px;
+  }
+  body.slt-cbb-heritage .ledger26-scorebug {
+    --ledger26-crest-size: 40px;
+    --ledger26-team-min-height: 56px;
+  }
+  body.slt-cbb-heritage .ledger26-points {
+    font-size: 21px !important;
+  }
+  body.slt-cbb-heritage .ledger26-meta {
+    padding: 7px 8px;
+    font-size: 10px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  body.slt-cbb-heritage *, body.slt-cbb-heritage *::before, body.slt-cbb-heritage *::after {
+    scroll-behavior: auto;
+  }
+}
+
+
+/* The Heritage Press scorebug: RETRO remains legible in the team identity line. */
+body.slt-cbb-heritage .ledger26-record {
+  display:flex; align-items:baseline; flex-wrap:wrap; gap:2px 7px;
+  font-variant-numeric:tabular-nums; line-height:1.25;
+}
+body.slt-cbb-heritage .ledger26-retro-brief {
+  color:#713d30; font-weight:700;
+}
+body.slt-cbb-heritage .ledger26-record-overall {
+  color:var(--press-muted);
+}
+/* FINAL: one compact published-impact register in the formerly empty status
+   column, with first/second row mapping exactly to away/home team order. */
+body.slt-cbb-heritage .ledger26-scorebug:has(.ledger26-status--final-impact) {
+  grid-template-columns: minmax(0,1fr) 118px;
+}
+body.slt-cbb-heritage .ledger26-status--final-impact {
+  display:flex; flex-direction:column; justify-content:flex-start;
+  text-align:center; padding:5px 3px; overflow:hidden;
+  background:#f0e3ce; gap:3px;
+}
+body.slt-cbb-heritage .ledger26-status--final-impact .ledger26-final-heading {
+  font:700 10px/1.2 Georgia,serif!important;
+  border-bottom:1px solid var(--press-rule); padding:0 0 3px; width:100%;
+}
+body.slt-cbb-heritage .ledger26-final-rows {
+  display:grid; grid-template-rows:1fr 1fr; flex:1;
+  width:100%; gap:2px; min-height:0;
+}
+body.slt-cbb-heritage .ledger26-final-team {
+  display:flex; flex-direction:column; gap:1px; justify-content:center;
+  min-width:0; padding:2px 0; border-bottom:1px dotted var(--press-rule);
+}
+body.slt-cbb-heritage .ledger26-final-team:last-child{border-bottom:0}
+body.slt-cbb-heritage .ledger26-final-retro,
+body.slt-cbb-heritage .ledger26-final-record {
+  display:flex; gap:4px; align-items:baseline; justify-content:center;
+  white-space:nowrap; line-height:1.05;
+}
+body.slt-cbb-heritage .ledger26-final-retro small,
+body.slt-cbb-heritage .ledger26-final-record small {
+  font:700 8px/1 Georgia,serif; color:#756451;
+}
+body.slt-cbb-heritage .ledger26-final-retro b {
+  font:700 13px/1 var(--press-numerals); color:var(--press-ink);
+  font-variant-numeric:tabular-nums;
+}
+body.slt-cbb-heritage .ledger26-final-retro b.is-rise {color:#285a42}
+body.slt-cbb-heritage .ledger26-final-retro b.is-fall {color:#963b31}
+body.slt-cbb-heritage .ledger26-final-record b {
+  font:700 9px/1.1 Georgia,serif;
+  color:var(--press-ink); font-variant-numeric:tabular-nums;
+}
+body.slt-cbb-heritage .ledger26-final-unrated,
+body.slt-cbb-heritage .ledger26-final-pending {
+  display:block; font:700 9px/1.3 Georgia,serif;
+  color:var(--press-muted); padding:15px 2px;
+}
+@media(max-width:640px) {
+  body.slt-cbb-heritage .ledger26-record {
+    font-size:10px; gap:1px 4px;
+  }
+  body.slt-cbb-heritage .ledger26-retro-brief {
+    font-size:10px; display:block;
+  }
+  body.slt-cbb-heritage .ledger26-scorebug:has(.ledger26-status--final-impact) {
+    grid-template-columns:minmax(0,1fr) 105px;
+  }
+  body.slt-cbb-heritage .ledger26-status--final-impact {padding:4px 2px;gap:2px}
+  body.slt-cbb-heritage .ledger26-final-retro b {font-size:12px}
+}
+@media(max-width:360px) {
+  body.slt-cbb-heritage .ledger26-scorebug:has(.ledger26-status--final-impact) {
+    grid-template-columns:minmax(0,1fr) 97px;
+  }
+  body.slt-cbb-heritage .ledger26-record {font-size:9px}
+  body.slt-cbb-heritage .ledger26-retro-brief {font-size:9px}
+  body.slt-cbb-heritage .ledger26-final-record b {font-size:8px}
+}
+
+
+/* Phone-sized final movement register: spend space on readable values, not labels. */
+@media(max-width:640px){
+ body.slt-cbb-heritage .ledger26-final-retro--rank small{display:none}
+ body.slt-cbb-heritage .ledger26-final-retro--day small{font-size:8px}
+ body.slt-cbb-heritage .ledger26-final-retro b{font-size:15px}
+ body.slt-cbb-heritage .ledger26-final-record-kind{display:none}
+ body.slt-cbb-heritage .ledger26-final-record b{font-size:11px}
+ body.slt-cbb-heritage .ledger26-final-record small{font-size:9px;color:#51432e}
+}
+@media(max-width:360px){
+ body.slt-cbb-heritage .ledger26-final-retro b{font-size:14px}
+ body.slt-cbb-heritage .ledger26-final-record b{font-size:10px}
+}
