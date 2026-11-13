@@ -69,3 +69,22 @@ test('men: refuse malformed publication rather than inferring records', () => {
   const broken=retro();broken.games_played=1000;
   assert.throws(()=>normalizeMen(broken,null,crosswalk),/unavailable/);
 });
+
+test('men: unverified neutral flags do not appear as confirmed neutral locations', () => {
+  const source = retro();
+  source.events[0].neutral = true;
+  source.events[0].site_verified = false;
+  source.events[1].neutral = true;
+  source.events[1].site_verified = true;
+  const form = calculate('ncaa:1',normalizeMen(source,null,crosswalk));
+  assert.deepEqual(form.recent.map(game => game.location), ['neutral','unverified']);
+});
+
+test('women: neutral designation requires verified site evidence as well', () => {
+  const finals = {season:'2026-27',games:[
+    {id:'302',date:'2026-11-08',home_id:'1',away_id:'2',home_score:71,away_score:62,status:'final',neutral:true,site_verified:false},
+    {id:'301',date:'2026-11-04',home_id:'1',away_id:'2',home_score:67,away_score:60,status:'final',neutral:true,site_verified:true}
+  ]};
+  const form = calculate('1',normalizeWomen(finals,roster));
+  assert.deepEqual(form.recent.map(game => game.location), ['unverified','neutral']);
+});
