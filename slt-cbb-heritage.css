@@ -87,8 +87,11 @@ body.slt-cbb-heritage .wbb-desk {
   /* Keep the dense desktop section index on one deliberate line when it fits. */
   body.slt-cbb-heritage nav.cbb-universal-nav {
     justify-content: flex-start !important;
-    gap: 9px !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    gap: 7px !important;
     padding: 10px 12px !important;
+    scrollbar-width: thin;
   }
   body.slt-cbb-heritage nav.cbb-universal-nav a,
   body.slt-cbb-heritage nav.cbb-universal-nav .cbb-rank-trigger,
