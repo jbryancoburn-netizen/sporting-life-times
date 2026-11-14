@@ -1,0 +1,59 @@
+name: Build 1980s ACC archive — 18 locally stored school logos (one-off)
+on:
+  push:
+    branches:
+      - feat/acc-1980s-18-school-logo-audit-20261114
+    paths:
+      - scripts/build_acc_1980s_gallery.py
+      - .github/workflows/one-off-acc-gallery-build.yml
+permissions:
+  contents: write
+jobs:
+  build-archive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install archival image processing
+        run: python -m pip install 'pillow>=10,<12'
+      - name: Validate and generate all 18 historical PNGs
+        run: |
+          python -m py_compile scripts/build_acc_1980s_gallery.py
+          python scripts/build_acc_1980s_gallery.py
+      - name: Audit 18-source provenance, historical dates and clear rings
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          import json,hashlib
+          d=json.loads(Path('data/cbb-acc-1980s-source-manifest.json').read_text())
+          assert d['production_deployment'] is False
+          assert d['current_member_count']==18
+          assert d['historical_acc_members_among_current']==7
+          assert len(d['schools'])==18
+          assert len(set(x['espn_id'] for x in d['schools']))==18
+          html=Path('cbb-acc-1980s-preview.html').read_text()
+          assert html.count('<article class="school">')==18
+          assert html.count('assets/cbb-acc-1980s/')==18
+          assert html.count('Historical source')==18
+          assert 'not yet the production logo set' in html
+          for x in d['schools']:
+            asset=Path(x['local_path'])
+            assert x['geometry']['gap_to_238px_ring']>=18,x['slug']
+            assert x['original_sha256'] and x['local_sha256']==hashlib.sha256(asset.read_bytes()).hexdigest()
+            with Image.open(asset) as im:
+              assert im.size==(512,512) and im.format=='PNG',x['slug']
+          print('PASS: all 18 original-era ACC logo images locally served, circular fits and accurate eras')
+          PY
+      - name: Commit images and audit gallery for review
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/cbb-acc-1980s/ cbb-acc-1980s-preview.html data/cbb-acc-1980s-source-manifest.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Add all 18 local 1980s ACC historic logo images for audit'
+            git push origin "HEAD:$GITHUB_REF_NAME"
+          fi
