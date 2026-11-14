@@ -1,0 +1,51 @@
+name: Recenter Goldy and Purdue Pete source art (one-off)
+on:
+  push:
+    branches:
+      - fix/big-ten-mascots-ring-clearance-20261114
+    paths:
+      - .github/workflows/one-off-big-ten-mascots-v3.yml
+permissions:
+  contents: write
+jobs:
+  refine:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Pillow
+        run: python -m pip install 'pillow>=10,<12'
+      - name: Correct artwork inside the unchanged two-color rings
+        run: python scripts/refine_big_ten_mascots_v3.py
+      - name: Audit source art, centering, ring clearance and 14 references
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from PIL import Image
+          data=json.loads(Path('reports/big-ten-mascot-ring-clearance-v3.json').read_text())
+          assert set(data['teams'])=={'minnesota','purdue'}
+          for school,row in data['teams'].items():
+            with Image.open(f'assets/cbb-big-ten-1980s/centered/{school}.png') as im:
+              assert im.size==(512,512)
+            assert row['after']['long_px']<row['before']['long_px']
+            assert row['after']['centroid_error']<row['before']['centroid_error']
+            assert row['after']['outside_radius_238_fraction']<row['before']['outside_radius_238_fraction']
+          page=Path('cbb-big-ten-1980s-preview.html').read_text()
+          assert page.count('?v=20261114-ring-safe-v3')==3
+          assert page.count('<img src="assets/cbb-big-ten-1980s/centered/')==14
+          assert '--slt-ink-' not in page
+          print('PASS: original logos retain full proportions, more clearance, no layout patches')
+          PY
+      - name: Commit vetted image files and audit report to branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add cbb-big-ten-1980s-preview.html assets/cbb-big-ten-1980s/centered/minnesota.png assets/cbb-big-ten-1980s/centered/purdue.png reports/big-ten-mascot-ring-clearance-v3.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Give Goldy and Purdue Pete centered space inside the rings'
+            git push origin "HEAD:$GITHUB_REF_NAME"
+          fi
