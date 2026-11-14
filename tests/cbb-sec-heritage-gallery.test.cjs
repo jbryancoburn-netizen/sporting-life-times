@@ -6,7 +6,7 @@ test('all current 16 SEC schools have unique original-era local crests',()=>{
  assert.equal(rows.length,16);assert.equal(manifest.current_member_count,16);
  assert.equal(rows.filter(r=>r.in_sec_1980s).length,10);
  assert.equal(new Set(rows.map(r=>r.espn_id)).size,16);
- assert.equal(manifest.production_deployment,false);
+ assert.equal(manifest.production_deployment,true);
  for(const r of rows){
   assert.equal(r.local_path,'assets/cbb-sec-1980s/'+r.slug+'.png');
   assert(r.archive_url.startsWith('https://www.sportslogos.net/logos/view/'));
@@ -18,10 +18,10 @@ test('all current 16 SEC schools have unique original-era local crests',()=>{
   assert.notEqual(r.primary.toLowerCase(),r.secondary.toLowerCase(),'Two distinct color rings');
  }
 });
-test('SEC preview uses only local 16 artwork and does not change production renderer',()=>{
+test('SEC preview uses only local 16 artwork and publishes selected production crests',()=>{
  const html=read('cbb-sec-1980s-preview.html').toString('utf8');
  assert.equal((html.match(/<article class="school">/g)||[]).length,16);
  assert.equal((html.match(/assets\/cbb-sec-1980s\//g)||[]).length,16);
  assert(!html.includes('content.sportslogos.net'), 'CDN cannot appear in runtime HTML');
- assert(html.includes('not yet the production logo set'));
+ assert(html.includes('the published CBB production logo set'));
 });

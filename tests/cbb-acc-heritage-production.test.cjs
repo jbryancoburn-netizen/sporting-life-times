@@ -20,7 +20,7 @@ test('all 18 original-era ACC crests publish locally for both genders with exact
  assert.deepEqual(Array.from(w.MBBLogos.heritageACCTeamIds()).sort(),manifest.schools.map(s=>String(s.espn_id)).sort());
  for(const s of manifest.schools){
   const id=String(s.espn_id),row=cross.teams.find(t=>String(t.espn_id)===id),
-   lady=women.teams.find(t=>String(t.team_id)===id),url=s.local_path+'?v=20261114-acc18-live1';
+   lady=women.teams.find(t=>String(t.team_id)===id),url=s.local_path+'?v='+(id==='221'?'20261114-pitt-standing-1980-approved1':'20261114-acc18-live1');
   assert(row&&lady,'Both division-I gender IDs: '+s.name);
   assert(s.archive_url.startsWith('https://')&&s.local_sha256);
   const bytes=fs.readFileSync(path.join(root,s.local_path));
@@ -39,7 +39,7 @@ test('all 14 CBB readers use new renderer without per-team CSS patches',()=>{
  const pages=['college-basketball.html','ncaam.html','ncaam-slate.html','ncaam-team.html','ncaaw-team.html',
  'ncaam-rankings.html','ncaaw-rankings.html','ncaam-conference.html','ncaaw-conference.html',
  'ncaam-elo.html','ncaam-tournament.html','live-game.html','cbb-gamefile.html','cbb-game-center.html'];
- for(const p of pages)assert(read(p).includes('mbb-logo-system.js?v=acc18-production-20261114a'),p);
+ for(const p of pages)assert(read(p).includes('mbb-logo-system.js?v=cbb-heritage-sec16-pitt-20261114b'),p);
  assert(read('wbb-rankings.js').includes('MBBLogos?.retroURLForESPN?.(id)'));
  assert(!read('mbb-logo-system.css').includes('mbb-mark--heritage[data-espn-id='));
 });

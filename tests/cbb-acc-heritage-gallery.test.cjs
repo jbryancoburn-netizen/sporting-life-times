@@ -12,14 +12,14 @@ test('ACC audit gallery represents exactly 18 current institutions, with 7 1980s
  assert.equal(manifest.current_member_count,18);
  assert.equal(manifest.historical_acc_members_among_current,7);
  assert.equal(manifest.later_arrivals,11);
- assert.equal(manifest.production_deployment,false);
+ assert.equal(manifest.production_deployment,true);
  assert.equal(manifest.schools.length,18);
  assert.equal(new Set(manifest.schools.map(s=>s.slug)).size,18);
  assert.equal(new Set(manifest.schools.map(s=>s.espn_id)).size,18);
  assert.equal(manifest.schools.filter(s=>s.in_acc_1980s).length,7);
  assert.equal((source.match(/<article class="school">/g)||[]).length,18);
  assert.equal((source.match(/>Historical source<\/a>/g)||[]).length,18);
- assert(source.includes('not yet the production logo set'));
+ assert(source.includes('published historical ACC logo designs'));
 });
 
 test('all 18 historic logo assets are self-hosted and optically fit a 2-ring 512-pixel circle',()=>{
