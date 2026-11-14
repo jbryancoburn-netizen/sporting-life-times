@@ -41,7 +41,8 @@ async function render(feed, fixture={}){
 (async()=>{
  const verified=await render(ratings([final]));
  assert.match(verified,/W 74–72/,'verified neutral final must supersede stale fixture');
- assert.match(verified,/vs\. <a[^>]+>Villanova<\/a> \(N\)/,'a certified neutral site is vs. Opponent (N), not @');
+ assert.match(verified,/<span class="victorian-heading-school"><a[^>]+>Villanova<\/a><\/span>/,'neutral game heading uses plain opponent name');
+ assert.doesNotMatch(verified,/vs\. <a[^>]+>Villanova|\(N\)<\/span>/,'neutral shorthand is reserved for the Form Book');
  assert.match(verified,/data-game-site="neutral"/,'neutral-site proof overrides nominal home/away');
  assert.match(verified,/data-calendar-state="final"/);
  assert.match(verified,/cbb-gamefile\.html\?day=2026-11-01&amp;game=401920982/);
@@ -94,7 +95,7 @@ async function render(feed, fixture={}){
  const daytonCalendar={...schedule,events:[exhibitionGame]};
  const daytonHTML=await render(ratings([]),{team:dayton,foe:team,schedule:daytonCalendar,exhibitions:exLedger});
  assert.match(daytonHTML,/EXHIBITION FINAL/);
- assert.match(daytonHTML,/vs\. <a[^>]+>Notre Dame<\/a>/,'home games show vs.');
+ assert.match(daytonHTML,/<span class="victorian-heading-school"><a[^>]+>Notre Dame<\/a><\/span>/,'home fixture uses plain opponent name');
  assert.match(daytonHTML,/W 75–65/);
  assert.match(daytonHTML,/University result ↗/,'official score has university citation');
  assert.match(daytonHTML,/data-exhibition="true"/);
@@ -103,7 +104,7 @@ async function render(feed, fixture={}){
  const notreDameCal={...schedule,events:[exhibitionGame]};
  const ndHTML=await render(ratings([]),{team,foe:dayton,schedule:notreDameCal,exhibitions:exLedger});
  assert.match(ndHTML,/L 65–75/,'away team receives its exact reciprocal exhibition result');
- assert.match(ndHTML,/@ <a[^>]+>Dayton<\/a>/,'road games show @');
+ assert.match(ndHTML,/<span class="victorian-heading-school"><a[^>]+>Dayton<\/a><\/span>/,'away fixture uses plain opponent name');
  const unverifiedLedger={...exLedger,games:[{...exhibitionEntry,verified:false}]};
  const notVerified=await render(ratings([]),{team:dayton,foe:team,schedule:daytonCalendar,exhibitions:unverifiedLedger});
  assert.doesNotMatch(notVerified,/W 75–65/,'unverified exhibition score never published');
