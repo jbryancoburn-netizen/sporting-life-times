@@ -108,7 +108,7 @@ const rows=sorted.map(g=>{
   const statAvailable=g.completed&&!g.cancelled&&!g.result_conflict&&/^\d+$/.test(String(g.id));
   const state=g.cancelled?'canceled':g.completed?'final':new Date(g.date)<new Date()?'past':'upcoming';
   const court=siteClaims.length?'disputed':neutral||g.site==='neutral'?'neutral':officialHome||g.site_verified===true?'verified-home':'unverified';
-  const main='<tr class="wbb-game-entry" data-site="'+esc(g.site||'unknown')+'" data-team-id="'+esc(id)+'" data-opponent-id="'+esc(g.opponent_id||'')+'" data-home-id="'+esc(g.home_id||'')+'" data-away-id="'+esc(g.away_id||'')+'" data-forecast-venue="'+court+'" data-calendar-state="'+state+'" data-opponent="'+esc((g.opponent||opp?.team||'').toLowerCase())+'" data-game-id="'+esc(g.id)+'">'+
+  const main='<tr class="wbb-game-entry" data-site="'+esc(g.site||'unknown')+'" data-team-id="'+esc(id)+'" data-opponent-id="'+esc(g.opponent_id||'')+'" data-home-id="'+esc(g.home_id||'')+'" data-away-id="'+esc(g.away_id||'')+'" data-forecast-venue="'+court+'" data-calendar-state="'+state+'" data-opponent="'+esc((g.opponent||opp?.team||'').toLowerCase())+'" data-game-id="'+esc(g.id)+'" data-game-day="'+esc(archiveDay)+'">'+
     '<td data-label="Date"><time>'+date+'</time></td>'+
     '<td data-label="Opponent">'+opponent+'</td>'+
     '<td data-label="Arena / City">'+location+'</td>'+
