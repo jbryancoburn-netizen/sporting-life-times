@@ -211,11 +211,9 @@
      const school=teams.get(String(p.teamId));
      if(!school)return labeled;
      const leading=original.match(/^Foul on ([\p{L}\p{M}.'’-]+(?:\s+[\p{L}\p{M}.'’-]+){1,4})(?=\.|$)/u)||
-       original.match(/^([\p{L}\p{M}.'’-]+(?:\s+[\p{L}\p{M}.'’-]+){1,4})(?=\s+(?:Steal|bad pass turnover|lost ball turnover|makes|misses|subbing in|subbing out|Offensive Rebound|Defensive Rebound|Turnover)\b)/iu);
-     if(leading&&!labeled.includes(leading[1]+' (')){
-       const at=original.indexOf(leading[1]);
-       if(at>=0)labeled=labeled.slice(0,at)+leading[1]+' ('+school+')'+labeled.slice(at+leading[1].length);
-     }
+       original.match(/^([\p{L}\p{M}.'’-]+(?:\s+[\p{L}\p{M}.'’-]+){1,4}?)(?=\s+(?:Steal|bad pass turnover|lost ball turnover|makes|misses|subbing in|subbing out|Offensive Rebound|Defensive Rebound|Turnover)\b)/iu);
+     if(leading&&labeled.includes(leading[1])&&!labeled.includes(leading[1]+' ('))
+       labeled=labeled.replace(leading[1],leading[1]+' ('+school+')');
      return labeled;
    };
  }
