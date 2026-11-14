@@ -16,7 +16,17 @@ const teamLink=row=>{
   return /^ncaa:\d+$/.test(id)?'ncaam-team.html?team='+encodeURIComponent(id):'';
 };
 const name=row=>{const href=teamLink(row);return href?'<a href="'+esc(href)+'">'+esc(row.team)+'</a>':esc(row.team)};
-const row=(r,number,right)=>'<div class="chronicle-retro-row"><span class="chronicle-retro-number">'+esc(number)+'</span><span class="chronicle-retro-team">'+name(r)+'<small>'+esc(String(r.wins??'—'))+'–'+esc(String(r.losses??'—'))+' · '+esc(r.conference||'Division I')+'</small></span><strong class="chronicle-retro-value">'+esc(right)+'</strong></div>';
+// Reuse the same vetted school identifiers, real artwork and two-color ring
+// renderer used throughout the men's and women's basketball newspaper.
+const crest=row=>{
+  const logos=typeof window!=='undefined'?window.MBBLogos:null;
+  if(!logos)return '';
+  const id=String(row.team_id||'');
+  if(female&&/^\\d+$/.test(id))return logos.byESPN(id,'small',row.team);
+  if(!female&&/^ncaa:\\d+$/.test(id))return logos.byNCAA(id,'small',row.team);
+  return '';
+};
+const row=(r,number,right)=>'<div class="chronicle-retro-row"><span class="chronicle-retro-number">'+esc(number)+'</span><span class="chronicle-retro-crest">'+crest(r)+'</span><span class="chronicle-retro-team">'+name(r)+'<small>'+esc(String(r.wins??'—'))+'–'+esc(String(r.losses??'—'))+' · '+esc(r.conference||'Division I')+'</small></span><strong class="chronicle-retro-value">'+esc(right)+'</strong></div>';
 const heading=(source)=>source?'Through '+esc(source):'Latest verified snapshot';
 function report(data){
   if(!data||!Array.isArray(data.rankings)||!data.rankings.length||!data.as_of)throw Error('No verified ratings snapshot');
@@ -46,7 +56,11 @@ async function refresh(){
   try{
     const request=await fetch(file+'?chronicle='+Math.floor(Date.now()/300000),{cache:'no-store',signal:AbortSignal.timeout(12000)});
     if(!request.ok)throw Error('Ratings feed unavailable');
-    report(await request.json());
+    const data=await request.json();
+    // Wait for the shared identity registry before constructing actual team
+    // crests, rather than briefly showing placeholders or invented initials.
+    if(typeof window!=='undefined'&&window.MBBLogos?.ready)await window.MBBLogos.ready;
+    report(data);
   }catch(error){
     if(root.querySelector('.chronicle-retro-grid'))return; // Keep last authenticated report through an outage.
     root.innerHTML='<p class="chronicle-news-empty">The '+(female?'women’s':'men’s')+' RETRO report is temporarily unavailable. <a href="'+esc(full)+'">Open the complete rankings</a> for its published source date.</p>';
