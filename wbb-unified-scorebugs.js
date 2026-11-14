@@ -68,6 +68,8 @@
    const oppHome=row.dataset.homeId===row.dataset.opponentId;
    const home=ownHome?ours:oppHome?opponentTeam:row.dataset.site==='home'?ours:opponentTeam;
    const away=home===ours?opponentTeam:ours;
+   summary.parentElement.dataset.homeName=home.name;
+   summary.parentElement.dataset.awayName=away.name;
    const venue=row.dataset.forecastVenue||'unverified';
    let forecast=null,disclosure='';
    if(phase==='upcoming'&&venue!=='disputed'&&ownRating&&oppRating){
