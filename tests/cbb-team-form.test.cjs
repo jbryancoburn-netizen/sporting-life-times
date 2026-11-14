@@ -105,3 +105,31 @@ test('Form Book keeps listed side when venue is unverified, with no false (N)', 
   assert.deepEqual(recent.map(g=>g.location),['unverified','unverified']);
   assert.deepEqual(recent.map(opponentLabel),['@ Bravo','vs. Bravo']);
 });
+
+test('independent school-site evidence corrects the Florida–Miami-style neutral mismatch', () => {
+  const source=retro();
+  source.events[0].neutral=true;
+  source.events[0].site_verified=false;
+  const proof={season:'2026-27',games:{
+    '100':{date:'2026-11-02',home_id:'1',away_id:'2',neutral:true,site_verified:true,
+      source:'https://school.edu/schedule',corroboration:'https://other.edu/schedule'}
+  }};
+  const form=calculate('ncaa:1',normalizeMen(source,null,crosswalk,proof));
+  assert.equal(form.recent[1].location,'neutral');
+  assert.equal(opponentLabel(form.recent[1]),'vs. Bravo (N)');
+  assert.deepEqual([form.wins,form.losses],[1,1],'verified site evidence never changes the result');
+});
+
+test('site proof must match event date, both ESPN team IDs and two official source URLs', () => {
+  const source=retro();source.events[0].neutral=true;source.events[0].site_verified=false;
+  const certified={date:'2026-11-02',home_id:'1',away_id:'2',neutral:true,
+    site_verified:true,source:'https://school.edu/schedule',corroboration:'https://other.edu/schedule'};
+  for(const bad of [{...certified,date:'2026-11-03'},
+    {...certified,home_id:'2'}, {...certified,away_id:'999'},
+    {...certified,source:'http://school.edu'},
+    {...certified,corroboration:''}, {...certified,site_verified:false}]) {
+    const form=calculate('ncaa:1',normalizeMen(source,null,crosswalk,{season:'2026-27',games:{'100':bad}}));
+    assert.equal(form.recent[1].location,'unverified');
+    assert.equal(opponentLabel(form.recent[1]),'vs. Bravo');
+  }
+});
