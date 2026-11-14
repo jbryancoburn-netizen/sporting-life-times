@@ -2,7 +2,7 @@
   "schema": "rabby-nba-prospective-v1",
   "season": "2026-27",
   "created_at": "2026-11-01T19:25:57.157Z",
-  "updated_at": "2026-11-13T22:02:19.348Z",
+  "updated_at": "2026-11-14T02:14:54.391Z",
   "method": "First qualifying early (>2h) or near-tipoff (10-120m) snapshot is final. Never create a retrospective forecast.",
   "forecasts": [
     {
@@ -1406,6 +1406,31 @@
       }
     },
     {
+      "id": "espn-nba-401909302",
+      "date": "2026-11-14T02:30Z",
+      "away": "GSW",
+      "home": "SAS",
+      "phase": "near_tipoff",
+      "captured_at": "2026-11-14T02:14:54.391Z",
+      "away_score": 111,
+      "home_score": 116,
+      "total": 226.883,
+      "margin": 5.585,
+      "pace": 101.631,
+      "home_win_prob": 0.613848,
+      "league_total_baseline": 225.513,
+      "source_games": 174,
+      "away_games": 12,
+      "home_games": 12,
+      "model_version": "6c0d5fb8196929fa50c7",
+      "inputs": {
+        "earned_sha256": "4cad027202a266b90944946d7689825b4e2051a0db9598147f3b82de06545baf",
+        "boxscores_sha256": "58c3d4d12a74dc8e5e8928e9e84a50b52a0fc75ee39feca3bba3b48be284f196",
+        "priors_sha256": "72ed5520e97b68f34939875034990d4ddcc7f3ddf16efd56d54c918a9359c635",
+        "schedule_sha256": "4fc9e2310c45ffc058c90800a02d8bf510d49b6ca98dd420ba18e5ed91bb3d60"
+      }
+    },
+    {
       "id": "espn-nba-401909303",
       "date": "2026-11-14T03:00Z",
       "away": "POR",
@@ -1431,6 +1456,31 @@
       }
     },
     {
+      "id": "espn-nba-401909303",
+      "date": "2026-11-14T03:00Z",
+      "away": "POR",
+      "home": "SAC",
+      "phase": "near_tipoff",
+      "captured_at": "2026-11-14T02:14:54.391Z",
+      "away_score": 119,
+      "home_score": 109,
+      "total": 228.691,
+      "margin": -10.141,
+      "pace": 102.458,
+      "home_win_prob": 0.330345,
+      "league_total_baseline": 225.513,
+      "source_games": 174,
+      "away_games": 11,
+      "home_games": 11,
+      "model_version": "6c0d5fb8196929fa50c7",
+      "inputs": {
+        "earned_sha256": "4cad027202a266b90944946d7689825b4e2051a0db9598147f3b82de06545baf",
+        "boxscores_sha256": "58c3d4d12a74dc8e5e8928e9e84a50b52a0fc75ee39feca3bba3b48be284f196",
+        "priors_sha256": "72ed5520e97b68f34939875034990d4ddcc7f3ddf16efd56d54c918a9359c635",
+        "schedule_sha256": "4fc9e2310c45ffc058c90800a02d8bf510d49b6ca98dd420ba18e5ed91bb3d60"
+      }
+    },
+    {
       "id": "espn-nba-401909304",
       "date": "2026-11-14T03:30Z",
       "away": "OKC",
@@ -1453,6 +1503,156 @@
         "boxscores_sha256": "1ad1b2cf6a3dc191b6fde96353cdabf4cbd3d634e3f54819f4aff0c4e73a4884",
         "priors_sha256": "72ed5520e97b68f34939875034990d4ddcc7f3ddf16efd56d54c918a9359c635",
         "schedule_sha256": "f4ba1fa99236f1a1bc0652d0556f95c3a1d3ea97e563a109505cca631f6fca67"
+      }
+    },
+    {
+      "id": "espn-nba-401909304",
+      "date": "2026-11-14T03:30Z",
+      "away": "OKC",
+      "home": "LAC",
+      "phase": "near_tipoff",
+      "captured_at": "2026-11-14T02:14:54.391Z",
+      "away_score": 113,
+      "home_score": 108,
+      "total": 221.104,
+      "margin": -5.323,
+      "pace": 101.59,
+      "home_win_prob": 0.415387,
+      "league_total_baseline": 225.513,
+      "source_games": 174,
+      "away_games": 12,
+      "home_games": 10,
+      "model_version": "6c0d5fb8196929fa50c7",
+      "inputs": {
+        "earned_sha256": "4cad027202a266b90944946d7689825b4e2051a0db9598147f3b82de06545baf",
+        "boxscores_sha256": "58c3d4d12a74dc8e5e8928e9e84a50b52a0fc75ee39feca3bba3b48be284f196",
+        "priors_sha256": "72ed5520e97b68f34939875034990d4ddcc7f3ddf16efd56d54c918a9359c635",
+        "schedule_sha256": "4fc9e2310c45ffc058c90800a02d8bf510d49b6ca98dd420ba18e5ed91bb3d60"
+      }
+    },
+    {
+      "id": "espn-nba-401909980",
+      "date": "2026-11-15T00:00Z",
+      "away": "DEN",
+      "home": "NOP",
+      "phase": "early",
+      "captured_at": "2026-11-14T02:14:54.391Z",
+      "away_score": 119,
+      "home_score": 114,
+      "total": 232.756,
+      "margin": -4.763,
+      "pace": 101.522,
+      "home_win_prob": 0.433612,
+      "league_total_baseline": 225.513,
+      "source_games": 174,
+      "away_games": 10,
+      "home_games": 12,
+      "model_version": "6c0d5fb8196929fa50c7",
+      "inputs": {
+        "earned_sha256": "4cad027202a266b90944946d7689825b4e2051a0db9598147f3b82de06545baf",
+        "boxscores_sha256": "58c3d4d12a74dc8e5e8928e9e84a50b52a0fc75ee39feca3bba3b48be284f196",
+        "priors_sha256": "72ed5520e97b68f34939875034990d4ddcc7f3ddf16efd56d54c918a9359c635",
+        "schedule_sha256": "4fc9e2310c45ffc058c90800a02d8bf510d49b6ca98dd420ba18e5ed91bb3d60"
+      }
+    },
+    {
+      "id": "espn-nba-401909981",
+      "date": "2026-11-15T00:30Z",
+      "away": "DAL",
+      "home": "CLE",
+      "phase": "early",
+      "captured_at": "2026-11-14T02:14:54.391Z",
+      "away_score": 111,
+      "home_score": 116,
+      "total": 226.703,
+      "margin": 4.64,
+      "pace": 102.437,
+      "home_win_prob": 0.554745,
+      "league_total_baseline": 225.513,
+      "source_games": 174,
+      "away_games": 12,
+      "home_games": 12,
+      "model_version": "6c0d5fb8196929fa50c7",
+      "inputs": {
+        "earned_sha256": "4cad027202a266b90944946d7689825b4e2051a0db9598147f3b82de06545baf",
+        "boxscores_sha256": "58c3d4d12a74dc8e5e8928e9e84a50b52a0fc75ee39feca3bba3b48be284f196",
+        "priors_sha256": "72ed5520e97b68f34939875034990d4ddcc7f3ddf16efd56d54c918a9359c635",
+        "schedule_sha256": "4fc9e2310c45ffc058c90800a02d8bf510d49b6ca98dd420ba18e5ed91bb3d60"
+      }
+    },
+    {
+      "id": "espn-nba-401909982",
+      "date": "2026-11-15T01:00Z",
+      "away": "DET",
+      "home": "MIA",
+      "phase": "early",
+      "captured_at": "2026-11-14T02:14:54.391Z",
+      "away_score": 115,
+      "home_score": 110,
+      "total": 224.976,
+      "margin": -5.395,
+      "pace": 102.889,
+      "home_win_prob": 0.43769,
+      "league_total_baseline": 225.513,
+      "source_games": 174,
+      "away_games": 11,
+      "home_games": 11,
+      "model_version": "6c0d5fb8196929fa50c7",
+      "inputs": {
+        "earned_sha256": "4cad027202a266b90944946d7689825b4e2051a0db9598147f3b82de06545baf",
+        "boxscores_sha256": "58c3d4d12a74dc8e5e8928e9e84a50b52a0fc75ee39feca3bba3b48be284f196",
+        "priors_sha256": "72ed5520e97b68f34939875034990d4ddcc7f3ddf16efd56d54c918a9359c635",
+        "schedule_sha256": "4fc9e2310c45ffc058c90800a02d8bf510d49b6ca98dd420ba18e5ed91bb3d60"
+      }
+    },
+    {
+      "id": "espn-nba-401909983",
+      "date": "2026-11-15T01:00Z",
+      "away": "BKN",
+      "home": "MEM",
+      "phase": "early",
+      "captured_at": "2026-11-14T02:14:54.391Z",
+      "away_score": 108,
+      "home_score": 116,
+      "total": 224.011,
+      "margin": 8.041,
+      "pace": 101.944,
+      "home_win_prob": 0.661809,
+      "league_total_baseline": 225.513,
+      "source_games": 174,
+      "away_games": 11,
+      "home_games": 11,
+      "model_version": "6c0d5fb8196929fa50c7",
+      "inputs": {
+        "earned_sha256": "4cad027202a266b90944946d7689825b4e2051a0db9598147f3b82de06545baf",
+        "boxscores_sha256": "58c3d4d12a74dc8e5e8928e9e84a50b52a0fc75ee39feca3bba3b48be284f196",
+        "priors_sha256": "72ed5520e97b68f34939875034990d4ddcc7f3ddf16efd56d54c918a9359c635",
+        "schedule_sha256": "4fc9e2310c45ffc058c90800a02d8bf510d49b6ca98dd420ba18e5ed91bb3d60"
+      }
+    },
+    {
+      "id": "espn-nba-401909984",
+      "date": "2026-11-15T01:00Z",
+      "away": "CHI",
+      "home": "MIN",
+      "phase": "early",
+      "captured_at": "2026-11-14T02:14:54.391Z",
+      "away_score": 106,
+      "home_score": 123,
+      "total": 229.058,
+      "margin": 17.299,
+      "pace": 103.791,
+      "home_win_prob": 0.791696,
+      "league_total_baseline": 225.513,
+      "source_games": 174,
+      "away_games": 10,
+      "home_games": 12,
+      "model_version": "6c0d5fb8196929fa50c7",
+      "inputs": {
+        "earned_sha256": "4cad027202a266b90944946d7689825b4e2051a0db9598147f3b82de06545baf",
+        "boxscores_sha256": "58c3d4d12a74dc8e5e8928e9e84a50b52a0fc75ee39feca3bba3b48be284f196",
+        "priors_sha256": "72ed5520e97b68f34939875034990d4ddcc7f3ddf16efd56d54c918a9359c635",
+        "schedule_sha256": "4fc9e2310c45ffc058c90800a02d8bf510d49b6ca98dd420ba18e5ed91bb3d60"
       }
     }
   ],
@@ -1791,7 +1991,7 @@
     },
     "by_model_version": {
       "6c0d5fb8196929fa50c7": {
-        "forecasts": 58,
+        "forecasts": 66,
         "early": {
           "sample": 38,
           "team_score_mae": 9.329,
