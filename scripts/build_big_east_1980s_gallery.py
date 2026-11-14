@@ -49,7 +49,7 @@ def image_from_archive(row):
     # that URL names the exact school/team archive folder.
     selected=[]
     teamcodes={"butler":"625","uconn":"884","creighton":"652","depaul":"656","georgetown":"686",
-               "marquette":"741","providence":"808","st-johns":"845","seton-hall":"831",
+               "marquette":"741","providence":"808","st-johns":"850","seton-hall":"831",
                "villanova":"897","xavier":"919"}
     code=teamcodes[row["slug"]]
     for x in candidates:
