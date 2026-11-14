@@ -65,9 +65,9 @@ def main():
     test=ROOT/"tests/cbb-big-east-heritage-gallery.test.cjs"
     suite=test.read_text(encoding="utf8")
     suite=suite.replace('assert.match(bySlug.providence.context_note,/hockey-specific/);',
-       "assert.match(bySlug.providence.context_note,/NON-HOCKEY/);\\n assert.equal(bySlug.providence.era,'1996–2002');")
+       "assert.match(bySlug.providence.context_note,/NON-HOCKEY/);\n assert.equal(bySlug.providence.era,'1996–2002');")
     suite=suite.replace("assert.match(gallery,/hockey-specific/);",
-       "assert.match(gallery,/NOT the 1980s/);\\n assert(!gallery.includes('skating Friar'));")
+       "assert.match(gallery,/NOT the 1980s/);\n assert(!gallery.includes('skating Friar'));")
     test.write_text(suite,encoding="utf8")
     print("PASS: removed the hockey Friar. Providence now non-hockey athletics PC (1996–2002; clearly disclosed)",geo)
 
