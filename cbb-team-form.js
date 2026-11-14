@@ -106,6 +106,7 @@
       const other = home ? g.away : g.home;
       return {...g, ours, theirs, won: ours > theirs,
         opponent: g.outside ? g.otherName : (register.names.get(other) || 'Opponent unavailable'),
+        listedSide: home ? 'home' : 'away',
         location: g.neutral ? 'neutral' : !g.siteVerified ? 'unverified' : home ? 'home' : 'away'};
     }).sort((a, b) => b.date.localeCompare(a.date) || b.id.localeCompare(a.id));
     const wins = played.filter(g => g.won).length, losses = played.length - wins;
@@ -123,8 +124,17 @@
       lastFive: played.slice(0, 5).reverse().map(g => g.won ? 'W' : 'L'),
       recent: played.slice(0, 5), latest: played[0]?.date || null};
   }
+  // Home/away identity is known even when the specific court is unverified.
+  // Only verified neutral venues receive (N); never infer neutral from ESPN's
+  // nominal home team or turn an unverified site into a confirmed home court.
+  function opponentLabel(g) {
+    const opponent = String(g.opponent || 'Opponent unavailable');
+    if (g.location === 'neutral') return 'vs. ' + opponent + ' (N)';
+    const side = g.location === 'unverified' ? g.listedSide : g.location;
+    return (side === 'away' ? '@ ' : 'vs. ') + opponent;
+  }
   if (typeof module !== 'undefined' && module.exports) {
-    module.exports = {normalizeMen, normalizeWomen, calculate};
+    module.exports = {normalizeMen, normalizeWomen, calculate, opponentLabel};
   }
   if (typeof document === 'undefined' || typeof location === 'undefined') return;
   const women = document.body?.dataset.page === 'women-team';
@@ -171,10 +181,8 @@
       : '<span class="cbb-form-unknown">No final games yet</span>';
     const recent = form.recent.length
       ? form.recent.map(g => {
-        const place = g.location === 'away' ? 'at ' :
-          g.location === 'neutral' ? 'vs ' : g.location === 'home' ? 'vs ' : 'against ';
         return '<li><time datetime="' + esc(g.date) + '">' + dateText(g.date) + '</time>' +
-          '<span>' + esc(place + g.opponent) + (g.location === 'neutral' ? ' (N)' : '') + '</span>' +
+          '<span>' + esc(opponentLabel(g)) + '</span>' +
           '<strong class="' + (g.won ? 'is-win' : 'is-loss') + '">' +
           mark(g) + ' ' + esc(g.ours) + '–' + esc(g.theirs) + '</strong></li>';
       }).join('')
