@@ -2904,62 +2904,6 @@
       "away_name": "Toccoa Falls Eagles"
     },
     {
-      "id": "401919680",
-      "date": "2026-11-11T23:30Z",
-      "home_id": "96",
-      "away_id": "339",
-      "neutral": false,
-      "site_verified": true,
-      "venue": "Memorial Coliseum (KY)",
-      "broadcast": "SECN+",
-      "status": "final",
-      "home_score": 98,
-      "away_score": 30,
-      "score_evidence": "espn_only"
-    },
-    {
-      "id": "401921149",
-      "date": "2026-11-11T23:30Z",
-      "home_id": "2325",
-      "away_id": "218",
-      "neutral": false,
-      "site_verified": true,
-      "venue": "John Glaser Arena",
-      "broadcast": "ESPN+",
-      "status": "final",
-      "home_score": 67,
-      "away_score": 89,
-      "score_evidence": "espn_only"
-    },
-    {
-      "id": "401927076",
-      "date": "2026-11-11T23:30Z",
-      "home_id": "127",
-      "away_id": "2473",
-      "neutral": false,
-      "site_verified": true,
-      "venue": "Breslin Center",
-      "broadcast": "B1G+",
-      "status": "final",
-      "home_score": 91,
-      "away_score": 50,
-      "score_evidence": "espn_only"
-    },
-    {
-      "id": "401906090",
-      "date": "2026-11-12T00:00Z",
-      "home_id": "153",
-      "away_id": "2428",
-      "neutral": false,
-      "site_verified": true,
-      "venue": "Carmichael Arena",
-      "broadcast": "ACCNX",
-      "status": "final",
-      "home_score": 109,
-      "away_score": 40,
-      "score_evidence": "espn_only"
-    },
-    {
       "id": "401911792",
       "date": "2026-11-12T00:00Z",
       "home_id": "233",
@@ -4565,7 +4509,7 @@
       "status": "final",
       "home_score": 86,
       "away_score": 63,
-      "score_evidence": "espn_final_ncaa_pending"
+      "score_evidence": "espn_only"
     },
     {
       "id": "401918817",
@@ -4579,7 +4523,7 @@
       "status": "final",
       "home_score": 90,
       "away_score": 61,
-      "score_evidence": "espn_final_ncaa_pending"
+      "score_evidence": "espn_only"
     },
     {
       "id": "401920260",
@@ -4593,7 +4537,7 @@
       "status": "final",
       "home_score": 82,
       "away_score": 62,
-      "score_evidence": "espn_final_ncaa_pending"
+      "score_evidence": "espn_only"
     },
     {
       "id": "401918933",
@@ -4607,7 +4551,7 @@
       "status": "final",
       "home_score": 47,
       "away_score": 78,
-      "score_evidence": "espn_final_ncaa_pending"
+      "score_evidence": "espn_only"
     },
     {
       "id": "401920498",
@@ -4621,10 +4565,8 @@
       "status": "final",
       "home_score": 55,
       "away_score": 58,
-      "score_evidence": "espn_final_ncaa_pending"
-    }
-  ],
-  "upcoming": [
+      "score_evidence": "espn_only"
+    },
     {
       "id": "401903556",
       "date": "2026-11-14T02:00Z",
@@ -4634,8 +4576,10 @@
       "site_verified": true,
       "venue": "Beasley Coliseum",
       "broadcast": "YouTube",
-      "status": "scheduled",
-      "score_evidence": "fixture_identity_crosschecked"
+      "status": "final",
+      "home_score": 72,
+      "away_score": 69,
+      "score_evidence": "espn_only"
     },
     {
       "id": "401915325",
@@ -4646,8 +4590,10 @@
       "site_verified": true,
       "venue": "Firestone Fieldhouse",
       "broadcast": "ESPN+",
-      "status": "scheduled",
-      "score_evidence": "fixture_identity_crosschecked"
+      "status": "final",
+      "home_score": 41,
+      "away_score": 49,
+      "score_evidence": "espn_only"
     },
     {
       "id": "401923481",
@@ -4658,8 +4604,10 @@
       "site_verified": true,
       "venue": "Dahlberg Arena",
       "broadcast": null,
-      "status": "scheduled",
-      "score_evidence": "fixture_identity_crosschecked"
+      "status": "final",
+      "home_score": 73,
+      "away_score": 81,
+      "score_evidence": "espn_only"
     },
     {
       "id": "401915980",
@@ -4670,9 +4618,13 @@
       "site_verified": true,
       "venue": "Leavey Center",
       "broadcast": "ESPN+",
-      "status": "scheduled",
+      "status": "final",
+      "home_score": 55,
+      "away_score": 66,
       "score_evidence": "espn_only"
-    },
+    }
+  ],
+  "upcoming": [
     {
       "id": "401917186",
       "date": "2026-11-14T16:00Z",
@@ -5349,7 +5301,7 @@
       "neutral": false,
       "site_verified": true,
       "venue": "Chiles Center",
-      "broadcast": "ESPN+",
+      "broadcast": null,
       "status": "scheduled",
       "score_evidence": "espn_only"
     },
