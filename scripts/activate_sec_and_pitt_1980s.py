@@ -129,6 +129,10 @@ def main():
     suite=replace_once(suite,"url=s.local_path+'?v=20261114-acc18-live1';","url=s.local_path+'?v='+(id==='221'?'"+PITT_VERSION+"':'20261114-acc18-live1');","Pitt renderer acceptance URL")
     suite=replace_once(suite,"mbb-logo-system.js?v=acc18-production-20261114a","mbb-logo-system.js?v="+JS_VERSION,"CBB page cache acceptance")
     write(t,suite)
+    t="tests/cbb-big-ten-heritage-production.test.cjs"
+    bigten=read(t)
+    bigten=replace_once(bigten,"mbb-logo-system.js?v=acc18-production-20261114a","mbb-logo-system.js?v="+JS_VERSION,"Big Ten shared reader version")
+    write(t,bigten)
 
     # Audit the same whole-network renderer for all 365 men and matched women's IDs.
     script="scripts/audit-mbb-logo-system.cjs"
