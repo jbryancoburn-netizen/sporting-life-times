@@ -47,6 +47,32 @@
  .wbbr-identity a,.wbbr-identity .wbbr-unresolved{font-size:14px}
  .wbbr-value{font-size:15px}
 }
+
+/* Give the full-size crest its own column; records and RETRO stay together. */
+.wbbr-entry{grid-template-columns:58px 92px minmax(0,1fr) 134px;gap:10px;min-height:108px}
+.wbbr-identity a,.wbbr-identity .wbbr-unresolved{font-size:20px;line-height:1.22;overflow-wrap:break-word}
+.wbbr-identity small{font-size:12px;line-height:1.35}
+.wbbr-value{display:flex;flex-direction:column;align-items:flex-end;gap:6px;font:700 21px/1.15 Georgia,serif}
+.wbbr-value .wbbr-record{white-space:nowrap}
+.wbbr-value .wbbr-retro{font:700 12px/1.3 Georgia,serif;color:#654732;white-space:nowrap}
+.wbbr-value .wbbr-stat-caption{font:700 10px/1.2 Arial,sans-serif;letter-spacing:.06em;color:#795c44}
+@media(max-width:700px){
+ .wbbr-entry{grid-template-columns:46px 70px minmax(0,1fr);grid-template-rows:auto auto;gap:4px 8px;min-height:100px;padding:9px 8px}
+ .wbbr-list .wbbr-entry>.wbbr-number{grid-column:1;grid-row:1 / 3;align-self:center}
+ .wbbr-entry>.mbb-mark{grid-column:2;grid-row:1 / 3;align-self:center}
+ .wbbr-identity{grid-column:3;grid-row:1;align-self:end}
+ .wbbr-identity a,.wbbr-identity .wbbr-unresolved{font-size:16px;line-height:1.22}
+ .wbbr-identity small{font-size:10px}
+ .wbbr-value{grid-column:3;grid-row:2;display:flex;flex-direction:row;flex-wrap:wrap;justify-content:flex-start;align-items:baseline;gap:5px 11px;text-align:left;font-size:15px}
+ .wbbr-value .wbbr-retro{font-size:12px}
+ .wbbr-value .wbbr-stat-caption{font-size:9px}
+}
+@media(max-width:375px){
+ .wbbr-entry{grid-template-columns:42px 64px minmax(0,1fr);gap:4px 5px;padding:8px 5px}
+ .wbbr-identity a,.wbbr-identity .wbbr-unresolved{font-size:14px}
+ .wbbr-value{gap:4px 7px;font-size:13px}
+ .wbbr-value .wbbr-retro{font-size:11px}
+}
 </style><link rel="stylesheet" href="slt-victorian-global.css?v=one-frame-all-rankings-20261105"></head>
 <body data-gender="women"><div class="wrap"><header><div class="topline"><a href="index.html">Sporting Life &amp; Times</a><span>Women’s Division I Basketball · 2026–27</span></div><div class="masthead"><a href="index.html">Sporting Life &amp; Times</a></div><div class="edition-line">The Women’s College Basketball Edition</div>
 <nav class="nav cbb-universal-nav" aria-label="Women’s basketball navigation"><div class="cbb-gender-bar cbb-edition-switch" role="group" aria-label="College basketball edition"><a class="cbb-gender-option" href="ncaam.html">Men</a><a class="cbb-gender-option" href="ncaam.html?gender=women">Women</a></div><a href="ncaam.html?gender=women">The Hardwood Chronicle</a><a href="ncaam.html?gender=women#wbb-games">Daily Ledger</a><a href="ncaam.html?gender=women#wbb-standings">Conferences</a><a href="ncaaw-rankings.html?poll=retro">RETRO Rankings</a><a href="ncaam.html?gender=women#wbb-teams">Find Your Team</a><a href="sports.html">All Sports</a></nav></header>
