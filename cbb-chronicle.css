@@ -1,4 +1,10 @@
 /* The Hardwood Chronicle: one scoped editorial stylesheet, no global logo or scorebug overrides. */
+body[data-slt-front="cbb"] .chronicle-retro-lead{font:16px/1.5 "Century Schoolbook",Georgia,serif;margin:4px 0 14px}
+body[data-slt-front="cbb"] .chronicle-retro-team a{color:var(--chronicle-ink);text-decoration:none}
+body[data-slt-front="cbb"] .chronicle-retro-team a:hover{text-decoration:underline}
+body[data-slt-front="cbb"] .chronicle-news-departments[data-count="1"]{grid-template-columns:1fr}
+body[data-slt-front="cbb"] .chronicle-news-departments[data-count="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(max-width:800px){body[data-slt-front="cbb"] .chronicle-news-departments[data-count="2"]{grid-template-columns:1fr}}
 body[data-slt-front="cbb"]{--chronicle-ink:#2c261f;--chronicle-rule:#735f45;--chronicle-paper:#f5eddb;--chronicle-red:#80372e}
 body[data-slt-front="cbb"] .slt-department-band{padding:15px 0 12px;margin-bottom:0;border-top:4px double var(--chronicle-ink);border-bottom:4px double var(--chronicle-ink);background:transparent;text-align:center}
 body[data-slt-front="cbb"] .slt-department-band h1{font:800 clamp(36px,5.3vw,74px)/.98 "Century Schoolbook","Bodoni MT",Georgia,serif;letter-spacing:-.045em;margin:7px 0 9px;color:var(--chronicle-ink)}
