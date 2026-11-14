@@ -34,22 +34,23 @@ function identityMatches(row,home,away){
  if(away&&String(row.away_id)!==String(away))return false;
  return true;
 }
-function receipt(gender,id,day,phase,actual,homeId='',awayId=''){
+function receipt(gender,id,day,phase,actual,homeId='',awayId='',homeName='Home',awayName='Away'){
  if(!['upcoming','live','final'].includes(phase))return '';
  const k=key(day,id),p=archives[gender].get(k);
  if(!p||!identityMatches(p,homeId,awayId))
   return '<div class="cbb-forecast-receipt cbb-forecast-receipt--missing"><span class="cbb-forecast-kicker">RETRO BEFORE TIP</span><span>No archived pregame forecast</span></div>';
  const predicted=p.projected_home_margin,probability=p.home_win_probability;
  const fav=predicted>0?'HOME':predicted<0?'AWAY':'EVEN';
+ const sideName=side=>side==='HOME'?homeName:side==='AWAY'?awayName:'Even';
  const half=Math.round(Math.abs(predicted)*2)/2;
  const chance=Math.round(100*Math.max(probability,1-probability));
- const spread=fav==='EVEN'?'Even':fav+' −'+half.toFixed(1);
+ const spread=fav==='EVEN'?'Even':sideName(fav)+' −'+half.toFixed(1);
  const parts=['<span class="cbb-forecast-kicker">RETRO BEFORE TIP</span>',
    '<strong>'+safe(spread)+'</strong>','<span>'+chance+'% win chance</span>'];
  if(phase==='final'&&number(actual)!==null){
   const win=actual>0?'HOME':actual<0?'AWAY':'TIED';
   const error=Math.abs(actual-predicted);
-  parts.push('<span>Actual: '+safe(win)+(win==='TIED'?'':' by '+Math.abs(actual).toFixed(0))+'</span>');
+  parts.push('<span>Final: '+safe(sideName(win))+(win==='TIED'?'':' by '+Math.abs(actual).toFixed(0))+'</span>');
   parts.push('<strong>Miss: '+error.toFixed(1)+' pts</strong>');
   parts.push('<span class="cbb-forecast-verdict">'+(fav==='EVEN'?'Toss-up forecast':fav===win?'✓ Winner correct':'✕ Winner missed')+'</span>');
  }else if(phase==='final')parts.push('<span>Final comparison pending</span>');
@@ -79,7 +80,7 @@ function decorate(){
   const p=scored.get(key(day,details.dataset.gameId));
   const audited=gender==='men'&&identityMatches(p,home,away)?number(p.actual_home_margin):null;
   const actual=audited!==null?audited:scoreFromBug(bug);
-  const markup=receipt(gender,details.dataset.gameId,day,status,actual,home,away);
+  const markup=receipt(gender,details.dataset.gameId,day,status,actual,home,away,details.dataset.homeName||'Home',details.dataset.awayName||'Away');
   set(summary,markup);
  });
  document.querySelectorAll('#desk .wbb-scorebug-card[data-game-id]').forEach(details=>{
@@ -87,13 +88,13 @@ function decorate(){
   if(!bug||!summary)return;
   const status=bug.querySelector('.ledger26-status[data-phase]')?.dataset.phase||'';
   set(summary,receipt('women',details.dataset.gameId,details.dataset.gameDay,status,
-    scoreFromBug(bug),details.dataset.homeId,details.dataset.awayId));
+    scoreFromBug(bug),details.dataset.homeId,details.dataset.awayId,details.dataset.homeName||'Home',details.dataset.awayName||'Away'));
  });
  document.querySelectorAll('#mbb-calendar-host .mbb-schedule-table tr[data-cbb-forecast-id]').forEach(row=>{
   const dest=row.querySelector('.sched-result-cell');
   const phase=row.dataset.calendarState==='final'?'final':'upcoming';
   set(dest,receipt('men',row.dataset.cbbForecastId,row.dataset.cbbForecastDay,
-    phase,readNumber(row.dataset.cbbFinalHomeMargin)));
+    phase,readNumber(row.dataset.cbbFinalHomeMargin),null,null,row.dataset.cbbHomeName||'Home',row.dataset.cbbAwayName||'Away'));
  });
 }
 function queue(){
