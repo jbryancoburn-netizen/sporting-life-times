@@ -38,9 +38,9 @@
 #full-season-schedule .sched-matchup>.mbb-mark{--mbb-size:54px}
 .team-hero .mbb-mark{--mbb-size:120px}.hero-team .mbb-mark{--mbb-size:80px;margin:auto!important}
 .score-card .mbb-mark{--mbb-size:44px}.conf-card .mbb-mark{--mbb-size:40px}.big-result .mbb-mark{--mbb-size:72px}
-.cbb-elo-school .mbb-mark{--mbb-size:64px;--mbb-ring:clamp(3px,calc(var(--mbb-size) * .05),5px)}
-.cbb-elo-power .mbb-mark{--mbb-size:76px;--mbb-ring:clamp(3px,calc(var(--mbb-size) * .05),5px)}
-@media(max-width:680px){.team-hero .mbb-mark{--mbb-size:84px}.hero-team .mbb-mark{--mbb-size:60px}.cbb-elo-school .mbb-mark{--mbb-size:54px}.cbb-elo-power .mbb-mark{--mbb-size:68px}}
+.cbb-elo-school .mbb-mark{--mbb-size:76px;--mbb-ring:clamp(3px,calc(var(--mbb-size) * .05),5px)}
+.cbb-elo-power .mbb-mark{--mbb-size:92px;--mbb-ring:clamp(3px,calc(var(--mbb-size) * .05),5px)}
+@media(max-width:680px){.team-hero .mbb-mark{--mbb-size:84px}.hero-team .mbb-mark{--mbb-size:60px}.cbb-elo-school .mbb-mark{--mbb-size:64px}.cbb-elo-power .mbb-mark{--mbb-size:78px}}
 
 
 /* Artwork-aware crest scaling.
@@ -84,4 +84,13 @@
 .mbb-mark--heritage>img.mbb-mark__img{
  width:94%!important;height:94%!important;max-width:94%!important;max-height:94%!important;
  object-fit:contain!important;object-position:center!important;border-radius:50%!important;
+}
+
+/* Power Index art takes up the visible inner circle rather than inheriting the
+   74% generic thumbnail scale. The two color rings remain fully unobstructed. */
+.cbb-elo-school .mbb-mark:not(.mbb-mark--heritage)>img.mbb-mark__img,
+.cbb-elo-power .mbb-mark:not(.mbb-mark--heritage)>img.mbb-mark__img,
+.wbbr-entry .mbb-mark:not(.mbb-mark--heritage)>img.mbb-mark__img{
+ width:86%!important;height:86%!important;max-width:86%!important;max-height:86%!important;
+ object-fit:contain!important;object-position:center!important;
 }
