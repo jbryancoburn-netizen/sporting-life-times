@@ -5,6 +5,7 @@ on:
       - fix/cbb-form-book-verified-neutral-evidence-20261113
     paths:
       - .github/workflows/one-off-cbb-neutral-proof.yml
+      - tests/cbb-opponent-notation.test.cjs
 permissions:
   contents: read
 jobs:
