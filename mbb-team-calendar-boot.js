@@ -212,7 +212,9 @@ try{
   const verifiedTip=[e.official_school_time,e.official_time].find(officialClock)||'';
   const confirmed=Boolean(verifiedTip);
   const tip=confirmed?verifiedTip:'TBA'; // Never present placeholder imported noon as an official tip.
-  const vs=e.site_verified===true?(self?.homeAway==='away'?'AWAY':self?.homeAway==='home'?'HOME':e.neutralSite===true?'NEUTRAL':'SITE TBA'):'SITE UNVERIFIED';
+  // Tournament feeds may designate a nominal home team even on neutral courts.
+  const certifiedNeutral=e.neutralSite===true&&e.site_verified===true;
+  const vs=e.site_verified===true?(certifiedNeutral?'NEUTRAL':self?.homeAway==='away'?'AWAY':self?.homeAway==='home'?'HOME':'SITE TBA'):'SITE UNVERIFIED';
   const broadcastLabels=[...(c.broadcasts||[]),...(e.broadcasts||[])].flatMap(x=>{
    if(typeof x==='string')return [x];
    return [...(Array.isArray(x?.names)?x.names:x?.names?[x.names]:[]),x?.name,x?.media?.shortName,x?.media?.name].filter(Boolean);
@@ -317,7 +319,9 @@ try{
   const rawOpponent=school?.name||opponentName;
   const compactMichigan=/^michigan\s*(?:state|st\.?)$/i.test(rawOpponent)||/^michigan\s*(?:state|st\.?)$/i.test(opponentName);
   const displayName=escape(compactMichigan?'Mich. St.':(shortNames[rawOpponent]||rawOpponent));
-  const title='<span class="victorian-opponent-heading'+(opponentRank?' has-poll-rank':'')+'">'+(opponentRank?'<span class="victorian-heading-rank">'+opponentRank+'</span>':'')+'<span class="victorian-heading-school">'+(school?'<a href="ncaam-team.html?team='+encodeURIComponent(school.id)+'" title="'+label+'">'+displayName+'</a>':'<span class="victorian-school-name" title="'+label+'">'+displayName+'</span>')+'</span><span class="victorian-heading-conference">'+conferenceTag+'</span></span>';
+  const matchupPrefix=vs==='NEUTRAL'?'vs. ':self?.homeAway==='away'?'@ ':self?.homeAway==='home'?'vs. ':'';
+  const matchupSuffix=vs==='NEUTRAL'?' (N)':'';
+  const title='<span class="victorian-opponent-heading'+(opponentRank?' has-poll-rank':'')+'">'+(opponentRank?'<span class="victorian-heading-rank">'+opponentRank+'</span>':'')+'<span class="victorian-heading-school">'+escape(matchupPrefix)+(school?'<a href="ncaam-team.html?team='+encodeURIComponent(school.id)+'" title="'+label+'">'+displayName+'</a>':'<span class="victorian-school-name" title="'+label+'">'+displayName+'</span>')+escape(matchupSuffix)+'</span><span class="victorian-heading-conference">'+conferenceTag+'</span></span>';
   const today=new Date().toLocaleDateString('sv-SE',{timeZone:'America/New_York'});
   const scheduleState=hasScore?'final':canceled?'canceled':scheduledDate>=today?'upcoming':'past';
   return '<tr '+'data-game-site="'+(vs==='HOME'?'home':vs==='AWAY'?'away':vs==='NEUTRAL'?'neutral':'unknown')+'" '+(expandable?'class="victorian-completed-game" data-stat-id="'+escape(statId)+'" tabindex="0" aria-label="Expand statistics for '+escape(opponentName)+'" ':'')+'data-calendar-state="'+scheduleState+'" data-exhibition="'+(exhibition?'true':'false')+
