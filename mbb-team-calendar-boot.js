@@ -244,6 +244,9 @@ try{
    const city=cityState&&rawCity!=='City TBA'&&!rawCity.includes(',')?rawCity+', '+cityState:rawCity;
   if(rawCity&&rawCity!=='City TBA'&&arena.startsWith(rawCity))arena=arena.slice(rawCity.length).replace(/^[\s/|,]+/,'')||arena;
   const scheduledDate=e.date.slice(0,10);
+  // Archive keys use the event's Eastern calendar day, never UTC rollover dates.
+  const forecastDate=Number.isFinite(date.getTime())?
+    date.toLocaleDateString('sv-SE',{timeZone:'America/New_York'}):scheduledDate;
   const exhibition=e.exhibition===true||scheduledDate<'2026-11-01'||
     /\b(?:exhibition|exh\.|preseason|scrimmage)\b/i.test(e.name||'');
   const canceled=e.exhibition_canceled===true||e.status?.type?.state==='canceled';
@@ -322,7 +325,7 @@ try{
   const title='<span class="victorian-opponent-heading'+(opponentRank?' has-poll-rank':'')+'">'+(opponentRank?'<span class="victorian-heading-rank">'+opponentRank+'</span>':'')+'<span class="victorian-heading-school">'+(school?'<a href="ncaam-team.html?team='+encodeURIComponent(school.id)+'" title="'+label+'">'+displayName+'</a>':'<span class="victorian-school-name" title="'+label+'">'+displayName+'</span>')+'</span><span class="victorian-heading-conference">'+conferenceTag+'</span></span>';
   const today=new Date().toLocaleDateString('sv-SE',{timeZone:'America/New_York'});
   const scheduleState=hasScore?'final':canceled?'canceled':scheduledDate>=today?'upcoming':'past';
-  return '<tr '+'data-game-site="'+(vs==='HOME'?'home':vs==='AWAY'?'away':vs==='NEUTRAL'?'neutral':'unknown')+'" '+(expandable?'class="victorian-completed-game" data-stat-id="'+escape(statId)+'" tabindex="0" aria-label="Expand statistics for '+escape(opponentName)+'" ':'')+'data-calendar-state="'+scheduleState+'" data-exhibition="'+(exhibition?'true':'false')+
+  return '<tr data-cbb-forecast-id="'+escape(String(final?.id||e.id||''))+'" data-cbb-forecast-day="'+escape(String(final?.date||forecastDate))+'" data-cbb-home-name="'+escape(self?.homeAway==='home'?team.name:opponentName)+'" data-cbb-away-name="'+escape(self?.homeAway==='home'?opponentName:team.name)+'" data-cbb-final-home-margin="'+(final&&Number.isFinite(Number(final.home_score))&&Number.isFinite(Number(final.away_score))?Number(final.home_score)-Number(final.away_score):'')+'" '+'data-game-site="'+(vs==='HOME'?'home':vs==='AWAY'?'away':vs==='NEUTRAL'?'neutral':'unknown')+'" '+(expandable?'class="victorian-completed-game" data-stat-id="'+escape(statId)+'" tabindex="0" aria-label="Expand statistics for '+escape(opponentName)+'" ':'')+'data-calendar-state="'+scheduleState+'" data-exhibition="'+(exhibition?'true':'false')+
     '" data-opponent="'+escape((school?.name||opponentName).toLowerCase())+'">'+
     '<td class="sched-date-cell"><time datetime="'+escape(scheduledDate)+'">'+escape(day)+'</time><span class="sched-game-status sched-status--'+(canceled?'canceled':exhibition?'exhibition':hasScore?'final':completed?'pending':'upcoming')+'">'+gameState+'</span></td>'+
     '<td class="sched-matchup-cell"><div class="sched-matchup">'+emblem+'<span class="sched-opponent"><strong>'+title+'</strong><small>'+vs.replace('SITE UNVERIFIED','LOCATION UNCONFIRMED')+'</small>'+historicalRecords+'</span></div></td>'+
