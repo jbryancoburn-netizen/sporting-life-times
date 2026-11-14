@@ -52,6 +52,8 @@ const fmtElo=x=>x&&Number.isFinite(Number(x.elo))?Math.round(Number(x.elo)).toSt
 const homeEdge=Number(ratings?.parameters?.home_edge)||75;
 const winChance=(ours,theirs,g)=>{if(!ours||!theirs||!Number.isFinite(Number(ours.elo))||!Number.isFinite(Number(theirs.elo)))return '—';const edge=g.site==='home'?homeEdge:g.site==='away'?-homeEdge:0;return (100/(1+Math.pow(10,-((Number(ours.elo)-Number(theirs.elo)+edge)/400)))).toFixed(0)+'%';};
 const site=g=>g.site==='home'?'HOME':g.site==='away'?'AWAY':g.site==='neutral'?'NEUTRAL':'TBA';
+const matchupPrefix=g=>g.site==='away'?'@ ':g.site==='home'||g.site==='neutral'?'vs. ':'';
+const matchupSuffix=g=>g.site==='neutral'?' (N)':'';
 const leagueLabel=c=>({'Big Ten Conference':'Big Ten','Big East Conference':'Big East','Big 12 Conference':'Big 12','Atlantic Coast Conference':'ACC','Southeastern Conference':'SEC','American Athletic Conference':'AAC','Mountain West Conference':'Mountain West','West Coast Conference':'WCC','Atlantic 10 Conference':'Atlantic 10','Missouri Valley Conference':'MVC','Big West Conference':'Big West','United Athletic Conference':'UAC'}[c]||String(c||'').replace(/ Conference$/,''));
 const count=s=>games.filter(g=>g.site===s).length;
 const color=/^[0-9a-fA-F]{6}$/.test(t.color||'')?'#'+t.color:'#7b2429';
@@ -68,7 +70,7 @@ const rows=sorted.map(g=>{
   const other=rmap.get(String(g.opponent_id||''));
   const opponent='<div class="wbb-matchup">'+badge+'<div class="wbb-match-copy"><div class="wbb-opponent-line">'+
     (other?.rank?'<span class="wbb-opponent-rank" title="Women’s RETRO rank">#'+esc(other.rank)+'</span>':'')+
-    '<span class="wbb-opponent-name">'+(opp?'<a href="ncaaw-team.html?team='+encodeURIComponent(opp.team_id)+'">'+esc(g.opponent||opp.team)+'</a>':esc(g.opponent||'Opponent TBA'))+'</span>'+
+    '<span class="wbb-opponent-name">'+esc(matchupPrefix(g))+(opp?'<a href="ncaaw-team.html?team='+encodeURIComponent(opp.team_id)+'">'+esc(g.opponent||opp.team)+'</a>':esc(g.opponent||'Opponent TBA'))+esc(matchupSuffix(g))+'</span>'+
     conferenceTag+'</div><span class="wbb-site-label">'+esc(site(g))+'</span>'+
     '<span class="wbb-win-probability">'+(g.cancelled?'Canceled':g.completed?'Final':winChance(rating,other,g))+'</span></div></div>';
   const tv=tvmap.get(String(g.id)),tvName=tv?.broadcast||g.broadcast||'Network TBA',tvUrl=tv?.source_url||g.broadcast_source_url||'';
