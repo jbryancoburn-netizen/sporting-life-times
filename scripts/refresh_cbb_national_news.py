@@ -36,6 +36,10 @@ QUERIES = [
 PUBLISHER_FEEDS = [
     ("NCAA.com", "https://www.ncaa.com/news/basketball-men/d1/rss.xml", "men"),
     ("NCAA.com", "https://www.ncaa.com/news/basketball-women/d1/rss.xml", "women"),
+    ("The Athletic", "https://theathletic.com/college-basketball/?rss=1", "men"),
+    ("The Athletic", "https://www.nytimes.com/athletic/rss/womens-college-basketball/", "women"),
+    ("Yahoo Sports", "https://sports.yahoo.com/college-basketball/rss/", None),
+    ("CBS Sports", "https://www.cbssports.com/rss/headlines/college-basketball/", None),
     ("ESPN Men's College Basketball", "https://www.espn.com/espn/rss/ncb/news", "men"),
     ("ESPN Women's College Basketball", "https://www.espn.com/espn/rss/ncw/news", "women"),
     ("Yahoo Sports", "https://sports.yahoo.com/rss/", None),
