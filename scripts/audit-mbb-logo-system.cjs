@@ -18,8 +18,27 @@ async function run(){
  assert(minnesotaImage.length>=30000,'User-selected Minnesota vintage mascot asset is missing or truncated');
  assert.equal(minnesotaImage.toString('ascii',0,4),'RIFF','Minnesota mascot is not a WebP image');
  assert.equal(minnesotaImage.toString('ascii',8,12),'WEBP','Minnesota mascot is not a WebP image');
- // Exactly one approved historical, self-hosted logo override. Provider registry identity is unchanged.
- const expectedLogo=(id,item)=>id==='135'?minnesotaAsset:item.logo_url;
+ // All 18 current Big Ten schools now use approved local 1980s source PNGs.
+ // Keep the full 365-school provider identity registry, ring colors and all
+ // non-Big-Ten logo sources unchanged. Do not relax the provenance contract.
+ const vintage={
+   '84':'indiana','356':'illinois','2294':'iowa','130':'michigan',
+   '127':'michigan-state-gruff','135':'minnesota','77':'northwestern',
+   '194':'ohio-state','2509':'purdue','275':'wisconsin',
+   '213':'penn-state','158':'nebraska','120':'maryland-terrapin',
+   '164':'rutgers','26':'ucla','30':'usc','2483':'oregon','264':'washington'
+ };
+ assert.equal(Object.keys(vintage).length,18,'Current Big Ten has exactly 18 vintage crests');
+ for(const [id,slug] of Object.entries(vintage)){
+   const path='assets/cbb-big-ten-1980s/centered/'+slug+'.png';
+   const data=fs.readFileSync(path);
+   assert(data.length>3000,'Missing historical Big Ten local logo: '+slug);
+   assert.equal(data.subarray(0,8).toString('hex'),'89504e470d0a1a0a','Invalid PNG: '+slug);
+   assert.equal(data.readUInt32BE(16),512,'Historic PNG must be 512px wide: '+slug);
+   assert.equal(data.readUInt32BE(20),512,'Historic PNG must be 512px high: '+slug);
+ }
+ const expectedLogo=(id,item)=>vintage[id]?
+   'assets/cbb-big-ten-1980s/centered/'+vintage[id]+'.png?v=20261114-bigten-live1':item.logo_url;
  const seen=new Set(),kinds={embedded_roundel:0,flat:0,unverified:0};
  for(const t of cross.teams){
   const id=String(t.espn_id),item=registry.teams[id],brand=colors[id];
@@ -41,8 +60,17 @@ async function run(){
   const id=String(t.espn_id),item=registry.teams[id],brand=colors[id];
   const crest=ctx.window.MBBLogos.byNCAA(t.id,'hero',t.name);
   assert(crest.includes('data-espn-id="'+id+'"'),'Wrong MBB logo identity '+t.name);
-  assert(crest.includes('data-artwork="'+item.artwork_type+'"'),'Wrong artwork flag '+t.name);
+  assert(crest.includes('data-artwork="'+(vintage[id]?'flat':item.artwork_type)+'"'),
+    'Wrong source-artwork classification '+t.name);
   assert(crest.includes(expectedLogo(id,item)),'Wrong logo URL '+t.name);
+  assert.equal(crest.includes('mbb-mark--heritage'),!!vintage[id],
+    'Retro logo was assigned to the wrong conference identity '+t.name);
+  if(vintage[id]){
+    assert(!crest.includes('data-logo-alternate="https://'),
+      'Historical Big Ten logo must not silently fall back to modern CDN: '+t.name);
+    assert(ctx.window.MBBLogos.logoURL(t.id).includes(expectedLogo(id,item)),
+      'Historical logo URL accessors must use the same PNG: '+t.name);
+  }
   assert(crest.includes('--mbb-primary:'+brand.primary),'Wrong primary team color '+t.name);
   assert(crest.includes('--mbb-secondary:'+brand.secondary),'Wrong secondary team color '+t.name);
   assert(!crest.includes('slt-mark')&&!crest.includes('slt-dual-shell'),'Nested generic ring on '+t.name);
