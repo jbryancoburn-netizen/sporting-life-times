@@ -13,7 +13,7 @@
     "audit_status": "provisional",
     "source_certified": false,
     "excluded_finals": 30,
-    "quarantined_source_rows": 0,
+    "quarantined_source_rows": 1,
     "source_checked_through": "2026-11-14",
     "warning": "Selection forecast is provisional until source quarantines and excluded games have been reconciled"
   },
@@ -231,11 +231,18 @@
       "conference_name": "Horizon",
       "team_id": "cleveland-st",
       "team": "Cleveland St.",
-      "elo": 1553.23,
-      "method": "retro_highest_rated_conference_member_projection",
-      "official_aq": false,
-      "source_url": null,
-      "championship_result": null
+      "elo": 1573.819,
+      "method": "verified_championship_result",
+      "official_aq": true,
+      "source_url": "https://www.ncaa.com/game/6666510",
+      "championship_result": {
+        "opponent_id": "ipfw",
+        "home_score": 2,
+        "away_score": 3,
+        "decision": "regulation",
+        "home_penalties": null,
+        "away_penalties": null
+      }
     },
     {
       "conference": "men-d1:caa",
@@ -575,7 +582,7 @@
       "conference": "men-d1:acc",
       "elo": 1573.765,
       "bid_type": "at_large_proxy",
-      "experimental_strength_order": 41,
+      "experimental_strength_order": 42,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
       "seeded_24_candidate": false
@@ -586,7 +593,7 @@
       "conference": "men-d1:big-west",
       "elo": 1573.337,
       "bid_type": "at_large_proxy",
-      "experimental_strength_order": 42,
+      "experimental_strength_order": 43,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
       "seeded_24_candidate": false
@@ -1064,12 +1071,23 @@
       "seeded_24_candidate": false
     },
     {
+      "team_id": "cleveland-st",
+      "team": "Cleveland St.",
+      "conference": "men-d1:horizon",
+      "elo": 1573.819,
+      "bid_type": "official_aq",
+      "experimental_strength_order": 41,
+      "ncaa_seed": null,
+      "first_round_bye_candidate": false,
+      "seeded_24_candidate": false
+    },
+    {
       "team_id": "wake-forest",
       "team": "Wake Forest",
       "conference": "men-d1:acc",
       "elo": 1573.765,
       "bid_type": "at_large_proxy",
-      "experimental_strength_order": 41,
+      "experimental_strength_order": 42,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
       "seeded_24_candidate": false
@@ -1080,17 +1098,6 @@
       "conference": "men-d1:big-west",
       "elo": 1573.337,
       "bid_type": "at_large_proxy",
-      "experimental_strength_order": 42,
-      "ncaa_seed": null,
-      "first_round_bye_candidate": false,
-      "seeded_24_candidate": false
-    },
-    {
-      "team_id": "cleveland-st",
-      "team": "Cleveland St.",
-      "conference": "men-d1:horizon",
-      "elo": 1553.23,
-      "bid_type": "projected_aq",
       "experimental_strength_order": 43,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
@@ -1154,8 +1161,8 @@
   ],
   "daily_rebuild": {
     "rating_cutoff": "2026-11-14",
-    "official_automatic_bids": 1,
-    "projected_automatic_bids": 22,
+    "official_automatic_bids": 2,
+    "projected_automatic_bids": 21,
     "source_checked_through": "2026-11-14",
     "selection_inputs_verified": false
   }
