@@ -38,8 +38,9 @@
 #full-season-schedule .sched-matchup>.mbb-mark{--mbb-size:54px}
 .team-hero .mbb-mark{--mbb-size:120px}.hero-team .mbb-mark{--mbb-size:80px;margin:auto!important}
 .score-card .mbb-mark{--mbb-size:44px}.conf-card .mbb-mark{--mbb-size:40px}.big-result .mbb-mark{--mbb-size:72px}
-.cbb-elo-school .mbb-mark{--mbb-size:56px}.cbb-elo-power .mbb-mark{--mbb-size:68px}
-@media(max-width:680px){.team-hero .mbb-mark{--mbb-size:84px}.hero-team .mbb-mark{--mbb-size:60px}.cbb-elo-school .mbb-mark{--mbb-size:50px}.cbb-elo-power .mbb-mark{--mbb-size:64px}}
+.cbb-elo-school .mbb-mark{--mbb-size:64px;--mbb-ring:clamp(3px,calc(var(--mbb-size) * .05),5px)}
+.cbb-elo-power .mbb-mark{--mbb-size:76px;--mbb-ring:clamp(3px,calc(var(--mbb-size) * .05),5px)}
+@media(max-width:680px){.team-hero .mbb-mark{--mbb-size:84px}.hero-team .mbb-mark{--mbb-size:60px}.cbb-elo-school .mbb-mark{--mbb-size:54px}.cbb-elo-power .mbb-mark{--mbb-size:68px}}
 
 
 /* Artwork-aware crest scaling.
