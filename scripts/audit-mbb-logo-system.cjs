@@ -13,6 +13,13 @@ async function run(){
  assert.equal(Object.keys(registry.teams).length,365);
  assert.equal(cross.teams.length,365);
  assert.equal(Object.keys(colors).length,365);
+ const minnesotaAsset='assets/cbb-big-ten-1980s/minnesota-running-gopher-user.webp';
+ const minnesotaImage=fs.readFileSync(minnesotaAsset);
+ assert(minnesotaImage.length>=30000,'User-selected Minnesota vintage mascot asset is missing or truncated');
+ assert.equal(minnesotaImage.toString('ascii',0,4),'RIFF','Minnesota mascot is not a WebP image');
+ assert.equal(minnesotaImage.toString('ascii',8,12),'WEBP','Minnesota mascot is not a WebP image');
+ // Exactly one approved historical, self-hosted logo override. Provider registry identity is unchanged.
+ const expectedLogo=(id,item)=>id==='135'?minnesotaAsset:item.logo_url;
  const seen=new Set(),kinds={embedded_roundel:0,flat:0,unverified:0};
  for(const t of cross.teams){
   const id=String(t.espn_id),item=registry.teams[id],brand=colors[id];
@@ -35,13 +42,13 @@ async function run(){
   const crest=ctx.window.MBBLogos.byNCAA(t.id,'hero',t.name);
   assert(crest.includes('data-espn-id="'+id+'"'),'Wrong MBB logo identity '+t.name);
   assert(crest.includes('data-artwork="'+item.artwork_type+'"'),'Wrong artwork flag '+t.name);
-  assert(crest.includes(item.logo_url),'Wrong logo URL '+t.name);
+  assert(crest.includes(expectedLogo(id,item)),'Wrong logo URL '+t.name);
   assert(crest.includes('--mbb-primary:'+brand.primary),'Wrong primary team color '+t.name);
   assert(crest.includes('--mbb-secondary:'+brand.secondary),'Wrong secondary team color '+t.name);
   assert(!crest.includes('slt-mark')&&!crest.includes('slt-dual-shell'),'Nested generic ring on '+t.name);
-  assert(ctx.window.MBBLogos.byNCAA(t.id,'power',t.name).includes(item.logo_url),'Ranking crest '+t.name);
-  assert(ctx.window.MBBLogos.byESPN(id,'schedule',t.espn_name).includes(item.logo_url),'Schedule crest '+t.name);
-  assert(ctx.window.MBBLogos.byESPN(id,'score',t.espn_name).includes(item.logo_url),'Score crest '+t.name);
+  assert(ctx.window.MBBLogos.byNCAA(t.id,'power',t.name).includes(expectedLogo(id,item)),'Ranking crest '+t.name);
+  assert(ctx.window.MBBLogos.byESPN(id,'schedule',t.espn_name).includes(expectedLogo(id,item)),'Schedule crest '+t.name);
+  assert(ctx.window.MBBLogos.byESPN(id,'score',t.espn_name).includes(expectedLogo(id,item)),'Score crest '+t.name);
  }
  // Validate exact school identity, not just presence of an image URL.
  for(const [id,school] of Object.entries(outside)){
