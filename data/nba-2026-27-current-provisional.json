@@ -2,7 +2,7 @@
   "league": "NBA",
   "season": "2026-27",
   "status": "provisional_live_from_historical_baseline",
-  "games_played": 174,
+  "games_played": 176,
   "preseason_status": "provisional_historical_regression_only",
   "source": "ESPN FINAL NBA regular-season scores; Sporting Life & Times independent Elo",
   "rankings": [
@@ -23,10 +23,6 @@
       "elo": 1642.098
     },
     {
-      "team": "NYK",
-      "elo": 1629.515
-    },
-    {
       "team": "DET",
       "elo": 1620.209
     },
@@ -37,6 +33,10 @@
     {
       "team": "HOU",
       "elo": 1613.422
+    },
+    {
+      "team": "NYK",
+      "elo": 1610.741
     },
     {
       "team": "PHI",
@@ -67,16 +67,16 @@
       "elo": 1499.186
     },
     {
+      "team": "ORL",
+      "elo": 1495.742
+    },
+    {
       "team": "MIA",
       "elo": 1490.837
     },
     {
       "team": "TOR",
       "elo": 1488.961
-    },
-    {
-      "team": "ORL",
-      "elo": 1488.959
     },
     {
       "team": "CHA",
@@ -99,24 +99,24 @@
       "elo": 1387.306
     },
     {
-      "team": "BKN",
-      "elo": 1358.841
+      "team": "IND",
+      "elo": 1374.961
     },
     {
-      "team": "IND",
-      "elo": 1356.187
+      "team": "BKN",
+      "elo": 1358.841
     },
     {
       "team": "CHI",
       "elo": 1350.264
     },
     {
-      "team": "MIL",
-      "elo": 1338.871
-    },
-    {
       "team": "WAS",
       "elo": 1336.271
+    },
+    {
+      "team": "MIL",
+      "elo": 1332.088
     },
     {
       "team": "SAC",
@@ -1693,74 +1693,92 @@
       "away_score": 96,
       "date": "2026-11-13T02:00:00.000Z",
       "home_elo_change": 11.686418
+    },
+    {
+      "id": "espn-nba-401909296",
+      "home": "IND",
+      "away": "NYK",
+      "home_score": 106,
+      "away_score": 104,
+      "date": "2026-11-14T00:00:00.000Z",
+      "home_elo_change": 18.773533
+    },
+    {
+      "id": "espn-nba-401909297",
+      "home": "ORL",
+      "away": "MIL",
+      "home_score": 107,
+      "away_score": 99,
+      "date": "2026-11-14T00:00:00.000Z",
+      "home_elo_change": 6.782789
     }
   ],
   "movement": {
-    "as_of_eastern_date": "2026-11-12",
+    "as_of_eastern_date": "2026-11-13",
     "daily_change": {
       "SAS": 0,
       "BOS": 0,
       "OKC": 0,
       "LAL": 0,
-      "NYK": 0,
-      "DET": 5.425166,
-      "MIN": 8.233914,
+      "DET": 0,
+      "MIN": 0,
       "HOU": 0,
-      "PHI": 9.170983,
+      "NYK": -18.773533,
+      "PHI": 0,
       "POR": 0,
       "DEN": 0,
       "CLE": 0,
       "ATL": 0,
       "GSW": 0,
-      "PHX": 11.686418,
+      "PHX": 0,
+      "ORL": 6.782789,
       "MIA": 0,
-      "TOR": -9.170983,
-      "ORL": 0,
-      "CHA": -11.686418,
-      "DAL": -8.233914,
+      "TOR": 0,
+      "CHA": 0,
+      "DAL": 0,
       "LAC": 0,
       "MEM": 0,
       "NOP": 0,
+      "IND": 18.773533,
       "BKN": 0,
-      "IND": 0,
       "CHI": 0,
-      "MIL": 0,
-      "WAS": -5.425166,
+      "WAS": 0,
+      "MIL": -6.782789,
       "SAC": 0,
       "UTA": 0
     },
-    "last_week_eastern_date": "2026-11-05",
+    "last_week_eastern_date": "2026-11-06",
     "last_week_elo": {
-      "SAS": 1652.794,
-      "BOS": 1607.349,
-      "OKC": 1677.916,
-      "LAL": 1597.383,
-      "NYK": 1631.735,
+      "SAS": 1658.399,
+      "BOS": 1620.484,
+      "OKC": 1685.114,
+      "LAL": 1608.112,
       "DET": 1625.832,
-      "MIN": 1596.387,
+      "MIN": 1605.627,
       "HOU": 1608.296,
-      "PHI": 1609.586,
-      "POR": 1572.612,
+      "NYK": 1631.735,
+      "PHI": 1593.281,
+      "POR": 1561.883,
       "DEN": 1570.758,
-      "CLE": 1548.68,
-      "ATL": 1537.927,
+      "CLE": 1564.985,
+      "ATL": 1544.078,
       "GSW": 1507.389,
       "PHX": 1468.242,
+      "ORL": 1480.447,
       "MIA": 1472.061,
-      "TOR": 1519.139,
-      "ORL": 1480.446,
-      "CHA": 1492.099,
-      "DAL": 1439.145,
+      "TOR": 1529.383,
+      "CHA": 1478.964,
+      "DAL": 1446.945,
       "LAC": 1453.744,
-      "MEM": 1417.733,
-      "NOP": 1440.227,
+      "MEM": 1410.534,
+      "NOP": 1430.987,
+      "IND": 1358.285,
       "BKN": 1352.398,
-      "IND": 1358.284,
       "CHI": 1361.398,
-      "MIL": 1365.33,
-      "WAS": 1368.988,
-      "SAC": 1354.955,
-      "UTA": 1311.164
+      "WAS": 1362.837,
+      "MIL": 1355.086,
+      "SAC": 1349.35,
+      "UTA": 1303.365
     }
   }
 }
