@@ -4,7 +4,7 @@
   "target_era": "1980s when authentic artwork can be verified",
   "policy": "Use authentic team artwork only, locally hosted, within the shared double-ring badge. No external runtime image requests or invented designs. Never activate missing files.",
   "integration": "mbb-logo-system.js",
-  "release_status": "historical_artwork_pending",
+  "release_status": "modern_fallback_configured_historical_release_pending",
   "teams": [
     {
       "espn_id": "12",
@@ -13,7 +13,8 @@
       "status": "historical_asset_not_yet_verified",
       "selection": "prefer original-era animal mascot where applicable; otherwise real archival team emblem",
       "source_research": "https://www.sportslogos.net/",
-      "approved": false
+      "approved": false,
+      "modern_fallback": "verified registry logo"
     },
     {
       "espn_id": "9",
@@ -22,7 +23,8 @@
       "status": "historical_asset_not_yet_verified",
       "selection": "prefer original-era animal mascot where applicable; otherwise real archival team emblem",
       "source_research": "https://www.sportslogos.net/",
-      "approved": false
+      "approved": false,
+      "modern_fallback": "verified registry logo"
     },
     {
       "espn_id": "239",
@@ -31,34 +33,44 @@
       "status": "historical_asset_not_yet_verified",
       "selection": "prefer original-era animal mascot where applicable; otherwise real archival team emblem",
       "source_research": "https://www.sportslogos.net/",
-      "approved": false
+      "approved": false,
+      "modern_fallback": "verified registry logo"
     },
     {
       "espn_id": "252",
       "school": "BYU",
       "target_path": "assets/cbb-big-12-1980s/byu.png",
-      "status": "historical_asset_not_yet_verified",
+      "status": "modern_logo_active_historical_research_pending",
       "selection": "prefer original-era animal mascot where applicable; otherwise real archival team emblem",
       "source_research": "https://www.sportslogos.net/",
-      "approved": false
+      "approved": false,
+      "modern_fallback": "verified registry logo",
+      "historical_candidate": "Historic cougar mascot",
+      "research_note": "Prefer an authentic late-1970s/1980s Cougar emblem"
     },
     {
       "espn_id": "2132",
       "school": "Cincinnati",
       "target_path": "assets/cbb-big-12-1980s/cincinnati.png",
-      "status": "historical_asset_not_yet_verified",
+      "status": "modern_logo_active_historical_research_pending",
       "selection": "prefer original-era animal mascot where applicable; otherwise real archival team emblem",
       "source_research": "https://www.sportslogos.net/",
-      "approved": false
+      "approved": false,
+      "modern_fallback": "verified registry logo",
+      "historical_candidate": "Historic Bearcat mascot",
+      "research_note": "Prefer original-era Bearcat character rather than modern C-Paw"
     },
     {
       "espn_id": "38",
       "school": "Colorado",
       "target_path": "assets/cbb-big-12-1980s/colorado.png",
-      "status": "historical_asset_not_yet_verified",
+      "status": "modern_logo_active_historical_research_pending",
       "selection": "prefer original-era animal mascot where applicable; otherwise real archival team emblem",
       "source_research": "https://www.sportslogos.net/",
-      "approved": false
+      "approved": false,
+      "modern_fallback": "verified registry logo",
+      "historical_candidate": "Historic Ralphie/buffalo mark",
+      "research_note": "Use verified Buffaloes artwork from the 1980s"
     },
     {
       "espn_id": "248",
@@ -67,7 +79,8 @@
       "status": "historical_asset_not_yet_verified",
       "selection": "prefer original-era animal mascot where applicable; otherwise real archival team emblem",
       "source_research": "https://www.sportslogos.net/",
-      "approved": false
+      "approved": false,
+      "modern_fallback": "verified registry logo"
     },
     {
       "espn_id": "66",
@@ -76,7 +89,8 @@
       "status": "historical_asset_not_yet_verified",
       "selection": "prefer original-era animal mascot where applicable; otherwise real archival team emblem",
       "source_research": "https://www.sportslogos.net/",
-      "approved": false
+      "approved": false,
+      "modern_fallback": "verified registry logo"
     },
     {
       "espn_id": "2305",
@@ -85,7 +99,8 @@
       "status": "historical_asset_not_yet_verified",
       "selection": "prefer original-era animal mascot where applicable; otherwise real archival team emblem",
       "source_research": "https://www.sportslogos.net/",
-      "approved": false
+      "approved": false,
+      "modern_fallback": "verified registry logo"
     },
     {
       "espn_id": "2306",
@@ -94,7 +109,8 @@
       "status": "historical_asset_not_yet_verified",
       "selection": "prefer original-era animal mascot where applicable; otherwise real archival team emblem",
       "source_research": "https://www.sportslogos.net/",
-      "approved": false
+      "approved": false,
+      "modern_fallback": "verified registry logo"
     },
     {
       "espn_id": "197",
@@ -103,7 +119,8 @@
       "status": "historical_asset_not_yet_verified",
       "selection": "prefer original-era animal mascot where applicable; otherwise real archival team emblem",
       "source_research": "https://www.sportslogos.net/",
-      "approved": false
+      "approved": false,
+      "modern_fallback": "verified registry logo"
     },
     {
       "espn_id": "2628",
@@ -112,7 +129,8 @@
       "status": "historical_asset_not_yet_verified",
       "selection": "prefer original-era animal mascot where applicable; otherwise real archival team emblem",
       "source_research": "https://www.sportslogos.net/",
-      "approved": false
+      "approved": false,
+      "modern_fallback": "verified registry logo"
     },
     {
       "espn_id": "2641",
@@ -121,34 +139,45 @@
       "status": "historical_asset_not_yet_verified",
       "selection": "prefer original-era animal mascot where applicable; otherwise real archival team emblem",
       "source_research": "https://www.sportslogos.net/",
-      "approved": false
+      "approved": false,
+      "modern_fallback": "verified registry logo"
     },
     {
       "espn_id": "2116",
       "school": "UCF",
       "target_path": "assets/cbb-big-12-1980s/ucf.png",
-      "status": "historical_asset_not_yet_verified",
+      "status": "modern_logo_active_historical_research_pending",
       "selection": "prefer original-era animal mascot where applicable; otherwise real archival team emblem",
       "source_research": "https://www.sportslogos.net/",
-      "approved": false
+      "approved": false,
+      "modern_fallback": "verified registry logo",
+      "historical_candidate": "Historic Citronaut or early Knights emblem",
+      "research_note": "Choose an authenticated historical university athletic mark; Citronaut only if appropriate"
     },
     {
       "espn_id": "254",
       "school": "Utah",
       "target_path": "assets/cbb-big-12-1980s/utah.png",
-      "status": "historical_asset_not_yet_verified",
+      "status": "modern_logo_active_historical_research_pending",
       "selection": "prefer original-era animal mascot where applicable; otherwise real archival team emblem",
       "source_research": "https://www.sportslogos.net/",
-      "approved": false
+      "approved": false,
+      "modern_fallback": "verified registry logo",
+      "historical_candidate": "Historic Utah Utes athletic mark",
+      "research_note": "Use era-correct school emblem, avoiding unverified mascots"
     },
     {
       "espn_id": "277",
       "school": "West Virginia",
       "target_path": "assets/cbb-big-12-1980s/west-virginia.png",
-      "status": "historical_asset_not_yet_verified",
+      "status": "modern_logo_active_historical_research_pending",
       "selection": "prefer original-era animal mascot where applicable; otherwise real archival team emblem",
       "source_research": "https://www.sportslogos.net/",
-      "approved": false
+      "approved": false,
+      "modern_fallback": "verified registry logo",
+      "historical_candidate": "Historic Mountaineer mascot",
+      "research_note": "Prefer real original-era Mountaineer illustration"
     }
-  ]
+  ],
+  "modern_fallback_policy": "Every Big 12 school uses the existing verified modern logo until a self-hosted historical replacement is validated. If the historical file fails to load, revert to the verified modern logo without a missing-image badge."
 }
