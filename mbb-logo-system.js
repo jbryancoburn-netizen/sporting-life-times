@@ -6,6 +6,30 @@ const onVictorianLivePage=/\/live-game\.html$/i.test(String(w.location?.pathname
 if(onVictorianLivePage&&!['ncaam','ncaaw'].includes(new URLSearchParams(String(w.location?.search||'')).get('league')))return;
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const norm=v=>String(v||'').normalize('NFKD').toLowerCase().replace(/[^a-z0-9]/g,'');
+// Exact ESPN identities of the 18 current Big Ten members; no guessed aliases.
+// Use real original-era mascot artwork over generic helmets or lettermarks.
+const BIG_TEN_HERITAGE=Object.freeze({
+ '84':'assets/cbb-big-ten-1980s/centered/indiana.png?v=20261114-bigten-live1',
+ '356':'assets/cbb-big-ten-1980s/centered/illinois.png?v=20261114-bigten-live1',
+ '2294':'assets/cbb-big-ten-1980s/centered/iowa.png?v=20261114-bigten-live1',
+ '130':'assets/cbb-big-ten-1980s/centered/michigan.png?v=20261114-bigten-live1',
+ '127':'assets/cbb-big-ten-1980s/centered/michigan-state-gruff.png?v=20261114-bigten-live1',
+ '135':'assets/cbb-big-ten-1980s/centered/minnesota.png?v=20261114-bigten-live1',
+ '77':'assets/cbb-big-ten-1980s/centered/northwestern.png?v=20261114-bigten-live1',
+ '194':'assets/cbb-big-ten-1980s/centered/ohio-state.png?v=20261114-bigten-live1',
+ '2509':'assets/cbb-big-ten-1980s/centered/purdue.png?v=20261114-bigten-live1',
+ '275':'assets/cbb-big-ten-1980s/centered/wisconsin.png?v=20261114-bigten-live1',
+ '213':'assets/cbb-big-ten-1980s/centered/penn-state.png?v=20261114-bigten-live1',
+ '158':'assets/cbb-big-ten-1980s/centered/nebraska.png?v=20261114-bigten-live1',
+ '120':'assets/cbb-big-ten-1980s/centered/maryland-terrapin.png?v=20261114-bigten-live1',
+ '164':'assets/cbb-big-ten-1980s/centered/rutgers.png?v=20261114-bigten-live1',
+ '26':'assets/cbb-big-ten-1980s/centered/ucla.png?v=20261114-bigten-live1',
+ '30':'assets/cbb-big-ten-1980s/centered/usc.png?v=20261114-bigten-live1',
+ '2483':'assets/cbb-big-ten-1980s/centered/oregon.png?v=20261114-bigten-live1',
+ '264':'assets/cbb-big-ten-1980s/centered/washington.png?v=20261114-bigten-live1'
+});
+const retroURLForESPN=id=>BIG_TEN_HERITAGE[String(id)]||'';
+
 const safeURL=v=>{try{let u=new URL(v);return u.protocol==='https:'?u.href:''}catch{return ''}};
 const byNcaa=new Map(),byName=new Map(),ambiguous=new Set(),outsideByName=new Map(),outsideAmbiguous=new Set();
 let registry={},palette={},outside={};
@@ -143,17 +167,18 @@ const directOutside=!ncaa&&!registry[id]&&!!outside[id]&&outsideAliases(outside[
 const known=(outsideExact||directOutside)?null:(registry[id]||null);
 const outsideID=directOutside?id:outsideExact?outsideNameId:'';
 const outsideEntry=outsideID&&outside[outsideID]&&(outsideSchoolId(name)===outsideID||outsideAliases(outside[outsideID]).includes(norm(name)))?outside[outsideID]:null;
-const school=known,brand=known?palette[id]:outsideEntry,art=known?school.artwork_type:outsideEntry?'flat':'unverified';
-// User-selected historical Minnesota running gopher, kept as a self-hosted asset for both editions.
-const primary=known&&id==='135'?'assets/cbb-big-ten-1980s/minnesota-running-gopher-user.webp':
- known?(school.logo_url_verified?safeURL(school.official_logo_url||school.logo_url):''):
- outsideEntry?safeURL(outsideEntry.logo_url):'';
-const backup=known&&id==='135'?'':known?(school.provider_logo_candidates||[]).map(safeURL).find(x=>x&&x!==primary)||'':
+const school=known,brand=known?palette[id]:outsideEntry;
+const heritage=known?retroURLForESPN(id):'';
+const art=heritage?'flat':known?school.artwork_type:outsideEntry?'flat':'unverified';
+const primary=heritage||(known?(school.logo_url_verified?safeURL(school.official_logo_url||school.logo_url):''):
+ outsideEntry?safeURL(outsideEntry.logo_url):'');
+// Original-era logos are locally hosted; do not silently substitute modern art.
+const backup=heritage?'':known?(school.provider_logo_candidates||[]).map(safeURL).find(x=>x&&x!==primary)||'':
  outsideEntry?safeURL(outsideEntry.logo_alternate_url)||'':'';
 const initials=name.split(/\s+/).slice(0,2).map(v=>v[0]||'').join('').toUpperCase();
 const kind=/^(small|score|power|schedule|hero|featured|history)$/.test(options.size||'')?options.size:'small';
 const clr=brand?.primary||'#385866',alt=brand?.secondary||'#597582';
-return '<span class="mbb-mark mbb-mark--'+kind+' mbb-mark--art-'+art+(primary?'':' mbb-mark--missing')+'" style="--mbb-primary:'+esc(clr)+';--mbb-secondary:'+esc(alt)+'" data-espn-id="'+esc(known?id:(outsideEntry?outsideID:''))+'" data-artwork="'+esc(art)+'" data-ring-count="2" role="img" aria-label="'+esc(name)+' logo"><span class="mbb-mark__initials" aria-hidden="true">'+esc(initials)+'</span>'+(primary?'<img class="mbb-mark__img" src="'+esc(primary)+'" data-logo-alternate="'+esc(backup)+'" loading="lazy" decoding="async" alt="" onerror="window.MBBLogos.fail(this)">':'')+'</span>';
+return '<span class="mbb-mark mbb-mark--'+kind+' mbb-mark--art-'+art+(heritage?' mbb-mark--heritage':'')+(primary?'':' mbb-mark--missing')+'" style="--mbb-primary:'+esc(clr)+';--mbb-secondary:'+esc(alt)+'" data-espn-id="'+esc(known?id:(outsideEntry?outsideID:''))+'" data-artwork="'+esc(art)+'" data-ring-count="2" role="img" aria-label="'+esc(name)+' logo"><span class="mbb-mark__initials" aria-hidden="true">'+esc(initials)+'</span>'+(primary?'<img class="mbb-mark__img" src="'+esc(primary)+'" data-logo-alternate="'+esc(backup)+'" loading="lazy" decoding="async" alt="" onerror="window.MBBLogos.fail(this)">':'')+'</span>';
 }
 function fail(img){
 if(!(img instanceof HTMLImageElement))return;
@@ -202,7 +227,7 @@ function upgradeBareLogos(root=document){
   img.replaceWith(temp.firstElementChild);
  }
 }
-w.MBBLogos={ready,render,byNCAA:(id,size,name)=>render({ncaaId:id,name,size}),byESPN:(id,size,name)=>render({espnId:id&& (registry[String(id)]||outside[String(id)])?String(id):'',name:name||registry[String(id)]?.school||outside[String(id)]?.corrected_name||outside[String(id)]?.school,size}),byName:(name,size)=>render({name,size}),fail,stripLegacyRings,upgradeLegacyCalendar,upgradeBareLogos,logoURL:id=>registry[byNcaa.get(id)]?.logo_url||'',colorForESPN:id=>palette[String(id)]?{...palette[String(id)]}:outside[String(id)]?{primary:outside[String(id)].primary,secondary:outside[String(id)].secondary}:null,schoolNameForESPN:id=>String(registry[String(id)]?.school||outside[String(id)]?.corrected_name||outside[String(id)]?.school||'').replace(/\bSt\.$/,'State')};
+w.MBBLogos={ready,render,byNCAA:(id,size,name)=>render({ncaaId:id,name,size}),byESPN:(id,size,name)=>render({espnId:id&& (registry[String(id)]||outside[String(id)])?String(id):'',name:name||registry[String(id)]?.school||outside[String(id)]?.corrected_name||outside[String(id)]?.school,size}),byName:(name,size)=>render({name,size}),fail,stripLegacyRings,upgradeLegacyCalendar,upgradeBareLogos,logoURL:id=>retroURLForESPN(byNcaa.get(id)||id)||registry[byNcaa.get(id)]?.logo_url||'',retroURLForESPN,heritageTeamIds:()=>Object.keys(BIG_TEN_HERITAGE),colorForESPN:id=>palette[String(id)]?{...palette[String(id)]}:outside[String(id)]?{primary:outside[String(id)].primary,secondary:outside[String(id)].secondary}:null,schoolNameForESPN:id=>String(registry[String(id)]?.school||outside[String(id)]?.corrected_name||outside[String(id)]?.school||'').replace(/\bSt\.$/,'State')};
 ready.then(ok=>{
  if(!ok)return;
  const run=()=>{stripLegacyRings(document);upgradeLegacyCalendar();upgradeBareLogos(document)};
