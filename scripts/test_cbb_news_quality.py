@@ -53,11 +53,21 @@ class HardwoodChronicleNewsTests(unittest.TestCase):
         rss = self.xml("Kentucky survives Northern Arizona", "https://news.google.com/rss/articles/xyz")
         self.assertEqual(parse_feed(rss, source_name="Google News",
                                     discovered=True, now=self.now), [])
-        direct = parse_feed(rss.replace(b"news.google.com", b"publisher.example"),
+        direct = parse_feed(rss.replace(b"news.google.com/rss/articles/xyz", b"publisher.example/kentucky-basketball-report"),
                             source_name="ESPN Women's College Basketball",
                             trusted_gender="women", now=self.now)
         self.assertEqual(direct[0]["gender"], "women")
         self.assertEqual(direct[0]["gender_evidence"], "verified_basketball_feed")
+
+    def test_general_sports_story_is_rejected_even_in_specialist_feeds(self):
+        headline = "FAA ground stop triggers widespread travel chaos as teams scramble ahead of games"
+        item = self.xml(headline, "https://example.org/sports/aviation-travel")
+        for gender in ("men", "women"):
+            self.assertEqual(parse_feed(item, source_name="The Athletic",
+                                        trusted_gender=gender, now=self.now), [])
+        self.assertEqual(choose([self.article(headline, "women",
+                     evidence="verified_basketball_feed")],
+                     gender="women", now=self.now), [])
 
     def test_direct_publisher_url_and_google_news_provenance(self):
         google = parse_feed(self.xml("UConn men's basketball tops Ohio State",
