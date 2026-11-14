@@ -40,7 +40,7 @@ def main():
        if '<strong>Providence Friars</strong>' in x.group(0)]
     assert len(matches)==1
     card=matches[0].group()
-    assert card.count("hockey-specific")==1
+    assert card.count("hockey-specific")>=2
     new=card.replace("providence.png?v=20261114-big-east11a","providence.png?v="+VERSION)
     new=re.sub(r'alt="[^"]+"', 'alt="Providence Friars interlocking PC athletics crest with FRIARS banner, 1996–2002"',new,count=1)
     new=new.replace('Era: 1973–2002','Era: 1996–2002 (not 1980s)')
