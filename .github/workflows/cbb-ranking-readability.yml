@@ -1,0 +1,41 @@
+name: CBB rankings layout readability
+on:
+  pull_request:
+    paths:
+      - 'mbb-elo-primary.css'
+      - 'mbb-elo-primary.js'
+      - 'ncaam-elo.html'
+      - 'ncaam-rankings.html'
+      - 'ncaaw-rankings.html'
+      - 'wbb-rankings.js'
+      - 'tests/cbb-retro-ranking-readability.test.cjs'
+      - '.github/workflows/cbb-ranking-readability.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'mbb-elo-primary.css'
+      - 'mbb-elo-primary.js'
+      - 'ncaam-elo.html'
+      - 'ncaam-rankings.html'
+      - 'ncaaw-rankings.html'
+      - 'wbb-rankings.js'
+  workflow_dispatch:
+jobs:
+  layout-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate layout and crest contracts
+        run: |
+          node --test tests/cbb-retro-ranking-readability.test.cjs
+          node --test tests/cbb-ranking-badges-mobile.test.cjs
+          node --test tests/cbb-retro-power-logos.test.cjs
+          node --test tests/cbb-all-retro-ranking-routes.test.cjs
+      - name: Validate reader-facing JS parses
+        run: |
+          node --check mbb-elo-primary.js
+          node --check wbb-rankings.js

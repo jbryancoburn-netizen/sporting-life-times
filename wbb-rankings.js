@@ -99,7 +99,7 @@ try{
     return '<article class="wbbr-entry"><strong class="wbbr-number">#'+esc(t.rank)+'</strong>'+
       womenLogo(school,name)+
       '<div class="wbbr-identity"><a href="ncaaw-team.html?team='+encodeURIComponent(t.team_id)+'">'+esc(name)+'</a><small>'+esc(t.conference||'Conference unverified')+'</small></div>'+
-      '<div class="wbbr-value">'+esc(overallRecord)+'<small>RETRO '+Math.round(Number(t.elo)).toLocaleString('en-US')+'</small></div></article>';
+      '<div class="wbbr-value"><span class="wbbr-record"><span class="wbbr-stat-caption">W–L</span> '+esc(overallRecord)+'</span><span class="wbbr-retro">RETRO '+(Number.isFinite(Number(t.elo))?Number(t.elo).toFixed(1):'—')+'</span></div></article>';
   }).join('');
  };
  con.addEventListener('change',render);$('#wbbr-order').addEventListener('change',render);render();

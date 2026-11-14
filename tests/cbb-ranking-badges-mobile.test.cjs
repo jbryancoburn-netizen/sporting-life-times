@@ -22,5 +22,5 @@ test('men’s national register gives three-digit ranks their own mobile place c
  const page=source('ncaam-elo.html');
  assert.match(css,/\.cbb-elo-table th:nth-child\(1\),\.cbb-elo-table td:nth-child\(1\)\{width:16%\}/);
  assert.match(css,/\.cbb-elo-table td\.cbb-elo-rank \.victorian-number\{box-sizing:border-box;width:100%;max-width:40px/);
- assert.match(page,/mbb-elo-primary\.css\?v=power-crests-20261114/);
+ assert.match(page,/mbb-elo-primary\.css\?v=ranking-readable-20261114/);
 });
