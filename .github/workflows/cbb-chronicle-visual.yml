@@ -1,0 +1,39 @@
+name: Hardwood Chronicle visual acceptance
+on:
+  pull_request:
+    paths:
+      - 'ncaam.html'
+      - 'cbb-chronicle.css'
+      - 'cbb-chronicle-retro.js'
+      - 'cbb-front-news.js'
+      - 'cbb-shared-navigation.js'
+      - 'cbb-home-gender.js'
+      - 'tests/cbb-chronicle-browser.cjs'
+      - '.github/workflows/cbb-chronicle-visual.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install headless browser
+        run: |
+          npm install --no-save --no-package-lock playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Verify all six newspaper layouts and sourced RETRO reports
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/chronicle-server.log 2>&1 &
+          node tests/cbb-chronicle-browser.cjs
+      - name: Preserve desktop and mobile evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hardwood-chronicle-desktop-mobile
+          path: artifacts/hardwood-*.png
+          if-no-files-found: ignore

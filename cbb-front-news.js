@@ -85,15 +85,41 @@ function select(data,edition){
   }
   return selected;
 }
-function articleHTML(a,i){
+function articleHTML(a,kind='dispatch'){
   let url;try{const u=new URL(a.url);if(u.protocol!=='https:')return '';url=escape(u.href)}catch{return ''}
-  const aggregator=(a.link_type==='aggregator'||new URL(a.url).hostname==='news.google.com');
+  const aggregator=a.link_type==='aggregator'||new URL(a.url).hostname==='news.google.com';
   const attribution=escape(a.source)+(aggregator?' · via Google News':'')+' · '+escape(time(a.published_at))+' ET';
-  return '<article class="cbb-news-story '+(i===0?'lead':'')+'">'
+  const summary=a.summary?'<p class="cbb-news-description">'+escape(String(a.summary).slice(0,235))+'</p>':'';
+  const label=kind==='lead'?'<p class="chronicle-flag">The Lead Report</p>':'';
+  const read=aggregator?'Read attributed report':'Read at '+escape(a.source);
+  return '<article class="cbb-news-story '+(kind==='lead'?'lead':'')+'">'+label
     +'<p class="cbb-news-eyebrow">'+attribution+'</p>'
     +'<h3><a href="'+url+'" target="_blank" rel="noopener noreferrer">'+escape(a.title)+'</a></h3>'
-    +(a.summary?'<p class="cbb-news-description">'+escape(String(a.summary).slice(0,235))+'</p>':'')
+    +summary+'<a class="chronicle-story-link" href="'+url+'" target="_blank" rel="noopener noreferrer">'+read+'</a>'
     +'</article>';
+}
+function sectionFor(a){
+  const t=a.title||'';
+  if(/\b(?:transfer|recruit|commit|injur|coach|player|roster|suspension)\b/i.test(t))return 'people';
+  if(/\b(?:upset|ranked|top 25|poll|national|record|champion|tournament|final four|stuns?|shocks?)\b/i.test(t))return 'national';
+  return 'conference';
+}
+function renderEdition(stories){
+  const lead=articleHTML(stories[0],'lead');
+  const secondary=stories.slice(1,4).map(a=>articleHTML(a,'secondary')).join('');
+  const groups=[
+    {key:'national',title:'The National Desk',articles:[]},
+    {key:'conference',title:'Campus & Conference',articles:[]},
+    {key:'people',title:'Players & Coaches',articles:[]}
+  ];
+  for(const a of stories.slice(4,15))groups.find(g=>g.key===sectionFor(a)).articles.push(a);
+  const active=groups.filter(g=>g.articles.length);
+  const departments=active.length
+    ?'<div class="chronicle-news-departments" data-count="'+active.length+'">'+active.map(g=>
+      '<section aria-label="'+escape(g.title)+'"><h3>'+escape(g.title)+'</h3>'
+      +g.articles.map(a=>articleHTML(a)).join('')+'</section>').join('')+'</div>'
+    :'';
+  return '<div class="cbb-news-grid">'+lead+'<div class="chronicle-secondary">'+secondary+'</div></div>'+departments;
 }
 async function refresh(){
   const edition=new URLSearchParams(location.search).get('gender')==='women'?'women':'men';
@@ -104,7 +130,7 @@ async function refresh(){
     stamp.textContent='No current verified headlines';
     return;
   }
-  root.innerHTML='<div class="cbb-news-grid">'+stories.map(articleHTML).join('')+'</div>';
+  root.innerHTML=renderEdition(stories);
   const age=Date.now()-updatedAt(data);
   stamp.textContent=(age>freshnessLimit?'Reporting feed delayed · Last collected ':'National wire updated ')+time(data.updated_at)+' ET';
 }
