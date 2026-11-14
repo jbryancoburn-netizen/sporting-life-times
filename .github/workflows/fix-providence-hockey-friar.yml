@@ -1,0 +1,31 @@
+name: Replace rejected hockey Friar with non-hockey athletics logo
+on:
+  push:
+    branches:
+      - fix/big-east-providence-no-hockey-friar-20261114
+    paths:
+      - scripts/replace_big_east_providence_hockey.py
+      - .github/workflows/fix-providence-hockey-friar.yml
+permissions:
+  contents: write
+jobs:
+  replace:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pillow
+      - name: Replace hockey asset; update source attribution, gallery and tests
+        run: python scripts/replace_big_east_providence_hockey.py
+      - name: Validate all 11 local Big East assets and unchanged production
+        run: node --test tests/cbb-big-east-heritage-gallery.test.cjs
+      - name: Commit corrected non-hockey crest and documentation to review branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/cbb-big-east-1980s/providence.png data/cbb-big-east-1980s-source-manifest.json cbb-big-east-1980s-preview.html scripts/build_big_east_1980s_gallery.py tests/cbb-big-east-heritage-gallery.test.cjs
+          git commit -m 'Remove hockey Friar; use attributed non-hockey Providence PC athletics crest'
+          git push
