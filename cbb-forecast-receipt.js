@@ -11,15 +11,15 @@ const archives={men:new Map(),women:new Map()},scored=new Map();
 let ready=false,queued=false;
 function indexArchive(data,gender){
  if(data?.season!=='2026-27'||!Array.isArray(data.predictions))return;
- const seen=new Set();
+ const seen=new Set(),conflicts=new Set();
  for(const p of data.predictions){
   const k=key(p.date,p.id);
-  if(seen.has(k)){archives[gender].delete(k);continue;}
+  if(seen.has(k)){conflicts.add(k);archives[gender].delete(k);continue;}
   seen.add(k);
   if(!/^2026-\d\d-\d\d$/.test(String(p.date||''))||!/^\d+$/.test(cleanId(p.id))||
     !Number.isFinite(p.projected_home_margin)||!Number.isFinite(p.home_win_probability)||
     p.home_win_probability<0||p.home_win_probability>1)continue;
-  archives[gender].set(k,p);
+  if(!conflicts.has(k))archives[gender].set(k,p);
  }
 }
 function indexScored(data){
