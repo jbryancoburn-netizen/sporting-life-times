@@ -2,9 +2,9 @@
   "season": "2026-27",
   "sport": "NCAA men's Division I basketball",
   "method": "Immutable prior-day and independently verified pretipoff forecasts versus verified in-season D-I finals",
-  "updated_at_utc": "2026-11-14T21:37:50+00:00",
+  "updated_at_utc": "2026-11-14T22:41:52+00:00",
   "archived_predictions": 499,
-  "pending_finals": 134,
+  "pending_finals": 129,
   "excluded_orientation_mismatches": [
     "espn:401918053",
     "espn:401919029",
@@ -12,11 +12,11 @@
     "espn:401920074"
   ],
   "summary": {
-    "games": 361,
-    "correct_winners": 262,
-    "winner_accuracy": 0.72576,
-    "margin_mae": 12.6787,
-    "brier": 0.185722
+    "games": 366,
+    "correct_winners": 264,
+    "winner_accuracy": 0.72131,
+    "margin_mae": 12.6516,
+    "brier": 0.187082
   },
   "by_date": {
     "2026-11-06": {
@@ -76,11 +76,11 @@
       "brier": 0.161884
     },
     "2026-11-14": {
-      "games": 11,
-      "correct_winners": 8,
-      "winner_accuracy": 0.72727,
-      "margin_mae": 7.5455,
-      "brier": 0.1557
+      "games": 16,
+      "correct_winners": 10,
+      "winner_accuracy": 0.625,
+      "margin_mae": 8.5312,
+      "brier": 0.196192
     }
   },
   "games": [
@@ -5000,6 +5000,20 @@
     },
     {
       "date": "2026-11-14",
+      "id": "espn:401911016",
+      "home_id": "ncaa:609796",
+      "away_id": "ncaa:609698",
+      "predicted_home_margin": 5.5,
+      "actual_home_margin": -11,
+      "absolute_margin_error": 16.5,
+      "predicted_home_win_probability": 0.636873,
+      "winner_correct": false,
+      "brier": 0.40560722,
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "captured_at_utc": "2026-11-10T18:48:01+00:00"
+    },
+    {
+      "date": "2026-11-14",
       "id": "espn:401911231",
       "home_id": "ncaa:609705",
       "away_id": "ncaa:609654",
@@ -5112,6 +5126,48 @@
     },
     {
       "date": "2026-11-14",
+      "id": "espn:401921038",
+      "home_id": "ncaa:609524",
+      "away_id": "ncaa:609578",
+      "predicted_home_margin": -8.0,
+      "actual_home_margin": -4,
+      "absolute_margin_error": 4.0,
+      "predicted_home_win_probability": 0.30854,
+      "winner_correct": true,
+      "brier": 0.09519693,
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "captured_at_utc": "2026-11-11T08:20:58+00:00"
+    },
+    {
+      "date": "2026-11-14",
+      "id": "espn:401921096",
+      "home_id": "ncaa:609480",
+      "away_id": "ncaa:609843",
+      "predicted_home_margin": 6.0,
+      "actual_home_margin": -3,
+      "absolute_margin_error": 9.0,
+      "predicted_home_win_probability": 0.644618,
+      "winner_correct": false,
+      "brier": 0.41553237,
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "captured_at_utc": "2026-11-11T08:20:58+00:00"
+    },
+    {
+      "date": "2026-11-14",
+      "id": "espn:401922220",
+      "home_id": "ncaa:609603",
+      "away_id": "ncaa:609701",
+      "predicted_home_margin": 6.0,
+      "actual_home_margin": -3,
+      "absolute_margin_error": 9.0,
+      "predicted_home_win_probability": 0.645414,
+      "winner_correct": false,
+      "brier": 0.41655923,
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "captured_at_utc": "2026-11-11T08:20:58+00:00"
+    },
+    {
+      "date": "2026-11-14",
       "id": "espn:401922230",
       "home_id": "ncaa:609571",
       "away_id": "ncaa:609605",
@@ -5135,6 +5191,20 @@
       "predicted_home_win_probability": 0.495086,
       "winner_correct": true,
       "brier": 0.24511015,
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "captured_at_utc": "2026-11-11T08:20:58+00:00"
+    },
+    {
+      "date": "2026-11-14",
+      "id": "espn:401924921",
+      "home_id": "ncaa:609717",
+      "away_id": "ncaa:609529",
+      "predicted_home_margin": -8.0,
+      "actual_home_margin": -23,
+      "absolute_margin_error": 15.0,
+      "predicted_home_win_probability": 0.305745,
+      "winner_correct": true,
+      "brier": 0.09348001,
       "forecast_model": "retro-central-elo-uncapped-v2",
       "captured_at_utc": "2026-11-11T08:20:58+00:00"
     }
