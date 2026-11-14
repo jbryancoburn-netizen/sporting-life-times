@@ -64,6 +64,7 @@ const rows=sorted.map(g=>{
   const badge=opp?window.MBBLogos.byESPN(String(opp.team_id),'schedule',opp.team):'';
   const conferenceTag=opp&&t.conference&&opp.conference&&t.conference===opp.conference?'<span class="wbb-conference-game" title="Conference matchup">'+esc(leagueLabel(t.conference))+'</span>':'';
   const d=new Date(g.date);
+   const archiveDay=Number.isFinite(d.getTime())?d.toLocaleDateString('sv-SE',{timeZone:'America/New_York'}):'';
   const date=Number.isNaN(d.getTime())?esc(g.date||'TBA'):esc(d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric',timeZone:'America/New_York'}));
   const other=rmap.get(String(g.opponent_id||''));
   const opponent='<div class="wbb-matchup">'+badge+'<div class="wbb-match-copy"><div class="wbb-opponent-line">'+
