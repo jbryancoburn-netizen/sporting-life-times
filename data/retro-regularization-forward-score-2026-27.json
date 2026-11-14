@@ -3,19 +3,20 @@
   "method": "Frozen future-date predictions; 1500 reset; previous-days-only D-I results",
   "archived": 272,
   "excluded_identity_mismatches": [
-    "espn:401918992"
+    "espn:401918992",
+    "espn:401920074"
   ],
   "baseline_006": {
-    "games": 126,
-    "margin_mae": 11.373,
-    "brier": 0.189398,
-    "winner_accuracy": 0.72222
+    "games": 137,
+    "margin_mae": 11.0657,
+    "brier": 0.186693,
+    "winner_accuracy": 0.72263
   },
   "challenger_002": {
-    "games": 126,
-    "margin_mae": 12.1032,
-    "brier": 0.197825,
-    "winner_accuracy": 0.71429
+    "games": 137,
+    "margin_mae": 11.7591,
+    "brier": 0.192436,
+    "winner_accuracy": 0.72263
   },
   "by_date": {
     "2026-11-11": {
@@ -59,7 +60,21 @@
         "brier": 0.165682,
         "winner_accuracy": 0.74545
       }
+    },
+    "2026-11-14": {
+      "0.006": {
+        "games": 11,
+        "margin_mae": 7.5455,
+        "brier": 0.1557,
+        "winner_accuracy": 0.72727
+      },
+      "0.002": {
+        "games": 11,
+        "margin_mae": 7.8182,
+        "brier": 0.130697,
+        "winner_accuracy": 0.81818
+      }
     }
   },
-  "last_changed_utc": "2026-11-14T06:54:46+00:00"
+  "last_changed_utc": "2026-11-14T21:37:50+00:00"
 }
