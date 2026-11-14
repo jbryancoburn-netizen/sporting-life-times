@@ -763,7 +763,7 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | University of Maine at Presque Isle (30040) | verified_university | [Exact verified URL](https://owls.umpi.edu/sports/womens-basketball/schedule/2026-27?grid=true) | 16 |
 | University of Maine, Farmington (379) | verified_university | [Exact verified URL](https://www.goumfbeavers.com/sports/womens-basketball/schedule/2026-27?grid=true) | 20 |
 | University of Mary Hardin-Baylor (1203) | verified_university | [Exact verified URL](https://cruathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true) | 18 |
-| University of Mary Washington (390) | verified_university | [Exact verified URL](https://www.umweagles.com/sports/womens-basketball/schedule/2026-27?grid=true) | 21 |
+| University of Mary Washington (390) | verified_university | [Exact verified URL](https://www.umweagles.com/sports/womens-basketball/schedule/2026-27?grid=true) | 22 |
 | University of Massachusetts Boston (401) | verified_university | [Exact verified URL](https://www.beaconsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 23 |
 | University of Massachusetts, Dartmouth (656) | verified_university | [Exact verified URL](https://www.corsairathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 23 |
 | University of Minnesota, Morris (1226) | verified_university | [Exact verified URL](https://www.morriscougars.com/sports/womens-basketball/schedule/2026-27?grid=true) | 14 |
@@ -792,7 +792,7 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | University of the South (652) | verified_university | [Exact verified URL](https://sewaneetigers.com/sports/womens-basketball/schedule/2026-27?grid=true) | 21 |
 | Ursinus College (730) | verified_university | [Exact verified URL](https://www.ursinusathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 21 |
 | Utica University (733) | verified_university | [Exact verified URL](https://www.uticapioneers.com/sports/womens-basketball/schedule/2026-2027?grid=true) | 17 |
-| Vassar College (737) | verified_university | [Exact verified URL](https://www.vassarathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 16 |
+| Vassar College (737) | verified_university | [Exact verified URL](https://www.vassarathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 17 |
 | Vermont State University Castleton (123) | verified_university | [Exact verified URL](https://www.castletonsports.com/sports/womens-basketball/schedule?grid=true) | 21 |
 | Vermont State University Lyndon (30065) | verified_university | [Exact verified URL](https://www.lyndonhornets.com/sports/womens-basketball/schedule?grid=true) | 21 |
 | Warren Wilson College (30236) | verified_university | [Exact verified URL](https://warrenwilsonowls.com/sports/womens-basketball/schedule/2026-27?grid=true) | 16 |

@@ -3,7 +3,7 @@
   "division": "d3",
   "gender": "men",
   "season": "2026-27",
-  "generated_utc": "2026-11-13T16:28:48.474725+00:00",
+  "generated_utc": "2026-11-14T00:55:35.430688+00:00",
   "source": "NCAA 2026-27 member directory + year/gender-validated official school athletics calendars",
   "scope": "NCAA membership-wide first pass; sources without independently validated 2026-27 schedules excluded",
   "ncaa_confirmed_programs": 406,
@@ -5523,10 +5523,10 @@
     {
       "owner_org_id": 1162,
       "source_url": "https://www.lagrangepanthers.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "readable_rows": 29,
+      "readable_rows": 28,
       "verified_member_opponents": 20,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 6,
+        "identity_not_d3_matched_but_posted": 5,
         "conditional_or_ambiguous_opponent": 3
       },
       "status": "parsed",
@@ -8188,9 +8188,9 @@
       ]
     }
   ],
-  "fixture_count": 4394,
-  "reciprocal_fixtures": 2628,
-  "unresolved_opponent_fixture_count": 1656,
+  "fixture_count": 4393,
+  "reciprocal_fixtures": 2629,
+  "unresolved_opponent_fixture_count": 1655,
   "unresolved_opponent_fixtures": [
     {
       "id": "d3-men-2026-11-06-18-other-7e7a67cf3608",
@@ -10201,21 +10201,6 @@
       "source_url": "https://athletics.alvernia.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "6:00 PM",
       "venue_location": "Camden, NJ"
-    },
-    {
-      "id": "d3-men-2026-11-12-1162-other-a95da4cac477",
-      "date": "2026-11-12",
-      "source_owner_org_id": 1162,
-      "external_opponent_label": "Kennesaw State University",
-      "placement": "away",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://www.lagrangepanthers.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "TBA",
-      "venue_location": "Kennesaw, Ga. / VyStar Arena"
     },
     {
       "id": "d3-men-2026-11-12-9684-other-5bb7b3681f58",
@@ -12660,7 +12645,7 @@
       "source_kind": "official_school",
       "source_url": "https://athletics.northpark.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "",
-      "venue_location": "Edwardsville, IL"
+      "venue_location": "Edwardsville, IL / First Community Arena"
     },
     {
       "id": "d3-men-2026-11-19-530-other-f9403fb57345",
@@ -20241,7 +20226,7 @@
       "id": "d3-men-2027-01-01-673-other-7bdeaa41feb6",
       "date": "2027-01-01",
       "source_owner_org_id": 673,
-      "external_opponent_label": "Thomas vs. UMass Dartmouth",
+      "external_opponent_label": "Thomas vs UMass Dartmouth",
       "placement": "home",
       "status": "scheduled",
       "elo_eligible": false,
@@ -44264,7 +44249,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "single_official_school",
-      "tipoff_as_posted": "2:00 PM",
+      "tipoff_as_posted": "4:00 PM",
       "venue": "Clark Athletic Center Gymnasium",
       "venue_location": "Boston, MA",
       "network_as_posted": "",
@@ -47327,7 +47312,7 @@
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "7:00 PM",
-      "venue": "Highmark Center",
+      "venue": "Highmark Center (Tepper Arena)",
       "venue_location": "Pittsburgh, Pa.",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -47601,14 +47586,16 @@
       "status": "scheduled",
       "source_url": "https://franklingrizzlies.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://depauwtigers.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://franklingrizzlies.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
+        177,
         2694
       ],
       "source_kind": "official_school",
-      "source_verification": "single_official_school",
-      "tipoff_as_posted": "7 PM",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "7:30 PM",
       "venue": "Spurlock Center",
       "venue_location": "Franklin, Ind.",
       "network_as_posted": "",
@@ -48273,7 +48260,7 @@
       "venue_location": "Old Westbury, NY",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "Diabetes Awareness",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -49129,30 +49116,6 @@
       "tipoff_as_posted": "6:00 PM",
       "venue": "Dan & Kathleen Hogan Sports Center",
       "venue_location": "New London, NH",
-      "network_as_posted": "",
-      "radio_as_posted": "",
-      "tournament": "",
-      "neutral_home_designation_unconfirmed": false
-    },
-    {
-      "id": "d3-men-2026-11-19-177-2694",
-      "date": "2026-11-19",
-      "away_org_id": 177,
-      "home_org_id": 2694,
-      "neutral": false,
-      "status": "scheduled",
-      "source_url": "https://depauwtigers.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "official_schedule_sources": [
-        "https://depauwtigers.com/sports/mens-basketball/schedule/2026-27?grid=true"
-      ],
-      "verified_by_org_ids": [
-        177
-      ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
-      "tipoff_as_posted": "7 p.m.",
-      "venue": "",
-      "venue_location": "Franklin, Ind.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -51900,7 +51863,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "single_official_school",
-      "tipoff_as_posted": "1 p.m.",
+      "tipoff_as_posted": "2 p.m.",
       "venue": "Pohl Gymnasium",
       "venue_location": "Columbus",
       "network_as_posted": "",
@@ -52958,7 +52921,7 @@
       "venue": "Kolf Sports Center",
       "venue_location": "Oshkosh, Wis.",
       "network_as_posted": "",
-      "radio_as_posted": "",
+      "radio_as_posted": "90.3 WRST-FM Oshkosh",
       "tournament": "",
       "neutral_home_designation_unconfirmed": false
     },
@@ -98432,7 +98395,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "3:00 PM",
+      "tipoff_as_posted": "2:00 PM",
       "venue": "Roland Wierwille Court (Basketball & Volleyball)",
       "venue_location": "Berea, KY",
       "network_as_posted": "",

@@ -3,7 +3,7 @@
   "division": "d3",
   "gender": "women",
   "season": "2026-27",
-  "generated_utc": "2026-11-13T16:30:09.284855+00:00",
+  "generated_utc": "2026-11-14T00:56:46.650916+00:00",
   "source": "NCAA 2026-27 member directory + year/gender-validated official school athletics calendars",
   "scope": "NCAA membership-wide first pass; sources without independently validated 2026-27 schedules excluded",
   "ncaa_confirmed_programs": 415,
@@ -1630,10 +1630,10 @@
     {
       "owner_org_id": 152,
       "source_url": "https://www.colby-sawyerathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "readable_rows": 25,
+      "readable_rows": 26,
       "verified_member_opponents": 21,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 3,
+        "identity_not_d3_matched_but_posted": 4,
         "conditional_or_ambiguous_opponent": 1
       },
       "status": "parsed",
@@ -2917,8 +2917,8 @@
       "readable_rows": 31,
       "verified_member_opponents": 22,
       "excluded_rows": {
-        "conditional_or_ambiguous_opponent": 4,
-        "identity_not_d3_matched_but_posted": 5
+        "identity_not_d3_matched_but_posted": 6,
+        "conditional_or_ambiguous_opponent": 3
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -2945,10 +2945,10 @@
       "owner_org_id": 390,
       "source_url": "https://www.umweagles.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "readable_rows": 29,
-      "verified_member_opponents": 21,
+      "verified_member_opponents": 22,
       "excluded_rows": {
         "identity_not_d3_matched_but_posted": 1,
-        "conditional_or_ambiguous_opponent": 7
+        "conditional_or_ambiguous_opponent": 6
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -4724,10 +4724,10 @@
       "owner_org_id": 737,
       "source_url": "https://www.vassarathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "readable_rows": 30,
-      "verified_member_opponents": 16,
+      "verified_member_opponents": 17,
       "excluded_rows": {
-        "conditional_or_ambiguous_opponent": 9,
-        "identity_not_d3_matched_but_posted": 5
+        "identity_not_d3_matched_but_posted": 5,
+        "conditional_or_ambiguous_opponent": 8
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -5015,10 +5015,10 @@
     {
       "owner_org_id": 778,
       "source_url": "https://athletics.wheaton.edu/sports/womens-basketball/schedule/2026-27?grid=true",
-      "readable_rows": 25,
+      "readable_rows": 27,
       "verified_member_opponents": 17,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 4,
+        "identity_not_d3_matched_but_posted": 6,
         "conditional_or_ambiguous_opponent": 4
       },
       "status": "parsed",
@@ -8386,9 +8386,9 @@
       ]
     }
   ],
-  "fixture_count": 4526,
+  "fixture_count": 4528,
   "reciprocal_fixtures": 2714,
-  "unresolved_opponent_fixture_count": 1588,
+  "unresolved_opponent_fixture_count": 1592,
   "unresolved_opponent_fixtures": [
     {
       "id": "d3-women-2026-11-06-73-other-3415eb321a6f",
@@ -10701,6 +10701,21 @@
       "venue_location": "Scranton, PA"
     },
     {
+      "id": "d3-women-2026-11-13-778-other-faa3ea008bd9",
+      "date": "2026-11-13",
+      "source_owner_org_id": 778,
+      "external_opponent_label": "Elmhurst vs. Maryville",
+      "placement": "neutral",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://athletics.wheaton.edu/sports/womens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "5:00 PM",
+      "venue_location": "Wheaton, Ill. / King Arena"
+    },
+    {
       "id": "d3-women-2026-11-13-779-other-d5b30831250c",
       "date": "2026-11-13",
       "source_owner_org_id": 779,
@@ -10907,7 +10922,7 @@
       "schedule_only": true,
       "source_kind": "official_school",
       "source_url": "https://bethanybison.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "TBA",
+      "tipoff_as_posted": "2 p.m.",
       "venue_location": "Rock Island, IL / Roy J. Carver Center"
     },
     {
@@ -11196,6 +11211,21 @@
       "venue_location": "St. Paul, Minn."
     },
     {
+      "id": "d3-women-2026-11-14-385-other-5987a304a0a6",
+      "date": "2026-11-14",
+      "source_owner_org_id": 385,
+      "external_opponent_label": "Consolation Game",
+      "placement": "neutral",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://pioneers.marietta.edu/sports/womens-basketball/schedule?grid=true",
+      "tipoff_as_posted": "1:00 p.m.",
+      "venue_location": "Rochester, NY"
+    },
+    {
       "id": "d3-women-2026-11-14-409-other-dbb34887c43d",
       "date": "2026-11-14",
       "source_owner_org_id": 409,
@@ -11361,6 +11391,21 @@
       "venue_location": "Wheaton, Ill. / King Arena"
     },
     {
+      "id": "d3-women-2026-11-14-778-other-c28f816a01f4",
+      "date": "2026-11-14",
+      "source_owner_org_id": 778,
+      "external_opponent_label": "Elmhurst vs. Olivet",
+      "placement": "neutral",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://athletics.wheaton.edu/sports/womens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "2:00 PM",
+      "venue_location": "Wheaton, Ill. / King Arena"
+    },
+    {
       "id": "d3-women-2026-11-14-780-other-42c55ac9d37a",
       "date": "2026-11-14",
       "source_owner_org_id": 780,
@@ -11387,7 +11432,7 @@
       "schedule_only": true,
       "source_kind": "official_school",
       "source_url": "https://www.wcpoets.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "11:30 AM",
+      "tipoff_as_posted": "3:30 PM",
       "venue_location": "Whittier, Calif. / Dave Jacobs Court"
     },
     {
@@ -12019,6 +12064,21 @@
       "source_url": "https://charlotte.jwuathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "3:15 PM",
       "venue_location": "Rocky Mount, NC / Everett Gymnasium"
+    },
+    {
+      "id": "d3-women-2026-11-16-152-other-dd1aceb5d847",
+      "date": "2026-11-16",
+      "source_owner_org_id": 152,
+      "external_opponent_label": "Dartmouth College",
+      "placement": "away",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://www.colby-sawyerathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "7:00 PM",
+      "venue_location": "Hanover, NH"
     },
     {
       "id": "d3-women-2026-11-16-185-other-54a26a2eae5e",
@@ -13011,10 +13071,10 @@
       "venue_location": "Newberg, Ore. / Wheeler Sports Center"
     },
     {
-      "id": "d3-women-2026-11-20-1461-other-63508d1b07a8",
+      "id": "d3-women-2026-11-20-1461-other-1327b88ca848",
       "date": "2026-11-20",
       "source_owner_org_id": 1461,
-      "external_opponent_label": "Spalding University (Ky.)",
+      "external_opponent_label": "Augustana College (IL)",
       "placement": "neutral",
       "status": "scheduled",
       "elo_eligible": false,
@@ -13701,10 +13761,10 @@
       "venue_location": "Marshall, TX"
     },
     {
-      "id": "d3-women-2026-11-21-1461-other-441e20171c8a",
+      "id": "d3-women-2026-11-21-1461-other-79f8769da1f6",
       "date": "2026-11-21",
       "source_owner_org_id": 1461,
-      "external_opponent_label": "Augustana College (IL)",
+      "external_opponent_label": "Spalding University (Ky.)",
       "placement": "neutral",
       "status": "scheduled",
       "elo_eligible": false,
@@ -14987,7 +15047,7 @@
       "schedule_only": true,
       "source_kind": "official_school",
       "source_url": "https://www.washingtoncollegesports.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "TBA",
+      "tipoff_as_posted": "7:00 PM",
       "venue_location": "Chestertown, MD / Penny J. Fall Gym | Basketball & Volleyball"
     },
     {
@@ -15242,7 +15302,7 @@
       "schedule_only": true,
       "source_kind": "official_school",
       "source_url": "https://www.uofoathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "",
+      "tipoff_as_posted": "5:30 p.m.",
       "venue_location": "Batesville, AR"
     },
     {
@@ -20016,10 +20076,10 @@
       "venue_location": "Lynchburg, Va. / Frances and Don Giles Gymnasium"
     },
     {
-      "id": "d3-women-2026-12-31-673-other-5d52eccc7217",
+      "id": "d3-women-2026-12-31-673-other-773d240ae52b",
       "date": "2026-12-31",
       "source_owner_org_id": 673,
-      "external_opponent_label": "UMass Dartmouth vs. Trinity (CT)",
+      "external_opponent_label": "UMass Dartmouth vs Trinity (Conn.)",
       "placement": "home",
       "status": "scheduled",
       "elo_eligible": false,
@@ -20034,7 +20094,7 @@
       "id": "d3-women-2027-01-01-673-other-248f280e25de",
       "date": "2027-01-01",
       "source_owner_org_id": 673,
-      "external_opponent_label": "UMass Dartmouth vs. Stockton",
+      "external_opponent_label": "UMass Dartmouth vs Stockton",
       "placement": "home",
       "status": "scheduled",
       "elo_eligible": false,
@@ -39769,7 +39829,7 @@
       "venue_location": "York, PA",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "York College Tipoff Tournament",
+      "tournament": "Coaches vs. Cancer Classic Hosted By York College",
       "neutral_home_designation_unconfirmed": true
     },
     {
@@ -40231,7 +40291,7 @@
       "home_org_id": 179,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://gomacsports.com/schedule.aspx?schedule=7633",
+      "source_url": "https://www.goeasterneagles.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://gomacsports.com/schedule.aspx?schedule=7633",
         "https://www.goeasterneagles.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -40242,7 +40302,7 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "6:00 p.m.",
+      "tipoff_as_posted": "6:00 PM",
       "venue": "",
       "venue_location": "Doylestown, Pa.",
       "network_as_posted": "",
@@ -40528,7 +40588,7 @@
       "venue": "Wolf Gym",
       "venue_location": "York, PA",
       "network_as_posted": "",
-      "radio_as_posted": "",
+      "radio_as_posted": "Sports Radio 98.9 FM/WOYK 1350 AM",
       "tournament": "Coaches vs. Cancer Classic",
       "neutral_home_designation_unconfirmed": false
     },
@@ -40605,7 +40665,7 @@
       "venue_location": "Timken Gymnasium",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 81-76",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -40631,7 +40691,7 @@
       "venue_location": "Troy, NY",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 88-68",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -41033,6 +41093,30 @@
       "radio_as_posted": "",
       "tournament": "",
       "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-women-2026-11-14-20-390",
+      "date": "2026-11-14",
+      "away_org_id": 20,
+      "home_org_id": 390,
+      "neutral": true,
+      "status": "scheduled",
+      "source_url": "https://www.umweagles.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://www.umweagles.com/sports/womens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        390
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "3:00 PM",
+      "venue": "",
+      "venue_location": "York, PA",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": true
     },
     {
       "id": "d3-women-2026-11-14-21-807",
@@ -43189,6 +43273,30 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-women-2026-11-14-581-737",
+      "date": "2026-11-14",
+      "away_org_id": 737,
+      "home_org_id": 581,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.vassarathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://www.vassarathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        737
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "6:00 PM",
+      "venue": "",
+      "venue_location": "Rochester, NY",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "Chuck Resler Tournament",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-women-2026-11-14-583-789",
       "date": "2026-11-14",
       "away_org_id": 583,
@@ -43230,7 +43338,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "single_official_school",
-      "tipoff_as_posted": "1:00 PM",
+      "tipoff_as_posted": "2:00 PM",
       "venue": "",
       "venue_location": "Salisbury, MD",
       "network_as_posted": "",
@@ -46287,7 +46395,7 @@
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "5:00 PM",
-      "venue": "Highmark Center",
+      "venue": "Highmark Center (Tepper Arena)",
       "venue_location": "Pittsburgh, Pa.",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -47698,7 +47806,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "6 PM",
+      "tipoff_as_posted": "7 PM",
       "venue": "Luce Center Gym",
       "venue_location": "Wilmore, Ky.",
       "network_as_posted": "",
@@ -51252,7 +51360,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "single_official_school",
-      "tipoff_as_posted": "3 p.m.",
+      "tipoff_as_posted": "4 p.m.",
       "venue": "Pohl Gymnasium",
       "venue_location": "Columbus",
       "network_as_posted": "",
@@ -75474,7 +75582,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7:00 PM",
+      "tipoff_as_posted": "7:00 PM (8:00 PM AT)",
       "venue": "",
       "venue_location": "San Juan, PR",
       "network_as_posted": "",
@@ -138009,7 +138117,7 @@
       "venue_location": "Williamsport, Pa.",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "Senior Day",
       "neutral_home_designation_unconfirmed": false
     },
     {
