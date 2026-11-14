@@ -75,3 +75,12 @@
  width:92%!important;height:92%!important;max-width:92%!important;max-height:92%!important;
  object-fit:contain!important;
 }
+
+/* One era-specific image fit across ALL 18 historic Big Ten logos, both genders.
+   Source images are already normalized; the circular clipping keeps their
+   white raster canvas inside the two existing, school-color rings.
+   No per-school offsets, individual sizes or extra decorative circles. */
+.mbb-mark--heritage>img.mbb-mark__img{
+ width:94%!important;height:94%!important;max-width:94%!important;max-height:94%!important;
+ object-fit:contain!important;object-position:center!important;border-radius:50%!important;
+}

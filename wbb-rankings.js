@@ -10,12 +10,16 @@ $('#wbbr-title').textContent=types[kind];document.title=types[kind]+' | Sporting
 for(const a of document.querySelectorAll('.wbbr-tabs a'))if(new URL(a.href).searchParams.get('poll')===kind)a.setAttribute('aria-current','page');
   function womenLogo(school,label){
    const name=school?.team||label,id=String(school?.team_id||'');
-   const src=String(school?.logo||'');
-   const safe=src.startsWith('https://a.espncdn.com/i/teamlogos/ncaa/500/') && src.endsWith('.png') && /^\d+$/.test(src.split('/').pop().replace('.png',''));
-   const primary=/^[0-9a-f]{6}$/i.test(String(school?.color||''))?'#'+school.color:'#385866';
-   const secondary=primary.toLowerCase()==='#f1e7d5'?'#463322':'#f1e7d5';
+   // Keep the women's 363-school data independent. Choose vintage artwork
+   // only for exact current Big Ten ESPN team IDs, never ambiguous names.
+   const heritage=window.MBBLogos?.retroURLForESPN?.(id)||'';
+   const src=heritage||String(school?.logo||'');
+   const safe=!!heritage||(src.startsWith('https://a.espncdn.com/i/teamlogos/ncaa/500/')&&src.endsWith('.png')&&/^\d+$/.test(src.split('/').pop().replace('.png')));
+   const shared=heritage?window.MBBLogos?.colorForESPN?.(id):null;
+   const primary=shared?.primary||(/^[0-9a-f]{6}$/i.test(String(school?.color||''))?'#'+school.color:'#385866');
+   const secondary=shared?.secondary||(primary.toLowerCase()==='#f1e7d5'?'#463322':'#f1e7d5');
    const initials=name.split(/\s+/).slice(0,2).map(x=>x[0]||'').join('').toUpperCase();
-   return '<span class="mbb-mark mbb-mark--score mbb-mark--art-flat wbbr-women-mark'+(safe?'':' mbb-mark--missing')+'" style="--mbb-primary:'+primary+';--mbb-secondary:'+secondary+'" data-espn-id="'+esc(id)+'" data-ring-count="2" role="img" aria-label="'+esc(name)+' logo"><span class="mbb-mark__initials" aria-hidden="true">'+esc(initials)+'</span>'+(safe?'<img class="mbb-mark__img" src="'+esc(src)+'" loading="lazy" decoding="async" alt="" onerror="this.parentElement.classList.add(\'mbb-mark--missing\');this.remove()">':'')+'</span>';
+   return '<span class="mbb-mark mbb-mark--score mbb-mark--art-flat wbbr-women-mark'+(heritage?' mbb-mark--heritage':'')+(safe?'':' mbb-mark--missing')+'" style="--mbb-primary:'+primary+';--mbb-secondary:'+secondary+'" data-espn-id="'+esc(id)+'" data-ring-count="2" role="img" aria-label="'+esc(name)+' logo"><span class="mbb-mark__initials" aria-hidden="true">'+esc(initials)+'</span>'+(safe?'<img class="mbb-mark__img" src="'+esc(src)+'" loading="lazy" decoding="async" alt="" onerror="this.parentElement.classList.add(\'mbb-mark--missing\');this.remove()">':'')+'</span>';
   }
 
 if(kind==='ap'||kind==='coaches'){
