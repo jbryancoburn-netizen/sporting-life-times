@@ -82,9 +82,8 @@ if(kind!=='retro'){
 try{
  // Women’s rankings must not depend on the men’s logo registry loading.
  const req=async p=>{const r=await fetch(p,{cache:'no-store'});if(!r.ok)throw Error(p+' unavailable');return r.json()};
- const [ratings,directory,palette]=await Promise.all([req('data/ncaaw-2026-27-retro-primary.json'),req('data/ncaaw-2026-27-teams.json'),req('data/dual-ring-team-palette.json')]);
- ringColors=palette?.mbb||{};
- if(Object.keys(ringColors).length<363)throw Error('Published two-color logo registry incomplete');
+ const [ratings,directory,palette]=await Promise.all([req('data/ncaaw-2026-27-retro-primary.json'),req('data/ncaaw-2026-27-teams.json'),req('data/dual-ring-team-palette.json').catch(()=>null)]);
+ ringColors=palette?.mbb||{}; // Preserve rankings when the optional palette is temporarily unavailable.
  if(ratings.gender!=='women'||ratings.season!=='2026-27'||ratings.rankings?.length!==363||directory.teams?.length!==363)throw Error('Women’s 363-team ratings source did not validate');
  const rows=ratings.rankings,byId=new Map(directory.teams.map(t=>[String(t.team_id),t]));
  const con= $('#wbbr-conf');for(const name of [...new Set(rows.map(r=>r.conference))].filter(Boolean).sort())con.add(new Option(name,name));
