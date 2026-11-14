@@ -34,7 +34,7 @@ function validWire(data){
 async function nationalWire(){
   const pages=await get(wirePath);
   if(validWire(pages)&&updatedAt(pages)>updatedAt(latestWire))latestWire=pages;
-  if((!validWire(latestWire)||Date.now()-updatedAt(latestWire)>35*60000)&&Date.now()-lastRepositoryCheck>5*60000){
+  if((!validWire(latestWire)||Date.now()-updatedAt(latestWire)>35*60000)&&Date.now()-lastRepositoryCheck>=5*60000){
     lastRepositoryCheck=Date.now();
     const repository=await get(repositoryWire);
     if(validWire(repository)&&updatedAt(repository)>updatedAt(latestWire))latestWire=repository;
@@ -104,7 +104,7 @@ async function refresh(){
   }
   root.innerHTML='<div class="cbb-news-grid">'+stories.map(articleHTML).join('')+'</div>';
   const age=Date.now()-updatedAt(data);
-  stamp.textContent=(age>freshnessLimit?'Reporting feed delayed · Last collected ':'National wire refreshed ')+time(data.updated_at)+' ET';
+  stamp.textContent=(age>freshnessLimit?'Reporting feed delayed · Last collected ':'National wire updated ')+time(data.updated_at)+' ET';
 }
 refresh();
 setInterval(()=>{if(!document.hidden)refresh()},5*60*1000);
