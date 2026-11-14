@@ -1,0 +1,52 @@
+name: Apply reader-approved Pitt and verified 16 SEC crests
+on:
+  push:
+    branches:
+      - feat/cbb-sec-production-pitt-1980-and-bigeast-next-20261114
+    paths:
+      - scripts/activate_sec_and_pitt_1980s.py
+      - .github/workflows/activate-sec-and-pitt-1980s.yml
+permissions:
+  contents: write
+jobs:
+  apply-local-artwork:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pillow
+      - name: Build full Pitt Option 1 historical mascot and integrate 16 SEC logos
+        run: python scripts/activate_sec_and_pitt_1980s.py
+      - name: Check 365-school renderer and both-gender crest contracts
+        run: |
+          node scripts/audit-mbb-logo-system.cjs
+          node --test tests/cbb-sec-heritage-gallery.test.cjs tests/cbb-acc-heritage-gallery.test.cjs tests/cbb-acc-heritage-production.test.cjs tests/cbb-big-ten-heritage-production.test.cjs
+      - name: Verify user-approved identity and no external runtime artwork
+        run: |
+          python - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          a=json.loads(Path('data/cbb-acc-1980s-source-manifest.json').read_text())
+          s=json.loads(Path('data/cbb-sec-1980s-source-manifest.json').read_text())
+          pitt=next(r for r in a['schools'] if r['slug']=='pittsburgh')
+          al=next(r for r in s['schools'] if r['slug']=='alabama')
+          assert a['production_deployment'] and s['production_deployment']
+          assert pitt['selection_status']=='reader-approved'
+          assert pitt['era']=='1980–1989'
+          assert pitt['image_url'].endswith('pittsburgh_panthers_logo_alternate_1980_sportslogosnet-6579.png')
+          assert al['era']=='1973–1998' and al['selection_status']=='reader-approved'
+          assert len(s['schools'])==16 and len(a['schools'])==18
+          assert hashlib.sha256(Path(pitt['local_path']).read_bytes()).hexdigest()==pitt['local_sha256']
+          assert pitt['geometry']['gap_to_238px_ring']>=18
+          print('APPROVED: Pitt standing P sweater, Alabama elephant-through-A, 16 SEC logos')
+          PY
+      - name: Commit only local artwork and shared system release on branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'Release selected Pitt panther and full SEC 1980s crests to all CBB readers'
+          git push
