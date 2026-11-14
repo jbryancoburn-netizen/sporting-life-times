@@ -169,13 +169,64 @@
      }).join('');
    }).join('');
  }
+ // Attribute player names from this game's reported rosters, not from guesses.
+ // A play can name two different players (and teams), so matching only play.teamId
+ // would misidentify some assists, fouls and turnovers.
+ function playAttributor(raw,g){
+   const teams=new Map([[String(g.away?.id),name(g.away)],[String(g.home?.id),name(g.home)]]);
+   const roster=new Map();
+   const add=(athlete,school)=>{
+     if(!athlete||!school)return;
+     for(const value of [athlete.displayName,athlete.fullName]){
+       const player=String(value||'').trim();
+       if(player.length<5||!player.includes(' '))continue;
+       const key=player.toLocaleLowerCase();
+       // A duplicate name across schools must never be assigned to the wrong team.
+       if(roster.has(key)&&roster.get(key)!==school)roster.set(key,null);
+       else if(!roster.has(key))roster.set(key,school);
+     }
+   };
+   for(const group of raw?.boxscore?.players||[]){
+     const school=teams.get(String(group.team?.id));
+     if(!school)continue;
+     for(const section of group.statistics||[])
+       for(const row of section.athletes||[])add(row.athlete,school);
+   }
+   for(const group of raw?.rosters||[]){
+     const school=teams.get(String(group.team?.id));
+     if(!school)continue;
+     for(const row of group.roster||group.athletes||[])add(row.athlete||row,school);
+   }
+   const keys=[...roster.entries()].filter(([,school])=>school).map(([player])=>player)
+     .sort((a,b)=>b.length-a.length);
+   const quote=s=>s.replace(/[\^$.*+?()[\]{}|]/g,'\\ function playLog(raw,g){');
+   const regex=keys.length?new RegExp('(^|[^\\p{L}\\p{N}])('+keys.map(quote).join('|')+')(?=$|[^\\p{L}\\p{N}])','giu'):null;
+   return p=>{
+     const original=String(p.text||'');
+     let labeled=regex?original.replace(regex,(match,before,player)=>
+       before+player+' ('+roster.get(player.toLocaleLowerCase())+')'):original;
+     // On an incomplete live box score, source teamId can still identify
+     // the primary actor of an explicitly named play. Never infer a team
+     // for a timeout, an unnamed event, or an opponent's secondary player.
+     const school=teams.get(String(p.teamId));
+     if(!school)return labeled;
+     const leading=original.match(/^Foul on ([\p{L}\p{M}.'’-]+(?:\s+[\p{L}\p{M}.'’-]+){1,4})(?=\.|$)/u)||
+       original.match(/^([\p{L}\p{M}.'’-]+(?:\s+[\p{L}\p{M}.'’-]+){1,4})(?=\s+(?:Steal|bad pass turnover|lost ball turnover|makes|misses|subbing in|subbing out|Offensive Rebound|Defensive Rebound|Turnover)\b)/iu);
+     if(leading&&!labeled.includes(leading[1]+' (')){
+       const at=original.indexOf(leading[1]);
+       if(at>=0)labeled=labeled.slice(0,at)+leading[1]+' ('+school+')'+labeled.slice(at+leading[1].length);
+     }
+     return labeled;
+   };
+ }
  function playLog(raw,g){
    const plays=global.SLTCourt?.parsePlays?.(raw)||[];
    if(!plays.length)return missing('No source-reported play-by-play is available for this game.');
-   return '<p class="slt-gf-source">'+plays.length+' source-reported events · newest first · live play log</p>'+
+   const attribute=playAttributor(raw,g);
+   return '<p class="slt-gf-source">'+plays.length+' source-reported events · newest first · live play log</p'+
      '<ol class="slt-gf-plays">'+plays.slice().reverse().map(p=>'<li><span class="slt-gf-play-clock">'+
        esc(p.period?'P'+p.period:'—')+' · '+esc(p.clock||'—')+'</span><span>'+
-       esc(p.text)+'</span><b>'+esc(p.awayScore===null?'':p.awayScore)+
+       esc(attribute(p))+'</span><b>'+esc(p.awayScore===null?'':p.awayScore)+
        (p.awayScore!==null&&p.homeScore!==null?'–':'')+esc(p.homeScore===null?'':p.homeScore)+
        '</b></li>').join('')+'</ol>';
  }
