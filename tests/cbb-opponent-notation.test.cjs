@@ -2,28 +2,30 @@
 const test=require('node:test');
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
-const vm=require('node:vm');
+const form=require('../cbb-team-form.js');
 
-test('women calendar: @ away, vs. home and vs. Opponent (N) on neutral court',()=>{
- const source=fs.readFileSync('wbb-team-newspaper.js','utf8');
- const functions=source.match(/const matchupPrefix=g=>[^;]+;\s*const matchupSuffix=g=>[^;]+;/);
- assert.ok(functions,'women calendar venue notation functions present');
- const {matchupPrefix,matchupSuffix}=vm.runInNewContext(functions[0]+'\n({matchupPrefix,matchupSuffix})',{});
- for(const [site,want] of [['home','vs. Missouri'],['away','@ Missouri'],['neutral','vs. Missouri (N)']]){
-   const game={site};
-   assert.equal(matchupPrefix(game)+'Missouri'+matchupSuffix(game),want);
- }
- assert.equal(matchupPrefix({site:'unknown'})+'Missouri'+matchupSuffix({site:'unknown'}),'Missouri',
-   'unverified site must not be presented as a confirmed home or neutral court');
- assert(source.includes("esc(matchupPrefix(g))"));
- assert(source.includes("esc(matchupSuffix(g))"));
+test('Form Book is the only CBB team-page section that adds @, vs. and neutral (N)',()=>{
+  const sample=[
+    [{location:'away',opponent:'Missouri'},'@ Missouri'],
+    [{location:'home',opponent:'Missouri'},'vs. Missouri'],
+    [{location:'neutral',opponent:'Missouri'},'vs. Missouri (N)'],
+    [{location:'unverified',listedSide:'away',opponent:'Missouri'},'@ Missouri']
+  ];
+  for(const [g,expected] of sample)assert.equal(form.opponentLabel(g),expected);
+  const men=fs.readFileSync('mbb-team-calendar-boot.js','utf8');
+  const women=fs.readFileSync('wbb-team-newspaper.js','utf8');
+  assert(!men.includes('matchupPrefix')&&!men.includes('matchupSuffix'));
+  assert(!women.includes('matchupPrefix')&&!women.includes('matchupSuffix'));
+  assert.match(men,/'<span class="victorian-heading-school">'\+\(school\?/);
+  assert.match(women,/'<span class="wbb-opponent-name">'\+\(opp\?/);
+  assert.match(men,/const certifiedNeutral=e\.neutralSite===true&&e\.site_verified===true/);
+  assert.match(women,/wbb-site-label/);
 });
 
-test('men and women share the new form notation without stale script cache',()=>{
- for(const page of ['ncaam-team.html','ncaaw-team.html']){
-   const source=fs.readFileSync(page,'utf8');
-   assert(source.includes('cbb-team-form.js?v=site-notation-neutral-proof-20261113'),page);
- }
- assert(fs.readFileSync('ncaam-team.html','utf8').includes('mbb-team-calendar-boot.js?v=site-notation-20261113'));
- assert(fs.readFileSync('ncaaw-team.html','utf8').includes('wbb-team-newspaper.js?v=site-notation-20261113'));
+test('team pages refresh only the schedule scripts, retaining shared Form Book',()=>{
+  const men=fs.readFileSync('ncaam-team.html','utf8');
+  const women=fs.readFileSync('ncaaw-team.html','utf8');
+  for(const html of [men,women])assert(html.includes('cbb-team-form.js?v=site-notation-neutral-proof-20261113'));
+  assert(men.includes('mbb-team-calendar-boot.js?v=form-only-notation-20261114'));
+  assert(women.includes('wbb-team-newspaper.js?v=form-only-notation-20261114'));
 });
