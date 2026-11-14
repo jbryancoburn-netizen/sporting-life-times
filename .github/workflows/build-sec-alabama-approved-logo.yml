@@ -1,0 +1,49 @@
+name: Build approved Alabama Block A elephant archive logo
+on:
+  push:
+    branches:
+      - feat/sec-alabama-block-a-elephant-20261114
+    paths:
+      - scripts/update_sec_alabama_block_a.py
+      - .github/workflows/build-sec-alabama-approved-logo.yml
+permissions:
+  contents: write
+jobs:
+  update-alabama:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pillow
+      - name: Generate selected Alabama image and update only Alabama archive record
+        run: python scripts/update_sec_alabama_block_a.py
+      - name: Validate sixteen-school gallery unchanged except approved Alabama record
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json,hashlib,struct
+          m=json.loads(Path('data/cbb-sec-1980s-source-manifest.json').read_text())
+          h=Path('cbb-sec-1980s-preview.html').read_text()
+          assert len(m['schools'])==16 and len({r['espn_id'] for r in m['schools']})==16
+          assert h.count('<article class="school">')==16
+          assert h.count('assets/cbb-sec-1980s/')==16
+          r=next(r for r in m['schools'] if r['slug']=='alabama')
+          assert r['selection_status']=='reader-approved'
+          assert r['start_year']=='1973' and r['era']=='1973–1998'
+          assert r['image_url'].endswith('/alabama_crimson_tide_logo_primary_19737434.png')
+          b=Path(r['local_path']).read_bytes()
+          assert struct.unpack('>II',b[16:24])==(512,512)
+          assert hashlib.sha256(b).hexdigest()==r['local_sha256']
+          assert r['geometry']['gap_to_238px_ring']>=18
+          print('Verified approved Block A elephant, retained all 16 unique SEC cards')
+          PY
+      - name: Commit approved Alabama image and provenance on review branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/cbb-sec-1980s/alabama.png data/cbb-sec-1980s-source-manifest.json cbb-sec-1980s-preview.html scripts/build_sec_1980s_gallery.py
+          git commit -m 'Select Alabama 1973–1998 elephant through Block A with ribbon'
+          git push
