@@ -1,0 +1,55 @@
+name: Verify balanced Purdue Pete size and ring clearance (one-off)
+on:
+  push:
+    branches:
+      - fix/purdue-pete-balanced-scale-v5-20261114
+    paths:
+      - scripts/refine_purdue_circle_v5.py
+      - .github/workflows/one-off-purdue-balanced-v5.yml
+permissions:
+  contents: write
+jobs:
+  refine-purdue:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Pillow
+        run: python -m pip install 'pillow>=10,<12'
+      - name: Enlarge original Purdue Pete inside fixed double-ring image area
+        run: python scripts/refine_purdue_circle_v5.py
+      - name: Audit moderate size and no ring crowding
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from PIL import Image
+          a=json.loads(Path('reports/purdue-pete-balanced-v5.json').read_text())
+          assert 320<=a['after']['longest_bbox_dimension_px']<=345
+          assert a['before']['longest_bbox_dimension_px']==300
+          assert a['relative_bbox_scale']>1.07
+          assert a['minimum_radial_inset_from_prior_238px_check_px']>=10
+          assert a['after']['pixels_outside_prior_238px_circle_fraction']==0
+          assert a['after']['centroid_error_px']<=2.5
+          with Image.open('assets/cbb-big-ten-1980s/centered/purdue.png') as img:
+            assert img.size==(512,512)
+          html=Path('cbb-big-ten-1980s-preview.html').read_text()
+          assert html.count('purdue.png?v=20261114-pete-balanced-v5')==2
+          assert html.count('<img src="assets/cbb-big-ten-1980s/centered/')==14
+          assert '--slt-ink-' not in html and 'cbb-big-ten-optical-center' not in html
+          print('PASS: balanced Purdue source PNG, no CSS/JS offsets, fixed rings and full artwork')
+          PY
+      - name: Commit tested PNG and report on this feature branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add cbb-big-ten-1980s-preview.html assets/cbb-big-ten-1980s/centered/purdue.png reports/purdue-pete-balanced-v5.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Enlarge Purdue Pete while retaining a safe circular inset'
+            git push origin "HEAD:$GITHUB_REF_NAME"
+          fi
