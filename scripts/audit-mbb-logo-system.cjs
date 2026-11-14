@@ -58,7 +58,26 @@ async function run(){
   assert.equal(bytes.readUInt32BE(16),512,'ACC width '+slug);
   assert.equal(bytes.readUInt32BE(20),512,'ACC height '+slug);
  }
- const anyVintage=id=>!!(vintage[id]||vintageACC[id]);
+ const vintageSEC={
+  "333": "alabama",
+  "8": "arkansas",
+  "2": "auburn",
+  "57": "florida",
+  "61": "georgia",
+  "96": "kentucky",
+  "99": "lsu",
+  "344": "mississippi-state",
+  "142": "missouri",
+  "201": "oklahoma",
+  "145": "ole-miss",
+  "2579": "south-carolina",
+  "2633": "tennessee",
+  "251": "texas",
+  "245": "texas-am",
+  "238": "vanderbilt"
+};
+ assert.equal(Object.keys(vintageSEC).length,16,'SEC archive needs all 16 schools');
+ const anyVintage=id=>!!(vintage[id]||vintageACC[id]||vintageSEC[id]);
  assert.equal(Object.keys(vintage).length,18,'Current Big Ten has exactly 18 vintage crests');
  for(const [id,slug] of Object.entries(vintage)){
    const path='assets/cbb-big-ten-1980s/centered/'+slug+'.png';
@@ -70,7 +89,8 @@ async function run(){
  }
  const expectedLogo=(id,item)=>vintage[id]?
    'assets/cbb-big-ten-1980s/centered/'+vintage[id]+'.png?v='+(id==='127'?'20261114-gruff-full-art1':'20261114-bigten-live1'):
-   vintageACC[id]?'assets/cbb-acc-1980s/'+vintageACC[id]+'.png?v=20261114-acc18-live1':item.logo_url;
+   vintageACC[id]?'assets/cbb-acc-1980s/'+vintageACC[id]+'.png?v='+(id==='221'?'20261114-pitt-standing-1980-approved1':'20261114-acc18-live1'):
+   vintageSEC[id]?'assets/cbb-sec-1980s/'+vintageSEC[id]+'.png?v=20261114-sec16-live1':item.logo_url;
  const seen=new Set(),kinds={embedded_roundel:0,flat:0,unverified:0};
  for(const t of cross.teams){
   const id=String(t.espn_id),item=registry.teams[id],brand=colors[id];

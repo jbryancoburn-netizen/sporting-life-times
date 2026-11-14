@@ -43,14 +43,32 @@ const ACC_HERITAGE=Object.freeze({
  '153':'assets/cbb-acc-1980s/north-carolina.png?v=20261114-acc18-live1',
  '154':'assets/cbb-acc-1980s/wake-forest.png?v=20261114-acc18-live1',
  '183':'assets/cbb-acc-1980s/syracuse.png?v=20261114-acc18-live1',
- '221':'assets/cbb-acc-1980s/pittsburgh.png?v=20261114-acc18-live1',
+ '221':'assets/cbb-acc-1980s/pittsburgh.png?v=20261114-pitt-standing-1980-approved1',
  '228':'assets/cbb-acc-1980s/clemson.png?v=20261114-acc18-live1',
  '258':'assets/cbb-acc-1980s/virginia.png?v=20261114-acc18-live1',
  '259':'assets/cbb-acc-1980s/virginia-tech.png?v=20261114-acc18-live1',
  '2390':'assets/cbb-acc-1980s/miami.png?v=20261114-acc18-live1',
  '2567':'assets/cbb-acc-1980s/smu.png?v=20261114-acc18-live1'
 });
-const retroURLForESPN=id=>BIG_TEN_HERITAGE[String(id)]||ACC_HERITAGE[String(id)]||'';
+const SEC_HERITAGE=Object.freeze({
+ '333':'assets/cbb-sec-1980s/alabama.png?v=20261114-sec16-live1',
+ '8':'assets/cbb-sec-1980s/arkansas.png?v=20261114-sec16-live1',
+ '2':'assets/cbb-sec-1980s/auburn.png?v=20261114-sec16-live1',
+ '57':'assets/cbb-sec-1980s/florida.png?v=20261114-sec16-live1',
+ '61':'assets/cbb-sec-1980s/georgia.png?v=20261114-sec16-live1',
+ '96':'assets/cbb-sec-1980s/kentucky.png?v=20261114-sec16-live1',
+ '99':'assets/cbb-sec-1980s/lsu.png?v=20261114-sec16-live1',
+ '344':'assets/cbb-sec-1980s/mississippi-state.png?v=20261114-sec16-live1',
+ '142':'assets/cbb-sec-1980s/missouri.png?v=20261114-sec16-live1',
+ '201':'assets/cbb-sec-1980s/oklahoma.png?v=20261114-sec16-live1',
+ '145':'assets/cbb-sec-1980s/ole-miss.png?v=20261114-sec16-live1',
+ '2579':'assets/cbb-sec-1980s/south-carolina.png?v=20261114-sec16-live1',
+ '2633':'assets/cbb-sec-1980s/tennessee.png?v=20261114-sec16-live1',
+ '251':'assets/cbb-sec-1980s/texas.png?v=20261114-sec16-live1',
+ '245':'assets/cbb-sec-1980s/texas-am.png?v=20261114-sec16-live1',
+ '238':'assets/cbb-sec-1980s/vanderbilt.png?v=20261114-sec16-live1'
+});
+const retroURLForESPN=id=>BIG_TEN_HERITAGE[String(id)]||ACC_HERITAGE[String(id)]||SEC_HERITAGE[String(id)]||'';
 
 const safeURL=v=>{try{let u=new URL(v);return u.protocol==='https:'?u.href:''}catch{return ''}};
 const byNcaa=new Map(),byName=new Map(),ambiguous=new Set(),outsideByName=new Map(),outsideAmbiguous=new Set();
@@ -249,7 +267,7 @@ function upgradeBareLogos(root=document){
   img.replaceWith(temp.firstElementChild);
  }
 }
-w.MBBLogos={ready,render,byNCAA:(id,size,name)=>render({ncaaId:id,name,size}),byESPN:(id,size,name)=>render({espnId:id&& (registry[String(id)]||outside[String(id)])?String(id):'',name:name||registry[String(id)]?.school||outside[String(id)]?.corrected_name||outside[String(id)]?.school,size}),byName:(name,size)=>render({name,size}),fail,stripLegacyRings,upgradeLegacyCalendar,upgradeBareLogos,logoURL:id=>retroURLForESPN(byNcaa.get(id)||id)||registry[byNcaa.get(id)]?.logo_url||'',retroURLForESPN,heritageTeamIds:()=>Object.keys(BIG_TEN_HERITAGE),heritageACCTeamIds:()=>Object.keys(ACC_HERITAGE),colorForESPN:id=>palette[String(id)]?{...palette[String(id)]}:outside[String(id)]?{primary:outside[String(id)].primary,secondary:outside[String(id)].secondary}:null,schoolNameForESPN:id=>String(registry[String(id)]?.school||outside[String(id)]?.corrected_name||outside[String(id)]?.school||'').replace(/\bSt\.$/,'State')};
+w.MBBLogos={ready,render,byNCAA:(id,size,name)=>render({ncaaId:id,name,size}),byESPN:(id,size,name)=>render({espnId:id&& (registry[String(id)]||outside[String(id)])?String(id):'',name:name||registry[String(id)]?.school||outside[String(id)]?.corrected_name||outside[String(id)]?.school,size}),byName:(name,size)=>render({name,size}),fail,stripLegacyRings,upgradeLegacyCalendar,upgradeBareLogos,logoURL:id=>retroURLForESPN(byNcaa.get(id)||id)||registry[byNcaa.get(id)]?.logo_url||'',retroURLForESPN,heritageTeamIds:()=>Object.keys(BIG_TEN_HERITAGE),heritageACCTeamIds:()=>Object.keys(ACC_HERITAGE),heritageSECTeamIds:()=>Object.keys(SEC_HERITAGE),colorForESPN:id=>palette[String(id)]?{...palette[String(id)]}:outside[String(id)]?{primary:outside[String(id)].primary,secondary:outside[String(id)].secondary}:null,schoolNameForESPN:id=>String(registry[String(id)]?.school||outside[String(id)]?.corrected_name||outside[String(id)]?.school||'').replace(/\bSt\.$/,'State')};
 ready.then(ok=>{
  if(!ok)return;
  const run=()=>{stripLegacyRings(document);upgradeLegacyCalendar();upgradeBareLogos(document)};
