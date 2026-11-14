@@ -12,7 +12,7 @@ test('both RETRO editions show first-party two-ring crest markup and larger cres
  assert.match(css,/\.cbb-elo-school \.mbb-mark\{--mbb-size:76px/);
  assert.match(css,/\.cbb-elo-power \.mbb-mark\{--mbb-size:92px/);
  assert.match(htmlM,/mbb-logo-system\.css\?v=power-art-20261114c/);
- assert.match(htmlW,/wbb-rankings\.js\?v=power-crest-20261114/);
+ assert.match(htmlW,/wbb-rankings\.js\?v=ranking-readable-20261114/);
  assert.match(htmlW,/\.wbbr-entry \.mbb-mark\{--mbb-size:82px/);
  assert.match(css,/\.cbb-elo-school \.mbb-mark:not\(\.mbb-mark--heritage\)>img\.mbb-mark__img/);
  assert.match(htmlW,/overflow:visible!important/);
