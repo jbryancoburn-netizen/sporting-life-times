@@ -1,0 +1,56 @@
+{
+  "asset": "original vintage running Purdue Pete",
+  "scope": "Big Ten preview PNG ONLY; no ring or script changes",
+  "before": {
+    "ink_pixels": 35304,
+    "weighted_center": [
+      255.76,
+      256.46
+    ],
+    "visual_center_offset_px": 0.52,
+    "radial_ink_max_px": 225.7,
+    "ring_margin_px": 12.3,
+    "long_side_px": 329
+  },
+  "after": {
+    "ink_pixels": 44729,
+    "weighted_center": [
+      272.41,
+      238.16
+    ],
+    "visual_center_offset_px": 24.24,
+    "radial_ink_max_px": 228.58,
+    "ring_margin_px": 9.42,
+    "long_side_px": 371
+  },
+  "method": {
+    "chosen_target": 370,
+    "scale": 1.125,
+    "anchor_offset_from_visual_center_src": [
+      -15,
+      16
+    ],
+    "circle_hull_points": 24,
+    "candidate_search": [
+      {
+        "long_target": 380,
+        "feasible": false,
+        "best_center_offset_src": null
+      },
+      {
+        "long_target": 375,
+        "feasible": false,
+        "best_center_offset_src": null
+      },
+      {
+        "long_target": 370,
+        "feasible": true,
+        "best_center_offset_src": [
+          -15,
+          16
+        ]
+      }
+    ]
+  },
+  "all_preview_images_retained": 14
+}
