@@ -9,6 +9,7 @@ const ROOT=path.resolve(__dirname,'..');
 const read=p=>fs.readFileSync(path.join(ROOT,p),'utf8');
 const json=p=>JSON.parse(read(p));
 const cross=json('data/ncaam-2026-27-espn-team-crosswalk.json');
+const womenDirectory=json('data/ncaaw-2026-27-teams.json');
 const expected={
  '84':'indiana','356':'illinois','2294':'iowa','130':'michigan',
  '127':'michigan-state-gruff','135':'minnesota','77':'northwestern','194':'ohio-state',
@@ -55,6 +56,10 @@ test('all 18 CURRENT Big Ten names have authentic local assets and unambiguous I
    assert.equal(bytes.subarray(0,8).toString('hex'),'89504e470d0a1a0a','Actual PNG required');
    assert.equal(bytes.readUInt32BE(16),512,'512px original-era source: '+slug);
    assert.equal(bytes.readUInt32BE(20),512,'512px original-era source: '+slug);
+   const woman=womenDirectory.teams.find(t=>String(t.team_id)===id);
+   assert(woman,'Every Big Ten logo must map to the exact women’s school ID: '+id);
+   assert(logos.byESPN(id,'score',woman.team).includes('src="'+url(slug)+'"'),
+     'Identical retro artwork for women, including Penn State Lady Lions');
    const byEspn=logos.byESPN(id,'score',row.espn_name);
    const byNcaa=logos.byNCAA(row.id,'hero',row.name);
    for(const html of [byEspn,byNcaa]){
