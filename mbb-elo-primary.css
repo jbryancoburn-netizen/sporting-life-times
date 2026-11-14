@@ -41,7 +41,7 @@
 .cbb-elo-table tbody tr:hover td{background:#eedfc6}
 .cbb-elo-table tbody tr:nth-child(even){background:transparent}
 .cbb-elo-table tbody tr:hover{background:transparent}
-.cbb-elo-school{display:flex;align-items:center;gap:10px;color:#33271d;text-decoration:none;font:15px/1.2 Georgia,serif;min-width:0}
+.cbb-elo-school{display:flex;align-items:center;gap:11px;color:#33271d;text-decoration:none;font:15px/1.2 Georgia,serif;min-width:0}
 .cbb-elo-school:hover{text-decoration:underline}
 .cbb-elo-school img{flex:0 0 auto}
 .cbb-elo-pos{color:#536543;font-weight:normal}
@@ -69,8 +69,8 @@
 .cbb-elo-table th,.cbb-elo-table td{padding:9px 3px;font-size:12px;overflow-wrap:anywhere}
 .cbb-elo-table th{font-size:8px;letter-spacing:0}
 .cbb-elo-table th:nth-child(3),.cbb-elo-table td:nth-child(3),.cbb-elo-table th:nth-child(7),.cbb-elo-table td:nth-child(7){display:none}
-.cbb-elo-table th:nth-child(1){width:8%}.cbb-elo-table th:nth-child(2){width:42%}.cbb-elo-table th:nth-child(4){width:16%}.cbb-elo-table th:nth-child(5){width:19%}.cbb-elo-table th:nth-child(6){width:15%}
-.cbb-elo-school{font-size:12px;gap:5px}.cbb-elo-school img{max-width:29px;max-height:29px}
+.cbb-elo-table th:nth-child(1){width:15%}.cbb-elo-table th:nth-child(2){width:45%}.cbb-elo-table th:nth-child(4){width:18%}.cbb-elo-table th:nth-child(5){width:22%}.cbb-elo-table th:nth-child(6),.cbb-elo-table td:nth-child(6){display:none}
+.cbb-elo-school{font-size:12px;gap:7px;min-width:0}.cbb-elo-school .cbb-elo-school-title{min-width:0;overflow-wrap:break-word}
 .cbb-elo-power{gap:8px}.cbb-elo-rank{font-size:16px;min-width:34px;min-height:34px}.cbb-elo-table td.cbb-elo-rank{font-size:13px;min-width:0;min-height:0}
 .cbb-elo-power .cbb-elo-power-name{font-size:14px}.cbb-elo-power>b{font-size:16px}
 .cbb-elo-scroller{overflow-x:hidden}
@@ -94,10 +94,20 @@
 }
 .cbb-elo-table td.cbb-elo-rank{text-align:center;padding:6px 3px}
 .cbb-elo-table td.cbb-elo-rank .victorian-number{min-width:33px;min-height:33px}
-@media(max-width:650px){.cbb-elo-table th:nth-child(1),.cbb-elo-table td:nth-child(1){width:16%}.cbb-elo-table th:nth-child(2){width:34%}.cbb-elo-table td.cbb-elo-rank{padding:5px 2px}.cbb-elo-table td.cbb-elo-rank .victorian-number{box-sizing:border-box;width:100%;max-width:40px;min-width:0;min-height:32px;padding:3px 1px;font-size:11px;white-space:nowrap}}
+@media(max-width:650px){.cbb-elo-table th:nth-child(1),.cbb-elo-table td:nth-child(1){width:15%}.cbb-elo-table th:nth-child(2){width:45%}.cbb-elo-table td.cbb-elo-rank{padding:5px 2px}.cbb-elo-table td.cbb-elo-rank .victorian-number{box-sizing:border-box;width:100%;max-width:40px;min-width:0;min-height:32px;padding:3px 1px;font-size:11px;white-space:nowrap}}
 
 /* One frame per team only: the PLACE badge is already its own ornament. */
 .cbb-elo-table td.cbb-elo-rank{border-left:3px double #9c8667;border-right:0!important;background:#f8efdf!important;box-shadow:none!important;outline:0!important}
 .cbb-elo-table td.cbb-elo-rank .victorian-number{outline:1px solid #71402e}
 
 .cbb-elo-power .cbb-overall-record{margin-left:auto;text-align:right;font:normal 19px/1 Georgia,serif;white-space:nowrap;font-variant-numeric:tabular-nums}
+
+/* Ranking artwork stays in the one shared two-ring mark; no image-size clamp. */
+.cbb-elo-school .cbb-elo-school-title{display:flex;flex-direction:column;gap:3px;min-width:0}
+.cbb-elo-mobile-delta{display:none;font:11px/1.25 Georgia,serif}
+@media(max-width:650px){
+ .cbb-elo-mobile-delta{display:block}
+ .cbb-elo-table th:nth-child(6),.cbb-elo-table td:nth-child(6){display:none}
+ .cbb-elo-table td:nth-child(2){overflow-wrap:break-word}
+ .cbb-elo-table td{padding-block:10px}
+}
