@@ -17,7 +17,7 @@ const expected={
  '120':'maryland-terrapin','164':'rutgers','26':'ucla','30':'usc',
  '2483':'oregon','264':'washington'
 };
-const url=(slug)=>'assets/cbb-big-ten-1980s/centered/'+slug+'.png?v=20261114-bigten-live1';
+const url=(slug)=>'assets/cbb-big-ten-1980s/centered/'+slug+'.png?v='+(slug==='michigan-state-gruff'?'20261114-gruff-full-art1':'20261114-bigten-live1');
 
 async function system(){
  const sources={
@@ -91,7 +91,7 @@ test('men and women team desks, ledgers, live center, ranks and conferences cach
  ];
  for(const page of pages){
   const html=read(page);
-  assert(html.includes('mbb-logo-system.js?v=bigten18-production-20261114a'),'Bust legacy renderer cache: '+page);
+  assert(html.includes('mbb-logo-system.js?v=gruff-complete-20261114'),'Refresh complete Gruff portrait in every publication: '+page);
   assert(html.includes('mbb-logo-system.css?v=bigten18-production-20261114a'),'Bust legacy ring stylesheet cache: '+page);
  }
  const wbbRanks=read('ncaaw-rankings.html');
@@ -114,10 +114,25 @@ test('same double-ring styling across all vintage schools, no per-team positioni
  assert(!page.includes('--slt-ink-'),'No pixel offsets');
  const sources=json('data/cbb-big-ten-heritage-mascot-provenance.json');
  for(const key of ['michigan-state-gruff','maryland-terrapin']){
-  assert(sources[key].source.startsWith('https://content.sportslogos.net/'),'Historically attributed artwork');
+  const trusted=key==='michigan-state-gruff'? 
+    'https://www.nudgeprinting.com/cdn/shop/files/Michigan_State_Gruff_Sparty_Vintage_Logo.png':
+    'https://content.sportslogos.net/';
+  assert(sources[key].source.startsWith(trusted),'Historically attributed artwork');
   assert(sources[key].geometry.ring_margin_to_238px >= 15);
  }
 });
 
 // This acceptance suite intentionally includes previously unversioned Gamefile
 // and Game Center stylesheets, so retro ring updates cannot be hidden by caches.
+
+test('Gruff Sparty source keeps the complete lower jaw and chin; fixed crop cannot recur',()=>{
+ const p=json('data/cbb-big-ten-heritage-mascot-provenance.json')['michigan-state-gruff'];
+ assert.equal(p.source_crop_top_ratio,null,'Never crop off 24.5% of historic mascot');
+ assert.equal(p.geometry.lower_outline_intact,true);
+ assert(p.geometry.bbox[3]>=460,'Lower outline must remain in complete 512px portrait');
+ assert(p.geometry.ring_margin_to_238px>=20,'Full artwork must fit inside rings');
+ assert(read('scripts/build_big_ten_heritage_mascots.py').includes('make_logo(src)'),
+   'Permanent archive builder must use complete-head normalization');
+ assert(!read('scripts/build_big_ten_heritage_mascots.py').includes('crop_top_ratio'),
+   'Old fixed height crop must never reappear');
+});
