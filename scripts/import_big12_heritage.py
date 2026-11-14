@@ -37,11 +37,21 @@ def fetch(slug,path):
    u=urljoin(page,raw)
    if urlparse(u).hostname=='content.sportslogos.net' and re.search(r'\.(png|webp|jpg|jpeg)(\?|$)',u,re.I):urls.append(u)
  if not urls: raise RuntimeError(slug+': historical image link missing')
- urls.sort(key=lambda x:('full/' not in x,len(x)))
- r=S.get(urls[0],timeout=35);r.raise_for_status()
- if len(r.content)<1000 or len(r.content)>12000000:raise RuntimeError(slug+': suspicious file size')
- im=Image.open(BytesIO(r.content)).convert('RGBA')
- if min(im.size)<180:raise RuntimeError(slug+': low resolution')
+ # Main logo artwork, not thumbnails, shop graphics or unrelated page images.
+ urls=list(dict.fromkeys(u for u in urls if '/full/' in u))
+ if not urls: raise RuntimeError(slug+': no full-size archival artwork')
+ urls.sort(key=len,reverse=True)
+ error=None
+ for candidate in urls:
+  try:
+   r=S.get(candidate,timeout=35);r.raise_for_status()
+   if not 1000<len(r.content)<12000000: raise RuntimeError('invalid file size')
+   im=Image.open(BytesIO(r.content)).convert('RGBA')
+   if min(im.size)<180: raise RuntimeError('low resolution')
+   break
+  except Exception as exc:
+   error=exc
+ else: raise RuntimeError(slug+': no valid full-size image: '+str(error))
  bounds=im.getbbox()
  if not bounds:raise RuntimeError(slug+': blank artwork')
  im=im.crop(bounds)
@@ -50,7 +60,7 @@ def fetch(slug,path):
  result=Image.new('RGBA',(720,720),(0,0,0,0))
  result.alpha_composite(im,((720-im.width)//2,(720-im.height)//2))
  buf=BytesIO();result.save(buf,format='PNG',optimize=True)
- return buf.getvalue(),urls[0],page
+ return buf.getvalue(),candidate,page
 def main():
  js=ROOT/'mbb-logo-system.js';old=js.read_text()
  if 'const BIG_12_HERITAGE=' in old: return
