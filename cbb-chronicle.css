@@ -54,9 +54,11 @@ body[data-slt-front="cbb"] .chronicle-section-header>a{font:700 12px Georgia,ser
 body[data-slt-front="cbb"] .chronicle-retro-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 body[data-slt-front="cbb"] .chronicle-retro-column{min-width:0;border:1px solid #9a8569;padding:11px 13px;background:#f8f1e3}
 body[data-slt-front="cbb"] .chronicle-retro-column h3{font:700 15px/1.25 Georgia,serif;text-transform:uppercase;border-bottom:1px solid #977b5f;padding:0 0 6px;margin:0 0 6px;letter-spacing:.05em}
-body[data-slt-front="cbb"] .chronicle-retro-row{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:9px;align-items:center;border-bottom:1px solid #d7c8b3;padding:8px 0;font:14px/1.25 "Century Schoolbook",Georgia,serif}
+body[data-slt-front="cbb"] .chronicle-retro-row{display:grid;grid-template-columns:26px 42px minmax(0,1fr) auto;gap:8px;align-items:center;border-bottom:1px solid #d7c8b3;padding:8px 0;font:14px/1.25 "Century Schoolbook",Georgia,serif}
 body[data-slt-front="cbb"] .chronicle-retro-row:last-child{border:0}
 body[data-slt-front="cbb"] .chronicle-retro-number{font:800 20px/1 Georgia,serif;color:var(--chronicle-red)}
+body[data-slt-front="cbb"] .chronicle-retro-crest{display:flex;align-items:center;justify-content:center;width:42px;height:42px;min-width:0}
+body[data-slt-front="cbb"] .chronicle-retro-crest .mbb-mark{--mbb-size:40px;max-width:40px;max-height:40px;margin:0!important}
 body[data-slt-front="cbb"] .chronicle-retro-value{font:700 14px Georgia,serif;white-space:nowrap}
 body[data-slt-front="cbb"] .chronicle-retro-team{min-width:0}
 body[data-slt-front="cbb"] .chronicle-retro-team small{display:block;color:#665749;font:11px Georgia,serif;margin-top:2px}
@@ -111,3 +113,13 @@ body[data-slt-front="cbb"] nav.cbb-universal-nav .chronicle-more summary:focus-v
   body[data-slt-front="cbb"] .slt-department-band h1{font-size:clamp(30px,8.8vw,49px)}
 }
 @media(prefers-reduced-motion:reduce){body[data-slt-front="cbb"] *{scroll-behavior:auto!important}}
+
+@media(max-width:480px){
+  body[data-slt-front="cbb"] .chronicle-retro-row{grid-template-columns:22px 36px minmax(0,1fr) auto;gap:5px;padding:7px 0}
+  body[data-slt-front="cbb"] .chronicle-retro-crest{width:36px;height:36px}
+  body[data-slt-front="cbb"] .chronicle-retro-crest .mbb-mark{--mbb-size:35px;max-width:35px;max-height:35px}
+  body[data-slt-front="cbb"] .chronicle-retro-number{font-size:17px}
+  body[data-slt-front="cbb"] .chronicle-retro-team{font-size:12px;overflow-wrap:anywhere}
+  body[data-slt-front="cbb"] .chronicle-retro-team small{font-size:10px}
+  body[data-slt-front="cbb"] .chronicle-retro-value{font-size:12px}
+}

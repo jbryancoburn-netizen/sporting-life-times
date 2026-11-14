@@ -22,6 +22,13 @@ async function main(){
     await page.goto(origin+'ncaam.html?gender='+gender,{waitUntil:'domcontentloaded',timeout:25000});
     await page.locator('.cbb-front-edition .cbb-news-grid .cbb-news-story.lead').waitFor({timeout:16000});
     await page.locator('#chronicle-retro-panel .chronicle-retro-grid').waitFor({timeout:16000});
+    await page.locator('#chronicle-retro-panel .chronicle-retro-row .mbb-mark').first().waitFor({timeout:16000});
+    await page.locator('#chronicle-retro').scrollIntoViewIfNeeded();
+    await page.evaluate(async()=>{
+      const images=[...document.querySelectorAll('#chronicle-retro-panel .chronicle-retro-crest img')];
+      for(const image of images)image.loading='eager';
+      await Promise.all(images.map(image=>image.decode().catch(()=>null)));
+    });
     await page.locator('.chronicle-archive').scrollIntoViewIfNeeded();
     await page.evaluate(async()=>{
       for(const image of document.querySelectorAll('.chronicle-crest img'))image.loading='eager';
@@ -39,6 +46,9 @@ async function main(){
         supporting:document.querySelectorAll('.chronicle-secondary .cbb-news-story').length,
         department:document.querySelectorAll('.chronicle-news-departments section').length,
         brokenArchive:[...document.querySelectorAll('.chronicle-crest img')].filter(x=>!x.naturalWidth).map(x=>x.src),
+        retroBadges:document.querySelectorAll('#chronicle-retro-panel .chronicle-retro-crest .mbb-mark').length,
+        retroMissing:[...document.querySelectorAll('#chronicle-retro-panel .chronicle-retro-crest .mbb-mark')].filter(x=>x.classList.contains('mbb-mark--missing')||!x.querySelector('img.mbb-mark__img')?.naturalWidth).map(x=>x.getAttribute('aria-label')),
+        retroRingErrors:[...document.querySelectorAll('#chronicle-retro-panel .chronicle-retro-crest .mbb-mark')].filter(x=>x.dataset.ringCount!=='2'||Math.abs(x.getBoundingClientRect().width-x.getBoundingClientRect().height)>2).map(x=>x.getAttribute('aria-label')),
         rankTitle:document.querySelector('#chronicle-retro-panel .chronicle-retro-lead')?.textContent||'',
         retroHref:document.getElementById('chronicle-retro-full-link')?.getAttribute('href'),
         visibleGender:[...document.querySelectorAll('.cbb-edition-switch .is-active')].map(x=>x.textContent.trim()),
@@ -49,6 +59,9 @@ async function main(){
     if(props.navItems!==5)problems.push('Expected five core newspaper destinations, got '+props.navItems);
     if(props.newsRect.top>props.retroRect.top||props.retroRect.top>props.indexRect.top)problems.push('Editorial hierarchy wrong');
     if(props.brokenArchive.length)problems.push('Broken local archival marks: '+props.brokenArchive.join(','));
+    if(props.retroBadges!==8)problems.push('Expected eight shared RETRO crests, found '+props.retroBadges);
+    if(props.retroMissing.length)problems.push('RETRO crests missing artwork: '+props.retroMissing.join(', '));
+    if(props.retroRingErrors.length)problems.push('RETRO crests missing double rings or circular geometry: '+props.retroRingErrors.join(', '));
     if(!props.rankTitle.includes('RETRO'))problems.push('No authenticated RETRO lead');
     if(props.retroHref!==(gender==='women'?'ncaaw-rankings.html?poll=retro':'ncaam-elo.html'))problems.push('Wrong gender RETRO link');
     if(props.visibleGender.length!==1||props.visibleGender[0] !== (gender==='women'?'Women':'Men'))problems.push('Gender switch not correctly selected');
@@ -62,7 +75,7 @@ async function main(){
    }finally{await context.close()}
   }
  }finally{await browser.close()}
- console.log(JSON.stringify(findings.map(x=>({edition:x.gender,viewport:x.device,issues:x.problems,details:x.details&&{navItems:x.details.navItems,scrollWidth:x.details.scrollWidth,viewport:x.details.viewport,department:x.details.department,brokenArchive:x.details.brokenArchive}})),null,2));
+ console.log(JSON.stringify(findings.map(x=>({edition:x.gender,viewport:x.device,issues:x.problems,details:x.details&&{navItems:x.details.navItems,scrollWidth:x.details.scrollWidth,viewport:x.details.viewport,department:x.details.department,brokenArchive:x.details.brokenArchive,retroBadges:x.details.retroBadges,retroMissing:x.details.retroMissing,retroRingErrors:x.details.retroRingErrors}})),null,2));
  assert(findings.every(x=>!x.problems.length),'Chronicle visual acceptance failed');
 }
 main().catch(e=>{console.error(e);process.exitCode=1});
