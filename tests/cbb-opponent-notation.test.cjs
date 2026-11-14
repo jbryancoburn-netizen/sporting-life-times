@@ -22,7 +22,7 @@ test('women calendar: @ away, vs. home and vs. Opponent (N) on neutral court',()
 test('men and women share the new form notation without stale script cache',()=>{
  for(const page of ['ncaam-team.html','ncaaw-team.html']){
    const source=fs.readFileSync(page,'utf8');
-   assert(source.includes('cbb-team-form.js?v=site-notation-20261113'),page);
+   assert(source.includes('cbb-team-form.js?v=site-notation-neutral-proof-20261113'),page);
  }
  assert(fs.readFileSync('ncaam-team.html','utf8').includes('mbb-team-calendar-boot.js?v=site-notation-20261113'));
  assert(fs.readFileSync('ncaaw-team.html','utf8').includes('wbb-team-newspaper.js?v=site-notation-20261113'));
