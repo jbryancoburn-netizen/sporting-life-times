@@ -8,12 +8,12 @@ test('women’s mobile rank badges reserve room for the whole number before the 
  const page=source('ncaaw-rankings.html');
  const renderer=source('wbb-rankings.js');
  assert.match(renderer,/class="wbbr-number">#'\+esc\(t\.rank\)/);
- assert.match(page,/\.wbbr-entry\{grid-template-columns:48px 60px minmax\(0,1fr\) 64px/);
+ assert.match(page,/\.wbbr-entry\{grid-template-columns:48px 70px minmax\(0,1fr\) 64px/);
  assert.match(page,/\.wbbr-list \.wbbr-entry>\.wbbr-number\{width:46px;height:44px;font-size:14px/);
- assert.match(page,/\.wbbr-entry\{grid-template-columns:46px 55px minmax\(0,1fr\) 58px/);
+ assert.match(page,/\.wbbr-entry\{grid-template-columns:46px 64px minmax\(0,1fr\) 58px/);
  assert.match(page,/\.wbbr-list \.wbbr-entry>\.wbbr-number\{width:44px;height:42px;font-size:13px/);
  assert.doesNotMatch(page,/grid-template-columns:30px 49px minmax\(0,1fr\)/);
- assert.match(page,/\.wbbr-entry \.mbb-mark\{--mbb-size:68px/);
+ assert.match(page,/\.wbbr-entry \.mbb-mark\{--mbb-size:82px/);
  assert.doesNotMatch(page,/\.wbbr-list \.wbbr-entry \.mbb-mark\{[^}]*overflow:hidden/);
 });
 
