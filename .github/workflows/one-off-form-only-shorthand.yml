@@ -1,0 +1,25 @@
+name: Verify Form Book-only shorthand (one-off)
+on:
+  push:
+    branches:
+      - fix/cbb-schedule-plain-opponents-form-only-20261114
+    paths:
+      - .github/workflows/one-off-form-only-shorthand.yml
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify Form Book-only notation, CBB results, and real neutral-site evidence
+        run: |
+          node --test tests/cbb-team-form.test.cjs tests/cbb-team-form-evidence.test.cjs tests/cbb-opponent-notation.test.cjs
+          node tests/mbb-calendar-finals.test.cjs
+          node --check mbb-team-calendar-boot.js
+          node --check wbb-team-newspaper.js
+          node --check cbb-team-form.js
