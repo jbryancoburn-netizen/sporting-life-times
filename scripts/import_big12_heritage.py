@@ -57,7 +57,7 @@ def main():
  new=old.replace('const retroURLForESPN=id=>','const BIG_12_HERITAGE=Object.freeze({\n'+lines+'\n});\nconst retroURLForESPN=id=>',1)
  new=new.replace("||BIG_EAST_HERITAGE[String(id)]||''","||BIG_EAST_HERITAGE[String(id)]||BIG_12_HERITAGE[String(id)]||''",1)
  new=new.replace('heritageBigEastTeamIds:()=>Object.keys(BIG_EAST_HERITAGE),','heritageBigEastTeamIds:()=>Object.keys(BIG_EAST_HERITAGE),heritageBig12TeamIds:()=>Object.keys(BIG_12_HERITAGE),',1)
- if new.count('BIG_12_HERITAGE')!=4:raise RuntimeError('renderer integration failed')
+ if new.count('BIG_12_HERITAGE')!=3:raise RuntimeError('renderer integration failed')
  js.write_text(new)
  manifest=ROOT/'data/cbb-big-12-heritage-audit.json'
  data=json.loads(manifest.read_text());data['release_status']='ten_approved_mascot_logos_imported'
