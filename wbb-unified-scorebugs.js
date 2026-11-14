@@ -26,6 +26,8 @@
    const details=document.createElement('details');details.className='ledger26-card ledger26-expand wbb-scorebug-card';
    details.dataset.gameId=id;details.dataset.gameDay=row.dataset.gameDay||'';
    details.dataset.homeId=row.dataset.homeId||'';details.dataset.awayId=row.dataset.awayId||'';
+   details.dataset.homeName='';details.dataset.awayName='';
+   details.dataset.teamId=row.dataset.teamId||'';
    const summary=document.createElement('summary');summary.className='ledger26-summary';
    const detail=document.createElement('div');detail.className='ledger26-expanded wbb-scorebug-detail';
    const info=document.createElement('dl');info.className='wbb-scorebug-facts';
