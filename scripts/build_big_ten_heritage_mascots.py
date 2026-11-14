@@ -19,10 +19,9 @@ OUT=ROOT/"assets/cbb-big-ten-1980s/centered"
 MANIFEST=ROOT/"data/cbb-big-ten-heritage-mascot-provenance.json"
 PNG_SOURCE={
   "michigan-state-gruff":{
-    "source":"https://content.sportslogos.net/logos/32/751/full/michigan_state_spartans_logo_alternate_19649579.png",
-    "archive":"https://www.sportslogos.net/logos/view/fw2f89syje0hf2clevi4/Michigan-State-Spartans-Logo/1955/Alternate-Logo",
-    "label":"Gruff Sparty, a longstanding MSU vintage mascot, also seen in 1980s campus memorabilia",
-    "crop_top_ratio":0.755
+    "source":"https://www.nudgeprinting.com/cdn/shop/files/Michigan_State_Gruff_Sparty_Vintage_Logo.png?v=1724529198&width=1000",
+    "archive":"https://www.nudgeprinting.com/collections/michigan-state-wall-decals",
+    "label":"Complete vintage Gruff Sparty mascot portrait (uncropped)"
   },
   "maryland-terrapin":{
     "source":"https://content.sportslogos.net/logos/32/743/full/maryland_terrapins_logo_alternate_1983_sportslogosnet-6799.png",
@@ -49,12 +48,6 @@ def ink(canvas):
     return xs,ys
 
 def normalize(img,spec):
-    if "crop_top_ratio" in spec:
-        # Gruff head is the historic portrait. The source's block MSU letters
-        # occupy the bottom ~24% and would make the figure too small in a badge.
-        # Cropping the lettering does NOT redraw the Sparty illustration.
-        crop=int(img.height*spec["crop_top_ratio"])
-        img=img.crop((0,0,img.width,crop))
     bbox=img.getchannel("A").getbbox()
     if not bbox:raise AssertionError("No source alpha")
     img=img.crop(bbox)
@@ -78,7 +71,16 @@ def main():
     OUT.mkdir(parents=True,exist_ok=True);records={}
     for slug,spec in PNG_SOURCE.items():
         src,original=fetch(spec["source"])
-        img,geometry=normalize(src,spec)
+        if slug=='michigan-state-gruff':
+            # Use the same complete-image normalization as the production
+            # repair. NEVER truncate the portrait by fixed height again.
+            from restore_gruff_sparty_full_head import make_logo
+            img,full_geo,source_bounds=make_logo(src)
+            geometry={"ink_radius":full_geo["max_ink_radius"],
+                      "ring_margin_to_238px":round(238-full_geo["max_ink_radius"],2),
+                      "bbox":full_geo["bbox"],"lower_outline_intact":True}
+        else:
+            img,geometry=normalize(src,spec)
         path=OUT/(slug+".png")
         img.save(path,format="PNG",optimize=True)
         records[slug]={"source":spec["source"],"archive":spec["archive"],"label":spec["label"],
