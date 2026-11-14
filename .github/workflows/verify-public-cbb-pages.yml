@@ -5,6 +5,7 @@ on:
     paths:
       - '.github/workflows/verify-public-cbb-pages.yml'
       - 'ncaam-elo.html'
+      - 'ncaam-rankings.html'
       - 'ncaaw-rankings.html'
       - 'mbb-logo-system.css'
   pull_request:
@@ -24,6 +25,7 @@ jobs:
           base='https://jbryancoburn-netizen.github.io/sporting-life-times/'
           pages={
             'men-power':('ncaam-elo.html',['mbb-logo-system.css?v=power-art-20261114c','mbb-elo-primary.js?v=power-crests-20261114']),
+            'men-power-polls':('ncaam-rankings.html?poll=retro',['mbb-logo-system.css?v=power-art-20261114c','--mbb-size:76px','--mbb-size:64px',"size:'power'"]),
             'women-power':('ncaaw-rankings.html?poll=retro',['wbb-rankings.js?v=power-crest-20261114','--mbb-size:82px']),
             'men-ledger':('ncaam-slate.html',['cbb-forecast-receipt.js?v=20261114','cbb-forecast-receipt.css?v=20261114']),
             'men-team':('ncaam-team.html',['cbb-forecast-receipt.js?v=20261114']),
