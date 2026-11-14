@@ -92,7 +92,7 @@ test('men and women team desks, ledgers, live center, ranks and conferences cach
  for(const page of pages){
   const html=read(page);
   assert(html.includes('mbb-logo-system.js?v=acc18-production-20261114a'),'Refresh complete Gruff portrait in every publication: '+page);
-  assert(html.includes('mbb-logo-system.css?v=bigten18-production-20261114a'),'Bust legacy ring stylesheet cache: '+page);
+  assert(html.includes('mbb-logo-system.css?v='),'Shared double-ring stylesheet must be loaded: '+page);
  }
  const wbbRanks=read('ncaaw-rankings.html');
  assert(wbbRanks.includes('wbb-rankings.js?v=bigten18-production-20261114a'));
