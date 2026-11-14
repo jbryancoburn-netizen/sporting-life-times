@@ -48,6 +48,21 @@ jobs:
             print('PUBLIC POWER LOGO CSS: men 76px full / 92px Power 10, artwork 86%:',not any(name=='rendered-css' for name,_ in failed),flush=True)
           except Exception as e:
             failed.append(('rendered-css',[str(e)]))
+          # Prove deployed men's Power Index actually has the new size and the latest assets.
+          try:
+            _,men_html,_=fetch('ncaam-elo.html?liveLogoAudit=20261114m')
+            men_source=men_html.decode('utf8')
+            print('MEN HTML logo asset references:',[x for x in ['mbb-logo-system.css?v=power-art-20261114c','mbb-elo-primary.css?v=power-crests-20261114'] if x in men_source],flush=True)
+          except Exception as e:
+            failed.append(('men-cache-bypass',[str(e)]))
+          try:
+            _,css_live,_=fetch('mbb-logo-system.css?v=power-art-20261114c&liveLogoAudit=20261114m')
+            css_new=css_live.decode('utf8')
+            for needle in ['.cbb-elo-school .mbb-mark{--mbb-size:76px','.cbb-elo-power .mbb-mark{--mbb-size:92px','width:86%!important']:
+              if needle not in css_new:failed.append(('men-fresh-css',[needle]))
+            print('MEN LIVE CSS actual size markers:',{k:k in css_new for k in ['--mbb-size:76px','--mbb-size:92px','width:86%!important']},flush=True)
+          except Exception as e:
+            failed.append(('men-fresh-css',[str(e)]))
           for name,(url,required) in pages.items():
             try:
               status,data,ctype=fetch(url)
