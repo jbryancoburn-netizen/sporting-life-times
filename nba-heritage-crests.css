@@ -25,8 +25,8 @@ body.nba-newspaper.slt-nba-bold-rings[data-page="home"] .score-team>img.slt-dual
   min-width:58px!important;min-height:58px!important;max-width:58px!important;max-height:58px!important;
 }
 body.slt-nba-bold-rings .slt-scorebug-identity>img.slt-nba-team-logo {
-  display:block!important;flex:0 0 56px!important;width:56px!important;height:56px!important;
-  min-width:56px!important;min-height:56px!important;max-width:56px!important;max-height:56px!important;
+  display:block!important;flex:0 0 64px!important;width:64px!important;height:64px!important;
+  min-width:64px!important;min-height:64px!important;max-width:64px!important;max-height:64px!important;
   border-radius:50%!important;object-fit:contain!important;
 }
 /* Full team edition: the hero, opponent series and each schedule game. */
@@ -87,8 +87,8 @@ body.nba-newspaper.slt-nba-bold-rings .nba-team-tile>img.nba-team-logo.slt-dual-
     min-width:50px!important;min-height:50px!important;max-width:50px!important;max-height:50px!important;
   }
   body.slt-nba-bold-rings .slt-scorebug-identity>img.slt-nba-team-logo {
-    flex-basis:48px!important;width:48px!important;height:48px!important;
-    min-width:48px!important;min-height:48px!important;max-width:48px!important;max-height:48px!important;
+    flex-basis:56px!important;width:56px!important;height:56px!important;
+    min-width:56px!important;min-height:56px!important;max-width:56px!important;max-height:56px!important;
   }
   body.nba-newspaper.slt-nba-bold-rings[data-page="team"] .nba-team-identity img.slt-dual-image {
     width:116px!important;height:116px!important;min-width:116px!important;min-height:116px!important;
@@ -133,6 +133,39 @@ body.nba-newspaper.slt-nba-bold-rings .nba-team-tile>img.nba-team-logo.slt-dual-
   }
 }
 
+
+/* NBA scorebugs use the real vintage artwork at readable sizes. The shared
+   ledger previously reduced crests to 48px on desktop and 39px on phones.
+   Preserve the two-color rings, RETRO panel, names and scoring columns. */
+body.slt-nba-bold-rings :is(.nba-score-rail,#nba-live-feed) .ledger26-scorebug {
+  --ledger26-crest-size:68px;
+  --ledger26-team-min-height:78px;
+}
+body.slt-nba-bold-rings :is(.nba-score-rail,#nba-live-feed) .ledger26-team {
+  column-gap:10px;
+}
+@media(max-width:650px){
+  body.slt-nba-bold-rings :is(.nba-score-rail,#nba-live-feed) .ledger26-scorebug {
+    --ledger26-crest-size:58px;
+    --ledger26-team-min-height:70px;
+  }
+  /* Reclaim the decorative masthead seal on a phone, not the team name. */
+  body.slt-nba-bold-rings :is(.nba-score-rail,#nba-live-feed) .ledger26-monogram{
+    display:none!important;
+  }
+  body.slt-nba-bold-rings :is(.nba-score-rail,#nba-live-feed) .ledger26-scorebug:not(.ledger26-scorebug--plain){
+    grid-template-columns:minmax(0,1fr) 88px!important;
+  }
+}
+@media(max-width:370px){
+  body.slt-nba-bold-rings :is(.nba-score-rail,#nba-live-feed) .ledger26-scorebug{
+    --ledger26-crest-size:50px;
+    --ledger26-team-min-height:64px;
+  }
+  body.slt-nba-bold-rings :is(.nba-score-rail,#nba-live-feed) .ledger26-scorebug:not(.ledger26-scorebug--plain){
+    grid-template-columns:minmax(0,1fr) 80px!important;
+  }
+}
 
 /* NBA CREST / TEXT CLEARANCE — responsive layout audit, November 13.
    The 1980s artwork remains large. Explicitly allocate its space in each
