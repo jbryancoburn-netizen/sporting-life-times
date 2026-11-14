@@ -38,7 +38,7 @@ async function run(){
    assert.equal(data.readUInt32BE(20),512,'Historic PNG must be 512px high: '+slug);
  }
  const expectedLogo=(id,item)=>vintage[id]?
-   'assets/cbb-big-ten-1980s/centered/'+vintage[id]+'.png?v=20261114-bigten-live1':item.logo_url;
+   'assets/cbb-big-ten-1980s/centered/'+vintage[id]+'.png?v='+(id==='127'?'20261114-gruff-full-art1':'20261114-bigten-live1'):item.logo_url;
  const seen=new Set(),kinds={embedded_roundel:0,flat:0,unverified:0};
  for(const t of cross.teams){
   const id=String(t.espn_id),item=registry.teams[id],brand=colors[id];
