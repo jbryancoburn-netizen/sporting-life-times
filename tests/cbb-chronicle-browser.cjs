@@ -1,6 +1,8 @@
 'use strict';
 /* Browser acceptance: actual local CSS, JS, source-backed feeds, archive images, two editions. */
 const assert=require('node:assert/strict');
+const fs=require('node:fs');
+fs.mkdirSync('artifacts',{recursive:true});
 const {chromium}=require('playwright');
 const origin=process.env.CHRONICLE_TEST_ORIGIN||'http://127.0.0.1:8765/';
 async function main(){
