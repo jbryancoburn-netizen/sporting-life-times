@@ -95,7 +95,7 @@ test('men and women team desks, ledgers, live center, ranks and conferences cach
   assert(html.includes('mbb-logo-system.css?v='),'Shared double-ring stylesheet must be loaded: '+page);
  }
  const wbbRanks=read('ncaaw-rankings.html');
- assert(wbbRanks.includes('wbb-rankings.js?v=bigten18-production-20261114a'));
+ assert(wbbRanks.includes('wbb-rankings.js?v=power-crest-20261114'));
  const women=read('wbb-rankings.js');
  assert(women.includes('MBBLogos?.retroURLForESPN?.(id)'),'Women poll resolves local historical assets by ID');
  assert(women.includes("wbbr-women-mark'+(heritage?' mbb-mark--heritage'"),'Women poll adopts same badge sizing');
