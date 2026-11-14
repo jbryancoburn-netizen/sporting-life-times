@@ -144,9 +144,11 @@ const known=(outsideExact||directOutside)?null:(registry[id]||null);
 const outsideID=directOutside?id:outsideExact?outsideNameId:'';
 const outsideEntry=outsideID&&outside[outsideID]&&(outsideSchoolId(name)===outsideID||outsideAliases(outside[outsideID]).includes(norm(name)))?outside[outsideID]:null;
 const school=known,brand=known?palette[id]:outsideEntry,art=known?school.artwork_type:outsideEntry?'flat':'unverified';
-const primary=known?(school.logo_url_verified?safeURL(school.official_logo_url||school.logo_url):''):
+// User-selected historical Minnesota running gopher, kept as a self-hosted asset for both editions.
+const primary=known&&id==='135'?'assets/cbb-big-ten-1980s/minnesota-running-gopher-user.webp':
+ known?(school.logo_url_verified?safeURL(school.official_logo_url||school.logo_url):''):
  outsideEntry?safeURL(outsideEntry.logo_url):'';
-const backup=known?(school.provider_logo_candidates||[]).map(safeURL).find(x=>x&&x!==primary)||'':
+const backup=known&&id==='135'?'':known?(school.provider_logo_candidates||[]).map(safeURL).find(x=>x&&x!==primary)||'':
  outsideEntry?safeURL(outsideEntry.logo_alternate_url)||'':'';
 const initials=name.split(/\s+/).slice(0,2).map(v=>v[0]||'').join('').toUpperCase();
 const kind=/^(small|score|power|schedule|hero|featured|history)$/.test(options.size||'')?options.size:'small';
