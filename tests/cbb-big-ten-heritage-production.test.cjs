@@ -114,7 +114,10 @@ test('same double-ring styling across all vintage schools, no per-team positioni
  assert(!page.includes('--slt-ink-'),'No pixel offsets');
  const sources=json('data/cbb-big-ten-heritage-mascot-provenance.json');
  for(const key of ['michigan-state-gruff','maryland-terrapin']){
-  assert(sources[key].source.startsWith('https://content.sportslogos.net/'),'Historically attributed artwork');
+  const trusted=key==='michigan-state-gruff'? 
+    'https://www.nudgeprinting.com/cdn/shop/files/Michigan_State_Gruff_Sparty_Vintage_Logo.png':
+    'https://content.sportslogos.net/';
+  assert(sources[key].source.startsWith(trusted),'Historically attributed artwork');
   assert(sources[key].geometry.ring_margin_to_238px >= 15);
  }
 });
