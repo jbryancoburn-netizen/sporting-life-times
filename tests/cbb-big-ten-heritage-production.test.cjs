@@ -73,9 +73,9 @@ test('all 18 CURRENT Big Ten names have authentic local assets and unambiguous I
    assert.equal(logos.logoURL(row.id),url(slug),'Direct URL consumers get vintage mark');
  }
 });
-test('non-Big Ten schools retain their normal legacy data and site rings',async()=>{
+test('schools outside the vintage Big Ten and ACC retain modern logos and site rings',async()=>{
  const logos=await system();
- for(const id of ['150','2287','2466','2908','265','204','66']){
+ for(const id of ['2287','2466','2908','265','204','66']){
    assert.equal(logos.retroURLForESPN(id),'','Outside the conference '+id);
    const mark=logos.byESPN(id,'score','Non Big Ten');
    assert(!mark.includes('mbb-mark--heritage'),'Do not affect non-Big Ten badges '+id);
@@ -91,7 +91,7 @@ test('men and women team desks, ledgers, live center, ranks and conferences cach
  ];
  for(const page of pages){
   const html=read(page);
-  assert(html.includes('mbb-logo-system.js?v=gruff-complete-20261114'),'Refresh complete Gruff portrait in every publication: '+page);
+  assert(html.includes('mbb-logo-system.js?v=acc18-production-20261114a'),'Refresh complete Gruff portrait in every publication: '+page);
   assert(html.includes('mbb-logo-system.css?v=bigten18-production-20261114a'),'Bust legacy ring stylesheet cache: '+page);
  }
  const wbbRanks=read('ncaaw-rankings.html');

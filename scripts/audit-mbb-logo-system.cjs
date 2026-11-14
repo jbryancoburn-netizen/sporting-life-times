@@ -28,6 +28,37 @@ async function run(){
    '213':'penn-state','158':'nebraska','120':'maryland-terrapin',
    '164':'rutgers','26':'ucla','30':'usc','2483':'oregon','264':'washington'
  };
+
+ // Second reviewed conference; exact 18 ESPN IDs, 512px local art.
+ const vintageACC={
+  "24": "stanford",
+  "25": "california",
+  "52": "florida-state",
+  "59": "georgia-tech",
+  "87": "notre-dame",
+  "97": "louisville",
+  "103": "boston-college",
+  "150": "duke",
+  "152": "nc-state",
+  "153": "north-carolina",
+  "154": "wake-forest",
+  "183": "syracuse",
+  "221": "pittsburgh",
+  "228": "clemson",
+  "258": "virginia",
+  "259": "virginia-tech",
+  "2390": "miami",
+  "2567": "smu"
+};
+ assert.equal(Object.keys(vintageACC).length,18,'Current ACC has exactly 18 vintage crests');
+ for(const [id,slug] of Object.entries(vintageACC)){
+  const bytes=fs.readFileSync('assets/cbb-acc-1980s/'+slug+'.png');
+  assert(bytes.length>3000,'ACC art missing '+slug);
+  assert.equal(bytes.subarray(0,8).toString('hex'),'89504e470d0a1a0a','ACC PNG invalid '+slug);
+  assert.equal(bytes.readUInt32BE(16),512,'ACC width '+slug);
+  assert.equal(bytes.readUInt32BE(20),512,'ACC height '+slug);
+ }
+ const anyVintage=id=>!!(vintage[id]||vintageACC[id]);
  assert.equal(Object.keys(vintage).length,18,'Current Big Ten has exactly 18 vintage crests');
  for(const [id,slug] of Object.entries(vintage)){
    const path='assets/cbb-big-ten-1980s/centered/'+slug+'.png';
@@ -38,7 +69,8 @@ async function run(){
    assert.equal(data.readUInt32BE(20),512,'Historic PNG must be 512px high: '+slug);
  }
  const expectedLogo=(id,item)=>vintage[id]?
-   'assets/cbb-big-ten-1980s/centered/'+vintage[id]+'.png?v='+(id==='127'?'20261114-gruff-full-art1':'20261114-bigten-live1'):item.logo_url;
+   'assets/cbb-big-ten-1980s/centered/'+vintage[id]+'.png?v='+(id==='127'?'20261114-gruff-full-art1':'20261114-bigten-live1'):
+   vintageACC[id]?'assets/cbb-acc-1980s/'+vintageACC[id]+'.png?v=20261114-acc18-live1':item.logo_url;
  const seen=new Set(),kinds={embedded_roundel:0,flat:0,unverified:0};
  for(const t of cross.teams){
   const id=String(t.espn_id),item=registry.teams[id],brand=colors[id];
@@ -60,12 +92,12 @@ async function run(){
   const id=String(t.espn_id),item=registry.teams[id],brand=colors[id];
   const crest=ctx.window.MBBLogos.byNCAA(t.id,'hero',t.name);
   assert(crest.includes('data-espn-id="'+id+'"'),'Wrong MBB logo identity '+t.name);
-  assert(crest.includes('data-artwork="'+(vintage[id]?'flat':item.artwork_type)+'"'),
+  assert(crest.includes('data-artwork="'+(anyVintage(id)?'flat':item.artwork_type)+'"'),
     'Wrong source-artwork classification '+t.name);
   assert(crest.includes(expectedLogo(id,item)),'Wrong logo URL '+t.name);
-  assert.equal(crest.includes('mbb-mark--heritage'),!!vintage[id],
+  assert.equal(crest.includes('mbb-mark--heritage'),anyVintage(id),
     'Retro logo was assigned to the wrong conference identity '+t.name);
-  if(vintage[id]){
+  if(anyVintage(id)){
     assert(!crest.includes('data-logo-alternate="https://'),
       'Historical Big Ten logo must not silently fall back to modern CDN: '+t.name);
     assert(ctx.window.MBBLogos.logoURL(t.id).includes(expectedLogo(id,item)),

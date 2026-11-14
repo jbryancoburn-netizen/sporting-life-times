@@ -28,7 +28,29 @@ const BIG_TEN_HERITAGE=Object.freeze({
  '2483':'assets/cbb-big-ten-1980s/centered/oregon.png?v=20261114-bigten-live1',
  '264':'assets/cbb-big-ten-1980s/centered/washington.png?v=20261114-bigten-live1'
 });
-const retroURLForESPN=id=>BIG_TEN_HERITAGE[String(id)]||'';
+// Exact ACC school IDs, never name-matched or inferred from conference.
+// Every vintage emblem is self-hosted, source-provenanced and ring-safe.
+const ACC_HERITAGE=Object.freeze({
+ '24':'assets/cbb-acc-1980s/stanford.png?v=20261114-acc18-live1',
+ '25':'assets/cbb-acc-1980s/california.png?v=20261114-acc18-live1',
+ '52':'assets/cbb-acc-1980s/florida-state.png?v=20261114-acc18-live1',
+ '59':'assets/cbb-acc-1980s/georgia-tech.png?v=20261114-acc18-live1',
+ '87':'assets/cbb-acc-1980s/notre-dame.png?v=20261114-acc18-live1',
+ '97':'assets/cbb-acc-1980s/louisville.png?v=20261114-acc18-live1',
+ '103':'assets/cbb-acc-1980s/boston-college.png?v=20261114-acc18-live1',
+ '150':'assets/cbb-acc-1980s/duke.png?v=20261114-acc18-live1',
+ '152':'assets/cbb-acc-1980s/nc-state.png?v=20261114-acc18-live1',
+ '153':'assets/cbb-acc-1980s/north-carolina.png?v=20261114-acc18-live1',
+ '154':'assets/cbb-acc-1980s/wake-forest.png?v=20261114-acc18-live1',
+ '183':'assets/cbb-acc-1980s/syracuse.png?v=20261114-acc18-live1',
+ '221':'assets/cbb-acc-1980s/pittsburgh.png?v=20261114-acc18-live1',
+ '228':'assets/cbb-acc-1980s/clemson.png?v=20261114-acc18-live1',
+ '258':'assets/cbb-acc-1980s/virginia.png?v=20261114-acc18-live1',
+ '259':'assets/cbb-acc-1980s/virginia-tech.png?v=20261114-acc18-live1',
+ '2390':'assets/cbb-acc-1980s/miami.png?v=20261114-acc18-live1',
+ '2567':'assets/cbb-acc-1980s/smu.png?v=20261114-acc18-live1'
+});
+const retroURLForESPN=id=>BIG_TEN_HERITAGE[String(id)]||ACC_HERITAGE[String(id)]||'';
 
 const safeURL=v=>{try{let u=new URL(v);return u.protocol==='https:'?u.href:''}catch{return ''}};
 const byNcaa=new Map(),byName=new Map(),ambiguous=new Set(),outsideByName=new Map(),outsideAmbiguous=new Set();
@@ -227,7 +249,7 @@ function upgradeBareLogos(root=document){
   img.replaceWith(temp.firstElementChild);
  }
 }
-w.MBBLogos={ready,render,byNCAA:(id,size,name)=>render({ncaaId:id,name,size}),byESPN:(id,size,name)=>render({espnId:id&& (registry[String(id)]||outside[String(id)])?String(id):'',name:name||registry[String(id)]?.school||outside[String(id)]?.corrected_name||outside[String(id)]?.school,size}),byName:(name,size)=>render({name,size}),fail,stripLegacyRings,upgradeLegacyCalendar,upgradeBareLogos,logoURL:id=>retroURLForESPN(byNcaa.get(id)||id)||registry[byNcaa.get(id)]?.logo_url||'',retroURLForESPN,heritageTeamIds:()=>Object.keys(BIG_TEN_HERITAGE),colorForESPN:id=>palette[String(id)]?{...palette[String(id)]}:outside[String(id)]?{primary:outside[String(id)].primary,secondary:outside[String(id)].secondary}:null,schoolNameForESPN:id=>String(registry[String(id)]?.school||outside[String(id)]?.corrected_name||outside[String(id)]?.school||'').replace(/\bSt\.$/,'State')};
+w.MBBLogos={ready,render,byNCAA:(id,size,name)=>render({ncaaId:id,name,size}),byESPN:(id,size,name)=>render({espnId:id&& (registry[String(id)]||outside[String(id)])?String(id):'',name:name||registry[String(id)]?.school||outside[String(id)]?.corrected_name||outside[String(id)]?.school,size}),byName:(name,size)=>render({name,size}),fail,stripLegacyRings,upgradeLegacyCalendar,upgradeBareLogos,logoURL:id=>retroURLForESPN(byNcaa.get(id)||id)||registry[byNcaa.get(id)]?.logo_url||'',retroURLForESPN,heritageTeamIds:()=>Object.keys(BIG_TEN_HERITAGE),heritageACCTeamIds:()=>Object.keys(ACC_HERITAGE),colorForESPN:id=>palette[String(id)]?{...palette[String(id)]}:outside[String(id)]?{primary:outside[String(id)].primary,secondary:outside[String(id)].secondary}:null,schoolNameForESPN:id=>String(registry[String(id)]?.school||outside[String(id)]?.corrected_name||outside[String(id)]?.school||'').replace(/\bSt\.$/,'State')};
 ready.then(ok=>{
  if(!ok)return;
  const run=()=>{stripLegacyRings(document);upgradeLegacyCalendar();upgradeBareLogos(document)};
