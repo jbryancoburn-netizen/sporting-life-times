@@ -40,8 +40,10 @@ test('eleven exact university IDs have their own historical local 1980s source a
 test('marquee historical brand ambiguities explicitly disclosed in review gallery',()=>{
  const bySlug=Object.fromEntries(manifest.schools.map(s=>[s.slug,s]));
  assert.match(bySlug.marquette.context_note,/retired/);
- assert.match(bySlug.providence.context_note,/hockey-specific/);
- assert.match(gallery,/hockey-specific/);
+ assert.match(bySlug.providence.context_note,/NON-HOCKEY/);
+ assert.equal(bySlug.providence.era,'1996–2002');
+ assert.match(gallery,/NOT the 1980s/);
+ assert(!gallery.includes('skating Friar'));
  assert.match(gallery,/Warriors-era/);
  assert.equal(bySlug['st-johns'].era,'1980–1991');
  assert.equal(bySlug.xavier.era,'1983–1996');
