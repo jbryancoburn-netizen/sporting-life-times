@@ -199,7 +199,7 @@
    }
    const keys=[...roster.entries()].filter(([,school])=>school).map(([player])=>player)
      .sort((a,b)=>b.length-a.length);
-   const quote=s=>s.replace(/[\^$.*+?()[\]{}|]/g,'\\ function playLog(raw,g){');
+   const quote=s=>s.replace(/[\^$.*+?()[\]{}|]/g,'\\$&');
    const regex=keys.length?new RegExp('(^|[^\\p{L}\\p{N}])('+keys.map(quote).join('|')+')(?=$|[^\\p{L}\\p{N}])','giu'):null;
    return p=>{
      const original=String(p.text||'');
@@ -223,7 +223,7 @@
    const plays=global.SLTCourt?.parsePlays?.(raw)||[];
    if(!plays.length)return missing('No source-reported play-by-play is available for this game.');
    const attribute=playAttributor(raw,g);
-   return '<p class="slt-gf-source">'+plays.length+' source-reported events · newest first · live play log</p'+
+   return '<p class="slt-gf-source">'+plays.length+' source-reported events · newest first · live play log</p>'+
      '<ol class="slt-gf-plays">'+plays.slice().reverse().map(p=>'<li><span class="slt-gf-play-clock">'+
        esc(p.period?'P'+p.period:'—')+' · '+esc(p.clock||'—')+'</span><span>'+
        esc(attribute(p))+'</span><b>'+esc(p.awayScore===null?'':p.awayScore)+
