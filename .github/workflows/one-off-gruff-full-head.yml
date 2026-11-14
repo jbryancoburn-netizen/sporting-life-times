@@ -1,0 +1,62 @@
+name: Verify complete Gruff Sparty source artwork (one-off)
+on:
+  push:
+    branches:
+      - fix/gruff-sparty-complete-portrait-20261114
+    paths:
+      - scripts/restore_gruff_sparty_full_head.py
+      - .github/workflows/one-off-gruff-full-head.yml
+permissions:
+  contents: write
+jobs:
+  restore-gruff:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Pillow
+        run: python -m pip install 'pillow>=10,<12'
+      - name: Restore entire vintage mascot portrait using licensed-source artwork
+        run: |
+          python -m py_compile scripts/restore_gruff_sparty_full_head.py
+          python scripts/restore_gruff_sparty_full_head.py
+      - name: Validate complete mascot, circular rings, logo mapping and historic image provenance
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          import json
+          data=json.loads(Path('data/cbb-big-ten-heritage-mascot-provenance.json').read_text())
+          g=data['michigan-state-gruff']
+          assert g['source_crop_top_ratio'] is None
+          assert 'Nudge_Printing' not in g['label']
+          assert g['source'].startswith('https://www.nudgeprinting.com/cdn/shop/files/Michigan_State_Gruff_Sparty_Vintage_Logo.png')
+          assert g['geometry']['lower_outline_intact']
+          assert g['geometry']['ring_margin_to_238px']>=20
+          assert g['geometry']['bbox'][3]>=365
+          path=Path('assets/cbb-big-ten-1980s/centered/michigan-state-gruff.png')
+          with Image.open(path) as im:
+            assert im.size==(512,512) and im.format=='PNG'
+          page=Path('cbb-big-ten-1980s-preview.html').read_text()
+          script=Path('mbb-logo-system.js').read_text()
+          assert page.count('michigan-state-gruff.png?v=20261114-gruff-full-art1')==2
+          assert script.count('michigan-state-gruff.png?v=20261114-gruff-full-art1')==1
+          assert page.count('<article class="school">')==18
+          assert script.count('assets/cbb-big-ten-1980s/centered/')==18
+          assert '--slt-ink-' not in page
+          print('PASS: entire Gruff Sparty mascot preserved, no fixed-ratio cropping or CSS patches')
+          PY
+      - name: Commit complete archival PNG and browser version change to this branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/cbb-big-ten-1980s/centered/michigan-state-gruff.png mbb-logo-system.js cbb-big-ten-1980s-preview.html data/cbb-big-ten-heritage-mascot-provenance.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Show complete Gruff Sparty portrait and keep all its lower outline'
+            git push origin "HEAD:$GITHUB_REF_NAME"
+          fi
