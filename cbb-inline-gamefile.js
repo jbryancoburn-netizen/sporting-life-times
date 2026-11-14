@@ -210,7 +210,7 @@
      // for a timeout, an unnamed event, or an opponent's secondary player.
      const school=teams.get(String(p.teamId));
      if(!school)return labeled;
-     const leading=original.match(/^Foul on ([\p{L}\p{M}.'’-]+(?:\s+[\p{L}\p{M}.'’-]+){1,4})(?=\.|$)/u)||
+     const leading=original.match(/^Foul on ([\p{L}\p{M}'’-]+(?:\s+[\p{L}\p{M}'’-]+){1,4})(?=\.|$)/u)||
        original.match(/^([\p{L}\p{M}.'’-]+(?:\s+[\p{L}\p{M}.'’-]+){1,4}?)(?=\s+(?:Steal|bad pass turnover|lost ball turnover|makes|misses|subbing in|subbing out|Offensive Rebound|Defensive Rebound|Turnover)\b)/iu);
      if(leading&&labeled.includes(leading[1])&&!labeled.includes(leading[1]+' ('))
        labeled=labeled.replace(leading[1],leading[1]+' ('+school+')');
