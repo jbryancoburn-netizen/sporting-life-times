@@ -94,6 +94,7 @@ for(const nav of navs){
  // Give each edition its own section destinations. Never silently revert to men.
  const sections=women?{
   'The Hardwood Chronicle':'ncaam.html?gender=women',
+  'Chronicle':'ncaam.html?gender=women',
   'Daily Ledger':'ncaam-slate.html?gender=women',
   'Conferences':'ncaaw-conference.html',
   'Bracket Watch':'ncaam.html?gender=women#wbb-rankings',
@@ -141,11 +142,11 @@ for(const nav of navs){
   },true);
  }
  const links=[...nav.querySelectorAll('a')];
- links.filter(a=>/Live Game Center/i.test(a.textContent)).forEach(a=>a.remove());
+ if(document.body.dataset.sltFront!=='cbb')links.filter(a=>/Live Game Center/i.test(a.textContent)).forEach(a=>a.remove());
  const rating=links.find(a=>/RETRO Rankings|USRS Rankings|Power Index|^Rankings$/i.test(a.textContent.trim()));
  if(rating){
    const d=document.createElement('div');d.className='cbb-rank-menu';
-   const sum=document.createElement('button');sum.type='button';sum.className='cbb-rank-trigger';sum.textContent='Rankings';sum.setAttribute('aria-label',women?'Women’s rankings: RETRO, AP, Coaches, NET, Massey, Wins Above Bubble, Her Hoop Stats':'Men’s rankings: RETRO, NET, AP, Coaches, Pomeroy');sum.setAttribute('aria-expanded','false');sum.setAttribute('aria-haspopup','true');
+   const sum=document.createElement('button');sum.type='button';sum.className='cbb-rank-trigger';sum.textContent=document.body.dataset.sltFront==='cbb'?'RETRO':'Rankings';sum.setAttribute('aria-label',women?'Women’s rankings: RETRO, AP, Coaches, NET, Massey, Wins Above Bubble, Her Hoop Stats':'Men’s rankings: RETRO, NET, AP, Coaches, Pomeroy');sum.setAttribute('aria-expanded','false');sum.setAttribute('aria-haspopup','true');
    const list=document.createElement('div');list.className='cbb-rank-links';list.id='cbb-rank-dropdown-'+Math.random().toString(36).slice(2);list.hidden=true;sum.setAttribute('aria-controls',list.id);
    for(const [label,key] of ranks){
     const a=document.createElement('a');
@@ -165,6 +166,8 @@ for(const nav of navs){
  }
  const finder=[...nav.querySelectorAll('a')].find(a=>/Find Your Team|Team Directory/i.test(a.textContent));
  if(finder){const btn=document.createElement('button');btn.type='button';btn.className='cbb-find-btn';btn.textContent='Find Your Team';finder.replaceWith(btn);btn.addEventListener('click',openFinder);}
+ // The Chronicle has its own five-item mobile index and keeps the edition switch in its navigation.
+ if(document.body.dataset.sltFront==='cbb')continue;
  // A compact, accessible mobile navigation replaces the multi-row link wall.
  // Keep the full desktop navigation and original links as the single source of truth.
  if(!nav.id)nav.id='cbb-navigation';
