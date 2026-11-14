@@ -37,6 +37,7 @@ function identityMatches(row,home,away){
 function receipt(gender,id,day,phase,actual,homeId='',awayId='',homeName='Home',awayName='Away'){
  if(!['upcoming','live','final'].includes(phase))return '';
  const k=key(day,id),p=archives[gender].get(k);
+ if((!p||!identityMatches(p,homeId,awayId))&&phase==='upcoming')return ''; // The live pregame model remains in the existing scorebug.
  if(!p||!identityMatches(p,homeId,awayId))
   return '<div class="cbb-forecast-receipt cbb-forecast-receipt--missing"><span class="cbb-forecast-kicker">RETRO BEFORE TIP</span><span>No archived pregame forecast</span></div>';
  const predicted=p.projected_home_margin,probability=p.home_win_probability;
