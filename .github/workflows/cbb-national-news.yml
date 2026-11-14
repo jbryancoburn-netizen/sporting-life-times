@@ -1,5 +1,22 @@
 name: College basketball national news refresh
 on:
+  pull_request:
+    paths:
+      - 'scripts/refresh_cbb_national_news.py'
+      - 'scripts/verify_cbb_news.py'
+      - 'scripts/test_cbb_news_quality.py'
+      - 'cbb-front-news.js'
+      - 'ncaam.html'
+      - '.github/workflows/cbb-national-news.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/refresh_cbb_national_news.py'
+      - 'scripts/verify_cbb_news.py'
+      - 'scripts/test_cbb_news_quality.py'
+      - 'cbb-front-news.js'
+      - 'ncaam.html'
+      - '.github/workflows/cbb-national-news.yml'
   workflow_dispatch:
   schedule:
     - cron: '11,41 * * * *'
@@ -9,7 +26,23 @@ concurrency:
   group: cbb-national-news-refresh
   cancel-in-progress: false
 jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify news collector, checker, and renderer syntax
+        run: |
+          python -m py_compile scripts/refresh_cbb_national_news.py scripts/verify_cbb_news.py scripts/test_cbb_news_quality.py
+          node --check cbb-front-news.js
+      - name: Test newsroom classification and editorial selection
+        run: python -m unittest discover -s scripts -p 'test_cbb_news_quality.py' -v
   refresh:
+    if: github.event_name != 'pull_request'
+    needs: quality
     runs-on: ubuntu-latest
     timeout-minutes: 8
     steps:
@@ -19,7 +52,7 @@ jobs:
           python-version: '3.12'
       - name: Fetch national men's and women's basketball news
         run: python scripts/refresh_cbb_national_news.py
-      - name: Verify both national editions are fresh
+      - name: Verify both editions, relevance, provenance, diversity, and freshness
         run: python scripts/verify_cbb_news.py
       - name: Publish updated basketball news
         run: |
@@ -27,7 +60,7 @@ jobs:
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git add data/cbb-national-news.json
           if ! git diff --cached --quiet; then
-            git commit -m "Refresh college basketball national news"
+            git commit -m "Refresh verified college basketball news"
             for attempt in 1 2 3 4; do
               if git push origin HEAD:main; then exit 0; fi
               git fetch origin main
