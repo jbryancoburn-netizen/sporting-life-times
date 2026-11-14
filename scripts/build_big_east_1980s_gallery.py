@@ -113,7 +113,7 @@ def main():
       '<section><h2>1980s Big East schools · six current members</h2><div class="gallery">'+member+'</div></section>'
       '<section><h2>Later conference arrivals · five schools</h2><div class="gallery">'+newcomers+'</div></section>'
       '<section class="notes"><strong>Archival review notes.</strong> Providence shows a period-correct, hockey-specific mascot mark, not an alleged 1980s basketball crest; Marquette represents a since-retired Warriors-era design. '
-      'These are preserved as attributed historical records for evaluation. No men's or women's production logo will change before your review.</section>'
+      'These are preserved as attributed historical records for evaluation. No men’s or women’s production logo will change before your review.</section>'
       '</main><script>document.querySelectorAll(".crest img").forEach(img=>img.addEventListener("error",()=>img.closest(".crest")?.classList.add("missing"),{once:true}));</script></body></html>')
     assert html.count('<article class="school">')==11
     assert html.count('assets/cbb-big-east-1980s/')==11
