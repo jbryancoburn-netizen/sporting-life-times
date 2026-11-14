@@ -1,0 +1,49 @@
+name: Verify uncropped Gruff Sparty publication (one-off)
+on:
+  push:
+    branches:
+      - fix/gruff-sparty-complete-portrait-20261114
+    paths:
+      - .github/workflows/one-off-gruff-publication-check.yml
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify complete source and all 18 vintage crest identities
+        run: |
+          node --check mbb-logo-system.js
+          node --check scripts/audit-mbb-logo-system.cjs
+          node --test tests/cbb-big-ten-heritage-production.test.cjs
+          node scripts/audit-mbb-logo-system.cjs
+          python -m py_compile scripts/build_big_ten_heritage_mascots.py scripts/restore_gruff_sparty_full_head.py
+      - name: Ensure all 14 newspaper pages and both preview references display complete Sparty
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          base=Path('.')
+          logos=json.loads((base/'data/cbb-big-ten-heritage-mascot-provenance.json').read_text())
+          gruff=logos['michigan-state-gruff']
+          assert gruff['source_crop_top_ratio'] is None
+          assert gruff['geometry']['bbox'][3]>=460
+          assert gruff['geometry']['ring_margin_to_238px']>=20
+          assert (base/'assets/cbb-big-ten-1980s/centered/michigan-state-gruff.png').stat().st_size>25000
+          pages='college-basketball ncaam ncaam-slate ncaam-team ncaaw-team ncaam-rankings ncaaw-rankings ncaam-conference ncaaw-conference ncaam-elo ncaam-tournament live-game cbb-gamefile cbb-game-center'.split()
+          for page in pages:
+            text=(base/(page+'.html')).read_text()
+            assert 'mbb-logo-system.js?v=gruff-complete-20261114' in text,page
+          assert (base/'mbb-logo-system.js').read_text().count('michigan-state-gruff.png?v=20261114-gruff-full-art1')==1
+          assert (base/'cbb-big-ten-1980s-preview.html').read_text().count('michigan-state-gruff.png?v=20261114-gruff-full-art1')==2
+          assert 'crop_top_ratio' not in (base/'scripts/build_big_ten_heritage_mascots.py').read_text()
+          print('PASS: restored uncropped Gruff Sparty PNG, no CSS patches, both gender editions cache-updated')
+          PY
