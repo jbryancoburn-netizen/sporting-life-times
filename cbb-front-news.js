@@ -34,7 +34,7 @@ function validWire(data){
 async function nationalWire(){
   const pages=await get(wirePath);
   if(validWire(pages)&&updatedAt(pages)>updatedAt(latestWire))latestWire=pages;
-  if((!validWire(latestWire)||Date.now()-updatedAt(latestWire)>35*60000)&&Date.now()-lastRepositoryCheck>=5*60000){
+  if((!validWire(pages)||Date.now()-updatedAt(pages)>35*60000)&&Date.now()-lastRepositoryCheck>=5*60000){
     lastRepositoryCheck=Date.now();
     const repository=await get(repositoryWire);
     if(validWire(repository)&&updatedAt(repository)>updatedAt(latestWire))latestWire=repository;
