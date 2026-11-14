@@ -1,0 +1,132 @@
+{
+  "intent": "Static source-asset alignment and size, no CSS or JS offsets",
+  "teams": {
+    "northwestern": {
+      "before": {
+        "bounds": [
+          91,
+          48,
+          429,
+          464
+        ],
+        "bbox_center": [
+          260.0,
+          256.0
+        ],
+        "mass_center": [
+          234.3,
+          250.0
+        ],
+        "ink_pixels": 77599,
+        "outside_ring_fraction": 0.01735
+      },
+      "after": {
+        "bounds": [
+          106,
+          52,
+          444,
+          468
+        ],
+        "bbox_center": [
+          275.0,
+          260.0
+        ],
+        "mass_center": [
+          249.3,
+          254.1
+        ],
+        "ink_pixels": 77990,
+        "outside_ring_fraction": 0.00948
+      },
+      "shift_pixels": [
+        15,
+        4
+      ],
+      "scale": 1.0
+    },
+    "minnesota": {
+      "before": {
+        "bounds": [
+          40,
+          105,
+          466,
+          404
+        ],
+        "bbox_center": [
+          253.0,
+          254.5
+        ],
+        "mass_center": [
+          262.7,
+          237.2
+        ],
+        "ink_pixels": 59507,
+        "outside_ring_fraction": 0.00044
+      },
+      "after": {
+        "bounds": [
+          25,
+          95,
+          487,
+          418
+        ],
+        "bbox_center": [
+          256.0,
+          256.5
+        ],
+        "mass_center": [
+          266.6,
+          237.3
+        ],
+        "ink_pixels": 69893,
+        "outside_ring_fraction": 0.0179
+      },
+      "old_long": 426,
+      "new_long": 462,
+      "requested_long": 468,
+      "scale": 1.083
+    },
+    "purdue": {
+      "before": {
+        "bounds": [
+          52,
+          45,
+          458,
+          467
+        ],
+        "bbox_center": [
+          255.0,
+          256.0
+        ],
+        "mass_center": [
+          251.1,
+          252.4
+        ],
+        "ink_pixels": 56116,
+        "outside_ring_fraction": 0.0237
+      },
+      "after": {
+        "bounds": [
+          34,
+          26,
+          477,
+          486
+        ],
+        "bbox_center": [
+          255.5,
+          256.0
+        ],
+        "mass_center": [
+          251.3,
+          252.0
+        ],
+        "ink_pixels": 68034,
+        "outside_ring_fraction": 0.03636
+      },
+      "old_long": 422,
+      "new_long": 460,
+      "requested_long": 466,
+      "scale": 1.089
+    }
+  }
+}
