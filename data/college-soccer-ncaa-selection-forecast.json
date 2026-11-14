@@ -14,7 +14,7 @@
     "source_certified": false,
     "excluded_finals": 30,
     "quarantined_source_rows": 0,
-    "source_checked_through": "2026-11-13",
+    "source_checked_through": "2026-11-14",
     "warning": "Selection forecast is provisional until source quarantines and excluded games have been reconciled"
   },
   "selection_policy": {
@@ -200,13 +200,20 @@
     {
       "conference": "men-d1:big-west",
       "conference_name": "Big West",
-      "team_id": "uc-santa-barbara",
-      "team": "UC Santa Barbara",
-      "elo": 1550.09,
-      "method": "retro_highest_rated_conference_member_projection",
-      "official_aq": false,
-      "source_url": null,
-      "championship_result": null
+      "team_id": "bakersfield",
+      "team": "CSU Bakersfield",
+      "elo": 1534.959,
+      "method": "verified_championship_result",
+      "official_aq": true,
+      "source_url": "https://www.ncaa.com/game/6666502",
+      "championship_result": {
+        "opponent_id": "uc-santa-barbara",
+        "home_score": 1,
+        "away_score": 5,
+        "decision": "regulation",
+        "home_penalties": null,
+        "away_penalties": null
+      }
     },
     {
       "conference": "men-d1:asun",
@@ -1090,23 +1097,12 @@
       "seeded_24_candidate": false
     },
     {
-      "team_id": "uc-santa-barbara",
-      "team": "UC Santa Barbara",
-      "conference": "men-d1:big-west",
-      "elo": 1550.09,
-      "bid_type": "projected_aq",
-      "experimental_strength_order": 44,
-      "ncaa_seed": null,
-      "first_round_bye_candidate": false,
-      "seeded_24_candidate": false
-    },
-    {
       "team_id": "bowling-green",
       "team": "Bowling Green",
       "conference": "men-d1:mvc",
       "elo": 1549.533,
       "bid_type": "projected_aq",
-      "experimental_strength_order": 45,
+      "experimental_strength_order": 44,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
       "seeded_24_candidate": false
@@ -1117,6 +1113,17 @@
       "conference": "men-d1:summit",
       "elo": 1545.091,
       "bid_type": "projected_aq",
+      "experimental_strength_order": 45,
+      "ncaa_seed": null,
+      "first_round_bye_candidate": false,
+      "seeded_24_candidate": false
+    },
+    {
+      "team_id": "bakersfield",
+      "team": "CSU Bakersfield",
+      "conference": "men-d1:big-west",
+      "elo": 1534.959,
+      "bid_type": "official_aq",
       "experimental_strength_order": 46,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
@@ -1147,9 +1154,9 @@
   ],
   "daily_rebuild": {
     "rating_cutoff": "2026-11-13",
-    "official_automatic_bids": 0,
-    "projected_automatic_bids": 23,
-    "source_checked_through": "2026-11-13",
+    "official_automatic_bids": 1,
+    "projected_automatic_bids": 22,
+    "source_checked_through": "2026-11-14",
     "selection_inputs_verified": false
   }
 }
