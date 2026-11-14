@@ -1,0 +1,23 @@
+/* One shared print treatment for archived pregame accuracy on both CBB editions. */
+.cbb-forecast-receipt{
+ box-sizing:border-box;display:flex;align-items:center;flex-wrap:wrap;gap:3px 7px;
+ margin:5px 0 1px;padding:7px 9px;border-top:1px solid #b9a78d;
+ background:#eee5d5;color:#423324;font:11px/1.4 Georgia,'Times New Roman',serif;
+ letter-spacing:0;font-variant-numeric:tabular-nums;
+}
+.cbb-forecast-receipt strong{font-weight:700;color:#2f291f;white-space:nowrap}
+.cbb-forecast-kicker{font:700 9px/1.35 Georgia,'Times New Roman',serif;letter-spacing:.09em}
+.cbb-forecast-divider{color:#967e5e}
+.cbb-forecast-verdict{font-weight:700}
+.cbb-forecast-receipt--missing{color:#776650;background:#f1eadf}
+.sched-result-cell .cbb-forecast-receipt{
+ font-size:10px;line-height:1.3;padding:5px 0 2px;margin-top:7px;background:transparent;
+ gap:3px 5px;border-top:1px dotted #aa9b85;
+}
+.wbb-scorebug-card .cbb-forecast-receipt{margin:3px 0 0}
+@media(max-width:640px){
+ .cbb-forecast-receipt{padding:6px 7px;font-size:10px;gap:3px 5px}
+ .cbb-forecast-kicker{font-size:9px}
+ .cbb-forecast-divider{display:none}
+ .sched-result-cell .cbb-forecast-receipt{min-width:110px;white-space:normal}
+}
