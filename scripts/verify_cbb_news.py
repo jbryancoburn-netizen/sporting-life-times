@@ -8,8 +8,9 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from urllib.error import URLError
 from urllib.request import Request, urlopen
+from urllib.parse import urlsplit
 
-from refresh_cbb_national_news import classify, duplicate, link_type, valid_url, MAX_AGE_HOURS, FRESH_HOURS
+from refresh_cbb_national_news import classify, duplicate, link_type, valid_url, BASKET, SPORT_URL, MAX_AGE_HOURS, FRESH_HOURS
 
 ROOT = Path(__file__).resolve().parents[1]
 FEED = "data/cbb-national-news.json"
@@ -35,6 +36,7 @@ def verify(data, max_age):
             title = article.get("title", "")
             trusted = gender if article.get("gender_evidence") == "verified_basketball_feed" else None
             if (not article.get("source") or not valid_url(article.get("url", "")) or
+                    not (BASKET.search(title) or SPORT_URL.search(urlsplit(article['url']).path)) or
                     classify(title, trusted_feed_gender=trusted) != gender):
                 raise ValueError(f"Misclassified, off-topic or unattributed {gender}'s story: {title}")
             if article.get("gender_evidence") == "verified_basketball_feed" and article.get("origin") not in ("publisher RSS", "school"):
