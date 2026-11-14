@@ -85,11 +85,14 @@ async function ratingEdition(gender){
   }));
   const data={gender,model:'retro-clean-slate',as_of:'2026-11-13',rankings};
   let output='',target='';
+  const logoCalls=[];
+  const logoSystem={ready:Promise.resolve(true),byESPN:(id,size,name)=>{logoCalls.push({edition:'women',id,size,name});return '<span class="mbb-mark" data-test-logo="'+id+'"></span>';},byNCAA:(id,size,name)=>{logoCalls.push({edition:'men',id,size,name});return '<span class="mbb-mark" data-test-logo="'+id+'"></span>';}};
   const node={get innerHTML(){return output},set innerHTML(s){output=s},querySelector(){return null}};
   const link={set href(v){target=v}};
   class Clock extends Date{static now(){return now}}
   vm.runInNewContext(retro,{
     Date:Clock,URLSearchParams,AbortSignal,
+    window:{MBBLogos:logoSystem},
     location:{search:'?gender='+gender},
     document:{body:{dataset:{gender}},getElementById:id=>id==='chronicle-retro-panel'?node:link,
       querySelector:()=>null,addEventListener(){},hidden:false},
@@ -98,6 +101,9 @@ async function ratingEdition(gender){
   await new Promise(setImmediate);
   assert.match(output,new RegExp((women?'Women':'Men')+' Team 1'),'Edition-correct RETRO leader');
   assert.match(output,/Rating Movement/);
+  assert.equal(logoCalls.length,8,'All national table and daily mover rows must display real team crests');
+  assert(logoCalls.every(c=>c.edition===gender&&c.size==='small'),'Use verified shared badge renderer for selected gender');
+  assert.equal((output.match(/class="chronicle-retro-crest"/g)||[]).length,8,'Each RETRO row needs a logo slot');
   assert.match(output,/2026-11-13/,'Source date is visible');
   assert.equal(target,women?'ncaaw-rankings.html?poll=retro':'ncaam-elo.html');
 }
@@ -106,5 +112,5 @@ async function ratingEdition(gender){
  await newsEdition('women');
  await ratingEdition('men');
  await ratingEdition('women');
- console.log('PASS Hardwood Chronicle: news hierarchy, three departments, source-backed RETRO, local archive crests, five-link navigation, and separate women/men editions');
+ console.log('PASS Hardwood Chronicle: news hierarchy, three departments, source-backed RETRO with team crests, local archive crests, five-link navigation, and separate women/men editions');
 })().catch(e=>{console.error(e);process.exitCode=1});
