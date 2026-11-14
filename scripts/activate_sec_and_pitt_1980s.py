@@ -65,8 +65,8 @@ def main():
      '<div class="era"><a href="'+PITT_ARCHIVE+'" target="_blank" rel="noopener noreferrer">Historical source</a></div>'
      '<div class="era">Reader selected: Option 1</div></article>')
     html=replace_once(html,old,new,"Pitt ACC gallery")
-    html=replace_once(html,"not yet the production logo set","the current shared men's and women's production logo set","ACC review banner")
-    html=replace_once(html,"This page remains a review gallery; men's and women's production logos will not change until the collection is approved.","These artworks are used in the shared men's and women's production logo renderer; visual feedback remains welcome.","ACC notes")
+    assert 'published historical ACC logo designs' in html,'ACC production banner was not previously released'
+    assert 'now used across men’s and women’s college basketball' in html,'ACC page production note is missing'
     assert html.count('<article class="school">')==18
     write(page,html)
 
@@ -120,7 +120,8 @@ def main():
     for f,conference in [("tests/cbb-sec-heritage-gallery.test.cjs","SEC"),("tests/cbb-acc-heritage-gallery.test.cjs","ACC")]:
         test=read(f)
         test=replace_once(test,"assert.equal(manifest.production_deployment,false);","assert.equal(manifest.production_deployment,true);",conference+" state")
-        test=replace_once(test,"not yet the production logo set","the current shared men's and women's production logo set",conference+" gallery")
+        if conference=='SEC': test=replace_once(test,"not yet the production logo set","the current shared men's and women's production logo set","SEC gallery")
+        else: test=replace_once(test,"not yet the production logo set","published historical ACC logo designs","ACC gallery")
         if conference=="SEC":test=test.replace("does not change production renderer","publishes selected production crests")
         write(f,test)
     t="tests/cbb-acc-heritage-production.test.cjs"
