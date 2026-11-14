@@ -8,6 +8,7 @@ const types={retro:'Women’s RETRO Rankings',net:'Women’s NCAA NET Rankings',
 const kind=types[poll]?poll:'retro';
 $('#wbbr-title').textContent=types[kind];document.title=types[kind]+' | Sporting Life & Times';
 for(const a of document.querySelectorAll('.wbbr-tabs a'))if(new URL(a.href).searchParams.get('poll')===kind)a.setAttribute('aria-current','page');
+let ringColors={}; // Published two-color palette covers all 363 women's Division I schools.
   function womenLogo(school,label){
    const name=school?.team||label,id=String(school?.team_id||'');
    // Keep the women's 363-school data independent. Choose vintage artwork
@@ -15,11 +16,11 @@ for(const a of document.querySelectorAll('.wbbr-tabs a'))if(new URL(a.href).sear
    const heritage=window.MBBLogos?.retroURLForESPN?.(id)||'';
    const src=heritage||String(school?.logo||'');
    const safe=!!heritage||(src.startsWith('https://a.espncdn.com/i/teamlogos/ncaa/500/')&&src.endsWith('.png')&&/^\d+$/.test(src.split('/').pop().replace('.png')));
-   const shared=heritage?window.MBBLogos?.colorForESPN?.(id):null;
+   const shared=ringColors[id]||window.MBBLogos?.colorForESPN?.(id)||null;
    const primary=shared?.primary||(/^[0-9a-f]{6}$/i.test(String(school?.color||''))?'#'+school.color:'#385866');
-   const secondary=shared?.secondary||(primary.toLowerCase()==='#f1e7d5'?'#463322':'#f1e7d5');
+   const secondary=shared?.secondary&&shared.secondary.toLowerCase()!==primary.toLowerCase()?shared.secondary:'#655239';
    const initials=name.split(/\s+/).slice(0,2).map(x=>x[0]||'').join('').toUpperCase();
-   return '<span class="mbb-mark mbb-mark--score mbb-mark--art-flat wbbr-women-mark'+(heritage?' mbb-mark--heritage':'')+(safe?'':' mbb-mark--missing')+'" style="--mbb-primary:'+primary+';--mbb-secondary:'+secondary+'" data-espn-id="'+esc(id)+'" data-ring-count="2" role="img" aria-label="'+esc(name)+' logo"><span class="mbb-mark__initials" aria-hidden="true">'+esc(initials)+'</span>'+(safe?'<img class="mbb-mark__img" src="'+esc(src)+'" loading="lazy" decoding="async" alt="" onerror="this.parentElement.classList.add(\'mbb-mark--missing\');this.remove()">':'')+'</span>';
+   return '<span class="mbb-mark mbb-mark--power mbb-mark--art-flat wbbr-women-mark'+(heritage?' mbb-mark--heritage':'')+(safe?'':' mbb-mark--missing')+'" style="--mbb-primary:'+primary+';--mbb-secondary:'+secondary+'" data-espn-id="'+esc(id)+'" data-ring-count="2" role="img" aria-label="'+esc(name)+' logo"><span class="mbb-mark__initials" aria-hidden="true">'+esc(initials)+'</span>'+(safe?'<img class="mbb-mark__img" src="'+esc(src)+'" loading="lazy" decoding="async" alt="" onerror="this.parentElement.classList.add(\'mbb-mark--missing\');this.remove()">':'')+'</span>';
   }
 
 if(kind==='ap'||kind==='coaches'){
@@ -27,7 +28,8 @@ if(kind==='ap'||kind==='coaches'){
  try{
   // Women’s rankings must not depend on the men’s logo registry loading.
   const req=async p=>{const r=await fetch(p,{cache:'no-store'});if(!r.ok)throw Error('Source unavailable');return r.json()};
-  const [published,directory,ratings]=await Promise.all([req('data/ncaaw-2026-27-national-polls.json?pollRefresh='+Date.now()),req('data/ncaaw-2026-27-teams.json').catch(()=>({teams:[]})),req('data/ncaaw-2026-27-retro-primary.json').catch(()=>null)]);
+  const [published,directory,ratings,palette]=await Promise.all([req('data/ncaaw-2026-27-national-polls.json?pollRefresh='+Date.now()),req('data/ncaaw-2026-27-teams.json').catch(()=>({teams:[]})),req('data/ncaaw-2026-27-retro-primary.json').catch(()=>null),req('data/dual-ring-team-palette.json').catch(()=>null)]);
+  ringColors=palette?.mbb||{};
   if(published.gender!=='women'||published.season!=='2026-27'||!(published.polls?.[kind]?.rankings?.length>=25&&published.polls?.[kind]?.rankings?.length<=26))throw Error('Verified poll unavailable');
   const pollData=published.polls[kind],teams=directory?.teams||[];
   const byRecord=new Map((ratings?.rankings||[]).map(t=>[String(t.team_id),t]));
@@ -80,7 +82,8 @@ if(kind!=='retro'){
 try{
  // Women’s rankings must not depend on the men’s logo registry loading.
  const req=async p=>{const r=await fetch(p,{cache:'no-store'});if(!r.ok)throw Error(p+' unavailable');return r.json()};
- const [ratings,directory]=await Promise.all([req('data/ncaaw-2026-27-retro-primary.json'),req('data/ncaaw-2026-27-teams.json')]);
+ const [ratings,directory,palette]=await Promise.all([req('data/ncaaw-2026-27-retro-primary.json'),req('data/ncaaw-2026-27-teams.json'),req('data/dual-ring-team-palette.json').catch(()=>null)]);
+ ringColors=palette?.mbb||{}; // Preserve rankings when the optional palette is temporarily unavailable.
  if(ratings.gender!=='women'||ratings.season!=='2026-27'||ratings.rankings?.length!==363||directory.teams?.length!==363)throw Error('Women’s 363-team ratings source did not validate');
  const rows=ratings.rankings,byId=new Map(directory.teams.map(t=>[String(t.team_id),t]));
  const con= $('#wbbr-conf');for(const name of [...new Set(rows.map(r=>r.conference))].filter(Boolean).sort())con.add(new Option(name,name));
