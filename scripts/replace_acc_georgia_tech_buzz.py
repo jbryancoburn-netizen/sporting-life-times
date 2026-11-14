@@ -30,7 +30,7 @@ def main():
       "image_url":SOURCE,"archive_url":ARCHIVE,"source_dimensions":list(raw_img.size),
       "original_sha256":hashlib.sha256(raw).hexdigest(),"geometry":geom})
     text=HTML.read_text()
-    text=once(text,OLD_DESC,NEW_DESC)
+    text=once(text,OLD_DESC,NEW_DESC,2)
     text=once(text,f"Archive era: {OLD_ERA}</div><div class=\"kind\">{NEW_DESC}",
                    f"Archive era: {NEW_ERA}</div><div class=\"kind\">{NEW_DESC}")
     text=once(text,'https://www.sportslogos.net/logos/view/2493/Georgia-Tech-Yellow-Jackets-Logo/1967/Primary-Logo',ARCHIVE)
