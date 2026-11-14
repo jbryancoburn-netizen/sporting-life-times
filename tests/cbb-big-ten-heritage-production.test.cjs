@@ -113,3 +113,6 @@ test('same double-ring styling across all vintage schools, no per-team positioni
   assert(sources[key].geometry.ring_margin_to_238px >= 15);
  }
 });
+
+// This acceptance suite intentionally includes previously unversioned Gamefile
+// and Game Center stylesheets, so retro ring updates cannot be hidden by caches.
