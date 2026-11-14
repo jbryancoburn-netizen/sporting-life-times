@@ -35,10 +35,10 @@ function identityMatches(row,home,away){
  return true;
 }
 function receipt(gender,id,day,phase,actual,homeId='',awayId=''){
- if(phase!=='live'&&phase!=='final')return '';
+ if(!['upcoming','live','final'].includes(phase))return '';
  const k=key(day,id),p=archives[gender].get(k);
  if(!p||!identityMatches(p,homeId,awayId))
-  return '<div class="cbb-forecast-receipt cbb-forecast-receipt--missing"><span class="cbb-forecast-kicker">RETRO BEFORE TIP</span><span>Forecast not archived</span></div>';
+  return '<div class="cbb-forecast-receipt cbb-forecast-receipt--missing"><span class="cbb-forecast-kicker">RETRO BEFORE TIP</span><span>No archived pregame forecast</span></div>';
  const predicted=p.projected_home_margin,probability=p.home_win_probability;
  const fav=predicted>0?'HOME':predicted<0?'AWAY':'EVEN';
  const half=Math.round(Math.abs(predicted)*2)/2;
