@@ -21,7 +21,7 @@ h2{font-size:26px;margin:30px 0 16px;border-bottom:2px solid #5f5447;padding:0 0
   width:var(--diameter,120px);height:var(--diameter,120px);min-width:var(--diameter,120px);
   border:var(--stroke,6px) solid var(--primary);background:#fff;box-sizing:border-box}
 .crest::before{position:absolute;inset:0;content:"";border:var(--stroke,6px) solid var(--secondary);border-radius:50%;z-index:3;pointer-events:none}
-.crest img{position:absolute;display:block;top:50%;left:50%;transform:translate(-50%,-50%);
+.crest img{position:absolute;display:block;top:50%;left:50%;transform:translate(calc(-50% + var(--slt-ink-x, 0%)),calc(-50% + var(--slt-ink-y, 0%)));
   width:calc(100% - 18px);height:calc(100% - 18px);object-fit:contain;z-index:2}
 .fallback-note{display:none;font:10px Arial,sans-serif;position:absolute;inset:35% 0 0;color:#8f2e25}
 .crest.missing img{display:none}.crest.missing .fallback-note{display:block}
@@ -50,7 +50,7 @@ a{color:#74412e}a:focus-visible{outline:3px solid #bd672f}
  .ledger-school small{font-size:9px}.ledger-kicker{font-size:10px}.ledger-kicker span{font-size:8px}
  .ledger-score{font-size:22px}}
 @media(max-width:360px){.school .crest{--diameter:91px;--stroke:4px}.ledger-crest{--diameter:52px;--stroke:4px}.ledger-row{grid-template-columns:54px minmax(0,1fr) 21px}}
-</style></head><body>
+</style><script defer src="cbb-big-ten-optical-center.js?v=20261113a"></script></head><body>
 <main class="wrap">
 <header class="masthead"><div class="eyebrow">Sporting Life &amp; Times · Collegiate Basketball</div><h1>The Big Ten in the Eighties</h1>
 <p>The genuine historical logos of the ten universities competing in the Big Ten during the 1980s—framed in larger, bold, two-color rings. The same crests will be used by the men's and women's editions.</p>
