@@ -9,11 +9,12 @@ test('both RETRO editions show first-party two-ring crest markup and larger cres
  assert.match(read('mbb-elo-primary.js'),/MBBLogos\.byNCAA\(t\.team_id,'power',t\.team\)/);
  assert.match(men,/\.cbb-elo-mobile-delta\{display:none/);
  assert.doesNotMatch(men,/\.cbb-elo-school img\{max-width:29px/);
- assert.match(css,/\.cbb-elo-school \.mbb-mark\{--mbb-size:64px/);
- assert.match(css,/\.cbb-elo-power \.mbb-mark\{--mbb-size:76px/);
- assert.match(htmlM,/mbb-logo-system\.css\?v=power-crests-20261114/);
+ assert.match(css,/\.cbb-elo-school \.mbb-mark\{--mbb-size:76px/);
+ assert.match(css,/\.cbb-elo-power \.mbb-mark\{--mbb-size:92px/);
+ assert.match(htmlM,/mbb-logo-system\.css\?v=power-art-20261114c/);
  assert.match(htmlW,/wbb-rankings\.js\?v=power-crest-20261114/);
- assert.match(htmlW,/\.wbbr-entry \.mbb-mark\{--mbb-size:68px/);
+ assert.match(htmlW,/\.wbbr-entry \.mbb-mark\{--mbb-size:82px/);
+ assert.match(css,/\.cbb-elo-school \.mbb-mark:not\(\.mbb-mark--heritage\)>img\.mbb-mark__img/);
  assert.match(htmlW,/overflow:visible!important/);
  assert.doesNotMatch(htmlW,/\.wbbr-list \.wbbr-entry \.mbb-mark\{[^}]*overflow:hidden/);
 });
