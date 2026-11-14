@@ -67,8 +67,8 @@ async function newsEdition(gender){
   assert.match(label,/National wire updated/,'Preserve visible source freshness');
   if(gender==='men'){
     assert.match(output,/The National Desk/);
-    assert.match(output,/Campus & Conference/);
-    assert.match(output,/Players & Coaches/);
+    assert.match(output,/Campus &amp; Conference/);
+    assert.match(output,/Players &amp; Coaches/);
     assert(output.indexOf('stuns Duke')<output.indexOf('conference race'),'Important lead precedes department reports');
   }else{
     assert.match(output,/UConn women/);
