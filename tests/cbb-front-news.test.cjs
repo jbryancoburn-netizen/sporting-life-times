@@ -62,7 +62,7 @@ async function checkEdition(gender) {
     url: 'https://example.test/old-' + gender,
   });
   await render();
-  const lead = news.innerHTML.match(/<article class="cbb-news-story lead">([\\s\\S]*?)<\\/article>/)?.[1] || '';
+  const lead = news.innerHTML.match(/<article class="cbb-news-story lead">([\s\S]*?)<\/article>/)?.[1] || '';
   assert.match(lead, new RegExp('Pages ' + gender + ' basketball headline'),
     'recent sourced reporting must lead ahead of stale high-score stories');
   pages.articles.pop();
