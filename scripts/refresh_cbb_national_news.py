@@ -34,6 +34,8 @@ QUERIES = [
 # First-party RSS endpoints, with a sport/gender guarantee only for specialist
 # basketball feeds. General sports feeds must have explicit basketball evidence.
 PUBLISHER_FEEDS = [
+    ("NCAA.com", "https://www.ncaa.com/news/basketball-men/d1/rss.xml", "men"),
+    ("NCAA.com", "https://www.ncaa.com/news/basketball-women/d1/rss.xml", "women"),
     ("ESPN Men's College Basketball", "https://www.espn.com/espn/rss/ncb/news", "men"),
     ("ESPN Women's College Basketball", "https://www.espn.com/espn/rss/ncw/news", "women"),
     ("Yahoo Sports", "https://sports.yahoo.com/rss/", None),
