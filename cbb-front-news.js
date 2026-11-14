@@ -83,6 +83,16 @@ function select(data,edition){
     sources.set(publisher,(sources.get(publisher)||0)+1);
     if(selected.length===15)break;
   }
+  // Every edition needs a current lead and visible new dispatches. An old
+  // high-impact story may remain in the departments, but must not monopolize
+  // the masthead while newer verified reporting is available.
+  const recentLead=selected.find(a=>now-Date.parse(a.published_at)<=24*60*60*1000);
+  if(recentLead){
+    const latest=selected.filter(a=>a!==recentLead)
+      .sort((a,b)=>Date.parse(b.published_at)-Date.parse(a.published_at)).slice(0,3);
+    const prioritized=new Set([recentLead,...latest]);
+    return [recentLead,...latest,...selected.filter(a=>!prioritized.has(a))];
+  }
   return selected;
 }
 function articleHTML(a,kind='dispatch'){

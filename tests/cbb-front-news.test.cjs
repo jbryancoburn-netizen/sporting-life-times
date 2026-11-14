@@ -52,6 +52,21 @@ async function checkEdition(gender) {
   assert.match(stamp.textContent, /National wire updated/);
   assert.equal(repositoryRequests, 0, 'fresh Pages should avoid the fallback');
 
+  // The Chronicle must not lead with a two-day-old high-score story when
+  // verified recent reporting is already available for this gender.
+  pages.articles.push({
+    gender, title: 'Old major ' + gender + ' basketball story',
+    source: 'Archive publisher',
+    published_at: new Date(now - 48 * 60 * 60_000).toISOString(),
+    editorial_score: 300,
+    url: 'https://example.test/old-' + gender,
+  });
+  await render();
+  const lead = news.innerHTML.match(/<article class="cbb-news-story lead">([\s\S]*?)<\/article>/)?.[1] || '';
+  assert.match(lead, new RegExp('Pages ' + gender + ' basketball headline'),
+    'recent sourced reporting must lead ahead of stale high-score stories');
+  pages.articles.pop();
+
   now += 36 * 60_000;
   collected = edition('Collector', now);
   await render();
