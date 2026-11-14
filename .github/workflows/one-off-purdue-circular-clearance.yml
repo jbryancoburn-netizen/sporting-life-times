@@ -1,0 +1,54 @@
+name: Verify Purdue Pete circular ink clearance (one-off)
+on:
+  push:
+    branches:
+      - fix/purdue-pete-circular-ink-clearance-20261114
+    paths:
+      - scripts/refine_purdue_circle_v4.py
+      - .github/workflows/one-off-purdue-circular-clearance.yml
+permissions:
+  contents: write
+jobs:
+  correct-purdue-artwork:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Pillow
+        run: python -m pip install 'pillow>=10,<12'
+      - name: Reframe actual archival Purdue artwork within a circular opening
+        run: python scripts/refine_purdue_circle_v4.py
+      - name: Validate ink-circle clearance and unchanged ring styles
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          import json
+          report=json.loads(Path('reports/purdue-pete-circular-clearance-v4.json').read_text())
+          assert report['after']['max_radius_from_canvas_center_px'] <= 210
+          assert report['minimum_radial_inset_from_prior_238px_check_px'] >= 28
+          assert report['after']['centroid_error_px'] <= 2.5
+          assert report['after']['pixels_outside_prior_238px_circle_fraction']==0
+          assert report['browser_position_overrides_added']==0
+          with Image.open('assets/cbb-big-ten-1980s/centered/purdue.png') as im:
+            assert im.size==(512,512)
+          page=Path('cbb-big-ten-1980s-preview.html').read_text()
+          assert page.count('purdue.png?v=20261114-pete-circle-safe-v4')==2
+          assert page.count('<img src="assets/cbb-big-ten-1980s/centered/')==14
+          assert '--slt-ink-' not in page
+          print('PASS: Purdue Pete fits with 28px minimum radial clearance on 512px canvas, no CSS patch')
+          PY
+      - name: Commit the fixed source PNG and QA report to the feature branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add cbb-big-ten-1980s-preview.html assets/cbb-big-ten-1980s/centered/purdue.png reports/purdue-pete-circular-clearance-v4.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Center Purdue Pete and leave a clear circular inset inside the rings'
+            git push origin "HEAD:$GITHUB_REF_NAME"
+          fi
