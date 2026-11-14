@@ -48,6 +48,7 @@ PUBLISHER_FEEDS = [
 ]
 WOMEN = re.compile(r"\b(?:women(?:['’]s)?|womens|ncaaw|wbb|lady\s+\w+|ladies)\b", re.I)
 MEN = re.compile(r"\b(?:men(?:['’]s)?|mens|ncaam|mbb)\b", re.I)
+SPORT_URL = re.compile(r"(?:basketball|hoops|ncaam|ncaaw|mbb|wbb)", re.I)
 BASKET = re.compile(r"\b(?:basketball|hoops|ncaa hoops|march madness|final four|ncaaw|ncaam|mbb|wbb)\b", re.I)
 OFF_TOPIC = re.compile(r"\b(?:football|CFP|NFL|NBA|WNBA|MLB|NHL|soccer|baseball|hockey|quarterback|wide receiver|bowl game)\b", re.I)
 LOW_VALUE = re.compile(r"\b(?:sportsbook|promo code|bonus bets?|parlay|wager|odds|betting|best bets?|picks|where to watch|how to watch|live stream|tv channel|highlights|top \d+ plays)\b", re.I)
@@ -109,6 +110,10 @@ def parse_feed(payload: bytes, *, source_name: str, trusted_gender: str | None =
         except (TypeError, ValueError, AttributeError):
             continue
         if not valid_url(url) or not title or published > now + timedelta(minutes=5) or now - published > timedelta(hours=MAX_AGE_HOURS):
+            continue
+        # Specialist publisher feeds may syndicate general sports headlines.
+        # Require a basketball cue in the title or the original article path.
+        if not BASKET.search(title) and not SPORT_URL.search(urlsplit(url).path):
             continue
         gender = classify(title, trusted_feed_gender=trusted_gender)
         if not gender:
@@ -187,6 +192,8 @@ def choose(articles: list[dict], *, gender: str, now: datetime, limit: int = 80)
             continue
         # Recheck all older/school-provided content instead of trusting its tag.
         trusted = gender if article.get("gender_evidence") == "verified_basketball_feed" else None
+        if not BASKET.search(article.get("title", "")) and not SPORT_URL.search(urlsplit(article["url"]).path):
+            continue
         if classify(article.get("title", ""), trusted_feed_gender=trusted) != gender:
             continue
         try:

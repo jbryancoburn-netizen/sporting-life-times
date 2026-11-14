@@ -45,6 +45,8 @@ function correctEdition(a,edition){
   if(a?.gender!==edition||!a.title||!a.source||!/^https:\/\//.test(a.url||''))return false;
   const title=String(a.title);
   if(unrelated.test(title)||low.test(title))return false;
+  // A basketball feed can syndicate general sports news; verify topic on the article.
+  if(!basketball.test(title)&&!/(?:basketball|hoops|ncaam|ncaaw|mbb|wbb)/i.test(new URL(a.url).pathname))return false;
   const isWomen=womenMark.test(title),isMen=menMark.test(title);
   if(isWomen&&isMen)return false;
   if(isWomen)return edition==='women'&&basketball.test(title);
