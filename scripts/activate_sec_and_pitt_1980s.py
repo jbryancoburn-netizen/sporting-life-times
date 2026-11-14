@@ -89,7 +89,7 @@ def main():
     write(secfile,json.dumps(sec,indent=2,ensure_ascii=False)+"\n")
     secpage="cbb-sec-1980s-preview.html"
     html=read(secpage)
-    html=replace_once(html,"not yet the production logo set","the current shared men's and women's production logo set","SEC review banner")
+    html=replace_once(html,"not yet the production logo set","the published CBB production logo set","SEC review banner")
     html=replace_once(html,"This page remains a review gallery; men's and women's production logos will not change until the collection is approved.","These 16 local crests now appear in the shared men's and women's production renderer. Historical selections can still be improved based on reader review.","SEC notes")
     write(secpage,html)
 
@@ -120,7 +120,7 @@ def main():
     for f,conference in [("tests/cbb-sec-heritage-gallery.test.cjs","SEC"),("tests/cbb-acc-heritage-gallery.test.cjs","ACC")]:
         test=read(f)
         test=replace_once(test,"assert.equal(manifest.production_deployment,false);","assert.equal(manifest.production_deployment,true);",conference+" state")
-        if conference=='SEC': test=replace_once(test,"not yet the production logo set","the current shared men's and women's production logo set","SEC gallery")
+        if conference=='SEC': test=replace_once(test,"not yet the production logo set","the published CBB production logo set","SEC gallery")
         else: test=replace_once(test,"not yet the production logo set","published historical ACC logo designs","ACC gallery")
         if conference=="SEC":test=test.replace("does not change production renderer","publishes selected production crests")
         write(f,test)
