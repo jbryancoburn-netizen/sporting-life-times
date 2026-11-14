@@ -1,0 +1,88 @@
+{
+  "policy": "Source artwork only; plain centered CSS unchanged",
+  "model": "fixed rings and two-color borders, no new CSS/JS offsets",
+  "teams": {
+    "minnesota": {
+      "before": {
+        "bounds": [
+          25,
+          95,
+          487,
+          418
+        ],
+        "long_px": 462,
+        "ink_center": [
+          266.58,
+          237.32
+        ],
+        "centroid_error": 21.47,
+        "outside_radius_238_fraction": 0.0179,
+        "outside_radius_224_fraction": 0.04089,
+        "ink_pixels": 69893
+      },
+      "after": {
+        "bounds": [
+          33,
+          112,
+          468,
+          415
+        ],
+        "long_px": 435,
+        "ink_center": [
+          260.91,
+          245.46
+        ],
+        "centroid_error": 11.63,
+        "outside_radius_238_fraction": 5e-05,
+        "outside_radius_224_fraction": 0.00769,
+        "ink_pixels": 61771
+      },
+      "target_long": 440,
+      "optical_shift": [
+        -5,
+        8
+      ]
+    },
+    "purdue": {
+      "before": {
+        "bounds": [
+          34,
+          26,
+          477,
+          486
+        ],
+        "long_px": 460,
+        "ink_center": [
+          251.27,
+          251.96
+        ],
+        "centroid_error": 6.22,
+        "outside_radius_238_fraction": 0.03636,
+        "outside_radius_224_fraction": 0.05192,
+        "ink_pixels": 68034
+      },
+      "after": {
+        "bounds": [
+          52,
+          42,
+          468,
+          475
+        ],
+        "long_px": 433,
+        "ink_center": [
+          255.97,
+          255.19
+        ],
+        "centroid_error": 0.81,
+        "outside_radius_238_fraction": 0.02751,
+        "outside_radius_224_fraction": 0.03591,
+        "ink_pixels": 60241
+      },
+      "target_long": 438,
+      "optical_shift": [
+        4,
+        3
+      ]
+    }
+  }
+}
