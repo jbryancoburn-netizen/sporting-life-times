@@ -1,0 +1,60 @@
+name: Verify Public CBB Power Rankings and Forecast Receipts
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/verify-public-cbb-pages.yml'
+  pull_request:
+    paths:
+      - '.github/workflows/verify-public-cbb-pages.yml'
+  workflow_dispatch:
+jobs:
+  verify-public-pages:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check public GitHub Pages HTTP and deployed assets
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import urllib.request, urllib.error, re, sys, json
+          base='https://jbryancoburn-netizen.github.io/sporting-life-times/'
+          pages={
+            'men-power':('ncaam-elo.html',['mbb-logo-system.css?v=power-crests-20261114','mbb-elo-primary.js?v=power-crests-20261114']),
+            'women-power':('ncaaw-rankings.html?poll=retro',['wbb-rankings.js?v=power-crest-20261114','--mbb-size:68px']),
+            'men-ledger':('ncaam-slate.html',['cbb-forecast-receipt.js?v=20261114','cbb-forecast-receipt.css?v=20261114']),
+            'men-team':('ncaam-team.html',['cbb-forecast-receipt.js?v=20261114']),
+            'women-team':('ncaaw-team.html',['cbb-forecast-receipt.js?v=20261114'])
+          }
+          assets=['mbb-logo-system.css?v=power-crests-20261114','mbb-elo-primary.js?v=power-crests-20261114',
+             'wbb-rankings.js?v=power-crest-20261114','cbb-forecast-receipt.js?v=20261114',
+             'data/ncaaw-retro-pregame-archive-2026-27.json',
+             'assets/cbb-big-ten-1980s/centered/michigan-state-gruff.png',
+             'assets/cbb-acc-1980s/pittsburgh.png',
+             'assets/cbb-big-east-1980s/providence.png']
+          failed=[]
+          def fetch(path):
+            req=urllib.request.Request(base+path,headers={'User-Agent':'SportingLifeTimes-Deployment-Audit/1.0','Cache-Control':'no-cache'})
+            with urllib.request.urlopen(req,timeout=20) as res:
+              return res.status,res.read(),res.headers.get('Content-Type','')
+          for name,(url,required) in pages.items():
+            try:
+              status,data,ctype=fetch(url)
+              body=data.decode('utf8')
+              missing=[tag for tag in required if tag not in body]
+              print(f'PUBLIC PAGE {name}: HTTP {status}, {len(data)} bytes, missing={missing}',flush=True)
+              if status!=200 or missing:failed.append((name,missing or ['HTTP failure']))
+            except Exception as e:
+              print(f'PUBLIC PAGE {name}: ERROR {e}',flush=True);failed.append((name,[str(e)]))
+          for path in assets:
+            try:
+              status,data,ctype=fetch(path)
+              print(f'PUBLIC ASSET {path}: HTTP {status}, {len(data)} bytes, {ctype}',flush=True)
+              if status!=200 or len(data)<100:failed.append((path,['missing or empty']))
+              if path.endswith('.json') and 'pregame-archive' in path:
+                j=json.loads(data);print('WBB ARCHIVE top-level:',list(j)[:8],flush=True)
+            except Exception as e:
+              print(f'PUBLIC ASSET {path}: ERROR {e}',flush=True);failed.append((path,[str(e)]))
+          print('PUBLIC AUDIT RESULT:', 'PASS' if not failed else 'FAIL',failed,flush=True)
+          if failed:sys.exit(1)
+          PY
