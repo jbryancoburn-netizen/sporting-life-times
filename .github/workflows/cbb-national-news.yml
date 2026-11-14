@@ -26,6 +26,14 @@ on:
       - 'ncaam.html'
       - '.github/workflows/cbb-national-news.yml'
   workflow_dispatch:
+  # GitHub schedule triggers are best-effort under heavy Actions load.
+  # Independent successful publishers also wake the dedicated CBB newsroom.
+  workflow_run:
+    workflows:
+      - 'MBB newspaper refresh and publish'
+      - 'News wire refresh'
+    types: [completed]
+    branches: [main]
   schedule:
     - cron: '11,41 * * * *'
 permissions:
@@ -35,6 +43,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   quality:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 4
     steps:
