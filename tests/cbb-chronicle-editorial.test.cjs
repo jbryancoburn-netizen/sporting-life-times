@@ -46,7 +46,7 @@ async function newsEdition(gender){
     url:'https://example.org/basketball/report-'+i,link_type:'publisher',published_at:timestamp,
     editorial_score:100-i
   }));
-  articles.push({title:"UConn women's basketball defeats Georgetown",gender:'women',source:'Women's Publisher',
+  articles.push({title:"UConn women's basketball defeats Georgetown",gender:'women',source:"Women's Publisher",
     gender_evidence:'explicit_title',url:'https://example.org/womens-basketball/uconn',link_type:'publisher',
     published_at:timestamp,editorial_score:100});
   const data={updated_at:new Date(now).toISOString(),articles};
