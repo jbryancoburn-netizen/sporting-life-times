@@ -1,52 +1,112 @@
 (()=>{'use strict';
-const root=document.getElementById('cbb-front-news'),stamp=document.getElementById('cbb-news-stamp');
+const root=document.getElementById('cbb-front-news');
+const stamp=document.getElementById('cbb-news-stamp');
 if(!root||!stamp)return;
-const clean=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const get=async p=>{try{let r=await fetch(p+'?t='+Date.now(),{cache:'no-store',referrerPolicy:'no-referrer',signal:AbortSignal.timeout(12000)});return r.ok?await r.json():null}catch{return null}};
-const wirePath = 'data/cbb-national-news.json';
-const repositoryWire = 'https://raw.githubusercontent.com/jbryancoburn-netizen/sporting-life-times/main/' + wirePath;
-const maxPagesAge = 35 * 60_000;
-const retryInterval = 5 * 60_000;
-let latestWire = null;
-let lastRepositoryCheck = -Infinity;
 
-function wireTime(wire) {
-  const updated = Date.parse(wire?.updated_at);
-  if (!Number.isFinite(updated) || updated > Date.now() + 5 * 60_000 || !Array.isArray(wire.articles)) return -Infinity;
-  const editions = new Set(wire.articles
-    .filter(a => a?.title && a.source && /^https?:\/\//.test(a.url))
-    .map(a => a.gender));
-  return editions.has('men') && editions.has('women') ? updated : -Infinity;
+const wirePath='data/cbb-national-news.json';
+const repositoryWire='https://raw.githubusercontent.com/jbryancoburn-netizen/sporting-life-times/main/'+wirePath;
+const freshnessLimit=90*60*1000, maxStoryAge=72*60*60*1000;
+let latestWire=null, lastRepositoryCheck=0;
+const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c]));
+const time=t=>{const d=new Date(t);return Number.isFinite(+d)?d.toLocaleString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}):'unknown'};
+const womenMark=/\b(?:women(?:['’]s)?|womens|ncaaw|wbb|lady\s+\w+|ladies)\b/i;
+const menMark=/\b(?:men(?:['’]s)?|mens|ncaam|mbb)\b/i;
+const basketball=/\b(?:basketball|hoops|march madness|final four|ncaaw|ncaam|mbb|wbb)\b/i;
+const unrelated=/\b(?:football|CFP|NFL|NBA|WNBA|MLB|NHL|soccer|baseball|hockey|quarterback|wide receiver|bowl game)\b/i;
+const low=/\b(?:sportsbook|promo code|bonus bets?|parlay|wager|odds|betting|best bets?|picks|where to watch|how to watch|live stream|tv channel|highlights|top \d+ plays)\b/i;
+const significant=/\b(?:upset|stuns?|shocks?|ranked|top 25|poll|ncaa tournament|bracket|champion|record|historic|major injury|suspension)\b/i;
+const results=/\b(?:routs?|defeats?|beats?|edges?|holds off|falls? to|knocks off|survives?|victor(?:y|ies)|wins?|loss|loses?|rallies|comeback)\b/i;
+const development=/\b(?:transfer|recruit|commit|injur|coach|conference|returns?|sidelined)\b/i;
+
+async function get(path){
+  try{
+    const sep=path.includes('?')?'&':'?';
+    const r=await fetch(path+sep+'t='+Date.now(),{cache:'no-store',referrerPolicy:'no-referrer',signal:AbortSignal.timeout(12000)});
+    return r.ok?await r.json():null;
+  }catch{return null}
 }
-
-async function nationalWire() {
-  const pages = await get(wirePath);
-  const pagesTime = wireTime(pages);
-  if (pagesTime > wireTime(latestWire)) latestWire = pages;
-  const now = Date.now();
-  if (now - pagesTime > maxPagesAge && now - lastRepositoryCheck >= retryInterval) {
-    // The collector commits independently of full-site Pages deployments.
-    lastRepositoryCheck = now;
-    const collected = await get(repositoryWire);
-    if (wireTime(collected) > wireTime(latestWire)) latestWire = collected;
+const updatedAt=data=>{const t=Date.parse(data?.updated_at||'');return Number.isFinite(t)&&t<=Date.now()+5*60000&&Array.isArray(data?.articles)?t:0};
+function validWire(data){
+  if(!updatedAt(data))return false;
+  const genders=new Set(data.articles.filter(a=>a?.title&&a?.source&&/^https:\/\//.test(a.url||'')).map(a=>a.gender));
+  return genders.has('men')&&genders.has('women');
+}
+async function nationalWire(){
+  const pages=await get(wirePath);
+  if(validWire(pages)&&updatedAt(pages)>updatedAt(latestWire))latestWire=pages;
+  if((!validWire(pages)||Date.now()-updatedAt(pages)>35*60000)&&Date.now()-lastRepositoryCheck>=5*60000){
+    lastRepositoryCheck=Date.now();
+    const repository=await get(repositoryWire);
+    if(validWire(repository)&&updatedAt(repository)>updatedAt(latestWire))latestWire=repository;
   }
   return latestWire;
 }
-const relevant=a=>{let t=(a.title||'')+' '+(a.summary||'');if(/\b(college football|football|nfl|nba|wnba|mlb|nhl|premier league|soccer|baseball|hockey|quarterback|wide receiver)\b/i.test(t))return false;return /\b(college basketball|ncaa basketball|men.s basketball|women.s basketball|basketball|march madness|hoops|final four|bracketology|AP top 25)\b/i.test(t)||/^(MBB|WBB)$/i.test(a.category||'')||((a.gender==='men'||a.gender==='women')&&a.origin==='national RSS')};
-const low=a=>/\b(odds|betting|bonus|promo|spread|parlay|watch|stream|tv channel|where to watch|prediction|picks|top 5 plays|highlights)\b/i.test(a.title||'');
-const score=a=>{let t=a.title||'',s=0;if(/\b(NCAA|AP top 25|rankings|tournament|conference|national|upset|injur|transfer|commit|coach|victor|defeat|wins?|beats?)\b/i.test(t))s+=35;if(/\b(women|men|basketball)\b/i.test(t))s+=8;if(low(a))s-=90;let age=(Date.now()-new Date(a.published_at||0).getTime())/36e5;if(Number.isFinite(age))s+=Math.max(-50,30-age*1.5);return s};
-const time=a=>{let d=new Date(a.published_at);return Number.isFinite(+d)?d.toLocaleString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}):''};
-const article=(a,i)=>{let href;try{let u=new URL(a.url);if(!/^https?:$/.test(u.protocol))return '';href=clean(u.href)}catch{return ''}return '<article class="cbb-news-story '+(i===0?'lead':'')+'"><p class="cbb-news-eyebrow">'+clean(a.source||'College basketball')+(time(a)?' · '+clean(time(a)):'')+'</p><h3><a href="'+href+'" target="_blank" rel="noopener noreferrer">'+clean(a.title)+'</a></h3>'+(a.summary&&!low(a)?'<p class="cbb-news-description">'+clean(a.summary.slice(0,235))+'</p>':'')+'</article>'};
-async function refresh(){const womens=new URLSearchParams(location.search).get('gender')==='women';const gender=womens?'women':'men';const [own,national,bigTen,dedicated]=await Promise.all([get('data/cbb-'+gender+'-front-news.json'),get('articles.json'),get('data/mbb-team-news/big-ten.json'),nationalWire()]);let sources=[...(own?.articles||[]),...(dedicated?.articles||[]),...(national?.articles||[]),...(bigTen?.articles||[])].filter(relevant);
-
-const explicitWomen=a=>/\b(?:women(?:'s|’s|s)?|lady|ladies|NCAAW|WBB)\b/i.test((a.title||'')+' '+(a.summary||'')) && /\b(?:basketball|hoops|NCAAW|WBB|lady|ladies)\b/i.test((a.title||'')+' '+(a.summary||''));
-const explicitMen=a=>/\b(?:men(?:'s|’s|s)? basketball|MBB)\b/i.test((a.title||'')+' '+(a.summary||''));
-if(womens){
-  // Feed ingestion can mislabel school news as men, even when the headline explicitly says women.
-  sources=sources.filter(a=>explicitWomen(a)||(a.gender==='women'&&!explicitMen(a)));
-}else{
-  sources=sources.filter(a=>!explicitWomen(a)&&a.gender!=='women'||explicitMen(a));
-}const seen=new Set();sources=sources.filter(a=>{let key=(a.title||'').toLowerCase().replace(/[^a-z0-9]/g,'').slice(0,90);if(!a.url||!key||seen.has(key))return false;seen.add(key);return true});sources.sort((a,b)=>{const at=Date.parse(a.published_at||'')||0,bt=Date.parse(b.published_at||'')||0;return bt-at||score(b)-score(a)});const top=sources.filter(a=>!low(a));const selected=(top.length>=5?top:top.concat(sources.filter(low))).slice(0,15);if(!selected.length){if(root.querySelector('.cbb-news-grid'))return;root.innerHTML='<p class="cbb-news-empty">No current verified '+(new URLSearchParams(location.search).get('gender')==='women'?'women’s':'college basketball')+' stories in the newspaper wire. Explore the game and rankings desks below.</p>';stamp.textContent='Awaiting basketball reporting';return}root.innerHTML='<div class="cbb-news-grid">'+selected.map(article).join('')+'</div>';const updated=Date.parse(dedicated?.updated_at);stamp.textContent=Number.isFinite(updated)?'National wire updated '+time({published_at:updated})+' ET':'Showing headlines from other basketball sources';}
-refresh();setInterval(()=>{if(!document.hidden)refresh()},60*1000);
+function correctEdition(a,edition){
+  if(a?.gender!==edition||!a.title||!a.source||!/^https:\/\//.test(a.url||''))return false;
+  const title=String(a.title);
+  if(unrelated.test(title)||low.test(title))return false;
+  const isWomen=womenMark.test(title),isMen=menMark.test(title);
+  if(isWomen&&isMen)return false;
+  if(isWomen)return edition==='women'&&basketball.test(title);
+  if(isMen)return edition==='men'&&basketball.test(title);
+  // Only the dedicated basketball publisher feed or identified team reporting
+  // can classify an otherwise ambiguous title. Historical Google query tags do not.
+  return a.gender_evidence==='verified_basketball_feed'&&
+         (a.origin==='publisher RSS'||(a.origin==='school'&&basketball.test(title)));
+}
+function rank(a){
+  if(Number.isFinite(Number(a.editorial_score)))return Number(a.editorial_score);
+  const t=a.title||'',hours=Math.max(0,(Date.now()-Date.parse(a.published_at))/3600000);
+  return (significant.test(t)?40:0)+(results.test(t)?22:0)+(development.test(t)?15:0)
+     +(a.link_type==='publisher'?12:0)-Math.min(36,hours*.75);
+}
+const words=t=>String(t||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').split(' ').filter(w=>w.length>2&&!['the','and','for','with','college','basketball','ncaa','men','women','team','game','games'].includes(w));
+function duplicate(a,b){
+  const x=words(a.title),y=words(b.title),sa=new Set(x),sb=new Set(y);
+  if(x.join('')===y.join(''))return true;
+  const union=new Set([...sa,...sb]).size;
+  return sa.size>=4&&sb.size>=4&&union>0&&[...sa].filter(w=>sb.has(w)).length/union>=.70;
+}
+function select(data,edition){
+  const now=Date.now();
+  const candidates=(data?.articles||[]).filter(a=>{
+    const published=Date.parse(a.published_at||'');
+    return Number.isFinite(published)&&published<=now+5*60000&&now-published<=maxStoryAge&&correctEdition(a,edition);
+  }).sort((a,b)=>rank(b)-rank(a)||(Date.parse(b.published_at)-Date.parse(a.published_at)));
+  const selected=[],sources=new Map();
+  for(const article of candidates){
+    const publisher=article.source.toLowerCase();
+    if((sources.get(publisher)||0)>=4||selected.some(a=>a.url===article.url||duplicate(a,article)))continue;
+    selected.push(article);
+    sources.set(publisher,(sources.get(publisher)||0)+1);
+    if(selected.length===15)break;
+  }
+  return selected;
+}
+function articleHTML(a,i){
+  let url;try{const u=new URL(a.url);if(u.protocol!=='https:')return '';url=escape(u.href)}catch{return ''}
+  const aggregator=(a.link_type==='aggregator'||new URL(a.url).hostname==='news.google.com');
+  const attribution=escape(a.source)+(aggregator?' · via Google News':'')+' · '+escape(time(a.published_at))+' ET';
+  return '<article class="cbb-news-story '+(i===0?'lead':'')+'">'
+    +'<p class="cbb-news-eyebrow">'+attribution+'</p>'
+    +'<h3><a href="'+url+'" target="_blank" rel="noopener noreferrer">'+escape(a.title)+'</a></h3>'
+    +(a.summary?'<p class="cbb-news-description">'+escape(String(a.summary).slice(0,235))+'</p>':'')
+    +'</article>';
+}
+async function refresh(){
+  const edition=new URLSearchParams(location.search).get('gender')==='women'?'women':'men';
+  const data=await nationalWire();
+  const stories=select(data,edition);
+  if(!stories.length){
+    root.innerHTML='<p class="cbb-news-empty">No recently verified '+(edition==='women'?'women’s':'men’s')+' basketball reporting is available. The news desk will publish again after its source checks pass.</p>';
+    stamp.textContent='No current verified headlines';
+    return;
+  }
+  root.innerHTML='<div class="cbb-news-grid">'+stories.map(articleHTML).join('')+'</div>';
+  const age=Date.now()-updatedAt(data);
+  stamp.textContent=(age>freshnessLimit?'Reporting feed delayed · Last collected ':'National wire updated ')+time(data.updated_at)+' ET';
+}
+refresh();
+setInterval(()=>{if(!document.hidden)refresh()},5*60*1000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh()});
 })();
