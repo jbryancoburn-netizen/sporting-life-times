@@ -38,7 +38,7 @@
     for (const id of conflicts) map.delete(id);
     return [...map.values()];
   };
-  function normalizeMen(retro, outside, crosswalk) {
+  function normalizeMen(retro, outside, crosswalk, verifiedSites) {
     if (retro?.season !== '2026-27' || retro.model !== 'retro-clean-slate' ||
         retro.starting_elo !== 1500 || !Array.isArray(retro.events) ||
         retro.rankings?.length !== 365 || retro.events.length !== retro.games_played ||
@@ -47,13 +47,28 @@
     }
     const names = new Map(crosswalk.teams.map(t => [String(t.id), t.name]));
     const ncaaByEspn = new Map(crosswalk.teams.map(t => [String(t.espn_id), String(t.id)]));
+    // The published RETRO final register can lag behind independently certified
+    // neutral courts. Reconcile presentation only, by exact event/date/both teams.
+    // Never change the underlying RETRO model or attach proof by opponent name.
+    const sites = verifiedSites?.season === '2026-27' && verifiedSites.games &&
+      !Array.isArray(verifiedSites.games) ? verifiedSites.games : {};
+    const hasOfficialEvidence = s => /^https:\/\//.test(String(s || ''));
+    const certifiedNeutral = (g, id) => {
+      const proof = sites[id];
+      return proof?.site_verified === true && proof.neutral === true &&
+        String(proof.date) === day(g.date) &&
+        ncaaByEspn.get(String(proof.home_id)) === String(g.home_id) &&
+        ncaaByEspn.get(String(proof.away_id)) === String(g.away_id) &&
+        hasOfficialEvidence(proof.source) && hasOfficialEvidence(proof.corroboration);
+    };
     const games = [];
     for (const g of retro.events) {
       const id = String(g.id || '').replace(/^espn:/, '');
       if (!safeId(id) || !validDay(g.date) || !validScores(g) ||
           !names.has(String(g.home_id)) || !names.has(String(g.away_id)) ||
           String(g.home_id) === String(g.away_id)) continue;
-      games.push(normal(g, id));
+      games.push(normal(certifiedNeutral(g, id) ?
+        {...g, neutral: true, site_verified: true} : g, id));
     }
     let outsideLoaded = outside?.season === '2026-27' &&
       outside.counts_for_retro === false && Array.isArray(outside.games);
@@ -219,12 +234,13 @@
         teamId = selected;
         if (!register.names.has(teamId)) throw Error('Women\'s team ID not in the 2026–27 roster.');
       } else {
-        const [retro, crosswalk, outside] = await Promise.all([
+        const [retro, crosswalk, outside, verifiedSites] = await Promise.all([
           load('data/ncaam-2026-27-retro-primary.json'),
           load('data/ncaam-2026-27-espn-team-crosswalk.json'),
-          load('data/mbb-non-di-verified-finals-2026-27.json').catch(() => null)
+          load('data/mbb-non-di-verified-finals-2026-27.json').catch(() => null),
+          load('data/mbb-verified-game-sites-2026-27.json').catch(() => null)
         ]);
-        register = normalizeMen(retro, outside, crosswalk);
+        register = normalizeMen(retro, outside, crosswalk, verifiedSites);
         const school = crosswalk.teams.find(t =>
           String(t.id) === String(selected) || String(t.espn_id) === String(selected));
         if (!school) throw Error('Men\'s team ID not in the 2026–27 crosswalk.');
