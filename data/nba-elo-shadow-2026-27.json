@@ -4,7 +4,7 @@
   "status": "primary_live_earned_elo",
   "model": "team_only_reset1500_home40_k24_sqrt_mov",
   "source": "data/nba-2026-27-current-provisional.json",
-  "games_played": 180,
+  "games_played": 181,
   "parameters": {
     "season_start_elo": 1500,
     "home_elo": 40,
@@ -15,11 +15,11 @@
   "rankings": [
     {
       "team": "SAS",
-      "elo": 1598.568,
-      "games": 12,
+      "elo": 1616.634,
+      "games": 13,
       "forecast_prior": 1686.2685,
-      "live_elo": 1685.512,
-      "difference_from_live": -86.944
+      "live_elo": 1692.999,
+      "difference_from_live": -76.365
     },
     {
       "team": "MIN",
@@ -70,14 +70,6 @@
       "difference_from_live": -58.505
     },
     {
-      "team": "GSW",
-      "elo": 1558.047,
-      "games": 12,
-      "forecast_prior": 1427.2995,
-      "live_elo": 1519.402,
-      "difference_from_live": 38.645
-    },
-    {
       "team": "MEM",
       "elo": 1555.662,
       "games": 12,
@@ -92,6 +84,14 @@
       "forecast_prior": 1704.7305,
       "live_elo": 1652.846,
       "difference_from_live": -108.793
+    },
+    {
+      "team": "GSW",
+      "elo": 1539.981,
+      "games": 13,
+      "forecast_prior": 1427.2995,
+      "live_elo": 1511.915,
+      "difference_from_live": 28.066
     },
     {
       "team": "PHI",
@@ -3314,6 +3314,23 @@
       "home_elo_change": 4.1799526314345075,
       "home_after": 1581.6152054595211,
       "away_after": 1381.1662181818235
+    },
+    {
+      "id": "espn-nba-401909302",
+      "date": "2026-11-14T02:30:00.000Z",
+      "home": "SAS",
+      "away": "GSW",
+      "home_score": 123,
+      "away_score": 85,
+      "home_before": 1598.5677087133924,
+      "away_before": 1558.0473378886227,
+      "home_win_probability": 0.6138471105591768,
+      "forecast_home_win_probability": 0.7093445359421381,
+      "forecast_prior_weight_home": 0.3409090909090909,
+      "forecast_prior_weight_away": 0.3409090909090909,
+      "home_elo_change": 18.06601343536059,
+      "home_after": 1616.6337221487531,
+      "away_after": 1539.981324453262
     }
   ]
 }
