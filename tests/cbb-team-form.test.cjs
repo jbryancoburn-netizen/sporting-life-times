@@ -1,7 +1,7 @@
 'use strict';
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const {normalizeMen, normalizeWomen, calculate} = require('../cbb-team-form.js');
+const {normalizeMen, normalizeWomen, calculate, opponentLabel} = require('../cbb-team-form.js');
 const roster = {season: '2026-27', teams: [
   {team_id: '1', team: 'Alpha Wildcats'}, {team_id: '2', team: 'Bravo Bears'}
 ]};
@@ -87,4 +87,21 @@ test('women: neutral designation requires verified site evidence as well', () =>
   ]};
   const form = calculate('1',normalizeWomen(finals,roster));
   assert.deepEqual(form.recent.map(game => game.location), ['unverified','neutral']);
+});
+
+test('Form Book prints @ on road, vs. at home, and vs. Opponent (N) when neutral is verified', () => {
+  const recent = calculate('ncaa:1',normalizeMen(retro(),null,crosswalk)).recent;
+  assert.equal(opponentLabel(recent[0]),'@ Bravo');
+  assert.equal(opponentLabel(recent[1]),'vs. Bravo');
+  const source=retro();source.events[0].neutral=true;
+  const neutral=calculate('ncaa:1',normalizeMen(source,null,crosswalk)).recent;
+  assert.equal(opponentLabel(neutral[1]),'vs. Bravo (N)');
+  assert.equal(opponentLabel({opponent:'Missouri',location:'neutral'}),'vs. Missouri (N)');
+});
+test('Form Book keeps listed side when venue is unverified, with no false (N)', () => {
+  const source=retro();source.events[0].neutral=true;
+  source.events[0].site_verified=false;source.events[1].site_verified=false;
+  const recent=calculate('ncaa:1',normalizeMen(source,null,crosswalk)).recent;
+  assert.deepEqual(recent.map(g=>g.location),['unverified','unverified']);
+  assert.deepEqual(recent.map(opponentLabel),['@ Bravo','vs. Bravo']);
 });
