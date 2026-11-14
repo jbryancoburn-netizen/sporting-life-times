@@ -5,6 +5,7 @@ on:
       - fix/gruff-sparty-complete-portrait-20261114
     paths:
       - .github/workflows/one-off-gruff-publication-check.yml
+      - tests/cbb-big-ten-heritage-production.test.cjs
 permissions:
   contents: read
 jobs:
