@@ -48,7 +48,7 @@ jobs:
             print('PUBLIC POWER LOGO CSS: men 76px full / 92px Power 10, artwork 86%:',not any(name=='rendered-css' for name,_ in failed),flush=True)
           except Exception as e:
             failed.append(('rendered-css',[str(e)]))
-                    for name,(url,required) in pages.items():
+          for name,(url,required) in pages.items():
             try:
               status,data,ctype=fetch(url)
               body=data.decode('utf8')
