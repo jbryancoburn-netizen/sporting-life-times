@@ -6,8 +6,8 @@
   "elo_approved": false,
   "source": "ESPN site API, completed finals since NBL27 regular-season opening",
   "season_start": "2026-09-19",
-  "updated_at": "2026-11-14T10:38:05.882140+00:00",
-  "games_replayed": 65,
+  "updated_at": "2026-11-14T18:15:25.391679+00:00",
+  "games_replayed": 66,
   "teams": 10,
   "rows": [
     {
@@ -62,13 +62,13 @@
     },
     {
       "team": "Perth Wildcats",
-      "wins": 6,
+      "wins": 7,
       "losses": 6,
-      "played": 12,
-      "win_pct": 0.5,
-      "points_for": 1133,
-      "points_against": 1171,
-      "points_pct": 96.75
+      "played": 13,
+      "win_pct": 0.538,
+      "points_for": 1244,
+      "points_against": 1271,
+      "points_pct": 97.88
     },
     {
       "team": "Brisbane Bullets",
@@ -93,12 +93,12 @@
     {
       "team": "Illawarra Hawks",
       "wins": 5,
-      "losses": 9,
-      "played": 14,
-      "win_pct": 0.357,
-      "points_for": 1362,
-      "points_against": 1460,
-      "points_pct": 93.29
+      "losses": 10,
+      "played": 15,
+      "win_pct": 0.333,
+      "points_for": 1462,
+      "points_against": 1571,
+      "points_pct": 93.06
     },
     {
       "team": "South East Melbourne Phoenix",
@@ -112,6 +112,18 @@
     }
   ],
   "recent_finals": [
+    {
+      "id": "401875302",
+      "played_at": "2026-11-14T10:30Z",
+      "home": "Perth Wildcats",
+      "away": "Illawarra Hawks",
+      "home_score": 111,
+      "away_score": 100,
+      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875302/hawks-wildcats",
+      "verified": false,
+      "provider": "espn",
+      "state": "candidate"
+    },
     {
       "id": "401875356",
       "played_at": "2026-11-14T08:30Z",
@@ -216,18 +228,6 @@
       "home_score": 120,
       "away_score": 92,
       "source_url": "https://www.espn.com/nbl/game/_/gameId/401875286/bullets-united",
-      "verified": false,
-      "provider": "espn",
-      "state": "candidate"
-    },
-    {
-      "id": "401875289",
-      "played_at": "2026-11-07T06:30Z",
-      "home": "Adelaide 36ers",
-      "away": "Illawarra Hawks",
-      "home_score": 106,
-      "away_score": 78,
-      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875289/hawks-36ers",
       "verified": false,
       "provider": "espn",
       "state": "candidate"
