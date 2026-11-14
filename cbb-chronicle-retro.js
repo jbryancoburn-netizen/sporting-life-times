@@ -22,8 +22,8 @@ const crest=row=>{
   const logos=typeof window!=='undefined'?window.MBBLogos:null;
   if(!logos)return '';
   const id=String(row.team_id||'');
-  if(female&&/^\\d+$/.test(id))return logos.byESPN(id,'small',row.team);
-  if(!female&&/^ncaa:\\d+$/.test(id))return logos.byNCAA(id,'small',row.team);
+  if(female&&/^\d+$/.test(id))return logos.byESPN(id,'small',row.team);
+  if(!female&&/^ncaa:\d+$/.test(id))return logos.byNCAA(id,'small',row.team);
   return '';
 };
 const row=(r,number,right)=>'<div class="chronicle-retro-row"><span class="chronicle-retro-number">'+esc(number)+'</span><span class="chronicle-retro-crest">'+crest(r)+'</span><span class="chronicle-retro-team">'+name(r)+'<small>'+esc(String(r.wins??'—'))+'–'+esc(String(r.losses??'—'))+' · '+esc(r.conference||'Division I')+'</small></span><strong class="chronicle-retro-value">'+esc(right)+'</strong></div>';
