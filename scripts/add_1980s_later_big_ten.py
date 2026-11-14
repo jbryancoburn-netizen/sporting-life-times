@@ -90,9 +90,9 @@ def main():
              '<strong>'+esc(name)+'</strong><div class="era">Archive era: '+era+'</div>'+
              '<div class="era"><a href="'+esc(sourcepage)+'" target="_blank" rel="noopener noreferrer">Historical source</a></div></article>')
         print("SOURCE OK:",name,original.size,metrics)
-    block='<section id="additional-1980s" aria-labelledby="later-arrivals"><h2 id="later-arrivals">The eight later arrivals · their logos in the 1980s</h2>'+
+    block=('<section id="additional-1980s" aria-labelledby="later-arrivals"><h2 id="later-arrivals">The eight later arrivals · their logos in the 1980s</h2>'+
           '<p class="intro">These eight universities joined the Big Ten after the 1980s. Their authentic logos were used during that decade; they are not presented as Big Ten members of that era. Each image is stored locally.</p>'+
-          '<div class="gallery">'+"\n".join(cards)+'</div></section>\n'
+          '<div class="gallery">'+"\n".join(cards)+'</div></section>\n')
     marker='<section aria-labelledby="scorebugs">'
     if html.count(marker)!=1:raise AssertionError("Preview changed, cannot insert collection")
     html=html.replace(marker,block+marker)
