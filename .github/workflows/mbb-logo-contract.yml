@@ -46,6 +46,8 @@ jobs:
         run: node tests/cbb-logo-publication-contract.test.cjs
       - name: Validate all 365 shared college basketball team crests
         run: node scripts/audit-mbb-logo-system.cjs
+      - name: Prove approved Big Ten and ACC vintage crests render for both genders
+        run: node --test tests/cbb-big-ten-heritage-production.test.cjs tests/cbb-acc-heritage-production.test.cjs
       - name: Audit every men's and women's Division I school calendar for unmatched opponent crests
         run: node scripts/audit-d1-basketball-schedules.cjs
       - name: Validate 365 NCAA power ranking rows render in DOM
