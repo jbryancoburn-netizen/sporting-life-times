@@ -1,0 +1,23 @@
+name: Verify Form Book certified neutral venues (one-off)
+on:
+  push:
+    branches:
+      - fix/cbb-form-book-verified-neutral-evidence-20261113
+    paths:
+      - .github/workflows/one-off-cbb-neutral-proof.yml
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Assert all existing finals, court evidence and shorthand
+        run: |
+          node --test tests/cbb-team-form.test.cjs tests/cbb-team-form-evidence.test.cjs tests/cbb-opponent-notation.test.cjs
+          node tests/mbb-calendar-finals.test.cjs
+          node --check cbb-team-form.js
