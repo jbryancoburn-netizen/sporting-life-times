@@ -42,6 +42,11 @@ jobs:
         run: python -m unittest discover -s scripts -p 'test_cbb_news_quality.py' -v
       - name: Preserve tested independent news fallback on the live editions
         run: node tests/cbb-front-news.test.cjs
+      - name: Smoke-test real RSS sources before release (without publishing)
+        if: github.event_name == 'pull_request'
+        run: |
+          python scripts/refresh_cbb_national_news.py
+          python scripts/verify_cbb_news.py
   refresh:
     if: github.event_name != 'pull_request'
     needs: quality
