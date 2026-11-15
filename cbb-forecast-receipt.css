@@ -32,6 +32,20 @@
 .sched-result-cell .cbb-forecast-metric+.cbb-forecast-metric{border-left:0;border-top:1px solid #c5b397;padding:7px 0 0}
 .sched-result-cell .cbb-forecast-value{font-size:12px}
 .wbb-scorebug-card .cbb-forecast-receipt{margin:5px 0 0}
+/* The mobile calendar has two equal columns with a 10px gutter. Let the
+   receipt use both columns while keeping the score and game controls at right. */
+@media(max-width:700px){
+ #full-season-schedule .sched-result-cell .cbb-forecast-receipt{
+  width:calc(200% + 10px);min-width:0;margin-left:calc(-100% - 10px);
+  padding:8px;
+ }
+ #full-season-schedule .sched-result-cell .cbb-forecast-comparison{
+  grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;
+ }
+ #full-season-schedule .sched-result-cell .cbb-forecast-metric+.cbb-forecast-metric{
+  border-top:0;border-left:1px solid #c5b397;padding:0 0 0 9px;
+ }
+}
 @media(max-width:640px){
  .cbb-forecast-receipt{padding:9px 8px}
  .cbb-forecast-heading{margin-bottom:8px;gap:5px 7px}
