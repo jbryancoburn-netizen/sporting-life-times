@@ -2,7 +2,7 @@
   "league": "NBA",
   "season": "2026-27",
   "status": "provisional_live_from_historical_baseline",
-  "games_played": 185,
+  "games_played": 188,
   "preseason_status": "provisional_historical_regression_only",
   "source": "ESPN FINAL NBA regular-season scores; Sporting Life & Times independent Elo",
   "rankings": [
@@ -23,20 +23,20 @@
       "elo": 1636.946
     },
     {
-      "team": "DET",
-      "elo": 1620.209
-    },
-    {
-      "team": "MIN",
-      "elo": 1617.396
-    },
-    {
       "team": "HOU",
       "elo": 1616.227
     },
     {
       "team": "NYK",
       "elo": 1610.741
+    },
+    {
+      "team": "DET",
+      "elo": 1601.919
+    },
+    {
+      "team": "MIN",
+      "elo": 1593.235
     },
     {
       "team": "PHI",
@@ -55,16 +55,16 @@
       "elo": 1549.397
     },
     {
+      "team": "MIA",
+      "elo": 1524.402
+    },
+    {
       "team": "ATL",
       "elo": 1517.036
     },
     {
       "team": "GSW",
       "elo": 1511.915
-    },
-    {
-      "team": "MIA",
-      "elo": 1506.112
     },
     {
       "team": "PHX",
@@ -87,20 +87,20 @@
       "elo": 1468.546
     },
     {
+      "team": "MEM",
+      "elo": 1448.671
+    },
+    {
       "team": "DAL",
       "elo": 1446.797
     },
     {
-      "team": "MEM",
-      "elo": 1438.708
+      "team": "CHI",
+      "elo": 1393.556
     },
     {
       "team": "IND",
       "elo": 1374.961
-    },
-    {
-      "team": "CHI",
-      "elo": 1369.396
     },
     {
       "team": "NOP",
@@ -108,7 +108,7 @@
     },
     {
       "team": "BKN",
-      "elo": 1358.841
+      "elo": 1348.877
     },
     {
       "team": "WAS",
@@ -1792,6 +1792,33 @@
       "away_score": 117,
       "date": "2026-11-15T00:30:00.000Z",
       "home_elo_change": 9.12243
+    },
+    {
+      "id": "espn-nba-401909982",
+      "home": "MIA",
+      "away": "DET",
+      "home_score": 137,
+      "away_score": 117,
+      "date": "2026-11-15T01:00:00.000Z",
+      "home_elo_change": 18.290057
+    },
+    {
+      "id": "espn-nba-401909983",
+      "home": "MEM",
+      "away": "BKN",
+      "home_score": 129,
+      "away_score": 110,
+      "date": "2026-11-15T01:00:00.000Z",
+      "home_elo_change": 9.963522
+    },
+    {
+      "id": "espn-nba-401909984",
+      "home": "MIN",
+      "away": "CHI",
+      "home_score": 106,
+      "away_score": 117,
+      "date": "2026-11-15T01:00:00.000Z",
+      "home_elo_change": -24.160392
     }
   ],
   "movement": {
@@ -1801,28 +1828,28 @@
       "BOS": 0,
       "LAL": 0,
       "OKC": 0,
-      "DET": 0,
-      "MIN": 0,
       "HOU": 0,
       "NYK": 0,
+      "DET": -18.290057,
+      "MIN": -24.160392,
       "PHI": 0,
       "POR": 0,
       "DEN": 7.838858,
       "CLE": 9.12243,
+      "MIA": 18.290057,
       "ATL": 0,
       "GSW": 0,
-      "MIA": 0,
       "PHX": 0,
       "ORL": 0,
       "TOR": 0,
       "CHA": 0,
       "LAC": 0,
+      "MEM": 9.963522,
       "DAL": -9.12243,
-      "MEM": 0,
+      "CHI": 24.160392,
       "IND": 0,
-      "CHI": 0,
       "NOP": -7.838858,
-      "BKN": 0,
+      "BKN": -9.963522,
       "WAS": 0,
       "MIL": 0,
       "SAC": 0,
@@ -1834,26 +1861,26 @@
       "BOS": 1620.484,
       "LAL": 1608.112,
       "OKC": 1688.65,
-      "DET": 1625.832,
-      "MIN": 1605.627,
       "HOU": 1592.575,
       "NYK": 1645.287,
+      "DET": 1625.832,
+      "MIN": 1605.626,
       "PHI": 1593.281,
       "POR": 1548.709,
       "DEN": 1578.739,
       "CLE": 1551.433,
+      "MIA": 1472.061,
       "ATL": 1549.137,
       "GSW": 1518.223,
-      "MIA": 1472.061,
       "PHX": 1483.963,
       "ORL": 1469.613,
       "TOR": 1529.383,
       "CHA": 1478.964,
       "LAC": 1453.744,
-      "DAL": 1446.944,
       "MEM": 1410.535,
-      "IND": 1350.303,
+      "DAL": 1446.944,
       "CHI": 1361.398,
+      "IND": 1350.303,
       "NOP": 1430.987,
       "BKN": 1347.339,
       "WAS": 1359.302,
