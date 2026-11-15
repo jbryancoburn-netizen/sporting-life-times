@@ -17,7 +17,7 @@ const expected={
  '120':'maryland-terrapin','164':'rutgers','26':'ucla','30':'usc',
  '2483':'oregon','264':'washington'
 };
-const baked=(id)=>'assets/cbb-heritage-medallions/'+id+'.png?v=20261115-asset-baked1';
+const baked=id=>'assets/cbb-precomposed-crests/'+id+'.png?v=20261115-precomposed1';
 const url=(slug)=>'assets/cbb-big-ten-1980s/centered/'+slug+'.png?v='+(slug==='michigan-state-gruff'?'20261114-gruff-full-art1':'20261114-bigten-live1');
 
 async function system(){
@@ -65,22 +65,24 @@ test('all 18 CURRENT Big Ten names have authentic local assets and unambiguous I
    const byNcaa=logos.byNCAA(row.id,'hero',row.name);
    for(const html of [byEspn,byNcaa]){
      assert(html.includes('mbb-mark--heritage'),'heritage class '+row.name);
-     assert(html.includes('src="'+baked(id)+'"'),'Correct shared precomposed historic crest '+row.name);
-     assert(html.includes('mbb-mark--baked'),'No additional browser-side rings '+row.name);
+     assert(html.includes('src="'+baked(id)+'"'),'Correct approved finished local crest '+row.name);
+     assert(html.includes('mbb-mark--precomposed'),'No runtime ring for '+row.name);
      assert(html.includes('data-espn-id="'+id+'"'),'Exact identity retained '+row.name);
      assert(html.includes('data-ring-count="2"'),'Double ring retained '+row.name);
      assert(!html.includes('a.espncdn.com'),'No external logo source '+row.name);
      assert(!html.includes('data-logo-alternate="https://'),'Do not fall back to modern provider logo');
    }
-   assert.equal(logos.logoURL(row.id),baked(id),'Direct URL consumers get baked heritage mark');
+   assert.equal(logos.logoURL(row.id),baked(id),'Direct URL consumers get the exact approved vintage two-ring composite');
  }
 });
-test('schools outside the vintage Big Ten and ACC retain modern logos and site rings',async()=>{
+test('schools outside vintage conferences retain verified identities but receive the same baked local ring assets',async()=>{
  const logos=await system();
  for(const id of ['2287','2466','2908','265','204','66']){
    assert.equal(logos.retroURLForESPN(id),'','Outside the conference '+id);
    const mark=logos.byESPN(id,'score','Non Big Ten');
-   assert(!mark.includes('mbb-mark--heritage'),'Do not affect non-Big Ten badges '+id);
+   assert(!mark.includes('mbb-mark--heritage'),'Do not mislabel non-vintage badges '+id);
+   assert(mark.includes('src="'+baked(id)+'"'),'Every verified school is self-hosted '+id);
+   assert(mark.includes('mbb-mark--precomposed'),'No per-team ring CSS '+id);
  }
 });
 test('men and women team desks, ledgers, live center, ranks and conferences cache the new renderer',()=>{
@@ -93,20 +95,29 @@ test('men and women team desks, ledgers, live center, ranks and conferences cach
  ];
  for(const page of pages){
   const html=read(page);
-  assert(html.includes('mbb-logo-system.js?v=20261115-baked-crests1'),'Refresh complete Gruff portrait in every publication: '+page);
-  assert(html.includes('mbb-logo-system.css?v='),'Shared double-ring stylesheet must be loaded: '+page);
+  if(page==='ncaaw-rankings.html'){
+   assert(html.includes("location.replace(target)")&&html.includes('ncaam-rankings.html'),'Women redirects to shared ranking page');
+  }else{
+   assert(html.includes('mbb-logo-system.js?v=cbb-precomposed-20261115-v1'),'Every reader must use the baked logo renderer: '+page);
+   assert(html.includes('mbb-logo-system.css?v=cbb-precomposed-20261115-v1'),'Every reader must use the baked-logo layout contract: '+page);
+  }
  }
  const wbbRanks=read('ncaaw-rankings.html');
- assert(wbbRanks.includes('wbb-rankings.js?v=20261115-baked-crests1'));
+ assert(wbbRanks.includes('ncaam-rankings.html?gender=women'));
+ assert(read('ncaam-rankings.html').includes('assets/cbb-precomposed-crests/'));
+ assert(read('wbb-rankings.js').includes('assets/cbb-precomposed-crests/'));
  const women=read('wbb-rankings.js');
  assert(women.includes('MBBLogos?.retroURLForESPN?.(id)'),'Women poll resolves local historical assets by ID');
- assert(women.includes("wbbr-women-mark'+(heritage?' mbb-mark--heritage mbb-mark--baked'"),'Women poll adopts same badge sizing');
+ assert(women.includes("wbbr-women-mark'+(heritage?' mbb-mark--heritage'"),'Women poll adopts same badge sizing');
 });
 test('same double-ring styling across all vintage schools, no per-team positioning',()=>{
  const css=read('mbb-logo-system.css');
- assert(css.includes('.mbb-mark--heritage>img.mbb-mark__img'));
+ assert(css.includes('.mbb-mark.mbb-mark--precomposed::before'));
+ assert(css.includes('content:none!important;display:none!important'));
+ assert(css.includes('.mbb-mark.mbb-mark--precomposed>img.mbb-mark__img'));
+ assert(!css.includes('.mbb-mark--precomposed[data-espn-id='),'No team-specific ring overrides');
  assert(css.includes('border-radius:50%!important'));
- assert(css.includes('width:94%!important'));
+ assert(css.includes('width:100%!important'),'Baked two-ring PNGs must fill their standard frame');
  assert(!css.includes('mbb-mark--heritage[data-espn-id='),'No one-off school image patches');
  const page=read('cbb-big-ten-1980s-preview.html');
  assert.equal((page.match(/<article class="school">/g)||[]).length,18);
