@@ -46,18 +46,23 @@ function receipt(gender,id,day,phase,actual,homeId='',awayId='',homeName='Home',
  const half=Math.round(Math.abs(predicted)*2)/2;
  const chance=Math.round(100*Math.max(probability,1-probability));
  const spread=fav==='EVEN'?'Even':sideName(fav)+' −'+half.toFixed(1);
- const parts=['<span class="cbb-forecast-kicker">RETRO BEFORE TIP</span>',
-   '<strong>'+safe(spread)+'</strong>','<span>'+chance+'% win chance</span>'];
+ let state='locked',verdict='Forecast locked',comparison='';
+ const forecast='<div class="cbb-forecast-metric"><span class="cbb-forecast-label">Pregame forecast</span><strong class="cbb-forecast-value">'+safe(spread)+'</strong><span class="cbb-forecast-detail">'+chance+'% win chance</span></div>';
  if(phase==='final'&&number(actual)!==null){
   const win=actual>0?'HOME':actual<0?'AWAY':'TIED';
   const error=Math.abs(actual-predicted);
-  parts.push('<span>Final: '+safe(sideName(win))+(win==='TIED'?'':' by '+Math.abs(actual).toFixed(0))+'</span>');
-  parts.push('<strong>Miss: '+error.toFixed(1)+' pts</strong>');
-  parts.push('<span class="cbb-forecast-verdict">'+(fav==='EVEN'?'Toss-up forecast':fav===win?'✓ Winner correct':'✕ Winner missed')+'</span>');
- }else if(phase==='final')parts.push('<span>Final comparison pending</span>');
- else parts.push('<span>Pregame forecast locked</span>');
+  state=fav==='EVEN'?'even':fav===win?'correct':'missed';
+  verdict=fav==='EVEN'?'Toss-up forecast':fav===win?'Winner correct':'Winner missed';
+  const result=win==='TIED'?'Tied':sideName(win)+' by '+Math.abs(actual).toFixed(0);
+  comparison='<div class="cbb-forecast-metric"><span class="cbb-forecast-label">Final result</span><strong class="cbb-forecast-value">'+safe(result)+'</strong><span class="cbb-forecast-detail">Margin error <b>'+error.toFixed(1)+' pts</b></span></div>';
+ }else if(phase==='final'){
+  state='pending';verdict='Comparison pending';
+  comparison='<div class="cbb-forecast-metric"><span class="cbb-forecast-label">Final result</span><span class="cbb-forecast-detail">Final comparison pending</span></div>';
+ }else{
+  comparison='<div class="cbb-forecast-metric cbb-forecast-lock"><span class="cbb-forecast-detail">Pregame forecast locked</span><span class="cbb-forecast-lock-note">Recorded before tipoff</span></div>';
+ }
  const captured=p.captured_at_utc?'Frozen '+p.captured_at_utc:'Preserved pretipoff snapshot';
- return '<div class="cbb-forecast-receipt" aria-label="'+safe('Archived RETRO forecast and game result')+'" title="'+safe(captured)+'">'+parts.join('<span class="cbb-forecast-divider" aria-hidden="true">·</span>')+'</div>';
+ return '<div class="cbb-forecast-receipt cbb-forecast-receipt--'+state+'" aria-label="'+safe('Archived RETRO forecast and game result')+'" title="'+safe(captured)+'"><div class="cbb-forecast-heading"><span class="cbb-forecast-kicker">RETRO BEFORE TIP</span><span class="cbb-forecast-verdict">'+verdict+'</span></div><div class="cbb-forecast-comparison">'+forecast+comparison+'</div></div>';
 }
 function set(node,markup){
  if(!node)return;
@@ -140,3 +145,4 @@ if(typeof document!=='undefined'){
 if(typeof module!=='undefined'&&module.exports)module.exports={receipt,indexArchive,archives,indexScored,scored};
 root.SLTForecastReceipt={receipt,refresh:queue};
 })(typeof window!=='undefined'?window:globalThis);
+
