@@ -50,23 +50,17 @@
   if(!f||typeof f.team!=='string'||!Number.isFinite(f.probability)||f.probability<0||f.probability>1)
     return '<div class="ledger26-status ledger26-status--pregame" data-phase="upcoming"><strong class="ledger26-pregame-empty">'+esc(g.suppressTipoffFallback?'NO FORECAST':(g.time||g.tipoff||'PREGAME'))+'</strong></div>';
   const team=f.team.trim(),percent=Math.round(f.probability*100);
-  if(percent===50)return '<div class="ledger26-status ledger26-status--pregame" data-phase="upcoming" aria-label="Even matchup: 50 percent win probability for each team; no projected favorite"><strong class="ledger26-pregame-prob">50%</strong><span class="ledger26-pregame-team">EVEN</span><span class="ledger26-pregame-caption">EACH TEAM · TOSS-UP</span></div>';
-  const halfPoint=Number.isFinite(f.margin)?Math.round(Math.abs(f.margin)*2)/2:0;
-  const margin=halfPoint>0?'−'+halfPoint.toFixed(1):'';
-  const projected=Number.isFinite(f.projectedAwayScore)&&Number.isFinite(f.projectedHomeScore)&&
-   f.projectedAwayScore>=0&&f.projectedHomeScore>=0?
-   '<span class="ledger26-pregame-projection" title="Projected final score, away first and home second">'+
-    '<span class="ledger26-pregame-projection-kicker">PROJECTED FINAL</span>'+
-    '<strong>'+Math.round(f.projectedAwayScore)+'–'+Math.round(f.projectedHomeScore)+'</strong>'+
-    '<span class="ledger26-pregame-projection-kicker">AWAY · HOME</span></span>':'';
-  return '<div class="ledger26-status ledger26-status--pregame" data-phase="upcoming" aria-label="'+
-    esc(team+' '+percent+' percent win probability'+(margin?', RETRO projected winning margin '+margin+' points':''))+'">'+
-    '<strong class="ledger26-pregame-prob">'+percent+'%</strong>'+
-    '<span class="ledger26-pregame-team" title="'+esc(team)+'">'+esc(team)+'</span>'+
-    '<span class="ledger26-pregame-caption">WIN CHANCE</span>'+
-    (margin?'<span class="ledger26-pregame-edge">'+margin+'</span><span class="ledger26-pregame-caption">PROJECTED SPREAD</span>':'')+
-    projected+
-    '</div>';
+  const halfPoint=Number.isFinite(f.margin)?Math.round(Math.abs(f.margin)*2)/2:null;
+  const margin=halfPoint!==null&&halfPoint>0?'−'+halfPoint.toFixed(1):'';
+  // The condensed forecast shows only one win probability and one margin.
+  // Projected final scores belong in the expanded Game Details, not the rail.
+  return '<div class="ledger26-status ledger26-status--pregame ledger26-status--compact" data-phase="upcoming" aria-label="'+
+   esc(team+' '+percent+' percent RETRO win probability'+(margin?', projected margin '+margin+' points':''))+'">'+
+   '<strong class="ledger26-pregame-prob">'+percent+'%</strong>'+
+   '<span class="ledger26-pregame-team" title="'+esc(team)+'">'+esc(percent===50?'EVEN':team)+'</span>'+
+   (margin?'<strong class="ledger26-pregame-edge">'+margin+'</strong>':'')+
+   '<span class="ledger26-pregame-caption">RETRO FORECAST</span>'+
+   '</div>';
  }
  const pressCache=new Map();
  const pressGender=g=>String(g.gender||(typeof document!=='undefined'?document.body?.dataset?.gender:'')||((typeof location!=='undefined'?new URLSearchParams(location.search).get('gender'):''))||'men').toLowerCase().includes('wom')?'women':'men';

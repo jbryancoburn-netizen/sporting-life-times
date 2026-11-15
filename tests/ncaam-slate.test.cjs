@@ -9,7 +9,7 @@ const css=fs.readFileSync('ncaam-slate.css','utf8');
 const script=fs.readFileSync('ncaam-slate.js','utf8');
 const scorecardCss=fs.readFileSync('cbb-ledger-scorecard.css','utf8');
 assert(!/draftkings|onlyDraftKings|sportsbook|draftKingsByDate/i.test(script+html+scorecardCss), 'sportsbook lines and lookups must not reappear in the ledger');
-assert(script.includes('RETRO PROJECTION')&&script.includes('modelMargin'), 'RETRO margin must remain visible');
+assert(script.includes('ledgerScorebug(g)')&&fs.readFileSync('cbb-ledger-scorebug.js','utf8').includes('ledger26-pregame-edge'), 'RETRO margin must remain visible in shared scorebug');
 assert(script.includes('data-slt-ledger-press-open')&&script.includes('ledger26-network'), 'press and network must remain in header');
 assert(script.includes('broadcastByDate')&&script.includes('verifiedBroadcasts'), 'verified TV lookup must remain connected');
 assert(script.includes('cbb-published-networks-2026-27.json')&&script.includes('publishedBroadcasts'),

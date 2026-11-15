@@ -529,3 +529,19 @@
  .ledger26-final-standing{font-size:9px}
  .ledger26-final-note{font-size:9px}
 }
+
+/* Compact pregame rail: no repeat projected scores or label stacks. */
+.ledger26-status--compact{gap:4px;padding:7px 4px!important}
+.ledger26-status--compact .ledger26-pregame-prob{font-size:26px!important}
+.ledger26-status--compact .ledger26-pregame-team{font-size:10px;max-height:2.2em;overflow:hidden}
+.ledger26-status--compact .ledger26-pregame-edge{width:100%;border-top:1px solid #ad9878;padding-top:6px;margin-top:3px;font-size:19px}
+.ledger26-status--compact .ledger26-pregame-caption{font-size:8px;letter-spacing:.035em}
+.ledger26-projected-detail{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:9px 12px;border-bottom:1px solid #b59d7d;background:#f4e9d4;color:#3b291b;font:12px/1.35 Georgia,serif}
+.ledger26-projected-detail strong{font-size:10px;letter-spacing:.06em}
+@media(max-width:640px){
+ .ledger26-status--compact{gap:3px;padding:5px 2px!important}
+ .ledger26-status--compact .ledger26-pregame-prob{font-size:22px!important}
+ .ledger26-status--compact .ledger26-pregame-team{font-size:9px}
+ .ledger26-status--compact .ledger26-pregame-edge{font-size:17px;padding-top:4px}
+ .ledger26-status--compact .ledger26-pregame-caption{font-size:7px}
+}
