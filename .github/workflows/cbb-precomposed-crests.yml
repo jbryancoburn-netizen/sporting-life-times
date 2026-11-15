@@ -7,6 +7,7 @@ on:
     paths:
       - 'scripts/build_cbb_precomposed_crests.py'
       - 'scripts/emboss_cbb_crests.py'
+      - 'scripts/build_cbb_logo_credits.py'
       - 'scripts/bump_cbb_precomposed_crest_refs.py'
       - 'data/mbb-logo-registry.json'
       - 'data/dual-ring-team-palette.json'
@@ -37,6 +38,8 @@ jobs:
         run: python3 scripts/build_cbb_precomposed_crests.py
       - name: Apply the approved raised-ink finish to the flat masters
         run: python3 scripts/emboss_cbb_crests.py
+      - name: Publish archive credits with exact design eras
+        run: python3 scripts/build_cbb_logo_credits.py
       - name: Version every first-party CBB page using the shared crest renderer
         run: python3 scripts/bump_cbb_precomposed_crest_refs.py
       - name: Verify full local asset inventory
@@ -52,7 +55,7 @@ jobs:
           PY
       - name: Verify per-team crest inventory and renderer contract
         run: |
-          node --test tests/cbb-precomposed-crest.test.cjs tests/cbb-big-ten-heritage-production.test.cjs tests/cbb-acc-heritage-production.test.cjs
+          node --test tests/cbb-precomposed-crest.test.cjs tests/cbb-big-ten-heritage-production.test.cjs tests/cbb-acc-heritage-production.test.cjs tests/cbb-retro-archive.test.cjs
           node scripts/audit-mbb-logo-system.cjs
           node --check mbb-logo-system.js
           node --check wbb-rankings.js
