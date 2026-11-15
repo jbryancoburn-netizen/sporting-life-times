@@ -84,7 +84,11 @@ async function run(){
  // Verify the renderer's additional A10/Mountain West marks as vintage, too.
  const heritageSource=read('mbb-logo-system.js');
  const additional={};
- for(const [,id,url] of heritageSource.matchAll(/'(\\d+)':'(assets\\/cbb-(?:atlantic-10|mountain-west)-1980s\\/[^']+)'/g)){
+ for(const line of heritageSource.split('\n')){
+   if(!line.includes('assets/cbb-atlantic-10-1980s/')&&!line.includes('assets/cbb-mountain-west-1980s/'))continue;
+   const match=line.match(/^\s*'([0-9]+)':'([^']+)'/);
+   if(!match)continue;
+   const id=match[1],url=match[2];
    assert(!additional[id],'Duplicate supplementary historic crest '+id);
    assert(fs.existsSync(url.split('?')[0]),'Missing supplementary local crest '+id);
    additional[id]=url;
