@@ -21,11 +21,15 @@ PINNED={
  '2253':'https://content.sportslogos.net/logos/31/5050/full/grand_canyon_antelopes_logo_secondary_1978_sportslogosnet-3306.png',
  '2440':'https://content.sportslogos.net/logos/33/767/full/nevada_wolf_pack_logo_primary_1979_sportslogosnet-6993.png',
  '23':'https://upload.wikimedia.org/wikipedia/commons/b/be/SJSU_Main_Logo_from_1983_to_1999.png',
- '2638':'https://content.sportslogos.net/logos/35/889/full/7903_utep_miners-alternate-1999.png'
+ '62':'https://content.sportslogos.net/logos/31/696/full/hawaii_warriors_logo_primary_19823834.png',
+ '2751':'https://content.sportslogos.net/logos/35/918/full/wyoming_cowboys_logo_primary_19869705.png',
+ '2439':'https://content.sportslogos.net/logos/35/888/full/unlv_rebels_logo_primary_19833350.png',
+ '2638':'https://content.sportslogos.net/logos/35/889/full/utep-miners-logo-primary-1980-6989.png'
 }
 PINNED_ERA={
  '167':(1973,1999),'2005':(1963,1994),'2253':(1978,2013),
- '2440':(1979,1993),'23':(1983,1999),'2638':(1980,1999)
+ '2440':(1979,1993),'23':(1983,1999),'2638':(1980,1999),
+ '62':(1980,2000),'2751':(1986,2007),'2439':(1983,1997)
 }
 S=requests.Session()
 S.headers.update({'User-Agent':'Mozilla/5.0 (Sporting Life Times historic basketball logo archive)'})
@@ -91,7 +95,7 @@ def main():
  additions={};errors={}
  for team in audit['teams']:
   eid=team['espn_id']
-  if eid in existing:continue
+  if eid in existing and eid!='2638':continue
   try:
    image_url,source=find_art(team)
    data=local_png(image_url)
