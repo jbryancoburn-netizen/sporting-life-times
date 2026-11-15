@@ -34,3 +34,12 @@ test('women’s rankings are independent of an optional palette request',()=>{
  assert.match(women,/req\('data\/dual-ring-team-palette\.json'\)\.catch\(\(\)=>null\)/);
  assert.doesNotMatch(women,/throw Error\('Published two-color logo registry incomplete'\)/);
 });
+
+test('Atlantic 10 archival crests optically fill their rings without changing ring geometry',()=>{
+ for(const [espnId,scale] of [['227','2.35'],['2350','2.60']]){
+  assert(css.includes('.mbb-mark[data-espn-id="'+espnId+'"]>img.mbb-mark__img{'));
+  assert(css.includes('transform:translate(-50%,-50%) scale('+scale+')!important;'));
+ }
+ assert(css.includes('.mbb-mark::before{'));
+ assert(css.includes('z-index:3!important'));
+});
