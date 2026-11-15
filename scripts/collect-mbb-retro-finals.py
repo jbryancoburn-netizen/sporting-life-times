@@ -131,7 +131,7 @@ def main():
             # regulation snapshot before an 84-83 overtime final). Never
             # overwrite a published, independently certified final with a
             # conflicting feed snapshot; retain the discrepancy for review.
-            if (previous and previous.get('source', '').startswith('Northwestern State Athletics official final') and
+            if (previous and previous.get('score_certified') is True and
                 (previous['home_score'], previous['away_score']) != (h, a)):
                 continue
             collected[candidate['id']] = candidate
