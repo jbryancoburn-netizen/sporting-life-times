@@ -36,7 +36,7 @@ for(const [source,rows] of dataSets){
   }
   const neutral=(g.neutral===true||g.neutral_site===true||g.neutralSite===true||String(g.site||'').toLowerCase()==='neutral');
   const siteVerified=(g.site_verified===true||g.venue_verified===true||neutral);
-  const result={id,home_id:home,away_id:away,home_score:hs,away_score:as,date:date.slice(0,10),neutral:neutral||!siteVerified,site_verified:siteVerified,source};
+  const result={id,home_id:home,away_id:away,home_score:hs,away_score:as,date:date.slice(0,10),neutral:neutral||!siteVerified,site_verified:siteVerified,source,score_certified:g.score_certified===true};
   const prior=finals.get(id);
   if(prior){for(const k of ['home_id','away_id','home_score','away_score','date']){if(prior[k]!==result[k])throw Error('Conflicting verified finals '+id+': '+k);}}
   else finals.set(id,result);
