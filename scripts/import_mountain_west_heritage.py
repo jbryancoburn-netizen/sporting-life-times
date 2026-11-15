@@ -25,7 +25,7 @@ PINNED={
  '2751':'https://content.sportslogos.net/logos/35/918/full/wyoming_cowboys_logo_primary_19869705.png',
  '2439':'https://content.sportslogos.net/logos/35/888/full/unlv_rebels_logo_primary_19833350.png',
  '302':'https://content.sportslogos.net/logos/30/1831/full/california_davis_aggies_logo_primary_19599786.png',
- '2638':'https://content.sportslogos.net/logos/35/889/full/utep-miners-logo-primary-1980-6989.png'
+ '2638':'https://content.sportslogos.net/logos/35/889/full/utep-miners-alternate-logo-1980-88977171980.png'
 }
 PINNED_ERA={
  '167':(1973,1999),'2005':(1963,1994),'2253':(1978,2013),
