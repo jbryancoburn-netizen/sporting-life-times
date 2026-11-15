@@ -57,10 +57,11 @@ function correctEdition(a,edition){
          (a.origin==='publisher RSS'||(a.origin==='school'&&basketball.test(title)));
 }
 function rank(a){
-  if(Number.isFinite(Number(a.editorial_score)))return Number(a.editorial_score);
+  // Recalculate at view time: cached editorial_score was freezing prominent
+  // headlines in place for days even while the underlying wire was changing.
   const t=a.title||'',hours=Math.max(0,(Date.now()-Date.parse(a.published_at))/3600000);
   return (significant.test(t)?40:0)+(results.test(t)?22:0)+(development.test(t)?15:0)
-     +(a.link_type==='publisher'?12:0)-Math.min(36,hours*.75);
+     +(a.link_type==='publisher'?12:0)+Math.max(-130,40-hours*4);
 }
 const words=t=>String(t||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').split(' ').filter(w=>w.length>2&&!['the','and','for','with','college','basketball','ncaa','men','women','team','game','games'].includes(w));
 function duplicate(a,b){
@@ -74,7 +75,11 @@ function select(data,edition){
   const candidates=(data?.articles||[]).filter(a=>{
     const published=Date.parse(a.published_at||'');
     return Number.isFinite(published)&&published<=now+5*60000&&now-published<=maxStoryAge&&correctEdition(a,edition);
-  }).sort((a,b)=>rank(b)-rank(a)||(Date.parse(b.published_at)-Date.parse(a.published_at)));
+  }).sort((a,b)=>{
+    const recentA=Date.now()-Date.parse(a.published_at)<=18*3600000;
+    const recentB=Date.now()-Date.parse(b.published_at)<=18*3600000;
+    return Number(recentB)-Number(recentA)||rank(b)-rank(a)||(Date.parse(b.published_at)-Date.parse(a.published_at));
+  });
   const selected=[],sources=new Map();
   for(const article of candidates){
     const publisher=article.source.toLowerCase();
@@ -116,13 +121,17 @@ function sectionFor(a){
 }
 function renderEdition(stories){
   const lead=articleHTML(stories[0],'lead');
-  const secondary=stories.slice(1,4).map(a=>articleHTML(a,'secondary')).join('');
+  // Supporting dispatches use actual publication time, not yesterday's
+  // historical significance score, so the front page visibly turns over.
+  const secondaryStories=stories.slice(1).sort((a,b)=>Date.parse(b.published_at)-Date.parse(a.published_at)).slice(0,3);
+  const secondary=secondaryStories.map(a=>articleHTML(a,'secondary')).join('');
   const groups=[
     {key:'national',title:'The National Desk',articles:[]},
     {key:'conference',title:'Campus & Conference',articles:[]},
     {key:'people',title:'Players & Coaches',articles:[]}
   ];
-  for(const a of stories.slice(4,15))groups.find(g=>g.key===sectionFor(a)).articles.push(a);
+  const used=new Set([stories[0],...secondaryStories]);
+  for(const a of stories.slice(1,15))if(!used.has(a))groups.find(g=>g.key===sectionFor(a)).articles.push(a);
   const active=groups.filter(g=>g.articles.length);
   const departments=active.length
     ?'<div class="chronicle-news-departments" data-count="'+active.length+'">'+active.map(g=>
@@ -142,7 +151,10 @@ async function refresh(){
   }
   root.innerHTML=renderEdition(stories);
   const age=Date.now()-updatedAt(data);
-  stamp.textContent=(age>freshnessLimit?'Reporting feed delayed · Last collected ':'National wire updated ')+time(data.updated_at)+' ET';
+  const changes=data.new_stories_since_previous_refresh?.[edition];
+  const newest=data.newest_article_at?.[edition]||stories.reduce((latest,a)=>Date.parse(a.published_at)>Date.parse(latest)?a.published_at:latest,stories[0].published_at);
+  const turnover=Number.isInteger(changes)?' · '+(changes>0?changes+' new report'+(changes===1?'':'s')+' this cycle':'No new reports this cycle'):'';
+  stamp.textContent=(age>freshnessLimit?'Reporting feed delayed · Last collected ':'National wire updated ')+time(data.updated_at)+' ET · Latest article '+time(newest)+' ET'+turnover;
 }
 refresh();
 setInterval(()=>{if(!document.hidden)refresh()},5*60*1000);
