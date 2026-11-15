@@ -66,7 +66,7 @@ function render(team,published,safe){
  const text='<p class="rank-why-method"><strong>How RETRO ranks teams:</strong> Beating strong opponents, winning by more than expected, and performing well away from home can help a team. Every verified Division I result is considered.</p>'+
    '<p class="rank-why-method"><strong>Reading the games:</strong> A positive performance number means the result was better than RETRO expected at today\'s ratings. It is <strong>not</strong> the number of rating points earned from that game.</p>';
  const value=n=>n===null?'—':Number(n).toFixed(1);
- const movement=metrics.dailyChange===null?'—':(metrics.dailyChange>0?'▲ +':metrics.dailyChange<0?'▼ −':'— ')+value(Math.abs(metrics.dailyChange));
+ const movement=metrics.dailyChange===null?'Unavailable':metrics.dailyChange===0?'No change':(metrics.dailyChange>0?'▲ +':'▼ −')+Math.abs(metrics.dailyChange).toFixed(Math.abs(metrics.dailyChange)<0.1?2:1);
  const latest=metrics.form.length?metrics.form.map(letter=>'<i class="rank-form-'+letter.toLowerCase()+'" title="'+(letter==='W'?'Win':'Loss')+'">'+letter+'</i>').join(''):'—';
  const facts='<div class="rank-quick-stats" aria-label="Verified rating context">'+
    '<span><small>RATING CHANGE</small><b>'+esc(movement)+'</b></span>'+
