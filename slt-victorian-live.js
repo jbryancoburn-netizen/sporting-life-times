@@ -590,8 +590,13 @@ function panel(tab,content){return '<section class="vld-panel" data-vld-panel="'
 function page(g){
  const isBasketball=config.kind==='basketball';
  const courtDetails=isBasketball?'<details class="vld-paper"><summary>Court & verified shot locations</summary><div class="vld-shot-floor">'+courtSVG()+'</div>'+shots(g)+'</details>':'';
- return scoreboard(g)+
- (isBasketball?dispatchIntelligence(g):now(g))+
+ // The RETRO panel must remain accessible rather than merely defining a
+ // never-rendered function. Frozen pregame predictions are not live odds.
+ const tabs=[['live','LIVE'],['retro','RETRO']];
+ const menu='<nav class="vld-tabs" role="tablist" aria-label="Match reports">'+tabs.map(([id,label])=>
+  '<button type="button" role="tab" data-vld-tab="'+id+'" id="vld-tab-'+id+
+  '" aria-controls="vld-panel-'+id+'" aria-selected="'+(id===chosenTab)+'" tabindex="'+(id===chosenTab?'0':'-1')+'">'+label+'</button>').join('')+'</nav>';
+ const live=(isBasketball?dispatchIntelligence(g):now(g))+
  '<section class="vld-paper"><h2>THE SCORING STORY</h2>'+trend(g)+'</section>'+
  (isBasketball?liveBrief(g):'')+
  '<section class="vld-paper"><h2>PERIOD SCORING</h2>'+lineScore(g)+'</section>'+
@@ -600,6 +605,7 @@ function page(g){
  '<details class="vld-paper"><summary>Every reported play</summary>'+eventLog(g)+'</details>'+
  courtDetails+
  '<p class="vld-attribution">Source: '+esc(g.source)+'. Scoring stretches are computed only from verified reported events; no possessions, player locations or live win probabilities are inferred.</p>';
+ return scoreboard(g)+menu+panel('live',live)+panel('retro',retroPanel(g));
 }
 function choose(tab,focus){
  chosenTab=tab;
