@@ -103,7 +103,12 @@ def men(check=False):
                     want = int(final["home_score"] if str(side["team"]["id"]) == str(pairs[str(final["home_id"])]["espn_id"]) else final["away_score"])
                     old = side.get("score")
                     if event.get("status", {}).get("type", {}).get("completed") and old is not None and str(old).isdigit() and int(old) != want:
-                        raise ValueError("Conflicting already final school score for " + event_id)
+                        # Only an independently certified source result for the
+                        # same exact ESPN event may correct a stale final on
+                        # BOTH team schedules. Other disputes still fail closed.
+                        if not (final.get("score_certified") is True and
+                                str(event.get("id", "")).removeprefix("espn:") == event_id):
+                            raise ValueError("Conflicting already final school score for " + event_id)
                     if old != want:
                         side["score"] = want
                         dirty = True
