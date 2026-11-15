@@ -115,12 +115,12 @@ async function run(){
  assert.equal(assetAudit.count,365,'Every DI program must have an audited self-hosted crest');
  assert.equal(assetAudit.vintage_count,86,'All 86 original historical archives must survive');
  assert.equal(assetAudit.rings,2,'Exactly two distinct school-color rings');
- const expectedLogo=id=>'assets/cbb-precomposed-crests/'+id+'.png?v=20261115-precomposed1';
+ const expectedLogo=id=>'assets/cbb-embossed-crests/'+id+'.png?v=20261115-embossed1';
  for(const [id,entry] of Object.entries(assetAudit.crests)){
    assert.equal(entry.primary,colors[id]?.primary,'Wrong baked primary ring '+id);
    assert.equal(entry.secondary,colors[id]?.secondary,'Wrong baked secondary ring '+id);
    assert.equal(entry.heritage,anyVintage(id),'Wrong vintage source identity '+id);
-   const png=fs.readFileSync('assets/cbb-precomposed-crests/'+id+'.png');
+   const png=fs.readFileSync('assets/cbb-embossed-crests/'+id+'.png');
    assert.equal(png.subarray(0,8).toString('hex'),'89504e470d0a1a0a','Not PNG '+id);
    assert.equal(png.readUInt32BE(16),512,'Not high-resolution crest '+id);
    assert.equal(png.readUInt32BE(20),512,'Not square crest '+id);

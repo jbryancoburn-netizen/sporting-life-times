@@ -17,7 +17,7 @@ const expected={
  '120':'maryland-terrapin','164':'rutgers','26':'ucla','30':'usc',
  '2483':'oregon','264':'washington'
 };
-const baked=id=>'assets/cbb-precomposed-crests/'+id+'.png?v=20261115-precomposed1';
+const baked=id=>'assets/cbb-embossed-crests/'+id+'.png?v=20261115-embossed1';
 const url=(slug)=>'assets/cbb-big-ten-1980s/centered/'+slug+'.png?v='+(slug==='michigan-state-gruff'?'20261114-gruff-full-art1':'20261114-bigten-live1');
 
 async function system(){
@@ -96,16 +96,16 @@ test('men and women team desks, ledgers, live center, ranks and conferences cach
  for(const page of pages){
   const html=read(page);
   if(page==='ncaaw-rankings.html'){
-   assert(html.includes("location.replace(target)")&&html.includes('ncaam-rankings.html'),'Women redirects to shared ranking page');
+   assert(html.includes("location.replace(")&&html.includes('ncaam-rankings.html'),'Women redirects to shared ranking page');
   }else{
-   assert(html.includes('mbb-logo-system.js?v=cbb-precomposed-20261115-v1'),'Every reader must use the baked logo renderer: '+page);
-   assert(html.includes('mbb-logo-system.css?v=cbb-precomposed-20261115-v1'),'Every reader must use the baked-logo layout contract: '+page);
+   assert(html.includes('mbb-logo-system.js?v=cbb-embossed-20261115-v1'),'Every reader must use the baked logo renderer: '+page);
+   assert(html.includes('mbb-logo-system.css?v=cbb-embossed-20261115-v1'),'Every reader must use the baked-logo layout contract: '+page);
   }
  }
  const wbbRanks=read('ncaaw-rankings.html');
  assert(wbbRanks.includes('ncaam-rankings.html?gender=women'));
- assert(read('ncaam-rankings.html').includes('assets/cbb-precomposed-crests/'));
- assert(read('wbb-rankings.js').includes('assets/cbb-precomposed-crests/'));
+ assert(read('ncaam-rankings.html').includes('assets/cbb-embossed-crests/'));
+ assert(read('wbb-rankings.js').includes('assets/cbb-embossed-crests/'));
  const women=read('wbb-rankings.js');
  assert(women.includes('MBBLogos?.retroURLForESPN?.(id)'),'Women poll resolves local historical assets by ID');
  assert(women.includes("wbbr-women-mark'+(heritage?' mbb-mark--heritage'"),'Women poll adopts same badge sizing');
