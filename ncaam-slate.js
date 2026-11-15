@@ -807,8 +807,8 @@ const ledgerScorebug=g=>{
     const team=String(side.name||'').trim();
     return {team,probability:homeFav?g.probability:1-g.probability,
       margin:Number.isFinite(margin)&&margin>0?margin:null,
-      projectedAwayScore:Number.isFinite(g.projectedAwayScore)?g.projectedAwayScore:(Number.isFinite(projection?.away)?projection.away:null),
-      projectedHomeScore:Number.isFinite(g.projectedHomeScore)?g.projectedHomeScore:(Number.isFinite(projection?.home)?projection.home:null)};
+      projectedAwayScore:g.forecastStatus==='PROVISIONAL'?null:(Number.isFinite(g.projectedAwayScore)?g.projectedAwayScore:(Number.isFinite(projection?.away)?projection.away:null)),
+      projectedHomeScore:g.forecastStatus==='PROVISIONAL'?null:(Number.isFinite(g.projectedHomeScore)?g.projectedHomeScore:(Number.isFinite(projection?.home)?projection.home:null))};
   })(),
   rivalry:(()=>{
     if(g.phase!=='upcoming'||g.kind==='exhibition')return null;
@@ -862,14 +862,7 @@ function card(original,featured,opened=false){
  const theatre=g.kind!=='exhibition'&&validId(g.id)&&g.phase==='live'?'<a class="vld-link" href="live-game.html?league='+(women?'ncaaw':'ncaam')+'&game='+encodeURIComponent(g.id)+'" aria-label="Open Victorian live dispatch for '+esc(g.away.name)+' at '+esc(g.home.name)+'">◈ LIVE DISPATCH</a>':'';
  const right=tv||press||theatre?'<span class="ledger26-meta-actions">'+tv+press+theatre+'</span>':'';
  // The shared scorebug rail is the only pregame forecast presentation.
- // A projected score is supplementary context, revealed only on expansion.
- const projected=g.phase==='upcoming'&&g.forecastStatus!=='PROVISIONAL'?
-   (Number.isFinite(g.projectedAwayScore)&&Number.isFinite(g.projectedHomeScore)?
-     {away:g.projectedAwayScore,home:g.projectedHomeScore}:null):null;
- const projectedDetail=projected?
-   '<div class="ledger26-projected-detail"><strong>RETRO PROJECTED FINAL</strong><span>'+
-   esc(g.away.name)+' '+Math.round(projected.away)+' · '+esc(g.home.name)+' '+Math.round(projected.home)+
-   '</span></div>':'';
+ // The projected score now lives inside the collapsed forecast rail, not the expanded gamefile.
  // Matchup context comes only from verified season-final aggregates.
  const awayForm=seasonStats.get(String(g.away.canonical||'')),homeForm=seasonStats.get(String(g.home.canonical||''));
  const sample=p=>p&&Number.isInteger(p.g)&&p.g>0&&Number.isFinite(p.pf)&&Number.isFinite(p.pa)?
@@ -888,7 +881,7 @@ function card(original,featured,opened=false){
    '<details class="sl-game-expansion ledger26-expand" data-game-id="'+esc(g.id)+'" data-day="'+esc(g.day)+'" data-gender="'+(women?'women':'men')+'" data-home-id="'+esc(g.home.canonical||'')+'" data-away-id="'+esc(g.away.canonical||'')+'" data-home-name="'+esc(g.home.name)+'" data-away-name="'+esc(g.away.name)+'"'+(opened?' open':'')+'>'+
    '<summary class="ledger26-summary" aria-label="Expand '+esc(g.away.name)+' at '+esc(g.home.name)+' game details">'+
    ledgerScorebug(g)+'<span class="ledger26-instruction">OPEN GAME DETAILS <span aria-hidden="true">+</span></span></summary>'+
-   '<div class="ledger26-expanded">'+projectedDetail+matchupDetail+
+   '<div class="ledger26-expanded">'+matchupDetail+
    '<div class="sl-game-footer ledger26-links"><span>'+esc(source)+'</span>'+
    (external&&/^https:\/\/[^\s"'<>]+$/.test(g.sourceURL||'')?
      '<a class="sl-details" href="'+esc(g.sourceURL)+'" target="_blank" rel="noopener noreferrer">Cited exhibition result ↗</a>':'')+
