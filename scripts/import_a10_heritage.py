@@ -33,10 +33,15 @@ DIRECT_IMAGE={
 S=requests.Session()
 S.headers.update({'User-Agent':'Mozilla/5.0 (compatible; SportingLifeAndTimes/1.0; A10 logo archival import)'})
 def archival_image(url, direct_image=None):
- r=S.get(url,timeout=25);r.raise_for_status()
- soup=BeautifulSoup(r.text,'html.parser')
- # Select image from the designated logo page, not banners, ads, thumbnails, merchandise.
+ # A verified exact historical image does not require parsing an archive HTML page.
+ # Other schools still require the page and full-size artwork validation.
  imgs=[]
+ if not direct_image:
+  r=S.get(url,timeout=25);r.raise_for_status()
+  soup=BeautifulSoup(r.text,'html.parser')
+ else:
+  soup=BeautifulSoup('', 'html.parser')
+ # Select image from the designated logo page, not banners, ads, thumbnails, merchandise.
  for tag in soup.select('a[href],img[src],img[data-src],meta[property="og:image"]'):
   raw=tag.get('href') or tag.get('data-src') or tag.get('src') or tag.get('content') or ''
   target=urljoin(url,raw)
