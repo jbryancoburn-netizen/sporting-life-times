@@ -136,7 +136,7 @@ async function run(){
   assert(crest.includes(expectedLogo(id,item)),'Wrong logo URL '+t.name);
   assert.equal(crest.includes('mbb-mark--heritage'),anyVintage(id),
     'Retro logo was assigned to the wrong conference identity '+t.name);
-  if(anyVintage(id)){
+  if(vintage[id]||vintageACC[id]||vintageSEC[id]||vintageBigEast[id]){
     assert(!crest.includes('data-logo-alternate="https://'),
       'Historical Big Ten logo must not silently fall back to modern CDN: '+t.name);
     assert(ctx.window.MBBLogos.logoURL(t.id).includes(expectedLogo(id,item)),
