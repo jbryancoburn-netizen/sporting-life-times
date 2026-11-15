@@ -52,6 +52,22 @@ def verify(data, max_age):
                 raise ValueError(f"Duplicate {gender}'s wire story: {title}")
         if recent[gender] < 2:
             raise ValueError(f"Too few new {gender}'s articles within {FRESH_HOURS}h: {recent[gender]}")
+    # A changing collector timestamp is not equivalent to changing content.
+    # Validate separately reported latest article time and newsroom turnover.
+    if "newest_article_at" in data:
+        for gender in ("men", "women"):
+            actual = max(a["published_at"] for a in articles if a["gender"] == gender)
+            if data["newest_article_at"].get(gender) != actual:
+                raise ValueError(f"Incorrect newest published report for {gender}")
+    if "new_stories_since_previous_refresh" in data:
+        for gender in ("men", "women"):
+            value = data["new_stories_since_previous_refresh"].get(gender)
+            if type(value) is not int or not 0 <= value <= counts[gender]:
+                raise ValueError(f"Invalid actual new-story count for {gender}")
+    if "stories_changed_at" in data:
+        changed = datetime.fromisoformat(data["stories_changed_at"].replace("Z", "+00:00"))
+        if changed > updated or changed > now + timedelta(minutes=5):
+            raise ValueError("Newsroom content-change timestamp cannot exceed collection time")
     return (f"{counts['men']} men's and {counts['women']} women's basketball stories; "
             f"{recent['men']}/{recent['women']} published within {FRESH_HOURS}h; "
             f"feed refreshed {age:.0f} minutes ago")
