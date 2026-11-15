@@ -35,10 +35,11 @@ test('women’s rankings are independent of an optional palette request',()=>{
  assert.doesNotMatch(women,/throw Error\('Published two-color logo registry incomplete'\)/);
 });
 
-test('Atlantic 10 archival crests optically fill their rings without altering ring geometry',()=>{
+test('Atlantic 10 archival crests optically fill their rings without changing ring geometry',()=>{
  for(const [espnId,scale] of [['227','2.35'],['2350','2.60']]){
-  assert.match(css,new RegExp('\\\\.mbb-mark\\\\[data-espn-id="'+espnId+'"\\\\]>img\\\\.mbb-mark__img\\\\{\\\\s*transform:translate\\\\\\(-50%,-50%\\\\\\) scale\\\\\\('+scale.replace('.','\\\\.')+'\\\\\\)!important;'));
+  assert(css.includes('.mbb-mark[data-espn-id="'+espnId+'"]>img.mbb-mark__img{'));
+  assert(css.includes('transform:translate(-50%,-50%) scale('+scale+')!important;'));
  }
- assert.match(css,/\\.mbb-mark::before\\{/);
- assert.match(css,/z-index:3!important/);
+ assert(css.includes('.mbb-mark::before{'));
+ assert(css.includes('z-index:3!important'));
 });
