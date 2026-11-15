@@ -64,33 +64,45 @@ def bounds_and_mask(src):
 
 def make_medallion(src,primary,secondary):
     image=src.convert("RGBA")
-    bb=bounds_and_mask(image)
-    # A small source-space safety margin guarantees antialiased features are kept.
-    margin=max(3,round(max(bb[2]-bb[0],bb[3]-bb[1])*.012))
-    bb=(max(0,bb[0]-margin),max(0,bb[1]-margin),
-        min(src.width,bb[2]+margin),min(src.height,bb[3]+margin))
-    art=image.crop(bb)
-    fit=ART_R*2
-    scale=min(fit/art.width,fit/art.height)
-    w,h=max(1,int(art.width*scale)),max(1,int(art.height*scale))
-    art=art.resize((w,h),Image.Resampling.LANCZOS)
+    # Remove *only* page-colored background connected to a corner. Preserve
+    # enclosed white mascot lettering, eyes and other historical artwork.
+    corners=[image.getpixel(pt) for pt in [(0,0),(image.width-1,0),(0,image.height-1),(image.width-1,image.height-1)]]
+    if (all(p[3]>=245 and min(p[:3])>=218 for p in corners)
+            and max(max(p[:3])-min(p[:3]) for p in corners)<38):
+        for pt in [(0,0),(image.width-1,0),(0,image.height-1),(image.width-1,image.height-1)]:
+            if image.getpixel(pt)[3]>=245 and min(image.getpixel(pt)[:3])>=218:
+                ImageDraw.floodfill(image,pt,(0,0,0,0),thresh=18)
+    bbox=image.getchannel("A").point(lambda v:255 if v>=12 else 0).getbbox()
+    if not bbox:raise ValueError("No visible archived mascot")
+    margin=max(3,round(max(bbox[2]-bbox[0],bbox[3]-bbox[1])*.013))
+    bbox=(max(0,bbox[0]-margin),max(0,bbox[1]-margin),
+        min(src.width,bbox[2]+margin),min(src.height,bbox[3]+margin))
+    cropped=image.crop(bbox)
+    # Start with large artwork, shrinking only if real painted pixels would
+    # intersect the protected inside edge of the two-ring medallion.
+    art=None
+    for max_edge in range(400,270,-10):
+        scale=min(max_edge/cropped.width,max_edge/cropped.height)
+        w,h=max(1,round(cropped.width*scale)),max(1,round(cropped.height*scale))
+        trial=cropped.resize((w,h),Image.Resampling.LANCZOS)
+        test=Image.new("RGBA",(SIZE,SIZE),(0,0,0,0))
+        test.alpha_composite(trial,((SIZE-w)//2,(SIZE-h)//2))
+        disk=Image.new("L",(SIZE,SIZE),0)
+        ImageDraw.Draw(disk).ellipse((SIZE//2-ART_R,SIZE//2-ART_R,SIZE//2+ART_R,SIZE//2+ART_R),fill=255)
+        violation=ImageChops.subtract(test.getchannel("A"),disk)
+        if not violation.getbbox():
+            art=test
+            chosen=(w,h)
+            break
+    if art is None:
+        raise ValueError("Archival image extends beyond safe crest circle: manual artwork review required")
     canvas=Image.new("RGBA",(SIZE,SIZE),(0,0,0,0))
     d=ImageDraw.Draw(canvas)
-    # Precisely two contiguous school-color rings, not CSS or image borders.
     d.ellipse((6,6,506,506),fill=primary)
     d.ellipse((24,24,488,488),fill=secondary)
     d.ellipse((42,42,470,470),fill=(251,247,236,255))
-    # A clear paper disk under the original art (not a third ring).
-    layer=Image.new("RGBA",(SIZE,SIZE),(0,0,0,0))
-    layer.alpha_composite(art,((SIZE-w)//2,(SIZE-h)//2))
-    mask=Image.new("L",(SIZE,SIZE),0)
-    ImageDraw.Draw(mask).ellipse((SIZE//2-ART_R,SIZE//2-ART_R,SIZE//2+ART_R,SIZE//2+ART_R),fill=255)
-    alpha=ImageChops.multiply(layer.getchannel("A"),mask)
-    if ImageChops.difference(layer.getchannel("A"),alpha).getbbox():
-        raise ValueError("Source art would clip at the circular safety zone")
-    layer.putalpha(alpha)
-    canvas.alpha_composite(layer)
-    return canvas,bb,(w,h)
+    canvas.alpha_composite(art)
+    return canvas,bbox,chosen
 
 def main():
     OUT.mkdir(parents=True,exist_ok=True)
