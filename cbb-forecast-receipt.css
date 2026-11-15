@@ -32,6 +32,29 @@
 .sched-result-cell .cbb-forecast-metric+.cbb-forecast-metric{border-left:0;border-top:1px solid #c5b397;padding:7px 0 0}
 .sched-result-cell .cbb-forecast-value{font-size:12px}
 .wbb-scorebug-card .cbb-forecast-receipt{margin:5px 0 0}
+/* Match the team calendar's two-column mobile card breakpoint. The result
+   controls stay beside Opponent RETRO; the comparison gets its own full row. */
+@media(max-width:700px){
+ #full-season-schedule .mbb-schedule-table > tbody > tr > td.sched-result-cell--forecast{display:contents!important}
+ #full-season-schedule .sched-result-cell--forecast::before{display:none!important}
+ #full-season-schedule .sched-result-summary{
+  grid-column:2;min-width:0;text-align:right;padding:7px 0 0;
+  border-top:1px solid #bea587;
+ }
+ #full-season-schedule .sched-result-summary::before{
+  content:'Result';display:block;margin-bottom:3px;color:#70533e;
+  font:800 9px/1.2 Arial,sans-serif;letter-spacing:.06em;text-transform:uppercase;
+ }
+ #full-season-schedule .sched-result-cell--forecast > .cbb-forecast-receipt{
+  grid-column:1/-1;width:100%;min-width:0;margin:8px 0 1px;
+ }
+ #full-season-schedule .sched-result-cell--forecast .cbb-forecast-comparison{
+  grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;
+ }
+ #full-season-schedule .sched-result-cell--forecast .cbb-forecast-metric+.cbb-forecast-metric{
+  border-top:0;border-left:1px solid #c5b397;padding:0 0 0 9px;
+ }
+}
 @media(max-width:640px){
  .cbb-forecast-receipt{padding:9px 8px}
  .cbb-forecast-heading{margin-bottom:8px;gap:5px 7px}
