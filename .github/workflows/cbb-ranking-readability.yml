@@ -40,24 +40,3 @@ jobs:
           node --check mbb-elo-primary.js
           node --check wbb-rankings.js
 
-  normalize-archival-a10-crests-on-pr-branch:
-    if: github.event_name == 'pull_request' && github.head_ref == 'normalize-rhode-loyola-source-art-20261115'
-    runs-on: ubuntu-24.04
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.head_ref }}
-          persist-credentials: true
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Normalize archived PNGs without touching CSS
-        run: |
-          python -m pip install Pillow==11.3.0
-          python scripts/normalize_a10_logo_art.py
-          git add assets/cbb-atlantic-10-1980s/rhode-island.png assets/cbb-atlantic-10-1980s/loyola-chicago.png
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git diff --cached --quiet || (git commit -m "Normalize original Rhode Island and Loyola artwork on 512px canvases" && git push origin HEAD:${{ github.head_ref }})
