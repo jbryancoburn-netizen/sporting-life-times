@@ -314,7 +314,8 @@
       Number(profile.wins)+'–'+Number(profile.losses):'0–0';
     const elo=window.SLTBasketballScorebug?.formatRetro(profile,state.rankTies,women?363:365)||'RETRO —';
     return {name:schoolLabel(t),score:g.phase==='upcoming'?null:score(t),
-      crest:crest(t),color:safeTeamColor(t),record,retro:elo,poll:state.poll.get(id)||null};
+      crest:crest(t),color:safeTeamColor(t),record,retro:elo,poll:state.poll.get(id)||null,
+       retroSnapshot:g.phase==='final'&&profile&&Number.isFinite(Number(profile.elo))?{elo:Number(profile.elo),rank:Number.isInteger(Number(profile.rank))?Number(profile.rank):null,dailyChange:profile.daily_change==null?null:Number(profile.daily_change)}:null};
   }
   function letterpressMarkup(g){
     return window.SLTBasketballScorebug?.render({
