@@ -805,10 +805,23 @@ const ledgerScorebug=g=>{
     const projection=insight?.projectedScore(g,scoreCalibration,ratings);
     const margin=Number.isFinite(g.projectedHomeMargin)?Math.abs(g.projectedHomeMargin):null;
     const team=String(side.name||'').trim();
+    const rawAway=Number.isFinite(g.projectedAwayScore)?g.projectedAwayScore:(Number.isFinite(projection?.away)?projection.away:null);
+    const rawHome=Number.isFinite(g.projectedHomeScore)?g.projectedHomeScore:(Number.isFinite(projection?.home)?projection.home:null);
+    // One canonical margin: preserve the projected total, but never publish
+    // a projected final whose score difference contradicts RETRO's margin.
+    let alignedAway=null,alignedHome=null;
+    if(g.forecastStatus!=='PROVISIONAL'&&Number.isFinite(rawAway)&&Number.isFinite(rawHome)&&Number.isFinite(margin)){
+      const total=Math.round(rawAway+rawHome);
+      const homeMargin=Number.isFinite(g.projectedHomeMargin)?g.projectedHomeMargin:(homeFav?margin:-margin);
+      const targetDifference=Math.round(Math.abs(homeMargin))*(homeMargin>=0?1:-1);
+      // Integer scores require an integer difference of the same parity as total.
+      const candidates=[targetDifference-1,targetDifference,targetDifference+1].filter(d=>Math.abs(d)<=total&&(total+d)%2===0);
+      const difference=candidates.sort((a,b)=>Math.abs(a-homeMargin)-Math.abs(b-homeMargin))[0];
+      if(Number.isFinite(difference)){alignedHome=(total+difference)/2;alignedAway=(total-difference)/2;}
+    }
     return {team,probability:homeFav?g.probability:1-g.probability,
       margin:Number.isFinite(margin)&&margin>0?margin:null,
-      projectedAwayScore:g.forecastStatus==='PROVISIONAL'?null:(Number.isFinite(g.projectedAwayScore)?g.projectedAwayScore:(Number.isFinite(projection?.away)?projection.away:null)),
-      projectedHomeScore:g.forecastStatus==='PROVISIONAL'?null:(Number.isFinite(g.projectedHomeScore)?g.projectedHomeScore:(Number.isFinite(projection?.home)?projection.home:null))};
+      projectedAwayScore:alignedAway,projectedHomeScore:alignedHome};
   })(),
   rivalry:(()=>{
     if(g.phase!=='upcoming'||g.kind==='exhibition')return null;
