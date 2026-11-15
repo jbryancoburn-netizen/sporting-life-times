@@ -49,14 +49,67 @@
  .rank-why .rank-why-pulse{font-size:11px}
  .rank-why-body{padding:8px}
 }
+
+/* Compact readable RETRO ledger: no reserve-space cards or empty expanded boxes. */
+.rank-retro-edition .rank-intro{display:none}
+.rank-retro-edition .rank-status{font:700 11px/1.4 Georgia,serif;letter-spacing:.025em;text-transform:uppercase;color:#614c38;margin:7px 0 9px}
+.rank-table-wrap--retro .rank-quick-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:3px 9px}
+.rank-quick-stats>span{display:flex;min-width:0;flex-direction:column;gap:3px}
+.rank-quick-stats small{font:700 9px/1.2 Arial,sans-serif;letter-spacing:.03em;color:#80654a}
+.rank-quick-stats b{font:700 13px/1.15 Georgia,serif;font-variant-numeric:tabular-nums;white-space:nowrap}
+.rank-form{display:flex;gap:3px;align-items:center}
+.rank-form i{display:inline-grid;place-items:center;width:15px;height:15px;border-radius:50%;font:700 9px/1 Arial,sans-serif;font-style:normal;background:#41654a;color:#fff}
+.rank-form i.rank-form-l{background:#a45a4c}
+.rank-why{margin-top:7px;border-top:1px solid #c8b495;padding-top:5px}
+.rank-why summary{display:flex;align-items:center;gap:6px;background:#f0e2cb;padding:4px 7px;font-size:12px}
+.rank-why summary::after{content:'+';margin-left:auto;font:700 15px/1 Georgia,serif}
+.rank-why[open] summary::after{content:'−'}
+.rank-why-best{font-size:12px;border-bottom:1px solid #c8b495;padding-bottom:6px}
+.rank-table-wrap--retro .rank-why-pulse{display:none}
+.rank-table-wrap--retro .rank-explanation{min-width:0;max-width:none}
+@media(max-width:650px){
+ .rank-retro-edition .rank-paper{padding-inline:10px}
+ .rank-retro-edition .rank-tabs{margin:10px 0 8px}
+ .rank-table-wrap--retro .rank-table tbody tr{
+  grid-template-columns:39px minmax(0,1fr) minmax(74px,auto);
+  grid-template-rows:auto auto auto;
+  column-gap:7px;row-gap:0;margin:5px 0;padding:6px 7px 7px;
+  align-items:center;border-width:2px;min-height:0
+ }
+ .rank-table-wrap--retro .rank-table tbody td:nth-child(1){grid-column:1;grid-row:1 / 3;width:39px!important;align-self:center}
+ .rank-table-wrap--retro .rank-table tbody td:nth-child(2){grid-column:2;grid-row:1 / 3}
+ .rank-table-wrap--retro .rank-table tbody td:nth-child(3){grid-column:3;grid-row:1;justify-self:end;font-size:17px}
+ .rank-table-wrap--retro .rank-table tbody td:nth-child(4){grid-column:3;grid-row:2;justify-self:end;text-align:right!important;font-size:12px}
+ .rank-table-wrap--retro .rank-table tbody td:nth-child(5){grid-column:1/-1;grid-row:3;padding:6px 2px 0;border-top:1px solid #c6b292!important;margin-top:3px}
+ .rank-table-wrap--retro .rank-school{min-height:0;gap:7px}
+ .rank-table-wrap--retro .rank-school .mbb-mark{--mbb-size:70px}
+ .rank-table-wrap--retro .rank-school a{font-size:16px}
+ .rank-table-wrap--retro .rank-record:before{content:'W–L ';font:700 9px Arial,sans-serif}
+ .rank-table-wrap--retro .rank-table tbody td:nth-child(4):before{content:'W–L ';font:700 9px Arial,sans-serif}
+ .rank-table-wrap--retro .rank-wbb-mark{width:62px;height:62px}
+ .rank-table-wrap--retro .rank-quick-stats{grid-template-columns:repeat(4,minmax(0,1fr));gap:4px}
+ .rank-table-wrap--retro .rank-quick-stats small{font-size:8px;letter-spacing:0}
+ .rank-table-wrap--retro .rank-quick-stats b{font-size:12px}
+ .rank-table-wrap--retro .rank-form{gap:2px}
+ .rank-table-wrap--retro .rank-form i{width:13px;height:13px;font-size:8px}
+ .rank-table-wrap--retro .rank-why{margin-top:5px;padding-top:3px}
+ .rank-table-wrap--retro .rank-why summary{font-size:12px;padding:4px 6px}
+ .rank-table-wrap--retro .rank-table tbody td:nth-child(3):before{display:block;text-align:right;content:'RETRO';font:700 9px Arial,sans-serif;color:#735943}
+}
+@media(max-width:375px){
+ .rank-table-wrap--retro .rank-school .mbb-mark{--mbb-size:61px}
+ .rank-table-wrap--retro .rank-school a{font-size:14px}
+ .rank-table-wrap--retro .rank-quick-stats small{font-size:7px}
+ .rank-table-wrap--retro .rank-quick-stats b{font-size:11px}
+}
 </style><link rel="stylesheet" href="slt-victorian-global.css?v=one-frame-all-rankings-20261105"></head>
 <body><div class="rank-paper"><header class="rank-mast"><a href="index.html">Sporting Life &amp; Times</a><p>THE HARDWOOD CHRONICLE · THE NATIONAL TABLE · 2026–27</p></header>
 <nav class="nav cbb-universal-nav" aria-label="College basketball navigation"><div class="cbb-gender-bar cbb-edition-switch" role="group" aria-label="College basketball edition"><a class="cbb-gender-option" href="ncaam.html">Men</a><a class="cbb-gender-option" href="ncaam.html?gender=women">Women</a></div><a href="ncaam.html">The Hardwood Chronicle</a><a href="ncaam-slate.html">Daily Ledger</a><a href="ncaam-conference.html">Conferences</a><a href="ncaam-tournament.html">Bracket Watch</a><a href="ncaam-elo.html">RETRO Rankings</a><a href="ncaam-players.html">Player Leaders</a><a href="sports.html">All Sports</a></nav>
 <main><p class="rank-overline">College Basketball / Rankings Desk</p><h1 class="rank-title" id="rank-heading">The National Rankings</h1><p class="rank-intro" id="rank-intro">Published ratings and national polls, with their original source and as-of date.</p>
 <nav class="rank-tabs" id="rank-tabs" aria-label="Choose rankings"><a href="?poll=retro">RETRO</a><a href="?poll=net">NET</a><a href="?poll=ap">AP Top 25</a><a href="?poll=coaches">Coaches</a><a href="?poll=kenpom">Pomeroy</a></nav>
 <div id="rank-status" class="rank-status"></div><div id="rank-content" aria-live="polite">Loading rankings…</div></main><footer class="rank-note">Sporting Life &amp; Times · Data is not substituted across ranking systems. Each ranking keeps its own source and publication date.</footer></div>
-<script src="retro-ranking-explainer.js?v=20261115-why-ranking"></script><script>
-(async()=>{'use strict';const params=new URLSearchParams(location.search),gender=params.get('gender')==='women'?'women':'men';const key=params.get('poll')||'retro',titles={retro:'RETRO Power Rankings',net:'NCAA NET Rankings',ap:'Associated Press Top 25',coaches:'Coaches Top 25',kenpom:'Pomeroy Ratings'};const k=titles[key]?key:'retro';document.title=titles[k]+' | Sporting Life & Times';document.getElementById('rank-heading').textContent=titles[k];for(const a of document.querySelectorAll('#rank-tabs a')){const u=new URL(a.href);u.searchParams.set('gender',gender);a.href=u.search;if(u.searchParams.get('poll')===k)a.setAttribute('aria-current','page');}
+<script src="retro-ranking-explainer.js?v=20261115-compact-metrics"></script><script>
+(async()=>{'use strict';const params=new URLSearchParams(location.search),gender=params.get('gender')==='women'?'women':'men';const key=params.get('poll')||'retro',titles={retro:'RETRO Power Rankings',net:'NCAA NET Rankings',ap:'Associated Press Top 25',coaches:'Coaches Top 25',kenpom:'Pomeroy Ratings'};const k=titles[key]?key:'retro';document.title=titles[k]+' | Sporting Life & Times';document.getElementById('rank-heading').textContent=titles[k];document.body.classList.toggle('rank-retro-edition',k==='retro');for(const a of document.querySelectorAll('#rank-tabs a')){const u=new URL(a.href);u.searchParams.set('gender',gender);a.href=u.search;if(u.searchParams.get('poll')===k)a.setAttribute('aria-current','page');}
 const e=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c]));
 const get=async p=>{try{const r=await fetch(p,{cache:'no-store'});return r.ok?await r.json():null}catch{return null}};
 let data,rows=[],source='',date='',note='',full=false;
@@ -65,7 +118,7 @@ if(k==='retro'){data=overall;if(data?.rankings?.length){rows=data.rankings.map((
 else if(k==='ap'||k==='coaches'){data=await get(gender==='women'?'data/ncaaw-2026-27-national-polls.json':'data/ncaam-2026-27-national-polls.json');const poll=data?.polls?.[k];if(poll?.rankings?.length){rows=poll.rankings;source=poll.source||poll.title;date=poll.published_at||data.as_of||'';note='Published rankings from the named poll, not RETRO projections.'}}
 else if(k==='kenpom'){data=await get('data/ncaam-2026-27-kenpom-authorized.json');const authorized=data?.season==='2026-27'&&data?.rights?.redistribution_authorized===true&&data?.source==='KenPom'&&Array.isArray(data?.rankings)&&data.rankings.length>=25&&data.rankings.every(t=>Number.isInteger(Number(t.rank))&&t.team&&Number.isFinite(Number(t.adj_em)));if(authorized){rows=data.rankings.map(t=>({rank:t.rank,team:t.team,team_id:t.team_id,adj_em:t.adj_em,adj_o:t.adj_o,adj_d:t.adj_d,adj_t:t.adj_t})).sort((a,b)=>Number(a.rank)-Number(b.rank));source='KenPom · authorized publication';date=data.as_of||'';full=false;note='Pomeroy adjusted efficiency ratings, separate from RETRO. Adjusted efficiency margin (AdjEM) is points per 100 possessions above an average Division I team.';}else{note='Pomeroy ratings require authorized redistribution. No licensed 2026–27 KenPom dataset is connected. View the current source ratings at kenpom.com; RETRO ratings are never substituted.'}}else{note='The NCAA NET rankings have not yet been published to this newspaper for 2026–27. NET rankings will appear here only after a verified official dataset is available.'}
 document.getElementById('rank-intro').textContent=note;
-document.getElementById('rank-status').textContent=rows.length?source+' · As of '+date+' · '+rows.length+' teams':'2026–27 · Source data not available';
+document.getElementById('rank-status').textContent=rows.length?(k==='retro'?(gender==='women'?'WOMEN’S RETRO':'MEN’S RETRO')+' · '+(date||'DATE UNAVAILABLE')+' · '+rows.length+' TEAMS':source+' · As of '+date+' · '+rows.length+' teams'):'2026–27 · Source data not available';
 const logos=window.MBBLogos;
 // Published polls must render even when the optional logo registry fails or stalls.
 if(logos?.ready){try{await Promise.race([logos.ready,new Promise(resolve=>setTimeout(resolve,1500))]);}catch(err){console.warn('Optional ranking logos unavailable',err);}}
