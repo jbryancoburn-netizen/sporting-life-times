@@ -25,18 +25,24 @@ DIRECT={
 '2603':'https://www.sportslogos.net/logos/view/85187521982/Saint-Josephs-Hawks-Logo/1982/Primary-Logo',
 '139':'https://www.sportslogos.net/logos/view/82242201985/Saint-Louis-Billikens-Logo/1984/Primary-Logo',
 '2670':'https://www.sportslogos.net/logos/view/89914681968/VCU-Rams-Logo/1968/Primary-Logo'}
+# Exact archive image recovered from the vetted George Washington 1967-83 logo page.
+# Avoid depending solely on SportsLogos HTML selectors changing over time.
+DIRECT_IMAGE={
+ '45':'https://content.sportslogos.net/logos/31/685/full/george_washington_colonials_logo_primary_1967_sportslogosnet-2252.png'
+}
 S=requests.Session()
 S.headers.update({'User-Agent':'Mozilla/5.0 (compatible; SportingLifeAndTimes/1.0; A10 logo archival import)'})
-def archival_image(url):
+def archival_image(url, direct_image=None):
  r=S.get(url,timeout=25);r.raise_for_status()
  soup=BeautifulSoup(r.text,'html.parser')
  # Select image from the designated logo page, not banners, ads, thumbnails, merchandise.
  imgs=[]
- for tag in soup.select('a[href],img[src]'):
-  raw=tag.get('href') or tag.get('src') or ''
+ for tag in soup.select('a[href],img[src],img[data-src],meta[property="og:image"]'):
+  raw=tag.get('href') or tag.get('data-src') or tag.get('src') or tag.get('content') or ''
   target=urljoin(url,raw)
   if urlparse(target).hostname=='content.sportslogos.net' and '/full/' in target and re.search(r'\.(png|webp|jpg|jpeg)(?:\?|$)',target,re.I):
    imgs.append(target)
+ if direct_image:imgs.insert(0,direct_image)
  imgs=list(dict.fromkeys(imgs))
  if not imgs:raise RuntimeError('No full historical logo at '+url)
  errors=[]
@@ -85,7 +91,7 @@ def main():
    issues[eid]='Specific archival primary-logo image is not yet authenticated'
    continue
   try:
-   data,image_url=archival_image(page)
+   data,image_url=archival_image(page,DIRECT_IMAGE.get(eid))
    downloaded[eid]=(team,data,image_url,page)
   except Exception as e:
    issues[eid]=str(e)
