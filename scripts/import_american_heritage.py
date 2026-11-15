@@ -1,107 +1,136 @@
 #!/usr/bin/env python3
-"""Install verified historical American Conference artwork into the shared NCAA logo renderer.
+"""Import original-era American Conference logos as *local* files.
 
-A historical era must match the manifest exactly. If the source page or image fails
-validation, keep the current modern asset instead. No external runtime dependencies.
+Exact season intervals and sport-specific constraints are validated. A missing or
+ambiguous image keeps the modern logo; it cannot silently publish a different era.
+The importer is incremental and preserves previously validated local marks.
 """
 from pathlib import Path
 from urllib.parse import urljoin,urlparse
 from io import BytesIO
-import json,re,requests
+from collections import Counter
+import re,json,requests
 from bs4 import BeautifulSoup
 from PIL import Image
 ROOT=Path(__file__).resolve().parents[1]
 MANIFEST=ROOT/'data/cbb-american-heritage-audit.json'
 RENDERER=ROOT/'mbb-logo-system.js'
-SESSION=requests.Session()
-SESSION.headers['User-Agent']='Mozilla/5.0 (Sporting Life & Times historic logo importer)'
-def fetch_page(url):
- r=SESSION.get(url,timeout=24)
- r.raise_for_status()
- return BeautifulSoup(r.text,'html.parser')
-def exact_logo_page(history,era,kind):
- soup=fetch_page(history)
- start,end=[int(v) for v in re.findall(r'\d{4}',era)]
- candidate=[]
- for anchor in soup.select('a[href]'):
-  link=urljoin(history,anchor['href'])
-  if '/logos/view/' not in link or not link.startswith('https://www.sportslogos.net/'):continue
-  name=anchor.get_text(' ',strip=True).lower()
-  text=(anchor.get('title') or '')+' '+name
-  # SportsLogos archives label the timeline 1979 - 2000; the URL contains the initial year.
-  if str(start) not in link and str(start) not in text:continue
-  if kind.lower() not in link.lower() and kind.lower() not in text.lower():continue
-  candidate.append(link)
- candidate=list(dict.fromkeys(candidate))
- if len(candidate)!=1:
-  raise ValueError(f'Could not uniquely identify exact {era} {kind} image: {candidate[:5]}')
- return candidate[0]
-def logo_image(page):
- soup=fetch_page(page)
- # Pick the principal logo image, not any other thumbnails, ads or merchandise.
- images=[]
- for img in soup.select('img[src],img[data-src]'):
-  alt=(img.get('alt') or '').lower()
-  u=urljoin(page,img.get('data-src') or img.get('src') or '')
-  if urlparse(u).hostname=='content.sportslogos.net' and '/full/' in u and re.search(r'\.(png|webp|jpe?g)(\?|$)',u,re.I):
-   images.append((u,alt))
- unique=list(dict.fromkeys(u for u,alt in images if 'logo' in alt))
- if len(unique)!=1:raise ValueError(f'Expected one main historical logo; got {len(unique)} in {page}')
- r=SESSION.get(unique[0],timeout=30);r.raise_for_status()
- if not 1500<len(r.content)<12_000_000:raise ValueError('Invalid historical image byte length')
- image=Image.open(BytesIO(r.content)).convert('RGBA')
- if min(image.size)<170:raise ValueError('Historical image too small')
- bounds=image.getbbox()
- if not bounds:raise ValueError('Historical image empty')
- image=image.crop(bounds)
- image.thumbnail((604,604),Image.Resampling.LANCZOS)
- output=Image.new('RGBA',(720,720))
- output.alpha_composite(image,((720-image.width)//2,(720-image.height)//2))
- b=BytesIO();output.save(b,'PNG',optimize=True)
- return b.getvalue(),unique[0]
+BASE='https://sportslogohistory.com/'
+SLUG={
+'2429':'charlotte-49ers',
+'151':'east-carolina-pirates',
+'2226':'florida-atlantic-owls',
+'235':'memphis-tigers',
+'249':'north-texas-mean-green',
+'242':'rice-owls',
+'58':'south-florida-bulls',
+'218':'temple-owls',
+'2655':'tulane-green-wave',
+'202':'tulsa-golden-hurricane',
+'5':'uab-blazers',
+'2636':'utsa-roadrunners',
+'2724':'wichita-state-shockers'
+}
+S=requests.Session()
+S.headers.update({'User-Agent':'Mozilla/5.0 (Sporting Life and Times logo historical catalog)'})
+def source_image(team):
+ eid=team['espn_id']
+ era=team['historical_choice']['era']
+ start,end=[int(x) for x in re.findall(r'\d{4}',era)]
+ kind=team['historical_choice']['logo_type'].lower()
+ slug=SLUG[eid]
+ pages=[BASE+slug+'-'+kind+'-logo/']
+ if kind!='primary':pages.append(BASE+slug+'-primary-logo/')
+ errors=[]
+ for page in pages:
+  try:
+   response=S.get(page,timeout=28);response.raise_for_status()
+   soup=BeautifulSoup(response.text,'html.parser')
+   candidates={}
+   for img in soup.select('img[src],img[data-src],img[data-lazy-src]'):
+    for attr in ('data-src','data-lazy-src','src'):
+     raw=img.get(attr)
+     if not raw:continue
+     url=urljoin(page,raw)
+     if urlparse(url).hostname not in ('sportslogohistory.com','www.sportslogohistory.com'):continue
+     fn=url.split('?')[0].split('/')[-1].lower()
+     if '/wp-content/uploads/' not in url or not re.search(r'\.(png|webp|jpe?g)$',fn):continue
+     # Require BOTH bounds, not a neighboring era that merely shares a year.
+     if not re.search(r'(?<!\d)'+str(start)+r'[-_ ]+'+str(end)+r'(?!\d)',fn):continue
+     if eid=='2655' and any(x in fn for x in ('football','gridiron')):continue
+     # Mascot on Tulane original primary (pennant). Never use football-specific alternate.
+     candidates[url]=True
+   found=list(candidates)
+   if len(found)==1:return found[0],page
+   errors.append(f'{page}: {len(found)} exact era images')
+  except Exception as e:errors.append(str(e)[:130])
+ raise RuntimeError('; '.join(errors))
+def download(url):
+ r=S.get(url,timeout=35);r.raise_for_status()
+ if not 1200<len(r.content)<12_000_000:raise ValueError('Source image byte count invalid')
+ im=Image.open(BytesIO(r.content)).convert('RGBA')
+ if min(im.size)<170:raise ValueError('Source image low resolution')
+ if im.getchannel('A').getextrema()==(255,255):
+  px=im.load()
+  for y in range(im.height):
+   for x in range(im.width):
+    red,green,blue,a=px[x,y]
+    if min(red,green,blue)>249:px[x,y]=(red,green,blue,0)
+ box=im.getbbox()
+ if box is None:raise ValueError('Blank artwork')
+ im=im.crop(box)
+ im.thumbnail((610,610),Image.Resampling.LANCZOS)
+ canvas=Image.new('RGBA',(720,720))
+ canvas.alpha_composite(im,((720-im.width)//2,(720-im.height)//2))
+ data=BytesIO();canvas.save(data,'PNG',optimize=True)
+ return data.getvalue()
 def main():
  doc=json.loads(MANIFEST.read_text())
  js=RENDERER.read_text()
- if 'const AMERICAN_HERITAGE=' in js:
-  print('American heritage already wired. No rewrite.');return
- if 'const retroURLForESPN=id=>' not in js:raise RuntimeError('Logo renderer missing expected anchor')
- out=ROOT/'assets/cbb-american-1980s'
- files={}
- errors={}
- for team in doc['teams']:
+ anchor='const retroURLForESPN=id=>'
+ if anchor not in js:raise RuntimeError('Missing shared renderer contract')
+ existing=re.search(r'const AMERICAN_HERITAGE=Object\.freeze\(\{([\s\S]*?)\}\);',js)
+ old={}
+ if existing:
+  for eid,url in re.findall(r"'(\d+)':'([^']+)'",existing.group(1)):
+   if (ROOT/url.split('?')[0]).is_file():old[eid]=url
+ new={};failed={}
+ for t in doc['teams']:
+  eid=t['espn_id']
+  if eid in old:continue
   try:
-   choice=team['historical_choice']
-   page=exact_logo_page(choice['history_url'],choice['era'],choice['logo_type'])
-   payload,asset=logo_image(page)
-   files[team['espn_id']]=(team,payload,page,asset)
-  except Exception as e:errors[team['espn_id']]=str(e)
- if not files:raise RuntimeError('No archival assets passed strict validation; no site changes')
- out.mkdir(parents=True,exist_ok=True)
- lines=[]
- for ident,(team,payload,page,asset) in files.items():
-  path=ROOT/team['logo_path']
+   url,source=source_image(t)
+   blob=download(url)
+   new[eid]=(t,blob,url,source)
+  except Exception as e:failed[eid]=str(e)
+ if not new and not old:raise RuntimeError('No authenticated American artwork, abort without website changes')
+ entries=dict(old)
+ for eid,(t,blob,url,source) in new.items():
+  path=ROOT/t['logo_path']
   path.parent.mkdir(parents=True,exist_ok=True)
-  path.write_bytes(payload)
-  with Image.open(path) as v:v.verify()
-  team.update(retro_image_published=True,archive_logo_page=page,archival_image_url=asset,local_asset_status='verified_png')
-  lines.append(" '%s':'%s?v=american-historic-1'"%(ident,team['logo_path']))
- for team in doc['teams']:
-  if team['espn_id'] in errors:
-   team.update(retro_image_published=False,local_asset_status='modern_fallback',error=errors[team['espn_id']][:300])
- block='const AMERICAN_HERITAGE=Object.freeze({\n'+',\n'.join(lines)+'\n});\n'
- js=js.replace('const retroURLForESPN=id=>',block+'const retroURLForESPN=id=>',1)
- match=re.search(r'(const retroURLForESPN=id=>)([^;]+);',js)
- if not match:raise RuntimeError('Cannot locate lookup')
- js=js[:match.start()]+match.group(1)+match.group(2).replace("||''","||AMERICAN_HERITAGE[String(id)]||''")+ ';'+js[match.end():]
+  path.write_bytes(blob)
+  with Image.open(path) as im:im.verify()
+  entries[eid]=t['logo_path']+'?v=american-vintage-20261114-1'
+  t.update(retro_image_published=True,local_asset_status='verified_local_png',archival_image_url=url,archive_logo_page=source)
+  t.pop('error',None)
+ for t in doc['teams']:
+  if t['espn_id'] in failed:
+   t.update(retro_image_published=False,local_asset_status='modern_fallback',error=failed[t['espn_id']][:270])
+ block='const AMERICAN_HERITAGE=Object.freeze({\n'+',\n'.join(f" '{eid}':'{url}'" for eid,url in entries.items())+'\n});'
+ if existing:js=js[:existing.start()]+block+js[existing.end():]
+ else:js=js.replace(anchor,block+'\n'+anchor,1)
+ lookup=re.search(r'(const retroURLForESPN=id=>)([^;]+);',js)
+ if lookup is None:raise RuntimeError('Cannot locate shared lookup')
+ if 'AMERICAN_HERITAGE[String(id)]' not in lookup.group(2):
+  js=js[:lookup.start()]+lookup.group(1)+lookup.group(2).replace("||''","||AMERICAN_HERITAGE[String(id)]||''")+';'+js[lookup.end():]
  RENDERER.write_text(js)
- doc['status']='local_artwork_imported_with_modern_fallbacks'
- doc['imported_count']=len(files)
- doc['unresolved_count']=len(errors)
+ doc['status']='historical_artwork_partially_published_with_fallback'
+ doc['imported_count']=len(entries)
+ doc['unresolved_count']=13-len(entries)
  MANIFEST.write_text(json.dumps(doc,indent=2)+'\n')
- for html in ROOT.glob('*.html'):
-  s=html.read_text()
-  n=re.sub(r'mbb-logo-system\.js\?v=[^"\'<>\s]+','mbb-logo-system.js?v=american-heritage-1',s)
-  if n!=s:html.write_text(n)
- print(f'Installed {len(files)}/13 American vintage logo assets; {len(errors)} remain modern:')
- for ident,error in errors.items():print('UNRESOLVED',ident,error[:160])
+ for page in ROOT.glob('*.html'):
+  text=page.read_text()
+  updated=re.sub(r'mbb-logo-system\.js\?v=[^"\'<>\s]+','mbb-logo-system.js?v=american-vintage-20261114-1',text)
+  if updated!=text:page.write_text(updated)
+ print('Imported',len(new),'new logos, total',len(entries),'/13. Unresolved:',failed)
 if __name__=='__main__':main()
