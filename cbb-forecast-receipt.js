@@ -113,6 +113,18 @@ function decorate(){
  });
  document.querySelectorAll('#mbb-calendar-host .mbb-schedule-table tr[data-cbb-forecast-id]').forEach(row=>{
   const dest=row.querySelector('.sched-result-cell');
+  if(!dest)return;
+  // Keep the existing table cell and live controls. On mobile its summary
+  // occupies the result column, while the receipt spans the whole card.
+  if(!dest.querySelector(':scope > .sched-result-summary')){
+   const summary=document.createElement('div');
+   summary.className='sched-result-summary';
+   for(const child of [...dest.childNodes]){
+    if(child.nodeType!==1||!child.classList.contains('cbb-forecast-receipt'))summary.appendChild(child);
+   }
+   dest.prepend(summary);
+  }
+  dest.classList.add('sched-result-cell--forecast');
   const phase=row.dataset.calendarState==='final'?'final':'upcoming';
   set(dest,receipt('men',row.dataset.cbbForecastId,row.dataset.cbbForecastDay,
     phase,readNumber(row.dataset.cbbFinalHomeMargin),null,null,row.dataset.cbbHomeName||'Home',row.dataset.cbbAwayName||'Away'));
