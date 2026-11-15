@@ -862,12 +862,20 @@ function card(original,featured,opened=false){
  const theatre=g.kind!=='exhibition'&&validId(g.id)&&g.phase==='live'?'<a class="vld-link" href="live-game.html?league='+(women?'ncaaw':'ncaam')+'&game='+encodeURIComponent(g.id)+'" aria-label="Open Victorian live dispatch for '+esc(g.away.name)+' at '+esc(g.home.name)+'">◈ LIVE DISPATCH</a>':'';
  const right=tv||press||theatre?'<span class="ledger26-meta-actions">'+tv+press+theatre+'</span>':'';
  // The shared scorebug rail is the only pregame forecast presentation.
+ // A projected score is supplementary context, revealed only on expansion.
+ const projected=g.phase==='upcoming'&&g.forecastStatus!=='PROVISIONAL'?
+   (Number.isFinite(g.projectedAwayScore)&&Number.isFinite(g.projectedHomeScore)?
+     {away:g.projectedAwayScore,home:g.projectedHomeScore}:null):null;
+ const projectedDetail=projected?
+   '<div class="ledger26-projected-detail"><strong>RETRO PROJECTED FINAL</strong><span>'+
+   esc(g.away.name)+' '+Math.round(projected.away)+' · '+esc(g.home.name)+' '+Math.round(projected.home)+
+   '</span></div>':'';
  return '<article class="sl-game ledger26-card'+(women?' ledger26-card--women':' ledger26-card--men')+(featured?' ledger26-featured':'')+(women&&g.phase==='upcoming'?' ledger26-card--refined':'')+'">'+
    (when||right?'<div class="ledger26-meta'+(g.phase==='upcoming'?' ledger26-meta--pregame':'')+(women&&g.phase==='upcoming'?' ledger26-meta--refined':'')+'">'+when+right+'</div>':'')+
    '<details class="sl-game-expansion ledger26-expand" data-game-id="'+esc(g.id)+'" data-day="'+esc(g.day)+'" data-gender="'+(women?'women':'men')+'" data-home-id="'+esc(g.home.canonical||'')+'" data-away-id="'+esc(g.away.canonical||'')+'" data-home-name="'+esc(g.home.name)+'" data-away-name="'+esc(g.away.name)+'"'+(opened?' open':'')+'>'+
    '<summary class="ledger26-summary" aria-label="Expand '+esc(g.away.name)+' at '+esc(g.home.name)+' game details">'+
    ledgerScorebug(g)+'<span class="ledger26-instruction">OPEN GAME DETAILS <span aria-hidden="true">+</span></span></summary>'+
-   '<div class="ledger26-expanded">'+
+   '<div class="ledger26-expanded">'+projectedDetail+
    '<div class="sl-game-footer ledger26-links"><span>'+esc(source)+'</span>'+
    (external&&/^https:\/\/[^\s"'<>]+$/.test(g.sourceURL||'')?
      '<a class="sl-details" href="'+esc(g.sourceURL)+'" target="_blank" rel="noopener noreferrer">Cited exhibition result ↗</a>':'')+
