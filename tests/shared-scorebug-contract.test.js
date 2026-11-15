@@ -91,3 +91,11 @@ test('pregame verified form has compact streak and disappears at tipoff',()=>{
  assert.match(render({phase:'upcoming',away:a,home,suppressPress:true}),/W4/);
  assert.doesNotMatch(render({phase:'live',away:a,home,suppressPress:true}),/ledger26-streak/);
 });
+
+test('ledger cards have a single pregame forecast presentation',()=>{
+ const slate=fs.readFileSync(require('node:path').join(__dirname,'..','ncaam-slate.js'),'utf8');
+ const receipt=fs.readFileSync(require('node:path').join(__dirname,'..','cbb-forecast-receipt.js'),'utf8');
+ assert.doesNotMatch(slate,/RETRO EXPECTED SCORE|ledgerScorebug\(g\)\+scoreNote|\+when\+retro\+right/);
+ assert.match(receipt,/set\(summary,status==='upcoming'\?'':markup\)/);
+ assert.match(receipt,/set\(summary,status==='upcoming'\?'':receipt\('women'/);
+});
