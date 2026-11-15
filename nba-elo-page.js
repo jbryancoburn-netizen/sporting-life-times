@@ -51,4 +51,4 @@ function showGames(m){
  }).join('');
  $('nba-score-status').textContent='Recent completed NBA games from our independently audited Elo ledger. The upcoming and live fixture feed is withheld pending the official-first adapter.';
 }
-(async()=>{try{const m=await model();await board(m);showGames(m)}catch(e){$('nba-elo-status').textContent='Ratings unavailable: '+e.message}}})();
+(async()=>{try{const m=await model();await board(m);showGames(m)}catch(e){$('nba-elo-status').textContent='Ratings unavailable: '+e.message}})();
