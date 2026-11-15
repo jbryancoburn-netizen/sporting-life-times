@@ -76,7 +76,8 @@ test('pregame shows only one compact RETRO forecast',()=>{
  assert.match(projection,/72%/);
  assert.match(projection,/−5\.5/);
  assert.match(projection,/MARGIN/);
- assert.doesNotMatch(projection,/PROJECTED FINAL|72–78|WIN CHANCE|PROJECTED SPREAD/);
+ assert.match(projection,/72–78/);
+ assert.doesNotMatch(projection,/PROJECTED FINAL|WIN CHANCE|PROJECTED SPREAD/);
  assert.equal((projection.match(/ledger26-pregame-prob/g)||[]).length,1);
  for(const phase of ['live','final']){
   const out=render({phase,away,home,suppressPress:true,forecast:{
