@@ -340,7 +340,7 @@
     const scoreHTML=letterpressMarkup(g);
     const metadata=g.phase==='upcoming'?localDate(g.date):(g.venue||'COLLEGE BASKETBALL');
     return '<article class="ledger26-card cbb-ledger-card cbb-'+esc(g.phase)+
-      (expanded?' cbb-expanded':'')+'" data-cbb-game="'+esc(g.id)+'">'+
+      (expanded?' cbb-expanded':'')+'" data-cbb-game="'+esc(g.id)+'" data-cbb-day="'+esc(state.day)+'" data-cbb-gender="'+(women?'women':'men')+'" data-cbb-home-id="'+esc(g.home?.team?.id||'')+'" data-cbb-away-id="'+esc(g.away?.team?.id||'')+'" data-cbb-home-name="'+esc(schoolLabel(g.home))+'" data-cbb-away-name="'+esc(schoolLabel(g.away))+'">'+
       '<div class="ledger26-meta"><span class="ledger26-venue">'+esc(metadata)+'</span>'+
       (g.broadcast?'<span class="ledger26-network">'+esc(g.broadcast)+'</span>':'')+
       (g.phase==='live'&&/^\d{7,12}$/.test(String(g.espnId||g.id))?'<a class="vld-link" href="live-game.html?league='+(women?'ncaaw':'ncaam')+'&game='+encodeURIComponent(g.espnId||g.id)+'">◈ LIVE DISPATCH</a>':'')+'</div>'+
