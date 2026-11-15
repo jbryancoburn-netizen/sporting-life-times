@@ -30,7 +30,11 @@ DIRECT={
 DIRECT_IMAGE={
  '45':'https://content.sportslogos.net/logos/31/685/full/george_washington_colonials_logo_primary_1967_sportslogosnet-2252.png',
  '2350':'https://sportslogohistory.com/wp-content/uploads/2022/08/loyola_ramblers_1990-1994.png',
- '227':'https://sportslogohistory.com/wp-content/uploads/2018/03/rhode_island_rams_1989-2009.png'
+ '227':'https://sportslogohistory.com/wp-content/uploads/2018/03/rhode_island_rams_1989-2009.png',
+ '2184':'https://content.sportslogos.net/logos/31/664/full/duquesne_dukes_logo_primary_1975_sportslogosnet-6823.png',
+ '2325':'https://content.sportslogos.net/logos/32/724/full/la_salle_explorers_logo_primary_1973_sportslogosnet-4131.png',
+ '2603':'https://content.sportslogos.net/logos/34/851/full/st-josephs-hawks-logo-primary-1982-1088.png',
+ '2670':'https://magazine.vcu.edu/media/magazine/images/fall-2023/athletics_logos_68-82.png'
 }
 # Alternate archive serves historical PNGs without the blocked sportslogos.net HTML endpoint.
 # All images are selected by exact historical start-year in their original file names.
