@@ -6,6 +6,8 @@ on:
       - 'mbb-elo-primary.js'
       - 'ncaam-elo.html'
       - 'ncaam-rankings.html'
+      - 'retro-ranking-explainer.js'
+      - 'tests/retro-ranking-explainer.test.cjs'
       - 'ncaaw-rankings.html'
       - 'wbb-rankings.js'
       - 'tests/cbb-retro-ranking-readability.test.cjs'
@@ -17,6 +19,7 @@ on:
       - 'mbb-elo-primary.js'
       - 'ncaam-elo.html'
       - 'ncaam-rankings.html'
+      - 'retro-ranking-explainer.js'
       - 'ncaaw-rankings.html'
       - 'wbb-rankings.js'
   workflow_dispatch:
@@ -35,8 +38,10 @@ jobs:
           node --test tests/cbb-ranking-badges-mobile.test.cjs
           node --test tests/cbb-retro-power-logos.test.cjs
           node --test tests/cbb-all-retro-ranking-routes.test.cjs
+          node --test tests/retro-ranking-explainer.test.cjs
       - name: Validate reader-facing JS parses
         run: |
           node --check mbb-elo-primary.js
           node --check wbb-rankings.js
+          node --check retro-ranking-explainer.js
 
