@@ -48,3 +48,24 @@ test('Rhode Island and Loyola images are normalized at source, not scaled with C
  assert(css.includes('.mbb-mark::before{'));
  assert(css.includes('z-index:3!important'));
 });
+
+test('every local CBB vintage crest is optical-audited and all undersized PNGs normalized at source',()=>{
+ const audit=JSON.parse(read('data/cbb-heritage-optical-audit.json'));
+ assert.equal(audit.source_count,86);
+ assert.equal(audit.files.length,86);
+ assert.equal(audit.files.filter(x=>x.action.startsWith('manual')).length,0);
+ const expected=['fordham','george-mason','vcu','new-mexico','san-jose-state'];
+ assert.deepEqual(audit.files.filter(x=>x.action==='normalized').map(x=>path.basename(x.asset,'.png')).sort(),expected.sort());
+ const source=read('mbb-logo-system.js');
+ for(const row of audit.files){
+  assert(source.includes(row.asset+'?v='),'Unreferenced audited asset '+row.asset);
+  if(row.action==='normalized'){
+   const png=fs.readFileSync(path.join(root,row.asset));
+   assert.equal(png.subarray(0,8).toString('hex'),'89504e470d0a1a0a');
+   assert.equal(png.readUInt32BE(16),512);
+   assert.equal(png.readUInt32BE(20),512);
+   assert(source.includes(row.asset+'?v=source-optical-audit-20261115-2'));
+  }
+ }
+ assert.doesNotMatch(css,/transform:translate\(-50%,-50%\) scale\(2\.(?:35|60)\)/);
+});
