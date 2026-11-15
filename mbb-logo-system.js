@@ -97,7 +97,12 @@ const A10_HERITAGE=Object.freeze({
  '179':'assets/cbb-atlantic-10-1980s/st-bonaventure.png?v=a10-archive-20261114-3'
 });
 const MOUNTAIN_WEST_HERITAGE=Object.freeze({
- '167':'assets/cbb-mountain-west-1980s/new-mexico.png?v=mountain-west-heritage-20261114-1'
+ '167':'assets/cbb-mountain-west-1980s/new-mexico.png?v=mountain-west-heritage-20261114-1',
+ '2005':'assets/cbb-mountain-west-1980s/air-force.png?v=mountain-west-heritage-20261114-1',
+ '2253':'assets/cbb-mountain-west-1980s/grand-canyon.png?v=mountain-west-heritage-20261114-1',
+ '2440':'assets/cbb-mountain-west-1980s/nevada.png?v=mountain-west-heritage-20261114-1',
+ '23':'assets/cbb-mountain-west-1980s/san-jose-state.png?v=mountain-west-heritage-20261114-1',
+ '2638':'assets/cbb-mountain-west-1980s/utep.png?v=mountain-west-heritage-20261114-1'
 });
 const retroURLForESPN=id=>BIG_TEN_HERITAGE[String(id)]||ACC_HERITAGE[String(id)]||SEC_HERITAGE[String(id)]||BIG_EAST_HERITAGE[String(id)]||A10_HERITAGE[String(id)]||MOUNTAIN_WEST_HERITAGE[String(id)]||'';
 
