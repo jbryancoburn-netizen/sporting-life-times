@@ -1,4 +1,9 @@
 /* Conference-only repairs, loaded after the shared newspaper styles. */
+body[data-page="conference"] .ledger-school {min-width:0;display:grid;gap:5px}
+body[data-page="conference"] .ledger-school-ppg {font:11px/1.3 Georgia,serif;color:#66513b;padding-left:61px}
+body[data-page="conference"] .conference-ledger td.ledger-university .mbb-mark {--mbb-size:52px;flex-shrink:0}
+body[data-page="conference"] .conference-ledger td.ledger-university .team-name {gap:9px}
+body[data-page="conference"] .conference-ledger .ledger-place {box-sizing:border-box;min-width:0;width:42px;padding:4px 1px;font-size:13px;white-space:nowrap}
 body[data-page="conference"] .conference-editorial-row > .column {min-width:0}
 body[data-page="conference"] .victorian-unified-ledger .panel-head {margin:0 0 12px;padding:6px 12px 10px;gap:6px;flex-wrap:wrap}
 body[data-page="conference"] .victorian-unified-ledger .panel-head h2 {margin:0;line-height:1.15}
@@ -35,3 +40,27 @@ body[data-conference="big-ten"] .victorian-seed-crown {border-bottom:3px double 
  .big-ten-schools {gap:6px 8px;padding:10px 0}
  .big-ten-schools a {flex-basis:36px}
 }
+/* Phone register: roomy school line, then clearly separated records and rating. */
+@media(max-width:700px) {
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger :is(thead tr,tbody tr) {grid-template-columns:46px minmax(0,1fr) minmax(0,1fr) minmax(0,1fr);column-gap:6px}
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger tbody tr {grid-template-rows:auto 22px 20px;padding:10px 7px;row-gap:2px;margin:7px 0}
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger tbody td:nth-child(1) {grid-column:1;grid-row:1/4;align-self:center;padding:2px!important}
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger tbody td:nth-child(2) {grid-column:2/5;grid-row:1;padding:0 0 8px!important}
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger tbody td:nth-child(3) {grid-column:2;grid-row:2}
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger tbody td:nth-child(4) {grid-column:2;grid-row:3}
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger tbody td:nth-child(6) {grid-column:3;grid-row:2}
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger tbody td:nth-child(7) {grid-column:3;grid-row:3}
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger tbody td:nth-child(9) {display:flex!important;flex-direction:column;justify-content:center;grid-column:4;grid-row:2/4;gap:3px;font-size:15px}
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger .ledger-retro-rank {margin:0;font-size:10px}
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger thead tr {grid-template-rows:auto auto;row-gap:7px;padding:5px 7px}
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger thead th:nth-child(1) {grid-column:1;grid-row:1}
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger thead th:nth-child(2) {grid-column:2/5;grid-row:1}
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger thead th:nth-child(3) {grid-column:2;grid-row:2}
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger thead th:nth-child(6) {grid-column:3;grid-row:2}
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger thead th:nth-child(9) {display:block!important;grid-column:4;grid-row:2;align-self:center}
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger td.ledger-university .team-name {font-size:15px;gap:9px}
+ body[data-page="conference"] .ledger-school {width:100%;gap:3px}
+ body[data-page="conference"] .ledger-school-ppg {padding-left:61px}
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger .ledger-place {width:40px;font-size:12px;min-height:36px}
+}
+
