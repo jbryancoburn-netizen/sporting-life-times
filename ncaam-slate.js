@@ -805,37 +805,24 @@ const ledgerScorebug=g=>{
     const projection=insight?.projectedScore(g,scoreCalibration,ratings);
     const margin=Number.isFinite(g.projectedHomeMargin)?Math.abs(g.projectedHomeMargin):null;
     const team=String(side.name||'').trim();
-    // Matchup-specific scoring total: blend verified team scoring AND points
-    // conceded with a gender-specific historical baseline. Shrink small samples
-    // toward the baseline; never pretend unverified possession data is pace.
+    // Source-backed expected total, anchored to the actual matchup.
+    // The central RETRO margin determines the winner and final score gap.
+    // No per-page invention of another independent score forecast.
     const baseline=Number(scoreCalibration?.parameters?.mean_team_points);
     const leagueMean=Number.isFinite(baseline)&&baseline>30?baseline:(women?65:73);
     const awayProfile=seasonStats.get(String(g.away.canonical));
     const homeProfile=seasonStats.get(String(g.home.canonical));
-    const rate=(profile,key)=>{
-      const n=Number(profile?.g||0),value=Number(profile?.[key]);
-      if(!Number.isFinite(n)||n<1||!Number.isFinite(value))return leagueMean;
-      const weight=n/(n+5); // five-game prior prevents early blowouts dominating.
-      return leagueMean*(1-weight)+(value/n)*weight;
-    };
-    const awayOff=rate(awayProfile,'pf'),awayDef=rate(awayProfile,'pa');
-    const homeOff=rate(homeProfile,'pf'),homeDef=rate(homeProfile,'pa');
-    const estimatedAway=(awayOff+homeDef)/2;
-    const estimatedHome=(homeOff+awayDef)/2;
-    const total=Math.round(Math.max(2,estimatedAway+estimatedHome));
     const homeMargin=Number.isFinite(g.projectedHomeMargin)?g.projectedHomeMargin:null;
-    let alignedAway=null,alignedHome=null;
-    // A score is published only when the central RETRO forecast has a margin.
-    // The total comes from both teams; the difference comes from RETRO.
-    if(g.forecastStatus!=='PROVISIONAL'&&homeMargin!==null){
-      const target=Math.round(homeMargin);
-      const candidates=[target-1,target,target+1].filter(d=>Math.abs(d)<=total&&(total+d)%2===0);
-      const difference=candidates.sort((a,b)=>Math.abs(a-homeMargin)-Math.abs(b-homeMargin))[0];
-      if(Number.isFinite(difference)){alignedHome=(total+difference)/2;alignedAway=(total-difference)/2;}
-    }
+    const aligned=g.forecastStatus==='PROVISIONAL'?null:
+      insight?.forecastScorePair(homeMargin,awayProfile,homeProfile,leagueMean);
     return {team,probability:homeFav?g.probability:1-g.probability,
-      margin:Number.isFinite(margin)&&margin>0?margin:null,
-      projectedAwayScore:alignedAway,projectedHomeScore:alignedHome};
+      // The visible margin MUST equal the difference in integer displayed scores.
+      // The central half-point analytic margin is retained separately for model audits.
+      margin:aligned?Math.abs(aligned.displayHomeMargin):
+       Number.isFinite(margin)&&margin>0?margin:null,
+      modelMargin:Number.isFinite(homeMargin)?homeMargin:null,
+      forecastBasis:aligned?.basis||null,
+      projectedAwayScore:aligned?.away??null,projectedHomeScore:aligned?.home??null};
   })(),
   rivalry:(()=>{
     if(g.phase!=='upcoming'||g.kind==='exhibition')return null;

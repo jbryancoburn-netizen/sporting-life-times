@@ -70,6 +70,37 @@
     return [{name:String(best.name),school:team.name,pts:best.pts,reb:best.reb,ast:best.ast,url:box.source_url}];
   });
  }
+ // Use the CENTRAL RETRO margin and source-backed scoring/allowing rates.
+ // Team totals come from games already completed before the fixture.
+ // Two prior games stabilize early samples without forcing every game to 73-73.
+ // Integer displayed scores and displayed margin must always reconcile exactly.
+ function forecastScorePair(homeMargin,awayProfile,homeProfile,baseline,priorGames=2){
+  const margin=finite(homeMargin),mean=finite(baseline);
+  if(margin===null||mean===null||mean<=30||!Number.isFinite(priorGames)||priorGames<0)return null;
+  const rate=(p,key)=>{
+   const games=finite(p?.g),sum=finite(p?.[key]);
+   if(games===null||games<1||sum===null||sum<0)return mean;
+   const weight=games/(games+priorGames);
+   return mean+(sum/games-mean)*weight;
+  };
+  const awayOff=rate(awayProfile,'pf'),awayDef=rate(awayProfile,'pa');
+  const homeOff=rate(homeProfile,'pf'),homeDef=rate(homeProfile,'pa');
+  const awayExpected=(awayOff+homeDef)/2,homeExpected=(homeOff+awayDef)/2;
+  const rawTotal=Math.max(2,awayExpected+homeExpected);
+  // There is no exact half-point difference between two integer scores.
+  // Convert the centrally forecast margin ONCE to the nearest whole point,
+  // then adjust the TOTAL by at most one point to preserve that difference.
+  let difference=Math.sign(margin)*Math.round(Math.abs(margin));
+  if(margin!==0&&difference===0)difference=Math.sign(margin);
+  let total=Math.max(Math.round(rawTotal),Math.abs(difference)+2);
+  if((total-Math.abs(difference))%2!==0)total++;
+  const home=(total+difference)/2,away=(total-difference)/2;
+  if(!Number.isSafeInteger(home)||!Number.isSafeInteger(away)||home<0||away<0)return null;
+  return {away,home,displayHomeMargin:home-away,
+   projectedTotal:home+away,modelHomeMargin:margin,
+   samples:{away:Number(awayProfile?.g)||0,home:Number(homeProfile?.g)||0},
+   basis:'Verified scoring/allowing averages with two-game baseline shrinkage; central RETRO margin rounded to the nearest whole point for displayed scores'};
+ }
  function projectedScore(g,calibration,ratings){
   const params=calibration?.parameters||{},model=String(calibration?.model||'');
   if(g?.phase!=='upcoming'||g.kind!=='regular'||g.probability===null||
@@ -92,5 +123,5 @@
   if(aa===ah&&ha===hh)return null;
   return {away:aa-ah,home:ha-hh,clock:current.status||'Live',note:'Changes since the last source refresh, not a verified scoring run.'};
  }
- return {seasonProfiles,matchBox,gameNumbers,gameLeaders,scoreDelta,projectedScore};
+ return {seasonProfiles,matchBox,gameNumbers,gameLeaders,scoreDelta,projectedScore,forecastScorePair};
 });
