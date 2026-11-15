@@ -94,3 +94,8 @@
  width:86%!important;height:86%!important;max-width:86%!important;max-height:86%!important;
  object-fit:contain!important;object-position:center!important;
 }
+
+/* Asset-baked rings: layout only. No optical cropping, school-specific patches or third CSS ring. */
+.mbb-mark.mbb-mark--baked{border:0!important;outline:0!important;background:transparent!important;box-shadow:none!important}
+.mbb-mark.mbb-mark--baked::before,.mbb-mark.mbb-mark--baked::after{display:none!important;content:none!important;border:0!important}
+.mbb-mark.mbb-mark--baked>img.mbb-mark__img{width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;border:0!important;padding:0!important;border-radius:0!important;object-fit:contain!important}
