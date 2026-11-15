@@ -59,3 +59,27 @@ nav.cbb-universal-nav .cbb-edition-switch a,.cbb-mobile-toolbar .cbb-edition-swi
 nav.cbb-universal-nav .cbb-edition-switch a+a,.cbb-mobile-toolbar .cbb-edition-switch a+a{border-left:0!important}
 nav.cbb-universal-nav .cbb-edition-switch a.is-active,.cbb-mobile-toolbar .cbb-edition-switch a.is-active{background:#413025!important;color:#f8efdc!important}
 @media(max-width:760px){.cbb-mobile-toolbar .cbb-edition-switch{display:inline-flex!important;margin:0!important;flex-shrink:0}}
+
+/* Shared edition switch: explicit contrast on both mobile and desktop.
+   Text fill avoids inherited newspaper link rules on iOS Safari. */
+body nav.cbb-universal-nav .cbb-edition-switch a.cbb-gender-option,
+body .cbb-mobile-toolbar .cbb-edition-switch a.cbb-gender-option,
+body nav.cbb-universal-nav .cbb-edition-switch a.cbb-gender-option:visited,
+body .cbb-mobile-toolbar .cbb-edition-switch a.cbb-gender-option:visited{
+ background:#f5e9d4!important;
+ color:#302419!important;
+ -webkit-text-fill-color:#302419!important;
+ text-shadow:none!important;
+ opacity:1!important;
+}
+body nav.cbb-universal-nav .cbb-edition-switch a.cbb-gender-option.is-active,
+body .cbb-mobile-toolbar .cbb-edition-switch a.cbb-gender-option.is-active,
+body nav.cbb-universal-nav .cbb-edition-switch a.cbb-gender-option[aria-current="page"],
+body .cbb-mobile-toolbar .cbb-edition-switch a.cbb-gender-option[aria-current="page"]{
+ background:#413025!important;
+ color:#fff7e9!important;
+ -webkit-text-fill-color:#fff7e9!important;
+ text-shadow:none!important;
+ opacity:1!important;
+}
+body .cbb-edition-switch a.cbb-gender-option:focus-visible{outline:2px solid #813f2b!important;outline-offset:2px}
