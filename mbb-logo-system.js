@@ -102,7 +102,11 @@ const MOUNTAIN_WEST_HERITAGE=Object.freeze({
  '2253':'assets/cbb-mountain-west-1980s/grand-canyon.png?v=mountain-west-heritage-20261114-1',
  '2440':'assets/cbb-mountain-west-1980s/nevada.png?v=mountain-west-heritage-20261114-1',
  '23':'assets/cbb-mountain-west-1980s/san-jose-state.png?v=mountain-west-heritage-20261114-1',
- '2638':'assets/cbb-mountain-west-1980s/utep.png?v=mountain-west-heritage-20261114-1'
+ '2638':'assets/cbb-mountain-west-1980s/utep.png?v=mountain-west-heritage-20261114-1',
+ '62':'assets/cbb-mountain-west-1980s/hawaii.png?v=mountain-west-heritage-20261114-1',
+ '302':'assets/cbb-mountain-west-1980s/uc-davis.png?v=mountain-west-heritage-20261114-1',
+ '2439':'assets/cbb-mountain-west-1980s/unlv.png?v=mountain-west-heritage-20261114-1',
+ '2751':'assets/cbb-mountain-west-1980s/wyoming.png?v=mountain-west-heritage-20261114-1'
 });
 const retroURLForESPN=id=>BIG_TEN_HERITAGE[String(id)]||ACC_HERITAGE[String(id)]||SEC_HERITAGE[String(id)]||BIG_EAST_HERITAGE[String(id)]||A10_HERITAGE[String(id)]||MOUNTAIN_WEST_HERITAGE[String(id)]||'';
 
