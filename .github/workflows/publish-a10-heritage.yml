@@ -1,0 +1,56 @@
+name: Publish verified A10 historical logos
+on:
+  push:
+    paths:
+      - 'scripts/import_a10_heritage.py'
+      - '.github/workflows/publish-a10-heritage.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: a10-heritage-publish
+  cancel-in-progress: false
+jobs:
+  build-validate-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install image importer
+        run: python -m pip install "Pillow>=11,<13" "requests>=2.32,<3" "beautifulsoup4>=4.12,<5"
+      - name: Fetch authentic historical artwork and update renderer only for validated files
+        run: python scripts/import_a10_heritage.py
+      - name: Verify renderer and all A10 vintage image targets
+        run: |
+          node --check mbb-logo-system.js
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          import re,json
+          js=Path('mbb-logo-system.js').read_text()
+          doc=json.loads(Path('data/cbb-atlantic-10-heritage-audit.json').read_text())
+          refs=set(re.findall(r'assets/cbb-atlantic-10-1980s/[a-z0-9-]+\.png',js))
+          assert refs, 'No vintage assets passed import'
+          assert doc['imported_count']==len(refs)
+          assert len(refs)+doc['missing_count']==14
+          for ref in refs:
+              assert Path(ref).exists(),ref
+              with Image.open(ref) as image:
+                  image.verify()
+          assert "A10_HERITAGE[String(id)]" in js
+          print('PASS:',len(refs),'A10 local vintage images, modern fallback for missing')
+          PY
+      - name: Commit locally hosted A10 artwork
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/cbb-atlantic-10-1980s/ mbb-logo-system.js data/cbb-atlantic-10-heritage-audit.json '*.html'
+          if ! git diff --cached --quiet; then
+            git commit -m "Publish verified local A10 historical marks with modern fallbacks"
+            git push
+          fi
