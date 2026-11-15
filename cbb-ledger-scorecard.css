@@ -517,3 +517,7 @@
  .ledger26-final-standing{font-size:9px}
  .ledger26-final-note{font-size:9px}
 }
+
+/* Postgame record and D-I sample, alongside RETRO rating/rank without expanding the scorebug. */
+.ledger26-final-record{grid-column:1/-1;color:#604b37;font:10px/1.3 Georgia,serif;font-variant-numeric:tabular-nums}
+@media(max-width:520px){.ledger26-final-record{font-size:9px}}
