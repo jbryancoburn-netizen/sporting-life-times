@@ -28,7 +28,9 @@ DIRECT={
 # Exact archive image recovered from the vetted George Washington 1967-83 logo page.
 # Avoid depending solely on SportsLogos HTML selectors changing over time.
 DIRECT_IMAGE={
- '45':'https://content.sportslogos.net/logos/31/685/full/george_washington_colonials_logo_primary_1967_sportslogosnet-2252.png'
+ '45':'https://content.sportslogos.net/logos/31/685/full/george_washington_colonials_logo_primary_1967_sportslogosnet-2252.png',
+ '2350':'https://sportslogohistory.com/wp-content/uploads/2022/08/loyola_ramblers_1990-1994.png',
+ '227':'https://sportslogohistory.com/wp-content/uploads/2018/03/rhode_island_rams_1989-2009.png'
 }
 # Alternate archive serves historical PNGs without the blocked sportslogos.net HTML endpoint.
 # All images are selected by exact historical start-year in their original file names.
@@ -128,6 +130,17 @@ def main():
  for team in doc['teams']:
   eid=team['espn_id']
   page=DIRECT.get(eid)
+  # Explicitly dated images avoid ambiguous archive timeline matches.
+  if eid in DIRECT_IMAGE and eid not in existing_map:
+   try:
+    direct=DIRECT_IMAGE[eid]
+    data,image_url=archival_image('https://sportslogohistory.com/',direct)
+    downloaded[eid]=(team,data,image_url,'https://sportslogohistory.com/')
+    continue
+   except Exception as e:
+    issues[eid]='Pinned historical archive image failed: '+str(e)[:190]
+    continue
+  if eid in existing_map:continue
   # Do not guess an exact artwork from a timeline, especially Richmond and St. Bonaventure.
   # Loyola Wolf is also withheld until a confirmed archive image of the 1990-94 design exists.
   if not page:
