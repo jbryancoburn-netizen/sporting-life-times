@@ -102,13 +102,31 @@
  .rank-table-wrap--retro .rank-quick-stats small{font-size:7px}
  .rank-table-wrap--retro .rank-quick-stats b{font-size:11px}
 }
+
+/* One fixed crest column for both editions: never let a logo collide with the school name. */
+.rank-table-wrap--retro .rank-school{display:grid!important;grid-template-columns:88px minmax(0,1fr)!important;align-items:center!important;column-gap:12px!important;min-width:0!important}
+.rank-table-wrap--retro .rank-school .mbb-mark{--mbb-size:82px!important;width:82px!important;height:82px!important;min-width:82px!important;max-width:82px!important;box-sizing:border-box!important;grid-column:1!important;grid-row:1!important;margin:0!important}
+.rank-table-wrap--retro .rank-school>a{grid-column:2!important;grid-row:1!important;min-width:0!important;overflow-wrap:break-word!important;line-height:1.25!important}
+.rank-table-wrap--retro .rank-school .mbb-mark__img{max-width:100%!important;max-height:100%!important;object-fit:contain!important}
+@media(max-width:650px){
+.rank-table-wrap--retro .rank-school{grid-template-columns:76px minmax(0,1fr)!important;column-gap:8px!important}
+.rank-table-wrap--retro .rank-school .mbb-mark{--mbb-size:74px!important;width:74px!important;height:74px!important;min-width:74px!important;max-width:74px!important}
+.rank-table-wrap--retro .rank-school>a{font-size:15px!important}
+.rank-table-wrap--retro .rank-table tbody tr{grid-template-columns:39px minmax(0,1fr) 91px!important}
+.rank-table-wrap--retro .rank-quick-stats b{white-space:normal}
+}
+@media(max-width:390px){
+.rank-table-wrap--retro .rank-school{grid-template-columns:64px minmax(0,1fr)!important;column-gap:6px!important}
+.rank-table-wrap--retro .rank-school .mbb-mark{--mbb-size:62px!important;width:62px!important;height:62px!important;min-width:62px!important;max-width:62px!important}
+.rank-table-wrap--retro .rank-school>a{font-size:14px!important}
+}
 </style><link rel="stylesheet" href="slt-victorian-global.css?v=one-frame-all-rankings-20261105"></head>
 <body><div class="rank-paper"><header class="rank-mast"><a href="index.html">Sporting Life &amp; Times</a><p>THE HARDWOOD CHRONICLE · THE NATIONAL TABLE · 2026–27</p></header>
 <nav class="nav cbb-universal-nav" aria-label="College basketball navigation"><div class="cbb-gender-bar cbb-edition-switch" role="group" aria-label="College basketball edition"><a class="cbb-gender-option" href="ncaam.html">Men</a><a class="cbb-gender-option" href="ncaam.html?gender=women">Women</a></div><a href="ncaam.html">The Hardwood Chronicle</a><a href="ncaam-slate.html">Daily Ledger</a><a href="ncaam-conference.html">Conferences</a><a href="ncaam-tournament.html">Bracket Watch</a><a href="ncaam-elo.html">RETRO Rankings</a><a href="ncaam-players.html">Player Leaders</a><a href="sports.html">All Sports</a></nav>
 <main><p class="rank-overline">College Basketball / Rankings Desk</p><h1 class="rank-title" id="rank-heading">The National Rankings</h1><p class="rank-intro" id="rank-intro">Published ratings and national polls, with their original source and as-of date.</p>
 <nav class="rank-tabs" id="rank-tabs" aria-label="Choose rankings"><a href="?poll=retro">RETRO</a><a href="?poll=net">NET</a><a href="?poll=ap">AP Top 25</a><a href="?poll=coaches">Coaches</a><a href="?poll=kenpom">Pomeroy</a></nav>
 <div id="rank-status" class="rank-status"></div><div id="rank-content" aria-live="polite">Loading rankings…</div></main><footer class="rank-note">Sporting Life &amp; Times · Data is not substituted across ranking systems. Each ranking keeps its own source and publication date.</footer></div>
-<script src="retro-ranking-explainer.js?v=20261115-plain-language"></script><script>
+<script src="retro-ranking-explainer.js?v=20261115-daily-precision"></script><script>
 (async()=>{'use strict';const params=new URLSearchParams(location.search),gender=params.get('gender')==='women'?'women':'men';const key=params.get('poll')||'retro',titles={retro:'RETRO Power Rankings',net:'NCAA NET Rankings',ap:'Associated Press Top 25',coaches:'Coaches Top 25',kenpom:'Pomeroy Ratings'};const k=titles[key]?key:'retro';document.title=(gender==='women'?'Women’s ':'Men’s ')+titles[k]+' | Sporting Life & Times';document.getElementById('rank-heading').textContent=(gender==='women'?'Women’s ':'Men’s ')+titles[k];document.body.classList.toggle('rank-retro-edition',k==='retro');for(const a of document.querySelectorAll('#rank-tabs a')){const u=new URL(a.href);u.searchParams.set('gender',gender);a.href=u.search;if(u.searchParams.get('poll')===k)a.setAttribute('aria-current','page');}
 const e=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c]));
 const get=async p=>{try{const r=await fetch(p,{cache:'no-store'});return r.ok?await r.json():null}catch{return null}};
