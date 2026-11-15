@@ -30,6 +30,167 @@ DIRECT={
 DIRECT_IMAGE={
  '45':'https://content.sportslogos.net/logos/31/685/full/george_washington_colonials_logo_primary_1967_sportslogosnet-2252.png'
 }
+# Alternate archive serves historical PNGs without the blocked sportslogos.net HTML endpoint.
+# All images are selected by exact historical start-year in their original file names.
+HISTORY={
+ '2166':('davidson-wildcats',1989),
+ '2168':('dayton-flyers',1984),
+ '2184':('duquesne-dukes',1975),
+ '2230':('fordham-rams',1994),
+ '2244':('george-mason-patriots',1980),
+ '45':('george-washington-colonials',1967),
+ '2325':('la-salle-explorers',1973),
+ '2350':('loyola-ramblers',1990),
+ '227':('rhode-island-rams',1989),
+ '2603':('st-josephs-hawks',1982),
+ '139':('st-louis-billikens',1984),
+ '179':('st-bonaventure-bonnies',1999),
+ '2670':('virginia-commonwealth-rams',1968)
+}
+def alternate_archive(eid):
+ slug,year=HISTORY[eid]
+ page='https://sportslogohistory.com/'+slug+'-primary-logo/'
+ response=S.get(page,timeout=35);response.raise_for_status()
+ soup=BeautifulSoup(response.text,'html.parser')
+ candidates=[]
+ for img in soup.select('img[src],img[data-src],img[data-lazy-src]'):
+  for attr in ('data-src','data-lazy-src','src'):
+   raw=img.get(attr)
+   if not raw:continue
+   u=urljoin(page,raw)
+   if urlparse(u).hostname not in ('sportslogohistory.com','www.sportslogohistory.com'):continue
+   filename=u.split('/')[-1].lower().split('?')[0]
+   if '/wp-content/uploads/' not in u or str(year) not in filename:continue
+   if not re.search(r'\\.(?:png|webp|jpe?g)
+S.headers.update({'User-Agent':'Mozilla/5.0 (compatible; SportingLifeAndTimes/1.0; A10 logo archival import)'})
+def archival_image(url, direct_image=None):
+ # A verified exact historical image does not require parsing an archive HTML page.
+ # Other schools still require the page and full-size artwork validation.
+ imgs=[]
+ if not direct_image:
+  r=S.get(url,timeout=25);r.raise_for_status()
+  soup=BeautifulSoup(r.text,'html.parser')
+ else:
+  soup=BeautifulSoup('', 'html.parser')
+ # Select image from the designated logo page, not banners, ads, thumbnails, merchandise.
+ for tag in soup.select('a[href],img[src],img[data-src],meta[property="og:image"]'):
+  raw=tag.get('href') or tag.get('data-src') or tag.get('src') or tag.get('content') or ''
+  target=urljoin(url,raw)
+  if urlparse(target).hostname=='content.sportslogos.net' and '/full/' in target and re.search(r'\.(png|webp|jpg|jpeg)(?:\?|$)',target,re.I):
+   imgs.append(target)
+ if direct_image:imgs.insert(0,direct_image)
+ imgs=list(dict.fromkeys(imgs))
+ if not imgs:raise RuntimeError('No full historical logo at '+url)
+ errors=[]
+ for target in imgs:
+  try:
+   imgresp=S.get(target,timeout=25);imgresp.raise_for_status()
+   if not 1500<len(imgresp.content)<12_000_000:raise ValueError('Invalid logo byte size')
+   img=Image.open(BytesIO(imgresp.content)).convert('RGBA')
+   if min(img.size)<170:raise ValueError('Historical image is too small')
+   # The archival service sometimes supplies a flat white background.
+   if img.getchannel('A').getextrema()==(255,255):
+    from PIL import ImageChops
+    rgba=img.copy()
+    data=rgba.load()
+    for y in range(rgba.height):
+     for x in range(rgba.width):
+      red,green,blue,alpha=data[x,y]
+      if min(red,green,blue)>249:
+       data[x,y]=(red,green,blue,0)
+    img=rgba
+   bound=img.getbbox()
+   if not bound:raise ValueError('Historical image is empty')
+   img=img.crop(bound)
+   img.thumbnail((610,610),Image.Resampling.LANCZOS)
+   out=Image.new('RGBA',(720,720))
+   out.alpha_composite(img,((720-img.width)//2,(720-img.height)//2))
+   buffer=BytesIO();out.save(buffer,format='PNG',optimize=True)
+   return buffer.getvalue(),target
+  except Exception as e:errors.append(str(e))
+ raise RuntimeError('Archive logo cannot be verified: '+'; '.join(errors[:3]))
+def main():
+ doc=json.loads(MANIFEST.read_text())
+ js=RENDERER.read_text()
+ marker='const retroURLForESPN=id=>'
+ if marker not in js:raise RuntimeError('Logo renderer contract changed')
+ if 'const A10_HERITAGE=' in js:
+  print('A10 heritage mapping already installed; no rewrite')
+  return
+ downloaded={};issues={}
+ for team in doc['teams']:
+  eid=team['espn_id']
+  page=DIRECT.get(eid)
+  # Do not guess an exact artwork from a timeline, especially Richmond and St. Bonaventure.
+  # Loyola Wolf is also withheld until a confirmed archive image of the 1990-94 design exists.
+  if not page:
+   if eid in HISTORY:
+    try:
+     alternative,source=alternate_archive(eid)
+     data,image_url=archival_image(source,alternative)
+     downloaded[eid]=(team,data,image_url,source)
+     continue
+    except Exception as e:
+     issues[eid]=str(e)
+   else:issues[eid]='Specific archived design not yet authenticated'
+   continue
+  try:
+   data,image_url=archival_image(page,DIRECT_IMAGE.get(eid))
+   downloaded[eid]=(team,data,image_url,page)
+  except Exception as original_error:
+   try:
+    alternative,source=alternate_archive(eid)
+    data,image_url=archival_image(source,alternative)
+    downloaded[eid]=(team,data,image_url,source)
+   except Exception as alternate_error:
+    issues[eid]='Primary archive: '+str(original_error)[:85]+'; alternative: '+str(alternate_error)[:130]
+ if not downloaded:raise RuntimeError('No archival images passed import validation')
+ OUT.mkdir(parents=True,exist_ok=True)
+ mapping=[]
+ for eid,(team,data,image_url,page) in downloaded.items():
+  filename=Path(team['target_path']).name
+  path=OUT/filename
+  path.write_bytes(data)
+  with Image.open(path) as img:img.verify()
+  mapping.append(" '%s':'%s?v=a10-archive-20261114-1'"%(eid,team['target_path']))
+  team['retro_asset_status']='local_image_verified'
+  team['archival_image_url']=image_url
+  team['historical_research_url']=page
+ for team in doc['teams']:
+  if team['espn_id'] in issues:
+   team['retro_asset_status']='archival_artwork_unverified_modern_fallback'
+   team['asset_import_error']=issues[team['espn_id']][:280]
+ # Map only validated paths. Never insert a missing asset into a live page.
+ block='const A10_HERITAGE=Object.freeze({\n'+',\n'.join(mapping)+'\n});\n'
+ js=js.replace(marker,block+marker,1)
+ old="||BIG_EAST_HERITAGE[String(id)]||''"
+ if old not in js:raise RuntimeError('Unexpected renderer fallback chain')
+ js=js.replace(old,"||BIG_EAST_HERITAGE[String(id)]||A10_HERITAGE[String(id)]||''",1)
+ oldapi='heritageBigEastTeamIds:()=>Object.keys(BIG_EAST_HERITAGE),'
+ if oldapi in js:
+  js=js.replace(oldapi,oldapi+'heritageA10TeamIds:()=>Object.keys(A10_HERITAGE),',1)
+ elif 'heritageA10TeamIds:' not in js:
+  raise RuntimeError('Logo API contract changed')
+ RENDERER.write_text(js)
+ doc['release_status']='partial_historical_assets_imported_unverified_entries_use_modern'
+ doc['imported_count']=len(downloaded)
+ doc['missing_count']=len(issues)
+ doc['modern_fallback_maintained']=True
+ MANIFEST.write_text(json.dumps(doc,indent=2)+'\n')
+ # Cache bust only after assets and renderer successfully validated.
+ for html in ROOT.glob('*.html'):
+  text=html.read_text()
+  latest=re.sub(r'mbb-logo-system\.js\?v=[^"\'<>\s]+','mbb-logo-system.js?v=a10-heritage-20261114-1',text)
+  if latest!=text:html.write_text(latest)
+ print('Imported',len(downloaded),'historic A10 logos; unresolved',len(issues))
+ for eid,error in issues.items():print('  unresolved',eid,error[:100])
+if __name__=='__main__':main()
+,filename):continue
+   candidates.append(u)
+ candidates=list(dict.fromkeys(candidates))
+ # Never pick a random image from a timeline or a later-era logo.
+ if len(candidates)!=1:raise RuntimeError('No unique original '+str(year)+' mark on '+page+': '+str(candidates[:5]))
+ return candidates[0],page
 S=requests.Session()
 S.headers.update({'User-Agent':'Mozilla/5.0 (compatible; SportingLifeAndTimes/1.0; A10 logo archival import)'})
 def archival_image(url, direct_image=None):
