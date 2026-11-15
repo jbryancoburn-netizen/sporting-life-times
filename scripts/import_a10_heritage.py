@@ -34,7 +34,11 @@ DIRECT_IMAGE={
  '2184':'https://content.sportslogos.net/logos/31/664/full/duquesne_dukes_logo_primary_1975_sportslogosnet-6823.png',
  '2325':'https://content.sportslogos.net/logos/32/724/full/la_salle_explorers_logo_primary_1973_sportslogosnet-4131.png',
  '2603':'https://content.sportslogos.net/logos/34/851/full/st-josephs-hawks-logo-primary-1982-1088.png',
- '2670':'https://magazine.vcu.edu/media/magazine/images/fall-2023/athletics_logos_68-82.png'
+ '2670':'https://magazine.vcu.edu/media/magazine/images/fall-2023/athletics_logos_68-82.png',
+ '2166':'https://content.sportslogos.net/logos/31/654/full/davidson_wildcats_logo_primary_19898709.png',
+ '2168':'https://content.sportslogos.net/logos/31/655/full/dayton_flyers_logo_alternate_1984_sportslogosnet-8496.png',
+ '139':'https://content.sportslogos.net/logos/34/822/full/4220_saint_louis_billikens-primary-1985.png',
+ '2230':'https://content.sportslogos.net/logos/31/680/full/ell5t8vkmqi8hewrdykg.gif'
 }
 # Alternate archive serves historical PNGs without the blocked sportslogos.net HTML endpoint.
 # All images are selected by exact historical start-year in their original file names.
