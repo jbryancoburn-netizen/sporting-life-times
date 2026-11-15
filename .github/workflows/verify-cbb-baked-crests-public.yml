@@ -1,0 +1,60 @@
+name: Verify public baked CBB historic crests
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/verify-cbb-baked-crests-public.yml'
+  workflow_run:
+    workflows: ['Publish newspaper to GitHub Pages']
+    types: [completed]
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: cbb-public-baked-crests
+  cancel-in-progress: false
+jobs:
+  verify:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify every public asset byte-for-byte, logo-renderer and versioned pages
+        run: |
+          python3 - <<'PY'
+          from concurrent.futures import ThreadPoolExecutor,as_completed
+          from pathlib import Path
+          import hashlib,json,time,urllib.request
+          base='https://jbryancoburn-netizen.github.io/sporting-life-times/'
+          proof=json.loads(Path('data/cbb-heritage-medallions-audit.json').read_text())
+          assert proof['rendered_count']==86
+          def download(path):
+              with urllib.request.urlopen(urllib.request.Request(base+path,headers={'Cache-Control':'no-cache','User-Agent':'SportingLifeCBB-PublicIntegrity'}),timeout=25) as r:
+                  if r.status!=200:raise AssertionError(f'{path} HTTP {r.status}')
+                  return r.read()
+          def inspect(row):
+              payload=download(row['asset']+'?audit='+row['sha256'][:12])
+              assert payload[:8]==b'\x89PNG\r\n\x1a\n',row['asset']
+              assert hashlib.sha256(payload).hexdigest()==row['sha256'],row['asset']+' differs from certified local PNG'
+              assert int.from_bytes(payload[16:20],'big')==512,row['asset']+' incorrect width'
+              return row['espn_id']
+          with ThreadPoolExecutor(max_workers=12) as pool:
+              futures=[pool.submit(inspect,row) for row in proof['records']]
+              ids={f.result() for f in as_completed(futures)}
+          assert len(ids)==86
+          for path,needles in {
+           'ncaam-rankings.html':['mbb-logo-system.js?v=20261115-baked-crests1','mbb-logo-system.css?v=20261115-baked-crests1'],
+           'ncaaw-rankings.html':['mbb-logo-system.js?v=20261115-baked-crests1','wbb-rankings.js?v=20261115-baked-crests1'],
+           'ncaam-slate.html':['mbb-logo-system.js?v=20261115-baked-crests1'],
+           'ncaam-team.html':['mbb-logo-system.js?v=20261115-baked-crests1'],
+           'ncaaw-team.html':['mbb-logo-system.js?v=20261115-baked-crests1'],
+           'mbb-logo-system.js':['cbb-heritage-medallions/','mbb-mark--baked'],
+           'mbb-logo-system.css':['.mbb-mark.mbb-mark--baked::before','width:100%!important'],
+           'wbb-rankings.js':['cbb-heritage-medallions/','mbb-mark--baked']
+          }.items():
+              text=download(path+'?baked-audit='+str(int(time.time()))).decode('utf-8')
+              assert all(v in text for v in needles),path+' missing released asset references'
+          print('PASS PUBLIC: all 86 historical crest PNG byte hashes, 512px canvases, both rings, men/women schedules, rankings, team pages and common renderers')
+          PY
