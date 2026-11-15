@@ -107,7 +107,8 @@ def men(check=False):
                         # same exact ESPN event may correct a stale final on
                         # BOTH team schedules. Other disputes still fail closed.
                         if not (final.get("score_certified") is True and
-                                str(event.get("id", "")).removeprefix("espn:") == event_id):
+                                (str(event.get("id", "")).removeprefix("espn:") == event_id or
+                                 str(event.get("retro_verified_final", "")) == str(final["id"]))):
                             raise ValueError("Conflicting already final school score for " + event_id)
                     if old != want:
                         side["score"] = want
