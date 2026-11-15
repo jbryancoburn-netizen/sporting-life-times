@@ -17,7 +17,7 @@ const expected={
  '120':'maryland-terrapin','164':'rutgers','26':'ucla','30':'usc',
  '2483':'oregon','264':'washington'
 };
-const baked=id=>'assets/cbb-embossed-crests/'+id+'.png?v=20261115-embossed2';
+const baked=id=>'assets/cbb-embossed-crests/'+id+'.png?v=20261115-retro1';
 const url=(slug)=>'assets/cbb-big-ten-1980s/centered/'+slug+'.png?v='+(slug==='michigan-state-gruff'?'20261114-gruff-full-art1':'20261114-bigten-live1');
 
 async function system(){
@@ -77,7 +77,8 @@ test('all 18 CURRENT Big Ten names have authentic local assets and unambiguous I
 });
 test('schools outside vintage conferences retain verified identities but receive the same baked local ring assets',async()=>{
  const logos=await system();
- for(const id of ['2287','2466','2908','265','204','66']){
+ const audit=json('data/cbb-precomposed-crest-audit.json');
+ for(const id of Object.keys(audit.crests).filter(id=>!audit.crests[id].heritage).slice(0,6)){
    assert.equal(logos.retroURLForESPN(id),'','Outside the conference '+id);
    const mark=logos.byESPN(id,'score','Non Big Ten');
    assert(!mark.includes('mbb-mark--heritage'),'Do not mislabel non-vintage badges '+id);
@@ -98,8 +99,8 @@ test('men and women team desks, ledgers, live center, ranks and conferences cach
   if(page==='ncaaw-rankings.html'){
    assert(html.includes("location.replace(")&&html.includes('ncaam-rankings.html'),'Women redirects to shared ranking page');
   }else{
-   assert(html.includes('mbb-logo-system.js?v=cbb-embossed-20261115-v2'),'Every reader must use the baked logo renderer: '+page);
-   assert(html.includes('mbb-logo-system.css?v=cbb-embossed-20261115-v2'),'Every reader must use the baked-logo layout contract: '+page);
+   assert(html.includes('mbb-logo-system.js?v=cbb-retro-20261115-v1'),'Every reader must use the baked logo renderer: '+page);
+   assert(html.includes('mbb-logo-system.css?v=cbb-retro-20261115-v1'),'Every reader must use the baked-logo layout contract: '+page);
   }
  }
  const wbbRanks=read('ncaaw-rankings.html');

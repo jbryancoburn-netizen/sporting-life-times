@@ -101,7 +101,9 @@ async function run(){
    if(match)updatedBigEast[match[1]]=match[2];
  }
  assert.equal(Object.keys(updatedBigEast).length,11,'Expected 11 original Big East archive crests');
- const anyVintage=id=>!!(vintage[id]||vintageACC[id]||vintageSEC[id]||vintageBigEast[id]||supplementary[id]);
+ const archive=JSON.parse(read('data/cbb-retro-archive.json'));
+ const archivedIDs=new Set(archive.schools.map(t=>t.id));
+ const anyVintage=id=>archivedIDs.has(id)||!!(vintage[id]||vintageACC[id]||vintageSEC[id]||vintageBigEast[id]||supplementary[id]);
  assert.equal(Object.keys(vintage).length,18,'Current Big Ten has exactly 18 vintage crests');
  for(const [id,slug] of Object.entries(vintage)){
    const path='assets/cbb-big-ten-1980s/centered/'+slug+'.png';
@@ -113,9 +115,9 @@ async function run(){
  }
  const assetAudit=JSON.parse(read('data/cbb-precomposed-crest-audit.json'));
  assert.equal(assetAudit.count,365,'Every DI program must have an audited self-hosted crest');
- assert.equal(assetAudit.vintage_count,86,'All 86 original historical archives must survive');
+ assert.equal(assetAudit.vintage_count,86+archive.count,'Every approved historical archive must survive');
  assert.equal(assetAudit.rings,2,'Exactly two distinct school-color rings');
- const expectedLogo=id=>'assets/cbb-embossed-crests/'+id+'.png?v=20261115-embossed2';
+ const expectedLogo=id=>'assets/cbb-embossed-crests/'+id+'.png?v=20261115-retro1';
  for(const [id,entry] of Object.entries(assetAudit.crests)){
    assert.equal(entry.primary,colors[id]?.primary,'Wrong baked primary ring '+id);
    assert.equal(entry.secondary,colors[id]?.secondary,'Wrong baked secondary ring '+id);
