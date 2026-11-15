@@ -9,6 +9,8 @@ on:
       - 'retro-ranking-explainer.js'
       - 'tests/retro-ranking-explainer.test.cjs'
       - 'ncaaw-rankings.html'
+      - 'cbb-universal-nav.css'
+      - 'tests/cbb-edition-switch-contrast.test.cjs'
       - 'wbb-rankings.js'
       - 'tests/cbb-retro-ranking-readability.test.cjs'
       - '.github/workflows/cbb-ranking-readability.yml'
@@ -35,6 +37,7 @@ jobs:
           node-version: '22'
       - name: Validate layout and crest contracts
         run: |
+          node --test tests/cbb-edition-switch-contrast.test.cjs
           node --test tests/cbb-retro-ranking-readability.test.cjs
           node --test tests/cbb-ranking-badges-mobile.test.cjs
           node --test tests/cbb-retro-power-logos.test.cjs
