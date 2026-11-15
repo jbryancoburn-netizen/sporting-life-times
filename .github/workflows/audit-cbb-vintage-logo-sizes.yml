@@ -1,0 +1,63 @@
+name: Audit and normalize undersized vintage basketball logos
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/audit_cbb_vintage_logo_sizes.py'
+      - '.github/workflows/audit-cbb-vintage-logo-sizes.yml'
+permissions:
+  contents: write
+concurrency:
+  group: cbb-vintage-logo-size-audit
+  cancel-in-progress: false
+jobs:
+  recenter:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install 'Pillow>=11,<13'
+      - name: Validate logo audit code
+        run: python -m py_compile scripts/audit_cbb_vintage_logo_sizes.py
+      - name: Audit all mapped vintage artwork and safely recenter transparent padding
+        run: python scripts/audit_cbb_vintage_logo_sizes.py
+      - name: Validate local assets, audit completeness and shared renderer
+        run: |
+          node --check mbb-logo-system.js
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from PIL import Image
+          report=json.loads(Path('data/cbb-local-logo-sizing-audit.json').read_text())
+          assert report['total_mapped']>=90, report['total_mapped']
+          assert not any(row['status'] in ('missing_png','error_manual_review') for row in report['records'])
+          assert report['recentered']==report['counts'].get('normalized',0)
+          for record in report['records']:
+              with Image.open(record['path']) as logo:logo.verify()
+          print('Validated',report['total_mapped'],'self-hosted images; updated',report['recentered'])
+          PY
+      - name: Bust renderer cache after image changes
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json,re
+          audit=json.loads(Path('data/cbb-local-logo-sizing-audit.json').read_text())
+          if not audit['recentered']:raise SystemExit(0)
+          for html in Path('.').glob('*.html'):
+              source=html.read_text()
+              updated=re.sub(r'mbb-logo-system\.js\?v=[^"\'<>\s]+',
+                             'mbb-logo-system.js?v=ring-safe-sizing-20261115-1',source)
+              if updated!=source:html.write_text(updated)
+          PY
+      - name: Publish audited artwork and data together
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add mbb-logo-system.js data/cbb-local-logo-sizing-audit.json assets/ '*.html'
+          if ! git diff --cached --quiet; then
+            git commit -m 'Normalize transparent padding in vintage NCAA basketball marks'
+            git push
+          fi
