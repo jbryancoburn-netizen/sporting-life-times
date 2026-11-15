@@ -13,6 +13,9 @@ from PIL import Image
 ROOT=Path(__file__).resolve().parents[1]
 AUDIT=ROOT/'data/cbb-mountain-west-heritage-audit.json'
 JS=ROOT/'mbb-logo-system.js'
+PINNED={
+ '167':'https://sportslogohistory.com/wp-content/uploads/2021/09/new_mexico_lobos_1973-1999.png'
+}
 S=requests.Session()
 S.headers.update({'User-Agent':'Mozilla/5.0 (Sporting Life Times historic basketball logo archive)'})
 def find_art(team):
@@ -21,6 +24,11 @@ def find_art(team):
  if start is None or end is None:
   raise ValueError('Historical artwork date is not independently authenticated')
  page=choice['history_url']
+ if team['espn_id'] in PINNED:
+  url=PINNED[team['espn_id']]
+  filename=url.split('/')[-1]
+  if str(start)+'-'+str(end) not in filename:raise RuntimeError('Pinned art does not match historical era')
+  return url,page
  response=S.get(page,timeout=30);response.raise_for_status()
  soup=BeautifulSoup(response.text,'html.parser')
  found={}
