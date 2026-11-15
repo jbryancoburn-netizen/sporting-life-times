@@ -111,11 +111,19 @@ async function run(){
    assert.equal(data.readUInt32BE(16),512,'Historic PNG must be 512px wide: '+slug);
    assert.equal(data.readUInt32BE(20),512,'Historic PNG must be 512px high: '+slug);
  }
- const expectedLogo=(id,item)=>vintage[id]?
-   'assets/cbb-big-ten-1980s/centered/'+vintage[id]+'.png?v='+(id==='127'?'20261114-gruff-full-art1':'20261114-bigten-live1'):
-   vintageACC[id]?'assets/cbb-acc-1980s/'+vintageACC[id]+'.png?v='+(id==='221'?'20261114-pitt-standing-1980-approved1':'20261114-acc18-live1'):
-   vintageSEC[id]?'assets/cbb-sec-1980s/'+vintageSEC[id]+'.png?v=20261114-sec16-live1':
-   vintageBigEast[id]?updatedBigEast[id]:supplementary[id]||item.logo_url;
+ const bakedAudit=JSON.parse(read('data/cbb-heritage-medallions-audit.json'));
+ assert.equal(bakedAudit.rendered_count,86,'Expected all 86 existing vintage badges to be precomposed');
+ const bakedById=new Map(bakedAudit.records.map(row=>[row.espn_id,row]));
+ for(const id of Object.keys(colors)){
+  if(!anyVintage(id))continue;
+  const proof=bakedById.get(id);
+  assert(proof,'Missing precomposed heritage crest '+id);
+  assert(fs.existsSync(proof.asset),'Missing asset-built historic PNG '+id);
+  assert.equal(proof.ring_colors[0].toLowerCase(),colors[id].primary.toLowerCase(),'Primary ring color mismatch '+id);
+  assert.equal(proof.ring_colors[1].toLowerCase(),colors[id].secondary.toLowerCase(),'Secondary ring color mismatch '+id);
+ }
+ const expectedLogo=(id,item)=>anyVintage(id)?
+   'assets/cbb-heritage-medallions/'+id+'.png?v=20261115-asset-baked1':item.logo_url;
  const seen=new Set(),kinds={embedded_roundel:0,flat:0,unverified:0};
  for(const t of cross.teams){
   const id=String(t.espn_id),item=registry.teams[id],brand=colors[id];
