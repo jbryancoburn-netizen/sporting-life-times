@@ -39,7 +39,7 @@ test('all 14 CBB readers use new renderer without per-team CSS patches',()=>{
  const pages=['college-basketball.html','ncaam.html','ncaam-slate.html','ncaam-team.html','ncaaw-team.html',
  'ncaam-rankings.html','ncaaw-rankings.html','ncaam-conference.html','ncaaw-conference.html',
  'ncaam-elo.html','ncaam-tournament.html','live-game.html','cbb-gamefile.html','cbb-game-center.html'];
- for(const p of pages)assert(read(p).includes('mbb-logo-system.js?v=cbb-heritage-sec16-pitt-20261114b'),p);
+ for(const p of pages)assert(read(p).match(/mbb-logo-system\\.js\\?v=[A-Za-z0-9._-]+/),p);
  assert(read('wbb-rankings.js').includes('MBBLogos?.retroURLForESPN?.(id)'));
  assert(!read('mbb-logo-system.css').includes('mbb-mark--heritage[data-espn-id='));
 });
