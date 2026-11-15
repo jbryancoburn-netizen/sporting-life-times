@@ -14,6 +14,10 @@ def main():
     previous = json.loads(PATH.read_text()) if PATH.exists() else {}
     sources = [(f'week {w}', BASE + f'scoreboard?dates=2026&seasontype=2&week={w}&groups=80&limit=400') for w in range(18)]
     sources += [('opening ' + d, BASE + f'scoreboard?dates={d}&groups=80&limit=400') for d in ('20260829', '20260830', '20260831')]
+    # Weekly feeds can lag after a Saturday final. Independently fetch recent
+    # calendar-day scoreboards so late finals enter the authoritative RETRO ledger.
+    recent_days = [(NOW.date() - datetime.timedelta(days=offset)).strftime('%Y%m%d') for offset in range(4)]
+    sources += [('recent ' + d, BASE + f'scoreboard?dates={d}&groups=80&limit=400') for d in recent_days]
     games, events, errors = {}, {}, []
     def load(source):
         label, url = source
