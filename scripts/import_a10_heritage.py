@@ -114,9 +114,11 @@ def main():
  js=RENDERER.read_text()
  marker='const retroURLForESPN=id=>'
  if marker not in js:raise RuntimeError('Logo renderer contract changed')
- if 'const A10_HERITAGE=' in js:
-  print('A10 heritage mapping already installed; no rewrite')
-  return
+ existing_map={}
+ existing=re.search(r'const A10_HERITAGE=Object\.freeze\(\{([\s\S]*?)\}\);',js)
+ if existing:
+  for eid,path in re.findall(r"'(\d+)':'([^']+)'",existing.group(1)):
+   if (ROOT/path.split('?')[0]).exists():existing_map[eid]=path
  downloaded={};issues={}
  for team in doc['teams']:
   eid=team['espn_id']
@@ -144,9 +146,11 @@ def main():
     downloaded[eid]=(team,data,image_url,source)
    except Exception as alternate_error:
     issues[eid]='Primary archive: '+str(original_error)[:85]+'; alternative: '+str(alternate_error)[:130]
- if not downloaded:raise RuntimeError('No archival images passed import validation')
+ if not downloaded and not existing_map:raise RuntimeError('No archival images passed import validation')
  OUT.mkdir(parents=True,exist_ok=True)
  mapping=[]
+ for eid,oldpath in existing_map.items():
+  if eid not in downloaded:mapping.append(" '%s':'%s'"%(eid,oldpath))
  for eid,(team,data,image_url,page) in downloaded.items():
   filename=Path(team['target_path']).name
   path=OUT/filename
@@ -157,24 +161,25 @@ def main():
   team['archival_image_url']=image_url
   team['historical_research_url']=page
  for team in doc['teams']:
-  if team['espn_id'] in issues:
+  if team['espn_id'] in issues and team['espn_id'] not in existing_map:
    team['retro_asset_status']='archival_artwork_unverified_modern_fallback'
    team['asset_import_error']=issues[team['espn_id']][:280]
  # Map only validated paths. Never insert a missing asset into a live page.
  block='const A10_HERITAGE=Object.freeze({\n'+',\n'.join(mapping)+'\n});\n'
- js=js.replace(marker,block+marker,1)
+ if existing:js=js[:existing.start()]+block.rstrip()+js[existing.end():]
+ else:js=js.replace(marker,block+marker,1)
  old="||BIG_EAST_HERITAGE[String(id)]||''"
- if old not in js:raise RuntimeError('Unexpected renderer fallback chain')
- js=js.replace(old,"||BIG_EAST_HERITAGE[String(id)]||A10_HERITAGE[String(id)]||''",1)
+ if old in js:js=js.replace(old,"||BIG_EAST_HERITAGE[String(id)]||A10_HERITAGE[String(id)]||''",1)
+ elif '||A10_HERITAGE[String(id)]' not in js:raise RuntimeError('Unexpected renderer fallback chain')
  oldapi='heritageBigEastTeamIds:()=>Object.keys(BIG_EAST_HERITAGE),'
- if oldapi in js:
+ if oldapi in js and 'heritageA10TeamIds:' not in js:
   js=js.replace(oldapi,oldapi+'heritageA10TeamIds:()=>Object.keys(A10_HERITAGE),',1)
  elif 'heritageA10TeamIds:' not in js:
   raise RuntimeError('Logo API contract changed')
  RENDERER.write_text(js)
  doc['release_status']='partial_historical_assets_imported_unverified_entries_use_modern'
- doc['imported_count']=len(downloaded)
- doc['missing_count']=len(issues)
+ doc['imported_count']=len(set(downloaded)|set(existing_map))
+ doc['missing_count']=14-doc['imported_count']
  doc['modern_fallback_maintained']=True
  MANIFEST.write_text(json.dumps(doc,indent=2)+'\n')
  # Cache bust only after assets and renderer successfully validated.
