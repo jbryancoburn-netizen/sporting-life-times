@@ -81,7 +81,8 @@ function decorate(){
   const p=scored.get(key(day,details.dataset.gameId));
   const audited=gender==='men'&&identityMatches(p,home,away)?number(p.actual_home_margin):null;
   const actual=audited!==null?audited:scoreFromBug(bug);
-  const markup=receipt(gender,details.dataset.gameId,day,status,actual,home,away,details.dataset.homeName||'Home',details.dataset.awayName||'Away');
+  const markup=status==='upcoming'&&bug.dataset.retroLocked==='true'?'':
+   receipt(gender,details.dataset.gameId,day,status,actual,home,away,details.dataset.homeName||'Home',details.dataset.awayName||'Away');
   set(summary,markup);
  });
  document.querySelectorAll('#desk .wbb-scorebug-card[data-game-id]').forEach(details=>{
