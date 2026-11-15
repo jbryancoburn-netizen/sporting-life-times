@@ -14,10 +14,10 @@ from scipy.ndimage import distance_transform_edt, gaussian_filter
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / 'assets/cbb-precomposed-crests'
 OUTPUT = ROOT / 'assets/cbb-embossed-crests'
-VERSION = '20261115-embossed1'
+VERSION = '20261115-embossed2'
 
 
-def raised_height(mask, depth, bevel=5):
+def raised_height(mask, depth, bevel=6):
     """Round the shoulder inward, retaining the source silhouette exactly."""
     distance = np.clip(distance_transform_edt(mask) / bevel, 0, 1)
     shoulder = distance * distance * (3 - 2 * distance)
@@ -41,24 +41,24 @@ def emboss(original):
     ImageDraw.Draw(field).ellipse((45, 45, 466, 466), fill=255)
     artwork = (np.max(np.abs(rgb - [255, 250, 239]), axis=2) > 32) & (np.asarray(field) > 0) & visible
     rings = (np.asarray(outer) > 0) | (np.asarray(inner) > 0)
-    height = raised_height(artwork, 6.5)
-    height += raised_height(np.asarray(outer) > 0, 5.5)
-    height += raised_height(np.asarray(inner) > 0, 6.5)
+    height = raised_height(artwork, 10.5)
+    height += raised_height(np.asarray(outer) > 0, 9)
+    height += raised_height(np.asarray(inner) > 0, 10.5)
     dy, dx = np.gradient(height)
     normal = np.sqrt(dx * dx + dy * dy + 1)
     # Upper-left light; flat pigment interiors retain their school colors.
-    illumination = np.clip((.52 * dx + .52 * dy + .68) / normal / .68, .48, 1.42)
+    illumination = np.clip((.52 * dx + .52 * dy + .68) / normal / .68, .38, 1.55)
     shaded = rgb * illumination[:, :, None]
-    highlight = np.clip(illumination - 1, 0, .42)[:, :, None]
+    highlight = np.clip(illumination - 1, 0, .55)[:, :, None]
     shaded += (255 - rgb) * highlight * .55
     # A tightly confined lower-right contact shadow makes the relief legible
     # in 64–92px scorebug/ranking badges, without a floating outside shadow.
     raised = artwork | rings
     shadow = Image.new('L', (512, 512))
-    shadow.paste(Image.fromarray(np.uint8(raised) * 255), (3, 4))
-    shadow = np.asarray(shadow.filter(ImageFilter.GaussianBlur(1.6)), dtype=np.float32) / 255
+    shadow.paste(Image.fromarray(np.uint8(raised) * 255), (5, 7))
+    shadow = np.asarray(shadow.filter(ImageFilter.GaussianBlur(2.2)), dtype=np.float32) / 255
     shadow *= ~raised
-    shaded *= (1 - .28 * shadow[:, :, None])
+    shaded *= (1 - .40 * shadow[:, :, None])
     result = source.copy()
     result[:, :, :3] = np.uint8(np.clip(shaded, 0, 255))
     result[~visible] = source[~visible]
