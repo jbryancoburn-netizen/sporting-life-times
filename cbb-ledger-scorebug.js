@@ -53,7 +53,7 @@
   const halfPoint=Number.isFinite(f.margin)?Math.round(Math.abs(f.margin)*2)/2:null;
   const margin=halfPoint!==null&&halfPoint>0?'−'+halfPoint.toFixed(1):'';
   // The condensed forecast shows only one win probability and one margin.
-  // Projected final scores belong in the expanded Game Details, not the rail.
+  // Source-backed projected finals join the same aligned forecast rail.
   return '<div class="ledger26-status ledger26-status--pregame ledger26-status--compact" data-phase="upcoming" aria-label="'+
    esc(team+' '+percent+' percent RETRO win probability'+(margin?', projected margin '+margin+' points':''))+'">'+
    '<div class="ledger26-pregame-inline ledger26-pregame-inline--prob">'+
@@ -61,7 +61,12 @@
     '<span class="ledger26-pregame-team" title="'+esc(team)+'">'+esc(percent===50?'EVEN':team)+'</span></div>'+
    (margin?'<div class="ledger26-pregame-inline ledger26-pregame-inline--margin">'+
     '<strong class="ledger26-pregame-edge">'+margin+'</strong>'+
-    '<span class="ledger26-pregame-caption">RETRO MARGIN</span></div>':'')+
+    '<span class="ledger26-pregame-caption">MARGIN</span></div>':'')+
+   (Number.isFinite(f.projectedAwayScore)&&Number.isFinite(f.projectedHomeScore)&&
+     f.projectedAwayScore>=0&&f.projectedHomeScore>=0?
+     '<div class="ledger26-pregame-inline ledger26-pregame-inline--score">'+
+      '<strong class="ledger26-pregame-score">'+Math.round(f.projectedAwayScore)+'–'+Math.round(f.projectedHomeScore)+'</strong>'+
+      '<span class="ledger26-pregame-caption">PROJECTED</span></div>':'')+
    '</div>';
  }
  const pressCache=new Map();
