@@ -115,7 +115,7 @@ async function run(){
  assert.equal(assetAudit.count,365,'Every DI program must have an audited self-hosted crest');
  assert.equal(assetAudit.vintage_count,86,'All 86 original historical archives must survive');
  assert.equal(assetAudit.rings,2,'Exactly two distinct school-color rings');
- const expectedLogo=id=>'assets/cbb-embossed-crests/'+id+'.png?v=20261115-embossed1';
+ const expectedLogo=id=>'assets/cbb-embossed-crests/'+id+'.png?v=20261115-embossed2';
  for(const [id,entry] of Object.entries(assetAudit.crests)){
    assert.equal(entry.primary,colors[id]?.primary,'Wrong baked primary ring '+id);
    assert.equal(entry.secondary,colors[id]?.secondary,'Wrong baked secondary ring '+id);

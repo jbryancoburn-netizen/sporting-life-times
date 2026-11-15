@@ -17,7 +17,7 @@ const expected={
  '120':'maryland-terrapin','164':'rutgers','26':'ucla','30':'usc',
  '2483':'oregon','264':'washington'
 };
-const baked=id=>'assets/cbb-embossed-crests/'+id+'.png?v=20261115-embossed1';
+const baked=id=>'assets/cbb-embossed-crests/'+id+'.png?v=20261115-embossed2';
 const url=(slug)=>'assets/cbb-big-ten-1980s/centered/'+slug+'.png?v='+(slug==='michigan-state-gruff'?'20261114-gruff-full-art1':'20261114-bigten-live1');
 
 async function system(){
@@ -98,8 +98,8 @@ test('men and women team desks, ledgers, live center, ranks and conferences cach
   if(page==='ncaaw-rankings.html'){
    assert(html.includes("location.replace(")&&html.includes('ncaam-rankings.html'),'Women redirects to shared ranking page');
   }else{
-   assert(html.includes('mbb-logo-system.js?v=cbb-embossed-20261115-v1'),'Every reader must use the baked logo renderer: '+page);
-   assert(html.includes('mbb-logo-system.css?v=cbb-embossed-20261115-v1'),'Every reader must use the baked-logo layout contract: '+page);
+   assert(html.includes('mbb-logo-system.js?v=cbb-embossed-20261115-v2'),'Every reader must use the baked logo renderer: '+page);
+   assert(html.includes('mbb-logo-system.css?v=cbb-embossed-20261115-v2'),'Every reader must use the baked-logo layout contract: '+page);
   }
  }
  const wbbRanks=read('ncaaw-rankings.html');

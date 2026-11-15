@@ -252,7 +252,7 @@ const heritage=known?retroURLForESPN(id):'';
 // One exact, locally baked pixel asset for every verified current D-I identity.
 // Ring color and optical fitting are compiled into the PNG, never patched
 // per logo in a consumer page. All 365 men's and 363 women's IDs are covered.
-const baked=known?'assets/cbb-embossed-crests/'+id+'.png?v=20261115-embossed1':'';
+const baked=known?'assets/cbb-embossed-crests/'+id+'.png?v=20261115-embossed2':'';
 const art=heritage?'flat':known?school.artwork_type:outsideEntry?'flat':'unverified';
 const primary=baked||heritage||(known?(school.logo_url_verified?safeURL(school.official_logo_url||school.logo_url):''):
  outsideEntry?safeURL(outsideEntry.logo_url):'');
@@ -315,7 +315,7 @@ function upgradeBareLogos(root=document){
   img.replaceWith(temp.firstElementChild);
  }
 }
-w.MBBLogos={ready,render,byNCAA:(id,size,name)=>render({ncaaId:id,name,size}),byESPN:(id,size,name)=>render({espnId:id&& (registry[String(id)]||outside[String(id)])?String(id):'',name:name||registry[String(id)]?.school||outside[String(id)]?.corrected_name||outside[String(id)]?.school,size}),byName:(name,size)=>render({name,size}),fail,stripLegacyRings,upgradeLegacyCalendar,upgradeBareLogos,logoURL:id=>{const eid=byNcaa.get(id)||String(id);return registry[eid]?'assets/cbb-embossed-crests/'+eid+'.png?v=20261115-embossed1':retroURLForESPN(eid)||''},retroURLForESPN,heritageTeamIds:()=>Object.keys(BIG_TEN_HERITAGE),heritageACCTeamIds:()=>Object.keys(ACC_HERITAGE),heritageSECTeamIds:()=>Object.keys(SEC_HERITAGE),heritageBigEastTeamIds:()=>Object.keys(BIG_EAST_HERITAGE),heritageMountainWestTeamIds:()=>Object.keys(MOUNTAIN_WEST_HERITAGE),heritageA10TeamIds:()=>Object.keys(A10_HERITAGE),colorForESPN:id=>palette[String(id)]?{...palette[String(id)]}:outside[String(id)]?{primary:outside[String(id)].primary,secondary:outside[String(id)].secondary}:null,schoolNameForESPN:id=>String(registry[String(id)]?.school||outside[String(id)]?.corrected_name||outside[String(id)]?.school||'').replace(/\bSt\.$/,'State')};
+w.MBBLogos={ready,render,byNCAA:(id,size,name)=>render({ncaaId:id,name,size}),byESPN:(id,size,name)=>render({espnId:id&& (registry[String(id)]||outside[String(id)])?String(id):'',name:name||registry[String(id)]?.school||outside[String(id)]?.corrected_name||outside[String(id)]?.school,size}),byName:(name,size)=>render({name,size}),fail,stripLegacyRings,upgradeLegacyCalendar,upgradeBareLogos,logoURL:id=>{const eid=byNcaa.get(id)||String(id);return registry[eid]?'assets/cbb-embossed-crests/'+eid+'.png?v=20261115-embossed2':retroURLForESPN(eid)||''},retroURLForESPN,heritageTeamIds:()=>Object.keys(BIG_TEN_HERITAGE),heritageACCTeamIds:()=>Object.keys(ACC_HERITAGE),heritageSECTeamIds:()=>Object.keys(SEC_HERITAGE),heritageBigEastTeamIds:()=>Object.keys(BIG_EAST_HERITAGE),heritageMountainWestTeamIds:()=>Object.keys(MOUNTAIN_WEST_HERITAGE),heritageA10TeamIds:()=>Object.keys(A10_HERITAGE),colorForESPN:id=>palette[String(id)]?{...palette[String(id)]}:outside[String(id)]?{primary:outside[String(id)].primary,secondary:outside[String(id)].secondary}:null,schoolNameForESPN:id=>String(registry[String(id)]?.school||outside[String(id)]?.corrected_name||outside[String(id)]?.school||'').replace(/\bSt\.$/,'State')};
 ready.then(ok=>{
  if(!ok)return;
  const run=()=>{stripLegacyRings(document);upgradeLegacyCalendar();upgradeBareLogos(document)};
