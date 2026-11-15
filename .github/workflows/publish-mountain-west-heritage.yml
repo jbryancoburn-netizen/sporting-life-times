@@ -1,0 +1,51 @@
+name: Publish Mountain West self-hosted historical basketball logos
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/import_mountain_west_heritage.py'
+      - '.github/workflows/publish-mountain-west-heritage.yml'
+permissions:
+  contents: write
+concurrency:
+  group: publish-mountain-west-heritage
+  cancel-in-progress: false
+jobs:
+  import-verify-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install 'Pillow>=11,<13' 'requests>=2.32,<3' 'beautifulsoup4>=4.12,<5'
+      - name: Validate importer syntax
+        run: python -m py_compile scripts/import_mountain_west_heritage.py
+      - name: Import date-verified historical logos
+        run: python scripts/import_mountain_west_heritage.py
+      - name: Confirm every local logo and shared renderer mapping
+        run: |
+          node --check mbb-logo-system.js
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          import re,json
+          audit=json.loads(Path('data/cbb-mountain-west-heritage-audit.json').read_text())
+          src=Path('mbb-logo-system.js').read_text()
+          logos=set(re.findall(r'assets/cbb-mountain-west-1980s/[a-z0-9-]+\.png',src))
+          assert len(logos)==audit['imported_count'] and len(logos)+audit['missing_count']==10
+          assert 'MOUNTAIN_WEST_HERITAGE[String(id)]' in src
+          for path in logos:
+              with Image.open(path) as image:image.verify()
+          print('PASS: verified',len(logos),'local Mountain West logos')
+          PY
+      - name: Publish local images and renderer together
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/cbb-mountain-west-1980s/ mbb-logo-system.js data/cbb-mountain-west-heritage-audit.json '*.html'
+          if ! git diff --cached --quiet; then
+            git commit -m 'Publish historically verified Mountain West retro logos'
+            git push
+          fi
