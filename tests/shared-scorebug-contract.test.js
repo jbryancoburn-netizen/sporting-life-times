@@ -98,3 +98,12 @@ test('ledger cards have a single pregame forecast presentation',()=>{
  assert.match(receipt,/set\(summary,status==='upcoming'\?'':markup\)/);
  assert.match(receipt,/set\(summary,status==='upcoming'\?'':receipt\('women'/);
 });
+
+test('pregame favorite and probability share one row, margin and label share another',()=>{
+ const output=render({phase:'upcoming',away,home,suppressPress:true,forecast:{team:'Home',probability:.84,margin:12.5}});
+ assert.match(output,/ledger26-pregame-inline--prob/);
+ assert.match(output,/ledger26-pregame-inline--margin/);
+ assert.match(output,/<strong class="ledger26-pregame-edge">−12\.5<\/strong>\s*<span class="ledger26-pregame-caption">RETRO MARGIN<\/span>/);
+ assert.doesNotMatch(output,/PROJECTED FINAL|PROJECTED SPREAD|WIN CHANCE/);
+ assert.doesNotMatch(render({phase:'final',away,home,suppressPress:true}),/ledger26-pregame-inline/);
+});
