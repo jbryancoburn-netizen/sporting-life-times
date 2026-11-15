@@ -184,7 +184,7 @@
   return '<div class="ledger26-final-desk" aria-label="Published RETRO ratings and daily changes following the final">'+
    '<div class="ledger26-final-kicker">AFTER THE FINAL · RETRO DESK</div>'+
    '<div class="ledger26-final-pair">'+rows.map(line).join('')+'</div>'+
-   '<small class="ledger26-final-note">Daily Δ is day-to-day RETRO movement, not the change caused by this game. Conference place and ranking movement require verified prior standings.</small></div>';
+   '<small class="ledger26-final-note">Daily Δ includes all results incorporated in the latest update, rather than measuring this game’s effect alone. Conference place and ranking movement require verified prior standings.</small></div>';
  }
  function render(input){
   const g=input||{},phase=['live','final','upcoming'].includes(g.phase)?g.phase:'upcoming';
