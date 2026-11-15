@@ -82,13 +82,15 @@ function decorate(){
   const audited=gender==='men'&&identityMatches(p,home,away)?number(p.actual_home_margin):null;
   const actual=audited!==null?audited:scoreFromBug(bug);
   const markup=receipt(gender,details.dataset.gameId,day,status,actual,home,away,details.dataset.homeName||'Home',details.dataset.awayName||'Away');
-  set(summary,markup);
+  // The archived forecast is retained for live/final analysis only; the pregame
+  // scorebug already contains the forecast and must not echo its figures.
+  set(summary,status==='upcoming'?'':markup);
  });
  document.querySelectorAll('#desk .wbb-scorebug-card[data-game-id]').forEach(details=>{
   const bug=details.querySelector('.ledger26-scorebug'),summary=details.querySelector('summary');
   if(!bug||!summary)return;
   const status=bug.querySelector('.ledger26-status[data-phase]')?.dataset.phase||'';
-  set(summary,receipt('women',details.dataset.gameId,details.dataset.gameDay,status,
+  set(summary,status==='upcoming'?'':receipt('women',details.dataset.gameId,details.dataset.gameDay,status,
     scoreFromBug(bug),details.dataset.homeId,details.dataset.awayId,details.dataset.homeName||'Home',details.dataset.awayName||'Away'));
  });
  // Live Game Center shares the same preserved, source-matched pretipoff ledger.
@@ -101,7 +103,7 @@ function decorate(){
   const day=card.dataset.cbbDay||'';
   const p=scored.get(key(day,card.dataset.cbbGame));
   const audited=gender==='men'&&identityMatches(p,home,away)?number(p.actual_home_margin):null;
-  set(summary,receipt(gender,card.dataset.cbbGame,day,phase,audited!==null?audited:scoreFromBug(bug),
+  set(summary,phase==='upcoming'?'':receipt(gender,card.dataset.cbbGame,day,phase,audited!==null?audited:scoreFromBug(bug),
    home,away,card.dataset.cbbHomeName||'Home',card.dataset.cbbAwayName||'Away'));
  });
  document.querySelectorAll('#mbb-calendar-host .mbb-schedule-table tr[data-cbb-forecast-id]').forEach(row=>{
