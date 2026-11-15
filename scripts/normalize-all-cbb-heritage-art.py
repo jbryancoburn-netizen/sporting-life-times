@@ -9,7 +9,7 @@ margins. Reject logos with nontransparent image edges (uncropped opaque art).
 from __future__ import annotations
 from pathlib import Path
 from PIL import Image
-import json, re, sys
+import json, re, subprocess\nfrom io import BytesIO
 
 ROOT=Path(__file__).resolve().parent.parent
 SOURCE=(ROOT/"mbb-logo-system.js").read_text()
@@ -27,7 +27,7 @@ for relative in files:
     path=ROOT/relative
     if not path.is_file():
         raise SystemExit(f"Missing published crest: {relative}")
-    im=Image.open(path).convert("RGBA")
+    # Always inspect the unchanged source from the PR base, to avoid repeated\n    # resampling or accidentally shrinking artwork already filling its canvas.\n    original=subprocess.run(["git","show","origin/main:"+relative],capture_output=True,check=True).stdout\n    im=Image.open(BytesIO(original)).convert("RGBA")
     if im.width!=im.height:
         raise SystemExit(f"Unexpected non-square source art: {relative} is {im.size}")
     a=im.getchannel("A")
@@ -41,7 +41,7 @@ for relative in files:
     # images already fitted. Avoid cropping real painted edges.
     has_padding=bb[0]>=8 and bb[1]>=8 and bb[2]<=im.width-8 and bb[3]<=im.height-8
     action="unchanged"
-    if (im.size!=(CANVAS,CANVAS) or edge<MIN_EDGE) and has_padding:
+    if edge/im.width < 0.78 and has_padding:
         # Fixed alpha-space crop, preserving all antialiased edge pixels.
         actual=a.point(lambda v:255 if v>=2 else 0).getbbox()
         x0,y0,x1,y1=actual
@@ -57,9 +57,9 @@ for relative in files:
             raise SystemExit(f"Post-normalization size invalid: {relative}")
         action="normalized"
         changed.append(relative)
-    elif edge<MIN_EDGE or im.size!=(CANVAS,CANVAS):
+    elif edge/im.width < 0.78:
         action="manual_review_nontransparent_edge"
-    report.append({"asset":relative,"source_visible_edge_px":edge,
+    if action=="unchanged" or action.startswith("manual"):\n        # Restore any inadvertently normalized large logos from an earlier run.\n        if path.read_bytes()!=original:\n            path.write_bytes(original)\n    report.append({"asset":relative,"source_visible_edge_px":edge,
                    "source_bbox":list(bb),"action":action})
 out=ROOT/"data"/"cbb-heritage-optical-audit.json"
 out.write_text(json.dumps({"canvas":CANVAS,"target_visible_edge_px":TARGET_EDGE,
