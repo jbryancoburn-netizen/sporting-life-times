@@ -110,7 +110,7 @@ def main():
   output.parent.mkdir(parents=True,exist_ok=True)
   output.write_bytes(data)
   with Image.open(output) as image:image.verify()
-  entries[eid]=team['target_path']+'?v=mountain-west-heritage-20261114-1'
+  entries[eid]=team['target_path']+('?v=utep-basketball-20261114-2' if eid=='2638' else '?v=mountain-west-heritage-20261114-1')
   team.update(retro_asset_status='verified_self_hosted_png',historical_asset_published=True,archival_image_url=image_url,archive_source_url=source)
   team.pop('import_error',None)
  for team in audit['teams']:
@@ -134,7 +134,7 @@ def main():
  AUDIT.write_text(json.dumps(audit,indent=2)+'\n')
  for html in ROOT.glob('*.html'):
   src=html.read_text()
-  out=re.sub(r'mbb-logo-system\.js\?v=[^"\'<>\s]+','mbb-logo-system.js?v=mountain-west-heritage-20261114-1',src)
+  out=re.sub(r'mbb-logo-system\.js\?v=[^"\'<>\s]+','mbb-logo-system.js?v=mountain-west-basketball-20261114-2',src)
   if out!=src:html.write_text(out)
  print(f'Mountain West: {len(entries)}/10 verified local vintage logos.')
  for eid,err in errors.items():print('UNRESOLVED',eid,err[:170])
