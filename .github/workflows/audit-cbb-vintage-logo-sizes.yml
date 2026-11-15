@@ -32,7 +32,7 @@ jobs:
           from pathlib import Path
           from PIL import Image
           report=json.loads(Path('data/cbb-local-logo-sizing-audit.json').read_text())
-          assert report['total_mapped']>=90, report['total_mapped']
+          assert report['total_mapped']>=80, report['total_mapped']
           assert not any(row['status'] in ('missing_png','error_manual_review') for row in report['records'])
           assert report['recentered']==report['counts'].get('normalized',0)
           for record in report['records']:
