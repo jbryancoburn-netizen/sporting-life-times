@@ -6,8 +6,8 @@
   "elo_approved": false,
   "source": "ESPN site API, completed finals since NBL27 regular-season opening",
   "season_start": "2026-09-19",
-  "updated_at": "2026-11-15T06:45:28.552161+00:00",
-  "games_replayed": 67,
+  "updated_at": "2026-11-15T16:26:24.318822+00:00",
+  "games_replayed": 68,
   "teams": 10,
   "rows": [
     {
@@ -22,13 +22,13 @@
     },
     {
       "team": "Tasmania JackJumpers",
-      "wins": 8,
+      "wins": 9,
       "losses": 4,
-      "played": 12,
-      "win_pct": 0.667,
-      "points_for": 1127,
-      "points_against": 1083,
-      "points_pct": 104.06
+      "played": 13,
+      "win_pct": 0.692,
+      "points_for": 1231,
+      "points_against": 1175,
+      "points_pct": 104.77
     },
     {
       "team": "Melbourne United",
@@ -73,12 +73,12 @@
     {
       "team": "Brisbane Bullets",
       "wins": 6,
-      "losses": 7,
-      "played": 13,
-      "win_pct": 0.462,
-      "points_for": 1229,
-      "points_against": 1285,
-      "points_pct": 95.64
+      "losses": 8,
+      "played": 14,
+      "win_pct": 0.429,
+      "points_for": 1321,
+      "points_against": 1389,
+      "points_pct": 95.1
     },
     {
       "team": "New Zealand Breakers",
@@ -112,6 +112,18 @@
     }
   ],
   "recent_finals": [
+    {
+      "id": "401875300",
+      "played_at": "2026-11-15T06:00Z",
+      "home": "Brisbane Bullets",
+      "away": "Tasmania JackJumpers",
+      "home_score": 92,
+      "away_score": 104,
+      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875300/jackjumpers-bullets",
+      "verified": false,
+      "provider": "espn",
+      "state": "candidate"
+    },
     {
       "id": "401875298",
       "played_at": "2026-11-15T04:00Z",
@@ -216,18 +228,6 @@
       "home_score": 92,
       "away_score": 100,
       "source_url": "https://www.espn.com/nbl/game/_/gameId/401875296/taipans-wildcats",
-      "verified": false,
-      "provider": "espn",
-      "state": "candidate"
-    },
-    {
-      "id": "401875307",
-      "played_at": "2026-11-08T04:00Z",
-      "home": "Sydney Kings",
-      "away": "South East Melbourne Phoenix",
-      "home_score": 110,
-      "away_score": 99,
-      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875307/phoenix-kings",
       "verified": false,
       "provider": "espn",
       "state": "candidate"
