@@ -19,7 +19,7 @@
  .rank-table-wrap--retro .rank-table tbody td:nth-child(2){grid-column:2 / 4;grid-row:1}
  .rank-table-wrap--retro .rank-table tbody td:nth-child(3){grid-column:3;grid-row:2;justify-self:end;text-align:right;font-size:15px}
  .rank-table-wrap--retro .rank-table tbody td:nth-child(4){grid-column:2;grid-row:2;text-align:left!important;font-size:14px}
- .rank-table-wrap--retro .rank-table tbody td:nth-child(3):before{content:'RETRO ';font:700 9px Arial,sans-serif;color:#735943}
+ .rank-table-wrap--retro .rank-table tbody td:nth-child(3):before{content:'RATING ';font:700 9px Arial,sans-serif;color:#735943}
  .rank-table-wrap--retro .rank-table tbody td:nth-child(4):before{content:'W–L ';font:700 9px Arial,sans-serif;color:#735943}
  .rank-table-wrap--retro .rank-school{gap:8px;min-height:64px}
  .rank-table-wrap--retro .rank-school a{font-size:15px;line-height:1.23}
@@ -94,7 +94,7 @@
  .rank-table-wrap--retro .rank-form i{width:13px;height:13px;font-size:8px}
  .rank-table-wrap--retro .rank-why{margin-top:5px;padding-top:3px}
  .rank-table-wrap--retro .rank-why summary{font-size:12px;padding:4px 6px}
- .rank-table-wrap--retro .rank-table tbody td:nth-child(3):before{display:block;text-align:right;content:'RETRO';font:700 9px Arial,sans-serif;color:#735943}
+ .rank-table-wrap--retro .rank-table tbody td:nth-child(3):before{display:block;text-align:right;content:'RATING';font:700 9px Arial,sans-serif;color:#735943}
 }
 @media(max-width:375px){
  .rank-table-wrap--retro .rank-school .mbb-mark{--mbb-size:61px}
@@ -109,7 +109,7 @@
 <nav class="rank-tabs" id="rank-tabs" aria-label="Choose rankings"><a href="?poll=retro">RETRO</a><a href="?poll=net">NET</a><a href="?poll=ap">AP Top 25</a><a href="?poll=coaches">Coaches</a><a href="?poll=kenpom">Pomeroy</a></nav>
 <div id="rank-status" class="rank-status"></div><div id="rank-content" aria-live="polite">Loading rankings…</div></main><footer class="rank-note">Sporting Life &amp; Times · Data is not substituted across ranking systems. Each ranking keeps its own source and publication date.</footer></div>
 <script src="retro-ranking-explainer.js?v=20261115-plain-language"></script><script>
-(async()=>{'use strict';const params=new URLSearchParams(location.search),gender=params.get('gender')==='women'?'women':'men';const key=params.get('poll')||'retro',titles={retro:'RETRO Power Rankings',net:'NCAA NET Rankings',ap:'Associated Press Top 25',coaches:'Coaches Top 25',kenpom:'Pomeroy Ratings'};const k=titles[key]?key:'retro';document.title=titles[k]+' | Sporting Life & Times';document.getElementById('rank-heading').textContent=titles[k];document.body.classList.toggle('rank-retro-edition',k==='retro');for(const a of document.querySelectorAll('#rank-tabs a')){const u=new URL(a.href);u.searchParams.set('gender',gender);a.href=u.search;if(u.searchParams.get('poll')===k)a.setAttribute('aria-current','page');}
+(async()=>{'use strict';const params=new URLSearchParams(location.search),gender=params.get('gender')==='women'?'women':'men';const key=params.get('poll')||'retro',titles={retro:'RETRO Power Rankings',net:'NCAA NET Rankings',ap:'Associated Press Top 25',coaches:'Coaches Top 25',kenpom:'Pomeroy Ratings'};const k=titles[key]?key:'retro';document.title=(gender==='women'?'Women’s ':'Men’s ')+titles[k]+' | Sporting Life & Times';document.getElementById('rank-heading').textContent=(gender==='women'?'Women’s ':'Men’s ')+titles[k];document.body.classList.toggle('rank-retro-edition',k==='retro');for(const a of document.querySelectorAll('#rank-tabs a')){const u=new URL(a.href);u.searchParams.set('gender',gender);a.href=u.search;if(u.searchParams.get('poll')===k)a.setAttribute('aria-current','page');}
 const e=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c]));
 const get=async p=>{try{const r=await fetch(p,{cache:'no-store'});return r.ok?await r.json():null}catch{return null}};
 let data,rows=[],source='',date='',note='',full=false;
@@ -122,7 +122,23 @@ document.getElementById('rank-status').textContent=rows.length?(k==='retro'?(gen
 const logos=window.MBBLogos;
 // Published polls must render even when the optional logo registry fails or stalls.
 if(logos?.ready){try{await Promise.race([logos.ready,new Promise(resolve=>setTimeout(resolve,1500))]);}catch(err){console.warn('Optional ranking logos unavailable',err);}}
-const schoolLogo=t=>gender==='women'?(t.logo?'<span class="rank-wbb-mark"><img src="'+e(t.logo)+'" alt="" loading="lazy"></span>':''):(typeof logos?.render==='function'?logos.render({ncaaId:t.team_id||'',name:t.team||'',size:'power'}):'');
-document.getElementById('rank-content').innerHTML=rows.length?'<div class="rank-table-wrap'+(k==='retro'?' rank-table-wrap--retro':'')+'"><table class="rank-table"><thead><tr><th>Rank</th><th>School</th>'+(full?'<th>RETRO Elo</th>':k==='kenpom'?'<th>AdjEM</th><th>AdjO</th><th>AdjD</th><th>AdjT</th>' :'')+'<th class="rank-record">'+(gender==='women'?'D-I W–L':'Overall W–L')+'</th>'+(full?'<th class="rank-explanation-heading">Why this rank?</th>':'')+'</tr></thead><tbody>'+rows.map((t,i)=>'<tr><td><span class="rank-number">'+e(t.rank??i+1)+'</span></td><td><span class="rank-school">'+schoolLogo(t)+(t.team_id?'<a href="'+(gender==='women'?'ncaaw-team.html?team=':'ncaam-team.html?team=')+encodeURIComponent(t.team_id)+'">'+e(t.team)+'</a>':e(t.team))+'</span></td>'+(full?'<td>'+Number(t.elo).toFixed(1)+'</td>':k==='kenpom'?['adj_em','adj_o','adj_d','adj_t'].map(field=>'<td>'+(Number.isFinite(Number(t[field]))?Number(t[field]).toFixed(1):'—')+'</td>').join('') :'')+'<td class="rank-record">'+e(record(t))+'</td>'+(full&&window.SLTRetroExplainer?window.SLTRetroExplainer.render(t,data,e):'')+'</tr>').join('')+'</tbody></table></div>':'<div class="rank-note"><strong>No verified rankings available.</strong><p>'+e(note)+'</p>'+(k==='kenpom'?'<p><a href="https://kenpom.com/index.php?y=2027" target="_blank" rel="noopener noreferrer">View 2026–27 KenPom ratings at the source ↗</a></p>':'')+'<p><a href="ncaam-rankings.html?gender='+gender+'&poll=retro">See the available RETRO rankings →</a></p></div>';
+const womenDirectory=gender==='women'?await get('data/ncaaw-2026-27-teams.json'):null;
+const womenById=new Map((womenDirectory?.teams||[]).map(t=>[String(t.team_id),t]));
+const womenPalette=gender==='women'?await get('data/dual-ring-team-palette.json'):null;
+const womenColors=womenPalette?.mbb||{};
+const schoolLogo=t=>{
+ if(gender!=='women')return typeof logos?.render==='function'?logos.render({ncaaId:t.team_id||'',name:t.team||'',size:'power'}):'';
+ const school=womenById.get(String(t.team_id))||t, name=t.team||school.team||'Team', id=String(t.team_id||school.team_id||'');
+ const heritage=logos?.retroURLForESPN?.(id)||'';
+ const source=heritage||school.logo||t.logo||'';
+ const safe=/^(?:https:\/\/a\.espncdn\.com\/i\/teamlogos\/ncaa\/500\/\d+\.png|[\w.\/-]+\.(?:png|webp|svg))$/i.test(source);
+ const colors=womenColors[id]||logos?.colorForESPN?.(id)||{};
+ const hex=v=>/^#?[\da-f]{6}$/i.test(String(v||''))?'#'+String(v).replace('#',''):'';
+ const primary=hex(colors.primary)||hex(school.color)||'#385866';
+ const secondary=hex(colors.secondary)||'#655239';
+ const initials=name.split(/\s+/).slice(0,2).map(part=>part[0]||'').join('').toUpperCase();
+ return '<span class="mbb-mark mbb-mark--power mbb-mark--art-flat'+(heritage?' mbb-mark--heritage':'')+(safe?'':' mbb-mark--missing')+'" style="--mbb-primary:'+primary+';--mbb-secondary:'+secondary+'" data-ring-count="2" role="img" aria-label="'+e(name)+' logo"><span class="mbb-mark__initials" aria-hidden="true">'+e(initials)+'</span>'+(safe?'<img class="mbb-mark__img" src="'+e(source)+'" alt="" loading="lazy" decoding="async" onerror="this.parentElement.classList.add(\'mbb-mark--missing\');this.remove()">':'')+'</span>';
+};
+document.getElementById('rank-content').innerHTML=rows.length?'<div class="rank-table-wrap'+(k==='retro'?' rank-table-wrap--retro':'')+'"><table class="rank-table"><thead><tr><th>Rank</th><th>School</th>'+(full?'<th>RETRO Rating</th>':k==='kenpom'?'<th>AdjEM</th><th>AdjO</th><th>AdjD</th><th>AdjT</th>' :'')+'<th class="rank-record">'+(gender==='women'?'D-I W–L':'Overall W–L')+'</th>'+(full?'<th class="rank-explanation-heading">Why this ranking?</th>':'')+'</tr></thead><tbody>'+rows.map((t,i)=>'<tr><td><span class="rank-number">'+e(t.rank??i+1)+'</span></td><td><span class="rank-school">'+schoolLogo(t)+(t.team_id?'<a href="'+(gender==='women'?'ncaaw-team.html?team=':'ncaam-team.html?team=')+encodeURIComponent(t.team_id)+'">'+e(t.team)+'</a>':e(t.team))+'</span></td>'+(full?'<td>'+Number(t.elo).toFixed(1)+'</td>':k==='kenpom'?['adj_em','adj_o','adj_d','adj_t'].map(field=>'<td>'+(Number.isFinite(Number(t[field]))?Number(t[field]).toFixed(1):'—')+'</td>').join('') :'')+'<td class="rank-record">'+e(record(t))+'</td>'+(full&&window.SLTRetroExplainer?window.SLTRetroExplainer.render(t,data,e):'')+'</tr>').join('')+'</tbody></table></div>':'<div class="rank-note"><strong>No verified rankings available.</strong><p>'+e(note)+'</p>'+(k==='kenpom'?'<p><a href="https://kenpom.com/index.php?y=2027" target="_blank" rel="noopener noreferrer">View 2026–27 KenPom ratings at the source ↗</a></p>':'')+'<p><a href="ncaam-rankings.html?gender='+gender+'&poll=retro">See the available RETRO rankings →</a></p></div>';
 })();
 </script></body></html>
