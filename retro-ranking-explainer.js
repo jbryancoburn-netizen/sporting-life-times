@@ -59,27 +59,23 @@ function render(team,published,safe){
  const pulse=[count+' verified D-I '+(count===1?'game':'games'),delta===null?'':('Daily '+(delta>0?'+':'')+delta.toFixed(1))].filter(Boolean).join(' · ');
  const lines=games.map(g=>'<li><strong>'+esc(g.name)+' <small>(#'+esc(g.rank)+')</small></strong>'+
    '<span>'+(g.win?'W ':'L ')+g.scored+'–'+g.allowed+'</span>'+
-   '<small>'+esc(g.date)+' · Opp. RETRO '+Number(g.elo).toFixed(1)+
-   ' · Fitted win chance '+Math.round(g.expected*100)+'% · Margin weight ×'+g.movWeight.toFixed(2)+
-   ' · Fit signal '+(g.fitSignal>0?'+':'')+g.fitSignal.toFixed(2)+'</small></li>').join('');
+   '<small>'+esc(g.date)+' · Opponent rating '+Number(g.elo).toFixed(1)+
+   ' · Expected win chance: '+Math.round(g.expected*100)+'%'+
+   ' · Performance vs. expectation: '+(g.fitSignal>0?'+':'')+g.fitSignal.toFixed(2)+'</small></li>').join('');
  const params=info.parameters;
- const text='<p class="rank-why-method">RETRO fits the entire verified Division I game network over '+esc(params.passes??'multiple')+
-   ' iterative passes. Strong opponents, unexpected outcomes, scoring margins and verified home courts affect the fit. '+
-   'The game signals below are calculated at the <strong>current fitted ratings</strong>; they are not individual Elo-point additions.</p>'+
-   '<p class="rank-why-method">Fit signal = margin weight × (actual win result − fitted win chance). '+
-   'A positive value indicates a result stronger than the current model expected. '+
-   'The model also regularizes ratings and caps extreme values.</p>';
+ const text='<p class="rank-why-method"><strong>How RETRO ranks teams:</strong> Beating strong opponents, winning by more than expected, and performing well away from home can help a team. Every verified Division I result is considered.</p>'+
+   '<p class="rank-why-method"><strong>Reading the games:</strong> A positive performance number means the result was better than RETRO expected at today\'s ratings. It is <strong>not</strong> the number of rating points earned from that game.</p>';
  const value=n=>n===null?'—':Number(n).toFixed(1);
  const movement=metrics.dailyChange===null?'—':(metrics.dailyChange>0?'▲ +':metrics.dailyChange<0?'▼ −':'— ')+value(Math.abs(metrics.dailyChange));
  const latest=metrics.form.length?metrics.form.map(letter=>'<i class="rank-form-'+letter.toLowerCase()+'" title="'+(letter==='W'?'Win':'Loss')+'">'+letter+'</i>').join(''):'—';
  const facts='<div class="rank-quick-stats" aria-label="Verified rating context">'+
-   '<span><small>DAILY Δ</small><b>'+esc(movement)+'</b></span>'+
-   '<span><small>AVG OPP RETRO</small><b>'+value(metrics.avgOpponent)+'</b></span>'+
-   '<span><small>AVG MARGIN</small><b>'+(metrics.avgMargin!==null&&metrics.avgMargin>0?'+':'')+value(metrics.avgMargin)+'</b></span>'+
-   '<span><small>LAST 5</small><b class="rank-form">'+latest+'</b></span></div>';
- const best=metrics.bestWin?'<p class="rank-why-best"><strong>BEST WIN</strong> '+esc(metrics.bestWin.team)+' · Opp. RETRO '+value(metrics.bestWin.elo)+'</p>':
+   '<span><small>RATING CHANGE</small><b>'+esc(movement)+'</b></span>'+
+   '<span><small>OPP. STRENGTH</small><b>'+value(metrics.avgOpponent)+'</b></span>'+
+   '<span><small>AVG. POINT MARGIN</small><b>'+(metrics.avgMargin!==null&&metrics.avgMargin>0?'+':'')+value(metrics.avgMargin)+'</b></span>'+
+   '<span><small>RECENT RESULTS</small><b class="rank-form">'+latest+'</b></span></div>';
+ const best=metrics.bestWin?'<p class="rank-why-best"><strong>STRONGEST WIN</strong> '+esc(metrics.bestWin.team)+' · Opponent rating '+value(metrics.bestWin.elo)+'</p>':
    '<p class="rank-why-best">No verified D-I win yet.</p>';
- return '<td class="rank-explanation">'+facts+'<details class="rank-why"><summary>Why #'+esc(team.rank)+'?</summary>'+
+ return '<td class="rank-explanation">'+facts+'<details class="rank-why"><summary>Why is '+esc(team.team||'this team')+' #'+esc(team.rank)+'?</summary>'+
   '<small class="rank-why-pulse">'+esc(pulse)+'</small>'+
   '<div class="rank-why-body">'+best+text+
   (lines?'<ol class="rank-why-games">'+lines+'</ol>':'<p>No verified matchup breakdown is available.</p>')+'</div></details></td>';
