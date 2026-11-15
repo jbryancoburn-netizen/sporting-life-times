@@ -3,7 +3,7 @@
   "division": "d3",
   "gender": "men",
   "season": "2026-27",
-  "generated_utc": "2026-11-14T23:57:08.166667+00:00",
+  "generated_utc": "2026-11-15T15:41:41.543716+00:00",
   "source": "NCAA 2026-27 member directory + year/gender-validated official school athletics calendars",
   "scope": "NCAA membership-wide first pass; sources without independently validated 2026-27 schedules excluded",
   "ncaa_confirmed_programs": 406,
@@ -14,8 +14,8 @@
   "school_calendars_unresolved": 17,
   "source_status_counts": {
     "parsed": 358,
-    "parsed_conference": 31,
-    "failed": 17
+    "failed": 17,
+    "parsed_conference": 31
   },
   "last_verified_school_source": {
     "4": "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
@@ -415,21 +415,12 @@
       "ncaa_org_id": 76,
       "school": "Bridgewater State University",
       "conference": "Massachusetts State Collegiate Athletic Conference",
-      "category": "calendar_path_unavailable",
+      "category": "server_refused_method",
       "failed_url": "https://www.bsubears.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "last_successful_school_schedule_url": "",
-      "discovered_schedule_links": [
-        "https://www.bsubears.com/sports/mbkb/2026-27/schedule",
-        "https://www.bsubears.com/sports/mbkb/2026-27/schedule?print=rss",
-        "https://www.bsubears.com/sports/mbkb/2026-27/schedule?print=ical",
-        "https://www.bsubears.com/sports/mbkb/2026-27/schedule?eid=z7foim8oc9a450ns",
-        "https://www.bsubears.com/sports/mbkb/2026-27/schedule?eid=xvxmxbi667q8myyf",
-        "https://www.bsubears.com/sports/mbkb/2026-27/schedule?eid=xuwryd5scrv0a9n1",
-        "https://www.bsubears.com/sports/mbkb/2026-27/schedule?eid=vknv4w3uovifoo5l",
-        "https://www.bsubears.com/sports/mbkb/2026-27/schedule?eid=thymrrf533jqwrnz"
-      ],
-      "checked_schedule_candidates": 20,
-      "next_action": "Find school's current official athletics website and season-specific schedule path",
+      "discovered_schedule_links": [],
+      "checked_schedule_candidates": 15,
+      "next_action": "Inspect official school schedule platform's public print/text calendar; do not circumvent access controls",
       "opponent_published_fixtures": 10,
       "opponent_source_examples": [
         "https://cnesports.org/schedule.aspx?schedule=4111",
@@ -441,21 +432,12 @@
       "ncaa_org_id": 125,
       "school": "Centenary College (Louisiana)",
       "conference": "Southern Collegiate Athletic Conference",
-      "category": "calendar_path_unavailable",
+      "category": "server_refused_method",
       "failed_url": "https://www.gocentenary.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "last_successful_school_schedule_url": "",
-      "discovered_schedule_links": [
-        "https://www.gocentenary.com/sports/mbkb/2026-27/schedule",
-        "https://www.gocentenary.com/sports/mbkb/2026-27/schedule?print=rss",
-        "https://www.gocentenary.com/sports/mbkb/2026-27/schedule?print=ical",
-        "https://www.gocentenary.com/sports/mbkb/2026-27/schedule?eid=zwxv377zop26h614",
-        "https://www.gocentenary.com/sports/mbkb/2026-27/schedule?eid=znvmfan24ncnama5",
-        "https://www.gocentenary.com/sports/mbkb/2026-27/schedule?eid=yq6hb9lzkmstz1ax",
-        "https://www.gocentenary.com/sports/mbkb/2026-27/schedule?eid=vkcqel13ujvlu9kc",
-        "https://www.gocentenary.com/sports/mbkb/2026-27/schedule?eid=u5eojavhwbyysdg2"
-      ],
-      "checked_schedule_candidates": 20,
-      "next_action": "Find school's current official athletics website and season-specific schedule path",
+      "discovered_schedule_links": [],
+      "checked_schedule_candidates": 15,
+      "next_action": "Inspect official school schedule platform's public print/text calendar; do not circumvent access controls",
       "opponent_published_fixtures": 14,
       "opponent_source_examples": [
         "https://www.goetbutigers.com/sports/mens-basketball/schedule/2026-27?grid=true",
@@ -467,12 +449,12 @@
       "ncaa_org_id": 227,
       "school": "Fitchburg State University",
       "conference": "Massachusetts State Collegiate Athletic Conference",
-      "category": "season_heading_not_verified",
+      "category": "server_refused_method",
       "failed_url": "https://www.fitchburgfalcons.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "last_successful_school_schedule_url": "",
       "discovered_schedule_links": [],
       "checked_schedule_candidates": 15,
-      "next_action": "Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar",
+      "next_action": "Inspect official school schedule platform's public print/text calendar; do not circumvent access controls",
       "opponent_published_fixtures": 11,
       "opponent_source_examples": [
         "https://www.farmingdalesports.com/sports/mens-basketball/schedule/2026-27?grid=true",
@@ -484,12 +466,12 @@
       "ncaa_org_id": 238,
       "school": "Framingham State University",
       "conference": "Massachusetts State Collegiate Athletic Conference",
-      "category": "season_heading_not_verified",
+      "category": "server_refused_method",
       "failed_url": "https://www.fsurams.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "last_successful_school_schedule_url": "",
       "discovered_schedule_links": [],
       "checked_schedule_candidates": 15,
-      "next_action": "Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar",
+      "next_action": "Inspect official school schedule platform's public print/text calendar; do not circumvent access controls",
       "opponent_published_fixtures": 7,
       "opponent_source_examples": [
         "https://athletics.plymouth.edu/sports/mens-basketball/schedule/2026-27?grid=true",
@@ -724,8 +706,9 @@
     "missing_schools_with_at_least_10_opponent_sourced_games": 14,
     "missing_schools_with_zero_opponent_sourced_games": 0,
     "recovery_reason_counts": {
-      "calendar_path_unavailable": 3,
-      "season_heading_not_verified": 14
+      "server_refused_method": 4,
+      "calendar_path_unavailable": 1,
+      "season_heading_not_verified": 12
     }
   },
   "no_athletics_host": 0,
@@ -1074,49 +1057,11 @@
       "owner_org_id": 76,
       "source_url": "https://www.bsubears.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "status": "failed",
-      "error": "HTTP Error 404: Not Found | HTTP Error 404: Not Found | HTTP Error 404: Not Found | HTTP Error 404: Not Found | HTTP Error 404: Not Found | HTTP Error 404: Not Found | Fewer than 4 readable grid rows (0); no publish | HTTP Error 404: Not Found | HTTP Error 404",
-      "candidate_urls_tried": 20,
-      "rejected_page_evidence": [
-        {
-          "url": "https://www.bsubears.com/sports/mbkb/2026-27/schedule",
-          "title": "2026-2027 Men's Basketball Schedule - Bridgewater St.",
-          "headings": [
-            "2026-2027 Men's Basketball Schedule",
-            "Affiliates"
-          ],
-          "date_tables": 0,
-          "reason": "Fewer than 4 readable grid rows (0); no publish"
-        },
-        {
-          "url": "https://www.bsubears.com/sports/mens-basketball/schedule/2026-27",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.bsubears.com/sports/mbball/schedule/2026",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        }
-      ],
+      "error": "HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not ",
+      "candidate_urls_tried": 15,
+      "rejected_page_evidence": [],
       "conference_page_evidence": [],
-      "discovered_schedule_links": [
-        "https://www.bsubears.com/sports/mbkb/2026-27/schedule",
-        "https://www.bsubears.com/sports/mbkb/2026-27/schedule?print=rss",
-        "https://www.bsubears.com/sports/mbkb/2026-27/schedule?print=ical",
-        "https://www.bsubears.com/sports/mbkb/2026-27/schedule?eid=z7foim8oc9a450ns",
-        "https://www.bsubears.com/sports/mbkb/2026-27/schedule?eid=xvxmxbi667q8myyf",
-        "https://www.bsubears.com/sports/mbkb/2026-27/schedule?eid=xuwryd5scrv0a9n1",
-        "https://www.bsubears.com/sports/mbkb/2026-27/schedule?eid=vknv4w3uovifoo5l",
-        "https://www.bsubears.com/sports/mbkb/2026-27/schedule?eid=thymrrf533jqwrnz"
-      ],
+      "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
       "retained_previous_fixtures": 0,
       "retained_verified_fixtures": 0
@@ -1354,66 +1299,11 @@
       "owner_org_id": 125,
       "source_url": "https://www.gocentenary.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "status": "failed",
-      "error": "HTTP Error 404: Not Found | HTTP Error 404: Not Found | HTTP Error 404: Not Found | HTTP Error 404: Not Found | HTTP Error 404: Not Found | HTTP Error 404: Not Found | Fewer than 4 readable grid rows (0); no publish | HTTP Error 404: Not Found | HTTP Error 404",
-      "candidate_urls_tried": 20,
-      "rejected_page_evidence": [
-        {
-          "url": "https://www.gocentenary.com/sports/mbkb/2026-27/schedule",
-          "title": "2026-27 Centenary Men's Basketball Schedule - Centenary Athletics",
-          "headings": [
-            "2026-27 Centenary Men's Basketball Schedule"
-          ],
-          "date_tables": 0,
-          "reason": "Fewer than 4 readable grid rows (0); no publish"
-        },
-        {
-          "url": "https://www.gocentenary.com/sports/mens-basketball/schedule/2026-27?print=true",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.gocentenary.com/sports/mens-basketball/schedule/text/2026-27",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.gocentenary.com/sports/mens-basketball/schedule/2026-27",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.gocentenary.com/sports/mbball/schedule/2026",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        }
-      ],
+      "error": "HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not ",
+      "candidate_urls_tried": 15,
+      "rejected_page_evidence": [],
       "conference_page_evidence": [],
-      "discovered_schedule_links": [
-        "https://www.gocentenary.com/sports/mbkb/2026-27/schedule",
-        "https://www.gocentenary.com/sports/mbkb/2026-27/schedule?print=rss",
-        "https://www.gocentenary.com/sports/mbkb/2026-27/schedule?print=ical",
-        "https://www.gocentenary.com/sports/mbkb/2026-27/schedule?eid=zwxv377zop26h614",
-        "https://www.gocentenary.com/sports/mbkb/2026-27/schedule?eid=znvmfan24ncnama5",
-        "https://www.gocentenary.com/sports/mbkb/2026-27/schedule?eid=yq6hb9lzkmstz1ax",
-        "https://www.gocentenary.com/sports/mbkb/2026-27/schedule?eid=vkcqel13ujvlu9kc",
-        "https://www.gocentenary.com/sports/mbkb/2026-27/schedule?eid=u5eojavhwbyysdg2"
-      ],
+      "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
       "retained_previous_fixtures": 0,
       "retained_verified_fixtures": 0
@@ -1929,82 +1819,9 @@
       "owner_org_id": 227,
       "source_url": "https://www.fitchburgfalcons.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "status": "failed",
-      "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
+      "error": "HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not ",
       "candidate_urls_tried": 15,
-      "rejected_page_evidence": [
-        {
-          "url": "https://www.fitchburgfalcons.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.fitchburgfalcons.com/sports/mens-basketball/schedule/2026-2027?grid=true",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.fitchburgfalcons.com/sports/mens-basketball/schedule?grid=true",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.fitchburgfalcons.com/sports/mens-basketball/schedule",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.fitchburgfalcons.com/sports/mbball/schedule?grid=true",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.fitchburgfalcons.com/sports/mbball/schedule",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.fitchburgfalcons.com/sports/mbkb/2026-27/schedule",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.fitchburgfalcons.com/sports/mbkb/schedule",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        }
-      ],
+      "rejected_page_evidence": [],
       "conference_page_evidence": [],
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -2015,82 +1832,9 @@
       "owner_org_id": 238,
       "source_url": "https://www.fsurams.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "status": "failed",
-      "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
+      "error": "HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not ",
       "candidate_urls_tried": 15,
-      "rejected_page_evidence": [
-        {
-          "url": "https://www.fsurams.com/sports/mens-basketball/schedule/2026-27?grid=true",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.fsurams.com/sports/mens-basketball/schedule/2026-2027?grid=true",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.fsurams.com/sports/mens-basketball/schedule?grid=true",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.fsurams.com/sports/mens-basketball/schedule",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.fsurams.com/sports/mbball/schedule?grid=true",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.fsurams.com/sports/mbball/schedule",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.fsurams.com/sports/mbkb/2026-27/schedule",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.fsurams.com/sports/mbkb/schedule",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        }
-      ],
+      "rejected_page_evidence": [],
       "conference_page_evidence": [],
       "discovered_schedule_links": [],
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -2444,9 +2188,9 @@
       "owner_org_id": 296,
       "source_url": "https://www.benueagles.com/sports/mens-basketball/schedule?grid=true",
       "readable_rows": 28,
-      "verified_member_opponents": 17,
+      "verified_member_opponents": 18,
       "excluded_rows": {
-        "conditional_or_ambiguous_opponent": 2,
+        "conditional_or_ambiguous_opponent": 1,
         "identity_not_d3_matched_but_posted": 9
       },
       "status": "parsed",
@@ -2474,9 +2218,9 @@
       "owner_org_id": 300,
       "source_url": "https://www.iwusports.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "readable_rows": 34,
-      "verified_member_opponents": 13,
+      "verified_member_opponents": 14,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 10,
+        "identity_not_d3_matched_but_posted": 9,
         "conditional_or_ambiguous_opponent": 11
       },
       "status": "parsed",
@@ -2533,11 +2277,11 @@
     {
       "owner_org_id": 321,
       "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "readable_rows": 29,
+      "readable_rows": 28,
       "verified_member_opponents": 15,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 6,
-        "conditional_or_ambiguous_opponent": 8
+        "identity_not_d3_matched_but_posted": 7,
+        "conditional_or_ambiguous_opponent": 6
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -2584,7 +2328,7 @@
       "verified_member_opponents": 18,
       "excluded_rows": {},
       "approved_at": "2024-10-08",
-      "university_source_failure": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
+      "university_source_failure": "HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not ",
       "university_source_status": "failed"
     },
     {
@@ -2811,10 +2555,10 @@
       "owner_org_id": 378,
       "source_url": "https://www.marinersports.org/sports/mens-basketball/schedule?grid=true",
       "readable_rows": 28,
-      "verified_member_opponents": 21,
+      "verified_member_opponents": 22,
       "excluded_rows": {
         "conditional_or_ambiguous_opponent": 3,
-        "identity_not_d3_matched_but_posted": 4
+        "identity_not_d3_matched_but_posted": 3
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -2946,10 +2690,10 @@
       "owner_org_id": 398,
       "source_url": "https://mitathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "readable_rows": 35,
-      "verified_member_opponents": 18,
+      "verified_member_opponents": 19,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 12,
-        "conditional_or_ambiguous_opponent": 5
+        "conditional_or_ambiguous_opponent": 5,
+        "identity_not_d3_matched_but_posted": 11
       },
       "status": "parsed",
       "calendar_origin": "pinned_official_url",
@@ -3527,10 +3271,10 @@
       "owner_org_id": 526,
       "source_url": "https://www.oneontaathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "readable_rows": 31,
-      "verified_member_opponents": 5,
+      "verified_member_opponents": 6,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 22,
-        "conditional_or_ambiguous_opponent": 4
+        "identity_not_d3_matched_but_posted": 23,
+        "conditional_or_ambiguous_opponent": 2
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -3910,10 +3654,10 @@
     {
       "owner_org_id": 578,
       "source_url": "https://maroons.roanoke.edu/sports/mens-basketball/schedule/2026-27?grid=true",
-      "readable_rows": 32,
+      "readable_rows": 30,
       "verified_member_opponents": 21,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 8,
+        "identity_not_d3_matched_but_posted": 6,
         "conditional_or_ambiguous_opponent": 3
       },
       "status": "parsed",
@@ -4046,8 +3790,7 @@
       "readable_rows": 25,
       "verified_member_opponents": 16,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 8,
-        "conditional_or_ambiguous_opponent": 1
+        "identity_not_d3_matched_but_posted": 9
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -4531,10 +4274,10 @@
       "owner_org_id": 715,
       "source_url": "https://trinitytigers.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "readable_rows": 26,
-      "verified_member_opponents": 14,
+      "verified_member_opponents": 15,
       "excluded_rows": {
         "identity_not_d3_matched_but_posted": 9,
-        "conditional_or_ambiguous_opponent": 3
+        "conditional_or_ambiguous_opponent": 2
       },
       "status": "parsed",
       "calendar_origin": "pinned_official_url",
@@ -4677,10 +4420,10 @@
     {
       "owner_org_id": 750,
       "source_url": "https://www.go-knights.net/sports/mens-basketball/schedule?grid=true",
-      "readable_rows": 28,
+      "readable_rows": 27,
       "verified_member_opponents": 23,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 3,
+        "identity_not_d3_matched_but_posted": 2,
         "conditional_or_ambiguous_opponent": 2
       },
       "status": "parsed",
@@ -4940,10 +4683,10 @@
       "owner_org_id": 779,
       "source_url": "https://wheatoncollegelyons.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "readable_rows": 26,
-      "verified_member_opponents": 20,
+      "verified_member_opponents": 21,
       "excluded_rows": {
-        "conditional_or_ambiguous_opponent": 3,
-        "identity_not_d3_matched_but_posted": 3
+        "identity_not_d3_matched_but_posted": 3,
+        "conditional_or_ambiguous_opponent": 2
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -5321,8 +5064,8 @@
       "readable_rows": 28,
       "verified_member_opponents": 14,
       "excluded_rows": {
-        "conditional_or_ambiguous_opponent": 4,
-        "identity_not_d3_matched_but_posted": 10
+        "identity_not_d3_matched_but_posted": 11,
+        "conditional_or_ambiguous_opponent": 3
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -5537,8 +5280,8 @@
       "readable_rows": 30,
       "verified_member_opponents": 12,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 11,
-        "conditional_or_ambiguous_opponent": 7
+        "identity_not_d3_matched_but_posted": 12,
+        "conditional_or_ambiguous_opponent": 6
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -6001,8 +5744,8 @@
       "readable_rows": 31,
       "verified_member_opponents": 16,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 11,
-        "conditional_or_ambiguous_opponent": 4
+        "identity_not_d3_matched_but_posted": 12,
+        "conditional_or_ambiguous_opponent": 3
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -6147,8 +5890,8 @@
       "readable_rows": 28,
       "verified_member_opponents": 8,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 15,
-        "conditional_or_ambiguous_opponent": 5
+        "identity_not_d3_matched_but_posted": 16,
+        "conditional_or_ambiguous_opponent": 4
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -7276,10 +7019,10 @@
       "owner_org_id": 30065,
       "source_url": "https://www.lyndonhornets.com/sports/mens-basketball/schedule?grid=true",
       "readable_rows": 26,
-      "verified_member_opponents": 20,
+      "verified_member_opponents": 21,
       "excluded_rows": {
         "identity_not_d3_matched_but_posted": 3,
-        "conditional_or_ambiguous_opponent": 3
+        "conditional_or_ambiguous_opponent": 2
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -7463,10 +7206,10 @@
       "owner_org_id": 30163,
       "source_url": "https://www.gogryphons.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "readable_rows": 27,
-      "verified_member_opponents": 15,
+      "verified_member_opponents": 14,
       "excluded_rows": {
-        "conditional_or_ambiguous_opponent": 3,
-        "identity_not_d3_matched_but_posted": 9
+        "identity_not_d3_matched_but_posted": 10,
+        "conditional_or_ambiguous_opponent": 3
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -7857,6 +7600,18 @@
     {
       "date": "2026-11-14",
       "members": [
+        300,
+        814
+      ],
+      "problem": "home/away or neutral-site source disagreement",
+      "source_urls": [
+        "https://www.iwusports.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.yumacs.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ]
+    },
+    {
+      "date": "2026-11-14",
+      "members": [
         578,
         622
       ],
@@ -7876,6 +7631,18 @@
       "source_urls": [
         "https://heartlandconf.org/schedule.aspx?schedule=4398",
         "https://www.waynesburgsports.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ]
+    },
+    {
+      "date": "2026-11-15",
+      "members": [
+        300,
+        715
+      ],
+      "problem": "home/away or neutral-site source disagreement",
+      "source_urls": [
+        "https://trinitytigers.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.iwusports.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ]
     },
     {
@@ -8443,8 +8210,8 @@
       ]
     }
   ],
-  "fixture_count": 4408,
-  "reciprocal_fixtures": 2637,
+  "fixture_count": 4412,
+  "reciprocal_fixtures": 2636,
   "unresolved_opponent_fixture_count": 1652,
   "unresolved_opponent_fixtures": [
     {
@@ -10383,6 +10150,21 @@
       "venue_location": "Presque Isle, ME / Wieden Gymnasium"
     },
     {
+      "id": "d3-men-2026-11-11-30163-other-af24d1e6704e",
+      "date": "2026-11-11",
+      "source_owner_org_id": 30163,
+      "external_opponent_label": "United States Coast Guard Academy",
+      "placement": "home",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://www.gogryphons.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "7:00 PM",
+      "venue_location": "Bronxville, N.Y. / Campbell Sports Center"
+    },
+    {
       "id": "d3-men-2026-11-11-30197-other-b92007ed3992",
       "date": "2026-11-11",
       "source_owner_org_id": 30197,
@@ -10696,21 +10478,6 @@
       "source_url": "https://www.rpiathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "6:00 PM",
       "venue_location": "Chester, PA"
-    },
-    {
-      "id": "d3-men-2026-11-13-578-other-ff3c7166fce3",
-      "date": "2026-11-13",
-      "source_owner_org_id": 578,
-      "external_opponent_label": "Salisbury vs Greensboro",
-      "placement": "neutral",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://maroons.roanoke.edu/sports/mens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "8:00pm",
-      "venue_location": "Salem, VA / Cregger Center"
     },
     {
       "id": "d3-men-2026-11-13-581-other-1aa9c68ab831",
@@ -11403,21 +11170,6 @@
       "venue_location": "Westfield, MA / The Woodward Center"
     },
     {
-      "id": "d3-men-2026-11-14-578-other-ce34519a248b",
-      "date": "2026-11-14",
-      "source_owner_org_id": 578,
-      "external_opponent_label": "Greensboro College vs. Pitt-Greensburg",
-      "placement": "neutral",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://maroons.roanoke.edu/sports/mens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "1:00pm",
-      "venue_location": "Salem, VA / Cregger Center"
-    },
-    {
       "id": "d3-men-2026-11-14-581-other-4af876c23fc6",
       "date": "2026-11-14",
       "source_owner_org_id": 581,
@@ -11506,21 +11258,6 @@
       "source_url": "https://www.unionathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "7:00 PM",
       "venue_location": "New York, NY"
-    },
-    {
-      "id": "d3-men-2026-11-14-750-other-579961f5dfb7",
-      "date": "2026-11-14",
-      "source_owner_org_id": 750,
-      "external_opponent_label": "UW-La Crosse vs Cornell",
-      "placement": "home",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://www.go-knights.net/sports/mens-basketball/schedule?grid=true",
-      "tipoff_as_posted": "2 PM",
-      "venue_location": "Waverly, Iowa / Levick Arena"
     },
     {
       "id": "d3-men-2026-11-14-780-other-66fd39509c17",
@@ -12033,49 +11770,19 @@
       "venue_location": "Newburgh, N.Y."
     },
     {
-      "id": "d3-men-2026-11-15-300-other-e2052ab353a6",
+      "id": "d3-men-2026-11-15-321-other-88a9d5081382",
       "date": "2026-11-15",
-      "source_owner_org_id": 300,
-      "external_opponent_label": "Trinity (Texas) / Benedictine",
-      "placement": "home",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://www.iwusports.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "3 p.m.",
-      "venue_location": "Bloomington, Ill. / Shirk Center"
-    },
-    {
-      "id": "d3-men-2026-11-15-378-other-887796b8bd92",
-      "date": "2026-11-15",
-      "source_owner_org_id": 378,
-      "external_opponent_label": "TBD (MIT/Middlebury)",
-      "placement": "away",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://www.marinersports.org/sports/mens-basketball/schedule?grid=true",
-      "tipoff_as_posted": "1:00/3:00 p.m.",
-      "venue_location": "Biddeford, Maine"
-    },
-    {
-      "id": "d3-men-2026-11-15-398-other-8b647347f933",
-      "date": "2026-11-15",
-      "source_owner_org_id": 398,
-      "external_opponent_label": "TBD (University of New England/Maine Maritime)",
+      "source_owner_org_id": 321,
+      "external_opponent_label": "St. Joseph's University Long Island",
       "placement": "neutral",
       "status": "scheduled",
       "elo_eligible": false,
       "opponent_d3_identity_unverified": true,
       "schedule_only": true,
       "source_kind": "official_school",
-      "source_url": "https://mitathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "1:00 PM/3:00 PM",
-      "venue_location": "Biddeford, ME / Harold Alfond Forum"
+      "source_url": "https://www.johnjayathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "1:00 PM",
+      "venue_location": "Oneonta, NY"
     },
     {
       "id": "d3-men-2026-11-15-479-other-5d55f9398891",
@@ -12108,6 +11815,21 @@
       "venue_location": "Northfield, Vt. / Andrews Gym"
     },
     {
+      "id": "d3-men-2026-11-15-526-other-c034e6c48334",
+      "date": "2026-11-15",
+      "source_owner_org_id": 526,
+      "external_opponent_label": "John Jay vs. St. Joseph's Long Island",
+      "placement": "home",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://www.oneontaathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "1 p.m.",
+      "venue_location": "Oneonta, NY / Dewar Arena"
+    },
+    {
       "id": "d3-men-2026-11-15-727-other-0b85190d1fab",
       "date": "2026-11-15",
       "source_owner_org_id": 727,
@@ -12121,6 +11843,21 @@
       "source_url": "https://www.unionathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "3:00 PM",
       "venue_location": "New York, NY"
+    },
+    {
+      "id": "d3-men-2026-11-15-962-other-b51217386270",
+      "date": "2026-11-15",
+      "source_owner_org_id": 962,
+      "external_opponent_label": "VTSU-Lyndon",
+      "placement": "neutral",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://www.bardathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "1:00",
+      "venue_location": "Norton, MA"
     },
     {
       "id": "d3-men-2026-11-15-1179-other-504cc78f9966",
@@ -12138,10 +11875,10 @@
       "venue_location": "Walla Walla, Wash."
     },
     {
-      "id": "d3-men-2026-11-15-1255-other-c555aafa14a7",
+      "id": "d3-men-2026-11-15-1255-other-0382b6661b90",
       "date": "2026-11-15",
       "source_owner_org_id": 1255,
-      "external_opponent_label": "TBD [Beaudry Classic]",
+      "external_opponent_label": "Middlebury [Beaudry Classic]",
       "placement": "home",
       "status": "scheduled",
       "elo_eligible": false,
@@ -12151,6 +11888,36 @@
       "source_url": "https://athletics.une.edu/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "1:00 pm",
       "venue_location": "Biddeford, Maine / Harold Alfond Forum"
+    },
+    {
+      "id": "d3-men-2026-11-15-1255-other-32f6166bb269",
+      "date": "2026-11-15",
+      "source_owner_org_id": 1255,
+      "external_opponent_label": "Beaudry Classic: Maine Maritime vs. MIT",
+      "placement": "home",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://athletics.une.edu/sports/mens-basketball/schedule?grid=true",
+      "tipoff_as_posted": "3:00 pm",
+      "venue_location": "Biddeford, Maine / Harold Alfond Forum"
+    },
+    {
+      "id": "d3-men-2026-11-15-1340-other-442b06c8467b",
+      "date": "2026-11-15",
+      "source_owner_org_id": 1340,
+      "external_opponent_label": "John Jay College",
+      "placement": "neutral",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://www.sjliathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "1:00 PM",
+      "venue_location": "Oneonta, NY"
     },
     {
       "id": "d3-men-2026-11-15-1468-other-d6b3499309d7",
@@ -40866,19 +40633,17 @@
       "home_org_id": 30163,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.gogryphons.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://coastguardathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://coastguardathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://www.gogryphons.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://coastguardathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
-        722,
-        30163
+        722
       ],
       "source_kind": "official_school",
-      "source_verification": "reciprocal",
-      "tipoff_as_posted": "7:00 PM",
-      "venue": "Campbell Sports Center",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7:00 PM ET",
+      "venue": "Campbell Center",
       "venue_location": "Bronxville, N.Y.",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -43132,7 +42897,7 @@
       "venue_location": "Carlinville, IL",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "L, 72-75",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -43332,7 +43097,7 @@
       "venue_location": "Pasadena, CA",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "L, 63-90",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -43405,7 +43170,7 @@
       ],
       "source_kind": "official_conference",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "3:00 P.M.",
+      "tipoff_as_posted": "",
       "venue": "",
       "venue_location": "",
       "network_as_posted": "",
@@ -44236,32 +44001,6 @@
       "neutral_home_designation_unconfirmed": true
     },
     {
-      "id": "d3-men-2026-11-14-300-814",
-      "date": "2026-11-14",
-      "away_org_id": 814,
-      "home_org_id": 300,
-      "neutral": false,
-      "status": "scheduled",
-      "source_url": "https://www.iwusports.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "official_schedule_sources": [
-        "https://www.iwusports.com/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://www.yumacs.com/sports/mens-basketball/schedule/2026-27?grid=true"
-      ],
-      "verified_by_org_ids": [
-        300,
-        814
-      ],
-      "source_kind": "official_school",
-      "source_verification": "reciprocal",
-      "tipoff_as_posted": "8 p.m.",
-      "venue": "Shirk Center",
-      "venue_location": "Bloomington, Ill.",
-      "network_as_posted": "",
-      "radio_as_posted": "",
-      "tournament": "Sikma Hall of Fame Invitational",
-      "neutral_home_designation_unconfirmed": false
-    },
-    {
       "id": "d3-men-2026-11-14-321-601",
       "date": "2026-11-14",
       "away_org_id": 321,
@@ -44408,7 +44147,7 @@
       "venue_location": "Galesburg, IL",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 96-88",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -44942,7 +44681,7 @@
       "venue_location": "Whittier, Calif.",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "L, 62-72",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -45590,7 +45329,7 @@
       "venue_location": "New Ulm, MN",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 91-81",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -46016,6 +45755,30 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2026-11-15-296-814",
+      "date": "2026-11-15",
+      "away_org_id": 296,
+      "home_org_id": 814,
+      "neutral": true,
+      "status": "scheduled",
+      "source_url": "https://www.benueagles.com/sports/mens-basketball/schedule?grid=true",
+      "official_schedule_sources": [
+        "https://www.benueagles.com/sports/mens-basketball/schedule?grid=true"
+      ],
+      "verified_by_org_ids": [
+        296
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "1:00 PM",
+      "venue": "",
+      "venue_location": "Bloomington, IL",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": true
+    },
+    {
       "id": "d3-men-2026-11-15-313-478",
       "date": "2026-11-15",
       "away_org_id": 313,
@@ -46118,6 +45881,32 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2026-11-15-378-398",
+      "date": "2026-11-15",
+      "away_org_id": 378,
+      "home_org_id": 398,
+      "neutral": true,
+      "status": "scheduled",
+      "source_url": "https://mitathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://mitathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.marinersports.org/sports/mens-basketball/schedule?grid=true"
+      ],
+      "verified_by_org_ids": [
+        378,
+        398
+      ],
+      "source_kind": "official_school",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "3:00 PM",
+      "venue": "Harold Alfond Forum",
+      "venue_location": "Biddeford, ME",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": true
+    },
+    {
       "id": "d3-men-2026-11-15-382-30189",
       "date": "2026-11-15",
       "away_org_id": 382,
@@ -46192,6 +45981,30 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2026-11-15-526-601",
+      "date": "2026-11-15",
+      "away_org_id": 601,
+      "home_org_id": 526,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.oneontaathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://www.oneontaathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        526
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "3 p.m.",
+      "venue": "Dewar Arena",
+      "venue_location": "Oneonta, NY",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "Michael A. Freilich Classic",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2026-11-15-583-18422",
       "date": "2026-11-15",
       "away_org_id": 18422,
@@ -46240,6 +46053,54 @@
       "radio_as_posted": "",
       "tournament": "",
       "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-11-15-684-779",
+      "date": "2026-11-15",
+      "away_org_id": 684,
+      "home_org_id": 779,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://wheatoncollegelyons.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://wheatoncollegelyons.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        779
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "3:00 PM",
+      "venue": "Emerson Gymnasium",
+      "venue_location": "Norton, MA",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "Wheaton College Invitational",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-11-15-962-30065",
+      "date": "2026-11-15",
+      "away_org_id": 962,
+      "home_org_id": 30065,
+      "neutral": true,
+      "status": "scheduled",
+      "source_url": "https://www.lyndonhornets.com/sports/mens-basketball/schedule?grid=true",
+      "official_schedule_sources": [
+        "https://www.lyndonhornets.com/sports/mens-basketball/schedule?grid=true"
+      ],
+      "verified_by_org_ids": [
+        30065
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "1:00 PM",
+      "venue": "",
+      "venue_location": "Norton, MA",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "Wheaton College Invitational",
+      "neutral_home_designation_unconfirmed": true
     },
     {
       "id": "d3-men-2026-11-15-1044-8746",
