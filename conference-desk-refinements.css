@@ -1,0 +1,37 @@
+/* Conference-only repairs, loaded after the shared newspaper styles. */
+body[data-page="conference"] .conference-editorial-row > .column {min-width:0}
+body[data-page="conference"] .victorian-unified-ledger .panel-head {margin:0 0 12px;padding:6px 12px 10px;gap:6px;flex-wrap:wrap}
+body[data-page="conference"] .victorian-unified-ledger .panel-head h2 {margin:0;line-height:1.15}
+body[data-page="conference"] .victorian-seed-crown {margin-bottom:6px;line-height:1.4}
+body[data-page="conference"] .conference-ledger thead th {line-height:1.35;padding:10px 6px}
+body[data-page="conference"] .conference-ledger .ledger-university .team-name {white-space:normal}
+body[data-page="conference"] .conference-ledger .ledger-university .team-name span {white-space:normal;overflow:visible;line-height:1.25}
+.slt-conference-game .ledger26-scorebug--plain {grid-template-columns:minmax(0,1fr) 102px!important}
+.slt-conference-game .ledger26-name {white-space:normal;overflow-wrap:break-word;line-height:1.2}
+.slt-conference-game .slt-fixture-meta {grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:8px}
+.slt-conference-game .slt-fixture-meta > span {min-width:0;white-space:normal;overflow-wrap:break-word}
+.slt-conference-game .ledger26-record {white-space:normal;line-height:1.35}
+body[data-conference="big-ten"] .conference-identity {border-top:5px solid #0088b5;border-bottom:3px double #184b64;padding-top:14px}
+body[data-conference="big-ten"] .conference-identity-upper {color:#006b91}
+body[data-conference="big-ten"] .conference-identity-main h1 {color:#123d53}
+body[data-conference="big-ten"] .conference-identity-main {gap:10px 24px;margin:10px 0 14px}
+body[data-conference="big-ten"] .conference-identity-meta {gap:8px 20px;padding-top:10px}
+.big-ten-schools {display:flex;flex-wrap:wrap;justify-content:center;gap:8px 12px;padding:14px 0;margin-bottom:16px;border-bottom:1px solid #a99576}
+.big-ten-schools a {display:grid;place-items:center;flex:0 0 42px;min-height:44px}
+.big-ten-schools .mbb-mark {--mbb-size:36px}
+.big-ten-schools .badge {width:36px!important;height:36px!important;object-fit:contain}
+.big-ten-schools a:focus-visible {outline:3px solid #007da6;outline-offset:3px}
+body[data-conference="big-ten"] .conference-news-edition .panel-head,
+body[data-conference="big-ten"] .victorian-seed-crown {border-bottom:3px double #34728b}
+@media(max-width:700px) {
+ body[data-page="conference"] .conference-identity-meta span+span::before {content:none}
+ body[data-page="conference"] .victorian-unified-ledger .panel-head {padding:4px 0 8px;margin-bottom:8px}
+ body[data-page="conference"] .victorian-unified-ledger .panel-head h2 {font-size:23px}
+ .slt-conference-game .ledger26-scorebug--plain {grid-template-columns:minmax(0,1fr) 88px!important;--ledger26-crest-size:34px}
+ .slt-conference-game .ledger26-team {gap:6px;padding:6px;border-left-width:4px}
+ .slt-conference-game .ledger26-name {font-size:13px!important}
+ .slt-conference-game .ledger26-status {min-width:0;padding:5px}
+ .slt-conference-game .slt-fixture-meta {font-size:10px;padding:7px 6px;gap:5px}
+ .big-ten-schools {gap:6px 8px;padding:10px 0}
+ .big-ten-schools a {flex-basis:36px}
+}
