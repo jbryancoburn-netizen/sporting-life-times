@@ -169,18 +169,19 @@ def main():
   if team['espn_id'] in issues and team['espn_id'] not in existing_map:
    team['retro_asset_status']='archival_artwork_unverified_modern_fallback'
    team['asset_import_error']=issues[team['espn_id']][:280]
- # Map only validated paths. Never insert a missing asset into a live page.
- block='const A10_HERITAGE=Object.freeze({\n'+',\n'.join(mapping)+'\n});\n'
- if existing:js=js[:existing.start()]+block.rstrip()+js[existing.end():]
- else:js=js.replace(marker,block+marker,1)
+ # Merge validated new assets into the existing A10 renderer without overwriting George Washington.
+ block='const A10_HERITAGE=Object.freeze({\n'+',\n'.join(mapping)+'\n});'
+ if existing:js=js[:existing.start()]+block+js[existing.end():]
+ else:js=js.replace(marker,block+'\n'+marker,1)
  old="||BIG_EAST_HERITAGE[String(id)]||''"
- if old in js:js=js.replace(old,"||BIG_EAST_HERITAGE[String(id)]||A10_HERITAGE[String(id)]||''",1)
- elif '||A10_HERITAGE[String(id)]' not in js:raise RuntimeError('Unexpected renderer fallback chain')
+ if old in js:
+  js=js.replace(old,"||BIG_EAST_HERITAGE[String(id)]||A10_HERITAGE[String(id)]||''",1)
+ elif '||A10_HERITAGE[String(id)]' not in js:
+  raise RuntimeError('Unexpected shared renderer chain')
  oldapi='heritageBigEastTeamIds:()=>Object.keys(BIG_EAST_HERITAGE),'
- if oldapi in js and 'heritageA10TeamIds:' not in js:
+ if 'heritageA10TeamIds:' not in js:
+  if oldapi not in js:raise RuntimeError('Logo API changed')
   js=js.replace(oldapi,oldapi+'heritageA10TeamIds:()=>Object.keys(A10_HERITAGE),',1)
- elif 'heritageA10TeamIds:' not in js:
-  raise RuntimeError('Logo API contract changed')
  RENDERER.write_text(js)
  doc['release_status']='partial_historical_assets_imported_unverified_entries_use_modern'
  doc['imported_count']=len(set(downloaded)|set(existing_map))
@@ -281,7 +282,7 @@ def main():
   team['archival_image_url']=image_url
   team['historical_research_url']=page
  for team in doc['teams']:
-  if team['espn_id'] in issues:
+  if team['espn_id'] in issues and team['espn_id'] not in existing_map:
    team['retro_asset_status']='archival_artwork_unverified_modern_fallback'
    team['asset_import_error']=issues[team['espn_id']][:280]
  # Map only validated paths. Never insert a missing asset into a live page.
@@ -297,8 +298,8 @@ def main():
   raise RuntimeError('Logo API contract changed')
  RENDERER.write_text(js)
  doc['release_status']='partial_historical_assets_imported_unverified_entries_use_modern'
- doc['imported_count']=len(downloaded)
- doc['missing_count']=len(issues)
+ doc['imported_count']=len(set(downloaded)|set(existing_map))
+ doc['missing_count']=14-doc['imported_count']
  doc['modern_fallback_maintained']=True
  MANIFEST.write_text(json.dumps(doc,indent=2)+'\n')
  # Cache bust only after assets and renderer successfully validated.
