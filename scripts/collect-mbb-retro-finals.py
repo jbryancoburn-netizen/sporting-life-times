@@ -177,6 +177,10 @@ def main():
                     failures.append(day.isoformat()+': conflicting archived final '+row['id']+
                                     ' ('+', '.join(mismatches)+'); held prior published result')
                     continue
+                # Preserve the provenance and certification of independently
+                # checked finals even when the new feed agrees with the score.
+                if previous.get('score_certified') is True:
+                    continue
                 if previous.get('site_verified') and not row.get('site_verified'):
                     continue
             else:
