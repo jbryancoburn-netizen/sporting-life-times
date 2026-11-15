@@ -443,6 +443,18 @@
  .ledger26-points--upset{padding:1px 2px}
 }
 
+/* Pregame forecast uses the existing right-hand status column, not an overlay.
+   Only source-provided scores render; compact on narrow phones. */
+.ledger26-pregame-projection{display:flex;flex-direction:column;align-items:center;gap:2px;max-width:100%;padding-top:5px;margin-top:2px;border-top:1px solid #ad9878;font-variant-numeric:tabular-nums}
+.ledger26-pregame-projection strong{font:700 15px/1 Georgia,'Times New Roman',serif;color:#34271b;white-space:nowrap}
+.ledger26-pregame-projection-kicker{font:700 7px/1.2 Arial,sans-serif;letter-spacing:.035em;color:#65513c;text-align:center}
+.ledger26-streak{padding:1px 4px;border:1px solid #b49a77;border-radius:2px;font:700 9px/1.1 Georgia,serif;white-space:nowrap}
+@media(max-width:640px){
+ .ledger26-pregame-projection{padding-top:3px;margin-top:1px;gap:1px}
+ .ledger26-pregame-projection strong{font-size:12px}
+ .ledger26-pregame-projection-kicker{font-size:6px}
+ .ledger26-streak{font-size:8px;padding:1px 2px}
+}
 /* Pregame scouting uses existing identity whitespace and vanishes on LIVE or FINAL. */
 .ledger26-scout{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-top:2px;color:#59442d;font:700 9px/1.15 Georgia,serif;font-variant-numeric:tabular-nums}
 .ledger26-scout-stat+.ledger26-scout-stat::before{content:"· ";color:#977e5d}

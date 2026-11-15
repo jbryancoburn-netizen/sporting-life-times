@@ -53,12 +53,19 @@
   if(percent===50)return '<div class="ledger26-status ledger26-status--pregame" data-phase="upcoming" aria-label="Even matchup: 50 percent win probability for each team; no projected favorite"><strong class="ledger26-pregame-prob">50%</strong><span class="ledger26-pregame-team">EVEN</span><span class="ledger26-pregame-caption">EACH TEAM · TOSS-UP</span></div>';
   const halfPoint=Number.isFinite(f.margin)?Math.round(Math.abs(f.margin)*2)/2:0;
   const margin=halfPoint>0?'−'+halfPoint.toFixed(1):'';
+  const projected=Number.isFinite(f.projectedAwayScore)&&Number.isFinite(f.projectedHomeScore)&&
+   f.projectedAwayScore>=0&&f.projectedHomeScore>=0?
+   '<span class="ledger26-pregame-projection" title="Projected final score, away first and home second">'+
+    '<span class="ledger26-pregame-projection-kicker">PROJECTED FINAL</span>'+
+    '<strong>'+Math.round(f.projectedAwayScore)+'–'+Math.round(f.projectedHomeScore)+'</strong>'+
+    '<span class="ledger26-pregame-projection-kicker">AWAY · HOME</span></span>':'';
   return '<div class="ledger26-status ledger26-status--pregame" data-phase="upcoming" aria-label="'+
     esc(team+' '+percent+' percent win probability'+(margin?', RETRO projected winning margin '+margin+' points':''))+'">'+
     '<strong class="ledger26-pregame-prob">'+percent+'%</strong>'+
     '<span class="ledger26-pregame-team" title="'+esc(team)+'">'+esc(team)+'</span>'+
     '<span class="ledger26-pregame-caption">WIN CHANCE</span>'+
     (margin?'<span class="ledger26-pregame-edge">'+margin+'</span><span class="ledger26-pregame-caption">PROJECTED SPREAD</span>':'')+
+    projected+
     '</div>';
  }
  const pressCache=new Map();
@@ -210,11 +217,15 @@
    const ppg=profile&&Number.isFinite(profile.pointsFor)?profile.pointsFor.toFixed(1):null;
    const papg=profile&&Number.isFinite(profile.pointsAgainst)?profile.pointsAgainst.toFixed(1):null;
    const form=profile&&Array.isArray(profile.lastFive)?profile.lastFive.filter(v=>v==='W'||v==='L').slice(-5):[];
+   const finalForm=form.at(-1),streak=finalForm?form.slice().reverse().findIndex(v=>v!==finalForm):-1;
+   const streakLength=streak===-1?form.length:streak;
+   const streakLabel=streakLength>=2?finalForm+streakLength+(form.length<profile.games&&streakLength===form.length?'+':''):'';
    const scout=profile&&(ppg!==null||papg!==null||form.length)?
     '<small class="ledger26-scout" title="2026–27 verified regular-season finals: '+profile.games+' games">'+
     (ppg!==null?'<span class="ledger26-scout-stat">'+esc(ppg)+' PPG</span>':'')+
     (papg!==null?'<span class="ledger26-scout-stat ledger26-scout-defense">'+esc(papg)+' allowed</span>':'')+
     (form.length?'<span class="ledger26-form" aria-label="Last '+form.length+' verified games: '+form.join(', ')+'">'+form.map(v=>'<i class="ledger26-form-'+v.toLowerCase()+'" aria-hidden="true" title="'+(v==='W'?'Win':'Loss')+'"></i>').join('')+'</span>':'')+
+    (streakLabel?'<span class="ledger26-streak" title="Recent verified form; full streak may be longer">'+esc(streakLabel)+'</span>':'')+
     '</small>':'';
 
    const href=/^ncaam-team\.html\?team=ncaa%3A\d+$|^ncaaw-team\.html\?team=\d+$/i.test(String(x.teamHref||''))?x.teamHref:'';
@@ -245,6 +256,6 @@
   dialog.showModal();loadPress(dialog);
  }
 
- root.SLTSportsScorebug={render,formatRetro,openPress,version:'shared-letterpress-v16-final-retro-desk'};
+ root.SLTSportsScorebug={render,formatRetro,openPress,version:'shared-letterpress-v17-pregame-intelligence'};
  root.SLTBasketballScorebug=root.SLTSportsScorebug;
 })(typeof window!=='undefined'?window:globalThis);

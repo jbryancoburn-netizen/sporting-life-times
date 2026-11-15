@@ -806,7 +806,9 @@ const ledgerScorebug=g=>{
     const margin=Number.isFinite(g.projectedHomeMargin)?Math.abs(g.projectedHomeMargin):null;
     const team=String(side.name||'').trim();
     return {team,probability:homeFav?g.probability:1-g.probability,
-      margin:Number.isFinite(margin)&&margin>0?margin:null};
+      margin:Number.isFinite(margin)&&margin>0?margin:null,
+      projectedAwayScore:Number.isFinite(g.projectedAwayScore)?g.projectedAwayScore:(Number.isFinite(projection?.away)?projection.away:null),
+      projectedHomeScore:Number.isFinite(g.projectedHomeScore)?g.projectedHomeScore:(Number.isFinite(projection?.home)?projection.home:null)};
   })(),
   rivalry:(()=>{
     if(g.phase!=='upcoming'||g.kind==='exhibition')return null;
