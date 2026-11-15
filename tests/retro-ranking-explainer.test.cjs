@@ -16,6 +16,13 @@ test('ranking explanations use verified events and 160-pass fitted model instead
   assert.equal(data.parameters.passes,160);
   const rendered=explainer.render(team,data);
   assert.match(rendered,/Why #/);
+  assert.match(rendered,/AVG OPP RETRO/);
+  assert.match(rendered,/AVG MARGIN/);
+  assert.match(rendered,/DAILY Δ/);
+  assert.match(rendered,/LAST 5/);
+  const metrics=explainer.cardMetrics(team,data);
+  assert.equal(metrics.games,count);
+  assert(metrics.avgOpponent>0&&Number.isFinite(metrics.avgMargin));
   assert.match(rendered,/current fitted ratings/);
   assert.match(rendered,/not individual Elo-point additions/);
   assert(!rendered.includes('Starting RETRO'));
@@ -27,5 +34,7 @@ test('analysis is available only on RETRO and ranking cards keep original logos 
  assert.match(page,/rank-table-wrap--retro/);
  assert.match(page,/schoolLogo\(t\)/);
  assert.match(page,/rank-explanation/);
- assert.match(page,/retro-ranking-explainer\.js\?v=20261115-why-ranking/);
+ assert.match(page,/retro-ranking-explainer\.js\?v=20261115-compact-metrics/);
+ assert.match(page,/rank-quick-stats/);
+ assert.match(page,/rank-retro-edition/);
 });
