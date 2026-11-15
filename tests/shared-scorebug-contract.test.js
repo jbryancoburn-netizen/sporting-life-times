@@ -68,3 +68,26 @@ test('pregame scouting uses verified samples and is absent after tipoff',()=>{
   assert.doesNotMatch(out,/ledger26-scout|ledger26-rivalry|82.4 PPG|2026–27 H2H/);
  }
 });
+
+test('pregame projection displays away then home, from verified forecast only',()=>{
+ const projection=render({phase:'upcoming',away,home,suppressPress:true,forecast:{
+  team:'Home',probability:0.72,margin:5.5,projectedAwayScore:72,projectedHomeScore:78
+ }});
+ assert.match(projection,/PROJECTED FINAL/);
+ assert.match(projection,/72–78/);
+ assert.match(projection,/AWAY · HOME/);
+ for(const phase of ['live','final']){
+  const out=render({phase,away,home,suppressPress:true,forecast:{
+   team:'Home',probability:0.72,margin:5.5,projectedAwayScore:72,projectedHomeScore:78
+  }});
+  assert.doesNotMatch(out,/PROJECTED FINAL|72–78/);
+ }
+ assert.doesNotMatch(render({phase:'upcoming',away,home,suppressPress:true,forecast:{
+  team:'Home',probability:0.72,margin:5.5
+ }}),/PROJECTED FINAL/);
+});
+test('pregame verified form has compact streak and disappears at tipoff',()=>{
+ const a={...away,scouting:{games:5,pointsFor:80,pointsAgainst:65,lastFive:['L','W','W','W','W']}};
+ assert.match(render({phase:'upcoming',away:a,home,suppressPress:true}),/W4/);
+ assert.doesNotMatch(render({phase:'live',away:a,home,suppressPress:true}),/ledger26-streak/);
+});
