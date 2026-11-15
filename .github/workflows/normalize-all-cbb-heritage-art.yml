@@ -20,7 +20,8 @@ jobs:
           python-version: '3.12'
       - name: Normalize archive at SOURCE, preserving original crests
         run: |
-          git fetch origin main --depth=1\n          python -m pip install Pillow==11.3.0
+          git fetch origin main --depth=1
+          python -m pip install Pillow==11.3.0
           python scripts/normalize-all-cbb-heritage-art.py
       - name: Commit normalized PNGs and optical audit
         run: |
