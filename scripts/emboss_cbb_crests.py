@@ -14,7 +14,7 @@ from scipy.ndimage import distance_transform_edt, gaussian_filter
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / 'assets/cbb-precomposed-crests'
 OUTPUT = ROOT / 'assets/cbb-embossed-crests'
-VERSION = '20261115-retro1'
+VERSION = '20261115-retro2'
 
 
 def raised_height(mask, depth, bevel=6):
