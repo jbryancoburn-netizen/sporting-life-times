@@ -10,8 +10,8 @@ test('men’s RETRO full register and Power 10 show readable labeled ratings and
  assert.match(js,/cbb-overall-record/);
  assert.match(css,/grid-template-columns:48px minmax\(0,1fr\) 108px/);
  assert.match(css,/\.cbb-elo-table tbody tr>td:nth-child\(2\)\{grid-column:2 \/ 4;grid-row:1/);
- assert.match(css,/\.cbb-elo-power\{display:grid;grid-template-columns:37px 78px minmax\(0,1fr\)/);
- assert.match(read('ncaam-elo.html'),/mbb-elo-primary\.css\?v=ranking-readable-20261114/);
+ assert.match(css,/\.cbb-elo-power\{display:grid;grid-template-columns:37px 88px minmax\(0,1fr\)/);
+ assert.match(read('ncaam-elo.html'),/mbb-elo-primary\.css\?v=ranking-crest-20261115/);
 });
 test('women’s ranking cards keep names and W–L / RETRO in a distinct column from 82px crests',()=>{
  const css=read('ncaaw-rankings.html'),js=read('wbb-rankings.js');
@@ -21,6 +21,7 @@ test('women’s ranking cards keep names and W–L / RETRO in a distinct column 
  assert.match(js,/wbbr-stat-caption/);
  assert.match(js,/wbbr-record/);
  assert.match(js,/wbbr-retro/);
+ assert.match(js,/setInterval\(pollForFinals,60000\)/);
  assert.match(css,/wbb-rankings\.js\?v=ranking-readable-20261114/);
 });
 test('alternate national rankings uses stacked mobile metadata only for RETRO, without affecting external polls',()=>{
