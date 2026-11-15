@@ -93,7 +93,8 @@ const A10_HERITAGE=Object.freeze({
  '2166':'assets/cbb-atlantic-10-1980s/davidson.png?v=a10-archive-20261114-1',
  '2168':'assets/cbb-atlantic-10-1980s/dayton.png?v=a10-archive-20261114-1',
  '2230':'assets/cbb-atlantic-10-1980s/fordham.png?v=a10-archive-20261114-1',
- '139':'assets/cbb-atlantic-10-1980s/saint-louis.png?v=a10-archive-20261114-1'
+ '139':'assets/cbb-atlantic-10-1980s/saint-louis.png?v=a10-archive-20261114-1',
+ '179':'assets/cbb-atlantic-10-1980s/st-bonaventure.png?v=a10-archive-20261114-3'
 });
 const retroURLForESPN=id=>BIG_TEN_HERITAGE[String(id)]||ACC_HERITAGE[String(id)]||SEC_HERITAGE[String(id)]||BIG_EAST_HERITAGE[String(id)]||A10_HERITAGE[String(id)]||'';
 
