@@ -30,6 +30,8 @@ jobs:
           node --check ncaam-slate.js
       - name: Verify away/home, live and pregame indicators, and mobile presentation
         run: node --test tests/shared-scorebug-contract.test.js
+      - name: Verify matchup score diversity and exact projected-margin agreement
+        run: node --test tests/cbb-forecast-score-consistency.test.cjs
   editorial-tests:
     runs-on: ubuntu-latest
     steps:
