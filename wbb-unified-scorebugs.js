@@ -59,10 +59,11 @@
    const theirScore=phase==='upcoming'?null:scores?Number(scores[2]):null;
    const ownRating=byId.get(String(row.dataset.teamId||''));
    const oppRating=byId.get(String(row.dataset.opponentId||''));
+   const snapshot=p=>phase==='final'&&p&&Number.isFinite(Number(p.elo))?{elo:Number(p.elo),rank:Number.isInteger(Number(p.rank))?Number(p.rank):null,dailyChange:p.daily_change==null?null:Number(p.daily_change),gamesPlayed:Number.isInteger(Number(p.games_played))?Number(p.games_played):null}:null;
    const ours={name:title,score:ourScore,crest,color:teamColor,
-     record:formatRecord(ownRating),retro:formatRetro(ownRating,ties)};
+     record:formatRecord(ownRating),retro:formatRetro(ownRating,ties),retroSnapshot:snapshot(ownRating)};
    const opponentTeam={name:opponent,score:theirScore,crest:opponentCrest,
-     color:'#655239',record:formatRecord(oppRating),retro:formatRetro(oppRating,ties)};
+     color:'#655239',record:formatRecord(oppRating),retro:formatRetro(oppRating,ties),retroSnapshot:snapshot(oppRating)};
    // Preserve the fixture's actual away/home identities even at a neutral venue.
    const ownHome=row.dataset.homeId===row.dataset.teamId;
    const oppHome=row.dataset.homeId===row.dataset.opponentId;
