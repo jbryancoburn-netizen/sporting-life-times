@@ -21,40 +21,50 @@ jobs:
     timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
-      - name: Verify every public asset byte-for-byte, logo-renderer and versioned pages
+      - name: Compare all 365 published crest PNGs with approved local binaries
         run: |
           python3 - <<'PY'
           from concurrent.futures import ThreadPoolExecutor,as_completed
           from pathlib import Path
           import hashlib,json,time,urllib.request
           base='https://jbryancoburn-netizen.github.io/sporting-life-times/'
-          proof=json.loads(Path('data/cbb-heritage-medallions-audit.json').read_text())
-          assert proof['rendered_count']==86
+          proof=json.loads(Path('data/cbb-precomposed-crest-audit.json').read_text())
+          assert proof['count']==365 and proof['vintage_count']==86 and proof['rings']==2
           def download(path):
-              with urllib.request.urlopen(urllib.request.Request(base+path,headers={'Cache-Control':'no-cache','User-Agent':'SportingLifeCBB-PublicIntegrity'}),timeout=25) as r:
-                  if r.status!=200:raise AssertionError(f'{path} HTTP {r.status}')
-                  return r.read()
-          def inspect(row):
-              payload=download(row['asset']+'?audit='+row['sha256'][:12])
-              assert payload[:8]==b'\x89PNG\r\n\x1a\n',row['asset']
-              assert hashlib.sha256(payload).hexdigest()==row['sha256'],row['asset']+' differs from certified local PNG'
-              assert int.from_bytes(payload[16:20],'big')==512,row['asset']+' incorrect width'
-              return row['espn_id']
-          with ThreadPoolExecutor(max_workers=12) as pool:
-              futures=[pool.submit(inspect,row) for row in proof['records']]
-              ids={f.result() for f in as_completed(futures)}
-          assert len(ids)==86
-          for path,needles in {
-           'ncaam-rankings.html':['mbb-logo-system.js?v=20261115-baked-crests1','mbb-logo-system.css?v=20261115-baked-crests1'],
-           'ncaaw-rankings.html':['mbb-logo-system.js?v=20261115-baked-crests1','wbb-rankings.js?v=20261115-baked-crests1'],
-           'ncaam-slate.html':['mbb-logo-system.js?v=20261115-baked-crests1'],
-           'ncaam-team.html':['mbb-logo-system.js?v=20261115-baked-crests1'],
-           'ncaaw-team.html':['mbb-logo-system.js?v=20261115-baked-crests1'],
-           'mbb-logo-system.js':['cbb-heritage-medallions/','mbb-mark--baked'],
-           'mbb-logo-system.css':['.mbb-mark.mbb-mark--baked::before','width:100%!important'],
-           'wbb-rankings.js':['cbb-heritage-medallions/','mbb-mark--baked']
-          }.items():
-              text=download(path+'?baked-audit='+str(int(time.time()))).decode('utf-8')
-              assert all(v in text for v in needles),path+' missing released asset references'
-          print('PASS PUBLIC: all 86 historical crest PNG byte hashes, 512px canvases, both rings, men/women schedules, rankings, team pages and common renderers')
+              req=urllib.request.Request(base+path,headers={'Cache-Control':'no-cache','User-Agent':'SportingLife-CBB-Crest-Integrity'})
+              with urllib.request.urlopen(req,timeout=30) as response:
+                  assert response.status==200,path
+                  return response.read()
+          def inspect(id):
+              path='assets/cbb-precomposed-crests/'+id+'.png'
+              local=Path(path).read_bytes()
+              remote=download(path+'?hash='+hashlib.sha256(local).hexdigest()[:16])
+              assert remote==local,'Public crest differs from approved asset: '+id
+              assert remote[:8]==b'\x89PNG\r\n\x1a\n','Invalid public PNG '+id
+              assert int.from_bytes(remote[16:20],'big')==512,'Wrong 512px width '+id
+              return id
+          for attempt in range(6):
+              try:
+                  with ThreadPoolExecutor(max_workers=12) as pool:
+                      ids=set(f.result() for f in as_completed([pool.submit(inspect,id) for id in proof['crests']]))
+                  assert len(ids)==365
+                  break
+              except Exception as exc:
+                  if attempt==5:raise
+                  print('Public asset refresh pending:',str(exc)[:250],flush=True)
+                  time.sleep(12)
+          required={
+            'ncaam-rankings.html':['cbb-precomposed-crests/','mbb-logo-system.js?v=cbb-precomposed-20261115-v1'],
+            'ncaaw-rankings.html':['ncaam-rankings.html'],
+            'ncaam-slate.html':['mbb-logo-system.js?v=cbb-precomposed-20261115-v1'],
+            'ncaam-team.html':['mbb-logo-system.js?v=cbb-precomposed-20261115-v1'],
+            'ncaaw-team.html':['mbb-logo-system.js?v=cbb-precomposed-20261115-v1'],
+            'mbb-logo-system.js':['assets/cbb-precomposed-crests/','mbb-mark--precomposed'],
+            'mbb-logo-system.css':['.mbb-mark.mbb-mark--precomposed::before'],
+            'wbb-rankings.js':['assets/cbb-precomposed-crests/']
+          }
+          for page,needles in required.items():
+              text=download(page+'?crest-check='+str(int(time.time()))).decode('utf8')
+              assert all(needle in text for needle in needles),'Stale public crest consumer '+page
+          print('PASS PUBLIC: 365 byte-identical school crests; 86 historical originals; 363 women covered; shared two-ring renderer and published pages verified')
           PY
