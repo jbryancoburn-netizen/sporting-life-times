@@ -29,6 +29,7 @@ DIRECT={
 # Avoid depending solely on SportsLogos HTML selectors changing over time.
 DIRECT_IMAGE={
  '45':'https://content.sportslogos.net/logos/31/685/full/george_washington_colonials_logo_primary_1967_sportslogosnet-2252.png',
+ '179':'https://content.sportslogos.net/logos/34/848/full/st_bonaventure_bonnies_logo_secondary_19998861.png',
  '2350':'https://sportslogohistory.com/wp-content/uploads/2022/08/loyola_ramblers_1990-1994.png',
  '227':'https://sportslogohistory.com/wp-content/uploads/2018/03/rhode_island_rams_1989-2009.png',
  '2184':'https://content.sportslogos.net/logos/31/664/full/duquesne_dukes_logo_primary_1975_sportslogosnet-6823.png',
