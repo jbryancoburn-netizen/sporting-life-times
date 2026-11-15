@@ -91,6 +91,19 @@ function decorate(){
   set(summary,receipt('women',details.dataset.gameId,details.dataset.gameDay,status,
     scoreFromBug(bug),details.dataset.homeId,details.dataset.awayId,details.dataset.homeName||'Home',details.dataset.awayName||'Away'));
  });
+ // Live Game Center shares the same preserved, source-matched pretipoff ledger.
+ document.querySelectorAll('#cbb-cards .cbb-ledger-card[data-cbb-game]').forEach(card=>{
+  const bug=card.querySelector('.ledger26-scorebug'),summary=card.querySelector('.ledger26-summary');
+  if(!bug||!summary)return;
+  const phase=bug.querySelector('.ledger26-status[data-phase]')?.dataset.phase||'';
+  const gender=card.dataset.cbbGender==='women'?'women':'men';
+  const home=card.dataset.cbbHomeId||'',away=card.dataset.cbbAwayId||'';
+  const day=card.dataset.cbbDay||'';
+  const p=scored.get(key(day,card.dataset.cbbGame));
+  const audited=gender==='men'&&identityMatches(p,home,away)?number(p.actual_home_margin):null;
+  set(summary,receipt(gender,card.dataset.cbbGame,day,phase,audited!==null?audited:scoreFromBug(bug),
+   home,away,card.dataset.cbbHomeName||'Home',card.dataset.cbbAwayName||'Away'));
+ });
  document.querySelectorAll('#mbb-calendar-host .mbb-schedule-table tr[data-cbb-forecast-id]').forEach(row=>{
   const dest=row.querySelector('.sched-result-cell');
   const phase=row.dataset.calendarState==='final'?'final':'upcoming';
@@ -113,7 +126,7 @@ async function init(){
   loadJSON('data/retro-spread-accuracy-2026-27.json')]);
  indexArchive(men,'men');indexArchive(women,'women');indexScored(report);
  ready=true;decorate();
- for(const selector of ['#sl-games','#mbb-calendar-host','#desk']){
+ for(const selector of ['#sl-games','#mbb-calendar-host','#desk','#cbb-cards']){
   const el=document.querySelector(selector);
   if(el)new MutationObserver(queue).observe(el,{subtree:true,childList:true,characterData:true,attributes:false});
  }
