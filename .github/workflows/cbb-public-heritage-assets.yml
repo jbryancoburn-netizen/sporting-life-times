@@ -1,0 +1,23 @@
+name: Verify public CBB heritage crest assets
+on:
+  pull_request:
+    paths:
+      - 'scripts/verify-cbb-live-heritage.py'
+      - '.github/workflows/cbb-public-heritage-assets.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'assets/cbb-atlantic-10-1980s/*.png'
+      - 'assets/cbb-mountain-west-1980s/*.png'
+      - 'mbb-logo-system.js'
+  workflow_dispatch:
+jobs:
+  public-art-verification:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/verify-cbb-live-heritage.py
