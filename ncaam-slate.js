@@ -787,7 +787,7 @@ const ledgerScorebug=g=>{
  // A single first-party scorebug renderer serves both basketball desks.
  const convert=t=>({name:t.name,abbreviation:t.abbreviation||'',timeoutsRemaining:t.timeoutsRemaining,score:g.phase==='upcoming'?null:t.score,
    crest:emblem(t),color:brand(t),record:record(t),retro:retroLine(t),
-    retroSnapshot:(()=>{const q=rankOf(t,ratings,women);return g.phase==='final'&&g.kind!=='exhibition'&&q&&Number.isFinite(Number(q.elo))?{elo:Number(q.elo),rank:Number.isInteger(Number(q.rank))?Number(q.rank):null,dailyChange:q.daily_change==null?null:Number(q.daily_change)}:null})(),
+    retroSnapshot:(()=>{const q=rankOf(t,ratings,women);return g.phase==='final'&&g.kind!=='exhibition'&&q&&Number.isFinite(Number(q.elo))?{elo:Number(q.elo),rank:Number.isInteger(Number(q.rank))?Number(q.rank):null,dailyChange:q.daily_change==null?null:Number(q.daily_change),gamesPlayed:Number.isInteger(Number(q.games_played))?Number(q.games_played):null}:null})(),
    teamHref:teamPage(t),poll:pollRankings.get(String(t.id))||null,
    scouting:(()=>{
      if(g.phase!=='upcoming')return null;
