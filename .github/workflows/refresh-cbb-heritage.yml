@@ -1,0 +1,43 @@
+name: Refresh Big East and A10 historical logo display
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/refresh_cbb_heritage.py'
+      - '.github/workflows/refresh-cbb-heritage.yml'
+permissions:
+  contents: write
+concurrency:
+  group: refresh-cbb-heritage
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install 'Pillow>=11,<13'
+      - name: Validate local logos and refresh both MBB and WBB references
+        run: python scripts/refresh_cbb_heritage.py
+      - name: Verify all logo JavaScript and local Big East files
+        run: |
+          node --check mbb-logo-system.js
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          report=json.loads(Path('data/cbb-big-east-heritage-release.json').read_text())
+          assert report['files_verified']==11
+          assert 'BIG_EAST_HERITAGE' in Path('mbb-logo-system.js').read_text()
+          PY
+      - name: Publish validated cache-busted logo references
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add mbb-logo-system.js data/cbb-big-east-heritage-release.json '*.html'
+          if ! git diff --cached --quiet; then
+            git commit -m 'Refresh 11 self-hosted Big East logos on both basketball editions'
+            git push
+          fi
