@@ -182,7 +182,7 @@ def main():
   path=OUT/filename
   path.write_bytes(data)
   with Image.open(path) as img:img.verify()
-  mapping.append(" '%s':'%s?v=a10-archive-20261114-1'"%(eid,team['target_path']))
+  mapping.append(" '%s':'%s?v=a10-archive-20261114-3'"%(eid,team['target_path']))
   team['retro_asset_status']='local_image_verified'
   team['archival_image_url']=image_url
   team['historical_research_url']=page
@@ -212,7 +212,7 @@ def main():
  # Cache bust only after assets and renderer successfully validated.
  for html in ROOT.glob('*.html'):
   text=html.read_text()
-  latest=re.sub(r'mbb-logo-system\.js\?v=[^"\'<>\s]+','mbb-logo-system.js?v=a10-heritage-20261114-1',text)
+  latest=re.sub(r'mbb-logo-system\.js\?v=[^"\'<>\s]+','mbb-logo-system.js?v=a10-bigeast-20261114-3',text)
   if latest!=text:html.write_text(latest)
  print('Imported',len(downloaded),'historic A10 logos; unresolved',len(issues))
  for eid,error in issues.items():print('  unresolved',eid,error[:100])
