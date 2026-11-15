@@ -161,9 +161,15 @@ def main():
                 # venue handling regardless of ESPN cache state.
                 continue
             if previous:
-                for key in ('home_id', 'away_id', 'home_score', 'away_score', 'date'):
-                    if previous[key] != row[key]:
-                        raise ValueError('Published final revised: '+row['id']+' '+key)
+                # A historical, independently verified final must never be silently
+                # rewritten by a later scoreboard revision. Quarantine the event
+                # conflict without freezing unrelated completed games.
+                mismatches = [key for key in ('home_id', 'away_id', 'home_score', 'away_score', 'date')
+                              if previous[key] != row[key]]
+                if mismatches:
+                    failures.append(day.isoformat()+': conflicting archived final '+row['id']+
+                                    ' ('+', '.join(mismatches)+'); held prior published result')
+                    continue
                 if previous.get('site_verified') and not row.get('site_verified'):
                     continue
             else:
