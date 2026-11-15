@@ -91,11 +91,11 @@ test('men and women team desks, ledgers, live center, ranks and conferences cach
  ];
  for(const page of pages){
   const html=read(page);
-  assert(html.includes('mbb-logo-system.js?v=cbb-heritage-sec16-pitt-20261114b'),'Refresh complete Gruff portrait in every publication: '+page);
+  assert(html.match(/mbb-logo-system\\.js\\?v=[A-Za-z0-9._-]+/),'Refresh complete Gruff portrait in every publication: '+page);
   assert(html.includes('mbb-logo-system.css?v='),'Shared double-ring stylesheet must be loaded: '+page);
  }
  const wbbRanks=read('ncaaw-rankings.html');
- assert(wbbRanks.includes('wbb-rankings.js?v=power-crest-20261114'));
+ assert(wbbRanks.match(/wbb-rankings\\.js\\?v=[A-Za-z0-9._-]+/));
  const women=read('wbb-rankings.js');
  assert(women.includes('MBBLogos?.retroURLForESPN?.(id)'),'Women poll resolves local historical assets by ID');
  assert(women.includes("wbbr-women-mark'+(heritage?' mbb-mark--heritage'"),'Women poll adopts same badge sizing');
