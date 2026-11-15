@@ -182,7 +182,9 @@ def score(article: dict, *, now: datetime) -> float:
     # is slightly preferred over an aggregator for otherwise similar articles.
     impact += 14 if PREMIUM.search(article.get("source", "")) else 0
     impact += 12 if article.get("link_type") == "publisher" else 0
-    return round(impact - min(36, hours * .75), 2)
+    # A prominent article must turn over with the news cycle. The prior
+    # 0.75-point/hour decay allowed 2-day-old features to outrank today's news.
+    return round(impact + max(-130, 40 - hours * 4), 2)
 
 
 def choose(articles: list[dict], *, gender: str, now: datetime, limit: int = 80) -> list[dict]:
@@ -205,7 +207,12 @@ def choose(articles: list[dict], *, gender: str, now: datetime, limit: int = 80)
         article = dict(article)
         article["editorial_score"] = score(article, now=now)
         eligible.append(article)
-    eligible.sort(key=lambda a: (a["editorial_score"], a["published_at"]), reverse=True)
+    # Keep breaking developments at the front without admitting low-value
+    # older headlines solely because their titles carry high editorial scores.
+    eligible.sort(key=lambda a: (
+        (now - datetime.fromisoformat(a["published_at"].replace("Z", "+00:00"))) <= timedelta(hours=18),
+        a["editorial_score"], a["published_at"]
+    ), reverse=True)
     selected = []
     publisher_counts = {}
     for item in eligible:
@@ -265,8 +272,25 @@ def main() -> None:
     if min(len(men), len(women)) < 3 or min(fresh.values()) < 2:
         raise RuntimeError("Refusing to republish incomplete or stale editions: "
                            + str({"men": len(men), "women": len(women), "recent": fresh}))
+    # A successful refresh isn't proof that the front page gained any stories.
+    # Persist actual editorial turnover separately from the collector heartbeat.
+    try:
+        prior = json.loads(OUT.read_text())
+    except (OSError, ValueError):
+        prior = {}
+    def identity(article):
+        return (article["gender"], normalized_title(article["title"]))
+    previous = {identity(a) for a in prior.get("articles", [])}
+    current = {identity(a) for a in men + women}
+    additions = [a for a in men + women if identity(a) not in previous]
+    new_counts = {g: sum(a["gender"] == g for a in additions) for g in ("men", "women")}
+    changed_at = now.isoformat() if current != previous else prior.get("stories_changed_at", now.isoformat())
+    newest = {g: max(a["published_at"] for a in articles) for g, articles in (("men", men), ("women", women))}
     output = {
         "edition": "The Hardwood Chronicle", "season": "2026-27",
+        "stories_changed_at": changed_at,
+        "new_stories_since_previous_refresh": new_counts,
+        "newest_article_at": newest,
         "updated_at": now.isoformat(), "max_article_age_hours": MAX_AGE_HOURS,
         "sources": ["Direct publisher RSS", "Attributed Google News discovery", "Verified men's team reporting"],
         "coverage": {"men": len(men), "women": len(women)},
@@ -276,7 +300,9 @@ def main() -> None:
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(output, ensure_ascii=False, indent=2) + "\n")
     print("Hardwood Chronicle verified:", output["coverage"], "recent:", fresh,
-          "direct publisher links:", output["direct_links"])
+          "direct publisher links:", output["direct_links"],
+          "new since last collection:", new_counts,
+          "changed:", changed_at)
 
 
 if __name__ == "__main__":

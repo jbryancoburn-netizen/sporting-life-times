@@ -92,6 +92,24 @@ class HardwoodChronicleNewsTests(unittest.TestCase):
         upset = self.article("Men's basketball upsets No. 4 ranked team", "men", hours=6)
         self.assertGreater(score(upset, now=self.now), score(routine, now=self.now))
 
+    def test_two_day_old_major_story_cannot_displace_todays_reporting(self):
+        old = self.article("Women's basketball historic ranked upset", "women",
+                           hours=53, url="https://old.example/sports/one")
+        fresh = self.article("Women's basketball defeats ranked opponent", "women",
+                             hours=5, url="https://fresh.example/sports/two")
+        self.assertGreater(score(fresh, now=self.now), score(old, now=self.now))
+        self.assertEqual(choose([old, fresh], gender="women", now=self.now)[0]["title"],
+                         fresh["title"])
+
+    def test_new_reports_win_over_old_high_scoring_wire(self):
+        old = self.article("Men's basketball historic upset win", "men",
+                           hours=33, url="https://old.example/sports/one")
+        recent = self.article("Men's basketball leads conference race", "men",
+                              hours=3, url="https://fresh.example/sports/two")
+        ranked = choose([old, recent], gender="men", now=self.now)
+        self.assertEqual(ranked[0]["title"], recent["title"])
+        self.assertLessEqual((self.now - datetime.fromisoformat(ranked[0]["published_at"])).total_seconds()/3600, 18)
+
     def test_old_articles_removed_and_near_duplicates_deduped(self):
         first = self.article("UConn men's basketball defeats Ohio State 84 to 68", "men",
                              url="https://example.org/one")
