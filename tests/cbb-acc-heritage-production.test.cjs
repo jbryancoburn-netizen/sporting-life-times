@@ -20,7 +20,7 @@ test('all 18 original-era ACC crests publish locally for both genders with exact
  assert.deepEqual(Array.from(w.MBBLogos.heritageACCTeamIds()).sort(),manifest.schools.map(s=>String(s.espn_id)).sort());
  for(const s of manifest.schools){
   const id=String(s.espn_id),row=cross.teams.find(t=>String(t.espn_id)===id),
-   lady=women.teams.find(t=>String(t.team_id)===id),url=s.local_path+'?v='+(id==='221'?'20261114-pitt-standing-1980-approved1':'20261114-acc18-live1');
+   lady=women.teams.find(t=>String(t.team_id)===id),url='assets/cbb-heritage-medallions/'+id+'.png?v=20261115-asset-baked1';
   assert(row&&lady,'Both division-I gender IDs: '+s.name);
   assert(s.archive_url.startsWith('https://')&&s.local_sha256);
   const bytes=fs.readFileSync(path.join(root,s.local_path));
@@ -28,7 +28,8 @@ test('all 18 original-era ACC crests publish locally for both genders with exact
   assert.equal(bytes.readUInt32BE(16),512);assert.equal(bytes.readUInt32BE(20),512);
   assert(s.geometry.gap_to_238px_ring>=20,'Clear both rings '+s.slug);
   for(const html of [w.MBBLogos.byESPN(id,'score',lady.team),w.MBBLogos.byNCAA(row.id,'hero',row.name)]){
-   assert(html.includes('src="'+url+'"'));assert(html.includes('mbb-mark--heritage'));
+   assert(html.includes('src="'+url+'"'));assert(html.includes('mbb-mark--heritage mbb-mark--baked'));
+   assert(fs.existsSync(path.join(root,'assets/cbb-heritage-medallions',id+'.png')));
    assert(html.includes('data-ring-count="2"'));assert(html.includes('data-espn-id="'+id+'"'));
    assert(!html.includes('data-logo-alternate="https://'),'No third-party fallback');
   }
@@ -39,7 +40,7 @@ test('all 14 CBB readers use new renderer without per-team CSS patches',()=>{
  const pages=['college-basketball.html','ncaam.html','ncaam-slate.html','ncaam-team.html','ncaaw-team.html',
  'ncaam-rankings.html','ncaaw-rankings.html','ncaam-conference.html','ncaaw-conference.html',
  'ncaam-elo.html','ncaam-tournament.html','live-game.html','cbb-gamefile.html','cbb-game-center.html'];
- for(const p of pages)assert(read(p).includes('mbb-logo-system.js?v=cbb-heritage-sec16-pitt-20261114b'),p);
+ for(const p of pages)assert(read(p).includes('mbb-logo-system.js?v=20261115-baked-crests1'),p);
  assert(read('wbb-rankings.js').includes('MBBLogos?.retroURLForESPN?.(id)'));
  assert(!read('mbb-logo-system.css').includes('mbb-mark--heritage[data-espn-id='));
 });
