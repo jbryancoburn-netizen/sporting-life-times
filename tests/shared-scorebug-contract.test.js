@@ -121,7 +121,10 @@ test('projected final appears on the closed pregame scorebug with a matching thi
 test('pregame source displays forecast in card, not expanded gamefile',()=>{
  const source=fs.readFileSync(require('node:path').join(__dirname,'..','ncaam-slate.js'),'utf8');
  assert.doesNotMatch(source,/ledger26-projected-detail|projectedDetail/);
- assert.match(source,/projectedAwayScore:g\.forecastStatus==='PROVISIONAL'\?null/);
+  assert.match(source,/g\\.forecastStatus==='PROVISIONAL'\\?null/);
+  assert.match(source,/insight\\?\\.forecastScorePair\\(/);
+  assert.match(source,/projectedAwayScore:aligned\\?\\.away\\?\\?null/);
+  assert.match(source,/margin:aligned\\?Math\\.abs\\(aligned\\.displayHomeMargin\\)/);
  const styles=fs.readFileSync(require('node:path').join(__dirname,'..','cbb-ledger-scorecard.css'),'utf8');
  assert.match(styles,/ledger26-pregame-inline\+\.ledger26-pregame-inline/);
 });
