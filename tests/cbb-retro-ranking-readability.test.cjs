@@ -22,7 +22,7 @@ test('women’s ranking cards keep names and W–L / RETRO in a distinct column 
  assert.match(js,/wbbr-record/);
  assert.match(js,/wbbr-retro/);
  assert.match(js,/setInterval\(pollForFinals,60000\)/);
- assert.match(css,/wbb-rankings\.js\?v=ranking-readable-20261114/);
+ assert.match(css,/wbb-rankings\.js\?v=live-retro-refresh-20261115/);
 });
 test('alternate national rankings uses stacked mobile metadata only for RETRO, without affecting external polls',()=>{
  const html=read('ncaam-rankings.html');
