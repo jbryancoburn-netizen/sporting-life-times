@@ -14,7 +14,7 @@ import json, re, sys
 ROOT=Path(__file__).resolve().parent.parent
 SOURCE=(ROOT/"mbb-logo-system.js").read_text()
 # Only assets served by the authoritative MBB/WBB renderer.
-URL_PATTERN=re.compile(r"assets/cbb-[^'\\\"?]+\\.png\\?v=[A-Za-z0-9._-]+")
+URL_PATTERN=re.compile(r"assets/cbb-[^'\x22?]+[.]png[?]v=[A-Za-z0-9._-]+")
 TARGET_EDGE=400   # content max dimension, within 512px two-ring-safe shell
 MIN_EDGE=360      # do not churn already suitably sized heritage art
 CANVAS=512
