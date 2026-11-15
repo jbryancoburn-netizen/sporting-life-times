@@ -1,0 +1,54 @@
+name: Publish validated American vintage basketball marks
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/import_american_heritage.py'
+      - '.github/workflows/publish-american-heritage.yml'
+permissions:
+  contents: write
+concurrency:
+  group: american-heritage
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install image tools
+        run: python -m pip install "Pillow>=11,<13" "requests>=2.32,<3" "beautifulsoup4>=4.12,<5"
+      - name: Import only exact-era authenticated archive graphics
+        run: python scripts/import_american_heritage.py
+      - name: Verify JavaScript and every local asset
+        run: |
+          node --check mbb-logo-system.js
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          import re,json
+          src=Path('mbb-logo-system.js').read_text()
+          audit=json.loads(Path('data/cbb-american-heritage-audit.json').read_text())
+          refs=set(re.findall(r'assets/cbb-american-1980s/[a-z0-9-]+\.png',src))
+          assert refs
+          assert len(refs)==audit['imported_count']
+          assert len(refs)+audit['unresolved_count']==13
+          assert 'AMERICAN_HERITAGE[String(id)]' in src
+          for p in refs:
+              with Image.open(p) as im: im.verify()
+          print('Validated',len(refs),'local retro logos; unresolved have modern fallback')
+          PY
+      - name: Publish verified self-hosted assets
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/cbb-american-1980s/ mbb-logo-system.js data/cbb-american-heritage-audit.json '*.html'
+          if ! git diff --cached --quiet; then
+            git commit -m 'Publish validated American vintage basketball logos'
+            git push
+          fi
