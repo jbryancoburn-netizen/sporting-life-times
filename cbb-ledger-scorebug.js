@@ -168,15 +168,18 @@
    const n=p.dailyChange;
    const change=typeof n==='number'&&Number.isFinite(n)?'<span class="ledger26-final-delta '+(n>0?'ledger26-final-up':n<0?'ledger26-final-down':'')+'">'+(n>0?'▲ +':n<0?'▼ −':'— ')+Math.abs(n).toFixed(1)+'</span>':'<span class="ledger26-final-delta">—</span>';
    const rank=Number.isInteger(p.rank)&&p.rank>0?'#'+p.rank:'—';
+   const played=Number.isInteger(p.gamesPlayed)&&p.gamesPlayed>=0?p.gamesPlayed:null;
+   const record=typeof t.record==='string'&&/^\\d+[–-]\\d+$/.test(t.record.trim())?t.record.trim():null;
    return '<div class="ledger26-final-team"><span class="ledger26-final-school">'+esc(t.name||'School')+'</span>'+
     '<strong class="ledger26-final-rating">'+Number(p.elo).toFixed(1)+'</strong>'+
     '<span class="ledger26-final-change"><small>DAILY Δ</small>'+change+'</span>'+
-    '<small class="ledger26-final-standing">RETRO '+esc(rank)+'</small></div>';
+    '<small class="ledger26-final-standing">RETRO '+esc(rank)+'</small>'+ 
+    '<small class="ledger26-final-record">'+(record?'W–L '+esc(record):'Record pending')+(played!==null?' · '+played+' D-I games':'')+'</small></div>';
   };
   return '<div class="ledger26-final-desk" aria-label="Published RETRO ratings and daily changes following the final">'+
    '<div class="ledger26-final-kicker">AFTER THE FINAL · RETRO DESK</div>'+
    '<div class="ledger26-final-pair">'+rows.map(line).join('')+'</div>'+
-   '<small class="ledger26-final-note">Daily Δ is day-to-day RETRO movement, not the change caused by this game. Conference place and ranking movement require verified prior standings.</small></div>';
+   '<small class="ledger26-final-note">Daily Δ is the change across the published day, not a per-game swing. Ranking position is current; previous rank and conference-place movement are withheld until verified.</small></div>';
  }
  function render(input){
   const g=input||{},phase=['live','final','upcoming'].includes(g.phase)?g.phase:'upcoming';
@@ -245,6 +248,6 @@
   dialog.showModal();loadPress(dialog);
  }
 
- root.SLTSportsScorebug={render,formatRetro,openPress,version:'shared-letterpress-v16-final-retro-desk'};
+ root.SLTSportsScorebug={render,formatRetro,openPress,version:'shared-letterpress-v17-final-records'};
  root.SLTBasketballScorebug=root.SLTSportsScorebug;
 })(typeof window!=='undefined'?window:globalThis);
