@@ -24,9 +24,9 @@ registry=json.loads((ROOT/'data/mbb-logo-registry.json').read_text())['teams']
 colors=json.loads((ROOT/'data/dual-ring-team-palette.json').read_text())['mbb']
 cross=json.loads((ROOT/'data/ncaam-2026-27-espn-team-crosswalk.json').read_text())['teams']
 javascript=(ROOT/'mbb-logo-system.js').read_text()
-# Only exact ESPN-ID-to-local-asset associations in the six approved heritage maps.
+# Only exact ESPN-ID-to-local-asset associations in the approved heritage maps.
 heritage={}
-for group in ('BIG_TEN_HERITAGE','ACC_HERITAGE','SEC_HERITAGE','BIG_EAST_HERITAGE','A10_HERITAGE','MOUNTAIN_WEST_HERITAGE'):
+for group in ('BIG_TEN_HERITAGE','ACC_HERITAGE','SEC_HERITAGE','BIG_EAST_HERITAGE','A10_HERITAGE','MOUNTAIN_WEST_HERITAGE','ARCHIVE_HERITAGE'):
     match=re.search(r'const '+group+r'=Object\.freeze\(\{(.*?)\}\);',javascript,re.S)
     if not match:raise RuntimeError('Heritage group missing: '+group)
     for team_id,path in re.findall(r"'(\d+)'\s*:\s*'(assets/cbb-[^'?]+\.png)(?:\?[^']+)?'",match.group(1)):

@@ -8,7 +8,7 @@ from pathlib import Path
 import re
 ROOT=Path(__file__).resolve().parents[1]
 TAG=re.compile(r'(mbb-logo-system\.(?:css|js)|wbb-rankings\.js)\?v=[A-Za-z0-9._-]+')
-VERSION='cbb-embossed-20261115-v2'
+VERSION='cbb-retro-20261115-v1'
 pages=updated=references=0
 for path in ROOT.glob('*.html'):
     old=path.read_text(encoding='utf-8')
