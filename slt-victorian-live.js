@@ -596,7 +596,7 @@ function page(g){
  const menu='<nav class="vld-tabs" role="tablist" aria-label="Match reports">'+tabs.map(([id,label])=>
   '<button type="button" role="tab" data-vld-tab="'+id+'" id="vld-tab-'+id+
   '" aria-controls="vld-panel-'+id+'" aria-selected="'+(id===chosenTab)+'" tabindex="'+(id===chosenTab?'0':'-1')+'">'+label+'</button>').join('')+'</nav>';
- const live=(isBasketball?dispatchIntelligence(g):now(g))+
+ const live=(isBasketball?courtUpdate(g):'')+(isBasketball?dispatchIntelligence(g):now(g))+
  '<section class="vld-paper"><h2>THE SCORING STORY</h2>'+trend(g)+'</section>'+
  (isBasketball?liveBrief(g):'')+
  '<section class="vld-paper"><h2>PERIOD SCORING</h2>'+lineScore(g)+'</section>'+
