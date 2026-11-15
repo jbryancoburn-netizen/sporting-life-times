@@ -56,10 +56,12 @@
   // Projected final scores belong in the expanded Game Details, not the rail.
   return '<div class="ledger26-status ledger26-status--pregame ledger26-status--compact" data-phase="upcoming" aria-label="'+
    esc(team+' '+percent+' percent RETRO win probability'+(margin?', projected margin '+margin+' points':''))+'">'+
-   '<strong class="ledger26-pregame-prob">'+percent+'%</strong>'+
-   '<span class="ledger26-pregame-team" title="'+esc(team)+'">'+esc(percent===50?'EVEN':team)+'</span>'+
-   (margin?'<strong class="ledger26-pregame-edge">'+margin+'</strong>':'')+
-   '<span class="ledger26-pregame-caption">RETRO FORECAST</span>'+
+   '<div class="ledger26-pregame-inline ledger26-pregame-inline--prob">'+
+    '<strong class="ledger26-pregame-prob">'+percent+'%</strong>'+
+    '<span class="ledger26-pregame-team" title="'+esc(team)+'">'+esc(percent===50?'EVEN':team)+'</span></div>'+
+   (margin?'<div class="ledger26-pregame-inline ledger26-pregame-inline--margin">'+
+    '<strong class="ledger26-pregame-edge">'+margin+'</strong>'+
+    '<span class="ledger26-pregame-caption">RETRO MARGIN</span></div>':'')+
    '</div>';
  }
  const pressCache=new Map();

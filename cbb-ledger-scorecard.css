@@ -545,3 +545,28 @@
  .ledger26-status--compact .ledger26-pregame-edge{font-size:17px;padding-top:4px}
  .ledger26-status--compact .ledger26-pregame-caption{font-size:7px}
 }
+
+/* Pregame broadcast hierarchy: number and its explanation share one line.
+   Scope only to pregame; avoid changing live or final card measurements. */
+.ledger26-status--compact{align-items:stretch;justify-content:center;gap:0!important}
+.ledger26-status--compact .ledger26-pregame-inline{display:flex;align-items:baseline;justify-content:center;gap:7px;min-width:0;padding:6px 3px}
+.ledger26-status--compact .ledger26-pregame-inline--prob{flex-wrap:wrap}
+.ledger26-status--compact .ledger26-pregame-inline--margin{border-top:1px solid #ad9878;flex-wrap:nowrap}
+.ledger26-status--compact .ledger26-pregame-inline .ledger26-pregame-prob,
+.ledger26-status--compact .ledger26-pregame-inline .ledger26-pregame-edge{display:inline!important;width:auto!important;align-self:auto;border:0!important;margin:0!important;padding:0!important;flex:0 0 auto;line-height:1!important}
+.ledger26-status--compact .ledger26-pregame-inline .ledger26-pregame-team{max-width:100%;font-size:9px;line-height:1.15;text-align:left}
+.ledger26-status--compact .ledger26-pregame-inline .ledger26-pregame-caption{font-size:8px;line-height:1.1;white-space:normal;text-align:left}
+@media(max-width:640px){
+ .ledger26-status--compact .ledger26-pregame-inline{gap:5px;padding:6px 2px}
+ .ledger26-status--compact .ledger26-pregame-inline .ledger26-pregame-prob{font-size:22px!important}
+ .ledger26-status--compact .ledger26-pregame-inline .ledger26-pregame-edge{font-size:17px}
+ .ledger26-status--compact .ledger26-pregame-inline .ledger26-pregame-team{font-size:8px}
+ .ledger26-status--compact .ledger26-pregame-inline .ledger26-pregame-caption{font-size:7px}
+}
+
+.ledger26-matchup-detail{padding:10px 12px;border-bottom:1px solid #b59d7d;background:#faf3e6;color:#392a1e;font:12px/1.35 Georgia,serif}
+.ledger26-matchup-detail>strong{display:block;font:700 10px/1.25 Georgia,serif;letter-spacing:.06em;margin-bottom:6px}
+.ledger26-matchup-team{display:flex;justify-content:space-between;gap:8px;padding:3px 0}
+.ledger26-matchup-team>b{min-width:0;overflow-wrap:anywhere}
+.ledger26-matchup-team>span{text-align:right}
+@media(max-width:640px){.ledger26-matchup-team{flex-direction:column;gap:1px}.ledger26-matchup-team>span{text-align:left}}

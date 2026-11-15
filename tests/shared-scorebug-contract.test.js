@@ -75,14 +75,14 @@ test('pregame shows only one compact RETRO forecast',()=>{
  }});
  assert.match(projection,/72%/);
  assert.match(projection,/−5\.5/);
- assert.match(projection,/RETRO FORECAST/);
+ assert.match(projection,/RETRO MARGIN/);
  assert.doesNotMatch(projection,/PROJECTED FINAL|72–78|WIN CHANCE|PROJECTED SPREAD/);
  assert.equal((projection.match(/ledger26-pregame-prob/g)||[]).length,1);
  for(const phase of ['live','final']){
   const out=render({phase,away,home,suppressPress:true,forecast:{
    team:'Home',probability:0.72,margin:5.5,projectedAwayScore:72,projectedHomeScore:78
   }});
-  assert.doesNotMatch(out,/RETRO FORECAST|PROJECTED FINAL/);
+  assert.doesNotMatch(out,/RETRO MARGIN|PROJECTED FINAL/);
  }
 });
 test('pregame verified form has compact streak and disappears at tipoff',()=>{
@@ -97,4 +97,13 @@ test('ledger cards have a single pregame forecast presentation',()=>{
  assert.doesNotMatch(slate,/RETRO EXPECTED SCORE|ledgerScorebug\(g\)\+scoreNote|\+when\+retro\+right/);
  assert.match(receipt,/set\(summary,status==='upcoming'\?'':markup\)/);
  assert.match(receipt,/set\(summary,status==='upcoming'\?'':receipt\('women'/);
+});
+
+test('pregame favorite and probability share one row, margin and label share another',()=>{
+ const output=render({phase:'upcoming',away,home,suppressPress:true,forecast:{team:'Home',probability:.84,margin:12.5}});
+ assert.match(output,/ledger26-pregame-inline--prob/);
+ assert.match(output,/ledger26-pregame-inline--margin/);
+ assert.match(output,/<strong class="ledger26-pregame-edge">−12\.5<\/strong>\s*<span class="ledger26-pregame-caption">RETRO MARGIN<\/span>/);
+ assert.doesNotMatch(output,/PROJECTED FINAL|PROJECTED SPREAD|WIN CHANCE/);
+ assert.doesNotMatch(render({phase:'final',away,home,suppressPress:true}),/ledger26-pregame-inline/);
 });
