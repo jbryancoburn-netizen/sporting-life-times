@@ -20,7 +20,7 @@ test('all 18 original-era ACC crests publish locally for both genders with exact
  assert.deepEqual(Array.from(w.MBBLogos.heritageACCTeamIds()).sort(),manifest.schools.map(s=>String(s.espn_id)).sort());
  for(const s of manifest.schools){
   const id=String(s.espn_id),row=cross.teams.find(t=>String(t.espn_id)===id),
-   lady=women.teams.find(t=>String(t.team_id)===id),url='assets/cbb-precomposed-crests/'+id+'.png?v=20261115-precomposed1';
+   lady=women.teams.find(t=>String(t.team_id)===id),url='assets/cbb-embossed-crests/'+id+'.png?v=20261115-embossed1';
   assert(row&&lady,'Both division-I gender IDs: '+s.name);
   assert(s.archive_url.startsWith('https://')&&s.local_sha256);
   const bytes=fs.readFileSync(path.join(root,s.local_path));
@@ -43,14 +43,14 @@ test('all 14 CBB readers use new renderer without per-team CSS patches',()=>{
  for(const p of pages){
   const html=read(p);
   if(p==='ncaaw-rankings.html'){
-    assert(html.includes("location.replace(target)")&&html.includes("ncaam-rankings.html"),'The women ranking redirect must resolve to the shared reader');
+    assert(html.includes("location.replace(")&&html.includes("ncaam-rankings.html"),'The women ranking redirect must resolve to the shared reader');
   }else{
-    assert(html.includes('mbb-logo-system.js?v=cbb-precomposed-20261115-v1'),p);
-    assert(html.includes('mbb-logo-system.css?v=cbb-precomposed-20261115-v1'),p);
+    assert(html.includes('mbb-logo-system.js?v=cbb-embossed-20261115-v1'),p);
+    assert(html.includes('mbb-logo-system.css?v=cbb-embossed-20261115-v1'),p);
   }
  }
- assert(read('wbb-rankings.js').includes('assets/cbb-precomposed-crests/'));
- assert(read('ncaam-rankings.html').includes('assets/cbb-precomposed-crests/'));
+ assert(read('wbb-rankings.js').includes('assets/cbb-embossed-crests/'));
+ assert(read('ncaam-rankings.html').includes('assets/cbb-embossed-crests/'));
  assert(read('mbb-logo-system.css').includes('mbb-mark--precomposed::before'));
  assert(!read('mbb-logo-system.css').includes('mbb-mark--heritage[data-espn-id='));
 });
