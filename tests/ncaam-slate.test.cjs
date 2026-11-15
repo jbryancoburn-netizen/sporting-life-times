@@ -9,7 +9,10 @@ const css=fs.readFileSync('ncaam-slate.css','utf8');
 const script=fs.readFileSync('ncaam-slate.js','utf8');
 const scorecardCss=fs.readFileSync('cbb-ledger-scorecard.css','utf8');
 assert(!/draftkings|onlyDraftKings|sportsbook|draftKingsByDate/i.test(script+html+scorecardCss), 'sportsbook lines and lookups must not reappear in the ledger');
-assert(script.includes('RETRO PROJECTION')&&script.includes('modelMargin'), 'RETRO margin must remain visible');
+assert(script.includes('modelMargin')&&script.includes('forecastLocked'), 'RETRO margin and locked-forecast source must remain connected');
+assert(script.includes('data/retro-pregame-archive-2026-27.json')&&script.includes('data/ncaaw-retro-pregame-archive-2026-27.json'), 'Both pretipoff snapshot archives must load');
+assert(script.includes('archivedForecast(current)')&&script.includes('locked.home_win_probability')&&script.includes('locked.projected_home_margin'), 'The sole displayed forecast must prefer an exact archival match');
+assert(!script.includes('<small>RETRO PROJECTION</small>'), 'Do not show a second conflicting header projection');
 assert(script.includes('data-slt-ledger-press-open')&&script.includes('ledger26-network'), 'press and network must remain in header');
 assert(script.includes('broadcastByDate')&&script.includes('verifiedBroadcasts'), 'verified TV lookup must remain connected');
 assert(script.includes('cbb-published-networks-2026-27.json')&&script.includes('publishedBroadcasts'),

@@ -453,6 +453,30 @@ let selected=/^\d{4}-\d\d-\d\d$/.test(url.searchParams.get('date')||'')?url.sear
 let filter=['all','live','final','upcoming','exhibition'].includes(url.searchParams.get('view'))?url.searchParams.get('view'):'all';
 let search='',loaded=[],ratings=new Map(),retroTies=new Map(),retroPublished=null,retroPending=0,lastUpdate='',limit=Number.POSITIVE_INFINITY,loading=false,sourceError='';
 let pollRankings=new Map(),pollAsOf='';
+let lockedForecasts=new Map();
+const publishLockedForecasts=data=>{
+ if(data?.season!=='2026-27'||!Array.isArray(data.predictions))return;
+ const next=new Map(),conflicts=new Set();
+ for(const p of data.predictions){
+  const id=cleanId(p.id),key=gameKey(id,p.date);
+  if(!validId(id)||!/^2026-\d\d-\d\d$/.test(String(p.date))||
+     !Number.isFinite(p.projected_home_margin)||!Number.isFinite(p.home_win_probability)||
+     p.home_win_probability<0||p.home_win_probability>1||conflicts.has(key))continue;
+  if(next.has(key)){next.delete(key);conflicts.add(key);continue;}
+  next.set(key,p);
+ }
+ lockedForecasts=next;
+};
+const archivedForecast=g=>{
+ if(g.phase!=='upcoming'||g.kind!=='regular')return null;
+ const p=lockedForecasts.get(gameKey(g.id,g.day));
+ if(!p||String(p.home_id)!==String(g.home?.canonical)||
+    String(p.away_id)!==String(g.away?.canonical)||
+    !Number.isFinite(p.projected_home_margin)||
+    !Number.isFinite(p.home_win_probability)||p.home_win_probability<0||p.home_win_probability>1)return null;
+ return p;
+};
+
  // Authentic opponent marks outside the 365-school Division I RETRO registry.
  // ESPN event IDs are used only for logos/colors, never team membership.
  let outsideMarks={};
@@ -796,7 +820,7 @@ const ledgerScorebug=g=>{
        lastFive:Array.isArray(p.results)?p.results.slice(-5).map(r=>r.result):[]};
    })()});
  return window.SLTBasketballScorebug?.render({
-  phase:g.phase,gender:women?'women':'men',status:g.status||'LIVE',momentum:g.momentum||null,possession:g.possession||null,
+  phase:g.phase,gender:women?'women':'men',forecastLocked:Boolean(g.forecastLocked),status:g.status||'LIVE',momentum:g.momentum||null,possession:g.possession||null,
   date:g.day,tipoff:formatClock(g),venue:g.venue||'',network:g.broadcast||'',suppressPress:true,
   suppressMonogram:true,suppressTipoffFallback:true,
   forecast:(()=>{
@@ -841,7 +865,9 @@ const currentScore=g=>{
  return {...g,away:{...g.away,score:s.away},home:{...g.home,score:s.home}};
 };
 function card(original,featured,opened=false){
- const g=currentScore(original);
+ const current=currentScore(original);
+ const locked=archivedForecast(current);
+ const g=locked?{...current,probability:locked.home_win_probability,projectedHomeMargin:locked.projected_home_margin,forecastLocked:true}:current;
  const external=g.kind==='exhibition';
  const source=external?(g.evidence==='secondary'?'Published secondary result':'University / cited result'):
    g.phase==='final'?(g.evidence==='final-source'?'Attributed final':'Reported final'):
@@ -876,9 +902,9 @@ function card(original,featured,opened=false){
  const favorite=womenWinForecast?(g.probability>=0.5?g.home.name:g.away.name):'';
  // The right-hand scorebug rail is the single source for win chance and margin.
  // Keep the published expected score as a compact editorial footer, not a second forecast banner.
- const retro=g.phase==='upcoming'&&!women&&Number.isFinite(modelMargin)?
-   '<span class="ledger26-line" title="Independent RETRO projected margin"><small>RETRO PROJECTION</small><strong>'+spreadText(modelMargin)+'</strong></span>':'';
- const scoreNote=womenReady?
+ // Only the right-hand scorebug rail displays RETRO pregame projections.
+ const retro='';
+ const scoreNote=!locked&&womenReady?
    '<div class="ledger26-score-note" aria-label="RETRO expected final scores">'+
    '<span class="ledger26-score-note-label">RETRO EXPECTED SCORE</span>'+
    '<strong>'+esc(g.away.name)+' <span>'+Math.round(g.projectedAwayScore)+'</span>'+
@@ -997,13 +1023,14 @@ async function refresh(){
       publishedBroadcasts.clear();for(const [k,v] of next)publishedBroadcasts.set(k,v);
     }
   }catch{/* Keep previous cache when the newest broadcast publication is unavailable. */}
-  const menFiles=['data/mbb-live.json','data/ncaam-2026-27-upcoming-forecasts.json','data/ncaam-2026-27-retro-primary.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json','data/mbb-exhibition-finals-2026-27.json','data/mbb-arena-registry.json','data/ncaam-score-calibration.json','data/ncaam-2026-27-national-polls.json','data/mbb-out-of-division-opponent-logos.json','data/mbb-retro-live-finals.json','data/mbb-overall-records-2026-27.json','data/mbb-non-di-verified-finals-2026-27.json'];
-  const womenFiles=['data/ncaaw-2026-27-games.json','data/ncaaw-2026-27-retro-primary.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json','data/ncaaw-2026-27-teams.json','data/mbb-live.json','data/mbb-out-of-division-opponent-logos.json','data/ncaaw-score-calibration.json'];
+  const menFiles=['data/mbb-live.json','data/ncaam-2026-27-upcoming-forecasts.json','data/ncaam-2026-27-retro-primary.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json','data/mbb-exhibition-finals-2026-27.json','data/mbb-arena-registry.json','data/ncaam-score-calibration.json','data/ncaam-2026-27-national-polls.json','data/mbb-out-of-division-opponent-logos.json','data/mbb-retro-live-finals.json','data/mbb-overall-records-2026-27.json','data/mbb-non-di-verified-finals-2026-27.json','data/retro-pregame-archive-2026-27.json'];
+  const womenFiles=['data/ncaaw-2026-27-games.json','data/ncaaw-2026-27-retro-primary.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json','data/ncaaw-2026-27-teams.json','data/mbb-live.json','data/mbb-out-of-division-opponent-logos.json','data/ncaaw-score-calibration.json','data/ncaaw-retro-pregame-archive-2026-27.json'];
   const paths=women?womenFiles:menFiles;
   if(!women){try{const b=await fetchJSON('data/cbb-verified-broadcasts-2026-27.json');verifiedBroadcasts.clear();for(const e of b.entries||[])if(e.network&&e.id)verifiedBroadcasts.set(String(e.id),e)}catch{}}
   const output=await Promise.all(paths.map(p=>fetchJSON(p).catch(()=>null)));
   if(women){
-    const [results,rank,c,pal,wTeams,feed,otherLogos,womenCoefficients]=output;
+    const [results,rank,c,pal,wTeams,feed,otherLogos,womenCoefficients,archive]=output;
+     publishLockedForecasts(archive);
      outsideMarks=otherLogos?.teams||{};
     if(!results||rank?.gender!=='women'||rank.starting_elo!==1500)throw Error('Women’s game or rating data unavailable');
     cross=c||{teams:[]};retroPublished=rank;ratings=rankingsMap(rank);updateRetroTies();palette=pal?.wbb||pal?.mbb||{};
@@ -1013,7 +1040,8 @@ async function refresh(){
     loaded=dedupeFixtures(normalizeWomen(results,rank,cross,womenCoefficients));
     lastUpdate='women’s rolling fixture ledger';
   }else{
-    const [feed,forecast,rank,c,pal,ex,arenas,calibration,polls,otherLogos,archivedFinals,overall,outside]=output;
+    const [feed,forecast,rank,c,pal,ex,arenas,calibration,polls,otherLogos,archivedFinals,overall,outside,archive]=output;
+     publishLockedForecasts(archive);
      outsideMarks=otherLogos?.teams||{};
     if(!feed||rank?.model!=='retro-clean-slate'||rank.starting_elo!==1500||rank.rankings?.length!==365)
       throw Error('Men’s scoreboard or certified RETRO feed unavailable');
