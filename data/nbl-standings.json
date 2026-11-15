@@ -6,19 +6,19 @@
   "elo_approved": false,
   "source": "ESPN site API, completed finals since NBL27 regular-season opening",
   "season_start": "2026-09-19",
-  "updated_at": "2026-11-14T22:35:47.089472+00:00",
-  "games_replayed": 66,
+  "updated_at": "2026-11-15T06:45:28.552161+00:00",
+  "games_replayed": 67,
   "teams": 10,
   "rows": [
     {
       "team": "Sydney Kings",
-      "wins": 8,
+      "wins": 9,
       "losses": 4,
-      "played": 12,
-      "win_pct": 0.667,
-      "points_for": 1171,
-      "points_against": 1064,
-      "points_pct": 110.06
+      "played": 13,
+      "win_pct": 0.692,
+      "points_for": 1282,
+      "points_against": 1166,
+      "points_pct": 109.95
     },
     {
       "team": "Tasmania JackJumpers",
@@ -83,12 +83,12 @@
     {
       "team": "New Zealand Breakers",
       "wins": 5,
-      "losses": 8,
-      "played": 13,
-      "win_pct": 0.385,
-      "points_for": 1167,
-      "points_against": 1169,
-      "points_pct": 99.83
+      "losses": 9,
+      "played": 14,
+      "win_pct": 0.357,
+      "points_for": 1269,
+      "points_against": 1280,
+      "points_pct": 99.14
     },
     {
       "team": "Illawarra Hawks",
@@ -112,6 +112,18 @@
     }
   ],
   "recent_finals": [
+    {
+      "id": "401875298",
+      "played_at": "2026-11-15T04:00Z",
+      "home": "Sydney Kings",
+      "away": "New Zealand Breakers",
+      "home_score": 111,
+      "away_score": 102,
+      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875298/breakers-kings",
+      "verified": false,
+      "provider": "espn",
+      "state": "candidate"
+    },
     {
       "id": "401875302",
       "played_at": "2026-11-14T10:30Z",
@@ -216,18 +228,6 @@
       "home_score": 110,
       "away_score": 99,
       "source_url": "https://www.espn.com/nbl/game/_/gameId/401875307/phoenix-kings",
-      "verified": false,
-      "provider": "espn",
-      "state": "candidate"
-    },
-    {
-      "id": "401875286",
-      "played_at": "2026-11-07T08:30Z",
-      "home": "Melbourne United",
-      "away": "Brisbane Bullets",
-      "home_score": 120,
-      "away_score": 92,
-      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875286/bullets-united",
       "verified": false,
       "provider": "espn",
       "state": "candidate"
