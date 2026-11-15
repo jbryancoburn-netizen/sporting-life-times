@@ -147,6 +147,8 @@ const womenColors=womenPalette?.mbb||{};
 const schoolLogo=t=>{
  if(gender!=='women')return typeof logos?.render==='function'?logos.render({ncaaId:t.team_id||'',name:t.team||'',size:'power'}):'';
  const school=womenById.get(String(t.team_id))||t, name=t.team||school.team||'Team', id=String(t.team_id||school.team_id||'');
+ if(typeof logos?.render==='function' && id){const shared=logos.render({espnId:id,name,size:'power'});if(shared&&!shared.includes('mbb-mark--missing'))return shared;}
+
  const heritage=logos?.retroURLForESPN?.(id)||'';
  const source=heritage||school.logo||t.logo||'';
  const safe=/^(?:https:\/\/a\.espncdn\.com\/i\/teamlogos\/ncaa\/500\/\d+\.png|[\w.\/-]+\.(?:png|webp|svg))$/i.test(source);
