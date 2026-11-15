@@ -69,23 +69,23 @@ const SEC_HERITAGE=Object.freeze({
  '238':'assets/cbb-sec-1980s/vanderbilt.png?v=20261114-sec16-live1'
 });
 const BIG_EAST_HERITAGE=Object.freeze({
- '2086':'assets/cbb-big-east-1980s/butler.png?v=20261114-bigeast11-live1',
- '156':'assets/cbb-big-east-1980s/creighton.png?v=20261114-bigeast11-live1',
- '305':'assets/cbb-big-east-1980s/depaul.png?v=20261114-bigeast11-live1',
- '46':'assets/cbb-big-east-1980s/georgetown.png?v=20261114-bigeast11-live1',
- '269':'assets/cbb-big-east-1980s/marquette.png?v=20261114-bigeast11-live1',
- '2507':'assets/cbb-big-east-1980s/providence.png?v=20261114-bigeast11-live1',
- '2550':'assets/cbb-big-east-1980s/seton-hall.png?v=20261114-bigeast11-live1',
- '2599':'assets/cbb-big-east-1980s/st-johns.png?v=20261114-bigeast11-live1',
- '41':'assets/cbb-big-east-1980s/uconn.png?v=20261114-bigeast11-live1',
- '222':'assets/cbb-big-east-1980s/villanova.png?v=20261114-bigeast11-live1',
- '2752':'assets/cbb-big-east-1980s/xavier.png?v=20261114-bigeast11-live1'
+ '2086':'assets/cbb-big-east-1980s/butler.png?v=20261114-bigeast-refresh2',
+ '156':'assets/cbb-big-east-1980s/creighton.png?v=20261114-bigeast-refresh2',
+ '305':'assets/cbb-big-east-1980s/depaul.png?v=20261114-bigeast-refresh2',
+ '46':'assets/cbb-big-east-1980s/georgetown.png?v=20261114-bigeast-refresh2',
+ '269':'assets/cbb-big-east-1980s/marquette.png?v=20261114-bigeast-refresh2',
+ '2507':'assets/cbb-big-east-1980s/providence.png?v=20261114-bigeast-refresh2',
+ '2550':'assets/cbb-big-east-1980s/seton-hall.png?v=20261114-bigeast-refresh2',
+ '2599':'assets/cbb-big-east-1980s/st-johns.png?v=20261114-bigeast-refresh2',
+ '41':'assets/cbb-big-east-1980s/uconn.png?v=20261114-bigeast-refresh2',
+ '222':'assets/cbb-big-east-1980s/villanova.png?v=20261114-bigeast-refresh2',
+ '2752':'assets/cbb-big-east-1980s/xavier.png?v=20261114-bigeast-refresh2'
 });
 const A10_HERITAGE=Object.freeze({
- '2244':'assets/cbb-atlantic-10-1980s/george-mason.png?v=a10-archive-20261114-1',
- '45':'assets/cbb-atlantic-10-1980s/george-washington.png?v=a10-archive-20261114-1',
- '2350':'assets/cbb-atlantic-10-1980s/loyola-chicago.png?v=a10-archive-20261114-1',
- '227':'assets/cbb-atlantic-10-1980s/rhode-island.png?v=a10-archive-20261114-1'
+ '2244':'assets/cbb-atlantic-10-1980s/george-mason.png?v=20261114-a10-refresh2',
+ '45':'assets/cbb-atlantic-10-1980s/george-washington.png?v=20261114-a10-refresh2',
+ '2350':'assets/cbb-atlantic-10-1980s/loyola-chicago.png?v=20261114-a10-refresh2',
+ '227':'assets/cbb-atlantic-10-1980s/rhode-island.png?v=20261114-a10-refresh2'
 });
 const retroURLForESPN=id=>BIG_TEN_HERITAGE[String(id)]||ACC_HERITAGE[String(id)]||SEC_HERITAGE[String(id)]||BIG_EAST_HERITAGE[String(id)]||A10_HERITAGE[String(id)]||'';
 
