@@ -80,7 +80,21 @@ async function run(){
  const bigEastManifest=JSON.parse(read('data/cbb-big-east-1980s-source-manifest.json'));
  const vintageBigEast=Object.fromEntries(bigEastManifest.schools.map(s=>[String(s.espn_id),s.slug]));
  assert.equal(Object.keys(vintageBigEast).length,11,'Big East archive needs 11 unique schools');
- const anyVintage=id=>!!(vintage[id]||vintageACC[id]||vintageSEC[id]||vintageBigEast[id]);
+ // Current conference archive additions use exact numeric identities and local paths.
+ // Verify the renderer's additional A10/Mountain West marks as vintage, too.
+ const heritageSource=read('mbb-logo-system.js');
+ const additional={};
+ for(const line of heritageSource.split('\n')){
+   if(!line.includes('assets/cbb-atlantic-10-1980s/')&&!line.includes('assets/cbb-mountain-west-1980s/'))continue;
+   const match=line.match(/^\s*'([0-9]+)':'([^']+)'/);
+   if(!match)continue;
+   const id=match[1],url=match[2];
+   assert(!additional[id],'Duplicate supplementary historic crest '+id);
+   assert(fs.existsSync(url.split('?')[0]),'Missing supplementary local crest '+id);
+   additional[id]=url;
+ }
+ assert.equal(Object.keys(additional).length,23,'Expected 13 A10 and 10 Mountain West local crests');
+ const anyVintage=id=>!!(vintage[id]||vintageACC[id]||vintageSEC[id]||vintageBigEast[id]||additional[id]);
  assert.equal(Object.keys(vintage).length,18,'Current Big Ten has exactly 18 vintage crests');
  for(const [id,slug] of Object.entries(vintage)){
    const path='assets/cbb-big-ten-1980s/centered/'+slug+'.png';
@@ -94,7 +108,8 @@ async function run(){
    'assets/cbb-big-ten-1980s/centered/'+vintage[id]+'.png?v='+(id==='127'?'20261114-gruff-full-art1':'20261114-bigten-live1'):
    vintageACC[id]?'assets/cbb-acc-1980s/'+vintageACC[id]+'.png?v='+(id==='221'?'20261114-pitt-standing-1980-approved1':'20261114-acc18-live1'):
    vintageSEC[id]?'assets/cbb-sec-1980s/'+vintageSEC[id]+'.png?v=20261114-sec16-live1':
-   vintageBigEast[id]?'assets/cbb-big-east-1980s/'+vintageBigEast[id]+'.png?v=20261114-bigeast11-live1':item.logo_url;
+   vintageBigEast[id]?'assets/cbb-big-east-1980s/'+vintageBigEast[id]+'.png?v=20261114-bigeast11-live1':
+   additional[id]||item.logo_url;
  const seen=new Set(),kinds={embedded_roundel:0,flat:0,unverified:0};
  for(const t of cross.teams){
   const id=String(t.espn_id),item=registry.teams[id],brand=colors[id];
@@ -121,7 +136,7 @@ async function run(){
   assert(crest.includes(expectedLogo(id,item)),'Wrong logo URL '+t.name);
   assert.equal(crest.includes('mbb-mark--heritage'),anyVintage(id),
     'Retro logo was assigned to the wrong conference identity '+t.name);
-  if(anyVintage(id)){
+  if(vintage[id]){
     assert(!crest.includes('data-logo-alternate="https://'),
       'Historical Big Ten logo must not silently fall back to modern CDN: '+t.name);
     assert(ctx.window.MBBLogos.logoURL(t.id).includes(expectedLogo(id,item)),

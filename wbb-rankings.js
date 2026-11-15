@@ -85,7 +85,7 @@ try{
  const [ratings,directory,palette]=await Promise.all([req('data/ncaaw-2026-27-retro-primary.json'),req('data/ncaaw-2026-27-teams.json'),req('data/dual-ring-team-palette.json').catch(()=>null)]);
  ringColors=palette?.mbb||{}; // Preserve rankings when the optional palette is temporarily unavailable.
  if(ratings.gender!=='women'||ratings.season!=='2026-27'||ratings.rankings?.length!==363||directory.teams?.length!==363)throw Error('Women’s 363-team ratings source did not validate');
- const rows=ratings.rankings,byId=new Map(directory.teams.map(t=>[String(t.team_id),t]));
+ let rows=ratings.rankings,byId=new Map(directory.teams.map(t=>[String(t.team_id),t]));
  const con= $('#wbbr-conf');for(const name of [...new Set(rows.map(r=>r.conference))].filter(Boolean).sort())con.add(new Option(name,name));
  $('#wbbr-status').textContent='Women-only RETRO · 363 Division I programs · Updated '+(ratings.as_of||'when verified finals are published')+'. Ratings begin at 1500 and change only after verified women’s games.';
  const render=()=>{
@@ -103,5 +103,20 @@ try{
   }).join('');
  };
  con.addEventListener('change',render);$('#wbbr-order').addEventListener('change',render);render();
+ // Live RETRO register: recheck the published women's ledger each minute,
+ // without resetting search filters or requiring a manual page reload.
+ const pollForFinals=async()=>{
+  if(document.hidden)return;
+  try{
+   const latest=await req('data/ncaaw-2026-27-retro-primary.json?refresh='+Date.now());
+   if(latest.gender!=='women'||latest.season!=='2026-27'||latest.rankings?.length!==363||new Set(latest.rankings.map(t=>String(t.team_id))).size!==363||latest.rankings.some(t=>!Number.isFinite(Number(t.elo))))throw Error('Incomplete women's RETRO publication');
+   if(latest.as_of===ratings.as_of&&latest.games_played===ratings.games_played&&JSON.stringify(latest.rankings.map(t=>[t.team_id,t.elo,t.wins,t.losses,t.rank]))===JSON.stringify(rows.map(t=>[t.team_id,t.elo,t.wins,t.losses,t.rank])))return;
+   rows=latest.rankings;ratings.as_of=latest.as_of;ratings.games_played=latest.games_played;
+   $('#wbbr-status').textContent='Women-only RETRO · 363 Division I programs · Updated '+(latest.as_of||'after verified finals')+'. Ratings begin at 1500 and change only after verified women’s games.';
+   render();
+  }catch(err){console.warn('Women’s RETRO refresh unavailable; preserving last verified ratings',err);}
+ };
+ const refreshTimer=setInterval(pollForFinals,60000);
+ window.addEventListener('pagehide',()=>clearInterval(refreshTimer),{once:true});
 }catch(e){$('#wbbr-status').textContent='Published women’s ratings temporarily unavailable. No other dataset has been substituted.';$('#wbbr-list').textContent=e.message;}
 })();
