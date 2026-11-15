@@ -20,7 +20,7 @@ MID_R=232
 INNER_R=214
 ART_R=202
 SOURCE=(ROOT/"mbb-logo-system.js").read_text()
-PAT=re.compile(r"'(\\d+)':'(assets/cbb-[^'\\?]+\\.png)\\?v=[^']+'")
+PAT=re.compile(r"'(\d+)':'(assets/cbb-[^'?]+\.png)\?v=[^']+'")
 PALETTE=json.loads((ROOT/"data/dual-ring-team-palette.json").read_text())["mbb"]
 entries=PAT.findall(SOURCE)
 if len(entries)<75 or len(set(id for id,_ in entries))!=len(entries):
