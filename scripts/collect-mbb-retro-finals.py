@@ -127,6 +127,13 @@ def main():
                     previous.get('away_score') == a and previous.get('home_score') == h):
                     candidate['site_verified'] = True
                     candidate['source'] = previous.get('source', candidate['source'])
+            # A later NCAA-origin snapshot can be incomplete (e.g. a 70-68
+            # regulation snapshot before an 84-83 overtime final). Never
+            # overwrite a published, independently certified final with a
+            # conflicting feed snapshot; retain the discrepancy for review.
+            if (previous and previous.get('score_certified') is True and
+                (previous['home_score'], previous['away_score']) != (h, a)):
+                continue
             collected[candidate['id']] = candidate
     now = datetime.now(timezone.utc)
     today = now.astimezone(EASTERN).date()
@@ -169,6 +176,10 @@ def main():
                 if mismatches:
                     failures.append(day.isoformat()+': conflicting archived final '+row['id']+
                                     ' ('+', '.join(mismatches)+'); held prior published result')
+                    continue
+                # Preserve the provenance and certification of independently
+                # checked finals even when the new feed agrees with the score.
+                if previous.get('score_certified') is True:
                     continue
                 if previous.get('site_verified') and not row.get('site_verified'):
                     continue

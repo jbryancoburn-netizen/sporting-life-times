@@ -255,8 +255,9 @@ const primary=heritage||(known?(school.logo_url_verified?safeURL(school.official
 // Keep verified modern artwork as the fallback whenever a vintage local asset fails.
 // No other sport uses this renderer, and the badge retains its two-color ring.
 const modern=known?(school.logo_url_verified?safeURL(school.official_logo_url||school.logo_url):''):'';
-const backup=heritage?(modern||(school.provider_logo_candidates||[]).map(safeURL).find(Boolean)||''):
- known?(school.provider_logo_candidates||[]).map(safeURL).find(x=>x&&x!==primary)||'':
+// Local heritage artwork must not silently switch to a modern third-party
+// logo. If a selected local file is unavailable, fail visibly for audit.
+const backup=heritage?'':known?(school.provider_logo_candidates||[]).map(safeURL).find(x=>x&&x!==primary)||'':
  outsideEntry?safeURL(outsideEntry.logo_alternate_url)||'':'';
 const initials=name.split(/\s+/).slice(0,2).map(v=>v[0]||'').join('').toUpperCase();
 const kind=/^(small|score|power|schedule|hero|featured|history)$/.test(options.size||'')?options.size:'small';
