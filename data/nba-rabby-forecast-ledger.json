@@ -2,7 +2,7 @@
   "schema": "rabby-nba-prospective-v1",
   "season": "2026-27",
   "created_at": "2026-11-01T19:25:57.157Z",
-  "updated_at": "2026-11-15T10:53:21.317Z",
+  "updated_at": "2026-11-15T17:28:46.697Z",
   "method": "First qualifying early (>2h) or near-tipoff (10-120m) snapshot is final. Never create a retrospective forecast.",
   "forecasts": [
     {
@@ -1781,6 +1781,31 @@
       }
     },
     {
+      "id": "espn-nba-401909985",
+      "date": "2026-11-15T18:00Z",
+      "away": "IND",
+      "home": "PHI",
+      "phase": "near_tipoff",
+      "captured_at": "2026-11-15T17:28:46.697Z",
+      "away_score": 108,
+      "home_score": 114,
+      "total": 221.742,
+      "margin": 5.566,
+      "pace": 102.342,
+      "home_win_prob": 0.656518,
+      "league_total_baseline": 225.885,
+      "source_games": 188,
+      "away_games": 13,
+      "home_games": 13,
+      "model_version": "6c0d5fb8196929fa50c7",
+      "inputs": {
+        "earned_sha256": "d01771cac60816edc873d942a9662756d6af63b88180930f8b286707121ea74b",
+        "boxscores_sha256": "c9c4ce47ffe2a126843d5f8d4c976bea868fc3e0d5ccdf121d5d149f0d8bda9b",
+        "priors_sha256": "72ed5520e97b68f34939875034990d4ddcc7f3ddf16efd56d54c918a9359c635",
+        "schedule_sha256": "f947e866e40eb95bea3a8fcecfc09ff6a67cf7873276b7acf79aa766ca8b8e8c"
+      }
+    },
+    {
       "id": "espn-nba-401909986",
       "date": "2026-11-15T21:00Z",
       "away": "LAL",
@@ -2428,7 +2453,7 @@
     },
     "by_model_version": {
       "6c0d5fb8196929fa50c7": {
-        "forecasts": 79,
+        "forecasts": 80,
         "early": {
           "sample": 52,
           "team_score_mae": 9.279,
