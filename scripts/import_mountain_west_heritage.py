@@ -24,12 +24,13 @@ PINNED={
  '62':'https://content.sportslogos.net/logos/31/696/full/hawaii_warriors_logo_primary_19823834.png',
  '2751':'https://content.sportslogos.net/logos/35/918/full/wyoming_cowboys_logo_primary_19869705.png',
  '2439':'https://content.sportslogos.net/logos/35/888/full/unlv_rebels_logo_primary_19833350.png',
+ '302':'https://content.sportslogos.net/logos/30/1831/full/california_davis_aggies_logo_primary_19599786.png',
  '2638':'https://content.sportslogos.net/logos/35/889/full/utep-miners-logo-primary-1980-6989.png'
 }
 PINNED_ERA={
  '167':(1973,1999),'2005':(1963,1994),'2253':(1978,2013),
  '2440':(1979,1993),'23':(1983,1999),'2638':(1980,1999),
- '62':(1980,2000),'2751':(1986,2007),'2439':(1983,1997)
+ '62':(1980,2000),'2751':(1986,2007),'2439':(1983,1997),'302':(1959,1999)
 }
 S=requests.Session()
 S.headers.update({'User-Agent':'Mozilla/5.0 (Sporting Life Times historic basketball logo archive)'})
