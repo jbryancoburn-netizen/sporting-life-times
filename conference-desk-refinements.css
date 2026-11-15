@@ -1,6 +1,4 @@
 /* Conference-only repairs, loaded after the shared newspaper styles. */
-body[data-page="conference"] .ledger-school {min-width:0;display:grid;gap:5px}
-body[data-page="conference"] .ledger-school-ppg {font:11px/1.3 Georgia,serif;color:#66513b;padding-left:61px}
 body[data-page="conference"] .conference-ledger td.ledger-university .mbb-mark {--mbb-size:52px;flex-shrink:0}
 body[data-page="conference"] .conference-ledger td.ledger-university .team-name {gap:9px}
 body[data-page="conference"] .conference-ledger .ledger-place {box-sizing:border-box;min-width:0;width:42px;padding:4px 1px;font-size:13px;white-space:nowrap}
@@ -40,27 +38,54 @@ body[data-conference="big-ten"] .victorian-seed-crown {border-bottom:3px double 
  .big-ten-schools {gap:6px 8px;padding:10px 0}
  .big-ten-schools a {flex-basis:36px}
 }
-/* Phone register: roomy school line, then clearly separated records and rating. */
-@media(max-width:700px) {
- body[data-page="conference"] .victorian-unified-ledger .conference-ledger :is(thead tr,tbody tr) {grid-template-columns:46px minmax(0,1fr) minmax(0,1fr) minmax(0,1fr);column-gap:6px}
- body[data-page="conference"] .victorian-unified-ledger .conference-ledger tbody tr {grid-template-rows:auto 22px 20px;padding:10px 7px;row-gap:2px;margin:7px 0}
- body[data-page="conference"] .victorian-unified-ledger .conference-ledger tbody td:nth-child(1) {grid-column:1;grid-row:1/4;align-self:center;padding:2px!important}
- body[data-page="conference"] .victorian-unified-ledger .conference-ledger tbody td:nth-child(2) {grid-column:2/5;grid-row:1;padding:0 0 8px!important}
- body[data-page="conference"] .victorian-unified-ledger .conference-ledger tbody td:nth-child(3) {grid-column:2;grid-row:2}
- body[data-page="conference"] .victorian-unified-ledger .conference-ledger tbody td:nth-child(4) {grid-column:2;grid-row:3}
- body[data-page="conference"] .victorian-unified-ledger .conference-ledger tbody td:nth-child(6) {grid-column:3;grid-row:2}
- body[data-page="conference"] .victorian-unified-ledger .conference-ledger tbody td:nth-child(7) {grid-column:3;grid-row:3}
- body[data-page="conference"] .victorian-unified-ledger .conference-ledger tbody td:nth-child(9) {display:flex!important;flex-direction:column;justify-content:center;grid-column:4;grid-row:2/4;gap:3px;font-size:15px}
- body[data-page="conference"] .victorian-unified-ledger .conference-ledger .ledger-retro-rank {margin:0;font-size:10px}
- body[data-page="conference"] .victorian-unified-ledger .conference-ledger thead tr {grid-template-rows:auto auto;row-gap:7px;padding:5px 7px}
- body[data-page="conference"] .victorian-unified-ledger .conference-ledger thead th:nth-child(1) {grid-column:1;grid-row:1}
- body[data-page="conference"] .victorian-unified-ledger .conference-ledger thead th:nth-child(2) {grid-column:2/5;grid-row:1}
- body[data-page="conference"] .victorian-unified-ledger .conference-ledger thead th:nth-child(3) {grid-column:2;grid-row:2}
- body[data-page="conference"] .victorian-unified-ledger .conference-ledger thead th:nth-child(6) {grid-column:3;grid-row:2}
- body[data-page="conference"] .victorian-unified-ledger .conference-ledger thead th:nth-child(9) {display:block!important;grid-column:4;grid-row:2;align-self:center}
- body[data-page="conference"] .victorian-unified-ledger .conference-ledger td.ledger-university .team-name {font-size:15px;gap:9px}
- body[data-page="conference"] .ledger-school {width:100%;gap:3px}
- body[data-page="conference"] .ledger-school-ppg {padding-left:61px}
- body[data-page="conference"] .victorian-unified-ledger .conference-ledger .ledger-place {width:40px;font-size:12px;min-height:36px}
-}
 
+/* A compact ledger: one aligned row per school, one header for all six columns. */
+body[data-page="conference"] .conference-ledger col.ledger-team-col {width:21%}
+body[data-page="conference"] .conference-ledger col.ledger-projection-col {width:13%}
+body[data-page="conference"] .conference-ledger col.ledger-ppg-col {width:4%}
+body[data-page="conference"] .conference-ledger tbody td.ledger-ppg {font-size:12px;color:#3b2b1f;border-left:1px solid #c5ae8d;border-right:0}
+@media(max-width:700px) {
+ body[data-page="conference"] .panel.victorian-unified-ledger {padding:10px 6px 12px}
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger-scroll {padding:3px;overflow-x:auto;overscroll-behavior-x:contain}
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger {min-width:292px!important}
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger :is(thead tr,tbody tr) {
+  grid-template-columns:26px minmax(110px,1fr) 32px 34px 32px 42px;
+  column-gap:2px;box-sizing:border-box;
+ }
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger thead tr {grid-template-rows:auto;padding:0 2px;align-items:center}
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger thead th {
+  grid-row:1!important;padding:10px 1px!important;font-size:8px;line-height:1.2;
+  background:transparent;border-bottom:0;letter-spacing:0;
+ }
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger thead th:nth-child(1) {grid-column:1;font-size:0}
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger thead th:nth-child(1)::after {content:"#";font-size:10px}
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger thead th:nth-child(2) {grid-column:2;padding-left:4px!important}
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger thead th:nth-child(3) {grid-column:3;font-size:0}
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger thead th:nth-child(3)::after {content:"CONF";font-size:8px;margin:0}
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger thead th:nth-child(6) {grid-column:4;font-size:0}
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger thead th:nth-child(6)::after {content:"ALL";font-size:8px;margin:0}
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger thead th:nth-child(9) {display:block!important;grid-column:6}
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger thead th:nth-child(11) {display:block!important;grid-column:5}
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger tbody tr {
+  grid-template-rows:24px 24px;align-items:center;row-gap:0;
+  margin:0;padding:7px 2px;border:0;border-top:1px solid #c5ae8d;
+ }
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger tbody td {line-height:1.2;padding:0 1px!important;align-self:center}
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger tbody td:nth-child(1) {grid-column:1;grid-row:1/3}
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger tbody td:nth-child(2) {grid-column:2;grid-row:1/3;padding:0 4px!important}
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger tbody td:nth-child(3) {grid-column:3;grid-row:1;align-self:end}
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger tbody td:nth-child(4) {grid-column:3;grid-row:2;align-self:start;padding-top:3px!important;font-size:9px}
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger tbody td:nth-child(6) {grid-column:4;grid-row:1;align-self:end}
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger tbody td:nth-child(7) {grid-column:4;grid-row:2;align-self:start;padding-top:3px!important;font-size:9px}
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger tbody td:nth-child(9) {display:flex!important;flex-direction:column;justify-content:center;grid-column:6;grid-row:1/3;gap:4px;font-size:13px}
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger tbody td:nth-child(11) {display:block!important;grid-column:5;grid-row:1/3;font-size:11px}
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger .ledger-retro-rank {margin:0;font-size:9px;line-height:1}
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger td.ledger-university .team-name {font-size:12px;gap:6px}
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger td.ledger-university .team-name > span:last-child {line-height:1.2}
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger td.ledger-university .mbb-mark {--mbb-size:46px}
+ body[data-page="conference"] .victorian-unified-ledger .conference-ledger .ledger-place {
+  width:auto;min-width:0;min-height:0;padding:0;border:0;outline:0;
+  background:transparent;color:#694833;font-size:11px;line-height:1;box-shadow:none;
+ }
+ body[data-page="conference"] .victorian-unified-ledger .victorian-seed-note {font-size:10px!important;line-height:1.45!important;margin:10px 4px 0;padding:0!important;text-align:left}
+}
