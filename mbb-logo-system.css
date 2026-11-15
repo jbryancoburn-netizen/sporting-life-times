@@ -86,17 +86,6 @@
  object-fit:contain!important;object-position:center!important;border-radius:50%!important;
 }
 
-/* Atlantic 10 archived source images have unusually large transparent canvases.
-   Correct optical artwork scale in the single shared crest renderer, not
-   by changing the two school-color rings or individual page layouts.
-   Source art stays centered; the rings remain above it (z-index:3). */
-.mbb-mark[data-espn-id="227"]>img.mbb-mark__img{
- transform:translate(-50%,-50%) scale(2.35)!important;
-}
-.mbb-mark[data-espn-id="2350"]>img.mbb-mark__img{
- transform:translate(-50%,-50%) scale(2.60)!important;
-}
-
 /* Power Index art takes up the visible inner circle rather than inheriting the
    74% generic thumbnail scale. The two color rings remain fully unobstructed. */
 .cbb-elo-school .mbb-mark:not(.mbb-mark--heritage)>img.mbb-mark__img,
