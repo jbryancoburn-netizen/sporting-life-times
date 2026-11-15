@@ -35,10 +35,15 @@ test('women’s rankings are independent of an optional palette request',()=>{
  assert.doesNotMatch(women,/throw Error\('Published two-color logo registry incomplete'\)/);
 });
 
-test('Atlantic 10 archival crests optically fill their rings without changing ring geometry',()=>{
- for(const [espnId,scale] of [['227','2.35'],['2350','2.60']]){
-  assert(css.includes('.mbb-mark[data-espn-id="'+espnId+'"]>img.mbb-mark__img{'));
-  assert(css.includes('transform:translate(-50%,-50%) scale('+scale+')!important;'));
+test('Rhode Island and Loyola images are normalized at source, not scaled with CSS',()=>{
+ const source=read('mbb-logo-system.js');
+ for(const [id,slug] of [['227','rhode-island'],['2350','loyola-chicago']]){
+  const data=fs.readFileSync(path.join(root,'assets/cbb-atlantic-10-1980s',slug+'.png'));
+  assert.equal(data.subarray(0,8).toString('hex'),'89504e470d0a1a0a');
+  assert.equal(data.readUInt32BE(16),512,'normalized width '+slug);
+  assert.equal(data.readUInt32BE(20),512,'normalized height '+slug);
+  assert(source.includes(slug+'.png?v=normalized-source-20261115-1'));
+  assert(!css.includes('.mbb-mark[data-espn-id="'+id+'"]'),'Removed per-school scaling '+slug);
  }
  assert(css.includes('.mbb-mark::before{'));
  assert(css.includes('z-index:3!important'));
