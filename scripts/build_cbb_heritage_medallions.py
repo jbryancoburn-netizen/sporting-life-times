@@ -133,7 +133,7 @@ def main():
         raise AssertionError("One or more historical logos was not built")
     REPORT.parent.mkdir(exist_ok=True)
     REPORT.write_text(json.dumps(dict(format="baked-two-ring-crest-v1",canvas=SIZE,
-        source_count=len(entries),rendered_count=len(records),records=records),indent=2)+"\\n")
+        source_count=len(entries),rendered_count=len(records),records=records),indent=2)+"\n")
     print("PASS: built "+str(len(records))+" high-resolution two-ring heritage PNGs without editing source art")
 
 if __name__=="__main__":main()
