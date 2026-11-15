@@ -13,8 +13,19 @@ from PIL import Image
 ROOT=Path(__file__).resolve().parents[1]
 AUDIT=ROOT/'data/cbb-mountain-west-heritage-audit.json'
 JS=ROOT/'mbb-logo-system.js'
+# Individually inspected archival artwork; each source and era is documented in
+# the Mountain West audit. Direct image links avoid fragile HTML scraping.
 PINNED={
- '167':'https://sportslogohistory.com/wp-content/uploads/2021/09/new_mexico_lobos_1973-1999.png'
+ '167':'https://sportslogohistory.com/wp-content/uploads/2021/09/new_mexico_lobos_1973-1999.png',
+ '2005':'https://upload.wikimedia.org/wikipedia/commons/d/da/Air_Force_Falcons_logo_1963-1994.png',
+ '2253':'https://content.sportslogos.net/logos/31/5050/full/grand_canyon_antelopes_logo_secondary_1978_sportslogosnet-3306.png',
+ '2440':'https://content.sportslogos.net/logos/33/767/full/nevada_wolf_pack_logo_primary_1979_sportslogosnet-6993.png',
+ '23':'https://upload.wikimedia.org/wikipedia/commons/b/be/SJSU_Main_Logo_from_1983_to_1999.png',
+ '2638':'https://content.sportslogos.net/logos/35/889/full/7903_utep_miners-alternate-1999.png'
+}
+PINNED_ERA={
+ '167':(1973,1999),'2005':(1963,1994),'2253':(1978,2013),
+ '2440':(1979,1993),'23':(1983,1999),'2638':(1980,1999)
 }
 S=requests.Session()
 S.headers.update({'User-Agent':'Mozilla/5.0 (Sporting Life Times historic basketball logo archive)'})
@@ -27,7 +38,7 @@ def find_art(team):
  if team['espn_id'] in PINNED:
   url=PINNED[team['espn_id']]
   filename=url.split('/')[-1]
-  if str(start)+'-'+str(end) not in filename:raise RuntimeError('Pinned art does not match historical era')
+  if PINNED_ERA[team['espn_id']]!=(start,end):raise RuntimeError('Pinned image historical era differs from documented choice')
   return url,page
  response=S.get(page,timeout=30);response.raise_for_status()
  soup=BeautifulSoup(response.text,'html.parser')
