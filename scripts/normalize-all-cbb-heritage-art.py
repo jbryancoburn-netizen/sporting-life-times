@@ -28,8 +28,8 @@ for relative in files:
     if not path.is_file():
         raise SystemExit(f"Missing published crest: {relative}")
     im=Image.open(path).convert("RGBA")
-    if im.size!=(CANVAS,CANVAS):
-        raise SystemExit(f"Expected normalized 512x512 source: {relative} is {im.size}")
+    if im.width!=im.height:
+        raise SystemExit(f"Unexpected non-square source art: {relative} is {im.size}")
     a=im.getchannel("A")
     # Anti-aliased contours can contain nearly invisible stray pixels.
     bb=a.point(lambda v:255 if v>=12 else 0).getbbox()
@@ -39,9 +39,9 @@ for relative in files:
     edge=max(w,h)
     # Only transparent padding: do not override/trim background art or
     # images already fitted. Avoid cropping real painted edges.
-    has_padding=bb[0]>=8 and bb[1]>=8 and bb[2]<=CANVAS-8 and bb[3]<=CANVAS-8
+    has_padding=bb[0]>=8 and bb[1]>=8 and bb[2]<=im.width-8 and bb[3]<=im.height-8
     action="unchanged"
-    if edge<MIN_EDGE and has_padding:
+    if (im.size!=(CANVAS,CANVAS) or edge<MIN_EDGE) and has_padding:
         # Fixed alpha-space crop, preserving all antialiased edge pixels.
         actual=a.point(lambda v:255 if v>=2 else 0).getbbox()
         x0,y0,x1,y1=actual
@@ -57,7 +57,7 @@ for relative in files:
             raise SystemExit(f"Post-normalization size invalid: {relative}")
         action="normalized"
         changed.append(relative)
-    elif edge<MIN_EDGE:
+    elif edge<MIN_EDGE or im.size!=(CANVAS,CANVAS):
         action="manual_review_nontransparent_edge"
     report.append({"asset":relative,"source_visible_edge_px":edge,
                    "source_bbox":list(bb),"action":action})
