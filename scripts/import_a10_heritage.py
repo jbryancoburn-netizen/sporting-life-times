@@ -47,6 +47,8 @@ HISTORY={
  '179':('st-bonaventure-bonnies',1999),
  '2670':('virginia-commonwealth-rams',1968)
 }
+S=requests.Session()
+S.headers.update({'User-Agent':'Mozilla/5.0 (Sporting Life Times historical art importer)'})
 def alternate_archive(eid):
  slug,year=HISTORY[eid]
  page='https://sportslogohistory.com/'+slug+'-primary-logo/'
@@ -61,8 +63,11 @@ def alternate_archive(eid):
    if urlparse(u).hostname not in ('sportslogohistory.com','www.sportslogohistory.com'):continue
    filename=u.split('/')[-1].lower().split('?')[0]
    if '/wp-content/uploads/' not in u or str(year) not in filename:continue
-   if not re.search(r'\\.(?:png|webp|jpe?g)
-S.headers.update({'User-Agent':'Mozilla/5.0 (compatible; SportingLifeAndTimes/1.0; A10 logo archival import)'})
+   if not re.search(r'\.(?:png|webp|jpe?g)$',filename):continue
+   candidates.append(u)
+ candidates=list(dict.fromkeys(candidates))
+ if len(candidates)!=1:raise RuntimeError('Not one validated '+str(year)+' image: '+str(candidates[:5]))
+ return candidates[0],page
 def archival_image(url, direct_image=None):
  # A verified exact historical image does not require parsing an archive HTML page.
  # Other schools still require the page and full-size artwork validation.
@@ -249,9 +254,6 @@ def main():
  js=RENDERER.read_text()
  marker='const retroURLForESPN=id=>'
  if marker not in js:raise RuntimeError('Logo renderer contract changed')
- if 'const A10_HERITAGE=' in js:
-  print('A10 heritage mapping already installed; no rewrite')
-  return
  downloaded={};issues={}
  for team in doc['teams']:
   eid=team['espn_id']
