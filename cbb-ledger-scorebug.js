@@ -169,7 +169,7 @@
    const change=typeof n==='number'&&Number.isFinite(n)?'<span class="ledger26-final-delta '+(n>0?'ledger26-final-up':n<0?'ledger26-final-down':'')+'">'+(n>0?'▲ +':n<0?'▼ −':'— ')+Math.abs(n).toFixed(1)+'</span>':'<span class="ledger26-final-delta">—</span>';
    const rank=Number.isInteger(p.rank)&&p.rank>0?'#'+p.rank:'—';
    const played=Number.isInteger(p.gamesPlayed)&&p.gamesPlayed>=0?p.gamesPlayed:null;
-   const record=typeof t.record==='string'&&/^\\d+[–-]\\d+$/.test(t.record.trim())?t.record.trim():null;
+   const record=typeof t.record==='string'&&/^\d+[–-]\d+$/.test(t.record.trim())?t.record.trim():null;
    return '<div class="ledger26-final-team"><span class="ledger26-final-school">'+esc(t.name||'School')+'</span>'+
     '<strong class="ledger26-final-rating">'+Number(p.elo).toFixed(1)+'</strong>'+
     '<span class="ledger26-final-change"><small>DAILY Δ</small>'+change+'</span>'+
