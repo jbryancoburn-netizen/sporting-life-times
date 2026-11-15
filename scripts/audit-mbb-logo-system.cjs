@@ -111,19 +111,20 @@ async function run(){
    assert.equal(data.readUInt32BE(16),512,'Historic PNG must be 512px wide: '+slug);
    assert.equal(data.readUInt32BE(20),512,'Historic PNG must be 512px high: '+slug);
  }
- const bakedAudit=JSON.parse(read('data/cbb-heritage-medallions-audit.json'));
- assert.equal(bakedAudit.rendered_count,86,'Expected all 86 existing vintage badges to be precomposed');
- const bakedById=new Map(bakedAudit.records.map(row=>[row.espn_id,row]));
- for(const id of Object.keys(colors)){
-  if(!anyVintage(id))continue;
-  const proof=bakedById.get(id);
-  assert(proof,'Missing precomposed heritage crest '+id);
-  assert(fs.existsSync(proof.asset),'Missing asset-built historic PNG '+id);
-  assert.equal(proof.ring_colors[0].toLowerCase(),colors[id].primary.toLowerCase(),'Primary ring color mismatch '+id);
-  assert.equal(proof.ring_colors[1].toLowerCase(),colors[id].secondary.toLowerCase(),'Secondary ring color mismatch '+id);
+ const assetAudit=JSON.parse(read('data/cbb-precomposed-crest-audit.json'));
+ assert.equal(assetAudit.count,365,'Every DI program must have an audited self-hosted crest');
+ assert.equal(assetAudit.vintage_count,86,'All 86 original historical archives must survive');
+ assert.equal(assetAudit.rings,2,'Exactly two distinct school-color rings');
+ const expectedLogo=id=>'assets/cbb-precomposed-crests/'+id+'.png?v=20261115-precomposed1';
+ for(const [id,entry] of Object.entries(assetAudit.crests)){
+   assert.equal(entry.primary,colors[id]?.primary,'Wrong baked primary ring '+id);
+   assert.equal(entry.secondary,colors[id]?.secondary,'Wrong baked secondary ring '+id);
+   assert.equal(entry.heritage,anyVintage(id),'Wrong vintage source identity '+id);
+   const png=fs.readFileSync('assets/cbb-precomposed-crests/'+id+'.png');
+   assert.equal(png.subarray(0,8).toString('hex'),'89504e470d0a1a0a','Not PNG '+id);
+   assert.equal(png.readUInt32BE(16),512,'Not high-resolution crest '+id);
+   assert.equal(png.readUInt32BE(20),512,'Not square crest '+id);
  }
- const expectedLogo=(id,item)=>anyVintage(id)?
-   'assets/cbb-heritage-medallions/'+id+'.png?v=20261115-asset-baked1':item.logo_url;
  const seen=new Set(),kinds={embedded_roundel:0,flat:0,unverified:0};
  for(const t of cross.teams){
   const id=String(t.espn_id),item=registry.teams[id],brand=colors[id];
@@ -147,21 +148,22 @@ async function run(){
   assert(crest.includes('data-espn-id="'+id+'"'),'Wrong MBB logo identity '+t.name);
   assert(crest.includes('data-artwork="'+(anyVintage(id)?'flat':item.artwork_type)+'"'),
     'Wrong source-artwork classification '+t.name);
-  assert(crest.includes(expectedLogo(id,item)),'Wrong logo URL '+t.name);
+  assert(crest.includes(expectedLogo(id)),'Wrong baked crest URL '+t.name);
+  assert(crest.includes('mbb-mark--precomposed'),'Browser is recreating CBB rings for '+t.name);
   assert.equal(crest.includes('mbb-mark--heritage'),anyVintage(id),
     'Retro logo was assigned to the wrong conference identity '+t.name);
   if(vintage[id]){
     assert(!crest.includes('data-logo-alternate="https://'),
       'Historical Big Ten logo must not silently fall back to modern CDN: '+t.name);
-    assert(ctx.window.MBBLogos.logoURL(t.id).includes(expectedLogo(id,item)),
+    assert(ctx.window.MBBLogos.logoURL(t.id).includes(expectedLogo(id)),
       'Historical logo URL accessors must use the same PNG: '+t.name);
   }
   assert(crest.includes('--mbb-primary:'+brand.primary),'Wrong primary team color '+t.name);
   assert(crest.includes('--mbb-secondary:'+brand.secondary),'Wrong secondary team color '+t.name);
   assert(!crest.includes('slt-mark')&&!crest.includes('slt-dual-shell'),'Nested generic ring on '+t.name);
-  assert(ctx.window.MBBLogos.byNCAA(t.id,'power',t.name).includes(expectedLogo(id,item)),'Ranking crest '+t.name);
-  assert(ctx.window.MBBLogos.byESPN(id,'schedule',t.espn_name).includes(expectedLogo(id,item)),'Schedule crest '+t.name);
-  assert(ctx.window.MBBLogos.byESPN(id,'score',t.espn_name).includes(expectedLogo(id,item)),'Score crest '+t.name);
+  assert(ctx.window.MBBLogos.byNCAA(t.id,'power',t.name).includes(expectedLogo(id)),'Ranking crest '+t.name);
+  assert(ctx.window.MBBLogos.byESPN(id,'schedule',t.espn_name).includes(expectedLogo(id)),'Schedule crest '+t.name);
+  assert(ctx.window.MBBLogos.byESPN(id,'score',t.espn_name).includes(expectedLogo(id)),'Score crest '+t.name);
  }
  // Validate exact school identity, not just presence of an image URL.
  for(const [id,school] of Object.entries(outside)){

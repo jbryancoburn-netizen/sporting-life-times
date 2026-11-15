@@ -1,0 +1,6946 @@
+{
+  "schema": "cbb-precomposed-two-ring-v1",
+  "season": "2026-27",
+  "count": 365,
+  "vintage_count": 86,
+  "canvas": 512,
+  "rings": 2,
+  "original_artwork_unchanged": true,
+  "crests": {
+    "8": {
+      "id": "8",
+      "school": "Arkansas",
+      "heritage": true,
+      "source": "assets/cbb-sec-1980s/arkansas.png",
+      "bbox": [
+        40,
+        160,
+        472,
+        352
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        352,
+        166
+      ],
+      "primary": "#a32136",
+      "secondary": "#b66874"
+    },
+    "2": {
+      "id": "2",
+      "school": "Auburn",
+      "heritage": true,
+      "source": "assets/cbb-sec-1980s/auburn.png",
+      "bbox": [
+        150,
+        63,
+        362,
+        449
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        201,
+        352
+      ],
+      "primary": "#002b5c",
+      "secondary": "#f26522"
+    },
+    "23": {
+      "id": "23",
+      "school": "San Jose St.",
+      "heritage": true,
+      "source": "assets/cbb-mountain-west-1980s/san-jose-state.png",
+      "bbox": [
+        103,
+        56,
+        408,
+        456
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        272,
+        352
+      ],
+      "primary": "#0038a8",
+      "secondary": "#ffb81a"
+    },
+    "6": {
+      "id": "6",
+      "school": "South Alabama",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/6.png",
+      "bbox": [
+        20,
+        84,
+        480,
+        415
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        258
+      ],
+      "primary": "#00205b",
+      "secondary": "#bf0d3e"
+    },
+    "21": {
+      "id": "21",
+      "school": "San Diego St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/21.png",
+      "bbox": [
+        20,
+        92,
+        480,
+        408
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        247
+      ],
+      "primary": "#a6192e",
+      "secondary": "#000000"
+    },
+    "9": {
+      "id": "9",
+      "school": "Arizona St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/9.png",
+      "bbox": [
+        132,
+        20,
+        367,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        188,
+        352
+      ],
+      "primary": "#ffc627",
+      "secondary": "#8c1d40"
+    },
+    "12": {
+      "id": "12",
+      "school": "Arizona",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/12.png",
+      "bbox": [
+        20,
+        37,
+        480,
+        463
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        292,
+        272
+      ],
+      "primary": "#cc0033",
+      "secondary": "#003366"
+    },
+    "16": {
+      "id": "16",
+      "school": "Sacramento St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/16.png",
+      "bbox": [
+        2,
+        21,
+        498,
+        458
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        311,
+        287
+      ],
+      "primary": "#00573c",
+      "secondary": "#cdb97d"
+    },
+    "13": {
+      "id": "13",
+      "school": "Cal Poly",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/13.png",
+      "bbox": [
+        1,
+        8,
+        497,
+        493
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        331,
+        331
+      ],
+      "primary": "#1e4d2b",
+      "secondary": "#eed897"
+    },
+    "5": {
+      "id": "5",
+      "school": "UAB",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/5.png",
+      "bbox": [
+        20,
+        57,
+        480,
+        442
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        297
+      ],
+      "primary": "#1a5632",
+      "secondary": "#fdb913"
+    },
+    "24": {
+      "id": "24",
+      "school": "Stanford",
+      "heritage": true,
+      "source": "assets/cbb-acc-1980s/stanford.png",
+      "bbox": [
+        123,
+        54,
+        389,
+        458
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        237,
+        352
+      ],
+      "primary": "#8c1515",
+      "secondary": "#a86161"
+    },
+    "25": {
+      "id": "25",
+      "school": "California",
+      "heritage": true,
+      "source": "assets/cbb-acc-1980s/california.png",
+      "bbox": [
+        86,
+        40,
+        426,
+        472
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        281,
+        352
+      ],
+      "primary": "#041e42",
+      "secondary": "#ffc72c"
+    },
+    "26": {
+      "id": "26",
+      "school": "UCLA",
+      "heritage": true,
+      "source": "assets/cbb-big-ten-1980s/centered/ucla.png",
+      "bbox": [
+        87,
+        97,
+        424,
+        415
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        311,
+        294
+      ],
+      "primary": "#2774ae",
+      "secondary": "#f2a900"
+    },
+    "30": {
+      "id": "30",
+      "school": "Southern California",
+      "heritage": true,
+      "source": "assets/cbb-big-ten-1980s/centered/usc.png",
+      "bbox": [
+        100,
+        98,
+        412,
+        414
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        289,
+        292
+      ],
+      "primary": "#9d2235",
+      "secondary": "#ffc72c"
+    },
+    "38": {
+      "id": "38",
+      "school": "Colorado",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/38.png",
+      "bbox": [
+        20,
+        82,
+        480,
+        418
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        262
+      ],
+      "primary": "#cfb87c",
+      "secondary": "#000000"
+    },
+    "36": {
+      "id": "36",
+      "school": "Colorado St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/36.png",
+      "bbox": [
+        20,
+        20,
+        480,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        352
+      ],
+      "primary": "#004c23",
+      "secondary": "#c8c372"
+    },
+    "28": {
+      "id": "28",
+      "school": "UC San Diego",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/28.png",
+      "bbox": [
+        19,
+        19,
+        478,
+        478
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        292,
+        292
+      ],
+      "primary": "#000000",
+      "secondary": "#ffcd00"
+    },
+    "27": {
+      "id": "27",
+      "school": "UC Riverside",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/27.png",
+      "bbox": [
+        19,
+        28,
+        481,
+        472
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        292,
+        282
+      ],
+      "primary": "#14234f",
+      "secondary": "#f0c83b"
+    },
+    "44": {
+      "id": "44",
+      "school": "American",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/44.png",
+      "bbox": [
+        3,
+        25,
+        497,
+        462
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        311,
+        287
+      ],
+      "primary": "#c41130",
+      "secondary": "#c8102e"
+    },
+    "45": {
+      "id": "45",
+      "school": "George Washington",
+      "heritage": true,
+      "source": "assets/cbb-atlantic-10-1980s/george-washington.png",
+      "bbox": [
+        55,
+        125,
+        665,
+        595
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        275
+      ],
+      "primary": "#002843",
+      "secondary": "#e8d2a1"
+    },
+    "43": {
+      "id": "43",
+      "school": "Yale",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/43.png",
+      "bbox": [
+        19,
+        38,
+        481,
+        462
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        292,
+        270
+      ],
+      "primary": "#004a81",
+      "secondary": "#286dc0"
+    },
+    "41": {
+      "id": "41",
+      "school": "UConn",
+      "heritage": true,
+      "source": "assets/cbb-big-east-1980s/uconn.png",
+      "bbox": [
+        83,
+        50,
+        429,
+        462
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        298,
+        352
+      ],
+      "primary": "#0c2340",
+      "secondary": "#a2aaad"
+    },
+    "55": {
+      "id": "55",
+      "school": "Jacksonville St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/55.png",
+      "bbox": [
+        20,
+        91,
+        480,
+        408
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        248
+      ],
+      "primary": "#cc0000",
+      "secondary": "#000000"
+    },
+    "48": {
+      "id": "48",
+      "school": "Delaware",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/48.png",
+      "bbox": [
+        20,
+        90,
+        480,
+        409
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        249
+      ],
+      "primary": "#00539f",
+      "secondary": "#ffd200"
+    },
+    "47": {
+      "id": "47",
+      "school": "Howard",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/47.png",
+      "bbox": [
+        20,
+        51,
+        480,
+        449
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        311,
+        271
+      ],
+      "primary": "#003a63",
+      "secondary": "#e51937"
+    },
+    "46": {
+      "id": "46",
+      "school": "Georgetown",
+      "heritage": true,
+      "source": "assets/cbb-big-east-1980s/georgetown.png",
+      "bbox": [
+        86,
+        59,
+        426,
+        454
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        305,
+        352
+      ],
+      "primary": "#110e42",
+      "secondary": "#001c58"
+    },
+    "50": {
+      "id": "50",
+      "school": "Florida A&M",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/50.png",
+      "bbox": [
+        21,
+        79,
+        479,
+        421
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        331,
+        251
+      ],
+      "primary": "#f89728",
+      "secondary": "#00843d"
+    },
+    "52": {
+      "id": "52",
+      "school": "Florida St.",
+      "heritage": true,
+      "source": "assets/cbb-acc-1980s/florida-state.png",
+      "bbox": [
+        71,
+        85,
+        440,
+        427
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        352,
+        327
+      ],
+      "primary": "#782f40",
+      "secondary": "#ceb888"
+    },
+    "58": {
+      "id": "58",
+      "school": "South Fla.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/58.png",
+      "bbox": [
+        20,
+        66,
+        480,
+        434
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        331,
+        268
+      ],
+      "primary": "#006747",
+      "secondary": "#cfc493"
+    },
+    "56": {
+      "id": "56",
+      "school": "Stetson",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/56.png",
+      "bbox": [
+        35,
+        16,
+        470,
+        483
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        273,
+        292
+      ],
+      "primary": "#0a5640",
+      "secondary": "#56854e"
+    },
+    "62": {
+      "id": "62",
+      "school": "Hawaii",
+      "heritage": true,
+      "source": "assets/cbb-mountain-west-1980s/hawaii.png",
+      "bbox": [
+        55,
+        197,
+        665,
+        523
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        196
+      ],
+      "primary": "#005737",
+      "secondary": "#000000"
+    },
+    "66": {
+      "id": "66",
+      "school": "Iowa St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/66.png",
+      "bbox": [
+        20,
+        91,
+        480,
+        408
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        248
+      ],
+      "primary": "#ae192d",
+      "secondary": "#ffc72a"
+    },
+    "68": {
+      "id": "68",
+      "school": "Boise St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/68.png",
+      "bbox": [
+        20,
+        59,
+        480,
+        441
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        295
+      ],
+      "primary": "#0033a0",
+      "secondary": "#d64309"
+    },
+    "71": {
+      "id": "71",
+      "school": "Bradley",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/71.png",
+      "bbox": [
+        58,
+        21,
+        442,
+        479
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        298,
+        352
+      ],
+      "primary": "#b70002",
+      "secondary": "#c0c0c0"
+    },
+    "57": {
+      "id": "57",
+      "school": "Florida",
+      "heritage": true,
+      "source": "assets/cbb-sec-1980s/florida.png",
+      "bbox": [
+        51,
+        44,
+        461,
+        467
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        342,
+        352
+      ],
+      "primary": "#0021a5",
+      "secondary": "#fa4616"
+    },
+    "59": {
+      "id": "59",
+      "school": "Georgia Tech",
+      "heritage": true,
+      "source": "assets/cbb-acc-1980s/georgia-tech.png",
+      "bbox": [
+        86,
+        89,
+        424,
+        422
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        311,
+        307
+      ],
+      "primary": "#b3a369",
+      "secondary": "#645d43"
+    },
+    "79": {
+      "id": "79",
+      "school": "Southern Ill.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/79.png",
+      "bbox": [
+        18,
+        116,
+        482,
+        383
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        210
+      ],
+      "primary": "#85283d",
+      "secondary": "#c2c3c0"
+    },
+    "84": {
+      "id": "84",
+      "school": "Indiana",
+      "heritage": true,
+      "source": "assets/cbb-big-ten-1980s/centered/indiana.png",
+      "bbox": [
+        99,
+        48,
+        413,
+        465
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        269,
+        352
+      ],
+      "primary": "#990000",
+      "secondary": "#f5e3cc"
+    },
+    "70": {
+      "id": "70",
+      "school": "Idaho",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/70.png",
+      "bbox": [
+        42,
+        20,
+        457,
+        481
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        319,
+        352
+      ],
+      "primary": "#000000",
+      "secondary": "#8c6e4a"
+    },
+    "82": {
+      "id": "82",
+      "school": "UIC",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/82.png",
+      "bbox": [
+        19,
+        152,
+        481,
+        348
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        159
+      ],
+      "primary": "#001e62",
+      "secondary": "#d50032"
+    },
+    "61": {
+      "id": "61",
+      "school": "Georgia",
+      "heritage": true,
+      "source": "assets/cbb-sec-1980s/georgia.png",
+      "bbox": [
+        83,
+        58,
+        428,
+        453
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        310,
+        352
+      ],
+      "primary": "#ba0c2f",
+      "secondary": "#2c2a29"
+    },
+    "77": {
+      "id": "77",
+      "school": "Northwestern",
+      "heritage": true,
+      "source": "assets/cbb-big-ten-1980s/centered/northwestern.png",
+      "bbox": [
+        106,
+        52,
+        444,
+        468
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        255,
+        311
+      ],
+      "primary": "#492f92",
+      "secondary": "#8070ac"
+    },
+    "91": {
+      "id": "91",
+      "school": "Bellarmine",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/91.png",
+      "bbox": [
+        81,
+        20,
+        418,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        263,
+        352
+      ],
+      "primary": "#ce1126",
+      "secondary": "#a6a6a6"
+    },
+    "88": {
+      "id": "88",
+      "school": "Southern Ind.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/88.png",
+      "bbox": [
+        19,
+        102,
+        481,
+        398
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        232
+      ],
+      "primary": "#002856",
+      "secondary": "#d12434"
+    },
+    "94": {
+      "id": "94",
+      "school": "Northern Ky.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/94.png",
+      "bbox": [
+        20,
+        110,
+        480,
+        390
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        221
+      ],
+      "primary": "#ffc82e",
+      "secondary": "#000000"
+    },
+    "93": {
+      "id": "93",
+      "school": "Murray St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/93.png",
+      "bbox": [
+        44,
+        18,
+        457,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        298,
+        331
+      ],
+      "primary": "#002148",
+      "secondary": "#000e00"
+    },
+    "85": {
+      "id": "85",
+      "school": "IU Indy",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/85.png",
+      "bbox": [
+        20,
+        29,
+        479,
+        469
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        331,
+        318
+      ],
+      "primary": "#a81f30",
+      "secondary": "#d59f0f"
+    },
+    "87": {
+      "id": "87",
+      "school": "Notre Dame",
+      "heritage": true,
+      "source": "assets/cbb-acc-1980s/notre-dame.png",
+      "bbox": [
+        76,
+        112,
+        436,
+        399
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        331,
+        267
+      ],
+      "primary": "#062340",
+      "secondary": "#c99700"
+    },
+    "98": {
+      "id": "98",
+      "school": "Western Ky.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/98.png",
+      "bbox": [
+        20,
+        81,
+        480,
+        419
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        263
+      ],
+      "primary": "#e13a3e",
+      "secondary": "#792e30"
+    },
+    "96": {
+      "id": "96",
+      "school": "Kentucky",
+      "heritage": true,
+      "source": "assets/cbb-sec-1980s/kentucky.png",
+      "bbox": [
+        101,
+        97,
+        411,
+        415
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        285,
+        292
+      ],
+      "primary": "#0033a0",
+      "secondary": "#5473b4"
+    },
+    "99": {
+      "id": "99",
+      "school": "LSU",
+      "heritage": true,
+      "source": "assets/cbb-sec-1980s/lsu.png",
+      "bbox": [
+        71,
+        101,
+        441,
+        410
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        352,
+        297
+      ],
+      "primary": "#461d76",
+      "secondary": "#fdd023"
+    },
+    "103": {
+      "id": "103",
+      "school": "Boston College",
+      "heritage": true,
+      "source": "assets/cbb-acc-1980s/boston-college.png",
+      "bbox": [
+        107,
+        101,
+        404,
+        411
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        281,
+        292
+      ],
+      "primary": "#8c2232",
+      "secondary": "#dbcca6"
+    },
+    "97": {
+      "id": "97",
+      "school": "Louisville",
+      "heritage": true,
+      "source": "assets/cbb-acc-1980s/louisville.png",
+      "bbox": [
+        97,
+        82,
+        414,
+        429
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        304,
+        331
+      ],
+      "primary": "#c9001f",
+      "secondary": "#cd5467"
+    },
+    "104": {
+      "id": "104",
+      "school": "Boston U.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/104.png",
+      "bbox": [
+        19,
+        66,
+        478,
+        435
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        311,
+        253
+      ],
+      "primary": "#cc0000",
+      "secondary": "#ce5454"
+    },
+    "107": {
+      "id": "107",
+      "school": "Holy Cross",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/107.png",
+      "bbox": [
+        54,
+        20,
+        443,
+        479
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        283,
+        331
+      ],
+      "primary": "#582c83",
+      "secondary": "#896ea3"
+    },
+    "113": {
+      "id": "113",
+      "school": "Massachusetts",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/113.png",
+      "bbox": [
+        20,
+        62,
+        480,
+        438
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        331,
+        273
+      ],
+      "primary": "#881c1c",
+      "secondary": "#a66565"
+    },
+    "111": {
+      "id": "111",
+      "school": "Northeastern",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/111.png",
+      "bbox": [
+        73,
+        20,
+        425,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        273,
+        352
+      ],
+      "primary": "#cc0001",
+      "secondary": "#c2c3c0"
+    },
+    "108": {
+      "id": "108",
+      "school": "Harvard",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/108.png",
+      "bbox": [
+        63,
+        20,
+        436,
+        479
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        255,
+        311
+      ],
+      "primary": "#990000",
+      "secondary": "#dbdbdb"
+    },
+    "130": {
+      "id": "130",
+      "school": "Michigan",
+      "heritage": true,
+      "source": "assets/cbb-big-ten-1980s/centered/michigan.png",
+      "bbox": [
+        45,
+        111,
+        472,
+        401
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        331,
+        230
+      ],
+      "primary": "#00274c",
+      "secondary": "#ffcb05"
+    },
+    "119": {
+      "id": "119",
+      "school": "Towson",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/119.png",
+      "bbox": [
+        2,
+        114,
+        498,
+        389
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        210
+      ],
+      "primary": "#ffc229",
+      "secondary": "#000000"
+    },
+    "116": {
+      "id": "116",
+      "school": "Mount St. Mary's",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/116.png",
+      "bbox": [
+        19,
+        126,
+        481,
+        374
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        197
+      ],
+      "primary": "#005596",
+      "secondary": "#5487ae"
+    },
+    "139": {
+      "id": "139",
+      "school": "Saint Louis",
+      "heritage": true,
+      "source": "assets/cbb-atlantic-10-1980s/saint-louis.png",
+      "bbox": [
+        196,
+        55,
+        523,
+        665
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        196,
+        352
+      ],
+      "primary": "#003DA5",
+      "secondary": "#C8C9C7"
+    },
+    "127": {
+      "id": "127",
+      "school": "Michigan St.",
+      "heritage": true,
+      "source": "assets/cbb-big-ten-1980s/centered/michigan-state-gruff.png",
+      "bbox": [
+        91,
+        46,
+        421,
+        465
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        281,
+        352
+      ],
+      "primary": "#173f35",
+      "secondary": "#627a74"
+    },
+    "120": {
+      "id": "120",
+      "school": "Maryland",
+      "heritage": true,
+      "source": "assets/cbb-big-ten-1980s/centered/maryland-terrapin.png",
+      "bbox": [
+        81,
+        84,
+        431,
+        428
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        331,
+        325
+      ],
+      "primary": "#ce1126",
+      "secondary": "#d05e6b"
+    },
+    "147": {
+      "id": "147",
+      "school": "Montana St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/147.png",
+      "bbox": [
+        20,
+        78,
+        480,
+        423
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        268
+      ],
+      "primary": "#00205c",
+      "secondary": "#bc955c"
+    },
+    "140": {
+      "id": "140",
+      "school": "Kansas City",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/140.png",
+      "bbox": [
+        19,
+        31,
+        481,
+        467
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        331,
+        313
+      ],
+      "primary": "#004b87",
+      "secondary": "#ffc72c"
+    },
+    "135": {
+      "id": "135",
+      "school": "Minnesota",
+      "heritage": true,
+      "source": "assets/cbb-big-ten-1980s/centered/minnesota.png",
+      "bbox": [
+        34,
+        112,
+        467,
+        415
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        352,
+        251
+      ],
+      "primary": "#5e0a2f",
+      "secondary": "#fab41c"
+    },
+    "145": {
+      "id": "145",
+      "school": "Ole Miss",
+      "heritage": true,
+      "source": "assets/cbb-sec-1980s/ole-miss.png",
+      "bbox": [
+        127,
+        80,
+        384,
+        431
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        247,
+        331
+      ],
+      "primary": "#13294b",
+      "secondary": "#cf142b"
+    },
+    "149": {
+      "id": "149",
+      "school": "Montana",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/149.png",
+      "bbox": [
+        20,
+        82,
+        480,
+        418
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        262
+      ],
+      "primary": "#751d4a",
+      "secondary": "#666666"
+    },
+    "142": {
+      "id": "142",
+      "school": "Missouri",
+      "heritage": true,
+      "source": "assets/cbb-sec-1980s/missouri.png",
+      "bbox": [
+        73,
+        142,
+        439,
+        369
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        331,
+        211
+      ],
+      "primary": "#f1b82d",
+      "secondary": "#000000"
+    },
+    "150": {
+      "id": "150",
+      "school": "Duke",
+      "heritage": true,
+      "source": "assets/cbb-acc-1980s/duke.png",
+      "bbox": [
+        135,
+        58,
+        375,
+        454
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        220,
+        352
+      ],
+      "primary": "#00539b",
+      "secondary": "#012169"
+    },
+    "151": {
+      "id": "151",
+      "school": "East Carolina",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/151.png",
+      "bbox": [
+        33,
+        20,
+        466,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        294,
+        311
+      ],
+      "primary": "#582c83",
+      "secondary": "#ffc72c"
+    },
+    "152": {
+      "id": "152",
+      "school": "NC State",
+      "heritage": true,
+      "source": "assets/cbb-acc-1980s/nc-state.png",
+      "bbox": [
+        107,
+        63,
+        404,
+        449
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        275,
+        352
+      ],
+      "primary": "#cc0000",
+      "secondary": "#ce5454"
+    },
+    "155": {
+      "id": "155",
+      "school": "North Dakota",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/155.png",
+      "bbox": [
+        20,
+        140,
+        481,
+        359
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        176
+      ],
+      "primary": "#00a26b",
+      "secondary": "#c2c3c0"
+    },
+    "153": {
+      "id": "153",
+      "school": "North Carolina",
+      "heritage": true,
+      "source": "assets/cbb-acc-1980s/north-carolina.png",
+      "bbox": [
+        110,
+        42,
+        400,
+        470
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        244,
+        352
+      ],
+      "primary": "#7bafd4",
+      "secondary": "#13294b"
+    },
+    "156": {
+      "id": "156",
+      "school": "Creighton",
+      "heritage": true,
+      "source": "assets/cbb-big-east-1980s/creighton.png",
+      "bbox": [
+        168,
+        51,
+        343,
+        461
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        160,
+        352
+      ],
+      "primary": "#005ca9",
+      "secondary": "#6cadde"
+    },
+    "154": {
+      "id": "154",
+      "school": "Wake Forest",
+      "heritage": true,
+      "source": "assets/cbb-acc-1980s/wake-forest.png",
+      "bbox": [
+        63,
+        63,
+        449,
+        449
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        352,
+        352
+      ],
+      "primary": "#ceb888",
+      "secondary": "#2c2a29"
+    },
+    "158": {
+      "id": "158",
+      "school": "Nebraska",
+      "heritage": true,
+      "source": "assets/cbb-big-ten-1980s/centered/nebraska.png",
+      "bbox": [
+        90,
+        117,
+        422,
+        394
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        311,
+        262
+      ],
+      "primary": "#e31937",
+      "secondary": "#dc6375"
+    },
+    "159": {
+      "id": "159",
+      "school": "Dartmouth",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/159.png",
+      "bbox": [
+        64,
+        20,
+        437,
+        479
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        255,
+        311
+      ],
+      "primary": "#005730",
+      "secondary": "#000000"
+    },
+    "164": {
+      "id": "164",
+      "school": "Rutgers",
+      "heritage": true,
+      "source": "assets/cbb-big-ten-1980s/centered/rutgers.png",
+      "bbox": [
+        62,
+        159,
+        449,
+        353
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        352,
+        185
+      ],
+      "primary": "#ce0e2d",
+      "secondary": "#d05c6f"
+    },
+    "160": {
+      "id": "160",
+      "school": "New Hampshire",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/160.png",
+      "bbox": [
+        2,
+        71,
+        498,
+        429
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        331,
+        253
+      ],
+      "primary": "#004990",
+      "secondary": "#c3c4c6"
+    },
+    "167": {
+      "id": "167",
+      "school": "New Mexico",
+      "heritage": true,
+      "source": "assets/cbb-mountain-west-1980s/new-mexico.png",
+      "bbox": [
+        56,
+        122,
+        456,
+        389
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        241
+      ],
+      "primary": "#ba0c2f",
+      "secondary": "#a7a8aa"
+    },
+    "163": {
+      "id": "163",
+      "school": "Princeton",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/163.png",
+      "bbox": [
+        71,
+        20,
+        427,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        244,
+        311
+      ],
+      "primary": "#000000",
+      "secondary": "#ff6000"
+    },
+    "161": {
+      "id": "161",
+      "school": "FDU",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/161.png",
+      "bbox": [
+        21,
+        38,
+        477,
+        463
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        311,
+        291
+      ],
+      "primary": "#72293c",
+      "secondary": "#28334a"
+    },
+    "171": {
+      "id": "171",
+      "school": "Columbia",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/171.png",
+      "bbox": [
+        52,
+        20,
+        447,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        305,
+        352
+      ],
+      "primary": "#7ba4db",
+      "secondary": "#183863"
+    },
+    "172": {
+      "id": "172",
+      "school": "Cornell",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/172.png",
+      "bbox": [
+        73,
+        20,
+        427,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        275,
+        352
+      ],
+      "primary": "#b31b1b",
+      "secondary": "#bf6464"
+    },
+    "179": {
+      "id": "179",
+      "school": "St. Bonaventure",
+      "heritage": true,
+      "source": "assets/cbb-atlantic-10-1980s/st-bonaventure.png",
+      "bbox": [
+        55,
+        90,
+        665,
+        630
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        311,
+        277
+      ],
+      "primary": "#70261D",
+      "secondary": "#C6B6A6"
+    },
+    "166": {
+      "id": "166",
+      "school": "New Mexico St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/166.png",
+      "bbox": [
+        20,
+        81,
+        480,
+        419
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        331,
+        247
+      ],
+      "primary": "#7e141b",
+      "secondary": "#231f20"
+    },
+    "194": {
+      "id": "194",
+      "school": "Ohio St.",
+      "heritage": true,
+      "source": "assets/cbb-big-ten-1980s/centered/ohio-state.png",
+      "bbox": [
+        92,
+        40,
+        420,
+        472
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        271,
+        352
+      ],
+      "primary": "#ba0c2f",
+      "secondary": "#a8adb4"
+    },
+    "195": {
+      "id": "195",
+      "school": "Ohio",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/195.png",
+      "bbox": [
+        20,
+        133,
+        480,
+        366
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        187
+      ],
+      "primary": "#154734",
+      "secondary": "#617f73"
+    },
+    "183": {
+      "id": "183",
+      "school": "Syracuse",
+      "heritage": true,
+      "source": "assets/cbb-acc-1980s/syracuse.png",
+      "bbox": [
+        58,
+        51,
+        454,
+        460
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        341,
+        352
+      ],
+      "primary": "#000e54",
+      "secondary": "#ff431b"
+    },
+    "198": {
+      "id": "198",
+      "school": "Oral Roberts",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/198.png",
+      "bbox": [
+        19,
+        113,
+        481,
+        387
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        216
+      ],
+      "primary": "#002462",
+      "secondary": "#dac792"
+    },
+    "201": {
+      "id": "201",
+      "school": "Oklahoma",
+      "heritage": true,
+      "source": "assets/cbb-sec-1980s/oklahoma.png",
+      "bbox": [
+        68,
+        73,
+        444,
+        439
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        352,
+        343
+      ],
+      "primary": "#990000",
+      "secondary": "#b05454"
+    },
+    "189": {
+      "id": "189",
+      "school": "Bowling Green",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/189.png",
+      "bbox": [
+        20,
+        35,
+        480,
+        465
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        292,
+        274
+      ],
+      "primary": "#fd5000",
+      "secondary": "#4f2c1d"
+    },
+    "193": {
+      "id": "193",
+      "school": "Miami (OH)",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/193.png",
+      "bbox": [
+        20,
+        76,
+        480,
+        423
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        311,
+        238
+      ],
+      "primary": "#c41230",
+      "secondary": "#ca5f71"
+    },
+    "202": {
+      "id": "202",
+      "school": "Tulsa",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/202.png",
+      "bbox": [
+        20,
+        66,
+        480,
+        433
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        284
+      ],
+      "primary": "#003595",
+      "secondary": "#d0b787"
+    },
+    "197": {
+      "id": "197",
+      "school": "Oklahoma St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/197.png",
+      "bbox": [
+        20,
+        131,
+        480,
+        369
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        191
+      ],
+      "primary": "#fe5c00",
+      "secondary": "#000000"
+    },
+    "204": {
+      "id": "204",
+      "school": "Oregon St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/204.png",
+      "bbox": [
+        20,
+        121,
+        480,
+        379
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        205
+      ],
+      "primary": "#dc4405",
+      "secondary": "#000000"
+    },
+    "213": {
+      "id": "213",
+      "school": "Penn St.",
+      "heritage": true,
+      "source": "assets/cbb-big-ten-1980s/centered/penn-state.png",
+      "bbox": [
+        70,
+        146,
+        441,
+        368
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        352,
+        217
+      ],
+      "primary": "#061440",
+      "secondary": "#58607a"
+    },
+    "227": {
+      "id": "227",
+      "school": "Rhode Island",
+      "heritage": true,
+      "source": "assets/cbb-atlantic-10-1980s/rhode-island.png",
+      "bbox": [
+        56,
+        61,
+        456,
+        450
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        343
+      ],
+      "primary": "#091f3f",
+      "secondary": "#5ab3e8"
+    },
+    "218": {
+      "id": "218",
+      "school": "Temple",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/218.png",
+      "bbox": [
+        62,
+        20,
+        437,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        256,
+        311
+      ],
+      "primary": "#a41e35",
+      "secondary": "#b66674"
+    },
+    "225": {
+      "id": "225",
+      "school": "Brown",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/225.png",
+      "bbox": [
+        61,
+        19,
+        439,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        258,
+        311
+      ],
+      "primary": "#411e09",
+      "secondary": "#949300"
+    },
+    "219": {
+      "id": "219",
+      "school": "Penn",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/219.png",
+      "bbox": [
+        60,
+        19,
+        439,
+        481
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        258,
+        311
+      ],
+      "primary": "#082a74",
+      "secondary": "#a6163d"
+    },
+    "221": {
+      "id": "221",
+      "school": "Pittsburgh",
+      "heritage": true,
+      "source": "assets/cbb-acc-1980s/pittsburgh.png",
+      "bbox": [
+        79,
+        132,
+        433,
+        379
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        331,
+        236
+      ],
+      "primary": "#003594",
+      "secondary": "#ffb81c"
+    },
+    "231": {
+      "id": "231",
+      "school": "Furman",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/231.png",
+      "bbox": [
+        15,
+        20,
+        485,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        345
+      ],
+      "primary": "#582c83",
+      "secondary": "#896ea3"
+    },
+    "232": {
+      "id": "232",
+      "school": "Col. of Charleston",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/232.png",
+      "bbox": [
+        61,
+        20,
+        439,
+        481
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        292,
+        352
+      ],
+      "primary": "#7a2531",
+      "secondary": "#9e8959"
+    },
+    "222": {
+      "id": "222",
+      "school": "Villanova",
+      "heritage": true,
+      "source": "assets/cbb-big-east-1980s/villanova.png",
+      "bbox": [
+        52,
+        99,
+        459,
+        413
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        352,
+        275
+      ],
+      "primary": "#00205b",
+      "secondary": "#13b5ea"
+    },
+    "228": {
+      "id": "228",
+      "school": "Clemson",
+      "heritage": true,
+      "source": "assets/cbb-acc-1980s/clemson.png",
+      "bbox": [
+        89,
+        81,
+        422,
+        431
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        316,
+        331
+      ],
+      "primary": "#f56600",
+      "secondary": "#824214"
+    },
+    "233": {
+      "id": "233",
+      "school": "South Dakota",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/233.png",
+      "bbox": [
+        60,
+        20,
+        440,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        294,
+        352
+      ],
+      "primary": "#cd1241",
+      "secondary": "#cf5f7b"
+    },
+    "236": {
+      "id": "236",
+      "school": "Chattanooga",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/236.png",
+      "bbox": [
+        19,
+        49,
+        481,
+        451
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        311,
+        273
+      ],
+      "primary": "#00386b",
+      "secondary": "#dca71d"
+    },
+    "242": {
+      "id": "242",
+      "school": "Rice",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/242.png",
+      "bbox": [
+        60,
+        20,
+        439,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        276,
+        331
+      ],
+      "primary": "#00205b",
+      "secondary": "#c1c6c8"
+    },
+    "239": {
+      "id": "239",
+      "school": "Baylor",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/239.png",
+      "bbox": [
+        58,
+        20,
+        441,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        262,
+        311
+      ],
+      "primary": "#154734",
+      "secondary": "#ffb81c"
+    },
+    "235": {
+      "id": "235",
+      "school": "Memphis",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/235.png",
+      "bbox": [
+        20,
+        50,
+        480,
+        449
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        311,
+        272
+      ],
+      "primary": "#004991",
+      "secondary": "#8e908f"
+    },
+    "245": {
+      "id": "245",
+      "school": "Texas A&M",
+      "heritage": true,
+      "source": "assets/cbb-sec-1980s/texas-am.png",
+      "bbox": [
+        56,
+        114,
+        456,
+        398
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        352,
+        255
+      ],
+      "primary": "#500000",
+      "secondary": "#845454"
+    },
+    "238": {
+      "id": "238",
+      "school": "Vanderbilt",
+      "heritage": true,
+      "source": "assets/cbb-sec-1980s/vanderbilt.png",
+      "bbox": [
+        71,
+        80,
+        440,
+        431
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        352,
+        336
+      ],
+      "primary": "#000000",
+      "secondary": "#cfae70"
+    },
+    "248": {
+      "id": "248",
+      "school": "Houston",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/248.png",
+      "bbox": [
+        20,
+        31,
+        480,
+        469
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        292,
+        279
+      ],
+      "primary": "#c8102e",
+      "secondary": "#cc5e70"
+    },
+    "249": {
+      "id": "249",
+      "school": "North Texas",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/249.png",
+      "bbox": [
+        41,
+        20,
+        458,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        283,
+        311
+      ],
+      "primary": "#068f33",
+      "secondary": "#58aa73"
+    },
+    "250": {
+      "id": "250",
+      "school": "UT Arlington",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/250.png",
+      "bbox": [
+        22,
+        77,
+        478,
+        423
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        271
+      ],
+      "primary": "#004b7c",
+      "secondary": "#f58024"
+    },
+    "253": {
+      "id": "253",
+      "school": "Southern Utah",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/253.png",
+      "bbox": [
+        20,
+        108,
+        480,
+        393
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        225
+      ],
+      "primary": "#c72026",
+      "secondary": "#000000"
+    },
+    "252": {
+      "id": "252",
+      "school": "BYU",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/252.png",
+      "bbox": [
+        20,
+        107,
+        480,
+        392
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        225
+      ],
+      "primary": "#0047ba",
+      "secondary": "#002e5d"
+    },
+    "257": {
+      "id": "257",
+      "school": "Richmond",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/257.png",
+      "bbox": [
+        82,
+        20,
+        419,
+        482
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        261,
+        352
+      ],
+      "primary": "#990000",
+      "secondary": "#003366"
+    },
+    "251": {
+      "id": "251",
+      "school": "Texas",
+      "heritage": true,
+      "source": "assets/cbb-sec-1980s/texas.png",
+      "bbox": [
+        108,
+        72,
+        403,
+        439
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        269,
+        331
+      ],
+      "primary": "#af5c37",
+      "secondary": "#bd8b75"
+    },
+    "254": {
+      "id": "254",
+      "school": "Utah",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/254.png",
+      "bbox": [
+        20,
+        37,
+        480,
+        463
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        292,
+        272
+      ],
+      "primary": "#be0000",
+      "secondary": "#c65454"
+    },
+    "256": {
+      "id": "256",
+      "school": "James Madison",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/256.png",
+      "bbox": [
+        20,
+        175,
+        480,
+        325
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        127
+      ],
+      "primary": "#450084",
+      "secondary": "#cbb677"
+    },
+    "259": {
+      "id": "259",
+      "school": "Virginia Tech",
+      "heritage": true,
+      "source": "assets/cbb-acc-1980s/virginia-tech.png",
+      "bbox": [
+        61,
+        164,
+        450,
+        347
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        352,
+        175
+      ],
+      "primary": "#6a2c3e",
+      "secondary": "#cf4520"
+    },
+    "275": {
+      "id": "275",
+      "school": "Wisconsin",
+      "heritage": true,
+      "source": "assets/cbb-big-ten-1980s/centered/wisconsin.png",
+      "bbox": [
+        92,
+        44,
+        421,
+        469
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        276,
+        352
+      ],
+      "primary": "#a00000",
+      "secondary": "#b45454"
+    },
+    "264": {
+      "id": "264",
+      "school": "Washington",
+      "heritage": true,
+      "source": "assets/cbb-big-ten-1980s/centered/washington.png",
+      "bbox": [
+        71,
+        143,
+        441,
+        368
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        331,
+        207
+      ],
+      "primary": "#33006f",
+      "secondary": "#e8d3a2"
+    },
+    "258": {
+      "id": "258",
+      "school": "Virginia",
+      "heritage": true,
+      "source": "assets/cbb-acc-1980s/virginia.png",
+      "bbox": [
+        73,
+        103,
+        439,
+        408
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        331,
+        278
+      ],
+      "primary": "#232d4b",
+      "secondary": "#f84c1e"
+    },
+    "270": {
+      "id": "270",
+      "school": "Milwaukee",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/270.png",
+      "bbox": [
+        18,
+        162,
+        482,
+        339
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        145
+      ],
+      "primary": "#000000",
+      "secondary": "#ffc20e"
+    },
+    "261": {
+      "id": "261",
+      "school": "Vermont",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/261.png",
+      "bbox": [
+        19,
+        24,
+        481,
+        476
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        331,
+        324
+      ],
+      "primary": "#154734",
+      "secondary": "#ffc72c"
+    },
+    "276": {
+      "id": "276",
+      "school": "Marshall",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/276.png",
+      "bbox": [
+        20,
+        100,
+        480,
+        400
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        236
+      ],
+      "primary": "#00b140",
+      "secondary": "#000000"
+    },
+    "265": {
+      "id": "265",
+      "school": "Washington St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/265.png",
+      "bbox": [
+        20,
+        22,
+        480,
+        478
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        331,
+        328
+      ],
+      "primary": "#a60f2d",
+      "secondary": "#4d4d4d"
+    },
+    "278": {
+      "id": "278",
+      "school": "Fresno St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/278.png",
+      "bbox": [
+        20,
+        86,
+        480,
+        414
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        256
+      ],
+      "primary": "#b1102b",
+      "secondary": "#13284c"
+    },
+    "277": {
+      "id": "277",
+      "school": "West Virginia",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/277.png",
+      "bbox": [
+        20,
+        34,
+        480,
+        466
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        292,
+        275
+      ],
+      "primary": "#eaaa00",
+      "secondary": "#002855"
+    },
+    "282": {
+      "id": "282",
+      "school": "Indiana St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/282.png",
+      "bbox": [
+        19,
+        49,
+        480,
+        451
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        309
+      ],
+      "primary": "#00669a",
+      "secondary": "#5491b0"
+    },
+    "279": {
+      "id": "279",
+      "school": "Pacific",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/279.png",
+      "bbox": [
+        23,
+        90,
+        477,
+        410
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        253
+      ],
+      "primary": "#f47820",
+      "secondary": "#c2c3c0"
+    },
+    "269": {
+      "id": "269",
+      "school": "Marquette",
+      "heritage": true,
+      "source": "assets/cbb-big-east-1980s/marquette.png",
+      "bbox": [
+        58,
+        57,
+        455,
+        455
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        351,
+        352
+      ],
+      "primary": "#003366",
+      "secondary": "#ffcc00"
+    },
+    "290": {
+      "id": "290",
+      "school": "Ga. Southern",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/290.png",
+      "bbox": [
+        20,
+        114,
+        480,
+        385
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        215
+      ],
+      "primary": "#041e42",
+      "secondary": "#a3aaae"
+    },
+    "284": {
+      "id": "284",
+      "school": "Stonehill",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/284.png",
+      "bbox": [
+        19,
+        84,
+        481,
+        415
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        331,
+        242
+      ],
+      "primary": "#4e2c78",
+      "secondary": "#836e9c"
+    },
+    "288": {
+      "id": "288",
+      "school": "Lipscomb",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/288.png",
+      "bbox": [
+        53,
+        16,
+        447,
+        483
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        265,
+        311
+      ],
+      "primary": "#20366c",
+      "secondary": "#f6b734"
+    },
+    "295": {
+      "id": "295",
+      "school": "Old Dominion",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/295.png",
+      "bbox": [
+        20,
+        62,
+        480,
+        438
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        311,
+        257
+      ],
+      "primary": "#003768",
+      "secondary": "#a1d2f1"
+    },
+    "292": {
+      "id": "292",
+      "school": "UTRGV",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/292.png",
+      "bbox": [
+        18,
+        67,
+        481,
+        432
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        281
+      ],
+      "primary": "#dc6000",
+      "secondary": "#e1732d"
+    },
+    "294": {
+      "id": "294",
+      "school": "Jacksonville",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/294.png",
+      "bbox": [
+        27,
+        96,
+        473,
+        374
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        226
+      ],
+      "primary": "#00523e",
+      "secondary": "#c5a36a"
+    },
+    "299": {
+      "id": "299",
+      "school": "Long Beach St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/299.png",
+      "bbox": [
+        65,
+        22,
+        436,
+        477
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        256,
+        311
+      ],
+      "primary": "#000000",
+      "secondary": "#545454"
+    },
+    "301": {
+      "id": "301",
+      "school": "San Diego",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/301.png",
+      "bbox": [
+        19,
+        28,
+        481,
+        472
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        339
+      ],
+      "primary": "#2f99d4",
+      "secondary": "#002e5d"
+    },
+    "300": {
+      "id": "300",
+      "school": "UC Irvine",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/300.png",
+      "bbox": [
+        35,
+        20,
+        463,
+        479
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        310,
+        331
+      ],
+      "primary": "#002b5c",
+      "secondary": "#fec52e"
+    },
+    "302": {
+      "id": "302",
+      "school": "UC Davis",
+      "heritage": true,
+      "source": "assets/cbb-mountain-west-1980s/uc-davis.png",
+      "bbox": [
+        63,
+        55,
+        657,
+        665
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        285,
+        292
+      ],
+      "primary": "#002855",
+      "secondary": "#c3c4c6"
+    },
+    "309": {
+      "id": "309",
+      "school": "Louisiana",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/309.png",
+      "bbox": [
+        20,
+        133,
+        480,
+        366
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        187
+      ],
+      "primary": "#ce181e",
+      "secondary": "#000000"
+    },
+    "315": {
+      "id": "315",
+      "school": "Niagara",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/315.png",
+      "bbox": [
+        2,
+        150,
+        498,
+        350
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        158
+      ],
+      "primary": "#69207e",
+      "secondary": "#9367a0"
+    },
+    "304": {
+      "id": "304",
+      "school": "Idaho St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/304.png",
+      "bbox": [
+        18,
+        24,
+        481,
+        475
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        311,
+        303
+      ],
+      "primary": "#ef8c00",
+      "secondary": "#e9a126"
+    },
+    "314": {
+      "id": "314",
+      "school": "Iona",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/314.png",
+      "bbox": [
+        19,
+        74,
+        482,
+        427
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        272
+      ],
+      "primary": "#6f2c3e",
+      "secondary": "#f0ab00"
+    },
+    "305": {
+      "id": "305",
+      "school": "DePaul",
+      "heritage": true,
+      "source": "assets/cbb-big-east-1980s/depaul.png",
+      "bbox": [
+        116,
+        91,
+        396,
+        421
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        266,
+        311
+      ],
+      "primary": "#2d649c",
+      "secondary": "#ce1125"
+    },
+    "311": {
+      "id": "311",
+      "school": "Maine",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/311.png",
+      "bbox": [
+        18,
+        73,
+        482,
+        427
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        311,
+        241
+      ],
+      "primary": "#127dbe",
+      "secondary": "#001f46"
+    },
+    "324": {
+      "id": "324",
+      "school": "Coastal Carolina",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/324.png",
+      "bbox": [
+        44,
+        20,
+        455,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        316,
+        352
+      ],
+      "primary": "#006f71",
+      "secondary": "#a27752"
+    },
+    "328": {
+      "id": "328",
+      "school": "Utah St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/328.png",
+      "bbox": [
+        20,
+        73,
+        480,
+        427
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        275
+      ],
+      "primary": "#0f2439",
+      "secondary": "#5d6a76"
+    },
+    "325": {
+      "id": "325",
+      "school": "Cleveland St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/325.png",
+      "bbox": [
+        18,
+        3,
+        483,
+        499
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        304,
+        311
+      ],
+      "primary": "#006633",
+      "secondary": "#231f20"
+    },
+    "322": {
+      "id": "322",
+      "school": "Lafayette",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/322.png",
+      "bbox": [
+        20,
+        35,
+        480,
+        464
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        292,
+        274
+      ],
+      "primary": "#790000",
+      "secondary": "#a59474"
+    },
+    "326": {
+      "id": "326",
+      "school": "Texas St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/326.png",
+      "bbox": [
+        53,
+        20,
+        447,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        304,
+        352
+      ],
+      "primary": "#501214",
+      "secondary": "#6a5638"
+    },
+    "344": {
+      "id": "344",
+      "school": "Mississippi St.",
+      "heritage": true,
+      "source": "assets/cbb-sec-1980s/mississippi-state.png",
+      "bbox": [
+        137,
+        53,
+        374,
+        459
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        212,
+        352
+      ],
+      "primary": "#5d1725",
+      "secondary": "#c1c6c8"
+    },
+    "339": {
+      "id": "339",
+      "school": "Evansville",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/339.png",
+      "bbox": [
+        22,
+        60,
+        478,
+        440
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        311,
+        262
+      ],
+      "primary": "#663399",
+      "secondary": "#ef6f00"
+    },
+    "331": {
+      "id": "331",
+      "school": "Eastern Wash.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/331.png",
+      "bbox": [
+        5,
+        18,
+        500,
+        482
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        311,
+        304
+      ],
+      "primary": "#a10022",
+      "secondary": "#abb4bc"
+    },
+    "333": {
+      "id": "333",
+      "school": "Alabama",
+      "heritage": true,
+      "source": "assets/cbb-sec-1980s/alabama.png",
+      "bbox": [
+        104,
+        94,
+        407,
+        417
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        275,
+        292
+      ],
+      "primary": "#9e1b32",
+      "secondary": "#b36472"
+    },
+    "338": {
+      "id": "338",
+      "school": "Kennesaw St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/338.png",
+      "bbox": [
+        20,
+        33,
+        480,
+        466
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        292,
+        276
+      ],
+      "primary": "#fdbb30",
+      "secondary": "#0b1315"
+    },
+    "349": {
+      "id": "349",
+      "school": "Army West Point",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/349.png",
+      "bbox": [
+        53,
+        20,
+        446,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        268,
+        311
+      ],
+      "primary": "#000000",
+      "secondary": "#d3bc8d"
+    },
+    "399": {
+      "id": "399",
+      "school": "UAlbany",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/399.png",
+      "bbox": [
+        126,
+        20,
+        374,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        198,
+        352
+      ],
+      "primary": "#3d2777",
+      "secondary": "#796b9b"
+    },
+    "356": {
+      "id": "356",
+      "school": "Illinois",
+      "heritage": true,
+      "source": "assets/cbb-big-ten-1980s/centered/illinois.png",
+      "bbox": [
+        46,
+        46,
+        466,
+        466
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        352
+      ],
+      "primary": "#ff5f05",
+      "secondary": "#13294b"
+    },
+    "357": {
+      "id": "357",
+      "school": "A&M-Corpus Christi",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/357.png",
+      "bbox": [
+        125,
+        22,
+        373,
+        478
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        199,
+        352
+      ],
+      "primary": "#0067c5",
+      "secondary": "#007f3e"
+    },
+    "350": {
+      "id": "350",
+      "school": "UNCW",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/350.png",
+      "bbox": [
+        19,
+        27,
+        481,
+        473
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        340
+      ],
+      "primary": "#00665e",
+      "secondary": "#ffda00"
+    },
+    "526": {
+      "id": "526",
+      "school": "FGCU",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/526.png",
+      "bbox": [
+        2,
+        71,
+        498,
+        425
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        331,
+        250
+      ],
+      "primary": "#00885a",
+      "secondary": "#076c3b"
+    },
+    "2006": {
+      "id": "2006",
+      "school": "Akron",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2006.png",
+      "bbox": [
+        20,
+        124,
+        480,
+        375
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        200
+      ],
+      "primary": "#041e42",
+      "secondary": "#c5b783"
+    },
+    "2005": {
+      "id": "2005",
+      "school": "Air Force",
+      "heritage": true,
+      "source": "assets/cbb-mountain-west-1980s/air-force.png",
+      "bbox": [
+        126,
+        55,
+        593,
+        665
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        257,
+        331
+      ],
+      "primary": "#003594",
+      "secondary": "#5474ad"
+    },
+    "2000": {
+      "id": "2000",
+      "school": "Abilene Christian",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2000.png",
+      "bbox": [
+        19,
+        78,
+        482,
+        422
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        266
+      ],
+      "primary": "#592d82",
+      "secondary": "#b1b3b3"
+    },
+    "2011": {
+      "id": "2011",
+      "school": "Alabama St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2011.png",
+      "bbox": [
+        0,
+        140,
+        497,
+        364
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        175
+      ],
+      "primary": "#e9a900",
+      "secondary": "#0a0a0a"
+    },
+    "2010": {
+      "id": "2010",
+      "school": "Alabama A&M",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2010.png",
+      "bbox": [
+        47,
+        20,
+        453,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        294,
+        331
+      ],
+      "primary": "#790000",
+      "secondary": "#9d5454"
+    },
+    "2029": {
+      "id": "2029",
+      "school": "Ark.-Pine Bluff",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2029.png",
+      "bbox": [
+        18,
+        60,
+        479,
+        441
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        294
+      ],
+      "primary": "#e0aa0f",
+      "secondary": "#eaaa00"
+    },
+    "2026": {
+      "id": "2026",
+      "school": "App State",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2026.png",
+      "bbox": [
+        47,
+        20,
+        453,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        260,
+        292
+      ],
+      "primary": "#000000",
+      "secondary": "#ffcd00"
+    },
+    "2046": {
+      "id": "2046",
+      "school": "Austin Peay",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2046.png",
+      "bbox": [
+        38,
+        15,
+        462,
+        486
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        319,
+        352
+      ],
+      "primary": "#8e0b0b",
+      "secondary": "#5e6168"
+    },
+    "2031": {
+      "id": "2031",
+      "school": "Little Rock",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2031.png",
+      "bbox": [
+        41,
+        20,
+        459,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        321,
+        352
+      ],
+      "primary": "#ad0000",
+      "secondary": "#898d8f"
+    },
+    "2050": {
+      "id": "2050",
+      "school": "Ball St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2050.png",
+      "bbox": [
+        85,
+        20,
+        415,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        242,
+        331
+      ],
+      "primary": "#ba0c2f",
+      "secondary": "#c45b70"
+    },
+    "2065": {
+      "id": "2065",
+      "school": "Bethune-Cookman",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2065.png",
+      "bbox": [
+        29,
+        20,
+        472,
+        479
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        340,
+        352
+      ],
+      "primary": "#7b1831",
+      "secondary": "#e9aa12"
+    },
+    "2032": {
+      "id": "2032",
+      "school": "Arkansas St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2032.png",
+      "bbox": [
+        20,
+        4,
+        480,
+        495
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        320,
+        331
+      ],
+      "primary": "#cc092f",
+      "secondary": "#000000"
+    },
+    "2066": {
+      "id": "2066",
+      "school": "Binghamton",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2066.png",
+      "bbox": [
+        20,
+        45,
+        481,
+        455
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        331,
+        296
+      ],
+      "primary": "#00614a",
+      "secondary": "#548e80"
+    },
+    "2057": {
+      "id": "2057",
+      "school": "Belmont",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2057.png",
+      "bbox": [
+        2,
+        14,
+        498,
+        487
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        311,
+        309
+      ],
+      "primary": "#182142",
+      "secondary": "#c9262d"
+    },
+    "2083": {
+      "id": "2083",
+      "school": "Bucknell",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2083.png",
+      "bbox": [
+        2,
+        105,
+        497,
+        433
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        331,
+        233
+      ],
+      "primary": "#000060",
+      "secondary": "#00316e"
+    },
+    "2084": {
+      "id": "2084",
+      "school": "Buffalo",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2084.png",
+      "bbox": [
+        20,
+        26,
+        480,
+        473
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        311,
+        303
+      ],
+      "primary": "#005bbb",
+      "secondary": "#548bc4"
+    },
+    "2097": {
+      "id": "2097",
+      "school": "Campbell",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2097.png",
+      "bbox": [
+        19,
+        118,
+        481,
+        382
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        209
+      ],
+      "primary": "#f15a24",
+      "secondary": "#000000"
+    },
+    "2086": {
+      "id": "2086",
+      "school": "Butler",
+      "heritage": true,
+      "source": "assets/cbb-big-east-1980s/butler.png",
+      "bbox": [
+        113,
+        91,
+        398,
+        421
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        271,
+        311
+      ],
+      "primary": "#0d1361",
+      "secondary": "#00a3e0"
+    },
+    "2116": {
+      "id": "2116",
+      "school": "UCF",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2116.png",
+      "bbox": [
+        20,
+        75,
+        480,
+        425
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        311,
+        240
+      ],
+      "primary": "#000000",
+      "secondary": "#b4a169"
+    },
+    "2110": {
+      "id": "2110",
+      "school": "Central Ark.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2110.png",
+      "bbox": [
+        37,
+        88,
+        465,
+        419
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        276
+      ],
+      "primary": "#a7a9ac",
+      "secondary": "#8e959a"
+    },
+    "2127": {
+      "id": "2127",
+      "school": "Charleston So.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2127.png",
+      "bbox": [
+        18,
+        83,
+        483,
+        417
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        258
+      ],
+      "primary": "#2e3192",
+      "secondary": "#ded090"
+    },
+    "2117": {
+      "id": "2117",
+      "school": "Central Mich.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2117.png",
+      "bbox": [
+        20,
+        86,
+        480,
+        414
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        331,
+        241
+      ],
+      "primary": "#4c0027",
+      "secondary": "#fbab18"
+    },
+    "2099": {
+      "id": "2099",
+      "school": "Canisius",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2099.png",
+      "bbox": [
+        20,
+        12,
+        480,
+        487
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        284,
+        292
+      ],
+      "primary": "#004a81",
+      "secondary": "#dda50f"
+    },
+    "2115": {
+      "id": "2115",
+      "school": "Central Conn. St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2115.png",
+      "bbox": [
+        29,
+        2,
+        471,
+        498
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        290,
+        311
+      ],
+      "primary": "#1b49a2",
+      "secondary": "#d1d5d8"
+    },
+    "2166": {
+      "id": "2166",
+      "school": "Davidson",
+      "heritage": true,
+      "source": "assets/cbb-atlantic-10-1980s/davidson.png",
+      "bbox": [
+        55,
+        58,
+        665,
+        661
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        348
+      ],
+      "primary": "#000000",
+      "secondary": "#e51837"
+    },
+    "2168": {
+      "id": "2168",
+      "school": "Dayton",
+      "heritage": true,
+      "source": "assets/cbb-atlantic-10-1980s/dayton.png",
+      "bbox": [
+        55,
+        267,
+        665,
+        452
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        118
+      ],
+      "primary": "#CE1141",
+      "secondary": "#002D62"
+    },
+    "2132": {
+      "id": "2132",
+      "school": "Cincinnati",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2132.png",
+      "bbox": [
+        104,
+        20,
+        395,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        215,
+        331
+      ],
+      "primary": "#000000",
+      "secondary": "#e00122"
+    },
+    "2142": {
+      "id": "2142",
+      "school": "Colgate",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2142.png",
+      "bbox": [
+        19,
+        36,
+        481,
+        465
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        328
+      ],
+      "primary": "#821019",
+      "secondary": "#a25e63"
+    },
+    "2154": {
+      "id": "2154",
+      "school": "Coppin St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2154.png",
+      "bbox": [
+        20,
+        103,
+        480,
+        397
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        331,
+        217
+      ],
+      "primary": "#2e3192",
+      "secondary": "#ffd204"
+    },
+    "2172": {
+      "id": "2172",
+      "school": "Denver",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2172.png",
+      "bbox": [
+        20,
+        177,
+        480,
+        322
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        123
+      ],
+      "primary": "#98002e",
+      "secondary": "#a8996e"
+    },
+    "2184": {
+      "id": "2184",
+      "school": "Duquesne",
+      "heritage": true,
+      "source": "assets/cbb-atlantic-10-1980s/duquesne.png",
+      "bbox": [
+        55,
+        150,
+        665,
+        570
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        248
+      ],
+      "primary": "#002d62",
+      "secondary": "#b90b2e"
+    },
+    "2169": {
+      "id": "2169",
+      "school": "Delaware St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2169.png",
+      "bbox": [
+        20,
+        45,
+        480,
+        455
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        292,
+        262
+      ],
+      "primary": "#009cdb",
+      "secondary": "#d51c28"
+    },
+    "2174": {
+      "id": "2174",
+      "school": "Detroit Mercy",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2174.png",
+      "bbox": [
+        20,
+        78,
+        480,
+        422
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        268
+      ],
+      "primary": "#165b9e",
+      "secondary": "#d31733"
+    },
+    "2182": {
+      "id": "2182",
+      "school": "Drexel",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2182.png",
+      "bbox": [
+        1,
+        70,
+        497,
+        431
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        271
+      ],
+      "primary": "#020260",
+      "secondary": "#ffd65a"
+    },
+    "2198": {
+      "id": "2198",
+      "school": "Eastern Ky.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2198.png",
+      "bbox": [
+        23,
+        178,
+        478,
+        322
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        122
+      ],
+      "primary": "#660819",
+      "secondary": "#915963"
+    },
+    "2197": {
+      "id": "2197",
+      "school": "Eastern Ill.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2197.png",
+      "bbox": [
+        21,
+        55,
+        478,
+        445
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        303
+      ],
+      "primary": "#000000",
+      "secondary": "#bebab9"
+    },
+    "2181": {
+      "id": "2181",
+      "school": "Drake",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2181.png",
+      "bbox": [
+        37,
+        21,
+        463,
+        482
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        289,
+        311
+      ],
+      "primary": "#005596",
+      "secondary": "#bec0c2"
+    },
+    "2193": {
+      "id": "2193",
+      "school": "ETSU",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2193.png",
+      "bbox": [
+        19,
+        21,
+        481,
+        478
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        311,
+        308
+      ],
+      "primary": "#002d61",
+      "secondary": "#ffc423"
+    },
+    "2199": {
+      "id": "2199",
+      "school": "Eastern Mich.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2199.png",
+      "bbox": [
+        46,
+        20,
+        454,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        261,
+        292
+      ],
+      "primary": "#006938",
+      "secondary": "#549376"
+    },
+    "2130": {
+      "id": "2130",
+      "school": "Chicago St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2130.png",
+      "bbox": [
+        23,
+        30,
+        477,
+        470
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        342
+      ],
+      "primary": "#006700",
+      "secondary": "#549254"
+    },
+    "2217": {
+      "id": "2217",
+      "school": "Fairfield",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2217.png",
+      "bbox": [
+        18,
+        46,
+        482,
+        454
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        292,
+        259
+      ],
+      "primary": "#000000",
+      "secondary": "#545454"
+    },
+    "2210": {
+      "id": "2210",
+      "school": "Elon",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2210.png",
+      "bbox": [
+        42,
+        20,
+        458,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        266,
+        292
+      ],
+      "primary": "#020303",
+      "secondary": "#b59a57"
+    },
+    "2226": {
+      "id": "2226",
+      "school": "Fla. Atlantic",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2226.png",
+      "bbox": [
+        20,
+        119,
+        480,
+        381
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        208
+      ],
+      "primary": "#003366",
+      "secondary": "#cc0000"
+    },
+    "2229": {
+      "id": "2229",
+      "school": "FIU",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2229.png",
+      "bbox": [
+        46,
+        20,
+        454,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        295,
+        331
+      ],
+      "primary": "#091f3f",
+      "secondary": "#c3993f"
+    },
+    "2230": {
+      "id": "2230",
+      "school": "Fordham",
+      "heritage": true,
+      "source": "assets/cbb-atlantic-10-1980s/fordham.png",
+      "bbox": [
+        56,
+        79,
+        456,
+        433
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        313
+      ],
+      "primary": "#830032",
+      "secondary": "#909090"
+    },
+    "2244": {
+      "id": "2244",
+      "school": "George Mason",
+      "heritage": true,
+      "source": "assets/cbb-atlantic-10-1980s/george-mason.png",
+      "bbox": [
+        56,
+        56,
+        456,
+        456
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        352
+      ],
+      "primary": "#016600",
+      "secondary": "#ecb010"
+    },
+    "2253": {
+      "id": "2253",
+      "school": "Grand Canyon",
+      "heritage": true,
+      "source": "assets/cbb-mountain-west-1980s/grand-canyon.png",
+      "bbox": [
+        76,
+        55,
+        644,
+        665
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        329,
+        352
+      ],
+      "primary": "#522398",
+      "secondary": "#8569af"
+    },
+    "2239": {
+      "id": "2239",
+      "school": "Cal St. Fullerton",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2239.png",
+      "bbox": [
+        97,
+        20,
+        404,
+        481
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        226,
+        331
+      ],
+      "primary": "#003767",
+      "secondary": "#ff8300"
+    },
+    "2247": {
+      "id": "2247",
+      "school": "Georgia St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2247.png",
+      "bbox": [
+        20,
+        63,
+        480,
+        436
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        331,
+        271
+      ],
+      "primary": "#0039a6",
+      "secondary": "#5476b8"
+    },
+    "2250": {
+      "id": "2250",
+      "school": "Gonzaga",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2250.png",
+      "bbox": [
+        22,
+        70,
+        478,
+        435
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        285
+      ],
+      "primary": "#041e42",
+      "secondary": "#c8102e"
+    },
+    "2241": {
+      "id": "2241",
+      "school": "Gardner-Webb",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2241.png",
+      "bbox": [
+        20,
+        39,
+        480,
+        460
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        324
+      ],
+      "primary": "#c12535",
+      "secondary": "#909090"
+    },
+    "2294": {
+      "id": "2294",
+      "school": "Iowa",
+      "heritage": true,
+      "source": "assets/cbb-big-ten-1980s/centered/iowa.png",
+      "bbox": [
+        44,
+        123,
+        466,
+        390
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        229
+      ],
+      "primary": "#231f20",
+      "secondary": "#fcd116"
+    },
+    "2275": {
+      "id": "2275",
+      "school": "Hofstra",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2275.png",
+      "bbox": [
+        20,
+        66,
+        480,
+        434
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        285
+      ],
+      "primary": "#003594",
+      "secondary": "#ffc72c"
+    },
+    "2272": {
+      "id": "2272",
+      "school": "High Point",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2272.png",
+      "bbox": [
+        20,
+        114,
+        480,
+        385
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        215
+      ],
+      "primary": "#330072",
+      "secondary": "#735498"
+    },
+    "2296": {
+      "id": "2296",
+      "school": "Jackson St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2296.png",
+      "bbox": [
+        21,
+        105,
+        478,
+        396
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        331,
+        216
+      ],
+      "primary": "#123297",
+      "secondary": "#b5b7ba"
+    },
+    "2261": {
+      "id": "2261",
+      "school": "Hampton",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2261.png",
+      "bbox": [
+        20,
+        65,
+        480,
+        435
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        331,
+        269
+      ],
+      "primary": "#0067ac",
+      "secondary": "#5492bb"
+    },
+    "2277": {
+      "id": "2277",
+      "school": "Houston Christian",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2277.png",
+      "bbox": [
+        27,
+        19,
+        473,
+        481
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        340,
+        352
+      ],
+      "primary": "#00539c",
+      "secondary": "#f47721"
+    },
+    "2287": {
+      "id": "2287",
+      "school": "Illinois St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2287.png",
+      "bbox": [
+        19,
+        108,
+        481,
+        390
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        222
+      ],
+      "primary": "#ce1126",
+      "secondary": "#ffe716"
+    },
+    "2305": {
+      "id": "2305",
+      "school": "Kansas",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2305.png",
+      "bbox": [
+        20,
+        48,
+        480,
+        451
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        331,
+        292
+      ],
+      "primary": "#0051ba",
+      "secondary": "#e8000d"
+    },
+    "2306": {
+      "id": "2306",
+      "school": "Kansas St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2306.png",
+      "bbox": [
+        20,
+        79,
+        480,
+        421
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        331,
+        250
+      ],
+      "primary": "#330a57",
+      "secondary": "#735a88"
+    },
+    "2309": {
+      "id": "2309",
+      "school": "Kent St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2309.png",
+      "bbox": [
+        20,
+        117,
+        480,
+        383
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        211
+      ],
+      "primary": "#002664",
+      "secondary": "#eaab00"
+    },
+    "2325": {
+      "id": "2325",
+      "school": "La Salle",
+      "heritage": true,
+      "source": "assets/cbb-atlantic-10-1980s/la-salle.png",
+      "bbox": [
+        55,
+        112,
+        665,
+        608
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        331,
+        272
+      ],
+      "primary": "#003356",
+      "secondary": "#ffce00"
+    },
+    "2320": {
+      "id": "2320",
+      "school": "Lamar University",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2320.png",
+      "bbox": [
+        21,
+        31,
+        478,
+        470
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        292,
+        281
+      ],
+      "primary": "#000000",
+      "secondary": "#545454"
+    },
+    "2329": {
+      "id": "2329",
+      "school": "Lehigh",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2329.png",
+      "bbox": [
+        42,
+        52,
+        457,
+        458
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        292,
+        286
+      ],
+      "primary": "#6c2b2a",
+      "secondary": "#b69e70"
+    },
+    "2344": {
+      "id": "2344",
+      "school": "Longwood",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2344.png",
+      "bbox": [
+        20,
+        114,
+        480,
+        386
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        215
+      ],
+      "primary": "#003273",
+      "secondary": "#9ea2a3"
+    },
+    "2330": {
+      "id": "2330",
+      "school": "Le Moyne",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2330.png",
+      "bbox": [
+        18,
+        127,
+        482,
+        373
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        195
+      ],
+      "primary": "#006747",
+      "secondary": "#f0b323"
+    },
+    "2350": {
+      "id": "2350",
+      "school": "Loyola Chicago",
+      "heritage": true,
+      "source": "assets/cbb-atlantic-10-1980s/loyola-chicago.png",
+      "bbox": [
+        83,
+        56,
+        429,
+        456
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        271,
+        311
+      ],
+      "primary": "#9d1244",
+      "secondary": "#fbbf24"
+    },
+    "2335": {
+      "id": "2335",
+      "school": "Liberty",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2335.png",
+      "bbox": [
+        20,
+        42,
+        480,
+        457
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        319
+      ],
+      "primary": "#0a254e",
+      "secondary": "#b72025"
+    },
+    "2348": {
+      "id": "2348",
+      "school": "Louisiana Tech",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2348.png",
+      "bbox": [
+        20,
+        42,
+        480,
+        457
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        292,
+        265
+      ],
+      "primary": "#003087",
+      "secondary": "#cb333b"
+    },
+    "2349": {
+      "id": "2349",
+      "school": "UMass Lowell",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2349.png",
+      "bbox": [
+        4,
+        141,
+        497,
+        361
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        172
+      ],
+      "primary": "#00529c",
+      "secondary": "#cf1f2f"
+    },
+    "2351": {
+      "id": "2351",
+      "school": "LMU (CA)",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2351.png",
+      "bbox": [
+        21,
+        146,
+        479,
+        354
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        169
+      ],
+      "primary": "#880029",
+      "secondary": "#00345b"
+    },
+    "2352": {
+      "id": "2352",
+      "school": "Loyola Maryland",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2352.png",
+      "bbox": [
+        40,
+        20,
+        461,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        269,
+        292
+      ],
+      "primary": "#76a7a0",
+      "secondary": "#c9cbca"
+    },
+    "2016": {
+      "id": "2016",
+      "school": "Alcorn",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2016.png",
+      "bbox": [
+        72,
+        136,
+        1728,
+        1664
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        292,
+        271
+      ],
+      "primary": "#4b0058",
+      "secondary": "#46166a"
+    },
+    "2368": {
+      "id": "2368",
+      "school": "Marist",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2368.png",
+      "bbox": [
+        19,
+        32,
+        480,
+        467
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        333
+      ],
+      "primary": "#e53730",
+      "secondary": "#dd7571"
+    },
+    "2379": {
+      "id": "2379",
+      "school": "UMES",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2379.png",
+      "bbox": [
+        19,
+        130,
+        481,
+        370
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        191
+      ],
+      "primary": "#5c2301",
+      "secondary": "#b5b7ba"
+    },
+    "2377": {
+      "id": "2377",
+      "school": "McNeese",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2377.png",
+      "bbox": [
+        36,
+        20,
+        464,
+        481
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        328,
+        352
+      ],
+      "primary": "#00529c",
+      "secondary": "#ffd204"
+    },
+    "2393": {
+      "id": "2393",
+      "school": "Middle Tenn.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2393.png",
+      "bbox": [
+        20,
+        119,
+        480,
+        381
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        208
+      ],
+      "primary": "#036eb7",
+      "secondary": "#5696c2"
+    },
+    "2378": {
+      "id": "2378",
+      "school": "UMBC",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2378.png",
+      "bbox": [
+        2,
+        20,
+        498,
+        481
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        331,
+        321
+      ],
+      "primary": "#000000",
+      "secondary": "#ad860a"
+    },
+    "2363": {
+      "id": "2363",
+      "school": "Manhattan",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2363.png",
+      "bbox": [
+        2,
+        42,
+        498,
+        458
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        311,
+        274
+      ],
+      "primary": "#4f8537",
+      "secondary": "#b5b7ba"
+    },
+    "2385": {
+      "id": "2385",
+      "school": "Mercyhurst",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2385.png",
+      "bbox": [
+        23,
+        32,
+        476,
+        468
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        292,
+        282
+      ],
+      "primary": "#005a3c",
+      "secondary": "#548a78"
+    },
+    "2382": {
+      "id": "2382",
+      "school": "Mercer",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2382.png",
+      "bbox": [
+        22,
+        75,
+        478,
+        423
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        311,
+        241
+      ],
+      "primary": "#ff7f29",
+      "secondary": "#080808"
+    },
+    "2390": {
+      "id": "2390",
+      "school": "Miami (FL)",
+      "heritage": true,
+      "source": "assets/cbb-acc-1980s/miami.png",
+      "bbox": [
+        108,
+        91,
+        403,
+        420
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        280,
+        311
+      ],
+      "primary": "#f47423",
+      "secondary": "#035131"
+    },
+    "2405": {
+      "id": "2405",
+      "school": "Monmouth",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2405.png",
+      "bbox": [
+        13,
+        66,
+        487,
+        433
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        276
+      ],
+      "primary": "#051844",
+      "secondary": "#57627d"
+    },
+    "2413": {
+      "id": "2413",
+      "school": "Morehead St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2413.png",
+      "bbox": [
+        2,
+        7,
+        498,
+        494
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        352
+      ],
+      "primary": "#094fa3",
+      "secondary": "#fed91a"
+    },
+    "2426": {
+      "id": "2426",
+      "school": "Navy",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2426.png",
+      "bbox": [
+        62,
+        20,
+        437,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        256,
+        311
+      ],
+      "primary": "#00225b",
+      "secondary": "#b5a67c"
+    },
+    "2415": {
+      "id": "2415",
+      "school": "Morgan St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2415.png",
+      "bbox": [
+        19,
+        29,
+        480,
+        468
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        331,
+        316
+      ],
+      "primary": "#014786",
+      "secondary": "#f47937"
+    },
+    "2400": {
+      "id": "2400",
+      "school": "Mississippi Val.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2400.png",
+      "bbox": [
+        2,
+        21,
+        498,
+        479
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        292,
+        282
+      ],
+      "primary": "#005328",
+      "secondary": "#cf2d34"
+    },
+    "2429": {
+      "id": "2429",
+      "school": "Charlotte",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2429.png",
+      "bbox": [
+        67,
+        20,
+        432,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        283,
+        352
+      ],
+      "primary": "#005035",
+      "secondary": "#a49665"
+    },
+    "2440": {
+      "id": "2440",
+      "school": "Nevada",
+      "heritage": true,
+      "source": "assets/cbb-mountain-west-1980s/nevada.png",
+      "bbox": [
+        165,
+        55,
+        555,
+        665
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        231,
+        352
+      ],
+      "primary": "#041e42",
+      "secondary": "#8a8d8f"
+    },
+    "2428": {
+      "id": "2428",
+      "school": "N.C. Central",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2428.png",
+      "bbox": [
+        26,
+        142,
+        474,
+        360
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        180
+      ],
+      "primary": "#880023",
+      "secondary": "#c2c3c0"
+    },
+    "2430": {
+      "id": "2430",
+      "school": "UNC Greensboro",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2430.png",
+      "bbox": [
+        15,
+        72,
+        484,
+        427
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        331,
+        254
+      ],
+      "primary": "#003559",
+      "secondary": "#ffd90a"
+    },
+    "2439": {
+      "id": "2439",
+      "school": "UNLV",
+      "heritage": true,
+      "source": "assets/cbb-mountain-west-1980s/unlv.png",
+      "bbox": [
+        68,
+        55,
+        652,
+        665
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        298,
+        311
+      ],
+      "primary": "#cf0a2c",
+      "secondary": "#cac8c8"
+    },
+    "2427": {
+      "id": "2427",
+      "school": "UNC Asheville",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2427.png",
+      "bbox": [
+        20,
+        20,
+        480,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        331,
+        331
+      ],
+      "primary": "#003da5",
+      "secondary": "#5479b7"
+    },
+    "2433": {
+      "id": "2433",
+      "school": "ULM",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2433.png",
+      "bbox": [
+        20,
+        88,
+        480,
+        411
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        252
+      ],
+      "primary": "#840029",
+      "secondary": "#fdb913"
+    },
+    "2437": {
+      "id": "2437",
+      "school": "Omaha",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2437.png",
+      "bbox": [
+        16,
+        22,
+        485,
+        478
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        331,
+        322
+      ],
+      "primary": "#e3193e",
+      "secondary": "#474648"
+    },
+    "2447": {
+      "id": "2447",
+      "school": "Nicholls",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2447.png",
+      "bbox": [
+        2,
+        130,
+        498,
+        371
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        187
+      ],
+      "primary": "#c41230",
+      "secondary": "#ca5f71"
+    },
+    "2441": {
+      "id": "2441",
+      "school": "New Haven",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2441.png",
+      "bbox": [
+        20,
+        59,
+        480,
+        440
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        331,
+        277
+      ],
+      "primary": "#041e42",
+      "secondary": "#ffc425"
+    },
+    "2449": {
+      "id": "2449",
+      "school": "North Dakota St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2449.png",
+      "bbox": [
+        19,
+        134,
+        481,
+        364
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        184
+      ],
+      "primary": "#01402a",
+      "secondary": "#557a6d"
+    },
+    "2443": {
+      "id": "2443",
+      "school": "New Orleans",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2443.png",
+      "bbox": [
+        20,
+        19,
+        480,
+        481
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        351,
+        352
+      ],
+      "primary": "#461d7c",
+      "secondary": "#fdd023"
+    },
+    "2448": {
+      "id": "2448",
+      "school": "N.C. A&T",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2448.png",
+      "bbox": [
+        54,
+        12,
+        446,
+        488
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        293,
+        352
+      ],
+      "primary": "#0505aa",
+      "secondary": "#004684"
+    },
+    "2454": {
+      "id": "2454",
+      "school": "North Florida",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2454.png",
+      "bbox": [
+        19,
+        105,
+        481,
+        395
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        227
+      ],
+      "primary": "#004b8d",
+      "secondary": "#babcbe"
+    },
+    "2453": {
+      "id": "2453",
+      "school": "North Ala.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2453.png",
+      "bbox": [
+        19,
+        83,
+        481,
+        416
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        259
+      ],
+      "primary": "#663399",
+      "secondary": "#f9c80e"
+    },
+    "2458": {
+      "id": "2458",
+      "school": "Northern Colo.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2458.png",
+      "bbox": [
+        23,
+        21,
+        477,
+        479
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        308,
+        311
+      ],
+      "primary": "#13558d",
+      "secondary": "#ffc533"
+    },
+    "2459": {
+      "id": "2459",
+      "school": "NIU",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2459.png",
+      "bbox": [
+        20,
+        26,
+        480,
+        473
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        311,
+        303
+      ],
+      "primary": "#c8102e",
+      "secondary": "#000000"
+    },
+    "2450": {
+      "id": "2450",
+      "school": "Norfolk St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2450.png",
+      "bbox": [
+        31,
+        20,
+        469,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        336,
+        352
+      ],
+      "primary": "#0c8968",
+      "secondary": "#fdb813"
+    },
+    "2463": {
+      "id": "2463",
+      "school": "CSUN",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2463.png",
+      "bbox": [
+        100,
+        20,
+        399,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        221,
+        331
+      ],
+      "primary": "#b50000",
+      "secondary": "#000000"
+    },
+    "2460": {
+      "id": "2460",
+      "school": "UNI",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2460.png",
+      "bbox": [
+        20,
+        91,
+        480,
+        408
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        331,
+        233
+      ],
+      "primary": "#473282",
+      "secondary": "#7f72a2"
+    },
+    "2464": {
+      "id": "2464",
+      "school": "Northern Ariz.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2464.png",
+      "bbox": [
+        19,
+        110,
+        481,
+        388
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        219
+      ],
+      "primary": "#003976",
+      "secondary": "#1b3069"
+    },
+    "2473": {
+      "id": "2473",
+      "school": "Oakland",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2473.png",
+      "bbox": [
+        18,
+        55,
+        482,
+        443
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        297
+      ],
+      "primary": "#04091c",
+      "secondary": "#bc955c"
+    },
+    "2501": {
+      "id": "2501",
+      "school": "Portland",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2501.png",
+      "bbox": [
+        20,
+        29,
+        480,
+        472
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        340
+      ],
+      "primary": "#330072",
+      "secondary": "#a8b3ba"
+    },
+    "2466": {
+      "id": "2466",
+      "school": "Northwestern St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2466.png",
+      "bbox": [
+        110,
+        2,
+        390,
+        498
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        214,
+        352
+      ],
+      "primary": "#492f91",
+      "secondary": "#ed6118"
+    },
+    "2492": {
+      "id": "2492",
+      "school": "Pepperdine",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2492.png",
+      "bbox": [
+        55,
+        22,
+        444,
+        477
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        268,
+        311
+      ],
+      "primary": "#003a72",
+      "secondary": "#dc762f"
+    },
+    "2483": {
+      "id": "2483",
+      "school": "Oregon",
+      "heritage": true,
+      "source": "assets/cbb-big-ten-1980s/centered/oregon.png",
+      "bbox": [
+        85,
+        98,
+        427,
+        414
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        311,
+        289
+      ],
+      "primary": "#00934b",
+      "secondary": "#fff41b"
+    },
+    "2502": {
+      "id": "2502",
+      "school": "Portland St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2502.png",
+      "bbox": [
+        72,
+        20,
+        428,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        244,
+        311
+      ],
+      "primary": "#00311e",
+      "secondary": "#547166"
+    },
+    "2504": {
+      "id": "2504",
+      "school": "Prairie View",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2504.png",
+      "bbox": [
+        20,
+        26,
+        480,
+        474
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        292,
+        285
+      ],
+      "primary": "#582c83",
+      "secondary": "#eaaa00"
+    },
+    "2507": {
+      "id": "2507",
+      "school": "Providence",
+      "heritage": true,
+      "source": "assets/cbb-big-east-1980s/providence.png",
+      "bbox": [
+        129,
+        96,
+        387,
+        428
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        245,
+        311
+      ],
+      "primary": "#000000",
+      "secondary": "#a3a19e"
+    },
+    "2506": {
+      "id": "2506",
+      "school": "Presbyterian",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2506.png",
+      "bbox": [
+        23,
+        20,
+        476,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        288,
+        292
+      ],
+      "primary": "#194896",
+      "secondary": "#990134"
+    },
+    "2511": {
+      "id": "2511",
+      "school": "Queens (NC)",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2511.png",
+      "bbox": [
+        20,
+        37,
+        480,
+        463
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        311,
+        289
+      ],
+      "primary": "#002856",
+      "secondary": "#f0b323"
+    },
+    "2520": {
+      "id": "2520",
+      "school": "Rider",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2520.png",
+      "bbox": [
+        11,
+        112,
+        489,
+        388
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        211
+      ],
+      "primary": "#a80532",
+      "secondary": "#b95772"
+    },
+    "2515": {
+      "id": "2515",
+      "school": "Radford",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2515.png",
+      "bbox": [
+        20,
+        25,
+        480,
+        476
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        331,
+        325
+      ],
+      "primary": "#bc1515",
+      "secondary": "#c2c3c0"
+    },
+    "2509": {
+      "id": "2509",
+      "school": "Purdue",
+      "heritage": true,
+      "source": "assets/cbb-big-ten-1980s/centered/purdue.png",
+      "bbox": [
+        97,
+        56,
+        455,
+        427
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        283,
+        292
+      ],
+      "primary": "#ceb888",
+      "secondary": "#000000"
+    },
+    "2523": {
+      "id": "2523",
+      "school": "Robert Morris",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2523.png",
+      "bbox": [
+        19,
+        141,
+        481,
+        359
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        175
+      ],
+      "primary": "#00214d",
+      "secondary": "#a21d2b"
+    },
+    "2534": {
+      "id": "2534",
+      "school": "Sam Houston",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2534.png",
+      "bbox": [
+        20,
+        62,
+        480,
+        437
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        290
+      ],
+      "primary": "#f56423",
+      "secondary": "#824124"
+    },
+    "2529": {
+      "id": "2529",
+      "school": "Sacred Heart",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2529.png",
+      "bbox": [
+        19,
+        152,
+        481,
+        347
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        159
+      ],
+      "primary": "#a40012",
+      "secondary": "#c29472"
+    },
+    "2514": {
+      "id": "2514",
+      "school": "Quinnipiac",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2514.png",
+      "bbox": [
+        50,
+        19,
+        453,
+        479
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        274,
+        311
+      ],
+      "primary": "#041b43",
+      "secondary": "#c6a96c"
+    },
+    "2539": {
+      "id": "2539",
+      "school": "San Francisco",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2539.png",
+      "bbox": [
+        20,
+        42,
+        480,
+        458
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        292,
+        266
+      ],
+      "primary": "#005a36",
+      "secondary": "#548a74"
+    },
+    "2535": {
+      "id": "2535",
+      "school": "Samford",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2535.png",
+      "bbox": [
+        30,
+        20,
+        471,
+        479
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        281,
+        292
+      ],
+      "primary": "#005485",
+      "secondary": "#bc0023"
+    },
+    "2545": {
+      "id": "2545",
+      "school": "Southeastern La.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2545.png",
+      "bbox": [
+        57,
+        24,
+        444,
+        476
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        304,
+        352
+      ],
+      "primary": "#215732",
+      "secondary": "#ffc72c"
+    },
+    "2546": {
+      "id": "2546",
+      "school": "Southeast Mo. St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2546.png",
+      "bbox": [
+        19,
+        66,
+        481,
+        434
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        284
+      ],
+      "primary": "#c8102e",
+      "secondary": "#000000"
+    },
+    "2547": {
+      "id": "2547",
+      "school": "Seattle U",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2547.png",
+      "bbox": [
+        45,
+        20,
+        455,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        297,
+        331
+      ],
+      "primary": "#bf2e1a",
+      "secondary": "#c2c3c0"
+    },
+    "2540": {
+      "id": "2540",
+      "school": "UC Santa Barbara",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2540.png",
+      "bbox": [
+        2,
+        84,
+        498,
+        417
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        251
+      ],
+      "primary": "#1e1840",
+      "secondary": "#febc11"
+    },
+    "2541": {
+      "id": "2541",
+      "school": "Santa Clara",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2541.png",
+      "bbox": [
+        71,
+        19,
+        428,
+        481
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        244,
+        311
+      ],
+      "primary": "#690b0b",
+      "secondary": "#101010"
+    },
+    "2550": {
+      "id": "2550",
+      "school": "Seton Hall",
+      "heritage": true,
+      "source": "assets/cbb-big-east-1980s/seton-hall.png",
+      "bbox": [
+        51,
+        100,
+        460,
+        413
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        352,
+        273
+      ],
+      "primary": "#0857b1",
+      "secondary": "#8a8d8f"
+    },
+    "2569": {
+      "id": "2569",
+      "school": "South Carolina St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2569.png",
+      "bbox": [
+        61,
+        18,
+        439,
+        481
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        291,
+        352
+      ],
+      "primary": "#7d1315",
+      "secondary": "#104897"
+    },
+    "2565": {
+      "id": "2565",
+      "school": "SIUE",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2565.png",
+      "bbox": [
+        20,
+        75,
+        480,
+        425
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        311,
+        240
+      ],
+      "primary": "#eb1c23",
+      "secondary": "#080808"
+    },
+    "2567": {
+      "id": "2567",
+      "school": "SMU",
+      "heritage": true,
+      "source": "assets/cbb-acc-1980s/smu.png",
+      "bbox": [
+        84,
+        115,
+        427,
+        396
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        331,
+        274
+      ],
+      "primary": "#a80000",
+      "secondary": "#0033a1"
+    },
+    "2572": {
+      "id": "2572",
+      "school": "Southern Miss.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2572.png",
+      "bbox": [
+        20,
+        130,
+        480,
+        370
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        192
+      ],
+      "primary": "#ffc72c",
+      "secondary": "#231f20"
+    },
+    "2582": {
+      "id": "2582",
+      "school": "Southern U.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2582.png",
+      "bbox": [
+        19,
+        105,
+        481,
+        395
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        227
+      ],
+      "primary": "#004b97",
+      "secondary": "#ffc82d"
+    },
+    "2571": {
+      "id": "2571",
+      "school": "South Dakota St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2571.png",
+      "bbox": [
+        19,
+        76,
+        481,
+        425
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        270
+      ],
+      "primary": "#0033a0",
+      "secondary": "#ffd100"
+    },
+    "2599": {
+      "id": "2599",
+      "school": "St. John's (NY)",
+      "heritage": true,
+      "source": "assets/cbb-big-east-1980s/st-johns.png",
+      "bbox": [
+        48,
+        183,
+        463,
+        331
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        352,
+        136
+      ],
+      "primary": "#d10000",
+      "secondary": "#101010"
+    },
+    "2561": {
+      "id": "2561",
+      "school": "Siena",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2561.png",
+      "bbox": [
+        32,
+        18,
+        449,
+        482
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        281,
+        311
+      ],
+      "primary": "#037961",
+      "secondary": "#eea60f"
+    },
+    "2579": {
+      "id": "2579",
+      "school": "South Carolina",
+      "heritage": true,
+      "source": "assets/cbb-sec-1980s/south-carolina.png",
+      "bbox": [
+        99,
+        82,
+        413,
+        429
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        301,
+        331
+      ],
+      "primary": "#73000a",
+      "secondary": "#000000"
+    },
+    "2608": {
+      "id": "2608",
+      "school": "Saint Mary's (CA)",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2608.png",
+      "bbox": [
+        20,
+        98,
+        480,
+        402
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        239
+      ],
+      "primary": "#d80024",
+      "secondary": "#003057"
+    },
+    "2603": {
+      "id": "2603",
+      "school": "Saint Joseph's",
+      "heritage": true,
+      "source": "assets/cbb-atlantic-10-1980s/saint-joseph-s.png",
+      "bbox": [
+        158,
+        55,
+        562,
+        665
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        239,
+        352
+      ],
+      "primary": "#9e1b32",
+      "secondary": "#6c6f70"
+    },
+    "2612": {
+      "id": "2612",
+      "school": "Saint Peter's",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2612.png",
+      "bbox": [
+        75,
+        18,
+        424,
+        481
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        270,
+        352
+      ],
+      "primary": "#004cc2",
+      "secondary": "#5482c8"
+    },
+    "2617": {
+      "id": "2617",
+      "school": "SFA",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2617.png",
+      "bbox": [
+        20,
+        31,
+        480,
+        468
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        335
+      ],
+      "primary": "#393996",
+      "secondary": "#bec0c2"
+    },
+    "2627": {
+      "id": "2627",
+      "school": "Tarleton St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2627.png",
+      "bbox": [
+        18,
+        33,
+        481,
+        467
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        331
+      ],
+      "primary": "#4b2b7f",
+      "secondary": "#816ea0"
+    },
+    "2628": {
+      "id": "2628",
+      "school": "TCU",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2628.png",
+      "bbox": [
+        20,
+        139,
+        480,
+        361
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        179
+      ],
+      "primary": "#4d1979",
+      "secondary": "#82639d"
+    },
+    "2619": {
+      "id": "2619",
+      "school": "Stony Brook",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2619.png",
+      "bbox": [
+        21,
+        86,
+        478,
+        415
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        258
+      ],
+      "primary": "#990000",
+      "secondary": "#142d4e"
+    },
+    "2623": {
+      "id": "2623",
+      "school": "Missouri St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2623.png",
+      "bbox": [
+        20,
+        49,
+        480,
+        451
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        310
+      ],
+      "primary": "#5e0009",
+      "secondary": "#8c5459"
+    },
+    "2630": {
+      "id": "2630",
+      "school": "UT Martin",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2630.png",
+      "bbox": [
+        3,
+        53,
+        499,
+        447
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        294
+      ],
+      "primary": "#ff6700",
+      "secondary": "#102a5c"
+    },
+    "2638": {
+      "id": "2638",
+      "school": "UTEP",
+      "heritage": true,
+      "source": "assets/cbb-mountain-west-1980s/utep.png",
+      "bbox": [
+        55,
+        191,
+        665,
+        528
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        202
+      ],
+      "primary": "#ff8200",
+      "secondary": "#041e42"
+    },
+    "2636": {
+      "id": "2636",
+      "school": "UTSA",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2636.png",
+      "bbox": [
+        20,
+        141,
+        480,
+        359
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        176
+      ],
+      "primary": "#0c2340",
+      "secondary": "#f15a22"
+    },
+    "2633": {
+      "id": "2633",
+      "school": "Tennessee",
+      "heritage": true,
+      "source": "assets/cbb-sec-1980s/tennessee.png",
+      "bbox": [
+        119,
+        89,
+        391,
+        423
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        256,
+        311
+      ],
+      "primary": "#ff8200",
+      "secondary": "#874e14"
+    },
+    "2640": {
+      "id": "2640",
+      "school": "Texas Southern",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2640.png",
+      "bbox": [
+        19,
+        30,
+        481,
+        470
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        336
+      ],
+      "primary": "#860038",
+      "secondary": "#a45476"
+    },
+    "2641": {
+      "id": "2641",
+      "school": "Texas Tech",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2641.png",
+      "bbox": [
+        44,
+        20,
+        455,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        263,
+        292
+      ],
+      "primary": "#da291c",
+      "secondary": "#000000"
+    },
+    "2649": {
+      "id": "2649",
+      "school": "Toledo",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2649.png",
+      "bbox": [
+        20,
+        115,
+        480,
+        384
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        213
+      ],
+      "primary": "#0b2240",
+      "secondary": "#ffcd00"
+    },
+    "2634": {
+      "id": "2634",
+      "school": "Tennessee St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2634.png",
+      "bbox": [
+        18,
+        35,
+        482,
+        464
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        311,
+        289
+      ],
+      "primary": "#171796",
+      "secondary": "#6262ae"
+    },
+    "2643": {
+      "id": "2643",
+      "school": "The Citadel",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2643.png",
+      "bbox": [
+        20,
+        47,
+        480,
+        453
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        331,
+        294
+      ],
+      "primary": "#7badd3",
+      "secondary": "#002856"
+    },
+    "2635": {
+      "id": "2635",
+      "school": "Tennessee Tech",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2635.png",
+      "bbox": [
+        20,
+        50,
+        480,
+        449
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        331,
+        289
+      ],
+      "primary": "#5a4099",
+      "secondary": "#ffde00"
+    },
+    "2653": {
+      "id": "2653",
+      "school": "Troy",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2653.png",
+      "bbox": [
+        47,
+        20,
+        452,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        259,
+        292
+      ],
+      "primary": "#862633",
+      "secondary": "#b1b1b1"
+    },
+    "2655": {
+      "id": "2655",
+      "school": "Tulane",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2655.png",
+      "bbox": [
+        20,
+        84,
+        480,
+        415
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        258
+      ],
+      "primary": "#006747",
+      "secondary": "#418fde"
+    },
+    "2670": {
+      "id": "2670",
+      "school": "VCU",
+      "heritage": true,
+      "source": "assets/cbb-atlantic-10-1980s/vcu.png",
+      "bbox": [
+        60,
+        56,
+        451,
+        456
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        304,
+        311
+      ],
+      "primary": "#ffaf00",
+      "secondary": "#000000"
+    },
+    "2678": {
+      "id": "2678",
+      "school": "VMI",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2678.png",
+      "bbox": [
+        31,
+        20,
+        468,
+        482
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        314,
+        331
+      ],
+      "primary": "#ae122a",
+      "secondary": "#000000"
+    },
+    "2681": {
+      "id": "2681",
+      "school": "Wagner",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2681.png",
+      "bbox": [
+        2,
+        128,
+        498,
+        371
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        188
+      ],
+      "primary": "#00483a",
+      "secondary": "#547f77"
+    },
+    "2674": {
+      "id": "2674",
+      "school": "Valparaiso",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2674.png",
+      "bbox": [
+        25,
+        19,
+        474,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        285,
+        292
+      ],
+      "primary": "#794500",
+      "secondary": "#f4b523"
+    },
+    "2692": {
+      "id": "2692",
+      "school": "Weber St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2692.png",
+      "bbox": [
+        20,
+        86,
+        480,
+        414
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        256
+      ],
+      "primary": "#18005a",
+      "secondary": "#62548a"
+    },
+    "2711": {
+      "id": "2711",
+      "school": "Western Mich.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2711.png",
+      "bbox": [
+        20,
+        152,
+        480,
+        348
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        160
+      ],
+      "primary": "#532e1f",
+      "secondary": "#f1c500"
+    },
+    "2710": {
+      "id": "2710",
+      "school": "Western Ill.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2710.png",
+      "bbox": [
+        48,
+        20,
+        452,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        275,
+        311
+      ],
+      "primary": "#4e1e8a",
+      "secondary": "#ffc90a"
+    },
+    "2724": {
+      "id": "2724",
+      "school": "Wichita St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2724.png",
+      "bbox": [
+        20,
+        59,
+        480,
+        441
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        295
+      ],
+      "primary": "#ffcd00",
+      "secondary": "#27251f"
+    },
+    "2737": {
+      "id": "2737",
+      "school": "Winthrop",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2737.png",
+      "bbox": [
+        2,
+        32,
+        498,
+        469
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        311,
+        287
+      ],
+      "primary": "#9e0b0e",
+      "secondary": "#fdb41e"
+    },
+    "2729": {
+      "id": "2729",
+      "school": "William & Mary",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2729.png",
+      "bbox": [
+        20,
+        62,
+        480,
+        438
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        311,
+        257
+      ],
+      "primary": "#115740",
+      "secondary": "#f0b323"
+    },
+    "2751": {
+      "id": "2751",
+      "school": "Wyoming",
+      "heritage": true,
+      "source": "assets/cbb-mountain-west-1980s/wyoming.png",
+      "bbox": [
+        181,
+        55,
+        538,
+        665
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        213,
+        352
+      ],
+      "primary": "#492f24",
+      "secondary": "#ffc425"
+    },
+    "2698": {
+      "id": "2698",
+      "school": "West Ga.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2698.png",
+      "bbox": [
+        18,
+        90,
+        482,
+        410
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        248
+      ],
+      "primary": "#0033a1",
+      "secondary": "#db1a21"
+    },
+    "2717": {
+      "id": "2717",
+      "school": "Western Caro.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2717.png",
+      "bbox": [
+        19,
+        83,
+        481,
+        416
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        259
+      ],
+      "primary": "#492f91",
+      "secondary": "#bf9e70"
+    },
+    "2739": {
+      "id": "2739",
+      "school": "Green Bay",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2739.png",
+      "bbox": [
+        27,
+        76,
+        472,
+        424
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        279
+      ],
+      "primary": "#006633",
+      "secondary": "#549173"
+    },
+    "2747": {
+      "id": "2747",
+      "school": "Wofford",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2747.png",
+      "bbox": [
+        43,
+        20,
+        457,
+        479
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        319,
+        352
+      ],
+      "primary": "#533b22",
+      "secondary": "#867768"
+    },
+    "2697": {
+      "id": "2697",
+      "school": "West Florida",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2697.png",
+      "bbox": [
+        80,
+        20,
+        419,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        264,
+        352
+      ],
+      "primary": "#087dc2",
+      "secondary": "#03b186"
+    },
+    "2755": {
+      "id": "2755",
+      "school": "Grambling",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2755.png",
+      "bbox": [
+        19,
+        101,
+        481,
+        399
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        233
+      ],
+      "primary": "#ee8601",
+      "secondary": "#ffd10a"
+    },
+    "2754": {
+      "id": "2754",
+      "school": "Youngstown St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2754.png",
+      "bbox": [
+        12,
+        101,
+        489,
+        399
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        331,
+        213
+      ],
+      "primary": "#e51935",
+      "secondary": "#690717"
+    },
+    "2752": {
+      "id": "2752",
+      "school": "Xavier",
+      "heritage": true,
+      "source": "assets/cbb-big-east-1980s/xavier.png",
+      "bbox": [
+        105,
+        85,
+        406,
+        427
+      ],
+      "fit_method": "white-paper",
+      "artwork_px": [
+        276,
+        311
+      ],
+      "primary": "#21304e",
+      "secondary": "#a5a7a8"
+    },
+    "2815": {
+      "id": "2815",
+      "school": "Lindenwood",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2815.png",
+      "bbox": [
+        20,
+        79,
+        480,
+        420
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        265
+      ],
+      "primary": "#111111",
+      "secondary": "#b5a36a"
+    },
+    "2856": {
+      "id": "2856",
+      "school": "California Baptist",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2856.png",
+      "bbox": [
+        18,
+        159,
+        482,
+        340
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        148
+      ],
+      "primary": "#000080",
+      "secondary": "#f2b525"
+    },
+    "2837": {
+      "id": "2837",
+      "school": "East Texas A&M",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2837.png",
+      "bbox": [
+        20,
+        20,
+        480,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        352
+      ],
+      "primary": "#0b4184",
+      "secondary": "#f2b52a"
+    },
+    "2771": {
+      "id": "2771",
+      "school": "Merrimack",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2771.png",
+      "bbox": [
+        19,
+        76,
+        481,
+        424
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        311,
+        238
+      ],
+      "primary": "#2f4f93",
+      "secondary": "#e8c535"
+    },
+    "2750": {
+      "id": "2750",
+      "school": "Wright St.",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2750.png",
+      "bbox": [
+        2,
+        61,
+        498,
+        439
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        331,
+        266
+      ],
+      "primary": "#006747",
+      "secondary": "#cba052"
+    },
+    "2908": {
+      "id": "2908",
+      "school": "USC Upstate",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2908.png",
+      "bbox": [
+        20,
+        94,
+        480,
+        410
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        247
+      ],
+      "primary": "#008545",
+      "secondary": "#000000"
+    },
+    "2900": {
+      "id": "2900",
+      "school": "St. Thomas (MN)",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2900.png",
+      "bbox": [
+        44,
+        21,
+        454,
+        481
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        297,
+        331
+      ],
+      "primary": "#4c2a7a",
+      "secondary": "#a0a2a3"
+    },
+    "2916": {
+      "id": "2916",
+      "school": "UIW",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2916.png",
+      "bbox": [
+        19,
+        121,
+        481,
+        379
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        204
+      ],
+      "primary": "#000000",
+      "secondary": "#080808"
+    },
+    "2870": {
+      "id": "2870",
+      "school": "Purdue Fort Wayne",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2870.png",
+      "bbox": [
+        34,
+        20,
+        466,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        293,
+        311
+      ],
+      "primary": "#cfb991",
+      "secondary": "#000000"
+    },
+    "3101": {
+      "id": "3101",
+      "school": "Utah Tech",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/3101.png",
+      "bbox": [
+        20,
+        138,
+        481,
+        362
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        180
+      ],
+      "primary": "#b42035",
+      "secondary": "#002d62"
+    },
+    "2803": {
+      "id": "2803",
+      "school": "Bryant",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2803.png",
+      "bbox": [
+        2,
+        51,
+        498,
+        454
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        292,
+        250
+      ],
+      "primary": "#000000",
+      "secondary": "#9f8343"
+    },
+    "2934": {
+      "id": "2934",
+      "school": "CSU Bakersfield",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2934.png",
+      "bbox": [
+        21,
+        87,
+        479,
+        414
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        352,
+        256
+      ],
+      "primary": "#003bab",
+      "secondary": "#f9b21c"
+    },
+    "3084": {
+      "id": "3084",
+      "school": "Utah Valley",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/3084.png",
+      "bbox": [
+        31,
+        86,
+        468,
+        413
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        331,
+        252
+      ],
+      "primary": "#004812",
+      "secondary": "#e1c736"
+    },
+    "2885": {
+      "id": "2885",
+      "school": "NJIT",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2885.png",
+      "bbox": [
+        19,
+        50,
+        481,
+        448
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        311,
+        270
+      ],
+      "primary": "#ee3024",
+      "secondary": "#df3e2e"
+    },
+    "112358": {
+      "id": "112358",
+      "school": "LIU",
+      "heritage": false,
+      "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/112358.png",
+      "bbox": [
+        46,
+        20,
+        454,
+        480
+      ],
+      "fit_method": "alpha",
+      "artwork_px": [
+        261,
+        292
+      ],
+      "primary": "#50c9f7",
+      "secondary": "#ffbf00"
+    }
+  }
+}

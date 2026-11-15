@@ -1,0 +1,64 @@
+name: Build verified 365 CBB precomposed crest assets
+on:
+  push:
+    branches:
+      - main
+      - feature/cbb-365-precomposed-crests-20261115
+    paths:
+      - 'scripts/build_cbb_precomposed_crests.py'
+      - 'scripts/bump_cbb_precomposed_crest_refs.py'
+      - 'data/mbb-logo-registry.json'
+      - 'data/dual-ring-team-palette.json'
+      - 'assets/cbb-*-1980s/**/*.png'
+      - 'assets/cbb-*-1980s/*.png'
+      - '.github/workflows/cbb-precomposed-crests.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: cbb-asset-generation-20261115
+  cancel-in-progress: false
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python3 -m pip install --quiet 'Pillow>=11,<13'
+      - name: Generate and audit all 365 approved local CBB crests
+        run: python3 scripts/build_cbb_precomposed_crests.py
+      - name: Version every first-party CBB page using the shared crest renderer
+        run: python3 scripts/bump_cbb_precomposed_crest_refs.py
+      - name: Verify full local asset inventory
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          x=json.loads(Path('data/cbb-precomposed-crest-audit.json').read_text())
+          images=list(Path('assets/cbb-precomposed-crests').glob('*.png'))
+          assert x['count']==len(images)==365
+          assert x['vintage_count']>=80 and x['rings']==2
+          print(f"PASS: {len(images)} verified two-ring crest assets, {x['vintage_count']} local historical originals")
+          PY
+      - name: Verify per-team crest inventory and renderer contract
+        run: |
+          node --test tests/cbb-precomposed-crest.test.cjs tests/cbb-big-ten-heritage-production.test.cjs tests/cbb-acc-heritage-production.test.cjs
+          node scripts/audit-mbb-logo-system.cjs
+          node --check mbb-logo-system.js
+          node --check wbb-rankings.js
+      - name: Commit real pixel assets to this feature branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/cbb-precomposed-crests/ data/cbb-precomposed-crest-audit.json -- '*.html'
+          if git diff --cached --quiet; then
+            echo 'No crest pixels changed'
+          else
+            git commit -m 'Add audited original-artwork self-hosted two-ring NCAA crest PNGs'
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi

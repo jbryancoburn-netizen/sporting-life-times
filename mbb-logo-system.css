@@ -95,6 +95,26 @@
  object-fit:contain!important;object-position:center!important;
 }
 
+
+/* One structural class for PRECOMPOSED LOCAL PIXEL CRESTS.
+   Both school-color rings are in the PNG; do not double-render CSS rings.
+   All sizes and all leagues use identical source geometry, no team offsets. */
+.mbb-mark.mbb-mark--precomposed{
+ border:0!important;outline:0!important;background:transparent!important;
+ box-shadow:none!important;padding:0!important;overflow:visible!important;
+}
+.mbb-mark.mbb-mark--precomposed::before,
+.mbb-mark.mbb-mark--precomposed::after{content:none!important;display:none!important}
+.mbb-mark.mbb-mark--precomposed>img.mbb-mark__img,
+.cbb-elo-school .mbb-mark.mbb-mark--precomposed>img.mbb-mark__img,
+.cbb-elo-power .mbb-mark.mbb-mark--precomposed>img.mbb-mark__img,
+.wbbr-entry .mbb-mark.mbb-mark--precomposed>img.mbb-mark__img{
+ width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;
+ min-width:100%!important;min-height:100%!important;border:0!important;
+ object-fit:contain!important;object-position:center!important;border-radius:50%!important;
+ background:transparent!important;
+}
+
 /* Asset-baked rings: layout only. No optical cropping, school-specific patches or third CSS ring. */
 .mbb-mark.mbb-mark--baked{border:0!important;outline:0!important;background:transparent!important;box-shadow:none!important}
 .mbb-mark.mbb-mark--baked::before,.mbb-mark.mbb-mark--baked::after{display:none!important;content:none!important;border:0!important}
