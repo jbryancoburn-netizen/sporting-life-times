@@ -220,7 +220,7 @@
    const form=profile&&Array.isArray(profile.lastFive)?profile.lastFive.filter(v=>v==='W'||v==='L').slice(-5):[];
    const finalForm=form.at(-1),streak=finalForm?form.slice().reverse().findIndex(v=>v!==finalForm):-1;
    const streakLength=streak===-1?form.length:streak;
-   const streakLabel=streakLength>=2?finalForm+streakLength+(form.length<profile.games&&streakLength===form.length?'+':''):'';
+   const streakLabel=streakLength>=1?finalForm+streakLength+(form.length<profile.games&&streakLength===form.length?'+':''):'';
    const scout=profile&&(ppg!==null||papg!==null||form.length)?
     '<small class="ledger26-scout" title="2026–27 verified regular-season finals: '+profile.games+' games">'+
     (ppg!==null?'<span class="ledger26-scout-stat">'+esc(ppg)+' PPG</span>':'')+
