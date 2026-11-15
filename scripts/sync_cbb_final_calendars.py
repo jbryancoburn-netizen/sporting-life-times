@@ -60,6 +60,14 @@ def men(check=False):
     cross = read(DATA / "ncaam-2026-27-espn-team-crosswalk.json")
     if ratings.get("season") != "2026-27" or ratings.get("starting_elo") != 1500 or len(ratings.get("rankings", [])) != 365:
         raise ValueError("Refusing incomplete men's RETRO snapshot")
+    # Allow a previously final score to change only when the exact game,
+    # teams and corrected score match an independently certified result.
+    certified = {}
+    certified_path = DATA / "mbb-retro-live-finals.json"
+    if certified_path.exists():
+        for item in read(certified_path).get("games", []):
+            if item.get("score_certified") is True and score_valid(item):
+                certified[str(item["id"]).removeprefix("espn:")] = item
     pairs = {str(x["id"]): x for x in cross["teams"] if x.get("espn_id")}
     by_team = defaultdict(list)
     for final in ratings.get("events", []):
@@ -103,7 +111,11 @@ def men(check=False):
                     want = int(final["home_score"] if str(side["team"]["id"]) == str(pairs[str(final["home_id"])]["espn_id"]) else final["away_score"])
                     old = side.get("score")
                     if event.get("status", {}).get("type", {}).get("completed") and old is not None and str(old).isdigit() and int(old) != want:
-                        raise ValueError("Conflicting already final school score for " + event_id)
+                        proof = certified.get(event_id)
+                        same_final = proof and all(proof.get(field) == final.get(field)
+                            for field in ("home_id", "away_id", "home_score", "away_score", "date"))
+                        if not same_final:
+                            raise ValueError("Conflicting already final school score for " + event_id)
                     if old != want:
                         side["score"] = want
                         dirty = True
