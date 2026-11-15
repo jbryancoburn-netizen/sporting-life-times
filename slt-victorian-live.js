@@ -554,23 +554,52 @@ function eventLog(g){
   (p.awayScore!==null&&p.homeScore!==null?esc(p.awayScore)+'–'+esc(p.homeScore):'')+'</b></li>').join('')+'</ol>':
  '<p class="vld-empty">No play-by-play supplied for this game. Events are never simulated.</p>';
 }
+function dispatchIntelligence(g){
+ const verified=verifiedScores(g),pts=verified.ok?verified.points:[];
+ let best=null;
+ for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length&&j<=i+20;j++){
+  const da=pts[j].awayScore-pts[i].awayScore,dh=pts[j].homeScore-pts[i].homeScore;
+  if(da<0||dh<0)continue;
+  const edge=Math.abs(da-dh);
+  if(edge>=6&&(!best||edge>best.edge))best={edge,da,dh,side:da>dh?g.a:g.h,from:pts[i],to:pts[j]};
+ }
+ const margin=Number.isInteger(g.a.score)&&Number.isInteger(g.h.score)?g.h.score-g.a.score:null;
+ const leader=margin===null?null:margin>0?g.h:margin<0?g.a:null;
+ const latest=g.plays.at(-1);
+ const lead=leader?leader.name+' LEADS BY '+Math.abs(margin):margin===0?'THE GAME IS TIED':'AWAITING VERIFIED SCORE';
+ const story=best?best.side.name+' produced a '+best.da+'–'+best.dh+' scoring stretch in the reported sequence.':
+  latest?.text||'A verified scoring sequence is not yet available; no momentum run can be established.';
+ const last=pts.at(-1);
+ const freshness=g.isStale||g.sourceTier==='cached'?'LAST CONFIRMED REPORT · NOT LIVE':
+  last&&last.awayScore!==g.a.score||last&&last.homeScore!==g.h.score?'PLAY REGISTER TRAILS SCOREBOARD':'SOURCE-REPORTED';
+ return '<section class="vld-paper vld-intelligence"><h2>THE DEVELOPING STORY</h2>'+
+ '<h3>'+esc(lead)+'</h3><p>'+esc(story)+'</p>'+
+ '<p class="vld-source">'+esc(freshness)+' · '+esc(g.detail)+'</p>'+
+ (best?'<p><strong>Notable scoring stretch:</strong> '+esc(best.side.name)+' · '+best.da+'–'+best.dh+' (reported event order; not necessarily consecutive possessions)</p>':'')+
+ '</section>';
+}
+function liveBrief(g){
+ const p=archivedPregame(g);
+ const margin=Number.isInteger(g.a.score)&&Number.isInteger(g.h.score)?g.h.score-g.a.score:null;
+ const forecast=p?'RETRO before tipoff: '+(p.margin>0?g.h.name:p.margin<0?g.a.name:'Even')+
+  ' by '+Math.abs(p.margin).toFixed(1)+' · actual margin '+(margin===null?'pending':(margin>0?g.h.name:margin<0?g.a.name:'Tied')+' '+Math.abs(margin))+
+  '. Pregame prediction, not a live win probability.':'No verified locked pregame RETRO forecast available.';
+ return '<section class="vld-paper"><h2>RETRO AGAINST REALITY</h2><p>'+esc(forecast)+'</p></section>';
+}
 function panel(tab,content){return '<section class="vld-panel" data-vld-panel="'+tab+'" role="tabpanel" id="vld-panel-'+tab+'" aria-labelledby="vld-tab-'+tab+'"'+(tab!==chosenTab?' hidden':'')+'>'+content+'</section>';}
 function page(g){
- const tabs=[['live','Live dispatch'],['retro','RETRO'],['stats','Statistics'],['players','Players'],['plays','Every play'],['shots','Court & shots']];
- const section='<section class="vld-paper vld-live-grid">'+
-  '<div class="vld-live-main"><h2>The game in motion</h2>'+
-  '<div class="vld-floor">'+courtSVG()+'</div>'+courtUpdate(g)+'<p class="vld-floor-caption">'+(config.kind==='basketball'?(league==='nba'?'NBA REGULATION · 94 × 50 FT · 16-FT LANE':'NCAA REGULATION · 94 × 50 FT · 12-FT LANE'):'FIELD DIAGRAM · NOT PLAYER TRACKING')+'</p>'+
-  now(g)+'</div><aside class="vld-flow"><h2>The Lead Ledger</h2>'+trend(g)+'</aside></section>';
+ const isBasketball=config.kind==='basketball';
+ const courtDetails=isBasketball?'<details class="vld-paper"><summary>Court & verified shot locations</summary><div class="vld-shot-floor">'+courtSVG()+'</div>'+shots(g)+'</details>':'';
  return scoreboard(g)+
- '<section class="vld-paper"><h2>Period Scoring</h2>'+lineScore(g)+'</section>'+
- '<nav class="vld-tabs" role="tablist" aria-label="Game view">'+tabs.map(([k,t])=>'<button type="button" role="tab" id="vld-tab-'+k+'" aria-controls="vld-panel-'+k+'" data-vld-tab="'+k+'" aria-selected="'+(k===chosenTab)+'">'+t+'</button>').join('')+'</nav>'+
- panel('live',section)+
- panel('retro','<section class="vld-paper"><h2>RETRO · The Pregame Forecast Ledger</h2>'+retroPanel(g)+'</section>')+
- panel('stats','<section class="vld-paper"><h2>Official Team Totals</h2>'+teamStats(g)+'</section>')+
- panel('players','<section class="vld-paper"><h2>Player Box Scores</h2>'+players(g)+'</section>')+
- panel('plays','<section class="vld-paper"><h2>The Play Register</h2>'+eventLog(g)+'</section>')+
- panel('shots','<section class="vld-paper"><h2>Court &amp; Reported Shots</h2><div class="vld-shot-floor">'+courtSVG()+'</div>'+shots(g)+'</section>')+
- '<p class="vld-attribution">Source: '+esc(g.source)+'. Live and final scores, play accounts and statistics are independently reported by the provider. RETRO pregame forecasts and predictions are not represented as in-game win probabilities. No fabricated possessions or shot locations.</p>';
+ (isBasketball?dispatchIntelligence(g):now(g))+
+ '<section class="vld-paper"><h2>THE SCORING STORY</h2>'+trend(g)+'</section>'+
+ (isBasketball?liveBrief(g):'')+
+ '<section class="vld-paper"><h2>PERIOD SCORING</h2>'+lineScore(g)+'</section>'+
+ '<details class="vld-paper"><summary>Team statistics</summary>'+teamStats(g)+'</details>'+
+ '<details class="vld-paper"><summary>Player box scores</summary>'+players(g)+'</details>'+
+ '<details class="vld-paper"><summary>Every reported play</summary>'+eventLog(g)+'</details>'+
+ courtDetails+
+ '<p class="vld-attribution">Source: '+esc(g.source)+'. Scoring stretches are computed only from verified reported events; no possessions, player locations or live win probabilities are inferred.</p>';
 }
 function choose(tab,focus){
  chosenTab=tab;
