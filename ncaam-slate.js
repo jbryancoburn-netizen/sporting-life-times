@@ -861,37 +861,12 @@ function card(original,featured,opened=false){
  const press=g.phase==='upcoming'?'<button type="button" class="slt-team-press-btn" data-slt-ledger-press-open data-game-id="'+esc(g.id)+'" data-day="'+esc(g.day)+'" aria-label="Read pregame press for '+esc(g.away.name)+' at '+esc(g.home.name)+'">PREGAME PRESS ›</button>':'';
  const theatre=g.kind!=='exhibition'&&validId(g.id)&&g.phase==='live'?'<a class="vld-link" href="live-game.html?league='+(women?'ncaaw':'ncaam')+'&game='+encodeURIComponent(g.id)+'" aria-label="Open Victorian live dispatch for '+esc(g.away.name)+' at '+esc(g.home.name)+'">◈ LIVE DISPATCH</a>':'';
  const right=tv||press||theatre?'<span class="ledger26-meta-actions">'+tv+press+theatre+'</span>':'';
- // RETRO is the only point-spread projection shown.
- const p=women?null:insight?.projectedScore(g,scoreCalibration,ratings);
- const modelMargin=Number.isFinite(g.projectedHomeMargin)?g.projectedHomeMargin:(p&&Number.isFinite(p.home)&&Number.isFinite(p.away)?p.home-p.away:null);
- const spreadText=(margin)=>{
-  if(!Number.isFinite(margin))return '—';
-  const rounded=Math.round(Math.abs(margin)*2)/2;
-  if(rounded===0)return 'EVEN';
-  const name=margin>0?g.home.name:g.away.name;
-  return esc(name)+' −'+rounded.toFixed(1);
- };
- const womenWinForecast=women&&g.phase==='upcoming'&&Number.isFinite(g.probability);
- const womenReady=womenWinForecast&&g.forecastStatus==='HISTORICAL_HOLDOUT_VALIDATED'&&
-   Number.isFinite(g.projectedHomeMargin)&&Number.isFinite(g.projectedHomeScore)&&
-   Number.isFinite(g.projectedAwayScore);
- const favorite=womenWinForecast?(g.probability>=0.5?g.home.name:g.away.name):'';
- // The right-hand scorebug rail is the single source for win chance and margin.
- // Keep the published expected score as a compact editorial footer, not a second forecast banner.
- const retro=g.phase==='upcoming'&&!women&&Number.isFinite(modelMargin)?
-   '<span class="ledger26-line" title="Independent RETRO projected margin"><small>RETRO PROJECTION</small><strong>'+spreadText(modelMargin)+'</strong></span>':'';
- const scoreNote=womenReady?
-   '<div class="ledger26-score-note" aria-label="RETRO expected final scores">'+
-   '<span class="ledger26-score-note-label">RETRO EXPECTED SCORE</span>'+
-   '<strong>'+esc(g.away.name)+' <span>'+Math.round(g.projectedAwayScore)+'</span>'+
-   '<i aria-hidden="true">·</i>'+esc(g.home.name)+' <span>'+Math.round(g.projectedHomeScore)+'</span></strong>'+
-   '<small>Historical projection · Not a final score</small></div>':'';
-
+ // The shared scorebug rail is the only pregame forecast presentation.
  return '<article class="sl-game ledger26-card'+(women?' ledger26-card--women':' ledger26-card--men')+(featured?' ledger26-featured':'')+(women&&g.phase==='upcoming'?' ledger26-card--refined':'')+'">'+
-   (when||right?'<div class="ledger26-meta'+(g.phase==='upcoming'?' ledger26-meta--pregame':'')+(women&&g.phase==='upcoming'?' ledger26-meta--refined':'')+'">'+when+retro+right+'</div>':'')+
+   (when||right?'<div class="ledger26-meta'+(g.phase==='upcoming'?' ledger26-meta--pregame':'')+(women&&g.phase==='upcoming'?' ledger26-meta--refined':'')+'">'+when+right+'</div>':'')+
    '<details class="sl-game-expansion ledger26-expand" data-game-id="'+esc(g.id)+'" data-day="'+esc(g.day)+'" data-gender="'+(women?'women':'men')+'" data-home-id="'+esc(g.home.canonical||'')+'" data-away-id="'+esc(g.away.canonical||'')+'" data-home-name="'+esc(g.home.name)+'" data-away-name="'+esc(g.away.name)+'"'+(opened?' open':'')+'>'+
    '<summary class="ledger26-summary" aria-label="Expand '+esc(g.away.name)+' at '+esc(g.home.name)+' game details">'+
-   ledgerScorebug(g)+scoreNote+'<span class="ledger26-instruction">OPEN GAME DETAILS <span aria-hidden="true">+</span></span></summary>'+
+   ledgerScorebug(g)+'<span class="ledger26-instruction">OPEN GAME DETAILS <span aria-hidden="true">+</span></span></summary>'+
    '<div class="ledger26-expanded">'+
    '<div class="sl-game-footer ledger26-links"><span>'+esc(source)+'</span>'+
    (external&&/^https:\/\/[^\s"'<>]+$/.test(g.sourceURL||'')?
