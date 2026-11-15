@@ -96,7 +96,10 @@ const A10_HERITAGE=Object.freeze({
  '139':'assets/cbb-atlantic-10-1980s/saint-louis.png?v=a10-archive-20261114-1',
  '179':'assets/cbb-atlantic-10-1980s/st-bonaventure.png?v=a10-archive-20261114-3'
 });
-const retroURLForESPN=id=>BIG_TEN_HERITAGE[String(id)]||ACC_HERITAGE[String(id)]||SEC_HERITAGE[String(id)]||BIG_EAST_HERITAGE[String(id)]||A10_HERITAGE[String(id)]||'';
+const MOUNTAIN_WEST_HERITAGE=Object.freeze({
+ '167':'assets/cbb-mountain-west-1980s/new-mexico.png?v=mountain-west-heritage-20261114-1'
+});
+const retroURLForESPN=id=>BIG_TEN_HERITAGE[String(id)]||ACC_HERITAGE[String(id)]||SEC_HERITAGE[String(id)]||BIG_EAST_HERITAGE[String(id)]||A10_HERITAGE[String(id)]||MOUNTAIN_WEST_HERITAGE[String(id)]||'';
 
 const safeURL=v=>{try{let u=new URL(v);return u.protocol==='https:'?u.href:''}catch{return ''}};
 const byNcaa=new Map(),byName=new Map(),ambiguous=new Set(),outsideByName=new Map(),outsideAmbiguous=new Set();
@@ -298,7 +301,7 @@ function upgradeBareLogos(root=document){
   img.replaceWith(temp.firstElementChild);
  }
 }
-w.MBBLogos={ready,render,byNCAA:(id,size,name)=>render({ncaaId:id,name,size}),byESPN:(id,size,name)=>render({espnId:id&& (registry[String(id)]||outside[String(id)])?String(id):'',name:name||registry[String(id)]?.school||outside[String(id)]?.corrected_name||outside[String(id)]?.school,size}),byName:(name,size)=>render({name,size}),fail,stripLegacyRings,upgradeLegacyCalendar,upgradeBareLogos,logoURL:id=>retroURLForESPN(byNcaa.get(id)||id)||registry[byNcaa.get(id)]?.logo_url||'',retroURLForESPN,heritageTeamIds:()=>Object.keys(BIG_TEN_HERITAGE),heritageACCTeamIds:()=>Object.keys(ACC_HERITAGE),heritageSECTeamIds:()=>Object.keys(SEC_HERITAGE),heritageBigEastTeamIds:()=>Object.keys(BIG_EAST_HERITAGE),heritageA10TeamIds:()=>Object.keys(A10_HERITAGE),colorForESPN:id=>palette[String(id)]?{...palette[String(id)]}:outside[String(id)]?{primary:outside[String(id)].primary,secondary:outside[String(id)].secondary}:null,schoolNameForESPN:id=>String(registry[String(id)]?.school||outside[String(id)]?.corrected_name||outside[String(id)]?.school||'').replace(/\bSt\.$/,'State')};
+w.MBBLogos={ready,render,byNCAA:(id,size,name)=>render({ncaaId:id,name,size}),byESPN:(id,size,name)=>render({espnId:id&& (registry[String(id)]||outside[String(id)])?String(id):'',name:name||registry[String(id)]?.school||outside[String(id)]?.corrected_name||outside[String(id)]?.school,size}),byName:(name,size)=>render({name,size}),fail,stripLegacyRings,upgradeLegacyCalendar,upgradeBareLogos,logoURL:id=>retroURLForESPN(byNcaa.get(id)||id)||registry[byNcaa.get(id)]?.logo_url||'',retroURLForESPN,heritageTeamIds:()=>Object.keys(BIG_TEN_HERITAGE),heritageACCTeamIds:()=>Object.keys(ACC_HERITAGE),heritageSECTeamIds:()=>Object.keys(SEC_HERITAGE),heritageBigEastTeamIds:()=>Object.keys(BIG_EAST_HERITAGE),heritageMountainWestTeamIds:()=>Object.keys(MOUNTAIN_WEST_HERITAGE),heritageA10TeamIds:()=>Object.keys(A10_HERITAGE),colorForESPN:id=>palette[String(id)]?{...palette[String(id)]}:outside[String(id)]?{primary:outside[String(id)].primary,secondary:outside[String(id)].secondary}:null,schoolNameForESPN:id=>String(registry[String(id)]?.school||outside[String(id)]?.corrected_name||outside[String(id)]?.school||'').replace(/\bSt\.$/,'State')};
 ready.then(ok=>{
  if(!ok)return;
  const run=()=>{stripLegacyRings(document);upgradeLegacyCalendar();upgradeBareLogos(document)};
