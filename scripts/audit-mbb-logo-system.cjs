@@ -94,6 +94,13 @@ async function run(){
    supplementary[id]=url;
  }
  assert.equal(Object.keys(supplementary).length,23,'Expected 13 A10 + 10 Mountain West archive crests');
+ const updatedBigEast={};
+ for(const line of logoSource.split('\n')){
+   if(!line.includes('assets/cbb-big-east-1980s/'))continue;
+   const match=line.match(/^\s*'([0-9]+)':'([^']+)'/);
+   if(match)updatedBigEast[match[1]]=match[2];
+ }
+ assert.equal(Object.keys(updatedBigEast).length,11,'Expected 11 original Big East archive crests');
  const anyVintage=id=>!!(vintage[id]||vintageACC[id]||vintageSEC[id]||vintageBigEast[id]||supplementary[id]);
  assert.equal(Object.keys(vintage).length,18,'Current Big Ten has exactly 18 vintage crests');
  for(const [id,slug] of Object.entries(vintage)){
@@ -108,7 +115,7 @@ async function run(){
    'assets/cbb-big-ten-1980s/centered/'+vintage[id]+'.png?v='+(id==='127'?'20261114-gruff-full-art1':'20261114-bigten-live1'):
    vintageACC[id]?'assets/cbb-acc-1980s/'+vintageACC[id]+'.png?v='+(id==='221'?'20261114-pitt-standing-1980-approved1':'20261114-acc18-live1'):
    vintageSEC[id]?'assets/cbb-sec-1980s/'+vintageSEC[id]+'.png?v=20261114-sec16-live1':
-   vintageBigEast[id]?'assets/cbb-big-east-1980s/'+vintageBigEast[id]+'.png?v=20261114-bigeast11-live1':supplementary[id]||item.logo_url;
+   vintageBigEast[id]?updatedBigEast[id]:supplementary[id]||item.logo_url;
  const seen=new Set(),kinds={embedded_roundel:0,flat:0,unverified:0};
  for(const t of cross.teams){
   const id=String(t.espn_id),item=registry.teams[id],brand=colors[id];
