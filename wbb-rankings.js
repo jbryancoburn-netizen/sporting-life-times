@@ -87,7 +87,7 @@ try{
  if(ratings.gender!=='women'||ratings.season!=='2026-27'||ratings.rankings?.length!==363||directory.teams?.length!==363)throw Error('Women’s 363-team ratings source did not validate');
  const rows=ratings.rankings,byId=new Map(directory.teams.map(t=>[String(t.team_id),t]));
  const con= $('#wbbr-conf');for(const name of [...new Set(rows.map(r=>r.conference))].filter(Boolean).sort())con.add(new Option(name,name));
- $('#wbbr-status').textContent='Women-only RETRO · 363 Division I programs · Updated '+(ratings.as_of||'when verified finals are published')+'. Ratings begin at 1500 and change only after verified women’s games.';
+ $('#wbbr-status').textContent='Women’s RETRO rankings · 363 Division I teams · Updated '+(ratings.as_of||'when verified finals are published')+'. Rankings reflect verified women’s games only.';
  const render=()=>{
   const selected=con.value,order=$('#wbbr-order').value;
   let data=rows.filter(t=>!selected||t.conference===selected).slice();
@@ -99,7 +99,7 @@ try{
     return '<article class="wbbr-entry"><strong class="wbbr-number">#'+esc(t.rank)+'</strong>'+
       womenLogo(school,name)+
       '<div class="wbbr-identity"><a href="ncaaw-team.html?team='+encodeURIComponent(t.team_id)+'">'+esc(name)+'</a><small>'+esc(t.conference||'Conference unverified')+'</small></div>'+
-      '<div class="wbbr-value"><span class="wbbr-record"><span class="wbbr-stat-caption">W–L</span> '+esc(overallRecord)+'</span><span class="wbbr-retro">RETRO '+(Number.isFinite(Number(t.elo))?Number(t.elo).toFixed(1):'—')+'</span></div></article>';
+      '<div class="wbbr-value"><span class="wbbr-record"><span class="wbbr-stat-caption">W–L</span> '+esc(overallRecord)+'</span><span class="wbbr-retro">RETRO Rating '+(Number.isFinite(Number(t.elo))?Number(t.elo).toFixed(1):'—')+'</span></div></article>';
   }).join('');
  };
  con.addEventListener('change',render);$('#wbbr-order').addEventListener('change',render);render();
