@@ -75,14 +75,14 @@ test('pregame shows only one compact RETRO forecast',()=>{
  }});
  assert.match(projection,/72%/);
  assert.match(projection,/−5\.5/);
- assert.match(projection,/RETRO FORECAST/);
+ assert.match(projection,/RETRO MARGIN/);
  assert.doesNotMatch(projection,/PROJECTED FINAL|72–78|WIN CHANCE|PROJECTED SPREAD/);
  assert.equal((projection.match(/ledger26-pregame-prob/g)||[]).length,1);
  for(const phase of ['live','final']){
   const out=render({phase,away,home,suppressPress:true,forecast:{
    team:'Home',probability:0.72,margin:5.5,projectedAwayScore:72,projectedHomeScore:78
   }});
-  assert.doesNotMatch(out,/RETRO FORECAST|PROJECTED FINAL/);
+  assert.doesNotMatch(out,/RETRO MARGIN|PROJECTED FINAL/);
  }
 });
 test('pregame verified form has compact streak and disappears at tipoff',()=>{
