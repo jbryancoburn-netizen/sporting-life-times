@@ -83,7 +83,9 @@ const BIG_EAST_HERITAGE=Object.freeze({
 });
 const A10_HERITAGE=Object.freeze({
  '2244':'assets/cbb-atlantic-10-1980s/george-mason.png?v=a10-archive-20261114-1',
- '45':'assets/cbb-atlantic-10-1980s/george-washington.png?v=a10-archive-20261114-1'
+ '45':'assets/cbb-atlantic-10-1980s/george-washington.png?v=a10-archive-20261114-1',
+ '2350':'assets/cbb-atlantic-10-1980s/loyola-chicago.png?v=a10-archive-20261114-1',
+ '227':'assets/cbb-atlantic-10-1980s/rhode-island.png?v=a10-archive-20261114-1'
 });
 const retroURLForESPN=id=>BIG_TEN_HERITAGE[String(id)]||ACC_HERITAGE[String(id)]||SEC_HERITAGE[String(id)]||BIG_EAST_HERITAGE[String(id)]||A10_HERITAGE[String(id)]||'';
 
