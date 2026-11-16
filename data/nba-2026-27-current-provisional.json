@@ -2,17 +2,17 @@
   "league": "NBA",
   "season": "2026-27",
   "status": "provisional_live_from_historical_baseline",
-  "games_played": 191,
+  "games_played": 193,
   "preseason_status": "provisional_historical_regression_only",
   "source": "ESPN FINAL NBA regular-season scores; Sporting Life & Times independent Elo",
   "rankings": [
     {
       "team": "SAS",
-      "elo": 1692.999
+      "elo": 1695.96
     },
     {
       "team": "BOS",
-      "elo": 1653.208
+      "elo": 1659.424
     },
     {
       "team": "LAL",
@@ -92,7 +92,7 @@
     },
     {
       "team": "DAL",
-      "elo": 1446.797
+      "elo": 1440.582
     },
     {
       "team": "CHI",
@@ -124,7 +124,7 @@
     },
     {
       "team": "UTA",
-      "elo": 1279.661
+      "elo": 1276.7
     }
   ],
   "events": [
@@ -1846,13 +1846,31 @@
       "away_score": 105,
       "date": "2026-11-15T21:30:00.000Z",
       "home_elo_change": 12.600377
+    },
+    {
+      "id": "espn-nba-401909988",
+      "home": "UTA",
+      "away": "SAS",
+      "home_score": 102,
+      "away_score": 110,
+      "date": "2026-11-15T22:00:00.000Z",
+      "home_elo_change": -2.960611
+    },
+    {
+      "id": "espn-nba-401909989",
+      "home": "BOS",
+      "away": "DAL",
+      "home_score": 131,
+      "away_score": 94,
+      "date": "2026-11-15T23:00:00.000Z",
+      "home_elo_change": 6.215198
     }
   ],
   "movement": {
     "as_of_eastern_date": "2026-11-15",
     "daily_change": {
-      "SAS": 0,
-      "BOS": 0,
+      "SAS": 2.960611,
+      "BOS": 6.215198,
       "LAL": 10.023051,
       "OKC": 0,
       "HOU": 0,
@@ -1872,7 +1890,7 @@
       "LAC": 12.600377,
       "CHA": -12.600377,
       "MEM": 0,
-      "DAL": 0,
+      "DAL": -6.215198,
       "CHI": 0,
       "IND": -4.908808,
       "NOP": 0,
@@ -1880,12 +1898,12 @@
       "WAS": 0,
       "MIL": 0,
       "SAC": 0,
-      "UTA": 0
+      "UTA": -2.960611
     },
     "last_week_eastern_date": "2026-11-08",
     "last_week_elo": {
-      "SAS": 1671.572,
-      "BOS": 1627.195,
+      "SAS": 1671.573,
+      "BOS": 1627.196,
       "LAL": 1623.567,
       "OKC": 1688.65,
       "HOU": 1592.575,
@@ -1913,7 +1931,7 @@
       "WAS": 1359.302,
       "MIL": 1348.374,
       "SAC": 1338.914,
-      "UTA": 1299.83
+      "UTA": 1299.829
     }
   }
 }
