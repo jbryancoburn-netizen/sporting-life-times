@@ -25,16 +25,23 @@
     thead { background: #e8dcc7; border-block: 3px double #524435; }
     tbody tr:nth-child(even) { background: #eee4d3; }
     .number { text-align: right; white-space: nowrap; }
+    #masthead-title { display: flex; align-items: center; justify-content: center; gap: clamp(.65rem, 2.6vw, 1.5rem); padding-block: .55rem; }
+    #masthead-title h1 { margin: 0; }
+    .crest { flex: none; display: inline-grid; place-items: center; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 35% 24%, #fffaf0, #f0e3c9 70%, #e1ccaa); border: 3px double #6a5036; box-shadow: inset 0 0 0 1px #b59a72, 0 1px 2px #49331d35; }
+    .crest img { display: block; width: 77%; height: 77%; object-fit: contain; }
+    .crest-large { width: clamp(3.7rem, 13vw, 6.75rem); }
+    .crest-small { width: 2.35rem; }
+    .school-identity { display: inline-flex; align-items: center; gap: .48rem; }
     footer { margin-top: 1rem; padding-top: .7rem; border-top: 3px double #524435; font-size: .85rem; }
     @media (max-width: 640px) { th, td { padding: .4rem .3rem; } table { font-size: .83rem; } }
   </style>
-  <script defer src="indiana-boys-basketball.js?v=varsity-schedules-20261116"></script>
+  <script defer src="indiana-boys-basketball.js?v=victorian-crests-20261116"></script>
 </head>
 <body>
 <main>
   <header>
     <a href="sports.html">Sporting Life &amp; Times</a>
-    <h1>Indiana Boys Basketball RETRO</h1>
+    <div id="masthead-title"><h1>Indiana Boys Basketball RETRO</h1></div>
     <p id="edition"></p>
   </header>
   <section class="filters" aria-label="Ranking filters">
