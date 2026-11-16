@@ -265,6 +265,123 @@
   }
  }
 
+
+ // RETRO Pulse is an evidence-backed scoring trace, not a simulated graph.
+ const pulseCache=new Map(),pulseScale=new Map();
+ const sec=v=>{const m=String(v||'').match(/^(\d{1,2}):(\d\d)$/);return m?Number(m[1])*60+Number(m[2]):null;};
+ const pulseRange=n=>n<=5?5:n<=10?10:Math.max(20,Math.ceil(n/10)*10);
+ function pulseShell(g,phase,label){
+  if(phase==='upcoming'||!g.gameId||!['men','women'].includes(g.gender)||!g.away?.id||!g.home?.id)return '';
+  return '<div class="ledger26-pulse" data-retro-pulse="'+esc(g.gameId)+'" data-gender="'+g.gender+
+   '" data-away="'+esc(g.away.id)+'" data-home="'+esc(g.home.id)+'" data-phase="'+phase+
+   '" data-away-score="'+esc(g.away.score??'')+'" data-home-score="'+esc(g.home.score??'')+'">'+
+   '<div class="ledger26-pulse-heading"><strong>'+esc(phase==='final'?'FINAL':('LIVE · '+label))+
+   '</strong><span>RETRO PULSE · SCORING HISTORY PENDING</span></div></div>';
+ }
+ function pulseBuild(raw,el){
+  const rivals=raw?.header?.competitions?.[0]?.competitors||[];
+  if(String(rivals.find(x=>x.homeAway==='away')?.team?.id)!==el.dataset.away||
+     String(rivals.find(x=>x.homeAway==='home')?.team?.id)!==el.dataset.home)return null;
+  const source=root.SLTCourt;if(!source?.parsePlays||!source?.verifyPlayScores)return null;
+  const plays=source.parsePlays(raw);
+  const audit=source.verifyPlayScores(plays,{phase:el.dataset.phase,
+   away:{score:Number(el.dataset.awayScore)},home:{score:Number(el.dataset.homeScore)}});
+  if(!audit.ok)return null;
+  const interval=el.dataset.gender==='women'?600:1200;
+  const clock=p=>{const c=sec(p.clock),period=Number(p.period);return c===null||period<1||period>8?null:(period-1)*interval+interval-c;};
+  const points=[{time:0,awayScore:0,homeScore:0,period:1,clock:'',text:''}];
+  for(const p of audit.sequence){const t=clock(p);if(t===null||t<points.at(-1).time)continue;points.push({...p,time:t});}
+  if(points.length<3)return null;
+  const duration=points.at(-1).time;
+  const breaks=[];
+  for(let n=1;n<=8;n++)if(n*interval<duration-1)
+   breaks.push({time:n*interval,label:el.dataset.gender==='women'?'Q'+n:(n===1?'HT':'PERIOD '+n),kind:'period'});
+  for(const p of plays){
+   const t=clock(p),line=String(p.kind||'')+' '+String(p.text||'');
+   if(t===null||t<=0||t>=duration||!/time[\s-]*out/i.test(line))continue;
+   const media=/media|official|television|tv timeout/i.test(line);
+   if(!media)continue; // team timeouts are shown in the full gamefile, not made-up media breaks
+   if(!breaks.some(b=>Math.abs(t-b.time)<8))breaks.push({time:t,label:'MEDIA',kind:'media',clock:p.clock});
+  }
+  breaks.sort((a,b)=>a.time-b.time);
+  const edges=[{time:0,label:'TIP'},...breaks,{time:duration,label:el.dataset.phase==='final'?'FINAL':'LATEST'}];
+  const spans=edges.slice(1).map((edge,i)=>{
+   const start=edges[i],before=[...points].reverse().find(p=>p.time<=start.time)||points[0];
+   const after=[...points].reverse().find(p=>p.time<=edge.time)||before;
+   return {start,end:edge,away:after.awayScore-before.awayScore,home:after.homeScore-before.homeScore,
+    plays:points.filter(p=>p.time>start.time&&p.time<=edge.time&&p.scoring)};
+  }).filter(s=>s.end.time>s.start.time);
+  return {points,breaks,spans,duration,away:rivals.find(x=>x.homeAway==='away')?.team?.shortDisplayName||'AWAY',
+   home:rivals.find(x=>x.homeAway==='home')?.team?.shortDisplayName||'HOME'};
+ }
+ function pulseDraw(el,data){
+  const id=el.dataset.gender+':'+el.dataset.retroPulse;
+  const max=Math.max(...data.points.map(p=>Math.abs(p.awayScore-p.homeScore)),0);
+  const scale=Math.max(pulseScale.get(id)||5,pulseRange(max));pulseScale.set(id,scale);
+  const x=t=>33+331*t/Math.max(1,data.duration),y=n=>35-26*n/scale;
+  const plot=data.points.map((p,i)=>(i?'L':'M')+x(p.time).toFixed(1)+' '+y(p.awayScore-p.homeScore).toFixed(1)).join(' ');
+  const rules=[-scale,0,scale].map(n=>'<line x1="33" x2="364" y1="'+y(n)+'" y2="'+y(n)+'" stroke="#8c7656" stroke-width="'+(n?'.6':'1.3')+'"/>'+
+   '<text x="28" y="'+(y(n)+3)+'" text-anchor="end" font-size="9" fill="#57432b">'+(n>0?'+':'')+n+'</text>').join('');
+  const marks=data.breaks.map(b=>'<line x1="'+x(b.time)+'" x2="'+x(b.time)+'" y1="11" y2="64" stroke="#6d553a" stroke-width="'+(b.kind==='period'?2:1)+'" stroke-dasharray="'+(b.kind==='period'?'none':'2 3')+'"/>'+
+   '<text x="'+x(b.time)+'" y="8" text-anchor="middle" font-size="8" fill="#63482c">'+esc(b.label)+'</text>').join('');
+  const regions=data.spans.map((s,i)=>'<button type="button" data-retro-segment="'+i+'" class="ledger26-pulse-hit" style="left:'+
+   (100*s.start.time/data.duration).toFixed(2)+'%;width:'+Math.max(.4,100*(s.end.time-s.start.time)/data.duration).toFixed(2)+
+   '%" aria-label="Scoring: '+esc(s.start.label)+' to '+esc(s.end.label)+'" title="'+esc(s.start.label)+' → '+esc(s.end.label)+'"></button>').join('');
+  const last=data.points.at(-1),lead=last.awayScore-last.homeScore;
+  const heading=el.querySelector('.ledger26-pulse-heading strong')?.textContent||'FINAL';
+  el.innerHTML='<div class="ledger26-pulse-heading"><strong>'+esc(heading)+'</strong><span>'+
+   esc(lead===0?'TIED':(lead>0?data.away:data.home)+' +'+Math.abs(lead))+' · SCALE ±'+scale+'</span></div>'+
+   '<div class="ledger26-pulse-chart"><svg viewBox="0 0 376 69" preserveAspectRatio="none" role="img" aria-label="Score differential, away above zero, home below zero">'+
+   rules+marks+'<path d="'+plot+'" stroke="#85263c" stroke-width="2.5" vector-effect="non-scaling-stroke" fill="none"/></svg>'+
+   '<div class="ledger26-pulse-taps">'+regions+'</div></div>';
+  pulseCache.set(el,data);
+ }
+ async function pulseLoad(el){
+  if(el.dataset.loading||!el.isConnected)return;el.dataset.loading='1';
+  const url='https://site.api.espn.com/apis/site/v2/sports/basketball/'+
+   (el.dataset.gender==='women'?'womens':'mens')+'-college-basketball/summary?event='+encodeURIComponent(el.dataset.retroPulse);
+  try{
+   const response=await fetch(url,{cache:'no-store'});if(!response.ok)throw Error('summary');
+   const raw=await response.json();if(!el.isConnected)return;
+   const model=pulseBuild(raw,el);
+   if(model)pulseDraw(el,model);
+   else el.querySelector('.ledger26-pulse-heading span').textContent='PLAY LOG NOT VERIFIED';
+  }catch{if(el.isConnected)el.querySelector('.ledger26-pulse-heading span').textContent='PLAY LOG UNAVAILABLE';}
+ }
+ if(root.document){
+  let observer,scanQueued=false;
+  const scan=()=>{
+   if(!observer&&root.IntersectionObserver)observer=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){observer.unobserve(e.target);void pulseLoad(e.target);}});
+   },{rootMargin:'240px'});
+   for(const el of document.querySelectorAll('.ledger26-pulse:not([data-observed])')){
+    el.dataset.observed='1';if(observer)observer.observe(el);else void pulseLoad(el);
+   }
+  };
+  const queue=()=>{if(scanQueued)return;scanQueued=true;requestAnimationFrame(()=>{scanQueued=false;scan();});};
+  document.addEventListener('DOMContentLoaded',()=>{
+   queue();const host=document.getElementById('sl-games');
+   if(host)new MutationObserver(queue).observe(host,{subtree:true,childList:true});
+  });
+  document.addEventListener('click',event=>{
+   const button=event.target.closest?.('[data-retro-segment]');if(!button)return;
+   event.preventDefault();event.stopPropagation();
+   const host=button.closest('.ledger26-pulse'),model=pulseCache.get(host);
+   const item=model?.spans[Number(button.dataset.retroSegment)];if(!item)return;
+   const detail=host.closest('details'),target=detail?.querySelector('.ledger26-expanded');
+   if(!detail||!target)return;
+   detail.open=true;
+   let panel=target.querySelector('.ledger26-pulse-breakdown');
+   if(!panel){panel=document.createElement('section');panel.className='ledger26-pulse-breakdown';target.prepend(panel);}
+   if(panel.dataset.index===button.dataset.retroSegment){panel.remove();return;}
+   panel.dataset.index=button.dataset.retroSegment;
+   panel.innerHTML='<strong>RETRO PULSE · '+esc(item.start.label)+' TO '+esc(item.end.label)+'</strong>'+
+    '<span>'+esc(model.away)+' '+item.away+' · '+esc(model.home)+' '+item.home+' points in this stretch</span>'+
+    (item.plays.length?'<ol>'+item.plays.slice(0,35).map(p=>'<li>'+esc(p.clock)+' · '+esc(p.text)+'</li>').join('')+'</ol>':
+    '<small>No individual scoring events available for this interval.</small>');
+  },true);
+ }
+
  function render(input){
   const g=input||{},phase=['live','final','upcoming'].includes(g.phase)?g.phase:'upcoming';
   const label=(phase==='final'?
@@ -334,8 +451,8 @@
   };
   return '<div class="ledger26-scorebug'+(g.suppressMonogram?' ledger26-scorebug--plain':'')+(phase==='upcoming'?' ledger26-scorebug--pregame':'')+'" role="group" aria-label="'+esc(g.ariaLabel||((g.away?.name||'Away')+' at '+(g.home?.name||'Home')+' scoreboard'))+'">'+
     (g.suppressMonogram?'':'<span class="ledger26-monogram"><img src="assets/slt-engraved-black.svg" width="35" height="49" alt="Sporting Life and Times monogram"></span>')+
-    '<div class="ledger26-teams">'+team(g.away)+team(g.home)+'</div>'+
-    (phase==='live'?livePanel(g,label):phase==='upcoming'?pregamePanel(g):label?'<div class="ledger26-status" data-phase="'+phase+'"><strong>'+esc(label)+'</strong></div>':'')+(phase==='final'?finalRetroDesk(g):'')+(phase==='upcoming'&&!g.suppressPress?preview(g).split('<dialog')[0]:'')+'</div>';
+    '<div class="ledger26-teams">'+team(g.away)+pulseShell(g,phase,label)+team(g.home)+'</div>'+
+    (pulseShell(g,phase,label)?'':phase==='live'?livePanel(g,label):phase==='upcoming'?pregamePanel(g):label?'<div class="ledger26-status" data-phase="'+phase+'"><strong>'+esc(label)+'</strong></div>':'')+(phase==='final'?finalRetroDesk(g):'')+(phase==='upcoming'&&!g.suppressPress?preview(g).split('<dialog')[0]:'')+'</div>';
  }
  // The Daily Ledger is the universal newspaper model, not a separate sport skin.
  // Keep the old alias for existing college basketball pages.
