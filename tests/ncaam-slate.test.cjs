@@ -22,19 +22,20 @@ assert(logoRenderer.includes("'77':'assets/cbb-big-ten-1980s/centered/northweste
 
 
 const forecastScorebug=fs.readFileSync('cbb-ledger-scorebug.js','utf8');
-const forecastRailCss=scorecardCss.split('/* Shared RETRO forecast rail for men\'s and women\'s college basketball.')[1];
+const forecastRailCss=scorecardCss.split('/* Shared horizontal pregame intelligence strip.')[1];
 assert(forecastRailCss &&
+ forecastRailCss.includes('grid-template-columns:repeat(3,minmax(0,1fr))!important') &&
+ forecastRailCss.includes('flex-wrap:wrap') &&
+ forecastRailCss.includes('overflow-wrap:break-word!important') &&
  forecastRailCss.includes('flex-direction:column!important') &&
- forecastRailCss.includes('overflow-wrap:anywhere!important') &&
- !forecastRailCss.includes('grid-template-columns:minmax(0,1fr) minmax(0,1fr)') &&
  !forecastRailCss.includes('max-height:2.2em;overflow:hidden'),
- 'Northwestern forecast winner, probability, spread and score must not overlap in a half-width label grid');
+ 'Pregame RETRO forecast values must wrap and remain legible in both horizontal desktop and stacked mobile layouts');
 assert(forecastScorebug.includes('RETRO SPREAD') &&
  forecastScorebug.includes('PROJECTED FINAL') &&
  forecastScorebug.includes('ledger26-pregame-inline--prob'),
  'the pregame rail needs independently legible probability, signed spread and projected final');
-assert(html.includes('cbb-ledger-scorecard.css?v=forecast-vertical-rail-20261116') &&
- html.includes('cbb-ledger-scorebug.js?v=forecast-vertical-rail-20261116'),
+assert(html.includes('cbb-ledger-scorecard.css?v=forecast-vertical-rail-20261116b') &&
+ html.includes('cbb-ledger-scorebug.js?v=forecast-vertical-rail-20261116b'),
  'the public ledger must load the forecast rail fix without cached markup or CSS');
 
 assert(!/draftkings|onlyDraftKings|sportsbook|draftKingsByDate/i.test(script+html+scorecardCss), 'sportsbook lines and lookups must not reappear in the ledger');
