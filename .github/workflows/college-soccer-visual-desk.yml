@@ -83,6 +83,15 @@ on:
       - 'data/college-soccer-elo.json'
       - 'data/college-soccer-prospective-v2.json'
       - '.github/workflows/college-soccer-visual-desk.yml'
+  pull_request:
+    paths:
+      - 'college-soccer-national-bracket.js'
+      - 'college-soccer-national-bracket.css'
+      - 'college-soccer-selection.js'
+      - 'college-soccer-selection.html'
+      - 'scripts/test_college_soccer_national_bracket.cjs'
+      - 'scripts/rebuild_soccer_daily_selection.py'
+      - '.github/workflows/college-soccer-visual-desk.yml'
   workflow_dispatch:
 
 permissions:
