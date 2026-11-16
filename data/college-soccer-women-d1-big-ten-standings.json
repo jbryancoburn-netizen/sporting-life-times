@@ -3,8 +3,8 @@
   "source_name": "Big Ten Conference official 2026 soccer standings",
   "source_url": "https://bigten.org/sports/wsoc/standings",
   "snapshot_checked_date": "2026-10-24",
-  "last_verified_game_date": null,
-  "note": "Published official standings snapshot. Not confirmed final seeds; later matches and official tie rules can change order.",
+  "last_verified_game_date": "2026-11-13",
+  "note": "Published official standings snapshot. Not confirmed final seeds; later matches and official tie rules can change order. Official 2026 conference tournament seeds and completed bracket added; regular-season standings snapshot remains historical and is not a current standings table.",
   "rows": [
     {
       "team_id": "ohio-st",
@@ -132,5 +132,110 @@
       "conference_games": 10,
       "overall_record": "4-10-2"
     }
-  ]
+  ],
+  "tournament_seeds": [
+    "ohio-st",
+    "ucla",
+    "purdue",
+    "michigan-st",
+    "washington",
+    "penn-st",
+    "wisconsin",
+    "michigan"
+  ],
+  "tournament_bracket": {
+    "status": "official",
+    "source_url": "https://bigten.org/sports/2026/10/13/2026WSOCB1GTournament.aspx",
+    "verified_through": "2026-11-13",
+    "matches": [
+      {
+        "id": "M1",
+        "round": "QUARTERFINALS · NOV 4",
+        "home_id": "ohio-st",
+        "away_id": "michigan",
+        "home_score": 1,
+        "away_score": 2,
+        "winner_id": "michigan",
+        "status": "final",
+        "source_url": "https://bigten.org/sports/2026/10/13/2026WSOCB1GTournament.aspx",
+        "result_date": "2026-11-04"
+      },
+      {
+        "id": "M2",
+        "round": "QUARTERFINALS · NOV 4",
+        "home_id": "ucla",
+        "away_id": "wisconsin",
+        "home_score": 0,
+        "away_score": 1,
+        "winner_id": "wisconsin",
+        "status": "final",
+        "source_url": "https://bigten.org/sports/2026/10/13/2026WSOCB1GTournament.aspx",
+        "result_date": "2026-11-04"
+      },
+      {
+        "id": "M3",
+        "round": "QUARTERFINALS · NOV 5",
+        "home_id": "michigan-st",
+        "away_id": "washington",
+        "home_score": 3,
+        "away_score": 2,
+        "winner_id": "michigan-st",
+        "status": "final",
+        "source_url": "https://bigten.org/sports/2026/10/13/2026WSOCB1GTournament.aspx",
+        "result_date": "2026-11-05"
+      },
+      {
+        "id": "M4",
+        "round": "QUARTERFINALS · NOV 5",
+        "home_id": "purdue",
+        "away_id": "penn-st",
+        "home_score": 2,
+        "away_score": 1,
+        "winner_id": "purdue",
+        "status": "final",
+        "source_url": "https://bigten.org/sports/2026/10/13/2026WSOCB1GTournament.aspx",
+        "result_date": "2026-11-05"
+      },
+      {
+        "id": "M5",
+        "round": "SEMIFINALS · NOV 8",
+        "home_id": "michigan-st",
+        "away_id": "michigan",
+        "home_score": 1,
+        "away_score": 0,
+        "winner_id": "michigan-st",
+        "status": "final",
+        "source_url": "https://bigten.org/sports/2026/10/13/2026WSOCB1GTournament.aspx",
+        "result_date": "2026-11-08"
+      },
+      {
+        "id": "M6",
+        "round": "SEMIFINALS · NOV 8",
+        "home_id": "purdue",
+        "away_id": "wisconsin",
+        "home_score": 2,
+        "away_score": 2,
+        "winner_id": "purdue",
+        "status": "final",
+        "decision": "penalties",
+        "home_penalties": 4,
+        "away_penalties": 3,
+        "source_url": "https://bigten.org/sports/2026/10/13/2026WSOCB1GTournament.aspx",
+        "result_date": "2026-11-08"
+      },
+      {
+        "id": "M7",
+        "round": "CHAMPIONSHIP · NOV 13",
+        "home_id": "purdue",
+        "away_id": "michigan-st",
+        "home_score": 4,
+        "away_score": 3,
+        "winner_id": "purdue",
+        "status": "final",
+        "decision": "extra_time",
+        "source_url": "https://bigten.org/sports/2026/10/13/2026WSOCB1GTournament.aspx",
+        "result_date": "2026-11-13"
+      }
+    ]
+  }
 }
