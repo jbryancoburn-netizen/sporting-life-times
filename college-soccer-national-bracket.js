@@ -196,6 +196,17 @@
    'NCAA-based independent pre-selection forecast. Uses all 23 source-certified conference champions; the published November 14 NCAA RPI rankings and Division I .500 record screen for 25 at-large candidates. Projected seeds 1–24 are ordered by RPI, NOT announced by the NCAA committee. Head-to-head, common-opponent, late-season résumé adjustments, and official hosting are incomplete. An RPI favorite advances each hypothetical matchup; no RETRO inputs are used.':
    'Independent RETRO scenario (NOT NCAA selections). 23 AQs plus 25 provisional at-large picks; 24 RETRO-ranked projected seeds and 16 byes. First-game conference rematches avoided. Hosting and geography unverified; win probabilities assume neutral sites.');
   bracket.append(explanation);
+  // Make the far end of the national bracket visible immediately, without
+  // scrolling down to the separate College Cup cards.
+  const finalRail=html('section','snb-final-rail');
+  finalRail.setAttribute('aria-label','Projected College Cup semifinals and final');
+  finalRail.append(html('strong',null,'COLLEGE CUP · AT A GLANCE'));
+  for(const game of projection.semifinals)finalRail.append(html('span',null,
+   winnerText(game.home)+' vs '+winnerText(game.away)));
+  finalRail.append(html('strong',null,'FINAL'));
+  finalRail.append(html('span',null,winnerText(projection.championship.home)+' vs '+winnerText(projection.championship.away)));
+  finalRail.append(html('b',null,(ncaa?'RPI PICK: ':'RETRO PICK: ')+winnerText(projection.championship.winner)));
+  bracket.append(finalRail);
   const regions=html('section','snb-regions');
   const regionHead=html('div','snb-region-heading');
   regionHead.append(html('h3',null,'FOUR COMPLETE BRACKET QUADRANTS'),html('p',null,'All four rounds visible together on desktop. Mobile: choose the round, no sideways scrolling.'));
