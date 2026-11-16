@@ -666,17 +666,6 @@
  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
  background:linear-gradient(110deg,rgba(0,0,0,.13),transparent 52%,rgba(0,0,0,.07));
 }
-.ledger26-scorebug .ledger26-ghost{
- position:absolute;z-index:-1;pointer-events:none;
- right:13%;top:50%;height:180%;width:min(47%,205px);
- transform:translateY(-50%) rotate(-16deg);
- display:flex;align-items:center;justify-content:center;
- opacity:.36;
- filter:grayscale(1) brightness(0) invert(1) drop-shadow(2px 3px 1px rgba(0,0,0,.3));
-}
-.ledger26-scorebug .ledger26-ghost img{
- width:100%;height:100%;object-fit:contain;
-}
 .ledger26-scorebug .ledger26-team--behind .ledger26-ghost{
  opacity:.23;filter:grayscale(1) brightness(0) drop-shadow(1px 2px 1px rgba(255,255,255,.45));
 }
@@ -698,8 +687,7 @@
 .ledger26-scorebug .ledger26-crest img{filter:drop-shadow(1px 2px 2px rgba(0,0,0,.3))}
 .ledger26-scorebug .ledger26-team .ledger26-name a{color:inherit!important}
 @media(max-width:640px){
- .ledger26-scorebug .ledger26-ghost{width:42%;right:8%;opacity:.32}
-}
+ }
 @media(prefers-reduced-motion:reduce){
  .ledger26-scorebug .ledger26-team{transition:none}
 }
@@ -712,19 +700,46 @@
  color:#201911!important;text-shadow:0 1px 0 rgba(255,255,255,.5)!important;
 }
 
-/* Ring-free art mark: enlarged silhouette behind the score, with editorial bleed. */
-.ledger26-scorebug .ledger26-team{overflow:visible}
-.ledger26-scorebug .ledger26-ghost{
-  top:50%;right:1%;width:min(60%,255px);height:215%;
-  transform:translateY(-50%) rotate(-16deg);
-  opacity:.31;z-index:-1;
+/* The mascot may be larger than the visible row, but is clipped precisely to
+   its own team field: never cross the away/home boundary. Keep the artwork's
+   facial/line detail, darkened into the school's color instead of a flat silhouette. */
+.ledger26-scorebug .ledger26-team{
+  overflow:hidden;
+  isolation:isolate;
 }
-.ledger26-scorebug .ledger26-team--behind .ledger26-ghost{opacity:.23}
-.ledger26-scorebug .ledger26-ghost img{width:100%;height:100%;object-fit:contain}
+.ledger26-scorebug .ledger26-ghost{
+  position:absolute;
+  top:50%;
+  right:-3%;
+  width:min(67%,285px);
+  height:230%;
+  transform:translateY(-50%) rotate(-16deg);
+  opacity:.36;
+  z-index:0;
+  pointer-events:none;
+  filter:none;
+  mix-blend-mode:multiply;
+}
+.ledger26-scorebug .ledger26-ghost img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  filter:grayscale(1) contrast(1.35) brightness(.66);
+}
+.ledger26-scorebug .ledger26-team--behind .ledger26-ghost{opacity:.26}
+.ledger26-scorebug .ledger26-team::after{z-index:1}
+.ledger26-scorebug .ledger26-crest,
+.ledger26-scorebug .ledger26-identity,
+.ledger26-scorebug .ledger26-points{position:relative;z-index:2}
 .ledger26-card{isolation:isolate}
 @media(max-width:640px){
- .ledger26-scorebug .ledger26-ghost{width:49%;height:195%;right:0;opacity:.27}
- .ledger26-scorebug .ledger26-team--behind .ledger26-ghost{opacity:.19}
+ .ledger26-scorebug .ledger26-ghost{
+   right:-5%;
+   width:64%;
+   height:205%;
+   opacity:.31;
+ }
+ .ledger26-scorebug .ledger26-team--behind .ledger26-ghost{opacity:.23}
 }
 
 /* Contrast contract: foreground is selected from actual team-row fill on render.
