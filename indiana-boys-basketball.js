@@ -325,6 +325,9 @@ fetch('data/indiana-boys-basketball.json')
       source.textContent = manifest.credit || (manifest.source.includes('themicconference.com') ? 'MIC artwork' : 'HCC artwork');
       document.querySelector('footer').append(' · ', source);
     }
-    for (const name of new Set(edition.teams.map(team => team.conference).filter(Boolean))) {\n      if (!artwork.conferences[name]) artwork.conferences[name] = conferenceMonogram(name);\n    }\n    initialize(edition);
+    for (const name of new Set(edition.teams.map(team => team.conference).filter(Boolean))) {
+      if (!artwork.conferences[name]) artwork.conferences[name] = conferenceMonogram(name);
+    }
+    initialize(edition);
   })
   .catch(() => { status.textContent = 'The school register could not load. Try refreshing the page.'; });
