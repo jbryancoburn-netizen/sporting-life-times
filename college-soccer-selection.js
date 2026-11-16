@@ -100,7 +100,7 @@ function draw(data,metrics,branding){
    }
    host.append(rules);
  }
- const entries=mode==='usrs'?data.field:(ncaaInputsReady?metrics.field:[]);
+ const entries=mode==='usrs'?data.field:[];
  if(mode==='usrs'){
    host.append(el('h2','INDEPENDENT RETRO BRACKET · NOT NCAA SELECTION'));
    host.append(el('p','This is a 48-team RETRO-only demonstration of the NCAA tournament format, not an NCAA selection forecast. Its 25 at-large candidates are ranked by RETRO without verified full-season Division I eligibility; the positions are not committee seeds. Travel, venues and official matchups are withheld.','cs-selection-warning'));
@@ -110,8 +110,10 @@ function draw(data,metrics,branding){
  const national=window.SoccerNationalBracket;
  if(!national){
    bracketMount.append(el('p','The national bracket renderer is unavailable. Matchups are withheld rather than fabricated.','cs-selection-warning'));
- }else if(mode==='ncaa'&&!ncaaInputsReady){
-   // Deliberately no NCAA bracket: this is the actual publication-safety gate.
+ }else if(mode==='ncaa'){
+   // Even when eligible-record and résumé feeds arrive, exact NCAA pairings and
+   // hosting require independently sourced committee bracket data. Do not
+   // create official pairings from the RETRO quadrant template.
  }else{
    national.render(bracketMount,entries,branding,mode==='usrs'?window.SoccerRetroKnockout?.match:null,{
      cutoff:data.rating_cutoff,confirmed:verifiedAqs.length,mode
