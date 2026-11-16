@@ -385,6 +385,54 @@
    ' · CURRENT '+esc(current)+' · FULL-GAME LEAD SCALE '+bottom+' TO +'+top+
    ' · Select any section for the scoring log</div>';
  }
+ function pulseStatsFallback(raw,el){
+  // Never display statistics from a different matchup; identity check first.
+  const rivals=raw?.header?.competitions?.[0]?.competitors||[];
+  if(String(rivals.find(x=>x.homeAway==='away')?.team?.id||'')!==el.dataset.away||
+     String(rivals.find(x=>x.homeAway==='home')?.team?.id||'')!==el.dataset.home)return '';
+  const teams=raw?.boxscore?.teams||[];
+  const away=teams.find(t=>String(t.team?.id)===el.dataset.away);
+  const home=teams.find(t=>String(t.team?.id)===el.dataset.home);
+  const stat=(t,terms)=>{
+   const entry=(t?.statistics||[]).find(z=>{
+    const label=String(z.name||z.label||z.abbreviation||'').toLowerCase().replace(/[^a-z0-9]/g,'');
+    return terms.includes(label);
+   });
+   return entry?.displayValue??entry?.value??null;
+  };
+  const rows=[
+   ['REBOUNDS',['rebounds','totalrebounds']],
+   ['ASSISTS',['assists']],
+   ['TURNOVERS',['turnovers']],
+   ['3-POINT %',['threepointfieldgoalpct','threepointfieldgoalpercentage']],
+   ['FIELD GOAL %',['fieldgoalpct','fieldgoalpercentage']]
+  ].flatMap(([label,keys])=>{
+   const av=stat(away,keys),hv=stat(home,keys);
+   return av===null&&hv===null?[]:[{label,av,hv}];
+  }).slice(0,3);
+  if(!rows.length){
+   const period=rivals.map(t=>(t.linescores||[]).map(z=>Number(z.value??z.displayValue)));
+   if(period.length===2&&period[0].length>0&&period[0].length===period[1].length&&
+      period.flat().every(Number.isFinite)){
+    const isAway=rivals[0].homeAway==='away',a=isAway?period[0]:period[1],h=isAway?period[1]:period[0];
+    return '<div class="ledger26-pulse-quickstats"><strong>SCORING BY PERIOD</strong><span>'+esc(el.dataset.awayName)+
+      ' '+a.join(' / ')+' · '+esc(el.dataset.homeName)+' '+h.join(' / ')+'</span></div>';
+   }
+   return '';
+  }
+  return '<div class="ledger26-pulse-quickstats"><strong>KEY STATS</strong>'+
+   rows.map(v=>'<span><b>'+esc(v.label)+'</b> '+esc(el.dataset.awayName)+' '+esc(v.av??'—')+
+    ' · '+esc(el.dataset.homeName)+' '+esc(v.hv??'—')+'</span>').join('')+'</div>';
+ }
+ function pulseRemoveEmpty(el){
+  const shell=el.closest('.ledger26-scorebug'),phase=el.dataset.phase||'final';
+  const status=el.querySelector('.ledger26-pulse-heading strong')?.textContent||(phase==='final'?'FINAL':'LIVE');
+  el.remove();
+  if(!shell)return;
+  shell.classList.remove('ledger26-scorebug--pulse');
+  const bar=document.createElement('div');bar.className='ledger26-status';bar.dataset.phase=phase;
+  const strong=document.createElement('strong');strong.textContent=status;bar.append(strong);shell.append(bar);
+ }
  async function pulseLoad(el){
   if(el.dataset.loading||!el.isConnected)return;el.dataset.loading='1';
   const url='https://site.api.espn.com/apis/site/v2/sports/basketball/'+
@@ -393,9 +441,11 @@
    const response=await fetch(url,{cache:'no-store'});if(!response.ok)throw Error('summary');
    const raw=await response.json();if(!el.isConnected)return;
    const model=pulseBuild(raw,el);
-   if(model)pulseDraw(el,model);
-   else el.querySelector('.ledger26-pulse-heading span').textContent='PLAY LOG NOT VERIFIED';
-  }catch{if(el.isConnected)el.querySelector('.ledger26-pulse-heading span').textContent='PLAY LOG UNAVAILABLE';}
+   if(model){pulseDraw(el,model);return;}
+   const stats=pulseStatsFallback(raw,el);
+   if(stats){el.innerHTML=stats;el.classList.add('ledger26-pulse--stats');}
+   else pulseRemoveEmpty(el);
+  }catch{if(el.isConnected)pulseRemoveEmpty(el);}
  }
  function pulseSegmentMicrograph(model,item){
   // A separately labeled CLOSE-UP, never silently rescale the main game graph.
