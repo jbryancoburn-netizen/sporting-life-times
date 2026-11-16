@@ -27,8 +27,8 @@
 .snb-region-tab:focus-visible,.snb-region-scroll:focus-visible{outline:3px solid #b28c42;outline-offset:2px}
 .snb-region-deck{font:13px/1.45 Georgia,serif;color:#504b43;margin:0 0 12px}
 .snb-region-scroll{max-width:100%;overflow-x:auto;overflow-y:visible;scrollbar-color:#95846a #f0ece3;scrollbar-width:thin;padding:2px 1px 12px}
-.snb-round-grid{display:grid;grid-template-columns:repeat(4,minmax(235px,1fr));align-items:stretch;
- gap:13px;min-width:1035px}
+.snb-round-grid{display:grid;grid-template-columns:repeat(4,minmax(252px,1fr));align-items:stretch;
+ gap:13px;min-width:1090px}
 .snb-round{min-width:0;display:flex;flex-direction:column}
 .snb-round-head{min-height:46px;margin-bottom:9px;padding:10px 9px 9px;
  border-top:3px solid #2d3b35;border-bottom:1px solid #b5ac99;
@@ -49,10 +49,17 @@
 .snb-team.snb-picked{background:#edf3ed;box-shadow:inset 3px 0 #476650}
 .snb-team .soccer-school-mark{margin:0;flex-shrink:0}
 .snb-school-name{display:flex;flex-direction:column;justify-content:center;gap:2px;min-width:0;flex:1}
-.snb-school-link{font:700 13px/1.1 "Century Schoolbook",Georgia,serif;color:#26342f;text-decoration:none;
- overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.snb-school-link{font:700 12.5px/1.14 "Century Schoolbook",Georgia,serif;color:#26342f;text-decoration:none;
+ white-space:normal;overflow-wrap:anywhere}
 .snb-school-link:hover{text-decoration:underline}
-.snb-seed{font:800 9px/1.2 Arial,sans-serif;letter-spacing:.025em;color:#847556}
+.snb-seed{font:800 8px/1.2 Arial,sans-serif;letter-spacing:.065em;color:#847556}
+.snb-seed-badge{display:grid;place-items:center;flex:0 0 27px;width:27px;height:35px;
+ border:2px double #a88b4b;background:#213932;color:#f5e6b7;
+ font:700 17px/1 "Century Schoolbook",Georgia,serif;font-variant-numeric:tabular-nums}
+.snb-seed-spacer{flex:0 0 27px;width:27px;height:35px}
+.snb-seed-legend{display:flex;align-items:center;gap:10px;margin:11px 0 14px;
+ font:12px/1.45 Georgia,serif;color:#584e3c}
+.snb-seed-legend .snb-seed-badge{height:29px;font-size:15px}
 .snb-percentage{font:800 13px Arial,sans-serif;white-space:nowrap;font-variant-numeric:tabular-nums;color:#435249}
 .snb-pending{font:italic 12px/1.4 Georgia,serif;color:#777065;padding:6px 0}
 .snb-match-foot{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 8px;padding:6px 9px;
@@ -96,3 +103,11 @@
  .snb-school-link{font-size:10px}
  .snb-region-tab{color:#1b2826!important;background:#fff!important}
 }
+/* Precomposed archived crests carry their own artwork/rings. Never overlay another shell. */
+.soccer-precomposed-mark{display:inline-block;position:relative;isolation:isolate;
+ width:40px;height:40px;min-width:40px;min-height:40px;flex:0 0 40px;border:0!important;
+ border-radius:50%;overflow:visible;background:transparent}
+.soccer-precomposed-mark::before,.soccer-precomposed-mark::after{display:none!important;content:none!important}
+.soccer-precomposed-mark .soccer-school-image{display:block;position:absolute;inset:0!important;
+ width:100%!important;height:100%!important;object-fit:contain!important;padding:0!important;
+ margin:0!important;transform:none!important}

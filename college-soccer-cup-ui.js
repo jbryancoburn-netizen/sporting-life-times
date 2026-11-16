@@ -9,6 +9,12 @@ function crest(name,id,cohort,branding){
  const info=branding?.teams?.[key]||branding?.teams?.[fallbackKey]||{};
  const palette=branding?.soccer_palette?.[key]||branding?.soccer_palette?.[fallbackKey]||{};
  const overrides=branding?.crest_overrides?.[id]||{};
+ // Read only approved repository-local artwork from the explicit soccer
+ // inventory. Never derive a local file path from a school ID in the browser.
+ const local=branding?.local_crests?.[key]||branding?.local_crests?.[fallbackKey]||null;
+ const localSrc=typeof local?.src==='string'&&
+   /^assets\/cbb-(?:retro-archive|big-ten-1980s\/centered|acc-1980s|big-east-1980s|atlantic-10-1980s|mountain-west-1980s|sec-1980s|precomposed-crests)\/[a-z0-9-]+\.png$/.test(local.src)
+   ?local.src:null;
  const hex=x=>/^#[0-9a-fA-F]{6}$/.test(String(x||''))&&String(x).toLowerCase()!=='#ffffff';
  const tone=(color)=>{
   const v=color.slice(1),rgb=[0,2,4].map(i=>parseInt(v.slice(i,i+2),16));
@@ -24,7 +30,13 @@ function crest(name,id,cohort,branding){
  // Do not draw a second soccer-specific ring or a tiny background-image inset.
  const mark=node('span','soccer-school-mark mbb-mark slt-dual-shell');
  mark.dataset.soccerCrestOwner='cup-ui';
- mark.dataset.ringCount='2';
+ mark.dataset.logoOrigin=localSrc?'repository-local':'external-backup';
+ if(localSrc&&local.render_mode==='precomposed'){
+   // The archived precomposed crest owns its rings. Avoid doubling strokes.
+   mark.className='soccer-school-mark soccer-precomposed-mark';
+   mark.dataset.ringCount='precomposed';
+ }
+ if(!localSrc||local.render_mode!=='precomposed')mark.dataset.ringCount='2';
  mark.dataset.colorVerification=palette.primary&&palette.secondary?'palette':overrides.primary&&overrides.secondary?'override':'provisional';
  mark.style.setProperty('--slt-dual-primary',primary);
  mark.style.setProperty('--slt-dual-secondary',secondary);
@@ -36,14 +48,14 @@ function crest(name,id,cohort,branding){
   'font:800 10px/1 Arial,sans-serif!important;color:'+primary+'!important;'+
   'background:#fff!important;z-index:2!important;';
  mark.append(fallback);
- const candidates=[overrides.logo_url,info.logo_url,palette.logo_url,
+ const candidates=[localSrc,overrides.logo_url,info.logo_url,palette.logo_url,
   /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(String(id))?
    'https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/'+id+'.svg':null]
-  .filter(url=>typeof url==='string'&&/^https:\/\//i.test(url))
+  .filter(url=>typeof url==='string'&&(url===localSrc||/^https:\/\//i.test(url)))
   .filter((url,i,arr)=>arr.indexOf(url)===i);
  if(candidates.length){
   const img=node('img','mbb-mark__img soccer-school-image');
-  img.alt=name+' logo';img.loading='eager';img.decoding='async';
+  img.alt=name+' logo';img.loading=localSrc?'eager':'lazy';img.decoding='async';
   img.style.setProperty('display','none','important');
   mark.append(img);
   let index=0;
@@ -61,6 +73,7 @@ function crest(name,id,cohort,branding){
       img.style.setProperty('display','block','important');
       fallback.style.setProperty('display','none','important');
       mark.dataset.logoStatus='loaded';
+      mark.dataset.logoOrigin=img.src===localSrc?'repository-local':'external-backup';
     }else next();
   });
   img.addEventListener('error',next);
