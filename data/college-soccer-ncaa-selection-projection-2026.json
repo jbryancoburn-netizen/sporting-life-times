@@ -1,0 +1,822 @@
+{
+  "schema_version": 1,
+  "season": 2026,
+  "selection_date": "2026-11-16",
+  "status": "final_preselection_rpi_led_ncaa_criteria_projection_not_official",
+  "independent_of_retro": true,
+  "rpi_as_of": "2026-11-14",
+  "conference_titles_through": "2026-11-15",
+  "ranking_source": "https://d1sportsnet.com/mens-soccer/rankings/rpi.php",
+  "official_rpi_reference": "https://www.ncaa.com/rankings/soccer-men/d1/ncaa-mens-soccer-rpi",
+  "official_selection_criteria_url": "https://ncaaorg.s3.amazonaws.com/championships/sports/soccer/d1/men/2026-27D1MSO_PreChampsManual.pdf",
+  "seed_rule_source": "https://www.ncaa.org/news/di-field-hockey-mens-soccer-to-seed-50-of-their-championship-brackets/",
+  "methodology": {
+    "automatic_qualifiers": "All 23 sourced conference tournament champions, independently of RETRO rankings",
+    "at_large": "Best 25 eligible non-AQ schools in Nov 14 NCAA RPI order, after subtracting reported non-DI results",
+    "seeds": "Projected 1-24 by NCAA RPI position within selected field; first 16 projected byes. NOT NCAA committee seeds.",
+    "matchup_advancement": "Lower RPI rank wins each HYPOTHETICAL matchup; no RETRO Elo, proprietary rating, or invented win probabilities",
+    "pairings": "Early conference rematches avoided; proposed first-round fixtures illustrative; true host/geography certification absent",
+    "incomplete_ncaa_criteria": [
+      "updated Nov 15 RPI after Sunday finals",
+      "complete head-to-head evidence",
+      "common-opponent results",
+      "quality wins versus seeded teams",
+      "last eight game performance",
+      "student-athlete availability",
+      "conference and non-conference results beyond reflected RPI",
+      "regional advisory committee input",
+      "verified NCAA-selected host sites and geographic feasibility"
+    ]
+  },
+  "confidence": "RPI-led published-rules proxy, not a full reproduction of the NCAA committee's judgment",
+  "automatic_bids": 23,
+  "at_large_bids": 25,
+  "field_size": 48,
+  "seeded_teams": 24,
+  "first_round_byes": 16,
+  "field": [
+    {
+      "team_id": "georgetown",
+      "team": "Georgetown",
+      "conference": "men-d1:big-east",
+      "bid_type": "rpi_at_large_projection",
+      "rpi_rank": 1,
+      "di_record": "15-1-2",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 1,
+      "projected_seed": 1,
+      "projected_bye": true
+    },
+    {
+      "team_id": "smu",
+      "team": "SMU",
+      "conference": "men-d1:acc",
+      "bid_type": "rpi_at_large_projection",
+      "rpi_rank": 2,
+      "di_record": "14-0-3",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 2,
+      "projected_seed": 2,
+      "projected_bye": true
+    },
+    {
+      "team_id": "clemson",
+      "team": "Clemson",
+      "conference": "men-d1:acc",
+      "bid_type": "rpi_at_large_projection",
+      "rpi_rank": 3,
+      "di_record": "13-3-2",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 3,
+      "projected_seed": 3,
+      "projected_bye": true
+    },
+    {
+      "team_id": "indiana",
+      "team": "Indiana",
+      "conference": "men-d1:big-ten",
+      "bid_type": "official_aq",
+      "rpi_rank": 4,
+      "di_record": "13-1-3",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 4,
+      "projected_seed": 4,
+      "projected_bye": true
+    },
+    {
+      "team_id": "akron",
+      "team": "Akron",
+      "conference": "men-d1:big-east",
+      "bid_type": "official_aq",
+      "rpi_rank": 5,
+      "di_record": "12-1-4",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 5,
+      "projected_seed": 5,
+      "projected_bye": true
+    },
+    {
+      "team_id": "maryland",
+      "team": "Maryland",
+      "conference": "men-d1:big-ten",
+      "bid_type": "rpi_at_large_projection",
+      "rpi_rank": 6,
+      "di_record": "12-5-1",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 6,
+      "projected_seed": 6,
+      "projected_bye": true
+    },
+    {
+      "team_id": "south-carolina",
+      "team": "south carolina",
+      "conference": "men-d1:sun-belt",
+      "bid_type": "rpi_at_large_projection",
+      "rpi_rank": 7,
+      "di_record": "10-5-2",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 7,
+      "projected_seed": 7,
+      "projected_bye": true
+    },
+    {
+      "team_id": "pittsburgh",
+      "team": "pittsburgh",
+      "conference": "men-d1:acc",
+      "bid_type": "rpi_at_large_projection",
+      "rpi_rank": 8,
+      "di_record": "9-4-4",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 8,
+      "projected_seed": 8,
+      "projected_bye": true
+    },
+    {
+      "team_id": "north-carolina",
+      "team": "North Carolina",
+      "conference": "men-d1:acc",
+      "bid_type": "official_aq",
+      "rpi_rank": 9,
+      "di_record": "10-2-6",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 9,
+      "projected_seed": 9,
+      "projected_bye": true
+    },
+    {
+      "team_id": "rutgers",
+      "team": "Rutgers",
+      "conference": "men-d1:big-ten",
+      "bid_type": "rpi_at_large_projection",
+      "rpi_rank": 10,
+      "di_record": "9-6-3",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 10,
+      "projected_seed": 10,
+      "projected_bye": true
+    },
+    {
+      "team_id": "umkc",
+      "team": "Kansas City",
+      "conference": "men-d1:summit",
+      "bid_type": "rpi_at_large_projection",
+      "rpi_rank": 11,
+      "di_record": "11-3-3",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 11,
+      "projected_seed": 11,
+      "projected_bye": true
+    },
+    {
+      "team_id": "louisville",
+      "team": "louisville",
+      "conference": "men-d1:acc",
+      "bid_type": "rpi_at_large_projection",
+      "rpi_rank": 12,
+      "di_record": "10-3-3",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 12,
+      "projected_seed": 12,
+      "projected_bye": true
+    },
+    {
+      "team_id": "west-virginia",
+      "team": "West Virginia",
+      "conference": "men-d1:sun-belt",
+      "bid_type": "official_aq",
+      "rpi_rank": 13,
+      "di_record": "12-2-4",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 13,
+      "projected_seed": 13,
+      "projected_bye": true
+    },
+    {
+      "team_id": "creighton",
+      "team": "Creighton",
+      "conference": "men-d1:big-east",
+      "bid_type": "rpi_at_large_projection",
+      "rpi_rank": 14,
+      "di_record": "12-2-5",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 14,
+      "projected_seed": 14,
+      "projected_bye": true
+    },
+    {
+      "team_id": "cornell",
+      "team": "Cornell",
+      "conference": "men-d1:ivy",
+      "bid_type": "official_aq",
+      "rpi_rank": 15,
+      "di_record": "12-3-1",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 15,
+      "projected_seed": 15,
+      "projected_bye": true
+    },
+    {
+      "team_id": "michigan-st",
+      "team": "michigan st",
+      "conference": "men-d1:big-ten",
+      "bid_type": "rpi_at_large_projection",
+      "rpi_rank": 16,
+      "di_record": "10-5-3",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 16,
+      "projected_seed": 16,
+      "projected_bye": true
+    },
+    {
+      "team_id": "marshall",
+      "team": "Marshall",
+      "conference": "men-d1:sun-belt",
+      "bid_type": "rpi_at_large_projection",
+      "rpi_rank": 17,
+      "di_record": "11-3-4",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 17,
+      "projected_seed": 17,
+      "projected_bye": false
+    },
+    {
+      "team_id": "wisconsin",
+      "team": "wisconsin",
+      "conference": "men-d1:big-ten",
+      "bid_type": "rpi_at_large_projection",
+      "rpi_rank": 18,
+      "di_record": "8-3-4",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 18,
+      "projected_seed": 18,
+      "projected_bye": false
+    },
+    {
+      "team_id": "stanford",
+      "team": "stanford",
+      "conference": "men-d1:acc",
+      "bid_type": "rpi_at_large_projection",
+      "rpi_rank": 19,
+      "di_record": "9-5-3",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 19,
+      "projected_seed": 19,
+      "projected_bye": false
+    },
+    {
+      "team_id": "ucla",
+      "team": "UCLA",
+      "conference": "men-d1:big-ten",
+      "bid_type": "rpi_at_large_projection",
+      "rpi_rank": 20,
+      "di_record": "7-4-5",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 20,
+      "projected_seed": 20,
+      "projected_bye": false
+    },
+    {
+      "team_id": "charlotte",
+      "team": "Charlotte",
+      "conference": "men-d1:american",
+      "bid_type": "rpi_at_large_projection",
+      "rpi_rank": 21,
+      "di_record": "10-3-5",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 21,
+      "projected_seed": 21,
+      "projected_bye": false
+    },
+    {
+      "team_id": "washington",
+      "team": "Washington",
+      "conference": "men-d1:big-ten",
+      "bid_type": "rpi_at_large_projection",
+      "rpi_rank": 22,
+      "di_record": "10-4-4",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 22,
+      "projected_seed": 22,
+      "projected_bye": false
+    },
+    {
+      "team_id": "unc-wilmington",
+      "team": "unc wilmington",
+      "conference": "men-d1:caa",
+      "bid_type": "rpi_at_large_projection",
+      "rpi_rank": 23,
+      "di_record": "11-3-2",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 23,
+      "projected_seed": 23,
+      "projected_bye": false
+    },
+    {
+      "team_id": "vermont",
+      "team": "Vermont",
+      "conference": "men-d1:america-east",
+      "bid_type": "rpi_at_large_projection",
+      "rpi_rank": 24,
+      "di_record": "10-2-5",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 24,
+      "projected_seed": 24,
+      "projected_bye": false
+    },
+    {
+      "team_id": "portland",
+      "team": "Portland",
+      "conference": "men-d1:wcc",
+      "bid_type": "official_aq",
+      "rpi_rank": 25,
+      "di_record": "11-3-2",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 25,
+      "projected_seed": null,
+      "projected_bye": false
+    },
+    {
+      "team_id": "missouri-st",
+      "team": "Missouri St.",
+      "conference": "men-d1:american",
+      "bid_type": "rpi_at_large_projection",
+      "rpi_rank": 26,
+      "di_record": "12-2-3",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 26,
+      "projected_seed": null,
+      "projected_bye": false
+    },
+    {
+      "team_id": "oregon-st",
+      "team": "Oregon St.",
+      "conference": "men-d1:pac-12",
+      "bid_type": "official_aq",
+      "rpi_rank": 27,
+      "di_record": "11-4-4",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 27,
+      "projected_seed": null,
+      "projected_bye": false
+    },
+    {
+      "team_id": "wake-forest",
+      "team": "wake forest",
+      "conference": "men-d1:acc",
+      "bid_type": "rpi_at_large_projection",
+      "rpi_rank": 28,
+      "di_record": "11-5-3",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 28,
+      "projected_seed": null,
+      "projected_bye": false
+    },
+    {
+      "team_id": "north-carolina-st",
+      "team": "NC State",
+      "conference": "men-d1:acc",
+      "bid_type": "rpi_at_large_projection",
+      "rpi_rank": 29,
+      "di_record": "7-6-6",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 29,
+      "projected_seed": null,
+      "projected_bye": false
+    },
+    {
+      "team_id": "bryant",
+      "team": "Bryant",
+      "conference": "men-d1:america-east",
+      "bid_type": "official_aq",
+      "rpi_rank": 30,
+      "di_record": "12-2-5",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 30,
+      "projected_seed": null,
+      "projected_bye": false
+    },
+    {
+      "team_id": "san-diego",
+      "team": "San Diego",
+      "conference": "men-d1:wcc",
+      "bid_type": "rpi_at_large_projection",
+      "rpi_rank": 31,
+      "di_record": "11-5-3",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 31,
+      "projected_seed": null,
+      "projected_bye": false
+    },
+    {
+      "team_id": "xavier",
+      "team": "xavier",
+      "conference": "men-d1:big-east",
+      "bid_type": "rpi_at_large_projection",
+      "rpi_rank": 32,
+      "di_record": "10-2-4",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 32,
+      "projected_seed": null,
+      "projected_bye": false
+    },
+    {
+      "team_id": "syracuse",
+      "team": "syracuse",
+      "conference": "men-d1:acc",
+      "bid_type": "rpi_at_large_projection",
+      "rpi_rank": 33,
+      "di_record": "8-8-3",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 33,
+      "projected_seed": null,
+      "projected_bye": false
+    },
+    {
+      "team_id": "col-of-charleston",
+      "team": "Col. of Charleston",
+      "conference": "men-d1:caa",
+      "bid_type": "official_aq",
+      "rpi_rank": 35,
+      "di_record": "10-4-5",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 34,
+      "projected_seed": null,
+      "projected_bye": false
+    },
+    {
+      "team_id": "tulsa",
+      "team": "Tulsa",
+      "conference": "men-d1:american",
+      "bid_type": "official_aq",
+      "rpi_rank": 39,
+      "di_record": "9-4-5",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 35,
+      "projected_seed": null,
+      "projected_bye": false
+    },
+    {
+      "team_id": "saint-louis",
+      "team": "Saint Louis",
+      "conference": "men-d1:atlantic-10",
+      "bid_type": "official_aq",
+      "rpi_rank": 44,
+      "di_record": "10-4-5",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 36,
+      "projected_seed": null,
+      "projected_bye": false
+    },
+    {
+      "team_id": "north-florida",
+      "team": "North Florida",
+      "conference": "men-d1:asun",
+      "bid_type": "official_aq",
+      "rpi_rank": 55,
+      "di_record": "11-4-3",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 37,
+      "projected_seed": null,
+      "projected_bye": false
+    },
+    {
+      "team_id": "sacred-heart",
+      "team": "Sacred Heart",
+      "conference": "men-d1:maac",
+      "bid_type": "official_aq",
+      "rpi_rank": 61,
+      "di_record": "9-5-7",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 38,
+      "projected_seed": null,
+      "projected_bye": false
+    },
+    {
+      "team_id": "neb-omaha",
+      "team": "Omaha",
+      "conference": "men-d1:summit",
+      "bid_type": "official_aq",
+      "rpi_rank": 63,
+      "di_record": "9-4-3",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 39,
+      "projected_seed": null,
+      "projected_bye": false
+    },
+    {
+      "team_id": "bakersfield",
+      "team": "CSU Bakersfield",
+      "conference": "men-d1:big-west",
+      "bid_type": "official_aq",
+      "rpi_rank": 65,
+      "di_record": "7-4-7",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 40,
+      "projected_seed": null,
+      "projected_bye": false
+    },
+    {
+      "team_id": "fdu",
+      "team": "FDU",
+      "conference": "men-d1:nec",
+      "bid_type": "official_aq",
+      "rpi_rank": 73,
+      "di_record": "12-3-3",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 41,
+      "projected_seed": null,
+      "projected_bye": false
+    },
+    {
+      "team_id": "grand-canyon",
+      "team": "Grand Canyon",
+      "conference": "men-d1:mountain-west",
+      "bid_type": "official_aq",
+      "rpi_rank": 80,
+      "di_record": "13-5-2",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 42,
+      "projected_seed": null,
+      "projected_bye": false
+    },
+    {
+      "team_id": "liberty",
+      "team": "Liberty",
+      "conference": "men-d1:socon",
+      "bid_type": "official_aq",
+      "rpi_rank": 94,
+      "di_record": "8-7-3",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 43,
+      "projected_seed": null,
+      "projected_bye": false
+    },
+    {
+      "team_id": "longwood",
+      "team": "Longwood",
+      "conference": "men-d1:big-south",
+      "bid_type": "official_aq",
+      "rpi_rank": 96,
+      "di_record": "9-7-1",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 44,
+      "projected_seed": null,
+      "projected_bye": false
+    },
+    {
+      "team_id": "bowling-green",
+      "team": "Bowling Green",
+      "conference": "men-d1:mvc",
+      "bid_type": "official_aq",
+      "rpi_rank": 112,
+      "di_record": "8-6-3",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 45,
+      "projected_seed": null,
+      "projected_bye": false
+    },
+    {
+      "team_id": "cleveland-st",
+      "team": "Cleveland St.",
+      "conference": "men-d1:horizon",
+      "bid_type": "official_aq",
+      "rpi_rank": 114,
+      "di_record": "9-6-4",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 46,
+      "projected_seed": null,
+      "projected_bye": false
+    },
+    {
+      "team_id": "lehigh",
+      "team": "Lehigh",
+      "conference": "men-d1:patriot",
+      "bid_type": "official_aq",
+      "rpi_rank": 135,
+      "di_record": "8-7-5",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 47,
+      "projected_seed": null,
+      "projected_bye": false
+    },
+    {
+      "team_id": "houston-christian",
+      "team": "Houston Christian",
+      "conference": "men-d1:ovc",
+      "bid_type": "official_aq",
+      "rpi_rank": 170,
+      "di_record": "7-7-7",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14",
+      "projection_order": 48,
+      "projected_seed": null,
+      "projected_bye": false
+    }
+  ],
+  "first_four_out": [
+    {
+      "team_id": "california",
+      "team": "california",
+      "conference": "men-d1:acc",
+      "bid_type": "rpi_at_large_projection",
+      "rpi_rank": 34,
+      "di_record": "6-5-5",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14"
+    },
+    {
+      "team_id": "princeton",
+      "team": "Princeton",
+      "conference": "men-d1:ivy",
+      "bid_type": "rpi_at_large_projection",
+      "rpi_rank": 36,
+      "di_record": "7-5-4",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14"
+    },
+    {
+      "team_id": "notre-dame",
+      "team": "notre dame",
+      "conference": "men-d1:acc",
+      "bid_type": "rpi_at_large_projection",
+      "rpi_rank": 37,
+      "di_record": "7-5-4",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14"
+    },
+    {
+      "team_id": "utah-valley",
+      "team": "Utah Valley",
+      "conference": "men-d1:big-west",
+      "bid_type": "rpi_at_large_projection",
+      "rpi_rank": 38,
+      "di_record": "10-3-3",
+      "ncaa_seed": null,
+      "rpi_source_date": "2026-11-14"
+    }
+  ],
+  "automatic_qualifier_source_urls": [
+    {
+      "conference": "men-d1:big-ten",
+      "team_id": "indiana",
+      "source_url": "https://bigten.org/news/2026/11/15/indiana-claims-2026-big-ten-mens-soccer-tournament-title.aspx"
+    },
+    {
+      "conference": "men-d1:acc",
+      "team_id": "north-carolina",
+      "source_url": "https://theacc.com/news/2026/11/15/north-carolina-wins-2026-acc-mens-soccer-championship.aspx"
+    },
+    {
+      "conference": "men-d1:big-east",
+      "team_id": "akron",
+      "source_url": "https://gozips.com/news/2026/11/15/mens-soccer-bunchs-olimpico-goal-etches-itself-into-akron-lore-as-zips-win-first-big-east-tournament-title"
+    },
+    {
+      "conference": "men-d1:america-east",
+      "team_id": "bryant",
+      "source_url": "https://njithighlanders.com/news/2026/11/15/mens-soccer-highlanders-conclude-season-in-america-east-championship-final.aspx"
+    },
+    {
+      "conference": "men-d1:american",
+      "team_id": "tulsa",
+      "source_url": "https://theamerican.org/news/2026/11/15/tulsa-wins-american-mens-soccer-championships-in-penalty-kicks-4-3.aspx"
+    },
+    {
+      "conference": "men-d1:sun-belt",
+      "team_id": "west-virginia",
+      "source_url": "https://sunbeltsports.org/news/2026/11/15/west-virginia-completes-sweep-of-2026-mens-soccer-regular-season-and-tournament-championships.aspx"
+    },
+    {
+      "conference": "men-d1:ivy",
+      "team_id": "cornell",
+      "source_url": "https://cornellbigred.com/news/2026/11/15/mens-soccer-millers-two-goals-lead-cornell-mens-soccer-to-ivy-league-tournament-title-with-2-0-win-over-penn.aspx"
+    },
+    {
+      "conference": "men-d1:wcc",
+      "team_id": "portland",
+      "source_url": "https://wccsports.com/news/2026/11/15/portland-outlasts-san-diego-in-wcc-mens-soccer-championship-classic.aspx"
+    },
+    {
+      "conference": "men-d1:ovc",
+      "team_id": "houston-christian",
+      "source_url": "https://hcuhuskies.com/news/2026/11/14/mens-soccer-msoc-2026-ohio-valley-conference-champions.aspx"
+    },
+    {
+      "conference": "men-d1:atlantic-10",
+      "team_id": "saint-louis",
+      "source_url": "https://www.ncaa.com/game/6666305"
+    },
+    {
+      "conference": "men-d1:patriot",
+      "team_id": "lehigh",
+      "source_url": "https://www.ncaa.com/game/6667017"
+    },
+    {
+      "conference": "men-d1:big-south",
+      "team_id": "longwood",
+      "source_url": "https://www.ncaa.com/game/6666351"
+    },
+    {
+      "conference": "men-d1:mvc",
+      "team_id": "bowling-green",
+      "source_url": "https://mvc-sports.com/news/2026/11/15/bowling-green-wins-2026-mvc-mens-soccer-tournament-title-in-dramatic-fashion.aspx"
+    },
+    {
+      "conference": "men-d1:big-west",
+      "team_id": "bakersfield",
+      "source_url": "https://www.ncaa.com/game/6666502"
+    },
+    {
+      "conference": "men-d1:asun",
+      "team_id": "north-florida",
+      "source_url": "https://www.ncaa.com/game/6666300"
+    },
+    {
+      "conference": "men-d1:horizon",
+      "team_id": "cleveland-st",
+      "source_url": "https://www.ncaa.com/game/6666510"
+    },
+    {
+      "conference": "men-d1:caa",
+      "team_id": "col-of-charleston",
+      "source_url": "https://www.ncaa.com/game/6666505"
+    },
+    {
+      "conference": "men-d1:nec",
+      "team_id": "fdu",
+      "source_url": "https://fduknights.com/news/2026/11/15/mens-soccer-fdu-downs-liu-to-win-second-straight-nec-title.aspx"
+    },
+    {
+      "conference": "men-d1:socon",
+      "team_id": "liberty",
+      "source_url": "https://www.ncaa.com/game/6666516"
+    },
+    {
+      "conference": "men-d1:summit",
+      "team_id": "neb-omaha",
+      "source_url": "https://www.ncaa.com/game/6666767"
+    },
+    {
+      "conference": "men-d1:maac",
+      "team_id": "sacred-heart",
+      "source_url": "https://www.ncaa.com/game/6666711"
+    },
+    {
+      "conference": "men-d1:mountain-west",
+      "team_id": "grand-canyon",
+      "source_url": "https://themw.com/news/2026/11/15/mens-soccer-lopes-claim-mountain-west-championship-title.aspx"
+    },
+    {
+      "conference": "men-d1:pac-12",
+      "team_id": "oregon-st",
+      "source_url": "https://pac-12.com/news/2026/11/15/mens-soccer-zapiens-80th-minute-winner-seals-oregon-states-pac-12-championship-triumph.aspx"
+    }
+  ]
+}
