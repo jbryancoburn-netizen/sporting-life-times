@@ -534,97 +534,108 @@
 .ledger26-matchup-team>span{text-align:right}
 @media(max-width:640px){.ledger26-matchup-team{flex-direction:column;gap:1px}.ledger26-matchup-team>span{text-align:left}}
 
-/* Shared RETRO forecast rail for men's and women's college basketball.
-   A 96–132px scorebug column cannot hold a big number and the school name
-   side by side. Each complete metric gets its own vertically aligned row.
-   These rules replace, rather than override, the old two-column forecast. */
-.ledger26-status--compact{
+/* Shared horizontal pregame intelligence strip. Keep both basketball editions
+   identical and give RETRO figures the full card width, not a narrow side rail.
+   This replaces the old three-high vertical forecast rules. */
+.ledger26-scorebug--pregame{
+ grid-template-columns:52px minmax(0,1fr);
+}
+.ledger26-scorebug--pregame.ledger26-scorebug--plain{
+ grid-template-columns:minmax(0,1fr);
+}
+.ledger26-scorebug--pregame .ledger26-status--compact{
+ grid-column:1/-1;
  display:grid!important;
- grid-template-columns:minmax(0,1fr)!important;
- grid-auto-rows:auto;
+ grid-template-columns:repeat(3,minmax(0,1fr))!important;
  align-content:center!important;
- align-items:stretch!important;
+ align-items:center!important;
  justify-items:stretch!important;
  gap:0!important;
- padding:3px 6px!important;
+ min-width:0;
+ padding:6px 10px!important;
+ border-top:3px double #aa9472;
+ border-left:0;
+ background:#f1e4cc;
 }
-.ledger26-status--compact .ledger26-pregame-inline{
+.ledger26-scorebug--pregame .ledger26-status--compact .ledger26-pregame-inline{
  display:flex!important;
- flex-direction:column!important;
+ flex-direction:row!important;
  align-items:center!important;
  justify-content:center!important;
- gap:3px!important;
+ flex-wrap:wrap;
+ column-gap:7px!important;
+ row-gap:2px!important;
  min-width:0;
- max-width:100%;
+ padding:3px 9px!important;
  margin:0!important;
- padding:6px 0!important;
- border:0;
+ border:0!important;
+ text-align:center;
 }
-.ledger26-status--compact .ledger26-pregame-inline+.ledger26-pregame-inline{
- border-top:1px solid #ad9878;
+.ledger26-scorebug--pregame .ledger26-status--compact .ledger26-pregame-inline+.ledger26-pregame-inline{
+ border-top:0!important;
+ border-left:1px solid #b8a180!important;
 }
-.ledger26-status--compact .ledger26-pregame-inline strong{
- display:block!important;
+.ledger26-scorebug--pregame .ledger26-status--compact .ledger26-pregame-inline strong{
+ display:inline!important;
  flex:0 0 auto!important;
  align-self:center!important;
- margin:0!important;
- padding:0!important;
  width:auto!important;
  max-width:100%!important;
+ margin:0!important;
+ padding:0!important;
  border:0!important;
- line-height:1.06!important;
- text-align:center!important;
  white-space:nowrap!important;
+ line-height:1.1!important;
+ text-align:center!important;
  font-variant-numeric:tabular-nums;
 }
-.ledger26-status--compact .ledger26-pregame-inline .ledger26-pregame-prob{
- font-size:28px!important;
+.ledger26-scorebug--pregame .ledger26-status--compact .ledger26-pregame-inline .ledger26-pregame-prob{
+ font-size:24px!important;
  color:#83352a!important;
 }
-.ledger26-status--compact .ledger26-pregame-inline .ledger26-pregame-edge{
+.ledger26-scorebug--pregame .ledger26-status--compact .ledger26-pregame-inline .ledger26-pregame-edge{
  font-size:19px!important;
 }
-.ledger26-status--compact .ledger26-pregame-inline .ledger26-pregame-score{
+.ledger26-scorebug--pregame .ledger26-status--compact .ledger26-pregame-inline .ledger26-pregame-score{
  font-size:18px!important;
- letter-spacing:-.025em!important;
+ letter-spacing:-.02em!important;
 }
-.ledger26-status--compact .ledger26-pregame-inline .ledger26-pregame-team,
-.ledger26-status--compact .ledger26-pregame-inline .ledger26-pregame-caption{
- display:block!important;
- width:100%!important;
+.ledger26-scorebug--pregame .ledger26-status--compact .ledger26-pregame-inline .ledger26-pregame-team,
+.ledger26-scorebug--pregame .ledger26-status--compact .ledger26-pregame-inline .ledger26-pregame-caption{
+ display:inline!important;
+ flex:0 1 auto;
+ width:auto!important;
  min-width:0!important;
  max-width:100%!important;
  max-height:none!important;
  margin:0!important;
  padding:0!important;
- text-align:center!important;
+ font:700 10px/1.15 Georgia,'Times New Roman',serif!important;
+ letter-spacing:0!important;
+ text-align:left!important;
  white-space:normal!important;
- overflow-wrap:anywhere!important;
+ overflow-wrap:break-word!important;
  word-break:normal!important;
  overflow:visible!important;
  hyphens:none!important;
- font:700 9px/1.18 Georgia,'Times New Roman',serif!important;
- letter-spacing:0!important;
 }
-.ledger26-status--compact .ledger26-pregame-inline .ledger26-pregame-caption{
- font-size:8px!important;
- letter-spacing:.02em!important;
+.ledger26-scorebug--pregame .ledger26-status--compact .ledger26-pregame-inline .ledger26-pregame-caption{
+ font-size:9px!important;
+ color:#6b553a;
 }
-@media(max-width:640px){
- .ledger26-scorebug--pregame{grid-template-columns:minmax(0,1fr) 128px}
- .ledger26-status--compact{padding:3px 5px!important}
- .ledger26-status--compact .ledger26-pregame-inline{gap:2px!important;padding:5px 0!important}
- .ledger26-status--compact .ledger26-pregame-inline .ledger26-pregame-prob{font-size:24px!important}
- .ledger26-status--compact .ledger26-pregame-inline .ledger26-pregame-edge{font-size:18px!important}
- .ledger26-status--compact .ledger26-pregame-inline .ledger26-pregame-score{font-size:16px!important}
- .ledger26-status--compact .ledger26-pregame-inline .ledger26-pregame-team{font-size:8px!important}
- .ledger26-status--compact .ledger26-pregame-inline .ledger26-pregame-caption{font-size:7px!important}
-}
-@media(max-width:370px){
- .ledger26-scorebug--pregame{grid-template-columns:minmax(0,1fr) 118px}
- .ledger26-status--compact{padding:2px 4px!important}
- .ledger26-status--compact .ledger26-pregame-inline{padding:4px 0!important}
- .ledger26-status--compact .ledger26-pregame-inline .ledger26-pregame-prob{font-size:22px!important}
- .ledger26-status--compact .ledger26-pregame-inline .ledger26-pregame-edge{font-size:16px!important}
- .ledger26-status--compact .ledger26-pregame-inline .ledger26-pregame-score{font-size:15px!important}
+@media(max-width:620px){
+ .ledger26-scorebug--pregame .ledger26-status--compact{
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  padding:5px 3px!important;
+ }
+ .ledger26-scorebug--pregame .ledger26-status--compact .ledger26-pregame-inline{
+  flex-direction:column!important;
+  gap:2px!important;
+  padding:3px 4px!important;
+ }
+ .ledger26-scorebug--pregame .ledger26-status--compact .ledger26-pregame-inline .ledger26-pregame-prob{font-size:21px!important}
+ .ledger26-scorebug--pregame .ledger26-status--compact .ledger26-pregame-inline .ledger26-pregame-edge{font-size:16px!important}
+ .ledger26-scorebug--pregame .ledger26-status--compact .ledger26-pregame-inline .ledger26-pregame-score{font-size:15px!important}
+ .ledger26-scorebug--pregame .ledger26-status--compact .ledger26-pregame-inline .ledger26-pregame-team,
+ .ledger26-scorebug--pregame .ledger26-status--compact .ledger26-pregame-inline .ledger26-pregame-caption{font-size:8px!important;text-align:center!important}
 }
