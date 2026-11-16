@@ -7,7 +7,7 @@ const cleanId=v=>String(v||'').replace(/^espn:/,'');
 const number=v=>typeof v==='number'&&Number.isFinite(v)?v:null;
 const readNumber=v=>v!==null&&v!==undefined&&String(v).trim()!==''&&Number.isFinite(Number(v))?Number(v):null;
 const key=(day,id)=>String(day||'')+'|'+cleanId(id);
-const archives={men:new Map(),women:new Map()},scored=new Map();
+const archives={men:new Map(),women:new Map()},scored=new Map(),upcomingMen=new Map();
 let ready=false,queued=false;
 function indexArchive(data,gender){
  if(data?.season!=='2026-27'||!Array.isArray(data.predictions))return;
@@ -20,6 +20,19 @@ function indexArchive(data,gender){
     !Number.isFinite(p.projected_home_margin)||!Number.isFinite(p.home_win_probability)||
     p.home_win_probability<0||p.home_win_probability>1)continue;
   if(!conflicts.has(k))archives[gender].set(k,p);
+ }
+}
+function indexUpcomingMen(data){
+ if(data?.season!=='2026-27'||!Array.isArray(data.games))return;
+ const seen=new Set();
+ for(const game of data.games){
+  const k=key(game.date,game.id);
+  if(seen.has(k)){upcomingMen.delete(k);continue;}
+  seen.add(k);
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(game.date)||!/^\d+$/.test(cleanId(game.id))||
+    !game.home_id||!game.away_id||!Number.isFinite(game.projected_home_margin)||
+    !Number.isFinite(game.home_win_probability)||game.home_win_probability<0||game.home_win_probability>1)continue;
+  upcomingMen.set(k,game);
  }
 }
 function indexScored(data){
@@ -36,7 +49,9 @@ function identityMatches(row,home,away){
 }
 function receipt(gender,id,day,phase,actual,homeId='',awayId='',homeName='Home',awayName='Away'){
  if(!['upcoming','live','final'].includes(phase))return '';
- const k=key(day,id),p=archives[gender].get(k);
+ const k=key(day,id);
+ const current=phase==='upcoming'&&gender==='men'?upcomingMen.get(k):null;
+ const p=current||archives[gender].get(k);
  if((!p||!identityMatches(p,homeId,awayId))&&phase==='upcoming')return ''; // Do not invent forecasts for games without a published exact-match snapshot.
  if(!p||!identityMatches(p,homeId,awayId))
   return '<div class="cbb-forecast-receipt cbb-forecast-receipt--missing"><span class="cbb-forecast-kicker">RETRO BEFORE TIP</span><span>No archived pregame forecast</span></div>';
@@ -46,7 +61,7 @@ function receipt(gender,id,day,phase,actual,homeId='',awayId='',homeName='Home',
  const half=Math.round(Math.abs(predicted)*2)/2;
  const chance=Math.round(100*Math.max(probability,1-probability));
  const spread=fav==='EVEN'?'Even':sideName(fav)+' −'+half.toFixed(1);
- let state='locked',verdict='Forecast locked',comparison='';
+ let state='locked',verdict=current?'Current projection':'Forecast locked',comparison='';
  const forecast='<div class="cbb-forecast-metric"><span class="cbb-forecast-label">Pregame forecast</span><strong class="cbb-forecast-value">'+safe(spread)+'</strong><span class="cbb-forecast-detail">'+chance+'% win chance</span></div>';
  if(phase==='final'&&number(actual)!==null){
   const win=actual>0?'HOME':actual<0?'AWAY':'TIED';
@@ -58,11 +73,11 @@ function receipt(gender,id,day,phase,actual,homeId='',awayId='',homeName='Home',
  }else if(phase==='final'){
   state='pending';verdict='Comparison pending';
   comparison='<div class="cbb-forecast-metric"><span class="cbb-forecast-label">Final result</span><span class="cbb-forecast-detail">Final comparison pending</span></div>';
- }else{
+ }else if(!current){
   comparison='<div class="cbb-forecast-metric cbb-forecast-lock"><span class="cbb-forecast-detail">Pregame forecast locked</span><span class="cbb-forecast-lock-note">Recorded before tipoff</span></div>';
  }
- const captured=p.captured_at_utc?'Frozen '+p.captured_at_utc:'Preserved pretipoff snapshot';
- return '<div class="cbb-forecast-receipt cbb-forecast-receipt--'+state+'" aria-label="'+safe('Archived RETRO forecast and game result')+'" title="'+safe(captured)+'"><div class="cbb-forecast-heading"><span class="cbb-forecast-kicker">RETRO BEFORE TIP</span><span class="cbb-forecast-verdict">'+verdict+'</span></div><div class="cbb-forecast-comparison">'+forecast+comparison+'</div></div>';
+ const captured=current?'Current RETRO projection':p.captured_at_utc?'Frozen '+p.captured_at_utc:'Preserved pretipoff snapshot';
+ return '<div class="cbb-forecast-receipt cbb-forecast-receipt--'+state+'" aria-label="'+safe(current?'Current RETRO projection':'Archived RETRO forecast and game result')+'" title="'+safe(captured)+'"><div class="cbb-forecast-heading"><span class="cbb-forecast-kicker">'+(current?'RETRO PROJECTION':'RETRO BEFORE TIP')+'</span><span class="cbb-forecast-verdict">'+verdict+'</span></div><div class="cbb-forecast-comparison">'+forecast+comparison+'</div></div>';
 }
 function set(node,markup){
  if(!node)return;
@@ -151,11 +166,12 @@ async function loadJSON(path){
  try{const r=await fetch(path,{cache:'no-store'});return r.ok?await r.json():null;}catch{return null;}
 }
 async function init(){
- const [men,women,report]=await Promise.all([
+ const [men,women,report,upcoming]=await Promise.all([
   loadJSON('data/retro-pregame-archive-2026-27.json'),
   loadJSON('data/ncaaw-retro-pregame-archive-2026-27.json'),
-  loadJSON('data/retro-spread-accuracy-2026-27.json')]);
- indexArchive(men,'men');indexArchive(women,'women');indexScored(report);
+  loadJSON('data/retro-spread-accuracy-2026-27.json'),
+  document.querySelector('#mbb-calendar-host')?loadJSON('data/ncaam-2026-27-upcoming-forecasts.json'):null]);
+ indexArchive(men,'men');indexArchive(women,'women');indexScored(report);indexUpcomingMen(upcoming);
  ready=true;decorate();
  for(const selector of ['#sl-games','#mbb-calendar-host','#desk','#cbb-cards']){
   const el=document.querySelector(selector);
@@ -166,7 +182,7 @@ if(typeof document!=='undefined'){
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});
  else init();
 }
-if(typeof module!=='undefined'&&module.exports)module.exports={receipt,indexArchive,archives,indexScored,scored};
+if(typeof module!=='undefined'&&module.exports)module.exports={receipt,indexArchive,archives,indexScored,scored,indexUpcomingMen};
 root.SLTForecastReceipt={receipt,refresh:queue};
 })(typeof window!=='undefined'?window:globalThis);
 
