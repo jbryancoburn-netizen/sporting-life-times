@@ -65,14 +65,14 @@ assert(html.includes('college-soccer-national-bracket.js?v=')&&html.includes('co
  'New bracket assets must load on public selection page');
 assert(source.includes('national.render(bracketMount,entries,branding'),
  'Selection publisher must render new bracket');
-assert(source.includes("metrics?.status==='verified_current_ncaa_selection_inputs'"),
- 'An October RPI mirror must never be mistaken for validated NCAA selection inputs');
-assert(source.includes("metrics?.at_large_eligibility_verified===true"),
- 'NCAA .500 Division I at-large eligibility is an explicit publication gate');
-assert(source.includes("metrics?.committee_selection_criteria_verified===true"),
- 'Unverified NCAA committee selection criteria cannot produce a committee field');
-assert(source.includes("}else if(mode==='ncaa'){"),
- 'NCAA page must withhold committee pairing claims until exact bracket fixtures are sourced');
+assert(source.includes("metrics?.status==='final_preselection_rpi_led_ncaa_criteria_projection_not_official'"),
+ 'NCAA forecast must be sourced from the final independent Nov 14 RPI projection');
+assert(source.includes("metrics?.independent_of_retro===true"),
+ 'RPI-led NCAA model must be independent of RETRO Elo forecasts');
+assert(source.includes("metrics.field.filter(x=>x.bid_type==='rpi_at_large_projection').length===25"),
+ 'Model must contain exactly 25 screened NCAA at-large candidate selections');
+assert(source.includes("mode==='ncaa'&&!ncaaInputsReady"),
+ 'NCAA page must block unsupported committee selections when source data is missing');
 assert(!source.includes('RETRO SELECTION COMMITTEE'),
  'RETRO is not an NCAA selection criterion');
 const oldRpi=JSON.parse(fs.readFileSync('data/college-soccer-ncaa-rpi-forecast-2026.json','utf8'));
@@ -84,8 +84,8 @@ assert(rebuild.includes('24 seeded teams in 2026 under NCAA Oct 22 amendment'),
  'Daily builder must retain NCAA amended 2026 seeding rule');
 assert(bracketSource.includes("window.CollegeSoccerCupUI.crest(team.team,team.team_id,'men-d1',branding)"),
  'All bracket teams must use the existing shared authentic 2-ring logo component');
-assert(style.includes('.snb-region-scroll')&&style.includes('overflow-x:auto'),
- 'Mobile must preserve all four rounds via scroll instead of clipping fixtures');
+assert(style.includes('.snb-region-scroll')&&style.includes('overflow:visible!important')&&style.includes('snb-mobile-round-tabs'),
+ 'Desktop must display all rounds, mobile uses explicit round tabs with no horizontal scroll');
 assert(style.includes('.snb-region-tab[aria-selected="true"]'),
  'Regional selector must expose selected state');
 console.log('PASS: 47 real matchup slots; 16 byes; 8 protected R1 programs balanced 2/region; no early same-conference games; 4 regions feed College Cup; neutral probability and no invented official results; native crests and mobile.');
