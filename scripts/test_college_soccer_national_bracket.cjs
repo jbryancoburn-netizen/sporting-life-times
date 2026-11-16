@@ -21,6 +21,12 @@ assert.deepEqual(new Set(byes.map(t=>t.team_id)),top16,'Only top 16 independent 
 const protectedEight=new Set(data.field.slice(16,24).map(t=>t.team_id));
 assert.equal(opening.filter(t=>protectedEight.has(t.team_id)).length,8);
 for(const region of result.regions){
+ const quadrantSeeds=region.seeded.map(team=>team.quadrant_seed).sort((a,b)=>a-b);
+ assert.deepEqual(quadrantSeeds,[1,2,3,4,5,6],'Every quadrant must independently use seeds 1–6');
+ assert.equal(region.anchor.quadrant_seed,1,'Quadrant anchor must be the local #1 seed');
+ assert.equal(region.seeded.filter(team=>team.forecast_rank<=16).length,4,'Four seeded entrants receive byes');
+ assert.equal(region.seeded.filter(team=>team.forecast_rank>16).length,2,'Two seeded entrants play in first round');
+ assert(region.seeded.every(team=>team.quadrant_number===region.number),'Quadrant seed must identify its own quadrant');
  assert.equal(region.first.length,4);
  assert.equal(region.second.length,4);
  assert.equal(region.third.length,2);
@@ -57,6 +63,10 @@ const duplicate=data.field.map(t=>({...t}));duplicate[47].team_id=duplicate[0].t
 assert.throws(()=>makeBracket(duplicate,match),/Duplicate/);
 const oneConference=data.field.map((t,i)=>({...t,conference:'men-d1:identical'}));
 assert.throws(()=>makeBracket(oneConference,match),/Cannot place/);
+assert(result.field.filter(team=>Number.isInteger(team.quadrant_seed)).length===24,
+ 'Exactly 24 entrants must have quadrant-local seeds');
+assert(result.field.every(team=>team.forecast_rank<=24||team.quadrant_seed===undefined),
+ 'Unseeded entrants must not show quadrant seed badges');
 const html=fs.readFileSync('college-soccer-selection.html','utf8');
 const source=fs.readFileSync('college-soccer-selection.js','utf8');
 const bracketSource=fs.readFileSync('college-soccer-national-bracket.js','utf8');
