@@ -24,6 +24,8 @@ assert(logoRenderer.includes("'77':'assets/cbb-big-ten-1980s/centered/northweste
 const forecastScorebug=fs.readFileSync('cbb-ledger-scorebug.js','utf8');
 assert(forecastScorebug.includes('pulseRange(max)') && forecastScorebug.includes('pulseScale.set(id,scale)'), 'RETRO Pulse must preserve the largest observed lead scale');
 assert(forecastScorebug.includes('ledger26-scorebug--pulse'), 'Pulse must occupy full scorebug width without empty status column');
+assert(scorecardCss.includes('.ledger26-pulse-break-label{display:none}') && scorecardCss.includes('height:104px') && scorecardCss.includes('height:72px'), 'Pulse must use a detailed desktop chart and a label-simplified mobile chart');
+assert(forecastScorebug.includes('ledger26-pulse-axis--minor') && forecastScorebug.includes('ledger26-pulse-trace') && forecastScorebug.includes('ledger26-pulse-ht'), 'Pulse needs readable lead ticks, a stronger trace and clear halftime indicator');
 assert(forecastScorebug.includes('data-retro-segment') && forecastScorebug.includes('getImageData('), 'RETRO Pulse segments must be directly clickable while preserving the existing watermark cleanup');
 assert(forecastScorebug.includes('const label=(band?') && forecastScorebug.includes('clock:p.clock'), 'real media timeouts must retain their observed clock');
 assert(script.includes('gameId:String(g.id)') && script.includes('const convert=t=>({id:String(t.id)'), 'RETRO Pulse must receive exact source game and team IDs');
@@ -32,7 +34,7 @@ assert(scorecardCss.includes('.ledger26-team--dark-fill .ledger26-ghost') && sco
 assert(forecastScorebug.includes('cleanWatermark(this)') && forecastScorebug.includes('getImageData(') && forecastScorebug.includes('seen[i]'), 'ring-free mascot watermarks must remove edge-connected opaque boxes without altering foreground crests');
 assert(forecastScorebug.includes('readableInk(x.color,phase,outcome)') && scorecardCss.includes('var(--ledger26-readable-ink'), 'each school-colored scorebug must select readable foreground ink');
 assert(scorecardCss.includes('.ledger26-scorebug .ledger26-team{\n  overflow:hidden;') && scorecardCss.includes('mix-blend-mode:multiply') && scorecardCss.includes('brightness(.66)'), 'oversized watermark must stay inside its team row and retain dark engraved detail');
-assert(html.includes('cbb-ledger-scorecard.css?v=retro-pulse-shared-20261116b'), 'daily ledger must load clipped tonal watermark style without cache reuse');
+assert(html.includes('cbb-ledger-scorecard.css?v=pulse-responsive-20261116c'), 'daily ledger must load clipped tonal watermark style without cache reuse');
 assert(forecastScorebug.includes('data-watermark-art') && !forecastScorebug.includes('const safeCrest='), 'large background marks must use original artwork, not a baked circular crest');
 const forecastRailCss=scorecardCss.split('/* Shared horizontal pregame intelligence strip.')[1];
 assert(forecastRailCss &&
@@ -46,8 +48,8 @@ assert(forecastScorebug.includes('RETRO SPREAD') &&
  forecastScorebug.includes('PROJECTED FINAL') &&
  forecastScorebug.includes('ledger26-pregame-inline--prob'),
  'the pregame rail needs independently legible probability, signed spread and projected final');
-assert(html.includes('cbb-ledger-scorecard.css?v=retro-pulse-shared-20261116b') &&
- html.includes('cbb-ledger-scorebug.js?v=retro-pulse-shared-20261116b'),
+assert(html.includes('cbb-ledger-scorecard.css?v=pulse-responsive-20261116c') &&
+ html.includes('cbb-ledger-scorebug.js?v=pulse-responsive-20261116c'),
  'the public ledger must load the current unified scorebug and forecast layout without stale cached assets');
 
 assert(!/draftkings|onlyDraftKings|sportsbook|draftKingsByDate/i.test(script+html+scorecardCss), 'sportsbook lines and lookups must not reappear in the ledger');
