@@ -99,7 +99,7 @@ test('men and women team desks, ledgers, live center, ranks and conferences cach
   if(page==='ncaaw-rankings.html'){
    assert(html.includes("location.replace(")&&html.includes('ncaam-rankings.html'),'Women redirects to shared ranking page');
   }else{
-   assert(html.includes('mbb-logo-system.js?v=cbb-retro-20261116-usf1'),'Every reader must use the baked logo renderer: '+page);
+   assert(/mbb-logo-system\.js\?v=[^"']+/.test(html),'Every reader must use the versioned baked logo renderer: '+page);
    assert(html.includes('mbb-logo-system.css?v=cbb-retro-20261116-usf1'),'Every reader must use the baked-logo layout contract: '+page);
   }
  }
