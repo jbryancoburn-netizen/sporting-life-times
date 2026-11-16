@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "season": 2026,
+  "competition": "NCAA Division I men's soccer",
+  "purpose": "Unmodified 2026 preselection forecast snapshot for subsequent out-of-sample committee comparison",
+  "status": "frozen_model_snapshots_not_official_field",
+  "preservation_note": "Copies made during November 16, 2026 selection-day discussion from source forecasts already labeled preselection. Capture is not evidence that this archive commit predates the NCAA announcement. Forecast data has its own published data cutoffs.",
+  "retro_rating_cutoff": "2026-11-15",
+  "rpi_rating_reference": "2026-11-14",
+  "preselection_field_size": 48,
+  "seed_policy": "24 seeded entrants; bracket labels 1–6 independently in four quadrants; forecast rankings are not committee seeds",
+  "immutable": true,
+  "official_bracket": "NOT INCLUDED: create separate verified official selection result after NCAA release; never overwrite archive files",
+  "files": [
+    {
+      "path": "data/soccer-2026-selection-archive/retro-preselection-forecast.json",
+      "original_source": "data/college-soccer-ncaa-selection-forecast.json",
+      "git_blob_sha1": "e2b46a7d829295b436313da4437e3228c12fed66"
+    },
+    {
+      "path": "data/soccer-2026-selection-archive/rpi-preselection-forecast.json",
+      "original_source": "data/college-soccer-ncaa-selection-projection-2026.json",
+      "git_blob_sha1": "c177d520e2256a22b12174870165206d2f5df26d"
+    },
+    {
+      "path": "data/soccer-2026-selection-archive/rpi-reference-nov14.json",
+      "original_source": "data/college-soccer-ncaa-rpi-nov14-2026.json",
+      "git_blob_sha1": "3fbd6bd4c1288ea6edf99e8e5ccd38b2149ef695"
+    },
+    {
+      "path": "data/soccer-2026-selection-archive/official-aq-evidence-preselection.json",
+      "original_source": "data/college-soccer-ncaa-automatic-bids-2026.json",
+      "git_blob_sha1": "603fedd017547e34c9ebf928445a444364eaff71"
+    }
+  ]
+}
