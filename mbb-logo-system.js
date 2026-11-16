@@ -538,10 +538,12 @@ const modern=known?(school.logo_url_verified?safeURL(school.official_logo_url||s
 // logo. If a selected local file is unavailable, fail visibly for audit.
 const backup=baked||heritage?'':known?(school.provider_logo_candidates||[]).map(safeURL).find(x=>x&&x!==primary)||'':
  outsideEntry?safeURL(outsideEntry.logo_alternate_url)||'':'';
+// A watermark must use original school art, not a circular baked crest.
+const watermarkArt=heritage||(known?modern:outsideEntry?safeURL(outsideEntry.logo_url):'');
 const initials=name.split(/\s+/).slice(0,2).map(v=>v[0]||'').join('').toUpperCase();
 const kind=/^(small|score|power|schedule|hero|featured|history)$/.test(options.size||'')?options.size:'small';
 const clr=brand?.primary||'#385866',alt=brand?.secondary||'#597582';
-return '<span class="mbb-mark mbb-mark--'+kind+' mbb-mark--art-'+art+(heritage?' mbb-mark--heritage':'')+(baked?' mbb-mark--precomposed':'')+(primary?'':' mbb-mark--missing')+'" style="--mbb-primary:'+esc(clr)+';--mbb-secondary:'+esc(alt)+'" data-espn-id="'+esc(known?id:(outsideEntry?outsideID:''))+'" data-artwork="'+esc(art)+'" data-ring-count="2" role="img" aria-label="'+esc(name)+' logo"><span class="mbb-mark__initials" aria-hidden="true">'+esc(initials)+'</span>'+(primary?'<img class="mbb-mark__img" src="'+esc(primary)+'" data-logo-alternate="'+esc(backup)+'" loading="lazy" decoding="async" alt="" onerror="window.MBBLogos.fail(this)">':'')+'</span>';
+return '<span class="mbb-mark mbb-mark--'+kind+' mbb-mark--art-'+art+(heritage?' mbb-mark--heritage':'')+(baked?' mbb-mark--precomposed':'')+(primary?'':' mbb-mark--missing')+'" style="--mbb-primary:'+esc(clr)+';--mbb-secondary:'+esc(alt)+'" data-espn-id="'+esc(known?id:(outsideEntry?outsideID:''))+'" data-artwork="'+esc(art)+'" data-watermark-art="'+esc(watermarkArt)+'" data-ring-count="2" role="img" aria-label="'+esc(name)+' logo"><span class="mbb-mark__initials" aria-hidden="true">'+esc(initials)+'</span>'+(primary?'<img class="mbb-mark__img" src="'+esc(primary)+'" data-logo-alternate="'+esc(backup)+'" loading="lazy" decoding="async" alt="" onerror="window.MBBLogos.fail(this)">':'')+'</span>';
 }
 function fail(img){
 if(!(img instanceof HTMLImageElement))return;
