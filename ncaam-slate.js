@@ -782,7 +782,7 @@ const ledgerScorebug=g=>{
        lastFive:Array.isArray(p.results)?p.results.slice(-5).map(r=>r.result):[]};
    })()});
  return window.SLTBasketballScorebug?.render({
-  pulseManagedExternally:pulseTrial(g),gameId:String(g.id),phase:g.phase,gender:women?'women':'men',status:g.status||'LIVE',momentum:g.momentum||null,possession:g.possession||null,
+  gameId:String(g.id),phase:g.phase,gender:women?'women':'men',status:g.status||'LIVE',momentum:g.momentum||null,possession:g.possession||null,
   date:g.day,tipoff:formatClock(g),venue:g.venue||'',network:g.broadcast||'',suppressPress:true,
   suppressMonogram:true,suppressTipoffFallback:true,
   forecast:(()=>{
