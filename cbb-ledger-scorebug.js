@@ -300,8 +300,12 @@
    const t=clock(p),line=String(p.kind||'')+' '+String(p.text||'');
    if(t===null||t<=0||t>=duration||!/time[\s-]*out/i.test(line))continue;
    const media=/media|official|television|tv timeout/i.test(line);
-   if(!media)continue; // team timeouts are shown in the full gamefile, not made-up media breaks
-   if(!breaks.some(b=>Math.abs(t-b.time)<8))breaks.push({time:t,label:'MEDIA',kind:'media',clock:p.clock});
+   if(!media)continue; // team timeouts belong to the full gamefile
+   const remaining=sec(p.clock);
+   const band=remaining===null?null:Math.min(el.dataset.gender==='women'?8:16,Math.max(4,Math.ceil(remaining/240)*4));
+   // U16 is a named break category; the exact stoppage clock is always recorded.
+   const label=(band?'U'+band:'MEDIA')+' · '+String(p.clock||'');
+   if(!breaks.some(b=>Math.abs(t-b.time)<8))breaks.push({time:t,label,kind:'media',clock:p.clock});
   }
   breaks.sort((a,b)=>a.time-b.time);
   const edges=[{time:0,label:'TIP'},...breaks,{time:duration,label:el.dataset.phase==='final'?'FINAL':'LATEST'}];
