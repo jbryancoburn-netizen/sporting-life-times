@@ -863,25 +863,12 @@ function card(original,featured,opened=false){
  const right=tv||press||theatre?'<span class="ledger26-meta-actions">'+tv+press+theatre+'</span>':'';
  // The shared scorebug rail is the only pregame forecast presentation.
  // The projected score now lives inside the collapsed forecast rail, not the expanded gamefile.
- // Matchup context comes only from verified season-final aggregates.
- const awayForm=seasonStats.get(String(g.away.canonical||'')),homeForm=seasonStats.get(String(g.home.canonical||''));
- const sample=p=>p&&Number.isInteger(p.g)&&p.g>0&&Number.isFinite(p.pf)&&Number.isFinite(p.pa)?
-   {games:p.g,for:(p.pf/p.g).toFixed(1),against:(p.pa/p.g).toFixed(1),
-    form:Array.isArray(p.results)?p.results.slice(-5).map(r=>r.result).filter(r=>r==='W'||r==='L').join(' '):''}:null;
- const a=sample(awayForm),h=sample(homeForm);
- const matchupDetail=g.phase==='upcoming'&&(a||h)?
-   '<section class="ledger26-matchup-detail" aria-label="Verified recent team form">'+
-    '<strong>TEAM FORM · VERIFIED FINALS</strong>'+
-    [ [g.away.name,a],[g.home.name,h] ].map(([name,stats])=>stats?
-      '<div class="ledger26-matchup-team"><b>'+esc(name)+'</b><span>'+stats.for+' PPG · '+stats.against+
-       ' allowed'+(stats.form?' · Last '+Math.min(5,stats.form.split(' ').length)+': '+esc(stats.form):'')+'</span></div>':'').join('')+
-   '</section>':'';
  return '<article class="sl-game ledger26-card'+(women?' ledger26-card--women':' ledger26-card--men')+(featured?' ledger26-featured':'')+'">'+
    (when||right?'<div class="ledger26-meta'+(g.phase==='upcoming'?' ledger26-meta--pregame':'')+'">'+when+right+'</div>':'')+
    '<details class="sl-game-expansion ledger26-expand" data-game-id="'+esc(g.id)+'" data-day="'+esc(g.day)+'" data-gender="'+(women?'women':'men')+'" data-home-id="'+esc(g.home.canonical||'')+'" data-away-id="'+esc(g.away.canonical||'')+'" data-home-name="'+esc(g.home.name)+'" data-away-name="'+esc(g.away.name)+'"'+(opened?' open':'')+'>'+
    '<summary class="ledger26-summary" aria-label="Expand '+esc(g.away.name)+' at '+esc(g.home.name)+' game details">'+
    ledgerScorebug(g)+'<span class="ledger26-instruction">OPEN GAME DETAILS <span aria-hidden="true">+</span></span></summary>'+
-   '<div class="ledger26-expanded">'+matchupDetail+
+   '<div class="ledger26-expanded">'+
    '<div class="sl-game-footer ledger26-links"><span>'+esc(source)+'</span>'+
    (external&&/^https:\/\/[^\s"'<>]+$/.test(g.sourceURL||'')?
      '<a class="sl-details" href="'+esc(g.sourceURL)+'" target="_blank" rel="noopener noreferrer">Cited exhibition result ↗</a>':'')+
