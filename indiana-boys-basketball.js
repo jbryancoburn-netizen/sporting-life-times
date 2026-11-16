@@ -98,6 +98,14 @@ function schedulePanel(edition, members, showPicker) {
 }
 
 const crestColors = {
+  Bellmont: ["#9b1837","#112f57"],
+  ColumbiaCity: ["#671e32","#d5a64d"],
+  DeKalb: ["#9b162e","#161616"],
+  EastNoble: ["#124d8b","#d7aa3e"],
+  HuntingtonNorth: ["#b92030","#111111"],
+  Leo: ["#51277b","#d2b66d"],
+  NewHaven: ["#a52131","#161616"],
+  Norwell: ["#142e54","#c8a15d"],
   Chesterton: ['#742634', '#c79732'],
   CrownPoint: ['#ad1d2d', '#f1eee8'],
   LakeCentral: ['#153765', '#f1eee8'],
@@ -286,7 +294,7 @@ function initialize(edition) {
 
 const crestManifests = Promise.all(
   ['indiana-boys-crests.json', 'indiana-boys-crests-mic.json', 'indiana-boys-crests-nlc.json', 'indiana-boys-crests-dac.json',
-    'indiana-boys-crests-msc.json', 'indiana-boys-crests-circle.json', 'indiana-boys-crests-schools.json', 'indiana-boys-crests-acac.json'].map(file =>
+    'indiana-boys-crests-msc.json', 'indiana-boys-crests-circle.json', 'indiana-boys-crests-schools.json', 'indiana-boys-crests-acac.json', 'indiana-boys-crests-ne8.json'].map(file =>
     fetch('data/' + file)
       .then(response => response.ok ? response.json() : null)
       .catch(() => null)
