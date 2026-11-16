@@ -783,6 +783,8 @@ const ledgerScorebug=g=>{
    })()});
  return window.SLTBasketballScorebug?.render({
   gameId:String(g.id),phase:g.phase,gender:women?'women':'men',status:g.status||'LIVE',momentum:g.momentum||null,possession:g.possession||null,
+  // The expanded Gamefile owns the color scoring-flow graph; do not render a second RETRO Pulse chart here.
+  pulseManagedExternally:true,
   date:g.day,tipoff:formatClock(g),venue:g.venue||'',network:g.broadcast||'',suppressPress:true,
   suppressMonogram:true,suppressTipoffFallback:true,
   forecast:(()=>{
