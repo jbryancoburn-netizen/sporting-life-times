@@ -20,6 +20,12 @@ on:
       - 'scripts/test_college_soccer_local_crest_manifest.cjs'
       - 'college-soccer-national-bracket.css'
       - 'scripts/test_college_soccer_national_bracket.cjs'
+      - 'scripts/test_college_soccer_rpi_selection_2026.cjs'
+      - 'scripts/test_college_soccer_rpi_selection_2026.cjs'
+      - 'scripts/build_college_soccer_rpi_committee_projection.py'
+      - 'data/college-soccer-ncaa-rpi-nov14-2026.json'
+      - 'data/college-soccer-ncaa-automatic-bids-2026.json'
+      - 'data/college-soccer-ncaa-selection-projection-2026.json'
       - 'college-soccer-selection.css'
       - 'college-soccer-selection.html'
       - 'college-soccer-cup-ui.js'
@@ -117,6 +123,8 @@ jobs:
           node scripts/test_college_soccer_selection_native.cjs
           node --check college-soccer-national-bracket.js
           node scripts/test_college_soccer_national_bracket.cjs
+          python scripts/build_college_soccer_rpi_committee_projection.py
+          node scripts/test_college_soccer_rpi_selection_2026.cjs
           node scripts/test_college_soccer_local_crest_manifest.cjs
           node scripts/test_college_soccer_live_match_center.cjs
           node scripts/test_college_soccer_division_scope.cjs
