@@ -27,15 +27,37 @@
     .number { text-align: right; white-space: nowrap; }
     #masthead-title { display: flex; align-items: center; justify-content: center; gap: clamp(.65rem, 2.6vw, 1.5rem); padding-block: .55rem; }
     #masthead-title h1 { margin: 0; }
-    .crest { flex: none; display: inline-grid; place-items: center; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 35% 24%, #fffaf0, #f0e3c9 70%, #e1ccaa); border: 3px double #6a5036; box-shadow: inset 0 0 0 1px #b59a72, 0 1px 2px #49331d35; }
-    .crest img { display: block; width: 77%; height: 77%; object-fit: contain; }
-    .crest-large { width: clamp(3.7rem, 13vw, 6.75rem); }
-    .crest-small { width: 2.35rem; }
+    .crest {
+      --ring: 3px;
+      --crest-primary: #67503b;
+      --crest-secondary: #ba9b65;
+      flex: none;
+      display: inline-grid;
+      place-items: center;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      border: var(--ring) solid var(--crest-primary);
+      background: radial-gradient(circle at 36% 23%, #fffaf1, #f0e3c9 65%, #dcc7a5);
+      box-shadow: inset 0 0 0 var(--ring) var(--crest-secondary), inset 0 3px 7px #50371f75,
+                  0 1px 0 #fff9e9, 0 3px 5px #49331d4d;
+      position: relative;
+    }
+    .crest::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      box-shadow: inset 0 1px 0 #fff9e999, inset 0 -1px 0 #34231388;
+      pointer-events: none;
+    }
+    .crest img { display: block; width: 77%; height: 77%; object-fit: contain; filter: drop-shadow(0 2px 1px #34241252); }
+    .crest-large { --ring: 6px; width: clamp(5rem, 16vw, 8.5rem); }
+    .crest-small { width: clamp(2.6rem, 7vw, 3.3rem); }
     .school-identity { display: inline-flex; align-items: center; gap: .48rem; }
     footer { margin-top: 1rem; padding-top: .7rem; border-top: 3px double #524435; font-size: .85rem; }
     @media (max-width: 640px) { th, td { padding: .4rem .3rem; } table { font-size: .83rem; } }
   </style>
-  <script defer src="indiana-boys-basketball.js?v=victorian-crests-20261116"></script>
+  <script defer src="indiana-boys-basketball.js?v=embossed-crests-20261116"></script>
 </head>
 <body>
 <main>
