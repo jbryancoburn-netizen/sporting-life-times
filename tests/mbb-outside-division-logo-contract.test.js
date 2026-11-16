@@ -27,6 +27,10 @@ const outside=JSON.parse(fs.readFileSync(path.join(main,'data/mbb-out-of-divisio
  assert.match(blu,/bluemtn\.sidearmsports\.com/);
  const grace=ctx.window.MBBLogos.byESPN('134743','score','Grace University Talons');
  assert.match(grace,/static\.wixstatic\.com/);
+ const desales=ctx.window.MBBLogos.byESPN('111949','score','DeSales Bulldogs');
+ assert.match(desales,/logos\/schools\/bgl\/desales\.svg/);
+ const midway=ctx.window.MBBLogos.byESPN('111166','score','Midway Eagles');
+ assert.match(midway,/midwayuky\.sidearmsports\.com/);
  const ambiguous=ctx.window.MBBLogos.byESPN('','score','Grace University');
  assert.match(ambiguous,/mbb-mark--missing/);
  const falseID=ctx.window.MBBLogos.byESPN('126956','score','Grace University Talons');
