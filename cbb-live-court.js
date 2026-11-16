@@ -81,6 +81,40 @@ function verifyPlayScores(plays,game){
  }
  return {ok:true,reason:'',sequence};
 }
+// A real scoring timeline requires clocks on every plotted scoring event.
+// A provider's chronological game clock is NOT the real-world wall clock.
+function clockSeconds(value){
+ const m=/^(\d{1,2}):([0-5]\d)$/.exec(String(value||'').trim());
+ if(!m)return null;
+ return Number(m[1])*60+Number(m[2]);
+}
+function elapsedClock(play,women){
+ const period=play.period;
+ if(!Number.isInteger(period)||period<1||period>12)return null;
+ const length=period<=(women?4:2)?(women?600:1200):300;
+ const remaining=clockSeconds(play.clock);
+ if(remaining===null||remaining>length)return null;
+ return Math.min(period-1,women?4:2)*(women?600:1200)+
+  Math.max(0,period-(women?4:2)-1)*300+(length-remaining);
+}
+function clockAtElapsed(seconds,women){
+ const length=women?600:1200,count=women?4:2;
+ const period=seconds<count*length?Math.floor(seconds/length)+1:count+1+Math.floor((seconds-count*length)/300);
+ const duration=period<=count?length:300;
+ const remaining=duration-(seconds-(period<=count?(period-1)*length:count*length+(period-count-1)*300));
+ return (period<=count?(women?'Q':'H')+period:'OT'+(period-count))+
+  ' '+Math.floor(remaining/60)+':'+String(remaining%60).padStart(2,'0');
+}
+function timelineFor(scoring,game){
+ const women=game?.gender==='women'||game?.league==='ncaaw';
+ const elapsed=scoring.map(p=>elapsedClock(p,women));
+ const complete=elapsed.every((v,i)=>v!==null&&(!i||v>=elapsed[i-1]));
+ if(!complete)return null; // No invented play times or interpolated clocks.
+ const last=elapsed.at(-1),end=Math.max(300,Math.ceil((last+1)/300)*300);
+ const step=end<=300?60:end<=600?120:300;
+ return {elapsed,end,step,women,caption:'Game clock · '+(women?'quarters':'halves')+
+   ' · each point at its reported time'};
+}
 function gameFlow(plays,game){
  // Use validated, chronological, source-reported scoring events only.
  // The graph is the ACTUAL point margin, never the pregame RETRO spread.
@@ -93,9 +127,25 @@ function gameFlow(plays,game){
  const awayMax=Math.max(0,...margins),homeMax=Math.max(0,...margins.map(n=>-n));
  const scale=Math.max(10,Math.ceil(Math.max(awayMax,homeMax)/10)*10);
  const left=116,right=876,mid=210,extent=128;
- const x=i=>left+(right-left)*i/Math.max(1,sampled.length-1);
+ const timeline=timelineFor(scoring,game);
+ const shownIndices=sampled.map(p=>scoring.indexOf(p));
+ const x=i=>left+(right-left)*(timeline?
+   timeline.elapsed[shownIndices[i]]/timeline.end:
+   i/Math.max(1,sampled.length-1));
  const y=lead=>mid-lead/scale*extent;
  const xy=sampled.map((p,i)=>[x(i),y(margin(p))]);
+ const axisMarks=timeline?
+   Array.from({length:Math.floor(timeline.end/timeline.step)+1},(_,i)=>{
+    const secs=i*timeline.step,pos=left+(right-left)*secs/timeline.end;
+    return '<line class="slc-flow-time-rule" x1="'+pos.toFixed(1)+'" y1="'+(mid-extent)+'" x2="'+pos.toFixed(1)+'" y2="'+(mid+extent)+'"/>'+
+      '<line class="slc-flow-time-tick" x1="'+pos.toFixed(1)+'" y1="378" x2="'+pos.toFixed(1)+'" y2="387"/>'+
+      '<text class="slc-flow-time-label" x="'+pos.toFixed(1)+'" y="408" text-anchor="'+(i===0?'start':secs===timeline.end?'end':'middle')+'">'+
+       esc(clockAtElapsed(secs,timeline.women))+'</text>';
+   }).join(''):
+   // When timestamps are missing, event-index ticks remain honest and are labeled as such.
+   [0,Math.floor((sampled.length-1)/2),sampled.length-1].filter((i,idx,all)=>all.indexOf(i)===idx)
+    .map(i=>'<text class="slc-flow-time-label" x="'+x(i).toFixed(1)+'" y="408" text-anchor="'+
+      (i===0?'start':i===sampled.length-1?'end':'middle')+'">EVENT '+(shownIndices[i]+1)+'</text>').join('');
  const last=scoring.at(-1),latest=margin(last);
  const away=game?sideName(game.away):'AWAY',home=game?sideName(game.home):'HOME';
  const awayColor=teamColor(game?.away,'#23657d'),homeColor=teamColor(game?.home,'#b17931');
@@ -137,12 +187,13 @@ function gameFlow(plays,game){
    '<span><i class="slc-home-dot"></i>'+esc(home)+' LEAD (BELOW ZERO)</span></div>'+
    '<div class="slc-flow-lead-list"><span>LARGEST REPORTED LEAD</span><b>'+esc(away)+
    ' +'+awayMax+'</b><b>'+esc(home)+' +'+homeMax+'</b></div>'+
-   '<svg viewBox="0 0 940 410" preserveAspectRatio="xMidYMid meet" aria-hidden="true">'+
+   '<div class="slc-flow-time-heading">'+(timeline?'GAME CLOCK · '+(timeline.women?'QUARTERS':'HALVES'):'EVENT ORDER · SOURCE CLOCKS INCOMPLETE')+'</div>'+
+   '<svg viewBox="0 0 940 430" preserveAspectRatio="xMidYMid meet" aria-hidden="true">'+
    '<rect x="'+left+'" y="'+(mid-extent)+'" width="'+(right-left)+'" height="'+extent+
    '" fill="'+awayColor+'" opacity=".065"/>'+
    '<rect x="'+left+'" y="'+mid+'" width="'+(right-left)+'" height="'+extent+
    '" fill="'+homeColor+'" opacity=".065"/>'+
-   grid+
+   grid+axisMarks+
    '<text class="slc-flow-side" x="'+left+'" y="43">'+esc(away)+' LEAD</text>'+
    '<text class="slc-flow-side" x="'+left+'" y="371">'+esc(home)+' LEAD</text>'+
    segments+
@@ -150,11 +201,12 @@ function gameFlow(plays,game){
    '" r="9" fill="'+marker+'" stroke="#fff" stroke-width="3"/>'+
    '<text class="slc-flow-score" x="'+right+'" y="43" text-anchor="end">'+esc(away)+' '+last.awayScore+'</text>'+
    '<text class="slc-flow-score" x="'+right+'" y="371" text-anchor="end">'+esc(home)+' '+last.homeScore+'</text>'+
-   '<text class="slc-flow-axis" x="'+left+'" y="401">EARLIER PLAYS</text>'+
-   '<text class="slc-flow-axis" x="'+right+'" y="401" text-anchor="end">LATEST PLAY →</text></svg>'+
-   '<p>Above the TIED line: '+esc(away)+' ahead. Below: '+esc(home)+
-   ' ahead. Each step is a reported score update, not equal time intervals. '+
-   'Latest available event: '+esc(last.clock||'time not reported')+'.</p></div>';
+   '</svg>'+
+   '<p>Above TIED: '+esc(away)+' ahead. Below: '+esc(home)+' ahead. '+
+   (timeline?'Horizontal spacing uses the source game clock; flat portions mean no reported scoring change. ':
+     'The source does not timestamp every scoring event; horizontal spacing shows event order, not elapsed time. ')+
+   'Latest reported play: '+esc(last.period?(timeline?.women?'Q':'H')+last.period+' · ':'')+
+   esc(last.clock||'time not reported')+'.</p></div>';
 }
 function stationLinks(g){
  const id=String(g.id||'');

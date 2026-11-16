@@ -228,18 +228,18 @@
        (p.awayScore!==null&&p.homeScore!==null?'–':'')+esc(p.homeScore===null?'':p.homeScore)+
        '</b></li>').join('')+'</ol>';
  }
- function courtGame(g){
+ function courtGame(g,women){
    const side=t=>({team:{id:String(t.id),displayName:t.full||t.name,schoolLabel:t.name,
      color:''},score:t.score,homeAway:t===g.away?'away':'home'});
-   return {id:g.id,away:side(g.away),home:side(g.home),phase:g.phase,
+   return {id:g.id,away:side(g.away),home:side(g.home),gender:women?'women':'men',phase:g.phase,
      disputed:false,headline:g.status||'',venue:g.venue||''};
  }
- function flow(raw,g){
+ function flow(raw,g,women){
    const snapshot=periodScoreSnapshot(g,raw);
    if(g.phase==='live'&&(!snapshot||snapshot.behind))
      return missing('Scoring progression is withheld while the live score sources reconcile.');
    const plays=global.SLTCourt?.parsePlays?.(raw)||[];
-   const graph=global.SLTCourt?.gameFlow?.(plays,courtGame(g))||'';
+   const graph=global.SLTCourt?.gameFlow?.(plays,courtGame(g,women))||'';
    return graph||missing('A scoring graph will appear when the source provides a consistent sequence of play-by-play scores.');
  }
  function tabs(key,showPlays,showFallback){
@@ -288,7 +288,7 @@
      '<button type="button" class="slt-gf-refresh" data-inline-refresh>↻ Refresh details</button></div>'+
      tabs(key,hasPlays,hasFallback)+
      keyPanel('summary','<h4>Period-by-period scoring</h4>'+periods+
-       (hasPlays?'<h4>Scoring progression</h4>'+flow(raw,g):''))+
+       (hasPlays?'<h4>Scoring progression</h4>'+flow(raw,g,women):''))+
      keyPanel('team','<h4>Complete available team statistics</h4>'+team)+
      keyPanel('players','<h4>Player-by-player box score</h4>'+players)+
      (hasPlays?keyPanel('plays','<h4>Play-by-play · all reported events</h4>'+playLog(raw,g)):

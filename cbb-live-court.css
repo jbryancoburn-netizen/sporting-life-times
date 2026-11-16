@@ -131,6 +131,18 @@
  .slc-flow-lead-list{gap:5px 10px}
 }
 
+/* The scoring chart uses source-reported GAME CLOCK, not event index or wall time.
+   Keep real clock ticks legible on small scorebug panels. */
+.slc-flow-time-heading{padding:10px 0 2px;text-align:center;color:#38565e;
+ font:800 11px/1.2 Arial,sans-serif;letter-spacing:.065em}
+.slc-flow svg .slc-flow-time-label{font:800 15px/1.1 Arial,sans-serif;fill:#274752;letter-spacing:0}
+.slc-flow svg .slc-flow-time-rule{stroke:#d8e1de;stroke-width:1;stroke-dasharray:3 6}
+.slc-flow svg .slc-flow-time-tick{stroke:#48646c;stroke-width:2}
+@media(max-width:740px){
+ .slc-flow-time-heading{font-size:10px;padding-top:8px}
+ .slc-flow svg .slc-flow-time-label{font-size:20px}
+ .slc-flow svg .slc-flow-time-rule{stroke-width:1.4}
+}
 /* Fail closed: no oversized theatrical court when position data are missing. */
 .slc-standby,.slc-data-conflict{display:flex;flex-direction:column;gap:10px;
   justify-content:center;min-height:135px;padding:22px 20px;background:#f2f5f3;
