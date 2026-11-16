@@ -11,7 +11,7 @@ function schoolRow(entry,branding,kind=''){
  if(!entry){line.append(el('span','TO BE SELECTED','ncaa-school-placeholder'));return line}
  const name=entry.team||entry.team_id;
  const crest=window.CollegeSoccerCupUI.crest(name,entry.team_id,'men-d1',branding);
- const meta=el('span',null,'ncaa-school-meta');meta.append(el('strong',name),el('small',(entry.conference||'').replace('men-d1:','').toUpperCase()+' · '+(entry.bid_type==='official_aq'?'REPORTED AQ · REVIEW PENDING':entry.bid_type==='projected_aq'?'PREDICTED AQ':'AT-LARGE')));
+ const meta=el('span',null,'ncaa-school-meta');meta.append(el('strong',name),el('small',(entry.conference||'').replace('men-d1:','').toUpperCase()+' · '+(entry.bid_type==='official_aq'?'VERIFIED CONFERENCE CHAMPION':entry.bid_type==='projected_aq'?'PREDICTED AQ':'AT-LARGE')));
  const schoolColor=branding?.soccer_palette?.['men-d1:'+entry.team_id]?.primary||brandFor(entry,branding).primary;
  if(/^#[0-9a-f]{6}$/i.test(schoolColor||''))line.style.setProperty('--school-accent',schoolColor);
  line.append(crest,meta);return line;
@@ -19,10 +19,20 @@ function schoolRow(entry,branding,kind=''){
 function draw(data,metrics,branding){
  host.replaceChildren();
  const nav=el('div',null,'cs-selection-modes');
- for(const [value,label] of [['ncaa','NCAA RÉSUMÉ PROXY'],['usrs','RETRO 48-TEAM PREDICTION']]){
+ for(const [value,label] of [['ncaa','NCAA SELECTION CRITERIA'],['usrs','RETRO HYPOTHETICAL BRACKET']]){
   const b=el('button',label);b.type='button';b.className=mode===value?'active':'';b.setAttribute('aria-pressed',String(mode===value));b.onclick=()=>{mode=value;draw(data,metrics,branding)};nav.append(b)
  }host.append(nav);
  const verifiedAqs=(data.automatic_bid_scenarios||[]).filter(certifiedAQ);
+ // The only available résumé mirror is dated October 23, far before Selection Monday.
+ // Never serve its old ranks or seed numbers as a current NCAA committee forecast.
+ const ncaaInputsReady=metrics?.status==='verified_current_ncaa_selection_inputs'
+   &&metrics?.ranking_as_of>=data.rating_cutoff
+   &&metrics?.at_large_eligibility_verified===true
+   &&metrics?.committee_selection_criteria_verified===true
+   &&Array.isArray(metrics?.field)&&metrics.field.length===48
+   &&metrics.field.filter(x=>x.bid_type==='official_aq').length===23
+   &&metrics.field.filter(x=>x.bid_type==='verified_at_large').length===25
+   &&metrics.field.every(x=>x.ncaa_seed===null||Number.isInteger(x.ncaa_seed));
  // A published forecast must not silently treat an old rating cutoff as current.
  const cutoffDate=Date.parse(String(data.rating_cutoff||'')+'T23:59:59Z');
  const ageDays=Number.isFinite(cutoffDate)?Math.max(0,Math.floor((Date.now()-cutoffDate)/86400000)):Infinity;
@@ -52,11 +62,11 @@ function draw(data,metrics,branding){
    conferenceLink.href='college-soccer-'+slug+'-men.html';title.append(conferenceLink);card.append(title);
    card.append(el('span',certifiedAQ(x)?'★ VERIFIED TOURNAMENT CHAMPION':x.official_aq?'◇ CHAMPIONSHIP RESULT · WINNER UNVERIFIED':'◇ RETRO PICK · TITLE UNCONFIRMED','cs-aq-status'));
    card.append(el('strong',x.team||x.team_id,'cs-aq-team'));
-   if(x.official_aq&&x.source_url){const proof=el('a','Championship result source · verification pending');proof.href=x.source_url;proof.target='_blank';proof.rel='noopener noreferrer';card.append(proof);}
+   if(x.official_aq&&x.source_url){const proof=el('a',certifiedAQ(x)?'Verified championship source':'Championship source · review pending');proof.href=x.source_url;proof.target='_blank';proof.rel='noopener noreferrer';card.append(proof);}
    gallery.append(card);
  }
- status.append(gallery);host.append(status);
- if(Array.isArray(metrics?.field)&&metrics.field.length===48){
+ status.append(gallery);
+ if(ncaaInputsReady){
   const nIds=new Set(metrics.field.map(x=>x.team_id)),uIds=new Set(data.field.map(x=>x.team_id));
   const ncaaOnly=metrics.field.filter(x=>!uIds.has(x.team_id));
   const usrsOnly=data.field.filter(x=>!nIds.has(x.team_id));
@@ -75,118 +85,47 @@ function draw(data,metrics,branding){
   comparison.append(lists);host.append(comparison);
  }
  const summary=el('div',null,'cs-selection-summary');
- for(const [value,label] of [[48,'FIELD'],[23,'AUTOMATIC'],[25,'AT-LARGE'],[24,'SEEDED'],[16,'BYE TEAMS']]){const x=el('div',null,'cs-selection-metric');x.append(el('strong',value),el('span',label));summary.append(x)}host.append(summary);
+ for(const [value,label] of [[48,'FIELD'],[23,'AUTOMATIC'],[25,'AT-LARGE'],[24,'SEEDED IN 2026'],[16,'FIRST-ROUND BYES']]){const x=el('div',null,'cs-selection-metric');x.append(el('strong',value),el('span',label));summary.append(x)}host.append(summary);
  if(mode==='ncaa'){
-  host.append(el('h2','NCAA RÉSUMÉ PROXY · NOT OFFICIAL'));
-  host.append(el('p','The NCAA view is built around adjusted RPI, strength of schedule, record, nonconference results, head-to-head, common opponents, selected-opponent results and the final eight matches. It does NOT use RETRO Elo.','cs-selection-warning'));
-  if(!Array.isArray(metrics?.field)||metrics.field.length!==48){
-   host.append(el('h3','NCAA RPI FORECAST SOURCE NOT AVAILABLE'));
-   host.append(el('p','The full NCAA résumé data is not available. A provisional NCAA RPI forecast is displayed when the ranking snapshot loads.','cs-selection-warning'));
-  }
- }
- const entries=mode==='usrs'?data.field:(Array.isArray(metrics?.field)?metrics.field:[]);
- host.append(el('h2',mode==='usrs'?'RETRO SELECTION COMMITTEE · 48-TEAM PROJECTION':'PROVISIONAL RPI SNAPSHOT · 48-TEAM SCENARIO'));
- host.append(el('p',mode==='usrs'?'Your independent RETRO ratings replace the committee evaluation tool within the NCAA selection framework. NCAA field sizes, bid allocations, eligibility screening and seed structure remain in force. NCAA hosting/geography rules are not yet fully modeled.':'Projected NCAA committee field from the October 23 RPI table, conference qualification projections and provisional at-large eligibility. It is a forecast, not the official selection committee field.','cs-selection-warning'));
- const bracket=el('section',null,'ncaa-bracket');
- bracket.append(el('h2',mode==='usrs'?'RETRO PROJECTED NCAA BRACKET':'PROVISIONAL RPI-BASED BRACKET'));
- bracket.append(el('p','How to read this projection: first-round opponents → seeded second-round opponent → third round → quarterfinal → College Cup. Advancing teams are RETRO picks, not NCAA results.','cs-selection-warning'));
- bracket.append(el('p',mode==='usrs'?'RETRO acts as the hypothetical selection committee: 23 projected automatic bids, 25 eligible at-large picks, 24 seeded teams and 16 byes. The model avoids same-conference first-round matches where feasible; hosting and geography are not yet resolved.':'NCAA résumé metrics are still incomplete. These are 48 structural slots, not invented committee selections.','cs-selection-warning'));
- const entrants=mode==='usrs'?data.field:(Array.isArray(metrics?.field)?metrics.field:[]);
- const byRank=n=>entrants[n-1]||null;
- const label=n=>byRank(n)?'#'+n+' '+byRank(n).team:'Unassigned slot '+n;
- const win=(a,b)=>a&&b?(a.elo>=b.elo?a:b):null;
- const order=[1,16,8,9,4,13,5,12,2,15,7,10,3,14,6,11];
- // A 48-team single-elimination field has 16 first-round games.
- // Seeds 1-16 have byes; seeds 17-24 join 24 unseeded teams in round one.
- // Only eight first-round matches contain a 17-24 seed.
- const conference=n=>byRank(n)?.conference||null;
- const conflict=(x,y)=>Boolean(x&&y&&conference(x)&&conference(x)===conference(y));
- // NCAA 2026: 16 byes, plus 16 first-round games. Eight games
- // include seeds 17–24. Protect every possible first- AND second-round
- // same-conference pairing, including the bye team in each pod.
- const slots=order.map((seed,i)=>({seed,x:i<8?17+i:null,y:null}));
- const pool=Array.from({length:24},(_,i)=>25+i);
- const counts=new Map();
- for(const n of pool)counts.set(conference(n),(counts.get(conference(n))||0)+1);
- let states=0;
- function place(remaining){
-   if(!remaining.length)return true;
-   if(++states>200000)return false;
-   let chosen=-1,options=null;
-   for(let i=0;i<slots.length;i++){
-     const p=slots[i],occupied=[p.seed,p.x,p.y].filter(Boolean);
-     if(p.x&&p.y)continue;
-     const choices=remaining.filter(n=>occupied.every(v=>!conflict(v,n)));
-     if(!choices.length)return false;
-     if(!options||choices.length<options.length){chosen=i;options=choices;}
+   const rules=el('section',null,'snb-ncaa-rules');
+   rules.append(el('h2','NCAA SELECTION PROCEDURE · 2026'));
+   rules.append(el('p','The NCAA committee, not RETRO, selects 25 at-large teams. Eligible at-large candidates must have a Division I won-lost-tied record of at least .500. Its evaluation also considers adjusted RPI, schedule strength, results against common opponents, head-to-head competition, nonconference performance, results against selected teams, last-eight-match performance and conference competition. Coaches polls and outside ranking systems are not selection criteria.','cs-selection-warning'));
+   rules.append(el('p','The 2026 championship has 23 automatic bids, 25 at-large bids, 24 seeded teams and 16 first-round byes. The October 22 NCAA update expanded seeding from 16 to 24; the older prechampionship manual still mentions 16 seeds. Conference opponents should not meet in their first tournament game, and site/travel placement requires NCAA authorization.','cs-selection-warning'));
+   const manual=el('a','2026-27 NCAA prechampionship manual');manual.href='https://ncaaorg.s3.amazonaws.com/championships/sports/soccer/d1/men/2026-27D1MSO_PreChampsManual.pdf';manual.target='_blank';manual.rel='noopener noreferrer';
+   const amendment=el('a','October 22 NCAA 24-seed announcement');amendment.href='https://www.ncaa.org/news/di-field-hockey-mens-soccer-to-seed-50-of-their-championship-brackets/';amendment.target='_blank';amendment.rel='noopener noreferrer';
+   const citations=el('p',null,'snb-ncaa-sources');citations.append(manual,el('span',' · '),amendment);rules.append(citations);
+   if(!ncaaInputsReady){
+     rules.append(el('h3','NCAA FIELD MODEL WITHHELD · DATA NOT VERIFIED'));
+     rules.append(el('p','A current, full-season Division I record and verified eligibility check for each at-large team, current adjusted RPI, schedule evidence and committee-quality résumé comparisons are unavailable. The stored October 23 RPI snapshot is stale. No NCAA-selected field, official seeds, venues or NCAA-style at-large prediction will be invented. Use the RETRO tab for an explicitly independent hypothetical bracket.','cs-selection-warning'));
    }
-   if(chosen<0)return false;
-   options.sort((a,b)=>(counts.get(conference(a))||0)-(counts.get(conference(b))||0)||a-b);
-   const p=slots[chosen],slot=p.x?'y':'x';
-   for(const n of options){
-     p[slot]=n;
-     if(place(remaining.filter(x=>x!==n)))return true;
-     p[slot]=null;
-   }
-   return false;
+   host.append(rules);
  }
- if(!place(pool)){
-   bracket.append(el('p','CONFERENCE CONSTRAINT FAILURE: a first- and second-round-safe bracket could not be generated. Matchups withheld until the field or placement changes.','cs-selection-warning'));
-   host.append(bracket);return;
+ const entries=mode==='usrs'?data.field:[];
+ if(mode==='usrs'){
+   host.append(el('h2','INDEPENDENT RETRO BRACKET · NOT NCAA SELECTION'));
+   host.append(el('p','This is a 48-team RETRO-only demonstration of the NCAA tournament format, not an NCAA selection forecast. Its 25 at-large candidates are ranked by RETRO without verified full-season Division I eligibility; the positions are not committee seeds. Travel, venues and official matchups are withheld.','cs-selection-warning'));
  }
- if(slots.some(p=>!p.x||!p.y||conflict(p.x,p.y)||conflict(p.seed,p.x)||conflict(p.seed,p.y))){
-   throw Error('Conference rematch constraint failed');
+ const bracketMount=el('div',null,'snb-national-mount');
+ host.append(bracketMount);
+ const national=window.SoccerNationalBracket;
+ if(!national){
+   bracketMount.append(el('p','The national bracket renderer is unavailable. Matchups are withheld rather than fabricated.','cs-selection-warning'));
+ }else if(mode==='ncaa'){
+   // Even when eligible-record and résumé feeds arrive, exact NCAA pairings and
+   // hosting require independently sourced committee bracket data. Do not
+   // create official pairings from the RETRO quadrant template.
+ }else{
+   national.render(bracketMount,entries,branding,mode==='usrs'?window.SoccerRetroKnockout?.match:null,{
+     cutoff:data.rating_cutoff,confirmed:verifiedAqs.length,mode
+   });
  }
- const pods=slots.map(p=>{const opening=win(byRank(p.x),byRank(p.y));return {seed:p.seed,x:p.x,y:p.y,opening,advance:win(byRank(p.seed),opening)};});
- bracket.append(el('p','PLACEMENT CHECK: No potential same-conference matchups in rounds one or two. Host sites, geography and official committee pairings remain unverified.','cs-selection-warning'));
- const quarters=[];
- const jumps=el('nav',null,'ncaa-region-jump');jumps.setAttribute('aria-label','Jump to bracket quadrant');for(let j=0;j<4;j++){const a=el('a','QUADRANT '+(j+1));a.href='#ncaa-region-'+(j+1);jumps.append(a)}bracket.append(jumps);
- for(let q=0;q<4;q++){
-  const quadrant=el('section',null,'ncaa-bracket-quadrant');quadrant.id='ncaa-region-'+(q+1);quadrant.append(el('h3','QUADRANT '+(q+1)+' · PATH TO THE COLLEGE CUP'),el('p','Round 1 → Round 2 → Round 3 → Quarterfinal','ncaa-round-guide'));
-  const podGrid=el('div',null,'ncaa-bracket-pods');
-  for(let i=q*4;i<q*4+4;i++){
-   const p=pods[i],card=el('article',null,'ncaa-bracket-pod');
-   const first=el('div',null,'ncaa-round-one');
-   first.append(el('strong','FIRST ROUND · '+p.x+' vs '+p.y));
-   first.append(schoolRow(byRank(p.x),branding,'ncaa-bracket-team'),schoolRow(byRank(p.y),branding,'ncaa-bracket-team'));
-   if(mode==='usrs'&&window.SoccerRetroKnockout){
-    const a=byRank(p.x),b=byRank(p.y);
-    if(Number.isFinite(a?.elo)&&Number.isFinite(b?.elo)){
-     const forecast=window.SoccerRetroKnockout.match(a.elo,b.elo,{neutral:true});
-     first.append(el('small','ILLUSTRATIVE · '+a.team+' '+Math.round(forecast.advanceHome*100)+'% to advance · '+b.team+' '+Math.round(forecast.advanceAway*100)+'% · xG '+forecast.expectedGoals.home.toFixed(2)+'–'+forecast.expectedGoals.away.toFixed(2),'ncaa-bracket-advance'));
-    }
-   }
-   if(p.opening)first.append(el('small','RETRO advances → '+p.opening.team,'ncaa-bracket-advance'));
-   const second=el('div',null,'ncaa-round-two');
-   second.append(el('strong','SECOND ROUND · #'+p.seed+' BYE'));
-   second.append(schoolRow(byRank(p.seed),branding,'ncaa-bracket-team'));
-   second.append(p.opening?schoolRow(p.opening,branding,'ncaa-bracket-team'):el('div','First-round winner','ncaa-bracket-team'));
-   if(mode==='usrs'&&window.SoccerRetroKnockout&&p.opening){
-    const a=byRank(p.seed),b=p.opening;
-    if(Number.isFinite(a?.elo)&&Number.isFinite(b?.elo)){
-     const forecast=window.SoccerRetroKnockout.match(a.elo,b.elo,{neutral:true});
-     second.append(el('small','ILLUSTRATIVE · '+a.team+' '+Math.round(forecast.advanceHome*100)+'% · '+b.team+' '+Math.round(forecast.advanceAway*100)+'% to advance','ncaa-bracket-advance'));
-    }
-   }
-   if(p.advance)second.append(el('small','RETRO advances → '+p.advance.team,'ncaa-bracket-advance'));
-   card.append(first,second);
-   podGrid.append(card);
-  }
-  quadrant.append(podGrid);
-  const thirdA=win(pods[q*4].advance,pods[q*4+1].advance),thirdB=win(pods[q*4+2].advance,pods[q*4+3].advance),quarter=win(thirdA,thirdB);
-  const path=el('div',null,'ncaa-bracket-path');path.append(el('strong','THIRD ROUND · RETRO PICKS'),el('p',thirdA?'① '+thirdA.team:'Opening pods 1–2'),el('p',thirdB?'② '+thirdB.team:'Opening pods 3–4'),el('strong','QUARTERFINAL · RETRO ADVANCES'),el('p',quarter?'→ '+quarter.team:'Third-round winners'));quadrant.append(path);
-  quarters.push(quarter);bracket.append(quadrant);
- }
- const semiA=win(quarters[0],quarters[1]),semiB=win(quarters[2],quarters[3]),champ=win(semiA,semiB);
- const finish=el('section',null,'ncaa-bracket-finish');
- finish.append(el('h3','COLLEGE CUP · PROJECTED SEMIFINALS'),el('p',(quarters[0]?.team||'Quadrant 1 winner')+' vs '+(quarters[1]?.team||'Quadrant 2 winner')),el('strong',semiA?'RETRO advances → '+semiA.team:'Semifinal 1 pending'),el('p',(quarters[2]?.team||'Quadrant 3 winner')+' vs '+(quarters[3]?.team||'Quadrant 4 winner')),el('strong',semiB?'RETRO advances → '+semiB.team:'Semifinal 2 pending'),el('h3','PROJECTED NATIONAL CHAMPIONSHIP'),el('p',(semiA?.team||'Semifinal 1 winner')+' vs '+(semiB?.team||'Semifinal 2 winner')),el('strong',champ?'RETRO national title pick → '+champ.team:'Champion TBD'));
- bracket.append(finish);host.append(bracket);
- const groups=[['FIRST 24 · PROJECTED ORDER',entries.slice(0,24)],['REMAINING FIELD',entries.slice(24)],['BUBBLE / NEXT FOUR',mode==='usrs'?data.first_four_out_proxy:metrics.first_four_out||[]]];
+ host.append(status);
+ const groups=mode==='usrs'?[['RETRO TOP 24 · NOT NCAA SEEDS',entries.slice(0,24)],['RETRO HYPOTHETICAL REMAINING FIELD',entries.slice(24)],['RETRO NEXT FOUR · ELIGIBILITY UNVERIFIED',data.first_four_out_proxy||[]]]:[];
  for(const [name,rows] of groups){
   const section=el('section',null,'cs-selection-group');section.append(el('h2',name));
   const table=el('table',null,'cs-selection-table');const head=el('tr');
   for(const h of ['#','School','Bid path',mode==='usrs'?'RETRO':'Résumé score'])head.append(el('th',h));table.append(head);
-  rows.forEach((x,i)=>{const tr=el('tr');for(const v of [x.experimental_strength_order||i+1,x.team,x.bid_type==='official_aq'?'Confirmed AQ':x.bid_type==='projected_aq'?'Predicted AQ':'At-large scenario',mode==='usrs'?Math.round(x.elo):x.resume_score??'—'])tr.append(el('td',v));table.append(tr)});
+  rows.forEach((x,i)=>{const tr=el('tr');for(const v of [x.experimental_strength_order||i+1,x.team,x.bid_type==='official_aq'?'Confirmed AQ':x.bid_type==='projected_aq'?'Predicted AQ':'RETRO at-large, not NCAA verified',mode==='usrs'?Math.round(x.elo):x.resume_score??'—'])tr.append(el('td',v));table.append(tr)});
   section.append(table);host.append(section);
  }
 }

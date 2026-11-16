@@ -1,0 +1,98 @@
+/* NCAA national soccer bracket — self-contained editorial layout.
+   Retains the shared authentic school crest renderer; no replacement logos. */
+.snb-edition{--snb-ink:#1b2826;--snb-paper:#f9f7ef;--snb-rule:#beb4a0;--snb-brass:#a18751;
+ color:var(--snb-ink);width:100%;min-width:0;box-sizing:border-box;margin:25px 0 34px;
+ font-family:"Century Schoolbook",Georgia,serif}
+.snb-edition *{box-sizing:border-box}
+.snb-hero{padding:24px 25px 19px;border:3px double #302c27;background:var(--snb-paper);
+ background-image:linear-gradient(110deg,#f8f5e9 0%,#fffefa 70%)}
+.snb-kicker{display:block;font:800 11px/1.4 Arial,sans-serif;letter-spacing:.15em;color:#6a5636;text-transform:uppercase}
+.snb-hero h2{font:700 clamp(23px,3.2vw,36px)/1.07 "Century Schoolbook",Georgia,serif;
+ letter-spacing:-.025em;margin:8px 0 10px}
+.snb-hero p{font-size:14px;line-height:1.45;margin:0}
+.snb-edition-stamp{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:14px;
+ padding-top:12px;border-top:1px solid var(--snb-rule);
+ font:700 10px/1.5 Arial,sans-serif;letter-spacing:.055em}
+.snb-methodology,.snb-disclaimer{font:12px/1.55 Georgia,serif;color:#585348;margin:12px 0}
+.snb-regions{border:1px solid #c8c0af;background:#fffdf9;padding:17px}
+.snb-region-heading{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:4px 20px}
+.snb-region-heading h3,.snb-college-cup h3{font:700 21px/1.25 "Century Schoolbook",Georgia,serif;margin:0}
+.snb-region-heading p{font:italic 12px Georgia,serif;color:#6e675b;margin:0 0 8px}
+.snb-region-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:11px 0 15px}
+.snb-region-tab{background:#eee9dc;border:1px solid #b6ac98;border-bottom:3px solid #9f8a63;
+ padding:11px 9px;text-align:left;cursor:pointer;color:#25312e;min-width:0}
+.snb-region-tab>span{display:block;font:800 10px/1.4 Arial,sans-serif;letter-spacing:.1em}
+.snb-region-tab>strong{display:block;font:700 14px/1.25 Georgia,serif;overflow-wrap:anywhere;margin-top:3px}
+.snb-region-tab[aria-selected="true"]{background:#243932;color:#f7f4eb;border-color:#243932;border-bottom-color:#c6a770}
+.snb-region-tab:focus-visible,.snb-region-scroll:focus-visible{outline:3px solid #b28c42;outline-offset:2px}
+.snb-region-deck{font:13px/1.45 Georgia,serif;color:#504b43;margin:0 0 12px}
+.snb-region-scroll{max-width:100%;overflow-x:auto;overflow-y:visible;scrollbar-color:#95846a #f0ece3;scrollbar-width:thin;padding:2px 1px 12px}
+.snb-round-grid{display:grid;grid-template-columns:repeat(4,minmax(235px,1fr));align-items:stretch;
+ gap:13px;min-width:1035px}
+.snb-round{min-width:0;display:flex;flex-direction:column}
+.snb-round-head{min-height:46px;margin-bottom:9px;padding:10px 9px 9px;
+ border-top:3px solid #2d3b35;border-bottom:1px solid #b5ac99;
+ display:flex;align-items:center;justify-content:space-between;gap:9px}
+.snb-round-head h4{font:800 12px/1.2 Arial,sans-serif;letter-spacing:.06em;margin:0;color:#1a2b27}
+.snb-round-count{font:700 9px/1.2 Arial,sans-serif;letter-spacing:.03em;color:#756a58;text-align:right}
+.snb-round-stack{display:flex;flex-direction:column;gap:10px;flex:1}
+.snb-third .snb-round-stack,.snb-quarter .snb-round-stack{justify-content:space-around}
+.snb-match{min-width:0;border:1px solid #c6bdaf;border-left:4px solid #9f895d;
+ background:#fff;display:flex;flex-direction:column;min-height:140px;
+ box-shadow:0 1px 0 #eee6d8}
+.snb-match-header{padding:6px 9px 5px;display:flex;justify-content:space-between;gap:10px;
+ border-bottom:1px solid #e6e0d4;background:#f6f3ec;
+ font:700 9px/1.2 Arial,sans-serif;letter-spacing:.045em;color:#5c584e}
+.snb-match-header span:last-child{text-align:right}
+.snb-team{display:flex;align-items:center;gap:7px;min-height:47px;padding:4px 8px;
+ border-bottom:1px solid #e9e5dc;min-width:0;position:relative}
+.snb-team.snb-picked{background:#edf3ed;box-shadow:inset 3px 0 #476650}
+.snb-team .soccer-school-mark{margin:0;flex-shrink:0}
+.snb-school-name{display:flex;flex-direction:column;justify-content:center;gap:2px;min-width:0;flex:1}
+.snb-school-link{font:700 13px/1.1 "Century Schoolbook",Georgia,serif;color:#26342f;text-decoration:none;
+ overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.snb-school-link:hover{text-decoration:underline}
+.snb-seed{font:800 9px/1.2 Arial,sans-serif;letter-spacing:.025em;color:#847556}
+.snb-percentage{font:800 13px Arial,sans-serif;white-space:nowrap;font-variant-numeric:tabular-nums;color:#435249}
+.snb-pending{font:italic 12px/1.4 Georgia,serif;color:#777065;padding:6px 0}
+.snb-match-foot{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 8px;padding:6px 9px;
+ background:#f9f8f4;font:11px/1.3 Georgia,serif;color:#625e53;min-height:30px}
+.snb-pick-label{font:800 9px/1.3 Arial,sans-serif;letter-spacing:.055em;color:#476650}
+.snb-match-foot strong{font-size:11px;color:#263c2f}
+.snb-match-foot small{font:10px Arial,sans-serif;margin-left:auto;color:#726755}
+.snb-region-winner{display:flex;gap:8px 12px;flex-wrap:wrap;align-items:center;
+ margin-top:7px;padding:12px 14px;background:#243932;color:#f9f5e8}
+.snb-region-winner span{font:800 10px/1.5 Arial,sans-serif;letter-spacing:.08em;color:#e3cf9b}
+.snb-region-winner strong{font:700 19px/1.3 Georgia,serif}
+.snb-college-cup{border:3px double #31312c;background:#f5f1e7;margin-top:18px;padding:24px}
+.snb-college-cup>p{font:13px/1.45 Georgia,serif;color:#5f584c;margin:8px 0 15px}
+.snb-college-cup h3{font-size:29px;margin:6px 0}
+.snb-cup-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.snb-cup-grid .snb-round-head{border-color:#bfa374}
+.snb-cup-grid .snb-round-stack{gap:14px}
+.snb-cup-grid .snb-match{min-height:149px}
+.snb-cup-grid .snb-match-header{background:#eae5d8}
+.snb-champion{margin-top:16px;display:flex;gap:8px 18px;flex-wrap:wrap;align-items:center;
+ padding:15px 17px;background:#202e2a;color:#f3e0ad;border-top:4px solid #bfa374}
+.snb-champion span{font:800 10px/1.3 Arial,sans-serif;letter-spacing:.12em}
+.snb-champion strong{font:700 24px/1.2 "Century Schoolbook",Georgia,serif;color:#fff}
+.snb-error{padding:16px;border:2px solid #7b4e38;background:#faf3ec;font:700 14px Georgia,serif}
+@media(max-width:750px){
+ .snb-edition{margin-top:15px}
+ .snb-hero{padding:17px}
+ .snb-regions{padding:10px}
+ .snb-region-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .snb-region-tab{padding:10px}
+ .snb-region-tab>strong{font-size:12px}
+ .snb-cup-grid{grid-template-columns:minmax(0,1fr)}
+ .snb-college-cup{padding:15px}
+ .snb-edition-stamp{gap:5px 12px}
+}
+@media print{
+ .snb-edition{break-inside:avoid}
+ .snb-region-scroll{overflow:visible}
+ .snb-round-grid{min-width:0;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+ .snb-match{box-shadow:none}
+ .snb-school-link{font-size:10px}
+ .snb-region-tab{color:#1b2826!important;background:#fff!important}
+}
