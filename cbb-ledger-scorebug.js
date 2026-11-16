@@ -43,7 +43,7 @@
     (momentum?'<small class="ledger26-situation ledger26-momentum'+(momentum.kind==='run'?' ledger26-momentum--run':'')+'">'+esc(momentum.text)+'</small>':'')+'</div>';
  }
  function pregamePanel(g){
-  // Do not conceal a known source conflict behind an ordinary pregame forecast.
+  // A disputed source must never be presented as a confident forecast.
   if(/\b(?:SOURCE CONFLICT|REVIEW|DISPUTED)\b/i.test(String(g.status||'')))
     return '<div class="ledger26-status ledger26-status--pregame" data-phase="upcoming"><strong>'+esc(g.status)+'</strong></div>';
   const f=g.forecast;
@@ -51,22 +51,27 @@
     return '<div class="ledger26-status ledger26-status--pregame" data-phase="upcoming"><strong class="ledger26-pregame-empty">'+esc(g.suppressTipoffFallback?'NO FORECAST':(g.time||g.tipoff||'PREGAME'))+'</strong></div>';
   const team=f.team.trim(),percent=Math.round(f.probability*100);
   const halfPoint=Number.isFinite(f.margin)?Math.round(Math.abs(f.margin)*2)/2:null;
-  const margin=halfPoint!==null&&halfPoint>0?'−'+halfPoint.toFixed(1):'';
-  // The condensed forecast shows only one win probability and one margin.
-  // Source-backed projected finals join the same aligned forecast rail.
-  return '<div class="ledger26-status ledger26-status--pregame ledger26-status--compact" data-phase="upcoming" aria-label="'+
-   esc(team+' '+percent+' percent RETRO win probability'+(margin?', projected margin '+margin+' points':''))+'">'+
+  // Negative is the favorite's basketball point spread, not a negative win margin.
+  const spread=halfPoint!==null&&halfPoint>0?'−'+halfPoint.toFixed(1):'';
+  const scores=Number.isFinite(f.projectedAwayScore)&&Number.isFinite(f.projectedHomeScore)&&
+    f.projectedAwayScore>=0&&f.projectedHomeScore>=0;
+  const awayScore=scores?Math.round(f.projectedAwayScore):null;
+  const homeScore=scores?Math.round(f.projectedHomeScore):null;
+  const description=team+' '+percent+' percent RETRO win probability'+
+    (spread?', RETRO favorite spread '+spread+' points':'')+
+    (scores?', projected final '+String(g.away?.name||'away')+' '+awayScore+', '+String(g.home?.name||'home')+' '+homeScore:'');
+  // All three forecast metrics have a full-width row, including on small phones.
+  // No numeric value shares a cramped side-by-side row with its label.
+  return '<div class="ledger26-status ledger26-status--pregame ledger26-status--compact" data-phase="upcoming" aria-label="'+esc(description)+'">'+
    '<div class="ledger26-pregame-inline ledger26-pregame-inline--prob">'+
     '<strong class="ledger26-pregame-prob">'+percent+'%</strong>'+
     '<span class="ledger26-pregame-team" title="'+esc(team)+'">'+esc(percent===50?'EVEN':team)+'</span></div>'+
-   (margin?'<div class="ledger26-pregame-inline ledger26-pregame-inline--margin">'+
-    '<strong class="ledger26-pregame-edge">'+margin+'</strong>'+
-    '<span class="ledger26-pregame-caption">MARGIN</span></div>':'')+
-   (Number.isFinite(f.projectedAwayScore)&&Number.isFinite(f.projectedHomeScore)&&
-     f.projectedAwayScore>=0&&f.projectedHomeScore>=0?
-     '<div class="ledger26-pregame-inline ledger26-pregame-inline--score">'+
-      '<strong class="ledger26-pregame-score">'+Math.round(f.projectedAwayScore)+'–'+Math.round(f.projectedHomeScore)+'</strong>'+
-      '<span class="ledger26-pregame-caption">PROJECTED</span></div>':'')+
+   (spread?'<div class="ledger26-pregame-inline ledger26-pregame-inline--margin">'+
+    '<strong class="ledger26-pregame-edge">'+spread+'</strong>'+
+    '<span class="ledger26-pregame-caption">RETRO SPREAD</span></div>':'')+
+   (scores?'<div class="ledger26-pregame-inline ledger26-pregame-inline--score">'+
+    '<strong class="ledger26-pregame-score">'+awayScore+'–'+homeScore+'</strong>'+
+    '<span class="ledger26-pregame-caption">PROJECTED FINAL</span></div>':'')+
    '</div>';
  }
  const pressCache=new Map();

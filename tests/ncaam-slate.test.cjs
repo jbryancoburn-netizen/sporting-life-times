@@ -20,6 +20,21 @@ assert(logoRenderer.includes("'77':'assets/cbb-big-ten-1980s/centered/northweste
  logoRenderer.includes("'assets/cbb-embossed-crests/'+id+'.png"),
  'Northwestern must retain its authentic local heritage art inside the baked crest');
 
+
+const forecastScorebug=fs.readFileSync('cbb-ledger-scorebug.js','utf8');
+assert(scorecardCss.includes('flex-direction:column!important') &&
+ scorecardCss.includes('overflow-wrap:anywhere!important') &&
+ !scorecardCss.includes('grid-template-columns:minmax(0,1fr) minmax(0,1fr)') &&
+ !scorecardCss.includes('max-height:2.2em;overflow:hidden'),
+ 'Northwestern forecast winner, probability, spread and score must not overlap in a half-width label grid');
+assert(forecastScorebug.includes('RETRO SPREAD') &&
+ forecastScorebug.includes('PROJECTED FINAL') &&
+ forecastScorebug.includes('ledger26-pregame-inline--prob'),
+ 'the pregame rail needs independently legible probability, signed spread and projected final');
+assert(html.includes('cbb-ledger-scorecard.css?v=forecast-vertical-rail-20261116') &&
+ html.includes('cbb-ledger-scorebug.js?v=forecast-vertical-rail-20261116'),
+ 'the public ledger must load the forecast rail fix without cached markup or CSS');
+
 assert(!/draftkings|onlyDraftKings|sportsbook|draftKingsByDate/i.test(script+html+scorecardCss), 'sportsbook lines and lookups must not reappear in the ledger');
 assert(script.includes('ledgerScorebug(g)')&&fs.readFileSync('cbb-ledger-scorebug.js','utf8').includes('ledger26-pregame-edge'), 'RETRO margin must remain visible in shared scorebug');
 assert(script.includes('data-slt-ledger-press-open')&&script.includes('ledger26-network'), 'press and network must remain in header');
