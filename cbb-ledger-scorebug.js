@@ -273,7 +273,7 @@
  function pulseShell(g,phase,label){
   if(g.pulseManagedExternally||phase==='upcoming'||!g.gameId||!['men','women'].includes(g.gender)||!g.away?.id||!g.home?.id)return '';
   return '<div class="ledger26-pulse" data-retro-pulse="'+esc(g.gameId)+'" data-away-name="'+esc(g.away.name)+'" data-home-name="'+esc(g.home.name)+'" data-gender="'+g.gender+
-   '" data-away="'+esc(g.away.id)+'" data-home="'+esc(g.home.id)+'" data-phase="'+phase+
+   '" data-away="'+esc(g.away.id)+'" data-home="'+esc(g.home.id)+'" data-phase="'+phase+'" data-compact-only="'+(g.pulseCompactOnly?'1':'0')+
    '" data-away-score="'+esc(g.away.score??'')+'" data-home-score="'+esc(g.home.score??'')+'">'+
    '<div class="ledger26-pulse-heading"><strong>'+esc(phase==='final'?'FINAL':('LIVE · '+label))+
    '</strong><span>RETRO PULSE · SCORING HISTORY PENDING</span></div></div>';
@@ -334,8 +334,10 @@
    '<strong class="ledger26-pulse-state">'+esc(heading)+'</strong>'+
    '<div class="ledger26-pulse-stat"><small>BIGGEST LEAD · '+esc(largest.name)+'</small><b>+'+largest.value+'</b></div>'+
    '<div class="ledger26-pulse-stat"><small>'+(el.dataset.phase==='final'?'FINAL MARGIN':'CURRENT LEAD')+(diff===0?'':(' · '+esc(diff>0?awayName:homeName)))+'</small><b>'+(diff===0?'TIED':('+'+Math.abs(diff)))+'</b></div>'+
-   '<span class="ledger26-pulse-invite">GAME FLOW <span aria-hidden="true">⌄</span></span></div>';
+   '<span class="ledger26-pulse-invite">'+(el.dataset.compactOnly==='1'?'OPEN GAME DETAILS':'GAME FLOW')+' <span aria-hidden="true">⌄</span></span></div>';
   pulseCache.set(el,data);
+  // The ledger retains its compact scorebug rail, while its separate color Gamefile owns the only full game-flow chart.
+  if(el.dataset.compactOnly==='1')return;
   const details=el.closest('details'),target=details?.querySelector('.ledger26-expanded');
   if(!target)return;
   // Concept B: the full graph is only in the expanded gamefile, where it has room.
@@ -425,6 +427,18 @@
     ' · '+esc(el.dataset.homeName)+' '+esc(v.hv??'—')+'</span>').join('')+'</div>';
  }
  function pulseRemoveEmpty(el){
+  if(el.dataset.compactOnly==='1'){
+   const phase=el.dataset.phase||'final';
+   const away=Number(el.dataset.awayScore),home=Number(el.dataset.homeScore);
+   const scoresPresent=el.dataset.awayScore!==''&&el.dataset.homeScore!==''&&Number.isFinite(away)&&Number.isFinite(home);
+   const lead=scoresPresent?away-home:null;
+   const leader=lead===null?'':lead>0?el.dataset.awayName:lead<0?el.dataset.homeName:'';
+   el.innerHTML='<div class="ledger26-pulse-compact" aria-label="Game status and scoring summary">'+
+    '<strong class="ledger26-pulse-state">'+(phase==='final'?'FINAL':'LIVE')+'</strong>'+
+    (lead===null?'': '<div class="ledger26-pulse-stat"><small>'+(phase==='final'?'FINAL MARGIN':'CURRENT LEAD')+(leader?' · '+esc(leader):'')+'</small><b>'+(lead===0?'TIED':'+'+Math.abs(lead))+'</b></div>')+
+    '<span class="ledger26-pulse-invite">OPEN GAME DETAILS <span aria-hidden="true">⌄</span></span></div>';
+   return;
+  }
   const shell=el.closest('.ledger26-scorebug'),phase=el.dataset.phase||'final';
   const status=el.querySelector('.ledger26-pulse-heading strong')?.textContent||(phase==='final'?'FINAL':'LIVE');
   el.remove();
