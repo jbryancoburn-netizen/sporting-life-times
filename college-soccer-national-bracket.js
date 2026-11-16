@@ -63,6 +63,23 @@
   if(slots.some(p=>!p.x||!p.y||sameConference(at(p.seed),at(p.x))||sameConference(at(p.seed),at(p.y))||sameConference(at(p.x),at(p.y)))){
    throw Error('Early-round conference separation failed');
   }
+  // The national 1–24 ordering is an internal forecast-strength input.
+  // Bracket badges reset to seeds 1–6 IN EACH quadrant (four byes plus
+  // two first-round protected entrants). Do not rewrite forecast_rank,
+  // which remains the source for simulation and conference placement.
+  const quadrantSeeds=[];
+  for(let quadrant=0;quadrant<4;quadrant++){
+   const pods=slots.slice(quadrant*4,quadrant*4+4);
+   const seeded=pods.flatMap(p=>[p.seed,p.x,p.y].filter(n=>n&&n<=24))
+    .filter((n,i,all)=>all.indexOf(n)===i)
+    .sort((a,b)=>a-b);
+   if(seeded.length!==6)throw Error('Every quadrant must contain six unique seeded entrants');
+   seeded.forEach((rank,i)=>{
+    at(rank).quadrant_seed=i+1;
+    at(rank).quadrant_number=quadrant+1;
+   });
+   quadrantSeeds.push(seeded);
+  }
   function match(a,b,id,stage,homePending,awayPending){
    let p=null,winner=null,expected=null;
    if(a&&b&&ncaa){
@@ -90,7 +107,7 @@
    const second=four.map((s,i)=>match(at(s.seed),first[i].winner,'R2-'+(region*4+i+1),'SECOND ROUND',null,'Winner of '+first[i].id));
    const third=[0,2].map((i,k)=>match(second[i].winner,second[i+1].winner,'R3-'+(region*2+k+1),'THIRD ROUND','Winner of '+second[i].id,'Winner of '+second[i+1].id));
    const quarter=match(third[0].winner,third[1].winner,'QF-'+(region+1),'QUARTERFINAL','Winner of '+third[0].id,'Winner of '+third[1].id);
-   regions.push({number:region+1,name:'QUADRANT '+ROMAN[region],anchor:at(four[0].seed),byes:four.map(s=>at(s.seed)),
+   regions.push({number:region+1,name:'QUADRANT '+ROMAN[region],anchor:at(quadrantSeeds[region][0]),seeded:quadrantSeeds[region].map(at),byes:four.map(s=>at(s.seed)),
     first,second,third,quarter});
   }
   const semifinals=[
@@ -115,12 +132,12 @@
  function schoolLine(team,pick,percentage,branding,pending,options={}){
   const line=html('div','snb-team'+(pick?' snb-picked':''));
   if(!team){line.append(html('span','snb-pending',pending));return line;}
-  const forecastSeed=team.forecast_rank<=24;
+  const forecastSeed=Number.isInteger(team.quadrant_seed);
   const badge=html('span',forecastSeed?'snb-seed-badge':'snb-seed-spacer',
-    forecastSeed?String(team.forecast_rank):'');
+    forecastSeed?String(team.quadrant_seed):'');
   if(forecastSeed){
-    badge.setAttribute('title',(options.mode==='ncaa'?'RPI-led projected seed #':'RETRO projected seed #')+team.forecast_rank+' — not an official NCAA committee seed');
-    badge.setAttribute('aria-label',(options.mode==='ncaa'?'RPI-led projected seed ':'RETRO projected seed ')+team.forecast_rank);
+    badge.setAttribute('title',(options.mode==='ncaa'?'RPI-led projected seed #':'RETRO projected seed #')+team.quadrant_seed+' in quadrant '+ROMAN[team.quadrant_number-1]+' — not an official NCAA committee seed');
+    badge.setAttribute('aria-label',(options.mode==='ncaa'?'RPI-led projected seed ':'RETRO projected seed ')+team.quadrant_seed+' in quadrant '+ROMAN[team.quadrant_number-1]);
   }else badge.setAttribute('aria-hidden','true');
   line.append(badge);
   const crest=window.CollegeSoccerCupUI.crest(team.team,team.team_id,'men-d1',branding);
@@ -190,11 +207,11 @@
   hero.append(summary);bracket.append(hero);
   const legend=html('div','snb-seed-legend');
   const example=html('span','snb-seed-badge','1');example.setAttribute('aria-hidden','true');
-  legend.append(example,html('span',null,(ncaa?'Numbered badge = RPI-led projected seed':'Numbered badge = RETRO projected seed')+' (1–24), NOT an official NCAA seed. Positions 1–16 receive byes; 17–24 play in Round 1.'));
+  legend.append(example,html('span',null,(ncaa?'Numbered badge = RPI-led projected seed':'Numbered badge = RETRO projected seed')+' (1–6 within each quadrant), NOT an official NCAA seed. Each quadrant has four bye teams and two seeded first-round entrants.'));
   bracket.append(legend);
   const explanation=html('p','snb-methodology',ncaa?
-   'NCAA-based independent pre-selection forecast. Uses all 23 source-certified conference champions; the published November 14 NCAA RPI rankings and Division I .500 record screen for 25 at-large candidates. Projected seeds 1–24 are ordered by RPI, NOT announced by the NCAA committee. Head-to-head, common-opponent, late-season résumé adjustments, and official hosting are incomplete. An RPI favorite advances each hypothetical matchup; no RETRO inputs are used.':
-   'Independent RETRO scenario (NOT NCAA selections). 23 AQs plus 25 provisional at-large picks; 24 RETRO-ranked projected seeds and 16 byes. First-game conference rematches avoided. Hosting and geography unverified; win probabilities assume neutral sites.');
+   'NCAA-based independent pre-selection forecast. Uses all 23 source-certified conference champions; the published November 14 NCAA RPI rankings and Division I .500 record screen for 25 at-large candidates. The 24 projected seeded entrants are numbered 1–6 inside each of the four quadrants; they are NOT announced NCAA committee seeds. Head-to-head, common-opponent, late-season résumé adjustments, and official hosting are incomplete. An RPI favorite advances each hypothetical matchup; no RETRO inputs are used.':
+   'Independent RETRO scenario (NOT NCAA selections). 23 AQs plus 25 provisional at-large picks; six RETRO-ranked projected seeds in each quadrant and 16 byes. First-game conference rematches avoided. Hosting and geography unverified; win probabilities assume neutral sites.');
   bracket.append(explanation);
   // Make the far end of the national bracket visible immediately, without
   // scrolling down to the separate College Cup cards.
@@ -220,7 +237,7 @@
    const r=projection.regions[index];
    buttons.forEach((b,i)=>{b.setAttribute('aria-selected',String(i===index));b.tabIndex=i===index?0:-1;});
    stage.replaceChildren();
-   stage.append(html('p','snb-region-deck','Quadrant '+ROMAN[index]+' · '+(ncaa?'RPI projected #':'RETRO #')+r.anchor.forecast_rank+' '+r.anchor.team+' · 4 first-round · 4 second-round · 2 third-round · 1 quarterfinal.'));
+   stage.append(html('p','snb-region-deck','Quadrant '+ROMAN[index]+' · '+(ncaa?'RPI projected #':'RETRO #')+r.anchor.quadrant_seed+' '+r.anchor.team+' · 4 first-round · 4 second-round · 2 third-round · 1 quarterfinal.'));
    const switchers=html('nav','snb-mobile-round-tabs');
    switchers.setAttribute('aria-label','Choose a bracket round on small screens');
    const rounds=[['Round 1','first'],['Round 2','second'],['Round 3','third'],['Quarterfinal','quarter']];
@@ -253,7 +270,7 @@
    const r=projection.regions[i],button=html('button','snb-region-tab');
    button.type='button';button.setAttribute('role','tab');
    button.setAttribute('aria-controls','snb-region-stage');
-   button.append(html('span',null,'QUADRANT '+ROMAN[i]),html('strong',null,(ncaa?'RPI ':'RETRO ')+'#'+r.anchor.forecast_rank+' '+r.anchor.team));
+   button.append(html('span',null,'QUADRANT '+ROMAN[i]),html('strong',null,(ncaa?'RPI ':'RETRO ')+'#'+r.anchor.quadrant_seed+' '+r.anchor.team));
    button.addEventListener('click',()=>switchRegion(i));
    button.addEventListener('keydown',event=>{
     const direction=event.key==='ArrowRight'?1:event.key==='ArrowLeft'?-1:0;
