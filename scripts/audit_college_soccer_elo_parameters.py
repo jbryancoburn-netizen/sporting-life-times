@@ -18,12 +18,16 @@ def audit():
                   ident.get((g["gender"],g["home_team"]))==ident.get((g["gender"],g["away_team"]))),
                  key=lambda g:(g["date"],g["match_id"]))
     out=[]
-    for K,H,margin in product((14,28,42),(0,75,125),(False,True)):
+    # Include the real deployed model among the contenders. Historical parameters
+    # are diagnostics only; the live engine remains the source of truth.
+    from update_college_soccer_elo import K as LIVE_K, HOME_ADVANTAGE as LIVE_H
+    for K,H,margin in product((14,28,36,42,48),(0,55,75,125),(False,True)):
         ratings={(r["gender"],r["team_id"]):float(r["elo"]) for rows in baseline["cohorts"].values() for r in rows}
         n=hit=0; loss=brier=0.
         for g in games:
             a=(g["gender"],g["home_team"]);b=(g["gender"],g["away_team"])
-            pa=1/(1+10**(-(ratings[a]-ratings[b]+H)/400))
+            venue_advantage=0 if g.get("neutral_site") is True else H
+            pa=1/(1+10**(-(ratings[a]-ratings[b]+venue_advantage)/400))
             outcome=1 if g["home_goals"]>g["away_goals"] else .5 if g["home_goals"]==g["away_goals"] else 0
             p=[(1-.24)*pa,.24,(1-.24)*(1-pa)]
             actual=[int(outcome==1),int(outcome==.5),int(outcome==0)]
@@ -33,17 +37,18 @@ def audit():
             hit+=int(p.index(max(p))==idx)
             n+=1
             gap=abs(g["home_goals"]-g["away_goals"])
-            multiplier=min(1.75,1+.15*(gap-1)) if margin and gap>1 else 1
+            multiplier=max(1.0,math.log1p(gap)) if margin else 1.0
             delta=K*multiplier*(outcome-pa)
             ratings[a]+=delta;ratings[b]-=delta
         out.append(dict(K=K,home_advantage=H,margin_multiplier=margin,sample=n,
             mean_log_loss=loss/n,mean_brier=brier/n,pick_accuracy=hit/n))
     out.sort(key=lambda r:r["mean_log_loss"])
+    current=next(x for x in out if x["K"]==LIVE_K and x["home_advantage"]==LIVE_H and x["margin_multiplier"])
     return {"baseline_as_of":baseline["as_of"],"ledger_count":len(all_games),"usable_games":len(games),
-            "excluded_games":len(all_games)-len(games),"current_parameters":{"K":28,"home_advantage":75,"margin_multiplier":True},
-            "draw_probability_assumption":.24,"window_start":games[0]["date"],"window_end":games[-1]["date"],
+            "excluded_games":len(all_games)-len(games),"current_parameters":{"K":LIVE_K,"home_advantage":LIVE_H,"margin_multiplier":True},
+            "current_model_on_same_games":current,"draw_probability_assumption":.24,"window_start":games[0]["date"],"window_end":games[-1]["date"],
             "limitations":["Not full-season historical cross-validation","Parameter testing uses evaluation games; best combination is not independently validated",
-            "Same-day chronological order unavailable","Home venues may include neutral sites","Draw rate is a fixed diagnostic assumption",
+            "Same-day chronological order unavailable","Unverified home venues may include neutral sites; verified neutral matches use zero advantage","Draw rate is a fixed diagnostic assumption",
             "Ledger contains disputed final scores; fix source disagreements before sign-off"],
             "configurations":out}
 def main():
@@ -51,5 +56,5 @@ def main():
     dest=ROOT/"data/college-soccer-elo-parameter-audit-latest.json"
     dest.write_text(json.dumps(report,indent=2,sort_keys=True)+"\n")
     print(json.dumps({"games":report["usable_games"],"best":report["configurations"][0],
-                      "current":next(x for x in report["configurations"] if x["K"]==28 and x["home_advantage"]==75 and x["margin_multiplier"])}))
+                      "current":report["current_model_on_same_games"]}))
 if __name__=="__main__":main()
