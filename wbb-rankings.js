@@ -13,7 +13,7 @@ let ringColors={}; // Published two-color palette covers all 363 women's Divisio
    const name=school?.team||label,id=String(school?.team_id||'');
    // All 363 women-only identities are present in the verified 365-school
    // published crest library. Serve local, optically fitted two-ring PNGs.
-   const baked=/^\d+$/.test(id)?'assets/cbb-embossed-crests/'+id+'.png?v=20261115-retro2':'';
+   const baked=/^\d+$/.test(id)?'assets/cbb-embossed-crests/'+id+'.png?v=20261116-usf1':'';
    const heritage=window.MBBLogos?.retroURLForESPN?.(id)||'';
    const src=baked||heritage||String(school?.logo||'');
    const safe=!!baked||!!heritage||(src.startsWith('https://a.espncdn.com/i/teamlogos/ncaa/500/')&&src.endsWith('.png')&&/^\d+$/.test(src.split('/').pop().replace('.png')));
