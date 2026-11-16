@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "status": "partial_verified_overrides",
+  "scope": "men-d1",
+  "season_range": [
+    2023,
+    2025
+  ],
+  "membership_policy": "Use explicit source-backed season records; otherwise the experiment still falls back to current (2026) mappings and marks those observations provisional. No claim of fully reconciled 2023-25 conference membership.",
+  "neutral_policy": "Only explicitly sourced College Cup matches are assigned neutral_site=true; all other historical venues remain unknown, not verified home.",
+  "membership_season_2023": [
+    {
+      "season": 2023,
+      "conference": "men-d1:pac-12",
+      "teams": [
+        "ucla",
+        "oregon-st",
+        "stanford",
+        "california",
+        "washington",
+        "san-diego-st"
+      ],
+      "source": "https://s3.amazonaws.com/sidearm.sites/pac-12.com/imported/sports/soccer-m/pdf/M-SOCCER.pdf"
+    },
+    {
+      "season": 2023,
+      "conference": "men-d1:american",
+      "teams": [
+        "smu",
+        "charlotte",
+        "fiu",
+        "memphis",
+        "south-florida",
+        "florida-atlantic",
+        "temple",
+        "tulsa",
+        "uab"
+      ],
+      "source": "https://theamerican.org/standings.aspx?standings=103"
+    }
+  ],
+  "membership_from_2024": [
+    {
+      "season": 2024,
+      "conference": "men-d1:acc",
+      "teams": [
+        "smu",
+        "stanford",
+        "california"
+      ],
+      "source": "https://theacc.com/news/2024/7/1/general-acc-officially-welcomes-cal-smu-and-stanford-to-the-league.aspx"
+    },
+    {
+      "season": 2024,
+      "conference": "men-d1:big-ten",
+      "teams": [
+        "ucla",
+        "washington"
+      ],
+      "source": "https://bigten.org/motf/article/blt257197176c07308f/"
+    },
+    {
+      "season": 2024,
+      "conference": "men-d1:wcc",
+      "teams": [
+        "oregon-st"
+      ],
+      "source": "https://wccsports.com/news/2024/7/1/general-oregon-state-and-washington-state-officially-become-affiliate-members.aspx"
+    },
+    {
+      "season": 2024,
+      "conference": "men-d1:wac",
+      "teams": [
+        "san-diego-st"
+      ],
+      "source": "https://goaztecs.com/news/2024/06/6/aztecs-release-2024-schedule"
+    }
+  ],
+  "neutral_site_matches": [
+    {
+      "year": 2023,
+      "match_ids": [
+        "men-6191538",
+        "men-6191539",
+        "men-6191540"
+      ],
+      "venue": "Lynn Family Stadium, Louisville, Kentucky",
+      "source": "https://theacc.com/news/2023/12/8/mens-soccer-clemson-notre-dame-earn-semifinal-wins-to-set-up-all-acc-ncaa-championship-game.aspx"
+    },
+    {
+      "year": 2024,
+      "match_ids": [
+        "men-6348227",
+        "men-6348228",
+        "men-6348229"
+      ],
+      "venue": "WakeMed Soccer Park, Cary, North Carolina",
+      "source": "https://espnpressroom.com/press-release/espn-espnu-an-espn2-present-the-2024-ncaa-mens-college-cup-on-december-13-and-16/"
+    },
+    {
+      "year": 2025,
+      "match_ids": [
+        "men-6500842",
+        "men-6500843",
+        "men-6500844"
+      ],
+      "venue": "WakeMed Soccer Park, Cary, North Carolina",
+      "source": "https://espnpressroom.com/press-release/espnu-presents-2025-mens-college-cup-semifinal-and-championship-matches-december-12-and-15/"
+    }
+  ]
+}
