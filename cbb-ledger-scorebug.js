@@ -271,7 +271,7 @@
  const sec=v=>{const m=String(v||'').match(/^(\d{1,2}):(\d\d)$/);return m?Number(m[1])*60+Number(m[2]):null;};
  const pulseRange=n=>n<=5?5:n<=10?10:Math.max(20,Math.ceil(n/10)*10);
  function pulseShell(g,phase,label){
-  if(phase==='upcoming'||!g.gameId||!['men','women'].includes(g.gender)||!g.away?.id||!g.home?.id)return '';
+  if(g.pulseManagedExternally||phase==='upcoming'||!g.gameId||!['men','women'].includes(g.gender)||!g.away?.id||!g.home?.id)return '';
   return '<div class="ledger26-pulse" data-retro-pulse="'+esc(g.gameId)+'" data-gender="'+g.gender+
    '" data-away="'+esc(g.away.id)+'" data-home="'+esc(g.home.id)+'" data-phase="'+phase+
    '" data-away-score="'+esc(g.away.score??'')+'" data-home-score="'+esc(g.home.score??'')+'">'+
