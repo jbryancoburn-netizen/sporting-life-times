@@ -4,6 +4,8 @@ const controls = {
   sectional: document.getElementById('sectional'),
   school: document.getElementById('school'),
 };
+let artwork = {schools: {}, conferences: {}};
+const masthead = document.getElementById('masthead-title');
 const table = document.querySelector('table');
 const status = document.getElementById('status');
 
@@ -95,9 +97,26 @@ function schedulePanel(edition, members, showPicker) {
   return panel;
 }
 
+function crest(mark, size) {
+  const badge = document.createElement('span');
+  badge.className = 'crest crest-' + size;
+  const logo = document.createElement('img');
+  logo.src = mark;
+  logo.alt = '';
+  logo.decoding = 'async';
+  badge.append(logo);
+  return badge;
+}
+
+function showMasthead(title, mark) {
+  const heading = document.createElement('h1');
+  heading.textContent = title;
+  masthead.replaceChildren(...(mark ? [crest(mark, 'large'), heading] : [heading]));
+}
+
 function showTeam(edition, team) {
   document.title = team.school + ' | Indiana Boys Basketball RETRO';
-  document.querySelector('h1').textContent = team.school;
+  showMasthead(team.school, artwork.schools[team.id]);
   document.querySelector('.filters').hidden = true;
   document.querySelector('.filters').style.display = 'none';
   document.getElementById('view-title').textContent = 'Team profile';
@@ -155,7 +174,7 @@ function initialize(edition) {
       selected.sectional && 'Sectional ' + selected.sectional,
     ].filter(Boolean).join(' · ');
     document.getElementById('view-title').textContent = label || 'Statewide register';
-    document.querySelector('h1').textContent = selected.conference || 'Indiana Boys Basketball RETRO';
+    showMasthead(selected.conference || 'Indiana Boys Basketball RETRO', artwork.conferences[selected.conference]);
     document.title = selected.conference
       ? selected.conference + ' | Indiana Boys Basketball RETRO'
       : 'Indiana Boys Basketball RETRO | Sporting Life & Times';
@@ -166,7 +185,15 @@ function initialize(edition) {
       const row = document.createElement('tr');
       for (const [index, value] of [1, team.school, team.classification, team.conference, team.sectional, edition.initialRating].entries()) {
         const cell = row.insertCell();
-        if (index === 1) cell.append(pageLink(value, {team: team.id}));
+        if (index === 1) {
+          const link = pageLink(value, {team: team.id});
+          const mark = artwork.schools[team.id];
+          if (mark) {
+            link.className = 'school-identity';
+            link.prepend(crest(mark, 'small'));
+          }
+          cell.append(link);
+        }
         else if (index === 3) cell.append(pageLink(value, {conference: team.conference}));
         else cell.textContent = value;
         if ([0, 4, 5].includes(index)) cell.className = 'number';
@@ -187,10 +214,23 @@ function initialize(edition) {
   render();
 }
 
+const crestManifest = fetch('data/indiana-boys-crests.json')
+  .then(response => response.ok ? response.json() : null)
+  .catch(() => null);
+
 fetch('data/indiana-boys-basketball.json')
   .then(response => {
     if (!response.ok) throw new Error('School register unavailable');
     return response.json();
   })
-  .then(initialize)
+  .then(async edition => {
+    artwork = await crestManifest || artwork;
+    if (artwork.source) {
+      const source = document.createElement('a');
+      source.href = artwork.source;
+      source.textContent = 'Crest artwork';
+      document.querySelector('footer').append(' · ', source);
+    }
+    initialize(edition);
+  })
   .catch(() => { status.textContent = 'The school register could not load. Try refreshing the page.'; });
