@@ -26,33 +26,63 @@
 .cbb-forecast-lock-note{display:block;margin-top:4px;color:#87735a;font:10px/1.3 Georgia,'Times New Roman',serif}
 .cbb-forecast-receipt--missing{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 9px;color:#776650;background:#f1eadf;border-left-color:#b9a78d;padding-block:8px}
 .cbb-forecast-receipt--missing .cbb-forecast-kicker{color:#806e58}
-.sched-result-cell .cbb-forecast-receipt{font-size:10px;padding:7px;margin-top:7px;min-width:110px;white-space:normal}
-.sched-result-cell .cbb-forecast-heading{gap:5px;margin-bottom:7px}
-.sched-result-cell .cbb-forecast-comparison{grid-template-columns:minmax(0,1fr);gap:7px}
-.sched-result-cell .cbb-forecast-metric+.cbb-forecast-metric{border-left:0;border-top:1px solid #c5b397;padding:7px 0 0}
-.sched-result-cell .cbb-forecast-value{font-size:12px}
+.cbb-schedule-forecast-row[hidden]{display:none!important}
+#full-season-schedule .mbb-schedule-table>tbody>tr.cbb-schedule-forecast-row{
+ height:auto!important;min-height:0!important;background:#f2e8d5!important;
+}
+#full-season-schedule .mbb-schedule-table>tbody>tr.cbb-schedule-forecast-row>td{
+ display:table-cell!important;box-sizing:border-box;width:100%;padding:0 10px 7px!important;
+ border-top:0!important;vertical-align:top!important;min-width:0!important;
+}
+#full-season-schedule .cbb-schedule-forecast-row .cbb-forecast-receipt{
+ display:grid;grid-template-columns:170px minmax(0,1fr);
+ gap:12px;align-items:center;margin:0;padding:8px 12px;min-width:0;
+ border-left:3px solid #92714c;border-top:1px solid #b9a78d;
+}
+#full-season-schedule .cbb-schedule-forecast-row .cbb-forecast-heading{
+ display:flex;flex-direction:column;align-items:flex-start;justify-content:center;
+ gap:5px;margin:0;min-width:0;
+}
+#full-season-schedule .cbb-schedule-forecast-row .cbb-forecast-comparison{
+ grid-template-columns:repeat(2,minmax(0,1fr));align-items:center;gap:14px;
+}
+#full-season-schedule .cbb-schedule-forecast-row .cbb-forecast-metric{
+ display:flex;align-items:baseline;flex-wrap:wrap;gap:3px 9px;min-width:0;
+}
+#full-season-schedule .cbb-schedule-forecast-row .cbb-forecast-label{
+ margin:0;flex:0 0 100%;
+}
+#full-season-schedule .cbb-schedule-forecast-row .cbb-forecast-detail{margin:0}
+#full-season-schedule .cbb-schedule-forecast-row .cbb-forecast-metric+.cbb-forecast-metric{
+ border-left:1px solid #c5b397;border-top:0;padding:0 0 0 14px;
+}
+#full-season-schedule .cbb-schedule-forecast-row .cbb-forecast-receipt--missing{
+ display:flex;align-items:baseline;gap:10px;
+}
 .wbb-scorebug-card .cbb-forecast-receipt{margin:5px 0 0}
-/* Match the team calendar's two-column mobile card breakpoint. The result
-   controls stay beside Opponent RETRO; the comparison gets its own full row. */
+/* On narrow screens retain a full-width receipt, never a right rail. */
 @media(max-width:700px){
- #full-season-schedule .mbb-schedule-table > tbody > tr > td.sched-result-cell--forecast{display:contents!important}
- #full-season-schedule .sched-result-cell--forecast::before{display:none!important}
- #full-season-schedule .sched-result-summary{
-  grid-column:2;min-width:0;text-align:right;padding:7px 0 0;
-  border-top:1px solid #bea587;
+ #full-season-schedule .mbb-schedule-table>tbody>tr.cbb-schedule-forecast-row{
+  display:block!important;width:100%!important;min-width:0!important;padding:0!important;
  }
- #full-season-schedule .sched-result-summary::before{
-  content:'Result';display:block;margin-bottom:3px;color:#70533e;
-  font:800 9px/1.2 Arial,sans-serif;letter-spacing:.06em;text-transform:uppercase;
+ #full-season-schedule .mbb-schedule-table>tbody>tr.cbb-schedule-forecast-row[hidden]{display:none!important}
+ #full-season-schedule .mbb-schedule-table>tbody>tr.cbb-schedule-forecast-row>td{
+  display:block!important;width:100%!important;min-width:0!important;padding:0 6px 9px!important;
  }
- #full-season-schedule .sched-result-cell--forecast > .cbb-forecast-receipt{
-  grid-column:1/-1;width:100%;min-width:0;margin:8px 0 1px;
+ #full-season-schedule .cbb-schedule-forecast-row .cbb-forecast-receipt{
+  grid-template-columns:minmax(0,1fr);gap:8px;padding:9px;
  }
- #full-season-schedule .sched-result-cell--forecast .cbb-forecast-comparison{
-  grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;
+ #full-season-schedule .cbb-schedule-forecast-row .cbb-forecast-heading{
+  flex-direction:row;justify-content:space-between;align-items:center;
  }
- #full-season-schedule .sched-result-cell--forecast .cbb-forecast-metric+.cbb-forecast-metric{
-  border-top:0;border-left:1px solid #c5b397;padding:0 0 0 9px;
+ #full-season-schedule .cbb-schedule-forecast-row .cbb-forecast-comparison{
+  grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;
+ }
+ #full-season-schedule .cbb-schedule-forecast-row .cbb-forecast-metric{
+  display:block;
+ }
+ #full-season-schedule .cbb-schedule-forecast-row .cbb-forecast-metric+.cbb-forecast-metric{
+  padding-left:8px;
  }
 }
 @media(max-width:640px){
