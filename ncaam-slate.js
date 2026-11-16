@@ -890,8 +890,8 @@ function card(original,featured,opened=false){
       '<div class="ledger26-matchup-team"><b>'+esc(name)+'</b><span>'+stats.for+' PPG · '+stats.against+
        ' allowed'+(stats.form?' · Last '+Math.min(5,stats.form.split(' ').length)+': '+esc(stats.form):'')+'</span></div>':'').join('')+
    '</section>':'';
- return '<article class="sl-game ledger26-card'+(women?' ledger26-card--women':' ledger26-card--men')+(featured?' ledger26-featured':'')+(women&&g.phase==='upcoming'?' ledger26-card--refined':'')+'">'+
-   (when||right?'<div class="ledger26-meta'+(g.phase==='upcoming'?' ledger26-meta--pregame':'')+(women&&g.phase==='upcoming'?' ledger26-meta--refined':'')+'">'+when+right+'</div>':'')+
+ return '<article class="sl-game ledger26-card'+(women?' ledger26-card--women':' ledger26-card--men')+(featured?' ledger26-featured':'')+'">'+
+   (when||right?'<div class="ledger26-meta'+(g.phase==='upcoming'?' ledger26-meta--pregame':'')+'">'+when+right+'</div>':'')+
    '<details class="sl-game-expansion ledger26-expand" data-game-id="'+esc(g.id)+'" data-day="'+esc(g.day)+'" data-gender="'+(women?'women':'men')+'" data-home-id="'+esc(g.home.canonical||'')+'" data-away-id="'+esc(g.away.canonical||'')+'" data-home-name="'+esc(g.home.name)+'" data-away-name="'+esc(g.away.name)+'"'+(opened?' open':'')+'>'+
    '<summary class="ledger26-summary" aria-label="Expand '+esc(g.away.name)+' at '+esc(g.home.name)+' game details">'+
    ledgerScorebug(g)+'<span class="ledger26-instruction">OPEN GAME DETAILS <span aria-hidden="true">+</span></span></summary>'+
