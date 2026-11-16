@@ -3,7 +3,7 @@
   "source_name": "Atlantic Coast Conference 2026 official women's soccer standings",
   "source_url": "https://theacc.com/standings.aspx?path=wsoc",
   "snapshot_checked_date": "2026-10-25",
-  "note": "Conference-ordered official 2026 table snapshot; not tournament seeds, and may change after the source cutoff.",
+  "note": "Conference-ordered official 2026 table snapshot; not tournament seeds, and may change after the source cutoff. Official 2026 conference tournament seeds and completed bracket added; regular-season standings snapshot remains historical and is not a current standings table.",
   "rows": [
     {
       "team_id": "north-carolina",
@@ -107,5 +107,82 @@
       "conference_points": 3,
       "overall_record": "4-9-2"
     }
-  ]
+  ],
+  "tournament_seeds": [
+    "notre-dame",
+    "north-carolina",
+    "wake-forest",
+    "florida-st",
+    "virginia",
+    "duke"
+  ],
+  "tournament_bracket": {
+    "status": "official",
+    "source_url": "https://admin.theacc.com/news/2026/11/15/north-carolina-wins-2026-ally-acc-womens-soccer-championship.aspx",
+    "verified_through": "2026-11-15",
+    "matches": [
+      {
+        "id": "M1",
+        "round": "FIRST ROUND · NOV 8",
+        "home_id": "wake-forest",
+        "away_id": "duke",
+        "home_score": 4,
+        "away_score": 5,
+        "winner_id": "duke",
+        "status": "final",
+        "decision": "extra_time",
+        "source_url": "https://admin.theacc.com/news/2026/11/15/north-carolina-wins-2026-ally-acc-womens-soccer-championship.aspx",
+        "result_date": "2026-11-08"
+      },
+      {
+        "id": "M2",
+        "round": "FIRST ROUND · NOV 8",
+        "home_id": "florida-st",
+        "away_id": "virginia",
+        "home_score": 0,
+        "away_score": 3,
+        "winner_id": "virginia",
+        "status": "final",
+        "source_url": "https://admin.theacc.com/news/2026/11/15/north-carolina-wins-2026-ally-acc-womens-soccer-championship.aspx",
+        "result_date": "2026-11-08"
+      },
+      {
+        "id": "M3",
+        "round": "SEMIFINALS · NOV 12",
+        "home_id": "notre-dame",
+        "away_id": "virginia",
+        "home_score": 0,
+        "away_score": 1,
+        "winner_id": "virginia",
+        "status": "final",
+        "source_url": "https://admin.theacc.com/news/2026/11/15/north-carolina-wins-2026-ally-acc-womens-soccer-championship.aspx",
+        "result_date": "2026-11-12"
+      },
+      {
+        "id": "M4",
+        "round": "SEMIFINALS · NOV 12",
+        "home_id": "north-carolina",
+        "away_id": "duke",
+        "home_score": 1,
+        "away_score": 0,
+        "winner_id": "north-carolina",
+        "status": "final",
+        "source_url": "https://admin.theacc.com/news/2026/11/15/north-carolina-wins-2026-ally-acc-womens-soccer-championship.aspx",
+        "result_date": "2026-11-12"
+      },
+      {
+        "id": "M5",
+        "round": "CHAMPIONSHIP · NOV 15",
+        "home_id": "north-carolina",
+        "away_id": "virginia",
+        "home_score": 2,
+        "away_score": 0,
+        "winner_id": "north-carolina",
+        "status": "final",
+        "source_url": "https://admin.theacc.com/news/2026/11/15/north-carolina-wins-2026-ally-acc-womens-soccer-championship.aspx",
+        "result_date": "2026-11-15"
+      }
+    ]
+  },
+  "last_verified_game_date": "2026-11-15"
 }
