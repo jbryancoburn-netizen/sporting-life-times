@@ -851,3 +851,66 @@
 .ledger26-pulse-closeup>div small{font:10px Georgia,serif}
 .ledger26-pulse-closeup svg{display:block;width:100%;height:82px}
 @media(max-width:700px){.ledger26-pulse-closeup svg{height:70px}}
+
+/* RETRO Pulse v2: Concept A in collapsed ledger, Concept B in expanded gamefile.
+   No microscopic full-game graph in the summary. */
+.ledger26-scorebug--pulse .ledger26-teams{grid-template-rows:auto 61px auto!important}
+.ledger26-scorebug--pulse .ledger26-pulse{
+ height:61px!important;min-height:0!important;overflow:hidden;
+ background:#eee1c8;color:#302619;border-top:1px solid #9b805e;
+ border-bottom:1px solid #9b805e;
+}
+.ledger26-pulse-compact{
+ display:grid;grid-template-columns:minmax(75px,.7fr) minmax(0,1.25fr) minmax(0,1.15fr) auto;
+ align-items:center;gap:10px;min-height:59px;padding:5px 11px;
+ font-family:Georgia,"Times New Roman",serif;
+}
+.ledger26-pulse-state{font-size:13px;letter-spacing:.06em;color:#3f2b1e}
+.ledger26-pulse[data-phase=live] .ledger26-pulse-state{color:#a52d20}
+.ledger26-pulse-stat{min-width:0;display:grid;gap:3px;padding-left:10px;border-left:1px solid #b9a180}
+.ledger26-pulse-stat small{font:700 9px/1 Georgia,serif;color:#785c3d;letter-spacing:.04em}
+.ledger26-pulse-stat b{font:700 16px/1.15 Georgia,serif;color:#332417;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ledger26-pulse-invite{font:700 10px Georgia,serif;white-space:nowrap;color:#6b4d31}
+.ledger26-pulse-invite span{font-size:16px}
+.ledger26-pulse-expanded{
+ background:#f3e8d5;color:#342619;border:1px solid #ab906b;
+ margin:0 0 10px;padding:13px 15px 10px;
+ font-family:Georgia,"Times New Roman",serif;
+}
+.ledger26-pulse-expanded-head{display:flex;align-items:baseline;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:7px}
+.ledger26-pulse-expanded-head strong{font:700 15px Georgia,serif;letter-spacing:.04em}
+.ledger26-pulse-expanded-head span{font:700 11px Georgia,serif;color:#725638}
+.ledger26-pulse-expanded-chart{height:258px;position:relative}
+.ledger26-pulse-expanded-chart svg{display:block;width:100%;height:258px}
+.ledger26-pulse-expanded-chart .ledger26-pulse-rule{stroke:#c1ae94;stroke-width:.9;stroke-dasharray:3 4}
+.ledger26-pulse-expanded-chart .ledger26-pulse-rule--zero{stroke:#62452b;stroke-width:1.8;stroke-dasharray:none}
+.ledger26-pulse-expanded-chart .ledger26-pulse-axis{font:700 14px Georgia,serif;fill:#543c29}
+.ledger26-pulse-expanded-chart .ledger26-pulse-divider{stroke:#b8a082;stroke-width:1;stroke-dasharray:3 4}
+.ledger26-pulse-expanded-chart .ledger26-pulse-divider--half{stroke:#49331f;stroke-width:2;stroke-dasharray:none}
+.ledger26-pulse-expanded-chart .ledger26-pulse-trace{stroke:#79223b;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;fill:none;vector-effect:non-scaling-stroke}
+.ledger26-pulse-expanded-chart .ledger26-pulse-last{fill:#79223b;stroke:#fff6e9;stroke-width:1.4}
+.ledger26-pulse-period-label{font:700 13px Georgia,serif;fill:#483222}
+.ledger26-pulse-media-label{font:700 9px Georgia,serif;fill:#7b6042}
+.ledger26-pulse-time{font:700 12px Georgia,serif;fill:#755637}
+.ledger26-pulse-expanded-chart .ledger26-pulse-taps{position:absolute;left:6.5%;right:4.05%;top:14.7%;bottom:13.7%}
+.ledger26-pulse-expanded-chart .ledger26-pulse-hit{min-height:40px;touch-action:manipulation}
+.ledger26-pulse-expanded-foot{border-top:1px solid #c6af8e;margin-top:5px;padding-top:6px;font:700 11px/1.5 Georgia,serif;color:#644a32}
+@media(max-width:700px){
+ .ledger26-scorebug--pulse .ledger26-teams{grid-template-rows:auto 56px auto!important}
+ .ledger26-scorebug--pulse .ledger26-pulse{height:56px!important}
+ .ledger26-pulse-compact{min-height:54px;padding:4px 7px;gap:5px;grid-template-columns:55px minmax(0,1fr) minmax(0,1fr)}
+ .ledger26-pulse-state{font-size:12px}
+ .ledger26-pulse-stat{padding-left:6px;gap:3px}
+ .ledger26-pulse-stat small{font-size:8px}
+ .ledger26-pulse-stat b{font-size:14px}
+ .ledger26-pulse-invite{display:none}
+ .ledger26-pulse-expanded{padding:9px 8px}
+ .ledger26-pulse-expanded-head{gap:5px}
+ .ledger26-pulse-expanded-head strong{font-size:13px}
+ .ledger26-pulse-expanded-head span{font-size:10px}
+ .ledger26-pulse-expanded-chart,.ledger26-pulse-expanded-chart svg{height:205px}
+ .ledger26-pulse-expanded-chart .ledger26-pulse-axis{font-size:17px}
+ .ledger26-pulse-expanded-chart .ledger26-pulse-media-label{display:none}
+ .ledger26-pulse-expanded-chart .ledger26-pulse-trace{stroke-width:1.35}
+ .ledger26-pulse-expanded-foot{font-size:10px}
+}
