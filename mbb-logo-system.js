@@ -543,7 +543,7 @@ const modern=known?(school.logo_url_verified?safeURL(school.official_logo_url||s
 // Local heritage artwork must not silently switch to a modern third-party
 // logo. If a selected local file is unavailable, fail visibly for audit.
 const backup=baked||heritage?'':known?(school.provider_logo_candidates||[]).map(safeURL).find(x=>x&&x!==primary)||'':
- outsideEntry?(cachedCrest?safeURL(outsideEntry.logo_url):safeURL(outsideEntry.logo_alternate_url)||''):'');
+ outsideEntry?(cachedCrest?safeURL(outsideEntry.logo_url):safeURL(outsideEntry.logo_alternate_url)||''):'';
 // A watermark must use original school art, not a circular baked crest.
 const watermarkArt=heritage||(known?modern:outsideEntry?safeURL(outsideEntry.logo_url):'');
 const initials=name.split(/\s+/).slice(0,2).map(v=>v[0]||'').join('').toUpperCase();
