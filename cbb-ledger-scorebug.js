@@ -1,4 +1,5 @@
 /* The Sporting Life & Times · shared college-basketball letterpress scorebug.
+   Rich embossed edition: shared men's/women's release with refreshed CI asset contract.
    One source renderer for the Daily Ledger and Courtside Desk, men and women. */
 (function(root){
  'use strict';
