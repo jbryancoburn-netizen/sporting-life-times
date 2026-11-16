@@ -178,3 +178,19 @@
  .slc-now{min-height:61px}
  .slc-now strong{font-size:14px}
 }
+
+/* Actual play-log timeouts and between-timeout intervals on the color Game Flow. */
+.slc-flow svg .slc-flow-timeout line{stroke:#866347;stroke-width:2;stroke-dasharray:5 5;opacity:.85}
+.slc-flow svg .slc-flow-timeout circle{fill:#fff8eb;stroke:#866347;stroke-width:2}
+.slc-flow svg .slc-flow-timeout text{font:800 13px Arial,sans-serif;fill:#69472b}
+.slc-flow svg .slc-flow-period-rule{stroke:#37535d;stroke-width:2;stroke-dasharray:6 5;opacity:.6}
+.slc-flow svg .slc-flow-period-label{font:800 13px Arial,sans-serif;fill:#244a54}
+.slc-flow-segments{border-top:1px solid #c9d7d1;margin:7px 0;padding:9px 0}
+.slc-flow-segments>strong{display:block;font:800 11px Arial,sans-serif;letter-spacing:.05em;color:#284750;margin-bottom:9px}
+.slc-flow-segment-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:6px}
+.slc-flow-segment{display:flex;flex-direction:column;gap:4px;padding:8px;background:#f0f4f1;border-left:3px solid #957351;min-width:0}
+.slc-flow-segment b{font:800 10px Arial,sans-serif;color:#5d4832}
+.slc-flow-segment span{font:600 10px Arial,sans-serif;color:#3e5b61}
+.slc-flow-segment strong{font:800 11px Arial,sans-serif;color:#153d48}
+@media(max-width:740px){.slc-flow-segment-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .slc-flow-segment{padding:7px 6px}.slc-flow svg .slc-flow-timeout text{font-size:16px}}
