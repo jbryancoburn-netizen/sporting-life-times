@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Indiana Boys Basketball RETRO | Sporting Life &amp; Times</title>
+  <link rel="icon" href="slt-monogram-favicon.svg" type="image/svg+xml">
+  <style>
+    :root { color: #272119; background: #f5eedf; font-family: "Century Schoolbook", Georgia, serif; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    main { max-width: 1080px; margin: auto; padding: 1rem clamp(.75rem, 4vw, 2rem) 2rem; }
+    a { color: #6d3026; text-underline-offset: .17em; }
+    header { text-align: center; border-block: 4px double #524435; padding: 1rem 0; }
+    header a { font-weight: bold; color: inherit; }
+    h1 { font-size: clamp(1.8rem, 5vw, 3.4rem); margin: .3em 0 .15em; line-height: 1; }
+    p { margin: .5rem 0; }
+    .filters { display: flex; flex-wrap: wrap; gap: .6rem 1rem; padding: .85rem 0; border-bottom: 1px solid #a5947f; }
+    label { display: grid; gap: .25rem; font-size: .9rem; flex: 1 1 11rem; }
+    input, select { width: 100%; color: inherit; background: #fffaf0; border: 1px solid #9b8870; padding: .45rem; font: inherit; border-radius: 0; }
+    h2 { margin: .65rem 0 .25rem; font-size: 1.4rem; }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+    th, td { padding: .45rem .55rem; border-bottom: 1px solid #cbbda7; text-align: left; }
+    thead { background: #e8dcc7; border-block: 3px double #524435; }
+    tbody tr:nth-child(even) { background: #eee4d3; }
+    .number { text-align: right; white-space: nowrap; }
+    footer { margin-top: 1rem; padding-top: .7rem; border-top: 3px double #524435; font-size: .85rem; }
+    @media (max-width: 640px) { th, td { padding: .4rem .3rem; } table { font-size: .83rem; } }
+  </style>
+  <script defer src="indiana-boys-basketball.js"></script>
+</head>
+<body>
+<main>
+  <header>
+    <a href="sports.html">Sporting Life &amp; Times</a>
+    <h1>Indiana Boys Basketball RETRO</h1>
+    <p id="edition"></p>
+  </header>
+  <section class="filters" aria-label="Ranking filters">
+    <label>Class<select id="class"><option value="">All classes</option><option>4A</option><option>3A</option><option>2A</option><option>1A</option></select></label>
+    <label>Conference<select id="conference"><option value="">All conferences</option></select></label>
+    <label>Sectional<select id="sectional"><option value="">All sectionals</option></select></label>
+    <label>Find a school<input type="search" id="school" placeholder="School name"></label>
+  </section>
+  <h2 id="view-title">Statewide register</h2>
+  <p id="status" role="status">Loading school register…</p>
+  <div class="table-wrap">
+    <table aria-labelledby="view-title" hidden>
+      <thead><tr><th class="number" scope="col">Rank</th><th scope="col">School</th><th scope="col">Class</th><th scope="col">Conference</th><th class="number" scope="col">Sectional</th><th class="number" scope="col">RETRO</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <footer><a href="https://www.ihsaa.org/schools/enrollments-classifications">IHSAA class and sectional assignments</a> · <a href="http://scoreboard.homestead.com/boys/conf.htm">John Harrell’s conference standings</a></footer>
+</main>
+</body>
+</html>
