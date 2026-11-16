@@ -22,10 +22,12 @@ assert(logoRenderer.includes("'77':'assets/cbb-big-ten-1980s/centered/northweste
 
 
 const forecastScorebug=fs.readFileSync('cbb-ledger-scorebug.js','utf8');
-assert(scorecardCss.includes('flex-direction:column!important') &&
- scorecardCss.includes('overflow-wrap:anywhere!important') &&
- !scorecardCss.includes('grid-template-columns:minmax(0,1fr) minmax(0,1fr)') &&
- !scorecardCss.includes('max-height:2.2em;overflow:hidden'),
+const forecastRailCss=scorecardCss.split('/* Shared RETRO forecast rail for men\'s and women\'s college basketball.')[1];
+assert(forecastRailCss &&
+ forecastRailCss.includes('flex-direction:column!important') &&
+ forecastRailCss.includes('overflow-wrap:anywhere!important') &&
+ !forecastRailCss.includes('grid-template-columns:minmax(0,1fr) minmax(0,1fr)') &&
+ !forecastRailCss.includes('max-height:2.2em;overflow:hidden'),
  'Northwestern forecast winner, probability, spread and score must not overlap in a half-width label grid');
 assert(forecastScorebug.includes('RETRO SPREAD') &&
  forecastScorebug.includes('PROJECTED FINAL') &&
