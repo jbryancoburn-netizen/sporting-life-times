@@ -147,26 +147,37 @@ function gameFlow(plays,game){
     .map(i=>'<text class="slc-flow-time-label" x="'+x(i).toFixed(1)+'" y="408" text-anchor="'+
       (i===0?'start':i===sampled.length-1?'end':'middle')+'">EVENT '+(shownIndices[i]+1)+'</text>').join('');
 
- // Show only timeouts with an actual provider game clock. Never invent event positions.
+ // Timeouts use provider-reported plays. When some scoring clocks are missing,
+ // locate markers by actual event order instead of suppressing them altogether.
  const timeouts=[],seenTimeout=new Set();
- if(timeline)for(const p of plays){
+ for(let i=0;i<plays.length;i++){
+  const p=plays[i];
   if(!/\btime\s*[- ]?out\b/i.test(p.kind+' '+p.text))continue;
-  const elapsed=elapsedClock(p,timeline.women);
-  if(elapsed===null||elapsed>timeline.end)continue;
-  const key=p.period+'|'+p.clock+'|'+(p.teamId||'');
-  if(!seenTimeout.has(key)){seenTimeout.add(key);timeouts.push({...p,elapsed});}
+  const elapsed=elapsedClock(p,game?.gender==='women'||game?.league==='ncaaw');
+  if(timeline&&(elapsed===null||elapsed>timeline.end))continue;
+  const key=p.id+'|'+p.period+'|'+p.clock;
+  if(seenTimeout.has(key))continue;
+  seenTimeout.add(key);
+  // A timeout does not need a scoring event or invented clock time.
+  let count=0,latestScore={awayScore:0,homeScore:0};
+  for(let j=0;j<=i;j++){
+   const q=plays[j];
+   if(q.awayScore!==null&&q.homeScore!==null){
+    count++;
+    latestScore={awayScore:q.awayScore,homeScore:q.homeScore};
+   }
+  }
+  const fraction=timeline?elapsed/timeline.end:Math.min(1,Math.max(0,(count-1)/Math.max(1,scoring.length-1)));
+  timeouts.push({...p,elapsed,position:fraction,latestScore});
  }
- const scoreAt=t=>{
-  let last={awayScore:0,homeScore:0};
-  if(timeline)for(let i=0;i<scoring.length;i++){if(timeline.elapsed[i]>t)break;last=scoring[i];}
-  return last;
- };
- const segmentPoints=timeline&&timeouts.length?
-  [{elapsed:0,clock:'TIPOFF'},...timeouts,{elapsed:timeline.end,clock:'LATEST'}]:[];
- const spanData=segmentPoints.slice(1).map((end,i)=>{
-  const start=segmentPoints[i],a=scoreAt(start.elapsed),b=scoreAt(end.elapsed);
+ timeouts.sort((a,b)=>a.position-b.position);
+ const endPoint={clock:'LATEST',position:1,latestScore:scoring.at(-1)};
+ const startPoint={clock:'TIPOFF',position:0,latestScore:{awayScore:0,homeScore:0}};
+ const cut=timeouts.length?[startPoint,...timeouts,endPoint]:[];
+ const spanData=cut.slice(1).map((end,i)=>{
+  const start=cut[i],a=start.latestScore,b=end.latestScore;
   return {start,end,away:b.awayScore-a.awayScore,home:b.homeScore-a.homeScore};
- }).filter(v=>v.end.elapsed>v.start.elapsed);
+ }).filter(v=>v.end.position>v.start.position);
  const periodMarks=timeline?Array.from({length:timeline.women?3:1},(_,i)=>({
   elapsed:(i+1)*(timeline.women?600:1200),
   label:timeline.women?'END Q'+(i+1):'HALFTIME'
@@ -175,17 +186,17 @@ function gameFlow(plays,game){
   return '<line class="slc-flow-period-rule" x1="'+xx+'" x2="'+xx+'" y1="80" y2="338"/>'+
    '<text class="slc-flow-period-label" x="'+xx+'" y="66" text-anchor="middle">'+p.label+'</text>';
  }).join(''):'';
- const timeoutMarks=timeline?timeouts.map((p,i)=>{
-  const xx=left+(right-left)*p.elapsed/timeline.end;
+ const timeoutMarks=timeouts.map((p,i)=>{
+  const xx=left+(right-left)*p.position;
   return '<g class="slc-flow-timeout"><title>'+esc(p.text+' · '+p.clock)+'</title>'+
    '<line x1="'+xx+'" x2="'+xx+'" y1="82" y2="338"/>'+
    '<circle cx="'+xx+'" cy="75" r="7"/>'+
    '<text x="'+xx+'" y="56" text-anchor="middle">T'+(i+1)+'</text></g>';
- }).join(''):'';
+ }).join('');
  const segmentStrip=spanData.length?'<div class="slc-flow-segments"><strong>TIMEOUT-TO-TIMEOUT SCORING</strong>'+
   '<div class="slc-flow-segment-grid">'+spanData.map((v,i)=>
    '<div class="slc-flow-segment"><b>SEGMENT '+(i+1)+'</b>'+
-   '<span>'+esc(v.start.clock)+' → '+esc(v.end.clock)+'</span>'+
+   '<span>'+esc(v.start.clock==='TIPOFF'?'TIPOFF':(v.start.period?'P'+v.start.period+' ':'')+v.start.clock)+' → '+esc(v.end.clock==='LATEST'?'LATEST':(v.end.period?'P'+v.end.period+' ':'')+v.end.clock)+'</span>'+
    '<strong>'+v.away+'–'+v.home+' POINTS (AWAY–HOME)</strong></div>').join('')+
   '</div></div>':'';
  const last=scoring.at(-1),latest=margin(last);
