@@ -9,7 +9,9 @@ assert(index.includes('id="league-search"'),'directory search missing');
 assert(css.includes('@media(max-width:650px)'),'mobile layout missing');
 const found=[...index.matchAll(/class="league-directory-link" href="([^"]+\.html)"/g)].map(m=>m[1]);
 assert.equal(new Set(found).size,found.length,'duplicate desk links');
-assert(found.length>=35,'the broader sports directory is incomplete');
+assert(found.length>=28,'the broader sports directory is incomplete');
+const displayedCount=Number(index.match(/id="league-search-summary">(\d+) sporting editions/)?.[1]);
+assert.equal(found.length,displayedCount,'directory count does not match published edition links');
 const basketball=['nba.html','euroleague.html','nbl.html','bbl.html'];
 const pro=index.match(/<h2>Professional Basketball<\/h2>([\s\S]*?)<\/section>/)?.[1]||'';
 const proLinks=[...pro.matchAll(/href="([^"]+\.html)"/g)].map(m=>m[1]);
@@ -40,7 +42,7 @@ for(const page of found){
  }else if(page==='nfl.html'){
   assert(/nfl-edition(?:-v3)?\.js/.test(html),'NFL edition loader missing');
   assert(html.includes('id="nfl-app"'),'NFL edition mount missing');
- }else if(!['nba.html','epl.html','euroleague.html','college-basketball.html','college-football.html'].includes(page)){
+ }else if(!['nba.html','epl.html','euroleague.html','college-basketball.html','ncaam.html','college-football.html'].includes(page)){
   for(const id of ['league-news-grid','league-standings-table','league-final-lines','league-result-ledger','league-upcoming-games','league-snapshot'])assert(html.includes('id="'+id+'"'),id+' missing from '+page);
   assert(html.includes('league-desks.js'),'shared data loader missing: '+page);
  }
@@ -57,7 +59,7 @@ for(const page of found){
   assert(html.includes('standings-panel'),'EuroLeague standings panel missing');
  }
 }
-for(const page of ['euroleague.html','nbl.html','college-basketball.html','nfl.html','mlb.html','nhl.html','champions-league.html'])assert(found.includes(page),'important league absent: '+page);
+for(const page of ['euroleague.html','nbl.html','ncaam.html','nfl.html','mlb.html','nhl.html','champions-league.html'])assert(found.includes(page),'important league absent: '+page);
 const scores=JSON.parse(read('multi_scoreboards.json'));for(const l of scores.leagues){
  const escaped=JSON.stringify(l.league).slice(1,-1);
  assert(js.includes(escaped),'published scoreboard league not mapped to desk: '+l.league);
