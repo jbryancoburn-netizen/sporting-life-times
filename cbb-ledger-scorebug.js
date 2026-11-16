@@ -442,7 +442,7 @@
    if(!detail||!target)return;
    detail.open=true;
    let panel=target.querySelector('.ledger26-pulse-breakdown');
-   if(!panel){panel=document.createElement('section');panel.className='ledger26-pulse-breakdown';target.prepend(panel);}
+   if(!panel){panel=document.createElement('section');panel.className='ledger26-pulse-breakdown';(target.querySelector('.ledger26-pulse-expanded')||target).after(panel);}
    if(panel.dataset.index===button.dataset.retroSegment){panel.remove();return;}
    panel.dataset.index=button.dataset.retroSegment;
    panel.innerHTML='<strong>RETRO PULSE · '+esc(item.start.label)+' TO '+esc(item.end.label)+'</strong>'+
