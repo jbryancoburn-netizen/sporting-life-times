@@ -22,9 +22,8 @@ assert(logoRenderer.includes("'77':'assets/cbb-big-ten-1980s/centered/northweste
 
 
 const forecastScorebug=fs.readFileSync('cbb-ledger-scorebug.js','utf8');
-assert(script.includes('pulseRead(g,await response.json())') && script.includes('data-slt-pulse-segment') && script.includes('pulseScale.set(key,scale)'), 'FAMU-UTEP Pulse must use verified timed plays, selectable segments, and a never-shrinking lead scale');
-assert(scorecardCss.includes('.slt-pulse-plot{height:60px') && scorecardCss.includes('grid-row:3'), 'RETRO Pulse must remain compact between away and home rows');
 assert(forecastScorebug.includes('pulseRange(max)') && forecastScorebug.includes('pulseScale.set(id,scale)'), 'RETRO Pulse must preserve the largest observed lead scale');
+assert(forecastScorebug.includes('ledger26-scorebug--pulse'), 'Pulse must occupy full scorebug width without empty status column');
 assert(forecastScorebug.includes('data-retro-segment') && forecastScorebug.includes('getImageData('), 'RETRO Pulse segments must be directly clickable while preserving the existing watermark cleanup');
 assert(forecastScorebug.includes('const label=(band?') && forecastScorebug.includes('clock:p.clock'), 'real media timeouts must retain their observed clock');
 assert(script.includes('gameId:String(g.id)') && script.includes('const convert=t=>({id:String(t.id)'), 'RETRO Pulse must receive exact source game and team IDs');
@@ -48,7 +47,7 @@ assert(forecastScorebug.includes('RETRO SPREAD') &&
  forecastScorebug.includes('ledger26-pregame-inline--prob'),
  'the pregame rail needs independently legible probability, signed spread and projected final');
 assert(html.includes('cbb-ledger-scorecard.css?v=retro-pulse-famu-utep-20261116') &&
- html.includes('cbb-ledger-scorebug.js?v=retro-pulse-20261116a'),
+ html.includes('cbb-ledger-scorebug.js?v=retro-pulse-shared-20261116b'),
  'the public ledger must load the current unified scorebug and forecast layout without stale cached assets');
 
 assert(!/draftkings|onlyDraftKings|sportsbook|draftKingsByDate/i.test(script+html+scorecardCss), 'sportsbook lines and lookups must not reappear in the ledger');
