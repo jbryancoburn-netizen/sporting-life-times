@@ -782,3 +782,21 @@
  .ledger26-scorebug .ledger26-team--dark-fill .ledger26-ghost{opacity:.23}
  .ledger26-scorebug .ledger26-team--light-fill .ledger26-ghost{opacity:.29}
 }
+
+/* RETRO Pulse: source-verified scoring timeline, no redundant status column. */
+.ledger26-scorebug--pulse{grid-template-columns:minmax(0,1fr)!important}
+.ledger26-scorebug--pulse .ledger26-teams{grid-template-rows:auto 68px auto}
+.ledger26-pulse{background:#eee1c9;border-top:1px solid #9c8665;border-bottom:1px solid #9c8665;min-width:0;height:68px;overflow:hidden;position:relative}
+.ledger26-pulse-heading{display:flex;align-items:center;justify-content:space-between;gap:5px;height:17px;padding:0 8px;white-space:nowrap;font:700 9px/1 Georgia,serif;color:#60482f}
+.ledger26-pulse-heading strong{font:700 11px/1 Georgia,serif;color:#382619}
+.ledger26-pulse[data-phase="live"] .ledger26-pulse-heading strong{color:#a52c1e}
+.ledger26-pulse-heading span{overflow:hidden;text-overflow:ellipsis;font-size:9px}
+.ledger26-pulse-chart{height:50px;position:relative;margin:0 5px}
+.ledger26-pulse-chart svg{width:100%;height:49px;display:block}
+.ledger26-pulse-taps{position:absolute;left:8.78%;right:3.19%;top:2px;bottom:2px}
+.ledger26-pulse-hit{position:absolute;top:0;height:100%;margin:0;padding:0;border:0;min-width:3px;background:transparent;cursor:pointer}
+.ledger26-pulse-hit:hover,.ledger26-pulse-hit:focus-visible{background:rgba(98,65,37,.14);outline:1px solid #91724f}
+.ledger26-pulse-breakdown{display:grid;gap:5px;margin-bottom:8px;padding:9px;border:1px solid #bca27c;background:#eee2c9;color:#392b1b;font:12px/1.35 Georgia,serif}
+.ledger26-pulse-breakdown ol{max-height:200px;overflow:auto;padding-left:20px;margin:5px 0}
+.ledger26-pulse-breakdown li{margin:0 0 4px}
+@media(max-width:640px){.ledger26-scorebug--pulse .ledger26-teams{grid-template-rows:auto 64px auto}.ledger26-pulse{height:64px}.ledger26-pulse-heading{height:16px;padding:0 4px}.ledger26-pulse-heading span{font-size:8px}.ledger26-pulse-chart,.ledger26-pulse-chart svg{height:47px}}
