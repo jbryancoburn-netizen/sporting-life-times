@@ -130,8 +130,16 @@ function draw(data,metrics,branding){
  }
 }
 async function show(){try{const data=await file('data/college-soccer-ncaa-selection-forecast.json');if(data.field?.length!==48)throw Error('Invalid field');const metrics=await file('data/college-soccer-ncaa-rpi-forecast-2026.json').catch(()=>({status:'not_ready'}));const branding=await file('data/college-soccer-team-branding.json').catch(()=>({teams:{}}));
- const [palette,overrides]=await Promise.all([file('data/dual-ring-team-palette.json').catch(()=>({soccer:{}})),file('data/college-soccer-crest-overrides.json').catch(()=>({schools:{}}))]);
- branding.soccer_palette=palette.soccer||{};branding.crest_overrides=overrides.schools||{};
+ const [palette,overrides,local]=await Promise.all([
+   file('data/dual-ring-team-palette.json').catch(()=>({soccer:{}})),
+   file('data/college-soccer-crest-overrides.json').catch(()=>({schools:{}})),
+   file('data/college-soccer-local-crest-manifest.json').catch(()=>({teams:{}}))
+ ]);
+ branding.soccer_palette=palette.soccer||{};
+ branding.crest_overrides=overrides.schools||{};
+ branding.local_crests=local.teams||{};
+ const unmapped=data.field.filter(x=>!branding.local_crests['men-d1:'+x.team_id]);
+ if(unmapped.length)throw Error('Missing archived logos for '+unmapped.map(x=>x.team).join(', '));
  draw(data,metrics,branding);
  const audit=document.getElementById('cs-selection-audit');
  if(audit){
