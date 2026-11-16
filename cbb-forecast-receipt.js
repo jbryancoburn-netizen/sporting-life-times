@@ -114,20 +114,31 @@ function decorate(){
  document.querySelectorAll('#mbb-calendar-host .mbb-schedule-table tr[data-cbb-forecast-id]').forEach(row=>{
   const dest=row.querySelector('.sched-result-cell');
   if(!dest)return;
-  // Keep the existing table cell and live controls. On mobile its summary
-  // occupies the result column, while the receipt spans the whole card.
-  if(!dest.querySelector(':scope > .sched-result-summary')){
-   const summary=document.createElement('div');
-   summary.className='sched-result-summary';
-   for(const child of [...dest.childNodes]){
-    if(child.nodeType!==1||!child.classList.contains('cbb-forecast-receipt'))summary.appendChild(child);
-   }
-   dest.prepend(summary);
+  // The receipt is a separate seven-column table row, never a narrow result-cell sidebar.
+  // Keep the main game's controls and the adjacent expandable stats row unchanged.
+  const old=dest.querySelector(':scope > .cbb-forecast-receipt');
+  old?.remove();
+  const previousSummary=dest.querySelector(':scope > .sched-result-summary');
+  if(previousSummary){
+   while(previousSummary.firstChild)dest.insertBefore(previousSummary.firstChild,previousSummary);
+   previousSummary.remove();
   }
-  dest.classList.add('sched-result-cell--forecast');
+  dest.classList.remove('sched-result-cell--forecast');
   const phase=row.dataset.calendarState==='final'?'final':'upcoming';
-  set(dest,receipt('men',row.dataset.cbbForecastId,row.dataset.cbbForecastDay,
-    phase,readNumber(row.dataset.cbbFinalHomeMargin),null,null,row.dataset.cbbHomeName||'Home',row.dataset.cbbAwayName||'Away'));
+  const markup=receipt('men',row.dataset.cbbForecastId,row.dataset.cbbForecastDay,
+    phase,readNumber(row.dataset.cbbFinalHomeMargin),null,null,row.dataset.cbbHomeName||'Home',row.dataset.cbbAwayName||'Away');
+  let band=row.nextElementSibling;
+  if(band?.classList.contains('victorian-stat-detail'))band=band.nextElementSibling;
+  if(!band?.classList.contains('cbb-schedule-forecast-row')){
+   band=document.createElement('tr');
+   band.className='cbb-schedule-forecast-row';
+   band.innerHTML='<td colspan="7"></td>';
+   const anchor=row.nextElementSibling?.classList.contains('victorian-stat-detail')?row.nextElementSibling:row;
+   anchor.after(band);
+  }
+  band.dataset.forecastFor=row.dataset.cbbForecastId||'';
+  band.hidden=row.hidden;
+  set(band.firstElementChild,markup);
  });
 }
 function queue(){
