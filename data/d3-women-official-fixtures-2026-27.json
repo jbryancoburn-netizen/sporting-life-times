@@ -3,7 +3,7 @@
   "division": "d3",
   "gender": "women",
   "season": "2026-27",
-  "generated_utc": "2026-11-15T15:42:48.066863+00:00",
+  "generated_utc": "2026-11-16T00:01:24.442171+00:00",
   "source": "NCAA 2026-27 member directory + year/gender-validated official school athletics calendars",
   "scope": "NCAA membership-wide first pass; sources without independently validated 2026-27 schedules excluded",
   "ncaa_confirmed_programs": 415,
@@ -14,8 +14,8 @@
   "school_calendars_unresolved": 17,
   "source_status_counts": {
     "parsed": 365,
-    "parsed_conference": 33,
-    "failed": 17
+    "failed": 17,
+    "parsed_conference": 33
   },
   "last_verified_school_source": {
     "4": "https://adrianbulldogs.com/sports/womens-basketball/schedule/2026-27?grid=true",
@@ -3978,10 +3978,10 @@
     {
       "owner_org_id": 578,
       "source_url": "https://maroons.roanoke.edu/sports/womens-basketball/schedule?grid=true",
-      "readable_rows": 32,
+      "readable_rows": 30,
       "verified_member_opponents": 19,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 9,
+        "identity_not_d3_matched_but_posted": 7,
         "conditional_or_ambiguous_opponent": 4
       },
       "status": "parsed",
@@ -4052,10 +4052,10 @@
     {
       "owner_org_id": 585,
       "source_url": "https://athletics.rose-hulman.edu/sports/womens-basketball/schedule/2026-27?grid=true",
-      "readable_rows": 27,
+      "readable_rows": 26,
       "verified_member_opponents": 20,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 4,
+        "identity_not_d3_matched_but_posted": 3,
         "conditional_or_ambiguous_opponent": 3
       },
       "status": "parsed",
@@ -5109,7 +5109,7 @@
       "excluded_rows": {
         "missing_or_ambiguous_ncaa_opponent": 7
       },
-      "failed_school_calendar_urls": 1
+      "failed_school_calendar_urls": 9
     },
     {
       "owner_org_id": 787,
@@ -8386,7 +8386,7 @@
   ],
   "fixture_count": 4543,
   "reciprocal_fixtures": 2719,
-  "unresolved_opponent_fixture_count": 1583,
+  "unresolved_opponent_fixture_count": 1580,
   "unresolved_opponent_fixtures": [
     {
       "id": "d3-women-2026-11-06-73-other-3415eb321a6f",
@@ -11269,21 +11269,6 @@
       "venue_location": "Plattsburgh, N.Y."
     },
     {
-      "id": "d3-women-2026-11-14-578-other-361916dbd855",
-      "date": "2026-11-14",
-      "source_owner_org_id": 578,
-      "external_opponent_label": "Bridgewater vs. Marymount",
-      "placement": "neutral",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://maroons.roanoke.edu/sports/womens-basketball/schedule?grid=true",
-      "tipoff_as_posted": "8:00 p.m.",
-      "venue_location": "Salem, VA / Cregger Center"
-    },
-    {
       "id": "d3-women-2026-11-14-581-other-d957a17da8fa",
       "date": "2026-11-14",
       "source_owner_org_id": 581,
@@ -11764,21 +11749,6 @@
       "venue_location": "Rocky Mount, NC / Everett Gymnasium"
     },
     {
-      "id": "d3-women-2026-11-15-578-other-26ec76997f8c",
-      "date": "2026-11-15",
-      "source_owner_org_id": 578,
-      "external_opponent_label": "St. Mary's College of Maryland vs. Bridgewater",
-      "placement": "neutral",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://maroons.roanoke.edu/sports/womens-basketball/schedule?grid=true",
-      "tipoff_as_posted": "1:00 p.m.",
-      "venue_location": "Salem, VA / Cregger Center"
-    },
-    {
       "id": "d3-women-2026-11-15-583-other-2f52e85b2c40",
       "date": "2026-11-15",
       "source_owner_org_id": 583,
@@ -11792,21 +11762,6 @@
       "source_url": "https://www.rwuhawks.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "1:00 PM",
       "venue_location": "Williamstown, MA"
-    },
-    {
-      "id": "d3-women-2026-11-15-585-other-4c031f484286",
-      "date": "2026-11-15",
-      "source_owner_org_id": 585,
-      "external_opponent_label": "Southern Indiana",
-      "placement": "away",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://athletics.rose-hulman.edu/sports/womens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "1 PM CT | 2 PM ET",
-      "venue_location": "Evansville, Ind."
     },
     {
       "id": "d3-women-2026-11-15-611-other-8d33e1143d69",
@@ -42078,7 +42033,7 @@
       "venue_location": "Washington, DC",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "Jamie Lynn Roberts Fairfield Inn DC Holiday Classic",
+      "tournament": "Jamie Lynn Roberts Celebration Classic",
       "neutral_home_designation_unconfirmed": true
     },
     {
@@ -44408,7 +44363,7 @@
       "venue_location": "Waterville, ME",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "L, 58-66",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -44584,7 +44539,7 @@
       "venue_location": "Northfield, MInn.",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 75-57",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -44610,7 +44565,7 @@
       "venue_location": "Abilene, Texas",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 63-61",
       "neutral_home_designation_unconfirmed": false
     },
     {

@@ -320,7 +320,7 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | The University of Olivet (525) | verified_conference | [Exact verified URL](https://miaa.org/schedule.aspx?schedule=2283) | 16 |
 | Thiel College (707) | verified_university | [Exact verified URL](https://www.thielathletics.com/sports/mens-basketball/schedule/2026-27?grid=true) | 20 |
 | Thomas College (2758) | verified_university | [Exact verified URL](https://www.thomasathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true) | 21 |
-| Transylvania University (28749) | verified_university | [Exact verified URL](https://www.transysports.com/sports/mens-basketball/schedule/2026-27?grid=true) | 20 |
+| Transylvania University (28749) | verified_university | [Exact verified URL](https://www.transysports.com/sports/mens-basketball/schedule/2026-27?grid=true) | 18 |
 | Trine University (30037) | verified_university | [Exact verified URL](https://trinethunder.com/sports/mens-basketball/schedule/2026-27?grid=true) | 23 |
 | Trinity College (Connecticut) (713) | verified_university | [Exact verified URL](https://bantamsports.com/sports/mens-basketball/schedule/2026-27?grid=true) | 22 |
 | Trinity University (Texas) (715) | verified_university | [Exact verified URL](https://trinitytigers.com/sports/mens-basketball/schedule/2026-27?grid=true) | 15 |
@@ -344,7 +344,7 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | University of Minnesota, Morris (1226) | verified_university | [Exact verified URL](https://www.morriscougars.com/sports/mens-basketball/schedule/2026-27?grid=true) | 13 |
 | University of Mount Saint Vincent (451) | verified_university | [Exact verified URL](https://umsvathletics.com/sports/mens-basketball/schedule/2026-27?grid=true) | 14 |
 | University of Mount Union (452) | verified_university | [Exact verified URL](https://athletics.mountunion.edu/sports/mens-basketball/schedule/2026-27?grid=true) | 18 |
-| University of New England (1255) | verified_university | [Exact verified URL](https://athletics.une.edu/sports/mens-basketball/schedule?grid=true) | 16 |
+| University of New England (1255) | verified_university | [Exact verified URL](https://athletics.une.edu/sports/mens-basketball/schedule?grid=true) | 17 |
 | University of Northwestern-St. Paul (30031) | verified_university | [Exact verified URL](https://unweagles.com/sports/mens-basketball/schedule/2026-27?grid=true) | 18 |
 | University of Pittsburgh, Greensburg (11839) | verified_university | [Exact verified URL](https://pittgreensburgathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true) | 20 |
 | University of Puget Sound (557) | verified_university | [Exact verified URL](https://www.loggerathletics.com/sports/mens-basketball/schedule/2026-27?grid=true) | 21 |
@@ -411,10 +411,10 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 |---|---|---|---:|
 | Anderson University (Indiana) (939) | [NCAA athletics](https://athletics.anderson.edu) | season_heading_not_verified; Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar; 15 URLs checked | 19 |
 | Austin College (953) | [NCAA athletics](https://www.acroos.com) | season_heading_not_verified; Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar; 15 URLs checked | 23 |
-| Bridgewater State University (76) | [NCAA athletics](https://www.bsubears.com) | server_refused_method; Inspect official school schedule platform's public print/text calendar; do not circumvent access controls; 15 URLs checked | 10 |
-| Centenary College (Louisiana) (125) | [NCAA athletics](https://www.GoCentenary.com) | server_refused_method; Inspect official school schedule platform's public print/text calendar; do not circumvent access controls; 15 URLs checked | 14 |
-| Fitchburg State University (227) | [NCAA athletics](https://www.fitchburgfalcons.com) | server_refused_method; Inspect official school schedule platform's public print/text calendar; do not circumvent access controls; 15 URLs checked | 11 |
-| Framingham State University (238) | [NCAA athletics](https://www.fsurams.com) | server_refused_method; Inspect official school schedule platform's public print/text calendar; do not circumvent access controls; 15 URLs checked | 7 |
+| Bridgewater State University (76) | [NCAA athletics](https://www.bsubears.com) | calendar_path_unavailable; Find school's current official athletics website and season-specific schedule path; 20 URLs checked; [discovered schedule](https://www.bsubears.com/sports/mbkb/2026-27/schedule) | 10 |
+| Centenary College (Louisiana) (125) | [NCAA athletics](https://www.GoCentenary.com) | calendar_path_unavailable; Find school's current official athletics website and season-specific schedule path; 20 URLs checked; [discovered schedule](https://www.gocentenary.com/sports/mbkb/2026-27/schedule) | 14 |
+| Fitchburg State University (227) | [NCAA athletics](https://www.fitchburgfalcons.com) | season_heading_not_verified; Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar; 15 URLs checked | 11 |
+| Framingham State University (238) | [NCAA athletics](https://www.fsurams.com) | season_heading_not_verified; Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar; 15 URLs checked | 7 |
 | La Roche University (1163) | [NCAA athletics](https://larochesports.com) | season_heading_not_verified; Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar; 15 URLs checked | 18 |
 | Lesley University (24317) | [NCAA athletics](https://lesleyathletics.com) | season_heading_not_verified; Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar; 15 URLs checked | 19 |
 | Massachusetts College of Liberal Arts (486) | [NCAA athletics](https://athletics.mcla.edu/) | season_heading_not_verified; Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar; 15 URLs checked | 9 |
