@@ -241,8 +241,8 @@
    const scoresKnown=phase!=='upcoming'&&x.score!=null&&other?.score!=null&&Number.isFinite(scoreA)&&Number.isFinite(scoreB);
    const outcome=!scoresKnown?'even':scoreA>scoreB?'ahead':scoreA<scoreB?'behind':'even';
    // Reuse only the authentic crest already resolved for this team. Never guess a logo URL.
-   const crestSource=String(x.crest||'').match(/<img\\b[^>]*?\\bsrc=["']([^"']+)["']/i);
-   const safeCrest=crestSource&&/^(?:assets\\/|https:\\/\\/|data:image\\/(?:png|webp|jpeg|svg\\+xml);base64,)/i.test(crestSource[1])?crestSource[1]:'';
+   const crestSource=String(x.crest||'').match(/<img\b[^>]*?\bsrc=["']([^"']+)["']/i);
+   const safeCrest=crestSource&&/^(?:assets\/|https:\/\/|data:image\/(?:png|webp|jpeg|svg\+xml);base64,)/i.test(crestSource[1])?crestSource[1]:'';
    const watermark=safeCrest?'<span class="ledger26-ghost" aria-hidden="true"><img src="'+esc(safeCrest)+'" alt="" loading="lazy"></span>':'';
    return '<div class="ledger26-team ledger26-team--'+outcome+'" style="--ledger26-school:'+color(x.color)+'">'+watermark+
     '<span class="ledger26-crest">'+(x.crest||'')+'</span>'+
