@@ -801,31 +801,3 @@
 .ledger26-pulse-breakdown li{margin:0 0 4px}
 @media(max-width:640px){.ledger26-scorebug--pulse .ledger26-teams{grid-template-rows:auto 64px auto}.ledger26-pulse{height:64px}.ledger26-pulse-heading{height:16px;padding:0 4px}.ledger26-pulse-heading span{font-size:8px}.ledger26-pulse-chart,.ledger26-pulse-chart svg{height:47px}}
 
-/* RETRO Pulse field trial: compact actual lead graph, directly clickable intervals. */
-.sl-ledger-page .ledger26-teams:has(.slt-pulse){grid-template-rows:auto auto auto}
-.slt-pulse{position:relative;grid-row:2;min-width:0;box-sizing:border-box;background:#eddfc5;color:#302519;border-top:1px solid #aa9577;border-bottom:1px solid #aa9577;font:10px/1.2 Georgia,"Times New Roman",serif;z-index:3}
-.slt-pulse-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:3px 9px 0;white-space:nowrap}
-.slt-pulse-head b{font:700 9px Georgia,serif;letter-spacing:.1em}
-.slt-pulse-head span{font:700 10px Georgia,serif;color:#573824;overflow:hidden;text-overflow:ellipsis}
-.slt-pulse-plot{height:60px;position:relative;margin:0 4px}
-.slt-pulse-plot svg{display:block;width:100%;height:100%;overflow:visible}
-.slt-pulse-label{font:10px Georgia,serif;fill:#59442a}
-.slt-pulse-tick{stroke:#a8957b;stroke-width:.8;stroke-dasharray:3 4}
-.slt-pulse-break{stroke:#8c795c;stroke-width:1;stroke-dasharray:3 2}
-.slt-pulse-half{stroke:#4b3825;stroke-width:2;stroke-dasharray:none}
-.slt-pulse-ht{font:700 10px Georgia,serif;fill:#3c281c}
-.slt-pulse-line{stroke:#8d2940;stroke-width:2.6;fill:none;stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke}
-.slt-pulse-zone{position:absolute;top:0;bottom:0;border:0;border-radius:0;padding:0;background:transparent;cursor:pointer;z-index:2;min-width:5px;appearance:none}
-.slt-pulse-zone:hover,.slt-pulse-zone:focus-visible,.slt-pulse-zone.is-selected{background:rgba(97,74,41,.14);outline:1px solid rgba(95,70,43,.5);outline-offset:-1px}
-.slt-pulse-detail{padding:7px 11px 8px;border-top:1px solid #a18a68;background:#f3e9d6;display:grid;gap:4px;color:#33251a}
-.slt-pulse-detail[hidden]{display:none}
-.slt-pulse-detail strong{font:700 11px Georgia,serif}
-.slt-pulse-detail span{font:10px Georgia,serif}
-.slt-pulse-detail ol{margin:2px 0 0;padding-left:18px;max-height:170px;overflow:auto}
-.slt-pulse-detail li{margin-bottom:4px;font-size:10px}
-.slt-pulse-detail li small{color:#665039}
-@media(max-width:640px){.slt-pulse-plot{height:52px}.slt-pulse-head{padding:2px 6px 0}.slt-pulse-head span{font-size:9px}.slt-pulse-detail{padding:6px 8px}}
-
-/* Preserve away-above / home-below with Pulse occupying only the center slot. */
-.sl-ledger-page .ledger26-teams:has(.slt-pulse)>.ledger26-team:first-child{grid-row:1}
-.sl-ledger-page .ledger26-teams:has(.slt-pulse)>.ledger26-team:nth-child(2){grid-row:3}
