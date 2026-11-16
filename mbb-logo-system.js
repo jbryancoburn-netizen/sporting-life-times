@@ -387,7 +387,7 @@ const retroURLForESPN=id=>BIG_TEN_HERITAGE[String(id)]||ACC_HERITAGE[String(id)]
 
 const safeURL=v=>{try{let u=new URL(v);return u.protocol==='https:'?u.href:''}catch{return ''}};
 const byNcaa=new Map(),byName=new Map(),ambiguous=new Set(),outsideByName=new Map(),outsideAmbiguous=new Set();
-let registry={},palette={},outside={};
+let registry={},palette={},outside={},outsideLocal={};
 const outsideAliases=t=>[t.school,t.feed_name,t.corrected_name,...(t.aliases||[])].filter(Boolean).map(norm);
 // Independent NCAA and ESPN identifiers may name the same real university.
 // Do not mark a school's name ambiguous when verified records describe the
@@ -413,14 +413,16 @@ function registerOutside(id,entry){
 function alias(n,id){let key=norm(n);if(!key||ambiguous.has(key))return;if(byName.has(key)&&byName.get(key)!==id){ambiguous.add(key);byName.delete(key)}else byName.set(key,id)}
 const ready=(async()=>{
 try{
-const [reg,cross,colors,opponents]=await Promise.all([
+const [reg,cross,colors,opponents,localCrests]=await Promise.all([
   ...['data/mbb-logo-registry.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json?v=ncaa-two-rings-20261101b']
     .map(p=>fetch(p,{cache:'no-cache'}).then(x=>{if(!x.ok)throw Error(p+' '+x.status);return x.json()})),
   fetch('data/mbb-out-of-division-opponent-logos.json?v=verified-aliases-20261116',{cache:'no-cache'})
+    .then(x=>x.ok?x.json():{teams:{}}).catch(()=>({teams:{}})),
+  fetch('data/cbb-outside-local-crest-manifest.json?v=outside-local1',{cache:'no-cache'})
     .then(x=>x.ok?x.json():{teams:{}}).catch(()=>({teams:{}}))
 ]);
 if(Object.keys(reg.teams||{}).length!==365||cross.teams?.length!==365)throw Error('Incomplete 365-team logo registry');
-registry=reg.teams;palette=colors.mbb||{};outside=opponents?.teams||{};
+registry=reg.teams;palette=colors.mbb||{};outside=opponents?.teams||{};outsideLocal=localCrests?.teams||{};
 if(Object.keys(palette).length!==365)throw Error('Incomplete 365-program MBB color palette');
 for(let row of cross.teams){
 const id=String(row.espn_id),found=registry[id];
@@ -522,6 +524,10 @@ const directOutside=!ncaa&&!registry[id]&&!!outside[id]&&outsideAliases(outside[
 const known=(outsideExact||directOutside)?null:(registry[id]||null);
 const outsideID=directOutside?id:outsideExact?outsideNameId:'';
 const outsideEntry=outsideID&&outside[outsideID]&&(outsideSchoolId(name)===outsideID||outsideAliases(outside[outsideID]).includes(norm(name)))?outside[outsideID]:null;
+// The exact-school locally baked asset wins over the transient external host.
+const cachedEntry=outsideEntry?outsideLocal[outsideID]:null;
+const cachedPath='assets/cbb-outside-crests/'+outsideID+'.png';
+const cachedCrest=cachedEntry?.path===cachedPath&&norm(cachedEntry.school)===norm(outsideEntry.school||outsideEntry.corrected_name)?cachedPath:'';
 const school=known,brand=known?palette[id]:outsideEntry;
 const heritage=known?retroURLForESPN(id):'';
 // One exact, locally baked pixel asset for every verified current D-I identity.
@@ -530,14 +536,14 @@ const heritage=known?retroURLForESPN(id):'';
 const baked=known?'assets/cbb-embossed-crests/'+id+'.png?v=20261116-usf1':'';
 const art=heritage?'flat':known?school.artwork_type:outsideEntry?'flat':'unverified';
 const primary=baked||heritage||(known?(school.logo_url_verified?safeURL(school.official_logo_url||school.logo_url):''):
- outsideEntry?safeURL(outsideEntry.logo_url):'');
+ outsideEntry?(cachedCrest||safeURL(outsideEntry.logo_url)):'');
 // Keep verified modern artwork as the fallback whenever a vintage local asset fails.
 // No other sport uses this renderer, and the badge retains its two-color ring.
 const modern=known?(school.logo_url_verified?safeURL(school.official_logo_url||school.logo_url):''):'';
 // Local heritage artwork must not silently switch to a modern third-party
 // logo. If a selected local file is unavailable, fail visibly for audit.
 const backup=baked||heritage?'':known?(school.provider_logo_candidates||[]).map(safeURL).find(x=>x&&x!==primary)||'':
- outsideEntry?safeURL(outsideEntry.logo_alternate_url)||'':'';
+ outsideEntry?(cachedCrest?safeURL(outsideEntry.logo_url):safeURL(outsideEntry.logo_alternate_url)||''):'');
 // A watermark must use original school art, not a circular baked crest.
 const watermarkArt=heritage||(known?modern:outsideEntry?safeURL(outsideEntry.logo_url):'');
 const initials=name.split(/\s+/).slice(0,2).map(v=>v[0]||'').join('').toUpperCase();
