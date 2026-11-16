@@ -610,22 +610,8 @@ const arenaStage=g=>{
 const emblem=t=>{
   if(window.MBBLogos?.byESPN){
     const mark=window.MBBLogos.byESPN(t.id,'featured',t.name);
-    // An exact scoreboard competitor can supply its own ESPN-hosted artwork.
-    // Do not discard that source image merely because the season-long outside-
-    // division catalog has not yet verified an entry for the opponent.
-    const sourceLogo=String(t.feedLogo||'');
-    const expected='https://a.espncdn.com/i/teamlogos/ncaa/';
-    if(mark.includes('mbb-mark--missing')&&sourceLogo.startsWith(expected)&&
-       /^https:\/\/a\.espncdn\.com\/i\/teamlogos\/ncaa\/(?:500|500-dark|500-light)\/\d+\.png$/.test(sourceLogo)&&
-       sourceLogo.endsWith('/'+String(t.id)+'.png')){
-      const initials=String(t.name).split(/\s+/).slice(0,2).map(x=>x[0]||'').join('').toUpperCase();
-      return '<span class="mbb-mark mbb-mark--featured mbb-mark--art-flat" style="--mbb-primary:'+
-        esc(brand(t))+';--mbb-secondary:'+esc(secondary(t))+
-        '" data-espn-id="'+esc(t.id)+'" data-ring-count="2" role="img" aria-label="'+esc(t.name)+
-        ' logo"><span class="mbb-mark__initials" aria-hidden="true">'+esc(initials)+
-        '</span><img class="mbb-mark__img" src="'+esc(sourceLogo)+
-        '" loading="lazy" decoding="async" alt="" onerror="window.MBBLogos.fail(this)"></span>';
-    }
+    // Never replace a missing or unverified crest with a remote feed logo.
+    // Keep the exact-team, audit-visible initials until authentic artwork exists.
     return mark;
   }
   const obj=womenTeams.get(String(t.id))||ratings.get(String(t.id))||{};
