@@ -111,3 +111,76 @@
 .soccer-precomposed-mark .soccer-school-image{display:block;position:absolute;inset:0!important;
  width:100%!important;height:100%!important;object-fit:contain!important;padding:0!important;
  margin:0!important;transform:none!important}
+
+/* No sideways bracket scrolling: the four rounds shrink to the available width.
+   On narrow screens a round selector replaces the four-column layout entirely. */
+.snb-region-scroll{overflow:visible!important;max-width:100%;padding:0;scrollbar-width:none}
+.snb-round-grid{width:100%;min-width:0!important;display:grid;
+ grid-template-columns:minmax(0,1.1fr) minmax(0,1.1fr) minmax(0,.9fr) minmax(0,.9fr);
+ column-gap:clamp(5px,.7vw,11px);align-items:stretch}
+.snb-regions{min-width:0}
+.snb-round{min-width:0}
+.snb-round-head{padding:7px 4px;min-height:39px;gap:3px}
+.snb-round-head h4{font-size:clamp(8px,.75vw,11px);letter-spacing:.035em}
+.snb-round-count{font-size:8px}
+.snb-round-stack{gap:7px}
+.snb-match{min-width:0;min-height:116px}
+.snb-match-header{padding:5px 5px;gap:4px;font-size:8px}
+.snb-team{padding:3px 4px;min-height:37px;gap:4px}
+.snb-school-link{font-size:clamp(9px,.83vw,12px);line-height:1.12;overflow-wrap:anywhere}
+.snb-seed{font-size:7px}
+.snb-rpi-rank{font:700 8px/1.2 Arial,sans-serif;color:#635849}
+.snb-seed-badge{flex:0 0 22px;width:22px;height:30px;font-size:14px}
+.snb-seed-spacer{flex:0 0 22px;width:22px;height:30px}
+.snb-team .soccer-school-mark.mbb-mark.slt-dual-shell{
+ width:26px!important;height:26px!important;min-width:26px!important;
+ min-height:26px!important;max-width:26px!important;max-height:26px!important;flex:0 0 26px!important}
+.snb-team .soccer-precomposed-mark{width:26px!important;height:26px!important;
+ min-width:26px!important;min-height:26px!important;flex:0 0 26px!important}
+.snb-percentage{font-size:10px}
+.snb-match-foot{padding:5px 5px;gap:3px;font-size:9px}
+.snb-match-foot strong{font-size:10px}
+.snb-match-foot small{font-size:8px}
+.snb-mobile-round-tabs{display:none}
+.snb-final-rail{border:1px solid #a79c84;background:#edf0e8;padding:8px 12px;
+ display:flex;flex-wrap:wrap;gap:7px 15px;align-items:center;margin:12px 0;font:12px/1.35 Georgia,serif}
+.snb-final-rail strong{font:800 10px Arial,sans-serif;letter-spacing:.06em;color:#284735}
+.snb-final-rail b{font-size:14px;color:#233b2e}
+@media(max-width:930px){
+ .snb-regions{padding:8px}
+ .snb-round-grid{column-gap:4px}
+ .snb-team{padding:3px 2px;gap:2px}
+ .snb-team .soccer-school-mark.mbb-mark.slt-dual-shell{width:23px!important;height:23px!important;
+   min-width:23px!important;min-height:23px!important;max-width:23px!important;max-height:23px!important;flex:0 0 23px!important}
+ .snb-team .soccer-precomposed-mark{width:23px!important;height:23px!important;min-width:23px!important;min-height:23px!important;flex:0 0 23px!important}
+ .snb-seed-badge,.snb-seed-spacer{width:19px;flex-basis:19px}
+}
+@media(max-width:800px){
+ .snb-region-scroll{overflow:visible!important}
+ .snb-round-grid{display:block;min-width:0!important;width:100%}
+ .snb-round-grid .snb-round{display:none}
+ .snb-region-stage[data-mobile-round="first"] .snb-first,
+ .snb-region-stage[data-mobile-round="second"] .snb-second,
+ .snb-region-stage[data-mobile-round="third"] .snb-third,
+ .snb-region-stage[data-mobile-round="quarter"] .snb-quarter{display:flex}
+ .snb-mobile-round-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:3px;margin:0 0 8px}
+ .snb-mobile-round-tabs button{min-width:0;padding:10px 3px;border:1px solid #b6aa8e;
+   background:#f3f0e7;color:#2d3833;font:700 10px/1.2 Arial,sans-serif;cursor:pointer}
+ .snb-mobile-round-tabs button[aria-pressed="true"]{background:#263e35;color:#fff}
+ .snb-round-head h4{font-size:12px}
+ .snb-school-link{font-size:14px}
+ .snb-team{min-height:46px;padding:5px 8px;gap:8px}
+ .snb-team .soccer-school-mark.mbb-mark.slt-dual-shell{width:32px!important;height:32px!important;
+   min-width:32px!important;min-height:32px!important;max-width:32px!important;max-height:32px!important;flex:0 0 32px!important}
+ .snb-team .soccer-precomposed-mark{width:32px!important;height:32px!important;min-width:32px!important;min-height:32px!important;flex:0 0 32px!important}
+ .snb-seed-badge,.snb-seed-spacer{width:25px;flex-basis:25px}
+ .snb-match{min-height:0}
+ .snb-round-stack{gap:8px}
+ .snb-match-foot{font-size:12px}
+}
+@media print{
+ .snb-region-scroll{overflow:visible!important}
+ .snb-round-grid{min-width:0!important}
+ .snb-round-grid .snb-round{display:flex!important}
+ .snb-mobile-round-tabs{display:none!important}
+}
