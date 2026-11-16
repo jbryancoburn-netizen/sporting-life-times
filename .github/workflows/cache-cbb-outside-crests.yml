@@ -1,0 +1,60 @@
+name: Cache verified outside-DI basketball logos locally
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/bake_cbb_outside_crests.py'
+      - 'data/mbb-out-of-division-opponent-logos.json'
+      - '.github/workflows/cache-cbb-outside-crests.yml'
+  schedule:
+    - cron: '23 */6 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: cbb-outside-crest-cache
+  cancel-in-progress: false
+jobs:
+  cache:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install image baking tools
+        run: python -m pip install --quiet 'Pillow>=11,<13' 'CairoSVG>=2.7,<3'
+      - name: Bake next verified logos to local 384px dual-ring crests
+        env:
+          CREST_BATCH: '140'
+          CREST_WORKERS: '8'
+        run: python scripts/bake_cbb_outside_crests.py
+      - name: Check manifest paths, ring assets and exact IDs
+        run: |
+          python - <<'PY'
+          import json,pathlib,re
+          root=pathlib.Path('.')
+          m=json.loads((root/'data/cbb-outside-local-crest-manifest.json').read_text())
+          c=json.loads((root/'data/mbb-out-of-division-opponent-logos.json').read_text())['teams']
+          for key,obj in m['teams'].items():
+              assert key in c
+              assert obj['school']==(c[key].get('school') or c[key].get('corrected_name'))
+              assert obj['path']==f'assets/cbb-outside-crests/{key}.png'
+              assert (root/obj['path']).is_file()
+          print(f"PASS: {m['count']} identity-matched local outside-DI crests")
+          PY
+      - name: Publish cached images and source inventory
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/cbb-outside-crests data/cbb-outside-local-crest-manifest.json
+          if git diff --cached --quiet; then
+            echo 'No new images to cache'
+          else
+            git commit -m 'Bake locally cached exact-school CBB outside-DI logos'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
