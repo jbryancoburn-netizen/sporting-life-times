@@ -2,13 +2,10 @@
   "schema_version": 1,
   "scope": "2026 NCAA Division I men's soccer school crest inventory",
   "origin": "existing local archived artwork in sporting-life-times",
-  "rules": "No remote images used for mapped school crests. Full precomposed artwork is rendered without stacking extra CSS rings.",
-  "covered_team_count": 211,
+  "rules": "All 213 directory-member programs have mapped repository-local archived logos; live first-party asset paths are validated in CI. Authentic artwork sits inside the shared two-ring border, without external dependencies.",
+  "covered_team_count": 213,
   "total_conference_programs": 213,
-  "unresolved": [
-    "men-d1:lindenwood-mo",
-    "men-d1:queens-nc"
-  ],
+  "unresolved": [],
   "teams": {
     "men-d1:air-force": {
       "src": "assets/cbb-mountain-west-1980s/air-force.png",
@@ -354,6 +351,10 @@
       "src": "assets/cbb-retro-archive/2335.png",
       "render_mode": "artwork"
     },
+    "men-d1:lindenwood-mo": {
+      "src": "assets/cbb-retro-archive/2815.png",
+      "render_mode": "artwork"
+    },
     "men-d1:lipscomb": {
       "src": "assets/cbb-retro-archive/288.png",
       "render_mode": "artwork"
@@ -552,6 +553,10 @@
     },
     "men-d1:providence": {
       "src": "assets/cbb-big-east-1980s/providence.png",
+      "render_mode": "artwork"
+    },
+    "men-d1:queens-nc": {
+      "src": "assets/cbb-retro-archive/2511.png",
       "render_mode": "artwork"
     },
     "men-d1:quinnipiac": {
