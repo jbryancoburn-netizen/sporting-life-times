@@ -242,14 +242,15 @@
    const graph=global.SLTCourt?.gameFlow?.(plays,courtGame(g))||'';
    return graph||missing('A scoring graph will appear when the source provides a consistent sequence of play-by-play scores.');
  }
- function tabs(key){
-   const definitions=[['summary','Game summary'],['team','Team statistics'],['players','Player box score'],['plays','Every play']];
+ function tabs(key,showPlays,showFallback){
+   const definitions=[['summary','Game summary'],['team','Team statistics'],['players','Player box score'],
+     ...(showPlays?[['plays','Every play']]:showFallback?[['plays','Key stats']]:[])];
    return '<nav class="slt-gf-tabs" role="tablist" aria-label="Game details">'+
      definitions.map(([slug,label])=>'<button type="button" role="tab" data-inline-tab="'+slug+
        '" id="'+key+'-tab-'+slug+'" aria-controls="'+key+'-panel-'+slug+'">'+label+'</button>').join('')+'</nav>';
  }
  function switchTab(node,tab){
-   const choice=['summary','team','players','plays'].includes(tab)?tab:'summary';
+   const choice=node.querySelector('[data-inline-tab="'+tab+'"]')?tab:'summary';
    node.querySelectorAll('[data-inline-tab]').forEach(b=>{
      const is=b.dataset.inlineTab===choice;b.setAttribute('aria-selected',String(is));b.tabIndex=is?0:-1;
    });
@@ -263,6 +264,19 @@
    const players=ncaaPlayers(playerBox,g)||espnPlayers(raw,g)||
      missing('Player box scores have not been published for this matchup.');
    const periods=lineScore(g,raw,women);
+   const reportedPlays=global.SLTCourt?.parsePlays?.(raw)||[];
+   const hasPlays=reportedPlays.length>0;
+   const fallback=[];
+   // Prefer verified team and player data; period scores are useful when
+   // neither event-level scoring nor box totals have been reported.
+   const teamAvailable=!team.includes('slt-gf-missing');
+   const playerAvailable=!players.includes('slt-gf-missing');
+   const periodAvailable=!periods.includes('slt-gf-missing');
+   if(teamAvailable)fallback.push('<h4>Key team statistics</h4>'+team);
+   if(playerAvailable)fallback.push('<h4>Player statistics</h4>'+players);
+   if(!teamAvailable&&!playerAvailable&&periodAvailable)
+     fallback.push('<h4>Scoring by period</h4>'+periods);
+   const hasFallback=fallback.length>0;
    const provenance=raw?'Live game summary matched to both schools and game ID':
      'No matching live game summary from the provider';
    const keyPanel=(tab,html)=>'<section role="tabpanel" id="'+key+'-panel-'+tab+
@@ -272,12 +286,13 @@
      '<p>'+esc(g.status||g.phase.toUpperCase())+(g.venue?' · '+esc(g.venue):'')+
      (g.broadcast?' · '+esc(g.broadcast):'')+'</p></div>'+
      '<button type="button" class="slt-gf-refresh" data-inline-refresh>↻ Refresh details</button></div>'+
-     tabs(key)+
+     tabs(key,hasPlays,hasFallback)+
      keyPanel('summary','<h4>Period-by-period scoring</h4>'+periods+
-       '<h4>Scoring progression</h4>'+flow(raw,g))+
+       (hasPlays?'<h4>Scoring progression</h4>'+flow(raw,g):''))+
      keyPanel('team','<h4>Complete available team statistics</h4>'+team)+
      keyPanel('players','<h4>Player-by-player box score</h4>'+players)+
-     keyPanel('plays','<h4>Play-by-play · all reported events</h4>'+playLog(raw,g))+
+     (hasPlays?keyPanel('plays','<h4>Play-by-play · all reported events</h4>'+playLog(raw,g)):
+       hasFallback?keyPanel('plays','<h4>Key statistics · play log unavailable</h4>'+fallback.join('')):'')+
      '<p class="slt-gf-provenance">'+esc(provenance)+
      '. NCAA-origin totals are shown instead of secondary boxes when their event ID, day and final scores agree. Missing data is never invented.</p>';
  }
