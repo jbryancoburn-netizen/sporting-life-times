@@ -51,7 +51,25 @@ test('expanded Gamefile renders period halves, source-marked statistics and play
   assert.match(html,/H1/);assert.match(html,/H2/);assert.match(html,/75/);
   assert.match(html,/Rebounds/);assert.match(html,/Player Example/);
   assert.match(html,/data-inline-panel="plays"/);
+  assert.match(html,/Key statistics · play log unavailable/);
   assert.doesNotMatch(html,/<iframe|<object|<embed/i);
+});
+test('missing play-by-play uses source-backed team and player stats instead of empty log',()=>{
+  const html=inline.renderHTML(game,summary(),{},false,'no-plays');
+  assert.match(html,/Key stats/);
+  assert.match(html,/Key team statistics/);
+  assert.match(html,/Rebounds/);
+  assert.match(html,/Player Example/);
+  assert.doesNotMatch(html,/No source-reported play-by-play is available/);
+  assert.doesNotMatch(html,/Scoring progression<\/h4>/);
+});
+test('missing play-by-play and missing stats removes the extra tab entirely',()=>{
+  const blank={header:summary().header};
+  blank.header.competitions[0].competitors.forEach(c=>{delete c.linescores;});
+  const html=inline.renderHTML(game,blank,{},false,'no-data');
+  assert.doesNotMatch(html,/data-inline-tab="plays"/);
+  assert.doesNotMatch(html,/data-inline-panel="plays"/);
+  assert.doesNotMatch(html,/Key statistics · play log unavailable/);
 });
 test('women have quarters and overtime, not men’s halves',()=>{
   const women={...game};
