@@ -15,8 +15,8 @@ const bracket=fs.readFileSync('college-soccer-national-bracket.js','utf8');
 const css=fs.readFileSync('college-soccer-national-bracket.css','utf8');
 const html=fs.readFileSync('college-soccer-selection.html','utf8');
 assert.equal(manifest.covered_team_count,Object.keys(manifest.teams).length);
-assert.equal(manifest.covered_team_count,211);
-assert.deepEqual(manifest.unresolved,['men-d1:lindenwood-mo','men-d1:queens-nc']);
+assert.equal(manifest.covered_team_count,213);
+assert.deepEqual(manifest.unresolved,[]);
 assert.equal(field.length,48);
 assert.equal(new Set(field.map(x=>x.team_id)).size,48);
 for(const [key,entry] of Object.entries(manifest.teams)){
@@ -68,4 +68,4 @@ for(const entry of field){
  assert.equal(mark.dataset.logoOrigin,'repository-local',entry.team+' incorrectly switched to external image');
  assert.equal(img.style.props.display.value,'block',entry.team+' image remains hidden');
 }
-console.log('PASS: all 48 current soccer bracket teams use local archived image first; 211/213 mapped Division I programs, 24 seed badges, no third-party dependency or duplicate rings.');
+console.log('PASS: all 48 current soccer bracket teams use local archived image first; 213/213 mapped Division I programs, 24 seed badges, no third-party dependency or duplicate rings.');
