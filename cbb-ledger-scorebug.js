@@ -267,7 +267,7 @@
 
 
  // RETRO Pulse is an evidence-backed scoring trace, not a simulated graph.
- const pulseCache=new Map(),pulseScale=new Map();
+ const pulseCache=new Map(),pulseScale=new Map(),pulseBounds=new Map();
  const sec=v=>{const m=String(v||'').match(/^(\d{1,2}):(\d\d)$/);return m?Number(m[1])*60+Number(m[2]):null;};
  const pulseRange=n=>n<=5?5:n<=10?10:Math.max(20,Math.ceil(n/10)*10);
  function pulseShell(g,phase,label){
@@ -320,47 +320,70 @@
  }
  function pulseDraw(el,data){
   const id=el.dataset.gender+':'+el.dataset.retroPulse;
-  const max=Math.max(...data.points.map(p=>Math.abs(p.awayScore-p.homeScore)),0);
-  const scale=Math.max(pulseScale.get(id)||5,pulseRange(max));pulseScale.set(id,scale);
-  const left=43,right=472,mid=55,extent=26;
-  const x=t=>left+(right-left)*t/Math.max(1,data.duration),y=n=>mid-extent*n/scale;
-  // A score holds until a scoring event: horizontal then vertical steps.
-  // No interpolation suggesting points were scored continuously between plays.
-  const plot=data.points.map((p,i)=>{
-   const xNow=x(p.time).toFixed(1),yNow=y(p.awayScore-p.homeScore).toFixed(1);
-   if(!i)return 'M'+xNow+' '+yNow;
-   const prior=data.points[i-1],yBefore=y(prior.awayScore-prior.homeScore).toFixed(1);
-   return ' H'+xNow+' V'+yNow;
-  }).join('');
-
-  const rules=[scale,scale/2,0,-scale/2,-scale].map((n,i)=>
-   '<line x1="'+left+'" x2="'+right+'" y1="'+y(n)+'" y2="'+y(n)+'" class="ledger26-pulse-rule'+(n===0?' ledger26-pulse-rule--zero':'')+'"/>'+
-   '<text x="'+(left-8)+'" y="'+(y(n)+3.5)+'" text-anchor="end" class="ledger26-pulse-axis'+(i%2?' ledger26-pulse-axis--minor':'')+'">'+
-   (n===0?'0':(n>0?'+':'−')+Number(Math.abs(n).toFixed(1)))+'</text>').join('');
-  const marks=data.breaks.map((b,i)=>{
-   const half=b.label==='HT',pos=x(b.time),label=half?'HT':b.kind==='media'?
-    (b.label.match(/^U\d+/)?.[0]||'TV'):'Q'+Math.min(4,Number(b.label.replace(/\D/g,''))||1);
-   return '<line x1="'+pos+'" x2="'+pos+'" y1="23" y2="83" class="ledger26-pulse-divider'+(half?' ledger26-pulse-divider--half':'')+'"/>'+
-    (half?'<rect x="'+(pos-12)+'" y="5" width="24" height="15" rx="2" class="ledger26-pulse-ht-box"/>'+
-      '<text x="'+pos+'" y="16" text-anchor="middle" class="ledger26-pulse-ht">HT</text>':
-      '<text x="'+pos+'" y="'+(i%2?11:21)+'" text-anchor="middle" class="ledger26-pulse-break-label" aria-hidden="true">'+esc(label)+'</text>');
-  }).join('');
-  const regions=data.spans.map((segment,i)=>'<button type="button" data-retro-segment="'+i+
-   '" class="ledger26-pulse-hit" style="left:'+(100*segment.start.time/data.duration).toFixed(2)+
-   '%;width:'+Math.max(.4,100*(segment.end.time-segment.start.time)/data.duration).toFixed(2)+
-   '%" aria-label="Scoring: '+esc(segment.start.label)+' to '+esc(segment.end.label)+'" title="'+esc(segment.start.label)+' → '+esc(segment.end.label)+'"></button>').join('');
-  // Always identify the schools, never the generic home/away directions.
   const awayName=el.dataset.awayName||data.away,homeName=el.dataset.homeName||data.home;
-  const last=data.points.at(-1),lead=last.awayScore-last.homeScore;
+  const margins=data.points.map(p=>p.awayScore-p.homeScore);
+  const maxLead=Math.max(0,...margins),minLead=Math.min(0,...margins);
+  const scale=Math.max(pulseScale.get(id)||5,pulseRange(Math.max(maxLead,-minLead)));
+  pulseScale.set(id,scale); // The full-game maximum never shrinks after a comeback.
+  const largest=maxLead>=-minLead?{name:awayName,value:maxLead}:{name:homeName,value:-minLead};
+  const last=data.points.at(-1),diff=last.awayScore-last.homeScore;
+  const current=diff===0?'TIED':(diff>0?awayName:homeName)+' +'+Math.abs(diff);
   const heading=el.querySelector('.ledger26-pulse-heading strong')?.textContent||'FINAL';
-  el.innerHTML='<div class="ledger26-pulse-heading"><strong>'+esc(heading)+'</strong><span>'+
-   esc(lead===0?awayName+' / '+homeName+' · TIED':(lead>0?awayName:homeName)+' +'+Math.abs(lead))+
-   ' <small>· SCALE ±'+scale+'</small></span></div>'+
-   '<div class="ledger26-pulse-chart"><svg viewBox="0 0 488 100" preserveAspectRatio="none" role="img" aria-label="Scoring margin: '+esc(awayName)+' above zero, '+esc(homeName)+' below zero. Scale ±'+scale+' points.">'+
-   rules+marks+'<path d="'+plot+'" class="ledger26-pulse-trace"/>'+
-   '<circle cx="'+x(last.time||data.duration)+'" cy="'+y(lead)+'" r="2.2" class="ledger26-pulse-last"/></svg>'+
-   '<div class="ledger26-pulse-taps">'+regions+'</div></div>';
+  // Concept A: a readable score summary, not a tiny line pretending to explain a game.
+  el.innerHTML='<div class="ledger26-pulse-compact" aria-label="RETRO Pulse quick summary">'+
+   '<strong class="ledger26-pulse-state">'+esc(heading)+'</strong>'+
+   '<div class="ledger26-pulse-stat"><small>BIGGEST LEAD</small><b>'+esc(largest.name)+' +'+largest.value+'</b></div>'+
+   '<div class="ledger26-pulse-stat"><small>'+(el.dataset.phase==='final'?'FINAL MARGIN':'CURRENT LEAD')+'</small><b>'+esc(current)+'</b></div>'+
+   '<span class="ledger26-pulse-invite">GAME FLOW <span aria-hidden="true">⌄</span></span></div>';
   pulseCache.set(el,data);
+  const details=el.closest('details'),target=details?.querySelector('.ledger26-expanded');
+  if(!target)return;
+  // Concept B: the full graph is only in the expanded gamefile, where it has room.
+  // Linear and zero-anchored, but asymmetric: a +40/−2 game uses −5..+40,
+  // not a visually misleading, wasteful symmetric −40..+40.
+  const bounds=pulseBounds.get(id)||{min:0,max:0};
+  const floor=Math.min(bounds.min,Math.floor(minLead/5)*5);
+  const ceil=Math.max(bounds.max,Math.ceil(maxLead/5)*5);
+  const bottom=Math.min(0,floor),top=Math.max(5,ceil);
+  pulseBounds.set(id,{min:bottom,max:top}); // Never shrink either bound.
+  const left=61,right=902,upper=38,lower=222;
+  const x=t=>left+(right-left)*t/Math.max(1,data.duration);
+  const y=margin=>lower-(margin-bottom)/(top-bottom)*(lower-upper);
+  const path=data.points.map((p,i)=>{
+   const xx=x(p.time).toFixed(1),yy=y(p.awayScore-p.homeScore).toFixed(1);
+   return i?'H'+xx+' V'+yy:'M'+xx+' '+yy;
+  }).join(' ');
+  const step=top-bottom>45?10:top-bottom>20?5:top-bottom>10?2:1;
+  const ticks=[];
+  for(let v=Math.ceil(bottom/step)*step;v<=top;v+=step){
+   ticks.push('<line x1="'+left+'" x2="'+right+'" y1="'+y(v).toFixed(1)+'" y2="'+y(v).toFixed(1)+'" class="ledger26-pulse-rule'+(v===0?' ledger26-pulse-rule--zero':'')+'"/>'+
+    '<text x="'+(left-12)+'" y="'+(y(v)+4).toFixed(1)+'" text-anchor="end" class="ledger26-pulse-axis">'+(v>0?'+':'')+v+'</text>');
+  }
+  const marks=data.breaks.map(b=>{
+   const pos=x(b.time).toFixed(1),half=b.label==='HT';
+   const lab=half?'HALFTIME':b.kind==='media'?b.label:'';
+   return '<line x1="'+pos+'" x2="'+pos+'" y1="'+upper+'" y2="'+lower+'" class="ledger26-pulse-divider'+(half?' ledger26-pulse-divider--half':'')+'"/>'+
+    (half?'<text x="'+pos+'" y="24" text-anchor="middle" class="ledger26-pulse-period-label">HALFTIME</text>':
+     lab?'<text x="'+pos+'" y="31" text-anchor="middle" class="ledger26-pulse-media-label">'+esc(lab)+'</text>':'');
+  }).join('');
+  const regions=data.spans.map((span,i)=>'<button type="button" data-retro-segment="'+i+
+   '" class="ledger26-pulse-hit" style="left:'+(100*span.start.time/data.duration).toFixed(2)+
+   '%;width:'+Math.max(.4,100*(span.end.time-span.start.time)/data.duration).toFixed(2)+
+   '%" aria-label="Scoring: '+esc(span.start.label)+' to '+esc(span.end.label)+
+   '" title="'+esc(span.start.label)+' → '+esc(span.end.label)+'"></button>').join('');
+  let panel=target.querySelector('.ledger26-pulse-expanded');
+  if(!panel){panel=document.createElement('section');panel.className='ledger26-pulse-expanded';target.prepend(panel);}
+  panel.innerHTML='<div class="ledger26-pulse-expanded-head"><strong>RETRO PULSE · GAME FLOW</strong><span>'+
+   esc(awayName)+' ABOVE ZERO · '+esc(homeName)+' BELOW ZERO</span></div>'+
+   '<div class="ledger26-pulse-expanded-chart"><svg viewBox="0 0 940 258" preserveAspectRatio="none" role="img" aria-label="Full game scoring margin. '+esc(awayName)+' leads above zero and '+esc(homeName)+' below. '+esc(largest.name)+' led by as many as '+largest.value+'.">'+
+   ticks.join('')+marks+'<path d="'+path+'" class="ledger26-pulse-trace"/>'+
+   '<circle cx="'+x(last.time).toFixed(1)+'" cy="'+y(diff).toFixed(1)+'" r="4" class="ledger26-pulse-last"/>'+
+   '<text x="'+left+'" y="251" class="ledger26-pulse-time">TIPOFF</text>'+
+   '<text x="'+right+'" y="251" text-anchor="end" class="ledger26-pulse-time">'+(el.dataset.phase==='final'?'FINAL':'LATEST')+'</text>'+
+   '</svg><div class="ledger26-pulse-taps">'+regions+'</div></div>'+
+   '<div class="ledger26-pulse-expanded-foot">PEAK '+esc(largest.name)+' +'+largest.value+
+   ' · CURRENT '+esc(current)+' · FULL-GAME LEAD SCALE '+bottom+' TO +'+top+
+   ' · Select any section for the scoring log</div>';
  }
  async function pulseLoad(el){
   if(el.dataset.loading||!el.isConnected)return;el.dataset.loading='1';
@@ -413,7 +436,7 @@
   document.addEventListener('click',event=>{
    const button=event.target.closest?.('[data-retro-segment]');if(!button)return;
    event.preventDefault();event.stopPropagation();
-   const host=button.closest('.ledger26-pulse'),model=pulseCache.get(host);
+   const host=button.closest('details')?.querySelector('.ledger26-pulse'),model=pulseCache.get(host);
    const item=model?.spans[Number(button.dataset.retroSegment)];if(!item)return;
    const detail=host.closest('details'),target=detail?.querySelector('.ledger26-expanded');
    if(!detail||!target)return;
