@@ -38,7 +38,7 @@ assert(forecastScorebug.includes('RETRO SPREAD') &&
  forecastScorebug.includes('PROJECTED FINAL') &&
  forecastScorebug.includes('ledger26-pregame-inline--prob'),
  'the pregame rail needs independently legible probability, signed spread and projected final');
-assert(html.includes('cbb-ledger-scorecard.css?v=raw-mascot-contrast-20261116b') &&
+assert(html.includes('cbb-ledger-scorecard.css?v=tonal-clip-20261116') &&
  html.includes('cbb-ledger-scorebug.js?v=raw-mascot-contrast-20261116b'),
  'the public ledger must load the current unified scorebug and forecast layout without stale cached assets');
 
