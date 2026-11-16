@@ -68,22 +68,32 @@ def bake(team_id,entry):
     d.ellipse((1,1,382,382),fill=primary)
     d.ellipse((15,15,368,368),fill=secondary)
     d.ellipse((32,32,351,351),fill='#fff8ed')
-    px=(384-art.width)//2;py=(384-art.height)//2
-    canvas.alpha_composite(art,(px,py))
-    # Safe circular aperture: if visible art crosses inner opening, reject.
+    # Fit the artwork within the circular opening, not just a square box.
     import PIL.ImageChops
-    mask=Image.new('L',(384,384),0);ImageDraw.Draw(mask).ellipse((36,36,347,347),fill=255)
-    ink=Image.new('L',(384,384),0);ink.paste(art.getchannel('A'),(px,py))
-    if PIL.ImageChops.subtract(ink,mask).getbbox():raise ValueError('artwork reaches crest rings')
+    mask=Image.new('L',(384,384),0);ImageDraw.Draw(mask).ellipse((38,38,345,345),fill=255)
+    for _ in range(18):
+        px=(384-art.width)//2;py=(384-art.height)//2
+        ink=Image.new('L',(384,384),0);ink.paste(art.getchannel('A'),(px,py))
+        if not PIL.ImageChops.subtract(ink,mask).getbbox():break
+        art=art.resize((max(1,round(art.width*.95)),max(1,round(art.height*.95))),Image.Resampling.LANCZOS)
+    else:raise ValueError('artwork cannot fit inner circle')
+    canvas.alpha_composite(art,(px,py))
     out=OUT/(team_id+'.png')
     canvas.save(out,'PNG',optimize=True)
     return {'path':out.relative_to(ROOT).as_posix(),'school':name,'source':url,
             'sha256':sha256(out.read_bytes()).hexdigest(),'source_verified':entry.get('identity_verification')}
 def main():
-    remaining=[(str(i),v) for i,v in registry.items()
-      if not (str(i) in existing and (ROOT/existing[str(i)].get('path','')).is_file()
-          and existing[str(i)].get('school')==(v.get('school') or v.get('corrected_name')))]
-    remaining=remaining[:MAX]
+    # Omit explicitly unverified identities rather than publishing guessed art.
+    old_failures=prior.get('failed_this_run',{})
+    def pending(i,v):
+        if not v.get('identity_verification'):return False
+        if str(i) in existing and (ROOT/existing[str(i)].get('path','')).is_file() and existing[str(i)].get('school')==(v.get('school') or v.get('corrected_name')):return False
+        return True
+    all_pending=[(str(i),v) for i,v in registry.items() if pending(i,v)]
+    # Vary which candidates are attempted each run so permanently blocked URLs
+    # cannot starve later schools in the registry.
+    recent=set(old_failures)
+    remaining=([x for x in all_pending if x[0] not in recent]+[x for x in all_pending if x[0] in recent])[:MAX]
     success=dict(existing);failed={}
     with ThreadPoolExecutor(max_workers=workers) as pool:
         futures={pool.submit(bake,i,v):i for i,v in remaining}
