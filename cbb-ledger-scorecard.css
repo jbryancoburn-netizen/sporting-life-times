@@ -825,3 +825,7 @@
 .slt-pulse-detail li{margin-bottom:4px;font-size:10px}
 .slt-pulse-detail li small{color:#665039}
 @media(max-width:640px){.slt-pulse-plot{height:52px}.slt-pulse-head{padding:2px 6px 0}.slt-pulse-head span{font-size:9px}.slt-pulse-detail{padding:6px 8px}}
+
+/* Preserve away-above / home-below with Pulse occupying only the center slot. */
+.sl-ledger-page .ledger26-teams:has(.slt-pulse)>.ledger26-team:first-child{grid-row:1}
+.sl-ledger-page .ledger26-teams:has(.slt-pulse)>.ledger26-team:nth-child(2){grid-row:3}
