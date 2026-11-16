@@ -8,6 +8,18 @@ const html=fs.readFileSync('ncaam-slate.html','utf8');
 const css=fs.readFileSync('ncaam-slate.css','utf8');
 const script=fs.readFileSync('ncaam-slate.js','utf8');
 const scorecardCss=fs.readFileSync('cbb-ledger-scorecard.css','utf8');
+const bakedCrestCss=fs.readFileSync('mbb-logo-system.css','utf8');
+const logoRenderer=fs.readFileSync('mbb-logo-system.js','utf8');
+assert(bakedCrestCss.includes('.mbb-mark.mbb-mark--precomposed>img.mbb-mark__img') &&
+ bakedCrestCss.includes('width:100%!important;height:100%!important'),
+ 'pre-rendered crests must render at 100% of their scorebug frame');
+assert(!scorecardCss.includes('.ledger26-card--men .ledger26-crest .mbb-mark>img.mbb-mark__img') &&
+ !scorecardCss.includes('.ledger26-crest .mbb-mark>img.mbb-mark__img{width:78%'),
+ 'the ledger must not shrink baked crests, including Northwestern, on desktop or mobile');
+assert(logoRenderer.includes("'77':'assets/cbb-big-ten-1980s/centered/northwestern.png") &&
+ logoRenderer.includes("'assets/cbb-embossed-crests/'+id+'.png"),
+ 'Northwestern must retain its authentic local heritage art inside the baked crest');
+
 assert(!/draftkings|onlyDraftKings|sportsbook|draftKingsByDate/i.test(script+html+scorecardCss), 'sportsbook lines and lookups must not reappear in the ledger');
 assert(script.includes('ledgerScorebug(g)')&&fs.readFileSync('cbb-ledger-scorebug.js','utf8').includes('ledger26-pregame-edge'), 'RETRO margin must remain visible in shared scorebug');
 assert(script.includes('data-slt-ledger-press-open')&&script.includes('ledger26-network'), 'press and network must remain in header');

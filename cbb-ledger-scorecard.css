@@ -177,7 +177,6 @@
  .ledger26-scorebug--plain .ledger26-name{font-size:13px!important}
  .ledger26-monogram img{width:31px;height:43px}
  .ledger26-team{grid-template-columns:var(--ledger26-crest-size) minmax(0,1fr) minmax(21px,auto);gap:6px;padding:4px 6px;border-left-width:5px}
- .ledger26-crest .mbb-mark>img.mbb-mark__img{width:78%!important;height:78%!important;max-width:78%!important;max-height:78%!important}
  .ledger26-crest .sl-emblem{padding:5px}
  .ledger26-name{font-size:12px!important}
  .ledger26-poll{font-size:11px;margin-right:5px}
@@ -473,13 +472,9 @@
 .ledger26-record .ledger26-rivalry{display:inline;font:700 9px/1.15 Georgia,serif;white-space:nowrap}
 @media(max-width:640px){.ledger26-record .ledger26-rivalry-text{display:none}}
 
-/* Men's ledger: scale the artwork inside the existing gender-shared circle.
-   Both editions retain the same 46px desktop / 49px mobile crest frames,
-   the same two-ring construction, and the same game-card dimensions. */
-.ledger26-card--men .ledger26-crest .mbb-mark>img.mbb-mark__img{
- width:78%!important;height:78%!important;max-width:78%!important;max-height:78%!important;
- object-fit:contain!important;
-}
+/* The precomposed NCAA embossed crests include the complete school artwork
+   and both rings in the PNG. Do not shrink them inside the scorebug:
+   mbb-logo-system.css owns their 100% image fit for both editions. */
 
 /* Scorebug venue: always visible in the existing metadata rail, including with TV listings.
    Do not infer a home arena for neutral-site or unverified games. */
