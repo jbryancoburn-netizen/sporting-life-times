@@ -2,7 +2,7 @@
   "league": "NBA",
   "season": "2026-27",
   "status": "provisional_live_from_historical_baseline",
-  "games_played": 189,
+  "games_played": 191,
   "preseason_status": "provisional_historical_regression_only",
   "source": "ESPN FINAL NBA regular-season scores; Sporting Life & Times independent Elo",
   "rankings": [
@@ -16,7 +16,7 @@
     },
     {
       "team": "LAL",
-      "elo": 1642.098
+      "elo": 1652.121
     },
     {
       "team": "OKC",
@@ -67,24 +67,24 @@
       "elo": 1511.915
     },
     {
-      "team": "PHX",
-      "elo": 1499.186
-    },
-    {
       "team": "ORL",
       "elo": 1495.742
+    },
+    {
+      "team": "PHX",
+      "elo": 1489.163
     },
     {
       "team": "TOR",
       "elo": 1488.961
     },
     {
-      "team": "CHA",
-      "elo": 1482.874
+      "team": "LAC",
+      "elo": 1481.146
     },
     {
-      "team": "LAC",
-      "elo": 1468.546
+      "team": "CHA",
+      "elo": 1470.274
     },
     {
       "team": "MEM",
@@ -1828,6 +1828,24 @@
       "away_score": 124,
       "date": "2026-11-15T18:00:00.000Z",
       "home_elo_change": 4.908808
+    },
+    {
+      "id": "espn-nba-401909986",
+      "home": "PHX",
+      "away": "LAL",
+      "home_score": 123,
+      "away_score": 131,
+      "date": "2026-11-15T21:00:00.000Z",
+      "home_elo_change": -10.023051
+    },
+    {
+      "id": "espn-nba-401909987",
+      "home": "LAC",
+      "away": "CHA",
+      "home_score": 113,
+      "away_score": 105,
+      "date": "2026-11-15T21:30:00.000Z",
+      "home_elo_change": 12.600377
     }
   ],
   "movement": {
@@ -1835,7 +1853,7 @@
     "daily_change": {
       "SAS": 0,
       "BOS": 0,
-      "LAL": 0,
+      "LAL": 10.023051,
       "OKC": 0,
       "HOU": 0,
       "NYK": 0,
@@ -1848,11 +1866,11 @@
       "MIA": 0,
       "ATL": 0,
       "GSW": 0,
-      "PHX": 0,
       "ORL": 0,
+      "PHX": -10.023051,
       "TOR": 0,
-      "CHA": 0,
-      "LAC": 0,
+      "LAC": 12.600377,
+      "CHA": -12.600377,
       "MEM": 0,
       "DAL": 0,
       "CHI": 0,
@@ -1881,11 +1899,11 @@
       "MIA": 1482.497,
       "ATL": 1549.137,
       "GSW": 1518.223,
-      "PHX": 1483.963,
       "ORL": 1469.613,
+      "PHX": 1483.963,
       "TOR": 1529.383,
-      "CHA": 1478.964,
       "LAC": 1465.792,
+      "CHA": 1478.965,
       "MEM": 1410.535,
       "DAL": 1456.838,
       "CHI": 1354.592,
