@@ -34,8 +34,8 @@ assert(forecastScorebug.includes('RETRO SPREAD') &&
  forecastScorebug.includes('PROJECTED FINAL') &&
  forecastScorebug.includes('ledger26-pregame-inline--prob'),
  'the pregame rail needs independently legible probability, signed spread and projected final');
-assert(html.includes('cbb-ledger-scorecard.css?v=rich-embossed-20261116') &&
- html.includes('cbb-ledger-scorebug.js?v=rich-embossed-20261116'),
+assert(html.includes('cbb-ledger-scorecard.css?v=raw-mascot-watermark-20261116') &&
+ html.includes('cbb-ledger-scorebug.js?v=raw-mascot-watermark-20261116'),
  'the public ledger must load the current unified scorebug and forecast layout without stale cached assets');
 
 assert(!/draftkings|onlyDraftKings|sportsbook|draftKingsByDate/i.test(script+html+scorecardCss), 'sportsbook lines and lookups must not reappear in the ledger');
