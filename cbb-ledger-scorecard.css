@@ -620,3 +620,63 @@
  .ledger26-status--compact .ledger26-pregame-inline .ledger26-pregame-edge{font-size:15px!important}
  .ledger26-status--compact .ledger26-pregame-inline .ledger26-pregame-score{font-size:12px!important}
 }
+
+
+/* Daily Ledger premium edition: reuse the canonical locally sourced double-ring badges.
+   Shared for men's and women's cards; no new images, filters on artwork, or external assets. */
+#sl-games .ledger26-scorebug{
+ --ledger26-crest-size:84px;
+ --ledger26-team-min-height:100px;
+ grid-template-columns:minmax(0,1fr) 114px;
+ min-height:204px;
+ border-color:#7c6444;
+ background:#fbf4e8;
+}
+#sl-games .ledger26-team{
+ gap:12px;
+ padding:7px 12px 7px 10px;
+ border-left-width:5px;
+ background:#fbf4e8;
+}
+#sl-games .ledger26-crest{overflow:visible;isolation:isolate}
+#sl-games .ledger26-crest .mbb-mark,
+#sl-games .ledger26-crest .sl-emblem{
+ /* Emboss the existing two-color medallion, never the historical image itself. */
+ filter:drop-shadow(0 2px 1px rgba(52,37,18,.23));
+}
+#sl-games .ledger26-crest .mbb-mark{
+ box-shadow:inset 0 2px 2px rgba(255,255,255,.48),0 3px 5px rgba(52,37,18,.18)!important;
+}
+#sl-games .ledger26-name{font-size:16px!important;line-height:1.14!important}
+#sl-games .ledger26-record{font-size:12px;line-height:1.3}
+#sl-games .ledger26-points{font-size:clamp(26px,2.2vw,37px);font-variant-numeric:tabular-nums}
+#sl-games .ledger26-meta{padding:9px 13px;font-size:12px}
+#sl-games .ledger26-scout{font-size:10px;gap:6px}
+#sl-games .ledger26-final-desk{padding:10px 13px 12px;background:#efe2c9}
+#sl-games .ledger26-final-kicker{font-size:10px;letter-spacing:.09em}
+#sl-games .ledger26-final-rating{font-size:19px}
+#sl-games .ledger26-final-change{font-size:13px}
+#sl-games .ledger26-final-standing{font-size:11px}
+#sl-games .ledger26-projected-detail,
+#sl-games .ledger26-matchup-detail{font-size:13px;padding:10px 13px}
+#sl-games .ledger26-status--compact{padding:6px!important}
+@media(max-width:900px){
+ #sl-games .ledger26-scorebug{--ledger26-crest-size:72px;--ledger26-team-min-height:89px;min-height:182px;grid-template-columns:minmax(0,1fr) 108px}
+ #sl-games .ledger26-team{gap:8px;padding:6px 8px}
+ #sl-games .ledger26-name{font-size:14px!important}
+}
+@media(max-width:640px){
+ #sl-games .ledger26-scorebug{--ledger26-crest-size:66px;--ledger26-team-min-height:82px;min-height:168px;grid-template-columns:minmax(0,1fr) 112px}
+ #sl-games .ledger26-team{gap:7px;padding:5px 7px}
+ #sl-games .ledger26-name{font-size:13px!important}
+ #sl-games .ledger26-record{font-size:10px}
+ #sl-games .ledger26-points{font-size:28px}
+ #sl-games .ledger26-meta{padding:7px 9px}
+ #sl-games .ledger26-final-desk{padding:8px 9px}
+}
+@media(max-width:370px){
+ #sl-games .ledger26-scorebug{--ledger26-crest-size:56px;--ledger26-team-min-height:74px;grid-template-columns:minmax(0,1fr) 105px}
+ #sl-games .ledger26-team{gap:5px;padding:4px}
+ #sl-games .ledger26-name{font-size:12px!important}
+ #sl-games .ledger26-points{font-size:24px}
+}
