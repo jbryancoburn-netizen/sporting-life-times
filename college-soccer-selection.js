@@ -139,8 +139,10 @@ async function show(){try{const data=await file('data/college-soccer-ncaa-select
  branding.crest_overrides=overrides.schools||{};
  branding.local_crests=local.teams||{};
  const unmapped=data.field.filter(x=>!branding.local_crests['men-d1:'+x.team_id]);
- if(unmapped.length)throw Error('Missing archived logos for '+unmapped.map(x=>x.team).join(', '));
  draw(data,metrics,branding);
+ if(unmapped.length){
+   host.prepend(el('p','LOGO AUDIT: Local archive artwork is pending for '+unmapped.map(x=>x.team).join(', ')+'. A labeled initials fallback is shown until a verified logo is available.','cs-selection-warning'));
+ }
  const audit=document.getElementById('cs-selection-audit');
  if(audit){
    const state=await file('data/college-soccer-selection-update-status.json').catch(()=>null);
