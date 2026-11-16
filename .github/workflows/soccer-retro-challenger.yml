@@ -1,0 +1,34 @@
+name: Soccer RETRO conference draw venue challenger
+on:
+  push:
+    branches: [experiment/soccer-elo-conference-draw-venue-holdout]
+    paths:
+      - 'scripts/experiment_soccer_conference_draw_venue.py'
+      - 'scripts/test_soccer_conference_challenger.py'
+      - '.github/workflows/soccer-retro-challenger.yml'
+  pull_request:
+    paths:
+      - 'scripts/experiment_soccer_conference_draw_venue.py'
+      - 'scripts/test_soccer_conference_challenger.py'
+      - '.github/workflows/soccer-retro-challenger.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Sanity checks
+        run: python -m unittest discover -s scripts -p 'test_soccer_conference_challenger.py'
+      - name: Run independent 2025 holdout experiment
+        run: python scripts/experiment_soccer_conference_draw_venue.py --write
+      - name: Publish challenger report as CI artifact only
+        uses: actions/upload-artifact@v4
+        with:
+          name: soccer-retro-challenger-2025-holdout
+          path: data/college-soccer-history/elo-conference-draw-venue-holdout.json
+          if-no-files-found: error
