@@ -703,3 +703,11 @@
 @media(prefers-reduced-motion:reduce){
  .ledger26-scorebug .ledger26-team{transition:none}
 }
+
+/* Gold and other luminous school colors need ink-colored labels on rich pregame/live panels. */
+.ledger26-scorebug .ledger26-team--light-ink .ledger26-name,
+.ledger26-scorebug .ledger26-team--light-ink .ledger26-record,
+.ledger26-scorebug .ledger26-team--light-ink .ledger26-poll,
+.ledger26-scorebug .ledger26-team--light-ink .ledger26-points{
+ color:#201911!important;text-shadow:0 1px 0 rgba(255,255,255,.5)!important;
+}
