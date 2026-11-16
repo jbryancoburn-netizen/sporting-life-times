@@ -22,6 +22,14 @@ function draw(data,metrics,branding){
   const b=el('button',label);b.type='button';b.className=mode===value?'active':'';b.setAttribute('aria-pressed',String(mode===value));b.onclick=()=>{mode=value;draw(data,metrics,branding)};nav.append(b)
  }host.append(nav);
  const verifiedAqs=(data.automatic_bid_scenarios||[]).filter(x=>x.official_aq===true);
+ // A published forecast must not silently treat an old rating cutoff as current.
+ const cutoffDate=Date.parse(String(data.rating_cutoff||'')+'T23:59:59Z');
+ const ageDays=Number.isFinite(cutoffDate)?Math.max(0,Math.floor((Date.now()-cutoffDate)/86400000)):Infinity;
+ if(ageDays>1)host.append(el('p','STALE FORECAST: RETRO ratings are '+ageDays+' days old. This is an archived projection, not a current tournament forecast.','cs-selection-warning'));
+ if(data.elo_reconciliation?.excluded_finals>0)host.append(el('p','DATA INTEGRITY WARNING: '+data.elo_reconciliation.excluded_finals+' final matches excluded from the RETRO ratings input. Tournament probabilities are provisional.','cs-selection-warning'));
+ const claimedAqs=(data.field||[]).filter(x=>x.bid_type==='official_aq');
+ const confirmedIds=new Set(verifiedAqs.map(x=>x.team_id));
+ if(claimedAqs.some(x=>!confirmedIds.has(x.team_id)))host.append(el('p','AUTOMATIC BID CONFLICT: The projected field marks teams as confirmed without matching certified championship records. Review required.','cs-selection-warning'));
  if(data.elo_reconciliation?.source_certified!==true){
    host.append(el('p','SOURCE AUDIT: Provisional ratings. NCAA-compliant selection inputs remain unverified; the bracket is illustrative and must not be presented as the official tournament field.','cs-selection-warning'));
  }
