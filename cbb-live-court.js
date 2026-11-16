@@ -150,7 +150,7 @@ function gameFlow(plays,game){
  // Show only timeouts with an actual provider game clock. Never invent event positions.
  const timeouts=[],seenTimeout=new Set();
  if(timeline)for(const p of plays){
-  if(!/\\btime\\s*[- ]?out\\b/i.test(p.kind+' '+p.text))continue;
+  if(!/\btime\s*[- ]?out\b/i.test(p.kind+' '+p.text))continue;
   const elapsed=elapsedClock(p,timeline.women);
   if(elapsed===null||elapsed>timeline.end)continue;
   const key=p.period+'|'+p.clock+'|'+(p.teamId||'');
