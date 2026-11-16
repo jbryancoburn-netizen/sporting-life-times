@@ -52,6 +52,29 @@ def verify(base_url):
     if any("men-d1:" + x["team_id"] not in public_logos["teams"]
            for x in published["field"]):
         raise ValueError("Active tournament projection contains teams with missing local crests")
+    # The entirely separate NCAA RPI-led 48-school model must also be served.
+    # A successful RETRO publication alone is not a verified NCAA comparison.
+    for model_path in (
+        "data/college-soccer-ncaa-rpi-nov14-2026.json",
+        "data/college-soccer-ncaa-automatic-bids-2026.json",
+        "data/college-soccer-ncaa-selection-projection-2026.json",
+    ):
+        model_url = urljoin(base_url.rstrip("/") + "/", model_path) + "?ncaa-bracket-check=20261116"
+        with urlopen(Request(model_url, headers={"Cache-Control": "no-cache",
+                       "User-Agent": "SLT-Soccer-Bracket-Release/1.0"}), timeout=18) as response:
+            public_model = json.loads(response.read().decode("utf-8"))
+        source_model = json.loads((ROOT / model_path).read_text(encoding="utf-8"))
+        if public_model != source_model:
+            raise ValueError("Public NCAA selection model is missing or stale: " + model_path)
+    official_proxy = json.loads((ROOT / "data/college-soccer-ncaa-selection-projection-2026.json").read_text(encoding="utf-8"))
+    if (official_proxy.get("independent_of_retro") is not True or
+        official_proxy.get("status") != "final_preselection_rpi_led_ncaa_criteria_projection_not_official" or
+        len(official_proxy.get("field", [])) != 48 or
+        sum(x.get("bid_type") == "official_aq" for x in official_proxy["field"]) != 23 or
+        sum(x.get("bid_type") == "rpi_at_large_projection" for x in official_proxy["field"]) != 25):
+        raise ValueError("Live NCAA model violates independent 48/23/25 criteria")
+    if any(x.get("ncaa_seed") is not None for x in official_proxy["field"]):
+        raise ValueError("Unannounced official NCAA seeds must never be invented")
     page = (ROOT / ASSETS[0]).read_text(encoding="utf-8")
     if not all(name in page for name in ASSETS[1:]):
         raise ValueError("Live NCAA selection HTML does not reference the complete bracket assets")
@@ -69,7 +92,7 @@ def main():
     for attempt in range(1, args.attempts + 1):
         try:
             verify(args.root)
-            print("PASS: public NCAA soccer selection HTML, bracket JS, CSS, all 213 local school logos and selection data match source")
+            print("PASS: public NCAA soccer selection HTML, bracket JS, CSS, all 213 local school logos, NCAA RPI model and RETRO selection data match source")
             return
         except Exception as e:
             print("Public soccer bracket verification attempt", attempt, "of", args.attempts, ":", str(e), flush=True)
