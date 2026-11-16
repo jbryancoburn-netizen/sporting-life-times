@@ -11,13 +11,13 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
 RPI = DATA / "college-soccer-ncaa-rpi-nov14-2026.json"
-AQ = DATA / "college-soccer-ncaa-selection-forecast.json"
+AQ = DATA / "college-soccer-ncaa-automatic-bids-2026.json"
 CONF = DATA / "college-soccer-conferences.json"
 OUT = DATA / "college-soccer-ncaa-selection-projection-2026.json"
 
 def run():
     snapshot = json.loads(RPI.read_text())
-    retro_file = json.loads(AQ.read_text())
+    aq_archive = json.loads(AQ.read_text())
     directory = json.loads(CONF.read_text())["conferences"]
     all_schools = {id for k,c in directory.items() if k.startswith("men-d1:") for id in c.get("teams",[])}
     by_school = {x["team_id"]:x for x in snapshot["rows"]}
@@ -29,7 +29,7 @@ def run():
         if min(w,l,t)<0 or (2*w+t>=w+l+t)!=s["at_large_di_record_eligible"]:
             raise ValueError("Division I record eligibility mismatch for "+s["team_id"])
     aqs = []
-    for scenario in retro_file["automatic_bid_scenarios"]:
+    for scenario in aq_archive["bids"]:
         # DO NOT take the RETRO-selected team or the RETRO winner forecast:
         # accept only the university/source-certified official final outcome.
         result = scenario.get("championship_result") or {}
@@ -58,9 +58,7 @@ def run():
         aq = by_conference.get(conference_by_id.get(school)) if bid=="AQ" else None
         return {
             "team_id":school,
-            "team":next((v["team"] for v in aqs if v["team_id"]==school),None) or
-                   next((v.get("team") for v in retro_file["field"] if v["team_id"]==school),None) or
-                   school.replace("-"," ").title(),
+            "team":row["school"],
             "conference":conference_by_id[school],
             "bid_type":"official_aq" if bid=="AQ" else "rpi_at_large_projection",
             "rpi_rank":row["rpi_rank"],
