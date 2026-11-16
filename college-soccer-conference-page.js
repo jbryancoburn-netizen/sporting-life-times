@@ -199,7 +199,7 @@ async function render(){
    const homeBonus=titleFixture.venue_type==='home'?55:0;
    const p=1/(1+Math.pow(10,-((a.elo-b.elo+homeBonus)/400)));
    const forecast=E('div',null,'cs-conf-title-forecast');
-   forecast.append(E('strong','RETRO · CHAMPIONSHIP PREDICTION'),E('p',a.name+' '+pct(p)+' · '+b.name+' '+pct(1-p)),E('small',(neutral?'Neutral site · no home advantage':'55-point modeled home advantage for confirmed home venue')+' · penalty shootouts excluded · NOT an actual result'));
+   forecast.append(E('strong','RETRO · CHAMPIONSHIP PREDICTION'),E('p',a.name+' '+pct(p)+' · '+b.name+' '+pct(1-p)),E('small',(titleFixture.venue_type==='neutral'?'Neutral site · no home advantage':titleFixture.venue_type==='home'?'55-point modeled home advantage for confirmed home venue':'Venue unverified · no home advantage assumed')+' · penalty shootouts excluded · NOT an actual result'));
    modelSection.append(forecast);
   }else modelSection.append(E('p','Finalists confirmed; RETRO odds unavailable until both ratings are verified.','cs-conf-caption'));
  }else if(bracketVerified){
@@ -225,7 +225,7 @@ async function render(){
   const banner=E('div',null,'cs-tournament-title-status '+(decided?'cs-title-decided':'cs-title-pending'));
   if(decided)banner.append(E('strong','★ OFFICIAL CONFERENCE TOURNAMENT CHAMPION'),E('p',teams.find(t=>t.id===titleMatch.winner_id)?.name||titleMatch.winner_id));
   else{
-   banner.append(E('strong',key==='men-d1:big-east'?'OFFICIAL SEMIFINALS · NOVEMBER 12 · CHAMPION NOT YET DECIDED':'TOURNAMENT IN PROGRESS · NO CHAMPION CONFIRMED'));
+   banner.append(E('strong','TOURNAMENT IN PROGRESS · NO CHAMPION CONFIRMED'));
    if(titleMatch?.home_id&&titleMatch.away_id)banner.append(E('p',(teams.find(t=>t.id===titleMatch.home_id)?.name||'TBD')+' vs '+(teams.find(t=>t.id===titleMatch.away_id)?.name||'TBD')+' · '+(titleMatch.kickoff||'date pending')));
    else if(titleMatch?.home_from&&titleMatch.away_from)banner.append(E('p','Championship · '+(titleMatch.kickoff||'date pending')+' · winners of the two semifinals','cs-conf-title-pending'));
   }
