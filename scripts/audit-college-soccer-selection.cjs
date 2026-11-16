@@ -22,7 +22,26 @@ for(const x of official){
  check(x.championship_result&&Number.isFinite(x.championship_result.home_score)&&Number.isFinite(x.championship_result.away_score),'Official AQ '+x.conference+' lacks championship final score');
  check(field.some(t=>t.team_id===x.team_id&&t.bid_type==='official_aq'),'Confirmed AQ '+x.team+' not marked official in field');
  // Existing records omit which side is the champion; do not infer a winner from score order.
- if(x.championship_result?.home_score!==x.championship_result?.away_score&&!x.championship_result?.winner_id)suspicious.push(x.conference+': missing winner_id; score orientation cannot be verified');
+ const result=x.championship_result||{};
+ if(!result.winner_id){
+  errors.push(x.conference+': missing explicit winner_id; cannot certify automatic bid');
+ }else{
+  check(result.winner_id===x.team_id,x.conference+': winner_id disagrees with automatic qualifier');
+  check(result.home_team_id&&result.away_team_id,x.conference+': home_team_id and away_team_id required');
+  if(result.home_team_id&&result.away_team_id){
+   check(result.home_team_id!==result.away_team_id,x.conference+': duplicate finalists');
+   check([result.home_team_id,result.away_team_id].includes(result.winner_id),x.conference+': winner not a finalist');
+   if(result.decision==='regulation'||result.decision==='extra_time'){
+    const expected=result.home_score>result.away_score?result.home_team_id:result.away_score>result.home_score?result.away_team_id:null;
+    check(expected===result.winner_id,x.conference+': scores disagree with winner');
+   }
+   if(result.decision==='penalties'){
+    check(Number.isFinite(result.home_penalties)&&Number.isFinite(result.away_penalties)&&result.home_penalties!==result.away_penalties,x.conference+': missing penalty result');
+    const expected=result.home_penalties>result.away_penalties?result.home_team_id:result.away_team_id;
+    check(expected===result.winner_id,x.conference+': penalties disagree with winner');
+   }
+  }
+ }
 }
 for(const x of aq.filter(x=>!x.official_aq)){
  check(x.method!=='verified_championship_result','Unconfirmed AQ incorrectly has verified-result method: '+x.conference);
