@@ -840,3 +840,14 @@
  .ledger26-pulse-ht-box{opacity:1}
  .ledger26-pulse-ht{font-size:14px}
 }
+
+/* Every scoring event produces a crisp step. Detailed variation lives in a
+   clearly labeled, independently scaled close-up when a graph segment is tapped. */
+.ledger26-pulse-trace{stroke-width:1.5;stroke-linejoin:miter;stroke-linecap:square}
+@media(max-width:700px){.ledger26-pulse-trace{stroke-width:1.65}}
+.ledger26-pulse-closeup{margin:5px 0 6px;padding:7px 8px 5px;background:#faf1de;border:1px solid #baa384;color:#3f2c1c}
+.ledger26-pulse-closeup>div{display:flex;align-items:baseline;justify-content:space-between;gap:8px;flex-wrap:wrap;font:10px Georgia,serif}
+.ledger26-pulse-closeup>div strong{font:700 10px Georgia,serif;letter-spacing:.03em}
+.ledger26-pulse-closeup>div small{font:10px Georgia,serif}
+.ledger26-pulse-closeup svg{display:block;width:100%;height:82px}
+@media(max-width:700px){.ledger26-pulse-closeup svg{height:70px}}
