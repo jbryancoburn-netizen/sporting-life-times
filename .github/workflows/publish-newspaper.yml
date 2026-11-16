@@ -129,6 +129,8 @@ jobs:
         run: node tests/mbb-retro-forecast-coverage.test.cjs
       - name: Protect Courtside sourced scorebugs and independent USRS
         run: node tests/cbb-courtside.test.cjs
+      - name: Verify source-clock scoring progression for men and women
+        run: node tests/cbb-live-clock-axis.test.cjs
       - name: Verify mobile team game cards, midnight final, and verified RETRO values
         run: node tests/mbb-calendar-finals.test.cjs
       - name: Verify radio stays opt-in, unrecorded and broadcaster-approved
