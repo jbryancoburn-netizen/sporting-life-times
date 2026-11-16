@@ -11,11 +11,52 @@ function addOptions(select, values) {
   for (const value of values) select.add(new Option(value, value));
 }
 
+function pageLink(label, params) {
+  const link = document.createElement('a');
+  link.href = location.pathname + '?' + new URLSearchParams(params);
+  link.textContent = label;
+  return link;
+}
+
+function showTeam(edition, team) {
+  document.title = team.school + ' | Indiana Boys Basketball RETRO';
+  document.querySelector('h1').textContent = team.school;
+  document.querySelector('.filters').hidden = true;
+  document.querySelector('.filters').style.display = 'none';
+  document.getElementById('view-title').textContent = 'Team profile';
+  status.textContent = 'RETRO ' + edition.initialRating + ' · Preseason';
+  const profile = document.createElement('p');
+  profile.append(
+    pageLink('Class ' + team.classification, {class: team.classification}),
+    ' · ',
+    pageLink(team.conference, {conference: team.conference}),
+    ' · ',
+    pageLink('Sectional ' + team.sectional, {sectional: team.sectional})
+  );
+  const schedule = document.createElement('a');
+  schedule.href = 'http://scoreboard.homestead.com/boys/logs' + encodeURIComponent(team.id) + '.htm';
+  schedule.textContent = 'Varsity schedule and results';
+  const scheduleRow = document.createElement('p');
+  scheduleRow.append(schedule, ' · John Harrell');
+  const back = document.createElement('p');
+  back.append(pageLink('Statewide rankings', {}));
+  status.after(profile, scheduleRow, back);
+}
+
 function initialize(edition) {
   document.getElementById('edition').textContent = edition.season + ' · Preseason';
   addOptions(controls.conference, [...new Set(edition.teams.map(team => team.conference))].sort());
   addOptions(controls.sectional, [...new Set(edition.teams.map(team => team.sectional))].sort((a, b) => a - b));
   const query = new URLSearchParams(location.search);
+  if (query.has('team')) {
+    const team = edition.teams.find(school => school.id === query.get('team'));
+    if (team) showTeam(edition, team);
+    else {
+      status.textContent = 'School not found. ';
+      status.append(pageLink('Statewide rankings', {}));
+    }
+    return;
+  }
   for (const [key, control] of Object.entries(controls)) {
     if (query.has(key)) control.value = query.get(key);
   }
@@ -35,6 +76,10 @@ function initialize(edition) {
       selected.sectional && 'Sectional ' + selected.sectional,
     ].filter(Boolean).join(' · ');
     document.getElementById('view-title').textContent = label || 'Statewide register';
+    document.querySelector('h1').textContent = selected.conference || 'Indiana Boys Basketball RETRO';
+    document.title = selected.conference
+      ? selected.conference + ' | Indiana Boys Basketball RETRO'
+      : 'Indiana Boys Basketball RETRO | Sporting Life & Times';
     status.textContent = shown.length
       ? shown.length + ' ' + (shown.length === 1 ? 'school' : 'schools') + ' · All tied at ' + edition.initialRating + ' entering the season'
       : 'No schools match these filters.';
@@ -42,7 +87,9 @@ function initialize(edition) {
       const row = document.createElement('tr');
       for (const [index, value] of [1, team.school, team.classification, team.conference, team.sectional, edition.initialRating].entries()) {
         const cell = row.insertCell();
-        cell.textContent = value;
+        if (index === 1) cell.append(pageLink(value, {team: team.id}));
+        else if (index === 3) cell.append(pageLink(value, {conference: team.conference}));
+        else cell.textContent = value;
         if ([0, 4, 5].includes(index)) cell.className = 'number';
       }
       return row;
