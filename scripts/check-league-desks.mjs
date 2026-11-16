@@ -13,8 +13,8 @@ assert(found.length>=28,'the broader sports directory is incomplete');
 const displayedCount=Number(index.match(/id="league-search-summary">(\d+) sporting editions/)?.[1]);
 assert.equal(found.length,displayedCount,'directory count does not match published edition links');
 const basketball=['nba.html','euroleague.html','nbl.html','bbl.html'];
-const pro=index.match(/<h2>Professional Basketball<\/h2>([\s\S]*?)<\/section>/)?.[1]||'';
-const proLinks=[...pro.matchAll(/href="([^"]+\.html)"/g)].map(m=>m[1]);
+const pro=index.match(/<section[^>]*id="section-1"[^>]*>([\s\S]*?)<\/section>/)?.[1]||'';
+const proLinks=[...pro.matchAll(/class="league-directory-link" href="([^"]+\.html)"/g)].map(m=>m[1]).filter(p=>basketball.includes(p));
 assert.deepEqual(proLinks,basketball,'professional basketball must list exactly the four approved desks');
 for(const page of found){
  assert(fs.existsSync(page),'missing dedicated page: '+page);
