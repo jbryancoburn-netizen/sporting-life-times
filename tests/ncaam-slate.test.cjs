@@ -22,6 +22,8 @@ assert(logoRenderer.includes("'77':'assets/cbb-big-ten-1980s/centered/northweste
 
 
 const forecastScorebug=fs.readFileSync('cbb-ledger-scorebug.js','utf8');
+assert(script.includes('pulseRead(g,await response.json())') && script.includes('data-slt-pulse-segment') && script.includes('pulseScale.set(key,scale)'), 'FAMU-UTEP Pulse must use verified timed plays, selectable segments, and a never-shrinking lead scale');
+assert(scorecardCss.includes('.slt-pulse-plot{height:60px') && scorecardCss.includes('grid-row:3'), 'RETRO Pulse must remain compact between away and home rows');
 assert(forecastScorebug.includes('pulseRange(max)') && forecastScorebug.includes('pulseScale.set(id,scale)'), 'RETRO Pulse must preserve the largest observed lead scale');
 assert(forecastScorebug.includes('data-retro-segment') && forecastScorebug.includes('TIME')===false ? true : forecastScorebug.includes('data-retro-segment'), 'RETRO Pulse segments must be directly clickable');
 assert(script.includes('gameId:String(g.id)') && script.includes('const convert=t=>({id:String(t.id)'), 'RETRO Pulse must receive exact source game and team IDs');
