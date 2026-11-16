@@ -272,7 +272,7 @@
  const pulseRange=n=>n<=5?5:n<=10?10:Math.max(20,Math.ceil(n/10)*10);
  function pulseShell(g,phase,label){
   if(g.pulseManagedExternally||phase==='upcoming'||!g.gameId||!['men','women'].includes(g.gender)||!g.away?.id||!g.home?.id)return '';
-  return '<div class="ledger26-pulse" data-retro-pulse="'+esc(g.gameId)+'" data-gender="'+g.gender+
+  return '<div class="ledger26-pulse" data-retro-pulse="'+esc(g.gameId)+'" data-away-name="'+esc(g.away.name)+'" data-home-name="'+esc(g.home.name)+'" data-gender="'+g.gender+
    '" data-away="'+esc(g.away.id)+'" data-home="'+esc(g.home.id)+'" data-phase="'+phase+
    '" data-away-score="'+esc(g.away.score??'')+'" data-home-score="'+esc(g.home.score??'')+'">'+
    '<div class="ledger26-pulse-heading"><strong>'+esc(phase==='final'?'FINAL':('LIVE · '+label))+
@@ -316,7 +316,7 @@
     plays:points.filter(p=>p.time>start.time&&p.time<=edge.time&&p.scoring)};
   }).filter(s=>s.end.time>s.start.time);
   return {points,breaks,spans,duration,away:rivals.find(x=>x.homeAway==='away')?.team?.shortDisplayName||'AWAY',
-   home:rivals.find(x=>x.homeAway==='home')?.team?.shortDisplayName||'HOME'};
+   home:rivals.find(x=>x.homeAway==='home')?.team?.shortDisplayName||''};
  }
  function pulseDraw(el,data){
   const id=el.dataset.gender+':'+el.dataset.retroPulse;
@@ -341,14 +341,16 @@
    '" class="ledger26-pulse-hit" style="left:'+(100*segment.start.time/data.duration).toFixed(2)+
    '%;width:'+Math.max(.4,100*(segment.end.time-segment.start.time)/data.duration).toFixed(2)+
    '%" aria-label="Scoring: '+esc(segment.start.label)+' to '+esc(segment.end.label)+'" title="'+esc(segment.start.label)+' → '+esc(segment.end.label)+'"></button>').join('');
+  // Always identify the schools, never the generic home/away directions.
+  const awayName=el.dataset.awayName||data.away,homeName=el.dataset.homeName||data.home;
   const last=data.points.at(-1),lead=last.awayScore-last.homeScore;
   const heading=el.querySelector('.ledger26-pulse-heading strong')?.textContent||'FINAL';
   el.innerHTML='<div class="ledger26-pulse-heading"><strong>'+esc(heading)+'</strong><span>'+
-   esc(lead===0?'TIED':(lead>0?data.away:data.home)+' +'+Math.abs(lead))+
+   esc(lead===0?awayName+' / '+homeName+' · TIED':(lead>0?awayName:homeName)+' +'+Math.abs(lead))+
    ' <small>· SCALE ±'+scale+'</small></span></div>'+
-   '<div class="ledger26-pulse-chart"><svg viewBox="0 0 488 100" preserveAspectRatio="none" role="img" aria-label="Actual score differential. Above zero away leads, below zero home leads. Scale ±'+scale+' points.">'+
+   '<div class="ledger26-pulse-chart"><svg viewBox="0 0 488 100" preserveAspectRatio="none" role="img" aria-label="Scoring margin: '+esc(awayName)+' above zero, '+esc(homeName)+' below zero. Scale ±'+scale+' points.">'+
    rules+marks+'<path d="'+plot+'" class="ledger26-pulse-trace"/>'+
-   '<circle cx="'+x(last.time||data.duration)+'" cy="'+y(lead)+'" r="3" class="ledger26-pulse-last"/></svg>'+
+   '<circle cx="'+x(last.time||data.duration)+'" cy="'+y(lead)+'" r="2.2" class="ledger26-pulse-last"/></svg>'+
    '<div class="ledger26-pulse-taps">'+regions+'</div></div>';
   pulseCache.set(el,data);
  }
@@ -392,7 +394,7 @@
    if(panel.dataset.index===button.dataset.retroSegment){panel.remove();return;}
    panel.dataset.index=button.dataset.retroSegment;
    panel.innerHTML='<strong>RETRO PULSE · '+esc(item.start.label)+' TO '+esc(item.end.label)+'</strong>'+
-    '<span>'+esc(model.away)+' '+item.away+' · '+esc(model.home)+' '+item.home+' points in this stretch</span>'+
+    '<span>'+esc(host.dataset.awayName||model.away)+' '+item.away+' · '+esc(host.dataset.homeName||model.home)+' '+item.home+' points in this stretch</span>'+
     (item.plays.length?'<ol>'+item.plays.slice(0,35).map(p=>'<li>'+esc(p.clock)+' · '+esc(p.text)+'</li>').join('')+'</ol>':
     '<small>No individual scoring events available for this interval.</small>');
   },true);
