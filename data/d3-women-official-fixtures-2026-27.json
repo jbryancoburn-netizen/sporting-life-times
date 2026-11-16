@@ -3,7 +3,7 @@
   "division": "d3",
   "gender": "women",
   "season": "2026-27",
-  "generated_utc": "2026-11-16T00:01:24.442171+00:00",
+  "generated_utc": "2026-11-16T18:37:37.985014+00:00",
   "source": "NCAA 2026-27 member directory + year/gender-validated official school athletics calendars",
   "scope": "NCAA membership-wide first pass; sources without independently validated 2026-27 schedules excluded",
   "ncaa_confirmed_programs": 415,
@@ -1789,8 +1789,9 @@
       "readable_rows": 26,
       "verified_member_opponents": 22,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 2,
-        "conditional_or_ambiguous_opponent": 2
+        "preseason_or_exhibition": 1,
+        "conditional_or_ambiguous_opponent": 2,
+        "identity_not_d3_matched_but_posted": 1
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -3920,9 +3921,9 @@
       "owner_org_id": 570,
       "source_url": "https://www.rpiathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "readable_rows": 25,
-      "verified_member_opponents": 16,
+      "verified_member_opponents": 18,
       "excluded_rows": {
-        "conditional_or_ambiguous_opponent": 6,
+        "conditional_or_ambiguous_opponent": 4,
         "identity_not_d3_matched_but_posted": 3
       },
       "status": "parsed",
@@ -5109,7 +5110,7 @@
       "excluded_rows": {
         "missing_or_ambiguous_ncaa_opponent": 7
       },
-      "failed_school_calendar_urls": 9
+      "failed_school_calendar_urls": 1
     },
     {
       "owner_org_id": 787,
@@ -5174,11 +5175,11 @@
     {
       "owner_org_id": 798,
       "source_url": "https://uwoshkoshtitans.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "readable_rows": 36,
+      "readable_rows": 35,
       "verified_member_opponents": 16,
       "excluded_rows": {
         "conditional_or_ambiguous_opponent": 10,
-        "identity_not_d3_matched_but_posted": 10
+        "identity_not_d3_matched_but_posted": 9
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -8384,9 +8385,9 @@
       ]
     }
   ],
-  "fixture_count": 4543,
-  "reciprocal_fixtures": 2719,
-  "unresolved_opponent_fixture_count": 1580,
+  "fixture_count": 4544,
+  "reciprocal_fixtures": 2720,
+  "unresolved_opponent_fixture_count": 1578,
   "unresolved_opponent_fixtures": [
     {
       "id": "d3-women-2026-11-06-73-other-3415eb321a6f",
@@ -11899,21 +11900,6 @@
       "venue_location": "Hanover, NH"
     },
     {
-      "id": "d3-women-2026-11-16-185-other-54a26a2eae5e",
-      "date": "2026-11-16",
-      "source_owner_org_id": 185,
-      "external_opponent_label": "Navy",
-      "placement": "away",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://www.dickinsonathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "6:00 PM",
-      "venue_location": "Annapolis, Md. (Alumni Hall)"
-    },
-    {
       "id": "d3-women-2026-11-16-239-other-814bd5030155",
       "date": "2026-11-16",
       "source_owner_org_id": 239,
@@ -13080,7 +13066,7 @@
       "schedule_only": true,
       "source_kind": "official_school",
       "source_url": "https://athletics.bowdoin.edu/sports/womens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "2:00 PM",
+      "tipoff_as_posted": "4:00 PM",
       "venue_location": "Brunswick, Maine / Morrell Gymnasium"
     },
     {
@@ -13320,7 +13306,7 @@
       "schedule_only": true,
       "source_kind": "official_school",
       "source_url": "https://athletics.macalester.edu/sports/womens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "3:00 PM CST; 1:00 PM PST",
+      "tipoff_as_posted": "4:00 PM CST; 2:00 PM PST",
       "venue_location": "Pasadena, CA"
     },
     {
@@ -13800,7 +13786,7 @@
       "schedule_only": true,
       "source_kind": "official_school",
       "source_url": "https://athletics.bowdoin.edu/sports/womens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "12:00 PM",
+      "tipoff_as_posted": "2:00 PM",
       "venue_location": "Brunswick, Maine / Morrell Gymnasium"
     },
     {
@@ -18754,21 +18740,6 @@
       "venue_location": "Maryville, TN / Maryville College"
     },
     {
-      "id": "d3-women-2026-12-20-798-other-8965ffdff474",
-      "date": "2026-12-20",
-      "source_owner_org_id": 798,
-      "external_opponent_label": "Principia College (Ill.)",
-      "placement": "home",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://uwoshkoshtitans.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "4 p.m.",
-      "venue_location": "Oshkosh, Wis. / Kolf Sports Center"
-    },
-    {
       "id": "d3-women-2026-12-20-1297-other-3024abd89253",
       "date": "2026-12-20",
       "source_owner_org_id": 1297,
@@ -19140,8 +19111,8 @@
       "schedule_only": true,
       "source_kind": "official_school",
       "source_url": "https://www.tcnjathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "TBD",
-      "venue_location": "San Juan, Puerto Rico"
+      "tipoff_as_posted": "2:00 P.M.",
+      "venue_location": "Caguas, P.R. / Coliseo Roger Luis Mendoza"
     },
     {
       "id": "d3-women-2026-12-29-750-other-d21c9c3e7e25",
@@ -40485,7 +40456,7 @@
       "venue_location": "Troy, NY",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "W, 88-68",
+      "tournament": "",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -42457,7 +42428,7 @@
       "venue_location": "Keene, NH",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "L, 49-52",
+      "tournament": "",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -49522,7 +49493,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "single_official_school",
-      "tipoff_as_posted": "6:00 PM (CT)",
+      "tipoff_as_posted": "5:00 PM (CT)",
       "venue": "",
       "venue_location": "Ashland, Va.",
       "network_as_posted": "",
@@ -51352,7 +51323,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "single_official_school",
-      "tipoff_as_posted": "1:00 PM (CT)",
+      "tipoff_as_posted": "12:00 PM (CT)",
       "venue": "",
       "venue_location": "Ashland, Va.",
       "network_as_posted": "",
@@ -52762,7 +52733,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "2:00 PM",
+      "tipoff_as_posted": "12:00 PM",
       "venue": "Morrell Gymnasium",
       "venue_location": "Brunswick, Maine",
       "network_as_posted": "",
@@ -56152,7 +56123,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "TBA",
+      "tipoff_as_posted": "4:00 pm",
       "venue": "Cave Arena (Basketball)",
       "venue_location": "Demorest, Georgia",
       "network_as_posted": "",
@@ -75974,7 +75945,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "single_official_school",
-      "tipoff_as_posted": "",
+      "tipoff_as_posted": "2:00 PM",
       "venue": "Michael P. O'Brien Athletics & Recreation Center Arena",
       "venue_location": "St. Mary's City, MD",
       "network_as_posted": "",
@@ -77337,30 +77308,6 @@
       "neutral_home_designation_unconfirmed": true
     },
     {
-      "id": "d3-women-2026-12-27-247-442",
-      "date": "2026-12-27",
-      "away_org_id": 247,
-      "home_org_id": 442,
-      "neutral": false,
-      "status": "scheduled",
-      "source_url": "https://www.geneseoknights.com/sports/womens-basketball/schedule?grid=true",
-      "official_schedule_sources": [
-        "https://www.geneseoknights.com/sports/womens-basketball/schedule?grid=true"
-      ],
-      "verified_by_org_ids": [
-        247
-      ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
-      "tipoff_as_posted": "5 PM AST",
-      "venue": "",
-      "venue_location": "Puerto Rico",
-      "network_as_posted": "",
-      "radio_as_posted": "",
-      "tournament": "",
-      "neutral_home_designation_unconfirmed": false
-    },
-    {
       "id": "d3-women-2026-12-28-18-1163",
       "date": "2026-12-28",
       "away_org_id": 18,
@@ -77537,10 +77484,10 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
-      "id": "d3-women-2026-12-28-247-712",
+      "id": "d3-women-2026-12-28-247-442",
       "date": "2026-12-28",
       "away_org_id": 247,
-      "home_org_id": 712,
+      "home_org_id": 442,
       "neutral": false,
       "status": "scheduled",
       "source_url": "https://www.geneseoknights.com/sports/womens-basketball/schedule?grid=true",
@@ -77552,9 +77499,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "single_official_school",
-      "tipoff_as_posted": "3 PM AST",
+      "tipoff_as_posted": "5 PM AST",
       "venue": "",
-      "venue_location": "Ewing, NJ",
+      "venue_location": "Puerto Rico",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -78117,6 +78064,30 @@
       "neutral_home_designation_unconfirmed": true
     },
     {
+      "id": "d3-women-2026-12-29-247-712",
+      "date": "2026-12-29",
+      "away_org_id": 247,
+      "home_org_id": 712,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.geneseoknights.com/sports/womens-basketball/schedule?grid=true",
+      "official_schedule_sources": [
+        "https://www.geneseoknights.com/sports/womens-basketball/schedule?grid=true"
+      ],
+      "verified_by_org_ids": [
+        247
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "3 PM AST",
+      "venue": "",
+      "venue_location": "Ewing, NJ",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-women-2026-12-29-271-30037",
       "date": "2026-12-29",
       "away_org_id": 30037,
@@ -78629,13 +78600,15 @@
       "status": "scheduled",
       "source_url": "https://www.salveathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://www.rpiathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.salveathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
+        570,
         623
       ],
       "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "6:00 PM",
       "venue": "Harrington Auditorium",
       "venue_location": "Worcester, MA",
@@ -78863,7 +78836,7 @@
       "venue_location": "Daytona Beach, Fla.",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "St. Pete Classic",
+      "tournament": "Florida Sunshine Shootout",
       "neutral_home_designation_unconfirmed": true
     },
     {
@@ -80094,9 +80067,9 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "TBD",
-      "venue": "",
-      "venue_location": "San Juan, Puerto Rico",
+      "tipoff_as_posted": "12:30 P.M.",
+      "venue": "Coliseo Roger Luis Mendoza",
+      "venue_location": "Caguas, P.R.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "Puerto Rico Cl\u00e1sico",
@@ -80299,6 +80272,30 @@
       "radio_as_posted": "",
       "tournament": "",
       "neutral_home_designation_unconfirmed": true
+    },
+    {
+      "id": "d3-women-2026-12-30-570-808",
+      "date": "2026-12-30",
+      "away_org_id": 570,
+      "home_org_id": 808,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.rpiathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://www.rpiathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        570
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "4:00 PM",
+      "venue": "",
+      "venue_location": "Worcester, MA",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "WPI Holiday Classic",
+      "neutral_home_designation_unconfirmed": false
     },
     {
       "id": "d3-women-2026-12-30-583-685",
@@ -82506,7 +82503,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "single_official_school",
-      "tipoff_as_posted": "3:00 PM",
+      "tipoff_as_posted": "1:00 PM",
       "venue": "Becknell Gymnasium",
       "venue_location": "Batesville, AR",
       "network_as_posted": "",
@@ -91278,7 +91275,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "5:30 p.m.",
+      "tipoff_as_posted": "1 p.m.",
       "venue": "Margaret Chase Smith Gymnasium",
       "venue_location": "Castine, Maine",
       "network_as_posted": "",
@@ -93362,7 +93359,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "3:30 p.m.",
+      "tipoff_as_posted": "1 p.m.",
       "venue": "Margaret Chase Smith Gymnasium",
       "venue_location": "Castine, Maine",
       "network_as_posted": "",
@@ -97972,7 +97969,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "single_official_school",
-      "tipoff_as_posted": "5:30 p.m.",
+      "tipoff_as_posted": "5:00 p.m.",
       "venue": "",
       "venue_location": "Cambridge, Mass.",
       "network_as_posted": "",
@@ -106938,7 +106935,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "single_official_school",
-      "tipoff_as_posted": "5:30 p.m.",
+      "tipoff_as_posted": "1 p.m.",
       "venue": "",
       "venue_location": "Johnson, Vt.",
       "network_as_posted": "",
@@ -118580,7 +118577,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "single_official_school",
-      "tipoff_as_posted": "3:30 p.m.",
+      "tipoff_as_posted": "1 p.m.",
       "venue": "Margaret Chase Smith Gymnasium",
       "venue_location": "Castine, Maine",
       "network_as_posted": "",
@@ -135970,7 +135967,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "single_official_school",
-      "tipoff_as_posted": "3:30 p.m.",
+      "tipoff_as_posted": "1 p.m.",
       "venue": "Margaret Chase Smith Gymnasium",
       "venue_location": "Castine, Maine",
       "network_as_posted": "",
@@ -144420,7 +144417,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "3:30 p.m.",
+      "tipoff_as_posted": "1 p.m.",
       "venue": "Margaret Chase Smith Gymnasium",
       "venue_location": "Castine, Maine",
       "network_as_posted": "",
