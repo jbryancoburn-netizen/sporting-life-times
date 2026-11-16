@@ -195,11 +195,11 @@ async function render(){
  }else if(bracketVerified&&titleFixture?.home_id&&titleFixture?.away_id){
   const a=teams.find(t=>t.id===titleFixture.home_id),b=teams.find(t=>t.id===titleFixture.away_id);
   if(a&&b&&Number.isFinite(a.elo)&&Number.isFinite(b.elo)){
-   const neutral=titleFixture.venue_type==='neutral';
-   const homeBonus=neutral?0:55;
+   const neutral=titleFixture.venue_type!=='home';
+   const homeBonus=titleFixture.venue_type==='home'?55:0;
    const p=1/(1+Math.pow(10,-((a.elo-b.elo+homeBonus)/400)));
    const forecast=E('div',null,'cs-conf-title-forecast');
-   forecast.append(E('strong','RETRO · CHAMPIONSHIP PREDICTION'),E('p',a.name+' '+pct(p)+' · '+b.name+' '+pct(1-p)),E('small',(neutral?'Neutral site · no home advantage':'55-point modeled home advantage')+' · penalty shootouts excluded · NOT an actual result'));
+   forecast.append(E('strong','RETRO · CHAMPIONSHIP PREDICTION'),E('p',a.name+' '+pct(p)+' · '+b.name+' '+pct(1-p)),E('small',(neutral?'Neutral site · no home advantage':'55-point modeled home advantage for confirmed home venue')+' · penalty shootouts excluded · NOT an actual result'));
    modelSection.append(forecast);
   }else modelSection.append(E('p','Finalists confirmed; RETRO odds unavailable until both ratings are verified.','cs-conf-caption'));
  }else if(bracketVerified){
@@ -305,7 +305,7 @@ async function render(){
     if(match.venue)card.append(E('span',match.venue,'cs-official-kickoff'));
     if(match.status!=='final'&&names[0]&&names[1]&&Number.isFinite(names[0].elo)&&Number.isFinite(names[1].elo)){
       // A two-way RETRO advancement estimate. Ties/penalties are NOT modeled.
-      const hostBonus=match.home_id=== 'indiana'||match.home_id==='washington'?55:0;
+      const hostBonus=match.venue_type==='home'?55:0;
       const p=1/(1+Math.pow(10,-((names[0].elo-names[1].elo+hostBonus)/400)));
       const estimate='RETRO · '+names[0].name+' '+Math.round(100*p)+'% / '+names[1].name+' '+Math.round(100*(1-p))+'% · penalties not modeled';
       if(key==='men-d1:big-east')modelSection.append(E('p',estimate,'cs-conf-caption'));
