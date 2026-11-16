@@ -123,6 +123,7 @@ jobs:
           node scripts/test_college_soccer_selection_native.cjs
           node --check college-soccer-national-bracket.js
           node scripts/test_college_soccer_national_bracket.cjs
+          python scripts/build_college_soccer_rpi_committee_projection.py
           node scripts/test_college_soccer_rpi_selection_2026.cjs
           node scripts/test_college_soccer_local_crest_manifest.cjs
           node scripts/test_college_soccer_live_match_center.cjs
