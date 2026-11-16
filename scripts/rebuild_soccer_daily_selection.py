@@ -48,6 +48,7 @@ def main():
                 a,b=match.get("home_id"),match.get("away_id")
                 if (match.get("status")!="final" or a not in by_id or b not in by_id
                     or a==b or a not in conf.get("teams",[]) or b not in conf.get("teams",[])
+                    or not str(match.get("source_url") or "").startswith("https://")
                     or not isinstance(match.get("home_score"),int)
                     or not isinstance(match.get("away_score"),int)
                     or (match["home_score"]==match["away_score"] and not (match.get("decision")=="penalties" and match.get("winner_id") in (a,b) and isinstance(match.get("home_penalties"),int) and isinstance(match.get("away_penalties"),int) and match["home_penalties"]!=match["away_penalties"]))):
@@ -86,8 +87,14 @@ def main():
             team_id=pick["team_id"],team=pick["team"],elo=pick["elo"],
             method="verified_championship_result" if champion else "retro_highest_rated_conference_member_projection",
             official_aq=bool(champion),
-            source_url=(champion_match.get("source_url") or bracket["source_url"]) if champion else None,
-            championship_result=({"opponent_id":champion_match["away_id"] if champion_match["home_id"]==champion["team_id"] else champion_match["home_id"],"home_score":champion_match["home_score"],"away_score":champion_match["away_score"],"decision":champion_match.get("decision","regulation"),"home_penalties":champion_match.get("home_penalties"),"away_penalties":champion_match.get("away_penalties")} if champion else None)))
+            source_url=champion_match["source_url"] if champion else None,
+            championship_result=({"winner_id":champion["team_id"],
+                "home_team_id":champion_match["home_id"],"away_team_id":champion_match["away_id"],
+                "opponent_id":champion_match["away_id"] if champion_match["home_id"]==champion["team_id"] else champion_match["home_id"],
+                "home_score":champion_match["home_score"],"away_score":champion_match["away_score"],
+                "decision":champion_match.get("decision","regulation"),"home_penalties":champion_match.get("home_penalties"),
+                "away_penalties":champion_match.get("away_penalties"),"result_date":champion_match.get("result_date"),
+                "source_url":champion_match["source_url"]} if champion else None)))
     if len(scenarios)!=23: raise ValueError("Expected 23 conference bids")
     # Certified RPI/eligibility, when available, guides the NCAA-résumé proxy.
     # Without it, compute a clearly labeled independent RETRO-only scenario.
