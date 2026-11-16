@@ -4,6 +4,7 @@
  'use strict';
  const esc=v=>String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const color=v=>/^#[0-9a-fA-F]{6}$/.test(String(v||''))?v:'#655239';
+ const paleInk=v=>{const h=color(v);const rgb=[1,3,5].map(i=>parseInt(h.slice(i,i+2),16)/255).map(c=>c<=.04045?c/12.92:((c+.055)/1.055)**2.4);return rgb[0]*.2126+rgb[1]*.7152+rgb[2]*.0722>.35;};
  // A rank shared by multiple equally rated programs must be identified as tied.
  // This uses the published rank distribution, not alphabetical tiebreakers.
  function formatRetro(profile,tieCounts,maxRank){
@@ -242,9 +243,9 @@
    const outcome=!scoresKnown?'even':scoreA>scoreB?'ahead':scoreA<scoreB?'behind':'even';
    // Reuse only the authentic crest already resolved for this team. Never guess a logo URL.
    const crestSource=String(x.crest||'').match(/<img\b[^>]*?\bsrc=["']([^"']+)["']/i);
-   const safeCrest=crestSource&&/^(?:assets\/|https:\/\/|data:image\/(?:png|webp|jpeg|svg\+xml);base64,)/i.test(crestSource[1])?crestSource[1]:'';
+   const safeCrest=crestSource&&/^(?:(?:\.\.\/|\.\/|\/)?assets\/|https:\/\/|data:image\/(?:png|webp|jpeg|svg\+xml);base64,)/i.test(crestSource[1])?crestSource[1]:'';
    const watermark=safeCrest?'<span class="ledger26-ghost" aria-hidden="true"><img src="'+esc(safeCrest)+'" alt="" loading="lazy"></span>':'';
-   return '<div class="ledger26-team ledger26-team--'+outcome+'" style="--ledger26-school:'+color(x.color)+'">'+watermark+
+   return '<div class="ledger26-team ledger26-team--'+outcome+(paleInk(x.color)?' ledger26-team--light-ink':'')+'" style="--ledger26-school:'+color(x.color)+'">'+watermark+
     '<span class="ledger26-crest">'+(x.crest||'')+'</span>'+
     '<span class="ledger26-identity"><strong class="ledger26-name">'+badge+linkedName+'</strong>'+
     '<small class="ledger26-record">'+esc(context)+
