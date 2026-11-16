@@ -771,7 +771,7 @@ const meter=g=>{
 /* The Daily Ledger scorecard — compact scoreboard, native in-place Gamefile. */
 const ledgerScorebug=g=>{
  // A single first-party scorebug renderer serves both basketball desks.
- const convert=t=>({name:t.name,abbreviation:t.abbreviation||'',timeoutsRemaining:t.timeoutsRemaining,score:g.phase==='upcoming'?null:t.score,
+ const convert=t=>({id:String(t.id),name:t.name,abbreviation:t.abbreviation||'',timeoutsRemaining:t.timeoutsRemaining,score:g.phase==='upcoming'?null:t.score,
    crest:emblem(t),color:brand(t),record:record(t),retro:retroLine(t),
     retroSnapshot:(()=>{const q=rankOf(t,ratings,women);return g.phase==='final'&&g.kind!=='exhibition'&&q&&Number.isFinite(Number(q.elo))?{elo:Number(q.elo),rank:Number.isInteger(Number(q.rank))?Number(q.rank):null,dailyChange:q.daily_change==null?null:Number(q.daily_change)}:null})(),
    teamHref:teamPage(t),poll:pollRankings.get(String(t.id))||null,
@@ -782,7 +782,7 @@ const ledgerScorebug=g=>{
        lastFive:Array.isArray(p.results)?p.results.slice(-5).map(r=>r.result):[]};
    })()});
  return window.SLTBasketballScorebug?.render({
-  phase:g.phase,gender:women?'women':'men',status:g.status||'LIVE',momentum:g.momentum||null,possession:g.possession||null,
+  gameId:String(g.id),phase:g.phase,gender:women?'women':'men',status:g.status||'LIVE',momentum:g.momentum||null,possession:g.possession||null,
   date:g.day,tipoff:formatClock(g),venue:g.venue||'',network:g.broadcast||'',suppressPress:true,
   suppressMonogram:true,suppressTipoffFallback:true,
   forecast:(()=>{
