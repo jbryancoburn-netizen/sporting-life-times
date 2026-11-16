@@ -18,6 +18,83 @@ function pageLink(label, params) {
   return link;
 }
 
+const scheduleFiles = new Map();
+
+function schedulePanel(edition, members, showPicker) {
+  const panel = document.createElement('section');
+  const heading = document.createElement('h2');
+  heading.textContent = 'Varsity schedule';
+  panel.append(heading);
+  const content = document.createElement('div');
+  let requestedTeam;
+  const load = async team => {
+    requestedTeam = team.id;
+    content.textContent = 'Loading ' + team.school + ' schedule…';
+    try {
+      const classification = team.classification.toLowerCase();
+      if (!scheduleFiles.has(classification)) {
+        scheduleFiles.set(classification, fetch('data/indiana-boys-schedule-' + classification + '.json?v=20261116')
+          .then(response => {
+            if (!response.ok) throw new Error('Schedule unavailable');
+            return response.json();
+          })
+          .catch(error => {
+            scheduleFiles.delete(classification);
+            throw error;
+          }));
+      }
+      const games = (await scheduleFiles.get(classification))[team.id];
+      if (requestedTeam !== team.id) return;
+      if (!games?.length) {
+        content.textContent = 'Schedule unavailable for ' + team.school + '.';
+        return;
+      }
+      const schedule = document.createElement('table');
+      schedule.setAttribute('aria-label', team.school + ' varsity schedule');
+      const header = schedule.createTHead().insertRow();
+      for (const label of ['Date', 'Site', 'Opponent', 'Time (ET)', 'Location or event']) {
+        const cell = document.createElement('th');
+        cell.scope = 'col';
+        cell.textContent = label;
+        header.append(cell);
+      }
+      const body = schedule.createTBody();
+      const schools = new Map(edition.teams.map(school => [school.id, school.school]));
+      for (const [day, site, opponent, time, note, conferenceGame] of games) {
+        const row = body.insertRow();
+        const month = Number(day.slice(0, 2));
+        const date = new Date(month >= 7 ? 2026 : 2027, month - 1, Number(day.slice(3)));
+        row.insertCell().textContent = date.toLocaleDateString('en-US', {month: 'short', day: 'numeric'});
+        row.insertCell().textContent = site === 'N' ? 'Neutral' : site === 'at' ? 'Away' : 'Home';
+        const opponentCell = row.insertCell();
+        if (schools.has(opponent)) opponentCell.append(pageLink(schools.get(opponent), {team: opponent}));
+        else opponentCell.textContent = opponent;
+        if (conferenceGame) opponentCell.append(' · Conf.');
+        row.insertCell().textContent = time || 'TBD';
+        row.insertCell().textContent = note || '—';
+      }
+      const wrapper = document.createElement('div');
+      wrapper.className = 'table-wrap';
+      wrapper.append(schedule);
+      content.replaceChildren(wrapper);
+    } catch {
+      if (requestedTeam === team.id) content.textContent = 'The schedule could not load. Try refreshing the page.';
+    }
+  };
+  if (showPicker) {
+    const label = document.createElement('label');
+    label.append('Choose a conference member');
+    const picker = document.createElement('select');
+    for (const member of members) picker.add(new Option(member.school, member.id));
+    picker.addEventListener('change', () => load(members.find(member => member.id === picker.value)));
+    label.append(picker);
+    panel.append(label);
+  }
+  panel.append(content);
+  load(members[0]);
+  return panel;
+}
+
 function showTeam(edition, team) {
   document.title = team.school + ' | Indiana Boys Basketball RETRO';
   document.querySelector('h1').textContent = team.school;
@@ -40,7 +117,7 @@ function showTeam(edition, team) {
   scheduleRow.append(schedule, ' · John Harrell');
   const back = document.createElement('p');
   back.append(pageLink('Statewide rankings', {}));
-  status.after(profile, scheduleRow, back);
+  status.after(profile, back, schedulePanel(edition, [team], false), scheduleRow);
 }
 
 function initialize(edition) {
@@ -61,6 +138,8 @@ function initialize(edition) {
     if (query.has(key)) control.value = query.get(key);
   }
   const teams = [...edition.teams].sort((a, b) => a.school.localeCompare(b.school));
+  const conferenceSchedule = document.getElementById('conference-schedule');
+  let lastConference;
   const render = () => {
     const selected = Object.fromEntries(Object.entries(controls).map(([key, control]) => [key, control.value]));
     const search = selected.school.trim().toLowerCase();
@@ -96,6 +175,11 @@ function initialize(edition) {
     });
     table.tBodies[0].replaceChildren(...rows);
     table.hidden = !rows.length;
+    if (lastConference !== selected.conference) {
+      lastConference = selected.conference;
+      const members = teams.filter(team => team.conference === selected.conference);
+      conferenceSchedule.replaceChildren(...(members.length ? [schedulePanel(edition, members, true)] : []));
+    }
     const params = new URLSearchParams(Object.entries(selected).filter(([, value]) => value));
     history.replaceState(null, '', location.pathname + (params.size ? '?' + params : ''));
   };
