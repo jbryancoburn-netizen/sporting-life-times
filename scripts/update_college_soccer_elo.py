@@ -171,6 +171,12 @@ def validate_ledger(ledger: dict, baseline: dict) -> dict:
             raise ValueError("duplicate or invalid ledger ID")
         if game["home_team"] == game["away_team"] or any(type(game[k]) is not int or not 0 <= game[k] <= 40 for k in ("home_goals", "away_goals")):
             raise ValueError("corrupt final in ledger")
+        if "neutral_site" in game:
+            if game["neutral_site"] is not True:
+                raise ValueError("neutral_site must be true or omitted; unknown is not home")
+            evidence = game.get("venue_source")
+            if not isinstance(evidence, str) or not evidence.startswith("https://"):
+                raise ValueError("Neutral-site classification requires a published venue source")
         seen[game["match_id"]] = game
     return seen
 
@@ -195,7 +201,9 @@ def replay(baseline: dict, ledger: dict) -> tuple[dict, dict]:
             excluded += 1
             continue
         h, a = home[1], away[1]
-        expected = 1. / (1. + 10 ** (-(float(h["elo"]) - float(a["elo"]) + HOME_ADVANTAGE) / 400.))
+        # Use zero home advantage only for evidence-backed neutral-site games.
+        venue_advantage = 0.0 if g.get("neutral_site") is True else HOME_ADVANTAGE
+        expected = 1. / (1. + 10 ** (-(float(h["elo"]) - float(a["elo"]) + venue_advantage) / 400.))
         hg, ag = g["home_goals"], g["away_goals"]
         outcome = 1. if hg > ag else .5 if hg == ag else 0.
         margin = abs(hg - ag)
@@ -271,12 +279,15 @@ def update(baseline: dict, ledger: dict, incoming: list[dict], verified_exceptio
     conflicts = []
     verified = []
     exceptions = verified_exceptions or {}
+    core_fields = ("match_id", "date", "gender", "home_team", "away_team",
+                   "home_goals", "away_goals", "source_game")
     for game in incoming:
         if game["date"] <= baseline["as_of"]:
             continue
         key = game["match_id"]
         if key in lookup:
-            if lookup[key] != game:
+            # Preserve official venue annotations when the scoreboard lacks venue data.
+            if any(lookup[key].get(field) != game.get(field) for field in core_fields):
                 previous = lookup[key]
                 exception = exceptions.get(key) or {}
                 fields = ("match_id", "gender", "date", "home_team", "away_team", "source_game")

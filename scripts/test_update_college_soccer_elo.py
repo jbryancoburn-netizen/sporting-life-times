@@ -76,6 +76,31 @@ class TestCollegeSoccerLive(unittest.TestCase):
         self.assertEqual(b["record"], "0-1-0")
         self.assertEqual(a["gd"]+b["gd"], 0)
 
+    def test_verified_neutral_venue_removes_home_advantage(self):
+        neutral = {**game(hg=0, ag=0), "neutral_site": True,
+                   "venue_source": "https://example.edu/official-match-report"}
+        _, neutral_model, _ = c.update(self.b, self.l, [neutral])
+        _, home_model, _ = c.update(self.b, self.l, [game(hg=0, ag=0)])
+        nm = {x["team_id"]: x for x in neutral_model["cohorts"]["men-d1"]}
+        hm = {x["team_id"]: x for x in home_model["cohorts"]["men-d1"]}
+        self.assertEqual(nm["men-d1-a"]["elo"], 1500)
+        self.assertLess(hm["men-d1-a"]["elo"], 1500)
+
+    def test_neutral_site_must_have_evidence(self):
+        with self.assertRaisesRegex(ValueError, "venue source"):
+            c.update(self.b, self.l, [{**game(), "neutral_site": True}])
+        with self.assertRaisesRegex(ValueError, "true or omitted"):
+            c.update(self.b, self.l, [{**game(), "neutral_site": False}])
+
+    def test_scoreboard_refresh_keeps_verified_neutral_venue(self):
+        neutral = {**game(), "neutral_site": True,
+                   "venue_source": "https://example.edu/official-match-report"}
+        first, model, _ = c.update(self.b, self.l, [neutral])
+        again, same_model, audit = c.update(self.b, first, [game()])
+        self.assertEqual(first, again)
+        self.assertEqual(model, same_model)
+        self.assertEqual(audit["unresolved_source_correction_count"], 0)
+
     def test_draw_and_home_expectation(self):
         _, m, _ = c.update(self.b, self.l, [game(hg=0,ag=0)])
         teams = {r["team_id"]: r for r in m["cohorts"]["men-d1"]}
