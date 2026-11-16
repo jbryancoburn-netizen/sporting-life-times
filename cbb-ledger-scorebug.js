@@ -324,7 +324,15 @@
   const scale=Math.max(pulseScale.get(id)||5,pulseRange(max));pulseScale.set(id,scale);
   const left=43,right=472,mid=55,extent=26;
   const x=t=>left+(right-left)*t/Math.max(1,data.duration),y=n=>mid-extent*n/scale;
-  const plot=data.points.map((p,i)=>(i?'L':'M')+x(p.time).toFixed(1)+' '+y(p.awayScore-p.homeScore).toFixed(1)).join(' ');
+  // A score holds until a scoring event: horizontal then vertical steps.
+  // No interpolation suggesting points were scored continuously between plays.
+  const plot=data.points.map((p,i)=>{
+   const xNow=x(p.time).toFixed(1),yNow=y(p.awayScore-p.homeScore).toFixed(1);
+   if(!i)return 'M'+xNow+' '+yNow;
+   const prior=data.points[i-1],yBefore=y(prior.awayScore-prior.homeScore).toFixed(1);
+   return ' H'+xNow+' V'+yNow;
+  }).join('');
+
   const rules=[scale,scale/2,0,-scale/2,-scale].map((n,i)=>
    '<line x1="'+left+'" x2="'+right+'" y1="'+y(n)+'" y2="'+y(n)+'" class="ledger26-pulse-rule'+(n===0?' ledger26-pulse-rule--zero':'')+'"/>'+
    '<text x="'+(left-8)+'" y="'+(y(n)+3.5)+'" text-anchor="end" class="ledger26-pulse-axis'+(i%2?' ledger26-pulse-axis--minor':'')+'">'+
@@ -366,6 +374,27 @@
    else el.querySelector('.ledger26-pulse-heading span').textContent='PLAY LOG NOT VERIFIED';
   }catch{if(el.isConnected)el.querySelector('.ledger26-pulse-heading span').textContent='PLAY LOG UNAVAILABLE';}
  }
+ function pulseSegmentMicrograph(model,item){
+  // A separately labeled CLOSE-UP, never silently rescale the main game graph.
+  const subset=model.points.filter(p=>p.time>=item.start.time&&p.time<=item.end.time);
+  const before=[...model.points].reverse().find(p=>p.time<=item.start.time)||model.points[0];
+  const after=[...model.points].reverse().find(p=>p.time<=item.end.time)||before;
+  const series=[{...before,time:item.start.time},...subset,{...after,time:item.end.time}];
+  const margins=series.map(p=>p.awayScore-p.homeScore);
+  const low=Math.min(...margins),high=Math.max(...margins);
+  const localScale=Math.max(2,high-low),toX=t=>22+338*(t-item.start.time)/Math.max(1,item.end.time-item.start.time);
+  const toY=margin=>49-(margin-low)/localScale*35;
+  const d=series.map((p,i)=>{
+   const xx=toX(p.time).toFixed(1),yy=toY(p.awayScore-p.homeScore).toFixed(1);
+   return i?'H'+xx+' V'+yy:'M'+xx+' '+yy;
+  }).join(' ');
+  const label=low===high?'Lead unchanged at '+low:'Lead range '+low+' to '+high;
+  return '<div class="ledger26-pulse-closeup"><div><strong>SELECTED STRETCH · MAGNIFIED</strong><small>'+esc(label)+' points</small></div>'+
+   '<svg viewBox="0 0 380 65" preserveAspectRatio="none" role="img" aria-label="Selected scoring stretch magnified; this is not the full-game lead scale">'+
+   '<line x1="22" x2="360" y1="49" y2="49" stroke="#8d7655" stroke-width="1"/>'+
+   '<path d="'+d+'" fill="none" stroke="#84283a" stroke-width="1.65" vector-effect="non-scaling-stroke" stroke-linejoin="miter"/>'+
+   '</svg></div>';
+ }
  if(root.document){
   let observer,scanQueued=false;
   const scan=()=>{
@@ -394,6 +423,7 @@
    if(panel.dataset.index===button.dataset.retroSegment){panel.remove();return;}
    panel.dataset.index=button.dataset.retroSegment;
    panel.innerHTML='<strong>RETRO PULSE · '+esc(item.start.label)+' TO '+esc(item.end.label)+'</strong>'+
+    pulseSegmentMicrograph(model,item)+
     '<span>'+esc(host.dataset.awayName||model.away)+' '+item.away+' · '+esc(host.dataset.homeName||model.home)+' '+item.home+' points in this stretch</span>'+
     (item.plays.length?'<ol>'+item.plays.slice(0,35).map(p=>'<li>'+esc(p.clock)+' · '+esc(p.text)+'</li>').join('')+'</ol>':
     '<small>No individual scoring events available for this interval.</small>');
