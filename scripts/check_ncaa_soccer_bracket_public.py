@@ -38,6 +38,20 @@ def verify(base_url):
         raise ValueError("Public 2026 NCAA soccer selection inputs differ from repository")
     if len(published.get("field") or []) != 48 or len(published.get("automatic_bid_scenarios") or []) != 23:
         raise ValueError("Published NCAA-format field lost its 48/23 contract")
+    local_path = "data/college-soccer-local-crest-manifest.json"
+    with urlopen(Request(urljoin(base_url.rstrip("/") + "/", local_path) +
+                         "?ncaa-bracket-check=20261116",
+                         headers={"Cache-Control": "no-cache",
+                                  "User-Agent": "SLT-Soccer-Bracket-Release/1.0"}), timeout=18) as response:
+        public_logos = json.loads(response.read().decode("utf-8"))
+    local_logos = json.loads((ROOT / local_path).read_text(encoding="utf-8"))
+    if public_logos != local_logos:
+        raise ValueError("Public school logo directory differs from approved local archive")
+    if public_logos.get("covered_team_count") != 213:
+        raise ValueError("NCAA soccer local logo directory does not cover 213 schools")
+    if any("men-d1:" + x["team_id"] not in public_logos["teams"]
+           for x in published["field"]):
+        raise ValueError("Active tournament projection contains teams with missing local crests")
     page = (ROOT / ASSETS[0]).read_text(encoding="utf-8")
     if not all(name in page for name in ASSETS[1:]):
         raise ValueError("Live NCAA selection HTML does not reference the complete bracket assets")
@@ -55,7 +69,7 @@ def main():
     for attempt in range(1, args.attempts + 1):
         try:
             verify(args.root)
-            print("PASS: public NCAA soccer selection HTML, bracket JS, CSS and selection data match published source")
+            print("PASS: public NCAA soccer selection HTML, bracket JS, CSS, all 213 local school logos and selection data match source")
             return
         except Exception as e:
             print("Public soccer bracket verification attempt", attempt, "of", args.attempts, ":", str(e), flush=True)
