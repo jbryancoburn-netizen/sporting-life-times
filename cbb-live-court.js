@@ -168,16 +168,17 @@ function gameFlow(plays,game){
    }
   }
   const fraction=timeline?elapsed/timeline.end:Math.min(1,Math.max(0,(count-1)/Math.max(1,scoring.length-1)));
-  timeouts.push({...p,elapsed,position:fraction,latestScore});
+  timeouts.push({...p,index:i,elapsed,position:fraction,latestScore});
  }
  timeouts.sort((a,b)=>a.position-b.position);
- const endPoint={clock:'LATEST',position:1,latestScore:scoring.at(-1)};
- const startPoint={clock:'TIPOFF',position:0,latestScore:{awayScore:0,homeScore:0}};
+ const endPoint={clock:'LATEST',index:plays.length,position:1,latestScore:scoring.at(-1)};
+ const startPoint={clock:'TIPOFF',index:-1,position:0,latestScore:{awayScore:0,homeScore:0}};
  const cut=timeouts.length?[startPoint,...timeouts,endPoint]:[];
  const spanData=cut.slice(1).map((end,i)=>{
   const start=cut[i],a=start.latestScore,b=end.latestScore;
-  return {start,end,away:b.awayScore-a.awayScore,home:b.homeScore-a.homeScore};
- }).filter(v=>v.end.position>v.start.position);
+  return {start,end,away:b.awayScore-a.awayScore,home:b.homeScore-a.homeScore,
+   events:plays.slice(start.index+1,end.index).filter(p=>p&&typeof p.text==='string')};
+ }).filter(v=>v.end.index>v.start.index);
  const periodMarks=timeline?Array.from({length:timeline.women?3:1},(_,i)=>({
   elapsed:(i+1)*(timeline.women?600:1200),
   label:timeline.women?'END Q'+(i+1):'HALFTIME'
@@ -193,12 +194,51 @@ function gameFlow(plays,game){
    '<circle cx="'+xx+'" cy="75" r="7"/>'+
    '<text x="'+xx+'" y="56" text-anchor="middle">T'+(i+1)+'</text></g>';
  }).join('');
- const segmentStrip=spanData.length?'<div class="slc-flow-segments"><strong>TIMEOUT-TO-TIMEOUT SCORING</strong>'+
-  '<div class="slc-flow-segment-grid">'+spanData.map((v,i)=>
-   '<div class="slc-flow-segment"><b>SEGMENT '+(i+1)+'</b>'+
-   '<span>'+esc(v.start.clock==='TIPOFF'?'TIPOFF':(v.start.period?'P'+v.start.period+' ':'')+v.start.clock)+' → '+esc(v.end.clock==='LATEST'?'LATEST':(v.end.period?'P'+v.end.period+' ':'')+v.end.clock)+'</span>'+
-   '<strong>'+v.away+'–'+v.home+' POINTS (AWAY–HOME)</strong></div>').join('')+
-  '</div></div>':'';
+ // Native disclosure panels make each stretch keyboard- and touch-accessible.
+ const segmentStrip=spanData.length?'<section class="slc-flow-segments" aria-label="Scoring segments between timeouts">'+
+  '<div class="slc-flow-segments-head"><strong>TIMEOUT-TO-TIMEOUT SCORING</strong><span>Select a segment for scores and plays</span></div>'+
+  '<div class="slc-flow-segment-grid">'+spanData.map((v,i)=>{
+   const prior=v.start.latestScore,ending=v.end.latestScore;
+   const difference=v.away-v.home;
+   const spanLabel=p=>p.clock==='TIPOFF'||p.clock==='LATEST'?p.clock:
+     (p.period?'P'+p.period+' ':'')+(p.clock||'TIME NOT REPORTED');
+   const scores=v.events.filter(p=>p.awayScore!==null&&p.homeScore!==null);
+   let a=prior.awayScore,h=prior.homeScore,awayScoring=0,homeScoring=0;
+   const scoringEvents=[];
+   for(const p of scores){
+    const da=p.awayScore-a,dh=p.homeScore-h;
+    if(da>0||dh>0){
+     if(da>0)awayScoring++;if(dh>0)homeScoring++;
+     scoringEvents.push(p);
+    }
+    a=p.awayScore;h=p.homeScore;
+   }
+   const leading=difference>0?away:difference<0?home:'EVEN';
+   const leadLine=difference===0?'EVEN SCORING':leading+' +'+Math.abs(difference)+' THIS STRETCH';
+   const logged=v.events.filter(p=>/\b(turnover|foul|rebound|steal|block)\b/i.test(p.kind+' '+p.text));
+   const examples=scoringEvents.length?scoringEvents.slice(0,10):logged.slice(0,6);
+   const playList=examples.length?'<ol class="slc-flow-segment-plays">'+examples.map(p=>
+    '<li><small>'+esc((p.period?'P'+p.period+' ':'')+(p.clock||'—'))+'</small>'+
+    '<span>'+esc(p.text)+'</span>'+
+    (p.awayScore!==null&&p.homeScore!==null?'<b>'+p.awayScore+'–'+p.homeScore+'</b>':'')+'</li>').join('')+'</ol>':
+    '<p class="slc-flow-segment-empty">No scoring-play details reported for this stretch.</p>';
+   return '<details class="slc-flow-segment">'+
+    '<summary aria-label="Segment '+(i+1)+', '+esc(spanLabel(v.start))+' to '+esc(spanLabel(v.end))+', expand scores and statistics">'+
+    '<span class="slc-flow-segment-label">SEGMENT '+(i+1)+'</span>'+
+    '<span class="slc-flow-segment-clock">'+esc(spanLabel(v.start))+' – '+esc(spanLabel(v.end))+'</span>'+
+    '<span class="slc-flow-segment-result"><b>'+v.away+'–'+v.home+'</b><small>POINTS · AWAY–HOME</small></span>'+
+    '<span class="slc-flow-segment-expand">SCORES &amp; STATS <span aria-hidden="true">⌄</span></span></summary>'+
+    '<div class="slc-flow-segment-details">'+
+    '<div class="slc-flow-segment-scoreline"><span>START <b>'+prior.awayScore+'–'+prior.homeScore+'</b></span>'+
+    '<span>END <b>'+ending.awayScore+'–'+ending.homeScore+'</b></span></div>'+
+    '<div class="slc-flow-segment-names"><span>'+esc(away)+' <b>'+v.away+' PTS</b></span>'+
+    '<span>'+esc(home)+' <b>'+v.home+' PTS</b></span></div>'+
+    '<p class="slc-flow-segment-swing">'+esc(leadLine)+' · SCORING PLAYS '+awayScoring+'–'+homeScoring+'</p>'+
+    (logged.length?'<p class="slc-flow-segment-count">'+logged.length+' additional reported foul, rebound, turnover, steal or block events</p>':'')+
+    '<h5>REPORTED PLAYS</h5>'+playList+
+    (scoringEvents.length>10?'<p class="slc-flow-segment-more">First 10 scoring plays shown; see Every Play for the complete log.</p>':'')+
+    '</div></details>';
+  }).join('')+'</div></section>':'';
  const last=scoring.at(-1),latest=margin(last);
  const away=game?sideName(game.away):'AWAY',home=game?sideName(game.home):'HOME';
  const awayColor=teamColor(game?.away,'#23657d'),homeColor=teamColor(game?.home,'#b17931');
@@ -230,7 +270,7 @@ function gameFlow(plays,game){
  }).join('');
  const lastPoint=xy.at(-1),marker=latest>0?awayColor:latest<0?homeColor:'#455b60';
  return '<div class="slc-flow" style="--slc-away:'+awayColor+';--slc-home:'+homeColor+
-   '" role="img" aria-label="Scoring margin by reported play. Latest: '+esc(a11y)+
+   '" role="group" aria-label="Scoring margin by reported play. Latest: '+esc(a11y)+
    '. Largest reported leads: '+esc(away)+' '+awayMax+' points, '+esc(home)+' '+homeMax+
    ' points. Positive values favor the away team.">'+
    '<div class="slc-flow-heading"><strong>GAME FLOW</strong><span>ACTUAL POINT MARGIN · NOT A BETTING SPREAD</span></div>'+
