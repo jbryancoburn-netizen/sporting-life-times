@@ -203,6 +203,68 @@
    '<div class="ledger26-final-pair">'+rows.map(line).join('')+'</div>'+
    '<small class="ledger26-final-note">Daily Δ includes all results incorporated in the latest update, rather than measuring this game’s effect alone. Conference place and ranking movement require verified prior standings.</small></div>';
  }
+
+ // Watermark-only transparent page extraction. The original crest and source
+ // PNG are never modified. Flood-fill ONLY light, neutral border-connected
+ // page backgrounds: enclosed eyes, lettering and mascot details remain.
+ const watermarkCache=new Map();
+ function cleanWatermark(img){
+  if(!img||img.dataset.watermarkCleaned)return;
+  img.dataset.watermarkCleaned='1';
+  const url=img.currentSrc||img.src||'';
+  if(watermarkCache.has(url)){const cached=watermarkCache.get(url);if(cached)img.src=cached;return;}
+  try{
+   const w=img.naturalWidth,h=img.naturalHeight;
+   if(!w||!h)return;
+   const scale=Math.min(1,512/Math.max(w,h));
+   const canvas=document.createElement('canvas');
+   canvas.width=Math.max(1,Math.round(w*scale));canvas.height=Math.max(1,Math.round(h*scale));
+   const ctx=canvas.getContext('2d',{willReadFrequently:true});
+   if(!ctx)return;
+   ctx.drawImage(img,0,0,canvas.width,canvas.height);
+   const frame=ctx.getImageData(0,0,canvas.width,canvas.height);
+   const px=frame.data,W=canvas.width,H=canvas.height;
+   const corners=[0,W-1,(H-1)*W,H*W-1],rgba=i=>[px[i*4],px[i*4+1],px[i*4+2],px[i*4+3]];
+   const values=corners.map(rgba);
+   if(values.some(c=>c[3]<242))return; // already transparent corner
+   const bg=[0,1,2].map(k=>Math.round(values.reduce((a,c)=>a+c[k],0)/4));
+   const distance=c=>Math.max(...[0,1,2].map(k=>Math.abs(c[k]-bg[k])));
+   // Do not remove strong school-colored or dark archival backgrounds.
+   if(Math.min(...bg)<175||Math.max(...bg)-Math.min(...bg)>49||values.some(c=>distance(c)>30))return;
+   const seen=new Uint8Array(W*H),queue=new Int32Array(W*H);let head=0,tail=0;
+   function add(i){
+    if(seen[i])return;
+    const j=i*4,delta=Math.max(Math.abs(px[j]-bg[0]),Math.abs(px[j+1]-bg[1]),Math.abs(px[j+2]-bg[2]));
+    if(px[j+3]<190||delta>38)return;
+    seen[i]=1;queue[tail++]=i;
+   }
+   for(let x=0;x<W;x++){add(x);add((H-1)*W+x);}
+   for(let y=0;y<H;y++){add(y*W);add(y*W+W-1);}
+   while(head<tail){
+    const i=queue[head++],x=i%W,y=(i/W)|0;
+    if(x>0)add(i-1);if(x+1<W)add(i+1);if(y>0)add(i-W);if(y+1<H)add(i+W);
+   }
+   // A light page must occupy some meaningful edge-connected area.
+   if(tail<W*H*.015)return;
+   for(let i=0;i<W*H;i++)if(seen[i])px[i*4+3]=0;
+   // Anti-alias the newly transparent edge, without removing internal artwork.
+   for(let i=0;i<W*H;i++){
+    if(seen[i])continue;
+    const x=i%W,y=(i/W)|0;
+    if((x>0&&seen[i-1])||(x+1<W&&seen[i+1])||(y>0&&seen[i-W])||(y+1<H&&seen[i+W])){
+     const j=i*4,d=Math.max(Math.abs(px[j]-bg[0]),Math.abs(px[j+1]-bg[1]),Math.abs(px[j+2]-bg[2]));
+     if(d<65)px[j+3]=Math.min(px[j+3],Math.round(255*Math.max(0,(d-24)/41)));
+    }
+   }
+   ctx.putImageData(frame,0,0);
+   const cleaned=canvas.toDataURL('image/png');
+   if(watermarkCache.size<300)watermarkCache.set(url,cleaned);
+   img.src=cleaned;
+  }catch(e){ // remote hosts without CORS remain unchanged, not broken
+   img.dataset.watermarkAudit='cannot-read-source';
+  }
+ }
+
  function render(input){
   const g=input||{},phase=['live','final','upcoming'].includes(g.phase)?g.phase:'upcoming';
   const label=(phase==='final'?
@@ -257,7 +319,7 @@
    const watermarkMatch=String(x.crest||'').match(/\bdata-watermark-art=["']([^"']+)["']/i);
    const explicitArt=String(x.watermarkArt||watermarkMatch?.[1]||'').replace(/&amp;/g,'&');
    const validArt=/^(?:(?:\.\.\/|\.\/|\/)?assets\/|https:\/\/)/i.test(explicitArt)&&!/[<>"'\s]/.test(explicitArt);
-   const watermark=validArt?'<span class="ledger26-ghost" aria-hidden="true"><img src="'+esc(explicitArt)+'" alt="" loading="lazy"></span>':'';
+   const watermark=validArt?'<span class="ledger26-ghost" aria-hidden="true"><img src="'+esc(explicitArt)+'" alt="" loading="lazy" crossorigin="anonymous" onload="window.SLTBasketballScorebug.cleanWatermark(this)"></span>':'';
 
    return '<div class="ledger26-team ledger26-team--'+outcome+'" style="--ledger26-school:'+color(x.color)+';--ledger26-readable-ink:'+readableInk(x.color,phase,outcome)+'">'+watermark+
     '<span class="ledger26-crest">'+(x.crest||'')+'</span>'+
@@ -284,6 +346,6 @@
   dialog.showModal();loadPress(dialog);
  }
 
- root.SLTSportsScorebug={render,formatRetro,openPress,version:'shared-letterpress-v19-raw-art-watermark'};
+ root.SLTSportsScorebug={render,formatRetro,openPress,cleanWatermark,version:'shared-letterpress-v19-raw-art-watermark'};
  root.SLTBasketballScorebug=root.SLTSportsScorebug;
 })(typeof window!=='undefined'?window:globalThis);
