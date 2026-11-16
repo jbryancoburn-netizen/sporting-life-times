@@ -98,6 +98,38 @@ function schedulePanel(edition, members, showPicker) {
 }
 
 const crestColors = {
+  Chesterton: ['#742634', '#c79732'],
+  CrownPoint: ['#ad1d2d', '#f1eee8'],
+  LakeCentral: ['#153765', '#f1eee8'],
+  LaPorte: ['#cb4d16', '#282422'],
+  Merrillville: ['#52237d', '#f1eee8'],
+  MichiganCity: ['#1f365e', '#9caec7'],
+  Portage: ['#a9202c', '#f1eee8'],
+  Valparaiso: ['#22583a', '#f1eee8'],
+  Duneland: ['#b8242d', '#282324'],
+  BloomingtonNorth: ['#692b24', '#c29946'],
+  DecaturCentral: ['#173859', '#c9a550'],
+  Franklin: ['#145580', '#e3e4e2'],
+  Martinsville: ['#a82636', '#154473'],
+  Mooresville: ['#1a3461', '#c69836'],
+  PerryMeridian: ['#174370', '#899bab'],
+  Plainfield: ['#a22232', '#173e70'],
+  Whiteland: ['#234a81', '#f1eee8'],
+  'Mid-State': ['#252422', '#b39b67'],
+  BrebeufJesuit: ['#732539', '#c39a54'],
+  GuerinCatholic: ['#4c3571', '#b89957'],
+  IndianapolisChatard: ['#2e5b86', '#f1eee8'],
+  IndianapolisRoncalli: ['#a82634', '#f1eee8'],
+  'Circle City': ['#292725', '#a8a29a'],
+  ColumbusNorth: ['#173e69', '#f1eee8'],
+  Danville: ['#a32032', '#a6a6a8'],
+  'Greenfield-Central': ['#19436e', '#cca44d'],
+  IndianapolisCathedral: ['#c7a950', '#18496f'],
+  McCutcheon: ['#a22c39', '#c1a15b'],
+  Northview: ['#a9a9ac', '#7b243c'],
+  Southport: ['#ab2433', '#f1eee8'],
+  TerreHauteSouth: ['#a92532', '#f1eee8'],
+  Yorktown: ['#205b40', '#dad9cb'],
   Concord: ['#16583c', '#202423'],
   Goshen: ['#ae222c', '#222222'],
   Mishawaka: ['#751d37', '#ded7c9'],
@@ -251,7 +283,8 @@ function initialize(edition) {
 }
 
 const crestManifests = Promise.all(
-  ['indiana-boys-crests.json', 'indiana-boys-crests-mic.json', 'indiana-boys-crests-nlc.json'].map(file =>
+  ['indiana-boys-crests.json', 'indiana-boys-crests-mic.json', 'indiana-boys-crests-nlc.json', 'indiana-boys-crests-dac.json',
+    'indiana-boys-crests-msc.json', 'indiana-boys-crests-circle.json', 'indiana-boys-crests-schools.json'].map(file =>
     fetch('data/' + file)
       .then(response => response.ok ? response.json() : null)
       .catch(() => null)
