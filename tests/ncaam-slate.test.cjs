@@ -32,7 +32,7 @@ assert(scorecardCss.includes('.ledger26-team--dark-fill .ledger26-ghost') && sco
 assert(forecastScorebug.includes('cleanWatermark(this)') && forecastScorebug.includes('getImageData(') && forecastScorebug.includes('seen[i]'), 'ring-free mascot watermarks must remove edge-connected opaque boxes without altering foreground crests');
 assert(forecastScorebug.includes('readableInk(x.color,phase,outcome)') && scorecardCss.includes('var(--ledger26-readable-ink'), 'each school-colored scorebug must select readable foreground ink');
 assert(scorecardCss.includes('.ledger26-scorebug .ledger26-team{\n  overflow:hidden;') && scorecardCss.includes('mix-blend-mode:multiply') && scorecardCss.includes('brightness(.66)'), 'oversized watermark must stay inside its team row and retain dark engraved detail');
-assert(html.includes('cbb-ledger-scorecard.css?v=retro-pulse-famu-utep-20261116'), 'daily ledger must load clipped tonal watermark style without cache reuse');
+assert(html.includes('cbb-ledger-scorecard.css?v=retro-pulse-shared-20261116b'), 'daily ledger must load clipped tonal watermark style without cache reuse');
 assert(forecastScorebug.includes('data-watermark-art') && !forecastScorebug.includes('const safeCrest='), 'large background marks must use original artwork, not a baked circular crest');
 const forecastRailCss=scorecardCss.split('/* Shared horizontal pregame intelligence strip.')[1];
 assert(forecastRailCss &&
@@ -46,7 +46,7 @@ assert(forecastScorebug.includes('RETRO SPREAD') &&
  forecastScorebug.includes('PROJECTED FINAL') &&
  forecastScorebug.includes('ledger26-pregame-inline--prob'),
  'the pregame rail needs independently legible probability, signed spread and projected final');
-assert(html.includes('cbb-ledger-scorecard.css?v=retro-pulse-famu-utep-20261116') &&
+assert(html.includes('cbb-ledger-scorecard.css?v=retro-pulse-shared-20261116b') &&
  html.includes('cbb-ledger-scorebug.js?v=retro-pulse-shared-20261116b'),
  'the public ledger must load the current unified scorebug and forecast layout without stale cached assets');
 
