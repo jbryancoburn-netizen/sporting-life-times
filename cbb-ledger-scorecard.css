@@ -941,3 +941,15 @@
  .ledger26-final-standing{grid-column:2;grid-row:2;font-size:11px}
  .ledger26-final-note{font-size:10px;line-height:1.35}
 }
+
+/* Verified game stats replace the Pulse strip when play-by-play is unavailable. */
+.ledger26-scorebug--pulse .ledger26-teams:has(.ledger26-pulse--stats){grid-template-rows:auto minmax(60px,auto) auto!important}
+.ledger26-pulse--stats{height:auto!important;min-height:60px!important;overflow:visible!important}
+.ledger26-pulse-quickstats{display:flex;align-items:center;gap:8px 14px;flex-wrap:wrap;padding:10px 12px;color:#35291a;font:12px/1.35 Georgia,serif}
+.ledger26-pulse-quickstats>strong{font-size:11px;letter-spacing:.05em}
+.ledger26-pulse-quickstats span b{font-size:11px;color:#6b4d31}
+@media(max-width:700px){
+ .ledger26-scorebug--pulse .ledger26-teams:has(.ledger26-pulse--stats){grid-template-rows:auto minmax(50px,auto) auto!important}
+ .ledger26-pulse-quickstats{padding:7px 8px;gap:5px 9px;font-size:11px}
+ .ledger26-pulse-quickstats>strong{width:100%;font-size:10px}
+}
