@@ -322,21 +322,33 @@
   const id=el.dataset.gender+':'+el.dataset.retroPulse;
   const max=Math.max(...data.points.map(p=>Math.abs(p.awayScore-p.homeScore)),0);
   const scale=Math.max(pulseScale.get(id)||5,pulseRange(max));pulseScale.set(id,scale);
-  const x=t=>33+331*t/Math.max(1,data.duration),y=n=>35-26*n/scale;
+  const left=43,right=472,mid=55,extent=26;
+  const x=t=>left+(right-left)*t/Math.max(1,data.duration),y=n=>mid-extent*n/scale;
   const plot=data.points.map((p,i)=>(i?'L':'M')+x(p.time).toFixed(1)+' '+y(p.awayScore-p.homeScore).toFixed(1)).join(' ');
-  const rules=[-scale,0,scale].map(n=>'<line x1="33" x2="364" y1="'+y(n)+'" y2="'+y(n)+'" stroke="#8c7656" stroke-width="'+(n?'.6':'1.3')+'"/>'+
-   '<text x="28" y="'+(y(n)+3)+'" text-anchor="end" font-size="9" fill="#57432b">'+(n>0?'+':'')+n+'</text>').join('');
-  const marks=data.breaks.map(b=>'<line x1="'+x(b.time)+'" x2="'+x(b.time)+'" y1="11" y2="64" stroke="#6d553a" stroke-width="'+(b.kind==='period'?2:1)+'" stroke-dasharray="'+(b.kind==='period'?'none':'2 3')+'"/>'+
-   '<text x="'+x(b.time)+'" y="8" text-anchor="middle" font-size="8" fill="#63482c">'+esc(b.label)+'</text>').join('');
-  const regions=data.spans.map((s,i)=>'<button type="button" data-retro-segment="'+i+'" class="ledger26-pulse-hit" style="left:'+
-   (100*s.start.time/data.duration).toFixed(2)+'%;width:'+Math.max(.4,100*(s.end.time-s.start.time)/data.duration).toFixed(2)+
-   '%" aria-label="Scoring: '+esc(s.start.label)+' to '+esc(s.end.label)+'" title="'+esc(s.start.label)+' → '+esc(s.end.label)+'"></button>').join('');
+  const rules=[scale,scale/2,0,-scale/2,-scale].map((n,i)=>
+   '<line x1="'+left+'" x2="'+right+'" y1="'+y(n)+'" y2="'+y(n)+'" class="ledger26-pulse-rule'+(n===0?' ledger26-pulse-rule--zero':'')+'"/>'+
+   '<text x="'+(left-8)+'" y="'+(y(n)+3.5)+'" text-anchor="end" class="ledger26-pulse-axis'+(i%2?' ledger26-pulse-axis--minor':'')+'">'+
+   (n===0?'0':(n>0?'+':'−')+Number(Math.abs(n).toFixed(1)))+'</text>').join('');
+  const marks=data.breaks.map((b,i)=>{
+   const half=b.label==='HT',pos=x(b.time),label=half?'HT':b.kind==='media'?
+    (b.label.match(/^U\d+/)?.[0]||'TV'):'Q'+Math.min(4,Number(b.label.replace(/\D/g,''))||1);
+   return '<line x1="'+pos+'" x2="'+pos+'" y1="23" y2="83" class="ledger26-pulse-divider'+(half?' ledger26-pulse-divider--half':'')+'"/>'+
+    (half?'<rect x="'+(pos-12)+'" y="5" width="24" height="15" rx="2" class="ledger26-pulse-ht-box"/>'+
+      '<text x="'+pos+'" y="16" text-anchor="middle" class="ledger26-pulse-ht">HT</text>':
+      '<text x="'+pos+'" y="'+(i%2?11:21)+'" text-anchor="middle" class="ledger26-pulse-break-label" aria-hidden="true">'+esc(label)+'</text>');
+  }).join('');
+  const regions=data.spans.map((segment,i)=>'<button type="button" data-retro-segment="'+i+
+   '" class="ledger26-pulse-hit" style="left:'+(100*segment.start.time/data.duration).toFixed(2)+
+   '%;width:'+Math.max(.4,100*(segment.end.time-segment.start.time)/data.duration).toFixed(2)+
+   '%" aria-label="Scoring: '+esc(segment.start.label)+' to '+esc(segment.end.label)+'" title="'+esc(segment.start.label)+' → '+esc(segment.end.label)+'"></button>').join('');
   const last=data.points.at(-1),lead=last.awayScore-last.homeScore;
   const heading=el.querySelector('.ledger26-pulse-heading strong')?.textContent||'FINAL';
   el.innerHTML='<div class="ledger26-pulse-heading"><strong>'+esc(heading)+'</strong><span>'+
-   esc(lead===0?'TIED':(lead>0?data.away:data.home)+' +'+Math.abs(lead))+' · SCALE ±'+scale+'</span></div>'+
-   '<div class="ledger26-pulse-chart"><svg viewBox="0 0 376 69" preserveAspectRatio="none" role="img" aria-label="Score differential, away above zero, home below zero">'+
-   rules+marks+'<path d="'+plot+'" stroke="#85263c" stroke-width="2.5" vector-effect="non-scaling-stroke" fill="none"/></svg>'+
+   esc(lead===0?'TIED':(lead>0?data.away:data.home)+' +'+Math.abs(lead))+
+   ' <small>· SCALE ±'+scale+'</small></span></div>'+
+   '<div class="ledger26-pulse-chart"><svg viewBox="0 0 488 100" preserveAspectRatio="none" role="img" aria-label="Actual score differential. Above zero away leads, below zero home leads. Scale ±'+scale+' points.">'+
+   rules+marks+'<path d="'+plot+'" class="ledger26-pulse-trace"/>'+
+   '<circle cx="'+x(last.time||data.duration)+'" cy="'+y(lead)+'" r="3" class="ledger26-pulse-last"/></svg>'+
    '<div class="ledger26-pulse-taps">'+regions+'</div></div>';
   pulseCache.set(el,data);
  }
