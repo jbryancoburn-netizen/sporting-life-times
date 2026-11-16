@@ -36,8 +36,10 @@ assert(bracket.includes("window.CollegeSoccerCupUI.crest(team.team,team.team_id,
  'National bracket must use the common two-ring crest');
 assert(bracket.includes('snb-seed-badge')&&css.includes('.snb-seed-badge'),
  'The NCAA-format bracket must display prominent projected seed numbers');
-assert(bracket.includes('forecastSeed=team.forecast_rank<=24'),
- 'The protected 24 team seed positions must display at every matchup');
+assert(bracket.includes('forecastSeed=Number.isInteger(team.quadrant_seed)') &&
+ bracket.includes('quadrantSeeds.push(seeded)') &&
+ bracket.includes("if(seeded.length!==6)"),
+ 'The 24 protected teams must display six projected seed badges per quadrant');
 assert(bracket.includes('NOT an official NCAA seed'),
  'Projected seeds must never be labeled as committee results');
 assert(html.includes('college-soccer-cup-ui.js?v=')&&html.includes('college-soccer-national-bracket.js?v='),
