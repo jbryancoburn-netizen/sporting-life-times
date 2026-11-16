@@ -1,0 +1,47 @@
+name: RETRO Margin Challenger shadow research
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/retro_margin_challenger.cjs'
+      - 'tests/retro-margin-challenger.test.cjs'
+      - '.github/workflows/retro-margin-challenger.yml'
+  schedule:
+    - cron: '21 12 * * *'
+permissions:
+  contents: write
+concurrency:
+  group: retro-margin-shadow
+  cancel-in-progress: false
+jobs:
+  research:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate model isolation and historical ordering
+        run: node tests/retro-margin-challenger.test.cjs
+      - name: Score shadow model against frozen pregame margins
+        run: node scripts/retro_margin_challenger.cjs
+      - name: Publish research-only report, never production predictions
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "RETRO Margin Research"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3 4; do
+            git fetch origin main
+            git reset --hard origin/main
+            node tests/retro-margin-challenger.test.cjs
+            node scripts/retro_margin_challenger.cjs
+            git add data/ncaam-retro-margin-challenger-2026-27.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m "Research: refresh RETRO margin challenger shadow audit"
+            if git push origin HEAD:main; then exit 0; fi
+            sleep $((attempt * 2))
+          done
+          exit 1

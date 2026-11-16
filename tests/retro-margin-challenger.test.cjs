@@ -1,0 +1,14 @@
+'use strict';
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const m=require('../scripts/retro_margin_challenger.cjs');
+const row={date:'2026-11-06',raw:12.9,actual:15,verifiedHome:false};
+assert.equal(m.predict(row,m.options[0]),13);
+assert.equal(m.predict({...row,raw:-12.9},m.options[0]),-13);
+assert.equal(m.predict({...row,verifiedHome:true},m.options.find(x=>x.name==='verified-home-plus-2')),15);
+assert.equal(m.choose([row]),m.options[0]);
+assert.equal(m.mae([row],m.options[0]),2);
+const code=fs.readFileSync('scripts/retro_margin_challenger.cjs','utf8');
+assert(code.indexOf('trained.push(...today)')>code.indexOf('const today=rows.filter('));
+assert(!code.includes('ncaam-2026-27-retro-primary.json')&&!code.includes('ncaam-2026-27-upcoming-forecasts.json'));
+console.log('PASS: RETRO margin challenger isolated, trained on earlier days only');
