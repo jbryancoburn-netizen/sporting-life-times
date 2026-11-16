@@ -98,17 +98,17 @@ function schedulePanel(edition, members, showPicker) {
 }
 
 const crestColors = {
-  Angola: ["#6d1830","#f0c35d"],
-  CentralNoble: ["#002b5a","#f0bc42"],
-  Churubusco: ["#123d6c","#f0bd36"],
-  Eastside: ["#1d4e83","#f1f1e7"],
-  Fairfield: ["#153d76","#d9aa3b"],
-  Fremont: ["#75242d","#d1a44e"],
-  Garrett: ["#b51d30","#101010"],
-  Lakeland: ["#1b4b80","#f0c33f"],
-  PrairieHeights: ["#b41d2e","#f0f0e8"],
-  WestNoble: ["#153f76","#d3ad47"],
-  Westview: ["#b51e2b","#f1e7d6"],
+  Angola: ["#4b227b","#f5b92e"],
+  CentralNoble: ["#7b1736","#c8c9cc"],
+  Churubusco: ["#171717","#c6a34b"],
+  Eastside: ["#08713b","#171717"],
+  Fairfield: ["#072e4d","#f8d12b"],
+  Fremont: ["#b21d24","#101b34"],
+  Garrett: ["#69232e","#1c3154"],
+  Lakeland: ["#89b9dd","#b51f30"],
+  PrairieHeights: ["#d21d31","#111111"],
+  WestNoble: ["#29357c","#c92331"],
+  Westview: ["#b82030","#c69a2a"],
   Bellmont: ["#9b1837","#112f57"],
   ColumbiaCity: ["#671e32","#d5a64d"],
   DeKalb: ["#9b162e","#161616"],
@@ -305,7 +305,7 @@ function initialize(edition) {
 
 const crestManifests = Promise.all(
   ['indiana-boys-crests.json', 'indiana-boys-crests-mic.json', 'indiana-boys-crests-nlc.json', 'indiana-boys-crests-dac.json',
-    'indiana-boys-crests-msc.json', 'indiana-boys-crests-circle.json', 'indiana-boys-crests-schools.json', 'indiana-boys-crests-acac.json', 'indiana-boys-crests-ne8.json'].map(file =>
+    'indiana-boys-crests-msc.json', 'indiana-boys-crests-circle.json', 'indiana-boys-crests-schools.json', 'indiana-boys-crests-acac.json', 'indiana-boys-crests-ne8.json', 'indiana-boys-crests-necc.json'].map(file =>
     fetch('data/' + file)
       .then(response => response.ok ? response.json() : null)
       .catch(() => null)
