@@ -16,6 +16,8 @@ on:
       - 'college-soccer-showcase.js'
       - 'college-soccer-selection.js'
       - 'college-soccer-national-bracket.js'
+      - 'data/college-soccer-local-crest-manifest.json'
+      - 'scripts/test_college_soccer_local_crest_manifest.cjs'
       - 'college-soccer-national-bracket.css'
       - 'scripts/test_college_soccer_national_bracket.cjs'
       - 'college-soccer-selection.css'
@@ -86,6 +88,8 @@ on:
   pull_request:
     paths:
       - 'college-soccer-national-bracket.js'
+      - 'data/college-soccer-local-crest-manifest.json'
+      - 'scripts/test_college_soccer_local_crest_manifest.cjs'
       - 'college-soccer-national-bracket.css'
       - 'college-soccer-selection.js'
       - 'college-soccer-selection.html'
@@ -113,6 +117,7 @@ jobs:
           node scripts/test_college_soccer_selection_native.cjs
           node --check college-soccer-national-bracket.js
           node scripts/test_college_soccer_national_bracket.cjs
+          node scripts/test_college_soccer_local_crest_manifest.cjs
           node scripts/test_college_soccer_live_match_center.cjs
           node scripts/test_college_soccer_division_scope.cjs
           node scripts/test_college_soccer_frontpage_crests.cjs
