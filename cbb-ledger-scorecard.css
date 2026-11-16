@@ -711,3 +711,18 @@
 .ledger26-scorebug .ledger26-team--light-ink .ledger26-points{
  color:#201911!important;text-shadow:0 1px 0 rgba(255,255,255,.5)!important;
 }
+
+/* Ring-free art mark: enlarged silhouette behind the score, with editorial bleed. */
+.ledger26-scorebug .ledger26-team{overflow:visible}
+.ledger26-scorebug .ledger26-ghost{
+  top:50%;right:1%;width:min(60%,255px);height:215%;
+  transform:translateY(-50%) rotate(-16deg);
+  opacity:.31;z-index:-1;
+}
+.ledger26-scorebug .ledger26-team--behind .ledger26-ghost{opacity:.23}
+.ledger26-scorebug .ledger26-ghost img{width:100%;height:100%;object-fit:contain}
+.ledger26-card{isolation:isolate}
+@media(max-width:640px){
+ .ledger26-scorebug .ledger26-ghost{width:49%;height:195%;right:0;opacity:.27}
+ .ledger26-scorebug .ledger26-team--behind .ledger26-ghost{opacity:.19}
+}
