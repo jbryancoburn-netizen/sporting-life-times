@@ -9,6 +9,7 @@ on:
     paths:
       - '.github/workflows/college-soccer-elo-live.yml'
       - 'scripts/update_college_soccer_elo.py'
+      - 'data/college-soccer-source-exceptions.json'
       - 'scripts/verify_college_soccer_reconciliation.py'
       - 'scripts/audit_college_soccer_elo_parameters.py'
       - 'scripts/audit_college_soccer_score_corrections.py'
