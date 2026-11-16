@@ -5,7 +5,17 @@
  'use strict';
  const esc=v=>String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const color=v=>/^#[0-9a-fA-F]{6}$/.test(String(v||''))?v:'#655239';
- const paleInk=v=>{const h=color(v);const rgb=[1,3,5].map(i=>parseInt(h.slice(i,i+2),16)/255).map(c=>c<=.04045?c/12.92:((c+.055)/1.055)**2.4);return rgb[0]*.2126+rgb[1]*.7152+rgb[2]*.0722>.35;};
+ // Select ink against the ACTUAL blended panel, not the school's raw color.
+ const channels=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
+ const blend=(a,b,p)=>channels(color(a)).map((v,i)=>v*p+channels(b)[i]*(1-p));
+ const lum=c=>c.map(v=>{v/=255;return v<=.04045?v/12.92:((v+.055)/1.055)**2.4}).reduce((s,v,i)=>s+v*[.2126,.7152,.0722][i],0);
+ const readableInk=(school,phase,outcome)=>{
+  const background=phase==='upcoming'?blend(school,'#ffffff',.88):
+   outcome==='behind'?blend(school,'#f5e9d0',.38):
+   outcome==='ahead'?blend(school,'#17100d',.87):blend(school,'#ffffff',.85);
+  const light='#fffaf0',dark='#201911',b=lum(background),l=lum(channels(light)),d=lum(channels(dark));
+  return (Math.max(l,b)+.05)/(Math.min(l,b)+.05)>=(Math.max(d,b)+.05)/(Math.min(d,b)+.05)?light:dark;
+ };
  // A rank shared by multiple equally rated programs must be identified as tied.
  // This uses the published rank distribution, not alphabetical tiebreakers.
  function formatRetro(profile,tieCounts,maxRank){
@@ -249,7 +259,7 @@
    const validArt=/^(?:(?:\.\.\/|\.\/|\/)?assets\/|https:\/\/)/i.test(explicitArt)&&!/[<>"'\s]/.test(explicitArt);
    const watermark=validArt?'<span class="ledger26-ghost" aria-hidden="true"><img src="'+esc(explicitArt)+'" alt="" loading="lazy"></span>':'';
 
-   return '<div class="ledger26-team ledger26-team--'+outcome+(paleInk(x.color)?' ledger26-team--light-ink':'')+'" style="--ledger26-school:'+color(x.color)+'">'+watermark+
+   return '<div class="ledger26-team ledger26-team--'+outcome+'" style="--ledger26-school:'+color(x.color)+';--ledger26-readable-ink:'+readableInk(x.color,phase,outcome)+'">'+watermark+
     '<span class="ledger26-crest">'+(x.crest||'')+'</span>'+
     '<span class="ledger26-identity"><strong class="ledger26-name">'+badge+linkedName+'</strong>'+
     '<small class="ledger26-record">'+esc(context)+
