@@ -237,7 +237,14 @@
    const href=/^ncaam-team\.html\?team=ncaa%3A\d+$|^ncaaw-team\.html\?team=\d+$/i.test(String(x.teamHref||''))?x.teamHref:'';
    const label=esc(x.name||'School');
    const linkedName=href?'<a class="ledger26-team-link" href="'+esc(href)+'" aria-label="Open '+label+' team page">'+label+'</a>':label;
-   return '<div class="ledger26-team" style="--ledger26-school:'+color(x.color)+'">'+
+   const scoreA=Number(x.score),scoreB=Number(other?.score);
+   const scoresKnown=phase!=='upcoming'&&x.score!=null&&other?.score!=null&&Number.isFinite(scoreA)&&Number.isFinite(scoreB);
+   const outcome=!scoresKnown?'even':scoreA>scoreB?'ahead':scoreA<scoreB?'behind':'even';
+   // Reuse only the authentic crest already resolved for this team. Never guess a logo URL.
+   const crestSource=String(x.crest||'').match(/<img\\b[^>]*?\\bsrc=["']([^"']+)["']/i);
+   const safeCrest=crestSource&&/^(?:assets\\/|https:\\/\\/|data:image\\/(?:png|webp|jpeg|svg\\+xml);base64,)/i.test(crestSource[1])?crestSource[1]:'';
+   const watermark=safeCrest?'<span class="ledger26-ghost" aria-hidden="true"><img src="'+esc(safeCrest)+'" alt="" loading="lazy"></span>':'';
+   return '<div class="ledger26-team ledger26-team--'+outcome+'" style="--ledger26-school:'+color(x.color)+'">'+watermark+
     '<span class="ledger26-crest">'+(x.crest||'')+'</span>'+
     '<span class="ledger26-identity"><strong class="ledger26-name">'+badge+linkedName+'</strong>'+
     '<small class="ledger26-record">'+esc(context)+
@@ -262,6 +269,6 @@
   dialog.showModal();loadPress(dialog);
  }
 
- root.SLTSportsScorebug={render,formatRetro,openPress,version:'shared-letterpress-v17-pregame-intelligence'};
+ root.SLTSportsScorebug={render,formatRetro,openPress,version:'shared-letterpress-v18-rich-embossed'};
  root.SLTBasketballScorebug=root.SLTSportsScorebug;
 })(typeof window!=='undefined'?window:globalThis);
