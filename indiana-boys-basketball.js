@@ -159,6 +159,25 @@ const crestColors = {
   'Hoosier Crossroads': ['#17427c', '#bd922c'],
 };
 
+
+function conferenceMonogram(name) {
+  // Original SLT conference insignia, not an official conference trademark.
+  const words = name.split(/\\s+/).filter(word => !['of', 'the', 'and'].includes(word.toLowerCase()));
+  const initials = words.length === 1 ? words[0].slice(0, 2) : words.map(word => word[0]).join('').slice(0, 4);
+  const colors = crestColors[name] || ['#263d56', '#c7a66c'];
+  const label = name.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="${label} conference insignia">
+    <defs><radialGradient id="face" cx=".35" cy=".25" r=".85"><stop stop-color="#fff8e9"/><stop offset=".58" stop-color="#e6d7b7"/><stop offset="1" stop-color="#b69a6e"/></radialGradient>
+    <linearGradient id="metal" x2=".8" y2="1"><stop stop-color="#fff6d8"/><stop offset=".5" stop-color="#b28a43"/><stop offset="1" stop-color="#f2d797"/></linearGradient></defs>
+    <circle cx="100" cy="100" r="97" fill="${colors[0]}"/><circle cx="100" cy="100" r="87" fill="none" stroke="url(#metal)" stroke-width="5"/>
+    <circle cx="100" cy="100" r="76" fill="url(#face)" stroke="${colors[1]}" stroke-width="4"/>
+    <path d="M38 72h124M38 130h124" stroke="${colors[0]}" stroke-width="2" opacity=".6"/>
+    <text x="100" y="115" font-family="Georgia,serif" font-size="${initials.length > 3 ? 51 : initials.length > 2 ? 62 : 77}" font-weight="bold" text-anchor="middle" fill="${colors[0]}" stroke="${colors[1]}" stroke-width="1" paint-order="stroke">${initials}</text>
+    <circle cx="100" cy="33" r="4" fill="${colors[1]}"/><circle cx="100" cy="167" r="4" fill="${colors[1]}"/>
+  </svg>`;
+  return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+}
+
 function crest(mark, size, identity) {
   const badge = document.createElement('span');
   badge.className = 'crest crest-' + size;
@@ -306,6 +325,6 @@ fetch('data/indiana-boys-basketball.json')
       source.textContent = manifest.credit || (manifest.source.includes('themicconference.com') ? 'MIC artwork' : 'HCC artwork');
       document.querySelector('footer').append(' · ', source);
     }
-    initialize(edition);
+    for (const name of new Set(edition.teams.map(team => team.conference).filter(Boolean))) {\n      if (!artwork.conferences[name]) artwork.conferences[name] = conferenceMonogram(name);\n    }\n    initialize(edition);
   })
   .catch(() => { status.textContent = 'The school register could not load. Try refreshing the page.'; });
