@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "checked_at_utc": "2026-11-15T23:38:55.374232+00:00",
+  "checked_at_utc": "2026-11-16T01:38:54.776384+00:00",
   "source": "NCAA scoreboard via ncaa-api compatibility endpoint",
   "games": [
     {
@@ -333,12 +333,12 @@
       "cohort": "men-d3",
       "status": "live",
       "home_score": 1,
-      "away_score": 0,
+      "away_score": 1,
       "home_name": "Southwestern (TX)",
       "away_name": "Trinity (TX)",
       "home_id": "southwestern-tx",
       "away_id": "trinity-tx",
-      "period": "1ST HALF",
+      "period": "3OT",
       "source_url": "https://www.ncaa.com/game/6662449"
     },
     {
@@ -682,14 +682,14 @@
     {
       "match_id": "men-6662538",
       "cohort": "men-d2",
-      "status": "live",
-      "home_score": 0,
+      "status": "final",
+      "home_score": 3,
       "away_score": 0,
       "home_name": "Cal State LA",
       "away_name": "Western Ore.",
       "home_id": "cal-st-la",
       "away_id": "western-ore",
-      "period": "1ST HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6662538"
     },
     {
@@ -721,14 +721,14 @@
     {
       "match_id": "men-6662541",
       "cohort": "men-d2",
-      "status": "live",
+      "status": "final",
       "home_score": 0,
       "away_score": 1,
       "home_name": "CSU Pueblo",
       "away_name": "CSUSB",
       "home_id": "colorado-st-pueblo",
       "away_id": "cal-st-san-bdino",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6662541"
     },
     {
@@ -1241,27 +1241,27 @@
     {
       "match_id": "women-6662696",
       "cohort": "women-d2",
-      "status": "live",
-      "home_score": 0,
+      "status": "final",
+      "home_score": 1,
       "away_score": 0,
       "home_name": "Western Wash.",
       "away_name": "Cal Poly Pomona",
       "home_id": "western-wash",
       "away_id": "cal-poly-pomona",
-      "period": "1ST HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6662696"
     },
     {
       "match_id": "women-6662697",
       "cohort": "women-d2",
-      "status": "live",
-      "home_score": 1,
+      "status": "final",
+      "home_score": 2,
       "away_score": 1,
       "home_name": "CUI",
       "away_name": "Cal State LA",
       "home_id": "concordia-irvine",
       "away_id": "cal-st-la",
-      "period": "1ST HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6662697"
     },
     {
@@ -1694,28 +1694,80 @@
       "source_url": "https://www.ncaa.com/game/6663156"
     },
     {
-      "match_id": "women-6663161",
+      "match_id": "women-6663157",
       "cohort": "women-d3",
       "status": "live",
       "home_score": 1,
       "away_score": 0,
+      "home_name": "Wis.-La Crosse",
+      "away_name": "Carleton",
+      "home_id": "wis-la-crosse",
+      "away_id": "carleton",
+      "period": "2ND HALF",
+      "source_url": "https://www.ncaa.com/game/6663157"
+    },
+    {
+      "match_id": "women-6663158",
+      "cohort": "women-d3",
+      "status": "live",
+      "home_score": 0,
+      "away_score": 1,
+      "home_name": "North Central (IL)",
+      "away_name": "Cal Lutheran",
+      "home_id": "north-central-il",
+      "away_id": "cal-lutheran",
+      "period": "1ST HALF",
+      "source_url": "https://www.ncaa.com/game/6663158"
+    },
+    {
+      "match_id": "women-6663159",
+      "cohort": "women-d3",
+      "status": "live",
+      "home_score": 0,
+      "away_score": 1,
+      "home_name": "Puget Sound",
+      "away_name": "Trinity (TX)",
+      "home_id": "puget-sound",
+      "away_id": "trinity-tx",
+      "period": "1ST HALF",
+      "source_url": "https://www.ncaa.com/game/6663159"
+    },
+    {
+      "match_id": "women-6663160",
+      "cohort": "women-d3",
+      "status": "live",
+      "home_score": 1,
+      "away_score": 0,
+      "home_name": "UChicago",
+      "away_name": "St. Catherine",
+      "home_id": "chicago",
+      "away_id": "st-catherine",
+      "period": "2ND HALF",
+      "source_url": "https://www.ncaa.com/game/6663160"
+    },
+    {
+      "match_id": "women-6663161",
+      "cohort": "women-d3",
+      "status": "final",
+      "home_score": 1,
+      "away_score": 2,
       "home_name": "Carnegie Mellon",
       "away_name": "Lynchburg",
       "home_id": "carnegie-mellon",
       "away_id": "lynchburg",
-      "period": "1ST HALF",
+      "period": "FINAL (2OT)",
       "source_url": "https://www.ncaa.com/game/6663161"
     },
     {
       "match_id": "women-6663162",
       "cohort": "women-d3",
       "status": "final",
-      "home_score": 1,
-      "away_score": 3,
-      "home_name": "Williams",
-      "away_name": "William Smith",
-      "home_id": "williams",
-      "away_id": "william-smith",
+      "home_score": 3,
+      "away_score": 1,
+      "home_name": "William Smith",
+      "away_name": "Williams",
+      "home_id": "william-smith",
+      "away_id": "williams",
       "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6663162"
     },
@@ -1917,14 +1969,14 @@
     {
       "match_id": "women-6667156",
       "cohort": "women-d1",
-      "status": "live",
+      "status": "final",
       "home_score": 4,
       "away_score": 1,
       "home_name": "South Carolina",
       "away_name": "Texas",
       "home_id": "south-carolina",
       "away_id": "texas",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6667156"
     },
     {
