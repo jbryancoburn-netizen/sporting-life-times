@@ -108,6 +108,14 @@
  function schoolLine(team,pick,percentage,branding,pending){
   const line=html('div','snb-team'+(pick?' snb-picked':''));
   if(!team){line.append(html('span','snb-pending',pending));return line;}
+  const forecastSeed=team.forecast_rank<=24;
+  const badge=html('span',forecastSeed?'snb-seed-badge':'snb-seed-spacer',
+    forecastSeed?String(team.forecast_rank):'');
+  if(forecastSeed){
+    badge.setAttribute('title','RETRO projected seed #'+team.forecast_rank+' — not an NCAA committee seed');
+    badge.setAttribute('aria-label','RETRO projected seed number '+team.forecast_rank);
+  }else badge.setAttribute('aria-hidden','true');
+  line.append(badge);
   const crest=window.CollegeSoccerCupUI.crest(team.team,team.team_id,'men-d1',branding);
   crest.classList.add('snb-crest');
   line.append(crest);
@@ -115,7 +123,7 @@
   const link=html('a','snb-school-link',team.team);
   link.href='college-soccer-team.html?team='+encodeURIComponent('men-d1:'+team.team_id);
   copy.append(link);
-  if(team.forecast_rank<=24)copy.append(html('small','snb-seed','RETRO #'+team.forecast_rank));
+  if(forecastSeed)copy.append(html('small','snb-seed','PROJECTED SEED'));
   line.append(copy);
   if(percentage!==null)line.append(html('span','snb-percentage',Math.round(percentage*100)+'%'));
   return line;
@@ -169,6 +177,10 @@
   summary.append(html('span',null,String(options.confirmed||0)+' CONFERENCE CHAMPIONS VERIFIED'));
   summary.append(html('span',null,'PROJECTION · NOT THE NCAA BRACKET'));
   hero.append(summary);bracket.append(hero);
+  const legend=html('div','snb-seed-legend');
+  const example=html('span','snb-seed-badge','1');example.setAttribute('aria-hidden','true');
+  legend.append(example,html('span',null,'Numbered badge = RETRO projected seed (1–24), NOT an official NCAA seed. Positions 1–16 receive first-round byes; positions 17–24 play in the first round.'));
+  bracket.append(legend);
   const explanation=html('p','snb-methodology','NCAA structure: 23 automatic bids, 25 at-large, 24 seeded positions and 16 byes. RETRO determines this independent, eligibility-unverified demonstration field and its strength order, not NCAA selections or seeds. We divide hypothetical first-round seeded entrants two per quadrant for balance; that distribution is NOT an NCAA placement requirement. Opening-game conference separation is enforced, but geography, hosting and actual NCAA pairings remain unverified. Forecasts assume a neutral field.');
   bracket.append(explanation);
   const regions=html('section','snb-regions');
