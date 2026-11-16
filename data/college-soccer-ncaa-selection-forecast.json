@@ -60,32 +60,68 @@
       "team_id": "indiana",
       "team": "Indiana",
       "elo": 1679.044,
-      "method": "retro_highest_rated_conference_member_projection",
-      "official_aq": false,
-      "source_url": null,
-      "championship_result": null
+      "method": "verified_championship_result",
+      "official_aq": true,
+      "source_url": "https://bigten.org/news/2026/11/15/indiana-claims-2026-big-ten-mens-soccer-tournament-title.aspx",
+      "championship_result": {
+        "winner_id": "indiana",
+        "home_team_id": "indiana",
+        "away_team_id": "washington",
+        "opponent_id": "washington",
+        "home_score": 2,
+        "away_score": 2,
+        "decision": "penalties",
+        "home_penalties": 3,
+        "away_penalties": 2,
+        "result_date": "2026-11-15",
+        "source_url": "https://bigten.org/news/2026/11/15/indiana-claims-2026-big-ten-mens-soccer-tournament-title.aspx"
+      }
     },
     {
       "conference": "men-d1:acc",
       "conference_name": "ACC",
-      "team_id": "smu",
-      "team": "SMU",
-      "elo": 1728.516,
-      "method": "retro_highest_rated_conference_member_projection",
-      "official_aq": false,
-      "source_url": null,
-      "championship_result": null
+      "team_id": "north-carolina",
+      "team": "North Carolina",
+      "elo": 1647.555,
+      "method": "verified_championship_result",
+      "official_aq": true,
+      "source_url": "https://theacc.com/news/2026/11/15/north-carolina-wins-2026-acc-mens-soccer-championship.aspx",
+      "championship_result": {
+        "winner_id": "north-carolina",
+        "home_team_id": "north-carolina",
+        "away_team_id": "smu",
+        "opponent_id": "smu",
+        "home_score": 3,
+        "away_score": 0,
+        "decision": "regulation",
+        "home_penalties": null,
+        "away_penalties": null,
+        "result_date": "2026-11-15",
+        "source_url": "https://theacc.com/news/2026/11/15/north-carolina-wins-2026-acc-mens-soccer-championship.aspx"
+      }
     },
     {
       "conference": "men-d1:big-east",
       "conference_name": "BIG EAST",
-      "team_id": "georgetown",
-      "team": "Georgetown",
-      "elo": 1749.796,
-      "method": "retro_highest_rated_conference_member_projection",
-      "official_aq": false,
-      "source_url": null,
-      "championship_result": null
+      "team_id": "akron",
+      "team": "Akron",
+      "elo": 1708.894,
+      "method": "verified_championship_result",
+      "official_aq": true,
+      "source_url": "https://gozips.com/news/2026/11/15/mens-soccer-bunchs-olimpico-goal-etches-itself-into-akron-lore-as-zips-win-first-big-east-tournament-title",
+      "championship_result": {
+        "winner_id": "akron",
+        "home_team_id": "akron",
+        "away_team_id": "georgetown",
+        "opponent_id": "georgetown",
+        "home_score": 1,
+        "away_score": 0,
+        "decision": "extra_time",
+        "home_penalties": null,
+        "away_penalties": null,
+        "result_date": "2026-11-15",
+        "source_url": "https://gozips.com/news/2026/11/15/mens-soccer-bunchs-olimpico-goal-etches-itself-into-akron-lore-as-zips-win-first-big-east-tournament-title"
+      }
     },
     {
       "conference": "men-d1:america-east",
@@ -93,21 +129,45 @@
       "team_id": "bryant",
       "team": "Bryant",
       "elo": 1676.802,
-      "method": "retro_highest_rated_conference_member_projection",
-      "official_aq": false,
-      "source_url": null,
-      "championship_result": null
+      "method": "verified_championship_result",
+      "official_aq": true,
+      "source_url": "https://njithighlanders.com/news/2026/11/15/mens-soccer-highlanders-conclude-season-in-america-east-championship-final.aspx",
+      "championship_result": {
+        "winner_id": "bryant",
+        "home_team_id": "bryant",
+        "away_team_id": "njit",
+        "opponent_id": "njit",
+        "home_score": 1,
+        "away_score": 0,
+        "decision": "regulation",
+        "home_penalties": null,
+        "away_penalties": null,
+        "result_date": "2026-11-15",
+        "source_url": "https://njithighlanders.com/news/2026/11/15/mens-soccer-highlanders-conclude-season-in-america-east-championship-final.aspx"
+      }
     },
     {
       "conference": "men-d1:american",
       "conference_name": "American",
-      "team_id": "charlotte",
-      "team": "Charlotte",
-      "elo": 1617.698,
-      "method": "retro_highest_rated_conference_member_projection",
-      "official_aq": false,
-      "source_url": null,
-      "championship_result": null
+      "team_id": "tulsa",
+      "team": "Tulsa",
+      "elo": 1562.88,
+      "method": "verified_championship_result",
+      "official_aq": true,
+      "source_url": "https://theamerican.org/news/2026/11/15/tulsa-wins-american-mens-soccer-championships-in-penalty-kicks-4-3.aspx",
+      "championship_result": {
+        "winner_id": "tulsa",
+        "home_team_id": "tulsa",
+        "away_team_id": "charlotte",
+        "opponent_id": "charlotte",
+        "home_score": 0,
+        "away_score": 0,
+        "decision": "penalties",
+        "home_penalties": 4,
+        "away_penalties": 3,
+        "result_date": "2026-11-14",
+        "source_url": "https://theamerican.org/news/2026/11/15/tulsa-wins-american-mens-soccer-championships-in-penalty-kicks-4-3.aspx"
+      }
     },
     {
       "conference": "men-d1:sun-belt",
@@ -115,10 +175,22 @@
       "team_id": "west-virginia",
       "team": "West Virginia",
       "elo": 1673.376,
-      "method": "retro_highest_rated_conference_member_projection",
-      "official_aq": false,
-      "source_url": null,
-      "championship_result": null
+      "method": "verified_championship_result",
+      "official_aq": true,
+      "source_url": "https://sunbeltsports.org/news/2026/11/15/west-virginia-completes-sweep-of-2026-mens-soccer-regular-season-and-tournament-championships.aspx",
+      "championship_result": {
+        "winner_id": "west-virginia",
+        "home_team_id": "west-virginia",
+        "away_team_id": "south-carolina",
+        "opponent_id": "south-carolina",
+        "home_score": 4,
+        "away_score": 0,
+        "decision": "regulation",
+        "home_penalties": null,
+        "away_penalties": null,
+        "result_date": "2026-11-15",
+        "source_url": "https://sunbeltsports.org/news/2026/11/15/west-virginia-completes-sweep-of-2026-mens-soccer-regular-season-and-tournament-championships.aspx"
+      }
     },
     {
       "conference": "men-d1:ivy",
@@ -126,10 +198,22 @@
       "team_id": "cornell",
       "team": "Cornell",
       "elo": 1673.484,
-      "method": "retro_highest_rated_conference_member_projection",
-      "official_aq": false,
-      "source_url": null,
-      "championship_result": null
+      "method": "verified_championship_result",
+      "official_aq": true,
+      "source_url": "https://cornellbigred.com/news/2026/11/15/mens-soccer-millers-two-goals-lead-cornell-mens-soccer-to-ivy-league-tournament-title-with-2-0-win-over-penn.aspx",
+      "championship_result": {
+        "winner_id": "cornell",
+        "home_team_id": "cornell",
+        "away_team_id": "penn",
+        "opponent_id": "penn",
+        "home_score": 2,
+        "away_score": 0,
+        "decision": "regulation",
+        "home_penalties": null,
+        "away_penalties": null,
+        "result_date": "2026-11-15",
+        "source_url": "https://cornellbigred.com/news/2026/11/15/mens-soccer-millers-two-goals-lead-cornell-mens-soccer-to-ivy-league-tournament-title-with-2-0-win-over-penn.aspx"
+      }
     },
     {
       "conference": "men-d1:wcc",
@@ -137,10 +221,22 @@
       "team_id": "portland",
       "team": "Portland",
       "elo": 1677.56,
-      "method": "retro_highest_rated_conference_member_projection",
-      "official_aq": false,
-      "source_url": null,
-      "championship_result": null
+      "method": "verified_championship_result",
+      "official_aq": true,
+      "source_url": "https://wccsports.com/news/2026/11/15/portland-outlasts-san-diego-in-wcc-mens-soccer-championship-classic.aspx",
+      "championship_result": {
+        "winner_id": "portland",
+        "home_team_id": "portland",
+        "away_team_id": "san-diego",
+        "opponent_id": "san-diego",
+        "home_score": 3,
+        "away_score": 2,
+        "decision": "regulation",
+        "home_penalties": null,
+        "away_penalties": null,
+        "result_date": "2026-11-14",
+        "source_url": "https://wccsports.com/news/2026/11/15/portland-outlasts-san-diego-in-wcc-mens-soccer-championship-classic.aspx"
+      }
     },
     {
       "conference": "men-d1:ovc",
@@ -148,10 +244,22 @@
       "team_id": "houston-christian",
       "team": "Houston Christian",
       "elo": 1527.94,
-      "method": "retro_highest_rated_conference_member_projection",
-      "official_aq": false,
-      "source_url": null,
-      "championship_result": null
+      "method": "verified_championship_result",
+      "official_aq": true,
+      "source_url": "https://hcuhuskies.com/news/2026/11/14/mens-soccer-msoc-2026-ohio-valley-conference-champions.aspx",
+      "championship_result": {
+        "winner_id": "houston-christian",
+        "home_team_id": "houston-christian",
+        "away_team_id": "eastern-ill",
+        "opponent_id": "eastern-ill",
+        "home_score": 2,
+        "away_score": 2,
+        "decision": "penalties",
+        "home_penalties": 6,
+        "away_penalties": 5,
+        "result_date": "2026-11-14",
+        "source_url": "https://hcuhuskies.com/news/2026/11/14/mens-soccer-msoc-2026-ohio-valley-conference-champions.aspx"
+      }
     },
     {
       "conference": "men-d1:atlantic-10",
@@ -163,12 +271,17 @@
       "official_aq": true,
       "source_url": "https://www.ncaa.com/game/6666305",
       "championship_result": {
+        "winner_id": "saint-louis",
+        "home_team_id": "saint-louis",
+        "away_team_id": "fordham",
         "opponent_id": "fordham",
         "home_score": 2,
         "away_score": 1,
         "decision": "regulation",
         "home_penalties": null,
-        "away_penalties": null
+        "away_penalties": null,
+        "result_date": "2026-11-14",
+        "source_url": "https://www.ncaa.com/game/6666305"
       }
     },
     {
@@ -181,12 +294,17 @@
       "official_aq": true,
       "source_url": "https://www.ncaa.com/game/6667017",
       "championship_result": {
+        "winner_id": "lehigh",
+        "home_team_id": "bucknell",
+        "away_team_id": "lehigh",
         "opponent_id": "bucknell",
         "home_score": 1,
         "away_score": 2,
         "decision": "regulation",
         "home_penalties": null,
-        "away_penalties": null
+        "away_penalties": null,
+        "result_date": "2026-11-14",
+        "source_url": "https://www.ncaa.com/game/6667017"
       }
     },
     {
@@ -199,12 +317,17 @@
       "official_aq": true,
       "source_url": "https://www.ncaa.com/game/6666351",
       "championship_result": {
+        "winner_id": "longwood",
+        "home_team_id": "gardner-webb",
+        "away_team_id": "longwood",
         "opponent_id": "gardner-webb",
         "home_score": 1,
         "away_score": 2,
         "decision": "regulation",
         "home_penalties": null,
-        "away_penalties": null
+        "away_penalties": null,
+        "result_date": "2026-11-14",
+        "source_url": "https://www.ncaa.com/game/6666351"
       }
     },
     {
@@ -213,10 +336,22 @@
       "team_id": "bowling-green",
       "team": "Bowling Green",
       "elo": 1549.533,
-      "method": "retro_highest_rated_conference_member_projection",
-      "official_aq": false,
-      "source_url": null,
-      "championship_result": null
+      "method": "verified_championship_result",
+      "official_aq": true,
+      "source_url": "https://mvc-sports.com/news/2026/11/15/bowling-green-wins-2026-mvc-mens-soccer-tournament-title-in-dramatic-fashion.aspx",
+      "championship_result": {
+        "winner_id": "bowling-green",
+        "home_team_id": "bowling-green",
+        "away_team_id": "western-mich",
+        "opponent_id": "western-mich",
+        "home_score": 1,
+        "away_score": 1,
+        "decision": "penalties",
+        "home_penalties": 7,
+        "away_penalties": 6,
+        "result_date": "2026-11-14",
+        "source_url": "https://mvc-sports.com/news/2026/11/15/bowling-green-wins-2026-mvc-mens-soccer-tournament-title-in-dramatic-fashion.aspx"
+      }
     },
     {
       "conference": "men-d1:big-west",
@@ -228,12 +363,17 @@
       "official_aq": true,
       "source_url": "https://www.ncaa.com/game/6666502",
       "championship_result": {
+        "winner_id": "bakersfield",
+        "home_team_id": "uc-santa-barbara",
+        "away_team_id": "bakersfield",
         "opponent_id": "uc-santa-barbara",
         "home_score": 1,
         "away_score": 5,
         "decision": "regulation",
         "home_penalties": null,
-        "away_penalties": null
+        "away_penalties": null,
+        "result_date": "2026-11-13",
+        "source_url": "https://www.ncaa.com/game/6666502"
       }
     },
     {
@@ -246,12 +386,17 @@
       "official_aq": true,
       "source_url": "https://www.ncaa.com/game/6666300",
       "championship_result": {
+        "winner_id": "north-florida",
+        "home_team_id": "north-florida",
+        "away_team_id": "queens-nc",
         "opponent_id": "queens-nc",
         "home_score": 2,
         "away_score": 0,
         "decision": "regulation",
         "home_penalties": null,
-        "away_penalties": null
+        "away_penalties": null,
+        "result_date": "2026-11-14",
+        "source_url": "https://www.ncaa.com/game/6666300"
       }
     },
     {
@@ -264,12 +409,17 @@
       "official_aq": true,
       "source_url": "https://www.ncaa.com/game/6666510",
       "championship_result": {
+        "winner_id": "cleveland-st",
+        "home_team_id": "ipfw",
+        "away_team_id": "cleveland-st",
         "opponent_id": "ipfw",
         "home_score": 2,
         "away_score": 3,
         "decision": "regulation",
         "home_penalties": null,
-        "away_penalties": null
+        "away_penalties": null,
+        "result_date": "2026-11-14",
+        "source_url": "https://www.ncaa.com/game/6666510"
       }
     },
     {
@@ -282,12 +432,17 @@
       "official_aq": true,
       "source_url": "https://www.ncaa.com/game/6666505",
       "championship_result": {
+        "winner_id": "col-of-charleston",
+        "home_team_id": "hofstra",
+        "away_team_id": "col-of-charleston",
         "opponent_id": "hofstra",
         "home_score": 0,
         "away_score": 4,
         "decision": "regulation",
         "home_penalties": null,
-        "away_penalties": null
+        "away_penalties": null,
+        "result_date": "2026-11-14",
+        "source_url": "https://www.ncaa.com/game/6666505"
       }
     },
     {
@@ -296,10 +451,22 @@
       "team_id": "fdu",
       "team": "FDU",
       "elo": 1612.958,
-      "method": "retro_highest_rated_conference_member_projection",
-      "official_aq": false,
-      "source_url": null,
-      "championship_result": null
+      "method": "verified_championship_result",
+      "official_aq": true,
+      "source_url": "https://fduknights.com/news/2026/11/15/mens-soccer-fdu-downs-liu-to-win-second-straight-nec-title.aspx",
+      "championship_result": {
+        "winner_id": "fdu",
+        "home_team_id": "long-island",
+        "away_team_id": "fdu",
+        "opponent_id": "long-island",
+        "home_score": 0,
+        "away_score": 1,
+        "decision": "regulation",
+        "home_penalties": null,
+        "away_penalties": null,
+        "result_date": "2026-11-15",
+        "source_url": "https://fduknights.com/news/2026/11/15/mens-soccer-fdu-downs-liu-to-win-second-straight-nec-title.aspx"
+      }
     },
     {
       "conference": "men-d1:socon",
@@ -311,12 +478,17 @@
       "official_aq": true,
       "source_url": "https://www.ncaa.com/game/6666516",
       "championship_result": {
+        "winner_id": "liberty",
+        "home_team_id": "unc-greensboro",
+        "away_team_id": "liberty",
         "opponent_id": "unc-greensboro",
         "home_score": 0,
         "away_score": 1,
         "decision": "regulation",
         "home_penalties": null,
-        "away_penalties": null
+        "away_penalties": null,
+        "result_date": "2026-11-14",
+        "source_url": "https://www.ncaa.com/game/6666516"
       }
     },
     {
@@ -329,12 +501,17 @@
       "official_aq": true,
       "source_url": "https://www.ncaa.com/game/6666767",
       "championship_result": {
+        "winner_id": "neb-omaha",
+        "home_team_id": "neb-omaha",
+        "away_team_id": "st-thomas-mn",
         "opponent_id": "st-thomas-mn",
         "home_score": 4,
         "away_score": 2,
         "decision": "regulation",
         "home_penalties": null,
-        "away_penalties": null
+        "away_penalties": null,
+        "result_date": "2026-11-14",
+        "source_url": "https://www.ncaa.com/game/6666767"
       }
     },
     {
@@ -347,12 +524,17 @@
       "official_aq": true,
       "source_url": "https://www.ncaa.com/game/6666711",
       "championship_result": {
+        "winner_id": "sacred-heart",
+        "home_team_id": "sacred-heart",
+        "away_team_id": "merrimack",
         "opponent_id": "merrimack",
         "home_score": 2,
         "away_score": 1,
         "decision": "regulation",
         "home_penalties": null,
-        "away_penalties": null
+        "away_penalties": null,
+        "result_date": "2026-11-14",
+        "source_url": "https://www.ncaa.com/game/6666711"
       }
     },
     {
@@ -361,10 +543,22 @@
       "team_id": "grand-canyon",
       "team": "Grand Canyon",
       "elo": 1613.718,
-      "method": "retro_highest_rated_conference_member_projection",
-      "official_aq": false,
-      "source_url": null,
-      "championship_result": null
+      "method": "verified_championship_result",
+      "official_aq": true,
+      "source_url": "https://themw.com/news/2026/11/15/mens-soccer-lopes-claim-mountain-west-championship-title.aspx",
+      "championship_result": {
+        "winner_id": "grand-canyon",
+        "home_team_id": "grand-canyon",
+        "away_team_id": "unlv",
+        "opponent_id": "unlv",
+        "home_score": 1,
+        "away_score": 0,
+        "decision": "regulation",
+        "home_penalties": null,
+        "away_penalties": null,
+        "result_date": "2026-11-14",
+        "source_url": "https://themw.com/news/2026/11/15/mens-soccer-lopes-claim-mountain-west-championship-title.aspx"
+      }
     },
     {
       "conference": "men-d1:pac-12",
@@ -372,20 +566,43 @@
       "team_id": "oregon-st",
       "team": "Oregon St.",
       "elo": 1611.51,
-      "method": "retro_highest_rated_conference_member_projection",
-      "official_aq": false,
-      "source_url": null,
-      "championship_result": null
+      "method": "verified_championship_result",
+      "official_aq": true,
+      "source_url": "https://pac-12.com/news/2026/11/15/mens-soccer-zapiens-80th-minute-winner-seals-oregon-states-pac-12-championship-triumph.aspx",
+      "championship_result": {
+        "winner_id": "oregon-st",
+        "home_team_id": "oregon-st",
+        "away_team_id": "san-diego-st",
+        "opponent_id": "san-diego-st",
+        "home_score": 2,
+        "away_score": 1,
+        "decision": "regulation",
+        "home_penalties": null,
+        "away_penalties": null,
+        "result_date": "2026-11-14",
+        "source_url": "https://pac-12.com/news/2026/11/15/mens-soccer-zapiens-80th-minute-winner-seals-oregon-states-pac-12-championship-triumph.aspx"
+      }
     }
   ],
   "at_large_proxy": [
     {
-      "team_id": "akron",
-      "team": "Akron",
+      "team_id": "georgetown",
+      "team": "Georgetown",
       "conference": "men-d1:big-east",
-      "elo": 1708.894,
+      "elo": 1749.796,
       "bid_type": "at_large_proxy",
-      "experimental_strength_order": 3,
+      "experimental_strength_order": 1,
+      "ncaa_seed": null,
+      "first_round_bye_candidate": true,
+      "seeded_24_candidate": true
+    },
+    {
+      "team_id": "smu",
+      "team": "SMU",
+      "conference": "men-d1:acc",
+      "elo": 1728.516,
+      "bid_type": "at_large_proxy",
+      "experimental_strength_order": 2,
       "ncaa_seed": null,
       "first_round_bye_candidate": true,
       "seeded_24_candidate": true
@@ -408,17 +625,6 @@
       "elo": 1650.561,
       "bid_type": "at_large_proxy",
       "experimental_strength_order": 10,
-      "ncaa_seed": null,
-      "first_round_bye_candidate": true,
-      "seeded_24_candidate": true
-    },
-    {
-      "team_id": "north-carolina",
-      "team": "North Carolina",
-      "conference": "men-d1:acc",
-      "elo": 1647.555,
-      "bid_type": "at_large_proxy",
-      "experimental_strength_order": 11,
       "ncaa_seed": null,
       "first_round_bye_candidate": true,
       "seeded_24_candidate": true
@@ -474,6 +680,17 @@
       "elo": 1621.169,
       "bid_type": "at_large_proxy",
       "experimental_strength_order": 17,
+      "ncaa_seed": null,
+      "first_round_bye_candidate": false,
+      "seeded_24_candidate": true
+    },
+    {
+      "team_id": "charlotte",
+      "team": "Charlotte",
+      "conference": "men-d1:american",
+      "elo": 1617.698,
+      "bid_type": "at_large_proxy",
+      "experimental_strength_order": 20,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
       "seeded_24_candidate": true
@@ -642,20 +859,16 @@
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
       "seeded_24_candidate": false
-    },
+    }
+  ],
+  "first_four_out_proxy": [
     {
       "team_id": "louisville",
       "team": "Louisville",
       "conference": "men-d1:acc",
       "elo": 1574.547,
-      "bid_type": "at_large_proxy",
-      "experimental_strength_order": 40,
-      "ncaa_seed": null,
-      "first_round_bye_candidate": false,
-      "seeded_24_candidate": false
-    }
-  ],
-  "first_four_out_proxy": [
+      "bid_type": "outside_field_proxy"
+    },
     {
       "team_id": "wake-forest",
       "team": "Wake Forest",
@@ -676,13 +889,6 @@
       "conference": "men-d1:maac",
       "elo": 1572.686,
       "bid_type": "outside_field_proxy"
-    },
-    {
-      "team_id": "xavier",
-      "team": "Xavier",
-      "conference": "men-d1:big-east",
-      "elo": 1570.419,
-      "bid_type": "outside_field_proxy"
     }
   ],
   "field": [
@@ -691,7 +897,7 @@
       "team": "Georgetown",
       "conference": "men-d1:big-east",
       "elo": 1749.796,
-      "bid_type": "projected_aq",
+      "bid_type": "at_large_proxy",
       "experimental_strength_order": 1,
       "ncaa_seed": null,
       "first_round_bye_candidate": true,
@@ -702,7 +908,7 @@
       "team": "SMU",
       "conference": "men-d1:acc",
       "elo": 1728.516,
-      "bid_type": "projected_aq",
+      "bid_type": "at_large_proxy",
       "experimental_strength_order": 2,
       "ncaa_seed": null,
       "first_round_bye_candidate": true,
@@ -713,7 +919,7 @@
       "team": "Akron",
       "conference": "men-d1:big-east",
       "elo": 1708.894,
-      "bid_type": "at_large_proxy",
+      "bid_type": "official_aq",
       "experimental_strength_order": 3,
       "ncaa_seed": null,
       "first_round_bye_candidate": true,
@@ -724,7 +930,7 @@
       "team": "Indiana",
       "conference": "men-d1:big-ten",
       "elo": 1679.044,
-      "bid_type": "projected_aq",
+      "bid_type": "official_aq",
       "experimental_strength_order": 4,
       "ncaa_seed": null,
       "first_round_bye_candidate": true,
@@ -735,7 +941,7 @@
       "team": "Portland",
       "conference": "men-d1:wcc",
       "elo": 1677.56,
-      "bid_type": "projected_aq",
+      "bid_type": "official_aq",
       "experimental_strength_order": 5,
       "ncaa_seed": null,
       "first_round_bye_candidate": true,
@@ -746,7 +952,7 @@
       "team": "Bryant",
       "conference": "men-d1:america-east",
       "elo": 1676.802,
-      "bid_type": "projected_aq",
+      "bid_type": "official_aq",
       "experimental_strength_order": 6,
       "ncaa_seed": null,
       "first_round_bye_candidate": true,
@@ -757,7 +963,7 @@
       "team": "Cornell",
       "conference": "men-d1:ivy",
       "elo": 1673.484,
-      "bid_type": "projected_aq",
+      "bid_type": "official_aq",
       "experimental_strength_order": 7,
       "ncaa_seed": null,
       "first_round_bye_candidate": true,
@@ -768,7 +974,7 @@
       "team": "West Virginia",
       "conference": "men-d1:sun-belt",
       "elo": 1673.376,
-      "bid_type": "projected_aq",
+      "bid_type": "official_aq",
       "experimental_strength_order": 8,
       "ncaa_seed": null,
       "first_round_bye_candidate": true,
@@ -801,7 +1007,7 @@
       "team": "North Carolina",
       "conference": "men-d1:acc",
       "elo": 1647.555,
-      "bid_type": "at_large_proxy",
+      "bid_type": "official_aq",
       "experimental_strength_order": 11,
       "ncaa_seed": null,
       "first_round_bye_candidate": true,
@@ -900,7 +1106,7 @@
       "team": "Charlotte",
       "conference": "men-d1:american",
       "elo": 1617.698,
-      "bid_type": "projected_aq",
+      "bid_type": "at_large_proxy",
       "experimental_strength_order": 20,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
@@ -933,7 +1139,7 @@
       "team": "Grand Canyon",
       "conference": "men-d1:mountain-west",
       "elo": 1613.718,
-      "bid_type": "projected_aq",
+      "bid_type": "official_aq",
       "experimental_strength_order": 23,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
@@ -944,7 +1150,7 @@
       "team": "FDU",
       "conference": "men-d1:nec",
       "elo": 1612.958,
-      "bid_type": "projected_aq",
+      "bid_type": "official_aq",
       "experimental_strength_order": 24,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
@@ -955,7 +1161,7 @@
       "team": "Oregon St.",
       "conference": "men-d1:pac-12",
       "elo": 1611.51,
-      "bid_type": "projected_aq",
+      "bid_type": "official_aq",
       "experimental_strength_order": 25,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
@@ -1116,21 +1322,21 @@
       "seeded_24_candidate": false
     },
     {
-      "team_id": "louisville",
-      "team": "Louisville",
-      "conference": "men-d1:acc",
-      "elo": 1574.547,
-      "bid_type": "at_large_proxy",
+      "team_id": "cleveland-st",
+      "team": "Cleveland St.",
+      "conference": "men-d1:horizon",
+      "elo": 1573.819,
+      "bid_type": "official_aq",
       "experimental_strength_order": 40,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
       "seeded_24_candidate": false
     },
     {
-      "team_id": "cleveland-st",
-      "team": "Cleveland St.",
-      "conference": "men-d1:horizon",
-      "elo": 1573.819,
+      "team_id": "tulsa",
+      "team": "Tulsa",
+      "conference": "men-d1:american",
+      "elo": 1562.88,
       "bid_type": "official_aq",
       "experimental_strength_order": 41,
       "ncaa_seed": null,
@@ -1164,7 +1370,7 @@
       "team": "Bowling Green",
       "conference": "men-d1:mvc",
       "elo": 1549.533,
-      "bid_type": "projected_aq",
+      "bid_type": "official_aq",
       "experimental_strength_order": 44,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
@@ -1197,7 +1403,7 @@
       "team": "Houston Christian",
       "conference": "men-d1:ovc",
       "elo": 1527.94,
-      "bid_type": "projected_aq",
+      "bid_type": "official_aq",
       "experimental_strength_order": 47,
       "ncaa_seed": null,
       "first_round_bye_candidate": false,
@@ -1217,8 +1423,8 @@
   ],
   "daily_rebuild": {
     "rating_cutoff": "2026-11-14",
-    "official_automatic_bids": 10,
-    "projected_automatic_bids": 13,
+    "official_automatic_bids": 23,
+    "projected_automatic_bids": 0,
     "source_checked_through": "2026-11-14",
     "selection_inputs_verified": false
   }
