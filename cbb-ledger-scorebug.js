@@ -319,7 +319,7 @@
    const watermarkMatch=String(x.crest||'').match(/\bdata-watermark-art=["']([^"']+)["']/i);
    const explicitArt=String(x.watermarkArt||watermarkMatch?.[1]||'').replace(/&amp;/g,'&');
    const validArt=/^(?:(?:\.\.\/|\.\/|\/)?assets\/|https:\/\/)/i.test(explicitArt)&&!/[<>"'\s]/.test(explicitArt);
-   const watermark=validArt?'<span class="ledger26-ghost" aria-hidden="true"><img src="'+esc(explicitArt)+'" alt="" loading="lazy" crossorigin="anonymous" onload="window.SLTBasketballScorebug.cleanWatermark(this)"></span>':'';
+   const watermark=validArt?'<span class="ledger26-ghost" aria-hidden="true"><img src="'+esc(explicitArt)+'" alt="" loading="lazy" onload="window.SLTBasketballScorebug.cleanWatermark(this)"></span>':'';
 
    return '<div class="ledger26-team ledger26-team--'+outcome+'" style="--ledger26-school:'+color(x.color)+';--ledger26-readable-ink:'+readableInk(x.color,phase,outcome)+'">'+watermark+
     '<span class="ledger26-crest">'+(x.crest||'')+'</span>'+
