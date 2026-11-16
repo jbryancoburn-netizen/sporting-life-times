@@ -952,6 +952,109 @@ const displayGames=()=>reconcileLive(loaded,liveBoard).map(g=>{
  const confirmedTime=confirmedTipoffsByDate.get(g.day)?.get(String(g.id));
  return enrichGameLocation({...g,broadcast:broadcaster||g.broadcast||cached||'',date:g.timed?g.date:(confirmedTime||g.date),timed:g.timed||Boolean(confirmedTime)},site);
 });
+
+// RETRO PULSE FIELD TRIAL · Florida A&M at UTEP, 16 November 2026.
+// Source: the same verified ESPN event-summary feed and play parser as Gamefile.
+// Do not invent a scoring event, media timeout, or clock when the source lacks one.
+const pulseCache=new Map(),pulseScale=new Map(),pulsePending=new Set(),pulseSelection=new Map();
+const pulseKey=g=>String(g.day)+'|'+String(g.id);
+const pulseTrial=g=>!women&&g.day==='2026-11-16'&&
+ /florida\s*(?:a\s*&\s*m|a&m)|florida\s+am|famu|rattlers/i.test(g.away.name+' '+g.away.full)&&
+ /utep|texas.el.paso|miners/i.test(g.home.name+' '+g.home.full);
+function pulseRead(g,raw){
+ const comps=raw?.header?.competitions?.[0]?.competitors||[];
+ if(String(comps.find(c=>c.homeAway==='away')?.team?.id)!==String(g.away.id)||
+    String(comps.find(c=>c.homeAway==='home')?.team?.id)!==String(g.home.id))return null;
+ const plays=window.SLTCourt?.parsePlays?.(raw)||[];
+ const verified=window.SLTCourt?.verifyPlayScores?.(plays,{away:g.away,home:g.home,phase:g.phase});
+ if(!verified?.ok)return null;
+ const sequence=verified.sequence;
+ const seconds=c=>{const m=String(c||'').match(/^(\d{1,2}):(\d{2})$/);return m?Number(m[1])*60+Number(m[2]):null;};
+ const elapsed=p=>{const n=seconds(p.clock),period=p.period;
+  if(n===null||!Number.isInteger(period)||period<1)return null;
+  return period<=2?(period-1)*1200+(1200-n):2400+(period-3)*300+(300-n);
+ };
+ const timed=sequence.map(p=>({...p,elapsed:elapsed(p)}));
+ if(timed.some(p=>p.elapsed===null))return null;
+ const last=timed.at(-1),maxTime=Math.max(2400,...timed.map(p=>p.elapsed));
+ const points=[{elapsed:0,awayScore:0,homeScore:0},...timed];
+ const maxLead=Math.max(...points.map(p=>Math.abs(p.awayScore-p.homeScore)));
+ const key=pulseKey(g),scale=Math.max(pulseScale.get(key)||5,maxLead<=5?5:Math.ceil(maxLead/10)*10);
+ pulseScale.set(key,scale);
+ const rawBreaks=plays.filter(p=>/timeout/i.test(p.kind+' '+p.text)&&/(media|official|tv|television)/i.test(p.kind+' '+p.text))
+  .map(p=>({...p,elapsed:elapsed(p)})).filter(p=>p.elapsed!==null&&p.elapsed>0&&p.elapsed<maxTime);
+ const breaks=[{elapsed:0,label:'TIP',clock:'20:00',period:1},...rawBreaks.map(p=>({elapsed:p.elapsed,label:'MEDIA',clock:p.clock,period:p.period})),
+  ...(maxTime>1200?[{elapsed:1200,label:'HT',clock:'0:00',period:1}]:[]),{elapsed:maxTime,label:g.phase==='final'?'FINAL':'LATEST',clock:last.clock,period:last.period}]
+  .sort((a,b)=>a.elapsed-b.elapsed).filter((b,i,a)=>!i||b.elapsed>a[i-1].elapsed);
+ const segments=breaks.slice(1).map((end,i)=>{
+  const begin=breaks[i];
+  const before=[...points].reverse().find(p=>p.elapsed<=begin.elapsed)||points[0];
+  const after=[...points].reverse().find(p=>p.elapsed<=end.elapsed)||before;
+  const scoring=timed.filter(p=>p.elapsed>begin.elapsed&&p.elapsed<=end.elapsed&&
+   (p.awayScore!==null&&p.homeScore!==null)&&/makes|made|free throw|layup|dunk|jumper|three point|3.point|2.point/i.test(p.text));
+  return {begin,end,away:after.awayScore-before.awayScore,home:after.homeScore-before.homeScore,scoring};
+ });
+ return {points,scale,maxTime,breaks,segments,latest:last};
+}
+function pulseMarkup(g,data){
+ const x=t=>35+474*Math.max(0,Math.min(1,t/data.maxTime));
+ const y=d=>31-23*d/data.scale;
+ const path=data.points.map((p,i)=>(i?'L':'M')+x(p.elapsed).toFixed(1)+' '+y(p.awayScore-p.homeScore).toFixed(1)).join(' ');
+ const ticks=[data.scale,0,-data.scale].map(v=>'<line x1="35" x2="509" y1="'+y(v)+'" y2="'+y(v)+'" class="slt-pulse-tick"/>'+
+  '<text x="30" y="'+(y(v)+3)+'" text-anchor="end" class="slt-pulse-label">'+(v>0?'+':'')+v+'</text>').join('');
+ const marks=data.breaks.filter(b=>b.label==='HT'||b.label==='MEDIA').map(b=>'<line x1="'+x(b.elapsed)+'" x2="'+x(b.elapsed)+'" y1="6" y2="56" class="slt-pulse-break'+(b.label==='HT'?' slt-pulse-half':'')+'"/>'+
+  (b.label==='HT'?'<text x="'+x(b.elapsed)+'" y="9" text-anchor="middle" class="slt-pulse-ht">HT</text>':'')).join('');
+ const key=pulseKey(g),selected=pulseSelection.get(key);
+ const buttons=data.segments.map((seg,i)=>{
+  const l=100*x(seg.begin.elapsed)/520,r=100*x(seg.end.elapsed)/520;
+  const name=(seg.begin.label==='HT'?'2H':seg.begin.period===1?'1H':seg.begin.period===2?'2H':'OT')+
+   ' '+seg.begin.clock+' to '+seg.end.clock;
+  return '<button type="button" class="slt-pulse-zone'+(selected===i?' is-selected':'')+'" data-slt-pulse-segment="'+i+'" data-pulse-key="'+esc(key)+'" style="left:'+l.toFixed(2)+'%;width:'+(r-l).toFixed(2)+'%" aria-label="Scoring stretch '+esc(name)+'; select to view source-reported plays" title="'+esc(name)+'"></button>';
+ }).join('');
+ const finalDiff=data.latest.awayScore-data.latest.homeScore;
+ const leader=finalDiff>0?g.away.name:finalDiff<0?g.home.name:'Tied';
+ return '<div class="slt-pulse" data-slt-pulse="'+esc(key)+'" aria-label="RETRO Pulse, source-reported scoring margin">'+
+  '<div class="slt-pulse-head"><b>RETRO PULSE</b><span>'+(g.phase==='final'?'FINAL':esc(g.status||'LIVE'))+
+  ' · '+esc(leader)+(finalDiff?' +'+Math.abs(finalDiff):'')+'</span></div>'+
+  '<div class="slt-pulse-plot"><svg viewBox="0 0 520 62" preserveAspectRatio="none" role="img" aria-label="Positive lead is Florida A and M; negative lead is UTEP. Scale plus or minus '+data.scale+' points.">'+
+  ticks+marks+'<path d="'+path+'" class="slt-pulse-line"/></svg>'+buttons+'</div>'+
+  '<div class="slt-pulse-detail" data-slt-pulse-detail'+(selected===undefined?' hidden':'')+'>'+
+  (selected===undefined?'':pulseDetail(g,data,selected))+'</div></div>';
+}
+function pulseDetail(g,data,i){
+ const seg=data.segments[i];if(!seg)return '';
+ const label=(seg.begin.period===1?'1ST HALF':seg.begin.period===2?'2ND HALF':'OVERTIME')+
+  ' · '+seg.begin.clock+' → '+seg.end.clock;
+ return '<strong>'+esc(label)+'</strong><span>'+esc(g.away.name)+' '+seg.away+' · '+esc(g.home.name)+' '+seg.home+' in this stretch</span>'+
+  (seg.scoring.length?'<ol>'+seg.scoring.map(p=>'<li><b>'+esc(p.clock)+'</b> '+esc(p.text)+
+   ' <small>'+p.awayScore+'–'+p.homeScore+'</small></li>').join('')+'</ol>':
+   '<small>Individual scoring descriptions unavailable for this stretch.</small>');
+}
+async function refreshPulse(games){
+ for(const g of games.filter(pulseTrial)){
+  const key=pulseKey(g),details=[...document.querySelectorAll('.sl-game-expansion')].find(d=>d.dataset.day===g.day&&d.dataset.gameId===String(g.id));
+  if(!details)continue;
+  const cached=pulseCache.get(key),age=cached?Date.now()-cached.at:Infinity;
+  if(cached?.data){
+   const teams=details.querySelector('.ledger26-teams');
+   if(teams&&!teams.querySelector('.slt-pulse'))teams.insertAdjacentHTML('beforeend',pulseMarkup(g,cached.data));
+  }
+  if((cached&&age<(g.phase==='live'?30000:600000))||pulsePending.has(key))continue;
+  pulsePending.add(key);
+  try{
+   const url='https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary?event='+encodeURIComponent(g.id);
+   const response=await fetch(url,{cache:'no-store'});
+   if(!response.ok)throw Error('No verified play data');
+   const data=pulseRead(g,await response.json());
+   pulseCache.set(key,{at:Date.now(),data});
+   const current=[...document.querySelectorAll('.sl-game-expansion')].find(d=>d.dataset.day===g.day&&d.dataset.gameId===String(g.id));
+   const teams=current?.querySelector('.ledger26-teams');
+   if(teams&&data){teams.querySelector('.slt-pulse')?.remove();teams.insertAdjacentHTML('beforeend',pulseMarkup(g,data));}
+  }catch{pulseCache.set(key,{at:Date.now(),data:cached?.data||null});}
+  finally{pulsePending.delete(key);}
+ }
+}
+
 const render=()=>{
  const games=selectGames(displayGames(),selected,filter,search),shown=games.slice(0,limit);
  const opened=new Set([...document.querySelectorAll('.sl-game-expansion[open]')].map(d=>d.dataset.day+'|'+d.dataset.gameId));
@@ -965,6 +1068,7 @@ const render=()=>{
  document.querySelectorAll('#sl-games .ledger26-team-link').forEach(link=>
    link.addEventListener('click',event=>event.stopPropagation()));
  document.querySelectorAll('.sl-game-expansion[open]').forEach(openGamefile);
+ void refreshPulse(shown);
  document.getElementById('sl-more').hidden=games.length<=shown.length;
  document.getElementById('sl-more').textContent='Show more games ('+(games.length-shown.length)+' remaining)';
  document.getElementById('sl-coverage').textContent=women?
@@ -1134,6 +1238,22 @@ document.getElementById('sl-filters').addEventListener('click',e=>{const b=e.tar
 document.getElementById('sl-more').addEventListener('click',()=>{limit+=18;render()});
 document.getElementById('sl-reload').addEventListener('click',()=>{void refresh();void refreshBroadcasts(selected,true);if(selected===today()||(women&&selected<today()))void refreshLive();void refreshVenues(selected,true)});
 document.getElementById('sl-games').addEventListener('click',e=>{
+ const zone=e.target.closest?.('[data-slt-pulse-segment]');
+ if(zone){
+  e.preventDefault();e.stopPropagation();
+  const key=zone.dataset.pulseKey,i=Number(zone.dataset.sltPulseSegment);
+  const cached=pulseCache.get(key),game=displayGames().find(g=>pulseKey(g)===key);
+  if(cached?.data&&game&&Number.isInteger(i)&&i>=0&&i<cached.data.segments.length){
+   const old=pulseSelection.get(key);
+   if(old===i)pulseSelection.delete(key);else pulseSelection.set(key,i);
+   const graph=zone.closest('.slt-pulse');
+   graph.querySelectorAll('.slt-pulse-zone').forEach((n,index)=>n.classList.toggle('is-selected',index===pulseSelection.get(key)));
+   const pane=graph.querySelector('[data-slt-pulse-detail]');
+   pane.hidden=!pulseSelection.has(key);
+   pane.innerHTML=pane.hidden?'':pulseDetail(game,cached.data,i);
+  }
+  return;
+ }
  const button=e.target.closest?.('[data-slt-ledger-press-open]');
  if(button){
   e.preventDefault();e.stopPropagation();
