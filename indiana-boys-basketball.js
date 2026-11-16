@@ -98,6 +98,15 @@ function schedulePanel(edition, members, showPicker) {
 }
 
 const crestColors = {
+  Concord: ['#16583c', '#202423'],
+  Goshen: ['#ae222c', '#222222'],
+  Mishawaka: ['#751d37', '#ded7c9'],
+  Northridge: ['#185438', '#d6af3d'],
+  NorthWood: ['#222222', '#a91e2b'],
+  Plymouth: ['#a91f2c', '#202020'],
+  Warsaw: ['#cc601e', '#242424'],
+  Wawasee: ['#1a5237', '#c4a143'],
+  'Northern Lakes': ['#155339', '#222222'],
   BenDavis: ['#4b2784', '#efd996'],
   Carmel: ['#124386', '#efb827'],
   CenterGrove: ['#bf1827', '#202020'],
@@ -242,7 +251,7 @@ function initialize(edition) {
 }
 
 const crestManifests = Promise.all(
-  ['indiana-boys-crests.json', 'indiana-boys-crests-mic.json'].map(file =>
+  ['indiana-boys-crests.json', 'indiana-boys-crests-mic.json', 'indiana-boys-crests-nlc.json'].map(file =>
     fetch('data/' + file)
       .then(response => response.ok ? response.json() : null)
       .catch(() => null)
@@ -261,7 +270,7 @@ fetch('data/indiana-boys-basketball.json')
       Object.assign(artwork.conferences, manifest.conferences);
       const source = document.createElement('a');
       source.href = manifest.source;
-      source.textContent = manifest.source.includes('themicconference.com') ? 'MIC artwork' : 'HCC artwork';
+      source.textContent = manifest.credit || (manifest.source.includes('themicconference.com') ? 'MIC artwork' : 'HCC artwork');
       document.querySelector('footer').append(' · ', source);
     }
     initialize(edition);
