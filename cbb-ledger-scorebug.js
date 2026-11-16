@@ -242,10 +242,13 @@
    const scoreA=Number(x.score),scoreB=Number(other?.score);
    const scoresKnown=phase!=='upcoming'&&x.score!=null&&other?.score!=null&&Number.isFinite(scoreA)&&Number.isFinite(scoreB);
    const outcome=!scoresKnown?'even':scoreA>scoreB?'ahead':scoreA<scoreB?'behind':'even';
-   // Reuse only the authentic crest already resolved for this team. Never guess a logo URL.
-   const crestSource=String(x.crest||'').match(/<img\b[^>]*?\bsrc=["']([^"']+)["']/i);
-   const safeCrest=crestSource&&/^(?:(?:\.\.\/|\.\/|\/)?assets\/|https:\/\/|data:image\/(?:png|webp|jpeg|svg\+xml);base64,)/i.test(crestSource[1])?crestSource[1]:'';
-   const watermark=safeCrest?'<span class="ledger26-ghost" aria-hidden="true"><img src="'+esc(safeCrest)+'" alt="" loading="lazy"></span>':'';
+   // Use only verified raw artwork exposed by the logo identity system.
+   // Never duplicate the ring-baked crest into the background.
+   const watermarkMatch=String(x.crest||'').match(/\bdata-watermark-art=["']([^"']+)["']/i);
+   const explicitArt=String(x.watermarkArt||watermarkMatch?.[1]||'').replace(/&amp;/g,'&');
+   const validArt=/^(?:(?:\.\.\/|\.\/|\/)?assets\/|https:\/\/)/i.test(explicitArt)&&!/[<>"'\s]/.test(explicitArt);
+   const watermark=validArt?'<span class="ledger26-ghost" aria-hidden="true"><img src="'+esc(explicitArt)+'" alt="" loading="lazy"></span>':'';
+
    return '<div class="ledger26-team ledger26-team--'+outcome+(paleInk(x.color)?' ledger26-team--light-ink':'')+'" style="--ledger26-school:'+color(x.color)+'">'+watermark+
     '<span class="ledger26-crest">'+(x.crest||'')+'</span>'+
     '<span class="ledger26-identity"><strong class="ledger26-name">'+badge+linkedName+'</strong>'+
@@ -271,6 +274,6 @@
   dialog.showModal();loadPress(dialog);
  }
 
- root.SLTSportsScorebug={render,formatRetro,openPress,version:'shared-letterpress-v18-rich-embossed'};
+ root.SLTSportsScorebug={render,formatRetro,openPress,version:'shared-letterpress-v19-raw-art-watermark'};
  root.SLTBasketballScorebug=root.SLTSportsScorebug;
 })(typeof window!=='undefined'?window:globalThis);
