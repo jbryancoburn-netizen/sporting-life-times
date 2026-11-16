@@ -1,0 +1,26 @@
+name: Locked 2026 soccer selection forecasts integrity
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/soccer-2026-selection-archive/**'
+      - 'scripts/test_soccer_2026_selection_archive.cjs'
+      - '.github/workflows/soccer-selection-archive-integrity.yml'
+  pull_request:
+    paths:
+      - 'data/soccer-2026-selection-archive/**'
+      - 'scripts/test_soccer_2026_selection_archive.cjs'
+      - '.github/workflows/soccer-selection-archive-integrity.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify archived forecast Git hashes and separate models
+        run: node scripts/test_soccer_2026_selection_archive.cjs
