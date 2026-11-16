@@ -98,6 +98,15 @@ function schedulePanel(edition, members, showPicker) {
 }
 
 const crestColors = {
+  BenDavis: ['#4b2784', '#efd996'],
+  Carmel: ['#124386', '#efb827'],
+  CenterGrove: ['#bf1827', '#202020'],
+  LawrenceCentral: ['#692936', '#d1aa70'],
+  LawrenceNorth: ['#005238', '#a51e2d'],
+  NorthCentralIndianapolis: ['#262626', '#ad1728'],
+  Pike: ['#aa1428', '#b7b9bd'],
+  WarrenCentral: ['#222222', '#c29e52'],
+  Metropolitan: ['#272420', '#bc9a58'],
   Fishers: ['#a6192e', '#b1b4b7'],
   Avon: ['#161616', '#c99626'],
   Brownsburg: ['#492477', '#b7bbc1'],
@@ -112,6 +121,7 @@ const crestColors = {
 function crest(mark, size, identity) {
   const badge = document.createElement('span');
   badge.className = 'crest crest-' + size;
+  if (identity === 'Metropolitan') badge.classList.add('crest-dark');
   const colors = crestColors[identity];
   if (colors) {
     badge.style.setProperty('--crest-primary', colors[0]);
@@ -231,9 +241,13 @@ function initialize(edition) {
   render();
 }
 
-const crestManifest = fetch('data/indiana-boys-crests.json')
-  .then(response => response.ok ? response.json() : null)
-  .catch(() => null);
+const crestManifests = Promise.all(
+  ['indiana-boys-crests.json', 'indiana-boys-crests-mic.json'].map(file =>
+    fetch('data/' + file)
+      .then(response => response.ok ? response.json() : null)
+      .catch(() => null)
+  )
+);
 
 fetch('data/indiana-boys-basketball.json')
   .then(response => {
@@ -241,11 +255,13 @@ fetch('data/indiana-boys-basketball.json')
     return response.json();
   })
   .then(async edition => {
-    artwork = await crestManifest || artwork;
-    if (artwork.source) {
+    const manifests = await crestManifests;
+    for (const manifest of manifests.filter(Boolean)) {
+      Object.assign(artwork.schools, manifest.schools);
+      Object.assign(artwork.conferences, manifest.conferences);
       const source = document.createElement('a');
-      source.href = artwork.source;
-      source.textContent = 'Crest artwork';
+      source.href = manifest.source;
+      source.textContent = manifest.source.includes('themicconference.com') ? 'MIC artwork' : 'HCC artwork';
       document.querySelector('footer').append(' · ', source);
     }
     initialize(edition);
