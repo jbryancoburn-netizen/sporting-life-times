@@ -48,13 +48,54 @@ jobs:
           PY
       - name: Publish cached images and source inventory
         run: |
+          set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add assets/cbb-outside-crests data/cbb-outside-local-crest-manifest.json
-          if git diff --cached --quiet; then
-            echo 'No new images to cache'
-          else
+          # Preserve downloaded image bytes before updating the fast-moving main branch.
+          tmpdir="$(mktemp -d)"
+          cp data/cbb-outside-local-crest-manifest.json "$tmpdir/new-manifest.json"
+          tar -cf "$tmpdir/new-crests.tar" assets/cbb-outside-crests
+          for attempt in 1 2 3 4 5; do
+            git fetch origin main
+            git reset --hard origin/main
+            tar -xf "$tmpdir/new-crests.tar"
+            # Merge independently cached identities, instead of rebasing the
+            # one shared JSON manifest (which produces add/add conflicts).
+            python - "$tmpdir/new-manifest.json" <<'PY'
+          import json, pathlib, sys
+          p=pathlib.Path('data/cbb-outside-local-crest-manifest.json')
+          old=json.loads(p.read_text()) if p.exists() else {'teams':{}}
+          new=json.loads(pathlib.Path(sys.argv[1]).read_text())
+          catalog=json.loads(pathlib.Path('data/mbb-out-of-division-opponent-logos.json').read_text())['teams']
+          merged=dict(old.get('teams',{}))
+          merged.update(new.get('teams',{}))
+          valid={}
+          for id,entry in merged.items():
+              actual=catalog.get(id)
+              path=pathlib.Path(entry.get('path',''))
+              school=actual and (actual.get('school') or actual.get('corrected_name'))
+              if actual and entry.get('school')==school and entry.get('path')==f'assets/cbb-outside-crests/{id}.png' and path.is_file():
+                  valid[id]=entry
+          result={'schema':'cbb-outside-local-crests-v1',
+                  'source_registry':'data/mbb-out-of-division-opponent-logos.json',
+                  'total_registry':len(catalog),'count':len(valid),
+                  'processed_this_run':new.get('processed_this_run',0),
+                  'failed_this_run':new.get('failed_this_run',{}),
+                  'teams':dict(sorted(valid.items()))}
+          p.write_text(json.dumps(result,indent=2,ensure_ascii=False)+'\n')
+          print('Merge verified local crests:',len(valid))
+          PY
+            git add assets/cbb-outside-crests data/cbb-outside-local-crest-manifest.json
+            if git diff --cached --quiet; then
+              echo 'No new images to publish'
+              exit 0
+            fi
             git commit -m 'Bake locally cached exact-school CBB outside-DI logos'
-            git pull --rebase origin main
-            git push origin HEAD:main
-          fi
+            if git push origin HEAD:main; then
+              echo 'Published local crests and merged manifest'
+              exit 0
+            fi
+            echo "Main changed during publish; retrying ($attempt/5)"
+          done
+          echo 'Failed to publish after five safe merge attempts'
+          exit 1
