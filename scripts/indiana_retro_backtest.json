@@ -1,0 +1,75 @@
+{
+  "coverage": {
+    "2022": {
+      "verified_finals": 4439,
+      "complete_team_logs": 402,
+      "incomplete_team_logs": 10,
+      "unconfirmed_or_conflicting_finals": 289
+    },
+    "2023": {
+      "verified_finals": 4741,
+      "complete_team_logs": 412,
+      "incomplete_team_logs": 0,
+      "unconfirmed_or_conflicting_finals": 36
+    },
+    "2024": {
+      "verified_finals": 4760,
+      "complete_team_logs": 410,
+      "incomplete_team_logs": 0,
+      "unconfirmed_or_conflicting_finals": 23
+    },
+    "2025": {
+      "verified_finals": 4782,
+      "complete_team_logs": 410,
+      "incomplete_team_logs": 0,
+      "unconfirmed_or_conflicting_finals": 0
+    }
+  },
+  "comparison": {
+    "baseline": {
+      "k": 20,
+      "home_court_elo_points": 0,
+      "margin_weight": 0,
+      "elo_to_points": 0.12,
+      "training": {
+        "games": 13940,
+        "log_loss": 0.6231382045951903,
+        "spread_mae": 14.00201673948232,
+        "winner_accuracy": 0.6974892395982784
+      },
+      "holdout": {
+        "games": 4782,
+        "log_loss": 0.619423619963289,
+        "spread_mae": 14.58348602225114,
+        "winner_accuracy": 0.7127770807193643
+      }
+    },
+    "tuned": {
+      "k": 36,
+      "home_court_elo_points": 45,
+      "margin_weight": 4,
+      "elo_to_points": 0.04,
+      "training": {
+        "games": 13940,
+        "log_loss": 0.5190396547091508,
+        "spread_mae": 12.506693787880497,
+        "winner_accuracy": 0.731922525107604
+      },
+      "holdout": {
+        "games": 4782,
+        "log_loss": 0.5113232189597388,
+        "spread_mae": 12.866662869869417,
+        "winner_accuracy": 0.7414261815140109
+      }
+    }
+  },
+  "initial_rating": 1500,
+  "training_seasons": [
+    "2022–23",
+    "2023–24",
+    "2024–25"
+  ],
+  "holdout_season": "2025–26",
+  "source": "http://indianahsbasketball.homestead.com/logs/teams.htm",
+  "status": "provisional"
+}
