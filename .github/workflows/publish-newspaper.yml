@@ -681,6 +681,12 @@ jobs:
           echo "::error::Public college basketball shared logo system missing or out-of-order" >&2
           exit 1
 
+      - name: Verify new NCAA soccer selection bracket on public GitHub Pages
+        if: ${{ !cancelled() && steps.deploy.outcome == 'success' }}
+        env:
+          PAGE_URL: ${{ steps.deploy.outputs.page_url }}
+        run: python3 scripts/check_ncaa_soccer_bracket_public.py --root "$PAGE_URL" --attempts 12 --interval 9
+
       - name: Verify both CBB news editions on public Pages
         if: ${{ !cancelled() && steps.deploy.outcome == 'success' }}
         env:
