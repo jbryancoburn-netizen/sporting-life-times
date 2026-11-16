@@ -1,0 +1,175 @@
+{
+  "model": "retro-margin-challenger-v1",
+  "status": "SHADOW_ONLY_NOT_PROMOTED",
+  "data_as_of": "2026-11-16T08:01:49+00:00",
+  "source_scored_games": 438,
+  "eligible_games": 438,
+  "excluded": {
+    "unmatched": 0,
+    "invalid": 0,
+    "identity": 0
+  },
+  "method": "Daily walk-forward calibration on immutable original forecasts; selection uses strictly earlier dates, requires 100 training games across >=3 dates.",
+  "versions": [
+    {
+      "name": "published",
+      "scale": 1,
+      "tail": 1,
+      "home": 0
+    },
+    {
+      "name": "shrink-10",
+      "scale": 0.9,
+      "tail": 1,
+      "home": 0
+    },
+    {
+      "name": "shrink-20",
+      "scale": 0.8,
+      "tail": 1,
+      "home": 0
+    },
+    {
+      "name": "expand-10",
+      "scale": 1.1,
+      "tail": 1,
+      "home": 0
+    },
+    {
+      "name": "expand-20",
+      "scale": 1.2,
+      "tail": 1,
+      "home": 0
+    },
+    {
+      "name": "large-shrink-20",
+      "scale": 1,
+      "tail": 0.8,
+      "home": 0
+    },
+    {
+      "name": "large-expand-20",
+      "scale": 1,
+      "tail": 1.2,
+      "home": 0
+    },
+    {
+      "name": "verified-home-plus-2",
+      "scale": 1,
+      "tail": 1,
+      "home": 2
+    },
+    {
+      "name": "verified-home-minus-2",
+      "scale": 1,
+      "tail": 1,
+      "home": -2
+    }
+  ],
+  "all_games": {
+    "count": 438,
+    "baseline_mae": 12.75,
+    "shadow_mae": 12.6838
+  },
+  "post_warmup": {
+    "games": 331,
+    "baseline_mae": 12.1495,
+    "shadow_mae": 12.0619
+  },
+  "by_date": [
+    {
+      "date": "2026-11-06",
+      "train_games": 0,
+      "test_games": 59,
+      "selected": "published",
+      "baseline_mae": 18.3729,
+      "shadow_mae": 18.3729
+    },
+    {
+      "date": "2026-11-07",
+      "train_games": 59,
+      "test_games": 48,
+      "selected": "published",
+      "baseline_mae": 9.9792,
+      "shadow_mae": 9.9792
+    },
+    {
+      "date": "2026-11-08",
+      "train_games": 107,
+      "test_games": 27,
+      "selected": "published",
+      "baseline_mae": 13.0556,
+      "shadow_mae": 13.0556
+    },
+    {
+      "date": "2026-11-09",
+      "train_games": 134,
+      "test_games": 34,
+      "selected": "expand-20",
+      "baseline_mae": 14.25,
+      "shadow_mae": 13.5882
+    },
+    {
+      "date": "2026-11-10",
+      "train_games": 168,
+      "test_games": 56,
+      "selected": "expand-20",
+      "baseline_mae": 11.8036,
+      "shadow_mae": 11.3839
+    },
+    {
+      "date": "2026-11-11",
+      "train_games": 224,
+      "test_games": 47,
+      "selected": "expand-20",
+      "baseline_mae": 13.3191,
+      "shadow_mae": 13.0532
+    },
+    {
+      "date": "2026-11-12",
+      "train_games": 271,
+      "test_games": 24,
+      "selected": "expand-20",
+      "baseline_mae": 9.6667,
+      "shadow_mae": 10.2708
+    },
+    {
+      "date": "2026-11-13",
+      "train_games": 295,
+      "test_games": 55,
+      "selected": "expand-20",
+      "baseline_mae": 10.4545,
+      "shadow_mae": 10.4
+    },
+    {
+      "date": "2026-11-14",
+      "train_games": 350,
+      "test_games": 55,
+      "selected": "expand-20",
+      "baseline_mae": 11.3636,
+      "shadow_mae": 11.6727
+    },
+    {
+      "date": "2026-11-15",
+      "train_games": 405,
+      "test_games": 33,
+      "selected": "expand-20",
+      "baseline_mae": 14.1061,
+      "shadow_mae": 14.1364
+    }
+  ],
+  "next_shadow_candidate": {
+    "name": "expand-20",
+    "scale": 1.2,
+    "tail": 1,
+    "home": 0,
+    "fit_mae": 12.6313,
+    "through": "2026-11-15"
+  },
+  "promotion_allowed": false,
+  "caveats": [
+    "Existing snapshot archive includes some historical captures without exact tipoff time; all source records are immutable and dated before game day.",
+    "Ten November game dates are too few to establish broad generalization.",
+    "No change to RETRO ratings, calibration, win probabilities, or published spreads."
+  ]
+}
