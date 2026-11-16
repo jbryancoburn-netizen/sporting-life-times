@@ -726,3 +726,28 @@
  .ledger26-scorebug .ledger26-ghost{width:49%;height:195%;right:0;opacity:.27}
  .ledger26-scorebug .ledger26-team--behind .ledger26-ghost{opacity:.19}
 }
+
+/* Contrast contract: foreground is selected from actual team-row fill on render.
+   Supersedes former raw-school-color guesses in every scorebug phase and size. */
+.ledger26-scorebug .ledger26-team,
+.ledger26-scorebug .ledger26-team .ledger26-identity,
+.ledger26-scorebug .ledger26-team .ledger26-name,
+.ledger26-scorebug .ledger26-team .ledger26-team-link,
+.ledger26-scorebug .ledger26-team .ledger26-record,
+.ledger26-scorebug .ledger26-team .ledger26-poll,
+.ledger26-scorebug .ledger26-team .ledger26-points,
+.ledger26-scorebug .ledger26-team .ledger26-scout,
+.ledger26-scorebug .ledger26-team .ledger26-scout-stat,
+.ledger26-scorebug .ledger26-team .ledger26-scout-defense,
+.ledger26-scorebug .ledger26-team .ledger26-streak,
+.ledger26-scorebug .ledger26-team .ledger26-rivalry,
+.ledger26-scorebug .ledger26-team .ledger26-team-run,
+.ledger26-scorebug .ledger26-team .ledger26-timeouts,
+.ledger26-scorebug .ledger26-team .ledger26-possession{
+ color:var(--ledger26-readable-ink,#201911)!important;
+ text-shadow:none!important;
+ opacity:1;
+}
+.ledger26-scorebug .ledger26-team .ledger26-identity{position:relative;z-index:2}
+.ledger26-scorebug .ledger26-team .ledger26-points{position:relative;z-index:2}
+.ledger26-scorebug .ledger26-ghost{pointer-events:none}
