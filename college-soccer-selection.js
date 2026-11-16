@@ -137,11 +137,26 @@ function draw(data,metrics,branding){
    const p=pods[i],card=el('article',null,'ncaa-bracket-pod');
    const first=el('div',null,'ncaa-round-one');
    first.append(el('strong','FIRST ROUND · '+p.x+' vs '+p.y));
-   first.append(schoolRow(byRank(p.x),branding,'ncaa-bracket-team'),schoolRow(byRank(p.y),branding,'ncaa-bracket-team'));if(p.opening)first.append(el('small','RETRO advances → '+p.opening.team,'ncaa-bracket-advance'));
+   first.append(schoolRow(byRank(p.x),branding,'ncaa-bracket-team'),schoolRow(byRank(p.y),branding,'ncaa-bracket-team'));
+   if(mode==='usrs'&&window.SoccerRetroKnockout){
+    const a=byRank(p.x),b=byRank(p.y);
+    if(Number.isFinite(a?.elo)&&Number.isFinite(b?.elo)){
+     const forecast=window.SoccerRetroKnockout.match(a.elo,b.elo,{neutral:true});
+     first.append(el('small','ILLUSTRATIVE · '+a.team+' '+Math.round(forecast.advanceHome*100)+'% to advance · '+b.team+' '+Math.round(forecast.advanceAway*100)+'% · xG '+forecast.expectedGoals.home.toFixed(2)+'–'+forecast.expectedGoals.away.toFixed(2),'ncaa-bracket-advance'));
+    }
+   }
+   if(p.opening)first.append(el('small','RETRO advances → '+p.opening.team,'ncaa-bracket-advance'));
    const second=el('div',null,'ncaa-round-two');
    second.append(el('strong','SECOND ROUND · #'+p.seed+' BYE'));
    second.append(schoolRow(byRank(p.seed),branding,'ncaa-bracket-team'));
    second.append(p.opening?schoolRow(p.opening,branding,'ncaa-bracket-team'):el('div','First-round winner','ncaa-bracket-team'));
+   if(mode==='usrs'&&window.SoccerRetroKnockout&&p.opening){
+    const a=byRank(p.seed),b=p.opening;
+    if(Number.isFinite(a?.elo)&&Number.isFinite(b?.elo)){
+     const forecast=window.SoccerRetroKnockout.match(a.elo,b.elo,{neutral:true});
+     second.append(el('small','ILLUSTRATIVE · '+a.team+' '+Math.round(forecast.advanceHome*100)+'% · '+b.team+' '+Math.round(forecast.advanceAway*100)+'% to advance','ncaa-bracket-advance'));
+    }
+   }
    if(p.advance)second.append(el('small','RETRO advances → '+p.advance.team,'ncaa-bracket-advance'));
    card.append(first,second);
    podGrid.append(card);
