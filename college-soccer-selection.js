@@ -85,8 +85,6 @@ function draw(data,metrics,branding){
   comparison.append(lists);host.append(comparison);
  }
  const summary=el('div',null,'cs-selection-summary');
- for(const [value,label] of [[48,'FIELD'],[23,'AUTOMATIC'],[25,'AT-LARGE'],[24,'SEEDED'],[16,'BYE TEAMS']]){const x=el('div',null,'cs-selection-metric');x.append(el('strong',value),el('span',label));summary.append(x)}host.append(summary);
- const summary=el('div',null,'cs-selection-summary');
  for(const [value,label] of [[48,'FIELD'],[23,'AUTOMATIC'],[25,'AT-LARGE'],[24,'SEEDED IN 2026'],[16,'FIRST-ROUND BYES']]){const x=el('div',null,'cs-selection-metric');x.append(el('strong',value),el('span',label));summary.append(x)}host.append(summary);
  if(mode==='ncaa'){
    const rules=el('section',null,'snb-ncaa-rules');
