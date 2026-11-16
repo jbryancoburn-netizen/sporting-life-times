@@ -65,7 +65,7 @@ def evaluate(report, holdout_days=5):
     baseline = mae(errors["original"])
     scores = {k: {"mae": round(mae(v), 5),
                   "delta_mae_vs_original": round(mae(v)-baseline, 5)}
-              for k,v in candidates.items()}
+              for k,v in errors.items()}
     # Deliberately do not auto-promote even when the shadow improves.
     return {
         "status": "SHADOW_ONLY_NOT_PROMOTED",
