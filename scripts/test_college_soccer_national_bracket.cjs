@@ -65,6 +65,23 @@ assert(html.includes('college-soccer-national-bracket.js?v=')&&html.includes('co
  'New bracket assets must load on public selection page');
 assert(source.includes('national.render(bracketMount,entries,branding'),
  'Selection publisher must render new bracket');
+assert(source.includes("metrics?.status==='verified_current_ncaa_selection_inputs'"),
+ 'An October RPI mirror must never be mistaken for validated NCAA selection inputs');
+assert(source.includes("metrics?.at_large_eligibility_verified===true"),
+ 'NCAA .500 Division I at-large eligibility is an explicit publication gate');
+assert(source.includes("metrics?.committee_selection_criteria_verified===true"),
+ 'Unverified NCAA committee selection criteria cannot produce a committee field');
+assert(source.includes("}else if(mode==='ncaa'){"),
+ 'NCAA page must withhold committee pairing claims until exact bracket fixtures are sourced');
+assert(!source.includes('RETRO SELECTION COMMITTEE'),
+ 'RETRO is not an NCAA selection criterion');
+const oldRpi=JSON.parse(fs.readFileSync('data/college-soccer-ncaa-rpi-forecast-2026.json','utf8'));
+assert(oldRpi.ranking_as_of<data.rating_cutoff,'Stored RPI snapshot must be treated as stale');
+const rebuild=fs.readFileSync('scripts/rebuild_soccer_daily_selection.py','utf8');
+assert(rebuild.includes('NCAA requires >= .500 Division I records'),
+ 'Daily builder must retain NCAA at-large eligibility warning');
+assert(rebuild.includes('24 seeded teams in 2026 under NCAA Oct 22 amendment'),
+ 'Daily builder must retain NCAA amended 2026 seeding rule');
 assert(bracketSource.includes("window.CollegeSoccerCupUI.crest(team.team,team.team_id,'men-d1',branding)"),
  'All bracket teams must use the existing shared authentic 2-ring logo component');
 assert(style.includes('.snb-region-scroll')&&style.includes('overflow-x:auto'),
