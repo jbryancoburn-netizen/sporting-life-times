@@ -2,6 +2,13 @@ name: College Soccer RETRO Daily Selection
 on:
   schedule:
     - cron: '40 12 * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'data/college-soccer-men-d1-*-standings.json'
+      - 'data/college-soccer-elo.json'
+      - 'scripts/rebuild_soccer_daily_selection.py'
+      - '.github/workflows/college-soccer-daily-selection.yml'
   workflow_dispatch:
 permissions:
   contents: write
