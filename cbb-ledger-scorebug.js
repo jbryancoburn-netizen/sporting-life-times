@@ -332,8 +332,8 @@
   // Concept A: a readable score summary, not a tiny line pretending to explain a game.
   el.innerHTML='<div class="ledger26-pulse-compact" aria-label="RETRO Pulse quick summary">'+
    '<strong class="ledger26-pulse-state">'+esc(heading)+'</strong>'+
-   '<div class="ledger26-pulse-stat"><small>BIGGEST LEAD</small><b>'+esc(largest.name)+' +'+largest.value+'</b></div>'+
-   '<div class="ledger26-pulse-stat"><small>'+(el.dataset.phase==='final'?'FINAL MARGIN':'CURRENT LEAD')+'</small><b>'+esc(current)+'</b></div>'+
+   '<div class="ledger26-pulse-stat"><small>BIGGEST LEAD · '+esc(largest.name)+'</small><b>+'+largest.value+'</b></div>'+
+   '<div class="ledger26-pulse-stat"><small>'+(el.dataset.phase==='final'?'FINAL MARGIN':'CURRENT LEAD')+(diff===0?'':(' · '+esc(diff>0?awayName:homeName)))+'</small><b>'+(diff===0?'TIED':('+'+Math.abs(diff)))+'</b></div>'+
    '<span class="ledger26-pulse-invite">GAME FLOW <span aria-hidden="true">⌄</span></span></div>';
   pulseCache.set(el,data);
   const details=el.closest('details'),target=details?.querySelector('.ledger26-expanded');
