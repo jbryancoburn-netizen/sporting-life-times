@@ -36,6 +36,14 @@ on:
       - 'data/college-soccer-elo-baseline.json'
       - 'data/college-soccer-elo-final-ledger.json'
       - 'scripts/build_college_soccer_team_game_index.py'
+      - 'college-soccer-selection.html'
+      - 'college-soccer-selection.js'
+      - 'college-soccer-national-bracket.js'
+      - 'college-soccer-national-bracket.css'
+      - 'college-soccer-cup-ui.js'
+      - 'data/college-soccer-local-crest-manifest.json'
+      - 'scripts/test_college_soccer_local_crest_manifest.cjs'
+      - 'scripts/check_ncaa_soccer_bracket_public.py'
 
 permissions:
   contents: write
@@ -183,7 +191,7 @@ jobs:
           from pathlib import Path
           import hashlib, os, urllib.request
           root='https://jbryancoburn-netizen.github.io/sporting-life-times'
-          paths=['data/college-soccer-conference-tournament-results-2026.json','data/college-soccer-team-game-index.json','data/college-soccer-elo-live-audit.json','data/college-soccer-elo-final-ledger.json','data/college-soccer-projected-standings.json','data/college-soccer-ncaa-selection-forecast.json','data/college-soccer-elo.json','college-soccer-elo.js','college-soccer-elo.css','college-soccer.html','data/college-soccer-prospective.json','data/college-soccer-forecast-scores.json','college-soccer-predictions.js','forecast-design.css','data/college-soccer-prospective-v2.json','data/college-soccer-forecast-scores-v2.json']
+          paths=['data/college-soccer-conference-tournament-results-2026.json','data/college-soccer-team-game-index.json','data/college-soccer-elo-live-audit.json','data/college-soccer-elo-final-ledger.json','data/college-soccer-projected-standings.json','data/college-soccer-ncaa-selection-forecast.json','data/college-soccer-elo.json','college-soccer-elo.js','college-soccer-elo.css','college-soccer.html','data/college-soccer-prospective.json','data/college-soccer-forecast-scores.json','college-soccer-predictions.js','forecast-design.css','data/college-soccer-prospective-v2.json','data/college-soccer-forecast-scores-v2.json','college-soccer-selection.html','college-soccer-selection.js','college-soccer-cup-ui.js','college-soccer-national-bracket.js','college-soccer-national-bracket.css','data/college-soccer-local-crest-manifest.json']
           differences=[]
           for path in paths:
               expected=hashlib.sha256(Path(path).read_bytes()).hexdigest()
@@ -261,3 +269,5 @@ jobs:
         run: python scripts/check_college_soccer_publication.py --attempts 15 --delay 10
       - name: Verify live matchup draw probabilities and archive
         run: python scripts/check_college_soccer_predictions_public.py
+      - name: Verify 213 local crests and projected seed badges on public soccer bracket
+        run: python scripts/check_ncaa_soccer_bracket_public.py --root https://jbryancoburn-netizen.github.io/sporting-life-times --attempts 12 --interval 9
