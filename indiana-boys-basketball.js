@@ -157,6 +157,7 @@ const crestColors = {
   Zionsville: ['#16572b', '#242424'],
   Noblesville: ['#202020', '#b79b55'],
   'Hoosier Crossroads': ['#17427c', '#bd922c'],
+  AdamsCentral: ['#c8102e', '#111111'],
 };
 
 
@@ -285,7 +286,7 @@ function initialize(edition) {
 
 const crestManifests = Promise.all(
   ['indiana-boys-crests.json', 'indiana-boys-crests-mic.json', 'indiana-boys-crests-nlc.json', 'indiana-boys-crests-dac.json',
-    'indiana-boys-crests-msc.json', 'indiana-boys-crests-circle.json', 'indiana-boys-crests-schools.json'].map(file =>
+    'indiana-boys-crests-msc.json', 'indiana-boys-crests-circle.json', 'indiana-boys-crests-schools.json', 'indiana-boys-crests-acac.json'].map(file =>
     fetch('data/' + file)
       .then(response => response.ok ? response.json() : null)
       .catch(() => null)
