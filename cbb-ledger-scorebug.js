@@ -195,13 +195,13 @@
    const rank=Number.isInteger(p.rank)&&p.rank>0?'#'+p.rank:'—';
    return '<div class="ledger26-final-team"><span class="ledger26-final-school">'+esc(t.name||'School')+'</span>'+
     '<strong class="ledger26-final-rating">'+Number(p.elo).toFixed(1)+'</strong>'+
-    '<span class="ledger26-final-change"><small>DAILY Δ</small>'+change+'</span>'+
+    '<span class="ledger26-final-change" title="Change in published RETRO rating across the latest daily update; not necessarily caused by this single game"><small>TODAY’S CHANGE</small>'+change+'</span>'+
     '<small class="ledger26-final-standing">RETRO '+esc(rank)+'</small></div>';
   };
   return '<div class="ledger26-final-desk" aria-label="Published RETRO ratings and daily changes following the final">'+
-   '<div class="ledger26-final-kicker">AFTER THE FINAL · RETRO DESK</div>'+
+   '<div class="ledger26-final-kicker">CURRENT RETRO RATINGS · DAILY MOVEMENT</div>'+
    '<div class="ledger26-final-pair">'+rows.map(line).join('')+'</div>'+
-   '<small class="ledger26-final-note">Daily Δ includes all results incorporated in the latest update, rather than measuring this game’s effect alone. Conference place and ranking movement require verified prior standings.</small></div>';
+   '<small class="ledger26-final-note">Today’s change compares the latest published RETRO ratings with the previous daily snapshot. It is not a measure of this game’s impact.</small></div>';
  }
 
  // Watermark-only transparent page extraction. The original crest and source
@@ -321,7 +321,7 @@
    const validArt=/^(?:(?:\.\.\/|\.\/|\/)?assets\/|https:\/\/)/i.test(explicitArt)&&!/[<>"'\s]/.test(explicitArt);
    const watermark=validArt?'<span class="ledger26-ghost" aria-hidden="true"><img src="'+esc(explicitArt)+'" alt="" loading="lazy" onload="window.SLTBasketballScorebug.cleanWatermark(this)"></span>':'';
 
-   return '<div class="ledger26-team ledger26-team--'+outcome+'" style="--ledger26-school:'+color(x.color)+';--ledger26-readable-ink:'+readableInk(x.color,phase,outcome)+'">'+watermark+
+   return '<div class="ledger26-team ledger26-team--'+outcome+(readableInk(x.color,phase,outcome)==='#fffaf0'?' ledger26-team--dark-fill':' ledger26-team--light-fill')+'" style="--ledger26-school:'+color(x.color)+';--ledger26-readable-ink:'+readableInk(x.color,phase,outcome)+'">'+watermark+
     '<span class="ledger26-crest">'+(x.crest||'')+'</span>'+
     '<span class="ledger26-identity"><strong class="ledger26-name">'+badge+linkedName+'</strong>'+
     '<small class="ledger26-record">'+esc(context)+
