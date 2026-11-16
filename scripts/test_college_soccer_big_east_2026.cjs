@@ -31,7 +31,7 @@ assert.equal(b.status,'official');
 assert.equal(b.matches.length,3);
 assert(b.source_url.startsWith('https://www.bigeast.com/'));
 assert.deepEqual(b.matches.slice(0,2).map(m=>[m.home_id,m.away_id,m.status]),[
- ['creighton','akron','scheduled'],['georgetown','seton-hall','scheduled']
+ ['creighton','akron','final'],['georgetown','seton-hall','final']
 ]);
 assert.deepEqual(b.matches.slice(0,2).map(m=>m.kickoff),[
  'Nov 12 · 5:00 p.m. ET · ESPN+',
@@ -40,9 +40,16 @@ assert.deepEqual(b.matches.slice(0,2).map(m=>m.kickoff),[
 assert(b.matches.every(m=>m.venue_type==='neutral'),'Every match is at Maryland SoccerPlex');
 assert(b.matches.every(m=>m.venue.includes('Boyds')),'Wrong championship venue');
 const final=b.matches[2];
-assert.equal(final.status,'scheduled');
-assert.equal(final.home_id,null,'No unplayed finalist may be invented');
-assert.equal(final.away_id,null,'No unplayed finalist may be invented');
+assert.deepEqual(b.matches.slice(0,2).map(m=>[m.home_score,m.away_score,m.winner_id]),[
+ [0,4,'akron'],[2,0,'georgetown']
+],'Verified semifinal results should remain published');
+assert.equal(final.status,'final');
+assert.equal(final.home_id,'akron');
+assert.equal(final.away_id,'georgetown');
+assert.deepEqual([final.home_score,final.away_score,final.winner_id,final.decision],[1,0,'akron','extra_time']);
+assert.equal(final.result_date,'2026-11-15');
+assert.equal(b.verified_through,'2026-11-15');
+assert(b.matches.every(m=>/^https:\/\//.test(m.source_url)),'Every played match must have a source');
 assert.deepEqual([final.home_from,final.away_from],['SF1','SF2']);
 assert.equal(final.kickoff,'Nov 15 · 2:00 p.m. ET · ESPNU');
 assert(js.includes("confirmedFinal?'Official semifinals set · championship pending'"),'Top of page must not label an official bracket unverified');
@@ -57,4 +64,4 @@ assert(css.includes('cs-conf-division-row th')&&css.includes('cs-conf-winner-slo
 assert(html.includes('data-conference="men-d1:big-east"'),'Wrong conference page');
 assert(html.includes('college-soccer-conference-page.js?v=20261112-bigeast-official'),"Cached broken JS still loaded");
 assert(html.includes('college-soccer-conference-page.css?v=20261112-bigeast-official'),"Cached old CSS still loaded");
-console.log('PASS: 12 final regular-season rows, 2 divisions, 4 confirmed seeds, neutral-site semifinals, correct championship feeder slots and school-logo mapping');
+console.log('PASS: BIG EAST full verified 2026 bracket, Akron 1-0 Georgetown in extra time, sourced semifinals, correct school-logo mapping');
