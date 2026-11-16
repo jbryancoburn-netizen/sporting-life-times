@@ -1,0 +1,59 @@
+name: RETRO MAE Research Validation
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/retro_mae_shadow_lab.py'
+      - 'scripts/retro_venue_orientation_audit.py'
+      - 'scripts/retro_chronological_elo_replay.py'
+      - 'scripts/test_retro_mae_research.py'
+      - 'scripts/test_retro_chronological_elo_replay.py'
+      - 'data/retro-spread-accuracy-2026-27.json'
+      - 'data/retro-pregame-archive-2026-27.json'
+      - 'data/ncaam-2026-27-retro-primary.json'
+      - 'data/ncaam-score-calibration.json'
+      - '.github/workflows/retro-mae-research.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  research-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify chronological and identity regression tests
+        run: python -m unittest discover -s scripts -p 'test_retro_*research.py'
+      - name: Verify historical Elo chronology tests
+        run: python -m unittest discover -s scripts -p 'test_retro_chronological_elo_replay.py'
+      - name: Score immutable archived forecasts in shadow
+        run: python scripts/retro_mae_shadow_lab.py --output /tmp/retro-mae-shadow.json > /tmp/retro-mae-shadow.log
+      - name: Audit forecast and final site orientation labels
+        run: python scripts/retro_venue_orientation_audit.py --output /tmp/retro-venue-audit.json > /tmp/retro-venue-audit.log
+      - name: Backtest score-only Elo by chronological split
+        run: python scripts/retro_chronological_elo_replay.py --output /tmp/retro-elo-replay.json > /tmp/retro-elo-replay.log
+      - name: Assert research-only status and nonempty holdout
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('/tmp/retro-elo-replay.json').read_text())
+          assert d['status']=='RESEARCH_ONLY_NOT_LIVE_ENGINE_NOT_PROMOTED'
+          assert d['incumbent_simple_elo']['holdout']['games']>=100
+          assert d['selected_training_only']['holdout']['games']==d['incumbent_simple_elo']['holdout']['games']
+          v=json.loads(Path('/tmp/retro-venue-audit.json').read_text())
+          assert v['status']=='DIAGNOSTIC_ONLY_NO_ORIENTATION_OR_VENUE_REWRITES'
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: retro-mae-research-shadow
+          path: |
+            /tmp/retro-mae-shadow.json
+            /tmp/retro-venue-audit.json
+            /tmp/retro-elo-replay.json
+          retention-days: 14
