@@ -22,7 +22,7 @@ assert(logoRenderer.includes("'77':'assets/cbb-big-ten-1980s/centered/northweste
 
 
 const forecastScorebug=fs.readFileSync('cbb-ledger-scorebug.js','utf8');
-assert(forecastScorebug.includes('cleanWatermark(this)') && forecastScorebug.includes('ImageData')===false && forecastScorebug.includes('getImageData(') && forecastScorebug.includes('seen[i]'), 'ring-free mascot watermarks must remove edge-connected opaque boxes without altering foreground crests');
+assert(forecastScorebug.includes('cleanWatermark(this)') && forecastScorebug.includes('getImageData(') && forecastScorebug.includes('seen[i]'), 'ring-free mascot watermarks must remove edge-connected opaque boxes without altering foreground crests');
 assert(forecastScorebug.includes('readableInk(x.color,phase,outcome)') && scorecardCss.includes('var(--ledger26-readable-ink'), 'each school-colored scorebug must select readable foreground ink');
 assert(scorecardCss.includes('.ledger26-scorebug .ledger26-team{\n  overflow:hidden;') && scorecardCss.includes('mix-blend-mode:multiply') && scorecardCss.includes('brightness(.66)'), 'oversized watermark must stay inside its team row and retain dark engraved detail');
 assert(html.includes('cbb-ledger-scorecard.css?v=tonal-clip-20261116'), 'daily ledger must load clipped tonal watermark style without cache reuse');
