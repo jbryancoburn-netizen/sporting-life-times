@@ -37,7 +37,7 @@ function identityMatches(row,home,away){
 function receipt(gender,id,day,phase,actual,homeId='',awayId='',homeName='Home',awayName='Away'){
  if(!['upcoming','live','final'].includes(phase))return '';
  const k=key(day,id),p=archives[gender].get(k);
- if((!p||!identityMatches(p,homeId,awayId))&&phase==='upcoming')return ''; // The live pregame model remains in the existing scorebug.
+ if((!p||!identityMatches(p,homeId,awayId))&&phase==='upcoming')return ''; // Do not invent forecasts for games without a published exact-match snapshot.
  if(!p||!identityMatches(p,homeId,awayId))
   return '<div class="cbb-forecast-receipt cbb-forecast-receipt--missing"><span class="cbb-forecast-kicker">RETRO BEFORE TIP</span><span>No archived pregame forecast</span></div>';
  const predicted=p.projected_home_margin,probability=p.home_win_probability;
@@ -124,7 +124,7 @@ function decorate(){
    previousSummary.remove();
   }
   dest.classList.remove('sched-result-cell--forecast');
-  const phase=row.dataset.calendarState==='final'?'final':'upcoming';
+  const phase=row.dataset.calendarState==='final'?'final':row.dataset.calendarState==='upcoming'?'upcoming':'';
   const markup=receipt('men',row.dataset.cbbForecastId,row.dataset.cbbForecastDay,
     phase,readNumber(row.dataset.cbbFinalHomeMargin),null,null,row.dataset.cbbHomeName||'Home',row.dataset.cbbAwayName||'Away');
   let band=row.nextElementSibling;
@@ -139,6 +139,7 @@ function decorate(){
   band.dataset.forecastFor=row.dataset.cbbForecastId||'';
   band.hidden=row.hidden;
   set(band.firstElementChild,markup);
+  band.hidden=row.hidden||!markup;
  });
 }
 function queue(){
