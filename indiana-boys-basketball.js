@@ -178,6 +178,25 @@ function conferenceMonogram(name) {
   return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
 }
 
+
+function schoolInsignia(team) {
+  // Original newspaper monogram used only until authentic school artwork is sourced.
+  const parts = team.school.replace(/\\([^)]*\\)/g, '').split(/\\s+/).filter(Boolean);
+  const stop = new Set(['high','school','academy','of','the','and','community','junior','senior']);
+  const significant = parts.filter(part => !stop.has(part.toLowerCase()));
+  const initials = (significant.length === 1 ? significant[0].slice(0, 2) : significant.map(part => part[0]).join('').slice(0, 3)).toUpperCase();
+  const colors = crestColors[team.id] || ['#203d59', '#bd995e'];
+  const xml = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+    <defs><radialGradient id="paper" cx=".35" cy=".25" r=".8"><stop stop-color="#fffdf4"/><stop offset=".7" stop-color="#eadbbd"/><stop offset="1" stop-color="#b9a17a"/></radialGradient><linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff4c6"/><stop offset=".48" stop-color="#ad8440"/><stop offset="1" stop-color="#efd5a0"/></linearGradient></defs>
+    <circle cx="100" cy="100" r="96" fill="${colors[0]}"/><circle cx="100" cy="100" r="88" fill="none" stroke="url(#gold)" stroke-width="5"/>
+    <circle cx="100" cy="100" r="75" fill="url(#paper)" stroke="${colors[1]}" stroke-width="4"/>
+    <path d="M42 70h116M42 132h116" stroke="${colors[0]}" stroke-width="2" opacity=".5"/>
+    <text x="100" y="116" text-anchor="middle" font-family="Georgia,serif" font-weight="bold" font-size="${initials.length > 2 ? 59 : 75}" fill="${colors[0]}" stroke="${colors[1]}" stroke-width="1" paint-order="stroke">${initials}</text>
+    <circle cx="100" cy="34" r="4" fill="${colors[1]}"/><circle cx="100" cy="166" r="4" fill="${colors[1]}"/>
+  </svg>`;
+  return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(xml);
+}
+
 function crest(mark, size, identity) {
   const badge = document.createElement('span');
   badge.className = 'crest crest-' + size;
@@ -327,6 +346,9 @@ fetch('data/indiana-boys-basketball.json')
     }
     for (const name of new Set(edition.teams.map(team => team.conference).filter(Boolean))) {
       if (!artwork.conferences[name]) artwork.conferences[name] = conferenceMonogram(name);
+    }
+    for (const team of edition.teams) {
+      if (!artwork.schools[team.id]) artwork.schools[team.id] = schoolInsignia(team);
     }
     initialize(edition);
   })
