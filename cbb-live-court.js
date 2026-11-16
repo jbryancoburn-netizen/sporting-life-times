@@ -146,6 +146,48 @@ function gameFlow(plays,game){
    [0,Math.floor((sampled.length-1)/2),sampled.length-1].filter((i,idx,all)=>all.indexOf(i)===idx)
     .map(i=>'<text class="slc-flow-time-label" x="'+x(i).toFixed(1)+'" y="408" text-anchor="'+
       (i===0?'start':i===sampled.length-1?'end':'middle')+'">EVENT '+(shownIndices[i]+1)+'</text>').join('');
+
+ // Show only timeouts with an actual provider game clock. Never invent event positions.
+ const timeouts=[],seenTimeout=new Set();
+ if(timeline)for(const p of plays){
+  if(!/\\btime\\s*[- ]?out\\b/i.test(p.kind+' '+p.text))continue;
+  const elapsed=elapsedClock(p,timeline.women);
+  if(elapsed===null||elapsed>timeline.end)continue;
+  const key=p.period+'|'+p.clock+'|'+(p.teamId||'');
+  if(!seenTimeout.has(key)){seenTimeout.add(key);timeouts.push({...p,elapsed});}
+ }
+ const scoreAt=t=>{
+  let last={awayScore:0,homeScore:0};
+  if(timeline)for(let i=0;i<scoring.length;i++){if(timeline.elapsed[i]>t)break;last=scoring[i];}
+  return last;
+ };
+ const segmentPoints=timeline&&timeouts.length?
+  [{elapsed:0,clock:'TIPOFF'},...timeouts,{elapsed:timeline.end,clock:'LATEST'}]:[];
+ const spanData=segmentPoints.slice(1).map((end,i)=>{
+  const start=segmentPoints[i],a=scoreAt(start.elapsed),b=scoreAt(end.elapsed);
+  return {start,end,away:b.awayScore-a.awayScore,home:b.homeScore-a.homeScore};
+ }).filter(v=>v.end.elapsed>v.start.elapsed);
+ const periodMarks=timeline?Array.from({length:timeline.women?3:1},(_,i)=>({
+  elapsed:(i+1)*(timeline.women?600:1200),
+  label:timeline.women?'END Q'+(i+1):'HALFTIME'
+ })).filter(p=>p.elapsed<timeline.end).map(p=>{
+  const xx=left+(right-left)*p.elapsed/timeline.end;
+  return '<line class="slc-flow-period-rule" x1="'+xx+'" x2="'+xx+'" y1="80" y2="338"/>'+
+   '<text class="slc-flow-period-label" x="'+xx+'" y="66" text-anchor="middle">'+p.label+'</text>';
+ }).join(''):'';
+ const timeoutMarks=timeline?timeouts.map((p,i)=>{
+  const xx=left+(right-left)*p.elapsed/timeline.end;
+  return '<g class="slc-flow-timeout"><title>'+esc(p.text+' · '+p.clock)+'</title>'+
+   '<line x1="'+xx+'" x2="'+xx+'" y1="82" y2="338"/>'+
+   '<circle cx="'+xx+'" cy="75" r="7"/>'+
+   '<text x="'+xx+'" y="56" text-anchor="middle">T'+(i+1)+'</text></g>';
+ }).join(''):'';
+ const segmentStrip=spanData.length?'<div class="slc-flow-segments"><strong>TIMEOUT-TO-TIMEOUT SCORING</strong>'+
+  '<div class="slc-flow-segment-grid">'+spanData.map((v,i)=>
+   '<div class="slc-flow-segment"><b>SEGMENT '+(i+1)+'</b>'+
+   '<span>'+esc(v.start.clock)+' → '+esc(v.end.clock)+'</span>'+
+   '<strong>'+v.away+'–'+v.home+' POINTS (AWAY–HOME)</strong></div>').join('')+
+  '</div></div>':'';
  const last=scoring.at(-1),latest=margin(last);
  const away=game?sideName(game.away):'AWAY',home=game?sideName(game.home):'HOME';
  const awayColor=teamColor(game?.away,'#23657d'),homeColor=teamColor(game?.home,'#b17931');
@@ -193,15 +235,15 @@ function gameFlow(plays,game){
    '" fill="'+awayColor+'" opacity=".065"/>'+
    '<rect x="'+left+'" y="'+mid+'" width="'+(right-left)+'" height="'+extent+
    '" fill="'+homeColor+'" opacity=".065"/>'+
-   grid+axisMarks+
+   grid+axisMarks+periodMarks+
    '<text class="slc-flow-side" x="'+left+'" y="43">'+esc(away)+' LEAD</text>'+
    '<text class="slc-flow-side" x="'+left+'" y="371">'+esc(home)+' LEAD</text>'+
-   segments+
+   segments+timeoutMarks+
    '<circle cx="'+lastPoint[0].toFixed(1)+'" cy="'+lastPoint[1].toFixed(1)+
    '" r="9" fill="'+marker+'" stroke="#fff" stroke-width="3"/>'+
    '<text class="slc-flow-score" x="'+right+'" y="43" text-anchor="end">'+esc(away)+' '+last.awayScore+'</text>'+
    '<text class="slc-flow-score" x="'+right+'" y="371" text-anchor="end">'+esc(home)+' '+last.homeScore+'</text>'+
-   '</svg>'+
+   '</svg>'+segmentStrip+
    '<p>Above TIED: '+esc(away)+' ahead. Below: '+esc(home)+' ahead. '+
    (timeline?'Horizontal spacing uses the source game clock; flat portions mean no reported scoring change. ':
      'The source does not timestamp every scoring event; horizontal spacing shows event order, not elapsed time. ')+
