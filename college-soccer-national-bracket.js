@@ -7,7 +7,7 @@
  else root.SoccerNationalBracket=api;
 })(typeof globalThis!=='undefined'?globalThis:this,function(){
  'use strict';
- const ORDER=[1,16,8,9,4,13,5,12,2,15,7,10,3,14,6,11];
+ const ORDER=[1,16,9,8,5,12,13,4,3,14,11,6,7,10,15,2];
  const ROMAN=['I','II','III','IV'];
  let currentRegion=0;
  const html=(tag,cls,value)=>{
@@ -24,7 +24,8 @@
   if(ids.size!==48||participants.some(t=>!t.team_id||!t.team))throw Error('Duplicate or incomplete national-field teams');
   const at=n=>participants[n-1];
   // NCAA 2026 format: 24 protected entrants. The leading 16 have byes,
-  // and the remaining eight enter round one, distributed two per quadrant.
+  // and the remaining eight enter round one. Distribution of two per
+  // quadrant is an editorial projection choice, NOT an NCAA placement rule.
   // These are RETRO-strength placements, NEVER official NCAA seeds.
   const protectedForBye=new Map(Array.from({length:8},(_,i)=>[16-i,17+i]));
   const slots=ORDER.map(seed=>({seed,x:protectedForBye.get(seed)||null,y:null}));
@@ -82,14 +83,14 @@
    const second=four.map((s,i)=>match(at(s.seed),first[i].winner,'R2-'+(region*4+i+1),'SECOND ROUND',null,'Winner of '+first[i].id));
    const third=[0,2].map((i,k)=>match(second[i].winner,second[i+1].winner,'R3-'+(region*2+k+1),'THIRD ROUND','Winner of '+second[i].id,'Winner of '+second[i+1].id));
    const quarter=match(third[0].winner,third[1].winner,'QF-'+(region+1),'QUARTERFINAL','Winner of '+third[0].id,'Winner of '+third[1].id);
-   regions.push({number:region+1,name:'REGION '+ROMAN[region],anchor:at(four[0].seed),byes:four.map(s=>at(s.seed)),
+   regions.push({number:region+1,name:'QUADRANT '+ROMAN[region],anchor:at(four[0].seed),byes:four.map(s=>at(s.seed)),
     first,second,third,quarter});
   }
   const semifinals=[
    match(regions[0].quarter.winner,regions[1].quarter.winner,'SF-1','COLLEGE CUP SEMIFINAL',
-    'Region I winner','Region II winner'),
+    'Quadrant I winner','Quadrant II winner'),
    match(regions[2].quarter.winner,regions[3].quarter.winner,'SF-2','COLLEGE CUP SEMIFINAL',
-    'Region III winner','Region IV winner')
+    'Quadrant III winner','Quadrant IV winner')
   ];
   const championship=match(semifinals[0].winner,semifinals[1].winner,'F-1','NATIONAL FINAL',
    'Semifinal 1 winner','Semifinal 2 winner');
@@ -160,7 +161,7 @@
    return null;
   }
   const hero=html('header','snb-hero');
-  const kicker=html('span','snb-kicker','THE NATIONAL CHAMPIONSHIP · 2026');
+  const kicker=html('span','snb-kicker','INDEPENDENT RETRO PROJECTION · 2026');
   hero.append(kicker,html('h2',null,'THE ROAD TO THE COLLEGE CUP'));
   hero.append(html('p',null,'48 teams · 16 first-round fixtures · 16 opening byes · 4 regional champions · 1 national title'));
   const summary=html('div','snb-edition-stamp');
@@ -168,11 +169,11 @@
   summary.append(html('span',null,String(options.confirmed||0)+' CONFERENCE CHAMPIONS VERIFIED'));
   summary.append(html('span',null,'PROJECTION · NOT THE NCAA BRACKET'));
   hero.append(summary);bracket.append(hero);
-  const explanation=html('p','snb-methodology','Each number is a RETRO strength-order position, NOT an NCAA seed. Eight protected first-round teams are distributed two per region. Teams from the same conference cannot face one another in the opening two rounds of this simulation. Hosting and geography are not assigned; every probability assumes a neutral field.');
+  const explanation=html('p','snb-methodology','NCAA structure: 23 automatic bids, 25 at-large, 24 seeded positions and 16 byes. RETRO determines this independent, eligibility-unverified demonstration field and its strength order, not NCAA selections or seeds. We divide hypothetical first-round seeded entrants two per quadrant for balance; that distribution is NOT an NCAA placement requirement. Opening-game conference separation is enforced, but geography, hosting and actual NCAA pairings remain unverified. Forecasts assume a neutral field.');
   bracket.append(explanation);
   const regions=html('section','snb-regions');
   const regionHead=html('div','snb-region-heading');
-  regionHead.append(html('h3',null,'REGIONAL BRACKETS'),html('p',null,'Choose a region. Scroll across the rounds on narrow screens.'));
+  regionHead.append(html('h3',null,'FOUR BRACKET QUADRANTS'),html('p',null,'Choose a quadrant; scroll to follow all four rounds.'));
   regions.append(regionHead);
   const tabs=html('div','snb-region-tabs');
   tabs.setAttribute('role','tablist');tabs.setAttribute('aria-label','Choose projected bracket region');
@@ -183,7 +184,7 @@
    const r=projection.regions[index];
    buttons.forEach((b,i)=>{b.setAttribute('aria-selected',String(i===index));b.tabIndex=i===index?0:-1;});
    stage.replaceChildren();
-   stage.append(html('p','snb-region-deck','Region '+ROMAN[index]+' · RETRO #'+r.anchor.forecast_rank+' '+r.anchor.team+' leads this simulated quadrant · Four first-round games, four second-round games, two third-round games and one quarterfinal.'));
+   stage.append(html('p','snb-region-deck','Quadrant '+ROMAN[index]+' · RETRO #'+r.anchor.forecast_rank+' '+r.anchor.team+' leads this simulated bracket · Four first-round games, four second-round games, two third-round games and one quarterfinal.'));
    const scroller=html('div','snb-region-scroll');
    scroller.setAttribute('tabindex','0');
    scroller.setAttribute('aria-label','Four linked knockout rounds for '+r.name);
@@ -194,7 +195,7 @@
    grid.append(section('QUARTERFINAL','REGIONAL WINNER', [r.quarter],branding,'snb-quarter'));
    scroller.append(grid);stage.append(scroller);
    const footer=html('div','snb-region-winner');
-   footer.append(html('span',null,'REGION '+ROMAN[index]+' · RETRO ADVANCES'));
+   footer.append(html('span',null,'QUADRANT '+ROMAN[index]+' · RETRO ADVANCES'));
    footer.append(html('strong',null,winnerText(r.quarter.winner)));
    stage.append(footer);
   }
@@ -202,7 +203,7 @@
    const r=projection.regions[i],button=html('button','snb-region-tab');
    button.type='button';button.setAttribute('role','tab');
    button.setAttribute('aria-controls','snb-region-stage');
-   button.append(html('span',null,'REGION '+ROMAN[i]),html('strong',null,'#'+r.anchor.forecast_rank+' '+r.anchor.team));
+   button.append(html('span',null,'QUADRANT '+ROMAN[i]),html('strong',null,'#'+r.anchor.forecast_rank+' '+r.anchor.team));
    button.addEventListener('click',()=>switchRegion(i));
    button.addEventListener('keydown',event=>{
     const direction=event.key==='ArrowRight'?1:event.key==='ArrowLeft'?-1:0;
@@ -222,7 +223,7 @@
   const winner=html('div','snb-champion');
   winner.append(html('span',null,'RETRO NATIONAL TITLE PICK'),html('strong',null,winnerText(projection.championship.winner)));
   cup.append(winner);bracket.append(cup);
-  bracket.append(html('p','snb-disclaimer','RETRO winning percentages use a provisional Poisson regulation/extra-time/penalties model. They are conditional matchup estimates, not bracket-winning probabilities or official NCAA results. All 47 pairings and advancement paths are illustrative.'));
+  bracket.append(html('p','snb-disclaimer','2026 seeding update: NCAA expanded from 16 to 24 seeded teams on October 22, 2026. The current prechampionship manual still says 16, but 16 first-round byes remain. RETRO winning percentages use a provisional Poisson regulation/extra-time/penalties model; they are conditional matchup estimates, not NCAA committee selections or official pairings. All 47 games are illustrations.'));
   return projection;
  }
  return Object.freeze({makeBracket,render});
