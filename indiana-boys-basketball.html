@@ -28,7 +28,6 @@
     #masthead-title { display: flex; align-items: center; justify-content: center; gap: clamp(.65rem, 2.6vw, 1.5rem); padding-block: .55rem; }
     #masthead-title h1 { margin: 0; }
     .crest {
-      --ring: 3px;
       --crest-primary: #67503b;
       --crest-secondary: #ba9b65;
       flex: none;
@@ -37,22 +36,37 @@
       aspect-ratio: 1;
       border-radius: 50%;
       border: var(--ring) solid var(--crest-primary);
-      background: radial-gradient(circle at 36% 23%, #fffaf1, #f0e3c9 65%, #dcc7a5);
-      box-shadow: inset 0 0 0 var(--ring) var(--crest-secondary), inset 0 3px 7px #50371f75,
+      background: radial-gradient(circle at 34% 23%, #fffdf5, #f0e3c9 63%, #d4b68d);
+      box-shadow: inset 0 0 0 var(--inner-ring) var(--crest-secondary), inset 0 3px 6px #39251280,
                   0 1px 0 #fff9e9, 0 3px 5px #49331d4d;
       position: relative;
     }
     .crest::after {
       content: "";
       position: absolute;
-      inset: 0;
+      inset: calc(-1 * var(--ring));
       border-radius: inherit;
-      box-shadow: inset 0 1px 0 #fff9e999, inset 0 -1px 0 #34231388;
+      box-shadow: inset 0 2px 1px #fff9e9a8, inset 0 -3px 2px #2214078c;
       pointer-events: none;
     }
-    .crest img { display: block; width: 77%; height: 77%; object-fit: contain; filter: drop-shadow(0 2px 1px #34241252); }
-    .crest-large { --ring: 6px; width: clamp(5rem, 16vw, 8.5rem); }
-    .crest-small { width: clamp(2.6rem, 7vw, 3.3rem); }
+    .crest img { display: block; width: 80%; height: 80%; object-fit: contain; }
+    .crest-large {
+      --ring: 6px;
+      --inner-ring: 5px;
+      width: clamp(5rem, 16vw, 8.5rem);
+      box-shadow: inset 0 0 0 var(--inner-ring) var(--crest-secondary), inset 0 0 0 6px #52341d70,
+                  inset 0 6px 9px #39251273, 0 1px 0 #fff8e7, 0 4px 1px #52392261,
+                  0 8px 12px #49331d52;
+    }
+    .crest-large img { filter: drop-shadow(0 -1px 0 #fff9eb) drop-shadow(0 3px 1px #49331d88); }
+    .crest-small {
+      --ring: 2px;
+      --inner-ring: 1px;
+      width: clamp(2.6rem, 7vw, 3.3rem);
+      box-shadow: inset 0 0 0 var(--inner-ring) var(--crest-secondary), 0 2px 3px #49331d42;
+    }
+    .crest-small::after { box-shadow: inset 0 1px 0 #fff9e980, inset 0 -1px 0 #22140760; }
+    .crest-small img { width: 89%; height: 89%; }
     .school-identity { display: inline-flex; align-items: center; gap: .48rem; }
     footer { margin-top: 1rem; padding-top: .7rem; border-top: 3px double #524435; font-size: .85rem; }
     @media (max-width: 640px) { th, td { padding: .4rem .3rem; } table { font-size: .83rem; } }
