@@ -312,7 +312,28 @@ def update(baseline: dict, ledger: dict, incoming: list[dict], verified_exceptio
                                      "independent_source": exception["independent_source"],
                                      "reviewed_on": exception["reviewed_on"]})
                     continue
-                if matches:
+                attested_score = (
+                    exception.get("correction_type") == "score_correction"
+                    and all(exception.get(field) == previous[field] == game[field] for field in fields)
+                    and exception.get("ledger_score") == expected_original
+                    and exception.get("reported_feed_score") == reported
+                    and expected_original != reported
+                    and str(exception.get("independent_source", "")).startswith("https://")
+                    and str(exception.get("secondary_source", "")).startswith("https://")
+                    and exception["independent_source"] != exception["secondary_source"]
+                    and exception.get("reviewed_on") and exception.get("explanation")
+                )
+                if attested_score:
+                    # Both schools independently attest the corrected score. Rebuild
+                    # all six cohorts from the pinned baseline, never patch Elo in place.
+                    lookup[key] = game
+                    verified.append({"match_id": key, "ledger_score": expected_original,
+                                     "corrected_score": reported,
+                                     "independent_source": exception["independent_source"],
+                                     "secondary_source": exception["secondary_source"],
+                                     "reviewed_on": exception["reviewed_on"]})
+                    continue
+                if matches and exception.get("correction_type") is None:
                     verified.append({"match_id":key, "ledger_score":expected_original,
                                      "feed_score":reported, "independent_source":exception["independent_source"],
                                      "reviewed_on":exception["reviewed_on"]})

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "policy": "Exact verified source-score exceptions preserve university-confirmed finals. Independently verified one-day date-only corrections may update the ledger and trigger full Elo replay; all changed scores, teams or unverified date differences remain fail-closed.",
+  "policy": "Exact university-verified source-score exceptions preserve published results. Two distinct official university sources may authorize a narrowly scoped score correction with a full pinned-baseline Elo replay. Independently verified one-day date-only corrections also require replay. Any unmatched identity, score or date conflict remains fail-closed.",
   "exceptions": [
     {
       "match_id": "women-6664706",
@@ -38,6 +38,47 @@
       "secondary_source": "https://goearlham.com/news/2026/11/3/mens-soccer-mens-soccer-advances-to-hcac-championship-match.aspx",
       "reviewed_on": "2026-11-07",
       "explanation": "Hanover and Earlham official men's soccer recaps both document a 3–1 Earlham win on Tuesday November 3, 2026; the ledger entered November 4 from an earlier scoreboard date. Correct only the calendar date, preserving game ID, identity, score and one Elo application."
+    },
+    {
+      "match_id": "women-6663147",
+      "gender": "women",
+      "date": "2026-11-14",
+      "home_team": "new-york-u",
+      "away_team": "middlebury",
+      "ledger_score": [
+        1,
+        3
+      ],
+      "reported_feed_score": [
+        1,
+        2
+      ],
+      "source_game": "https://www.ncaa.com/game/6663147",
+      "independent_source": "https://gonyuathletics.com/news/2026/11/14/womens-soccer-womens-soccer-exits-ncaa-tournament-after-opening-round-tilt-with-middlebury.aspx",
+      "secondary_source": "https://athletics.middlebury.edu/news/2026/11/14/womens-soccer-25-womens-soccer-posts-3-1-triumph-over-18-nyu-in-ncaa-lidlifter.aspx",
+      "reviewed_on": "2026-11-16",
+      "explanation": "Official NYU and Middlebury reports independently confirm a 3-1 Middlebury victory on Nov 14; keep NCAA ledger home NYU 1, away Middlebury 3 rather than the transient scoreboard's 1-2."
+    },
+    {
+      "match_id": "women-6667235",
+      "gender": "women",
+      "date": "2026-11-14",
+      "home_team": "eastern-ky",
+      "away_team": "abilene-christian",
+      "correction_type": "score_correction",
+      "ledger_score": [
+        3,
+        1
+      ],
+      "reported_feed_score": [
+        1,
+        3
+      ],
+      "source_game": "https://www.ncaa.com/game/6667235",
+      "independent_source": "https://ekusports.com/sports/womens-soccer/stats/2026/abilene-christian/boxscore/9762",
+      "secondary_source": "https://acusports.com/sports/womens-soccer/stats/2026/eastern-ky-/boxscore/14028",
+      "reviewed_on": "2026-11-16",
+      "explanation": "Independent official box scores from Eastern Kentucky and Abilene Christian establish EKU 1-3 ACU in the Nov 14 UAC final. The published Elo ledger inverted the scores (3-1); accept the corrected NCAA source score, replay all Elo ratings chronologically, and preserve audit provenance."
     }
   ]
 }
