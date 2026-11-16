@@ -169,6 +169,44 @@ class TestCollegeSoccerLive(unittest.TestCase):
         self.assertEqual(audit["independently_verified_discrepancy_count"], 0)
         self.assertEqual(audit["status"], "provisional_conflicted")
 
+    def test_two_school_verified_score_correction_replays_exactly_once(self):
+        previous = game(hg=3, ag=1)
+        corrected = game(hg=1, ag=3)
+        first, old_model, _ = c.update(self.b, self.l, [previous])
+        exception = {
+            "correction_type": "score_correction",
+            "match_id": "men-100", "gender": "men", "date": "2026-10-23",
+            "home_team": "men-d1-a", "away_team": "men-d1-b",
+            "source_game": "https://www.ncaa.com/game/100",
+            "ledger_score": [3, 1], "reported_feed_score": [1, 3],
+            "independent_source": "https://home.example.edu/recap",
+            "secondary_source": "https://away.example.edu/recap",
+            "reviewed_on": "2026-11-16", "explanation": "Both official schools confirm the corrected score."
+        }
+        fixed, model, audit = c.update(self.b, first, [corrected], {"men-100": exception})
+        self.assertEqual(fixed["results"], [corrected])
+        self.assertNotEqual(model, old_model)
+        self.assertEqual(model["as_of"], "2026-10-23")
+        self.assertEqual(audit["applied_finals"], 1)
+        self.assertEqual(audit["unresolved_source_correction_count"], 0)
+        self.assertEqual(audit["independently_verified_discrepancy_count"], 1)
+        self.assertEqual(audit["independently_verified_source_discrepancies"][0]["corrected_score"], [1, 3])
+        again, again_model, again_audit = c.update(self.b, fixed, [corrected], {"men-100": exception})
+        self.assertEqual(again, fixed)
+        self.assertEqual(again_model, model)
+        self.assertEqual(again_audit["new_games_seen"], 0)
+        self.assertEqual(again_audit["applied_finals"], 1)
+        for invalid in (
+            {**exception, "secondary_source": ""},
+            {**exception, "reported_feed_score": [2, 3]},
+            {**exception, "away_team": "another-school"},
+            {**exception, "secondary_source": exception["independent_source"]},
+        ):
+            blocked, blocked_model, state = c.update(self.b, first, [corrected], {"men-100": invalid})
+            self.assertEqual(blocked, first)
+            self.assertEqual(blocked_model, old_model)
+            self.assertEqual(state["unresolved_source_correction_count"], 1)
+
     def test_cross_division_excluded_with_evidence(self):
         _, m, a = c.update(self.b, self.l, [game(away="women-d1-a")])
         self.assertEqual(a["excluded_finals"], 1)
