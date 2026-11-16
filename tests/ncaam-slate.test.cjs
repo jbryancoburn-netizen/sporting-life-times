@@ -22,14 +22,14 @@ assert(logoRenderer.includes("'77':'assets/cbb-big-ten-1980s/centered/northweste
 
 
 const forecastScorebug=fs.readFileSync('cbb-ledger-scorebug.js','utf8');
-assert(forecastScorebug.includes('pulseRange(max)') && forecastScorebug.includes('pulseScale.set(id,scale)'), 'RETRO Pulse must preserve the largest observed lead scale');
+assert(forecastScorebug.includes('pulseRange(Math.max(maxLead,-minLead))') && forecastScorebug.includes('pulseScale.set(id,scale)'), 'RETRO Pulse must preserve the largest observed lead scale');
 assert(forecastScorebug.includes('ledger26-scorebug--pulse'), 'Pulse must occupy full scorebug width without empty status column');
 assert(forecastScorebug.includes('ledger26-pulse-compact') && forecastScorebug.includes('ledger26-pulse-expanded') && forecastScorebug.includes('pulseBounds.set(id,{min:bottom,max:top})'), 'Concept A must be compact and Concept B must retain asymmetric expanded lead bounds');
 assert(scorecardCss.includes('.ledger26-pulse-expanded-chart{height:258px') && scorecardCss.includes('grid-template-columns:55px minmax(0,1fr)'), 'Desktop must have detailed flow while mobile quick summary stays readable');
-assert(forecastScorebug.includes('pulseSegmentMicrograph(model,item)') && forecastScorebug.includes("' H'+xNow+' V'+yNow"), 'Pulse must show actual step scoring and selectable detailed close-up');
-assert(forecastScorebug.includes('data-away-name=') && forecastScorebug.includes('Scoring margin:'), 'Pulse must use real team labels rather than home/away');
-assert(scorecardCss.includes('.ledger26-pulse-break-label{display:none}') && scorecardCss.includes('height:104px') && scorecardCss.includes('height:72px'), 'Pulse must use a detailed desktop chart and a label-simplified mobile chart');
-assert(forecastScorebug.includes('ledger26-pulse-axis--minor') && forecastScorebug.includes('ledger26-pulse-trace') && forecastScorebug.includes('ledger26-pulse-ht'), 'Pulse needs readable lead ticks, a stronger trace and clear halftime indicator');
+assert(forecastScorebug.includes('pulseSegmentMicrograph(model,item)') && forecastScorebug.includes("'H'+xx+' V'+yy"), 'Pulse must show actual step scoring and selectable detailed close-up');
+assert(forecastScorebug.includes('data-away-name=') && forecastScorebug.includes('Full game scoring margin.'), 'Pulse must use real team labels rather than home/away');
+assert(scorecardCss.includes('.ledger26-pulse-expanded-chart .ledger26-pulse-media-label{display:none}') && scorecardCss.includes('height:258px') && scorecardCss.includes('height:205px'), 'Pulse must use a detailed desktop chart and a label-simplified mobile chart');
+assert(forecastScorebug.includes('ledger26-pulse-axis') && forecastScorebug.includes('ledger26-pulse-trace') && forecastScorebug.includes('ledger26-pulse-period-label'), 'Pulse needs readable lead ticks, a stronger trace and clear halftime indicator');
 assert(forecastScorebug.includes('data-retro-segment') && forecastScorebug.includes('getImageData('), 'RETRO Pulse segments must be directly clickable while preserving the existing watermark cleanup');
 assert(forecastScorebug.includes('const label=(band?') && forecastScorebug.includes('clock:p.clock'), 'real media timeouts must retain their observed clock');
 assert(script.includes('gameId:String(g.id)') && script.includes('const convert=t=>({id:String(t.id)'), 'RETRO Pulse must receive exact source game and team IDs');
