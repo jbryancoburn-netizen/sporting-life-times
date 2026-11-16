@@ -97,9 +97,26 @@ function schedulePanel(edition, members, showPicker) {
   return panel;
 }
 
-function crest(mark, size) {
+const crestColors = {
+  Fishers: ['#a6192e', '#b1b4b7'],
+  Avon: ['#161616', '#c99626'],
+  Brownsburg: ['#492477', '#b7bbc1'],
+  FranklinCentral: ['#113f78', '#aab9c8'],
+  HamiltonSoutheastern: ['#165594', '#93a7b7'],
+  Westfield: ['#15533b', '#bb9f60'],
+  Zionsville: ['#16572b', '#242424'],
+  Noblesville: ['#202020', '#b79b55'],
+  'Hoosier Crossroads': ['#17427c', '#bd922c'],
+};
+
+function crest(mark, size, identity) {
   const badge = document.createElement('span');
   badge.className = 'crest crest-' + size;
+  const colors = crestColors[identity];
+  if (colors) {
+    badge.style.setProperty('--crest-primary', colors[0]);
+    badge.style.setProperty('--crest-secondary', colors[1]);
+  }
   const logo = document.createElement('img');
   logo.src = mark;
   logo.alt = '';
@@ -108,15 +125,15 @@ function crest(mark, size) {
   return badge;
 }
 
-function showMasthead(title, mark) {
+function showMasthead(title, mark, identity) {
   const heading = document.createElement('h1');
   heading.textContent = title;
-  masthead.replaceChildren(...(mark ? [crest(mark, 'large'), heading] : [heading]));
+  masthead.replaceChildren(...(mark ? [crest(mark, 'large', identity), heading] : [heading]));
 }
 
 function showTeam(edition, team) {
   document.title = team.school + ' | Indiana Boys Basketball RETRO';
-  showMasthead(team.school, artwork.schools[team.id]);
+  showMasthead(team.school, artwork.schools[team.id], team.id);
   document.querySelector('.filters').hidden = true;
   document.querySelector('.filters').style.display = 'none';
   document.getElementById('view-title').textContent = 'Team profile';
@@ -174,7 +191,7 @@ function initialize(edition) {
       selected.sectional && 'Sectional ' + selected.sectional,
     ].filter(Boolean).join(' · ');
     document.getElementById('view-title').textContent = label || 'Statewide register';
-    showMasthead(selected.conference || 'Indiana Boys Basketball RETRO', artwork.conferences[selected.conference]);
+    showMasthead(selected.conference || 'Indiana Boys Basketball RETRO', artwork.conferences[selected.conference], selected.conference);
     document.title = selected.conference
       ? selected.conference + ' | Indiana Boys Basketball RETRO'
       : 'Indiana Boys Basketball RETRO | Sporting Life & Times';
@@ -190,7 +207,7 @@ function initialize(edition) {
           const mark = artwork.schools[team.id];
           if (mark) {
             link.className = 'school-identity';
-            link.prepend(crest(mark, 'small'));
+            link.prepend(crest(mark, 'small', team.id));
           }
           cell.append(link);
         }
