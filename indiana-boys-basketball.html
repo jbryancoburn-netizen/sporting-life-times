@@ -33,7 +33,9 @@
       flex: none;
       display: inline-grid;
       place-items: center;
+      grid-template: minmax(0, 1fr) / minmax(0, 1fr);
       aspect-ratio: 1;
+      padding: calc(var(--inner-ring) + var(--logo-inset));
       border-radius: 50%;
       border: var(--ring) solid var(--crest-primary);
       background: radial-gradient(circle at 34% 23%, #fffdf5, #f0e3c9 63%, #d4b68d);
@@ -49,10 +51,11 @@
       box-shadow: inset 0 2px 1px #fff9e9a8, inset 0 -3px 2px #2214078c;
       pointer-events: none;
     }
-    .crest img { display: block; width: 80%; height: 80%; object-fit: contain; }
+    .crest img { display: block; width: 100%; height: 100%; min-width: 0; min-height: 0; object-fit: contain; }
     .crest-large {
       --ring: 6px;
       --inner-ring: 5px;
+      --logo-inset: clamp(8px, 2vw, 17px);
       width: clamp(5rem, 16vw, 8.5rem);
       box-shadow: inset 0 0 0 var(--inner-ring) var(--crest-secondary), inset 0 0 0 6px #52341d70,
                   inset 0 6px 9px #39251273, 0 1px 0 #fff8e7, 0 4px 1px #52392261,
@@ -62,11 +65,11 @@
     .crest-small {
       --ring: 2px;
       --inner-ring: 1px;
+      --logo-inset: clamp(5px, 1.1vw, 7px);
       width: clamp(2.6rem, 7vw, 3.3rem);
       box-shadow: inset 0 0 0 var(--inner-ring) var(--crest-secondary), 0 2px 3px #49331d42;
     }
     .crest-small::after { box-shadow: inset 0 1px 0 #fff9e980, inset 0 -1px 0 #22140760; }
-    .crest-small img { width: 89%; height: 89%; }
     .school-identity { display: inline-flex; align-items: center; gap: .48rem; }
     footer { margin-top: 1rem; padding-top: .7rem; border-top: 3px double #524435; font-size: .85rem; }
     @media (max-width: 640px) { th, td { padding: .4rem .3rem; } table { font-size: .83rem; } }
