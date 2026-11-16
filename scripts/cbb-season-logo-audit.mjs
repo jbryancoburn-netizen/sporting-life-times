@@ -159,17 +159,30 @@ async function worker(){
 await Promise.all(Array.from({length:8},()=>worker()));
 catalog.updated_at=new Date().toISOString().slice(0,10);
 if(added.length||invalidCurated.length)write(catalogPath,catalog);
+// An image HTTP 200 is not proof that the artwork belongs to the scheduled school.
+// Flag known cross-school NCAA slugs and absent local assets as unresolved.
+const identityConflicts=[];
+for(const [id,team] of Object.entries(catalog.teams)){
+ if(!expected.has(id)||!team.logo_url)continue;
+ const m=/\\/logos\\/schools\\/bgl\\/([a-z0-9-]+)\\.svg(?:[?#]|$)/i.exec(team.logo_url);
+ if(!m)continue;
+ const slug=m[1];
+ const matches=ncaaMatches(team.school||team.feed_name||'');
+ if(matches.length===1&&matches[0].slug!==slug)
+  identityConflicts.push({id,school:team.school,logo_url:team.logo_url,expected_slug:matches[0].slug,reason:'NCAA artwork belongs to another school'});
+}
 const remaining=[...expected.values()].filter(x=>!reg[x.id]?.logo_url_verified&&!catalog.teams[x.id]?.logo_url);
 const report={
  generated_at:new Date().toISOString(),window:['2026-11-01','2027-03-31'],
  men_calendars:menCalendars,women_calendars:Object.keys(women).length,
  men_calendar_events:menEvents,women_calendar_events:womenEvents,
  unique_scheduled_team_ids:expected.size,missing_before:missing.length,
- verified_new_logos:added.length,missing_after:remaining.length,
+ verified_new_logos:added.length,missing_after:remaining.length+identityConflicts.length, identity_conflicts:identityConflicts,
  added,invalid_curated:invalidCurated,unresolved:unresolved.sort((a,b)=>b.appearances-a.appearances),
  note:'HTTP image success does not prove browser display; test published pages separately.'
 };
 write('data/cbb-season-logo-audit.json',report);
 console.log(JSON.stringify({menCalendars,womenCalendars:Object.keys(women).length,
- uniqueTeams:expected.size,missingBefore:missing.length,added:added.length,missingAfter:remaining.length}));
+ uniqueTeams:expected.size,missingBefore:missing.length,added:added.length,missingAfter:remaining.length+identityConflicts.length,identityConflicts:identityConflicts.length}));
+if(identityConflicts.length)throw Error('Cross-school NCAA artwork identity conflicts: '+JSON.stringify(identityConflicts));
 if(menCalendars<365||Object.keys(women).length<363)throw Error('Incomplete published full-season calendars');
