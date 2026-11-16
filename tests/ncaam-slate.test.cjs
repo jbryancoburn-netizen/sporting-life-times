@@ -22,6 +22,8 @@ assert(logoRenderer.includes("'77':'assets/cbb-big-ten-1980s/centered/northweste
 
 
 const forecastScorebug=fs.readFileSync('cbb-ledger-scorebug.js','utf8');
+assert(forecastScorebug.includes('readableInk(x.color,phase,outcome)') && scorecardCss.includes('var(--ledger26-readable-ink'), 'each school-colored scorebug must select readable foreground ink');
+assert(forecastScorebug.includes('data-watermark-art') && !forecastScorebug.includes('const safeCrest='), 'large background marks must use original artwork, not a baked circular crest');
 const forecastRailCss=scorecardCss.split('/* Shared horizontal pregame intelligence strip.')[1];
 assert(forecastRailCss &&
  forecastRailCss.includes('grid-template-columns:repeat(3,minmax(0,1fr))!important') &&
@@ -34,8 +36,8 @@ assert(forecastScorebug.includes('RETRO SPREAD') &&
  forecastScorebug.includes('PROJECTED FINAL') &&
  forecastScorebug.includes('ledger26-pregame-inline--prob'),
  'the pregame rail needs independently legible probability, signed spread and projected final');
-assert(html.includes('cbb-ledger-scorecard.css?v=raw-mascot-watermark-20261116') &&
- html.includes('cbb-ledger-scorebug.js?v=raw-mascot-watermark-20261116'),
+assert(html.includes('cbb-ledger-scorecard.css?v=raw-mascot-contrast-20261116b') &&
+ html.includes('cbb-ledger-scorebug.js?v=raw-mascot-contrast-20261116b'),
  'the public ledger must load the current unified scorebug and forecast layout without stale cached assets');
 
 assert(!/draftkings|onlyDraftKings|sportsbook|draftKingsByDate/i.test(script+html+scorecardCss), 'sportsbook lines and lookups must not reappear in the ledger');
