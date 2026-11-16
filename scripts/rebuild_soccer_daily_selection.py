@@ -133,14 +133,31 @@ def main():
     previous["at_large_proxy"]=at
     previous["first_four_out_proxy"]=[entry(x,"outside_field_proxy",reverse_confs.get(x["team_id"],"")) for x in atlarge[25:29]]
     previous["field"]=field
-    previous["selection_policy"]["at_large_record_gate"]="Verified Division I .500 eligibility" if certified else "NOT VERIFIED: RETRO scenario, not eligible NCAA field"
+    # 2026-27 NCAA prechampionship manual §2.3-2.4 and the Oct 22, 2026
+    # 24-seed amendment govern the REAL championship. This feed remains
+    # a distinct independent model until complete NCAA selection inputs exist.
+    previous["selection_policy"].update({
+        "field": "48 teams: 23 confirmed conference automatic qualifiers plus 25 NCAA committee at-large selections",
+        "usrs_role": "RETRO is not an NCAA selection criterion; Elo field is independent and hypothetical",
+        "at_large_record_gate": ("Verified Division I .500 at-large eligibility" if certified else
+                                 "NOT VERIFIED: NCAA requires >= .500 Division I records; all 25 RETRO at-large candidates are hypothetical"),
+        "seeds": "24 seeded teams in 2026 under NCAA Oct 22 amendment; RETRO rankings are not NCAA seeds",
+        "byes": "16 first-round byes assigned by NCAA committee, not by RETRO",
+        "early_round_conference_separation": "Avoid same-conference matchups in each institution's first tournament game",
+        "host_sites_and_geography": "NCAA site/host suitability and geographical proximity must be independently verified"
+    })
+    previous["official_sources"] = [
+        "https://ncaaorg.s3.amazonaws.com/championships/sports/soccer/d1/men/2026-27D1MSO_PreChampsManual.pdf",
+        "https://www.ncaa.org/news/di-field-hockey-mens-soccer-to-seed-50-of-their-championship-brackets/",
+        "https://www.ncaa.org/championship/division-i/mens-soccer/"
+    ]
     previous["elo_reconciliation"].update(
         audit_status=audit.get("status","unverified"),
         excluded_finals=audit.get("excluded_finals"),
         source_checked_through=audit.get("checked_through"),
         source_certified=(audit.get("status")=="certified"))
     previous["methodology"]["automatic_bids"]="Official AQ only from a source-linked championship match with verified final score; otherwise highest-rated eligible conference member is an explicitly hypothetical RETRO pick."
-    previous["methodology"]["at_large"]=("Verified DI .500 eligibility and adjusted RPI provisional résumé ordering, NOT the committee decision." if certified else "Independent RETRO Elo at-large scenario only; NCAA .500 DI eligibility and RPI are NOT verified. This is NOT an NCAA committee selection.")
+    previous["methodology"]["at_large"]=("Verified Division I .500 records and RPI used as a provisional résumé proxy; head-to-head, common opponents, and committee judgement are not verified." if certified else "The 25 independent RETRO-only at-large candidates have NOT been checked against the NCAA's Division I .500 eligibility threshold or adjusted RPI and must never be described as NCAA selections.")
     previous["daily_rebuild"]={"rating_cutoff":ratings["as_of"],
         "official_automatic_bids":sum(x["official_aq"] for x in scenarios),
         "projected_automatic_bids":sum(not x["official_aq"] for x in scenarios),
