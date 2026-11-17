@@ -536,7 +536,7 @@ const heritage=known?(id==='2116'?UCF_CITRONAUT:retroURLForESPN(id)):'';
 // per logo in a consumer page. All 365 men's and 363 women's IDs are covered.
 const baked=known?'assets/cbb-embossed-crests/'+id+'.png?v=20261116-usf1':'';
 const art=heritage?'flat':known?school.artwork_type:outsideEntry?'flat':'unverified';
-const primary=baked||heritage||(known?(school.logo_url_verified?safeURL(school.official_logo_url||school.logo_url):''):
+const primary=(id==='2116'?UCF_CITRONAUT:'')||baked||heritage||(known?(school.logo_url_verified?safeURL(school.official_logo_url||school.logo_url):''):
  outsideEntry?(cachedCrest||safeURL(outsideEntry.logo_url)):'');
 // Keep verified modern artwork as the fallback whenever a vintage local asset fails.
 // No other sport uses this renderer, and the badge retains its two-color ring.
