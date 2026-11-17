@@ -3,7 +3,7 @@
   "division": "d3",
   "gender": "women",
   "season": "2026-27",
-  "generated_utc": "2026-11-16T18:37:37.985014+00:00",
+  "generated_utc": "2026-11-17T02:59:06.367204+00:00",
   "source": "NCAA 2026-27 member directory + year/gender-validated official school athletics calendars",
   "scope": "NCAA membership-wide first pass; sources without independently validated 2026-27 schedules excluded",
   "ncaa_confirmed_programs": 415,
@@ -14,8 +14,8 @@
   "school_calendars_unresolved": 17,
   "source_status_counts": {
     "parsed": 365,
-    "failed": 17,
-    "parsed_conference": 33
+    "parsed_conference": 33,
+    "failed": 17
   },
   "last_verified_school_source": {
     "4": "https://adrianbulldogs.com/sports/womens-basketball/schedule/2026-27?grid=true",
@@ -5160,10 +5160,10 @@
     {
       "owner_org_id": 795,
       "source_url": "https://www.uwlathletics.com/sports/womens-basketball/schedule?grid=true",
-      "readable_rows": 30,
+      "readable_rows": 28,
       "verified_member_opponents": 14,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 13,
+        "identity_not_d3_matched_but_posted": 11,
         "conditional_or_ambiguous_opponent": 3
       },
       "status": "parsed",
@@ -6995,9 +6995,9 @@
       "owner_org_id": 23260,
       "source_url": "https://www.spaldingathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "readable_rows": 26,
-      "verified_member_opponents": 17,
+      "verified_member_opponents": 18,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 5,
+        "identity_not_d3_matched_but_posted": 4,
         "conditional_or_ambiguous_opponent": 4
       },
       "status": "parsed",
@@ -8349,18 +8349,6 @@
       ]
     },
     {
-      "date": "2027-02-02",
-      "members": [
-        1194,
-        8597
-      ],
-      "problem": "home/away or neutral-site source disagreement",
-      "source_urls": [
-        "https://mbusabercats.com/sports/womens-basketball/schedule/2026-27?grid=true",
-        "https://www.mlcknights.com/sports/wbball/schedule?grid=true"
-      ]
-    },
-    {
       "date": "2027-02-11",
       "members": [
         271,
@@ -8385,9 +8373,9 @@
       ]
     }
   ],
-  "fixture_count": 4544,
-  "reciprocal_fixtures": 2720,
-  "unresolved_opponent_fixture_count": 1578,
+  "fixture_count": 4546,
+  "reciprocal_fixtures": 2721,
+  "unresolved_opponent_fixture_count": 1574,
   "unresolved_opponent_fixtures": [
     {
       "id": "d3-women-2026-11-06-73-other-3415eb321a6f",
@@ -12635,21 +12623,6 @@
       "venue_location": "Platteville, Wis."
     },
     {
-      "id": "d3-women-2026-11-20-132-other-4c6e56f987af",
-      "date": "2026-11-20",
-      "source_owner_org_id": 132,
-      "external_opponent_label": "Greenville Vs Berry",
-      "placement": "neutral",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://www.centrecolonels.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "11:00 AM",
-      "venue_location": "Danville, KY / Alumni Gym"
-    },
-    {
       "id": "d3-women-2026-11-20-168-other-df5d0a97c2e0",
       "date": "2026-11-20",
       "source_owner_org_id": 168,
@@ -12663,21 +12636,6 @@
       "source_url": "https://www.cortlandreddragons.com/sports/womens-basketball/schedule?grid=true",
       "tipoff_as_posted": "7:30 p.m.",
       "venue_location": "Poughkeepsie, N.Y."
-    },
-    {
-      "id": "d3-women-2026-11-20-195-other-d2becd29ce1e",
-      "date": "2026-11-20",
-      "source_owner_org_id": 195,
-      "external_opponent_label": "Spalding University (Ky.)",
-      "placement": "home",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://www.goearlham.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "5:00 PM",
-      "venue_location": "Richmond, IN / Druley Performance Gym"
     },
     {
       "id": "d3-women-2026-11-20-258-other-c0c171c046cc",
@@ -13008,21 +12966,6 @@
       "source_url": "https://www.uofoathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "5:30 pm",
       "venue_location": "Clarksville, AR"
-    },
-    {
-      "id": "d3-women-2026-11-20-23260-other-ac47be1eeea9",
-      "date": "2026-11-20",
-      "source_owner_org_id": 23260,
-      "external_opponent_label": "Melissa Johnson / HOPE Classic",
-      "placement": "neutral",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://www.spaldingathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "TBA",
-      "venue_location": "Richmond, IN"
     },
     {
       "id": "d3-women-2026-11-20-27892-other-1d6979418404",
@@ -13670,10 +13613,10 @@
       "venue_location": "Raleigh, N.C. / Hermann Athletic Center"
     },
     {
-      "id": "d3-women-2026-11-21-23260-other-f1db06345b38",
+      "id": "d3-women-2026-11-21-23260-other-2930303e5ab2",
       "date": "2026-11-21",
       "source_owner_org_id": 23260,
-      "external_opponent_label": "Melissa Johnson / HOPE Classic",
+      "external_opponent_label": "Wilmington",
       "placement": "neutral",
       "status": "scheduled",
       "elo_eligible": false,
@@ -13681,7 +13624,7 @@
       "schedule_only": true,
       "source_kind": "official_school",
       "source_url": "https://www.spaldingathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "TBA",
+      "tipoff_as_posted": "3:00 PM ET",
       "venue_location": "Richmond, IN"
     },
     {
@@ -13803,6 +13746,21 @@
       "source_url": "https://www.clusports.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "12 PM",
       "venue_location": "Thousand Oaks, Calif. / Gilbert Arena"
+    },
+    {
+      "id": "d3-women-2026-11-22-132-other-de94a33761da",
+      "date": "2026-11-22",
+      "source_owner_org_id": 132,
+      "external_opponent_label": "Greenville Vs Berry",
+      "placement": "neutral",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://www.centrecolonels.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "1:00 PM",
+      "venue_location": "Danville, KY / Alumni Gym"
     },
     {
       "id": "d3-women-2026-11-22-612-other-ad47ef792ee4",
@@ -14495,21 +14453,6 @@
       "venue_location": "Newburgh, N.Y."
     },
     {
-      "id": "d3-women-2026-11-28-795-other-75202c79469b",
-      "date": "2026-11-28",
-      "source_owner_org_id": 795,
-      "external_opponent_label": "Principia College (Ill.) vs. Simpson College (Iowa)",
-      "placement": "neutral",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://www.uwlathletics.com/sports/womens-basketball/schedule?grid=true",
-      "tipoff_as_posted": "TBA",
-      "venue_location": "La Crosse, WI"
-    },
-    {
       "id": "d3-women-2026-11-28-1036-other-f3cceec005a0",
       "date": "2026-11-28",
       "source_owner_org_id": 1036,
@@ -14746,22 +14689,7 @@
       "schedule_only": true,
       "source_kind": "official_school",
       "source_url": "https://www.uwlathletics.com/sports/womens-basketball/schedule?grid=true",
-      "tipoff_as_posted": "TBA",
-      "venue_location": "La Crosse, WI"
-    },
-    {
-      "id": "d3-women-2026-11-29-795-other-c4cff5a5dd9a",
-      "date": "2026-11-29",
-      "source_owner_org_id": 795,
-      "external_opponent_label": "Principia College (Ill.)",
-      "placement": "home",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://www.uwlathletics.com/sports/womens-basketball/schedule?grid=true",
-      "tipoff_as_posted": "TBA",
+      "tipoff_as_posted": "1 p.m.",
       "venue_location": "La Crosse, WI"
     },
     {
@@ -16208,7 +16136,7 @@
       "id": "d3-women-2026-12-05-10972-other-20f95303cd74",
       "date": "2026-12-05",
       "source_owner_org_id": 10972,
-      "external_opponent_label": "W&J",
+      "external_opponent_label": "W&J * *",
       "placement": "home",
       "status": "scheduled",
       "elo_eligible": false,
@@ -28223,7 +28151,7 @@
       "id": "d3-women-2027-02-17-10972-other-40860e1ba929",
       "date": "2027-02-17",
       "source_owner_org_id": 10972,
-      "external_opponent_label": "W&J",
+      "external_opponent_label": "W&J * *",
       "placement": "away",
       "status": "scheduled",
       "elo_eligible": false,
@@ -44984,7 +44912,7 @@
       "venue_location": "Hoboken, N.J.",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 67-32",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -45086,7 +45014,7 @@
       "venue_location": "Home",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "L, 49-70",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -45105,7 +45033,7 @@
       ],
       "source_kind": "official_conference",
       "source_verification": "single_official_conference",
-      "tipoff_as_posted": "7:00 P.M.",
+      "tipoff_as_posted": "",
       "venue": "",
       "venue_location": "",
       "network_as_posted": "",
@@ -46714,11 +46642,11 @@
     {
       "id": "d3-women-2026-11-18-151-378",
       "date": "2026-11-18",
-      "away_org_id": 378,
-      "home_org_id": 151,
+      "away_org_id": 151,
+      "home_org_id": 378,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://colbyathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.marinersports.org/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://colbyathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.marinersports.org/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -46729,9 +46657,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "5:00 PM",
-      "venue": "",
-      "venue_location": "Waterville, ME",
+      "tipoff_as_posted": "5 p.m.",
+      "venue": "Margaret Chase Smith Gymnasium",
+      "venue_location": "Castine, Maine",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -48922,6 +48850,30 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-women-2026-11-20-195-23260",
+      "date": "2026-11-20",
+      "away_org_id": 23260,
+      "home_org_id": 195,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.spaldingathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://www.spaldingathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        23260
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "5:00 PM ET",
+      "venue": "",
+      "venue_location": "Richmond, IN",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "MELISSA JOHNSON / HOPE CLASSIC",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-women-2026-11-20-200-273",
       "date": "2026-11-20",
       "away_org_id": 200,
@@ -49925,7 +49877,7 @@
       "venue": "Art Smith Arena",
       "venue_location": "Alma, Michigan",
       "network_as_posted": "MIAA Sports Network",
-      "radio_as_posted": "104.9 WQBX",
+      "radio_as_posted": "",
       "tournament": "Home Opener (Sponsored by Journey Federal Credit Union)",
       "neutral_home_designation_unconfirmed": false
     },
@@ -50771,7 +50723,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "2:00 PM",
+      "tipoff_as_posted": "3:00 PM",
       "venue": "Orlando W. Houts Gymnasium",
       "venue_location": "Selinsgrove, PA",
       "network_as_posted": "",
@@ -51071,7 +51023,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "single_official_school",
-      "tipoff_as_posted": "1:00 PM",
+      "tipoff_as_posted": "6:00 PM",
       "venue": "Dan and Ada Rice Center",
       "venue_location": "Lisle, IL",
       "network_as_posted": "",
@@ -56425,7 +56377,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "4:00 PM",
+      "tipoff_as_posted": "2:00 PM",
       "venue": "Wheeler Sports Center",
       "venue_location": "Newberg, Ore.",
       "network_as_posted": "",
@@ -65256,7 +65208,7 @@
       "venue_location": "New London, Conn.",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "Superintendents' Trophy",
+      "tournament": "Superintendents' Trophy Presented by USAA",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -69343,7 +69295,7 @@
       "venue": "Art Smith Arena",
       "venue_location": "Alma, Michigan",
       "network_as_posted": "MIAA Sports Network",
-      "radio_as_posted": "104.9 WQBX",
+      "radio_as_posted": "",
       "tournament": "Teacher Appreciation / Alma Schools Day",
       "neutral_home_designation_unconfirmed": false
     },
@@ -81343,7 +81295,7 @@
       "venue": "Art Smith Arena",
       "venue_location": "Alma, Michigan",
       "network_as_posted": "MIAA Sports Network",
-      "radio_as_posted": "104.9 WQBX",
+      "radio_as_posted": "",
       "tournament": "Nurses Appreciation Day",
       "neutral_home_designation_unconfirmed": false
     },
@@ -84635,7 +84587,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "single_official_school",
-      "tipoff_as_posted": "TBA",
+      "tipoff_as_posted": "5:00 PM",
       "venue": "",
       "venue_location": "Standish, Maine",
       "network_as_posted": "",
@@ -99798,7 +99750,7 @@
       "venue_location": "St. Mary's City, MD",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "TEACHER APPRECIATION DAY",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -112363,7 +112315,7 @@
       "venue": "Art Smith Arena",
       "venue_location": "Alma, Michigan",
       "network_as_posted": "MIAA Sports Network",
-      "radio_as_posted": "104.9 WQBX",
+      "radio_as_posted": "",
       "tournament": "",
       "neutral_home_designation_unconfirmed": false
     },
@@ -114552,7 +114504,7 @@
       "venue_location": "St. Mary's City, MD",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "GOLD RUSH",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -119318,7 +119270,7 @@
       "venue_location": "St. Mary's City, MD",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "SENIOR DAY",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -121334,6 +121286,32 @@
       "radio_as_posted": "",
       "tournament": "",
       "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-women-2027-02-02-1194-8597",
+      "date": "2027-02-02",
+      "away_org_id": 1194,
+      "home_org_id": 8597,
+      "neutral": true,
+      "status": "scheduled",
+      "source_url": "https://www.mlcknights.com/sports/wbball/schedule?grid=true",
+      "official_schedule_sources": [
+        "https://mbusabercats.com/sports/womens-basketball/schedule/2026-27?grid=true",
+        "https://www.mlcknights.com/sports/wbball/schedule?grid=true"
+      ],
+      "verified_by_org_ids": [
+        1194,
+        8597
+      ],
+      "source_kind": "official_school",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "4:15 p.m.",
+      "venue": "",
+      "venue_location": "Wisconsin Dells, WI",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": true
     },
     {
       "id": "d3-women-2027-02-02-1255-8981",
@@ -145521,7 +145499,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "TBA",
+      "tipoff_as_posted": "3 p.m.",
       "venue": "Johnson Fieldhouse",
       "venue_location": "Menomonie, Wis.",
       "network_as_posted": "",

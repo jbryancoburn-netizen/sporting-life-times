@@ -3,7 +3,7 @@
   "division": "d3",
   "gender": "men",
   "season": "2026-27",
-  "generated_utc": "2026-11-16T18:36:32.952040+00:00",
+  "generated_utc": "2026-11-17T02:57:53.436344+00:00",
   "source": "NCAA 2026-27 member directory + year/gender-validated official school athletics calendars",
   "scope": "NCAA membership-wide first pass; sources without independently validated 2026-27 schedules excluded",
   "ncaa_confirmed_programs": 406,
@@ -14,8 +14,8 @@
   "school_calendars_unresolved": 17,
   "source_status_counts": {
     "parsed": 358,
-    "failed": 17,
-    "parsed_conference": 31
+    "parsed_conference": 31,
+    "failed": 17
   },
   "last_verified_school_source": {
     "4": "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
@@ -838,9 +838,9 @@
       "owner_org_id": 38,
       "source_url": "https://athletics.augsburg.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "readable_rows": 34,
-      "verified_member_opponents": 20,
+      "verified_member_opponents": 19,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 10,
+        "identity_not_d3_matched_but_posted": 11,
         "conditional_or_ambiguous_opponent": 4
       },
       "status": "parsed",
@@ -8197,9 +8197,9 @@
       ]
     }
   ],
-  "fixture_count": 4414,
+  "fixture_count": 4413,
   "reciprocal_fixtures": 2636,
-  "unresolved_opponent_fixture_count": 1652,
+  "unresolved_opponent_fixture_count": 1654,
   "unresolved_opponent_fixtures": [
     {
       "id": "d3-men-2026-11-06-18-other-7e7a67cf3608",
@@ -10317,6 +10317,21 @@
       "venue_location": "Center Valley, PA / Billera Hall Gymnasium"
     },
     {
+      "id": "d3-men-2026-11-13-38-other-44ac92d89ef6",
+      "date": "2026-11-13",
+      "source_owner_org_id": 38,
+      "external_opponent_label": "#18 University of Wisconsin-La Crosse",
+      "placement": "neutral",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://athletics.augsburg.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "7:30 p.m.",
+      "venue_location": "Waverly, Iowa / Levick Arena"
+    },
+    {
       "id": "d3-men-2026-11-13-84-other-abf9d391ad77",
       "date": "2026-11-13",
       "source_owner_org_id": 84,
@@ -10585,6 +10600,21 @@
       "source_url": "https://www.widenerpride.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "6:00 PM",
       "venue_location": "Chester, Pa. / Schwartz Center"
+    },
+    {
+      "id": "d3-men-2026-11-13-795-other-e7f054b399d2",
+      "date": "2026-11-13",
+      "source_owner_org_id": 795,
+      "external_opponent_label": "Augsburg University (Minn.)",
+      "placement": "neutral",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://www.uwlathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "7:30 p.m.",
+      "venue_location": "Waverly, IA"
     },
     {
       "id": "d3-men-2026-11-13-798-other-bc5ce8ac5c58",
@@ -12473,7 +12503,7 @@
       "schedule_only": true,
       "source_kind": "official_school",
       "source_url": "https://www.uticapioneers.com/sports/mens-basketball/schedule/2026-2027?grid=true",
-      "tipoff_as_posted": "TBA",
+      "tipoff_as_posted": "7:00 PM",
       "venue_location": "Hamilton, NY"
     },
     {
@@ -12683,7 +12713,7 @@
       "schedule_only": true,
       "source_kind": "official_school",
       "source_url": "https://www.fdudevils.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "6 PM",
+      "tipoff_as_posted": "7 PM",
       "venue_location": "Wayne, N.J."
     },
     {
@@ -41180,30 +41210,6 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
-      "id": "d3-men-2026-11-13-38-795",
-      "date": "2026-11-13",
-      "away_org_id": 38,
-      "home_org_id": 795,
-      "neutral": true,
-      "status": "scheduled",
-      "source_url": "https://athletics.augsburg.edu/sports/mens-basketball/schedule/2026-27?grid=true",
-      "official_schedule_sources": [
-        "https://athletics.augsburg.edu/sports/mens-basketball/schedule/2026-27?grid=true"
-      ],
-      "verified_by_org_ids": [
-        38
-      ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
-      "tipoff_as_posted": "7:30 p.m.",
-      "venue": "Levick Arena",
-      "venue_location": "Waverly, Iowa",
-      "network_as_posted": "",
-      "radio_as_posted": "",
-      "tournament": "Wartburg Buzz Levick Tournament",
-      "neutral_home_designation_unconfirmed": true
-    },
-    {
       "id": "d3-men-2026-11-13-53-555",
       "date": "2026-11-13",
       "away_org_id": 53,
@@ -46162,7 +46168,7 @@
       "venue_location": "Orange, CA",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 75-47",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -47259,7 +47265,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "8 PM",
+      "tipoff_as_posted": "7:30 PM",
       "venue": "Deb & Don Christian Fieldhouse",
       "venue_location": "Austin, TX",
       "network_as_posted": "",
@@ -47908,11 +47914,11 @@
     {
       "id": "d3-men-2026-11-18-151-378",
       "date": "2026-11-18",
-      "away_org_id": 378,
-      "home_org_id": 151,
+      "away_org_id": 151,
+      "home_org_id": 378,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://colbyathletics.com/sports/mens-basketball/schedule?grid=true",
+      "source_url": "https://www.marinersports.org/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://colbyathletics.com/sports/mens-basketball/schedule?grid=true",
         "https://www.marinersports.org/sports/mens-basketball/schedule?grid=true"
@@ -47923,9 +47929,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7:00 PM",
-      "venue": "",
-      "venue_location": "Waterville, ME",
+      "tipoff_as_posted": "7 p.m.",
+      "venue": "Margaret Chase Smith Gymnasium",
+      "venue_location": "Castine, Maine",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -48433,7 +48439,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "single_official_school",
-      "tipoff_as_posted": "8:00 PM",
+      "tipoff_as_posted": "7:00 PM",
       "venue": "",
       "venue_location": "New York, NY",
       "network_as_posted": "",
@@ -51346,7 +51352,7 @@
       "venue_location": "Richmond, IN",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "Melissa Johnson / HOPE Classic",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -51417,7 +51423,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "4:00 PM",
+      "tipoff_as_posted": "5:00 PM",
       "venue": "Orlando W. Houts Gymnasium",
       "venue_location": "Selinsgrove, PA",
       "network_as_posted": "",
@@ -51741,7 +51747,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "single_official_school",
-      "tipoff_as_posted": "5:00 PM",
+      "tipoff_as_posted": "6:00 PM",
       "venue": "",
       "venue_location": "Abilene, TX",
       "network_as_posted": "",
@@ -52600,7 +52606,7 @@
       "venue_location": "Hampden-Sydney, VA",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "Hampden-Sydney Holiday Classic",
+      "tournament": "Charlie Cobb Classic",
       "neutral_home_designation_unconfirmed": true
     },
     {
@@ -52876,7 +52882,7 @@
       "venue_location": "St. Mary's City, MD",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "ED COLE MEMORIAL GAME",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -53756,7 +53762,7 @@
       "venue_location": "Richmond, IN",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "Melissa Johnson / HOPE Classic",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -56579,7 +56585,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "single_official_school",
-      "tipoff_as_posted": "7:30 PM",
+      "tipoff_as_posted": "3:00 PM",
       "venue": "",
       "venue_location": "Columbus, MS",
       "network_as_posted": "",
@@ -66188,7 +66194,7 @@
       "venue_location": "New London, Conn.",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "Superintendents' Trophy",
+      "tournament": "Superintendents' Trophy Presented by USAA",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -77677,7 +77683,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "single_official_school",
-      "tipoff_as_posted": "TBA",
+      "tipoff_as_posted": "7:00 PM EST",
       "venue": "",
       "venue_location": "Las Vegas, Nev.",
       "network_as_posted": "",
@@ -78423,7 +78429,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "single_official_school",
-      "tipoff_as_posted": "TBA",
+      "tipoff_as_posted": "11:00 PM EST",
       "venue": "",
       "venue_location": "Las Vegas, Nev.",
       "network_as_posted": "",
@@ -79453,7 +79459,7 @@
       "venue": "Art Smith Arena",
       "venue_location": "Alma, Michigan",
       "network_as_posted": "MIAA Sports Network",
-      "radio_as_posted": "104.9 WQBX",
+      "radio_as_posted": "",
       "tournament": "",
       "neutral_home_designation_unconfirmed": false
     },
@@ -83534,7 +83540,7 @@
       "venue_location": "St. Mary's City, MD",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "DAN GREENE AND WAYNE COOK MEMORIAL GAME",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -84451,7 +84457,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "single_official_school",
-      "tipoff_as_posted": "TBA",
+      "tipoff_as_posted": "7:00 PM",
       "venue": "",
       "venue_location": "Standish, Maine",
       "network_as_posted": "",
@@ -99032,7 +99038,7 @@
       "venue_location": "St. Mary's City, MD",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "ALUMNI DAY",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -102948,7 +102954,7 @@
       "venue": "Art Smith Arena",
       "venue_location": "Alma, Michigan",
       "network_as_posted": "MIAA Sports Network",
-      "radio_as_posted": "104.9 WQBX",
+      "radio_as_posted": "",
       "tournament": "Faculty Appreciation Night",
       "neutral_home_designation_unconfirmed": false
     },
@@ -109229,7 +109235,7 @@
       "venue_location": "St. Mary's City, MD",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "PUBLIC OFFICIALS/COMMUNITY LEADERS DAY",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -113363,7 +113369,7 @@
       "venue_location": "St. Mary's City, MD",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "GOLD RUSH",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -143135,7 +143141,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "TBA",
+      "tipoff_as_posted": "5 p.m.",
       "venue": "Johnson Fieldhouse",
       "venue_location": "Menomonie, Wis.",
       "network_as_posted": "",

@@ -27,7 +27,7 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | Amherst College (24) | verified_university | [Exact verified URL](https://athletics.amherst.edu/sports/mens-basketball/schedule/2026-27?grid=true) | 18 |
 | Arcadia University (966) | verified_university | [Exact verified URL](https://www.arcadiaknights.com/sports/mens-basketball/schedule/2026-27?grid=true) | 18 |
 | Asbury University (30243) | verified_university | [Exact verified URL](https://www.asburyeagles.com/sports/mens-basketball/schedule/2026-27?grid=true) | 12 |
-| Augsburg University (38) | verified_university | [Exact verified URL](https://athletics.augsburg.edu/sports/mens-basketball/schedule/2026-27?grid=true) | 20 |
+| Augsburg University (38) | verified_university | [Exact verified URL](https://athletics.augsburg.edu/sports/mens-basketball/schedule/2026-27?grid=true) | 19 |
 | Augustana College (Illinois) (40) | verified_university | [Exact verified URL](https://www.athletics.augustana.edu/sports/mens-basketball/schedule/2026-27?grid=true) | 17 |
 | Aurora University (42) | verified_university | [Exact verified URL](https://athletics.aurora.edu/sports/mens-basketball/schedule/2026-2027?grid=true) | 17 |
 | Averett University (44) | verified_university | [Exact verified URL](https://www.averettcougars.com/sports/mens-basketball/schedule/2026-27?grid=true) | 20 |
@@ -708,7 +708,7 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | Smith College (644) | verified_university | [Exact verified URL](https://www.gosmithbears.com/sports/womens-basketball/schedule?grid=true) | 21 |
 | Southern Virginia University (30164) | verified_university | [Exact verified URL](https://knightathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 23 |
 | Southwestern University (Texas) (8746) | verified_university | [Exact verified URL](https://www.southwesternpirates.com/sports/womens-basketball/schedule/2026-27?grid=true) | 16 |
-| Spalding University (23260) | verified_university | [Exact verified URL](https://www.spaldingathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 17 |
+| Spalding University (23260) | verified_university | [Exact verified URL](https://www.spaldingathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 18 |
 | Springfield College (673) | verified_university | [Exact verified URL](https://springfieldcollegepride.com/sports/womens-basketball/schedule?grid=true) | 21 |
 | St. Catherine University (597) | verified_university | [Exact verified URL](https://www.stkatesathletics.com/sports/womens-basketball/schedule?grid=true) | 17 |
 | St. John Fisher University (601) | verified_university | [Exact verified URL](https://www.sjfathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 17 |
