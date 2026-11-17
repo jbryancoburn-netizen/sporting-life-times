@@ -195,7 +195,8 @@ function crest(mark, size, identity) {
   logo.decoding = 'async';
   if (size === 'small') logo.loading = 'lazy';
   logo.addEventListener('error', () => badge.remove(), {once: true});
-  const tile = transparentCrests?.schools[identity] || transparentCrests?.conferences[identity];
+  const tile = mark.startsWith('data:') ? null :
+    transparentCrests?.schools[identity] || transparentCrests?.conferences[identity];
   if (tile) {
     const [atlas, x, y] = tile;
     const svgNamespace = 'http://www.w3.org/2000/svg';
@@ -334,6 +335,10 @@ const crestManifests = Promise.all(
   )
 );
 
+const schoolCrestColors = fetch('data/indiana-boys-crest-colors.json')
+  .then(response => response.ok ? response.json() : null)
+  .catch(() => null);
+
 const transparentCrestIndex = fetch('assets/indiana-boys-crest-buttons/v1-index.json')
   .then(response => response.ok ? response.json() : null)
   .catch(() => null);
@@ -344,7 +349,8 @@ fetch('data/indiana-boys-basketball.json')
     return response.json();
   })
   .then(async edition => {
-    const [manifests, index] = await Promise.all([crestManifests, transparentCrestIndex]);
+    const [manifests, index, colors] = await Promise.all([crestManifests, transparentCrestIndex, schoolCrestColors]);
+    Object.assign(crestColors, colors?.schools);
     transparentCrests = index;
     for (const manifest of manifests.filter(Boolean)) {
       Object.assign(artwork.schools, manifest.schools);
@@ -352,6 +358,12 @@ fetch('data/indiana-boys-basketball.json')
       const source = document.createElement('a');
       source.href = manifest.source;
       source.textContent = manifest.credit || (manifest.source.includes('themicconference.com') ? 'MIC artwork' : 'HCC artwork');
+      document.querySelector('footer').append(' · ', source);
+    }
+    if (colors?.source) {
+      const source = document.createElement('a');
+      source.href = colors.source;
+      source.textContent = colors.credit;
       document.querySelector('footer').append(' · ', source);
     }
     initialize(edition);
