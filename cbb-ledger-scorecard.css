@@ -1173,3 +1173,28 @@
   }
   .ledger26-scorebug .ledger26-team .ledger26-identity{padding-right:0}
 }
+
+/* Full-season result lamps: never clip a team's history at five games. */
+.ledger26-scorebug .ledger26-team .ledger26-form{
+ display:inline-flex;
+ flex-wrap:wrap;
+ max-width:100%;
+ min-width:0;
+ box-sizing:border-box;
+ gap:4px;
+ white-space:normal;
+ vertical-align:middle;
+}
+.ledger26-scorebug .ledger26-team .ledger26-scout{
+ min-width:0;
+ max-width:100%;
+}
+.ledger26-scorebug .ledger26-team .ledger26-identity{
+ min-width:0;
+}
+@media(max-width:640px){
+ .ledger26-scorebug .ledger26-team .ledger26-form{
+  gap:3px;
+  padding:3px 4px;
+ }
+}
