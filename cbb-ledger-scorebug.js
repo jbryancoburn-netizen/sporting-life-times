@@ -677,7 +677,7 @@
   if(phase==='final'){
    const finalTeam=x=>{
     const t=x||{},name=esc(t.name||'School');
-    const href=/^ncaam-team\\.html\\?team=ncaa%3A\\d+$|^ncaaw-team\\.html\\?team=\\d+$/i.test(String(t.teamHref||''))?t.teamHref:'';
+    const href=/^ncaam-team\.html\?team=ncaa%3A\d+$|^ncaaw-team\.html\?team=\d+$/i.test(String(t.teamHref||''))?t.teamHref:'';
     const title=href?'<a href="'+esc(href)+'">'+name+'</a>':name;
     const rating=esc(t.retro||'RETRO —'),record=esc(t.record||'Record unavailable');
     const score=t.score==null?'—':esc(String(t.score));
