@@ -862,7 +862,7 @@ const ledgerScorebug=g=>{
              'day='+encodeURIComponent(day)+'&game='+encodeURIComponent(rawId):'';
          return {result:r.result,date:day,scored:r.scored,allowed:r.allowed,
            opponent:r.opponent,home:r.home,gameHref};
-       }):[]};
+       })};
    })()});
  return window.SLTBasketballScorebug?.render({
   gameId:String(g.id),phase:g.phase,gender:women?'women':'men',status:g.status||'LIVE',momentum:g.momentum||null,possession:g.possession||null,
