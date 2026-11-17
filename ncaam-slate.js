@@ -470,6 +470,7 @@ const root=document.getElementById('slate-root');if(!root)return;
 const url=new URL(location.href),women=url.searchParams.get('gender')==='women';
 let selected=/^\d{4}-\d\d-\d\d$/.test(url.searchParams.get('date')||'')?url.searchParams.get('date'):today();
 let filter=['all','live','final','upcoming','exhibition'].includes(url.searchParams.get('view'))?url.searchParams.get('view'):'all';
+const preservedRetroForecasts=new Map();
 let search='',loaded=[],ratings=new Map(),retroTies=new Map(),retroPublished=null,retroPending=0,lastUpdate='',limit=Number.POSITIVE_INFINITY,loading=false,sourceError='';
 let pollRankings=new Map(),pollAsOf='';
  // Authentic opponent marks outside the 365-school Division I RETRO registry.
@@ -798,17 +799,22 @@ const meter=g=>{
 /* The Daily Ledger scorecard — compact scoreboard, native in-place Gamefile. */
 const ledgerScorebug=g=>{
  // A single first-party scorebug renderer serves both basketball desks.
+ // A post-tipoff forecast must come from the immutable pregame archive.
+ const historicalForecast=!women&&g.phase!=='upcoming'?
+   preservedRetroForecasts.get(String(g.day)+'|'+cleanId(g.id)):null;
+ const matchedHistoricalForecast=historicalForecast&&
+   historicalForecast.homeId===String(g.home.canonical)&&
+   historicalForecast.awayId===String(g.away.canonical)?historicalForecast:null;
  const convert=t=>({id:String(t.id),name:t.name,abbreviation:t.abbreviation||'',timeoutsRemaining:t.timeoutsRemaining,score:g.phase==='upcoming'?null:t.score,
    crest:emblem(t),color:brand(t),record:record(t),retro:retroLine(t),
     retroSnapshot:(()=>{const q=rankOf(t,ratings,women);return g.phase==='final'&&g.kind!=='exhibition'&&q&&Number.isFinite(Number(q.elo))?{elo:Number(q.elo),rank:Number.isInteger(Number(q.rank))?Number(q.rank):null,dailyChange:q.daily_change==null?null:Number(q.daily_change)}:null})(),
    teamHref:teamPage(t),poll:pollRankings.get(String(t.id))||null,
    scouting:(()=>{
-     if(g.phase!=='upcoming')return null;
      const p=seasonStats.get(String(t.canonical||''));if(!p||!Number.isInteger(p.g)||p.g<1)return null;
      return {games:p.g,pointsFor:p.pf/p.g,pointsAgainst:p.pa/p.g,
        // Oldest to newest. Each lamp retains a verified final score and
        // uses the same Gamefile URL as the Ledger's own game cards.
-       lastFive:Array.isArray(p.results)?p.results.slice(-5).map(r=>{
+       lastFive:Array.isArray(p.results)?p.results.filter(r=>r.date<g.day||(g.phase==='final'&&r.date===g.day)).slice(-5).map(r=>{
          const opponent=ratings.get(String(r.opponentId));
          const rawId=String(r.gameId||'').replace(/^espn:/,'');
          const day=String(r.date||'');
@@ -825,6 +831,7 @@ const ledgerScorebug=g=>{
   pulseCompactOnly:true,
   date:g.day,tipoff:formatClock(g),venue:g.venue||'',network:g.broadcast||'',suppressPress:true,
   suppressMonogram:true,suppressTipoffFallback:true,
+  historicalForecast:matchedHistoricalForecast,
   forecast:(()=>{
     if(g.phase!=='upcoming'||typeof g.probability!=='number'||!Number.isFinite(g.probability)||g.probability<0||g.probability>1)return null;
     const homeFav=g.probability>=0.5,side=homeFav?g.home:g.away;
@@ -1058,6 +1065,20 @@ async function refresh(){
     const before=new Map(loaded.filter(g=>g.phase==='live'&&g.kind==='regular').map(g=>
       [g.id,{id:g.id,day:g.day,away_score:g.away.score,home_score:g.home.score}]));
     sourceFeed=feed;seasonStats=insight?.seasonProfiles(rank.events)||new Map();
+    // Snapshot preserved before tipoff; never recalculate prior predictions from updated Elo.
+    try{
+      const archive=await fetchJSON('data/retro-spread-accuracy-2026-27.json');
+      preservedRetroForecasts.clear();
+      for(const entry of archive?.games||[]){
+        const id=cleanId(entry.id),day=String(entry.date||'');
+        const margin=Number(entry.predicted_home_margin);
+        if(!validId(id)||!/^\\d{4}-\\d{2}-\\d{2}$/.test(day)||
+           entry.predicted_home_margin==null||!Number.isFinite(margin))continue;
+        preservedRetroForecasts.set(day+'|'+id,{margin,
+          homeId:String(entry.home_id||''),awayId:String(entry.away_id||''),
+          probability:entry.predicted_home_win_probability==null?null:Number(entry.predicted_home_win_probability)});
+      }
+    }catch{preservedRetroForecasts.clear();}
     const menGames=normalizeMen(feed,forecast,cross,outsideMarks,archivedFinals);
     loaded=[...menGames,...normalizeOutsideFinals(outside,cross,menGames),...normalizeExhibitions(ex,cross)];
     liveChanges=new Map(loaded.filter(g=>g.phase==='live').flatMap(g=>{
