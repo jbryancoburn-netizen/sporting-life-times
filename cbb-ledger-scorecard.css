@@ -1117,36 +1117,6 @@
 .ledger26-scorebug .ledger26-team .ledger26-form{
   padding:3px 6px;
 }
-.ledger26-scorebug .ledger26-team .ledger26-ghost{
-  top:50%;
-  right:16px;
-  width:min(22%,128px);
-  height:82%;
-  transform:translateY(-50%);
-  opacity:.13;
-  mix-blend-mode:screen;
-  overflow:hidden;
-  filter:none;
-}
-.ledger26-scorebug .ledger26-team .ledger26-ghost img{
-  width:100%;
-  height:100%;
-  object-fit:contain;
-  object-position:center;
-  filter:grayscale(1) contrast(1.05) brightness(1.18);
-}
-.ledger26-scorebug .ledger26-team--light-fill .ledger26-ghost{
-  mix-blend-mode:multiply;
-  opacity:.11;
-}
-.ledger26-scorebug .ledger26-team--light-fill .ledger26-ghost img{
-  filter:grayscale(1) contrast(1.1) brightness(.72);
-}
-.ledger26-scorebug .ledger26-team--dark-fill .ledger26-ghost,
-.ledger26-scorebug .ledger26-team--behind.ledger26-team--dark-fill .ledger26-ghost{
-  mix-blend-mode:screen;
-  opacity:.13;
-}
 .ledger26-scorebug .ledger26-team .ledger26-identity{
   padding-right:clamp(8px,2vw,22px);
 }
@@ -1164,12 +1134,6 @@
     margin-top:4px;
     gap:3px 5px;
     font-size:8px;
-  }
-  .ledger26-scorebug .ledger26-team .ledger26-ghost{
-    right:5px;
-    width:20%;
-    height:65%;
-    opacity:.08;
   }
   .ledger26-scorebug .ledger26-team .ledger26-identity{padding-right:0}
 }
