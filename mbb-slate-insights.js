@@ -9,16 +9,20 @@
   const teams=new Map();
   const get=id=>{if(!teams.has(String(id)))teams.set(String(id),{pf:0,pa:0,w:0,l:0,g:0,homeW:0,homeL:0,homeG:0,results:[]});return teams.get(String(id))};
   for(const e of events||[]){
-   if(!e||!String(e.home_id||'').startsWith('ncaa:')||!String(e.away_id||'').startsWith('ncaa:')||e.home_id===e.away_id)continue;
+   // Men's canonical IDs are ncaa:*; women's canonical IDs are ESPN numeric IDs.
+   const hid=String(e?.home_id||''),aid=String(e?.away_id||'');
+   const validTeam=id=>/^ncaa:\d+$/.test(id)||/^\d{1,12}$/.test(id);
+   if(!e||!validTeam(hid)||!validTeam(aid)||hid===aid)continue;
    const h=finite(e.home_score),a=finite(e.away_score);
    if(h===null||a===null||h===a)continue;
    for(const [id,scored,allowed,home] of [[e.home_id,h,a,true],[e.away_id,a,h,false]]){
      const p=get(id);p.g++;p.pf+=scored;p.pa+=allowed;const won=scored>allowed;p.w+=Number(won);p.l+=Number(!won);
-     p.results.push({date:String(e.date||''),result:won?'W':'L',margin:scored-allowed});
+     p.results.push({date:String(e.date||''),result:won?'W':'L',margin:scored-allowed,
+       scored,allowed,opponentId:home?aid:hid,gameId:String(e.id||''),home});
      if(home&&e.neutral===false&&e.site_verified===true){p.homeG++;p.homeW+=Number(won);p.homeL+=Number(!won)}
    }
   }
-  for(const p of teams.values())p.results.sort((a,b)=>a.date.localeCompare(b.date));
+  for(const p of teams.values())p.results.sort((a,b)=>a.date.localeCompare(b.date)||a.gameId.localeCompare(b.gameId));
   return teams;
  }
  function matchBox(g,feed,gender){
