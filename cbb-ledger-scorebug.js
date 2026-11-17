@@ -293,6 +293,22 @@
    '<div class="ledger26-pulse-heading"><strong>'+esc(phase==='final'?'FINAL':('LIVE · '+label))+
    '</strong><span>RETRO PULSE · SCORING HISTORY PENDING</span></div></div>';
  }
+ function liveStatusParts(el){
+  if(el.dataset.phase!=='live')return {clock:'',period:''};
+  const status=String(el.dataset.liveStatus||'').trim();
+  const clock=(status.match(/\b\d{1,2}:\d{2}\b/)||[])[0]||'';
+  const match=status.match(/\b(?:1st|2nd|3rd|4th)(?:\s+(?:half|quarter|period))?\b|\b(?:halftime|half\s*time|intermission|OT|[2-9]OT|overtime)\b/i);
+  const word=String(match?.[0]||'').toLowerCase();
+  const period=/half\s*time|halftime|intermission/.test(word)?'HALFTIME':
+   /overtime|\bot\b|[2-9]ot/.test(word)?word.toUpperCase():
+   /^[1-4]/.test(word)?word[0]+(el.dataset.gender==='women'?'Q':'H'):'';
+  return {clock,period};
+ }
+ function liveStatusHTML(el){
+  const {clock,period}=liveStatusParts(el);
+  return '<span class="ledger26-pulse-status"><strong class="ledger26-pulse-state">LIVE</strong>'+
+   (period||clock?'<small class="ledger26-pulse-clock">'+esc([period,clock].filter(Boolean).join(' · '))+'</small>':'')+'</span>';
+ }
  function pulseBuild(raw,el){
   const rivals=raw?.header?.competitions?.[0]?.competitors||[];
   if(String(rivals.find(x=>x.homeAway==='away')?.team?.id)!==el.dataset.away||
@@ -344,16 +360,9 @@
   const last=data.points.at(-1),diff=last.awayScore-last.homeScore;
   const current=diff===0?'TIED':(diff>0?awayName:homeName)+' +'+Math.abs(diff);
   const heading=el.querySelector('.ledger26-pulse-heading strong')?.textContent||'FINAL';
-  // The asynchronous Pulse refresh must never discard the sourced game clock or half.
-  // ESPN shortDetail uses forms such as "5:19 - 2nd" and "0:29 - 2nd".
-  const status=String(el.dataset.liveStatus||heading).trim();
-  const liveClock=el.dataset.phase==='live'?(status.match(/\\b\\d{1,2}:\\d{2}\\b/)||[])[0]||'':'';
-  const periodMatch=el.dataset.phase==='live'?status.match(/\\b(?:1st|2nd|3rd|4th)(?:\\s+(?:half|quarter|period))?\\b|\\b(?:halftime|half\\s*time|intermission|OT|[2-9]OT|overtime)\\b/i):null;
-  const periodWord=String(periodMatch?.[0]||'').toLowerCase();
-  const isWomen=el.dataset.gender==='women';
-  const livePeriod=/half\\s*time|halftime|intermission/.test(periodWord)?'HALFTIME':
-   /overtime|\\bot\\b|[2-9]ot/.test(periodWord)?periodWord.toUpperCase():
-   /^[1-4]/.test(periodWord)?periodWord[0]+(isWomen?'Q':'H'):'';
+  const liveParts=liveStatusParts(el);
+  const liveClock=liveParts.clock;
+  const livePeriod=liveParts.period;
   const compactHeading=el.dataset.phase==='live'?'LIVE':heading;
   // Concept A: a readable score summary, not a tiny line pretending to explain a game.
   el.innerHTML='<div class="ledger26-pulse-compact" aria-label="RETRO Pulse quick summary">'+
@@ -443,12 +452,12 @@
    if(period.length===2&&period[0].length>0&&period[0].length===period[1].length&&
       period.flat().every(Number.isFinite)){
     const isAway=rivals[0].homeAway==='away',a=isAway?period[0]:period[1],h=isAway?period[1]:period[0];
-    return '<div class="ledger26-pulse-quickstats"><strong>SCORING BY PERIOD</strong><span>'+esc(el.dataset.awayName)+
+    return '<div class="ledger26-pulse-quickstats">'+liveStatusHTML(el)+'<strong>SCORING BY PERIOD</strong><span>'+esc(el.dataset.awayName)+
       ' '+a.join(' / ')+' · '+esc(el.dataset.homeName)+' '+h.join(' / ')+'</span></div>';
    }
    return '';
   }
-  return '<div class="ledger26-pulse-quickstats"><strong>KEY STATS</strong>'+
+  return '<div class="ledger26-pulse-quickstats">'+liveStatusHTML(el)+'<strong>KEY STATS</strong>'+
    rows.map(v=>'<span><b>'+esc(v.label)+'</b> '+esc(el.dataset.awayName)+' '+esc(v.av??'—')+
     ' · '+esc(el.dataset.homeName)+' '+esc(v.hv??'—')+'</span>').join('')+'</div>';
  }
@@ -460,7 +469,7 @@
    const lead=scoresPresent?away-home:null;
    const leader=lead===null?'':lead>0?el.dataset.awayName:lead<0?el.dataset.homeName:'';
    el.innerHTML='<div class="ledger26-pulse-compact" aria-label="Game status and scoring summary">'+
-    '<strong class="ledger26-pulse-state">'+(phase==='final'?'FINAL':'LIVE')+'</strong>'+
+    (phase==='live'?liveStatusHTML(el):'<strong class="ledger26-pulse-state">FINAL</strong>')+
     (lead===null?'': '<div class="ledger26-pulse-stat"><small>'+(phase==='final'?'FINAL MARGIN':'CURRENT LEAD')+(leader?' · '+esc(leader):'')+'</small><b>'+(lead===0?'TIED':'+'+Math.abs(lead))+'</b></div>')+
     '<span class="ledger26-pulse-invite">OPEN GAME DETAILS <span aria-hidden="true">⌄</span></span></div>';
    return;
