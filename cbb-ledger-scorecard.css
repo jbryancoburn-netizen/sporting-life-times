@@ -1028,3 +1028,33 @@
  }
  .ledger26-final-line-margin{font-size:9px}
 }
+
+/* Completed games have no right-hand status tile or oversized Pulse panel.
+   This structural layout deliberately does not depend on :has() or Pulse state. */
+.ledger26-scorebug.ledger26-scorebug--final{
+ grid-template-columns:minmax(0,1fr)!important;
+ min-height:0!important;
+}
+.ledger26-scorebug--final .ledger26-teams.ledger26-teams--final-line{
+ display:grid;
+ grid-template-columns:minmax(0,1fr);
+ grid-template-rows:auto 24px auto!important;
+ min-width:0;
+}
+.ledger26-scorebug--final .ledger26-pulse.ledger26-pulse--final-line{
+ display:flex!important;
+ align-items:center;justify-content:center;
+ height:24px!important;min-height:24px!important;max-height:24px!important;
+ padding:2px 8px!important;
+ overflow:hidden!important;
+ grid-column:1;
+}
+.ledger26-scorebug--final>.ledger26-status{display:none!important}
+@media(max-width:700px){
+ .ledger26-scorebug--final .ledger26-teams.ledger26-teams--final-line{
+  grid-template-rows:auto 22px auto!important;
+ }
+ .ledger26-scorebug--final .ledger26-pulse.ledger26-pulse--final-line{
+  height:22px!important;min-height:22px!important;max-height:22px!important;
+ }
+}
