@@ -194,6 +194,7 @@ function gameFlow(plays,game){
    '<circle cx="'+xx+'" cy="75" r="7"/>'+
    '<text x="'+xx+'" y="56" text-anchor="middle">T'+(i+1)+'</text></g>';
  }).join('');
+ const away=game?sideName(game.away):'AWAY',home=game?sideName(game.home):'HOME';
  // Native disclosure panels make each stretch keyboard- and touch-accessible.
  const segmentStrip=spanData.length?'<section class="slc-flow-segments" aria-label="Scoring segments between timeouts">'+
   '<div class="slc-flow-segments-head"><strong>TIMEOUT-TO-TIMEOUT SCORING</strong><span>Select a segment for scores and plays</span></div>'+
@@ -240,7 +241,6 @@ function gameFlow(plays,game){
     '</div></details>';
   }).join('')+'</div></section>':'';
  const last=scoring.at(-1),latest=margin(last);
- const away=game?sideName(game.away):'AWAY',home=game?sideName(game.home):'HOME';
  const awayColor=teamColor(game?.away,'#23657d'),homeColor=teamColor(game?.home,'#b17931');
  const leader=latest>0?away:latest<0?home:'TIED';
  const latestLabel=latest===0?'TIED · 0 POINTS':leader+' +'+Math.abs(latest)+' POINT'+(Math.abs(latest)===1?'':'S');
