@@ -999,7 +999,7 @@
 
 /* FINAL is a narrow divider between school rows, never a giant middle tile.
    Specific selectors override earlier mobile pulse heights without affecting LIVE. */
-.ledger26-scorebug--pulse .ledger26-teams:has(.ledger26-pulse--final-line){
+.ledger26-scorebug--pulse .ledger26-teams--final-line, .ledger26-scorebug--pulse .ledger26-teams:has(.ledger26-pulse--final-line){
  grid-template-rows:auto 24px auto!important
 }
 .ledger26-scorebug--pulse .ledger26-pulse.ledger26-pulse--final-line{
@@ -1017,7 +1017,7 @@
  font:700 10px/1.1 Georgia,serif;color:#5b5141
 }
 @media(max-width:700px){
- .ledger26-scorebug--pulse .ledger26-teams:has(.ledger26-pulse--final-line){
+ .ledger26-scorebug--pulse .ledger26-teams--final-line, .ledger26-scorebug--pulse .ledger26-teams:has(.ledger26-pulse--final-line){
   grid-template-rows:auto 22px auto!important
  }
  .ledger26-scorebug--pulse .ledger26-pulse.ledger26-pulse--final-line{
