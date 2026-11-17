@@ -861,11 +861,13 @@
  border-bottom:1px solid #9b805e;
 }
 .ledger26-pulse-compact{
- display:grid;grid-template-columns:minmax(75px,.7fr) minmax(0,1.25fr) minmax(0,1.15fr) auto;
+ display:grid;grid-template-columns:minmax(85px,.7fr) minmax(0,1.25fr) minmax(0,1.15fr) auto;
  align-items:center;gap:10px;min-height:59px;padding:5px 11px;
  font-family:Georgia,"Times New Roman",serif;
 }
+.ledger26-pulse-status{display:flex;flex-direction:column;align-items:flex-start;gap:4px;min-width:0}
 .ledger26-pulse-state{font-size:13px;letter-spacing:.06em;color:#3f2b1e}
+.ledger26-pulse-clock{display:block;font:700 11px/1.1 Georgia,serif;color:#533d28;white-space:nowrap;font-variant-numeric:tabular-nums;letter-spacing:0}
 .ledger26-pulse[data-phase=live] .ledger26-pulse-state{color:#a52d20}
 .ledger26-pulse-stat{min-width:0;display:grid;gap:3px;padding-left:10px;border-left:1px solid #b9a180}
 .ledger26-pulse-stat small{font:700 9px/1 Georgia,serif;color:#785c3d;letter-spacing:.04em}
@@ -898,7 +900,7 @@
 @media(max-width:700px){
  .ledger26-scorebug--pulse .ledger26-teams{grid-template-rows:auto 56px auto!important}
  .ledger26-scorebug--pulse .ledger26-pulse{height:56px!important}
- .ledger26-pulse-compact{min-height:54px;padding:4px 7px;gap:5px;grid-template-columns:55px minmax(0,1fr) minmax(0,1fr)}
+ .ledger26-pulse-compact{min-height:54px;padding:4px 7px;gap:5px;grid-template-columns:82px minmax(0,1fr) minmax(0,1fr)}
  .ledger26-pulse-state{font-size:12px}
  .ledger26-pulse-stat{padding-left:6px;gap:3px}
  .ledger26-pulse-stat small{font-size:8px}
@@ -927,7 +929,7 @@
 @media(max-width:700px){
  .ledger26-scorebug--pulse .ledger26-teams{grid-template-rows:auto minmax(70px,auto) auto!important}
  .ledger26-scorebug--pulse .ledger26-pulse{height:auto!important;min-height:70px!important;overflow:visible!important}
- .ledger26-pulse-compact{grid-template-columns:52px repeat(2,minmax(0,1fr));min-height:70px;padding:6px 8px;gap:7px;align-items:center}
+ .ledger26-pulse-compact{grid-template-columns:82px repeat(2,minmax(0,1fr));min-height:70px;padding:6px 8px;gap:7px;align-items:center}
  .ledger26-pulse-stat{padding-left:7px;gap:5px}
  .ledger26-pulse-stat small{font-size:10px;line-height:1.18;letter-spacing:0}
  .ledger26-pulse-stat b{font-size:21px;line-height:1.05}
