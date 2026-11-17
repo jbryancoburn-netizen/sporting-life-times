@@ -194,12 +194,12 @@ function gameFlow(plays,game,attributePlay){
  const periodLabel=period=>period>regulation?(period-regulation===1?'OT':(period-regulation)+'OT'):
   women?'Q'+period:period+'H';
  const periodCuts=[];
- if(!timeouts.length){
+ {
   let priorPeriod=null;
   for(let i=0;i<plays.length;i++){
    const p=plays[i],period=Number(p.period);
    if(!Number.isInteger(period)||period<1)continue;
-   if(priorPeriod!==null&&period!==priorPeriod){
+   if(priorPeriod!==null&&period!==priorPeriod&&(!timeouts.length||period===regulation/2+1||period>regulation)){
     const q=plays[i-1];
     const latestScore=periodCuts.length?periodCuts.at(-1).latestScore:{awayScore:0,homeScore:0};
     let previous=latestScore;
@@ -211,12 +211,13 @@ function gameFlow(plays,game,attributePlay){
  }
  const endPoint={clock:'LATEST',index:plays.length,position:1,latestScore:scoring.at(-1)};
  const startPoint={clock:'TIPOFF',index:-1,position:0,latestScore:{awayScore:0,homeScore:0}};
- const cut=[startPoint,...(timeouts.length?timeouts:periodCuts),endPoint];
+ const cut=[startPoint,...new Map([...timeouts,...periodCuts].sort((a,b)=>a.index-b.index).map(p=>[p.index,p])).values(),endPoint];
  const segmentsFromTimeouts=timeouts.length>0;
  const spanData=cut.slice(1).map((end,i)=>{
   const start=cut[i],a=start.latestScore,b=end.latestScore;
   return {start,end,away:b.awayScore-a.awayScore,home:b.homeScore-a.homeScore,
-   events:plays.slice(start.index+1,end.index).filter(p=>p&&typeof p.text==='string')};
+   period:plays[start.index+1]?.period||end.period,
+   events:plays.slice(start.index+1,end.index===plays.length?end.index:end.index+1).filter(p=>p&&typeof p.text==='string')};
  }).filter(v=>v.end.index>v.start.index);
  const periodMarks=timeline?Array.from({length:timeline.women?3:1},(_,i)=>({
   elapsed:(i+1)*(timeline.women?600:1200),
@@ -236,7 +237,9 @@ function gameFlow(plays,game,attributePlay){
  // Native disclosure panels make each stretch keyboard- and touch-accessible.
  const segmentStrip=spanData.length?'<section class="slc-flow-segments" aria-label="Scoring segments between timeouts">'+
   '<div class="slc-flow-segments-head"><strong>'+(segmentsFromTimeouts?'TIMEOUT-TO-TIMEOUT SCORING':'SCORING BY REPORTED PERIOD')+'</strong><span>Select a segment for scores and plays</span></div>'+
-  '<div class="slc-flow-segment-grid">'+spanData.map((v,i)=>{
+  '<div class="slc-flow-segment-grid">'+['FIRST HALF','SECOND HALF &amp; OVERTIME'].map((label,column)=>
+  '<div class="slc-flow-segment-column"><strong>'+label+'</strong>'+spanData.map((v,i)=>{
+   if(Number(v.period>regulation/2)!==column)return '';
    const prior=v.start.latestScore,ending=v.end.latestScore;
    const difference=v.away-v.home;
    const spanLabel=p=>p.clock==='TIPOFF'||p.clock==='LATEST'||String(p.clock||'').startsWith('END ')?p.clock:
@@ -279,7 +282,7 @@ function gameFlow(plays,game,attributePlay){
     '<h5>REPORTED PLAYS</h5>'+playList+
     (scoringEvents.length>10?'<p class="slc-flow-segment-more">First 10 scoring plays shown; see Every Play for the complete log.</p>':'')+
     '</div></details>';
-  }).join('')+'</div></section>':'';
+  }).join('')+'</div>').join('')+'</div></section>':'';
  const last=scoring.at(-1),latest=margin(last);
  const awayColor=teamColor(game?.away,'#23657d'),homeColor=teamColor(game?.home,'#b17931');
  const leader=latest>0?away:latest<0?home:'TIED';
