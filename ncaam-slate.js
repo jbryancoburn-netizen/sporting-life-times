@@ -848,7 +848,7 @@ const ledgerScorebug=g=>{
    scouting:(()=>{
      const p=seasonStats.get(String(t.canonical||''));
      const records=(recentForm.get(String(t.canonical||''))||[]).filter(r=>
-       r.date<g.day||(g.phase==='final'&&r.date===g.day)).slice(-5);
+       r.date<=g.day&&(r.gameId!==cleanId(g.id)||g.phase==='final')).slice(-5);
      if(!p?.g&&!records.length)return null;
      return {games:p?.g||0,pointsFor:p?.g?p.pf/p.g:null,pointsAgainst:p?.g?p.pa/p.g:null,
        // All regular-season games count here, including non-DI. RETRO is unchanged.
