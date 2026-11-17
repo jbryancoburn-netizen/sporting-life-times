@@ -584,15 +584,27 @@
    const profile=phase==='upcoming'&&x.scouting&&Number.isInteger(x.scouting.games)&&x.scouting.games>0?x.scouting:null;
    const ppg=profile&&Number.isFinite(profile.pointsFor)?profile.pointsFor.toFixed(1):null;
    const papg=profile&&Number.isFinite(profile.pointsAgainst)?profile.pointsAgainst.toFixed(1):null;
-   const form=profile&&Array.isArray(profile.lastFive)?profile.lastFive.filter(v=>v==='W'||v==='L').slice(-5):[];
-   const finalForm=form.at(-1),streak=finalForm?form.slice().reverse().findIndex(v=>v!==finalForm):-1;
+   const form=profile&&Array.isArray(profile.lastFive)?profile.lastFive.filter(v=>
+     v==='W'||v==='L'||(v&&typeof v==='object'&&(v.result==='W'||v.result==='L'))).slice(-5):[];
+   const outcomes=form.map(v=>typeof v==='string'?v:v.result);
+   const finalForm=outcomes.at(-1),streak=finalForm?outcomes.slice().reverse().findIndex(v=>v!==finalForm):-1;
    const streakLength=streak===-1?form.length:streak;
    const streakLabel=streakLength>=1?finalForm+streakLength+(form.length<profile.games&&streakLength===form.length?'+':''):'';
    const scout=profile&&(ppg!==null||papg!==null||form.length)?
     '<small class="ledger26-scout" title="2026–27 verified regular-season finals: '+profile.games+' games">'+
     (ppg!==null?'<span class="ledger26-scout-stat">'+esc(ppg)+' PPG</span>':'')+
     (papg!==null?'<span class="ledger26-scout-stat ledger26-scout-defense">'+esc(papg)+' allowed</span>':'')+
-    (form.length?'<span class="ledger26-form" aria-label="Last '+form.length+' verified games: '+form.join(', ')+'">'+form.map(v=>'<i class="ledger26-form-'+v.toLowerCase()+'" aria-hidden="true" title="'+(v==='W'?'Win':'Loss')+'"></i>').join('')+'</span>':'')+
+    (form.length?'<span class="ledger26-form" aria-label="Last '+form.length+' verified games, oldest to newest: '+outcomes.join(', ')+'">'+form.map(v=>{
+      const outcome=typeof v==='string'?v:v.result;
+      const hasScore=typeof v==='object'&&v!==null&&Number.isFinite(Number(v.scored))&&Number.isFinite(Number(v.allowed));
+      const opponent=typeof v==='object'&&v!==null?String(v.opponent||'Opponent'):'Opponent';
+      const date=typeof v==='object'&&v!==null?String(v.date||''):'';
+      const result=outcome==='W'?'Win':'Loss';
+      const detail=hasScore?(date+' · '+result+' vs '+opponent+' · '+v.scored+'–'+v.allowed):result;
+      const href=typeof v==='object'&&v!==null&&/^cbb-gamefile\\.html\\?(?:gender=women&)?day=\\d{4}-\\d{2}-\\d{2}&game=\\d{1,12}$/.test(String(v.gameHref||''))?String(v.gameHref):'';
+      return href?'<a class="ledger26-form-bulb ledger26-form-'+outcome.toLowerCase()+'" href="'+esc(href)+'" title="'+esc(detail)+'" aria-label="'+esc(detail+'; open game')+'" onclick="event.stopPropagation()"></a>':
+        '<i class="ledger26-form-bulb ledger26-form-'+outcome.toLowerCase()+'" aria-hidden="true" title="'+esc(detail)+'"></i>';
+    }).join('')+'</span>':'')+
     (streakLabel?'<span class="ledger26-streak" title="Recent verified form; full streak may be longer">'+esc(streakLabel)+'</span>':'')+
     '</small>':'';
 
