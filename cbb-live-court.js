@@ -171,9 +171,28 @@ function gameFlow(plays,game){
   timeouts.push({...p,index:i,elapsed,position:fraction,latestScore});
  }
  timeouts.sort((a,b)=>a.position-b.position);
+ // Use true timeouts first; when the provider omits timeout entries, divide
+ // by observed period transitions instead of hiding all scoring segment controls.
+ const periodCuts=[];
+ if(!timeouts.length){
+  let priorPeriod=null;
+  for(let i=0;i<plays.length;i++){
+   const p=plays[i],period=Number(p.period);
+   if(!Number.isInteger(period)||period<1)continue;
+   if(priorPeriod!==null&&period!==priorPeriod){
+    const q=plays[i-1];
+    const latestScore=periodCuts.length?periodCuts.at(-1).latestScore:{awayScore:0,homeScore:0};
+    let previous=latestScore;
+    for(let k=0;k<i;k++){if(plays[k].awayScore!==null&&plays[k].homeScore!==null)previous={awayScore:plays[k].awayScore,homeScore:plays[k].homeScore};}
+    periodCuts.push({index:i-1,clock:'END P'+priorPeriod,period:priorPeriod,position:i/Math.max(1,plays.length),latestScore:previous});
+   }
+   priorPeriod=period;
+  }
+ }
  const endPoint={clock:'LATEST',index:plays.length,position:1,latestScore:scoring.at(-1)};
  const startPoint={clock:'TIPOFF',index:-1,position:0,latestScore:{awayScore:0,homeScore:0}};
- const cut=timeouts.length?[startPoint,...timeouts,endPoint]:[];
+ const cut=[startPoint,...(timeouts.length?timeouts:periodCuts),endPoint];
+ const segmentsFromTimeouts=timeouts.length>0;
  const spanData=cut.slice(1).map((end,i)=>{
   const start=cut[i],a=start.latestScore,b=end.latestScore;
   return {start,end,away:b.awayScore-a.awayScore,home:b.homeScore-a.homeScore,
@@ -197,11 +216,11 @@ function gameFlow(plays,game){
  const away=game?sideName(game.away):'AWAY',home=game?sideName(game.home):'HOME';
  // Native disclosure panels make each stretch keyboard- and touch-accessible.
  const segmentStrip=spanData.length?'<section class="slc-flow-segments" aria-label="Scoring segments between timeouts">'+
-  '<div class="slc-flow-segments-head"><strong>TIMEOUT-TO-TIMEOUT SCORING</strong><span>Select a segment for scores and plays</span></div>'+
+  '<div class="slc-flow-segments-head"><strong>'+(segmentsFromTimeouts?'TIMEOUT-TO-TIMEOUT SCORING':'SCORING BY REPORTED PERIOD')+'</strong><span>Select a segment for scores and plays</span></div>'+
   '<div class="slc-flow-segment-grid">'+spanData.map((v,i)=>{
    const prior=v.start.latestScore,ending=v.end.latestScore;
    const difference=v.away-v.home;
-   const spanLabel=p=>p.clock==='TIPOFF'||p.clock==='LATEST'?p.clock:
+   const spanLabel=p=>p.clock==='TIPOFF'||p.clock==='LATEST'||String(p.clock||'').startsWith('END P')?p.clock:
      (p.period?'P'+p.period+' ':'')+(p.clock||'TIME NOT REPORTED');
    const scores=v.events.filter(p=>p.awayScore!==null&&p.homeScore!==null);
    let a=prior.awayScore,h=prior.homeScore,awayScoring=0,homeScoring=0;
