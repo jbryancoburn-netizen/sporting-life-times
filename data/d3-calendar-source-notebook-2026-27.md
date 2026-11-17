@@ -310,7 +310,7 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | Stockton University (681) | verified_university | [Exact verified URL](https://www.stocktonathletics.com/sports/mens-basketball/schedule/2026-27?grid=true) | 17 |
 | Suffolk University (684) | verified_conference | [Exact verified URL](https://cnesports.org/schedule.aspx?schedule=4107) | 21 |
 | Susquehanna University (685) | verified_university | [Exact verified URL](https://suriverhawks.com/sports/mens-basketball/schedule/2026-27?grid=true) | 23 |
-| Swarthmore College (686) | verified_university | [Exact verified URL](https://swarthmoreathletics.com/sports/mens-basketball/schedule/2026-27?grid=true) | 21 |
+| Swarthmore College (686) | verified_university | [Exact verified URL](https://swarthmoreathletics.com/sports/mens-basketball/schedule/2026-27?grid=true) | 20 |
 | Texas Lutheran University (1400) | verified_university | [Exact verified URL](https://tlubulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true) | 18 |
 | The City College of New York (480) | verified_university | [Exact verified URL](https://www.ccnyathletics.com/sports/mens-basketball/schedule/2026-27?grid=true) | 17 |
 | The College of New Jersey (712) | verified_university | [Exact verified URL](https://www.tcnjathletics.com/sports/mens-basketball/schedule/2026-27?grid=true) | 13 |
