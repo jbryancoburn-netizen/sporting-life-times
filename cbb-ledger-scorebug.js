@@ -580,8 +580,8 @@
      '<span class="ledger26-team-run" title="'+esc(g.momentum.text)+'" aria-label="Scoring run">↗</span>':'';
    const scoreClass=upset?' ledger26-points--upset':'';
    const context=[x.record||'0–0',x.retro||'RETRO —'].join(' · ');
-   // Pregame-only verified scouting lines; zero-game or missing samples are never shown.
-   const profile=phase==='upcoming'&&x.scouting&&Number.isInteger(x.scouting.games)&&x.scouting.games>0?x.scouting:null;
+   // Desktop: retain recent results and sourced scoring rates at every phase.
+   const profile=x.scouting&&Number.isInteger(x.scouting.games)&&x.scouting.games>0?x.scouting:null;
    const ppg=profile&&Number.isFinite(profile.pointsFor)?profile.pointsFor.toFixed(1):null;
    const papg=profile&&Number.isFinite(profile.pointsAgainst)?profile.pointsAgainst.toFixed(1):null;
    const form=profile&&Array.isArray(profile.lastFive)?profile.lastFive.filter(v=>
@@ -633,11 +633,25 @@
     '<b class="ledger26-points'+scoreClass+'"'+(upset?' title="Upset watch: lower-ranked team leads"':'')+'>'+esc(scored)+'</b></div>';
   };
   const middle=pulseShell(g,phase,label);
+  // Never reconstruct a game's pretipoff forecast from its postgame rating.
+  const historical=g.historicalForecast;
+  const receipt=phase!=='upcoming'&&historical&&Number.isFinite(historical.margin)?
+    (()=>{
+      const favorite=historical.margin>0?g.home?.name:historical.margin<0?g.away?.name:'EVEN';
+      const spread=Math.round(Math.abs(historical.margin)*2)/2;
+      const hasScores=Number.isFinite(historical.awayScore)&&Number.isFinite(historical.homeScore);
+      const projection=hasScores?' · PROJECTED '+Math.round(historical.awayScore)+'–'+Math.round(historical.homeScore):'';
+      const actual=(g.away?.score!=null&&g.home?.score!=null&&Number.isFinite(Number(g.away.score))&&Number.isFinite(Number(g.home.score)))?
+        ' · ACTUAL '+Number(g.away.score)+'–'+Number(g.home.score):'';
+      return '<div class="ledger26-retro-receipt" aria-label="Original pregame RETRO forecast"><strong>RETRO PREGAME</strong><span>'+
+        esc(spread===0?'EVEN':String(favorite)+' −'+spread.toFixed(1))+
+        esc(projection)+esc(actual)+'</span></div>';
+    })():'';
   return '<div class="ledger26-scorebug'+(g.suppressMonogram?' ledger26-scorebug--plain':'')+(middle?' ledger26-scorebug--pulse':'')+(phase==='final'?' ledger26-scorebug--final':'')+(phase==='upcoming'?' ledger26-scorebug--pregame':'')+'" role="group" aria-label="'+esc(g.ariaLabel||((g.away?.name||'Away')+' at '+(g.home?.name||'Home')+' scoreboard'))+'">'+
     (g.suppressMonogram?'':'<span class="ledger26-monogram"><img src="assets/slt-engraved-black.svg" width="35" height="49" alt="Sporting Life and Times monogram"></span>')+
     (phase==='live'?'<div class="ledger26-live-headline" role="status" aria-label="Live game clock and period" style="display:flex;align-items:center;justify-content:center;gap:12px;padding:8px 10px;background:#f5e6c8;color:#35271c;border-bottom:2px solid #927657;font:700 13px Georgia,serif;letter-spacing:.025em;text-align:center">'+(function(){const raw=String(label||'LIVE');if(/\b(?:HALFTIME|HALF TIME|INTERMISSION)\b/i.test(raw))return 'HALFTIME';const clock=(raw.match(/\b\d{1,2}:\d{2}\b/)||[])[0]||'CLOCK UNAVAILABLE';const p=(raw.match(/\b(?:1st|2nd|3rd|4th|OT)\b/i)||[])[0]||'';const period=p?(/^OT$/i.test(p)?'OVERTIME':p.toUpperCase()+(g.gender==='women'?' QUARTER':' HALF')):'PERIOD UNAVAILABLE';return esc(clock)+' <span style="color:#806044">·</span> '+esc(period);})()+'</div>':'')+
     '<div class="ledger26-teams'+(phase==='final'?' ledger26-teams--final-line':'')+'">'+team(g.away)+middle+team(g.home)+'</div>'+
-    (middle?'':phase==='live'?livePanel(g,label):phase==='upcoming'?pregamePanel(g):'')+(phase==='final'?finalRetroDesk(g):'')+(phase==='upcoming'&&!g.suppressPress?preview(g).split('<dialog')[0]:'')+'</div>';
+    (middle?'':phase==='live'?livePanel(g,label):phase==='upcoming'?pregamePanel(g):'')+(phase==='final'?finalRetroDesk(g):'')+receipt+(phase==='upcoming'&&!g.suppressPress?preview(g).split('<dialog')[0]:'')+'</div>';
  }
  // The Daily Ledger is the universal newspaper model, not a separate sport skin.
  // Keep the old alias for existing college basketball pages.
