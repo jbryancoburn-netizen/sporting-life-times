@@ -382,6 +382,8 @@ const ARCHIVE_HERITAGE=Object.freeze({
  '3101':'assets/cbb-retro-archive/3101.png?v=20261116-usf1',
  '112358':'assets/cbb-retro-archive/112358.png?v=20261116-usf1'
 });
+// User-selected UCF Citronauts mascot head, current Canaveral Blue throwback identity.
+const UCF_CITRONAUT='https://content.sportslogos.net/logos/30/635/full/central_florida_knights_logo_throwback_20185716.png';
 const retroURLForESPN=id=>BIG_TEN_HERITAGE[String(id)]||ACC_HERITAGE[String(id)]||SEC_HERITAGE[String(id)]||BIG_EAST_HERITAGE[String(id)]||A10_HERITAGE[String(id)]||MOUNTAIN_WEST_HERITAGE[String(id)]||ARCHIVE_HERITAGE[String(id)]||'';
 
 const safeURL=v=>{try{let u=new URL(v);return u.protocol==='https:'?u.href:''}catch{return ''}};
@@ -528,7 +530,7 @@ const cachedEntry=outsideEntry?outsideLocal[outsideID]:null;
 const cachedPath='assets/cbb-outside-crests/'+outsideID+'.png';
 const cachedCrest=cachedEntry?.path===cachedPath&&norm(cachedEntry.school)===norm(outsideEntry.school||outsideEntry.corrected_name)?cachedPath:'';
 const school=known,brand=known?palette[id]:outsideEntry;
-const heritage=known?retroURLForESPN(id):'';
+const heritage=known?(id==='2116'?UCF_CITRONAUT:retroURLForESPN(id)):'';
 // One exact, locally baked pixel asset for every verified current D-I identity.
 // Ring color and optical fitting are compiled into the PNG, never patched
 // per logo in a consumer page. All 365 men's and 363 women's IDs are covered.
@@ -597,7 +599,7 @@ function upgradeBareLogos(root=document){
   img.replaceWith(temp.firstElementChild);
  }
 }
-w.MBBLogos={ready,render,byNCAA:(id,size,name)=>render({ncaaId:id,name,size}),byESPN:(id,size,name)=>render({espnId:id&& (registry[String(id)]||outside[String(id)])?String(id):'',name:name||registry[String(id)]?.school||outside[String(id)]?.corrected_name||outside[String(id)]?.school,size}),byName:(name,size)=>render({name,size}),fail,stripLegacyRings,upgradeLegacyCalendar,upgradeBareLogos,logoURL:id=>{const eid=byNcaa.get(id)||String(id);return registry[eid]?'assets/cbb-embossed-crests/'+eid+'.png?v=20261116-usf1':retroURLForESPN(eid)||''},retroURLForESPN,heritageArchiveTeamIds:()=>Object.keys(ARCHIVE_HERITAGE),heritageTeamIds:()=>Object.keys(BIG_TEN_HERITAGE),heritageACCTeamIds:()=>Object.keys(ACC_HERITAGE),heritageSECTeamIds:()=>Object.keys(SEC_HERITAGE),heritageBigEastTeamIds:()=>Object.keys(BIG_EAST_HERITAGE),heritageMountainWestTeamIds:()=>Object.keys(MOUNTAIN_WEST_HERITAGE),heritageA10TeamIds:()=>Object.keys(A10_HERITAGE),colorForESPN:id=>palette[String(id)]?{...palette[String(id)]}:outside[String(id)]?{primary:outside[String(id)].primary,secondary:outside[String(id)].secondary}:null,schoolNameForESPN:id=>String(registry[String(id)]?.school||outside[String(id)]?.corrected_name||outside[String(id)]?.school||'').replace(/\bSt\.$/,'State')};
+w.MBBLogos={ready,render,byNCAA:(id,size,name)=>render({ncaaId:id,name,size}),byESPN:(id,size,name)=>render({espnId:id&& (registry[String(id)]||outside[String(id)])?String(id):'',name:name||registry[String(id)]?.school||outside[String(id)]?.corrected_name||outside[String(id)]?.school,size}),byName:(name,size)=>render({name,size}),fail,stripLegacyRings,upgradeLegacyCalendar,upgradeBareLogos,logoURL:id=>{const eid=byNcaa.get(id)||String(id);return eid==='2116'?UCF_CITRONAUT:registry[eid]?'assets/cbb-embossed-crests/'+eid+'.png?v=20261116-usf1':retroURLForESPN(eid)||''},retroURLForESPN,heritageArchiveTeamIds:()=>Object.keys(ARCHIVE_HERITAGE),heritageTeamIds:()=>Object.keys(BIG_TEN_HERITAGE),heritageACCTeamIds:()=>Object.keys(ACC_HERITAGE),heritageSECTeamIds:()=>Object.keys(SEC_HERITAGE),heritageBigEastTeamIds:()=>Object.keys(BIG_EAST_HERITAGE),heritageMountainWestTeamIds:()=>Object.keys(MOUNTAIN_WEST_HERITAGE),heritageA10TeamIds:()=>Object.keys(A10_HERITAGE),colorForESPN:id=>palette[String(id)]?{...palette[String(id)]}:outside[String(id)]?{primary:outside[String(id)].primary,secondary:outside[String(id)].secondary}:null,schoolNameForESPN:id=>String(registry[String(id)]?.school||outside[String(id)]?.corrected_name||outside[String(id)]?.school||'').replace(/\bSt\.$/,'State')};
 ready.then(ok=>{
  if(!ok)return;
  const run=()=>{stripLegacyRings(document);upgradeLegacyCalendar();upgradeBareLogos(document)};
