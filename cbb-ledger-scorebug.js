@@ -670,25 +670,6 @@
     '</small>'+scout+timeouts+possession+momentum+'</span>'+
     '<b class="ledger26-points'+scoreClass+'"'+(upset?' title="Upset watch: lower-ranked team leads"':'')+'>'+esc(scored)+'</b></div>';
   };
-  // Completed games are rendered as native table rows, outside the legacy
-  // grid/flex scorebug wrappers. Each team must own a complete, unconstrained
-  // table row; neither the divider nor the RETRO desk can occupy its track.
-  // This uses HTML structure, not another stylesheet override.
-  if(phase==='final'){
-   // Keep the canonical team renderer: logos, watermarks, result lamps and
-   // statistics must not diverge between live and completed games.
-   const finalTeam=x=>'<tr><td colspan="4">'+team(x)+'</td></tr>';
-   const scoreA=Number(g.away?.score),scoreB=Number(g.home?.score);
-   const scored=g.away?.score!=null&&g.home?.score!=null&&Number.isFinite(scoreA)&&Number.isFinite(scoreB);
-   const winner=scored&&scoreA!==scoreB?(scoreA>scoreB?g.away?.name:g.home?.name):'';
-   const divider='<tr bgcolor="#eee5d7"><td colspan="4" align="center"><small><strong>FINAL</strong>'+
-     (winner?' · '+esc(winner)+' by '+Math.abs(scoreA-scoreB):'')+'</small></td></tr>';
-   const retro=finalRetroDesk(g);
-   return '<section role="group" aria-label="'+esc(g.ariaLabel||((g.away?.name||'Away')+' at '+(g.home?.name||'Home')+' final score'))+'">'+
-     '<table width="100%" cellspacing="0" cellpadding="7" border="0"><tbody>'+
-     finalTeam(g.away)+divider+finalTeam(g.home)+'</tbody></table>'+
-     retro+'</section>';
-  }
   const middle=pulseShell(g,phase,label);
   // Never reconstruct a game's pretipoff forecast from its postgame rating.
   const historical=g.historicalForecast;
