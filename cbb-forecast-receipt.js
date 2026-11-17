@@ -8,7 +8,7 @@ const number=v=>typeof v==='number'&&Number.isFinite(v)?v:null;
 const readNumber=v=>v!==null&&v!==undefined&&String(v).trim()!==''&&Number.isFinite(Number(v))?Number(v):null;
 const key=(day,id)=>String(day||'')+'|'+cleanId(id);
 const archives={men:new Map(),women:new Map()},scored=new Map(),upcomingMen=new Map();
-let ready=false,queued=false;
+let ready=false,queued=false;const canonicalNames={men:new Map(),women:new Map()};
 function indexArchive(data,gender){
  if(data?.season!=='2026-27'||!Array.isArray(data.predictions))return;
  const seen=new Set(),conflicts=new Set();
@@ -55,7 +55,7 @@ function receipt(gender,id,day,phase,actual,homeId='',awayId='',homeName='Home',
  if((!p||!identityMatches(p,homeId,awayId))&&phase==='upcoming')return ''; // Do not invent forecasts for games without a published exact-match snapshot.
  if(!p||!identityMatches(p,homeId,awayId))
   return '<div class="cbb-forecast-receipt cbb-forecast-receipt--missing"><span class="cbb-forecast-kicker">RETRO BEFORE TIP</span><span>No archived pregame forecast</span></div>';
- const predicted=p.projected_home_margin,probability=p.home_win_probability;
+ // Use the archive's verified home/away IDs, not schedule-row display orientation.\n const names=canonicalNames[gender]||new Map();\n homeName=names.get(String(p.home_id))||homeName;\n awayName=names.get(String(p.away_id))||awayName;\n const predicted=p.projected_home_margin,probability=p.home_win_probability;
  const fav=predicted>0?'HOME':predicted<0?'AWAY':'EVEN';
  const sideName=side=>side==='HOME'?homeName:side==='AWAY'?awayName:'Even';
  const half=Math.round(Math.abs(predicted)*2)/2;
@@ -141,7 +141,7 @@ function decorate(){
   dest.classList.remove('sched-result-cell--forecast');
   const phase=row.dataset.calendarState==='final'?'final':row.dataset.calendarState==='upcoming'?'upcoming':'';
   const markup=receipt('men',row.dataset.cbbForecastId,row.dataset.cbbForecastDay,
-    phase,readNumber(row.dataset.cbbFinalHomeMargin),null,null,row.dataset.cbbHomeName||'Home',row.dataset.cbbAwayName||'Away');
+    phase,number(scored.get(key(row.dataset.cbbForecastDay,row.dataset.cbbForecastId))?.actual_home_margin)??readNumber(row.dataset.cbbFinalHomeMargin),null,null,row.dataset.cbbHomeName||'Home',row.dataset.cbbAwayName||'Away');
   let band=row.nextElementSibling;
   if(band?.classList.contains('victorian-stat-detail'))band=band.nextElementSibling;
   if(!band?.classList.contains('cbb-schedule-forecast-row')){
@@ -166,11 +166,11 @@ async function loadJSON(path){
  try{const r=await fetch(path,{cache:'no-store'});return r.ok?await r.json():null;}catch{return null;}
 }
 async function init(){
- const [men,women,report,upcoming]=await Promise.all([
+ const [men,women,report,upcoming,menRatings,womenRatings]=await Promise.all([
   loadJSON('data/retro-pregame-archive-2026-27.json'),
   loadJSON('data/ncaaw-retro-pregame-archive-2026-27.json'),
   loadJSON('data/retro-spread-accuracy-2026-27.json'),
-  document.querySelector('#mbb-calendar-host')?loadJSON('data/ncaam-2026-27-upcoming-forecasts.json'):null]);
+  document.querySelector('#mbb-calendar-host')?loadJSON('data/ncaam-2026-27-upcoming-forecasts.json'):null,\n  loadJSON('data/ncaam-2026-27-retro-primary.json'),loadJSON('data/ncaaw-2026-27-retro-primary.json')]);\n for(const [gender,data] of [['men',menRatings],['women',womenRatings]])for(const t of data?.rankings||[])canonicalNames[gender].set(String(t.team_id),String(t.team||t.team_name||''));
  indexArchive(men,'men');indexArchive(women,'women');indexScored(report);indexUpcomingMen(upcoming);
  ready=true;decorate();
  for(const selector of ['#sl-games','#mbb-calendar-host','#desk','#cbb-cards']){
