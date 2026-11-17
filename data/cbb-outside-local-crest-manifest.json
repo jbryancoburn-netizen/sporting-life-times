@@ -1,9 +1,9 @@
 {
   "schema": "cbb-outside-local-crests-v1",
   "source_registry": "data/mbb-out-of-division-opponent-logos.json",
-  "total_registry": 674,
-  "count": 207,
-  "processed_this_run": 2,
+  "total_registry": 675,
+  "count": 208,
+  "processed_this_run": 3,
   "failed_this_run": {
     "14": "a.espncdn.com: ValueError",
     "22": "facaffairs.sfsu.edu: HTTPError"
@@ -491,6 +491,13 @@
       "source": "https://a.espncdn.com/i/teamlogos/ncaa/500/2134.png",
       "sha256": "0ef73f5b9302c4ca6ab3f15f94e9165ae8cc2b626901c9eed9133de300112f60",
       "source_verified": "exact school-prefix / display-name"
+    },
+    "2145": {
+      "path": "assets/cbb-outside-crests/2145.png",
+      "school": "University of Colorado Colorado Springs",
+      "source": "https://cdn.usteamcolors.com/images/ncaa/division-2/uccs-mountain-lions-logo.png",
+      "sha256": "cdca7a94962496c101006621806c20d7d043af88a4f2b0147a8ddb0aae2cf4c7",
+      "source_verified": "Exact ESPN fixture ID 2145 and UCCS Mountain Lions identity; Division II"
     },
     "2148": {
       "path": "assets/cbb-outside-crests/2148.png",
