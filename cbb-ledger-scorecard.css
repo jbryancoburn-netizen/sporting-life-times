@@ -457,14 +457,17 @@
 /* Pregame scouting uses existing identity whitespace and vanishes on LIVE or FINAL. */
 .ledger26-scout{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-top:2px;color:#59442d;font:700 9px/1.15 Georgia,serif;font-variant-numeric:tabular-nums}
 .ledger26-scout-stat+.ledger26-scout-stat::before{content:"· ";color:#977e5d}
-.ledger26-form{display:inline-flex;gap:2px;align-items:center}
-.ledger26-form i{display:block;width:6px;height:6px;border-radius:50%;border:1px solid #806d55}
-.ledger26-form-w{background:#4f6a43}.ledger26-form-l{background:#f8f0e0}
+/* Vintage scoreboard bulbs: five chronological results, lit W / unlit L. */
+.ledger26-form{display:inline-flex;align-items:center;gap:4px;white-space:nowrap;padding:3px 5px;border:1px solid #4b3c2c;border-radius:4px;background:linear-gradient(180deg,#342d26,#161411);box-shadow:inset 0 1px 2px #000b,0 1px 0 #b49a77}
+.ledger26-form i{box-sizing:border-box;display:block;flex:0 0 auto;width:10px;height:10px;border-radius:50%;border:1px solid #776c59;background:#25221e;box-shadow:inset 0 2px 3px #000,0 0 0 1px #16120e}
+.ledger26-form .ledger26-form-w{border-color:#ffe2a0;background:radial-gradient(circle at 38% 32%,#fffce9 0%,#ffe99c 25%,#f5ab3f 67%,#9c501c 100%);box-shadow:0 0 4px 1px #ffcf73,0 0 8px #e6a04588,inset 0 0 2px #fff9d6}
+.ledger26-form .ledger26-form-l{border-color:#504940;background:radial-gradient(circle at 35% 28%,#51483c,#27241f 62%,#15130f);box-shadow:inset 0 2px 3px #000c,0 0 0 1px #17140f}
 .ledger26-rivalry{display:block;color:#6d4933;font:700 9px/1.2 Georgia,serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;padding:0 4px}
 @media(max-width:640px){
  .ledger26-scout{gap:3px;font-size:8px}
  .ledger26-scout-defense{display:none}
- .ledger26-form i{width:5px;height:5px}
+ .ledger26-form{gap:3px;padding:3px 4px}
+ .ledger26-form i{width:8px;height:8px}
  .ledger26-rivalry{font-size:9px;max-width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
 }
 
