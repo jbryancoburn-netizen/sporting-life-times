@@ -1198,3 +1198,62 @@
   padding:3px 4px;
  }
 }
+
+
+/* FINAL card structural repair: never sacrifice the home team's row to a
+   scoreboard-height constraint or the postgame RETRO strip. */
+.sl-ledger-page .ledger26-card .ledger26-scorebug--final{
+ display:grid!important;
+ grid-template-columns:minmax(0,1fr)!important;
+ grid-template-rows:auto auto!important;
+ height:auto!important;
+ max-height:none!important;
+ min-height:0!important;
+ overflow:visible!important;
+ align-content:start!important;
+}
+.sl-ledger-page .ledger26-card .ledger26-scorebug--final>.ledger26-teams--final-line{
+ display:grid!important;
+ grid-column:1/-1!important;
+ grid-row:auto!important;
+ grid-template-columns:minmax(0,1fr)!important;
+ grid-template-rows:minmax(88px,auto) 24px minmax(88px,auto)!important;
+ height:auto!important;
+ max-height:none!important;
+ min-height:200px!important;
+ overflow:visible!important;
+ align-items:stretch!important;
+}
+.sl-ledger-page .ledger26-card .ledger26-scorebug--final>.ledger26-teams--final-line>.ledger26-team{
+ display:grid!important;
+ min-height:88px!important;
+ height:auto!important;
+ max-height:none!important;
+ overflow:hidden!important;
+ align-self:stretch!important;
+}
+.sl-ledger-page .ledger26-card .ledger26-scorebug--final>.ledger26-teams--final-line>.ledger26-pulse--final-line{
+ grid-column:1!important;
+ height:24px!important;
+ min-height:24px!important;
+ max-height:24px!important;
+ overflow:hidden!important;
+}
+.sl-ledger-page .ledger26-card .ledger26-scorebug--final>.ledger26-final-desk{
+ grid-column:1/-1!important;
+ grid-row:auto!important;
+ position:relative!important;
+ z-index:1;
+}
+@media(max-width:700px){
+ .sl-ledger-page .ledger26-card .ledger26-scorebug--final>.ledger26-teams--final-line{
+  grid-template-rows:minmax(70px,auto) 22px minmax(70px,auto)!important;
+  min-height:162px!important;
+ }
+ .sl-ledger-page .ledger26-card .ledger26-scorebug--final>.ledger26-teams--final-line>.ledger26-team{
+  min-height:70px!important;
+ }
+ .sl-ledger-page .ledger26-card .ledger26-scorebug--final>.ledger26-teams--final-line>.ledger26-pulse--final-line{
+  height:22px!important;min-height:22px!important;max-height:22px!important;
+ }
+}
