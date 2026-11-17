@@ -336,7 +336,7 @@
   }
   const names=[...playerTeams.entries()].filter(([,team])=>team)
     .map(([name])=>name).sort((a,b)=>b.length-a.length);
-  const quote=v=>v.replace(/[.*+?^${}()|[\]\\]/g,'\\  const quote=v=>v.replace(/[^a-z0-9 ]/gi,'').replace(/ +/g,'\\s+');').replace(/ +/g,'\\s+');
+  const quote=v=>v.replace(/[^a-z0-9 ]/gi,'').replace(/ +/g,'\\s+');
   const re=names.length?new RegExp('(^|[^\\p{L}\\p{N}])('+names.map(quote).join('|')+')(?=$|[^\\p{L}\\p{N}])','giu'):null;
   return play=>{
    const desc=String(play.text||'');
