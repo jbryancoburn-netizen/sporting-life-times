@@ -383,6 +383,36 @@ const ARCHIVE_HERITAGE=Object.freeze({
  '112358':'assets/cbb-retro-archive/112358.png?v=20261116-usf1'
 });
 // User-selected original-era 1968-69 FTU Citronaut full-body orange-and-astronaut mascot artwork.
+
+// UCF source-image paper knockout: preserve original Citronaut strokes and colors.
+function installUCFCitronautPaperKnockout(){
+ if(document.getElementById('slt-ucf-citronaut-knockout'))return;
+ const svgNS='http://www.w3.org/2000/svg';
+ const svg=document.createElementNS(svgNS,'svg');
+ svg.id='slt-ucf-citronaut-knockout';
+ svg.setAttribute('aria-hidden','true');
+ svg.setAttribute('width','0');svg.setAttribute('height','0');
+ svg.style.cssText='position:absolute;width:0;height:0;overflow:hidden;pointer-events:none';
+ const filter=document.createElementNS(svgNS,'filter');
+ filter.id='slt-ucf-remove-paper';filter.setAttribute('color-interpolation-filters','sRGB');
+ filter.setAttribute('x','0');filter.setAttribute('y','0');
+ filter.setAttribute('width','100%');filter.setAttribute('height','100%');
+ const matrix=document.createElementNS(svgNS,'feColorMatrix');
+ matrix.setAttribute('type','matrix');
+ matrix.setAttribute('values',
+ '1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  -0.3333 -0.3333 -0.3334 0 1');
+ const transfer=document.createElementNS(svgNS,'feComponentTransfer');
+ const alpha=document.createElementNS(svgNS,'feFuncA');
+ alpha.setAttribute('type','linear');alpha.setAttribute('slope','4');
+ alpha.setAttribute('intercept','-0.24');
+ transfer.appendChild(alpha);
+ filter.appendChild(matrix);filter.appendChild(transfer);
+ svg.appendChild(filter);
+ (document.body||document.documentElement).appendChild(svg);
+}
+if(document.readyState==='loading'){
+ document.addEventListener('DOMContentLoaded',installUCFCitronautPaperKnockout,{once:true});
+}else installUCFCitronautPaperKnockout();
 const UCF_CITRONAUT='https://media1.orlandoweekly.com/orlando/imager/u/blog/27838047/1000-ucf_citronautvector.jpg?cb=1643758861';
 const retroURLForESPN=id=>BIG_TEN_HERITAGE[String(id)]||ACC_HERITAGE[String(id)]||SEC_HERITAGE[String(id)]||BIG_EAST_HERITAGE[String(id)]||A10_HERITAGE[String(id)]||MOUNTAIN_WEST_HERITAGE[String(id)]||ARCHIVE_HERITAGE[String(id)]||'';
 
