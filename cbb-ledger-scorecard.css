@@ -766,19 +766,19 @@
 .ledger26-scorebug .ledger26-ghost{mix-blend-mode:multiply;opacity:.34}
 .ledger26-scorebug .ledger26-ghost img{filter:grayscale(1) contrast(1.2) brightness(.66)}
 .ledger26-scorebug .ledger26-team--dark-fill .ledger26-ghost{
- mix-blend-mode:screen;opacity:.25;
+ mix-blend-mode:screen;opacity:.36;
 }
 .ledger26-scorebug .ledger26-team--dark-fill .ledger26-ghost img{
- filter:grayscale(1) contrast(1.3) brightness(1.35);
+ filter:grayscale(1) contrast(1.3) brightness(1.35) drop-shadow(0 0 1px #fff);
 }
 .ledger26-scorebug .ledger26-team--light-fill .ledger26-ghost{
  mix-blend-mode:multiply;opacity:.34;
 }
-.ledger26-scorebug .ledger26-team--behind.ledger26-team--dark-fill .ledger26-ghost{opacity:.23}
-.ledger26-scorebug .ledger26-team--behind.ledger26-team--light-fill .ledger26-ghost{opacity:.26}
+.ledger26-scorebug .ledger26-team--behind.ledger26-team--dark-fill .ledger26-ghost{opacity:.31}
+.ledger26-scorebug .ledger26-team--behind.ledger26-team--light-fill .ledger26-ghost{opacity:.30}
 @media(max-width:640px){
- .ledger26-scorebug .ledger26-team--dark-fill .ledger26-ghost{opacity:.23}
- .ledger26-scorebug .ledger26-team--light-fill .ledger26-ghost{opacity:.29}
+ .ledger26-scorebug .ledger26-team--dark-fill .ledger26-ghost{opacity:.31}
+ .ledger26-scorebug .ledger26-team--light-fill .ledger26-ghost{opacity:.33}
 }
 
 /* RETRO Pulse: source-verified scoring timeline, no redundant status column. */
