@@ -806,7 +806,18 @@ const ledgerScorebug=g=>{
      if(g.phase!=='upcoming')return null;
      const p=seasonStats.get(String(t.canonical||''));if(!p||!Number.isInteger(p.g)||p.g<1)return null;
      return {games:p.g,pointsFor:p.pf/p.g,pointsAgainst:p.pa/p.g,
-       lastFive:Array.isArray(p.results)?p.results.slice(-5).map(r=>r.result):[]};
+       // Oldest to newest. Each lamp retains a verified final score and
+       // uses the same Gamefile URL as the Ledger's own game cards.
+       lastFive:Array.isArray(p.results)?p.results.slice(-5).map(r=>{
+         const opponent=ratings.get(String(r.opponentId));
+         const rawId=String(r.gameId||'').replace(/^espn:/,'');
+         const day=String(r.date||'');
+         const gameHref=/^\d{1,12}$/.test(rawId)&&/^\d{4}-\d{2}-\d{2}$/.test(day)?
+           'cbb-gamefile.html?'+(women?'gender=women&':'')+
+             'day='+encodeURIComponent(day)+'&game='+encodeURIComponent(rawId):'';
+         return {result:r.result,date:day,scored:r.scored,allowed:r.allowed,
+           opponent:opponent?.team||'Opponent',home:r.home,gameHref};
+       }):[]};
    })()});
  return window.SLTBasketballScorebug?.render({
   gameId:String(g.id),phase:g.phase,gender:women?'women':'men',status:g.status||'LIVE',momentum:g.momentum||null,possession:g.possession||null,
