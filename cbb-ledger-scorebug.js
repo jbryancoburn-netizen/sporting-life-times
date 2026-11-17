@@ -657,7 +657,7 @@
    const watermarkMatch=String(x.crest||'').match(/\bdata-watermark-art=["']([^"']+)["']/i);
    const explicitArt=String(x.watermarkArt||watermarkMatch?.[1]||'').replace(/&amp;/g,'&');
    const validArt=/^(?:(?:\.\.\/|\.\/|\/)?assets\/|https:\/\/)/i.test(explicitArt)&&!/[<>"'\s]/.test(explicitArt);
-   const watermark=(validArt && !/\bWilson College\b/i.test(String(x.name||'')))?'<span class="ledger26-ghost'+(/\b(?:UCF|Central Florida)\b/i.test(String(x.name||''))?' ledger26-ghost--ucf':'')+'" aria-hidden="true"><img src="'+esc(explicitArt)+'" alt="" loading="lazy" onload="window.SLTBasketballScorebug.cleanWatermark(this)"></span>':'';
+   const watermark=validArt?'<span class="ledger26-ghost'+(/\b(?:UCF|Central Florida)\b/i.test(String(x.name||''))?' ledger26-ghost--ucf':'')+'" aria-hidden="true"><img src="'+esc(explicitArt)+'" alt="" loading="lazy" onload="window.SLTBasketballScorebug.cleanWatermark(this)"></span>':'';
 
    return '<div class="ledger26-team ledger26-team--'+outcome+(readableInk(x.color,phase,outcome)==='#fffaf0'?' ledger26-team--dark-fill':' ledger26-team--light-fill')+'" style="--ledger26-school:'+color(x.color)+';--ledger26-readable-ink:'+readableInk(x.color,phase,outcome)+'">'+watermark+
     '<span class="ledger26-crest">'+(x.crest||'')+'</span>'+
