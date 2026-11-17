@@ -15,6 +15,17 @@ const shift=(s,n)=>{const d=new Date(s+'T12:00:00Z');d.setUTCDate(d.getUTCDate()
 const cleanId=x=>String(x||'').replace(/^espn:/,'');
 const validId=x=>/^\d{1,12}$/.test(String(x||''));
 const shortName=(id,cross,full)=>{const canon=cross.get(String(id));if(canon)return canon.name;return String(full||'Team').trim()};
+const liveStatusFromEvent=event=>{
+ const status=event?.status||{},type=status.type||{};
+ const text=[type.shortDetail,type.detail,type.description,type.name].filter(Boolean).join(' ');
+ if(/\\b(?:halftime|half\\s*time|intermission)\\b/i.test(text)||/STATUS_HALFTIME/i.test(text))return 'HALFTIME';
+ const clock=String(status.displayClock||'').trim();
+ const period=Number(status.period);
+ const periodText=period>=1&&period<=4?(period===1?'1st':period===2?'2nd':period===3?'3rd':'4th'):(period>4?'OT':'');
+ if(/\\b\\d{1,2}:\\d{2}\\b/.test(text)&&/\\b(?:1st|2nd|3rd|4th|OT)\\b/i.test(text))return String(type.shortDetail||type.detail);
+ if(clock&&periodText)return clock+' - '+periodText;
+ return String(type.shortDetail||type.detail||type.description||'LIVE');
+};
 const gameKey=(id,day)=>String(id||'')+'|'+String(day||'');
 // Accept only source-reported venues for the exact event/date and competitors.
 function sourcedGameVenues(raw,day,knownGames){
@@ -349,7 +360,7 @@ function liveEvents(raw,day,registry,women=false,womenRankings=[],publishedGames
   // Published entries can supply known opponent names when the source omits them.
   const prior=publishedGames.find(g=>String(g.id)===String(event.id)&&g.day===day&&
     String(g.away?.id)===String(away.team?.id)&&String(g.home?.id)===String(home.team?.id));
-  const named=t=>String(t?.team?.displayName||t?.team?.shortDisplayName||t?.team?.name||'').trim();
+  const named=t=>String(t?.team?.id)==='2145'?'Colorado Springs Mountain Lions':String(t?.team?.displayName||t?.team?.shortDisplayName||t?.team?.name||'').trim();
   if((!a&&!h&&!prior)||!validId(away.team?.id)||!validId(home.team?.id)||
      (!a&&!prior?.away?.name&&!named(away))||
      (!h&&!prior?.home?.name&&!named(home)))return[];
@@ -361,10 +372,10 @@ function liveEvents(raw,day,registry,women=false,womenRankings=[],publishedGames
   const hp=score(home.score?.value??home.score?.displayValue??home.score);
   if(phase==='upcoming'||ap===null||hp===null||(phase==='final'&&ap===hp))return[];
   return [{id:String(event.id),day,date:event.date||match.date,phase,
-    away:{id:String(away.team.id),canonical:a?String(a.id):'',name:a?.name||prior?.away?.name||named(away),full:a?.espn_name||prior?.away?.full||named(away),abbreviation:away.team?.abbreviation||'',timeoutsRemaining:Number.isInteger(away.timeoutsRemaining)?away.timeoutsRemaining:null,score:ap},
-    home:{id:String(home.team.id),canonical:h?String(h.id):'',name:h?.name||prior?.home?.name||named(home),full:h?.espn_name||prior?.home?.full||named(home),abbreviation:home.team?.abbreviation||'',timeoutsRemaining:Number.isInteger(home.timeoutsRemaining)?home.timeoutsRemaining:null,score:hp},
+    away:{id:String(away.team.id),canonical:a?String(a.id):'',name:String(away.team.id)==='2145'?'Colorado Springs':a?.name||prior?.away?.name||named(away),full:a?.espn_name||prior?.away?.full||named(away),abbreviation:away.team?.abbreviation||'',timeoutsRemaining:Number.isInteger(away.timeoutsRemaining)?away.timeoutsRemaining:null,score:ap},
+    home:{id:String(home.team.id),canonical:h?String(h.id):'',name:String(home.team.id)==='2145'?'Colorado Springs':h?.name||prior?.home?.name||named(home),full:h?.espn_name||prior?.home?.full||named(home),abbreviation:home.team?.abbreviation||'',timeoutsRemaining:Number.isInteger(home.timeoutsRemaining)?home.timeoutsRemaining:null,score:hp},
     venue:match.venue?.fullName||'',broadcast:(match.broadcasts||[]).flatMap(x=>x.names||[]).join(' / '),
-    status:event.status?.type?.shortDetail||'LIVE',momentum:phase==='live'?momentumFromCompetition(match,away,home):null,
+    status:liveStatusFromEvent(event),momentum:phase==='live'?momentumFromCompetition(match,away,home):null,
     possession:phase==='live'&&[away.team.id,home.team.id].includes(String(match?.possession))?
       (String(match.possession)===String(away.team.id)?'away':'home'):null,
     completed,neutral,site_verified:siteVerified,timed:true,kind:'regular',
