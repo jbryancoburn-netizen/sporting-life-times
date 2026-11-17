@@ -590,7 +590,7 @@ function upgradeBareLogos(root=document){
  if(root.tagName==='IMG')list.push(root);
  root.querySelectorAll?.('img[src*="/teamlogos/ncaa/"]').forEach(img=>list.push(img));
  for(const img of list){
-  if(!img.isConnected||img.closest('.mbb-mark')||img.matches('.player-photo,.player-portrait,.mbb-player-photo')||img.closest('.player-photo,.player-portrait,.mbb-player-image-wrap'))continue;
+  if(!img.isConnected||img.closest('.mbb-mark,.ledger26-ghost')||img.matches('.player-photo,.player-portrait,.mbb-player-photo')||img.closest('.player-photo,.player-portrait,.mbb-player-image-wrap'))continue;
   const id=(img.getAttribute('src')||'').match(/\/ncaa\/(?:500|500-dark)\/(\d+)\.(?:png|webp)/i)?.[1];
   if(!id||!registry[id])continue;
   const temp=document.createElement('span');temp.innerHTML=render({espnId:id,name:registry[id].school,size:'small'});
