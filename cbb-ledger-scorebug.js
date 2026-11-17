@@ -412,7 +412,7 @@
    '<span class="ledger26-pulse-status"><strong class="ledger26-pulse-state">'+esc(compactHeading)+'</strong>'+(liveClock||livePeriod?'<small class="ledger26-pulse-clock">'+esc([livePeriod,liveClock].filter(Boolean).join(' · '))+'</small>':'')+'</span>'+
    '<div class="ledger26-pulse-stat"><small>BIGGEST LEAD · '+esc(largest.name)+'</small><b>+'+largest.value+'</b></div>'+
    '<div class="ledger26-pulse-stat"><small>'+(el.dataset.phase==='final'?'FINAL MARGIN':'CURRENT LEAD')+(diff===0?'':(' · '+esc(diff>0?awayName:homeName)))+'</small><b>'+(diff===0?'TIED':('+'+Math.abs(diff)))+'</b></div>'+
-   '<span class="ledger26-pulse-invite">'+(el.dataset.compactOnly==='1'?'OPEN GAME DETAILS':'GAME FLOW')+' <span aria-hidden="true">⌄</span></span></div>';
+   (el.dataset.compactOnly==='1'?'':'<span class="ledger26-pulse-invite">GAME FLOW <span aria-hidden="true">⌄</span></span>')+'</div>';
   pulseCache.set(el,data);
   // The ledger retains its compact scorebug rail, while its separate color Gamefile owns the only full game-flow chart.
   if(el.dataset.compactOnly==='1')return;
