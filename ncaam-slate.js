@@ -471,6 +471,41 @@ const root=document.getElementById('slate-root');if(!root)return;
 const url=new URL(location.href),women=url.searchParams.get('gender')==='women';
 let selected=/^\d{4}-\d\d-\d\d$/.test(url.searchParams.get('date')||'')?url.searchParams.get('date'):today();
 let filter=['all','live','final','upcoming','exhibition'].includes(url.searchParams.get('view'))?url.searchParams.get('view'):'all';
+// Recent form is an all-division regular-season ledger, separate from RETRO.
+// It includes sourced non-DI finals, never exhibition games or unplayed fixtures.
+function allDivisionRecentForm(games,events,ratings){
+ const byGame=new Map();
+ const validScore=n=>Number.isSafeInteger(n)&&n>=0&&n<=300;
+ for(const e of events||[]){
+  const id=cleanId(e?.id),day=String(e?.date||''),away=String(e?.away_id||''),home=String(e?.home_id||'');
+  const as=e?.away_score,hs=e?.home_score;
+  if(!validId(id)||!/^20[0-9]{2}-[0-9]{2}-[0-9]{2}$/.test(day)||
+     !away||!home||away===home||!validScore(as)||!validScore(hs)||as===hs)continue;
+  byGame.set(day+'|'+id,{id,day,away:{canonical:away,name:ratings.get(away)?.team||'Opponent',score:as},
+    home:{canonical:home,name:ratings.get(home)?.team||'Opponent',score:hs}});
+ }
+ for(const g of games||[]){
+  if(g?.phase!=='final'||g.kind==='exhibition'||g.kind!=='regular'||!validId(g.id)||
+    !/^20[0-9]{2}-[0-9]{2}-[0-9]{2}$/.test(String(g.day||'')))continue;
+  const as=g.away?.score,hs=g.home?.score;
+  if(!validScore(as)||!validScore(hs)||as===hs)continue;
+  byGame.set(g.day+'|'+cleanId(g.id),g);
+ }
+ const form=new Map();
+ const add=(id,item)=>{if(!id||!ratings.has(String(id)))return;
+   const k=String(id),rows=form.get(k)||[];rows.push(item);form.set(k,rows)};
+ for(const g of byGame.values()){
+  const a=g.away,h=g.home;
+  if(!a||!h)continue;
+  for(const [own,other,home] of [[a,h,false],[h,a,true]]){
+   const scored=Number(own.score),allowed=Number(other.score);
+   add(own.canonical,{date:g.day,gameId:cleanId(g.id),result:scored>allowed?'W':'L',
+     scored,allowed,opponent:String(other.name||'Opponent'),home});
+  }
+ }
+ for(const values of form.values())values.sort((a,b)=>a.date.localeCompare(b.date)||a.gameId.localeCompare(b.gameId));
+ return form;
+}
 const preservedRetroForecasts=new Map();
 let search='',loaded=[],ratings=new Map(),retroTies=new Map(),retroPublished=null,retroPending=0,lastUpdate='',limit=Number.POSITIVE_INFINITY,loading=false,sourceError='';
 let pollRankings=new Map(),pollAsOf='';
@@ -481,7 +516,7 @@ let pollRankings=new Map(),pollAsOf='';
 let liveBoard=[],liveCheckedAt=0,liveCheckError='',liveRequest=false;
 const sourcedVenueByGame=new Map(),venueCheckedAt=new Map();
 const verifiedLiveScores=new Map();
-let cross={teams:[]},palette={},arenaRegistry={},womenTeams=new Map(),sourceFeed=null,seasonStats=new Map(),liveChanges=new Map(),scoreCalibration=null,verifiedOverall=new Map();
+let cross={teams:[]},palette={},arenaRegistry={},womenTeams=new Map(),sourceFeed=null,seasonStats=new Map(),recentForm=new Map(),liveChanges=new Map(),scoreCalibration=null,verifiedOverall=new Map();
 const insight=window.SLTBasketballInsights;
 // Large source-backed identity and arena references remain stable during a
 // page session; do not re-download them on every 90-second scoreboard tick.
@@ -811,19 +846,20 @@ const ledgerScorebug=g=>{
     retroSnapshot:(()=>{const q=rankOf(t,ratings,women);return g.phase==='final'&&g.kind!=='exhibition'&&q&&Number.isFinite(Number(q.elo))?{elo:Number(q.elo),rank:Number.isInteger(Number(q.rank))?Number(q.rank):null,dailyChange:q.daily_change==null?null:Number(q.daily_change)}:null})(),
    teamHref:teamPage(t),poll:pollRankings.get(String(t.id))||null,
    scouting:(()=>{
-     const p=seasonStats.get(String(t.canonical||''));if(!p||!Number.isInteger(p.g)||p.g<1)return null;
-     return {games:p.g,pointsFor:p.pf/p.g,pointsAgainst:p.pa/p.g,
-       // Oldest to newest. Each lamp retains a verified final score and
-       // uses the same Gamefile URL as the Ledger's own game cards.
-       lastFive:Array.isArray(p.results)?p.results.filter(r=>r.date<g.day||(g.phase==='final'&&r.date===g.day)).slice(-5).map(r=>{
-         const opponent=ratings.get(String(r.opponentId));
+     const p=seasonStats.get(String(t.canonical||''));
+     const records=(recentForm.get(String(t.canonical||''))||[]).filter(r=>
+       r.date<g.day||(g.phase==='final'&&r.date===g.day)).slice(-5);
+     if(!p?.g&&!records.length)return null;
+     return {games:p?.g||0,pointsFor:p?.g?p.pf/p.g:null,pointsAgainst:p?.g?p.pa/p.g:null,
+       // All regular-season games count here, including non-DI. RETRO is unchanged.
+       lastFive:records.map(r=>{
          const rawId=String(r.gameId||'').replace(/^espn:/,'');
          const day=String(r.date||'');
          const gameHref=/^\d{1,12}$/.test(rawId)&&/^\d{4}-\d{2}-\d{2}$/.test(day)?
            'cbb-gamefile.html?'+(women?'gender=women&':'')+
              'day='+encodeURIComponent(day)+'&game='+encodeURIComponent(rawId):'';
          return {result:r.result,date:day,scored:r.scored,allowed:r.allowed,
-           opponent:opponent?.team||'Opponent',home:r.home,gameHref};
+           opponent:r.opponent,home:r.home,gameHref};
        }):[]};
    })()});
  return window.SLTBasketballScorebug?.render({
@@ -1038,6 +1074,7 @@ async function refresh(){
     sourceFeed=feed||null;seasonStats=insight?.seasonProfiles(rank.events)||new Map();
     scoreCalibration=womenCoefficients;
     loaded=dedupeFixtures(normalizeWomen(results,rank,cross,womenCoefficients));
+    recentForm=allDivisionRecentForm(loaded,rank.events,ratings);
     lastUpdate='women’s rolling fixture ledger';
   }else{
     const [feed,forecast,rank,c,pal,ex,arenas,calibration,polls,otherLogos,archivedFinals,overall,outside]=output;
@@ -1103,6 +1140,7 @@ async function refresh(){
     }catch{/* Preserve existing archived captures. */}
     const menGames=normalizeMen(feed,forecast,cross,outsideMarks,archivedFinals);
     loaded=[...menGames,...normalizeOutsideFinals(outside,cross,menGames),...normalizeExhibitions(ex,cross)];
+    recentForm=allDivisionRecentForm(loaded,rank.events,ratings);
     liveChanges=new Map(loaded.filter(g=>g.phase==='live').flatMap(g=>{
       const delta=insight?.scoreDelta(before.get(g.id),g);
       return delta?[[g.id,delta]]:[];
