@@ -216,7 +216,7 @@ function gameFlow(plays,game){
    }
    const leading=difference>0?away:difference<0?home:'EVEN';
    const leadLine=difference===0?'EVEN SCORING':leading+' +'+Math.abs(difference)+' THIS STRETCH';
-   const eventTypes=[['FOULS',/\\bfoul\\b/i],['TURNOVERS',/\\bturnover\\b/i],['REBOUNDS',/\\brebound\\b/i],['STEALS',/\\bsteal\\b/i],['BLOCKS',/\\bblock\\b/i]];
+   const eventTypes=[['FOULS',/\bfoul\b/i],['TURNOVERS',/\bturnover\b/i],['REBOUNDS',/\brebound\b/i],['STEALS',/\bsteal\b/i],['BLOCKS',/\bblock\b/i]];
    const typeCounts=eventTypes.map(([label,re])=>({label,count:v.events.filter(p=>re.test(p.kind+' '+p.text)).length})).filter(x=>x.count>0);
    const logged=v.events.filter(p=>eventTypes.some(([,re])=>re.test(p.kind+' '+p.text)));
    const examples=scoringEvents.length?scoringEvents.slice(0,10):logged.slice(0,6);
