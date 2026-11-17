@@ -996,3 +996,33 @@
  .ledger26-final-desk--inline .ledger26-final-rating{font-size:12px}
  .ledger26-final-desk--inline .ledger26-final-standing{font-size:9px}
 }
+
+/* FINAL is a narrow divider between school rows, never a giant middle tile.
+   Specific selectors override earlier mobile pulse heights without affecting LIVE. */
+.ledger26-scorebug--pulse .ledger26-teams:has(.ledger26-pulse--final-line){
+ grid-template-rows:auto 24px auto!important
+}
+.ledger26-scorebug--pulse .ledger26-pulse.ledger26-pulse--final-line{
+ box-sizing:border-box;display:flex;justify-content:center;align-items:center;
+ gap:12px;height:24px!important;min-height:24px!important;max-height:24px!important;
+ padding:2px 10px;overflow:hidden!important;background:#ede5d7;
+ border-top:1px solid #c2b49d;border-bottom:1px solid #c2b49d;
+ box-shadow:none;text-align:center
+}
+.ledger26-final-line-label{
+ font:800 10px/1.1 Arial,sans-serif;letter-spacing:.12em;color:#483a28
+}
+.ledger26-final-line-margin{
+ min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+ font:700 10px/1.1 Georgia,serif;color:#5b5141
+}
+@media(max-width:700px){
+ .ledger26-scorebug--pulse .ledger26-teams:has(.ledger26-pulse--final-line){
+  grid-template-rows:auto 22px auto!important
+ }
+ .ledger26-scorebug--pulse .ledger26-pulse.ledger26-pulse--final-line{
+  height:22px!important;min-height:22px!important;max-height:22px!important;
+  padding:2px 6px;gap:8px
+ }
+ .ledger26-final-line-margin{font-size:9px}
+}
