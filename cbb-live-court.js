@@ -134,17 +134,24 @@ function gameFlow(plays,game){
    i/Math.max(1,sampled.length-1));
  const y=lead=>mid-lead/scale*extent;
  const xy=sampled.map((p,i)=>[x(i),y(margin(p))]);
+ // Keep the source-clock grid, but label only major ticks in compact charts.
+ // Minor ticks remain visible as guides without overlapping clock text.
  const axisMarks=timeline?
    Array.from({length:Math.floor(timeline.end/timeline.step)+1},(_,i)=>{
     const secs=i*timeline.step,pos=left+(right-left)*secs/timeline.end;
+    const isEnd=secs===timeline.end,isStart=secs===0;
+    const major=isStart||isEnd||secs%600===0;
+    const compact=isStart||isEnd||secs%1200===0;
     return '<line class="slc-flow-time-rule" x1="'+pos.toFixed(1)+'" y1="'+(mid-extent)+'" x2="'+pos.toFixed(1)+'" y2="'+(mid+extent)+'"/>'+
       '<line class="slc-flow-time-tick" x1="'+pos.toFixed(1)+'" y1="378" x2="'+pos.toFixed(1)+'" y2="387"/>'+
-      '<text class="slc-flow-time-label" x="'+pos.toFixed(1)+'" y="408" text-anchor="'+(i===0?'start':secs===timeline.end?'end':'middle')+'">'+
+      '<text class="slc-flow-time-label'+(major?'':' slc-flow-time-label--minor')+(compact?'':' slc-flow-time-label--mobile-hide')+
+      '" x="'+pos.toFixed(1)+'" y="408" text-anchor="'+(isStart?'start':isEnd?'end':'middle')+'">'+
        esc(clockAtElapsed(secs,timeline.women))+'</text>';
    }).join(''):
-   // When timestamps are missing, event-index ticks remain honest and are labeled as such.
+   // Event-order labels are displayed only when reliable play clocks are absent.
    [0,Math.floor((sampled.length-1)/2),sampled.length-1].filter((i,idx,all)=>all.indexOf(i)===idx)
-    .map(i=>'<text class="slc-flow-time-label" x="'+x(i).toFixed(1)+'" y="408" text-anchor="'+
+    .map((i,j,all)=>'<text class="slc-flow-time-label'+(j>0&&j<all.length-1?' slc-flow-time-label--mobile-hide':'')+
+     '" x="'+x(i).toFixed(1)+'" y="408" text-anchor="'+
       (i===0?'start':i===sampled.length-1?'end':'middle')+'">EVENT '+(shownIndices[i]+1)+'</text>').join('');
 
  // Timeouts use provider-reported plays. When some scoring clocks are missing,
