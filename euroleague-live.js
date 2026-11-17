@@ -82,6 +82,7 @@ function render(){
  const d=currentFeed,forecast=currentModel;
  if(!d)return;
  const checked=Date.parse(d.checked_at||d.updated_at),stale=Date.now()-checked>15*60*1000;
+ const logo=t=>/^[A-Z]{3}$/.test(String(t?.code||'').toUpperCase())?'<img class="el-official-logo club-logo" data-euroleague-code="'+esc(String(t.code).toUpperCase())+'" alt="'+esc(t.name||t.code)+' crest" src="assets/euroleague-logos/'+esc(String(t.code).toUpperCase())+'.png">':'';
  const games=d.games.filter(g=>Number.isFinite(Date.parse(g.date))&&day(g.date)===picker.value)
   .filter(g=>filter.value==='all'||g.status===filter.value)
   .sort((a,b)=>Date.parse(a.date)-Date.parse(b.date));
