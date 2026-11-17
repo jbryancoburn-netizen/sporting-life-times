@@ -235,3 +235,12 @@
  .slc-flow-segments-head>span{font-size:11px}
  .slc-flow-segment-plays li{grid-template-columns:52px minmax(0,1fr) auto}
 }
+
+/* Override earlier noninteractive strip rules with readable disclosure typography. */
+.slc-flow-segment .slc-flow-segment-label{font:800 11px/1.4 Arial,sans-serif;color:#6b4b2b}
+.slc-flow-segment .slc-flow-segment-clock{font:700 12px/1.4 Arial,sans-serif;color:#3e5962}
+.slc-flow-segment .slc-flow-segment-result{display:flex;flex-direction:column;gap:3px}
+.slc-flow-segment .slc-flow-segment-result b{font:800 25px/1.05 Georgia,serif;color:#173c47}
+.slc-flow-segment .slc-flow-segment-result small{font:700 9px/1.2 Arial,sans-serif;color:#556f73}
+.slc-flow-segment .slc-flow-segment-names span{display:flex;justify-content:space-between;font:700 12px/1.35 Arial,sans-serif}
+@media(max-width:740px){.slc-flow-segment .slc-flow-segment-clock{font-size:12px}.slc-flow-segment .slc-flow-segment-result b{font-size:26px}}
