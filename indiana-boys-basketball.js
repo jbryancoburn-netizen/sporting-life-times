@@ -193,6 +193,8 @@ function crest(mark, size, identity) {
   logo.src = mark;
   logo.alt = '';
   logo.decoding = 'async';
+  if (size === 'small') logo.loading = 'lazy';
+  logo.addEventListener('error', () => badge.remove(), {once: true});
   badge.append(logo);
   return badge;
 }
@@ -304,7 +306,7 @@ function initialize(edition) {
 }
 
 const crestManifests = Promise.all(
-  ['indiana-boys-crests.json', 'indiana-boys-crests-mic.json', 'indiana-boys-crests-nlc.json', 'indiana-boys-crests-dac.json',
+  ['indiana-boys-crests-statewide.json', 'indiana-boys-crests.json', 'indiana-boys-crests-mic.json', 'indiana-boys-crests-nlc.json', 'indiana-boys-crests-dac.json',
     'indiana-boys-crests-msc.json', 'indiana-boys-crests-circle.json', 'indiana-boys-crests-schools.json', 'indiana-boys-crests-acac.json', 'indiana-boys-crests-ne8.json', 'indiana-boys-crests-necc.json'].map(file =>
     fetch('data/' + file)
       .then(response => response.ok ? response.json() : null)
