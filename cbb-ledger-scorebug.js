@@ -48,10 +48,10 @@
   const displayPeriod=index?(quarters?['','1ST QUARTER','2ND QUARTER','3RD QUARTER','4TH QUARTER'][index]:['','1ST HALF','2ND HALF','3RD QTR','4TH QTR'][index]):compactPeriod;
   const momentum=g.momentum&&typeof g.momentum.text==='string'?g.momentum:null;
   if(halftime)return '<div class="ledger26-status ledger26-status--stack" data-phase="live"><strong class="ledger26-clock ledger26-clock--text">HALFTIME</strong></div>';
-  const main=clock||(!periodLabel&&raw!=='LIVE'?raw:'LIVE');
+  const main=clock||'CLOCK UNAVAILABLE';
   return '<div class="ledger26-status ledger26-status--stack" data-phase="live">'+
     '<strong class="ledger26-clock'+(clock?'':' ledger26-clock--text')+'">'+esc(main)+'</strong>'+
-    (periodLabel?'<span class="ledger26-period" title="'+esc(periodLabel)+'" aria-label="'+esc(periodLabel)+'">'+esc(displayPeriod)+'</span>':'')+
+    '<span class="ledger26-period" title="'+esc(periodLabel||'Period not supplied by live source')+'" aria-label="'+esc(periodLabel||'Period unavailable')+'">'+esc(displayPeriod||'PERIOD UNAVAILABLE')+'</span>'+
     (momentum?'<small class="ledger26-situation ledger26-momentum'+(momentum.kind==='run'?' ledger26-momentum--run':'')+'">'+esc(momentum.text)+'</small>':'')+'</div>';
  }
  function pregamePanel(g){
@@ -308,7 +308,7 @@
  function liveStatusHTML(el){
   const {clock,period,halftime}=liveStatusParts(el);
   return '<span class="ledger26-pulse-status"><strong class="ledger26-pulse-state">'+(halftime?'HALFTIME':'LIVE')+'</strong>'+
-   (!halftime&&(period||clock)?'<small class="ledger26-pulse-clock">'+esc([period,clock].filter(Boolean).join(' · '))+'</small>':'')+'</span>';
+   (!halftime?'<small class="ledger26-pulse-clock">'+esc([period||'PERIOD UNAVAILABLE',clock||'CLOCK UNAVAILABLE'].join(' · '))+'</small>':'')+'</span>';
  }
  function pulseBuild(raw,el){
   const rivals=raw?.header?.competitions?.[0]?.competitors||[];
