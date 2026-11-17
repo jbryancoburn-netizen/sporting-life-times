@@ -278,3 +278,28 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #c481
   color-mix(in srgb,var(--ledger26-school,#594631) 40%,#17120f 60%) 58%,#17130f);
  box-shadow:inset 0 2px 3px #000a,0 0 0 1px #0005;
 }
+
+/* Persistent desktop scouting and frozen pretipoff RETRO receipt */
+.sl-ledger-page .ledger26-retro-receipt{display:none}
+@media(min-width:1100px){
+ .sl-ledger-page .ledger26-card .ledger26-scorebug{grid-auto-rows:auto}
+ .sl-ledger-page .ledger26-card .ledger26-retro-receipt{
+  grid-column:1/-1;
+  display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;
+  padding:6px 10px;border-top:1px solid #a68b66;
+  background:#ede0c9;color:#3b2c20;
+  font:700 10px/1.3 Georgia,'Times New Roman',serif;
+  text-align:center;font-variant-numeric:tabular-nums;
+ }
+ .sl-ledger-page .ledger26-card .ledger26-retro-receipt strong{
+  color:#803b28;letter-spacing:.06em;font-size:9px;
+ }
+ .sl-ledger-page .ledger26-card .ledger26-scout{
+  display:flex;align-items:center;flex-wrap:wrap;
+ }
+ .sl-ledger-page .ledger26-card .ledger26-scout-defense{display:inline}
+}
+@media(max-width:1099px){
+ /* Keep live/final phone and tablet scorebugs focused on the score and clock. */
+ .sl-ledger-page .ledger26-scorebug:not(.ledger26-scorebug--pregame) .ledger26-scout{display:none}
+}
