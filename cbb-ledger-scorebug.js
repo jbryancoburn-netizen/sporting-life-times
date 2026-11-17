@@ -581,7 +581,7 @@
    const scoreClass=upset?' ledger26-points--upset':'';
    const context=[x.record||'0–0',x.retro||'RETRO —'].join(' · ');
    // Desktop: retain recent results and sourced scoring rates at every phase.
-   const profile=x.scouting&&Number.isInteger(x.scouting.games)&&x.scouting.games>0?x.scouting:null;
+   const profile=x.scouting&&(Number.isInteger(x.scouting.games)&&x.scouting.games>0||Array.isArray(x.scouting.lastFive)&&x.scouting.lastFive.length>0)?x.scouting:null;
    const ppg=profile&&Number.isFinite(profile.pointsFor)?profile.pointsFor.toFixed(1):null;
    const papg=profile&&Number.isFinite(profile.pointsAgainst)?profile.pointsAgainst.toFixed(1):null;
    const form=profile&&Array.isArray(profile.lastFive)?profile.lastFive.filter(v=>
