@@ -239,7 +239,7 @@
    if(g.phase==='live'&&(!snapshot||snapshot.behind))
      return missing('Scoring progression is withheld while the live score sources reconcile.');
    const plays=global.SLTCourt?.parsePlays?.(raw)||[];
-   const graph=global.SLTCourt?.gameFlow?.(plays,courtGame(g,women))||'';
+   const graph=global.SLTCourt?.gameFlow?.(plays,courtGame(g,women),playAttributor(raw,g))||'';
    return graph||missing('A scoring graph will appear when the source provides a consistent sequence of play-by-play scores.');
  }
  function tabs(key,showPlays,showFallback){
