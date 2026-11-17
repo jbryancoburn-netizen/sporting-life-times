@@ -623,7 +623,7 @@
    const ppg=profile&&Number.isFinite(profile.pointsFor)?profile.pointsFor.toFixed(1):null;
    const papg=profile&&Number.isFinite(profile.pointsAgainst)?profile.pointsAgainst.toFixed(1):null;
    const form=profile&&Array.isArray(profile.lastFive)?profile.lastFive.filter(v=>
-     v==='W'||v==='L'||(v&&typeof v==='object'&&(v.result==='W'||v.result==='L'))).slice(-5):[];
+     v==='W'||v==='L'||(v&&typeof v==='object'&&(v.result==='W'||v.result==='L'))):[];
    const outcomes=form.map(v=>typeof v==='string'?v:v.result);
    const finalForm=outcomes.at(-1),streak=finalForm?outcomes.slice().reverse().findIndex(v=>v!==finalForm):-1;
    const streakLength=streak===-1?form.length:streak;
