@@ -1257,3 +1257,64 @@
   height:22px!important;min-height:22px!important;max-height:22px!important;
  }
 }
+
+
+/* Final-game scorebug structure shared by BOTH men's and women's ledgers.
+   Flex rows avoid legacy grid track collapse when an inline RETRO strip exists. */
+.ledger26-scorebug.ledger26-scorebug--final{
+ display:flex!important;
+ flex-direction:column!important;
+ width:100%;
+ height:auto!important;
+ min-height:0!important;
+ max-height:none!important;
+ overflow:visible!important;
+}
+.ledger26-scorebug--final>.ledger26-teams.ledger26-teams--final-line{
+ display:flex!important;
+ flex-direction:column!important;
+ flex-wrap:nowrap!important;
+ flex:0 0 auto!important;
+ width:100%!important;
+ min-width:0!important;
+ height:auto!important;
+ min-height:0!important;
+ max-height:none!important;
+ overflow:visible!important;
+}
+.ledger26-scorebug--final>.ledger26-teams--final-line>.ledger26-team{
+ box-sizing:border-box!important;
+ display:grid!important;
+ flex:0 0 auto!important;
+ align-self:stretch!important;
+ position:relative!important;
+ width:100%!important;
+ height:auto!important;
+ max-height:none!important;
+ min-height:max(76px,var(--ledger26-team-min-height,76px))!important;
+ padding-block:8px!important;
+ overflow:hidden!important;
+}
+.ledger26-scorebug--final>.ledger26-teams--final-line>.ledger26-pulse--final-line{
+ box-sizing:border-box!important;
+ display:flex!important;
+ flex:0 0 24px!important;
+ width:100%!important;
+ height:24px!important;
+ min-height:24px!important;
+ max-height:24px!important;
+ overflow:hidden!important;
+}
+.ledger26-scorebug--final>.ledger26-final-desk{
+ box-sizing:border-box!important;
+ flex:0 0 auto!important;
+ width:100%!important;
+}
+@media(max-width:700px){
+ .ledger26-scorebug--final>.ledger26-teams--final-line>.ledger26-team{
+  min-height:max(64px,var(--ledger26-team-min-height,64px))!important;
+ }
+ .ledger26-scorebug--final>.ledger26-teams--final-line>.ledger26-pulse--final-line{
+  flex-basis:22px!important;height:22px!important;min-height:22px!important;max-height:22px!important;
+ }
+}
