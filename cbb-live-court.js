@@ -312,7 +312,7 @@ function gameFlow(plays,game,attributePlay){
    '" role="group" aria-label="Scoring margin by reported play. Latest: '+esc(a11y)+
    '. Largest reported leads: '+esc(away)+' '+awayMax+' points, '+esc(home)+' '+homeMax+
    ' points. Positive values favor the away team.">'+
-   '<div class="slc-flow-heading"><strong>GAME FLOW</strong><span>POINT MARGIN BY PLAY</span></div>'+
+   '<div class="slc-flow-heading"><strong>GAME FLOW</strong><span>ACTUAL POINT MARGIN BY PLAY</span></div>'+
    '<div class="slc-flow-status"><span>LATEST REPORTED MARGIN</span><strong>'+esc(latestLabel)+
    '</strong><small>'+esc(away)+' '+last.awayScore+' · '+esc(home)+' '+last.homeScore+'</small></div>'+
    '<div class="slc-flow-key"><span><i class="slc-away-dot"></i>'+esc(away)+' LEAD (ABOVE ZERO)</span>'+
