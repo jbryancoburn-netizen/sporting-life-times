@@ -115,7 +115,7 @@ function timelineFor(scoring,game){
  return {elapsed,end,step,women,caption:'Game clock · '+(women?'quarters':'halves')+
    ' · each point at its reported time'};
 }
-function gameFlow(plays,game){
+function gameFlow(plays,game,attributePlay){
  // Use validated, chronological, source-reported scoring events only.
  // The graph is the ACTUAL point margin, never the pregame RETRO spread.
  const audit=verifyPlayScores(plays,game);
@@ -248,7 +248,7 @@ function gameFlow(plays,game){
    const examples=scoringEvents.length?scoringEvents.slice(0,10):logged.slice(0,6);
    const playList=examples.length?'<ol class="slc-flow-segment-plays">'+examples.map(p=>
     '<li><small>'+esc((p.period?'P'+p.period+' ':'')+(p.clock||'—'))+'</small>'+
-    '<span>'+esc(p.text)+'</span>'+
+    '<span>'+esc(typeof attributePlay==='function'?attributePlay(p):p.text)+'</span>'+
     (p.awayScore!==null&&p.homeScore!==null?'<b>'+p.awayScore+'–'+p.homeScore+'</b>':'')+'</li>').join('')+'</ol>':
     '<p class="slc-flow-segment-empty">No scoring-play details reported for this stretch.</p>';
    return '<details class="slc-flow-segment">'+
