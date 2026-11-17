@@ -459,7 +459,7 @@
 .ledger26-scout-stat+.ledger26-scout-stat::before{content:"· ";color:#977e5d}
 /* Vintage scoreboard bulbs: five chronological results, lit W / unlit L. */
 .ledger26-form{display:inline-flex;align-items:center;gap:4px;white-space:nowrap;padding:3px 5px;border:1px solid #4b3c2c;border-radius:4px;background:linear-gradient(180deg,#342d26,#161411);box-shadow:inset 0 1px 2px #000b,0 1px 0 #b49a77}
-.ledger26-form i{box-sizing:border-box;display:block;flex:0 0 auto;width:10px;height:10px;border-radius:50%;border:1px solid #776c59;background:#25221e;box-shadow:inset 0 2px 3px #000,0 0 0 1px #16120e}
+.ledger26-form .ledger26-form-bulb{box-sizing:border-box;display:block;flex:0 0 auto;width:10px;height:10px;border-radius:50%;border:1px solid #776c59;background:#25221e;box-shadow:inset 0 2px 3px #000,0 0 0 1px #16120e}
 .ledger26-form .ledger26-form-w{border-color:#ffe2a0;background:radial-gradient(circle at 38% 32%,#fffce9 0%,#ffe99c 25%,#f5ab3f 67%,#9c501c 100%);box-shadow:0 0 4px 1px #ffcf73,0 0 8px #e6a04588,inset 0 0 2px #fff9d6}
 .ledger26-form .ledger26-form-l{border-color:#504940;background:radial-gradient(circle at 35% 28%,#51483c,#27241f 62%,#15130f);box-shadow:inset 0 2px 3px #000c,0 0 0 1px #17140f}
 .ledger26-rivalry{display:block;color:#6d4933;font:700 9px/1.2 Georgia,serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;padding:0 4px}
@@ -467,7 +467,7 @@
  .ledger26-scout{gap:3px;font-size:8px}
  .ledger26-scout-defense{display:none}
  .ledger26-form{gap:3px;padding:3px 4px}
- .ledger26-form i{width:8px;height:8px}
+ .ledger26-form .ledger26-form-bulb{width:8px;height:8px}
  .ledger26-rivalry{font-size:9px;max-width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
 }
 
@@ -1079,3 +1079,10 @@
 .ledger26-pulse-quickstats>.ledger26-pulse-status{display:flex;flex-direction:row;align-items:baseline;gap:8px;flex:1 0 100%;width:100%;padding-bottom:3px;border-bottom:1px solid #b9a78a}
 .ledger26-pulse-quickstats>.ledger26-pulse-status .ledger26-pulse-state{font-size:12px}
 .ledger26-pulse-quickstats>.ledger26-pulse-status .ledger26-pulse-clock{font-size:12px;font-weight:700;color:#35291a}
+
+/* Bulbs are keyboard-accessible links when a certified Gamefile ID exists.
+   Native title supplies the final score on mouse hover; focus shows the same. */
+.ledger26-form a.ledger26-form-bulb{cursor:pointer;text-decoration:none;position:relative}
+.ledger26-form a.ledger26-form-bulb:hover{transform:scale(1.15)}
+.ledger26-form a.ledger26-form-bulb:focus-visible{outline:2px solid #fff8df;outline-offset:2px}
+@media(prefers-reduced-motion:reduce){.ledger26-form a.ledger26-form-bulb:hover{transform:none}}
