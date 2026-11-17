@@ -234,8 +234,8 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #c481
 
 /* Nov 17 containment: oversized outside-DI emblems must never spill into
    another team, the forecast, or beyond the scorecard on narrow screens. */
-.sl-ledger-page .ledger26-card .ledger26-scorebug{overflow:hidden!important;min-width:0!important;max-width:100%!important;box-sizing:border-box!important}
-.sl-ledger-page .ledger26-card .ledger26-teams{overflow:hidden!important;min-width:0!important;max-width:100%!important}
+.sl-ledger-page .ledger26-card .ledger26-scorebug{overflow:visible!important;min-width:0!important;max-width:100%!important;box-sizing:border-box!important}
+.sl-ledger-page .ledger26-card .ledger26-teams{overflow:visible!important;min-width:0!important;max-width:100%!important}
 .sl-ledger-page .ledger26-card .ledger26-team{overflow:hidden!important;min-width:0!important;max-width:100%!important;box-sizing:border-box!important;contain:paint}
 .sl-ledger-page .ledger26-card .ledger26-crest{overflow:hidden!important;flex-shrink:0!important;position:relative!important;z-index:3!important}
 .sl-ledger-page .ledger26-card .ledger26-crest img,
