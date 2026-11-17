@@ -818,7 +818,7 @@ const liveEditorial=g=>{
    '" target="_blank" rel="noopener noreferrer">Attribution: NCAA-origin box score ↗</a>';
  }
  if(leaders.length)html+='<div class="sl-leading-players"><span>LEADING SCORERS</span>'+
-   leaders.map(p=>'<div><strong>'+esc(p.name)+'</strong><small>'+esc(p.school)+'</small>'+
+   leaders.map(p=>'<div><strong>'+esc(p.name)+' ('+esc(p.school)+')</strong>'+
    '<b>'+esc(p.pts)+' PTS · '+esc(p.reb)+' REB · '+esc(p.ast)+' AST</b></div>').join('')+'</div>';
  return html+'</section>';
 };
