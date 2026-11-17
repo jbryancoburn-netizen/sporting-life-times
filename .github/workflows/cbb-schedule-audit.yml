@@ -1,0 +1,27 @@
+name: CBB schedule integrity audit
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/mbb-schedules-2026-27/**'
+      - 'data/ncaam-2026-27-retro-primary.json'
+      - 'data/ncaam-2026-27-espn-team-crosswalk.json'
+      - 'scripts/audit_cbb_schedules.py'
+      - '.github/workflows/cbb-schedule-audit.yml'
+  workflow_dispatch:
+jobs:
+  verify-schedules:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Audit all 365 men's team schedules against RETRO finals
+        run: python3 scripts/audit_cbb_schedules.py > schedule-audit-report.json
+      - name: Publish audit report as workflow artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cbb-schedule-integrity-report
+          path: schedule-audit-report.json
+          if-no-files-found: warn
