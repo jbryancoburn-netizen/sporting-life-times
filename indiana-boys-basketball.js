@@ -4,7 +4,8 @@ const controls = {
   sectional: document.getElementById('sectional'),
   school: document.getElementById('school'),
 };
-let artwork = {schools: {}, conferences: {}};
+const artwork = {schools: {}, conferences: {}};
+let transparentCrests;
 const masthead = document.getElementById('masthead-title');
 const table = document.querySelector('table');
 const status = document.getElementById('status');
@@ -190,12 +191,31 @@ function crest(mark, size, identity) {
     badge.style.setProperty('--crest-secondary', colors[1]);
   }
   const logo = document.createElement('img');
-  logo.src = mark;
   logo.alt = '';
   logo.decoding = 'async';
   if (size === 'small') logo.loading = 'lazy';
   logo.addEventListener('error', () => badge.remove(), {once: true});
-  badge.append(logo);
+  const tile = transparentCrests?.schools[identity] || transparentCrests?.conferences[identity];
+  if (tile) {
+    const [atlas, x, y] = tile;
+    const svgNamespace = 'http://www.w3.org/2000/svg';
+    const frame = document.createElementNS(svgNamespace, 'svg');
+    frame.setAttribute('aria-hidden', 'true');
+    frame.setAttribute('viewBox', `${x} ${y} ${transparentCrests.tile} ${transparentCrests.tile}`);
+    const sheet = document.createElementNS(svgNamespace, 'image');
+    sheet.setAttribute('width', transparentCrests.size);
+    sheet.setAttribute('height', transparentCrests.size);
+    sheet.addEventListener('error', () => {
+      logo.src = mark;
+      frame.replaceWith(logo);
+    }, {once: true});
+    sheet.setAttribute('href', `assets/indiana-boys-crest-buttons/v1-${atlas}.webp`);
+    frame.append(sheet);
+    badge.append(frame);
+  } else {
+    logo.src = mark;
+    badge.append(logo);
+  }
   return badge;
 }
 
@@ -314,13 +334,18 @@ const crestManifests = Promise.all(
   )
 );
 
+const transparentCrestIndex = fetch('assets/indiana-boys-crest-buttons/v1-index.json')
+  .then(response => response.ok ? response.json() : null)
+  .catch(() => null);
+
 fetch('data/indiana-boys-basketball.json')
   .then(response => {
     if (!response.ok) throw new Error('School register unavailable');
     return response.json();
   })
   .then(async edition => {
-    const manifests = await crestManifests;
+    const [manifests, index] = await Promise.all([crestManifests, transparentCrestIndex]);
+    transparentCrests = index;
     for (const manifest of manifests.filter(Boolean)) {
       Object.assign(artwork.schools, manifest.schools);
       Object.assign(artwork.conferences, manifest.conferences);

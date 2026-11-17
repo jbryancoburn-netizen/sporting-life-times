@@ -38,10 +38,11 @@
       padding: calc(var(--inner-ring) + var(--logo-inset));
       border-radius: 50%;
       border: var(--ring) solid var(--crest-primary);
-      background: radial-gradient(circle at 34% 23%, #fffdf5, #f0e3c9 63%, #d4b68d);
+      background: radial-gradient(circle at 33% 23%, #fff8e9, #ead7b7 64%, #c6a276);
       box-shadow: inset 0 0 0 var(--inner-ring) var(--crest-secondary), inset 0 3px 6px #39251280,
                   0 1px 0 #fff9e9, 0 3px 5px #49331d4d;
       position: relative;
+      isolation: isolate;
     }
     .crest::after {
       content: "";
@@ -51,7 +52,7 @@
       box-shadow: inset 0 2px 1px #fff9e9a8, inset 0 -3px 2px #2214078c;
       pointer-events: none;
     }
-    .crest img { display: block; width: 100%; height: 100%; min-width: 0; min-height: 0; object-fit: contain; }
+    .crest > :is(img, svg) { display: block; width: 100%; height: 100%; min-width: 0; min-height: 0; object-fit: contain; overflow: hidden; }
     .crest-large {
       --ring: 6px;
       --inner-ring: 5px;
@@ -61,21 +62,22 @@
                   inset 0 6px 9px #39251273, 0 1px 0 #fff8e7, 0 4px 1px #52392261,
                   0 8px 12px #49331d52;
     }
-    .crest-large img { filter: drop-shadow(0 -1px 0 #fff9eb) drop-shadow(0 3px 1px #49331d88); }
+    .crest-large > :is(img, svg) { filter: drop-shadow(0 -1px 0 #fff9eb) drop-shadow(0 3px 1px #49331d88); }
     .crest-small {
       --ring: 2px;
       --inner-ring: 1px;
       --logo-inset: clamp(5px, 1.1vw, 7px);
       width: clamp(2.6rem, 7vw, 3.3rem);
-      box-shadow: inset 0 0 0 var(--inner-ring) var(--crest-secondary), 0 2px 3px #49331d42;
+      box-shadow: inset 0 0 0 var(--inner-ring) var(--crest-secondary), inset 0 2px 3px #39251266,
+                  0 1px 1px #49331d80, 0 3px 4px #49331d44;
     }
-    .crest-small::after { box-shadow: inset 0 1px 0 #fff9e980, inset 0 -1px 0 #22140760; }
+    .crest-small::after { box-shadow: inset 0 1px 1px #fff9e9b0, inset 0 -2px 1px #22140770; }
     .crest-dark { background: radial-gradient(circle at 34% 23%, #625540, #332b21 68%, #211b15); }
     .school-identity { display: inline-flex; align-items: center; gap: .48rem; }
     footer { margin-top: 1rem; padding-top: .7rem; border-top: 3px double #524435; font-size: .85rem; }
     @media (max-width: 640px) { th, td { padding: .4rem .3rem; } table { font-size: .83rem; } }
   </style>
-  <script defer src="indiana-boys-basketball.js?v=indiana-crest-wave-20261116"></script>
+  <script defer src="indiana-boys-basketball.js?v=indiana-beveled-buttons-20261117"></script>
 </head>
 <body>
 <main>
