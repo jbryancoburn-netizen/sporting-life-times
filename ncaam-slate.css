@@ -214,3 +214,20 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #c481
 .sl-ledger-page .ledger26-scorebug--pregame>.ledger26-status--compact{
  grid-column:1/-1!important;grid-row:2!important;width:100%!important;
 }
+
+/* Mobile pregame scorebug: eliminate the empty right-hand grid track shown on Nov 17.
+   Use a single vertical flex stack rather than inherited multi-column grid placement. */
+.sl-ledger-page .ledger26-scorebug--pregame>.ledger26-teams{
+ display:flex!important;flex-direction:column!important;align-items:stretch!important;
+ width:100%!important;min-width:0!important;max-width:none!important;
+ grid-column:1/-1!important;
+}
+.sl-ledger-page .ledger26-scorebug--pregame>.ledger26-teams>.ledger26-team{
+ display:grid!important;flex:0 0 auto!important;align-self:stretch!important;
+ width:100%!important;max-width:none!important;min-width:0!important;
+ box-sizing:border-box!important;
+}
+.sl-ledger-page .ledger26-scorebug--pregame>.ledger26-status--compact{
+ grid-column:1/-1!important;width:100%!important;min-width:0!important;
+ box-sizing:border-box!important;
+}
