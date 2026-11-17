@@ -702,6 +702,8 @@ const retroLine=t=>{
 };
 const record=t=>{
   const r=rankOf(t,ratings,women);
+  // Non-DI opponents lack an audited season ledger here; do not invent 0-0.
+  if(!r&&!verifiedOverall.has(String(t?.canonical||'')))return 'Record unavailable';
   const wins=Number(r?.wins??0),losses=Number(r?.losses??0);
   if(!women){
     // Overall and RETRO share the same verified D-I results. Add only the
