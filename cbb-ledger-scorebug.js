@@ -310,19 +310,57 @@
   return '<span class="ledger26-pulse-status"><strong class="ledger26-pulse-state">'+(halftime?'HALFTIME':'LIVE')+'</strong>'+
    (!halftime?'<small class="ledger26-pulse-clock">'+esc([period||'PERIOD UNAVAILABLE',clock||'CLOCK UNAVAILABLE'].join(' · '))+'</small>':'')+'</span>';
  }
+ // Label scorers from the exact game's sourced roster; no guessed player identity.
+ function pulseScorerLabel(raw,el){
+  const teams=new Map([[String(el.dataset.away),String(el.dataset.awayName||'Away')],
+    [String(el.dataset.home),String(el.dataset.homeName||'Home')]]);
+  const playerTeams=new Map();
+  const add=(athlete,team)=>{
+   if(!athlete||!team)return;
+   for(const name of [athlete.displayName,athlete.fullName]){
+    const label=String(name||'').trim();
+    if(!label.includes(' '))continue;
+    const key=label.toLocaleLowerCase();
+    if(playerTeams.has(key)&&playerTeams.get(key)!==team)playerTeams.set(key,null);
+    else if(!playerTeams.has(key))playerTeams.set(key,team);
+   }
+  };
+  for(const group of raw?.boxscore?.players||[]){
+   const team=teams.get(String(group.team?.id));
+   if(team)for(const section of group.statistics||[])
+    for(const item of section.athletes||[])add(item.athlete,team);
+  }
+  for(const group of raw?.rosters||[]){
+   const team=teams.get(String(group.team?.id));
+   if(team)for(const item of group.roster||group.athletes||[])add(item.athlete||item,team);
+  }
+  const names=[...playerTeams.entries()].filter(([,team])=>team)
+    .map(([name])=>name).sort((a,b)=>b.length-a.length);
+  const quote=v=>v.replace(/[^a-z0-9 ]/gi,'').replace(/ +/g,'\\s+');
+  const re=names.length?new RegExp('(^|[^\\p{L}\\p{N}])('+names.map(quote).join('|')+')(?=$|[^\\p{L}\\p{N}])','giu'):null;
+  return play=>{
+   const desc=String(play.text||'');
+   if(!re)return desc;
+   return desc.replace(re,(whole,prefix,player)=>{
+    const team=playerTeams.get(player.toLocaleLowerCase());
+    return team?prefix+player+' ('+team+')':whole;
+   });
+  };
+ }
  function pulseBuild(raw,el){
   const rivals=raw?.header?.competitions?.[0]?.competitors||[];
   if(String(rivals.find(x=>x.homeAway==='away')?.team?.id)!==el.dataset.away||
      String(rivals.find(x=>x.homeAway==='home')?.team?.id)!==el.dataset.home)return null;
   const source=root.SLTCourt;if(!source?.parsePlays||!source?.verifyPlayScores)return null;
   const plays=source.parsePlays(raw);
+  const scorerLabel=pulseScorerLabel(raw,el);
   const audit=source.verifyPlayScores(plays,{phase:el.dataset.phase,
    away:{score:Number(el.dataset.awayScore)},home:{score:Number(el.dataset.homeScore)}});
   if(!audit.ok)return null;
   const interval=el.dataset.gender==='women'?600:1200;
   const clock=p=>{const c=sec(p.clock),period=Number(p.period);return c===null||period<1||period>8?null:(period-1)*interval+interval-c;};
   const points=[{time:0,awayScore:0,homeScore:0,period:1,clock:'',text:''}];
-  for(const p of audit.sequence){const t=clock(p);if(t===null||t<points.at(-1).time)continue;points.push({...p,time:t});}
+  for(const p of audit.sequence){const t=clock(p);if(t===null||t<points.at(-1).time)continue;points.push({...p,time:t,scorerLabel:scorerLabel(p)});}
   if(points.length<3)return null;
   const duration=points.at(-1).time;
   const breaks=[];
@@ -548,7 +586,7 @@
    panel.innerHTML='<strong>RETRO PULSE · '+esc(item.start.label)+' TO '+esc(item.end.label)+'</strong>'+
     pulseSegmentMicrograph(model,item)+
     '<span>'+esc(host.dataset.awayName||model.away)+' '+item.away+' · '+esc(host.dataset.homeName||model.home)+' '+item.home+' points in this stretch</span>'+
-    (item.plays.length?'<ol>'+item.plays.slice(0,35).map(p=>'<li>'+esc(p.clock)+' · '+esc(p.text)+'</li>').join('')+'</ol>':
+    (item.plays.length?'<ol>'+item.plays.slice(0,35).map(p=>'<li>'+esc(p.clock)+' · '+esc(p.scorerLabel||p.text)+'</li>').join('')+'</ol>':
     '<small>No individual scoring events available for this interval.</small>');
   },true);
  }
