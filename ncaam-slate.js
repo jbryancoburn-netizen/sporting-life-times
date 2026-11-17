@@ -10,6 +10,8 @@
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const isoDate=v=>{const d=new Date(v);return Number.isFinite(+d)?new Intl.DateTimeFormat('sv-SE',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).format(d):''};
 const today=()=>isoDate(Date.now());
+// Recheck recently completed games as well as today's live games.
+const shouldRefreshScoreboard=day=>/^\d{4}-\d{2}-\d{2}$/.test(day)&&day<=today()&&day>=shift(today(),-3);
 const dateLabel=(s,compact=false)=>{const d=new Date(s+'T12:00:00Z');return Number.isFinite(+d)?new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',weekday:compact?'short':'long',month:compact?'short':'long',day:'numeric',year:'numeric'}).format(d):s};
 const shift=(s,n)=>{const d=new Date(s+'T12:00:00Z');d.setUTCDate(d.getUTCDate()+n);return d.toISOString().slice(0,10)};
 const cleanId=x=>String(x||'').replace(/^espn:/,'');
@@ -1057,7 +1059,7 @@ async function refresh(){
   await window.MBBLogos?.ready;
   refreshRETRO();sourceError='';
  }catch(err){if(!loaded.length)sourceError=String(err.message||'Unable to retrieve fixtures');}
- finally{loading=false;render();void refreshBroadcasts(selected);void refreshVenues(selected);if(selected===today()||(women&&selected<today()))void refreshLive()}
+ finally{loading=false;render();void refreshBroadcasts(selected);void refreshVenues(selected);ifshouldRefreshScoreboard(selected)void refreshLive()}
 }
 // When a score becomes fully final, immediately replay the exact independent
 // RETRO method. The next certified JSON release replaces these provisional
@@ -1094,7 +1096,7 @@ async function refreshVenues(day,force=false){
 }
 // Independently fetch live scores without waiting for scheduled GitHub JSON updates.
 async function refreshLive(){
- if(liveRequest||document.hidden||(selected!==today()&&(!women||selected>today()))||!cross.teams?.length)return;
+ if(liveRequest||document.hidden||!shouldRefreshScoreboard(selected)||!cross.teams?.length)return;
  liveRequest=true;const day=selected;
  const path='https://site.api.espn.com/apis/site/v2/sports/basketball/'+
   (women?'womens-college-basketball':'mens-college-basketball')+
@@ -1142,13 +1144,13 @@ async function refreshLive(){
  }catch(err){if(selected===day)liveCheckError=String(err?.message||'Current scores unavailable');}
  finally{liveRequest=false;if(selected===day)render()}
 }
-document.getElementById('sl-prev').addEventListener('click',()=>{selected=shift(selected,-1);limit=Number.POSITIVE_INFINITY;liveBoard=[];liveCheckedAt=0;render();void refreshBroadcasts(selected);if(selected===today()||(women&&selected<today()))void refreshLive();void refreshVenues(selected)});
-document.getElementById('sl-next').addEventListener('click',()=>{selected=shift(selected,1);limit=Number.POSITIVE_INFINITY;liveBoard=[];liveCheckedAt=0;render();void refreshBroadcasts(selected);if(selected===today()||(women&&selected<today()))void refreshLive();void refreshVenues(selected)});
-document.getElementById('sl-picker').addEventListener('change',e=>{if(e.target.value){selected=e.target.value;limit=Number.POSITIVE_INFINITY;liveBoard=[];liveCheckedAt=0;render();void refreshBroadcasts(selected);if(selected===today()||(women&&selected<today()))void refreshLive();void refreshVenues(selected)}});
+document.getElementById('sl-prev').addEventListener('click',()=>{selected=shift(selected,-1);limit=Number.POSITIVE_INFINITY;liveBoard=[];liveCheckedAt=0;render();void refreshBroadcasts(selected);ifshouldRefreshScoreboard(selected)void refreshLive();void refreshVenues(selected)});
+document.getElementById('sl-next').addEventListener('click',()=>{selected=shift(selected,1);limit=Number.POSITIVE_INFINITY;liveBoard=[];liveCheckedAt=0;render();void refreshBroadcasts(selected);ifshouldRefreshScoreboard(selected)void refreshLive();void refreshVenues(selected)});
+document.getElementById('sl-picker').addEventListener('change',e=>{if(e.target.value){selected=e.target.value;limit=Number.POSITIVE_INFINITY;liveBoard=[];liveCheckedAt=0;render();void refreshBroadcasts(selected);ifshouldRefreshScoreboard(selected)void refreshLive();void refreshVenues(selected)}});
 document.getElementById('sl-search').addEventListener('input',e=>{search=e.target.value;limit=Number.POSITIVE_INFINITY;render()});
 document.getElementById('sl-filters').addEventListener('click',e=>{const b=e.target.closest('[data-filter]');if(!b)return;filter=b.dataset.filter;limit=Number.POSITIVE_INFINITY;render()});
 document.getElementById('sl-more').addEventListener('click',()=>{limit+=18;render()});
-document.getElementById('sl-reload').addEventListener('click',()=>{void refresh();void refreshBroadcasts(selected,true);if(selected===today()||(women&&selected<today()))void refreshLive();void refreshVenues(selected,true)});
+document.getElementById('sl-reload').addEventListener('click',()=>{void refresh();void refreshBroadcasts(selected,true);ifshouldRefreshScoreboard(selected)void refreshLive();void refreshVenues(selected,true)});
 document.getElementById('sl-games').addEventListener('click',e=>{
  const button=e.target.closest?.('[data-slt-ledger-press-open]');
  if(button){
@@ -1178,8 +1180,8 @@ const changeObserver=new MutationObserver(refreshPicker);changeObserver.observe(
 document.title=(women?'Women’s':'Men’s')+' College Basketball Games | The Sporting Life & Times';
 if(women)document.getElementById('sl-filter-exhibitions').hidden=true;
 refresh();setInterval(()=>{if(!document.hidden)refresh()},90000);
-setInterval(()=>{if(!document.hidden&&(selected===today()||(women&&selected<today())))void refreshLive()},30000);
-document.addEventListener('visibilitychange',()=>{if(!document.hidden){void refreshVenues(selected);if(selected===today()||(women&&selected<today()))void refreshLive()}});
+setInterval(()=>{if(!document.hidden&&shouldRefreshScoreboard(selected))void refreshLive()},30000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden){void refreshVenues(selected);ifshouldRefreshScoreboard(selected)void refreshLive()}});
 // Detailed live feeds update while expanded, without refreshing or navigating the page.
 setInterval(()=>{if(document.hidden||!window.SLTInlineGamefile)return;
  document.querySelectorAll('.sl-game-expansion[open]').forEach(d=>{
