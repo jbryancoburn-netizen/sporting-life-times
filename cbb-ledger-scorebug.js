@@ -601,7 +601,7 @@
       const date=typeof v==='object'&&v!==null?String(v.date||''):'';
       const result=outcome==='W'?'Win':'Loss';
       const detail=hasScore?(date+' · '+result+' vs '+opponent+' · '+v.scored+'–'+v.allowed):result;
-      const href=typeof v==='object'&&v!==null&&/^cbb-gamefile\\.html\\?(?:gender=women&)?day=\\d{4}-\\d{2}-\\d{2}&game=\\d{1,12}$/.test(String(v.gameHref||''))?String(v.gameHref):'';
+      const href=typeof v==='object'&&v!==null&&/^cbb-gamefile[.]html[?](?:gender=women&)?day=[0-9]{4}-[0-9]{2}-[0-9]{2}&game=[0-9]{1,12}$/.test(String(v.gameHref||''))?String(v.gameHref):'';
       return href?'<a class="ledger26-form-bulb ledger26-form-'+outcome.toLowerCase()+'" href="'+esc(href)+'" title="'+esc(detail)+'" aria-label="'+esc(detail+'; open game')+'" onclick="event.stopPropagation()"></a>':
         '<i class="ledger26-form-bulb ledger26-form-'+outcome.toLowerCase()+'" aria-hidden="true" title="'+esc(detail)+'"></i>';
     }).join('')+'</span>':'')+
