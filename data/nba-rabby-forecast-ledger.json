@@ -2,7 +2,7 @@
   "schema": "rabby-nba-prospective-v1",
   "season": "2026-27",
   "created_at": "2026-11-01T19:25:57.157Z",
-  "updated_at": "2026-11-16T08:36:52.338Z",
+  "updated_at": "2026-11-17T02:11:02.201Z",
   "method": "First qualifying early (>2h) or near-tipoff (10-120m) snapshot is final. Never create a retrospective forecast.",
   "forecasts": [
     {
@@ -2279,6 +2279,81 @@
         "priors_sha256": "72ed5520e97b68f34939875034990d4ddcc7f3ddf16efd56d54c918a9359c635",
         "schedule_sha256": "3eff123e0696d730c35cfcf461af7509b2627c1e4eaa09cfc40f8d1d1816e753"
       }
+    },
+    {
+      "id": "espn-nba-401910002",
+      "date": "2026-11-18T00:30Z",
+      "away": "NYK",
+      "home": "TOR",
+      "phase": "early",
+      "captured_at": "2026-11-17T02:11:02.201Z",
+      "away_score": 110,
+      "home_score": 109,
+      "total": 219.26,
+      "margin": -1.683,
+      "pace": 100.57,
+      "home_win_prob": 0.48473,
+      "league_total_baseline": 226.096,
+      "source_games": 197,
+      "away_games": 13,
+      "home_games": 13,
+      "model_version": "6c0d5fb8196929fa50c7",
+      "inputs": {
+        "earned_sha256": "b86a8054fe36fd712fcf0c1b69d99b0647d2d2f523b3c3ae0bc652d9bffb5c66",
+        "boxscores_sha256": "b0c3c8e5eabcb56f27df3e41b2ef31e7990d9111123a1f08e6272877e335281f",
+        "priors_sha256": "72ed5520e97b68f34939875034990d4ddcc7f3ddf16efd56d54c918a9359c635",
+        "schedule_sha256": "98c63c28097a2189ed85ac54318843bcd4dae518bc35a0c21e5b9a97f8ad5d92"
+      }
+    },
+    {
+      "id": "espn-nba-401910003",
+      "date": "2026-11-18T01:00Z",
+      "away": "POR",
+      "home": "MIN",
+      "phase": "early",
+      "captured_at": "2026-11-17T02:11:02.201Z",
+      "away_score": 110,
+      "home_score": 115,
+      "total": 225.574,
+      "margin": 4.613,
+      "pace": 102.658,
+      "home_win_prob": 0.56558,
+      "league_total_baseline": 226.096,
+      "source_games": 197,
+      "away_games": 12,
+      "home_games": 13,
+      "model_version": "6c0d5fb8196929fa50c7",
+      "inputs": {
+        "earned_sha256": "b86a8054fe36fd712fcf0c1b69d99b0647d2d2f523b3c3ae0bc652d9bffb5c66",
+        "boxscores_sha256": "b0c3c8e5eabcb56f27df3e41b2ef31e7990d9111123a1f08e6272877e335281f",
+        "priors_sha256": "72ed5520e97b68f34939875034990d4ddcc7f3ddf16efd56d54c918a9359c635",
+        "schedule_sha256": "98c63c28097a2189ed85ac54318843bcd4dae518bc35a0c21e5b9a97f8ad5d92"
+      }
+    },
+    {
+      "id": "espn-nba-401910004",
+      "date": "2026-11-18T01:00Z",
+      "away": "DET",
+      "home": "SAS",
+      "phase": "early",
+      "captured_at": "2026-11-17T02:11:02.201Z",
+      "away_score": 108,
+      "home_score": 114,
+      "total": 222.356,
+      "margin": 5.766,
+      "pace": 101.52,
+      "home_win_prob": 0.664419,
+      "league_total_baseline": 226.096,
+      "source_games": 197,
+      "away_games": 12,
+      "home_games": 14,
+      "model_version": "6c0d5fb8196929fa50c7",
+      "inputs": {
+        "earned_sha256": "b86a8054fe36fd712fcf0c1b69d99b0647d2d2f523b3c3ae0bc652d9bffb5c66",
+        "boxscores_sha256": "b0c3c8e5eabcb56f27df3e41b2ef31e7990d9111123a1f08e6272877e335281f",
+        "priors_sha256": "72ed5520e97b68f34939875034990d4ddcc7f3ddf16efd56d54c918a9359c635",
+        "schedule_sha256": "98c63c28097a2189ed85ac54318843bcd4dae518bc35a0c21e5b9a97f8ad5d92"
+      }
     }
   ],
   "results": {
@@ -2800,7 +2875,7 @@
     },
     "by_model_version": {
       "6c0d5fb8196929fa50c7": {
-        "forecasts": 91,
+        "forecasts": 94,
         "early": {
           "sample": 61,
           "team_score_mae": 9.254,
