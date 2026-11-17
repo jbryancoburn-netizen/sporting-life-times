@@ -47,6 +47,16 @@ def main():
             seen.add(k)
             try:datetime.strptime(day,'%Y-%m-%d')
             except ValueError:issue('INVALID_DATE',espn,day,e.get('id',''))
+            # Imported school calendar placeholders are not verified tipoff times.
+            raw_date=str(e.get('date',''))
+            if str(e.get('id','')).startswith('school-') and ('T12:00:00' in raw_date or 'T17:00:00Z' in raw_date):
+                if not e.get('official_school_time'):
+                    issue('UNVERIFIED_TIPOFF_PLACEHOLDER',espn,day,e.get('id',''),raw_date)
+            venue=(e.get('competitions') or [{}])[0].get('venue') or {}
+            venue_name=str(venue.get('fullName','')).strip()
+            if venue_name and (venue_name==str(e.get('official_time','')).strip() or
+                               venue_name.startswith(('Mon ', 'Tue ', 'Wed ', 'Thu ', 'Fri ', 'Sat ', 'Sun '))):
+                issue('VENUE_CONTAINS_DATE',espn,day,e.get('id',''),venue_name)
             neutral=e.get('neutralSite') is True
             roles={str(c['team']['id']):c.get('homeAway') for c in comps}
             if neutral and any(role in ('home','away') for role in roles.values()):
