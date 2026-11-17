@@ -695,7 +695,7 @@
  color:#201911!important;text-shadow:0 1px 0 rgba(255,255,255,.5)!important;
 }
 
-/* Keep the full mascot inside its own team row, behind the score and name. */
+/* Crop the oversized, angled mascot to its own team row. */
 .ledger26-scorebug .ledger26-team{
   overflow:hidden;
   isolation:isolate;
@@ -703,10 +703,10 @@
 .ledger26-scorebug .ledger26-ghost{
   position:absolute;
   top:50%;
-  right:4%;
-  width:min(55%,240px);
-  height:94%;
-  transform:translateY(-50%);
+  right:-3%;
+  width:min(67%,285px);
+  height:230%;
+  transform:translateY(-50%) rotate(-16deg);
   opacity:.36;
   z-index:0;
   pointer-events:none;
@@ -727,8 +727,9 @@
 .ledger26-card{isolation:isolate}
 @media(max-width:640px){
  .ledger26-scorebug .ledger26-ghost{
-   right:3%;
-   width:58%;
+   right:-5%;
+   width:64%;
+   height:205%;
    opacity:.31;
  }
  .ledger26-scorebug .ledger26-team--behind .ledger26-ghost{opacity:.23}
