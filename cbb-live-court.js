@@ -167,15 +167,13 @@ function gameFlow(plays,game,attributePlay){
 
  // Timeouts use provider-reported plays. When some scoring clocks are missing,
  // locate markers by actual event order instead of suppressing them altogether.
- const timeouts=[],seenTimeout=new Set();
+ const timeoutByClock=new Map();
  for(let i=0;i<plays.length;i++){
   const p=plays[i];
   if(!/\btime\s*[- ]?out\b/i.test(p.kind+' '+p.text))continue;
   const elapsed=elapsedClock(p,game?.gender==='women'||game?.league==='ncaaw');
   if(timeline&&(elapsed===null||elapsed>timeline.end))continue;
-  const key=p.id+'|'+p.period+'|'+p.clock;
-  if(seenTimeout.has(key))continue;
-  seenTimeout.add(key);
+  const key=elapsed===null?'event:'+i:p.period+'|'+elapsed;
   // A timeout does not need a scoring event or invented clock time.
   let count=0,latestScore={awayScore:0,homeScore:0};
   for(let j=0;j<=i;j++){
@@ -186,11 +184,15 @@ function gameFlow(plays,game,attributePlay){
    }
   }
   const fraction=timeline?elapsed/timeline.end:Math.min(1,Math.max(0,(count-1)/Math.max(1,scoring.length-1)));
-  timeouts.push({...p,index:i,elapsed,position:fraction,latestScore});
+  timeoutByClock.set(key,{...p,index:i,elapsed,position:fraction,latestScore});
  }
- timeouts.sort((a,b)=>a.position-b.position);
+ const timeouts=[...timeoutByClock.values()].sort((a,b)=>a.position-b.position);
  // Use true timeouts first; when the provider omits timeout entries, divide
  // by observed period transitions instead of hiding all scoring segment controls.
+ const women=game?.gender==='women'||game?.league==='ncaaw';
+ const regulation=women?4:2;
+ const periodLabel=period=>period>regulation?(period-regulation===1?'OT':(period-regulation)+'OT'):
+  women?'Q'+period:period+'H';
  const periodCuts=[];
  if(!timeouts.length){
   let priorPeriod=null;
@@ -202,7 +204,7 @@ function gameFlow(plays,game,attributePlay){
     const latestScore=periodCuts.length?periodCuts.at(-1).latestScore:{awayScore:0,homeScore:0};
     let previous=latestScore;
     for(let k=0;k<i;k++){if(plays[k].awayScore!==null&&plays[k].homeScore!==null)previous={awayScore:plays[k].awayScore,homeScore:plays[k].homeScore};}
-    periodCuts.push({index:i-1,clock:'END P'+priorPeriod,period:priorPeriod,position:i/Math.max(1,plays.length),latestScore:previous});
+    periodCuts.push({index:i-1,clock:'END '+periodLabel(priorPeriod),period:priorPeriod,position:i/Math.max(1,plays.length),latestScore:previous});
    }
    priorPeriod=period;
   }
@@ -237,8 +239,8 @@ function gameFlow(plays,game,attributePlay){
   '<div class="slc-flow-segment-grid">'+spanData.map((v,i)=>{
    const prior=v.start.latestScore,ending=v.end.latestScore;
    const difference=v.away-v.home;
-   const spanLabel=p=>p.clock==='TIPOFF'||p.clock==='LATEST'||String(p.clock||'').startsWith('END P')?p.clock:
-     (p.period?'P'+p.period+' ':'')+(p.clock||'TIME NOT REPORTED');
+   const spanLabel=p=>p.clock==='TIPOFF'||p.clock==='LATEST'||String(p.clock||'').startsWith('END ')?p.clock:
+     (p.period?periodLabel(p.period)+' ':'')+(p.clock||'TIME NOT REPORTED');
    const scores=v.events.filter(p=>p.awayScore!==null&&p.homeScore!==null);
    let a=prior.awayScore,h=prior.homeScore,awayScoring=0,homeScoring=0;
    const scoringEvents=[];
@@ -257,7 +259,7 @@ function gameFlow(plays,game,attributePlay){
    const logged=v.events.filter(p=>eventTypes.some(([,re])=>re.test(p.kind+' '+p.text)));
    const examples=scoringEvents.length?scoringEvents.slice(0,10):logged.slice(0,6);
    const playList=examples.length?'<ol class="slc-flow-segment-plays">'+examples.map(p=>
-    '<li><small>'+esc((p.period?'P'+p.period+' ':'')+(p.clock||'—'))+'</small>'+
+    '<li><small>'+esc((p.period?periodLabel(p.period)+' ':'')+(p.clock||'—'))+'</small>'+
     '<span>'+esc(typeof attributePlay==='function'?attributePlay(p):p.text)+'</span>'+
     (p.awayScore!==null&&p.homeScore!==null?'<b>'+p.awayScore+'–'+p.homeScore+'</b>':'')+'</li>').join('')+'</ol>':
     '<p class="slc-flow-segment-empty">No scoring-play details reported for this stretch.</p>';
@@ -265,7 +267,7 @@ function gameFlow(plays,game,attributePlay){
     '<summary aria-label="Segment '+(i+1)+', '+esc(spanLabel(v.start))+' to '+esc(spanLabel(v.end))+', expand scores and statistics">'+
     '<span class="slc-flow-segment-label">SEGMENT '+(i+1)+'</span>'+
     '<span class="slc-flow-segment-clock">'+esc(spanLabel(v.start))+' – '+esc(spanLabel(v.end))+'</span>'+
-    '<span class="slc-flow-segment-result"><b>'+v.away+'–'+v.home+'</b><small>'+esc(away)+' – '+esc(home)+' PTS</small></span>'+
+    '<span class="slc-flow-segment-result"><b>'+v.away+'–'+v.home+'</b><small>'+esc(away)+' – '+esc(home)+' PTS</small><small>GAME SCORE '+prior.awayScore+'–'+prior.homeScore+' → '+ending.awayScore+'–'+ending.homeScore+'</small></span>'+
     '<span class="slc-flow-segment-expand">SCORES &amp; STATS <span aria-hidden="true">⌄</span></span></summary>'+
     '<div class="slc-flow-segment-details">'+
     '<div class="slc-flow-segment-scoreline"><span>START <b>'+prior.awayScore+'–'+prior.homeScore+'</b></span>'+
