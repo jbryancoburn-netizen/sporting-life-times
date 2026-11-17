@@ -1073,13 +1073,34 @@ async function refresh(){
       for(const entry of archive?.games||[]){
         const id=cleanId(entry.id),day=String(entry.date||'');
         const margin=Number(entry.predicted_home_margin);
-        if(!validId(id)||!/^\\d{4}-\\d{2}-\\d{2}$/.test(day)||
+        if(!validId(id)||!/[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(day)||
            entry.predicted_home_margin==null||!Number.isFinite(margin))continue;
         preservedRetroForecasts.set(day+'|'+id,{margin,
           homeId:String(entry.home_id||''),awayId:String(entry.away_id||''),
           probability:entry.predicted_home_win_probability==null?null:Number(entry.predicted_home_win_probability)});
       }
     }catch{preservedRetroForecasts.clear();}
+    // Prospective audit freezes baseline projected scores before actual tipoff.
+    // Use ONLY the live baseline (never the wider-margin challenger).
+    try{
+      const audit=await fetchJSON('data/ncaam-retro-prospective-audit-2026-27.json');
+      for(const f of audit?.forecasts||[]){
+        const id=cleanId(f.id),day=String(f.date||'');
+        const captured=Date.parse(f.captured_at_utc||''),tip=Date.parse(f.tipoff_at_utc||'');
+        if(!validId(id)||!/^20[0-9]{2}-[0-9]{2}-[0-9]{2}$/.test(day)||
+          !Number.isFinite(captured)||!Number.isFinite(tip)||captured>=tip||
+          !Number.isFinite(Number(f.baseline?.margin)))continue;
+        const key=day+'|'+id;
+        const prior=preservedRetroForecasts.get(key);
+        preservedRetroForecasts.set(key,{
+          margin:Number(f.baseline.margin),
+          homeId:String(f.home_id||''),awayId:String(f.away_id||''),
+          probability:prior?.probability??null,
+          homeScore:Number.isFinite(Number(f.baseline.home))?Number(f.baseline.home):null,
+          awayScore:Number.isFinite(Number(f.baseline.away))?Number(f.baseline.away):null
+        });
+      }
+    }catch{/* Preserve existing archived captures. */}
     const menGames=normalizeMen(feed,forecast,cross,outsideMarks,archivedFinals);
     loaded=[...menGames,...normalizeOutsideFinals(outside,cross,menGames),...normalizeExhibitions(ex,cross)];
     liveChanges=new Map(loaded.filter(g=>g.phase==='live').flatMap(g=>{
