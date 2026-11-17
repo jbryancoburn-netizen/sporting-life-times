@@ -382,8 +382,8 @@ const ARCHIVE_HERITAGE=Object.freeze({
  '3101':'assets/cbb-retro-archive/3101.png?v=20261116-usf1',
  '112358':'assets/cbb-retro-archive/112358.png?v=20261116-usf1'
 });
-// User-selected UCF Citronauts mascot head, current Canaveral Blue throwback identity.
-const UCF_CITRONAUT='https://content.sportslogos.net/logos/30/635/full/central_florida_knights_logo_throwback_20185716.png';
+// User-selected original-era 1968-69 FTU Citronaut full-body orange-and-astronaut mascot artwork.
+const UCF_CITRONAUT='https://media1.orlandoweekly.com/orlando/imager/u/blog/27838047/1000-ucf_citronautvector.jpg?cb=1643758861';
 const retroURLForESPN=id=>BIG_TEN_HERITAGE[String(id)]||ACC_HERITAGE[String(id)]||SEC_HERITAGE[String(id)]||BIG_EAST_HERITAGE[String(id)]||A10_HERITAGE[String(id)]||MOUNTAIN_WEST_HERITAGE[String(id)]||ARCHIVE_HERITAGE[String(id)]||'';
 
 const safeURL=v=>{try{let u=new URL(v);return u.protocol==='https:'?u.href:''}catch{return ''}};
