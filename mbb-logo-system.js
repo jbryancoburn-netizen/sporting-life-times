@@ -573,19 +573,19 @@ const primary=(id==='2116'?UCF_CITRONAUT:'')||baked||heritage||(known?(school.lo
 const modern=known?(school.logo_url_verified?safeURL(school.official_logo_url||school.logo_url):''):'';
 // Local heritage artwork must not silently switch to a modern third-party
 // logo. If a selected local file is unavailable, fail visibly for audit.
-const backup=baked||heritage?'':known?(school.provider_logo_candidates||[]).map(safeURL).find(x=>x&&x!==primary)||'':
+const backup=id==='2116'?baked:baked||heritage?'':known?(school.provider_logo_candidates||[]).map(safeURL).find(x=>x&&x!==primary)||'':
  outsideEntry?(cachedCrest?safeURL(outsideEntry.logo_url):safeURL(outsideEntry.logo_alternate_url)||''):'';
 // A watermark must use original school art, not a circular baked crest.
 const watermarkArt=heritage||(known?modern:outsideEntry?safeURL(outsideEntry.logo_url):'');
 const initials=name.split(/\s+/).slice(0,2).map(v=>v[0]||'').join('').toUpperCase();
 const kind=/^(small|score|power|schedule|hero|featured|history)$/.test(options.size||'')?options.size:'small';
 const clr=brand?.primary||'#385866',alt=brand?.secondary||'#597582';
-return '<span class="mbb-mark mbb-mark--'+kind+' mbb-mark--art-'+art+(heritage?' mbb-mark--heritage':'')+((baked||cachedCrest)&&id!=='2116'?' mbb-mark--precomposed':'')+(primary?'':' mbb-mark--missing')+'" style="--mbb-primary:'+esc(clr)+';--mbb-secondary:'+esc(alt)+'" data-espn-id="'+esc(known?id:(outsideEntry?outsideID:''))+'" data-artwork="'+esc(art)+'" data-watermark-art="'+esc(watermarkArt)+'" data-ring-count="2" role="img" aria-label="'+esc(name)+' logo"><span class="mbb-mark__initials" aria-hidden="true">'+esc(initials)+'</span>'+(primary?'<img class="mbb-mark__img" src="'+esc(primary)+'" data-logo-alternate="'+esc(backup)+'" loading="lazy" decoding="async" alt="" onerror="window.MBBLogos.fail(this)">':'')+'</span>';
+return '<span class="mbb-mark mbb-mark--'+kind+' mbb-mark--art-'+art+(heritage?' mbb-mark--heritage':'')+((baked||cachedCrest)&&id!=='2116'?' mbb-mark--precomposed':'')+(primary?'':' mbb-mark--missing')+'" style="--mbb-primary:'+esc(clr)+';--mbb-secondary:'+esc(alt)+'" data-espn-id="'+esc(known?id:(outsideEntry?outsideID:''))+'" data-artwork="'+esc(art)+'" data-watermark-art="'+esc(watermarkArt)+'" data-ring-count="2" role="img" aria-label="'+esc(name)+' logo"><span class="mbb-mark__initials" aria-hidden="true">'+esc(initials)+'</span>'+(primary?'<img class="mbb-mark__img"'+(id==='2116'?' style="filter:url(#slt-ucf-remove-paper)"':'')+' src="'+esc(primary)+'" data-logo-alternate="'+esc(backup)+'" loading="lazy" decoding="async" alt="" onerror="window.MBBLogos.fail(this)">':'')+'</span>';
 }
 function fail(img){
 if(!(img instanceof HTMLImageElement))return;
 const alt=safeURL(img.dataset.logoAlternate);
-if(alt&&img.src!==alt){img.dataset.logoAlternate='';img.src=alt;return;}
+if(alt&&img.src!==alt){img.dataset.logoAlternate='';img.style.removeProperty('filter');img.src=alt;return;}
 img.closest('.mbb-mark')?.classList.add('mbb-mark--missing');img.remove();
 }
 // Repair wrappers left by an older cached publisher decorator. The marker
