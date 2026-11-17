@@ -675,35 +675,9 @@
   // table row; neither the divider nor the RETRO desk can occupy its track.
   // This uses HTML structure, not another stylesheet override.
   if(phase==='final'){
-   const finalTeam=x=>{
-    const t=x||{},name=esc(t.name||'School');
-    const href=/^ncaam-team\.html\?team=ncaa%3A\d+$|^ncaaw-team\.html\?team=\d+$/i.test(String(t.teamHref||''))?t.teamHref:'';
-    const title=href?'<a href="'+esc(href)+'">'+name+'</a>':name;
-    const rating=esc(t.retro||'RETRO —'),record=esc(t.record||'Record unavailable');
-    const score=t.score==null?'—':esc(String(t.score));
-    const profile=t.scouting||null;
-    const form=Array.isArray(profile?.lastFive)?profile.lastFive.filter(v=>v==='W'||v==='L'||(v&&['W','L'].includes(v.result))):[];
-    const lamps=form.map(v=>{
-      const result=typeof v==='string'?v:v.result;
-      const date=typeof v==='object'?String(v.date||''):'';
-      const opponent=typeof v==='object'?String(v.opponent||'Opponent'):'Opponent';
-      const scored=typeof v==='object'&&Number.isFinite(Number(v.scored))?v.scored:null;
-      const allowed=typeof v==='object'&&Number.isFinite(Number(v.allowed))?v.allowed:null;
-      const desc=[date,result==='W'?'Win':'Loss',opponent,scored!==null&&allowed!==null?scored+'–'+allowed:''].filter(Boolean).join(' · ');
-      const url=typeof v==='object'&&/^cbb-gamefile[.]html[?](?:gender=women&)?day=[0-9]{4}-[0-9]{2}-[0-9]{2}&game=[0-9]{1,12}$/.test(String(v.gameHref||''))?v.gameHref:'';
-      return url?'<a class="ledger26-form-bulb ledger26-form-'+result.toLowerCase()+'" href="'+esc(url)+'" title="'+esc(desc)+'" aria-label="'+esc(desc)+'; open game" onclick="event.stopPropagation()"></a>':
-       '<i class="ledger26-form-bulb ledger26-form-'+result.toLowerCase()+'" title="'+esc(desc)+'" aria-label="'+esc(desc)+'"></i>';
-    }).join('');
-    const ppg=profile&&Number.isFinite(profile.pointsFor)?profile.pointsFor.toFixed(1)+' PPG':'';
-    const allowed=profile&&Number.isFinite(profile.pointsAgainst)?profile.pointsAgainst.toFixed(1)+' allowed':'';
-    const details=[ppg,allowed].filter(Boolean).map(v=>'<span class="ledger26-scout-stat">'+esc(v)+'</span>').join(' ');
-    return '<tr><td width="6" bgcolor="'+color(t.color)+'"></td>'+
-      '<td width="78" valign="middle">'+(t.crest||'')+'</td>'+
-      '<td valign="middle"><strong>'+title+'</strong><div><small>'+record+' · '+rating+'</small></div>'+
-      ((details||lamps)?'<div><small class="ledger26-scout">'+details+
-        (lamps?'<span class="ledger26-form" aria-label="Completed games oldest to newest">'+lamps+'</span>':'')+'</small></div>':'')+
-      '</td><td width="64" align="right" valign="middle"><big><strong>'+score+'</strong></big></td></tr>';
-   };
+   // Keep the canonical team renderer: logos, watermarks, result lamps and
+   // statistics must not diverge between live and completed games.
+   const finalTeam=x=>'<tr><td colspan="4">'+team(x)+'</td></tr>';
    const scoreA=Number(g.away?.score),scoreB=Number(g.home?.score);
    const scored=g.away?.score!=null&&g.home?.score!=null&&Number.isFinite(scoreA)&&Number.isFinite(scoreB);
    const winner=scored&&scoreA!==scoreB?(scoreA>scoreB?g.away?.name:g.home?.name):'';
