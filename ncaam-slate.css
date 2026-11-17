@@ -115,6 +115,10 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #c481
 .sl-ledger-page .ledger26-final-kicker{margin-bottom:3px}
 .sl-ledger-page .ledger26-expanded{padding:8px 10px 10px}
 .sl-ledger-page .ledger26-gamefile{margin-top:7px}
+/* Keep scorecards readable on tablets and small laptops; two per row only when both fit. */
+@media(max-width:1050px){
+  .sl-ledger-page #sl-games{grid-template-columns:minmax(0,1fr)}
+}
 @media(max-width:940px){
   .sl-method{grid-template-columns:1fr 1fr}
   .sl-method a{grid-column:1/-1}
