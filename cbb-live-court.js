@@ -242,6 +242,18 @@ function gameFlow(plays,game,attributePlay){
    if(Number(v.period>regulation/2)!==column)return '';
    const prior=v.start.latestScore,ending=v.end.latestScore;
    const difference=v.away-v.home;
+   const startMargin=prior.awayScore-prior.homeScore;
+   const endMargin=ending.awayScore-ending.homeScore;
+   const startScore=prior.awayScore+'–'+prior.homeScore;
+   const endScore=ending.awayScore+'–'+ending.homeScore;
+   const leader=endMargin>0?away:home;
+   const swing=endMargin===startMargin?'Lead unchanged':endMargin===0?'Game tied':
+     startMargin===0||Math.sign(startMargin)!==Math.sign(endMargin)?leader+' took a '+Math.abs(endMargin)+'-point lead':
+     leader+(Math.abs(endMargin)>Math.abs(startMargin)?' extended':' saw its lead cut')+
+       (Math.abs(endMargin)>Math.abs(startMargin)?' its lead':'')+' from '+Math.abs(startMargin)+' to '+Math.abs(endMargin);
+   const runningScore=v.away===0&&v.home===0?
+     '<span>Score held at <b>'+endScore+'</b></span>':
+     '<span>Start <b>'+startScore+'</b></span> <span>End <b>'+endScore+'</b></span> <span>'+esc(swing)+'</span>';
    const spanLabel=p=>p.clock==='TIPOFF'||p.clock==='LATEST'||String(p.clock||'').startsWith('END ')?p.clock:
      (p.period?periodLabel(p.period)+' ':'')+(p.clock||'TIME NOT REPORTED');
    const scores=v.events.filter(p=>p.awayScore!==null&&p.homeScore!==null);
@@ -270,7 +282,8 @@ function gameFlow(plays,game,attributePlay){
     '<summary aria-label="Segment '+(i+1)+', '+esc(spanLabel(v.start))+' to '+esc(spanLabel(v.end))+', expand scores and statistics">'+
     '<span class="slc-flow-segment-label">SEGMENT '+(i+1)+'</span>'+
     '<span class="slc-flow-segment-clock">'+esc(spanLabel(v.start))+' – '+esc(spanLabel(v.end))+'</span>'+
-    '<span class="slc-flow-segment-result"><b>'+v.away+'–'+v.home+'</b><small>'+esc(away)+' – '+esc(home)+' PTS</small><small>GAME SCORE '+prior.awayScore+'–'+prior.homeScore+' → '+ending.awayScore+'–'+ending.homeScore+'</small></span>'+
+    '<span class="slc-flow-segment-result"><b>'+v.away+'–'+v.home+'</b><small>'+esc(away)+' – '+esc(home)+' PTS</small></span>'+
+    '<span class="slc-flow-segment-expand">'+runningScore+'</span>'+
     '<span class="slc-flow-segment-expand">SCORES &amp; STATS <span aria-hidden="true">⌄</span></span></summary>'+
     '<div class="slc-flow-segment-details">'+
     '<div class="slc-flow-segment-scoreline"><span>START <b>'+prior.awayScore+'–'+prior.homeScore+'</b></span>'+
