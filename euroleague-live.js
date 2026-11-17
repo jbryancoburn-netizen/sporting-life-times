@@ -9,7 +9,18 @@ const day = value => new Intl.DateTimeFormat('en-CA', {timeZone:'America/New_Yor
 const picker=document.getElementById('el-score-date');
 const filter=document.getElementById('el-score-filter');
 if(!picker||!filter)return;
+const search=document.getElementById('el-score-search');
 picker.value=day(Date.now());
+for(const button of document.querySelectorAll('[data-el-day-step]')){
+ button.addEventListener('click',()=>{
+  const next=new Date(picker.value+'T12:00:00Z');
+  if(!Number.isFinite(next.getTime()))return;
+  next.setUTCDate(next.getUTCDate()+Number(button.dataset.elDayStep));
+  picker.value=next.toISOString().slice(0,10);
+  render();
+ });
+}
+search?.addEventListener('input',()=>render());
 let currentFeed=null,currentModel=null;
 picker.addEventListener('change',()=>render());
 filter.addEventListener('change',()=>render());
@@ -83,7 +94,10 @@ function render(){
  if(!d)return;
  const checked=Date.parse(d.checked_at||d.updated_at),stale=Date.now()-checked>15*60*1000;
  const logo=t=>/^[A-Z]{3}$/.test(String(t?.code||'').toUpperCase())?'<img class="el-official-logo club-logo" data-euroleague-code="'+esc(String(t.code).toUpperCase())+'" alt="'+esc(t.name||t.code)+' crest" src="assets/euroleague-logos/'+esc(String(t.code).toUpperCase())+'.png">':'';
- const games=d.games.filter(g=>Number.isFinite(Date.parse(g.date))&&day(g.date)===picker.value)
+ const query=search?.value.trim().toLowerCase()||'';
+ const dailyGames=d.games.filter(g=>Number.isFinite(Date.parse(g.date))&&day(g.date)===picker.value);
+ const games=dailyGames
+  .filter(g=>!query||[g.away,g.home].some(t=>clubName(t).toLowerCase().includes(query)||String(t?.code||'').toLowerCase().includes(query)))
   .filter(g=>filter.value==='all'||g.status===filter.value)
   .sort((a,b)=>Date.parse(a.date)-Date.parse(b.date));
  clubMap.clear();recordMap.clear();
@@ -129,7 +143,7 @@ function render(){
   suppressMonogram:true,suppressPress:true,suppressTipoffFallback:true,pulseCompactOnly:true,forecast:pick
  })||'<p class="hub-small">Scorebug unavailable.</p>';
  return '<article class="el-live-card ledger26-card">'+
-  '<div class="ledger26-meta"><span>'+esc([label,g.venue].filter(Boolean).join(' · '))+'</span><span>'+esc(et(g.date))+'</span></div>'+
+  '<div class="ledger26-meta"><span>'+esc([label,g.venue].filter(Boolean).join(' · '))+'</span><span>'+esc(et(g.date))+' ET'+'</span></div>'+
   '<details class="ledger26-expand" data-game-id="'+esc(g.id)+'"><summary class="ledger26-summary">'+
   card+'<span class="ledger26-instruction">OPEN GAME DETAILS +</span></summary>'+
   '<div class="ledger26-expanded">'+info+
@@ -140,7 +154,9 @@ function render(){
  const officialLive=Number(d.header_responses)||0;
  const activeWindow=d.games.some(g=>['live','awaiting_final'].includes(g.status)||(g.status==='scheduled'&&Date.parse(g.date)<=Date.now()&&Date.now()-Date.parse(g.date)<5*3600000));
  const providerNote=d.provider_degraded?' · Official live-stat provider degraded; displaying last verified scores':officialLive===0&&activeWindow?' · Official in-game updates not confirmed; showing published scores only':'';
- status.textContent=(stale?'Score feed delayed · Last checked ':'Score feed checked ')+et(d.checked_at||d.updated_at)+' ET · Checks every 60 seconds'+providerNote;
+ const pending=dailyGames.filter(g=>g.status==='awaiting_final'||(g.status==='scheduled'&&Date.parse(g.date)<=Date.now())).length;
+ const counts=games.length+' of '+dailyGames.length+' games shown'+(pending?' · '+pending+' awaiting a score or result update':'');
+ status.textContent=counts+' · '+(stale?'Score feed delayed · Last checked ':'Score feed checked ')+et(d.checked_at||d.updated_at)+' ET · Checks every 60 seconds'+providerNote;
 
 }
 refresh();setInterval(()=>{if(!document.hidden)refresh()},60000);
