@@ -5,6 +5,14 @@ if(!host||!status)return;
 const esc=v=>String(v??'').replace(/[&<>"']/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[x]));
 const et=d=>new Date(d).toLocaleString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});
 let lastGood=null;
+const day = value => new Intl.DateTimeFormat('en-CA', {timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(value));
+const picker=document.getElementById('el-score-date');
+const filter=document.getElementById('el-score-filter');
+if(!picker||!filter)return;
+picker.value=day(Date.now());
+let currentFeed=null,currentModel=null;
+picker.addEventListener('change',()=>render());
+filter.addEventListener('change',()=>render());
 
 const valid=v=>v!==null&&v!==undefined&&v!==''&&Number.isFinite(Number(v));
 const fixed=(v,n=0)=>valid(v)?Number(v).toFixed(n):'—';
@@ -62,18 +70,21 @@ try{
  }));
  const d=feeds.filter(Boolean).sort((a,b)=>Date.parse(b.checked_at||b.updated_at)-Date.parse(a.checked_at||a.updated_at))[0];
  if(!d)throw Error('Neither live-score publication is available');
- const stamp=Date.parse(d.updated_at);
- if(!Number.isFinite(stamp)||!Array.isArray(d.games))throw Error('Bad feed');
- const checked=Date.parse(d.checked_at||d.updated_at),stale=Date.now()-(Number.isFinite(checked)?checked:stamp)>15*60*1000;
- const priority={live:0,awaiting_final:1,final:2,scheduled:3};
- const games=d.games.filter(g=>Object.hasOwn(priority,g.status)).sort((a,b)=>{
-   const group=priority[a.status]-priority[b.status];
-   if(group)return group;
-   const ad=Date.parse(a.date)||0,bd=Date.parse(b.date)||0;
-   return a.status==='final'?bd-ad:ad-bd;
- }).slice(0,24);
- const logo=t=>/^[A-Z]{3}$/.test(String(t?.code||'').toUpperCase())?'<img class="el-official-logo club-logo" data-euroleague-code="'+esc(String(t.code).toUpperCase())+'" alt="'+esc(t.name||t.code)+' crest" src="assets/euroleague-logos/'+esc(String(t.code).toUpperCase())+'.png">':'';
- const forecast=await fetch('data/euroleague-model.json?live='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null);
+ currentModel=await fetch('data/euroleague-model.json?live='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>currentModel);
+ currentFeed=d;
+ render();
+ lastGood=d;
+}catch(e){
+ status.textContent=lastGood?'Live feed temporarily unavailable · Keeping last verified snapshot':'Live scores are unavailable.';
+}
+}
+function render(){
+ const d=currentFeed,forecast=currentModel;
+ if(!d)return;
+ const checked=Date.parse(d.checked_at||d.updated_at),stale=Date.now()-checked>15*60*1000;
+ const games=d.games.filter(g=>Number.isFinite(Date.parse(g.date))&&day(g.date)===picker.value)
+  .filter(g=>filter.value==='all'||g.status===filter.value)
+  .sort((a,b)=>Date.parse(a.date)-Date.parse(b.date));
  clubMap.clear();recordMap.clear();
  for(const item of forecast?.rankings||[])clubMap.set(String(item.code).toUpperCase(),item);
  for(const item of forecast?.standings||[])recordMap.set(String(item.code).toUpperCase(),item);
@@ -88,12 +99,7 @@ try{
  const periods=Array.isArray(g.period_scores)?g.period_scores.filter(q=>Number.isFinite(q.home)&&Number.isFinite(q.away)):[];
  const pred=byId.get(String(g.id));
  const probability=Number(pred?.home_win_probability);
- const odds=Number.isFinite(probability)?Math.round(100*probability):null;
  const quarterRows=periods.length?'<div class="el-quarter-table"><div class="el-quarter-head"><span>TEAM</span>'+periods.map(q=>'<span>Q'+esc(q.period)+'</span>').join('')+'<strong>TOTAL</strong></div><div class="el-quarter-row"><b>'+esc(g.away.code)+'</b>'+periods.map(q=>'<span>'+esc(q.away)+'</span>').join('')+'<strong>'+esc(g.away.score??'—')+'</strong></div><div class="el-quarter-row"><b>'+esc(g.home.code)+'</b>'+periods.map(q=>'<span>'+esc(q.home)+'</span>').join('')+'<strong>'+esc(g.home.score??'—')+'</strong></div></div>':'<p class="el-live-unavailable">Quarter scores pending official confirmation.</p>';
- const pregame=odds!==null?smallStat('Pregame '+clubName(g.home)+' win chance',odds+'%')+smallStat('Pregame '+clubName(g.away)+' win chance',(100-odds)+'%'):'';
- const projection=pred?.projection;
- const forecast=projection&&valid(projection.total)?smallStat('Pregame projected total',fixed(projection.total))+((valid(projection.away)&&valid(projection.home))?smallStat('Projected score · '+esc(g.away.code)+' / '+esc(g.home.code),fixed(projection.away)+'–'+fixed(projection.home)):''):'';
- const stats=(g.status==='live'||g.status==='final')?'<div class="el-live-quickstats">'+(scored?smallStat('Combined score',a+h)+smallStat('Lead',a===h?'Tied':(a>h?clubName(g.away):clubName(g.home))+' by '+Math.abs(a-h)):'')+'</div>':((pregame||forecast)?'<div class="el-live-quickstats">'+pregame+forecast+'</div>':'');
  const margin=scored?'<div class="el-live-stat"><small>Lead</small><strong>'+Math.abs(a-h)+' pts</strong></div>':'';
  const total=scored?'<div class="el-live-stat"><small>Combined score</small><strong>'+(a+h)+'</strong></div>':'';
  const verifiedStats=officialComparison(g);
@@ -108,27 +114,33 @@ try{
    record:wins(t)||'Record pending',
    retro:window.SLTSportsScorebug?.formatRetro(p,rankCounts,20)||'RETRO —'};
  };
- const phase=g.status==='final'?'final':g.status==='scheduled'?'upcoming':'live';
+ const phase=g.status==='final'?'final':freshLive||scored?'live':'upcoming';
+ const projected=pred?.projection,homeFavorite=probability>=.5;
+ const pick=g.status==='scheduled'&&label==='UPCOMING'&&valid(pred?.home_win_probability)?{
+  probability:homeFavorite?probability:1-probability,
+  team:clubName(homeFavorite?g.home:g.away),
+  margin:valid(projected?.spread_home)?Number(projected.spread_home):null,
+  projectedAwayScore:valid(projected?.away)?Number(projected.away):null,
+  projectedHomeScore:valid(projected?.home)?Number(projected.home):null
+ }:null;
  const card=window.SLTSportsScorebug?.render({
-  phase,status:detail||label,away:letterTeam(g.away),home:letterTeam(g.home)
+  phase,gender:'women',gameId:String(g.id),status:detail||label,away:letterTeam(g.away),home:letterTeam(g.home),
+  suppressMonogram:true,suppressPress:true,suppressTipoffFallback:true,pulseCompactOnly:true,forecast:pick
  })||'<p class="hub-small">Scorebug unavailable.</p>';
  return '<article class="el-live-card ledger26-card">'+
-  '<div class="ledger26-meta"><span>'+esc(g.venue||'EuroLeague')+'</span><span>'+esc(et(g.date))+'</span></div>'+
+  '<div class="ledger26-meta"><span>'+esc([label,g.venue].filter(Boolean).join(' · '))+'</span><span>'+esc(et(g.date))+'</span></div>'+
   '<details class="ledger26-expand" data-game-id="'+esc(g.id)+'"><summary class="ledger26-summary">'+
   card+'<span class="ledger26-instruction">OPEN GAME DETAILS +</span></summary>'+
   '<div class="ledger26-expanded">'+info+
   '<p class="ledger26-detail-note">Official result feed · '+(scoreFresh?'Updated '+esc(et(g.score_updated_at)):'Latest published snapshot')+'</p>'+
   '</div></details></article>';
- }).join('')||'<p class="hub-small">No games in this scorebug window.</p>';
+ }).join('')||'<p class="hub-small">No games for this date and status in the published feed.</p>';
  host.querySelectorAll('details[data-game-id]').forEach(el=>{if(expanded.has(el.dataset.gameId))el.open=true});
  const officialLive=Number(d.header_responses)||0;
  const activeWindow=d.games.some(g=>['live','awaiting_final'].includes(g.status)||(g.status==='scheduled'&&Date.parse(g.date)<=Date.now()&&Date.now()-Date.parse(g.date)<5*3600000));
  const providerNote=d.provider_degraded?' · Official live-stat provider degraded; displaying last verified scores':officialLive===0&&activeWindow?' · Official in-game updates not confirmed; showing published scores only':'';
  status.textContent=(stale?'Score feed delayed · Last checked ':'Score feed checked ')+et(d.checked_at||d.updated_at)+' ET · Checks every 60 seconds'+providerNote;
- lastGood=d;
-}catch(e){
- status.textContent=lastGood?'Live feed temporarily unavailable · Keeping last verified snapshot':'Live feed is awaiting its first published snapshot. Scores are not estimated.';
-}
+
 }
 refresh();setInterval(()=>{if(!document.hidden)refresh()},60000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh()});
