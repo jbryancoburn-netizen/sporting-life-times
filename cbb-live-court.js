@@ -216,7 +216,9 @@ function gameFlow(plays,game){
    }
    const leading=difference>0?away:difference<0?home:'EVEN';
    const leadLine=difference===0?'EVEN SCORING':leading+' +'+Math.abs(difference)+' THIS STRETCH';
-   const logged=v.events.filter(p=>/\b(turnover|foul|rebound|steal|block)\b/i.test(p.kind+' '+p.text));
+   const eventTypes=[['FOULS',/\\bfoul\\b/i],['TURNOVERS',/\\bturnover\\b/i],['REBOUNDS',/\\brebound\\b/i],['STEALS',/\\bsteal\\b/i],['BLOCKS',/\\bblock\\b/i]];
+   const typeCounts=eventTypes.map(([label,re])=>({label,count:v.events.filter(p=>re.test(p.kind+' '+p.text)).length})).filter(x=>x.count>0);
+   const logged=v.events.filter(p=>eventTypes.some(([,re])=>re.test(p.kind+' '+p.text)));
    const examples=scoringEvents.length?scoringEvents.slice(0,10):logged.slice(0,6);
    const playList=examples.length?'<ol class="slc-flow-segment-plays">'+examples.map(p=>
     '<li><small>'+esc((p.period?'P'+p.period+' ':'')+(p.clock||'—'))+'</small>'+
@@ -227,7 +229,7 @@ function gameFlow(plays,game){
     '<summary aria-label="Segment '+(i+1)+', '+esc(spanLabel(v.start))+' to '+esc(spanLabel(v.end))+', expand scores and statistics">'+
     '<span class="slc-flow-segment-label">SEGMENT '+(i+1)+'</span>'+
     '<span class="slc-flow-segment-clock">'+esc(spanLabel(v.start))+' – '+esc(spanLabel(v.end))+'</span>'+
-    '<span class="slc-flow-segment-result"><b>'+v.away+'–'+v.home+'</b><small>POINTS · AWAY–HOME</small></span>'+
+    '<span class="slc-flow-segment-result"><b>'+v.away+'–'+v.home+'</b><small>'+esc(away)+' – '+esc(home)+' PTS</small></span>'+
     '<span class="slc-flow-segment-expand">SCORES &amp; STATS <span aria-hidden="true">⌄</span></span></summary>'+
     '<div class="slc-flow-segment-details">'+
     '<div class="slc-flow-segment-scoreline"><span>START <b>'+prior.awayScore+'–'+prior.homeScore+'</b></span>'+
@@ -235,7 +237,7 @@ function gameFlow(plays,game){
     '<div class="slc-flow-segment-names"><span>'+esc(away)+' <b>'+v.away+' PTS</b></span>'+
     '<span>'+esc(home)+' <b>'+v.home+' PTS</b></span></div>'+
     '<p class="slc-flow-segment-swing">'+esc(leadLine)+' · SCORING PLAYS '+awayScoring+'–'+homeScoring+'</p>'+
-    (logged.length?'<p class="slc-flow-segment-count">'+logged.length+' additional reported foul, rebound, turnover, steal or block events</p>':'')+
+    (typeCounts.length?'<p class="slc-flow-segment-count">REPORTED: '+typeCounts.map(x=>x.label+' '+x.count).join(' · ')+'</p>':'')+
     '<h5>REPORTED PLAYS</h5>'+playList+
     (scoringEvents.length>10?'<p class="slc-flow-segment-more">First 10 scoring plays shown; see Every Play for the complete log.</p>':'')+
     '</div></details>';
