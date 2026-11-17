@@ -848,7 +848,7 @@ const ledgerScorebug=g=>{
    historicalForecast.awayId===String(g.away.canonical)?historicalForecast:null;
  const convert=t=>({id:String(t.id),name:t.name,abbreviation:t.abbreviation||'',timeoutsRemaining:t.timeoutsRemaining,score:g.phase==='upcoming'?null:t.score,
    crest:emblem(t),color:brand(t),record:record(t),retro:retroLine(t),
-    retroSnapshot:(()=>{const q=rankOf(t,ratings,women);return g.phase==='final'&&g.kind!=='exhibition'&&q&&Number.isFinite(Number(q.elo))?{elo:Number(q.elo),rank:Number.isInteger(Number(q.rank))?Number(q.rank):null,dailyChange:q.daily_change==null?null:Number(q.daily_change)}:null})(),
+    retroSnapshot:(()=>{const q=rankOf(t,ratings,women);return g.kind!=='exhibition'&&q&&Number.isFinite(Number(q.elo))?{elo:Number(q.elo),rank:Number.isInteger(Number(q.rank))?Number(q.rank):null,dailyChange:q.daily_change==null?null:Number(q.daily_change)}:null})(),
    teamHref:teamPage(t),poll:pollRankings.get(String(t.id))||null,
    scouting:(()=>{
      const p=seasonStats.get(String(t.canonical||''));
@@ -870,7 +870,7 @@ const ledgerScorebug=g=>{
  return window.SLTBasketballScorebug?.render({
   gameId:String(g.id),phase:g.phase,gender:women?'women':'men',status:g.status||'LIVE',momentum:g.momentum||null,possession:g.possession||null,
   // Restore the original compact status/lead rail while leaving the full flow chart to the color Gamefile.
-  pulseCompactOnly:true, compactFinal:true,
+  pulseCompactOnly:true, compactFinal:true, showRetroDesk:true,
   date:g.day,tipoff:formatClock(g),venue:g.venue||'',network:g.broadcast||'',suppressPress:true,
   suppressMonogram:true,suppressTipoffFallback:true,
   historicalForecast:matchedHistoricalForecast,

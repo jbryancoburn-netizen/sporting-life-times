@@ -187,10 +187,10 @@
   const teams=[g.away,g.home];
   const available=teams.filter(t=>t?.retroSnapshot&&Number.isFinite(Number(t.retroSnapshot.elo)));
   // Do not add an empty postgame box when ratings have not yet published.
-  if(!available.length)return '';
+  if(!available.length&&!g.showRetroDesk)return '';
   const line=t=>{
    const p=t?.retroSnapshot;
-   if(!p||!Number.isFinite(Number(p.elo)))return '';
+   if(!p||!Number.isFinite(Number(p.elo)))return g.showRetroDesk?'<span class="ledger26-final-team"><span class="ledger26-final-school">'+esc(t?.name||'School')+'</span> · RETRO —</span>':'';
    const delta=p.dailyChange;
    const movement=typeof delta==='number'&&Number.isFinite(delta)?
     '<span class="ledger26-final-delta '+(delta>0?'ledger26-final-up':delta<0?'ledger26-final-down':'')+'">'+
@@ -199,11 +199,11 @@
    return '<span class="ledger26-final-team" title="RETRO rating and change since the previous daily snapshot, not necessarily attributable to this game">'+
     '<span class="ledger26-final-school">'+esc(t.name||'School')+'</span>'+
     '<strong class="ledger26-final-rating">'+Number(p.elo).toFixed(1)+'</strong>'+
-    (movement?'<span class="ledger26-final-change">'+movement+'</span>':'')+
+    (movement?'<span class="ledger26-final-change">'+movement+'</span>':g.showRetroDesk?' · Change unavailable':'')+
     (rank?'<small class="ledger26-final-standing">'+esc(rank)+'</small>':'')+'</span>';
   };
   return '<div class="ledger26-final-desk ledger26-final-desk--inline" aria-label="Current RETRO ratings and daily movement">'+
-    '<span class="ledger26-final-kicker">RETRO NOW</span>'+
+    '<span class="ledger26-final-kicker">RETRO NOW · DAILY CHANGE</span>'+
     '<div class="ledger26-final-pair">'+teams.map(line).filter(Boolean).join('')+'</div></div>';
  }
 
@@ -621,7 +621,7 @@
      Boolean(x.abbreviation||x.name)&&String(g.momentum.text||'').toUpperCase().startsWith(String(x.abbreviation||x.name||'').toUpperCase()+' ')?
      '<span class="ledger26-team-run" title="'+esc(g.momentum.text)+'" aria-label="Scoring run">↗</span>':'';
    const scoreClass=upset?' ledger26-points--upset':'';
-   const snapshot=phase==='final'&&g.compactFinal?x.retroSnapshot:null;
+   const snapshot=phase==='final'&&g.compactFinal&&!g.showRetroDesk?x.retroSnapshot:null;
    const change=snapshot?.dailyChange;
    const retro=snapshot&&Number.isFinite(snapshot.elo)?
      'RETRO '+snapshot.elo.toFixed(1)+(snapshot.rank>0?' (#'+snapshot.rank+')':' (rank unavailable)'):
@@ -703,7 +703,7 @@
     (phase==='final'&&g.compactFinal?'<div class="ledger26-live-headline"><strong>'+esc(label)+'</strong>'+
       (finalResult(g)?' · '+esc(finalResult(g)):'')+'</div>':'')+
     '<div class="ledger26-teams'+(phase==='final'&&!g.compactFinal?' ledger26-teams--final-line':'')+'">'+team(g.away)+middle+team(g.home)+'</div>'+
-    (middle?'':phase==='live'?(g.pulseManagedExternally?'':livePanel(g,label)):phase==='upcoming'?pregamePanel(g):'')+(phase==='final'&&!g.compactFinal?finalRetroDesk(g):'')+receipt+(phase==='upcoming'&&!g.suppressPress?preview(g).split('<dialog')[0]:'')+'</div>';
+    (middle?'':phase==='live'?(g.pulseManagedExternally?'':livePanel(g,label)):phase==='upcoming'?pregamePanel(g):'')+(g.showRetroDesk||phase==='final'&&!g.compactFinal?finalRetroDesk(g):'')+receipt+(phase==='upcoming'&&!g.suppressPress?preview(g).split('<dialog')[0]:'')+'</div>';
  }
  // The Daily Ledger is the universal newspaper model, not a separate sport skin.
  // Keep the old alias for existing college basketball pages.
