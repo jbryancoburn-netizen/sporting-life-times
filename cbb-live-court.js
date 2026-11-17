@@ -143,7 +143,7 @@ function gameFlow(plays,game,attributePlay){
    return ticks.reverse().map(secs=>{
     const pos=left+width*secs/timeline.end;
     const isEnd=secs===timeline.end,isStart=secs===0;
-    const major=isStart||isEnd||secs%600===0;
+    const major=isStart||isEnd||timeline.end<=600||secs%600===0;
     const show=major&&(isEnd||isStart||(nextLabel-pos>=115&&pos-left>=115));
     const compact=show&&(isEnd||isStart||(nextCompact-pos>=175&&pos-left>=175));
     if(show)nextLabel=pos;
