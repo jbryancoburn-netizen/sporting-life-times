@@ -392,7 +392,9 @@ function reconcileLive(published,updates){
   const prior=result.get(String(g.id));
   if(!prior){result.set(String(g.id),g);continue;}
   if(prior.day!==g.day||String(prior.away.id)!==String(g.away.id)||
-     String(prior.home.id)!==String(g.home.id)||prior.phase==='final')continue;
+     String(prior.home.id)!==String(g.home.id))continue;
+  // A confirmed official final must replace a stale published live snapshot.
+  if(prior.phase==='final'&&g.phase!=='final')continue;
   if(prior.phase==='live'&&
      (g.phase==='upcoming'||(prior.away.score!=null&&g.away.score<prior.away.score)||
       (prior.home.score!=null&&g.home.score<prior.home.score)))continue;
@@ -1126,6 +1128,7 @@ async function refreshLive(){
   const apiLive=Array.isArray(raw?.events)?
    liveEvents(raw,day,cross,women,retroPublished?.rankings,loaded):[];
   // Reconcile only matching event/team IDs and never regress a score.
+  // Prefer the directly fetched official event over the potentially delayed published JSON.
   const fresh=reconcileLive(publishedLive,apiLive);
   const present=new Set(fresh.map(g=>String(g.id)+'|'+g.day));
   // A source refresh must not erase a previously observed final during
