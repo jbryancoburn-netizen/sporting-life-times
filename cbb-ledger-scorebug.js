@@ -294,20 +294,21 @@
    '</strong><span>RETRO PULSE · SCORING HISTORY PENDING</span></div></div>';
  }
  function liveStatusParts(el){
-  if(el.dataset.phase!=='live')return {clock:'',period:''};
+  if(el.dataset.phase!=='live')return {clock:'',period:'',halftime:false};
   const status=String(el.dataset.liveStatus||'').trim();
+  const halftime=/\b(?:halftime|half\s*time|intermission)\b/i.test(status);
+  if(halftime)return {clock:'',period:'',halftime:true};
   const clock=(status.match(/\b\d{1,2}:\d{2}\b/)||[])[0]||'';
-  const match=status.match(/\b(?:1st|2nd|3rd|4th)(?:\s+(?:half|quarter|period))?\b|\b(?:halftime|half\s*time|intermission|OT|[2-9]OT|overtime)\b/i);
+  const match=status.match(/\b(?:1st|2nd|3rd|4th)(?:\s+(?:half|quarter|period))?\b|\b(?:OT|[2-9]OT|overtime)\b/i);
   const word=String(match?.[0]||'').toLowerCase();
-  const period=/half\s*time|halftime|intermission/.test(word)?'HALFTIME':
-   /overtime|\bot\b|[2-9]ot/.test(word)?word.toUpperCase():
+  const period=/overtime|\bot\b|[2-9]ot/.test(word)?word.toUpperCase():
    /^[1-4]/.test(word)?word[0]+(el.dataset.gender==='women'?'Q':'H'):'';
-  return {clock,period};
+  return {clock,period,halftime:false};
  }
  function liveStatusHTML(el){
-  const {clock,period}=liveStatusParts(el);
-  return '<span class="ledger26-pulse-status"><strong class="ledger26-pulse-state">LIVE</strong>'+
-   (period||clock?'<small class="ledger26-pulse-clock">'+esc([period,clock].filter(Boolean).join(' · '))+'</small>':'')+'</span>';
+  const {clock,period,halftime}=liveStatusParts(el);
+  return '<span class="ledger26-pulse-status"><strong class="ledger26-pulse-state">'+(halftime?'HALFTIME':'LIVE')+'</strong>'+
+   (!halftime&&(period||clock)?'<small class="ledger26-pulse-clock">'+esc([period,clock].filter(Boolean).join(' · '))+'</small>':'')+'</span>';
  }
  function pulseBuild(raw,el){
   const rivals=raw?.header?.competitions?.[0]?.competitors||[];
@@ -363,7 +364,7 @@
   const liveParts=liveStatusParts(el);
   const liveClock=liveParts.clock;
   const livePeriod=liveParts.period;
-  const compactHeading=el.dataset.phase==='live'?'LIVE':heading;
+  const compactHeading=liveParts.halftime?'HALFTIME':el.dataset.phase==='live'?'LIVE':heading;
   // Concept A: a readable score summary, not a tiny line pretending to explain a game.
   el.innerHTML='<div class="ledger26-pulse-compact" aria-label="RETRO Pulse quick summary">'+
    '<span class="ledger26-pulse-status"><strong class="ledger26-pulse-state">'+esc(compactHeading)+'</strong>'+(liveClock||livePeriod?'<small class="ledger26-pulse-clock">'+esc([livePeriod,liveClock].filter(Boolean).join(' · '))+'</small>':'')+'</span>'+
@@ -475,7 +476,7 @@
    return;
   }
   const shell=el.closest('.ledger26-scorebug'),phase=el.dataset.phase||'final';
-  const status=el.querySelector('.ledger26-pulse-heading strong')?.textContent||(phase==='final'?'FINAL':'LIVE');
+  const status=phase==='live'?(liveStatusParts(el).halftime?'HALFTIME':String(el.dataset.liveStatus||'LIVE')):(el.querySelector('.ledger26-pulse-heading strong')?.textContent||'FINAL');
   el.remove();
   if(!shell)return;
   shell.classList.remove('ledger26-scorebug--pulse');
