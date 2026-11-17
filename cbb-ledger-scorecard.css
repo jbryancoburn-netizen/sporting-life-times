@@ -1058,3 +1058,18 @@
   height:22px!important;min-height:22px!important;max-height:22px!important;
  }
 }
+
+/* Pregame mobile structural repair: no unused right rail or half-width team rows. */
+.ledger26-scorebug.ledger26-scorebug--pregame.ledger26-scorebug--plain{
+ display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+}
+.ledger26-scorebug--pregame .ledger26-teams{
+ grid-column:1/-1!important;width:100%!important;min-width:0!important;
+ grid-template-columns:minmax(0,1fr)!important;
+}
+.ledger26-scorebug--pregame .ledger26-team{
+ grid-column:1!important;width:100%!important;box-sizing:border-box!important;
+}
+.ledger26-scorebug--pregame .ledger26-status--compact{
+ grid-column:1/-1!important;width:100%!important;box-sizing:border-box!important;
+}
