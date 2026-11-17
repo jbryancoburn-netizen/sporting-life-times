@@ -1078,3 +1078,6 @@
 .ledger26-pulse-quickstats>.ledger26-pulse-status{display:flex;flex-direction:row;align-items:baseline;gap:8px;flex:1 0 100%;width:100%;padding-bottom:3px;border-bottom:1px solid #b9a78a}
 .ledger26-pulse-quickstats>.ledger26-pulse-status .ledger26-pulse-state{font-size:12px}
 .ledger26-pulse-quickstats>.ledger26-pulse-status .ledger26-pulse-clock{font-size:12px;font-weight:700;color:#35291a}
+
+/* 2026-11-17: eliminate detached, clipped duplicate logo watermarks in team rows. */
+.ledger26-scorebug .ledger26-team .ledger26-ghost{display:none!important}
