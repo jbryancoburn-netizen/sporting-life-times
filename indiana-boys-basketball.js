@@ -23,6 +23,78 @@ function pageLink(label, params) {
 
 const scheduleFiles = new Map();
 
+const resultsFeed = fetch('data/indiana-boys-results.json', {cache: 'no-cache'})
+  .then(response => {
+    if (!response.ok) throw new Error('Results unavailable');
+    return response.json();
+  })
+  .catch(() => null);
+
+function resultLink(game, label) {
+  const anchor = document.createElement('a');
+  anchor.href = game.url;
+  anchor.textContent = label;
+  anchor.title = 'Final score from ' + game.source;
+  return anchor;
+}
+
+function resultsPanel() {
+  const panel = document.createElement('section');
+  const heading = document.createElement('h2');
+  heading.textContent = 'Statewide varsity results';
+  const content = document.createElement('div');
+  content.textContent = 'Loading results…';
+  panel.append(heading, content);
+  resultsFeed.then(feed => {
+    if (!feed) {
+      content.textContent = 'Results are temporarily unavailable.';
+      return;
+    }
+    const days = Object.keys(feed.dates).sort().reverse();
+    if (!days.length) {
+      content.textContent = 'No varsity finals have been published. The first IHSAA contest date is November 23.';
+      return;
+    }
+    const label = document.createElement('label');
+    label.textContent = 'Results date ';
+    const select = document.createElement('select');
+    for (const day of days) {
+      const date = new Date(day + 'T12:00:00');
+      select.add(new Option(date.toLocaleDateString('en-US', {month: 'long', day: 'numeric', year: 'numeric'}), day));
+    }
+    label.append(select);
+    const list = document.createElement('ul');
+    const render = () => {
+      list.replaceChildren(...feed.dates[select.value].map(game => {
+        const item = document.createElement('li');
+        game.names.forEach((name, index) => {
+          if (index) item.append(' · ');
+          item.append(game.teams[index] ? pageLink(name, {team: game.teams[index]}) : name);
+          item.append(' ' + game.scores[index]);
+        });
+        item.append(' · ', resultLink(game, game.source));
+        return item;
+      }));
+    };
+    select.addEventListener('change', render);
+    content.replaceChildren(label, list);
+    render();
+  });
+  return panel;
+}
+
+function scheduleFinal(feed, day, team, opponent) {
+  const seasonDay = (Number(day.slice(0, 2)) >= 7 ? '2026-' : '2027-') + day;
+  const normalize = name => name.toLowerCase().replace(/[^a-z0-9]/g, '');
+  const matches = (feed?.dates[seasonDay] || []).filter(game => {
+    const index = game.teams.indexOf(team);
+    if (index < 0) return false;
+    const other = 1 - index;
+    return game.teams[other] === opponent || (!game.teams[other] && normalize(game.names[other]) === normalize(opponent));
+  });
+  return matches.length === 1 ? matches[0] : null;
+}
+
 function schedulePanel(edition, members, showPicker) {
   const panel = document.createElement('section');
   const heading = document.createElement('h2');
@@ -46,7 +118,8 @@ function schedulePanel(edition, members, showPicker) {
             throw error;
           }));
       }
-      const games = (await scheduleFiles.get(classification))[team.id];
+      const [schedules, results] = await Promise.all([scheduleFiles.get(classification), resultsFeed]);
+      const games = schedules[team.id];
       if (requestedTeam !== team.id) return;
       if (!games?.length) {
         content.textContent = 'Schedule unavailable for ' + team.school + '.';
@@ -55,7 +128,7 @@ function schedulePanel(edition, members, showPicker) {
       const schedule = document.createElement('table');
       schedule.setAttribute('aria-label', team.school + ' varsity schedule');
       const header = schedule.createTHead().insertRow();
-      for (const label of ['Date', 'Site', 'Opponent', 'Time (ET)', 'Location or event']) {
+      for (const label of ['Date', 'Site', 'Opponent', 'Time (ET) or final', 'Location or event']) {
         const cell = document.createElement('th');
         cell.scope = 'col';
         cell.textContent = label;
@@ -73,7 +146,13 @@ function schedulePanel(edition, members, showPicker) {
         if (schools.has(opponent)) opponentCell.append(pageLink(schools.get(opponent), {team: opponent}));
         else opponentCell.textContent = opponent;
         if (conferenceGame) opponentCell.append(' · Conf.');
-        row.insertCell().textContent = time || 'TBD';
+        const scoreCell = row.insertCell();
+        const final = scheduleFinal(results, day, team.id, opponent);
+        if (final) {
+          const index = final.teams.indexOf(team.id);
+          const [ours, theirs] = [final.scores[index], final.scores[1 - index]];
+          scoreCell.append(resultLink(final, (ours > theirs ? 'W ' : 'L ') + ours + '–' + theirs));
+        } else scoreCell.textContent = time || 'TBD';
         row.insertCell().textContent = note || '—';
       }
       const wrapper = document.createElement('div');
@@ -264,6 +343,7 @@ function initialize(edition) {
     }
     return;
   }
+  document.getElementById('results').append(resultsPanel());
   for (const [key, control] of Object.entries(controls)) {
     if (query.has(key)) control.value = query.get(key);
   }
