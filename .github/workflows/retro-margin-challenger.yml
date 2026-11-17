@@ -5,10 +5,11 @@ on:
     branches: [main]
     paths:
       - 'scripts/retro_margin_challenger.cjs'
+      - 'scripts/retro_prospective_audit.cjs'
       - 'tests/retro-margin-challenger.test.cjs'
       - '.github/workflows/retro-margin-challenger.yml'
   schedule:
-    - cron: '21 12 * * *'
+    - cron: '1,11,21,31,41,51 * * * *'
 permissions:
   contents: write
 concurrency:
@@ -26,7 +27,9 @@ jobs:
       - name: Validate model isolation and historical ordering
         run: node tests/retro-margin-challenger.test.cjs
       - name: Score shadow model against frozen pregame margins
-        run: node scripts/retro_margin_challenger.cjs
+        run: |
+          node scripts/retro_margin_challenger.cjs
+          node scripts/retro_prospective_audit.cjs
       - name: Publish research-only report, never production predictions
         shell: bash
         run: |
@@ -38,7 +41,8 @@ jobs:
             git reset --hard origin/main
             node tests/retro-margin-challenger.test.cjs
             node scripts/retro_margin_challenger.cjs
-            git add data/ncaam-retro-margin-challenger-2026-27.json
+            node scripts/retro_prospective_audit.cjs
+            git add data/ncaam-retro-margin-challenger-2026-27.json data/ncaam-retro-prospective-audit-2026-27.json
             if git diff --cached --quiet; then exit 0; fi
             git commit -m "Research: refresh RETRO margin challenger shadow audit"
             if git push origin HEAD:main; then exit 0; fi
