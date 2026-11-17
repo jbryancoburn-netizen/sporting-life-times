@@ -344,9 +344,12 @@
   const last=data.points.at(-1),diff=last.awayScore-last.homeScore;
   const current=diff===0?'TIED':(diff>0?awayName:homeName)+' +'+Math.abs(diff);
   const heading=el.querySelector('.ledger26-pulse-heading strong')?.textContent||'FINAL';
+  const liveClock=el.dataset.phase==='live'?(String(heading).match(/\b\d{1,2}:\d{2}\b/)||[])[0]||'':'';
+  const livePeriod=el.dataset.phase==='live'?(String(heading).match(/\b(?:H[12]|Q[1-4]|OT\d*)\b/i)||[])[0]||'':'';
+  const compactHeading=el.dataset.phase==='live'?'LIVE':heading;
   // Concept A: a readable score summary, not a tiny line pretending to explain a game.
   el.innerHTML='<div class="ledger26-pulse-compact" aria-label="RETRO Pulse quick summary">'+
-   '<strong class="ledger26-pulse-state">'+esc(heading)+'</strong>'+
+   '<span class="ledger26-pulse-status"><strong class="ledger26-pulse-state">'+esc(compactHeading)+'</strong>'+(liveClock||livePeriod?'<small class="ledger26-pulse-clock">'+esc([livePeriod,liveClock].filter(Boolean).join(' · '))+'</small>':'')+'</span>'+
    '<div class="ledger26-pulse-stat"><small>BIGGEST LEAD · '+esc(largest.name)+'</small><b>+'+largest.value+'</b></div>'+
    '<div class="ledger26-pulse-stat"><small>'+(el.dataset.phase==='final'?'FINAL MARGIN':'CURRENT LEAD')+(diff===0?'':(' · '+esc(diff>0?awayName:homeName)))+'</small><b>'+(diff===0?'TIED':('+'+Math.abs(diff)))+'</b></div>'+
    '<span class="ledger26-pulse-invite">'+(el.dataset.compactOnly==='1'?'OPEN GAME DETAILS':'GAME FLOW')+' <span aria-hidden="true">⌄</span></span></div>';
