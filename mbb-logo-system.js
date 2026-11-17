@@ -365,7 +365,6 @@ const ARCHIVE_HERITAGE=Object.freeze({
  '2724':'assets/cbb-retro-archive/2724.png?v=20261116-usf1',
  '2729':'assets/cbb-retro-archive/2729.png?v=20261116-usf1',
  '2737':'assets/cbb-retro-archive/2737.png?v=20261116-usf1',
- '2739':'assets/cbb-retro-archive/2739.png?v=20261116-usf1',
  '2747':'assets/cbb-retro-archive/2747.png?v=20261116-usf1',
  '2750':'assets/cbb-retro-archive/2750.png?v=20261116-usf1',
  '2754':'assets/cbb-retro-archive/2754.png?v=20261116-usf1',
