@@ -18,11 +18,11 @@ const shortName=(id,cross,full)=>{const canon=cross.get(String(id));if(canon)ret
 const liveStatusFromEvent=event=>{
  const status=event?.status||{},type=status.type||{};
  const text=[type.shortDetail,type.detail,type.description,type.name].filter(Boolean).join(' ');
- if(/\\b(?:halftime|half\\s*time|intermission)\\b/i.test(text)||/STATUS_HALFTIME/i.test(text))return 'HALFTIME';
+ if(/\b(?:halftime|half\s*time|intermission)\b/i.test(text)||/STATUS_HALFTIME/i.test(text))return 'HALFTIME';
  const clock=String(status.displayClock||'').trim();
  const period=Number(status.period);
  const periodText=period>=1&&period<=4?(period===1?'1st':period===2?'2nd':period===3?'3rd':'4th'):(period>4?'OT':'');
- if(/\\b\\d{1,2}:\\d{2}\\b/.test(text)&&/\\b(?:1st|2nd|3rd|4th|OT)\\b/i.test(text))return String(type.shortDetail||type.detail);
+ if(/\b\d{1,2}:\d{2}\b/.test(text)&&/\b(?:1st|2nd|3rd|4th|OT)\b/i.test(text))return String(type.shortDetail||type.detail);
  if(clock&&periodText)return clock+' - '+periodText;
  return String(type.shortDetail||type.detail||type.description||'LIVE');
 };
