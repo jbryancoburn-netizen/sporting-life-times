@@ -621,7 +621,15 @@
      Boolean(x.abbreviation||x.name)&&String(g.momentum.text||'').toUpperCase().startsWith(String(x.abbreviation||x.name||'').toUpperCase()+' ')?
      '<span class="ledger26-team-run" title="'+esc(g.momentum.text)+'" aria-label="Scoring run">↗</span>':'';
    const scoreClass=upset?' ledger26-points--upset':'';
-   const context=[x.record||'0–0',x.retro||'RETRO —'].join(' · ');
+   const snapshot=phase==='final'&&g.compactFinal?x.retroSnapshot:null;
+   const change=snapshot?.dailyChange;
+   const retro=snapshot&&Number.isFinite(snapshot.elo)?
+     'RETRO '+snapshot.elo.toFixed(1)+(snapshot.rank>0?' (#'+snapshot.rank+')':' (rank unavailable)'):
+     x.retro||'RETRO —';
+   const daily=Number.isFinite(change)?
+     ' · '+(change>0?'+':change<0?'−':'')+Math.abs(change).toFixed(1)+' daily':
+     snapshot?' · Daily change unavailable':'';
+   const context=[x.record||'0–0',retro+daily].join(' · ');
    // Desktop: retain recent results and sourced scoring rates at every phase.
    const profile=x.scouting&&(Number.isInteger(x.scouting.games)&&x.scouting.games>0||Array.isArray(x.scouting.lastFive)&&x.scouting.lastFive.length>0)?x.scouting:null;
    const ppg=profile&&Number.isFinite(profile.pointsFor)?profile.pointsFor.toFixed(1):null;
