@@ -195,8 +195,7 @@ function crest(mark, size, identity) {
   logo.decoding = 'async';
   if (size === 'small') logo.loading = 'lazy';
   logo.addEventListener('error', () => badge.remove(), {once: true});
-  const tile = mark.startsWith('data:') ? null :
-    transparentCrests?.schools[identity] || transparentCrests?.conferences[identity];
+  const tile = transparentCrests?.schools[identity] || transparentCrests?.conferences[identity];
   if (tile) {
     const [atlas, x, y] = tile;
     const svgNamespace = 'http://www.w3.org/2000/svg';
@@ -210,7 +209,7 @@ function crest(mark, size, identity) {
       logo.src = mark;
       frame.replaceWith(logo);
     }, {once: true});
-    sheet.setAttribute('href', `assets/indiana-boys-crest-buttons/v1-${atlas}.webp`);
+    sheet.setAttribute('href', `assets/indiana-boys-crest-buttons/v1-${atlas}.webp?v=local-artwork`);
     frame.append(sheet);
     badge.append(frame);
   } else {
@@ -328,7 +327,7 @@ function initialize(edition) {
 
 const crestManifests = Promise.all(
   ['indiana-boys-crests-statewide.json', 'indiana-boys-crests.json', 'indiana-boys-crests-mic.json', 'indiana-boys-crests-nlc.json', 'indiana-boys-crests-dac.json',
-    'indiana-boys-crests-msc.json', 'indiana-boys-crests-circle.json', 'indiana-boys-crests-schools.json', 'indiana-boys-crests-acac.json', 'indiana-boys-crests-ne8.json', 'indiana-boys-crests-necc.json', 'indiana-boys-crests-verified-artwork.json'].map(file =>
+    'indiana-boys-crests-msc.json', 'indiana-boys-crests-circle.json', 'indiana-boys-crests-schools.json', 'indiana-boys-crests-acac.json', 'indiana-boys-crests-ne8.json', 'indiana-boys-crests-necc.json?v=local-artwork', 'indiana-boys-crests-verified-artwork.json'].map(file =>
     fetch('data/' + file)
       .then(response => response.ok ? response.json() : null)
       .catch(() => null)
@@ -339,7 +338,7 @@ const schoolCrestColors = fetch('data/indiana-boys-crest-colors.json')
   .then(response => response.ok ? response.json() : null)
   .catch(() => null);
 
-const transparentCrestIndex = fetch('assets/indiana-boys-crest-buttons/v1-index.json')
+const transparentCrestIndex = fetch('assets/indiana-boys-crest-buttons/v1-index.json?v=local-artwork')
   .then(response => response.ok ? response.json() : null)
   .catch(() => null);
 
