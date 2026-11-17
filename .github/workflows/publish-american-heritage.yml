@@ -39,7 +39,8 @@ jobs:
           refs=set(re.findall(r'assets/cbb-american-1980s/[a-z0-9-]+\.png',src))
           assert refs
           assert len(refs)==audit['imported_count']
-          assert len(refs)+audit['unresolved_count']==13
+          assert len(refs)==13, f"American vintage logo release incomplete: {len(refs)}/13; refusing partial publication"
+          assert audit['unresolved_count']==0, 'Unresolved American logos remain'
           assert 'AMERICAN_HERITAGE[String(id)]' in src
           for p in refs:
               with Image.open(p) as im: im.verify()
