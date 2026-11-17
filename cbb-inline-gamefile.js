@@ -288,7 +288,8 @@
      '<button type="button" class="slt-gf-refresh" data-inline-refresh>↻ Refresh details</button></div>'+
      tabs(key,hasPlays,hasFallback)+
      keyPanel('summary','<h4>Period-by-period scoring</h4>'+periods+
-       (hasPlays?'<h4>Scoring progression</h4>'+flow(raw,g,women):''))+
+       '<h4>Color Game Flow and scoring segments</h4>'+
+       (hasPlays?flow(raw,g,women):missing('Interactive scoring segments are unavailable: the source did not supply play-by-play events for this game. Period scoring above remains available when reported.')))+
      keyPanel('team','<h4>Complete available team statistics</h4>'+team)+
      keyPanel('players','<h4>Player-by-player box score</h4>'+players)+
      (hasPlays?keyPanel('plays','<h4>Play-by-play · all reported events</h4>'+playLog(raw,g)):
