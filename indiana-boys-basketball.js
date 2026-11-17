@@ -327,7 +327,7 @@ function initialize(edition) {
 
 const crestManifests = Promise.all(
   ['indiana-boys-crests-statewide.json', 'indiana-boys-crests.json', 'indiana-boys-crests-mic.json', 'indiana-boys-crests-nlc.json', 'indiana-boys-crests-dac.json',
-    'indiana-boys-crests-msc.json', 'indiana-boys-crests-circle.json', 'indiana-boys-crests-schools.json', 'indiana-boys-crests-acac.json', 'indiana-boys-crests-ne8.json', 'indiana-boys-crests-necc.json'].map(file =>
+    'indiana-boys-crests-msc.json', 'indiana-boys-crests-circle.json', 'indiana-boys-crests-schools.json', 'indiana-boys-crests-acac.json', 'indiana-boys-crests-ne8.json', 'indiana-boys-crests-necc.json', 'indiana-boys-crests-verified-artwork.json'].map(file =>
     fetch('data/' + file)
       .then(response => response.ok ? response.json() : null)
       .catch(() => null)
