@@ -17,12 +17,15 @@ const shift=(s,n)=>{const d=new Date(s+'T12:00:00Z');d.setUTCDate(d.getUTCDate()
 const cleanId=x=>String(x||'').replace(/^espn:/,'');
 const validId=x=>/^\d{1,12}$/.test(String(x||''));
 const shortName=(id,cross,full)=>{const canon=cross.get(String(id));if(canon)return canon.name;return String(full||'Team').trim()};
-const liveStatusFromEvent=event=>{
+const liveStatusFromEvent=(event,women)=>{
  const status=event?.status||{},type=status.type||{};
  const raw=[type.shortDetail,type.detail,type.description,type.name].filter(Boolean).join(' ');
  if(/halftime|half\s*time|intermission|STATUS_HALFTIME/i.test(raw))return 'HALFTIME';
  const period=Number(status.period);
- const periodText=period>=1&&period<=4?(period===1?'1st':period===2?'2nd':period===3?'3rd':'4th'):(period>4?'OT':'');
+ const regulationPeriods=women?4:2;
+ const overtime=period-regulationPeriods;
+ const periodText=Number.isInteger(period)&&period>0?
+   (overtime>0?(overtime===1?'OT':overtime+'OT'):['1st','2nd','3rd','4th'][period-1]):'';
  // ESPN shortDetail can contain only the clock. Always combine the separately
  // sourced period field with it instead of requiring both in one text field.
  const clock=String(status.displayClock||((raw.match(/\b\d{1,2}:\d{2}\b/)||[])[0]||'')).trim();
@@ -382,7 +385,7 @@ function liveEvents(raw,day,registry,women=false,womenRankings=[],publishedGames
     away:{id:String(away.team.id),canonical:a?String(a.id):'',name:String(away.team.id)==='2145'?'Colorado Springs':a?.name||prior?.away?.name||named(away),full:a?.espn_name||prior?.away?.full||named(away),abbreviation:away.team?.abbreviation||'',timeoutsRemaining:Number.isInteger(away.timeoutsRemaining)?away.timeoutsRemaining:null,score:ap},
     home:{id:String(home.team.id),canonical:h?String(h.id):'',name:String(home.team.id)==='2145'?'Colorado Springs':h?.name||prior?.home?.name||named(home),full:h?.espn_name||prior?.home?.full||named(home),abbreviation:home.team?.abbreviation||'',timeoutsRemaining:Number.isInteger(home.timeoutsRemaining)?home.timeoutsRemaining:null,score:hp},
     venue:match.venue?.fullName||'',broadcast:(match.broadcasts||[]).flatMap(x=>x.names||[]).join(' / '),
-    status:liveStatusFromEvent(event),momentum:phase==='live'?momentumFromCompetition(match,away,home):null,
+    status:liveStatusFromEvent(event,women),momentum:phase==='live'?momentumFromCompetition(match,away,home):null,
     possession:phase==='live'&&[away.team.id,home.team.id].includes(String(match?.possession))?
       (String(match.possession)===String(away.team.id)?'away':'home'):null,
     completed,neutral,site_verified:siteVerified,timed:true,kind:'regular',
@@ -867,7 +870,7 @@ const ledgerScorebug=g=>{
  return window.SLTBasketballScorebug?.render({
   gameId:String(g.id),phase:g.phase,gender:women?'women':'men',status:g.status||'LIVE',momentum:g.momentum||null,possession:g.possession||null,
   // Restore the original compact status/lead rail while leaving the full flow chart to the color Gamefile.
-  pulseCompactOnly:true,
+  pulseCompactOnly:true, compactFinal:true,
   date:g.day,tipoff:formatClock(g),venue:g.venue||'',network:g.broadcast||'',suppressPress:true,
   suppressMonogram:true,suppressTipoffFallback:true,
   historicalForecast:matchedHistoricalForecast,

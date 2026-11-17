@@ -273,17 +273,21 @@
  const pulseCache=new Map(),pulseScale=new Map(),pulseBounds=new Map();
  const sec=v=>{const m=String(v||'').match(/^(\d{1,2}):(\d\d)$/);return m?Number(m[1])*60+Number(m[2]):null;};
  const pulseRange=n=>n<=5?5:n<=10?10:Math.max(20,Math.ceil(n/10)*10);
+ function finalResult(g){
+  const away=g.away?.score, home=g.home?.score;
+  if(away==null||home==null||away===''||home===''||
+    !Number.isFinite(Number(away))||!Number.isFinite(Number(home)))return '';
+  const margin=Number(home)-Number(away);
+  const winner=margin>0?g.home?.name:margin<0?g.away?.name:'';
+  return winner?winner+' by '+Math.abs(margin):'';
+ }
  function pulseShell(g,phase,label){
-  // A final score is already prominently displayed by the two team rows.
-  // Keep only a narrow, stable status divider; no big FINAL tile or async Pulse.
   if(phase==='final'){
-   const a=Number(g.away?.score),h=Number(g.home?.score);
-   const valid=g.away?.score!=null&&g.home?.score!=null&&Number.isFinite(a)&&Number.isFinite(h);
-   const winner=valid&&a!==h?(a>h?g.away?.name:g.home?.name):'';
-   const margin=valid?Math.abs(a-h):null;
+   if(g.compactFinal)return '';
+   const result=finalResult(g);
    return '<div class="ledger26-pulse ledger26-pulse--final-line" role="status" aria-label="Final score">'+
     '<span class="ledger26-final-line-label">FINAL</span>'+
-    (winner?'<span class="ledger26-final-line-margin">'+esc(winner)+' by '+margin+'</span>':'')+
+    (result?'<span class="ledger26-final-line-margin">'+esc(result)+'</span>':'')+
     '</div>';
   }
   if(g.pulseManagedExternally||phase==='upcoming'||!g.gameId||!['men','women'].includes(g.gender)||!g.away?.id||!g.home?.id)return '';
@@ -299,9 +303,9 @@
   const halftime=/\b(?:halftime|half\s*time|intermission)\b/i.test(status);
   if(halftime)return {clock:'',period:'',halftime:true};
   const clock=(status.match(/\b\d{1,2}:\d{2}\b/)||[])[0]||'';
-  const match=status.match(/\b(?:1st|2nd|3rd|4th)(?:\s+(?:half|quarter|period))?\b|\b(?:OT|[2-9]OT|overtime)\b/i);
+  const match=status.match(/\b(?:1st|2nd|3rd|4th)(?:\s+(?:half|quarter|period))?\b|\b(?:OT|\d+OT|overtime)\b/i);
   const word=String(match?.[0]||'').toLowerCase();
-  const period=/overtime|\bot\b|[2-9]ot/.test(word)?word.toUpperCase():
+  const period=/overtime|\bot\b|\d+ot/.test(word)?word.toUpperCase():
    /^[1-4]/.test(word)?word[0]+(el.dataset.gender==='women'?'Q':'H'):'';
   return {clock,period,halftime:false};
  }
@@ -685,11 +689,13 @@
         esc(spread===0?'EVEN':String(favorite)+' −'+spread.toFixed(1))+
         esc(projection)+esc(actual)+'</span></div>';
     })():'';
-  return '<div class="ledger26-scorebug'+(g.suppressMonogram?' ledger26-scorebug--plain':'')+(middle?' ledger26-scorebug--pulse':'')+(phase==='final'?' ledger26-scorebug--final':'')+(phase==='upcoming'?' ledger26-scorebug--pregame':'')+'" role="group" aria-label="'+esc(g.ariaLabel||((g.away?.name||'Away')+' at '+(g.home?.name||'Home')+' scoreboard'))+'">'+
+  return '<div class="ledger26-scorebug'+(g.suppressMonogram?' ledger26-scorebug--plain':'')+(middle?' ledger26-scorebug--pulse':'')+(phase==='final'&&!g.compactFinal?' ledger26-scorebug--final':'')+(phase==='upcoming'?' ledger26-scorebug--pregame':'')+'" role="group" aria-label="'+esc(g.ariaLabel||((g.away?.name||'Away')+' at '+(g.home?.name||'Home')+' scoreboard'))+'">'+
     (g.suppressMonogram?'':'<span class="ledger26-monogram"><img src="assets/slt-engraved-black.svg" width="35" height="49" alt="Sporting Life and Times monogram"></span>')+
-    (phase==='live'?'<div class="ledger26-live-headline" role="status" aria-label="Live game clock and period" style="display:flex;align-items:center;justify-content:center;gap:12px;padding:8px 10px;background:#f5e6c8;color:#35271c;border-bottom:2px solid #927657;font:700 13px Georgia,serif;letter-spacing:.025em;text-align:center">'+(function(){const raw=String(label||'LIVE');if(/\b(?:HALFTIME|HALF TIME|INTERMISSION)\b/i.test(raw))return 'HALFTIME';const clock=(raw.match(/\b\d{1,2}:\d{2}\b/)||[])[0]||'CLOCK UNAVAILABLE';const p=(raw.match(/\b(?:1st|2nd|3rd|4th|OT)\b/i)||[])[0]||'';const period=p?(/^OT$/i.test(p)?'OVERTIME':p.toUpperCase()+(g.gender==='women'?' QUARTER':' HALF')):'PERIOD UNAVAILABLE';return esc(clock)+' <span style="color:#806044">·</span> '+esc(period);})()+'</div>':'')+
-    '<div class="ledger26-teams'+(phase==='final'?' ledger26-teams--final-line':'')+'">'+team(g.away)+middle+team(g.home)+'</div>'+
-    (middle?'':phase==='live'?livePanel(g,label):phase==='upcoming'?pregamePanel(g):'')+(phase==='final'?finalRetroDesk(g):'')+receipt+(phase==='upcoming'&&!g.suppressPress?preview(g).split('<dialog')[0]:'')+'</div>';
+    (phase==='live'?'<div class="ledger26-live-headline" role="status" aria-label="Live game clock and period" style="display:flex;align-items:center;justify-content:center;gap:12px;padding:8px 10px;background:#f5e6c8;color:#35271c;border-bottom:2px solid #927657;font:700 13px Georgia,serif;letter-spacing:.025em;text-align:center">'+(function(){const raw=String(label||'LIVE');if(/\b(?:HALFTIME|HALF TIME|INTERMISSION)\b/i.test(raw))return 'HALFTIME';const clock=(raw.match(/\b\d{1,2}:\d{2}\b/)||[])[0]||'CLOCK UNAVAILABLE';const p=(raw.match(/\b(?:1st|2nd|3rd|4th|\d+OT|OT)\b/i)||[])[0]||'';const period=p?(/OT$/i.test(p)?(p.length===2?'OVERTIME':p.toUpperCase()):p.toUpperCase()+(g.gender==='women'?' QUARTER':' HALF')):'PERIOD UNAVAILABLE';return esc(clock)+' <span style="color:#806044">·</span> '+esc(period);})()+'</div>':'')+
+    (phase==='final'&&g.compactFinal?'<div class="ledger26-live-headline"><strong>'+esc(label)+'</strong>'+
+      (finalResult(g)?' · '+esc(finalResult(g)):'')+'</div>':'')+
+    '<div class="ledger26-teams'+(phase==='final'&&!g.compactFinal?' ledger26-teams--final-line':'')+'">'+team(g.away)+middle+team(g.home)+'</div>'+
+    (middle?'':phase==='live'?livePanel(g,label):phase==='upcoming'?pregamePanel(g):'')+(phase==='final'&&!g.compactFinal?finalRetroDesk(g):'')+receipt+(phase==='upcoming'&&!g.suppressPress?preview(g).split('<dialog')[0]:'')+'</div>';
  }
  // The Daily Ledger is the universal newspaper model, not a separate sport skin.
  // Keep the old alias for existing college basketball pages.
