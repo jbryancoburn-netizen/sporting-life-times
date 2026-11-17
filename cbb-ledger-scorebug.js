@@ -274,6 +274,18 @@
  const sec=v=>{const m=String(v||'').match(/^(\d{1,2}):(\d\d)$/);return m?Number(m[1])*60+Number(m[2]):null;};
  const pulseRange=n=>n<=5?5:n<=10?10:Math.max(20,Math.ceil(n/10)*10);
  function pulseShell(g,phase,label){
+  // A final score is already prominently displayed by the two team rows.
+  // Keep only a narrow, stable status divider; no big FINAL tile or async Pulse.
+  if(phase==='final'&&g.pulseCompactOnly){
+   const a=Number(g.away?.score),h=Number(g.home?.score);
+   const valid=g.away?.score!=null&&g.home?.score!=null&&Number.isFinite(a)&&Number.isFinite(h);
+   const winner=valid&&a!==h?(a>h?g.away?.name:g.home?.name):'';
+   const margin=valid?Math.abs(a-h):null;
+   return '<div class="ledger26-pulse ledger26-pulse--final-line" role="status" aria-label="Final score">'+
+    '<span class="ledger26-final-line-label">FINAL</span>'+
+    (winner?'<span class="ledger26-final-line-margin">'+esc(winner)+' by '+margin+'</span>':'')+
+    '</div>';
+  }
   if(g.pulseManagedExternally||phase==='upcoming'||!g.gameId||!['men','women'].includes(g.gender)||!g.away?.id||!g.home?.id)return '';
   return '<div class="ledger26-pulse" data-retro-pulse="'+esc(g.gameId)+'" data-away-name="'+esc(g.away.name)+'" data-home-name="'+esc(g.home.name)+'" data-gender="'+g.gender+
    '" data-away="'+esc(g.away.id)+'" data-home="'+esc(g.home.id)+'" data-phase="'+phase+'" data-compact-only="'+(g.pulseCompactOnly?'1':'0')+
