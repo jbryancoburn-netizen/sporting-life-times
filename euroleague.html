@@ -26,23 +26,23 @@
 <script defer src="cbb-ledger-scorebug.js?v=unified-20261104"></script>
 <script defer src="euroleague-live.js?v=sports-master-v3"></script>
 <script defer src="site-access-clock.js?v=2"></script>
-<link rel="stylesheet" href="slt-front-page.css?v=20261104-editorial1"><script defer src="slt-front-page.js?v=20261104-editorial1"></script><link rel="stylesheet" href="slt-sections-nav.css?v=20261109a"><script defer src="slt-sections-nav.js?v=20261109a"></script></head>
-<body class="edition-interior league-edition el-heritage-edition" data-league="euroleague" data-slt-front="euro">
+<link rel="stylesheet" href="slt-sections-nav.css?v=20261109a"><script defer src="slt-sections-nav.js?v=20261109a"></script></head>
+<body class="edition-interior league-edition el-heritage-edition" data-league="euroleague">
 <div class="wrap">
 <header class="el-press-header">
 <div class="topline"><a href="index.html">Independent sports journalism &amp; data</a><span>EuroLeague basketball · 2026–27</span></div>
 <div class="masthead"><a href="index.html">Sporting Life &amp; Times</a></div>
 <div class="edition-line">The EuroLeague Edition</div>
 <nav class="nav" aria-label="EuroLeague newspaper navigation">
-<a href="euroleague.html" aria-current="page">The Continental Chronicle</a>
-<a href="#el-live-desk">Live Scores</a>
-<a href="#league-news">The Newswire</a>
-<a href="#el-standings-panel">League Table</a>
-<a href="#el-ratings">RETRO Ratings</a>
-<a href="#el-club-spotlight">Playoff Picture</a>
-<a href="#el-player-leaders">Player Register</a>
-<a href="#el-predictions">Matchup Lab</a>
-<a href="#league-boxscores">Gamefile</a>
+<a href="euroleague.html" id="el-front-link">The Continental Chronicle</a>
+<a href="?view=desks#el-live-desk">Live Scores</a>
+<a href="euroleague.html#league-news">The Newswire</a>
+<a href="?view=desks#el-standings-panel">League Table</a>
+<a href="?view=desks#el-ratings">RETRO Ratings</a>
+<a href="?view=desks#el-club-spotlight">Playoff Picture</a>
+<a href="?view=desks#el-player-leaders">Player Register</a>
+<a href="?view=desks#el-predictions">Matchup Lab</a>
+<a href="?view=desks#league-boxscores">Gamefile</a>
 <a href="sports.html">All Sports</a>
 </nav>
 </header>
@@ -50,25 +50,30 @@
 <section class="slt-department-band" aria-label="EuroLeague continental basketball newspaper">
 <div class="slt-department-kicker"><span>SPORTING LIFE &amp; TIMES / CONTINENTAL BASKETBALL</span><span>2026–27 EDITION</span></div>
 <h1>THE CONTINENTAL CHRONICLE</h1>
-<p>Twenty clubs. One continental crown. The scores, the people and the race for Europe’s basketball championship.</p>
+
+</section>
+
+<div class="stamp el-press-stamp"><span id="league-freshness" role="status">Checking the latest published continental edition…</span><span>THE CONTINENTAL DESK · 2026–27</span></div>
+
+<main class="hub league-hub el-press-main">
+<div id="el-newspaper-front">
+<section class="hub-feature el-editorial-news el-press-news" id="league-news">
+<p class="el-press-eyebrow">THE CONTINENTAL NEWSWIRE / SOURCE-BACKED REPORTING</p>
+<h2>Dispatches from the League</h2>
+<p class="hub-small" id="league-news-status">Loading sourced headlines…</p>
+<div class="nba-news-grid" id="league-news-grid"></div>
 </section>
 <section class="slt-edition-index" aria-label="EuroLeague newspaper departments">
 <div class="slt-index-folio"><span>EUROLEAGUE / CONTINENTAL EDITION</span><span>THE LEDGER · THE LEAGUE TABLE · THE PLAYOFF REGISTER</span></div>
 <div class="slt-index-grid">
-<article class="slt-index-panel slt-wide"><p class="slt-index-label">THE DAILY LEDGER</p><h2>Every Match in the Record</h2><p>Live scores, completed games and verified results, presented in the newspaper gamefile.</p><div class="slt-index-links"><a href="#el-live-desk">Live Scoreboard <span>OPEN →</span></a><a href="#league-boxscores">Gamefile &amp; Results <span>OPEN →</span></a></div></article>
-<article class="slt-index-panel slt-narrow"><p class="slt-index-label">THE CONTINENTAL TABLE</p><h2>The Power Index</h2><p>The league standings and independently calculated RETRO Elo ratings.</p><div class="slt-index-links"><a href="#el-standings-panel">Official-Style Table <span>OPEN →</span></a><a href="#el-ratings">RETRO Rankings <span>OPEN →</span></a></div></article>
-<article class="slt-index-panel slt-narrow"><p class="slt-index-label">THE PLAYOFF REGISTER</p><h2>The Road to the Title</h2><p>Direct qualifiers, play-in contenders and the players shaping the race.</p><div class="slt-index-links"><a href="#el-club-spotlight">Playoff Picture <span>OPEN →</span></a><a href="#el-player-leaders">Player Leaders <span>OPEN →</span></a></div></article>
+<article class="slt-index-panel slt-wide"><p class="slt-index-label">THE DAILY LEDGER</p><h2>Every Match in the Record</h2><p>Live scores, completed games and verified results, presented in the newspaper gamefile.</p><div class="slt-index-links"><a href="?view=desks#el-live-desk">Live Scoreboard <span>OPEN →</span></a><a href="?view=desks#league-boxscores">Gamefile &amp; Results <span>OPEN →</span></a></div></article>
+<article class="slt-index-panel slt-narrow"><p class="slt-index-label">THE CONTINENTAL TABLE</p><h2>The Power Index</h2><p>The league standings and independently calculated RETRO Elo ratings.</p><div class="slt-index-links"><a href="?view=desks#el-standings-panel">Official-Style Table <span>OPEN →</span></a><a href="?view=desks#el-ratings">RETRO Rankings <span>OPEN →</span></a></div></article>
+<article class="slt-index-panel slt-narrow"><p class="slt-index-label">THE PLAYOFF REGISTER</p><h2>The Road to the Title</h2><p>Direct qualifiers, play-in contenders and the players shaping the race.</p><div class="slt-index-links"><a href="?view=desks#el-club-spotlight">Playoff Picture <span>OPEN →</span></a><a href="?view=desks#el-player-leaders">Player Leaders <span>OPEN →</span></a></div></article>
 </div>
-<div class="slt-index-foot">Scores, club identities, news and player statistics below remain supplied by the existing verified live EuroLeague feeds.</div>
-</section>
-<div class="stamp el-press-stamp"><span id="league-freshness" role="status">Checking the latest published continental edition…</span><span>THE CONTINENTAL DESK · 2026–27</span></div>
 
-<main class="hub league-hub el-press-main">
-<section class="el-press-opening" aria-labelledby="el-press-opening-title">
-<div class="el-press-opening-folio"><span>THE DAILY EDITION / THE EUROPEAN GAME</span><span>INDEPENDENT SCORES · ANALYSIS · REPORTING</span></div>
-<h2 id="el-press-opening-title">The EuroLeague Report</h2>
-<p>Twenty clubs compete across Europe. Sporting Life &amp; Times records each result, follows the continental table and examines the race to the postseason.</p>
 </section>
+</div>
+<div id="el-newspaper-desks" hidden>
 
 <section class="hub-feature el-press-scoreboard" id="el-live-desk" aria-label="EuroLeague live scores">
 <div class="el-press-section-head"><div><p class="el-press-eyebrow">THE DAILY LEDGER / LIVE &amp; FINAL</p><h2>Scores from Across the Continent</h2></div><a href="#league-boxscores">Open the Gamefile →</a></div>
@@ -78,12 +83,7 @@
 <div class="el-front-strip el-press-numbers" id="el-front-strip" aria-label="EuroLeague verified statistical leaders"><p class="hub-small">Loading verified season snapshot…</p></div>
 
 <div class="el-press-front-grid">
-<section class="hub-feature el-editorial-news el-press-news" id="league-news">
-<p class="el-press-eyebrow">THE CONTINENTAL NEWSWIRE / SOURCE-BACKED REPORTING</p>
-<h2>Dispatches from the League</h2>
-<p class="hub-small" id="league-news-status">Loading sourced headlines…</p>
-<div class="nba-news-grid" id="league-news-grid"></div>
-</section>
+
 <section class="hub-feature el-press-table" id="el-standings-panel">
 <p class="el-press-eyebrow">THE LEAGUE TABLE / 2026–27</p><h2>The Continental Standings</h2>
 <div id="el-standings"><p class="hub-small">Awaiting verified reconstructed league standings.</p></div>
@@ -146,9 +146,17 @@
 <div id="league-snapshot"></div>
 <p class="hub-small">Coverage totals represent the available publication window and may differ from season totals. Unverified figures are never fabricated.</p>
 </section>
+</div>
 </main>
 <footer class="footer el-press-footer">Sporting Life &amp; Times · The EuroLeague Edition · Independent RETRO ratings. All results and source dates shown with the original published data. <a href="sports.html">Other Sporting Editions →</a></footer>
 <noscript>This newspaper requires JavaScript to display the live EuroLeague datasets.</noscript>
 </div>
+<script>
+const euroleagueDesks = new URLSearchParams(location.search).get('view') === 'desks' ||
+  /^#(?:el-|league-(?:boxscores|data-links))/.test(location.hash);
+document.getElementById('el-newspaper-front').hidden = euroleagueDesks;
+document.getElementById('el-newspaper-desks').hidden = !euroleagueDesks;
+if (!euroleagueDesks) document.getElementById('el-front-link').setAttribute('aria-current', 'page');
+</script>
 </body>
 </html>
