@@ -953,3 +953,46 @@
  .ledger26-pulse-quickstats{padding:7px 8px;gap:5px 9px;font-size:11px}
  .ledger26-pulse-quickstats>strong{width:100%;font-size:10px}
 }
+
+/* Final scorebug: quiet RETRO baseline, not a secondary postgame card. */
+.ledger26-final-desk.ledger26-final-desk--inline{
+ grid-column:1/-1;display:flex;align-items:baseline;flex-wrap:wrap;gap:5px 14px;
+ padding:5px 9px 4px;margin:0;background:transparent;border:0;border-top:1px solid #c7b9a5;
+ box-shadow:none;color:inherit;min-height:0
+}
+.ledger26-final-desk--inline .ledger26-final-kicker{
+ display:inline;flex:0 0 auto;margin:0;font:800 9px/1.35 Arial,sans-serif;
+ letter-spacing:.065em;color:#6e604d
+}
+.ledger26-final-desk--inline .ledger26-final-pair{
+ display:flex;align-items:baseline;gap:5px 16px;flex:1 1 auto;min-width:0
+}
+.ledger26-final-desk--inline .ledger26-final-team{
+ display:inline-flex;align-items:baseline;flex-wrap:wrap;gap:2px 6px;
+ min-width:0;padding:0;border:0;background:none
+}
+.ledger26-final-desk--inline .ledger26-final-school{
+ font:700 10px/1.35 Arial,sans-serif;overflow-wrap:normal;color:#514839
+}
+.ledger26-final-desk--inline .ledger26-final-rating{
+ font:800 12px/1.35 Georgia,serif;font-variant-numeric:tabular-nums
+}
+.ledger26-final-desk--inline .ledger26-final-change{
+ display:inline;flex:0 0 auto;font:800 10px/1.35 Arial,sans-serif;white-space:nowrap
+}
+.ledger26-final-desk--inline .ledger26-final-standing{
+ display:inline;flex:0 0 auto;font:600 9px/1.35 Arial,sans-serif;color:#786b58
+}
+@media(max-width:740px){
+ .ledger26-final-desk.ledger26-final-desk--inline{padding:5px 7px;gap:4px 8px}
+ .ledger26-final-desk--inline .ledger26-final-pair{
+  display:flex;flex-direction:row;flex-wrap:wrap;gap:3px 12px
+ }
+ .ledger26-final-desk--inline .ledger26-final-team{
+  display:inline-flex;flex-direction:row;align-items:baseline;gap:2px 5px;
+  width:auto;max-width:100%;border:0;padding:0
+ }
+ .ledger26-final-desk--inline .ledger26-final-school{font-size:10px}
+ .ledger26-final-desk--inline .ledger26-final-rating{font-size:12px}
+ .ledger26-final-desk--inline .ledger26-final-standing{font-size:9px}
+}
