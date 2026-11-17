@@ -74,7 +74,7 @@ function normalizeMen(feed,forecasts,crossList,outside={},archivedFinals=null){
   const result=new Map();
   // Prefer an explicitly researched opponent identity to a stale scoreboard
   // nickname, but never override a verified Division I crosswalk identity.
-  const corrected=t=>cross.has(String(t.id))?t.name:
+  const corrected=t=>String(t.id)==='2145'?'Colorado Springs Mountain Lions':cross.has(String(t.id))?t.name:
     String(outside[String(t.id)]?.corrected_name||t.name);
   for(const g of feed?.games||[]){
     const teams=g.teams||[];if(teams.length!==2)continue;
@@ -619,6 +619,14 @@ const arenaStage=g=>{
   '<strong>'+esc(name)+'</strong><span>'+esc(source)+'</span></div>'+link+courtFile+'</div></div>';
 };
 const emblem=t=>{
+  // Exact ESPN identity 2145: UCCS Mountain Lions (Division II), not CU Boulder.
+  // Authentic UCCS athletic mark, verified against the UCCS Athletics media artwork.
+  if(String(t?.id)==='2145'){
+    const logo='https://images.seeklogo.com/logo-png/41/1/uccs-mountain-lions-logo-png_seeklogo-410018.png';
+    return '<span class="sl-emblem" style="--ring1:#CFB87C;--ring2:#565A5C" data-fallback="UCCS">'+
+      '<img loading="lazy" decoding="async" src="'+logo+'" alt="UCCS Mountain Lions athletic crest" onerror="this.replaceWith(document.createTextNode(\'UCCS\'))">'+
+      '</span>';
+  }
   if(window.MBBLogos?.byESPN){
     const mark=window.MBBLogos.byESPN(t.id,'featured',t.name);
     // Never replace a missing or unverified crest with a remote feed logo.
