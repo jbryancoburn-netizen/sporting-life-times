@@ -276,7 +276,7 @@
  function pulseShell(g,phase,label){
   // A final score is already prominently displayed by the two team rows.
   // Keep only a narrow, stable status divider; no big FINAL tile or async Pulse.
-  if(phase==='final'&&(g.pulseCompactOnly||g.suppressMonogram)){
+  if(phase==='final'){
    const a=Number(g.away?.score),h=Number(g.home?.score);
    const valid=g.away?.score!=null&&g.home?.score!=null&&Number.isFinite(a)&&Number.isFinite(h);
    const winner=valid&&a!==h?(a>h?g.away?.name:g.home?.name):'';
@@ -602,10 +602,11 @@
     '</small>'+scout+timeouts+possession+momentum+'</span>'+
     '<b class="ledger26-points'+scoreClass+'"'+(upset?' title="Upset watch: lower-ranked team leads"':'')+'>'+esc(scored)+'</b></div>';
   };
-  return '<div class="ledger26-scorebug'+(g.suppressMonogram?' ledger26-scorebug--plain':'')+(pulseShell(g,phase,label)?' ledger26-scorebug--pulse':'')+(phase==='upcoming'?' ledger26-scorebug--pregame':'')+'" role="group" aria-label="'+esc(g.ariaLabel||((g.away?.name||'Away')+' at '+(g.home?.name||'Home')+' scoreboard'))+'">'+
+  const middle=pulseShell(g,phase,label);
+  return '<div class="ledger26-scorebug'+(g.suppressMonogram?' ledger26-scorebug--plain':'')+(middle?' ledger26-scorebug--pulse':'')+(phase==='final'?' ledger26-scorebug--final':'')+(phase==='upcoming'?' ledger26-scorebug--pregame':'')+'" role="group" aria-label="'+esc(g.ariaLabel||((g.away?.name||'Away')+' at '+(g.home?.name||'Home')+' scoreboard'))+'">'+
     (g.suppressMonogram?'':'<span class="ledger26-monogram"><img src="assets/slt-engraved-black.svg" width="35" height="49" alt="Sporting Life and Times monogram"></span>')+
-    '<div class="ledger26-teams'+(phase==='final'&&(g.pulseCompactOnly||g.suppressMonogram)?' ledger26-teams--final-line':'')+'">'+team(g.away)+pulseShell(g,phase,label)+team(g.home)+'</div>'+
-    (pulseShell(g,phase,label)?'':phase==='live'?livePanel(g,label):phase==='upcoming'?pregamePanel(g):label?'<div class="ledger26-status" data-phase="'+phase+'"><strong>'+esc(label)+'</strong></div>':'')+(phase==='final'?finalRetroDesk(g):'')+(phase==='upcoming'&&!g.suppressPress?preview(g).split('<dialog')[0]:'')+'</div>';
+    '<div class="ledger26-teams'+(phase==='final'?' ledger26-teams--final-line':'')+'">'+team(g.away)+middle+team(g.home)+'</div>'+
+    (middle?'':phase==='live'?livePanel(g,label):phase==='upcoming'?pregamePanel(g):'')+(phase==='final'?finalRetroDesk(g):'')+(phase==='upcoming'&&!g.suppressPress?preview(g).split('<dialog')[0]:'')+'</div>';
  }
  // The Daily Ledger is the universal newspaper model, not a separate sport skin.
  // Keep the old alias for existing college basketball pages.
