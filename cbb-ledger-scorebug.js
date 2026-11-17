@@ -184,24 +184,27 @@
  }
  // Final-game RETRO desk: daily network rating changes are not per-game Elo swings.
  function finalRetroDesk(g){
-  const rows=[g.away,g.home];
-  const available=rows.some(t=>t?.retroSnapshot&&Number.isFinite(Number(t.retroSnapshot.elo)));
-  if(!available)return '<div class="ledger26-final-desk" aria-label="Final RETRO update"><span class="ledger26-final-kicker">AFTER THE FINAL</span><span>RETRO comparison awaits verified ratings</span></div>';
+  const teams=[g.away,g.home];
+  const available=teams.filter(t=>t?.retroSnapshot&&Number.isFinite(Number(t.retroSnapshot.elo)));
+  // Do not add an empty postgame box when ratings have not yet published.
+  if(!available.length)return '';
   const line=t=>{
    const p=t?.retroSnapshot;
-   if(!p||!Number.isFinite(Number(p.elo)))return '<div class="ledger26-final-team"><span>'+esc(t?.name||'School')+'</span><span>RETRO pending</span></div>';
-   const n=p.dailyChange;
-   const change=typeof n==='number'&&Number.isFinite(n)?'<span class="ledger26-final-delta '+(n>0?'ledger26-final-up':n<0?'ledger26-final-down':'')+'">'+(n>0?'▲ +':n<0?'▼ −':'— ')+Math.abs(n).toFixed(1)+'</span>':'<span class="ledger26-final-delta">—</span>';
-   const rank=Number.isInteger(p.rank)&&p.rank>0?'#'+p.rank:'—';
-   return '<div class="ledger26-final-team"><span class="ledger26-final-school">'+esc(t.name||'School')+'</span>'+
+   if(!p||!Number.isFinite(Number(p.elo)))return '';
+   const delta=p.dailyChange;
+   const movement=typeof delta==='number'&&Number.isFinite(delta)?
+    '<span class="ledger26-final-delta '+(delta>0?'ledger26-final-up':delta<0?'ledger26-final-down':'')+'">'+
+     (delta>0?'▲ +':delta<0?'▼ −':'— ')+Math.abs(delta).toFixed(1)+'</span>':'';
+   const rank=Number.isInteger(p.rank)&&p.rank>0?' · #'+p.rank:'';
+   return '<span class="ledger26-final-team" title="RETRO rating and change since the previous daily snapshot, not necessarily attributable to this game">'+
+    '<span class="ledger26-final-school">'+esc(t.name||'School')+'</span>'+
     '<strong class="ledger26-final-rating">'+Number(p.elo).toFixed(1)+'</strong>'+
-    '<span class="ledger26-final-change" title="Change in published RETRO rating across the latest daily update; not necessarily caused by this single game"><small>TODAY’S CHANGE</small>'+change+'</span>'+
-    '<small class="ledger26-final-standing">RETRO '+esc(rank)+'</small></div>';
+    (movement?'<span class="ledger26-final-change">'+movement+'</span>':'')+
+    (rank?'<small class="ledger26-final-standing">'+esc(rank)+'</small>':'')+'</span>';
   };
-  return '<div class="ledger26-final-desk" aria-label="Published RETRO ratings and daily changes following the final">'+
-   '<div class="ledger26-final-kicker">CURRENT RETRO RATINGS · DAILY MOVEMENT</div>'+
-   '<div class="ledger26-final-pair">'+rows.map(line).join('')+'</div>'+
-   '<small class="ledger26-final-note">Today’s change compares the latest published RETRO ratings with the previous daily snapshot. It is not a measure of this game’s impact.</small></div>';
+  return '<div class="ledger26-final-desk ledger26-final-desk--inline" aria-label="Current RETRO ratings and daily movement">'+
+    '<span class="ledger26-final-kicker">RETRO NOW</span>'+
+    '<div class="ledger26-final-pair">'+teams.map(line).filter(Boolean).join('')+'</div></div>';
  }
 
  // Watermark-only transparent page extraction. The original crest and source
