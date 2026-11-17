@@ -24,7 +24,7 @@
 <script defer src="euroleague-edition.js?v=unified-20261104"></script>
 <script defer src="euroleague-player-desk.js?v=20261027players1"></script>
 <script defer src="cbb-ledger-scorebug.js?v=unified-20261104"></script>
-<script defer src="euroleague-live.js?v=daily-ledger-crests-20261117"></script>
+<script defer src="euroleague-live.js?v=daily-ledger-search-20261117"></script>
 <script defer src="site-access-clock.js?v=2"></script>
 <link rel="stylesheet" href="slt-sections-nav.css?v=20261109a"><script defer src="slt-sections-nav.js?v=20261109a"></script><style>
 body.league-edition[data-league="euroleague"] .el-live-board{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -82,12 +82,13 @@ body.league-edition[data-league="euroleague"] .el-live-board{grid-template-colum
 <div class="el-press-section-head"><div><p class="el-press-eyebrow">THE DAILY LEDGER / LIVE &amp; FINAL</p><h2>Scores from Across the Continent</h2></div><a href="#league-boxscores">Open the Gamefile →</a></div>
 <p class="hub-small" id="el-live-status" role="status">Checking EuroLeague game status…</p>
 <div class="ledger26-meta">
-<label>Game date <input id="el-score-date" type="date"></label>
+<div><button type="button" data-el-day-step="-1" aria-label="Previous day">‹</button> <label>Game date <input id="el-score-date" type="date"></label> <button type="button" data-el-day-step="1" aria-label="Next day">›</button></div>
 <label>Game status <select id="el-score-filter">
 <option value="all">All games</option><option value="live">Live</option>
 <option value="scheduled">Scheduled</option><option value="final">Final</option>
 <option value="awaiting_final">Awaiting final</option>
 </select></label>
+<label>Search teams <input id="el-score-search" type="search"></label>
 </div>
 <div class="el-live-board" id="el-live-scorebugs"></div>
 </section>
