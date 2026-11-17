@@ -91,6 +91,15 @@ for(const nav of navs){
   return dest.pathname.split('/').pop()+dest.search+dest.hash;
  };
  bar.innerHTML='<a class="cbb-gender-option'+(women?'':' is-active')+'" href="'+linkFor(0)+'"'+(women?'':' aria-current="page"')+'>Men</a><a class="cbb-gender-option'+(women?' is-active':'')+'" href="'+linkFor(1)+'"'+(women?' aria-current="page"':'')+'>Women</a>';
+ // RETRO Intelligence is a permanent newspaper department in both editions.
+ // Add it to the shared navigation before the mobile index is assembled.
+ if(![...nav.querySelectorAll('a')].some(a=>/retro-intelligence\.html(?:\?|$)/.test(a.getAttribute('href')||''))){
+   const intelligence=document.createElement('a');
+   intelligence.href='retro-intelligence.html?gender='+(women?'women':'men');
+   intelligence.textContent='RETRO Intelligence';
+   if(page==='retro-intelligence.html')intelligence.setAttribute('aria-current','page');
+   nav.append(intelligence);
+ }
  // Give each edition its own section destinations. Never silently revert to men.
  const sections=women?{
   'The Hardwood Chronicle':'ncaam.html?gender=women',
