@@ -289,7 +289,7 @@
   if(g.pulseManagedExternally||phase==='upcoming'||!g.gameId||!['men','women'].includes(g.gender)||!g.away?.id||!g.home?.id)return '';
   return '<div class="ledger26-pulse" data-retro-pulse="'+esc(g.gameId)+'" data-away-name="'+esc(g.away.name)+'" data-home-name="'+esc(g.home.name)+'" data-gender="'+g.gender+
    '" data-away="'+esc(g.away.id)+'" data-home="'+esc(g.home.id)+'" data-phase="'+phase+'" data-compact-only="'+(g.pulseCompactOnly?'1':'0')+
-   '" data-away-score="'+esc(g.away.score??'')+'" data-home-score="'+esc(g.home.score??'')+'">'+
+   '" data-live-status="'+esc(label||g.status||'LIVE')+'" data-away-score="'+esc(g.away.score??'')+'" data-home-score="'+esc(g.home.score??'')+'">'+
    '<div class="ledger26-pulse-heading"><strong>'+esc(phase==='final'?'FINAL':('LIVE · '+label))+
    '</strong><span>RETRO PULSE · SCORING HISTORY PENDING</span></div></div>';
  }
@@ -344,8 +344,16 @@
   const last=data.points.at(-1),diff=last.awayScore-last.homeScore;
   const current=diff===0?'TIED':(diff>0?awayName:homeName)+' +'+Math.abs(diff);
   const heading=el.querySelector('.ledger26-pulse-heading strong')?.textContent||'FINAL';
-  const liveClock=el.dataset.phase==='live'?(String(heading).match(/\b\d{1,2}:\d{2}\b/)||[])[0]||'':'';
-  const livePeriod=el.dataset.phase==='live'?(String(heading).match(/\b(?:H[12]|Q[1-4]|OT\d*)\b/i)||[])[0]||'':'';
+  // The asynchronous Pulse refresh must never discard the sourced game clock or half.
+  // ESPN shortDetail uses forms such as "5:19 - 2nd" and "0:29 - 2nd".
+  const status=String(el.dataset.liveStatus||heading).trim();
+  const liveClock=el.dataset.phase==='live'?(status.match(/\\b\\d{1,2}:\\d{2}\\b/)||[])[0]||'':'';
+  const periodMatch=el.dataset.phase==='live'?status.match(/\\b(?:1st|2nd|3rd|4th)(?:\\s+(?:half|quarter|period))?\\b|\\b(?:halftime|half\\s*time|intermission|OT|[2-9]OT|overtime)\\b/i):null;
+  const periodWord=String(periodMatch?.[0]||'').toLowerCase();
+  const isWomen=el.dataset.gender==='women';
+  const livePeriod=/half\\s*time|halftime|intermission/.test(periodWord)?'HALFTIME':
+   /overtime|\\bot\\b|[2-9]ot/.test(periodWord)?periodWord.toUpperCase():
+   /^[1-4]/.test(periodWord)?periodWord[0]+(isWomen?'Q':'H'):'';
   const compactHeading=el.dataset.phase==='live'?'LIVE':heading;
   // Concept A: a readable score summary, not a tiny line pretending to explain a game.
   el.innerHTML='<div class="ledger26-pulse-compact" aria-label="RETRO Pulse quick summary">'+
