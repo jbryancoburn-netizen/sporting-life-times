@@ -80,7 +80,8 @@ function normalizeMen(feed,forecasts,crossList,outside={},archivedFinals=null){
   const result=new Map();
   // Prefer an explicitly researched opponent identity to a stale scoreboard
   // nickname, but never override a verified Division I crosswalk identity.
-  const corrected=t=>String(t.id)==='2145'?'Colorado Springs Mountain Lions':cross.has(String(t.id))?t.name:
+  const corrected=t=>String(t.id)==='2145'?'Colorado Springs Mountain Lions':
+    String(t.id)==='111914'?'Wilson College Phoenix':cross.has(String(t.id))?t.name:
     String(outside[String(t.id)]?.corrected_name||t.name);
   for(const g of feed?.games||[]){
     const teams=g.teams||[];if(teams.length!==2)continue;
