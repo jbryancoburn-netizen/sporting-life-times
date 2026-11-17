@@ -110,7 +110,7 @@ function timelineFor(scoring,game){
  const elapsed=scoring.map(p=>elapsedClock(p,women));
  const complete=elapsed.every((v,i)=>v!==null&&(!i||v>=elapsed[i-1]));
  if(!complete)return null; // No invented play times or interpolated clocks.
- const last=elapsed.at(-1),end=Math.max(300,Math.ceil((last+1)/300)*300);
+ const last=elapsed.at(-1),end=Math.max(300,Math.ceil(last/300)*300);
  const step=end<=300?60:end<=600?120:300;
  return {elapsed,end,step,women,caption:'Game clock · '+(women?'quarters':'halves')+
    ' · each point at its reported time'};
@@ -134,20 +134,31 @@ function gameFlow(plays,game,attributePlay){
    i/Math.max(1,sampled.length-1));
  const y=lead=>mid-lead/scale*extent;
  const xy=sampled.map((p,i)=>[x(i),y(margin(p))]);
- // Keep the source-clock grid, but label only major ticks in compact charts.
- // Minor ticks remain visible as guides without overlapping clock text.
- const axisMarks=timeline?
-   Array.from({length:Math.floor(timeline.end/timeline.step)+1},(_,i)=>{
-    const secs=i*timeline.step,pos=left+(right-left)*secs/timeline.end;
+ // Reserve room for the endpoint before placing interior clock labels.
+ const axisMarks=timeline?(()=>{
+   const width=right-left;
+   const ticks=Array.from({length:Math.floor(timeline.end/timeline.step)+1},(_,i)=>i*timeline.step);
+   if(ticks.at(-1)!==timeline.end)ticks.push(timeline.end);
+   let nextLabel=right,nextCompact=right;
+   return ticks.reverse().map(secs=>{
+    const pos=left+width*secs/timeline.end;
     const isEnd=secs===timeline.end,isStart=secs===0;
     const major=isStart||isEnd||secs%600===0;
-    const compact=isStart||isEnd||secs%1200===0;
+    const show=major&&(isEnd||isStart||(nextLabel-pos>=115&&pos-left>=115));
+    const compact=show&&(isEnd||isStart||(nextCompact-pos>=175&&pos-left>=175));
+    if(show)nextLabel=pos;
+    if(compact)nextCompact=pos;
+    const label=isEnd&&secs%(timeline.women?600:1200)===0&&secs<=2400||
+      isEnd&&secs>2400&&secs%300===0?
+      clockAtElapsed(secs-1,timeline.women).replace(/0:01$/,'0:00'):
+      clockAtElapsed(secs,timeline.women);
     return '<line class="slc-flow-time-rule" x1="'+pos.toFixed(1)+'" y1="'+(mid-extent)+'" x2="'+pos.toFixed(1)+'" y2="'+(mid+extent)+'"/>'+
       '<line class="slc-flow-time-tick" x1="'+pos.toFixed(1)+'" y1="378" x2="'+pos.toFixed(1)+'" y2="387"/>'+
-      '<text class="slc-flow-time-label'+(major?'':' slc-flow-time-label--minor')+(compact?'':' slc-flow-time-label--mobile-hide')+
+      (show?'<text class="slc-flow-time-label'+(compact?'':' slc-flow-time-label--mobile-hide')+
       '" x="'+pos.toFixed(1)+'" y="408" text-anchor="'+(isStart?'start':isEnd?'end':'middle')+'">'+
-       esc(clockAtElapsed(secs,timeline.women))+'</text>';
-   }).join(''):
+       esc(label)+'</text>':'');
+   }).reverse().join('');
+ })():
    // Event-order labels are displayed only when reliable play clocks are absent.
    [0,Math.floor((sampled.length-1)/2),sampled.length-1].filter((i,idx,all)=>all.indexOf(i)===idx)
     .map((i,j,all)=>'<text class="slc-flow-time-label'+(j>0&&j<all.length-1?' slc-flow-time-label--mobile-hide':'')+
@@ -213,12 +224,11 @@ function gameFlow(plays,game,attributePlay){
   return '<line class="slc-flow-period-rule" x1="'+xx+'" x2="'+xx+'" y1="80" y2="338"/>'+
    '<text class="slc-flow-period-label" x="'+xx+'" y="66" text-anchor="middle">'+p.label+'</text>';
  }).join(''):'';
- const timeoutMarks=timeouts.map((p,i)=>{
+ const timeoutMarks=timeouts.map(p=>{
   const xx=left+(right-left)*p.position;
   return '<g class="slc-flow-timeout"><title>'+esc(p.text+' · '+p.clock)+'</title>'+
    '<line x1="'+xx+'" x2="'+xx+'" y1="82" y2="338"/>'+
-   '<circle cx="'+xx+'" cy="75" r="7"/>'+
-   '<text x="'+xx+'" y="56" text-anchor="middle">T'+(i+1)+'</text></g>';
+   '<circle cx="'+xx+'" cy="75" r="5"/></g>';
  }).join('');
  const away=game?sideName(game.away):'AWAY',home=game?sideName(game.home):'HOME';
  // Native disclosure panels make each stretch keyboard- and touch-accessible.
@@ -276,16 +286,17 @@ function gameFlow(plays,game,attributePlay){
  const drawLine=(p,q,color)=>'<line x1="'+p[0].toFixed(1)+'" y1="'+p[1].toFixed(1)+
    '" x2="'+q[0].toFixed(1)+'" y2="'+q[1].toFixed(1)+
    '" stroke="'+color+'" stroke-width="5" stroke-linecap="round"/>';
- const segments=xy.slice(1).map((current,i)=>{
-   const previous=xy[i],m1=margin(sampled[i]),m2=margin(sampled[i+1]);
-   if(m1*m2<0){
-     // Break the stroke exactly at the tied score, not at the next event.
-     const fraction=Math.abs(m1)/(Math.abs(m1)+Math.abs(m2));
-     const equal=[previous[0]+(current[0]-previous[0])*fraction,mid];
-     return drawLine(previous,equal,m1>0?awayColor:homeColor)+
-       drawLine(equal,current,m2>0?awayColor:homeColor);
+ const segments=xy.map((current,i)=>{
+   const previous=i?xy[i-1]:[left,mid];
+   const before=i?margin(sampled[i-1]):0,after=margin(sampled[i]);
+   const corner=[current[0],previous[1]];
+   const ink=value=>value>0?awayColor:value<0?homeColor:'#455b60';
+   const horizontal=drawLine(previous,corner,ink(before));
+   if(before*after<0){
+     const tie=[current[0],mid];
+     return horizontal+drawLine(corner,tie,ink(before))+drawLine(tie,current,ink(after));
    }
-   return drawLine(previous,current,(m1||m2)>=0?awayColor:homeColor);
+   return horizontal+drawLine(corner,current,ink(after||before));
  }).join('');
  const tickMargins=[scale,scale/2,0,-scale/2,-scale];
  const grid=tickMargins.map(n=>{
@@ -301,7 +312,7 @@ function gameFlow(plays,game,attributePlay){
    '" role="group" aria-label="Scoring margin by reported play. Latest: '+esc(a11y)+
    '. Largest reported leads: '+esc(away)+' '+awayMax+' points, '+esc(home)+' '+homeMax+
    ' points. Positive values favor the away team.">'+
-   '<div class="slc-flow-heading"><strong>GAME FLOW</strong><span>ACTUAL POINT MARGIN · NOT A BETTING SPREAD</span></div>'+
+   '<div class="slc-flow-heading"><strong>GAME FLOW</strong><span>POINT MARGIN BY PLAY</span></div>'+
    '<div class="slc-flow-status"><span>LATEST REPORTED MARGIN</span><strong>'+esc(latestLabel)+
    '</strong><small>'+esc(away)+' '+last.awayScore+' · '+esc(home)+' '+last.homeScore+'</small></div>'+
    '<div class="slc-flow-key"><span><i class="slc-away-dot"></i>'+esc(away)+' LEAD (ABOVE ZERO)</span>'+
@@ -326,7 +337,7 @@ function gameFlow(plays,game,attributePlay){
    '<p>Above TIED: '+esc(away)+' ahead. Below: '+esc(home)+' ahead. '+
    (timeline?'Horizontal spacing uses the source game clock; flat portions mean no reported scoring change. ':
      'The source does not timestamp every scoring event; horizontal spacing shows event order, not elapsed time. ')+
-   'Latest reported play: '+esc(last.period?(timeline?.women?'Q':'H')+last.period+' · ':'')+
+   'Latest reported play: '+esc(last.period?'PERIOD '+last.period+' · ':'')+
    esc(last.clock||'time not reported')+'.</p></div>';
 }
 function stationLinks(g){
