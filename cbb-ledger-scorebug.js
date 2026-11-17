@@ -294,7 +294,7 @@
   return '<div class="ledger26-pulse" data-retro-pulse="'+esc(g.gameId)+'" data-away-name="'+esc(g.away.name)+'" data-home-name="'+esc(g.home.name)+'" data-gender="'+g.gender+
    '" data-away="'+esc(g.away.id)+'" data-home="'+esc(g.home.id)+'" data-phase="'+phase+'" data-compact-only="'+(g.pulseCompactOnly?'1':'0')+
    '" data-live-status="'+esc(label||g.status||'LIVE')+'" data-away-score="'+esc(g.away.score??'')+'" data-home-score="'+esc(g.home.score??'')+'">'+
-   '<div class="ledger26-pulse-heading"><strong>'+esc(phase==='final'?'FINAL':('LIVE · '+label))+
+   '<div class="ledger26-pulse-heading"><strong>'+esc(phase==='final'?'FINAL':'LIVE')+
    '</strong><span>RETRO PULSE · SCORING HISTORY PENDING</span></div></div>';
  }
  function liveStatusParts(el){
@@ -312,7 +312,7 @@
  function liveStatusHTML(el){
   const {clock,period,halftime}=liveStatusParts(el);
   return '<span class="ledger26-pulse-status"><strong class="ledger26-pulse-state">'+(halftime?'HALFTIME':'LIVE')+'</strong>'+
-   (!halftime?'<small class="ledger26-pulse-clock">'+esc([period||'PERIOD UNAVAILABLE',clock||'CLOCK UNAVAILABLE'].join(' · '))+'</small>':'')+'</span>';
+   (!halftime&&!el.closest('.ledger26-scorebug')?.querySelector('.ledger26-live-headline')?'<small class="ledger26-pulse-clock">'+esc([period||'PERIOD UNAVAILABLE',clock||'CLOCK UNAVAILABLE'].join(' · '))+'</small>':'')+'</span>';
  }
  // Label scorers from the exact game's sourced roster; no guessed player identity.
  function pulseScorerLabel(raw,el){
@@ -404,8 +404,9 @@
   const current=diff===0?'TIED':(diff>0?awayName:homeName)+' +'+Math.abs(diff);
   const heading=el.querySelector('.ledger26-pulse-heading strong')?.textContent||'FINAL';
   const liveParts=liveStatusParts(el);
-  const liveClock=liveParts.clock;
-  const livePeriod=liveParts.period;
+  const headline=el.closest('.ledger26-scorebug')?.querySelector('.ledger26-live-headline');
+  const liveClock=headline?'':liveParts.clock;
+  const livePeriod=headline?'':liveParts.period;
   const compactHeading=liveParts.halftime?'HALFTIME':el.dataset.phase==='live'?'LIVE':heading;
   // Concept A: a readable score summary, not a tiny line pretending to explain a game.
   el.innerHTML='<div class="ledger26-pulse-compact" aria-label="RETRO Pulse quick summary">'+
@@ -684,18 +685,29 @@
   };
   const middle=pulseShell(g,phase,label);
   // Never reconstruct a game's pretipoff forecast from its postgame rating.
-  const historical=g.historicalForecast;
+  const saved=phase==='live'?g.livePregameForecast:null;
+  const savedSide=saved?.team===g.home?.name?1:saved?.team===g.away?.name?-1:0;
+  const historical=saved&&savedSide?{
+    margin:Number.isFinite(saved.margin)?savedSide*saved.margin:0,
+    probability:savedSide===1?saved.probability:1-saved.probability,
+    awayScore:saved.projectedAwayScore,homeScore:saved.projectedHomeScore,
+    showSpread:Number.isFinite(saved.margin)
+  }:g.historicalForecast;
   const receipt=phase!=='upcoming'&&historical&&Number.isFinite(historical.margin)?
     (()=>{
       const favorite=historical.margin>0?g.home?.name:historical.margin<0?g.away?.name:'EVEN';
       const spread=Math.round(Math.abs(historical.margin)*2)/2;
       const hasScores=Number.isFinite(historical.awayScore)&&Number.isFinite(historical.homeScore);
       const projection=hasScores?' · PROJECTED '+Math.round(historical.awayScore)+'–'+Math.round(historical.homeScore):'';
-      const actual=(g.away?.score!=null&&g.home?.score!=null&&Number.isFinite(Number(g.away.score))&&Number.isFinite(Number(g.home.score)))?
+      const actual=phase==='final'&&(g.away?.score!=null&&g.home?.score!=null&&Number.isFinite(Number(g.away.score))&&Number.isFinite(Number(g.home.score)))?
         ' · ACTUAL '+Number(g.away.score)+'–'+Number(g.home.score):'';
+      const p=historical.probability;
+      const odds=phase==='live'&&Number.isFinite(p)&&p>=0&&p<=1?
+        (p===0.5?'50% EACH':(p>0.5?g.home?.name:g.away?.name)+' '+Math.round(Math.max(p,1-p)*100)+'% WIN'):'';
+      const line=historical.showSpread===false?'':spread===0?'EVEN':String(favorite)+' −'+spread.toFixed(1);
       return '<div class="ledger26-retro-receipt" aria-label="Original pregame RETRO forecast"><strong>RETRO PREGAME</strong><span>'+
-        esc(spread===0?'EVEN':String(favorite)+' −'+spread.toFixed(1))+
-        esc(projection)+esc(actual)+'</span></div>';
+        esc([line,odds].filter(Boolean).join(' · '))+
+        esc(line||odds?projection:projection.replace(/^ · /,''))+esc(actual)+'</span></div>';
     })():'';
   return '<div class="ledger26-scorebug'+(g.suppressMonogram?' ledger26-scorebug--plain':'')+(middle||phase==='live'&&g.pulseManagedExternally?' ledger26-scorebug--pulse':'')+(phase==='final'?' ledger26-scorebug--final':'')+(phase==='upcoming'?' ledger26-scorebug--pregame':'')+'" role="group" aria-label="'+esc(g.ariaLabel||((g.away?.name||'Away')+' at '+(g.home?.name||'Home')+' scoreboard'))+'">'+
     (g.suppressMonogram?'':'<span class="ledger26-monogram"><img src="assets/slt-engraved-black.svg" width="35" height="49" alt="Sporting Life and Times monogram"></span>')+

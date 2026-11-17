@@ -867,14 +867,7 @@ const ledgerScorebug=g=>{
            opponent:r.opponent,home:r.home,gameHref};
        })};
    })()});
- return window.SLTBasketballScorebug?.render({
-  gameId:String(g.id),phase:g.phase,gender:women?'women':'men',status:g.status||'LIVE',momentum:g.momentum||null,possession:g.possession||null,
-  // Restore the original compact status/lead rail while leaving the full flow chart to the color Gamefile.
-  pulseCompactOnly:true, compactFinal:true, showRetroDesk:true,
-  date:g.day,tipoff:formatClock(g),venue:g.venue||'',network:g.broadcast||'',suppressPress:true,
-  suppressMonogram:true,suppressTipoffFallback:true,
-  historicalForecast:matchedHistoricalForecast,
-  forecast:(()=>{
+ const forecast=(()=>{
     if(g.phase!=='upcoming'||typeof g.probability!=='number'||!Number.isFinite(g.probability)||g.probability<0||g.probability>1)return null;
     const homeFav=g.probability>=0.5,side=homeFav?g.home:g.away;
     const projection=insight?.projectedScore(g,scoreCalibration,ratings);
@@ -898,7 +891,27 @@ const ledgerScorebug=g=>{
       modelMargin:Number.isFinite(homeMargin)?homeMargin:null,
       forecastBasis:aligned?.basis||null,
       projectedAwayScore:aligned?.away??null,projectedHomeScore:aligned?.home??null};
-  })(),
+  })();
+ const forecastKey=['slt-pregame-v1',women?'women':'men',g.day,g.id,g.away.id,g.home.id].join('|');
+ let livePregameForecast=null;
+ try{
+   if(forecast&&!/\b(?:SOURCE CONFLICT|REVIEW|DISPUTED)\b/i.test(g.status||'')){
+     localStorage.setItem(forecastKey,JSON.stringify(forecast));
+   }else if(g.phase==='live'){
+     livePregameForecast=JSON.parse(localStorage.getItem(forecastKey));
+   }else if(g.phase==='final'){
+     localStorage.removeItem(forecastKey);
+   }
+ }catch{/* The archived forecast is still available where published. */}
+ return window.SLTBasketballScorebug?.render({
+  gameId:String(g.id),phase:g.phase,gender:women?'women':'men',status:g.status||'LIVE',momentum:g.momentum||null,possession:g.possession||null,
+  // Restore the original compact status/lead rail while leaving the full flow chart to the color Gamefile.
+  pulseCompactOnly:true, compactFinal:true, showRetroDesk:true,
+  date:g.day,tipoff:formatClock(g),venue:g.venue||'',network:g.broadcast||'',suppressPress:true,
+  suppressMonogram:true,suppressTipoffFallback:true,
+  historicalForecast:matchedHistoricalForecast,
+  livePregameForecast,
+  forecast,
   rivalry:(()=>{
     if(g.phase!=='upcoming'||g.kind==='exhibition')return null;
     const key=[String(g.away.id),String(g.home.id)].sort((a,b)=>Number(a)-Number(b)).join('|');
