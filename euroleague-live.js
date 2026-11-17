@@ -114,7 +114,7 @@ function render(){
  const periods=Array.isArray(g.period_scores)?g.period_scores.filter(q=>Number.isFinite(q.home)&&Number.isFinite(q.away)):[];
  const pred=byId.get(String(g.id));
  const probability=Number(pred?.home_win_probability);
- const quarterRows=periods.length?'<div class="el-quarter-table"><div class="el-quarter-head"><span>TEAM</span>'+periods.map(q=>'<span>Q'+esc(q.period)+'</span>').join('')+'<strong>TOTAL</strong></div><div class="el-quarter-row"><b>'+esc(g.away.code)+'</b>'+periods.map(q=>'<span>'+esc(q.away)+'</span>').join('')+'<strong>'+esc(g.away.score??'—')+'</strong></div><div class="el-quarter-row"><b>'+esc(g.home.code)+'</b>'+periods.map(q=>'<span>'+esc(q.home)+'</span>').join('')+'<strong>'+esc(g.home.score??'—')+'</strong></div></div>':'<p class="el-live-unavailable">Quarter scores pending official confirmation.</p>';
+ const quarterRows=periods.length?'<div class="el-quarter-table"><div class="el-quarter-head"><span>TEAM</span>'+periods.map(q=>'<span>'+esc(Number(q.period)>4?'OT'+(Number(q.period)-4):'Q'+q.period)+'</span>').join('')+'<strong>TOTAL</strong></div><div class="el-quarter-row"><b>'+esc(g.away.code)+'</b>'+periods.map(q=>'<span>'+esc(q.away)+'</span>').join('')+'<strong>'+esc(g.away.score??'—')+'</strong></div><div class="el-quarter-row"><b>'+esc(g.home.code)+'</b>'+periods.map(q=>'<span>'+esc(q.home)+'</span>').join('')+'<strong>'+esc(g.home.score??'—')+'</strong></div></div>':'<p class="el-live-unavailable">Quarter scores pending official confirmation.</p>';
  const margin=scored?'<div class="el-live-stat"><small>Lead</small><strong>'+Math.abs(a-h)+' pts</strong></div>':'';
  const total=scored?'<div class="el-live-stat"><small>Combined score</small><strong>'+(a+h)+'</strong></div>':'';
  const verifiedStats=officialComparison(g);
@@ -139,11 +139,13 @@ function render(){
   projectedHomeScore:valid(projected?.home)?Number(projected.home):null
  }:null;
  const card=window.SLTSportsScorebug?.render({
-  phase,gender:'women',gameId:String(g.id),status:detail||label,away:letterTeam(g.away),home:letterTeam(g.home),
+  phase,gender:'euroleague',periodFormat:'quarters',gameId:String(g.id),status:detail||label,away:letterTeam(g.away),home:letterTeam(g.home),
+  compactFinal:true,pulseManagedExternally:true,liveStatusOverride:phase==='live'&&!freshLive?label:'',
+  tipoff:label==='UPCOMING'?et(g.date)+' ET':label,
   suppressMonogram:true,suppressPress:true,suppressTipoffFallback:true,pulseCompactOnly:true,forecast:pick
  })||'<p class="hub-small">Scorebug unavailable.</p>';
  return '<article class="el-live-card ledger26-card">'+
-  '<div class="ledger26-meta"><span>'+esc([label,g.venue].filter(Boolean).join(' · '))+'</span><span>'+esc(et(g.date))+' ET'+'</span></div>'+
+  '<div class="ledger26-meta"><span>'+esc(g.venue||'')+'</span><span>'+esc(phase==='upcoming'?'':et(g.date)+' ET')+'</span></div>'+
   '<details class="ledger26-expand" data-game-id="'+esc(g.id)+'"><summary class="ledger26-summary">'+
   card+'<span class="ledger26-instruction">OPEN GAME DETAILS +</span></summary>'+
   '<div class="ledger26-expanded">'+info+
