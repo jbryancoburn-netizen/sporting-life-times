@@ -99,6 +99,7 @@ function schedulePanel(edition, members, showPicker) {
   const panel = document.createElement('section');
   const heading = document.createElement('h2');
   heading.textContent = 'Varsity schedule';
+  panel.className = 'schedule-panel';
   panel.append(heading);
   const content = document.createElement('div');
   let requestedTeam;
@@ -307,26 +308,37 @@ function showMasthead(title, mark, identity) {
 function showTeam(edition, team) {
   document.title = team.school + ' | Indiana Boys Basketball RETRO';
   showMasthead(team.school, artwork.schools[team.id], team.id);
-  document.querySelector('.filters').hidden = true;
-  document.querySelector('.filters').style.display = 'none';
-  document.getElementById('view-title').textContent = 'Team profile';
-  status.textContent = 'RETRO ' + edition.initialRating + ' · Preseason';
-  const profile = document.createElement('p');
-  profile.append(
-    pageLink('Class ' + team.classification, {class: team.classification}),
-    ' · ',
-    pageLink(team.conference, {conference: team.conference}),
-    ' · ',
-    pageLink('Sectional ' + team.sectional, {sectional: team.sectional})
-  );
+  document.body.dataset.view = 'team';
+  document.getElementById('edition-layout').hidden = true;
+  const desk = document.getElementById('team-desk');
+  desk.hidden = false;
+  const profile = document.createElement('aside');
+  profile.className = 'school-facts';
+  const heading = document.createElement('h2');
+  heading.textContent = 'School profile';
+  const facts = document.createElement('dl');
+  for (const [label, value] of [
+    ['Preseason RETRO', String(edition.initialRating)],
+    ['Class', pageLink(team.classification, {class: team.classification})],
+    ['Conference', pageLink(team.conference, {conference: team.conference})],
+    ['Sectional', pageLink(String(team.sectional), {sectional: team.sectional})],
+  ]) {
+    const term = document.createElement('dt');
+    const detail = document.createElement('dd');
+    term.textContent = label;
+    detail.append(value);
+    facts.append(term, detail);
+  }
+  profile.append(heading, facts);
   const schedule = document.createElement('a');
-  schedule.href = 'http://scoreboard.homestead.com/boys/logs' + encodeURIComponent(team.id) + '.htm';
-  schedule.textContent = 'Varsity schedule and results';
+  schedule.href = 'https://scoreboard.homestead.com/boys/logs' + encodeURIComponent(team.id) + '.htm';
+  schedule.textContent = 'John Harrell’s schedule and results';
   const scheduleRow = document.createElement('p');
-  scheduleRow.append(schedule, ' · John Harrell');
-  const back = document.createElement('p');
-  back.append(pageLink('Statewide rankings', {}));
-  status.after(profile, back, schedulePanel(edition, [team], false), scheduleRow);
+  scheduleRow.className = 'schedule-source';
+  scheduleRow.append(schedule);
+  const scheduleDesk = document.createElement('div');
+  scheduleDesk.append(schedulePanel(edition, [team], false), scheduleRow);
+  desk.append(profile, scheduleDesk);
 }
 
 function initialize(edition) {
@@ -364,7 +376,8 @@ function initialize(edition) {
       selected.conference,
       selected.sectional && 'Sectional ' + selected.sectional,
     ].filter(Boolean).join(' · ');
-    document.getElementById('view-title').textContent = label || 'Statewide register';
+    document.body.dataset.view = selected.conference ? 'conference' : 'statewide';
+    document.getElementById('view-title').textContent = label ? label + ' standings' : 'Statewide register';
     showMasthead(selected.conference || 'Indiana Boys Basketball RETRO', artwork.conferences[selected.conference], selected.conference);
     document.title = selected.conference
       ? selected.conference + ' | Indiana Boys Basketball RETRO'
@@ -399,7 +412,7 @@ function initialize(edition) {
       conferenceSchedule.replaceChildren(...(members.length ? [schedulePanel(edition, members, true)] : []));
     }
     const params = new URLSearchParams(Object.entries(selected).filter(([, value]) => value));
-    history.replaceState(null, '', location.pathname + (params.size ? '?' + params : ''));
+    history.replaceState(null, '', location.pathname + (params.size ? '?' + params : '') + location.hash);
   };
   for (const control of Object.values(controls)) control.addEventListener('input', render);
   render();

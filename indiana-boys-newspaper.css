@@ -1,0 +1,100 @@
+:root {
+  --paper-rule: #9b876c;
+  --paper-ink: #3d3025;
+  --paper-panel: #fbf5e8;
+  --edition-red: #672d25;
+}
+
+main > header {
+  padding: .85rem clamp(.35rem, 2vw, 2rem) 1rem;
+  border-block: 5px double var(--paper-ink);
+  background: radial-gradient(ellipse at 50% 12%, #fff9ec, #ebddc5);
+}
+
+.paper-name {
+  display: inline-block;
+  font-size: clamp(1.45rem, 4vw, 2.8rem);
+  line-height: 1.2;
+  letter-spacing: -.035em;
+  text-decoration: none;
+}
+
+#masthead-title {
+  margin: .65rem auto .2rem;
+  padding: .65rem .3rem 0;
+  border-top: 1px solid var(--paper-rule);
+}
+
+#masthead-title h1 { font-size: clamp(1.75rem, 4.5vw, 3.65rem); }
+#edition { color: var(--edition-red); font-weight: bold; font-size: .9rem; }
+
+.edition-nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: .2rem 1.5rem;
+  border-bottom: 3px double var(--paper-ink);
+  padding: .45rem .35rem;
+  margin-bottom: 1rem;
+}
+
+.edition-nav a { padding: .2rem 0; font-weight: bold; }
+
+.edition-layout, .team-desk {
+  display: grid;
+  align-items: start;
+  grid-template-columns: minmax(0, 2fr) minmax(16rem, 1fr);
+  gap: 1rem;
+}
+
+.edition-layout[hidden], .team-desk[hidden] { display: none; }
+
+.directory, .edition-sidebar section, .school-facts, .team-desk .schedule-panel {
+  padding: clamp(.55rem, 1.4vw, .95rem);
+  background: var(--paper-panel);
+  border: 1px solid var(--paper-rule);
+  border-top: 3px double var(--paper-ink);
+}
+
+.edition-sidebar { min-width: 0; display: grid; gap: .85rem; }
+.edition-sidebar > div:empty { display: none; }
+.directory h2, .edition-sidebar h2, .team-desk h2 { margin: .1rem 0 .55rem; }
+.directory .filters { padding: 0 0 .65rem; margin-bottom: .75rem; }
+.directory .filters label { flex-basis: 8rem; }
+.directory #status { color: #594638; font-size: .88rem; margin-bottom: .65rem; }
+.directory tbody a.school-identity { font-weight: bold; }
+.directory .number:last-child { font-weight: bold; color: var(--edition-red); }
+.directory tbody tr:hover { background: #e9d8bb; }
+.schedule-panel > label { margin-bottom: .65rem; }
+.schedule-panel table { font-size: .9rem; }
+.schedule-panel td:nth-child(4) { white-space: nowrap; }
+#results ul { padding-left: 1.2rem; }
+#results li { margin-block: .45rem; }
+
+body[data-view="conference"] .edition-layout {
+  grid-template-columns: minmax(0, 1.25fr) minmax(19rem, 1fr);
+}
+
+body[data-view="team"] #masthead-title .crest-large { width: clamp(5rem, 17vw, 9.5rem); }
+.team-desk { grid-template-columns: minmax(12rem, 1fr) minmax(0, 3fr); }
+.team-desk > div { min-width: 0; }
+.school-facts dl { margin: 0; }
+.school-facts dt { border-top: 1px solid #cbbda7; padding-top: .5rem; font-size: .82rem; color: #594638; }
+.school-facts dd { margin: .16rem 0 .5rem; font-size: 1.1rem; font-weight: bold; }
+.schedule-source { font-size: .88rem; }
+
+@media (max-width: 880px) {
+  .edition-layout, body[data-view="conference"] .edition-layout { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 600px) {
+  .team-desk { grid-template-columns: minmax(0, 1fr); }
+  .school-facts dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .2rem .7rem; }
+  .school-facts dt { grid-column: 1; }
+  .school-facts dd { grid-column: 2; margin: 0; border-top: 1px solid #cbbda7; padding-top: .4rem; }
+  .edition-nav { column-gap: .85rem; font-size: .85rem; }
+  .schedule-panel table { font-size: .83rem; }
+}
+@media (max-width: 880px) {
+  .edition-sidebar { display: contents; }
+  #results { grid-row: 1; }
+}
