@@ -197,3 +197,20 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #c481
   .sl-ledger-page .ledger26-name{font-size:11px!important}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* Tuesday pregame cards: override the obsolete 106/120/132px status rail.
+   The three-value forecast already lives below both full-width team rows. */
+.sl-ledger-page .ledger26-scorebug.ledger26-scorebug--pregame,
+.sl-ledger-page .ledger26-scorebug.ledger26-scorebug--pregame.ledger26-scorebug--plain{
+ grid-template-columns:minmax(0,1fr)!important;
+}
+.sl-ledger-page .ledger26-scorebug--pregame>.ledger26-teams{
+ grid-column:1/-1!important;grid-row:1!important;min-width:0;width:100%!important;
+ grid-template-columns:minmax(0,1fr)!important;grid-template-rows:auto auto!important;
+}
+.sl-ledger-page .ledger26-scorebug--pregame>.ledger26-teams>.ledger26-team{
+ grid-column:1/-1!important;width:100%!important;min-width:0;box-sizing:border-box;
+}
+.sl-ledger-page .ledger26-scorebug--pregame>.ledger26-status--compact{
+ grid-column:1/-1!important;grid-row:2!important;width:100%!important;
+}
