@@ -695,9 +695,7 @@
  color:#201911!important;text-shadow:0 1px 0 rgba(255,255,255,.5)!important;
 }
 
-/* The mascot may be larger than the visible row, but is clipped precisely to
-   its own team field: never cross the away/home boundary. Keep the artwork's
-   facial/line detail, darkened into the school's color instead of a flat silhouette. */
+/* Keep the full mascot inside its own team row, behind the score and name. */
 .ledger26-scorebug .ledger26-team{
   overflow:hidden;
   isolation:isolate;
@@ -705,10 +703,10 @@
 .ledger26-scorebug .ledger26-ghost{
   position:absolute;
   top:50%;
-  right:-3%;
-  width:min(67%,285px);
-  height:230%;
-  transform:translateY(-50%) rotate(-16deg);
+  right:4%;
+  width:min(55%,240px);
+  height:94%;
+  transform:translateY(-50%);
   opacity:.36;
   z-index:0;
   pointer-events:none;
@@ -729,9 +727,8 @@
 .ledger26-card{isolation:isolate}
 @media(max-width:640px){
  .ledger26-scorebug .ledger26-ghost{
-   right:-5%;
-   width:64%;
-   height:205%;
+   right:3%;
+   width:58%;
    opacity:.31;
  }
  .ledger26-scorebug .ledger26-team--behind .ledger26-ghost{opacity:.23}
@@ -1078,6 +1075,3 @@
 .ledger26-pulse-quickstats>.ledger26-pulse-status{display:flex;flex-direction:row;align-items:baseline;gap:8px;flex:1 0 100%;width:100%;padding-bottom:3px;border-bottom:1px solid #b9a78a}
 .ledger26-pulse-quickstats>.ledger26-pulse-status .ledger26-pulse-state{font-size:12px}
 .ledger26-pulse-quickstats>.ledger26-pulse-status .ledger26-pulse-clock{font-size:12px;font-weight:700;color:#35291a}
-
-/* 2026-11-17: eliminate detached, clipped duplicate logo watermarks in team rows. */
-.ledger26-scorebug .ledger26-team .ledger26-ghost{display:none!important}
