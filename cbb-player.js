@@ -96,6 +96,20 @@
     }
     document.getElementById('player-overview').innerHTML = '<div class="player-stat-grid" aria-label="Season averages">' +
       shown.map(([label,value])=>'<div><strong>'+escape(value)+'</strong><span>'+escape(label)+'</span></div>').join('')+'</div>';
+    const pointsIndex = statsAt.PTS;
+    const peak = pointsIndex == null ? null : ordered.reduce((best, game) => {
+      const value = game.stats[pointsIndex];
+      if (!/^\d+$/.test(String(value))) return best;
+      return best == null || Number(value) > Number(best.stats[pointsIndex]) ? game : best;
+    }, null);
+    if (peak) {
+      const day = Object.fromEntries(dateKey.formatToParts(peak.time).map(part => [part.type, part.value]));
+      const opponent = peak.event.opponent?.displayName || peak.event.opponent?.abbreviation;
+      document.getElementById('player-highlights').innerHTML = '<p class="player-notebook"><strong>Season scoring high</strong> ' +
+        escape(peak.stats[pointsIndex]) + ' points' + (opponent ? ' vs. ' + escape(opponent) : '') +
+        ' · <a href="' + escape(ledgerGame(peak.id, day.year + '-' + day.month + '-' + day.day)) +
+        '">' + escape(dateLabel.format(peak.time)) + '</a></p>';
+    }
     const extra = labels.filter(label=>!mainStats.includes(label));
     const rows = ordered.map(({id, event, time, stats}) => {
       const day = Object.fromEntries(dateKey.formatToParts(time).map(part => [part.type, part.value]));
@@ -118,6 +132,10 @@
       mainStats.map(label=>'<th scope="col">'+label+'</th>').join('') +
       (extra.length?'<th scope="col">Details</th>':'')+'</tr></thead><tbody>'+rows.join('')+'</tbody></table>';
     status.textContent = ordered.length + ' games with published stats · feed checked ' + checked;
+  }
+
+  if (/^\d+$/.test(player || '') && /^20\d{2}$/.test(year || '')) {
+    window.SLTCBBPlayerProfile?.load({player, year, gender, league});
   }
 
   load().catch(() => {
