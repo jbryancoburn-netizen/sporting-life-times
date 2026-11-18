@@ -286,6 +286,17 @@
    const graph=global.SLTCourt?.gameFlow?.(plays,courtGame(g,women),playAttributor(raw,g))||'';
    return graph||missing('A scoring graph will appear when the source provides a consistent sequence of play-by-play scores.');
  }
+ function retroTimeline(plays,g,women){
+   if(!g.retroLiveEnabled)return '';
+   const swings=global.SLTRetroLive?.timeline(plays,g,women)||[];
+   if(swings.length<2)return '';
+   return '<h4>RETRO Live · key swings</h4><p>Experimental win probability for '+esc(name(g.home))+
+     (Number.isFinite(g.retroLivePrior)?'.':'. Starts at 50% when a pregame forecast is unavailable.')+
+     '</p><table><thead><tr><th scope="col">Game clock</th><th scope="col">Play</th><th scope="col">Win chance</th><th scope="col">Change</th></tr></thead><tbody>'+
+     swings.map(p=>{const delta=Math.round(p.change*100);return '<tr><td>'+esc(p.period+' · '+p.clock)+'</td><td>'+
+       esc(p.text)+'</td><td>'+Math.round(p.probability*100)+'%</td><td>'+(delta>0?'+':'')+delta+' pp</td></tr>';}).join('')+
+     '</tbody></table>';
+ }
  function tabs(key,showPlays,showFallback){
    const definitions=[['summary','Game summary'],['team','Team statistics'],['players','Player box score'],
      ...(showPlays?[['plays','Every play']]:showFallback?[['plays','Key stats']]:[])];
@@ -333,7 +344,7 @@
      tabs(key,hasPlays,hasFallback)+
      keyPanel('summary','<h4>Period-by-period scoring</h4>'+periods+
        '<h4>Color Game Flow and scoring segments</h4>'+
-       (hasPlays?flow(raw,g,women):missing('Interactive scoring segments are unavailable: the source did not supply play-by-play events for this game. Period scoring above remains available when reported.')))+
+       (hasPlays?flow(raw,g,women)+retroTimeline(reportedPlays,g,women):missing('Interactive scoring segments are unavailable: the source did not supply play-by-play events for this game. Period scoring above remains available when reported.')))+
      keyPanel('team','<h4>Complete available team statistics</h4>'+team)+
      keyPanel('players','<h4>Player-by-player box score</h4>'+players)+
      (hasPlays?keyPanel('plays','<h4>Play-by-play · all reported events</h4>'+playLog(raw,g)):

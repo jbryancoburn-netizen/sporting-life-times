@@ -933,16 +933,67 @@ const rivalryCard=r=>{
  '<span style="font-size:11px;font-weight:800;letter-spacing:.09em">★ HISTORIC RIVALRY · '+label+'</span>'+record+'</div>';
 };
 
+const conferenceLogos={
+  "America East":["America East Conference", "america_east"],
+  "Atlantic Coast":["Atlantic Coast Conference", "acc"],
+  "Atlantic 10":["Atlantic 10 Conference", "atlantic_10"],
+  "Big East":["Big East Conference", "big_east"],
+  "Big Sky":["Big Sky Conference", "big_sky"],
+  "Big South":["Big South Conference", "big_south"],
+  "Big Ten":["Big Ten Conference", "big_ten"],
+  "Big 12":["Big 12 Conference", "big_12"],
+  "Big West":["Big West Conference", "big_west"],
+  "Coastal Athletic Association":["Coastal Athletic Association", "coastal"],
+  "Conference USA":["Conference USA", "conference_usa"],
+  "Ivy League":["Ivy League", "ivy"],
+  "Metro":["Metro Conference", "metro"],
+  "Mid-American":["Mid-American Conference", "mid_american"],
+  "Mid-Eastern Athletic":["Mid-Eastern Athletic Conference", "meac"],
+  "Missouri Valley":["Missouri Valley Conference", "missouri_valley"],
+  "Northeast":["Northeast Conference", "northeast"],
+  "Ohio Valley":["Ohio Valley Conference", "ohio_valley"],
+  "Pac-12":["Pac-12 Conference", "pac_12"],
+  "Patriot League":["Patriot League", "patriot_league"],
+  "Southeastern":["Southeastern Conference", "sec"],
+  "Southern":["Southern Conference", "southern"],
+  "Southland":["Southland Conference", "southland"],
+  "Southwestern Athletic":["Southwestern Athletic Conference", "swac"],
+  "Sun Belt":["Sun Belt Conference", "sun_belt"],
+  "West Coast":["West Coast Conference", "west_coast"],
+  "United Athletic":["United Athletic Conference", "uac"],
+  "Mountain West":["Mountain West Conference", "mountain_west"],
+  "Horizon League":["Horizon League", "horizon"],
+  "Atlantic Sun":["Atlantic Sun Conference", "atlantic_sun"],
+  "Summit League":["Summit League", "summit_league"],
+  "American":["American Conference", "american"],
+};
+const conferenceAliases={"ACC": "Atlantic Coast", "AAC": "American", "ASUN": "Atlantic Sun", "CAA": "Coastal Athletic Association", "C-USA": "Conference USA", "Horizon": "Horizon League", "MAC": "Mid-American", "MEAC": "Mid-Eastern Athletic", "MVC": "Missouri Valley", "MWC": "Mountain West", "NEC": "Northeast", "OVC": "Ohio Valley", "Patriot": "Patriot League", "SEC": "Southeastern", "SoCon": "Southern", "SWAC": "Southwestern Athletic", "UAC": "United Athletic", "WCC": "West Coast"};
+function conferenceMark(team){
+ const name=rankOf(team,ratings,women)?.conference?.replace(/ Conference$/,'');
+ const entry=conferenceLogos[conferenceAliases[name]||name];
+ return entry?{name:entry[0],url:'https://a.espncdn.com/i/teamlogos/ncaa_conf/500/'+entry[1]+'.png'}:null;
+}
+const pregameKey=g=>['slt-pregame-v1',women?'women':'men',g.day,g.id,g.away.id,g.home.id].join('|');
+function savedPregame(g){
+ try{return JSON.parse(localStorage.getItem(pregameKey(g)));}catch{return null;}
+}
+function archivedPregame(g){
+ const forecast=!women?preservedRetroForecasts.get(String(g.day)+'|'+cleanId(g.id)):null;
+ return forecast&&forecast.homeId===String(g.home.canonical)&&forecast.awayId===String(g.away.canonical)?forecast:null;
+}
+function retroLivePrior(g){
+ const archive=archivedPregame(g);
+ if(Number.isFinite(archive?.probability))return archive.probability;
+ const saved=savedPregame(g);
+ if(!Number.isFinite(saved?.probability))return null;
+ return saved.team===g.home.name?saved.probability:saved.team===g.away.name?1-saved.probability:null;
+}
 const ledgerScorebug=g=>{
  // A single first-party scorebug renderer serves both basketball desks.
  // A post-tipoff forecast must come from the immutable pregame archive.
- const historicalForecast=!women&&g.phase!=='upcoming'?
-   preservedRetroForecasts.get(String(g.day)+'|'+cleanId(g.id)):null;
- const matchedHistoricalForecast=historicalForecast&&
-   historicalForecast.homeId===String(g.home.canonical)&&
-   historicalForecast.awayId===String(g.away.canonical)?historicalForecast:null;
+ const matchedHistoricalForecast=g.phase==='upcoming'?null:archivedPregame(g);
  const convert=t=>({id:String(t.id),name:t.name,abbreviation:t.abbreviation||'',timeoutsRemaining:t.timeoutsRemaining,score:g.phase==='upcoming'?null:t.score,
-   crest:emblem(t),color:brand(t),record:record(t),retro:retroLine(t),
+   conferenceMark:conferenceMark(t),crest:emblem(t),color:brand(t),record:record(t),retro:retroLine(t),
     retroSnapshot:(()=>{const q=rankOf(t,ratings,women);return g.kind!=='exhibition'&&q&&Number.isFinite(Number(q.elo))?{elo:Number(q.elo),rank:Number.isInteger(Number(q.rank))?Number(q.rank):null,dailyChange:q.daily_change==null?null:Number(q.daily_change)}:null})(),
    teamHref:teamPage(t),poll:pollRankings.get(String(t.id))||null,
    scouting:(()=>{
@@ -987,15 +1038,14 @@ const ledgerScorebug=g=>{
       forecastBasis:aligned?.basis||null,
       projectedAwayScore:aligned?.away??null,projectedHomeScore:aligned?.home??null};
   })();
- const forecastKey=['slt-pregame-v1',women?'women':'men',g.day,g.id,g.away.id,g.home.id].join('|');
+ const forecastKey=pregameKey(g);
  let livePregameForecast=null;
  try{
    if(forecast&&!/\b(?:SOURCE CONFLICT|REVIEW|DISPUTED)\b/i.test(g.status||'')){
      localStorage.setItem(forecastKey,JSON.stringify(forecast));
    }else if(g.phase==='live'){
-     livePregameForecast=JSON.parse(localStorage.getItem(forecastKey));
-   }else if(g.phase==='final'){
-     localStorage.removeItem(forecastKey);
+     livePregameForecast=savedPregame(g);
+
    }
  }catch{/* The archived forecast is still available where published. */}
  return window.SLTBasketballScorebug?.render({
@@ -1005,7 +1055,7 @@ const ledgerScorebug=g=>{
   date:g.day,tipoff:formatClock(g),venue:g.venue||'',network:g.broadcast||'',suppressPress:true,
   suppressMonogram:true,suppressTipoffFallback:true,
   historicalForecast:matchedHistoricalForecast,
-  livePregameForecast,
+  livePregameForecast,retroLivePrior:retroLivePrior(g),retroLiveEnabled:true,
   forecast,
   rivalry:(()=>{
     if(g.phase!=='upcoming'||g.kind==='exhibition')return null;
@@ -1083,7 +1133,7 @@ const openGamefile=(details,force=false)=>{
  const panel=details.querySelector('[data-inline-game-id]');
  if(!base||!panel||!window.SLTInlineGamefile)return;
  const g=currentScore(base);
- window.SLTInlineGamefile.mount(panel,g,{women,feed:sourceFeed,force,onLiveScore:s=>{
+ window.SLTInlineGamefile.mount(panel,{...g,retroLiveEnabled:true,retroLivePrior:retroLivePrior(g)},{women,feed:sourceFeed,force,onLiveScore:s=>{
    if(!details.isConnected||base.phase!=='live'||s.id!==base.id||s.day!==base.day)return;
    const prior=currentScore(base);
    if((prior.away.score!==null&&s.away<prior.away.score)||
