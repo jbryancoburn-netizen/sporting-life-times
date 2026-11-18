@@ -6,8 +6,8 @@
   "elo_approved": false,
   "source": "ESPN site API, completed finals since NBL27 regular-season opening",
   "season_start": "2026-09-19",
-  "updated_at": "2026-11-18T01:00:34.290472+00:00",
-  "games_replayed": 68,
+  "updated_at": "2026-11-18T11:54:31.411649+00:00",
+  "games_replayed": 69,
   "teams": 10,
   "rows": [
     {
@@ -81,14 +81,24 @@
       "points_pct": 95.1
     },
     {
-      "team": "New Zealand Breakers",
+      "team": "South East Melbourne Phoenix",
       "wins": 5,
       "losses": 9,
       "played": 14,
       "win_pct": 0.357,
-      "points_for": 1269,
-      "points_against": 1280,
-      "points_pct": 99.14
+      "points_for": 1374,
+      "points_against": 1371,
+      "points_pct": 100.22
+    },
+    {
+      "team": "New Zealand Breakers",
+      "wins": 5,
+      "losses": 10,
+      "played": 15,
+      "win_pct": 0.333,
+      "points_for": 1365,
+      "points_against": 1381,
+      "points_pct": 98.84
     },
     {
       "team": "Illawarra Hawks",
@@ -99,19 +109,21 @@
       "points_for": 1462,
       "points_against": 1571,
       "points_pct": 93.06
-    },
-    {
-      "team": "South East Melbourne Phoenix",
-      "wins": 4,
-      "losses": 9,
-      "played": 13,
-      "win_pct": 0.308,
-      "points_for": 1273,
-      "points_against": 1275,
-      "points_pct": 99.84
     }
   ],
   "recent_finals": [
+    {
+      "id": "401875306",
+      "played_at": "2026-11-18T06:30Z",
+      "home": "New Zealand Breakers",
+      "away": "South East Melbourne Phoenix",
+      "home_score": 96,
+      "away_score": 101,
+      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875306/phoenix-breakers",
+      "verified": false,
+      "provider": "espn",
+      "state": "candidate"
+    },
     {
       "id": "401875300",
       "played_at": "2026-11-15T06:00Z",
@@ -216,18 +228,6 @@
       "home_score": 110,
       "away_score": 120,
       "source_url": "https://www.espn.com/nbl/game/_/gameId/401875326/hawks-phoenix",
-      "verified": false,
-      "provider": "espn",
-      "state": "candidate"
-    },
-    {
-      "id": "401875296",
-      "played_at": "2026-11-08T06:00Z",
-      "home": "Perth Wildcats",
-      "away": "Cairns Taipans",
-      "home_score": 92,
-      "away_score": 100,
-      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875296/taipans-wildcats",
       "verified": false,
       "provider": "espn",
       "state": "candidate"
