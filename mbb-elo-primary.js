@@ -18,7 +18,8 @@ function renderTable(){
  const q=filter.trim().toLowerCase();
  const teams=ranked().filter(t=>(!q||[t.team,t.conference].join(' ').toLowerCase().includes(q))&&(!conference||t.conference===conference));
  $('cbb-count').textContent=teams.length+' of 365 programs';
- $('cbb-elo-body').innerHTML=teams.map(t=>'<tr><td class="cbb-elo-rank"><span class="victorian-number">'+rankTag(t)+'</span></td><td><a class="cbb-elo-school" href="'+link(t)+'">'+logo(t)+'<span class="cbb-elo-school-title"><span>'+esc(t.team)+'</span><small class="cbb-elo-mobile-delta">Daily Δ '+delta(t)+'</small></span></a></td><td>'+esc(t.conference||'—')+'</td><td class="num cbb-elo-record"><span class="cbb-mobile-stat-label">W–L </span>'+record(t)+'</td><td class="num cbb-elo-rating"><span class="cbb-mobile-stat-label">RETRO </span><b>'+format(t.elo)+'</b></td><td class="num">'+delta(t)+'</td><td class="num">'+(t.games_played??0)+'</td></tr>').join('');
+ $('cbb-elo-body').innerHTML=teams.map(t=>'<tr><td class="cbb-elo-rank"><span class="victorian-number">'+rankTag(t)+'</span></td><td><a class="cbb-elo-school" href="'+link(t)+'">'+logo(t)+'<span class="cbb-elo-school-title"><span>'+esc(t.team)+'</span><small class="cbb-elo-mobile-delta">Daily Δ '+delta(t)+'</small></span></a><div data-ranking-games="'+esc(t.team_id)+'"></div></td><td>'+esc(t.conference||'—')+'</td><td class="num cbb-elo-record"><span class="cbb-mobile-stat-label">W–L </span>'+record(t)+'</td><td class="num cbb-elo-rating"><span class="cbb-mobile-stat-label">RETRO </span><b>'+format(t.elo)+'</b></td><td class="num">'+delta(t)+'</td><td class="num">'+(t.games_played??0)+'</td></tr>').join('');
+ if(retro)window.SLTRankingGames?.attach($('cbb-elo-body'),'men',retro,cross);
  if(!teams.length)$('cbb-elo-body').innerHTML='<tr><td colspan="7">No programs match those filters.</td></tr>';
 }
 function renderMatchup(){
@@ -43,8 +44,9 @@ function render(){
  $('cbb-elo-fresh').textContent='Source: verified 2026–27 finals · '+(games?'Last verified game '+retro.as_of:'First ratings change after verified regular-season finals')+' · 365 programs';
  const sorted=[...new Set(ranked().map(t=>t.conference).filter(Boolean))].sort();
  $('cbb-conference').innerHTML='<option value="">All conferences</option>'+sorted.map(c=>'<option value="'+esc(c)+'">'+esc(c)+'</option>').join('');$('cbb-conference').value=conference;
- $('cbb-top-ten').innerHTML=games?ranked().slice(0,10).map((t,i)=>'<a href="'+link(t)+'" class="cbb-elo-power"><span class="cbb-elo-rank">#'+(i+1)+'</span>'+logo(t)+'<span class="cbb-elo-power-name"><strong>'+esc(t.team)+'</strong><small>'+esc(t.conference||'')+'</small><small class="cbb-power-retro">RETRO '+format(t.elo)+'</small></span><b class="cbb-overall-record"><small>W–L</small>'+record(t)+'</b></a>').join(''):
+ $('cbb-top-ten').innerHTML=games?ranked().slice(0,10).map((t,i)=>'<a href="'+link(t)+'" class="cbb-elo-power"><span class="cbb-elo-rank">#'+(i+1)+'</span>'+logo(t)+'<span class="cbb-elo-power-name"><strong>'+esc(t.team)+'</strong><small>'+esc(t.conference||'')+'</small><small class="cbb-power-retro">RETRO '+format(t.elo)+'</small><span data-ranking-games="'+esc(t.team_id)+'"></span></span><b class="cbb-overall-record"><small>W–L</small>'+record(t)+'</b></a>').join(''):
  '<div class="cbb-elo-preseason"><strong>365 schools. 365 fresh starts.</strong><p>Everyone opens the season at exactly 1500. Competitive rankings begin only when completed 2026–27 games have been verified.</p></div>';
+ window.SLTRankingGames?.attach($('cbb-top-ten'),'men',retro,cross);
  renderTable();setupMatchups();
 }
 async function refresh(){
