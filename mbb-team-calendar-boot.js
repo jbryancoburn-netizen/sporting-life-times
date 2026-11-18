@@ -200,27 +200,110 @@ const formGames=finalArchive.map(g=>({...g,home_id:ncaaByEspn.get(g.home),away_i
  const formNames=new Map((cross.teams||[]).map(t=>[String(t.id),t.name]));
  for(const g of verifiedOutsideGames){const id='outside:'+g.opponent_espn_id;formNames.set(id,g.opponent_name);formGames.push({id:g.id,date:g.date,home_id:ncaaByEspn.get(String(g.division_i_espn_id)),away_id:id,home_score:g.team_score,away_score:g.opponent_score});}
  const retroHistory=window.SLTScheduleLights.retroHistory(validRatings?ratings:null);
- // Placement games pair the winners or losers of two published semifinals.
- const month=new Intl.DateTimeFormat('en-US',{month:'long',year:'numeric',timeZone:'America/New_York'});
- const cells=games.map(event=>{
-  let e=event;
-  const slot=e.bracket_slot;
-  if(slot){
-   const own=verifiedFinals.get(gameKey(slot.prior_date,team.espn_id,slot.team_opponent_id));
-   if(own){
-    const winner=game=>game.home_score>game.away_score?game.home:game.away;
-    const championship=winner(own)===String(team.espn_id);
-    const other=verifiedFinals.get(gameKey(slot.prior_date,...slot.other_semifinal_ids));
-    const id=other&&(championship?winner(other):slot.other_semifinal_ids.find(id=>id!==winner(other)));
-    const school=schoolByEspn.get(id);
-    const competition=e.competitions[0];
-    e={...e,official_school_time:championship?slot.championship_tip:slot.third_place_tip,
-      tournament:'Players Era 8 · '+(championship?'Championship':'Third place')};
-    if(school)e.competitions=[{...competition,competitors:competition.competitors.map(entry=>
-      String(entry.team.id)===String(team.espn_id)?entry:
-        {...entry,team:{id,displayName:school.espn_name||school.name}})}];
-   }
+ // Players Era publishes one game per entrant per round, including consolation.
+ // Bracket sources: https://www.playersera.com/events/players-era-8
+ // and https://www.playersera.com/events/players-era-16.
+ const playersEraFields=[
+  {size:8,days:[17,18,19],pairs:[['248','164'],['57','87'],['2305','2439'],['277','2']]},
+  {size:16,days:[24,26,27],pairs:[['2633','120'],['21','66'],['2599','2483'],['97','2641'],
+   ['2250','2306'],['239','333'],['130','156'],['2628','2390']]}
+ ];
+ const teamId=String(team.espn_id);
+ const era=playersEraFields.find(field=>field.pairs.some(pair=>pair.includes(teamId)));
+ if(era&&data.season==='2026-27'){
+  const day=n=>'2026-11-'+n;
+  const findFinal=(n,a,b)=>verifiedFinals.get(gameKey(day(n),a,b));
+  const winner=g=>g.home_score>g.away_score?g.home:g.away;
+  const loser=g=>winner(g)===g.home?g.away:g.home;
+  const pick=(pair,n,won)=>{
+   const final=findFinal(n,...pair);
+   return final?[won?winner(final):loser(final)]:pair;
+  };
+  const pairIndex=era.pairs.findIndex(pair=>pair.includes(teamId));
+  const groupStart=Math.floor(pairIndex/4)*4;
+  const [opening,second,third]=era.days;
+  const ownPair=era.pairs[pairIndex];
+  const opener=findFinal(opening,...ownPair);
+  const wonOpening=opener?winner(opener)===teamId:null;
+  const roundTwoPair=era.pairs[pairIndex^1];
+  const publishedEightRoundTwo=[
+   {ids:['164','87'],tip:'2:00 p.m. ET',network:'ESPN',won:false},
+   {ids:['248','57'],tip:'4:30 p.m. ET',network:'ESPN',won:true},
+   {ids:['2305','277'],tip:'7:30 p.m. ET',network:'ESPN2',won:true},
+   {ids:['2439','2'],tip:'10:00 p.m. ET',network:'ESPN2',won:false}
+  ];
+  const published=era.size===8?publishedEightRoundTwo.find(g=>g.ids.includes(teamId)):null;
+  const upper=published?.won??wonOpening;
+  const secondIds=published?published.ids.filter(id=>id!==teamId):
+   upper===null?roundTwoPair:pick(roundTwoPair,opening,upper);
+  const secondFinal=secondIds.map(id=>findFinal(second,teamId,id)).find(Boolean);
+  const wonSecond=secondFinal?winner(secondFinal)===teamId:null;
+  const otherHalfStart=groupStart+((pairIndex-groupStart<2)?2:0);
+  const otherHalf=era.pairs.slice(otherHalfStart,otherHalfStart+2);
+  const thirdCandidates=otherHalf.map(pair=>upper===null?pair:pick(pair,opening,upper));
+  const opposingGame=thirdCandidates[0].flatMap(a=>thirdCandidates[1].map(b=>findFinal(second,a,b))).find(Boolean);
+  const thirdIds=opposingGame&&wonSecond!==null?
+   [wonSecond?winner(opposingGame):loser(opposingGame)]:thirdCandidates.flat();
+  const thirdFinal=thirdIds.map(id=>findFinal(third,teamId,id)).find(Boolean);
+  const thirdLabel=upper===null?'Placement game':upper?
+   wonSecond===null?'Championship or third place':wonSecond?'Championship':'Third place':
+   wonSecond===null?'Fifth or seventh place':wonSecond?'Fifth place':'Seventh place';
+  const arena=era.size===8||groupStart===0?'Michelob ULTRA Arena':'T-Mobile Arena';
+  const nameFor=id=>schoolByEspn.get(id)?.name||'Opponent TBD';
+  const source='https://www.playersera.com/events/players-era-'+era.size;
+  const isExistingSlot=(event,n,ids)=>{
+   if(event.date.slice(0,10)!==day(n))return false;
+   const competition=event.competitions[0];
+   const opponent=competition.competitors.find(entry=>String(entry.team?.id)!==teamId);
+   if(ids.includes(String(opponent?.team?.id))||ids.includes(exactId(opponent?.team?.displayName)))return true;
+   return /players era|las vegas|michelob ultra|t-mobile arena/i.test(
+    [event.name,event.tournament,competition.venue?.fullName].join(' '));
+  };
+  const addRound=(n,ids,label,{final,tip,network,venue=arena,conditional=false}={})=>{
+   const rows=games.filter(event=>isExistingSlot(event,n,ids));
+   const existing=rows.find(event=>ids.includes(String(event.competitions[0].competitors.find(
+     entry=>String(entry.team?.id)!==teamId)?.team?.id)))||rows[0];
+   const opponentId=final?(final.home===teamId?final.away:final.home):ids.length===1?ids[0]:'';
+   const opponentName=opponentId?nameFor(opponentId):ids.map(nameFor).join(' or ');
+   const competition=existing?.competitions[0];
+   for(const row of rows)games.splice(games.indexOf(row),1);
+   games.push({id:final?.id||existing?.id||'players-era-'+era.size+'-'+n+'-'+teamId,
+    date:day(n)+'T12:00:00-05:00',name:opponentName,
+    tournament:'Players Era '+era.size+' · '+label,conditionalTournamentGame:conditional,
+    neutralSite:true,site_verified:true,site_source_url:source,
+    official_school_time:tip||(opponentId&&existing?.official_school_time)||'',
+    competitions:[{competitors:[
+     {homeAway:final?.away===teamId?'away':'home',team:{id:teamId,displayName:team.name}},
+     {homeAway:final?.home===opponentId?'home':'away',team:{id:opponentId,displayName:opponentName}}
+    ],venue:{fullName:venue,arenaName:venue,official_school_city:'Las Vegas, Nev.'},
+    broadcasts:network?[{names:[network]}]:competition?.broadcasts||[]}]});
+  };
+  for(const event of games){
+   if(isExistingSlot(event,opening,ownPair.filter(id=>id!==teamId)))
+    event.tournament='Players Era '+era.size+' · Opening round';
   }
+  addRound(second,secondIds,upper===null?'Second round':upper?'Semifinal':'Consolation semifinal',
+   {final:secondFinal,tip:published?.tip,network:published?.network});
+  addRound(third,thirdIds,era.size===16&&upper===true&&wonSecond===true?'Bracket '+thirdLabel.toLowerCase():thirdLabel,
+   {final:thirdFinal,tip:era.size===8&&upper===true&&wonSecond!==null?
+    (wonSecond?'11:00 p.m. ET':'2:30 p.m. ET'):undefined});
+  if(era.size===16&&upper!==false&&wonSecond!==false&&(!thirdFinal||winner(thirdFinal)===teamId)){
+   const otherGroup=era.pairs.slice(groupStart===0?4:0,groupStart===0?8:4).flat();
+   const championshipFinal=otherGroup.map(id=>findFinal(28,teamId,id)).find(Boolean);
+   const otherChamp=otherGroup.flatMap((a,i)=>otherGroup.slice(i+1).map(b=>findFinal(third,a,b))).find(g=>
+    g&&[g.home,g.away].every(id=>{
+     const prior=finalArchive.find(event=>event.date===day(second)&&winner(event)===id);
+     const first=finalArchive.find(event=>event.date===day(opening)&&winner(event)===id);
+     return prior&&first;
+    }));
+   addRound(28,otherChamp?[winner(otherChamp)]:otherGroup,'Championship'+
+    (thirdFinal||championshipFinal?'':' (if bracket winner)'),
+    {final:championshipFinal,venue:'Michelob ULTRA Arena',conditional:!thirdFinal&&!championshipFinal});
+  }
+  games.sort((a,b)=>a.date.localeCompare(b.date));
+ }
+ const month=new Intl.DateTimeFormat('en-US',{month:'long',year:'numeric',timeZone:'America/New_York'});
+ const cells=games.map(e=>{
   const c=e.competitions[0],contestants=c.competitors||[];
   const self=contestants.find(x=>String(x.team?.id)===String(team.espn_id));
   const opponent=contestants.find(x=>x!==self)||{};
@@ -236,8 +319,7 @@ const formGames=finalArchive.map(g=>({...g,home_id:ncaaByEspn.get(g.home),away_i
   const day=Number.isFinite(+date)?date.toLocaleDateString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',year:'numeric'}):e.date.slice(0,10);
   const verifiedTip=[e.official_school_time,e.official_time].find(officialClock)||'';
   const confirmed=Boolean(verifiedTip);
-  const conditionalTip=slot&&!confirmed;
-  const tip=conditionalTip?'<span class="sched-tip-option"><b>Third place</b> '+escape(slot.third_place_tip)+'</span><span class="sched-tip-option"><b>Championship</b> '+escape(slot.championship_tip)+'</span>':escape(verifiedTip||'TBA'); // Never present placeholder imported noon as an official tip.
+  const tip=escape(verifiedTip||'TBA'); // Never present placeholder imported noon as an official tip.
   // Tournament feeds may designate a nominal home team even on neutral courts.
   const certifiedNeutral=e.neutralSite===true&&e.site_verified===true;
   const vs=e.site_verified===true?(certifiedNeutral?'NEUTRAL':self?.homeAway==='away'?'AWAY':self?.homeAway==='home'?'HOME':'SITE TBA'):'SITE UNVERIFIED';
@@ -356,10 +438,10 @@ const formGames=finalArchive.map(g=>({...g,home_id:ncaaByEspn.get(g.home),away_i
     '<td class="sched-date-cell"><span class="sched-month" hidden>'+escape(Number.isFinite(+date)?month.format(date):'')+'</span><time datetime="'+escape(scheduledDate)+'">'+escape(day)+'</time><span class="sched-site-stamp">'+escape(vs==='SITE UNVERIFIED'||vs==='SITE TBA'?'Site TBA':vs)+'</span><span class="sched-game-status sched-status--'+(canceled?'canceled':exhibition?'exhibition':hasScore?'final':completed?'pending':'upcoming')+'">'+gameState+'</span></td>'+
     '<td class="sched-matchup-cell"><div class="sched-matchup"'+accentStyle+'>'+emblem+'<span class="sched-opponent"><strong>'+title+'</strong><small>'+vs.replace('SITE UNVERIFIED','LOCATION UNCONFIRMED')+'</small>'+(e.tournament?'<span class="sched-event-name">'+escape(e.tournament)+'</span>':'')+historicalRecords+(form?'<span class="sched-form">'+form+'</span>':'')+'</span></div></td>'+
     '<td class="sched-venue-cell"><div class="sched-venue"><strong>'+escape(arena)+'</strong><small>'+escape(city)+'</small></div></td>'+
-    '<td class="sched-time-cell"'+(conditionalTip?' data-conditional-tip':'')+'><span class="sched-tip-value">'+tip+'</span></td>'+
+    '<td class="sched-time-cell"><span class="sched-tip-value">'+tip+'</span></td>'+
     '<td class="sched-network-cell">'+network+'</td>'+
     '<td class="sched-elo-cell">'+(exhibition||verifiedNonD1?'Not applicable':escape(gameRatings.get(String(school?.id))?.elo??'Not rated'))+'</td>'+
-    '<td class="sched-result-cell">'+(scheduleState==='upcoming'&&(!slot||opponentId)?'<button type="button" class="slt-team-press-btn" data-press-home="'+escape(vs==='HOME'?team.name:(school?.name||opponentName))+'" data-press-away="'+escape(vs==='HOME'?(school?.name||opponentName):team.name)+'">PREGAME PRESS ›</button>':'')+result+(expandable?'<button type="button" class="victorian-stat-toggle" aria-expanded="false">GAME STATS ▾</button>':'')+window.SLTScheduleLights.corner(formGames,team.id,school?.id,scheduledDate,false,escape)+'</td></tr>'+(expandable?'<tr class="victorian-stat-detail" hidden><td colspan="7"><div class="victorian-stat-content">Open for game statistics.</div></td></tr>':'');
+    '<td class="sched-result-cell">'+(scheduleState==='upcoming'&&(!e.tournament||(opponentId&&!e.conditionalTournamentGame))?'<button type="button" class="slt-team-press-btn" data-press-home="'+escape(vs==='HOME'?team.name:(school?.name||opponentName))+'" data-press-away="'+escape(vs==='HOME'?(school?.name||opponentName):team.name)+'">PREGAME PRESS ›</button>':'')+result+(expandable?'<button type="button" class="victorian-stat-toggle" aria-expanded="false">GAME STATS ▾</button>':'')+window.SLTScheduleLights.corner(formGames,team.id,school?.id,scheduledDate,false,escape)+'</td></tr>'+(expandable?'<tr class="victorian-stat-detail" hidden><td colspan="7"><div class="victorian-stat-content">Open for game statistics.</div></td></tr>':'');
  }).join('');
  const scoredExhibitions=games.filter(e=>{
   if(e.date.slice(0,10)>='2026-11-01')return false;
