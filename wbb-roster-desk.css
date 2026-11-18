@@ -54,3 +54,25 @@
 
 .wbb-desk .wbb-venue-verified{display:block;color:#28614b;font:700 10px/1.35 Arial,sans-serif;margin-top:6px;white-space:normal}
 .wbb-desk .wbb-venue-verified a{text-decoration:underline}
+
+/* Men/women shared production register presentation. */
+body[data-page="women-team"] #roster{position:relative;border:4px double #674d33;background:#eee0c8;padding:13px 15px;box-shadow:inset 0 0 0 4px #f7edd9,inset 0 0 0 5px #b89a70}
+body[data-page="women-team"] #roster h2{font:800 clamp(23px,2.3vw,31px)/1.04 Georgia,serif;letter-spacing:-.035em;border-bottom:4px double #725638;padding-bottom:9px}
+body[data-page="women-team"] #roster .mbb-production-filters{display:flex;align-items:end;flex-wrap:wrap;gap:.65rem 1rem;margin:.6rem 0 .85rem}
+body[data-page="women-team"] #roster .mbb-production-filters label{display:grid;gap:.25rem;font:700 11px Georgia,serif}
+body[data-page="women-team"] #roster .mbb-production-filters input,body[data-page="women-team"] #roster .mbb-production-filters select{padding:7px;border:1px solid #a88c67;background:#fffaf0;color:#392b20;min-width:130px;max-width:100%}
+body[data-page="women-team"] #team-player-production-table{background:#f7ecda;border:1px solid #c2a889;padding:4px}
+body[data-page="women-team"] #team-player-production-table .table-wrap{overflow-x:auto;border:3px double #806345;background:#f7ecda}
+body[data-page="women-team"] #team-player-production-table table{width:100%;border-collapse:collapse;font:12px Georgia,serif}
+body[data-page="women-team"] #team-player-production-table th{background:#d9bf99;color:#442e1d;border-bottom:3px double #6e5238;padding:7px 8px;font:700 10px Georgia,serif}
+body[data-page="women-team"] #team-player-production-table td{padding:7px 8px;border-bottom:1px solid #bca382;color:#392b20}
+body[data-page="women-team"] #team-player-production-table tbody tr:nth-child(even){background:#edddc4}
+body[data-page="women-team"] #team-player-production-table .mbb-production-player{display:flex;align-items:center;gap:.65rem;min-width:0}
+body[data-page="women-team"] #team-player-production-table .mbb-production-player .mbb-player-image-wrap{position:relative;flex:0 0 52px;width:52px;height:56px;display:inline-flex;align-items:center;justify-content:center;background:#e8ecea;overflow:hidden;border-radius:4px}
+body[data-page="women-team"] #team-player-production-table .mbb-player-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center bottom;z-index:1}
+body[data-page="women-team"] #team-player-production-table .mbb-photo-missing{font:700 12px Georgia,serif;color:#50676e}
+body[data-page="women-team"] #team-player-production-table .mbb-production-player small{display:block;white-space:normal}
+body[data-page="women-team"] #team-player-production-table .slt-sort-heading{border:0;background:transparent;color:inherit;font:inherit;cursor:pointer;white-space:nowrap}
+body[data-page="women-team"] #team-player-production-table .slt-mobile-production-tools{display:none}
+body[data-page="women-team"] #team-player-production-table .slt-player-profile-link{color:inherit;text-decoration:underline;text-underline-offset:.17em}
+@media(max-width:680px){body[data-page="women-team"] #team-player-production-table .slt-mobile-production-tools{display:block;margin:8px 0}body[data-page="women-team"] #team-player-production-table table{min-width:730px}}
