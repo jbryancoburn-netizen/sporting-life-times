@@ -31,11 +31,12 @@ try{
  // Verified finals against D-II, D-III, NAIA, and other outside-D-I
  // opponents count toward a school record, never its RETRO Elo.
  const outside=await load('data/mbb-non-di-verified-finals-2026-27.json').catch(()=>null);
- const outsideGames=outside?.season==='2026-27'&&outside.counts_for_retro===false?
+ const verifiedOutsideGames=outside?.season==='2026-27'&&outside.counts_for_retro===false?
   (outside.games||[]).filter(g=>g.verified===true&&g.classification==='regular-season'&&
-   g.counts_for_retro===false&&String(g.division_i_espn_id)===String(team.espn_id)&&
+   g.counts_for_retro===false&&
    Number.isSafeInteger(g.team_score)&&Number.isSafeInteger(g.opponent_score)&&
    g.team_score!==g.opponent_score&&/^https:\/\/[^\s"'<>]+$/.test(g.source_url||'')):[];
+ const outsideGames=verifiedOutsideGames.filter(g=>String(g.division_i_espn_id)===String(team.espn_id));
  const calendarRows=data.events||[];
  const comparable=n=>String(n||'').toLowerCase().replace(/[^a-z0-9]/g,'');
  const divisionOneIds=new Set((cross.teams||[]).map(t=>String(t.espn_id)));
@@ -198,7 +199,7 @@ try{
  };
 const formGames=finalArchive.map(g=>({...g,home_id:ncaaByEspn.get(g.home),away_id:ncaaByEspn.get(g.away)}));
  const formNames=new Map((cross.teams||[]).map(t=>[String(t.id),t.name]));
- for(const g of outsideGames){const id='outside:'+g.opponent_espn_id;formNames.set(id,g.opponent_name);formGames.push({id:g.id,date:g.date,home_id:team.id,away_id:id,home_score:g.team_score,away_score:g.opponent_score});}
+ for(const g of verifiedOutsideGames){const id='outside:'+g.opponent_espn_id;formNames.set(id,g.opponent_name);formGames.push({id:g.id,date:g.date,home_id:ncaaByEspn.get(String(g.division_i_espn_id)),away_id:id,home_score:g.team_score,away_score:g.opponent_score});}
  const formRatings=new Map((ratings?.rankings||[]).map(r=>[String(r.team_id),r]));
  const opponentElo=id=>{const n=ratingBySchool.get(ncaaByEspn.get(String(id)));return Number.isFinite(Number(n))?Math.round(Number(n)).toString():'Not rated';};
  // Placement games pair the winners or losers of two published semifinals.

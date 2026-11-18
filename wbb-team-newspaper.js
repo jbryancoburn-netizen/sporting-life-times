@@ -66,6 +66,15 @@ const today=easternDay(new Date());
 const month=new Intl.DateTimeFormat('en-US',{month:'long',year:'numeric',timeZone:'America/New_York'});
 const formGames=(ratings?.gender==='women'?ratings.events||[]:[]).filter(g=>g.status==='final').map(g=>({...g,home_id:String(g.home_id),away_id:String(g.away_id)}));
 const formNames=new Map([...rmap].map(([id,t])=>[id,t.team]));
+for(const game of games){
+ if(!game.crossDivision||game.exhibition||game.is_exhibition)continue;
+ const result=window.WBBGameResults.scoreFor(game,id).value.match(/^[WL]\s+(\d+)\s*[–-]\s*(\d+)/);
+ const date=new Date(game.date);
+ if(!result||!Number.isFinite(+date))continue;
+ const opponent=String(game.opponent_id||'');
+ if(opponent)formNames.set(opponent,game.opponent||'Opponent');
+ formGames.push({id:game.id,date:easternDay(date),home_id:id,away_id:opponent,home_score:+result[1],away_score:+result[2]});
+}
 const rows=sorted.map(g=>{
   const opponentId=String(g.opponent_id||'');
   const opp=lookup.get(opponentId);
