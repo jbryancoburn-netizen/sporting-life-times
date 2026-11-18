@@ -71,7 +71,15 @@ body[data-page="women-team"] .wrap{max-width:1350px}
 #full-season-schedule .wbb-result-actions{display:flex;flex-wrap:wrap;align-items:center;gap:5px 8px}
 #full-season-schedule .wbb-result-actions :is(.wbb-stat-toggle,.mbb-schedule-gamefile,.slt-team-press-btn){margin:0;white-space:nowrap}
 #full-season-schedule .wbb-result-actions:not(:empty){margin-top:5px}
-#full-season-schedule .wbb-schedule-projection:not(:empty){display:block;margin-top:5px;line-height:1.3}
+#full-season-schedule .wbb-schedule-projection:empty{display:none}
+#full-season-schedule .wbb-result-cell:has(.wbb-schedule-projection:not(:empty)) > strong{display:none}
+.wbb-schedule-projection{padding:6px 8px;border:1px solid #b89b79;background:#fff8e9;color:#382819;text-align:left}
+.wbb-projection-label{display:block;margin-bottom:4px;color:#75543a;font:700 10px/1.2 Georgia,serif;letter-spacing:.05em;text-transform:uppercase}
+.wbb-schedule-projection dl{margin:0}
+.wbb-schedule-projection dl > div{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:baseline;gap:6px;padding:2px 0}
+.wbb-schedule-projection dl > div + div{border-top:1px solid #deccb0}
+.wbb-schedule-projection dt{min-width:0;overflow-wrap:anywhere;font:700 12px/1.2 Georgia,serif}
+.wbb-schedule-projection dd{margin:0;font:700 16px/1.1 Georgia,serif;font-variant-numeric:tabular-nums}
 #full-season-schedule :is(.wbb-result-source,.wbb-win-probability)[hidden]{display:none}
 @media(min-width:701px){
  .wbb-desk #full-season-schedule .mbb-schedule-table{table-layout:fixed;min-width:850px}
