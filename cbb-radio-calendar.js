@@ -3,13 +3,22 @@
  'use strict';
  const requests = new Map();
  const indiana = 'https://iuhoosiers.com/news/2026/3/20/general-indiana-university-athletics-announces-five-year-extension-of-flagship-radio-partnership-with-sound-management';
+ const purdue = 'https://purduesports.com/radio';
  const affiliates = {
   men: {
+   '96': ['UK Sports Network affiliates', 'https://ukathletics.com/UK-Sports-Network/'],
+   '150': ['WRAL News+ 99.3 / 96.5 FM · The Buzz 620 AM / 104.5 FM', 'https://goduke.com/sports/2022/8/6/local-radio-affiliates'],
+   '2305': ['KLWN 1320 AM · The Bull 92.9 FM · Jayhawk affiliates', 'https://kuathletics.com/documents/download/2026/11/16/KUMBB_Game_Notes_UNLV.pdf'],
+   '2509': ['WAZY 96.5 FM · Purdue affiliates', purdue],
    '84': ['105.1 FM WHCC', indiana],
    '87': ['960 AM WSBT', 'https://fightingirish.com/radioaffiliates'],
    '130': ['94.7 FM WCSX', 'https://mgoblue.com/sports/2017/6/16/mens-basketball-broadcast-information']
   },
   women: {
+   '41': ['ESPN 97.9 FM', 'https://uconnhuskies.com/documents/download/2026/11/10/2026-27_UConn_WBB_Media_Guide.pdf'],
+   '96': ['UK Sports Network affiliates', 'https://ukathletics.com/UK-Sports-Network/'],
+   '158': ['KBBK 107.3 FM · KXSP 590 AM · KRVN 880 AM', 'https://huskers.com/nebraska-womens-basketball-radio-affiliates'],
+   '2509': ['WBPE 95.3 FM · Purdue affiliates', purdue],
    '84': ['96.7 FM WBWB', indiana],
    '87': ['106.1 FM WQYQ / 960 AM WSBT', 'https://fightingirish.com/radioaffiliates']
   }
@@ -31,7 +40,9 @@
  async function mountGame(node, game, gender) {
   const teams = await calendar(gender);
   if (!node.isConnected) return;
-  node.innerHTML = ['away','home'].map(side => {
+  node.setAttribute('role','group');
+  node.setAttribute('aria-label','Team radio');
+  node.innerHTML = '<span class="sl-media-icon" aria-hidden="true">📻</span><span class="sl-radio-lines">'+['away','home'].map(side => {
    const self=game[side], other=game[side==='away'?'home':'away'];
    const id=String(self.id), team=teams[id], affiliate=affiliates[gender]?.[id];
    const names=new Set([norm(other.name),norm(other.full)].filter(Boolean));
@@ -40,7 +51,7 @@
    const info=listings.map(([label,url]) => anchor(label,url||team.source,'ledger26-network'));
    if (affiliate) info.push(anchor(affiliate[0]+' (season affiliate)',affiliate[1],'ledger26-network'));
    return '<small class="sl-radio-side"><strong>'+esc(self.name)+'</strong> '+(info.length?info.join(' · '):'Radio unconfirmed')+'</small>';
-  }).join('');
+  }).join('')+'</span>';
   node.hidden=false;
  }
  async function mountTeam(node) {

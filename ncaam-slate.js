@@ -989,11 +989,13 @@ function card(original,featured,opened=false){
  const press=g.phase==='upcoming'?'<button type="button" class="slt-team-press-btn" data-slt-ledger-press-open data-game-id="'+esc(g.id)+'" data-day="'+esc(g.day)+'" aria-label="Read pregame press for '+esc(g.away.name)+' at '+esc(g.home.name)+'">PREGAME PRESS ›</button>':'';
  const theatre=g.kind!=='exhibition'&&validId(g.id)&&g.phase==='live'?'<a class="vld-link" href="live-game.html?league='+(women?'ncaaw':'ncaam')+'&game='+encodeURIComponent(g.id)+'" aria-label="Open Victorian live dispatch for '+esc(g.away.name)+' at '+esc(g.home.name)+'">◈ LIVE DISPATCH</a>':'';
  const radio=external?'':'<span data-ledger-radio hidden></span>';
- const right=tv||press||theatre?'<span class="ledger26-meta-actions">'+tv+press+theatre+'</span>':'';
+ const tvRow=tv?'<span class="sl-tv-row" role="group" aria-label="Television"><span class="sl-media-icon" aria-hidden="true">📺</span>'+tv+'</span>':'';
+ const right=tvRow||radio?'<span class="ledger26-meta-actions sl-media-stack">'+tvRow+radio+'</span>':'';
+ const left='<span class="sl-game-site">'+when+press+theatre+'</span>';
  // The shared scorebug rail is the only pregame forecast presentation.
  // The projected score now lives inside the collapsed forecast rail, not the expanded gamefile.
  return '<article class="sl-game ledger26-card'+(women?' ledger26-card--women':' ledger26-card--men')+(featured?' ledger26-featured':'')+'">'+
-   (when||right?'<div class="ledger26-meta'+(g.phase==='upcoming'?' ledger26-meta--pregame':'')+'">'+when+right+radio+'</div>':'')+
+   (when||right?'<div class="ledger26-meta'+(g.phase==='upcoming'?' ledger26-meta--pregame':'')+'">'+left+right+'</div>':'')+
    '<details class="sl-game-expansion ledger26-expand" data-game-id="'+esc(g.id)+'" data-day="'+esc(g.day)+'" data-gender="'+(women?'women':'men')+'" data-home-id="'+esc(g.home.canonical||'')+'" data-away-id="'+esc(g.away.canonical||'')+'" data-home-name="'+esc(g.home.name)+'" data-away-name="'+esc(g.away.name)+'"'+(opened?' open':'')+'>'+
    '<summary class="ledger26-summary" aria-label="Expand '+esc(g.away.name)+' at '+esc(g.home.name)+' game details">'+
    ledgerScorebug(g)+'<span class="ledger26-instruction">OPEN GAME DETAILS <span aria-hidden="true">+</span></span></summary>'+
