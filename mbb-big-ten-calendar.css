@@ -468,3 +468,94 @@
     border-top: 1px solid #768ca64d !important;
   }
 }
+
+/* Solid opponent-color rail, status halo, and explicit venue stamps. */
+#full-season-schedule.victorian-team-calendar .mbb-schedule-table > tbody > tr[data-game-site] {
+  --schedule-card-paper: #fcfdff;
+  background: linear-gradient(90deg, var(--schedule-ink) 0 5px, #fcfdff 5px) !important;
+}
+#full-season-schedule.victorian-team-calendar .sched-matchup > .mbb-mark {
+  filter: drop-shadow(0 1px 2px #19263838);
+}
+#full-season-schedule .sched-site-stamp {
+  display: inline-block;
+  margin: .2rem .35rem .2rem 0;
+  padding: .2rem .4rem;
+  border: 1px solid currentColor;
+  color: #4e5260;
+  background: #fff;
+  font: 700 .65rem/1 Georgia, serif;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+#full-season-schedule [data-game-site="home"] .sched-site-stamp {
+  color: #fff;
+  background: #233d63;
+  border-color: #233d63;
+}
+#full-season-schedule [data-game-site="away"] .sched-site-stamp {
+  color: #244772;
+  border-style: dashed;
+}
+#full-season-schedule [data-game-site="neutral"] .sched-site-stamp {
+  color: #fff;
+  background: #55356f;
+  border-color: #55356f;
+}
+#full-season-schedule .sched-form { padding: .25rem 0; border-color: #bbc8da; }
+#full-season-schedule :is(.sched-form-labels,.sched-form-line) {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) 3.65rem 1.4rem 2.25rem 2rem;
+  align-items: center;
+  gap: .18rem;
+  color: #26394c;
+}
+#full-season-schedule .sched-form-labels {
+  font: 700 .61rem/1.2 Georgia,serif;
+  text-transform: uppercase;
+}
+#full-season-schedule .sched-form-line > b:first-child { overflow-wrap: anywhere; }
+#full-season-schedule :is(.sched-form-labels,.sched-form-line) > :nth-child(n+3) { text-align: right; }
+#full-season-schedule .sched-lights {
+  display: grid;
+  grid-template-columns: repeat(5, .52rem);
+  gap: .18rem;
+  align-items: center;
+}
+#full-season-schedule .sched-light {
+  display: block;
+  width: .52rem;
+  height: .52rem;
+  border-radius: 50%;
+  background: #c8d0df;
+}
+#full-season-schedule .sched-light-win { background: #14834e; box-shadow: 0 0 4px #14834e70; }
+#full-season-schedule .sched-light-loss { background: #bd3348; box-shadow: 0 0 4px #bd334870; }
+#full-season-schedule .sched-light-empty { background: transparent; border: 1px solid #c8d0df; }
+#full-season-schedule .sched-light:focus-visible { outline: 2px solid #244772; outline-offset: 2px; }
+#full-season-schedule .sched-corner:not([hidden]) {
+  display: grid;
+  justify-items: end;
+  gap: .16rem;
+  margin-top: .35rem;
+  padding-top: .35rem;
+  border-top: 1px solid #bbc8da;
+  text-align: right;
+  font: .72rem/1.25 Georgia, serif;
+}
+#full-season-schedule .sched-corner > span { text-transform: uppercase; letter-spacing: .04em; }
+@media(max-width:700px) {
+  #full-season-schedule.victorian-team-calendar .mbb-schedule-table > tbody > tr[data-game-site]:not([hidden]) > .sched-matchup-cell {
+    grid-area: 2 / 1 / 3 / -1 !important;
+  }
+  #full-season-schedule.victorian-team-calendar .mbb-schedule-table > tbody > tr[data-game-site]:not([hidden]):not(:has([data-conditional-tip])) > .sched-time-cell {
+    grid-area: 3 / 2 !important;
+  }
+  #full-season-schedule.victorian-team-calendar .mbb-schedule-table > tbody > tr[data-game-site]:not([hidden]):not(:has([data-conditional-tip])) > .sched-venue-cell {
+    grid-area: 3 / 1 !important;
+  }
+  #full-season-schedule.victorian-team-calendar .mbb-schedule-table > tbody > tr[data-game-site]:not([hidden]) > .sched-result-cell {
+    grid-area: auto / 1 / auto / -1 !important;
+  }
+  #full-season-schedule .sched-corner:not([hidden]) { margin-left: auto; }
+}

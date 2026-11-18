@@ -196,19 +196,9 @@ try{
   }
   return wins+'–'+losses;
  };
-function scheduleForm(games,ids,day,ratings,esc,upcoming){
- return ids.map(([id,name])=>{
-  if(!id||!name)return '';
-  const gamesBefore=games.filter(g=>g.date<day&&(g.home_id===String(id)||g.away_id===String(id))&&g.home_score!=null&&g.away_score!=null&&Number.isFinite(+g.home_score)&&Number.isFinite(+g.away_score)&&+g.home_score!==+g.away_score).sort((a,b)=>b.date.localeCompare(a.date));
-  const form=gamesBefore.map(g=>(g.home_id===String(id))===(+g.home_score>+g.away_score));
-  const recent=form.slice(0,5),wins=recent.filter(Boolean).length,change=form.findIndex(x=>x!==form[0]);
-  const r=upcoming?ratings.get(String(id)):null,delta=Number(Number(r?.daily_change).toFixed(1));
-  const record=recent.length?'Last '+recent.length+' <b>'+wins+'–'+(recent.length-wins)+'</b> · <b>'+(form[0]?'W':'L')+(change<0?form.length:change)+'</b>':'';
-  const retro=r?.elo!=null&&Number.isFinite(+r.elo)?'RETRO <b>'+Math.round(+r.elo)+'</b>'+(Number.isFinite(delta)&&delta!==0?' <span class="sched-retro-'+(delta>0?'up':'down')+'">('+(delta>0?'+':'')+delta+')</span>':''):'';
-  return record||retro?'<span class="sched-form-line"><b>'+esc(name)+'</b><span>'+record+'</span><span title="Current RETRO and daily change">'+retro+'</span></span>':'';
- }).join('');
-}
- const formGames=finalArchive.map(g=>({...g,home_id:ncaaByEspn.get(g.home),away_id:ncaaByEspn.get(g.away)}));
+const formGames=finalArchive.map(g=>({...g,home_id:ncaaByEspn.get(g.home),away_id:ncaaByEspn.get(g.away)}));
+ const formNames=new Map((cross.teams||[]).map(t=>[String(t.id),t.name]));
+ for(const g of outsideGames){const id='outside:'+g.opponent_espn_id;formNames.set(id,g.opponent_name);formGames.push({id:g.id,date:g.date,home_id:team.id,away_id:id,home_score:g.team_score,away_score:g.opponent_score});}
  const formRatings=new Map((ratings?.rankings||[]).map(r=>[String(r.team_id),r]));
  const opponentElo=id=>{const n=ratingBySchool.get(ncaaByEspn.get(String(id)));return Number.isFinite(Number(n))?Math.round(Number(n)).toString():'Not rated';};
  // Placement games pair the winners or losers of two published semifinals.
@@ -360,16 +350,16 @@ function scheduleForm(games,ids,day,ratings,esc,upcoming){
   const title='<span class="victorian-opponent-heading'+(opponentRank?' has-poll-rank':'')+'">'+(opponentRank?'<span class="victorian-heading-rank">'+opponentRank+'</span>':'')+'<span class="victorian-heading-school">'+(school?'<a href="ncaam-team.html?team='+encodeURIComponent(school.id)+'" title="'+label+'">'+displayName+'</a>':'<span class="victorian-school-name" title="'+label+'">'+displayName+'</span>')+'</span><span class="victorian-heading-conference">'+conferenceTag+'</span></span>';
   const today=new Date().toLocaleDateString('sv-SE',{timeZone:'America/New_York'});
   const scheduleState=hasScore?'final':canceled?'canceled':scheduledDate>=today?'upcoming':'past';
-  const form=exhibition?'':scheduleForm(formGames,[[team.id,team.name],[school?.id,school?.name]],scheduledDate,formRatings,escape,scheduleState==='upcoming');
-  return '<tr'+accentStyle+' data-cbb-forecast-id="'+escape(String(final?.id||e.id||''))+'" data-cbb-forecast-day="'+escape(String(final?.date||forecastDate))+'" data-home-id="'+escape(String(self?.homeAway==='home'?team.id:ncaaByEspn.get(String(opponentId))||''))+'" data-away-id="'+escape(String(self?.homeAway==='away'?team.id:ncaaByEspn.get(String(opponentId))||''))+'" data-cbb-home-name="'+escape(self?.homeAway==='home'?team.name:opponentName)+'" data-cbb-away-name="'+escape(self?.homeAway==='home'?opponentName:team.name)+'" data-cbb-final-home-margin="'+(final&&Number.isFinite(Number(final.home_score))&&Number.isFinite(Number(final.away_score))?Number(final.home_score)-Number(final.away_score):'')+'" '+'data-game-site="'+(vs==='HOME'?'home':vs==='AWAY'?'away':vs==='NEUTRAL'?'neutral':'unknown')+'" '+(expandable?'class="victorian-completed-game" data-stat-id="'+escape(statId)+'" tabindex="0" aria-label="Expand statistics for '+escape(opponentName)+'" ':'')+'data-calendar-state="'+scheduleState+'" data-exhibition="'+(exhibition?'true':'false')+
+  const form=exhibition?'':window.SLTScheduleLights.form(formGames,[[team.id,team.name],[school?.id,school?.name]],scheduledDate,formRatings,escape,scheduleState==='upcoming',false,formNames);
+  return '<tr'+accentStyle+' data-sched-team="'+escape(team.id)+'" data-sched-opponent="'+escape(school?.id||'')+'" data-cbb-forecast-id="'+escape(String(final?.id||e.id||''))+'" data-cbb-forecast-day="'+escape(String(final?.date||forecastDate))+'" data-home-id="'+escape(String(self?.homeAway==='home'?team.id:ncaaByEspn.get(String(opponentId))||''))+'" data-away-id="'+escape(String(self?.homeAway==='away'?team.id:ncaaByEspn.get(String(opponentId))||''))+'" data-cbb-home-name="'+escape(self?.homeAway==='home'?team.name:opponentName)+'" data-cbb-away-name="'+escape(self?.homeAway==='home'?opponentName:team.name)+'" data-cbb-final-home-margin="'+(final&&Number.isFinite(Number(final.home_score))&&Number.isFinite(Number(final.away_score))?Number(final.home_score)-Number(final.away_score):'')+'" '+'data-game-site="'+(vs==='HOME'?'home':vs==='AWAY'?'away':vs==='NEUTRAL'?'neutral':'unknown')+'" '+(expandable?'class="victorian-completed-game" data-stat-id="'+escape(statId)+'" tabindex="0" aria-label="Expand statistics for '+escape(opponentName)+'" ':'')+'data-calendar-state="'+scheduleState+'" data-exhibition="'+(exhibition?'true':'false')+
     '" data-opponent="'+escape((school?.name||opponentName).toLowerCase())+'">'+
-    '<td class="sched-date-cell"><span class="sched-month" hidden>'+escape(Number.isFinite(+date)?month.format(date):'')+'</span><time datetime="'+escape(scheduledDate)+'">'+escape(day)+'</time><span class="sched-game-status sched-status--'+(canceled?'canceled':exhibition?'exhibition':hasScore?'final':completed?'pending':'upcoming')+'">'+gameState+'</span></td>'+
+    '<td class="sched-date-cell"><span class="sched-month" hidden>'+escape(Number.isFinite(+date)?month.format(date):'')+'</span><time datetime="'+escape(scheduledDate)+'">'+escape(day)+'</time><span class="sched-site-stamp">'+escape(vs==='SITE UNVERIFIED'||vs==='SITE TBA'?'Site TBA':vs)+'</span><span class="sched-game-status sched-status--'+(canceled?'canceled':exhibition?'exhibition':hasScore?'final':completed?'pending':'upcoming')+'">'+gameState+'</span></td>'+
     '<td class="sched-matchup-cell"><div class="sched-matchup"'+accentStyle+'>'+emblem+'<span class="sched-opponent"><strong>'+title+'</strong><small>'+vs.replace('SITE UNVERIFIED','LOCATION UNCONFIRMED')+'</small>'+(e.tournament?'<span class="sched-event-name">'+escape(e.tournament)+'</span>':'')+historicalRecords+(form?'<span class="sched-form">'+form+'</span>':'')+'</span></div></td>'+
     '<td class="sched-venue-cell"><div class="sched-venue"><strong>'+escape(arena)+'</strong><small>'+escape(city)+'</small></div></td>'+
     '<td class="sched-time-cell"'+(conditionalTip?' data-conditional-tip':'')+'><span class="sched-tip-value">'+tip+'</span></td>'+
     '<td class="sched-network-cell">'+network+'</td>'+
     '<td class="sched-elo-cell">'+(exhibition||verifiedNonD1?'Not applicable':escape(opponentElo(opponentId)))+'</td>'+
-    '<td class="sched-result-cell">'+(scheduleState==='upcoming'&&(!slot||opponentId)?'<button type="button" class="slt-team-press-btn" data-press-home="'+escape(vs==='HOME'?team.name:(school?.name||opponentName))+'" data-press-away="'+escape(vs==='HOME'?(school?.name||opponentName):team.name)+'">PREGAME PRESS ›</button>':'')+result+(expandable?'<button type="button" class="victorian-stat-toggle" aria-expanded="false">GAME STATS ▾</button>':'')+'</td></tr>'+(expandable?'<tr class="victorian-stat-detail" hidden><td colspan="7"><div class="victorian-stat-content">Open for game statistics.</div></td></tr>':'');
+    '<td class="sched-result-cell">'+(scheduleState==='upcoming'&&(!slot||opponentId)?'<button type="button" class="slt-team-press-btn" data-press-home="'+escape(vs==='HOME'?team.name:(school?.name||opponentName))+'" data-press-away="'+escape(vs==='HOME'?(school?.name||opponentName):team.name)+'">PREGAME PRESS ›</button>':'')+result+(expandable?'<button type="button" class="victorian-stat-toggle" aria-expanded="false">GAME STATS ▾</button>':'')+window.SLTScheduleLights.corner(formGames,team.id,school?.id,scheduledDate,false,escape)+'</td></tr>'+(expandable?'<tr class="victorian-stat-detail" hidden><td colspan="7"><div class="victorian-stat-content">Open for game statistics.</div></td></tr>':'');
  }).join('');
  const scoredExhibitions=games.filter(e=>{
   if(e.date.slice(0,10)>='2026-11-01')return false;

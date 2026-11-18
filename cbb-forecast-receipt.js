@@ -94,7 +94,27 @@ function scoreFromBug(bug){
  const values=[...bug.querySelectorAll('.ledger26-points')].map(e=>readNumber(e.textContent.trim()));
  return values.length===2&&values.every(v=>v!==null)?values[1]-values[0]:null;
 }
+function updateScheduleCorner(row,gender,id,day){
+  const corner=row.querySelector('.sched-corner');
+  const archive=archives[gender].get(key(day,id));
+  const self=row.dataset.schedTeam,opponent=row.dataset.schedOpponent;
+  const result=row.querySelector('.sched-result-score, .wbb-result-cell > strong')?.textContent.trim().match(/^[WL]\s+(\d+)\s*[–-]\s*(\d+)/);
+  if(corner&&row.dataset.calendarState==='final'&&archive&&result&&self&&opponent&&
+    [archive.home_id,archive.away_id].map(String).includes(self)&&[archive.home_id,archive.away_id].map(String).includes(opponent)){
+   const projected=(String(archive.home_id)===self?1:-1)*archive.projected_home_margin;
+   const margin=Number(result[1])-Number(result[2]);
+   const signed=n=>n>0?'+'+n:String(n);
+   const text='Projected '+signed(projected)+' · Final '+signed(margin);
+   if(corner.dataset.forecastComparison!==text){
+    corner.dataset.forecastComparison=text;
+    corner.innerHTML='<span>RETRO vs. final</span><b>'+safe(text)+'</b>';
+    corner.hidden=false;
+   }
+  }
+}
 function decorate(){
+ document.querySelectorAll('#full-season-schedule tr.wbb-game-entry').forEach(row=>
+  updateScheduleCorner(row,'women',row.dataset.gameId,row.dataset.gameDay));
  if(!ready)return;
  document.querySelectorAll('#sl-games .sl-game-expansion').forEach(details=>{
   const status=details.querySelector('.ledger26-status[data-phase]')?.dataset.phase||'';
@@ -146,6 +166,7 @@ function decorate(){
   const phase=row.dataset.calendarState==='final'?'final':row.dataset.calendarState==='upcoming'?'upcoming':'';
   const markup=receipt('men',row.dataset.cbbForecastId,row.dataset.cbbForecastDay,
     phase,number(scored.get(key(row.dataset.cbbForecastDay,row.dataset.cbbForecastId))?.actual_home_margin)??readNumber(row.dataset.cbbFinalHomeMargin),null,null,row.dataset.cbbHomeName||'Home',row.dataset.cbbAwayName||'Away');
+  updateScheduleCorner(row,'men',row.dataset.cbbForecastId,row.dataset.cbbForecastDay);
   let band=row.nextElementSibling;
   if(band?.classList.contains('victorian-stat-detail'))band=band.nextElementSibling;
   if(!band?.classList.contains('cbb-schedule-forecast-row')){
