@@ -329,19 +329,21 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #c481
 .sl-game-site { display: grid; justify-items: start; gap: 5px; min-width: 0; }
 .sl-ledger-page .ledger26-meta > .sl-media-stack {
  display: grid;
- justify-items: end;
+ justify-items: stretch;
  justify-self: stretch !important;
  gap: 4px;
 }
-.sl-tv-row { display: flex; justify-content: end; align-items: center; flex-wrap: wrap; gap: 4px; }
-.sl-media-icon { font-size: 12px; line-height: 1; }
+.sl-tv-row,
 .sl-ledger-page [data-ledger-radio]:not([hidden]) {
  display: grid;
- grid-template-columns: auto minmax(0, 1fr);
+ grid-template-columns: 16px minmax(0, 1fr);
  align-items: start;
- gap: 4px;
- text-align: right;
+ gap: 5px;
+ line-height: 1.35;
+ text-align: start;
 }
+.sl-tv-links { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px; min-width: 0; }
+.sl-media-icon { font-size: 12px; line-height: 1.35; text-align: center; }
 .sl-radio-lines { min-width: 0; }
 .sl-radio-side { display: block; white-space: normal; overflow-wrap: anywhere; font: 11px/1.35 Georgia, serif; }
 .sl-radio-side strong { margin-inline-end: .3em; }
