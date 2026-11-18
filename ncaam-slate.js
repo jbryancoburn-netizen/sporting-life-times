@@ -868,6 +868,41 @@ const meter=g=>{
 // Upright classic-broadcast scorebug, powered by the same game records as the cards.
 
 /* The Daily Ledger scorecard — compact scoreboard, native in-place Gamefile. */
+
+// Historic rivalry identifiers are explicitly registered by sport and school pairing.
+// Series records represent completed meetings BEFORE the displayed fixture and must be
+// updated only from documented final scores. Never infer records from RETRO ratings.
+const historicRivalries=[
+ {gender:'men',teams:['indiana','kentucky'],name:'Indiana–Kentucky Rivalry',
+  record:'Kentucky leads 33–25',colors:['#990000','#0033a0'],
+  source:'https://ukathletics.com/news/2025/12/12/big-blue-preview-kentucky-vs-indiana/',
+  through:'2025-12-13'},
+ {gender:'men',teams:['indiana','purdue'],name:'Indiana–Purdue Rivalry',colors:['#990000','#ceb888']},
+ {gender:'men',teams:['kentucky','louisville'],name:'Battle for the Bluegrass',colors:['#0033a0','#ad0000']},
+ {gender:'men',teams:['duke','north carolina'],name:'Duke–Carolina Rivalry',colors:['#012169','#7bafd4']},
+ {gender:'men',teams:['cincinnati','xavier'],name:'Crosstown Shootout',colors:['#e00122','#0c2340']},
+ {gender:'men',teams:['kansas','missouri'],name:'Border War',colors:['#0051ba','#f1b82d']},
+ {gender:'men',teams:['iowa','iowa state'],name:'Cy-Hawk Series',colors:['#ffcd00','#c8102e']},
+ {gender:'men',teams:['villanova','saint josephs'],name:'Holy War',colors:['#00205b','#9e1b32']}
+];
+const rivalrySchoolName=t=>String(t?.name||'').toLowerCase()
+ .replace(/&/g,' and ').replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim()
+ .replace(/^(university of |the )/,'')
+ .replace(/ (hoosiers|wildcats|boilermakers|cardinals|blue devils|tar heels|bearcats|musketeers|jayhawks|tigers|hawkeyes|cyclones|hawks)$/,'');
+const rivalryFor=g=>{
+ if(g.kind==='exhibition')return null;
+ const names=[rivalrySchoolName(g.away),rivalrySchoolName(g.home)];
+ return historicRivalries.find(r=>r.gender===(women?'women':'men') &&
+   r.teams.every(t=>names.some(n=>n===t)))||null;
+};
+const rivalryCard=r=>{
+ if(!r)return '';
+ const label=esc(r.name);
+ const record=r.record?'<span style="font-size:11px;font-weight:700;letter-spacing:.02em">'+esc(r.record)+'</span>':'';
+ return '<div class="ledger26-rivalry-identifier" role="note" aria-label="Historic rivalry: '+label+'" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px 10px;padding:7px 11px;background:#f7f0e2;color:#27231e;border-bottom:1px solid #8b806a;font-family:Georgia,serif">'+
+ '<span style="font-size:11px;font-weight:800;letter-spacing:.09em">★ HISTORIC RIVALRY · '+label+'</span>'+record+'</div>';
+};
+
 const ledgerScorebug=g=>{
  // A single first-party scorebug renderer serves both basketball desks.
  // A post-tipoff forecast must come from the immutable pregame archive.
@@ -977,6 +1012,7 @@ const currentScore=g=>{
 function card(original,featured,opened=false){
  const g=currentScore(original);
  const external=g.kind==='exhibition';
+ const rivalry=rivalryFor(g);
  const source=external?(g.evidence==='secondary'?'Published secondary result':'University / cited result'):
    g.phase==='final'?(g.evidence==='final-source'?'Attributed final':'Reported final'):
    g.phase==='live'?'Live scoreboard':'Sourced fixture + RETRO';
@@ -998,7 +1034,7 @@ function card(original,featured,opened=false){
  const left='<span class="sl-game-site">'+when+press+theatre+'</span>';
  // The shared scorebug rail is the only pregame forecast presentation.
  // The projected score now lives inside the collapsed forecast rail, not the expanded gamefile.
- return '<article class="sl-game ledger26-card'+(women?' ledger26-card--women':' ledger26-card--men')+(featured?' ledger26-featured':'')+'"'+(external?' data-exhibition="true"':'')+'>'+
+ return '<article class="sl-game ledger26-card'+(women?' ledger26-card--women':' ledger26-card--men')+(featured?' ledger26-featured':'')+'"'+(external?' data-exhibition="true"':'')+(rivalry?' data-historic-rivalry="true" style="border-left:4px solid '+rivalry.colors[0]+';border-right:4px solid '+rivalry.colors[1]+';border-top:3px solid '+rivalry.colors[0]+';border-bottom:3px solid '+rivalry.colors[1]+'"':'')+'>'+ rivalryCard(rivalry)+
    (when||right?'<div class="ledger26-meta'+(g.phase==='upcoming'?' ledger26-meta--pregame':'')+'">'+left+right+'</div>':'')+
    '<details class="sl-game-expansion ledger26-expand" data-game-id="'+esc(g.id)+'" data-day="'+esc(g.day)+'" data-gender="'+(women?'women':'men')+'" data-home-id="'+esc(g.home.canonical||'')+'" data-away-id="'+esc(g.away.canonical||'')+'" data-home-name="'+esc(g.home.name)+'" data-away-name="'+esc(g.away.name)+'"'+(opened?' open':'')+'>'+
    '<summary class="ledger26-summary" aria-label="Expand '+esc(g.away.name)+' at '+esc(g.home.name)+' game details">'+
