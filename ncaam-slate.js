@@ -988,12 +988,12 @@ function card(original,featured,opened=false){
  // A press launcher outside <summary> does not toggle the gamefile.
  const press=g.phase==='upcoming'?'<button type="button" class="slt-team-press-btn" data-slt-ledger-press-open data-game-id="'+esc(g.id)+'" data-day="'+esc(g.day)+'" aria-label="Read pregame press for '+esc(g.away.name)+' at '+esc(g.home.name)+'">PREGAME PRESS ›</button>':'';
  const theatre=g.kind!=='exhibition'&&validId(g.id)&&g.phase==='live'?'<a class="vld-link" href="live-game.html?league='+(women?'ncaaw':'ncaam')+'&game='+encodeURIComponent(g.id)+'" aria-label="Open Victorian live dispatch for '+esc(g.away.name)+' at '+esc(g.home.name)+'">◈ LIVE DISPATCH</a>':'';
- const radio=g.phase==='final'||external?'':'<span data-ledger-radio hidden></span>';
- const right=tv||press||theatre||radio?'<span class="ledger26-meta-actions">'+tv+press+theatre+radio+'</span>':'';
+ const radio=external?'':'<span data-ledger-radio hidden></span>';
+ const right=tv||press||theatre?'<span class="ledger26-meta-actions">'+tv+press+theatre+'</span>':'';
  // The shared scorebug rail is the only pregame forecast presentation.
  // The projected score now lives inside the collapsed forecast rail, not the expanded gamefile.
  return '<article class="sl-game ledger26-card'+(women?' ledger26-card--women':' ledger26-card--men')+(featured?' ledger26-featured':'')+'">'+
-   (when||right?'<div class="ledger26-meta'+(g.phase==='upcoming'?' ledger26-meta--pregame':'')+'">'+when+right+'</div>':'')+
+   (when||right?'<div class="ledger26-meta'+(g.phase==='upcoming'?' ledger26-meta--pregame':'')+'">'+when+right+radio+'</div>':'')+
    '<details class="sl-game-expansion ledger26-expand" data-game-id="'+esc(g.id)+'" data-day="'+esc(g.day)+'" data-gender="'+(women?'women':'men')+'" data-home-id="'+esc(g.home.canonical||'')+'" data-away-id="'+esc(g.away.canonical||'')+'" data-home-name="'+esc(g.home.name)+'" data-away-name="'+esc(g.away.name)+'"'+(opened?' open':'')+'>'+
    '<summary class="ledger26-summary" aria-label="Expand '+esc(g.away.name)+' at '+esc(g.home.name)+' game details">'+
    ledgerScorebug(g)+'<span class="ledger26-instruction">OPEN GAME DETAILS <span aria-hidden="true">+</span></span></summary>'+
@@ -1076,14 +1076,7 @@ function addCardExtras(shown){
  shown.forEach((original,i)=>{
   const g=currentScore(original),card=cards[i];
   const radio=card?.querySelector('[data-ledger-radio]');
-  if(radio&&window.SLTRadio?.teamLinks){
-   const game={away:{team:{id:g.away.id}},home:{team:{id:g.home.id}}};
-   window.SLTRadio.teamLinks(game,gender).then(links=>{
-    if(!links.length||!radio.isConnected)return;
-    radio.innerHTML=links.map(link=>'<a class="ledger26-network" href="'+esc(link.listen_url)+'" title="'+esc(link.label)+'" target="_blank" rel="noopener noreferrer">Listen ↗</a>').join(' ');
-    radio.hidden=false;
-   });
-  }
+  if(radio&&window.SLTRadioCalendar)void window.SLTRadioCalendar.mountGame(radio,g,gender);
   const preview=card?.querySelector('[data-ledger-preview]');
   const detail=window.SLTInlineGamefile;
   if(!preview||!detail?.livePreview||!validId(g.id)||liveRequests>=6)return;
