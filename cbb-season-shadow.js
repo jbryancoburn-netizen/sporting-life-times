@@ -78,11 +78,21 @@ function gameFrom(el){
  const loc=el.dataset.gameSite||el.dataset.forecastVenue;
  return {...match,day,neutral:loc==='neutral'||loc==='verified-neutral'?true:match.neutral};
 }
-function makeLabel(pred){
- const leader=pred.home>pred.away?'HOME':'AWAY';
+function makeLabel(pred,el){
+ // Use the actual clubs in both the Ledger and seven-column team schedule.
+ // The shadow forecast remains independent of RETRO and always has a winner.
+ const homeWins=pred.home>pred.away;
+ const name=homeWins?(el.dataset.homeName||el.dataset.cbbHomeName):
+                       (el.dataset.awayName||el.dataset.cbbAwayName);
+ const team=String(name||'').trim();
+ // A nonzero half-point margin prevents a misleading PICK'EM beside a
+ // resolved projected score. The underlying season-only model is unchanged.
+ const roundedMargin=Math.max(0.5,Math.round(Math.abs(pred.margin)*2)/2).toFixed(1);
+ const escaped=v=>String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const leader=team?escaped(team)+' by '+roundedMargin:'Projected '+(homeWins?'home':'away')+' winner by '+roundedMargin;
  return '<span class="slt-shadow-kicker">SEASON-ONLY <span>SHADOW TEST</span></span>'+
  '<span class="slt-shadow-score">'+pred.away+'–'+pred.home+'</span>'+
- '<span class="slt-shadow-detail">'+leader+' '+Math.abs(pred.margin).toFixed(1)+' · TOTAL '+(pred.away+pred.home)+'</span>';
+ '<span class="slt-shadow-detail">'+leader+' · TOTAL '+(pred.away+pred.home)+'</span>';
 }
 function decorate(el){
  if(!state.ready)return;
@@ -99,7 +109,7 @@ function decorate(el){
  if(ledger){
   let box=row.querySelector(':scope > .slt-shadow-line');
   if(!p){box?.remove();return;}
-  const markup=makeLabel(p);
+  const markup=makeLabel(p,el);
   if(box?.dataset.rendered===markup)return;
   if(!box){box=document.createElement('div');box.className='slt-shadow-line';row.appendChild(box);}
   box.dataset.rendered=markup;box.innerHTML=markup;
@@ -113,7 +123,7 @@ function decorate(el){
  while(band&&(band.classList.contains('victorian-stat-detail')||band.classList.contains('cbb-schedule-forecast-row')))band=band.nextElementSibling;
  const existing=band?.classList.contains('cbb-season-shadow-row')?band:null;
  if(!p){existing?.remove();return;}
- const markup=makeLabel(p);
+ const markup=makeLabel(p,el);
  if(existing?.dataset.rendered===markup){existing.hidden=row.hidden;return;}
  let line=existing;
  if(!line){
