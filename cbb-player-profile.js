@@ -50,7 +50,8 @@
       const pool = group.map(other => other[index]).filter(Number.isFinite);
       if (!pool.length) return '—';
       const tied = pool.filter(other => other === value).length > 1;
-      return (tied ? 'T-' : '') + (1 + pool.filter(other => other > value).length) +
+      return '<strong' + (pool.every(other => other <= value) ? ' class="player-rank-first"' : '') + '>' +
+        (tied ? 'T-' : '') + (1 + pool.filter(other => other > value).length) + '</strong>' +
         ' <small>/ ' + pool.length + '</small>';
     };
     node.innerHTML = table('Stat rankings', ['Stat','Average','Team','Conference','Division I'],
@@ -99,7 +100,9 @@
         const a = current[0].stats[index], b = previous[0].stats[index];
         if (!/^\d+(?:\.\d+)?$/.test(String(a)) || !/^\d+(?:\.\d+)?$/.test(String(b))) return '—';
         const delta = (Number(a)-Number(b)).toFixed(1);
-        return (Number(delta)>0?'+':'') + delta + (key.endsWith('Pct')?' pp':'');
+        const direction = Number(delta)>0 ? 'rise' : Number(delta)<0 ? 'fall' : 'even';
+        return '<span class="player-delta player-delta--'+direction+'">' +
+          (Number(delta)>0?'+':'') + delta + (key.endsWith('Pct')?' pp':'') + '</span>';
       })]);
     }
     node.innerHTML = table('Year by year', ['Season','Team',...columns.map(col=>col.label)], body) +

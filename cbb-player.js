@@ -86,7 +86,7 @@
     const season = (Number(year) - 1) + '–' + year.slice(2);
     const teams = [...new Set(ordered.map(row=>row.event.team?.abbreviation).filter(Boolean))];
     document.getElementById('player-meta').textContent = [season + ' season', ...teams].join(' · ');
-    const mainStats = ['MIN', 'PTS', 'REB', 'AST'].filter(label => labels.includes(label));
+    const mainStats = ['PTS', 'REB', 'AST', 'MIN'].filter(label => labels.includes(label));
     const statsAt = Object.fromEntries(labels.map((label, index)=>[label,index]));
     const shown = [ ['Games', ordered.length] ];
     for (const label of mainStats) {
@@ -95,7 +95,7 @@
       shown.push([label + '/G', values.length ? (values.reduce((sum, value)=>sum+value,0)/values.length).toFixed(1) : '—']);
     }
     document.getElementById('player-overview').innerHTML = '<div class="player-stat-grid" aria-label="Season averages">' +
-      shown.map(([label,value])=>'<div><strong>'+escape(value)+'</strong><span>'+escape(label)+'</span></div>').join('')+'</div>';
+      shown.map(([label,value])=>'<div'+(label==='PTS/G'?' class="player-feature-stat"':'')+'><strong>'+escape(value)+'</strong><span>'+escape(label)+'</span></div>').join('')+'</div>';
     const pointsIndex = statsAt.PTS;
     const peak = pointsIndex == null ? null : ordered.reduce((best, game) => {
       const value = game.stats[pointsIndex];
@@ -105,10 +105,10 @@
     if (peak) {
       const day = Object.fromEntries(dateKey.formatToParts(peak.time).map(part => [part.type, part.value]));
       const opponent = peak.event.opponent?.displayName || peak.event.opponent?.abbreviation;
-      document.getElementById('player-highlights').innerHTML = '<p class="player-notebook"><strong>Season scoring high</strong> ' +
-        escape(peak.stats[pointsIndex]) + ' points' + (opponent ? ' vs. ' + escape(opponent) : '') +
-        ' · <a href="' + escape(ledgerGame(peak.id, day.year + '-' + day.month + '-' + day.day)) +
-        '">' + escape(dateLabel.format(peak.time)) + '</a></p>';
+      document.getElementById('player-highlights').innerHTML = '<p class="player-notebook"><span class="player-register-kicker">Season scoring high</span><strong>' +
+        escape(peak.stats[pointsIndex]) + ' points</strong><span>' + (opponent ? escape(opponent) + ' · ' : '') +
+        '<a href="' + escape(ledgerGame(peak.id, day.year + '-' + day.month + '-' + day.day)) +
+        '">' + escape(dateLabel.format(peak.time)) + '</a></span></p>';
     }
     const extra = labels.filter(label=>!mainStats.includes(label));
     const rows = ordered.map(({id, event, time, stats}) => {
@@ -127,7 +127,7 @@
         (extra.length?'<td class="player-more">'+fullLine+'</td>':'')+'</tr>';
     });
     document.getElementById('player-games').innerHTML =
-      '<table class="player-log-table"><caption>Game by game</caption><thead><tr><th scope="col">Date</th>' +
+      '<table class="player-log-table" aria-labelledby="player-game-title"><thead><tr><th scope="col">Date</th>' +
       '<th scope="col">Opponent</th><th scope="col">Result</th>' +
       mainStats.map(label=>'<th scope="col">'+label+'</th>').join('') +
       (extra.length?'<th scope="col">Details</th>':'')+'</tr></thead><tbody>'+rows.join('')+'</tbody></table>';

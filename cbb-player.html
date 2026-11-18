@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>College Basketball Player Register | Sporting Life &amp; Times</title>
-<link rel="stylesheet" href="cbb-player.css?v=profile-20261118">
-<script defer src="cbb-player-profile.js?v=profile-20261118"></script>
-<script defer src="cbb-player.js?v=profile-20261118"></script>
+<link rel="stylesheet" href="cbb-player.css?v=register-layout-20261118">
+<script defer src="cbb-player-profile.js?v=register-layout-20261118"></script>
+<script defer src="cbb-player.js?v=register-layout-20261118"></script>
 </head>
 <body class="player-register-page">
 <div class="player-register-shell">
@@ -19,23 +19,32 @@
 </header>
 <main>
 <header class="player-register-header">
-<img id="player-portrait" hidden width="160" height="133" alt="">
-<div>
+<div class="player-identity">
 <p id="player-edition" class="player-register-kicker">College Basketball Player Register</p>
 <h1 id="player-name">Player game log</h1>
 <p id="player-meta"></p>
 <p id="player-affiliation"></p>
 <p id="player-bio"></p>
 </div>
+<img id="player-portrait" hidden width="600" height="436" alt="">
 </header>
+<div class="player-season-strip">
 <div id="player-overview"></div>
+<div id="player-highlights"></div>
+</div>
+<nav class="player-page-nav" aria-label="On this page">
+<a href="#player-rankings">Rankings</a>
+<a href="#player-history">Year by year</a>
+<a href="#player-game-log">Game log ↓</a>
+</nav>
 <div class="player-reference-grid">
 <section id="player-rankings" aria-label="Stat rankings"></section>
 <section id="player-history" aria-label="Season comparison"></section>
 </div>
-<div id="player-highlights"></div>
-<p id="player-status" role="status">Checking for a published season game log…</p>
+<section class="player-panel player-game-panel" id="player-game-log" aria-labelledby="player-game-title">
+<div class="player-section-head"><h2 id="player-game-title">Game log</h2><p id="player-status" role="status">Checking for a published season game log…</p></div>
 <div id="player-games" class="player-log-wrap"></div>
+</section>
 </main>
 </div>
 </body>
