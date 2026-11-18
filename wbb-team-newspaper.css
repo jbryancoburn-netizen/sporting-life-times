@@ -213,3 +213,7 @@ body[data-page="women-team"] .wrap{max-width:1350px}
 #wbb-stats{background:transparent;box-shadow:none;border-inline:0;border-top:3px double #816345;border-bottom:3px double #816345;padding:13px 2px 17px}
 #wbb-stats .slt-stat-register,#wbb-stats .slt-stat-additional{margin:8px 0 14px}
 #wbb-stats h2{font-size:clamp(20px,2.3vw,27px)}
+
+/* Outcome color is tied to the final result, never the hosting site. */
+body[data-page="women-team"] .wbb-result-win{color:#176534!important}
+body[data-page="women-team"] .wbb-result-loss{color:#a5262d!important}
