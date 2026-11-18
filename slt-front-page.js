@@ -129,6 +129,8 @@ function init(){
  }
  function ensureWire(){
   if(news)return;
+  const chronicle=$('[data-d2-news]');
+  if(chronicle){wire=news=chronicle;return;}
   wire=document.createElement('section');wire.className='slt-front-news slt-front-wire';wire.setAttribute('aria-label','Latest sourced sports reporting');
   wire.innerHTML='<div class="slt-front-heading"><div><span class="slt-front-eyebrow">THE LATEST DISPATCHES / ATTRIBUTED REPORTING</span><h2>'+esc(labels[kind]||'The Leading Stories')+'</h2></div><span class="slt-front-status" role="status">Opening the news wire…</span></div><div class="slt-front-grid" aria-live="polite"><p>Checking current verified reports…</p></div>';
   news=wire;placement(wire);makeDirectory();
@@ -172,7 +174,10 @@ function init(){
   }
   items=items.slice(0,12);
   const target=wire.querySelector('.slt-front-grid');
-  if(items.length){
+  if(wire.hasAttribute('data-d2-news')&&items.length){
+   const story=(a,lead)=>'<article class="cbb-news-story'+(lead?' lead':'')+'"><p class="cbb-news-eyebrow">'+esc(a.source||'Original publisher')+' · '+esc(dates(a.published_at))+'</p><h3><a href="'+esc(a.url)+'" target="_blank" rel="noopener noreferrer">'+esc(a.title)+'</a></h3>'+(a.summary?'<p class="cbb-news-description">'+esc(String(a.summary).replace(/<[^>]+>/g,'').slice(0,270))+'</p>':'')+'</article>';
+   target.innerHTML='<div class="cbb-news-grid" data-count="'+(items.length>1?2:1)+'">'+story(items[0],items.length>1)+(items.length>1?'<div class="chronicle-secondary">'+items.slice(1,5).map(a=>story(a,false)).join('')+'</div>':'')+'</div>';
+  }else if(items.length){
    target.innerHTML=items.map((a,i)=>'<article><p class="slt-front-byline">'+esc(a.source||'Original publisher')+' · '+esc(dates(a.published_at))+'</p><h3><a href="'+esc(a.url)+'" target="_blank" rel="noopener noreferrer">'+esc(a.title)+'</a></h3>'+(a.summary?'<p>'+esc(String(a.summary).replace(/<[^>]+>/g,'').slice(0,i===0?270:170))+'</p>':'')+'</article>').join('');
   }else if(!target.querySelector('article')){
    target.innerHTML='<p>No verified '+esc(labels[kind]||'sports')+' stories are available in the current published news sources. Stories will appear here when matching reports are collected.</p>';

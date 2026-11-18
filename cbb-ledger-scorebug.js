@@ -659,7 +659,7 @@
     (streakLabel?'<span class="ledger26-streak" title="Recent verified form; full streak may be longer">'+esc(streakLabel)+'</span>':'')+
     '</small>':'';
 
-   const href=/^ncaam-team\.html\?team=ncaa%3A\d+$|^ncaaw-team\.html\?team=\d+$/i.test(String(x.teamHref||''))?x.teamHref:'';
+   const href=/^ncaam-team\.html\?team=ncaa%3A\d+$|^ncaaw-team\.html\?team=\d+$|^d2-team\.html\?gender=(?:men|women)&team=[a-z0-9-]+$/i.test(String(x.teamHref||''))?x.teamHref:'';
    const label=esc(x.name||'School');
    const linkedName=href?'<a class="ledger26-team-link" href="'+esc(href)+'" aria-label="Open '+label+' team page">'+label+'</a>':label;
    const scoreA=Number(x.score),scoreB=Number(other?.score);

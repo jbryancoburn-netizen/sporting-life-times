@@ -132,9 +132,9 @@ test('official December holiday tournament fixtures are included in DII women on
 test('DII newspaper provides date navigation, winner markings and exact official sources',()=>{
  const js=fs.readFileSync('d2-basketball.js','utf8');
  const css=fs.readFileSync('d2-basketball.css','utf8');
- assert.match(js,/game-day-navigation/);assert.match(js,/OFFICIAL SOURCE/);
+ assert.match(js,/sl-prev.*sl-next/);assert.match(js,/OFFICIAL SOURCE/);
  assert.match(js,/SLTSportsScorebug/);assert.match(js,/ledger26-expand/);
- assert.match(css,/game-day-navigation/);assert.match(js,/experimental RETRO model/);
+ assert.match(js,/sl-today/);assert.match(js,/experimental RETRO model/);
 });
 
 test('DII membership and color provenance are labeled honestly',()=>{

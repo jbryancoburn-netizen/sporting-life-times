@@ -99,3 +99,15 @@ html[data-d2-desk="schedule-recovery"] #data-accountability { display: block; }
 body[data-page="home"] .columns .panel { margin-block: 12px; }
 .d2-ranking-card { padding-bottom: 8px; border-bottom: 1px solid var(--line); }
 .d2-ranking-card .cbb-ranking-games { max-width: none; margin-inline: 8px; }
+
+/* Division II uses the college basketball page components above its data views. */
+body[data-d2-front] .dateline, body[data-d2-layout] #scores { display: none; }
+html[data-d2-desk="scores"] body[data-d2-layout] #scores { display: block; }
+body[data-d2-layout] .chronicle-d2-stories { display: block; }
+body[data-d2-layout] .slt-index-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 175px), 1fr)); }
+body[data-d2-layout] .cbb-elo-power .logo-shell { width: 50px; height: 50px; flex: 0 0 50px; }
+body[data-d2-layout] .cbb-elo-table .logo-shell { width: 38px; height: 38px; flex: 0 0 38px; }
+body[data-d2-layout] .d2-elo-school { display: flex; align-items: center; gap: 8px; }
+body[data-d2-layout] .cbb-gamefile-hero .cbb-gamefile-eyebrow { color: inherit; }
+body[data-d2-layout] .cbb-gamefile-detail .gamefile-grid,
+body[data-d2-layout] .cbb-gamefile-detail .gamefile-source-box { margin-inline: clamp(14px, 3vw, 30px); }
