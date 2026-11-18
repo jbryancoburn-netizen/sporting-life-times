@@ -331,3 +331,55 @@
     display: none !important;
   }
 }
+
+/* A stronger opponent-colored ink band and compact form lines. */
+#full-season-schedule .sched-matchup {
+  --schedule-ink: var(--schedule-team-color, #70492d);
+  padding: .32rem .4rem;
+  border-inline-start: .4rem solid var(--schedule-ink);
+  background: linear-gradient(90deg, color-mix(in srgb, var(--schedule-ink) 28%, #fffaf1), color-mix(in srgb, var(--schedule-ink) 10%, #fffaf1));
+}
+#full-season-schedule .sched-form {
+  display: grid;
+  gap: .1rem;
+  margin-top: .25rem;
+  padding-top: .2rem;
+  border-top: 1px solid color-mix(in srgb, var(--schedule-ink) 45%, #fffaf1);
+}
+#full-season-schedule .sched-form-line {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: .4rem;
+  row-gap: .1rem;
+  color: #38271b;
+  font: .72rem/1.25 Georgia, serif;
+  font-variant-numeric: tabular-nums;
+}
+#full-season-schedule .sched-form-line > span:empty { display: none; }
+#full-season-schedule .sched-retro-up { color: #08623e; font-weight: 700; }
+#full-season-schedule .sched-retro-down { color: #96262d; font-weight: 700; }
+#full-season-schedule .sched-tip-option { display: block; overflow-wrap: normal; }
+#full-season-schedule .sched-tip-option + .sched-tip-option { margin-top: .2rem; }
+#full-season-schedule [data-conditional-tip] .sched-tip-value { white-space: normal; }
+#full-season-schedule tr[data-exhibition="true"] .sched-matchup { --schedule-ink: #794487; }
+
+@media(max-width:700px) {
+  #full-season-schedule.victorian-team-calendar .mbb-schedule-table > tbody > tr[data-game-site]:not([hidden]) {
+    gap: .12rem .45rem;
+    padding: .4rem .5rem;
+  }
+  #full-season-schedule.victorian-team-calendar .mbb-schedule-table > tbody > tr[data-game-site] > td {
+    padding-block: .16rem !important;
+  }
+  #full-season-schedule.victorian-team-calendar tr[data-game-site]:has(> [data-conditional-tip]) > .sched-matchup-cell {
+    grid-area: 2 / 1 / 3 / -1 !important;
+  }
+  #full-season-schedule.victorian-team-calendar tr[data-game-site]:has(> [data-conditional-tip]) > .sched-time-cell[data-conditional-tip] {
+    grid-area: 3 / 1 / 4 / -1 !important;
+    text-align: left !important;
+  }
+  #full-season-schedule.victorian-team-calendar [data-conditional-tip] .sched-tip-value {
+    display: block;
+    width: 100%;
+  }
+}

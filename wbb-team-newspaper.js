@@ -64,6 +64,19 @@ const logo=window.MBBLogos.byESPN(id,'hero',t.team);
 const easternDay=date=>date.toLocaleDateString('sv-SE',{timeZone:'America/New_York'});
 const today=easternDay(new Date());
 const month=new Intl.DateTimeFormat('en-US',{month:'long',year:'numeric',timeZone:'America/New_York'});
+function scheduleForm(games,ids,day,ratings,esc,upcoming){
+ return ids.map(([id,name])=>{
+  if(!id||!name)return '';
+  const gamesBefore=games.filter(g=>g.date<day&&(g.home_id===String(id)||g.away_id===String(id))&&g.home_score!=null&&g.away_score!=null&&Number.isFinite(+g.home_score)&&Number.isFinite(+g.away_score)&&+g.home_score!==+g.away_score).sort((a,b)=>b.date.localeCompare(a.date));
+  const form=gamesBefore.map(g=>(g.home_id===String(id))===(+g.home_score>+g.away_score));
+  const recent=form.slice(0,5),wins=recent.filter(Boolean).length,change=form.findIndex(x=>x!==form[0]);
+  const r=upcoming?ratings.get(String(id)):null,delta=Number(r?.daily_change);
+  const record=recent.length?'Last '+recent.length+' <b>'+wins+'–'+(recent.length-wins)+'</b> · <b>'+(form[0]?'W':'L')+(change<0?form.length:change)+'</b>':'';
+  const retro=r?.elo!=null&&Number.isFinite(+r.elo)?'RETRO <b>'+Math.round(+r.elo)+'</b>'+(Number.isFinite(delta)&&delta!==0?' <span class="sched-retro-'+(delta>0?'up':'down')+'">('+(delta>0?'+':'')+Number(delta.toFixed(1))+')</span>':''):'';
+  return record||retro?'<span class="sched-form-line"><b>'+esc(name)+'</b><span>'+record+'</span><span title="Current RETRO and daily change">'+retro+'</span></span>':'';
+ }).join('');
+}
+const formGames=(ratings?.gender==='women'?ratings.events||[]:[]).filter(g=>g.status==='final').map(g=>({...g,home_id:String(g.home_id),away_id:String(g.away_id)}));
 const rows=sorted.map(g=>{
   const opponentId=String(g.opponent_id||'');
   const opp=lookup.get(opponentId);
@@ -78,11 +91,12 @@ const rows=sorted.map(g=>{
   const other=rmap.get(String(g.opponent_id||''));
   const accent=window.MBBLogos.colorForESPN?.(opponentId)?.primary;
   const accentStyle=/^#[0-9a-f]{6}$/i.test(accent||'')?' style="--schedule-team-color:'+accent+'"':'';
+  const form=scheduleForm(formGames,[[id,t.team],[opp?.team_id,opp?.team]],archiveDay,rmap,esc,archiveDay>=today&&!g.completed&&!g.cancelled);
   const opponent='<div class="sched-matchup"'+accentStyle+'>'+badge+'<span class="sched-opponent"><strong class="wbb-opponent-line">'+
     (other?.rank?'<span class="wbb-opponent-rank" title="Women’s RETRO rank">#'+esc(other.rank)+'</span>':'')+
     '<span class="wbb-opponent-name">'+(opp?'<a href="ncaaw-team.html?team='+encodeURIComponent(opp.team_id)+'">'+esc(opponentName)+'</a>':esc(opponentName))+'</span>'+
     '</strong><span class="wbb-match-meta"><small class="wbb-site-label">'+esc(site(g))+'</small>'+conferenceTag+
-    '<span class="wbb-win-probability">'+(g.cancelled?'Canceled':g.completed?'Final':winChance(rating,other,g))+'</span></span></span></div>';
+    '<span class="wbb-win-probability">'+(g.cancelled?'Canceled':g.completed?'Final':winChance(rating,other,g))+'</span></span>'+(form?'<span class="sched-form">'+form+'</span>':'')+'</span></div>';
   const tv=tvmap.get(String(g.id)),tvName=tv?.broadcast||g.broadcast||'Network TBA',tvUrl=tv?.source_url||g.broadcast_source_url||'';
   const television=tvUrl.startsWith('https://')?'<a href="'+esc(tvUrl)+'" target="_blank" rel="noopener noreferrer">'+esc(tvName)+' ↗</a>':esc(tvName);const neutral=window.WBBSiteIntegrity?.certifiedNeutral(g,neutralProof);
   const officialHome=window.WBBSiteIntegrity?.officialHome(g,homeProof);
@@ -125,7 +139,7 @@ const rows=sorted.map(g=>{
     ?'<button type="button" class="slt-team-press-btn" data-press-home="'+esc(String(g.home_id)===id?t.team:g.opponent)+'" data-press-away="'+esc(String(g.away_id)===id?t.team:g.opponent)+'">Pregame Press ›</button>':'';
   const statusLabel={canceled:'Canceled',review:'Result review',final:'Final',past:'Awaiting result',upcoming:'Upcoming'}[state];
   const court=siteClaims.length?'disputed':neutral||g.site==='neutral'?'neutral':officialHome||g.site_verified===true?'verified-home':'unverified';
-  const main='<tr class="wbb-game-entry" data-game-site="'+esc(neutral?'neutral':g.site||'unknown')+'" data-site="'+esc(g.site||'unknown')+'" data-exhibition="'+(g.exhibition===true||g.classification==='exhibition'?'true':'false')+'" data-team-id="'+esc(id)+'" data-opponent-id="'+esc(g.opponent_id||'')+'" data-home-id="'+esc(g.home_id||'')+'" data-away-id="'+esc(g.away_id||'')+'" data-forecast-venue="'+court+'" data-initial-state="'+state+'" data-calendar-state="'+state+'" data-opponent="'+esc((g.opponent||opp?.team||'').toLowerCase())+'" data-game-id="'+esc(g.id)+'" data-game-day="'+esc(archiveDay)+'">'+
+  const main='<tr class="wbb-game-entry"'+accentStyle+' data-game-site="'+esc(neutral?'neutral':g.site||'unknown')+'" data-site="'+esc(g.site||'unknown')+'" data-exhibition="'+(g.exhibition===true||g.classification==='exhibition'?'true':'false')+'" data-team-id="'+esc(id)+'" data-opponent-id="'+esc(g.opponent_id||'')+'" data-home-id="'+esc(g.home_id||'')+'" data-away-id="'+esc(g.away_id||'')+'" data-forecast-venue="'+court+'" data-initial-state="'+state+'" data-calendar-state="'+state+'" data-opponent="'+esc((g.opponent||opp?.team||'').toLowerCase())+'" data-game-id="'+esc(g.id)+'" data-game-day="'+esc(archiveDay)+'">'+
     '<td class="sched-date-cell" data-label="Date"><span class="sched-month" hidden>'+esc(Number.isFinite(+d)?month.format(d):'')+'</span><time datetime="'+esc(archiveDay)+'">'+date+'</time><span class="sched-game-status sched-status--'+state+'">'+statusLabel+'</span></td>'+
     '<td class="sched-matchup-cell" data-label="Opponent">'+opponent+'</td>'+
     '<td class="sched-venue-cell" data-label="Arena / City">'+location+'</td>'+
