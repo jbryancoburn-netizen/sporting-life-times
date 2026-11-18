@@ -68,29 +68,44 @@ function getModel(day){
  if(!state.byDate.has(day))state.byDate.set(day,train(state.games,day));
  return state.byDate.get(day);
 }
+// Explicitly documented neutral venues; event keyed by date and the two
+// canonical NCAA team IDs, not by the nominal home team in a schedule feed.
+const verifiedNeutralPairs=new Set([
+ '2026-11-20|ncaa:609574|ncaa:609584' // Indiana vs Kentucky, Lucas Oil Stadium
+]);
+const pairKey=(date,a,b)=>date+'|'+[String(a),String(b)].sort().join('|');
 function gameFrom(el){
- const raw=el.dataset.gameId||el.dataset.cbbForecastId||el.dataset.gameId;
- let match=state.byId.get(norm(raw));const day=el.dataset.day||el.dataset.gameDay||el.dataset.cbbForecastDay||el.querySelector('time')?.dateTime?.slice(0,10)||match?.day;
+ const raw=el.dataset.gameId||el.dataset.cbbForecastId;
+ const fixture=state.byId.get(norm(raw));
+ const day=el.dataset.day||el.dataset.gameDay||el.dataset.cbbForecastDay||
+   el.querySelector('time')?.dateTime?.slice(0,10)||fixture?.day;
  if(!day)return null;
- if(!match&&el.dataset.homeId&&el.dataset.awayId)match={h:el.dataset.homeId,a:el.dataset.awayId,neutral:el.dataset.gameSite==='neutral'};
+ // Prefer the published fixture only when both identities agree with the card.
+ // A team's schedule may use a different nominal home/away designation.
+ const dh=String(el.dataset.homeId||''),da=String(el.dataset.awayId||'');
+ const fixtureMatches=!dh||!da||([dh,da].sort().join('|')===[String(fixture?.h),String(fixture?.a)].sort().join('|'));
+ const match=fixture&&fixtureMatches?fixture:
+   dh&&da?{h:dh,a:da,neutral:false,day}:null;
  if(!match)return null;
- if((el.dataset.forecastVenue==='disputed')||el.dataset.gameSite==='unknown')return null;
+ const verifiedNeutral=verifiedNeutralPairs.has(pairKey(day,match.h,match.a));
+ if(!verifiedNeutral&&(el.dataset.forecastVenue==='disputed'||el.dataset.gameSite==='unknown'))return null;
  const loc=el.dataset.gameSite||el.dataset.forecastVenue;
- return {...match,day,neutral:loc==='neutral'||loc==='verified-neutral'?true:match.neutral};
+ const neutral=verifiedNeutral||loc==='neutral'||loc==='verified-neutral'||match.neutral===true;
+ // For a neutral matchup, canonicalize order independently of the nominal
+ // home team. Both schedule and Ledger therefore predict the same fixture.
+ const [h,a]=neutral?[String(match.h),String(match.a)].sort():[String(match.h),String(match.a)];
+ return {h,a,day,neutral};
 }
-function makeLabel(pred,el){
- // Use the actual clubs in both the Ledger and seven-column team schedule.
- // The shadow forecast remains independent of RETRO and always has a winner.
- const homeWins=pred.home>pred.away;
- const name=homeWins?(el.dataset.homeName||el.dataset.cbbHomeName):
-                       (el.dataset.awayName||el.dataset.cbbAwayName);
+function makeLabel(pred,el,g){
+ const winningId=pred.home>pred.away?g.h:g.a;
+ const dh=String(el.dataset.homeId||''),da=String(el.dataset.awayId||'');
+ const name=winningId===dh?(el.dataset.homeName||el.dataset.cbbHomeName):
+            winningId===da?(el.dataset.awayName||el.dataset.cbbAwayName):
+            '';
  const team=String(name||'').trim();
- // The displayed winning margin must agree with the whole-number projected
- // final score. Integer differences already lie on the half-point grid.
- // Keep the model's unrounded margin separate for evaluation only.
- const roundedMargin=(Math.abs(pred.home-pred.away)).toFixed(1);
+ const margin=(Math.abs(pred.home-pred.away)).toFixed(1);
  const escaped=v=>String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
- const leader=team?escaped(team)+' by '+roundedMargin:'Projected '+(homeWins?'home':'away')+' winner by '+roundedMargin;
+ const leader=team?escaped(team)+' by '+margin:'Projected winner by '+margin;
  return '<span class="slt-shadow-kicker">SEASON-ONLY <span>SHADOW TEST</span></span>'+
  '<span class="slt-shadow-score">'+pred.away+'–'+pred.home+'</span>'+
  '<span class="slt-shadow-detail">'+leader+' · TOTAL '+(pred.away+pred.home)+'</span>';
@@ -110,7 +125,7 @@ function decorate(el){
  if(ledger){
   let box=row.querySelector(':scope > .slt-shadow-line');
   if(!p){box?.remove();return;}
-  const markup=makeLabel(p,el);
+  const markup=makeLabel(p,el,g);
   if(box?.dataset.rendered===markup)return;
   if(!box){box=document.createElement('div');box.className='slt-shadow-line';row.appendChild(box);}
   box.dataset.rendered=markup;box.innerHTML=markup;
@@ -124,7 +139,7 @@ function decorate(el){
  while(band&&(band.classList.contains('victorian-stat-detail')||band.classList.contains('cbb-schedule-forecast-row')))band=band.nextElementSibling;
  const existing=band?.classList.contains('cbb-season-shadow-row')?band:null;
  if(!p){existing?.remove();return;}
- const markup=makeLabel(p,el);
+ const markup=makeLabel(p,el,g);
  if(existing?.dataset.rendered===markup){existing.hidden=row.hidden;return;}
  let line=existing;
  if(!line){
