@@ -10,7 +10,9 @@ const womenPage=/^ncaaw/.test(page)||document.body.dataset.gender==='women';
 const menPage=/^ncaam/.test(page)||document.body.dataset.gender==='men';
 let preference=null;
 try{preference=localStorage.getItem(editionKey);}catch(_){}
-const women=explicit==='women'||(explicit!=='men'&&(womenPage||preference==='women'));
+// A team detail URL owns its edition. School IDs are not interchangeable.
+const menTeam=page==='ncaam-team.html'&&Boolean(params.get('team'));
+const women=explicit==='women'||(explicit!=='men'&&(womenPage||(!menTeam&&preference==='women')));
 try{
  if(explicit==='women'||explicit==='men')localStorage.setItem(editionKey,explicit);
  else if(womenPage)localStorage.setItem(editionKey,'women');
