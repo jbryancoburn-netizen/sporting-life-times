@@ -2,9 +2,9 @@
   "season": "2026-27",
   "sport": "NCAA men's Division I basketball",
   "method": "Immutable prior-day and independently verified pretipoff forecasts versus verified in-season D-I finals",
-  "updated_at_utc": "2026-11-17T10:27:20+00:00",
+  "updated_at_utc": "2026-11-18T01:37:40+00:00",
   "archived_predictions": 500,
-  "pending_finals": 35,
+  "pending_finals": 33,
   "excluded_orientation_mismatches": [
     "espn:401918053",
     "espn:401919029",
@@ -14,11 +14,11 @@
     "espn:401909525"
   ],
   "summary": {
-    "games": 459,
-    "correct_winners": 333,
-    "winner_accuracy": 0.72549,
-    "margin_mae": 12.9706,
-    "brier": 0.187897
+    "games": 461,
+    "correct_winners": 335,
+    "winner_accuracy": 0.72668,
+    "margin_mae": 12.9317,
+    "brier": 0.187913
   },
   "by_date": {
     "2026-11-06": {
@@ -97,6 +97,13 @@
       "winner_accuracy": 0.80952,
       "margin_mae": 17.5714,
       "brier": 0.137979
+    },
+    "2026-11-17": {
+      "games": 2,
+      "correct_winners": 2,
+      "winner_accuracy": 1.0,
+      "margin_mae": 4.0,
+      "brier": 0.191549
     }
   },
   "games": [
@@ -6525,6 +6532,34 @@
       "brier": 0.11573196,
       "forecast_model": "retro-central-elo-uncapped-v2",
       "captured_at_utc": "2026-11-12T02:30:30+00:00"
+    },
+    {
+      "date": "2026-11-17",
+      "id": "espn:401906773",
+      "home_id": "ncaa:609734",
+      "away_id": "ncaa:609801",
+      "predicted_home_margin": 4.0,
+      "actual_home_margin": 8,
+      "absolute_margin_error": 4.0,
+      "predicted_home_win_probability": 0.596622,
+      "winner_correct": true,
+      "brier": 0.16271381,
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "captured_at_utc": "2026-11-12T02:30:30+00:00"
+    },
+    {
+      "date": "2026-11-17",
+      "id": "espn:401912230",
+      "home_id": "ncaa:609503",
+      "away_id": "ncaa:609657",
+      "predicted_home_margin": -1.0,
+      "actual_home_margin": -5,
+      "absolute_margin_error": 4.0,
+      "predicted_home_win_probability": 0.46945,
+      "winner_correct": true,
+      "brier": 0.2203833,
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "captured_at_utc": "2026-11-13T04:57:04+00:00"
     }
   ]
 }
