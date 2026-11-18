@@ -8,13 +8,15 @@ const load=async p=>{const r=await fetch(p,{cache:'no-store'});if(!r.ok)throw Er
 if(!id||!/^[0-9]+$/.test(id)){host.innerHTML='<div class="wbb-panel"><h2>Choose a team</h2><a href="ncaam.html?gender=women#wbb-teams">Women’s team directory →</a></div>';return}
 try{
 await window.MBBLogos.ready;
-const [registry,master,ratings,officialTV,scoreboardTV,palette,artwork,timeConflicts,verifiedFinals,tipoffQuarantine,siteConflictAudit,verifiedNeutralEvidence,verifiedHomeEvidence]=await Promise.all([load('data/ncaaw-2026-27-teams.json'),load('data/ncaaw-schedules-2026-27.json'),load('data/ncaaw-2026-27-retro-primary.json').catch(()=>null),load('data/ncaaw-2026-27-official-broadcast-overrides.json').catch(()=>null),load('data/ncaaw-2026-27-scoreboard-broadcast-overlays.json').catch(()=>null),load('data/dual-ring-team-palette.json').catch(()=>null),load('data/mbb-logo-registry.json').catch(()=>null),load('data/ncaaw-2026-27-cross-school-time-discrepancies-2026-10-30.json').catch(()=>null),load('data/ncaaw-2026-27-verified-games.json').catch(()=>null),load('data/ncaaw-2026-27-tipoff-quarantine.json').catch(()=>null),load('data/ncaaw-2026-27-official-site-conflicts.json').catch(()=>null),load('data/ncaaw-2026-27-verified-neutral-sites.json').catch(()=>null),load('data/ncaaw-2026-27-verified-home-courts.json').catch(()=>null)]);
+const [registry,master,ratings,officialTV,scoreboardTV,palette,artwork,timeConflicts,verifiedFinals,tipoffQuarantine,siteConflictAudit,verifiedNeutralEvidence,verifiedHomeEvidence,publicGames]=await Promise.all([load('data/ncaaw-2026-27-teams.json'),load('data/ncaaw-schedules-2026-27.json'),load('data/ncaaw-2026-27-retro-primary.json').catch(()=>null),load('data/ncaaw-2026-27-official-broadcast-overrides.json').catch(()=>null),load('data/ncaaw-2026-27-scoreboard-broadcast-overlays.json').catch(()=>null),load('data/dual-ring-team-palette.json').catch(()=>null),load('data/mbb-logo-registry.json').catch(()=>null),load('data/ncaaw-2026-27-cross-school-time-discrepancies-2026-10-30.json').catch(()=>null),load('data/ncaaw-2026-27-verified-games.json').catch(()=>null),load('data/ncaaw-2026-27-tipoff-quarantine.json').catch(()=>null),load('data/ncaaw-2026-27-official-site-conflicts.json').catch(()=>null),load('data/ncaaw-2026-27-verified-neutral-sites.json').catch(()=>null),load('data/ncaaw-2026-27-verified-home-courts.json').catch(()=>null),load('data/ncaaw-2026-27-games.json').catch(()=>null)]);
 const teams=registry.teams||[],lookup=new Map(teams.map(t=>[String(t.team_id),t]));
 const t=lookup.get(id),entry=master.teams?.[id];
 if(!t||!entry)throw Error('No published women’s schedule found for team '+id);
 const homeProof=window.WBBSiteIntegrity?.verifiedHomeCourts(verifiedHomeEvidence)||new Map();
 const baseGames=(entry.games||[]).map(g=>window.WBBSiteIntegrity?.correctedHome(g,homeProof,id)||g);
-const reconciled=window.WBBGameResults.merge(baseGames,verifiedFinals,id),games=reconciled.games;
+const divisionIds=new Set(lookup.keys());
+const teamLedger=(verified,scoreboard)=>window.WBBGameResults.includeCrossDivision(verified,scoreboard,id,divisionIds);
+const reconciled=window.WBBGameResults.merge(baseGames,teamLedger(verifiedFinals,publicGames),id),games=reconciled.games;
 const rating=ratings?.gender==='women'&&ratings?.season==='2026-27'?ratings.rankings?.find(x=>String(x.team_id)===id):null;
 const sorted=games.slice().sort((a,b)=>String(a.date||'').localeCompare(String(b.date||'')));
 const rmap=new Map((ratings?.gender==='women'?ratings.rankings||[]:[]).map(x=>[String(x.team_id),x]));
@@ -57,7 +59,7 @@ const count=s=>games.filter(g=>g.site===s).length;
 const color=/^[0-9a-fA-F]{6}$/.test(t.color||'')?'#'+t.color:'#7b2429';
 host.style.setProperty('--accent',color);
 document.title=t.team+' · Women’s Basketball | The Sporting Life & Times';
-const record=rating?String(rating.wins||0)+'–'+String(rating.losses||0):'—';
+const record=rating?window.WBBGameResults.overallRecord(rating,games,id):'—';
 const logo=window.MBBLogos.byESPN(id,'hero',t.team);
 const easternDay=date=>date.toLocaleDateString('sv-SE',{timeZone:'America/New_York'});
 const today=easternDay(new Date());
@@ -172,7 +174,7 @@ function refreshSchedule(){
      /^\d+\s*[–-]\s*\d+/.test(result)&&note?'live':row.dataset.initialState;
    row.dataset.calendarState=state;
    row.querySelector('.wbb-win-probability').hidden=state!=='upcoming';
-   row.querySelector('.wbb-result-source').hidden=!note||note==='Final on published scoreboard';
+   row.querySelector('.wbb-result-source').hidden=!note||state==='final'&&!note.includes('disputed');
    const badge=row.querySelector('.sched-game-status');
    badge.textContent={final:'Final',live:'Live',reported:'Reported final',upcoming:'Upcoming',past:'Awaiting result',review:'Result review',canceled:'Canceled'}[state];
    badge.className='sched-game-status sched-status--'+state;
@@ -249,18 +251,19 @@ const editionKey=(retro,finals)=>JSON.stringify([
   ownRating(retro)?.elo,ownRating(retro)?.wins,ownRating(retro)?.losses,
   ownFinals(finals)
 ]);
-const initialEdition=editionKey(ratings,verifiedFinals);
+const initialEdition=editionKey(ratings,teamLedger(verifiedFinals,publicGames));
 let checkingEdition=false;
 async function checkTeamFinals(){
   if(document.hidden||checkingEdition)return;
   checkingEdition=true;
   try{
     const stamp=Math.floor(Date.now()/60000);
-    const [nextRetro,nextFinals]=await Promise.all([
+    const [nextRetro,nextFinals,nextPublicGames]=await Promise.all([
       load('data/ncaaw-2026-27-retro-primary.json?fresh='+stamp),
-      load('data/ncaaw-2026-27-verified-games.json?fresh='+stamp)
+      load('data/ncaaw-2026-27-verified-games.json?fresh='+stamp),
+      load('data/ncaaw-2026-27-games.json?fresh='+stamp).catch(()=>publicGames)
     ]);
-    if(editionKey(nextRetro,nextFinals)!==initialEdition)location.reload();
+    if(editionKey(nextRetro,teamLedger(nextFinals,nextPublicGames))!==initialEdition)location.reload();
   }catch(error){console.warn('Women team final refresh unavailable',error);}
   finally{checkingEdition=false;}
 }
