@@ -51,9 +51,9 @@ document.addEventListener('click',event=>{
 },true);
 const front=women?'ncaam.html?gender=women':'ncaam.html';
 const ranks=women?
- [['RETRO','retro'],['Mid-Major Top 25','midmajor'],['AP','ap'],['Coaches','coaches'],['NET','net'],
+ [['RETRO','retro'],['RETRO Mid-Major Top 25','midmajor'],['AP','ap'],['Coaches','coaches'],['NET','net'],
   ['Massey Ratings','massey'],['Wins Above Bubble','wab'],['Her Hoop Stats','herhoopstats']]:
- [['RETRO','retro'],['Mid-Major Top 25','midmajor'],['NET','net'],['AP','ap'],['Coaches','coaches'],['Pomeroy','kenpom']];
+ [['RETRO','retro'],['RETRO Mid-Major Top 25','midmajor'],['NET','net'],['AP','ap'],['Coaches','coaches'],['Pomeroy','kenpom']];
 for(const nav of navs){
  // The edition switch is authored in the page markup; retain it when present.
  let bar=nav.querySelector('.cbb-edition-switch');
@@ -155,7 +155,7 @@ for(const nav of navs){
  const rating=links.find(a=>/RETRO Rankings|USRS Rankings|Power Index|^Rankings$/i.test(a.textContent.trim()));
  if(rating){
    const d=document.createElement('div');d.className='cbb-rank-menu';
-   const sum=document.createElement('button');sum.type='button';sum.className='cbb-rank-trigger';sum.textContent=document.body.dataset.sltFront==='cbb'?'RETRO':'Rankings';sum.setAttribute('aria-label',women?'Women’s rankings: RETRO, Mid-Major Top 25, AP, Coaches, NET, Massey, Wins Above Bubble, Her Hoop Stats':'Men’s rankings: RETRO, Mid-Major Top 25, NET, AP, Coaches, Pomeroy');sum.setAttribute('aria-expanded','false');sum.setAttribute('aria-haspopup','true');
+   const sum=document.createElement('button');sum.type='button';sum.className='cbb-rank-trigger';sum.textContent=document.body.dataset.sltFront==='cbb'?'RETRO':'Rankings';sum.setAttribute('aria-label',women?'Women’s rankings: RETRO, RETRO Mid-Major Top 25, AP, Coaches, NET, Massey, Wins Above Bubble, Her Hoop Stats':'Men’s rankings: RETRO, RETRO Mid-Major Top 25, NET, AP, Coaches, Pomeroy');sum.setAttribute('aria-expanded','false');sum.setAttribute('aria-haspopup','true');
    const list=document.createElement('div');list.className='cbb-rank-links';list.id='cbb-rank-dropdown-'+Math.random().toString(36).slice(2);list.hidden=true;sum.setAttribute('aria-controls',list.id);
    for(const [label,key] of ranks){
     const a=document.createElement('a');

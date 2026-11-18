@@ -31,7 +31,8 @@ function gameSlips(last, next) {
   ['Last game', last, 'No final available'],
   ['Next game', next, 'No upcoming game listed']
  ]) {
-  const slip = element('span', 'cbb-ranking-game', '');
+  const slip = element(game?.href ? 'a' : 'span', 'cbb-ranking-game', '');
+  if (game?.href) slip.href = game.href;
   slip.append(element('span', 'cbb-ranking-game__label', title));
   if (game) {
    slip.classList.add('cbb-ranking-game--' + game.kind);
@@ -124,10 +125,17 @@ function attach(root, gender, retro, directory) {
   const upcoming = calendar.filter(game => fixtures.includes(game) && !game.completed && !game.active && dayOf(game.date) >= today &&
    !finishedDates.has(dayOf(game.date)) && (!game.date.endsWith('Z') || Date.parse(game.date) > Date.now()));
   upcoming.sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
-  const describe = game => ({
+  const describe = game => {
+   const date = dayOf(game.date);
+   const id = String(game.id || '').replace(/^espn:/, '');
+   const href = /^\d{1,12}$/.test(id) ? 'cbb-gamefile.html?' + new URLSearchParams({
+    gender, day: date, game: id
+   }) : '';
+   return {href,
    location: game.location, opponent: game.opponent, day: dayOf(game.date),
-   dateLabel: label.format(new Date(dayOf(game.date) + 'T12:00:00Z'))
-  });
+   dateLabel: label.format(new Date(date + 'T12:00:00Z'))
+   };
+  };
   const last = finals[0], next = upcoming[0];
   const time = next?.officialTime || (next?.date.endsWith('Z') && !/T(?:00:00|05:00)Z$/.test(next.date) ? tip.format(new Date(next.date)) : '');
   const won = last && Number(last.score) > Number(last.other);
@@ -155,5 +163,5 @@ function attach(root, gender, retro, directory) {
  }, {rootMargin: '160px'});
  nodes.forEach(node => observer.observe(node));
 }
-window.SLTRankingGames = {attach};
+window.SLTRankingGames = {attach, gameSlips};
 })();

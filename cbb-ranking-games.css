@@ -52,3 +52,7 @@
 .cbb-elo-power > [data-ranking-games] { flex: 0 0 100%; grid-column: 1 / -1; min-width: 0; }
 .cbb-elo-power > [data-ranking-games]:empty { display: none; }
 .cbb-elo-power .cbb-ranking-games { max-width: none; margin-top: 0; }
+
+a.cbb-ranking-game { color: inherit; text-decoration: none; }
+a.cbb-ranking-game .cbb-ranking-game__opponent { text-decoration: underline; }
+a.cbb-ranking-game:hover, a.cbb-ranking-game:focus-visible { background: #eadcc4; }

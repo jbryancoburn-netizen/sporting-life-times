@@ -84,3 +84,18 @@
 .recovery-school span{display:block;color:#566b70;font-size:10px;line-height:1.4;margin:3px 0}
 .recovery-school small{color:#9a482e;font:800 9px 'DM Sans',Arial,sans-serif;letter-spacing:.02em}
 @media(max-width:600px){.recovery-school-grid{grid-template-columns:1fr}.recovery-ribbon span{font-size:8px}}
+
+/* The front page and each desk use the same edition navigation. */
+.d2-desks a[aria-current] { font-weight: bold; text-decoration: underline; }
+html:not([data-d2-desk]) body[data-page="home"] .columns,
+html[data-d2-desk] body[data-page="home"] .columns .panel { display: none; }
+html[data-d2-desk] body[data-page="home"] .columns,
+html[data-d2-desk="scores"] #scores,
+html[data-d2-desk="teams"] #teams,
+html[data-d2-desk="elo"] #elo,
+html[data-d2-desk="conferences"] #conferences,
+html[data-d2-desk="schedule-recovery"] #schedule-recovery,
+html[data-d2-desk="schedule-recovery"] #data-accountability { display: block; }
+body[data-page="home"] .columns .panel { margin-block: 12px; }
+.d2-ranking-card { padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+.d2-ranking-card .cbb-ranking-games { max-width: none; margin-inline: 8px; }
