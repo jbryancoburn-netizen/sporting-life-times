@@ -35,7 +35,13 @@ test('sanctioned 2026 Hawaii games are present, neutral and counted exactly once
   const finals=data.games.filter(g=>g.status==='final'&&g.elo_eligible);
   assert.equal(data.teams.reduce((sum,t)=>sum+(t.w||0),0),finals.length);
   assert.equal(data.teams.reduce((sum,t)=>sum+(t.l||0),0),finals.length);
-  assert.ok(Math.abs(data.teams.reduce((s,t)=>s+t.elo,0)-1500*data.teams.length)<0.2);
+  // The builder publishes each school's rating rounded to one decimal.
+  // Only schools with an eligible final can differ from the exact 1500 reset.
+  const playedTeams=data.teams.filter(t=>(t.w||0)+(t.l||0)>0);
+  const roundingBudget=playedTeams.length*0.05;
+  const drift=data.teams.reduce((sum,t)=>sum+(t.elo-1500),0);
+  assert.ok(Math.abs(drift)<=roundingBudget+1e-8,
+    `published rating drift ${drift} exceeds the rounding budget ${roundingBudget}`);
  }
 });
 test('scorecards distinguish neutral sites and logo stylesheet contains no outside outline ring',()=>{
