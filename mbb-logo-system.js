@@ -420,7 +420,7 @@ const [reg,cross,colors,opponents,localCrests]=await Promise.all([
     .map(p=>fetch(p,{cache:'no-cache'}).then(x=>{if(!x.ok)throw Error(p+' '+x.status);return x.json()})),
   fetch('data/mbb-out-of-division-opponent-logos.json?v=verified-aliases-20261116',{cache:'no-cache'})
     .then(x=>x.ok?x.json():{teams:{}}).catch(()=>({teams:{}})),
-  fetch('data/cbb-outside-local-crest-manifest.json?v=outside-local-20261116b',{cache:'no-cache'})
+  fetch('data/cbb-outside-local-crest-manifest.json?v=outside-local-20261118-kutztown',{cache:'no-cache'})
     .then(x=>x.ok?x.json():{teams:{}}).catch(()=>({teams:{}}))
 ]);
 if(Object.keys(reg.teams||{}).length!==365||cross.teams?.length!==365)throw Error('Incomplete 365-team logo registry');
