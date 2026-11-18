@@ -63,7 +63,7 @@
     return {id:String(e.id),espnId:String(e.id),date:e.date||c.date,away,home,phase,headline:st.shortDetail||st.detail||status.displayClock||'',
       clock:status.displayClock||'',period:status.period||0,venue:c.venue?.fullName||'',
       broadcast:(c.broadcasts||[]).flatMap(x=>x.names||[]).join(', '),
-      url:cleanURL(e.links?.[0]?.href||''),neutral:!!c.neutralSite,source:'ESPN live',linescores:true};
+      url:cleanURL(e.links?.[0]?.href||''),neutral:!!c.neutralSite,conferenceGame:c.conferenceCompetition===true,source:'ESPN live',linescores:true};
   }
   function normalizeSnapshot(g){
     const teams=g.teams||[];
@@ -446,7 +446,7 @@
       home:team(row.home_id,row.home_name,'home',row.home_score),
       phase:row.phase,headline:row.phase==='final'?'NCAA final':'NCAA scoreboard',
       venue:'',broadcast:'',url:cleanURL(row.source_url||''),neutral:false,
-      source:row.source||'NCAA-origin score report',verifiedOfficial:true,linescores:false};
+      source:row.source||'NCAA-origin score report',verifiedOfficial:true,verifiedAt:row.checked_at,linescores:false};
   }
   function certifiedArchivedFinals(day,ledger){
     // The published RETRO final ledger is authoritative for already completed
@@ -489,7 +489,7 @@
     const dated=cross?.day===day&&Number.isFinite(time)&&time<=Date.now()+60000&&Array.isArray(cross.games);
     const current=dated?cross.games
       .filter(row=>fresh||row.phase==='final')
-      .map(row=>normalizeOfficial({...row,source:cross.provider||'NCAA-origin score report'})).filter(Boolean):[];
+      .map(row=>normalizeOfficial({...row,source:cross.provider||'NCAA-origin score report',checked_at:cross.checked_at})).filter(Boolean):[];
     const archived=certifiedArchivedFinals(day,ledger);
     const byId=new Map(current.map(g=>[g.id,g]));
     for(const proof of archived){
@@ -539,7 +539,7 @@
           away:{...secondary.away,score:score(ncaa.away)},
           home:{...secondary.home,score:score(ncaa.home)},
           neutral:ncaa.archivedFinal?ncaa.neutral:secondary.neutral,
-          verifiedOfficial:true,statsDisputed:conflict,
+          verifiedOfficial:true,verifiedAt:ncaa.verifiedAt,archivedFinal:ncaa.archivedFinal,statsDisputed:conflict,
           source:conflict?'NCAA verified final · ESPN score mismatch, secondary stats withheld':
             'NCAA-origin final · ESPN statistics secondary'});
       }else if(secondary.phase==='live'||secondary.phase==='final'){
@@ -896,7 +896,28 @@
       '<tr><th>'+esc(code(g.away))+'</th>'+cells(away)+'<td>'+snapshot.awayTotal+'</td></tr>'+
       '<tr><th>'+esc(code(g.home))+'</th>'+cells(home)+'<td>'+snapshot.homeTotal+'</td></tr></tbody></table></div></div>';
   }
-  function players(summary){
+  function playerLogLink(athlete,g,year){
+    const id=String(athlete?.id||'');
+    if(!g||!isGamefile||!/^\d+$/.test(id)||!Number.isInteger(year))return esc(athlete?.displayName);
+    const params=new URLSearchParams({player:id,season:String(year),name:athlete.displayName,day:state.day,game:g.id});
+    if(women)params.set('gender','women');
+    return '<a href="cbb-player.html?'+esc(params.toString())+'">'+esc(athlete.displayName)+'</a>';
+  }
+  function teamsAndStandings(g){
+    const sides=[g.away,g.home];
+    const clubs=sides.map(t=>{
+      const href=schoolLink(t);
+      return href?'<a href="'+esc(href)+'">'+esc(schoolLabel(t))+' team stats</a>':'';
+    }).filter(Boolean);
+    const conferences=[...new Set(sides.map(t=>teamRating(t)?.conference).filter(Boolean))];
+    const standings=conferences.map(c=>'<a href="'+(women?'ncaaw':'ncaam')+'-conference.html?conference='+encodeURIComponent(c)+'">'+esc(c)+' standings</a>');
+    const away=score(g.away),home=score(g.home);
+    const note=g.conferenceGame&&g.phase==='final'&&!g.disputed&&away!=null&&home!=null&&
+      /^\d+$/.test(away)&&/^\d+$/.test(home)&&Number(away)!==Number(home)
+      ? '<p>'+esc(schoolLabel(Number(away)>Number(home)?g.away:g.home))+' earns a conference win. See the standings for the current race.</p>':'';
+    return clubs.length||standings.length?'<section class="cbb-gamefile-stats"><h2>Teams &amp; conference standings</h2><p>'+[...clubs,...standings].join(' · ')+'</p>'+note+'</section>':'';
+  }
+  function players(summary,g){
     const blocks=summary?.boxscore?.players||[];
     return blocks.map(b=>{
       const label=b.team?.displayName||'Player statistics';
@@ -913,7 +934,7 @@
       const allCols=labels.map((x,i)=>({x,i}));
       const cols=allCols.length?allCols:displayLabels.map((x,i)=>({x,i}));
       const heading=cols.map(c=>'<th>'+esc(c.x)+'</th>').join('');
-      const body=eligible.map(p=>'<tr><th scope="row">'+esc(p.athlete.displayName)+'</th>'+cols.map(c=>'<td data-label="'+esc(c.x)+'">'+esc(p.stats[c.i]??'—')+'</td>').join('')+'</tr>').join('');
+      const body=eligible.map(p=>'<tr><th scope="row">'+playerLogLink(p.athlete,g,summary?.header?.season?.year)+'</th>'+cols.map(c=>'<td data-label="'+esc(c.x)+'">'+esc(p.stats[c.i]??'—')+'</td>').join('')+'</tr>').join('');
       const leaders=eligible.slice(0,3).map(p=>esc(p.athlete.displayName)+' '+(pts<0?'':esc(p.stats[pts]??'—')+' PTS')+
         (reb<0?'':' · '+esc(p.stats[reb]??'—')+' REB')+(ast<0?'':' · '+esc(p.stats[ast]??'—')+' AST')).join('<br>');
       return '<div class="cbb-box-section"><h4>'+esc(label)+' · sourced player box score</h4>'+
@@ -921,7 +942,7 @@
         '<div class="cbb-scroll cbb-scroll--players"><table class="cbb-box-table cbb-box-table--players"><thead><tr><th>Player</th>'+heading+'</tr></thead><tbody>'+body+'</tbody></table></div></div>';
     }).filter(Boolean).join('');
   }
-  function ncaaPlayerBox(box){
+  function ncaaPlayerBox(box,playerName=p=>esc(p.name)){
     if(!box?.away?.players?.length||!box?.home?.players?.length)return '';
     const cols=[['min','MIN'],['pts','PTS'],['reb','REB'],['oreb','OREB'],['dreb','DREB'],
       ['ast','AST'],['stl','STL'],['blk','BLK'],['tov','TO'],['pf','PF'],
@@ -932,7 +953,7 @@
       return '<div class="cbb-box-section"><h4>'+esc(name)+' · NCAA-origin Player Box</h4>'+
         '<div class="cbb-scroll cbb-scroll--players"><table class="cbb-box-table cbb-box-table--players"><thead><tr><th>Player</th>'+
         available.map(([k,label])=>'<th>'+label+'</th>').join('')+'</tr></thead><tbody>'+
-        rows.map(p=>'<tr><th scope="row">'+esc(p.name)+'</th>'+
+        rows.map(p=>'<tr><th scope="row">'+playerName(p,side)+'</th>'+
           available.map(([key,label])=>'<td data-label="'+esc(label)+'">'+esc(p[key]??'—')+'</td>').join('')+'</tr>').join('')+
         '</tbody></table></div></div>';
     };
@@ -969,11 +990,29 @@
     }
     if(state.selected!==g.id)return;
     const raw=(g.disputed||g.statsDisputed)?null:entry?.data;
+    const providerPlayers=new Map();
+    for(const group of raw?.boxscore?.players||[]){
+      const roster=new Map();
+      for(const section of group.statistics||[]){
+        for(const row of section.athletes||[]){
+          const athlete=row.athlete;
+          if(!athlete?.displayName||!athlete.id)continue;
+          const name=athlete.displayName.trim().toLowerCase();
+          if(!roster.has(name))roster.set(name,athlete);
+          else if(roster.get(name)?.id!==athlete.id)roster.set(name,null);
+        }
+      }
+      providerPlayers.set(String(group.team?.id||''),roster);
+    }
     const periods=periodTable(g,raw),
       team=g.certifiedTeamBox?ncaaTeamStats(g,g.certifiedTeamBox):statsPairs(g,raw),
       playersHTML=g.certifiedBox?ncaaPlayerBox({
         ...g.certifiedBox,away_name:teamName(g.away),home_name:teamName(g.home)
-      }):players(raw);
+      },(player,side)=>{
+        const teamId=String(g[side]?.team?.id||'');
+        const athlete=providerPlayers.get(teamId)?.get(String(player.name||'').trim().toLowerCase());
+        return athlete?playerLogLink(athlete,g,raw?.header?.season?.year):esc(player.name);
+      }):players(raw,g);
     const missing='<p class="cbb-empty">Detailed game statistics are not available from a confirmed provider. No values have been estimated.</p>';
     const hasStats=!!raw?.boxscore;
     const espnId=/^\d+$/.test(String(g.espnId||g.id))?String(g.espnId||g.id):null;
@@ -983,7 +1022,7 @@
       '<h1>'+esc(schoolLabel(g.away))+' <em>'+(g.neutral?'vs.':'at')+'</em> '+esc(schoolLabel(g.home))+'</h1>'+
       '<p class="cbb-gamefile-status">'+currentView(g)+' · '+esc(g.venue||'Venue not listed')+(g.broadcast?' · '+esc(g.broadcast):'')+'</p>'+
       '<div class="cbb-gamefile-letterpress">'+letterpressMarkup(g)+'</div></header>'+
-      gamefileStatStrip(g,raw)+
+      teamsAndStandings(g)+gamefileStatStrip(g,raw)+
       '<nav class="cbb-gamefile-tabs" role="tablist" aria-label="Gamefile statistics">'+
       '<button role="tab" type="button" id="gf-tab-summary" aria-controls="gf-panel-summary" data-gamefile-tab="summary">Game Summary</button>'+
       '<button role="tab" type="button" id="gf-tab-team" aria-controls="gf-panel-team" data-gamefile-tab="team">Team Statistics</button>'+
@@ -995,6 +1034,9 @@
       '<section role="tabpanel" id="gf-panel-team" aria-labelledby="gf-tab-team" data-gamefile-panel="team">'+(team||missing)+'</section>'+
       '<section role="tabpanel" id="gf-panel-players" aria-labelledby="gf-tab-players" data-gamefile-panel="players">'+(playersHTML||missing)+'</section>'+
       '<p class="cbb-provider-link">'+esc(publicSource(g.source||'Source pending'))+
+      ' · '+(g.disputed?'Score verification pending':g.archivedFinal?'Final in the published RETRO archive':
+        g.verifiedAt?'NCAA source checked '+esc(localDate(g.verifiedAt)):'Score shown as reported by the source')+
+      (raw&&entry?.at?' · Box score retrieved '+esc(localDate(entry.at)):' · Provider box score retrieval time unavailable')+
       (g.schoolSource?' · <a href="'+cleanURL(g.schoolSource)+'" rel="noopener noreferrer" target="_blank">Verified school schedule ↗</a>':'')+
        (g.conferenceSource?' · <a href="'+cleanURL(g.conferenceSource)+'" rel="noopener noreferrer" target="_blank">Conference schedule ↗</a>':'')+
        (g.conferenceNetworkDisagreement?' · Network listings differ: conference '+esc(g.conferenceNetwork||'disputed')+'; other provider '+esc(g.broadcast||'unlisted'):'')+
@@ -1048,7 +1090,11 @@
           if(matches.length===1)resolvedId=matches[0].id;
           else state.games.push(published);
         }
-        if(!state.games.some(g=>g.id===resolvedId)){
+        const match=state.games.find(g=>g.id===resolvedId||
+          (/^\d+$/.test(resolvedId)&&String(g.espnId||'')===resolvedId)||
+          (resolvedId.startsWith('ncaa:')&&'ncaa:'+String(g.ncaaId||'')===resolvedId));
+        if(match)resolvedId=match.id;
+        if(!match){
           q('#cbb-detail').innerHTML='<p class="cbb-empty">This game was not found in the '+esc(dateLabel(state.day))+' feed. Return to the Courtside Desk and choose another matchup.</p>';return;
         }
         await openDetails(resolvedId);

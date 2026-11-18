@@ -1001,6 +1001,7 @@ function card(original,featured,opened=false){
    ledgerScorebug(g)+'<span class="ledger26-instruction">OPEN GAME DETAILS <span aria-hidden="true">+</span></span></summary>'+
    '<div class="ledger26-expanded">'+
    '<div class="sl-game-footer ledger26-links"><span>'+esc(source)+'</span>'+
+   (!external&&validId(g.id)?'<a class="sl-details" href="'+esc(gameDetailsHref(g,women))+'">Open permanent Gamefile ↗</a>':'')+
    (external&&/^https:\/\/[^\s"'<>]+$/.test(g.sourceURL||'')?
      '<a class="sl-details" href="'+esc(g.sourceURL)+'" target="_blank" rel="noopener noreferrer">Cited exhibition result ↗</a>':'')+
    '</div>'+
