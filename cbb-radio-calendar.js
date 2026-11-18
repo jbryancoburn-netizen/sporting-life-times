@@ -13,8 +13,22 @@
  const spartan = 'https://msuspartans.com/sports/2018/7/20/sports-m-footbl-spec-rel-radioaffiliates-html';
  const montana = 'https://gogriz.com/sports/2015/3/3/GEN_2014010141';
  const jackrabbits = 'https://gojacks.com/coverage';
+ const mizzou = 'https://mutigers.com/tiger-network-radio-affiliates';
+ const memphis = 'https://gotigersgo.com/news/2026/7/22/general-memphis-athletics-renews-flagship-radio-partnership-with-cumulus-media-memphis';
+ const oregon = 'https://goducks.com/sports/2004/8/5/68136';
+ const usc = 'https://usctrojans.com/sports/2021/9/1/download-the-new-usc-trojans-gameday-mobile-app';
+ const virginia = 'https://virginiasports.com/radio';
  const affiliates = {
   men: {
+   '30': ['Trojan Radio Network', usc],
+   '142': ['KTGR · Tiger Network affiliates', mizzou],
+   '197': ['Cowboy Radio Network', 'https://okstate.com/listen'],
+   '235': ['WKIM 98.9 FM The Roar', memphis],
+   '258': ['WINA 98.9 FM / 1070 AM · Virginia Sports Radio Network', virginia],
+   '265': ['KIRO 710 AM · Seattle Sports', 'https://wsucougars.com/news/2026/07/09/wsu-seattle-sports-announce-new-flagship-agreement-and-expanded-partnership'],
+   '269': ['94.5 ESPN', 'https://gomarquette.com/sports/mens-basketball/schedule/'],
+   '21': ['San Diego Sports 760 AM', 'https://goaztecs.com/sports/mens-basketball/schedule/season/2026-27'],
+   '2483': ['Oregon Sports Network', oregon],
    '26': ['KABC 790 AM', 'https://uclabruins.com/news/2025/08/21/790-kabc-to-serve-as-flagship-station-of-ucla-bruins-audio-network'],
    '66': ['Cyclone Radio Network', 'https://cyclones.com/sports/2015/3/2/GEN_20140101327'],
    '97': ['93.9 FM The Ville', louisville],
@@ -36,6 +50,14 @@
    '130': ['94.7 FM WCSX', 'https://mgoblue.com/sports/2017/6/16/mens-basketball-broadcast-information']
   },
   women: {
+   '12': ['Freedom 1400 AM', 'https://arizonawildcats.com/sports/womens-basketball/schedule/'],
+   '30': ['Trojan Radio Network', usc],
+   '52': ['96.5 FM · Seminoles Game Day App', 'https://seminoles.com/sports/womens-basketball/schedule'],
+   '142': ['Tiger Network affiliates', mizzou],
+   '197': ['KGFY 105.5 FM', 'https://okstate.com/listen'],
+   '201': ['1520 AM (Oklahoma City)', 'https://soonersports.com/sports/womens-basketball/schedule'],
+   '235': ['WKIM 98.9 FM The Roar', memphis],
+   '2483': ['Oregon Sports Network', oregon],
    '26': ['UCLA Bruins Audio Network', 'https://uclabruins.com/listen-live'],
    '97': ['93.9 FM The Ville', louisville],
    '149': ['KGRZ 1450 AM / 92.7 FM', montana],
