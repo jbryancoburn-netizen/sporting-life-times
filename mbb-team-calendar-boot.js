@@ -197,7 +197,26 @@ try{
   return wins+'–'+losses;
  };
  const opponentElo=id=>{const n=ratingBySchool.get(ncaaByEspn.get(String(id)));return Number.isFinite(Number(n))?Math.round(Number(n)).toString():'Not rated';};
- const cells=games.map(e=>{
+ // Placement games pair the winners or losers of two published semifinals.
+ const cells=games.map(event=>{
+  let e=event;
+  const slot=e.bracket_slot;
+  if(slot){
+   const own=verifiedFinals.get(gameKey(slot.prior_date,team.espn_id,slot.team_opponent_id));
+   if(own){
+    const winner=game=>game.home_score>game.away_score?game.home:game.away;
+    const championship=winner(own)===String(team.espn_id);
+    const other=verifiedFinals.get(gameKey(slot.prior_date,...slot.other_semifinal_ids));
+    const id=other&&(championship?winner(other):slot.other_semifinal_ids.find(id=>id!==winner(other)));
+    const school=schoolByEspn.get(id);
+    const competition=e.competitions[0];
+    e={...e,official_school_time:championship?slot.championship_tip:slot.third_place_tip,
+      tournament:'Players Era 8 · '+(championship?'Championship':'Third place')};
+    if(school)e.competitions=[{...competition,competitors:competition.competitors.map(entry=>
+      String(entry.team.id)===String(team.espn_id)?entry:
+        {...entry,team:{id,displayName:school.espn_name||school.name}})}];
+   }
+  }
   const c=e.competitions[0],contestants=c.competitors||[];
   const self=contestants.find(x=>String(x.team?.id)===String(team.espn_id));
   const opponent=contestants.find(x=>x!==self)||{};
@@ -211,7 +230,7 @@ try{
   const day=Number.isFinite(+date)?date.toLocaleDateString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',year:'numeric'}):e.date.slice(0,10);
   const verifiedTip=[e.official_school_time,e.official_time].find(officialClock)||'';
   const confirmed=Boolean(verifiedTip);
-  const tip=confirmed?verifiedTip:'TBA'; // Never present placeholder imported noon as an official tip.
+  const tip=confirmed?verifiedTip:slot?slot.third_place_tip+' or '+slot.championship_tip:'TBA'; // Never present placeholder imported noon as an official tip.
   // Tournament feeds may designate a nominal home team even on neutral courts.
   const certifiedNeutral=e.neutralSite===true&&e.site_verified===true;
   const vs=e.site_verified===true?(certifiedNeutral?'NEUTRAL':self?.homeAway==='away'?'AWAY':self?.homeAway==='home'?'HOME':'SITE TBA'):'SITE UNVERIFIED';
@@ -313,7 +332,7 @@ try{
   const ownConference=conferenceById.get(String(team.id));
   const opponentConference=school?conferenceById.get(String(school.id)):null;
   const shortLeagues={'Atlantic 10':'A-10','America East':'Am. East','Summit League':'Summit','Southland':'SLC','Ivy League':'Ivy','Big South':'Big South','Big West':'Big West','Big Sky':'Big Sky','Sun Belt':'Sun Belt'};
-  const conferenceTag=!exhibition&&ownConference&&opponentConference&&ownConference===opponentConference?
+  const conferenceTag=!exhibition&&!e.tournament&&ownConference&&opponentConference&&ownConference===opponentConference?
     '<span class="victorian-conference-game" title="'+escape(ownConference)+' conference game"><span class="victorian-conf-full">'+escape(ownConference)+'</span><span class="victorian-conf-short">'+escape(shortLeagues[ownConference]||ownConference)+'</span></span>':'';
   const opponentRank=badges(school?.name,school?.espn_name,opponentName);
   const shortNames={'Southern California':'USC','Michigan State':'Mich. St.','Ohio State':'Ohio St.','Penn State':'Penn St.','Western Illinois':'Western Ill.','Bowling Green':'Bowling Green','Northwestern':'Northwestern','Tennessee Tech':'Tennessee Tech','Central Michigan':'Central Mich.','Eastern Michigan':'Eastern Mich.','Western Michigan':'Western Mich.',"St. John's (NY)":"St. John's"};
@@ -326,12 +345,12 @@ try{
   return '<tr data-cbb-forecast-id="'+escape(String(final?.id||e.id||''))+'" data-cbb-forecast-day="'+escape(String(final?.date||forecastDate))+'" data-home-id="'+escape(String(self?.homeAway==='home'?team.id:ncaaByEspn.get(String(opponentId))||''))+'" data-away-id="'+escape(String(self?.homeAway==='away'?team.id:ncaaByEspn.get(String(opponentId))||''))+'" data-cbb-home-name="'+escape(self?.homeAway==='home'?team.name:opponentName)+'" data-cbb-away-name="'+escape(self?.homeAway==='home'?opponentName:team.name)+'" data-cbb-final-home-margin="'+(final&&Number.isFinite(Number(final.home_score))&&Number.isFinite(Number(final.away_score))?Number(final.home_score)-Number(final.away_score):'')+'" '+'data-game-site="'+(vs==='HOME'?'home':vs==='AWAY'?'away':vs==='NEUTRAL'?'neutral':'unknown')+'" '+(expandable?'class="victorian-completed-game" data-stat-id="'+escape(statId)+'" tabindex="0" aria-label="Expand statistics for '+escape(opponentName)+'" ':'')+'data-calendar-state="'+scheduleState+'" data-exhibition="'+(exhibition?'true':'false')+
     '" data-opponent="'+escape((school?.name||opponentName).toLowerCase())+'">'+
     '<td class="sched-date-cell"><time datetime="'+escape(scheduledDate)+'">'+escape(day)+'</time><span class="sched-game-status sched-status--'+(canceled?'canceled':exhibition?'exhibition':hasScore?'final':completed?'pending':'upcoming')+'">'+gameState+'</span></td>'+
-    '<td class="sched-matchup-cell"><div class="sched-matchup">'+emblem+'<span class="sched-opponent"><strong>'+title+'</strong><small>'+vs.replace('SITE UNVERIFIED','LOCATION UNCONFIRMED')+'</small>'+historicalRecords+'</span></div></td>'+
+    '<td class="sched-matchup-cell"><div class="sched-matchup">'+emblem+'<span class="sched-opponent"><strong>'+title+'</strong><small>'+vs.replace('SITE UNVERIFIED','LOCATION UNCONFIRMED')+(e.tournament?' · '+escape(e.tournament):'')+'</small>'+historicalRecords+'</span></div></td>'+
     '<td class="sched-venue-cell"><div class="sched-venue"><strong>'+escape(arena)+'</strong><small>'+escape(city)+'</small></div></td>'+
     '<td class="sched-time-cell">'+escape(tip)+'</td>'+
     '<td class="sched-network-cell">'+network+'</td>'+
     '<td class="sched-elo-cell">'+(exhibition||verifiedNonD1?'Not applicable':escape(opponentElo(opponentId)))+'</td>'+
-    '<td class="sched-result-cell">'+(scheduleState==='upcoming'?'<button type="button" class="slt-team-press-btn" data-press-home="'+escape(vs==='HOME'?team.name:(school?.name||opponentName))+'" data-press-away="'+escape(vs==='HOME'?(school?.name||opponentName):team.name)+'">PREGAME PRESS ›</button>':'')+result+(expandable?'<button type="button" class="victorian-stat-toggle" aria-expanded="false">GAME STATS ▾</button>':'')+'</td></tr>'+(expandable?'<tr class="victorian-stat-detail" hidden><td colspan="7"><div class="victorian-stat-content">Open for game statistics.</div></td></tr>':'');
+    '<td class="sched-result-cell">'+(scheduleState==='upcoming'&&(!slot||opponentId)?'<button type="button" class="slt-team-press-btn" data-press-home="'+escape(vs==='HOME'?team.name:(school?.name||opponentName))+'" data-press-away="'+escape(vs==='HOME'?(school?.name||opponentName):team.name)+'">PREGAME PRESS ›</button>':'')+result+(expandable?'<button type="button" class="victorian-stat-toggle" aria-expanded="false">GAME STATS ▾</button>':'')+'</td></tr>'+(expandable?'<tr class="victorian-stat-detail" hidden><td colspan="7"><div class="victorian-stat-content">Open for game statistics.</div></td></tr>':'');
  }).join('');
  const scoredExhibitions=games.filter(e=>{
   if(e.date.slice(0,10)>='2026-11-01')return false;
