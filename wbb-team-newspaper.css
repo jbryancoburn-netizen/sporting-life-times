@@ -76,13 +76,13 @@ body[data-page="women-team"] .wrap{max-width:1350px}
 @media(min-width:701px){
  .wbb-desk #full-season-schedule .mbb-schedule-table{table-layout:fixed;min-width:850px}
  .wbb-desk #full-season-schedule .sched-matchup-cell{min-width:0;width:auto}
- .wbb-desk #full-season-schedule th:nth-child(1){width:11%}
- .wbb-desk #full-season-schedule th:nth-child(2){width:23%}
- .wbb-desk #full-season-schedule th:nth-child(3){width:18%}
- .wbb-desk #full-season-schedule th:nth-child(4){width:11%}
- .wbb-desk #full-season-schedule th:nth-child(5){width:10%}
- .wbb-desk #full-season-schedule th:nth-child(6){width:8%}
- .wbb-desk #full-season-schedule th:nth-child(7){width:19%}
+ .wbb-desk #full-season-schedule .mbb-schedule-table > thead > tr > th:nth-child(1){width:11%}
+ .wbb-desk #full-season-schedule .mbb-schedule-table > thead > tr > th:nth-child(2){width:23%}
+ .wbb-desk #full-season-schedule .mbb-schedule-table > thead > tr > th:nth-child(3){width:18%}
+ .wbb-desk #full-season-schedule .mbb-schedule-table > thead > tr > th:nth-child(4){width:11%}
+ .wbb-desk #full-season-schedule .mbb-schedule-table > thead > tr > th:nth-child(5){width:10%}
+ .wbb-desk #full-season-schedule .mbb-schedule-table > thead > tr > th:nth-child(6){width:8%}
+ .wbb-desk #full-season-schedule .mbb-schedule-table > thead > tr > th:nth-child(7){width:19%}
  .wbb-desk #full-season-schedule .sched-date-cell time{display:block;margin:0 0 3px}
  .wbb-desk #full-season-schedule .sched-result-cell{text-align:left}
 }
