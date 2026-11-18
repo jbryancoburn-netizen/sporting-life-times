@@ -673,7 +673,7 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | Pratt Institute (2715) | verified_university | [Exact verified URL](https://www.goprattgo.com/sports/womens-basketball/schedule/2026-27?grid=true) | 12 |
 | Principia College (555) | verified_university | [Exact verified URL](https://www.principiaathletics.com/sports/womens-basketball/schedule?grid=true) | 15 |
 | Purchase College, State University of New York (30029) | verified_university | [Exact verified URL](https://www.purchasecollegeathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 13 |
-| Ramapo College (564) | verified_university | [Exact verified URL](https://www.ramapoathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true) | 15 |
+| Ramapo College (564) | verified_university | [Exact verified URL](https://www.ramapoathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true) | 13 |
 | Randolph College (566) | verified_university | [Exact verified URL](https://www.randolphwildcats.com/sports/womens-basketball/schedule/2026-2027?grid=true) | 19 |
 | Randolph-Macon College (565) | verified_university | [Exact verified URL](https://www.rmcathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true) | 22 |
 | Regent University (30264) | verified_university | [Exact verified URL](https://regentroyals.com/sports/womens-basketball/schedule/2026?grid=true) | 18 |
@@ -723,7 +723,7 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | State University of New York at Canton (30165) | verified_university | [Exact verified URL](https://www.rooathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 4 |
 | State University of New York at Cobleskill (30083) | verified_university | [Exact verified URL](https://fightingtigers.cobleskill.edu/sports/womens-basketball/schedule/2026-27?grid=true) | 13 |
 | State University of New York at Cortland (168) | verified_university | [Exact verified URL](https://www.cortlandreddragons.com/sports/womens-basketball/schedule?grid=true) | 7 |
-| State University of New York at Geneseo (247) | verified_university | [Exact verified URL](https://www.geneseoknights.com/sports/womens-basketball/schedule?grid=true) | 17 |
+| State University of New York at Geneseo (247) | verified_university | [Exact verified URL](https://www.geneseoknights.com/sports/womens-basketball/schedule?grid=true) | 16 |
 | State University of New York at Morrisville (30067) | verified_university | [Exact verified URL](https://morrisvillemustangs.com/sports/womens-basketball/schedule/2026-27?grid=true) | 12 |
 | State University of New York at New Paltz (475) | verified_university | [Exact verified URL](https://www.nphawks.com/sports/womens-basketball/schedule?grid=true) | 16 |
 | State University of New York at Old Westbury (524) | verified_university | [Exact verified URL](https://www.oldwestburypanthers.com/sports/womens-basketball/schedule/2026-27?grid=true) | 12 |

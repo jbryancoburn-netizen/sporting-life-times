@@ -3,7 +3,7 @@
   "division": "d3",
   "gender": "men",
   "season": "2026-27",
-  "generated_utc": "2026-11-17T17:39:44.661530+00:00",
+  "generated_utc": "2026-11-18T02:28:00.326575+00:00",
   "source": "NCAA 2026-27 member directory + year/gender-validated official school athletics calendars",
   "scope": "NCAA membership-wide first pass; sources without independently validated 2026-27 schedules excluded",
   "ncaa_confirmed_programs": 406,
@@ -14,8 +14,8 @@
   "school_calendars_unresolved": 17,
   "source_status_counts": {
     "parsed": 358,
-    "parsed_conference": 31,
-    "failed": 17
+    "failed": 17,
+    "parsed_conference": 31
   },
   "last_verified_school_source": {
     "4": "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
@@ -1892,8 +1892,8 @@
       "readable_rows": 28,
       "verified_member_opponents": 20,
       "excluded_rows": {
-        "conditional_or_ambiguous_opponent": 3,
-        "identity_not_d3_matched_but_posted": 5
+        "identity_not_d3_matched_but_posted": 6,
+        "conditional_or_ambiguous_opponent": 2
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -8199,7 +8199,7 @@
   ],
   "fixture_count": 4413,
   "reciprocal_fixtures": 2635,
-  "unresolved_opponent_fixture_count": 1654,
+  "unresolved_opponent_fixture_count": 1655,
   "unresolved_opponent_fixtures": [
     {
       "id": "d3-men-2026-11-06-18-other-7e7a67cf3608",
@@ -10375,6 +10375,21 @@
       "source_url": "https://gowarriorathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "7 p.m.",
       "venue_location": "Willimantic, Conn. / Geissler Gymnasium"
+    },
+    {
+      "id": "d3-men-2026-11-13-247-other-cac4a5e8347d",
+      "date": "2026-11-13",
+      "source_owner_org_id": 247,
+      "external_opponent_label": "#9 Wesleyan University",
+      "placement": "neutral",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://www.geneseoknights.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "6 PM",
+      "venue_location": "Selinsgrove, PA"
     },
     {
       "id": "d3-men-2026-11-13-278-other-e378a9e1d108",
@@ -20528,7 +20543,7 @@
       "schedule_only": true,
       "source_kind": "official_school",
       "source_url": "https://www.hilberthawks.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "TBD",
+      "tipoff_as_posted": "2:00 PM",
       "venue_location": "Geneseo, NY / Kuhl Gymnasium"
     },
     {
@@ -41784,7 +41799,7 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "7 p.m.",
-      "venue": "LSC Gymnasium",
+      "venue": "Jim Unke Court",
       "venue_location": "New Ulm, MN",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -44456,7 +44471,7 @@
       "home_org_id": 455,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://oac.org/schedule.aspx?schedule=2381",
+      "source_url": "https://www.woosterathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://oac.org/schedule.aspx?schedule=2381",
         "https://www.woosterathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -44467,12 +44482,12 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "2:00 P.M.",
+      "tipoff_as_posted": "2:00 PM",
       "venue": "",
       "venue_location": "New Concord, OH",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "L, 61-85",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -45318,7 +45333,7 @@
       "source_kind": "official_school",
       "source_verification": "single_official_school",
       "tipoff_as_posted": "6 p.m.",
-      "venue": "LSC Gymnasium",
+      "venue": "Jim Unke Court",
       "venue_location": "New Ulm, MN",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -46717,7 +46732,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "single_official_school",
-      "tipoff_as_posted": "6 PM",
+      "tipoff_as_posted": "6:30 PM",
       "venue": "Gregory Arena",
       "venue_location": "Naperville, Ill.",
       "network_as_posted": "",
@@ -46797,7 +46812,7 @@
       "venue": "Johnson Fieldhouse",
       "venue_location": "Menomonie, Wis.",
       "network_as_posted": "",
-      "radio_as_posted": "",
+      "radio_as_posted": "WAYY 790 AM / 105.1 FM",
       "tournament": "",
       "neutral_home_designation_unconfirmed": false
     },
@@ -47296,7 +47311,7 @@
       "venue_location": "/ Memorial Gymnasium",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "L, 60-66",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -47394,7 +47409,7 @@
       "venue_location": "La Plume, PA",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "L, 91-93",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -48769,7 +48784,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "6:00 PM",
+      "tipoff_as_posted": "5:30 PM",
       "venue": "H.J. Long Gymnasium",
       "venue_location": "Greenville, IL",
       "network_as_posted": "",
@@ -50561,7 +50576,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "2 pm",
+      "tipoff_as_posted": "4 pm",
       "venue": "David V. Wise Center",
       "venue_location": "Meadville, PA",
       "network_as_posted": "",
@@ -52475,7 +52490,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "4:00 PM",
+      "tipoff_as_posted": "5:00 PM",
       "venue": "Carlson Gymnasium",
       "venue_location": "Chicago, IL",
       "network_as_posted": "",
@@ -61214,7 +61229,7 @@
       "venue_location": "Camden, NJ",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "Hoops & Holidays Toy Drive",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -68692,7 +68707,7 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "7 p.m.",
-      "venue": "LSC Gymnasium",
+      "venue": "Jim Unke Court",
       "venue_location": "New Ulm, MN",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -72370,7 +72385,7 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "2:45 p.m.",
-      "venue": "LSC Gymnasium",
+      "venue": "Jim Unke Court",
       "venue_location": "New Ulm, MN",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -74208,7 +74223,7 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "6:45 p.m.",
-      "venue": "LSC Gymnasium",
+      "venue": "Jim Unke Court",
       "venue_location": "New Ulm, MN",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -76202,7 +76217,7 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "2:45 p.m.",
-      "venue": "LSC Gymnasium",
+      "venue": "Jim Unke Court",
       "venue_location": "New Ulm, MN",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -87159,7 +87174,7 @@
       "venue": "Johnson Fieldhouse",
       "venue_location": "Menomonie, Wis.",
       "network_as_posted": "",
-      "radio_as_posted": "",
+      "radio_as_posted": "WAYY 790 AM / 105.1 FM",
       "tournament": "",
       "neutral_home_designation_unconfirmed": false
     },
@@ -96063,7 +96078,7 @@
       "venue": "Johnson Fieldhouse",
       "venue_location": "Menomonie, Wis.",
       "network_as_posted": "",
-      "radio_as_posted": "",
+      "radio_as_posted": "WAYY 790 AM / 105.1 FM",
       "tournament": "",
       "neutral_home_designation_unconfirmed": false
     },
@@ -109642,7 +109657,7 @@
       "venue": "Johnson Fieldhouse",
       "venue_location": "Menomonie, Wis.",
       "network_as_posted": "",
-      "radio_as_posted": "",
+      "radio_as_posted": "WAYY 790 AM / 105.1 FM",
       "tournament": "",
       "neutral_home_designation_unconfirmed": false
     },
@@ -122278,7 +122293,7 @@
       "venue": "Johnson Fieldhouse",
       "venue_location": "Menomonie, Wis.",
       "network_as_posted": "",
-      "radio_as_posted": "",
+      "radio_as_posted": "WAYY 790 AM / 105.1 FM",
       "tournament": "",
       "neutral_home_designation_unconfirmed": false
     },
@@ -126912,7 +126927,7 @@
       "venue": "Johnson Fieldhouse",
       "venue_location": "Menomonie, Wis.",
       "network_as_posted": "",
-      "radio_as_posted": "",
+      "radio_as_posted": "WAYY 790 AM / 105.1 FM",
       "tournament": "",
       "neutral_home_designation_unconfirmed": false
     },
@@ -131006,7 +131021,7 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "6:45 p.m.",
-      "venue": "LSC Gymnasium",
+      "venue": "Jim Unke Court",
       "venue_location": "New Ulm, MN",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -135647,7 +135662,7 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "2:45 p.m.",
-      "venue": "LSC Gymnasium",
+      "venue": "Jim Unke Court",
       "venue_location": "New Ulm, MN",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -139276,7 +139291,7 @@
       "venue": "Johnson Fieldhouse",
       "venue_location": "Menomonie, Wis.",
       "network_as_posted": "",
-      "radio_as_posted": "",
+      "radio_as_posted": "WAYY 790 AM / 105.1 FM",
       "tournament": "",
       "neutral_home_designation_unconfirmed": false
     },
