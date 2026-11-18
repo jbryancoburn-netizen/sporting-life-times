@@ -64,8 +64,12 @@ const logo=window.MBBLogos.byESPN(id,'hero',t.team);
 const easternDay=date=>date.toLocaleDateString('sv-SE',{timeZone:'America/New_York'});
 const today=easternDay(new Date());
 const rows=sorted.map(g=>{
-  const opp=lookup.get(String(g.opponent_id||''));
-  const badge=opp?window.MBBLogos.byESPN(String(opp.team_id),'schedule',opp.team):'';
+  const opponentId=String(g.opponent_id||'');
+  const opp=lookup.get(opponentId);
+  const registeredName=window.MBBLogos.schoolNameForESPN(opponentId);
+  const opponentName=opp?.team||registeredName||g.opponent||'Opponent TBA';
+  const badge=opponentId&&opponentName!=='Opponent TBA'
+    ? window.MBBLogos.byESPN(opponentId,'schedule',opponentName) : '';
   const conferenceTag=opp&&t.conference&&opp.conference&&t.conference===opp.conference?'<span class="wbb-conference-game" title="Conference matchup">'+esc(leagueLabel(t.conference))+'</span>':'';
   const d=new Date(g.date);
    const archiveDay=Number.isFinite(d.getTime())?easternDay(d):'';
@@ -73,7 +77,7 @@ const rows=sorted.map(g=>{
   const other=rmap.get(String(g.opponent_id||''));
   const opponent='<div class="sched-matchup">'+badge+'<span class="sched-opponent"><strong class="wbb-opponent-line">'+
     (other?.rank?'<span class="wbb-opponent-rank" title="Women’s RETRO rank">#'+esc(other.rank)+'</span>':'')+
-    '<span class="wbb-opponent-name">'+(opp?'<a href="ncaaw-team.html?team='+encodeURIComponent(opp.team_id)+'">'+esc(g.opponent||opp.team)+'</a>':esc(g.opponent||'Opponent TBA'))+'</span>'+
+    '<span class="wbb-opponent-name">'+(opp?'<a href="ncaaw-team.html?team='+encodeURIComponent(opp.team_id)+'">'+esc(opponentName)+'</a>':esc(opponentName))+'</span>'+
     '</strong><span class="wbb-match-meta"><small class="wbb-site-label">'+esc(site(g))+'</small>'+conferenceTag+
     '<span class="wbb-win-probability">'+(g.cancelled?'Canceled':g.completed?'Final':winChance(rating,other,g))+'</span></span></span></div>';
   const tv=tvmap.get(String(g.id)),tvName=tv?.broadcast||g.broadcast||'Network TBA',tvUrl=tv?.source_url||g.broadcast_source_url||'';
