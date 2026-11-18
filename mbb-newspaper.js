@@ -476,7 +476,7 @@ function playerTable(rows,teamRoster=false){
  };
  return mobileSort+'<div class="table-wrap'+(teamRoster?' roster-table-wrap':'')+'"><table class="slt-sortable-production"><thead><tr>'+
  headings.map(([label,key])=>'<th scope="col" aria-sort="none"><button type="button" class="slt-sort-heading" data-sort="'+key+'" aria-label="Sort by '+label+'">'+label+' <span class="slt-sort-arrow" aria-hidden="true">↕</span></button></th>').join('')+
- '</tr></thead><tbody>'+rows.map(p=>'<tr'+(teamRoster?' data-position="'+esc(p.roster?.position)+'" data-year="'+esc(p.roster?.year)+'"':'')+
+ '</tr></thead><tbody>'+rows.map(p=>'<tr'+(teamRoster?' data-position="'+esc(p.roster?.position)+'" data-year="'+esc(p.roster?.year)+'"':'')+ '>'+
  '<td data-label="Player">'+playerCell(p)+'</td>'+
  '<td data-label="GP">'+esc(p.games??'—')+'</td>'+
  stats.slice(1).map(([label,key])=>'<td data-label="'+label+'">'+number(p[key])+'</td>').join('')+'</tr>').join('')+
