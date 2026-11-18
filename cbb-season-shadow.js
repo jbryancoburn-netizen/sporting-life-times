@@ -85,9 +85,10 @@ function makeLabel(pred,el){
  const name=homeWins?(el.dataset.homeName||el.dataset.cbbHomeName):
                        (el.dataset.awayName||el.dataset.cbbAwayName);
  const team=String(name||'').trim();
- // A nonzero half-point margin prevents a misleading PICK'EM beside a
- // resolved projected score. The underlying season-only model is unchanged.
- const roundedMargin=Math.max(0.5,Math.round(Math.abs(pred.margin)*2)/2).toFixed(1);
+ // The displayed winning margin must agree with the whole-number projected
+ // final score. Integer differences already lie on the half-point grid.
+ // Keep the model's unrounded margin separate for evaluation only.
+ const roundedMargin=(Math.abs(pred.home-pred.away)).toFixed(1);
  const escaped=v=>String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const leader=team?escaped(team)+' by '+roundedMargin:'Projected '+(homeWins?'home':'away')+' winner by '+roundedMargin;
  return '<span class="slt-shadow-kicker">SEASON-ONLY <span>SHADOW TEST</span></span>'+
