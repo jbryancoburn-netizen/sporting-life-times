@@ -2,7 +2,7 @@
   'use strict';
 
   const query = new URLSearchParams(location.search);
-  const player = query.get('player');
+  let player = query.get('player');
   const year = query.get('season');
   const gender = query.get('gender') === 'women' ? 'women' : 'men';
   const league = gender + 's-college-basketball';
@@ -134,11 +134,47 @@
     status.textContent = ordered.length + ' games with published stats · feed checked ' + checked;
   }
 
-  if (/^\d+$/.test(player || '') && /^20\d{2}$/.test(year || '')) {
-    window.SLTCBBPlayerProfile?.load({player, year, gender, league});
+  async function findRosterPlayer() {
+    const normalize = value => String(value || '').normalize('NFKD')
+      .replace(/\p{Mark}/gu, '').toLowerCase().replace(/[^\p{Letter}\p{Number}]/gu, '');
+    const read = async url => {
+      const response = await fetch(url, {signal: AbortSignal.timeout(8000)});
+      return response.ok ? response.json() : null;
+    };
+    let teamId = team;
+    if (gender === 'men' && team.startsWith('ncaa:')) {
+      const crosswalk = await read('data/ncaam-2026-27-espn-team-crosswalk.json');
+      teamId = String(crosswalk?.teams?.find(row => row.id === team)?.espn_id || '');
+    }
+    if (!/^\d+$/.test(teamId)) return '';
+    const url = 'https://site.api.espn.com/apis/site/v2/sports/basketball/' +
+      league + '/teams/' + teamId + '/roster?season=' + year;
+    const data = await read(url);
+    if (Number(data?.season?.year) !== Number(year) || String(data?.team?.id) !== teamId) return '';
+    const athletes = (data.athletes || []).flatMap(entry => Array.isArray(entry.items) ? entry.items : [entry]);
+    const matches = athletes.filter(entry => normalize(entry.displayName || entry.fullName) === normalize(name) &&
+      /^\d+$/.test(String(entry.id || '')));
+    return matches.length === 1 ? String(matches[0].id) : '';
   }
 
-  load().catch(() => {
+  async function start() {
+    if (!player && name && /^(?:ncaa:)?\d+$/.test(team || '') && /^20\d{2}$/.test(year || '')) {
+      status.textContent = 'Checking the published team roster for this player…';
+      try { player = await findRosterPlayer(); } catch { player = ''; }
+      if (!player) {
+        status.textContent = 'This player’s season data is unavailable until their roster identity can be verified.';
+        return;
+      }
+      query.set('player', player);
+      history.replaceState(null, '', location.pathname + '?' + query + location.hash);
+    }
+    if (/^\d+$/.test(player || '') && /^20\d{2}$/.test(year || '')) {
+      window.SLTCBBPlayerProfile?.load({player, year, gender, league});
+    }
+    await load();
+  }
+
+  start().catch(() => {
     status.textContent = 'Season game log unavailable from the statistics feed. See the Daily Ledger for available box scores.';
   });
 })();

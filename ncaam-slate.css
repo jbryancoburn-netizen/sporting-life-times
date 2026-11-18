@@ -348,3 +348,6 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #c481
 .sl-radio-side { display: block; white-space: normal; overflow-wrap: anywhere; font: 11px/1.35 Georgia, serif; }
 .sl-radio-side strong { margin-inline-end: .3em; }
 .sl-radio-side .ledger26-network { display: inline; padding: 0; font: inherit; white-space: normal; }
+.sl-ledger-page .ledger26-card[data-exhibition="true"]{background:#eee5f6!important;border-color:#9270ae!important}
+.sl-ledger-page .ledger26-card[data-exhibition="true"] :is(.ledger26-meta,.ledger26-scorebug,.ledger26-expanded){background-color:#eee5f6!important}
+.sl-ledger-page .ledger26-card[data-exhibition="true"] .ledger26-instruction{color:#613984}

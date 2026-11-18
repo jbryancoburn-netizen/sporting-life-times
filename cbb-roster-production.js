@@ -33,8 +33,10 @@
   }
 
   function profileHref(id, name, gender, team) {
-    if (!/^\d+$/.test(String(id || '')) || !name) return '';
-    return 'cbb-player.html?' + new URLSearchParams({player:id, season:'2027', gender, name, team});
+    if (!name || !/^(?:ncaa:)?\d+$/.test(String(team || ''))) return '';
+    const params = new URLSearchParams({season:'2027', gender, name, team});
+    if (/^\d+$/.test(String(id || ''))) params.set('player', id);
+    return 'cbb-player.html?' + params;
   }
 
   function portraitId(value, gender) {
