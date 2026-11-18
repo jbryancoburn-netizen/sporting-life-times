@@ -75,9 +75,11 @@ assert(!men.statEditorial(live).includes('away–home'));
 assert.equal(men.gamefileStatStrip({...live,statsDisputed:true},verifiedBox),'',
  'disputed box figures may not enter the live gamefile');
 assert(!js.includes('id="cbb-radar-host"'),'remove decorative zero-value watch dashboard');
-assert(js.includes('isGamefile')&&js.includes('data-gamefile-panel'),'Gamefile has its own tabbed route');
 assert(!js.includes('data-cbb-close'),'scoreboard no longer creates inline box score');
-assert(fs.readFileSync(path.join(root,'cbb-gamefile.html'),'utf8').includes('cbb-gamefile-root'),'dedicated Gamefile HTML exists');
+const legacyGame=fs.readFileSync(path.join(root,'cbb-gamefile.html'),'utf8');
+assert(legacyGame.includes("location.replace('ncaam-slate.html?' + next)")&&!legacyGame.includes('cbb-gamefile-root'),
+ 'Saved game URLs must forward to native Daily Ledger details');
+assert.match(men.gameLink({id:'401920982'}),/^ncaam-slate\.html\?date=[^&]+&game=401920982$/);
 // The cross-sport logo navigation was intentionally removed; it must stay absent.
 assert(!shell.includes('slt-courtside-network.css'),'retired duplicate logo network CSS must not load');
 const snapshot=men.normalizeSnapshot({id:'401920982',date:'2026-11-01T14:30Z',state:'in',status:'Halftime',teams:[
@@ -182,7 +184,7 @@ assert(js.includes("for(const kind of ['coaches','ap'])"),
 assert(js.includes("SLTBasketballScorebug?.formatRetro(profile,state.rankTies") &&
   sharedScorebug.includes("function formatRetro(profile,tieCounts,maxRank)"),
  'Published RETRO Elo and tied national rank must come from the shared renderer');
-for(const page of ['ncaam.html','cbb-game-center.html','college-basketball.html','cbb-gamefile.html']){
+for(const page of ['ncaam.html','cbb-game-center.html','college-basketball.html','ncaam-slate.html']){
  const html=fs.readFileSync(path.join(root,page),'utf8');
  assert(html.includes('cbb-ledger-scorebug.js')&&html.includes('cbb-ledger-scorecard.css'),
   page+' must load the same renderer and stylesheet');
@@ -281,7 +283,7 @@ assert(!compareJS.includes('<h3>Committee-style field · 76 teams</h3>'),'remove
 // CourtCast: only source-reported play events may move the schematic ball.
 const courtSource=fs.readFileSync(path.join(root,'cbb-live-court.js'),'utf8');
 const courtCSS=fs.readFileSync(path.join(root,'cbb-live-court.css'),'utf8');
-const courtFile=fs.readFileSync(path.join(root,'cbb-gamefile.html'),'utf8');
+const courtFile=fs.readFileSync(path.join(root,'ncaam-slate.html'),'utf8');
 const courtWorld={window:{},setInterval:()=>0,clearInterval:()=>{},requestAnimationFrame:fn=>fn()};
 vm.runInNewContext(courtSource,courtWorld,{filename:'cbb-live-court.js'});
 const court=courtWorld.window.SLTCourt;
@@ -411,7 +413,7 @@ assert.match(missingNode.innerHTML,/No verified play-by-play/,'missing source sh
 assert.match(missingNode.innerHTML,/COURT VIEW NOT AVAILABLE/,'empty feed should not render a decorative hardwood court');
 assert(!missingNode.innerHTML.includes('slc-floor'),'no source events means no mock basketball court');
 assert(courtFile.includes('cbb-live-court.js')&&courtFile.includes('cbb-live-court.css'),
- 'CourtCast JS and CSS must actually load in the dedicated Gamefile');
+ 'CourtCast JS and CSS must load with the inline game details in the Ledger');
 // The safer single-source flow must reconcile live period totals before graphing.
 assert(js.includes("window.SLTInlineGamefile?.periodScoreSnapshot"),
  'Game Center must reuse the canonical Gamefile period-score verifier');
