@@ -903,7 +903,7 @@ const rivalryCard=r=>{
  if(!r)return '';
  const label=esc(r.name);
  const record=r.record?'<span style="font-size:11px;font-weight:700;letter-spacing:.02em">'+esc(r.record)+'</span>':'';
- return '<div class="ledger26-rivalry-identifier" role="note" aria-label="Historic rivalry: '+label+'" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px 10px;padding:7px 11px;background:linear-gradient(90deg,#990000 0 9px,#f7f0e2 9px calc(100% - 9px),#0033a0 calc(100% - 9px) 100%);color:#27231e;border-bottom:2px solid #8b806a;font-family:Georgia,serif">'+
+ return '<div class="ledger26-rivalry-identifier" role="note" aria-label="Historic rivalry: '+label+'" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px 10px;padding:7px 11px;background:linear-gradient(90deg,'+r.colors[0]+' 0 9px,#f7f0e2 9px calc(100% - 9px),'+r.colors[1]+' calc(100% - 9px) 100%);color:#27231e;border-bottom:2px solid #8b806a;font-family:Georgia,serif">'+
  '<span style="font-size:11px;font-weight:800;letter-spacing:.09em">★ HISTORIC RIVALRY · '+label+'</span>'+record+'</div>';
 };
 
