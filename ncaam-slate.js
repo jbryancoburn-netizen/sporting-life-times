@@ -885,10 +885,10 @@ const historicRivalries=[
  {gender:'men',teams:['iowa','iowa state'],name:'Cy-Hawk Series',colors:['#ffcd00','#c8102e']},
  {gender:'men',teams:['villanova','saint josephs'],name:'Holy War',colors:['#00205b','#9e1b32']}
 ];
-const rivalrySchoolName=t=>String(t?.name||'').toLowerCase()
+const rivalrySchoolName=t=>String(t?.full||t?.name||'').toLowerCase()
  .replace(/&/g,' and ').replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim()
  .replace(/^(university of |the )/,'')
- .replace(/ (hoosiers|wildcats|boilermakers|cardinals|blue devils|tar heels|bearcats|musketeers|jayhawks|tigers|hawkeyes|cyclones|hawks)$/,'');
+ .replace(/ (hoosiers|wildcats|boilermakers|cardinals|blue devils|tar heels|bearcats|musketeers|jayhawks|tigers|hawkeyes|cyclones|hawks|fighting irish|bruins|trojans|spartans|wolverines|red raiders|bulldogs|aggies|lobos|cougars)$/,'');
 const rivalryFor=g=>{
  if(g.kind==='exhibition')return null;
  // Stable NCAA IDs handle shortened ledger names, abbreviations and nicknames.
@@ -1038,7 +1038,7 @@ function card(original,featured,opened=false){
  const left='<span class="sl-game-site">'+when+press+theatre+'</span>';
  // The shared scorebug rail is the only pregame forecast presentation.
  // The projected score now lives inside the collapsed forecast rail, not the expanded gamefile.
- return '<article class="sl-game ledger26-card'+(women?' ledger26-card--women':' ledger26-card--men')+(featured?' ledger26-featured':'')+'"'+(external?' data-exhibition="true"':'')+(rivalry?' data-historic-rivalry="true" style="border-left:4px solid '+rivalry.colors[0]+';border-right:4px solid '+rivalry.colors[1]+';border-top:3px solid '+rivalry.colors[0]+';border-bottom:3px solid '+rivalry.colors[1]+'"':'')+'>'+ rivalryCard(rivalry)+
+ return '<article class="sl-game ledger26-card'+(women?' ledger26-card--women':' ledger26-card--men')+(featured?' ledger26-featured':'')+(rivalry?' ledger26-card--rivalry':'')+'"'+(external?' data-exhibition="true"':'')+(rivalry?' data-historic-rivalry="true" style="--rivalry-away:'+rivalry.colors[0]+';--rivalry-home:'+rivalry.colors[1]+'"':'')+'>'+ rivalryCard(rivalry)+
    (when||right?'<div class="ledger26-meta'+(g.phase==='upcoming'?' ledger26-meta--pregame':'')+'">'+left+right+'</div>':'')+
    '<details class="sl-game-expansion ledger26-expand" data-game-id="'+esc(g.id)+'" data-day="'+esc(g.day)+'" data-gender="'+(women?'women':'men')+'" data-home-id="'+esc(g.home.canonical||'')+'" data-away-id="'+esc(g.away.canonical||'')+'" data-home-name="'+esc(g.home.name)+'" data-away-name="'+esc(g.away.name)+'"'+(opened?' open':'')+'>'+
    '<summary class="ledger26-summary" aria-label="Expand '+esc(g.away.name)+' at '+esc(g.home.name)+' game details">'+
