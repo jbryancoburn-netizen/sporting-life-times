@@ -20,6 +20,7 @@ on:
       - 'data/mbb-schedules-2026-27/*.json'
       - 'data/mbb-external-top25.json'
       - 'data/cbb-national-news.json'
+      - 'data/cbb-247sports-headlines.json'
       - 'scripts/verify_cbb_news.py'
       - 'tests/cbb-front-news.test.cjs'
       # Direct source or verified rating updates should publish immediately.
@@ -29,6 +30,8 @@ on:
       - 'data/cbb-season-logo-audit.json'
       - 'data/mbb-exhibition-finals-2026-27.json'
       - 'tests/cbb-courtside.test.cjs'
+      - 'tests/mbb-calendar-finals.test.cjs'
+      - 'tests/cbb-radio-companion.test.cjs'
       - 'tests/ncaam-slate.test.cjs'
       - 'tests/victorian-live-court.test.mjs'
       - 'tests/victorian-live-retro.test.mjs'
