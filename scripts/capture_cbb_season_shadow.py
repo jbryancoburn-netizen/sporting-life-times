@@ -45,7 +45,12 @@ def forecast(m,g,neutral):
     total=avg+p[h]+p[a]
     home=(total+margin)/2;away=(total-margin)/2
     if min(home,away)<0 or not all(math.isfinite(x) for x in (margin,home,away)):return None
-    return {'home_score':round(home),'away_score':round(away),'home_margin':round(margin,3),'total':round(total,3)}
+    displayed_home=round(home);displayed_away=round(away)
+    # Preserve the underlying decimal margin, but never archive tied integer finals.
+    if displayed_home==displayed_away:
+        if margin<0:displayed_away+=1
+        else:displayed_home+=1
+    return {'home_score':displayed_home,'away_score':displayed_away,'home_margin':round(margin,3),'total':round(total,3)}
 def main():
     existing=load(OUT.name) if OUT.exists() else {'season':'2026-27','model':'season-only-score-opponent-adjusted-v1','captures':[]}
     seen={(x['gender'],str(x['game_id'])) for x in existing['captures']}
