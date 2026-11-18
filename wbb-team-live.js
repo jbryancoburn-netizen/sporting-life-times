@@ -30,7 +30,7 @@ function start(teamId,baseGames,siteDisputes,neutralProof){
         if(!cell||!ours||!theirs)continue;
         const final=event.status?.type?.state==='post'&&event.status?.type?.completed===true;
         const score=cell.querySelector('strong'),note=cell.querySelector('.wbb-result-source');
-        if(score)score.textContent=(final?(ours.n>theirs.n?'W ':'L '):'')+ours.n+'–'+theirs.n;
+        if(score){score.textContent=(final?(ours.n>theirs.n?'W ':'L '):'')+ours.n+'–'+theirs.n;score.classList.toggle('wbb-result-win',final&&ours.n>theirs.n);score.classList.toggle('wbb-result-loss',final&&ours.n<theirs.n);}
         if(note)note.textContent=final?'Reported final · certification pending':String(event.status?.type?.shortDetail||'Live');
       }
     }catch(_err){/* Preserve last published result when live source is unavailable. */}
@@ -64,7 +64,7 @@ function start(teamId,baseGames,siteDisputes,neutralProof){
         const cell=row.querySelector('.wbb-result-cell');
         if(cell){
           const score=cell.querySelector('strong'),note=cell.querySelector('.wbb-result-source');
-          if(score)score.textContent=outcome.value;
+          if(score){score.textContent=outcome.value;score.classList.toggle('wbb-result-win',outcome.value.startsWith('W '));score.classList.toggle('wbb-result-loss',outcome.value.startsWith('L '));}
           if(note)note.textContent=outcome.detail;
           else if(outcome.detail)cell.title=outcome.detail;
         }
