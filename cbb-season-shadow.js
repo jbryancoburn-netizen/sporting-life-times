@@ -35,7 +35,10 @@ function predict(m,g){
  const total=m.mean+(m.pace.get(g.h)||0)+(m.pace.get(g.a)||0);
  const h=(total+margin)/2,a=(total-margin)/2;
  if(!Number.isFinite(h)||!Number.isFinite(a)||h<0||a<0)return null;
- return {home:Math.round(h),away:Math.round(a),margin,seasonGames:m.played.get(g.h).m.length+m.played.get(g.a).m.length};
+ let home=Math.round(h),away=Math.round(a);
+ // Whole-point basketball scores must always have a winner, including near-even models.
+ if(home===away){if(margin<0)away+=1;else home+=1;}
+ return {home,away,margin,seasonGames:m.played.get(g.h).m.length+m.played.get(g.a).m.length};
 }
 const state={games:[],byId:new Map(),byDate:new Map(),ready:false,error:false};
 async function init(){
@@ -76,7 +79,7 @@ function gameFrom(el){
  return {...match,day,neutral:loc==='neutral'||loc==='verified-neutral'?true:match.neutral};
 }
 function makeLabel(pred){
- const leader=pred.margin>=0?'HOME':'AWAY';
+ const leader=pred.home>pred.away?'HOME':'AWAY';
  return '<span class="slt-shadow-kicker">SEASON-ONLY <span>SHADOW TEST</span></span>'+
  '<span class="slt-shadow-score">'+pred.away+'–'+pred.home+'</span>'+
  '<span class="slt-shadow-detail">'+leader+' '+Math.abs(pred.margin).toFixed(1)+' · TOTAL '+(pred.away+pred.home)+'</span>';
@@ -87,16 +90,40 @@ function decorate(el){
  const row=ledger?el.closest('.sl-game'):el;
  if(row?.dataset.exhibition==='true'||el.dataset.exhibition==='true')return;
  const upcoming=ledger?!!el.querySelector('.ledger26-status[data-phase="upcoming"]'):el.dataset.calendarState==='upcoming';
- if(!upcoming){row?.querySelector(':scope > .slt-shadow-line')?.remove();return;}
+ if(!upcoming){
+  row?.querySelector(':scope > .slt-shadow-line')?.remove();
+  if(!ledger){let next=row.nextElementSibling;while(next&&(next.classList.contains('victorian-stat-detail')||next.classList.contains('cbb-schedule-forecast-row')))next=next.nextElementSibling;if(next?.classList.contains('cbb-season-shadow-row'))next.remove();}
+  return;
+ }
  const g=gameFrom(el),p=g?predict(getModel(g.day),g):null;
- const target=ledger?row:row?.querySelector('.sched-result-cell');
- if(!target)return;
- let box=target.querySelector(':scope > .slt-shadow-line');
- if(!p){if(box)box.remove();return}
+ if(ledger){
+  let box=row.querySelector(':scope > .slt-shadow-line');
+  if(!p){box?.remove();return;}
+  const markup=makeLabel(p);
+  if(box?.dataset.rendered===markup)return;
+  if(!box){box=document.createElement('div');box.className='slt-shadow-line';row.appendChild(box);}
+  box.dataset.rendered=markup;box.innerHTML=markup;
+  return;
+ }
+ // The Result column is narrow. Use an independent full-width seven-column row
+ // after the game and any existing statistics/RETRO receipt rows.
+ const oldInline=row.querySelector('.sched-result-cell > .slt-shadow-line');
+ oldInline?.remove();
+ let band=row.nextElementSibling;
+ while(band&&(band.classList.contains('victorian-stat-detail')||band.classList.contains('cbb-schedule-forecast-row')))band=band.nextElementSibling;
+ const existing=band?.classList.contains('cbb-season-shadow-row')?band:null;
+ if(!p){existing?.remove();return;}
  const markup=makeLabel(p);
- if(box?.dataset.rendered===markup)return;
- if(!box){box=document.createElement(ledger?'div':'div');box.className='slt-shadow-line';target.appendChild(box)}
- box.dataset.rendered=markup;box.innerHTML=markup;
+ if(existing?.dataset.rendered===markup){existing.hidden=row.hidden;return;}
+ let line=existing;
+ if(!line){
+  line=document.createElement('tr');line.className='cbb-season-shadow-row';
+  line.innerHTML='<td colspan="7"><div class="slt-shadow-line"></div></td>';
+  row.parentNode.insertBefore(line,band);
+ }
+ line.dataset.rendered=markup;
+ line.hidden=row.hidden;
+ line.querySelector('.slt-shadow-line').innerHTML=markup;
 }
 let pending=false;
 function update(){
