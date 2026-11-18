@@ -13,6 +13,7 @@ on:
       - '.github/workflows/publish-newspaper.yml'
       - 'scripts/inject-team-crests.py'
       - 'scripts/stage_pages_artifact.py'
+      - 'scripts/build_cbb_player_rankings.py'
       - 'data/nba-*.json'
       - 'data/indiana-boys-crests*.json'
       - 'data/indiana-boys-crest-colors.json'
@@ -361,6 +362,9 @@ jobs:
           else
             echo "::warning::Live ESPN scoreboard unavailable; this edition contains last-known scores."
           fi
+      - name: Refresh Division I player ranking cohorts
+        continue-on-error: true
+        run: python3 scripts/build_cbb_player_rankings.py
       - name: Stage reader-facing newspaper without unused development and research payloads
         run: python3 scripts/stage_pages_artifact.py
       - uses: actions/upload-pages-artifact@v4
