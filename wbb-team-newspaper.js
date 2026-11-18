@@ -161,6 +161,8 @@ const filterSchedule=()=>{
    row.hidden=!(matchesName&&matchesStatus);
    const detail=row.nextElementSibling;
    if(detail?.classList.contains('wbb-game-detail')&&row.hidden)detail.hidden=true;
+   const shadow=detail?.classList.contains('wbb-game-detail')?detail.nextElementSibling:detail;
+   if(shadow?.classList.contains('cbb-season-shadow-row'))shadow.hidden=row.hidden;
    if(!row.hidden)shown++;
  }
  if(counter)counter.textContent=shown+' of '+games.length+' games';
