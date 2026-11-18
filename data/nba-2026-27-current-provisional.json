@@ -2,7 +2,7 @@
   "league": "NBA",
   "season": "2026-27",
   "status": "provisional_live_from_historical_baseline",
-  "games_played": 208,
+  "games_played": 209,
   "preseason_status": "provisional_historical_regression_only",
   "source": "ESPN FINAL NBA regular-season scores; Sporting Life & Times independent Elo",
   "rankings": [
@@ -75,10 +75,6 @@
       "elo": 1492.08
     },
     {
-      "team": "LAC",
-      "elo": 1481.146
-    },
-    {
       "team": "CHA",
       "elo": 1470.274
     },
@@ -89,6 +85,10 @@
     {
       "team": "MEM",
       "elo": 1460.466
+    },
+    {
+      "team": "LAC",
+      "elo": 1455.845
     },
     {
       "team": "DAL",
@@ -124,7 +124,7 @@
     },
     {
       "team": "UTA",
-      "elo": 1276.7
+      "elo": 1302.001
     }
   ],
   "events": [
@@ -1999,6 +1999,15 @@
       "away_score": 105,
       "date": "2026-11-18T01:00:00.000Z",
       "home_elo_change": -19.950581
+    },
+    {
+      "id": "espn-nba-401910006",
+      "home": "LAC",
+      "away": "UTA",
+      "home_score": 107,
+      "away_score": 132,
+      "date": "2026-11-18T03:30:00.000Z",
+      "home_elo_change": -25.30085
     }
   ],
   "movement": {
@@ -2021,10 +2030,10 @@
       "ORL": 0,
       "PHX": 0,
       "GSW": 0,
-      "LAC": 0,
       "CHA": 0,
       "TOR": -10.197066,
       "MEM": 0,
+      "LAC": -25.30085,
       "DAL": 0,
       "CHI": 0,
       "NOP": 0,
@@ -2033,7 +2042,7 @@
       "MIL": 0,
       "WAS": 0,
       "SAC": 0,
-      "UTA": 0
+      "UTA": 25.30085
     },
     "last_week_eastern_date": "2026-11-10",
     "last_week_elo": {
@@ -2054,10 +2063,10 @@
       "ORL": 1479.935,
       "PHX": 1487.499,
       "GSW": 1528.46,
-      "LAC": 1452.645,
       "CHA": 1494.561,
       "TOR": 1507.903,
       "MEM": 1432.015,
+      "LAC": 1452.645,
       "DAL": 1464.154,
       "CHI": 1354.592,
       "NOP": 1408.702,
