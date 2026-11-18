@@ -122,12 +122,14 @@ function decorate(el){
   return;
  }
  const g=gameFrom(el),p=g?predict(getModel(g.day),g):null;
+ const rivalry=g&&verifiedNeutralPairs.has(pairKey(g.day,g.h,g.a));
  if(ledger){
   let box=row.querySelector(':scope > .slt-shadow-line');
   if(!p){box?.remove();return;}
   const markup=makeLabel(p,el,g);
-  if(box?.dataset.rendered===markup)return;
+  if(box?.dataset.rendered===markup){box.classList.toggle('slt-shadow-line--rivalry',!!rivalry);return;}
   if(!box){box=document.createElement('div');box.className='slt-shadow-line';row.appendChild(box);}
+  box.classList.toggle('slt-shadow-line--rivalry',!!rivalry);
   box.dataset.rendered=markup;box.innerHTML=markup;
   return;
  }
@@ -140,7 +142,7 @@ function decorate(el){
  const existing=band?.classList.contains('cbb-season-shadow-row')?band:null;
  if(!p){existing?.remove();return;}
  const markup=makeLabel(p,el,g);
- if(existing?.dataset.rendered===markup){existing.hidden=row.hidden;return;}
+ if(existing?.dataset.rendered===markup){existing.hidden=row.hidden;existing.querySelector('.slt-shadow-line')?.classList.toggle('slt-shadow-line--rivalry',!!rivalry);return;}
  let line=existing;
  if(!line){
   line=document.createElement('tr');line.className='cbb-season-shadow-row';
@@ -149,6 +151,7 @@ function decorate(el){
  }
  line.dataset.rendered=markup;
  line.hidden=row.hidden;
+ line.querySelector('.slt-shadow-line').classList.toggle('slt-shadow-line--rivalry',!!rivalry);
  line.querySelector('.slt-shadow-line').innerHTML=markup;
 }
 let pending=false;
