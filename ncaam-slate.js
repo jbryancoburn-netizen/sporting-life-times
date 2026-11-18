@@ -1057,11 +1057,10 @@ function card(original,featured,opened=false){
  const tv=network?(g.phase==='final'?'<span class="ledger26-network">'+esc(network)+'</span>':tvLinks(network)):g.phase==='upcoming'?'<span class="ledger26-network">TV TBA</span>':'';
  // A press launcher outside <summary> does not toggle the gamefile.
  const press=g.phase==='upcoming'?'<button type="button" class="slt-team-press-btn" data-slt-ledger-press-open data-game-id="'+esc(g.id)+'" data-day="'+esc(g.day)+'" aria-label="Read pregame press for '+esc(g.away.name)+' at '+esc(g.home.name)+'">PREGAME PRESS ›</button>':'';
- const theatre=g.kind!=='exhibition'&&validId(g.id)&&g.phase==='live'?'<a class="vld-link" href="live-game.html?league='+(women?'ncaaw':'ncaam')+'&game='+encodeURIComponent(g.id)+'" aria-label="Open Victorian live dispatch for '+esc(g.away.name)+' at '+esc(g.home.name)+'">◈ LIVE DISPATCH</a>':'';
  const radio=external?'':'<span data-ledger-radio hidden></span>';
  const tvRow=tv?'<span class="sl-tv-row" role="group" aria-label="Television"><span class="sl-media-icon" aria-hidden="true">📺</span><span class="sl-tv-links">'+tv+'</span></span>':'';
  const right=tvRow||radio?'<span class="ledger26-meta-actions sl-media-stack">'+tvRow+radio+'</span>':'';
- const left='<span class="sl-game-site">'+when+press+theatre+'</span>';
+ const left='<span class="sl-game-site">'+when+press+'</span>';
  // The shared scorebug rail is the only pregame forecast presentation.
  // The projected score now lives inside the collapsed forecast rail, not the expanded gamefile.
  return '<article class="sl-game ledger26-card'+(women?' ledger26-card--women':' ledger26-card--men')+(featured?' ledger26-featured':'')+(rivalry?' ledger26-card--rivalry':'')+'"'+(external?' data-exhibition="true"':'')+(rivalry?' data-historic-rivalry="true" style="--rivalry-away:'+rivalry.colors[0]+';--rivalry-home:'+rivalry.colors[1]+'"':'')+'>'+ rivalryCard(rivalry)+
