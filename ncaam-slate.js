@@ -891,6 +891,10 @@ const rivalrySchoolName=t=>String(t?.name||'').toLowerCase()
  .replace(/ (hoosiers|wildcats|boilermakers|cardinals|blue devils|tar heels|bearcats|musketeers|jayhawks|tigers|hawkeyes|cyclones|hawks)$/,'');
 const rivalryFor=g=>{
  if(g.kind==='exhibition')return null;
+ // Stable NCAA IDs handle shortened ledger names, abbreviations and nicknames.
+ const ids=[String(g.away?.canonical||''),String(g.home?.canonical||'')];
+ if(!women&&ids.includes('ncaa:609574')&&ids.includes('ncaa:609584'))
+   return historicRivalries[0];
  const names=[rivalrySchoolName(g.away),rivalrySchoolName(g.home)];
  return historicRivalries.find(r=>r.gender===(women?'women':'men') &&
    r.teams.every(t=>names.some(n=>n===t)))||null;
@@ -899,7 +903,7 @@ const rivalryCard=r=>{
  if(!r)return '';
  const label=esc(r.name);
  const record=r.record?'<span style="font-size:11px;font-weight:700;letter-spacing:.02em">'+esc(r.record)+'</span>':'';
- return '<div class="ledger26-rivalry-identifier" role="note" aria-label="Historic rivalry: '+label+'" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px 10px;padding:7px 11px;background:#f7f0e2;color:#27231e;border-bottom:1px solid #8b806a;font-family:Georgia,serif">'+
+ return '<div class="ledger26-rivalry-identifier" role="note" aria-label="Historic rivalry: '+label+'" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px 10px;padding:7px 11px;background:linear-gradient(90deg,#990000 0 9px,#f7f0e2 9px calc(100% - 9px),#0033a0 calc(100% - 9px) 100%);color:#27231e;border-bottom:2px solid #8b806a;font-family:Georgia,serif">'+
  '<span style="font-size:11px;font-weight:800;letter-spacing:.09em">★ HISTORIC RIVALRY · '+label+'</span>'+record+'</div>';
 };
 
