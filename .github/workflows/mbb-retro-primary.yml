@@ -6,6 +6,7 @@ on:
   workflow_run:
     workflows:
       - MBB newspaper refresh and publish
+      - MBB fast live scores
       - NCAA Basketball Game to Elo Publisher
       - MBB 2026-27 full team calendars
     types: [completed]
