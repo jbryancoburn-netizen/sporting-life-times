@@ -83,7 +83,7 @@ async function render(id){
   ];
   const people = data.people.filter(p=>Number(p.values.get('gamesPlayed')?.value)>0);
   return {url, players:people.map(p=>({
-    name:p.athlete.displayName,
+    name:p.athlete.displayName, athleteId:p.athlete.id,
     stats:stats.map(([label,key])=>{
       const field=p.values.get(key);
       return [label, field?.value!=null && Number.isFinite(Number(field.value))

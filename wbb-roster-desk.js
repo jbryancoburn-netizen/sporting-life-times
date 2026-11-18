@@ -10,7 +10,7 @@ const prettyPos=v=>({'GUARD':'Guard','FORWARD':'Forward','CENTER':'Center','G':'
  * decorations ONLY, and must match a published 2026–27 women's roster by name AND jersey. */
 const normalName=v=>String(v||'').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9]/g,'').toLowerCase();
 const jersey=v=>String(v??'').trim().replace(/^#/,'');
-function verifiedPortraits(data,players,teamId){
+function verifiedPortraits(data,players,teamId,identities){
  const answer=new Map();
  if(data?.status!=='success'||Number(data.season?.year)!==2027||
     (data.team?.id!=null&&String(data.team.id)!==String(teamId)))return answer;
@@ -21,14 +21,16 @@ function verifiedPortraits(data,players,teamId){
   const key=normalName(a?.fullName||a?.displayName)+'|'+jersey(a?.jersey);
   if(!key.split('|')[0]||!key.split('|')[1])continue;
   count.set(key,(count.get(key)||0)+1);
-  keyed.set(key,safe(a?.headshot?.href));
+  keyed.set(key,{photo:safe(a?.headshot?.href),id:a?.id});
  }
  const sourceCounts=new Map();
  for(const key of rosterKeys)sourceCounts.set(key,(sourceCounts.get(key)||0)+1);
  for(let i=0;i<players.length;i++){
   const key=rosterKeys[i];
   if(count.get(key)!==1||sourceCounts.get(key)!==1||!keyed.get(key))continue;
-  answer.set(key,keyed.get(key));
+  const {photo,id}=keyed.get(key);
+  if(photo)answer.set(key,photo);
+  if(/^\d+$/.test(String(id||'')))identities?.set(key,id);
  }
  return answer;
 }
@@ -57,6 +59,7 @@ async function render(teamId,production){
  const grid=host.querySelector('#wbb-roster-grid');
  const note=host.querySelector('[data-production-note]');
  let photos=new Map(),statRows=[];
+ const identities=new Map();
  const draw=()=>{
   const query=host.querySelector('#wbb-roster-search').value.toLowerCase().trim();
   const position=host.querySelector('#wbb-roster-filter').value;
@@ -67,13 +70,19 @@ async function render(teamId,production){
   });
   grid.innerHTML=rows.length?rows.map(({player,stats})=>{
    const name=player?.name||stats.name;
-   const profile=safe(player?.profile_url);
+   const key=normalName(name)+'|'+jersey(player?.number);
+   const rosterId=player?identities.get(key):null;
+   const statsId=stats?.athleteId;
+   const athleteId=rosterId&&statsId&&String(rosterId)!==String(statsId)?null:rosterId||statsId;
+   const profile=window.SLTCBBRosterProduction.profileHref(athleteId,name,'women',teamId);
+   const sourceProfile=safe(player?.profile_url);
    const number=player?.number!=null&&player.number!==''?'#'+esc(player.number):'';
    const meta=player?[prettyPos(player.position),prettyClass(player.class),player.height].filter(Boolean).map(esc).join(' · '):'Roster unconfirmed';
    const photo=player?photos.get(normalName(name)+'|'+jersey(player.number)):'';
    const box=(stats?.stats||[['GP','—'],['PPG','—'],['RPG','—'],['APG','—'],['SPG','—'],['BPG','—'],['FG%','—']])
     .map(([label,value])=>esc(label)+' <strong>'+esc(value)+'</strong>').join(' · ');
-   const title=profile?'<a class="wbb-player-name" href="'+esc(profile)+'" target="_blank" rel="noopener noreferrer">'+esc(name)+' ↗</a>':
+   const title=profile?'<a class="wbb-player-name" href="'+esc(profile)+'">'+esc(name)+'</a>':
+    sourceProfile?'<a class="wbb-player-name" href="'+esc(sourceProfile)+'" target="_blank" rel="noopener noreferrer">'+esc(name)+' ↗</a>':
     '<strong class="wbb-player-name">'+esc(name)+'</strong>';
    return '<article class="wbb-player-card"><div class="wbb-player-avatar'+(photo?' has-photo':'')+'" aria-hidden="true">'+
     '<span class="wbb-avatar-fallback">'+esc(nameInitials(name))+'</span>'+(photo?'<img src="'+esc(photo)+'" alt="" loading="lazy">':'')+
@@ -100,8 +109,8 @@ async function render(teamId,production){
   const response=await fetch('https://site.api.espn.com/apis/site/v2/sports/basketball/womens-college-basketball/teams/'+
     encodeURIComponent(teamId)+'/roster',{signal:AbortSignal.timeout(8000)});
   if(!response.ok||!host.isConnected)return;
-  photos=verifiedPortraits(await response.json(),players,teamId);
-  if(photos.size)draw();
+  photos=verifiedPortraits(await response.json(),players,teamId,identities);
+  if(photos.size||identities.size)draw();
  }catch{} // Unmatched or unavailable photos use initials.
 }
 w.WBBRosterDesk={render,verifiedPortraits};

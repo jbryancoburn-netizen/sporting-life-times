@@ -32,5 +32,19 @@
     return rows;
   }
 
-  window.SLTCBBRosterProduction = {join};
+  function profileHref(id, name, gender, team) {
+    if (!/^\d+$/.test(String(id || '')) || !name) return '';
+    return 'cbb-player.html?' + new URLSearchParams({player:id, season:'2027', gender, name, team});
+  }
+
+  function portraitId(value, gender) {
+    try {
+      const photo = new URL(value);
+      if (photo.origin !== 'https://a.espncdn.com') return '';
+      const match = /^\/i\/headshots\/(mens|womens)-college-basketball\/players\/full\/(\d+)\.png$/.exec(photo.pathname);
+      return match?.[1] === gender+'s' ? match[2] : '';
+    } catch { return ''; }
+  }
+
+  window.SLTCBBRosterProduction = {join, profileHref, portraitId};
 })();

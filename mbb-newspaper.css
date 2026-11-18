@@ -739,3 +739,9 @@ body[data-page="team"] #team-player-production .victorian-production-source{marg
 
 /* One Victorian wordmark across newspaper mastheads; typography only. */
 .masthead a,.masthead h1{font-family:'Bodoni Moda','Didot','Bodoni MT',Georgia,serif!important;font-weight:800!important;letter-spacing:-.055em!important}
+.victorian-player-production .mbb-production-filters{display:flex;align-items:end;flex-wrap:wrap;gap:.65rem 1rem;margin:.6rem 0 .85rem}
+.victorian-player-production .mbb-production-filters label{display:grid;gap:.25rem}
+.victorian-player-production .mbb-production-player{display:flex;align-items:center;gap:.65rem;min-width:0}
+.victorian-player-production .mbb-production-player .mbb-player-image-wrap{flex:0 0 52px;width:52px;height:56px;min-width:52px;margin:0}
+.victorian-player-production .mbb-production-player small{display:block;white-space:normal}
+.victorian-player-production .slt-player-profile-link{color:inherit;text-decoration:underline;text-underline-offset:.17em}

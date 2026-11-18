@@ -364,9 +364,16 @@ async function teamPage(){const t=teamMap.get(params.get('team'))||teams.find(t=
  const athletes = Number(rosterFeed?.season?.year)===2027 && String(rosterFeed.team?.id)===String(ids.get(t.team_id))
    ? (rosterFeed.athletes||[]).flatMap(x=>Array.isArray(x?.items)?x.items:[x]).filter(p=>p?.displayName)
    : [];
+ const rosterTools = window.SLTCBBRosterProduction;
  const rosterRows = official
    ? rosterSnapshot.players.filter(p=>p?.name).map(p=>({name:p.name,position:p.position,year:p.year,jersey:p.jersey,image:p.headshot_url}))
-   : athletes.map(p=>({name:p.displayName,position:p.position?.abbreviation,year:p.experience?.abbreviation,jersey:p.jersey,image:p.headshot?.href}));
+   : athletes.map(p=>({name:p.displayName,position:p.position?.abbreviation,year:p.experience?.abbreviation,jersey:p.jersey,image:p.headshot?.href,athleteId:p.id}));
+ for(const {player,stats} of rosterTools.join(rosterRows,athletes.map(p=>({name:p.displayName,id:p.id,jersey:p.jersey})))){
+   if(!player)continue;
+   const photoId=rosterTools.portraitId(player.image,'men');
+   const feedId=stats&&String(stats.jersey??'')===String(player.jersey??'')?String(stats.id||''):'';
+   player.athleteId=player.athleteId||(photoId&&feedId&&photoId!==feedId?'':feedId||photoId);
+ }
  const history=[...(a?.games||[]),...games].filter(g=>gid(g).includes(t.team_id)).sort((a,b)=>b.date.localeCompare(a.date));
 const statisticalRegister=window.SLTBasketballStats;const seasonFinals=ledger?.season==='2026-27'&&Array.isArray(ledger.games)?ledger.games:[];const seasonStats=statisticalRegister?.fromGames(seasonFinals,t.team_id,{homeKey:'home_id',awayKey:'away_id'});const statsSheet=statisticalRegister?.register(seasonStats,{note:'2026–27 Division I final-score ledger. Results outside this verified dataset are not included in these averages.'})||'';
 const r=resumes.get(t.team_id);const branding=await get('data/mbb-branding.json');const color=branding?.teams?.[ids.get(t.team_id)]?.color||window.MBBLogos.colorForESPN(ids.get(t.team_id))?.primary?.replace('#','');if(/^[a-f0-9]{6}$/i.test(color||''))document.documentElement.style.setProperty('--team','#'+color);
@@ -380,9 +387,9 @@ const r=resumes.get(t.team_id);const branding=await get('data/mbb-branding.json'
  const options = field => [...new Set(rosterRows.map(p=>p[field]).filter(Boolean))].sort()
    .map(value=>'<option value="'+esc(value)+'">'+esc(value)+'</option>').join('');
  production.innerHTML = header('2026–27 Season Register','Team Roster & Player Production')+
-   '<label>Find a player <input type="search" class="input" data-roster-search></label> '+
+   '<div class="mbb-production-filters"><label>Find a player <input type="search" class="input" data-roster-search></label> '+
    '<label>Position <select data-roster-position><option value="">All positions</option>'+options('position')+'</select></label> '+
-   '<label>Class <select data-roster-year><option value="">All classes</option>'+options('year')+'</select></label>'+
+   '<label>Class <select data-roster-year><option value="">All classes</option>'+options('year')+'</select></label></div>'+
    '<div id="team-player-production-table"></div>'+
    '<p class="note">Dashes indicate unavailable statistics. Players listed only in box scores have unconfirmed roster details.</p>'+
    (rosterSource?'<p class="note"><a href="'+rosterSource+'">Roster source</a> · Verified '+when(rosterSnapshot.fetched_at||rosterSnapshot.verified_on)+'</p>':'')+
@@ -409,7 +416,7 @@ const r=resumes.get(t.team_id);const branding=await get('data/mbb-branding.json'
    const sortDir = activeTable?.dataset.sortDir;
    const rows = (currentPlayers?.season==='2026-27' ? currentPlayers.players||[] : []).filter(p=>p.team_id===t.team_id && p.name);
    const merged = window.SLTCBBRosterProduction.join(rosterRows, rows)
-     .map(({player,stats})=>({...stats,name:player?.name||stats.name,roster:player}))
+     .map(({player,stats})=>({...stats,name:player?.name||stats.name,roster:player,team_id:t.team_id}))
      .sort((a,b)=>(b.pts??-Infinity)-(a.pts??-Infinity)||a.name.localeCompare(b.name));
    tableHost.innerHTML = playerTable(merged,true);
    if (sortKey) {
@@ -460,12 +467,14 @@ function playerTable(rows,teamRoster=false){
    const details = roster ? [roster.jersey!=null&&roster.jersey!==''?'#'+roster.jersey:'',roster.position,roster.year].filter(Boolean).join(' · ') : 'Roster unconfirmed';
    const image = url(roster?.image);
    const initials = p.name.trim().split(/\s+/).slice(0,2).map(part=>part[0]).join('');
-   return '<span class="mbb-player-image-wrap">'+
-     (image?'<img class="mbb-player-photo" loading="lazy" decoding="async" src="'+image+'" alt="" onerror="this.remove()">':'')+
+   const profile=window.SLTCBBRosterProduction.profileHref(roster?.athleteId,p.name,'men',p.team_id);
+   const name=profile?'<a class="slt-player-profile-link" href="'+esc(profile)+'">'+esc(p.name)+'</a>':esc(p.name);
+   return '<div class="mbb-production-player"><span class="mbb-player-image-wrap">'+
+     (image?'<img class="mbb-player-photo" loading="lazy" decoding="async" width="64" height="72" src="'+image+'" alt="" onerror="this.remove()">':'')+
      '<span class="mbb-photo-missing" aria-hidden="true">'+esc(initials)+'</span></span>'+
-     '<strong>'+esc(p.name)+'</strong><br><small>'+esc(details)+'</small>';
+     '<span><strong>'+name+'</strong><small>'+esc(details)+'</small></span></div>';
  };
- return mobileSort+'<div class="table-wrap"><table class="slt-sortable-production"><thead><tr>'+
+ return mobileSort+'<div class="table-wrap'+(teamRoster?' roster-table-wrap':'')+'"><table class="slt-sortable-production"><thead><tr>'+
  headings.map(([label,key])=>'<th scope="col" aria-sort="none"><button type="button" class="slt-sort-heading" data-sort="'+key+'" aria-label="Sort by '+label+'">'+label+' <span class="slt-sort-arrow" aria-hidden="true">↕</span></button></th>').join('')+
  '</tr></thead><tbody>'+rows.map(p=>'<tr'+(teamRoster?' data-position="'+esc(p.roster?.position)+'" data-year="'+esc(p.roster?.year)+'"':'')+
  '<td data-label="Player">'+playerCell(p)+'</td>'+
