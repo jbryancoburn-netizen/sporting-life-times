@@ -4,7 +4,7 @@
   "status": "primary_live_earned_elo",
   "model": "team_only_reset1500_home40_k24_sqrt_mov",
   "source": "data/nba-2026-27-current-provisional.json",
-  "games_played": 206,
+  "games_played": 208,
   "parameters": {
     "season_start_elo": 1500,
     "home_elo": 40,
@@ -15,11 +15,11 @@
   "rankings": [
     {
       "team": "SAS",
-      "elo": 1621.894,
-      "games": 14,
+      "elo": 1604.426,
+      "games": 15,
       "forecast_prior": 1686.2685,
-      "live_elo": 1695.96,
-      "difference_from_live": -74.066
+      "live_elo": 1676.009,
+      "difference_from_live": -71.583
     },
     {
       "team": "LAL",
@@ -39,11 +39,11 @@
     },
     {
       "team": "MIN",
-      "elo": 1586.952,
-      "games": 14,
+      "elo": 1590.05,
+      "games": 15,
       "forecast_prior": 1579.08,
-      "live_elo": 1605.193,
-      "difference_from_live": -18.241
+      "live_elo": 1614.14,
+      "difference_from_live": -24.09
     },
     {
       "team": "HOU",
@@ -62,12 +62,20 @@
       "difference_from_live": 116.677
     },
     {
-      "team": "POR",
-      "elo": 1562.467,
+      "team": "DET",
+      "elo": 1560.704,
       "games": 13,
+      "forecast_prior": 1609.7759999999998,
+      "live_elo": 1621.87,
+      "difference_from_live": -61.166
+    },
+    {
+      "team": "POR",
+      "elo": 1559.368,
+      "games": 14,
       "forecast_prior": 1520.0812500000002,
-      "live_elo": 1579.234,
-      "difference_from_live": -16.767
+      "live_elo": 1570.287,
+      "difference_from_live": -10.919
     },
     {
       "team": "PHI",
@@ -84,14 +92,6 @@
       "forecast_prior": 1704.7305,
       "live_elo": 1642.335,
       "difference_from_live": -90.312
-    },
-    {
-      "team": "DET",
-      "elo": 1543.236,
-      "games": 12,
-      "forecast_prior": 1609.7759999999998,
-      "live_elo": 1601.919,
-      "difference_from_live": -58.683
     },
     {
       "team": "NYK",
@@ -3756,6 +3756,40 @@
       "home_elo_change": -11.03651762898283,
       "home_after": 1467.606117535105,
       "away_after": 1540.2933956809188
+    },
+    {
+      "id": "espn-nba-401910003",
+      "date": "2026-11-18T01:00:00.000Z",
+      "home": "MIN",
+      "away": "POR",
+      "home_score": 106,
+      "away_score": 105,
+      "home_before": 1586.9517012684803,
+      "away_before": 1562.4667409712563,
+      "home_win_probability": 0.5917501822042815,
+      "forecast_home_win_probability": 0.6074502574022479,
+      "forecast_prior_weight_home": 0.3125,
+      "forecast_prior_weight_away": 0.32608695652173914,
+      "home_elo_change": 3.0983982685997082,
+      "home_after": 1590.05009953708,
+      "away_after": 1559.3683427026565
+    },
+    {
+      "id": "espn-nba-401910004",
+      "date": "2026-11-18T01:00:00.000Z",
+      "home": "SAS",
+      "away": "DET",
+      "home_score": 93,
+      "away_score": 105,
+      "home_before": 1621.893979087904,
+      "away_before": 1543.2364520500366,
+      "home_win_probability": 0.6644185575752194,
+      "forecast_home_win_probability": 0.6611159828822564,
+      "forecast_prior_weight_home": 0.3125,
+      "forecast_prior_weight_away": 0.3409090909090909,
+      "home_elo_change": -17.468017517231644,
+      "home_after": 1604.4259615706724,
+      "away_after": 1560.7044695672682
     }
   ]
 }
