@@ -29,24 +29,31 @@
   right: max(.75rem, env(safe-area-inset-right));
   bottom: max(.75rem, env(safe-area-inset-bottom));
   display: flex;
-  gap: .25rem;
-  padding: .25rem;
-  background: #f7f0e2;
-  border: 1px solid #806c4e;
-  box-shadow: 0 2px 6px #0003;
+  align-items: center;
+  padding-inline: .25rem;
+  border: 1px solid #a99576;
+  background: #faf5e9;
 }
 .sl-page-jumps button {
   min-height: 44px;
-  padding: .375rem .625rem;
-  border: 1px solid #806c4e;
-  background: #0a2734;
-  color: #fff8eb;
-  font: 700 .875rem Georgia, serif;
+  padding: 0 .625rem;
+  border: 0;
+  background: transparent;
+  color: #342a20;
+  font: 600 .875rem Georgia, serif;
   cursor: pointer;
 }
+.sl-page-jumps button:hover {
+  text-decoration: underline;
+  text-underline-offset: .2em;
+}
 .sl-page-jumps button:focus-visible {
-  outline: 2px solid #e4ba74;
-  outline-offset: -4px;
+  outline: 2px solid #806c4e;
+  outline-offset: -3px;
+}
+.sl-page-jump-rule {
+  height: .85rem;
+  border-inline-start: 1px solid #a99576;
 }
 </style>
 </head>
@@ -97,6 +104,7 @@
 <noscript><p class="sl-noscript">JavaScript is required for the live schedule. <a href="ncaam.html">Visit the college basketball front page.</a></p></noscript>
 <nav class="sl-page-jumps" aria-label="Jump within the Daily Ledger">
  <button type="button" id="sl-jump-top" aria-label="Jump to top of the Daily Ledger">Top</button>
+ <span class="sl-page-jump-rule" aria-hidden="true"></span>
  <button type="button" id="sl-jump-bottom" aria-label="Jump to bottom of the Daily Ledger">Bottom</button>
 </nav>
 <script>
