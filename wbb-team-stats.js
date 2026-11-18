@@ -68,10 +68,6 @@ async function render(id){
  }catch{}
  const summary=summarizeFinals(source,id);
  host.innerHTML=summary?teamMarkup(summary):'<div class="wbb-season-awaiting"><strong>Verified team statistics unavailable</strong><p>The women’s final-score ledger could not be validated. We will not substitute men’s or earlier-season results.</p></div>';
- const panel=document.createElement('section');
- panel.className='wbb-player-leaders-panel';
- panel.innerHTML='<h3>2026–27 Player Leaders</h3><p class="wbb-muted">Checking current-season women’s statistics…</p>';
- host.appendChild(panel);
  const url='https://site.web.api.espn.com/apis/site/v2/sports/basketball/womens-college-basketball/teams/'+encodeURIComponent(id)+'/athletes/statistics?season=2027';
  try{
   const resp=await fetch(url,{signal:AbortSignal.timeout(12000)});
@@ -79,39 +75,23 @@ async function render(id){
   const data=validatedESPN(await resp.json(),id);
   if(!data)throw Error('current-season player statistics not yet validated');
   if(data.fields.length){
-   const html=data.fields.map(([key,label])=>'<div class="wbb-stat"><small>'+esc(label)+'</small><strong>'+
-    esc(data.totals.get(key).displayValue||Number(data.totals.get(key).value).toFixed(1))+'</strong></div>').join('');
-   panel.insertAdjacentHTML('beforebegin',(window.SLTBasketballStats?.extras(data.fields.map(([key,label])=>[label,data.totals.get(key).displayValue||Number(data.totals.get(key).value).toFixed(1)]),{heading:'Shooting & possession',note:'2026–27 source-reported women’s totals · '+data.totals.get('gamesPlayed').displayValue+' games.'})||'')+'<p class="wbb-muted"><a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">Statistics source ↗</a></p>');
+   host.insertAdjacentHTML('beforeend',(window.SLTBasketballStats?.extras(data.fields.map(([key,label])=>[label,data.totals.get(key).displayValue||Number(data.totals.get(key).value).toFixed(1)]),{heading:'Shooting & possession',note:'2026–27 source-reported women’s totals · '+data.totals.get('gamesPlayed').displayValue+' games.'})||'')+'<p class="wbb-muted"><a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">Statistics source ↗</a></p>');
   }
-  const categories=[['avgPoints','Scoring'],['avgRebounds','Rebounding'],['avgAssists','Assists'],
-   ['avgSteals','Steals'],['avgBlocks','Blocks']];
-  if(!data.people.length)throw Error('verified player leaders not yet available');
-  const options=categories.filter(([k])=>data.people.some(p=>Number(p.values.get('gamesPlayed')?.value)>0&&Number.isFinite(Number(p.values.get(k)?.value))));
-  if(!options.length)throw Error('verified player leaders not yet available');
-  panel.innerHTML='<h3>2026–27 Player Leaders</h3><label class="wbb-roster-filter-label">Statistic <select id="wbb-leader-stat">'+
-    options.map(([key,label])=>'<option value="'+esc(key)+'">'+esc(label)+' / game</option>').join('')+
-    '</select></label><div id="wbb-leader-grid" class="wbb-roster-grid"></div>'+
-    '<p class="wbb-muted">Current women’s player statistics · <a href="'+esc(url)+
-    '" target="_blank" rel="noopener noreferrer">Statistical data source ↗</a></p>';
-  const select=panel.querySelector('#wbb-leader-stat'),grid=panel.querySelector('#wbb-leader-grid');
-  const draw=()=>{
-   const selected=select.value;
-   grid.innerHTML=data.people.filter(p=>Number(p.values.get('gamesPlayed')?.value)>0&&
-     Number.isFinite(Number(p.values.get(selected)?.value)))
-    .sort((a,b)=>Number(b.values.get(selected).value)-Number(a.values.get(selected).value))
-    .slice(0,5).map(p=>{
-     const photo=https(p.athlete.headshot?.href);
-     const link=https((p.athlete.links||[]).find(x=>x.rel?.includes('playercard'))?.href);
-     return '<article class="wbb-player-card">'+(photo?'<div class="wbb-player-avatar"><img src="'+esc(photo)+'" alt="" loading="lazy"></div>':'')+
-      '<div class="wbb-player-body"><strong>'+esc(p.athlete.displayName)+'</strong>'+
-      '<span class="wbb-player-meta">'+esc(p.values.get(selected).displayValue)+' per game</span>'+
-      (link?'<a href="'+esc(link)+'" target="_blank" rel="noopener noreferrer">Player profile ↗</a>':'')+
-      '</div></article>';
-    }).join('');
-  };
-  select.addEventListener('change',draw);draw();
+  const stats = [
+    ['GP','gamesPlayed'], ['PPG','avgPoints'], ['RPG','avgRebounds'],
+    ['APG','avgAssists'], ['SPG','avgSteals'], ['BPG','avgBlocks'], ['FG%','fieldGoalPct']
+  ];
+  const people = data.people.filter(p=>Number(p.values.get('gamesPlayed')?.value)>0);
+  return {url, players:people.map(p=>({
+    name:p.athlete.displayName,
+    stats:stats.map(([label,key])=>{
+      const field=p.values.get(key);
+      return [label, field?.value!=null && Number.isFinite(Number(field.value))
+        ? field.displayValue||String(field.value) : '—'];
+    })
+  }))};
  }catch{
-  panel.innerHTML='<h3>2026–27 Player Leaders</h3><p class="wbb-muted">Current-season women’s player statistics are not yet available from the connected statistics source. Verified team results above remain current; no men’s or previous-season player data are substituted.</p>';
+  return null;
  }
 }
 w.WBBTeamStats={render,summarizeFinals,teamMarkup,validatedESPN};
