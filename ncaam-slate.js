@@ -447,11 +447,19 @@ function provisionalRetro(published,live,engine,women=false){
   return {rankings:null,pending:0};
  const all=[...published.events,...extra].sort((a,b)=>
   a.date.localeCompare(b.date)||String(a.id).localeCompare(String(b.id)));
- const result=engine.calculate(all,{baseline:1500,homeEdge,passes});
+ const options={baseline:1500,homeEdge,passes};
+ const result=engine.calculate(all,options);
  if(result.games!==all.length)return {rankings:null,pending:0};
+ const latestDay=all.at(-1).date;
+ const previous=engine.calculate(all.filter(g=>g.date<latestDay),options).ratings;
  const places=women?2:3;
- const rows=published.rankings.map(t=>({...t,
-  elo:Number((result.ratings[String(t.team_id)]??1500).toFixed(places))}));
+ const rows=published.rankings.map(t=>{
+  const id=String(t.team_id);
+  const rating=result.ratings[id]??1500;
+  const elo=Number(rating.toFixed(places));
+  const dailyChange=(women?elo:rating)-(previous[id]??1500);
+  return {...t,elo,daily_change:Number(dailyChange.toFixed(places))};
+ });
  const index=new Map(rows.map(x=>[String(x.team_id),x]));
  for(const f of extra){
   const h=index.get(f.home_id),a=index.get(f.away_id);
