@@ -7,8 +7,8 @@ const vm=require('node:vm');
 const root=path.join(__dirname,'..');
 const source=fs.readFileSync(path.join(root,'cbb-radio-companion.js'),'utf8');
 const css=fs.readFileSync(path.join(root,'cbb-radio-companion.css'),'utf8');
-const html=fs.readFileSync(path.join(root,'cbb-gamefile.html'),'utf8');
-const gamefile=fs.readFileSync(path.join(root,'cbb-live-center.js'),'utf8');
+const html=fs.readFileSync(path.join(root,'ncaam-slate.html'),'utf8');
+const gamefile=fs.readFileSync(path.join(root,'ncaam-slate.js'),'utf8');
 const companion=fs.readFileSync(path.join(root,'cbb-live-court.js'),'utf8');
 const config=JSON.parse(fs.readFileSync(path.join(root,'data/cbb-radio-sources.json'),'utf8'));
 assert.equal(config.schema_version,1);
@@ -23,10 +23,9 @@ assert(!/createMediaStreamDestination|new\s+Blob\s*\(/.test(source),'there is no
 assert(source.includes('getByteTimeDomainData'),'waveform uses in-browser AnalyserNode samples');
 assert(source.includes("document.createElement('audio')")&&source.includes("audio.crossOrigin='anonymous'"),
  'only user-selected, CORS-enabled media elements are analyzable');
-assert(html.includes('cbb-radio-companion.js')&&html.includes('cbb-radio-companion.css'),
- 'the actual Gamefile loads radio companion assets');
-assert(gamefile.includes('id="cbb-radio-companion-root"')&&gamefile.includes('window.SLTRadio.mount('),
- 'radio root is mounted outside frequently refreshed game statistics');
+assert(html.includes('cbb-radio-calendar.js'),'The Daily Ledger loads the broadcast calendar');
+assert(gamefile.includes('data-ledger-radio')&&gamefile.includes('window.SLTRadioCalendar.mountGame('),
+ 'The Daily Ledger loads radio links alongside the game card');
 assert(companion.includes("(global.SLTRadio?'':stationLinks(g))"),'do not duplicate radio blocks');
 assert(css.includes('slr-unavailable')&&css.includes('slr-analysis'),'rights-gated UI is distinct');
 let radio;

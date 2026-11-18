@@ -45,7 +45,8 @@ async function render(feed, fixture={}){
  assert.doesNotMatch(verified,/vs\. <a[^>]+>Villanova|\(N\)<\/span>/,'neutral shorthand is reserved for the Form Book');
  assert.match(verified,/data-game-site="neutral"/,'neutral-site proof overrides nominal home/away');
  assert.match(verified,/data-calendar-state="final"/);
- assert.match(verified,/cbb-gamefile\.html\?day=2026-11-01&amp;game=401920982/);
+ assert.match(verified,/data-stat-id="401920982"/,'Final opens inline statistics on the team schedule');
+ assert.doesNotMatch(verified,/href="cbb-gamefile\.html/);
  assert.match(verified,/Not announced/,'missing broadcast must not be invented');
  const mismatched=await render(ratings([{...final,home_id:'ncaa:other'}]));
  assert.doesNotMatch(mismatched,/W 74–72/,'never attach wrong opponent final');
@@ -219,8 +220,8 @@ async function render(feed, fixture={}){
 
  const newspaper=fs.readFileSync('mbb-newspaper.js','utf8');
  assert.match(newspaper,/card\.dataset\.eloUpdated/,'ratings refresh needs visible team metric update');
- assert.match(newspaper,/cbb-gamefile\.html\?day=/,'college basketball games must retain working Gamefile URLs');
- assert.match(newspaper,/OPEN GAMEFILE ↗/,'Gamefile links must have a visible action label');
+ assert.match(newspaper,/ncaam-slate\.html\?date=/,'College basketball games link to the dated Daily Ledger');
+ assert.match(newspaper,/VIEW IN DAILY LEDGER ↗/,'The game action identifies its Daily Ledger destination');
  const dayBody=newspaper.split('const easternGameDay=value=>{')[1]?.split('};')[0];
  assert(dayBody,'Eastern Time date helper not present');
  const day=new Function('const easternGameDay=value=>{'+dayBody+'};return easternGameDay;')();
