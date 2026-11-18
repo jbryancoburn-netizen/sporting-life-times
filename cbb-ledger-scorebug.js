@@ -715,17 +715,20 @@
   const liveOdds=phase==='live'&&g.retroLiveEnabled?root.SLTRetroLive?.estimate({
    status:label,away:g.away?.score,home:g.home?.score,prior:g.retroLivePrior,
    possession:g.possession,women:g.gender==='women'}):null;
-  const liveRetro=Number.isFinite(liveOdds)?('<div class="ledger26-retro-receipt ledger26-retro-live" title="'+
-   (Number.isFinite(g.retroLivePrior)?'Experimental estimate using the pregame forecast and live game state':'Experimental estimate using live game state and an even starting probability')+
-   '"><strong>RETRO LIVE</strong><span>'+esc(g.away?.abbreviation||g.away?.name)+' '+(100-Math.round(liveOdds*100))+
-   '% · '+esc(g.home?.abbreviation||g.home?.name)+' '+Math.round(liveOdds*100)+'%</span></div>'):'';
+  const homePercent=Number.isFinite(liveOdds)?Math.round(liveOdds*100):null;
+  const liveRetro=phase==='live'&&g.retroLiveEnabled?
+   '<div class="ledger26-retro-live" aria-label="Live win probability"><strong>RETRO LIVE</strong><span>'+
+   (homePercent===null?'Waiting for live score and clock':
+    esc(g.away?.abbreviation||g.away?.name)+' '+(100-homePercent)+'% · '+
+    esc(g.home?.abbreviation||g.home?.name)+' '+homePercent+'%')+'</span></div>':'';
   return '<div class="ledger26-scorebug'+(g.suppressMonogram?' ledger26-scorebug--plain':'')+(middle||phase==='live'&&g.pulseManagedExternally?' ledger26-scorebug--pulse':'')+(phase==='final'?' ledger26-scorebug--final':'')+(phase==='upcoming'?' ledger26-scorebug--pregame':'')+'" role="group" aria-label="'+esc(g.ariaLabel||((g.away?.name||'Away')+' at '+(g.home?.name||'Home')+' scoreboard'))+'">'+
     (g.suppressMonogram?'':'<span class="ledger26-monogram"><img src="assets/slt-engraved-black.svg" width="35" height="49" alt="Sporting Life and Times monogram"></span>')+
     (phase==='live'?'<div class="ledger26-live-headline" role="status" aria-label="Live game clock and period" style="display:flex;align-items:center;justify-content:center;gap:12px;padding:8px 10px;background:#f5e6c8;color:#35271c;border-bottom:2px solid #927657;font:700 13px Georgia,serif;letter-spacing:.025em;text-align:center">'+(function(){const raw=String(label||'LIVE');if(/\b(?:HALFTIME|HALF TIME|INTERMISSION)\b/i.test(raw))return 'HALFTIME';const clock=(raw.match(/\b\d{1,2}:\d{2}\b/)||[])[0]||'CLOCK UNAVAILABLE';const p=(raw.match(/\b(?:1st|2nd|3rd|4th|\d+OT|OT)\b/i)||[])[0]||'';const period=p?(/OT$/i.test(p)?(p.length===2?'OVERTIME':p.toUpperCase()):p.toUpperCase()+(g.gender==='women'||g.periodFormat==='quarters'?' QUARTER':' HALF')):'PERIOD UNAVAILABLE';if(g.liveStatusOverride)return esc(g.liveStatusOverride);return esc(clock)+' <span style="color:#806044">·</span> '+esc(period);})()+'</div>':'')+
+    liveRetro+
     (phase==='final'&&g.compactFinal?'<div class="ledger26-live-headline"><strong>'+esc(label)+'</strong>'+
       (finalResult(g)?' · '+esc(finalResult(g)):'')+'</div>':'')+
     '<div class="ledger26-teams'+(phase==='final'&&!g.compactFinal?' ledger26-teams--final-line':'')+'">'+team(g.away)+middle+team(g.home)+'</div>'+
-    (middle?'':phase==='live'?(g.pulseManagedExternally?'':livePanel(g,label)):phase==='upcoming'?pregamePanel(g):'')+(g.showRetroDesk||phase==='final'&&!g.compactFinal?finalRetroDesk(g):'')+liveRetro+receipt+(phase==='upcoming'&&!g.suppressPress?preview(g).split('<dialog')[0]:'')+'</div>';
+    (middle?'':phase==='live'?(g.pulseManagedExternally?'':livePanel(g,label)):phase==='upcoming'?pregamePanel(g):'')+(g.showRetroDesk||phase==='final'&&!g.compactFinal?finalRetroDesk(g):'')+receipt+(phase==='upcoming'&&!g.suppressPress?preview(g).split('<dialog')[0]:'')+'</div>';
  }
  // The Daily Ledger is the universal newspaper model, not a separate sport skin.
  // Keep the old alias for existing college basketball pages.
