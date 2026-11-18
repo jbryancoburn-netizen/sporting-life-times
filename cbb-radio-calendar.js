@@ -18,8 +18,18 @@
  const oregon = 'https://goducks.com/sports/2004/8/5/68136';
  const usc = 'https://usctrojans.com/sports/2021/9/1/download-the-new-usc-trojans-gameday-mobile-app';
  const virginia = 'https://virginiasports.com/radio';
+ const uni = 'https://unipanthers.com/news/2026/8/27/general-uni-athletics-and-panther-sports-properties-announce-broadcast-renewal-with-coloff-media';
+ const ndsu = 'https://gobison.com/coverage';
+ const montanaState = 'https://msubobcats.com/sports/2026/11/17/fan-central';
  const affiliates = {
   men: {
+   '70': ['Vandal Radio Network', 'https://govandals.com/news/2026/11/17/mens-basketball-idaho-heads-to-reno-to-face-wolf-pack.aspx'],
+   '93': ['Froggy 103.7 FM', 'https://goracers.com/sports/mens-basketball/schedule'],
+   '147': ['Bobcat Sports Radio Network', montanaState],
+   '2168': ['WHIO Radio', 'https://daytonflyers.com/sports/mens-basketball/schedule'],
+   '2181': ['ESPN Des Moines 1350 AM / 102.1 FM', 'https://godrakebulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true'],
+   '2449': ['Bison 1660 · 107.9 FM The Fox', ndsu],
+   '2460': ['KCVM 93.5 FM · KHAM 103.1 FM · KCHA 1580 AM / 103.3 FM', uni],
    '30': ['Trojan Radio Network', usc],
    '142': ['KTGR · Tiger Network affiliates', mizzou],
    '197': ['Cowboy Radio Network', 'https://okstate.com/listen'],
@@ -50,6 +60,11 @@
    '130': ['94.7 FM WCSX', 'https://mgoblue.com/sports/2017/6/16/mens-basketball-broadcast-information']
   },
   women: {
+   '147': ['Bobcat Sports Radio Network', montanaState],
+   '302': ['KDVS 90.3 FM', 'https://ucdavisaggies.com/schedule.aspx?path=wbball&season=2026-27'],
+   '2006': ['WHLO 640 AM', 'https://gozips.com/sports/womens-basketball/schedule/'],
+   '2449': ['Bison 1660', ndsu],
+   '2460': ['Corn Country 106.5 FM / 93.5 HD-2', uni],
    '12': ['Freedom 1400 AM', 'https://arizonawildcats.com/sports/womens-basketball/schedule/'],
    '30': ['Trojan Radio Network', usc],
    '52': ['96.5 FM · Seminoles Game Day App', 'https://seminoles.com/sports/womens-basketball/schedule'],
