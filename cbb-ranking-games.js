@@ -6,7 +6,6 @@ const day = new Intl.DateTimeFormat('sv-SE', {timeZone: zone});
 const label = new Intl.DateTimeFormat('en-US', {timeZone: zone, month: 'short', day: 'numeric'});
 const tip = new Intl.DateTimeFormat('en-US', {timeZone: zone, hour: 'numeric', minute: '2-digit', timeZoneName: 'short'});
 const dayOf = value => /^\d{4}-\d{2}-\d{2}$/.test(value) ? value : day.format(new Date(value));
-const result = (score, other) => (Number(score) > Number(other) ? 'W ' : 'L ') + score + '–' + other;
 const scoreValid = value => value != null && value !== '' && Number.isInteger(Number(value)) && Number(value) >= 0;
 const excluded = game => game.exhibition === true || game.exhibition_canceled === true ||
  /exhibition|scrimmage|preseason|cancel|postpon/i.test([
@@ -20,17 +19,37 @@ const read = async path => {
  } catch { return null; }
 };
 const pending = new Map();
-const segments = (recent, next) => {
- const box = document.createElement('small');
-
- for (const [title, value] of [['Last', recent], ['Next', next]]) {
-  const line = document.createElement('span');
-  if (box.childNodes.length) box.append(document.createElement('br'));
-  line.textContent = title + ' · ' + value;
-  box.append(line);
+function element(tag, className, text) {
+ const item = document.createElement(tag);
+ item.className = className;
+ item.textContent = text;
+ return item;
+}
+function gameSlips(last, next) {
+ const slips = element('span', 'cbb-ranking-games', '');
+ for (const [title, game, empty] of [
+  ['Last game', last, 'No final available'],
+  ['Next game', next, 'No upcoming game listed']
+ ]) {
+  const slip = element('span', 'cbb-ranking-game', '');
+  slip.append(element('span', 'cbb-ranking-game__label', title));
+  if (game) {
+   slip.classList.add('cbb-ranking-game--' + game.kind);
+   slip.append(element('span', 'cbb-ranking-game__opponent', game.location + ' ' + game.opponent));
+   const detail = element('span', 'cbb-ranking-game__detail', '');
+   if (game.scoreline) detail.append(element('span', 'cbb-ranking-game__score', game.scoreline));
+   const date = element('time', '', game.dateLabel);
+   date.dateTime = game.day;
+   detail.append(date);
+   if (game.tipoff) detail.append(element('span', 'cbb-ranking-game__tip', game.tipoff));
+   slip.append(detail);
+  } else {
+   slip.append(element('span', 'cbb-ranking-game__empty', empty));
+  }
+  slips.append(slip);
  }
- return box;
-};
+ return slips;
+}
 function attach(root, gender, retro, directory) {
  const women = gender === 'women';
  const nodes = [...root.querySelectorAll('[data-ranking-games]')];
@@ -105,17 +124,23 @@ function attach(root, gender, retro, directory) {
   const upcoming = calendar.filter(game => fixtures.includes(game) && !game.completed && !game.active && dayOf(game.date) >= today &&
    !finishedDates.has(dayOf(game.date)) && (!game.date.endsWith('Z') || Date.parse(game.date) > Date.now()));
   upcoming.sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
-  const describe = game => game.location + ' ' + game.opponent + ' · ' + label.format(new Date(dayOf(game.date) + 'T12:00:00Z'));
+  const describe = game => ({
+   location: game.location, opponent: game.opponent, day: dayOf(game.date),
+   dateLabel: label.format(new Date(dayOf(game.date) + 'T12:00:00Z'))
+  });
   const last = finals[0], next = upcoming[0];
   const time = next?.officialTime || (next?.date.endsWith('Z') && !/T(?:00:00|05:00)Z$/.test(next.date) ? tip.format(new Date(next.date)) : '');
-  return [last ? result(last.score, last.other) + ' ' + describe(last) : 'No final available',
-   next ? describe(next) + (time && time !== 'TBA' ? ' · ' + time : '') : 'No upcoming game listed'];
+  const won = last && Number(last.score) > Number(last.other);
+  return [
+   last && {...describe(last), kind: won ? 'win' : 'loss', scoreline: (won ? 'W ' : 'L ') + last.score + '–' + last.other},
+   next && {...describe(next), kind: 'next', tipoff: time && !/^T(?:BA|BD)$/i.test(time.trim()) ? time : ''}
+  ];
  }
  const fill = async node => {
   const id = node.dataset.rankingGames;
   if (!jobs.has(id)) jobs.set(id, summarize(id));
   const pair = await jobs.get(id);
-  if (node.isConnected) node.replaceChildren(segments(...pair));
+  if (node.isConnected) node.replaceChildren(gameSlips(...pair));
  };
  if (typeof IntersectionObserver !== 'function') {
   nodes.forEach(fill);

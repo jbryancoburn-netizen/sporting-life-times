@@ -1,0 +1,54 @@
+/* Newspaper game slips shared by the RETRO standings and Power 10. */
+.cbb-ranking-games {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 8rem), 1fr));
+  gap: 5px;
+  max-width: 34rem;
+  margin-top: 5px;
+  color: #382b21;
+}
+.cbb-ranking-game {
+  display: grid;
+  align-content: start;
+  gap: 3px;
+  min-width: 0;
+  padding: 6px 8px 7px;
+  border: 1px solid #c8b69a;
+  border-inline-start: 3px solid #8b7156;
+  background: #faf1e2;
+  overflow-wrap: anywhere;
+  text-align: start;
+}
+.cbb-ranking-game--win { border-inline-start-color: #3e6648; }
+.cbb-ranking-game--loss { border-inline-start-color: #8a4236; }
+.cbb-ranking-game--next { border-inline-start-color: #596d7c; background: #f3eee4; }
+.cbb-ranking-game__label {
+  color: #64523f;
+  font: 700 10px/1.2 Arial, sans-serif;
+  letter-spacing: .045em;
+  text-transform: uppercase;
+}
+.cbb-ranking-game__opponent { font: 700 13px/1.25 Georgia, serif; }
+.cbb-ranking-game__detail {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 3px 6px;
+  color: #5d4d3f;
+  font: 12px/1.25 Georgia, serif;
+}
+.cbb-ranking-game__score {
+  padding: 1px 5px;
+  background: #e3eadc;
+  color: #28452e;
+  font: 700 12px/1.3 Arial, sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+.cbb-ranking-game--loss .cbb-ranking-game__score { background: #f0ded5; color: #702f27; }
+.cbb-ranking-game__tip { font-weight: 700; }
+.cbb-ranking-game__empty { color: #64523f; font: 12px/1.25 Georgia, serif; }
+
+.cbb-elo-power:has(> [data-ranking-games]) { flex-wrap: wrap; }
+.cbb-elo-power > [data-ranking-games] { flex: 0 0 100%; grid-column: 1 / -1; min-width: 0; }
+.cbb-elo-power > [data-ranking-games]:empty { display: none; }
+.cbb-elo-power .cbb-ranking-games { max-width: none; margin-top: 0; }

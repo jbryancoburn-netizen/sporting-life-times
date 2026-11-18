@@ -160,13 +160,14 @@ body .rank-table tbody td:first-child .rank-number::after{
  body .rank-table tbody td:first-child .rank-number::before{background:Canvas}
  .rank-number-art{stroke:CanvasText}
 }
-</style></head>
+</style><link rel="stylesheet" href="cbb-ranking-games.css?v=newspaper-game-slips-20261118">
+</head>
 <body><div class="rank-paper"><header class="rank-mast"><a href="index.html">Sporting Life &amp; Times</a><p>THE HARDWOOD CHRONICLE · THE NATIONAL TABLE · 2026–27</p></header>
 <nav class="nav cbb-universal-nav" aria-label="College basketball navigation"><div class="cbb-gender-bar cbb-edition-switch" role="group" aria-label="College basketball edition"><a class="cbb-gender-option" href="ncaam.html">Men</a><a class="cbb-gender-option" href="ncaam.html?gender=women">Women</a></div><a href="ncaam.html">The Hardwood Chronicle</a><a href="ncaam-slate.html">Daily Ledger</a><a href="ncaam-conference.html">Conferences</a><a href="ncaam-tournament.html">Bracket Watch</a><a href="ncaam-elo.html">RETRO Rankings</a><a href="retro-intelligence.html">RETRO Intelligence</a><a href="ncaam-players.html">Player Leaders</a><a href="sports.html">All Sports</a></nav>
 <main><p class="rank-overline">College Basketball / Rankings Desk</p><h1 class="rank-title" id="rank-heading">The National Rankings</h1><p class="rank-intro" id="rank-intro">Published ratings and national polls, with their original source and as-of date.</p>
 <nav class="rank-tabs" id="rank-tabs" aria-label="Choose rankings"><a href="?poll=retro">RETRO</a><a href="?poll=midmajor">Mid-Major Top 25</a><a href="?poll=net">NET</a><a href="?poll=ap">AP Top 25</a><a href="?poll=coaches">Coaches</a><a href="?poll=kenpom">Pomeroy</a></nav>
 <div id="rank-status" class="rank-status"></div><div id="rank-content" aria-live="polite">Loading rankings…</div></main><footer class="rank-note">Sporting Life &amp; Times · Data is not substituted across ranking systems. Each ranking keeps its own source and publication date. <a href="cbb-logo-credits.html">Historical logo credits</a>.</footer></div>
-<script src="cbb-ranking-games.js?v=mid-major-ranking-games-20261118"></script><script src="retro-ranking-explainer.js?v=20261115-plain-language"></script><script>
+<script src="cbb-ranking-games.js?v=newspaper-game-slips-20261118"></script><script src="retro-ranking-explainer.js?v=20261115-plain-language"></script><script>
 (async()=>{'use strict';const params=new URLSearchParams(location.search),gender=params.get('gender')==='women'?'women':'men';const key=params.get('poll')||'retro',titles={retro:'RETRO Power Rankings',midmajor:'Mid-Major Top 25',net:'NCAA NET Rankings',ap:'Associated Press Top 25',coaches:'Coaches Top 25',kenpom:'Pomeroy Ratings'};const k=Object.hasOwn(titles,key)?key:'retro';document.title=(gender==='women'?'Women’s ':'Men’s ')+titles[k]+' | Sporting Life & Times';document.getElementById('rank-heading').textContent=(gender==='women'?'Women’s ':'Men’s ')+titles[k];document.body.classList.toggle('rank-retro-edition',k==='retro');for(const a of document.querySelectorAll('#rank-tabs a')){const u=new URL(a.href);u.searchParams.set('gender',gender);a.href=u.search;if(u.searchParams.get('poll')===k)a.setAttribute('aria-current','page');}
 const e=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c]));
 
