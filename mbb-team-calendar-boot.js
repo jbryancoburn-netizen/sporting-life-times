@@ -302,6 +302,84 @@ const formGames=finalArchive.map(g=>({...g,home_id:ncaaByEspn.get(g.home),away_i
   }
   games.sort((a,b)=>a.date.localeCompare(b.date));
  }
+ // Published bracketed MTEs outside Players Era. The last round always has a
+ // slot even when the school feed omits its opponent-dependent fixture.
+ const otherBrackets=[
+  ['Baha Mar Hoops Bahamas Championship','Nassau, Bahamas','Baha Mar Convention Center','11-19','11-20',null,[[93,152],[2550,275]]],
+  ['Paradise Jam','St. Thomas, U.S. Virgin Islands','University of the Virgin Islands','11-20',['11-21','11-22'],'11-23',[[218,2393],[282,2617],[2630,79],[151,3084]]],
+  ['Acrisure Series','Palm Desert, Calif.','Acrisure Arena','11-22','11-23',null,[[2547,28],[23,2350]]],
+  ['Acrisure Series','Palm Desert, Calif.','Acrisure Arena','11-24','11-25',null,[[2253,139],[24,38]]],
+  ['Maui Invitational','Lahaina, Hawaii','Lahaina Civic Center','11-23','11-24','11-25',[[145,228],[264,252],[2670,2507],[36,12]]],
+  ['Cancún Challenge · Mayan Division','Cancún, Mexico','','11-24','11-25',null,[[2545,2458],[155,2174]]],
+  ['Cancún Challenge · Riviera Division','Cancún, Mexico','','11-24','11-25',null,[[2199,338],[2638,232]]],
+  ['Battle 4 Atlantis Championship','Paradise Island, Bahamas','Imperial Arena','11-25','11-27',null,[[235,213],[154,344]]],
+  ['Rady Children’s Invitational','San Diego, Calif.','','11-26','11-27',null,[[46,251],[26,2608]]],
+  ['Don Haskins Sun Bowl Invitational','El Paso, Texas','Don Haskins Center','12-20','12-21',null,[[2309,2437],[47,2638]]]
+ ];
+ if(data.season==='2026-27')for(const [label,city,arena,opening,roundTwo,roundThree,pairs] of otherBrackets){
+  const idPairs=pairs.map(pair=>pair.map(String));
+  const index=idPairs.findIndex(pair=>pair.includes(teamId));
+  if(index<0)continue;
+  const day=value=>'2026-'+value;
+  const field=idPairs.flat();
+  const result=(dates,ids,others)=>dates.flatMap(date=>ids.flatMap(a=>others.map(b=>
+   verifiedFinals.get(gameKey(day(date),a,b))))).find(Boolean);
+  const winner=g=>g.home_score>g.away_score?g.home:g.away;
+  const advance=(game,ids,wins)=>{
+   if(!game||wins===null)return ids;
+   return ids.filter(id=>(winner(game)===id)===wins);
+  };
+  const openingResult=result([opening],[teamId],idPairs[index]);
+  const upper=openingResult?winner(openingResult)===teamId:null;
+  const secondDates=Array.isArray(roundTwo)?roundTwo:[roundTwo];
+  const secondDate=Array.isArray(roundTwo)?upper===null?null:roundTwo[Number(upper)]:roundTwo;
+  const secondPair=idPairs[index^1];
+  const next=advance(result([opening],[secondPair[0]],[secondPair[1]]),secondPair,upper);
+  const secondResult=result(secondDates,[teamId],next);
+  const addSlot=(dates,date,candidates,round,final)=>{
+   const existing=games.filter(e=>dates.some(d=>e.date.slice(0,10)===day(d))&&(()=>{
+    const c=e.competitions[0];
+    const other=c.competitors.find(x=>String(x.team?.id)!==teamId)?.team;
+    const words=[e.name,e.tournament,c.venue?.fullName,other?.displayName].join(' ');
+    const token=norm(label.split(' · ')[0]);
+    return field.includes(String(other?.id))||field.includes(exactId(other?.displayName))||
+     norm(words).includes(token)||(arena&&norm(words).includes(norm(arena)))||norm(words).includes(norm(city));
+   })());
+   const known=final?(final.home===teamId?final.away:final.home):candidates.length===1?candidates[0]:'';
+   const linked=existing.find(e=>e.competitions[0].competitors.some(x=>String(x.team?.id)===known&&known));
+   const row=linked||existing[0];
+   const opponent=known?schoolByEspn.get(known)?.name:candidates.map(id=>schoolByEspn.get(id)?.name).join(' or ');
+   const slotDate=final?.date||((date&&day(date))||row?.date.slice(0,10)||day(dates[0]));
+   const c=row?.competitions[0];
+   const ambiguousDate=!final&&!date&&!row;
+   const sunBowl=label.startsWith('Don Haskins');
+   for(const old of existing)games.splice(games.indexOf(old),1);
+   games.push({...row,id:final?.id||row?.id||'mte-'+norm(label)+'-'+slotDate+'-'+teamId,
+    date:slotDate+'T12:00:00-05:00',dateWindow:ambiguousDate?dates.map(day):undefined,
+    name:opponent,tournament:label+' · '+round,
+    official_school_time:linked?.official_school_time||'',official_time:linked?.official_time||'',
+    neutralSite:sunBowl?row?.neutralSite:true,site_verified:sunBowl?row?.site_verified:true,
+    competitions:[{...c,competitors:[
+     {homeAway:sunBowl?c?.competitors.find(x=>String(x.team?.id)===teamId)?.homeAway:'neutral',team:{id:teamId,displayName:team.name}},
+     {homeAway:'neutral',team:{id:known,displayName:opponent||'Opponent TBD'}}
+    ],venue:{...c?.venue,fullName:arena||c?.venue?.fullName||city,
+     arenaName:arena||c?.venue?.arenaName,official_school_city:city}}]});
+  };
+  const wonSecond=secondResult?winner(secondResult)===teamId:null;
+  addSlot(secondDates,secondDate,next,roundThree?(upper===null?'Second round':upper?'Semifinal':'Consolation semifinal'):
+   upper===null?'Championship or consolation':upper?'Championship':'Consolation',secondResult);
+  if(roundThree){
+   const opposite=idPairs.slice(index<2?2:0,index<2?4:2).map(ids=>
+    advance(result([opening],[ids[0]],[ids[1]]),ids,upper));
+   const nextResult=result(secondDates,opposite[0],opposite[1]);
+   const candidates=advance(nextResult,opposite.flat(),wonSecond);
+   addSlot([roundThree],roundThree,candidates,upper===null?'Placement game':upper?
+    wonSecond===null?'Championship or third place':wonSecond?'Championship':'Third place':
+    wonSecond===null?'Fifth or seventh place':wonSecond?'Fifth place':'Seventh place',
+    result([roundThree],[teamId],candidates));
+  }
+ }
+ games.sort((a,b)=>a.date.localeCompare(b.date));
  const month=new Intl.DateTimeFormat('en-US',{month:'long',year:'numeric',timeZone:'America/New_York'});
  const cells=games.map(e=>{
   const c=e.competitions[0],contestants=c.competitors||[];
@@ -316,7 +394,7 @@ const formGames=finalArchive.map(g=>({...g,home_id:ncaaByEspn.get(g.home),away_i
   const accentStyle=/^#[0-9a-f]{6}$/i.test(accent||'')?' style="--schedule-team-color:'+accent+'"':'';
   const emblem=window.MBBLogos.byESPN(opponentId,'schedule',opponentName);
   const date=new Date(e.date);
-  const day=Number.isFinite(+date)?date.toLocaleDateString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',year:'numeric'}):e.date.slice(0,10);
+  const day=e.dateWindow?e.dateWindow[0].slice(5,7)+'/'+e.dateWindow[0].slice(8,10)+' or '+e.dateWindow[1].slice(5,7)+'/'+e.dateWindow[1].slice(8,10):Number.isFinite(+date)?date.toLocaleDateString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',year:'numeric'}):e.date.slice(0,10);
   const verifiedTip=[e.official_school_time,e.official_time].find(officialClock)||'';
   const confirmed=Boolean(verifiedTip);
   const tip=escape(verifiedTip||'TBA'); // Never present placeholder imported noon as an official tip.
