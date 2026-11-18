@@ -485,7 +485,7 @@ function provisionalRetro(published,live,engine,women=false){
   const winner=f.home_score>f.away_score?h:a,loser=winner===h?a:h;
   winner.wins=Number(winner.wins||0)+1;
   loser.losses=Number(loser.losses||0)+1;
-  if(h.conference&&h.conference===a.conference){
+  if(h.conference&&h.conference===a.conference&&!engine.isNonconferenceGame?.(f.date,f.home_id,f.away_id)){
    winner.conference_wins=Number(winner.conference_wins||0)+1;
    loser.conference_losses=Number(loser.conference_losses||0)+1;
   }
@@ -780,7 +780,8 @@ const lens=g=>{
   if(Number(aw?.wins)>0&&Number(hm?.wins)>0&&Number(aw?.losses)===0&&Number(hm?.losses)===0)
     return ['Unbeaten starts meet','Neither team has lost a verified 2026–27 final. '+leader+
       ' carries the '+Math.round(diff)+'-point rating edge.'];
-  if(aw?.conference&&hm?.conference&&aw.conference===hm.conference)
+  if(aw?.conference&&hm?.conference&&aw.conference===hm.conference&&
+     !window.MBB_RETRO?.isNonconferenceGame?.(g.day,g.away.canonical,g.home.canonical))
     return ['A conference test',g.away.name+' and '+g.home.name+
       ' share the '+aw.conference+'. The current RETRO gap is '+Math.round(diff)+' points.'];
   return [diff<=1?'The numbers are level':leader+' holds the RETRO edge',

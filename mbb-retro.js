@@ -29,5 +29,10 @@ function retro(games,opts={}){
  }
  return {games:events.length,ratings:Object.fromEntries(ratings)};
 }
-root.MBB_RETRO={calculate:retro,version:'basketball-retro-experimental-v1'};
+// Kansas and West Virginia met in the Players Era 8 semifinal outside Big 12 play.
+function isNonconferenceGame(date,a,b){
+ return date==='2026-11-18'&&
+   [a,b].includes('ncaa:609518')&&[a,b].includes('ncaa:609582');
+}
+root.MBB_RETRO={calculate:retro,isNonconferenceGame,version:'basketball-retro-experimental-v1'};
 })(typeof window!=='undefined'?window:globalThis);

@@ -66,7 +66,8 @@ for(const game of games){
  a.games_played++;b.games_played++;
  const winner=game.home_score>game.away_score?a:b,loser=winner===a?b:a;
  winner.wins++;loser.losses++;
- if(byId.get(game.home_id).conference===byId.get(game.away_id).conference){
+ if(byId.get(game.home_id).conference===byId.get(game.away_id).conference&&
+    !globalThis.MBB_RETRO.isNonconferenceGame(game.date,game.home_id,game.away_id)){
   winner.conference_wins++;loser.conference_losses++;
  }
 }
