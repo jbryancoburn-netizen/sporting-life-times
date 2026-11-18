@@ -1,5 +1,6 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
 const source=fs.readFileSync('mbb-team-calendar-boot.js','utf8');
+const lights=fs.readFileSync('cbb-schedule-lights.js','utf8');
 const team={id:'ncaa:609801',espn_id:'87',name:'Notre Dame',espn_name:'Notre Dame Fighting Irish'};
 const foe={id:'ncaa:609509',espn_id:'222',name:'Villanova',espn_name:'Villanova Wildcats'};
 const schedule={season:'2026-27',verified_from_school:true,
@@ -33,6 +34,7 @@ async function render(feed, fixture={}){
    url.includes('non-di-verified-finals')?(fixture.crossDivision||{season:'2026-27',counts_for_retro:false,games:[]}):
    selectedSchedule}),
   URLSearchParams,Intl,Date,Map,Set,Number,Boolean,String,Promise,console,encodeURIComponent,setInterval:()=>0};
+ vm.runInNewContext(lights,context,{filename:'cbb-schedule-lights.js'});
  vm.runInNewContext(source,context,{filename:'mbb-team-calendar-boot.js'});
  for(let i=0;i<100&&!host.dataset.scheduleLoaded;i++)await new Promise(resolve=>setTimeout(resolve,10));
  assert.equal(host.dataset.scheduleLoaded,selectedTeam.id,'team schedule never rendered');
@@ -78,7 +80,8 @@ async function render(feed, fixture={}){
    ...e,official_school_time:'7:00 PM'
  }))};
  const notReconciled=await render(ratings([hpFinal]),{team:highPoint,foe:liberty,schedule:noMidnight});
- assert.doesNotMatch(notReconciled,/W 72–57/,'non-midnight games may not borrow adjacent-day finals');
+ assert.doesNotMatch(notReconciled,/class="sched-result-score/,'non-midnight games may not borrow adjacent-day finals');
+ assert.match(notReconciled,/This season’s series/,'a verified prior meeting can still appear in series history');
 
 
  // Exhibition results belong to a separate source-ledger, never to the Elo
