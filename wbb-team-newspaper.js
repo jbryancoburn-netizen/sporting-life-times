@@ -59,13 +59,14 @@ host.style.setProperty('--accent',color);
 document.title=t.team+' · Women’s Basketball | The Sporting Life & Times';
 const record=rating?String(rating.wins||0)+'–'+String(rating.losses||0):'—';
 const logo=window.MBBLogos.byESPN(id,'hero',t.team);
-const today=new Date().toLocaleDateString('sv-SE',{timeZone:'America/New_York'});
+const easternDay=date=>date.toLocaleDateString('sv-SE',{timeZone:'America/New_York'});
+const today=easternDay(new Date());
 const rows=sorted.map(g=>{
   const opp=lookup.get(String(g.opponent_id||''));
   const badge=opp?window.MBBLogos.byESPN(String(opp.team_id),'schedule',opp.team):'';
   const conferenceTag=opp&&t.conference&&opp.conference&&t.conference===opp.conference?'<span class="wbb-conference-game" title="Conference matchup">'+esc(leagueLabel(t.conference))+'</span>':'';
   const d=new Date(g.date);
-   const archiveDay=Number.isFinite(d.getTime())?d.toLocaleDateString('sv-SE',{timeZone:'America/New_York'}):'';
+   const archiveDay=Number.isFinite(d.getTime())?easternDay(d):'';
   const date=Number.isNaN(d.getTime())?esc(g.date||'TBA'):esc(d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric',timeZone:'America/New_York'}));
   const other=rmap.get(String(g.opponent_id||''));
   const opponent='<div class="sched-matchup">'+badge+'<span class="sched-opponent"><strong class="wbb-opponent-line">'+
@@ -201,7 +202,7 @@ const finals=games.filter(g=>g.completed&&!g.result_conflict)
 const resultsNode=host.querySelector('#wbb-recent-finals');
 if(resultsNode)resultsNode.innerHTML=finals.length?finals.map(g=>{
  const result=window.WBBGameResults.scoreFor(g,id);
- return '<div class="wbb-recent-result"><time>'+esc(String(g.date||'').slice(0,10))+'</time><span>'+esc(g.opponent||'Opponent')+'</span><strong>'+esc(result.value)+'</strong></div>';
+ return '<div class="wbb-recent-result"><time>'+esc(easternDay(new Date(g.date)))+'</time><span>'+esc(g.opponent||'Opponent')+'</span><strong>'+esc(result.value)+'</strong></div>';
 }).join(''):'<p class="wbb-muted">No verified women’s final has been published for this team yet.</p>';
 (async()=>{
  const node=host.querySelector('#wbb-team-news');if(!node)return;

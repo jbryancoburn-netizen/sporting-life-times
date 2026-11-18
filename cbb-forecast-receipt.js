@@ -55,7 +55,11 @@ function receipt(gender,id,day,phase,actual,homeId='',awayId='',homeName='Home',
  if((!p||!identityMatches(p,homeId,awayId))&&phase==='upcoming')return ''; // Do not invent forecasts for games without a published exact-match snapshot.
  if(!p||!identityMatches(p,homeId,awayId))
   return '<div class="cbb-forecast-receipt cbb-forecast-receipt--missing"><span class="cbb-forecast-kicker">RETRO BEFORE TIP</span><span>No archived pregame forecast</span></div>';
- // Use the archive's verified home/away IDs, not schedule-row display orientation.\n const names=canonicalNames[gender]||new Map();\n homeName=names.get(String(p.home_id))||homeName;\n awayName=names.get(String(p.away_id))||awayName;\n const predicted=p.projected_home_margin,probability=p.home_win_probability;
+ // Use the archive's verified home/away IDs, not schedule-row display orientation.
+ const names=canonicalNames[gender]||new Map();
+ homeName=names.get(String(p.home_id))||homeName;
+ awayName=names.get(String(p.away_id))||awayName;
+ const predicted=p.projected_home_margin,probability=p.home_win_probability;
  const fav=predicted>0?'HOME':predicted<0?'AWAY':'EVEN';
  const sideName=side=>side==='HOME'?homeName:side==='AWAY'?awayName:'Even';
  const half=Math.round(Math.abs(predicted)*2)/2;
@@ -170,7 +174,9 @@ async function init(){
   loadJSON('data/retro-pregame-archive-2026-27.json'),
   loadJSON('data/ncaaw-retro-pregame-archive-2026-27.json'),
   loadJSON('data/retro-spread-accuracy-2026-27.json'),
-  document.querySelector('#mbb-calendar-host')?loadJSON('data/ncaam-2026-27-upcoming-forecasts.json'):null,\n  loadJSON('data/ncaam-2026-27-retro-primary.json'),loadJSON('data/ncaaw-2026-27-retro-primary.json')]);\n for(const [gender,data] of [['men',menRatings],['women',womenRatings]])for(const t of data?.rankings||[])canonicalNames[gender].set(String(t.team_id),String(t.team||t.team_name||''));
+  document.querySelector('#mbb-calendar-host')?loadJSON('data/ncaam-2026-27-upcoming-forecasts.json'):null,
+  loadJSON('data/ncaam-2026-27-retro-primary.json'),loadJSON('data/ncaaw-2026-27-retro-primary.json')]);
+ for(const [gender,data] of [['men',menRatings],['women',womenRatings]])for(const t of data?.rankings||[])canonicalNames[gender].set(String(t.team_id),String(t.team||t.team_name||''));
  indexArchive(men,'men');indexArchive(women,'women');indexScored(report);indexUpcomingMen(upcoming);
  ready=true;decorate();
  for(const selector of ['#sl-games','#mbb-calendar-host','#desk','#cbb-cards']){

@@ -108,7 +108,11 @@
       if (!safeId(g.id) || g.status !== 'final' || g.completed === false ||
           !validDay(g.date) || !validScores(g) || !names.has(String(g.home_id)) ||
           !names.has(String(g.away_id)) || String(g.home_id) === String(g.away_id)) continue;
-      games.push(normal(g, g.id));
+      const timestamp = new Date(g.date);
+      const date = String(g.date).length > 10 && Number.isFinite(timestamp.getTime())
+        ? timestamp.toLocaleDateString('sv-SE', {timeZone: 'America/New_York'})
+        : day(g.date);
+      games.push(normal({...g, date}, g.id));
     }
     return {games: unique(games), names, source: 'Women\'s published final-score register', note: ''};
   }
