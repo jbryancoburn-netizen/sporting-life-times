@@ -40,11 +40,15 @@ function start(teamId,baseGames,siteDisputes,neutralProof){
     pending=true;
     try{
       const load=async path=>{const response=await fetch(path,{cache:'no-store'});if(!response.ok)throw Error(path+' HTTP '+response.status);return response.json();};
-      const [finals,ratings]=await Promise.all([
+      const [finals,ratings,publicGames,registry]=await Promise.all([
         load('data/ncaaw-2026-27-verified-games.json'),
-        load('data/ncaaw-2026-27-retro-primary.json')
+        load('data/ncaaw-2026-27-retro-primary.json'),
+        load('data/ncaaw-2026-27-games.json'),
+        load('data/ncaaw-2026-27-teams.json')
       ]);
-      const merged=w.WBBGameResults.merge(baseGames,finals,teamId);
+      const divisionIds=new Set((registry.teams||[]).map(team=>String(team.team_id)));
+      const ledger=w.WBBGameResults.includeCrossDivision(finals,publicGames,teamId,divisionIds);
+      const merged=w.WBBGameResults.merge(baseGames,ledger,teamId);
       const good=ratings?.model==='retro-clean-slate'&&ratings?.gender==='women'&&
         ratings?.season==='2026-27'&&ratings?.starting_elo===1500&&
         Array.isArray(ratings.rankings)&&ratings.rankings.length===363;
@@ -86,7 +90,7 @@ function start(teamId,baseGames,siteDisputes,neutralProof){
       if(ours&&Number.isFinite(Number(ours.elo))){
         const rank=host.querySelector('#wbb-team-elo'),record=host.querySelector('#wbb-team-record');
         if(rank)rank.textContent=Number(ours.elo).toFixed(0);
-        if(record)record.textContent=(ours.wins||0)+'–'+(ours.losses||0);
+        if(record)record.textContent=w.WBBGameResults.overallRecord(ours,merged.games,teamId);
       }
       // Notify the shared scorebugs when a newer verified women-only RETRO ledger arrives.
       if(good){w.WBBRetroSnapshot=ratings;w.dispatchEvent(new Event('wbb-retro-refreshed'));}

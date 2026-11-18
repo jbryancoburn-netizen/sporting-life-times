@@ -44,6 +44,7 @@ function merge(schedule,ledger,teamId){
       continue;
     }
     g.completed=true;
+    if (f.crossDivision) g.crossDivision=true;
     g.home_score=Number(reversedSides?f.away_score:f.home_score);
     g.away_score=Number(reversedSides?f.home_score:f.away_score);
     if(disputedSite)g.result_site_conflict=true;
@@ -67,5 +68,25 @@ function scoreFor(g,teamId){
   return {value:(ours>theirs?'W ':'L ')+ours+'–'+theirs,
     detail:label+(g.result_site_conflict?' · Home/away site disputed':'')};
 }
-w.WBBGameResults={merge,scoreFor};
+function includeCrossDivision(ledger, scoreboard, teamId, divisionIds) {
+  const games = Array.isArray(ledger?.games) && ledger.season==='2026-27' ? ledger.games : [];
+  const outside = scoreboard?.season==='2026-27' && Array.isArray(scoreboard.finals)
+    ? scoreboard.finals.filter(g=>{
+        const home=String(g.home_id),away=String(g.away_id);
+        return (home===String(teamId)||away===String(teamId)) &&
+          divisionIds.has(home)!==divisionIds.has(away);
+      }).map(g=>({...g,crossDivision:true})) : [];
+  return {season:'2026-27',games:[...games,...outside]};
+}
+function overallRecord(rating, games, teamId) {
+  let wins=Number(rating.wins)||0, losses=Number(rating.losses)||0;
+  for (const game of games) {
+    if (!game.crossDivision || game.exhibition || game.is_exhibition) continue;
+    const {value}=scoreFor(game,teamId);
+    if (value.startsWith('W ')) wins++;
+    if (value.startsWith('L ')) losses++;
+  }
+  return wins+'–'+losses;
+}
+w.WBBGameResults={merge,scoreFor,includeCrossDivision,overallRecord};
 })(window);
