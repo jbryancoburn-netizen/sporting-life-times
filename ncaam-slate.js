@@ -905,7 +905,7 @@ const rivalrySchoolName=t=>String(t?.full||t?.name||'').toLowerCase()
  .replace(/^arizona st$/,'arizona state')
  .replace(/^oregon st$/,'oregon state')
  .replace(/^new mexico st$/,'new mexico state')
- .replace(/ (hoosiers|wildcats|boilermakers|cardinals|blue devils|tar heels|bearcats|musketeers|jayhawks|tigers|hawkeyes|cyclones|hawks|fighting irish|bruins|trojans|spartans|wolverines|red raiders|bulldogs|aggies|lobos|cougars)$/,'');
+ .replace(/ (hoosiers|wildcats|boilermakers|cardinals|blue devils|tar heels|bearcats|musketeers|jayhawks|tigers|hawkeyes|cyclones|hawks|fighting irish|bruins|trojans|spartans|wolverines|red raiders|bulldogs|aggies|lobos|cougars|crimson tide|seminoles|longhorns|gators|sun devils|golden eagles|beavers|ducks|badgers|razorbacks|gamecocks)$/,'');
 const rivalryFor=g=>{
  if(g.kind==='exhibition')return null;
  // Stable NCAA IDs handle shortened ledger names, abbreviations and nicknames.
