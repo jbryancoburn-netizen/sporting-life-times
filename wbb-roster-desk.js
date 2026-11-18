@@ -32,57 +32,77 @@ function verifiedPortraits(data,players,teamId){
  }
  return answer;
 }
-async function render(teamId){
- const host=document.getElementById('wbb-roster-host');if(!host)return;
- host.innerHTML='<p class="wbb-muted">Loading 2026–27 women’s roster…</p>';
- try{
-  const res=await fetch('data/ncaaw-rosters-2026-27.json',{cache:'no-cache'});
-  if(!res.ok)throw Error('Roster file unavailable ('+res.status+')');
-  const data=await res.json();
-  if(data.gender!=='women'||data.season!=='2026-27')throw Error('Women’s season validation failed');
-  const supplement=await fetch('data/ncaaw-rosters-official-supplement-2026-27.json',{cache:'no-cache'}).then(x=>x.ok?x.json():null).catch(()=>null);
-  const official=supplement?.gender==='women'&&supplement?.season==='2026-27'?supplement?.teams?.[String(teamId)]:null;
-  const group=official||data.teams?.[String(teamId)];
-  if(!group?.players?.length){
-   host.innerHTML='<p class="wbb-roster-empty">This school’s 2026–27 women’s roster is not yet present in the published verified-source dataset. We will not display an earlier season or the men’s roster in its place.</p>';
-   return;
-  }
-  const players=group.players.filter(p=>p.name&&safe(p.profile_url));
-  if(!players.length)throw Error('No school-linked roster profiles');
-  const source=safe(group.source_url||data.source_url);
-  host.innerHTML='<div class="wbb-roster-intro"><span class="wbb-roster-count">'+players.length+' players</span><span>2026–27 women’s basketball</span><a href="'+esc(source)+'" target="_blank" rel="noopener noreferrer">'+(official?'Official university roster ↗':'Roster data &amp; attribution ↗')+'</a></div>'+
-   '<div class="wbb-roster-controls"><label>Find a player<input id="wbb-roster-search" type="search" placeholder="Search by name or hometown" autocomplete="off"></label><label>Position<select id="wbb-roster-filter"><option value="">All positions</option><option value="Guard">Guards</option><option value="Forward">Forwards</option><option value="Center">Centers</option></select></label></div>'+
-   '<div id="wbb-roster-grid" class="wbb-roster-grid"></div><p class="wbb-roster-source">'+(official?'Names and details were checked against the university’s published 2026–27 women’s roster. Player links open its official roster page.':'Names and details come from the 2026–27 school-site roster compilation by the University of Maryland’s Sports Roster Data project. Player links open school profiles. Independent school-by-school certification is ongoing.')+' Rosters may change during the season.</p>'+
-   '<div class="wbb-leaders-note"><strong>2026–27 Player Leaders</strong><p>Points, rebounds, assists and shooting leaders will appear when verified women’s season statistics are published. No men’s or prior-season numbers are substituted.</p></div>';
-  const grid=host.querySelector('#wbb-roster-grid');
-  let photos=new Map();
-  const draw=()=>{
-   const q=(host.querySelector('#wbb-roster-search').value||'').toLowerCase().trim(),f=host.querySelector('#wbb-roster-filter').value;
-   const subset=players.filter(p=>(!q||(p.name+' '+p.hometown+' '+p.number).toLowerCase().includes(q))&&(!f||prettyPos(p.position).includes(f)));
-   grid.innerHTML=subset.length?subset.map(p=>{
-    const url=safe(p.profile_url),n=p.number?('#'+esc(p.number)):'No. —',meta=[prettyPos(p.position),prettyClass(p.class),p.height].filter(Boolean).map(esc).join(' · ');
-    const key=normalName(p.name)+'|'+jersey(p.number),photo=photos.get(key);
-    return '<article class="wbb-player-card"><div class="wbb-player-avatar'+(photo?' has-photo':'')+'" aria-hidden="true"><span class="wbb-avatar-fallback">'+esc(nameInitials(p.name))+'</span>'+(photo?'<img src="'+esc(photo)+'" alt="" loading="lazy">':'')+'</div><div class="wbb-player-body"><span class="wbb-player-number">'+n+'</span><a class="wbb-player-name" href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">'+esc(p.name)+' ↗</a><span class="wbb-player-meta">'+meta+'</span><span class="wbb-player-hometown">'+esc(p.hometown||'')+'</span></div></article>';
-   }).join(''):'<p class="wbb-roster-empty">No players match this filter.</p>';
-   grid.querySelectorAll('.wbb-player-avatar img').forEach(img=>img.addEventListener('error',()=>img.remove()));
-  };
-  host.querySelector('#wbb-roster-search').addEventListener('input',draw);
-  host.querySelector('#wbb-roster-filter').addEventListener('change',draw);
+async function loadRoster(teamId){
+ const [data,supplement]=await Promise.all([
+  fetch('data/ncaaw-rosters-2026-27.json',{cache:'no-cache'}).then(r=>r.ok?r.json():null).catch(()=>null),
+  fetch('data/ncaaw-rosters-official-supplement-2026-27.json',{cache:'no-cache'}).then(r=>r.ok?r.json():null).catch(()=>null)
+ ]);
+ const valid=source=>source?.gender==='women'&&source.season==='2026-27';
+ const official=valid(supplement)?supplement.teams?.[String(teamId)]:null;
+ const group=official||(valid(data)?data.teams?.[String(teamId)]:null);
+ return {official,source:safe(group?.source_url||data?.source_url),players:(group?.players||[]).filter(p=>p?.name)};
+}
+async function render(teamId,production){
+ const host=document.getElementById('wbb-roster-host');
+ if(!host)return;
+ host.innerHTML='<p class="wbb-muted">Loading 2026–27 roster and player statistics…</p>';
+ const {official,source,players}=await loadRoster(teamId);
+ if(!host.isConnected)return;
+ host.innerHTML='<div class="wbb-roster-intro"><span class="wbb-roster-count">'+players.length+' rostered players</span>'+
+  (source?'<a href="'+esc(source)+'" target="_blank" rel="noopener noreferrer">'+
+   (official?'Official university roster ↗':'Roster data &amp; attribution ↗')+'</a>':'')+'</div>'+
+  '<div class="wbb-roster-controls"><label>Find a player<input id="wbb-roster-search" type="search" placeholder="Search by name or hometown" autocomplete="off"></label><label>Position<select id="wbb-roster-filter"><option value="">All positions</option><option value="Guard">Guards</option><option value="Forward">Forwards</option><option value="Center">Centers</option></select></label></div>'+
+  '<div id="wbb-roster-grid" class="wbb-roster-grid"></div>'+
+  '<p class="wbb-roster-source" data-production-note></p>';
+ const grid=host.querySelector('#wbb-roster-grid');
+ const note=host.querySelector('[data-production-note]');
+ let photos=new Map(),statRows=[];
+ const draw=()=>{
+  const query=host.querySelector('#wbb-roster-search').value.toLowerCase().trim();
+  const position=host.querySelector('#wbb-roster-filter').value;
+  const rows=window.SLTCBBRosterProduction.join(players,statRows).filter(({player,stats})=>{
+   const name=player?.name||stats.name;
+   return [name,player?.hometown,player?.number].join(' ').toLowerCase().includes(query)&&
+    (!position||(player&&prettyPos(player.position).includes(position)));
+  });
+  grid.innerHTML=rows.length?rows.map(({player,stats})=>{
+   const name=player?.name||stats.name;
+   const profile=safe(player?.profile_url);
+   const number=player?.number!=null&&player.number!==''?'#'+esc(player.number):'';
+   const meta=player?[prettyPos(player.position),prettyClass(player.class),player.height].filter(Boolean).map(esc).join(' · '):'Roster unconfirmed';
+   const photo=player?photos.get(normalName(name)+'|'+jersey(player.number)):'';
+   const box=(stats?.stats||[['GP','—'],['PPG','—'],['RPG','—'],['APG','—'],['SPG','—'],['BPG','—'],['FG%','—']])
+    .map(([label,value])=>esc(label)+' <strong>'+esc(value)+'</strong>').join(' · ');
+   const title=profile?'<a class="wbb-player-name" href="'+esc(profile)+'" target="_blank" rel="noopener noreferrer">'+esc(name)+' ↗</a>':
+    '<strong class="wbb-player-name">'+esc(name)+'</strong>';
+   return '<article class="wbb-player-card"><div class="wbb-player-avatar'+(photo?' has-photo':'')+'" aria-hidden="true">'+
+    '<span class="wbb-avatar-fallback">'+esc(nameInitials(name))+'</span>'+(photo?'<img src="'+esc(photo)+'" alt="" loading="lazy">':'')+
+    '</div><div class="wbb-player-body">'+(number?'<span class="wbb-player-number">'+number+'</span>':'')+title+
+    '<span class="wbb-player-meta">'+meta+'</span><span class="wbb-player-hometown">'+esc(player?.hometown||'')+
+    '</span><span class="wbb-player-meta">'+box+'</span></div></article>';
+  }).join(''):'<p class="wbb-roster-empty">'+(players.length||statRows.length?'No players match this filter.':'Current-season roster and player statistics are unavailable.')+'</p>';
+  grid.querySelectorAll('.wbb-player-avatar img').forEach(img=>img.addEventListener('error',()=>img.remove()));
+ };
+ host.querySelector('#wbb-roster-search').addEventListener('input',draw);
+ host.querySelector('#wbb-roster-filter').addEventListener('change',draw);
+ note.textContent='Loading current-season player statistics…';
+ draw();
+ Promise.resolve(production).then(data=>{
+  if(!host.isConnected)return;
+  statRows=data?.players||[];
+  note.innerHTML=(players.length?'':'Verified roster unavailable. ')+
+   (statRows.length?'2026–27 season averages. Dashes indicate unavailable statistics. <a href="'+esc(safe(data.url))+
+   '" target="_blank" rel="noopener noreferrer">Statistics source ↗</a>':'Current-season player statistics are unavailable.');
   draw();
-  // Do not delay the roster while a separate provider fetches optional photographs.
-  try{
-   const response=await fetch('https://site.api.espn.com/apis/site/v2/sports/basketball/womens-college-basketball/teams/'+
-     encodeURIComponent(teamId)+'/roster',{signal:AbortSignal.timeout(8000)});
-   if(!response.ok)return;
-   photos=verifiedPortraits(await response.json(),players,teamId);
-   if(photos.size){
-    draw();
-    const note=host.querySelector('.wbb-roster-source');
-    if(note)note.appendChild(document.createTextNode(' '+photos.size+
-     ' portraits matched by full name and jersey to the current ESPN women’s roster. Player names and biographies retain their published roster source.'));
-   }
-  }catch{} // All unmatched or inaccessible photos stay as initials avatars.
- }catch(e){host.innerHTML='<p class="wbb-roster-empty">Roster data could not load. '+esc(e.message)+'. Other team information remains available.</p>';}
+ });
+ if(!players.length)return;
+ try{
+  const response=await fetch('https://site.api.espn.com/apis/site/v2/sports/basketball/womens-college-basketball/teams/'+
+    encodeURIComponent(teamId)+'/roster',{signal:AbortSignal.timeout(8000)});
+  if(!response.ok||!host.isConnected)return;
+  photos=verifiedPortraits(await response.json(),players,teamId);
+  if(photos.size)draw();
+ }catch{} // Unmatched or unavailable photos use initials.
 }
 w.WBBRosterDesk={render,verifiedPortraits};
 })(window);

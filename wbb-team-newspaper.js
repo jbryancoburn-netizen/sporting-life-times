@@ -143,8 +143,8 @@ host.innerHTML='<section class="wbb-mast"><div class="wbb-identity">'+logo+'<div
 '<div class="wbb-secondary"><section class="wbb-panel" id="wbb-reporting"><div class="eyebrow">The National Conversation</div><h2>Latest Women’s Basketball Reporting</h2><div id="wbb-team-news">Checking the women’s national newswire…</div></section>'+
 '<section class="wbb-panel" id="wbb-march-file"><div class="eyebrow">The Selection Ledger</div><h2>The March File</h2><div class="wbb-march-register"><div><small>Women’s RETRO</small><strong>'+(rating?.rank?'#'+esc(rating.rank):'—')+'</strong></div><div><small>Season Record</small><strong>'+esc(record)+'</strong></div><div><small>Conference</small><strong>'+esc((rating?.conference_wins||0)+'–'+(rating?.conference_losses||0))+'</strong></div><div><small>Change from 1500</small><strong>'+(rating&&Number.isFinite(Number(rating.elo))?esc(((Number(rating.elo)-1500)>=0?'+':'')+(Number(rating.elo)-1500).toFixed(1)):'—')+'</strong></div></div>'+
 '<p class="wbb-muted">The women’s RETRO résumé uses women-only verified finals. NCAA NET and tournament quadrant records are not inferred from Elo. <a href="ncaaw-rankings.html?poll=retro">National RETRO register →</a></p><h3>Recent Verified Results</h3><div id="wbb-recent-finals"></div></section>'+
-'<section class="wbb-panel" id="wbb-stats"><div class="eyebrow">The Statistical Notebook · 2026–27</div><h2>Player Production & Team Statistics</h2><div id="wbb-team-stats">Checking verified women’s statistics…</div></section>'+
-'<section class="wbb-panel wbb-roster-full" id="roster"><div class="eyebrow">The Team Register · 2026–27</div><h2>Current Roster</h2><div id="wbb-roster-host"><p class="wbb-muted">Loading women’s roster…</p></div></section></div>';
+'<section class="wbb-panel" id="wbb-stats"><div class="eyebrow">The Statistical Notebook · 2026–27</div><h2>Team Statistics</h2><div id="wbb-team-stats">Checking verified women’s statistics…</div></section>'+
+'<section class="wbb-panel wbb-roster-full" id="roster"><div class="eyebrow">The Team Register · 2026–27</div><h2>Team Roster & Player Production</h2><div id="wbb-roster-host"><p class="wbb-muted">Loading women’s roster…</p></div></section></div>';
 const filterSchedule=()=>{
  const input=host.querySelector('#wbb-calendar-search'),sel=host.querySelector('#wbb-calendar-view'),counter=host.querySelector('#wbb-calendar-count');
  if(!input||!sel)return;
@@ -230,8 +230,8 @@ if(resultsNode)resultsNode.innerHTML=finals.length?finals.map(g=>{
    '<p class="wbb-muted">No current attributed women’s story is specifically matched to this program. <a href="ncaam.html?gender=women">Read the national women’s edition →</a></p>';
  }catch(e){node.innerHTML='<p class="wbb-muted">The women’s newswire is temporarily unavailable. <a href="ncaam.html?gender=women">Open the national edition →</a></p>';}
 })();
-window.WBBRosterDesk?.render(id);
-window.WBBTeamStats?.render(id);
+const production = window.WBBTeamStats?.render(id);
+window.WBBRosterDesk?.render(id, production);
 window.WBBTeamLive?.start(id,baseGames,siteDisputes,neutralProof);
 // Keep an already-open women's team page current without periodically wiping
 // the reader's filters or scrolling position. Reload only when this team's

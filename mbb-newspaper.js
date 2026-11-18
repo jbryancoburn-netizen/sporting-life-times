@@ -344,6 +344,7 @@ function tournament(){if(!projection){$('#app').innerHTML=empty('The bracket cou
 }
 let archive;
 async function loadArchive(){if(!archive)archive=await get('data/mbb-newspaper-archive.json');return archive;}
+let renderTeamProduction;
 async function teamPage(){const t=teamMap.get(params.get('team'))||teams.find(t=>t.team===params.get('team'));if(!t){$('#app').innerHTML=empty('Choose a team from the directory.')+'<div class="directory">'+directory()+'</div>';return;}
  document.title=t.team+' Basketball | The Sporting Life & Times';
  // Browser-tab icon follows the selected team's real logo (not a letter badge).
@@ -353,20 +354,76 @@ async function teamPage(){const t=teamMap.get(params.get('team'))||teams.find(t=
  // The newsroom may reposition its host, but must never overwrite its contents.
  let calendarHost=document.getElementById('mbb-calendar-host');
  if(!calendarHost){calendarHost=document.createElement('div');calendarHost.id='mbb-calendar-host';$('#app').parentNode.insertBefore(calendarHost,$('#app'));}
- const [a,rosterFeed,officialRoster]=await Promise.all([loadArchive(),get('https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams/'+encodeURIComponent(ids.get(t.team_id)||'')+'/roster?season=2027'),ids.get(t.team_id)?get('data/mbb-rosters-2026-27/'+encodeURIComponent(ids.get(t.team_id))+'.json'):Promise.resolve(null)]);
- const roster=a?.roster?.filter(p=>p.team_id===t.team_id)||[],stats=a?.players?.filter(p=>p.team_id===t.team_id)||[];
- const athletes=(rosterFeed?.athletes||[]).flatMap(x=>Array.isArray(x?.items)?x.items:[x]).filter(p=>p?.displayName);
-
- const headshots=new Map(athletes.map(p=>[p.displayName.toLowerCase(),p.headshot?.href||'']));
- const previous=new Map((a?.players||[]).map(p=>[String(p.name||p.player||'').toLowerCase(),p]));
- const rosterRows=officialRoster?.players?.length?officialRoster.players.map(p=>({name:p.name,role:p.position||'',image:p.headshot_url||headshots.get(p.name.toLowerCase())||'',prior:previous.get(p.name.toLowerCase())})):athletes.length?athletes.map(p=>({name:p.displayName,role:p.position?.abbreviation||'',image:p.headshot?.href||'',prior:previous.get(p.displayName.toLowerCase())})):roster.map(p=>({name:p.player,role:p.role||'',image:'',prior:previous.get(String(p.player||'').toLowerCase())}));
- const portrait=p=>{const initials=esc((p.name||'?').split(' ').map(x=>x[0]).slice(0,2).join(''));return '<span class="mbb-player-image-wrap">'+(p.image&&url(p.image)?'<img class="mbb-player-photo" loading="lazy" decoding="async" src="'+url(p.image)+'" alt="'+esc(p.name)+' headshot" onerror="this.remove()">':'')+'<span class="mbb-photo-missing" aria-hidden="true">'+initials+'</span></span>';};
- const scheduleHTML='<section class="panel" id="full-season-schedule">'+header('2026–27 · Full season','Complete Published Schedule')+'<p class="note">Loading published games, tipoff times and TV networks…</p></section>';const upcoming=(schedule?.games||[]).filter(g=>g.date>=today()&&gid(g).includes(t.team_id));const history=[...(a?.games||[]),...games].filter(g=>gid(g).includes(t.team_id)).sort((a,b)=>b.date.localeCompare(a.date));
+ const [a, rosterFeed, rosterSnapshot] = await Promise.all([
+   loadArchive(),
+   get('https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams/'+encodeURIComponent(ids.get(t.team_id)||'')+'/roster?season=2027'),
+   ids.get(t.team_id)?get('data/mbb-rosters-2026-27/'+encodeURIComponent(ids.get(t.team_id))+'.json'):Promise.resolve(null)
+ ]);
+ const official = rosterSnapshot?.season==='2026-27' && rosterSnapshot.team_id===t.team_id &&
+   Array.isArray(rosterSnapshot.players) && rosterSnapshot.players.some(p=>p?.name);
+ const athletes = Number(rosterFeed?.season?.year)===2027 && String(rosterFeed.team?.id)===String(ids.get(t.team_id))
+   ? (rosterFeed.athletes||[]).flatMap(x=>Array.isArray(x?.items)?x.items:[x]).filter(p=>p?.displayName)
+   : [];
+ const rosterRows = official
+   ? rosterSnapshot.players.filter(p=>p?.name).map(p=>({name:p.name,position:p.position,year:p.year,jersey:p.jersey,image:p.headshot_url}))
+   : athletes.map(p=>({name:p.displayName,position:p.position?.abbreviation,year:p.experience?.abbreviation,jersey:p.jersey,image:p.headshot?.href}));
+ const history=[...(a?.games||[]),...games].filter(g=>gid(g).includes(t.team_id)).sort((a,b)=>b.date.localeCompare(a.date));
 const statisticalRegister=window.SLTBasketballStats;const seasonFinals=ledger?.season==='2026-27'&&Array.isArray(ledger.games)?ledger.games:[];const seasonStats=statisticalRegister?.fromGames(seasonFinals,t.team_id,{homeKey:'home_id',awayKey:'away_id'});const statsSheet=statisticalRegister?.register(seasonStats,{note:'2026–27 Division I final-score ledger. Results outside this verified dataset are not included in these averages.'})||'';
 const r=resumes.get(t.team_id);const branding=await get('data/mbb-branding.json');const color=branding?.teams?.[ids.get(t.team_id)]?.color||window.MBBLogos.colorForESPN(ids.get(t.team_id))?.primary?.replace('#','');if(/^[a-f0-9]{6}$/i.test(color||''))document.documentElement.style.setProperty('--team','#'+color);
- $('#app').innerHTML='<div class="eyebrow"><a href="'+confURL(t.conference)+'">'+esc(t.conference)+'</a> / Team desk</div><div class="team-hero">'+logo(t,'hero')+'<div><div class="eyebrow">2026–27</div><h1>'+pollRankBadge(t)+esc(t.team)+'</h1><p>'+esc(t.conference)+' · '+rec(t)+' overall · '+(t.conference_wins||0)+'–'+(t.conference_losses||0)+' conference</p></div></div><div class="metrics">'+metric(live?'#'+t.rank:'Tied','RETRO national rank')+metric(number(t.elo,0),'RETRO Elo')+metric((t.overall_wins??t.wins??0)+(t.overall_losses??t.losses??0),'2026–27 games played')+metric(esc(seedFor(t)),'Projected NCAA placement')+'</div>'+statsSheet+'<div class="grid two"><div class="column"><section class="panel">'+header('The team notebook','Latest Reporting')+'<div id="news-list">'+stories(t)+'</div></section><section class="panel teal">'+header('Who is on campus','Current Roster')+'<p class="note roster-note">2026–27 roster snapshot. Previous-season statistics are labeled 2025–26, including records from former schools where available. Missing values are displayed as —.</p>'+(rosterRows.length?'<div class="table-wrap roster-table-wrap"><table><thead><tr><th>Player</th><th>Pos.</th><th>25–26 GP</th><th>25–26 PPG</th><th>RPG</th><th>APG</th></tr></thead><tbody>'+rosterRows.map(p=>'<tr><td>'+portrait(p)+esc(p.name)+'</td><td>'+esc(p.role||'—')+'</td><td>'+esc(p.prior?.games??'—')+'</td><td>'+number(p.prior?.pts)+'</td><td>'+number(p.prior?.reb)+'</td><td>'+number(p.prior?.ast)+'</td></tr>').join('')+'</tbody></table></div>':empty('No current roster records are available.'))+'</section><section class="panel victorian-player-production" id="team-player-production">'+header('The statistical notebook','Player Production')+'<div class="victorian-production-edition"><span>2026–27 Season Register</span><span>Verified final box scores</span></div><div id="team-player-production-table">'+playerTable((currentPlayers?.players||[]).filter(p=>p.team_id===t.team_id))+'</div><p class="note victorian-production-source">Season averages · Updated from completed-game box scores · Last collection: '+when(currentPlayers?.as_of)+'</p></section><section class="panel orange">'+header('The matchup archive','Who Has the Edge?')+'<p class="note">Target coverage: every verified game since 1985, including postseason. Until historical backfill is complete, records are labeled partial.</p><label for="opponent">Choose an opponent</label><select class="input" id="opponent">'+teams.filter(x=>x.team_id!==t.team_id).sort((a,b)=>a.team.localeCompare(b.team)).map(x=>'<option value="'+esc(x.team_id)+'">'+esc(x.team)+'</option>').join('')+'</select><div id="series"></div></section></div><div class="column">' + '<section class="panel">'+header('The selection ledger','The March File')+
+ $('#app').innerHTML='<div class="eyebrow"><a href="'+confURL(t.conference)+'">'+esc(t.conference)+'</a> / Team desk</div><div class="team-hero">'+logo(t,'hero')+'<div><div class="eyebrow">2026–27</div><h1>'+pollRankBadge(t)+esc(t.team)+'</h1><p>'+esc(t.conference)+' · '+rec(t)+' overall · '+(t.conference_wins||0)+'–'+(t.conference_losses||0)+' conference</p></div></div><div class="metrics">'+metric(live?'#'+t.rank:'Tied','RETRO national rank')+metric(number(t.elo,0),'RETRO Elo')+metric((t.overall_wins??t.wins??0)+(t.overall_losses??t.losses??0),'2026–27 games played')+metric(esc(seedFor(t)),'Projected NCAA placement')+'</div>'+statsSheet+'<div class="grid two"><div class="column"><section class="panel">'+header('The team notebook','Latest Reporting')+'<div id="news-list">'+stories(t)+'</div></section><section class="panel orange">'+header('The matchup archive','Who Has the Edge?')+'<p class="note">Target coverage: every verified game since 1985, including postseason. Until historical backfill is complete, records are labeled partial.</p><label for="opponent">Choose an opponent</label><select class="input" id="opponent">'+teams.filter(x=>x.team_id!==t.team_id).sort((a,b)=>a.team.localeCompare(b.team)).map(x=>'<option value="'+esc(x.team_id)+'">'+esc(x.team)+'</option>').join('')+'</select><div id="series"></div></section></div><div class="column">' + '<section class="panel">'+header('The selection ledger','The March File')+
 (r.n?'<div class="metrics">'+metric(number(r.wab,2),'Experimental Elo WAB')+metric(number(r.sos,0),'Opponent Elo')+metric(r.road,'Road wins')+'</div><p class="note">Based on '+r.n+' verified games. Not an official NET or selection projection.</p>':'<p class="note"><strong>Awaiting verified regular-season results.</strong> The March résumé populates after final games. No invented NET or quadrant figures.</p>')+
 '<p class="note"><a href="ncaam-elo.html">RETRO rankings →</a> · <a href="ncaam-tournament.html">Bracket watch →</a></p></section><section class="panel">'+header('The game log','Recent Meetings')+history.slice(0,4).map(g=>gameCard(g,true)).join('')+'</section></div></div>';
+ const production = document.createElement('section');
+ production.id = 'team-player-production';
+ production.className = 'panel victorian-player-production';
+ const rosterSource = official ? url(rosterSnapshot.source) : '';
+ const options = field => [...new Set(rosterRows.map(p=>p[field]).filter(Boolean))].sort()
+   .map(value=>'<option value="'+esc(value)+'">'+esc(value)+'</option>').join('');
+ production.innerHTML = header('2026–27 Season Register','Team Roster & Player Production')+
+   '<label>Find a player <input type="search" class="input" data-roster-search></label> '+
+   '<label>Position <select data-roster-position><option value="">All positions</option>'+options('position')+'</select></label> '+
+   '<label>Class <select data-roster-year><option value="">All classes</option>'+options('year')+'</select></label>'+
+   '<div id="team-player-production-table"></div>'+
+   '<p class="note">Dashes indicate unavailable statistics. Players listed only in box scores have unconfirmed roster details.</p>'+
+   (rosterSource?'<p class="note"><a href="'+rosterSource+'">Roster source</a> · Verified '+when(rosterSnapshot.fetched_at||rosterSnapshot.verified_on)+'</p>':'')+
+   '<p class="note victorian-production-source"></p>';
+ $('#app > .grid.two').before(production);
+ const search = production.querySelector('[data-roster-search]');
+ const positionFilter = production.querySelector('[data-roster-position]');
+ const yearFilter = production.querySelector('[data-roster-year]');
+ const tableHost = production.querySelector('#team-player-production-table');
+ const filterPlayers = () => {
+   const query = search.value.trim().toLowerCase();
+   for (const row of tableHost.querySelectorAll('tbody tr')) {
+     row.hidden = !row.cells[0].textContent.toLowerCase().includes(query) ||
+       (positionFilter.value!=='' && row.dataset.position!==positionFilter.value) ||
+       (yearFilter.value!=='' && row.dataset.year!==yearFilter.value);
+   }
+ };
+ search.addEventListener('input',filterPlayers);
+ positionFilter.addEventListener('change',filterPlayers);
+ yearFilter.addEventListener('change',filterPlayers);
+ renderTeamProduction = () => {
+   const activeTable = tableHost.querySelector('table');
+   const sortKey = activeTable?.dataset.sortKey;
+   const sortDir = activeTable?.dataset.sortDir;
+   const rows = (currentPlayers?.season==='2026-27' ? currentPlayers.players||[] : []).filter(p=>p.team_id===t.team_id && p.name);
+   const merged = window.SLTCBBRosterProduction.join(rosterRows, rows)
+     .map(({player,stats})=>({...stats,name:player?.name||stats.name,roster:player}))
+     .sort((a,b)=>(b.pts??-Infinity)-(a.pts??-Infinity)||a.name.localeCompare(b.name));
+   tableHost.innerHTML = playerTable(merged,true);
+   if (sortKey) {
+     const heading = tableHost.querySelector('[data-sort="'+sortKey+'"]');
+     heading?.click();
+     if (heading?.closest('table').dataset.sortDir!==sortDir) heading?.click();
+     const selector = tableHost.querySelector('.slt-mobile-production-sort');
+     if (selector) selector.value=sortKey;
+   }
+   production.querySelector('.victorian-production-source').textContent =
+     'Season averages from completed-game box scores · Last collection: '+when(currentPlayers?.as_of);
+   filterPlayers();
+ };
+ renderTeamProduction();
  $('#app').querySelector('.metrics')?.after(calendarHost);
  const known=history.map(g=>gid(g).find(id=>id!==t.team_id)).find(id=>teamMap.has(id));if(known)$('#opponent').value=known;
  const series=async()=>{const opp=teamMap.get($('#opponent').value);if(!opp)return;const node=$('#series');const choice=opp.team_id;node.innerHTML='<p class="note">Checking historical game archive…</p>';
@@ -391,14 +448,27 @@ const r=resumes.get(t.team_id);const branding=await get('data/mbb-branding.json'
  $('#opponent').onchange=series;series();
  // Calendar renders through persistent #mbb-calendar-host above the team content.
 }
-function playerTable(rows){
+function playerTable(rows,teamRoster=false){
  if(!rows.length)return empty('No verified player production has been published yet.');
- const stats=[['GP','games'],['PTS','pts'],['REB','reb'],['AST','ast'],['STL','stl'],['BLK','blk'],['FG%','fg'],['TS%','ts']];
- const headings=[['Player / team','name'],...stats];
+ const stats=[['GP','games'],[teamRoster?'PPG':'PTS','pts'],[teamRoster?'RPG':'REB','reb'],[teamRoster?'APG':'AST','ast'],[teamRoster?'SPG':'STL','stl'],[teamRoster?'BPG':'BLK','blk'],['FG%','fg'],['TS%','ts']];
+ const headings=[[teamRoster?'Player':'Player / team','name'],...stats];
  const mobileSort='<label class="slt-mobile-production-tools">Sort players <select class="slt-mobile-production-sort" aria-label="Sort player production"><option value="pts">Points</option><option value="reb">Rebounds</option><option value="ast">Assists</option><option value="stl">Steals</option><option value="blk">Blocks</option><option value="fg">Field-goal percentage</option><option value="ts">True-shooting percentage</option><option value="games">Games played</option><option value="name">Name</option></select></label>';
+ const playerCell = p => {
+   if (!teamRoster) return '<strong>'+esc(p.name)+'</strong><br><small>'+
+     (teamMap.has(p.team_id)?'<a href="'+teamURL(teamMap.get(p.team_id))+'">'+esc(teamMap.get(p.team_id).team)+'</a>':'')+'</small>';
+   const roster = p.roster;
+   const details = roster ? [roster.jersey!=null&&roster.jersey!==''?'#'+roster.jersey:'',roster.position,roster.year].filter(Boolean).join(' · ') : 'Roster unconfirmed';
+   const image = url(roster?.image);
+   const initials = p.name.trim().split(/\s+/).slice(0,2).map(part=>part[0]).join('');
+   return '<span class="mbb-player-image-wrap">'+
+     (image?'<img class="mbb-player-photo" loading="lazy" decoding="async" src="'+image+'" alt="" onerror="this.remove()">':'')+
+     '<span class="mbb-photo-missing" aria-hidden="true">'+esc(initials)+'</span></span>'+
+     '<strong>'+esc(p.name)+'</strong><br><small>'+esc(details)+'</small>';
+ };
  return mobileSort+'<div class="table-wrap"><table class="slt-sortable-production"><thead><tr>'+
  headings.map(([label,key])=>'<th scope="col" aria-sort="none"><button type="button" class="slt-sort-heading" data-sort="'+key+'" aria-label="Sort by '+label+'">'+label+' <span class="slt-sort-arrow" aria-hidden="true">↕</span></button></th>').join('')+
- '</tr></thead><tbody>'+rows.map(p=>'<tr><td data-label="Player"><strong>'+esc(p.name)+'</strong><br><small>'+(teamMap.has(p.team_id)?'<a href="'+teamURL(teamMap.get(p.team_id))+'">'+esc(teamMap.get(p.team_id).team)+'</a>':'')+'</small></td>'+
+ '</tr></thead><tbody>'+rows.map(p=>'<tr'+(teamRoster?' data-position="'+esc(p.roster?.position)+'" data-year="'+esc(p.roster?.year)+'"':'')+
+ '<td data-label="Player">'+playerCell(p)+'</td>'+
  '<td data-label="GP">'+esc(p.games??'—')+'</td>'+
  stats.slice(1).map(([label,key])=>'<td data-label="'+label+'">'+number(p[key])+'</td>').join('')+'</tr>').join('')+
  '</tbody></table></div>';
@@ -486,12 +556,7 @@ let refreshing=false;setInterval(async()=>{if(document.hidden||refreshing)return
  const nextPlayers=await get('data/mbb-current-player-stats.json');
  if(nextPlayers?.season==='2026-27'&&nextPlayers?.as_of!==currentPlayers?.as_of){
    currentPlayers=nextPlayers;
-   if(page==='team'){
-     const id=params.get('team'),target=document.getElementById('team-player-production-table');
-     if(target)target.innerHTML=playerTable((currentPlayers.players||[]).filter(p=>p.team_id===id));
-     const label=document.querySelector('.victorian-production-source');
-     if(label)label.textContent='Season averages · Updated from completed-game box scores · Last collection: '+when(currentPlayers.as_of);
-   }
+   if(page==='team')renderTeamProduction?.();
  }if(page==='conference'&&params.get('conference')==='Big Ten'){const nextBigTen=await get('data/mbb-team-news/big-ten.json');if(nextBigTen)bigTenNews=nextBigTen;}if(nextWire)wire=nextWire;if(nextNews)news=nextNews;if(nextScores)scoreboards=nextScores;if($('#score-rail')){await refreshLiveScores();$('#score-rail').innerHTML=liveRail();$('#score-stamp').textContent='Scores checked '+when(browserScoresAt||wire?.scores_updated_at||scoreboards?.updated_at);}if($('#news-list'))$('#news-list').innerHTML=stories(page==='team'?teamMap.get(params.get('team')):null,page==='conference'?params.get('conference'):null);stamp();await refreshRatings();}finally{refreshing=false}},60000);
 })();
 
