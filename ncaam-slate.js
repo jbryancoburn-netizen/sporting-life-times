@@ -370,7 +370,7 @@ function momentumFromCompetition(match,away,home){
   return {kind:'stat',text:abbr(ra>rh?away:home)+' +'+Math.abs(ra-rh)+' REB'};
  return null;
 }
-function liveEvents(raw,day,registry,women=false,womenRankings=[],publishedGames=[]){
+function liveEvents(raw,day,registry,women=false,womenRankings=[],publishedGames=[],includeUpcoming=false){
  const schools=women?
   new Map((womenRankings||[]).map(t=>[String(t.team_id),{id:String(t.team_id),
     name:String(t.team||'Team'),espn_name:String(t.team||'Team')}])):
@@ -398,16 +398,16 @@ function liveEvents(raw,day,registry,women=false,womenRankings=[],publishedGames
   const siteVerified=typeof match.neutralSite==='boolean',neutral=!siteVerified||match.neutralSite===true;
   const ap=score(away.score?.value??away.score?.displayValue??away.score);
   const hp=score(home.score?.value??home.score?.displayValue??home.score);
-  if(phase==='upcoming'||ap===null||hp===null||(phase==='final'&&ap===hp))return[];
+  if((phase==='upcoming'&&!includeUpcoming)||(phase!=='upcoming'&&(ap===null||hp===null||(phase==='final'&&ap===hp))))return[];
   return [{id:String(event.id),day,date:event.date||match.date,phase,
-    away:{id:String(away.team.id),canonical:a?String(a.id):'',name:String(away.team.id)==='2145'?'Colorado Springs':a?.name||prior?.away?.name||named(away),full:a?.espn_name||prior?.away?.full||named(away),abbreviation:away.team?.abbreviation||'',timeoutsRemaining:Number.isInteger(away.timeoutsRemaining)?away.timeoutsRemaining:null,score:ap},
-    home:{id:String(home.team.id),canonical:h?String(h.id):'',name:String(home.team.id)==='2145'?'Colorado Springs':h?.name||prior?.home?.name||named(home),full:h?.espn_name||prior?.home?.full||named(home),abbreviation:home.team?.abbreviation||'',timeoutsRemaining:Number.isInteger(home.timeoutsRemaining)?home.timeoutsRemaining:null,score:hp},
+    away:{id:String(away.team.id),canonical:a?String(a.id):'',name:String(away.team.id)==='2145'?'Colorado Springs':a?.name||prior?.away?.name||named(away),full:a?.espn_name||prior?.away?.full||named(away),abbreviation:away.team?.abbreviation||'',timeoutsRemaining:Number.isInteger(away.timeoutsRemaining)?away.timeoutsRemaining:null,score:phase==='upcoming'?null:ap},
+    home:{id:String(home.team.id),canonical:h?String(h.id):'',name:String(home.team.id)==='2145'?'Colorado Springs':h?.name||prior?.home?.name||named(home),full:h?.espn_name||prior?.home?.full||named(home),abbreviation:home.team?.abbreviation||'',timeoutsRemaining:Number.isInteger(home.timeoutsRemaining)?home.timeoutsRemaining:null,score:phase==='upcoming'?null:hp},
     venue:match.venue?.fullName||'',broadcast:(match.broadcasts||[]).flatMap(x=>x.names||[]).join(' / '),
     status:liveStatusFromEvent(event,women),momentum:phase==='live'?momentumFromCompetition(match,away,home):null,
     possession:phase==='live'&&[away.team.id,home.team.id].includes(String(match?.possession))?
       (String(match.possession)===String(away.team.id)?'away':'home'):null,
     completed,neutral,site_verified:siteVerified,timed:true,kind:'regular',
-    evidence:'live-scoreboard',source:phase==='final'?'Reported final · verification pending':'Live score reported',probability:null}];
+    evidence:'live-scoreboard',source:phase==='final'?'Reported final · verification pending':phase==='upcoming'?'ESPN scheduled fixture':'Live score reported',probability:null}];
  });
 }
 function reconcileLive(published,updates){
@@ -546,6 +546,8 @@ let pollRankings=new Map(),pollAsOf='';
  const outsideMark=t=>!palette[String(t?.id)]?outsideMarks[String(t?.id)]||null:null;
 let liveBoard=[],liveCheckedAt=0,liveCheckError='',liveRequest=false;
 const sourcedVenueByGame=new Map(),venueCheckedAt=new Map();
+// Date-specific source-backed future fixtures, independent of the rolling feed.
+const futureFixturesByDate=new Map();
 const verifiedLiveScores=new Map();
 let cross={teams:[]},palette={},arenaRegistry={},womenTeams=new Map(),sourceFeed=null,seasonStats=new Map(),recentForm=new Map(),liveChanges=new Map(),scoreCalibration=null,verifiedOverall=new Map();
 const insight=window.SLTBasketballInsights;
@@ -1054,6 +1056,10 @@ async function refreshBroadcasts(day,force=false){
    const names=(competition?.broadcasts||[]).flatMap(b=>b.names||[]).filter(Boolean);
    if(names.length)byId.set(String(event.id),[...new Set(names)].join(' / '));
   }
+  if(cross.teams?.length){
+   const upcoming=liveEvents(raw,day,cross,women,retroPublished?.rankings,loaded,true).filter(g=>g.phase==='upcoming');
+   futureFixturesByDate.set(day,upcoming);
+  }
   broadcastByDate.set(day,byId);
   confirmedTipoffsByDate.set(day,tipoffs);
   broadcastCheckedAt.set(day,Date.now());
@@ -1064,7 +1070,7 @@ async function refreshBroadcasts(day,force=false){
 const verifiedBroadcasts=new Map();
 const publishedBroadcasts=new Map();
 const broadcastPairKey=(gender,day,a,b)=>gender+'|'+day+'|'+[String(a),String(b)].sort((x,y)=>Number(x)-Number(y)).join('|');
-const displayGames=()=>reconcileLive(loaded,liveBoard).map(g=>{
+const displayGames=()=>reconcileLive(dedupeFixtures([...loaded,...(futureFixturesByDate.get(selected)||[])]),liveBoard).map(g=>{
  const site=sourcedVenueByGame.get(gameKey(g.id,g.day));
  const official=verifiedBroadcasts.get(String(g.id));
  const broadcaster=(official?.day===g.day?official.network:'')||broadcastByDate.get(g.day)?.get(String(g.id));
