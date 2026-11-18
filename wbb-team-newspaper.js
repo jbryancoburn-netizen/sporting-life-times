@@ -75,6 +75,7 @@ for(const game of games){
  if(opponent)formNames.set(opponent,game.opponent||'Opponent');
  formGames.push({id:game.id,date:easternDay(date),home_id:id,away_id:opponent,home_score:+result[1],away_score:+result[2]});
 }
+const retroHistory=window.SLTScheduleLights.retroHistory(ratings?.gender==='women'?ratings:null);
 const rows=sorted.map(g=>{
   const opponentId=String(g.opponent_id||'');
   const opp=lookup.get(opponentId);
@@ -89,7 +90,8 @@ const rows=sorted.map(g=>{
   const other=rmap.get(String(g.opponent_id||''));
   const accent=window.MBBLogos.colorForESPN?.(opponentId)?.primary;
   const accentStyle=/^#[0-9a-f]{6}$/i.test(accent||'')?' style="--schedule-team-color:'+accent+'"':'';
-  const form=window.SLTScheduleLights.form(formGames,[[id,t.team],[opp?.team_id,opp?.team]],archiveDay,rmap,esc,archiveDay>=today&&!g.completed&&!g.cancelled,true,formNames);
+  const gameRatings=retroHistory(archiveDay,g.completed&&!g.result_conflict?g.id:null,id,opp?.team_id);
+  const form=window.SLTScheduleLights.form(formGames,[[id,t.team],[opp?.team_id,opp?.team]],archiveDay,gameRatings,esc,true,formNames);
   const opponent='<div class="sched-matchup"'+accentStyle+'>'+badge+'<span class="sched-opponent"><strong class="wbb-opponent-line">'+
     (other?.rank?'<span class="wbb-opponent-rank" title="Women’s RETRO rank">#'+esc(other.rank)+'</span>':'')+
     '<span class="wbb-opponent-name">'+(opp?'<a href="ncaaw-team.html?team='+encodeURIComponent(opp.team_id)+'">'+esc(opponentName)+'</a>':esc(opponentName))+'</span>'+
@@ -99,7 +101,7 @@ const rows=sorted.map(g=>{
   const television=tvUrl.startsWith('https://')?'<a href="'+esc(tvUrl)+'" target="_blank" rel="noopener noreferrer">'+esc(tvName)+' ↗</a>':esc(tvName);const neutral=window.WBBSiteIntegrity?.certifiedNeutral(g,neutralProof);
   const officialHome=window.WBBSiteIntegrity?.officialHome(g,homeProof);
   const siteClaims=officialHome?[]:window.WBBSiteIntegrity?.claims(g,siteDisputes,neutralProof)||[];
-  const delta=other&&Number.isFinite(other.daily_change)?(other.daily_change>0?'+':'')+other.daily_change.toFixed(1):'—';
+  const delta=gameRatings.get(String(opp?.team_id))?.change;
   const arena=g.venue||'Arena TBA';
   const city=String(g.city||g.city_state||g.official_location_as_printed||'').trim();
   const arenaSuffix=' ('+arena+')';
@@ -143,7 +145,7 @@ const rows=sorted.map(g=>{
     '<td class="sched-venue-cell" data-label="Arena / City">'+location+'</td>'+
     '<td class="sched-time-cell" data-label="Tipoff"'+(hasOfficial&&!disputed?' title="University-sourced listing"':'')+'><span class="sched-tip-value">'+tip+'</span>'+tipNote+'</td>'+
     '<td class="sched-network-cell wbb-broadcast" data-label="TV / Stream">'+television+'</td>'+
-    '<td class="sched-elo-cell wbb-opp-elo" data-label="Opp. RETRO"><span class="wbb-opp-elo-value">'+fmtElo(other)+'</span><small class="wbb-opp-change" title="Opponent daily RETRO change">'+delta+'</small></td>'+
+    '<td class="sched-elo-cell wbb-opp-elo" data-label="Opp. RETRO"><span class="wbb-opp-elo-value">'+(gameRatings.get(String(opp?.team_id))?.elo??'—')+'</span><small class="wbb-opp-change" title="Opponent RETRO change after this game">'+(delta==null?'—':(delta>0?'+':'')+delta)+'</small></td>'+
     '<td class="sched-result-cell wbb-result-cell" data-label="Result" title="'+esc(result.detail)+'"><strong class="'+(result.value.startsWith('W ')?'wbb-result-win':result.value.startsWith('L ')?'wbb-result-loss':'')+'">'+esc(result.value)+'</strong><small class="wbb-result-source">'+esc(result.detail)+'</small>'+(press?'<div class="wbb-schedule-projection"></div>':'')+'<div class="wbb-result-actions">'+press+(statAvailable?'<a class="mbb-schedule-gamefile" href="'+esc('ncaam-slate.html?gender=women&date='+encodeURIComponent(archiveDay)+'&game='+encodeURIComponent(g.id))+'">Ledger ↗</a>':'')+
     (statAvailable?'<button type="button" class="victorian-stat-toggle wbb-stat-toggle" data-event="'+esc(g.id)+'" aria-expanded="false" aria-controls="wbb-detail-'+esc(g.id)+'">Game Stats ▾</button>':'')+'</div>'+window.SLTScheduleLights.corner(formGames,id,opp?.team_id,archiveDay,true,esc)+'</td></tr>';
   return main+(statAvailable?'<tr class="victorian-stat-detail wbb-game-detail" id="wbb-detail-'+esc(g.id)+'" hidden><td colspan="7"><div class="wbb-game-stats">Open to view verified game statistics.</div></td></tr>':'');

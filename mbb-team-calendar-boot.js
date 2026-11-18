@@ -115,7 +115,6 @@ try{
  // NEVER feed these scores to the RETRO model or call them regular-season finals.
  const exhibitionData=await load('data/mbb-exhibition-finals-2026-27.json').catch(()=>null);
  // Indiana is the canonical calendar for the full 365-school men's edition.
- const ratingBySchool=new Map((ratings?.rankings||[]).map(x=>[String(x.team_id),x.elo]));
  const ncaaByEspn=new Map((cross.teams||[]).map(x=>[String(x.espn_id),String(x.id)]));
  const schoolByEspn=new Map((cross.teams||[]).map(x=>[String(x.espn_id),x]));
  const espnByNcaa=new Map((cross.teams||[]).map(x=>[String(x.id),String(x.espn_id)]));
@@ -200,8 +199,7 @@ try{
 const formGames=finalArchive.map(g=>({...g,home_id:ncaaByEspn.get(g.home),away_id:ncaaByEspn.get(g.away)}));
  const formNames=new Map((cross.teams||[]).map(t=>[String(t.id),t.name]));
  for(const g of verifiedOutsideGames){const id='outside:'+g.opponent_espn_id;formNames.set(id,g.opponent_name);formGames.push({id:g.id,date:g.date,home_id:ncaaByEspn.get(String(g.division_i_espn_id)),away_id:id,home_score:g.team_score,away_score:g.opponent_score});}
- const formRatings=new Map((ratings?.rankings||[]).map(r=>[String(r.team_id),r]));
- const opponentElo=id=>{const n=ratingBySchool.get(ncaaByEspn.get(String(id)));return Number.isFinite(Number(n))?Math.round(Number(n)).toString():'Not rated';};
+ const retroHistory=window.SLTScheduleLights.retroHistory(validRatings?ratings:null);
  // Placement games pair the winners or losers of two published semifinals.
  const month=new Intl.DateTimeFormat('en-US',{month:'long',year:'numeric',timeZone:'America/New_York'});
  const cells=games.map(event=>{
@@ -351,7 +349,8 @@ const formGames=finalArchive.map(g=>({...g,home_id:ncaaByEspn.get(g.home),away_i
   const title='<span class="victorian-opponent-heading'+(opponentRank?' has-poll-rank':'')+'">'+(opponentRank?'<span class="victorian-heading-rank">'+opponentRank+'</span>':'')+'<span class="victorian-heading-school">'+(school?'<a href="ncaam-team.html?team='+encodeURIComponent(school.id)+'" title="'+label+'">'+displayName+'</a>':'<span class="victorian-school-name" title="'+label+'">'+displayName+'</span>')+'</span><span class="victorian-heading-conference">'+conferenceTag+'</span></span>';
   const today=new Date().toLocaleDateString('sv-SE',{timeZone:'America/New_York'});
   const scheduleState=hasScore?'final':canceled?'canceled':scheduledDate>=today?'upcoming':'past';
-  const form=exhibition?'':window.SLTScheduleLights.form(formGames,[[team.id,team.name],[school?.id,school?.name]],scheduledDate,formRatings,escape,scheduleState==='upcoming',false,formNames);
+  const gameRatings=exhibition?new Map():retroHistory(final?.date||scheduledDate,final?.id,team.id,school?.id);
+  const form=exhibition?'':window.SLTScheduleLights.form(formGames,[[team.id,team.name],[school?.id,school?.name]],final?.date||scheduledDate,gameRatings,escape,false,formNames);
   return '<tr'+accentStyle+' data-sched-team="'+escape(team.id)+'" data-sched-opponent="'+escape(school?.id||'')+'" data-cbb-forecast-id="'+escape(String(final?.id||e.id||''))+'" data-cbb-forecast-day="'+escape(String(final?.date||forecastDate))+'" data-home-id="'+escape(String(self?.homeAway==='home'?team.id:ncaaByEspn.get(String(opponentId))||''))+'" data-away-id="'+escape(String(self?.homeAway==='away'?team.id:ncaaByEspn.get(String(opponentId))||''))+'" data-cbb-home-name="'+escape(self?.homeAway==='home'?team.name:opponentName)+'" data-cbb-away-name="'+escape(self?.homeAway==='home'?opponentName:team.name)+'" data-cbb-final-home-margin="'+(final&&Number.isFinite(Number(final.home_score))&&Number.isFinite(Number(final.away_score))?Number(final.home_score)-Number(final.away_score):'')+'" '+'data-game-site="'+(vs==='HOME'?'home':vs==='AWAY'?'away':vs==='NEUTRAL'?'neutral':'unknown')+'" '+(expandable?'class="victorian-completed-game" data-stat-id="'+escape(statId)+'" tabindex="0" aria-label="Expand statistics for '+escape(opponentName)+'" ':'')+'data-calendar-state="'+scheduleState+'" data-exhibition="'+(exhibition?'true':'false')+
     '" data-opponent="'+escape((school?.name||opponentName).toLowerCase())+'">'+
     '<td class="sched-date-cell"><span class="sched-month" hidden>'+escape(Number.isFinite(+date)?month.format(date):'')+'</span><time datetime="'+escape(scheduledDate)+'">'+escape(day)+'</time><span class="sched-site-stamp">'+escape(vs==='SITE UNVERIFIED'||vs==='SITE TBA'?'Site TBA':vs)+'</span><span class="sched-game-status sched-status--'+(canceled?'canceled':exhibition?'exhibition':hasScore?'final':completed?'pending':'upcoming')+'">'+gameState+'</span></td>'+
@@ -359,7 +358,7 @@ const formGames=finalArchive.map(g=>({...g,home_id:ncaaByEspn.get(g.home),away_i
     '<td class="sched-venue-cell"><div class="sched-venue"><strong>'+escape(arena)+'</strong><small>'+escape(city)+'</small></div></td>'+
     '<td class="sched-time-cell"'+(conditionalTip?' data-conditional-tip':'')+'><span class="sched-tip-value">'+tip+'</span></td>'+
     '<td class="sched-network-cell">'+network+'</td>'+
-    '<td class="sched-elo-cell">'+(exhibition||verifiedNonD1?'Not applicable':escape(opponentElo(opponentId)))+'</td>'+
+    '<td class="sched-elo-cell">'+(exhibition||verifiedNonD1?'Not applicable':escape(gameRatings.get(String(school?.id))?.elo??'Not rated'))+'</td>'+
     '<td class="sched-result-cell">'+(scheduleState==='upcoming'&&(!slot||opponentId)?'<button type="button" class="slt-team-press-btn" data-press-home="'+escape(vs==='HOME'?team.name:(school?.name||opponentName))+'" data-press-away="'+escape(vs==='HOME'?(school?.name||opponentName):team.name)+'">PREGAME PRESS ›</button>':'')+result+(expandable?'<button type="button" class="victorian-stat-toggle" aria-expanded="false">GAME STATS ▾</button>':'')+window.SLTScheduleLights.corner(formGames,team.id,school?.id,scheduledDate,false,escape)+'</td></tr>'+(expandable?'<tr class="victorian-stat-detail" hidden><td colspan="7"><div class="victorian-stat-content">Open for game statistics.</div></td></tr>':'');
  }).join('');
  const scoredExhibitions=games.filter(e=>{
