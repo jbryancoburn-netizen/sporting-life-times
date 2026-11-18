@@ -45,8 +45,8 @@ try{
  const comp=(a,b,conf)=>{const aw=conf?cw(a):ow(a),al=conf?cl(a):ol(a),bw=conf?cw(b):ow(b),bl=conf?cl(b):ol(b);
   return ratio(bw,bl)-ratio(aw,al)||bw-aw||al-bl;};
  const ordered=c=>{const items=members(c),played=items.some(t=>cw(t)+cl(t)>0);
-  const compare=(a,b)=>played?comp(a,b,true)||comp(a,b,false):comp(a,b,false);
-  return {items:items.sort((a,b)=>compare(a,b)||n(b.elo)-n(a.elo)||a.team.localeCompare(b.team)),played,compare};};
+  const compare=(a,b)=>(played?comp(a,b,true):0)||comp(a,b,false)||n(b.elo)-n(a.elo);
+  return {items:items.sort((a,b)=>compare(a,b)||a.team.localeCompare(b.team)),played,compare};};
  const finals=new Map(),results=new Map([...all.keys()].map(id=>[id,[]]));
  for(const g of model.events||[]){if(g.status!=='final'||!Number.isFinite(Number(g.home_score))||!Number.isFinite(Number(g.away_score)))continue;
   finals.set(String(g.id),g);const h=String(g.home_id),a=String(g.away_id),dt=String(g.date).slice(0,10);
@@ -93,7 +93,7 @@ try{
    '<span class="ledger-retro-rank">('+(retroTies.get(n(t.rank))>1?'T-':'')+rank.replace('#','')+')</span></td>'+
    '<td class="ledger-projection">—</td></tr>';
  }).join('')+'</tbody></table></div>'+
- '<p class="note victorian-seed-note">*Order uses conference record when conference play has begun; otherwise overall record. Overall results break equal conference records. Unresolved ties remain tied until official tiebreakers are verified. GB = conference games behind the leader. Streak includes verified women’s Division I finals only. Projected NCAA seeds are withheld until a validated women’s tournament projection is published.</p>';
+ '<p class="note victorian-seed-note">*Conference record determines the order once league play begins. Overall record breaks conference ties and sets the order before league play. RETRO breaks equal records. GB = conference games behind the leader. Streak includes verified women’s Division I finals only. Projected NCAA seeds are withheld until a validated women’s tournament projection is published.</p>';
   const gameMap=new Map(),memberIds=new Set(items.map(t=>String(t.team_id)));
  for(const [id,school] of Object.entries(master.teams||{})){if(!memberIds.has(String(id)))continue;
   for(const g of school.games||[]){if(!/^\d+$/.test(String(g.id||'')))continue;
