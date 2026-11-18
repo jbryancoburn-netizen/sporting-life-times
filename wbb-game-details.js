@@ -6,7 +6,7 @@ if(!/^\d+$/.test(team||''))return;
 const table=(heading,columns,rows,klass='')=>{
  if(!rows.length)return '';
  return '<section class="wbb-stat-block"><h3>'+safe(heading)+'</h3><table class="'+klass+'"><thead><tr>'+columns.map(c=>'<th scope="col">'+safe(c)+'</th>').join('')+'</tr></thead><tbody>'+
- rows.map(row=>'<tr><th scope="row">'+safe(row[0]??'—')+'</th>'+columns.slice(1).map((label,i)=>'<td data-label="'+safe(label)+'">'+safe(row[i+1]??'—')+'</td>').join('')+'</tr>').join('')+'</tbody></table></section>';
+ rows.map(row=>'<tr><th scope="row">'+(Array.isArray(row[0])?'<a href="'+safe(row[0][0])+'">'+safe(row[0][1])+'</a>':safe(row[0]??'—'))+'</th>'+columns.slice(1).map((label,i)=>'<td data-label="'+safe(label)+'">'+safe(row[i+1]??'—')+'</td>').join('')+'</tr>').join('')+'</tbody></table></section>';
 };
 async function retrieve(eventId,holder){
  const response=await fetch('https://site.api.espn.com/apis/site/v2/sports/basketball/womens-college-basketball/summary?event='+encodeURIComponent(eventId),{signal:AbortSignal.timeout(14000)});
@@ -34,7 +34,12 @@ async function retrieve(eventId,holder){
   const section=group.statistics?.[0];
   const players=section?.athletes||[],labels=section?.labels||[];
   if(!players.length)continue;
-  html+=table((group.team?.displayName||group.team?.name||'School')+' — Players',['Player',...labels],players.map(p=>[p.athlete?.displayName||p.athlete?.shortName||'Player',...(p.stats||[])]),'wbb-player-game-box');
+  html+=table((group.team?.displayName||group.team?.name||'School')+' — Players',['Player',...labels],players.map(p=>{
+   const name=p.athlete?.displayName||p.athlete?.shortName||'Player';
+   const href=window.SLTCBBPlayer?.href(p.athlete,data.header?.season?.year,'women',eventId,
+    competitors.length?(data.header?.competitions?.[0]?.date||'').slice(0,10):'',team);
+   return [href?[href,name]:name,...(p.stats||[])];
+  }),'wbb-player-game-box');
  }
  const game=data.header?.competitions?.[0];
  const venue=game?.venue||{};
@@ -44,6 +49,19 @@ async function retrieve(eventId,holder){
  }
  holder.innerHTML=html||'<p>Detailed statistics have not been published for this verified game.</p>';
  holder.dataset.loaded='true';
+}
+const requestedGame=new URLSearchParams(location.search).get('game');
+if(/^\d+$/.test(requestedGame||'')){
+ const open=()=>{
+  const button=document.querySelector('.wbb-stat-toggle[data-event="'+requestedGame+'"]');
+  if(!button)return false;
+  if(button.getAttribute('aria-expanded')!=='true')button.click();
+  return true;
+ };
+ const observer=new MutationObserver(()=>{if(open())observer.disconnect();});
+ observer.observe(document.body,{subtree:true,childList:true});
+ setTimeout(()=>observer.disconnect(),15000);
+ queueMicrotask(()=>{if(open())observer.disconnect();});
 }
 document.addEventListener('click',async e=>{
  const button=e.target.closest('.wbb-stat-toggle');

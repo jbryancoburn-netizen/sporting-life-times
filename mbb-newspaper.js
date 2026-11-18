@@ -90,7 +90,7 @@ function gamefileCard(g,upcoming=false,conference=false){
  const day=String(g.date||'').slice(0,10);
  const final=!upcoming&&g.away_score!=null&&g.home_score!=null&&Number.isFinite(Number(g.away_score))&&Number.isFinite(Number(g.home_score));
  const phase=final?'final':'upcoming';
- const link=event?'cbb-gamefile.html?day='+encodeURIComponent(day)+'&game='+event[1]:'';
+ const link=event?'ncaam-slate.html?date='+encodeURIComponent(day)+'&game='+event[1]:'';
  const id=event?event[1]:'';
  const meta=conference?' slt-fixture-meta':'';
  const attrs=conference?' data-fixture-event="'+esc(id)+'" data-fixture-day="'+esc(day)+'"':'';
@@ -100,7 +100,7 @@ function gamefileCard(g,upcoming=false,conference=false){
   '<details class="ledger26-expand"><summary class="ledger26-summary">'+
   window.SLTSportsScorebug.render({phase,suppressMonogram:conference,suppressPress:conference,away:teamProfile(away,final?g.away_score:null),home:teamProfile(home,final?g.home_score:null)})+
   '<span class="ledger26-instruction">OPEN GAME DETAILS +</span></summary><div class="ledger26-expanded">'+data+
-  (link?'<div class="slt-conference-game-link"><a href="'+esc(link)+'">OPEN GAMEFILE ↗</a></div>':'')+
+  (link?'<div class="slt-conference-game-link"><a href="'+esc(link)+'">VIEW IN DAILY LEDGER ↗</a></div>':'')+
   (g.source_url?'<div class="slt-conference-game-link"><a href="'+url(g.source_url)+'" target="_blank" rel="noopener">GAME SOURCE ↗</a></div>':'')+
   '</div></details></article>';
 }
@@ -117,7 +117,7 @@ document.addEventListener('toggle',async e=>{
  away:{name:node.dataset.mbbAway,score:getScore('mbbAwayScore')},
  home:{name:node.dataset.mbbHome,score:getScore('mbbHomeScore')}};
  try{await window.SLTInlineGamefile.mount(node,g,{women:false});}
- catch(error){node.textContent='Gamefile could not be retrieved. Open the full gamefile for available details.';}
+ catch(error){node.textContent='Game statistics could not be retrieved. Check the Daily Ledger for available details.';}
 },true);
 // Resolve confirmed tipoff and broadcasts by ESPN event ID; never invent missing times/networks.
 // Use the same published school calendars as Team Desks, then ESPN by exact event ID.
@@ -190,14 +190,14 @@ function liveFeedCard(g){
  const state=String(g.state||'').toLowerCase(),publishedFinal=state==='post'||/\bfinal\b/i.test(g.status||'');
  const phase=publishedFinal&&scored(away)&&scored(home)?'final':state==='in'||publishedFinal?'live':'upcoming';
  const day=easternGameDay(g.date||g.start_time),id=String(g.id||'').replace(/^espn:/,'');
- const gamefile=/^\d+$/.test(id)&&day?'cbb-gamefile.html?day='+encodeURIComponent(day)+'&game='+id:'';
+ const gamefile=/^\d+$/.test(id)&&day?'ncaam-slate.html?date='+encodeURIComponent(day)+'&game='+id:'';
  const left=profile(away),right=profile(home);
  left.score=phase==='upcoming'?null:scored(away)?away.score:null;
  right.score=phase==='upcoming'?null:scored(home)?home.score:null;
  const status=publishedFinal&&phase!=='final'?'SCORE PENDING':phase==='live'?g.status||'LIVE':undefined;
  return '<article class="ledger26-card"><div class="ledger26-meta"><span class="ledger26-time">'+esc(day||'DATE UNCONFIRMED')+' · '+(phase==='upcoming'?'SCHEDULED':phase==='final'?'FINAL':'LIVE')+'</span></div>'+
    window.SLTSportsScorebug.render({phase,status,away:left,home:right})+
-   (gamefile?'<div class="slt-conference-game-link"><a href="'+esc(gamefile)+'">OPEN GAMEFILE ↗</a></div>':'')+'</article>';
+   (gamefile?'<div class="slt-conference-game-link"><a href="'+esc(gamefile)+'">VIEW IN DAILY LEDGER ↗</a></div>':'')+'</article>';
 }
 function liveRail(){
  const feeds=browserScores||(wire?.games?.length?wire.games:

@@ -131,7 +131,7 @@ try{
   const broadcast=g.broadcast||'TV TBA';
   const final=g.published_final&&Number.isFinite(Number(g.away_score))&&Number.isFinite(Number(g.home_score));
   const phase=final?'final':'upcoming',identifier=String(g.id||'');
-  const link='cbb-gamefile.html?gender=women&day='+encodeURIComponent(displayedDate(g.date))+
+  const link='ncaam-slate.html?gender=women&date='+encodeURIComponent(displayedDate(g.date))+
    '&game='+encodeURIComponent(identifier);
   let forecast=null;
   if(!final&&away&&home&&venue!=='unverified'&&!g.source_conflict&&window.WBBRetroForecast){
@@ -176,7 +176,7 @@ try{
     away:{name:node.dataset.wbbAway,score:Number(node.dataset.wbbAwayScore)},
     home:{name:node.dataset.wbbHome,score:Number(node.dataset.wbbHomeScore)}
    },{women:true});
-  }catch(error){node.textContent='Statistics are unavailable in this gamefile. Open the full gamefile for other details.';}
+  }catch(error){node.textContent='Game statistics are unavailable. Check the Daily Ledger for available details.';}
  },true);
 
   const aliases=items.flatMap(t=>{

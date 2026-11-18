@@ -1,37 +1,87 @@
 (() => {
   'use strict';
-  const directory = document.getElementById('cbb-247-directory');
   const schools = document.getElementById('cbb-247-school');
   const link = document.getElementById('cbb-247-school-link');
   const status = document.getElementById('cbb-247-status');
-  let loaded = false;
-
-  schools.addEventListener('change', () => {
-    link.hidden = !schools.value;
-    if (schools.value) {
-      link.href = 'https://247sports.com/college/' + schools.value + '/news/?sport=basketball';
-    } else {
-      link.removeAttribute('href');
-    }
+  const headlines = document.getElementById('cbb-247-headlines');
+  if (!schools || !headlines) return;
+  const gender = new URLSearchParams(location.search).get('gender') === 'women' ? 'women' : 'men';
+  const clock = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/New_York', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit'
   });
+  const publishers = new Map();
+  const read = async path => {
+    const res = await fetch(path, {cache: 'no-cache', signal: AbortSignal.timeout(10000)});
+    if (!res.ok) throw new Error('News source unavailable');
+    return res.json();
+  };
+  let wire = null;
 
-  directory.addEventListener('toggle', async () => {
-    if (!directory.open || loaded) return;
-    loaded = true;
-    status.textContent = 'Loading the 247Sports team directory…';
+  function publisherURL(article) {
     try {
-      const response = await fetch('data/cbb-247sports-team-sites.json', {signal: AbortSignal.timeout(10000)});
-      if (!response.ok) throw new Error('Directory unavailable');
-      const entries = await response.json();
-      for (const [slug, name] of entries) {
-        if (/^[a-z0-9-]+$/.test(slug) && typeof name === 'string') schools.add(new Option(name, slug));
-      }
-      if (schools.options.length <= 1) throw new Error('Directory was empty');
-      schools.disabled = false;
-      status.textContent = '';
+      const url = new URL(article.url);
+      return url.origin === 'https://247sports.com' &&
+        url.pathname.startsWith('/college/' + article.slug + '/') ? url.href : '';
     } catch {
-      status.textContent = 'Team lookup unavailable. Open the 247Sports Team sites link below.';
-      loaded = false;
+      return '';
     }
+  }
+
+  function render() {
+    const school = publishers.get(schools.value);
+    link.hidden = !school;
+    if (school) link.href = 'https://247sports.com/college/' + schools.value + '/news/?sport=basketball';
+    else link.removeAttribute('href');
+    headlines.replaceChildren();
+    if (!wire) {
+      status.textContent = '247Sports headlines are unavailable. The school links remain available.';
+      return;
+    }
+    const seen = new Set();
+    const stories = wire.articles.filter(article => {
+      if (article.gender !== gender || (school && schools.value !== article.slug) ||
+          !publisherURL(article) || !Number.isFinite(Date.parse(article.published_at)) ||
+          Date.now() - Date.parse(article.published_at) > 5 * 86400000) return false;
+      if (!school && seen.has(article.slug)) return false;
+      seen.add(article.slug);
+      return true;
+    }).slice(0, school ? 8 : 10);
+    status.textContent = stories.length ? '' : 'No recent ' +
+      (gender === 'women' ? 'women’s' : 'men’s') + ' basketball headlines from 247Sports' +
+      (school ? ' for ' + school : '') + '.';
+    for (const story of stories) {
+      const article = document.createElement('article');
+      article.className = 'cbb-news-story';
+      const meta = document.createElement('p');
+      meta.className = 'cbb-news-eyebrow';
+      meta.textContent = story.school + ' · 247Sports · ' + clock.format(new Date(story.published_at)) +
+        ' ET' + (story.vip ? ' · VIP' : '');
+      const heading = document.createElement('h4');
+      const original = document.createElement('a');
+      original.href = publisherURL(story);
+      original.target = '_blank';
+      original.rel = 'noopener noreferrer';
+      original.textContent = story.title;
+      heading.append(original);
+      article.append(meta, heading);
+      headlines.append(article);
+    }
+  }
+
+  schools.addEventListener('change', render);
+  Promise.allSettled([
+    read('data/cbb-247sports-team-sites.json'),
+    read('data/cbb-247sports-headlines.json')
+  ]).then(([directory, articles]) => {
+    if (directory.status === 'fulfilled' && Array.isArray(directory.value)) {
+      for (const [slug, name] of directory.value) {
+        if (!/^[a-z0-9-]+$/.test(slug) || typeof name !== 'string') continue;
+        publishers.set(slug, name);
+        schools.add(new Option(name, slug));
+      }
+      schools.disabled = publishers.size === 0;
+    }
+    if (articles.status === 'fulfilled' && Array.isArray(articles.value?.articles)) wire = articles.value;
+    render();
   });
 })();

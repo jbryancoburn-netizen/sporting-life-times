@@ -23,7 +23,7 @@
   const state={day:(/^\d{4}-\d{2}-\d{2}$/.test(here.get('day')||'')?here.get('day'):today()),games:[],section:'summary',selected:(/^\d+$/.test(here.get('game')||'')?here.get('game'):null),pending:false,source:'',lastUpdate:null,fallback:false,summaryCache:new Map(),crosswalk:new Map(),schoolNames:new Map(),filter:'all',generation:0,ratings:new Map(),forecast:new Map(),ratingsReady:false,modelDate:null,preseason:false,forecastDate:null,poll:new Map(),pollDate:null,expanded:new Set(),expandedDay:null,inlineTabs:new Map(),inlineRequests:new Map(),rankTies:new Map()};
   const tag=women?'Women':'Men';
   const display=women?'WOMEN’S DIVISION I':'MEN’S DIVISION I';
-  const gameLink=(g)=>'cbb-gamefile.html?'+(women?'gender=women&':'')+'day='+encodeURIComponent(state.day)+'&game='+encodeURIComponent(g.id);
+  const gameLink=(g)=>'ncaam-slate.html?'+(women?'gender=women&':'')+'date='+encodeURIComponent(state.day)+'&game='+encodeURIComponent(g.id);
   const backLink=()=> 'cbb-game-center.html'+(women?'?gender=women&day='+encodeURIComponent(state.day):'?day='+encodeURIComponent(state.day));
   let mounted=false,interval=null;
   const fetchJSON=async path=>{try{const r=await fetch(path,{cache:'no-store',signal:AbortSignal.timeout(10500)});return r.ok?await r.json():null;}catch{return null;}};

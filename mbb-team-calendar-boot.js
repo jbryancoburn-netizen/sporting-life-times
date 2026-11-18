@@ -297,8 +297,6 @@ try{
     '" rel="noopener noreferrer" target="_blank">'+(resultSource.source_tier==='independent_secondary'?
       'Published score ↗':'University result ↗')+'</a>':'';
   const result=scoreText+sourceLink;
-  const gameFile=final?'<br><a class="mbb-schedule-gamefile" href="cbb-gamefile.html?day='+
-    encodeURIComponent(final.date)+'&amp;game='+encodeURIComponent(final.id)+'">Game file ↗</a>':'';
   const statId=String(final?.id||e.id||'').replace(/^espn:/,'');
   const expandable=hasScore&&/^\d+$/.test(statId);
   const school=schoolByEspn.get(opponentId);
@@ -333,7 +331,7 @@ try{
     '<td class="sched-time-cell">'+escape(tip)+'</td>'+
     '<td class="sched-network-cell">'+network+'</td>'+
     '<td class="sched-elo-cell">'+(exhibition||verifiedNonD1?'Not applicable':escape(opponentElo(opponentId)))+'</td>'+
-    '<td class="sched-result-cell">'+(scheduleState==='upcoming'?'<button type="button" class="slt-team-press-btn" data-press-home="'+escape(vs==='HOME'?team.name:(school?.name||opponentName))+'" data-press-away="'+escape(vs==='HOME'?(school?.name||opponentName):team.name)+'">PREGAME PRESS ›</button>':'')+result+gameFile+(expandable?'<button type="button" class="victorian-stat-toggle" aria-expanded="false">GAME STATS ▾</button>':'')+'</td></tr>'+(expandable?'<tr class="victorian-stat-detail" hidden><td colspan="7"><div class="victorian-stat-content">Open for game statistics.</div></td></tr>':'');
+    '<td class="sched-result-cell">'+(scheduleState==='upcoming'?'<button type="button" class="slt-team-press-btn" data-press-home="'+escape(vs==='HOME'?team.name:(school?.name||opponentName))+'" data-press-away="'+escape(vs==='HOME'?(school?.name||opponentName):team.name)+'">PREGAME PRESS ›</button>':'')+result+(expandable?'<button type="button" class="victorian-stat-toggle" aria-expanded="false">GAME STATS ▾</button>':'')+'</td></tr>'+(expandable?'<tr class="victorian-stat-detail" hidden><td colspan="7"><div class="victorian-stat-content">Open for game statistics.</div></td></tr>':'');
  }).join('');
  const scoredExhibitions=games.filter(e=>{
   if(e.date.slice(0,10)>='2026-11-01')return false;
@@ -385,8 +383,14 @@ try{
       const athletes=players?.athletes||[];
       if(!athletes.length)continue;
       const columns=players.labels||[];
+      const playerName=p=>{
+       const name=escape(p.athlete?.displayName||p.athlete?.shortName||'Player');
+       const href=window.SLTCBBPlayer?.href(p.athlete,data.header?.season?.year,'men',row.dataset.statId,
+        data.header?.competitions?.[0]?.date?.slice(0,10)||'',selected);
+       return href?'<a href="'+escape(href)+'">'+name+'</a>':name;
+      };
       html+='<div class="victorian-stat-block"><h3>'+escape(teamBox.team?.displayName||teamBox.team?.name||'Player Box Score')+'</h3><table class="victorian-player-box"><thead><tr><th>Player</th>'+columns.map(c=>'<th>'+escape(c)+'</th>').join('')+'</tr></thead><tbody>'+
-       athletes.map(p=>'<tr><th scope="row">'+escape(p.athlete?.displayName||p.athlete?.shortName||'Player')+'</th>'+
+       athletes.map(p=>'<tr><th scope="row">'+playerName(p)+'</th>'+
         columns.map((label,i)=>'<td data-label="'+escape(label||'Stat '+(i+1))+'">'+escape(p.stats?.[i]??'—')+'</td>').join('')+'</tr>').join('')+
        '</tbody></table></div>';
      }
@@ -412,6 +416,10 @@ try{
  }
  if(typeof host.addEventListener==='function')host.addEventListener('click',e=>{const btn=e.target.closest('.slt-team-press-btn');if(!btn)return;e.preventDefault();e.stopPropagation();window.SLTSportsScorebug?.openPress({gender:'men',home:{name:btn.dataset.pressHome},away:{name:btn.dataset.pressAway}});},true);
  search.addEventListener('input',filter);view.addEventListener('change',filter);filter();
+ const requestedGame=new URLSearchParams(location.search).get('game');
+ if(/^\d+$/.test(requestedGame||'')){
+  host.querySelector('[data-stat-id="'+requestedGame+'"] .victorian-stat-toggle')?.click();
+ }
  host.dataset.scheduleLoaded=selected;
  if(!host.dataset.calendarPolling){host.dataset.calendarPolling='true';setInterval(()=>{if(!document.hidden)refreshCalendar();},60000);}
 }catch(err){

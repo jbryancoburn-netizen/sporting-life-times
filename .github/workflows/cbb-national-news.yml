@@ -3,6 +3,8 @@ on:
   pull_request:
     paths:
       - 'scripts/refresh_cbb_national_news.py'
+      - 'scripts/refresh_cbb_247sports.py'
+      - 'cbb-247sports.js'
       - 'scripts/verify_cbb_news.py'
       - 'scripts/test_cbb_news_quality.py'
       - 'cbb-front-news.js'
@@ -16,6 +18,8 @@ on:
     branches: [main]
     paths:
       - 'scripts/refresh_cbb_national_news.py'
+      - 'scripts/refresh_cbb_247sports.py'
+      - 'cbb-247sports.js'
       - 'scripts/verify_cbb_news.py'
       - 'scripts/test_cbb_news_quality.py'
       - 'cbb-front-news.js'
@@ -82,11 +86,13 @@ jobs:
         run: python scripts/refresh_cbb_national_news.py
       - name: Verify both editions, relevance, provenance, diversity, and freshness
         run: python scripts/verify_cbb_news.py
+      - name: Refresh 247Sports school headlines
+        run: python scripts/refresh_cbb_247sports.py
       - name: Publish updated basketball news
         run: |
           git config user.name sporting-life-times-bot
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add data/cbb-national-news.json
+          git add data/cbb-national-news.json data/cbb-247sports-headlines.json
           if ! git diff --cached --quiet; then
             git commit -m "Refresh verified college basketball news"
             for attempt in 1 2 3 4; do

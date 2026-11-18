@@ -71,7 +71,7 @@
     const eventId=String(g.espn_id||g.id||'');
     const day=localDay(g.date);
     const gamefile=/^\d+$/.test(eventId)&&/^\d{4}-\d{2}-\d{2}$/.test(day)?
-      'cbb-gamefile.html?gender=women&day='+encodeURIComponent(day)+'&game='+encodeURIComponent(eventId):'';
+      'ncaam-slate.html?gender=women&date='+encodeURIComponent(day)+'&game='+encodeURIComponent(eventId):'';
     const certifiedNeutral=window.WBBSiteIntegrity?.certifiedNeutral(g,neutralProof);
     const siteClaims=officialHome?[]:window.WBBSiteIntegrity?.claims(g,siteDisputes,neutralProof)||[];
     const siteSource=siteClaims.find(x=>window.WBBSiteIntegrity.safeURL(x.source_url))?.source_url||'';

@@ -156,7 +156,12 @@
     keys.map(key=>'<div class="slt-gf-stat-row"><b>'+esc(a.get(key)?.val??'—')+
       '</b><span>'+esc(a.get(key)?.label||h.get(key)?.label||key)+'</span><b>'+esc(h.get(key)?.val??'—')+'</b></div>').join('');
  }
- function ncaaPlayers(box,g){
+ function playerLink(athlete,raw,g,women){
+   const href=global.SLTCBBPlayer?.href(athlete,raw?.header?.season?.year,women?'women':'men',g.id,g.day);
+   const label=esc(athlete?.displayName||'Unnamed player');
+   return href?'<a href="'+esc(href)+'">'+label+'</a>':label;
+ }
+ function ncaaPlayers(box,g,raw,women){
    if(!box)return '';
    const defs=[['min','MIN'],['pts','PTS'],['fgm','FGM'],['fga','FGA'],['tpm','3PM'],
      ['tpa','3PA'],['ftm','FTM'],['fta','FTA'],['oreb','OREB'],['dreb','DREB'],
@@ -165,16 +170,22 @@
      (validURL(box.source_url)?' · <a href="'+esc(box.source_url)+'" target="_blank" rel="noopener noreferrer">Source ↗</a>':'')+'</p>'+
      ['away','home'].map(side=>{
        const players=box?.[side]?.players||[];
+       const group=raw?.boxscore?.players?.find(t=>String(t.team?.id)===String(g[side].id));
+       const athletes=(group?.statistics||[]).flatMap(section=>(section.athletes||[]).map(row=>row.athlete)).filter(Boolean);
+       const officialName=player=>{
+         const matches=athletes.filter(a=>a.displayName?.trim().toLowerCase()===player.name?.trim().toLowerCase());
+         return matches.length===1?playerLink(matches[0],raw,g,women):esc(player.name||'Unnamed player');
+       };
        if(!players.length)return missing(name(g[side])+' player box score is not available.');
        return '<div class="slt-gf-scroll slt-gf-scroll--players"><table class="slt-gf-table slt-gf-table--players"><caption>'+
          esc(name(g[side]))+' · player box score</caption><thead><tr><th scope="col">PLAYER</th>'+
          defs.map(([,label])=>'<th scope="col">'+label+'</th>').join('')+'</tr></thead><tbody>'+
-         players.map(p=>'<tr><th scope="row">'+esc(p.name||'Unnamed player')+'</th>'+
+         players.map(p=>'<tr><th scope="row">'+officialName(p)+'</th>'+
            defs.map(([key,label])=>'<td data-label="'+esc(label)+'">'+esc(p[key]??'—')+'</td>').join('')+'</tr>').join('')+
          '</tbody></table></div>';
      }).join('');
  }
- function espnPlayers(raw,g){
+ function espnPlayers(raw,g,women){
    const groups=raw?.boxscore?.players||[];
    return groups.map(group=>{
      const teamId=String(group.team?.id||'');
@@ -187,7 +198,7 @@
        return '<div class="slt-gf-scroll slt-gf-scroll--players"><table class="slt-gf-table slt-gf-table--players"><caption>'+
          esc(name(team))+' · '+esc(section.name||'player statistics')+' · live box score</caption>'+
          '<thead><tr><th scope="col">PLAYER</th>'+labels.map(v=>'<th scope="col">'+esc(v)+'</th>').join('')+
-         '</tr></thead><tbody>'+players.map(p=>'<tr><th scope="row">'+esc(p.athlete.displayName)+'</th>'+
+         '</tr></thead><tbody>'+players.map(p=>'<tr><th scope="row">'+playerLink(p.athlete,raw,g,women)+'</th>'+
          labels.map((label,i)=>'<td data-label="'+esc(label)+'">'+esc(p.stats[i]??'—')+'</td>').join('')+
          '</tr>').join('')+'</tbody></table></div>';
      }).join('');
@@ -285,7 +296,7 @@
    const playerBox=checkedBox(g,feed,women,'ncaa_player_boxscores');
    const team=ncaaTeamStats(teamBox,g)||espnTeamStats(raw,g)||
      missing('Verified team totals are not available. No statistics have been estimated.');
-   const players=ncaaPlayers(playerBox,g)||espnPlayers(raw,g)||
+   const players=ncaaPlayers(playerBox,g,raw,women)||espnPlayers(raw,g,women)||
      missing('Player box scores have not been published for this matchup.');
    const periods=lineScore(g,raw,women);
    const reportedPlays=global.SLTCourt?.parsePlays?.(raw)||[];

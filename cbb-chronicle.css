@@ -123,3 +123,11 @@ body:is([data-slt-front="cbb"],[data-d2-layout]) nav.cbb-universal-nav .chronicl
   body:is([data-slt-front="cbb"],[data-d2-front]) .chronicle-retro-team small{font-size:10px}
   body:is([data-slt-front="cbb"],[data-d2-front]) .chronicle-retro-value{font-size:12px}
 }
+#cbb-247-headlines{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 1rem;margin-top:.65rem}
+#cbb-247-headlines .cbb-news-story{border-top:1px solid var(--chronicle-rule);padding:.6rem 0}
+#cbb-247-headlines h4{font:700 1rem/1.3 "Century Schoolbook",Georgia,serif;margin:.18rem 0}
+#cbb-247-headlines h4 a{color:var(--chronicle-ink);text-underline-offset:.17em}
+#cbb-247-school{max-width:min(90%,21rem);font:inherit}
+#cbb-247-status:empty{display:none}
+@media(max-width:800px){#cbb-247-headlines{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:480px){#cbb-247-headlines{grid-template-columns:1fr}}

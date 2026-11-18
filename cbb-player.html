@@ -3,26 +3,28 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>College Basketball Player Game Log | Sporting Life &amp; Times</title>
-<link rel="stylesheet" href="mbb-newspaper.css">
-<link rel="stylesheet" href="cbb-live-center.css?v=compact-player-ledger-20261105">
-<link rel="stylesheet" href="slt-victorian-global.css?v=20261103-a">
-<script defer src="cbb-player.js"></script>
+<title>College Basketball Player Register | Sporting Life &amp; Times</title>
+<link rel="stylesheet" href="cbb-player.css?v=register-20261118">
+<script defer src="cbb-player.js?v=register-20261118"></script>
 </head>
-<body>
-<div class="cbb-standalone cbb-gamefile-page">
-<header>
-<div class="masthead"><a href="index.html">Sporting Life &amp; Times</a></div>
-<div class="edition-line">COLLEGE BASKETBALL PLAYER REGISTER</div>
-<nav class="nav" aria-label="Player register navigation">
+<body class="player-register-page">
+<div class="player-register-shell">
+<header class="player-register-mast">
+<a href="index.html">Sporting Life &amp; Times</a>
+<nav aria-label="Player register navigation">
 <a id="player-chronicle" href="ncaam.html">Hardwood Chronicle</a>
 <a id="player-return" href="ncaam-slate.html">Daily Ledger</a>
 </nav>
 </header>
-<main id="player-register" class="cbb-gamefile-detail">
+<main>
+<header class="player-register-header">
+<p id="player-edition" class="player-register-kicker">College Basketball Player Register</p>
 <h1 id="player-name">Player game log</h1>
+<p id="player-meta"></p>
+</header>
+<div id="player-overview"></div>
 <p id="player-status" role="status">Checking for a published season game log…</p>
-<div id="player-games"></div>
+<div id="player-games" class="player-log-wrap"></div>
 </main>
 </div>
 </body>

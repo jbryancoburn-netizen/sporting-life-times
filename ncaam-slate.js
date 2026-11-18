@@ -310,8 +310,8 @@ function normalizeExhibitions(data,crossList){
 function gameDetailsHref(g,women){
   if(g.kind==='exhibition')return g.sourceURL||'#';
   if(!validId(g.id))return '#';
-  return 'cbb-gamefile.html?'+(women?'gender=women&':'')+
-    'day='+encodeURIComponent(g.day)+'&game='+encodeURIComponent(g.id);
+  return 'ncaam-slate.html?'+(women?'gender=women&':'')+
+    'date='+encodeURIComponent(g.day)+'&game='+encodeURIComponent(g.id);
 }
 const formatClock=g=>{
   if(g.phase==='live')return String(g.status||'LIVE').replace(/^\d+\/\d+\s*-\s*/,'');
@@ -499,6 +499,8 @@ function start(){
 const root=document.getElementById('slate-root');if(!root)return;
 const url=new URL(location.href),women=url.searchParams.get('gender')==='women';
 let selected=/^\d{4}-\d\d-\d\d$/.test(url.searchParams.get('date')||'')?url.searchParams.get('date'):today();
+const requestedGame=cleanId(url.searchParams.get('game'));
+let pendingGame=/^(?:ncaa:)?\d{1,12}$/.test(requestedGame)?requestedGame:'';
 let filter=['all','live','final','upcoming','exhibition'].includes(url.searchParams.get('view'))?url.searchParams.get('view'):'all';
 // Recent form is an all-division regular-season ledger, separate from RETRO.
 // It includes sourced non-DI finals, never exhibition games or unplayed fixtures.
@@ -887,8 +889,8 @@ const ledgerScorebug=g=>{
          const rawId=String(r.gameId||'').replace(/^espn:/,'');
          const day=String(r.date||'');
          const gameHref=/^\d{1,12}$/.test(rawId)&&/^\d{4}-\d{2}-\d{2}$/.test(day)?
-           'cbb-gamefile.html?'+(women?'gender=women&':'')+
-             'day='+encodeURIComponent(day)+'&game='+encodeURIComponent(rawId):'';
+           'ncaam-slate.html?'+(women?'gender=women&':'')+
+             'date='+encodeURIComponent(day)+'&game='+encodeURIComponent(rawId):'';
          return {result:r.result,date:day,scored:r.scored,allowed:r.allowed,
            opponent:r.opponent,home:r.home,gameHref};
        })};
@@ -1001,7 +1003,6 @@ function card(original,featured,opened=false){
    ledgerScorebug(g)+'<span class="ledger26-instruction">OPEN GAME DETAILS <span aria-hidden="true">+</span></span></summary>'+
    '<div class="ledger26-expanded">'+
    '<div class="sl-game-footer ledger26-links"><span>'+esc(source)+'</span>'+
-   (!external&&validId(g.id)?'<a class="sl-details" href="'+esc(gameDetailsHref(g,women))+'">Open permanent Gamefile ↗</a>':'')+
    (external&&/^https:\/\/[^\s"'<>]+$/.test(g.sourceURL||'')?
      '<a class="sl-details" href="'+esc(g.sourceURL)+'" target="_blank" rel="noopener noreferrer">Cited exhibition result ↗</a>':'')+
    '</div>'+
@@ -1093,7 +1094,10 @@ function addCardExtras(shown){
 }
 const render=()=>{
  const slate=displayGames();
- const games=selectGames(slate,selected,filter,search),shown=games.slice(0,limit);
+ const games=selectGames(slate,selected,filter,search);
+ const target=pendingGame&&games.find(g=>[g.id,g.espnId,g.ncaaId&&'ncaa:'+g.ncaaId].some(id=>cleanId(id)===pendingGame));
+ if(target)limit=Math.max(limit,games.indexOf(target)+1);
+ const shown=games.slice(0,limit);
  const opened=new Set([...document.querySelectorAll('.sl-game-expansion[open]')].map(d=>d.dataset.day+'|'+d.dataset.gameId));
  document.getElementById('sl-date').textContent=dateLabel(selected,window.matchMedia('(max-width:700px)').matches);
  document.getElementById('sl-count').textContent=games.length+' '+(games.length===1?'game':'games');
@@ -1103,8 +1107,13 @@ const render=()=>{
  }
  const empty=sourceError?'<div class="sl-empty"><strong>Data source unavailable.</strong><p>'+esc(sourceError)+'</p><button type="button" id="sl-retry">Retry connection</button></div>':
  '<div class="sl-empty"><strong>No games match this view.</strong><p>Change the date or filter. Only source-backed fixtures are shown.</p></div>';
- document.getElementById('sl-games').innerHTML=shown.length?shown.map((g,i)=>card(g,i===0,opened.has(g.day+'|'+g.id))).join(''):empty;
+ document.getElementById('sl-games').innerHTML=shown.length?shown.map((g,i)=>card(g,i===0,g===target||opened.has(g.day+'|'+g.id))).join(''):empty;
  addCardExtras(shown);
+ if(target){
+   pendingGame='';
+   const details=document.querySelectorAll('.sl-game-expansion')[shown.indexOf(target)];
+   if(details)requestAnimationFrame(()=>details.scrollIntoView({block:'center'}));
+ }
  // School names navigate; the rest of the scorebug retains the native details toggle.
  document.querySelectorAll('#sl-games .ledger26-team-link').forEach(link=>
    link.addEventListener('click',event=>event.stopPropagation()));

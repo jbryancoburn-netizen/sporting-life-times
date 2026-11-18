@@ -108,7 +108,6 @@ const rows=sorted.map(g=>{
   const result=window.WBBGameResults.scoreFor(g,id);
   const statAvailable=g.completed&&!g.cancelled&&!g.result_conflict&&/^\d+$/.test(String(g.id));
   const state=g.cancelled?'canceled':g.result_conflict?'review':g.completed?'final':archiveDay&&archiveDay<today?'past':'upcoming';
-  const gameFile='cbb-gamefile.html?gender=women&day='+encodeURIComponent(archiveDay)+'&game='+encodeURIComponent(g.id);
   const press=state==='upcoming'&&g.home_id&&g.away_id
     ?'<button type="button" class="slt-team-press-btn" data-press-home="'+esc(String(g.home_id)===id?t.team:g.opponent)+'" data-press-away="'+esc(String(g.away_id)===id?t.team:g.opponent)+'">Pregame Press ›</button>':'';
   const statusLabel={canceled:'Canceled',review:'Result review',final:'Final',past:'Awaiting result',upcoming:'Upcoming'}[state];
@@ -120,7 +119,7 @@ const rows=sorted.map(g=>{
     '<td class="sched-time-cell" data-label="Tipoff">'+tip+tipNote+'</td>'+
     '<td class="sched-network-cell wbb-broadcast" data-label="TV / Stream">'+television+'</td>'+
     '<td class="sched-elo-cell wbb-opp-elo" data-label="Opp. RETRO"><span class="wbb-opp-elo-value">'+fmtElo(other)+'</span><small class="wbb-opp-change" title="Opponent daily RETRO change">'+delta+'</small></td>'+
-    '<td class="sched-result-cell wbb-result-cell" data-label="Result" title="'+esc(result.detail)+'"><strong>'+esc(result.value)+'</strong><small class="wbb-result-source">'+esc(result.detail)+'</small>'+press+(press?'<small class="wbb-schedule-projection"></small>':'')+(statAvailable?'<a class="mbb-schedule-gamefile" href="'+esc(gameFile)+'">Game file ↗</a>':'')+
+    '<td class="sched-result-cell wbb-result-cell" data-label="Result" title="'+esc(result.detail)+'"><strong>'+esc(result.value)+'</strong><small class="wbb-result-source">'+esc(result.detail)+'</small>'+press+(press?'<small class="wbb-schedule-projection"></small>':'')+(statAvailable?'<a class="mbb-schedule-gamefile" href="'+esc('ncaam-slate.html?gender=women&date='+encodeURIComponent(archiveDay)+'&game='+encodeURIComponent(g.id))+'">Game file ↗</a>':'')+
     (statAvailable?'<button type="button" class="victorian-stat-toggle wbb-stat-toggle" data-event="'+esc(g.id)+'" aria-expanded="false" aria-controls="wbb-detail-'+esc(g.id)+'">Game Stats ▾</button>':'')+'</td></tr>';
   return main+(statAvailable?'<tr class="victorian-stat-detail wbb-game-detail" id="wbb-detail-'+esc(g.id)+'" hidden><td colspan="7"><div class="wbb-game-stats">Open to view verified game statistics.</div></td></tr>':'');
 }).join('');

@@ -128,8 +128,8 @@ function attach(root, gender, retro, directory) {
   const describe = game => {
    const date = dayOf(game.date);
    const id = String(game.retro_verified_final || game.id || '').replace(/^espn:/, '');
-   const href = /^(?:\d{1,12}|ncaa:\d+|school-\d+-\d{4}-\d{2}-\d{2}-\d+)$/.test(id) ? 'cbb-gamefile.html?' + new URLSearchParams({
-    gender, day: date, game: id
+   const href = /^(?:\d{1,12}|ncaa:\d+|school-\d+-\d{4}-\d{2}-\d{2}-\d+)$/.test(id) ? 'ncaam-slate.html?' + new URLSearchParams({
+    gender, date, game: id
    }) : '';
    return {href,
    location: game.location, opponent: game.opponent, day: dayOf(game.date),
