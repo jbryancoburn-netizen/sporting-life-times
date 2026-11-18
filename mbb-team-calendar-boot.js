@@ -202,9 +202,9 @@ function scheduleForm(games,ids,day,ratings,esc,upcoming){
   const gamesBefore=games.filter(g=>g.date<day&&(g.home_id===String(id)||g.away_id===String(id))&&g.home_score!=null&&g.away_score!=null&&Number.isFinite(+g.home_score)&&Number.isFinite(+g.away_score)&&+g.home_score!==+g.away_score).sort((a,b)=>b.date.localeCompare(a.date));
   const form=gamesBefore.map(g=>(g.home_id===String(id))===(+g.home_score>+g.away_score));
   const recent=form.slice(0,5),wins=recent.filter(Boolean).length,change=form.findIndex(x=>x!==form[0]);
-  const r=upcoming?ratings.get(String(id)):null,delta=Number(r?.daily_change);
+  const r=upcoming?ratings.get(String(id)):null,delta=Number(Number(r?.daily_change).toFixed(1));
   const record=recent.length?'Last '+recent.length+' <b>'+wins+'–'+(recent.length-wins)+'</b> · <b>'+(form[0]?'W':'L')+(change<0?form.length:change)+'</b>':'';
-  const retro=r?.elo!=null&&Number.isFinite(+r.elo)?'RETRO <b>'+Math.round(+r.elo)+'</b>'+(Number.isFinite(delta)&&delta!==0?' <span class="sched-retro-'+(delta>0?'up':'down')+'">('+(delta>0?'+':'')+Number(delta.toFixed(1))+')</span>':''):'';
+  const retro=r?.elo!=null&&Number.isFinite(+r.elo)?'RETRO <b>'+Math.round(+r.elo)+'</b>'+(Number.isFinite(delta)&&delta!==0?' <span class="sched-retro-'+(delta>0?'up':'down')+'">('+(delta>0?'+':'')+delta+')</span>':''):'';
   return record||retro?'<span class="sched-form-line"><b>'+esc(name)+'</b><span>'+record+'</span><span title="Current RETRO and daily change">'+retro+'</span></span>':'';
  }).join('');
 }
@@ -240,7 +240,7 @@ function scheduleForm(games,ids,day,ratings,esc,upcoming){
   const opponentId=knownId||exactId(opponentName);
   // Recover exact Division I identities when an imported opponent has no ID.
   // Non-Division I opponents retain initials instead of a guessed crest.
-  const accent=window.MBBLogos.colorForESPN?.(opponentId)?.primary;
+  const accent=window.MBBLogos.colorForESPN?.(opponentId)?.primary||window.MBBLogos.colorForESPN?.(team.espn_id)?.primary;
   const accentStyle=/^#[0-9a-f]{6}$/i.test(accent||'')?' style="--schedule-team-color:'+accent+'"':'';
   const emblem=window.MBBLogos.byESPN(opponentId,'schedule',opponentName);
   const date=new Date(e.date);
