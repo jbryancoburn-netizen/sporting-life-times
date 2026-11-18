@@ -345,7 +345,19 @@ def live(today=None):
                 if g["status"]=="final":
                     old=finals.get(g["id"])
                     if old and any(old.get(k)!=g.get(k) for k in ("date","home_id","away_id","home_score","away_score")):
-                        raise RuntimeError("Disputed game "+g["id"])
+                        # Both schools confirm Idaho State 71, South Dakota 69.
+                        # https://goyotes.com/sports/womens-basketball/stats/2026-27/idaho-state/boxscore/9686
+                        # https://isubengals.com/sports/womens-basketball/schedule/2026-27?grid=true
+                        confirmed_correction = (
+                            g["id"] == "401918739"
+                            and all(old.get(k) == g.get(k) for k in ("date", "home_id", "away_id"))
+                            and (g["date"], g["home_id"], g["away_id"]) == ("2026-11-15T19:00Z", "233", "304")
+                            and (old["home_score"], old["away_score"]) == (66, 71)
+                            and (g["home_score"], g["away_score"]) == (69, 71)
+                        )
+                        if not confirmed_correction:
+                            raise RuntimeError("Disputed game "+g["id"])
+                        print("Applied university-confirmed final score correction for", g["id"])
                     # Never downgrade earlier NCAA-origin corroboration merely
                     # because the relay is unavailable on a later ESPN refresh.
                     # The exact identity and score equality gate above is required.
