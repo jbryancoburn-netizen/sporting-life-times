@@ -14,6 +14,35 @@
   min-width:0;
   overflow:hidden;
 }
+/* Rivalry edition: the entire scorebug/card is framed in competing school inks.
+   Reuses the existing card shell without an overlay, extra box, or clipping. */
+.sl-ledger-page #sl-games > .ledger26-card--rivalry{
+ border:4px solid var(--rivalry-away)!important;
+ border-right-color:var(--rivalry-home)!important;
+ border-bottom-color:var(--rivalry-home)!important;
+ border-top:4px solid var(--rivalry-away)!important;
+ box-shadow:inset 0 0 0 2px #f9f1e4!important;
+ border-radius:5px;
+}
+.sl-ledger-page #sl-games > .ledger26-card--rivalry .ledger26-rivalry-identifier{
+ border-bottom:2px solid var(--rivalry-away)!important;
+}
+.sl-ledger-page #sl-games > .ledger26-card--rivalry .ledger26-meta{
+ border-bottom:2px solid var(--rivalry-home);
+}
+.sl-ledger-page #sl-games > .ledger26-card--rivalry .ledger26-summary{
+ border-left:2px solid var(--rivalry-away);
+ border-right:2px solid var(--rivalry-home);
+}
+@media(max-width:640px){
+ .sl-ledger-page #sl-games > .ledger26-card--rivalry{
+  border-width:3px!important;
+  border-top-width:3px!important;
+ }
+ .sl-ledger-page #sl-games > .ledger26-card--rivalry .ledger26-summary{
+  border-left-width:1px;border-right-width:1px;
+ }
+}
 .ledger26-card::before,.ledger26-card::after{content:none!important;display:none!important}
 .ledger26-meta{
   display:grid;
