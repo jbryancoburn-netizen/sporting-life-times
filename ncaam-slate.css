@@ -304,12 +304,9 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #c481
  .sl-ledger-page .ledger26-scorebug:not(.ledger26-scorebug--pregame) .ledger26-scout{display:none}
 }
 
-/* UCF Citronaut retains its original artwork; use the shared paper knockout. */
+/* Preserve the Citronaut's original colors in the watermark. */
 .sl-ledger-page .ledger26-scorebug .ledger26-ghost--ucf,
 .sl-ledger-page .ledger26-scorebug .ledger26-ghost--ucf img{
  mix-blend-mode:normal!important;
  background:transparent!important;
-}
-.sl-ledger-page .ledger26-scorebug .ledger26-ghost--ucf img{
- filter:url(#slt-ucf-remove-paper)!important;
 }
