@@ -127,8 +127,8 @@ function attach(root, gender, retro, directory) {
   upcoming.sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
   const describe = game => {
    const date = dayOf(game.date);
-   const id = String(game.id || '').replace(/^espn:/, '');
-   const href = /^\d{1,12}$/.test(id) ? 'cbb-gamefile.html?' + new URLSearchParams({
+   const id = String(game.retro_verified_final || game.id || '').replace(/^espn:/, '');
+   const href = /^(?:\d{1,12}|ncaa:\d+|school-\d+-\d{4}-\d{2}-\d{2}-\d+)$/.test(id) ? 'cbb-gamefile.html?' + new URLSearchParams({
     gender, day: date, game: id
    }) : '';
    return {href,

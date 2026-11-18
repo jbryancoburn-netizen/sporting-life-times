@@ -83,7 +83,7 @@
     if(g.phase==='live')return '<span class="cbb-live-pill">LIVE</span> '+esc(g.headline||('Period '+g.period));
     if(g.phase==='final')return '<strong class="cbb-final">FINAL</strong>';
     if(!g.date)return 'Tipoff time TBA';
-    return esc(localDate(g.date));
+    return esc(g.publishedTipoff||localDate(g.date));
   }
   function schoolLink(t){
     const id=String(t?.team?.id||'');
@@ -198,7 +198,7 @@
   function gameEditorial(g){
     if(g.disputed)return 'Independent source feeds report different final scores. The score is withheld pending reconciliation.';
     const as=score(g.away),hs=score(g.home);
-    const away=teamName(g.away),home=teamName(g.home),when=localDate(g.date);
+    const away=teamName(g.away),home=teamName(g.home),when=g.publishedTipoff||localDate(g.date);
     const p=g.phase;
     if(p==='upcoming'){
       if(g.neutral&&g.venue)return 'Neutral court · '+g.venue+' · '+when+'.';
@@ -1009,6 +1009,21 @@
     if(window.SLTCourt)window.SLTCourt.mount(document.getElementById('cbb-courtcast-root'),g,flowMatches?raw:null,{updatedAt:entry?.at||0});
     if(window.SLTRadio)window.SLTRadio.mount(document.getElementById('cbb-radio-companion-root'),g,women?'women':'men');
   }
+  async function schoolScheduleGame(id, team, day){
+    const schedule=await fetchJSON('data/mbb-schedules-2026-27/'+team+'.json');
+    const event=schedule?.events?.find(e=>e.id===id&&etParts(new Date(e.date))===day);
+    const competition=event?.competitions?.[0];
+    const opponents=competition?.competitors||[];
+    if(opponents.length!==2||!opponents.some(t=>String(t.team?.id)===team))return null;
+    const home=opponents.find(t=>t.homeAway==='home')||opponents[1];
+    const away=opponents.find(t=>t!==home);
+    const phase=event.status?.type?.completed===true?'final':'upcoming';
+    return {id,date:event.date,away,home,phase,neutral:!!event.neutralSite,
+      headline:phase==='final'?'Final':'Scheduled',publishedTipoff:event.official_time||'Tipoff TBA',
+      venue:competition.venue?.fullName||'',
+      broadcast:(competition.broadcasts||[]).flatMap(b=>b.names||[]).join(', '),
+      source:'Published school schedule',url:cleanURL(event.school_source_url||'')};
+  }
   async function openGamefile(){
     const host=document.getElementById('cbb-gamefile-root');if(!host)return;
     const id=here.get('game')||'';
@@ -1016,24 +1031,34 @@
       '<div id="cbb-radio-companion-root" aria-label="Official radio listening options"></div>'+
       '<article id="cbb-detail" class="cbb-gamefile-detail" aria-live="polite"><p class="cbb-loading">Connecting to the game feed…</p></article>';
     host.addEventListener('click',e=>{const button=e.target.closest('[data-gamefile-tab]');if(button)selectGameTab(button.dataset.gamefileTab);});
-    if(!/^(?:\d+|ncaa:\d+)$/.test(id)){q('#cbb-detail').innerHTML='<p class="cbb-empty">Choose a matchup from the Courtside Desk to open its Gamefile.</p>';return;}
+    const schoolId=!women&&/^school-(\d+)-\d{4}-\d{2}-\d{2}-\d+$/.exec(id)?.[1];
+    if(!schoolId&&!/^(?:\d+|ncaa:\d+)$/.test(id)){q('#cbb-detail').innerHTML='<p class="cbb-empty">Choose a matchup from the Courtside Desk to open its Gamefile.</p>';return;}
+    const published=schoolId?await schoolScheduleGame(id,schoolId,state.day):null;
+    const pair=g=>[String(g.away?.team?.id||''),String(g.home?.team?.id||'')].sort().join('|');
+    let resolvedId=id;
     let busy=false;
     async function update(){
       if(busy)return;busy=true;
       try{
         const feed=await getCourtGames(state.day);
         state.games=withVerifiedNetworks(feed.games);
-        if(!state.games.some(g=>g.id===id)){
+        resolvedId=id;
+        if(published){
+          const matches=state.games.filter(g=>g.date&&etParts(new Date(g.date))===state.day&&pair(g)===pair(published));
+          if(matches.length===1)resolvedId=matches[0].id;
+          else state.games.push(published);
+        }
+        if(!state.games.some(g=>g.id===resolvedId)){
           q('#cbb-detail').innerHTML='<p class="cbb-empty">This game was not found in the '+esc(dateLabel(state.day))+' feed. Return to the Courtside Desk and choose another matchup.</p>';return;
         }
-        await openDetails(id);
+        await openDetails(resolvedId);
       }finally{busy=false;}
     }
     await update();
     // Poll only an active or not-yet-final game every 15 seconds. Final Gamefiles
     // stay stable; there is no value in repeatedly re-requesting a completed game.
     setInterval(()=>{if(document.hidden)return;
-      const phase=state.games.find(g=>g.id===id)?.phase;
+      const phase=state.games.find(g=>g.id===resolvedId)?.phase;
       if(phase!=='final')update();
     },15000);
     document.addEventListener('visibilitychange',()=>{if(!document.hidden)update();});
