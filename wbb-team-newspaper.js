@@ -63,6 +63,7 @@ const record=rating?window.WBBGameResults.overallRecord(rating,games,id):'—';
 const logo=window.MBBLogos.byESPN(id,'hero',t.team);
 const easternDay=date=>date.toLocaleDateString('sv-SE',{timeZone:'America/New_York'});
 const today=easternDay(new Date());
+const month=new Intl.DateTimeFormat('en-US',{month:'long',year:'numeric',timeZone:'America/New_York'});
 const rows=sorted.map(g=>{
   const opponentId=String(g.opponent_id||'');
   const opp=lookup.get(opponentId);
@@ -75,7 +76,9 @@ const rows=sorted.map(g=>{
    const archiveDay=Number.isFinite(d.getTime())?easternDay(d):'';
   const date=Number.isNaN(d.getTime())?esc(g.date||'TBA'):esc(d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric',timeZone:'America/New_York'}));
   const other=rmap.get(String(g.opponent_id||''));
-  const opponent='<div class="sched-matchup">'+badge+'<span class="sched-opponent"><strong class="wbb-opponent-line">'+
+  const accent=window.MBBLogos.colorForESPN?.(opponentId)?.primary;
+  const accentStyle=/^#[0-9a-f]{6}$/i.test(accent||'')?' style="--schedule-team-color:'+accent+'"':'';
+  const opponent='<div class="sched-matchup"'+accentStyle+'>'+badge+'<span class="sched-opponent"><strong class="wbb-opponent-line">'+
     (other?.rank?'<span class="wbb-opponent-rank" title="Women’s RETRO rank">#'+esc(other.rank)+'</span>':'')+
     '<span class="wbb-opponent-name">'+(opp?'<a href="ncaaw-team.html?team='+encodeURIComponent(opp.team_id)+'">'+esc(opponentName)+'</a>':esc(opponentName))+'</span>'+
     '</strong><span class="wbb-match-meta"><small class="wbb-site-label">'+esc(site(g))+'</small>'+conferenceTag+
@@ -122,11 +125,11 @@ const rows=sorted.map(g=>{
     ?'<button type="button" class="slt-team-press-btn" data-press-home="'+esc(String(g.home_id)===id?t.team:g.opponent)+'" data-press-away="'+esc(String(g.away_id)===id?t.team:g.opponent)+'">Pregame Press ›</button>':'';
   const statusLabel={canceled:'Canceled',review:'Result review',final:'Final',past:'Awaiting result',upcoming:'Upcoming'}[state];
   const court=siteClaims.length?'disputed':neutral||g.site==='neutral'?'neutral':officialHome||g.site_verified===true?'verified-home':'unverified';
-  const main='<tr class="wbb-game-entry" data-game-site="'+esc(neutral?'neutral':g.site||'unknown')+'" data-site="'+esc(g.site||'unknown')+'" data-team-id="'+esc(id)+'" data-opponent-id="'+esc(g.opponent_id||'')+'" data-home-id="'+esc(g.home_id||'')+'" data-away-id="'+esc(g.away_id||'')+'" data-forecast-venue="'+court+'" data-initial-state="'+state+'" data-calendar-state="'+state+'" data-opponent="'+esc((g.opponent||opp?.team||'').toLowerCase())+'" data-game-id="'+esc(g.id)+'" data-game-day="'+esc(archiveDay)+'">'+
-    '<td class="sched-date-cell" data-label="Date"><time datetime="'+esc(archiveDay)+'">'+date+'</time><span class="sched-game-status sched-status--'+state+'">'+statusLabel+'</span></td>'+
+  const main='<tr class="wbb-game-entry" data-game-site="'+esc(neutral?'neutral':g.site||'unknown')+'" data-site="'+esc(g.site||'unknown')+'" data-exhibition="'+(g.exhibition===true||g.classification==='exhibition'?'true':'false')+'" data-team-id="'+esc(id)+'" data-opponent-id="'+esc(g.opponent_id||'')+'" data-home-id="'+esc(g.home_id||'')+'" data-away-id="'+esc(g.away_id||'')+'" data-forecast-venue="'+court+'" data-initial-state="'+state+'" data-calendar-state="'+state+'" data-opponent="'+esc((g.opponent||opp?.team||'').toLowerCase())+'" data-game-id="'+esc(g.id)+'" data-game-day="'+esc(archiveDay)+'">'+
+    '<td class="sched-date-cell" data-label="Date"><span class="sched-month" hidden>'+esc(Number.isFinite(+d)?month.format(d):'')+'</span><time datetime="'+esc(archiveDay)+'">'+date+'</time><span class="sched-game-status sched-status--'+state+'">'+statusLabel+'</span></td>'+
     '<td class="sched-matchup-cell" data-label="Opponent">'+opponent+'</td>'+
     '<td class="sched-venue-cell" data-label="Arena / City">'+location+'</td>'+
-    '<td class="sched-time-cell" data-label="Tipoff"'+(hasOfficial&&!disputed?' title="University-sourced listing"':'')+'>'+tip+tipNote+'</td>'+
+    '<td class="sched-time-cell" data-label="Tipoff"'+(hasOfficial&&!disputed?' title="University-sourced listing"':'')+'><span class="sched-tip-value">'+tip+'</span>'+tipNote+'</td>'+
     '<td class="sched-network-cell wbb-broadcast" data-label="TV / Stream">'+television+'</td>'+
     '<td class="sched-elo-cell wbb-opp-elo" data-label="Opp. RETRO"><span class="wbb-opp-elo-value">'+fmtElo(other)+'</span><small class="wbb-opp-change" title="Opponent daily RETRO change">'+delta+'</small></td>'+
     '<td class="sched-result-cell wbb-result-cell" data-label="Result" title="'+esc(result.detail)+'"><strong class="'+(result.value.startsWith('W ')?'wbb-result-win':result.value.startsWith('L ')?'wbb-result-loss':'')+'">'+esc(result.value)+'</strong><small class="wbb-result-source">'+esc(result.detail)+'</small>'+(press?'<div class="wbb-schedule-projection"></div>':'')+'<div class="wbb-result-actions">'+press+(statAvailable?'<a class="mbb-schedule-gamefile" href="'+esc('ncaam-slate.html?gender=women&date='+encodeURIComponent(archiveDay)+'&game='+encodeURIComponent(g.id))+'">Ledger ↗</a>':'')+
@@ -154,7 +157,7 @@ host.innerHTML='<section class="wbb-mast"><div class="wbb-identity">'+logo+'<div
 const filterSchedule=()=>{
  const input=host.querySelector('#wbb-calendar-search'),sel=host.querySelector('#wbb-calendar-view'),counter=host.querySelector('#wbb-calendar-count');
  if(!input||!sel)return;
- let shown=0;
+ let shown=0,lastMonth='';
  for(const row of host.querySelectorAll('tr.wbb-game-entry')){
    const matchesName=row.dataset.opponent?.includes(input.value.trim().toLowerCase());
    const matchesStatus=sel.value==='all'||row.dataset.calendarState===sel.value;
@@ -163,7 +166,7 @@ const filterSchedule=()=>{
    if(detail?.classList.contains('wbb-game-detail')&&row.hidden)detail.hidden=true;
    const shadow=detail?.classList.contains('wbb-game-detail')?detail.nextElementSibling:detail;
    if(shadow?.classList.contains('cbb-season-shadow-row'))shadow.hidden=row.hidden;
-   if(!row.hidden)shown++;
+   if(!row.hidden){shown++;const heading=row.querySelector('.sched-month');if(heading){heading.hidden=heading.textContent===lastMonth;lastMonth=heading.textContent;}}
  }
  if(counter)counter.textContent=shown+' of '+games.length+' games';
 };
