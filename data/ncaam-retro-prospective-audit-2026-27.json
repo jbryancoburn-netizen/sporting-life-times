@@ -4,23 +4,23 @@
   "model": "retro-wider-margin-120-140-v1",
   "status": "SHADOW_ONLY",
   "summary": {
-    "games": 53,
+    "games": 54,
     "baseline": {
-      "spread_mae": 13.2264,
-      "home_score_mae": 8,
-      "away_score_mae": 10.6415,
-      "team_score_mae": 9.3208,
-      "total_mae": 13.5849
+      "spread_mae": 13.6111,
+      "home_score_mae": 8.2407,
+      "away_score_mae": 10.6852,
+      "team_score_mae": 9.463,
+      "total_mae": 13.4815
     },
     "wider_margin": {
-      "spread_mae": 13.7642,
-      "home_score_mae": 8.0943,
-      "away_score_mae": 11.0189,
-      "team_score_mae": 9.5566,
-      "total_mae": 13.6792
+      "spread_mae": 14.0648,
+      "home_score_mae": 8.2963,
+      "away_score_mae": 11.0185,
+      "team_score_mae": 9.6574,
+      "total_mae": 13.5741
     }
   },
-  "pending": 61,
+  "pending": 60,
   "excluded": 0,
   "by_date": {
     "2026-11-17": {
@@ -38,6 +38,23 @@
         "away_score_mae": 11.0189,
         "team_score_mae": 9.5566,
         "total_mae": 13.6792
+      }
+    },
+    "2026-11-18": {
+      "games": 1,
+      "baseline": {
+        "spread_mae": 34,
+        "home_score_mae": 21,
+        "away_score_mae": 13,
+        "team_score_mae": 17,
+        "total_mae": 8
+      },
+      "wider_margin": {
+        "spread_mae": 30,
+        "home_score_mae": 19,
+        "away_score_mae": 11,
+        "team_score_mae": 15,
+        "total_mae": 8
       }
     }
   },
@@ -3322,6 +3339,27 @@
       },
       "actual_home": 72,
       "actual_away": 83
+    },
+    {
+      "id": "espn:401909753",
+      "date": "2026-11-18",
+      "home_id": "ncaa:609630",
+      "away_id": "ncaa:609578",
+      "captured_at_utc": "2026-11-18T12:47:38.642Z",
+      "tipoff_at_utc": "2026-11-18T17:00Z",
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "baseline": {
+        "margin": 15,
+        "home": 83,
+        "away": 68
+      },
+      "wider_margin": {
+        "margin": 19,
+        "home": 85,
+        "away": 66
+      },
+      "actual_home": 104,
+      "actual_away": 55
     }
   ]
 }
