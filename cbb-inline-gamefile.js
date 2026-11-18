@@ -119,6 +119,30 @@
      rows.map(([k,title])=>'<div class="slt-gf-stat-row"><b>'+esc(box.away?.[k]??'—')+
        '</b><span>'+esc(title)+'</span><b>'+esc(box.home?.[k]??'—')+'</b></div>').join('');
  }
+ function livePreview(raw,g){
+   const status=raw?.header?.competitions?.[0]?.status?.type;
+   if(g.phase!=='live'||!checkedSummary(raw,g)||status?.state==='pre'||status?.completed===true)return '';
+   if(periodScoreSnapshot(g,raw)?.behind)return '';
+   const teams=[g.away,g.home];
+   const byTeam=(groups,team)=>(groups||[]).find(x=>String(x.team?.id)===String(team.id));
+   const metrics=[['REB','totalrebounds'],['FG%','fieldgoalpct'],['3PT%','threepointfieldgoalpct']].flatMap(([label,key])=>{
+     const values=teams.map(team=>{
+       const stat=byTeam(raw.boxscore?.teams,team)?.statistics?.find(x=>String(x.name).toLowerCase()===key);
+       return num(String(stat?.displayValue??stat?.value??'').replace(/%$/,''));
+     });
+     return values.every(v=>v!==null)?[label+' '+values.map(v=>v+(label.endsWith('%')?'%':'')).join('–')]:[];
+   });
+   const leaders=teams.flatMap(team=>{
+     const section=byTeam(raw.boxscore?.players,team)?.statistics?.find(x=>x.labels?.includes('PTS'));
+     if(!section)return [];
+     const index=section.labels.indexOf('PTS');
+     const athletes=(section.athletes||[]).filter(p=>p.athlete?.displayName&&num(p.stats?.[index])>0);
+     const leader=athletes.reduce((best,p)=>!best||num(p.stats[index])>num(best.stats[index])?p:best,null);
+     return leader?[leader.athlete.displayName+' ('+name(team)+') '+leader.stats[index]+' PTS']:[];
+   });
+   return (leaders.length?'<p><strong>Leading scorers</strong> '+esc(leaders.join(' · '))+'</p>':'')+
+     (metrics.length?'<p><strong>Away–home</strong> '+esc(metrics.join(' · '))+'</p>':'');
+ }
  function espnTeamStats(raw,g){
    const groups=raw?.boxscore?.teams||[],away=groups.find(x=>String(x.team?.id)===String(g.away.id)),
      home=groups.find(x=>String(x.team?.id)===String(g.home.id));
@@ -333,5 +357,5 @@
    node.dataset.snapshot=stamp;
    switchTab(node,selectedTabs.get(key)||'summary');
  }
- return {mount,checkedSummary,checkedBox,periodScoreSnapshot,playLog,renderHTML};
+ return {mount,livePreview,getSummary,checkedSummary,checkedBox,periodScoreSnapshot,playLog,renderHTML};
 });

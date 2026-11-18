@@ -26,12 +26,12 @@ function isLicensed(source){
  return !['localhost','127.0.0.1'].includes(u.hostname)&&
    !u.username&&!u.password&&!u.hash;
 }
-function getGameSources(entries,game,gender){
+function getGameSources(entries,game,gender,teamOnly=false){
  const ids=new Set([String(game?.away?.team?.id||''),String(game?.home?.team?.id||'')]);
  return entries.filter(s=>{
   if(!safeLink(s.listen_url)||!['both',gender].includes(s.gender))return false;
   const teamIds=Array.isArray(s.team_espn_ids)?s.team_espn_ids.map(String):[];
-  return !teamIds.length||teamIds.some(id=>ids.has(id));
+  return (!teamOnly&&!teamIds.length)||teamIds.some(id=>ids.has(id));
  }).sort((a,b)=>Number(!a.team_espn_ids?.length)-Number(!b.team_espn_ids?.length)).slice(0,5);
 }
 async function sources(){
@@ -166,5 +166,7 @@ function dispose(root){
  const s=sessions.get(root);if(!s)return;
  s.abort?.abort();close(s);sessions.delete(root);root.innerHTML='';
 }
-global.SLTRadio={mount,dispose,isLicensed,getGameSources};
+global.SLTRadio={mount,dispose,isLicensed,getGameSources,async teamLinks(game,gender){
+ return getGameSources(await sources(),game,gender,true);
+}};
 })(window);

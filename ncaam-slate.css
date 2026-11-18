@@ -310,3 +310,15 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #c481
  mix-blend-mode:normal!important;
  background:transparent!important;
 }
+
+.sl-day-controls #sl-today { width: auto; padding-inline: 12px; font: 700 12px Georgia, serif; }
+.sl-filters [data-filter-count] { margin-inline-start: 0.32em; font-variant-numeric: tabular-nums; }
+.sl-live-preview { padding: 7px 12px; border-top: 1px solid var(--sl-line); color: var(--sl-ink); font: 12px/1.45 Georgia, serif; }
+.sl-live-preview p { margin: 2px 0; }
+.sl-live-preview strong { margin-inline-end: .35em; }
+.sl-ledger-page a.ledger26-network { text-decoration: underline; text-underline-offset: .13em; }
+@media (max-width: 700px) {
+ .sl-day-controls { grid-template-columns: 36px minmax(0,1fr) 36px auto; }
+ .sl-day-controls > button:not(#sl-today) { width: 36px; }
+ .sl-day-controls #sl-today { padding-inline: 7px; }
+}
