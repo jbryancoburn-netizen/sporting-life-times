@@ -1070,7 +1070,29 @@ async function refreshBroadcasts(day,force=false){
 const verifiedBroadcasts=new Map();
 const publishedBroadcasts=new Map();
 const broadcastPairKey=(gender,day,a,b)=>gender+'|'+day+'|'+[String(a),String(b)].sort((x,y)=>Number(x)-Number(y)).join('|');
-const displayGames=()=>reconcileLive(dedupeFixtures([...loaded,...(futureFixturesByDate.get(selected)||[])]),liveBoard).map(g=>{
+// Add future date-specific fixtures without discarding the existing RETRO forecast.
+ // A timestamp is not a reason to overwrite a forecast-bearing schedule record.
+ const fixtureMerge=()=>{
+  const games=loaded.slice();
+  const key=g=>g.day+'|'+[String(g.away?.canonical||g.away?.id||''),String(g.home?.canonical||g.home?.id||'')].sort().join('|');
+  for(const fixture of futureFixturesByDate.get(selected)||[]){
+   const index=games.findIndex(g=>g.day===fixture.day&&
+     (String(g.id)===String(fixture.id)||(g.away?.canonical&&g.home?.canonical&&
+      fixture.away?.canonical&&fixture.home?.canonical&&key(g)===key(fixture))));
+   if(index<0){games.push(fixture);continue;}
+   const original=games[index];
+   // Keep all original forecast and calibrated projection fields. Allow the
+   // sourced future fixture to supply a real date, venue, and broadcaster.
+   if(original.phase!=='upcoming')continue;
+   games[index]={...original,
+    date:fixture.timed&&fixture.date?fixture.date:original.date,
+    timed:Boolean((fixture.timed&&fixture.date)||original.timed),
+    venue:fixture.venue||original.venue,
+    broadcast:fixture.broadcast||original.broadcast};
+  }
+  return games;
+ };
+ const displayGames=()=>reconcileLive(fixtureMerge(),liveBoard).map(g=>{
  const site=sourcedVenueByGame.get(gameKey(g.id,g.day));
  const official=verifiedBroadcasts.get(String(g.id));
  const broadcaster=(official?.day===g.day?official.network:'')||broadcastByDate.get(g.day)?.get(String(g.id));
