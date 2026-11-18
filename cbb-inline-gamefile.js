@@ -130,18 +130,27 @@
        const stat=byTeam(raw.boxscore?.teams,team)?.statistics?.find(x=>String(x.name).toLowerCase()===key);
        return num(String(stat?.displayValue??stat?.value??'').replace(/%$/,''));
      });
-     return values.every(v=>v!==null)?[label+' '+values.map(v=>v+(label.endsWith('%')?'%':'')).join('–')]:[];
+     return values.some(v=>v!==null)?[{label,values}]:[];
    });
-   const leaders=teams.flatMap(team=>{
+   const leaders=teams.map(team=>{
      const section=byTeam(raw.boxscore?.players,team)?.statistics?.find(x=>x.labels?.includes('PTS'));
-     if(!section)return [];
+     if(!section)return null;
      const index=section.labels.indexOf('PTS');
      const athletes=(section.athletes||[]).filter(p=>p.athlete?.displayName&&num(p.stats?.[index])>0);
      const leader=athletes.reduce((best,p)=>!best||num(p.stats[index])>num(best.stats[index])?p:best,null);
-     return leader?[leader.athlete.displayName+' ('+name(team)+') '+leader.stats[index]+' PTS']:[];
+     return leader?{name:leader.athlete.displayName,points:leader.stats[index]}:null;
    });
-   return (leaders.length?'<p><strong>Leading scorers</strong> '+esc(leaders.join(' · '))+'</p>':'')+
-     (metrics.length?'<p><strong>Away–home</strong> '+esc(metrics.join(' · '))+'</p>':'');
+   if(!metrics.length&&!leaders.some(Boolean))return '';
+   const scorerRow=leaders.some(Boolean)?'<tr><th scope="row">Leading scorer</th>'+leaders.map(leader=>{
+     if(!leader)return '<td>—</td>';
+     return '<td><span class="slt-gf-live-player">'+esc(leader.name)+'</span>'+
+       '<strong class="slt-gf-live-points">'+esc(leader.points)+' PTS</strong></td>';
+   }).join('')+'</tr>':'';
+   const statRows=metrics.map(({label,values})=>'<tr><th scope="row">'+label+'</th>'+values.map(value=>
+     '<td>'+ (value===null?'—':esc(value)+(label.endsWith('%')?'%':''))+'</td>').join('')+'</tr>').join('');
+   return '<table class="slt-gf-live-brief" aria-label="Live game statistics"><thead><tr>'+
+     '<th scope="col">Live stats</th>'+teams.map(team=>'<th scope="col">'+esc(name(team))+'</th>').join('')+
+     '</tr></thead><tbody>'+scorerRow+statRows+'</tbody></table>';
  }
  function espnTeamStats(raw,g){
    const groups=raw?.boxscore?.teams||[],away=groups.find(x=>String(x.team?.id)===String(g.away.id)),

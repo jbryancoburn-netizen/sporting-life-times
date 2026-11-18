@@ -110,3 +110,43 @@
  }
  .ledger26-gamefile .slt-gf-table--players tbody td::before{content:none!important;display:none!important}
 }
+
+.slt-gf-live-brief {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  background: #faf5e9;
+  color: #342a20;
+  font: .8125rem/1.25 Georgia, serif;
+  font-variant-numeric: tabular-nums;
+}
+.slt-gf-live-brief th,
+.slt-gf-live-brief td {
+  padding: .375rem .5rem;
+  border-bottom: 1px solid #ddd0bb;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+.slt-gf-live-brief th:first-child {
+  width: 25%;
+  text-align: left;
+}
+.slt-gf-live-brief thead th {
+  background: #eee3d0;
+  border-block: 1px solid #a99576;
+}
+.slt-gf-live-brief tbody th {
+  color: #61523f;
+  font: 700 .75rem/1.2 Georgia, serif;
+}
+.slt-gf-live-player {
+  display: block;
+  font-weight: 600;
+}
+.slt-gf-live-points {
+  display: inline-block;
+  margin-top: .2rem;
+  padding: .125rem .375rem;
+  border: 1px solid #a99576;
+  font-size: .75rem;
+}
