@@ -883,11 +883,28 @@ const historicRivalries=[
  {gender:'men',teams:['cincinnati','xavier'],name:'Crosstown Shootout',colors:['#e00122','#0c2340']},
  {gender:'men',teams:['kansas','missouri'],name:'Border War',colors:['#0051ba','#f1b82d']},
  {gender:'men',teams:['iowa','iowa state'],name:'Cy-Hawk Series',colors:['#ffcd00','#c8102e']},
- {gender:'men',teams:['villanova','saint josephs'],name:'Holy War',colors:['#00205b','#9e1b32']}
+ {gender:'men',teams:['villanova','saint josephs'],name:'Holy War',colors:['#00205b','#9e1b32']},
+ {gender:'both',teams:['michigan','michigan state'],name:'Michigan–Michigan State Rivalry',colors:['#00274c','#18453b']},
+ {gender:'both',teams:['ucla','southern california'],name:'UCLA–USC Rivalry',colors:['#2774ae','#990000']},
+ {gender:'both',teams:['arizona','arizona state'],name:'Arizona–Arizona State Rivalry',colors:['#ab0520','#8c1d40']},
+ {gender:'both',teams:['alabama','auburn'],name:'Alabama–Auburn Rivalry',colors:['#9e1b32','#0c2340']},
+ {gender:'both',teams:['florida','florida state'],name:'Florida–Florida State Rivalry',colors:['#0021a5','#782f40']},
+ {gender:'both',teams:['kansas','kansas state'],name:'Sunflower Showdown',colors:['#0051ba','#512888']},
+ {gender:'both',teams:['texas','texas a and m'],name:'Lone Star Showdown',colors:['#bf5700','#500000']},
+ {gender:'both',teams:['new mexico','new mexico state'],name:'Rio Grande Rivalry',colors:['#ba0c2f','#891216']},
+ {gender:'both',teams:['wisconsin','marquette'],name:'Wisconsin–Marquette Rivalry',colors:['#c5050c','#003366']},
+ {gender:'both',teams:['oregon','oregon state'],name:'Oregon–Oregon State Rivalry',colors:['#154733','#dc4405']}
 ];
 const rivalrySchoolName=t=>String(t?.full||t?.name||'').toLowerCase()
  .replace(/&/g,' and ').replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim()
  .replace(/^(university of |the )/,'')
+ .replace(/^usc$/,'southern california')
+ .replace(/^michigan st$/,'michigan state')
+ .replace(/^florida st$/,'florida state')
+ .replace(/^kansas st$/,'kansas state')
+ .replace(/^arizona st$/,'arizona state')
+ .replace(/^oregon st$/,'oregon state')
+ .replace(/^new mexico st$/,'new mexico state')
  .replace(/ (hoosiers|wildcats|boilermakers|cardinals|blue devils|tar heels|bearcats|musketeers|jayhawks|tigers|hawkeyes|cyclones|hawks|fighting irish|bruins|trojans|spartans|wolverines|red raiders|bulldogs|aggies|lobos|cougars)$/,'');
 const rivalryFor=g=>{
  if(g.kind==='exhibition')return null;
@@ -896,7 +913,7 @@ const rivalryFor=g=>{
  if(!women&&ids.includes('ncaa:609574')&&ids.includes('ncaa:609584'))
    return historicRivalries[0];
  const names=[rivalrySchoolName(g.away),rivalrySchoolName(g.home)];
- return historicRivalries.find(r=>r.gender===(women?'women':'men') &&
+ return historicRivalries.find(r=>(r.gender==='both'||r.gender===(women?'women':'men')) &&
    r.teams.every(t=>names.some(n=>n===t)))||null;
 };
 const rivalryCard=r=>{
