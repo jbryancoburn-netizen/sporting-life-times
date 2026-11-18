@@ -40,11 +40,10 @@ function predict(m,g){
 const state={games:[],byId:new Map(),byDate:new Map(),ready:false,error:false};
 async function init(){
  const women=gender()==='women';
- const [finals,fixtures,extra,rankings]=await Promise.all([
+ const [finals,fixtures,extra]=await Promise.all([
   fetchJSON(women?'data/ncaaw-2026-27-verified-games.json':'data/mbb-2026-2027-results.json'),
   fetchJSON(women?'data/ncaaw-2026-27-games.json':'data/ncaam-2026-27-upcoming-forecasts.json'),
-  women?fetchJSON('data/ncaaw-2026-27-retro-primary.json'):Promise.resolve(null),
-  Promise.resolve(null)
+  women?fetchJSON('data/ncaaw-2026-27-retro-primary.json'):Promise.resolve(null)
  ]);
  const di=women?new Set((extra.rankings||[]).map(x=>String(x.team_id))):null;
  state.games=(finals.games||[]).filter(accepted).filter(g=>!di||(di.has(String(g.home_id))&&di.has(String(g.away_id)))).map(g=>({
@@ -71,11 +70,6 @@ function gameFrom(el){
  let match=state.byId.get(norm(raw));const day=el.dataset.day||el.dataset.gameDay||el.dataset.cbbForecastDay||el.querySelector('time')?.dateTime?.slice(0,10)||match?.day;
  if(!day)return null;
  if(!match&&el.dataset.homeId&&el.dataset.awayId)match={h:el.dataset.homeId,a:el.dataset.awayId,neutral:el.dataset.gameSite==='neutral'};
- if(!match&&gender()==='men'&&el.closest('#full-season-schedule')){
-  const nameHome=el.dataset.cbbHomeName, nameAway=el.dataset.cbbAwayName;
-  // Cannot infer NCAA team identities from display names. Withhold.
-  void nameHome;void nameAway;
- }
  if(!match)return null;
  if((el.dataset.forecastVenue==='disputed')||el.dataset.gameSite==='unknown')return null;
  const loc=el.dataset.gameSite||el.dataset.forecastVenue;
@@ -89,11 +83,13 @@ function makeLabel(pred){
 }
 function decorate(el){
  if(!state.ready)return;
- const ledger=el.matches('.sl-game-expansion'),womenRow=el.matches('.wbb-game-entry');
+ const ledger=el.matches('.sl-game-expansion');
  const row=ledger?el.closest('.sl-game'):el;
- if(row?.dataset.exhibition==='true'||el.dataset.exhibition==='true'||el.dataset.calendarState==='canceled'||el.dataset.calendarState==='review')return;
+ if(row?.dataset.exhibition==='true'||el.dataset.exhibition==='true')return;
+ const upcoming=ledger?!!el.querySelector('.ledger26-status[data-phase="upcoming"]'):el.dataset.calendarState==='upcoming';
+ if(!upcoming){row?.querySelector(':scope > .slt-shadow-line')?.remove();return;}
  const g=gameFrom(el),p=g?predict(getModel(g.day),g):null;
- const target=ledger?el.querySelector('summary'):row?.querySelector('.sched-result-cell');
+ const target=ledger?row:row?.querySelector('.sched-result-cell');
  if(!target)return;
  let box=target.querySelector(':scope > .slt-shadow-line');
  if(!p){if(box)box.remove();return}
