@@ -332,8 +332,7 @@ function selectGames(all,day,view,query){
     (view==='live'&&g.phase==='live')||(view==='final'&&g.phase==='final'&&g.kind!=='exhibition')||
     (view==='upcoming'&&g.phase==='upcoming')||(view==='exhibition'&&g.kind==='exhibition')
   )&&(!q||[g.away.name,g.away.full,g.home.name,g.home.full].some(t=>String(t||'').toLowerCase().includes(q))))
-  // One chronological ledger for Division I, non-Division I and exhibition games.
-  // Do not prioritize roster membership or status ahead of the scheduled tipoff.
+  // Keep tipoff order within each section of the ledger.
   .sort((a,b)=>{
     const time=g=>{const n=Date.parse(g.date||'');return Number.isFinite(n)?n:Number.POSITIVE_INFINITY;};
     return time(a)-time(b)||a.away.name.localeCompare(b.away.name)||
@@ -882,7 +881,12 @@ const historicRivalries=[
  {gender:'men',teams:['duke','north carolina'],name:'Duke–Carolina Rivalry',colors:['#012169','#7bafd4']},
  {gender:'men',teams:['cincinnati','xavier'],name:'Crosstown Shootout',colors:['#e00122','#0c2340']},
  {gender:'men',teams:['kansas','missouri'],name:'Border War',colors:['#0051ba','#f1b82d']},
- {gender:'men',teams:['iowa','iowa state'],name:'Cy-Hawk Series',colors:['#ffcd00','#c8102e']},
+ {gender:'both',teams:['iowa','iowa state'],name:'Cy-Hawk Series',colors:['#ffcd00','#c8102e'],
+  source:'https://hawkeyesports.com/corn-cy-hawk-series'},
+ {gender:'women',teams:['uconn','tennessee'],name:'UConn–Tennessee Rivalry',colors:['#000e2f','#ff8200'],
+  source:'https://uconnhuskies.com/news/2018/8/14/womens-basketball-the-rivalry-returns-uconn-tennessee-to-renew-series'},
+ {gender:'women',teams:['uconn','notre dame'],name:'UConn–Notre Dame Rivalry',colors:['#000e2f','#0c2340'],
+  source:'https://uconnhuskies.com/sports/womens-basketball/opponent-history/notre-dame/187'},
  {gender:'men',teams:['villanova','saint josephs'],name:'Holy War',colors:['#00205b','#9e1b32']},
  {gender:'both',teams:['michigan','michigan state'],name:'Michigan–Michigan State Rivalry',colors:['#00274c','#18453b']},
  {gender:'both',teams:['ucla','southern california'],name:'UCLA–USC Rivalry',colors:['#2774ae','#990000']},
@@ -895,26 +899,30 @@ const historicRivalries=[
  {gender:'both',teams:['wisconsin','marquette'],name:'Wisconsin–Marquette Rivalry',colors:['#c5050c','#003366']},
  {gender:'both',teams:['oregon','oregon state'],name:'Oregon–Oregon State Rivalry',colors:['#154733','#dc4405']}
 ];
-const rivalrySchoolName=t=>String(t?.full||t?.name||'').toLowerCase()
+const rivalrySchoolName=name=>String(name||'').toLowerCase()
  .replace(/&/g,' and ').replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim()
  .replace(/^(university of |the )/,'')
  .replace(/^usc$/,'southern california')
+ .replace(/^connecticut(?: huskies)?$/,'uconn')
  .replace(/^michigan st$/,'michigan state')
  .replace(/^florida st$/,'florida state')
  .replace(/^kansas st$/,'kansas state')
  .replace(/^arizona st$/,'arizona state')
  .replace(/^oregon st$/,'oregon state')
  .replace(/^new mexico st$/,'new mexico state')
- .replace(/ (hoosiers|wildcats|boilermakers|cardinals|blue devils|tar heels|bearcats|musketeers|jayhawks|tigers|hawkeyes|cyclones|hawks|fighting irish|bruins|trojans|spartans|wolverines|red raiders|bulldogs|aggies|lobos|cougars|crimson tide|seminoles|longhorns|gators|sun devils|golden eagles|beavers|ducks|badgers|razorbacks|gamecocks)$/,'');
+ .replace(/ (hoosiers|wildcats|boilermakers|cardinals|blue devils|tar heels|bearcats|musketeers|jayhawks|tigers|hawkeyes|cyclones|hawks|fighting irish|bruins|trojans|spartans|wolverines|red raiders|bulldogs|aggies|lobos|cougars|crimson tide|seminoles|longhorns|gators|sun devils|golden eagles|beavers|ducks|badgers|razorbacks|huskies|lady volunteers|lady vols|volunteers|gamecocks)$/,'');
 const rivalryFor=g=>{
  if(g.kind==='exhibition')return null;
  // Stable NCAA IDs handle shortened ledger names, abbreviations and nicknames.
  const ids=[String(g.away?.canonical||''),String(g.home?.canonical||'')];
  if(!women&&ids.includes('ncaa:609574')&&ids.includes('ncaa:609584'))
    return historicRivalries[0];
- const names=[rivalrySchoolName(g.away),rivalrySchoolName(g.home)];
- return historicRivalries.find(r=>(r.gender==='both'||r.gender===(women?'women':'men')) &&
-   r.teams.every(t=>names.some(n=>n===t)))||null;
+ const names=[g.away,g.home].map(team=>[team?.full,team?.name].map(rivalrySchoolName));
+ const rivalry=historicRivalries.find(r=>(r.gender==='both'||r.gender===(women?'women':'men')) &&
+   ((names[0].includes(r.teams[0])&&names[1].includes(r.teams[1]))||
+    (names[0].includes(r.teams[1])&&names[1].includes(r.teams[0]))));
+ if(!rivalry)return null;
+ return names[0].includes(rivalry.teams[0])?rivalry:{...rivalry,colors:[...rivalry.colors].reverse()};
 };
 const rivalryCard=r=>{
  if(!r)return '';
@@ -1056,6 +1064,7 @@ function card(original,featured,opened=false){
  // The shared scorebug rail is the only pregame forecast presentation.
  // The projected score now lives inside the collapsed forecast rail, not the expanded gamefile.
  return '<article class="sl-game ledger26-card'+(women?' ledger26-card--women':' ledger26-card--men')+(featured?' ledger26-featured':'')+(rivalry?' ledger26-card--rivalry':'')+'"'+(external?' data-exhibition="true"':'')+(rivalry?' data-historic-rivalry="true" style="--rivalry-away:'+rivalry.colors[0]+';--rivalry-home:'+rivalry.colors[1]+'"':'')+'>'+ rivalryCard(rivalry)+
+   (featured?'<div class="sl-marquee-label">Marquee matchup</div>':'')+
    (when||right?'<div class="ledger26-meta'+(g.phase==='upcoming'?' ledger26-meta--pregame':'')+'">'+left+right+'</div>':'')+
    '<details class="sl-game-expansion ledger26-expand" data-game-id="'+esc(g.id)+'" data-day="'+esc(g.day)+'" data-gender="'+(women?'women':'men')+'" data-home-id="'+esc(g.home.canonical||'')+'" data-away-id="'+esc(g.away.canonical||'')+'" data-home-name="'+esc(g.home.name)+'" data-away-name="'+esc(g.away.name)+'"'+(opened?' open':'')+'>'+
    '<summary class="ledger26-summary" aria-label="Expand '+esc(g.away.name)+' at '+esc(g.home.name)+' game details">'+
@@ -1177,9 +1186,53 @@ function addCardExtras(shown){
   });
  });
 }
+// Use only certified results before the slate date, so today's finals cannot
+// displace a marquee matchup or change its label after tipoff.
+let marqueeRankCache;
+function marqueeGames(slate,day){
+ const published=retroPublished,engine=window.MBB_RETRO;
+ if(!Array.isArray(published?.events)||typeof engine?.calculate!=='function')return new Set();
+ if(marqueeRankCache?.published!==published||marqueeRankCache.day!==day){
+  const events=published.events.filter(event=>event.date<day);
+  const homeEdge=Number(published.parameters?.home_edge),passes=Number(published.parameters?.passes);
+  const ranked=new Map();
+  if(events.length&&Number.isFinite(homeEdge)&&Number.isInteger(passes)&&passes>0&&passes<=300){
+   const snapshot=engine.calculate(events,{baseline:1500,homeEdge,passes});
+   const teams=Object.entries(snapshot.ratings).sort((a,b)=>b[1]-a[1]);
+   teams.forEach(([id,elo],i)=>ranked.set(id,i>0&&elo===teams[i-1][1]?ranked.get(teams[i-1][0]):i+1));
+  }
+  marqueeRankCache={published,day,ranked};
+ }
+ return new Set(slate.filter(g=>g.day===day&&g.kind!=='exhibition'&&
+   ['upcoming','live','final'].includes(g.phase)).map(g=>{
+   const away=marqueeRankCache.ranked.get(String(g.away.canonical))??Infinity;
+   const home=marqueeRankCache.ranked.get(String(g.home.canonical))??Infinity;
+   return {game:g,combined:away+home,stronger:Math.min(away,home),weaker:Math.max(away,home)};
+  }).filter(g=>g.stronger<=25&&g.weaker<=50)
+  .sort((a,b)=>a.combined-b.combined||a.weaker-b.weaker||String(a.game.id).localeCompare(String(b.game.id)))
+  .map(({game})=>String(game.id)));
+}
+function ledgerSections(games,marquee){
+ const sections=new Map([
+  ['Live Games',[]],['Marquee Matchups',[]],['Rivalry Showcase',[]],
+  ['Remaining Schedule',[]],['Completed Games',[]]
+ ]);
+ const upcoming=new Map(games.filter(g=>g.phase==='upcoming').map(g=>[String(g.id),g]));
+ const headliners=new Set([...marquee].filter(id=>upcoming.has(id)).slice(0,3));
+ for(const id of headliners)sections.get('Marquee Matchups').push(upcoming.get(id));
+ for(const g of games){
+  if(headliners.has(String(g.id)))continue;
+  const section=g.phase==='live'?'Live Games':g.phase==='final'?'Completed Games':
+   g.phase==='upcoming'&&rivalryFor(g)?'Rivalry Showcase':'Remaining Schedule';
+  sections.get(section).push(g);
+ }
+ return [...sections].filter(([,games])=>games.length);
+}
 const render=()=>{
  const slate=displayGames();
- const games=selectGames(slate,selected,filter,search);
+ const marquee=marqueeGames(slate,selected);
+ const sections=ledgerSections(selectGames(slate,selected,filter,search),marquee);
+ const games=sections.flatMap(([,games])=>games);
  const target=pendingGame&&games.find(g=>[g.id,g.espnId,g.ncaaId&&'ncaa:'+g.ncaaId].some(id=>cleanId(id)===pendingGame));
  if(target)limit=Math.max(limit,games.indexOf(target)+1);
  const shown=games.slice(0,limit);
@@ -1192,7 +1245,14 @@ const render=()=>{
  }
  const empty=sourceError?'<div class="sl-empty"><strong>Data source unavailable.</strong><p>'+esc(sourceError)+'</p><button type="button" id="sl-retry">Retry connection</button></div>':
  '<div class="sl-empty"><strong>No games match this view.</strong><p>Change the date or filter. Only source-backed fixtures are shown.</p></div>';
- document.getElementById('sl-games').innerHTML=shown.length?shown.map((g,i)=>card(g,i===0,g===target||opened.has(g.day+'|'+g.id))).join(''):empty;
+ let remaining=shown.length;
+ document.getElementById('sl-games').innerHTML=shown.length?sections.map(([title,games])=>{
+  const visible=games.slice(0,remaining);
+  remaining-=visible.length;
+  if(!visible.length)return '';
+  return '<h3 class="sl-ledger-section-heading">'+title+'</h3>'+
+   visible.map(g=>card(g,marquee.has(String(g.id)),g===target||opened.has(g.day+'|'+g.id))).join('');
+ }).join(''):empty;
  addCardExtras(shown);
  if(target){
    pendingGame='';
