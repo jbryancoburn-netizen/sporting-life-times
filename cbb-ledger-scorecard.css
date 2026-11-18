@@ -1332,3 +1332,9 @@
  border-block-start:1px solid #927657;
  background:#f4e9d5;
 }
+.ledger26-scorebug--pregame .ledger26-team:has(.ledger26-points .ledger26-conference-mark) {
+ grid-template-columns:var(--ledger26-crest-size) minmax(0,1fr) 32px;
+}
+.ledger26-scorebug--pregame .ledger26-points:has(.ledger26-conference-mark) {
+ display:block;
+}
