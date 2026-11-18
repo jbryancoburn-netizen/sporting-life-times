@@ -1,0 +1,35 @@
+name: Season-only CBB shadow capture
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '18 * * * *'
+permissions:
+  contents: write
+concurrency:
+  group: cbb-season-shadow-capture
+  cancel-in-progress: false
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Freeze future-only forecasts
+        run: python scripts/capture_cbb_season_shadow.py
+      - name: Commit immutable capture archive when changed
+        run: |
+          if ! git diff --quiet -- data/cbb-season-shadow-captures-2026-27.json || git ls-files --others --exclude-standard | grep -qx 'data/cbb-season-shadow-captures-2026-27.json'; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add data/cbb-season-shadow-captures-2026-27.json
+            git commit -m 'Archive pretipoff season-only CBB shadow predictions'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          else
+            echo 'No new pregame fixtures eligible for capture'
+          fi
