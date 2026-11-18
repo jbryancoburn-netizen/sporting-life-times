@@ -1,8 +1,19 @@
-/* Score-only challenger is deliberately separate from the RETRO forecast rail. */
-.slt-shadow-line{display:flex;align-items:center;flex-wrap:wrap;gap:5px 11px;margin:5px 0 0;padding:6px 9px;border:1px solid #a3967c;background:#f5f0e5;color:#30281c;font:600 11px/1.35 Georgia,"Times New Roman",serif;letter-spacing:.012em;clear:both;max-width:100%;box-sizing:border-box}
-.slt-shadow-kicker{font-size:10px;letter-spacing:.055em;white-space:nowrap}.slt-shadow-kicker span{font-weight:400;color:#6c5c47;letter-spacing:0}
-.slt-shadow-score{font-size:15px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
-.slt-shadow-detail{font-size:10px;color:#665843;white-space:nowrap}
-.sl-game-expansion .slt-shadow-line{margin:5px 10px 8px;position:relative;z-index:1}
-#full-season-schedule .slt-shadow-line{width:max-content;max-width:100%;white-space:normal;gap:3px 8px}
-@media(max-width:650px){.slt-shadow-line{font-size:10px;padding:5px 6px}.slt-shadow-detail{white-space:normal}.slt-shadow-score{font-size:13px}}
+/* The challenger is a full-width editorial strip, never a narrow Result-cell sidebar. */
+.slt-shadow-line{display:flex;align-items:center;flex-wrap:wrap;column-gap:18px;row-gap:4px;padding:7px 12px;border-top:1px solid #bba98c;border-bottom:1px solid #d7c8b2;background:#f5f0e5;color:#30281c;font:600 12px/1.4 Georgia,"Times New Roman",serif;box-sizing:border-box;min-width:0}
+.slt-shadow-kicker{font-size:10px;font-weight:700;letter-spacing:.07em;white-space:nowrap;color:#59432c}
+.slt-shadow-kicker span{font-weight:400;color:#74614c;letter-spacing:.02em;margin-left:4px}
+.slt-shadow-score{font-size:17px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap;color:#30251b}
+.slt-shadow-detail{font-size:11px;color:#66543f;white-space:nowrap}
+.sl-game > .slt-shadow-line{margin:0 9px 9px}
+#full-season-schedule .mbb-schedule-table > tbody > tr.cbb-season-shadow-row{height:auto!important;min-height:0!important;background:#f5f0e5!important}
+#full-season-schedule .mbb-schedule-table > tbody > tr.cbb-season-shadow-row[hidden]{display:none!important}
+#full-season-schedule .mbb-schedule-table > tbody > tr.cbb-season-shadow-row > td{display:table-cell!important;box-sizing:border-box;width:100%;padding:0 10px 7px!important;border-top:0!important;vertical-align:top!important;min-width:0!important}
+#full-season-schedule .cbb-season-shadow-row .slt-shadow-line{width:100%;margin:0;max-width:none;border-left:3px solid #89765a}
+@media(max-width:700px){
+ #full-season-schedule .mbb-schedule-table>tbody>tr.cbb-season-shadow-row{display:block!important;width:100%!important;min-width:0!important}
+ #full-season-schedule .mbb-schedule-table>tbody>tr.cbb-season-shadow-row[hidden]{display:none!important}
+ #full-season-schedule .mbb-schedule-table>tbody>tr.cbb-season-shadow-row>td{display:block!important;width:100%!important;min-width:0!important;padding:0 6px 8px!important}
+ .slt-shadow-line{column-gap:10px;padding:6px 8px}
+ .slt-shadow-score{font-size:15px}
+ .slt-shadow-detail{white-space:normal}
+}
