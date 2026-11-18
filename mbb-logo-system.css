@@ -120,19 +120,9 @@
 .mbb-mark.mbb-mark--baked::before,.mbb-mark.mbb-mark--baked::after{display:none!important;content:none!important;border:0!important}
 .mbb-mark.mbb-mark--baked>img.mbb-mark__img{width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;border:0!important;padding:0!important;border-radius:0!important;object-fit:contain!important}
 
-/* UCF 1968 Citronaut: use the chosen artwork with its paper pixels knocked out.
-   Filter lives in mbb-logo-system.js and leaves the black-and-gold rings intact. */
+/* Keep the full-body Citronaut inside the two rings. */
 .mbb-mark[data-espn-id="2116"]>img.mbb-mark__img{
- filter:url(#slt-ucf-remove-paper)!important;
  width:88%!important;height:88%!important;
  max-width:88%!important;max-height:88%!important;
  object-fit:contain!important;mix-blend-mode:normal!important;
-}
-.ledger26-scorebug .ledger26-ghost--ucf img{
- filter:url(#slt-ucf-remove-paper)!important;
- mix-blend-mode:normal!important;
-}
-.ledger26-scorebug .ledger26-ghost--ucf{
- mix-blend-mode:normal!important;
- background:transparent!important;
 }

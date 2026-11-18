@@ -384,36 +384,7 @@ const ARCHIVE_HERITAGE=Object.freeze({
 });
 // User-selected original-era 1968-69 FTU Citronaut full-body orange-and-astronaut mascot artwork.
 
-// UCF source-image paper knockout: preserve original Citronaut strokes and colors.
-function installUCFCitronautPaperKnockout(){
- if(document.getElementById('slt-ucf-citronaut-knockout'))return;
- const svgNS='http://www.w3.org/2000/svg';
- const svg=document.createElementNS(svgNS,'svg');
- svg.id='slt-ucf-citronaut-knockout';
- svg.setAttribute('aria-hidden','true');
- svg.setAttribute('width','0');svg.setAttribute('height','0');
- svg.style.cssText='position:absolute;width:0;height:0;overflow:hidden;pointer-events:none';
- const filter=document.createElementNS(svgNS,'filter');
- filter.id='slt-ucf-remove-paper';filter.setAttribute('color-interpolation-filters','sRGB');
- filter.setAttribute('x','0');filter.setAttribute('y','0');
- filter.setAttribute('width','100%');filter.setAttribute('height','100%');
- const matrix=document.createElementNS(svgNS,'feColorMatrix');
- matrix.setAttribute('type','matrix');
- matrix.setAttribute('values',
- '1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  -0.3333 -0.3333 -0.3334 0 1');
- const transfer=document.createElementNS(svgNS,'feComponentTransfer');
- const alpha=document.createElementNS(svgNS,'feFuncA');
- alpha.setAttribute('type','linear');alpha.setAttribute('slope','4');
- alpha.setAttribute('intercept','-0.24');
- transfer.appendChild(alpha);
- filter.appendChild(matrix);filter.appendChild(transfer);
- svg.appendChild(filter);
- (document.body||document.documentElement).appendChild(svg);
-}
-if(document.readyState==='loading'){
- document.addEventListener('DOMContentLoaded',installUCFCitronautPaperKnockout,{once:true});
-}else installUCFCitronautPaperKnockout();
-const UCF_CITRONAUT='https://media1.orlandoweekly.com/orlando/imager/u/blog/27838047/1000-ucf_citronautvector.jpg?cb=1643758861';
+const UCF_CITRONAUT='assets/ucf-citronaut-1968.webp';
 const retroURLForESPN=id=>BIG_TEN_HERITAGE[String(id)]||ACC_HERITAGE[String(id)]||SEC_HERITAGE[String(id)]||BIG_EAST_HERITAGE[String(id)]||A10_HERITAGE[String(id)]||MOUNTAIN_WEST_HERITAGE[String(id)]||ARCHIVE_HERITAGE[String(id)]||'';
 
 const safeURL=v=>{try{let u=new URL(v);return u.protocol==='https:'?u.href:''}catch{return ''}};
@@ -580,7 +551,7 @@ const watermarkArt=heritage||(known?modern:outsideEntry?safeURL(outsideEntry.log
 const initials=name.split(/\s+/).slice(0,2).map(v=>v[0]||'').join('').toUpperCase();
 const kind=/^(small|score|power|schedule|hero|featured|history)$/.test(options.size||'')?options.size:'small';
 const clr=brand?.primary||'#385866',alt=brand?.secondary||'#597582';
-return '<span class="mbb-mark mbb-mark--'+kind+' mbb-mark--art-'+art+(heritage?' mbb-mark--heritage':'')+((baked||cachedCrest)&&id!=='2116'?' mbb-mark--precomposed':'')+(primary?'':' mbb-mark--missing')+'" style="--mbb-primary:'+esc(clr)+';--mbb-secondary:'+esc(alt)+(id==='2116'?';clip-path:circle(closest-side)':'')+'" data-espn-id="'+esc(known?id:(outsideEntry?outsideID:''))+'" data-artwork="'+esc(art)+'" data-watermark-art="'+esc(watermarkArt)+'" data-ring-count="2" role="img" aria-label="'+esc(name)+' logo"><span class="mbb-mark__initials" aria-hidden="true">'+esc(initials)+'</span>'+(primary?'<img class="mbb-mark__img"'+(id==='2116'?' style="background:transparent!important;filter:url(#slt-ucf-remove-paper)"':'')+' src="'+esc(primary)+'" data-logo-alternate="'+esc(backup)+'" loading="lazy" decoding="async" alt="" onerror="window.MBBLogos.fail(this)">':'')+'</span>';
+return '<span class="mbb-mark mbb-mark--'+kind+' mbb-mark--art-'+art+(heritage?' mbb-mark--heritage':'')+((baked||cachedCrest)&&id!=='2116'?' mbb-mark--precomposed':'')+(primary?'':' mbb-mark--missing')+'" style="--mbb-primary:'+esc(clr)+';--mbb-secondary:'+esc(alt)+'" data-espn-id="'+esc(known?id:(outsideEntry?outsideID:''))+'" data-artwork="'+esc(art)+'" data-watermark-art="'+esc(watermarkArt)+'" data-ring-count="2" role="img" aria-label="'+esc(name)+' logo"><span class="mbb-mark__initials" aria-hidden="true">'+esc(initials)+'</span>'+(primary?'<img class="mbb-mark__img"'+' src="'+esc(primary)+'" data-logo-alternate="'+esc(backup)+'" loading="lazy" decoding="async" alt="" onerror="window.MBBLogos.fail(this)">':'')+'</span>';
 }
 function fail(img){
 if(!(img instanceof HTMLImageElement))return;
