@@ -198,7 +198,7 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | Massachusetts Institute of Technology (398) | verified_university | [Exact verified URL](https://mitathletics.com/sports/mens-basketball/schedule/2026-27?grid=true) | 19 |
 | McDaniel College (773) | verified_university | [Exact verified URL](https://mcdanielathletics.com/sports/mens-basketball/schedule/2026-27?grid=true) | 19 |
 | McMurry University (8530) | verified_university | [Exact verified URL](https://www.mcmurrysports.com/sports/mens-basketball/schedule/2026-2027?grid=true) | 17 |
-| Medgar Evers College (403) | verified_university | [Exact verified URL](https://www.mecathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true) | 14 |
+| Medgar Evers College (403) | verified_university | [Exact verified URL](https://www.mecathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true) | 15 |
 | Messiah University (411) | verified_university | [Exact verified URL](https://www.gomessiah.com/sports/mens-basketball/schedule/2026-27?grid=true) | 24 |
 | Methodist University (412) | verified_university | [Exact verified URL](https://www.mumonarchs.com/sports/mens-basketball/schedule?grid=true) | 23 |
 | Middlebury College (420) | verified_university | [Exact verified URL](https://athletics.middlebury.edu/sports/mens-basketball/schedule/2026-27?grid=true) | 20 |
@@ -518,7 +518,7 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | Denison University (182) | verified_university | [Exact verified URL](https://www.denisonbigred.com/sports/womens-basketball/schedule/2026-27?grid=true) | 23 |
 | Dickinson College (185) | verified_university | [Exact verified URL](https://www.dickinsonathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 22 |
 | Dominican University (Illinois) (1332) | verified_university | [Exact verified URL](https://www.dustars.com/sports/womens-basketball/schedule/2026-2027?grid=true) | 19 |
-| Drew University (190) | verified_university | [Exact verified URL](https://www.drewrangers.com/sports/womens-basketball/schedule/2026-27?grid=true) | 24 |
+| Drew University (190) | verified_university | [Exact verified URL](https://www.drewrangers.com/sports/womens-basketball/schedule/2026-27?grid=true) | 23 |
 | Earlham College (195) | verified_university | [Exact verified URL](https://www.goearlham.com/sports/womens-basketball/schedule/2026-27?grid=true) | 19 |
 | East Texas Baptist University (1062) | verified_university | [Exact verified URL](https://www.goetbutigers.com/sports/womens-basketball/schedule/2026-27?grid=true) | 20 |
 | Eastern Connecticut State University (200) | verified_university | [Exact verified URL](https://gowarriorathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 19 |
@@ -707,7 +707,7 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | Skidmore College (642) | verified_university | [Exact verified URL](https://skidmoreathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 14 |
 | Smith College (644) | verified_university | [Exact verified URL](https://www.gosmithbears.com/sports/womens-basketball/schedule?grid=true) | 21 |
 | Southern Virginia University (30164) | verified_university | [Exact verified URL](https://knightathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 23 |
-| Southwestern University (Texas) (8746) | verified_university | [Exact verified URL](https://www.southwesternpirates.com/sports/womens-basketball/schedule/2026-27?grid=true) | 16 |
+| Southwestern University (Texas) (8746) | verified_university | [Exact verified URL](https://www.southwesternpirates.com/sports/womens-basketball/schedule/2026-27?grid=true) | 15 |
 | Spalding University (23260) | verified_university | [Exact verified URL](https://www.spaldingathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 18 |
 | Springfield College (673) | verified_university | [Exact verified URL](https://springfieldcollegepride.com/sports/womens-basketball/schedule?grid=true) | 21 |
 | St. Catherine University (597) | verified_university | [Exact verified URL](https://www.stkatesathletics.com/sports/womens-basketball/schedule?grid=true) | 17 |
