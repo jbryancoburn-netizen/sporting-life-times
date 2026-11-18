@@ -505,7 +505,7 @@
 #full-season-schedule .sched-form { padding: .25rem 0; border-color: #bbc8da; }
 #full-season-schedule :is(.sched-form-labels,.sched-form-line) {
   display: grid;
-  grid-template-columns: minmax(0,1fr) 3.65rem 1.4rem 2.25rem 2rem;
+  grid-template-columns: minmax(0,1fr) 3.65rem 1.85rem 2.65rem 2.15rem;
   align-items: center;
   gap: .18rem;
   color: #26394c;
@@ -513,6 +513,8 @@
 #full-season-schedule .sched-form-labels {
   font: 700 .61rem/1.2 Georgia,serif;
   text-transform: uppercase;
+  white-space: nowrap;
+  overflow-wrap: normal;
 }
 #full-season-schedule .sched-form-line > b:first-child { overflow-wrap: anywhere; }
 #full-season-schedule :is(.sched-form-labels,.sched-form-line) > :nth-child(n+3) { text-align: right; }
@@ -558,4 +560,35 @@
     grid-area: auto / 1 / auto / -1 !important;
   }
   #full-season-schedule .sched-corner:not([hidden]) { margin-left: auto; }
+}
+
+/* Compact phone cards keep venue/tipoff and broadcast/rating on paired rows. */
+@media(max-width:700px) {
+  #full-season-schedule.victorian-team-calendar {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  #full-season-schedule.victorian-team-calendar .sched-opponent > small:first-of-type,
+  #full-season-schedule.victorian-team-calendar .wbb-match-meta > .wbb-site-label {
+    display: none !important;
+  }
+  #full-season-schedule.victorian-team-calendar .mbb-schedule-table > tbody > tr[data-game-site]:not([hidden]):not(:has([data-conditional-tip])) > .sched-time-cell {
+    text-align: right !important;
+  }
+  #full-season-schedule.victorian-team-calendar .mbb-schedule-table > tbody > tr[data-game-site]:not([hidden]):not(:has([data-conditional-tip])) > .sched-network-cell {
+    grid-area: 4 / 1 !important;
+  }
+  #full-season-schedule.victorian-team-calendar .mbb-schedule-table > tbody > tr[data-game-site]:not([hidden]):not(:has([data-conditional-tip])) > .sched-elo-cell {
+    grid-area: 4 / 2 !important;
+    text-align: right !important;
+  }
+  #full-season-schedule.victorian-team-calendar tr[data-calendar-state="upcoming"]:has(.sched-form-line + .sched-form-line) > .sched-elo-cell {
+    display: none !important;
+  }
+  #full-season-schedule.victorian-team-calendar tr[data-calendar-state="upcoming"] > .sched-result-cell::before {
+    content: none !important;
+  }
+  #full-season-schedule.victorian-team-calendar .sched-form-line > :not(:first-child) {
+    white-space: nowrap;
+  }
 }
