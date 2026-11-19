@@ -1,6 +1,6 @@
 {
   "season": "2026-27",
-  "generated_at": "2026-11-19T02:41:50.053787+00:00",
+  "generated_at": "2026-11-19T02:43:57.894149+00:00",
   "read_only": true,
   "coverage": "Only events present in the curated inventory; not a complete season certification",
   "events_checked": [
@@ -14,7 +14,7 @@
     {
       "name": "Players Era 16",
       "gender": "men",
-      "source": "https://www.t-mobilearena.com/events/detail/players-era-16-mens-tournament",
+      "source": "https://espnpressroom.com/press-release/players-era-mgm-resorts-international-and-espn-announce-brackets-and-tournament-arena-locations-for-2026-players-era-mens-championships/",
       "listed_participants": 16,
       "fixed_matchups": 8
     },
@@ -306,6 +306,13 @@
       "fixed_matchups": 4
     },
     {
+      "name": "Paradise Jam",
+      "gender": "men",
+      "source": "https://www.basketballtravelers.com/mensparadisejam",
+      "listed_participants": 8,
+      "fixed_matchups": 4
+    },
+    {
       "name": "Jacksonville Classic",
       "gender": "women",
       "source": "https://www.jacksonvilleclassic.com/",
@@ -378,19 +385,19 @@
   ],
   "totals": {
     "men_team_files": 365,
-    "events_checked": 53,
-    "events_with_fields": 27,
-    "participants_checked": 146,
-    "confirmed_team_entries_already_present": 224,
-    "fixed_matchups_checked": 112,
-    "reciprocal_matchups_verified": 112,
+    "events_checked": 54,
+    "events_with_fields": 28,
+    "participants_checked": 154,
+    "confirmed_team_entries_already_present": 231,
+    "fixed_matchups_checked": 116,
+    "reciprocal_matchups_verified": 116,
     "events_incomplete": 26,
     "women_team_files": 363,
     "team_schedule_rows_repaired": 1,
     "team_schedule_rows_inserted": 0
   },
   "issue_counts": {
-    "bracket_opponents_pending": 4,
+    "bracket_opponents_pending": 6,
     "inventory_incomplete": 26,
     "matchups_unverified": 1
   },
@@ -400,6 +407,12 @@
       "gender": "men",
       "event": "Players Era 8",
       "note": "November 19 placement pairings require official confirmation as of the November 18 audit."
+    },
+    {
+      "type": "bracket_opponents_pending",
+      "gender": "men",
+      "event": "Players Era 16",
+      "note": "November 26–28 opponents depend on earlier results. November 28 is reserved for the two bracket winners."
     },
     {
       "type": "bracket_opponents_pending",
@@ -574,6 +587,12 @@
       "gender": "men",
       "event": "Big 5 Classic",
       "note": "Missing verified participants and/or dates; fixture audit not possible"
+    },
+    {
+      "type": "bracket_opponents_pending",
+      "gender": "men",
+      "event": "Paradise Jam",
+      "note": "November 21–23 opponents depend on earlier results."
     },
     {
       "type": "matchups_unverified",
@@ -2449,7 +2468,7 @@
       "team": "UTEP",
       "opponent_id": "155",
       "team_id": "2638",
-      "status": "already_present",
+      "status": "repaired_in_place",
       "game_ids": [
         "school-2638-2026-12-05-19"
       ]
@@ -2476,6 +2495,102 @@
       "status": "already_present",
       "game_ids": [
         "school-232-2026-12-18-14"
+      ]
+    },
+    {
+      "gender": "men",
+      "event": "Paradise Jam",
+      "date": "2026-11-20",
+      "team": "Temple",
+      "opponent_id": "2393",
+      "team_id": "218",
+      "status": "already_present",
+      "game_ids": [
+        "school-218-2026-11-20-4"
+      ]
+    },
+    {
+      "gender": "men",
+      "event": "Paradise Jam",
+      "date": "2026-11-20",
+      "team": "Middle Tennessee",
+      "opponent_id": "218",
+      "team_id": "2393",
+      "status": "already_present",
+      "game_ids": [
+        "school-2393-2026-11-20-5"
+      ]
+    },
+    {
+      "gender": "men",
+      "event": "Paradise Jam",
+      "date": "2026-11-20",
+      "team": "Indiana State",
+      "opponent_id": "2617",
+      "team_id": "282",
+      "status": "already_present",
+      "game_ids": [
+        "school-282-2026-11-20-39"
+      ]
+    },
+    {
+      "gender": "men",
+      "event": "Paradise Jam",
+      "date": "2026-11-20",
+      "team": "Stephen F. Austin",
+      "opponent_id": "282",
+      "team_id": "2617",
+      "status": "already_present",
+      "game_ids": [
+        "school-2617-2026-11-20-5"
+      ]
+    },
+    {
+      "gender": "men",
+      "event": "Paradise Jam",
+      "date": "2026-11-20",
+      "team": "UT Martin",
+      "opponent_id": "79",
+      "team_id": "2630",
+      "status": "already_present",
+      "game_ids": [
+        "school-2630-2026-11-20-7"
+      ]
+    },
+    {
+      "gender": "men",
+      "event": "Paradise Jam",
+      "date": "2026-11-20",
+      "team": "Southern Illinois",
+      "opponent_id": "2630",
+      "team_id": "79",
+      "status": "already_present",
+      "game_ids": [
+        "school-79-2026-11-20-6"
+      ]
+    },
+    {
+      "gender": "men",
+      "event": "Paradise Jam",
+      "date": "2026-11-20",
+      "team": "East Carolina",
+      "opponent_id": "3084",
+      "team_id": "151",
+      "status": "already_present",
+      "game_ids": [
+        "school-151-2026-11-20-4"
+      ]
+    },
+    {
+      "gender": "men",
+      "event": "Paradise Jam",
+      "date": "2026-11-20",
+      "team": "Utah Valley",
+      "opponent_id": "151",
+      "team_id": "3084",
+      "status": "already_present",
+      "game_ids": [
+        "school-3084-2026-11-20-21"
       ]
     },
     {
@@ -3291,6 +3406,28 @@
       "previous_date": "2026-11-17",
       "corrected_date": "2026-11-18",
       "source": "https://detroittitans.com/sports/mbball/schedule"
+    }
+  ],
+  "public_website_spot_checks": [
+    {
+      "page": "ncaam-team.html?team=ncaa%3A609752",
+      "observed": "Houston schedule rendered Rutgers on November 17 and Florida on November 18, both labeled Players Era 8."
+    },
+    {
+      "page": "ncaam-slate.html?gender=men&date=2026-11-18",
+      "observed": "Kansas and West Virginia appeared in the November 18 Daily Ledger scoreboard."
+    },
+    {
+      "page": "ncaaw-team.html?team=45",
+      "observed": "George Washington schedule rendered UAB on November 23 and Arizona on November 25."
+    },
+    {
+      "page": "ncaam-slate.html?gender=women&date=2026-11-23",
+      "observed": "George Washington and UAB appeared in one November 23 Daily Ledger scoreboard."
+    },
+    {
+      "page": "ncaam-slate.html?gender=men&date=2026-12-05",
+      "observed": "North Dakota at UTEP was already present in the December 5 Daily Ledger."
     }
   ]
 }
