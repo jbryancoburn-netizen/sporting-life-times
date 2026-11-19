@@ -109,6 +109,7 @@ const MOUNTAIN_WEST_HERITAGE=Object.freeze({
  '2751':'assets/cbb-mountain-west-1980s/wyoming.png?v=mountain-west-heritage-20261114-1'
 });
 const ARCHIVE_HERITAGE=Object.freeze({
+ '2739':'assets/cbb-retro-archive/2739.png?v=20261116-usf1',
  '5':'assets/cbb-retro-archive/5.png?v=20261116-usf1',
  '6':'assets/cbb-retro-archive/6.png?v=20261116-usf1',
  '9':'assets/cbb-retro-archive/9.png?v=20261116-usf1',
