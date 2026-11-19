@@ -640,12 +640,14 @@
    const profile=x.scouting&&(Number.isInteger(x.scouting.games)&&x.scouting.games>0||Array.isArray(x.scouting.lastFive)&&x.scouting.lastFive.length>0)?x.scouting:null;
    const ppg=profile&&Number.isFinite(profile.pointsFor)?profile.pointsFor.toFixed(1):null;
    const papg=profile&&Number.isFinite(profile.pointsAgainst)?profile.pointsAgainst.toFixed(1):null;
-   const form=profile&&Array.isArray(profile.lastFive)?profile.lastFive.filter(v=>
+   const history=profile&&Array.isArray(profile.lastFive)?profile.lastFive.filter(v=>
      v==='W'||v==='L'||(v&&typeof v==='object'&&(v.result==='W'||v.result==='L'))):[];
-   const outcomes=form.map(v=>typeof v==='string'?v:v.result);
-   const finalForm=outcomes.at(-1),streak=finalForm?outcomes.slice().reverse().findIndex(v=>v!==finalForm):-1;
-   const streakLength=streak===-1?form.length:streak;
-   const streakLabel=streakLength>=1?finalForm+streakLength+(form.length<profile.games&&streakLength===form.length?'+':''):'';
+   const allOutcomes=history.map(v=>typeof v==='string'?v:v.result);
+   const finalForm=allOutcomes.at(-1);
+   const streakBreak=allOutcomes.findLastIndex(result=>result!==finalForm);
+   const streakLength=allOutcomes.length-1-streakBreak;
+   const streakLabel=streakLength?finalForm+' '+streakLength+(history.length<profile.games&&streakLength===history.length?'+':''):'';
+   const form=history.slice(-5),outcomes=allOutcomes.slice(-5);
    const scout=profile&&(ppg!==null||papg!==null||form.length)?
     '<small class="ledger26-scout" title="2026–27 verified regular-season finals: '+profile.games+' games">'+
     (ppg!==null?'<span class="ledger26-scout-stat">'+esc(ppg)+' PPG</span>':'')+
@@ -661,7 +663,7 @@
       return href?'<a class="ledger26-form-bulb ledger26-form-'+outcome.toLowerCase()+'" href="'+esc(href)+'" title="'+esc(detail)+'" aria-label="'+esc(detail+'; open game')+'" onclick="event.stopPropagation()"></a>':
         '<i class="ledger26-form-bulb ledger26-form-'+outcome.toLowerCase()+'" aria-hidden="true" title="'+esc(detail)+'"></i>';
     }).join('')+'</span>':'')+
-    (streakLabel?'<span class="ledger26-streak" title="Recent verified form; full streak may be longer">'+esc(streakLabel)+'</span>':'')+
+    (streakLabel?'<span class="ledger26-streak" title="Current verified streak">'+esc(streakLabel)+'</span>':'')+
     '</small>':'';
 
    const href=/^ncaam-team\.html\?team=ncaa%3A\d+$|^ncaaw-team\.html\?team=\d+$|^d2-team\.html\?gender=(?:men|women)&team=[a-z0-9-]+$/i.test(String(x.teamHref||''))?x.teamHref:'';
