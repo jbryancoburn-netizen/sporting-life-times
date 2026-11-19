@@ -9,9 +9,9 @@
     c => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'})[c]);
   const score = stats => stats.reduce((sum, value, i) => sum + value * fields[i][1], 0);
   const format = value => (value / 1000).toFixed(2);
-  const details = stats => '<details><summary>' + format(score(stats)) + '</summary><ul>' +
+  const details = (stats, heaves = 0) => '<details><summary>' + format(score(stats) + 850 * heaves) + '</summary><ul>' +
     fields.map(([label, weight], i) => '<li>' + label + ' (' + stats[i] + '): ' +
-      (stats[i] * weight > 0 ? '+' : '') + format(stats[i] * weight) + '</li>').join('') + '</ul></details>';
+      (stats[i] * weight > 0 ? '+' : '') + format(stats[i] * weight) + '</li>').join('') + (heaves ? '<li>Heave charge returned: +' + format(850 * heaves) + '</li>' : '') + '</ul></details>';
   const profile = (id, name, gender) => '<a href="cbb-player.html?' +
     escape(new URLSearchParams({player:id, name, gender, season:'2027'})) + '">' + escape(name) + '</a>';
 
@@ -28,7 +28,7 @@
       const section = groups.find(group => String(group.team?.id) === id)?.statistics
         ?.find(section => section.labels?.includes('PTS'));
       if (!section?.athletes?.length) return null;
-      const rows = [];
+      const rows = [], madeShots = new Map();
       for (const player of section.athletes) {
         if (player.didNotPlay) continue;
         const line = Object.fromEntries(section.labels.map((label, i) => [label, player.stats?.[i]]));
@@ -42,24 +42,89 @@
             !/^\d+$/.test(athlete?.id) || !athlete?.displayName) return null;
         if (line.MIN === '0' && !stats.some(Boolean)) continue;
         rows.push([athlete.id, athlete.displayName, ...stats]);
+        madeShots.set(String(athlete.id), Number(line.FG.split('-')[0]));
       }
       if (!rows.length || rows.reduce((sum, row) => sum + row[2], 0) !== Number(team.score)) return null;
-      return {name:team.team.displayName, rows};
+      return {name:team.team.displayName, rows, id, madeShots};
     });
+  }
+
+
+  function shotBreakdown(plays, groups, gender) {
+    const finalPeriod = gender === 'women' ? 4 : 2;
+    const half = finalPeriod / 2;
+    const players = new Map(groups.flatMap(group => group.rows.map(row => [String(row[0]), group.id])));
+    const results = new Map();
+    const seen = new Set();
+    for (const play of plays || []) {
+      const id = String(play.participants?.[0]?.athlete?.id || '');
+      const value = Number(play.scoreValue);
+      const type = play.type?.text || '';
+      const text = play.text || '';
+      if (!play.id || seen.has(String(play.id)) || play.shootingPlay !== true ||
+          ![2, 3].includes(value) || /free.throw/i.test(type + ' ' + text) ||
+          !players.has(id) || players.get(id) !== String(play.team?.id)) continue;
+      seen.add(String(play.id));
+      const result = results.get(id) || {attempts:0, makes:0, heaves:0, tracked:0, expected:0, actual:0, high:0, low:0};
+      const made = play.scoringPlay === true;
+      result.attempts++;
+      result.makes += Number(made);
+      results.set(id, result);
+      const period = Number(play.period?.number);
+      const clock = /^(\d+):([0-5]\d(?:\.\d+)?)$/.exec(play.clock?.displayValue || '');
+      const seconds = clock ? Number(clock[1]) * 60 + Number(clock[2]) : NaN;
+      const feet = /\b(\d{1,2})\s*[- ]\s*(?:foot|feet|ft)\b/i.exec(text);
+      const distance = feet ? Number(feet[1]) : null;
+      if ((period === half || period >= finalPeriod) && seconds <= 3 && value === 3 &&
+          ((distance !== null && distance >= 40) || /\b(?:backcourt|half[- ]court)\b/i.test(text))) {
+        result.heaves++;
+        continue;
+      }
+      // Provisional reference rates. Only classify attempts with a usable description.
+      let probability = null;
+      if (value === 2 && /dunk/i.test(type + ' ' + text)) probability = .85;
+      else if (value === 2 && (/layup|tip.in/i.test(type + ' ' + text) || (distance !== null && distance <= 5))) probability = .60;
+      else if (value === 2 && distance !== null) probability = distance <= 12 ? .44 : .38;
+      else if (value === 3 && distance !== null) probability = distance >= 30 ? .22 : .34;
+      if (probability === null) continue;
+      result.tracked++;
+      result.expected += value * probability;
+      result.actual += made ? value : 0;
+      result.high += Number(probability >= .55);
+      result.low += Number(probability < .30);
+    }
+    return results;
+  }
+
+  function shotNote(shots) {
+    if (!shots) return '';
+    const {tracked, expected, actual, high, low, heaves, attempts} = shots;
+    const quality = tracked ? '<br><small>Shot quality: ' + (expected / tracked).toFixed(2) +
+      ' expected points per classified shot · Finishing: ' + (actual >= expected ? '+' : '') +
+      (actual - expected).toFixed(2) + ' points vs. expected · ' + high + ' high / ' + low +
+      ' low · ' + tracked + '/' + (attempts - heaves) + ' classified</small>' : '';
+    return quality + (heaves ? '<br><small>Heaves exempt: ' + heaves + ' (+' + format(850 * heaves) + ')</small>' : '');
   }
 
   function gameMarkup(raw, game, gender) {
     const groups = fromSummary(raw, game);
     if (!groups?.every(Boolean)) return '';
+    const shotData = shotBreakdown(raw.plays, groups, gender);
     return '<h4>RETRO Game Impact <small>· Experimental</small></h4>' +
-      groups.map(({name, rows}) => {
-        const ranked = rows.map(([id, name, ...stats]) => ({id, name, stats, total:score(stats)}))
+      '<p><small>Shot quality uses provisional reference rates. Verified end-of-period heaves are exempt from the attempt charge.</small></p>' +
+      groups.map(({name, rows, madeShots}) => {
+        const ranked = rows.map(([id, name, ...stats]) => {
+          const candidate = shotData.get(String(id));
+          const shots = candidate?.attempts === stats[7] &&
+            candidate.makes === madeShots.get(String(id)) ? candidate : null;
+          return {id, name, stats, shots, total:score(stats) + (shots?.heaves || 0) * 850};
+        })
           .sort((a, b) => b.total - a.total);
         return '<table><caption>' + escape(name) + '</caption><thead><tr><th scope="col">Player</th>' +
           '<th scope="col">Impact breakdown</th></tr></thead><tbody>' + ranked.map(player =>
             '<tr><th scope="row">' + profile(player.id, player.name, gender) +
             (player.total === ranked[0].total ? ' · Leader' : '') +
-            '</th><td>' + details(player.stats) + '</td></tr>').join('') + '</tbody></table>';
+            '</th><td>' + details(player.stats, player.shots?.heaves || 0) + shotNote(player.shots) + '</td></tr>').join('') + '</tbody></table>';
       }).join('');
   }
 
