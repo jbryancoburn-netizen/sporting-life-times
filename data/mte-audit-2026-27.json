@@ -1,6 +1,6 @@
 {
   "season": "2026-27",
-  "status": "expanded-discovery-not-full-verification",
+  "status": "discovery-with-official-fixed-matchups",
   "purpose": "Reference inventory for reconciliation; not a schedule feed or claim that every MTE is covered",
   "events": [
     {
@@ -893,7 +893,158 @@
       "source": "https://www.bloggingthebracket.com/early-season-tournaments/10292/2026-27-mens-college-basketball-early-season-tournaments",
       "verification_status": "identified_not_yet_reconciled",
       "format": "Requires source fixture extraction and school verification"
+    },
+    {
+      "name": "Champions Classic",
+      "gender": "men",
+      "dates": [
+        "2026-11-10"
+      ],
+      "teams": [
+        "Michigan State",
+        "Duke",
+        "Kansas",
+        "Kentucky"
+      ],
+      "source": "https://espnpressroom.com/press-release/espn-events-announces-2026-27-college-basketball-schedule/",
+      "format": "Published fixed matchups",
+      "games": [
+        {
+          "date": "2026-11-10",
+          "pair": [
+            "Michigan State",
+            "Duke"
+          ]
+        },
+        {
+          "date": "2026-11-10",
+          "pair": [
+            "Kansas",
+            "Kentucky"
+          ]
+        }
+      ],
+      "verification_status": "official_matchups_recorded"
+    },
+    {
+      "name": "Dick Vitale Invitational",
+      "gender": "men",
+      "dates": [
+        "2026-11-27"
+      ],
+      "teams": [
+        "West Virginia",
+        "North Carolina"
+      ],
+      "source": "https://espnpressroom.com/press-release/espn-events-announces-2026-27-college-basketball-schedule/",
+      "format": "Published fixed matchups",
+      "games": [
+        {
+          "date": "2026-11-27",
+          "pair": [
+            "West Virginia",
+            "North Carolina"
+          ]
+        }
+      ],
+      "verification_status": "official_matchups_recorded"
+    },
+    {
+      "name": "Atlantic 10/American Showcase",
+      "gender": "men",
+      "dates": [
+        "2026-11-29"
+      ],
+      "teams": [
+        "Memphis",
+        "Dayton",
+        "South Florida",
+        "Saint Louis"
+      ],
+      "source": "https://espnpressroom.com/press-release/espn-events-announces-2026-27-college-basketball-schedule/",
+      "format": "Published fixed matchups",
+      "games": [
+        {
+          "date": "2026-11-29",
+          "pair": [
+            "Memphis",
+            "Dayton"
+          ]
+        },
+        {
+          "date": "2026-11-29",
+          "pair": [
+            "South Florida",
+            "Saint Louis"
+          ]
+        }
+      ],
+      "verification_status": "official_matchups_recorded"
+    },
+    {
+      "name": "Jimmy V Men's Classic",
+      "gender": "men",
+      "dates": [
+        "2026-12-08"
+      ],
+      "teams": [
+        "Alabama",
+        "Houston",
+        "Georgia",
+        "Duke"
+      ],
+      "source": "https://espnpressroom.com/press-release/espn-events-announces-2026-27-college-basketball-schedule/",
+      "format": "Published fixed matchups",
+      "games": [
+        {
+          "date": "2026-12-08",
+          "pair": [
+            "Alabama",
+            "Houston"
+          ]
+        },
+        {
+          "date": "2026-12-08",
+          "pair": [
+            "Georgia",
+            "Duke"
+          ]
+        }
+      ],
+      "verification_status": "official_matchups_recorded"
+    },
+    {
+      "name": "espnW Invitational",
+      "gender": "women",
+      "dates": [
+        "2026-12-20"
+      ],
+      "teams": [
+        "LSU",
+        "UConn",
+        "Virginia",
+        "Kentucky"
+      ],
+      "source": "https://espnpressroom.com/press-release/espn-events-announces-2026-27-college-basketball-schedule/",
+      "format": "Published fixed matchups",
+      "games": [
+        {
+          "date": "2026-12-20",
+          "pair": [
+            "LSU",
+            "UConn"
+          ]
+        },
+        {
+          "date": "2026-12-20",
+          "pair": [
+            "Virginia",
+            "Kentucky"
+          ]
+        }
+      ],
+      "verification_status": "official_matchups_recorded"
     }
   ],
-  "coverage_note": "Named events without teams/dates are discovery leads, NOT audited fixtures. Women event roster corrected from MGM organizer. Do not claim all tournaments identified."
+  "coverage_note": "Discovery inventory only; not all listed events are MTEs (some single-day showcases). Verified fixed matchups added from ESPN; blank-field events remain unverified. Do not certify season completeness."
 }
