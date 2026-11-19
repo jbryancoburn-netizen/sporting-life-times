@@ -725,6 +725,7 @@
     const people=g.certifiedBox?ncaaPlayerBox({
       ...g.certifiedBox,away_name:teamName(g.away),home_name:teamName(g.home)
     }):players(raw);
+    const impact=window.SLTCBBImpact?.gameMarkup(raw,g,women?'women':'men')||'';
     const plays=raw&&window.SLTCourt?.parsePlays?window.SLTCourt.parsePlays(raw):[];
     const periodName=n=>!n?'GAME':women?(n<=4?'QUARTER '+n:'OT '+(n-4)):(n<=2?'HALF '+n:'OT '+(n-2));
     const chronology=plays.length?'<div class="cbb-plays-count">'+plays.length+' reported events · newest first · source-reported, not simulated</div>'+
@@ -734,6 +735,7 @@
         (p.awayScore!=null&&p.homeScore!=null?'<small>'+esc(p.awayScore)+'–'+esc(p.homeScore)+'</small>':'')+'</li>').join('')+'</ol>':
       '<p class="cbb-empty">Possession-by-possession events are not supplied for this matchup. A box score does not establish possession order.</p>';
     const sections=[['summary','Summary'],['box','Player Box Score'],['team','Team Statistics'],['plays','Every Play']];
+    if(impact)sections.splice(2,0,['impact','RETRO Game Impact']);
     panel.innerHTML='<div class="cbb-inline-heading"><strong>THE GAME REPORT</strong><span>'+
       esc(g.neutral?'Neutral site':g.venue||'Venue not listed')+'</span></div>'+
       '<div class="cbb-inline-tabs" role="tablist" aria-label="Match details">'+
@@ -743,6 +745,7 @@
       '<div class="cbb-inline-summary">'+(periods||unavailable)+usrsLine(g)+'</div>'+
       '<div data-cbb-courtcast></div></section>'+
       '<section data-cbb-inline-panel="box" hidden>'+(people||unavailable)+'</section>'+
+      (impact?'<section data-cbb-inline-panel="impact" hidden>'+impact+'</section>':'')+
       '<section data-cbb-inline-panel="team" hidden>'+(teams||unavailable)+'</section>'+
       '<section data-cbb-inline-panel="plays" hidden>'+chronology+'</section>'+
       '<p class="cbb-inline-source">Data: '+esc(publicSource(g.source||'Game provider not confirmed'))+

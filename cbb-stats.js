@@ -85,6 +85,7 @@
     const token = ++revision;
     const gender = edition.value, players = mode.value === 'players';
     const prefix = gender === 'women' ? 'ncaaw' : 'ncaam';
+    $('impact-link').href = 'cbb-impact.html?gender=' + gender;
     $('chronicle').href = 'ncaam.html?gender=' + gender;
     $('games-label').hidden = !players;
     $('count').textContent = 'Loading season statistics…';
