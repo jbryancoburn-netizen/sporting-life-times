@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>College Basketball Statistical Register | Sporting Life &amp; Times</title>
+<link rel="icon" href="slt-monogram-favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="cbb-stats.css">
+<script defer src="cbb-stats.js"></script>
+</head>
+<body>
+<header class="masthead">
+  <a id="chronicle" href="ncaam.html">Sporting Life &amp; Times</a>
+  <p>The Hardwood Chronicle · 2026–27</p>
+</header>
+<main>
+  <header class="heading">
+    <h1>The Statistical Register</h1>
+    <p>Search Division I, see where players and teams rank, and compare up to four side by side.</p>
+  </header>
+  <div class="controls">
+    <label>Edition<select id="edition"><option value="men">Men’s</option><option value="women">Women’s</option></select></label>
+    <label>Register<select id="mode"><option value="players">Players</option><option value="teams">Teams</option></select></label>
+    <label class="search">Search<input id="search" type="search" placeholder="Player, team or conference"></label>
+    <label>Conference<select id="conference"><option value="">All conferences</option></select></label>
+    <label id="games-label">Minimum games<select id="minimum"><option>1</option><option selected>3</option><option>5</option><option>10</option><option>20</option></select></label>
+    <label>Rank by<select id="metric"></select></label>
+  </div>
+  <section id="comparison" hidden aria-labelledby="comparison-title">
+    <div class="section-head"><h2 id="comparison-title">Side-by-side comparison</h2><button id="clear" type="button">Clear picks</button></div>
+    <div id="compare-table" class="table-wrap"></div>
+  </section>
+  <section aria-labelledby="leaderboard-title">
+    <div class="section-head"><h2 id="leaderboard-title">Division I leaderboard</h2><p id="count" role="status" aria-live="polite"></p></div>
+    <div id="leaderboard" class="table-wrap"></div>
+    <div id="pagination" class="pagination" hidden>
+      <button id="previous" type="button">Previous</button><span id="page"></span><button id="next" type="button">Next</button>
+    </div>
+    <p id="method" class="method"></p>
+    <details id="methodology"><summary>How the rankings work</summary><p>Search and conference filters preserve national ranks. Ties share a rank at the precision shown. Player ranks use the selected games minimum. FG% and true shooting require 3 field-goal attempts per game, 3P% requires 1.5 three-point attempts per game, and FT% requires 1.5 free-throw attempts per game. These are Register thresholds. True shooting uses points divided by twice the sum of field-goal attempts and 0.44 times free-throw attempts. Lower points allowed per game ranks higher. RETRO uses the site’s published ratings and ranks.</p></details>
+  </section>
+</main>
+</body>
+</html>

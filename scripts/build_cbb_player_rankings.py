@@ -10,6 +10,8 @@ ROOT = Path(__file__).resolve().parents[1] / "data"
 SEASON = 2027
 METRICS = ("avgPoints", "avgRebounds", "avgAssists", "avgSteals", "avgBlocks", "avgMinutes")
 MIN_GAMES = 3
+DESK_METRICS = METRICS + ("avgThreePointFieldGoalsMade", "avgTurnovers", "fieldGoalPct",
+                          "threePointFieldGoalPct", "freeThrowPct", "trueShootingPct")
 
 
 def read(name):
@@ -49,6 +51,7 @@ def build(gender):
     with ThreadPoolExecutor(max_workers=6) as pool:
         pages = [first, *pool.map(page, range(2, pagination["pages"] + 1))]
     rows = {}
+    desk = {}
     ids = set()
     for chunk in pages:
         if chunk["pagination"]["count"] != count:
@@ -69,16 +72,42 @@ def build(gender):
                 games = int(values["gamesPlayed"])
             except (KeyError, ValueError):
                 continue
-            if games < MIN_GAMES:
+            if games < 1:
                 continue
-            stats = [float(values[m]) if values.get(m) not in (None, "", "-") else None for m in METRICS]
-            rows[athlete_id] = [team, *stats]
+
+            def stat(key):
+                value = values.get(key)
+                return float(value) if value not in (None, "", "-") else None
+
+            stats = [stat(metric) for metric in METRICS]
+            if games >= MIN_GAMES:
+                rows[athlete_id] = [team, *stats]
+            if not athlete.get("displayName"):
+                continue
+            fga = stat("fieldGoalsAttempted") or 0
+            tpa = stat("threePointFieldGoalsAttempted") or 0
+            fta = stat("freeThrowsAttempted") or 0
+            attempts = fga + .44 * fta
+            points = stat("points")
+            shooting = [
+                stat("fieldGoalPct") if fga else None,
+                stat("threePointFieldGoalPct") if tpa else None,
+                stat("freeThrowPct") if fta else None,
+                round(50 * points / attempts, 1) if attempts and points is not None else None,
+            ]
+            desk[athlete_id] = [team, athlete["displayName"], games, *stats,
+                               stat("avgThreePointFieldGoalsMade"), stat("avgTurnovers"), *shooting,
+                               fga, tpa, fta]
     if len(ids) < count * .98 or len(rows) < 1000:
         raise ValueError(f"Only {len(ids)} of {count} player rows and {len(rows)} eligible Division I players")
     data = {"gender": gender, "season": SEASON, "asOf": datetime.now(timezone.utc).isoformat(),
             "minimumGames": MIN_GAMES, "metrics": METRICS, "teams": teams, "players": rows}
     target = ROOT / f"cbb-player-rankings-{gender}.json"
     target.write_text(json.dumps(data, separators=(",", ":"), ensure_ascii=False) + "\n")
+    desk_data = {**data, "metrics": DESK_METRICS, "players": desk}
+    (ROOT / f"cbb-stats-players-{gender}.json").write_text(
+        json.dumps(desk_data, separators=(",", ":"), ensure_ascii=False) + "\n"
+    )
     print(f"{gender}: {len(rows)} ranked players across {len({r[0] for r in rows.values()})} Division I schools")
 
 
