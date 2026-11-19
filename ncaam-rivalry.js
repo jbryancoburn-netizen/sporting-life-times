@@ -157,6 +157,27 @@ async function start(){
    early++;
   }
  }catch(e){earlyUnavailable=true;console.warn("Early school archive unavailable",e);}
+ // The dated Trono supplement covers both teams' Division I games for 1949–50 to 1983–84.
+ const backfill=await Promise.allSettled(Array.from({length:7},(_,i)=>1949+i*5).map(async start=>{
+  const response=await fetch('data/ncaam-rivalry-trono-'+start+'.json.gz',{cache:'force-cache'});
+  if(!response.ok)throw Error('HTTP '+response.status);
+  return new Response(response.body.pipeThrough(new DecompressionStream('gzip'))).json();
+ }));
+ let nationalEarly=0,earlySeasons=0,unavailableParts=0;
+ for(const part of backfill){
+  if(part.status!=='fulfilled'){unavailableParts++;continue;}
+  const doc=part.value;
+  for(const [id,school] of Object.entries(doc.schools))if(!names.has(id))names.set(id,school);
+  for(const [start,entries] of Object.entries(doc.seasons)){
+   earlySeasons++;
+   for(const [day,a,b,as,bs,competition] of entries){
+    if(!names.has(a)||!names.has(b)||a===b)continue;
+    const season=Number(start)+1,date=(day>='10-'?start:season)+'-'+day;
+    matches.push({date,season,a,b,as,bs,historical:true,tournament:competition||'Regular season',source:'John Trono · Saint Michael’s College'});
+    nationalEarly++;
+   }
+  }
+ }
  let classified=0;
  let recent=0,unmatched=new Map(),failed=[];
  const recentDownloads=await Promise.allSettled(years.map(year=>download("historical-normalized/sportsdataverse/ncaa-"+year+"-verified-results.csv")));
@@ -236,12 +257,15 @@ async function start(){
  const qs=new URLSearchParams(location.search);const valid=new Set(options);$("home").value=valid.has(qs.get("a"))?qs.get("a"):resolve("Indiana")||options[0];$("away").value=valid.has(qs.get("b"))?qs.get("b"):resolve("Purdue")||options[1];
  const coverage=$("archive-coverage");
  coverage.textContent=[
+  ...(earlySeasons?[nationalEarly.toLocaleString()+" dated men's Division I results across "+earlySeasons+" seasons from the Saint Michael’s College archive (1949–50 through 1983–84)"]:[]),
   early.toLocaleString()+" identity-matched early games from North Carolina and Duke (1949–1984)",
   ...(officialSeries?[officialSeries+" Indiana–Purdue games documented by Indiana Athletics (1901–2026)"]:[]),
   historical.toLocaleString()+" historical regular-season and "+postCount.toLocaleString()+" historical postseason games",
   recent.toLocaleString()+" identity-matched games from 2020–2026",
   currentSeasonFinals.toLocaleString()+" current-season finals"
  ].join(" · ")+". "+[
+  unavailableParts?unavailableParts+" national archive files unavailable.":"",
+  "Early postseason and pre-1949 coverage vary by school. These counts describe the published sources.",
   earlyUnavailable?"Early school records unavailable.":"",
   failed.length?"Recent files unavailable: "+failed.join(", ")+".":"",
   failedHistorical.length?"Historical files unavailable: "+failedHistorical.join(", ")+".":"",
