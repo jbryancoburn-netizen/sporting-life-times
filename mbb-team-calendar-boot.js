@@ -261,6 +261,14 @@ const formGames=finalArchive.map(g=>({...g,home_id:ncaaByEspn.get(g.home),away_i
   };
   const addRound=(n,ids,label,{final,tip,network,venue=arena,conditional=false}={})=>{
    const rows=games.filter(event=>isExistingSlot(event,n,ids));
+   const confirmed=rows.find(event=>/^\d+$/.test(String(event.id))&&
+    event.conditionalTournamentGame===false&&event.site_verified===true&&
+    event.competitions[0].competitors.some(entry=>/^\d+$/.test(String(entry.team?.id))&&
+      String(entry.team.id)!==teamId));
+   if(confirmed){
+    for(const row of rows)if(row!==confirmed)games.splice(games.indexOf(row),1);
+    return;
+   }
    const existing=rows.find(event=>ids.includes(String(event.competitions[0].competitors.find(
      entry=>String(entry.team?.id)!==teamId)?.team?.id)))||rows[0];
    const opponentId=final?(final.home===teamId?final.away:final.home):ids.length===1?ids[0]:'';
