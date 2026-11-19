@@ -234,6 +234,10 @@
 #full-season-schedule .sched-matchup > .mbb-mark {
   --mbb-size: 68px;
   flex: 0 0 68px !important;
+  position: relative;
+  left: -12px;
+  align-self: center !important;
+  justify-self: center;
 }
 #full-season-schedule .sched-month:not([hidden]) {
   display: block;
@@ -311,6 +315,7 @@
   #full-season-schedule.victorian-team-calendar .sched-matchup > .mbb-mark {
     --mbb-size: 46px;
     flex-basis: 46px !important;
+    left: -4px;
   }
   #full-season-schedule.victorian-team-calendar .sched-opponent strong .victorian-opponent-heading {
     display: flex !important;
