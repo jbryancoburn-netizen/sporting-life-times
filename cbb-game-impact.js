@@ -9,9 +9,11 @@
     c => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'})[c]);
   const score = stats => stats.reduce((sum, value, i) => sum + value * fields[i][1], 0);
   const format = value => (value / 1000).toFixed(2);
-  const details = (stats, heaves = 0) => '<details><summary>' + format(score(stats) + 850 * heaves) + '</summary><ul>' +
+  const contributions = (stats, heaves = 0) => '<ul>' +
     fields.map(([label, weight], i) => '<li>' + label + ' (' + stats[i] + '): ' +
-      (stats[i] * weight > 0 ? '+' : '') + format(stats[i] * weight) + '</li>').join('') + (heaves ? '<li>Heave charge returned: +' + format(850 * heaves) + '</li>' : '') + '</ul></details>';
+      (stats[i] * weight > 0 ? '+' : '') + format(stats[i] * weight) + '</li>').join('') + (heaves ? '<li>Heave charge returned: +' + format(850 * heaves) + '</li>' : '') + '</ul>';
+  const details = (stats, heaves = 0) => '<details><summary>' + format(score(stats) + 850 * heaves) +
+    '</summary>' + contributions(stats, heaves) + '</details>';
   const profile = (id, name, gender) => '<a href="cbb-player.html?' +
     escape(new URLSearchParams({player:id, name, gender, season:'2027'})) + '">' + escape(name) + '</a>';
 
@@ -99,33 +101,42 @@
   function shotNote(shots) {
     if (!shots) return '';
     const {tracked, expected, actual, high, low, heaves, attempts} = shots;
-    const quality = tracked ? '<br><small>Shot quality: ' + (expected / tracked).toFixed(2) +
-      ' expected points per classified shot · Finishing: ' + (actual >= expected ? '+' : '') +
-      (actual - expected).toFixed(2) + ' points vs. expected · ' + high + ' high / ' + low +
-      ' low · ' + tracked + '/' + (attempts - heaves) + ' classified</small>' : '';
-    return quality + (heaves ? '<br><small>Heaves exempt: ' + heaves + ' (+' + format(850 * heaves) + ')</small>' : '');
+    const finishing = (actual >= expected ? '+' : '') + (actual - expected).toFixed(2);
+    return (tracked ? '<dl class="retro-impact-shots">' +
+      '<div><dt>Expected points per shot</dt><dd>' + (expected / tracked).toFixed(2) + '</dd></div>' +
+      '<div><dt>Points vs. expected</dt><dd>' + finishing + '</dd></div>' +
+      '<div><dt>High / low percentage</dt><dd>' + high + ' / ' + low + '</dd></div>' +
+      '<div><dt>Field goals classified</dt><dd>' + tracked + ' / ' + (attempts - heaves) + '</dd></div></dl>' : '');
   }
 
   function gameMarkup(raw, game, gender) {
     const groups = fromSummary(raw, game);
     if (!groups?.every(Boolean)) return '';
     const shotData = shotBreakdown(raw.plays, groups, gender);
-    return '<h4>RETRO Game Impact <small>· Experimental</small></h4>' +
-      '<p><small>Shot quality uses provisional reference rates. Verified end-of-period heaves are exempt from the attempt charge.</small></p>' +
-      groups.map(({name, rows, madeShots}) => {
+    return '<section class="retro-impact-card" aria-label="RETRO Game Impact">' +
+      '<header class="retro-impact-mast"><h4>RETRO Game Impact</h4><small>Experimental</small></header>' +
+      '<div class="retro-impact-teams">' + groups.map(({name, rows, madeShots}) => {
         const ranked = rows.map(([id, name, ...stats]) => {
           const candidate = shotData.get(String(id));
           const shots = candidate?.attempts === stats[7] &&
             candidate.makes === madeShots.get(String(id)) ? candidate : null;
           return {id, name, stats, shots, total:score(stats) + (shots?.heaves || 0) * 850};
-        })
-          .sort((a, b) => b.total - a.total);
-        return '<table><caption>' + escape(name) + '</caption><thead><tr><th scope="col">Player</th>' +
-          '<th scope="col">Impact breakdown</th></tr></thead><tbody>' + ranked.map(player =>
-            '<tr><th scope="row">' + profile(player.id, player.name, gender) +
-            (player.total === ranked[0].total ? ' · Leader' : '') +
-            '</th><td>' + details(player.stats, player.shots?.heaves || 0) + shotNote(player.shots) + '</td></tr>').join('') + '</tbody></table>';
-      }).join('');
+        }).sort((a, b) => b.total - a.total);
+        return '<section class="retro-impact-team"><h5>' + escape(name) + '</h5><ul class="retro-impact-roster">' +
+          ranked.map(player => {
+            const {id, name, stats, shots, total} = player;
+            const leader = total === ranked[0].total;
+            return '<li class="retro-impact-row' + (leader ? ' is-leader' : '') + '">' +
+              '<div class="retro-impact-player">' + profile(id, name, gender) +
+              '<small>' + (leader ? '<strong>Team leader</strong> · ' : '') +
+              stats[0] + ' PTS · ' + (stats[1] + stats[2]) + ' REB · ' + stats[3] + ' AST' + '</small></div>' +
+              '<details class="retro-impact-detail"><summary aria-label="' + escape(name) + ' Impact ' + format(total) +
+              ', show calculation"><span>' + format(total) + '</span><span aria-hidden="true" class="retro-impact-chevron"></span></summary>' +
+              '<div class="retro-impact-calculation"><h6>Impact calculation</h6>' +
+              contributions(stats, shots?.heaves || 0) + (shots?.tracked ? '<h6>Shot quality</h6>' + shotNote(shots) : '') +
+              '</div></details></li>';
+          }).join('') + '</ul></section>';
+      }).join('') + '</div><p class="retro-impact-note">Select an Impact score for its calculation. Shot quality uses provisional rates. Verified heaves are exempt from the attempt charge.</p></section>';
   }
 
   const desk = document.querySelector('[data-impact-team-link]');
