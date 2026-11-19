@@ -622,8 +622,10 @@
      Boolean(x.abbreviation||x.name)&&String(g.momentum.text||'').toUpperCase().startsWith(String(x.abbreviation||x.name||'').toUpperCase()+' ')?
      '<span class="ledger26-team-run" title="'+esc(g.momentum.text)+'" aria-label="Scoring run">↗</span>':'';
    const mark=x.conferenceMark;
-   const conference=mark&&/^https:\/\/a\.espncdn\.com\/i\/teamlogos\/ncaa_conf\/500\/[a-z0-9_]+\.png$/.test(mark.url)?
+   const conferenceImage=mark&&/^https:\/\/a\.espncdn\.com\/i\/teamlogos\/ncaa_conf\/500\/[a-z0-9_]+\.png$/.test(mark.url)?
     '<img class="ledger26-conference-mark" src="'+esc(mark.url)+'" alt="'+esc(mark.name)+'" width="32" height="24" loading="lazy">':'';
+   const conference=conferenceImage&&/^(?:ncaam|ncaaw)-conference\.html\?conference=[^&]+$/.test(mark.href||'')?
+    '<a class="ledger26-conference-link" href="'+esc(mark.href)+'" aria-label="Open '+esc(mark.name)+' standings">'+conferenceImage+'</a>':conferenceImage;
    const scoreClass=upset?' ledger26-points--upset':'';
    const snapshot=phase==='final'&&g.compactFinal&&!g.showRetroDesk?x.retroSnapshot:null;
    const change=snapshot?.dailyChange;

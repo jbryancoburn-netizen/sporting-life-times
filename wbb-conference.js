@@ -203,7 +203,7 @@ try{
   '<div id="conference-day-games"></div>';
  app.innerHTML='<div class="conference-identity"><div class="conference-identity-upper">'+
  '<span>THE CONFERENCE REGISTER</span><span>2026–27 WOMEN’S SEASON</span></div>'+
- '<div class="conference-identity-main"><h1>'+esc(c)+'</h1><p>The race for the championship</p></div>'+
+ '<div class="conference-identity-main">'+(window.SLTConferenceMarks?.header(c)||'')+'<h1>'+esc(c)+'</h1><p>The race for the championship</p></div>'+
  '<div class="conference-identity-meta"><span>'+items.length+' member schools</span>'+
  '<span>Conference leader: '+esc(leader?.team||'To be determined')+'</span>'+
  '<span><a href="ncaaw-conference.html">All 32 conferences →</a></span></div></div>'+
@@ -217,7 +217,8 @@ try{
  '<div class="grid two conference-editorial-row"><div class="column">'+
  '<section class="panel conference-news-edition">'+heading('The league notebook','Conference News')+newsHTML+'</section>'+
  '</div><div class="column"><section class="panel teal">'+heading('Next on the schedule','Upcoming Games')+
- calendar+'</section></div></div>';
+ calendar+'</section></div></div><div id="conference-impact"></div>';
+ window.SLTConferenceImpact?.mount(document.getElementById('conference-impact'),items,'women');
 
   const picker=document.getElementById('conference-game-day'),host=document.getElementById('conference-day-games');
  const render=d=>{

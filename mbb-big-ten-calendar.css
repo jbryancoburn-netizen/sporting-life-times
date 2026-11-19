@@ -603,3 +603,35 @@
     white-space: nowrap;
   }
 }
+
+#full-season-schedule .victorian-stat-content {
+ display:grid;
+ grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:12px;
+ color:#34251a;
+}
+#full-season-schedule .victorian-stat-content .victorian-stat-block {
+ min-width:0;
+ margin:0;
+ padding:0 0 .5rem;
+ background:#fff8e9;
+ border:1px solid #ad9372;
+ overflow:auto;
+}
+#full-season-schedule .victorian-stat-content .victorian-stat-block:has(.victorian-player-box) {grid-column:1/-1}
+#full-season-schedule .victorian-stat-content .victorian-stat-block h3 {
+ margin:0 0 .35rem;
+ padding:.65rem .8rem;
+ background:#513a2b;
+ color:#fff5e2;
+ border-bottom:3px double #b69b77;
+ letter-spacing:.025em;
+}
+#full-season-schedule .victorian-stat-content .victorian-stat-block p {padding:0 .8rem}
+#full-season-schedule .victorian-stat-content table {width:100%;font-variant-numeric:tabular-nums}
+#full-season-schedule .victorian-stat-content table td:last-child {font-weight:700}
+#full-season-schedule .victorian-stat-content .victorian-player-box td:last-child {font-weight:inherit}
+@media(max-width:700px) {
+ #full-season-schedule .victorian-stat-content {grid-template-columns:minmax(0,1fr)}
+ #full-season-schedule .victorian-stat-detail > td {padding:7px!important}
+}

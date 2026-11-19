@@ -94,7 +94,9 @@ function gamefileCard(g,upcoming=false,conference=false){
  const id=event?event[1]:'';
  const meta=conference?' slt-fixture-meta':'';
  const attrs=conference?' data-fixture-event="'+esc(id)+'" data-fixture-day="'+esc(day)+'"':'';
- const secondary=conference?'<span class="slt-fixture-tipoff">TIME TBA</span><span class="slt-fixture-network">TV TBA</span>':'';
+ const tip=g.fixture?.official_time||g.fixture?.official_school_time||'TIME TBA';
+ const networks=g.fixture?.competitions?.[0]?.broadcasts?.flatMap(b=>b.names||[])||[];
+ const secondary=conference?'<span class="slt-fixture-tipoff">'+esc(tip)+'</span><span class="slt-fixture-network">'+esc(networks.join(' / ')||'TV TBA')+'</span>':'';
  const data=id?'<div class="slt-mbb-inline" data-mbb-id="'+esc(id)+'" data-mbb-day="'+esc(day)+'" data-mbb-away="'+esc(away.team)+'" data-mbb-home="'+esc(home.team)+'" data-mbb-away-score="'+(final?esc(g.away_score):'')+'" data-mbb-home-score="'+(final?esc(g.home_score):'')+'" data-mbb-phase="'+phase+'"><p>Open this game to retrieve verified scoring and game statistics.</p></div>':'<p>Verified event-level statistics are not linked for this fixture.</p>';
  return '<article class="ledger26-card'+(conference?' slt-conference-game':'')+'"><div class="ledger26-meta'+meta+'"'+attrs+'><span class="ledger26-time">'+esc(day)+'</span>'+secondary+'</div>'+
   '<details class="ledger26-expand"><summary class="ledger26-summary">'+
@@ -292,8 +294,11 @@ function home(){
  document.querySelectorAll('[data-poll]').forEach(b=>b.onclick=()=>{$('#poll-table').innerHTML=rankingTop25(b.dataset.poll);document.querySelectorAll('[data-poll]').forEach(x=>x.classList.toggle('active',x===b))});
 }
 function conference(){const c=params.get('conference');if(!c){$('#app').innerHTML='<div class="eyebrow">From opening night to the automatic bid</div><h1>The conference desks.</h1><p>Standings, programs, schedules, projected seed order and the latest reporting for every league.</p><div class="conf-grid">'+confs.map(c=>{const members=teams.filter(t=>t.conference===c);return '<a class="conf-card" href="'+confURL(c)+'"><div class="eyebrow">'+members.length+' programs</div><h3>'+esc(c)+'</h3><div class="logos">'+members.slice(0,5).map(logo).join('')+'</div><small>'+esc(conferenceLeaderText(members))+' →</small></a>';}).join('')+'</div>';return;}
+ const matched=confs.find(name=>window.SLTConferenceMarks?.key(name)===window.SLTConferenceMarks?.key(c));
+ if(matched&&matched!==c){params.set("conference",matched);conference();return;}
  if(!confs.includes(c)){ $('#app').innerHTML=empty('Conference not found. Please choose one from the conference directory.');return;}
- const members=teams.filter(t=>t.conference===c),upcoming=(schedule?.games||[])
+ const members=teams.filter(t=>t.conference===c);
+ let upcoming=(schedule?.games||[])
   .filter(g=>easternGameDay(g.date||g.start_time)>=today()&&gid(g).some(id=>teamMap.get(id)?.conference===c))
   .sort((a,b)=>String(a.date||a.start_time).localeCompare(String(b.date||b.start_time)));
  const upcomingDates=[...new Set(upcoming.map(g=>easternGameDay(g.date||g.start_time)))].filter(Boolean);
@@ -305,8 +310,37 @@ function conference(){const c=params.get('conference');if(!c){$('#app').innerHTM
  const bigTen=c==='Big Ten';
  const schoolStrip=bigTen?'<nav class="big-ten-schools" aria-label="Big Ten team desks">'+members.slice().sort((a,b)=>a.team.localeCompare(b.team)).map(t=>'<a href="'+teamURL(t)+'" title="'+esc(t.team)+'" aria-label="'+esc(t.team)+' team desk">'+logo(t)+'</a>').join('')+'</nav>':'';
  document.title=c+' Basketball | The Sporting Life & Times';
- $('#app').innerHTML='<div class="conference-identity"><div class="conference-identity-upper"><span>'+(bigTen?'THE BIG TEN REGISTER':'THE CONFERENCE REGISTER')+'</span><span>2026–27 SEASON</span></div><div class="conference-identity-main"><h1>'+esc(c)+' Conference</h1><p>'+(bigTen?'From the heartland to the coasts. Every school. Every race.':'The race for the championship')+'</p></div><div class="conference-identity-meta"><span>'+members.length+' member schools</span><span>Conference leader: '+esc((members.slice().sort((a,b)=>(b.conference_wins||0)-(a.conference_wins||0)||(a.conference_losses||0)-(b.conference_losses||0)||(b.elo||0)-(a.elo||0))[0]||{}).team||'To be determined')+'</span>'+(c==='Big Ten'?'<span>Championship · March 9–14, 2027</span>':'')+'</div></div>'+schoolStrip+'<div class="metrics">'+metric(members.length,'Programs')+metric(number(members.reduce((a,t)=>a+t.elo,0)/members.length,0),'Average Elo')+metric(members.filter(t=>projection?.selected.some(x=>x.team_id===t.team_id)).length,'Projected NCAA bids')+metric(members.reduce((a,t)=>a+(t.conference_wins||0),0),'Conference finals')+'</div><section class="panel victorian-seed-order victorian-unified-ledger"><div class="victorian-seed-crown" aria-hidden="true">❦ &nbsp; '+(bigTen?'THE BIG TEN REGISTER':'THE CONFERENCE REGISTER')+' &nbsp; ❦</div>'+header('The conference race',bigTen?'Big Ten Standings':'Current & Projected Standings')+standings(c)+'</section><div class="grid two conference-editorial-row"><div class="column"><section class="panel conference-news-edition">'+header(bigTen?'Around the eighteen':'The league notebook',bigTen?'Big Ten Notebook':'Conference News')+stories(null,c)+'</section></div><div class="column"><section class="panel teal">'+header(bigTen?'The Big Ten game book':'Next on the schedule','Upcoming Games')+calendar+'</section></div></div>';
+ $('#app').innerHTML='<div class="conference-identity"><div class="conference-identity-upper"><span>'+(bigTen?'THE BIG TEN REGISTER':'THE CONFERENCE REGISTER')+'</span><span>2026–27 SEASON</span></div><div class="conference-identity-main">'+(window.SLTConferenceMarks?.header(c)||'')+'<h1>'+esc(c)+' Conference</h1><p>'+(bigTen?'From the heartland to the coasts. Every school. Every race.':'The race for the championship')+'</p></div><div class="conference-identity-meta"><span>'+members.length+' member schools</span><span>Conference leader: '+esc((members.slice().sort((a,b)=>(b.conference_wins||0)-(a.conference_wins||0)||(a.conference_losses||0)-(b.conference_losses||0)||(b.elo||0)-(a.elo||0))[0]||{}).team||'To be determined')+'</span>'+(c==='Big Ten'?'<span>Championship · March 9–14, 2027</span>':'')+'</div></div>'+schoolStrip+'<div class="metrics">'+metric(members.length,'Programs')+metric(number(members.reduce((a,t)=>a+t.elo,0)/members.length,0),'Average Elo')+metric(members.filter(t=>projection?.selected.some(x=>x.team_id===t.team_id)).length,'Projected NCAA bids')+metric(members.reduce((a,t)=>a+(t.conference_wins||0),0),'Conference finals')+'</div><section class="panel victorian-seed-order victorian-unified-ledger"><div class="victorian-seed-crown" aria-hidden="true">❦ &nbsp; '+(bigTen?'THE BIG TEN REGISTER':'THE CONFERENCE REGISTER')+' &nbsp; ❦</div>'+header('The conference race',bigTen?'Big Ten Standings':'Current & Projected Standings')+standings(c)+'</section><div class="grid two conference-editorial-row"><div class="column"><section class="panel conference-news-edition">'+header(bigTen?'Around the eighteen':'The league notebook',bigTen?'Big Ten Notebook':'Conference News')+stories(null,c)+'</section></div><div class="column"><section class="panel teal">'+header(bigTen?'The Big Ten game book':'Next on the schedule','Upcoming Games')+calendar+'</section></div></div><div id="conference-impact"></div>';
+ window.SLTConferenceImpact?.mount($('#conference-impact'),members,'men',ids);
+ const batch=members.map(t=>ids.get(t.team_id)).filter(Boolean);
+ const existing=new Set(upcoming.map(g=>[easternGameDay(g.date||g.start_time),...gid(g).sort()].join('|')));
+ const finalKeys=new Set(games.map(g=>[easternGameDay(g.date||g.start_time),...gid(g).sort()].join('|')));
+ upcoming=upcoming.filter(g=>!finalKeys.has([easternGameDay(g.date||g.start_time),...gid(g).sort()].join('|')));
+ Promise.all(batch.map(id=>get('data/mbb-schedules-2026-27/'+encodeURIComponent(id)+'.json'))).then(docs=>{
+  const host=$('#conference-day-games'),input=$('#conference-game-day');
+  if(!host||!input||params.get('conference')!==c)return;
+  for(const doc of docs)for(const event of doc?.events||[]){
+   const day=easternGameDay(event.date);
+   if(day<today()||event.status?.type?.completed||['in','post'].includes(event.status?.type?.state))continue;
+   const contestants=event.competitions?.[0]?.competitors||[];
+   const pick=side=>ncaaByESPN.get(String(contestants.find(t=>t.homeAway===side)?.team?.id));
+   const home=pick('home'),away=pick('away');
+   if(!home||!away||home===away)continue;
+   const key=[day,...[home,away].sort()].join('|');
+   if(existing.has(key)||finalKeys.has(key))continue;
+   existing.add(key);
+   upcoming.push({id:/^\d+$/.test(event.id)?'espn:'+event.id:event.id,date:day,home_id:home,away_id:away,
+    source_url:event.school_source_url||doc.source_url, fixture:event});
+  }
+  if(input.value===selectedDay){
+   const dates=upcoming.map(g=>easternGameDay(g.date||g.start_time)).sort();
+   input.value=dates[0]||today();
+  }
+  host.innerHTML=dayMarkup(input.value);
+  hydrateConferenceTipoffs();
+ });
  const picker=document.getElementById('conference-game-day');
+ if(picker)$('#conference-day-games').innerHTML=dayMarkup(picker.value);
  if(picker)picker.addEventListener('change',()=>{
   const host=document.getElementById('conference-day-games');
   if(host)host.innerHTML=dayMarkup(picker.value);
