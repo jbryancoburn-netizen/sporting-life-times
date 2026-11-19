@@ -1,5 +1,11 @@
 /* Verified schedule form and series. */
 (function(){
+ const shortSchool=name=>{
+  const value=String(name||'').trim();
+  const exact={'Tennessee Tech':'Tenn. Tech','Tennessee State':'Tenn. St.','Michigan State':'Mich. St.','Ohio State':'Ohio St.','Penn State':'Penn St.','Indiana State':'Indiana St.','Kentucky State':'Kentucky St.','Western Michigan':'W. Michigan','Eastern Michigan':'E. Michigan','Central Michigan':'C. Michigan','Western Illinois':'W. Illinois','Eastern Illinois':'E. Illinois','Southern Illinois':'S. Illinois','Northern Illinois':'N. Illinois','North Carolina':'N. Carolina','South Carolina':'S. Carolina','Southern California':'USC','Louisiana State':'LSU'};
+  if(exact[value])return exact[value];
+  return value.replace(/\\bUniversity\\b/gi,'Univ.').replace(/\\bState\\b/gi,'St.').replace(/\\bNorthern\\b/gi,'N.').replace(/\\bSouthern\\b/gi,'S.').replace(/\\bEastern\\b/gi,'E.').replace(/\\bWestern\\b/gi,'W.').replace(/\\bCentral\\b/gi,'C.');
+ };
  const valid=g=>g.home_score!=null&&g.away_score!=null&&Number.isFinite(+g.home_score)&&Number.isFinite(+g.away_score)&&+g.home_score!==+g.away_score;
  const won=(g,id)=>(g.home_id===String(id))===(+g.home_score>+g.away_score);
  const ordered=(games,day)=>games.filter(g=>g.date<day&&valid(g)).sort((a,b)=>b.date.localeCompare(a.date));
@@ -49,7 +55,7 @@
       const link=gameLink(g,women),cls='sched-light sched-light-'+(win?'win':'loss');
       return link?'<a class="'+cls+'" href="'+esc(link)+'" title="'+esc(label)+'" aria-label="'+esc(label)+'"></a>':'<span class="'+cls+'" role="img" title="'+esc(label)+'" aria-label="'+esc(label)+'"></span>';
     }).join('')+'</span>';
-    return '<span class="sched-form-line"><b>'+esc(name)+'</b>'+dots+'<b>'+streak+'</b><b title="Pregame RETRO'+(rating?.end!=null?' · Final '+rating.end:'')+'">'+(rating?.elo??'—')+'</b><b class="sched-retro-'+(delta>0?'up':'down')+'">'+(Number.isFinite(delta)?(delta>0?'+':'')+delta:'—')+'</b></span>';
+    return '<span class="sched-form-line"><b title="'+esc(name)+'">'+esc(shortSchool(name))+'</b>'+dots+'<b>'+streak+'</b><b title="Pregame RETRO'+(rating?.end!=null?' · Final '+rating.end:'')+'">'+(rating?.elo??'—')+'</b><b class="sched-retro-'+(delta>0?'up':'down')+'">'+(Number.isFinite(delta)?(delta>0?'+':'')+delta:'—')+'</b></span>';
    }).join('');
    return rows?'<span class="sched-form-labels" aria-hidden="true"><span>Team</span><span>Last 5</span><span>Run</span><span>RETRO</span><span title="RETRO change after this game">Δ</span></span>'+rows:'';
   },
