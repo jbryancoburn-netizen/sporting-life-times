@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Preseason Conference Championship | Sporting Life &amp; Times</title>
 <link rel="icon" href="slt-monogram-favicon.svg">
+<link rel="stylesheet" href="mbb-logo-system.css?v=ucf-local-citronaut-20261117">
 <style>
 body { margin: 0; background: #eee2ca; color: #30241b; font: 16px/1.45 Georgia, serif; }
 main { max-width: 880px; margin: auto; padding: 16px; }
@@ -41,7 +42,16 @@ button, select { font: inherit; color: inherit; }
 .filters select { max-width: 100%; padding: 4px; background: #fff5df; border: 1px solid #9e8566; }
 .game-count { margin: 8px 0; }
 .games { list-style: none; padding: 0; margin: 0; border-top: 1px solid #b5a58c; }
-.game { display: grid; grid-template-columns: 4.8rem 1fr auto; align-items: center; gap: 10px; padding: 8px 4px; border-bottom: 1px solid #d5c3a3; }
+.game-link { display: grid; grid-template-columns: 4.8rem minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 8px 5px; color: inherit; text-decoration: none; }
+.game { border-bottom: 1px solid #d5c3a3; }
+.game-link:hover, .game-link:focus-visible { background: #efdfc4; }
+.game-link:focus-visible { outline: 2px solid #713d2b; outline-offset: -2px; }
+.game-teams { display: grid; gap: 4px; }
+.game-team { display: grid; grid-template-columns: 32px minmax(0, 1fr) 2.5ch; gap: 7px; align-items: center; }
+.game-team .mbb-mark { --mbb-size: 32px; }
+.game-crest { display: inline-grid; place-items: center; width: 32px; height: 32px; }
+.game-crest > img { width: 32px; height: 32px; object-fit: contain; }
+.game-open { display: block; text-decoration: underline; font-size: .8rem; color: #713d2b; }
 .game time, .game-meta { font-size: .88rem; }
 .game-meta { display: block; color: #604e3e; }
 .game-score { text-align: right; }
@@ -50,7 +60,7 @@ button, select { font: inherit; color: inherit; }
 .game-result[data-result="loss"] { color: #823526; }
 @media (max-width: 480px) {
   .conference-detail > td { padding: 8px; }
-  .game { grid-template-columns: minmax(0, 1fr) auto; gap: 2px 8px; }
+  .game-link { grid-template-columns: minmax(0, 1fr) auto; gap: 2px 8px; }
   .game time { grid-column: 1 / -1; }
 }
 </style>
@@ -72,6 +82,7 @@ button, select { font: inherit; color: inherit; }
 <tbody></tbody>
 </table>
 </main>
+<script src="mbb-logo-system.js?v=ucf-local-citronaut-20261117"></script>
 <script>
 const season = '2026-27';
 const gameDay = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York' });
@@ -115,7 +126,8 @@ function buildStandings(roster, ledger, teamId) {
   for (const team of roster.teams) {
     if (!team[teamId] || !team.conference || (team.division && team.division !== 'D1')) continue;
     const conference = conferenceAliases[team.conference] || team.conference.replace(/ Conference$/, '');
-    membership.set(String(team[teamId]), { conference, name: team.name || team.team });
+    const id = String(team[teamId]);
+    membership.set(id, { id, conference, name: team.name || team.team, logo: team.logo });
     if (!conferences.has(conference)) {
       conferences.set(conference, { name: conference, wins: 0, losses: 0, opponents: new Map(), games: [] });
     }
@@ -146,15 +158,16 @@ function buildStandings(roster, ledger, teamId) {
     seen.set(game.id, signature);
     if (date > latest) latest = date;
     const homeWon = homeScore > awayScore;
-    const shared = { id: String(game.id).replace(/^espn:/, ''), date };
+    const shared = {
+      id: String(game.id).replace(/^espn:/, ''), date,
+      home: { ...home, score: homeScore }, away: { ...away, score: awayScore }
+    };
     const site = game.site_verified !== true ? '' : game.neutral ? 'Neutral' : null;
     record(home.conference, away.conference, homeWon ? 'wins' : 'losses', {
-      ...shared, team: home.name, opponent: away.name, conference: away.conference,
-      score: homeScore, opponentScore: awayScore, won: homeWon, site: site ?? 'Home'
+      ...shared, team: home.name, conference: away.conference, won: homeWon, site: site ?? 'Home'
     });
     record(away.conference, home.conference, homeWon ? 'losses' : 'wins', {
-      ...shared, team: away.name, opponent: home.name, conference: home.conference,
-      score: awayScore, opponentScore: homeScore, won: !homeWon, site: site ?? 'Away'
+      ...shared, team: away.name, conference: home.conference, won: !homeWon, site: site ?? 'Away'
     });
   }
   const ranked = [...conferences.values()].filter(row => row.wins + row.losses);
@@ -168,6 +181,31 @@ function create(tag, value) {
   const element = document.createElement(tag);
   if (value !== undefined) element.textContent = value;
   return element;
+}
+
+function gameTeam(team, conference) {
+  const line = create('span');
+  line.className = 'game-team';
+  const crest = create('span');
+  crest.className = 'game-crest';
+  crest.setAttribute('aria-hidden', 'true');
+  const logos = window.MBBLogos;
+  if (logos) {
+    crest.innerHTML = team.id.startsWith('ncaa:')
+      ? logos.byNCAA(team.id, 'small', team.name)
+      : logos.byESPN(team.id, 'small', team.name);
+  }
+  if (!crest.querySelector('img') && team.logo) {
+    const image = create('img');
+    image.src = team.logo;
+    image.alt = '';
+    image.loading = 'lazy';
+    crest.replaceChildren(image);
+  }
+  const score = create('strong', team.score);
+  score.className = 'game-score';
+  line.append(crest, create(team.conference === conference ? 'strong' : 'span', team.name), score);
+  return line;
 }
 
 function renderConference(panel, row, conferenceNames) {
@@ -219,23 +257,29 @@ function renderConference(panel, row, conferenceNames) {
       item.className = 'game';
       const date = create('time', shortDate.format(new Date(game.date + 'T00:00:00Z')));
       date.dateTime = game.date;
-      const matchup = create('div');
-      matchup.append(create('strong', game.team), document.createTextNode(' vs. ' + game.opponent));
+      const matchup = create('span');
+      matchup.className = 'game-teams';
+      matchup.append(gameTeam(game.away, row.name), gameTeam(game.home, row.name));
       const meta = create('span', game.conference + (game.site ? ' · ' + game.site : ''));
       meta.className = 'game-meta';
       matchup.append(meta);
-      const score = create('div');
-      score.className = 'game-score';
+      const action = create('span');
+      action.className = 'game-score';
       const badge = create('span', game.won ? 'W' : 'L');
       badge.className = 'game-result';
       badge.dataset.result = game.won ? 'win' : 'loss';
       badge.setAttribute('aria-label', game.won ? 'Win' : 'Loss');
-      const link = create('a', game.score + '–' + game.opponentScore);
+      const open = create('span', 'Game details');
+      open.className = 'game-open';
+      action.append(badge, open);
+      const link = create('a');
+      link.className = 'game-link';
       const params = new URLSearchParams({ gender, date: game.date, game: game.id });
       link.href = 'ncaam-slate.html?' + params;
-      link.setAttribute('aria-label', 'Open ' + game.team + ' vs. ' + game.opponent + ' in the Daily Ledger, ' + link.textContent);
-      score.append(badge, link);
-      item.append(date, matchup, score);
+      link.setAttribute('aria-label', 'Open ' + game.away.name + ' ' + game.away.score + ', '
+        + game.home.name + ' ' + game.home.score + ' in the Daily Ledger');
+      link.append(date, matchup, action);
+      item.append(link);
       return item;
     }));
   }
@@ -331,11 +375,12 @@ const gender = new URLSearchParams(location.search).get('gender') === 'women' ? 
 document.getElementById(gender).setAttribute('aria-current', 'page');
 if (gender === 'women') document.getElementById('rankings').href = 'ncaaw-rankings.html';
 const edition = editions[gender];
-Promise.all([edition.roster, edition.results].map(async file => {
+const feeds = [edition.roster, edition.results].map(async file => {
   const response = await fetch('data/' + file, { cache: 'no-cache' });
   if (!response.ok) throw new Error('Failed to load ' + file);
   return response.json();
-})).then(([roster, ledger]) => render(buildStandings(roster, ledger, edition.teamId))).catch(error => {
+});
+Promise.all([...feeds, window.MBBLogos?.ready]).then(([roster, ledger]) => render(buildStandings(roster, ledger, edition.teamId))).catch(error => {
   console.error(error);
   document.getElementById('status').textContent = 'Verified standings are temporarily unavailable.';
 });
