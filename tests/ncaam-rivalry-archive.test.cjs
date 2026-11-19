@@ -51,5 +51,5 @@ test('The remaining twelve 2022-2024 NCAA First Four match records are complete'
 test('Script still compiles and page references the latest script',()=>{
  new Function(archive);
  const html=fs.readFileSync('ncaam-rivalry.html','utf8');
- assert.match(html,/ncaam-rivalry\.js\?v=28/);
+ assert.match(html,/ncaam-rivalry\.js\?v=29/);
 });

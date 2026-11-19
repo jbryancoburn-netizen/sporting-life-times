@@ -89,7 +89,16 @@ for child in ROOT.iterdir():
     if child != OUT:
         visit(child)
 
+# These seven verified score files are browser inputs for the head-to-head archive.
+rivalry_results = [
+    f"historical-normalized/sportsdataverse/ncaa-{year}-verified-results.csv"
+    for year in range(2020, 2027)
+]
+for path in rivalry_results:
+    visit(ROOT / path)
+
 required = [
+    *rivalry_results, "data/cbb-head-to-head-early.json",
     "index.html", "college-basketball.html", "ncaam-slate.js",
     "college-soccer-selection.html", "college-soccer-selection.js",
     "college-soccer-national-bracket.js", "college-soccer-national-bracket.css",

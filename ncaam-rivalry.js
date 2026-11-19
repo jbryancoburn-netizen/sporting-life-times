@@ -143,6 +143,20 @@ async function start(){
    }
   }catch(error){console.warn(season+" NIT classification unavailable",error)}
  }
+ let early=0,earlyUnavailable=false;
+ try{
+  const response=await fetch("data/cbb-head-to-head-early.json",{cache:"force-cache"});
+  if(!response.ok)throw Error("HTTP "+response.status);
+  const archive=await response.json();
+  if(!Array.isArray(archive.games))throw Error("Unexpected school archive");
+  const competition={REG:"Regular season",CTOURN:"Conference tournament",NCAA:"NCAA Tournament",NIT:"NIT"};
+  for(const [date,season,school,opponent,as,bs,type] of archive.games){
+   const a=resolve(school),b=resolve(opponent);
+   if(!a||!b||a===b||!Number.isInteger(as)||!Number.isInteger(bs)||as===bs)continue;
+   matches.push({date,season,a,b,as,bs,historical:true,tournament:competition[type]||"Competition not verified",source:archive.source});
+   early++;
+  }
+ }catch(e){earlyUnavailable=true;console.warn("Early school archive unavailable",e);}
  let classified=0;
  let recent=0,unmatched=new Map(),failed=[];
  const recentDownloads=await Promise.allSettled(years.map(year=>download("historical-normalized/sportsdataverse/ncaa-"+year+"-verified-results.csv")));
@@ -198,7 +212,19 @@ async function start(){
  const options=[...known].sort((a,b)=>name(a).localeCompare(name(b)));
  for(const element of [$("home"),$("away")]){element.replaceChildren();for(const id of options){const o=document.createElement("option");o.value=id;o.textContent=name(id);element.appendChild(o)}}
  const qs=new URLSearchParams(location.search);const valid=new Set(options);$("home").value=valid.has(qs.get("a"))?qs.get("a"):resolve("Indiana")||options[0];$("away").value=valid.has(qs.get("b"))?qs.get("b"):resolve("Purdue")||options[1];
- $("status").textContent="Archive loaded. "+historical.toLocaleString()+" regular-season historical games plus "+postCount.toLocaleString()+" documented postseason games (1985–2018), and "+recent.toLocaleString()+" identity-matched recent games (2020–2026), including "+classified+" verified postseason classifications from 2021–2026."+(unmatched.size?" Some recent school-name aliases are unmatched and excluded.":"")+(failed.length?" Unavailable recent files: "+failed.join(", "):"")+(failedHistorical.length?" Unavailable historical files: "+failedHistorical.join(", "):"")+" Current-season matched finals: "+currentSeasonFinals+"."+(currentSeasonUnmatched?" Current-season identities still unmatched: "+currentSeasonUnmatched+".":"")+(currentSeasonUnavailable?" Current-season finals unavailable; series may be incomplete.":"")+" Current team logos mapped: "+logos.size+".";
+ const coverage=$("archive-coverage");
+ coverage.textContent=[
+  early.toLocaleString()+" identity-matched early games from North Carolina and Duke (1949–1984)",
+  historical.toLocaleString()+" historical regular-season and "+postCount.toLocaleString()+" historical postseason games",
+  recent.toLocaleString()+" identity-matched games from 2020–2026",
+  currentSeasonFinals.toLocaleString()+" current-season finals"
+ ].join(" · ")+". "+[
+  earlyUnavailable?"Early school records unavailable.":"",
+  failed.length?"Recent files unavailable: "+failed.join(", ")+".":"",
+  failedHistorical.length?"Historical files unavailable: "+failedHistorical.join(", ")+".":"",
+  unmatched.size||currentSeasonUnmatched?"Unresolved school identities were excluded.":"",
+  currentSeasonUnavailable?"Current-season finals unavailable.":""
+ ].filter(Boolean).join(" ");
  show();
 }
 function show(){
