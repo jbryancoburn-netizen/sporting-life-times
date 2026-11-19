@@ -1,6 +1,6 @@
 {
   "season": "2026-27",
-  "status": "expanded-partial-source-inventory",
+  "status": "expanded-discovery-not-full-verification",
   "purpose": "Reference inventory for reconciliation; not a schedule feed or claim that every MTE is covered",
   "events": [
     {
@@ -547,7 +547,7 @@
       ]
     },
     {
-      "name": "Players Era Women's Championship",
+      "name": "Players Era Women's Showcase",
       "gender": "women",
       "dates": [
         "2026-12-19",
@@ -555,27 +555,14 @@
       ],
       "teams": [
         "South Carolina",
+        "Notre Dame",
+        "USC",
+        "Texas",
         "UCLA",
-        "Notre Dame"
+        "Duke"
       ],
-      "source": "https://www.on3.com/teams/south-carolina-gamecocks/news/south-carolina-womens-basketball-2026-27-schedule-is-set/",
-      "format": "Partial field; two confirmed South Carolina matchups",
-      "games": [
-        {
-          "date": "2026-12-19",
-          "pair": [
-            "South Carolina",
-            "UCLA"
-          ]
-        },
-        {
-          "date": "2026-12-20",
-          "pair": [
-            "South Carolina",
-            "Notre Dame"
-          ]
-        }
-      ]
+      "source": "https://newsroom.mgmresorts.com/press-releases?item=122994&submitted=1",
+      "format": "Six-team two-day showcase; do not infer unspecified matchups"
     },
     {
       "name": "Paradise Jam — Harbor Division",
@@ -654,7 +641,259 @@
         ]
       ],
       "format": "Four-team bracket"
+    },
+    {
+      "name": "Rainbow Classic",
+      "gender": "men",
+      "dates": [],
+      "teams": [],
+      "source": "https://www.bloggingthebracket.com/early-season-tournaments/10292/2026-27-mens-college-basketball-early-season-tournaments",
+      "verification_status": "identified_not_yet_reconciled",
+      "format": "Requires source fixture extraction and school verification"
+    },
+    {
+      "name": "Showdown in St. Pete",
+      "gender": "men",
+      "dates": [],
+      "teams": [],
+      "source": "https://www.bloggingthebracket.com/early-season-tournaments/10292/2026-27-mens-college-basketball-early-season-tournaments",
+      "verification_status": "identified_not_yet_reconciled",
+      "format": "Requires source fixture extraction and school verification"
+    },
+    {
+      "name": "410 Invitational",
+      "gender": "men",
+      "dates": [],
+      "teams": [],
+      "source": "https://www.bloggingthebracket.com/early-season-tournaments/10292/2026-27-mens-college-basketball-early-season-tournaments",
+      "verification_status": "identified_not_yet_reconciled",
+      "format": "Requires source fixture extraction and school verification"
+    },
+    {
+      "name": "Alabama A&M MTE",
+      "gender": "men",
+      "dates": [],
+      "teams": [],
+      "source": "https://www.bloggingthebracket.com/early-season-tournaments/10292/2026-27-mens-college-basketball-early-season-tournaments",
+      "verification_status": "identified_not_yet_reconciled",
+      "format": "Requires source fixture extraction and school verification"
+    },
+    {
+      "name": "Queen City Classic",
+      "gender": "men",
+      "dates": [],
+      "teams": [],
+      "source": "https://www.bloggingthebracket.com/early-season-tournaments/10292/2026-27-mens-college-basketball-early-season-tournaments",
+      "verification_status": "identified_not_yet_reconciled",
+      "format": "Requires source fixture extraction and school verification"
+    },
+    {
+      "name": "Greenbrier Tip-Off River Division",
+      "gender": "men",
+      "dates": [],
+      "teams": [],
+      "source": "https://www.bloggingthebracket.com/early-season-tournaments/10292/2026-27-mens-college-basketball-early-season-tournaments",
+      "verification_status": "identified_not_yet_reconciled",
+      "format": "Requires source fixture extraction and school verification"
+    },
+    {
+      "name": "Fort Myers Tip-Off",
+      "gender": "men",
+      "dates": [],
+      "teams": [],
+      "source": "https://www.bloggingthebracket.com/early-season-tournaments/10292/2026-27-mens-college-basketball-early-season-tournaments",
+      "verification_status": "identified_not_yet_reconciled",
+      "format": "Requires source fixture extraction and school verification"
+    },
+    {
+      "name": "Northern Kentucky MTE",
+      "gender": "men",
+      "dates": [],
+      "teams": [],
+      "source": "https://www.bloggingthebracket.com/early-season-tournaments/10292/2026-27-mens-college-basketball-early-season-tournaments",
+      "verification_status": "identified_not_yet_reconciled",
+      "format": "Requires source fixture extraction and school verification"
+    },
+    {
+      "name": "Stony Brook Classic",
+      "gender": "men",
+      "dates": [],
+      "teams": [],
+      "source": "https://www.bloggingthebracket.com/early-season-tournaments/10292/2026-27-mens-college-basketball-early-season-tournaments",
+      "verification_status": "identified_not_yet_reconciled",
+      "format": "Requires source fixture extraction and school verification"
+    },
+    {
+      "name": "Live Oak Holiday Classic",
+      "gender": "men",
+      "dates": [],
+      "teams": [],
+      "source": "https://www.bloggingthebracket.com/early-season-tournaments/10292/2026-27-mens-college-basketball-early-season-tournaments",
+      "verification_status": "identified_not_yet_reconciled",
+      "format": "Requires source fixture extraction and school verification"
+    },
+    {
+      "name": "Snake River Invitational",
+      "gender": "men",
+      "dates": [],
+      "teams": [],
+      "source": "https://www.bloggingthebracket.com/early-season-tournaments/10292/2026-27-mens-college-basketball-early-season-tournaments",
+      "verification_status": "identified_not_yet_reconciled",
+      "format": "Requires source fixture extraction and school verification"
+    },
+    {
+      "name": "Brawl on Bourbon Street",
+      "gender": "men",
+      "dates": [],
+      "teams": [],
+      "source": "https://www.bloggingthebracket.com/early-season-tournaments/10292/2026-27-mens-college-basketball-early-season-tournaments",
+      "verification_status": "identified_not_yet_reconciled",
+      "format": "Requires source fixture extraction and school verification"
+    },
+    {
+      "name": "Capital Thanksgiving Classic",
+      "gender": "men",
+      "dates": [],
+      "teams": [],
+      "source": "https://www.bloggingthebracket.com/early-season-tournaments/10292/2026-27-mens-college-basketball-early-season-tournaments",
+      "verification_status": "identified_not_yet_reconciled",
+      "format": "Requires source fixture extraction and school verification"
+    },
+    {
+      "name": "ETSU MTE",
+      "gender": "men",
+      "dates": [],
+      "teams": [],
+      "source": "https://www.bloggingthebracket.com/early-season-tournaments/10292/2026-27-mens-college-basketball-early-season-tournaments",
+      "verification_status": "identified_not_yet_reconciled",
+      "format": "Requires source fixture extraction and school verification"
+    },
+    {
+      "name": "Fairfield MTE",
+      "gender": "men",
+      "dates": [],
+      "teams": [],
+      "source": "https://www.bloggingthebracket.com/early-season-tournaments/10292/2026-27-mens-college-basketball-early-season-tournaments",
+      "verification_status": "identified_not_yet_reconciled",
+      "format": "Requires source fixture extraction and school verification"
+    },
+    {
+      "name": "Hofstra MTE",
+      "gender": "men",
+      "dates": [],
+      "teams": [],
+      "source": "https://www.bloggingthebracket.com/early-season-tournaments/10292/2026-27-mens-college-basketball-early-season-tournaments",
+      "verification_status": "identified_not_yet_reconciled",
+      "format": "Requires source fixture extraction and school verification"
+    },
+    {
+      "name": "Lafayette Classic",
+      "gender": "men",
+      "dates": [],
+      "teams": [],
+      "source": "https://www.bloggingthebracket.com/early-season-tournaments/10292/2026-27-mens-college-basketball-early-season-tournaments",
+      "verification_status": "identified_not_yet_reconciled",
+      "format": "Requires source fixture extraction and school verification"
+    },
+    {
+      "name": "Gratitude Thanksgiving Classic",
+      "gender": "men",
+      "dates": [],
+      "teams": [],
+      "source": "https://www.bloggingthebracket.com/early-season-tournaments/10292/2026-27-mens-college-basketball-early-season-tournaments",
+      "verification_status": "identified_not_yet_reconciled",
+      "format": "Requires source fixture extraction and school verification"
+    },
+    {
+      "name": "Fountain City Happy Hour Classic",
+      "gender": "men",
+      "dates": [],
+      "teams": [],
+      "source": "https://www.bloggingthebracket.com/early-season-tournaments/10292/2026-27-mens-college-basketball-early-season-tournaments",
+      "verification_status": "identified_not_yet_reconciled",
+      "format": "Requires source fixture extraction and school verification"
+    },
+    {
+      "name": "The Dallas Tournament",
+      "gender": "men",
+      "dates": [],
+      "teams": [],
+      "source": "https://www.bloggingthebracket.com/early-season-tournaments/10292/2026-27-mens-college-basketball-early-season-tournaments",
+      "verification_status": "identified_not_yet_reconciled",
+      "format": "Requires source fixture extraction and school verification"
+    },
+    {
+      "name": "Capistrano Invitational",
+      "gender": "men",
+      "dates": [],
+      "teams": [],
+      "source": "https://www.bloggingthebracket.com/early-season-tournaments/10292/2026-27-mens-college-basketball-early-season-tournaments",
+      "verification_status": "identified_not_yet_reconciled",
+      "format": "Requires source fixture extraction and school verification"
+    },
+    {
+      "name": "Hall of Fame Classic",
+      "gender": "men",
+      "dates": [],
+      "teams": [],
+      "source": "https://www.bloggingthebracket.com/early-season-tournaments/10292/2026-27-mens-college-basketball-early-season-tournaments",
+      "verification_status": "identified_not_yet_reconciled",
+      "format": "Requires source fixture extraction and school verification"
+    },
+    {
+      "name": "Boardwalk Battle",
+      "gender": "men",
+      "dates": [],
+      "teams": [],
+      "source": "https://www.bloggingthebracket.com/early-season-tournaments/10292/2026-27-mens-college-basketball-early-season-tournaments",
+      "verification_status": "identified_not_yet_reconciled",
+      "format": "Requires source fixture extraction and school verification"
+    },
+    {
+      "name": "Pensacola Invitational",
+      "gender": "men",
+      "dates": [],
+      "teams": [],
+      "source": "https://www.bloggingthebracket.com/early-season-tournaments/10292/2026-27-mens-college-basketball-early-season-tournaments",
+      "verification_status": "identified_not_yet_reconciled",
+      "format": "Requires source fixture extraction and school verification"
+    },
+    {
+      "name": "Sunshine Slam",
+      "gender": "men",
+      "dates": [],
+      "teams": [],
+      "source": "https://www.bloggingthebracket.com/early-season-tournaments/10292/2026-27-mens-college-basketball-early-season-tournaments",
+      "verification_status": "identified_not_yet_reconciled",
+      "format": "Requires source fixture extraction and school verification"
+    },
+    {
+      "name": "Coconut Hoops",
+      "gender": "men",
+      "dates": [],
+      "teams": [],
+      "source": "https://www.bloggingthebracket.com/early-season-tournaments/10292/2026-27-mens-college-basketball-early-season-tournaments",
+      "verification_status": "identified_not_yet_reconciled",
+      "format": "Requires source fixture extraction and school verification"
+    },
+    {
+      "name": "Emerald Coast Classic",
+      "gender": "men",
+      "dates": [],
+      "teams": [],
+      "source": "https://www.bloggingthebracket.com/early-season-tournaments/10292/2026-27-mens-college-basketball-early-season-tournaments",
+      "verification_status": "identified_not_yet_reconciled",
+      "format": "Requires source fixture extraction and school verification"
+    },
+    {
+      "name": "Big 5 Classic",
+      "gender": "men",
+      "dates": [],
+      "teams": [],
+      "source": "https://www.bloggingthebracket.com/early-season-tournaments/10292/2026-27-mens-college-basketball-early-season-tournaments",
+      "verification_status": "identified_not_yet_reconciled",
+      "format": "Requires source fixture extraction and school verification"
     }
   ],
-  "coverage_note": "Partial field entries are intentionally not comprehensive. Some dates and first-round fixtures derive from secondary calendars; verify with official organizers before schedule mutation."
+  "coverage_note": "Named events without teams/dates are discovery leads, NOT audited fixtures. Women event roster corrected from MGM organizer. Do not claim all tournaments identified."
 }
