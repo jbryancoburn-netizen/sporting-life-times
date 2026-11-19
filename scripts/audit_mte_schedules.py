@@ -35,7 +35,7 @@ def main():
     inventory=load(args.inventory)
     genders={'men':records(ROOT/'data/mbb-schedules-2026-27'),
              'women':records(ROOT/'data/wbb-schedules-2026-27')}
-    issues=[]; totals=collections.Counter()
+    issues=[]; totals=collections.Counter(); verified=[]
     for gender,teams in genders.items():
         totals[gender+'_team_files']=len(teams)
         names={}
@@ -69,7 +69,9 @@ def main():
                     continue
                 totals['participants_checked']+=1
                 fixtures=list(rows(teams[tid]))
-                for date in event.get('dates',[]):
+                # Only infer a required date when the event guarantees a game every listed day.
+                # Preset-matchup events, showcases and championship-only days are not daily guarantees.
+                for date in (event.get('dates',[]) if event.get('daily_game_guarantee') is True else []):
                     if not any(r['date']==date for r in fixtures):
                         issues.append(dict(type='missing_date_candidate',gender=gender,event=event['name'],team=name,date=date,
                                            note='Date-only signal; may be a conditional championship or rest day'))
@@ -84,13 +86,23 @@ def main():
                     issues.append(dict(type='unresolved_matchup',gender=gender,event=event['name'],date=date,teams=pair))
                     continue
                 for tid,other,name in [(a,b,pair[0]),(b,a,pair[1])]:
-                    if not any(r['date']==date and r['opponent_id']==other for r in rows(teams[tid])):
-                        issues.append(dict(type='missing_confirmed_fixture',gender=gender,event=event['name'],date=date,
-                                           team=name,opponent=pair[1] if tid==a else pair[0],team_id=tid,opponent_id=other))
+                    matching=[r for r in rows(teams[tid]) if r['date']==date and r['opponent_id']==other]
+                    if matching:
+                        totals['confirmed_team_entries_already_present']+=1
+                        verified.append(dict(gender=gender,event=event['name'],date=date,team=name,
+                                             opponent_id=other,team_id=tid,status='already_present',
+                                             game_ids=[r['id'] for r in matching]))
+                    else:
+                        same_day=[r for r in rows(teams[tid]) if r['date']==date]
+                        issue_type='opponent_mismatch_or_placeholder' if same_day else 'missing_confirmed_fixture'
+                        issues.append(dict(type=issue_type,gender=gender,event=event['name'],date=date,
+                                           team=name,opponent=pair[1] if tid==a else pair[0],team_id=tid,
+                                           opponent_id=other,existing_same_day=[dict(opponent_id=r['opponent_id'],
+                                           opponent=r['opponent'],game_id=r['id']) for r in same_day]))
                 totals['fixed_matchups_checked']+=1
     report={'season':inventory['season'],'generated_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),
             'read_only':True,'coverage':'Only events present in the curated inventory; not a complete season certification',
-            'totals':dict(totals),'issue_counts':dict(collections.Counter(i['type'] for i in issues)),'issues':issues}
+            'totals':dict(totals),'issue_counts':dict(collections.Counter(i['type'] for i in issues)),'issues':issues,'verified_existing_fixtures':verified}
     out=pathlib.Path(args.output);out.parent.mkdir(parents=True,exist_ok=True)
     out.write_text(json.dumps(report,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
     print(json.dumps({'output':str(out),'totals':report['totals'],'issue_counts':report['issue_counts']},indent=2))
