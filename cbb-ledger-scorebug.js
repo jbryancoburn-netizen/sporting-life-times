@@ -626,6 +626,12 @@
   const href=String(value||'');
   return /^(?:cbb-gamefile\.html\?(?:gender=women&)?day=\d{4}-\d{2}-\d{2}&game=\d{1,12}|ncaam-slate\.html\?(?:gender=women&)?date=\d{4}-\d{2}-\d{2}&game=\d{1,12}|nba-game-center\.html\?game=(?:espn-nba-)?\d{1,12}|d2-game\.html\?gender=(?:men|women)&game=[a-z0-9%_-]+)$/i.test(href)?href:'';
  };
+ function ledgerMeta({tipoff,venue,network}){
+  return '<div class="ledger26-meta"><span class="ledger26-time ledger26-time--venue">'+
+   (tipoff?'<span class="ledger26-tipoff">'+esc(tipoff)+'</span>':'')+
+   '<span class="ledger26-venue">'+esc(venue||'Location not reported')+'</span></span>'+
+   (network?'<span class="ledger26-network">'+esc(network)+'</span>':'')+'</div>';
+ }
  function render(input){
   const g=input||{},phase=['live','final','upcoming'].includes(g.phase)?g.phase:'upcoming';
   const label=(phase==='final'?
@@ -696,9 +702,11 @@
     (streakLabel?'<span class="ledger26-streak" title="Current verified streak">'+esc(streakLabel)+'</span>':'')+'</span>':'')+
     '</small>':'';
 
-   const href=/^ncaam-team\.html\?team=ncaa%3A\d+$|^ncaaw-team\.html\?team=\d+$|^d2-team\.html\?gender=(?:men|women)&team=[a-z0-9-]+$/i.test(String(x.teamHref||''))?x.teamHref:'';
+   const href=/^ncaam-team\.html\?team=ncaa%3A\d+$|^ncaaw-team\.html\?team=\d+$|^d2-team\.html\?gender=(?:men|women)&team=[a-z0-9-]+$|^nba-team-desk\.html\?team=[a-z]{3}$|^euroleague\.html\?view=desks&club=[a-z]{3}$/i.test(String(x.teamHref||''))?x.teamHref:'';
    const label=esc(x.name||'School');
-   const linkedName=href?'<a class="ledger26-team-link" href="'+esc(href)+'" aria-label="Open '+label+' team page">'+label+'</a>':label;
+   const visibleName=x.compactName&&x.compactName!==x.name?
+    '<span class="ledger26-team-full">'+label+'</span><span class="ledger26-team-short" aria-hidden="true">'+esc(x.compactName)+'</span>':label;
+   const linkedName=href?'<a class="ledger26-team-link" href="'+esc(href)+'" aria-label="Open '+label+' team page">'+visibleName+'</a>':visibleName;
    const scoreA=Number(x.score),scoreB=Number(other?.score);
    const scoresKnown=phase!=='upcoming'&&x.score!=null&&other?.score!=null&&Number.isFinite(scoreA)&&Number.isFinite(scoreB);
    const outcome=!scoresKnown?'even':scoreA>scoreB?'ahead':scoreA<scoreB?'behind':'even';
@@ -776,6 +784,6 @@
   dialog.showModal();loadPress(dialog);
  }
 
- root.SLTSportsScorebug={render,verifiedFormIndex,formAt,formatRetro,openPress,cleanWatermark,version:'shared-letterpress-v19-raw-art-watermark'};
+ root.SLTSportsScorebug={render,ledgerMeta,verifiedFormIndex,formAt,formatRetro,openPress,cleanWatermark,version:'shared-letterpress-v19-raw-art-watermark'};
  root.SLTBasketballScorebug=root.SLTSportsScorebug;
 })(typeof window!=='undefined'?window:globalThis);

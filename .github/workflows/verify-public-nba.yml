@@ -58,8 +58,8 @@ jobs:
                           time.sleep(attempt*4)
           if "nba.html" in contents and "nba-retro-ledger-forecast.js" not in contents["nba.html"]:
               errors.append("NBA homepage does not load shared forecast display script")
-          if "nba-game-center.html" in contents and "nba-retro-ledger-forecast.js" not in contents["nba-game-center.html"]:
-              errors.append("Daily Ledger does not load shared forecast display script")
+          if "nba-game-center.html" in contents and "nba-live-feed.js" not in contents["nba-game-center.html"]:
+              errors.append("Daily Ledger does not load its game and forecast adapter")
           for key in ["data/nba-upcoming-schedule.json","data/nba-elo-shadow-2026-27.json","data/nba-possession-inputs.json"]:
               if key in contents:
                   try: json.loads(contents[key])

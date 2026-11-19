@@ -14,19 +14,18 @@
 <link rel="stylesheet" href="nba-newspaper.css?v=20261027local30logos">
 <link rel="stylesheet" href="slt-dual-ring.css?v=20261113-vintage-bold-rings">
 <link rel="stylesheet" href="nba-heritage-crests.css?v=20261113-scorebug-scale">
-<link rel="stylesheet" href="ncaam-slate.css?v=verified-five-lights-20261119">
-<link rel="stylesheet" href="cbb-ledger-scorecard.css?v=verified-five-lights-20261119">
-<link rel="stylesheet" href="nba-ledger-unified.css?v=shared-basketball-20261119">
+<link rel="stylesheet" href="ncaam-slate.css?v=ledger-card-parity-20261119">
+<link rel="stylesheet" href="cbb-ledger-scorecard.css?v=ledger-card-parity-20261119">
+<link rel="stylesheet" href="nba-ledger-unified.css?v=ledger-card-parity-20261119">
 <script defer src="nba-tab-icon.js?v=20261028a"></script>
-<script defer data-slt-league="nba" src="slt-dual-ring.js?v=20261113-vintage-bold-rings"></script>
-<script defer src="nba-scorebug.js?v=20261027local30logos"></script>
+<script defer data-slt-league="nba" src="slt-dual-ring.js?v=ledger-card-parity-20261119"></script>
+<script defer src="nba-scorebug.js?v=ledger-card-parity-20261119"></script>
 <script defer src="nba-game-comparison.js?v=3"></script>
-<script defer src="cbb-ledger-scorebug.js?v=verified-five-lights-20261119"></script>
+<script defer src="cbb-ledger-scorebug.js?v=ledger-card-parity-20261119"></script>
 <script defer src="nba-rabby-possession.js?v=20261109"></script>
-<script defer src="nba-retro-ledger-forecast.js?v=20261109c"></script>
-<script defer src="nba-game-center.js?v=date-calendar-navigation-20261105-focused-box-score-20261118"></script>
+<script defer src="nba-game-center.js?v=ledger-card-parity-20261119"></script>
 <script defer src="site-access-clock.js?v=2"></script>
-</head>
+<link rel="stylesheet" href="cbb-game-impact-card.css?v=shared-box-impact-20261119"><script defer src="cbb-game-impact.js?v=shared-box-impact-20261119"></script><script defer src="basketball-box-impact.js?v=20261119"></script></head>
 <body class="sl-ledger-page nba-ledger-page">
 <a class="sl-skip" href="#slate-root">Skip to games</a>
 <div class="sl-shell">
@@ -105,8 +104,9 @@
       const phase=card.dataset.nbaPhase==='pre'?'upcoming':card.dataset.nbaPhase||'upcoming';
       totals[phase]=(totals[phase]||0)+1;
       const words=((card.querySelector('.ledger26-scorebug')?.getAttribute('aria-label')||'')+' '+card.dataset.nbaAway+' '+card.dataset.nbaHome).toLowerCase();
-      card.hidden=(filter!=='all'&&phase!==filter)||!words.includes(query);
-      if(!card.hidden)visible++;
+      const frame=card.closest('[data-nba-card]')||card;
+      frame.hidden=(filter!=='all'&&phase!==filter)||!words.includes(query);
+      if(!frame.hidden)visible++;
       if(!openedGame&&selectedDay&&gameId&&gameId===activeGame&&card.dataset.nbaGame===gameId){
         card.open=true;openedGame=true;
         requestAnimationFrame(()=>card.scrollIntoView({block:'nearest'}));
@@ -144,7 +144,7 @@
     }
     updateLedger();
     const script=document.createElement('script');
-    script.src='nba-live-feed.js?v=verified-five-lights-20261119';
+    script.src='nba-live-feed.js?v=ledger-card-parity-20261119';
     document.body.append(script);
   }
   document.addEventListener('DOMContentLoaded',begin,{once:true});

@@ -80,3 +80,8 @@
 @media (max-width: 760px) {
   .retro-impact-teams { grid-template-columns: minmax(0, 1fr); padding: .5rem; }
 }
+
+.basketball-impact-box-scroll{overflow:auto;margin-bottom:1rem}
+.basketball-impact-box-scroll table{width:100%;border-collapse:collapse;font:12px/1.4 Georgia,serif}
+.basketball-impact-box-scroll :is(th,td){padding:5px 8px;border-bottom:1px solid #c9b79d;white-space:nowrap;text-align:right}
+.basketball-impact-box-scroll th:first-child{text-align:left}

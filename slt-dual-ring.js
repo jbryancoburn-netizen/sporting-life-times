@@ -102,7 +102,7 @@ function apply(img){
  // The unified NBA/EuroLeague/NBL paper owns its crest badge.
  // Applying this site's generic two-ring treatment here caused FOUR overlapping rings.
  if(img.closest('.pb-club-crest'))return;
- if(img.closest('.team-hero-logo-bg,.story-img,.news-photo,.hero-watermark,.player-photo,.player-portrait,.player-headshot'))return;
+ if(img.closest('.team-hero-logo-bg,.story-img,.news-photo,.hero-watermark,.ledger26-ghost,.player-photo,.player-portrait,.player-headshot'))return;
  const base=identity(img);if(!base)return;
  const era=vintageByTeam[base.id];
  const entry=league==='nba'&&hex(era?.ring_primary)&&hex(era?.ring_secondary)

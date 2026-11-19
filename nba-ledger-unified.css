@@ -15,14 +15,6 @@
 .nba-ledger-page .nba-date-week button[aria-pressed=true]{background:var(--sl-ink);color:white;border-color:var(--sl-ink)}
 .nba-ledger-page .nba-date-week button[data-today=true]:not([aria-pressed=true]){border-bottom:3px solid var(--sl-gold)}
 .nba-ledger-page #nba-live-status{font:11px/1.5 'DM Sans',sans-serif;color:#586b6e;margin:10px 0}
-.nba-ledger-page .ledger26-card{width:100%;min-width:0;border-radius:0;overflow:visible}
-.nba-ledger-page .ledger26-summary{min-width:0}
-.nba-ledger-page .ledger26-scorebug{width:100%;min-width:0}
-.nba-ledger-page .ledger26-team{min-width:0}
-.nba-ledger-page .ledger26-identity{min-width:0}
-.nba-ledger-page .ledger26-name{overflow:visible;text-overflow:clip;white-space:normal;overflow-wrap:break-word}
-.nba-ledger-page .ledger26-crest img{width:100%;height:100%;object-fit:contain}
-.nba-ledger-page .nba-expand-content{padding:16px;background:#fffaf2;border-top:1px solid #c5b79d;min-width:0}
 .nba-ledger-page .nba-live-stat-scroll,.nba-ledger-page .box-scroll{max-width:100%;overflow-x:auto}
 .nba-ledger-page .nba-live-stat-section{margin-bottom:16px}
 .nba-ledger-page .nba-live-stat-section h4{font:700 17px Georgia,serif;margin:0 0 8px}
@@ -30,9 +22,6 @@
 .nba-ledger-page .nba-live-stat-section th,.nba-ledger-page .nba-live-stat-section td,.nba-ledger-page .box-table th,.nba-ledger-page .box-table td{padding:7px 10px;border-bottom:1px solid #d9d3c8;text-align:right;white-space:nowrap}
 .nba-ledger-page .nba-live-stat-section th:first-child,.nba-ledger-page .nba-live-stat-section td:first-child,.nba-ledger-page .box-table th:first-child,.nba-ledger-page .box-table td:first-child{text-align:left}
 .nba-ledger-page .nba-live-game-link{display:inline-block;margin:7px 15px 0 0;font:700 12px Georgia,serif;text-decoration:underline}
-.nba-ledger-page .nba-retro-schedule-forecast{display:flex;flex-wrap:wrap;align-items:center;gap:5px 14px;padding:10px 13px;background:#efe6d7;border-top:1px solid #c5b79d;font:700 12px/1.45 Georgia,serif}
-.nba-ledger-page .nba-retro-schedule-forecast strong{font:800 10px 'DM Sans',sans-serif;letter-spacing:.1em;color:#604a2e}
-.nba-ledger-page .nba-retro-schedule-forecast span:first-of-type{font-size:16px}
 .nba-ledger-page .nba-pregame{min-width:0;display:grid;gap:8px}
 .nba-ledger-page .nba-pregame-score{font:700 25px Georgia,serif}
 .nba-ledger-page .nba-pregame-label,.nba-ledger-page .nba-pregame-source{font:700 11px 'DM Sans',sans-serif}

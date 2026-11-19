@@ -28,7 +28,7 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #c481
 .sl-day-controls>button{border:1px solid #c3c9c5;background:transparent;width:38px;height:38px;line-height:1;color:var(--sl-ink);font-size:28px}
 .sl-day-controls>button:hover{background:white}
 .sl-day-picker{display:flex;align-items:center;justify-content:center;gap:10px;position:relative;min-width:0;padding:6px 11px;min-height:42px;border:1px solid #c3c9c5;background:#fbf6eb;font:clamp(16px,2.4vw,22px)/1.2 'Libre Caslon Display',Georgia,serif;cursor:pointer}
-.sl-day-picker #sl-date{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sl-day-picker :is(#sl-date,#el-date-label){min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .sl-date-caret{font:700 13px/1 Georgia,serif;flex:0 0 auto;color:#725936}
 .sl-day-picker input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer;z-index:2}
 .sl-day-picker input::-webkit-calendar-picker-indicator{position:absolute;inset:0;width:100%;height:100%;margin:0;padding:0;cursor:pointer}
@@ -353,5 +353,5 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #c481
 .sl-ledger-page .ledger26-card[data-exhibition="true"] :is(.ledger26-meta,.ledger26-scorebug,.ledger26-expanded){background-color:#eee5f6!important}
 .sl-ledger-page .ledger26-card[data-exhibition="true"] .ledger26-instruction{color:#613984}
 
-.sl-ledger-page .sl-games > :is(details[open],.sl-empty) {grid-column:1/-1}
+.sl-ledger-page .sl-games > :is(details[open],article:has(> details[open]),.sl-empty) {grid-column:1/-1}
 .sl-search > select {width:100%;background:#fffaf3;border:1px solid #c6ccc5;border-bottom:2px solid var(--sl-gold);padding:10px 13px;color:var(--sl-ink);font:inherit}

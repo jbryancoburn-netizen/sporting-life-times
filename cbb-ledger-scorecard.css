@@ -1349,3 +1349,12 @@
 .ledger26-scorebug--pregame .ledger26-points:has(.ledger26-conference-mark) {
  display:block;
 }
+
+/* Professional Ledgers use the same full-size crest slot and compact identity. */
+.ledger26-crest > .ledger26-source-crest{display:grid;place-items:center;width:100%;height:100%;aspect-ratio:1;margin:0}
+.ledger26-crest > .ledger26-source-crest > img{display:block;width:100%;height:100%;object-fit:contain}
+.ledger26-team-short{display:none}
+@media(max-width:560px){
+ .ledger26-team-full{position:absolute;width:1px;height:1px;clip-path:inset(50%);overflow:hidden;white-space:nowrap}
+ .ledger26-team-short{display:inline}
+}

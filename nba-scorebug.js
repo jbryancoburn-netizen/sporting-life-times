@@ -33,6 +33,13 @@ function render(args){
  return '<div class="slt-scorebug slt-scorebug-'+mode+'" style="--away-color:'+color(args.away)+';--home-color:'+color(args.home)+'"><div class="slt-scorebug-top"><strong>'+(projected?'PROJECTED SCORE':headline)+'</strong><span>'+subtitle+'</span></div><div class="slt-scorebug-rows">'+rows+'</div>'+
  (args.footer?'<div class="slt-scorebug-footer">'+args.footer+'</div>':'')+'</div>';
 }
-root.SLTScorebug={render,color:code=>color({code})};
+function ledgerTeam(t){
+ const code=String(t.code||'').toUpperCase();
+ const src=colors[code]?localLogo(code):'';
+ return {...t,name:t.name||code,abbreviation:code,compactName:code,color:color({code}),
+  teamHref:src?'nba-team-desk.html?team='+code:'',watermarkArt:src,
+  crest:src?'<span class="slt-mark ledger26-source-crest"><img src="'+src+'" alt="" loading="lazy"></span>':''};
+}
+root.SLTScorebug={render,ledgerTeam,color:code=>color({code})};
 if(typeof module!=='undefined')module.exports={render};
 })(typeof window!=='undefined'?window:globalThis);

@@ -104,6 +104,7 @@ function card(g){
   '<p class="ledger26-detail-note">'+esc(eligibility)+'</p>'+
   (g.venue_location?'<p class="ledger26-detail-note">Location: '+esc(g.venue_location)+'</p>':'')+
   '<p>'+links+'</p><p>'+source(g)+(citations?' · '+citations:'')+'</p>'+
+  (final&&g.elo_eligible?window.SLTBoxImpact?.ncaaSlot(g,a,h,gender,3)||'':'')+
   '</div></details></article>';
 }
 function renderTeam(d){

@@ -1,6 +1,7 @@
 (()=>{'use strict';
 if(document.body.dataset.league!=='euroleague')return;
 const host=document.getElementById('el-live-scorebugs'),status=document.getElementById('el-live-status');
+const sourceStatus=document.getElementById('el-source-status');
 if(!host||!status)return;
 const esc=v=>String(v??'').replace(/[&<>"']/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[x]));
 const et=d=>new Date(d).toLocaleString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});
@@ -27,7 +28,18 @@ for(const button of document.querySelectorAll('[data-el-day-step]')){
 search?.addEventListener('input',()=>render());
 let currentFeed=null,currentModel=null;
 picker.addEventListener('change',()=>render());
-filter.addEventListener('change',()=>render());
+let selectedFilter='all';
+filter.addEventListener('click',event=>{
+ const button=event.target.closest('[data-filter]');
+ if(!button)return;
+ selectedFilter=button.dataset.filter;
+ for(const choice of filter.querySelectorAll('[data-filter]')){
+  const active=choice===button;
+  choice.classList.toggle('is-active',active);
+  choice.setAttribute('aria-pressed',String(active));
+ }
+ render();
+});
 
 const valid=v=>v!==null&&v!==undefined&&v!==''&&Number.isFinite(Number(v));
 const fixed=(v,n=0)=>valid(v)?Number(v).toFixed(n):'—';
@@ -104,7 +116,7 @@ function render(){
  const dailyGames=d.games.filter(g=>Number.isFinite(Date.parse(g.date))&&day(g.date)===picker.value);
  const games=dailyGames
   .filter(g=>!query||[g.away,g.home].some(t=>clubName(t).toLowerCase().includes(query)||String(t?.code||'').toLowerCase().includes(query)))
-  .filter(g=>filter.value==='all'||g.status===filter.value)
+  .filter(g=>selectedFilter==='all'||g.status===selectedFilter)
   .sort((a,b)=>Date.parse(a.date)-Date.parse(b.date));
  clubMap.clear();recordMap.clear();
  const rankings=forecast?.rankings||[];
@@ -134,18 +146,21 @@ function render(){
  const margin=scored?'<div class="el-live-stat"><small>Lead</small><strong>'+Math.abs(a-h)+' pts</strong></div>':'';
  const total=scored?'<div class="el-live-stat"><small>Combined score</small><strong>'+(a+h)+'</strong></div>':'';
  const verifiedStats=officialComparison(g);
- const info='<div class="el-live-detail-inner"><h4>QUARTER-BY-QUARTER</h4>'+quarterRows+'<div class="el-live-detail-stats">'+margin+total+'</div>'+seasonComparison(g)+forecastComparison(g,pred)+verifiedStats+(!verifiedStats?'<p class="el-live-unavailable">Verified shooting, rebounding and player box scores are not yet provided by the official live feed. Season scoring averages above are not live game statistics.</p>':'')+'</div>';
+ const info='<div class="el-live-detail-inner"><h4>QUARTER-BY-QUARTER</h4>'+quarterRows+'<div class="el-live-detail-stats">'+margin+total+'</div>'+seasonComparison(g)+forecastComparison(g,pred)+verifiedStats+(!verifiedStats?'<p class="el-live-unavailable">Verified team shooting and rebounding are unavailable in the live feed. The scoring averages above describe the season.</p>':'')+'</div>';
  const detail=freshLive?g.status_detail||'In progress':g.status==='live'?'Last verified score · '+(Number.isFinite(scoreStamp)?et(g.score_updated_at):'time unavailable'):'';
  const rankCounts=new Map();
  for(const club of clubMap.values()){const pos=Number(club.rank);if(Number.isInteger(pos))rankCounts.set(pos,(rankCounts.get(pos)||0)+1);}
  const letterTeam=t=>{
   const p=profile(t),hex=t.primary||p?.primary||'';
-  return {name:clubName(t),score:scored?t.score:null,crest:logo(t),
+  const code=String(t.code||'').toUpperCase(),art=/^[A-Z]{3}$/.test(code)?'assets/euroleague-logos/'+code+'.png':'';
+  return {name:clubName(t),abbreviation:code,compactName:code,score:scored?t.score:null,
+   crest:art?'<span class="slt-mark ledger26-source-crest">'+logo(t)+'</span>':'',watermarkArt:art,
+   teamHref:art?'euroleague.html?view=desks&club='+code:'',
    color:/^#[a-f0-9]{6}$/i.test(hex)?hex:'#66503a',
    record:wins(t)||'Record pending',scouting:window.SLTSportsScorebug?.formAt?.(form,t.code,g.date,g.id,phase),
    retro:window.SLTSportsScorebug?.formatRetro(p,rankCounts,clubMap.size)||'RETRO —'};
  };
- const phase=g.status==='final'?'final':freshLive||scored?'live':'upcoming';
+ const phase=g.status==='final'?'final':g.status==='live'||(g.status==='awaiting_final'&&scored)?'live':'upcoming';
  const projected=pred?.projection,homeFavorite=probability>=.5;
  const pick=g.status==='scheduled'&&label==='UPCOMING'&&valid(pred?.home_win_probability)?{
   probability:homeFavorite?probability:1-probability,
@@ -165,7 +180,7 @@ function render(){
  const matches=phase==='final'&&scored&&a!==h&&final?.home===g.home.code&&final?.away===g.away.code&&final?.score?.[0]===h&&final?.score?.[1]===a;
  const homeChange=matches&&Number.isFinite(k)&&Number.isFinite(expected)&&expected>=0&&expected<=1?
   k*Math.min(1.65,0.80+0.22*Math.log1p(Math.abs(h-a)))*((h>a?1:0)-expected):null;
- const retroStrip='<div class="ledger26-final-desk"><span class="ledger26-final-kicker">CURRENT RETRO · GAME CHANGE</span>'+
+ const retroStrip=phase==='final'?'<div class="ledger26-final-desk"><span class="ledger26-final-kicker">CURRENT RETRO · GAME CHANGE</span>'+
   '<div class="ledger26-final-pair">'+[g.away,g.home].map((team,index)=>{
    const rating=profile(team);
    const change=homeChange===null?null:(index?homeChange:-homeChange);
@@ -176,12 +191,15 @@ function render(){
     '<strong class="ledger26-final-rating">'+(valid(rating?.elo)?Number(rating.elo).toFixed(1):'—')+'</strong> '+
     '<small class="ledger26-final-standing">'+(rank?(rankCounts.get(rank)>1?'T-':'#')+rank:'Rank pending')+'</small> '+
     '<span class="ledger26-final-change">'+esc(changeLabel)+'</span></span>';
-  }).join('')+'</div></div>';
- return '<article class="el-live-card ledger26-card">'+
-  '<div class="ledger26-meta"><span>'+esc(g.venue||'')+'</span><span>'+esc(phase==='upcoming'?'':et(g.date)+' ET')+'</span></div>'+
-  '<details class="ledger26-expand" data-game-id="'+esc(g.id)+'"><summary class="ledger26-summary">'+
-  card+retroStrip+'<span class="ledger26-instruction">OPEN GAME DETAILS +</span></summary>'+
+  }).join('')+'</div></div>':'';
+ return '<article class="sl-game ledger26-card">'+
+  (window.SLTSportsScorebug?.ledgerMeta({tipoff:phase==='upcoming'?et(g.date)+' ET':'',venue:g.venue,network:g.network})||'')+
+  '<details class="sl-game-expansion ledger26-expand" data-game-id="'+esc(g.id)+'"><summary class="ledger26-summary" aria-label="Expand '+esc(clubName(g.away))+' at '+esc(clubName(g.home))+' game details">'+
+  card+retroStrip+'<span class="ledger26-instruction">OPEN GAME DETAILS <span aria-hidden="true">+</span></span></summary>'+
   '<div class="ledger26-expanded">'+info+
+  (phase==='final'?window.SLTBoxImpact?.slot({source:'euroleague',id:String(g.id),
+   away:{key:g.away.code,name:clubName(g.away),points:scored?a:null},
+   home:{key:g.home.code,name:clubName(g.home),points:scored?h:null}})||'':'')+
   '<p class="ledger26-detail-note">Official result feed · '+(scoreFresh?'Updated '+esc(et(g.score_updated_at)):'Latest published snapshot')+'</p>'+
   '</div></details></article>';
  }).join('')||'<p class="hub-small">No games for this date and status in the published feed.</p>';
@@ -196,8 +214,9 @@ function render(){
  const activeWindow=d.games.some(g=>['live','awaiting_final'].includes(g.status)||(g.status==='scheduled'&&Date.parse(g.date)<=Date.now()&&Date.now()-Date.parse(g.date)<5*3600000));
  const providerNote=d.provider_degraded?' · Official live-stat provider degraded; displaying last verified scores':officialLive===0&&activeWindow?' · Official in-game updates not confirmed; showing published scores only':'';
  const pending=dailyGames.filter(g=>g.status==='awaiting_final'||(g.status==='scheduled'&&Date.parse(g.date)<=Date.now())).length;
- const counts=games.length+' of '+dailyGames.length+' games shown'+(pending?' · '+pending+' awaiting a score or result update':'');
- status.textContent=counts+' · '+(stale?'Score feed delayed · Last checked ':'Score feed checked ')+et(d.checked_at||d.updated_at)+' ET · Checks every 60 seconds'+providerNote;
+ const counts=games.length+' of '+dailyGames.length+' games';
+ status.textContent=counts;
+ if(sourceStatus)sourceStatus.textContent=(stale?'Score feed delayed · Last checked ':'Score feed checked ')+et(d.checked_at||d.updated_at)+' ET · Checks every 60 seconds'+providerNote+(pending?' · '+pending+' awaiting a score or result update':'');
 
 }
 refresh();setInterval(()=>{if(!document.hidden)refresh()},60000);

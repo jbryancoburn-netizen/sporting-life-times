@@ -53,7 +53,7 @@
 
 
   function shotBreakdown(plays, groups, gender) {
-    const finalPeriod = gender === 'women' ? 4 : 2;
+    const finalPeriod = gender === 'men' ? 2 : 4;
     const half = finalPeriod / 2;
     const players = new Map(groups.flatMap(group => group.rows.map(row => [String(row[0]), group.id])));
     const results = new Map();
@@ -112,14 +112,19 @@
   function gameMarkup(raw, game, gender) {
     const groups = fromSummary(raw, game);
     if (!groups?.every(Boolean)) return '';
-    const shotData = shotBreakdown(raw.plays, groups, gender);
+    return impactMarkup(groups, gender, shotBreakdown(raw.plays, groups, gender));
+  }
+
+  function impactMarkup(groups, league, shotData = new Map()) {
+    const college = league === 'men' || league === 'women';
+    const hasShots = shotData.size > 0;
     return '<section class="retro-impact-card" aria-label="RETRO Game Impact">' +
       '<header class="retro-impact-mast"><h4>RETRO Game Impact</h4><small>Experimental</small></header>' +
       '<div class="retro-impact-teams">' + groups.map(({name, rows, madeShots}) => {
         const ranked = rows.map(([id, name, ...stats]) => {
           const candidate = shotData.get(String(id));
           const shots = candidate?.attempts === stats[7] &&
-            candidate.makes === madeShots.get(String(id)) ? candidate : null;
+            candidate.makes === madeShots?.get(String(id)) ? candidate : null;
           return {id, name, stats, shots, total:score(stats) + (shots?.heaves || 0) * 850};
         }).sort((a, b) => b.total - a.total);
         return '<section class="retro-impact-team"><h5>' + escape(name) + '</h5><ul class="retro-impact-roster">' +
@@ -127,7 +132,7 @@
             const {id, name, stats, shots, total} = player;
             const leader = total === ranked[0].total;
             return '<li class="retro-impact-row' + (leader ? ' is-leader' : '') + '">' +
-              '<div class="retro-impact-player">' + profile(id, name, gender) +
+              '<div class="retro-impact-player">' + (college ? profile(id, name, league) : '<strong>' + escape(name) + '</strong>') +
               '<small>' + (leader ? '<strong>Team leader</strong> · ' : '') +
               stats[0] + ' PTS · ' + (stats[1] + stats[2]) + ' REB · ' + stats[3] + ' AST' + '</small></div>' +
               '<details class="retro-impact-detail"><summary aria-label="' + escape(name) + ' Impact ' + format(total) +
@@ -136,7 +141,17 @@
               contributions(stats, shots?.heaves || 0) + (shots?.tracked ? '<h6>Shot quality</h6>' + shotNote(shots) : '') +
               '</div></details></li>';
           }).join('') + '</ul></section>';
-      }).join('') + '</div><p class="retro-impact-note">Select an Impact score for its calculation. Shot quality uses provisional rates. Verified heaves are exempt from the attempt charge.</p></section>';
+      }).join('') + '</div><p class="retro-impact-note">Select an Impact score for its calculation.' + (hasShots ? ' Shot quality uses provisional rates. Verified heaves are exempt from the attempt charge.' : ' Box-score Impact only.') + '</p></section>';
+  }
+
+  function boxMarkup(groups) {
+    if (!Array.isArray(groups) || groups.length !== 2 || !groups.every(group => group &&
+        Number.isInteger(group.points) && group.rows?.length && group.rows.every(row =>
+          row.length === fields.length + 2 && row[0] && row[1] &&
+          row.slice(2).every(value => Number.isInteger(value) && value >= 0)) &&
+        new Set(group.rows.map(row => row[0])).size === group.rows.length &&
+        group.rows.reduce((sum, row) => sum + row[2], 0) === group.points)) return '';
+    return impactMarkup(groups, 'professional');
   }
 
   const desk = document.querySelector('[data-impact-team-link]');
@@ -146,5 +161,5 @@
     target.searchParams.set('team', team);
     desk.href = target.href;
   }
-  window.SLTCBBImpact = {fields, score, format, details, profile, escape, gameMarkup};
+  window.SLTCBBImpact = {fields, score, format, details, profile, escape, gameMarkup, boxMarkup};
 })();

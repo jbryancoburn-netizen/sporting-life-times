@@ -1,7 +1,6 @@
 (()=>{'use strict';
 const $=id=>document.getElementById(id);
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const logo=c=>'assets/nba-logos/'+String(c||'').toUpperCase()+'.png';
 const fmt=d=>new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',dateStyle:'medium'}).format(new Date(d));
 async function fetchData(path){const r=await fetch(path,{cache:'no-store',signal:AbortSignal.timeout(12000)});if(!r.ok)throw Error('Could not load '+path);return r.json()}
 const boxColumns=[
@@ -42,12 +41,11 @@ function render(g,events,rankings){
  const recordFor=t=>{const rec=selectedRecords?.[t.code];return rec?rec.w+'–'+rec.l:'Record unavailable'};
  const gameElo=postgame.get(g.id);
  const newspaperTeam=t=>{
-  const current=gameElo?.[t.code],logoUrl=logo(t.code);
-  return {name:t.name||t.code,score:t.score,color:window.SLTScorebug.color(t.code),
-    crest:'<img src="'+esc(logoUrl)+'" alt="" loading="lazy">',
+  const current=gameElo?.[t.code];
+  return window.SLTScorebug.ledgerTeam({...t,
     record:recordFor(t),
     retro:current&&Number.isFinite(current.elo)?
-      'RETRO '+Math.round(current.elo)+' (#'+current.rank+')':'RETRO —'};
+      'RETRO '+Math.round(current.elo)+' (#'+current.rank+')':'RETRO —'});
  };
  const quarterScores=(()=>{
   const periods=g.period_scores;
@@ -79,17 +77,22 @@ function render(g,events,rankings){
    '<tbody>'+rows+'</tbody></table></div>':'<p>Player statistics unavailable.</p>')+'</section>';
  };
  const scorebug=window.SLTSportsScorebug?.render({
-  phase:'final',status:'FINAL',away:newspaperTeam(away),home:newspaperTeam(home)
+  phase:'final',status:'FINAL',periodFormat:'quarters',compactFinal:true,suppressMonogram:true,away:newspaperTeam(away),home:newspaperTeam(home)
  })||'<p>Scorebug temporarily unavailable.</p>';
+ const indexId=String(g.id).replace(/^espn-nba-/,'');
+ const impact=window.SLTBoxImpact?.slot({source:'nba',id:indexId,
+  away:{key:away.code,name:away.name,points:Number(away.score)},home:{key:home.code,name:home.name,points:Number(home.score)}})||'';
  const matchup=(away.name||away.code)+' at '+(home.name||home.code);
  document.title=matchup+' | NBA Game Center';
  $('game').innerHTML='<h1 class="game-heading">'+esc(matchup)+'</h1><article class="ledger26-card">'+
   '<div class="ledger26-meta">'+(g.venue?'<span>'+esc(g.venue)+'</span>':'')+'<span>'+esc(fmt(g.date))+'</span></div>'+
   scorebug+'<div class="ledger26-expanded">'+quarterScores+
   (highlight?'<section class="section"><h3>Top Performers</h3><div class="star-grid">'+highlight+'</div></section>':'')+
-  '<section class="section"><h3>Player Box Score</h3>'+roster(away)+roster(home)+'</section>'+teamComparison+
+  '<section class="section"><h3>Player Box Score</h3>'+roster(away)+roster(home)+'</section>'+teamComparison+impact+
   '<div class="links">'+(g.url?'<a target="_blank" rel="noopener noreferrer" href="'+esc(g.url)+'">Source box score ↗</a>':'')+
   '<a href="nba.html#page-3">Standings &amp; RETRO</a></div></div></article>';
+ const box=$('game').querySelector('[data-verified-impact]');
+ if(box)void window.SLTBoxImpact.fill(box);
 }
 async function boot(){
  const selector=$('games');

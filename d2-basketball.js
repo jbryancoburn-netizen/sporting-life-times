@@ -99,6 +99,7 @@ function game(g,includeLink=true){
   link(home)+'">'+name(home)+'</a></p>'+
   (g.source_url&&/^https:\/\//.test(g.source_url)?'<p><a href="'+esc(g.source_url)+
   '" target="_blank" rel="noopener noreferrer">VIEW VERIFIED SOURCE ↗</a></p>':'')+
+  (final&&g.verified?window.SLTBoxImpact?.ncaaSlot(g,away,home,gender,2)||'':'')+
   (includeLink?'<p><a href="'+gameLink(g)+'">OPEN FULL GAMEFILE ↗</a></p>':'')+
   '</div>';
  return '<article class="game-card ledger26-card ledger26-card--'+mode+'"><div class="ledger26-meta"><span class="ledger26-venue"><strong class="d2-visible-tipoff">'+esc(final?'FINAL':live?(g.status_detail||'LIVE'):time)+'</strong> · '+esc(venue)+

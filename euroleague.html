@@ -12,24 +12,21 @@
 <link rel="stylesheet" href="euroleague-edition.css?v=20261104-heritage">
 <link rel="stylesheet" href="shared-team-crests.css?v=20261027onecrest22">
 <link rel="stylesheet" href="slt-dual-ring.css?v=two-clean-rings-20261029">
-<link rel="stylesheet" href="cbb-ledger-scorecard.css?v=verified-five-lights-20261119">
+<link rel="stylesheet" href="cbb-ledger-scorecard.css?v=ledger-card-parity-20261119">
 <link rel="stylesheet" href="slt-heritage-newspaper.css?v=compact-victorian-20261103b">
 <link rel="stylesheet" href="newspaper-departments.css?v=compact-victorian-20261103b">
 <link rel="stylesheet" href="slt-victorian-global.css?v=universal-engraved-place-20261105">
 <link rel="stylesheet" href="euroleague-newspaper.css?v=20261104-press1">
 <script defer src="shared-team-crests.js?v=20261027slots23"></script>
-<script defer data-slt-league="euroleague" src="slt-dual-ring.js?v=two-clean-rings-20261029"></script>
+<script defer data-slt-league="euroleague" src="slt-dual-ring.js?v=ledger-card-parity-20261119"></script>
 <script defer src="league-desks.js?v=euroleague-chronicle-20261119"></script>
 <script defer src="basketball-desk-layout.js?v=20261119"></script><script defer src="euroleague-model-desk.js?v=shared-club-calendar-20261119"></script>
 <script defer src="euroleague-edition.js?v=unified-20261104"></script>
 <script defer src="euroleague-player-desk.js?v=20261027players1"></script>
-<script defer src="cbb-ledger-scorebug.js?v=verified-five-lights-20261119"></script>
-<script defer src="euroleague-live.js?v=verified-five-lights-20261119"></script>
+<script defer src="cbb-ledger-scorebug.js?v=ledger-card-parity-20261119"></script>
+<link rel="stylesheet" href="cbb-game-impact-card.css?v=shared-box-impact-20261119"><script defer src="cbb-game-impact.js?v=shared-box-impact-20261119"></script><script defer src="basketball-box-impact.js?v=20261119"></script><script defer src="euroleague-live.js?v=ledger-card-parity-20261119"></script>
 <script defer src="site-access-clock.js?v=2"></script>
-<link rel="stylesheet" href="slt-sections-nav.css?v=20261109a"><script defer src="slt-sections-nav.js?v=20261109a"></script><style>
-body.league-edition[data-league="euroleague"] .el-live-board{grid-template-columns:repeat(2,minmax(0,1fr))}
-@media(max-width:700px){body.league-edition[data-league="euroleague"] .el-live-board{grid-template-columns:minmax(0,1fr)}}
-</style><link rel="stylesheet" href="cbb-universal-nav.css?v=edition-switch-20261105b"><link rel="stylesheet" href="cbb-chronicle.css?v=shared-basketball-20261119"><script defer src="basketball-chronicle-news.js?v=20261119"></script><link rel="stylesheet" href="basketball-ranking-layout.css?v=20261119"><link rel="stylesheet" href="cbb-ranking-board.css?v=shared-desks-20261119"><link rel="stylesheet" href="cbb-conference-register.css?v=shared-basketball-20261119"><link rel="stylesheet" href="mbb-big-ten-calendar.css?v=shared-basketball-20261119"></head>
+<link rel="stylesheet" href="slt-sections-nav.css?v=20261109a"><script defer src="slt-sections-nav.js?v=20261109a"></script><link rel="stylesheet" href="cbb-universal-nav.css?v=edition-switch-20261105b"><link rel="stylesheet" href="cbb-chronicle.css?v=shared-basketball-20261119"><script defer src="basketball-chronicle-news.js?v=20261119"></script><link rel="stylesheet" href="basketball-ranking-layout.css?v=20261119"><link rel="stylesheet" href="cbb-ranking-board.css?v=shared-desks-20261119"><link rel="stylesheet" href="cbb-conference-register.css?v=shared-basketball-20261119"><link rel="stylesheet" href="mbb-big-ten-calendar.css?v=shared-basketball-20261119"></head>
 <body class="edition-interior league-edition el-heritage-edition" data-league="euroleague">
 <div class="wrap">
 <header class="el-press-header chronicle-masthead">
@@ -48,20 +45,25 @@ body.league-edition[data-league="euroleague"] .el-live-board{grid-template-colum
 <section id="el-club-desk" hidden aria-live="polite"></section>
 <div id="el-newspaper-desks" hidden>
 
-<section class="hub-feature el-press-scoreboard" id="el-live-desk" aria-label="EuroLeague live scores">
+<section class="sl-content" id="el-live-desk" aria-label="EuroLeague live scores">
+<div class="slt-department-band"><div class="slt-department-kicker"><span>EUROLEAGUE BASKETBALL</span><span>2026–27 EDITION</span></div><h1>THE DAILY LEDGER</h1></div>
 <div class="sl-toolbar" aria-label="Game controls"><div class="sl-day-controls">
 <button type="button" data-el-day-step="-1" aria-label="Previous day">‹</button>
 <label class="sl-day-picker"><span id="el-date-label">Select date</span><span class="sl-date-caret" aria-hidden="true">▾</span><input id="el-score-date" type="date" aria-label="Choose the game date"></label>
 <button type="button" data-el-day-step="1" aria-label="Next day">›</button></div>
 <a href="#league-boxscores">Open the Gamefile →</a>
 </div>
-<div class="sl-tools-row"><label class="sl-search"><span class="sr-only">Game status</span><select id="el-score-filter">
-<option value="all">All games</option><option value="live">Live</option><option value="scheduled">Upcoming</option><option value="final">Final</option><option value="awaiting_final">Awaiting final</option>
-</select></label>
+<div class="sl-tools-row"><div id="el-score-filter" class="sl-filters" role="group" aria-label="Filter EuroLeague games">
+<button type="button" data-filter="all" class="is-active" aria-pressed="true">All</button>
+<button type="button" data-filter="live" aria-pressed="false">Live</button>
+<button type="button" data-filter="scheduled" aria-pressed="false">Upcoming</button>
+<button type="button" data-filter="final" aria-pressed="false">Final</button>
+<button type="button" data-filter="awaiting_final" aria-pressed="false">Awaiting final</button>
+</div>
 <label class="sl-search"><span class="sr-only">Search teams</span><input id="el-score-search" type="search" placeholder="Search EuroLeague teams…"></label>
 </div>
 <div class="sl-content-head"><div><span class="sl-eyebrow">THE EUROLEAGUE SLATE</span><h2>Fixtures &amp; Results</h2></div><div class="sl-count-wrap"><strong id="el-live-status" role="status">Checking EuroLeague game status…</strong></div></div>
-<div class="sl-games" id="el-live-scorebugs"></div>
+<p class="hub-small" id="el-source-status"></p><div class="sl-games" id="el-live-scorebugs"></div>
 </section>
 <div class="el-front-strip el-press-numbers" id="el-front-strip" aria-label="EuroLeague verified statistical leaders"><p class="hub-small">Loading verified season snapshot…</p></div>
 
@@ -142,7 +144,7 @@ const euroleagueDesks = euroleagueClub || euroleagueParams.get('view') === 'desk
 if (euroleagueDesks) {
   const style = document.createElement('link');
   style.rel = 'stylesheet';
-  style.href = 'ncaam-slate.css?v=verified-five-lights-20261119';
+  style.href = 'ncaam-slate.css?v=ledger-card-parity-20261119';
   document.head.append(style);
   document.body.classList.add('sl-ledger-page');
 }

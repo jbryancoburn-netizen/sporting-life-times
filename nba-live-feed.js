@@ -73,15 +73,6 @@ function projected(g){
   '<div data-nba-availability-away="'+esc(away)+'" data-nba-availability-home="'+esc(home)+'"></div>'+
   '</div>';
 }
-// Display the RETRO pregame prediction on the collapsed daily game card.
-function forecastStrip(g){
- const x=projectNumbers(g);
- if(!x)return '<div class="nba-retro-schedule-forecast nba-retro-forecast-unavailable">RETRO prediction unavailable · awaiting verified scoring inputs</div>';
- const rounded=Math.round(Math.abs(x.margin)*2)/2;
- const favorite=x.margin>=0?canonicalCode(g.home.code):canonicalCode(g.away.code);
- const spread=rounded===0?'EVEN':favorite+' −'+rounded.toFixed(1);
- return '<div class="nba-retro-schedule-forecast"><strong>RETRO PROJECTION</strong><span>'+esc(spread)+'</span><span>Projected '+x.awayScore+'–'+x.homeScore+'</span><span>'+Math.round((x.margin>=0?x.homeWin:1-x.homeWin)*100)+'% Elo for '+esc(favorite)+'</span></div>';
-}
 async function refreshRecords(){try{const r=await fetch('data/nba-2026-27-current-provisional.json',{cache:'no-store'});if(!r.ok)return;const data=await r.json(),rec={};for(const e of data.events||[]){if(!Number.isFinite(Number(e.home_score))||!Number.isFinite(Number(e.away_score))||Number(e.home_score)===Number(e.away_score))continue;for(const t of [e.home,e.away])rec[t]??={w:0,l:0};const win=Number(e.home_score)>Number(e.away_score)?e.home:e.away,lose=win===e.home?e.away:e.home;rec[win].w++;rec[lose].l++}fallbackRecords=Object.fromEntries(Object.entries(rec).map(([k,v])=>[k,v.w+'-'+v.l]));}catch(e){console.warn('NBA verified record fallback unavailable',e.message)}}
 const nbaBoxCache=new Map();
 async function loadNBABox(card){
@@ -98,7 +89,7 @@ async function loadNBABox(card){
   if(!response.ok)throw Error('HTTP '+response.status);
   const data=await response.json(),blocks=[];
   const teams=data.header?.competitions?.[0]?.competitors||[];
-  const lines=teams.map(t=>({name:t.team?.displayName||t.team?.abbreviation||'',scores:t.linescores||[]}));
+  const lines=[...teams].sort((a,b)=>Number(a.homeAway==='home')-Number(b.homeAway==='home')).map(t=>({name:t.team?.displayName||t.team?.abbreviation||'',scores:t.linescores||[]}));
   if(lines.some(t=>t.scores.length)){
    const length=Math.max(...lines.map(t=>t.scores.length));
    const quarters=Array.from({length},(_,i)=>i<4?'Q'+(i+1):'OT'+(i-3));
@@ -110,6 +101,16 @@ async function loadNBABox(card){
    const columns=['MIN','PTS','REB','AST','FG','3PT'].map(k=>({k,index:(group.labels||[]).findIndex(label=>String(label).toUpperCase()===k)})).filter(v=>v.index>=0);
    if(!columns.length)continue;
    blocks.push('<section class="nba-live-stat-section"><h4>'+esc(t.team?.displayName||'Team')+' · Players</h4><div class="nba-live-stat-scroll"><table><thead><tr><th>Player</th>'+columns.map(v=>'<th>'+v.k+'</th>').join('')+'</tr></thead><tbody>'+(group.athletes||[]).filter(a=>a.athlete?.displayName).slice(0,18).map(a=>'<tr><th>'+esc(a.athlete.displayName)+'</th>'+columns.map(v=>'<td>'+esc(a.stats?.[v.index]??'—')+'</td>').join('')+'</tr>').join('')+'</tbody></table></div></section>');
+  }
+  if(card.dataset.nbaPhase==='final'){
+   const away=teams.find(t=>t.homeAway==='away'),home=teams.find(t=>t.homeAway==='home');
+   if(away&&home&&canonicalCode(away.team?.abbreviation)===card.dataset.nbaAway&&
+      canonicalCode(home.team?.abbreviation)===card.dataset.nbaHome&&
+      String(away.score)===card.dataset.nbaAwayScore&&String(home.score)===card.dataset.nbaHomeScore){
+    const impact=window.SLTCBBImpact?.gameMarkup(data,{id,phase:'final',away,home},'nba');
+    if(impact)blocks.push(impact);
+   }
+   if(!blocks.some(block=>block.includes('aria-label="RETRO Game Impact"')))blocks.push('<p class="ledger26-detail-note">RETRO Game Impact requires a complete, verified final player box score.</p>');
   }
   const html=blocks.join('')||'<p>Detailed box-score statistics are not yet available from the live feed.</p>';
   nbaBoxCache.set(id,{html,at:Date.now()});
@@ -134,11 +135,11 @@ function render(payload){
   // Some providers only publish the clock inside the status string.
   const rawClock=(String(rawLabel).match(/\b\d{1,2}:\d{2}\b/)||[])[0]||'';
   const displayClock=nbaClock&&nbaClock!=='0:00'?nbaClock:rawClock;
-  const label=state==='in'&&nbaPeriodLabel?(displayClock?displayClock+' ':'')+nbaPeriodLabel:rawLabel;
+  const label=state==='in'&&nbaPeriodLabel&&!/halftime|half time|intermission/i.test(rawLabel)?(displayClock?displayClock+' ':'')+nbaPeriodLabel:rawLabel;
   if(!away||!home)return null;
   const team=c=>({name:c.team?.displayName||c.team?.name||'',code:canonicalCode(c.team?.abbreviation),score:c.score??'',record:c.records?.find(r=>r.type==='total')?.summary||fallbackRecords[canonicalCode(c.team?.abbreviation)]||''});
   const broadcasts=(co.broadcasts||[]).flatMap(b=>b.names||[]).filter(Boolean);
-  return {away:team(away),home:team(home),state,label,date:e.date,id:e.id,network:broadcasts.join(' / ')};
+  return {away:team(away),home:team(home),state,label,date:e.date,id:e.id,venue:[co.venue?.fullName,[co.venue?.address?.city,co.venue?.address?.state].filter(Boolean).join(', ')].filter(Boolean).join(' · '),network:broadcasts.join(' / ')};
  }).filter(g=>g&&/^[0-9]{7,12}$/.test(String(g.id)));
  if(!mapped.length){root.innerHTML='<p class="hub-small">No game details with valid provider IDs are available. <a href="nba-game-center.html">Verified archive</a>.</p>';return;}
  // Keep live games first, followed by upcoming tipoffs in chronological order;
@@ -149,11 +150,26 @@ function render(payload){
   const playing=g.state==='in',final=g.state==='post';
   const phase=playing?'live':final?'final':'upcoming';
   const time=new Date(g.date).toLocaleTimeString('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit'});
-  const side=t=>({name:t.name||t.code,scouting:window.SLTSportsScorebug?.formAt?.(verifiedForm,canonicalCode(t.code),g.date,String(g.id).replace(/^espn-nba-/,''),phase),crest:'<img src="'+logo(t.code)+'" width="36" height="36" loading="lazy" alt="" onerror="this.hidden=true">',color:({ATL:'#E03A3E',BOS:'#007A33',BKN:'#242424',CHA:'#1D1160',CHI:'#CE1141',CLE:'#860038',DAL:'#00538C',DEN:'#0E2240',DET:'#C8102E',GSW:'#1D428A',HOU:'#CE1141',IND:'#002D62',LAC:'#C8102E',LAL:'#552583',MEM:'#5D76A9',MIA:'#98002E',MIL:'#00471B',MIN:'#0C2340',NOP:'#0C2340',NYK:'#006BB6',OKC:'#007AC1',ORL:'#0077C0',PHI:'#006BB6',PHX:'#1D1160',POR:'#E03A3E',SAC:'#5A2D81',SAS:'#343A40',TOR:'#CE1141',UTA:'#002B5C',WAS:'#002B5C'}[t.code]||'#655239'),record:t.record||'—',retro:Number.isFinite(eloRatings[canonicalCode(t.code)])?'RETRO '+Math.round(eloRatings[canonicalCode(t.code)])+' (#'+retroRanks[canonicalCode(t.code)]+')':'RETRO —',score:t.score});
-  const scorebug=window.SLTSportsScorebug?.render({phase,periodFormat:'quarters',away:side(g.away),home:side(g.home),status:final?'FINAL':g.label,tipoff:time+' ET',network:g.network});
-  if(!scorebug)return '';
-  const pregameSafe=!playing&&!final&&Date.parse(g.date)>Date.now();
-  return '<details class="ledger26-card ledger26-expand nba-expand-game" data-nba-game="'+esc(g.id)+'" data-nba-home="'+esc(g.home.code)+'" data-nba-away="'+esc(g.away.code)+'" data-nba-phase="'+(pregameSafe?'pre':phase)+'"'+(previouslyOpen.has(String(g.id))?' open':'')+'><summary class="ledger26-summary nba-expand-trigger">'+scorebug+(pregameSafe?forecastStrip(g):'')+'</summary><div class="nba-expand-content">'+(pregameSafe?projected(g):'<div class="nba-live-stat-content" aria-live="polite">Opening live statistics…</div>')+'<a class="nba-live-game-link" href="nba-live-game.html?game='+encodeURIComponent(g.id)+'">OPEN GAME CENTER ↗</a>'+(playing||final?'<a class="nba-live-game-link" href="live-game.html?league=nba&game='+encodeURIComponent(g.id)+'">◈ VICTORIAN LIVE DISPATCH</a>':'')+'</div></details>';
+  const shared=window.SLTSportsScorebug;
+  const pregameSafe=phase==='upcoming'&&Date.parse(g.date)>Date.now();
+  const prediction=pregameSafe?projectNumbers(g):null;
+  const fav=prediction?.margin>=0?g.home:g.away;
+  const side=t=>window.SLTScorebug.ledgerTeam({...t,score:t.score===''?null:t.score,
+   scouting:shared.formAt(verifiedForm,t.code,g.date,g.id,phase),
+   retro:Number.isFinite(eloRatings[t.code])?'RETRO '+Math.round(eloRatings[t.code])+' (#'+retroRanks[t.code]+')':'RETRO —'});
+  const scorebug=shared.render({phase,periodFormat:'quarters',compactFinal:true,suppressPress:true,suppressMonogram:true,suppressTipoffFallback:true,
+   away:side(g.away),home:side(g.home),status:final?(g.label||'FINAL'):g.label,
+   forecast:prediction?{team:fav.code,probability:prediction.margin>=0?prediction.homeWin:1-prediction.homeWin,
+    margin:Math.abs(prediction.margin),projectedAwayScore:prediction.awayScore,projectedHomeScore:prediction.homeScore}:null});
+  const gameHref=encodeURIComponent(g.id);
+  return '<article class="sl-game ledger26-card" data-nba-card>'+
+   shared.ledgerMeta({tipoff:phase==='upcoming'?time+' ET':'',venue:g.venue,network:g.network})+
+   '<details class="ledger26-expand sl-game-expansion" data-nba-game="'+esc(g.id)+'" data-nba-home="'+esc(g.home.code)+'" data-nba-away="'+esc(g.away.code)+'" data-nba-phase="'+phase+'" data-nba-away-score="'+esc(g.away.score)+'" data-nba-home-score="'+esc(g.home.score)+'"'+(previouslyOpen.has(String(g.id))?' open':'')+'>'+
+   '<summary class="ledger26-summary" aria-label="Expand '+esc(g.away.name)+' at '+esc(g.home.name)+' game details">'+scorebug+
+   '<span class="ledger26-instruction">OPEN GAME DETAILS <span aria-hidden="true">+</span></span></summary>'+
+   '<div class="ledger26-expanded">'+(pregameSafe?projected(g):'<div class="nba-live-stat-content" aria-live="polite">Opening game statistics…</div>')+
+   '<div class="ledger26-links"><a class="nba-live-game-link" href="nba-live-game.html?game='+gameHref+'">Full Gamefile ↗</a>'+
+   (playing||final?'<a class="nba-live-game-link" href="live-game.html?league=nba&game='+gameHref+'">Live Dispatch ↗</a>':'')+'</div></div></details></article>';
  }).join('');
  for(const card of document.querySelectorAll('#nba-live-feed details[data-nba-game][open]'))loadNBABox(card);
 }
@@ -174,10 +190,10 @@ function fromNba(raw){
  return {events:dated.map(g=>{
   const home=g.homeTeam||{},away=g.awayTeam||{},st=Number(g.gameStatus)||1;
   const comp=(t,side)=>({homeAway:side,team:{displayName:t.teamName?((t.teamCity||'')+' '+t.teamName).trim():t.teamTricode,abbreviation:t.teamTricode},score:t.score,records:[]});
-  return {id:String(g.gameId),date:g.gameTimeUTC||g.gameTime,competitions:[{competitors:[comp(away,'away'),comp(home,'home')]}],status:{period:Number(g.period)||0,displayClock:officialGameClock(g.gameClock),type:{state:st===3?'post':st===2?'in':'pre',shortDetail:g.gameStatusText||''}}};
+  return {id:String(g.gameId),date:g.gameTimeUTC||g.gameTime,competitions:[{venue:g.arenaName?{fullName:g.arenaName,address:{city:g.arenaCity,state:g.arenaState}}:null,competitors:[comp(away,'away'),comp(home,'home')]}],status:{period:Number(g.period)||0,displayClock:officialGameClock(g.gameClock),type:{state:st===3?'post':st===2?'in':'pre',shortDetail:g.gameStatusText||''}}};
  })};
 }
-function fromArchive(p){return {events:(p.games||[]).map(g=>({id:g.id?.replace(/^espn-nba-/,'')||'',date:g.date,competitions:[{competitors:(g.teams||[]).map(t=>({homeAway:t.home_away,team:{displayName:t.name,abbreviation:t.code},score:t.score}))}],status:{type:{state:g.state==='post'?'post':g.state==='in'?'in':'pre',shortDetail:g.status||'Scheduled'}}}))};}
+function fromArchive(p){return {events:(p.games||[]).map(g=>({id:g.id?.replace(/^espn-nba-/,'')||'',date:g.date,competitions:[{venue:g.venue?{fullName:typeof g.venue==='string'?g.venue:g.venue.fullName}:null,broadcasts:g.network?[{names:[g.network]}]:[],competitors:(g.teams||[]).map(t=>({homeAway:t.home_away,team:{displayName:t.name,abbreviation:t.code},score:t.score}))}],status:{type:{state:g.state==='post'?'post':g.state==='in'?'in':'pre',shortDetail:g.status||'Scheduled'}}}))};}
 // Date navigation is enabled only in the NBA Game Center; the front-page rail stays on today.
 const nbaDateInput=document.getElementById('nba-game-date');
 const etDay=timestamp=>{

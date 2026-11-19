@@ -9,7 +9,7 @@ test('NBA Game Center keeps the date calendar and clear previous/next/today cont
  for(const id of ['nba-game-date','nba-date-previous','nba-date-next','nba-date-today','nba-date-week','nba-live-feed'])assert.ok(page.includes('id="'+id+'"'),id+' missing');
  assert.match(page,/type="date"/);
  assert.match(page,/nba-live-feed\.js\?v=[a-z0-9-]+/i);
- assert.match(page,/nba-game-center\.js\?v=date-calendar-navigation-20261105/);
+ assert.match(page,/nba-game-center\.js\?v=[a-z0-9-]+/i);
 });
 test('mobile calendar uses the unified stylesheet and keeps controls in separate rows',()=>{
  const css=read('nba-ledger-unified.css');
@@ -36,4 +36,13 @@ test('the original live homepage remains today-only and refreshes every thirty s
 test('opening a historical full box score preserves the selected date',()=>{
  assert.match(archive,/url\.searchParams\.set\('game',g\.id\)/);
  assert.doesNotMatch(archive,/history\.replaceState\(null,'','\?game='/);
+});
+
+test('NBA uses the shared Ledger frame, native pregame forecast and compact final',()=>{
+ assert.match(live,/<article class="sl-game ledger26-card" data-nba-card>/);
+ assert.match(live,/<details class="ledger26-expand sl-game-expansion"/);
+ assert.match(live,/compactFinal:true,suppressPress:true,suppressMonogram:true/);
+ assert.match(live,/forecast:prediction\?/);
+ assert.doesNotMatch(live,/nba-retro-schedule-forecast/);
+ assert.match(page,/frame\.hidden=/);
 });
