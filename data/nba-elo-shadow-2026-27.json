@@ -4,7 +4,7 @@
   "status": "primary_live_earned_elo",
   "model": "team_only_reset1500_home40_k24_sqrt_mov",
   "source": "data/nba-2026-27-current-provisional.json",
-  "games_played": 221,
+  "games_played": 222,
   "parameters": {
     "season_start_elo": 1500,
     "home_elo": 40,
@@ -13,14 +13,6 @@
     "historical_prediction_prior": "2025-26 final team Elo, regression .75; prediction blend weight .75*10/(10+team_games), never applied to earned Elo"
   },
   "rankings": [
-    {
-      "team": "LAL",
-      "elo": 1605.947,
-      "games": 15,
-      "forecast_prior": 1582.4835,
-      "live_elo": 1657.577,
-      "difference_from_live": -51.63
-    },
     {
       "team": "SAS",
       "elo": 1604.426,
@@ -44,6 +36,14 @@
       "forecast_prior": 1567.86825,
       "live_elo": 1612.749,
       "difference_from_live": -23.446
+    },
+    {
+      "team": "LAL",
+      "elo": 1584.822,
+      "games": 16,
+      "forecast_prior": 1582.4835,
+      "live_elo": 1631.286,
+      "difference_from_live": -46.464
     },
     {
       "team": "MEM",
@@ -206,6 +206,14 @@
       "difference_from_live": 89.675
     },
     {
+      "team": "UTA",
+      "elo": 1422.408,
+      "games": 16,
+      "forecast_prior": 1321.938,
+      "live_elo": 1328.292,
+      "difference_from_live": 94.116
+    },
+    {
       "team": "NOP",
       "elo": 1421.347,
       "games": 16,
@@ -228,14 +236,6 @@
       "forecast_prior": 1587.2549999999999,
       "live_elo": 1464.818,
       "difference_from_live": -50.059
-    },
-    {
-      "team": "UTA",
-      "elo": 1401.283,
-      "games": 15,
-      "forecast_prior": 1321.938,
-      "live_elo": 1302.001,
-      "difference_from_live": 99.282
     },
     {
       "team": "SAC",
@@ -3994,6 +3994,23 @@
       "home_elo_change": 8.374202258578766,
       "home_after": 1522.6637514281247,
       "away_after": 1581.9683531619298
+    },
+    {
+      "id": "espn-nba-401910017",
+      "date": "2026-11-19T03:00:00.000Z",
+      "home": "LAL",
+      "away": "UTA",
+      "home_score": 97,
+      "away_score": 109,
+      "home_before": 1605.9466408505727,
+      "away_before": 1401.2834466564625,
+      "home_win_probability": 0.8035126000089433,
+      "forecast_home_win_probability": 0.8183041394297896,
+      "forecast_prior_weight_home": 0.3,
+      "forecast_prior_weight_away": 0.3,
+      "home_elo_change": -21.12489486069715,
+      "home_after": 1584.8217459898756,
+      "away_after": 1422.4083415171597
     },
     {
       "id": "espn-nba-401910018",
