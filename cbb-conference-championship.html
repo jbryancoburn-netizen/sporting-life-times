@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Preseason Conference Championship | Sporting Life &amp; Times</title>
+<link rel="icon" href="slt-monogram-favicon.svg">
+<style>
+body { margin: 0; background: #eee2ca; color: #30241b; font: 16px/1.45 Georgia, serif; }
+main { max-width: 880px; margin: auto; padding: 16px; }
+a { color: #713d2b; }
+header { text-align: center; border-block: 4px double; padding: 12px; }
+.masthead { color: inherit; font-weight: bold; font-size: clamp(26px, 6vw, 46px); text-decoration: none; }
+h1 { font-size: clamp(25px, 5vw, 42px); margin: 12px 0; }
+nav { margin: 18px 0; display: flex; flex-wrap: wrap; gap: 12px; }
+nav a { padding: 5px 10px; border: 1px solid #9e8566; }
+nav a[aria-current] { background: #713d2b; color: #fff4dd; }
+#leader { padding: 12px; border: 4px double #713d2b; background: #f6ebd7; font-size: 1.2rem; }
+table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+th, td { padding: 7px 5px; border-bottom: 1px solid #b5a58c; text-align: right; }
+th:nth-child(2), td:nth-child(2) { text-align: left; }
+thead th { border-bottom: 2px solid; }
+summary { cursor: pointer; }
+.breakdown { padding: 0 0 8px; margin: 6px 0 0; }
+.breakdown div { display: flex; justify-content: space-between; gap: 12px; }
+dd { margin: 0; white-space: nowrap; }
+</style>
+</head>
+<body>
+<main>
+<header><a class="masthead" href="ncaam.html">Sporting Life &amp; Times</a></header>
+<h1>Preseason Conference Championship</h1>
+<nav aria-label="College basketball editions">
+<a href="?gender=men" id="men">Men’s Division I</a>
+<a href="?gender=women" id="women">Women’s Division I</a>
+<a id="rankings" href="ncaam-rankings.html">Team rankings</a>
+</nav>
+<p>2026–27 · November 1 through December 31. Every verified final between teams from different Division I conferences counts, including multi-team events and neutral-site games. Conferences are ranked by winning percentage, with shared places for exact ties.</p>
+<p id="leader" hidden></p>
+<p id="status" role="status">Loading verified results…</p>
+<table id="standings" hidden>
+<thead><tr><th scope="col">Rank</th><th scope="col">Conference</th><th scope="col">W–L</th><th scope="col">Pct.</th></tr></thead>
+<tbody></tbody>
+</table>
+</main>
+<script>
+const season = '2026-27';
+const start = '2026-11-01';
+const end = '2026-12-31';
+const editions = {
+  men: { roster: 'ncaam-2026-27-team-registry.json', results: 'mbb-retro-live-finals.json', teamId: 'id' },
+  women: { roster: 'ncaaw-2026-27-teams.json', results: 'ncaaw-2026-27-verified-games.json', teamId: 'team_id' }
+};
+
+function compareRecords(a, b) {
+  return b.wins * (a.wins + a.losses) - a.wins * (b.wins + b.losses);
+}
+
+function buildStandings(roster, ledger, teamId) {
+  if (roster.season !== season || ledger.season !== season) throw new Error('Season mismatch');
+  const membership = new Map();
+  const conferences = new Map();
+  for (const team of roster.teams) {
+    if (!team[teamId] || !team.conference || (team.division && team.division !== 'D1')) continue;
+    membership.set(String(team[teamId]), team.conference);
+    if (!conferences.has(team.conference)) {
+      conferences.set(team.conference, { name: team.conference, wins: 0, losses: 0, opponents: new Map() });
+    }
+  }
+  function record(conference, opponent, result) {
+    const row = conferences.get(conference);
+    row[result]++;
+    if (!row.opponents.has(opponent)) row.opponents.set(opponent, { wins: 0, losses: 0 });
+    row.opponents.get(opponent)[result]++;
+  }
+  const seen = new Map();
+  let latest = '';
+  for (const game of ledger.games) {
+    const date = game.date.slice(0, 10);
+    if (date < start || date > end || game.exhibition || (game.status && game.status !== 'final')) continue;
+    const home = membership.get(String(game.home_id));
+    const away = membership.get(String(game.away_id));
+    if (!home || !away || home === away) continue;
+    const homeScore = Number(game.home_score);
+    const awayScore = Number(game.away_score);
+    if (!game.id || ![homeScore, awayScore].every(score => Number.isInteger(score) && score > 0) || homeScore === awayScore) continue;
+    const signature = JSON.stringify([date, game.home_id, game.away_id, homeScore, awayScore]);
+    if (seen.has(game.id)) {
+      if (seen.get(game.id) !== signature) throw new Error('Conflicting final ' + game.id);
+      continue;
+    }
+    seen.set(game.id, signature);
+    if (date > latest) latest = date;
+    const homeWon = homeScore > awayScore;
+    record(home, away, homeWon ? 'wins' : 'losses');
+    record(away, home, homeWon ? 'losses' : 'wins');
+  }
+  const ranked = [...conferences.values()].filter(row => row.wins + row.losses);
+  ranked.sort((a, b) => compareRecords(a, b) || a.name.localeCompare(b.name));
+  const unranked = [...conferences.values()].filter(row => !row.wins && !row.losses);
+  unranked.sort((a, b) => a.name.localeCompare(b.name));
+  return { ranked, unranked, latest, count: seen.size };
+}
+
+function create(tag, value) {
+  const element = document.createElement(tag);
+  if (value !== undefined) element.textContent = value;
+  return element;
+}
+
+function render({ ranked, unranked, latest, count }) {
+  const status = document.getElementById('status');
+  if (!count) {
+    status.textContent = 'No eligible verified finals yet.';
+    return;
+  }
+  const leaders = ranked.filter(row => compareRecords(row, ranked[0]) === 0);
+  const leader = document.getElementById('leader');
+  const easternDate = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York' }).format(new Date());
+  const title = easternDate > end
+    ? (leaders.length === 1 ? 'Champion' : 'Co-champions')
+    : (leaders.length === 1 ? 'Leader' : 'Co-leaders');
+  leader.textContent = title + ' · ' + leaders.map(row => row.name + ' (' + row.wins + '–' + row.losses + ')').join(', ');
+  leader.hidden = false;
+  status.textContent = count + ' verified interconference finals through ' + latest + '. Select a conference to see its opponent records.';
+  const table = document.getElementById('standings');
+  const body = table.tBodies[0];
+  let place = 0;
+  [...ranked, ...unranked].forEach((row, index) => {
+    const games = row.wins + row.losses;
+    if (games && (!index || compareRecords(ranked[index - 1], row) !== 0)) place = index + 1;
+    const line = body.insertRow();
+    line.append(create('td', games ? place : '—'));
+    const name = line.insertCell();
+    if (games) {
+      const details = create('details');
+      const breakdown = create('dl');
+      breakdown.className = 'breakdown';
+      for (const [opponent, record] of [...row.opponents].sort(([a], [b]) => a.localeCompare(b))) {
+        const pair = create('div');
+        pair.append(create('dt', opponent), create('dd', record.wins + '–' + record.losses));
+        breakdown.append(pair);
+      }
+      details.append(create('summary', row.name), breakdown);
+      name.append(details);
+    } else {
+      name.textContent = row.name;
+    }
+    line.append(create('td', row.wins + '–' + row.losses), create('td', games ? (row.wins / games * 100).toFixed(1) + '%' : '—'));
+  });
+  table.hidden = false;
+}
+
+const gender = new URLSearchParams(location.search).get('gender') === 'women' ? 'women' : 'men';
+document.getElementById(gender).setAttribute('aria-current', 'page');
+if (gender === 'women') document.getElementById('rankings').href = 'ncaaw-rankings.html';
+const edition = editions[gender];
+Promise.all([edition.roster, edition.results].map(async file => {
+  const response = await fetch('data/' + file, { cache: 'no-cache' });
+  if (!response.ok) throw new Error('Failed to load ' + file);
+  return response.json();
+})).then(([roster, ledger]) => render(buildStandings(roster, ledger, edition.teamId))).catch(error => {
+  console.error(error);
+  document.getElementById('status').textContent = 'Verified standings are temporarily unavailable.';
+});
+</script>
+</body>
+</html>
