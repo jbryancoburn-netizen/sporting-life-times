@@ -231,6 +231,9 @@
   padding-inline-start: .5rem;
   box-sizing: border-box;
 }
+#full-season-schedule.victorian-team-calendar .mbb-schedule-table > tbody > tr[data-exhibition="true"] {
+  background: linear-gradient(90deg, #794487 0 4px, #f2eaf4 4px) !important;
+}
 #full-season-schedule .sched-matchup > .mbb-mark {
   --mbb-size: 68px;
   flex: 0 0 68px !important;
@@ -395,9 +398,9 @@
   --schedule-status-ink: #64758b;
   --schedule-card-paper: color-mix(in srgb, var(--schedule-ink) 17%, #fbfcff);
   background: var(--schedule-card-paper) !important;
-  border-color: var(--schedule-status-ink) !important;
+  border-color: #b9a88e !important;
   border-radius: 3px;
-  box-shadow: 0 0 0 1px var(--schedule-status-ink), 0 0 8px 1px color-mix(in srgb, var(--schedule-status-ink) 37%, transparent) !important;
+  box-shadow: none !important;
 }
 #full-season-schedule.victorian-team-calendar .mbb-schedule-table > tbody > tr[data-calendar-state="upcoming"] {
   --schedule-status-ink: #376cac;
@@ -438,24 +441,24 @@
 }
 #full-season-schedule.victorian-team-calendar .mbb-schedule-table > tbody > tr.victorian-stat-detail,
 #full-season-schedule.victorian-team-calendar .mbb-schedule-table > tbody > tr.victorian-stat-detail > td {
-  background: #f1f6fd !important;
+  background: #f6eddb !important;
   border-color: #91a8c6 !important;
   color: #20334a;
 }
 #full-season-schedule.victorian-team-calendar .victorian-stat-detail :is(.victorian-stat-block,.wbb-game-stats) h3 {
-  color: #23466d;
-  border-color: #6685aa !important;
+  color: #fff5e2;
+  border-color: #b69b77 !important;
 }
 #full-season-schedule.victorian-team-calendar .victorian-stat-detail table :is(th,td) {
-  background: #f8fbff !important;
+  background: #fffaf0 !important;
   border-color: #c5d3e5 !important;
   color: #20334a !important;
 }
 #full-season-schedule.victorian-team-calendar .victorian-stat-detail table tbody tr:nth-child(even) > :is(th,td) {
-  background: #e8f0fa !important;
+  background: #f4ebdc !important;
 }
 #full-season-schedule.victorian-team-calendar .victorian-stat-detail table thead th {
-  background: #d6e5f7 !important;
+  background: #e9ddc7 !important;
   color: #203d61 !important;
 }
 @media(max-width:700px) {
@@ -477,7 +480,7 @@
 /* Solid opponent-color rail, status halo, and explicit venue stamps. */
 #full-season-schedule.victorian-team-calendar .mbb-schedule-table > tbody > tr[data-game-site] {
   --schedule-card-paper: #fcfdff;
-  background: linear-gradient(90deg, var(--schedule-ink) 0 5px, #fcfdff 5px) !important;
+  background: linear-gradient(90deg, var(--schedule-ink) 0 4px, #fcf7ec 4px) !important;
 }
 #full-season-schedule.victorian-team-calendar .sched-matchup > .mbb-mark {
   filter: drop-shadow(0 1px 2px #19263838);

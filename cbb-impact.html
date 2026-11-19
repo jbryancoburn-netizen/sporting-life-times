@@ -6,20 +6,21 @@
 <title>RETRO Game Impact | Sporting Life &amp; Times</title>
 <link rel="icon" href="slt-monogram-favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="cbb-stats.css">
+<link rel="stylesheet" href="cbb-impact-register.css?v=1">
 <script defer src="cbb-game-impact.js"></script>
-<script defer src="cbb-impact-register.js?v=edition-links-1"></script>
+<script defer src="cbb-impact-register.js?v=cards-20261119"></script>
 </head>
-<body>
+<body class="impact-page">
 <header class="masthead">
   <a href="ncaam.html">Sporting Life &amp; Times</a>
-  <p><a id="register" href="cbb-stats.html">Statistical Register</a> · 2026–27</p>
+  <nav aria-label="Basketball desks"><a id="impact-chronicle" href="ncaam.html?gender=men">Chronicle</a><a id="impact-ledger" href="ncaam-slate.html?gender=men">Daily Ledger</a><a id="register" href="cbb-stats.html?gender=men">Statistical Register</a></nav>
 </header>
 <main>
   <header class="heading">
     <h1>RETRO Game Impact</h1>
-    <p>Experimental box-score rating for completed Division I matchups.</p>
+    <p>Find a player’s season average or compare individual games. Impact credits box-score production and subtracts shooting attempts and turnovers.</p>
   </header>
-  <div class="controls">
+  <div class="controls impact-controls" aria-label="Filter performances">
     <label>Edition<select id="edition"><option value="men">Men’s</option><option value="women">Women’s</option></select></label>
     <label>View<select id="view"><option value="season">Season leaders</option><option value="games">Single games</option></select></label>
     <label>Team<select id="team"><option value="">All teams</option></select></label>
@@ -28,13 +29,13 @@
     <label id="low-label" hidden><span>Shot volume</span><span><input type="checkbox" id="low"> Five or fewer field-goal attempts</span></label>
   </div>
   <div class="section-head"><h2 id="table-title">Season leaders</h2><p id="status" role="status"></p></div>
-  <div id="results" class="table-wrap"></div>
+  <div id="results"></div>
   <div id="pagination" class="pagination" hidden>
     <button id="previous" type="button">Previous</button><span id="page"></span><button id="next" type="button">Next</button>
   </div>
   <p id="coverage" class="method"></p>
-  <p id="audit" class="method"></p>
-  <details><summary>How Impact is calculated</summary>
+  <details class="impact-method"><summary>How Impact is calculated</summary>
+    <p id="audit" class="method"></p>
     <p>Scoring credit is points minus 0.85 per field-goal attempt and 0.374 per free-throw attempt. Add 1.05 per offensive rebound, 0.35 per defensive rebound, 1.25 per assist, 1.65 per steal and 0.90 per block. Subtract 1.65 per turnover. Expand a single-game score to see its calculation. The Daily Ledger’s experimental shot-quality breakdown also shows verified heave exemptions when play-by-play reconciles with the box score. This register uses box-score Impact.</p>
     <p>Season averages and games led use covered appearances. Exact ties count for each leader. The low-shot check counts appearances with five or fewer field-goal attempts and at least five positive Impact points from rebounding, assists, steals and blocks. A tied third place counts in the top three.</p>
   </details>

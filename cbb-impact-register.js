@@ -6,7 +6,7 @@
   const teamSelect = $('team');
   const edition = $('edition'), view = $('view'), search = $('search'), sort = $('sort'), low = $('low');
   let team = params.get('team') || '', data, revision = 0, page = 0, matches = [];
-  const pageSize = 35;
+  const pageSize = 18;
   let preference;
   try { preference = localStorage.getItem('slt-college-basketball-edition'); } catch {}
   edition.value = (params.get('gender') || preference) === 'women' ? 'women' : 'men';
@@ -50,6 +50,8 @@
     $('pagination').hidden = true;
     $('coverage').textContent = $('audit').textContent = '';
     $('register').href = 'cbb-stats.html?gender=' + edition.value;
+    $('impact-ledger').href = 'ncaam-slate.html?gender=' + edition.value;
+    $('impact-chronicle').href = 'ncaam.html?gender=' + edition.value;
     try {
       const response = await fetch('data/cbb-game-impact-' + edition.value + '.json', {cache:'no-cache'});
       if (!response.ok) throw Error('Unavailable');
@@ -98,18 +100,25 @@
   function render() {
     const games = view.value === 'games';
     const visible = matches.slice(page * pageSize, (page + 1) * pageSize);
-    const headers = games ? ['Player and school', 'Game', 'Impact breakdown', 'FGA', 'REB', 'BLK'] :
-      ['Player and school', 'GP', 'Impact/G', 'Games led', 'Best game'];
-    $('status').textContent = matches.length.toLocaleString() + ' results';
-    $('results').innerHTML = visible.length ? '<table><thead><tr>' +
-      headers.map(label => '<th scope="col">' + label + '</th>').join('') + '</tr></thead><tbody>' +
-      visible.map(row => '<tr><td>' + profile(row.id, row.name, edition.value) + '<br><small>' + linkTeam(row) +
-        ' · ' + escape(row.conference) + '</small></td>' + (games ?
-          '<td>' + linkGame(row) + '</td><td>' + details(row.stats) + '</td><td>' + row.stats[7] +
-          '</td><td>' + (row.stats[1] + row.stats[2]) + '</td><td>' + row.stats[5] + '</td>' :
-          '<td>' + row.games + '</td><td>' + format(average(row)) + '</td><td>' + row.led +
-          ' / ' + row.games + '</td><td>' + format(row.best.total) + ' · ' + linkGame(row.best) + '</td>') +
-        '</tr>').join('') + '</tbody></table>' : '<p>No matching performances.</p>';
+    const from = page * pageSize;
+    $('status').textContent = visible.length ? (from + 1) + '–' + (from + visible.length) +
+      ' of ' + matches.length.toLocaleString() + ' results' : '0 results';
+    const metric = (label, value) => '<div><dt>' + label + '</dt><dd>' + value + '</dd></div>';
+    $('results').innerHTML = visible.length ? '<ol class="impact-grid" start="' + (from + 1) + '">' +
+      visible.map((row, index) => {
+        const marks = games
+          ? metric('FGA', row.stats[7]) + metric('Rebounds', row.stats[1] + row.stats[2]) + metric('Blocks', row.stats[5])
+          : metric('Games played', row.games) + metric('Games led', row.led + ' / ' + row.games);
+        return '<li class="impact-card"><div class="impact-card-heading"><span class="impact-place" aria-label="Rank ' +
+          (from + index + 1) + '">' + (from + index + 1) + '</span><div><h3>' +
+          profile(row.id, row.name, edition.value) + '</h3><p>' + linkTeam(row) + ' · ' +
+          escape(row.conference) + '</p></div></div><div class="impact-primary"><span>' +
+          (games ? 'Game Impact' : 'Impact per game') + '</span><strong>' +
+          format(games ? row.total : average(row)) + '</strong></div><dl>' + marks + '</dl><div class="impact-card-game">' +
+          (games ? linkGame(row) : '<span>Best game · ' + format(row.best.total) + '</span>' + linkGame(row.best)) +
+          '</div>' + (games ? '<div class="impact-calculation">' + details(row.stats).replace(/<summary>.*?<\/summary>/,
+          '<summary>View calculation</summary>') + '</div>' : '') + '</li>';
+      }).join('') + '</ol>' : '<p>No matching performances. Try another search or team.</p>';
     const last = Math.max(0, Math.ceil(matches.length / pageSize) - 1);
     $('pagination').hidden = last === 0;
     $('page').textContent = 'Page ' + (page + 1) + ' of ' + (last + 1);
@@ -121,7 +130,8 @@
   teamSelect.addEventListener('change', () => { team = teamSelect.value; filter(); });
   for (const control of [view, sort, low]) control.addEventListener('change', filter);
   search.addEventListener('input', filter);
-  $('previous').addEventListener('click', () => { page--; render(); });
-  $('next').addEventListener('click', () => { page++; render(); });
+  const turnPage = delta => { page += delta; render(); $('table-title').scrollIntoView({block:'start'}); };
+  $('previous').addEventListener('click', () => turnPage(-1));
+  $('next').addEventListener('click', () => turnPage(1));
   load();
 })();

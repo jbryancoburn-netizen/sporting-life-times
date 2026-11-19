@@ -1,0 +1,70 @@
+.impact-page {background:#ede2cd}
+.impact-page main {max-width:78rem}
+.impact-page .masthead {background:#f9f0dd}
+.impact-page .masthead nav {display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem 1rem;margin-top:.6rem}
+.impact-page .masthead nav a {font-size:.9rem;text-decoration:underline;text-underline-offset:.18em}
+.impact-page .heading {padding:1rem 0 .4rem;border-top:4px double var(--ink)}
+.impact-page .heading p {max-width:65ch}
+.impact-page .impact-controls {
+ display:grid;
+ grid-template-columns:repeat(4,minmax(0,1fr));
+ gap:.75rem;
+ background:#faf2e2;
+ padding:.85rem;
+ border:1px solid #aa9577;
+}
+.impact-page .impact-controls .search {grid-column:span 2}
+.impact-page .impact-controls :is(select,input[type="search"]) {width:100%;min-height:42px}
+.impact-page .section-head {flex-wrap:wrap}
+.impact-grid {
+ list-style:none;
+ margin:0;
+ padding:0;
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(min(100%,20rem),1fr));
+ gap:12px;
+}
+.impact-card {
+ min-width:0;
+ padding:12px 14px;
+ border:1px solid #ad987a;
+ border-top:3px solid var(--red);
+ background:#fff7e7;
+}
+.impact-card-heading {display:flex;align-items:start;gap:10px}
+.impact-place {
+ flex:none;
+ display:grid;
+ place-items:center;
+ min-width:30px;
+ min-height:28px;
+ background:#ede0c7;
+ font-weight:700;
+ font-variant-numeric:tabular-nums;
+}
+.impact-card h3 {margin:0;font:700 1.2rem/1.2 "Century Schoolbook",Georgia,serif}
+.impact-card h3 a {color:var(--ink)}
+.impact-card-heading p {margin:.25rem 0 0;font-size:.85rem}
+.impact-primary {
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:.5rem;
+ margin:.7rem 0 0;
+ padding:.4rem .6rem;
+ background:#ead9ba;
+ font-weight:700;
+}
+.impact-primary strong {font-size:1.6rem;color:#642920;font-variant-numeric:tabular-nums}
+.impact-card dl {display:flex;flex-wrap:wrap;gap:.3rem 1rem;margin:.65rem 0}
+.impact-card dl div {flex:1}
+.impact-card dt {font-size:.76rem;color:var(--muted)}
+.impact-card dd {margin:.14rem 0 0;font-weight:bold;font-variant-numeric:tabular-nums}
+.impact-card-game {display:grid;gap:.2rem;border-top:1px dotted var(--rule);padding-top:.5rem;font-size:.86rem}
+.impact-card-game span {font-weight:700}
+.impact-calculation {font-size:.86rem}
+.impact-page :is(.impact-method,.impact-calculation) summary {cursor:pointer}
+.impact-page .impact-method {margin-top:.75rem}
+@media(max-width:670px) {
+ .impact-page .impact-controls {grid-template-columns:repeat(2,minmax(0,1fr))}
+}
