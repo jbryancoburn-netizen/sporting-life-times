@@ -1,0 +1,73 @@
+/* NBA Daily Ledger: one cohesive NBA-specific layout, built on the shared CBB ledger. */
+.nba-ledger-page .sl-header .nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 20px;padding:12px;background:var(--sl-ink);color:#fffaf0;border-bottom:3px solid var(--sl-gold)}
+.nba-ledger-page .sl-header .nav a{font:600 13px Georgia,serif}
+.nba-ledger-page main{max-width:none;padding:0}
+.nba-ledger-page .nba-date-navigator{display:grid;gap:10px;padding:15px 0;border-bottom:1px solid var(--sl-line)}
+.nba-ledger-page .nba-date-main{display:grid;grid-template-columns:44px minmax(0,1fr) 44px auto;gap:9px;align-items:center;max-width:610px}
+.nba-ledger-page .nba-date-main button{min-height:44px;border:1px solid #b6bdb6;background:#fffaf2;color:var(--sl-ink);font:700 13px Georgia,serif;cursor:pointer}
+.nba-ledger-page .nba-date-main button:disabled{opacity:.45;cursor:default}
+.nba-ledger-page .nba-date-picker-label{min-width:0;display:grid;gap:2px;text-align:center;font:700 10px 'DM Sans',sans-serif;letter-spacing:.07em}
+.nba-ledger-page .nba-date-picker-label input{width:100%;min-width:0;padding:7px;height:44px;background:#fffaf2;border:1px solid #c6ccc5;font:700 17px Georgia,serif;color:var(--sl-ink)}
+.nba-ledger-page .nba-date-week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;max-width:610px}
+.nba-ledger-page .nba-date-week button{display:grid;justify-items:center;gap:2px;padding:7px 1px;min-width:0;border:1px solid #d0cabb;background:#fffaf2;color:var(--sl-ink);cursor:pointer}
+.nba-ledger-page .nba-date-week button span{font:700 10px 'DM Sans',sans-serif;text-transform:uppercase}
+.nba-ledger-page .nba-date-week button b{font:700 20px Georgia,serif}
+.nba-ledger-page .nba-date-week button[aria-pressed=true]{background:var(--sl-ink);color:white;border-color:var(--sl-ink)}
+.nba-ledger-page .nba-date-week button[data-today=true]:not([aria-pressed=true]){border-bottom:3px solid var(--sl-gold)}
+.nba-ledger-page #nba-live-status{font:11px/1.5 'DM Sans',sans-serif;color:#586b6e;margin:10px 0}
+.nba-ledger-page .nba-today-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start;padding:0}
+.nba-ledger-page .nba-today-grid>*{min-width:0}
+.nba-ledger-page .nba-today-grid>details[open],.nba-ledger-page .nba-today-grid>.sl-empty{grid-column:1/-1}
+.nba-ledger-page .nba-today-grid>[hidden],.nba-ledger-page [hidden]{display:none!important}
+.nba-ledger-page .ledger26-card{width:100%;min-width:0;border-radius:0;overflow:visible}
+.nba-ledger-page .ledger26-summary{min-width:0}
+.nba-ledger-page .ledger26-scorebug{width:100%;min-width:0}
+.nba-ledger-page .ledger26-team{min-width:0}
+.nba-ledger-page .ledger26-identity{min-width:0}
+.nba-ledger-page .ledger26-name{overflow:visible;text-overflow:clip;white-space:normal;overflow-wrap:break-word}
+.nba-ledger-page .ledger26-crest img{width:100%;height:100%;object-fit:contain}
+.nba-ledger-page .nba-expand-content{padding:16px;background:#fffaf2;border-top:1px solid #c5b79d;min-width:0}
+.nba-ledger-page .nba-live-stat-scroll,.nba-ledger-page .box-scroll{max-width:100%;overflow-x:auto}
+.nba-ledger-page .nba-live-stat-section{margin-bottom:16px}
+.nba-ledger-page .nba-live-stat-section h4{font:700 17px Georgia,serif;margin:0 0 8px}
+.nba-ledger-page .nba-live-stat-section table,.nba-ledger-page .box-table{border-collapse:collapse;width:100%;font:12px/1.5 'DM Sans',Arial,sans-serif}
+.nba-ledger-page .nba-live-stat-section th,.nba-ledger-page .nba-live-stat-section td,.nba-ledger-page .box-table th,.nba-ledger-page .box-table td{padding:7px 10px;border-bottom:1px solid #d9d3c8;text-align:right;white-space:nowrap}
+.nba-ledger-page .nba-live-stat-section th:first-child,.nba-ledger-page .nba-live-stat-section td:first-child,.nba-ledger-page .box-table th:first-child,.nba-ledger-page .box-table td:first-child{text-align:left}
+.nba-ledger-page .nba-live-game-link{display:inline-block;margin:7px 15px 0 0;font:700 12px Georgia,serif;text-decoration:underline}
+.nba-ledger-page .nba-retro-schedule-forecast{display:flex;flex-wrap:wrap;align-items:center;gap:5px 14px;padding:10px 13px;background:#efe6d7;border-top:1px solid #c5b79d;font:700 12px/1.45 Georgia,serif}
+.nba-ledger-page .nba-retro-schedule-forecast strong{font:800 10px 'DM Sans',sans-serif;letter-spacing:.1em;color:#604a2e}
+.nba-ledger-page .nba-retro-schedule-forecast span:first-of-type{font-size:16px}
+.nba-ledger-page .nba-pregame{min-width:0;display:grid;gap:8px}
+.nba-ledger-page .nba-pregame-score{font:700 25px Georgia,serif}
+.nba-ledger-page .nba-pregame-label,.nba-ledger-page .nba-pregame-source{font:700 11px 'DM Sans',sans-serif}
+.nba-ledger-page .nba-pregame-breakdown{display:flex;gap:14px;flex-wrap:wrap}
+.nba-ledger-page .nba-archive-section{margin:32px 0;border-top:4px double #9c8968;padding:18px 0}
+.nba-ledger-page .game-archive-picker summary{font:700 19px Georgia,serif;cursor:pointer}
+.nba-ledger-page .game-archive-picker label{display:block;margin:12px 0 4px}
+.nba-ledger-page .game-archive-picker select{width:min(100%,560px);padding:9px;border:1px solid #ad9f88;background:#fffaf2}
+.nba-ledger-page .game-edition{margin:14px 0;padding:12px;border:1px solid #c5b79d;background:#fffaf2}
+.nba-ledger-page .game-edition>summary{cursor:pointer;font:700 18px Georgia,serif}
+.nba-ledger-page .game-heading{font:700 28px Georgia,serif}
+.nba-ledger-page .section{margin:20px 0}
+.nba-ledger-page .section h3{border-bottom:2px solid #233b43;padding:7px 0;font:700 19px Georgia,serif}
+.nba-ledger-page .star-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+.nba-ledger-page .star{display:grid;gap:5px;border:1px solid #d6c9b4;padding:11px}
+.nba-ledger-page .star strong{font:700 24px Georgia,serif}
+.nba-ledger-page .roster{margin:12px 0}
+.nba-ledger-page .roster h4{font:700 16px Georgia,serif;padding:7px 0;margin:0}
+.nba-ledger-page .quarter-scroller{overflow-x:auto}
+.nba-ledger-page .quarter-table{min-width:330px}
+.nba-ledger-page .quarter-row{display:grid;grid-template-columns:70px repeat(var(--periods),minmax(37px,1fr)) 65px;padding:10px 6px;text-align:center;border-bottom:1px solid #ddd}
+.nba-ledger-page .quarter-row>b{text-align:left}.nba-ledger-page .quarter-row>strong{text-align:right}
+.nba-ledger-page .quarter-head{background:#203947;color:white}
+.nba-ledger-page .comparison{padding:9px;border:1px solid #d6c9b4}
+.nba-ledger-page .compare-header{display:flex;justify-content:space-between;font-weight:bold}
+.nba-ledger-page .compare-row{display:grid;grid-template-columns:45px minmax(0,1fr) 100px minmax(0,1fr) 45px;gap:5px;align-items:center;padding:7px 0;border-bottom:1px solid #e8ddcf}
+.nba-ledger-page .compare-name,.nba-ledger-page .compare-value{text-align:center;font:700 11px 'DM Sans',sans-serif}
+.nba-ledger-page .compare-name small{display:block}
+.nba-ledger-page .compare-bars{height:8px;background:#ede5da;display:flex;justify-content:flex-end}
+.nba-ledger-page .compare-home{justify-content:flex-start}
+.nba-ledger-page .compare-bars span{display:block;height:100%}
+.nba-ledger-page .links{display:flex;flex-wrap:wrap;gap:14px}
+@media(max-width:1050px){.nba-ledger-page .nba-today-grid{grid-template-columns:1fr}}
+@media(max-width:700px){.nba-ledger-page .nba-date-main{grid-template-columns:40px minmax(0,1fr) 40px auto;gap:4px}.nba-ledger-page .nba-date-main button{font-size:11px}.nba-ledger-page .nba-date-week button b{font-size:16px}.nba-ledger-page .nba-date-week button span{font-size:9px}.nba-ledger-page .compare-row{grid-template-columns:32px minmax(0,1fr) 75px minmax(0,1fr) 32px}}
