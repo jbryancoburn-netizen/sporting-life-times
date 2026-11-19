@@ -9,6 +9,18 @@ const readNumber=v=>v!==null&&v!==undefined&&String(v).trim()!==''&&Number.isFin
 const key=(day,id)=>String(day||'')+'|'+cleanId(id);
 const archives={men:new Map(),women:new Map()},scored=new Map(),upcomingMen=new Map();
 let ready=false,queued=false;const canonicalNames={men:new Map(),women:new Map()};
+let menScheduleModel=null;
+function scheduleProjection(row){
+ const model=menScheduleModel;
+ const d=row.dataset;
+ if(!model||d.exhibition==='true'||!d.homeId||!d.awayId||d.homeId===d.awayId)return null;
+ const home=model.ratings.get(d.homeId),away=model.ratings.get(d.awayId);
+ if(!Number.isFinite(home)||!Number.isFinite(away))return null;
+ const edge=['home','away'].includes(d.gameSite)?model.edge:0;
+ const diff=home-away+edge;
+ return {home_id:d.homeId,away_id:d.awayId,home_win_probability:1/(1+10**(-diff/400)),
+   projected_home_margin:diff*model.slope};
+}
 function indexArchive(data,gender){
  if(data?.season!=='2026-27'||!Array.isArray(data.predictions))return;
  const seen=new Set(),conflicts=new Set();
@@ -47,10 +59,11 @@ function identityMatches(row,home,away){
  if(away&&String(row.away_id)!==String(away))return false;
  return true;
 }
-function receipt(gender,id,day,phase,actual,homeId='',awayId='',homeName='Home',awayName='Away'){
+function receipt(gender,id,day,phase,actual,homeId='',awayId='',homeName='Home',awayName='Away',schedule=null){
  if(!['upcoming','live','final'].includes(phase))return '';
  const k=key(day,id);
- const current=phase==='upcoming'&&gender==='men'?upcomingMen.get(k):null;
+ const published=upcomingMen.get(k);
+ const current=phase==='upcoming'&&gender==='men'?(identityMatches(published,homeId,awayId)?published:schedule):null;
  const p=current||archives[gender].get(k);
  if((!p||!identityMatches(p,homeId,awayId))&&phase==='upcoming')return ''; // Do not invent forecasts for games without a published exact-match snapshot.
  if(!p||!identityMatches(p,homeId,awayId))
@@ -66,6 +79,9 @@ function receipt(gender,id,day,phase,actual,homeId='',awayId='',homeName='Home',
  const chance=Math.round(100*Math.max(probability,1-probability));
  const spread=fav==='EVEN'?'Even':sideName(fav)+' −'+half.toFixed(1);
  let state='locked',verdict=current?'Current projection':'Forecast locked',comparison='';
+ const scores=current&&menScheduleModel&&root.SLTBasketballInsights?.forecastScorePair(predicted,
+   menScheduleModel.profiles.get(String(p.away_id)),menScheduleModel.profiles.get(String(p.home_id)),menScheduleModel.mean);
+ const scoreLine=scores&&scores.away!==scores.home?'<div class="cbb-forecast-metric"><span class="cbb-forecast-label">Projected score</span><strong>'+safe(awayName)+' '+scores.away+' · '+safe(homeName)+' '+scores.home+'</strong></div>':'';
  const forecast='<div class="cbb-forecast-metric"><span class="cbb-forecast-label">Pregame forecast</span><strong class="cbb-forecast-value">'+safe(spread)+'</strong><span class="cbb-forecast-detail">'+chance+'% win chance</span></div>';
  if(phase==='final'&&number(actual)!==null){
   const win=actual>0?'HOME':actual<0?'AWAY':'TIED';
@@ -81,7 +97,7 @@ function receipt(gender,id,day,phase,actual,homeId='',awayId='',homeName='Home',
   comparison='<div class="cbb-forecast-metric cbb-forecast-lock"><span class="cbb-forecast-detail">Pregame forecast locked</span><span class="cbb-forecast-lock-note">Recorded before tipoff</span></div>';
  }
  const captured=current?'Current RETRO projection':p.captured_at_utc?'Frozen '+p.captured_at_utc:'Preserved pretipoff snapshot';
- return '<div class="cbb-forecast-receipt cbb-forecast-receipt--'+state+'" aria-label="'+safe(current?'Current RETRO projection':'Archived RETRO forecast and game result')+'" title="'+safe(captured)+'"><div class="cbb-forecast-heading"><span class="cbb-forecast-kicker">'+(current?'RETRO PROJECTION':'RETRO BEFORE TIP')+'</span><span class="cbb-forecast-verdict">'+verdict+'</span></div><div class="cbb-forecast-comparison">'+forecast+comparison+'</div></div>';
+ return '<div class="cbb-forecast-receipt cbb-forecast-receipt--'+state+'" aria-label="'+safe(current?'Current RETRO projection':'Archived RETRO forecast and game result')+'" title="'+safe(captured)+'"><div class="cbb-forecast-heading"><span class="cbb-forecast-kicker">'+(current?'RETRO PROJECTION':'RETRO BEFORE TIP')+'</span><span class="cbb-forecast-verdict">'+verdict+'</span></div><div class="cbb-forecast-comparison">'+forecast+scoreLine+comparison+'</div></div>';
 }
 function set(node,markup){
  if(!node)return;
@@ -164,8 +180,9 @@ function decorate(){
   }
   dest.classList.remove('sched-result-cell--forecast');
   const phase=row.dataset.calendarState==='final'?'final':row.dataset.calendarState==='upcoming'?'upcoming':'';
+  const projection=phase==='upcoming'?scheduleProjection(row):null;
   const markup=receipt('men',row.dataset.cbbForecastId,row.dataset.cbbForecastDay,
-    phase,number(scored.get(key(row.dataset.cbbForecastDay,row.dataset.cbbForecastId))?.actual_home_margin)??readNumber(row.dataset.cbbFinalHomeMargin),null,null,row.dataset.cbbHomeName||'Home',row.dataset.cbbAwayName||'Away');
+    phase,number(scored.get(key(row.dataset.cbbForecastDay,row.dataset.cbbForecastId))?.actual_home_margin)??readNumber(row.dataset.cbbFinalHomeMargin),phase==='upcoming'?row.dataset.homeId:null,phase==='upcoming'?row.dataset.awayId:null,row.dataset.cbbHomeName||'Home',row.dataset.cbbAwayName||'Away',projection);
   updateScheduleCorner(row,'men',row.dataset.cbbForecastId,row.dataset.cbbForecastDay);
   let band=row.nextElementSibling;
   if(band?.classList.contains('victorian-stat-detail'))band=band.nextElementSibling;
@@ -191,12 +208,18 @@ async function loadJSON(path){
  try{const r=await fetch(path,{cache:'no-store'});return r.ok?await r.json():null;}catch{return null;}
 }
 async function init(){
- const [men,women,report,upcoming,menRatings,womenRatings]=await Promise.all([
+ const [men,women,report,upcoming,menRatings,womenRatings,calibration]=await Promise.all([
   loadJSON('data/retro-pregame-archive-2026-27.json'),
   loadJSON('data/ncaaw-retro-pregame-archive-2026-27.json'),
   loadJSON('data/retro-spread-accuracy-2026-27.json'),
   document.querySelector('#mbb-calendar-host')?loadJSON('data/ncaam-2026-27-upcoming-forecasts.json'):null,
-  loadJSON('data/ncaam-2026-27-retro-primary.json'),loadJSON('data/ncaaw-2026-27-retro-primary.json')]);
+  loadJSON('data/ncaam-2026-27-retro-primary.json'),loadJSON('data/ncaaw-2026-27-retro-primary.json'),
+  document.querySelector('#mbb-calendar-host')?loadJSON('data/ncaam-score-calibration.json'):null]);
+ const params=calibration?.parameters;
+ if(menRatings?.model==='retro-clean-slate'&&Number.isFinite(menRatings.parameters?.home_edge)&&params?.elo_margin_slope>0){
+  menScheduleModel={ratings:new Map(menRatings.rankings.map(t=>[String(t.team_id),t.elo])),edge:menRatings.parameters.home_edge,
+   slope:params.elo_margin_slope,mean:params.mean_team_points,profiles:root.SLTBasketballInsights?.seasonProfiles(menRatings.events)||new Map()};
+ }
  for(const [gender,data] of [['men',menRatings],['women',womenRatings]])for(const t of data?.rankings||[])canonicalNames[gender].set(String(t.team_id),String(t.team||t.team_name||''));
  indexArchive(men,'men');indexArchive(women,'women');indexScored(report);indexUpcomingMen(upcoming);
  ready=true;decorate();
