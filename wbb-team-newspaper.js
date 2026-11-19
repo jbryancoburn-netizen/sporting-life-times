@@ -186,6 +186,7 @@ const filterSchedule=()=>{
 };
 host.querySelector('#wbb-calendar-search')?.addEventListener('input',filterSchedule);
 host.querySelector('#wbb-calendar-view')?.addEventListener('change',filterSchedule);
+const scheduleProfiles=window.SLTBasketballInsights?.seasonProfiles(window.WBBRetroSnapshot?.events||[])||new Map();
 function refreshSchedule(){
  const snapshot=window.WBBRetroSnapshot;
  const ratingsByTeam=new Map((snapshot?.rankings||[]).map(r=>[String(r.team_id),r]));
@@ -207,14 +208,18 @@ function refreshSchedule(){
    if(!projection)continue;
    const {homeId,awayId,forecastVenue}=row.dataset;
    const home=ratingsByTeam.get(homeId),away=ratingsByTeam.get(awayId);
-   const forecast=state==='upcoming'&&forecastVenue!=='disputed'&&home&&away&&
+   const forecast=state==='upcoming'&&row.dataset.exhibition!=='true'&&forecastVenue!=='disputed'&&home&&away&&
      window.WBBRetroForecast?.forecast(home,away,forecastVenue,window.WBBForecastCalibration,snapshot);
    const projectedScore=(team,score)=>'<div><dt>'+esc(team)+'</dt><dd>'+Math.round(score)+'</dd></div>';
-   projection.innerHTML=forecast?.calibrated&&Number.isFinite(forecast.projected_away_score)&&Number.isFinite(forecast.projected_home_score)
-     ?'<span class="wbb-projection-label">RETRO projection</span><dl>'+
-       projectedScore(press.dataset.pressAway,forecast.projected_away_score)+
-       projectedScore(press.dataset.pressHome,forecast.projected_home_score)+'</dl>'
-     :'';
+   const probability=forecast?.home_probability;
+   const favorite=probability>=0.5?press?.dataset.pressHome:press?.dataset.pressAway;
+   const chance=Math.round(100*Math.max(probability,1-probability));
+   const line=Number.isFinite(probability)?'<small>'+esc(probability===0.5?'Even matchup':favorite+' · '+chance+'% win chance')+'</small>':'';
+   const aligned=forecast?.calibrated&&window.SLTBasketballInsights?.forecastScorePair(forecast.projected_home_margin,
+     scheduleProfiles.get(awayId),scheduleProfiles.get(homeId),window.WBBForecastCalibration.parameters.mean_team_points);
+   projection.innerHTML=aligned&&aligned.home!==aligned.away
+     ?'<span class="wbb-projection-label">RETRO projection</span><dl>'+projectedScore(press.dataset.pressAway,aligned.away)+projectedScore(press.dataset.pressHome,aligned.home)+'</dl>'+line
+     :line?'<span class="wbb-projection-label">RETRO projection</span>'+line:'';
  }
  filterSchedule();
 }
