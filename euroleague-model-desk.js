@@ -3,17 +3,19 @@ const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const when=s=>{const x=new Date(s);return isNaN(x)?'Unscheduled':x.toLocaleString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'})+' ET'};
 const logo=t=>{const code=String(t?.code||'').trim().toUpperCase();return /^[A-Z]{3}$/.test(code)?'<img class="el-official-logo club-logo" data-euroleague-code="'+esc(code)+'" src="assets/euroleague-logos/'+esc(code)+'.png" alt="'+esc(t?.name||code)+' crest" loading="lazy">':'';};
+const clubColor=code=>window.SLTEuroLeaguePalette?.primary(code);
 const clubUrl=code=>'?view=desks&club='+encodeURIComponent(code);
 const selectedClub=new URLSearchParams(location.search).get('club');
 const side=t=>logo(t)+'<span>'+esc(t?.name||t?.code||'Unknown')+'</span>';
 let lastRendered=null;
-function refreshModel(){return fetch('data/euroleague-model.json?cache='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('No model publication');return r.json()}).then(d=>{
+function refreshModel(){return fetch('data/euroleague-model.json?cache='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('No model publication');return r.json()}).then(async d=>{
+await window.SLTEuroLeaguePalette?.ready;
 if(lastRendered===d.updated_at)return;
 if(!Array.isArray(d.rankings)||d.rankings.length<18||!Array.isArray(d.standings)||d.standings.length!==d.rankings.length||!Number.isInteger(d.games_completed)||d.games_completed<1||!Number.isFinite(Date.parse(d.updated_at)))throw Error('Invalid EuroLeague season publication');
 if(new Set(d.rankings.map(t=>t.code)).size!==d.rankings.length||d.standings.reduce((s,t)=>s+t.wins,0)!==d.games_completed||d.standings.reduce((s,t)=>s+t.losses,0)!==d.games_completed)throw Error('EuroLeague published totals do not reconcile');
 $('el-model-status').textContent='Independent ratings · '+d.games_completed+' completed 2026–27 games · Updated '+when(d.updated_at)+' · Home +'+d.settings.home_elo+' Elo · K'+d.settings.K;
 $('el-elo-table').innerHTML=window.SLTBasketballDeskLayout.rankingTable(d.rankings.map((t,i)=>({
- rank:i+1,name:t.name,badge:logo(t),href:clubUrl(t.code),rating:Number(t.elo).toFixed(1),record:t.wins+'–'+t.losses
+ rank:i+1,name:t.name,badge:logo(t),href:clubUrl(t.code),color:clubColor(t.code),rating:Number(t.elo).toFixed(1),record:t.wins+'–'+t.losses
 })));
 if($('el-standings')&&Array.isArray(d.standings)){
 $('el-standings').innerHTML=window.SLTBasketballDeskLayout.standingsTable(['Place','Club','W','L','PCT','Diff'],d.standings.map(t=>({
@@ -39,7 +41,7 @@ if(clubDesk&&!clubDesk.hidden){
    const outcome=phase==='final'&&Number.isInteger(own)&&Number.isInteger(against)&&own!==against?(own>against?'W':'L'):'';
    const date=new Date(g.date);
    calendar.push({date:g.date,phase,site:g.neutral?'neutral':atHome?'home':'away',opponent:opponent.name,teamHref:clubUrl(opponent.code),
-    badge:logo(opponent),color:opponent.primary,venue:g.venue?.name||g.venue_name,tipoff:phase==='upcoming'?when(g.date):'',network:g.network,
+    badge:logo(opponent),color:clubColor(opponent.code),venue:g.venue?.name||g.venue_name,tipoff:phase==='upcoming'?when(g.date):'',network:g.network,
     outcome,result:outcome?outcome+' '+own+'–'+against:phase==='final'?'Final':undefined,
     gameHref:Number.isFinite(+date)?'?view=desks&date='+encodeURIComponent(et.format(date))+'&game='+encodeURIComponent(g.id)+'#el-live-desk':''});
   };

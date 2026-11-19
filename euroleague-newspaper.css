@@ -2,9 +2,10 @@
    Uses the same masthead, department band and folio components as ncaam.html.
    Live data, clubs and the shared game scorebug remain owned by their existing renderers. */
 body.el-heritage-edition{
-  --el-paper:#f0e5d1;--el-sheet:#f8f0e1;--el-ink:#28221c;
-  --el-rule:#b2a187;--el-ruby:#80382e;--el-muted:#605344;
-  margin:0;background:#e8dbc5;color:var(--el-ink);font:15px/1.48 Georgia,'Times New Roman',serif;
+  --el-paper:#f7ecda;--el-sheet:#fff6e8;--el-ink:#222c3b;
+  --el-rule:#b99b72;--el-ruby:#973714;--el-muted:#5e5042;
+  --el-navy:#192b43;--el-orange:#a33c17;--el-gold:#dca655;--el-cream:#fff3dd;
+  margin:0;background:#e8cda7;color:var(--el-ink);font:15px/1.48 Georgia,'Times New Roman',serif;
 }
 body.el-heritage-edition .wrap{max-width:1480px;padding:0 clamp(12px,2.25vw,32px);margin:0 auto;background:var(--el-paper);min-width:0}
 body.el-heritage-edition a{color:inherit}
@@ -136,4 +137,101 @@ body.el-heritage-edition .el-press-footer a{font-weight:700;color:var(--el-ruby)
  body.el-heritage-edition #league-result-ledger{grid-template-columns:1fr}
  body.el-heritage-edition .el-press-results .el-results-list{grid-template-columns:1fr}
  body.el-heritage-edition .el-press-numbers{margin-bottom:14px}
+}
+
+/* One section bar shared by the front, Ledger and club desks. */
+body.el-heritage-edition .el-press-header {overflow:visible}
+body.el-heritage-edition .el-press-header .masthead a {color:var(--el-navy)}
+body.el-heritage-edition .el-press-header .edition-line {color:var(--el-orange)}
+.el-heritage-edition .el-section-nav {
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  margin:0 0 10px;
+  border:1px solid var(--el-navy);
+  border-block-end:3px solid var(--el-gold);
+  background:var(--el-navy);
+  color:var(--el-cream);
+  position:relative;
+  z-index:20;
+}
+.el-heritage-edition .el-section-nav > a,
+.el-heritage-edition .el-section-more > summary {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:.4rem;
+  min-height:44px;
+  padding:8px 10px;
+  color:var(--el-cream);
+  text-align:center;
+  text-decoration:none;
+  font:700 14px/1.2 Georgia,serif;
+}
+.el-heritage-edition .el-section-nav > a {border-inline-end:1px solid #ffffff35}
+.el-heritage-edition .el-section-more {position:relative;min-width:0}
+.el-heritage-edition .el-section-more > summary {cursor:pointer;list-style:none}
+.el-heritage-edition .el-section-more > summary::-webkit-details-marker {display:none}
+.el-heritage-edition .el-section-more > summary::after {
+  content:"";
+  width:.45em;
+  height:.45em;
+  border-inline-end:2px solid currentColor;
+  border-block-end:2px solid currentColor;
+  transform:translateY(-2px) rotate(45deg);
+}
+.el-heritage-edition .el-section-nav > a[aria-current],
+.el-heritage-edition .el-section-more:is([open],[data-section-current]) > summary {background:var(--el-orange);color:#fff}
+.el-heritage-edition .el-section-nav > a:hover,
+.el-heritage-edition .el-section-more > summary:hover {text-decoration:underline;text-underline-offset:.22em}
+.el-heritage-edition .el-section-nav :is(a,summary):focus-visible {outline:2px solid var(--el-gold);outline-offset:-4px}
+.el-heritage-edition .el-section-menu {
+  position:absolute;
+  inset-inline-end:0;
+  inset-block-start:100%;
+  width:min(17rem, calc(100vw - 2rem));
+  background:var(--el-sheet);
+  border:2px solid var(--el-navy);
+  box-shadow:0 6px 14px #192b4326;
+}
+.el-heritage-edition .el-section-menu a {
+  display:flex;
+  align-items:center;
+  min-height:44px;
+  padding:8px 12px;
+  border-block-end:1px solid var(--el-rule);
+  color:var(--el-navy);
+  text-decoration:none;
+  font:700 14px/1.2 Georgia,serif;
+}
+.el-heritage-edition .el-section-menu a:last-child {border-block-end:0}
+.el-heritage-edition .el-section-menu a:is(:hover,[aria-current]) {background:#f4dfc3;color:var(--el-orange)}
+.el-heritage-edition .el-section-menu a:focus-visible {outline-color:var(--el-orange)}
+.el-heritage-edition .el-press-main [id] {scroll-margin-top:1rem}
+body.el-heritage-edition .chronicle-nameplate,
+body.el-heritage-edition #el-live-desk .slt-department-band {
+  background:var(--el-orange);
+  color:var(--el-cream);
+  border-color:var(--el-gold);
+}
+body.el-heritage-edition .chronicle-nameplate :is(h1,p),
+body.el-heritage-edition #el-live-desk .slt-department-band :is(h1,.slt-department-kicker) {color:var(--el-cream)}
+body.el-heritage-edition :is(.cbb-front-title,.chronicle-desks,.sl-content-head) h2 {color:var(--el-navy)}
+body.el-heritage-edition .chronicle-desk-grid {border-color:var(--el-orange)}
+body.el-heritage-edition .chronicle-desk-grid h3 {color:var(--el-orange)}
+body.el-heritage-edition #el-live-desk {border-color:var(--el-gold)}
+body.el-heritage-edition #el-live-desk .sl-filters button.is-active {background:var(--el-navy);border-color:var(--el-navy);color:#fff}
+body.el-heritage-edition #el-live-desk .ledger26-meta {background:#f3dfc2;border-top:2px solid var(--el-gold);color:var(--el-navy)}
+body.el-heritage-edition #el-live-desk .ledger26-venue {color:var(--el-navy)}
+body.el-heritage-edition #el-live-desk .ledger26-instruction {background:var(--el-navy);color:var(--el-cream)}
+body.el-heritage-edition #el-live-desk .ledger26-live-headline {background:#f4dfbd!important;border-color:var(--el-gold)!important}
+@media(max-width:560px){
+ .el-heritage-edition .el-section-nav {grid-template-columns:repeat(2,minmax(0,1fr))}
+ .el-heritage-edition .el-section-nav > a {border-block-end:1px solid #ffffff35}
+ .el-heritage-edition .el-section-nav > a:nth-child(even) {border-inline-end:0}
+ .el-heritage-edition .el-section-more {grid-column:1/-1}
+ .el-heritage-edition .el-section-menu {position:static;width:auto;border:0;box-shadow:none}
+}
+@media(forced-colors:active){
+ .el-heritage-edition .el-section-nav a[aria-current],
+ .el-heritage-edition .el-section-more[data-section-current] > summary {text-decoration:underline}
 }

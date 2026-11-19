@@ -6,6 +6,11 @@ if(!['nba','euroleague','mbb','soccer'].includes(league))return;
 // Men's D-I basketball has its own roundel-aware renderer. Never decorate it twice.
 if(league==='mbb')return;
 let colors={};let vintageByTeam={};let socByESPN=new Map(),socByURL=new Map(),eurByURL=new Map(),nbaByID=new Map();
+let finishEuroPalette;
+if(league==='euroleague'){
+ const ready=new Promise(resolve=>{finishEuroPalette=resolve;});
+ window.SLTEuroLeaguePalette={ready,primary:code=>colors[String(code||'').toUpperCase()]?.primary||null};
+}
 const hex=v=>/^#[a-f0-9]{6}$/i.test(v||'');
 const pathname=v=>{try{return new URL(v,location.href).pathname.toLowerCase()}catch{return ''}};
 const suffix={ny:'NYK',wsh:'WAS',gs:'GSW',sa:'SAS',no:'NOP',utah:'UTA'};
@@ -159,7 +164,7 @@ function flush(){queued=false;for(const el of queue)if(el.isConnected)visit(el);
 function schedule(el){if(el?.nodeType!==1)return;queue.add(el);if(!queued){queued=true;requestAnimationFrame(flush)}}
 async function init(){
  try{
-  const res=await fetch('data/dual-ring-team-palette.json?v=nonwhite-rings-20261029',{cache:'force-cache'});
+  const res=await fetch('data/dual-ring-team-palette.json?v=nonwhite-rings-20261029',{cache:'force-cache',...(league==='euroleague'?{signal:AbortSignal.timeout(4500)}:{})});
   if(!res.ok)throw Error('Palette download HTTP '+res.status);
   prepare(await res.json());
   if(league==='nba'){
@@ -180,6 +185,7 @@ async function init(){
    }
   }).observe(document.body,{childList:true,subtree:true,attributes:league==='nba',attributeFilter:league==='nba'?['src']:undefined});
  }catch(error){console.error('Two-tone logo registry:',error)}
+ finally{finishEuroPalette?.();}
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();

@@ -151,12 +151,12 @@ function render(){
  const rankCounts=new Map();
  for(const club of clubMap.values()){const pos=Number(club.rank);if(Number.isInteger(pos))rankCounts.set(pos,(rankCounts.get(pos)||0)+1);}
  const letterTeam=t=>{
-  const p=profile(t),hex=t.primary||p?.primary||'';
+  const p=profile(t),hex=window.SLTEuroLeaguePalette?.primary(t.code)||t.primary||p?.primary||'';
   const code=String(t.code||'').toUpperCase(),art=/^[A-Z]{3}$/.test(code)?'assets/euroleague-logos/'+code+'.png':'';
   return {name:clubName(t),abbreviation:code,compactName:code,score:scored?t.score:null,
    crest:art?'<span class="slt-mark ledger26-source-crest">'+logo(t)+'</span>':'',watermarkArt:art,
    teamHref:art?'euroleague.html?view=desks&club='+code:'',
-   color:/^#[a-f0-9]{6}$/i.test(hex)?hex:'#66503a',
+   color:/^#[a-f0-9]{6}$/i.test(hex)?hex:'#273747',
    record:wins(t)||'Record pending',scouting:window.SLTSportsScorebug?.formAt?.(form,t.code,g.date,g.id,phase),
    retro:window.SLTSportsScorebug?.formatRetro(p,rankCounts,clubMap.size)||'RETRO —'};
  };
@@ -219,6 +219,7 @@ function render(){
  if(sourceStatus)sourceStatus.textContent=(stale?'Score feed delayed · Last checked ':'Score feed checked ')+et(d.checked_at||d.updated_at)+' ET · Checks every 60 seconds'+providerNote+(pending?' · '+pending+' awaiting a score or result update':'');
 
 }
+window.SLTEuroLeaguePalette?.ready.then(render);
 refresh();setInterval(()=>{if(!document.hidden)refresh()},60000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh()});
 window.addEventListener('focus',()=>{if(!document.hidden)refresh()});

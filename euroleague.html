@@ -16,24 +16,40 @@
 <link rel="stylesheet" href="slt-heritage-newspaper.css?v=compact-victorian-20261103b">
 <link rel="stylesheet" href="newspaper-departments.css?v=compact-victorian-20261103b">
 <link rel="stylesheet" href="slt-victorian-global.css?v=universal-engraved-place-20261105">
-<link rel="stylesheet" href="euroleague-newspaper.css?v=20261104-press1">
+<link rel="stylesheet" href="euroleague-newspaper.css?v=continental-colors-20261119">
 <script defer src="shared-team-crests.js?v=20261027slots23"></script>
-<script defer data-slt-league="euroleague" src="slt-dual-ring.js?v=two-clean-rings-20261029-ledger-watermarks"></script>
+<script defer data-slt-league="euroleague" src="slt-dual-ring.js?v=two-clean-rings-20261029-continental-colors"></script>
 <script defer src="league-desks.js?v=euroleague-chronicle-20261119"></script>
-<script defer src="basketball-desk-layout.js?v=20261119"></script><script defer src="euroleague-model-desk.js?v=shared-club-calendar-20261119"></script>
+<script defer src="basketball-desk-layout.js?v=20261119"></script><script defer src="euroleague-model-desk.js?v=continental-colors-20261119"></script>
 <script defer src="euroleague-edition.js?v=unified-20261104"></script>
 <script defer src="euroleague-player-desk.js?v=20261027players1"></script>
 <script defer src="cbb-ledger-scorebug.js?v=ledger-card-parity-20261119"></script>
-<link rel="stylesheet" href="cbb-game-impact-card.css?v=shared-box-impact-20261119"><script defer src="cbb-game-impact.js?v=shared-box-impact-20261119"></script><script defer src="basketball-box-impact.js?v=20261119"></script><script defer src="euroleague-live.js?v=ledger-card-parity-20261119"></script>
+<link rel="stylesheet" href="cbb-game-impact-card.css?v=shared-box-impact-20261119"><script defer src="cbb-game-impact.js?v=shared-box-impact-20261119"></script><script defer src="basketball-box-impact.js?v=20261119"></script><script defer src="euroleague-live.js?v=continental-colors-20261119"></script>
 <script defer src="site-access-clock.js?v=2"></script>
-<link rel="stylesheet" href="slt-sections-nav.css?v=20261109a"><script defer src="slt-sections-nav.js?v=20261109a"></script><link rel="stylesheet" href="cbb-universal-nav.css?v=edition-switch-20261105b"><link rel="stylesheet" href="cbb-chronicle.css?v=shared-basketball-20261119"><script defer src="basketball-chronicle-news.js?v=20261119"></script><link rel="stylesheet" href="basketball-ranking-layout.css?v=20261119"><link rel="stylesheet" href="cbb-ranking-board.css?v=shared-desks-20261119"><link rel="stylesheet" href="cbb-conference-register.css?v=shared-basketball-20261119"><link rel="stylesheet" href="mbb-big-ten-calendar.css?v=shared-basketball-20261119"></head>
+<link rel="stylesheet" href="cbb-chronicle.css?v=shared-basketball-20261119"><script defer src="basketball-chronicle-news.js?v=20261119"></script><link rel="stylesheet" href="basketball-ranking-layout.css?v=20261119"><link rel="stylesheet" href="cbb-ranking-board.css?v=shared-desks-20261119"><link rel="stylesheet" href="cbb-conference-register.css?v=shared-basketball-20261119"><link rel="stylesheet" href="mbb-big-ten-calendar.css?v=shared-basketball-20261119"></head>
 <body class="edition-interior league-edition el-heritage-edition" data-league="euroleague">
 <div class="wrap">
 <header class="el-press-header chronicle-masthead">
 <div class="topline"><a href="index.html">Independent sports journalism &amp; data</a><span>EuroLeague basketball · 2026–27</span></div>
 <div class="masthead"><a href="index.html">Sporting Life &amp; Times</a></div>
 <div class="edition-line">The EuroLeague Edition</div>
-<nav class="nav cbb-universal-nav chronicle-nav" aria-label="EuroLeague newspaper navigation"><a href="euroleague.html" id="el-front-link">Chronicle</a><a href="?view=desks#el-live-desk">Daily Ledger</a><a href="?view=desks#el-ratings">RETRO Rankings</a><a href="?view=desks#el-standings-panel">Standings</a><details class="chronicle-more"><summary>More</summary><div class="chronicle-more-list"><a href="euroleague.html#league-news">The Newswire</a><a href="?view=desks#el-club-spotlight">Playoff Picture</a><a href="?view=desks#el-player-leaders">Player Register</a><a href="?view=desks#el-predictions">Matchup Lab</a><a href="?view=desks#league-boxscores">Gamefile</a><a href="sports.html">All Sports</a></div></details></nav>
+<nav class="el-section-nav" aria-label="EuroLeague sections">
+  <a href="euroleague.html" id="el-front-link">Front Page</a>
+  <a href="?view=desks#el-live-desk">Daily Ledger</a>
+  <a href="?view=desks#el-standings-panel">Standings</a>
+  <a href="?view=desks#el-ratings">RETRO Rankings</a>
+  <details class="el-section-more">
+    <summary>More</summary>
+    <div class="el-section-menu">
+      <a href="?view=desks#el-club-spotlight">Playoff Picture</a>
+      <a href="?view=desks#el-player-leaders">Player Leaders</a>
+      <a href="?view=desks#el-predictions">Matchup Lab</a>
+      <a href="?view=desks#league-boxscores">Game Archive</a>
+      <a href="?view=desks#league-data-links">Sources and Coverage</a>
+      <a href="sports.html">All Sports</a>
+    </div>
+  </details>
+</nav>
 </header>
 
 <div class="stamp el-press-stamp chronicle-source-dateline"><span id="league-freshness" role="status">Checking the latest published continental edition…</span><span>THE CONTINENTAL DESK · 2026–27</span></div>
@@ -137,24 +153,56 @@
 <noscript>This newspaper requires JavaScript to display the live EuroLeague datasets.</noscript>
 </div>
 <script>
-const euroleagueParams = new URLSearchParams(location.search);
-const euroleagueClub = /^[A-Z]{3}$/.test(euroleagueParams.get('club') || '');
-const euroleagueDesks = euroleagueClub || euroleagueParams.get('view') === 'desks' ||
-  /^#(?:el-|league-(?:boxscores|data-links))/.test(location.hash);
-if (euroleagueDesks) {
-  const style = document.createElement('link');
-  style.rel = 'stylesheet';
-  style.href = 'ncaam-slate.css?v=ledger-card-parity-20261119';
-  document.head.append(style);
-  document.body.classList.add('sl-ledger-page');
-}
-document.getElementById('el-newspaper-front').hidden = euroleagueDesks;
-document.getElementById('el-club-desk').hidden = !euroleagueClub;
-document.getElementById('el-newspaper-desks').hidden = !euroleagueDesks || euroleagueClub;
-if (!euroleagueDesks) {
-  document.body.classList.add('chronicle-front-page');
-  document.getElementById('el-front-link').setAttribute('aria-current', 'page');
-}
+(() => {
+  const params = new URLSearchParams(location.search);
+  const club = /^[A-Z]{3}$/.test(params.get('club') || '');
+  const nav = document.querySelector('.el-section-nav');
+  const more = nav.querySelector('.el-section-more');
+  const frontLink = document.getElementById('el-front-link');
+  let ledgerStyle;
+
+  function setSection() {
+    const hash = location.hash;
+    const desks = club || params.get('view') === 'desks' || /^#(?:el-|league-(?:boxscores|data-links))/.test(hash);
+    if (desks && !ledgerStyle) {
+      ledgerStyle = document.createElement('link');
+      ledgerStyle.rel = 'stylesheet';
+      ledgerStyle.href = 'ncaam-slate.css?v=ledger-card-parity-20261119';
+      document.head.append(ledgerStyle);
+    }
+    if (ledgerStyle) ledgerStyle.disabled = !desks;
+    document.body.classList.toggle('sl-ledger-page', desks);
+    document.body.classList.toggle('chronicle-front-page', !desks);
+    document.getElementById('el-newspaper-front').hidden = desks;
+    document.getElementById('el-club-desk').hidden = !club;
+    document.getElementById('el-newspaper-desks').hidden = !desks || club;
+    const activeHash = desks && !club ? hash || '#el-live-desk' : '';
+    let activeInMore = false;
+    for (const link of nav.querySelectorAll('a')) {
+      const target = new URL(link.href).hash;
+      const active = link === frontLink ? !desks : Boolean(target && target === activeHash);
+      if (active) link.setAttribute('aria-current', link === frontLink ? 'page' : 'location');
+      else link.removeAttribute('aria-current');
+      if (active && more.contains(link)) activeInMore = true;
+    }
+    more.toggleAttribute('data-section-current', activeInMore);
+  }
+
+  more.addEventListener('click', event => {
+    if (event.target.closest('a')) more.open = false;
+  });
+  document.addEventListener('click', event => {
+    if (more.open && !more.contains(event.target)) more.open = false;
+  });
+  more.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && more.open) {
+      more.open = false;
+      more.querySelector('summary').focus();
+    }
+  });
+  window.addEventListener('hashchange', setSection);
+  setSection();
+})();
 </script>
 </body>
 </html>
