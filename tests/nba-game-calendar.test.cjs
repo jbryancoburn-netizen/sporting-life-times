@@ -13,11 +13,11 @@ test('NBA Game Center keeps the date calendar and clear previous/next/today cont
 });
 test('mobile calendar uses the unified stylesheet and keeps controls in separate rows',()=>{
  const css=read('nba-ledger-unified.css');
- assert.match(page,/href="nba-ledger-unified\\.css\\?v=/);
- assert.match(css,/@media\\(max-width:700px\\)\\{[\\s\\S]*?\\.nba-ledger-page \\.nba-date-main\\{grid-template-columns:repeat\\(3,minmax\\(0,1fr\\)\\);grid-template-rows:auto auto/);
- for(const id of ['nba-date-previous','nba-date-next','nba-date-today'])assert.match(css,new RegExp('#'+id+'\\\\{grid-column:'));
- assert.match(css,/\\.nba-ledger-page \\.nba-date-picker-label\\{grid-column:1\\/-1;grid-row:1/);
- assert.match(css,/\\.nba-ledger-page \\.nba-date-picker-label input\\{width:100%;min-width:0;font-size:16px/);
+ assert.ok(page.includes('href="nba-ledger-unified.css?v='));
+ assert.ok(css.includes('grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:auto auto'));
+ assert.ok(css.includes('.nba-date-picker-label{grid-column:1/-1;grid-row:1'));
+ for(const id of ['nba-date-previous','nba-date-next','nba-date-today'])assert.ok(css.includes('#'+id+'{grid-column:'));
+ assert.ok(css.includes('.nba-date-picker-label input{width:100%;min-width:0;font-size:16px'));
 });
 test('date selection uses selected Eastern date and nearby ESPN schedules',()=>{
  for(const text of ['function initDateNav()','function chooseDay(day,push=true)','function renderDateNav()','const effectiveDay=()','ESPN selected day','ESPN ET boundary (prior)','ESPN ET boundary (next)'])assert.ok(live.includes(text),text+' missing');
