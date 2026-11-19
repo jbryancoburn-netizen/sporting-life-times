@@ -1,210 +1,154 @@
-<!doctype html><html lang="en"><head><link rel="icon" type="image/svg+xml" href="slt-favicon.svg?v=20261105"><script defer src="nba-tab-icon.js?v=20261028a"></script><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NBA Daily Ledger | Sporting Life &amp; Times</title>
-<meta name="slt-ledger-release" content="nba-daily-ledger-20261119"><style>
-/* RETRO pregame strip is always visible on each Daily Ledger game card. */
-.nba-retro-schedule-forecast{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:7px 13px;padding:9px 11px;border-top:1px solid #b6a58e;background:#f2ecdf;color:#29251f;font:700 12px/1.4 Georgia,serif;text-align:center}
-.nba-retro-schedule-forecast strong{font:700 10px/1.3 Arial,sans-serif;letter-spacing:.07em;color:#654936}
-.nba-retro-schedule-forecast span:nth-of-type(1){font-size:17px;font-weight:700}
-.nba-retro-schedule-forecast span:nth-of-type(2),.nba-retro-schedule-forecast span:nth-of-type(3){font-size:12px}
-.nba-retro-forecast-unavailable{font-size:11px;color:#635c55;font-weight:400}
-@media(max-width:560px){.nba-retro-schedule-forecast{gap:5px 10px;padding:8px}.nba-retro-schedule-forecast strong{width:100%}}
-</style><style>
-:root{--ink:#20252d;--paper:#f7f5f0}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.5 Georgia,serif}a{color:#364e6c}.mast{background:#191f28;color:white;text-align:center;padding:21px 12px}.mast a{color:inherit;text-decoration:none}.mast h1{font-size:clamp(26px,5vw,42px);margin:0;letter-spacing:-.05em}.mast p{margin:5px 0;font:12px Arial,sans-serif;letter-spacing:.15em}main{max-width:1100px;margin:auto;padding:18px 16px 55px}.tools{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;border-bottom:2px solid var(--ink);padding-bottom:13px}.tools h2{margin:0;font-size:25px}.tools select{max-width:100%;font:14px Georgia,serif;padding:9px;border:1px solid #bbb6ab;background:white}.game-hero{background:white;border-radius:8px;margin:18px 0;border:1px solid #dad7d2;overflow:hidden}.game-label{display:flex;justify-content:space-between;padding:11px 16px;background:#202735;color:white;font:700 11px Arial,sans-serif;letter-spacing:.08em}.game-teams{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0}.game-team{padding:20px 12px;text-align:center;border-top:6px solid var(--team-color);background:linear-gradient(180deg,color-mix(in srgb,var(--team-color) 17%,white),white 70%);min-width:0}.game-team img{display:block;width:clamp(55px,9vw,95px);height:clamp(55px,9vw,95px);object-fit:contain;margin:0 auto}.game-team b{display:block;font:800 15px Arial,sans-serif;margin:8px 0 4px}.game-team strong{font:900 clamp(39px,7vw,68px)/1 Arial,sans-serif;letter-spacing:-.06em}.game-team small{display:block;font:700 13px/1.5 Arial,sans-serif;color:#3d4552;margin-top:5px}.game-summary{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border-top:1px solid #ddd}.game-summary>div{padding:14px;border-right:1px solid #ddd}.game-summary>div:last-child{border-right:0}.game-summary b{display:block;font:900 20px Arial,sans-serif}.game-summary small{font:11px Arial,sans-serif;color:#777}.section{margin:20px 0}.section h3{font:800 19px Georgia,serif;border-bottom:3px solid #252b34;padding-bottom:7px}.star-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:9px}.star{background:white;border:1px solid #ddd;border-radius:5px;padding:13px}.star b{display:block}.star strong{display:block;font:900 27px Arial,sans-serif}.star small{font:11px Arial,sans-serif}.roster{margin:0 0 14px;min-width:0}.roster h4{background:var(--team-color);color:white;margin:0;padding:9px 12px;font:700 14px Georgia,serif}.box-scroll{overflow-x:auto;background:#fffdf8;border:1px solid #c8baa4}.box-scroll:focus-visible{outline:2px solid #65513b;outline-offset:2px}.box-table{width:100%;border-collapse:collapse;font:13px/1.4 Arial,sans-serif;font-variant-numeric:tabular-nums}.box-table :is(th,td){padding:7px 9px;border-bottom:1px solid #e5ded1;text-align:right;white-space:nowrap}.box-table tr>:first-child{text-align:left;position:sticky;left:0;background:#fffdf8}.box-table thead th,.box-table thead tr>:first-child{background:#f2e9d9}.box-table .key-stat{font-weight:700}.game-heading{margin:4px 0 8px;font-size:clamp(23px,4vw,34px);line-height:1.15}.game-back{display:inline-block;margin-bottom:10px}.game-archive-picker{margin-top:18px}.game-archive-picker label{display:block;margin-bottom:4px}.game-archive-picker select{width:min(100%,27rem);font:14px Georgia,serif;padding:8px}.game-edition .ledger26-expanded{min-width:0}.game-edition .ledger26-scorebug{min-width:0;width:100%}.links{display:flex;gap:15px;flex-wrap:wrap}.notice{font-size:12px;color:#766d63}@media(max-width:600px){.game-team{padding:15px 7px}.game-summary b{font-size:17px}.tools{display:block}.tools select{width:100%;margin-top:10px}}
-.quarter-scroller{max-width:100%;overflow-x:auto;background:#fff;border:1px solid #d7d8dc;border-radius:7px}.quarter-table{min-width:300px}.quarter-row{display:grid;grid-template-columns:64px repeat(var(--periods),minmax(36px,1fr)) 64px;gap:3px;align-items:center;padding:12px 10px;border-bottom:1px solid #e4e5e7;text-align:center;font:700 13px Arial,sans-serif;font-variant-numeric:tabular-nums}.quarter-row:last-child{border-bottom:0}.quarter-row b{text-align:left}.quarter-row strong{text-align:right;font-size:16px}.quarter-head{background:#252c37;color:#fff;font-size:10px;letter-spacing:.03em}.comparison{background:#fff;border:1px solid #d7d8dc;border-radius:7px;padding:12px}.compare-header{display:flex;justify-content:space-between;font:900 14px Arial,sans-serif;margin-bottom:11px}.compare-row{display:grid;grid-template-columns:42px minmax(0,1fr) 68px minmax(0,1fr) 42px;align-items:center;gap:7px;padding:9px 0;border-top:1px solid #ecedf0}.compare-name{text-align:center;font:800 10px Arial,sans-serif;color:#42454c}.compare-value{font:800 12px Arial,sans-serif;text-align:center;font-variant-numeric:tabular-nums}.compare-bars{height:9px;background:#eee;border-radius:4px;display:flex;justify-content:flex-end;overflow:hidden}.compare-bars span{display:block;height:100%;border-radius:4px}.compare-home{justify-content:flex-start}@media(max-width:600px){.compare-row{grid-template-columns:34px minmax(0,1fr) 55px minmax(0,1fr) 34px;gap:4px}.comparison{padding:9px}.compare-name{font-size:9px}}.meaningful-compare .compare-name b{display:block;font:800 10px/1.2 Arial,sans-serif}.meaningful-compare .compare-name small{display:block;font:700 10px/1.35 Arial,sans-serif;color:#6b5952;margin-top:3px}.meaningful-compare .compare-name{min-width:75px}.meaningful-compare{grid-template-columns:42px minmax(0,1fr) 100px minmax(0,1fr) 42px}.game-observations{margin:12px 0;padding:13px;border-left:4px solid #303b49;background:#f0efec;display:grid;gap:6px;font:12px/1.5 Georgia,serif}.game-observations b{font:800 12px Arial,sans-serif}@media(max-width:600px){.meaningful-compare{grid-template-columns:32px minmax(0,1fr) 79px minmax(0,1fr) 32px}.meaningful-compare .compare-name b{font-size:9px}.meaningful-compare .compare-name small{font-size:9px}}.meaningful-compare .compare-value.is-advantage{font-weight:900;color:#152e43}.meaningful-compare .compare-name{font-size:11px}.nba-today-section{margin:0 0 36px}.nba-today-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:12px;padding:17px 0 0}.nba-today-grid>.ledger26-card{min-width:0}.nba-today-grid .ledger26-scorebug{width:100%;min-width:0}.nba-today-grid .nba-expand-content{min-width:0}#nba-live-status{margin:0;max-width:390px;align-self:center;text-align:right}.nba-archive-section{border-top:4px double #6d5b45;padding-top:22px}@media(max-width:760px){.nba-today-grid{grid-template-columns:1fr;gap:10px}#nba-live-status{text-align:left;max-width:none;margin-top:8px}}
-/* Game Center date desk: newspaper navigation, not a separate scoreboard. */
-.nba-date-navigator{margin:14px 0 4px;padding:13px 12px 11px;background:#f2e9d9;border:1px solid #b2a28a;border-top:4px double #61513d;border-bottom:4px double #61513d}
-.nba-date-main{display:grid;grid-template-columns:minmax(0,1fr) minmax(135px,1.3fr) minmax(0,1fr) auto;gap:8px;align-items:end;min-width:0}
-.nba-date-main button{border:1px solid #95836b;background:#f9f4e9;color:#342b21;min-width:0;min-height:44px;padding:7px 9px;font:700 12px/1.2 Georgia,serif;cursor:pointer}
-.nba-date-main button:hover,.nba-date-main button:focus-visible{background:#e3d4bc;outline-color:#65513b}
-.nba-date-picker-label{display:flex;flex-direction:column;gap:3px;box-sizing:border-box;min-width:0;max-width:100%;font:700 10px/1.3 Georgia,serif;letter-spacing:.08em;color:#65513e}
-.nba-date-picker-label input{box-sizing:border-box;min-width:0;width:100%;height:44px;padding:7px 8px;border:1px solid #95836b;border-radius:0;background:#fffaf1;color:#2d271d;font:700 14px Georgia,serif;color-scheme:light}
-.nba-date-week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;margin-top:11px}
-.nba-date-week button{display:flex;min-width:0;min-height:51px;flex-direction:column;justify-content:center;align-items:center;gap:1px;border:1px solid #c8baa4;border-radius:0;padding:5px 2px;background:transparent;color:#342e24;font:12px Georgia,serif;cursor:pointer}
-.nba-date-week button span{font:700 9px/1.3 Georgia,serif;letter-spacing:.025em;text-transform:uppercase}
-.nba-date-week button b{font:700 17px/1.1 Georgia,serif}
-.nba-date-week button[aria-pressed="true"]{background:#45382c;color:#fff8eb;border-color:#45382c}
-.nba-date-week button[data-today="true"]:not([aria-pressed="true"]){border-bottom:3px solid #8d5b47}
-@media(max-width:650px){
-.nba-date-navigator{padding:10px 7px}
-.nba-date-main{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:auto auto;align-items:stretch;gap:7px}
-.nba-date-picker-label{grid-column:1 / -1;grid-row:1;min-width:0;width:100%;text-align:center;align-items:stretch}
-.nba-date-picker-label input{min-width:0;max-width:100%;width:100%;font-size:16px;text-align:center}
-.nba-date-main button{min-width:0;width:100%;padding:7px 3px;font-size:12px;white-space:nowrap}
-#nba-date-previous{grid-column:1;grid-row:2}
-#nba-date-next{grid-column:3;grid-row:2}
-.nba-date-main .nba-date-today{grid-column:2;grid-row:2;min-height:44px}
-.nba-date-week{gap:3px;margin-top:9px}
-.nba-date-week button{min-height:48px;padding:3px 0}
-.nba-date-week button b{font-size:15px}
-.nba-date-week button span{font-size:9px}
-}
-@media(max-width:355px){.nba-date-main button{font-size:11px}.nba-date-week button b{font-size:14px}}
-</style><link rel="stylesheet" href="mbb-newspaper.css?v=20261026"><link rel="stylesheet" href="nba-newspaper.css?v=20261027local30logos"><link rel="stylesheet" href="slt-dual-ring.css?v=20261113-vintage-bold-rings"><script defer data-slt-league="nba" src="slt-dual-ring.js?v=20261113-vintage-bold-rings"></script><link rel="stylesheet" href="pb-league-switch.css?v=20261029logos2"><script defer src="pb-league-switch.js?v=20261029logos2"></script><link rel="stylesheet" href="slt-victorian-global.css?v=20261103-a"><link rel="stylesheet" href="slt-sections-nav.css?v=20261109a"><script defer src="slt-sections-nav.js?v=20261109a"></script><link rel="stylesheet" href="nba-heritage-crests.css?v=20261113-scorebug-scale"><link rel="stylesheet" href="newspaper-departments.css?v=1">
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0a2734">
+<meta name="slt-ledger-release" content="nba-cbb-unified-20261119">
+<title>NBA Daily Ledger | Sporting Life &amp; Times</title>
+<meta name="description" content="NBA Daily Ledger: live scores, completed games, upcoming fixtures, RETRO ratings, projections and detailed box scores.">
+<link rel="icon" type="image/svg+xml" href="slt-monogram-favicon.svg?v=20261105b">
+<link rel="stylesheet" href="mbb-logo-system.css">
+<link rel="stylesheet" href="slt-victorian-global.css?v=20261103-a">
+<link rel="stylesheet" href="newspaper-departments.css?v=1">
+<link rel="stylesheet" href="nba-newspaper.css?v=20261027local30logos">
+<link rel="stylesheet" href="slt-dual-ring.css?v=20261113-vintage-bold-rings">
+<link rel="stylesheet" href="nba-heritage-crests.css?v=20261113-scorebug-scale">
 <link rel="stylesheet" href="ncaam-slate.css?v=profiles-exhibitions-20261118">
-<style>
-.nba-ledger-page main {max-width:none;padding:0}
-.nba-ledger-page .sl-header .nav {display:flex;flex-wrap:wrap;justify-content:center;gap:4px 16px;padding:10px}
-.nba-ledger-page .sl-header .nav a[aria-current] {text-decoration:underline;text-underline-offset:4px}
-.nba-ledger-page .sl-content {min-width:0}
-.nba-ledger-page .nba-date-navigator {margin:0}
-.nba-ledger-page .nba-today-grid {padding-top:0}
-.nba-ledger-page .nba-today-grid > p {grid-column:1/-1}
-.nba-ledger-page .nba-today-grid > details[open] {grid-column:1/-1}
-.nba-ledger-page .nba-today-grid > [hidden] {display:none!important}
-.nba-ledger-page #nba-live-status {max-width:none;text-align:left;margin:0 0 8px}
-.nba-ledger-page .game-edition {margin-top:16px}
-.nba-ledger-page .nba-archive-section {margin:18px 0;padding-top:0}
-.nba-ledger-page .nba-live-stat-scroll {overflow-x:auto}
-.nba-ledger-page .nba-retro-schedule-forecast {overflow-wrap:anywhere}
-</style></head>
+<link rel="stylesheet" href="cbb-ledger-scorecard.css?v=retro-live-header-20261118">
+<link rel="stylesheet" href="nba-ledger-unified.css?v=20261119-r1">
+<script defer src="nba-tab-icon.js?v=20261028a"></script>
+<script defer data-slt-league="nba" src="slt-dual-ring.js?v=20261113-vintage-bold-rings"></script>
+<script defer src="nba-scorebug.js?v=20261027local30logos"></script>
+<script defer src="nba-game-comparison.js?v=3"></script>
+<script defer src="cbb-ledger-scorebug.js?v=retro-live-header-20261118"></script>
+<script defer src="nba-rabby-possession.js?v=20261109"></script>
+<script defer src="nba-retro-ledger-forecast.js?v=20261109c"></script>
+<script defer src="nba-game-center.js?v=date-calendar-navigation-20261105-focused-box-score-20261118"></script>
+<script defer src="site-access-clock.js?v=2"></script>
+</head>
 <body class="sl-ledger-page nba-ledger-page">
 <a class="sl-skip" href="#slate-root">Skip to games</a>
 <div class="sl-shell">
 <header class="sl-header">
- <div class="sl-meta"><span>INDEPENDENT SPORTS JOURNALISM &amp; DATA</span><span>NBA / 2026–27</span></div>
- <div class="sl-masthead"><a href="nba.html">Sporting Life <i>&amp;</i> Times</a><span>THE NBA EDITION</span></div>
- <nav class="nav" aria-label="NBA navigation">
-  <a href="nba.html">Front Page</a><a href="nba-game-center.html" aria-current="page">Daily Ledger</a>
-  <a href="nba-standings.html">Standings</a><a href="nba-rankings.html">RETRO Rankings</a>
-  <a href="nba-playoffs.html">Playoff Picture</a><a href="nba-players.html">Player Leaders</a>
-  <a href="nba.html#teams">Find Your Team</a><a href="sports.html">All Sports</a>
- </nav>
+  <div class="sl-meta"><span>INDEPENDENT SPORTS JOURNALISM &amp; DATA</span><span>NBA / 2026–27</span></div>
+  <div class="sl-masthead"><a href="nba.html">Sporting Life <i>&amp;</i> Times</a><span>THE NBA EDITION</span></div>
+  <nav class="nav" aria-label="NBA navigation">
+    <a href="nba.html">Front Page</a><a href="nba-game-center.html" aria-current="page">Daily Ledger</a>
+    <a href="nba-standings.html">Standings</a><a href="nba-rankings.html">RETRO Rankings</a>
+    <a href="nba-playoffs.html">Playoff Picture</a><a href="nba-players.html">Player Leaders</a>
+    <a href="nba.html#teams">Find Your Team</a><a href="sports.html">All Sports</a>
+  </nav>
 </header>
 <section class="slt-department-band" aria-label="The Daily Ledger">
- <div class="slt-department-kicker"><span>NATIONAL BASKETBALL ASSOCIATION</span><span>2026–27 EDITION</span></div>
- <h1>THE DAILY LEDGER</h1>
- <p>Scores and fixtures. Select a game for RETRO projections, quarter scoring and player statistics.</p>
+  <div class="slt-department-kicker"><span>NATIONAL BASKETBALL ASSOCIATION</span><span>2026–27 EDITION</span></div>
+  <h1>THE DAILY LEDGER</h1>
+  <p>Scores and fixtures. Open a game for quarter scoring, team and player statistics, and RETRO forecasts.</p>
 </section>
 <main id="slate-root">
- <nav class="nba-date-navigator" aria-label="Browse NBA games by date">
- <div class="nba-date-main">
-  <button id="nba-date-previous" type="button" aria-label="Previous day">‹ Previous</button>
-  <label class="nba-date-picker-label" for="nba-game-date"><span>GAME DATE</span><input id="nba-game-date" type="date" aria-label="Choose NBA game date"></label>
-  <button id="nba-date-next" type="button" aria-label="Next day">Next ›</button>
-  <button id="nba-date-today" class="nba-date-today" type="button">Today</button>
- </div>
- <div id="nba-date-week" class="nba-date-week" role="group" aria-label="Nearby game dates"></div>
-</nav>
- <div class="sl-tools-row">
-  <div id="nba-filters" class="sl-filters" role="group" aria-label="Filter game status">
-   <button type="button" data-filter="all" class="is-active" aria-pressed="true">All games <span></span></button>
-   <button type="button" data-filter="live" aria-pressed="false">Live <span></span></button>
-   <button type="button" data-filter="upcoming" aria-pressed="false">Upcoming <span></span></button>
-   <button type="button" data-filter="final" aria-pressed="false">Final <span></span></button>
+  <nav class="nba-date-navigator" aria-label="Browse NBA games by date">
+    <div class="nba-date-main">
+      <button id="nba-date-previous" type="button" aria-label="Previous day">‹</button>
+      <label class="nba-date-picker-label" for="nba-game-date"><span>GAME DATE</span><input id="nba-game-date" type="date" aria-label="Choose NBA game date"></label>
+      <button id="nba-date-next" type="button" aria-label="Next day">›</button>
+      <button id="nba-date-today" type="button">Today</button>
+    </div>
+    <div id="nba-date-week" class="nba-date-week" role="group" aria-label="Nearby game dates"></div>
+  </nav>
+  <div class="sl-tools-row">
+    <div id="nba-filters" class="sl-filters" role="group" aria-label="Filter NBA games">
+      <button type="button" data-filter="all" class="is-active" aria-pressed="true">All <span></span></button>
+      <button type="button" data-filter="live" aria-pressed="false">Live <span></span></button>
+      <button type="button" data-filter="upcoming" aria-pressed="false">Upcoming <span></span></button>
+      <button type="button" data-filter="final" aria-pressed="false">Final <span></span></button>
+    </div>
+    <label class="sl-search"><span class="sr-only">Search NBA teams</span><input id="nba-search" type="search" autocomplete="off" placeholder="Search NBA teams…"></label>
   </div>
-  <label class="sl-search"><span class="sr-only">Search NBA teams</span><input id="nba-search" type="search" autocomplete="off" placeholder="Search any NBA team…"></label>
- </div>
- <section class="sl-content" aria-labelledby="nba-ledger-heading">
-  <div class="sl-content-head">
-   <div><span class="sl-eyebrow">THE NBA SLATE</span><h2 id="nba-ledger-heading">Fixtures &amp; Results</h2></div>
-   <div class="sl-count-wrap"><strong id="nba-game-count" role="status"></strong></div>
-  </div>
-  <p id="nba-live-status" class="notice" role="status">Connecting to NBA scoring sources…</p>
-  <div id="nba-live-feed" class="nba-today-grid"><p class="sl-empty">Loading NBA games…</p></div>
-  <p id="nba-filter-empty" class="sl-empty" hidden>No games match these filters.</p>
-  <details id="nba-selected-game" class="game-edition" hidden>
-   <summary>Completed game box score</summary>
-   <a class="game-back" href="nba-game-center.html">Back to today’s ledger</a>
-   <div id="game"><p role="status">Loading archived box score…</p></div>
-  </details>
- </section>
- <section class="nba-archive-section" id="nba-archive-section">
-<details class="game-archive-picker"><summary>Completed Game Archive</summary><label for="games">Find a completed game</label><select id="games" disabled><option>Loading completed games…</option></select></details>
-</section>
+  <section class="sl-content" aria-labelledby="nba-ledger-heading">
+    <div class="sl-content-head"><div><span class="sl-eyebrow">THE NBA SLATE</span><h2 id="nba-ledger-heading">Fixtures &amp; Results</h2></div><div class="sl-count-wrap"><strong id="nba-game-count" role="status"></strong></div></div>
+    <p id="nba-live-status" role="status">Connecting to NBA scoring sources…</p>
+    <div id="nba-live-feed" class="nba-today-grid"><p class="sl-empty">Loading NBA games…</p></div>
+    <p id="nba-filter-empty" class="sl-empty" hidden>No games match these filters.</p>
+    <details id="nba-selected-game" class="game-edition" hidden>
+      <summary>Completed game box score</summary>
+      <a class="game-back" href="nba-game-center.html">← Back to the Daily Ledger</a>
+      <div id="game"><p role="status">Loading archived game statistics…</p></div>
+    </details>
+  </section>
+  <section class="nba-archive-section" id="nba-archive-section">
+    <details class="game-archive-picker"><summary>Completed Game Archive</summary><label for="games">Find a completed game</label><select id="games" disabled><option>Loading completed games…</option></select></details>
+  </section>
 </main>
-<footer class="sl-footer"><span>Sporting Life &amp; Times / NBA</span><a href="nba.html">NBA Front Page ↗</a><a href="sports.html">All Sports ↗</a></footer>
+<footer class="sl-footer"><span>Sporting Life &amp; Times / NBA</span><a href="nba.html">NBA Front Page</a><a href="sports.html">All Sports</a></footer>
 </div>
-<noscript><p class="sl-noscript">JavaScript is required to load NBA scores and box scores.</p></noscript>
+<noscript><p>JavaScript is required to load live NBA scores and box scores.</p></noscript>
 <script>
 (() => {
- const feed = document.getElementById('nba-live-feed');
- const filters = document.getElementById('nba-filters');
- const search = document.getElementById('nba-search');
- const count = document.getElementById('nba-game-count');
- const empty = document.getElementById('nba-filter-empty');
- const archive = document.getElementById('nba-selected-game');
- const initialUrl = new URL(location.href);
- const requested = initialUrl.searchParams.get('game')?.replace(/^espn-nba-/, '');
- const gameId = /^\d{7,12}$/.test(requested || '') ? requested : '';
- let filter = 'all';
- let openedGame = false;
-
- function updateLedger() {
-  const current = new URL(location.href);
-  const activeGame = current.searchParams.get('game')?.replace(/^espn-nba-/, '');
-  const isRequestedDay = current.searchParams.get('date') === initialUrl.searchParams.get('date');
-  const cards = [...feed.querySelectorAll('details[data-nba-game]')];
-  const totals = {all: cards.length, live: 0, upcoming: 0, final: 0};
-  const query = search.value.trim().toLowerCase();
-  let visible = 0;
-  for (const card of cards) {
-   const board = card.querySelector('.ledger26-scorebug');
-   const phase = board?.classList.contains('ledger26-scorebug--final') ? 'final' :
-    board?.classList.contains('ledger26-scorebug--pregame') ? 'upcoming' : 'live';
-   totals[phase]++;
-   const matchup = (board?.getAttribute('aria-label') || '').toLowerCase();
-   const codes = (card.dataset.nbaAway + ' ' + card.dataset.nbaHome).toLowerCase();
-   card.hidden = (filter !== 'all' && phase !== filter) || (!matchup.includes(query) && !codes.includes(query));
-   if (!card.hidden) visible++;
-   if (!openedGame && isRequestedDay && gameId && gameId === activeGame && card.dataset.nbaGame === gameId) {
-    card.open = true;
-    openedGame = true;
-    requestAnimationFrame(() => card.scrollIntoView({block: 'nearest'}));
-   }
-   const boxLink = card.querySelector('a.nba-live-game-link');
-   if (boxLink) boxLink.textContent = 'Full game coverage ↗';
-  }
-  for (const button of filters.querySelectorAll('[data-filter]')) {
-   button.querySelector('span').textContent = cards.length ? totals[button.dataset.filter] : '';
-  }
-  count.textContent = cards.length ? visible + ' of ' + cards.length + ' games' : '';
-  empty.hidden = !cards.length || visible !== 0;
-  archive.hidden = !gameId || gameId !== activeGame || !isRequestedDay;
-  if (!archive.hidden && !openedGame && !feed.querySelector('.sl-empty')) {
-   const status = document.getElementById('nba-live-status').textContent;
-   if (cards.length || /No NBA games|unavailable/i.test(status)) archive.open = true;
-  }
- }
-
- filters.addEventListener('click', event => {
-  const selected = event.target.closest('[data-filter]');
-  if (!selected) return;
-  filter = selected.dataset.filter;
-  for (const button of filters.querySelectorAll('[data-filter]')) {
-   const active = button === selected;
-   button.classList.toggle('is-active', active);
-   button.setAttribute('aria-pressed', active);
-  }
-  updateLedger();
- });
- search.addEventListener('input', updateLedger);
- new MutationObserver(updateLedger).observe(feed, {childList: true});
-
- async function begin() {
-  if (gameId) {
-   try {
-    const response = await fetch('data/nba-game-center.json', {signal: AbortSignal.timeout(4500)});
-    const archiveData = response.ok ? await response.json() : {};
-    const match = archiveData.games?.find(game => String(game.id).replace(/^espn-nba-/, '') === gameId);
-    if (match && Number.isFinite(Date.parse(match.date))) {
-     const parts = new Intl.DateTimeFormat('en-CA', {
-      timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit'
-     }).formatToParts(new Date(match.date));
-     const day = Object.fromEntries(parts.map(part => [part.type, part.value]));
-     initialUrl.searchParams.set('date', day.year + '-' + day.month + '-' + day.day);
-     history.replaceState(null, '', initialUrl);
+  const feed=document.getElementById('nba-live-feed');
+  const filters=document.getElementById('nba-filters');
+  const search=document.getElementById('nba-search');
+  const count=document.getElementById('nba-game-count');
+  const empty=document.getElementById('nba-filter-empty');
+  const archive=document.getElementById('nba-selected-game');
+  const initialUrl=new URL(location.href);
+  const requested=initialUrl.searchParams.get('game')?.replace(/^espn-nba-/,'');
+  const gameId=/^\d{7,12}$/.test(requested||'')?requested:'';
+  let filter='all',openedGame=false;
+  function updateLedger(){
+    const current=new URL(location.href),activeGame=current.searchParams.get('game')?.replace(/^espn-nba-/,'');
+    const selectedDay=current.searchParams.get('date')===initialUrl.searchParams.get('date');
+    const cards=[...feed.querySelectorAll('details[data-nba-game]')];
+    const totals={all:cards.length,live:0,upcoming:0,final:0};
+    const query=search.value.trim().toLowerCase();
+    let visible=0;
+    for(const card of cards){
+      const phase=card.dataset.nbaPhase==='pre'?'upcoming':card.dataset.nbaPhase||'upcoming';
+      totals[phase]=(totals[phase]||0)+1;
+      const words=((card.querySelector('.ledger26-scorebug')?.getAttribute('aria-label')||'')+' '+card.dataset.nbaAway+' '+card.dataset.nbaHome).toLowerCase();
+      card.hidden=(filter!=='all'&&phase!==filter)||!words.includes(query);
+      if(!card.hidden)visible++;
+      if(!openedGame&&selectedDay&&gameId&&gameId===activeGame&&card.dataset.nbaGame===gameId){
+        card.open=true;openedGame=true;
+        requestAnimationFrame(()=>card.scrollIntoView({block:'nearest'}));
+      }
     }
-   } catch (error) {
-    console.warn('NBA archive date lookup:', error.message);
-   }
+    for(const button of filters.querySelectorAll('[data-filter]'))button.querySelector('span').textContent=cards.length?totals[button.dataset.filter]:'';
+    count.textContent=cards.length?visible+' of '+cards.length+' games':'';
+    empty.hidden=!cards.length||visible!==0;
+    archive.hidden=!gameId||gameId!==activeGame||!selectedDay;
+    if(!archive.hidden&&!openedGame&&!feed.querySelector('.sl-empty')&&cards.length)archive.open=true;
   }
-  updateLedger();
-  const script = document.createElement('script');
-  script.src = 'nba-live-feed.js?v=20261111-victorian-live';
-  document.body.append(script);
- }
- document.addEventListener('DOMContentLoaded', begin, {once:true});
+  filters.addEventListener('click',event=>{
+    const selected=event.target.closest('[data-filter]');if(!selected)return;
+    filter=selected.dataset.filter;
+    for(const button of filters.querySelectorAll('[data-filter]')){
+      const active=button===selected;button.classList.toggle('is-active',active);button.setAttribute('aria-pressed',String(active));
+    }
+    updateLedger();
+  });
+  search.addEventListener('input',updateLedger);
+  new MutationObserver(updateLedger).observe(feed,{childList:true});
+  async function begin(){
+    if(gameId){
+      try{
+        const response=await fetch('data/nba-game-center.json',{signal:AbortSignal.timeout(4500)});
+        const data=response.ok?await response.json():{};
+        const match=data.games?.find(game=>String(game.id).replace(/^espn-nba-/,'')===gameId);
+        if(match&&Number.isFinite(Date.parse(match.date))){
+          const parts=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date(match.date));
+          const day=Object.fromEntries(parts.map(part=>[part.type,part.value]));
+          initialUrl.searchParams.set('date',day.year+'-'+day.month+'-'+day.day);
+          history.replaceState(null,'',initialUrl);
+        }
+      }catch(error){console.warn('NBA game date lookup:',error.message)}
+    }
+    updateLedger();
+    const script=document.createElement('script');
+    script.src='nba-live-feed.js?v=20261119-cbb-unified';
+    document.body.append(script);
+  }
+  document.addEventListener('DOMContentLoaded',begin,{once:true});
 })();
-</script><script src="nba-scorebug.js?v=20261027local30logos" defer></script><script src="nba-game-comparison.js?v=3" defer></script><link rel="stylesheet" href="cbb-ledger-scorecard.css?v=retro-live-header-20261118">
-<script src="cbb-ledger-scorebug.js?v=retro-live-header-20261118" defer></script>
-<script src="nba-rabby-possession.js?v=20261109" defer></script><script src="nba-retro-ledger-forecast.js?v=20261109c" defer></script>
-<script src="nba-game-center.js?v=date-calendar-navigation-20261105-focused-box-score-20261118" defer></script><script src="site-access-clock.js?v=2" defer></script></body></html>
+</script>
+</body>
+</html>
