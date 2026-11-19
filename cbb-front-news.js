@@ -105,12 +105,11 @@ function articleHTML(a,kind='dispatch'){
   const aggregator=a.link_type==='aggregator'||new URL(a.url).hostname==='news.google.com';
   const attribution=escape(a.source)+(aggregator?' · via Google News':'')+' · '+escape(time(a.published_at))+' ET';
   const summary=a.summary?'<p class="cbb-news-description">'+escape(String(a.summary).slice(0,235))+'</p>':'';
-  const label=kind==='lead'?'<p class="chronicle-flag">The Lead Report</p>':'';
-  const read=aggregator?'Read attributed report':'Read at '+escape(a.source);
-  return '<article class="cbb-news-story '+(kind==='lead'?'lead':'')+'">'+label
+
+  return '<article class="cbb-news-story '+(kind==='lead'?'lead':'')+'">'
     +'<p class="cbb-news-eyebrow">'+attribution+'</p>'
     +'<h3><a href="'+url+'" target="_blank" rel="noopener noreferrer">'+escape(a.title)+'</a></h3>'
-    +summary+'<a class="chronicle-story-link" href="'+url+'" target="_blank" rel="noopener noreferrer">'+read+'</a>'
+    +(kind==='lead'?summary:'')
     +'</article>';
 }
 function sectionFor(a){
@@ -134,9 +133,9 @@ function renderEdition(stories){
   for(const a of stories.slice(1,15))if(!used.has(a))groups.find(g=>g.key===sectionFor(a)).articles.push(a);
   const active=groups.filter(g=>g.articles.length);
   const departments=active.length
-    ?'<div class="chronicle-news-departments" data-count="'+active.length+'">'+active.map(g=>
+    ?'<details class="chronicle-more-reports"'+(root.querySelector?.('.chronicle-more-reports[open]')?' open':'')+'><summary>More headlines</summary><div class="chronicle-news-departments" data-count="'+active.length+'">'+active.map(g=>
       '<section aria-label="'+escape(g.title)+'"><h3>'+escape(g.title)+'</h3>'
-      +g.articles.map(a=>articleHTML(a)).join('')+'</section>').join('')+'</div>'
+      +g.articles.map(a=>articleHTML(a)).join('')+'</section>').join('')+'</div></details>'
     :'';
   return '<div class="cbb-news-grid">'+lead+'<div class="chronicle-secondary">'+secondary+'</div></div>'+departments;
 }

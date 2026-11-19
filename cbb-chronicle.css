@@ -181,3 +181,78 @@ body[data-slt-front="cbb"] {
   [data-slt-front="cbb"] .chronicle-masthead .masthead a { font-size: clamp(29px, 7.8vw, 46px); }
   [data-slt-front="cbb"] .chronicle-masthead .edition-line { margin-bottom: 17px; letter-spacing: .21em; }
 }
+
+/* Division I front page */
+.chronicle-front-page #chronicle-main {
+ --front-rule:#b09a78;
+ --front-ink:#292219;
+ --front-accent:#713329;
+ color:var(--front-ink);
+}
+.chronicle-front-page .chronicle-nameplate {
+ text-align:center;
+ border-bottom:4px double var(--front-ink);
+ padding:13px 8px 12px;
+}
+.chronicle-front-page .chronicle-nameplate h1 {
+ font:700 clamp(29px,5.1vw,63px)/1.05 "Century Schoolbook",Georgia,serif;
+ letter-spacing:-.045em;
+ margin:0;
+}
+.chronicle-front-page .chronicle-nameplate p {
+ margin:6px 0 0;
+ font:700 .75rem/1.35 Georgia,serif;
+ letter-spacing:.08em;
+ text-transform:uppercase;
+}
+body.chronicle-front-page[data-slt-front="cbb"] .cbb-front-edition {
+ margin:0 0 20px;
+ padding:10px 0 13px;
+ background:transparent;
+ border-bottom:1px solid var(--front-rule);
+}
+.chronicle-front-page .cbb-front-title {flex-wrap:wrap;row-gap:3px}
+.chronicle-front-page #cbb-news-stamp {font:italic .77rem/1.4 Georgia,serif;color:#66543e}
+body.chronicle-front-page[data-slt-front="cbb"] .cbb-news-grid {
+ gap:10px;
+ grid-template-columns:minmax(0,1.36fr) minmax(0,1fr);
+}
+body.chronicle-front-page[data-slt-front="cbb"] .cbb-news-grid .cbb-news-story.lead {
+ border:4px double var(--front-rule);
+ background:#f9f0df;
+ padding:clamp(14px,2vw,26px);
+}
+body.chronicle-front-page[data-slt-front="cbb"] .cbb-news-grid .lead h3 {font-size:clamp(25px,3.3vw,43px);line-height:1.12}
+.chronicle-front-page .chronicle-secondary {border:1px solid var(--front-rule);background:#f9f0df}
+body.chronicle-front-page[data-slt-front="cbb"] .chronicle-secondary .cbb-news-story {
+ flex:1;
+ padding:10px 13px;
+ margin:0;
+}
+.chronicle-front-page .chronicle-more-reports {margin-top:10px}
+.chronicle-front-page .chronicle-more-reports summary {width:fit-content;cursor:pointer;color:var(--front-accent);font-weight:bold}
+.chronicle-front-page .chronicle-desks h2,
+.chronicle-front-page .chronicle-school-desk h2 {font:700 clamp(23px,3vw,33px)/1.12 "Century Schoolbook",Georgia,serif;margin:0 0 10px}
+.chronicle-front-page .chronicle-desk-grid {
+ display:grid;
+ grid-template-columns:repeat(3,minmax(0,1fr));
+ border:4px double var(--front-rule);
+ background:#f8efde;
+}
+.chronicle-front-page .chronicle-desk-grid section {padding:10px 14px;border-inline-end:1px solid var(--front-rule)}
+.chronicle-front-page .chronicle-desk-grid section:last-child {border:0}
+.chronicle-front-page .chronicle-desk-grid h3 {font:700 1rem/1.2 Georgia,serif;margin:0 0 6px;color:var(--front-accent)}
+.chronicle-front-page .chronicle-desk-grid a {
+ display:block;
+ padding:6px 0;
+ border-top:1px dotted var(--front-rule);
+ font-size:.91rem;
+ text-decoration:none;
+}
+.chronicle-front-page .chronicle-desk-grid a:is(:hover,:focus-visible) {text-decoration:underline}
+.chronicle-front-page .chronicle-school-desk {margin-top:20px;border-top:4px double var(--front-rule);padding:14px 0}
+@media(max-width:670px) {
+ body.chronicle-front-page[data-slt-front="cbb"] .cbb-news-grid,
+ .chronicle-front-page .chronicle-desk-grid {grid-template-columns:minmax(0,1fr)}
+ .chronicle-front-page .chronicle-desk-grid section {border-inline-end:0;border-bottom:1px solid var(--front-rule)}
+}

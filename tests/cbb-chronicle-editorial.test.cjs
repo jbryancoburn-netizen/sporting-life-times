@@ -12,17 +12,15 @@ const retro=read('cbb-chronicle-retro.js');
 const nav=read('cbb-shared-navigation.js');
 
 assert(html.indexOf('class="cbb-front-edition"')>0,'Front news section must exist');
-assert(html.indexOf('class="cbb-front-edition"')<html.indexOf('id="chronicle-retro"'),'Top stories must precede RETRO');
-assert(html.indexOf('id="chronicle-retro"')<html.indexOf('class="slt-edition-index"'),'RETRO and reporting must precede reference directory');
-assert(html.includes('cbb-chronicle.css?v=')&&html.includes('cbb-chronicle-retro.js?v='),'One coherent new stylesheet and data view');
+assert(html.indexOf('class="cbb-front-edition"')<html.indexOf('class="chronicle-desks"'),'Top stories must precede the desk links');
+assert(html.includes('cbb-chronicle.css?v='),'Use the scoped Chronicle stylesheet');
 assert(!html.includes('<style>'),'No layered page-level CSS patches');
 assert(html.includes('class="nav cbb-universal-nav chronicle-nav"'),'Retain shared navigation and gender routing');
 assert(html.includes('class="chronicle-more"'),'Keep supplementary links in More');
 assert(nav.includes("document.body.dataset.sltFront==='cbb'")&&nav.includes("'Chronicle':'ncaam.html?gender=women'"),'Use only front-page navigation override');
-for(const file of ['indiana.png','minnesota.png','purdue.png','northwestern.png']){
-  assert(fs.existsSync(path.join(root,'assets/cbb-big-ten-1980s/centered',file)),'Local authentic logo exists: '+file);
-  assert(html.includes('assets/cbb-big-ten-1980s/centered/'+file),'Local archive logo is linked: '+file);
-}
+assert.match(html,/href="cbb-big-ten-1980s-preview.html"/,'Keep the heritage archive accessible');
+assert.match(html,/data-women="cbb-impact.html\?gender=women"/,'The impact desk follows the edition');
+assert.doesNotMatch(html,/id="chronicle-retro-panel"/,'Rankings belong on the linked RETRO desk');
 assert(!/<img[^>]+https?:\/\//.test(html),'No remotely hosted Chronicle images');
 assert(css.includes('@media(max-width:700px)')&&css.includes('repeat(5,minmax(0,1fr))'),'Five mobile navigation destinations');
 assert(css.includes('"Century Schoolbook"'),'Original newspaper body typography');
@@ -63,7 +61,8 @@ async function newsEdition(gender){
   });
   await new Promise(setImmediate);
   assert.match(output,/class="cbb-news-grid"/,'News layout must render');
-  assert.match(output,/The Lead Report/,'Lead story clearly marked');
+  assert.match(output,/class="cbb-news-story lead"/,'Lead story uses the front-page layout');
+  if(gender==='men')assert.match(output,/<details class="chronicle-more-reports">/,'Additional reporting opens on demand');
   assert.match(label,/National wire updated/,'Preserve visible source freshness');
   if(gender==='men'){
     assert.match(output,/national poll/,'Important national article remains visible when selected as a supporting dispatch');
@@ -112,5 +111,5 @@ async function ratingEdition(gender){
  await newsEdition('women');
  await ratingEdition('men');
  await ratingEdition('women');
- console.log('PASS Hardwood Chronicle: news hierarchy, three departments, source-backed RETRO with team crests, local archive crests, five-link navigation, and separate women/men editions');
+ console.log('PASS Hardwood Chronicle: news hierarchy, headline disclosure, desk links, navigation, and separate women/men editions');
 })().catch(e=>{console.error(e);process.exitCode=1});
