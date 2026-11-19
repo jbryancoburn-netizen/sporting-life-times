@@ -9,7 +9,7 @@ from zoneinfo import ZoneInfo
 ROOT = Path(__file__).resolve().parents[1] / "data"
 PUBLIC = "https://jbryancoburn-netizen.github.io/sporting-life-times/data/"
 SEASON = "2026-27"
-LIMIT = 100
+WORKERS = 24
 
 
 def read(url):
@@ -101,9 +101,9 @@ def build(gender):
              if expected.get(key) == value.get("signature")}
     earlier_attempts = previous.get("attempts", {})
     pending = sorted((key for key in expected if key not in games),
-                     key=lambda key: earlier_attempts.get(key, 0))[:LIMIT]
+                     key=lambda key: earlier_attempts.get(key, 0))
     attempts = {key: count for key, count in earlier_attempts.items() if key in expected and key not in games}
-    with ThreadPoolExecutor(max_workers=12) as pool:
+    with ThreadPoolExecutor(max_workers=WORKERS) as pool:
         results = pool.map(lambda key: box(gender, key, expected[key]), pending)
         for key, value in zip(pending, results, strict=True):
             if value:
@@ -118,5 +118,5 @@ def build(gender):
 
 
 if __name__ == "__main__":
-    for edition in ("men", "women"):
-        build(edition)
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        list(pool.map(build, ("men", "women")))
