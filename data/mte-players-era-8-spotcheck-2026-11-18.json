@@ -1,0 +1,73 @@
+{
+  "season": "2026-27",
+  "event": "Players Era 8",
+  "scope": "8 source schedule JSON files only",
+  "checked_at": "2026-11-18",
+  "source": "https://www.playersera.com/events/players-era-8",
+  "expected_dates": [
+    "2026-11-17",
+    "2026-11-18",
+    "2026-11-19"
+  ],
+  "schedule_presence": {
+    "Houston": [
+      true,
+      true,
+      false
+    ],
+    "Rutgers": [
+      true,
+      true,
+      false
+    ],
+    "Florida": [
+      true,
+      true,
+      false
+    ],
+    "Notre Dame": [
+      true,
+      true,
+      false
+    ],
+    "Kansas": [
+      true,
+      false,
+      false
+    ],
+    "UNLV": [
+      true,
+      false,
+      false
+    ],
+    "West Virginia": [
+      true,
+      true,
+      true
+    ],
+    "Auburn": [
+      true,
+      true,
+      true
+    ]
+  },
+  "missing_date_entries": {
+    "2026-11-18": [
+      "Kansas",
+      "UNLV"
+    ],
+    "2026-11-19": [
+      "Houston",
+      "Rutgers",
+      "Florida",
+      "Notre Dame",
+      "Kansas",
+      "UNLV"
+    ]
+  },
+  "missing_count": 8,
+  "notes": [
+    "Presence only: date rows may have unresolved or incorrect opponents; no game results inferred.",
+    "Existing website calendar synthesizes some missing bracket rows client-side; this audit checks underlying source JSON."
+  ]
+}
