@@ -157,6 +157,7 @@ function render(){
    crest:art?'<span class="slt-mark ledger26-source-crest">'+logo(t)+'</span>':'',watermarkArt:art,
    teamHref:art?'euroleague.html?view=desks&club='+code:'',
    color:/^#[a-f0-9]{6}$/i.test(hex)?hex:'#273747',
+   secondaryColor:window.SLTEuroLeaguePalette?.secondary?.(code),
    record:wins(t)||'Record pending',scouting:window.SLTSportsScorebug?.formAt?.(form,t.code,g.date,g.id,phase),
    retro:window.SLTSportsScorebug?.formatRetro(p,rankCounts,clubMap.size)||'RETRO —'};
  };
@@ -171,7 +172,7 @@ function render(){
  }:null;
  const card=window.SLTSportsScorebug?.render({
   phase,gender:'euroleague',periodFormat:'quarters',gameId:String(g.id),status:detail||label,away:letterTeam(g.away),home:letterTeam(g.home),
-  compactFinal:true,pulseManagedExternally:true,liveStatusOverride:phase==='live'&&!freshLive?label:'',
+  solidTeamColors:true,compactFinal:true,pulseManagedExternally:true,liveStatusOverride:phase==='live'&&!freshLive?label:'',
   tipoff:label==='UPCOMING'?et(g.date)+' ET':label,
   suppressMonogram:true,suppressPress:true,suppressTipoffFallback:true,pulseCompactOnly:true,forecast:pick
  })||'<p class="hub-small">Scorebug unavailable.</p>';

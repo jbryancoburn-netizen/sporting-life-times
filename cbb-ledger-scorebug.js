@@ -9,7 +9,8 @@
  const channels=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
  const blend=(a,b,p)=>channels(color(a)).map((v,i)=>v*p+channels(b)[i]*(1-p));
  const lum=c=>c.map(v=>{v/=255;return v<=.04045?v/12.92:((v+.055)/1.055)**2.4}).reduce((s,v,i)=>s+v*[.2126,.7152,.0722][i],0);
- const readableInk=(school,phase,outcome)=>{
+ const readableInk=(school,phase,outcome,solid)=>{
+  if(solid)return lum(channels(school))>.179?'#000000':'#ffffff';
   const background=phase==='upcoming'?blend(school,'#ffffff',.88):
    outcome==='behind'?blend(school,'#f5e9d0',.38):
    outcome==='ahead'?blend(school,'#17100d',.87):blend(school,'#ffffff',.85);
@@ -717,7 +718,10 @@
    const validArt=/^(?:(?:\.\.\/|\.\/|\/)?assets\/|https:\/\/)/i.test(explicitArt)&&!/[<>"'\s]/.test(explicitArt);
    const watermark=validArt?'<span class="ledger26-ghost'+(/\b(?:UCF|Central Florida)\b/i.test(String(x.name||''))?' ledger26-ghost--ucf':'')+'" aria-hidden="true"><img src="'+esc(explicitArt)+'" alt="" loading="lazy" onload="window.SLTBasketballScorebug.cleanWatermark(this)"></span>':'';
 
-   return '<div class="ledger26-team ledger26-team--'+outcome+(readableInk(x.color,phase,outcome)==='#fffaf0'?' ledger26-team--dark-fill':' ledger26-team--light-fill')+'" style="--ledger26-school:'+color(x.color)+';--ledger26-readable-ink:'+readableInk(x.color,phase,outcome)+'">'+watermark+
+   const primary=color(x.color),ink=readableInk(primary,phase,outcome,g.solidTeamColors);
+   const secondary=g.solidTeamColors?';--ledger26-secondary:'+color(x.secondaryColor||primary):'';
+   const darkFill=ink==='#fffaf0'||ink==='#ffffff';
+   return '<div class="ledger26-team ledger26-team--'+outcome+(darkFill?' ledger26-team--dark-fill':' ledger26-team--light-fill')+'" style="--ledger26-school:'+primary+';--ledger26-readable-ink:'+ink+secondary+'">'+watermark+
     '<span class="ledger26-crest">'+(x.crest||'')+'</span>'+
     '<span class="ledger26-identity"><strong class="ledger26-name">'+badge+linkedName+(phase==='upcoming'?'':conference)+'</strong>'+
     '<small class="ledger26-record">'+esc(context)+

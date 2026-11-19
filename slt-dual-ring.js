@@ -9,7 +9,8 @@ let colors={};let vintageByTeam={};let socByESPN=new Map(),socByURL=new Map(),eu
 let finishEuroPalette;
 if(league==='euroleague'){
  const ready=new Promise(resolve=>{finishEuroPalette=resolve;});
- window.SLTEuroLeaguePalette={ready,primary:code=>colors[String(code||'').toUpperCase()]?.primary||null};
+ const club=code=>colors[String(code||'').toUpperCase()];
+ window.SLTEuroLeaguePalette={ready,primary:code=>club(code)?.primary||null,secondary:code=>club(code)?.secondary||null};
 }
 const hex=v=>/^#[a-f0-9]{6}$/i.test(v||'');
 const pathname=v=>{try{return new URL(v,location.href).pathname.toLowerCase()}catch{return ''}};

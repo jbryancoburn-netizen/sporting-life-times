@@ -235,3 +235,45 @@ body.el-heritage-edition #el-live-desk .ledger26-live-headline {background:#f4df
  .el-heritage-edition .el-section-nav a[aria-current],
  .el-heritage-edition .el-section-more[data-section-current] > summary {text-decoration:underline}
 }
+
+/* Full team-color panels and larger match crests across every game state. */
+#el-live-scorebugs .ledger26-scorebug {
+  --ledger26-crest-size:108px;
+}
+#el-live-scorebugs .ledger26-scorebug .ledger26-team {
+  background:var(--ledger26-school,#273747);
+  border-inline-start:6px solid var(--ledger26-secondary,var(--ledger26-school));
+  border-block-end-color:#ffffff33;
+  min-height:calc(var(--ledger26-crest-size) + 14px);
+  gap:clamp(7px,1vw,15px);
+  padding:7px 10px;
+}
+#el-live-scorebugs .ledger26-scorebug .ledger26-team::after {content:none}
+#el-live-scorebugs .ledger26-scorebug .ledger26-team .ledger26-ghost {opacity:.07}
+#el-live-scorebugs .ledger26-crest > .ledger26-source-crest {
+  width:100%!important;
+  height:100%!important;
+  min-width:0!important;
+  max-width:none!important;
+  max-height:none!important;
+}
+#el-live-scorebugs .ledger26-crest > .ledger26-source-crest > img.el-official-logo {
+  width:calc(100% - 16px)!important;
+  height:calc(100% - 16px)!important;
+  min-width:0!important;
+  min-height:0!important;
+  max-width:calc(100% - 16px)!important;
+  max-height:calc(100% - 16px)!important;
+  clip-path:none!important;
+  filter:none;
+}
+@media(max-width:1050px){
+  #el-live-scorebugs .ledger26-scorebug {--ledger26-crest-size:92px}
+}
+@media(max-width:560px){
+  #el-live-scorebugs .ledger26-scorebug {--ledger26-crest-size:80px}
+  #el-live-scorebugs .ledger26-scorebug .ledger26-team {padding:7px 6px}
+}
+@media(max-width:360px){
+  #el-live-scorebugs .ledger26-scorebug {--ledger26-crest-size:72px}
+}
