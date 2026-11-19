@@ -112,7 +112,7 @@ function liveRail(){
  const finals=games.filter(g=>g.state==='post').sort((a,b)=>Date.parse(b.date)-Date.parse(a.date));
  const upcoming=games.filter(g=>g.state==='pre'&&Date.parse(g.date)>Date.now());
  return (upcoming.slice(0,6).length?upcoming.slice(0,6):finals.slice(0,6)).map(card).join('')||blank('No current games in the published schedule feed.');}
-function stories(t){
+function stories(t,chronicle=false){
  const items=(data.news?.articles||[]).filter(a=>a.title&&href(a.url)&&!/(sportsbook|parlay|odds boost|bonus bet|promo code|sports betting|betting picks|best bets|player props)/i.test([a.title,a.summary,a.url].join(' ')));
  const today=Date.now(),seen=new Set();let filtered=items.filter(a=>{if(seen.has(a.url))return false;seen.add(a.url);return true})
  .sort((a,b)=>(Date.parse(b.published_at)||0)-(Date.parse(a.published_at)||0));
@@ -123,6 +123,10 @@ function stories(t){
  const feedNotice='<p class="nba-news-updated '+(age>45*60000?'is-delayed':'')+'" role="status">'+
  (Number.isFinite(updatedAt)?'NBA news feed: '+date(data.news.updated_at)+(age>45*60000?' · Delayed, showing last published reports':' · Updated from publisher sources'):
  'NBA news feed temporarily unavailable')+'</p>';
+ if(chronicle){
+  const story=(a,lead)=>'<article class="cbb-news-story'+(lead?' lead':'')+'"><p class="cbb-news-eyebrow">'+esc(a.source||'NBA desk')+' · '+date(a.published_at)+'</p><h3><a target="_blank" rel="noopener noreferrer" href="'+href(a.url)+'">'+esc(a.title)+'</a></h3>'+(a.summary?'<p class="cbb-news-description">'+esc(String(a.summary).slice(0,235))+'</p>':'')+'</article>';
+  return {status:feedNotice.replace('<p class="nba-news-updated ','<span class="chronicle-news-stamp ').replace('</p>','</span>'),markup:(window.SLTChronicleNews?.render(filtered.slice(0,12),story)||storiesHtml)||blank('No attributed NBA articles matched this desk.')};
+ }
  return feedNotice+(storiesHtml||blank('No attributed NBA articles matched this desk. Previously published reports will appear when the feed is restored.'));
 }
 function rankRows(list){return list.map(t=>'<div class="rank-row"><span class="rank">'+rank(t)+'</span>'+team(t)+'<span class="rank-score">'+fmt(rates[t],1)+'<small>'+rec(t)+' · '+esc(meta[t][1])+'</small></span></div>').join('')}
@@ -159,8 +163,10 @@ function directory(){
 }
 // Reporting first; data tables and scoreboards belong in their departments.
 function home(){
- const frontNews='<section id="slt-nba-front-news" class="slt-front-news"><div class="slt-front-heading"><div><span class="slt-front-eyebrow">THE NBA NEWS WIRE / LATEST DISPATCHES</span><h2>Around the Association</h2></div></div><div class="slt-front-grid nba-news-grid">'+stories()+'</div></section>';
- return frontNews+directory();
+ document.body.classList.add('chronicle-front-page');
+ const reports=stories(null,true);
+ const frontNews='<section class="chronicle-nameplate"><h1>The Hardwood Chronicle</h1><p>National Basketball Association</p></section><section class="cbb-front-edition" id="slt-nba-front-news" aria-labelledby="edition-news-title"><div class="cbb-front-title"><h2 id="edition-news-title">The Leading Stories</h2>'+reports.status+'</div><div class="chronicle-news-content">'+reports.markup+'</div></section>';
+ return frontNews+'<section class="chronicle-desks" aria-labelledby="chronicle-desks-title"><h2 id="chronicle-desks-title">Basketball Desks</h2><div class="chronicle-desk-grid"><section><h3>Games &amp; Teams</h3><a href="nba-game-center.html">Daily Ledger</a><a href="nba-standings.html">Standings</a><a href="nba-conference.html?conference=East">Conference Standings</a><a href="#teams">Team Directory</a></section><section><h3>RETRO &amp; Statistics</h3><a href="nba-rankings.html">RETRO Rankings</a><a href="nba-players.html">Player Leaders</a><a href="nba-matchups.html">Matchup Lab</a><a href="nba-predictions.html">RETRO Predictions</a></section><section><h3>Sources &amp; Records</h3><a href="nba-cup.html">NBA Cup</a><a href="nba-playoffs.html">Playoff Picture</a></section></div></section>'+directory();
 }
 function table(headers,rows){return '<div class="nba-table-wrap"><table class="nba-table"><thead><tr>'+headers.map(h=>'<th class="'+(h[1]||'')+'">'+h[0]+'</th>').join('')+'</tr></thead><tbody>'+rows.join('')+'</tbody></table></div>';}
 function dailyElo(t){const events=data.earned?.events||[];const latest=events.length?nyday(events.at(-1).date):null;const v=latest?events.filter(g=>nyday(g.date)===latest).reduce((sum,g)=>sum+(g.home===t?g.home_elo_change:g.away===t?-g.home_elo_change:0),0):null;if(!Number.isFinite(v))return '<span class="nba-power-change">—</span>';return '<span class="nba-power-change '+(v<0?'neg':'pos')+'">'+(v>0?'▲ +':v<0?'▼ -':'— ')+fmt(Math.abs(v),3)+'</span>';}

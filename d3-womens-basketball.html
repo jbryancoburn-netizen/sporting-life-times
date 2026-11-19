@@ -1,31 +1,53 @@
 <!doctype html><html lang="en"><head><link rel="icon" type="image/svg+xml" href="slt-monogram-favicon.svg?v=20261105b"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="slt-basketball-statistics.css?v=20261106"><script defer src="slt-basketball-statistics.js?v=20261106"></script><title>DIII Women’s Basketball | Sporting Life &amp; Times</title>
 <meta name="description" content="NCAA DIII women's basketball newspaper: verified sources, independent Elo, scores and school gamefiles.">
-<link rel="stylesheet" href="d3-basketball.css?v=20261101-nationwide"><link rel="stylesheet" href="slt-victorian-global.css?v=20261103-a"><link rel="stylesheet" href="slt-front-page.css?v=20261104-editorial1"><script defer src="slt-front-page.js?v=20261104-editorial1"></script><link rel="stylesheet" href="slt-sections-nav.css?v=20261109a"><script defer src="slt-sections-nav.js?v=20261109a"></script></head><body data-gender="women" data-slt-front="d3women"><div class="paper">
-<header><div class="topline"><a href="index.html">SPORTING LIFE &amp; TIMES</a><span>2026–27 COLLEGE BASKETBALL</span></div>
-<div class="masthead"><a href="index.html">Sporting Life <em>&amp;</em> Times</a></div><div class="edition">NCAA DIVISION III · WOMEN’S BASKETBALL</div>
-<nav class="mainnav" aria-label="Basketball editions"><a href="index.html">Front Page</a><a href="college-basketball.html">Division I</a><a href="d2-mens-basketball.html">DII Men</a><a href="d2-womens-basketball.html">DII Women</a><a href="d3-mens-basketball.html" >DIII Men</a><a href="d3-womens-basketball.html" aria-current="page">DIII Women</a></nav></header>
-<main><div class="switches"><span>DIVISION III DESK</span><a class="" href="d3-mens-basketball.html">MEN</a><a class="selected" href="d3-womens-basketball.html">WOMEN</a></div>
-<div class="dateline"><span id="status" role="status">Connecting to the NCAA Division III scoreboard…</span><span>MEN/WOMEN INDEPENDENT · ELO STARTS 1500</span></div>
-<section id="home-content"><div class="lead"><div><span class="eyebrow">THE DIVISION III BASKETBALL NEWSPAPER</span>
+<link rel="stylesheet" href="d3-basketball.css?v=20261101-nationwide"><link rel="stylesheet" href="slt-victorian-global.css?v=20261103-a"><link rel="stylesheet" href="slt-front-page.css?v=20261104-editorial1"><script defer src="slt-front-page.js?v=shared-basketball-20261119"></script><link rel="stylesheet" href="slt-sections-nav.css?v=20261109a"><script defer src="slt-sections-nav.js?v=20261109a"></script><link rel="stylesheet" href="cbb-universal-nav.css?v=edition-switch-20261105b"><link rel="stylesheet" href="cbb-chronicle.css?v=shared-basketball-20261119"><link rel="stylesheet" href="mbb-newspaper.css" media="not all" id="d3-chronicle-base"><script defer src="basketball-chronicle-news.js?v=20261119"></script><script>
+const d3Ledger = location.hash === "#scores" && !new URLSearchParams(location.search).has("team");
+const d3Front = !new URLSearchParams(location.search).has('team') && !/^(?:#scores|#teams|#elo|#conferences|#sources)$/.test(location.hash) &&
+  new URLSearchParams(location.search).get('view') !== 'desks';
+if (d3Front) document.getElementById('d3-chronicle-base').media = 'all';
+if (d3Ledger) {
+  const style = document.createElement('link');
+  style.rel = 'stylesheet';
+  style.href = 'ncaam-slate.css?v=shared-basketball-20261119';
+  document.head.append(style);
+}
+</script></head><body data-gender="women" data-slt-front="d3women"><div class="paper" id="d3-paper"><script>if(d3Front)document.body.classList.add("chronicle-front-page");else delete document.body.dataset.sltFront;if(d3Ledger){document.body.classList.add("sl-ledger-page");document.getElementById("d3-paper").classList.add("sl-shell");}</script>
+<header class="chronicle-masthead"><div class="topline"><a href="index.html">Independent sports journalism &amp; data</a><span>Women’s Division III · 2026–27</span></div>
+<div class="masthead"><a href="index.html">Sporting Life <i>&amp;</i> Times</a></div><div class="edition edition-line">The College Basketball Edition</div>
+<nav class="nav cbb-universal-nav chronicle-nav" aria-label="Division III newspaper navigation"><a href="d3-womens-basketball.html">Chronicle</a><a href="?view=desks#scores">Daily Ledger</a><a href="?view=desks#elo">RETRO Rankings</a><a href="?view=desks#conferences">Conferences</a><details class="chronicle-more"><summary>More</summary><div class="chronicle-more-list"><a href="?view=desks#teams">Team Directory</a><a href="?view=desks#sources">Sources and Coverage</a><a href="ncaam.html?gender=women">Division I Women</a><a href="d2-womens-basketball.html">Division II Women</a><a href="d3-mens-basketball.html">Division III Men</a><a href="sports.html">All Sports</a></div></details></nav></header>
+<main class="chronicle-main"><div class="switches" data-d3-desk-only><span>DIVISION III DESK</span><a class="" href="d3-mens-basketball.html">MEN</a><a class="selected" href="d3-womens-basketball.html">WOMEN</a></div>
+<div class="dateline" data-d3-desk-only><span id="status" role="status">Connecting to the NCAA Division III scoreboard…</span><span>MEN/WOMEN INDEPENDENT · ELO STARTS 1500</span></div>
+<div id="d3-front" hidden><section class="chronicle-nameplate"><h1>The Hardwood Chronicle</h1><p>Women’s Division III Basketball</p></section><section class="cbb-front-edition"  data-chronicle-wire aria-labelledby="edition-news-title"><div class="cbb-front-title"><h2 id="edition-news-title">The Leading Stories</h2><span class="slt-front-status chronicle-news-stamp" role="status">Opening the news desk…</span></div><div class="slt-front-grid chronicle-news-content" aria-live="polite"><p>Checking current verified reports…</p></div></section><section class="chronicle-desks" aria-labelledby="chronicle-desks-title"><h2 id="chronicle-desks-title">Basketball Desks</h2><div class="chronicle-desk-grid"><section><h3>Games &amp; Teams</h3><a href="?view=desks#scores">Daily Ledger</a><a href="?view=desks#conferences">Conference Standings</a><a href="?view=desks#teams">Team Directory</a></section><section><h3>RETRO &amp; Statistics</h3><a href="?view=desks#elo">RETRO Rankings</a></section><section><h3>Sources &amp; Records</h3><a href="?view=desks#sources">Sources and Coverage</a></section></div></section></div><section id="home-content"><div class="lead" data-d3-ledger-hide><div><span class="eyebrow">THE DIVISION III BASKETBALL NEWSPAPER</span>
 <h1>Every score has a source. Every team earns its rating.</h1>
 <p>The women's DIII edition: game-by-game NCAA reporting, school gamefiles and an independent Elo system. Unverified games do not affect ratings. Partial school calendars are labeled rather than disguised as complete schedules.</p>
 <div class="lead-links"><a href="#scores">GAME CENTER ↗</a><a href="#teams">FIND A SCHOOL ↗</a><a href="#elo">USRS ELO ↗</a></div></div>
 <div class="lead-stat"><strong id="teams-covered">—</strong><span>NCAA-CONFIRMED PROGRAMS</span><small>2026–27 NCAA sport sponsorship</small><strong id="finals-covered">—</strong><span>ELO-ELIGIBLE FINAL SCORES</span></div></div>
-<div class="d3-ticker"><span><b>AWAY FIRST · HOME SECOND</b></span><span>MEN / WOMEN SEPARATE</span><span>NO CROSS-DIVISION ELO</span></div><div class="d3-rule" aria-hidden="true"></div>
+<div class="d3-ticker" data-d3-ledger-hide><span><b>AWAY FIRST · HOME SECOND</b></span><span>MEN / WOMEN SEPARATE</span><span>NO CROSS-DIVISION ELO</span></div><div class="d3-rule" data-d3-ledger-hide aria-hidden="true"></div>
 <div class="columns"><div>
-<section id="scores" class="panel"><div class="section-head"><h2>Game Center</h2><span>LIVE · FIXTURES · FINALS</span></div>
-<label>Game date<input id="game-date" type="date" min="2026-11-06" max="2027-04-15"></label>
-<div class="game-day-navigation"><button id="prev-date" type="button">‹ PREVIOUS</button><span id="game-pos">SELECT DATE</span><button id="next-date" type="button">NEXT ›</button></div><div id="game-grid"></div></section>
+<section id="scores" class="sl-content" aria-labelledby="d3-ledger-heading">
+<div class="sl-toolbar" aria-label="Game controls"><div class="sl-day-controls">
+<button id="prev-date" type="button" aria-label="Previous day">‹</button>
+<label class="sl-day-picker"><span id="game-pos">Select date</span><span class="sl-date-caret" aria-hidden="true">▾</span><input id="game-date" type="date" min="2026-11-06" max="2027-04-15" aria-label="Choose the game date"></label>
+<button id="next-date" type="button" aria-label="Next day">›</button>
+</div></div>
+<div class="sl-tools-row"><div id="d3-filters" class="sl-filters" role="group" aria-label="Filter Division III games">
+<button type="button" data-filter="all" class="is-active" aria-pressed="true">All</button>
+<button type="button" data-filter="live" aria-pressed="false">Live</button>
+<button type="button" data-filter="upcoming" aria-pressed="false">Upcoming</button>
+<button type="button" data-filter="final" aria-pressed="false">Final</button>
+</div><label class="sl-search"><span class="sr-only">Search teams</span><input id="d3-game-search" type="search" autocomplete="off" placeholder="Search Division III teams…"></label></div>
+<div class="sl-content-head"><div><span class="sl-eyebrow">THE SLATE / DIVISION III</span><h2 id="d3-ledger-heading">Fixtures &amp; Results</h2></div><div class="sl-count-wrap"><strong id="d3-game-count" aria-live="polite"></strong></div></div>
+<div id="game-grid" class="sl-games"></div></section>
 <section id="teams" class="panel"><div class="section-head"><h2>School Directory</h2><span id="directory-count">Discovering verified teams</span></div>
 <label>Search school or conference<input id="team-search" type="search" placeholder="Find a DIII program" autocomplete="off"></label><div id="team-directory" class="directory"></div></section></div><div>
 <section id="elo" class="panel"><div class="section-head"><h2>USRS Elo</h2><span>2026–27 · 1500 START</span></div><div id="elo-note" class="note"></div><div id="elo-board"></div></section>
 <section id="conferences" class="panel"><div class="section-head"><h2>Conference Desk</h2><span>W–L · PCT · ELO</span></div><label>Conference<select id="conference-select"></select></label><div id="conference-board"></div></section>
-<section class="panel"><div class="section-head"><h2>Data Accountability</h2><span>THE SOURCEBOOK</span></div><div id="coverage" class="note"></div>
+<section id="sources" class="panel"><div class="section-head"><h2>Data Accountability</h2><span>THE SOURCEBOOK</span></div><div id="coverage" class="note"></div>
 <p class="small"><a href="https://github.com/jbryancoburn-netizen/sporting-life-times/blob/main/data/d3-calendar-source-notebook-2026-27.md" target="_blank" rel="noopener noreferrer">ALL 821 SCHOOL SOURCE NOTES &amp; UNRESOLVED CASES ↗</a> · <a href="data/d3-calendar-source-register-2026-27.json" target="_blank" rel="noopener noreferrer">AUDIT DATA ↗</a></p>
 <p class="small"><a target="_blank" rel="noopener" href="https://www.ncaa.com/scoreboard/basketball-women/d3">NCAA Division III Scores ↗</a> · <a target="_blank" rel="noopener" href="https://www.ncaa.org/about-us/membership-directory/membership-composition-and-sport-sponsorship/">NCAA Membership ↗</a></p></section>
-</div></div></section><section id="team-detail" hidden></section></main>
+</div></div></section><section id="team-detail" hidden></section><script>if(d3Ledger){for(const node of document.querySelectorAll('[data-d3-ledger-hide], #home-content .panel'))node.hidden=true;document.querySelector('#home-content .columns').style.display='block';}if(d3Front){document.getElementById("d3-front").hidden=false;for(const node of document.querySelectorAll("[data-d3-desk-only], #home-content"))node.hidden=true;}</script></main>
 <footer>SPORTING LIFE &amp; TIMES · NCAA DIII ONLY · School calendars, official conference standings and player stats are published only after source verification.</footer></div>
 <link rel="stylesheet" href="cbb-ledger-scorecard.css?v=sports-master-logos-v4">
-<script defer src="cbb-ledger-scorebug.js?v=sports-master-v3"></script>
-<script defer src="d3-basketball.js?v=20261104-official-school-logo-recovery1"></script></body></html>
+<script defer src="cbb-ledger-scorebug.js?v=five-form-lights-20261119"></script>
+<script defer src="d3-basketball.js?v=shared-basketball-20261119"></script></body></html>

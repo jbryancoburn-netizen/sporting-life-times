@@ -90,6 +90,8 @@ try{
 }
 }
 function render(){
+ const dateLabel=document.getElementById('el-date-label');
+ if(dateLabel&&picker.value)dateLabel.textContent=new Intl.DateTimeFormat('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric',timeZone:'UTC'}).format(new Date(picker.value+'T12:00:00Z'));
  const d=currentFeed,forecast=currentModel;
  if(!d)return;
  const checked=Date.parse(d.checked_at||d.updated_at),stale=Date.now()-checked>15*60*1000;

@@ -37,12 +37,14 @@ function mount(){
  if(page!=='home')return;
  const [title,deck]=dept[desk]||['THE HARDWOOD CHRONICLE',edition+' Division II basketball'];
  const main=$('d2-main');
- main.insertAdjacentHTML('beforebegin','<section class="slt-department-band" aria-label="'+title+'"><div class="slt-department-kicker"><span>COLLEGE BASKETBALL / DIVISION II</span><span>2026–27 EDITION</span></div><h1>'+title+'</h1><p>'+deck+'</p></section>');
- if(!desk){
+ if(desk){
+  main.insertAdjacentHTML('beforebegin','<section class="slt-department-band" aria-label="'+title+'"><div class="slt-department-kicker"><span>COLLEGE BASKETBALL / DIVISION II</span><span>2026–27 EDITION</span></div><h1>'+title+'</h1><p>'+deck+'</p></section>');
+ }else{
   document.body.setAttribute('data-d2-front','');
-  main.insertAdjacentHTML('afterbegin','<section class="cbb-front-edition" data-d2-news aria-labelledby="d2-news-title"><div class="cbb-front-head"><span>SPORTING LIFE &amp; TIMES / THE COLLEGE BASKETBALL WIRE</span><span class="slt-front-status" role="status">Opening the news desk…</span></div><div class="cbb-front-title"><h2 id="d2-news-title">The Leading Stories</h2></div><div class="slt-front-grid chronicle-d2-stories" aria-live="polite"><p>Checking current verified reports…</p></div></section>'+
-  '<section class="slt-edition-index" aria-label="Newspaper desks"><div class="slt-index-folio"><span>COLLEGE BASKETBALL / DIVISION II</span></div><div class="slt-index-grid">'+
-  [['ledger','The Daily Ledger','Fixtures &amp; Results'],['retro','RETRO Rankings','The Power Index'],['conferences','Conferences','Conference Standings'],['teams','School Directory','Find Your Team'],['sources','Sources and Coverage','The Sourcebook']].map(([v,label,title])=>'<article class="slt-index-panel"><p class="slt-index-label">'+label+'</p><h2>'+title+'</h2><div class="slt-index-links">'+navLink('Open '+label,route(v))+'</div></article>').join('')+'</div></section>');
+  document.body.classList.add('chronicle-front-page');
+  header.classList.add('chronicle-masthead');
+  main.classList.add('chronicle-main');
+  main.insertAdjacentHTML('afterbegin','<section class="chronicle-nameplate"><h1>The Hardwood Chronicle</h1><p>'+edition+' Division II Basketball</p></section><section class="cbb-front-edition" data-d2-news data-chronicle-wire aria-labelledby="edition-news-title"><div class="cbb-front-title"><h2 id="edition-news-title">The Leading Stories</h2><span class="slt-front-status chronicle-news-stamp" role="status">Opening the news desk…</span></div><div class="slt-front-grid chronicle-news-content" aria-live="polite"><p>Checking current verified reports…</p></div></section><section class="chronicle-desks" aria-labelledby="chronicle-desks-title"><h2 id="chronicle-desks-title">Basketball Desks</h2><div class="chronicle-desk-grid"><section><h3>Games &amp; Teams</h3><a href="'+route('ledger')+'">Daily Ledger</a><a href="'+route('conferences')+'">Conference Standings</a><a href="'+route('teams')+'">Team Directory</a></section><section><h3>RETRO &amp; Statistics</h3><a href="'+route('retro')+'">RETRO Rankings</a></section><section><h3>Sources &amp; Records</h3><a href="'+route('sources')+'">Sources and Coverage</a></section></div></section>');
  }
 }
 const state={data:null,teams:new Map()};

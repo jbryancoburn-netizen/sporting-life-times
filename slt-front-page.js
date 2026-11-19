@@ -81,7 +81,7 @@ function init(){
  }
  function makeDirectory(){
   // These two editions already have a hand-built publication directory, preserve it.
-  if(kind==='cbb'||kind==='euro')return;
+  if(kind==='cbb'||kind==='euro'||$('.chronicle-desks'))return;
   const items=linksForPaper();if(!items.length||!news)return;
   if(!directory){
    directory=document.createElement('section');directory.className='slt-front-directory';
@@ -129,7 +129,7 @@ function init(){
  }
  function ensureWire(){
   if(news)return;
-  const chronicle=$('[data-d2-news]');
+  const chronicle=$('[data-chronicle-wire]:not([hidden]), [data-d2-news]');
   if(chronicle){wire=news=chronicle;return;}
   wire=document.createElement('section');wire.className='slt-front-news slt-front-wire';wire.setAttribute('aria-label','Latest sourced sports reporting');
   wire.innerHTML='<div class="slt-front-heading"><div><span class="slt-front-eyebrow">THE LATEST DISPATCHES / ATTRIBUTED REPORTING</span><h2>'+esc(labels[kind]||'The Leading Stories')+'</h2></div><span class="slt-front-status" role="status">Opening the news wire…</span></div><div class="slt-front-grid" aria-live="polite"><p>Checking current verified reports…</p></div>';
@@ -174,9 +174,9 @@ function init(){
   }
   items=items.slice(0,12);
   const target=wire.querySelector('.slt-front-grid');
-  if(wire.hasAttribute('data-d2-news')&&items.length){
+  if(wire.hasAttribute('data-chronicle-wire')&&items.length&&window.SLTChronicleNews){
    const story=(a,lead)=>'<article class="cbb-news-story'+(lead?' lead':'')+'"><p class="cbb-news-eyebrow">'+esc(a.source||'Original publisher')+' · '+esc(dates(a.published_at))+'</p><h3><a href="'+esc(a.url)+'" target="_blank" rel="noopener noreferrer">'+esc(a.title)+'</a></h3>'+(a.summary?'<p class="cbb-news-description">'+esc(String(a.summary).replace(/<[^>]+>/g,'').slice(0,270))+'</p>':'')+'</article>';
-   target.innerHTML='<div class="cbb-news-grid" data-count="'+(items.length>1?2:1)+'">'+story(items[0],items.length>1)+(items.length>1?'<div class="chronicle-secondary">'+items.slice(1,5).map(a=>story(a,false)).join('')+'</div>':'')+'</div>';
+   target.innerHTML=window.SLTChronicleNews.render(items,story);
   }else if(items.length){
    target.innerHTML=items.map((a,i)=>'<article><p class="slt-front-byline">'+esc(a.source||'Original publisher')+' · '+esc(dates(a.published_at))+'</p><h3><a href="'+esc(a.url)+'" target="_blank" rel="noopener noreferrer">'+esc(a.title)+'</a></h3>'+(a.summary?'<p>'+esc(String(a.summary).replace(/<[^>]+>/g,'').slice(0,i===0?270:170))+'</p>':'')+'</article>').join('');
   }else if(!target.querySelector('article')){

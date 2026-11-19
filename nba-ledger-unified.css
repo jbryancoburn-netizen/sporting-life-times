@@ -15,10 +15,6 @@
 .nba-ledger-page .nba-date-week button[aria-pressed=true]{background:var(--sl-ink);color:white;border-color:var(--sl-ink)}
 .nba-ledger-page .nba-date-week button[data-today=true]:not([aria-pressed=true]){border-bottom:3px solid var(--sl-gold)}
 .nba-ledger-page #nba-live-status{font:11px/1.5 'DM Sans',sans-serif;color:#586b6e;margin:10px 0}
-.nba-ledger-page .nba-today-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start;padding:0}
-.nba-ledger-page .nba-today-grid>*{min-width:0}
-.nba-ledger-page .nba-today-grid>details[open],.nba-ledger-page .nba-today-grid>.sl-empty{grid-column:1/-1}
-.nba-ledger-page .nba-today-grid>[hidden],.nba-ledger-page [hidden]{display:none!important}
 .nba-ledger-page .ledger26-card{width:100%;min-width:0;border-radius:0;overflow:visible}
 .nba-ledger-page .ledger26-summary{min-width:0}
 .nba-ledger-page .ledger26-scorebug{width:100%;min-width:0}
@@ -69,5 +65,6 @@
 .nba-ledger-page .compare-home{justify-content:flex-start}
 .nba-ledger-page .compare-bars span{display:block;height:100%}
 .nba-ledger-page .links{display:flex;flex-wrap:wrap;gap:14px}
-@media(max-width:1050px){.nba-ledger-page .nba-today-grid{grid-template-columns:1fr}}
 @media(max-width:700px){.nba-ledger-page .nba-date-main{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:auto auto;gap:6px}.nba-ledger-page .nba-date-picker-label{grid-column:1/-1;grid-row:1;min-width:0;width:100%}.nba-ledger-page #nba-date-previous{grid-column:1;grid-row:2}.nba-ledger-page #nba-date-today{grid-column:2;grid-row:2}.nba-ledger-page #nba-date-next{grid-column:3;grid-row:2}.nba-ledger-page .nba-date-picker-label input{width:100%;min-width:0;font-size:16px}.nba-ledger-page .nba-date-main button{font-size:11px}.nba-ledger-page .nba-date-week button b{font-size:16px}.nba-ledger-page .nba-date-week button span{font-size:9px}.nba-ledger-page .compare-row{grid-template-columns:32px minmax(0,1fr) 75px minmax(0,1fr) 32px}}
+
+.nba-ledger-page [hidden]{display:none!important}

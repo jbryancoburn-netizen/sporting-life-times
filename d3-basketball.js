@@ -137,12 +137,41 @@ function renderHome(d){
  $('elo-board').innerHTML=ranked.length?'<div class="board-row board-header"><span>#</span><span></span><span>PROGRAM</span><span>W–L</span><span>PCT</span><span>ELO</span></div>'+ranked.slice(0,35).map((t,i)=>row(t,i)).join(''):'<p class="note">No eligible finals are published yet. Rankings will begin only after confirmed DIII results.</p>';
  const dates=[...new Set(games.map(g=>g.date))].sort(),parts=Object.fromEntries(new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date()).map(p=>[p.type,p.value])),today=parts.year+'-'+parts.month+'-'+parts.day;
  const input=$('game-date');input.value=dates.find(x=>x>=today)||dates.at(-1)||today;
- function draw(){const selected=games.filter(g=>g.date===input.value);
- $('game-grid').innerHTML=selected.length?selected.map(card).join(''):'<p class="note">No NCAA-scoreboard or verified university-calendar games available for this date.</p>';
- const i=dates.indexOf(input.value);$('game-pos').textContent=i<0?'SELECT DATE':(i+1)+' / '+dates.length;
- $('prev-date').disabled=i<=0;$('next-date').disabled=i<0||i>=dates.length-1;}
+ const filters=$('d3-filters'),search=$('d3-game-search'),count=$('d3-game-count');
+ let filter='all';
+ const dateLabel=new Intl.DateTimeFormat('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric',timeZone:'UTC'});
+ const status=g=>g.home_away_unresolved?'upcoming':['live','final'].includes(g.status)?g.status:'upcoming';
+ function draw(){
+  const query=search?.value.trim().toLowerCase()||'';
+  const selected=games.filter(g=>g.date===input.value&&(filter==='all'||status(g)===filter)&&
+   (!query||[g.away_external_label||team(g.away).name,g.home_external_label||team(g.home).name].some(name=>String(name||'').toLowerCase().includes(query))));
+  if(filters){
+   selected.sort((a,b)=>['live','upcoming','final'].indexOf(status(a))-['live','upcoming','final'].indexOf(status(b)));
+   count.textContent=selected.length+' '+(selected.length===1?'game':'games');
+  }
+  $('game-grid').innerHTML=selected.length?selected.map(card).join(''):'<p class="sl-empty">No published games match the selected date and filters.</p>';
+  const i=dates.indexOf(input.value);
+  $('game-pos').textContent=input.value&&filters?dateLabel.format(new Date(input.value+'T12:00:00Z')):i<0?'SELECT DATE':(i+1)+' / '+dates.length;
+  $('prev-date').disabled=filters?!dates.some(date=>date<input.value):i<=0;
+  $('next-date').disabled=filters?!dates.some(date=>date>input.value):i<0||i>=dates.length-1;
+ }
+ for(const button of filters?.querySelectorAll('[data-filter]')||[]){
+  button.addEventListener('click',()=>{
+   filter=button.dataset.filter;
+   for(const option of filters.querySelectorAll('[data-filter]')){
+    const active=option===button;
+    option.classList.toggle('is-active',active);
+    option.setAttribute('aria-pressed',String(active));
+   }
+   draw();
+  });
+ }
+ search?.addEventListener('input',draw);
  input.addEventListener('change',draw);draw();
- for(const [id,n] of [['prev-date',-1],['next-date',1]])$(id).addEventListener('click',()=>{const i=dates.indexOf(input.value)+n;if(i>=0&&i<dates.length){input.value=dates[i];draw();}});
+ for(const [id,n] of [['prev-date',-1],['next-date',1]])$(id).addEventListener('click',()=>{
+  const target=n<0?dates.findLast(date=>date<input.value):dates.find(date=>date>input.value);
+  if(target){input.value=target;draw();}
+ });
  const dir=q=>{$('team-directory').innerHTML=teams.filter(t=>(t.name+' '+t.conference).toLowerCase().includes(q)).map(t=>row(t,null)).join('')||'<p class="note">No matching programs found in the published source window.</p>';};
  $('team-search').addEventListener('input',e=>dir(e.target.value.trim().toLowerCase()));dir('');
  const confs=[...new Set(teams.map(t=>t.conference).filter(Boolean))].sort(),sel=$('conference-select');
