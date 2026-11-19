@@ -36,7 +36,7 @@ assert(script.includes('gameId:String(g.id)') && script.includes('const convert=
 assert(forecastScorebug.includes('aria-label="Current RETRO ratings and daily movement"') && forecastScorebug.includes('change since the previous daily snapshot, not necessarily attributable to this game'), 'RETRO movement must be labeled as a daily snapshot change, not this game impact');
 assert(scorecardCss.includes('.ledger26-team--dark-fill .ledger26-ghost') && scorecardCss.includes('mix-blend-mode:screen'), 'dark school panels need adaptive visible mascot watermarks');
 assert(forecastScorebug.includes('cleanWatermark(this)') && forecastScorebug.includes('getImageData(') && forecastScorebug.includes('seen[i]'), 'ring-free mascot watermarks must remove edge-connected opaque boxes without altering foreground crests');
-assert(forecastScorebug.includes('readableInk(x.color,phase,outcome)') && scorecardCss.includes('var(--ledger26-readable-ink'), 'each school-colored scorebug must select readable foreground ink');
+assert(forecastScorebug.includes('readableInk(primary,phase,outcome,g.solidTeamColors)') && scorecardCss.includes('var(--ledger26-readable-ink'), 'each school-colored scorebug must select readable foreground ink');
 assert(scorecardCss.includes('.ledger26-scorebug .ledger26-team{\n  overflow:hidden;') && scorecardCss.includes('mix-blend-mode:multiply') && scorecardCss.includes('brightness(.66)'), 'oversized watermark must stay inside its team row and retain dark engraved detail');
 assert(forecastScorebug.includes('data-watermark-art') && !forecastScorebug.includes('const safeCrest='), 'large background marks must use original artwork, not a baked circular crest');
 const forecastRailCss=scorecardCss.split('/* Shared horizontal pregame intelligence strip.')[1];
@@ -300,3 +300,21 @@ assert.equal(scorebug.formAt(fullForm,'A','2026-11-12','12','upcoming').games,11
 assert.equal(scorebug.formAt(fullForm,'A','2026-11-12','12','final').games,12);
 assert.equal(scorebug.formAt(fullForm,'A','2026-11-04','4','live').games,3);
 assert.match(scorebug.render({phase:'final',away:{scouting:{games:1,lastFive:[{result:'W',gameHref:'ncaam-slate.html?gender=women&date=2026-11-04&game=4'}]}},home:{}}),/href="ncaam-slate\.html\?gender=women&amp;date=2026-11-04&amp;game=4"/);
+
+const euroClubs=json('data/dual-ring-team-palette.json').euroleague;
+const relativeLuminance=hex=>[1,3,5].map(i=>parseInt(hex.slice(i,i+2),16)/255)
+ .map(channel=>channel<=.04045?channel/12.92:((channel+.055)/1.055)**2.4)
+ .reduce((total,channel,i)=>total+channel*[.2126,.7152,.0722][i],0);
+for(const [club,palette] of Object.entries(euroClubs)){
+ for(const phase of ['upcoming','live','final']){
+  const card=scorebug.render({phase,solidTeamColors:true,
+   away:{name:club,color:palette.primary,secondaryColor:palette.secondary,score:60},
+   home:{name:'Opponent',score:70}});
+  const colors=card.match(/--ledger26-school:(#[a-f0-9]{6});--ledger26-readable-ink:(#[a-f0-9]{6});--ledger26-secondary:(#[a-f0-9]{6})/i);
+  assert(colors,club+' scorebug lacks full club colors');
+  assert.equal(colors[1].toLowerCase(),palette.primary.toLowerCase());
+  assert.equal(colors[3].toLowerCase(),palette.secondary.toLowerCase());
+  const fill=relativeLuminance(colors[1]),ink=relativeLuminance(colors[2]);
+  assert((Math.max(fill,ink)+.05)/(Math.min(fill,ink)+.05)>=4.5,club+' scorebug text contrast');
+ }
+}
