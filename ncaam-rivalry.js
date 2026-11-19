@@ -240,8 +240,15 @@ async function start(){
    date,season,a,b,as,bs,historical:true,tournament:"Competition not verified",source:archive.source
   }]));
   for(let index=matches.length-1;index>=0;index--){
-   const game=matches[index],official=byDay.get(game.date);
-   if(!official||!((game.a===a&&game.b===b)||(game.a===b&&game.b===a)))continue;
+   const game=matches[index];
+   if(!((game.a===a&&game.b===b)||(game.a===b&&game.b===a)))continue;
+   // Both schools' March 3 recap and the official series list identify this
+   // 74–55 final. The compact results file also lists it a day earlier.
+   const duplicateDate=game.date==="2010-03-02"&&
+    (game.a===a?game.as===55&&game.bs===74:game.as===74&&game.bs===55);
+   if(duplicateDate){matches.splice(index,1);continue;}
+   const official=byDay.get(game.date);
+   if(!official)continue;
    if(gameKey(game)===gameKey(official)&&priority(game)>priority(official)){
     official.tournament=game.tournament;
     official.round=game.round;
