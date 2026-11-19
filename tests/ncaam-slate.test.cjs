@@ -65,9 +65,9 @@ for(const id of ['slate-root','sl-prev','sl-next','sl-picker','sl-games','sl-sea
   assert(html.includes('id="'+id+'"'),'missing real control '+id);
 assert(html.includes('ncaam-slate.js')&&html.includes('ncaam-slate.css'));
 assert(css.includes('@media(max-width:700px)'),'mobile-first responsive layout missing');
-assert(css.includes('#sl-games{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))'),
+assert(css.includes(':is(#sl-games,.sl-games){display:grid;grid-template-columns:repeat(2,minmax(0,1fr))'),
  'two-column Daily Ledger layout missing');
-assert(css.includes('#sl-games{grid-template-columns:minmax(0,1fr);gap:10px}'),
+assert(css.includes(':is(#sl-games,.sl-games){grid-template-columns:minmax(0,1fr);gap:10px}'),
  'mobile single-column Daily Ledger layout missing');
 assert(html.includes('body class="sl-ledger-page"')&&css.includes('.sl-ledger-page .ledger26-scorebug'),
  'shared, page-scoped scorebug geometry missing');
@@ -267,3 +267,17 @@ console.log('PASS NCAA slate: interactive controls, 365-school identity, sourced
 
 // Arena File, box-score provenance and future live-data correctness are release gates.
 require('./mbb-arena-insights.test.cjs');
+
+const scorebugVm=require('node:vm');
+const scorebugContext={};
+scorebugVm.runInNewContext(fs.readFileSync('cbb-ledger-scorebug.js','utf8'),scorebugContext);
+const scorebug=scorebugContext.SLTSportsScorebug;
+for(const [outcomes,expectedLights,expectedStreak] of [
+  [Array(12).fill('W'),5,'W 12'],
+  [['W',...Array(8).fill('L')],5,'L 8'],
+  [['W','L','W','W'],4,'W 2']
+]){
+  const rendered=scorebug.render({phase:'final',away:{scouting:{games:outcomes.length,lastFive:outcomes}},home:{}});
+  assert.equal((rendered.match(/class="ledger26-form-bulb /g)||[]).length,expectedLights);
+  assert.equal(rendered.match(/class="ledger26-streak"[^>]*>([^<]+)/)?.[1],expectedStreak);
+}
