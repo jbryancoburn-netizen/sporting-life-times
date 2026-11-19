@@ -106,7 +106,11 @@ async function boot(){
   }
   selector.disabled=!games.length;
   selector.addEventListener('change',()=>{
-   if(selector.value)location.href='?game='+encodeURIComponent(selector.value);
+   const g=games.find(item=>item.id===selector.value);
+   if(!g)return;
+   const url=new URL(location.href);
+   url.searchParams.set('game',g.id);
+   location.href=url.href;
   });
   if(requested===null)return;
   const game=games.find(g=>g.id===requested||g.id==='espn-nba-'+requested);
@@ -115,6 +119,7 @@ async function boot(){
    return;
   }
   selector.value=game.id;
+  if(params.has('date'))document.querySelector('.game-back').href='nba-game-center.html?date='+encodeURIComponent(params.get('date'));
   const elo=await fetchData('data/nba-2026-27-current-provisional.json').catch(()=>({}));
   render(game,elo.events||[],elo.rankings||[]);
  }catch(error){
