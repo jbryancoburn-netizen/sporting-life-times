@@ -90,7 +90,7 @@
         '<p>Impact figures are temporarily unavailable.</p>';
     });
   }
-  const target = playerPage || document.getElementById(gender === 'women' ? 'desk' : 'app');
+  const target = playerPage || document.getElementById(gender === 'women' ? 'desk' : 'mbb-calendar-host');
   if (!target) return;
   if (!playerPage) new MutationObserver(mount).observe(target, {childList:true,subtree:true});
   mount();
