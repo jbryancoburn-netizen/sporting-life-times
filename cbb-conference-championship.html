@@ -111,6 +111,22 @@ button, select { font: inherit; color: inherit; }
   th, td { padding-inline: .37rem; }
   thead th { letter-spacing: .03em; }
 }
+
+.conference-mark {width:32px;height:25px;object-fit:contain;vertical-align:middle}
+.conference-label {display:inline-flex;align-items:center;gap:.48rem;min-width:0}
+.opponent-button .conference-mark {width:24px;height:20px}
+.pair-picker {display:flex;align-items:end;flex-wrap:wrap;gap:.5rem .7rem;margin:.9rem 0;padding:.7rem;border:1px solid var(--line);background:var(--card)}
+.pair-picker label {display:grid;gap:.2rem;font-weight:bold;font-size:.82rem}
+.pair-picker select,.pair-picker button {min-height:36px;font:inherit;background:var(--card);border:1px solid var(--gold);padding:.35rem}
+.pair-picker button {color:#fff7e5;background:#59402e;cursor:pointer}
+.matchup-stats {margin:0 0 .8rem;padding:.65rem;background:var(--card);border:3px double var(--gold)}
+.matchup-stats h4 {margin:.15rem 0 .5rem;font-size:1.18rem}
+.matchup-stats p {margin:.45rem 0 0;color:var(--muted);font-size:.82rem}
+.matchup-stats table {width:100%;margin:0;table-layout:fixed}
+.matchup-stats th,.matchup-stats td {text-align:center;font-variant-numeric:tabular-nums}
+.matchup-stats th:first-child {text-align:left}
+.matchup-stats tbody td {font-weight:bold}
+.matchup-stats .conference-label {justify-content:center;flex-wrap:wrap;gap:.2rem .35rem}
 </style>
 </head>
 <body>
@@ -122,6 +138,7 @@ button, select { font: inherit; color: inherit; }
 <a href="?gender=women" id="women">Women’s Division I</a>
 <a id="rankings" href="ncaam-rankings.html">Team rankings</a>
 </nav>
+<form id="pair-picker" class="pair-picker" aria-label="Compare conferences" hidden><label>Conference <select id="pair-first"></select></label><label>Opponent <select id="pair-second"></select></label><button type="submit">Compare conferences</button></form>
 <section id="leader" aria-label="Championship leaders" hidden></section>
 <p id="status" role="status">Loading verified results…</p>
 <table id="standings" hidden>
@@ -131,6 +148,7 @@ button, select { font: inherit; color: inherit; }
 </table>
 <details class="method"><summary>Which games count?</summary><p>Verified finals between different Division I conferences count, including multi-team events and neutral-site games. Conferences are ranked by winning percentage, with shared places for exact ties.</p></details>
 </main>
+<script src="cbb-conference-marks.js?v=1"></script>
 <script src="mbb-logo-system.js?v=ucf-local-citronaut-20261117"></script>
 <script>
 const season = '2026-27';
@@ -232,6 +250,74 @@ function create(tag, value) {
   return element;
 }
 
+function conferenceLabel(name) {
+  const label = create('span');
+  label.className = 'conference-label';
+  const mark = window.SLTConferenceMarks?.lookup(name);
+  if (mark) {
+    const image = create('img');
+    image.className = 'conference-mark';
+    image.src = mark.url;
+    image.alt = '';
+    image.loading = 'lazy';
+    label.append(image);
+  }
+  label.append(create('span', name));
+  return label;
+}
+
+function conferenceAverages(panel, games, first, second, impact) {
+  panel.replaceChildren(create('h4', 'Head-to-head averages'));
+  if (!games.length) {
+    panel.append(create('p', 'No verified finals between these conferences.'));
+    return;
+  }
+  const totals = [[0,0,0,0,0,0],[0,0,0,0,0,0]];
+  let covered = 0;
+  for (const game of games) {
+    const sides = game.home.conference === first ? [game.home, game.away] : [game.away, game.home];
+    sides.forEach((team, i) => { totals[i][0] += team.score; });
+    const box = impact?.games?.[game.id];
+    if (!box || box.day !== game.date || !Array.isArray(box.home) || !Array.isArray(box.away)) continue;
+    const [homeId, awayId, homeScore, awayScore] = box.signature;
+    if (String(impact.teams[homeId]?.[0]) !== game.home.id ||
+        String(impact.teams[awayId]?.[0]) !== game.away.id ||
+        homeScore !== game.home.score || awayScore !== game.away.score) continue;
+    covered++;
+    const sidesBox = game.home.conference === first ? [box.home, box.away] : [box.away, box.home];
+    sidesBox.forEach((players, i) => {
+      for (const player of players) {
+        totals[i][1] += player[3] + player[4];
+        totals[i][2] += player[5];
+        totals[i][3] += player[6];
+        totals[i][4] += player[7];
+        totals[i][5] += player[8];
+      }
+    });
+  }
+  const table = create('table');
+  const heading = table.createTHead().insertRow();
+  const label = create('th', 'Per game');
+  label.scope = 'col';
+  heading.append(label);
+  for (const name of [first, second]) {
+    const column = create('th');
+    column.scope = 'col';
+    column.append(conferenceLabel(name));
+    heading.append(column);
+  }
+  const body = table.createTBody();
+  ['Points','Player rebounds','Assists','Steals','Blocks','Turnovers'].forEach((name, index) => {
+    const row = body.insertRow();
+    const metric = create('th', name);
+    metric.scope = 'row';
+    const denominator = index === 0 ? games.length : covered;
+    row.append(metric, ...totals.map(values => create('td', denominator ? (values[index] / denominator).toFixed(1) : '—')));
+  });
+  panel.append(table, create('p', 'Points use all ' + games.length + ' verified finals. Other averages use ' +
+    covered + ' of ' + games.length + ' games with matching complete player box scores. Rebounds count player rebounds.'));
+}
+
 function gameTeam(team, conference) {
   const line = create('span');
   line.className = 'game-team';
@@ -257,7 +343,7 @@ function gameTeam(team, conference) {
   return line;
 }
 
-function renderConference(panel, row, conferenceNames) {
+function renderConference(panel, row, conferenceNames, impact) {
   const opponents = conferenceNames.filter(name => name !== row.name)
     .map(name => [name, row.opponents.get(name) || { wins: 0, losses: 0 }]);
   const orderedGames = [...row.games].sort((a, b) => b.date.localeCompare(a.date) || a.team.localeCompare(b.team));
@@ -279,6 +365,8 @@ function renderConference(panel, row, conferenceNames) {
   const gameHeading = create('h3');
   gameHeading.className = 'matchup-heading';
   gameHeading.tabIndex = -1;
+  const stats = create('section');
+  stats.className = 'matchup-stats';
   const count = create('p');
   count.className = 'game-count';
   count.setAttribute('role', 'status');
@@ -291,8 +379,10 @@ function renderConference(panel, row, conferenceNames) {
     const result = resultFilter.value;
     gameHeading.textContent = opponent ? row.name + ' vs. ' + opponent + ' games' : row.name + ' game ledger';
     for (const [name, button] of buttons) button.setAttribute('aria-pressed', String(name === opponent));
-    const games = orderedGames.filter(game => (!opponent || game.conference === opponent)
-      && (!result || (result === 'win') === game.won));
+    const pairGames = orderedGames.filter(game => !opponent || game.conference === opponent);
+    stats.hidden = !opponent;
+    if (opponent) conferenceAverages(stats, pairGames, row.name, opponent, impact);
+    const games = pairGames.filter(game => !result || (result === 'win') === game.won);
     const wins = games.filter(game => game.won).length;
     if (games.length) {
       count.textContent = games.length + ' games · ' + wins + '–' + (games.length - wins);
@@ -318,7 +408,7 @@ function renderConference(panel, row, conferenceNames) {
       badge.className = 'game-result';
       badge.dataset.result = game.won ? 'win' : 'loss';
       badge.setAttribute('aria-label', game.won ? 'Win' : 'Loss');
-      const open = create('span', 'Game details');
+      const open = create('span', 'Final box score');
       open.className = 'game-open';
       action.append(badge, open);
       const link = create('a');
@@ -350,7 +440,7 @@ function renderConference(panel, row, conferenceNames) {
     losses.className = 'losses-bar';
     losses.style.width = record.losses / highest * 100 + '%';
     bar.append(wins, losses);
-    button.append(create('span', name), label, bar);
+    button.append(conferenceLabel(name), label, bar);
     button.setAttribute('aria-label', name + ', ' + record.wins + ' wins and ' + record.losses + ' losses');
     button.addEventListener('click', () => {
       opponentFilter.value = name;
@@ -366,11 +456,12 @@ function renderConference(panel, row, conferenceNames) {
   resultFilter.addEventListener('change', refreshGames);
   panel.append(create('h2', row.name + ' vs. other conferences'),
     create('p', 'Select an opponent to jump to the games between the two conferences.'),
-    chart, gameHeading, filters, count, list);
+    chart, gameHeading, stats, filters, count, list);
   refreshGames();
+  return opponent => { opponentFilter.value = opponent; resultFilter.value = ''; refreshGames(); gameHeading.focus(); };
 }
 
-function render({ ranked, unranked, latest, count }) {
+function render({ ranked, unranked, latest, count }, impact) {
   const status = document.getElementById('status');
   if (!count) {
     status.textContent = 'No eligible verified finals yet.';
@@ -387,7 +478,7 @@ function render({ ranked, unranked, latest, count }) {
   for (const row of leaders) {
     const tile = create('div');
     tile.className = 'leader-tile';
-    tile.append(create('strong', row.name), create('span', row.wins + '–' + row.losses
+    tile.append(conferenceLabel(row.name), create('span', row.wins + '–' + row.losses
       + ' · ' + (row.wins / (row.wins + row.losses) * 100).toFixed(1) + '%'));
     tiles.append(tile);
   }
@@ -397,6 +488,7 @@ function render({ ranked, unranked, latest, count }) {
   const table = document.getElementById('standings');
   const body = table.tBodies[0];
   const conferenceNames = [...ranked, ...unranked].map(row => row.name).sort((a, b) => a.localeCompare(b));
+  const panels = new Map();
   let place = 0;
   [...ranked, ...unranked].forEach((row, index) => {
     const games = row.wins + row.losses;
@@ -407,8 +499,9 @@ function render({ ranked, unranked, latest, count }) {
     rank.className = 'standing-place';
     line.append(rank);
     const name = line.insertCell();
-    if (games) {
-      const button = create('button', row.name);
+    {
+      const button = create('button');
+      button.append(conferenceLabel(row.name));
       button.type = 'button';
       button.className = 'conference-toggle';
       button.setAttribute('aria-expanded', 'false');
@@ -419,14 +512,15 @@ function render({ ranked, unranked, latest, count }) {
       const panel = detail.insertCell();
       panel.colSpan = 4;
       button.setAttribute('aria-controls', detail.id);
-      button.addEventListener('click', () => {
-        if (detail.hidden && !panel.firstChild) renderConference(panel, row, conferenceNames);
-        detail.hidden = !detail.hidden;
-        button.setAttribute('aria-expanded', String(!detail.hidden));
-      });
+      let chooseOpponent;
+      const show = open => {
+        if (open && !chooseOpponent) chooseOpponent = renderConference(panel, row, conferenceNames, impact);
+        detail.hidden = !open;
+        button.setAttribute('aria-expanded', String(open));
+      };
+      button.addEventListener('click', () => show(detail.hidden));
+      panels.set(row.name, opponent => { show(true); chooseOpponent(opponent); });
       name.append(button);
-    } else {
-      name.textContent = row.name;
     }
     const record = create('td', row.wins + '–' + row.losses);
     record.className = 'standing-record';
@@ -443,6 +537,28 @@ function render({ ranked, unranked, latest, count }) {
     line.append(record, rate);
   });
   table.hidden = false;
+  const picker = document.getElementById('pair-picker');
+  const first = document.getElementById('pair-first');
+  const second = document.getElementById('pair-second');
+  const query = new URLSearchParams(location.search);
+  first.replaceChildren(...conferenceNames.map(name => new Option(name,name)));
+  first.value = panels.has(query.get('conference')) ? query.get('conference') : (ranked[0]?.name || conferenceNames[0]);
+  const setOpponents = preferred => {
+    const names = conferenceNames.filter(name => name !== first.value);
+    second.replaceChildren(...names.map(name => new Option(name,name)));
+    if (names.includes(preferred)) second.value = preferred;
+  };
+  setOpponents(query.get('opponent'));
+  first.addEventListener('change', () => setOpponents(second.value));
+  const compare = () => {
+    query.set('conference', first.value);
+    query.set('opponent', second.value);
+    history.replaceState(null,'','?' + query);
+    panels.get(first.value)?.(second.value);
+  };
+  picker.addEventListener('submit', event => { event.preventDefault(); compare(); });
+  picker.hidden = false;
+  if (query.has('conference') && query.has('opponent')) compare();
 }
 
 const gender = new URLSearchParams(location.search).get('gender') === 'women' ? 'women' : 'men';
@@ -454,7 +570,12 @@ const feeds = [edition.roster, edition.results].map(async file => {
   if (!response.ok) throw new Error('Failed to load ' + file);
   return response.json();
 });
-Promise.all([...feeds, window.MBBLogos?.ready]).then(([roster, ledger]) => render(buildStandings(roster, ledger, edition.teamId))).catch(error => {
+const impactFeed = fetch('data/cbb-game-impact-' + gender + '.json', {signal:AbortSignal.timeout(9000)})
+  .then(response => response.ok ? response.json() : null)
+  .then(doc => doc?.season === season && doc.gender === gender && doc.version === 1 ? doc : null)
+  .catch(() => null);
+Promise.all([...feeds, impactFeed, window.MBBLogos?.ready]).then(([roster, ledger, impact]) =>
+  render(buildStandings(roster, ledger, edition.teamId), impact)).catch(error => {
   console.error(error);
   document.getElementById('status').textContent = 'Verified standings are temporarily unavailable.';
 });
