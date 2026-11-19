@@ -24,6 +24,7 @@ OUT = ROOT / "data/cbb-national-news.json"
 MAX_AGE_HOURS = 72
 FRESH_HOURS = 36
 QUERIES = [
+    ('women', "site:247sports.com \"women's basketball\" when:3d"),
     ('men', '"men\'s college basketball" when:2d'),
     ('women', '"women\'s college basketball" when:2d'),
     ('men', '"NCAA men\'s basketball" rankings upset when:2d'),
