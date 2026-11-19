@@ -1,0 +1,24 @@
+name: Audit MTE schedules
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '35 11 * * *'
+permissions:
+  contents: read
+  actions: write
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compare curated MTE inventory to men's and women's schedules
+        run: python scripts/audit_mte_schedules.py --output mte-comparison-2026-27.json
+      - name: Upload discrepancy report
+        uses: actions/upload-artifact@v4
+        with:
+          name: mte-schedule-audit
+          path: mte-comparison-2026-27.json
+          retention-days: 30
