@@ -71,8 +71,8 @@
 
   const linkTeam = row => '<a href="' + (edition.value === 'women' ? 'ncaaw' : 'ncaam') +
     '-team.html?' + escape(new URLSearchParams({team:row.teamId, gender:edition.value})) + '">' + escape(row.school) + '</a>';
-  const linkGame = row => '<a href="cbb-game-center.html?' +
-    escape(new URLSearchParams({day:row.day, game:row.gameId, gender:edition.value})) + '">' +
+  const linkGame = row => '<a href="ncaam-slate.html?' +
+    escape(new URLSearchParams({date:row.day, game:row.gameId, gender:edition.value})) + '">' +
     escape(row.day + ' · ' + row.opponent) + '</a>';
   const average = row => row.total / row.games;
 

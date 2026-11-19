@@ -318,6 +318,11 @@
      missing('Verified team totals are not available. No statistics have been estimated.');
    const players=ncaaPlayers(playerBox,g,raw,women)||espnPlayers(raw,g,women)||
      missing('Player box scores have not been published for this matchup.');
+   const impact=g.kind==='regular'&&g.phase==='final'&&global.SLTCBBImpact?.gameMarkup(raw,{
+     id:g.id,phase:g.phase,
+     away:{team:{id:g.away.id,displayName:name(g.away)},score:asScore(g.away)},
+     home:{team:{id:g.home.id,displayName:name(g.home)},score:asScore(g.home)}
+   },women?'women':'men')||'';
    const periods=lineScore(g,raw,women);
    const reportedPlays=global.SLTCourt?.parsePlays?.(raw)||[];
    const hasPlays=reportedPlays.length>0;
@@ -346,7 +351,7 @@
        '<h4>Color Game Flow and scoring segments</h4>'+
        (hasPlays?flow(raw,g,women)+retroTimeline(reportedPlays,g,women):missing('Interactive scoring segments are unavailable: the source did not supply play-by-play events for this game. Period scoring above remains available when reported.')))+
      keyPanel('team','<h4>Complete available team statistics</h4>'+team)+
-     keyPanel('players','<h4>Player-by-player box score</h4>'+players)+
+     keyPanel('players','<h4>Player-by-player box score</h4>'+players+impact)+
      (hasPlays?keyPanel('plays','<h4>Play-by-play · all reported events</h4>'+playLog(raw,g)):
        hasFallback?keyPanel('plays','<h4>Key statistics · play log unavailable</h4>'+fallback.join('')):'')+
      '<p class="slt-gf-provenance">'+esc(provenance)+
