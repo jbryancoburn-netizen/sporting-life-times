@@ -410,7 +410,22 @@ async function teamPage(){const t=teamMap.get(params.get('team'))||teams.find(t=
    player.athleteId=player.athleteId||(photoId&&feedId&&photoId!==feedId?'':feedId||photoId);
  }
  const history=[...(a?.games||[]),...games].filter(g=>gid(g).includes(t.team_id)).sort((a,b)=>b.date.localeCompare(a.date));
-const statisticalRegister=window.SLTBasketballStats;const seasonFinals=ledger?.season==='2026-27'&&Array.isArray(ledger.games)?ledger.games:[];const seasonStats=statisticalRegister?.fromGames(seasonFinals,t.team_id,{homeKey:'home_id',awayKey:'away_id'});const statsSheet=statisticalRegister?.register(seasonStats,{note:'2026–27 Division I final-score ledger. Results outside this verified dataset are not included in these averages.'})||'';
+const statisticalRegister=window.SLTBasketballStats;
+const seasonFinals=ledger?.season==='2026-27'&&Array.isArray(ledger.games)?ledger.games:[];
+const seasonStats=statisticalRegister?.fromGames(seasonFinals,t.team_id,{homeKey:'home_id',awayKey:'away_id'});
+// The final-score ledger can lag behind the independently verified overall records.
+// Never present its partial scoring totals as full-season averages.
+const overallRecord=verifiedOverall?.season==='2026-27'?verifiedOverall.records?.[t.team_id]:null;
+const overallWins=Number(overallRecord?.overall_wins),overallLosses=Number(overallRecord?.overall_losses);
+const hasOverall=Number.isSafeInteger(overallWins)&&Number.isSafeInteger(overallLosses)&&overallWins>=0&&overallLosses>=0;
+const overallPlayed=overallWins+overallLosses;
+const ledgerComplete=!!seasonStats&&(!hasOverall||(seasonStats.games===overallPlayed&&seasonStats.wins===overallWins&&seasonStats.losses===overallLosses));
+const displayStats=hasOverall?{
+ games:overallPlayed,wins:overallWins,losses:overallLosses,
+ pointsFor:ledgerComplete?seasonStats?.pointsFor:null,
+ pointsAgainst:ledgerComplete?seasonStats?.pointsAgainst:null
+}:seasonStats;
+const statsSheet=statisticalRegister?.register(displayStats,{note:ledgerComplete?'2026–27 verified completed-game results.':'2026–27 verified overall record. Scoring averages withheld until the completed-game score ledger catches up.'})||'';
 const r=resumes.get(t.team_id);const branding=await get('data/mbb-branding.json');const color=branding?.teams?.[ids.get(t.team_id)]?.color||window.MBBLogos.colorForESPN(ids.get(t.team_id))?.primary?.replace('#','');if(/^[a-f0-9]{6}$/i.test(color||''))document.documentElement.style.setProperty('--team','#'+color);
  $('#app').innerHTML='<div class="eyebrow"><a href="'+confURL(t.conference)+'">'+esc(t.conference)+'</a> / Team desk</div><div class="team-hero">'+logo(t,'hero')+'<div><div class="eyebrow">2026–27</div><h1>'+pollRankBadge(t)+esc(t.team)+'</h1><p>'+esc(t.conference)+' · '+rec(t)+' overall · '+(t.conference_wins||0)+'–'+(t.conference_losses||0)+' conference</p></div></div><div class="metrics">'+metric(live?'#'+t.rank:'Tied','RETRO national rank')+metric(number(t.elo,0),'RETRO Elo')+metric((t.overall_wins??t.wins??0)+(t.overall_losses??t.losses??0),'2026–27 games played')+metric(esc(seedFor(t)),'Projected NCAA placement')+'</div>'+statsSheet+'<div class="grid two"><div class="column"><section class="panel">'+header('The team notebook','Latest Reporting')+'<div id="news-list">'+stories(t)+'</div></section><section class="panel orange">'+header('The matchup archive','Who Has the Edge?')+'<p class="note">Target coverage: every verified game since 1985, including postseason. Until historical backfill is complete, records are labeled partial.</p><label for="opponent">Choose an opponent</label><select class="input" id="opponent">'+teams.filter(x=>x.team_id!==t.team_id).sort((a,b)=>a.team.localeCompare(b.team)).map(x=>'<option value="'+esc(x.team_id)+'">'+esc(x.team)+'</option>').join('')+'</select><div id="series"></div></section></div><div class="column">' + '<section class="panel">'+header('The selection ledger','The March File')+
 (r.n?'<div class="metrics">'+metric(number(r.wab,2),'Experimental Elo WAB')+metric(number(r.sos,0),'Opponent Elo')+metric(r.road,'Road wins')+'</div><p class="note">Based on '+r.n+' verified games. Not an official NET or selection projection.</p>':'<p class="note"><strong>Awaiting verified regular-season results.</strong> The March résumé populates after final games. No invented NET or quadrant figures.</p>')+
