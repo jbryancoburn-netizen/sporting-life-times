@@ -1,6 +1,6 @@
 {
   "season": "2026-27",
-  "generated_at": "2026-11-19T02:43:57.894149+00:00",
+  "generated_at": "2026-11-19T02:45:55.863079+00:00",
   "read_only": true,
   "coverage": "Only events present in the curated inventory; not a complete season certification",
   "events_checked": [
@@ -101,13 +101,6 @@
       "source": "https://greenbriertipoff.com/tickets/",
       "listed_participants": 6,
       "fixed_matchups": 6
-    },
-    {
-      "name": "Fort Myers Tip-Off",
-      "gender": "men",
-      "source": "https://www.bloggingthebracket.com/early-season-tournaments/10292/2026-27-mens-college-basketball-early-season-tournaments",
-      "listed_participants": 0,
-      "fixed_matchups": 0
     },
     {
       "name": "Northern Kentucky MTE",
@@ -313,6 +306,20 @@
       "fixed_matchups": 4
     },
     {
+      "name": "Fort Myers Tip-Off — Beach Division",
+      "gender": "men",
+      "source": "https://www.fortmyerstipoff.com/tickets/",
+      "listed_participants": 4,
+      "fixed_matchups": 4
+    },
+    {
+      "name": "Fort Myers Tip-Off — Palms Division",
+      "gender": "men",
+      "source": "https://www.fortmyerstipoff.com/tickets/",
+      "listed_participants": 6,
+      "fixed_matchups": 6
+    },
+    {
       "name": "Jacksonville Classic",
       "gender": "women",
       "source": "https://www.jacksonvilleclassic.com/",
@@ -381,24 +388,52 @@
       "source": "https://cancunchallenge.net/cancun-challenge-news-stories/cancun-challenges-announces-full-2026-schedule",
       "listed_participants": 6,
       "fixed_matchups": 6
+    },
+    {
+      "name": "Fort Myers Tip-Off — Island Division",
+      "gender": "women",
+      "source": "https://www.womensfortmyerstipoff.com/tickets/",
+      "listed_participants": 4,
+      "fixed_matchups": 4
+    },
+    {
+      "name": "Fort Myers Tip-Off — Shell Division",
+      "gender": "women",
+      "source": "https://www.womensfortmyerstipoff.com/tickets/",
+      "listed_participants": 4,
+      "fixed_matchups": 4
+    },
+    {
+      "name": "Coconut Hoops — Great Egret Division",
+      "gender": "women",
+      "source": "https://fgcuathletics.evenue.net/events/CHOOPS",
+      "listed_participants": 4,
+      "fixed_matchups": 2
+    },
+    {
+      "name": "Coconut Hoops — round robin",
+      "gender": "women",
+      "source": "https://fgcuathletics.evenue.net/events/CHOOPS",
+      "listed_participants": 3,
+      "fixed_matchups": 3
     }
   ],
   "totals": {
     "men_team_files": 365,
-    "events_checked": 54,
-    "events_with_fields": 28,
-    "participants_checked": 154,
-    "confirmed_team_entries_already_present": 231,
-    "fixed_matchups_checked": 116,
-    "reciprocal_matchups_verified": 116,
-    "events_incomplete": 26,
+    "events_checked": 59,
+    "events_with_fields": 34,
+    "participants_checked": 179,
+    "confirmed_team_entries_already_present": 277,
+    "fixed_matchups_checked": 139,
+    "reciprocal_matchups_verified": 139,
+    "events_incomplete": 25,
     "women_team_files": 363,
     "team_schedule_rows_repaired": 1,
     "team_schedule_rows_inserted": 0
   },
   "issue_counts": {
-    "bracket_opponents_pending": 6,
-    "inventory_incomplete": 26,
+    "bracket_opponents_pending": 7,
+    "inventory_incomplete": 25,
     "matchups_unverified": 1
   },
   "issues": [
@@ -454,12 +489,6 @@
       "type": "inventory_incomplete",
       "gender": "men",
       "event": "Alabama A&M MTE",
-      "note": "Missing verified participants and/or dates; fixture audit not possible"
-    },
-    {
-      "type": "inventory_incomplete",
-      "gender": "men",
-      "event": "Fort Myers Tip-Off",
       "note": "Missing verified participants and/or dates; fixture audit not possible"
     },
     {
@@ -598,6 +627,12 @@
       "type": "matchups_unverified",
       "gender": "women",
       "event": "Players Era Women's Showcase"
+    },
+    {
+      "type": "bracket_opponents_pending",
+      "gender": "women",
+      "event": "Coconut Hoops — Great Egret Division",
+      "note": "November 29 pairings depend on November 27 results."
     }
   ],
   "verified_existing_fixtures": [
@@ -2594,6 +2629,246 @@
       ]
     },
     {
+      "gender": "men",
+      "event": "Fort Myers Tip-Off — Beach Division",
+      "date": "2026-11-24",
+      "team": "Pittsburgh",
+      "opponent_id": "201",
+      "team_id": "221",
+      "status": "already_present",
+      "game_ids": [
+        "school-221-2026-11-24-7"
+      ]
+    },
+    {
+      "gender": "men",
+      "event": "Fort Myers Tip-Off — Beach Division",
+      "date": "2026-11-24",
+      "team": "Oklahoma",
+      "opponent_id": "221",
+      "team_id": "201",
+      "status": "already_present",
+      "game_ids": [
+        "school-201-2026-11-24-5"
+      ]
+    },
+    {
+      "gender": "men",
+      "event": "Fort Myers Tip-Off — Beach Division",
+      "date": "2026-11-24",
+      "team": "Purdue",
+      "opponent_id": "305",
+      "team_id": "2509",
+      "status": "already_present",
+      "game_ids": [
+        "cross-school-2509-2026-11-24_305"
+      ]
+    },
+    {
+      "gender": "men",
+      "event": "Fort Myers Tip-Off — Beach Division",
+      "date": "2026-11-24",
+      "team": "DePaul",
+      "opponent_id": "2509",
+      "team_id": "305",
+      "status": "already_present",
+      "game_ids": [
+        "school-305-2026-11-24-7"
+      ]
+    },
+    {
+      "gender": "men",
+      "event": "Fort Myers Tip-Off — Beach Division",
+      "date": "2026-11-26",
+      "team": "Purdue",
+      "opponent_id": "201",
+      "team_id": "2509",
+      "status": "already_present",
+      "game_ids": [
+        "cross-school-2509-2026-11-26_201"
+      ]
+    },
+    {
+      "gender": "men",
+      "event": "Fort Myers Tip-Off — Beach Division",
+      "date": "2026-11-26",
+      "team": "Oklahoma",
+      "opponent_id": "2509",
+      "team_id": "201",
+      "status": "already_present",
+      "game_ids": [
+        "school-201-2026-11-26-6"
+      ]
+    },
+    {
+      "gender": "men",
+      "event": "Fort Myers Tip-Off — Beach Division",
+      "date": "2026-11-26",
+      "team": "DePaul",
+      "opponent_id": "221",
+      "team_id": "305",
+      "status": "already_present",
+      "game_ids": [
+        "school-305-2026-11-26-8"
+      ]
+    },
+    {
+      "gender": "men",
+      "event": "Fort Myers Tip-Off — Beach Division",
+      "date": "2026-11-26",
+      "team": "Pittsburgh",
+      "opponent_id": "305",
+      "team_id": "221",
+      "status": "already_present",
+      "game_ids": [
+        "school-221-2026-11-26-8"
+      ]
+    },
+    {
+      "gender": "men",
+      "event": "Fort Myers Tip-Off — Palms Division",
+      "date": "2026-11-23",
+      "team": "Northern Iowa",
+      "opponent_id": "2166",
+      "team_id": "2460",
+      "status": "already_present",
+      "game_ids": [
+        "school-2460-2026-11-23-7"
+      ]
+    },
+    {
+      "gender": "men",
+      "event": "Fort Myers Tip-Off — Palms Division",
+      "date": "2026-11-23",
+      "team": "Davidson",
+      "opponent_id": "2460",
+      "team_id": "2166",
+      "status": "already_present",
+      "game_ids": [
+        "school-2166-2026-11-23-6"
+      ]
+    },
+    {
+      "gender": "men",
+      "event": "Fort Myers Tip-Off — Palms Division",
+      "date": "2026-11-23",
+      "team": "Charlotte",
+      "opponent_id": "526",
+      "team_id": "2429",
+      "status": "already_present",
+      "game_ids": [
+        "school-2429-2026-11-23-6"
+      ]
+    },
+    {
+      "gender": "men",
+      "event": "Fort Myers Tip-Off — Palms Division",
+      "date": "2026-11-23",
+      "team": "Florida Gulf Coast",
+      "opponent_id": "2429",
+      "team_id": "526",
+      "status": "already_present",
+      "game_ids": [
+        "school-526-2026-11-23-42"
+      ]
+    },
+    {
+      "gender": "men",
+      "event": "Fort Myers Tip-Off — Palms Division",
+      "date": "2026-11-23",
+      "team": "Tulane",
+      "opponent_id": "2247",
+      "team_id": "2655",
+      "status": "already_present",
+      "game_ids": [
+        "school-2655-2026-11-23-6"
+      ]
+    },
+    {
+      "gender": "men",
+      "event": "Fort Myers Tip-Off — Palms Division",
+      "date": "2026-11-23",
+      "team": "Georgia State",
+      "opponent_id": "2655",
+      "team_id": "2247",
+      "status": "already_present",
+      "game_ids": [
+        "school-2247-2026-11-23-51"
+      ]
+    },
+    {
+      "gender": "men",
+      "event": "Fort Myers Tip-Off — Palms Division",
+      "date": "2026-11-25",
+      "team": "Northern Iowa",
+      "opponent_id": "2429",
+      "team_id": "2460",
+      "status": "already_present",
+      "game_ids": [
+        "school-2460-2026-11-25-8"
+      ]
+    },
+    {
+      "gender": "men",
+      "event": "Fort Myers Tip-Off — Palms Division",
+      "date": "2026-11-25",
+      "team": "Charlotte",
+      "opponent_id": "2460",
+      "team_id": "2429",
+      "status": "already_present",
+      "game_ids": [
+        "school-2429-2026-11-25-7"
+      ]
+    },
+    {
+      "gender": "men",
+      "event": "Fort Myers Tip-Off — Palms Division",
+      "date": "2026-11-25",
+      "team": "Tulane",
+      "opponent_id": "2166",
+      "team_id": "2655",
+      "status": "already_present",
+      "game_ids": [
+        "school-2655-2026-11-25-7"
+      ]
+    },
+    {
+      "gender": "men",
+      "event": "Fort Myers Tip-Off — Palms Division",
+      "date": "2026-11-25",
+      "team": "Davidson",
+      "opponent_id": "2655",
+      "team_id": "2166",
+      "status": "already_present",
+      "game_ids": [
+        "school-2166-2026-11-25-7"
+      ]
+    },
+    {
+      "gender": "men",
+      "event": "Fort Myers Tip-Off — Palms Division",
+      "date": "2026-11-25",
+      "team": "Florida Gulf Coast",
+      "opponent_id": "2247",
+      "team_id": "526",
+      "status": "already_present",
+      "game_ids": [
+        "school-526-2026-11-25-48"
+      ]
+    },
+    {
+      "gender": "men",
+      "event": "Fort Myers Tip-Off — Palms Division",
+      "date": "2026-11-25",
+      "team": "Georgia State",
+      "opponent_id": "526",
+      "team_id": "2247",
+      "status": "already_present",
+      "game_ids": [
+        "school-2247-2026-11-25-57"
+      ]
+    },
+    {
       "gender": "women",
       "event": "Jacksonville Classic",
       "date": "2026-11-23",
@@ -3384,6 +3659,318 @@
       "game_ids": [
         "401903575"
       ]
+    },
+    {
+      "gender": "women",
+      "event": "Fort Myers Tip-Off — Island Division",
+      "date": "2026-11-27",
+      "team": "LSU",
+      "opponent_id": "222",
+      "team_id": "99",
+      "status": "already_present",
+      "game_ids": [
+        "401912971"
+      ]
+    },
+    {
+      "gender": "women",
+      "event": "Fort Myers Tip-Off — Island Division",
+      "date": "2026-11-27",
+      "team": "Villanova",
+      "opponent_id": "99",
+      "team_id": "222",
+      "status": "already_present",
+      "game_ids": [
+        "401912971"
+      ]
+    },
+    {
+      "gender": "women",
+      "event": "Fort Myers Tip-Off — Island Division",
+      "date": "2026-11-27",
+      "team": "NC State",
+      "opponent_id": "2306",
+      "team_id": "152",
+      "status": "already_present",
+      "game_ids": [
+        "401906986"
+      ]
+    },
+    {
+      "gender": "women",
+      "event": "Fort Myers Tip-Off — Island Division",
+      "date": "2026-11-27",
+      "team": "Kansas State",
+      "opponent_id": "152",
+      "team_id": "2306",
+      "status": "already_present",
+      "game_ids": [
+        "401906986"
+      ]
+    },
+    {
+      "gender": "women",
+      "event": "Fort Myers Tip-Off — Island Division",
+      "date": "2026-11-28",
+      "team": "NC State",
+      "opponent_id": "99",
+      "team_id": "152",
+      "status": "already_present",
+      "game_ids": [
+        "401912972"
+      ]
+    },
+    {
+      "gender": "women",
+      "event": "Fort Myers Tip-Off — Island Division",
+      "date": "2026-11-28",
+      "team": "LSU",
+      "opponent_id": "152",
+      "team_id": "99",
+      "status": "already_present",
+      "game_ids": [
+        "401912972"
+      ]
+    },
+    {
+      "gender": "women",
+      "event": "Fort Myers Tip-Off — Island Division",
+      "date": "2026-11-28",
+      "team": "Villanova",
+      "opponent_id": "2306",
+      "team_id": "222",
+      "status": "already_present",
+      "game_ids": [
+        "401906987"
+      ]
+    },
+    {
+      "gender": "women",
+      "event": "Fort Myers Tip-Off — Island Division",
+      "date": "2026-11-28",
+      "team": "Kansas State",
+      "opponent_id": "222",
+      "team_id": "2306",
+      "status": "already_present",
+      "game_ids": [
+        "401906987"
+      ]
+    },
+    {
+      "gender": "women",
+      "event": "Fort Myers Tip-Off — Shell Division",
+      "date": "2026-11-27",
+      "team": "Indiana",
+      "opponent_id": "344",
+      "team_id": "84",
+      "status": "already_present",
+      "game_ids": [
+        "401918859"
+      ]
+    },
+    {
+      "gender": "women",
+      "event": "Fort Myers Tip-Off — Shell Division",
+      "date": "2026-11-27",
+      "team": "Mississippi State",
+      "opponent_id": "84",
+      "team_id": "344",
+      "status": "already_present",
+      "game_ids": [
+        "401918859"
+      ]
+    },
+    {
+      "gender": "women",
+      "event": "Fort Myers Tip-Off — Shell Division",
+      "date": "2026-11-27",
+      "team": "TCU",
+      "opponent_id": "59",
+      "team_id": "2628",
+      "status": "already_present",
+      "game_ids": [
+        "401913719"
+      ]
+    },
+    {
+      "gender": "women",
+      "event": "Fort Myers Tip-Off — Shell Division",
+      "date": "2026-11-27",
+      "team": "Georgia Tech",
+      "opponent_id": "2628",
+      "team_id": "59",
+      "status": "already_present",
+      "game_ids": [
+        "401913719"
+      ]
+    },
+    {
+      "gender": "women",
+      "event": "Fort Myers Tip-Off — Shell Division",
+      "date": "2026-11-28",
+      "team": "TCU",
+      "opponent_id": "344",
+      "team_id": "2628",
+      "status": "already_present",
+      "game_ids": [
+        "401918005"
+      ]
+    },
+    {
+      "gender": "women",
+      "event": "Fort Myers Tip-Off — Shell Division",
+      "date": "2026-11-28",
+      "team": "Mississippi State",
+      "opponent_id": "2628",
+      "team_id": "344",
+      "status": "already_present",
+      "game_ids": [
+        "401918005"
+      ]
+    },
+    {
+      "gender": "women",
+      "event": "Fort Myers Tip-Off — Shell Division",
+      "date": "2026-11-28",
+      "team": "Indiana",
+      "opponent_id": "59",
+      "team_id": "84",
+      "status": "already_present",
+      "game_ids": [
+        "401913720"
+      ]
+    },
+    {
+      "gender": "women",
+      "event": "Fort Myers Tip-Off — Shell Division",
+      "date": "2026-11-28",
+      "team": "Georgia Tech",
+      "opponent_id": "84",
+      "team_id": "59",
+      "status": "already_present",
+      "game_ids": [
+        "401913720"
+      ]
+    },
+    {
+      "gender": "women",
+      "event": "Coconut Hoops — Great Egret Division",
+      "date": "2026-11-27",
+      "team": "Houston",
+      "opponent_id": "156",
+      "team_id": "248",
+      "status": "already_present",
+      "game_ids": [
+        "401929189"
+      ]
+    },
+    {
+      "gender": "women",
+      "event": "Coconut Hoops — Great Egret Division",
+      "date": "2026-11-27",
+      "team": "Creighton",
+      "opponent_id": "248",
+      "team_id": "156",
+      "status": "already_present",
+      "game_ids": [
+        "401929189"
+      ]
+    },
+    {
+      "gender": "women",
+      "event": "Coconut Hoops — Great Egret Division",
+      "date": "2026-11-27",
+      "team": "Florida Gulf Coast",
+      "opponent_id": "2633",
+      "team_id": "526",
+      "status": "already_present",
+      "game_ids": [
+        "401927024"
+      ]
+    },
+    {
+      "gender": "women",
+      "event": "Coconut Hoops — Great Egret Division",
+      "date": "2026-11-27",
+      "team": "Tennessee",
+      "opponent_id": "526",
+      "team_id": "2633",
+      "status": "already_present",
+      "game_ids": [
+        "401927024"
+      ]
+    },
+    {
+      "gender": "women",
+      "event": "Coconut Hoops — round robin",
+      "date": "2026-11-27",
+      "team": "Oklahoma State",
+      "opponent_id": "264",
+      "team_id": "197",
+      "status": "already_present",
+      "game_ids": [
+        "401927837"
+      ]
+    },
+    {
+      "gender": "women",
+      "event": "Coconut Hoops — round robin",
+      "date": "2026-11-27",
+      "team": "Washington",
+      "opponent_id": "197",
+      "team_id": "264",
+      "status": "already_present",
+      "game_ids": [
+        "401927837"
+      ]
+    },
+    {
+      "gender": "women",
+      "event": "Coconut Hoops — round robin",
+      "date": "2026-11-28",
+      "team": "UMass",
+      "opponent_id": "197",
+      "team_id": "113",
+      "status": "already_present",
+      "game_ids": [
+        "401929184"
+      ]
+    },
+    {
+      "gender": "women",
+      "event": "Coconut Hoops — round robin",
+      "date": "2026-11-28",
+      "team": "Oklahoma State",
+      "opponent_id": "113",
+      "team_id": "197",
+      "status": "already_present",
+      "game_ids": [
+        "401929184"
+      ]
+    },
+    {
+      "gender": "women",
+      "event": "Coconut Hoops — round robin",
+      "date": "2026-11-29",
+      "team": "Washington",
+      "opponent_id": "113",
+      "team_id": "264",
+      "status": "already_present",
+      "game_ids": [
+        "401927838"
+      ]
+    },
+    {
+      "gender": "women",
+      "event": "Coconut Hoops — round robin",
+      "date": "2026-11-29",
+      "team": "UMass",
+      "opponent_id": "264",
+      "team_id": "113",
+      "status": "already_present",
+      "game_ids": [
+        "401927838"
+      ]
     }
   ],
   "repairs_this_pass": [
@@ -3428,6 +4015,10 @@
     {
       "page": "ncaam-slate.html?gender=men&date=2026-12-05",
       "observed": "North Dakota at UTEP was already present in the December 5 Daily Ledger."
+    },
+    {
+      "page": "ncaam-team.html?team=2638",
+      "observed": "Exactly one December 5 schedule row was rendered: North Dakota, home, 2 p.m. MT, MW+ as the broadcast."
     }
   ]
 }
