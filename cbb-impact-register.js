@@ -7,7 +7,9 @@
   const edition = $('edition'), view = $('view'), search = $('search'), sort = $('sort'), low = $('low');
   let team = params.get('team') || '', data, revision = 0, page = 0, matches = [];
   const pageSize = 35;
-  edition.value = params.get('gender') === 'women' ? 'women' : 'men';
+  let preference;
+  try { preference = localStorage.getItem('slt-college-basketball-edition'); } catch {}
+  edition.value = (params.get('gender') || preference) === 'women' ? 'women' : 'men';
   view.value = params.get('view') === 'games' ? 'games' : 'season';
   search.value = params.get('q') || '';
 

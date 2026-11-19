@@ -1,0 +1,19 @@
+.impact-schedule {
+  margin: 1rem 0;
+  padding: .7rem;
+  border: 1px solid #c4af94;
+  border-top: 4px double #b48945;
+  background: #fffcf5;
+  color: #0d2935;
+}
+.impact-schedule > header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .4rem .75rem; }
+.impact-schedule > header h3 { margin: 0; font: 700 1.2rem Georgia, serif; }
+.impact-schedule > header a { font-size: .85rem; }
+.impact-schedule-season { margin: .55rem 0 .2rem; }
+.impact-schedule-season strong { color: #6b2530; font-size: 1.35rem; }
+.impact-schedule-note { margin: .2rem 0 .55rem; color: #585047; font-size: .82rem; }
+.impact-schedule-scroll { overflow-x: auto; }
+.impact-schedule table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.impact-schedule th, .impact-schedule td { padding: .35rem .45rem; text-align: left; border-bottom: 1px solid #d8cdba; }
+.impact-schedule th { background: #eae0cf; }
+.impact-schedule :is(th,td):last-child { text-align: right; font-weight: bold; }
