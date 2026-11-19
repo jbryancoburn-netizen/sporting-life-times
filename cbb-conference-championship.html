@@ -27,6 +27,8 @@ button, select { font: inherit; color: inherit; }
 .conference-toggle[aria-expanded="true"]::before { content: '▾'; }
 .conference-detail > td { padding: 12px; text-align: left; background: #f6ebd7; border-bottom: 4px double #9e8566; }
 .conference-detail h2, .conference-detail h3 { margin: 0 0 8px; }
+.matchup-heading { scroll-margin-top: 16px; }
+.matchup-heading:focus { outline: 2px solid #713d2b; outline-offset: 3px; }
 .opponents { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 235px), 1fr)); gap: 6px; margin-bottom: 14px; }
 .opponent-button { display: grid; grid-template-columns: 1fr auto; gap: 4px 8px; text-align: left; background: #fff5df; border: 1px solid #b5a58c; padding: 6px 8px; }
 .opponent-button[aria-pressed="true"] { outline: 2px solid #713d2b; outline-offset: -2px; background: #efdfc4; }
@@ -81,6 +83,27 @@ const editions = {
   women: { roster: 'ncaaw-2026-27-teams.json', results: 'ncaaw-2026-27-verified-games.json', teamId: 'team_id' }
 };
 
+const conferenceAliases = {
+  'American Conference': 'AAC',
+  'Atlantic Coast Conference': 'ACC',
+  'Atlantic Sun Conference': 'ASUN',
+  'Coastal Athletic Association': 'CAA',
+  'Conference USA': 'C-USA',
+  'Horizon League': 'Horizon',
+  'Mid-American Conference': 'MAC',
+  'Mid-Eastern Athletic Conference': 'MEAC',
+  'Missouri Valley Conference': 'MVC',
+  'Mountain West Conference': 'MWC',
+  'Northeast Conference': 'NEC',
+  'Ohio Valley Conference': 'OVC',
+  'Patriot League': 'Patriot',
+  'Southeastern Conference': 'SEC',
+  'Southern Conference': 'SoCon',
+  'Southwestern Athletic Conference': 'SWAC',
+  'United Athletic Conference': 'UAC',
+  'West Coast Conference': 'WCC'
+};
+
 function compareRecords(a, b) {
   return b.wins * (a.wins + a.losses) - a.wins * (b.wins + b.losses);
 }
@@ -91,9 +114,10 @@ function buildStandings(roster, ledger, teamId) {
   const conferences = new Map();
   for (const team of roster.teams) {
     if (!team[teamId] || !team.conference || (team.division && team.division !== 'D1')) continue;
-    membership.set(String(team[teamId]), { conference: team.conference, name: team.name || team.team });
-    if (!conferences.has(team.conference)) {
-      conferences.set(team.conference, { name: team.conference, wins: 0, losses: 0, opponents: new Map(), games: [] });
+    const conference = conferenceAliases[team.conference] || team.conference.replace(/ Conference$/, '');
+    membership.set(String(team[teamId]), { conference, name: team.name || team.team });
+    if (!conferences.has(conference)) {
+      conferences.set(conference, { name: conference, wins: 0, losses: 0, opponents: new Map(), games: [] });
     }
   }
   function record(conference, opponent, result, game) {
@@ -146,10 +170,11 @@ function create(tag, value) {
   return element;
 }
 
-function renderConference(panel, row) {
-  const opponents = [...row.opponents].sort(([a], [b]) => a.localeCompare(b));
+function renderConference(panel, row, conferenceNames) {
+  const opponents = conferenceNames.filter(name => name !== row.name)
+    .map(name => [name, row.opponents.get(name) || { wins: 0, losses: 0 }]);
   const orderedGames = [...row.games].sort((a, b) => b.date.localeCompare(a.date) || a.team.localeCompare(b.team));
-  const highest = Math.max(...opponents.map(([, record]) => record.wins + record.losses));
+  const highest = Math.max(1, ...opponents.map(([, record]) => record.wins + record.losses));
   const chart = create('div');
   chart.className = 'opponents';
   const filters = create('div');
@@ -164,6 +189,9 @@ function renderConference(panel, row) {
   }
   addFilter(opponentFilter, 'Opponent conference', [['', 'All conferences'], ...opponents.map(([name]) => [name, name])]);
   addFilter(resultFilter, 'Result', [['', 'All results'], ['win', 'Wins'], ['loss', 'Losses']]);
+  const gameHeading = create('h3');
+  gameHeading.className = 'matchup-heading';
+  gameHeading.tabIndex = -1;
   const count = create('p');
   count.className = 'game-count';
   count.setAttribute('role', 'status');
@@ -174,11 +202,18 @@ function renderConference(panel, row) {
   function refreshGames() {
     const opponent = opponentFilter.value;
     const result = resultFilter.value;
+    gameHeading.textContent = opponent ? row.name + ' vs. ' + opponent + ' games' : row.name + ' game ledger';
     for (const [name, button] of buttons) button.setAttribute('aria-pressed', String(name === opponent));
     const games = orderedGames.filter(game => (!opponent || game.conference === opponent)
       && (!result || (result === 'win') === game.won));
     const wins = games.filter(game => game.won).length;
-    count.textContent = games.length ? games.length + ' games · ' + wins + '–' + (games.length - wins) : 'No games match these filters.';
+    if (games.length) {
+      count.textContent = games.length + ' games · ' + wins + '–' + (games.length - wins);
+    } else {
+      count.textContent = opponent && !row.opponents.has(opponent)
+        ? 'No verified finals between ' + row.name + ' and ' + opponent + ' in this edition.'
+        : 'No games match these filters.';
+    }
     list.replaceChildren(...games.map(game => {
       const item = create('li');
       item.className = 'game';
@@ -224,15 +259,20 @@ function renderConference(panel, row) {
     button.append(create('span', name), label, bar);
     button.setAttribute('aria-label', name + ', ' + record.wins + ' wins and ' + record.losses + ' losses');
     button.addEventListener('click', () => {
-      opponentFilter.value = opponentFilter.value === name ? '' : name;
+      opponentFilter.value = name;
+      resultFilter.value = '';
       refreshGames();
+      gameHeading.focus({ preventScroll: true });
+      gameHeading.scrollIntoView({ block: 'start' });
     });
     buttons.set(name, button);
     chart.append(button);
   }
   opponentFilter.addEventListener('change', refreshGames);
   resultFilter.addEventListener('change', refreshGames);
-  panel.append(create('h2', row.name + ' vs. other conferences'), chart, create('h3', 'Game ledger'), filters, count, list);
+  panel.append(create('h2', row.name + ' vs. other conferences'),
+    create('p', 'Select an opponent to jump to the games between the two conferences.'),
+    chart, gameHeading, filters, count, list);
   refreshGames();
 }
 
@@ -253,6 +293,7 @@ function render({ ranked, unranked, latest, count }) {
   status.textContent = count + ' verified interconference finals through ' + latest + '. Open a conference to see its opponent records and game scores.';
   const table = document.getElementById('standings');
   const body = table.tBodies[0];
+  const conferenceNames = [...ranked, ...unranked].map(row => row.name).sort((a, b) => a.localeCompare(b));
   let place = 0;
   [...ranked, ...unranked].forEach((row, index) => {
     const games = row.wins + row.losses;
@@ -273,7 +314,7 @@ function render({ ranked, unranked, latest, count }) {
       panel.colSpan = 4;
       button.setAttribute('aria-controls', detail.id);
       button.addEventListener('click', () => {
-        if (detail.hidden && !panel.firstChild) renderConference(panel, row);
+        if (detail.hidden && !panel.firstChild) renderConference(panel, row, conferenceNames);
         detail.hidden = !detail.hidden;
         button.setAttribute('aria-expanded', String(!detail.hidden));
       });
