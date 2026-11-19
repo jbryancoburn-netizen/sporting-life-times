@@ -1,16 +1,19 @@
 (()=>{'use strict';
 const $=id=>document.getElementById(id);
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const num=n=>Number.isFinite(Number(n))?Number(n):0;
-const nbaPrimaryIds={"ATL":1610612737,"BOS":1610612738,"BKN":1610612751,"CHA":1610612766,"CHI":1610612741,"CLE":1610612739,"DAL":1610612742,"DEN":1610612743,"DET":1610612765,"GSW":1610612744,"HOU":1610612745,"IND":1610612754,"LAC":1610612746,"LAL":1610612747,"MEM":1610612763,"MIA":1610612748,"MIL":1610612749,"MIN":1610612750,"NOP":1610612740,"NYK":1610612752,"OKC":1610612760,"ORL":1610612753,"PHI":1610612755,"PHX":1610612756,"POR":1610612757,"SAC":1610612758,"SAS":1610612759,"TOR":1610612761,"UTA":1610612762,"WAS":1610612764};
 const logo=c=>'assets/nba-logos/'+String(c||'').toUpperCase()+'.png';
 const fmt=d=>new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',dateStyle:'medium'}).format(new Date(d));
-async function fetchData(path){const r=await fetch(path,{cache:'no-store'});if(!r.ok)throw Error('Could not load '+path);return r.json()}
-const player=p=>'<div class="player"><div class="player-head"><b>'+esc(p.name)+'</b><small>'+esc(p.min)+' MIN</small></div><div class="big-stats"><span><b>'+esc(p.pts)+'</b><small>PTS</small></span><span><b>'+esc(p.reb)+'</b><small>REB</small></span><span><b>'+esc(p.ast)+'</b><small>AST</small></span></div><div class="fine-stats">STL '+esc(p.stl)+' · BLK '+esc(p.blk)+' · FG '+esc(p.fgm)+'/'+esc(p.fga)+' · 3PT '+esc(p.fg3m)+'/'+esc(p.fg3a)+' · FT '+esc(p.ftm)+'/'+esc(p.fta)+'</div></div>';
+async function fetchData(path){const r=await fetch(path,{cache:'no-store',signal:AbortSignal.timeout(12000)});if(!r.ok)throw Error('Could not load '+path);return r.json()}
+const boxColumns=[
+ ['MIN',p=>p.min],['PTS',p=>p.pts],['REB',p=>p.reb],['AST',p=>p.ast],
+ ['STL',p=>p.stl],['BLK',p=>p.blk],['TO',p=>p.tov],
+ ['FG',p=>p.fgm==null||p.fga==null?null:p.fgm+'/'+p.fga],
+ ['3PT',p=>p.fg3m==null||p.fg3a==null?null:p.fg3m+'/'+p.fg3a],
+ ['FT',p=>p.ftm==null||p.fta==null?null:p.ftm+'/'+p.fta]
+];
 function render(g,events,rankings){
  const away=g.teams.find(t=>t.home_away==='away'),home=g.teams.find(t=>t.home_away==='home');
  if(!away||!home){$('game').textContent='Verified teams unavailable';return}
- const event=events.find(e=>e.id===g.id);
  const latest=Object.fromEntries(rankings.map(x=>[x.team,Number(x.elo)]));
  const rolling={...latest}, postgame=new Map();
  for(let i=events.length-1;i>=0;i--){
@@ -65,30 +68,60 @@ function render(g,events,rankings){
   return '<section class="section"><h3>Team Comparison</h3><div class="comparison"><div class="compare-header"><span>'+esc(away.code)+'</span><span>'+esc(home.code)+'</span></div>'+rows+'</div></section>';
  })();
  const highlight=(g.leaders||[]).slice(0,4).map(p=>'<div class="star"><small>'+esc(p.team)+'</small><b>'+esc(p.name)+'</b><strong>'+esc(p.pts)+' <small>PTS</small></strong><small>'+esc(p.reb)+' REB · '+esc(p.ast)+' AST</small></div>').join('');
- const roster=t=>'<section class="roster" style="--team-color:'+window.SLTScorebug.color(t.code)+'"><h4>'+esc(t.name)+'</h4>'+g.players.filter(p=>p.team===t.code).sort((a,b)=>num(b.pts)-num(a.pts)).map(player).join('')+'</section>';
+ const roster=t=>{
+  const players=(g.players||[]).filter(p=>p.team===t.code);
+  const teamName=esc(t.name||t.code);
+  const rows=players.map(p=>'<tr><th scope="row">'+esc(p.name)+'</th>'+boxColumns.map(([label,read])=>
+   '<td'+(label==='PTS'?' class="key-stat"':'')+'>'+esc(read(p)??'—')+'</td>').join('')+'</tr>').join('');
+  return '<section class="roster" style="--team-color:'+window.SLTScorebug.color(t.code)+'"><h4>'+teamName+'</h4>'+
+   (rows?'<div class="box-scroll" tabindex="0" role="region" aria-label="'+teamName+' player statistics"><table class="box-table">'+
+   '<thead><tr><th scope="col">Player</th>'+boxColumns.map(([label])=>'<th scope="col">'+label+'</th>').join('')+'</tr></thead>'+
+   '<tbody>'+rows+'</tbody></table></div>':'<p>Player statistics unavailable.</p>')+'</section>';
+ };
  const scorebug=window.SLTSportsScorebug?.render({
   phase:'final',status:'FINAL',away:newspaperTeam(away),home:newspaperTeam(home)
  })||'<p>Scorebug temporarily unavailable.</p>';
- $('game').innerHTML='<article class="ledger26-card">'+
-  '<div class="ledger26-meta"><span>'+esc(g.venue||'NBA')+'</span><span>'+esc(fmt(g.date))+'</span></div>'+
-  '<details class="ledger26-expand"><summary class="ledger26-summary">'+scorebug+
-  '<span class="ledger26-instruction">OPEN GAME DETAILS +</span></summary>'+
-  '<div class="ledger26-expanded">'+quarterScores+teamComparison+
-  '<section class="section"><h3>Top Performers</h3><div class="star-grid">'+highlight+'</div></section>'+
-  '<section class="section"><h3>Complete Player Box Score</h3><div class="rosters">'+roster(away)+roster(home)+'</div></section>'+
-  '<section class="section"><h3>Game Sources</h3><div class="links"><a target="_blank" rel="noopener noreferrer" href="'+esc(g.url)+'">Official box score ↗</a><a href="nba.html#page-3">Standings &amp; RETRO ↗</a></div></section>'+
-  '</div></details></article>';
+ const matchup=(away.name||away.code)+' at '+(home.name||home.code);
+ document.title=matchup+' | NBA Game Center';
+ $('game').innerHTML='<h1 class="game-heading">'+esc(matchup)+'</h1><article class="ledger26-card">'+
+  '<div class="ledger26-meta">'+(g.venue?'<span>'+esc(g.venue)+'</span>':'')+'<span>'+esc(fmt(g.date))+'</span></div>'+
+  scorebug+'<div class="ledger26-expanded">'+quarterScores+
+  (highlight?'<section class="section"><h3>Top Performers</h3><div class="star-grid">'+highlight+'</div></section>':'')+
+  '<section class="section"><h3>Player Box Score</h3>'+roster(away)+roster(home)+'</section>'+teamComparison+
+  '<div class="links">'+(g.url?'<a target="_blank" rel="noopener noreferrer" href="'+esc(g.url)+'">Source box score ↗</a>':'')+
+  '<a href="nba.html#page-3">Standings &amp; RETRO</a></div></div></article>';
 }
 async function boot(){
+ const selector=$('games');
+ const params=new URLSearchParams(location.search);
+ const requested=params.get('game');
  try{
-  const [archive,elo]=await Promise.all([fetchData('data/nba-game-center.json'),fetchData('data/nba-2026-27-current-provisional.json')]);
-  const games=(archive.games||[]).filter(g=>g.state==='post'&&g.teams?.length>=2).sort((a,b)=>String(b.date).localeCompare(String(a.date)));
-  const selector=$('games');selector.innerHTML='';
-  for(const g of games){const a=g.teams.find(t=>t.home_away==='away'),h=g.teams.find(t=>t.home_away==='home');const option=document.createElement('option');option.value=g.id;option.textContent=(a?.code||'Away')+' '+a?.score+' at '+(h?.code||'Home')+' '+h?.score+' · '+fmt(g.date);selector.appendChild(option)}
-  function select(id){const g=games.find(x=>x.id===id)||games[0];if(!g)return;selector.value=g.id;render(g,elo.events||[],elo.rankings||[]);const url=new URL(location.href);url.searchParams.set('game',g.id);history.replaceState(null,'',url.pathname+url.search+url.hash)}
-  selector.addEventListener('change',()=>select(selector.value));
-  select(new URLSearchParams(location.search).get('game'));
- }catch(e){$('game').textContent='Game information unavailable: '+e.message}
+  const archive=await fetchData('data/nba-game-center.json');
+  const games=(archive.games||[]).filter(g=>g.state==='post'&&g.teams?.some(t=>t.home_away==='away')&&g.teams.some(t=>t.home_away==='home'))
+   .sort((a,b)=>String(b.date).localeCompare(String(a.date)));
+  selector.replaceChildren(new Option('Choose a completed game',''));
+  for(const g of games){
+   const away=g.teams.find(t=>t.home_away==='away'),home=g.teams.find(t=>t.home_away==='home');
+   selector.add(new Option(away.code+' '+away.score+' at '+home.code+' '+home.score+' · '+fmt(g.date),g.id));
+  }
+  selector.disabled=!games.length;
+  selector.addEventListener('change',()=>{
+   if(selector.value)location.href='?game='+encodeURIComponent(selector.value);
+  });
+  if(requested===null)return;
+  const game=games.find(g=>g.id===requested||g.id==='espn-nba-'+requested);
+  if(!game){
+   $('game').textContent='This game is unavailable in the completed-game archive.';
+   return;
+  }
+  selector.value=game.id;
+  const elo=await fetchData('data/nba-2026-27-current-provisional.json').catch(()=>({}));
+  render(game,elo.events||[],elo.rankings||[]);
+ }catch(error){
+  if(selector.disabled)selector.replaceChildren(new Option('Completed games unavailable',''));
+  if(requested!==null)$('game').textContent='Game information is temporarily unavailable.';
+  console.warn('NBA Game Center:',error.message);
+ }
 }
 boot();
 })();
