@@ -1314,8 +1314,8 @@
 
 .ledger26-scorebug .ledger26-conference-mark {
  display:inline-block;
- width:32px;
- height:24px;
+ width:48px;
+ height:36px;
  object-fit:contain;
  background:#faf4e8;
  border-radius:3px;
@@ -1324,8 +1324,8 @@
  vertical-align:middle;
 }
 .ledger26-scorebug .ledger26-name .ledger26-conference-mark {
- width:22px;
- height:16px;
+ width:33px;
+ height:24px;
  margin-inline-start:5px;
 }
 .ledger26-scorebug .ledger26-retro-live {
@@ -1343,7 +1343,7 @@
  font-variant-numeric:tabular-nums;
 }
 .ledger26-scorebug--pregame .ledger26-team:has(.ledger26-points .ledger26-conference-mark) {
- grid-template-columns:var(--ledger26-crest-size) minmax(0,1fr) 32px;
+ grid-template-columns:var(--ledger26-crest-size) minmax(0,1fr) 48px;
 }
 .ledger26-scorebug--pregame .ledger26-points:has(.ledger26-conference-mark) {
  display:block;
