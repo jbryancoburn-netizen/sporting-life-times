@@ -255,87 +255,138 @@
       "retro_verified_final": "espn:401909787"
     },
     {
-      "id": "mte-players-era-8-2026-11-18-2439",
-      "date": "2026-11-18T12:00:00-05:00",
-      "name": "Auburn Tigers",
-      "tournament": "Players Era 8 · Second round",
+      "id": "401920516",
+      "date": "2026-11-18T22:30-05:00",
+      "name": "UNLV Rebels at Auburn Tigers",
+      "tournament": "Players Era 8",
       "neutralSite": true,
       "conditionalTournamentGame": false,
-      "official_time": "TBD",
+      "official_time": "10:30 PM EST",
+      "official_school_time": "10:30 PM EST",
+      "official_school_time_source": "https://www.playersera.com/events/players-era-8",
       "school_source_url": "https://www.playersera.com/events/players-era-8",
-      "competitions": [
-        {
-          "competitors": [
-            {
-              "homeAway": "neutral",
-              "team": {
-                "id": "2439",
-                "displayName": "UNLV Rebels"
-              },
-              "score": 71
-            },
-            {
-              "homeAway": "neutral",
-              "team": {
-                "id": "2",
-                "displayName": "Auburn Tigers"
-              },
-              "score": 86
-            }
-          ],
-          "venue": {
-            "fullName": "Michelob ULTRA Arena",
-            "arenaName": "Michelob ULTRA Arena",
-            "official_school_city": "Las Vegas, Nevada"
-          }
-        }
-      ],
+      "site_verified": true,
+      "site_source_url": "https://www.playersera.com/events/players-era-8",
       "status": {
         "type": {
+          "id": "3",
+          "name": "STATUS_FINAL",
           "state": "post",
-          "completed": true
+          "completed": true,
+          "description": "Final",
+          "detail": "Final",
+          "shortDetail": "Final"
         }
       },
-      "retro_verified_final": "espn:401920516"
-    },
-    {
-      "id": "mte-players-era-8-2026-11-19-2439",
-      "date": "2026-11-19T12:00:00-05:00",
-      "name": "Florida / Notre Dame / Rutgers / Houston",
-      "tournament": "Players Era 8 · Placement game",
-      "neutralSite": true,
-      "conditionalTournamentGame": true,
-      "possible_opponent_ids": [
-        "57",
-        "87",
-        "164",
-        "248"
-      ],
-      "official_time": "TBD",
-      "school_source_url": "https://www.playersera.com/events/players-era-8",
       "competitions": [
         {
+          "neutralSite": true,
           "competitors": [
             {
-              "homeAway": "neutral",
+              "homeAway": "home",
+              "team": {
+                "id": "2",
+                "displayName": "Auburn Tigers",
+                "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2.png"
+              },
+              "score": "86"
+            },
+            {
+              "homeAway": "away",
               "team": {
                 "id": "2439",
-                "displayName": "UNLV Rebels"
+                "displayName": "UNLV Rebels",
+                "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2439.png"
+              },
+              "score": "71"
+            }
+          ],
+          "venue": {
+            "id": "4005",
+            "fullName": "Michelob ULTRA Arena",
+            "address": {
+              "city": "Las Vegas",
+              "state": "NV"
+            },
+            "indoor": true,
+            "arenaName": "Michelob ULTRA Arena",
+            "official_school_city": "Las Vegas, NV"
+          },
+          "broadcasts": [
+            {
+              "market": "national",
+              "names": [
+                "ESPN2"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "401920520",
+      "date": "2026-11-19T20:30-05:00",
+      "name": "Rutgers Scarlet Knights at UNLV Rebels",
+      "tournament": "Players Era 8",
+      "neutralSite": true,
+      "conditionalTournamentGame": false,
+      "official_time": "8:30 PM EST",
+      "official_school_time": "8:30 PM EST",
+      "official_school_time_source": "https://www.playersera.com/events/players-era-8",
+      "school_source_url": "https://www.playersera.com/events/players-era-8",
+      "site_verified": true,
+      "site_source_url": "https://www.playersera.com/events/players-era-8",
+      "status": {
+        "type": {
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "state": "pre",
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Thu, November 19th at 8:30 PM EST",
+          "shortDetail": "11/19 - 8:30 PM EST"
+        }
+      },
+      "competitions": [
+        {
+          "neutralSite": true,
+          "competitors": [
+            {
+              "homeAway": "home",
+              "team": {
+                "id": "2439",
+                "displayName": "UNLV Rebels",
+                "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2439.png"
               }
             },
             {
-              "homeAway": "neutral",
+              "homeAway": "away",
               "team": {
-                "id": "",
-                "displayName": "Florida / Notre Dame / Rutgers / Houston"
+                "id": "164",
+                "displayName": "Rutgers Scarlet Knights",
+                "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/164.png"
               }
             }
           ],
           "venue": {
+            "id": "4005",
             "fullName": "Michelob ULTRA Arena",
+            "address": {
+              "city": "Las Vegas",
+              "state": "NV"
+            },
+            "indoor": true,
             "arenaName": "Michelob ULTRA Arena",
-            "official_school_city": "Las Vegas, Nevada"
-          }
+            "official_school_city": "Las Vegas, NV"
+          },
+          "broadcasts": [
+            {
+              "market": "national",
+              "names": [
+                "ESPN2"
+              ]
+            }
+          ]
         }
       ]
     },

@@ -235,79 +235,137 @@
     },
     {
       "id": "401920514",
-      "date": "2026-11-18T12:00:00-05:00",
-      "date_time_placeholder": true,
+      "date": "2026-11-18T16:48-05:00",
       "name": "Houston Cougars at Florida Gators",
+      "tournament": "Players Era 8",
       "neutralSite": true,
+      "conditionalTournamentGame": false,
+      "official_time": "4:30 PM EST",
+      "official_school_time": "4:30 PM EST",
+      "official_school_time_source": "https://www.playersera.com/events/players-era-8",
+      "school_source_url": "https://www.playersera.com/events/players-era-8",
       "site_verified": true,
-      "retro_verified_final": "espn:401920514",
+      "site_source_url": "https://www.playersera.com/events/players-era-8",
       "status": {
         "type": {
+          "id": "3",
+          "name": "STATUS_FINAL",
           "state": "post",
-          "completed": true
+          "completed": true,
+          "description": "Final",
+          "detail": "Final",
+          "shortDetail": "Final"
         }
       },
       "competitions": [
         {
+          "neutralSite": true,
           "competitors": [
             {
               "homeAway": "home",
               "team": {
                 "id": "57",
-                "displayName": "Florida Gators"
+                "displayName": "Florida Gators",
+                "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/57.png"
               },
-              "score": 76
+              "score": "76"
             },
             {
               "homeAway": "away",
               "team": {
                 "id": "248",
-                "displayName": "Houston Cougars"
+                "displayName": "Houston Cougars",
+                "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/248.png"
               },
-              "score": 86
+              "score": "86"
+            }
+          ],
+          "venue": {
+            "id": "4005",
+            "fullName": "Michelob ULTRA Arena",
+            "address": {
+              "city": "Las Vegas",
+              "state": "NV"
+            },
+            "indoor": true,
+            "arenaName": "Michelob ULTRA Arena",
+            "official_school_city": "Las Vegas, NV"
+          },
+          "broadcasts": [
+            {
+              "market": "national",
+              "names": [
+                "ESPN"
+              ]
             }
           ]
         }
       ]
     },
     {
-      "id": "mte-players-era-8-2026-11-19-248",
-      "date": "2026-11-19T12:00:00-05:00",
-      "name": "Auburn / West Virginia / Kansas / UNLV",
-      "tournament": "Players Era 8 · Placement game",
+      "id": "401920518",
+      "date": "2026-11-19T23:00-05:00",
+      "name": "Houston Cougars at Kansas Jayhawks",
+      "tournament": "Players Era 8",
       "neutralSite": true,
-      "conditionalTournamentGame": true,
-      "possible_opponent_ids": [
-        "2",
-        "277",
-        "2305",
-        "2439"
-      ],
-      "official_time": "TBD",
+      "conditionalTournamentGame": false,
+      "official_time": "11:00 PM EST",
+      "official_school_time": "11:00 PM EST",
+      "official_school_time_source": "https://www.playersera.com/events/players-era-8",
       "school_source_url": "https://www.playersera.com/events/players-era-8",
+      "site_verified": true,
+      "site_source_url": "https://www.playersera.com/events/players-era-8",
+      "status": {
+        "type": {
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "state": "pre",
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Thu, November 19th at 11:00 PM EST",
+          "shortDetail": "11/19 - 11:00 PM EST"
+        }
+      },
       "competitions": [
         {
+          "neutralSite": true,
           "competitors": [
             {
-              "homeAway": "neutral",
+              "homeAway": "home",
               "team": {
-                "id": "248",
-                "displayName": "Houston Cougars"
+                "id": "2305",
+                "displayName": "Kansas Jayhawks",
+                "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2305.png"
               }
             },
             {
-              "homeAway": "neutral",
+              "homeAway": "away",
               "team": {
-                "id": "",
-                "displayName": "Auburn / West Virginia / Kansas / UNLV"
+                "id": "248",
+                "displayName": "Houston Cougars",
+                "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/248.png"
               }
             }
           ],
           "venue": {
+            "id": "4005",
             "fullName": "Michelob ULTRA Arena",
+            "address": {
+              "city": "Las Vegas",
+              "state": "NV"
+            },
+            "indoor": true,
             "arenaName": "Michelob ULTRA Arena",
-            "official_school_city": "Las Vegas, Nevada"
-          }
+            "official_school_city": "Las Vegas, NV"
+          },
+          "broadcasts": [
+            {
+              "market": "national",
+              "names": [
+                "ESPN"
+              ]
+            }
+          ]
         }
       ]
     },

@@ -435,79 +435,138 @@
     },
     {
       "id": "401920513",
-      "date": "2026-11-18T12:00:00-05:00",
-      "date_time_placeholder": true,
+      "date": "2026-11-18T14:00-05:00",
       "name": "Rutgers Scarlet Knights at Notre Dame Fighting Irish",
+      "tournament": "Players Era 8",
       "neutralSite": true,
+      "conditionalTournamentGame": false,
+      "official_time": "2:00 PM EST",
+      "official_school_time": "2:00 PM EST",
+      "official_school_time_source": "https://www.playersera.com/events/players-era-8",
+      "school_source_url": "https://www.playersera.com/events/players-era-8",
       "site_verified": true,
-      "retro_verified_final": "espn:401920513",
+      "site_source_url": "https://www.playersera.com/events/players-era-8",
       "status": {
         "type": {
+          "id": "3",
+          "name": "STATUS_FINAL",
           "state": "post",
-          "completed": true
+          "completed": true,
+          "description": "Final",
+          "detail": "Final/OT",
+          "shortDetail": "Final/OT",
+          "altDetail": "OT"
         }
       },
       "competitions": [
         {
+          "neutralSite": true,
           "competitors": [
             {
               "homeAway": "home",
               "team": {
                 "id": "87",
-                "displayName": "Notre Dame Fighting Irish"
+                "displayName": "Notre Dame Fighting Irish",
+                "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/87.png"
               },
-              "score": 110
+              "score": "110"
             },
             {
               "homeAway": "away",
               "team": {
                 "id": "164",
-                "displayName": "Rutgers Scarlet Knights"
+                "displayName": "Rutgers Scarlet Knights",
+                "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/164.png"
               },
-              "score": 100
+              "score": "100"
+            }
+          ],
+          "venue": {
+            "id": "4005",
+            "fullName": "Michelob ULTRA Arena",
+            "address": {
+              "city": "Las Vegas",
+              "state": "NV"
+            },
+            "indoor": true,
+            "arenaName": "Michelob ULTRA Arena",
+            "official_school_city": "Las Vegas, NV"
+          },
+          "broadcasts": [
+            {
+              "market": "national",
+              "names": [
+                "ESPN"
+              ]
             }
           ]
         }
       ]
     },
     {
-      "id": "mte-players-era-8-2026-11-19-87",
-      "date": "2026-11-19T12:00:00-05:00",
-      "name": "Auburn / West Virginia / Kansas / UNLV",
-      "tournament": "Players Era 8 · Placement game",
+      "id": "401920519",
+      "date": "2026-11-19T17:00-05:00",
+      "name": "Notre Dame Fighting Irish at Auburn Tigers",
+      "tournament": "Players Era 8",
       "neutralSite": true,
-      "conditionalTournamentGame": true,
-      "possible_opponent_ids": [
-        "2",
-        "277",
-        "2305",
-        "2439"
-      ],
-      "official_time": "TBD",
+      "conditionalTournamentGame": false,
+      "official_time": "5:00 PM EST",
+      "official_school_time": "5:00 PM EST",
+      "official_school_time_source": "https://www.playersera.com/events/players-era-8",
       "school_source_url": "https://www.playersera.com/events/players-era-8",
+      "site_verified": true,
+      "site_source_url": "https://www.playersera.com/events/players-era-8",
+      "status": {
+        "type": {
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "state": "pre",
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Thu, November 19th at 5:00 PM EST",
+          "shortDetail": "11/19 - 5:00 PM EST"
+        }
+      },
       "competitions": [
         {
+          "neutralSite": true,
           "competitors": [
             {
-              "homeAway": "neutral",
+              "homeAway": "home",
               "team": {
-                "id": "87",
-                "displayName": "Notre Dame Fighting Irish"
+                "id": "2",
+                "displayName": "Auburn Tigers",
+                "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2.png"
               }
             },
             {
-              "homeAway": "neutral",
+              "homeAway": "away",
               "team": {
-                "id": "",
-                "displayName": "Auburn / West Virginia / Kansas / UNLV"
+                "id": "87",
+                "displayName": "Notre Dame Fighting Irish",
+                "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/87.png"
               }
             }
           ],
           "venue": {
+            "id": "4005",
             "fullName": "Michelob ULTRA Arena",
+            "address": {
+              "city": "Las Vegas",
+              "state": "NV"
+            },
+            "indoor": true,
             "arenaName": "Michelob ULTRA Arena",
-            "official_school_city": "Las Vegas, Nevada"
-          }
+            "official_school_city": "Las Vegas, NV"
+          },
+          "broadcasts": [
+            {
+              "market": "national",
+              "names": [
+                "ESPN"
+              ]
+            }
+          ]
         }
       ]
     },
