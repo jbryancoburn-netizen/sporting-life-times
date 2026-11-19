@@ -715,12 +715,21 @@
   const liveOdds=phase==='live'&&g.retroLiveEnabled?root.SLTRetroLive?.estimate({
    status:label,away:g.away?.score,home:g.home?.score,prior:g.retroLivePrior,
    possession:g.possession,women:g.gender==='women'}):null;
+  // Indicative single-game movement only; the official RETRO model refits the entire season.
+  const ar=Number(g.away?.retroSnapshot?.elo),hr=Number(g.home?.retroSnapshot?.elo);
+  const validRatings=Number.isFinite(ar)&&Number.isFinite(hr)&&ar>0&&hr>0;
+  const expected=validRatings?1/(1+Math.pow(10,(ar-hr-100)/400)):null;
+  const swing=Number.isFinite(liveOdds)&&expected!==null?18*(liveOdds-expected):null;
+  const movement=swing===null?'':'<span class="ledger26-retro-movement" aria-label="Indicative live rating movement">'+
+    esc(g.away?.abbreviation||g.away?.name)+' '+(swing<=0?'+':'−')+Math.abs(swing).toFixed(1)+' pts · '+
+    esc(g.home?.abbreviation||g.home?.name)+' '+(swing>=0?'+':'−')+Math.abs(swing).toFixed(1)+
+    ' pts <small>indicative · official RETRO updates after final</small></span>';
   const homePercent=Number.isFinite(liveOdds)?Math.round(liveOdds*100):null;
   const liveRetro=phase==='live'&&g.retroLiveEnabled?
    '<div class="ledger26-retro-live" aria-label="Live win probability"><strong>RETRO LIVE</strong><span>'+
    (homePercent===null?'Waiting for live score and clock':
     esc(g.away?.abbreviation||g.away?.name)+' '+(100-homePercent)+'% · '+
-    esc(g.home?.abbreviation||g.home?.name)+' '+homePercent+'%')+'</span></div>':'';
+    esc(g.home?.abbreviation||g.home?.name)+' '+homePercent+'%')+'</span>'+movement+'</div>':'';
   return '<div class="ledger26-scorebug'+(g.suppressMonogram?' ledger26-scorebug--plain':'')+(middle||phase==='live'&&g.pulseManagedExternally?' ledger26-scorebug--pulse':'')+(phase==='final'?' ledger26-scorebug--final':'')+(phase==='upcoming'?' ledger26-scorebug--pregame':'')+'" role="group" aria-label="'+esc(g.ariaLabel||((g.away?.name||'Away')+' at '+(g.home?.name||'Home')+' scoreboard'))+'">'+
     (g.suppressMonogram?'':'<span class="ledger26-monogram"><img src="assets/slt-engraved-black.svg" width="35" height="49" alt="Sporting Life and Times monogram"></span>')+
     (phase==='live'?'<div class="ledger26-live-headline" role="status" aria-label="Live game clock and period" style="display:flex;align-items:center;justify-content:center;gap:12px;padding:8px 10px;background:#f5e6c8;color:#35271c;border-bottom:2px solid #927657;font:700 13px Georgia,serif;letter-spacing:.025em;text-align:center">'+(function(){const raw=String(label||'LIVE');if(/\b(?:HALFTIME|HALF TIME|INTERMISSION)\b/i.test(raw))return 'HALFTIME';const clock=(raw.match(/\b\d{1,2}:\d{2}\b/)||[])[0]||'CLOCK UNAVAILABLE';const p=(raw.match(/\b(?:1st|2nd|3rd|4th|\d+OT|OT)\b/i)||[])[0]||'';const period=p?(/OT$/i.test(p)?(p.length===2?'OVERTIME':p.toUpperCase()):p.toUpperCase()+(g.gender==='women'||g.periodFormat==='quarters'?' QUARTER':' HALF')):'PERIOD UNAVAILABLE';if(g.liveStatusOverride)return esc(g.liveStatusOverride);return esc(clock)+' <span style="color:#806044">·</span> '+esc(period);})()+'</div>':'')+
