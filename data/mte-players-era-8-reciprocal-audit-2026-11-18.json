@@ -1,0 +1,43 @@
+{
+  "season": "2026-27",
+  "event": "Players Era 8",
+  "checked": "2026-11-18",
+  "scope": "Source JSON entries for 8 teams, 17-19 November",
+  "opening_round": {
+    "confirmed_reciprocal": 4,
+    "missing": 0
+  },
+  "second_round": {
+    "confirmed_reciprocal": [
+      [
+        "Houston",
+        "Florida"
+      ],
+      [
+        "Rutgers",
+        "Notre Dame"
+      ],
+      [
+        "Kansas",
+        "West Virginia"
+      ],
+      [
+        "UNLV",
+        "Auburn"
+      ]
+    ],
+    "missing": 0
+  },
+  "third_round": {
+    "team_date_slots_present": 8,
+    "opponents_confirmed": 0,
+    "unresolved_placeholders": 8
+  },
+  "note": "Nov 19 entries are not verified matchups. Do not treat date presence as a validated opponent. No full-inventory run verified.",
+  "fix": {
+    "team": "Auburn",
+    "date": "2026-11-18",
+    "opponent": "UNLV",
+    "commit": "e7a6eecdd40e58240f305bb2ba2afd53886fab09"
+  }
+}
