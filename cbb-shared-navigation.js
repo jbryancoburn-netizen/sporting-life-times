@@ -31,7 +31,7 @@ if(women&&!womenPage&&(menPage||page==='cbb-game-center.html'||page==='cbb-gamef
   'ncaam-tournament.html':'ncaam.html?gender=women#wbb-rankings',
   'ncaam-players.html':'ncaam.html?gender=women#wbb-teams',
   'ncaam-arena.html':'ncaam.html?gender=women#wbb-teams',
-  'ncaam-history.html':'ncaam.html?gender=women#wbb-rankings',
+  'ncaam-history.html':'ncaam-history.html?gender=women',
   'ncaam-rivalry.html':'ncaam.html?gender=women#wbb-games',
   'ncaam-predictor.html':'ncaam.html?gender=women#wbb-games'
  };
@@ -117,7 +117,7 @@ for(const nav of navs){
  if(sections)for(const link of nav.querySelectorAll('a')){
    const label=link.textContent.trim();
    if(sections[label])link.href=sections[label];
-   else if(/Elo History/i.test(label))link.href='ncaam.html?gender=women#wbb-rankings';
+   else if(/Elo History|College Basketball History/i.test(label))link.href='ncaam-history.html?gender=women';
  }
  // Keep internal newspaper links inside the selected edition, including article cards.
  if(women && !window.__cbbWomenLinkGuard){
@@ -134,7 +134,7 @@ for(const nav of navs){
    'ncaam-players.html':'ncaam.html?gender=women#wbb-teams',
    'ncaam-team.html':'ncaam.html?gender=women#wbb-teams',
    'ncaam-arena.html':'ncaam.html?gender=women#wbb-teams',
-   'ncaam-history.html':'ncaam.html?gender=women#wbb-rankings',
+   'ncaam-history.html':'ncaam-history.html?gender=women',
    'ncaam-rivalry.html':'ncaam.html?gender=women#wbb-games',
    'ncaam-predictor.html':'ncaam.html?gender=women#wbb-games'
   };
