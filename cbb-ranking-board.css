@@ -1,90 +1,10 @@
-/* Men's RETRO standings board */
-.rank-hanging-board #rank-content {
-  --board-ink: #27241f;
-  --board-paper: #fbf6e9;
+/* School colors on the original men's RETRO ranking cards. */
+.rank-team-colors #rank-content .rank-table tbody tr {
+  --rank-school-color: #594631;
+  background: color-mix(in srgb, var(--rank-school-color) 30%, #fff8eb) !important;
+  border-color: var(--rank-school-color);
+  border-inline-start-style: solid;
 }
-.rank-hanging-board #rank-content .rank-table-wrap--retro {
-  background: #37332d;
-  border: 1px solid #211e19;
-  border-radius: 5px;
-  padding: clamp(7px, 1.5vw, 16px);
-}
-.rank-hanging-board #rank-content .rank-table tbody tr {
-  --plaque-team: #79553b;
-  --plaque-trim: #b99b6c;
-  position: relative;
-  margin: 0 0 7px;
-  padding: 7px 14px;
-  border: 1px solid color-mix(in srgb, var(--plaque-team) 75%, #383029);
-  border-inline-start: 5px solid var(--plaque-team);
-  border-radius: 3px;
-  background: var(--board-paper) !important;
-  box-shadow: 0 1px 2px #19171370;
-  color: var(--board-ink);
-}
-.rank-hanging-board #rank-content .rank-table tbody tr:last-child {margin-bottom: 0}
-.rank-hanging-board #rank-content .rank-table tbody tr::before {
-  content: "";
-  position: absolute;
-  inset-block-start: 8px;
-  inset-inline-end: 8px;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #8b7556;
-  box-shadow: inset 0 1px #e1cca2;
-  pointer-events: none;
-}
-.rank-hanging-board #rank-content .rank-table tbody td:first-child .rank-number {
-  width: auto;
-  height: auto;
-  background: transparent;
-  clip-path: none;
-  color: #584a39;
-  font: 700 18px/1.15 Georgia, serif;
-  font-variant-numeric: tabular-nums;
-}
-.rank-hanging-board #rank-content .rank-number::before,
-.rank-hanging-board #rank-content .rank-number::after,
-.rank-hanging-board #rank-content .rank-number-art {display: none}
-.rank-hanging-board #rank-content .rank-number-value {
-  position: static;
-  width: auto;
-  height: auto;
-  margin: 0;
-  clip-path: none;
-}
-.rank-hanging-board #rank-content .rank-school .mbb-mark {--mbb-size: 49px}
-.rank-hanging-board #rank-content .rank-school > a {
-  color: var(--board-ink);
-  font: 700 clamp(16px, 2vw, 23px)/1.15 "Century Schoolbook", Georgia, serif;
-}
-.rank-hanging-board #rank-content .rank-table tbody td:nth-child(5) {
-  border-top-color: color-mix(in srgb, var(--plaque-trim) 26%, #dacdb8) !important;
-}
-.rank-hanging-board #rank-content .rank-why summary {color: #654a33}
-@media (min-width: 651px) {
-  .rank-hanging-board #rank-content .rank-table tbody tr {
-    grid-template-columns: 46px minmax(0, 1fr) 86px 70px;
-    column-gap: 12px;
-  }
-  .rank-hanging-board #rank-content .rank-table tbody td:first-child {width: 46px !important}
-  .rank-hanging-board #rank-content .rank-table tbody td:nth-child(3)::before {content: "RETRO"}
-  .rank-hanging-board #rank-content .rank-table tbody td:nth-child(4)::before {content: "W–L"}
-  .rank-hanging-board #rank-content .rank-table tbody td:nth-child(3)::before,
-  .rank-hanging-board #rank-content .rank-table tbody td:nth-child(4)::before {
-    display: block;
-    margin-bottom: 3px;
-    color: #6a5845;
-    font: 700 10px/1 Arial, sans-serif;
-    letter-spacing: .06em;
-  }
-}
-@media (max-width: 650px) {
-  .rank-hanging-board #rank-content .rank-table tbody tr {padding-inline: 6px}
-  .rank-hanging-board #rank-content .rank-school .mbb-mark {--mbb-size: 43px}
-}
-@media (forced-colors: active) {
-  .rank-hanging-board #rank-content .rank-table tbody tr {border-color: CanvasText;box-shadow: none}
-  .rank-hanging-board #rank-content .rank-table tbody td:first-child .rank-number {color: CanvasText}
+.rank-team-colors #rank-content .rank-table tbody tr .rank-school > a {
+  color: #241b14;
 }
