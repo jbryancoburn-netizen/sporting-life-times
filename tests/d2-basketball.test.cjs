@@ -191,7 +191,7 @@ test('DII scoreboard and both Elo builders order Eastern tipoffs by meridiem, ne
  const js=fs.readFileSync('d2-basketball.js','utf8');
  assert.match(js,/tipMinute/);
  assert.match(js,/selected\.sort\(chronological\)/);
- assert.match(js,/sort\(chronological\);el\.innerHTML/);
+ assert.match(js,/const gs=.*\.sort\(chronological\);/);
  for(const filename of ['scripts/build_d2_basketball.py','scripts/merge_d2_season_audit.py']){
   const py=fs.readFileSync(filename,'utf8');
   assert.match(py,/from (?:scripts\.)?d2_elo_chronology import game_sort_key/);
