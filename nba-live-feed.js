@@ -10,7 +10,7 @@ let lastOK=0;let fallbackRecords={};
 let eloRatings={},forecastModel=null,completedEvents=[];
 // RETRO is a published team rating, not an output of the Rabby possession model.
 // Always load the earned 1500-reset ratings independently of forecast availability.
-let retroRanks={};
+let retroRanks={},verifiedForm=null;
 async function loadPregameElo(){
  try{
   const response=await fetch('data/nba-elo-shadow-2026-27.json?retro='+Math.floor(Date.now()/30000),{cache:'no-store'});
@@ -28,6 +28,7 @@ async function loadPregameElo(){
   eloRatings=Object.fromEntries(rows.map(x=>[x.team,x.elo]));
   retroRanks=Object.fromEntries(rows.map((x,i)=>[x.team,i+1]));
   completedEvents=Array.isArray(elo.events)?elo.events:[];
+  verifiedForm=window.SLTSportsScorebug?.verifiedFormIndex?.(completedEvents.map(g=>({id:String(g.id).replace(/^espn-nba-/,''),date:g.date,away:canonicalCode(g.away),home:canonicalCode(g.home),awayScore:g.away_score,homeScore:g.home_score,href:'nba-game-center.html?game='+encodeURIComponent(g.id)})));
  }catch(error){
   console.warn('NBA RETRO: retaining last validated earned rating snapshot:',error.message);
  }
@@ -148,7 +149,7 @@ function render(payload){
   const playing=g.state==='in',final=g.state==='post';
   const phase=playing?'live':final?'final':'upcoming';
   const time=new Date(g.date).toLocaleTimeString('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit'});
-  const side=t=>({name:t.name||t.code,crest:'<img src="'+logo(t.code)+'" width="36" height="36" loading="lazy" alt="" onerror="this.hidden=true">',color:({ATL:'#E03A3E',BOS:'#007A33',BKN:'#242424',CHA:'#1D1160',CHI:'#CE1141',CLE:'#860038',DAL:'#00538C',DEN:'#0E2240',DET:'#C8102E',GSW:'#1D428A',HOU:'#CE1141',IND:'#002D62',LAC:'#C8102E',LAL:'#552583',MEM:'#5D76A9',MIA:'#98002E',MIL:'#00471B',MIN:'#0C2340',NOP:'#0C2340',NYK:'#006BB6',OKC:'#007AC1',ORL:'#0077C0',PHI:'#006BB6',PHX:'#1D1160',POR:'#E03A3E',SAC:'#5A2D81',SAS:'#343A40',TOR:'#CE1141',UTA:'#002B5C',WAS:'#002B5C'}[t.code]||'#655239'),record:t.record||'—',retro:Number.isFinite(eloRatings[canonicalCode(t.code)])?'RETRO '+Math.round(eloRatings[canonicalCode(t.code)])+' (#'+retroRanks[canonicalCode(t.code)]+')':'RETRO —',score:t.score});
+  const side=t=>({name:t.name||t.code,scouting:window.SLTSportsScorebug?.formAt?.(verifiedForm,canonicalCode(t.code),g.date,String(g.id).replace(/^espn-nba-/,''),phase),crest:'<img src="'+logo(t.code)+'" width="36" height="36" loading="lazy" alt="" onerror="this.hidden=true">',color:({ATL:'#E03A3E',BOS:'#007A33',BKN:'#242424',CHA:'#1D1160',CHI:'#CE1141',CLE:'#860038',DAL:'#00538C',DEN:'#0E2240',DET:'#C8102E',GSW:'#1D428A',HOU:'#CE1141',IND:'#002D62',LAC:'#C8102E',LAL:'#552583',MEM:'#5D76A9',MIA:'#98002E',MIL:'#00471B',MIN:'#0C2340',NOP:'#0C2340',NYK:'#006BB6',OKC:'#007AC1',ORL:'#0077C0',PHI:'#006BB6',PHX:'#1D1160',POR:'#E03A3E',SAC:'#5A2D81',SAS:'#343A40',TOR:'#CE1141',UTA:'#002B5C',WAS:'#002B5C'}[t.code]||'#655239'),record:t.record||'—',retro:Number.isFinite(eloRatings[canonicalCode(t.code)])?'RETRO '+Math.round(eloRatings[canonicalCode(t.code)])+' (#'+retroRanks[canonicalCode(t.code)]+')':'RETRO —',score:t.score});
   const scorebug=window.SLTSportsScorebug?.render({phase,periodFormat:'quarters',away:side(g.away),home:side(g.home),status:final?'FINAL':g.label,tipoff:time+' ET',network:g.network});
   if(!scorebug)return '';
   const pregameSafe=!playing&&!final&&Date.parse(g.date)>Date.now();

@@ -608,7 +608,7 @@ jobs:
           assert public_elo['parameters']['season_start_elo']==1500, 'NBA published model must reset to 1500'
           assert len(public_elo['rankings'])==30
           assert 'nba-team-roster.js' in Path('/tmp/public-nba-team.html').read_text(), 'Team pages lack sourced roster renderer'
-          assert 'Current Team Roster' in Path('/tmp/public-nba-roster.js').read_text(), 'Roster UI not present'
+          assert 'Team Roster &amp; Player Production' in Path('/tmp/public-nba-roster.js').read_text(), 'Roster UI not present'
           print('PASS public NBA: 30 current rosters and same 1500-reset power rankings as deployed artifact')
           PY
               then exit 0; fi
@@ -629,7 +629,7 @@ jobs:
             if curl -fsSL --max-time 20 "$ROOT/data/ncaam-2026-27-retro-primary.json?rev=${GITHUB_RUN_ID}-$retry" -o /tmp/public-mbb-retro.json &&
                curl -fsSL --max-time 20 "$ROOT/ncaam-elo.html?rev=${GITHUB_RUN_ID}-$retry" -o /tmp/public-mbb-rankings.html &&
                curl -fsSL --max-time 20 "$ROOT/ncaam-team.html?rev=${GITHUB_RUN_ID}-$retry" -o /tmp/public-mbb-team.html &&
-               curl -fsSL --max-time 20 "$ROOT/mbb-current-roster.js?rev=${GITHUB_RUN_ID}-$retry" -o /tmp/public-mbb-roster.js &&
+               curl -fsSL --max-time 20 "$ROOT/mbb-newspaper.js?rev=${GITHUB_RUN_ID}-$retry" -o /tmp/public-mbb-roster.js &&
                curl -fsSL --max-time 20 "$ROOT/data/mbb-rosters-2026-27/84.json?rev=${GITHUB_RUN_ID}-$retry" -o /tmp/public-mbb-indiana-roster.json; then
               if python3 - <<'PY'
           import json
@@ -641,8 +641,10 @@ jobs:
           assert public['games_played']==len(public['events'])
           assert public['rankings']==local['rankings'], 'Public MBB RETRO does not match deployable data'
           assert 'mbb-elo-primary.js' in Path('/tmp/public-mbb-rankings.html').read_text(), 'Legacy MBB Elo page served'
-          assert 'mbb-current-roster.js' in Path('/tmp/public-mbb-team.html').read_text(), 'Current team roster not linked'
-          assert 'data/mbb-rosters-2026-27/' in Path('/tmp/public-mbb-roster.js').read_text(), 'Team roster data lookup absent'
+          team_html=Path('/tmp/public-mbb-team.html').read_text()
+          assert 'mbb-newspaper.js' in team_html and 'cbb-roster-production.js' in team_html, 'Current team roster and production renderers not linked'
+          roster_js=Path('/tmp/public-mbb-roster.js').read_text()
+          assert 'data/mbb-rosters-2026-27/' in roster_js and 'Team Roster & Player Production' in roster_js, 'Combined roster UI or roster data lookup absent'
           roster=json.loads(Path('/tmp/public-mbb-indiana-roster.json').read_text())
           assert roster['team_id']=='ncaa:609574' and len(roster['players'])>=10
           print('PASS: public Pages serves 365 clean-slate RETRO ratings and searchable current rosters')

@@ -379,6 +379,12 @@ const page=document.body.dataset.page;
 function render(){stamp();const app=$('#app');if(!app)return;
  let html=page==='home'?home():page==='standings'?standings():page==='rankings'?rankings():page==='playoffs'?playoff():page==='players'?players():page==='matchups'?matchups():page==='team'?teamDesk():page==='conference'?conference():home();
  app.innerHTML=html;
+ if(page==='team'){
+  const team=app.querySelector('#nba-team-select')?.value;
+  document.dispatchEvent(new CustomEvent('nba:team-production',{detail:{
+   team,updated:data.leaders?.updated_at,rows:(data.leaders?.season_totals||[]).filter(row=>row.team===team)
+  }}));
+ }
  try{const ctx={page,data,meta,rates,seed,prior,records,ordered};if(page==='team'&&window.NBATeamDepth)window.NBATeamDepth(ctx);if(page==='players'&&window.NBAPlayerDepth)window.NBAPlayerDepth(ctx);if(page==='matchups'&&window.NBAMatchupDepth)window.NBAMatchupDepth(ctx);}catch(error){console.error('NBA enhanced desk failed',error);}
  if(page==='matchups'&&!window.__nbaRabbyWired){window.__nbaRabbyWired=true;const script=document.createElement('script');script.src='nba-rabby-forecast.js?v=remount-fix-20261104';script.defer=true;document.body.appendChild(script);}
  const nav=$('.nav');if(nav){[...nav.querySelectorAll('a')].forEach(a=>{a.removeAttribute('aria-current');if(new URL(a.href).pathname===location.pathname&&!(page==='home'&&a.hash))a.setAttribute('aria-current','page')});}

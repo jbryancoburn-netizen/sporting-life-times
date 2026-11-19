@@ -281,3 +281,12 @@ for(const [outcomes,expectedLights,expectedStreak] of [
   assert.equal((rendered.match(/class="ledger26-form-bulb /g)||[]).length,expectedLights);
   assert.equal(rendered.match(/class="ledger26-streak"[^>]*>([^<]+)/)?.[1],expectedStreak);
 }
+
+const verifiedGames=Array.from({length:12},(_,i)=>({
+ id:String(i+1),date:'2026-11-'+String(i+1).padStart(2,'0'),away:'A',home:'B',awayScore:80,homeScore:60
+}));
+const fullForm=scorebug.verifiedFormIndex([...verifiedGames,verifiedGames[0],{...verifiedGames[0],id:'bad',awayScore:60}]);
+assert.equal(scorebug.formAt(fullForm,'A','2026-11-12','12','upcoming').games,11);
+assert.equal(scorebug.formAt(fullForm,'A','2026-11-12','12','final').games,12);
+assert.equal(scorebug.formAt(fullForm,'A','2026-11-04','4','live').games,3);
+assert.match(scorebug.render({phase:'final',away:{scouting:{games:1,lastFive:[{result:'W',gameHref:'ncaam-slate.html?gender=women&date=2026-11-04&game=4'}]}},home:{}}),/href="ncaam-slate\.html\?gender=women&amp;date=2026-11-04&amp;game=4"/);

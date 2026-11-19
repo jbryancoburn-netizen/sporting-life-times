@@ -596,6 +596,36 @@
   },true);
  }
 
+ // Each ledger supplies completed games from its own verified publication.
+ function verifiedFormIndex(games){
+  const form=new Map(),seen=new Set();
+  for(const game of games){
+   const {id,date,away,home,awayScore,homeScore,awayName,homeName,href}=game;
+   const stamp=Date.parse(date);
+   if(!Number.isFinite(stamp)||!away||!home||away===home||!Number.isInteger(awayScore)||!Number.isInteger(homeScore)||
+     awayScore<0||homeScore<0||awayScore===homeScore)continue;
+   const key=id?String(id):date+'|'+away+'|'+home;
+   if(seen.has(key))continue;
+   seen.add(key);
+   for(const [team,scored,allowed,opponent] of [[away,awayScore,homeScore,homeName||home],[home,homeScore,awayScore,awayName||away]]){
+    const history=form.get(String(team))||[];
+    history.push({id:key,stamp,date:String(date).slice(0,10),result:scored>allowed?'W':'L',scored,allowed,opponent,gameHref:href});
+    form.set(String(team),history);
+   }
+  }
+  for(const history of form.values())history.sort((a,b)=>a.stamp-b.stamp||a.id.localeCompare(b.id));
+  return form;
+ }
+ function formAt(index,team,date,id,phase){
+  const stamp=Date.parse(date);
+  if(!Number.isFinite(stamp))return null;
+  const history=(index?.get(String(team))||[]).filter(row=>row.stamp<=stamp&&(row.id!==String(id)||phase==='final'));
+  return history.length?{games:history.length,lastFive:history}:null;
+ }
+ const formGameLink=value=>{
+  const href=String(value||'');
+  return /^(?:cbb-gamefile\.html\?(?:gender=women&)?day=\d{4}-\d{2}-\d{2}&game=\d{1,12}|ncaam-slate\.html\?(?:gender=women&)?date=\d{4}-\d{2}-\d{2}&game=\d{1,12}|nba-game-center\.html\?game=(?:espn-nba-)?\d{1,12}|d2-game\.html\?gender=(?:men|women)&game=[a-z0-9%_-]+)$/i.test(href)?href:'';
+ };
  function render(input){
   const g=input||{},phase=['live','final','upcoming'].includes(g.phase)?g.phase:'upcoming';
   const label=(phase==='final'?
@@ -652,18 +682,18 @@
     '<small class="ledger26-scout" title="2026–27 verified regular-season finals: '+profile.games+' games">'+
     (ppg!==null?'<span class="ledger26-scout-stat">'+esc(ppg)+' PPG</span>':'')+
     (papg!==null?'<span class="ledger26-scout-stat ledger26-scout-defense">'+esc(papg)+' allowed</span>':'')+
-    (form.length?'<span class="ledger26-form" aria-label="Last '+form.length+' verified games, oldest to newest: '+outcomes.join(', ')+'">'+form.map(v=>{
+    (form.length?'<span class="ledger26-form-run"><span class="ledger26-form" aria-label="Last '+form.length+' verified games, oldest to newest: '+outcomes.join(', ')+'">'+form.map(v=>{
       const outcome=typeof v==='string'?v:v.result;
       const hasScore=typeof v==='object'&&v!==null&&Number.isFinite(Number(v.scored))&&Number.isFinite(Number(v.allowed));
       const opponent=typeof v==='object'&&v!==null?String(v.opponent||'Opponent'):'Opponent';
       const date=typeof v==='object'&&v!==null?String(v.date||''):'';
       const result=outcome==='W'?'Win':'Loss';
       const detail=hasScore?(date+' · '+result+' vs '+opponent+' · '+v.scored+'–'+v.allowed):result;
-      const href=typeof v==='object'&&v!==null&&/^cbb-gamefile[.]html[?](?:gender=women&)?day=[0-9]{4}-[0-9]{2}-[0-9]{2}&game=[0-9]{1,12}$/.test(String(v.gameHref||''))?String(v.gameHref):'';
+      const href=typeof v==='object'&&v!==null?formGameLink(v.gameHref):'';
       return href?'<a class="ledger26-form-bulb ledger26-form-'+outcome.toLowerCase()+'" href="'+esc(href)+'" title="'+esc(detail)+'" aria-label="'+esc(detail+'; open game')+'" onclick="event.stopPropagation()"></a>':
         '<i class="ledger26-form-bulb ledger26-form-'+outcome.toLowerCase()+'" aria-hidden="true" title="'+esc(detail)+'"></i>';
-    }).join('')+'</span>':'')+
-    (streakLabel?'<span class="ledger26-streak" title="Current verified streak">'+esc(streakLabel)+'</span>':'')+
+    }).join('')+'</span>'+
+    (streakLabel?'<span class="ledger26-streak" title="Current verified streak">'+esc(streakLabel)+'</span>':'')+'</span>':'')+
     '</small>':'';
 
    const href=/^ncaam-team\.html\?team=ncaa%3A\d+$|^ncaaw-team\.html\?team=\d+$|^d2-team\.html\?gender=(?:men|women)&team=[a-z0-9-]+$/i.test(String(x.teamHref||''))?x.teamHref:'';
@@ -746,6 +776,6 @@
   dialog.showModal();loadPress(dialog);
  }
 
- root.SLTSportsScorebug={render,formatRetro,openPress,cleanWatermark,version:'shared-letterpress-v19-raw-art-watermark'};
+ root.SLTSportsScorebug={render,verifiedFormIndex,formAt,formatRetro,openPress,cleanWatermark,version:'shared-letterpress-v19-raw-art-watermark'};
  root.SLTBasketballScorebug=root.SLTSportsScorebug;
 })(typeof window!=='undefined'?window:globalThis);

@@ -1167,10 +1167,11 @@
   .ledger26-scorebug .ledger26-team .ledger26-identity{padding-right:0}
 }
 
-/* Full-season result lamps: never clip a team's history at five games. */
+/* Keep the five recent results and the full streak together. */
+.ledger26-form-run{display:inline-flex;align-items:center;gap:4px;max-width:100%;white-space:nowrap}
 .ledger26-scorebug .ledger26-team .ledger26-form{
  display:inline-flex;
- flex-wrap:wrap;
+ flex-wrap:nowrap;
  max-width:100%;
  min-width:0;
  box-sizing:border-box;

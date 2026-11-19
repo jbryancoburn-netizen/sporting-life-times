@@ -10,7 +10,11 @@ const picker=document.getElementById('el-score-date');
 const filter=document.getElementById('el-score-filter');
 if(!picker||!filter)return;
 const search=document.getElementById('el-score-search');
-picker.value=day(Date.now());
+const params=new URLSearchParams(location.search);
+const requestedDate=params.get('date'),requestedGame=params.get('game');
+let revealRequestedGame=Boolean(requestedGame);
+picker.value=/^\d{4}-\d{2}-\d{2}$/.test(requestedDate||'')?requestedDate:day(Date.now());
+if(!picker.value)picker.value=day(Date.now());
 for(const button of document.querySelectorAll('[data-el-day-step]')){
  button.addEventListener('click',()=>{
   const next=new Date(picker.value+'T12:00:00Z');
@@ -108,7 +112,12 @@ function render(){
   const tiedIndex=rankings.findIndex(other=>Number(other.elo)===Number(item.elo));
   clubMap.set(String(item.code).toUpperCase(),{...item,rank:(tiedIndex<0?index:tiedIndex)+1});
  }
- const completedById=new Map((forecast?.completed_game_ledger||[]).map(game=>[String(game.id),game]));
+ const completed=forecast?.completed_game_ledger||[];
+ const completedById=new Map(completed.map(game=>[String(game.id),game]));
+ const form=window.SLTSportsScorebug?.verifiedFormIndex?.(completed.map(game=>({
+  id:game.id,date:game.date,away:game.away,home:game.home,awayScore:game.score?.[1],homeScore:game.score?.[0],
+  awayName:clubMap.get(String(game.away).toUpperCase())?.name,homeName:clubMap.get(String(game.home).toUpperCase())?.name
+ })));
  for(const item of forecast?.standings||[])recordMap.set(String(item.code).toUpperCase(),item);
  const byId=new Map((forecast?.fixtures||[]).map(g=>[String(g.id),g]));
  const expanded=new Set([...host.querySelectorAll('details[open][data-game-id]')].map(el=>el.dataset.gameId));
@@ -133,7 +142,7 @@ function render(){
   const p=profile(t),hex=t.primary||p?.primary||'';
   return {name:clubName(t),score:scored?t.score:null,crest:logo(t),
    color:/^#[a-f0-9]{6}$/i.test(hex)?hex:'#66503a',
-   record:wins(t)||'Record pending',
+   record:wins(t)||'Record pending',scouting:window.SLTSportsScorebug?.formAt?.(form,t.code,g.date,g.id,phase),
    retro:window.SLTSportsScorebug?.formatRetro(p,rankCounts,clubMap.size)||'RETRO —'};
  };
  const phase=g.status==='final'?'final':freshLive||scored?'live':'upcoming';
@@ -176,7 +185,13 @@ function render(){
   '<p class="ledger26-detail-note">Official result feed · '+(scoreFresh?'Updated '+esc(et(g.score_updated_at)):'Latest published snapshot')+'</p>'+
   '</div></details></article>';
  }).join('')||'<p class="hub-small">No games for this date and status in the published feed.</p>';
- host.querySelectorAll('details[data-game-id]').forEach(el=>{if(expanded.has(el.dataset.gameId))el.open=true});
+ host.querySelectorAll('details[data-game-id]').forEach(el=>{
+  if(expanded.has(el.dataset.gameId))el.open=true;
+  if(revealRequestedGame&&el.dataset.gameId===requestedGame){
+   el.open=true;
+   revealRequestedGame=false;
+  }
+ });
  const officialLive=Number(d.header_responses)||0;
  const activeWindow=d.games.some(g=>['live','awaiting_final'].includes(g.status)||(g.status==='scheduled'&&Date.parse(g.date)<=Date.now()&&Date.now()-Date.parse(g.date)<5*3600000));
  const providerNote=d.provider_degraded?' · Official live-stat provider degraded; displaying last verified scores':officialLive===0&&activeWindow?' · Official in-game updates not confirmed; showing published scores only':'';

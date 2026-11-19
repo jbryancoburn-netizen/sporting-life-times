@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="euroleague-edition.css?v=20261104-heritage">
 <link rel="stylesheet" href="shared-team-crests.css?v=20261027onecrest22">
 <link rel="stylesheet" href="slt-dual-ring.css?v=two-clean-rings-20261029">
-<link rel="stylesheet" href="cbb-ledger-scorecard.css?v=euroleague-cbb-parity-20261117">
+<link rel="stylesheet" href="cbb-ledger-scorecard.css?v=verified-five-lights-20261119">
 <link rel="stylesheet" href="slt-heritage-newspaper.css?v=compact-victorian-20261103b">
 <link rel="stylesheet" href="newspaper-departments.css?v=compact-victorian-20261103b">
 <link rel="stylesheet" href="slt-victorian-global.css?v=universal-engraved-place-20261105">
@@ -20,16 +20,16 @@
 <script defer src="shared-team-crests.js?v=20261027slots23"></script>
 <script defer data-slt-league="euroleague" src="slt-dual-ring.js?v=two-clean-rings-20261029"></script>
 <script defer src="league-desks.js?v=euroleague-chronicle-20261119"></script>
-<script defer src="basketball-desk-layout.js?v=20261119"></script><script defer src="euroleague-model-desk.js?v=shared-desks-20261119"></script>
+<script defer src="basketball-desk-layout.js?v=20261119"></script><script defer src="euroleague-model-desk.js?v=shared-club-calendar-20261119"></script>
 <script defer src="euroleague-edition.js?v=unified-20261104"></script>
 <script defer src="euroleague-player-desk.js?v=20261027players1"></script>
-<script defer src="cbb-ledger-scorebug.js?v=five-form-lights-20261119"></script>
-<script defer src="euroleague-live.js?v=shared-basketball-20261119"></script>
+<script defer src="cbb-ledger-scorebug.js?v=verified-five-lights-20261119"></script>
+<script defer src="euroleague-live.js?v=verified-five-lights-20261119"></script>
 <script defer src="site-access-clock.js?v=2"></script>
 <link rel="stylesheet" href="slt-sections-nav.css?v=20261109a"><script defer src="slt-sections-nav.js?v=20261109a"></script><style>
 body.league-edition[data-league="euroleague"] .el-live-board{grid-template-columns:repeat(2,minmax(0,1fr))}
 @media(max-width:700px){body.league-edition[data-league="euroleague"] .el-live-board{grid-template-columns:minmax(0,1fr)}}
-</style><link rel="stylesheet" href="cbb-universal-nav.css?v=edition-switch-20261105b"><link rel="stylesheet" href="cbb-chronicle.css?v=shared-basketball-20261119"><script defer src="basketball-chronicle-news.js?v=20261119"></script><link rel="stylesheet" href="basketball-ranking-layout.css?v=20261119"><link rel="stylesheet" href="cbb-ranking-board.css?v=shared-desks-20261119"><link rel="stylesheet" href="cbb-conference-register.css?v=shared-basketball-20261119"></head>
+</style><link rel="stylesheet" href="cbb-universal-nav.css?v=edition-switch-20261105b"><link rel="stylesheet" href="cbb-chronicle.css?v=shared-basketball-20261119"><script defer src="basketball-chronicle-news.js?v=20261119"></script><link rel="stylesheet" href="basketball-ranking-layout.css?v=20261119"><link rel="stylesheet" href="cbb-ranking-board.css?v=shared-desks-20261119"><link rel="stylesheet" href="cbb-conference-register.css?v=shared-basketball-20261119"><link rel="stylesheet" href="mbb-big-ten-calendar.css?v=shared-basketball-20261119"></head>
 <body class="edition-interior league-edition el-heritage-edition" data-league="euroleague">
 <div class="wrap">
 <header class="el-press-header chronicle-masthead">
@@ -45,6 +45,7 @@ body.league-edition[data-league="euroleague"] .el-live-board{grid-template-colum
 <div id="el-newspaper-front" class="chronicle-main">
 <section class="chronicle-nameplate"><h1>The Continental Chronicle</h1><p>EuroLeague Basketball</p></section><section class="cbb-front-edition" id="league-news" aria-labelledby="edition-news-title"><div class="cbb-front-title"><h2 id="edition-news-title">The Leading Stories</h2><span id="league-news-status" class="chronicle-news-stamp" role="status">Opening the news desk…</span></div><div class="chronicle-news-content" id="league-news-grid" aria-live="polite"></div></section><section class="chronicle-desks" aria-labelledby="chronicle-desks-title"><h2 id="chronicle-desks-title">Basketball Desks</h2><div class="chronicle-desk-grid"><section><h3>Games &amp; Teams</h3><a href="?view=desks#el-live-desk">Daily Ledger</a><a href="?view=desks#el-standings-panel">League Standings</a><a href="?view=desks#el-club-spotlight">Playoff Picture</a></section><section><h3>RETRO &amp; Statistics</h3><a href="?view=desks#el-ratings">RETRO Rankings</a><a href="?view=desks#el-player-leaders">Player Leaders</a><a href="?view=desks#el-predictions">Matchup Lab</a></section><section><h3>Sources &amp; Records</h3><a href="?view=desks#league-boxscores">Gamefile &amp; Results</a><a href="?view=desks#league-data-links">Sources and Coverage</a></section></div></section>
 </div>
+<section id="el-club-desk" hidden aria-live="polite"></section>
 <div id="el-newspaper-desks" hidden>
 
 <section class="hub-feature el-press-scoreboard" id="el-live-desk" aria-label="EuroLeague live scores">
@@ -134,17 +135,20 @@ body.league-edition[data-league="euroleague"] .el-live-board{grid-template-colum
 <noscript>This newspaper requires JavaScript to display the live EuroLeague datasets.</noscript>
 </div>
 <script>
-const euroleagueDesks = new URLSearchParams(location.search).get('view') === 'desks' ||
+const euroleagueParams = new URLSearchParams(location.search);
+const euroleagueClub = /^[A-Z]{3}$/.test(euroleagueParams.get('club') || '');
+const euroleagueDesks = euroleagueClub || euroleagueParams.get('view') === 'desks' ||
   /^#(?:el-|league-(?:boxscores|data-links))/.test(location.hash);
 if (euroleagueDesks) {
   const style = document.createElement('link');
   style.rel = 'stylesheet';
-  style.href = 'ncaam-slate.css?v=shared-basketball-20261119';
+  style.href = 'ncaam-slate.css?v=verified-five-lights-20261119';
   document.head.append(style);
   document.body.classList.add('sl-ledger-page');
 }
 document.getElementById('el-newspaper-front').hidden = euroleagueDesks;
-document.getElementById('el-newspaper-desks').hidden = !euroleagueDesks;
+document.getElementById('el-club-desk').hidden = !euroleagueClub;
+document.getElementById('el-newspaper-desks').hidden = !euroleagueDesks || euroleagueClub;
 if (!euroleagueDesks) {
   document.body.classList.add('chronicle-front-page');
   document.getElementById('el-front-link').setAttribute('aria-current', 'page');

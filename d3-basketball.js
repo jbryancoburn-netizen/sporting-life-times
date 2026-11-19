@@ -1,7 +1,7 @@
 (()=>{'use strict';
 const $=id=>document.getElementById(id),esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const gender=document.body.dataset.gender,own=gender==='women'?'d3-womens-basketball.html':'d3-mens-basketball.html';
-const state={data:null,teams:new Map(),fixtureData:null,fixtureFetchedAt:0,logoOverlay:null,logoFetchedAt:0,logoRequest:null},pct=t=>(t.w||0)+(t.l||0)?Math.round(1000*t.w/(t.w+t.l))/10:0;
+const state={data:null,teams:new Map(),form:null,fixtureData:null,fixtureFetchedAt:0,logoOverlay:null,logoFetchedAt:0,logoRequest:null},pct=t=>(t.w||0)+(t.l||0)?Math.round(1000*t.w/(t.w+t.l))/10:0;
 const teamLink=t=>own+'?team='+encodeURIComponent(t.id);
 const source=g=>/^https:\/\//.test(g.source_url||'')?'<a href="'+esc(g.source_url)+'" target="_blank" rel="noopener noreferrer">'+(g.schedule_only?(g.source_kind==='official_conference'?'OFFICIAL CONFERENCE SCHEDULE ↗':g.source_kind==='official_conference_and_school'?'UNIVERSITY / CONFERENCE SOURCE ↗':'OFFICIAL UNIVERSITY SCHEDULE ↗'):'NCAA SCOREBOARD SOURCE ↗')+'</a>':'Source link unavailable';
 // Reuse the verified NCAA schools index, keyed by the NCAA organization ID.
@@ -76,7 +76,7 @@ function card(g){
  const final=!unresolved&&g.status==='final',live=!unresolved&&g.status==='live';
  const mode=final?'final':live?'live':'upcoming',scoreShown=final||live;
  const line=(t,points)=>({name:t.name||'Unverified opponent',score:scoreShown?points:null,
-  crest:emblem(t),color:/^#[0-9a-f]{6}$/i.test(t.primary||'')?t.primary:'#655239',
+  crest:emblem(t),scouting:window.SLTSportsScorebug?.formAt?.(state.form,t.id,g.date,g.id,mode),color:/^#[0-9a-f]{6}$/i.test(t.primary||'')?t.primary:'#655239',
   record:(t.w||0)+'–'+(t.l||0),
   retro:t.d3_confirmed&&Number.isFinite(Number(t.elo))?'RETRO '+Math.round(Number(t.elo)):'RETRO —'});
  const scorebug=window.SLTSportsScorebug?.render({
@@ -326,6 +326,7 @@ async function start(){
   if(state.version===version)return;
   state.version=version;
   state.data=d;state.teams=new Map(d.teams.map(t=>[t.id,t]));
+  state.form=window.SLTSportsScorebug?.verifiedFormIndex?.(d.games.filter(g=>g.status==='final'&&g.elo_eligible&&!g.home_away_unresolved&&!g.exhibition).map(g=>({id:g.id,date:g.date,away:g.away,home:g.home,awayScore:g.away_score,homeScore:g.home_score,awayName:team(g.away).name,homeName:team(g.home).name})));
   for(const id of ['game-date','prev-date','next-date','team-search','conference-select']){const node=$(id);if(node)node.replaceWith(node.cloneNode(true));}
   $('status').textContent='NCAA DIII game-source edition · '+(d.as_of?new Date(d.as_of).toLocaleString():'Source refresh pending')+' · '+verifiedLogoCount+' mapped school logos';
   if(new URLSearchParams(location.search).has('team')){

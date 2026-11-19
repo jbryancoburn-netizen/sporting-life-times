@@ -300,8 +300,9 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #c481
  .sl-ledger-page .ledger26-card .ledger26-scout-defense{display:inline}
 }
 @media(max-width:1099px){
- /* Keep live/final phone and tablet scorebugs focused on the score and clock. */
- .sl-ledger-page .ledger26-scorebug:not(.ledger26-scorebug--pregame) .ledger26-scout{display:none}
+ /* Keep the result lights and streak visible on small live and final cards. */
+ .sl-ledger-page .ledger26-scorebug:not(.ledger26-scorebug--pregame) .ledger26-scout-stat,
+ .sl-ledger-page .ledger26-scorebug:not(.ledger26-scorebug--pregame) .ledger26-scout:not(:has(.ledger26-form)){display:none}
 }
 
 /* Preserve the Citronaut's original colors in the watermark. */
