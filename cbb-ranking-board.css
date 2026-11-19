@@ -1,10 +1,31 @@
 /* School colors on the original men's RETRO ranking cards. */
 .rank-team-colors #rank-content .rank-table tbody tr {
   --rank-school-color: #594631;
+  --rank-school-dark: color-mix(in srgb, var(--rank-school-color) 38%, #1b1714);
   background: color-mix(in srgb, var(--rank-school-color) 30%, #fff8eb) !important;
   border-color: var(--rank-school-color);
   border-inline-start-style: solid;
 }
 .rank-team-colors #rank-content .rank-table tbody tr .rank-school > a {
   color: #241b14;
+}
+
+@media (forced-colors: none) {
+  .rank-team-colors #rank-content .rank-table tbody .rank-number {
+    background: color-mix(in srgb, var(--rank-school-color) 66%, #1b1714);
+    color: #fff8eb;
+  }
+  .rank-team-colors #rank-content .rank-table tbody .rank-number::before {
+    background: var(--rank-school-dark);
+  }
+  .rank-team-colors #rank-content .rank-table tbody .rank-number::after {
+    border-color: #fff8eb55;
+  }
+  .rank-team-colors #rank-content .rank-why summary {
+    background: var(--rank-school-dark);
+    color: #fff8eb;
+  }
+  .rank-team-colors #rank-content .rank-why summary:focus-visible {
+    outline-color: #241b14;
+  }
 }
