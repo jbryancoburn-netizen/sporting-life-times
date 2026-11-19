@@ -6,8 +6,8 @@
   "elo_approved": false,
   "source": "ESPN site API, completed finals since NBL27 regular-season opening",
   "season_start": "2026-09-19",
-  "updated_at": "2026-11-19T02:38:53.469064+00:00",
-  "games_replayed": 69,
+  "updated_at": "2026-11-19T11:51:01.603526+00:00",
+  "games_replayed": 70,
   "teams": 10,
   "rows": [
     {
@@ -51,16 +51,6 @@
       "points_pct": 96.28
     },
     {
-      "team": "Adelaide 36ers",
-      "wins": 7,
-      "losses": 6,
-      "played": 13,
-      "win_pct": 0.538,
-      "points_for": 1208,
-      "points_against": 1202,
-      "points_pct": 100.5
-    },
-    {
       "team": "Perth Wildcats",
       "wins": 7,
       "losses": 6,
@@ -71,6 +61,16 @@
       "points_pct": 97.88
     },
     {
+      "team": "Adelaide 36ers",
+      "wins": 7,
+      "losses": 7,
+      "played": 14,
+      "win_pct": 0.5,
+      "points_for": 1305,
+      "points_against": 1305,
+      "points_pct": 100.0
+    },
+    {
       "team": "Brisbane Bullets",
       "wins": 6,
       "losses": 8,
@@ -79,6 +79,16 @@
       "points_for": 1321,
       "points_against": 1389,
       "points_pct": 95.1
+    },
+    {
+      "team": "Illawarra Hawks",
+      "wins": 6,
+      "losses": 10,
+      "played": 16,
+      "win_pct": 0.375,
+      "points_for": 1565,
+      "points_against": 1668,
+      "points_pct": 93.82
     },
     {
       "team": "South East Melbourne Phoenix",
@@ -99,19 +109,21 @@
       "points_for": 1365,
       "points_against": 1381,
       "points_pct": 98.84
-    },
-    {
-      "team": "Illawarra Hawks",
-      "wins": 5,
-      "losses": 10,
-      "played": 15,
-      "win_pct": 0.333,
-      "points_for": 1462,
-      "points_against": 1571,
-      "points_pct": 93.06
     }
   ],
   "recent_finals": [
+    {
+      "id": "401875305",
+      "played_at": "2026-11-19T08:30Z",
+      "home": "Illawarra Hawks",
+      "away": "Adelaide 36ers",
+      "home_score": 103,
+      "away_score": 97,
+      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875305/36ers-hawks",
+      "verified": false,
+      "provider": "espn",
+      "state": "candidate"
+    },
     {
       "id": "401875306",
       "played_at": "2026-11-18T06:30Z",
@@ -216,18 +228,6 @@
       "home_score": 101,
       "away_score": 93,
       "source_url": "https://www.espn.com/nbl/game/_/gameId/401875328/united-36ers",
-      "verified": false,
-      "provider": "espn",
-      "state": "candidate"
-    },
-    {
-      "id": "401875326",
-      "played_at": "2026-11-11T08:30Z",
-      "home": "South East Melbourne Phoenix",
-      "away": "Illawarra Hawks",
-      "home_score": 110,
-      "away_score": 120,
-      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875326/hawks-phoenix",
       "verified": false,
       "provider": "espn",
       "state": "candidate"
