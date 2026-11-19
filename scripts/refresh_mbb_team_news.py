@@ -18,35 +18,50 @@ def fetch(team):
     school=team["name"]
     full=team.get("espn_name") or school
     ident=str(team["espn_id"])
-    # Named school + explicit basketball context prevents unrelated sports entering team desks.
-    query=f'"{full}" basketball when:14d'
-    feed="https://news.google.com/rss/search?q="+quote(query)+"&hl=en-US&gl=US&ceid=US:en"
-    target=out/(ident+".json")
+    queries = (
+        (f'"{full}" basketball when:14d', False),
+        (f'site:247sports.com "{school}" basketball when:14d', True),
+    )
+    target = out / (ident + ".json")
+    entries = []
+    seen = set()
     try:
-        req=Request(feed,headers={"User-Agent":"Mozilla/5.0 (compatible; SportingLifeTimesTeamDesk/1.0)"})
-        with urlopen(req,timeout=20) as res: root=ET.fromstring(res.read())
-        entries=[]
-        seen=set()
-        for item in root.findall("./channel/item"):
-            title=(item.findtext("title") or "").strip()
-            link=(item.findtext("link") or "").strip()
-            src=(item.findtext("source") or "Google News").strip()
-            try: timestamp=parsedate_to_datetime(item.findtext("pubDate")).astimezone(timezone.utc)
-            except (TypeError,ValueError,AttributeError): continue
-            if timestamp>now+timedelta(hours=2) or now-timestamp>max_age: continue
-            if not title or not link or link in seen: continue
-            # Google News RSS titles often have suffix " - Publisher".
-            clean=re.sub(r"\s+-\s+"+re.escape(src)+r"$","",title,flags=re.I).strip()
-            if not re.search(r"basketball|hoosiers|wildcats|tournament|coach|roster|guard|forward|center|hoops",clean,re.I): continue
-            entries.append({"title":clean,"url":link,"source":src,"published_at":timestamp.isoformat(),"summary":""})
-            seen.add(link)
+        for query, publisher_only in queries:
+            feed = "https://news.google.com/rss/search?q=" + quote(query) + "&hl=en-US&gl=US&ceid=US:en"
+            try:
+                req = Request(feed, headers={"User-Agent": "Mozilla/5.0 (compatible; SportingLifeTimesTeamDesk/1.0)"})
+                with urlopen(req, timeout=8 if publisher_only else 20) as res:
+                    root = ET.fromstring(res.read())
+            except (OSError, ET.ParseError) as exc:
+                if not publisher_only:
+                    raise
+                print(f"247Sports discovery unavailable for {school}: {exc}")
+                continue
+            for item in root.findall("./channel/item"):
+                title=(item.findtext("title") or "").strip()
+                link=(item.findtext("link") or "").strip()
+                src=(item.findtext("source") or "Google News").strip()
+                try: timestamp=parsedate_to_datetime(item.findtext("pubDate")).astimezone(timezone.utc)
+                except (TypeError,ValueError,AttributeError): continue
+                if timestamp>now+timedelta(hours=2) or now-timestamp>max_age: continue
+                if not title or not link.startswith("https://") or link in seen: continue
+                # Google News RSS titles often have suffix " - Publisher".
+                clean=re.sub(r"\s+-\s+"+re.escape(src)+r"$","",title,flags=re.I).strip()
+                if not re.search(r"basketball|hoosiers|wildcats|tournament|coach|roster|guard|forward|center|hoops",clean,re.I): continue
+                if re.search(r"\b(?:women(?:['’]s)?|wbb|ncaaw)\b", clean, re.I): continue
+                if publisher_only and (urlparse(item.find("source").get("url", "") if item.find("source") is not None else "").hostname or "").lower().removeprefix("www.") != "247sports.com": continue
+                entries.append({"title":clean,"url":link,"source":src,"published_at":timestamp.isoformat(),"summary":""})
+                seen.add(link)
         entries.sort(key=lambda x:x["published_at"],reverse=True)
         if not entries:
             # Do not replace useful previous reporting with a transient empty API response.
             return ident,"no-new-headlines",0
+        publisher_entries = [a for a in entries if "247sports" in a["source"].casefold()]
+        selected = sorted(entries[:10] + [a for a in publisher_entries[:3] if a not in entries[:10]],
+                          key=lambda article: article["published_at"], reverse=True)
         payload={"season":"2026-27","team_id":team["id"],"team":school,
           "updated_at":now.isoformat(),"source_feed":"Google News RSS search",
-          "articles":entries[:10]}
+          "articles":selected}
         target.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+"\n")
         return ident,"updated",len(payload["articles"])
     except Exception as exc:
