@@ -166,6 +166,10 @@ for(const nav of navs){
     if(outside[key]){a.target='_blank';a.rel='noopener noreferrer';a.textContent=label+' ↗';}
     a.textContent=label;list.append(a);
    }
+   const championship=document.createElement('a');
+   championship.href='cbb-conference-championship.html?gender='+(women?'women':'men');
+   championship.textContent='Preseason Conference Championship';
+   list.append(championship);
    d.append(sum);rating.replaceWith(d);document.body.append(list);
    const close=()=>{list.hidden=true;sum.setAttribute('aria-expanded','false');};
    const place=()=>{if(list.hidden)return;const box=sum.getBoundingClientRect();const w=list.offsetWidth||180;list.style.left=Math.max(8,Math.min(box.left,innerWidth-w-8))+'px';list.style.top=Math.min(box.bottom+6,innerHeight-list.offsetHeight-8)+'px';};
