@@ -6,9 +6,9 @@ body:is([data-slt-front="cbb"],[data-d2-front]) .chronicle-news-departments[data
 body:is([data-slt-front="cbb"],[data-d2-front]) .chronicle-news-departments[data-count="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
 @media(max-width:800px){body:is([data-slt-front="cbb"],[data-d2-front]) .chronicle-news-departments[data-count="2"]{grid-template-columns:1fr}}
 body:is([data-slt-front="cbb"],[data-d2-layout]){--chronicle-ink:#2c261f;--chronicle-rule:#735f45;--chronicle-paper:#f5eddb;--chronicle-red:#80372e}
-body:is([data-slt-front="cbb"],[data-d2-front]) .slt-department-band{padding:15px 0 12px;margin-bottom:0;border-top:4px double var(--chronicle-ink);border-bottom:4px double var(--chronicle-ink);background:transparent;text-align:center}
-body:is([data-slt-front="cbb"],[data-d2-front]) .slt-department-band h1{font:800 clamp(36px,5.3vw,74px)/.98 "Century Schoolbook","Bodoni MT",Georgia,serif;letter-spacing:-.045em;margin:7px 0 9px;color:var(--chronicle-ink)}
-body:is([data-slt-front="cbb"],[data-d2-front]) .slt-department-band p{font:italic 15px/1.35 "Century Schoolbook",Georgia,serif;margin:0 0 8px}
+body[data-d2-front] .slt-department-band{padding:15px 0 12px;margin-bottom:0;border-top:4px double var(--chronicle-ink);border-bottom:4px double var(--chronicle-ink);background:transparent;text-align:center}
+body[data-d2-front] .slt-department-band h1{font:800 clamp(36px,5.3vw,74px)/.98 "Century Schoolbook","Bodoni MT",Georgia,serif;letter-spacing:-.045em;margin:7px 0 9px;color:var(--chronicle-ink)}
+body[data-d2-front] .slt-department-band p{font:italic 15px/1.35 "Century Schoolbook",Georgia,serif;margin:0 0 8px}
 body:is([data-slt-front="cbb"],[data-d2-front]) .slt-department-kicker{font:700 10px/1.4 Georgia,serif;letter-spacing:.13em;color:#5b4531}
 body:is([data-slt-front="cbb"],[data-d2-front]) .cbb-front-edition.slt-front-news,
 body:is([data-slt-front="cbb"],[data-d2-front]) .cbb-front-edition{color:var(--chronicle-ink);background:var(--chronicle-paper);margin:0 0 24px;padding:17px 20px 19px;border:0;border-bottom:5px double var(--chronicle-ink);box-shadow:none;border-radius:0}
@@ -131,3 +131,53 @@ body:is([data-slt-front="cbb"],[data-d2-layout]) nav.cbb-universal-nav .chronicl
 #cbb-247-status:empty{display:none}
 @media(max-width:800px){#cbb-247-headlines{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:480px){#cbb-247-headlines{grid-template-columns:1fr}}
+
+/* Match the Division I Daily Ledger’s cream paper, ink and gold heading rules. */
+body[data-slt-front="cbb"] {
+  --chronicle-ink: #0d2935;
+  --chronicle-rule: #b48945;
+  --chronicle-paper: #f5f0e5;
+  --chronicle-red: #8a342d;
+  background: var(--chronicle-paper);
+  color: var(--chronicle-ink);
+}
+[data-slt-front="cbb"] .chronicle-masthead .topline {
+  border-bottom: 1px solid #c6cbc8;
+  color: var(--chronicle-ink);
+  padding: 13px 1px 11px;
+  text-transform: uppercase;
+  letter-spacing: .13em;
+}
+[data-slt-front="cbb"] .chronicle-masthead .masthead {
+  padding: 19px 0 0;
+  text-align: center;
+  color: var(--chronicle-ink);
+}
+[data-slt-front="cbb"] .chronicle-masthead .masthead a {
+  color: inherit;
+  font-size: clamp(32px, 5vw, 64px);
+  line-height: 1;
+}
+[data-slt-front="cbb"] .chronicle-masthead .edition-line {
+  margin: 7px 0 24px;
+  text-align: center;
+  color: var(--chronicle-ink);
+  font: 800 10px/1.4 Arial, sans-serif;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+}
+[data-slt-front="cbb"] .slt-department-band {
+  background: #fffcf5;
+  border-block-color: var(--chronicle-rule);
+  text-align: left;
+}
+[data-slt-front="cbb"] .slt-department-band h1 { color: var(--chronicle-ink); }
+[data-slt-front="cbb"] :is(.chronicle-section,.chronicle-news-departments) { border-top-color: var(--chronicle-rule); }
+[data-slt-front="cbb"] :is(.chronicle-section-header h2,.chronicle-section-header h3) {
+  color: var(--chronicle-ink);
+  font-family: Georgia, "Times New Roman", serif;
+}
+@media (max-width: 640px) {
+  [data-slt-front="cbb"] .chronicle-masthead .masthead a { font-size: clamp(29px, 7.8vw, 46px); }
+  [data-slt-front="cbb"] .chronicle-masthead .edition-line { margin-bottom: 17px; letter-spacing: .21em; }
+}
