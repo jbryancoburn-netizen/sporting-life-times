@@ -136,7 +136,24 @@ function attach(root, gender, retro, directory) {
    dateLabel: label.format(new Date(date + 'T12:00:00Z'))
    };
   };
-  const last = finals[0], next = upcoming[0];
+  // A bracketed MTE guarantees games before opponents are assigned in the feed.
+  // Keep those slots visible without inventing opponents, tipoffs, or game IDs.
+  const playersEra8 = new Set(['Houston', 'Rutgers', 'Florida', 'Notre Dame',
+    'Kansas', 'UNLV', 'Auburn', 'West Virginia']);
+  const school = names.get(id) || '';
+  const eventStart = '2026-11-17', eventEnd = '2026-11-19';
+  const last = finals[0];
+  let next = upcoming[0];
+  if (!women && playersEra8.has(school) && today >= eventStart && today <= eventEnd) {
+   const played = new Set(finals.filter(g => dayOf(g.date) >= eventStart && dayOf(g.date) <= eventEnd)
+    .map(g => dayOf(g.date)));
+   const nextSlot = [eventStart, '2026-11-18', eventEnd]
+    .find(d => d >= today && !played.has(d));
+   if (nextSlot && (!next || dayOf(next.date) > nextSlot)) {
+    next = {date: nextSlot + 'T12:00:00Z', opponent: 'TBD · Players Era 8',
+      location: 'vs.', officialTime: '', completed: false};
+   }
+  }
   const time = next?.officialTime || (next?.date.endsWith('Z') && !/T(?:00:00|05:00)Z$/.test(next.date) ? tip.format(new Date(next.date)) : '');
   const won = last && Number(last.score) > Number(last.other);
   return [
