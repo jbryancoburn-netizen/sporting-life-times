@@ -52,7 +52,7 @@
 
 /* Opponent identity in the fixture register: compact, legible, no duplicated records. */
 .victorian-team-calendar .sched-matchup{display:flex;align-items:center;justify-content:flex-start;gap:9px;min-width:0}
-.victorian-team-calendar .sched-matchup .badge{width:34px!important;height:34px!important;min-width:34px!important;flex:0 0 34px}
+.victorian-team-calendar .sched-matchup .badge{width:68px!important;height:68px!important;min-width:68px!important;flex:0 0 68px}
 .victorian-team-calendar .sched-opponent{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;min-width:0;gap:3px;line-height:1.2}
 .victorian-team-calendar .sched-opponent strong{font:700 14px/1.14 Georgia,serif;color:#30251c;text-align:left}
 .victorian-team-calendar .sched-opponent .sched-matchup-location{display:block;margin:0;color:#75523b;font:700 10px/1.25 Georgia,serif;letter-spacing:.04em;text-transform:none}
@@ -106,9 +106,9 @@
  #full-season-schedule.victorian-team-calendar .mbb-schedule-table > tbody > tr[data-game-site="unknown"]{background:#efe9dd!important}
  #full-season-schedule.victorian-team-calendar .mbb-schedule-table > tbody > tr[data-game-site] td{background:transparent!important;box-shadow:none!important}
  #full-season-schedule.victorian-team-calendar .sched-matchup-cell{width:auto!important;min-width:0!important}
- #full-season-schedule.victorian-team-calendar .sched-matchup{display:grid!important;grid-template-columns:47px minmax(0,1fr)!important;gap:8px!important;align-items:center!important;min-width:0!important;width:100%!important}
- #full-season-schedule.victorian-team-calendar .sched-matchup>.mbb-mark{--mbb-size:47px;flex:0 0 47px!important}
- #full-season-schedule.victorian-team-calendar .sched-matchup .badge{width:47px!important;height:47px!important;min-width:47px!important;flex-basis:47px!important}
+ #full-season-schedule.victorian-team-calendar .sched-matchup{display:grid!important;grid-template-columns:68px minmax(0,1fr)!important;gap:8px!important;align-items:center!important;min-width:0!important;width:100%!important}
+ #full-season-schedule.victorian-team-calendar .sched-matchup>.mbb-mark{--mbb-size:68px;flex:0 0 68px!important}
+ #full-season-schedule.victorian-team-calendar .sched-matchup .badge{width:68px!important;height:68px!important;min-width:68px!important;flex-basis:68px!important}
  #full-season-schedule.victorian-team-calendar .sched-opponent{display:flex!important;grid-column:2!important;justify-self:stretch!important;align-self:stretch!important;flex:1 1 0!important;min-width:0!important;width:100%!important;gap:2px!important;align-items:stretch!important}
  #full-season-schedule.victorian-team-calendar .sched-opponent strong{display:block!important;min-width:0!important;width:100%!important}
  #full-season-schedule.victorian-team-calendar .sched-opponent strong .victorian-opponent-heading{display:grid!important;grid-template-columns:minmax(0,1fr) max-content!important;align-items:center!important;column-gap:6px!important;width:100%!important;min-width:0!important;white-space:nowrap!important}
@@ -232,8 +232,8 @@
   box-sizing: border-box;
 }
 #full-season-schedule .sched-matchup > .mbb-mark {
-  --mbb-size: 52px;
-  flex: 0 0 52px !important;
+  --mbb-size: 68px;
+  flex: 0 0 68px !important;
 }
 #full-season-schedule .sched-month:not([hidden]) {
   display: block;
@@ -505,7 +505,7 @@
 #full-season-schedule .sched-form { padding: .25rem 0; border-color: #bbc8da; }
 #full-season-schedule :is(.sched-form-labels,.sched-form-line) {
   display: grid;
-  grid-template-columns: minmax(0,1fr) 3.1rem 1.35rem 2.15rem 1.7rem;
+  grid-template-columns: minmax(4.6rem,1fr) 3.1rem 1.35rem 2.15rem 1.7rem;
   align-items: center;
   gap: .18rem;
   color: #26394c;
@@ -518,9 +518,10 @@
 }
 #full-season-schedule .sched-form-line > b:first-child {
   min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
+  overflow-wrap: normal;
 }
 #full-season-schedule :is(.sched-form-labels,.sched-form-line) > :nth-child(n+3) { text-align: right; }
 #full-season-schedule .sched-lights {
