@@ -27,7 +27,7 @@ test('alternate national rankings uses stacked mobile metadata only for RETRO, w
  const html=read('ncaam-rankings.html');
  assert.match(html,/rank-table-wrap--retro/);
  assert.match(html,/k==='retro'/);
- assert.match(html,/\.rank-table-wrap--retro \.rank-table tbody tr\{display:grid/);
+ assert.match(read('basketball-ranking-layout.css'),/\.rank-table-wrap--retro \.rank-table tbody tr\{display:grid/);
  assert.match(html,/content:'RETRO '/);
  assert.match(html,/content:'W–L '/);
  assert.match(html,/size:'power'/);

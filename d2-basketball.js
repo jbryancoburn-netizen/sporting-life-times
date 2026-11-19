@@ -209,7 +209,8 @@ if(desk==='elo'){
  const board=$('elo-board');
  if(!hasGames){board.textContent='No ratings available until eligible games are completed.';return;}
  board.innerHTML='<section class="cbb-elo-card"><h2>The RETRO Power 10</h2><div id="d2-top-ten"></div></section>'+
-  '<section class="cbb-elo-card"><h2>The National Table</h2><label>Find a school <input id="d2-rank-search" type="search" autocomplete="off"></label><div class="cbb-elo-scroller"><table class="cbb-elo-table"><thead><tr><th>Rank</th><th>Team</th><th>Conference</th><th class="num">W–L</th><th class="num">RETRO Elo</th></tr></thead><tbody id="d2-rank-rows"></tbody></table></div></section>';
+  '<section class="cbb-elo-card"><h2>The National Table</h2><label>Find a school <input id="d2-rank-search" type="search" autocomplete="off"></label>'+
+  window.SLTBasketballDeskLayout.rankingTable([],'d2-rank-rows')+'</section>';
  $('d2-top-ten').append(...ranked.slice(0,10).map(rankCard));
  const search=$('d2-rank-search');
  function renderTable(){
@@ -217,8 +218,10 @@ if(desk==='elo'){
   const rows=ranked.map((t,i)=>({t,i})).filter(({t})=>(t.name+' '+label(t)).toLowerCase().includes(needle));
   const body=$('d2-rank-rows');
   body.replaceChildren(...rows.map(({t,i})=>{
-   const tr=document.createElement('tr');
-   tr.innerHTML='<td class="cbb-elo-rank">'+(i+1)+'</td><td><div class="d2-elo-school">'+logo(t)+'<a href="'+link(t)+'">'+name(t)+'</a></div></td><td>'+esc(label(t))+'</td><td class="num">'+t.w+'–'+t.l+'</td><td class="num">'+Number(t.elo).toFixed(1)+'</td>';
+   const template=document.createElement('template');
+   template.innerHTML=window.SLTBasketballDeskLayout.rankingRow({rank:i+1,name:t.name,badge:logo(t),href:link(t),note:label(t),
+    color:t.primary,record:t.w+'–'+t.l,rating:Number(t.elo).toFixed(1)});
+   const tr=template.content.firstElementChild;
    tr.children[1].append(rankingSlips(t));
    return tr;
   }));
@@ -231,7 +234,13 @@ function directory(q){const found=teams.filter(t=>(t.name+' '+label(t)).toLowerC
 $('team-search').addEventListener('input',e=>directory(e.target.value.trim().toLowerCase()));directory('');
 const confs=[...new Set(teams.map(t=>t.conference).filter(Boolean))].sort();const sel=$('conference-select');
 sel.innerHTML='<option value="">Select a verified conference</option>'+confs.map(c=>'<option>'+esc(c)+'</option>').join('');
-function conference(){const list=teams.filter(t=>t.conference&&t.conference===sel.value).sort((a,b)=>pct(b)-pct(a)||b.elo-a.elo);$('conference-board').innerHTML=list.length?'<p class="muted">Overall records only until official conference games/tiebreakers are verified.</p>'+list.map((t,i)=>row(t,i)).join(''):'<div class="note">Conference memberships and official standings are not yet verified for this edition.</div>'}
+function conference(){
+ const list=teams.filter(t=>t.conference&&t.conference===sel.value).sort((a,b)=>pct(b)-pct(a)||b.elo-a.elo);
+ $('conference-board').innerHTML=list.length?'<p class="muted">Overall records only until official conference games and tiebreakers are verified.</p>'+
+  window.SLTBasketballDeskLayout.standingsTable(['Place','School','W–L','PCT','RETRO'],list.map(t=>({
+   name:t.name,href:link(t),badge:logo(t),values:[t.w+'–'+t.l,pct(t).toFixed(3),Number(t.elo).toFixed(1)]
+  }))):'<div class="note">Conference memberships and official standings are not yet verified for this edition.</div>';
+}
 sel.addEventListener('change',conference);conference();
 $('coverage').innerHTML='Preliminary Division II edition: <b>'+teams.length+'</b> listed programs, including <b>'+transitionCount+'</b> documented future or conference-transition entries not counted as certified DII opponents. NCAA membership has not yet been fully reconciled. This desk currently lists <b>'+teams.length+'</b> identified programs and <b>'+games.length+'</b> published fixtures or finals.<br>Institutional primary and secondary colors are taken from matched provider records where available. Any generated second-ring tonal accent is a visual treatment, <b>not</b> a verified school secondary color. School-specific conference, venue, television and roster fields appear only when the sources support them. A discovered team is not automatically a certified 2026–27 member.<br><b>Feed:</b> '+esc(d.source||'NCAA')+'<br><b>Quality:</b> '+esc(d.quality?.status||'Refresh pending')+'<br><b>Important:</b> Independent Elo changes require confirmed Division II opponents; exhibitions and cross-division games are excluded.';
 
@@ -294,7 +303,18 @@ const back=$('back-link');if(back)back.textContent='← BACK TO '+(gender==='wom
 for(const a of document.querySelectorAll('.switches a'))a.classList.toggle('selected',gender==='women'?a.href.includes('womens'):a.href.includes('mens'));
 if(!t){el.innerHTML='<div class="note">School not found in the verified team index. <a href="'+path+'">Browse the newspaper</a>.</div>';return}
 const membership=t.membership_status?'<div class="note member-alert"><b>MEMBERSHIP:</b> '+esc(t.membership_status)+'. '+esc(t.membership_note||'')+(t.membership_source?' <a href="'+esc(t.membership_source)+'" target="_blank" rel="noopener noreferrer">OFFICIAL SOURCE ↗</a>':'')+'</div>':'';
-const gs=(d.games||[]).filter(g=>g.away===t.id||g.home===t.id).sort(chronological);el.innerHTML=membership+'<div class="team-hero">'+logo(t)+'<div><span class="eyebrow">DII '+esc(gender.toUpperCase())+' · SCHOOL DESK</span><h1>'+name(t)+'</h1><p>'+esc(label(t))+' · '+esc(t.city||'Location not yet verified')+'</p></div></div><div class="team-stats metrics"><div class="team-stat metric"><strong>'+(t.w||0)+'–'+(t.l||0)+'</strong><span>VERIFIED DII RECORD</span></div><div class="team-stat metric"><strong>'+Number(t.elo||1500).toFixed(0)+'</strong><span>INDEPENDENT ELO</span></div><div class="team-stat metric"><strong>'+gs.length+'</strong><span>PUBLISHED SCHEDULE ENTRIES</span></div></div><div class="section-head"><h2>PUBLISHED SCHOOL SCHEDULE</h2><span>AWAY FIRST · HOME SECOND</span></div><div class="team-schedule">'+(gs.length?gs.map(game).join(''):'<div class="note">The NCAA feed has not published verified games for this school yet.</div>')+'</div><p class="note">Team-page fields will expand as official rosters, venues, broadcasts, and conference classifications are verified. No placeholders are presented as facts.</p>';
+const gs=(d.games||[]).filter(g=>g.away===t.id||g.home===t.id).sort(chronological);
+const schedule=gs.map(g=>{
+ const home=g.home===t.id,opponent=school(home?g.away:g.home),phase=g.status==='final'||g.status==='live'?g.status:'upcoming';
+ const own=home?g.home_score:g.away_score,against=home?g.away_score:g.home_score;
+ const outcome=phase==='final'&&Number.isFinite(own)&&Number.isFinite(against)&&own!==against?(own>against?'W':'L'):'';
+ const rating=home?g.pregame_elo_home:g.pregame_elo_away;
+ return {date:g.date,phase,site:g.neutral?'neutral':home?'home':'away',opponent:opponent.name,teamHref:link(opponent),badge:logo(opponent),
+  color:opponent.primary,venue:g.venue_location||g.venue,tipoff:g.start_time||g.tipoff_as_posted,network:g.network||g.broadcast,
+  retro:Number.isFinite(rating)?rating.toFixed(1):null,outcome,gameHref:gameLink(g),
+  result:outcome?outcome+' '+own+'–'+against:phase==='final'?'Final':phase==='live'?'Live':null};
+});
+el.innerHTML=membership+'<div class="team-hero">'+logo(t)+'<div><span class="eyebrow">DII '+esc(gender.toUpperCase())+' · SCHOOL DESK</span><h1>'+name(t)+'</h1><p>'+esc(label(t))+' · '+esc(t.city||'Location not yet verified')+'</p></div></div><div class="team-stats metrics"><div class="team-stat metric"><strong>'+(t.w||0)+'–'+(t.l||0)+'</strong><span>VERIFIED DII RECORD</span></div><div class="team-stat metric"><strong>'+Number(t.elo||1500).toFixed(0)+'</strong><span>INDEPENDENT ELO</span></div><div class="team-stat metric"><strong>'+gs.length+'</strong><span>PUBLISHED SCHEDULE ENTRIES</span></div></div>'+window.SLTBasketballDeskLayout.schedule(schedule,'No verified games are published for this school yet.')+'<p class="note">Team-page fields will expand as official rosters, venues, broadcasts, and conference classifications are verified. No placeholders are presented as facts.</p>';
 const reg=window.SLTBasketballStats;if(reg){const summary=reg.fromGames(gs,t.id,{requireFinal:true,requireVerified:true});el.querySelector('.team-stats')?.insertAdjacentHTML('afterend',reg.register(summary,{note:'2026–27 Division II source-verified final scores only; scheduled and disputed games excluded.'}));}}
 function renderGame(d){
  const id=new URLSearchParams(location.search).get('game');

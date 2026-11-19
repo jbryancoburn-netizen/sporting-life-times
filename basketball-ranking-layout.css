@@ -1,0 +1,166 @@
+.rank-paper{max-width:1250px;margin:auto;padding:12px 24px 50px}.rank-mast{border-block:4px double #33291f;text-align:center;padding:20px 4px 14px}.rank-mast a{font:bold clamp(34px,5vw,60px)/1 Georgia,serif;color:inherit;text-decoration:none}.rank-overline{text-transform:uppercase;font:700 11px Arial,sans-serif;letter-spacing:2px;color:#853b2e;margin:20px 0 8px}.rank-title{font-size:clamp(35px,5vw,64px);margin:8px 0}.rank-intro{font-size:16px;max-width:800px;line-height:1.5}.rank-tabs{display:flex;flex-wrap:wrap;gap:0;border-block:2px solid #382e23;margin:22px 0}.rank-tabs a{padding:12px 18px;color:inherit;text-decoration:none;border-right:1px solid #c5b399;font:700 14px Georgia,serif}.rank-tabs a[aria-current]{background:#382e23;color:#fff2db}.rank-table{border-collapse:collapse;width:100%;font-size:15px}.rank-table th,.rank-table td{padding:10px;border-bottom:1px solid #b5a58c;text-align:left}.rank-table th{border-bottom:2px solid #33291f;text-transform:uppercase;letter-spacing:1px;font:700 11px Arial,sans-serif}.rank-table tr:nth-child(even){background:#e7d8be}.rank-table td:first-child{font-weight:bold;width:70px}.rank-note{background:#f2e6d1;border:1px solid #a99572;padding:16px;margin:18px 0;line-height:1.5}.rank-status{font:12px Arial,sans-serif;color:#735b48}.rank-table td a{color:inherit}.rank-table-wrap{overflow-x:auto}@media(max-width:650px){.rank-paper{padding:8px 12px 35px}.rank-tabs a{padding:10px 11px}.rank-table{font-size:13px}}.rank-table{border-collapse:separate;border-spacing:0 7px}.rank-table tbody td{background:#f6ebd7;border-block:3px double #9e8566}.rank-table tbody td:first-child{border-left:3px double #9e8566}.rank-table tbody td:last-child{border-right:3px double #9e8566}.rank-table tbody tr:nth-child(even){background:transparent}.rank-number{display:inline-grid;place-items:center;min-width:35px;min-height:35px;padding:3px 5px;background:#713d2b;border:3px double #efdfc4;outline:1px solid #71402e;color:#fff4dd;font:700 18px/1 Georgia,serif}@media(max-width:650px){.rank-number{min-width:28px;min-height:28px;font-size:14px}.rank-table td{padding:6px}}.rank-school{display:flex;align-items:center;gap:12px;min-width:0;overflow-wrap:break-word}.rank-school .mbb-mark{--mbb-size:76px;--mbb-ring:clamp(3px,calc(var(--mbb-size) * .05),5px)}.rank-wbb-mark{display:inline-grid;place-items:center;width:40px;height:40px;flex:none;border:3px double #705940;border-radius:50%;background:#e6d7bf}.rank-wbb-mark img{width:77%;height:77%;object-fit:contain}.rank-school a{color:inherit;text-decoration:none}.rank-school a:hover{text-decoration:underline}.rank-table tbody td:first-child{width:56px;text-align:center;padding:6px 3px;background:#f6ebd7;border-right:0}@media(max-width:650px){.rank-school{gap:8px}.rank-school .mbb-mark{--mbb-size:64px}.rank-wbb-mark{width:32px;height:32px}.rank-table tbody td:first-child{width:44px}}.rank-record{text-align:right!important;white-space:nowrap;font-variant-numeric:tabular-nums;font-weight:normal}@media(max-width:650px){.rank-record{font-size:12px!important}}
+/* National polls and RETRO share the same crest-first hierarchy. */
+.rank-table tbody td{vertical-align:middle}
+.rank-school{gap:12px;min-width:0}
+.rank-school .mbb-mark{flex:0 0 auto}
+.rank-school a{font-size:17px;font-weight:700;line-height:1.24;overflow-wrap:break-word}
+.rank-table-wrap--retro .rank-table td:nth-child(3){font-weight:700;font-size:18px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.rank-table-wrap--retro .rank-table td.rank-record{font-size:17px;font-weight:700}
+@media(max-width:650px){
+ .rank-table-wrap--retro{overflow-x:visible}
+ .rank-table-wrap--retro .rank-table{display:block;border-spacing:0}
+ .rank-table-wrap--retro .rank-table thead{display:none}
+ .rank-table-wrap--retro .rank-table tbody{display:block}
+ .rank-table-wrap--retro .rank-table tbody tr{display:grid;grid-template-columns:43px minmax(0,1fr) 105px;grid-template-rows:auto auto;gap:3px 7px;background:#f6ebd7;border:3px double #9e8566;margin:9px 0;padding:9px 7px;min-width:0}
+ .rank-table-wrap--retro .rank-table tbody td{border:0!important;background:transparent!important;padding:3px 0;font-size:14px;min-width:0}
+ .rank-table-wrap--retro .rank-table tbody td:nth-child(1){grid-column:1;grid-row:1 / 3;width:43px!important;align-self:center}
+ .rank-table-wrap--retro .rank-table tbody td:nth-child(2){grid-column:2 / 4;grid-row:1}
+ .rank-table-wrap--retro .rank-table tbody td:nth-child(3){grid-column:3;grid-row:2;justify-self:end;text-align:right;font-size:15px}
+ .rank-table-wrap--retro .rank-table tbody td:nth-child(4){grid-column:2;grid-row:2;text-align:left!important;font-size:14px}
+ .rank-table-wrap--retro .rank-table tbody td:nth-child(3):before{content:'RATING ';font:700 9px Arial,sans-serif;color:#735943}
+ .rank-table-wrap--retro .rank-table tbody td:nth-child(4):before{content:'W–L ';font:700 9px Arial,sans-serif;color:#735943}
+ .rank-table-wrap--retro .rank-school{gap:8px;min-height:64px}
+ .rank-table-wrap--retro .rank-school a{font-size:15px;line-height:1.23}
+ .rank-table-wrap--retro .rank-number{box-sizing:border-box;min-width:37px;min-height:34px;font-size:12px;padding:3px 1px}
+}
+
+/* Ranking explanations stay collapsed; only RETRO cards get a fifth information cell. */
+.rank-table-wrap--retro .rank-explanation{min-width:250px;max-width:330px;vertical-align:middle}
+.rank-why{font:12px/1.35 Georgia,serif;color:#3a2c20}
+.rank-why summary{cursor:pointer;font-weight:bold;color:#6a3829;list-style:disclosure-closed}
+.rank-why[open] summary{list-style:disclosure-open}
+.rank-why summary:focus-visible{outline:2px solid #7c4c34;outline-offset:3px}
+.rank-why .rank-why-pulse{display:block;font:11px/1.35 Georgia,serif;color:#65513e;margin:3px 0 0}
+.rank-why-body{margin-top:9px;padding:8px;border:1px solid #c4ac8a;background:#f8efdF}
+.rank-why-body p{margin:0 0 7px}
+.rank-why-body .rank-why-games{list-style:none;padding:0;margin:0}
+.rank-why-games li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 8px;padding:7px 0;border-top:1px solid #c9b79d}
+.rank-why-games li strong{font-size:12px}
+.rank-why-games li span{font-variant-numeric:tabular-nums;font-weight:bold;white-space:nowrap}
+.rank-why-games li small{grid-column:1/-1;font:11px/1.3 Georgia,serif;color:#735943}
+.rank-why-method{font-size:11px;line-height:1.45;color:#5e4834}
+.rank-why-method code{font-family:inherit;font-weight:bold}
+@media(max-width:650px){
+ .rank-table-wrap--retro .rank-table tbody tr{grid-template-rows:auto auto auto}
+ .rank-table-wrap--retro .rank-table tbody td:nth-child(5){grid-column:1/-1;grid-row:3;width:auto;min-width:0;max-width:none;border-top:1px solid #bfa988!important;padding:8px 5px 2px}
+ .rank-why summary{font-size:13px}
+ .rank-why .rank-why-pulse{font-size:11px}
+ .rank-why-body{padding:8px}
+}
+
+/* Compact readable RETRO ledger: no reserve-space cards or empty expanded boxes. */
+.rank-retro-edition .rank-intro{display:none}
+.rank-retro-edition .rank-status{font:700 11px/1.4 Georgia,serif;letter-spacing:.025em;text-transform:uppercase;color:#614c38;margin:7px 0 9px}
+.rank-table-wrap--retro .rank-quick-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:3px 9px}
+.rank-quick-stats>span{display:flex;min-width:0;flex-direction:column;gap:3px}
+.rank-quick-stats small{font:700 9px/1.2 Arial,sans-serif;letter-spacing:.03em;color:#80654a}
+.rank-quick-stats b{font:700 13px/1.15 Georgia,serif;font-variant-numeric:tabular-nums;white-space:nowrap}
+.rank-form{display:flex;gap:3px;align-items:center}
+.rank-form i{display:inline-grid;place-items:center;width:15px;height:15px;border-radius:50%;font:700 9px/1 Arial,sans-serif;font-style:normal;background:#41654a;color:#fff}
+.rank-form i.rank-form-l{background:#a45a4c}
+.rank-why{margin-top:7px;border-top:1px solid #c8b495;padding-top:5px}
+.rank-why summary{display:flex;align-items:center;gap:6px;background:#f0e2cb;padding:4px 7px;font-size:12px}
+.rank-why summary::after{content:'+';margin-left:auto;font:700 15px/1 Georgia,serif}
+.rank-why[open] summary::after{content:'−'}
+.rank-why-best{font-size:12px;border-bottom:1px solid #c8b495;padding-bottom:6px}
+.rank-table-wrap--retro .rank-why-pulse{display:none}
+.rank-table-wrap--retro .rank-explanation{min-width:0;max-width:none}
+@media(max-width:650px){
+ .rank-retro-edition .rank-paper{padding-inline:10px}
+ .rank-retro-edition .rank-tabs{margin:10px 0 8px}
+ .rank-table-wrap--retro .rank-table tbody tr{
+  grid-template-columns:39px minmax(0,1fr) minmax(74px,auto);
+  grid-template-rows:auto auto auto;
+  column-gap:7px;row-gap:0;margin:5px 0;padding:6px 7px 7px;
+  align-items:center;border-width:2px;min-height:0
+ }
+ .rank-table-wrap--retro .rank-table tbody td:nth-child(1){grid-column:1;grid-row:1 / 3;width:39px!important;align-self:center}
+ .rank-table-wrap--retro .rank-table tbody td:nth-child(2){grid-column:2;grid-row:1 / 3}
+ .rank-table-wrap--retro .rank-table tbody td:nth-child(3){grid-column:3;grid-row:1;justify-self:end;font-size:17px}
+ .rank-table-wrap--retro .rank-table tbody td:nth-child(4){grid-column:3;grid-row:2;justify-self:end;text-align:right!important;font-size:12px}
+ .rank-table-wrap--retro .rank-table tbody td:nth-child(5){grid-column:1/-1;grid-row:3;padding:6px 2px 0;border-top:1px solid #c6b292!important;margin-top:3px}
+ .rank-table-wrap--retro .rank-school{min-height:0;gap:7px}
+ .rank-table-wrap--retro .rank-school .mbb-mark{--mbb-size:70px}
+ .rank-table-wrap--retro .rank-school a{font-size:16px}
+ .rank-table-wrap--retro .rank-record:before{content:'W–L ';font:700 9px Arial,sans-serif}
+ .rank-table-wrap--retro .rank-table tbody td:nth-child(4):before{content:'W–L ';font:700 9px Arial,sans-serif}
+ .rank-table-wrap--retro .rank-wbb-mark{width:62px;height:62px}
+ .rank-table-wrap--retro .rank-quick-stats{grid-template-columns:repeat(4,minmax(0,1fr));gap:4px}
+ .rank-table-wrap--retro .rank-quick-stats small{font-size:8px;letter-spacing:0}
+ .rank-table-wrap--retro .rank-quick-stats b{font-size:12px}
+ .rank-table-wrap--retro .rank-form{gap:2px}
+ .rank-table-wrap--retro .rank-form i{width:13px;height:13px;font-size:8px}
+ .rank-table-wrap--retro .rank-why{margin-top:5px;padding-top:3px}
+ .rank-table-wrap--retro .rank-why summary{font-size:12px;padding:4px 6px}
+ .rank-table-wrap--retro .rank-table tbody td:nth-child(3):before{display:block;text-align:right;content:'RATING';font:700 9px Arial,sans-serif;color:#735943}
+}
+@media(max-width:375px){
+ .rank-table-wrap--retro .rank-school .mbb-mark{--mbb-size:61px}
+ .rank-table-wrap--retro .rank-school a{font-size:14px}
+ .rank-table-wrap--retro .rank-quick-stats small{font-size:7px}
+ .rank-table-wrap--retro .rank-quick-stats b{font-size:11px}
+}
+/* The WHY disclosure belongs below each RETRO ranking, not in a right-hand column. */
+@media(min-width:651px){
+ .rank-table-wrap--retro{overflow-x:visible}
+ .rank-table-wrap--retro .rank-table{display:block;border-spacing:0;width:100%}
+ .rank-table-wrap--retro .rank-table thead{display:none}
+ .rank-table-wrap--retro .rank-table tbody{display:block}
+ .rank-table-wrap--retro .rank-table tbody tr{
+  display:grid;grid-template-columns:64px minmax(0,1fr) 115px 105px;
+  grid-template-rows:auto auto;column-gap:14px;row-gap:0;align-items:center;
+  margin:7px 0;padding:10px 12px;background:#f6ebd7;border:3px double #9e8566
+ }
+ .rank-table-wrap--retro .rank-table tbody td{
+  box-sizing:border-box;min-width:0;border:0!important;background:transparent!important;padding:5px 0
+ }
+ .rank-table-wrap--retro .rank-table tbody td:nth-child(1){
+  grid-column:1;grid-row:1;width:64px!important;text-align:center
+ }
+ .rank-table-wrap--retro .rank-table tbody td:nth-child(2){grid-column:2;grid-row:1}
+ .rank-table-wrap--retro .rank-table tbody td:nth-child(3){
+  grid-column:3;grid-row:1;justify-self:end;text-align:right
+ }
+ .rank-table-wrap--retro .rank-table tbody td:nth-child(4){
+  grid-column:4;grid-row:1;justify-self:end;text-align:right
+ }
+ .rank-table-wrap--retro .rank-table tbody td:nth-child(5){
+  grid-column:1 / -1;grid-row:2;width:100%;max-width:none;min-width:0;
+  border-top:1px solid #bfa988!important;padding:6px 0 0
+ }
+ .rank-table-wrap--retro .rank-why{margin:0;border:0;padding:0}
+ .rank-table-wrap--retro .rank-why summary{width:100%;box-sizing:border-box}
+ .rank-table-wrap--retro .rank-why-body{width:100%;box-sizing:border-box}
+}
+
+
+/* Art Deco place plaques. Scoped above the shared Victorian badge rules. */
+body .rank-table tbody td:first-child .rank-number{
+ --rank-metal:#927956;--rank-paper:#f6ebd7;
+ position:relative;isolation:isolate;display:inline-grid;place-items:center;
+ box-sizing:border-box;width:38px;height:48px;min-width:0;min-height:0;
+ padding:0;border:0;outline:0;background:var(--rank-metal);color:#342a20;
+ clip-path:polygon(7px 0,calc(100% - 7px) 0,calc(100% - 7px) 4px,100% 4px,100% calc(100% - 4px),calc(100% - 7px) calc(100% - 4px),calc(100% - 7px) 100%,7px 100%,7px calc(100% - 4px),0 calc(100% - 4px),0 4px,7px 4px);
+}
+body .rank-table tbody td:first-child .rank-number::before{
+ content:"";position:absolute;inset:2px;z-index:-1;background:var(--rank-paper);
+ clip-path:polygon(7px 0,calc(100% - 7px) 0,calc(100% - 7px) 4px,100% 4px,100% calc(100% - 4px),calc(100% - 7px) calc(100% - 4px),calc(100% - 7px) 100%,7px 100%,7px calc(100% - 4px),0 calc(100% - 4px),0 4px,7px 4px);
+}
+body .rank-table tbody td:first-child .rank-number::after{
+ content:"";position:absolute;inset:7px 4px;border-block:1px solid var(--rank-metal);pointer-events:none;
+}
+.rank-number[data-place="1"]{--rank-metal:#937020!important;--rank-paper:#f1e3ba!important}
+.rank-number[data-place="2"]{--rank-metal:#74756c!important;--rank-paper:#e9e6d9!important}
+.rank-number[data-place="3"]{--rank-metal:#996343!important;--rank-paper:#efdeca!important}
+.rank-number-art{display:block;width:28px;height:26px;overflow:visible;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:square;stroke-linejoin:miter}
+.rank-number-value{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+@media(forced-colors:active){
+ body .rank-table tbody td:first-child .rank-number{background:Canvas;color:CanvasText;outline:1px solid CanvasText;clip-path:none}
+ body .rank-table tbody td:first-child .rank-number::before{background:Canvas}
+ .rank-number-art{stroke:CanvasText}
+}
+
+.slt-edition-rankings :is(.rank-league-badge,.logo-shell,.nba-standings-logo,.el-official-logo){display:inline-grid;place-items:center;width:76px;height:76px;flex:0 0 76px;object-fit:contain;box-sizing:border-box}
+.slt-edition-rankings .rank-school > strong {font:700 17px/1.24 Georgia,serif}
+.slt-edition-rankings .rank-desk-note {display:block;margin:3px 0 0;font:11px/1.25 Georgia,serif;color:#684f36}
+@media(max-width:650px){.slt-edition-rankings :is(.rank-league-badge,.logo-shell,.nba-standings-logo,.el-official-logo){width:64px;height:64px;flex-basis:64px}}

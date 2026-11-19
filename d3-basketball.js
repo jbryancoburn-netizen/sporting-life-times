@@ -110,6 +110,18 @@ function renderTeam(d){
  const id=new URLSearchParams(location.search).get('team'),t=team(id),host=$('team-detail');
  if(!state.teams.has(id)){host.innerHTML='<p class="note">School not found in the published DIII source ledger.</p>';return;}
  const games=d.games.filter(g=>g.away===id||g.home===id).sort((a,b)=>a.date.localeCompare(b.date));
+ const layout=window.SLTBasketballDeskLayout;
+ const schedule=layout?games.map(g=>{
+  const home=g.home===id,opponent=team(home?g.away:g.home);
+  const external=home?g.away_external_label:g.home_external_label;
+  const unresolved=Boolean(g.home_away_unresolved),phase=unresolved?'reported':g.status==='final'||g.status==='live'?g.status:'upcoming';
+  const ownScore=home?g.home_score:g.away_score,against=home?g.away_score:g.home_score;
+  const outcome=phase==='final'&&Number.isFinite(ownScore)&&Number.isFinite(against)&&ownScore!==against?(ownScore>against?'W':'L'):'';
+  return {date:g.date,phase,site:unresolved?'unknown':g.neutral?'neutral':home?'home':'away',opponent:external||opponent.name,
+   teamHref:external?'':teamLink(opponent),badge:external?'':emblem(opponent),color:opponent.primary,
+   venue:g.venue_location||g.venue,tipoff:g.start_time||g.tipoff_as_posted,network:g.network,outcome,detail:card(g),
+   result:outcome?outcome+' '+ownScore+'–'+against:phase==='reported'?'Site unverified':phase==='final'?'Final':phase==='live'?'Live':null};
+ }):[];
  const audit=state.fixtureData?.source_audit?.find(a=>a.owner_org_id===t.ncaa_org_id);
  const calendarStatus=audit?.status==='parsed'?'OFFICIAL 2026–27 SCHOOL CALENDAR VERIFIED':audit?.status==='parsed_conference'?'OFFICIAL 2026–27 CONFERENCE CALENDAR VERIFIED · SCHOOL SITE UNAVAILABLE':games.length?'SCHEDULE ENTRIES FROM OTHER OFFICIAL PROGRAMS':'SCHOOL CALENDAR NOT YET VERIFIED';
  host.innerHTML='<div class="back"><a href="'+own+'">← BACK TO THE '+esc(gender.toUpperCase())+' DIII PAPER</a></div>'+
@@ -121,9 +133,10 @@ function renderTeam(d){
  '<div class="team-stat"><strong>'+Math.round(t.elo||1500)+'</strong><span>2026–27 ELO</span></div>'+
  '<div class="team-stat"><strong>'+games.length+'</strong><span>PUBLISHED GAME ENTRIES</span></div></div>'+
  (!t.d3_confirmed?'<p class="note">The published source has not explicitly confirmed DIII division membership for this school. Its games do not count toward independent Elo.</p>':'')+
+ (layout?layout.schedule(schedule,'No school fixtures found in the published NCAA source window.'):
  '<section class="panel"><div class="section-head"><h2>THE SCHOOL GAMEFILE</h2><span>AWAY FIRST · HOME SECOND</span></div>'+
  (games.length?games.map(card).join(''):'<p class="note">No school fixtures found in the published NCAA source window. This is not a certified full-season calendar.</p>')+
- '</section>';
+ '</section>');
 const reg=window.SLTBasketballStats;if(reg){const summary=reg.fromGames(games,id,{requireFinal:true,requireEligible:true});host.querySelector('.team-stats')?.insertAdjacentHTML('afterend',reg.register(summary,{note:'Only published, Elo-eligible Division III finals enter this statistical register. Partial school calendars are not represented as complete.'}));}
 }
 function renderHome(d){
@@ -134,7 +147,13 @@ function renderHome(d){
  $('elo-note').textContent='All schools start at 1500 each season; K='+d.model.k+', home edge='+d.model.home_elo_edge+
  ' points. Parameters are provisional, not historically calibrated. Cross-division games and unverified results are excluded.';
  const ranked=teams.filter(t=>t.d3_confirmed&&t.games_rated>0).sort((a,b)=>b.elo-a.elo||a.name.localeCompare(b.name));
+ if(window.SLTBasketballDeskLayout&&ranked.length){
+  $('elo-board').innerHTML=window.SLTBasketballDeskLayout.rankingTable(ranked.slice(0,35).map((t,i)=>({
+   rank:i+1,name:t.name,badge:emblem(t),href:teamLink(t),color:t.primary,note:t.conference,rating:Number(t.elo).toFixed(1),record:t.w+'–'+t.l
+  })));
+ }else{
  $('elo-board').innerHTML=ranked.length?'<div class="board-row board-header"><span>#</span><span></span><span>PROGRAM</span><span>W–L</span><span>PCT</span><span>ELO</span></div>'+ranked.slice(0,35).map((t,i)=>row(t,i)).join(''):'<p class="note">No eligible finals are published yet. Rankings will begin only after confirmed DIII results.</p>';
+ }
  const dates=[...new Set(games.map(g=>g.date))].sort(),parts=Object.fromEntries(new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date()).map(p=>[p.type,p.value])),today=parts.year+'-'+parts.month+'-'+parts.day;
  const input=$('game-date');input.value=dates.find(x=>x>=today)||dates.at(-1)||today;
  const filters=$('d3-filters'),search=$('d3-game-search'),count=$('d3-game-count');
@@ -177,7 +196,10 @@ function renderHome(d){
  const confs=[...new Set(teams.map(t=>t.conference).filter(Boolean))].sort(),sel=$('conference-select');
  sel.innerHTML='<option value="">Select a source-labeled conference</option>'+confs.map(c=>'<option value="'+esc(c)+'">'+esc(c)+'</option>').join('');
  function conf(){const a=teams.filter(t=>t.conference===sel.value).sort((a,b)=>pct(b)-pct(a)||b.elo-a.elo);
- $('conference-board').innerHTML=a.length?'<p class="muted">Overall rated-game records; NOT official conference standings or tiebreakers.</p>'+a.map((t,i)=>row(t,i)).join(''):'<p class="note">Conference standings pending verified membership and league-only game reconciliation.</p>';}
+ $('conference-board').innerHTML=a.length?'<p class="muted">Overall rated-game records; NOT official conference standings or tiebreakers.</p>'+(window.SLTBasketballDeskLayout?
+  window.SLTBasketballDeskLayout.standingsTable(['Place','School','W–L','PCT','RETRO'],a.map(t=>({
+   name:t.name,href:teamLink(t),badge:emblem(t),values:[t.w+'–'+t.l,((t.w+t.l)?t.w/(t.w+t.l):0).toFixed(3),Number(t.elo).toFixed(1)]
+  }))):a.map((t,i)=>row(t,i)).join('')):'<p class="note">Conference standings pending verified membership and league-only game reconciliation.</p>';}
  sel.addEventListener('change',conf);conf();
  $('coverage').innerHTML='<b>'+games.length+'</b> published games, <b>'+d.coverage.eligible_finals+'</b> Elo-eligible finals, and <b>'+d.coverage.scanned_days+'</b> recently checked NCAA dates.<br>'+
  '<b>'+esc(d.coverage.official_directory_count??0)+'</b> schools recorded in the NCAA’s official 2026–27 sport-sponsor directory. The July projection was <b>'+esc(d.coverage.ncaa_projected_programs??'—')+'</b>; difference <b>'+esc(d.coverage.official_vs_projection_gap??'—')+'</b> remains to reconcile.<br>'+
