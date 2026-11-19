@@ -715,15 +715,9 @@
   const liveOdds=phase==='live'&&g.retroLiveEnabled?root.SLTRetroLive?.estimate({
    status:label,away:g.away?.score,home:g.home?.score,prior:g.retroLivePrior,
    possession:g.possession,women:g.gender==='women'}):null;
-  // Indicative single-game movement only; the official RETRO model refits the entire season.
-  const ar=Number(g.away?.retroSnapshot?.elo),hr=Number(g.home?.retroSnapshot?.elo);
-  const validRatings=Number.isFinite(ar)&&Number.isFinite(hr)&&ar>0&&hr>0;
-  const expected=validRatings?1/(1+Math.pow(10,(ar-hr-100)/400)):null;
-  const swing=Number.isFinite(liveOdds)&&expected!==null?18*(liveOdds-expected):null;
-  const movement=swing===null?'':'<span class="ledger26-retro-movement" aria-label="Indicative live rating movement">'+
-    esc(g.away?.abbreviation||g.away?.name)+' '+(swing<=0?'+':'−')+Math.abs(swing).toFixed(1)+' pts · '+
-    esc(g.home?.abbreviation||g.home?.name)+' '+(swing>=0?'+':'−')+Math.abs(swing).toFixed(1)+
-    ' pts <small>indicative · official RETRO updates after final</small></span>';
+  // Do not show fabricated small-swing rating changes. Official RETRO is a
+  // season-wide refit; live rating deltas require a full model replay.
+  const movement='';
   const homePercent=Number.isFinite(liveOdds)?Math.round(liveOdds*100):null;
   const liveRetro=phase==='live'&&g.retroLiveEnabled?
    '<div class="ledger26-retro-live" aria-label="Live win probability"><strong>RETRO LIVE</strong><span>'+
