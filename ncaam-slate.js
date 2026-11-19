@@ -419,8 +419,11 @@ function reconcileLive(published,updates){
   // A confirmed official final must replace a stale published live snapshot.
   if(prior.phase==='final'&&g.phase!=='final')continue;
   if(prior.phase==='live'&&
-     (g.phase==='upcoming'||(prior.away.score!=null&&g.away.score<prior.away.score)||
-      (prior.home.score!=null&&g.home.score<prior.home.score)))continue;
+     (g.phase==='upcoming'||(!g.completed&&((prior.away.score!=null&&g.away.score<prior.away.score)||
+      (prior.home.score!=null&&g.home.score<prior.home.score)))))continue;
+  if(prior.phase==='live'&&g.phase==='live'&&prior.away.score===g.away.score&&
+     prior.home.score===g.home.score&&Number.isFinite(prior.scoreObservedAt)&&
+     Number.isFinite(g.scoreObservedAt)&&g.scoreObservedAt<prior.scoreObservedAt)continue;
   result.set(String(g.id),{...prior,...g,away:{...prior.away,...g.away},home:{...prior.home,...g.home},
     venue:g.venue||prior.venue,broadcast:g.broadcast||prior.broadcast,probability:prior.probability});
  }
@@ -1430,53 +1433,50 @@ async function refreshVenues(day,force=false){
 }
 // Independently fetch live scores without waiting for scheduled GitHub JSON updates.
 async function refreshLive(){
- if(liveRequest||document.hidden||!shouldRefreshScoreboard(selected)||!cross.teams?.length)return;
- liveRequest=true;const day=selected;
- const path='https://site.api.espn.com/apis/site/v2/sports/basketball/'+
-  (women?'womens-college-basketball':'mens-college-basketball')+
-  '/scoreboard?groups=50&limit=1000&dates='+day.replaceAll('-','');
- try{
-  // The published scoreboard includes verified out-of-division opponents that
-  // ESPN's Division I group endpoint can omit. Always fetch both independently.
-  const unrestrictedPath='https://site.api.espn.com/apis/site/v2/sports/basketball/'+
-   (women?'womens-college-basketball':'mens-college-basketball')+
-   '/scoreboard?limit=1000&dates='+day.replaceAll('-','');
-  const [publishedResult,apiResult,unrestrictedResult]=await Promise.allSettled([
-   fetchJSON('data/mbb-live.json'),fetchJSON(path),
-   fetchJSON(unrestrictedPath)
-  ]);
+ if(liveRequest||document.hidden||!shouldRefreshScoreboard(selected)||(!women&&!cross.teams?.length))return;
+ liveRequest=true;
+ const day=selected,cache=Math.floor(Date.now()/30000);
+ const endpoint='https://site.api.espn.com/apis/site/v2/sports/basketball/'+
+  (women?'womens-college-basketball':'mens-college-basketball')+'/scoreboard';
+ const dateQuery='limit=1000&dates='+day.replaceAll('-','')+'&_='+cache;
+ const publishedPath=women?'data/wbb-live.json':'data/mbb-live.json';
+ let hadPublished=false,hadDirect=false;
+ function apply(games,raw,observedAt=Date.now()){
   if(selected!==day)return;
-  const published=publishedResult.status==='fulfilled'?publishedResult.value:null;
-  const grouped=apiResult.status==='fulfilled'?apiResult.value:null;
-  const unrestricted=unrestrictedResult.status==='fulfilled'?unrestrictedResult.value:null;
-  // The women’s D-I group can omit matchups against D-II/D-III/NAIA schools.
-  // Combine source events by ID, with the normal D-I feed taking precedence.
-  const hasEvents=Array.isArray(grouped?.events)||Array.isArray(unrestricted?.events);
-  const raw=hasEvents?{events:[...new Map([
-    ...(unrestricted?.events||[]),...(grouped?.events||[])
-  ].filter(e=>validId(e?.id)).map(e=>[String(e.id),e])).values()]}:null;
-  if(!published&&!Array.isArray(raw?.events))throw Error('Both live scoreboard feeds unavailable');
-  const publishedLive=!women&&Array.isArray(published?.games)?
-   normalizeMen(published,null,cross,outsideMarks).filter(g=>g.day===day&&g.phase!=='upcoming'):[];
-  if(Array.isArray(raw?.events))
-   for(const [key,site] of sourcedGameLocations(raw,day,[...loaded,...liveBoard]))
-    sourcedVenueByGame.set(key,site);
-  const apiLive=Array.isArray(raw?.events)?
-   liveEvents(raw,day,cross,women,retroPublished?.rankings,loaded):[];
-  // Reconcile only matching event/team IDs and never regress a score.
-  // Prefer the directly fetched official event over the potentially delayed published JSON.
-  const fresh=reconcileLive(publishedLive,apiLive);
-  const present=new Set(fresh.map(g=>String(g.id)+'|'+g.day));
-  // A source refresh must not erase a previously observed final during
-  // this visit merely because an endpoint temporarily stopped listing it.
-  const retained=liveBoard.filter(g=>g.day===day&&g.phase==='final'&&
-    !present.has(String(g.id)+'|'+g.day));
-  liveBoard=dedupeFixtures([...fresh,...retained]);
+  if(raw)for(const [key,site] of sourcedGameLocations(raw,day,[...loaded,...liveBoard]))
+   sourcedVenueByGame.set(key,site);
+  liveBoard=reconcileLive(liveBoard.filter(g=>g.day===day),games.map(g=>({...g,scoreObservedAt:observedAt})));
   refreshRETRO();
   liveCheckedAt=Date.now();
-  liveCheckError=raw?'':(publishedLive.length?'Live API partial; using published score feed':'Live API unavailable');
- }catch(err){if(selected===day)liveCheckError=String(err?.message||'Current scores unavailable');}
- finally{liveRequest=false;if(selected===day)render()}
+  liveCheckError='';
+  render();
+ }
+ function normalize(raw){
+  return liveEvents(raw,day,cross,women,retroPublished?.rankings,loaded);
+ }
+ const readDirect=url=>fetchJSON(url).then(raw=>{
+  if(!Array.isArray(raw?.events))return;
+  hadDirect=true;
+  apply(normalize(raw),raw);
+ });
+ try{
+  await Promise.allSettled([
+   fetchJSON(publishedPath+'?tick='+cache).then(feed=>{
+    if(women?feed?.edition!=='women'||!Array.isArray(feed.events):!Array.isArray(feed?.games))return;
+    hadPublished=true;
+    const games=women?normalize(feed):normalizeMen(feed,null,cross,outsideMarks).filter(g=>g.day===day&&g.phase!=='upcoming');
+    apply(games,women?feed:null,Date.parse(feed.checked_at||feed.scores_updated_at));
+   }),
+   readDirect(endpoint+'?groups=50&'+dateQuery),
+   readDirect(endpoint+'?'+dateQuery)
+  ]);
+  if(selected===day&&!hadDirect)
+   liveCheckError=hadPublished?'Using the published scoreboard because the direct feed is unavailable':'Live score feeds unavailable';
+ }finally{
+  liveRequest=false;
+  if(selected===day)render();
+  else if(shouldRefreshScoreboard(selected))void refreshLive();
+ }
 }
 function chooseDate(day){
  if(!day)return;

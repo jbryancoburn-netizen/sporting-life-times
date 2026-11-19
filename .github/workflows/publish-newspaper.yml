@@ -35,6 +35,8 @@ on:
       - 'tests/mbb-calendar-finals.test.cjs'
       - 'tests/cbb-radio-companion.test.cjs'
       - 'tests/ncaam-slate.test.cjs'
+      - 'scripts/refresh_wbb_live_scores.py'
+      - 'data/wbb-live.json'
       - 'tests/victorian-live-court.test.mjs'
       - 'tests/victorian-live-retro.test.mjs'
       - 'tests/victorian-live-logos.test.mjs'
@@ -355,13 +357,16 @@ jobs:
       # and GitHub can delay cron jobs. Refresh current scores in the deployed
       # Pages edition independently so an old pregame or halftime score is not
       # republished simply because a static-data deployment succeeded.
-      - name: Refresh men's live scores immediately before Pages artifact
+      - name: Refresh both Division I scoreboards immediately before Pages artifact
         run: |
           python3 -m unittest discover -s tests -p test_mbb_fast_scores.py -v
           if python3 scripts/refresh_mbb_live_scores.py; then
             echo "PASS: latest national scoreboard incorporated in this Pages artifact."
           else
-            echo "::warning::Live ESPN scoreboard unavailable; this edition contains last-known scores."
+            echo "::warning::Men's ESPN scoreboard unavailable; retaining last-known scores."
+          fi
+          if ! python3 scripts/refresh_wbb_live_scores.py; then
+            echo "::warning::Women's ESPN scoreboard unavailable; retaining last-known scores."
           fi
       - name: Refresh Division I player ranking cohorts
         continue-on-error: true
@@ -421,6 +426,32 @@ jobs:
         env:
           PAGE_URL: ${{ steps.deploy.outputs.page_url }}
         run: python3 scripts/verify_mbb_publication.py
+      - name: Verify the women's live scoreboard reached public Pages
+        env:
+          PAGE_URL: ${{ steps.deploy.outputs.page_url }}
+        run: |
+          python3 - <<'PY'
+          import json, os, time, urllib.request
+          from pathlib import Path
+          expected = json.loads(Path("data/wbb-live.json").read_text())
+          site = os.environ["PAGE_URL"].rstrip("/")
+          for attempt in range(6):
+              try:
+                  url = f"{site}/data/wbb-live.json?verify={os.environ['GITHUB_RUN_ID']}-{attempt}"
+                  with urllib.request.urlopen(url, timeout=12) as response:
+                      public = json.load(response)
+                  assert public["edition"] == "women"
+                  assert public["checked_at"] == expected["checked_at"]
+                  assert public["events"] == expected["events"]
+                  phases = [g["status"]["type"]["state"] for g in public["events"]]
+                  print(f"Published women's scoreboard: {len(phases)} games, {phases.count('in')} live, {phases.count('post')} final.")
+                  break
+              except (OSError, ValueError, KeyError, AssertionError) as error:
+                  print(f"Published women's scoreboard check {attempt + 1}: {error}")
+                  time.sleep(5)
+          else:
+              raise SystemExit("Public women's live scoreboard differs from the deployed snapshot.")
+          PY
       - name: Verify public NFL finals, player statistics and current browser scripts
         env:
           PAGE_URL: ${{ steps.deploy.outputs.page_url }}

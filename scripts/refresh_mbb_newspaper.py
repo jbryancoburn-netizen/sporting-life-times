@@ -504,9 +504,10 @@ def women_school_fixtures(root, day):
         rows.append(item)
     return rows
 
-def fetch_men_scoreboards(day, fetcher=fetch):
+def fetch_scoreboards(day, fetcher=fetch, *, women=False):
     """Merge grouped and full national scoreboards by verified ESPN game ID."""
-    base='https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard'
+    sport = 'womens-college-basketball' if women else 'mens-college-basketball'
+    base = f'https://site.api.espn.com/apis/site/v2/sports/basketball/{sport}/scoreboard'
     urls=[('ESPN scores',base+'?groups=50&limit=1000&dates='+day),
           ('ESPN unrestricted scores',base+'?limit=1000&dates='+day)]
     data=[];audit=[]
@@ -540,6 +541,10 @@ def fetch_men_scoreboards(day, fetcher=fetch):
             if key not in merged or progress(event)>progress(merged[key]):
                 merged[key]=event
     return {'events':list(merged.values())},audit
+
+
+def fetch_men_scoreboards(day, fetcher=fetch):
+    return fetch_scoreboards(day, fetcher)
 
 
 def main():

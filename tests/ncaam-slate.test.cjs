@@ -223,6 +223,16 @@ const oldGame={id:'401906848',day:'2026-11-03',phase:'live',kind:'regular',
 const advanced=slate.reconcileLive([oldGame],reported);
 assert.equal(advanced[0].away.score,38,'newer live score supersedes published value');
 assert.equal(advanced[0].home.score,44,'update both teams from the same event');
+const recentClock={...oldGame,scoreObservedAt:100,status:'5:00 - 1ST'};
+const staleClock={...oldGame,scoreObservedAt:50,status:'7:00 - 1ST'};
+assert.equal(slate.reconcileLive([recentClock],[staleClock])[0].status,recentClock.status,
+ 'A last-known published clock must not overwrite a more recent direct clock with equal scores');
+const correctedFinal={...oldGame,phase:'final',completed:true,away:{...oldGame.away,score:oldGame.away.score-1}};
+assert.equal(slate.reconcileLive([oldGame],[correctedFinal])[0].phase,'final',
+ 'A completed source game can correct a mistaken running score');
+const femaleSnapshot=json('data/wbb-live.json');
+assert.equal(femaleSnapshot.edition,'women');
+assert(Array.isArray(femaleSnapshot.events));
 const earlier=slate.liveEvents({events:[sourceEvent('22','30')]},'2026-11-03',verifiedTeams);
 assert.equal(slate.reconcileLive([oldGame],earlier)[0].away.score,31,
  'older scores cannot move backwards');

@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'scripts/refresh_mbb_live_scores.py'
+      - 'scripts/refresh_wbb_live_scores.py'
       - 'tests/test_mbb_fast_scores.py'
       - '.github/workflows/mbb-fast-live-scores.yml'
   workflow_run:
@@ -38,6 +39,10 @@ jobs:
         run: python3 -m unittest discover -s tests -p test_mbb_fast_scores.py -v
       - name: Fetch source-reported men’s active scores and update exact event IDs
         run: python3 scripts/refresh_mbb_live_scores.py
+        continue-on-error: true
+      - name: Fetch source-reported women's active scores
+        run: python3 scripts/refresh_wbb_live_scores.py
+        continue-on-error: true
       - name: Publish changed live scores and request Pages deployment
         env:
           GH_TOKEN: ${{ github.token }}
@@ -47,11 +52,12 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           for attempt in 1 2 3 4; do
             git add data/mbb-live.json
+            if [[ -f data/wbb-live.json ]]; then git add data/wbb-live.json; fi
             if git diff --cached --quiet; then
               echo "No scoreboard change; avoid redundant commits and Pages deployments."
               exit 0
             fi
-            git commit -m 'Publish live MBB scoreboard updates'
+            git commit -m 'Publish live Division I scoreboard updates'
             if git push origin HEAD:main; then
               gh workflow run publish-newspaper.yml --ref main
               exit 0
@@ -59,7 +65,8 @@ jobs:
             echo "Concurrent data publisher changed main. Re-fetch verified games and retry." >&2
             git fetch origin main
             git reset --hard origin/main
-            python3 scripts/refresh_mbb_live_scores.py
+            python3 scripts/refresh_mbb_live_scores.py || true
+            python3 scripts/refresh_wbb_live_scores.py || true
             sleep "$((2*attempt))"
           done
           echo "::error::Fresh MBB score snapshot could not reach main"

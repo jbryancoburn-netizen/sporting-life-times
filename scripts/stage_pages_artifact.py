@@ -106,7 +106,7 @@ required = [
     "data/mbb-live.json", "data/mbb-retro-live-finals.json",
     "data/ncaam-2026-27-retro-primary.json",
     "data/ncaam-2026-27-upcoming-forecasts.json",
-    "data/ncaaw-2026-27-games.json",
+    "data/ncaaw-2026-27-games.json", "data/wbb-live.json",
     "data/ncaaw-2026-27-retro-primary.json",
     "data/d2-men-2026-27.json", "data/d2-women-2026-27.json",
     "nfl-edition-v3.js", "nfl-standings.html", "nfl-team.html", "nfl-players.html",
