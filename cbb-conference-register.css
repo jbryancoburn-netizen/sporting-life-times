@@ -50,8 +50,8 @@ body[data-page="conference"] .conference-identity:has(.conference-nameplate) {
  margin:14px 0 12px;
  padding:0;
 }
-body[data-conference="pac-12"] .conference-identity {--conference-ink:#153e62;--conference-paper:#f2eee3}
-body[data-conference="big-ten"] .conference-identity {--conference-ink:#184b64}
+body[data-page="conference"][data-conference="pac-12"] .conference-identity:has(.conference-nameplate) {--conference-ink:#153e62;--conference-paper:#f2eee3}
+body[data-page="conference"][data-conference="big-ten"] .conference-identity:has(.conference-nameplate) {--conference-ink:#184b64}
 .conference-identity .conference-identity-main:has(.conference-nameplate) {
  display:grid;
  grid-template-columns:auto minmax(0,1fr);
@@ -91,12 +91,12 @@ body[data-page="conference"] .slt-conference-game .slt-fixture-meta {
  padding:9px 10px;
 }
 body[data-page="conference"] .slt-conference-game .slt-fixture-meta > span {color:inherit}
-body[data-page="conference"] .slt-conference-game .ledger26-team {
+body[data-page="conference"] :is(.slt-conference-game,.wbb-conference-game) .ledger26-team {
  background:color-mix(in srgb,var(--ledger26-school,#735239) 16%,#fffaf0);
  border-inline-start:5px solid var(--ledger26-school,#735239);
  color:#231a13;
 }
-body[data-page="conference"] .slt-conference-game :is(.ledger26-name,.ledger26-record) {color:#231a13}
+body[data-page="conference"] :is(.slt-conference-game,.wbb-conference-game) .ledger26-team :is(.ledger26-name,.ledger26-record) {color:#231a13!important;text-shadow:none!important}
 body[data-page="conference"] .slt-conference-game .ledger26-name {font-size:clamp(15px,2vw,22px)!important}
 body[data-page="conference"] .slt-conference-game .ledger26-status {background:#eee2cc;color:#493529}
 @media(max-width:500px) {

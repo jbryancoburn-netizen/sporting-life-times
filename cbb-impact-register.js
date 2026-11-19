@@ -18,10 +18,11 @@
     let lowShot = 0, topThree = 0;
     for (const [gameId, game] of Object.entries(doc.games)) {
       for (const [side, index] of [['home', 0], ['away', 1]]) {
-        const [teamId, school, conference] = doc.teams[game.signature[index]];
+        const logoId = String(game.signature[index]);
+        const [teamId, school, conference] = doc.teams[logoId];
         const opponent = doc.teams[game.signature[1 - index]][1];
         const ranked = game[side].map(([id, name, ...stats]) =>
-          ({id, name, stats, total:score(stats), teamId, school, conference, opponent, gameId, day:game.day}))
+          ({id, name, stats, total:score(stats), teamId, school, conference, logoId, opponent, gameId, day:game.day}))
           .sort((a, b) => b.total - a.total);
         for (const row of ranked) {
           const key = row.id + ':' + teamId;
@@ -56,6 +57,7 @@
       const response = await fetch('data/cbb-game-impact-' + edition.value + '.json', {cache:'no-cache'});
       if (!response.ok) throw Error('Unavailable');
       const doc = await response.json();
+      await window.MBBLogos?.ready;
       if (token !== revision) return;
       if (doc.gender !== edition.value || doc.version !== 1 || !Object.keys(doc.games).length) throw Error('Unavailable');
       data = prepare(doc);
@@ -79,6 +81,28 @@
     escape(new URLSearchParams({date:row.day, game:row.gameId, gender:edition.value})) + '">' +
     escape(row.day + ' · ' + row.opponent) + '</a>';
   const average = row => row.total / row.games;
+  const photo = row => {
+    const initials = row.name.split(/\s+/).filter(Boolean).slice(0,2).map(word => word[0]).join('');
+    const id = String(row.id);
+    const league = edition.value === 'women' ? 'womens-college-basketball' : 'mens-college-basketball';
+    const image = /^\d+$/.test(id) ?
+      '<img class="impact-portrait" alt="" loading="lazy" src="https://a.espncdn.com/i/headshots/'+league+'/players/full/'+id+'.png">' : '';
+    return '<span class="impact-photo" aria-hidden="true"><span>'+escape(initials)+'</span>'+image+'</span>';
+  };
+  const schoolCrest = row => '<span class="impact-school-crest" aria-hidden="true">'+
+    (window.MBBLogos?.byESPN(row.logoId,'small',row.school) || '')+'</span>';
+  const conferenceCrest = row => {
+    const mark = window.SLTConferenceMarks?.lookup(row.conference);
+    if (!mark) return '';
+    const href = (edition.value === 'women' ? 'ncaaw' : 'ncaam')+'-conference.html?conference='+
+      encodeURIComponent(row.conference)+'&gender='+edition.value;
+    return '<a class="impact-conference-crest" href="'+escape(href)+'" aria-label="'+escape(mark.name)+'"><img src="'+
+      escape(mark.url)+'" alt="" loading="lazy"></a>';
+  };
+  const schoolColor = row => {
+    const value = window.MBBLogos?.colorForESPN(row.logoId)?.primary;
+    return /^#[0-9a-f]{6}$/i.test(value) ? value : '#795239';
+  };
 
   function filter() {
     page = 0;
@@ -109,10 +133,11 @@
         const marks = games
           ? metric('FGA', row.stats[7]) + metric('Rebounds', row.stats[1] + row.stats[2]) + metric('Blocks', row.stats[5])
           : metric('Games played', row.games) + metric('Games led', row.led + ' / ' + row.games);
-        return '<li class="impact-card"><div class="impact-card-heading"><span class="impact-place" aria-label="Rank ' +
-          (from + index + 1) + '">' + (from + index + 1) + '</span><div><h3>' +
-          profile(row.id, row.name, edition.value) + '</h3><p>' + linkTeam(row) + ' · ' +
-          escape(row.conference) + '</p></div></div><div class="impact-primary"><span>' +
+        return '<li class="impact-card" style="--impact-school:'+schoolColor(row)+'"><div class="impact-card-heading">'+
+          photo(row)+'<div class="impact-identity"><h3>'+profile(row.id, row.name, edition.value) + '</h3><p>' +
+          linkTeam(row) + ' · ' + escape(row.conference) + '</p><div class="impact-logos">'+schoolCrest(row)+conferenceCrest(row)+
+          '</div></div><span class="impact-place" aria-label="Rank '+(from+index+1)+'">'+(from+index+1)+
+          '</span></div><div class="impact-primary"><span>' +
           (games ? 'Game Impact' : 'Impact per game') + '</span><strong>' +
           format(games ? row.total : average(row)) + '</strong></div><dl>' + marks + '</dl><div class="impact-card-game">' +
           (games ? linkGame(row) : '<span>Best game · ' + format(row.best.total) + '</span>' + linkGame(row.best)) +
@@ -126,6 +151,9 @@
     $('next').disabled = page === last;
   }
 
+  $('results').addEventListener('error', event => {
+    if (event.target.matches?.('.impact-portrait')) event.target.hidden = true;
+  }, true);
   edition.addEventListener('change', () => { team = ''; load(); });
   teamSelect.addEventListener('change', () => { team = teamSelect.value; filter(); });
   for (const control of [view, sort, low]) control.addEventListener('change', filter);

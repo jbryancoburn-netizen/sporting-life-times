@@ -68,3 +68,40 @@
 @media(max-width:670px) {
  .impact-page .impact-controls {grid-template-columns:repeat(2,minmax(0,1fr))}
 }
+
+.impact-card {
+ --impact-school:#795239;
+ background:color-mix(in srgb,var(--impact-school) 12%,#fffaf0);
+ border-top-color:var(--impact-school);
+}
+.impact-card-heading {
+ display:grid;
+ grid-template-columns:clamp(50px,11vw,77px) minmax(0,1fr) auto;
+ gap:.5rem;
+ align-items:start;
+}
+.impact-photo {
+ position:relative;
+ display:grid;
+ place-items:center;
+ align-self:start;
+ aspect-ratio:1/1.08;
+ overflow:hidden;
+ border:1px solid #a8967d;
+ background:color-mix(in srgb,var(--impact-school) 22%,#fffaf0);
+ color:var(--ink);
+ font-size:.95rem;
+ font-weight:bold;
+}
+.impact-photo img {position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center bottom;background:inherit}
+.impact-identity {min-width:0;overflow-wrap:anywhere}
+.impact-logos {display:flex;align-items:center;gap:.28rem;margin-top:.25rem}
+.impact-school-crest,.impact-conference-crest {display:inline-grid;place-items:center;width:33px;height:28px}
+.impact-school-crest .mbb-mark {--mbb-size:26px;margin:0}
+.impact-conference-crest {background:#fff7e8;border:1px solid #baa68a}
+.impact-conference-crest img {width:26px;height:21px;object-fit:contain}
+.impact-primary {
+ background:color-mix(in srgb,var(--impact-school) 40%,#16120e);
+ color:#fff8e9;
+}
+.impact-primary strong {color:inherit}

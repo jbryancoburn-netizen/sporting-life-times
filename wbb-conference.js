@@ -198,12 +198,12 @@ try{
   '<p class="note">No source-backed conference stories are currently matched to these programs. <a href="ncaam.html?gender=women#wbb-news">Women’s national news →</a></p>';
 
   document.title=label(c)+' Women’s Basketball | Sporting Life & Times';
+ document.body.dataset.conference=c.startsWith('Pac-12')?'pac-12':c.startsWith('Big Ten')?'big-ten':'other';
  const calendar='<div class="slt-game-day-picker"><label for="conference-game-day">Games for</label>'+
   '<input type="date" id="conference-game-day" value="'+esc(initial)+'" aria-label="Choose women’s conference game date"></div>'+
   '<div id="conference-day-games"></div>';
- app.innerHTML='<div class="conference-identity"><div class="conference-identity-upper">'+
- '<span>THE CONFERENCE REGISTER</span><span>2026–27 WOMEN’S SEASON</span></div>'+
- '<div class="conference-identity-main">'+(window.SLTConferenceMarks?.header(c)||'')+'<h1>'+esc(c)+'</h1><p>The race for the championship</p></div>'+
+ app.innerHTML='<div class="conference-identity"><div class="conference-identity-main">'+(window.SLTConferenceMarks?.header(c)||'')+
+ '<div class="conference-nameplate"><p>Women’s Basketball · 2026–27</p><h1>'+esc(c)+'</h1></div></div>'+
  '<div class="conference-identity-meta"><span>'+items.length+' member schools</span>'+
  '<span>Conference leader: '+esc(leader?.team||'To be determined')+'</span>'+
  '<span><a href="ncaaw-conference.html">All 32 conferences →</a></span></div></div>'+
