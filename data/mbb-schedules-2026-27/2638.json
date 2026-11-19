@@ -421,27 +421,27 @@
     {
       "id": "school-2638-2026-12-05-19",
       "date": "2026-12-05T12:00:00-05:00",
-      "official_time": "",
-      "name": "MW+",
+      "official_time": "2 p.m. MT",
+      "name": "North Dakota",
       "school_source_url": "https://utepminers.com/sports/mens-basketball/schedule/text/2026-27",
-      "neutralSite": true,
+      "neutralSite": false,
       "competitions": [
         {
           "competitors": [
             {
-              "homeAway": "neutral",
+              "homeAway": "away",
+              "team": {
+                "id": "155",
+                "displayName": "North Dakota Fighting Hawks",
+                "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/155.png"
+              }
+            },
+            {
+              "homeAway": "home",
               "team": {
                 "id": "2638",
                 "displayName": "UTEP Miners",
                 "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2638.png"
-              }
-            },
-            {
-              "homeAway": "neutral",
-              "team": {
-                "id": "",
-                "displayName": "MW+",
-                "logo": ""
               }
             }
           ],
@@ -455,10 +455,23 @@
             "arena_source_url": "https://utepminers.com/sports/mens-basketball/schedule/text/2026-27",
             "arena_source_type": "explicit_official_game_location"
           },
-          "broadcasts": []
+          "broadcasts": [
+            {
+              "names": [
+                "MW+"
+              ],
+              "source_url": "https://utepminers.com/sports/mens-basketball/schedule"
+            }
+          ]
         }
       ],
-      "official_source": true
+      "official_source": true,
+      "tournament": "Cancún Challenge",
+      "official_school_time": "2 p.m. MT",
+      "official_school_time_source": "https://utepminers.com/sports/mens-basketball/schedule",
+      "site_verified": true,
+      "site_source_url": "https://utepminers.com/sports/mens-basketball/schedule",
+      "broadcast_source_url": "https://utepminers.com/sports/mens-basketball/schedule"
     },
     {
       "id": "official-2638-2026-12-16-utpb",

@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Read-only 2026-27 MTE schedule audit. Never invent or write fixtures."""
 import argparse, collections, datetime, json, pathlib, re, sys
+from zoneinfo import ZoneInfo
+
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 def norm(s):
     return re.sub(r'[^a-z0-9]+','',str(s).lower().replace('university','').replace('state','st'))
@@ -17,6 +19,16 @@ def records(folder):
         except (OSError,ValueError) as e: print('WARNING',p,e,file=sys.stderr)
     return result
 def rows(obj):
+    if 'games' in obj:
+        for game in obj['games']:
+            timestamp = game['date']
+            date = timestamp[:10]
+            if len(timestamp) > 10:
+                date = datetime.datetime.fromisoformat(timestamp.replace('Z', '+00:00')).astimezone(
+                    ZoneInfo('America/New_York')).date().isoformat()
+            yield {'date': date, 'opponent_id': str(game.get('opponent_id') or ''),
+                   'opponent': game.get('opponent', ''), 'id': game.get('id', ''), 'event': game}
+        return
     own=str(obj.get('espn_team_id',''))
     for event in obj.get('events',[]):
         cs=(event.get('competitions') or [{}])[0].get('competitors') or []
@@ -34,15 +46,15 @@ def main():
     args=ap.parse_args()
     inventory=load(args.inventory)
     genders={'men':records(ROOT/'data/mbb-schedules-2026-27'),
-             'women':records(ROOT/'data/wbb-schedules-2026-27')}
-    issues=[]; totals=collections.Counter(); verified=[]
+             'women':load(ROOT/'data/ncaaw-schedules-2026-27.json')['teams']}
+    issues=[]; totals=collections.Counter(); verified=[]; events_checked=[]
     for gender,teams in genders.items():
         totals[gender+'_team_files']=len(teams)
         names={}
         for tid,obj in teams.items():
             # File metadata and the schedule's own competitor identity are both valid.
             # Avoid relying solely on a particular game having both competitors.
-            for key in ('team_name','display_name','team_display_name','name'):
+            for key in ('team_name','display_name','team_display_name','name','team'):
                 if obj.get(key):
                     names.setdefault(norm(obj[key]),set()).add(tid)
             for alias in obj.get('aliases',[]):
@@ -53,7 +65,23 @@ def main():
                     t=c.get('team') or {}
                     if str(t.get('id'))==tid:
                         names.setdefault(norm(t.get('displayName','')),set()).add(tid)
+                        if t.get('shortDisplayName'):
+                            names.setdefault(norm(t['shortDisplayName']),set()).add(tid)
+        aliases = inventory.get('team_aliases', {}).get(gender, {})
+        registry_ids = {}
+        if gender == 'men':
+            registry = load(ROOT/'data/ncaam-2026-27-team-registry.json')['teams']
+            schedule_ids = {obj.get('team_id'): tid for tid, obj in teams.items() if obj.get('team_id')}
+            for team in registry:
+                if team['id'] in schedule_ids:
+                    registry_ids.setdefault(norm(team['name']), set()).add(schedule_ids[team['id']])
+
         def resolve(name):
+            if name in aliases:
+                return aliases[name] if aliases[name] in teams else None
+            registered = registry_ids.get(norm(name), set())
+            if len(registered) == 1:
+                return next(iter(registered))
             key=norm(name)
             found=names.get(key,set())
             if len(found)==1:return next(iter(found))
@@ -69,6 +97,12 @@ def main():
         for event in inventory.get('events',[]):
             if event.get('gender')!=gender:continue
             totals['events_checked']+=1
+            events_checked.append(dict(name=event['name'], gender=gender, source=event.get('source'),
+                                       listed_participants=len(event.get('teams', [])),
+                                       fixed_matchups=len(event.get('games', []))+len(event.get('opening_round', []))))
+            if event.get('pending_round'):
+                issues.append(dict(type='bracket_opponents_pending',gender=gender,event=event['name'],
+                                   note=event['pending_round']))
             if not event.get('teams') or not event.get('dates'):
                 issues.append(dict(type='inventory_incomplete',gender=gender,event=event['name'],
                                    note='Missing verified participants and/or dates; fixture audit not possible'))
@@ -93,14 +127,19 @@ def main():
                 fixed.append((event['dates'][0],pair))
             for g in event.get('games',[]):
                 fixed.append((g['date'],g['pair']))
+            fixed=list({(date,tuple(sorted(pair))):(date,pair) for date,pair in fixed}.values())
+            if not fixed:
+                issues.append(dict(type='matchups_unverified',gender=gender,event=event['name']))
             for date,pair in fixed:
                 a,b=(resolve(n) for n in pair)
                 if not a or not b or a not in teams or b not in teams:
                     issues.append(dict(type='unresolved_matchup',gender=gender,event=event['name'],date=date,teams=pair))
                     continue
+                present=0
                 for tid,other,name in [(a,b,pair[0]),(b,a,pair[1])]:
                     matching=[r for r in rows(teams[tid]) if r['date']==date and r['opponent_id']==other]
                     if matching:
+                        present+=1
                         totals['confirmed_team_entries_already_present']+=1
                         verified.append(dict(gender=gender,event=event['name'],date=date,team=name,
                                              opponent_id=other,team_id=tid,status='already_present',
@@ -113,11 +152,13 @@ def main():
                                            opponent_id=other,existing_same_day=[dict(opponent_id=r['opponent_id'],
                                            opponent=r['opponent'],game_id=r['id']) for r in same_day]))
                 totals['fixed_matchups_checked']+=1
+                if present==2:
+                    totals['reciprocal_matchups_verified']+=1
     report={'season':inventory['season'],'generated_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),
             'read_only':True,'coverage':'Only events present in the curated inventory; not a complete season certification',
-            'totals':dict(totals),'issue_counts':dict(collections.Counter(i['type'] for i in issues)),'issues':issues,'verified_existing_fixtures':verified}
+            'events_checked':events_checked,'totals':dict(totals),'issue_counts':dict(collections.Counter(i['type'] for i in issues)),'issues':issues,'verified_existing_fixtures':verified}
     out=pathlib.Path(args.output);out.parent.mkdir(parents=True,exist_ok=True)
     out.write_text(json.dumps(report,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
     print(json.dumps({'output':str(out),'totals':report['totals'],'issue_counts':report['issue_counts']},indent=2))
-    return int(args.strict and any(i['type']=='missing_confirmed_fixture' for i in issues))
+    return int(args.strict and any(i['type'] in {'missing_confirmed_fixture', 'opponent_mismatch_or_placeholder'} for i in issues))
 if __name__=='__main__':sys.exit(main())

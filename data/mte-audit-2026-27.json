@@ -40,7 +40,42 @@
           "Auburn"
         ]
       ],
-      "source": "https://www.playersera.com/events/players-era-8"
+      "source": "https://www.playersera.com/events/players-era-8",
+      "games": [
+        {
+          "date": "2026-11-18",
+          "pair": [
+            "Houston",
+            "Florida"
+          ],
+          "source": "https://www.ncaa.com/news/basketball-men/article/2026-11-17/2026-players-era-8-bracket-schedule-scores"
+        },
+        {
+          "date": "2026-11-18",
+          "pair": [
+            "Kansas",
+            "West Virginia"
+          ],
+          "source": "https://www.ncaa.com/news/basketball-men/article/2026-11-17/2026-players-era-8-bracket-schedule-scores"
+        },
+        {
+          "date": "2026-11-18",
+          "pair": [
+            "Rutgers",
+            "Notre Dame"
+          ],
+          "source": "https://www.ncaa.com/news/basketball-men/article/2026-11-17/2026-players-era-8-bracket-schedule-scores"
+        },
+        {
+          "date": "2026-11-18",
+          "pair": [
+            "UNLV",
+            "Auburn"
+          ],
+          "source": "https://www.ncaa.com/news/basketball-men/article/2026-11-17/2026-players-era-8-bracket-schedule-scores"
+        }
+      ],
+      "pending_round": "November 19 placement pairings require official confirmation as of the November 18 audit."
     },
     {
       "name": "Players Era 16",
@@ -143,7 +178,8 @@
           "Arizona"
         ]
       ],
-      "source": "https://www.cbssports.com/college-basketball/news/ranking-top-five-in-season-tournaments-2026-27-multi-team-event/"
+      "source": "https://www.mauiinvitational.com/tournament-bracket",
+      "pending_round": "November 24 and 25 opponents depend on the preceding rounds."
     },
     {
       "name": "Charleston Classic",
@@ -352,7 +388,7 @@
         "North Dakota",
         "Detroit Mercy"
       ],
-      "source": "https://www.bloggingthebracket.com/early-season-tournaments/10292/2026-27-mens-college-basketball-early-season-tournaments",
+      "source": "https://cancunchallenge.net/cancun-challenge-news-stories/cancun-challenges-announces-full-2026-schedule",
       "opening_round": [
         [
           "Southeastern Louisiana",
@@ -363,7 +399,8 @@
           "Detroit Mercy"
         ]
       ],
-      "format": "Bracket plus campus-site game"
+      "format": "Bracket plus campus-site game",
+      "pending_round": "November 25 pairings depend on November 24 results."
     },
     {
       "name": "Cancún Challenge — Riviera Division",
@@ -378,7 +415,7 @@
         "UTEP",
         "Charleston"
       ],
-      "source": "https://www.bloggingthebracket.com/early-season-tournaments/10292/2026-27-mens-college-basketball-early-season-tournaments",
+      "source": "https://cancunchallenge.net/cancun-challenge-news-stories/cancun-challenges-announces-full-2026-schedule",
       "opening_round": [
         [
           "Eastern Michigan",
@@ -389,7 +426,8 @@
           "Charleston"
         ]
       ],
-      "format": "Bracket plus campus-site game"
+      "format": "Bracket plus campus-site game",
+      "pending_round": "November 25 pairings depend on November 24 results."
     },
     {
       "name": "Resorts World Classic",
@@ -461,28 +499,84 @@
         "2026-11-25"
       ],
       "teams": [
-        "George Washington",
         "Arizona",
-        "UAB",
+        "George Washington",
         "Middle Tennessee",
         "Montana State",
         "Oklahoma",
         "Oregon State",
-        "Virginia",
-        "Vanderbilt"
+        "UAB",
+        "Vanderbilt",
+        "Virginia"
       ],
-      "source": "https://atlantic10.com/news/2026/8/18/george-washington-womens-basketball-to-face-arizona-uab-at-jacksonville-classic.aspx",
-      "format": "Two preset games per team; exact dates unverified",
-      "confirmed_opponents": [
-        [
-          "George Washington",
-          "Arizona"
-        ],
-        [
-          "George Washington",
-          "UAB"
-        ]
-      ]
+      "source": "https://www.jacksonvilleclassic.com/",
+      "format": "Preset matchups",
+      "games": [
+        {
+          "date": "2026-11-23",
+          "pair": [
+            "Oregon State",
+            "Middle Tennessee"
+          ]
+        },
+        {
+          "date": "2026-11-23",
+          "pair": [
+            "Oklahoma",
+            "Virginia"
+          ]
+        },
+        {
+          "date": "2026-11-23",
+          "pair": [
+            "Vanderbilt",
+            "Arizona"
+          ]
+        },
+        {
+          "date": "2026-11-23",
+          "pair": [
+            "George Washington",
+            "UAB"
+          ]
+        },
+        {
+          "date": "2026-11-24",
+          "pair": [
+            "Oklahoma",
+            "Montana State"
+          ]
+        },
+        {
+          "date": "2026-11-24",
+          "pair": [
+            "Virginia",
+            "UAB"
+          ]
+        },
+        {
+          "date": "2026-11-25",
+          "pair": [
+            "Arizona",
+            "George Washington"
+          ]
+        },
+        {
+          "date": "2026-11-25",
+          "pair": [
+            "Middle Tennessee",
+            "Montana State"
+          ]
+        },
+        {
+          "date": "2026-11-25",
+          "pair": [
+            "Vanderbilt",
+            "Oregon State"
+          ]
+        }
+      ],
+      "verification_status": "official_matchups_recorded"
     },
     {
       "name": "Florida Atlantic Thanksgiving Classic",
@@ -679,22 +773,67 @@
       "format": "Requires source fixture extraction and school verification"
     },
     {
-      "name": "Queen City Classic",
-      "gender": "men",
-      "dates": [],
-      "teams": [],
-      "source": "https://www.bloggingthebracket.com/early-season-tournaments/10292/2026-27-mens-college-basketball-early-season-tournaments",
-      "verification_status": "identified_not_yet_reconciled",
-      "format": "Requires source fixture extraction and school verification"
-    },
-    {
       "name": "Greenbrier Tip-Off River Division",
       "gender": "men",
-      "dates": [],
-      "teams": [],
-      "source": "https://www.bloggingthebracket.com/early-season-tournaments/10292/2026-27-mens-college-basketball-early-season-tournaments",
-      "verification_status": "identified_not_yet_reconciled",
-      "format": "Requires source fixture extraction and school verification"
+      "dates": [
+        "2026-11-20",
+        "2026-11-22"
+      ],
+      "teams": [
+        "George Washington",
+        "Liberty",
+        "Rhode Island",
+        "Richmond",
+        "UAB",
+        "Western Kentucky"
+      ],
+      "source": "https://greenbriertipoff.com/tickets/",
+      "verification_status": "official_matchups_recorded",
+      "format": "Preset matchups",
+      "games": [
+        {
+          "date": "2026-11-20",
+          "pair": [
+            "George Washington",
+            "UAB"
+          ]
+        },
+        {
+          "date": "2026-11-20",
+          "pair": [
+            "Rhode Island",
+            "Liberty"
+          ]
+        },
+        {
+          "date": "2026-11-20",
+          "pair": [
+            "Richmond",
+            "Western Kentucky"
+          ]
+        },
+        {
+          "date": "2026-11-22",
+          "pair": [
+            "George Washington",
+            "Western Kentucky"
+          ]
+        },
+        {
+          "date": "2026-11-22",
+          "pair": [
+            "Richmond",
+            "Liberty"
+          ]
+        },
+        {
+          "date": "2026-11-22",
+          "pair": [
+            "Rhode Island",
+            "UAB"
+          ]
+        }
+      ]
     },
     {
       "name": "Fort Myers Tip-Off",
@@ -1044,7 +1183,347 @@
         }
       ],
       "verification_status": "official_matchups_recorded"
+    },
+    {
+      "name": "Queen City Classic",
+      "gender": "men",
+      "dates": [
+        "2026-11-20",
+        "2026-11-21",
+        "2026-11-22"
+      ],
+      "source": "https://gogriffs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "teams": [
+        "Western Illinois",
+        "Albany",
+        "Mercyhurst",
+        "Canisius"
+      ],
+      "format": "Four-team round robin",
+      "games": [
+        {
+          "date": "2026-11-20",
+          "pair": [
+            "Western Illinois",
+            "Albany"
+          ]
+        },
+        {
+          "date": "2026-11-20",
+          "pair": [
+            "Mercyhurst",
+            "Canisius"
+          ]
+        },
+        {
+          "date": "2026-11-21",
+          "pair": [
+            "Western Illinois",
+            "Mercyhurst"
+          ]
+        },
+        {
+          "date": "2026-11-21",
+          "pair": [
+            "Albany",
+            "Canisius"
+          ]
+        },
+        {
+          "date": "2026-11-22",
+          "pair": [
+            "Mercyhurst",
+            "Albany"
+          ]
+        },
+        {
+          "date": "2026-11-22",
+          "pair": [
+            "Western Illinois",
+            "Canisius"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Jacksonville Classic",
+      "gender": "men",
+      "source": "https://www.jacksonvilleclassic.com/",
+      "games": [
+        {
+          "date": "2026-11-22",
+          "pair": [
+            "UIC",
+            "Miami (OH)"
+          ]
+        },
+        {
+          "date": "2026-11-22",
+          "pair": [
+            "Robert Morris",
+            "New Mexico State"
+          ]
+        },
+        {
+          "date": "2026-11-22",
+          "pair": [
+            "Lamar",
+            "Rice"
+          ]
+        },
+        {
+          "date": "2026-11-24",
+          "pair": [
+            "Ohio",
+            "New Mexico State"
+          ]
+        },
+        {
+          "date": "2026-11-24",
+          "pair": [
+            "Rice",
+            "UIC"
+          ]
+        },
+        {
+          "date": "2026-11-24",
+          "pair": [
+            "Robert Morris",
+            "Lamar"
+          ]
+        },
+        {
+          "date": "2026-11-25",
+          "pair": [
+            "Rice",
+            "Ohio"
+          ]
+        }
+      ],
+      "dates": [
+        "2026-11-22",
+        "2026-11-24",
+        "2026-11-25"
+      ],
+      "teams": [
+        "Lamar",
+        "Miami (OH)",
+        "New Mexico State",
+        "Ohio",
+        "Rice",
+        "Robert Morris",
+        "UIC"
+      ],
+      "format": "Preset matchups",
+      "verification_status": "official_matchups_recorded"
+    },
+    {
+      "name": "Cancún Challenge — U.S. cross-play",
+      "gender": "men",
+      "source": "https://cancunchallenge.net/cancun-challenge-news-stories/cancun-challenges-announces-full-2026-schedule",
+      "games": [
+        {
+          "date": "2026-11-18",
+          "pair": [
+            "Detroit Mercy",
+            "Eastern Michigan"
+          ],
+          "source": "https://detroittitans.com/sports/mbball/schedule"
+        },
+        {
+          "date": "2026-11-20",
+          "pair": [
+            "Southeastern Louisiana",
+            "Kennesaw State"
+          ]
+        },
+        {
+          "date": "2026-12-05",
+          "pair": [
+            "North Dakota",
+            "UTEP"
+          ],
+          "source": "https://utepminers.com/sports/mens-basketball/schedule"
+        },
+        {
+          "date": "2026-12-18",
+          "pair": [
+            "Northern Colorado",
+            "Charleston"
+          ]
+        }
+      ],
+      "dates": [
+        "2026-11-18",
+        "2026-11-20",
+        "2026-12-05",
+        "2026-12-18"
+      ],
+      "teams": [
+        "Charleston",
+        "Detroit Mercy",
+        "Eastern Michigan",
+        "Kennesaw State",
+        "North Dakota",
+        "Northern Colorado",
+        "Southeastern Louisiana",
+        "UTEP"
+      ],
+      "format": "Preset matchups",
+      "verification_status": "official_matchups_recorded"
+    },
+    {
+      "name": "Cancún Challenge — Mayan Division",
+      "gender": "women",
+      "source": "https://cancunchallenge.net/cancun-challenge-news-stories/cancun-challenges-announces-full-2026-schedule",
+      "games": [
+        {
+          "date": "2026-11-26",
+          "pair": [
+            "Oregon",
+            "Maryland Eastern Shore"
+          ]
+        },
+        {
+          "date": "2026-11-26",
+          "pair": [
+            "Georgia",
+            "Colorado"
+          ]
+        },
+        {
+          "date": "2026-11-27",
+          "pair": [
+            "Colorado",
+            "Oregon"
+          ]
+        },
+        {
+          "date": "2026-11-27",
+          "pair": [
+            "Maryland Eastern Shore",
+            "Georgia"
+          ]
+        },
+        {
+          "date": "2026-11-28",
+          "pair": [
+            "Colorado",
+            "Maryland Eastern Shore"
+          ]
+        },
+        {
+          "date": "2026-11-28",
+          "pair": [
+            "Georgia",
+            "Oregon"
+          ]
+        }
+      ],
+      "dates": [
+        "2026-11-26",
+        "2026-11-27",
+        "2026-11-28"
+      ],
+      "teams": [
+        "Colorado",
+        "Georgia",
+        "Maryland Eastern Shore",
+        "Oregon"
+      ],
+      "format": "Four-team round robin",
+      "verification_status": "official_matchups_recorded"
+    },
+    {
+      "name": "Cancún Challenge — Riviera Division",
+      "gender": "women",
+      "source": "https://cancunchallenge.net/cancun-challenge-news-stories/cancun-challenges-announces-full-2026-schedule",
+      "games": [
+        {
+          "date": "2026-11-26",
+          "pair": [
+            "Kansas",
+            "Washington State"
+          ]
+        },
+        {
+          "date": "2026-11-26",
+          "pair": [
+            "Minnesota",
+            "Missouri State"
+          ]
+        },
+        {
+          "date": "2026-11-26",
+          "pair": [
+            "Cincinnati",
+            "Miami (OH)"
+          ]
+        },
+        {
+          "date": "2026-11-27",
+          "pair": [
+            "Washington State",
+            "Missouri State"
+          ]
+        },
+        {
+          "date": "2026-11-27",
+          "pair": [
+            "Miami (OH)",
+            "Kansas"
+          ]
+        },
+        {
+          "date": "2026-11-27",
+          "pair": [
+            "Cincinnati",
+            "Minnesota"
+          ]
+        }
+      ],
+      "dates": [
+        "2026-11-26",
+        "2026-11-27"
+      ],
+      "teams": [
+        "Cincinnati",
+        "Kansas",
+        "Miami (OH)",
+        "Minnesota",
+        "Missouri State",
+        "Washington State"
+      ],
+      "format": "Preset matchups",
+      "verification_status": "official_matchups_recorded"
     }
   ],
-  "coverage_note": "Discovery inventory only; not all listed events are MTEs (some single-day showcases). Verified fixed matchups added from ESPN; blank-field events remain unverified. Do not certify season completeness."
+  "coverage_note": "Discovery inventory only; not all listed events are MTEs (some single-day showcases). Verified fixed matchups added from ESPN; blank-field events remain unverified. Do not certify season completeness.",
+  "team_aliases": {
+    "men": {
+      "Albany": "399",
+      "Appalachian State": "2026",
+      "Southeastern Louisiana": "2545",
+      "Miami": "2390",
+      "Charleston": "232",
+      "Miami (OH)": "193"
+    },
+    "women": {
+      "Arizona": "12",
+      "Grambling State": "2755",
+      "LSU": "99",
+      "Oklahoma": "201",
+      "South Carolina": "2579",
+      "Texas": "251",
+      "Virginia": "258",
+      "UConn": "41",
+      "USC": "30",
+      "Oregon": "2483",
+      "Georgia": "61",
+      "Colorado": "38",
+      "Maryland Eastern Shore": "2379",
+      "Kansas": "2305",
+      "Miami (OH)": "193"
+    }
+  }
 }
