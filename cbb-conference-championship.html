@@ -20,10 +20,37 @@ table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nu
 th, td { padding: 7px 5px; border-bottom: 1px solid #b5a58c; text-align: right; }
 th:nth-child(2), td:nth-child(2) { text-align: left; }
 thead th { border-bottom: 2px solid; }
-summary { cursor: pointer; }
-.breakdown { padding: 0 0 8px; margin: 6px 0 0; }
-.breakdown div { display: flex; justify-content: space-between; gap: 12px; }
-dd { margin: 0; white-space: nowrap; }
+button, select { font: inherit; color: inherit; }
+.conference-toggle, .opponent-button { cursor: pointer; }
+.conference-toggle { padding: 4px 0; background: transparent; border: 0; text-align: left; font-weight: bold; }
+.conference-toggle::before { content: '▸'; display: inline-block; width: 1em; color: #713d2b; }
+.conference-toggle[aria-expanded="true"]::before { content: '▾'; }
+.conference-detail > td { padding: 12px; text-align: left; background: #f6ebd7; border-bottom: 4px double #9e8566; }
+.conference-detail h2, .conference-detail h3 { margin: 0 0 8px; }
+.opponents { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 235px), 1fr)); gap: 6px; margin-bottom: 14px; }
+.opponent-button { display: grid; grid-template-columns: 1fr auto; gap: 4px 8px; text-align: left; background: #fff5df; border: 1px solid #b5a58c; padding: 6px 8px; }
+.opponent-button[aria-pressed="true"] { outline: 2px solid #713d2b; outline-offset: -2px; background: #efdfc4; }
+.opponent-record, .game-score { white-space: nowrap; font-weight: bold; }
+.record-bar { grid-column: 1 / -1; display: flex; height: 6px; background: #e4d4b9; }
+.wins-bar { background: #446447; }
+.losses-bar { background: #914433; }
+.filters { display: flex; flex-wrap: wrap; gap: 8px 16px; }
+.filters label { display: grid; gap: 2px; font-weight: bold; min-width: 0; }
+.filters select { max-width: 100%; padding: 4px; background: #fff5df; border: 1px solid #9e8566; }
+.game-count { margin: 8px 0; }
+.games { list-style: none; padding: 0; margin: 0; border-top: 1px solid #b5a58c; }
+.game { display: grid; grid-template-columns: 4.8rem 1fr auto; align-items: center; gap: 10px; padding: 8px 4px; border-bottom: 1px solid #d5c3a3; }
+.game time, .game-meta { font-size: .88rem; }
+.game-meta { display: block; color: #604e3e; }
+.game-score { text-align: right; }
+.game-result { display: inline-block; min-width: 1.4em; text-align: center; margin-right: 5px; border: 1px solid currentColor; }
+.game-result[data-result="win"] { color: #315434; }
+.game-result[data-result="loss"] { color: #823526; }
+@media (max-width: 480px) {
+  .conference-detail > td { padding: 8px; }
+  .game { grid-template-columns: minmax(0, 1fr) auto; gap: 2px 8px; }
+  .game time { grid-column: 1 / -1; }
+}
 </style>
 </head>
 <body>
@@ -45,6 +72,8 @@ dd { margin: 0; white-space: nowrap; }
 </main>
 <script>
 const season = '2026-27';
+const gameDay = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York' });
+const shortDate = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
 const start = '2026-11-01';
 const end = '2026-12-31';
 const editions = {
@@ -62,13 +91,14 @@ function buildStandings(roster, ledger, teamId) {
   const conferences = new Map();
   for (const team of roster.teams) {
     if (!team[teamId] || !team.conference || (team.division && team.division !== 'D1')) continue;
-    membership.set(String(team[teamId]), team.conference);
+    membership.set(String(team[teamId]), { conference: team.conference, name: team.name || team.team });
     if (!conferences.has(team.conference)) {
-      conferences.set(team.conference, { name: team.conference, wins: 0, losses: 0, opponents: new Map() });
+      conferences.set(team.conference, { name: team.conference, wins: 0, losses: 0, opponents: new Map(), games: [] });
     }
   }
-  function record(conference, opponent, result) {
+  function record(conference, opponent, result, game) {
     const row = conferences.get(conference);
+    row.games.push(game);
     row[result]++;
     if (!row.opponents.has(opponent)) row.opponents.set(opponent, { wins: 0, losses: 0 });
     row.opponents.get(opponent)[result]++;
@@ -76,11 +106,11 @@ function buildStandings(roster, ledger, teamId) {
   const seen = new Map();
   let latest = '';
   for (const game of ledger.games) {
-    const date = game.date.slice(0, 10);
+    const date = game.date.includes('T') ? gameDay.format(new Date(game.date)) : game.date;
     if (date < start || date > end || game.exhibition || (game.status && game.status !== 'final')) continue;
     const home = membership.get(String(game.home_id));
     const away = membership.get(String(game.away_id));
-    if (!home || !away || home === away) continue;
+    if (!home || !away || home.conference === away.conference) continue;
     const homeScore = Number(game.home_score);
     const awayScore = Number(game.away_score);
     if (!game.id || ![homeScore, awayScore].every(score => Number.isInteger(score) && score > 0) || homeScore === awayScore) continue;
@@ -92,8 +122,16 @@ function buildStandings(roster, ledger, teamId) {
     seen.set(game.id, signature);
     if (date > latest) latest = date;
     const homeWon = homeScore > awayScore;
-    record(home, away, homeWon ? 'wins' : 'losses');
-    record(away, home, homeWon ? 'losses' : 'wins');
+    const shared = { id: String(game.id).replace(/^espn:/, ''), date };
+    const site = game.site_verified !== true ? '' : game.neutral ? 'Neutral' : null;
+    record(home.conference, away.conference, homeWon ? 'wins' : 'losses', {
+      ...shared, team: home.name, opponent: away.name, conference: away.conference,
+      score: homeScore, opponentScore: awayScore, won: homeWon, site: site ?? 'Home'
+    });
+    record(away.conference, home.conference, homeWon ? 'losses' : 'wins', {
+      ...shared, team: away.name, opponent: home.name, conference: home.conference,
+      score: awayScore, opponentScore: homeScore, won: !homeWon, site: site ?? 'Away'
+    });
   }
   const ranked = [...conferences.values()].filter(row => row.wins + row.losses);
   ranked.sort((a, b) => compareRecords(a, b) || a.name.localeCompare(b.name));
@@ -106,6 +144,96 @@ function create(tag, value) {
   const element = document.createElement(tag);
   if (value !== undefined) element.textContent = value;
   return element;
+}
+
+function renderConference(panel, row) {
+  const opponents = [...row.opponents].sort(([a], [b]) => a.localeCompare(b));
+  const orderedGames = [...row.games].sort((a, b) => b.date.localeCompare(a.date) || a.team.localeCompare(b.team));
+  const highest = Math.max(...opponents.map(([, record]) => record.wins + record.losses));
+  const chart = create('div');
+  chart.className = 'opponents';
+  const filters = create('div');
+  filters.className = 'filters';
+  const opponentFilter = create('select');
+  const resultFilter = create('select');
+  function addFilter(select, title, choices) {
+    for (const [value, label] of choices) select.add(new Option(label, value));
+    const label = create('label', title);
+    label.append(select);
+    filters.append(label);
+  }
+  addFilter(opponentFilter, 'Opponent conference', [['', 'All conferences'], ...opponents.map(([name]) => [name, name])]);
+  addFilter(resultFilter, 'Result', [['', 'All results'], ['win', 'Wins'], ['loss', 'Losses']]);
+  const count = create('p');
+  count.className = 'game-count';
+  count.setAttribute('role', 'status');
+  const list = create('ul');
+  list.className = 'games';
+  const buttons = new Map();
+
+  function refreshGames() {
+    const opponent = opponentFilter.value;
+    const result = resultFilter.value;
+    for (const [name, button] of buttons) button.setAttribute('aria-pressed', String(name === opponent));
+    const games = orderedGames.filter(game => (!opponent || game.conference === opponent)
+      && (!result || (result === 'win') === game.won));
+    const wins = games.filter(game => game.won).length;
+    count.textContent = games.length ? games.length + ' games · ' + wins + '–' + (games.length - wins) : 'No games match these filters.';
+    list.replaceChildren(...games.map(game => {
+      const item = create('li');
+      item.className = 'game';
+      const date = create('time', shortDate.format(new Date(game.date + 'T00:00:00Z')));
+      date.dateTime = game.date;
+      const matchup = create('div');
+      matchup.append(create('strong', game.team), document.createTextNode(' vs. ' + game.opponent));
+      const meta = create('span', game.conference + (game.site ? ' · ' + game.site : ''));
+      meta.className = 'game-meta';
+      matchup.append(meta);
+      const score = create('div');
+      score.className = 'game-score';
+      const badge = create('span', game.won ? 'W' : 'L');
+      badge.className = 'game-result';
+      badge.dataset.result = game.won ? 'win' : 'loss';
+      badge.setAttribute('aria-label', game.won ? 'Win' : 'Loss');
+      const link = create('a', game.score + '–' + game.opponentScore);
+      const params = new URLSearchParams({ gender, date: game.date, game: game.id });
+      link.href = 'ncaam-slate.html?' + params;
+      link.setAttribute('aria-label', 'Open ' + game.team + ' vs. ' + game.opponent + ' in the Daily Ledger, ' + link.textContent);
+      score.append(badge, link);
+      item.append(date, matchup, score);
+      return item;
+    }));
+  }
+
+  for (const [name, record] of opponents) {
+    const button = create('button');
+    button.type = 'button';
+    button.className = 'opponent-button';
+    const label = create('span', record.wins + '–' + record.losses);
+    label.className = 'opponent-record';
+    const bar = create('span');
+    bar.className = 'record-bar';
+    bar.setAttribute('aria-hidden', 'true');
+    const wins = create('span');
+    wins.className = 'wins-bar';
+    wins.style.width = record.wins / highest * 100 + '%';
+    const losses = create('span');
+    losses.className = 'losses-bar';
+    losses.style.width = record.losses / highest * 100 + '%';
+    bar.append(wins, losses);
+    button.append(create('span', name), label, bar);
+    button.setAttribute('aria-label', name + ', ' + record.wins + ' wins and ' + record.losses + ' losses');
+    button.addEventListener('click', () => {
+      opponentFilter.value = opponentFilter.value === name ? '' : name;
+      refreshGames();
+    });
+    buttons.set(name, button);
+    chart.append(button);
+  }
+  opponentFilter.addEventListener('change', refreshGames);
+  resultFilter.addEventListener('change', refreshGames);
+  panel.append(create('h2', row.name + ' vs. other conferences'), chart, create('h3', 'Game ledger'), filters, count, list);
+  refreshGames();
 }
 
 function render({ ranked, unranked, latest, count }) {
@@ -122,7 +250,7 @@ function render({ ranked, unranked, latest, count }) {
     : (leaders.length === 1 ? 'Leader' : 'Co-leaders');
   leader.textContent = title + ' · ' + leaders.map(row => row.name + ' (' + row.wins + '–' + row.losses + ')').join(', ');
   leader.hidden = false;
-  status.textContent = count + ' verified interconference finals through ' + latest + '. Select a conference to see its opponent records.';
+  status.textContent = count + ' verified interconference finals through ' + latest + '. Open a conference to see its opponent records and game scores.';
   const table = document.getElementById('standings');
   const body = table.tBodies[0];
   let place = 0;
@@ -133,16 +261,23 @@ function render({ ranked, unranked, latest, count }) {
     line.append(create('td', games ? place : '—'));
     const name = line.insertCell();
     if (games) {
-      const details = create('details');
-      const breakdown = create('dl');
-      breakdown.className = 'breakdown';
-      for (const [opponent, record] of [...row.opponents].sort(([a], [b]) => a.localeCompare(b))) {
-        const pair = create('div');
-        pair.append(create('dt', opponent), create('dd', record.wins + '–' + record.losses));
-        breakdown.append(pair);
-      }
-      details.append(create('summary', row.name), breakdown);
-      name.append(details);
+      const button = create('button', row.name);
+      button.type = 'button';
+      button.className = 'conference-toggle';
+      button.setAttribute('aria-expanded', 'false');
+      const detail = body.insertRow();
+      detail.className = 'conference-detail';
+      detail.id = 'conference-games-' + index;
+      detail.hidden = true;
+      const panel = detail.insertCell();
+      panel.colSpan = 4;
+      button.setAttribute('aria-controls', detail.id);
+      button.addEventListener('click', () => {
+        if (detail.hidden && !panel.firstChild) renderConference(panel, row);
+        detail.hidden = !detail.hidden;
+        button.setAttribute('aria-expanded', String(!detail.hidden));
+      });
+      name.append(button);
     } else {
       name.textContent = row.name;
     }
