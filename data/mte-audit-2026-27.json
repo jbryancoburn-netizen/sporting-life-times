@@ -1,6 +1,6 @@
 {
   "season": "2026-27",
-  "status": "partial-source-verified",
+  "status": "expanded-partial-source-inventory",
   "purpose": "Reference inventory for reconciliation; not a schedule feed or claim that every MTE is covered",
   "events": [
     {
@@ -206,7 +206,360 @@
         }
       ],
       "source": "https://espnpressroom.com/press-release/espn-events-unveils-teams-and-venues-for-2026-27-college-basketball-event-slate/"
+    },
+    {
+      "name": "ESPN Events Invitational — Adventure Group",
+      "gender": "men",
+      "dates": [
+        "2026-11-23",
+        "2026-11-24",
+        "2026-11-25"
+      ],
+      "teams": [
+        "Akron",
+        "Appalachian State",
+        "Belmont",
+        "St. Bonaventure",
+        "Wright State",
+        "Yale"
+      ],
+      "source": "https://espnpressroom.com/press-release/espn-events-unveils-teams-and-venues-for-2026-27-college-basketball-event-slate/",
+      "format": "Three games per team; matchup confirmation required",
+      "location": "Kissimmee, Florida"
+    },
+    {
+      "name": "ESPN Events Invitational — Magic Group",
+      "gender": "men",
+      "dates": [
+        "2026-11-26",
+        "2026-11-27"
+      ],
+      "teams": [
+        "Boston College",
+        "Cincinnati",
+        "Georgia",
+        "UCF"
+      ],
+      "source": "https://espnpressroom.com/press-release/espn-events-unveils-teams-and-venues-for-2026-27-college-basketball-event-slate/",
+      "format": "Two games per team; matchup confirmation required",
+      "location": "Kissimmee, Florida"
+    },
+    {
+      "name": "Cancún Challenge — Mayan Division",
+      "gender": "men",
+      "dates": [
+        "2026-11-24",
+        "2026-11-25"
+      ],
+      "teams": [
+        "Southeastern Louisiana",
+        "Northern Colorado",
+        "North Dakota",
+        "Detroit Mercy"
+      ],
+      "source": "https://www.bloggingthebracket.com/early-season-tournaments/10292/2026-27-mens-college-basketball-early-season-tournaments",
+      "opening_round": [
+        [
+          "Southeastern Louisiana",
+          "Northern Colorado"
+        ],
+        [
+          "North Dakota",
+          "Detroit Mercy"
+        ]
+      ],
+      "format": "Bracket plus campus-site game"
+    },
+    {
+      "name": "Cancún Challenge — Riviera Division",
+      "gender": "men",
+      "dates": [
+        "2026-11-24",
+        "2026-11-25"
+      ],
+      "teams": [
+        "Eastern Michigan",
+        "Kennesaw State",
+        "UTEP",
+        "Charleston"
+      ],
+      "source": "https://www.bloggingthebracket.com/early-season-tournaments/10292/2026-27-mens-college-basketball-early-season-tournaments",
+      "opening_round": [
+        [
+          "Eastern Michigan",
+          "Kennesaw State"
+        ],
+        [
+          "UTEP",
+          "Charleston"
+        ]
+      ],
+      "format": "Bracket plus campus-site game"
+    },
+    {
+      "name": "Resorts World Classic",
+      "gender": "men",
+      "dates": [
+        "2026-11-25",
+        "2026-11-26",
+        "2026-11-27"
+      ],
+      "teams": [
+        "Jacksonville State",
+        "Pacific",
+        "Omaha",
+        "UC Davis"
+      ],
+      "source": "https://www.bloggingthebracket.com/early-season-tournaments/10292/2026-27-mens-college-basketball-early-season-tournaments",
+      "format": "Three-game round robin",
+      "games": [
+        {
+          "date": "2026-11-25",
+          "pair": [
+            "Jacksonville State",
+            "Pacific"
+          ]
+        },
+        {
+          "date": "2026-11-25",
+          "pair": [
+            "Omaha",
+            "UC Davis"
+          ]
+        },
+        {
+          "date": "2026-11-26",
+          "pair": [
+            "Pacific",
+            "Omaha"
+          ]
+        },
+        {
+          "date": "2026-11-26",
+          "pair": [
+            "UC Davis",
+            "Jacksonville State"
+          ]
+        },
+        {
+          "date": "2026-11-27",
+          "pair": [
+            "UC Davis",
+            "Pacific"
+          ]
+        },
+        {
+          "date": "2026-11-27",
+          "pair": [
+            "Jacksonville State",
+            "Omaha"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Jacksonville Classic",
+      "gender": "women",
+      "dates": [
+        "2026-11-23",
+        "2026-11-24",
+        "2026-11-25"
+      ],
+      "teams": [
+        "George Washington",
+        "Arizona",
+        "UAB",
+        "Middle Tennessee",
+        "Montana State",
+        "Oklahoma",
+        "Oregon State",
+        "Virginia",
+        "Vanderbilt"
+      ],
+      "source": "https://atlantic10.com/news/2026/8/18/george-washington-womens-basketball-to-face-arizona-uab-at-jacksonville-classic.aspx",
+      "format": "Two preset games per team; exact dates unverified",
+      "confirmed_opponents": [
+        [
+          "George Washington",
+          "Arizona"
+        ],
+        [
+          "George Washington",
+          "UAB"
+        ]
+      ]
+    },
+    {
+      "name": "Florida Atlantic Thanksgiving Classic",
+      "gender": "women",
+      "dates": [
+        "2026-11-27",
+        "2026-11-28"
+      ],
+      "teams": [
+        "Florida Atlantic",
+        "Western Kentucky",
+        "Buffalo"
+      ],
+      "source": "https://fausports.com/news/2026/9/30/womens-basketball-announces-2026-27-schedule",
+      "format": "Partial field; further participants unverified",
+      "games": [
+        {
+          "date": "2026-11-27",
+          "pair": [
+            "Florida Atlantic",
+            "Western Kentucky"
+          ]
+        },
+        {
+          "date": "2026-11-28",
+          "pair": [
+            "Florida Atlantic",
+            "Buffalo"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Florida Atlantic Holiday Classic",
+      "gender": "women",
+      "dates": [
+        "2026-12-19",
+        "2026-12-20"
+      ],
+      "teams": [
+        "Florida Atlantic",
+        "North Florida",
+        "Kent State"
+      ],
+      "source": "https://fausports.com/news/2026/9/30/womens-basketball-announces-2026-27-schedule",
+      "format": "Partial field; further participants unverified",
+      "games": [
+        {
+          "date": "2026-12-19",
+          "pair": [
+            "Florida Atlantic",
+            "North Florida"
+          ]
+        },
+        {
+          "date": "2026-12-20",
+          "pair": [
+            "Florida Atlantic",
+            "Kent State"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Players Era Women's Championship",
+      "gender": "women",
+      "dates": [
+        "2026-12-19",
+        "2026-12-20"
+      ],
+      "teams": [
+        "South Carolina",
+        "UCLA",
+        "Notre Dame"
+      ],
+      "source": "https://www.on3.com/teams/south-carolina-gamecocks/news/south-carolina-womens-basketball-2026-27-schedule-is-set/",
+      "format": "Partial field; two confirmed South Carolina matchups",
+      "games": [
+        {
+          "date": "2026-12-19",
+          "pair": [
+            "South Carolina",
+            "UCLA"
+          ]
+        },
+        {
+          "date": "2026-12-20",
+          "pair": [
+            "South Carolina",
+            "Notre Dame"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Paradise Jam — Harbor Division",
+      "gender": "women",
+      "dates": [
+        "2026-11-26",
+        "2026-11-27"
+      ],
+      "teams": [
+        "Little Rock",
+        "Tennessee Tech",
+        "Grambling State",
+        "Colorado State"
+      ],
+      "source": "https://www.basketballtravelers.com/womensparadisejam",
+      "opening_round": [
+        [
+          "Little Rock",
+          "Tennessee Tech"
+        ],
+        [
+          "Grambling State",
+          "Colorado State"
+        ]
+      ],
+      "format": "Four-team bracket"
+    },
+    {
+      "name": "Paradise Jam — Island Division",
+      "gender": "women",
+      "dates": [
+        "2026-11-26",
+        "2026-11-28"
+      ],
+      "teams": [
+        "Air Force",
+        "Texas Tech",
+        "Xavier",
+        "Santa Clara"
+      ],
+      "source": "https://www.basketballtravelers.com/womensparadisejam",
+      "opening_round": [
+        [
+          "Air Force",
+          "Texas Tech"
+        ],
+        [
+          "Xavier",
+          "Santa Clara"
+        ]
+      ],
+      "format": "Four-team bracket"
+    },
+    {
+      "name": "Paradise Jam — Reef Division",
+      "gender": "women",
+      "dates": [
+        "2026-11-27",
+        "2026-11-28"
+      ],
+      "teams": [
+        "Penn State",
+        "Baylor",
+        "South Florida",
+        "Seton Hall"
+      ],
+      "source": "https://www.basketballtravelers.com/womensparadisejam",
+      "opening_round": [
+        [
+          "Penn State",
+          "Baylor"
+        ],
+        [
+          "South Florida",
+          "Seton Hall"
+        ]
+      ],
+      "format": "Four-team bracket"
     }
   ],
-  "coverage_note": "Other men's MTEs and all women's MTEs still require source-backed inventory and reciprocal schedule validation."
+  "coverage_note": "Partial field entries are intentionally not comprehensive. Some dates and first-round fixtures derive from secondary calendars; verify with official organizers before schedule mutation."
 }
