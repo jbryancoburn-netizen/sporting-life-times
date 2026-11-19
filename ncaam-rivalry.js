@@ -208,6 +208,28 @@ async function start(){
    currentSeasonFinals++;
   }
  }catch(error){currentSeasonUnavailable=true;console.warn("Current 2026–27 rivalry finals could not be loaded",error)}
+ let officialSeries=0;
+ try{
+  const response=await fetch("data/cbb-head-to-head-indiana-purdue.json",{cache:"force-cache"});
+  if(!response.ok)throw Error("HTTP "+response.status);
+  const archive=await response.json();
+  const a=resolve("Indiana"),b=resolve("Purdue");
+  if(!a||!b||archive.games?.length!==223)throw Error("Unexpected Indiana–Purdue archive");
+  const byDay=new Map(archive.games.map(([date,season,as,bs])=>[date,{
+   date,season,a,b,as,bs,historical:true,tournament:"Competition not verified",source:archive.source
+  }]));
+  for(let index=matches.length-1;index>=0;index--){
+   const game=matches[index],official=byDay.get(game.date);
+   if(!official||!((game.a===a&&game.b===b)||(game.a===b&&game.b===a)))continue;
+   if(gameKey(game)===gameKey(official)&&priority(game)>priority(official)){
+    official.tournament=game.tournament;
+    official.round=game.round;
+   }
+   matches.splice(index,1);
+  }
+  matches.push(...byDay.values());
+  officialSeries=byDay.size;
+ }catch(error){console.warn("Indiana–Purdue athletics archive unavailable",error);}
  for(const game of matches){known.add(game.a);known.add(game.b)}
  const options=[...known].sort((a,b)=>name(a).localeCompare(name(b)));
  for(const element of [$("home"),$("away")]){element.replaceChildren();for(const id of options){const o=document.createElement("option");o.value=id;o.textContent=name(id);element.appendChild(o)}}
@@ -215,6 +237,7 @@ async function start(){
  const coverage=$("archive-coverage");
  coverage.textContent=[
   early.toLocaleString()+" identity-matched early games from North Carolina and Duke (1949–1984)",
+  ...(officialSeries?[officialSeries+" Indiana–Purdue games documented by Indiana Athletics (1901–2026)"]:[]),
   historical.toLocaleString()+" historical regular-season and "+postCount.toLocaleString()+" historical postseason games",
   recent.toLocaleString()+" identity-matched games from 2020–2026",
   currentSeasonFinals.toLocaleString()+" current-season finals"
