@@ -9,6 +9,20 @@ const js=fs.readFileSync(path.join(root,'cbb-live-center.js'),'utf8');
 const sharedScorebug=fs.readFileSync(path.join(root,'cbb-ledger-scorebug.js'),'utf8');
 const sharedCSS=fs.readFileSync(path.join(root,'cbb-ledger-scorecard.css'),'utf8');
 const shell=fs.readFileSync(path.join(root,'cbb-game-center.html'),'utf8');
+const redirect=vm.runInNewContext(
+  shell.match(/<script>([\s\S]+)<\/script>/)[1],
+  {
+    URL, URLSearchParams,
+    document:{getElementById:()=>({})},
+    location:{
+      href:'https://example.test/cbb-game-center.html',
+      search:'?gender=women&day=2026-11-15&game=401926959',
+      replace(url){return url;}
+    }
+  }
+);
+assert.equal(redirect,'https://example.test/ncaam-slate.html?gender=women&game=401926959&date=2026-11-15',
+  'Retired Game Center links must preserve the edition, date, and matchup');
 const css=fs.readFileSync(path.join(root,'cbb-live-center.css'),'utf8');
 const brand=fs.readFileSync(path.join(root,'slt-courtside-network.js'),'utf8');
 const read=n=>JSON.parse(fs.readFileSync(path.join(root,n),'utf8'));
@@ -184,7 +198,7 @@ assert(js.includes("for(const kind of ['coaches','ap'])"),
 assert(js.includes("SLTBasketballScorebug?.formatRetro(profile,state.rankTies") &&
   sharedScorebug.includes("function formatRetro(profile,tieCounts,maxRank)"),
  'Published RETRO Elo and tied national rank must come from the shared renderer');
-for(const page of ['ncaam.html','cbb-game-center.html','college-basketball.html','ncaam-slate.html']){
+for(const page of ['ncaam.html','college-basketball.html','ncaam-slate.html']){
  const html=fs.readFileSync(path.join(root,page),'utf8');
  assert(html.includes('cbb-ledger-scorebug.js')&&html.includes('cbb-ledger-scorecard.css'),
   page+' must load the same renderer and stylesheet');
