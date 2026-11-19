@@ -1,0 +1,58 @@
+/* The men's RETRO board uses removable painted plaques on a timber backing. */
+.rank-hanging-board #rank-content .rank-table-wrap--retro {
+ padding:11px clamp(8px,2.5vw,31px) 20px;
+ border:4px double #71563d;
+ background:
+   repeating-linear-gradient(0deg,#5c3e2520 0 1px,transparent 1px 8px),
+   linear-gradient(95deg,#b39571,#d5bd97 30%,#c4a881 72%,#ae8c65);
+}
+.rank-hanging-board #rank-content .rank-table tbody tr {
+ --plaque-team:#79553b;
+ --plaque-trim:#b99b6c;
+ position:relative;
+ isolation:isolate;
+ margin:23px 0 8px;
+ padding-top:12px;
+ border:3px solid var(--plaque-team);
+ border-radius:3px;
+ background:
+   linear-gradient(90deg,color-mix(in srgb,var(--plaque-team) 13%,#fff6e5),#fff6e5 40%,#f3e4ca);
+ box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--plaque-trim) 60%,#f1dfbb),
+            inset 0 0 0 4px #fff8e7,
+            0 3px 0 #6e503b,0 6px 8px #422f2333;
+}
+.rank-hanging-board #rank-content .rank-table tbody tr::before,
+.rank-hanging-board #rank-content .rank-table tbody tr::after {
+ content:"";
+ position:absolute;
+ left:50%;
+ pointer-events:none;
+}
+.rank-hanging-board #rank-content .rank-table tbody tr::before {
+ top:-21px;
+ width:36px;
+ height:22px;
+ transform:translateX(-50%);
+ background:
+   linear-gradient(53deg,transparent 44%,#604c38 45% 53%,transparent 54%) left bottom/50% 90% no-repeat,
+   linear-gradient(-53deg,transparent 44%,#604c38 45% 53%,transparent 54%) right bottom/50% 90% no-repeat;
+}
+.rank-hanging-board #rank-content .rank-table tbody tr::after {
+ top:-23px;
+ width:8px;
+ height:8px;
+ transform:translateX(-50%);
+ border:1px solid #513923;
+ border-radius:50%;
+ background:radial-gradient(circle at 37% 30%,#efdab0,#977249 58%,#614128);
+ box-shadow:0 2px 1px #3e281f66;
+}
+.rank-hanging-board #rank-content .rank-table tbody td:nth-child(5) {border-top-color:#bba584!important}
+.rank-hanging-board #rank-content .rank-school > a {font-size:clamp(15px,2vw,22px);color:#2b2118}
+@media(max-width:650px) {
+ .rank-hanging-board #rank-content .rank-table-wrap--retro {padding-inline:6px}
+ .rank-hanging-board #rank-content .rank-table tbody tr {margin-top:23px;padding-inline:5px}
+}
+@media(forced-colors:active) {
+ .rank-hanging-board #rank-content .rank-table tbody tr {border-color:CanvasText;box-shadow:none}
+}
