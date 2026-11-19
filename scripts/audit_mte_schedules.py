@@ -56,6 +56,12 @@ def main():
         for event in inventory.get('events',[]):
             if event.get('gender')!=gender:continue
             totals['events_checked']+=1
+            if not event.get('teams') or not event.get('dates'):
+                issues.append(dict(type='inventory_incomplete',gender=gender,event=event['name'],
+                                   note='Missing verified participants and/or dates; fixture audit not possible'))
+                totals['events_incomplete']+=1
+                continue
+            totals['events_with_fields']+=1
             for name in event.get('teams',[]):
                 tid=resolve(name)
                 if not tid:
