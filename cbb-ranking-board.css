@@ -82,13 +82,22 @@
   grid-template-columns: auto minmax(0, 1fr) var(--conference-mark-width);
   gap: 8px;
 }
-.rank-team-colors .rank-school > a {
+.rank-team-colors .rank-school > a:not(.rank-conference-link) {
   grid-column: 2;
   justify-self: start;
   overflow-wrap: anywhere;
 }
-.rank-team-colors .rank-school .rank-conference-mark {
+.rank-team-colors .rank-school .rank-conference-link {
   grid-column: 3;
+  display: block;
+  border-radius: 3px;
+}
+.rank-team-colors .rank-conference-link:is(:hover, :focus-visible) {
+  outline: 2px solid #594631;
+  outline-offset: 2px;
+}
+.rank-team-colors .rank-school .rank-conference-mark {
+  display: block;
   width: var(--conference-mark-width);
   height: 54px;
   object-fit: contain;
