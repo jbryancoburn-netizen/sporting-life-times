@@ -63,7 +63,7 @@
     }
     const seen = new Set();
     const stories = wire.articles.filter(article => {
-      if (article.gender !== gender || (school && schools.value !== article.slug) ||
+      if (!article.verified_school_origin || !publishers.has(article.slug) || article.gender !== gender || (school && schools.value !== article.slug) ||
           !publisherURL(article) || !Number.isFinite(Date.parse(article.published_at)) ||
           Date.now() - Date.parse(article.published_at) > 5 * 86400000) return false;
       if (!school && seen.has(article.slug)) return false;
@@ -105,6 +105,34 @@
     render();
     refreshHeadlines();
   });
+  async function loadAlternativeSites() {
+    const desk = document.getElementById('cbb-on3-desk');
+    const select = document.getElementById('cbb-on3-school');
+    const sourceLink = document.getElementById('cbb-on3-link');
+    if (!desk || !select || !sourceLink) return;
+    let directory;
+    try {
+      directory = await read('data/cbb-on3-rivals-team-sites.json');
+    } catch {
+      return;
+    }
+    for (const [name, publisher, url] of directory[gender] || []) {
+      if (!/^https:\/\/www\.on3\.com\/(?:teams|sites)\/[a-z0-9-]+\/news\/$/.test(url)) continue;
+      select.add(new Option(name + ' · ' + publisher, url));
+    }
+    if (select.options.length <= 1) return;
+    desk.hidden = false;
+    select.addEventListener('change', () => {
+      sourceLink.hidden = !select.value;
+      if (select.value) {
+        sourceLink.href = select.value;
+      } else {
+        sourceLink.removeAttribute('href');
+      }
+    });
+  }
+
+  loadAlternativeSites();
   Promise.allSettled([
     read('data/cbb-247sports-team-sites.json'),
     refreshHeadlines()

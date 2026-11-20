@@ -20,10 +20,14 @@ OTHER_SPORT = re.compile(r"\bfootball\b|\bNFL\b|\bquarterback\b", re.I)
 def headlines(html, schools, now, expected_school=None):
     decoder = json.JSONDecoder()
     stories = {}
+    site = re.search(r'"siteData":\{"key":(\d+),"siteType":3,', html)
+    if expected_school and not site:
+        return None
     for match in re.finditer(r'\{"key":\d+,"author":', html):
         try:
             item, _ = decoder.raw_decode(html, match.start())
             url = urlsplit(item.get("urlSlug") or "")
+            attribution = urlsplit(item.get("attributionUrl") or "")
             published = datetime.fromisoformat(item["postTime"].replace("Z", "+00:00"))
             if not now - timedelta(days=5) <= published <= now + timedelta(minutes=5):
                 continue
@@ -34,6 +38,12 @@ def headlines(html, schools, now, expected_school=None):
                 or not path or item.get("isExternal") or item.get("sport") != "Basketball"):
             continue
         slug = path.group(1).lower()
+        # The site rewrites syndicated article paths under the current school.
+        # Match the originating desk as well as the displayed article path.
+        if (attribution.scheme != "https" or attribution.netloc not in ("247sports.com", "www.247sports.com")
+                or attribution.path.rstrip("/").lower() != f"/college/{slug}"
+                or (expected_school and item.get("siteKey") != int(site.group(1)))):
+            continue
         title = " ".join((item.get("title") or "").split())
         if slug not in schools or (expected_school and slug != expected_school) or not title or OTHER_SPORT.search(title):
             continue
@@ -43,7 +53,7 @@ def headlines(html, schools, now, expected_school=None):
             continue
         stories[item["key"]] = {
             "id": item["key"], "school": schools[slug], "slug": slug,
-            "title": title, "url": "https://247sports.com" + url.path,
+            "verified_school_origin": True, "title": title, "url": "https://247sports.com" + url.path,
             "published_at": published.isoformat(), "gender": edition, "vip": item.get("vip") is True,
         }
     return list(stories.values())
@@ -60,7 +70,7 @@ def main():
     # Start with a national feed, then rotate through the publisher's school sites.
     # Prefer the earliest unchecked sites, including sites with sparse coverage.
     rotation = sorted(schools, key=lambda slug: (checked.get(slug, {}).get("at", ""), slug))
-    priority = ["indiana", "duke", "connecticut", "kansas", "kentucky", "north-carolina",
+    priority = ["indiana", "duke", "uconn", "kansas", "kentucky", "north-carolina",
                 "purdue", "michigan-state", "michigan", "florida", "south-carolina", "iowa",
                 "lsu", "ucla"]
     rotation = list(dict.fromkeys([slug for slug in priority if slug in schools] + rotation))
@@ -78,7 +88,8 @@ def main():
             return slug, None
 
     articles = {item["id"]: item for item in prior.get("articles", [])
-                if now - datetime.fromisoformat(item["published_at"]) <= timedelta(days=5)}
+                if item.get("verified_school_origin") and item["slug"] in schools
+                and now - datetime.fromisoformat(item["published_at"]) <= timedelta(days=5)}
     successful = 0
     with ThreadPoolExecutor(max_workers=10) as pool:
         for slug, stories in pool.map(collect, [None, *rotation[:args.schools]]):

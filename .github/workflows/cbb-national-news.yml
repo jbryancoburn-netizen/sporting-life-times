@@ -5,6 +5,7 @@ on:
       - 'scripts/refresh_cbb_national_news.py'
       - 'scripts/refresh_cbb_247sports.py'
       - 'cbb-247sports.js'
+      - 'data/cbb-247sports-team-sites.json'
       - 'scripts/verify_cbb_news.py'
       - 'scripts/test_cbb_news_quality.py'
       - 'cbb-front-news.js'
@@ -20,6 +21,7 @@ on:
       - 'scripts/refresh_cbb_national_news.py'
       - 'scripts/refresh_cbb_247sports.py'
       - 'cbb-247sports.js'
+      - 'data/cbb-247sports-team-sites.json'
       - 'scripts/verify_cbb_news.py'
       - 'scripts/test_cbb_news_quality.py'
       - 'cbb-front-news.js'
@@ -57,7 +59,8 @@ jobs:
           python-version: '3.12'
       - name: Verify news collector, checker, and renderer syntax
         run: |
-          python -m py_compile scripts/refresh_cbb_national_news.py scripts/verify_cbb_news.py scripts/test_cbb_news_quality.py
+          python -m py_compile scripts/refresh_cbb_247sports.py scripts/refresh_cbb_national_news.py scripts/verify_cbb_news.py scripts/test_cbb_news_quality.py
+          node --check cbb-247sports.js
           node --check cbb-front-news.js
           node --check cbb-chronicle-retro.js
           node --check cbb-shared-navigation.js
@@ -79,12 +82,28 @@ jobs:
     timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Fetch national men's and women's basketball news
+        id: national
+        continue-on-error: true
+        run: python scripts/refresh_cbb_national_news.py
+      - name: Verify both editions, relevance, provenance, diversity, and freshness
+        if: steps.national.outcome == 'success'
+        id: national-check
+        continue-on-error: true
+        run: python scripts/verify_cbb_news.py
       - name: Refresh 247Sports school headlines
+        id: school
+        continue-on-error: true
         run: python scripts/refresh_cbb_247sports.py
       - name: Verify fresh 247Sports collection and usable headlines
+        if: steps.school.outcome == 'success'
+        id: school-check
+        continue-on-error: true
         run: |
           python - <<'PY'
           import json
@@ -101,35 +120,57 @@ jobs:
               raise SystemExit('247Sports collection has no usable headlines')
           print(f'247Sports collection verified: {len(articles)} articles, age {age:.1f} min')
           PY
-      - name: Fetch national men's and women's basketball news
-        id: national
-        continue-on-error: true
-        run: python scripts/refresh_cbb_national_news.py
-      - name: Verify both editions, relevance, provenance, diversity, and freshness
-        if: steps.national.outcome == 'success'
-        id: national-check
-        continue-on-error: true
-        run: python scripts/verify_cbb_news.py
       - name: Publish updated basketball news
         env:
+          SCHOOL_VERIFIED: ${{ steps.school-check.outcome }}
           NATIONAL_VERIFIED: ${{ steps.national-check.outcome }}
         run: |
           git config user.name sporting-life-times-bot
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add data/cbb-247sports-headlines.json
-          if [ "$NATIONAL_VERIFIED" = success ]; then
-            git add data/cbb-national-news.json
+          snapshots=$(mktemp -d)
+          trap 'rm -rf "$snapshots"' EXIT
+          if [ "$SCHOOL_VERIFIED" = success ]; then
+            cp data/cbb-247sports-headlines.json "$snapshots/"
           else
-            git restore -- data/cbb-national-news.json
-            echo "::warning::National wire unavailable; publishing the independent 247Sports refresh"
+            echo "::warning::247Sports unavailable; retaining the last verified school wire"
           fi
-          if ! git diff --cached --quiet; then
-            git commit -m "Refresh verified college basketball news"
-            for attempt in 1 2 3 4; do
-              if git push origin HEAD:main; then exit 0; fi
-              git fetch origin main
-              git rebase origin/main || { git rebase --abort; exit 1; }
-              sleep $((attempt * 2))
-            done
+          if [ "$NATIONAL_VERIFIED" = success ]; then
+            cp data/cbb-national-news.json "$snapshots/"
+          else
+            echo "::warning::National wire unavailable; retaining the last verified national wire"
+          fi
+          if [ "$SCHOOL_VERIFIED" != success ] && [ "$NATIONAL_VERIFIED" != success ]; then
+            echo "::error::Neither basketball news feed passed verification"
             exit 1
           fi
+          git restore -- data/cbb-247sports-headlines.json data/cbb-national-news.json
+          for attempt in 1 2 3 4; do
+            git fetch origin main
+            git checkout --detach FETCH_HEAD
+            # These are whole feed snapshots. Compare their timestamps against
+            # the latest main instead of merging generated JSON line by line.
+            python - "$snapshots" <<'PY'
+          from datetime import datetime
+          import json
+          from pathlib import Path
+          import sys
+
+          def updated_at(path):
+              return datetime.fromisoformat(json.loads(path.read_bytes())['updated_at'])
+
+          for snapshot in Path(sys.argv[1]).glob('*.json'):
+              target = Path('data') / snapshot.name
+              try:
+                  current = updated_at(target)
+              except (OSError, ValueError, TypeError, KeyError):
+                  current = None
+              if current is None or updated_at(snapshot) > current:
+                  target.write_bytes(snapshot.read_bytes())
+          PY
+            git add data/cbb-247sports-headlines.json data/cbb-national-news.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m "Refresh verified college basketball news"
+            if git push origin HEAD:main; then exit 0; fi
+            sleep $((attempt * 2))
+          done
+          exit 1
