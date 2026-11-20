@@ -102,7 +102,7 @@
   height: 54px;
   object-fit: contain;
   object-view-box: var(--conference-mark-crop, inset(0));
-  filter: drop-shadow(0 1px 0 #fff6e5) drop-shadow(0 -1px 0 #594631);
+  filter: url(#retro-conference-outline);
 }
 @media (max-width: 650px) {
   .rank-team-colors .rank-school { --conference-mark-width: 42px; gap: 5px; }
