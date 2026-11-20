@@ -59,13 +59,15 @@ const memberBadge=t=>t?.not_eligible_for_dii_elo?'<small class="member-tag" titl
 const color=v=>/^#[0-9a-f]{6}$/i.test(v||'')?v:'#274c5e';
 function logo(t){
  const slug=String(t?.slug||'').replace(/[^a-z0-9-]/gi,'');
+ const imgSrc=t.schedule_logo|| (slug?'https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/'+encodeURIComponent(slug)+'.svg':'');
+ const fallback=t.schedule_logo_backup||(slug?'https://ncaa-api.henrygd.me/logo/'+encodeURIComponent(slug)+'.svg':'');
  const branded=/^#[0-9a-f]{6}$/i.test(t?.primary||'')&&/^#[0-9a-f]{6}$/i.test(t?.secondary||'');
  const initials=String(t?.name||'?').replace(/\b(?:university|college|of|at|the)\b/gi,'').trim().split(/\s+/).slice(0,2).map(v=>v[0]||'').join('').toUpperCase();
  const colors='style="--c1:'+color(t?.primary)+';--c2:'+color(t?.secondary)+'"';
  const description=branded?(t?.color_provenance||'School colors from source provider'):'Brand colors unavailable; neutral rings used';
  return '<span class="logo-shell '+(branded?'branded':'unbranded')+'" data-cbb-team-href="'+esc(state.teams.has(String(t.id))?link(t):'')+'" data-cbb-team-name="'+esc(t.name||'Team')+'" title="'+esc(description)+'" '+colors+'>'+
- (slug?'<img loading="lazy" alt="" src="https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/'+encodeURIComponent(slug)+'.svg" '+
- 'data-logo-fallback="https://ncaa-api.henrygd.me/logo/'+encodeURIComponent(slug)+'.svg" '+
+ (imgSrc?'<img loading="lazy" alt="" src="'+esc(imgSrc)+'" '+
+ (fallback?'data-logo-fallback="'+esc(fallback)+'" ':'')+
  'onerror="if(this.dataset.logoFallback){this.src=this.dataset.logoFallback;delete this.dataset.logoFallback}else this.remove()">':'')+
  '<small class="logo-initials">'+esc(initials)+'</small></span>';
 }
@@ -346,7 +348,14 @@ function renderGame(d){
  '<section class="gamefile-box gamefile-source-box"><h2>VERIFY THE REPORTING</h2><div class="gamefile-source-links">'+(src.length?src.join(''):'<span class="muted">No game-specific source link is currently stored.</span>')+'</div>'+
  '<p class="muted">Published ledger updated '+esc(d.as_of?new Date(d.as_of).toLocaleString('en-US',{timeZone:'America/New_York',timeZoneName:'short'}):'at an unknown time')+'. Refresh to check for newly published results. This page does not represent real-time play-by-play.</p></section>';
 }
-async function init(){try{const res=await fetch('data/d2-'+gender+'-2026-27.json?v='+Date.now(),{cache:'no-store'});if(!res.ok)throw Error('Published data unavailable');const d=await res.json();if(d.gender!==gender||d.season!=='2026-27'||d.starting_elo!==1500||d.team_target!==298)throw Error('Failed women/men data-isolation contract');state.data=d;state.teams=new Map((d.teams||[]).map(t=>[String(t.id),t]));state.form=window.SLTSportsScorebug?.verifiedFormIndex?.((d.games||[]).filter(g=>g.verified&&g.status==='final'&&!g.exhibition).map(g=>({id:g.id,date:g.date,away:g.away,home:g.home,awayScore:g.away_score,homeScore:g.home_score,awayName:school(g.away).name,homeName:school(g.home).name,href:gameLink(g)})));const eligible=(d.teams||[]).filter(t=>!t.not_eligible_for_dii_elo).length;const summary=$('school-count-summary');if(summary)summary.textContent=eligible+' eligible DII programs · RETRO ratings';$('status').textContent='NCAA scoreboard / published program directory · '+(d.as_of?new Date(d.as_of).toLocaleString('en-US',{timeZone:'America/New_York',timeZoneName:'short'}):'Awaiting verified first refresh')+' · '+(d.quality?.status||'provisional coverage');if(document.body.dataset.page==='team')renderTeam(d);else if(document.body.dataset.page==='game')renderGame(d);else renderHome(d)}catch(e){$('status').textContent='Source feed unavailable; existing standings were not replaced with invented values.';const target=$('team-profile')||$('gamefile-profile')||(desk==='scores'?$('sl-games'):$('elo-board'));if(target)target.innerHTML='<div class="note">'+esc(e.message)+'</div>';}}
+async function init(){try{const [res,logoRepairs]=await Promise.all([fetch('data/d2-'+gender+'-2026-27.json?v='+Date.now(),{cache:'no-store'}),fetch('data/cbb-schedule-logo-repairs.json',{cache:'no-cache'})
+    .then(response=>response.ok?response.json():null).catch(()=>null)]);if(!res.ok)throw Error('Published data unavailable');const d=await res.json();if(d.gender!==gender||d.season!=='2026-27'||d.starting_elo!==1500||d.team_target!==298)throw Error('Failed women/men data-isolation contract');for(const school of d.teams||[]){
+ const repair=logoRepairs?.d2?.[school.id];
+ if((repair?.school===school.name||repair?.aliases?.includes(school.name))&&/^https:\/\//.test(repair.url||'')){
+   school.schedule_logo=repair.url;
+   if(/^https:\/\//.test(repair.backup||''))school.schedule_logo_backup=repair.backup;
+ }
+}state.data=d;state.teams=new Map((d.teams||[]).map(t=>[String(t.id),t]));state.form=window.SLTSportsScorebug?.verifiedFormIndex?.((d.games||[]).filter(g=>g.verified&&g.status==='final'&&!g.exhibition).map(g=>({id:g.id,date:g.date,away:g.away,home:g.home,awayScore:g.away_score,homeScore:g.home_score,awayName:school(g.away).name,homeName:school(g.home).name,href:gameLink(g)})));const eligible=(d.teams||[]).filter(t=>!t.not_eligible_for_dii_elo).length;const summary=$('school-count-summary');if(summary)summary.textContent=eligible+' eligible DII programs · RETRO ratings';$('status').textContent='NCAA scoreboard / published program directory · '+(d.as_of?new Date(d.as_of).toLocaleString('en-US',{timeZone:'America/New_York',timeZoneName:'short'}):'Awaiting verified first refresh')+' · '+(d.quality?.status||'provisional coverage');if(document.body.dataset.page==='team')renderTeam(d);else if(document.body.dataset.page==='game')renderGame(d);else renderHome(d)}catch(e){$('status').textContent='Source feed unavailable; existing standings were not replaced with invented values.';const target=$('team-profile')||$('gamefile-profile')||(desk==='scores'?$('sl-games'):$('elo-board'));if(target)target.innerHTML='<div class="note">'+esc(e.message)+'</div>';}}
 mount();
 if(page!=='home'||desk)init();
 if(document.body.dataset.page==='game'){

@@ -49,6 +49,13 @@ function mergeVerifiedLogos(teams,approved){
  }
  return recovered;
 }
+let scheduleOpponentMarks={};
+function outsideOpponent(name){
+ const key=String(name).normalize('NFKD').toLowerCase().replace(/[^a-z0-9]/g,'');
+ const repair=scheduleOpponentMarks[key];
+ return {name,schedule_logo:/^https:\/\//.test(repair?.url||'')?repair.url:'',
+  schedule_logo_backup:/^https:\/\//.test(repair?.backup||'')?repair.backup:''};
+}
 const emblem=t=>{
  const title=t.d3_confirmed?'Official NCAA 2026–27 Division III sport sponsor':'Division membership unconfirmed';
  const slug=String(t.slug||'').replace(/[^a-z0-9-]/g,'');
@@ -58,8 +65,8 @@ const emblem=t=>{
  const initials=String(t.name||'?').replace(/\b(university|college|the|of|at)\b/gi,'').trim().split(/\s+/).slice(0,2).map(s=>s[0]||'').join('').toUpperCase();
  const ncaaURL=slug?'https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/'+encodeURIComponent(slug)+'.svg':'';
  const safeCDN=/^https:\/\/a\.espncdn\.com\/i\/teamlogos\//.test(t.logo_url||'')?t.logo_url:'';
- const imgSrc=ncaaURL||safeCDN;
- const fallback=slug?'https://ncaa-api.henrygd.me/logo/'+encodeURIComponent(slug)+'.svg':'';
+ const imgSrc=t.schedule_logo||ncaaURL||safeCDN;
+ const fallback=t.schedule_logo_backup||(slug?'https://ncaa-api.henrygd.me/logo/'+encodeURIComponent(slug)+'.svg':'');
 
  return '<span class="logo-shell '+(verified?'branded':'unbranded')+'" data-cbb-team-href="'+esc(state.teams.has(t.id)?teamLink(t):'')+'" data-cbb-team-name="'+esc(t.name||'Team')+'" title="'+esc(title)+'" '+(verified?'style="--c1:'+primary+';--c2:'+secondary+'"':'')+'>'+
    (imgSrc?'<img loading="lazy" alt="" src="'+esc(imgSrc)+'" '+
@@ -71,8 +78,8 @@ const team=id=>state.teams.get(id)||{id,name:id};
 const row=(t,i)=>'<div class="board-row"><span>'+esc(i==null?'':i+1)+'</span>'+emblem(t)+'<a class="school-link" href="'+teamLink(t)+'">'+esc(t.name)+'</a><span>'+esc(t.w||0)+'–'+esc(t.l||0)+'</span><span>'+pct(t)+'%</span><span class="elo">'+Math.round(t.elo||1500)+'</span></div>';
 function card(g){
  const unresolved=Boolean(g.home_away_unresolved);
- const a=g.away_external_label?{name:g.away_external_label}:team(g.away);
- const h=g.home_external_label?{name:g.home_external_label}:team(g.home);
+ const a=g.away_external_label?outsideOpponent(g.away_external_label):team(g.away);
+ const h=g.home_external_label?outsideOpponent(g.home_external_label):team(g.home);
  const final=!unresolved&&g.status==='final',live=!unresolved&&g.status==='live';
  const mode=final?'final':live?'live':'upcoming',scoreShown=final||live;
  const line=(t,points)=>({name:t.name||'Unverified opponent',score:scoreShown?points:null,
@@ -113,13 +120,13 @@ function renderTeam(d){
  const games=d.games.filter(g=>g.away===id||g.home===id).sort((a,b)=>a.date.localeCompare(b.date));
  const layout=window.SLTBasketballDeskLayout;
  const schedule=layout?games.map(g=>{
-  const home=g.home===id,opponent=team(home?g.away:g.home);
-  const external=home?g.away_external_label:g.home_external_label;
+  const home=g.home===id,external=home?g.away_external_label:g.home_external_label;
+  const opponent=external?outsideOpponent(external):team(home?g.away:g.home);
   const unresolved=Boolean(g.home_away_unresolved),phase=unresolved?'reported':g.status==='final'||g.status==='live'?g.status:'upcoming';
   const ownScore=home?g.home_score:g.away_score,against=home?g.away_score:g.home_score;
   const outcome=phase==='final'&&Number.isFinite(ownScore)&&Number.isFinite(against)&&ownScore!==against?(ownScore>against?'W':'L'):'';
   return {date:g.date,phase,site:unresolved?'unknown':g.neutral?'neutral':home?'home':'away',opponent:external||opponent.name,
-   teamHref:external?'':teamLink(opponent),badge:external?'':emblem(opponent),color:opponent.primary,
+   teamHref:external?'':teamLink(opponent),badge:!external||opponent.schedule_logo?emblem(opponent):'',color:opponent.primary,
    venue:g.venue_location||g.venue,tipoff:g.start_time||g.tipoff_as_posted,network:g.network,outcome,detail:card(g),
    result:outcome?outcome+' '+ownScore+'–'+against:phase==='reported'?'Site unverified':phase==='final'?'Final':phase==='live'?'Live':null};
  }):[];
@@ -211,13 +218,23 @@ function renderHome(d){
 }
 async function start(){
  try{
-  const r=await fetch('data/d3-'+gender+'-2026-27.json?v='+Date.now(),{cache:'no-store'});
+  const [r,logoRepairs]=await Promise.all([fetch('data/d3-'+gender+'-2026-27.json?v='+Date.now(),{cache:'no-store'}),fetch('data/cbb-schedule-logo-repairs.json',{cache:'no-cache'})
+    .then(response=>response.ok?response.json():null).catch(()=>null)]);
   if(!r.ok)throw Error('DIII game publisher has not delivered a dataset.');
   const d=await r.json();
   if(d.gender!==gender||d.division!=='d3'||d.season!=='2026-27'||d.starting_elo!==1500||!Array.isArray(d.games)||!Array.isArray(d.teams))
     throw Error('Wrong division, gender, or Elo dataset refused.');
   const logoCrosswalk=await loadLogoOverlay();
-  const verifiedLogoCount=mergeVerifiedLogos(d.teams,logoCrosswalk);
+  let verifiedLogoCount=mergeVerifiedLogos(d.teams,logoCrosswalk);
+  scheduleOpponentMarks=logoRepairs?.d3Opponents||scheduleOpponentMarks;
+  for(const school of d.teams){
+    const repair=logoRepairs?.d3?.[school.ncaa_org_id];
+    const url=gender==='women'&&repair?.women_url?repair.women_url:repair?.url;
+    if(repair?.school!==school.name||!/^https:\/\//.test(url||''))continue;
+    school.schedule_logo=url;
+    if(url===repair.url&&/^https:\/\//.test(repair.backup||''))school.schedule_logo_backup=repair.backup;
+    if(!logoCrosswalk?.has(String(school.ncaa_org_id)))verifiedLogoCount++;
+  }
   let fixtureData=state.fixtureData;
   // Revalidate full national schedule ledger every 15 minutes, not every minute.
   if(!state.fixtureFetchedAt||Date.now()-state.fixtureFetchedAt>15*60*1000){

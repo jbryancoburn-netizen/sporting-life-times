@@ -414,16 +414,20 @@ function registerOutside(id,entry){
  }
 }
 function alias(n,id){let key=norm(n);if(!key||ambiguous.has(key))return;if(byName.has(key)&&byName.get(key)!==id){ambiguous.add(key);byName.delete(key)}else byName.set(key,id)}
+let scheduleOpponentMarks={};
 const ready=(async()=>{
 try{
-const [reg,cross,colors,opponents,localCrests]=await Promise.all([
+const [reg,cross,colors,opponents,localCrests,scheduleRepairs]=await Promise.all([
   ...['data/mbb-logo-registry.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json?v=ncaa-two-rings-20261101b']
     .map(p=>fetch(p,{cache:'no-cache'}).then(x=>{if(!x.ok)throw Error(p+' '+x.status);return x.json()})),
   fetch('data/mbb-out-of-division-opponent-logos.json?v=verified-aliases-20261116',{cache:'no-cache'})
     .then(x=>x.ok?x.json():{teams:{}}).catch(()=>({teams:{}})),
   fetch('data/cbb-outside-local-crest-manifest.json?v=outside-local-20261118-kutztown',{cache:'no-cache'})
-    .then(x=>x.ok?x.json():{teams:{}}).catch(()=>({teams:{}}))
+    .then(x=>x.ok?x.json():{teams:{}}).catch(()=>({teams:{}})),
+  fetch('data/cbb-schedule-logo-repairs.json',{cache:'no-cache'})
+    .then(response=>response.ok?response.json():null).catch(()=>null)
 ]);
+scheduleOpponentMarks=scheduleRepairs?.d1Opponents||{};
 if(Object.keys(reg.teams||{}).length!==365||cross.teams?.length!==365)throw Error('Incomplete 365-team logo registry');
 registry=reg.teams;palette=colors.mbb||{};outside=opponents?.teams||{};outsideLocal=localCrests?.teams||{};
 if(Object.keys(palette).length!==365)throw Error('Incomplete 365-program MBB color palette');
@@ -538,15 +542,19 @@ const heritage=known?(id==='2116'?UCF_CITRONAUT:retroURLForESPN(id)):'';
 // per logo in a consumer page. All 365 men's and 363 women's IDs are covered.
 const baked=known?'assets/cbb-embossed-crests/'+id+'.png?v=20261116-usf1':'';
 const art=heritage?'flat':known?school.artwork_type:outsideEntry?'flat':'unverified';
+const scheduleRepair=options.size==='schedule'&&!ncaa?scheduleOpponentMarks[norm(name)]:null;
 const primary=(id==='2116'?UCF_CITRONAUT:'')||baked||heritage||(known?(school.logo_url_verified?safeURL(school.official_logo_url||school.logo_url):''):
- outsideEntry?(cachedCrest||safeURL(outsideEntry.logo_url)):'');
+ outsideEntry?(cachedCrest||safeURL(outsideEntry.logo_url)):'')||
+ safeURL(scheduleRepair?.url);
 // Keep verified modern artwork as the fallback whenever a vintage local asset fails.
 // No other sport uses this renderer, and the badge retains its two-color ring.
 const modern=known?(school.logo_url_verified?safeURL(school.official_logo_url||school.logo_url):''):'';
 // Local heritage artwork must not silently switch to a modern third-party
 // logo. If a selected local file is unavailable, fail visibly for audit.
-const backup=id==='2116'?baked:baked||heritage?'':known?(school.provider_logo_candidates||[]).map(safeURL).find(x=>x&&x!==primary)||'':
+const existingBackup=id==='2116'?baked:baked||heritage?'':known?(school.provider_logo_candidates||[]).map(safeURL).find(x=>x&&x!==primary)||'':
  outsideEntry?(cachedCrest?safeURL(outsideEntry.logo_url):safeURL(outsideEntry.logo_alternate_url)||''):'';
+const repairURL=safeURL(scheduleRepair?.url);
+const backup=existingBackup||(!known&&repairURL?(repairURL===primary?safeURL(scheduleRepair.backup):repairURL):'');
 // A watermark must use original school art, not a circular baked crest.
 const watermarkArt=heritage||(known?modern:outsideEntry?safeURL(outsideEntry.logo_url):'');
 const initials=name.split(/\s+/).slice(0,2).map(v=>v[0]||'').join('').toUpperCase();
