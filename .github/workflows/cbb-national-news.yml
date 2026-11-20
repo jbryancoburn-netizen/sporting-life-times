@@ -82,17 +82,30 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Fetch national men's and women's basketball news
-        run: python scripts/refresh_cbb_national_news.py
-      - name: Verify both editions, relevance, provenance, diversity, and freshness
-        run: python scripts/verify_cbb_news.py
       - name: Refresh 247Sports school headlines
         run: python scripts/refresh_cbb_247sports.py
+      - name: Fetch national men's and women's basketball news
+        id: national
+        continue-on-error: true
+        run: python scripts/refresh_cbb_national_news.py
+      - name: Verify both editions, relevance, provenance, diversity, and freshness
+        if: steps.national.outcome == 'success'
+        id: national-check
+        continue-on-error: true
+        run: python scripts/verify_cbb_news.py
       - name: Publish updated basketball news
+        env:
+          NATIONAL_VERIFIED: ${{ steps.national-check.outcome }}
         run: |
           git config user.name sporting-life-times-bot
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add data/cbb-national-news.json data/cbb-247sports-headlines.json
+          git add data/cbb-247sports-headlines.json
+          if [ "$NATIONAL_VERIFIED" = success ]; then
+            git add data/cbb-national-news.json
+          else
+            git restore -- data/cbb-national-news.json
+            echo "::warning::National wire unavailable; publishing the independent 247Sports refresh"
+          fi
           if ! git diff --cached --quiet; then
             git commit -m "Refresh verified college basketball news"
             for attempt in 1 2 3 4; do
