@@ -76,18 +76,61 @@
   .rank-team-colors .rank-quick-stats b { white-space: normal; }
 }
 
+.rank-team-colors .rank-school {
+  --conference-mark-width: 84px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) var(--conference-mark-width);
+  gap: 8px;
+}
+.rank-team-colors .rank-school > a {
+  grid-column: 2;
+  justify-self: start;
+  overflow-wrap: anywhere;
+}
 .rank-team-colors .rank-school .rank-conference-mark {
-  width: 72px;
+  grid-column: 3;
+  width: var(--conference-mark-width);
   height: 54px;
-  flex: 0 0 auto;
   object-fit: contain;
+  object-view-box: var(--conference-mark-crop, inset(0));
   /* Follow the transparent silhouette so white and dark marks stay defined. */
   filter: drop-shadow(0 0 1px #382b21) drop-shadow(0 0 1px #fff6e5);
 }
 @media (max-width: 650px) {
-  .rank-team-colors .rank-school .rank-conference-mark {
-    width: 42px;
-    height: 32px;
-  }
-  .rank-team-colors .rank-school > a { overflow-wrap: anywhere; }
+  .rank-team-colors .rank-school { --conference-mark-width: 42px; gap: 5px; }
+  .rank-team-colors .rank-school .rank-conference-mark { height: 32px; }
 }
+
+/* Trim the original PNGs' transparent margins while preserving the artwork's proportions. */
+.rank-conference-mark[src$="/america_east.png"] { --conference-mark-crop: inset(16% 3% 16% 3%); }
+.rank-conference-mark[src$="/acc.png"] { --conference-mark-crop: inset(35.6% 2.2% 35.6% 2.2%); }
+.rank-conference-mark[src$="/atlantic_10.png"] { --conference-mark-crop: inset(38.2% 2.6% 38.2% 2.6%); }
+.rank-conference-mark[src$="/big_east.png"] { --conference-mark-crop: inset(27.2% 2.2% 27.2% 2.2%); }
+.rank-conference-mark[src$="/big_sky.png"] { --conference-mark-crop: inset(13.4% 2.2% 13.6% 2.4%); }
+.rank-conference-mark[src$="/big_south.png"] { --conference-mark-crop: inset(37.4% 3% 37.4% 2.8%); }
+.rank-conference-mark[src$="/big_ten.png"] { --conference-mark-crop: inset(32.6% 2.4% 32.6% 5.8%); }
+.rank-conference-mark[src$="/big_12.png"] { --conference-mark-crop: inset(21.8% 3% 21.8% 3%); }
+.rank-conference-mark[src$="/big_west.png"] { --conference-mark-crop: inset(31.8% 2.6% 32% 2.8%); }
+.rank-conference-mark[src$="/coastal.png"] { --conference-mark-crop: inset(34.2% 2.8% 34.4% 2.8%); }
+.rank-conference-mark[src$="/conference_usa.png"] { --conference-mark-crop: inset(38.8% 2.6% 38.8% 2.6%); }
+.rank-conference-mark[src$="/ivy.png"] { --conference-mark-crop: inset(22% 1.6% 22% 1.6%); }
+.rank-conference-mark[src$="/metro.png"] { --conference-mark-crop: inset(39.4% 3% 39.4% 3%); }
+.rank-conference-mark[src$="/mid_american.png"] { --conference-mark-crop: inset(7% 3% 7% 3.2%); }
+.rank-conference-mark[src$="/meac.png"] { --conference-mark-crop: inset(28% 3.2% 28% 2.6%); }
+.rank-conference-mark[src$="/missouri_valley.png"] { --conference-mark-crop: inset(22% 3.2% 21.8% 3.2%); }
+.rank-conference-mark[src$="/northeast.png"] { --conference-mark-crop: inset(12.4% 1% 12% 0%); }
+.rank-conference-mark[src$="/ohio_valley.png"] { --conference-mark-crop: inset(20.2% 3% 20.2% 3%); }
+.rank-conference-mark[src$="/pac_12.png"] { --conference-mark-crop: inset(3% 13.4% 3% 13.4%); }
+.rank-conference-mark[src$="/patriot_league.png"] { --conference-mark-crop: inset(24% 3.4% 24% 3.6%); }
+.rank-conference-mark[src$="/sec.png"] { --conference-mark-crop: inset(3% 3% 3% 3%); }
+.rank-conference-mark[src$="/southern.png"] { --conference-mark-crop: inset(23.6% 3% 23.8% 3%); }
+.rank-conference-mark[src$="/southland.png"] { --conference-mark-crop: inset(34.4% 3% 34.4% 2.8%); }
+.rank-conference-mark[src$="/swac.png"] { --conference-mark-crop: inset(36.4% 2.8% 36.6% 2.8%); }
+.rank-conference-mark[src$="/sun_belt.png"] { --conference-mark-crop: inset(34% 18.6% 34.4% 18.6%); }
+.rank-conference-mark[src$="/west_coast.png"] { --conference-mark-crop: inset(29.8% 3.6% 29.2% 3%); }
+.rank-conference-mark[src$="/uac.png"] { --conference-mark-crop: inset(4% 3% 4% 3%); }
+.rank-conference-mark[src$="/mountain_west.png"] { --conference-mark-crop: inset(4.6% 0.2% 4.6% 2.6%); }
+.rank-conference-mark[src$="/horizon.png"] { --conference-mark-crop: inset(30.4% 3.6% 31% 3.4%); }
+.rank-conference-mark[src$="/atlantic_sun.png"] { --conference-mark-crop: inset(15.4% 3% 15.6% 2.6%); }
+.rank-conference-mark[src$="/summit_league.png"] { --conference-mark-crop: inset(22.4% 3.6% 28.2% 3.6%); }
+.rank-conference-mark[src$="/american.png"] { --conference-mark-crop: inset(4.2% 3% 4.4% 4%); }
