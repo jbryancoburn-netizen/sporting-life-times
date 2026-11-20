@@ -39,7 +39,7 @@ if(midmajor)note='Sporting Life & Times ranks the 25 highest-rated eligible Divi
 document.getElementById('rank-intro').textContent=note;
 document.getElementById('rank-status').textContent=rows.length?(k==='retro'?(gender==='women'?'WOMEN’S RETRO':'MEN’S RETRO')+' · '+(date||'DATE UNAVAILABLE')+' · '+rows.length+' TEAMS':source+' · As of '+date+' · '+rows.length+' teams'):'2026–27 · Source data not available';
 const logos=window.MBBLogos;
-const conferenceVectors=new Set(["big_12","big_ten","big_east","big_sky","atlantic_10","american","acc","sec","horizon","mountain_west","sun_belt"]);
+const conferenceVectors=new Set(["big_south","big_12","big_ten","big_east","big_sky","atlantic_10","american","acc","sec","horizon","mountain_west","sun_belt"]);
 const conferenceLogo=team=>{
  if(!teamColors)return '';
  const mark=window.SLTConferenceMarks?.lookup(team.conference);
