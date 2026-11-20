@@ -39,7 +39,7 @@ on:
     types: [completed]
     branches: [main]
   schedule:
-    - cron: '11,41 * * * *'
+    - cron: '7,22,37,52 * * * *'
 permissions:
   contents: write
 concurrency:
@@ -84,6 +84,23 @@ jobs:
           python-version: '3.12'
       - name: Refresh 247Sports school headlines
         run: python scripts/refresh_cbb_247sports.py
+      - name: Verify fresh 247Sports collection and usable headlines
+        run: |
+          python - <<'PY'
+          import json
+          from datetime import datetime, timezone
+          from pathlib import Path
+          data = json.loads(Path('data/cbb-247sports-headlines.json').read_text())
+          now = datetime.now(timezone.utc)
+          updated = datetime.fromisoformat(data['updated_at'].replace('Z', '+00:00'))
+          age = (now - updated).total_seconds() / 60
+          if not -5 <= age <= 20:
+              raise SystemExit(f'247Sports collection stale: {age:.0f} minutes old')
+          articles = data.get('articles', [])
+          if not isinstance(articles, list) or not articles:
+              raise SystemExit('247Sports collection has no usable headlines')
+          print(f'247Sports collection verified: {len(articles)} articles, age {age:.1f} min')
+          PY
       - name: Fetch national men's and women's basketball news
         id: national
         continue-on-error: true
