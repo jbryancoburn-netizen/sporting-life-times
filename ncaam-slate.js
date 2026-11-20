@@ -865,70 +865,21 @@ const meter=g=>{
 
 /* The Daily Ledger scorecard — compact scoreboard, native in-place Gamefile. */
 
-// Historic rivalry identifiers are explicitly registered by sport and school pairing.
-// Series records represent completed meetings BEFORE the displayed fixture and must be
-// updated only from documented final scores. Never infer records from RETRO ratings.
-const historicRivalries=[
- {gender:'men',teams:['indiana','kentucky'],ids:['84','96'],canonicalIds:['ncaa:609574','ncaa:609584'],
-  name:'Indiana–Kentucky Rivalry',badgeName:'Indiana–Kentucky',
-  record:'Kentucky leads 33–25',colors:['#990000','#0033a0'],
-  source:'https://ukathletics.com/news/2025/12/12/big-blue-preview-kentucky-vs-indiana/',
-  through:'2025-12-13'},
- {gender:'men',teams:['georgia','georgia tech'],ids:['61','59'],canonicalIds:['ncaa:609743','ncaa:609742'],
-  name:'Clean, Old-Fashioned Hate',colors:['#ba0c2f','#b3a369'],
-  source:'https://georgiadogs.com/news/2026/11/19/mens-basketball-bulldogs-venture-to-tech-for-intrastate-showdown'},
- {gender:'men',teams:['indiana','purdue'],name:'Indiana–Purdue Rivalry',badgeName:'Indiana–Purdue',
-  source:'https://www.dukebasketballreport.com/2024/9/1/24232760/the-best-rivalries-college-basketball-duke-north-carolina-cincinnati-xavier-indiana-purdue',colors:['#990000','#ceb888']},
- {gender:'men',teams:['kentucky','louisville'],name:'Battle for the Bluegrass',
-  source:'https://news.bet365.com/en-us/article/10-best-rivalries-in-mens-college-basketball/2023121516070914571',colors:['#0033a0','#ad0000']},
- {gender:'men',teams:['duke','north carolina'],name:'Duke–Carolina Rivalry',badgeName:'Tobacco Road',
-  source:'https://goduke.com/news/2026/3/6/mens-basketball-top-ranked-duke-hosts-no-17-unc-in-rivalry-clash',colors:['#012169','#7bafd4']},
- {gender:'men',teams:['cincinnati','xavier'],name:'Crosstown Shootout',colors:['#e00122','#0c2340']},
- {gender:'men',teams:['kansas','missouri'],name:'Border War',colors:['#0051ba','#f1b82d']},
- {gender:'both',teams:['iowa','iowa state'],name:'Cy-Hawk Series',colors:['#ffcd00','#c8102e'],
-  source:'https://hawkeyesports.com/corn-cy-hawk-series'},
- {gender:'women',teams:['uconn','tennessee'],name:'UConn–Tennessee Rivalry',colors:['#000e2f','#ff8200'],
-  source:'https://uconnhuskies.com/news/2018/8/14/womens-basketball-the-rivalry-returns-uconn-tennessee-to-renew-series'},
- {gender:'women',teams:['uconn','notre dame'],name:'UConn–Notre Dame Rivalry',colors:['#000e2f','#0c2340'],
-  source:'https://uconnhuskies.com/sports/womens-basketball/opponent-history/notre-dame/187'},
- {gender:'men',teams:['villanova','saint josephs'],name:'Holy War',colors:['#00205b','#9e1b32']},
- {gender:'both',teams:['michigan','michigan state'],name:'Michigan–Michigan State Rivalry',colors:['#00274c','#18453b']},
- {gender:'both',teams:['ucla','southern california'],name:'UCLA–USC Rivalry',colors:['#2774ae','#990000']},
- {gender:'both',teams:['arizona','arizona state'],name:'Arizona–Arizona State Rivalry',colors:['#ab0520','#8c1d40']},
- {gender:'both',teams:['alabama','auburn'],name:'Alabama–Auburn Rivalry',colors:['#9e1b32','#0c2340']},
- {gender:'both',teams:['florida','florida state'],name:'Florida–Florida State Rivalry',colors:['#0021a5','#782f40']},
- {gender:'both',teams:['kansas','kansas state'],name:'Sunflower Showdown',colors:['#0051ba','#512888']},
- {gender:'both',teams:['texas','texas a and m'],name:'Lone Star Showdown',colors:['#bf5700','#500000']},
- {gender:'both',teams:['new mexico','new mexico state'],name:'Rio Grande Rivalry',colors:['#ba0c2f','#891216']},
- {gender:'both',teams:['wisconsin','marquette'],name:'Wisconsin–Marquette Rivalry',colors:['#c5050c','#003366']},
- {gender:'both',teams:['oregon','oregon state'],name:'Oregon–Oregon State Rivalry',colors:['#154733','#dc4405']}
-];
-const rivalrySchoolName=name=>String(name||'').toLowerCase()
- .replace(/&/g,' and ').replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim()
- .replace(/^(university of |the )/,'')
- .replace(/^usc$/,'southern california')
- .replace(/^connecticut(?: huskies)?$/,'uconn')
- .replace(/^michigan st$/,'michigan state')
- .replace(/^florida st$/,'florida state')
- .replace(/^kansas st$/,'kansas state')
- .replace(/^arizona st$/,'arizona state')
- .replace(/^oregon st$/,'oregon state')
- .replace(/^new mexico st$/,'new mexico state')
- .replace(/ (hoosiers|wildcats|boilermakers|cardinals|blue devils|tar heels|bearcats|musketeers|jayhawks|tigers|hawkeyes|cyclones|hawks|fighting irish|bruins|trojans|spartans|wolverines|red raiders|bulldogs|yellow jackets|aggies|lobos|cougars|crimson tide|seminoles|longhorns|gators|sun devils|golden eagles|beavers|ducks|badgers|razorbacks|huskies|lady volunteers|lady vols|volunteers|gamecocks)$/,'');
-const rivalryFor=g=>{
- if(g.kind==='exhibition')return null;
- const teams=[g.away,g.home];
- const names=teams.map(team=>[team?.full,team?.name].map(rivalrySchoolName));
- const matches=(r,side,school)=>names[side].includes(r.teams[school])||
-   (r.ids&&String(teams[side]?.id)===r.ids[school])||
-   (r.canonicalIds&&String(teams[side]?.canonical)===r.canonicalIds[school]);
- for(const r of historicRivalries){
-  if(r.gender!=='both'&&r.gender!==(women?'women':'men'))continue;
-  if(matches(r,0,0)&&matches(r,1,1))return r;
-  if(matches(r,0,1)&&matches(r,1,0))return {...r,colors:[...r.colors].reverse()};
- }
- return null;
-};
+const rivalryEdition=women?'w':'m';
+const rivalryFor=g=>window.SLTCBBRivalries?.forGame(g,rivalryEdition)??null;
+const rivalryDirectory=document.getElementById('sl-rivalry-directory');
+if(rivalryDirectory&&window.SLTCBBRivalries){
+ const rows=window.SLTCBBRivalries.registry.filter(row=>row.editions[rivalryEdition]);
+ rivalryDirectory.querySelector('summary').textContent='Rivalry directory ('+rows.length+')';
+ rivalryDirectory.addEventListener('toggle',()=>{
+  if(!rivalryDirectory.open)return;
+  rivalryDirectory.querySelector('ul').innerHTML=rows.map(row=>{
+   const entry=row.editions[rivalryEdition];
+   return '<li>'+esc(row.teams.join(' vs. '))+' · <a href="'+esc(entry.source)+'" target="_blank" rel="noopener noreferrer">'+esc(entry.name)+'</a></li>';
+  }).join('');
+ });
+ rivalryDirectory.hidden=false;
+}
 const rivalryCard=r=>{
  if(!r)return '';
  const label=esc(r.name);
