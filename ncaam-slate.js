@@ -626,12 +626,6 @@ const homeProfile=g=>{
 // Editorial badges use a small vetted NCAA title ledger; unknown teams never get invented stars.
 const ncaaTitleYears={"men":{"8":[1994],"12":[1997],"24":[1942],"25":[1959],"26":[1964,1965,1967,1968,1969,1970,1971,1972,1973,1975,1995],"30":[],"41":[1999,2004,2011,2014,2023,2024],"46":[1984],"57":[2006,2007,2025],"84":[1940,1953,1976,1981,1987],"96":[1948,1949,1951,1958,1978,1996,1998,2012],"97":[1980,1986],"107":[1947],"120":[2002],"127":[1979,2000],"130":[1989,2026],"150":[1991,1992,2001,2010,2015],"152":[1974,1983],"153":[1957,1982,1993,2005,2009,2017],"183":[2003],"194":[1960],"197":[1945,1946],"222":[1985,2016,2018],"239":[2021],"254":[1944],"258":[2019],"269":[1977],"275":[1941],"2132":[1961,1962],"2305":[1952,1988,2008,2022],"2325":[1954],"2350":[1963],"2439":[1990],"2483":[1939],"2539":[1955,1956],"2638":[1966],"2751":[1943]},"women":{"24":[1990,1992,2021],"26":[2026],"30":[1983,1984],"41":[1995,2000,2002,2003,2004,2009,2010,2013,2014,2015,2016,2025],"87":[2001,2018],"99":[2023],"120":[2006],"153":[1994],"239":[2005,2012,2019],"245":[2011],"251":[1986],"295":[1985],"2348":[1982,1988],"2509":[1999],"2579":[2017,2022,2024],"2633":[1987,1989,1991,1996,1997,1998,2007,2008],"2641":[1993]}};
 const titleSource={men:'https://www.ncaa.com/history/basketball-men/d1',women:'https://www.ncaa.com/history/basketball-women/d1'};
-const rivalryLedger={
- '150|153':{name:'Tobacco Road',source:'https://goduke.com/news/2026/3/6/mens-basketball-top-ranked-duke-hosts-no-17-unc-in-rivalry-clash'},
- '84|2509':{name:'Indiana–Purdue',source:'https://www.dukebasketballreport.com/2024/9/1/24232760/the-best-rivalries-college-basketball-duke-north-carolina-cincinnati-xavier-indiana-purdue'},
- '96|97':{name:'Battle for the Bluegrass',source:'https://news.bet365.com/en-us/article/10-best-rivalries-in-mens-college-basketball/2023121516070914571'},
- '84|96':{name:'Indiana–Kentucky',source:'https://www.lucasoilstadium.com/event/iu-vs-uk-mens-basketball/'}
-};
 const titleMarks=t=>{
  const years=(ncaaTitleYears[women?'women':'men']||{})[String(t.id)]||[];
  if(!years.length)return '<span class="sl-title-stars sl-title-stars--empty" aria-hidden="true"><span></span></span>';
@@ -641,10 +635,9 @@ const titleMarks=t=>{
 };
 const editorialBadges=g=>{
  if(g.kind==='exhibition')return '';
- const key=[String(g.away.id),String(g.home.id)].sort((a,b)=>Number(a)-Number(b)).join('|');
- const rivalry=!women?rivalryLedger[key]:null;
+ const rivalry=rivalryFor(g);
  const tags=[];
- if(rivalry)tags.push('<a class="sl-editorial-badge sl-rivalry" href="'+esc(rivalry.source)+'" target="_blank" rel="noopener noreferrer" title="Verified rivalry source">RIVALRY · '+esc(rivalry.name)+' ↗</a>');
+ if(rivalry?.source)tags.push('<a class="sl-editorial-badge sl-rivalry" href="'+esc(rivalry.source)+'" target="_blank" rel="noopener noreferrer" title="Verified rivalry source">RIVALRY · '+esc(rivalry.badgeName||rivalry.name)+' ↗</a>');
  if(g.phase==='upcoming'&&Number.isFinite(g.probability)){
   const underdog=Math.min(g.probability,1-g.probability),eloGap=Math.abs((rating(g.away)||1500)-(rating(g.home)||1500));
   if(underdog>=0.30&&underdog<=0.45&&eloGap>=40)
@@ -876,13 +869,20 @@ const meter=g=>{
 // Series records represent completed meetings BEFORE the displayed fixture and must be
 // updated only from documented final scores. Never infer records from RETRO ratings.
 const historicRivalries=[
- {gender:'men',teams:['indiana','kentucky'],name:'Indiana–Kentucky Rivalry',
+ {gender:'men',teams:['indiana','kentucky'],ids:['84','96'],canonicalIds:['ncaa:609574','ncaa:609584'],
+  name:'Indiana–Kentucky Rivalry',badgeName:'Indiana–Kentucky',
   record:'Kentucky leads 33–25',colors:['#990000','#0033a0'],
   source:'https://ukathletics.com/news/2025/12/12/big-blue-preview-kentucky-vs-indiana/',
   through:'2025-12-13'},
- {gender:'men',teams:['indiana','purdue'],name:'Indiana–Purdue Rivalry',colors:['#990000','#ceb888']},
- {gender:'men',teams:['kentucky','louisville'],name:'Battle for the Bluegrass',colors:['#0033a0','#ad0000']},
- {gender:'men',teams:['duke','north carolina'],name:'Duke–Carolina Rivalry',colors:['#012169','#7bafd4']},
+ {gender:'men',teams:['georgia','georgia tech'],ids:['61','59'],canonicalIds:['ncaa:609743','ncaa:609742'],
+  name:'Clean, Old-Fashioned Hate',colors:['#ba0c2f','#b3a369'],
+  source:'https://georgiadogs.com/news/2026/11/19/mens-basketball-bulldogs-venture-to-tech-for-intrastate-showdown'},
+ {gender:'men',teams:['indiana','purdue'],name:'Indiana–Purdue Rivalry',badgeName:'Indiana–Purdue',
+  source:'https://www.dukebasketballreport.com/2024/9/1/24232760/the-best-rivalries-college-basketball-duke-north-carolina-cincinnati-xavier-indiana-purdue',colors:['#990000','#ceb888']},
+ {gender:'men',teams:['kentucky','louisville'],name:'Battle for the Bluegrass',
+  source:'https://news.bet365.com/en-us/article/10-best-rivalries-in-mens-college-basketball/2023121516070914571',colors:['#0033a0','#ad0000']},
+ {gender:'men',teams:['duke','north carolina'],name:'Duke–Carolina Rivalry',badgeName:'Tobacco Road',
+  source:'https://goduke.com/news/2026/3/6/mens-basketball-top-ranked-duke-hosts-no-17-unc-in-rivalry-clash',colors:['#012169','#7bafd4']},
  {gender:'men',teams:['cincinnati','xavier'],name:'Crosstown Shootout',colors:['#e00122','#0c2340']},
  {gender:'men',teams:['kansas','missouri'],name:'Border War',colors:['#0051ba','#f1b82d']},
  {gender:'both',teams:['iowa','iowa state'],name:'Cy-Hawk Series',colors:['#ffcd00','#c8102e'],
@@ -914,19 +914,20 @@ const rivalrySchoolName=name=>String(name||'').toLowerCase()
  .replace(/^arizona st$/,'arizona state')
  .replace(/^oregon st$/,'oregon state')
  .replace(/^new mexico st$/,'new mexico state')
- .replace(/ (hoosiers|wildcats|boilermakers|cardinals|blue devils|tar heels|bearcats|musketeers|jayhawks|tigers|hawkeyes|cyclones|hawks|fighting irish|bruins|trojans|spartans|wolverines|red raiders|bulldogs|aggies|lobos|cougars|crimson tide|seminoles|longhorns|gators|sun devils|golden eagles|beavers|ducks|badgers|razorbacks|huskies|lady volunteers|lady vols|volunteers|gamecocks)$/,'');
+ .replace(/ (hoosiers|wildcats|boilermakers|cardinals|blue devils|tar heels|bearcats|musketeers|jayhawks|tigers|hawkeyes|cyclones|hawks|fighting irish|bruins|trojans|spartans|wolverines|red raiders|bulldogs|yellow jackets|aggies|lobos|cougars|crimson tide|seminoles|longhorns|gators|sun devils|golden eagles|beavers|ducks|badgers|razorbacks|huskies|lady volunteers|lady vols|volunteers|gamecocks)$/,'');
 const rivalryFor=g=>{
  if(g.kind==='exhibition')return null;
- // Stable NCAA IDs handle shortened ledger names, abbreviations and nicknames.
- const ids=[String(g.away?.canonical||''),String(g.home?.canonical||'')];
- if(!women&&ids.includes('ncaa:609574')&&ids.includes('ncaa:609584'))
-   return historicRivalries[0];
- const names=[g.away,g.home].map(team=>[team?.full,team?.name].map(rivalrySchoolName));
- const rivalry=historicRivalries.find(r=>(r.gender==='both'||r.gender===(women?'women':'men')) &&
-   ((names[0].includes(r.teams[0])&&names[1].includes(r.teams[1]))||
-    (names[0].includes(r.teams[1])&&names[1].includes(r.teams[0]))));
- if(!rivalry)return null;
- return names[0].includes(rivalry.teams[0])?rivalry:{...rivalry,colors:[...rivalry.colors].reverse()};
+ const teams=[g.away,g.home];
+ const names=teams.map(team=>[team?.full,team?.name].map(rivalrySchoolName));
+ const matches=(r,side,school)=>names[side].includes(r.teams[school])||
+   (r.ids&&String(teams[side]?.id)===r.ids[school])||
+   (r.canonicalIds&&String(teams[side]?.canonical)===r.canonicalIds[school]);
+ for(const r of historicRivalries){
+  if(r.gender!=='both'&&r.gender!==(women?'women':'men'))continue;
+  if(matches(r,0,0)&&matches(r,1,1))return r;
+  if(matches(r,0,1)&&matches(r,1,0))return {...r,colors:[...r.colors].reverse()};
+ }
+ return null;
 };
 const rivalryCard=r=>{
  if(!r)return '';
@@ -1028,8 +1029,7 @@ const ledgerScorebug=g=>{
   forecast,
   rivalry:(()=>{
     if(g.phase!=='upcoming'||g.kind==='exhibition')return null;
-    const key=[String(g.away.id),String(g.home.id)].sort((a,b)=>Number(a)-Number(b)).join('|');
-    const entry=!women?rivalryLedger[key]:null;
+    const entry=rivalryFor(g);
     // Verified current-season H2H only, never an inferred all-time series.
     const events=retroPublished?.events;
     const h2h=Array.isArray(events)?events.filter(e=>{
@@ -1043,7 +1043,7 @@ const ledgerScorebug=g=>{
       const winner=Number(e.home_score)>Number(e.away_score)?String(e.home_id):String(e.away_id);
       if(winner===String(g.away.canonical))aw++;else if(winner===String(g.home.canonical))ho++;
     }
-    return {name:entry?.name||'Season series',seasonH2H:h2h.length?{away:aw,home:ho}:null};
+    return {name:entry?.badgeName||entry?.name||'Season series',seasonH2H:h2h.length?{away:aw,home:ho}:null};
   })(),away:convert(g.away),home:convert(g.home)
  })||'<p class="sl-empty">Scorebug temporarily unavailable. Refresh the page.</p>';
 };
