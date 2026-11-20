@@ -52,7 +52,7 @@ function cardMetrics(team,published){
   dailyChange:finite(team.daily_change)
  };
 }
-function render(team,published,safe){
+function render(team,published,safe,showLights=false){
  const esc=typeof safe==='function'?safe:escape;
  const info=explain(team,published),games=info.games;
  const count=games.length,delta=finite(team.daily_change),metrics=cardMetrics(team,published);
@@ -72,7 +72,9 @@ function render(team,published,safe){
    '<span><small>RATING CHANGE</small><b>'+esc(movement)+'</b></span>'+
    '<span><small>OPP. STRENGTH</small><b>'+value(metrics.avgOpponent)+'</b></span>'+
    '<span><small>AVG. POINT MARGIN</small><b>'+(metrics.avgMargin!==null&&metrics.avgMargin>0?'+':'')+value(metrics.avgMargin)+'</b></span>'+
-   '<span><small>RECENT RESULTS</small><b class="rank-form">'+latest+'</b></span></div>';
+   (showLights
+    ? '<span><small>LAST 5</small><span data-recent-results></span></span>'
+    : '<span><small>RECENT RESULTS</small><b class="rank-form">'+latest+'</b></span>')+'</div>';
  const best=metrics.bestWin?'<p class="rank-why-best"><strong>STRONGEST WIN</strong> '+esc(metrics.bestWin.team)+' · Opponent rating '+value(metrics.bestWin.elo)+'</p>':
    '<p class="rank-why-best">No verified D-I win yet.</p>';
  return '<td class="rank-explanation">'+facts+'<details class="rank-why"><summary>Why is '+esc(team.team||'this team')+' #'+esc(team.rank)+'?</summary>'+

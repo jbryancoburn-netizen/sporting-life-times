@@ -26,8 +26,6 @@ function element(tag, className, text) {
  return item;
 }
 function formLights(recent) {
- const form = element('span', 'cbb-ranking-game cbb-ranking-form', '');
- form.append(element('span', 'cbb-ranking-game__label', 'Last 5'));
  const lights = element('span', 'cbb-ranking-form__lights', '');
  lights.setAttribute('role', 'group');
  lights.setAttribute('aria-label', 'Last five completed games, oldest first');
@@ -47,15 +45,14 @@ function formLights(recent) {
   else light.setAttribute('role', 'img');
   lights.append(light);
  }
- form.append(lights);
- return form;
+ return lights;
 }
-function gameSlips(last, next, recent) {
+function gameSlips(last, next) {
  const slips = element('span', 'cbb-ranking-games', '');
- if (recent) slips.append(formLights(recent));
- const entries = [['Next game', next, 'No upcoming game listed']];
- if (!recent) entries.unshift(['Last game', last, 'No final available']);
- for (const [title, game, empty] of entries) {
+ for (const [title, game, empty] of [
+  ['Last game', last, 'No final available'],
+  ['Next game', next, 'No upcoming game listed']
+ ]) {
   const slip = element(game?.href ? 'a' : 'span', 'cbb-ranking-game', '');
   if (game?.href) slip.href = game.href;
   slip.append(element('span', 'cbb-ranking-game__label', title));
@@ -210,8 +207,11 @@ function attach(root, gender, retro, directory) {
  const fill = async node => {
   const id = node.dataset.rankingGames;
   if (!jobs.has(id)) jobs.set(id, summarize(id, node.hasAttribute('data-ranking-form')));
-  const pair = await jobs.get(id);
-  if (node.isConnected) node.replaceChildren(gameSlips(...pair));
+  const [last, next, recent] = await jobs.get(id);
+  if (!node.isConnected) return;
+  node.replaceChildren(gameSlips(last, next));
+  const form = recent && node.closest('tr')?.querySelector('[data-recent-results]');
+  if (form) form.replaceChildren(formLights(recent));
  };
  if (typeof IntersectionObserver !== 'function') {
   nodes.forEach(fill);
