@@ -286,7 +286,25 @@ async function start(){
  show();
 }
 function show(){
- const a=$("home").value,b=$("away").value;if(!a||!b)return;if(a===b){$("output").hidden=true;$("status").textContent="Choose two different schools to see their head-to-head history.";selectedGames=[];return}
+ const a=$("home").value,b=$("away").value;if(!a||!b)return;
+ if(new URLSearchParams(location.search).get("gender")==="women"){
+  $("output").hidden=true;
+  const row=window.SLTCBBRivalries?.registry.find(item=>item.teams.every(team=>[a,b].includes(resolve(team))));
+  const detail=row?.editions?.w;
+  let section=document.getElementById("womens-rivalry-coverage");
+  if(!section){section=document.createElement("section");section.id="womens-rivalry-coverage";section.className="panel editorial";$("output").before(section)}
+  section.replaceChildren();
+  const h=document.createElement("h2");h.textContent=detail?.name||name(a)+" vs. "+name(b);section.appendChild(h);
+  const lead=document.createElement("p");lead.textContent="Women's basketball · "+name(a)+" vs. "+name(b);section.appendChild(lead);
+  const msg=document.createElement("p");msg.textContent="The men's series database cannot establish the women's head-to-head record. Women's verified game-by-game historical records, milestones and series totals have not yet been published here.";section.appendChild(msg);
+  if(detail?.source){const link=document.createElement("a");link.href=detail.source;link.target="_blank";link.rel="noopener noreferrer";link.textContent="Read the sourced women's rivalry coverage";section.appendChild(link)}
+  const url=new URL(location.href);url.searchParams.set("a",row?.ids[row.teams.findIndex(t=>resolve(t)===a)]||a);url.searchParams.set("b",row?.ids[row.teams.findIndex(t=>resolve(t)===b)]||b);history.replaceState(null,"",url);
+  $("status").textContent="Women's rivalry coverage: historical series totals pending verification.";
+  document.title=h.textContent+" | Women's Rivalry Archive | Sporting Life & Times";
+  return;
+ }
+ document.getElementById("womens-rivalry-coverage")?.remove();
+ if(a===b){$("output").hidden=true;$("status").textContent="Choose two different schools to see their head-to-head history.";selectedGames=[];return}
  $("output").hidden=false;const seen=new Set(),arr=[];
  for(const g of matches){if(!((g.a===a&&g.b===b)||(g.a===b&&g.b===a)))continue;
  const key=gameKey(g);if(!isValidGame(g))continue;
