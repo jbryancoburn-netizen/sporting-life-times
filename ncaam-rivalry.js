@@ -302,6 +302,31 @@ function show(){
  const seriesName=seriesInfo?.badgeName||seriesInfo?.name;
  document.querySelector("main>h1").textContent=seriesName||"Every meeting tells a story.";
  document.title=(seriesName||name(a)+" vs. "+name(b))+" | Rivalry Archive | Sporting Life & Times";
+ const context=document.getElementById("rivalry-context");
+ const contextBody=document.getElementById("rivalry-context-body");
+ const contextTitle=document.getElementById("rivalry-context-title");
+ if(context&&contextBody&&contextTitle){
+  context.hidden=!seriesInfo;
+  if(seriesInfo){
+   contextTitle.textContent=seriesName||"Historical context";
+   const key=namedSeries.ids.join("|");
+   const historicalNotes={
+    "252|254":{intro:"The schools first met in men's basketball on January 23, 1909, in Provo. BYU won 32–9 and took the first eight meetings. The Holy War nickname is most closely associated with the broader, especially football, rivalry.",moments:["1909 · The inaugural basketball game ended BYU 32, Utah 9.","2007 · The schools launched the Deseret First Duel as a multi-sport rivalry competition."],source:"https://byucougars.com/news/2009/02/25/the-century-game-utah-comes-to-town-for-deseret-first-duel"},
+    "61|59":{intro:"Georgia and Georgia Tech's long-running in-state athletic rivalry is widely known as Clean, Old-Fashioned Hate. The nickname extends to basketball.",moments:[],source:"https://georgiadogs.com/news/2026/11/19/mens-basketball-bulldogs-venture-to-tech-for-intrastate-showdown"}
+   };
+   const note=historicalNotes[key];
+   contextBody.replaceChildren();
+   if(note){
+    const p=document.createElement("p");p.textContent=note.intro;contextBody.appendChild(p);
+    if(note.moments.length){const ul=document.createElement("ul");for(const m of note.moments){const li=document.createElement("li");li.textContent=m;ul.appendChild(li)}contextBody.appendChild(ul)}
+   }else{
+    const p=document.createElement("p");p.textContent="Explore documented meetings, results, streaks and decade records below. Additional verified narrative milestones are being researched.";contextBody.appendChild(p);
+   }
+   const sourceUrl=note?.source||seriesInfo.source;
+   if(sourceUrl){const p=document.createElement("p");const link=document.createElement("a");link.href=sourceUrl;link.target="_blank";link.rel="noopener noreferrer";link.textContent="Read the historical source";p.appendChild(link);contextBody.appendChild(p)}
+  }
+ }
+
  $("matchup").textContent=name(a)+" vs. "+name(b);$("team-a-name").textContent=name(a);$("team-b-name").textContent=name(b);mklogo(a,$("team-a-logo"));mklogo(b,$("team-b-logo"));
  applyTheme($("hero-a"),a);applyTheme($("hero-b"),b);
  $("meetings").textContent=arr.length;$("record").textContent=wins+"–"+losses;$("recent").textContent=arr.length?arr[0].date:"None";
