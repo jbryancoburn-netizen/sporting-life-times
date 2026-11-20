@@ -81,7 +81,7 @@ def main():
         base = f"/college/{slug}" if slug else ""
         paths = [f"{base}/news/?sport=basketball"]
         if slug:
-            paths.append(f"{base}/")
+            paths.extend([f"{base}/news/?sport=Basketball", f"{base}/"])
         failures = []
         for index, path in enumerate(paths):
             try:
