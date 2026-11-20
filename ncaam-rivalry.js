@@ -362,6 +362,27 @@ function show(){
  $("last-ten").textContent=lastWins+"–"+(last10.length-lastWins);
  let streak=0,leader="";for(const g of arr){const thisWinner=won(g)?a:b;if(leader&&leader!==thisWinner)break;leader=thisWinner;streak++}
  $("streak").textContent=streak?name(leader)+" · "+streak:"—";
+ // Select verifiable standout chapters from the actual documented series; never fabricate a narrative.
+ const moments=document.getElementById("rivalry-moments"), momentsContent=document.getElementById("rivalry-moments-content");
+ if(moments&&momentsContent){momentsContent.replaceChildren();moments.hidden=!arr.length;
+  if(arr.length){
+   const candidates=[
+    ["First documented meeting",arr[arr.length-1]],
+    ["Most recent meeting",arr[0]],
+    ["Closest recorded finish",[...arr].sort((x,y)=>Math.abs(x.as-x.bs)-Math.abs(y.as-y.bs))[0]],
+    ["Largest recorded margin",[...arr].sort((x,y)=>Math.abs(y.as-y.bs)-Math.abs(x.as-x.bs))[0]],
+    ["Latest documented NCAA Tournament meeting",arr.find(g=>g.tournament==="NCAA Tournament")]
+   ];
+   const chosen=new Set();
+   for(const [label,g] of candidates){if(!g)continue;const k=gameKey(g);if(chosen.has(k))continue;chosen.add(k);
+    const item=document.createElement("article");item.className="meeting-card";
+    const heading=document.createElement("strong");heading.textContent=label;item.appendChild(heading);
+    const score=document.createElement("p");score.textContent=g.date+" · "+name(g.a)+" "+g.as+"–"+g.bs+" "+name(g.b)+(g.tournament&&g.tournament!=="Regular season"?" · "+g.tournament:"");item.appendChild(score);
+    momentsContent.appendChild(item);
+   }
+   const caveat=document.createElement("p");caveat.className="deck";caveat.textContent="Selections are calculated from documented results in this archive, not an assertion that these were the series' greatest games. Historical coverage varies by school.";momentsContent.appendChild(caveat);
+  }
+ }
  const sortedMargins=arr.map(g=>({game:g,margin:Math.abs(g.as-g.bs)})).sort((x,y)=>y.margin-x.margin);
  const biggestFor=team=>arr.filter(g=>(g.a===team?g.as>g.bs:g.bs>g.as)).map(g=>({g,margin:Math.abs(g.as-g.bs)})).sort((x,y)=>y.margin-x.margin)[0];
  for(const [team,id] of [[a,"blowout-a"],[b,"blowout-b"]]){
