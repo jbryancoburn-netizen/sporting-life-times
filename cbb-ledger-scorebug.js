@@ -708,6 +708,10 @@
    const visibleName=x.compactName&&x.compactName!==x.name?
     '<span class="ledger26-team-full">'+label+'</span><span class="ledger26-team-short" aria-hidden="true">'+esc(x.compactName)+'</span>':label;
    const linkedName=href?'<a class="ledger26-team-link" href="'+esc(href)+'" aria-label="Open '+label+' team page">'+visibleName+'</a>':visibleName;
+   const crest=x.crest||'';
+   const crestMarkup=href&&crest?
+    '<a class="ledger26-crest ledger26-team-link" href="'+esc(href)+'" aria-label="Open '+label+' team page from logo">'+crest+'</a>':
+    '<span class="ledger26-crest">'+crest+'</span>';
    const scoreA=Number(x.score),scoreB=Number(other?.score);
    const scoresKnown=phase!=='upcoming'&&x.score!=null&&other?.score!=null&&Number.isFinite(scoreA)&&Number.isFinite(scoreB);
    const outcome=!scoresKnown?'even':scoreA>scoreB?'ahead':scoreA<scoreB?'behind':'even';
@@ -722,7 +726,7 @@
    const secondary=g.solidTeamColors?';--ledger26-secondary:'+color(x.secondaryColor||primary):'';
    const darkFill=ink==='#fffaf0'||ink==='#ffffff';
    return '<div class="ledger26-team ledger26-team--'+outcome+(darkFill?' ledger26-team--dark-fill':' ledger26-team--light-fill')+'" style="--ledger26-school:'+primary+';--ledger26-readable-ink:'+ink+secondary+'">'+watermark+
-    '<span class="ledger26-crest">'+(x.crest||'')+'</span>'+
+    crestMarkup+
     '<span class="ledger26-identity"><strong class="ledger26-name">'+badge+linkedName+(phase==='upcoming'?'':conference)+'</strong>'+
     '<small class="ledger26-record">'+esc(context)+
     (phase==='upcoming'&&side==='home'&&g.rivalry&&g.rivalry.name?
