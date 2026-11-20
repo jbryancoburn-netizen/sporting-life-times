@@ -32,6 +32,33 @@
   '<section class="panel editorial"><div class="section-heading"><div><div class="eyebrow">The series</div><h2>'+esc(selected.editions.w.name)+'</h2></div></div><div class="extra-stats"><div><span>Recent 10</span><strong>'+lastWins+'–'+(lastTen.length-lastWins)+'</strong></div><div><span>First in dataset</span><strong>'+(oldest?oldest.season:"—")+'</strong></div><div><span>Last in dataset</span><strong>'+(recent?recent.season:"—")+'</strong></div><div><span>NCAA tournament meetings</span><strong>'+games.filter(g=>g.post).length+'</strong></div></div>'+sourceLink+'</section>'+
   '<section class="panel editorial"><div class="section-heading"><div><div class="eyebrow">From the archive</div><h2>Notable documented games</h2></div></div>'+(recent?'<p><b>Most recent:</b> '+played(recent)+'</p><p><b>First in archive:</b> '+played(oldest)+'</p><p><b>Closest finish:</b> '+played([...games].sort((a,b)=>(a.ws-a.ls)-(b.ws-b.ls))[0])+'</p>':'<p>No game was found for this pairing in the retrieved women\'s datasets. This does not mean these schools have never played.</p>')+'</section>'+
   '<section class="panel editorial"><div class="section-heading"><div><div class="eyebrow">Results book</div><h2>Meeting-by-meeting · '+games.length+' games</h2></div></div><div class="meeting-list">'+(match||'<p>No matching results in available historical files.</p>')+'</div></section>';
+
+  // The expanded women's almanac uses only the games belonging to the selected pair.
+  if(games.length){
+   const streakLeader=games[0].w;let streak=0;for(const game of games){if(game.w!==streakLeader)break;streak++}
+   const bigA=[...games].filter(g=>g.w===ids[0]).sort((x,y)=>(y.ws-y.ls)-(x.ws-x.ls))[0];
+   const bigB=[...games].filter(g=>g.w===ids[1]).sort((x,y)=>(y.ws-y.ls)-(x.ws-x.ls))[0];
+   const byDecade=new Map();
+   for(const g of games){const decade=Math.floor(g.season/10)*10;const record=byDecade.get(decade)||{a:0,b:0};if(g.w===ids[0])record.a++;else record.b++;byDecade.set(decade,record)}
+   const section=document.createElement("section");section.className="panel editorial";
+   const h=document.createElement("h2");h.textContent="The rivalry through the decades";section.appendChild(h);
+   const desc=document.createElement("p");desc.textContent="Current documented streak: "+(streakLeader===ids[0]?selected.teams[0]:selected.teams[1])+" · "+streak+" consecutive win"+(streak===1?"":"s");section.appendChild(desc);
+   const list=document.createElement("div");list.className="meeting-list";
+   for(const [decade,record] of [...byDecade.entries()].sort((a,b)=>a[0]-b[0])){
+    const article=document.createElement("article");article.className="meeting-card";
+    article.textContent=decade+"s · "+selected.teams[0]+" "+record.a+"–"+record.b+" "+selected.teams[1];
+    list.appendChild(article);
+   }
+   section.appendChild(list);
+   const wide=document.createElement("p");wide.textContent="Largest documented wins: "+(bigA?selected.teams[0]+" by "+(bigA.ws-bigA.ls)+" ("+bigA.season+")":"none found")+"; "+(bigB?selected.teams[1]+" by "+(bigB.ws-bigB.ls)+" ("+bigB.season+")":"none found")+".";
+   section.appendChild(wide);
+   $("w-results").appendChild(section);
+   const postseason=games.filter(g=>g.post);
+   if(postseason.length){const p=document.createElement("section");p.className="panel editorial";const title=document.createElement("h2");title.textContent="NCAA Tournament chapters";p.appendChild(title);
+    for(const g of postseason){const e=document.createElement("p");e.textContent=g.season+" · "+(data.teams.get(g.w)||g.w)+" "+g.ws+"–"+g.ls+" "+(data.teams.get(g.l)||g.l);p.appendChild(e)}
+    $("w-results").appendChild(p)
+   }
+  }
   $("w-status").textContent=(data.regularLoaded?"Regular-season and conference-tournament results loaded. ":"Regular-season history unavailable; only NCAA Tournament results may be shown. ")+(data.tourneyLoaded?"NCAA Tournament results loaded. ":"NCAA Tournament history unavailable. ")+" Documented regular-season results cover 1998–2026 seasons; NCAA Tournament coverage currently ends with 2025. The 2026–27 season is not yet included.";
   document.title=selected.editions.w.name+" | Women's Rivalry Archive | Sporting Life & Times";
  }
