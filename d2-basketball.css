@@ -111,3 +111,36 @@ body[data-d2-layout] .d2-elo-school { display: flex; align-items: center; gap: 8
 body[data-d2-layout] .cbb-gamefile-hero .cbb-gamefile-eyebrow { color: inherit; }
 body[data-d2-layout] .cbb-gamefile-detail .gamefile-grid,
 body[data-d2-layout] .cbb-gamefile-detail .gamefile-source-box { margin-inline: clamp(14px, 3vw, 30px); }
+
+
+/* DII ledger: dedicated full-width reading surface, not the two-column front page. */
+html[data-d2-desk="scores"] body[data-page="home"] #d2-main > .columns {
+  display:block !important;
+  width:100%;
+}
+html[data-d2-desk="scores"] body[data-page="home"] #d2-main > .columns > div {
+  display:contents;
+}
+html[data-d2-desk="scores"] body[data-page="home"] #scores {
+  display:block !important;
+  width:100%;
+  max-width:none;
+  min-width:0;
+}
+html[data-d2-desk="scores"] body[data-page="home"] #teams,
+html[data-d2-desk="scores"] body[data-page="home"] #elo,
+html[data-d2-desk="scores"] body[data-page="home"] #conferences,
+html[data-d2-desk="scores"] body[data-page="home"] #schedule-recovery,
+html[data-d2-desk="scores"] body[data-page="home"] #data-accountability {
+  display:none !important;
+}
+html[data-d2-desk="scores"] #sl-games,
+html[data-d2-desk="scores"] #game-grid,
+html[data-d2-desk="scores"] .sl-content {width:100%;max-width:none;min-width:0}
+html[data-d2-desk="scores"] .sl-tools-row {display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+html[data-d2-desk="scores"] .sl-search {min-width:180px;max-width:100%}
+@media(max-width:650px){
+ html[data-d2-desk="scores"] .sl-tools-row {align-items:stretch;flex-direction:column}
+ html[data-d2-desk="scores"] .sl-search,
+ html[data-d2-desk="scores"] .sl-search input {width:100%;max-width:none}
+}
