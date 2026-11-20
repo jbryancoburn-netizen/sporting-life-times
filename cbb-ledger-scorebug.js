@@ -703,7 +703,7 @@
     (streakLabel?'<span class="ledger26-streak" title="Current verified streak">'+esc(streakLabel)+'</span>':'')+'</span>':'')+
     '</small>':'';
 
-   const href=/^ncaam-team\.html\?team=ncaa%3A\d+$|^ncaaw-team\.html\?team=\d+$|^d2-team\.html\?gender=(?:men|women)&team=[a-z0-9-]+$|^nba-team-desk\.html\?team=[a-z]{3}$|^euroleague\.html\?view=desks&club=[a-z]{3}$/i.test(String(x.teamHref||''))?x.teamHref:'';
+   const href=/^ncaam-team\.html\?team=ncaa%3A\d+$|^ncaaw-team\.html\?team=\d+$|^d2-team\.html\?gender=(?:men|women)&team=[a-z0-9-]+$|^d3-(?:mens|womens)-basketball\.html\?team=[a-z0-9-]+$|^nba-team-desk\.html\?team=[a-z]{3}$|^euroleague\.html\?view=desks&club=[a-z]{3}$/i.test(String(x.teamHref||''))?x.teamHref:'';
    const label=esc(x.name||'School');
    const visibleName=x.compactName&&x.compactName!==x.name?
     '<span class="ledger26-team-full">'+label+'</span><span class="ledger26-team-short" aria-hidden="true">'+esc(x.compactName)+'</span>':label;

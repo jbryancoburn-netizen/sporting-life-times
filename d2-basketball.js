@@ -63,7 +63,7 @@ function logo(t){
  const initials=String(t?.name||'?').replace(/\b(?:university|college|of|at|the)\b/gi,'').trim().split(/\s+/).slice(0,2).map(v=>v[0]||'').join('').toUpperCase();
  const colors='style="--c1:'+color(t?.primary)+';--c2:'+color(t?.secondary)+'"';
  const description=branded?(t?.color_provenance||'School colors from source provider'):'Brand colors unavailable; neutral rings used';
- return '<span class="logo-shell '+(branded?'branded':'unbranded')+'" title="'+esc(description)+'" '+colors+'>'+
+ return '<span class="logo-shell '+(branded?'branded':'unbranded')+'" data-cbb-team-href="'+esc(state.teams.has(String(t.id))?link(t):'')+'" data-cbb-team-name="'+esc(t.name||'Team')+'" title="'+esc(description)+'" '+colors+'>'+
  (slug?'<img loading="lazy" alt="" src="https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/'+encodeURIComponent(slug)+'.svg" '+
  'data-logo-fallback="https://ncaa-api.henrygd.me/logo/'+encodeURIComponent(slug)+'.svg" '+
  'onerror="if(this.dataset.logoFallback){this.src=this.dataset.logoFallback;delete this.dataset.logoFallback}else this.remove()">':'')+

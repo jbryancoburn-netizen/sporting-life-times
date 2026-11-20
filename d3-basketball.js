@@ -61,7 +61,7 @@ const emblem=t=>{
  const imgSrc=ncaaURL||safeCDN;
  const fallback=slug?'https://ncaa-api.henrygd.me/logo/'+encodeURIComponent(slug)+'.svg':'';
 
- return '<span class="logo-shell '+(verified?'branded':'unbranded')+'" title="'+esc(title)+'" '+(verified?'style="--c1:'+primary+';--c2:'+secondary+'"':'')+'>'+
+ return '<span class="logo-shell '+(verified?'branded':'unbranded')+'" data-cbb-team-href="'+esc(state.teams.has(t.id)?teamLink(t):'')+'" data-cbb-team-name="'+esc(t.name||'Team')+'" title="'+esc(title)+'" '+(verified?'style="--c1:'+primary+';--c2:'+secondary+'"':'')+'>'+
    (imgSrc?'<img loading="lazy" alt="" src="'+esc(imgSrc)+'" '+
   (fallback?'data-logo-fallback="'+esc(fallback)+'" ':'')+
   'onerror="if(this.dataset.logoFallback){this.src=this.dataset.logoFallback;delete this.dataset.logoFallback}else this.remove()">':'')+
@@ -76,7 +76,7 @@ function card(g){
  const final=!unresolved&&g.status==='final',live=!unresolved&&g.status==='live';
  const mode=final?'final':live?'live':'upcoming',scoreShown=final||live;
  const line=(t,points)=>({name:t.name||'Unverified opponent',score:scoreShown?points:null,
-  crest:emblem(t),scouting:window.SLTSportsScorebug?.formAt?.(state.form,t.id,g.date,g.id,mode),color:/^#[0-9a-f]{6}$/i.test(t.primary||'')?t.primary:'#655239',
+  crest:emblem(t),teamHref:state.teams.has(t.id)?teamLink(t):'',scouting:window.SLTSportsScorebug?.formAt?.(state.form,t.id,g.date,g.id,mode),color:/^#[0-9a-f]{6}$/i.test(t.primary||'')?t.primary:'#655239',
   record:(t.w||0)+'–'+(t.l||0),
   retro:t.d3_confirmed&&Number.isFinite(Number(t.elo))?'RETRO '+Math.round(Number(t.elo)):'RETRO —'});
  const scorebug=window.SLTSportsScorebug?.render({

@@ -41,6 +41,10 @@ const key = value => {
 };
 window.SLTConferenceMarks = {
  key,
+ keyForLogo(src) {
+  const slug = String(src).match(/\/ncaa_conf\/500(?:-dark)?\/([^/.]+)\.(?:png|svg|webp)/i)?.[1];
+  return Object.keys(conferenceLogos).find(name => conferenceLogos[name][1] === slug) || '';
+ },
  lookup(value) {
   const entry = conferenceLogos[key(value)];
   return entry ? {name:entry[0], url:'https://a.espncdn.com/i/teamlogos/ncaa_conf/500/'+entry[1]+'.png'} : null;
