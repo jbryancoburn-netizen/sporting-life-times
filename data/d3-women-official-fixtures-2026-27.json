@@ -3,7 +3,7 @@
   "division": "d3",
   "gender": "women",
   "season": "2026-27",
-  "generated_utc": "2026-11-20T01:49:32.123676+00:00",
+  "generated_utc": "2026-11-20T17:01:25.508154+00:00",
   "source": "NCAA 2026-27 member directory + year/gender-validated official school athletics calendars",
   "scope": "NCAA membership-wide first pass; sources without independently validated 2026-27 schedules excluded",
   "ncaa_confirmed_programs": 415,
@@ -2448,9 +2448,9 @@
       "owner_org_id": 282,
       "source_url": "https://www.hwsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "readable_rows": 25,
-      "verified_member_opponents": 16,
+      "verified_member_opponents": 17,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 5,
+        "identity_not_d3_matched_but_posted": 4,
         "conditional_or_ambiguous_opponent": 4
       },
       "status": "parsed",
@@ -3223,9 +3223,9 @@
       "owner_org_id": 452,
       "source_url": "https://athletics.mountunion.edu/sports/womens-basketball/schedule/2026-27?grid=true",
       "readable_rows": 28,
-      "verified_member_opponents": 20,
+      "verified_member_opponents": 19,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 7,
+        "identity_not_d3_matched_but_posted": 8,
         "conditional_or_ambiguous_opponent": 1
       },
       "status": "parsed",
@@ -5110,7 +5110,7 @@
       "excluded_rows": {
         "missing_or_ambiguous_ncaa_opponent": 7
       },
-      "failed_school_calendar_urls": 9
+      "failed_school_calendar_urls": 1
     },
     {
       "owner_org_id": 787,
@@ -6761,10 +6761,10 @@
     {
       "owner_org_id": 11324,
       "source_url": "https://www.ascscotties.com/sports/womens-basketball/schedule?grid=true",
-      "readable_rows": 25,
+      "readable_rows": 26,
       "verified_member_opponents": 10,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 15
+        "identity_not_d3_matched_but_posted": 16
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -8373,9 +8373,9 @@
       ]
     }
   ],
-  "fixture_count": 4544,
-  "reciprocal_fixtures": 2718,
-  "unresolved_opponent_fixture_count": 1575,
+  "fixture_count": 4545,
+  "reciprocal_fixtures": 2717,
+  "unresolved_opponent_fixture_count": 1574,
   "unresolved_opponent_fixtures": [
     {
       "id": "d3-women-2026-11-06-73-other-3415eb321a6f",
@@ -13581,6 +13581,21 @@
       "source_url": "https://wildcats.sunypoly.edu/sports/womens-basketball/schedule?grid=true",
       "tipoff_as_posted": "1:00 PM",
       "venue_location": "Utica, N.Y. / Kevin Grimmer Court"
+    },
+    {
+      "id": "d3-women-2026-11-21-11324-other-c5ef5ea480ed",
+      "date": "2026-11-21",
+      "source_owner_org_id": 11324,
+      "external_opponent_label": "NCAA",
+      "placement": "neutral",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://www.ascscotties.com/sports/womens-basketball/schedule?grid=true",
+      "tipoff_as_posted": "2:00 PM",
+      "venue_location": "Decatur, GA / Woodruff Gymnasium"
     },
     {
       "id": "d3-women-2026-11-21-12399-other-d41d1f39132c",
@@ -19268,21 +19283,6 @@
       "venue_location": "Dubuque, Iowa / Stoltz Sports Center"
     },
     {
-      "id": "d3-women-2026-12-30-282-other-a2944190aeb1",
-      "date": "2026-12-30",
-      "source_owner_org_id": 282,
-      "external_opponent_label": "Mount St. Mary's (Md.)",
-      "placement": "neutral",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://www.hwsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "5 PM",
-      "venue_location": "Naples, FL"
-    },
-    {
       "id": "d3-women-2026-12-30-374-other-79a8c1c0f2ab",
       "date": "2026-12-30",
       "source_owner_org_id": 374,
@@ -19416,21 +19416,6 @@
       "source_url": "https://www.sfuathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "2:00 P.M.",
       "venue_location": "Newark, DE"
-    },
-    {
-      "id": "d3-women-2026-12-30-611-other-eab75aa6d85e",
-      "date": "2026-12-30",
-      "source_owner_org_id": 611,
-      "external_opponent_label": "William Smith",
-      "placement": "neutral",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://www.smcmathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "5:00 PM",
-      "venue_location": "Naples, FL"
     },
     {
       "id": "d3-women-2026-12-30-652-other-b8b7d2a2a5f8",
@@ -48041,7 +48026,7 @@
       "venue_location": "Media, PA",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 61-52",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -48311,7 +48296,7 @@
       "venue_location": "New Ulm, MN",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "L, 41-52",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -48785,7 +48770,7 @@
       "venue_location": "Bridgewater, Mass.",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "BSU Cave Classic",
+      "tournament": "BSU Cave Classic sponsored by Jersey Mike's",
       "neutral_home_designation_unconfirmed": true
     },
     {
@@ -49091,23 +49076,21 @@
       "home_org_id": 452,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.mountunion.edu/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.hope.edu/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://athletics.hope.edu/sports/womens-basketball/schedule/2026-27?grid=true",
-        "https://athletics.mountunion.edu/sports/womens-basketball/schedule/2026-27?grid=true"
+        "https://athletics.hope.edu/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
-        286,
-        452
+        286
       ],
       "source_kind": "official_school",
-      "source_verification": "reciprocal",
-      "tipoff_as_posted": "7 pm",
-      "venue": "Timken Gymnasium",
-      "venue_location": "HOME - Alliance, OH",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7:00 PM",
+      "venue": "",
+      "venue_location": "Alliance, OH",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "UMU Tournament",
+      "tournament": "University of Mount Union Tournament",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -78604,7 +78587,7 @@
       "venue": "Oshkosh Arena",
       "venue_location": "Oshkosh, Wis.",
       "network_as_posted": "",
-      "radio_as_posted": "",
+      "radio_as_posted": "90.3 WRST-FM Oshkosh",
       "tournament": "UW-Oshkosh BSN Winter Classic",
       "neutral_home_designation_unconfirmed": false
     },
@@ -79689,6 +79672,30 @@
       "radio_as_posted": "",
       "tournament": "",
       "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-women-2026-12-30-282-611",
+      "date": "2026-12-30",
+      "away_org_id": 282,
+      "home_org_id": 611,
+      "neutral": true,
+      "status": "scheduled",
+      "source_url": "https://www.hwsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://www.hwsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        282
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "5 PM",
+      "venue": "",
+      "venue_location": "Naples, FL",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "2026 Naples Shootout",
+      "neutral_home_designation_unconfirmed": true
     },
     {
       "id": "d3-women-2026-12-30-297-492",
@@ -83004,7 +83011,7 @@
       "venue": "Kolf Sports Center",
       "venue_location": "Oshkosh, Wis.",
       "network_as_posted": "",
-      "radio_as_posted": "",
+      "radio_as_posted": "90.3 WRST-FM Oshkosh",
       "tournament": "",
       "neutral_home_designation_unconfirmed": false
     },
@@ -92434,7 +92441,7 @@
       "venue": "Kolf Sports Center",
       "venue_location": "Oshkosh, Wis.",
       "network_as_posted": "",
-      "radio_as_posted": "",
+      "radio_as_posted": "90.3 WRST-FM Oshkosh",
       "tournament": "",
       "neutral_home_designation_unconfirmed": false
     },
@@ -96606,7 +96613,7 @@
       "venue": "Kolf Sports Center",
       "venue_location": "Oshkosh, Wis.",
       "network_as_posted": "",
-      "radio_as_posted": "",
+      "radio_as_posted": "90.3 WRST-FM Oshkosh",
       "tournament": "",
       "neutral_home_designation_unconfirmed": false
     },
@@ -105868,7 +105875,7 @@
       "venue": "Kolf Sports Center",
       "venue_location": "Oshkosh, Wis.",
       "network_as_posted": "",
-      "radio_as_posted": "",
+      "radio_as_posted": "90.3 WRST-FM Oshkosh",
       "tournament": "",
       "neutral_home_designation_unconfirmed": false
     },
