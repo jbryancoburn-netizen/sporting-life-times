@@ -54,12 +54,6 @@ const conferenceLogo=team=>{
 if(logos?.ready){try{await Promise.race([logos.ready,new Promise(resolve=>setTimeout(resolve,1500))]);}catch(err){console.warn('Optional ranking logos unavailable',err);}}
 // All 363 women's identities use the same locally verified 365 school crests.
 const schoolLogo=t=>{
- if ((gender==='women' && String(t.team_id)==='84') ||
-     (gender==='men' && t.team==='Indiana')) {
-  const fallback='assets/cbb-embossed-crests/84.png?v=20261116-usf1';
-  return '<span class="mbb-mark mbb-mark--power mbb-mark--precomposed" data-espn-id="84" data-ring-count="2" role="img" aria-label="Indiana school crest">'+
-   '<img class="mbb-mark__img" src="assets/retro-school-marks/indiana.svg" alt="" loading="lazy" onerror="this.onerror=null;this.src=\''+fallback+'\'"></span>';
- }
  if(gender!=='women')return typeof logos?.render==='function'?logos.render({ncaaId:t.team_id||'',name:t.team||'',size:'power'}):'';
  const id=String(t.team_id||'');
  if(!/^\d+$/.test(id))return '';
