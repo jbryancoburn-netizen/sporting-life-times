@@ -6,8 +6,8 @@
   "elo_approved": false,
   "source": "ESPN site API, completed finals since NBL27 regular-season opening",
   "season_start": "2026-09-19",
-  "updated_at": "2026-11-20T02:23:46.193564+00:00",
-  "games_replayed": 70,
+  "updated_at": "2026-11-20T11:52:02.378457+00:00",
+  "games_replayed": 71,
   "teams": 10,
   "rows": [
     {
@@ -31,6 +31,16 @@
       "points_pct": 104.77
     },
     {
+      "team": "Cairns Taipans",
+      "wins": 9,
+      "losses": 6,
+      "played": 15,
+      "win_pct": 0.6,
+      "points_for": 1391,
+      "points_against": 1433,
+      "points_pct": 97.07
+    },
+    {
       "team": "Melbourne United",
       "wins": 8,
       "losses": 6,
@@ -41,26 +51,6 @@
       "points_pct": 106.92
     },
     {
-      "team": "Cairns Taipans",
-      "wins": 8,
-      "losses": 6,
-      "played": 14,
-      "win_pct": 0.571,
-      "points_for": 1293,
-      "points_against": 1343,
-      "points_pct": 96.28
-    },
-    {
-      "team": "Perth Wildcats",
-      "wins": 7,
-      "losses": 6,
-      "played": 13,
-      "win_pct": 0.538,
-      "points_for": 1244,
-      "points_against": 1271,
-      "points_pct": 97.88
-    },
-    {
       "team": "Adelaide 36ers",
       "wins": 7,
       "losses": 7,
@@ -69,6 +59,16 @@
       "points_for": 1305,
       "points_against": 1305,
       "points_pct": 100.0
+    },
+    {
+      "team": "Perth Wildcats",
+      "wins": 7,
+      "losses": 7,
+      "played": 14,
+      "win_pct": 0.5,
+      "points_for": 1334,
+      "points_against": 1369,
+      "points_pct": 97.44
     },
     {
       "team": "Brisbane Bullets",
@@ -112,6 +112,18 @@
     }
   ],
   "recent_finals": [
+    {
+      "id": "401875351",
+      "played_at": "2026-11-20T08:30Z",
+      "home": "Cairns Taipans",
+      "away": "Perth Wildcats",
+      "home_score": 98,
+      "away_score": 90,
+      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875351/wildcats-taipans",
+      "verified": false,
+      "provider": "espn",
+      "state": "candidate"
+    },
     {
       "id": "401875305",
       "played_at": "2026-11-19T08:30Z",
@@ -216,18 +228,6 @@
       "home_score": 98,
       "away_score": 92,
       "source_url": "https://www.espn.com/nbl/game/_/gameId/401875297/jackjumpers-wildcats",
-      "verified": false,
-      "provider": "espn",
-      "state": "candidate"
-    },
-    {
-      "id": "401875328",
-      "played_at": "2026-11-12T08:30Z",
-      "home": "Adelaide 36ers",
-      "away": "Melbourne United",
-      "home_score": 101,
-      "away_score": 93,
-      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875328/united-36ers",
       "verified": false,
       "provider": "espn",
       "state": "candidate"
