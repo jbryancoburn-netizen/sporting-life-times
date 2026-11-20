@@ -41,7 +41,7 @@ function render(data,id,atlas){
  }else{
    const status=atlas?.districts?.find(x=>x.id===id)?.["2024_to_2026_geography_comparison"];
    const warning=status==="verified_changed_district_blocks";
-   const pending=status==="pending_district_block_comparison";
+   const pending=status==="pending_district_block_comparison"||(!status&&oldDistrict["2026_boundary_change_requires_remap"]===true);
    const explanation=warning?"Official block comparison confirms the numbered district changed for 2026. These figures describe its older 119th-Congress geography.":
     pending?"This state redrew its map, but the geographic overlap of this specific district is not yet verified. These statistics describe 119th-Congress geography.":
     "This district's geographic correspondence is verified. Estimates still reflect the 2020–2024 ACS survey period, not a current population count.";
