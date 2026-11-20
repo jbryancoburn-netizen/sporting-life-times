@@ -39,12 +39,14 @@ if(midmajor)note='Sporting Life & Times ranks the 25 highest-rated eligible Divi
 document.getElementById('rank-intro').textContent=note;
 document.getElementById('rank-status').textContent=rows.length?(k==='retro'?(gender==='women'?'WOMEN’S RETRO':'MEN’S RETRO')+' · '+(date||'DATE UNAVAILABLE')+' · '+rows.length+' TEAMS':source+' · As of '+date+' · '+rows.length+' teams'):'2026–27 · Source data not available';
 const logos=window.MBBLogos;
+const conferenceVectors=new Set(["big_12","big_ten","big_east","big_sky","atlantic_10","american","acc","sec","horizon","mountain_west","sun_belt"]);
 const conferenceLogo=team=>{
  if(!teamColors)return '';
  const mark=window.SLTConferenceMarks?.lookup(team.conference);
  if(!mark)return '';
  const href=(gender==='women'?'ncaaw-conference.html':'ncaam-conference.html')+'?conference='+encodeURIComponent(team.conference);
- const logoUrl=mark.name==='Missouri Valley Conference'?'https://dbukjj6eu5tsf.cloudfront.net/sidearm.sites/mvc.sidearmsports.com/images/responsive_2021/logo_main.svg':mark.url;
+ const asset=mark.url.split('/').pop().replace(/\.png$/,'');
+ const logoUrl=mark.name==='Missouri Valley Conference'?'https://dbukjj6eu5tsf.cloudfront.net/sidearm.sites/mvc.sidearmsports.com/images/responsive_2021/logo_main.svg':conferenceVectors.has(asset)?'assets/retro-conference-marks/'+asset+'.svg':mark.url;
  return '<a class="rank-conference-link" href="'+href+'" aria-label="'+e(mark.name)+' standings and schedules">'+
   '<img class="rank-conference-mark" src="'+e(logoUrl)+'" alt="'+e(mark.name)+'" width="84" height="54" loading="lazy"></a>';
 };
