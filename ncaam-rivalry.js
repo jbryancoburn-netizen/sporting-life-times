@@ -261,7 +261,11 @@ async function start(){
  for(const game of matches){known.add(game.a);known.add(game.b)}
  const options=[...known].sort((a,b)=>name(a).localeCompare(name(b)));
  for(const element of [$("home"),$("away")]){element.replaceChildren();for(const id of options){const o=document.createElement("option");o.value=id;o.textContent=name(id);element.appendChild(o)}}
- const qs=new URLSearchParams(location.search);const valid=new Set(options);$("home").value=valid.has(qs.get("a"))?qs.get("a"):resolve("Indiana")||options[0];$("away").value=valid.has(qs.get("b"))?qs.get("b"):resolve("Purdue")||options[1];
+ const qs=new URLSearchParams(location.search);const valid=new Set(options);
+ // Ledger links carry current-season school IDs; the archive uses historical NCAA IDs.
+ const registryRow=window.SLTCBBRivalries?.registry.find(row=>row.ids.includes(qs.get("a"))&&row.ids.includes(qs.get("b")));
+ const archiveTeam=(id)=>valid.has(id)?id:registryRow?resolve(registryRow.teams[registryRow.ids.indexOf(id)]):null;
+ $("home").value=archiveTeam(qs.get("a"))||resolve("Indiana")||options[0];$("away").value=archiveTeam(qs.get("b"))||resolve("Purdue")||options[1];
  const coverage=$("archive-coverage");
  coverage.textContent=[
   ...(earlySeasons?[nationalEarly.toLocaleString()+" dated men's Division I results across "+earlySeasons+" seasons from the Saint Michael’s College archive (1949–50 through 1983–84)"]:[]),
@@ -296,9 +300,14 @@ function show(){
  const url=new URL(location.href);url.searchParams.set("a",a);url.searchParams.set("b",b);history.replaceState(null,"",url);
  const mklogo=(team,element)=>{const id=currentNcaa.get(String(team));const size=element.classList.contains('small-logo')?'small':'score';element.innerHTML=id?window.MBBLogos.byNCAA(id,size,name(team)):window.MBBLogos.byName(name(team),size);element.title=name(team)+" logo"};
  $("status").textContent="Showing "+arr.length+" unique recorded games for "+name(a)+" and "+name(b)+"; "+arr.filter(g=>g.tournament==="Competition not verified").length+" lack verified competition classifications."; 
- const namedSeries=window.SLTCBBRivalries?.registry.find(row=>row.ids.includes(String(a))&&row.ids.includes(String(b))&&(row.editions.m||row.editions.w));
+ const namedSeries=window.SLTCBBRivalries?.registry.find(row=>row.teams.every(team=>[a,b].includes(resolve(team)))&&(row.editions.m||row.editions.w));
  const seriesEdition=new URLSearchParams(location.search).get("gender")==="women"?"w":"m";
  const seriesInfo=namedSeries?.editions?.[seriesEdition];
+ const archiveGender=new URLSearchParams(location.search).get("gender")==="women";
+ if(archiveGender){
+  const notice=$("archive-coverage"); if(notice)notice.textContent="Women's historical results are not yet included in this men's historical NCAA results dataset. Do not interpret these men's statistics as women's series records.";
+ }
+ 
  const seriesName=seriesInfo?.badgeName||seriesInfo?.name;
  document.querySelector("main>h1").textContent=seriesName||"Every meeting tells a story.";
  document.title=(seriesName||name(a)+" vs. "+name(b))+" | Rivalry Archive | Sporting Life & Times";
