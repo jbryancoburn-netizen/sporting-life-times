@@ -637,7 +637,7 @@ const editorialBadges=g=>{
  if(g.kind==='exhibition')return '';
  const rivalry=rivalryFor(g);
  const tags=[];
- if(rivalry?.source)tags.push('<a class="sl-editorial-badge sl-rivalry" href="'+esc(rivalry.source)+'" target="_blank" rel="noopener noreferrer" title="Verified rivalry source">RIVALRY · '+esc(rivalry.badgeName||rivalry.name)+' ↗</a>');
+ if(rivalry)tags.push('<a class="sl-editorial-badge sl-rivalry" href="'+esc(rivalryArchiveUrl(rivalry))+'" title="Explore rivalry history, records and results">RIVALRY · '+esc(rivalry.badgeName||rivalry.name)+' ↗</a>');
  if(g.phase==='upcoming'&&Number.isFinite(g.probability)){
   const underdog=Math.min(g.probability,1-g.probability),eloGap=Math.abs((rating(g.away)||1500)-(rating(g.home)||1500));
   if(underdog>=0.30&&underdog<=0.45&&eloGap>=40)
@@ -867,6 +867,7 @@ const meter=g=>{
 
 const rivalryEdition=women?'w':'m';
 const rivalryFor=g=>window.SLTCBBRivalries?.forGame(g,rivalryEdition)??null;
+const rivalryArchiveUrl=r=>'ncaam-rivalry.html?a='+encodeURIComponent(r.ids[0])+'&b='+encodeURIComponent(r.ids[1])+'&gender='+encodeURIComponent(women?'women':'men');
 const rivalryDirectory=document.getElementById('sl-rivalry-directory');
 if(rivalryDirectory&&window.SLTCBBRivalries){
  const rows=window.SLTCBBRivalries.registry.filter(row=>row.editions[rivalryEdition]);
@@ -875,7 +876,7 @@ if(rivalryDirectory&&window.SLTCBBRivalries){
   if(!rivalryDirectory.open)return;
   rivalryDirectory.querySelector('ul').innerHTML=rows.map(row=>{
    const entry=row.editions[rivalryEdition];
-   return '<li>'+esc(row.teams.join(' vs. '))+' · <a href="'+esc(entry.source)+'" target="_blank" rel="noopener noreferrer">'+esc(entry.name)+'</a></li>';
+   return '<li>'+esc(row.teams.join(' vs. '))+' · <a href="'+esc(rivalryArchiveUrl({...entry,ids:row.ids}))+'">'+esc(entry.name)+'</a></li>';
   }).join('');
  });
  rivalryDirectory.hidden=false;
@@ -885,7 +886,7 @@ const rivalryCard=r=>{
  const label=esc(r.name);
  const record=r.record?'<span style="font-size:11px;font-weight:700;letter-spacing:.02em">'+esc(r.record)+'</span>':'';
  return '<div class="ledger26-rivalry-identifier" role="note" aria-label="Historic rivalry: '+label+'" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px 10px;padding:7px 11px;background:linear-gradient(90deg,'+r.colors[0]+' 0 9px,#f7f0e2 9px calc(100% - 9px),'+r.colors[1]+' calc(100% - 9px) 100%);color:#27231e;border-bottom:2px solid #8b806a;font-family:Georgia,serif">'+
- '<span style="font-size:11px;font-weight:800;letter-spacing:.09em">★ HISTORIC RIVALRY · '+label+'</span>'+record+'</div>';
+ '<a href="'+esc(rivalryArchiveUrl(r))+'" style="font-size:11px;font-weight:800;letter-spacing:.09em;color:inherit;text-decoration:underline;text-underline-offset:3px">★ HISTORIC RIVALRY · '+label+' ↗</a>'+record+'</div>';
 };
 
 function conferenceMark(team){
