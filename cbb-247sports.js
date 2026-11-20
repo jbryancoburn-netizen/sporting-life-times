@@ -73,14 +73,22 @@
     const edition = gender === 'women' ? 'women’s' : 'men’s';
     const check = school ? wire.checked?.[schools.value] : null;
     const lastSuccess = check?.last_success_at || (check?.available ? check.at : null);
-    const timestamp = lastSuccess && Number.isFinite(Date.parse(lastSuccess))
-      ? 'Last checked ' + clock.format(new Date(lastSuccess)) + ' ET.' : '';
+    const formatTime = value => value && Number.isFinite(Date.parse(value))
+      ? clock.format(new Date(value)) + ' ET' : '';
+    const lastUpdated = formatTime(lastSuccess);
+    const lastAttempt = formatTime(check?.at);
     if (!school) {
       status.textContent = stories.length ? '' : 'No recent ' + edition + ' basketball headlines from 247Sports.';
+    } else if (stories.length) {
+      status.textContent = !check?.available || Date.now() - Date.parse(lastSuccess) > 60 * 60 * 1000
+        ? 'Showing saved headlines.' + (lastUpdated ? ' Last collected ' + lastUpdated + '.' : '')
+        : '';
     } else if (check?.available) {
-      status.textContent = [stories.length ? '' : 'No recent ' + edition + ' basketball headlines from 247Sports for ' + school + '.', timestamp].filter(Boolean).join(' ');
+      status.textContent = 'No recent ' + edition + ' basketball headlines from 247Sports for ' + school + '.';
     } else {
-      status.textContent = [check ? '247Sports was unavailable on the latest check.' : 'This school is awaiting its first 247Sports check.', timestamp].filter(Boolean).join(' ');
+      status.textContent = check
+        ? 'Couldn’t refresh this school’s headlines.' + (lastAttempt ? ' Last attempt ' + lastAttempt + '.' : '')
+        : 'This school is awaiting its first 247Sports check.';
     }
     for (const story of stories) {
       const article = document.createElement('article');

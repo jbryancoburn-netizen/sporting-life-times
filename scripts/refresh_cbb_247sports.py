@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 """Collect public 247Sports school headlines and link to their original articles."""
 import argparse
+from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
 import json
 from pathlib import Path
 import re
+from urllib.error import HTTPError
 from urllib.parse import urlsplit
 from urllib.request import Request, urlopen
 
@@ -76,23 +78,36 @@ def main():
     rotation = list(dict.fromkeys([slug for slug in priority if slug in schools] + rotation))
 
     def collect(slug):
-        path = f"/college/{slug}/news/?sport=basketball" if slug else "/news/?sport=basketball"
-        try:
-            request = Request("https://247sports.com" + path, headers={"User-Agent": "Mozilla/5.0"})
-            with urlopen(request, timeout=12) as response:
-                html = response.read(3_000_000).decode("utf-8", errors="replace")
-            if '"postTime"' not in html or '"urlSlug"' not in html:
-                return slug, None
-            return slug, headlines(html, schools, now, slug)
-        except OSError:
-            return slug, None
+        base = f"/college/{slug}" if slug else ""
+        paths = [f"{base}/news/?sport=basketball"]
+        if slug:
+            paths.append(f"{base}/")
+        failures = []
+        for index, path in enumerate(paths):
+            try:
+                request = Request("https://247sports.com" + path, headers={
+                    "User-Agent": "Mozilla/5.0", "Accept": "text/html",
+                })
+                with urlopen(request, timeout=8) as response:
+                    html = response.read(3_000_000).decode("utf-8", errors="replace")
+                if '"postTime"' in html and '"urlSlug"' in html:
+                    stories = headlines(html, schools, now, slug)
+                    if stories is not None and (not index or stories):
+                        return slug, stories, None
+                failures.append("missing school news")
+            except HTTPError as error:
+                failures.append(f"HTTP {error.code}")
+            except OSError as error:
+                failures.append(type(error).__name__)
+        return slug, None, " / ".join(failures)
 
     articles = {item["id"]: item for item in prior.get("articles", [])
                 if item.get("verified_school_origin") and item["slug"] in schools
                 and now - datetime.fromisoformat(item["published_at"]) <= timedelta(days=5)}
     successful = 0
+    failures = Counter()
     with ThreadPoolExecutor(max_workers=10) as pool:
-        for slug, stories in pool.map(collect, [None, *rotation[:args.schools]]):
+        for slug, stories, failure in pool.map(collect, [None, *rotation[:args.schools]]):
             if slug:
                 previous = checked.get(slug, {})
                 checked[slug] = {
@@ -101,9 +116,12 @@ def main():
                     else previous.get("last_success_at") or (previous.get("at") if previous.get("available") else None),
                 }
             if stories is None:
+                failures[failure] += 1
                 continue
             successful += 1
             articles.update((story["id"], story) for story in stories)
+    if failures:
+        print(f"247Sports incomplete checks: {dict(failures)}")
     if not successful:
         print("247Sports sources unavailable. Retained the last published wire.")
         return
