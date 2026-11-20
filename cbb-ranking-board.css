@@ -29,3 +29,49 @@
     outline-color: #241b14;
   }
 }
+
+/* Men's RETRO register: keep the matchups alongside the school on wide screens. */
+.rank-team-colors .rank-overline { display: none; }
+.rank-team-colors .rank-title {
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  margin-block: 10px 6px;
+}
+.rank-team-colors .rank-tabs { margin-block: 8px; }
+.rank-team-colors .rank-tabs a { padding-block: 8px; }
+.rank-team-colors .rank-table-wrap--retro .rank-table tbody tr { padding-block: 6px; }
+
+@media (min-width: 900px) {
+  .rank-team-colors .rank-table-wrap--retro .rank-table tbody tr {
+    grid-template-columns: 42px minmax(0, 1fr) 6rem 5rem;
+    column-gap: 10px;
+  }
+  .rank-team-colors .rank-table-wrap--retro .rank-table tbody td:first-child { width: auto !important; }
+  .rank-team-colors .rank-table-wrap--retro .rank-table tbody td:nth-child(2) {
+    display: grid;
+    grid-template-columns: minmax(11rem, 2fr) minmax(0, 3fr);
+    align-items: center;
+    gap: 12px;
+  }
+  .rank-team-colors .rank-school .mbb-mark { --mbb-size: 60px; }
+  .rank-team-colors .cbb-ranking-games { max-width: none; margin-top: 0; }
+  .rank-team-colors .cbb-ranking-game { padding-block: 4px; }
+  .rank-team-colors .rank-table tbody td:nth-child(3)::before,
+  .rank-team-colors .rank-table tbody td:nth-child(4)::before {
+    display: block;
+    font: 700 10px/1.3 Arial, sans-serif;
+  }
+  .rank-team-colors .rank-table tbody td:nth-child(3)::before { content: 'RETRO'; }
+  .rank-team-colors .rank-table tbody td:nth-child(4)::before { content: 'W–L'; }
+  .rank-team-colors .rank-table-wrap--retro .rank-table tbody td.rank-explanation {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(12rem, 1fr);
+    align-items: center;
+    gap: 8px 14px;
+  }
+  .rank-team-colors .rank-explanation .rank-why[open] { grid-column: 1 / -1; }
+}
+
+@media (max-width: 650px) {
+  .rank-team-colors .rank-table-wrap--retro .rank-school .mbb-mark { --mbb-size: 52px; }
+  .rank-team-colors .rank-quick-stats b { white-space: normal; }
+}
