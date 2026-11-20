@@ -77,21 +77,15 @@
 }
 
 .rank-team-colors .rank-school .rank-conference-mark {
-  box-sizing: border-box;
-  width: 48px;
-  height: 36px;
+  width: 72px;
+  height: 54px;
   flex: 0 0 auto;
   object-fit: contain;
-  padding: 3px;
-  background: #fff9ee;
-  border: 1px solid #ad9678;
-  border-radius: 3px;
 }
 @media (max-width: 650px) {
   .rank-team-colors .rank-school .rank-conference-mark {
-    width: 32px;
-    height: 26px;
-    padding: 2px;
+    width: 42px;
+    height: 32px;
   }
   .rank-team-colors .rank-school > a { overflow-wrap: anywhere; }
 }
