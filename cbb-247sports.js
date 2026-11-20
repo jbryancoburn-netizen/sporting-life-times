@@ -16,6 +16,30 @@
     return res.json();
   };
   let wire = null;
+  let refreshing = false;
+
+  async function refreshHeadlines() {
+    if (refreshing) return;
+    refreshing = true;
+    try {
+      const next = await read('data/cbb-247sports-headlines.json');
+      if (Array.isArray(next?.articles) && next.updated_at !== wire?.updated_at) {
+        wire = next;
+        render();
+      }
+    } catch {
+      if (!wire) render();
+    } finally {
+      refreshing = false;
+    }
+  }
+
+  window.setInterval(() => {
+    if (!document.hidden) refreshHeadlines();
+  }, 5 * 60 * 1000);
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) refreshHeadlines();
+  });
 
   function publisherURL(article) {
     try {
@@ -71,8 +95,8 @@
   schools.addEventListener('change', render);
   Promise.allSettled([
     read('data/cbb-247sports-team-sites.json'),
-    read('data/cbb-247sports-headlines.json')
-  ]).then(([directory, articles]) => {
+    refreshHeadlines()
+  ]).then(([directory]) => {
     if (directory.status === 'fulfilled' && Array.isArray(directory.value)) {
       for (const [slug, name] of directory.value) {
         if (!/^[a-z0-9-]+$/.test(slug) || typeof name !== 'string') continue;
@@ -81,7 +105,6 @@
       }
       schools.disabled = publishers.size === 0;
     }
-    if (articles.status === 'fulfilled' && Array.isArray(articles.value?.articles)) wire = articles.value;
     render();
   });
 })();
