@@ -296,6 +296,12 @@ function show(){
  const url=new URL(location.href);url.searchParams.set("a",a);url.searchParams.set("b",b);history.replaceState(null,"",url);
  const mklogo=(team,element)=>{const id=currentNcaa.get(String(team));const size=element.classList.contains('small-logo')?'small':'score';element.innerHTML=id?window.MBBLogos.byNCAA(id,size,name(team)):window.MBBLogos.byName(name(team),size);element.title=name(team)+" logo"};
  $("status").textContent="Showing "+arr.length+" unique recorded games for "+name(a)+" and "+name(b)+"; "+arr.filter(g=>g.tournament==="Competition not verified").length+" lack verified competition classifications."; 
+ const namedSeries=window.SLTCBBRivalries?.registry.find(row=>row.ids.includes(String(a))&&row.ids.includes(String(b))&&(row.editions.m||row.editions.w));
+ const seriesEdition=new URLSearchParams(location.search).get("gender")==="women"?"w":"m";
+ const seriesInfo=namedSeries?.editions?.[seriesEdition];
+ const seriesName=seriesInfo?.badgeName||seriesInfo?.name;
+ document.querySelector("main>h1").textContent=seriesName||"Every meeting tells a story.";
+ document.title=(seriesName||name(a)+" vs. "+name(b))+" | Rivalry Archive | Sporting Life & Times";
  $("matchup").textContent=name(a)+" vs. "+name(b);$("team-a-name").textContent=name(a);$("team-b-name").textContent=name(b);mklogo(a,$("team-a-logo"));mklogo(b,$("team-b-logo"));
  applyTheme($("hero-a"),a);applyTheme($("hero-b"),b);
  $("meetings").textContent=arr.length;$("record").textContent=wins+"–"+losses;$("recent").textContent=arr.length?arr[0].date:"None";
