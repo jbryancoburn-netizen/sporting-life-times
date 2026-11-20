@@ -60,12 +60,10 @@ def main():
     # Start with a national feed, then rotate through the publisher's school sites.
     # Prefer the earliest unchecked sites, including sites with sparse coverage.
     rotation = sorted(schools, key=lambda slug: (checked.get(slug, {}).get("at", ""), slug))
-    if not checked:
-        first = ["indiana", "duke", "connecticut", "kansas", "kentucky", "north-carolina",
-                 "purdue", "michigan-state", "michigan", "florida", "arizona",
-                 "gonzaga", "arkansas", "tennessee", "south-carolina", "iowa",
-                 "lsu", "ucla", "wright-state", "creighton", "villanova"]
-        rotation = list(dict.fromkeys([slug for slug in first if slug in schools] + rotation))
+    priority = ["indiana", "duke", "connecticut", "kansas", "kentucky", "north-carolina",
+                "purdue", "michigan-state", "michigan", "florida", "south-carolina", "iowa",
+                "lsu", "ucla"]
+    rotation = list(dict.fromkeys([slug for slug in priority if slug in schools] + rotation))
 
     def collect(slug):
         path = f"/college/{slug}/news/?sport=basketball" if slug else "/news/?sport=basketball"
