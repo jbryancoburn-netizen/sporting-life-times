@@ -2,9 +2,9 @@
   "season": "2026-27",
   "sport": "NCAA men's Division I basketball",
   "method": "Immutable prior-day and independently verified pretipoff forecasts versus verified in-season D-I finals",
-  "updated_at_utc": "2026-11-20T04:13:25+00:00",
+  "updated_at_utc": "2026-11-20T08:42:33+00:00",
   "archived_predictions": 528,
-  "pending_finals": 16,
+  "pending_finals": 8,
   "excluded_orientation_mismatches": [
     "espn:401918053",
     "espn:401919029",
@@ -15,11 +15,11 @@
     "espn:401918959"
   ],
   "summary": {
-    "games": 505,
-    "correct_winners": 366,
-    "winner_accuracy": 0.72475,
-    "margin_mae": 12.899,
-    "brier": 0.187887
+    "games": 513,
+    "correct_winners": 370,
+    "winner_accuracy": 0.72125,
+    "margin_mae": 12.9532,
+    "brier": 0.188858
   },
   "by_date": {
     "2026-11-06": {
@@ -107,11 +107,11 @@
       "brier": 0.158361
     },
     "2026-11-19": {
-      "games": 19,
-      "correct_winners": 12,
-      "winner_accuracy": 0.63158,
-      "margin_mae": 11.9474,
-      "brier": 0.22961
+      "games": 27,
+      "correct_winners": 16,
+      "winner_accuracy": 0.59259,
+      "margin_mae": 13.2593,
+      "brier": 0.235685
     }
   },
   "games": [
@@ -6963,6 +6963,20 @@
     },
     {
       "date": "2026-11-19",
+      "id": "espn:401911534",
+      "home_id": "ncaa:609765",
+      "away_id": "ncaa:609495",
+      "predicted_home_margin": -9.0,
+      "actual_home_margin": -15,
+      "absolute_margin_error": 6.0,
+      "predicted_home_win_probability": 0.284603,
+      "winner_correct": true,
+      "brier": 0.08099887,
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "captured_at_utc": "2026-11-19T20:36:46.602Z"
+    },
+    {
+      "date": "2026-11-19",
       "id": "espn:401916318",
       "home_id": "ncaa:609803",
       "away_id": "ncaa:609660",
@@ -6972,6 +6986,34 @@
       "predicted_home_win_probability": 0.719998,
       "winner_correct": true,
       "brier": 0.07840112,
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "captured_at_utc": "2026-11-19T20:36:46.602Z"
+    },
+    {
+      "date": "2026-11-19",
+      "id": "espn:401917536",
+      "home_id": "ncaa:609891",
+      "away_id": "ncaa:609510",
+      "predicted_home_margin": 11.5,
+      "actual_home_margin": -6,
+      "absolute_margin_error": 17.5,
+      "predicted_home_win_probability": 0.761097,
+      "winner_correct": false,
+      "brier": 0.57926864,
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "captured_at_utc": "2026-11-19T20:36:46.602Z"
+    },
+    {
+      "date": "2026-11-19",
+      "id": "espn:401918056",
+      "home_id": "ncaa:609651",
+      "away_id": "ncaa:609533",
+      "predicted_home_margin": -5.5,
+      "actual_home_margin": 32,
+      "absolute_margin_error": 37.5,
+      "predicted_home_win_probability": 0.368839,
+      "winner_correct": false,
+      "brier": 0.39836421,
       "forecast_model": "retro-central-elo-uncapped-v2",
       "captured_at_utc": "2026-11-19T20:36:46.602Z"
     },
@@ -7019,6 +7061,20 @@
     },
     {
       "date": "2026-11-19",
+      "id": "espn:401920349",
+      "home_id": "ncaa:609479",
+      "away_id": "ncaa:609649",
+      "predicted_home_margin": 24.5,
+      "actual_home_margin": 13,
+      "absolute_margin_error": 11.5,
+      "predicted_home_win_probability": 0.922467,
+      "winner_correct": true,
+      "brier": 0.00601137,
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "captured_at_utc": "2026-11-19T20:36:46.602Z"
+    },
+    {
+      "date": "2026-11-19",
       "id": "espn:401920413",
       "home_id": "ncaa:609608",
       "away_id": "ncaa:609546",
@@ -7028,6 +7084,20 @@
       "predicted_home_win_probability": 0.851968,
       "winner_correct": true,
       "brier": 0.02191347,
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "captured_at_utc": "2026-11-19T20:36:46.602Z"
+    },
+    {
+      "date": "2026-11-19",
+      "id": "espn:401920518",
+      "home_id": "ncaa:609582",
+      "away_id": "ncaa:609752",
+      "predicted_home_margin": 3.0,
+      "actual_home_margin": -9,
+      "absolute_margin_error": 12.0,
+      "predicted_home_win_probability": 0.572614,
+      "winner_correct": false,
+      "brier": 0.32788679,
       "forecast_model": "retro-central-elo-uncapped-v2",
       "captured_at_utc": "2026-11-19T20:36:46.602Z"
     },
@@ -7145,6 +7215,20 @@
     },
     {
       "date": "2026-11-19",
+      "id": "espn:401926773",
+      "home_id": "ncaa:609469",
+      "away_id": "ncaa:609887",
+      "predicted_home_margin": 16.5,
+      "actual_home_margin": 45,
+      "absolute_margin_error": 28.5,
+      "predicted_home_win_probability": 0.840782,
+      "winner_correct": true,
+      "brier": 0.02535037,
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "captured_at_utc": "2026-11-19T20:36:46.602Z"
+    },
+    {
+      "date": "2026-11-19",
       "id": "espn:401926814",
       "home_id": "ncaa:609550",
       "away_id": "ncaa:609539",
@@ -7154,6 +7238,34 @@
       "predicted_home_win_probability": 0.261328,
       "winner_correct": false,
       "brier": 0.54563632,
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "captured_at_utc": "2026-11-19T20:36:46.602Z"
+    },
+    {
+      "date": "2026-11-19",
+      "id": "espn:401928354",
+      "home_id": "ncaa:609822",
+      "away_id": "ncaa:609650",
+      "predicted_home_margin": -13.0,
+      "actual_home_margin": -8,
+      "absolute_margin_error": 5.0,
+      "predicted_home_win_probability": 0.208609,
+      "winner_correct": true,
+      "brier": 0.04351771,
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "captured_at_utc": "2026-11-19T20:36:46.602Z"
+    },
+    {
+      "date": "2026-11-19",
+      "id": "espn:401928388",
+      "home_id": "ncaa:609552",
+      "away_id": "ncaa:609473",
+      "predicted_home_margin": 10.0,
+      "actual_home_margin": -3,
+      "absolute_margin_error": 13.0,
+      "predicted_home_win_probability": 0.734512,
+      "winner_correct": false,
+      "brier": 0.53950788,
       "forecast_model": "retro-central-elo-uncapped-v2",
       "captured_at_utc": "2026-11-19T20:36:46.602Z"
     },
