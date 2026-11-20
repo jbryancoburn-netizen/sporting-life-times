@@ -8,7 +8,7 @@
 <nav class="rank-tabs" id="rank-tabs" aria-label="Choose rankings"><a href="?poll=retro">RETRO</a><a href="?poll=midmajor">RETRO Mid-Major Top 25</a><a href="?poll=net">NET</a><a href="?poll=ap">AP Top 25</a><a href="?poll=coaches">Coaches</a><a href="?poll=kenpom">Pomeroy</a></nav>
 <div id="rank-status" class="rank-status"></div><div id="rank-content" aria-live="polite">Loading rankings…</div></main><footer class="rank-note">Sporting Life &amp; Times · Data is not substituted across ranking systems. Each ranking keeps its own source and publication date. <a href="cbb-logo-credits.html">Historical logo credits</a>.</footer></div>
 <script src="cbb-conference-marks.js?v=1"></script><script src="basketball-desk-layout.js?v=20261119"></script><script src="cbb-ranking-games.js?v=20261118-players-era-slots"></script><script src="retro-ranking-explainer.js?v=20261115-plain-language"></script><script>
-(async()=>{'use strict';const params=new URLSearchParams(location.search),gender=params.get('gender')==='women'?'women':'men';const key=params.get('poll')||'retro',titles={retro:'RETRO Power Rankings',midmajor:'RETRO Mid-Major Top 25',net:'NCAA NET Rankings',ap:'Associated Press Top 25',coaches:'Coaches Top 25',kenpom:'Pomeroy Ratings'};const k=Object.hasOwn(titles,key)?key:'retro';document.title=(gender==='women'?'Women’s ':'Men’s ')+titles[k]+' | Sporting Life & Times';document.getElementById('rank-heading').textContent=(gender==='women'?'Women’s ':'Men’s ')+titles[k];document.body.classList.toggle('rank-retro-edition',k==='retro');const teamColors=k==='retro'&&gender==='men';document.body.classList.toggle('rank-team-colors',teamColors);for(const a of document.querySelectorAll('#rank-tabs a')){const u=new URL(a.href);u.searchParams.set('gender',gender);a.href=u.search;if(u.searchParams.get('poll')===k)a.setAttribute('aria-current','page');}
+(async()=>{'use strict';const params=new URLSearchParams(location.search),gender=params.get('gender')==='women'?'women':'men';const key=params.get('poll')||'retro',titles={retro:'RETRO Power Rankings',midmajor:'RETRO Mid-Major Top 25',net:'NCAA NET Rankings',ap:'Associated Press Top 25',coaches:'Coaches Top 25',kenpom:'Pomeroy Ratings'};const k=Object.hasOwn(titles,key)?key:'retro';document.title=(gender==='women'?'Women’s ':'Men’s ')+titles[k]+' | Sporting Life & Times';document.getElementById('rank-heading').textContent=(gender==='women'?'Women’s ':'Men’s ')+titles[k];document.body.classList.toggle('rank-retro-edition',k==='retro');const teamColors=k==='retro';document.body.classList.toggle('rank-team-colors',teamColors);for(const a of document.querySelectorAll('#rank-tabs a')){const u=new URL(a.href);u.searchParams.set('gender',gender);a.href=u.search;if(u.searchParams.get('poll')===k)a.setAttribute('aria-current','page');}
 const e=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c]));
 
 // Locally drawn geometric figures keep the numbering consistent without a font download.
@@ -34,7 +34,7 @@ const conferenceLogo=team=>{
  if(!teamColors)return '';
  const mark=window.SLTConferenceMarks?.lookup(team.conference);
  if(!mark)return '';
- const href='ncaam-conference.html?conference='+encodeURIComponent(team.conference);
+ const href=(gender==='women'?'ncaaw-conference.html':'ncaam-conference.html')+'?conference='+encodeURIComponent(team.conference);
  const logoUrl=mark.name==='Missouri Valley Conference'?'https://dbukjj6eu5tsf.cloudfront.net/sidearm.sites/mvc.sidearmsports.com/images/responsive_2021/logo_main.svg':mark.url;
  return '<a class="rank-conference-link" href="'+href+'" aria-label="'+e(mark.name)+' standings and schedules">'+
   '<img class="rank-conference-mark" src="'+e(logoUrl)+'" alt="'+e(mark.name)+'" width="84" height="54" loading="lazy"></a>';
@@ -53,7 +53,7 @@ const rankContent=document.getElementById('rank-content');
 if(teamColors){
  for(const row of rankContent.querySelectorAll('.rank-table tbody tr')){
   const schoolId=row.querySelector('.rank-school [data-espn-id]')?.dataset.espnId;
-  const palette=logos?.colorForESPN(schoolId);
+  const palette=logos?.colorForESPN?.(schoolId);
   if(/^#[0-9a-f]{6}$/i.test(palette?.primary))row.style.setProperty('--rank-school-color',palette.primary);
  }
 }
