@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "source_elo_as_of": "2026-11-17",
+  "source_elo_as_of": "2026-11-19",
   "source_forecasts_published_at": "2026-11-19T23:34:44.544240+00:00",
   "coverage": "partial_verified_finals_plus_locked_forecasts",
   "notice": "Partial schedule index only: official final ledger begins after the pinned baseline; pending fixtures are unverified until official finals arrive. A scheduled game may have already started.",
-  "verified_final_count": 3254,
+  "verified_final_count": 3266,
   "locked_forecast_count": 2849,
   "unresolved": [
     {
@@ -105,6 +105,11 @@
     {
       "match_id": "women-6679425",
       "team_id": "hillsdale-baptist",
+      "reason": "ambiguous_or_missing_division"
+    },
+    {
+      "match_id": "men-6679501",
+      "team_id": "cent-christian-mo",
       "reason": "ambiguous_or_missing_division"
     }
   ],
@@ -2280,12 +2285,12 @@
           "match_id": "men-6663805",
           "date": "2026-11-19",
           "opponent": "marshall",
-          "opponent_name": "Marshall",
           "venue": "away",
-          "status": "scheduled",
+          "status": "final",
+          "goals_for": 0,
+          "goals_against": 4,
           "source_url": "https://www.ncaa.com/game/6663805",
-          "source_type": "ncaa_di_men_2026_scoreboard",
-          "kickoff_utc": "2026-11-20T00:15:00+00:00"
+          "source_type": "verified_official_final"
         }
       ]
     },
@@ -2823,12 +2828,12 @@
           "match_id": "men-6663822",
           "date": "2026-11-19",
           "opponent": "houston-christian",
-          "opponent_name": "Houston Christian",
           "venue": "home",
-          "status": "scheduled",
+          "status": "final",
+          "goals_for": 3,
+          "goals_against": 2,
           "source_url": "https://www.ncaa.com/game/6663822",
-          "source_type": "ncaa_di_men_2026_scoreboard",
-          "kickoff_utc": "2026-11-20T00:00:00+00:00"
+          "source_type": "verified_official_final"
         }
       ]
     },
@@ -4993,12 +4998,12 @@
           "match_id": "men-6663821",
           "date": "2026-11-19",
           "opponent": "lehigh",
-          "opponent_name": "Lehigh",
           "venue": "home",
-          "status": "scheduled",
+          "status": "final",
+          "goals_for": 2,
+          "goals_against": 1,
           "source_url": "https://www.ncaa.com/game/6663821",
-          "source_type": "ncaa_di_men_2026_scoreboard",
-          "kickoff_utc": "2026-11-19T23:00:00+00:00"
+          "source_type": "verified_official_final"
         }
       ]
     },
@@ -5940,12 +5945,12 @@
           "match_id": "men-6663814",
           "date": "2026-11-19",
           "opponent": "north-carolina-st",
-          "opponent_name": "NC State",
           "venue": "away",
-          "status": "scheduled",
+          "status": "final",
+          "goals_for": 1,
+          "goals_against": 2,
           "source_url": "https://www.ncaa.com/game/6663814",
-          "source_type": "ncaa_di_men_2026_scoreboard",
-          "kickoff_utc": "2026-11-19T23:00:00+00:00"
+          "source_type": "verified_official_final"
         }
       ]
     },
@@ -6407,12 +6412,12 @@
           "match_id": "men-6663797",
           "date": "2026-11-19",
           "opponent": "fdu",
-          "opponent_name": "FDU",
           "venue": "home",
-          "status": "scheduled",
+          "status": "final",
+          "goals_for": 6,
+          "goals_against": 0,
           "source_url": "https://www.ncaa.com/game/6663797",
-          "source_type": "ncaa_di_men_2026_scoreboard",
-          "kickoff_utc": "2026-11-20T00:00:00+00:00"
+          "source_type": "verified_official_final"
         }
       ]
     },
@@ -6622,12 +6627,12 @@
           "match_id": "men-6663794",
           "date": "2026-11-19",
           "opponent": "neb-omaha",
-          "opponent_name": "Omaha",
           "venue": "home",
-          "status": "scheduled",
+          "status": "final",
+          "goals_for": 0,
+          "goals_against": 2,
           "source_url": "https://www.ncaa.com/game/6663794",
-          "source_type": "ncaa_di_men_2026_scoreboard",
-          "kickoff_utc": "2026-11-20T00:30:00+00:00"
+          "source_type": "verified_official_final"
         }
       ]
     },
@@ -9650,12 +9655,12 @@
           "match_id": "men-6663797",
           "date": "2026-11-19",
           "opponent": "cornell",
-          "opponent_name": "Cornell",
           "venue": "away",
-          "status": "scheduled",
+          "status": "final",
+          "goals_for": 0,
+          "goals_against": 6,
           "source_url": "https://www.ncaa.com/game/6663797",
-          "source_type": "ncaa_di_men_2026_scoreboard",
-          "kickoff_utc": "2026-11-20T00:00:00+00:00"
+          "source_type": "verified_official_final"
         }
       ]
     },
@@ -13176,12 +13181,12 @@
           "match_id": "men-6663822",
           "date": "2026-11-19",
           "opponent": "bryant",
-          "opponent_name": "Bryant",
           "venue": "away",
-          "status": "scheduled",
+          "status": "final",
+          "goals_for": 2,
+          "goals_against": 3,
           "source_url": "https://www.ncaa.com/game/6663822",
-          "source_type": "ncaa_di_men_2026_scoreboard",
-          "kickoff_utc": "2026-11-20T00:00:00+00:00"
+          "source_type": "verified_official_final"
         }
       ]
     },
@@ -15527,12 +15532,12 @@
           "match_id": "men-6663821",
           "date": "2026-11-19",
           "opponent": "charlotte",
-          "opponent_name": "Charlotte",
           "venue": "away",
-          "status": "scheduled",
+          "status": "final",
+          "goals_for": 1,
+          "goals_against": 2,
           "source_url": "https://www.ncaa.com/game/6663821",
-          "source_type": "ncaa_di_men_2026_scoreboard",
-          "kickoff_utc": "2026-11-19T23:00:00+00:00"
+          "source_type": "verified_official_final"
         }
       ]
     },
@@ -15714,12 +15719,12 @@
           "match_id": "men-6663817",
           "date": "2026-11-19",
           "opponent": "unc-wilmington",
-          "opponent_name": "UNCW",
           "venue": "away",
-          "status": "scheduled",
+          "status": "final",
+          "goals_for": 0,
+          "goals_against": 2,
           "source_url": "https://www.ncaa.com/game/6663817",
-          "source_type": "ncaa_di_men_2026_scoreboard",
-          "kickoff_utc": "2026-11-19T23:00:00+00:00"
+          "source_type": "verified_official_final"
         }
       ]
     },
@@ -16437,12 +16442,12 @@
           "match_id": "men-6663806",
           "date": "2026-11-19",
           "opponent": "wake-forest",
-          "opponent_name": "Wake Forest",
           "venue": "away",
-          "status": "scheduled",
+          "status": "final",
+          "goals_for": 1,
+          "goals_against": 4,
           "source_url": "https://www.ncaa.com/game/6663806",
-          "source_type": "ncaa_di_men_2026_scoreboard",
-          "kickoff_utc": "2026-11-19T23:00:00+00:00"
+          "source_type": "verified_official_final"
         }
       ]
     },
@@ -17826,12 +17831,12 @@
           "match_id": "men-6663805",
           "date": "2026-11-19",
           "opponent": "bowling-green",
-          "opponent_name": "Bowling Green",
           "venue": "home",
-          "status": "scheduled",
+          "status": "final",
+          "goals_for": 4,
+          "goals_against": 0,
           "source_url": "https://www.ncaa.com/game/6663805",
-          "source_type": "ncaa_di_men_2026_scoreboard",
-          "kickoff_utc": "2026-11-20T00:15:00+00:00"
+          "source_type": "verified_official_final"
         }
       ]
     },
@@ -19650,12 +19655,12 @@
           "match_id": "men-6663809",
           "date": "2026-11-19",
           "opponent": "saint-louis",
-          "opponent_name": "Saint Louis",
           "venue": "home",
-          "status": "scheduled",
+          "status": "final",
+          "goals_for": 1,
+          "goals_against": 0,
           "source_url": "https://www.ncaa.com/game/6663809",
-          "source_type": "ncaa_di_men_2026_scoreboard",
-          "kickoff_utc": "2026-11-20T00:30:00+00:00"
+          "source_type": "verified_official_final"
         }
       ]
     },
@@ -20364,12 +20369,12 @@
           "match_id": "men-6663794",
           "date": "2026-11-19",
           "opponent": "creighton",
-          "opponent_name": "Creighton",
           "venue": "away",
-          "status": "scheduled",
+          "status": "final",
+          "goals_for": 2,
+          "goals_against": 0,
           "source_url": "https://www.ncaa.com/game/6663794",
-          "source_type": "ncaa_di_men_2026_scoreboard",
-          "kickoff_utc": "2026-11-20T00:30:00+00:00"
+          "source_type": "verified_official_final"
         }
       ]
     },
@@ -21494,12 +21499,12 @@
           "match_id": "men-6663814",
           "date": "2026-11-19",
           "opponent": "col-of-charleston",
-          "opponent_name": "Col. of Charleston",
           "venue": "home",
-          "status": "scheduled",
+          "status": "final",
+          "goals_for": 2,
+          "goals_against": 1,
           "source_url": "https://www.ncaa.com/game/6663814",
-          "source_type": "ncaa_di_men_2026_scoreboard",
-          "kickoff_utc": "2026-11-19T23:00:00+00:00"
+          "source_type": "verified_official_final"
         }
       ]
     },
@@ -21698,12 +21703,12 @@
           "match_id": "men-6663801",
           "date": "2026-11-19",
           "opponent": "vermont",
-          "opponent_name": "Vermont",
           "venue": "away",
-          "status": "scheduled",
+          "status": "final",
+          "goals_for": 1,
+          "goals_against": 2,
           "source_url": "https://www.ncaa.com/game/6663801",
-          "source_type": "ncaa_di_men_2026_scoreboard",
-          "kickoff_utc": "2026-11-20T00:00:00+00:00"
+          "source_type": "verified_official_final"
         }
       ]
     },
@@ -26544,12 +26549,12 @@
           "match_id": "men-6663793",
           "date": "2026-11-19",
           "opponent": "syracuse",
-          "opponent_name": "Syracuse",
           "venue": "away",
-          "status": "scheduled",
+          "status": "final",
+          "goals_for": 2,
+          "goals_against": 3,
           "source_url": "https://www.ncaa.com/game/6663793",
-          "source_type": "ncaa_di_men_2026_scoreboard",
-          "kickoff_utc": "2026-11-19T23:00:00+00:00"
+          "source_type": "verified_official_final"
         }
       ]
     },
@@ -26924,12 +26929,12 @@
           "match_id": "men-6663809",
           "date": "2026-11-19",
           "opponent": "missouri-st",
-          "opponent_name": "Missouri St.",
           "venue": "away",
-          "status": "scheduled",
+          "status": "final",
+          "goals_for": 0,
+          "goals_against": 1,
           "source_url": "https://www.ncaa.com/game/6663809",
-          "source_type": "ncaa_di_men_2026_scoreboard",
-          "kickoff_utc": "2026-11-20T00:30:00+00:00"
+          "source_type": "verified_official_final"
         }
       ]
     },
@@ -31252,12 +31257,12 @@
           "match_id": "men-6663793",
           "date": "2026-11-19",
           "opponent": "sacred-heart",
-          "opponent_name": "Sacred Heart",
           "venue": "home",
-          "status": "scheduled",
+          "status": "final",
+          "goals_for": 3,
+          "goals_against": 2,
           "source_url": "https://www.ncaa.com/game/6663793",
-          "source_type": "ncaa_di_men_2026_scoreboard",
-          "kickoff_utc": "2026-11-19T23:00:00+00:00"
+          "source_type": "verified_official_final"
         }
       ]
     },
@@ -34540,12 +34545,12 @@
           "match_id": "men-6663817",
           "date": "2026-11-19",
           "opponent": "liberty",
-          "opponent_name": "Liberty",
           "venue": "home",
-          "status": "scheduled",
+          "status": "final",
+          "goals_for": 2,
+          "goals_against": 0,
           "source_url": "https://www.ncaa.com/game/6663817",
-          "source_type": "ncaa_di_men_2026_scoreboard",
-          "kickoff_utc": "2026-11-19T23:00:00+00:00"
+          "source_type": "verified_official_final"
         }
       ]
     },
@@ -35762,12 +35767,12 @@
           "match_id": "men-6663801",
           "date": "2026-11-19",
           "opponent": "north-florida",
-          "opponent_name": "North Florida",
           "venue": "home",
-          "status": "scheduled",
+          "status": "final",
+          "goals_for": 2,
+          "goals_against": 1,
           "source_url": "https://www.ncaa.com/game/6663801",
-          "source_type": "ncaa_di_men_2026_scoreboard",
-          "kickoff_utc": "2026-11-20T00:00:00+00:00"
+          "source_type": "verified_official_final"
         }
       ]
     },
@@ -36782,12 +36787,12 @@
           "match_id": "men-6663806",
           "date": "2026-11-19",
           "opponent": "longwood",
-          "opponent_name": "Longwood",
           "venue": "home",
-          "status": "scheduled",
+          "status": "final",
+          "goals_for": 4,
+          "goals_against": 1,
           "source_url": "https://www.ncaa.com/game/6663806",
-          "source_type": "ncaa_di_men_2026_scoreboard",
-          "kickoff_utc": "2026-11-19T23:00:00+00:00"
+          "source_type": "verified_official_final"
         }
       ]
     },
