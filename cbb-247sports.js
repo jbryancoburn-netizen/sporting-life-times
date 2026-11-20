@@ -70,9 +70,18 @@
       seen.add(article.slug);
       return true;
     }).slice(0, school ? 8 : 10);
-    status.textContent = stories.length ? '' : 'No recent ' +
-      (gender === 'women' ? 'women’s' : 'men’s') + ' basketball headlines from 247Sports' +
-      (school ? ' for ' + school : '') + '.';
+    const edition = gender === 'women' ? 'women’s' : 'men’s';
+    const check = school ? wire.checked?.[schools.value] : null;
+    const lastSuccess = check?.last_success_at || (check?.available ? check.at : null);
+    const timestamp = lastSuccess && Number.isFinite(Date.parse(lastSuccess))
+      ? 'Last checked ' + clock.format(new Date(lastSuccess)) + ' ET.' : '';
+    if (!school) {
+      status.textContent = stories.length ? '' : 'No recent ' + edition + ' basketball headlines from 247Sports.';
+    } else if (check?.available) {
+      status.textContent = [stories.length ? '' : 'No recent ' + edition + ' basketball headlines from 247Sports for ' + school + '.', timestamp].filter(Boolean).join(' ');
+    } else {
+      status.textContent = [check ? '247Sports was unavailable on the latest check.' : 'This school is awaiting its first 247Sports check.', timestamp].filter(Boolean).join(' ');
+    }
     for (const story of stories) {
       const article = document.createElement('article');
       article.className = 'cbb-news-story';
@@ -92,7 +101,10 @@
     }
   }
 
-  schools.addEventListener('change', render);
+  schools.addEventListener('change', () => {
+    render();
+    refreshHeadlines();
+  });
   Promise.allSettled([
     read('data/cbb-247sports-team-sites.json'),
     refreshHeadlines()

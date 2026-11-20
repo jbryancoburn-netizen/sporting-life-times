@@ -51,7 +51,7 @@ def headlines(html, schools, now, expected_school=None):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--schools", type=int, default=42)
+    parser.add_argument("--schools", type=int, default=90)
     args = parser.parse_args()
     now = datetime.now(timezone.utc)
     prior = json.loads(OUTPUT.read_text()) if OUTPUT.exists() else {}
@@ -73,7 +73,7 @@ def main():
             request = Request("https://247sports.com" + path, headers={"User-Agent": "Mozilla/5.0"})
             with urlopen(request, timeout=12) as response:
                 html = response.read(3_000_000).decode("utf-8", errors="replace")
-            if "247sports.com" not in html:
+            if '"postTime"' not in html or '"urlSlug"' not in html:
                 return slug, None
             return slug, headlines(html, schools, now, slug)
         except OSError:
@@ -85,7 +85,12 @@ def main():
     with ThreadPoolExecutor(max_workers=10) as pool:
         for slug, stories in pool.map(collect, [None, *rotation[:args.schools]]):
             if slug:
-                checked[slug] = {"at": now.isoformat(), "available": stories is not None}
+                previous = checked.get(slug, {})
+                checked[slug] = {
+                    "at": now.isoformat(), "available": stories is not None,
+                    "last_success_at": now.isoformat() if stories is not None
+                    else previous.get("last_success_at") or (previous.get("at") if previous.get("available") else None),
+                }
             if stories is None:
                 continue
             successful += 1
