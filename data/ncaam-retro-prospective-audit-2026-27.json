@@ -4,24 +4,24 @@
   "model": "retro-wider-margin-120-140-v1",
   "status": "SHADOW_ONLY",
   "summary": {
-    "games": 142,
+    "games": 147,
     "baseline": {
-      "spread_mae": 12.6092,
-      "home_score_mae": 8.9085,
-      "away_score_mae": 9.338,
-      "team_score_mae": 9.1232,
-      "total_mae": 12.993
+      "spread_mae": 12.5578,
+      "home_score_mae": 8.8095,
+      "away_score_mae": 9.2721,
+      "team_score_mae": 9.0408,
+      "total_mae": 12.9116
     },
     "wider_margin": {
-      "spread_mae": 13.2359,
-      "home_score_mae": 8.993,
-      "away_score_mae": 9.6338,
-      "team_score_mae": 9.3134,
-      "total_mae": 13.0352
+      "spread_mae": 13.1667,
+      "home_score_mae": 8.898,
+      "away_score_mae": 9.585,
+      "team_score_mae": 9.2415,
+      "total_mae": 12.9592
     }
   },
-  "pending": 50,
-  "excluded": 1,
+  "pending": 44,
+  "excluded": 2,
   "by_date": {
     "2026-11-17": {
       "games": 53,
@@ -72,6 +72,23 @@
         "away_score_mae": 10.3571,
         "team_score_mae": 9.1786,
         "total_mae": 10.0714
+      }
+    },
+    "2026-11-20": {
+      "games": 5,
+      "baseline": {
+        "spread_mae": 11.1,
+        "home_score_mae": 6,
+        "away_score_mae": 7.4,
+        "team_score_mae": 6.7,
+        "total_mae": 10.6
+      },
+      "wider_margin": {
+        "spread_mae": 11.2,
+        "home_score_mae": 6.2,
+        "away_score_mae": 8.2,
+        "team_score_mae": 7.2,
+        "total_mae": 10.8
       }
     }
   },
@@ -6726,6 +6743,111 @@
       },
       "actual_home": 71,
       "actual_away": 82
+    },
+    {
+      "id": "espn:401916122",
+      "date": "2026-11-20",
+      "home_id": "ncaa:609670",
+      "away_id": "ncaa:609483",
+      "captured_at_utc": "2026-11-20T17:19:50.446Z",
+      "tipoff_at_utc": "2026-11-20T17:30Z",
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "baseline": {
+        "margin": 6.5,
+        "home": 77,
+        "away": 71
+      },
+      "wider_margin": {
+        "margin": 8,
+        "home": 78,
+        "away": 70
+      },
+      "actual_home": 76,
+      "actual_away": 85
+    },
+    {
+      "id": "espn:401916123",
+      "date": "2026-11-20",
+      "home_id": "ncaa:609480",
+      "away_id": "ncaa:609573",
+      "captured_at_utc": "2026-11-20T17:19:50.446Z",
+      "tipoff_at_utc": "2026-11-20T20:00Z",
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "baseline": {
+        "margin": 4.5,
+        "home": 76,
+        "away": 72
+      },
+      "wider_margin": {
+        "margin": 5.5,
+        "home": 77,
+        "away": 71
+      },
+      "actual_home": 86,
+      "actual_away": 76
+    },
+    {
+      "id": "espn:401919019",
+      "date": "2026-11-20",
+      "home_id": "ncaa:609738",
+      "away_id": "ncaa:609542",
+      "captured_at_utc": "2026-11-20T17:19:50.446Z",
+      "tipoff_at_utc": "2026-11-20T19:00Z",
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "baseline": {
+        "margin": 12.5,
+        "home": 79,
+        "away": 67
+      },
+      "wider_margin": {
+        "margin": 15.5,
+        "home": 81,
+        "away": 65
+      },
+      "actual_home": 76,
+      "actual_away": 81
+    },
+    {
+      "id": "espn:401920380",
+      "date": "2026-11-20",
+      "home_id": "ncaa:609512",
+      "away_id": "ncaa:609799",
+      "captured_at_utc": "2026-11-20T17:19:50.446Z",
+      "tipoff_at_utc": "2026-11-20T20:00Z",
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "baseline": {
+        "margin": 9,
+        "home": 77,
+        "away": 68
+      },
+      "wider_margin": {
+        "margin": 11,
+        "home": 78,
+        "away": 67
+      },
+      "actual_home": 87,
+      "actual_away": 70
+    },
+    {
+      "id": "espn:401921418",
+      "date": "2026-11-20",
+      "home_id": "ncaa:609671",
+      "away_id": "ncaa:609807",
+      "captured_at_utc": "2026-11-20T17:19:50.446Z",
+      "tipoff_at_utc": "2026-11-20T17:30Z",
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "baseline": {
+        "margin": 6,
+        "home": 79,
+        "away": 73
+      },
+      "wider_margin": {
+        "margin": 7,
+        "home": 79,
+        "away": 72
+      },
+      "actual_home": 85,
+      "actual_away": 70
     }
   ]
 }
