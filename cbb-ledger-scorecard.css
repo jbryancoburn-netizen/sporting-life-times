@@ -1358,3 +1358,34 @@
  .ledger26-team-full{position:absolute;width:1px;height:1px;clip-path:inset(50%);overflow:hidden;white-space:nowrap}
  .ledger26-team-short{display:inline}
 }
+
+/* Domed glass follows the team crest without adding another color ring. */
+.ledger26-scorebug .ledger26-crest:has(> *) {
+ border-radius:50%;
+ isolation:isolate;
+ background:radial-gradient(ellipse at 45% 28%, #fff7e5 8%, #eee3ca 68%, #b4a181);
+ box-shadow:0 2px 3px #160d0966;
+}
+.ledger26-scorebug .ledger26-crest:has(> *)::after {
+ content:"";
+ position:absolute;
+ inset:0;
+ z-index:3;
+ border-radius:inherit;
+ pointer-events:none;
+ background:
+  radial-gradient(ellipse at 50% 0%, #ffffff70 0%, #ffffff20 35%, transparent 57%),
+  radial-gradient(ellipse at 50% 32%, transparent 54%, #1c120f20 100%);
+ box-shadow:inset 0 1px 1px #ffffffb0, inset 0 -2px 3px #20121165;
+}
+.ledger26-scorebug .ledger26-crest > img {
+ box-sizing:border-box;
+ padding:13%;
+}
+.ledger26-summary .ledger26-crest:has(> *):active {
+ box-shadow:0 1px 1px #160d094d;
+ transform:translateY(1px);
+}
+@media(prefers-reduced-motion:reduce) {
+ .ledger26-summary .ledger26-crest:has(> *):active { transform:none; }
+}
