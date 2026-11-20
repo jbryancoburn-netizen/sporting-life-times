@@ -43,6 +43,7 @@ function init(){
  const pickFirst=()=>$(native[kind]||'');
  let wire=null,news=null,directory=null;
  function placement(node){
+  if(kind==='cbb'&&node.parentElement?.id==='chronicle-main')return;
   const after={
    cbb:'.slt-department-band',euro:'.slt-department-band',nbl:'.nbl-edition-head',league:'.hub-intro',
    soccer:'#cs-edition-bar',echl:'.hub-intro',soccerMen:'.soccer-hero',
