@@ -56,3 +56,32 @@
 a.cbb-ranking-game { color: inherit; text-decoration: none; }
 a.cbb-ranking-game .cbb-ranking-game__opponent { text-decoration: underline; }
 a.cbb-ranking-game:hover, a.cbb-ranking-game:focus-visible { background: #eadcc4; }
+
+.cbb-ranking-form__lights {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 16px;
+}
+.cbb-ranking-form__light {
+  box-sizing: border-box;
+  display: block;
+  width: 10px;
+  height: 10px;
+  border: 1px solid #8b7156;
+  border-radius: 50%;
+}
+.cbb-ranking-form__light--win {
+  border-color: #0d653b;
+  background: #14834e;
+  box-shadow: 0 0 4px #14834e70;
+}
+.cbb-ranking-form__light--loss {
+  border-color: #8c2233;
+  background: #bd3348;
+  box-shadow: 0 0 4px #bd334870;
+}
+.cbb-ranking-form__light:focus-visible {
+  outline: 2px solid #244772;
+  outline-offset: 2px;
+}

@@ -25,12 +25,37 @@ function element(tag, className, text) {
  item.textContent = text;
  return item;
 }
-function gameSlips(last, next) {
+function formLights(recent) {
+ const form = element('span', 'cbb-ranking-game cbb-ranking-form', '');
+ form.append(element('span', 'cbb-ranking-game__label', 'Last 5'));
+ const lights = element('span', 'cbb-ranking-form__lights', '');
+ lights.setAttribute('role', 'group');
+ lights.setAttribute('aria-label', 'Last five completed games, oldest first');
+ for (let i = recent.length; i < 5; i++) {
+  const light = element('span', 'cbb-ranking-form__light', '');
+  light.setAttribute('aria-hidden', 'true');
+  lights.append(light);
+ }
+ for (const game of recent) {
+  const light = element(game.href ? 'a' : 'span',
+   'cbb-ranking-form__light cbb-ranking-form__light--' + game.kind, '');
+  const result = game.kind === 'win' ? 'Win' : 'Loss';
+  const description = [result, game.location, game.opponent, game.scoreline.slice(2), game.dateLabel].join(' ');
+  light.title = description;
+  light.setAttribute('aria-label', description);
+  if (game.href) light.href = game.href;
+  else light.setAttribute('role', 'img');
+  lights.append(light);
+ }
+ form.append(lights);
+ return form;
+}
+function gameSlips(last, next, recent) {
  const slips = element('span', 'cbb-ranking-games', '');
- for (const [title, game, empty] of [
-  ['Last game', last, 'No final available'],
-  ['Next game', next, 'No upcoming game listed']
- ]) {
+ if (recent) slips.append(formLights(recent));
+ const entries = [['Next game', next, 'No upcoming game listed']];
+ if (!recent) entries.unshift(['Last game', last, 'No final available']);
+ for (const [title, game, empty] of entries) {
   const slip = element(game?.href ? 'a' : 'span', 'cbb-ranking-game', '');
   if (game?.href) slip.href = game.href;
   slip.append(element('span', 'cbb-ranking-game__label', title));
@@ -112,7 +137,7 @@ function attach(root, gender, retro, directory) {
     score: self?.score, other: opponent?.score};
   });
  }
- async function summarize(id) {
+ async function summarize(id, showForm) {
   const calendar = await schoolGames(id);
   const today = day.format(new Date());
   const fixtures = [...(games.get(id) || []), ...calendar].filter(game =>
@@ -155,15 +180,36 @@ function attach(root, gender, retro, directory) {
    }
   }
   const time = next?.officialTime || (next?.date.endsWith('Z') && !/T(?:00:00|05:00)Z$/.test(next.date) ? tip.format(new Date(next.date)) : '');
-  const won = last && Number(last.score) > Number(last.other);
+  const result = game => {
+   const won = Number(game.score) > Number(game.other);
+   return {...describe(game), kind: won ? 'win' : 'loss',
+    scoreline: (won ? 'W ' : 'L ') + game.score + '–' + game.other};
+  };
+  const recent = [];
+  if (showForm) {
+   // The same final can appear in the RETRO ledger, verified finals and the team schedule.
+   const seenIds = new Set();
+   const seenResults = new Set();
+   for (const game of finals) {
+    const info = result(game);
+    const scoreKey = info.day + '|' + info.scoreline;
+    const duplicate = (info.href && seenIds.has(info.href)) || seenResults.has(scoreKey);
+    if (info.href) seenIds.add(info.href);
+    seenResults.add(scoreKey);
+    if (duplicate) continue;
+    recent.push(info);
+    if (recent.length === 5) break;
+   }
+  }
   return [
-   last && {...describe(last), kind: won ? 'win' : 'loss', scoreline: (won ? 'W ' : 'L ') + last.score + '–' + last.other},
-   next && {...describe(next), kind: 'next', tipoff: time && !/^T(?:BA|BD)$/i.test(time.trim()) ? time : ''}
+   last && result(last),
+   next && {...describe(next), kind: 'next', tipoff: time && !/^T(?:BA|BD)$/i.test(time.trim()) ? time : ''},
+   showForm ? recent.reverse() : null
   ];
  }
  const fill = async node => {
   const id = node.dataset.rankingGames;
-  if (!jobs.has(id)) jobs.set(id, summarize(id));
+  if (!jobs.has(id)) jobs.set(id, summarize(id, node.hasAttribute('data-ranking-form')));
   const pair = await jobs.get(id);
   if (node.isConnected) node.replaceChildren(gameSlips(...pair));
  };
