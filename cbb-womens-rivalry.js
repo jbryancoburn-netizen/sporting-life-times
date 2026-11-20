@@ -12,7 +12,7 @@
  function teamId(label){let k=norm(label);k=manual[k]||k;return data.byName.get(k)||null}
  function matchups(){return registry.slice().sort((a,b)=>a.teams.join(" ").localeCompare(b.teams.join(" ")))}
  const root=document.querySelector("main");if(!root)return;
- root.innerHTML='<div class="eyebrow">WOMEN\'S DIVISION I · RIVALRY ALMANAC</div><h1>Women\'s Rivalry Archive</h1><p class="deck">Separate women\'s game-by-game results and rivalry stories. Historic coverage begins in the 1997–98 season, with recent seasons and older results subject to source coverage.</p><div class="controls"><label for="w-series">Choose a rivalry</label><select id="w-series"></select></div><p class="notice" id="w-status" role="status">Loading women\'s results…</p><div id="w-results"></div><p class="notice">Series records count only games present in the named source files. They are not all-time records. The regular-season dataset includes conference tournament games, but does not identify those games separately.</p>';
+ root.innerHTML='<div class="eyebrow">WOMEN\'S DIVISION I · RIVALRY ALMANAC</div><h1>Women\'s Rivalry Archive</h1><p class="deck">Separate women\'s game-by-game results and rivalry stories. Results cover the 1997–98 through 2025–26 seasons. NCAA Tournament history currently runs through 2025. These are documented-period results, not all-time records.</p><div class="controls"><label for="w-series">Choose a rivalry</label><select id="w-series"></select></div><p class="notice" id="w-status" role="status">Loading women\'s results…</p><div id="w-results"></div><p class="notice">Series records count only games present in the named source files. They are not all-time records. The regular-season dataset includes conference tournament games, but does not identify those games separately.</p>';
  const womenTab=document.querySelector(".cbb-edition-switch .cbb-gender-option:last-child");const menTab=document.querySelector(".cbb-edition-switch .cbb-gender-option:first-child");
  if(womenTab){womenTab.classList.add("is-active");womenTab.setAttribute("aria-current","page")}if(menTab){menTab.classList.remove("is-active");menTab.removeAttribute("aria-current")}
  const select=$("w-series");
@@ -32,23 +32,21 @@
   '<section class="panel editorial"><div class="section-heading"><div><div class="eyebrow">The series</div><h2>'+esc(selected.editions.w.name)+'</h2></div></div><div class="extra-stats"><div><span>Recent 10</span><strong>'+lastWins+'–'+(lastTen.length-lastWins)+'</strong></div><div><span>First in dataset</span><strong>'+(oldest?oldest.season:"—")+'</strong></div><div><span>Last in dataset</span><strong>'+(recent?recent.season:"—")+'</strong></div><div><span>NCAA tournament meetings</span><strong>'+games.filter(g=>g.post).length+'</strong></div></div>'+sourceLink+'</section>'+
   '<section class="panel editorial"><div class="section-heading"><div><div class="eyebrow">From the archive</div><h2>Notable documented games</h2></div></div>'+(recent?'<p><b>Most recent:</b> '+played(recent)+'</p><p><b>First in archive:</b> '+played(oldest)+'</p><p><b>Closest finish:</b> '+played([...games].sort((a,b)=>(a.ws-a.ls)-(b.ws-b.ls))[0])+'</p>':'<p>No game was found for this pairing in the retrieved women\'s datasets. This does not mean these schools have never played.</p>')+'</section>'+
   '<section class="panel editorial"><div class="section-heading"><div><div class="eyebrow">Results book</div><h2>Meeting-by-meeting · '+games.length+' games</h2></div></div><div class="meeting-list">'+(match||'<p>No matching results in available historical files.</p>')+'</div></section>';
-  $("w-status").textContent=(data.regularLoaded?"Regular-season and conference-tournament results loaded. ":"Regular-season history unavailable; only NCAA Tournament results may be shown. ")+(data.tourneyLoaded?"NCAA Tournament results loaded. ":"NCAA Tournament history unavailable. ")+" Historical files run through 2025; 2026–27 games are not included.";
+  $("w-status").textContent=(data.regularLoaded?"Regular-season and conference-tournament results loaded. ":"Regular-season history unavailable; only NCAA Tournament results may be shown. ")+(data.tourneyLoaded?"NCAA Tournament results loaded. ":"NCAA Tournament history unavailable. ")+" Documented regular-season results cover 1998–2026 seasons; NCAA Tournament coverage currently ends with 2025. The 2026–27 season is not yet included.";
   document.title=selected.editions.w.name+" | Women's Rivalry Archive | Sporting Life & Times";
  }
  select.addEventListener("change",display);
  (async()=>{try{
-  const [teams,regular,tourney]=await Promise.allSettled([
-   get("data/rivalries/womens-teams-1998-2025.csv"),
-   get("https://raw.githubusercontent.com/ryanbiancavilla/march-ml-mania-2026/master/data/WRegularSeasonCompactResults.csv"),
-   get("data/rivalries/womens-ncaa-tournament-1998-2025.csv")
-  ]);
-  if(teams.status!=="fulfilled")throw Error("Women's school directory unavailable");
-  for(const row of csv(teams.value)){data.teams.set(row.TeamID,row.TeamName);data.byName.set(norm(row.TeamName),row.TeamID)}
-  // The two Kaggle women sources use the same NCAA school identity space.
-  const add=(rows,post)=>{for(const g of rows){const season=Number(g.Season),day=Number(g.DayNum),ws=Number(g.WScore),ls=Number(g.LScore);if(season<1998||season>2025||!Number.isFinite(ws)||!Number.isFinite(ls)||ws<=ls)continue;data.games.push({season,day,w:g.WTeamID,l:g.LTeamID,ws,ls,post})}};
-  if(regular.status==="fulfilled"&&regular.value.trim().startsWith("Season,")){add(csv(regular.value),false);data.regularLoaded=true}
-  if(tourney.status==="fulfilled"){add(csv(tourney.value),true);data.tourneyLoaded=true}
-  let requested=new URLSearchParams(location.search),pair=registry.find(row=>row.ids.includes(requested.get("a"))&&row.ids.includes(requested.get("b")));
+  const archive=JSON.parse(await get("data/rivalries/womens-registered-series-1998-2026.json"));
+  const byFeed=new Map((archive.series||[]).map(series=>[[...series.feedIds].sort().join("|"),series]));
+  const teamText=await get("data/rivalries/womens-teams-1998-2025.csv");
+  for(const row of csv(teamText)){data.teams.set(row.TeamID,row.TeamName);data.byName.set(norm(row.TeamName),row.TeamID)}
+  for(const series of byFeed.values()){
+   for(const game of series.games||[]){data.games.push({...game,post:Boolean(game.post)})}
+  }
+  data.regularLoaded=true;data.tourneyLoaded=true;
+  const requested=new URLSearchParams(location.search);
+  const pair=registry.find(row=>row.ids.includes(requested.get("a"))&&row.ids.includes(requested.get("b")));
   if(pair)select.value=pair.ids.join("|");
   display();
  }catch(err){$("w-status").textContent="Women's rivalry archive unavailable: "+err.message;console.error(err)}})();
