@@ -81,6 +81,8 @@
   height: 54px;
   flex: 0 0 auto;
   object-fit: contain;
+  /* Follow the transparent silhouette so white and dark marks stay defined. */
+  filter: drop-shadow(0 0 1px #382b21) drop-shadow(0 0 1px #fff6e5);
 }
 @media (max-width: 650px) {
   .rank-team-colors .rank-school .rank-conference-mark {
