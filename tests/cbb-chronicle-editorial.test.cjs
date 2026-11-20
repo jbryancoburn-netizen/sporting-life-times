@@ -12,7 +12,10 @@ const retro=read('cbb-chronicle-retro.js');
 const nav=read('cbb-shared-navigation.js');
 
 assert(html.indexOf('class="cbb-front-edition"')>0,'Front news section must exist');
-assert(html.indexOf('class="cbb-front-edition"')<html.indexOf('class="chronicle-desks"'),'Top stories must precede the desk links');
+const schoolHeadlines=html.indexOf('class="chronicle-school-desk"');
+const deskLinks=html.indexOf('class="chronicle-desks"');
+assert(schoolHeadlines>0&&schoolHeadlines<deskLinks,'247Sports headlines must precede the desk links');
+assert(deskLinks<html.indexOf('class="cbb-front-edition"'),'Leading Stories must follow the desk links');
 assert(html.includes('cbb-chronicle.css?v='),'Use the scoped Chronicle stylesheet');
 assert(!html.includes('<style>'),'No layered page-level CSS patches');
 assert(html.includes('class="nav cbb-universal-nav chronicle-nav"'),'Retain shared navigation and gender routing');
