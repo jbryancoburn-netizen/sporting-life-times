@@ -1,4 +1,5 @@
 (()=>{"use strict";
+if(new URLSearchParams(location.search).get("gender")==="women")return;
 const $=id=>document.getElementById(id);
 const SOURCE="https://raw.githubusercontent.com/zachmayer/kaggleNCAA/main/inst/kaggle_data/";
 const years=[2020,2021,2022,2023,2024,2025,2026],matches=[],names=new Map(),aliases=new Map(),known=new Set();
