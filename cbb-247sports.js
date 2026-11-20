@@ -122,14 +122,70 @@
     }
     if (select.options.length <= 1) return;
     desk.hidden = false;
-    select.addEventListener('change', () => {
-      sourceLink.hidden = !select.value;
-      if (select.value) {
-        sourceLink.href = select.value;
-      } else {
+    const statusLine = document.getElementById('cbb-on3-status');
+    const storyList = document.getElementById('cbb-on3-headlines');
+    if (!statusLine || !storyList) return;
+    let feeds = {};
+    let pending = false;
+    const category = gender === 'women' ? 'womens-basketball' : 'basketball';
+
+    function renderAlternative() {
+      const source = select.value;
+      storyList.replaceChildren();
+      sourceLink.hidden = !source;
+      if (!source) {
         sourceLink.removeAttribute('href');
+        statusLine.textContent = '';
+        return;
       }
+      const schoolSite = source.slice(0, -'/news/'.length);
+      sourceLink.href = schoolSite + '/category/' + category + '/news/';
+      const stories = (feeds[source]?.articles || []).filter(story =>
+        story.url.startsWith(schoolSite + '/news/') &&
+        Number.isFinite(Date.parse(story.published_at)) &&
+        Date.now() - Date.parse(story.published_at) <= 14 * 86400000
+      );
+      statusLine.textContent = stories.length ? '' : 'No recent headlines available here. Open the publisher’s basketball desk for more.';
+      for (const story of stories) {
+        const card = document.createElement('article');
+        card.className = 'cbb-news-story';
+        const meta = document.createElement('p');
+        meta.className = 'cbb-news-eyebrow';
+        meta.textContent = clock.format(new Date(story.published_at)) + ' ET' + (story.premium ? ' · Subscriber' : '');
+        const heading = document.createElement('h4');
+        const original = document.createElement('a');
+        original.href = story.url;
+        original.target = '_blank';
+        original.rel = 'noopener noreferrer';
+        original.textContent = story.title;
+        heading.append(original);
+        card.append(meta, heading);
+        storyList.append(card);
+      }
+    }
+
+    async function refreshAlternative() {
+      if (pending) return;
+      pending = true;
+      try {
+        const wire = await read('data/cbb-on3-rivals-headlines.json');
+        feeds = wire.feeds?.[gender] || {};
+      } catch {
+        // Keep the latest successful download and the direct publisher link.
+      } finally {
+        pending = false;
+        renderAlternative();
+      }
+    }
+
+    select.addEventListener('change', () => {
+      renderAlternative();
+      refreshAlternative();
     });
+    window.setInterval(() => {
+      if (!document.hidden && select.value) refreshAlternative();
+    }, 5 * 60 * 1000);
+    refreshAlternative();
   }
 
   loadAlternativeSites();

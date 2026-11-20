@@ -23,6 +23,8 @@ on:
       - 'data/mbb-external-top25.json'
       - 'data/cbb-national-news.json'
       - 'data/cbb-247sports-headlines.json'
+      - 'data/cbb-on3-rivals-*.json'
+      - 'scripts/refresh_cbb_on3_headlines.py'
       - 'scripts/verify_cbb_news.py'
       - 'tests/cbb-front-news.test.cjs'
       # Direct source or verified rating updates should publish immediately.
@@ -371,6 +373,9 @@ jobs:
                   path.write_bytes(prior)
                   print('::warning::247Sports refresh did not produce a fresh usable wire; retaining the previous headlines.')
           PY
+      - name: Refresh On3 and Rivals school basketball headlines
+        continue-on-error: true
+        run: python3 scripts/refresh_cbb_on3_headlines.py
       - name: Refresh the CBB national wire if the scheduled collector fell behind
         run: |
           if ! python3 scripts/verify_cbb_news.py --max-age 60; then
