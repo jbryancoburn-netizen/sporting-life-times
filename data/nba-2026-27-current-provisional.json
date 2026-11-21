@@ -2,7 +2,7 @@
   "league": "NBA",
   "season": "2026-27",
   "status": "provisional_live_from_historical_baseline",
-  "games_played": 233,
+  "games_played": 235,
   "preseason_status": "provisional_historical_regression_only",
   "source": "ESPN FINAL NBA regular-season scores; Sporting Life & Times independent Elo",
   "rankings": [
@@ -16,7 +16,7 @@
     },
     {
       "team": "LAL",
-      "elo": 1631.286
+      "elo": 1633.83
     },
     {
       "team": "OKC",
@@ -31,10 +31,6 @@
       "elo": 1616.276
     },
     {
-      "team": "HOU",
-      "elo": 1612.749
-    },
-    {
       "team": "DET",
       "elo": 1609.589
     },
@@ -43,8 +39,12 @@
       "elo": 1600.727
     },
     {
+      "team": "HOU",
+      "elo": 1599.178
+    },
+    {
       "team": "DEN",
-      "elo": 1578.409
+      "elo": 1591.979
     },
     {
       "team": "POR",
@@ -124,7 +124,7 @@
     },
     {
       "team": "SAC",
-      "elo": 1307.319
+      "elo": 1304.776
     }
   ],
   "events": [
@@ -2224,6 +2224,24 @@
       "away_score": 111,
       "date": "2026-11-21T02:30:00.000Z",
       "home_elo_change": -8.571953
+    },
+    {
+      "id": "espn-nba-401909312",
+      "home": "DEN",
+      "away": "HOU",
+      "home_score": 133,
+      "away_score": 124,
+      "date": "2026-11-21T03:00:00.000Z",
+      "home_elo_change": 13.570591
+    },
+    {
+      "id": "espn-nba-401909313",
+      "home": "LAL",
+      "away": "SAC",
+      "home_score": 106,
+      "away_score": 104,
+      "date": "2026-11-21T03:00:00.000Z",
+      "home_elo_change": 2.543442
     }
   ],
   "movement": {
@@ -2231,14 +2249,14 @@
     "daily_change": {
       "SAS": 0,
       "NYK": 0,
-      "LAL": 0,
+      "LAL": 2.543442,
       "OKC": 4.182653,
       "BOS": 0,
       "PHI": 0,
-      "HOU": 0,
       "DET": -19.472916,
       "MIN": 0,
-      "DEN": 0,
+      "HOU": -13.570591,
+      "DEN": 13.570591,
       "POR": 0,
       "ATL": 9.651919,
       "MIA": 0,
@@ -2258,20 +2276,20 @@
       "UTA": -8.571953,
       "BKN": -7.503195,
       "MIL": 0,
-      "SAC": 0
+      "SAC": -2.543442
     },
     "last_week_eastern_date": "2026-11-13",
     "last_week_elo": {
       "SAS": 1692.999,
       "NYK": 1610.742,
-      "LAL": 1642.098,
+      "LAL": 1642.099,
       "OKC": 1636.946,
       "BOS": 1653.209,
       "PHI": 1593.017,
-      "HOU": 1616.227,
       "DET": 1620.21,
       "MIN": 1617.396,
-      "DEN": 1576.743,
+      "HOU": 1616.226,
+      "DEN": 1576.742,
       "POR": 1591.191,
       "ATL": 1517.036,
       "MIA": 1506.112,
