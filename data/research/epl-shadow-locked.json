@@ -113,6 +113,22 @@
         "log_loss": 1.3734857910951361
       }
     },
+    "401879233": {
+      "away": "Fulham",
+      "away_score": 1,
+      "baseline": {
+        "brier": 0.88995119501112,
+        "log_loss": 1.3862943611198906
+      },
+      "fixture_id": "401879233",
+      "home": "Manchester City",
+      "home_score": 1,
+      "outcome": "draw",
+      "research": {
+        "brier": 0.8705300160366696,
+        "log_loss": 1.3893225961190958
+      }
+    },
     "401879239": {
       "away": "Chelsea",
       "away_score": 0,
@@ -1347,19 +1363,19 @@
   "schema_version": 1,
   "status": "research_only_not_for_live_promotion",
   "summary": {
-    "graded_count": 20,
+    "graded_count": 21,
     "locked_count": 60,
-    "new_grades": 0,
-    "new_locks": 3,
+    "new_grades": 1,
+    "new_locks": 0,
     "note": "Paired pregame outcomes only; a small sample cannot validate superiority.",
     "scores": {
       "baseline": {
-        "brier": 0.59518,
-        "log_loss": 0.997603
+        "brier": 0.609217,
+        "log_loss": 1.016112
       },
       "research": {
-        "brier": 0.601799,
-        "log_loss": 1.006477
+        "brier": 0.614596,
+        "log_loss": 1.024708
       }
     }
   }
