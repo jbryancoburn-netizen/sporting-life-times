@@ -624,6 +624,7 @@
   return history.length?{games:history.length,lastFive:history}:null;
  }
  const formGameLink=value=>{
+  if(/^epl-match-report\.html\?game=\d+$/.test(value||''))return value;
   const href=String(value||'');
   return /^(?:cbb-gamefile\.html\?(?:gender=women&)?day=\d{4}-\d{2}-\d{2}&game=\d{1,12}|ncaam-slate\.html\?(?:gender=women&)?date=\d{4}-\d{2}-\d{2}&game=\d{1,12}|nba-game-center\.html\?game=(?:espn-nba-)?\d{1,12}|d2-game\.html\?gender=(?:men|women)&game=[a-z0-9%_-]+)$/i.test(href)?href:'';
  };
@@ -636,7 +637,7 @@
  function render(input){
   const g=input||{},phase=['live','final','upcoming'].includes(g.phase)?g.phase:'upcoming';
   const label=(phase==='final'?
-    (/^FINAL(?:\s*\/\s*OT|\s*\(OT\)|\s+AFTER\s+EXTRA\s+TIME)?$/i.test(String(g.status||''))?g.status:'FINAL'):
+    (/^FINAL(?:\s*\/\s*OT|\s*\(OT\)|\s+AFTER\s+EXTRA\s+TIME)?$/i.test(String(g.status||''))?g.status:(g.fullTimeLabel||'FINAL')):
     phase==='upcoming'?([g.tipoff||g.time,g.network||g.tv].filter(Boolean).join(' · ')):g.status||'LIVE');
   const team=t=>{
    const x=t||{},poll=x.poll||null;
@@ -678,7 +679,7 @@
    const ppg=profile&&Number.isFinite(profile.pointsFor)?profile.pointsFor.toFixed(1):null;
    const papg=profile&&Number.isFinite(profile.pointsAgainst)?profile.pointsAgainst.toFixed(1):null;
    const history=profile&&Array.isArray(profile.lastFive)?profile.lastFive.filter(v=>
-     v==='W'||v==='L'||(v&&typeof v==='object'&&(v.result==='W'||v.result==='L'))):[];
+     (typeof v==='string'?v:v?.result)==='D'?g.allowDraws:['W','L'].includes(typeof v==='string'?v:v?.result)):[];
    const allOutcomes=history.map(v=>typeof v==='string'?v:v.result);
    const finalForm=allOutcomes.at(-1);
    const streakBreak=allOutcomes.findLastIndex(result=>result!==finalForm);
@@ -687,14 +688,14 @@
    const form=history.slice(-5),outcomes=allOutcomes.slice(-5);
    const scout=profile&&(ppg!==null||papg!==null||form.length)?
     '<small class="ledger26-scout" title="2026–27 verified regular-season finals: '+profile.games+' games">'+
-    (ppg!==null?'<span class="ledger26-scout-stat">'+esc(ppg)+' PPG</span>':'')+
+    (ppg!==null?'<span class="ledger26-scout-stat">'+esc(ppg)+esc(g.scoringUnit||' PPG')+'</span>':'')+
     (papg!==null?'<span class="ledger26-scout-stat ledger26-scout-defense">'+esc(papg)+' allowed</span>':'')+
     (form.length?'<span class="ledger26-form-run"><span class="ledger26-form" aria-label="Last '+form.length+' verified games, oldest to newest: '+outcomes.join(', ')+'">'+form.map(v=>{
       const outcome=typeof v==='string'?v:v.result;
       const hasScore=typeof v==='object'&&v!==null&&Number.isFinite(Number(v.scored))&&Number.isFinite(Number(v.allowed));
       const opponent=typeof v==='object'&&v!==null?String(v.opponent||'Opponent'):'Opponent';
       const date=typeof v==='object'&&v!==null?String(v.date||''):'';
-      const result=outcome==='W'?'Win':'Loss';
+      const result={W:'Win',D:'Draw',L:'Loss'}[outcome];
       const detail=hasScore?(date+' · '+result+' vs '+opponent+' · '+v.scored+'–'+v.allowed):result;
       const href=typeof v==='object'&&v!==null?formGameLink(v.gameHref):'';
       return href?'<a class="ledger26-form-bulb ledger26-form-'+outcome.toLowerCase()+'" href="'+esc(href)+'" title="'+esc(detail)+'" aria-label="'+esc(detail+'; open game')+'" onclick="event.stopPropagation()"></a>':
@@ -703,7 +704,7 @@
     (streakLabel?'<span class="ledger26-streak" title="Current verified streak">'+esc(streakLabel)+'</span>':'')+'</span>':'')+
     '</small>':'';
 
-   const href=/^ncaam-team\.html\?team=ncaa%3A\d+$|^ncaaw-team\.html\?team=\d+$|^d2-team\.html\?gender=(?:men|women)&team=[a-z0-9-]+$|^d3-(?:mens|womens)-basketball\.html\?team=[a-z0-9-]+$|^nba-team-desk\.html\?team=[a-z]{3}$|^euroleague\.html\?view=desks&club=[a-z]{3}$/i.test(String(x.teamHref||''))?x.teamHref:'';
+   const href=/^ncaam-team\.html\?team=ncaa%3A\d+$|^ncaaw-team\.html\?team=\d+$|^d2-team\.html\?gender=(?:men|women)&team=[a-z0-9-]+$|^d3-(?:mens|womens)-basketball\.html\?team=[a-z0-9-]+$|^epl-club\.html\?club=\d+$|^nba-team-desk\.html\?team=[a-z]{3}$|^euroleague\.html\?view=desks&club=[a-z]{3}$/i.test(String(x.teamHref||''))?x.teamHref:'';
    const label=esc(x.name||'School');
    const visibleName=x.compactName&&x.compactName!==x.name?
     '<span class="ledger26-team-full">'+label+'</span><span class="ledger26-team-short" aria-hidden="true">'+esc(x.compactName)+'</span>':label;
@@ -781,7 +782,7 @@
     (phase==='final'&&g.compactFinal?'<div class="ledger26-live-headline"><strong>'+esc(label)+'</strong>'+
       (finalResult(g)?' · '+esc(finalResult(g)):'')+'</div>':'')+
     '<div class="ledger26-teams'+(phase==='final'&&!g.compactFinal?' ledger26-teams--final-line':'')+'">'+team(g.away)+middle+team(g.home)+'</div>'+
-    (middle?'':phase==='live'?(g.pulseManagedExternally?'':livePanel(g,label)):phase==='upcoming'?pregamePanel(g):'')+(g.showRetroDesk||phase==='final'&&!g.compactFinal?finalRetroDesk(g):'')+receipt+(phase==='upcoming'&&!g.suppressPress?preview(g).split('<dialog')[0]:'')+'</div>';
+    (middle?'':phase==='live'?(g.pulseManagedExternally||g.liveStatusOverride?'':livePanel(g,label)):phase==='upcoming'?pregamePanel(g):'')+(g.showRetroDesk||phase==='final'&&!g.compactFinal?finalRetroDesk(g):'')+receipt+(phase==='upcoming'&&!g.suppressPress?preview(g).split('<dialog')[0]:'')+'</div>';
  }
  // The Daily Ledger is the universal newspaper model, not a separate sport skin.
  // Keep the old alias for existing college basketball pages.

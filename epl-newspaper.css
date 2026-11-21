@@ -332,3 +332,50 @@ body.epl-newspaper .hub-match a:hover{text-decoration:underline}
  body.epl-newspaper .hub-match-teams{min-height:105px}
  body.epl-newspaper .hub-club-link img{width:56px!important;height:56px!important}
 }
+
+/* Matchday uses the Daily Ledger scorecard and soccer-specific match detail. */
+.epl-newspaper .epl-ledger-section { margin-block: 1.5rem; }
+.epl-newspaper .epl-ledger-section > h3 {
+  border-bottom: 1px solid var(--line);
+  margin: 0;
+  padding-bottom: .35rem;
+}
+.epl-newspaper .epl-master-card .ledger26-crest > img.epl-crest {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: transparent;
+  padding: 0;
+  border: 0;
+}
+.epl-newspaper .epl-master-card .ledger26-form-d { background: #d5a547; }
+.epl-retro-forecast {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .3rem .7rem;
+  padding: .55rem .75rem;
+  border-top: 1px solid #c7af8c;
+  background: #f5e6c8;
+  color: #38291d;
+  font: 600 .78rem/1.4 Georgia, serif;
+}
+.epl-stat-bar {
+  display: flex;
+  gap: 2px;
+  width: 100%;
+  height: 5px;
+  margin-top: 4px;
+}
+.epl-stat-bar i:first-child { background: var(--epl-away-stat, #4b6175); }
+.epl-stat-bar i:last-child { background: var(--epl-home-stat, #8c4635); }
+.epl-team-sheets {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .75rem;
+}
+.epl-team-sheets h4 { margin: .5rem 0 .25rem; }
+.epl-team-sheets ul { padding-inline-start: 1rem; }
+.epl-player-box { margin-block: .65rem; }
+.epl-player-box summary { cursor: pointer; font-weight: 600; }
+.epl-match-stats .epl-player-box th:first-child { width: 26%; text-align: left; }
+.epl-match-stats .epl-player-box :is(th,td) { padding-inline: .2rem; }

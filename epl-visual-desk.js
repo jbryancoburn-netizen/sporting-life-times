@@ -22,7 +22,7 @@ const forecastData=await readJson('data/epl-match-center.json').catch(e=>{consol
 const f={fixtures:Array.isArray(forecastData?.fixtures)?forecastData.fixtures:[],recent_results:Array.isArray(forecastData?.recent_results)?forecastData.recent_results:[]};
 // Forecast exports may omit finals. The verified season ledger owns results.
 const resultSource=Array.isArray(r.season_results)?r.season_results:f.recent_results;
-if(!Array.isArray(resultSource))throw Error('Verified EPL results unavailable');
+if(!Array.isArray(resultSource)||(!resultSource.length&&r.completed_matches>0))throw Error('Verified EPL results unavailable');
 const recentResults=[...resultSource].sort((a,b)=>Date.parse(b.kickoff_utc)-Date.parse(a.kickoff_utc)).slice(0,18);
 // Forecast providers use full club names; reconcile identities by stable club ID.
 const nameById=Object.fromEntries(Object.entries(FIXED_IDS).map(([name,id])=>[id,name]));
@@ -36,33 +36,87 @@ const rankFor=new Map(ratingOrder.map(([name,value],i)=>{
  return [name,(tied?'T-':'#')+tie];
 }));
 const standingByName=new Map(r.standings.map(t=>[t.club,t]));
-function eplLedger(g,done){
- const away=typeof g.away==='string'?{name:g.away,id:idByTeam[g.away]}:g.away;
- const home=typeof g.home==='string'?{name:g.home,id:idByTeam[g.home]}:g.home;
- const side=(t,points)=>{
-  const st=standingByName.get(t.name),elo=r.ratings[t.name];
-  return {name:t.name,score:done?points:null,crest:crest(t.name,t.id),
-   color:COLORS[t.name]||'#655239',
-   record:st?st.won+'–'+st.drawn+'–'+st.lost:'Record unavailable',
-   retro:Number.isFinite(Number(elo))?'RETRO '+Math.round(Number(elo))+
-    (rankFor.get(t.name)?' ('+rankFor.get(t.name)+')':''):'RETRO —'};
- };
- const bug=window.SLTSportsScorebug?.render({phase:done?'final':'upcoming',
-   time:done?'':date(g.kickoff_utc)+' ET',network:g.network||g.broadcast||'',away:side(away,g.away_score),home:side(home,g.home_score)
- })||'<p>Scorebug unavailable.</p>';
- const path=done?'epl-match-report.html?game='+encodeURIComponent(g.fixture_id):
-   'match-center.html?league=Premier%20League&game='+encodeURIComponent(g.fixture_id);
- return '<article class="ledger26-card epl-master-card" data-epl-fixture="'+esc(g.fixture_id)+'">'+
-  '<div class="ledger26-meta"><span>'+esc(g.venue||'Premier League')+'</span>'+
-  '<span>'+esc(date(g.kickoff_utc))+' ET</span></div>'+
-  '<details class="ledger26-expand"><summary class="ledger26-summary">'+bug+
-  '<span class="ledger26-instruction">MATCH STATS · CLICK TO EXPAND +</span></summary>'+
-  '<div class="ledger26-expanded epl-match-stats" aria-live="polite"><p class="epl-stats-note">Open this game to load match statistics.</p></div>'+
+const resultHistory=[...resultSource].sort((a,b)=>Date.parse(a.kickoff_utc)-Date.parse(b.kickoff_utc));
+const forecastById=new Map(fixtures.map(g=>[String(g.fixture_id),g]));
+const crestUrl=id=>/^\d+$/.test(id||'')?'https://a.espncdn.com/i/teamlogos/soccer/500/'+id+'.png':'';
+const report=id=>'epl-match-report.html?game='+encodeURIComponent(id);
+function dispatch(id,phase){
+ if(!/^\d+$/.test(id||'')||phase==='upcoming')return '';
+ const href=phase==='live'?'live-game.html?league=epl&game='+id:report(id);
+ return '<a href="'+esc(href)+'">'+(phase==='live'?'Live dispatch':'Match report')+'</a>';
+}
+function side(t,score,kickoff){
+ const id=t.id||FIXED_IDS[t.name],name=nameById[id]||t.name;
+ const past=resultHistory.filter(g=>g.kickoff_utc&&Date.parse(g.kickoff_utc)<Date.parse(kickoff)&&(g.home===name||g.away===name));
+ const form=past.map(g=>{
+  const home=g.home===name,scored=Number(home?g.home_score:g.away_score),allowed=Number(home?g.away_score:g.home_score);
+  return {result:scored===allowed?'D':scored>allowed?'W':'L',scored,allowed,
+   opponent:home?g.away:g.home,date:date(g.kickoff_utc),gameHref:report(g.fixture_id)};
+ });
+ const record=['W','D','L'].map(result=>form.filter(game=>game.result===result).length).join('–');
+ const average=key=>form.length?form.reduce((sum,game)=>sum+game[key],0)/form.length:null;
+ const elo=r.ratings[name];
+ return {name,compactName:t.abbreviation,score,crest:crest(name,id),watermarkArt:crestUrl(id),teamHref:id?'epl-club.html?club='+id:'',
+  color:COLORS[name]||t.color||'#655239',record,
+  retro:Number.isFinite(elo)?'RETRO '+Math.round(elo)+(rankFor.get(name)?' ('+rankFor.get(name)+')':''):'RETRO —',
+  scouting:{games:form.length,lastFive:form,pointsFor:average('scored'),pointsAgainst:average('allowed')}};
+}
+function matchForecast(g){
+ const projected=g?.projected_score,p=g?.probabilities;
+ if(!p||!['away','draw','home'].every(key=>Number.isFinite(p[key])&&p[key]>=0&&p[key]<=1))return '';
+ return '<div class="epl-retro-forecast"><strong>RETRO pregame</strong><span>'+Math.round(100*p.away)+'% away · '+Math.round(100*p.draw)+'% draw · '+Math.round(100*p.home)+'% home</span>'+
+  (Number.isFinite(projected?.away)&&Number.isFinite(projected?.home)?'<span>Projected '+projected.away+'–'+projected.home+'</span>':'')+'</div>';
+}
+function scorebug(g,phase){
+ const resolve=t=>typeof t==='string'?{name:t,id:idByTeam[t]}:t;
+ const away=side(resolve(g.away),g.away_score,g.kickoff_utc),home=side(resolve(g.home),g.home_score,g.kickoff_utc);
+ const bug=window.SLTSportsScorebug?.render({phase,status:phase==='final'?'FULL TIME':g.status,fullTimeLabel:'FULL TIME',
+  liveStatusOverride:g.status||'LIVE',time:date(g.kickoff_utc)+' ET',suppressPress:true,compactFinal:true,
+  suppressMonogram:true,allowDraws:true,scoringUnit:' GF/match',away,home,ariaLabel:away.name+' at '+home.name+' scorecard'})||
+  '<p>Scorecard unavailable.</p>';
+ return bug+(phase==='final'?'':matchForecast(forecastById.get(String(g.fixture_id))));
+}
+function eplLedger(g,phase){
+ return '<article class="ledger26-card epl-master-card" data-phase="'+phase+'" data-epl-fixture="'+esc(g.fixture_id)+'">'+
+  '<div class="ledger26-meta"><span>'+esc(g.venue||'Premier League')+'</span><span>'+esc(date(g.kickoff_utc))+' ET</span><span class="epl-report-link">'+dispatch(g.fixture_id,phase)+'</span></div>'+
+  '<details class="ledger26-expand"><summary class="ledger26-summary"><div class="epl-scorebug-content">'+scorebug(g,phase)+'</div>'+
+  '<span class="ledger26-instruction">MATCH DETAILS</span></summary>'+
+  '<div class="ledger26-expanded epl-match-stats"><p class="epl-stats-note">Open this match to load its statistics.</p></div>'+
   '</details></article>';
 }
-const upcomingTiles=upcomingGames.slice(0,4).map(g=>eplLedger(g,false)).join('');
-const finals=recentResults.slice(0,6).map(g=>eplLedger(g,true)).join('');
-const rail='<div class="epl-score-rail">'+upcomingTiles+finals+'</div>';
+const slate=(phase,title,games)=>'<section class="epl-ledger-section" data-epl-phase="'+phase+'"'+(games.length?'':' hidden')+'><h3>'+title+
+ '</h3><div class="epl-score-rail">'+games.map(g=>eplLedger(g,phase)).join('')+'</div></section>';
+const rail=slate('live','Live matches',[])+slate('upcoming','Upcoming fixtures',upcomingGames.slice(0,10))+
+ slate('final','Latest finals',recentResults.slice(0,6));
+function updateScores(events){
+ const mount=document.getElementById('epl-score-rail');
+ if(!mount?.querySelector)return;
+ for(const g of events){
+  const phase=g.phase;
+  if(!/^\d+$/.test(g.fixture_id))continue;
+  const section=mount.querySelector('[data-epl-phase="'+phase+'"]');
+  if(!section)continue;
+  const grid=section.querySelector('.epl-score-rail');
+  let card=mount.querySelector('[data-epl-fixture="'+g.fixture_id+'"]');
+  if(!card){
+   grid.insertAdjacentHTML(phase==='upcoming'?'beforeend':'afterbegin',eplLedger(g,phase));
+   card=mount.querySelector('[data-epl-fixture="'+g.fixture_id+'"]');
+  }else{
+   const content=card.querySelector('.epl-scorebug-content'),html=scorebug(g,phase);
+   if(content.dataset.rendered!==html){
+    content.innerHTML=html;
+    content.dataset.rendered=html;
+   }
+   card.querySelector('.ledger26-meta span').textContent=g.venue||'Premier League';
+   if(card.dataset.phase!==phase)card.querySelector('.epl-report-link').innerHTML=dispatch(g.fixture_id,phase);
+   card.dataset.phase=phase;
+   if(card.parentElement!==grid)grid.prepend(card);
+  }
+ }
+ mount.querySelectorAll('[data-epl-phase]').forEach(group=>{
+  group.hidden=!group.querySelector('[data-epl-fixture]');
+ });
+}
 const sorted=Object.entries(r.ratings).sort((a,b)=>b[1]-a[1]);const min=Math.min(...sorted.map(x=>x[1])),max=Math.max(...sorted.map(x=>x[1]));
 const pulse=(id,value)=>{const node=document.getElementById(id);if(node)node.textContent=value;};
 const leader=r.standings[0];if(leader)pulse('epl-pulse-leader',leader.club+' · '+leader.points+' pts');
@@ -92,7 +146,10 @@ const defense=[...r.standings].filter(t=>t.played>0).sort((a,b)=>a.ga/a.played-b
 const compact=register(r.standings,false);
 const full='<details class="slt-full-table"><summary>Open full statistical table · GF, GA, GD, form</summary>'+table+'</details>';
 const target=id=>document.getElementById(id);
-if(target('epl-score-rail'))target('epl-score-rail').innerHTML=rail||'<p>Verified finals are not available in this match snapshot.</p>';
+if(target('epl-score-rail')){
+ window.EPLMatchday={updateScores};
+ target('epl-score-rail').innerHTML=rail;
+}
 if(target('epl-table-board'))target('epl-table-board').innerHTML=section('League Table','ORDERED BY LEAGUE POINTS',compact+full);
 if(target('epl-power-board'))target('epl-power-board').innerHTML=section('RETRO Power 20','ORDERED BY INDEPENDENT RETRO',power);
 if(target('epl-attack-board'))target('epl-attack-board').innerHTML=section('Best attacks','GOALS SCORED',attacks);
@@ -107,6 +164,7 @@ if(status)status.textContent='Results through '+r.as_of_date+' · '+r.completed_
 }catch(e){
  console.error('EPL dashboard rendering failed:',e);
  if(status)status.textContent='EPL standings data currently unavailable.';
+ if(root&&root!==status)root.innerHTML='<p role="status">EPL standings data currently unavailable.</p>';
  for(const id of ['epl-table-board','epl-power-board','epl-attack-board','epl-defense-board','epl-score-rail','epl-club-directory']){
   const mount=document.getElementById(id);
   if(mount)mount.innerHTML='<p role="status">Verified Premier League data could not be loaded. Please try again shortly.</p>';
