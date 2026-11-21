@@ -379,3 +379,9 @@ body.epl-newspaper .hub-match a:hover{text-decoration:underline}
 .epl-player-box summary { cursor: pointer; font-weight: 600; }
 .epl-match-stats .epl-player-box th:first-child { width: 26%; text-align: left; }
 .epl-match-stats .epl-player-box :is(th,td) { padding-inline: .2rem; }
+.epl-master-card[data-phase="live"] .ledger26-scorebug {
+  grid-template-columns: minmax(0, 1fr);
+}
+.epl-master-card .ledger26-meta > span:nth-child(2) { text-align: right; }
+.epl-master-card .epl-report-link { grid-column: 1 / -1; }
+.epl-master-card .epl-report-link:empty { display: none; }
