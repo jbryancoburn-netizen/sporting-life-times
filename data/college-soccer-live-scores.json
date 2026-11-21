@@ -1,8 +1,21 @@
 {
   "schema_version": 1,
-  "checked_at_utc": "2026-11-21T10:20:44.176460+00:00",
+  "checked_at_utc": "2026-11-21T17:37:05.547073+00:00",
   "source": "NCAA scoreboard via ncaa-api compatibility endpoint",
   "games": [
+    {
+      "match_id": "men-6662464",
+      "cohort": "men-d3",
+      "status": "live",
+      "home_score": 2,
+      "away_score": 1,
+      "home_name": "Williams",
+      "away_name": "Trinity (TX)",
+      "home_id": "williams",
+      "away_id": "trinity-tx",
+      "period": "2ND HALF",
+      "source_url": "https://www.ncaa.com/game/6662464"
+    },
     {
       "match_id": "men-6662466",
       "cohort": "men-d3",
@@ -28,6 +41,19 @@
       "away_id": "calvin",
       "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6662467"
+    },
+    {
+      "match_id": "men-6662468",
+      "cohort": "men-d3",
+      "status": "live",
+      "home_score": 2,
+      "away_score": 2,
+      "home_name": "Middlebury",
+      "away_name": "Cortland",
+      "home_id": "middlebury",
+      "away_id": "suny-cortland",
+      "period": "2ND HALF",
+      "source_url": "https://www.ncaa.com/game/6662468"
     },
     {
       "match_id": "men-6662542",
@@ -80,6 +106,19 @@
       "away_id": "maryville-mo",
       "period": "FINAL (OT)",
       "source_url": "https://www.ncaa.com/game/6662545"
+    },
+    {
+      "match_id": "men-6662547",
+      "cohort": "men-d2",
+      "status": "live",
+      "home_score": 0,
+      "away_score": 0,
+      "home_name": "Catawba",
+      "away_name": "Emory & Henry",
+      "home_id": "catawba",
+      "away_id": "emory-henry",
+      "period": "1ST HALF",
+      "source_url": "https://www.ncaa.com/game/6662547"
     },
     {
       "match_id": "men-6662548",
@@ -210,6 +249,32 @@
       "away_id": "concordia-irvine",
       "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6662705"
+    },
+    {
+      "match_id": "women-6663168",
+      "cohort": "women-d3",
+      "status": "live",
+      "home_score": 0,
+      "away_score": 4,
+      "home_name": "Dickinson",
+      "away_name": "Messiah",
+      "home_id": "dickinson",
+      "away_id": "messiah",
+      "period": "2ND HALF",
+      "source_url": "https://www.ncaa.com/game/6663168"
+    },
+    {
+      "match_id": "women-6663170",
+      "cohort": "women-d3",
+      "status": "live",
+      "home_score": 1,
+      "away_score": 0,
+      "home_name": "WashU",
+      "away_name": "Wis.-La Crosse",
+      "home_id": "washington-st-louis",
+      "away_id": "wis-la-crosse",
+      "period": "1ST HALF",
+      "source_url": "https://www.ncaa.com/game/6663170"
     },
     {
       "match_id": "women-6663172",
