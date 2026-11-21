@@ -1,7 +1,7 @@
 {
   "player_snapshot": {
     "scope": "published_match_reports_only",
-    "matches_covered": 100,
+    "matches_covered": 101,
     "goals": [
       {
         "player": "Erling Haaland",
@@ -254,6 +254,11 @@
         "count": 2
       },
       {
+        "player": "Rodrigo Muniz",
+        "team": "Fulham",
+        "count": 2
+      },
+      {
         "player": "Tyrick Mitchell",
         "team": "Crystal Palace",
         "count": 2
@@ -391,6 +396,11 @@
       {
         "player": "Eddie Nketiah",
         "team": "Crystal Palace",
+        "count": 1
+      },
+      {
+        "player": "Elliot Anderson",
+        "team": "Manchester City",
         "count": 1
       },
       {
@@ -631,11 +641,6 @@
       {
         "player": "Riccardo Calafiori",
         "team": "Arsenal",
-        "count": 1
-      },
-      {
-        "player": "Rodrigo Muniz",
-        "team": "Fulham",
         "count": 1
       },
       {
@@ -1201,6 +1206,11 @@
         "count": 1
       },
       {
+        "player": "Oscar Bobb",
+        "team": "Fulham",
+        "count": 1
+      },
+      {
         "player": "Pedro Neto",
         "team": "Chelsea",
         "count": 1
@@ -1314,7 +1324,7 @@
     "own_goals_not_counted": 13,
     "note": "Event-derived from the published match-report window, not official season leaderboards; unresolved player names are excluded."
   },
-  "updated_at": "2026-11-21T11:48:49.662292+00:00",
+  "updated_at": "2026-11-21T19:14:40.220425+00:00",
   "source": "ESPN event summary; third-party match facts only, not Elo",
   "matches": {
     "401878768": {
@@ -47906,13 +47916,430 @@
         }
       ],
       "source_url": "https://www.espn.com/soccer/match/_/gameId/401879240"
+    },
+    "401879233": {
+      "home": "Manchester City",
+      "away": "Fulham",
+      "home_score": 1,
+      "away_score": 1,
+      "kickoff_utc": "2026-11-21T12:30:00+00:00",
+      "teams": [
+        {
+          "team": "Manchester City",
+          "statistics": [
+            {
+              "name": "foulsCommitted",
+              "displayValue": "8",
+              "label": "Fouls"
+            },
+            {
+              "name": "yellowCards",
+              "displayValue": "1",
+              "label": "Yellow Cards"
+            },
+            {
+              "name": "redCards",
+              "displayValue": "0",
+              "label": "Red Cards"
+            },
+            {
+              "name": "offsides",
+              "displayValue": "2",
+              "label": "Offsides"
+            },
+            {
+              "name": "wonCorners",
+              "displayValue": "8",
+              "label": "Corner Kicks"
+            },
+            {
+              "name": "saves",
+              "displayValue": "3",
+              "label": "Saves"
+            },
+            {
+              "name": "possessionPct",
+              "displayValue": "58.5",
+              "label": "Possession"
+            },
+            {
+              "name": "totalShots",
+              "displayValue": "15",
+              "label": "SHOTS"
+            },
+            {
+              "name": "shotsOnTarget",
+              "displayValue": "3",
+              "label": "ON GOAL"
+            },
+            {
+              "name": "shotPct",
+              "displayValue": "0.2",
+              "label": "On Target %"
+            },
+            {
+              "name": "penaltyKickGoals",
+              "displayValue": "0",
+              "label": "Penalty Goals"
+            },
+            {
+              "name": "penaltyKickShots",
+              "displayValue": "0",
+              "label": "Penalty Kicks Taken"
+            },
+            {
+              "name": "accuratePasses",
+              "displayValue": "522",
+              "label": "Accurate Passes"
+            },
+            {
+              "name": "totalPasses",
+              "displayValue": "590",
+              "label": "Passes"
+            },
+            {
+              "name": "passPct",
+              "displayValue": "0.9",
+              "label": "Pass Completion %"
+            },
+            {
+              "name": "accurateCrosses",
+              "displayValue": "5",
+              "label": "Accurate Crosses"
+            },
+            {
+              "name": "totalCrosses",
+              "displayValue": "17",
+              "label": "Crosses"
+            },
+            {
+              "name": "crossPct",
+              "displayValue": "0.3",
+              "label": "Cross %"
+            },
+            {
+              "name": "totalLongBalls",
+              "displayValue": "45",
+              "label": "Long Balls"
+            },
+            {
+              "name": "accurateLongBalls",
+              "displayValue": "24",
+              "label": "Accurate Long Balls"
+            },
+            {
+              "name": "longballPct",
+              "displayValue": "0.5",
+              "label": "Long Balls %"
+            },
+            {
+              "name": "blockedShots",
+              "displayValue": "8",
+              "label": "Blocked Shots"
+            },
+            {
+              "name": "effectiveTackles",
+              "displayValue": "9",
+              "label": "Effective Tackles"
+            },
+            {
+              "name": "totalTackles",
+              "displayValue": "19",
+              "label": "Tackles"
+            },
+            {
+              "name": "tacklePct",
+              "displayValue": "0.5",
+              "label": "Tackle %"
+            },
+            {
+              "name": "interceptions",
+              "displayValue": "6",
+              "label": "Interceptions"
+            },
+            {
+              "name": "effectiveClearance",
+              "displayValue": "20",
+              "label": "Effective Clearances"
+            },
+            {
+              "name": "totalClearance",
+              "displayValue": "20",
+              "label": "Clearances"
+            }
+          ]
+        },
+        {
+          "team": "Fulham",
+          "statistics": [
+            {
+              "name": "foulsCommitted",
+              "displayValue": "11",
+              "label": "Fouls"
+            },
+            {
+              "name": "yellowCards",
+              "displayValue": "3",
+              "label": "Yellow Cards"
+            },
+            {
+              "name": "redCards",
+              "displayValue": "0",
+              "label": "Red Cards"
+            },
+            {
+              "name": "offsides",
+              "displayValue": "2",
+              "label": "Offsides"
+            },
+            {
+              "name": "wonCorners",
+              "displayValue": "6",
+              "label": "Corner Kicks"
+            },
+            {
+              "name": "saves",
+              "displayValue": "2",
+              "label": "Saves"
+            },
+            {
+              "name": "possessionPct",
+              "displayValue": "41.5",
+              "label": "Possession"
+            },
+            {
+              "name": "totalShots",
+              "displayValue": "5",
+              "label": "SHOTS"
+            },
+            {
+              "name": "shotsOnTarget",
+              "displayValue": "4",
+              "label": "ON GOAL"
+            },
+            {
+              "name": "shotPct",
+              "displayValue": "0.8",
+              "label": "On Target %"
+            },
+            {
+              "name": "penaltyKickGoals",
+              "displayValue": "0",
+              "label": "Penalty Goals"
+            },
+            {
+              "name": "penaltyKickShots",
+              "displayValue": "0",
+              "label": "Penalty Kicks Taken"
+            },
+            {
+              "name": "accuratePasses",
+              "displayValue": "344",
+              "label": "Accurate Passes"
+            },
+            {
+              "name": "totalPasses",
+              "displayValue": "418",
+              "label": "Passes"
+            },
+            {
+              "name": "passPct",
+              "displayValue": "0.8",
+              "label": "Pass Completion %"
+            },
+            {
+              "name": "accurateCrosses",
+              "displayValue": "3",
+              "label": "Accurate Crosses"
+            },
+            {
+              "name": "totalCrosses",
+              "displayValue": "13",
+              "label": "Crosses"
+            },
+            {
+              "name": "crossPct",
+              "displayValue": "0.2",
+              "label": "Cross %"
+            },
+            {
+              "name": "totalLongBalls",
+              "displayValue": "50",
+              "label": "Long Balls"
+            },
+            {
+              "name": "accurateLongBalls",
+              "displayValue": "20",
+              "label": "Accurate Long Balls"
+            },
+            {
+              "name": "longballPct",
+              "displayValue": "0.4",
+              "label": "Long Balls %"
+            },
+            {
+              "name": "blockedShots",
+              "displayValue": "1",
+              "label": "Blocked Shots"
+            },
+            {
+              "name": "effectiveTackles",
+              "displayValue": "18",
+              "label": "Effective Tackles"
+            },
+            {
+              "name": "totalTackles",
+              "displayValue": "30",
+              "label": "Tackles"
+            },
+            {
+              "name": "tacklePct",
+              "displayValue": "0.6",
+              "label": "Tackle %"
+            },
+            {
+              "name": "interceptions",
+              "displayValue": "7",
+              "label": "Interceptions"
+            },
+            {
+              "name": "effectiveClearance",
+              "displayValue": "23",
+              "label": "Effective Clearances"
+            },
+            {
+              "name": "totalClearance",
+              "displayValue": "23",
+              "label": "Clearances"
+            }
+          ]
+        }
+      ],
+      "players": [],
+      "events": [
+        {
+          "clock": "",
+          "text": "First Half begins.",
+          "type": "Kickoff",
+          "team": null
+        },
+        {
+          "clock": "7'",
+          "text": "Alex Iwobi (Fulham) is shown the yellow card for a bad foul.",
+          "type": "Yellow Card",
+          "team": "Fulham"
+        },
+        {
+          "clock": "16'",
+          "text": "Goal! Manchester City 0, Fulham 1. Rodrigo Muniz (Fulham) right footed shot from the centre of the box to the top right corner. Assisted by Oscar Bobb.",
+          "type": "Goal",
+          "team": "Fulham"
+        },
+        {
+          "clock": "22'",
+          "text": "Calvin Bassey (Fulham) is shown the yellow card for a bad foul.",
+          "type": "Yellow Card",
+          "team": "Fulham"
+        },
+        {
+          "clock": "44'",
+          "text": "Shea Charles (Fulham) is shown the yellow card for a bad foul.",
+          "type": "Yellow Card",
+          "team": "Fulham"
+        },
+        {
+          "clock": "45'+2'",
+          "text": null,
+          "type": "Halftime",
+          "team": null
+        },
+        {
+          "clock": "45'",
+          "text": null,
+          "type": "Start 2nd Half",
+          "team": null
+        },
+        {
+          "clock": "57'",
+          "text": "Goal! Manchester City 1, Fulham 1. Elliot Anderson (Manchester City) right footed shot from outside the box to the centre of the goal following a corner.",
+          "type": "Goal - Volley",
+          "team": "Manchester City"
+        },
+        {
+          "clock": "70'",
+          "text": "Substitution, Fulham. Hugo Larsson replaces Josh King.",
+          "type": "Substitution",
+          "team": "Fulham"
+        },
+        {
+          "clock": "70'",
+          "text": "Substitution, Fulham. Antonee Robinson replaces Alex Iwobi.",
+          "type": "Substitution",
+          "team": "Fulham"
+        },
+        {
+          "clock": "70'",
+          "text": "Substitution, Manchester City. Rayan Cherki replaces Phil Foden.",
+          "type": "Substitution",
+          "team": "Manchester City"
+        },
+        {
+          "clock": "76'",
+          "text": "Gianluigi Donnarumma (Manchester City) is shown the yellow card.",
+          "type": "Yellow Card",
+          "team": "Manchester City"
+        },
+        {
+          "clock": "78'",
+          "text": "Substitution, Fulham. Gonzalo García replaces Oscar Bobb.",
+          "type": "Substitution",
+          "team": "Fulham"
+        },
+        {
+          "clock": "78'",
+          "text": "Substitution, Manchester City. Allan replaces Iliman Ndiaye.",
+          "type": "Substitution",
+          "team": "Manchester City"
+        },
+        {
+          "clock": "78'",
+          "text": "Substitution, Manchester City. Josko Gvardiol replaces Nico O'Reilly.",
+          "type": "Substitution",
+          "team": "Manchester City"
+        },
+        {
+          "clock": "83'",
+          "text": "Substitution, Fulham. César Palacios replaces Ryan Sessegnon.",
+          "type": "Substitution",
+          "team": "Fulham"
+        },
+        {
+          "clock": "83'",
+          "text": "Substitution, Fulham. Tom Cairney replaces Rodrigo Muniz.",
+          "type": "Substitution",
+          "team": "Fulham"
+        },
+        {
+          "clock": "85'",
+          "text": "Substitution, Manchester City. Enzo Fernández replaces Ayyoub Bouaddi.",
+          "type": "Substitution",
+          "team": "Manchester City"
+        },
+        {
+          "clock": "90'+4'",
+          "text": null,
+          "type": "End Regular Time",
+          "team": null
+        }
+      ],
+      "source_url": "https://www.espn.com/soccer/match/_/gameId/401879233"
     }
   },
   "fetch_status": {
-    "successful": 0,
+    "successful": 1,
     "failed": {},
-    "attempted": 0,
-    "season_finals": 100,
-    "detailed_reports": 100
+    "attempted": 1,
+    "season_finals": 101,
+    "detailed_reports": 101
   }
 }
