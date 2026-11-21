@@ -2,7 +2,7 @@
   "league": "NBA",
   "season": "2026-27",
   "status": "provisional_live_from_historical_baseline",
-  "games_played": 232,
+  "games_played": 233,
   "preseason_status": "provisional_historical_regression_only",
   "source": "ESPN FINAL NBA regular-season scores; Sporting Life & Times independent Elo",
   "rankings": [
@@ -64,7 +64,7 @@
     },
     {
       "team": "PHX",
-      "elo": 1518.368
+      "elo": 1526.94
     },
     {
       "team": "ORL",
@@ -112,7 +112,7 @@
     },
     {
       "team": "UTA",
-      "elo": 1328.292
+      "elo": 1319.72
     },
     {
       "team": "BKN",
@@ -2215,6 +2215,15 @@
       "away_score": 120,
       "date": "2026-11-21T01:00:00.000Z",
       "home_elo_change": 4.182653
+    },
+    {
+      "id": "espn-nba-401909311",
+      "home": "UTA",
+      "away": "PHX",
+      "home_score": 101,
+      "away_score": 111,
+      "date": "2026-11-21T02:30:00.000Z",
+      "home_elo_change": -8.571953
     }
   ],
   "movement": {
@@ -2234,7 +2243,7 @@
       "ATL": 9.651919,
       "MIA": 0,
       "CLE": 6.116435,
-      "PHX": 0,
+      "PHX": 8.571953,
       "ORL": 7.503195,
       "MEM": 0,
       "TOR": 19.472916,
@@ -2246,7 +2255,7 @@
       "NOP": -4.182653,
       "IND": -6.116435,
       "WAS": 16.730007,
-      "UTA": 0,
+      "UTA": -8.571953,
       "BKN": -7.503195,
       "MIL": 0,
       "SAC": 0
