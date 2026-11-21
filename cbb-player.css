@@ -26,11 +26,11 @@ a:focus-visible, summary:focus-visible, [tabindex="0"]:focus-visible { outline: 
 .player-register-header {
   --player-team-primary: #35505a;
   --player-team-secondary: #aa8551;
-  --player-team-dark: color-mix(in srgb, var(--player-team-primary) 35%, #111923);
+  --player-team-dark: color-mix(in srgb, var(--player-team-primary) 23%, #111923);
   --player-team-portrait: color-mix(in srgb, var(--player-team-primary) 75%, #35404a);
   position: relative; isolation: isolate; display: flex; align-items: center; justify-content: space-between;
   gap: 0 1rem; min-height: 14rem; padding: 1.65rem clamp(1rem, 4vw, 3rem);
-  background: linear-gradient(to right, var(--player-team-dark) 57%, var(--player-team-portrait));
+  background: linear-gradient(to right, var(--player-team-dark) 62%, var(--player-team-portrait));
   color: #fff9ee;
   border-block-start: 3px solid var(--player-team-secondary); overflow: hidden;
 }
