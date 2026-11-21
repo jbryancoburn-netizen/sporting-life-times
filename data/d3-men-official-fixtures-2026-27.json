@@ -3,7 +3,7 @@
   "division": "d3",
   "gender": "men",
   "season": "2026-27",
-  "generated_utc": "2026-11-20T17:00:11.613157+00:00",
+  "generated_utc": "2026-11-21T01:33:16.742124+00:00",
   "source": "NCAA 2026-27 member directory + year/gender-validated official school athletics calendars",
   "scope": "NCAA membership-wide first pass; sources without independently validated 2026-27 schedules excluded",
   "ncaa_confirmed_programs": 406,
@@ -2328,7 +2328,7 @@
       "verified_member_opponents": 18,
       "excluded_rows": {},
       "approved_at": "2024-10-08",
-      "university_source_failure": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
+      "university_source_failure": "HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not ",
       "university_source_status": "failed"
     },
     {
@@ -6608,8 +6608,8 @@
     {
       "owner_org_id": 23260,
       "source_url": "https://www.spaldingathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "readable_rows": 26,
-      "verified_member_opponents": 19,
+      "readable_rows": 27,
+      "verified_member_opponents": 20,
       "excluded_rows": {
         "identity_not_d3_matched_but_posted": 3,
         "conditional_or_ambiguous_opponent": 4
@@ -6915,10 +6915,10 @@
     {
       "owner_org_id": 30038,
       "source_url": "https://www.blcvikings.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "readable_rows": 25,
+      "readable_rows": 27,
       "verified_member_opponents": 15,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 10
+        "identity_not_d3_matched_but_posted": 12
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -8185,9 +8185,9 @@
       ]
     }
   ],
-  "fixture_count": 4411,
+  "fixture_count": 4412,
   "reciprocal_fixtures": 2633,
-  "unresolved_opponent_fixture_count": 1662,
+  "unresolved_opponent_fixture_count": 1663,
   "unresolved_opponent_fixtures": [
     {
       "id": "d3-men-2026-11-06-18-other-7e7a67cf3608",
@@ -19033,21 +19033,6 @@
       "source_url": "https://www.albrightathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true",
       "tipoff_as_posted": "4:00 PM",
       "venue_location": "READING / George C. Bollman Center"
-    },
-    {
-      "id": "d3-men-2026-12-29-121-other-ae8c069e090a",
-      "date": "2026-12-29",
-      "source_owner_org_id": 121,
-      "external_opponent_label": "Spalding University (Ky.)",
-      "placement": "home",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://athletics.carthage.edu/sports/mens-basketball/schedule?grid=true",
-      "tipoff_as_posted": "2 p.m.",
-      "venue_location": "Kenosha, Wis. / Tarble Arena"
     },
     {
       "id": "d3-men-2026-12-29-126-other-f8b71cb85494",
@@ -31365,6 +31350,21 @@
       "venue_location": "TBD"
     },
     {
+      "id": "d3-men-2027-02-24-30038-other-36cc83bafec7",
+      "date": "2027-02-24",
+      "source_owner_org_id": 30038,
+      "external_opponent_label": "UMAC Playoffs",
+      "placement": "home",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://www.blcvikings.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "TBA",
+      "venue_location": "TBD"
+    },
+    {
       "id": "d3-men-2027-02-24-30172-other-028b9cc57570",
       "date": "2027-02-24",
       "source_owner_org_id": 30172,
@@ -32202,6 +32202,21 @@
       "source_kind": "official_school",
       "source_url": "https://www.mountieathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "1:00 PM",
+      "venue_location": "TBD"
+    },
+    {
+      "id": "d3-men-2027-02-27-30038-other-cd68c931716e",
+      "date": "2027-02-27",
+      "source_owner_org_id": 30038,
+      "external_opponent_label": "UMAC Playoffs",
+      "placement": "home",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://www.blcvikings.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "TBA",
       "venue_location": "TBD"
     },
     {
@@ -37686,7 +37701,7 @@
       "venue_location": "St. Louis, Mo.",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "L, 74-89",
+      "tournament": "",
       "neutral_home_designation_unconfirmed": true
     },
     {
@@ -45375,7 +45390,7 @@
       ],
       "source_kind": "official_conference",
       "source_verification": "single_official_conference",
-      "tipoff_as_posted": "4:00 P.M.",
+      "tipoff_as_posted": "",
       "venue": "",
       "venue_location": "Sherman, TX",
       "network_as_posted": "",
@@ -50042,7 +50057,7 @@
       "venue_location": "Abilene, Texas",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 90-82",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -50644,7 +50659,7 @@
       "venue_location": "Cobleskill, NY",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 83-72",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -52654,7 +52669,7 @@
       "source_kind": "official_school",
       "source_verification": "single_official_school",
       "tipoff_as_posted": "3 p.m.",
-      "venue": "",
+      "venue": "Wicomico County Civic Center",
       "venue_location": "Salisbury, MD",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -52732,7 +52747,7 @@
       "venue_location": "Springfield, Mass.",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "Hampton Inn Holiday Classic",
+      "tournament": "Fairfield Inn Holiday Classic",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -54266,7 +54281,7 @@
       "source_kind": "official_school",
       "source_verification": "single_official_school",
       "tipoff_as_posted": "1 p.m.",
-      "venue": "",
+      "venue": "Wicomico County Civic Center",
       "venue_location": "Salisbury, MD",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -56407,7 +56422,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7:00 PM",
+      "tipoff_as_posted": "7:05 PM",
       "venue": "Lillis Athletic & Wellness Center",
       "venue_location": "Dubuque, Iowa",
       "network_as_posted": "",
@@ -67836,7 +67851,7 @@
       "home_org_id": 9684,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.mecathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://seueagles.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://seueagles.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.mecathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true"
@@ -67847,9 +67862,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7:30pm",
+      "tipoff_as_posted": "7:30 PM",
       "venue": "",
-      "venue_location": "Saint Joseph Hall (Morristown, NJ)",
+      "venue_location": "/ Saint Joseph Hall",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -78313,6 +78328,30 @@
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "Emory Holiday Classic",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-12-29-121-23260",
+      "date": "2026-12-29",
+      "away_org_id": 23260,
+      "home_org_id": 121,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.spaldingathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://www.spaldingathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        23260
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "3:00 PM ET",
+      "venue": "",
+      "venue_location": "Kenosha, WI",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -143195,7 +143234,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "5 p.m.",
+      "tipoff_as_posted": "3:30 p.m.",
       "venue": "Johnson Fieldhouse",
       "venue_location": "Menomonie, Wis.",
       "network_as_posted": "",

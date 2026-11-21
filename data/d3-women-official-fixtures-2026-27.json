@@ -3,7 +3,7 @@
   "division": "d3",
   "gender": "women",
   "season": "2026-27",
-  "generated_utc": "2026-11-20T17:01:25.508154+00:00",
+  "generated_utc": "2026-11-21T01:34:08.934532+00:00",
   "source": "NCAA 2026-27 member directory + year/gender-validated official school athletics calendars",
   "scope": "NCAA membership-wide first pass; sources without independently validated 2026-27 schedules excluded",
   "ncaa_confirmed_programs": 415,
@@ -3936,9 +3936,10 @@
       "owner_org_id": 571,
       "source_url": "https://www.goanchormen.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "readable_rows": 25,
-      "verified_member_opponents": 23,
+      "verified_member_opponents": 22,
       "excluded_rows": {
-        "conditional_or_ambiguous_opponent": 2
+        "conditional_or_ambiguous_opponent": 2,
+        "identity_not_d3_matched_but_posted": 1
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -5617,10 +5618,10 @@
     {
       "owner_org_id": 1044,
       "source_url": "https://www.udallasathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "readable_rows": 27,
+      "readable_rows": 26,
       "verified_member_opponents": 19,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 8
+        "identity_not_d3_matched_but_posted": 7
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -7317,10 +7318,10 @@
     {
       "owner_org_id": 30038,
       "source_url": "https://www.blcvikings.com/sports/womens-basketball/schedule?grid=true",
-      "readable_rows": 26,
+      "readable_rows": 28,
       "verified_member_opponents": 14,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 11,
+        "identity_not_d3_matched_but_posted": 13,
         "conditional_or_ambiguous_opponent": 1
       },
       "status": "parsed",
@@ -8373,9 +8374,9 @@
       ]
     }
   ],
-  "fixture_count": 4545,
+  "fixture_count": 4544,
   "reciprocal_fixtures": 2717,
-  "unresolved_opponent_fixture_count": 1574,
+  "unresolved_opponent_fixture_count": 1576,
   "unresolved_opponent_fixtures": [
     {
       "id": "d3-women-2026-11-06-73-other-3415eb321a6f",
@@ -13476,21 +13477,6 @@
       "source_url": "https://www.letsgopioneers.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "2:30 PM",
       "venue_location": "Platteville, WI / Bo Ryan Court"
-    },
-    {
-      "id": "d3-women-2026-11-21-1044-other-15c4867c1499",
-      "date": "2026-11-21",
-      "source_owner_org_id": 1044,
-      "external_opponent_label": "Bethesda University",
-      "placement": "neutral",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://www.udallasathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "4:30PM",
-      "venue_location": "Pasadena, CA"
     },
     {
       "id": "d3-women-2026-11-21-1062-other-cd7ac94a59a8",
@@ -18981,6 +18967,21 @@
       "source_url": "https://ncwsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "2:00 PM",
       "venue_location": "Elon, NC / Schar Center"
+    },
+    {
+      "id": "d3-women-2026-12-29-571-other-1d50e5c714c5",
+      "date": "2026-12-29",
+      "source_owner_org_id": 571,
+      "external_opponent_label": "Rutgers-Camden",
+      "placement": "neutral",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://www.goanchormen.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "3:30 PM",
+      "venue_location": "Daytona, FL"
     },
     {
       "id": "d3-women-2026-12-29-578-other-c8193c161af1",
@@ -30368,6 +30369,21 @@
       "venue_location": "/ Becknell Gymnasium"
     },
     {
+      "id": "d3-women-2027-02-24-30038-other-36cc83bafec7",
+      "date": "2027-02-24",
+      "source_owner_org_id": 30038,
+      "external_opponent_label": "UMAC Playoffs",
+      "placement": "home",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://www.blcvikings.com/sports/womens-basketball/schedule?grid=true",
+      "tipoff_as_posted": "TBA",
+      "venue_location": "TBD"
+    },
+    {
       "id": "d3-women-2027-02-25-42-other-293ea8fbe4d2",
       "date": "2027-02-25",
       "source_owner_org_id": 42,
@@ -31116,6 +31132,21 @@
       "source_url": "https://www.transysports.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "TBD",
       "venue_location": ""
+    },
+    {
+      "id": "d3-women-2027-02-27-30038-other-cd68c931716e",
+      "date": "2027-02-27",
+      "source_owner_org_id": 30038,
+      "external_opponent_label": "UMAC Playoffs",
+      "placement": "home",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://www.blcvikings.com/sports/womens-basketball/schedule?grid=true",
+      "tipoff_as_posted": "TBA",
+      "venue_location": "TBD"
     },
     {
       "id": "d3-women-2027-02-27-30041-other-7f76c774bbd0",
@@ -42554,7 +42585,7 @@
       "venue_location": "Amherst, MA",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "Amherst Tipoff Tournament",
+      "tournament": "Ken Wright Invitational",
       "neutral_home_designation_unconfirmed": true
     },
     {
@@ -43436,7 +43467,7 @@
       "venue_location": "Mankato, Minn.",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "W, 87-59",
+      "tournament": "",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -48640,7 +48671,7 @@
       "source_kind": "official_school",
       "source_verification": "single_official_school",
       "tipoff_as_posted": "5:30 PM",
-      "venue": "",
+      "venue": "Woodward Center",
       "venue_location": "Westfield, MA",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -48744,7 +48775,7 @@
       "venue_location": "Alumni Gymnasium",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "L, 54-67",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -49016,7 +49047,7 @@
       "venue_location": "Springfield, Mass.",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "Hampton Inn Holiday Classic",
+      "tournament": "Fairfield Inn Holiday Classic",
       "neutral_home_designation_unconfirmed": true
     },
     {
@@ -49448,7 +49479,7 @@
       "venue_location": "Springfield, Mass.",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "Hampton Inn Holiday Classic",
+      "tournament": "Fairfield Inn Holiday Classic",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -51454,30 +51485,6 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
-      "id": "d3-women-2026-11-21-449-569",
-      "date": "2026-11-21",
-      "away_org_id": 569,
-      "home_org_id": 449,
-      "neutral": false,
-      "status": "scheduled",
-      "source_url": "https://newmacsports.com/schedule.aspx?schedule=3965",
-      "official_schedule_sources": [
-        "https://newmacsports.com/schedule.aspx?schedule=3965"
-      ],
-      "verified_by_org_ids": [
-        449
-      ],
-      "source_kind": "official_conference",
-      "source_verification": "single_official_conference",
-      "tipoff_as_posted": "1:00 P.M.",
-      "venue": "",
-      "venue_location": "",
-      "network_as_posted": "",
-      "radio_as_posted": "",
-      "tournament": "",
-      "neutral_home_designation_unconfirmed": false
-    },
-    {
       "id": "d3-women-2026-11-21-451-1468",
       "date": "2026-11-21",
       "away_org_id": 1468,
@@ -52709,7 +52716,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "single_official_school",
-      "tipoff_as_posted": "12:00 PM",
+      "tipoff_as_posted": "5:00 PM",
       "venue": "",
       "venue_location": "Eureka, IL",
       "network_as_posted": "",
@@ -78311,7 +78318,7 @@
       "source_verification": "reciprocal",
       "tipoff_as_posted": "4:00 PM EST",
       "venue": "",
-      "venue_location": "Puerto Rico",
+      "venue_location": "Caguas, PR | Coliseo Roger Luis Mendoza",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "Puerto Rico Clasico",
@@ -78536,30 +78543,6 @@
       "tipoff_as_posted": "3:30 p.m.",
       "venue": "",
       "venue_location": "Daytona Beach, FL",
-      "network_as_posted": "",
-      "radio_as_posted": "",
-      "tournament": "",
-      "neutral_home_designation_unconfirmed": true
-    },
-    {
-      "id": "d3-women-2026-12-29-571-611",
-      "date": "2026-12-29",
-      "away_org_id": 571,
-      "home_org_id": 611,
-      "neutral": true,
-      "status": "scheduled",
-      "source_url": "https://www.goanchormen.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "official_schedule_sources": [
-        "https://www.goanchormen.com/sports/womens-basketball/schedule/2026-27?grid=true"
-      ],
-      "verified_by_org_ids": [
-        571
-      ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
-      "tipoff_as_posted": "3:30 PM",
-      "venue": "",
-      "venue_location": "Daytona, FL",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -79131,7 +79114,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "3:00 PM",
+      "tipoff_as_posted": "1:00 PM",
       "venue": "",
       "venue_location": "New York, NY (New York University)",
       "network_as_posted": "",
@@ -79413,7 +79396,7 @@
       "source_verification": "reciprocal",
       "tipoff_as_posted": "2:30 PM EST",
       "venue": "",
-      "venue_location": "Puerto Rico",
+      "venue_location": "Caguas, PR | Coliseo Roger Luis Mendoza",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "Puerto Rico Clasico",
@@ -93530,6 +93513,30 @@
       "tipoff_as_posted": "6 pm",
       "venue": "Hunter Sportsplex",
       "venue_location": "New York, N.Y.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-women-2027-01-11-449-569",
+      "date": "2027-01-11",
+      "away_org_id": 449,
+      "home_org_id": 569,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://newmacsports.com/schedule.aspx?schedule=3965",
+      "official_schedule_sources": [
+        "https://newmacsports.com/schedule.aspx?schedule=3965"
+      ],
+      "verified_by_org_ids": [
+        449
+      ],
+      "source_kind": "official_conference",
+      "source_verification": "single_official_conference",
+      "tipoff_as_posted": "1:00 P.M.",
+      "venue": "",
+      "venue_location": "",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -145467,7 +145474,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "3 p.m.",
+      "tipoff_as_posted": "1 p.m.",
       "venue": "Johnson Fieldhouse",
       "venue_location": "Menomonie, Wis.",
       "network_as_posted": "",

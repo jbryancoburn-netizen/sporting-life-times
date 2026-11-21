@@ -283,7 +283,7 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | Skidmore College (642) | verified_university | [Exact verified URL](https://skidmoreathletics.com/sports/mens-basketball/schedule?grid=true) | 13 |
 | Southern Virginia University (30164) | verified_university | [Exact verified URL](https://knightathletics.com/sports/mens-basketball/schedule/2026-27?grid=true) | 23 |
 | Southwestern University (Texas) (8746) | verified_university | [Exact verified URL](https://www.southwesternpirates.com/sports/mens-basketball/schedule/2026-27?grid=true) | 15 |
-| Spalding University (23260) | verified_university | [Exact verified URL](https://www.spaldingathletics.com/sports/mens-basketball/schedule/2026-27?grid=true) | 19 |
+| Spalding University (23260) | verified_university | [Exact verified URL](https://www.spaldingathletics.com/sports/mens-basketball/schedule/2026-27?grid=true) | 20 |
 | Springfield College (673) | verified_university | [Exact verified URL](https://springfieldcollegepride.com/sports/mens-basketball/schedule/2026-27?grid=true) | 19 |
 | St. John Fisher University (601) | verified_university | [Exact verified URL](https://www.sjfathletics.com/sports/mens-basketball/schedule/2026-27?grid=true) | 16 |
 | St. Joseph's University NY (Brooklyn) (30072) | verified_university | [Exact verified URL](https://sjbkathletics.com/sports/mens-basketball/schedule/2026-27?grid=true) | 14 |
@@ -679,7 +679,7 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | Regent University (30264) | verified_university | [Exact verified URL](https://regentroyals.com/sports/womens-basketball/schedule/2026?grid=true) | 18 |
 | Regis College (Massachusetts) (569) | verified_conference | [Exact verified URL](https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634829&OrgDir=gnac&TeamID=14305315) | 16 |
 | Rensselaer Polytechnic Institute (570) | verified_university | [Exact verified URL](https://www.rpiathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 18 |
-| Rhode Island College (571) | verified_university | [Exact verified URL](https://www.goanchormen.com/sports/womens-basketball/schedule/2026-27?grid=true) | 23 |
+| Rhode Island College (571) | verified_university | [Exact verified URL](https://www.goanchormen.com/sports/womens-basketball/schedule/2026-27?grid=true) | 22 |
 | Rhodes College (573) | verified_university | [Exact verified URL](https://www.rhodeslynx.com/sports/womens-basketball/schedule/2026-27?grid=true) | 16 |
 | Ripon College (577) | verified_university | [Exact verified URL](https://riponredhawks.com/sports/womens-basketball/schedule?grid=true) | 21 |
 | Rivier University (18422) | verified_university | [Exact verified URL](https://www.rivierathletics.com/sports/womens-basketball/schedule?grid=true) | 15 |
