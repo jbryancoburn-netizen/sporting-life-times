@@ -2,7 +2,7 @@
   "league": "NBA",
   "season": "2026-27",
   "status": "provisional_live_from_historical_baseline",
-  "games_played": 230,
+  "games_played": 232,
   "preseason_status": "provisional_historical_regression_only",
   "source": "ESPN FINAL NBA regular-season scores; Sporting Life & Times independent Elo",
   "rankings": [
@@ -19,12 +19,12 @@
       "elo": 1631.286
     },
     {
-      "team": "BOS",
-      "elo": 1623.817
+      "team": "OKC",
+      "elo": 1627.702
     },
     {
-      "team": "OKC",
-      "elo": 1623.519
+      "team": "BOS",
+      "elo": 1623.817
     },
     {
       "team": "PHI",
@@ -96,11 +96,11 @@
     },
     {
       "team": "CHI",
-      "elo": 1402.684
+      "elo": 1385.954
     },
     {
       "team": "NOP",
-      "elo": 1375.625
+      "elo": 1371.442
     },
     {
       "team": "IND",
@@ -108,7 +108,7 @@
     },
     {
       "team": "WAS",
-      "elo": 1337.293
+      "elo": 1354.023
     },
     {
       "team": "UTA",
@@ -2197,6 +2197,24 @@
       "away_score": 105,
       "date": "2026-11-21T00:30:00.000Z",
       "home_elo_change": -19.472916
+    },
+    {
+      "id": "espn-nba-401909309",
+      "home": "CHI",
+      "away": "WAS",
+      "home_score": 94,
+      "away_score": 98,
+      "date": "2026-11-21T01:00:00.000Z",
+      "home_elo_change": -16.730007
+    },
+    {
+      "id": "espn-nba-401909310",
+      "home": "OKC",
+      "away": "NOP",
+      "home_score": 126,
+      "away_score": 120,
+      "date": "2026-11-21T01:00:00.000Z",
+      "home_elo_change": 4.182653
     }
   ],
   "movement": {
@@ -2205,8 +2223,8 @@
       "SAS": 0,
       "NYK": 0,
       "LAL": 0,
+      "OKC": 4.182653,
       "BOS": 0,
-      "OKC": 0,
       "PHI": 0,
       "HOU": 0,
       "DET": -19.472916,
@@ -2224,10 +2242,10 @@
       "DAL": 0,
       "CHA": -9.651919,
       "LAC": 0,
-      "CHI": 0,
-      "NOP": 0,
+      "CHI": -16.730007,
+      "NOP": -4.182653,
       "IND": -6.116435,
-      "WAS": 0,
+      "WAS": 16.730007,
       "UTA": 0,
       "BKN": -7.503195,
       "MIL": 0,
@@ -2238,8 +2256,8 @@
       "SAS": 1692.999,
       "NYK": 1610.742,
       "LAL": 1642.098,
+      "OKC": 1636.946,
       "BOS": 1653.209,
-      "OKC": 1636.945,
       "PHI": 1593.017,
       "HOU": 1616.227,
       "DET": 1620.21,
@@ -2258,7 +2276,7 @@
       "CHA": 1482.874,
       "LAC": 1468.546,
       "CHI": 1369.396,
-      "NOP": 1370.821,
+      "NOP": 1370.82,
       "IND": 1374.961,
       "WAS": 1336.271,
       "UTA": 1279.661,
