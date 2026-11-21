@@ -57,3 +57,11 @@
 @media(max-width:700px){.nba-ledger-page .nba-date-main{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:auto auto;gap:6px}.nba-ledger-page .nba-date-picker-label{grid-column:1/-1;grid-row:1;min-width:0;width:100%}.nba-ledger-page #nba-date-previous{grid-column:1;grid-row:2}.nba-ledger-page #nba-date-today{grid-column:2;grid-row:2}.nba-ledger-page #nba-date-next{grid-column:3;grid-row:2}.nba-ledger-page .nba-date-picker-label input{width:100%;min-width:0;font-size:16px}.nba-ledger-page .nba-date-main button{font-size:11px}.nba-ledger-page .nba-date-week button b{font-size:16px}.nba-ledger-page .nba-date-week button span{font-size:9px}.nba-ledger-page .compare-row{grid-template-columns:32px minmax(0,1fr) 75px minmax(0,1fr) 32px}}
 
 .nba-ledger-page [hidden]{display:none!important}
+
+/* Live cards put the clock above two full-width team rows. */
+.nba-ledger-page [data-nba-phase="live"] .ledger26-scorebug {
+  grid-template-columns:minmax(0,1fr);
+}
+.nba-ledger-page [data-nba-phase="live"] .ledger26-scorebug > .ledger26-status[data-phase="live"] {
+  display:none;
+}
