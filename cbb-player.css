@@ -24,10 +24,15 @@ a:focus-visible, summary:focus-visible, [tabindex="0"]:focus-visible { outline: 
 .player-register-mast > a { font-size: clamp(1.3rem, 3vw, 2.1rem); line-height: 1.05; font-weight: 700; color: var(--ink); text-decoration: none; }
 .player-register-mast nav, .player-page-nav { display: flex; gap: .5rem 1.15rem; flex-wrap: wrap; font: var(--label); }
 .player-register-header {
+  --player-team-primary: #35505a;
+  --player-team-secondary: #aa8551;
+  --player-team-dark: color-mix(in srgb, var(--player-team-primary) 35%, #111923);
+  --player-team-portrait: color-mix(in srgb, var(--player-team-primary) 75%, #35404a);
   position: relative; isolation: isolate; display: flex; align-items: center; justify-content: space-between;
   gap: 0 1rem; min-height: 14rem; padding: 1.65rem clamp(1rem, 4vw, 3rem);
-  background: linear-gradient(112deg, #182b36 42%, #35505a); color: #fff9ee;
-  border-block-start: 3px solid #aa8551; overflow: hidden;
+  background: linear-gradient(to right, var(--player-team-dark) 57%, var(--player-team-portrait));
+  color: #fff9ee;
+  border-block-start: 3px solid var(--player-team-secondary); overflow: hidden;
 }
 .player-identity { position: relative; z-index: 1; min-width: 0; }
 .player-register-kicker { font: var(--label); letter-spacing: .105em; text-transform: uppercase; }
@@ -39,6 +44,7 @@ a:focus-visible, summary:focus-visible, [tabindex="0"]:focus-visible { outline: 
 #player-meta, #player-bio { color: #ede0cb; font-size: .88rem; line-height: 1.45; margin: .24rem 0; }
 #player-affiliation { margin: .4rem 0; line-height: 1.45; font-weight: 700; }
 #player-affiliation a { color: #fff9ee; }
+.player-affiliation-short { display: none; }
 #player-portrait {
   width: min(44%, 30rem); height: auto; flex-shrink: 0; align-self: flex-end;
   margin-block: -1.65rem; margin-inline-end: -1rem; object-fit: contain;
@@ -101,13 +107,15 @@ a:focus-visible, summary:focus-visible, [tabindex="0"]:focus-visible { outline: 
 }
 @media (max-width: 640px) {
   .player-register-shell { width: calc(100% - 1rem); }
-  .player-register-mast { margin-bottom: .7rem; }
-  .player-register-header { min-height: 11.75rem; gap: 0; padding: .95rem .75rem; }
-  .player-register-header h1 { font-size: clamp(1.9rem, 8.5vw, 3.2rem); }
-  .player-register-header .player-register-kicker { font-size: .59rem; letter-spacing: .05em; }
-  #player-portrait { width: 58%; margin-block: -.95rem; margin-inline-end: -.75rem; }
-  #player-meta, #player-bio { font-size: .74rem; }
-  #player-affiliation { font-size: .84rem; }
+  .player-register-mast { padding-block: .45rem; margin-bottom: .45rem; }
+  .player-register-header { min-height: 0; gap: 0; padding: .55rem .75rem; }
+  .player-register-header h1 { font-size: clamp(1.8rem, 8vw, 3rem); margin-bottom: .3rem; }
+  .player-register-header .player-register-kicker { font-size: .59rem; letter-spacing: .05em; margin-bottom: .25rem; }
+  #player-portrait { width: 58%; margin-block: -.55rem; margin-inline-end: -.75rem; }
+  #player-meta, #player-bio { font-size: .74rem; line-height: 1.25; margin-block: .2rem; }
+  #player-affiliation { font-size: .84rem; line-height: 1.25; margin-block: .22rem; }
+  .player-affiliation-full { display: none; }
+  .player-affiliation-short { display: inline; }
   .player-season-strip { grid-template-columns: minmax(0, 1fr); }
   .player-stat-grid div { min-height: 4rem; }
   .player-stat-grid span { font-size: .65rem; }

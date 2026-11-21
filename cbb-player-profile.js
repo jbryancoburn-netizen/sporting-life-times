@@ -15,10 +15,15 @@
       return response.ok ? await response.json() : null;
     } catch { return null; }
   };
-  const schoolLink = (team, label, gender) => {
-    if (!team?.[0]) return escape(label);
+  const affiliationLabel = (label, shortLabel) => shortLabel && shortLabel !== label
+    ? '<span class="player-affiliation-full">' + escape(label) + '</span><span class="player-affiliation-short">' +
+      escape(shortLabel) + '</span>'
+    : escape(label);
+  const schoolLink = (team, label, gender, shortLabel) => {
+    const text = affiliationLabel(label, shortLabel);
+    if (!team?.[0]) return text;
     const prefix = gender === 'women' ? 'ncaaw' : 'ncaam';
-    return '<a href="' + prefix + '-team.html?team=' + encodeURIComponent(team[0]) + '">' + escape(label) + '</a>';
+    return '<a href="' + prefix + '-team.html?team=' + encodeURIComponent(team[0]) + '">' + text + '</a>';
   };
   const table = (heading, columns, rows) =>
     '<h2>' + escape(heading) + '</h2><div class="player-reference-scroll" tabindex="0" aria-label="' +
@@ -124,17 +129,24 @@
       }
     } catch {}
     const school = athlete.team;
+    const header = portrait.closest('.player-register-header');
+    if (/^[0-9a-f]{6}$/i.test(school?.color)) {
+      header.style.setProperty('--player-team-primary', '#' + school.color);
+    }
+    if (/^[0-9a-f]{6}$/i.test(school?.alternateColor)) {
+      header.style.setProperty('--player-team-secondary', '#' + school.alternateColor);
+    }
     const team = cohort?.teams?.[school?.id] ||
       (gender==='men'?[crosswalk?.teams?.find(t=>String(t.espn_id)===String(school?.id))?.id]:
         school?.groups?.parent?.id==='50'?[school.id]:null);
     const conference = team?.[2] || school?.groups?.name;
     const prefix = gender==='women'?'ncaaw':'ncaam';
     if (String(data.season?.year)===year && school?.displayName) {
-      el('player-affiliation').innerHTML = schoolLink(team,school.displayName,gender) +
+      el('player-affiliation').innerHTML = schoolLink(team,school.displayName,gender,school.shortDisplayName) +
         (conference ? ' · <a href="' + prefix + '-conference.html?conference=' +
-          encodeURIComponent(conference) + '">' + escape(conference) + '</a>' : '');
+          encodeURIComponent(conference) + '">' + affiliationLabel(conference, school.groups?.shortName) + '</a>' : '');
     } else if (school?.displayName) {
-      el('player-affiliation').innerHTML = 'Latest roster: ' + schoolLink(team,school.displayName,gender);
+      el('player-affiliation').innerHTML = 'Latest roster: ' + schoolLink(team,school.displayName,gender,school.shortDisplayName);
     }
     el('player-bio').textContent = [athlete.jersey ? '#'+athlete.jersey : '', athlete.position?.displayName,
       athlete.displayExperience, athlete.displayHeight, athlete.displayWeight, athlete.displayBirthPlace]
