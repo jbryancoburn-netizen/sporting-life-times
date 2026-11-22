@@ -1,7 +1,7 @@
 {
   "player_snapshot": {
     "scope": "published_match_reports_only",
-    "matches_covered": 107,
+    "matches_covered": 108,
     "goals": [
       {
         "player": "Erling Haaland",
@@ -140,6 +140,11 @@
       },
       {
         "player": "Mohamed Belloumi",
+        "team": "Hull City",
+        "count": 3
+      },
+      {
+        "player": "Oliver McBurnie",
         "team": "Hull City",
         "count": 3
       },
@@ -649,11 +654,6 @@
         "count": 1
       },
       {
-        "player": "Oliver McBurnie",
-        "team": "Hull City",
-        "count": 1
-      },
-      {
         "player": "Omar Marmoush",
         "team": "Tottenham Hotspur",
         "count": 1
@@ -831,6 +831,11 @@
         "count": 3
       },
       {
+        "player": "Mohamed Belloumi",
+        "team": "Hull City",
+        "count": 3
+      },
+      {
         "player": "Mohammed Kudus",
         "team": "Tottenham Hotspur",
         "count": 3
@@ -928,11 +933,6 @@
       {
         "player": "Matheus Cunha",
         "team": "Manchester United",
-        "count": 2
-      },
-      {
-        "player": "Mohamed Belloumi",
-        "team": "Hull City",
         "count": 2
       },
       {
@@ -1201,6 +1201,11 @@
         "count": 1
       },
       {
+        "player": "Lucas Gourna-Douath",
+        "team": "Hull City",
+        "count": 1
+      },
+      {
         "player": "Lukas Nmecha",
         "team": "Leeds United",
         "count": 1
@@ -1399,7 +1404,7 @@
     "own_goals_not_counted": 14,
     "note": "Event-derived from the published match-report window, not official season leaderboards; unresolved player names are excluded."
   },
-  "updated_at": "2026-11-22T14:55:21.106306+00:00",
+  "updated_at": "2026-11-22T17:13:56.224527+00:00",
   "source": "ESPN event summary; third-party match facts only, not Elo",
   "matches": {
     "401878768": {
@@ -51234,13 +51239,472 @@
         }
       ],
       "source_url": "https://www.espn.com/soccer/match/_/gameId/401878756"
+    },
+    "401879234": {
+      "home": "Hull",
+      "away": "Brighton",
+      "home_score": 2,
+      "away_score": 0,
+      "kickoff_utc": "2026-11-22T14:00:00+00:00",
+      "teams": [
+        {
+          "team": "Hull City",
+          "statistics": [
+            {
+              "name": "foulsCommitted",
+              "displayValue": "7",
+              "label": "Fouls"
+            },
+            {
+              "name": "yellowCards",
+              "displayValue": "2",
+              "label": "Yellow Cards"
+            },
+            {
+              "name": "redCards",
+              "displayValue": "0",
+              "label": "Red Cards"
+            },
+            {
+              "name": "offsides",
+              "displayValue": "3",
+              "label": "Offsides"
+            },
+            {
+              "name": "wonCorners",
+              "displayValue": "3",
+              "label": "Corner Kicks"
+            },
+            {
+              "name": "saves",
+              "displayValue": "7",
+              "label": "Saves"
+            },
+            {
+              "name": "possessionPct",
+              "displayValue": "29.8",
+              "label": "Possession"
+            },
+            {
+              "name": "totalShots",
+              "displayValue": "11",
+              "label": "SHOTS"
+            },
+            {
+              "name": "shotsOnTarget",
+              "displayValue": "5",
+              "label": "ON GOAL"
+            },
+            {
+              "name": "shotPct",
+              "displayValue": "0.5",
+              "label": "On Target %"
+            },
+            {
+              "name": "penaltyKickGoals",
+              "displayValue": "0",
+              "label": "Penalty Goals"
+            },
+            {
+              "name": "penaltyKickShots",
+              "displayValue": "0",
+              "label": "Penalty Kicks Taken"
+            },
+            {
+              "name": "accuratePasses",
+              "displayValue": "135",
+              "label": "Accurate Passes"
+            },
+            {
+              "name": "totalPasses",
+              "displayValue": "242",
+              "label": "Passes"
+            },
+            {
+              "name": "passPct",
+              "displayValue": "0.6",
+              "label": "Pass Completion %"
+            },
+            {
+              "name": "accurateCrosses",
+              "displayValue": "3",
+              "label": "Accurate Crosses"
+            },
+            {
+              "name": "totalCrosses",
+              "displayValue": "15",
+              "label": "Crosses"
+            },
+            {
+              "name": "crossPct",
+              "displayValue": "0.2",
+              "label": "Cross %"
+            },
+            {
+              "name": "totalLongBalls",
+              "displayValue": "81",
+              "label": "Long Balls"
+            },
+            {
+              "name": "accurateLongBalls",
+              "displayValue": "22",
+              "label": "Accurate Long Balls"
+            },
+            {
+              "name": "longballPct",
+              "displayValue": "0.3",
+              "label": "Long Balls %"
+            },
+            {
+              "name": "blockedShots",
+              "displayValue": "2",
+              "label": "Blocked Shots"
+            },
+            {
+              "name": "effectiveTackles",
+              "displayValue": "10",
+              "label": "Effective Tackles"
+            },
+            {
+              "name": "totalTackles",
+              "displayValue": "16",
+              "label": "Tackles"
+            },
+            {
+              "name": "tacklePct",
+              "displayValue": "0.6",
+              "label": "Tackle %"
+            },
+            {
+              "name": "interceptions",
+              "displayValue": "9",
+              "label": "Interceptions"
+            },
+            {
+              "name": "effectiveClearance",
+              "displayValue": "23",
+              "label": "Effective Clearances"
+            },
+            {
+              "name": "totalClearance",
+              "displayValue": "23",
+              "label": "Clearances"
+            }
+          ]
+        },
+        {
+          "team": "Brighton & Hove Albion",
+          "statistics": [
+            {
+              "name": "foulsCommitted",
+              "displayValue": "17",
+              "label": "Fouls"
+            },
+            {
+              "name": "yellowCards",
+              "displayValue": "2",
+              "label": "Yellow Cards"
+            },
+            {
+              "name": "redCards",
+              "displayValue": "1",
+              "label": "Red Cards"
+            },
+            {
+              "name": "offsides",
+              "displayValue": "1",
+              "label": "Offsides"
+            },
+            {
+              "name": "wonCorners",
+              "displayValue": "5",
+              "label": "Corner Kicks"
+            },
+            {
+              "name": "saves",
+              "displayValue": "3",
+              "label": "Saves"
+            },
+            {
+              "name": "possessionPct",
+              "displayValue": "70.2",
+              "label": "Possession"
+            },
+            {
+              "name": "totalShots",
+              "displayValue": "15",
+              "label": "SHOTS"
+            },
+            {
+              "name": "shotsOnTarget",
+              "displayValue": "8",
+              "label": "ON GOAL"
+            },
+            {
+              "name": "shotPct",
+              "displayValue": "0.5",
+              "label": "On Target %"
+            },
+            {
+              "name": "penaltyKickGoals",
+              "displayValue": "0",
+              "label": "Penalty Goals"
+            },
+            {
+              "name": "penaltyKickShots",
+              "displayValue": "0",
+              "label": "Penalty Kicks Taken"
+            },
+            {
+              "name": "accuratePasses",
+              "displayValue": "501",
+              "label": "Accurate Passes"
+            },
+            {
+              "name": "totalPasses",
+              "displayValue": "589",
+              "label": "Passes"
+            },
+            {
+              "name": "passPct",
+              "displayValue": "0.9",
+              "label": "Pass Completion %"
+            },
+            {
+              "name": "accurateCrosses",
+              "displayValue": "6",
+              "label": "Accurate Crosses"
+            },
+            {
+              "name": "totalCrosses",
+              "displayValue": "24",
+              "label": "Crosses"
+            },
+            {
+              "name": "crossPct",
+              "displayValue": "0.3",
+              "label": "Cross %"
+            },
+            {
+              "name": "totalLongBalls",
+              "displayValue": "63",
+              "label": "Long Balls"
+            },
+            {
+              "name": "accurateLongBalls",
+              "displayValue": "37",
+              "label": "Accurate Long Balls"
+            },
+            {
+              "name": "longballPct",
+              "displayValue": "0.6",
+              "label": "Long Balls %"
+            },
+            {
+              "name": "blockedShots",
+              "displayValue": "3",
+              "label": "Blocked Shots"
+            },
+            {
+              "name": "effectiveTackles",
+              "displayValue": "8",
+              "label": "Effective Tackles"
+            },
+            {
+              "name": "totalTackles",
+              "displayValue": "13",
+              "label": "Tackles"
+            },
+            {
+              "name": "tacklePct",
+              "displayValue": "0.6",
+              "label": "Tackle %"
+            },
+            {
+              "name": "interceptions",
+              "displayValue": "13",
+              "label": "Interceptions"
+            },
+            {
+              "name": "effectiveClearance",
+              "displayValue": "23",
+              "label": "Effective Clearances"
+            },
+            {
+              "name": "totalClearance",
+              "displayValue": "23",
+              "label": "Clearances"
+            }
+          ]
+        }
+      ],
+      "players": [],
+      "events": [
+        {
+          "clock": "",
+          "text": "First Half begins.",
+          "type": "Kickoff",
+          "team": null
+        },
+        {
+          "clock": "34'",
+          "text": "Luka Vuskovic (Brighton and Hove Albion) is shown the yellow card.",
+          "type": "Yellow Card",
+          "team": "Brighton & Hove Albion"
+        },
+        {
+          "clock": "37'",
+          "text": "Nobel Mendy (Hull City) is shown the yellow card.",
+          "type": "Yellow Card",
+          "team": "Hull City"
+        },
+        {
+          "clock": "43'",
+          "text": "Delay in match because of an injury Tim Iroegbunam (Hull City).",
+          "type": "Start Delay",
+          "team": "Hull City"
+        },
+        {
+          "clock": "43'",
+          "text": null,
+          "type": "Start Delay",
+          "team": "Brighton & Hove Albion"
+        },
+        {
+          "clock": "45'",
+          "text": "Delay over. They are ready to continue.",
+          "type": "End Delay",
+          "team": "Hull City"
+        },
+        {
+          "clock": "45'",
+          "text": null,
+          "type": "End Delay",
+          "team": "Brighton & Hove Albion"
+        },
+        {
+          "clock": "45'",
+          "text": "Substitution, Hull City. Lucas Gourna-Douath replaces Tim Iroegbunam because of an injury.",
+          "type": "Substitution",
+          "team": "Hull City"
+        },
+        {
+          "clock": "45'+4'",
+          "text": null,
+          "type": "Halftime",
+          "team": null
+        },
+        {
+          "clock": "45'",
+          "text": "Substitution, Hull City. Sorba Thomas replaces Mohamed-Ali Cho.",
+          "type": "Substitution",
+          "team": "Hull City"
+        },
+        {
+          "clock": "45'",
+          "text": null,
+          "type": "Start 2nd Half",
+          "team": null
+        },
+        {
+          "clock": "59'",
+          "text": "Lucas Gourna-Douath (Hull City) is shown the yellow card for a bad foul.",
+          "type": "Yellow Card",
+          "team": "Hull City"
+        },
+        {
+          "clock": "63'",
+          "text": "Costinha (Brighton and Hove Albion) is shown the yellow card for a bad foul.",
+          "type": "Yellow Card",
+          "team": "Brighton & Hove Albion"
+        },
+        {
+          "clock": "67'",
+          "text": "Substitution, Brighton and Hove Albion. Jack Hinshelwood replaces Yasin Ayari.",
+          "type": "Substitution",
+          "team": "Brighton & Hove Albion"
+        },
+        {
+          "clock": "67'",
+          "text": "Substitution, Brighton and Hove Albion. Charalampos Kostoulas replaces Georginio Rutter.",
+          "type": "Substitution",
+          "team": "Brighton & Hove Albion"
+        },
+        {
+          "clock": "67'",
+          "text": "Substitution, Brighton and Hove Albion. Yankuba Minteh replaces Olivier Boscagli.",
+          "type": "Substitution",
+          "team": "Brighton & Hove Albion"
+        },
+        {
+          "clock": "67'",
+          "text": "Substitution, Hull City. Ryan Giles replaces Elliot Stroud.",
+          "type": "Substitution",
+          "team": "Hull City"
+        },
+        {
+          "clock": "68'",
+          "text": "Substitution, Hull City. Jens Hjertø-Dahl replaces Matt Crooks.",
+          "type": "Substitution",
+          "team": "Hull City"
+        },
+        {
+          "clock": "80'",
+          "text": "Substitution, Brighton and Hove Albion. Ferdi Kadıoğlu replaces Diego Gómez.",
+          "type": "Substitution",
+          "team": "Brighton & Hove Albion"
+        },
+        {
+          "clock": "81'",
+          "text": "Chema Andrés (Brighton and Hove Albion) is shown the yellow card for a bad foul.",
+          "type": "Yellow Card",
+          "team": "Brighton & Hove Albion"
+        },
+        {
+          "clock": "84'",
+          "text": "Substitution, Hull City. Brooke Norton-Cuffy replaces Lewie Coyle.",
+          "type": "Substitution",
+          "team": "Hull City"
+        },
+        {
+          "clock": "89'",
+          "text": "Second yellow card to Costinha (Brighton and Hove Albion) for a bad foul.",
+          "type": "Red Card",
+          "team": "Brighton & Hove Albion"
+        },
+        {
+          "clock": "90'+2'",
+          "text": "Goal! Hull City 1, Brighton and Hove Albion 0. Oliver McBurnie (Hull City) right footed shot from the centre of the box to the bottom right corner. Assisted by Lucas Gourna-Douath following a fast break.",
+          "type": "Goal",
+          "team": "Hull City"
+        },
+        {
+          "clock": "90'+4'",
+          "text": "Substitution, Brighton and Hove Albion. Ibrahim Osman replaces Chema Andrés.",
+          "type": "Substitution",
+          "team": "Brighton & Hove Albion"
+        },
+        {
+          "clock": "90'+5'",
+          "text": "Goal! Hull City 2, Brighton and Hove Albion 0. Oliver McBurnie (Hull City) right footed shot from the left side of the six yard box to the centre of the goal. Assisted by Mohamed Belloumi following a fast break.",
+          "type": "Goal",
+          "team": "Hull City"
+        },
+        {
+          "clock": "90'+6'",
+          "text": "Second Half ends, Hull City 2, Brighton and Hove Albion 0.",
+          "type": "End Regular Time",
+          "team": null
+        }
+      ],
+      "source_url": "https://www.espn.com/soccer/match/_/gameId/401879234"
     }
   },
   "fetch_status": {
-    "successful": 0,
+    "successful": 1,
     "failed": {},
-    "attempted": 0,
-    "season_finals": 107,
-    "detailed_reports": 107
+    "attempted": 1,
+    "season_finals": 108,
+    "detailed_reports": 108
   }
 }
