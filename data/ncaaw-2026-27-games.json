@@ -3768,34 +3768,6 @@
       "away_name": "Tusculum Pioneers"
     },
     {
-      "id": "401925623",
-      "date": "2026-11-20T00:00Z",
-      "home_id": "2430",
-      "away_id": "2428",
-      "neutral": false,
-      "site_verified": true,
-      "venue": "Bodford Arena",
-      "broadcast": "ESPN+",
-      "status": "final",
-      "home_score": 60,
-      "away_score": 46,
-      "score_evidence": "espn_and_ncaa_origin"
-    },
-    {
-      "id": "401926080",
-      "date": "2026-11-20T00:00Z",
-      "home_id": "2010",
-      "away_id": "5",
-      "neutral": false,
-      "site_verified": true,
-      "venue": "Event Center",
-      "broadcast": "SWAC TV",
-      "status": "final",
-      "home_score": 66,
-      "away_score": 53,
-      "score_evidence": "espn_and_ncaa_origin"
-    },
-    {
       "id": "401928204",
       "date": "2026-11-20T00:00Z",
       "home_id": "2535",
@@ -5310,9 +5282,7 @@
       "score_evidence": "espn_only",
       "home_name": "Alaska Anchorage Seawolves",
       "away_name": "Louisville Cardinals"
-    }
-  ],
-  "upcoming": [
+    },
     {
       "id": "401913767",
       "date": "2026-11-22T16:30Z",
@@ -5322,8 +5292,10 @@
       "site_verified": true,
       "venue": "Skip Chappelle Court in Memorial Gymnasium",
       "broadcast": "ESPN+, NESN",
-      "status": "scheduled",
-      "score_evidence": "espn_only"
+      "status": "final",
+      "home_score": 50,
+      "away_score": 77,
+      "score_evidence": "espn_final_ncaa_pending"
     },
     {
       "id": "401918820",
@@ -5334,21 +5306,13 @@
       "site_verified": true,
       "venue": "T-Mobile Center",
       "broadcast": "Summit League Network, Midco Sports Plus",
-      "status": "scheduled",
-      "score_evidence": "espn_only"
-    },
-    {
-      "id": "401918890",
-      "date": "2026-11-22T17:00Z",
-      "home_id": "275",
-      "away_id": "322",
-      "neutral": false,
-      "site_verified": true,
-      "venue": "Kohl Center",
-      "broadcast": "B1G+",
-      "status": "scheduled",
-      "score_evidence": "espn_only"
-    },
+      "status": "final",
+      "home_score": 90,
+      "away_score": 94,
+      "score_evidence": "espn_final_ncaa_pending"
+    }
+  ],
+  "upcoming": [
     {
       "id": "401911747",
       "date": "2026-11-22T18:00Z",
@@ -5371,7 +5335,7 @@
       "venue": "Stegeman Coliseum",
       "broadcast": "SECN+",
       "status": "scheduled",
-      "score_evidence": "espn_only"
+      "score_evidence": "fixture_identity_crosschecked"
     },
     {
       "id": "401913718",
@@ -5383,7 +5347,7 @@
       "venue": "Jadwin Gymnasium",
       "broadcast": "ESPN+",
       "status": "scheduled",
-      "score_evidence": "espn_only"
+      "score_evidence": "fixture_identity_crosschecked"
     },
     {
       "id": "401913815",
@@ -5395,7 +5359,7 @@
       "venue": "Hammel Court",
       "broadcast": "ESPN+",
       "status": "scheduled",
-      "score_evidence": "espn_only"
+      "score_evidence": "fixture_identity_crosschecked"
     },
     {
       "id": "401913825",
@@ -5407,7 +5371,7 @@
       "venue": "Trask Coliseum",
       "broadcast": "FloSports",
       "status": "scheduled",
-      "score_evidence": "espn_only"
+      "score_evidence": "fixture_identity_crosschecked"
     },
     {
       "id": "401913867",
@@ -5419,7 +5383,7 @@
       "venue": "State Farm Field House",
       "broadcast": "ESPN+",
       "status": "scheduled",
-      "score_evidence": "espn_only"
+      "score_evidence": "fixture_identity_crosschecked"
     },
     {
       "id": "401918784",
@@ -5443,7 +5407,19 @@
       "venue": "Dickies Arena",
       "broadcast": "ESPN",
       "status": "scheduled",
-      "score_evidence": "espn_only"
+      "score_evidence": "fixture_identity_crosschecked"
+    },
+    {
+      "id": "401918890",
+      "date": "2026-11-22T18:00Z",
+      "home_id": "275",
+      "away_id": "322",
+      "neutral": false,
+      "site_verified": true,
+      "venue": "Kohl Center",
+      "broadcast": "B1G+",
+      "status": "scheduled",
+      "score_evidence": "fixture_identity_crosschecked"
     },
     {
       "id": "401921242",
@@ -5455,7 +5431,7 @@
       "venue": "Rec Hall",
       "broadcast": "B1G+",
       "status": "scheduled",
-      "score_evidence": "espn_only"
+      "score_evidence": "fixture_identity_crosschecked"
     },
     {
       "id": "401926016",
@@ -5467,7 +5443,7 @@
       "venue": "Reitz Arena",
       "broadcast": "ESPN+, Patriot League TV",
       "status": "scheduled",
-      "score_evidence": "espn_only"
+      "score_evidence": "fixture_identity_crosschecked"
     },
     {
       "id": "401911795",
@@ -5987,7 +5963,7 @@
       "neutral": true,
       "site_verified": true,
       "venue": "T-Mobile Center",
-      "broadcast": "ESPN+",
+      "broadcast": null,
       "status": "scheduled",
       "score_evidence": "espn_only"
     },
