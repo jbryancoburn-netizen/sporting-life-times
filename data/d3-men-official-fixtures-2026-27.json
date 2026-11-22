@@ -3,7 +3,7 @@
   "division": "d3",
   "gender": "men",
   "season": "2026-27",
-  "generated_utc": "2026-11-21T16:11:34.050874+00:00",
+  "generated_utc": "2026-11-22T00:22:41.731301+00:00",
   "source": "NCAA 2026-27 member directory + year/gender-validated official school athletics calendars",
   "scope": "NCAA membership-wide first pass; sources without independently validated 2026-27 schedules excluded",
   "ncaa_confirmed_programs": 406,
@@ -824,8 +824,8 @@
       "readable_rows": 24,
       "verified_member_opponents": 18,
       "excluded_rows": {
-        "conditional_or_ambiguous_opponent": 5,
-        "identity_not_d3_matched_but_posted": 1
+        "identity_not_d3_matched_but_posted": 2,
+        "conditional_or_ambiguous_opponent": 4
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -2858,7 +2858,7 @@
       "verified_member_opponents": 18,
       "excluded_rows": {},
       "approved_at": "2024-10-08",
-      "university_source_failure": "HTTP Error 405: Not Allowed | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season ",
+      "university_source_failure": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
       "university_source_status": "failed"
     },
     {
@@ -5406,11 +5406,11 @@
     {
       "owner_org_id": 1099,
       "source_url": "https://athletics.gordon.edu/sports/mens-basketball/schedule?grid=true",
-      "readable_rows": 29,
+      "readable_rows": 28,
       "verified_member_opponents": 17,
       "excluded_rows": {
         "conditional_or_ambiguous_opponent": 3,
-        "identity_not_d3_matched_but_posted": 9
+        "identity_not_d3_matched_but_posted": 8
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -13349,21 +13349,6 @@
       "venue_location": "Forest Grove, Ore."
     },
     {
-      "id": "d3-men-2026-11-21-1099-other-bafefacfb576",
-      "date": "2026-11-21",
-      "source_owner_org_id": 1099,
-      "external_opponent_label": "WestConn vs. SUNY Old Westbury",
-      "placement": "home",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://athletics.gordon.edu/sports/mens-basketball/schedule?grid=true",
-      "tipoff_as_posted": "12:30 p.m.",
-      "venue_location": "Wenham, Mass. / Bennett Center"
-    },
-    {
       "id": "d3-men-2026-11-21-1162-other-f33cceac579a",
       "date": "2026-11-21",
       "source_owner_org_id": 1162,
@@ -13542,6 +13527,21 @@
       "source_url": "https://www.illinoistechathletics.com/sports/mens-basketball/schedule?grid=true",
       "tipoff_as_posted": "3:00 PM",
       "venue_location": "Chicago, IL"
+    },
+    {
+      "id": "d3-men-2026-11-22-24-other-86236456ab73",
+      "date": "2026-11-22",
+      "source_owner_org_id": 24,
+      "external_opponent_label": "Marymount University",
+      "placement": "away",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://athletics.amherst.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "1 PM",
+      "venue_location": "Arlington, VA / Lee Center"
     },
     {
       "id": "d3-men-2026-11-22-50-other-1c85c13755ee",
@@ -18025,7 +18025,7 @@
       "schedule_only": true,
       "source_kind": "official_school",
       "source_url": "https://www.illinoistechathletics.com/sports/mens-basketball/schedule?grid=true",
-      "tipoff_as_posted": "TBA",
+      "tipoff_as_posted": "12:00 PM",
       "venue_location": "Kenosha, WI"
     },
     {
@@ -49514,7 +49514,7 @@
       "source_kind": "official_school",
       "source_verification": "single_official_school",
       "tipoff_as_posted": "6:00 pm",
-      "venue": "",
+      "venue": "Lancer Gymnasium",
       "venue_location": "Worcester, Mass.",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -50882,7 +50882,7 @@
       "venue_location": "Oberlin, OH",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "L, 68-69",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -50956,7 +50956,7 @@
       "venue_location": "Bristol, R.I.",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "L, 91-93",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -51106,7 +51106,7 @@
       "venue_location": "Kenosha, Wis.",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 96-72",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -51256,7 +51256,7 @@
       "venue_location": "New London, NH",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "L, 78-86",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -51342,7 +51342,7 @@
       "home_org_id": 179,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://gomacsports.com/schedule.aspx?schedule=7613",
+      "source_url": "https://www.wilsonphoenix.com/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://gomacsports.com/schedule.aspx?schedule=7613",
         "https://www.wilsonphoenix.com/sports/mens-basketball/schedule?grid=true"
@@ -51353,9 +51353,9 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "1:00 p.m.",
+      "tipoff_as_posted": "1 p.m.",
       "venue": "",
-      "venue_location": "Doylestown, PA",
+      "venue_location": "Doylestown, Pa.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -51686,7 +51686,7 @@
       "venue_location": "Fredonia, N.Y.",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "L, 87-93",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -52096,7 +52096,7 @@
       "home_org_id": 987,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://heartlandconf.org/schedule.aspx?schedule=4398",
+      "source_url": "https://athletics.kenyon.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.kenyon.edu/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://heartlandconf.org/schedule.aspx?schedule=4398"
@@ -52107,9 +52107,9 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "4:00 P.M.",
+      "tipoff_as_posted": "4:00PM",
       "venue": "",
-      "venue_location": "Bluffton, Ohio",
+      "venue_location": "Bluffton, OH",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -52440,7 +52440,7 @@
       "venue_location": "/ Marts Center",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 75-66",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -53642,7 +53642,7 @@
       "venue_location": "Fond du Lac, Wis.",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 100-53",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -53666,7 +53666,7 @@
       "venue_location": "San Antonio, TX",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 79-69",
       "neutral_home_designation_unconfirmed": true
     },
     {

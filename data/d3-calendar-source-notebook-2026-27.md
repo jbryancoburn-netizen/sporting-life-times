@@ -516,7 +516,7 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | Dean College (30219) | verified_university | [Exact verified URL](https://www.deanbulldogs.com/sports/womens-basketball/schedule/2026-27?grid=true) | 22 |
 | Delaware Valley University (179) | verified_conference | [Exact verified URL](https://gomacsports.com/schedule.aspx?schedule=7633) | 18 |
 | Denison University (182) | verified_university | [Exact verified URL](https://www.denisonbigred.com/sports/womens-basketball/schedule/2026-27?grid=true) | 23 |
-| Dickinson College (185) | verified_university | [Exact verified URL](https://www.dickinsonathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 22 |
+| Dickinson College (185) | verified_university | [Exact verified URL](https://www.dickinsonathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 23 |
 | Dominican University (Illinois) (1332) | verified_university | [Exact verified URL](https://www.dustars.com/sports/womens-basketball/schedule/2026-2027?grid=true) | 19 |
 | Drew University (190) | verified_university | [Exact verified URL](https://www.drewrangers.com/sports/womens-basketball/schedule/2026-27?grid=true) | 23 |
 | Earlham College (195) | verified_university | [Exact verified URL](https://www.goearlham.com/sports/womens-basketball/schedule/2026-27?grid=true) | 19 |
@@ -598,7 +598,7 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | Lawrence University (348) | verified_university | [Exact verified URL](https://vikings.lawrence.edu/sports/womens-basketball/schedule/2026?grid=true) | 22 |
 | LeTourneau University (8490) | verified_university | [Exact verified URL](https://www.letuathletics.com/sports/womens-basketball/schedule?grid=true) | 19 |
 | Lebanon Valley College (351) | verified_university | [Exact verified URL](https://www.godutchmen.com/sports/womens-basketball/schedule/2026-27?grid=true) | 21 |
-| Lehman College (279) | verified_university | [Exact verified URL](https://www.lehmanathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 17 |
+| Lehman College (279) | verified_university | [Exact verified URL](https://www.lehmanathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 18 |
 | Lewis & Clark College (22235) | verified_conference | [Exact verified URL](https://nwcsports.com/schedule.aspx?schedule=2504) | 19 |
 | Linfield University (1179) | verified_university | [Exact verified URL](https://golinfieldwildcats.com/sports/womens-basketball/schedule/2026-27?grid=true) | 18 |
 | Loras College (364) | verified_university | [Exact verified URL](https://www.duhawks.com/sports/womens-basketball/schedule/2026-27?grid=true) | 20 |
@@ -642,7 +642,7 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | Muskingum University (455) | verified_conference | [Exact verified URL](https://oac.org/schedule.aspx?schedule=2390) | 22 |
 | Nazareth University (461) | verified_university | [Exact verified URL](https://www.nazathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 18 |
 | Nebraska Wesleyan University (462) | verified_university | [Exact verified URL](https://www.nwusports.com/sports/womens-basketball/schedule?grid=true) | 15 |
-| Neumann University (1254) | verified_university | [Exact verified URL](https://www.neumannathletics.com/sports/womens-basketball/schedule?grid=true) | 24 |
+| Neumann University (1254) | verified_university | [Exact verified URL](https://www.neumannathletics.com/sports/womens-basketball/schedule?grid=true) | 25 |
 | New England College (467) | verified_university | [Exact verified URL](https://athletics.nec.edu/sports/womens-basketball/schedule/2026-27?grid=true) | 24 |
 | New York University (479) | verified_university | [Exact verified URL](https://www.gonyuathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 20 |
 | Nichols College (484) | verified_university | [Exact verified URL](https://www.nicholsathletics.com/sports/womens-basketball/schedule?grid=true) | 21 |
@@ -680,7 +680,7 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | Regis College (Massachusetts) (569) | verified_conference | [Exact verified URL](https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634829&OrgDir=gnac&TeamID=14305315) | 16 |
 | Rensselaer Polytechnic Institute (570) | verified_university | [Exact verified URL](https://www.rpiathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 18 |
 | Rhode Island College (571) | verified_university | [Exact verified URL](https://www.goanchormen.com/sports/womens-basketball/schedule/2026-27?grid=true) | 23 |
-| Rhodes College (573) | verified_university | [Exact verified URL](https://www.rhodeslynx.com/sports/womens-basketball/schedule/2026-27?grid=true) | 16 |
+| Rhodes College (573) | verified_university | [Exact verified URL](https://www.rhodeslynx.com/sports/womens-basketball/schedule/2026-27?grid=true) | 15 |
 | Ripon College (577) | verified_university | [Exact verified URL](https://riponredhawks.com/sports/womens-basketball/schedule?grid=true) | 21 |
 | Rivier University (18422) | verified_university | [Exact verified URL](https://www.rivierathletics.com/sports/womens-basketball/schedule?grid=true) | 15 |
 | Roanoke College (578) | verified_university | [Exact verified URL](https://maroons.roanoke.edu/sports/womens-basketball/schedule?grid=true) | 19 |
@@ -688,7 +688,7 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | Rockford University (582) | verified_university | [Exact verified URL](https://www.rockfordregents.com/sports/womens-basketball/schedule/2026-27?grid=true) | 18 |
 | Roger Williams University (583) | verified_university | [Exact verified URL](https://www.rwuhawks.com/sports/womens-basketball/schedule/2026-27?grid=true) | 17 |
 | Rose-Hulman Institute of Technology (585) | verified_university | [Exact verified URL](https://athletics.rose-hulman.edu/sports/womens-basketball/schedule/2026-27?grid=true) | 20 |
-| Rowan University (259) | verified_university | [Exact verified URL](https://www.rowanathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 12 |
+| Rowan University (259) | verified_university | [Exact verified URL](https://www.rowanathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 13 |
 | Rutgers, The State Univ. of New Jersey, Camden (588) | verified_university | [Exact verified URL](https://www.scarletraptors.com/sports/womens-basketball/schedule/2026-27?grid=true) | 19 |
 | Rutgers, The State Univ. of New Jersey, Newark (589) | verified_university | [Exact verified URL](https://www.rutgersnewarkathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 15 |
 | Saint Elizabeth University (9684) | verified_university | [Exact verified URL](https://seueagles.com/sports/womens-basketball/schedule/2026-27?grid=true) | 21 |
@@ -698,7 +698,7 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | Saint Mary's University of Minnesota (612) | verified_university | [Exact verified URL](https://www.saintmaryssports.com/sports/womens-basketball/schedule/2026-2027?grid=true) | 20 |
 | Saint Vincent College (30064) | verified_university | [Exact verified URL](https://athletics.stvincent.edu/sports/womens-basketball/schedule/2026-27?grid=true) | 15 |
 | Salem College (North Carolina) (30041) | verified_university | [Exact verified URL](https://salemcollegeathletics.com/sports/womens-basketball/schedule?grid=true) | 21 |
-| Salisbury University (622) | verified_university | [Exact verified URL](https://www.suseagulls.com/sports/womens-basketball/schedule/2026-27?grid=true) | 22 |
+| Salisbury University (622) | verified_university | [Exact verified URL](https://www.suseagulls.com/sports/womens-basketball/schedule/2026-27?grid=true) | 23 |
 | Salve Regina University (623) | verified_university | [Exact verified URL](https://www.salveathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 19 |
 | Sarah Lawrence College (30163) | verified_university | [Exact verified URL](https://www.gogryphons.com/sports/womens-basketball/schedule/2026-27?grid=true) | 12 |
 | Schreiner University (1355) | verified_conference | [Exact verified URL](https://ascsports.org/schedule.aspx?schedule=6202) | 16 |

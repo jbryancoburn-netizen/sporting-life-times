@@ -3,7 +3,7 @@
   "division": "d3",
   "gender": "women",
   "season": "2026-27",
-  "generated_utc": "2026-11-21T16:12:39.527228+00:00",
+  "generated_utc": "2026-11-22T00:24:01.297199+00:00",
   "source": "NCAA 2026-27 member directory + year/gender-validated official school athletics calendars",
   "scope": "NCAA membership-wide first pass; sources without independently validated 2026-27 schedules excluded",
   "ncaa_confirmed_programs": 415,
@@ -14,8 +14,8 @@
   "school_calendars_unresolved": 17,
   "source_status_counts": {
     "parsed": 365,
-    "failed": 17,
-    "parsed_conference": 33
+    "parsed_conference": 33,
+    "failed": 17
   },
   "last_verified_school_source": {
     "4": "https://adrianbulldogs.com/sports/womens-basketball/schedule/2026-27?grid=true",
@@ -1787,10 +1787,10 @@
       "owner_org_id": 185,
       "source_url": "https://www.dickinsonathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "readable_rows": 26,
-      "verified_member_opponents": 22,
+      "verified_member_opponents": 23,
       "excluded_rows": {
         "preseason_or_exhibition": 1,
-        "conditional_or_ambiguous_opponent": 2,
+        "conditional_or_ambiguous_opponent": 1,
         "identity_not_d3_matched_but_posted": 1
       },
       "status": "parsed",
@@ -2237,10 +2237,10 @@
       "owner_org_id": 259,
       "source_url": "https://www.rowanathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "readable_rows": 29,
-      "verified_member_opponents": 12,
+      "verified_member_opponents": 13,
       "excluded_rows": {
         "identity_not_d3_matched_but_posted": 13,
-        "conditional_or_ambiguous_opponent": 4
+        "conditional_or_ambiguous_opponent": 3
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -2416,10 +2416,9 @@
       "owner_org_id": 279,
       "source_url": "https://www.lehmanathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "readable_rows": 29,
-      "verified_member_opponents": 17,
+      "verified_member_opponents": 18,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 11,
-        "conditional_or_ambiguous_opponent": 1
+        "identity_not_d3_matched_but_posted": 11
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -3947,9 +3946,9 @@
       "owner_org_id": 573,
       "source_url": "https://www.rhodeslynx.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "readable_rows": 26,
-      "verified_member_opponents": 16,
+      "verified_member_opponents": 15,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 7,
+        "identity_not_d3_matched_but_posted": 8,
         "conditional_or_ambiguous_opponent": 3
       },
       "status": "parsed",
@@ -4342,9 +4341,9 @@
       "owner_org_id": 622,
       "source_url": "https://www.suseagulls.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "readable_rows": 26,
-      "verified_member_opponents": 22,
+      "verified_member_opponents": 23,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 4
+        "identity_not_d3_matched_but_posted": 3
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -5992,10 +5991,10 @@
       "owner_org_id": 1254,
       "source_url": "https://www.neumannathletics.com/sports/womens-basketball/schedule?grid=true",
       "readable_rows": 28,
-      "verified_member_opponents": 24,
+      "verified_member_opponents": 25,
       "excluded_rows": {
-        "conditional_or_ambiguous_opponent": 3,
-        "identity_not_d3_matched_but_posted": 1
+        "identity_not_d3_matched_but_posted": 1,
+        "conditional_or_ambiguous_opponent": 2
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -8142,6 +8141,30 @@
       ]
     },
     {
+      "date": "2026-11-22",
+      "members": [
+        259,
+        622
+      ],
+      "problem": "home/away or neutral-site source disagreement",
+      "source_urls": [
+        "https://www.rowanathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+        "https://www.suseagulls.com/sports/womens-basketball/schedule/2026-27?grid=true"
+      ]
+    },
+    {
+      "date": "2026-11-22",
+      "members": [
+        279,
+        1254
+      ],
+      "problem": "home/away or neutral-site source disagreement",
+      "source_urls": [
+        "https://www.lehmanathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+        "https://www.neumannathletics.com/sports/womens-basketball/schedule?grid=true"
+      ]
+    },
+    {
       "date": "2026-11-28",
       "members": [
         177,
@@ -8372,7 +8395,7 @@
   ],
   "fixture_count": 4557,
   "reciprocal_fixtures": 2723,
-  "unresolved_opponent_fixture_count": 1574,
+  "unresolved_opponent_fixture_count": 1573,
   "unresolved_opponent_fixtures": [
     {
       "id": "d3-women-2026-11-06-73-other-3415eb321a6f",
@@ -13743,21 +13766,6 @@
       "source_url": "https://www.saintmaryssports.com/sports/womens-basketball/schedule/2026-2027?grid=true",
       "tipoff_as_posted": "2 PM",
       "venue_location": "Winona, MN. / David R. Thies Arena"
-    },
-    {
-      "id": "d3-women-2026-11-22-622-other-271d9bb8cb3b",
-      "date": "2026-11-22",
-      "source_owner_org_id": 622,
-      "external_opponent_label": "Rowan/Lehman",
-      "placement": "neutral",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://www.suseagulls.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "11 am/7 pm",
-      "venue_location": "Salisbury, MD / Wicomico County Civic Center"
     },
     {
       "id": "d3-women-2026-11-22-803-other-c7b8a4f8923f",
@@ -49717,7 +49725,7 @@
       "venue_location": "Cincinnati, Ohio",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "L, 53-58",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -49973,7 +49981,7 @@
       "venue_location": "Providence, R.I.",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 76-57",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -50047,7 +50055,7 @@
       "venue_location": "Brunswick, Maine",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "L, 37-72",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -50095,7 +50103,7 @@
       "venue_location": "Bridgewater, MA",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 71-63",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -50195,7 +50203,7 @@
       "venue_location": "Pasadena, CA",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 75-51",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -50297,7 +50305,7 @@
       "venue_location": "Springfield, Ohio",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "L, 73-78",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -50473,7 +50481,7 @@
       "venue_location": "Worcester, MA",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 85-43",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -50499,7 +50507,7 @@
       "venue_location": "New London, NH",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "L, 53-58",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -50683,13 +50691,15 @@
       "status": "scheduled",
       "source_url": "https://gwyneddathletics.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://gwyneddathletics.com/sports/womens-basketball/schedule?grid=true"
+        "https://gwyneddathletics.com/sports/womens-basketball/schedule?grid=true",
+        "https://www.dickinsonathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
+        185,
         12399
       ],
       "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "1:00 P.M.",
       "venue": "",
       "venue_location": "Grantham, PA (Messiah University - Jordan Court in Hitchcock Arena)",
@@ -50771,7 +50781,7 @@
       "venue_location": "Harrisonburg, Va.",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 77-55",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -51083,23 +51093,21 @@
       "home_org_id": 573,
       "neutral": true,
       "status": "scheduled",
-      "source_url": "https://www.rhodeslynx.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://hsuathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://hsuathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-        "https://www.rhodeslynx.com/sports/womens-basketball/schedule/2026-27?grid=true"
+        "https://hsuathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
-        271,
-        573
+        271
       ],
       "source_kind": "official_school",
-      "source_verification": "reciprocal",
-      "tipoff_as_posted": "1:00 PM",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "1 p.m.",
       "venue": "",
-      "venue_location": "Marshall, TX (ETBU)",
+      "venue_location": "Marshall, Texas",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "ETBU Classic",
+      "tournament": "W, 70-57",
       "neutral_home_designation_unconfirmed": true
     },
     {
@@ -51197,7 +51205,7 @@
       "venue_location": "Monmouth, Ill.",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "L, 65-80",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -51283,7 +51291,7 @@
       "home_org_id": 987,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://heartlandconf.org/schedule.aspx?schedule=4399",
+      "source_url": "https://hornets.kzoo.edu/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://heartlandconf.org/schedule.aspx?schedule=4399",
         "https://hornets.kzoo.edu/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -51294,12 +51302,12 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "2:00 P.M.",
+      "tipoff_as_posted": "2:00 PM",
       "venue": "",
-      "venue_location": "Bluffton, Ohio",
+      "venue_location": "Bluffton, OH",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "L, 82-92",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -51473,7 +51481,7 @@
       "venue_location": "Purchase, NY",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "L, 20-74",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -51621,7 +51629,7 @@
       "venue_location": "Demorest, Georgia",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 57-48",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -51697,7 +51705,7 @@
       "venue_location": "/ Marts Center",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "L, 52-68",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -51849,7 +51857,7 @@
       "venue_location": "New York, NY",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "L, 23-67",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -52351,7 +52359,7 @@
       "venue_location": "Kerrville, TX",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 61-48",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -60764,7 +60772,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "single_official_school",
-      "tipoff_as_posted": "",
+      "tipoff_as_posted": "7:00 PM",
       "venue": "",
       "venue_location": "New York, NY",
       "network_as_posted": "",
