@@ -177,6 +177,22 @@
         "log_loss": 1.3893225961190958
       }
     },
+    "401879234": {
+      "away": "Brighton",
+      "away_score": 0,
+      "baseline": {
+        "brier": 0.5655507626538768,
+        "log_loss": 0.9433941596438471
+      },
+      "fixture_id": "401879234",
+      "home": "Hull",
+      "home_score": 2,
+      "outcome": "home",
+      "research": {
+        "brier": 0.4997565642733215,
+        "log_loss": 0.8581239695021828
+      }
+    },
     "401879235": {
       "away": "Crystal Palace",
       "away_score": 2,
@@ -1459,19 +1475,19 @@
   "schema_version": 1,
   "status": "research_only_not_for_live_promotion",
   "summary": {
-    "graded_count": 27,
+    "graded_count": 28,
     "locked_count": 60,
-    "new_grades": 6,
+    "new_grades": 1,
     "new_locks": 0,
     "note": "Paired pregame outcomes only; a small sample cannot validate superiority.",
     "scores": {
       "baseline": {
-        "brier": 0.613807,
-        "log_loss": 1.023253
+        "brier": 0.612083,
+        "log_loss": 1.020401
       },
       "research": {
-        "brier": 0.618099,
-        "log_loss": 1.030571
+        "brier": 0.613873,
+        "log_loss": 1.024412
       }
     }
   }
