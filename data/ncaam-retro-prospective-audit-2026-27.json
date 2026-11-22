@@ -4,23 +4,23 @@
   "model": "retro-wider-margin-120-140-v1",
   "status": "SHADOW_ONLY",
   "summary": {
-    "games": 237,
+    "games": 239,
     "baseline": {
-      "spread_mae": 12.7637,
-      "home_score_mae": 9.1983,
-      "away_score_mae": 9.5148,
-      "team_score_mae": 9.3565,
-      "total_mae": 13.0506
+      "spread_mae": 12.7134,
+      "home_score_mae": 9.1757,
+      "away_score_mae": 9.4854,
+      "team_score_mae": 9.3305,
+      "total_mae": 13.0209
     },
     "wider_margin": {
-      "spread_mae": 13.4008,
-      "home_score_mae": 9.2363,
-      "away_score_mae": 9.9072,
-      "team_score_mae": 9.5717,
-      "total_mae": 13.0759
+      "spread_mae": 13.3494,
+      "home_score_mae": 9.2218,
+      "away_score_mae": 9.8828,
+      "team_score_mae": 9.5523,
+      "total_mae": 13.046
     }
   },
-  "pending": 38,
+  "pending": 36,
   "excluded": 7,
   "by_date": {
     "2026-11-17": {
@@ -106,6 +106,23 @@
         "away_score_mae": 9.0417,
         "team_score_mae": 8.6979,
         "total_mae": 11.6875
+      }
+    },
+    "2026-11-22": {
+      "games": 2,
+      "baseline": {
+        "spread_mae": 6.75,
+        "home_score_mae": 6.5,
+        "away_score_mae": 6,
+        "team_score_mae": 6.25,
+        "total_mae": 9.5
+      },
+      "wider_margin": {
+        "spread_mae": 7.25,
+        "home_score_mae": 7.5,
+        "away_score_mae": 7,
+        "team_score_mae": 7.25,
+        "total_mae": 9.5
       }
     }
   },
@@ -10446,6 +10463,48 @@
       },
       "actual_home": 67,
       "actual_away": 65
+    },
+    {
+      "id": "espn:401902281",
+      "date": "2026-11-22",
+      "home_id": "ncaa:609643",
+      "away_id": "ncaa:609686",
+      "captured_at_utc": "2026-11-22T14:50:40.347Z",
+      "tipoff_at_utc": "2026-11-22T17:00Z",
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "baseline": {
+        "margin": -11,
+        "home": 71,
+        "away": 82
+      },
+      "wider_margin": {
+        "margin": -13.5,
+        "home": 69,
+        "away": 83
+      },
+      "actual_home": 74,
+      "actual_away": 76
+    },
+    {
+      "id": "espn:401911024",
+      "date": "2026-11-22",
+      "home_id": "ncaa:609759",
+      "away_id": "ncaa:609666",
+      "captured_at_utc": "2026-11-22T14:50:40.347Z",
+      "tipoff_at_utc": "2026-11-22T17:00Z",
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "baseline": {
+        "margin": -6.5,
+        "home": 70,
+        "away": 77
+      },
+      "wider_margin": {
+        "margin": -8,
+        "home": 70,
+        "away": 78
+      },
+      "actual_home": 60,
+      "actual_away": 71
     }
   ]
 }
