@@ -2,7 +2,7 @@
   "league": "NBA",
   "season": "2026-27",
   "status": "provisional_live_from_historical_baseline",
-  "games_played": 236,
+  "games_played": 238,
   "preseason_status": "provisional_historical_regression_only",
   "source": "ESPN FINAL NBA regular-season scores; Sporting Life & Times independent Elo",
   "rankings": [
@@ -12,7 +12,7 @@
     },
     {
       "team": "NYK",
-      "elo": 1644.365
+      "elo": 1652.064
     },
     {
       "team": "LAL",
@@ -36,7 +36,7 @@
     },
     {
       "team": "MIN",
-      "elo": 1600.727
+      "elo": 1608.887
     },
     {
       "team": "HOU",
@@ -48,7 +48,7 @@
     },
     {
       "team": "POR",
-      "elo": 1576.901
+      "elo": 1569.202
     },
     {
       "team": "ATL",
@@ -72,7 +72,7 @@
     },
     {
       "team": "MEM",
-      "elo": 1491.394
+      "elo": 1483.233
     },
     {
       "team": "TOR",
@@ -2251,28 +2251,46 @@
       "away_score": 129,
       "date": "2026-11-21T18:00:00.000Z",
       "home_elo_change": 2.933069
+    },
+    {
+      "id": "espn-nba-401910024",
+      "home": "NYK",
+      "away": "POR",
+      "home_score": 97,
+      "away_score": 96,
+      "date": "2026-11-22T00:30:00.000Z",
+      "home_elo_change": 7.698977
+    },
+    {
+      "id": "espn-nba-401910026",
+      "home": "MIN",
+      "away": "MEM",
+      "home_score": 104,
+      "away_score": 95,
+      "date": "2026-11-22T01:00:00.000Z",
+      "home_elo_change": 8.160233
     }
   ],
   "movement": {
     "as_of_eastern_date": "2026-11-21",
     "daily_change": {
       "SAS": 0,
-      "NYK": 0,
+      "NYK": 7.698977,
       "LAL": 0,
       "OKC": 0,
       "BOS": 0,
       "PHI": 2.933069,
       "DET": 0,
-      "MIN": 0,
+      "MIN": 8.160233,
       "HOU": 0,
       "DEN": 0,
-      "POR": 0,
+      "POR": -7.698977,
       "ATL": 0,
       "MIA": 0,
       "CLE": 0,
       "PHX": 0,
       "ORL": 0,
-      "MEM": 0,
+      "MEM": -8.160233,
       "TOR": 0,
       "GSW": 0,
       "DAL": 0,
@@ -2305,7 +2323,7 @@
       "CLE": 1549.398,
       "PHX": 1499.186,
       "ORL": 1495.742,
-      "MEM": 1448.672,
+      "MEM": 1448.671,
       "TOR": 1488.962,
       "GSW": 1511.915,
       "DAL": 1446.797,
