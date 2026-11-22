@@ -2,7 +2,7 @@
   "league": "NBA",
   "season": "2026-27",
   "status": "provisional_live_from_historical_baseline",
-  "games_played": 240,
+  "games_played": 241,
   "preseason_status": "provisional_historical_regression_only",
   "source": "ESPN FINAL NBA regular-season scores; Sporting Life & Times independent Elo",
   "rankings": [
@@ -23,10 +23,6 @@
       "elo": 1627.702
     },
     {
-      "team": "BOS",
-      "elo": 1623.817
-    },
-    {
       "team": "PHI",
       "elo": 1619.209
     },
@@ -37,6 +33,10 @@
     {
       "team": "MIN",
       "elo": 1608.887
+    },
+    {
+      "team": "BOS",
+      "elo": 1605.244
     },
     {
       "team": "HOU",
@@ -111,6 +111,10 @@
       "elo": 1354.023
     },
     {
+      "team": "SAC",
+      "elo": 1323.349
+    },
+    {
       "team": "UTA",
       "elo": 1319.72
     },
@@ -121,10 +125,6 @@
     {
       "team": "MIL",
       "elo": 1309.225
-    },
-    {
-      "team": "SAC",
-      "elo": 1304.776
     }
   ],
   "events": [
@@ -2287,6 +2287,15 @@
       "away_score": 91,
       "date": "2026-11-22T01:00:00.000Z",
       "home_elo_change": 3.565613
+    },
+    {
+      "id": "espn-nba-401910028",
+      "home": "SAC",
+      "away": "BOS",
+      "home_score": 97,
+      "away_score": 96,
+      "date": "2026-11-22T03:00:00.000Z",
+      "home_elo_change": 18.573101
     }
   ],
   "movement": {
@@ -2296,10 +2305,10 @@
       "NYK": 7.698977,
       "LAL": 0,
       "OKC": 0,
-      "BOS": 0,
       "PHI": 2.933069,
       "DET": 0,
       "MIN": 8.160233,
+      "BOS": -18.573101,
       "HOU": 0,
       "DEN": 0,
       "POR": -7.698977,
@@ -2318,10 +2327,10 @@
       "NOP": -3.565613,
       "IND": 0,
       "WAS": 0,
+      "SAC": 18.573101,
       "UTA": 0,
       "BKN": 0,
-      "MIL": -2.933069,
-      "SAC": 0
+      "MIL": -2.933069
     },
     "last_week_eastern_date": "2026-11-14",
     "last_week_elo": {
@@ -2329,10 +2338,10 @@
       "NYK": 1610.742,
       "LAL": 1642.099,
       "OKC": 1636.946,
-      "BOS": 1653.209,
       "PHI": 1593.017,
       "DET": 1601.92,
       "MIN": 1593.235,
+      "BOS": 1653.209,
       "HOU": 1616.226,
       "DEN": 1584.581,
       "POR": 1591.191,
@@ -2351,10 +2360,10 @@
       "NOP": 1362.982,
       "IND": 1374.961,
       "WAS": 1336.271,
+      "SAC": 1321.914,
       "UTA": 1279.661,
       "BKN": 1348.877,
-      "MIL": 1332.087,
-      "SAC": 1321.914
+      "MIL": 1332.087
     }
   }
 }

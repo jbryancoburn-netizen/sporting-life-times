@@ -4,7 +4,7 @@
   "status": "primary_live_earned_elo",
   "model": "team_only_reset1500_home40_k24_sqrt_mov",
   "source": "data/nba-2026-27-current-provisional.json",
-  "games_played": 240,
+  "games_played": 241,
   "parameters": {
     "season_start_elo": 1500,
     "home_elo": 40,
@@ -46,20 +46,20 @@
       "difference_from_live": 102.803
     },
     {
-      "team": "BOS",
-      "elo": 1581.968,
-      "games": 15,
-      "forecast_prior": 1607.2514999999999,
-      "live_elo": 1623.817,
-      "difference_from_live": -41.849
-    },
-    {
       "team": "HOU",
       "elo": 1577.048,
       "games": 17,
       "forecast_prior": 1567.86825,
       "live_elo": 1599.178,
       "difference_from_live": -22.13
+    },
+    {
+      "team": "BOS",
+      "elo": 1576.372,
+      "games": 16,
+      "forecast_prior": 1607.2514999999999,
+      "live_elo": 1605.244,
+      "difference_from_live": -28.872
     },
     {
       "team": "PHI",
@@ -239,11 +239,11 @@
     },
     {
       "team": "SAC",
-      "elo": 1362.598,
-      "games": 15,
+      "elo": 1368.195,
+      "games": 16,
       "forecast_prior": 1377.94875,
-      "live_elo": 1304.776,
-      "difference_from_live": 57.822
+      "live_elo": 1323.349,
+      "difference_from_live": 44.846
     },
     {
       "team": "MIL",
@@ -4334,6 +4334,23 @@
       "home_elo_change": 7.498589444582684,
       "home_after": 1617.9194378075883,
       "away_after": 1408.559684890716
+    },
+    {
+      "id": "espn-nba-401910028",
+      "date": "2026-11-22T03:00:00.000Z",
+      "home": "SAC",
+      "away": "BOS",
+      "home_score": 97,
+      "away_score": 96,
+      "home_before": 1362.5983778885272,
+      "away_before": 1581.9683531619298,
+      "home_win_probability": 0.2625926312318306,
+      "forecast_home_win_probability": 0.25928465830470404,
+      "forecast_prior_weight_home": 0.3,
+      "forecast_prior_weight_away": 0.3,
+      "home_elo_change": 5.596528436877907,
+      "home_after": 1368.194906325405,
+      "away_after": 1576.371824725052
     }
   ]
 }
