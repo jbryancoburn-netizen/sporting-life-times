@@ -6,8 +6,8 @@
   "elo_approved": false,
   "source": "ESPN site API, completed finals since NBL27 regular-season opening",
   "season_start": "2026-09-19",
-  "updated_at": "2026-11-22T01:25:03.075060+00:00",
-  "games_replayed": 73,
+  "updated_at": "2026-11-22T11:37:55.929188+00:00",
+  "games_replayed": 75,
   "teams": 10,
   "rows": [
     {
@@ -23,12 +23,22 @@
     {
       "team": "Sydney Kings",
       "wins": 9,
-      "losses": 4,
-      "played": 13,
-      "win_pct": 0.692,
-      "points_for": 1282,
-      "points_against": 1166,
-      "points_pct": 109.95
+      "losses": 5,
+      "played": 14,
+      "win_pct": 0.643,
+      "points_for": 1386,
+      "points_against": 1281,
+      "points_pct": 108.2
+    },
+    {
+      "team": "Cairns Taipans",
+      "wins": 10,
+      "losses": 6,
+      "played": 16,
+      "win_pct": 0.625,
+      "points_for": 1486,
+      "points_against": 1525,
+      "points_pct": 97.44
     },
     {
       "team": "Melbourne United",
@@ -39,16 +49,6 @@
       "points_for": 1470,
       "points_against": 1378,
       "points_pct": 106.68
-    },
-    {
-      "team": "Cairns Taipans",
-      "wins": 9,
-      "losses": 6,
-      "played": 15,
-      "win_pct": 0.6,
-      "points_for": 1391,
-      "points_against": 1433,
-      "points_pct": 97.07
     },
     {
       "team": "Adelaide 36ers",
@@ -72,23 +72,13 @@
     },
     {
       "team": "Brisbane Bullets",
-      "wins": 6,
+      "wins": 7,
       "losses": 8,
-      "played": 14,
-      "win_pct": 0.429,
-      "points_for": 1321,
-      "points_against": 1389,
-      "points_pct": 95.1
-    },
-    {
-      "team": "South East Melbourne Phoenix",
-      "wins": 5,
-      "losses": 9,
-      "played": 14,
-      "win_pct": 0.357,
-      "points_for": 1374,
-      "points_against": 1371,
-      "points_pct": 100.22
+      "played": 15,
+      "win_pct": 0.467,
+      "points_for": 1436,
+      "points_against": 1493,
+      "points_pct": 96.18
     },
     {
       "team": "Illawarra Hawks",
@@ -99,6 +89,16 @@
       "points_for": 1647,
       "points_against": 1763,
       "points_pct": 93.42
+    },
+    {
+      "team": "South East Melbourne Phoenix",
+      "wins": 5,
+      "losses": 10,
+      "played": 15,
+      "win_pct": 0.333,
+      "points_for": 1466,
+      "points_against": 1466,
+      "points_pct": 100.0
     },
     {
       "team": "New Zealand Breakers",
@@ -112,6 +112,30 @@
     }
   ],
   "recent_finals": [
+    {
+      "id": "401875309",
+      "played_at": "2026-11-22T06:00Z",
+      "home": "Brisbane Bullets",
+      "away": "Sydney Kings",
+      "home_score": 115,
+      "away_score": 104,
+      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875309/kings-bullets",
+      "verified": false,
+      "provider": "espn",
+      "state": "candidate"
+    },
+    {
+      "id": "401875315",
+      "played_at": "2026-11-22T04:00Z",
+      "home": "South East Melbourne Phoenix",
+      "away": "Cairns Taipans",
+      "home_score": 92,
+      "away_score": 95,
+      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875315/taipans-phoenix",
+      "verified": false,
+      "provider": "espn",
+      "state": "candidate"
+    },
     {
       "id": "401875314",
       "played_at": "2026-11-21T08:30Z",
@@ -204,30 +228,6 @@
       "home_score": 111,
       "away_score": 100,
       "source_url": "https://www.espn.com/nbl/game/_/gameId/401875302/hawks-wildcats",
-      "verified": false,
-      "provider": "espn",
-      "state": "candidate"
-    },
-    {
-      "id": "401875356",
-      "played_at": "2026-11-14T08:30Z",
-      "home": "Melbourne United",
-      "away": "South East Melbourne Phoenix",
-      "home_score": 102,
-      "away_score": 95,
-      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875356/phoenix-united",
-      "verified": false,
-      "provider": "espn",
-      "state": "candidate"
-    },
-    {
-      "id": "401875299",
-      "played_at": "2026-11-13T08:30Z",
-      "home": "Cairns Taipans",
-      "away": "Sydney Kings",
-      "home_score": 84,
-      "away_score": 82,
-      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875299/kings-taipans",
       "verified": false,
       "provider": "espn",
       "state": "candidate"
