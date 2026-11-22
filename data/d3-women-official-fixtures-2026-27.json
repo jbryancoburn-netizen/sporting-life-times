@@ -3,7 +3,7 @@
   "division": "d3",
   "gender": "women",
   "season": "2026-27",
-  "generated_utc": "2026-11-22T00:24:01.297199+00:00",
+  "generated_utc": "2026-11-22T16:19:48.731303+00:00",
   "source": "NCAA 2026-27 member directory + year/gender-validated official school athletics calendars",
   "scope": "NCAA membership-wide first pass; sources without independently validated 2026-27 schedules excluded",
   "ncaa_confirmed_programs": 415,
@@ -14,8 +14,8 @@
   "school_calendars_unresolved": 17,
   "source_status_counts": {
     "parsed": 365,
-    "parsed_conference": 33,
-    "failed": 17
+    "failed": 17,
+    "parsed_conference": 33
   },
   "last_verified_school_source": {
     "4": "https://adrianbulldogs.com/sports/womens-basketball/schedule/2026-27?grid=true",
@@ -1019,10 +1019,10 @@
     {
       "owner_org_id": 69,
       "source_url": "https://athletics.bowdoin.edu/sports/womens-basketball/schedule/2026-27?grid=true",
-      "readable_rows": 26,
+      "readable_rows": 25,
       "verified_member_opponents": 16,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 7,
+        "identity_not_d3_matched_but_posted": 6,
         "conditional_or_ambiguous_opponent": 3
       },
       "status": "parsed",
@@ -1847,9 +1847,9 @@
       "owner_org_id": 200,
       "source_url": "https://gowarriorathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "readable_rows": 25,
-      "verified_member_opponents": 19,
+      "verified_member_opponents": 20,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 6
+        "identity_not_d3_matched_but_posted": 5
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -8153,18 +8153,6 @@
       ]
     },
     {
-      "date": "2026-11-22",
-      "members": [
-        279,
-        1254
-      ],
-      "problem": "home/away or neutral-site source disagreement",
-      "source_urls": [
-        "https://www.lehmanathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-        "https://www.neumannathletics.com/sports/womens-basketball/schedule?grid=true"
-      ]
-    },
-    {
       "date": "2026-11-28",
       "members": [
         177,
@@ -8393,9 +8381,9 @@
       ]
     }
   ],
-  "fixture_count": 4557,
-  "reciprocal_fixtures": 2723,
-  "unresolved_opponent_fixture_count": 1573,
+  "fixture_count": 4559,
+  "reciprocal_fixtures": 2724,
+  "unresolved_opponent_fixture_count": 1570,
   "unresolved_opponent_fixtures": [
     {
       "id": "d3-women-2026-11-06-73-other-3415eb321a6f",
@@ -12988,21 +12976,6 @@
       "venue_location": "Canton, NY / Stan Cohen Court"
     },
     {
-      "id": "d3-women-2026-11-21-69-other-f204dce145ae",
-      "date": "2026-11-21",
-      "source_owner_org_id": 69,
-      "external_opponent_label": "Skidmore vs. Maine Maritime",
-      "placement": "neutral",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://athletics.bowdoin.edu/sports/womens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "4:00 PM",
-      "venue_location": "Brunswick, Maine / Morrell Gymnasium"
-    },
-    {
       "id": "d3-women-2026-11-21-75-other-2c001dc5df24",
       "date": "2026-11-21",
       "source_owner_org_id": 75,
@@ -13886,36 +13859,6 @@
       "source_url": "https://www.clarksonathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "5:30 pm",
       "venue_location": "Potsdam, NY"
-    },
-    {
-      "id": "d3-women-2026-11-24-163-other-c75952663199",
-      "date": "2026-11-24",
-      "source_owner_org_id": 163,
-      "external_opponent_label": "Eastern Connecticut State Univ.",
-      "placement": "away",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://camelathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "4:00 PM",
-      "venue_location": "Willimantic, CT"
-    },
-    {
-      "id": "d3-women-2026-11-24-200-other-17acab29c08d",
-      "date": "2026-11-24",
-      "source_owner_org_id": 200,
-      "external_opponent_label": "Connecticut Col.",
-      "placement": "home",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://gowarriorathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "4:00 PM",
-      "venue_location": "Willimantic, Conn. / Geissler Gymnasium"
     },
     {
       "id": "d3-women-2026-11-24-239-other-46806dbbb931",
@@ -52059,7 +52002,7 @@
       "venue_location": "Tacoma, Wash.",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 58-48",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -53021,6 +52964,32 @@
       "radio_as_posted": "",
       "tournament": "",
       "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-women-2026-11-22-279-1254",
+      "date": "2026-11-22",
+      "away_org_id": 279,
+      "home_org_id": 1254,
+      "neutral": true,
+      "status": "scheduled",
+      "source_url": "https://www.lehmanathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://www.lehmanathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+        "https://www.neumannathletics.com/sports/womens-basketball/schedule?grid=true"
+      ],
+      "verified_by_org_ids": [
+        279,
+        1254
+      ],
+      "source_kind": "official_school",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "11:00 AM",
+      "venue": "Wicomico County Civic Center",
+      "venue_location": "Salisbury, MD",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "Governors Challenge",
+      "neutral_home_designation_unconfirmed": true
     },
     {
       "id": "d3-women-2026-11-22-284-11324",
@@ -54369,6 +54338,30 @@
       "venue_location": "Menomonie, Wis.",
       "network_as_posted": "",
       "radio_as_posted": "WAYY 790 AM / 105.1 FM",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-women-2026-11-24-163-200",
+      "date": "2026-11-24",
+      "away_org_id": 163,
+      "home_org_id": 200,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://gowarriorathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://gowarriorathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        200
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "4:00 PM",
+      "venue": "Geissler Gymnasium",
+      "venue_location": "Willimantic, Conn.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
       "tournament": "",
       "neutral_home_designation_unconfirmed": false
     },
