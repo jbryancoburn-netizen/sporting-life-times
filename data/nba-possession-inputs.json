@@ -1,9 +1,59 @@
 {
   "source_type": "attributed_nba_boxscores",
   "source_url": "Attribution retained per game",
-  "updated_at": "2026-11-23T02:36:12.534462+00:00",
+  "updated_at": "2026-11-23T11:12:22.694470+00:00",
   "coverage": "captured completed games, not necessarily full NBA season",
   "games": [
+    {
+      "id": "espn-nba-401910035",
+      "date": "2026-11-23T01:30Z",
+      "minutes": 48,
+      "final": true,
+      "regular_season": true,
+      "source": "ESPN completed-game team box score",
+      "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401910035",
+      "home": {
+        "code": "GSW",
+        "points": 88,
+        "fga": 83,
+        "oreb": 19,
+        "tov": 20,
+        "fta": 10
+      },
+      "away": {
+        "code": "BOS",
+        "points": 87,
+        "fga": 83,
+        "oreb": 15,
+        "tov": 16,
+        "fta": 12
+      }
+    },
+    {
+      "id": "espn-nba-401910034",
+      "date": "2026-11-23T01:00Z",
+      "minutes": 48,
+      "final": true,
+      "regular_season": true,
+      "source": "ESPN completed-game team box score",
+      "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401910034",
+      "home": {
+        "code": "NYK",
+        "points": 113,
+        "fga": 92,
+        "oreb": 12,
+        "tov": 18,
+        "fta": 22
+      },
+      "away": {
+        "code": "IND",
+        "points": 106,
+        "fga": 84,
+        "oreb": 7,
+        "tov": 12,
+        "fta": 33
+      }
+    },
     {
       "id": "espn-nba-401910033",
       "date": "2026-11-23T00:00Z",
@@ -27,6 +77,31 @@
         "oreb": 7,
         "tov": 13,
         "fta": 17
+      }
+    },
+    {
+      "id": "espn-nba-401910032",
+      "date": "2026-11-23T00:00Z",
+      "minutes": 53,
+      "final": true,
+      "regular_season": true,
+      "source": "ESPN completed-game team box score",
+      "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401910032",
+      "home": {
+        "code": "CHI",
+        "points": 145,
+        "fga": 100,
+        "oreb": 9,
+        "tov": 16,
+        "fta": 20
+      },
+      "away": {
+        "code": "DEN",
+        "points": 151,
+        "fga": 102,
+        "oreb": 15,
+        "tov": 12,
+        "fta": 30
       }
     },
     {
