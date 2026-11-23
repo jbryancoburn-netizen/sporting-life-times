@@ -267,7 +267,9 @@ assert.equal(slate.provisionalRetro(menBase,[{...ended,home:{canonical:'unrecogn
 const old=menBase.events[0];
 assert.equal(slate.provisionalRetro(menBase,[{...ended,id:String(old.id).replace(/^espn:/,''),day:old.date,
  home:{canonical:old.home_id,score:old.home_score},away:{canonical:old.away_id,score:old.away_score}}],globalThis.MBB_RETRO).pending,0);
-const wHome=womenBase.rankings[0],wAway=womenBase.rankings[1];
+const wEligible=womenBase.rankings.filter(r=>Number(r.elo)>1450&&Number(r.elo)<1700);
+assert(wEligible.length>=2,'Women’s RETRO test requires two teams below the rating ceiling');
+const [wHome,wAway]=wEligible;
 const wFinal={...ended,home:{canonical:wHome.team_id,score:77},away:{canonical:wAway.team_id,score:65}};
 const wUpdated=slate.provisionalRetro(womenBase,[wFinal],globalThis.MBB_RETRO,true);
 assert.equal(wUpdated.pending,1);
