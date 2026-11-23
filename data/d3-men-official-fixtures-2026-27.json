@@ -3,7 +3,7 @@
   "division": "d3",
   "gender": "men",
   "season": "2026-27",
-  "generated_utc": "2026-11-23T00:56:25.104487+00:00",
+  "generated_utc": "2026-11-23T20:17:29.037194+00:00",
   "source": "NCAA 2026-27 member directory + year/gender-validated official school athletics calendars",
   "scope": "NCAA membership-wide first pass; sources without independently validated 2026-27 schedules excluded",
   "ncaa_confirmed_programs": 406,
@@ -2327,7 +2327,7 @@
       "verified_member_opponents": 18,
       "excluded_rows": {},
       "approved_at": "2024-10-08",
-      "university_source_failure": "HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not ",
+      "university_source_failure": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
       "university_source_status": "failed"
     },
     {
@@ -3126,10 +3126,10 @@
     {
       "owner_org_id": 491,
       "source_url": "https://ncwsports.com/sports/mens-basketball/schedule?grid=true",
-      "readable_rows": 29,
+      "readable_rows": 30,
       "verified_member_opponents": 21,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 6,
+        "identity_not_d3_matched_but_posted": 7,
         "conditional_or_ambiguous_opponent": 2
       },
       "status": "parsed",
@@ -4372,9 +4372,9 @@
       "owner_org_id": 737,
       "source_url": "https://www.vassarathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "readable_rows": 29,
-      "verified_member_opponents": 16,
+      "verified_member_opponents": 15,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 5,
+        "identity_not_d3_matched_but_posted": 6,
         "conditional_or_ambiguous_opponent": 8
       },
       "status": "parsed",
@@ -8181,9 +8181,9 @@
       ]
     }
   ],
-  "fixture_count": 4423,
+  "fixture_count": 4422,
   "reciprocal_fixtures": 2636,
-  "unresolved_opponent_fixture_count": 1662,
+  "unresolved_opponent_fixture_count": 1663,
   "unresolved_opponent_fixtures": [
     {
       "id": "d3-men-2026-11-06-18-other-7e7a67cf3608",
@@ -14366,10 +14366,10 @@
       "venue_location": "San Antonio, TX"
     },
     {
-      "id": "d3-men-2026-11-25-2751-other-5ce095d8be63",
+      "id": "d3-men-2026-11-25-2751-other-fb8374ab2674",
       "date": "2026-11-25",
       "source_owner_org_id": 2751,
-      "external_opponent_label": "Bethesda University of California",
+      "external_opponent_label": "California Miramar University",
       "placement": "away",
       "status": "scheduled",
       "elo_eligible": false,
@@ -14377,8 +14377,8 @@
       "schedule_only": true,
       "source_kind": "official_school",
       "source_url": "https://www.goboxers.com/sports/mens-basketball/schedule?grid=true",
-      "tipoff_as_posted": "3:00 PM",
-      "venue_location": "Anaheim, CA"
+      "tipoff_as_posted": "2:00 PM",
+      "venue_location": "Los Angeles, CA"
     },
     {
       "id": "d3-men-2026-11-25-22626-other-38374b35a864",
@@ -14439,6 +14439,21 @@
       "source_url": "https://www.nwusports.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "5:00 PM",
       "venue_location": "Lincoln, NE / Snyder Arena"
+    },
+    {
+      "id": "d3-men-2026-11-27-491-other-273ec8db89eb",
+      "date": "2026-11-27",
+      "source_owner_org_id": 491,
+      "external_opponent_label": "East Carolina University",
+      "placement": "away",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://ncwsports.com/sports/mens-basketball/schedule?grid=true",
+      "tipoff_as_posted": "7:00 PM",
+      "venue_location": "Greenville, NC / Williams Arena at Minges Coliseum"
     },
     {
       "id": "d3-men-2026-11-27-2751-other-92cdba613e32",
@@ -15652,7 +15667,7 @@
       "schedule_only": true,
       "source_kind": "official_school",
       "source_url": "https://www.cortlandreddragons.com/sports/mens-basketball/schedule?grid=true",
-      "tipoff_as_posted": "4 p.m.",
+      "tipoff_as_posted": "5 p.m.",
       "venue_location": "Cortland, N.Y. / Whitney T. Corey '43 Gymnasium"
     },
     {
@@ -17872,7 +17887,7 @@
       "schedule_only": true,
       "source_kind": "official_school",
       "source_url": "https://www.mountieathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "TBD",
+      "tipoff_as_posted": "12:00 PM",
       "venue_location": "Erie, Pa. / Owen McCormick Court at the Mercyhurst Athletic Center"
     },
     {
@@ -23092,7 +23107,7 @@
       "schedule_only": true,
       "source_kind": "official_school",
       "source_url": "https://www.ramapoathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true",
-      "tipoff_as_posted": "7:30 PM",
+      "tipoff_as_posted": "3:00 PM",
       "venue_location": "Newark, NJ / Golden Dome"
     },
     {
@@ -29062,7 +29077,7 @@
       "schedule_only": true,
       "source_kind": "official_school",
       "source_url": "https://www.stocktonathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "TBA",
+      "tipoff_as_posted": "7:30 PM",
       "venue_location": "Newark, NJ"
     },
     {
@@ -54462,7 +54477,7 @@
       "venue_location": "Los Angeles, CA",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "L, 84-86",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -54520,23 +54535,21 @@
       "home_org_id": 737,
       "neutral": true,
       "status": "scheduled",
-      "source_url": "https://www.vassarathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.rmcathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
-        "https://www.rmcathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true",
-        "https://www.vassarathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://www.rmcathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true"
       ],
       "verified_by_org_ids": [
-        565,
-        737
+        565
       ],
       "source_kind": "official_school",
-      "source_verification": "reciprocal",
+      "source_verification": "single_official_school",
       "tipoff_as_posted": "3:00 PM",
       "venue": "",
-      "venue_location": "Salisbury, MD | Wicomico County Civic Center",
+      "venue_location": "Salisbury, Md.",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "Governors Challenge",
+      "tournament": "Governor's Challenge",
       "neutral_home_designation_unconfirmed": true
     },
     {
@@ -54684,7 +54697,7 @@
       "venue_location": "Cincinnati, OH",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 83-61",
       "neutral_home_designation_unconfirmed": true
     },
     {
@@ -55995,7 +56008,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "single_official_school",
-      "tipoff_as_posted": "4 p.m.",
+      "tipoff_as_posted": "5 p.m.",
       "venue": "",
       "venue_location": "Lancaster, Pa.",
       "network_as_posted": "",
@@ -64041,7 +64054,7 @@
       "venue": "",
       "venue_location": "Danville, VA",
       "network_as_posted": "",
-      "radio_as_posted": "",
+      "radio_as_posted": "Kickin' Country 92.9 FM",
       "tournament": "",
       "neutral_home_designation_unconfirmed": false
     },
@@ -102430,7 +102443,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "single_official_school",
-      "tipoff_as_posted": "7:00 PM",
+      "tipoff_as_posted": "2:00 PM",
       "venue": "Junker Center",
       "venue_location": "Erie, PA",
       "network_as_posted": "",
@@ -136983,30 +136996,6 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
-      "id": "d3-men-2027-02-16-351-679",
-      "date": "2027-02-16",
-      "away_org_id": 679,
-      "home_org_id": 351,
-      "neutral": false,
-      "status": "scheduled",
-      "source_url": "https://www.godutchmen.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "official_schedule_sources": [
-        "https://www.godutchmen.com/sports/mens-basketball/schedule/2026-27?grid=true"
-      ],
-      "verified_by_org_ids": [
-        351
-      ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
-      "tipoff_as_posted": "7 p.m.",
-      "venue": "Sorrentino Gymnasium",
-      "venue_location": "Annville, Pa.",
-      "network_as_posted": "",
-      "radio_as_posted": "",
-      "tournament": "",
-      "neutral_home_designation_unconfirmed": false
-    },
-    {
       "id": "d3-men-2027-02-16-397-16142",
       "date": "2027-02-16",
       "away_org_id": 397,
@@ -138753,17 +138742,19 @@
       "home_org_id": 351,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.stevensducks.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.godutchmen.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://www.godutchmen.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.stevensducks.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
+        351,
         679
       ],
       "source_kind": "official_school",
-      "source_verification": "single_official_school",
-      "tipoff_as_posted": "7:00 PM",
-      "venue": "",
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "6 p.m.",
+      "venue": "Sorrentino Gymnasium",
       "venue_location": "Annville, Pa.",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -143474,7 +143465,7 @@
       "home_org_id": 803,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://uwoshkoshtitans.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://stoutbluedevils.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://stoutbluedevils.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://uwoshkoshtitans.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -143489,7 +143480,7 @@
       "venue": "Johnson Fieldhouse",
       "venue_location": "Menomonie, Wis.",
       "network_as_posted": "",
-      "radio_as_posted": "",
+      "radio_as_posted": "WAYY 790 AM / 105.1 FM",
       "tournament": "",
       "neutral_home_designation_unconfirmed": false
     },
