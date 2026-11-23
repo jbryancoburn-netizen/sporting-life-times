@@ -455,7 +455,10 @@ jobs:
                           assert p['published_at'],filename+' '+kind+' publication date'
                   for view in views:
                       html=fetch(view,attempt)
-                      assert 'national-polls.json' in html or 'wbb-rankings.js' in html,view+' lacks poll renderer'
+                      if view.startswith('ncaaw-rankings.html'):
+                          assert 'location.replace' in html and 'ncaam-rankings.html' in html and "params.set('gender','women')" in html,view+' lacks women redirect'
+                      else:
+                          assert 'national-polls.json' in html,view+' lacks shared poll renderer'
                   print('PASS: both public AP/Coaches datasets exactly match staged files; all six ranking views load')
                   break
               except Exception as ex:
