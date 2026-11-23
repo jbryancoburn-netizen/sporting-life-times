@@ -3,7 +3,7 @@
   "division": "d3",
   "gender": "women",
   "season": "2026-27",
-  "generated_utc": "2026-11-22T16:19:48.731303+00:00",
+  "generated_utc": "2026-11-23T00:57:34.161260+00:00",
   "source": "NCAA 2026-27 member directory + year/gender-validated official school athletics calendars",
   "scope": "NCAA membership-wide first pass; sources without independently validated 2026-27 schedules excluded",
   "ncaa_confirmed_programs": 415,
@@ -1019,10 +1019,10 @@
     {
       "owner_org_id": 69,
       "source_url": "https://athletics.bowdoin.edu/sports/womens-basketball/schedule/2026-27?grid=true",
-      "readable_rows": 25,
+      "readable_rows": 24,
       "verified_member_opponents": 16,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 6,
+        "identity_not_d3_matched_but_posted": 5,
         "conditional_or_ambiguous_opponent": 3
       },
       "status": "parsed",
@@ -8381,9 +8381,9 @@
       ]
     }
   ],
-  "fixture_count": 4559,
-  "reciprocal_fixtures": 2724,
-  "unresolved_opponent_fixture_count": 1570,
+  "fixture_count": 4560,
+  "reciprocal_fixtures": 2723,
+  "unresolved_opponent_fixture_count": 1569,
   "unresolved_opponent_fixtures": [
     {
       "id": "d3-women-2026-11-06-73-other-3415eb321a6f",
@@ -13679,21 +13679,6 @@
       "source_url": "https://athletics.houghton.edu/sports/womens-basketball/schedule/2026-2027?grid=true",
       "tipoff_as_posted": "2:00 PM",
       "venue_location": "New Wilmington, PA"
-    },
-    {
-      "id": "d3-women-2026-11-22-69-other-ad6b967688b5",
-      "date": "2026-11-22",
-      "source_owner_org_id": 69,
-      "external_opponent_label": "Stevens vs. Maine Maritime",
-      "placement": "neutral",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://athletics.bowdoin.edu/sports/womens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "2:00 PM",
-      "venue_location": "Brunswick, Maine / Morrell Gymnasium"
     },
     {
       "id": "d3-women-2026-11-22-105-other-bce76b149527",
@@ -53064,7 +53049,7 @@
       "venue_location": "Brunswick, Maine",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "L, 41-51",
       "neutral_home_designation_unconfirmed": true
     },
     {
@@ -53168,7 +53153,7 @@
       "venue_location": "Los Angeles, CA",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 82-58",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -62008,6 +61993,30 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-women-2026-12-04-192-805",
+      "date": "2026-12-04",
+      "away_org_id": 192,
+      "home_org_id": 805,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://www.uwwsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://www.uwwsports.com/sports/womens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        805
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7 PM",
+      "venue": "Kachel Gymnasium in Williams Center",
+      "venue_location": "Whitewater, WI",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-women-2026-12-04-238-733",
       "date": "2026-12-04",
       "away_org_id": 238,
@@ -63618,20 +63627,18 @@
       "home_org_id": 805,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.uwwsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://udspartans.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://udspartans.com/sports/womens-basketball/schedule?grid=true",
-        "https://www.uwwsports.com/sports/womens-basketball/schedule/2026-27?grid=true"
+        "https://udspartans.com/sports/womens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
-        192,
-        805
+        192
       ],
       "source_kind": "official_school",
-      "source_verification": "reciprocal",
-      "tipoff_as_posted": "1 PM",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "1:00 p.m.",
       "venue": "Kachel Gymnasium in Williams Center",
-      "venue_location": "Whitewater, WI",
+      "venue_location": "Whitewater, Wis.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
