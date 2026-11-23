@@ -1,7 +1,7 @@
 {
   "player_snapshot": {
     "scope": "published_match_reports_only",
-    "matches_covered": 108,
+    "matches_covered": 109,
     "goals": [
       {
         "player": "Erling Haaland",
@@ -154,6 +154,11 @@
         "count": 3
       },
       {
+        "player": "Víctor Muñoz",
+        "team": "Liverpool",
+        "count": 3
+      },
+      {
         "player": "Yasin Ayari",
         "team": "Brighton and Hove Albion",
         "count": 3
@@ -196,6 +201,11 @@
       {
         "player": "Emersonn",
         "team": "Ipswich Town",
+        "count": 2
+      },
+      {
+        "player": "Florian Wirtz",
+        "team": "Liverpool",
         "count": 2
       },
       {
@@ -301,11 +311,6 @@
       {
         "player": "Vitaly Janelt",
         "team": "Brentford",
-        "count": 2
-      },
-      {
-        "player": "Víctor Muñoz",
-        "team": "Liverpool",
         "count": 2
       },
       {
@@ -471,11 +476,6 @@
       {
         "player": "Florentino",
         "team": "Ipswich Town",
-        "count": 1
-      },
-      {
-        "player": "Florian Wirtz",
-        "team": "Liverpool",
         "count": 1
       },
       {
@@ -684,6 +684,11 @@
         "count": 1
       },
       {
+        "player": "Rio Ngumoha",
+        "team": "Liverpool",
+        "count": 1
+      },
+      {
         "player": "Roméo Lavia",
         "team": "Chelsea",
         "count": 1
@@ -761,8 +766,18 @@
         "count": 5
       },
       {
+        "player": "Bradley Barcola",
+        "team": "Liverpool",
+        "count": 4
+      },
+      {
         "player": "Evanilson",
         "team": "AFC Bournemouth",
+        "count": 4
+      },
+      {
+        "player": "Florian Wirtz",
+        "team": "Liverpool",
         "count": 4
       },
       {
@@ -786,11 +801,6 @@
         "count": 3
       },
       {
-        "player": "Bradley Barcola",
-        "team": "Liverpool",
-        "count": 3
-      },
-      {
         "player": "Cody Gakpo",
         "team": "Liverpool",
         "count": 3
@@ -803,11 +813,6 @@
       {
         "player": "Daichi Kamada",
         "team": "Crystal Palace",
-        "count": 3
-      },
-      {
-        "player": "Florian Wirtz",
-        "team": "Liverpool",
         "count": 3
       },
       {
@@ -1311,6 +1316,11 @@
         "count": 1
       },
       {
+        "player": "Rio Ngumoha",
+        "team": "Liverpool",
+        "count": 1
+      },
+      {
         "player": "Roméo Lavia",
         "team": "Chelsea",
         "count": 1
@@ -1404,7 +1414,7 @@
     "own_goals_not_counted": 14,
     "note": "Event-derived from the published match-report window, not official season leaderboards; unresolved player names are excluded."
   },
-  "updated_at": "2026-11-22T21:03:29.154588+00:00",
+  "updated_at": "2026-11-23T01:42:07.179414+00:00",
   "source": "ESPN event summary; third-party match facts only, not Elo",
   "matches": {
     "401878768": {
@@ -51698,13 +51708,448 @@
         }
       ],
       "source_url": "https://www.espn.com/soccer/match/_/gameId/401879234"
+    },
+    "401878755": {
+      "home": "Liverpool",
+      "away": "Manchester United",
+      "home_score": 4,
+      "away_score": 0,
+      "kickoff_utc": "2026-11-22T16:30:00+00:00",
+      "teams": [
+        {
+          "team": "Liverpool",
+          "statistics": [
+            {
+              "name": "foulsCommitted",
+              "displayValue": "15",
+              "label": "Fouls"
+            },
+            {
+              "name": "yellowCards",
+              "displayValue": "1",
+              "label": "Yellow Cards"
+            },
+            {
+              "name": "redCards",
+              "displayValue": "0",
+              "label": "Red Cards"
+            },
+            {
+              "name": "offsides",
+              "displayValue": "2",
+              "label": "Offsides"
+            },
+            {
+              "name": "wonCorners",
+              "displayValue": "15",
+              "label": "Corner Kicks"
+            },
+            {
+              "name": "saves",
+              "displayValue": "4",
+              "label": "Saves"
+            },
+            {
+              "name": "possessionPct",
+              "displayValue": "63.8",
+              "label": "Possession"
+            },
+            {
+              "name": "totalShots",
+              "displayValue": "28",
+              "label": "SHOTS"
+            },
+            {
+              "name": "shotsOnTarget",
+              "displayValue": "11",
+              "label": "ON GOAL"
+            },
+            {
+              "name": "shotPct",
+              "displayValue": "0.4",
+              "label": "On Target %"
+            },
+            {
+              "name": "penaltyKickGoals",
+              "displayValue": "0",
+              "label": "Penalty Goals"
+            },
+            {
+              "name": "penaltyKickShots",
+              "displayValue": "0",
+              "label": "Penalty Kicks Taken"
+            },
+            {
+              "name": "accuratePasses",
+              "displayValue": "509",
+              "label": "Accurate Passes"
+            },
+            {
+              "name": "totalPasses",
+              "displayValue": "575",
+              "label": "Passes"
+            },
+            {
+              "name": "passPct",
+              "displayValue": "0.9",
+              "label": "Pass Completion %"
+            },
+            {
+              "name": "accurateCrosses",
+              "displayValue": "4",
+              "label": "Accurate Crosses"
+            },
+            {
+              "name": "totalCrosses",
+              "displayValue": "24",
+              "label": "Crosses"
+            },
+            {
+              "name": "crossPct",
+              "displayValue": "0.2",
+              "label": "Cross %"
+            },
+            {
+              "name": "totalLongBalls",
+              "displayValue": "34",
+              "label": "Long Balls"
+            },
+            {
+              "name": "accurateLongBalls",
+              "displayValue": "19",
+              "label": "Accurate Long Balls"
+            },
+            {
+              "name": "longballPct",
+              "displayValue": "0.6",
+              "label": "Long Balls %"
+            },
+            {
+              "name": "blockedShots",
+              "displayValue": "10",
+              "label": "Blocked Shots"
+            },
+            {
+              "name": "effectiveTackles",
+              "displayValue": "8",
+              "label": "Effective Tackles"
+            },
+            {
+              "name": "totalTackles",
+              "displayValue": "12",
+              "label": "Tackles"
+            },
+            {
+              "name": "tacklePct",
+              "displayValue": "0.7",
+              "label": "Tackle %"
+            },
+            {
+              "name": "interceptions",
+              "displayValue": "9",
+              "label": "Interceptions"
+            },
+            {
+              "name": "effectiveClearance",
+              "displayValue": "14",
+              "label": "Effective Clearances"
+            },
+            {
+              "name": "totalClearance",
+              "displayValue": "14",
+              "label": "Clearances"
+            }
+          ]
+        },
+        {
+          "team": "Manchester United",
+          "statistics": [
+            {
+              "name": "foulsCommitted",
+              "displayValue": "7",
+              "label": "Fouls"
+            },
+            {
+              "name": "yellowCards",
+              "displayValue": "0",
+              "label": "Yellow Cards"
+            },
+            {
+              "name": "redCards",
+              "displayValue": "1",
+              "label": "Red Cards"
+            },
+            {
+              "name": "offsides",
+              "displayValue": "2",
+              "label": "Offsides"
+            },
+            {
+              "name": "wonCorners",
+              "displayValue": "5",
+              "label": "Corner Kicks"
+            },
+            {
+              "name": "saves",
+              "displayValue": "7",
+              "label": "Saves"
+            },
+            {
+              "name": "possessionPct",
+              "displayValue": "36.2",
+              "label": "Possession"
+            },
+            {
+              "name": "totalShots",
+              "displayValue": "10",
+              "label": "SHOTS"
+            },
+            {
+              "name": "shotsOnTarget",
+              "displayValue": "3",
+              "label": "ON GOAL"
+            },
+            {
+              "name": "shotPct",
+              "displayValue": "0.3",
+              "label": "On Target %"
+            },
+            {
+              "name": "penaltyKickGoals",
+              "displayValue": "0",
+              "label": "Penalty Goals"
+            },
+            {
+              "name": "penaltyKickShots",
+              "displayValue": "0",
+              "label": "Penalty Kicks Taken"
+            },
+            {
+              "name": "accuratePasses",
+              "displayValue": "252",
+              "label": "Accurate Passes"
+            },
+            {
+              "name": "totalPasses",
+              "displayValue": "327",
+              "label": "Passes"
+            },
+            {
+              "name": "passPct",
+              "displayValue": "0.8",
+              "label": "Pass Completion %"
+            },
+            {
+              "name": "accurateCrosses",
+              "displayValue": "3",
+              "label": "Accurate Crosses"
+            },
+            {
+              "name": "totalCrosses",
+              "displayValue": "12",
+              "label": "Crosses"
+            },
+            {
+              "name": "crossPct",
+              "displayValue": "0.3",
+              "label": "Cross %"
+            },
+            {
+              "name": "totalLongBalls",
+              "displayValue": "51",
+              "label": "Long Balls"
+            },
+            {
+              "name": "accurateLongBalls",
+              "displayValue": "18",
+              "label": "Accurate Long Balls"
+            },
+            {
+              "name": "longballPct",
+              "displayValue": "0.4",
+              "label": "Long Balls %"
+            },
+            {
+              "name": "blockedShots",
+              "displayValue": "2",
+              "label": "Blocked Shots"
+            },
+            {
+              "name": "effectiveTackles",
+              "displayValue": "12",
+              "label": "Effective Tackles"
+            },
+            {
+              "name": "totalTackles",
+              "displayValue": "18",
+              "label": "Tackles"
+            },
+            {
+              "name": "tacklePct",
+              "displayValue": "0.7",
+              "label": "Tackle %"
+            },
+            {
+              "name": "interceptions",
+              "displayValue": "9",
+              "label": "Interceptions"
+            },
+            {
+              "name": "effectiveClearance",
+              "displayValue": "34",
+              "label": "Effective Clearances"
+            },
+            {
+              "name": "totalClearance",
+              "displayValue": "34",
+              "label": "Clearances"
+            }
+          ]
+        }
+      ],
+      "players": [],
+      "events": [
+        {
+          "clock": "",
+          "text": null,
+          "type": "Kickoff",
+          "team": null
+        },
+        {
+          "clock": "8'",
+          "text": null,
+          "type": "Start Delay",
+          "team": "Liverpool"
+        },
+        {
+          "clock": "8'",
+          "text": "Leny Yoro (Manchester United) is shown the red card.",
+          "type": "Red Card",
+          "team": "Manchester United"
+        },
+        {
+          "clock": "9'",
+          "text": null,
+          "type": "End Delay",
+          "team": "Liverpool"
+        },
+        {
+          "clock": "10'",
+          "text": "Goal! Liverpool 1, Manchester United 0. Dominik Szoboszlai (Liverpool) from a free kick with a right footed shot to the bottom left corner.",
+          "type": "Goal - Free-kick",
+          "team": "Liverpool"
+        },
+        {
+          "clock": "13'",
+          "text": "Goal! Liverpool 2, Manchester United 0. Florian Wirtz (Liverpool) left footed shot from very close range to the high centre of the goal. Assisted by Rio Ngumoha.",
+          "type": "Goal",
+          "team": "Liverpool"
+        },
+        {
+          "clock": "22'",
+          "text": "Substitution, Manchester United. Harry Maguire replaces Bryan Mbeumo.",
+          "type": "Substitution",
+          "team": "Manchester United"
+        },
+        {
+          "clock": "45'+5'",
+          "text": "First Half ends, Liverpool 2, Manchester United 0.",
+          "type": "Halftime",
+          "team": null
+        },
+        {
+          "clock": "45'",
+          "text": "Substitution, Manchester United. Joshua Zirkzee replaces Matheus Cunha.",
+          "type": "Substitution",
+          "team": "Manchester United"
+        },
+        {
+          "clock": "45'",
+          "text": null,
+          "type": "Start 2nd Half",
+          "team": null
+        },
+        {
+          "clock": "62'",
+          "text": "Bradley Barcola (Liverpool) is shown the yellow card for a bad foul.",
+          "type": "Yellow Card",
+          "team": "Liverpool"
+        },
+        {
+          "clock": "65'",
+          "text": "Substitution, Manchester United. Mason Mount replaces Youri Tielemans.",
+          "type": "Substitution",
+          "team": "Manchester United"
+        },
+        {
+          "clock": "65'",
+          "text": "Substitution, Manchester United. Noussair Mazraoui replaces Patrick Dorgu.",
+          "type": "Substitution",
+          "team": "Manchester United"
+        },
+        {
+          "clock": "66'",
+          "text": "Goal! Liverpool 3, Manchester United 0. Rio Ngumoha (Liverpool) right footed shot from the centre of the box to the centre of the goal. Assisted by Bradley Barcola following a fast break.",
+          "type": "Goal",
+          "team": "Liverpool"
+        },
+        {
+          "clock": "72'",
+          "text": "Substitution, Liverpool. Trey Nyoni replaces Alexis Mac Allister.",
+          "type": "Substitution",
+          "team": "Liverpool"
+        },
+        {
+          "clock": "72'",
+          "text": "Substitution, Liverpool. Víctor Muñoz replaces Bradley Barcola.",
+          "type": "Substitution",
+          "team": "Liverpool"
+        },
+        {
+          "clock": "78'",
+          "text": "Substitution, Liverpool. Jeremie Frimpong replaces Rio Ngumoha.",
+          "type": "Substitution",
+          "team": "Liverpool"
+        },
+        {
+          "clock": "82'",
+          "text": "Goal! Liverpool 4, Manchester United 0. Víctor Muñoz (Liverpool) right footed shot from the centre of the box to the top right corner. Assisted by Florian Wirtz with a through ball.",
+          "type": "Goal",
+          "team": "Liverpool"
+        },
+        {
+          "clock": "85'",
+          "text": "Substitution, Liverpool. Joe Gomez replaces Ronald Araujo.",
+          "type": "Substitution",
+          "team": "Liverpool"
+        },
+        {
+          "clock": "85'",
+          "text": "Substitution, Liverpool. Lewis Koumas replaces Alexander Isak.",
+          "type": "Substitution",
+          "team": "Liverpool"
+        },
+        {
+          "clock": "87'",
+          "text": "Substitution, Manchester United. Andrey Santos replaces Kobbie Mainoo.",
+          "type": "Substitution",
+          "team": "Manchester United"
+        },
+        {
+          "clock": "90'+3'",
+          "text": "Second Half ends, Liverpool 4, Manchester United 0.",
+          "type": "End Regular Time",
+          "team": null
+        }
+      ],
+      "source_url": "https://www.espn.com/soccer/match/_/gameId/401878755"
     }
   },
   "fetch_status": {
-    "successful": 0,
+    "successful": 1,
     "failed": {},
-    "attempted": 0,
-    "season_finals": 108,
-    "detailed_reports": 108
+    "attempted": 1,
+    "season_finals": 109,
+    "detailed_reports": 109
   }
 }
