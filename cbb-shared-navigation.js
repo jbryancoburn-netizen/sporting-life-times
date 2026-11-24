@@ -158,7 +158,7 @@ for(const nav of navs){
   ['247Sports',front+'#cbb-247-title'],
   ['Conferences',women?'ncaaw-conference.html':'ncaam-conference.html'],
   ['Daily Ledger',women?'ncaam-slate.html?gender=women':'ncaam-slate.html?gender=men'],
-  ['Team Directory',front+'#teams']
+  ['Team Directory',front+(women?'#wbb-teams':'#teams')]
  ];
  for(const [label,href] of essentials){
   if([...nav.querySelectorAll('a')].some(a=>a.textContent.trim()===label))continue;
