@@ -24,7 +24,13 @@
       if (refreshing) return;
       refreshing = true;
       try {
-        const next = await read('data/cbb-247sports-headlines.json');
+        const local = await read('data/cbb-247sports-headlines.json').catch(()=>null);
+        // The separate news collector may commit before the full Pages deployment.
+        // Prefer its authenticated repository snapshot only when it is newer.
+        const upstream = await read('https://raw.githubusercontent.com/jbryancoburn-netizen/sporting-life-times/main/data/cbb-247sports-headlines.json?ts='+Date.now()).catch(()=>null);
+        const next = Array.isArray(upstream?.articles) && Date.parse(upstream.updated_at)>Date.parse(local?.updated_at||0)
+          ? upstream : local;
+        if(!next)throw Error('School news source unavailable');
         if (Array.isArray(next?.articles) && next.updated_at !== wire?.updated_at) {
           wire = next;
           render();
@@ -219,8 +225,15 @@
       if (teamDesk) {
         const normalize = name => name.toLowerCase().replace(/[^a-z0-9]/g, '');
         const name = normalize(teamName);
-        teamSlug = [...publishers].find(([slug, school]) =>
-          normalize(school) === name || normalize(slug) === name)?.[0] || '';
+        // A team headline carries its mascot (e.g. "Indiana Hoosiers"), while the
+        // publisher directory normally contains only the university name.
+        // Match the longest unique school stem without guessing between campuses.
+        const matches=[...publishers].filter(([slug,school])=>{
+          const stem=normalize(school),short=normalize(slug);
+          return stem===name||short===name||name.startsWith(stem);
+        }).sort((a,b)=>normalize(b[1]).length-normalize(a[1]).length);
+        teamSlug=matches.length && (matches.length===1||normalize(matches[0][1]).length>normalize(matches[1][1]).length)
+          ?matches[0][0]:'';
         if (!teamSlug || !teamDesk.isConnected) return;
         teamDesk.hidden = false;
       }
