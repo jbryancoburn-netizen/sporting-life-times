@@ -2,13 +2,13 @@
   "league": "NBA",
   "season": "2026-27",
   "status": "provisional_live_from_historical_baseline",
-  "games_played": 248,
+  "games_played": 258,
   "preseason_status": "provisional_historical_regression_only",
   "source": "ESPN FINAL NBA regular-season scores; Sporting Life & Times independent Elo",
   "rankings": [
     {
       "team": "SAS",
-      "elo": 1684.736
+      "elo": 1688.893
     },
     {
       "team": "NYK",
@@ -16,31 +16,31 @@
     },
     {
       "team": "LAL",
-      "elo": 1633.83
-    },
-    {
-      "team": "PHI",
-      "elo": 1619.209
-    },
-    {
-      "team": "OKC",
-      "elo": 1612.075
+      "elo": 1637.017
     },
     {
       "team": "MIN",
-      "elo": 1608.887
+      "elo": 1612.873
+    },
+    {
+      "team": "HOU",
+      "elo": 1605.955
+    },
+    {
+      "team": "PHI",
+      "elo": 1600.179
     },
     {
       "team": "DEN",
       "elo": 1599.567
     },
     {
-      "team": "HOU",
-      "elo": 1599.178
-    },
-    {
       "team": "DET",
       "elo": 1594.988
+    },
+    {
+      "team": "OKC",
+      "elo": 1591.775
     },
     {
       "team": "BOS",
@@ -48,7 +48,7 @@
     },
     {
       "team": "POR",
-      "elo": 1569.202
+      "elo": 1588.232
     },
     {
       "team": "ATL",
@@ -59,20 +59,20 @@
       "elo": 1562.353
     },
     {
-      "team": "CLE",
-      "elo": 1545.19
+      "team": "PHX",
+      "elo": 1535.679
     },
     {
-      "team": "PHX",
-      "elo": 1526.94
+      "team": "CLE",
+      "elo": 1525.531
+    },
+    {
+      "team": "MEM",
+      "elo": 1497.265
     },
     {
       "team": "ORL",
       "elo": 1493.346
-    },
-    {
-      "team": "MEM",
-      "elo": 1483.233
     },
     {
       "team": "DAL",
@@ -84,47 +84,47 @@
     },
     {
       "team": "TOR",
-      "elo": 1468.895
+      "elo": 1448.842
     },
     {
       "team": "CHA",
-      "elo": 1455.166
+      "elo": 1441.134
     },
     {
       "team": "LAC",
-      "elo": 1438.568
+      "elo": 1431.791
     },
     {
       "team": "CHI",
-      "elo": 1378.366
+      "elo": 1398.025
     },
     {
       "team": "WAS",
       "elo": 1374.175
     },
     {
-      "team": "NOP",
-      "elo": 1367.877
-    },
-    {
       "team": "IND",
-      "elo": 1353.149
+      "elo": 1373.449
     },
     {
-      "team": "SAC",
-      "elo": 1323.349
-    },
-    {
-      "team": "BKN",
-      "elo": 1318.568
-    },
-    {
-      "team": "UTA",
-      "elo": 1311.264
+      "team": "NOP",
+      "elo": 1359.137
     },
     {
       "team": "MIL",
-      "elo": 1309.225
+      "elo": 1329.278
+    },
+    {
+      "team": "SAC",
+      "elo": 1319.192
+    },
+    {
+      "team": "BKN",
+      "elo": 1314.583
+    },
+    {
+      "team": "UTA",
+      "elo": 1308.077
     }
   ],
   "events": [
@@ -2359,74 +2359,164 @@
       "away_score": 87,
       "date": "2026-11-23T01:30:00.000Z",
       "home_elo_change": 14.272757
+    },
+    {
+      "id": "espn-nba-401910036",
+      "home": "CHA",
+      "away": "MEM",
+      "home_score": 111,
+      "away_score": 117,
+      "date": "2026-11-24T00:00:00.000Z",
+      "home_elo_change": -14.031994
+    },
+    {
+      "id": "espn-nba-401910037",
+      "home": "PHI",
+      "away": "POR",
+      "home_score": 111,
+      "away_score": 128,
+      "date": "2026-11-24T00:00:00.000Z",
+      "home_elo_change": -19.029199
+    },
+    {
+      "id": "espn-nba-401910038",
+      "home": "IND",
+      "away": "OKC",
+      "home_score": 125,
+      "away_score": 120,
+      "date": "2026-11-24T00:30:00.000Z",
+      "home_elo_change": 20.300246
+    },
+    {
+      "id": "espn-nba-401910039",
+      "home": "TOR",
+      "away": "MIL",
+      "home_score": 111,
+      "away_score": 116,
+      "date": "2026-11-24T00:30:00.000Z",
+      "home_elo_change": -20.052291
+    },
+    {
+      "id": "espn-nba-401910040",
+      "home": "MIN",
+      "away": "BKN",
+      "home_score": 142,
+      "away_score": 116,
+      "date": "2026-11-24T00:30:00.000Z",
+      "home_elo_change": 3.985546
+    },
+    {
+      "id": "espn-nba-401910041",
+      "home": "CHI",
+      "away": "CLE",
+      "home_score": 122,
+      "away_score": 108,
+      "date": "2026-11-24T01:00:00.000Z",
+      "home_elo_change": 19.658851
+    },
+    {
+      "id": "espn-nba-401910042",
+      "home": "NOP",
+      "away": "PHX",
+      "home_score": 119,
+      "away_score": 123,
+      "date": "2026-11-24T01:00:00.000Z",
+      "home_elo_change": -8.739687
+    },
+    {
+      "id": "espn-nba-401910043",
+      "home": "HOU",
+      "away": "LAC",
+      "home_score": 116,
+      "away_score": 104,
+      "date": "2026-11-24T01:30:00.000Z",
+      "home_elo_change": 6.777097
+    },
+    {
+      "id": "espn-nba-401910044",
+      "home": "LAL",
+      "away": "UTA",
+      "home_score": 109,
+      "away_score": 94,
+      "date": "2026-11-24T03:00:00.000Z",
+      "home_elo_change": 3.18742
+    },
+    {
+      "id": "espn-nba-401910045",
+      "home": "SAC",
+      "away": "SAS",
+      "home_score": 107,
+      "away_score": 123,
+      "date": "2026-11-24T03:00:00.000Z",
+      "home_elo_change": -4.156655
     }
   ],
   "movement": {
-    "as_of_eastern_date": "2026-11-22",
+    "as_of_eastern_date": "2026-11-23",
     "daily_change": {
-      "SAS": 0,
-      "NYK": 3.360205,
-      "LAL": 0,
-      "PHI": 0,
-      "OKC": -15.627156,
-      "MIN": 0,
-      "DEN": 7.587927,
-      "HOU": 0,
-      "DET": -14.600777,
-      "BOS": -14.272757,
-      "POR": 0,
-      "ATL": 14.600777,
-      "MIA": 15.627156,
-      "CLE": 0,
-      "PHX": 0,
-      "ORL": -20.151623,
-      "MEM": 0,
-      "DAL": 8.455626,
-      "GSW": 14.272757,
-      "TOR": 0,
-      "CHA": 0,
-      "LAC": 0,
-      "CHI": -7.587927,
-      "WAS": 20.151623,
-      "NOP": 0,
-      "IND": -3.360205,
-      "SAC": 0,
-      "BKN": 0,
-      "UTA": -8.455626,
-      "MIL": 0
+      "SAS": 4.156655,
+      "NYK": 0,
+      "LAL": 3.18742,
+      "MIN": 3.985546,
+      "HOU": 6.777097,
+      "PHI": -19.029199,
+      "DEN": 0,
+      "DET": 0,
+      "OKC": -20.300246,
+      "BOS": 0,
+      "POR": 19.029199,
+      "ATL": 0,
+      "MIA": 0,
+      "PHX": 8.739687,
+      "CLE": -19.658851,
+      "MEM": 14.031994,
+      "ORL": 0,
+      "DAL": 0,
+      "GSW": 0,
+      "TOR": -20.052291,
+      "CHA": -14.031994,
+      "LAC": -6.777097,
+      "CHI": 19.658851,
+      "WAS": 0,
+      "IND": 20.300246,
+      "NOP": -8.739687,
+      "MIL": 20.052291,
+      "SAC": -4.156655,
+      "BKN": -3.985546,
+      "UTA": -3.18742
     },
-    "last_week_eastern_date": "2026-11-15",
+    "last_week_eastern_date": "2026-11-16",
     "last_week_elo": {
       "SAS": 1695.96,
       "NYK": 1620.755,
       "LAL": 1652.122,
-      "PHI": 1597.925,
-      "OKC": 1642.335,
-      "MIN": 1593.235,
-      "DEN": 1584.581,
-      "HOU": 1622.739,
+      "MIN": 1605.193,
+      "HOU": 1605.322,
+      "PHI": 1604.748,
+      "DEN": 1564.581,
       "DET": 1601.919,
-      "BOS": 1659.424,
-      "POR": 1591.191,
+      "OKC": 1642.335,
+      "BOS": 1637.644,
+      "POR": 1579.234,
       "ATL": 1525.444,
-      "MIA": 1524.402,
-      "CLE": 1549.398,
-      "PHX": 1489.163,
-      "ORL": 1495.742,
-      "MEM": 1448.671,
+      "MIA": 1541.819,
+      "PHX": 1509.162,
+      "CLE": 1556.251,
+      "MEM": 1460.465,
+      "ORL": 1517.521,
       "DAL": 1440.582,
-      "GSW": 1511.915,
+      "GSW": 1492.08,
       "TOR": 1478.948,
       "CHA": 1470.274,
       "LAC": 1481.146,
-      "CHI": 1393.556,
-      "WAS": 1329.759,
-      "NOP": 1362.982,
+      "CHI": 1386.703,
+      "WAS": 1317.964,
       "IND": 1370.052,
-      "SAC": 1316.525,
-      "BKN": 1348.877,
-      "UTA": 1276.7,
-      "MIL": 1323.68
+      "NOP": 1382.817,
+      "MIL": 1323.68,
+      "SAC": 1316.524,
+      "BKN": 1342.053,
+      "UTA": 1276.7
     }
   }
 }
