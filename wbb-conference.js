@@ -13,12 +13,13 @@ const rec=(w,l)=>w+'–'+l,elo=t=>Number.isFinite(Number(t.elo))?Math.round(Numb
 const failure=s=>{app.innerHTML='<section class="panel"><h1>Women’s conference desk unavailable</h1><p>'+esc(s)+'</p><a href="ncaam.html?gender=women">Open the women’s newspaper →</a></section>'};
 try{
  await window.MBBLogos.ready;
- const [directory,conferences,model,master,scoreboard,news,officialTV,wire]=await Promise.all([
+ const [directory,conferences,model,master,scoreboard,news,officialTV,wire,nationalNews]=await Promise.all([
   get('data/ncaaw-2026-27-teams.json'),get('data/ncaaw-2026-27-conferences.json'),
   get('data/ncaaw-2026-27-retro-primary.json'),get('data/ncaaw-schedules-2026-27.json'),
   get('data/ncaaw-2026-27-games.json').catch(()=>null),get('articles.json').catch(()=>null),
   get('data/ncaaw-2026-27-official-broadcast-overrides.json').catch(()=>null),
-  get('data/mbb-live.json').catch(()=>null)
+  get('data/mbb-live.json').catch(()=>null),
+  get('data/cbb-national-news.json').catch(()=>null)
  ]);
  const roster=directory.teams||[],rankings=model.rankings||[];
  const names=[...new Set(roster.map(t=>t.conference).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
@@ -183,19 +184,22 @@ try{
   const name=t.team.toLowerCase(),school=name.replace(/\s+(?:nittany lions|tar heels|blue devils|fighting irish|lady volunteers|scarlet knights|boilermakers|cornhuskers|wildcats|buckeyes|hoosiers|huskies|tigers|spartans|bruins|trojans|hawkeyes|wolverines|badgers|gophers|terrapins|ducks|knights|cardinals|bears|eagles|cougars|panthers|bulldogs|rams|pirates|falcons|rebels|mountaineers|gamecocks|aggies|owls|bison|redhawks)$/i,'').trim();
   return [name,school].filter(x=>x.length>3);
  });
- const storyPool=[...(wire?.articles||[]),...(news?.articles||[])].filter(a=>
-  a?.title&&/^https:\/\//.test(a.url||'')&&
-  (a.category==='WBB'||/women.s.{0,30}basketball|ncaaw|women.s march madness/i.test([a.title,a.summary,a.category].join(' '))));
- const matched=storyPool.filter(a=>aliases.some(s=>(a.title+' '+(a.summary||'')).toLowerCase().includes(s)));
- const seenStories=new Set();
- const stories=matched.filter(a=>!seenStories.has(a.url)&&seenStories.add(a.url))
-  .sort((a,b)=>Date.parse(b.published_at||0)-Date.parse(a.published_at||0)).slice(0,8);
- const newsHTML=stories.length?stories.map((a,i)=>
-  '<article class="story'+(!i?' lead':'')+'"><p class="source">'+esc(a.source||'Attributed reporting')+
-  (a.published_at?' · '+esc(String(a.published_at).slice(0,10)):'')+'</p><h3>'+
-  '<a target="_blank" rel="noopener noreferrer" href="'+esc(a.url)+'">'+esc(a.title)+'</a></h3>'+
-  (a.summary?'<p>'+esc(a.summary)+'</p>':'')+'</article>').join(''):
-  '<p class="note">No source-backed conference stories are currently matched to these programs. <a href="ncaam.html?gender=women#wbb-news">Women’s national news →</a></p>';
+ const conferenceNewsHTML=(national)=>{ 
+  const pool=[...(national?.articles||[]),...(wire?.articles||[]),...(news?.articles||[])].filter(a=>
+   a?.title&&/^https:\/\//.test(a.url||'')&&
+   (a.gender==='women'||a.category==='WBB'||/women.s.{0,30}basketball|ncaaw|women.s march madness/i.test([a.title,a.summary,a.category].join(' '))));
+  const matched=pool.filter(a=>aliases.some(name=>(a.title+' '+(a.summary||'')).toLowerCase().includes(name)));
+  const seen=new Set();
+  const stories=matched.filter(a=>!seen.has(a.url)&&seen.add(a.url))
+   .sort((a,b)=>Date.parse(b.published_at||0)-Date.parse(a.published_at||0)).slice(0,8);
+  return stories.length?stories.map((a,i)=>
+   '<article class="story'+(!i?' lead':'')+'"><p class="source">'+esc(a.source||'Attributed reporting')+
+   (a.published_at?' · '+esc(String(a.published_at).slice(0,10)):'')+'</p><h3>'+
+   '<a target="_blank" rel="noopener noreferrer" href="'+esc(a.url)+'">'+esc(a.title)+'</a></h3>'+
+   (a.summary?'<p>'+esc(a.summary)+'</p>':'')+'</article>').join(''):
+   '<p class="note">No current, source-backed conference stories matched these programs. <a href="ncaam.html?gender=women#cbb-front-news">Women’s national news →</a></p>';
+ };
+ const newsHTML=conferenceNewsHTML(nationalNews);
 
   document.title=label(c)+' Women’s Basketball | Sporting Life & Times';
  document.body.dataset.conference=c.startsWith('Pac-12')?'pac-12':c.startsWith('Big Ten')?'big-ten':'other';
@@ -219,6 +223,20 @@ try{
  '</div><div class="column"><section class="panel teal">'+heading('Next on the schedule','Upcoming Games')+
  calendar+'</section></div></div><div id="conference-impact"></div>';
  window.SLTConferenceImpact?.mount(document.getElementById('conference-impact'),items,'women');
+ // Recheck the independent basketball newsroom without replacing standings or reader selections.
+ let lastNewsVersion=nationalNews?.updated_at||'';
+ async function refreshConferenceNews(){
+  if(document.hidden)return;
+  try{
+   const latest=await get('data/cbb-national-news.json?refresh='+Date.now());
+   if(!latest?.articles?.length||latest.updated_at===lastNewsVersion)return;
+   const host=app.querySelector('.conference-news-edition');
+   if(host){host.innerHTML=heading('The league notebook','Conference News')+conferenceNewsHTML(latest);lastNewsVersion=latest.updated_at;}
+  }catch(error){console.warn('Retaining last verified conference stories',error);}
+ }
+ const newsTimer=setInterval(refreshConferenceNews,5*60*1000);
+ document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshConferenceNews()});
+ window.addEventListener('pagehide',()=>clearInterval(newsTimer),{once:true});
 
   const picker=document.getElementById('conference-game-day'),host=document.getElementById('conference-day-games');
  const render=d=>{
