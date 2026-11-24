@@ -244,10 +244,10 @@ if(resultsNode)resultsNode.innerHTML=finals.length?finals.map(g=>{
  const result=window.WBBGameResults.scoreFor(g,id);
  return '<div class="wbb-recent-result"><time>'+esc(easternDay(new Date(g.date)))+'</time><span>'+esc(g.opponent||'Opponent')+'</span><strong>'+esc(result.value)+'</strong></div>';
 }).join(''):'<p class="wbb-muted">No verified women’s final has been published for this team yet.</p>';
-(async()=>{
+const refreshTeamNews=async()=>{
  const node=host.querySelector('#wbb-team-news');if(!node)return;
  try{
-  const edition=await load('data/cbb-national-news.json');
+  const edition=await load('data/cbb-national-news.json?refresh='+Date.now());
   const tokens=String(t.team||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim().split(' ');
   const first=tokens[0],last=tokens.at(-1);
   const peers=teams.map(x=>String(x.team||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim().split(' '));
@@ -264,7 +264,11 @@ if(resultsNode)resultsNode.innerHTML=finals.length?finals.map(g=>{
    '<article class="wbb-story"><small>'+esc(a.source||'Basketball reporting')+' · '+esc(String(a.published_at||'').slice(0,10))+'</small><h3><a href="'+esc(a.url)+'" target="_blank" rel="noopener noreferrer">'+esc(a.title)+'</a></h3></article>').join(''):
    '<p class="wbb-muted">No current attributed women’s story is specifically matched to this program. <a href="ncaam.html?gender=women">Read the national women’s edition →</a></p>';
  }catch(e){node.innerHTML='<p class="wbb-muted">The women’s newswire is temporarily unavailable. <a href="ncaam.html?gender=women">Open the national edition →</a></p>';}
-})();
+};
+refreshTeamNews();
+const teamNewsTimer=setInterval(()=>{if(!document.hidden)refreshTeamNews();},5*60*1000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshTeamNews();});
+window.addEventListener('pagehide',()=>clearInterval(teamNewsTimer),{once:true});
 const production = window.WBBTeamStats?.render(id);
 window.WBBRosterDesk?.render(id, production);
 window.WBBTeamLive?.start(id,baseGames,siteDisputes,neutralProof);
