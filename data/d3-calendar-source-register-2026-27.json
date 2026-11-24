@@ -1,7 +1,7 @@
 {
   "division": "d3",
   "season": "2026-27",
-  "updated_utc": "2026-11-24T04:51:21.203616+00:00",
+  "updated_utc": "2026-11-24T19:33:52.726960+00:00",
   "summary": {
     "men": {
       "ncaa_teams": 406,
@@ -574,9 +574,9 @@
       "verified_2026_27_schedule_url": "https://www.averettcougars.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "previously_verified_university_url": "https://www.averettcougars.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "discovery_method": "previously_verified_source",
-      "verified_opponent_rows": 20,
+      "verified_opponent_rows": 22,
       "calendar_scope": "verified_university_calendar",
-      "dated_games_from_other_official_sources": 4,
+      "dated_games_from_other_official_sources": 2,
       "opponent_source_examples": [],
       "attempted_source_urls": 1,
       "additional_candidate_links": [],
@@ -1088,12 +1088,32 @@
         "https://www.brandeisjudges.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://wheatoncollegelyons.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
-      "attempted_source_urls": 15,
-      "additional_candidate_links": [],
-      "failure_category": "server_refused_method",
-      "next_manual_action": "Inspect official school schedule platform's public print/text calendar; do not circumvent access controls",
-      "source_error": "HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not ",
-      "rejected_page_evidence": [],
+      "attempted_source_urls": 20,
+      "additional_candidate_links": [
+        "https://www.bsubears.com/sports/mbkb/2026-27/schedule",
+        "https://www.bsubears.com/sports/mbkb/2026-27/schedule?print=rss",
+        "https://www.bsubears.com/sports/mbkb/2026-27/schedule?print=ical",
+        "https://www.bsubears.com/sports/mbkb/2026-27/schedule?eid=z7foim8oc9a450ns",
+        "https://www.bsubears.com/sports/mbkb/2026-27/schedule?eid=xvxmxbi667q8myyf",
+        "https://www.bsubears.com/sports/mbkb/2026-27/schedule?eid=xuwryd5scrv0a9n1",
+        "https://www.bsubears.com/sports/mbkb/2026-27/schedule?eid=vknv4w3uovifoo5l",
+        "https://www.bsubears.com/sports/mbkb/2026-27/schedule?eid=thymrrf533jqwrnz"
+      ],
+      "failure_category": "calendar_path_unavailable",
+      "next_manual_action": "Find school's current official athletics website and season-specific schedule path",
+      "source_error": "HTTP Error 404: Not Found | HTTP Error 404: Not Found | HTTP Error 404: Not Found | HTTP Error 404: Not Found | HTTP Error 404: Not Found | HTTP Error 404: Not Found | Fewer than 4 readable grid rows (0); no publish | HTTP Error 404: Not Found | HTTP Error 404",
+      "rejected_page_evidence": [
+        {
+          "url": "https://www.bsubears.com/sports/mbkb/2026-27/schedule",
+          "title": "2026-2027 Men's Basketball Schedule - Bridgewater St.",
+          "headings": [
+            "2026-2027 Men's Basketball Schedule",
+            "Affiliates"
+          ],
+          "date_tables": 0,
+          "reason": "Fewer than 4 readable grid rows (0); no publish"
+        }
+      ],
       "conference_page_evidence": [],
       "refresh_rule": "Follow official university sports navigation, conference calendars and opponent evidence without inventing missing games"
     },
@@ -1460,12 +1480,40 @@
         "https://www.ustcelts.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://tlubulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
-      "attempted_source_urls": 15,
-      "additional_candidate_links": [],
-      "failure_category": "server_refused_method",
-      "next_manual_action": "Inspect official school schedule platform's public print/text calendar; do not circumvent access controls",
-      "source_error": "HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not ",
-      "rejected_page_evidence": [],
+      "attempted_source_urls": 20,
+      "additional_candidate_links": [
+        "https://www.gocentenary.com/sports/mbkb/2026-27/schedule",
+        "https://www.gocentenary.com/sports/mbkb/2026-27/schedule?print=rss",
+        "https://www.gocentenary.com/sports/mbkb/2026-27/schedule?print=ical",
+        "https://www.gocentenary.com/sports/mbkb/2026-27/schedule?eid=zwxv377zop26h614",
+        "https://www.gocentenary.com/sports/mbkb/2026-27/schedule?eid=znvmfan24ncnama5",
+        "https://www.gocentenary.com/sports/mbkb/2026-27/schedule?eid=yq6hb9lzkmstz1ax",
+        "https://www.gocentenary.com/sports/mbkb/2026-27/schedule?eid=vkcqel13ujvlu9kc",
+        "https://www.gocentenary.com/sports/mbkb/2026-27/schedule?eid=u5eojavhwbyysdg2"
+      ],
+      "failure_category": "calendar_path_unavailable",
+      "next_manual_action": "Find school's current official athletics website and season-specific schedule path",
+      "source_error": "HTTP Error 404: Not Found | HTTP Error 404: Not Found | HTTP Error 404: Not Found | HTTP Error 404: Not Found | HTTP Error 404: Not Found | HTTP Error 404: Not Found | Fewer than 4 readable grid rows (0); no publish | HTTP Error 404: Not Found | HTTP Error 404",
+      "rejected_page_evidence": [
+        {
+          "url": "https://www.gocentenary.com/sports/mbkb/2026-27/schedule",
+          "title": "2026-27 Centenary Men's Basketball Schedule - Centenary Athletics",
+          "headings": [
+            "2026-27 Centenary Men's Basketball Schedule"
+          ],
+          "date_tables": 0,
+          "reason": "Fewer than 4 readable grid rows (0); no publish"
+        },
+        {
+          "url": "https://www.gocentenary.com/sports/mbball/schedule/2026",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        }
+      ],
       "conference_page_evidence": [],
       "refresh_rule": "Follow official university sports navigation, conference calendars and opponent evidence without inventing missing games"
     },
@@ -2570,10 +2618,83 @@
       ],
       "attempted_source_urls": 15,
       "additional_candidate_links": [],
-      "failure_category": "server_refused_method",
-      "next_manual_action": "Inspect official school schedule platform's public print/text calendar; do not circumvent access controls",
-      "source_error": "HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not ",
-      "rejected_page_evidence": [],
+      "failure_category": "season_heading_not_verified",
+      "next_manual_action": "Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar",
+      "source_error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
+      "rejected_page_evidence": [
+        {
+          "url": "https://www.fitchburgfalcons.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fitchburgfalcons.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fitchburgfalcons.com/sports/mens-basketball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fitchburgfalcons.com/sports/mens-basketball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fitchburgfalcons.com/sports/mbball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fitchburgfalcons.com/sports/mbball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fitchburgfalcons.com/sports/mbkb/2026-27/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fitchburgfalcons.com/sports/mbkb/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        }
+      ],
       "conference_page_evidence": [],
       "refresh_rule": "Follow official university sports navigation, conference calendars and opponent evidence without inventing missing games"
     },
@@ -2597,10 +2718,83 @@
       ],
       "attempted_source_urls": 15,
       "additional_candidate_links": [],
-      "failure_category": "server_refused_method",
-      "next_manual_action": "Inspect official school schedule platform's public print/text calendar; do not circumvent access controls",
-      "source_error": "HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not ",
-      "rejected_page_evidence": [],
+      "failure_category": "season_heading_not_verified",
+      "next_manual_action": "Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar",
+      "source_error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
+      "rejected_page_evidence": [
+        {
+          "url": "https://www.fsurams.com/sports/mens-basketball/schedule/2026-27?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fsurams.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fsurams.com/sports/mens-basketball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fsurams.com/sports/mens-basketball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fsurams.com/sports/mbball/schedule?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fsurams.com/sports/mbball/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fsurams.com/sports/mbkb/2026-27/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fsurams.com/sports/mbkb/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        }
+      ],
       "conference_page_evidence": [],
       "refresh_rule": "Follow official university sports navigation, conference calendars and opponent evidence without inventing missing games"
     },
@@ -7239,7 +7433,7 @@
       "verified_2026_27_schedule_url": "https://www.smcmathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "previously_verified_university_url": "https://www.smcmathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "discovery_method": "previously_verified_source",
-      "verified_opponent_rows": 19,
+      "verified_opponent_rows": 20,
       "calendar_scope": "verified_university_calendar",
       "dated_games_from_other_official_sources": 2,
       "opponent_source_examples": [],
@@ -8376,7 +8570,7 @@
       "discovery_method": "previously_verified_source",
       "verified_opponent_rows": 20,
       "calendar_scope": "verified_university_calendar",
-      "dated_games_from_other_official_sources": 3,
+      "dated_games_from_other_official_sources": 4,
       "opponent_source_examples": [],
       "attempted_source_urls": 1,
       "additional_candidate_links": [],
@@ -8604,7 +8798,7 @@
       "verified_2026_27_schedule_url": "https://athletics.une.edu/sports/mens-basketball/schedule?grid=true",
       "previously_verified_university_url": "https://athletics.une.edu/sports/mens-basketball/schedule?grid=true",
       "discovery_method": "previously_verified_source",
-      "verified_opponent_rows": 17,
+      "verified_opponent_rows": 15,
       "calendar_scope": "verified_university_calendar",
       "dated_games_from_other_official_sources": 0,
       "opponent_source_examples": [],
@@ -9607,7 +9801,7 @@
       "discovery_method": "previously_verified_source",
       "verified_opponent_rows": 20,
       "calendar_scope": "verified_university_calendar",
-      "dated_games_from_other_official_sources": 4,
+      "dated_games_from_other_official_sources": 2,
       "opponent_source_examples": [],
       "attempted_source_urls": 1,
       "additional_candidate_links": [],
@@ -10566,7 +10760,7 @@
       "discovery_method": "previously_verified_source",
       "verified_opponent_rows": 20,
       "calendar_scope": "verified_university_calendar",
-      "dated_games_from_other_official_sources": 4,
+      "dated_games_from_other_official_sources": 3,
       "opponent_source_examples": [],
       "attempted_source_urls": 1,
       "additional_candidate_links": [],
@@ -18948,9 +19142,9 @@
       "verified_2026_27_schedule_url": "https://coastguardathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "previously_verified_university_url": "https://coastguardathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "discovery_method": "previously_verified_source",
-      "verified_opponent_rows": 19,
+      "verified_opponent_rows": 17,
       "calendar_scope": "verified_university_calendar",
-      "dated_games_from_other_official_sources": 3,
+      "dated_games_from_other_official_sources": 5,
       "opponent_source_examples": [],
       "attempted_source_urls": 1,
       "additional_candidate_links": [],
@@ -19671,7 +19865,7 @@
       "discovery_method": "previously_verified_source",
       "verified_opponent_rows": 21,
       "calendar_scope": "verified_university_calendar",
-      "dated_games_from_other_official_sources": 3,
+      "dated_games_from_other_official_sources": 4,
       "opponent_source_examples": [],
       "attempted_source_urls": 1,
       "additional_candidate_links": [],

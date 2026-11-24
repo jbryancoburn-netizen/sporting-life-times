@@ -3,7 +3,7 @@
   "division": "d3",
   "gender": "women",
   "season": "2026-27",
-  "generated_utc": "2026-11-24T04:51:21.014068+00:00",
+  "generated_utc": "2026-11-24T19:33:52.513386+00:00",
   "source": "NCAA 2026-27 member directory + year/gender-validated official school athletics calendars",
   "scope": "NCAA membership-wide first pass; sources without independently validated 2026-27 schedules excluded",
   "ncaa_confirmed_programs": 415,
@@ -14,8 +14,8 @@
   "school_calendars_unresolved": 17,
   "source_status_counts": {
     "parsed": 365,
-    "parsed_conference": 33,
-    "failed": 17
+    "failed": 17,
+    "parsed_conference": 33
   },
   "last_verified_school_source": {
     "4": "https://adrianbulldogs.com/sports/womens-basketball/schedule/2026-27?grid=true",
@@ -4647,9 +4647,9 @@
       "owner_org_id": 722,
       "source_url": "https://coastguardathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "readable_rows": 25,
-      "verified_member_opponents": 19,
+      "verified_member_opponents": 17,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 6
+        "identity_not_d3_matched_but_posted": 8
       },
       "status": "parsed",
       "calendar_origin": "pinned_official_url",
@@ -5106,7 +5106,7 @@
       "excluded_rows": {
         "missing_or_ambiguous_ncaa_opponent": 7
       },
-      "failed_school_calendar_urls": 1
+      "failed_school_calendar_urls": 9
     },
     {
       "owner_org_id": 787,
@@ -8382,7 +8382,7 @@
     }
   ],
   "fixture_count": 4558,
-  "reciprocal_fixtures": 2725,
+  "reciprocal_fixtures": 2723,
   "unresolved_opponent_fixture_count": 1569,
   "unresolved_opponent_fixtures": [
     {
@@ -8639,21 +8639,6 @@
       "source_url": "https://www.widenerpride.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "7:00 PM",
       "venue_location": "Chester, Pa. / Schwartz Center"
-    },
-    {
-      "id": "d3-women-2026-11-06-1255-other-db4031fc5d6e",
-      "date": "2026-11-06",
-      "source_owner_org_id": 1255,
-      "external_opponent_label": "Southern Maine [#RV]",
-      "placement": "home",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://athletics.une.edu/sports/womens-basketball/schedule?grid=true",
-      "tipoff_as_posted": "5:30 pm",
-      "venue_location": "Biddeford, Maine / Harold Alfond Forum"
     },
     {
       "id": "d3-women-2026-11-06-1297-other-5fbd81f33b72",
@@ -11459,6 +11444,21 @@
       "source_url": "https://www.sabreathletics.com/sports/wbball/schedule?grid=true",
       "tipoff_as_posted": "2 PM",
       "venue_location": "Fond du Lac, Wis. / Sadoff Gymnasium"
+    },
+    {
+      "id": "d3-women-2026-11-14-1255-other-a8e1c736b522",
+      "date": "2026-11-14",
+      "source_owner_org_id": 1255,
+      "external_opponent_label": "#23 Amherst",
+      "placement": "away",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://athletics.une.edu/sports/womens-basketball/schedule?grid=true",
+      "tipoff_as_posted": "3:00 pm",
+      "venue_location": "Amherst, Mass."
     },
     {
       "id": "d3-women-2026-11-14-1400-other-dc219d954cc8",
@@ -14581,10 +14581,10 @@
       "venue_location": "La Crosse, WI"
     },
     {
-      "id": "d3-women-2026-11-29-1255-other-dcf3740bbed1",
+      "id": "d3-women-2026-11-29-1255-other-e9ef3b2f3ed5",
       "date": "2026-11-29",
       "source_owner_org_id": 1255,
-      "external_opponent_label": "#20 Bates",
+      "external_opponent_label": "#19 Bates",
       "placement": "home",
       "status": "scheduled",
       "elo_eligible": false,
@@ -14608,7 +14608,7 @@
       "source_kind": "official_school",
       "source_url": "https://www.thomasathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
       "tipoff_as_posted": "6:00 PM",
-      "venue_location": "Fairfield, Maine"
+      "venue_location": "Fairfield, ME"
     },
     {
       "id": "d3-women-2026-11-29-2810-other-404cddfa9aca",
@@ -15012,7 +15012,7 @@
       "schedule_only": true,
       "source_kind": "official_school",
       "source_url": "https://www.keanathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "6:00 PM",
+      "tipoff_as_posted": "5:30 PM",
       "venue_location": "Newark, NJ"
     },
     {
@@ -22351,10 +22351,10 @@
       "venue_location": "Northampton, MA"
     },
     {
-      "id": "d3-women-2027-01-16-722-other-a5595f2d657d",
+      "id": "d3-women-2027-01-16-722-other-6de59ca37196",
       "date": "2027-01-16",
       "source_owner_org_id": 722,
-      "external_opponent_label": "#5/6 Smith * *",
+      "external_opponent_label": "#10/4 Smith * *",
       "placement": "away",
       "status": "scheduled",
       "elo_eligible": false,
@@ -33161,6 +33161,30 @@
       "neutral_home_designation_unconfirmed": true
     },
     {
+      "id": "d3-women-2026-11-06-662-1255",
+      "date": "2026-11-06",
+      "away_org_id": 662,
+      "home_org_id": 1255,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://athletics.une.edu/sports/womens-basketball/schedule?grid=true",
+      "official_schedule_sources": [
+        "https://athletics.une.edu/sports/womens-basketball/schedule?grid=true"
+      ],
+      "verified_by_org_ids": [
+        1255
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "5:30 pm",
+      "venue": "Harold Alfond Forum",
+      "venue_location": "Biddeford, Maine",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-women-2026-11-06-673-775",
       "date": "2026-11-06",
       "away_org_id": 775,
@@ -40842,30 +40866,6 @@
       "network_as_posted": "North Coast Network",
       "radio_as_posted": "",
       "tournament": "Nan Nichols Classic",
-      "neutral_home_designation_unconfirmed": false
-    },
-    {
-      "id": "d3-women-2026-11-14-24-1255",
-      "date": "2026-11-14",
-      "away_org_id": 1255,
-      "home_org_id": 24,
-      "neutral": false,
-      "status": "scheduled",
-      "source_url": "https://athletics.une.edu/sports/womens-basketball/schedule?grid=true",
-      "official_schedule_sources": [
-        "https://athletics.une.edu/sports/womens-basketball/schedule?grid=true"
-      ],
-      "verified_by_org_ids": [
-        1255
-      ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
-      "tipoff_as_posted": "3:00 pm",
-      "venue": "",
-      "venue_location": "Amherst, Mass.",
-      "network_as_posted": "",
-      "radio_as_posted": "",
-      "tournament": "Ken Wright Invitational - hosted by Amherst College",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -54598,7 +54598,7 @@
       "venue": "Wolf Gym",
       "venue_location": "York, PA",
       "network_as_posted": "",
-      "radio_as_posted": "",
+      "radio_as_posted": "Sports Radio 98.9 FM/WOYK 1350 AM",
       "tournament": "",
       "neutral_home_designation_unconfirmed": false
     },
@@ -56632,7 +56632,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "12:00 PM (PST)",
+      "tipoff_as_posted": "2:00 PM (CST)",
       "venue": "",
       "venue_location": "Forest Grove, OR",
       "network_as_posted": "",
@@ -88597,15 +88597,13 @@
       "status": "scheduled",
       "source_url": "https://athletics.amherst.edu/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://athletics.amherst.edu/sports/womens-basketball/schedule/2026-27?grid=true",
-        "https://coastguardathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
+        "https://athletics.amherst.edu/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
-        24,
-        722
+        24
       ],
       "source_kind": "official_school",
-      "source_verification": "reciprocal",
+      "source_verification": "single_official_school",
       "tipoff_as_posted": "7 PM",
       "venue": "LeFrak Gymnasium",
       "venue_location": "Amherst, MA",
@@ -104059,15 +104057,13 @@
       "status": "scheduled",
       "source_url": "https://babsonathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://babsonathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-        "https://coastguardathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
+        "https://babsonathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
-        45,
-        722
+        45
       ],
       "source_kind": "official_school",
-      "source_verification": "reciprocal",
+      "source_verification": "single_official_school",
       "tipoff_as_posted": "7:00 pm",
       "venue": "Staake Gymnasium",
       "venue_location": "Babson Park, Mass.",
@@ -108124,7 +108120,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "2 p.m.",
+      "tipoff_as_posted": "5:30 PM",
       "venue": "Siebens Fieldhouse/Saggau Family Court",
       "venue_location": "Storm Lake, IA",
       "network_as_posted": "",
