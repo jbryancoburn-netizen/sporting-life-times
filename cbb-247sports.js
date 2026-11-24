@@ -147,6 +147,7 @@
       const storyList = document.getElementById('cbb-on3-headlines');
       if (!statusLine || !storyList) return;
       let feeds = {};
+      let feedUpdatedAt = '';
       let pending = false;
       const category = gender === 'women' ? 'womens-basketball' : 'basketball';
 
@@ -166,7 +167,9 @@
           Number.isFinite(Date.parse(story.published_at)) &&
           Date.now() - Date.parse(story.published_at) <= 14 * 86400000
         );
-        statusLine.textContent = stories.length ? '' : 'No recent headlines available here. Open the publisher’s basketball desk for more.';
+        const stale = !Number.isFinite(Date.parse(feedUpdatedAt)) || Date.now()-Date.parse(feedUpdatedAt)>60*60*1000;
+        statusLine.textContent = stale ? 'On3/Rivals collection delayed; these are saved headlines. Open the publisher for current news.' :
+          stories.length ? '' : 'No recent headlines available here. Open the publisher’s basketball desk for more.';
         for (const story of stories) {
           const card = document.createElement('article');
           card.className = 'cbb-news-story';
@@ -189,8 +192,9 @@
         if (pending) return;
         pending = true;
         try {
-          const wire = await read('data/cbb-on3-rivals-headlines.json');
+          const wire = await read('data/cbb-on3-rivals-headlines.json?refresh='+Date.now());
           feeds = wire.feeds?.[gender] || {};
+          feedUpdatedAt = wire.updated_at || '';
         } catch {
           // Keep the latest successful download and the direct publisher link.
         } finally {
