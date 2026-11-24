@@ -4,6 +4,7 @@ on:
     paths:
       - 'scripts/refresh_cbb_national_news.py'
       - 'scripts/refresh_cbb_247sports.py'
+      - 'scripts/refresh_cbb_on3_headlines.py'
       - 'cbb-247sports.js'
       - 'data/cbb-247sports-team-sites.json'
       - 'scripts/verify_cbb_news.py'
@@ -59,7 +60,7 @@ jobs:
           python-version: '3.12'
       - name: Verify news collector, checker, and renderer syntax
         run: |
-          python -m py_compile scripts/refresh_cbb_247sports.py scripts/refresh_cbb_national_news.py scripts/verify_cbb_news.py scripts/test_cbb_news_quality.py
+          python -m py_compile scripts/refresh_cbb_on3_headlines.py scripts/refresh_cbb_247sports.py scripts/refresh_cbb_national_news.py scripts/verify_cbb_news.py scripts/test_cbb_news_quality.py
           node --check cbb-247sports.js
           node --check cbb-front-news.js
           node --check cbb-chronicle-retro.js
@@ -120,15 +121,40 @@ jobs:
               raise SystemExit('247Sports collection has no usable headlines')
           print(f'247Sports collection verified: {len(articles)} articles, age {age:.1f} min')
           PY
+      - name: Refresh On3 and Rivals basketball desks
+        id: on3
+        continue-on-error: true
+        run: python scripts/refresh_cbb_on3_headlines.py
+      - name: Verify current On3/Rivals school feed
+        if: steps.on3.outcome == 'success'
+        id: on3-check
+        continue-on-error: true
+        run: |
+          python - <<'PY'
+          import json
+          from datetime import datetime, timezone
+          from pathlib import Path
+          j=json.loads(Path('data/cbb-on3-rivals-headlines.json').read_text())
+          age=(datetime.now(timezone.utc)-datetime.fromisoformat(j['updated_at'].replace('Z','+00:00'))).total_seconds()/60
+          if not -5<=age<=25 or not any(v for v in j.get('feeds',{}).values()):
+              raise SystemExit('On3/Rivals feed lacks newly verified school reporting')
+          print('Verified On3/Rivals collector, age:',round(age,1),'minutes')
+          PY
       - name: Publish updated basketball news
         env:
           SCHOOL_VERIFIED: ${{ steps.school-check.outcome }}
+          ON3_VERIFIED: ${{ steps.on3-check.outcome }}
           NATIONAL_VERIFIED: ${{ steps.national-check.outcome }}
         run: |
           git config user.name sporting-life-times-bot
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           snapshots=$(mktemp -d)
           trap 'rm -rf "$snapshots"' EXIT
+          if [ "$ON3_VERIFIED" = success ]; then
+            cp data/cbb-on3-rivals-headlines.json "$snapshots/"
+          else
+            echo "::warning::On3/Rivals unavailable; retaining last verified desk feed"
+          fi
           if [ "$SCHOOL_VERIFIED" = success ]; then
             cp data/cbb-247sports-headlines.json "$snapshots/"
           else
@@ -139,11 +165,11 @@ jobs:
           else
             echo "::warning::National wire unavailable; retaining the last verified national wire"
           fi
-          if [ "$SCHOOL_VERIFIED" != success ] && [ "$NATIONAL_VERIFIED" != success ]; then
+          if [ "$SCHOOL_VERIFIED" != success ] && [ "$NATIONAL_VERIFIED" != success ] && [ "$ON3_VERIFIED" != success ]; then
             echo "::error::Neither basketball news feed passed verification"
             exit 1
           fi
-          git restore -- data/cbb-247sports-headlines.json data/cbb-national-news.json
+          git restore -- data/cbb-247sports-headlines.json data/cbb-national-news.json data/cbb-on3-rivals-headlines.json
           for attempt in 1 2 3 4; do
             git fetch origin main
             git checkout --detach FETCH_HEAD
@@ -167,7 +193,7 @@ jobs:
               if current is None or updated_at(snapshot) > current:
                   target.write_bytes(snapshot.read_bytes())
           PY
-            git add data/cbb-247sports-headlines.json data/cbb-national-news.json
+            git add data/cbb-247sports-headlines.json data/cbb-national-news.json data/cbb-on3-rivals-headlines.json
             if git diff --cached --quiet; then exit 0; fi
             git commit -m "Refresh verified college basketball news"
             if git push origin HEAD:main; then exit 0; fi
