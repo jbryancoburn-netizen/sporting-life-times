@@ -4,7 +4,7 @@
   "status": "provisional-current-venue-neutral",
   "note": "Locations unresolved; all games modeled venue-neutral. Predictions not calibrated.",
   "team_count": 365,
-  "games_played": 713,
+  "games_played": 810,
   "membership_changes": [
     {
       "kind": "added",
@@ -15,7 +15,7 @@
       "team": "New Orleans"
     }
   ],
-  "excluded_count": 241,
+  "excluded_count": 253,
   "excluded_examples": [
     {
       "id": "6607173",
@@ -60,6 +60,12 @@
       "away": "Montreat"
     },
     {
+      "id": "6619645",
+      "reason": "non-D1 or unmatched",
+      "home": "North Ala.",
+      "away": "Tusculum"
+    },
+    {
       "id": "6619661",
       "reason": "non-D1 or unmatched",
       "home": "West Florida",
@@ -94,6 +100,12 @@
       "reason": "non-D1 or unmatched",
       "home": "Yale",
       "away": "Emmanuel (MA)"
+    },
+    {
+      "id": "6625134",
+      "reason": "non-D1 or unmatched",
+      "home": "James Madison",
+      "away": "Virginia-Lynchburg"
     },
     {
       "id": "6625412",
@@ -166,6 +178,12 @@
       "away": "Centre"
     },
     {
+      "id": "6628496",
+      "reason": "non-D1 or unmatched",
+      "home": "Belmont",
+      "away": "Union Commonwealth"
+    },
+    {
       "id": "6629096",
       "reason": "non-D1 or unmatched",
       "home": "Canisius",
@@ -176,24 +194,6 @@
       "reason": "non-D1 or unmatched",
       "home": "Air Force",
       "away": "Calumet Col."
-    },
-    {
-      "id": "6629224",
-      "reason": "non-D1 or unmatched",
-      "home": "Liberty",
-      "away": "Boyce"
-    },
-    {
-      "id": "6630671",
-      "reason": "non-D1 or unmatched",
-      "home": "Wofford",
-      "away": "Allen"
-    },
-    {
-      "id": "6630673",
-      "reason": "non-D1 or unmatched",
-      "home": "Wofford",
-      "away": "Voorhees"
     }
   ],
   "prediction_policy": "venue-neutral until venue source verified; no fabricated home advantage",
@@ -203,8 +203,8 @@
       "team_id": "ncaa:627570",
       "team": "St. John's (NY)",
       "conference": "Big East",
-      "elo": 1854.925,
-      "games": 4
+      "elo": 1862.0575,
+      "games": 5
     },
     {
       "rank": 2,
@@ -235,16 +235,16 @@
       "team_id": "ncaa:627322",
       "team": "Texas Tech",
       "conference": "Big 12",
-      "elo": 1832.2769,
-      "games": 4
+      "elo": 1837.5247,
+      "games": 5
     },
     {
       "rank": 6,
       "team_id": "ncaa:627343",
       "team": "Virginia",
       "conference": "ACC",
-      "elo": 1821.1315,
-      "games": 6
+      "elo": 1823.7009,
+      "games": 7
     },
     {
       "rank": 7,
@@ -259,11 +259,19 @@
       "team_id": "ncaa:627266",
       "team": "High Point",
       "conference": "Big South",
-      "elo": 1798.4852,
-      "games": 5
+      "elo": 1805.1828,
+      "games": 6
     },
     {
       "rank": 9,
+      "team_id": "ncaa:627281",
+      "team": "Arizona",
+      "conference": "Big 12",
+      "elo": 1802.0631,
+      "games": 6
+    },
+    {
+      "rank": 10,
       "team_id": "ncaa:627240",
       "team": "Kansas",
       "conference": "Big 12",
@@ -271,15 +279,15 @@
       "games": 4
     },
     {
-      "rank": 10,
+      "rank": 11,
       "team_id": "ncaa:627426",
       "team": "Illinois",
       "conference": "Big Ten",
-      "elo": 1790.7632,
-      "games": 5
+      "elo": 1794.1207,
+      "games": 6
     },
     {
-      "rank": 11,
+      "rank": 12,
       "team_id": "ncaa:627511",
       "team": "Duke",
       "conference": "ACC",
@@ -287,7 +295,15 @@
       "games": 5
     },
     {
-      "rank": 12,
+      "rank": 13,
+      "team_id": "ncaa:627457",
+      "team": "Nebraska",
+      "conference": "Big Ten",
+      "elo": 1779.8985,
+      "games": 6
+    },
+    {
+      "rank": 14,
       "team_id": "ncaa:627397",
       "team": "Gonzaga",
       "conference": "WCC",
@@ -295,31 +311,31 @@
       "games": 4
     },
     {
-      "rank": 13,
+      "rank": 15,
       "team_id": "ncaa:627421",
       "team": "UConn",
       "conference": "Big East",
-      "elo": 1775.6822,
-      "games": 4
-    },
-    {
-      "rank": 14,
-      "team_id": "ncaa:627281",
-      "team": "Arizona",
-      "conference": "Big 12",
-      "elo": 1774.8841,
-      "games": 4
-    },
-    {
-      "rank": 15,
-      "team_id": "ncaa:627457",
-      "team": "Nebraska",
-      "conference": "Big Ten",
-      "elo": 1769.4278,
-      "games": 4
+      "elo": 1758.0641,
+      "games": 5
     },
     {
       "rank": 16,
+      "team_id": "ncaa:627386",
+      "team": "Miami (FL)",
+      "conference": "ACC",
+      "elo": 1752.3346,
+      "games": 6
+    },
+    {
+      "rank": 17,
+      "team_id": "ncaa:627319",
+      "team": "Texas A&M",
+      "conference": "SEC",
+      "elo": 1751.6162,
+      "games": 6
+    },
+    {
+      "rank": 18,
       "team_id": "ncaa:627275",
       "team": "Alabama",
       "conference": "SEC",
@@ -327,15 +343,23 @@
       "games": 5
     },
     {
-      "rank": 17,
-      "team_id": "ncaa:627386",
-      "team": "Miami (FL)",
+      "rank": 19,
+      "team_id": "ncaa:627428",
+      "team": "NC State",
       "conference": "ACC",
-      "elo": 1747.9826,
+      "elo": 1745.8145,
       "games": 5
     },
     {
-      "rank": 18,
+      "rank": 20,
+      "team_id": "ncaa:627453",
+      "team": "North Carolina",
+      "conference": "ACC",
+      "elo": 1744.4813,
+      "games": 6
+    },
+    {
+      "rank": 21,
       "team_id": "ncaa:627471",
       "team": "Cincinnati",
       "conference": "Big 12",
@@ -343,7 +367,7 @@
       "games": 4
     },
     {
-      "rank": 19,
+      "rank": 22,
       "team_id": "ncaa:627340",
       "team": "VCU",
       "conference": "Atlantic 10",
@@ -351,7 +375,7 @@
       "games": 3
     },
     {
-      "rank": 20,
+      "rank": 23,
       "team_id": "ncaa:627387",
       "team": "Michigan St.",
       "conference": "Big Ten",
@@ -359,7 +383,7 @@
       "games": 5
     },
     {
-      "rank": 21,
+      "rank": 24,
       "team_id": "ncaa:627572",
       "team": "Saint Louis",
       "conference": "Atlantic 10",
@@ -367,23 +391,7 @@
       "games": 4
     },
     {
-      "rank": 22,
-      "team_id": "ncaa:627319",
-      "team": "Texas A&M",
-      "conference": "SEC",
-      "elo": 1736.3117,
-      "games": 5
-    },
-    {
-      "rank": 23,
-      "team_id": "ncaa:627428",
-      "team": "NC State",
-      "conference": "ACC",
-      "elo": 1733.6451,
-      "games": 4
-    },
-    {
-      "rank": 24,
+      "rank": 25,
       "team_id": "ncaa:627335",
       "team": "Utah St.",
       "conference": "MWC",
@@ -391,7 +399,7 @@
       "games": 4
     },
     {
-      "rank": 25,
+      "rank": 26,
       "team_id": "ncaa:627412",
       "team": "Grand Canyon",
       "conference": "MWC",
@@ -399,15 +407,15 @@
       "games": 4
     },
     {
-      "rank": 26,
-      "team_id": "ncaa:627453",
-      "team": "North Carolina",
-      "conference": "ACC",
-      "elo": 1727.7555,
-      "games": 4
+      "rank": 27,
+      "team_id": "ncaa:627338",
+      "team": "Vanderbilt",
+      "conference": "SEC",
+      "elo": 1722.9621,
+      "games": 6
     },
     {
-      "rank": 27,
+      "rank": 28,
       "team_id": "ncaa:627408",
       "team": "Iowa St.",
       "conference": "Big 12",
@@ -415,7 +423,7 @@
       "games": 4
     },
     {
-      "rank": 28,
+      "rank": 29,
       "team_id": "ncaa:627307",
       "team": "Texas St.",
       "conference": "Sun Belt",
@@ -423,7 +431,15 @@
       "games": 4
     },
     {
-      "rank": 29,
+      "rank": 30,
+      "team_id": "ncaa:627324",
+      "team": "Texas",
+      "conference": "SEC",
+      "elo": 1718.4481,
+      "games": 6
+    },
+    {
+      "rank": 31,
       "team_id": "ncaa:627283",
       "team": "Arkansas",
       "conference": "SEC",
@@ -431,31 +447,7 @@
       "games": 5
     },
     {
-      "rank": 30,
-      "team_id": "ncaa:627242",
-      "team": "Kentucky",
-      "conference": "SEC",
-      "elo": 1711.0686,
-      "games": 5
-    },
-    {
-      "rank": 31,
-      "team_id": "ncaa:627324",
-      "team": "Texas",
-      "conference": "SEC",
-      "elo": 1708.0362,
-      "games": 4
-    },
-    {
       "rank": 32,
-      "team_id": "ncaa:627338",
-      "team": "Vanderbilt",
-      "conference": "SEC",
-      "elo": 1706.0831,
-      "games": 5
-    },
-    {
-      "rank": 33,
       "team_id": "ncaa:627385",
       "team": "Miami (OH)",
       "conference": "MAC",
@@ -463,15 +455,7 @@
       "games": 3
     },
     {
-      "rank": 34,
-      "team_id": "ncaa:627320",
-      "team": "TCU",
-      "conference": "Big 12",
-      "elo": 1699.04,
-      "games": 4
-    },
-    {
-      "rank": 35,
+      "rank": 33,
       "team_id": "ncaa:627396",
       "team": "Georgia",
       "conference": "SEC",
@@ -479,12 +463,28 @@
       "games": 5
     },
     {
-      "rank": 36,
+      "rank": 34,
+      "team_id": "ncaa:627558",
+      "team": "Purdue",
+      "conference": "Big Ten",
+      "elo": 1697.5214,
+      "games": 6
+    },
+    {
+      "rank": 35,
       "team_id": "ncaa:627473",
       "team": "Clemson",
       "conference": "ACC",
       "elo": 1696.1311,
       "games": 5
+    },
+    {
+      "rank": 36,
+      "team_id": "ncaa:627352",
+      "team": "Wichita St.",
+      "conference": "AAC",
+      "elo": 1695.1305,
+      "games": 6
     },
     {
       "rank": 37,
@@ -496,10 +496,10 @@
     },
     {
       "rank": 38,
-      "team_id": "ncaa:627558",
-      "team": "Purdue",
-      "conference": "Big Ten",
-      "elo": 1688.2711,
+      "team_id": "ncaa:627574",
+      "team": "San Diego St.",
+      "conference": "MWC",
+      "elo": 1692.9421,
       "games": 5
     },
     {
@@ -512,11 +512,11 @@
     },
     {
       "rank": 40,
-      "team_id": "ncaa:627574",
-      "team": "San Diego St.",
-      "conference": "MWC",
-      "elo": 1687.3141,
-      "games": 4
+      "team_id": "ncaa:627242",
+      "team": "Kentucky",
+      "conference": "SEC",
+      "elo": 1687.8376,
+      "games": 6
     },
     {
       "rank": 41,
@@ -536,6 +536,30 @@
     },
     {
       "rank": 43,
+      "team_id": "ncaa:627299",
+      "team": "Southern California",
+      "conference": "Big Ten",
+      "elo": 1685.4061,
+      "games": 6
+    },
+    {
+      "rank": 44,
+      "team_id": "ncaa:627320",
+      "team": "TCU",
+      "conference": "Big 12",
+      "elo": 1683.7355,
+      "games": 5
+    },
+    {
+      "rank": 45,
+      "team_id": "ncaa:627296",
+      "team": "BYU",
+      "conference": "Big 12",
+      "elo": 1683.6506,
+      "games": 5
+    },
+    {
+      "rank": 46,
       "team_id": "ncaa:627339",
       "team": "Villanova",
       "conference": "Big East",
@@ -543,15 +567,7 @@
       "games": 5
     },
     {
-      "rank": 44,
-      "team_id": "ncaa:627468",
-      "team": "UCF",
-      "conference": "Big 12",
-      "elo": 1679.0852,
-      "games": 5
-    },
-    {
-      "rank": 45,
+      "rank": 47,
       "team_id": "ncaa:627585",
       "team": "Santa Clara",
       "conference": "WCC",
@@ -559,36 +575,20 @@
       "games": 5
     },
     {
-      "rank": 46,
-      "team_id": "ncaa:627296",
-      "team": "BYU",
-      "conference": "Big 12",
-      "elo": 1671.0052,
-      "games": 4
-    },
-    {
-      "rank": 47,
-      "team_id": "ncaa:627427",
-      "team": "New Mexico",
-      "conference": "MWC",
-      "elo": 1670.2914,
-      "games": 4
-    },
-    {
       "rank": 48,
-      "team_id": "ncaa:627299",
-      "team": "Southern California",
+      "team_id": "ncaa:627463",
+      "team": "UCLA",
       "conference": "Big Ten",
-      "elo": 1670.1101,
-      "games": 4
+      "elo": 1674.6151,
+      "games": 5
     },
     {
       "rank": 49,
-      "team_id": "ncaa:627411",
-      "team": "Col. of Charleston",
-      "conference": "CAA",
-      "elo": 1669.7953,
-      "games": 2
+      "team_id": "ncaa:627232",
+      "team": "Indiana",
+      "conference": "Big Ten",
+      "elo": 1672.6764,
+      "games": 6
     },
     {
       "rank": 50,
@@ -600,11 +600,11 @@
     },
     {
       "rank": 51,
-      "team_id": "ncaa:627463",
-      "team": "UCLA",
-      "conference": "Big Ten",
-      "elo": 1665.3103,
-      "games": 4
+      "team_id": "ncaa:627468",
+      "team": "UCF",
+      "conference": "Big 12",
+      "elo": 1662.2062,
+      "games": 6
     },
     {
       "rank": 52,
@@ -624,14 +624,6 @@
     },
     {
       "rank": 54,
-      "team_id": "ncaa:627571",
-      "team": "Saint Joseph's",
-      "conference": "Atlantic 10",
-      "elo": 1656.666,
-      "games": 5
-    },
-    {
-      "rank": 55,
       "team_id": "ncaa:627331",
       "team": "Tulsa",
       "conference": "AAC",
@@ -639,23 +631,7 @@
       "games": 3
     },
     {
-      "rank": 56,
-      "team_id": "ncaa:627456",
-      "team": "UNCW",
-      "conference": "CAA",
-      "elo": 1656.059,
-      "games": 2
-    },
-    {
-      "rank": 57,
-      "team_id": "ncaa:627352",
-      "team": "Wichita St.",
-      "conference": "AAC",
-      "elo": 1655.996,
-      "games": 3
-    },
-    {
-      "rank": 58,
+      "rank": 55,
       "team_id": "ncaa:627542",
       "team": "Oklahoma St.",
       "conference": "Big 12",
@@ -663,7 +639,7 @@
       "games": 4
     },
     {
-      "rank": 59,
+      "rank": 56,
       "team_id": "ncaa:627415",
       "team": "Auburn",
       "conference": "SEC",
@@ -671,7 +647,15 @@
       "games": 4
     },
     {
-      "rank": 60,
+      "rank": 57,
+      "team_id": "ncaa:627280",
+      "team": "Arizona St.",
+      "conference": "Big 12",
+      "elo": 1652.7669,
+      "games": 5
+    },
+    {
+      "rank": 58,
       "team_id": "ncaa:627546",
       "team": "Oregon St.",
       "conference": "WCC",
@@ -679,20 +663,36 @@
       "games": 5
     },
     {
+      "rank": 59,
+      "team_id": "ncaa:627427",
+      "team": "New Mexico",
+      "conference": "MWC",
+      "elo": 1648.6363,
+      "games": 5
+    },
+    {
+      "rank": 60,
+      "team_id": "ncaa:627302",
+      "team": "SMU",
+      "conference": "ACC",
+      "elo": 1645.9631,
+      "games": 6
+    },
+    {
       "rank": 61,
-      "team_id": "ncaa:627232",
-      "team": "Indiana",
-      "conference": "Big Ten",
-      "elo": 1649.4453,
+      "team_id": "ncaa:627543",
+      "team": "Oklahoma",
+      "conference": "SEC",
+      "elo": 1642.6965,
       "games": 5
     },
     {
       "rank": 62,
-      "team_id": "ncaa:627280",
-      "team": "Arizona St.",
-      "conference": "Big 12",
-      "elo": 1644.6928,
-      "games": 4
+      "team_id": "ncaa:627552",
+      "team": "Pittsburgh",
+      "conference": "ACC",
+      "elo": 1642.6651,
+      "games": 6
     },
     {
       "rank": 63,
@@ -720,30 +720,38 @@
     },
     {
       "rank": 66,
-      "team_id": "ncaa:627543",
-      "team": "Oklahoma",
-      "conference": "SEC",
-      "elo": 1632.2654,
-      "games": 4
+      "team_id": "ncaa:627411",
+      "team": "Col. of Charleston",
+      "conference": "CAA",
+      "elo": 1638.0026,
+      "games": 3
     },
     {
       "rank": 67,
-      "team_id": "ncaa:627552",
-      "team": "Pittsburgh",
+      "team_id": "ncaa:627524",
+      "team": "Florida St.",
       "conference": "ACC",
-      "elo": 1632.037,
-      "games": 5
+      "elo": 1636.1145,
+      "games": 6
     },
     {
       "rank": 68,
-      "team_id": "ncaa:627302",
-      "team": "SMU",
-      "conference": "ACC",
-      "elo": 1631.5858,
-      "games": 5
+      "team_id": "ncaa:627265",
+      "team": "Belmont",
+      "conference": "MVC",
+      "elo": 1634.4795,
+      "games": 4
     },
     {
       "rank": 69,
+      "team_id": "ncaa:627456",
+      "team": "UNCW",
+      "conference": "CAA",
+      "elo": 1633.8482,
+      "games": 3
+    },
+    {
+      "rank": 70,
       "team_id": "ncaa:627358",
       "team": "Wright St.",
       "conference": "Horizon",
@@ -751,7 +759,15 @@
       "games": 4
     },
     {
-      "rank": 70,
+      "rank": 71,
+      "team_id": "ncaa:627571",
+      "team": "Saint Joseph's",
+      "conference": "Atlantic 10",
+      "elo": 1628.6883,
+      "games": 6
+    },
+    {
+      "rank": 72,
       "team_id": "ncaa:627485",
       "team": "DePaul",
       "conference": "Big East",
@@ -759,7 +775,7 @@
       "games": 5
     },
     {
-      "rank": 71,
+      "rank": 73,
       "team_id": "ncaa:627557",
       "team": "Providence",
       "conference": "Big East",
@@ -767,23 +783,15 @@
       "games": 5
     },
     {
-      "rank": 72,
-      "team_id": "ncaa:627414",
-      "team": "UAB",
-      "conference": "AAC",
-      "elo": 1623.0701,
-      "games": 5
-    },
-    {
-      "rank": 73,
-      "team_id": "ncaa:627524",
-      "team": "Florida St.",
-      "conference": "ACC",
-      "elo": 1621.8011,
-      "games": 5
-    },
-    {
       "rank": 74,
+      "team_id": "ncaa:627446",
+      "team": "Missouri",
+      "conference": "SEC",
+      "elo": 1620.8467,
+      "games": 6
+    },
+    {
+      "rank": 75,
       "team_id": "ncaa:627413",
       "team": "Akron",
       "conference": "MAC",
@@ -791,15 +799,15 @@
       "games": 3
     },
     {
-      "rank": 75,
-      "team_id": "ncaa:627265",
-      "team": "Belmont",
-      "conference": "MVC",
-      "elo": 1618.298,
-      "games": 3
+      "rank": 76,
+      "team_id": "ncaa:627460",
+      "team": "Nevada",
+      "conference": "MWC",
+      "elo": 1618.0574,
+      "games": 6
     },
     {
-      "rank": 76,
+      "rank": 77,
       "team_id": "ncaa:627586",
       "team": "Seton Hall",
       "conference": "Big East",
@@ -807,7 +815,7 @@
       "games": 4
     },
     {
-      "rank": 77,
+      "rank": 78,
       "team_id": "ncaa:627481",
       "team": "Creighton",
       "conference": "Big East",
@@ -815,7 +823,7 @@
       "games": 4
     },
     {
-      "rank": 78,
+      "rank": 79,
       "team_id": "ncaa:627309",
       "team": "Stanford",
       "conference": "ACC",
@@ -823,7 +831,7 @@
       "games": 5
     },
     {
-      "rank": 79,
+      "rank": 80,
       "team_id": "ncaa:627528",
       "team": "George Mason",
       "conference": "Atlantic 10",
@@ -831,7 +839,7 @@
       "games": 4
     },
     {
-      "rank": 80,
+      "rank": 81,
       "team_id": "ncaa:627291",
       "team": "Boise St.",
       "conference": "MWC",
@@ -839,7 +847,7 @@
       "games": 3
     },
     {
-      "rank": 81,
+      "rank": 82,
       "team_id": "ncaa:627270",
       "team": "Utah Valley",
       "conference": "WAC",
@@ -847,23 +855,7 @@
       "games": 2
     },
     {
-      "rank": 82,
-      "team_id": "ncaa:627446",
-      "team": "Missouri",
-      "conference": "SEC",
-      "elo": 1604.6783,
-      "games": 4
-    },
-    {
       "rank": 83,
-      "team_id": "ncaa:627451",
-      "team": "Murray St.",
-      "conference": "MVC",
-      "elo": 1604.6137,
-      "games": 5
-    },
-    {
-      "rank": 84,
       "team_id": "ncaa:627395",
       "team": "Georgia Tech",
       "conference": "ACC",
@@ -871,7 +863,23 @@
       "games": 5
     },
     {
+      "rank": 84,
+      "team_id": "ncaa:627288",
+      "team": "Baylor",
+      "conference": "Big 12",
+      "elo": 1601.6893,
+      "games": 5
+    },
+    {
       "rank": 85,
+      "team_id": "ncaa:627414",
+      "team": "UAB",
+      "conference": "AAC",
+      "elo": 1600.1598,
+      "games": 6
+    },
+    {
+      "rank": 86,
       "team_id": "ncaa:627377",
       "team": "Marquette",
       "conference": "Big East",
@@ -879,15 +887,39 @@
       "games": 4
     },
     {
-      "rank": 86,
-      "team_id": "ncaa:627476",
-      "team": "Colorado St.",
-      "conference": "MWC",
-      "elo": 1596.3749,
+      "rank": 87,
+      "team_id": "ncaa:627344",
+      "team": "Wake Forest",
+      "conference": "ACC",
+      "elo": 1599.5935,
+      "games": 6
+    },
+    {
+      "rank": 88,
+      "team_id": "ncaa:627484",
+      "team": "Dayton",
+      "conference": "Atlantic 10",
+      "elo": 1599.3596,
+      "games": 6
+    },
+    {
+      "rank": 89,
+      "team_id": "ncaa:627530",
+      "team": "Georgetown",
+      "conference": "Big East",
+      "elo": 1598.1896,
+      "games": 5
+    },
+    {
+      "rank": 90,
+      "team_id": "ncaa:627522",
+      "team": "Fla. Atlantic",
+      "conference": "AAC",
+      "elo": 1595.3355,
       "games": 4
     },
     {
-      "rank": 87,
+      "rank": 91,
       "team_id": "ncaa:627310",
       "team": "SFA",
       "conference": "Southland",
@@ -895,7 +927,7 @@
       "games": 2
     },
     {
-      "rank": 88,
+      "rank": 92,
       "team_id": "ncaa:627566",
       "team": "Rutgers",
       "conference": "Big Ten",
@@ -903,7 +935,7 @@
       "games": 4
     },
     {
-      "rank": 89,
+      "rank": 93,
       "team_id": "ncaa:627443",
       "team": "Queens (NC)",
       "conference": "ASUN",
@@ -911,7 +943,15 @@
       "games": 5
     },
     {
-      "rank": 90,
+      "rank": 94,
+      "team_id": "ncaa:627561",
+      "team": "Rhode Island",
+      "conference": "Atlantic 10",
+      "elo": 1593.9853,
+      "games": 7
+    },
+    {
+      "rank": 95,
       "team_id": "ncaa:627445",
       "team": "Ole Miss",
       "conference": "SEC",
@@ -919,7 +959,15 @@
       "games": 4
     },
     {
-      "rank": 91,
+      "rank": 96,
+      "team_id": "ncaa:627451",
+      "team": "Murray St.",
+      "conference": "MVC",
+      "elo": 1592.4443,
+      "games": 6
+    },
+    {
+      "rank": 97,
       "team_id": "ncaa:627541",
       "team": "Ohio",
       "conference": "MAC",
@@ -927,7 +975,7 @@
       "games": 3
     },
     {
-      "rank": 92,
+      "rank": 98,
       "team_id": "ncaa:627526",
       "team": "Fordham",
       "conference": "Atlantic 10",
@@ -935,23 +983,7 @@
       "games": 5
     },
     {
-      "rank": 93,
-      "team_id": "ncaa:627530",
-      "team": "Georgetown",
-      "conference": "Big East",
-      "elo": 1590.5733,
-      "games": 4
-    },
-    {
-      "rank": 94,
-      "team_id": "ncaa:627460",
-      "team": "Nevada",
-      "conference": "MWC",
-      "elo": 1590.436,
-      "games": 4
-    },
-    {
-      "rank": 95,
+      "rank": 99,
       "team_id": "ncaa:627400",
       "team": "Hawaii",
       "conference": "Big West",
@@ -959,23 +991,15 @@
       "games": 3
     },
     {
-      "rank": 96,
-      "team_id": "ncaa:627561",
-      "team": "Rhode Island",
-      "conference": "Atlantic 10",
-      "elo": 1587.8532,
+      "rank": 100,
+      "team_id": "ncaa:627476",
+      "team": "Colorado St.",
+      "conference": "MWC",
+      "elo": 1586.8139,
       "games": 5
     },
     {
-      "rank": 97,
-      "team_id": "ncaa:627288",
-      "team": "Baylor",
-      "conference": "Big 12",
-      "elo": 1587.7168,
-      "games": 4
-    },
-    {
-      "rank": 98,
+      "rank": 101,
       "team_id": "ncaa:627359",
       "team": "Wyoming",
       "conference": "MWC",
@@ -983,23 +1007,15 @@
       "games": 4
     },
     {
-      "rank": 99,
-      "team_id": "ncaa:627522",
-      "team": "Fla. Atlantic",
-      "conference": "AAC",
-      "elo": 1585.0853,
-      "games": 3
-    },
-    {
-      "rank": 100,
-      "team_id": "ncaa:627344",
-      "team": "Wake Forest",
+      "rank": 102,
+      "team_id": "ncaa:627370",
+      "team": "California",
       "conference": "ACC",
-      "elo": 1584.9428,
-      "games": 5
+      "elo": 1584.0219,
+      "games": 6
     },
     {
-      "rank": 101,
+      "rank": 103,
       "team_id": "ncaa:627292",
       "team": "Boston College",
       "conference": "ACC",
@@ -1007,15 +1023,7 @@
       "games": 4
     },
     {
-      "rank": 102,
-      "team_id": "ncaa:627484",
-      "team": "Dayton",
-      "conference": "Atlantic 10",
-      "elo": 1583.5288,
-      "games": 5
-    },
-    {
-      "rank": 103,
+      "rank": 104,
       "team_id": "ncaa:627539",
       "team": "Notre Dame",
       "conference": "ACC",
@@ -1023,7 +1031,7 @@
       "games": 5
     },
     {
-      "rank": 104,
+      "rank": 105,
       "team_id": "ncaa:627417",
       "team": "McNeese",
       "conference": "Southland",
@@ -1031,7 +1039,7 @@
       "games": 2
     },
     {
-      "rank": 105,
+      "rank": 106,
       "team_id": "ncaa:627346",
       "team": "Washington",
       "conference": "Big Ten",
@@ -1039,7 +1047,7 @@
       "games": 2
     },
     {
-      "rank": 106,
+      "rank": 107,
       "team_id": "ncaa:627581",
       "team": "UC San Diego",
       "conference": "Big West",
@@ -1047,15 +1055,15 @@
       "games": 3
     },
     {
-      "rank": 107,
-      "team_id": "ncaa:627535",
-      "team": "UNI",
-      "conference": "MVC",
-      "elo": 1574.4245,
-      "games": 5
+      "rank": 108,
+      "team_id": "ncaa:627483",
+      "team": "Davidson",
+      "conference": "Atlantic 10",
+      "elo": 1578.9451,
+      "games": 6
     },
     {
-      "rank": 108,
+      "rank": 109,
       "team_id": "ncaa:627495",
       "team": "UIC",
       "conference": "MVC",
@@ -1063,7 +1071,7 @@
       "games": 3
     },
     {
-      "rank": 109,
+      "rank": 110,
       "team_id": "ncaa:627527",
       "team": "Furman",
       "conference": "SoCon",
@@ -1071,7 +1079,7 @@
       "games": 4
     },
     {
-      "rank": 110,
+      "rank": 111,
       "team_id": "ncaa:627425",
       "team": "Howard",
       "conference": "MEAC",
@@ -1079,7 +1087,7 @@
       "games": 5
     },
     {
-      "rank": 111,
+      "rank": 112,
       "team_id": "ncaa:627249",
       "team": "LSU",
       "conference": "SEC",
@@ -1087,7 +1095,7 @@
       "games": 4
     },
     {
-      "rank": 112,
+      "rank": 113,
       "team_id": "ncaa:627391",
       "team": "Mississippi St.",
       "conference": "SEC",
@@ -1095,23 +1103,23 @@
       "games": 5
     },
     {
-      "rank": 113,
-      "team_id": "ncaa:627247",
-      "team": "Liberty",
-      "conference": "C-USA",
-      "elo": 1570.3367,
-      "games": 3
-    },
-    {
       "rank": 114,
-      "team_id": "ncaa:627439",
-      "team": "Yale",
-      "conference": "Ivy League",
-      "elo": 1565.5146,
-      "games": 4
+      "team_id": "ncaa:627327",
+      "team": "Toledo",
+      "conference": "MAC",
+      "elo": 1570.386,
+      "games": 6
     },
     {
       "rank": 115,
+      "team_id": "ncaa:627247",
+      "team": "Liberty",
+      "conference": "C-USA",
+      "elo": 1565.4597,
+      "games": 5
+    },
+    {
+      "rank": 116,
       "team_id": "ncaa:627529",
       "team": "George Washington",
       "conference": "Atlantic 10",
@@ -1119,7 +1127,7 @@
       "games": 4
     },
     {
-      "rank": 116,
+      "rank": 117,
       "team_id": "ncaa:627423",
       "team": "Duquesne",
       "conference": "Atlantic 10",
@@ -1127,7 +1135,7 @@
       "games": 3
     },
     {
-      "rank": 117,
+      "rank": 118,
       "team_id": "ncaa:627334",
       "team": "Navy",
       "conference": "Patriot",
@@ -1135,7 +1143,7 @@
       "games": 4
     },
     {
-      "rank": 118,
+      "rank": 119,
       "team_id": "ncaa:627550",
       "team": "Penn",
       "conference": "Ivy League",
@@ -1143,7 +1151,7 @@
       "games": 4
     },
     {
-      "rank": 119,
+      "rank": 120,
       "team_id": "ncaa:627314",
       "team": "Tennessee St.",
       "conference": "OVC",
@@ -1151,7 +1159,7 @@
       "games": 2
     },
     {
-      "rank": 120,
+      "rank": 121,
       "team_id": "ncaa:627329",
       "team": "Troy",
       "conference": "Sun Belt",
@@ -1159,7 +1167,7 @@
       "games": 5
     },
     {
-      "rank": 121,
+      "rank": 122,
       "team_id": "ncaa:627235",
       "team": "Iowa",
       "conference": "Big Ten",
@@ -1167,7 +1175,15 @@
       "games": 5
     },
     {
-      "rank": 122,
+      "rank": 123,
+      "team_id": "ncaa:627439",
+      "team": "Yale",
+      "conference": "Ivy League",
+      "elo": 1561.7486,
+      "games": 6
+    },
+    {
+      "rank": 124,
       "team_id": "ncaa:627507",
       "team": "North Texas",
       "conference": "AAC",
@@ -1175,7 +1191,7 @@
       "games": 3
     },
     {
-      "rank": 123,
+      "rank": 125,
       "team_id": "ncaa:627430",
       "team": "Oregon",
       "conference": "Big Ten",
@@ -1183,7 +1199,15 @@
       "games": 3
     },
     {
-      "rank": 124,
+      "rank": 126,
+      "team_id": "ncaa:627255",
+      "team": "Kennesaw St.",
+      "conference": "C-USA",
+      "elo": 1561.0297,
+      "games": 4
+    },
+    {
+      "rank": 127,
       "team_id": "ncaa:627312",
       "team": "Syracuse",
       "conference": "ACC",
@@ -1191,23 +1215,7 @@
       "games": 4
     },
     {
-      "rank": 125,
-      "team_id": "ncaa:627370",
-      "team": "California",
-      "conference": "ACC",
-      "elo": 1559.9385,
-      "games": 4
-    },
-    {
-      "rank": 126,
-      "team_id": "ncaa:627223",
-      "team": "Siena",
-      "conference": "MAAC",
-      "elo": 1559.5268,
-      "games": 4
-    },
-    {
-      "rank": 127,
+      "rank": 128,
       "team_id": "ncaa:627294",
       "team": "Bowling Green",
       "conference": "MAC",
@@ -1215,7 +1223,15 @@
       "games": 4
     },
     {
-      "rank": 128,
+      "rank": 129,
+      "team_id": "ncaa:627337",
+      "team": "Valparaiso",
+      "conference": "MVC",
+      "elo": 1558.7927,
+      "games": 4
+    },
+    {
+      "rank": 130,
       "team_id": "ncaa:627538",
       "team": "Northwestern",
       "conference": "Big Ten",
@@ -1223,15 +1239,7 @@
       "games": 5
     },
     {
-      "rank": 129,
-      "team_id": "ncaa:627285",
-      "team": "Austin Peay",
-      "conference": "ASUN",
-      "elo": 1557.2925,
-      "games": 2
-    },
-    {
-      "rank": 130,
+      "rank": 131,
       "team_id": "ncaa:627494",
       "team": "Illinois St.",
       "conference": "MVC",
@@ -1239,31 +1247,31 @@
       "games": 4
     },
     {
-      "rank": 131,
-      "team_id": "ncaa:627462",
-      "team": "UC Irvine",
-      "conference": "Big West",
-      "elo": 1556.2904,
-      "games": 2
-    },
-    {
       "rank": 132,
-      "team_id": "ncaa:627483",
-      "team": "Davidson",
-      "conference": "Atlantic 10",
-      "elo": 1555.8389,
+      "team_id": "ncaa:627223",
+      "team": "Siena",
+      "conference": "MAAC",
+      "elo": 1552.3944,
       "games": 5
     },
     {
       "rank": 133,
-      "team_id": "ncaa:627327",
-      "team": "Toledo",
-      "conference": "MAC",
-      "elo": 1554.8751,
-      "games": 5
+      "team_id": "ncaa:627362",
+      "team": "Butler",
+      "conference": "Big East",
+      "elo": 1551.832,
+      "games": 7
     },
     {
       "rank": 134,
+      "team_id": "ncaa:627535",
+      "team": "UNI",
+      "conference": "MVC",
+      "elo": 1551.3183,
+      "games": 6
+    },
+    {
+      "rank": 135,
       "team_id": "ncaa:627454",
       "team": "Charlotte",
       "conference": "AAC",
@@ -1271,7 +1279,7 @@
       "games": 5
     },
     {
-      "rank": 135,
+      "rank": 136,
       "team_id": "ncaa:627477",
       "team": "Colorado",
       "conference": "Big 12",
@@ -1279,20 +1287,12 @@
       "games": 4
     },
     {
-      "rank": 136,
-      "team_id": "ncaa:627255",
-      "team": "Kennesaw St.",
-      "conference": "C-USA",
-      "elo": 1549.8398,
-      "games": 3
-    },
-    {
       "rank": 137,
-      "team_id": "ncaa:627362",
-      "team": "Butler",
-      "conference": "Big East",
-      "elo": 1547.8987,
-      "games": 5
+      "team_id": "ncaa:627390",
+      "team": "Minnesota",
+      "conference": "Big Ten",
+      "elo": 1547.0084,
+      "games": 6
     },
     {
       "rank": 138,
@@ -1304,14 +1304,30 @@
     },
     {
       "rank": 139,
-      "team_id": "ncaa:627337",
-      "team": "Valparaiso",
-      "conference": "MVC",
-      "elo": 1539.3658,
-      "games": 3
+      "team_id": "ncaa:627549",
+      "team": "Penn St.",
+      "conference": "Big Ten",
+      "elo": 1543.1731,
+      "games": 6
     },
     {
       "rank": 140,
+      "team_id": "ncaa:627409",
+      "team": "James Madison",
+      "conference": "Sun Belt",
+      "elo": 1542.3447,
+      "games": 5
+    },
+    {
+      "rank": 141,
+      "team_id": "ncaa:627369",
+      "team": "UC Santa Barbara",
+      "conference": "Big West",
+      "elo": 1541.1628,
+      "games": 3
+    },
+    {
+      "rank": 142,
       "team_id": "ncaa:627330",
       "team": "Tulane",
       "conference": "AAC",
@@ -1319,7 +1335,7 @@
       "games": 4
     },
     {
-      "rank": 141,
+      "rank": 143,
       "team_id": "ncaa:627579",
       "team": "Merrimack",
       "conference": "MAAC",
@@ -1327,7 +1343,7 @@
       "games": 4
     },
     {
-      "rank": 142,
+      "rank": 144,
       "team_id": "ncaa:627257",
       "team": "Seattle U",
       "conference": "WCC",
@@ -1335,7 +1351,7 @@
       "games": 5
     },
     {
-      "rank": 143,
+      "rank": 145,
       "team_id": "ncaa:627389",
       "team": "Middle Tenn.",
       "conference": "C-USA",
@@ -1343,23 +1359,15 @@
       "games": 4
     },
     {
-      "rank": 144,
-      "team_id": "ncaa:627303",
-      "team": "Southern Miss.",
-      "conference": "Sun Belt",
-      "elo": 1536.4511,
+      "rank": 146,
+      "team_id": "ncaa:627285",
+      "team": "Austin Peay",
+      "conference": "ASUN",
+      "elo": 1536.5197,
       "games": 3
     },
     {
-      "rank": 145,
-      "team_id": "ncaa:627549",
-      "team": "Penn St.",
-      "conference": "Big Ten",
-      "elo": 1532.6669,
-      "games": 5
-    },
-    {
-      "rank": 146,
+      "rank": 147,
       "team_id": "ncaa:627379",
       "team": "UMBC",
       "conference": "America East",
@@ -1367,31 +1375,15 @@
       "games": 5
     },
     {
-      "rank": 147,
-      "team_id": "ncaa:627390",
-      "team": "Minnesota",
-      "conference": "Big Ten",
-      "elo": 1529.2995,
-      "games": 5
-    },
-    {
       "rank": 148,
-      "team_id": "ncaa:627418",
-      "team": "Montana St.",
-      "conference": "Big Sky",
-      "elo": 1529.2663,
+      "team_id": "ncaa:627303",
+      "team": "Southern Miss.",
+      "conference": "Sun Belt",
+      "elo": 1530.1351,
       "games": 5
     },
     {
       "rank": 149,
-      "team_id": "ncaa:627369",
-      "team": "UC Santa Barbara",
-      "conference": "Big West",
-      "elo": 1529.0384,
-      "games": 2
-    },
-    {
-      "rank": 150,
       "team_id": "ncaa:627404",
       "team": "Central Ark.",
       "conference": "ASUN",
@@ -1399,20 +1391,28 @@
       "games": 4
     },
     {
-      "rank": 151,
-      "team_id": "ncaa:627328",
-      "team": "Towson",
-      "conference": "CAA",
-      "elo": 1527.1819,
-      "games": 5
-    },
-    {
-      "rank": 152,
+      "rank": 150,
       "team_id": "ncaa:627401",
       "team": "Hofstra",
       "conference": "CAA",
       "elo": 1526.9316,
       "games": 4
+    },
+    {
+      "rank": 151,
+      "team_id": "ncaa:627226",
+      "team": "South Carolina",
+      "conference": "SEC",
+      "elo": 1525.6945,
+      "games": 5
+    },
+    {
+      "rank": 152,
+      "team_id": "ncaa:627418",
+      "team": "Montana St.",
+      "conference": "Big Sky",
+      "elo": 1522.5687,
+      "games": 6
     },
     {
       "rank": 153,
@@ -1424,19 +1424,19 @@
     },
     {
       "rank": 154,
-      "team_id": "ncaa:627409",
-      "team": "James Madison",
-      "conference": "Sun Belt",
-      "elo": 1521.5751,
-      "games": 4
-    },
-    {
-      "rank": 155,
       "team_id": "ncaa:627239",
       "team": "Kansas St.",
       "conference": "Big 12",
       "elo": 1519.545,
       "games": 4
+    },
+    {
+      "rank": 155,
+      "team_id": "ncaa:627513",
+      "team": "ETSU",
+      "conference": "SoCon",
+      "elo": 1519.2344,
+      "games": 5
     },
     {
       "rank": 156,
@@ -1456,6 +1456,22 @@
     },
     {
       "rank": 158,
+      "team_id": "ncaa:627351",
+      "team": "Western Mich.",
+      "conference": "MAC",
+      "elo": 1516.198,
+      "games": 5
+    },
+    {
+      "rank": 159,
+      "team_id": "ncaa:627462",
+      "team": "UC Irvine",
+      "conference": "Big West",
+      "elo": 1515.7226,
+      "games": 4
+    },
+    {
+      "rank": 160,
       "team_id": "ncaa:627323",
       "team": "UT Arlington",
       "conference": "WAC",
@@ -1463,7 +1479,15 @@
       "games": 3
     },
     {
-      "rank": 159,
+      "rank": 161,
+      "team_id": "ncaa:627548",
+      "team": "UTRGV",
+      "conference": "Southland",
+      "elo": 1514.2012,
+      "games": 4
+    },
+    {
+      "rank": 162,
       "team_id": "ncaa:627282",
       "team": "Arkansas St.",
       "conference": "Sun Belt",
@@ -1471,15 +1495,31 @@
       "games": 3
     },
     {
-      "rank": 160,
-      "team_id": "ncaa:627226",
-      "team": "South Carolina",
-      "conference": "SEC",
-      "elo": 1511.3692,
+      "rank": 163,
+      "team_id": "ncaa:627366",
+      "team": "Cal St. Fullerton",
+      "conference": "Big West",
+      "elo": 1511.7537,
       "games": 4
     },
     {
-      "rank": 161,
+      "rank": 164,
+      "team_id": "ncaa:627568",
+      "team": "St. Bonaventure",
+      "conference": "Atlantic 10",
+      "elo": 1511.7343,
+      "games": 5
+    },
+    {
+      "rank": 165,
+      "team_id": "ncaa:627510",
+      "team": "Drexel",
+      "conference": "CAA",
+      "elo": 1510.5062,
+      "games": 5
+    },
+    {
+      "rank": 166,
       "team_id": "ncaa:627278",
       "team": "American",
       "conference": "Patriot",
@@ -1487,23 +1527,23 @@
       "games": 4
     },
     {
-      "rank": 162,
-      "team_id": "ncaa:627565",
-      "team": "Robert Morris",
-      "conference": "Horizon",
-      "elo": 1507.1938,
-      "games": 3
+      "rank": 167,
+      "team_id": "ncaa:627584",
+      "team": "St. Thomas (MN)",
+      "conference": "Summit League",
+      "elo": 1507.8652,
+      "games": 6
     },
     {
-      "rank": 163,
+      "rank": 168,
       "team_id": "ncaa:627576",
       "team": "San Francisco",
       "conference": "WCC",
-      "elo": 1506.661,
-      "games": 4
+      "elo": 1506.8907,
+      "games": 6
     },
     {
-      "rank": 164,
+      "rank": 169,
       "team_id": "ncaa:627478",
       "team": "Columbia",
       "conference": "Ivy League",
@@ -1511,23 +1551,15 @@
       "games": 4
     },
     {
-      "rank": 165,
-      "team_id": "ncaa:627447",
-      "team": "Monmouth",
+      "rank": 170,
+      "team_id": "ncaa:627328",
+      "team": "Towson",
       "conference": "CAA",
-      "elo": 1506.2341,
-      "games": 4
+      "elo": 1506.4123,
+      "games": 6
     },
     {
-      "rank": 166,
-      "team_id": "ncaa:627336",
-      "team": "Utah",
-      "conference": "Big 12",
-      "elo": 1505.9788,
-      "games": 4
-    },
-    {
-      "rank": 167,
+      "rank": 171,
       "team_id": "ncaa:627519",
       "team": "Fairfield",
       "conference": "MAAC",
@@ -1535,7 +1567,7 @@
       "games": 4
     },
     {
-      "rank": 168,
+      "rank": 172,
       "team_id": "ncaa:627313",
       "team": "Temple",
       "conference": "AAC",
@@ -1543,31 +1575,7 @@
       "games": 4
     },
     {
-      "rank": 169,
-      "team_id": "ncaa:627355",
-      "team": "Green Bay",
-      "conference": "Horizon",
-      "elo": 1504.3727,
-      "games": 4
-    },
-    {
-      "rank": 170,
-      "team_id": "ncaa:627533",
-      "team": "Northern Colo.",
-      "conference": "Big Sky",
-      "elo": 1503.4426,
-      "games": 2
-    },
-    {
-      "rank": 171,
-      "team_id": "ncaa:627513",
-      "team": "ETSU",
-      "conference": "SoCon",
-      "elo": 1503.3033,
-      "games": 4
-    },
-    {
-      "rank": 172,
+      "rank": 173,
       "team_id": "ncaa:627512",
       "team": "East Carolina",
       "conference": "AAC",
@@ -1575,7 +1583,7 @@
       "games": 4
     },
     {
-      "rank": 173,
+      "rank": 174,
       "team_id": "ncaa:627241",
       "team": "Kent St.",
       "conference": "MAC",
@@ -1583,28 +1591,20 @@
       "games": 3
     },
     {
-      "rank": 174,
-      "team_id": "ncaa:627436",
-      "team": "Vermont",
-      "conference": "America East",
-      "elo": 1502.1307,
-      "games": 3
-    },
-    {
       "rank": 175,
-      "team_id": "ncaa:627351",
-      "team": "Western Mich.",
-      "conference": "MAC",
-      "elo": 1502.0232,
-      "games": 4
+      "team_id": "ncaa:627380",
+      "team": "Maryland",
+      "conference": "Big Ten",
+      "elo": 1501.0421,
+      "games": 5
     },
     {
       "rank": 176,
-      "team_id": "ncaa:627366",
-      "team": "Cal St. Fullerton",
-      "conference": "Big West",
-      "elo": 1501.2747,
-      "games": 2
+      "team_id": "ncaa:627563",
+      "team": "Richmond",
+      "conference": "Atlantic 10",
+      "elo": 1499.8947,
+      "games": 5
     },
     {
       "rank": 177,
@@ -1616,11 +1616,11 @@
     },
     {
       "rank": 178,
-      "team_id": "ncaa:627568",
-      "team": "St. Bonaventure",
-      "conference": "Atlantic 10",
-      "elo": 1495.8446,
-      "games": 4
+      "team_id": "ncaa:627224",
+      "team": "South Alabama",
+      "conference": "Sun Belt",
+      "elo": 1498.7579,
+      "games": 7
     },
     {
       "rank": 179,
@@ -1632,22 +1632,6 @@
     },
     {
       "rank": 180,
-      "team_id": "ncaa:627354",
-      "team": "Winthrop",
-      "conference": "Big South",
-      "elo": 1494.8131,
-      "games": 4
-    },
-    {
-      "rank": 181,
-      "team_id": "ncaa:627224",
-      "team": "South Alabama",
-      "conference": "Sun Belt",
-      "elo": 1494.2629,
-      "games": 5
-    },
-    {
-      "rank": 182,
       "team_id": "ncaa:627250",
       "team": "Louisiana Tech",
       "conference": "C-USA",
@@ -1655,23 +1639,23 @@
       "games": 4
     },
     {
+      "rank": 181,
+      "team_id": "ncaa:627565",
+      "team": "Robert Morris",
+      "conference": "Horizon",
+      "elo": 1491.6829,
+      "games": 4
+    },
+    {
+      "rank": 182,
+      "team_id": "ncaa:627393",
+      "team": "Ga. Southern",
+      "conference": "Sun Belt",
+      "elo": 1491.6668,
+      "games": 6
+    },
+    {
       "rank": 183,
-      "team_id": "ncaa:627548",
-      "team": "UTRGV",
-      "conference": "Southland",
-      "elo": 1493.4284,
-      "games": 3
-    },
-    {
-      "rank": 184,
-      "team_id": "ncaa:627584",
-      "team": "St. Thomas (MN)",
-      "conference": "Summit League",
-      "elo": 1491.9458,
-      "games": 5
-    },
-    {
-      "rank": 185,
       "team_id": "ncaa:627433",
       "team": "Samford",
       "conference": "SoCon",
@@ -1679,23 +1663,31 @@
       "games": 2
     },
     {
+      "rank": 184,
+      "team_id": "ncaa:627533",
+      "team": "Northern Colo.",
+      "conference": "Big Sky",
+      "elo": 1490.7972,
+      "games": 3
+    },
+    {
+      "rank": 185,
+      "team_id": "ncaa:627355",
+      "team": "Green Bay",
+      "conference": "Horizon",
+      "elo": 1490.0592,
+      "games": 5
+    },
+    {
       "rank": 186,
-      "team_id": "ncaa:627295",
-      "team": "Bradley",
-      "conference": "MVC",
-      "elo": 1489.9578,
+      "team_id": "ncaa:627436",
+      "team": "Vermont",
+      "conference": "America East",
+      "elo": 1489.7151,
       "games": 4
     },
     {
       "rank": 187,
-      "team_id": "ncaa:627378",
-      "team": "Marshall",
-      "conference": "Sun Belt",
-      "elo": 1489.3542,
-      "games": 5
-    },
-    {
-      "rank": 188,
       "team_id": "ncaa:627505",
       "team": "North Dakota St.",
       "conference": "Summit League",
@@ -1703,7 +1695,7 @@
       "games": 5
     },
     {
-      "rank": 189,
+      "rank": 188,
       "team_id": "ncaa:627246",
       "team": "Lehigh",
       "conference": "Patriot",
@@ -1711,23 +1703,7 @@
       "games": 5
     },
     {
-      "rank": 190,
-      "team_id": "ncaa:627578",
-      "team": "California Baptist",
-      "conference": "WAC",
-      "elo": 1488.2395,
-      "games": 5
-    },
-    {
-      "rank": 191,
-      "team_id": "ncaa:627373",
-      "team": "Loyola Chicago",
-      "conference": "Atlantic 10",
-      "elo": 1487.8033,
-      "games": 4
-    },
-    {
-      "rank": 192,
+      "rank": 189,
       "team_id": "ncaa:627252",
       "team": "UMass Lowell",
       "conference": "America East",
@@ -1735,7 +1711,7 @@
       "games": 4
     },
     {
-      "rank": 193,
+      "rank": 190,
       "team_id": "ncaa:627229",
       "team": "Southeast Mo. St.",
       "conference": "OVC",
@@ -1743,7 +1719,7 @@
       "games": 3
     },
     {
-      "rank": 194,
+      "rank": 191,
       "team_id": "ncaa:627461",
       "team": "UC Davis",
       "conference": "Big West",
@@ -1751,15 +1727,7 @@
       "games": 4
     },
     {
-      "rank": 195,
-      "team_id": "ncaa:627380",
-      "team": "Maryland",
-      "conference": "Big Ten",
-      "elo": 1486.1375,
-      "games": 4
-    },
-    {
-      "rank": 196,
+      "rank": 192,
       "team_id": "ncaa:627293",
       "team": "Boston U.",
       "conference": "Patriot",
@@ -1767,7 +1735,7 @@
       "games": 4
     },
     {
-      "rank": 197,
+      "rank": 193,
       "team_id": "ncaa:627547",
       "team": "Pacific",
       "conference": "WCC",
@@ -1775,7 +1743,7 @@
       "games": 3
     },
     {
-      "rank": 198,
+      "rank": 194,
       "team_id": "ncaa:627289",
       "team": "Bethune-Cookman",
       "conference": "SWAC",
@@ -1783,7 +1751,7 @@
       "games": 4
     },
     {
-      "rank": 199,
+      "rank": 195,
       "team_id": "ncaa:627523",
       "team": "FIU",
       "conference": "C-USA",
@@ -1791,15 +1759,15 @@
       "games": 3
     },
     {
-      "rank": 200,
-      "team_id": "ncaa:627553",
-      "team": "Portland St.",
-      "conference": "Big Sky",
-      "elo": 1483.3851,
+      "rank": 196,
+      "team_id": "ncaa:627575",
+      "team": "San Diego",
+      "conference": "WCC",
+      "elo": 1482.9837,
       "games": 4
     },
     {
-      "rank": 201,
+      "rank": 197,
       "team_id": "ncaa:627419",
       "team": "Morehead St.",
       "conference": "OVC",
@@ -1807,15 +1775,7 @@
       "games": 3
     },
     {
-      "rank": 202,
-      "team_id": "ncaa:627510",
-      "team": "Drexel",
-      "conference": "CAA",
-      "elo": 1482.5286,
-      "games": 4
-    },
-    {
-      "rank": 203,
+      "rank": 198,
       "team_id": "ncaa:627376",
       "team": "Marist",
       "conference": "MAAC",
@@ -1823,7 +1783,15 @@
       "games": 5
     },
     {
-      "rank": 204,
+      "rank": 199,
+      "team_id": "ncaa:627378",
+      "team": "Marshall",
+      "conference": "Sun Belt",
+      "elo": 1481.2156,
+      "games": 6
+    },
+    {
+      "rank": 200,
       "team_id": "ncaa:627279",
       "team": "App State",
       "conference": "Sun Belt",
@@ -1831,7 +1799,7 @@
       "games": 3
     },
     {
-      "rank": 205,
+      "rank": 201,
       "team_id": "ncaa:627555",
       "team": "Prairie View",
       "conference": "SWAC",
@@ -1839,47 +1807,39 @@
       "games": 4
     },
     {
-      "rank": 206,
-      "team_id": "ncaa:627563",
-      "team": "Richmond",
+      "rank": 202,
+      "team_id": "ncaa:627373",
+      "team": "Loyola Chicago",
       "conference": "Atlantic 10",
-      "elo": 1478.2394,
-      "games": 4
-    },
-    {
-      "rank": 207,
-      "team_id": "ncaa:627393",
-      "team": "Ga. Southern",
-      "conference": "Sun Belt",
-      "elo": 1477.6441,
+      "elo": 1478.658,
       "games": 5
     },
     {
-      "rank": 208,
-      "team_id": "ncaa:627509",
-      "team": "Detroit Mercy",
-      "conference": "Horizon",
-      "elo": 1477.5945,
-      "games": 3
+      "rank": 203,
+      "team_id": "ncaa:627372",
+      "team": "LMU (CA)",
+      "conference": "WCC",
+      "elo": 1475.9682,
+      "games": 6
     },
     {
-      "rank": 209,
-      "team_id": "ncaa:627499",
-      "team": "LSU New Orleans",
-      "conference": "Southland",
-      "elo": 1476.4309,
-      "games": 1
+      "rank": 204,
+      "team_id": "ncaa:627447",
+      "team": "Monmouth",
+      "conference": "CAA",
+      "elo": 1474.9748,
+      "games": 6
     },
     {
-      "rank": 210,
-      "team_id": "ncaa:627434",
-      "team": "South Dakota St.",
-      "conference": "Summit League",
-      "elo": 1474.2998,
-      "games": 3
+      "rank": 205,
+      "team_id": "ncaa:627263",
+      "team": "Wofford",
+      "conference": "SoCon",
+      "elo": 1474.3305,
+      "games": 5
     },
     {
-      "rank": 211,
+      "rank": 206,
       "team_id": "ncaa:627480",
       "team": "Cornell",
       "conference": "Ivy League",
@@ -1887,7 +1847,7 @@
       "games": 3
     },
     {
-      "rank": 212,
+      "rank": 207,
       "team_id": "ncaa:627399",
       "team": "Harvard",
       "conference": "Ivy League",
@@ -1895,7 +1855,39 @@
       "games": 3
     },
     {
-      "rank": 213,
+      "rank": 208,
+      "team_id": "ncaa:627336",
+      "team": "Utah",
+      "conference": "Big 12",
+      "elo": 1472.4391,
+      "games": 6
+    },
+    {
+      "rank": 209,
+      "team_id": "ncaa:627516",
+      "team": "Eastern Mich.",
+      "conference": "MAC",
+      "elo": 1471.4188,
+      "games": 4
+    },
+    {
+      "rank": 210,
+      "team_id": "ncaa:627422",
+      "team": "Drake",
+      "conference": "MVC",
+      "elo": 1471.3846,
+      "games": 4
+    },
+    {
+      "rank": 211,
+      "team_id": "ncaa:627499",
+      "team": "LSU New Orleans",
+      "conference": "Southland",
+      "elo": 1471.183,
+      "games": 2
+    },
+    {
+      "rank": 212,
       "team_id": "ncaa:627300",
       "team": "Southern Ill.",
       "conference": "MVC",
@@ -1903,7 +1895,7 @@
       "games": 3
     },
     {
-      "rank": 214,
+      "rank": 213,
       "team_id": "ncaa:627544",
       "team": "Old Dominion",
       "conference": "Sun Belt",
@@ -1911,23 +1903,15 @@
       "games": 5
     },
     {
+      "rank": 214,
+      "team_id": "ncaa:627295",
+      "team": "Bradley",
+      "conference": "MVC",
+      "elo": 1470.1387,
+      "games": 5
+    },
+    {
       "rank": 215,
-      "team_id": "ncaa:627349",
-      "team": "Western Caro.",
-      "conference": "SoCon",
-      "elo": 1469.6416,
-      "games": 4
-    },
-    {
-      "rank": 216,
-      "team_id": "ncaa:627465",
-      "team": "Campbell",
-      "conference": "CAA",
-      "elo": 1468.5446,
-      "games": 4
-    },
-    {
-      "rank": 217,
       "team_id": "ncaa:627306",
       "team": "Missouri St.",
       "conference": "C-USA",
@@ -1935,7 +1919,7 @@
       "games": 1
     },
     {
-      "rank": 218,
+      "rank": 216,
       "team_id": "ncaa:627475",
       "team": "Coastal Carolina",
       "conference": "Sun Belt",
@@ -1943,15 +1927,15 @@
       "games": 4
     },
     {
-      "rank": 219,
-      "team_id": "ncaa:627677",
-      "team": "West Florida",
-      "conference": "ASUN",
-      "elo": 1467.589,
-      "games": 4
+      "rank": 217,
+      "team_id": "ncaa:627578",
+      "team": "California Baptist",
+      "conference": "WAC",
+      "elo": 1467.5418,
+      "games": 6
     },
     {
-      "rank": 220,
+      "rank": 218,
       "team_id": "ncaa:627325",
       "team": "UTEP",
       "conference": "C-USA",
@@ -1959,7 +1943,7 @@
       "games": 4
     },
     {
-      "rank": 221,
+      "rank": 219,
       "team_id": "ncaa:627384",
       "team": "Mercer",
       "conference": "SoCon",
@@ -1967,23 +1951,7 @@
       "games": 4
     },
     {
-      "rank": 222,
-      "team_id": "ncaa:627493",
-      "team": "Idaho",
-      "conference": "Big Sky",
-      "elo": 1466.9603,
-      "games": 2
-    },
-    {
-      "rank": 223,
-      "team_id": "ncaa:627367",
-      "team": "CSUN",
-      "conference": "Big West",
-      "elo": 1466.5196,
-      "games": 3
-    },
-    {
-      "rank": 224,
+      "rank": 220,
       "team_id": "ncaa:627365",
       "team": "Fresno St.",
       "conference": "MWC",
@@ -1991,15 +1959,23 @@
       "games": 3
     },
     {
-      "rank": 225,
-      "team_id": "ncaa:627575",
-      "team": "San Diego",
-      "conference": "WCC",
-      "elo": 1462.8132,
-      "games": 3
+      "rank": 221,
+      "team_id": "ncaa:627556",
+      "team": "Princeton",
+      "conference": "Ivy League",
+      "elo": 1463.659,
+      "games": 5
     },
     {
-      "rank": 226,
+      "rank": 222,
+      "team_id": "ncaa:627553",
+      "team": "Portland St.",
+      "conference": "Big Sky",
+      "elo": 1463.6014,
+      "games": 5
+    },
+    {
+      "rank": 223,
       "team_id": "ncaa:627559",
       "team": "Quinnipiac",
       "conference": "MAAC",
@@ -2007,7 +1983,7 @@
       "games": 5
     },
     {
-      "rank": 227,
+      "rank": 224,
       "team_id": "ncaa:627449",
       "team": "Morgan St.",
       "conference": "MEAC",
@@ -2015,23 +1991,7 @@
       "games": 3
     },
     {
-      "rank": 228,
-      "team_id": "ncaa:627582",
-      "team": "Utah Tech",
-      "conference": "WAC",
-      "elo": 1461.9839,
-      "games": 3
-    },
-    {
-      "rank": 229,
-      "team_id": "ncaa:627410",
-      "team": "Longwood",
-      "conference": "Big South",
-      "elo": 1459.7089,
-      "games": 3
-    },
-    {
-      "rank": 230,
+      "rank": 225,
       "team_id": "ncaa:627318",
       "team": "UT Martin",
       "conference": "OVC",
@@ -2039,15 +1999,15 @@
       "games": 3
     },
     {
-      "rank": 231,
-      "team_id": "ncaa:627429",
-      "team": "Oakland",
-      "conference": "Horizon",
-      "elo": 1456.3675,
-      "games": 6
+      "rank": 226,
+      "team_id": "ncaa:627465",
+      "team": "Campbell",
+      "conference": "CAA",
+      "elo": 1458.1135,
+      "games": 5
     },
     {
-      "rank": 232,
+      "rank": 227,
       "team_id": "ncaa:627467",
       "team": "Central Conn. St.",
       "conference": "NEC",
@@ -2055,7 +2015,31 @@
       "games": 5
     },
     {
-      "rank": 233,
+      "rank": 228,
+      "team_id": "ncaa:627349",
+      "team": "Western Caro.",
+      "conference": "SoCon",
+      "elo": 1454.991,
+      "games": 5
+    },
+    {
+      "rank": 229,
+      "team_id": "ncaa:627233",
+      "team": "Purdue Fort Wayne",
+      "conference": "Horizon",
+      "elo": 1454.921,
+      "games": 4
+    },
+    {
+      "rank": 230,
+      "team_id": "ncaa:627410",
+      "team": "Longwood",
+      "conference": "Big South",
+      "elo": 1454.7305,
+      "games": 5
+    },
+    {
+      "rank": 231,
       "team_id": "ncaa:627562",
       "team": "Rice",
       "conference": "AAC",
@@ -2063,12 +2047,28 @@
       "games": 4
     },
     {
-      "rank": 234,
+      "rank": 232,
       "team_id": "ncaa:627498",
       "team": "New Mexico St.",
       "conference": "C-USA",
       "elo": 1454.0505,
       "games": 3
+    },
+    {
+      "rank": 233,
+      "team_id": "ncaa:627493",
+      "team": "Idaho",
+      "conference": "Big Sky",
+      "elo": 1453.5956,
+      "games": 3
+    },
+    {
+      "rank": 234,
+      "team_id": "ncaa:627354",
+      "team": "Winthrop",
+      "conference": "Big South",
+      "elo": 1453.3138,
+      "games": 6
     },
     {
       "rank": 235,
@@ -2080,6 +2080,14 @@
     },
     {
       "rank": 236,
+      "team_id": "ncaa:627509",
+      "team": "Detroit Mercy",
+      "conference": "Horizon",
+      "elo": 1452.2001,
+      "games": 4
+    },
+    {
+      "rank": 237,
       "team_id": "ncaa:627554",
       "team": "Portland",
       "conference": "WCC",
@@ -2087,15 +2095,23 @@
       "games": 3
     },
     {
-      "rank": 237,
-      "team_id": "ncaa:627267",
-      "team": "A&M-Corpus Christi",
-      "conference": "Southland",
-      "elo": 1450.1457,
+      "rank": 238,
+      "team_id": "ncaa:627677",
+      "team": "West Florida",
+      "conference": "ASUN",
+      "elo": 1448.7167,
+      "games": 5
+    },
+    {
+      "rank": 239,
+      "team_id": "ncaa:627434",
+      "team": "South Dakota St.",
+      "conference": "Summit League",
+      "elo": 1446.7067,
       "games": 4
     },
     {
-      "rank": 238,
+      "rank": 240,
       "team_id": "ncaa:627506",
       "team": "North Dakota",
       "conference": "Summit League",
@@ -2103,15 +2119,15 @@
       "games": 5
     },
     {
-      "rank": 239,
-      "team_id": "ncaa:627488",
-      "team": "Denver",
-      "conference": "Summit League",
-      "elo": 1445.9345,
-      "games": 3
+      "rank": 241,
+      "team_id": "ncaa:627367",
+      "team": "CSUN",
+      "conference": "Big West",
+      "elo": 1446.0561,
+      "games": 4
     },
     {
-      "rank": 240,
+      "rank": 242,
       "team_id": "ncaa:627234",
       "team": "Iona",
       "conference": "MAAC",
@@ -2119,23 +2135,23 @@
       "games": 6
     },
     {
-      "rank": 241,
-      "team_id": "ncaa:627361",
-      "team": "Buffalo",
-      "conference": "MAC",
-      "elo": 1444.855,
-      "games": 3
+      "rank": 243,
+      "team_id": "ncaa:627248",
+      "team": "LIU",
+      "conference": "NEC",
+      "elo": 1443.8972,
+      "games": 7
     },
     {
-      "rank": 242,
-      "team_id": "ncaa:627469",
-      "team": "Central Mich.",
-      "conference": "MAC",
-      "elo": 1444.1419,
+      "rank": 244,
+      "team_id": "ncaa:627582",
+      "team": "Utah Tech",
+      "conference": "WAC",
+      "elo": 1443.7368,
       "games": 4
     },
     {
-      "rank": 243,
+      "rank": 245,
       "team_id": "ncaa:627237",
       "team": "Jacksonville St.",
       "conference": "C-USA",
@@ -2143,7 +2159,15 @@
       "games": 4
     },
     {
-      "rank": 244,
+      "rank": 246,
+      "team_id": "ncaa:627455",
+      "team": "UNC Greensboro",
+      "conference": "SoCon",
+      "elo": 1442.5734,
+      "games": 3
+    },
+    {
+      "rank": 247,
       "team_id": "ncaa:627403",
       "team": "Youngstown St.",
       "conference": "Horizon",
@@ -2151,44 +2175,20 @@
       "games": 4
     },
     {
-      "rank": 245,
-      "team_id": "ncaa:627263",
-      "team": "Wofford",
-      "conference": "SoCon",
-      "elo": 1442.0137,
-      "games": 3
-    },
-    {
-      "rank": 246,
-      "team_id": "ncaa:627236",
-      "team": "Jackson St.",
-      "conference": "SWAC",
-      "elo": 1441.3192,
+      "rank": 248,
+      "team_id": "ncaa:627267",
+      "team": "A&M-Corpus Christi",
+      "conference": "Southland",
+      "elo": 1441.8115,
       "games": 5
     },
     {
-      "rank": 247,
+      "rank": 249,
       "team_id": "ncaa:627536",
       "team": "Northern Ky.",
       "conference": "Horizon",
       "elo": 1441.0275,
       "games": 5
-    },
-    {
-      "rank": 248,
-      "team_id": "ncaa:627556",
-      "team": "Princeton",
-      "conference": "Ivy League",
-      "elo": 1440.9868,
-      "games": 4
-    },
-    {
-      "rank": 249,
-      "team_id": "ncaa:627422",
-      "team": "Drake",
-      "conference": "MVC",
-      "elo": 1439.592,
-      "games": 3
     },
     {
       "rank": 250,
@@ -2200,6 +2200,22 @@
     },
     {
       "rank": 251,
+      "team_id": "ncaa:627429",
+      "team": "Oakland",
+      "conference": "Horizon",
+      "elo": 1439.0431,
+      "games": 8
+    },
+    {
+      "rank": 252,
+      "team_id": "ncaa:627311",
+      "team": "Stony Brook",
+      "conference": "CAA",
+      "elo": 1437.7274,
+      "games": 3
+    },
+    {
+      "rank": 253,
       "team_id": "ncaa:627398",
       "team": "Hampton",
       "conference": "CAA",
@@ -2207,27 +2223,11 @@
       "games": 3
     },
     {
-      "rank": 252,
-      "team_id": "ncaa:627233",
-      "team": "Purdue Fort Wayne",
-      "conference": "Horizon",
-      "elo": 1435.1019,
-      "games": 3
-    },
-    {
-      "rank": 253,
-      "team_id": "ncaa:627372",
-      "team": "LMU (CA)",
-      "conference": "WCC",
-      "elo": 1434.8733,
-      "games": 4
-    },
-    {
       "rank": 254,
-      "team_id": "ncaa:627253",
-      "team": "Elon",
-      "conference": "CAA",
-      "elo": 1434.7161,
+      "team_id": "ncaa:627316",
+      "team": "Chattanooga",
+      "conference": "SoCon",
+      "elo": 1434.82,
       "games": 4
     },
     {
@@ -2240,19 +2240,19 @@
     },
     {
       "rank": 256,
-      "team_id": "ncaa:627450",
-      "team": "Mount St. Mary's",
-      "conference": "MAAC",
-      "elo": 1433.9025,
-      "games": 4
-    },
-    {
-      "rank": 257,
       "team_id": "ncaa:627382",
       "team": "Massachusetts",
       "conference": "MAC",
       "elo": 1433.6434,
       "games": 4
+    },
+    {
+      "rank": 257,
+      "team_id": "ncaa:627469",
+      "team": "Central Mich.",
+      "conference": "MAC",
+      "elo": 1433.5138,
+      "games": 5
     },
     {
       "rank": 258,
@@ -2264,22 +2264,14 @@
     },
     {
       "rank": 259,
-      "team_id": "ncaa:627455",
-      "team": "UNC Greensboro",
-      "conference": "SoCon",
-      "elo": 1431.5553,
-      "games": 2
+      "team_id": "ncaa:627488",
+      "team": "Denver",
+      "conference": "Summit League",
+      "elo": 1431.2565,
+      "games": 4
     },
     {
       "rank": 260,
-      "team_id": "ncaa:627516",
-      "team": "Eastern Mich.",
-      "conference": "MAC",
-      "elo": 1431.3465,
-      "games": 2
-    },
-    {
-      "rank": 261,
       "team_id": "ncaa:627273",
       "team": "Alabama A&M",
       "conference": "SWAC",
@@ -2287,7 +2279,7 @@
       "games": 3
     },
     {
-      "rank": 262,
+      "rank": 261,
       "team_id": "ncaa:627284",
       "team": "Little Rock",
       "conference": "OVC",
@@ -2295,7 +2287,23 @@
       "games": 3
     },
     {
+      "rank": 262,
+      "team_id": "ncaa:627361",
+      "team": "Buffalo",
+      "conference": "MAC",
+      "elo": 1428.9653,
+      "games": 4
+    },
+    {
       "rank": 263,
+      "team_id": "ncaa:627236",
+      "team": "Jackson St.",
+      "conference": "SWAC",
+      "elo": 1427.3467,
+      "games": 6
+    },
+    {
+      "rank": 264,
       "team_id": "ncaa:627301",
       "team": "SIUE",
       "conference": "OVC",
@@ -2303,15 +2311,15 @@
       "games": 4
     },
     {
-      "rank": 264,
-      "team_id": "ncaa:627287",
-      "team": "Charleston So.",
-      "conference": "Big South",
-      "elo": 1426.1143,
-      "games": 3
+      "rank": 265,
+      "team_id": "ncaa:627243",
+      "team": "La Salle",
+      "conference": "Atlantic 10",
+      "elo": 1425.5451,
+      "games": 5
     },
     {
-      "rank": 265,
+      "rank": 266,
       "team_id": "ncaa:627464",
       "team": "UC Riverside",
       "conference": "Big West",
@@ -2319,7 +2327,7 @@
       "games": 3
     },
     {
-      "rank": 266,
+      "rank": 267,
       "team_id": "ncaa:627256",
       "team": "Presbyterian",
       "conference": "Big South",
@@ -2327,36 +2335,28 @@
       "games": 3
     },
     {
-      "rank": 267,
-      "team_id": "ncaa:627501",
-      "team": "Nicholls",
-      "conference": "Southland",
-      "elo": 1423.3981,
-      "games": 4
-    },
-    {
       "rank": 268,
-      "team_id": "ncaa:627248",
-      "team": "LIU",
-      "conference": "NEC",
-      "elo": 1421.6864,
-      "games": 6
+      "team_id": "ncaa:627253",
+      "team": "Elon",
+      "conference": "CAA",
+      "elo": 1420.3909,
+      "games": 5
     },
     {
       "rank": 269,
-      "team_id": "ncaa:627305",
-      "team": "Southern Utah",
-      "conference": "WAC",
-      "elo": 1420.3133,
-      "games": 2
-    },
-    {
-      "rank": 270,
       "team_id": "ncaa:627368",
       "team": "Sacramento St.",
       "conference": "Big Sky",
       "elo": 1420.2791,
       "games": 2
+    },
+    {
+      "rank": 270,
+      "team_id": "ncaa:627450",
+      "team": "Mount St. Mary's",
+      "conference": "MAAC",
+      "elo": 1419.7278,
+      "games": 5
     },
     {
       "rank": 271,
@@ -2376,22 +2376,14 @@
     },
     {
       "rank": 273,
-      "team_id": "ncaa:627311",
-      "team": "Stony Brook",
-      "conference": "CAA",
-      "elo": 1418.8468,
-      "games": 2
+      "team_id": "ncaa:627487",
+      "team": "Delaware",
+      "conference": "C-USA",
+      "elo": 1418.6454,
+      "games": 4
     },
     {
       "rank": 274,
-      "team_id": "ncaa:627583",
-      "team": "Tarleton St.",
-      "conference": "WAC",
-      "elo": 1417.5156,
-      "games": 3
-    },
-    {
-      "rank": 275,
       "team_id": "ncaa:627577",
       "team": "San Jose St.",
       "conference": "MWC",
@@ -2399,7 +2391,7 @@
       "games": 4
     },
     {
-      "rank": 276,
+      "rank": 275,
       "team_id": "ncaa:627567",
       "team": "Sacred Heart",
       "conference": "MAAC",
@@ -2407,7 +2399,7 @@
       "games": 4
     },
     {
-      "rank": 277,
+      "rank": 276,
       "team_id": "ncaa:627364",
       "team": "CSU Bakersfield",
       "conference": "Big West",
@@ -2415,15 +2407,15 @@
       "games": 3
     },
     {
-      "rank": 278,
-      "team_id": "ncaa:627269",
-      "team": "FGCU",
-      "conference": "ASUN",
-      "elo": 1413.6698,
+      "rank": 277,
+      "team_id": "ncaa:627305",
+      "team": "Southern Utah",
+      "conference": "WAC",
+      "elo": 1413.5097,
       "games": 3
     },
     {
-      "rank": 279,
+      "rank": 278,
       "team_id": "ncaa:627560",
       "team": "Radford",
       "conference": "Big South",
@@ -2431,28 +2423,36 @@
       "games": 3
     },
     {
-      "rank": 280,
-      "team_id": "ncaa:627440",
-      "team": "Mercyhurst",
-      "conference": "NEC",
-      "elo": 1411.8123,
+      "rank": 279,
+      "team_id": "ncaa:627287",
+      "team": "Charleston So.",
+      "conference": "Big South",
+      "elo": 1411.6581,
       "games": 4
     },
     {
-      "rank": 281,
-      "team_id": "ncaa:627316",
-      "team": "Chattanooga",
-      "conference": "SoCon",
-      "elo": 1411.1812,
-      "games": 3
-    },
-    {
-      "rank": 282,
+      "rank": 280,
       "team_id": "ncaa:627238",
       "team": "Jacksonville",
       "conference": "ASUN",
       "elo": 1410.3074,
       "games": 3
+    },
+    {
+      "rank": 281,
+      "team_id": "ncaa:627501",
+      "team": "Nicholls",
+      "conference": "Southland",
+      "elo": 1410.2871,
+      "games": 5
+    },
+    {
+      "rank": 282,
+      "team_id": "ncaa:627583",
+      "team": "Tarleton St.",
+      "conference": "WAC",
+      "elo": 1408.814,
+      "games": 4
     },
     {
       "rank": 283,
@@ -2472,14 +2472,6 @@
     },
     {
       "rank": 285,
-      "team_id": "ncaa:627243",
-      "team": "La Salle",
-      "conference": "Atlantic 10",
-      "elo": 1407.9084,
-      "games": 4
-    },
-    {
-      "rank": 286,
       "team_id": "ncaa:627518",
       "team": "Evansville",
       "conference": "MVC",
@@ -2487,23 +2479,15 @@
       "games": 4
     },
     {
+      "rank": 286,
+      "team_id": "ncaa:627269",
+      "team": "FGCU",
+      "conference": "ASUN",
+      "elo": 1403.4195,
+      "games": 4
+    },
+    {
       "rank": 287,
-      "team_id": "ncaa:627405",
-      "team": "East Texas A&M",
-      "conference": "Southland",
-      "elo": 1407.276,
-      "games": 5
-    },
-    {
-      "rank": 288,
-      "team_id": "ncaa:627551",
-      "team": "Pepperdine",
-      "conference": "WCC",
-      "elo": 1407.0377,
-      "games": 2
-    },
-    {
-      "rank": 289,
       "team_id": "ncaa:627272",
       "team": "Abilene Christian",
       "conference": "WAC",
@@ -2511,31 +2495,7 @@
       "games": 4
     },
     {
-      "rank": 290,
-      "team_id": "ncaa:627531",
-      "team": "Northeastern",
-      "conference": "CAA",
-      "elo": 1400.422,
-      "games": 4
-    },
-    {
-      "rank": 291,
-      "team_id": "ncaa:627432",
-      "team": "Saint Peter's",
-      "conference": "MAAC",
-      "elo": 1400.2514,
-      "games": 5
-    },
-    {
-      "rank": 292,
-      "team_id": "ncaa:627490",
-      "team": "Houston Christian",
-      "conference": "Southland",
-      "elo": 1400.2145,
-      "games": 2
-    },
-    {
-      "rank": 293,
+      "rank": 288,
       "team_id": "ncaa:627503",
       "team": "N.C. A&T",
       "conference": "CAA",
@@ -2543,31 +2503,7 @@
       "games": 2
     },
     {
-      "rank": 294,
-      "team_id": "ncaa:627487",
-      "team": "Delaware",
-      "conference": "C-USA",
-      "elo": 1398.182,
-      "games": 3
-    },
-    {
-      "rank": 295,
-      "team_id": "ncaa:627357",
-      "team": "Milwaukee",
-      "conference": "Horizon",
-      "elo": 1397.7152,
-      "games": 4
-    },
-    {
-      "rank": 296,
-      "team_id": "ncaa:627308",
-      "team": "Louisiana",
-      "conference": "Sun Belt",
-      "elo": 1397.0039,
-      "games": 2
-    },
-    {
-      "rank": 297,
+      "rank": 289,
       "team_id": "ncaa:627231",
       "team": "Lindenwood",
       "conference": "OVC",
@@ -2575,7 +2511,15 @@
       "games": 4
     },
     {
-      "rank": 298,
+      "rank": 290,
+      "team_id": "ncaa:627290",
+      "team": "Binghamton",
+      "conference": "America East",
+      "elo": 1395.5407,
+      "games": 5
+    },
+    {
+      "rank": 291,
       "team_id": "ncaa:627587",
       "team": "New Haven",
       "conference": "NEC",
@@ -2583,7 +2527,23 @@
       "games": 4
     },
     {
-      "rank": 299,
+      "rank": 292,
+      "team_id": "ncaa:627551",
+      "team": "Pepperdine",
+      "conference": "WCC",
+      "elo": 1394.9132,
+      "games": 3
+    },
+    {
+      "rank": 293,
+      "team_id": "ncaa:627405",
+      "team": "East Texas A&M",
+      "conference": "Southland",
+      "elo": 1394.3522,
+      "games": 6
+    },
+    {
+      "rank": 294,
       "team_id": "ncaa:627394",
       "team": "Georgia St.",
       "conference": "Sun Belt",
@@ -2591,7 +2551,7 @@
       "games": 4
     },
     {
-      "rank": 300,
+      "rank": 295,
       "team_id": "ncaa:627286",
       "team": "Ball St.",
       "conference": "MAC",
@@ -2599,7 +2559,7 @@
       "games": 4
     },
     {
-      "rank": 301,
+      "rank": 296,
       "team_id": "ncaa:627515",
       "team": "Eastern Ky.",
       "conference": "ASUN",
@@ -2607,15 +2567,7 @@
       "games": 2
     },
     {
-      "rank": 302,
-      "team_id": "ncaa:627437",
-      "team": "Wagner",
-      "conference": "NEC",
-      "elo": 1391.7287,
-      "games": 4
-    },
-    {
-      "rank": 303,
+      "rank": 297,
       "team_id": "ncaa:627225",
       "team": "South Carolina St.",
       "conference": "MEAC",
@@ -2623,15 +2575,31 @@
       "games": 4
     },
     {
-      "rank": 304,
-      "team_id": "ncaa:627442",
-      "team": "Le Moyne",
+      "rank": 298,
+      "team_id": "ncaa:627440",
+      "team": "Mercyhurst",
       "conference": "NEC",
-      "elo": 1388.3823,
-      "games": 4
+      "elo": 1390.6915,
+      "games": 5
     },
     {
-      "rank": 305,
+      "rank": 299,
+      "team_id": "ncaa:627531",
+      "team": "Northeastern",
+      "conference": "CAA",
+      "elo": 1389.6582,
+      "games": 5
+    },
+    {
+      "rank": 300,
+      "team_id": "ncaa:627490",
+      "team": "Houston Christian",
+      "conference": "Southland",
+      "elo": 1386.1918,
+      "games": 3
+    },
+    {
+      "rank": 301,
       "team_id": "ncaa:627304",
       "team": "Southern U.",
       "conference": "SWAC",
@@ -2639,7 +2607,7 @@
       "games": 5
     },
     {
-      "rank": 306,
+      "rank": 302,
       "team_id": "ncaa:627474",
       "team": "Cleveland St.",
       "conference": "Horizon",
@@ -2647,7 +2615,23 @@
       "games": 5
     },
     {
-      "rank": 307,
+      "rank": 303,
+      "team_id": "ncaa:627357",
+      "team": "Milwaukee",
+      "conference": "Horizon",
+      "elo": 1381.7958,
+      "games": 5
+    },
+    {
+      "rank": 304,
+      "team_id": "ncaa:627432",
+      "team": "Saint Peter's",
+      "conference": "MAAC",
+      "elo": 1381.3708,
+      "games": 6
+    },
+    {
+      "rank": 305,
       "team_id": "ncaa:627452",
       "team": "UNC Asheville",
       "conference": "Big South",
@@ -2655,7 +2639,15 @@
       "games": 4
     },
     {
-      "rank": 308,
+      "rank": 306,
+      "team_id": "ncaa:627326",
+      "team": "UTSA",
+      "conference": "AAC",
+      "elo": 1380.6447,
+      "games": 5
+    },
+    {
+      "rank": 307,
       "team_id": "ncaa:627521",
       "team": "Florida A&M",
       "conference": "SWAC",
@@ -2663,39 +2655,39 @@
       "games": 4
     },
     {
+      "rank": 308,
+      "team_id": "ncaa:627442",
+      "team": "Le Moyne",
+      "conference": "NEC",
+      "elo": 1379.0374,
+      "games": 5
+    },
+    {
       "rank": 309,
-      "team_id": "ncaa:627259",
-      "team": "IU Indy",
-      "conference": "Horizon",
-      "elo": 1379.2128,
-      "games": 3
+      "team_id": "ncaa:627437",
+      "team": "Wagner",
+      "conference": "NEC",
+      "elo": 1376.8241,
+      "games": 5
     },
     {
       "rank": 310,
-      "team_id": "ncaa:627276",
-      "team": "UAlbany",
-      "conference": "America East",
-      "elo": 1377.8059,
+      "team_id": "ncaa:627308",
+      "team": "Louisiana",
+      "conference": "Sun Belt",
+      "elo": 1375.9232,
       "games": 4
     },
     {
       "rank": 311,
-      "team_id": "ncaa:627274",
-      "team": "Alabama St.",
-      "conference": "SWAC",
-      "elo": 1377.287,
-      "games": 3
+      "team_id": "ncaa:627297",
+      "team": "Brown",
+      "conference": "Ivy League",
+      "elo": 1373.4962,
+      "games": 6
     },
     {
       "rank": 312,
-      "team_id": "ncaa:627290",
-      "team": "Binghamton",
-      "conference": "America East",
-      "elo": 1376.0454,
-      "games": 4
-    },
-    {
-      "rank": 313,
       "team_id": "ncaa:627497",
       "team": "NJIT",
       "conference": "America East",
@@ -2703,7 +2695,7 @@
       "games": 6
     },
     {
-      "rank": 314,
+      "rank": 313,
       "team_id": "ncaa:627435",
       "team": "Stetson",
       "conference": "ASUN",
@@ -2711,7 +2703,7 @@
       "games": 4
     },
     {
-      "rank": 315,
+      "rank": 314,
       "team_id": "ncaa:627416",
       "team": "Long Beach St.",
       "conference": "Big West",
@@ -2719,7 +2711,23 @@
       "games": 4
     },
     {
+      "rank": 315,
+      "team_id": "ncaa:627227",
+      "team": "South Dakota",
+      "conference": "Summit League",
+      "elo": 1370.9351,
+      "games": 6
+    },
+    {
       "rank": 316,
+      "team_id": "ncaa:627259",
+      "team": "IU Indy",
+      "conference": "Horizon",
+      "elo": 1368.7065,
+      "games": 4
+    },
+    {
+      "rank": 317,
       "team_id": "ncaa:627245",
       "team": "Lamar University",
       "conference": "Southland",
@@ -2727,7 +2735,15 @@
       "games": 2
     },
     {
-      "rank": 317,
+      "rank": 318,
+      "team_id": "ncaa:627274",
+      "team": "Alabama St.",
+      "conference": "SWAC",
+      "elo": 1366.1274,
+      "games": 4
+    },
+    {
+      "rank": 319,
       "team_id": "ncaa:627534",
       "team": "NIU",
       "conference": "MAC",
@@ -2735,7 +2751,7 @@
       "games": 4
     },
     {
-      "rank": 318,
+      "rank": 320,
       "team_id": "ncaa:627298",
       "team": "Bryant",
       "conference": "America East",
@@ -2743,15 +2759,23 @@
       "games": 6
     },
     {
-      "rank": 319,
-      "team_id": "ncaa:627326",
-      "team": "UTSA",
-      "conference": "AAC",
-      "elo": 1361.6855,
-      "games": 4
+      "rank": 321,
+      "team_id": "ncaa:627492",
+      "team": "Idaho St.",
+      "conference": "Big Sky",
+      "elo": 1361.5526,
+      "games": 5
     },
     {
-      "rank": 320,
+      "rank": 322,
+      "team_id": "ncaa:627466",
+      "team": "Canisius",
+      "conference": "MAAC",
+      "elo": 1360.9157,
+      "games": 7
+    },
+    {
+      "rank": 323,
       "team_id": "ncaa:627472",
       "team": "The Citadel",
       "conference": "SoCon",
@@ -2759,7 +2783,7 @@
       "games": 3
     },
     {
-      "rank": 321,
+      "rank": 324,
       "team_id": "ncaa:627580",
       "team": "Bellarmine",
       "conference": "ASUN",
@@ -2767,31 +2791,15 @@
       "games": 5
     },
     {
-      "rank": 322,
-      "team_id": "ncaa:627230",
-      "team": "Southeastern La.",
-      "conference": "Southland",
-      "elo": 1358.5084,
-      "games": 4
-    },
-    {
-      "rank": 323,
-      "team_id": "ncaa:627297",
-      "team": "Brown",
-      "conference": "Ivy League",
-      "elo": 1356.8847,
+      "rank": 325,
+      "team_id": "ncaa:627276",
+      "team": "UAlbany",
+      "conference": "America East",
+      "elo": 1358.5714,
       "games": 5
     },
     {
-      "rank": 324,
-      "team_id": "ncaa:627227",
-      "team": "South Dakota",
-      "conference": "Summit League",
-      "elo": 1356.3282,
-      "games": 4
-    },
-    {
-      "rank": 325,
+      "rank": 326,
       "team_id": "ncaa:627441",
       "team": "West Ga.",
       "conference": "ASUN",
@@ -2799,7 +2807,7 @@
       "games": 4
     },
     {
-      "rank": 326,
+      "rank": 327,
       "team_id": "ncaa:627424",
       "team": "Grambling",
       "conference": "SWAC",
@@ -2807,23 +2815,7 @@
       "games": 3
     },
     {
-      "rank": 327,
-      "team_id": "ncaa:627333",
-      "team": "Army West Point",
-      "conference": "Patriot",
-      "elo": 1353.2838,
-      "games": 4
-    },
-    {
       "rank": 328,
-      "team_id": "ncaa:627375",
-      "team": "Manhattan",
-      "conference": "MAAC",
-      "elo": 1352.4801,
-      "games": 5
-    },
-    {
-      "rank": 329,
       "team_id": "ncaa:627244",
       "team": "Lafayette",
       "conference": "Patriot",
@@ -2831,7 +2823,7 @@
       "games": 3
     },
     {
-      "rank": 330,
+      "rank": 329,
       "team_id": "ncaa:627261",
       "team": "North Florida",
       "conference": "ASUN",
@@ -2839,15 +2831,15 @@
       "games": 4
     },
     {
-      "rank": 331,
-      "team_id": "ncaa:627466",
-      "team": "Canisius",
+      "rank": 330,
+      "team_id": "ncaa:627375",
+      "team": "Manhattan",
       "conference": "MAAC",
-      "elo": 1350.0328,
-      "games": 4
+      "elo": 1348.1281,
+      "games": 6
     },
     {
-      "rank": 332,
+      "rank": 331,
       "team_id": "ncaa:627258",
       "team": "Ark.-Pine Bluff",
       "conference": "SWAC",
@@ -2855,7 +2847,7 @@
       "games": 5
     },
     {
-      "rank": 333,
+      "rank": 332,
       "team_id": "ncaa:627537",
       "team": "Northwestern St.",
       "conference": "Southland",
@@ -2863,7 +2855,7 @@
       "games": 3
     },
     {
-      "rank": 334,
+      "rank": 333,
       "team_id": "ncaa:627271",
       "team": "North Ala.",
       "conference": "ASUN",
@@ -2871,31 +2863,15 @@
       "games": 3
     },
     {
-      "rank": 335,
-      "team_id": "ncaa:627321",
-      "team": "Texas Southern",
-      "conference": "SWAC",
-      "elo": 1344.7178,
-      "games": 4
-    },
-    {
-      "rank": 336,
-      "team_id": "ncaa:627479",
-      "team": "Coppin St.",
-      "conference": "MEAC",
-      "elo": 1344.0921,
-      "games": 4
-    },
-    {
-      "rank": 337,
-      "team_id": "ncaa:627514",
-      "team": "Eastern Ill.",
-      "conference": "OVC",
-      "elo": 1342.24,
+      "rank": 334,
+      "team_id": "ncaa:627230",
+      "team": "Southeastern La.",
+      "conference": "Southland",
+      "elo": 1347.3185,
       "games": 5
     },
     {
-      "rank": 338,
+      "rank": 335,
       "team_id": "ncaa:627502",
       "team": "Norfolk St.",
       "conference": "MEAC",
@@ -2903,12 +2879,36 @@
       "games": 4
     },
     {
-      "rank": 339,
+      "rank": 336,
       "team_id": "ncaa:627545",
       "team": "Oral Roberts",
       "conference": "Summit League",
       "elo": 1340.1731,
       "games": 3
+    },
+    {
+      "rank": 337,
+      "team_id": "ncaa:627321",
+      "team": "Texas Southern",
+      "conference": "SWAC",
+      "elo": 1339.0898,
+      "games": 5
+    },
+    {
+      "rank": 338,
+      "team_id": "ncaa:627514",
+      "team": "Eastern Ill.",
+      "conference": "OVC",
+      "elo": 1338.8825,
+      "games": 6
+    },
+    {
+      "rank": 339,
+      "team_id": "ncaa:627496",
+      "team": "New Hampshire",
+      "conference": "America East",
+      "elo": 1337.3673,
+      "games": 5
     },
     {
       "rank": 340,
@@ -2928,11 +2928,11 @@
     },
     {
       "rank": 342,
-      "team_id": "ncaa:627492",
-      "team": "Idaho St.",
-      "conference": "Big Sky",
-      "elo": 1333.9594,
-      "games": 4
+      "team_id": "ncaa:627333",
+      "team": "Army West Point",
+      "conference": "Patriot",
+      "elo": 1333.7885,
+      "games": 5
     },
     {
       "rank": 343,
@@ -2944,22 +2944,6 @@
     },
     {
       "rank": 344,
-      "team_id": "ncaa:627371",
-      "team": "Loyola Maryland",
-      "conference": "Patriot",
-      "elo": 1331.7124,
-      "games": 4
-    },
-    {
-      "rank": 345,
-      "team_id": "ncaa:627407",
-      "team": "Stonehill",
-      "conference": "NEC",
-      "elo": 1330.2921,
-      "games": 3
-    },
-    {
-      "rank": 346,
       "team_id": "ncaa:627262",
       "team": "UIW",
       "conference": "Southland",
@@ -2967,15 +2951,15 @@
       "games": 4
     },
     {
-      "rank": 347,
-      "team_id": "ncaa:627332",
-      "team": "Air Force",
-      "conference": "MWC",
-      "elo": 1328.0039,
-      "games": 4
+      "rank": 345,
+      "team_id": "ncaa:627371",
+      "team": "Loyola Maryland",
+      "conference": "Patriot",
+      "elo": 1329.1429,
+      "games": 5
     },
     {
-      "rank": 348,
+      "rank": 346,
       "team_id": "ncaa:627264",
       "team": "USC Upstate",
       "conference": "Big South",
@@ -2983,7 +2967,15 @@
       "games": 4
     },
     {
-      "rank": 349,
+      "rank": 347,
+      "team_id": "ncaa:627341",
+      "team": "VMI",
+      "conference": "SoCon",
+      "elo": 1325.7664,
+      "games": 5
+    },
+    {
+      "rank": 348,
       "team_id": "ncaa:627504",
       "team": "N.C. Central",
       "conference": "MEAC",
@@ -2991,15 +2983,15 @@
       "games": 4
     },
     {
-      "rank": 350,
-      "team_id": "ncaa:627341",
-      "team": "VMI",
-      "conference": "SoCon",
-      "elo": 1321.9712,
-      "games": 3
+      "rank": 349,
+      "team_id": "ncaa:627479",
+      "team": "Coppin St.",
+      "conference": "MEAC",
+      "elo": 1318.8392,
+      "games": 6
     },
     {
-      "rank": 351,
+      "rank": 350,
       "team_id": "ncaa:627532",
       "team": "Northern Ariz.",
       "conference": "Big Sky",
@@ -3007,7 +2999,7 @@
       "games": 4
     },
     {
-      "rank": 352,
+      "rank": 351,
       "team_id": "ncaa:627500",
       "team": "Niagara",
       "conference": "MAAC",
@@ -3015,23 +3007,15 @@
       "games": 4
     },
     {
+      "rank": 352,
+      "team_id": "ncaa:627332",
+      "team": "Air Force",
+      "conference": "MWC",
+      "elo": 1309.0448,
+      "games": 5
+    },
+    {
       "rank": 353,
-      "team_id": "ncaa:627496",
-      "team": "New Hampshire",
-      "conference": "America East",
-      "elo": 1315.7751,
-      "games": 4
-    },
-    {
-      "rank": 354,
-      "team_id": "ncaa:627489",
-      "team": "Holy Cross",
-      "conference": "Patriot",
-      "elo": 1310.9954,
-      "games": 4
-    },
-    {
-      "rank": 355,
       "team_id": "ncaa:627260",
       "team": "Kansas City",
       "conference": "Summit League",
@@ -3039,7 +3023,15 @@
       "games": 5
     },
     {
-      "rank": 356,
+      "rank": 354,
+      "team_id": "ncaa:627407",
+      "team": "Stonehill",
+      "conference": "NEC",
+      "elo": 1308.7,
+      "games": 4
+    },
+    {
+      "rank": 355,
       "team_id": "ncaa:627486",
       "team": "Delaware St.",
       "conference": "MEAC",
@@ -3047,31 +3039,15 @@
       "games": 3
     },
     {
-      "rank": 357,
-      "team_id": "ncaa:627254",
-      "team": "Gardner-Webb",
-      "conference": "Big South",
-      "elo": 1295.323,
-      "games": 3
-    },
-    {
-      "rank": 358,
-      "team_id": "ncaa:627277",
-      "team": "Alcorn",
-      "conference": "SWAC",
-      "elo": 1293.8661,
+      "rank": 356,
+      "team_id": "ncaa:627489",
+      "team": "Holy Cross",
+      "conference": "Patriot",
+      "elo": 1294.3839,
       "games": 5
     },
     {
-      "rank": 359,
-      "team_id": "ncaa:627406",
-      "team": "Southern Ind.",
-      "conference": "OVC",
-      "elo": 1292.2523,
-      "games": 4
-    },
-    {
-      "rank": 360,
+      "rank": 357,
       "team_id": "ncaa:627374",
       "team": "Maine",
       "conference": "America East",
@@ -3079,7 +3055,23 @@
       "games": 5
     },
     {
-      "rank": 361,
+      "rank": 358,
+      "team_id": "ncaa:627406",
+      "team": "Southern Ind.",
+      "conference": "OVC",
+      "elo": 1288.6441,
+      "games": 5
+    },
+    {
+      "rank": 359,
+      "team_id": "ncaa:627277",
+      "team": "Alcorn",
+      "conference": "SWAC",
+      "elo": 1287.0425,
+      "games": 6
+    },
+    {
+      "rank": 360,
       "team_id": "ncaa:627508",
       "team": "ULM",
       "conference": "Sun Belt",
@@ -3087,7 +3079,7 @@
       "games": 5
     },
     {
-      "rank": 362,
+      "rank": 361,
       "team_id": "ncaa:627381",
       "team": "UMES",
       "conference": "MEAC",
@@ -3095,7 +3087,23 @@
       "games": 5
     },
     {
+      "rank": 362,
+      "team_id": "ncaa:627254",
+      "team": "Gardner-Webb",
+      "conference": "Big South",
+      "elo": 1269.557,
+      "games": 5
+    },
+    {
       "rank": 363,
+      "team_id": "ncaa:627350",
+      "team": "Western Ill.",
+      "conference": "OVC",
+      "elo": 1263.4907,
+      "games": 5
+    },
+    {
+      "rank": 364,
       "team_id": "ncaa:627564",
       "team": "Rider",
       "conference": "MAAC",
@@ -3103,19 +3111,11 @@
       "games": 5
     },
     {
-      "rank": 364,
+      "rank": 365,
       "team_id": "ncaa:627392",
       "team": "Mississippi Val.",
       "conference": "SWAC",
       "elo": 1236.6874,
-      "games": 4
-    },
-    {
-      "rank": 365,
-      "team_id": "ncaa:627350",
-      "team": "Western Ill.",
-      "conference": "OVC",
-      "elo": 1234.0184,
       "games": 4
     }
   ],
@@ -13089,6 +13089,244 @@
       "home_change": 13.398774
     },
     {
+      "id": "6613752",
+      "date": "2026-11-18",
+      "home": "ncaa:627243",
+      "away": "ncaa:627479",
+      "home_score": 88,
+      "away_score": 61,
+      "home_elo_before": 1407.908386,
+      "away_elo_before": 1344.092148,
+      "home_win_probability": 0.59081989,
+      "home_elo_after": 1425.545066,
+      "away_elo_after": 1326.455468,
+      "home_change": 17.63668
+    },
+    {
+      "id": "6616236",
+      "date": "2026-11-18",
+      "home": "ncaa:627463",
+      "away": "ncaa:627366",
+      "home_score": 75,
+      "away_score": 71,
+      "home_elo_before": 1665.310346,
+      "away_elo_before": 1501.274699,
+      "home_win_probability": 0.71996038,
+      "home_elo_after": 1674.615055,
+      "away_elo_after": 1491.969989,
+      "home_change": 9.30471
+    },
+    {
+      "id": "6618001",
+      "date": "2026-11-18",
+      "home": "ncaa:627576",
+      "away": "ncaa:627308",
+      "home_score": 77,
+      "away_score": 56,
+      "home_elo_before": 1506.661016,
+      "away_elo_before": 1397.003948,
+      "home_win_probability": 0.65276986,
+      "home_elo_after": 1521.14745,
+      "away_elo_after": 1382.517513,
+      "home_change": 14.486434
+    },
+    {
+      "id": "6623715",
+      "date": "2026-11-18",
+      "home": "ncaa:627254",
+      "away": "ncaa:627455",
+      "home_score": 72,
+      "away_score": 78,
+      "home_elo_before": 1295.322961,
+      "away_elo_before": 1431.555342,
+      "home_win_probability": 0.31341182,
+      "home_elo_after": 1284.304877,
+      "away_elo_after": 1442.573427,
+      "home_change": -11.018085
+    },
+    {
+      "id": "6624852",
+      "date": "2026-11-18",
+      "home": "ncaa:627439",
+      "away": "ncaa:627436",
+      "home_score": 76,
+      "away_score": 74,
+      "home_elo_before": 1565.51457,
+      "away_elo_before": 1502.130701,
+      "home_win_probability": 0.59021806,
+      "home_elo_after": 1577.930144,
+      "away_elo_after": 1489.715128,
+      "home_change": 12.415574
+    },
+    {
+      "id": "6625177",
+      "date": "2026-11-18",
+      "home": "ncaa:627328",
+      "away": "ncaa:627409",
+      "home_score": 52,
+      "away_score": 70,
+      "home_elo_before": 1527.181853,
+      "away_elo_before": 1521.575115,
+      "home_win_probability": 0.50806804,
+      "home_elo_after": 1506.412261,
+      "away_elo_after": 1542.344707,
+      "home_change": -20.769592
+    },
+    {
+      "id": "6626287",
+      "date": "2026-11-18",
+      "home": "ncaa:627457",
+      "away": "ncaa:627227",
+      "home_score": 73,
+      "away_score": 47,
+      "home_elo_before": 1769.427779,
+      "away_elo_before": 1356.328221,
+      "home_win_probability": 0.91513363,
+      "home_elo_after": 1773.068037,
+      "away_elo_after": 1352.687962,
+      "home_change": 3.640258
+    },
+    {
+      "id": "6626539",
+      "date": "2026-11-18",
+      "home": "ncaa:627516",
+      "away": "ncaa:627509",
+      "home_score": 99,
+      "away_score": 62,
+      "home_elo_before": 1431.346522,
+      "away_elo_before": 1477.594455,
+      "home_win_probability": 0.43383421,
+      "home_elo_after": 1456.740838,
+      "away_elo_after": 1452.20014,
+      "home_change": 25.394315
+    },
+    {
+      "id": "6628037",
+      "date": "2026-11-18",
+      "home": "ncaa:627280",
+      "away": "ncaa:627429",
+      "home_score": 68,
+      "away_score": 65,
+      "home_elo_before": 1644.692759,
+      "away_elo_before": 1456.367501,
+      "home_win_probability": 0.74726669,
+      "home_elo_after": 1652.766879,
+      "away_elo_after": 1448.293382,
+      "home_change": 8.074119
+    },
+    {
+      "id": "6630268",
+      "date": "2026-11-18",
+      "home": "ncaa:627296",
+      "away": "ncaa:627533",
+      "home_score": 98,
+      "away_score": 54,
+      "home_elo_before": 1671.005217,
+      "away_elo_before": 1503.442599,
+      "home_win_probability": 0.72403546,
+      "home_elo_after": 1683.650576,
+      "away_elo_after": 1490.79724,
+      "home_change": 12.645359
+    },
+    {
+      "id": "6630676",
+      "date": "2026-11-18",
+      "home": "ncaa:627287",
+      "away": "ncaa:627263",
+      "home_score": 77,
+      "away_score": 79,
+      "home_elo_before": 1426.114289,
+      "away_elo_before": 1442.013699,
+      "home_win_probability": 0.47713487,
+      "home_elo_after": 1411.658056,
+      "away_elo_after": 1456.469931,
+      "home_change": -14.456233
+    },
+    {
+      "id": "6631216",
+      "date": "2026-11-18",
+      "home": "ncaa:627460",
+      "away": "ncaa:627493",
+      "home_score": 91,
+      "away_score": 74,
+      "home_elo_before": 1590.435987,
+      "away_elo_before": 1466.960258,
+      "home_win_probability": 0.67057425,
+      "home_elo_after": 1603.800657,
+      "away_elo_after": 1453.595588,
+      "home_change": 13.36467
+    },
+    {
+      "id": "6632508",
+      "date": "2026-11-18",
+      "home": "ncaa:627281",
+      "away": "ncaa:627421",
+      "home_score": 85,
+      "away_score": 79,
+      "home_elo_before": 1774.884124,
+      "away_elo_before": 1775.682169,
+      "home_win_probability": 0.49885152,
+      "home_elo_after": 1792.502146,
+      "away_elo_after": 1758.064146,
+      "home_change": 17.618022
+    },
+    {
+      "id": "6632927",
+      "date": "2026-11-18",
+      "home": "ncaa:627373",
+      "away": "ncaa:627352",
+      "home_score": 75,
+      "away_score": 79,
+      "home_elo_before": 1487.803295,
+      "away_elo_before": 1655.996001,
+      "home_win_probability": 0.27524041,
+      "home_elo_after": 1478.658045,
+      "away_elo_after": 1665.14125,
+      "home_change": -9.145249
+    },
+    {
+      "id": "6635169",
+      "date": "2026-11-18",
+      "home": "ncaa:627574",
+      "away": "ncaa:627321",
+      "home_score": 97,
+      "away_score": 51,
+      "home_elo_before": 1687.314063,
+      "away_elo_before": 1344.717827,
+      "home_win_probability": 0.87784105,
+      "home_elo_after": 1692.942133,
+      "away_elo_after": 1339.089758,
+      "home_change": 5.62807
+    },
+    {
+      "id": "6635788",
+      "date": "2026-11-18",
+      "home": "ncaa:627446",
+      "away": "ncaa:627277",
+      "home_score": 102,
+      "away_score": 41,
+      "home_elo_before": 1604.678287,
+      "away_elo_before": 1293.866058,
+      "home_win_probability": 0.85682659,
+      "home_elo_after": 1611.50187,
+      "away_elo_after": 1287.042475,
+      "home_change": 6.823583
+    },
+    {
+      "id": "6636651",
+      "date": "2026-11-18",
+      "home": "ncaa:627407",
+      "away": "ncaa:627496",
+      "home_score": 70,
+      "away_score": 90,
+      "home_elo_before": 1330.292146,
+      "away_elo_before": 1315.775092,
+      "home_win_probability": 0.52087957,
+      "home_elo_after": 1308.699971,
+      "away_elo_after": 1337.367266,
+      "home_change": -21.592174
+    },
+    {
       "id": "6637184",
       "date": "2026-11-18",
       "home": "ncaa:627415",
@@ -13101,6 +13339,1126 @@
       "home_elo_after": 1653.701033,
       "away_elo_after": 1658.580154,
       "home_change": -19.275921
+    },
+    {
+      "id": "6637203",
+      "date": "2026-11-18",
+      "home": "ncaa:627248",
+      "away": "ncaa:627456",
+      "home_score": 115,
+      "away_score": 114,
+      "home_elo_before": 1421.686414,
+      "away_elo_before": 1656.058963,
+      "home_win_probability": 0.20600825,
+      "home_elo_after": 1443.897219,
+      "away_elo_after": 1633.848159,
+      "home_change": 22.210804
+    },
+    {
+      "id": "6638029",
+      "date": "2026-11-18",
+      "home": "ncaa:627489",
+      "away": "ncaa:627297",
+      "home_score": 63,
+      "away_score": 74,
+      "home_elo_before": 1310.995398,
+      "away_elo_before": 1356.884729,
+      "home_win_probability": 0.43434131,
+      "home_elo_after": 1294.383931,
+      "away_elo_after": 1373.496196,
+      "home_change": -16.611467
+    },
+    {
+      "id": "6638031",
+      "date": "2026-11-18",
+      "home": "ncaa:627549",
+      "away": "ncaa:627259",
+      "home_score": 81,
+      "away_score": 74,
+      "home_elo_before": 1532.666857,
+      "away_elo_before": 1379.212774,
+      "home_win_probability": 0.7075165,
+      "home_elo_after": 1543.173095,
+      "away_elo_after": 1368.706537,
+      "home_change": 10.506238
+    },
+    {
+      "id": "6638171",
+      "date": "2026-11-18",
+      "home": "ncaa:627570",
+      "away": "ncaa:627223",
+      "home_score": 119,
+      "away_score": 72,
+      "home_elo_before": 1854.925043,
+      "away_elo_before": 1559.526813,
+      "home_win_probability": 0.84559336,
+      "home_elo_after": 1862.057454,
+      "away_elo_after": 1552.394402,
+      "home_change": 7.132411
+    },
+    {
+      "id": "6638620",
+      "date": "2026-11-18",
+      "home": "ncaa:627288",
+      "away": "ncaa:627236",
+      "home_score": 104,
+      "away_score": 55,
+      "home_elo_before": 1587.716838,
+      "away_elo_before": 1441.319214,
+      "home_win_probability": 0.69904039,
+      "home_elo_after": 1601.68931,
+      "away_elo_after": 1427.346741,
+      "home_change": 13.972472
+    },
+    {
+      "id": "6638668",
+      "date": "2026-11-18",
+      "home": "ncaa:627354",
+      "away": "ncaa:627316",
+      "home_score": 79,
+      "away_score": 90,
+      "home_elo_before": 1494.813139,
+      "away_elo_before": 1411.181207,
+      "home_win_probability": 0.6180841,
+      "home_elo_after": 1471.174394,
+      "away_elo_after": 1434.819952,
+      "home_change": -23.638745
+    },
+    {
+      "id": "6638688",
+      "date": "2026-11-18",
+      "home": "ncaa:627295",
+      "away": "ncaa:627233",
+      "home_score": 73,
+      "away_score": 78,
+      "home_elo_before": 1489.957781,
+      "away_elo_before": 1435.10194,
+      "home_win_probability": 0.57829439,
+      "home_elo_after": 1470.138709,
+      "away_elo_after": 1454.921012,
+      "home_change": -19.819072
+    },
+    {
+      "id": "6639029",
+      "date": "2026-11-18",
+      "home": "ncaa:627522",
+      "away": "ncaa:627269",
+      "home_score": 86,
+      "away_score": 76,
+      "home_elo_before": 1585.085287,
+      "away_elo_before": 1413.669755,
+      "home_win_probability": 0.72844494,
+      "home_elo_after": 1595.335508,
+      "away_elo_after": 1403.419534,
+      "home_change": 10.250221
+    },
+    {
+      "id": "6639042",
+      "date": "2026-11-18",
+      "home": "ncaa:627543",
+      "away": "ncaa:627465",
+      "home_score": 87,
+      "away_score": 78,
+      "home_elo_before": 1632.265395,
+      "away_elo_before": 1468.544609,
+      "home_win_probability": 0.71959481,
+      "home_elo_after": 1642.696468,
+      "away_elo_after": 1458.113536,
+      "home_change": 10.431073
+    },
+    {
+      "id": "6639056",
+      "date": "2026-11-18",
+      "home": "ncaa:627322",
+      "away": "ncaa:627499",
+      "home_score": 86,
+      "away_score": 41,
+      "home_elo_before": 1832.276851,
+      "away_elo_before": 1476.430874,
+      "home_win_probability": 0.88578727,
+      "home_elo_after": 1837.524744,
+      "away_elo_after": 1471.182982,
+      "home_change": 5.247892
+    },
+    {
+      "id": "6640381",
+      "date": "2026-11-18",
+      "home": "ncaa:627226",
+      "away": "ncaa:627253",
+      "home_score": 80,
+      "away_score": 72,
+      "home_elo_before": 1511.36925,
+      "away_elo_before": 1434.716098,
+      "home_win_probability": 0.60855708,
+      "home_elo_after": 1525.694495,
+      "away_elo_after": 1420.390852,
+      "home_change": 14.325245
+    },
+    {
+      "id": "6640868",
+      "date": "2026-11-18",
+      "home": "ncaa:627410",
+      "away": "ncaa:627341",
+      "home_score": 82,
+      "away_score": 76,
+      "home_elo_before": 1459.708929,
+      "away_elo_before": 1321.971169,
+      "home_win_probability": 0.68844988,
+      "home_elo_after": 1470.661565,
+      "away_elo_after": 1311.018533,
+      "home_change": 10.952636
+    },
+    {
+      "id": "6618553",
+      "date": "2026-11-19",
+      "home": "ncaa:627362",
+      "away": "ncaa:627531",
+      "home_score": 84,
+      "away_score": 77,
+      "home_elo_before": 1547.898656,
+      "away_elo_before": 1400.422019,
+      "home_win_probability": 0.70034553,
+      "home_elo_after": 1558.662481,
+      "away_elo_after": 1389.658195,
+      "home_change": 10.763825
+    },
+    {
+      "id": "6624299",
+      "date": "2026-11-19",
+      "home": "ncaa:627320",
+      "away": "ncaa:627319",
+      "home_score": 92,
+      "away_score": 97,
+      "home_elo_before": 1699.04001,
+      "away_elo_before": 1736.311651,
+      "home_win_probability": 0.44656661,
+      "home_elo_after": 1683.735459,
+      "away_elo_after": 1751.616202,
+      "home_change": -15.304551
+    },
+    {
+      "id": "6625468",
+      "date": "2026-11-19",
+      "home": "ncaa:627299",
+      "away": "ncaa:627583",
+      "home_score": 96,
+      "away_score": 51,
+      "home_elo_before": 1670.110121,
+      "away_elo_before": 1417.515631,
+      "home_win_probability": 0.81062107,
+      "home_elo_after": 1678.81178,
+      "away_elo_after": 1408.813971,
+      "home_change": 8.70166
+    },
+    {
+      "id": "6629689",
+      "date": "2026-11-19",
+      "home": "ncaa:627266",
+      "away": "ncaa:627418",
+      "home_score": 85,
+      "away_score": 74,
+      "home_elo_before": 1798.485178,
+      "away_elo_before": 1529.266319,
+      "home_win_probability": 0.82487738,
+      "home_elo_after": 1805.182776,
+      "away_elo_after": 1522.56872,
+      "home_change": 6.697598
+    },
+    {
+      "id": "6629976",
+      "date": "2026-11-19",
+      "home": "ncaa:627324",
+      "away": "ncaa:627305",
+      "home_score": 92,
+      "away_score": 68,
+      "home_elo_before": 1708.03625,
+      "away_elo_before": 1420.313301,
+      "home_win_probability": 0.83973618,
+      "home_elo_after": 1714.839899,
+      "away_elo_after": 1413.509652,
+      "home_change": 6.803649
+    },
+    {
+      "id": "6632745",
+      "date": "2026-11-19",
+      "home": "ncaa:627428",
+      "away": "ncaa:627451",
+      "home_score": 93,
+      "away_score": 83,
+      "home_elo_before": 1733.645063,
+      "away_elo_before": 1604.613718,
+      "home_win_probability": 0.6776,
+      "home_elo_after": 1745.814497,
+      "away_elo_after": 1592.444284,
+      "home_change": 12.169434
+    },
+    {
+      "id": "6633777",
+      "date": "2026-11-19",
+      "home": "ncaa:627370",
+      "away": "ncaa:627405",
+      "home_score": 86,
+      "away_score": 54,
+      "home_elo_before": 1559.938459,
+      "away_elo_before": 1407.276027,
+      "home_win_probability": 0.70657258,
+      "home_elo_after": 1572.862289,
+      "away_elo_after": 1394.352197,
+      "home_change": 12.92383
+    },
+    {
+      "id": "6634055",
+      "date": "2026-11-19",
+      "home": "ncaa:627568",
+      "away": "ncaa:627361",
+      "home_score": 78,
+      "away_score": 69,
+      "home_elo_before": 1495.844618,
+      "away_elo_before": 1444.855024,
+      "home_win_probability": 0.57285759,
+      "home_elo_after": 1511.734316,
+      "away_elo_after": 1428.965327,
+      "home_change": 15.889697
+    },
+    {
+      "id": "6639031",
+      "date": "2026-11-19",
+      "home": "ncaa:627490",
+      "away": "ncaa:627393",
+      "home_score": 79,
+      "away_score": 86,
+      "home_elo_before": 1400.214497,
+      "away_elo_before": 1477.644125,
+      "home_win_probability": 0.39037867,
+      "home_elo_after": 1386.191787,
+      "away_elo_after": 1491.666834,
+      "home_change": -14.022709
+    },
+    {
+      "id": "6639296",
+      "date": "2026-11-19",
+      "home": "ncaa:627327",
+      "away": "ncaa:627565",
+      "home_score": 83,
+      "away_score": 76,
+      "home_elo_before": 1554.875135,
+      "away_elo_before": 1507.193849,
+      "home_win_probability": 0.56819131,
+      "home_elo_after": 1570.386043,
+      "away_elo_after": 1491.682941,
+      "home_change": 15.510908
+    },
+    {
+      "id": "6639380",
+      "date": "2026-11-19",
+      "home": "ncaa:627422",
+      "away": "ncaa:627411",
+      "home_score": 86,
+      "away_score": 70,
+      "home_elo_before": 1439.591984,
+      "away_elo_before": 1669.795262,
+      "home_win_probability": 0.20996165,
+      "home_elo_after": 1471.384648,
+      "away_elo_after": 1638.002597,
+      "home_change": 31.792665
+    },
+    {
+      "id": "6644236",
+      "date": "2026-11-19",
+      "home": "ncaa:627551",
+      "away": "ncaa:627369",
+      "home_score": 80,
+      "away_score": 88,
+      "home_elo_before": 1407.037651,
+      "away_elo_before": 1529.038369,
+      "home_win_probability": 0.33130413,
+      "home_elo_after": 1394.913245,
+      "away_elo_after": 1541.162776,
+      "home_change": -12.124406
+    },
+    {
+      "id": "6612150",
+      "date": "2026-11-20",
+      "home": "ncaa:627343",
+      "away": "ncaa:627371",
+      "home_score": 103,
+      "away_score": 61,
+      "home_elo_before": 1821.131479,
+      "away_elo_before": 1331.712408,
+      "home_win_probability": 0.94360476,
+      "home_elo_after": 1823.700947,
+      "away_elo_after": 1329.142941,
+      "home_change": 2.569468
+    },
+    {
+      "id": "6620282",
+      "date": "2026-11-20",
+      "home": "ncaa:627386",
+      "away": "ncaa:627375",
+      "home_score": 106,
+      "away_score": 54,
+      "home_elo_before": 1747.982563,
+      "away_elo_before": 1352.480118,
+      "home_win_probability": 0.90692846,
+      "home_elo_after": 1752.33463,
+      "away_elo_after": 1348.128052,
+      "home_change": 4.352066
+    },
+    {
+      "id": "6621248",
+      "date": "2026-11-20",
+      "home": "ncaa:627558",
+      "away": "ncaa:627429",
+      "home_score": 95,
+      "away_score": 49,
+      "home_elo_before": 1688.271148,
+      "away_elo_before": 1448.293382,
+      "home_win_probability": 0.79921945,
+      "home_elo_after": 1697.521447,
+      "away_elo_after": 1439.043082,
+      "home_change": 9.250299
+    },
+    {
+      "id": "6625836",
+      "date": "2026-11-20",
+      "home": "ncaa:627552",
+      "away": "ncaa:627469",
+      "home_score": 104,
+      "away_score": 82,
+      "home_elo_before": 1632.037046,
+      "away_elo_before": 1444.141861,
+      "home_win_probability": 0.74679885,
+      "home_elo_after": 1642.665116,
+      "away_elo_after": 1433.513791,
+      "home_change": 10.62807
+    },
+    {
+      "id": "6626623",
+      "date": "2026-11-20",
+      "home": "ncaa:627510",
+      "away": "ncaa:627571",
+      "home_score": 75,
+      "away_score": 64,
+      "home_elo_before": 1482.528592,
+      "away_elo_before": 1656.665976,
+      "home_win_probability": 0.2684668,
+      "home_elo_after": 1510.50622,
+      "away_elo_after": 1628.688348,
+      "home_change": 27.977628
+    },
+    {
+      "id": "6626745",
+      "date": "2026-11-20",
+      "home": "ncaa:627492",
+      "away": "ncaa:627434",
+      "home_score": 86,
+      "away_score": 71,
+      "home_elo_before": 1333.959437,
+      "away_elo_before": 1474.299775,
+      "home_win_probability": 0.30834587,
+      "home_elo_after": 1361.552552,
+      "away_elo_after": 1446.706659,
+      "home_change": 27.593115
+    },
+    {
+      "id": "6628282",
+      "date": "2026-11-20",
+      "home": "ncaa:627255",
+      "away": "ncaa:627230",
+      "home_score": 96,
+      "away_score": 59,
+      "home_elo_before": 1549.83981,
+      "away_elo_before": 1358.50843,
+      "home_win_probability": 0.75052083,
+      "home_elo_after": 1561.029735,
+      "away_elo_after": 1347.318505,
+      "home_change": 11.189925
+    },
+    {
+      "id": "6629099",
+      "date": "2026-11-20",
+      "home": "ncaa:627466",
+      "away": "ncaa:627440",
+      "home_score": 63,
+      "away_score": 56,
+      "home_elo_before": 1350.032788,
+      "away_elo_before": 1411.812256,
+      "home_win_probability": 0.41201754,
+      "home_elo_after": 1371.153581,
+      "away_elo_after": 1390.691463,
+      "home_change": 21.120793
+    },
+    {
+      "id": "6629237",
+      "date": "2026-11-20",
+      "home": "ncaa:627247",
+      "away": "ncaa:627561",
+      "home_score": 71,
+      "away_score": 68,
+      "home_elo_before": 1570.336703,
+      "away_elo_before": 1587.853233,
+      "home_win_probability": 0.47481302,
+      "home_elo_after": 1587.114952,
+      "away_elo_after": 1571.074984,
+      "home_change": 16.778249
+    },
+    {
+      "id": "6629287",
+      "date": "2026-11-20",
+      "home": "ncaa:627232",
+      "away": "ncaa:627242",
+      "home_score": 90,
+      "away_score": 76,
+      "home_elo_before": 1649.445307,
+      "away_elo_before": 1711.068599,
+      "home_win_probability": 0.41223535,
+      "home_elo_after": 1672.676354,
+      "away_elo_after": 1687.837551,
+      "home_change": 23.231048
+    },
+    {
+      "id": "6629303",
+      "date": "2026-11-20",
+      "home": "ncaa:627446",
+      "away": "ncaa:627442",
+      "home_score": 91,
+      "away_score": 64,
+      "home_elo_before": 1611.50187,
+      "away_elo_before": 1388.382286,
+      "home_win_probability": 0.78319435,
+      "home_elo_after": 1620.846732,
+      "away_elo_after": 1379.037424,
+      "home_change": 9.344862
+    },
+    {
+      "id": "6629447",
+      "date": "2026-11-20",
+      "home": "ncaa:627450",
+      "away": "ncaa:627351",
+      "home_score": 67,
+      "away_score": 73,
+      "home_elo_before": 1433.902549,
+      "away_elo_before": 1502.023227,
+      "home_win_probability": 0.40320365,
+      "home_elo_after": 1419.727806,
+      "away_elo_after": 1516.19797,
+      "home_change": -14.174743
+    },
+    {
+      "id": "6631133",
+      "date": "2026-11-20",
+      "home": "ncaa:627302",
+      "away": "ncaa:627224",
+      "home_score": 101,
+      "away_score": 55,
+      "home_elo_before": 1631.585826,
+      "away_elo_before": 1494.262877,
+      "home_win_probability": 0.68793749,
+      "home_elo_after": 1645.963074,
+      "away_elo_after": 1479.885629,
+      "home_change": 14.377248
+    },
+    {
+      "id": "6631946",
+      "date": "2026-11-20",
+      "home": "ncaa:627556",
+      "away": "ncaa:627447",
+      "home_score": 75,
+      "away_score": 64,
+      "home_elo_before": 1440.986827,
+      "away_elo_before": 1506.234149,
+      "home_win_probability": 0.40719006,
+      "home_elo_after": 1463.658957,
+      "away_elo_after": 1483.562019,
+      "home_change": 22.67213
+    },
+    {
+      "id": "6633266",
+      "date": "2026-11-20",
+      "home": "ncaa:627453",
+      "away": "ncaa:627378",
+      "home_score": 88,
+      "away_score": 72,
+      "home_elo_before": 1727.755482,
+      "away_elo_before": 1489.354183,
+      "home_win_probability": 0.79775927,
+      "home_elo_after": 1735.894038,
+      "away_elo_after": 1481.215627,
+      "home_change": 8.138556
+    },
+    {
+      "id": "6633805",
+      "date": "2026-11-20",
+      "home": "ncaa:627367",
+      "away": "ncaa:627487",
+      "home_score": 92,
+      "away_score": 97,
+      "home_elo_before": 1466.519571,
+      "away_elo_before": 1398.181984,
+      "home_win_probability": 0.59709677,
+      "home_elo_after": 1446.056111,
+      "away_elo_after": 1418.645443,
+      "home_change": -20.463459
+    },
+    {
+      "id": "6634492",
+      "date": "2026-11-20",
+      "home": "ncaa:627338",
+      "away": "ncaa:627468",
+      "home_score": 82,
+      "away_score": 74,
+      "home_elo_before": 1706.083147,
+      "away_elo_before": 1679.085171,
+      "home_win_probability": 0.5387752,
+      "home_elo_after": 1722.962131,
+      "away_elo_after": 1662.206188,
+      "home_change": 16.878983
+    },
+    {
+      "id": "6635184",
+      "date": "2026-11-20",
+      "home": "ncaa:627336",
+      "away": "ncaa:627484",
+      "home_score": 46,
+      "away_score": 63,
+      "home_elo_before": 1505.978763,
+      "away_elo_before": 1583.528836,
+      "home_win_probability": 0.39021368,
+      "home_elo_after": 1490.147951,
+      "away_elo_after": 1599.359648,
+      "home_change": -15.830812
+    },
+    {
+      "id": "6635363",
+      "date": "2026-11-20",
+      "home": "ncaa:627380",
+      "away": "ncaa:627437",
+      "home_score": 62,
+      "away_score": 45,
+      "home_elo_before": 1486.137476,
+      "away_elo_before": 1391.728689,
+      "home_win_probability": 0.63261709,
+      "home_elo_after": 1501.042053,
+      "away_elo_after": 1376.824112,
+      "home_change": 14.904577
+    },
+    {
+      "id": "6635851",
+      "date": "2026-11-20",
+      "home": "ncaa:627524",
+      "away": "ncaa:627355",
+      "home_score": 87,
+      "away_score": 63,
+      "home_elo_before": 1621.801101,
+      "away_elo_before": 1504.372657,
+      "home_win_probability": 0.6628392,
+      "home_elo_after": 1636.114524,
+      "away_elo_after": 1490.059235,
+      "home_change": 14.313423
+    },
+    {
+      "id": "6636461",
+      "date": "2026-11-20",
+      "home": "ncaa:627426",
+      "away": "ncaa:627514",
+      "home_score": 114,
+      "away_score": 52,
+      "home_elo_before": 1790.763214,
+      "away_elo_before": 1342.240022,
+      "home_win_probability": 0.92968803,
+      "home_elo_after": 1794.120701,
+      "away_elo_after": 1338.882534,
+      "home_change": 3.357488
+    },
+    {
+      "id": "6608203",
+      "date": "2026-11-21",
+      "home": "ncaa:627578",
+      "away": "ncaa:627372",
+      "home_score": 73,
+      "away_score": 80,
+      "home_elo_before": 1488.23945,
+      "away_elo_before": 1434.87332,
+      "home_win_probability": 0.5762017,
+      "home_elo_after": 1467.541831,
+      "away_elo_after": 1455.570939,
+      "home_change": -20.697619
+    },
+    {
+      "id": "6613753",
+      "date": "2026-11-21",
+      "home": "ncaa:627530",
+      "away": "ncaa:627479",
+      "home_score": 84,
+      "away_score": 60,
+      "home_elo_before": 1590.57335,
+      "away_elo_before": 1326.455468,
+      "home_win_probability": 0.82059513,
+      "home_elo_after": 1598.18959,
+      "away_elo_after": 1318.839228,
+      "home_change": 7.616241
+    },
+    {
+      "id": "6623425",
+      "date": "2026-11-21",
+      "home": "ncaa:627462",
+      "away": "ncaa:627575",
+      "home_score": 64,
+      "away_score": 67,
+      "home_elo_before": 1556.290355,
+      "away_elo_before": 1462.813239,
+      "home_win_probability": 0.63136974,
+      "home_elo_after": 1536.119864,
+      "away_elo_after": 1482.98373,
+      "home_change": -20.17049
+    },
+    {
+      "id": "6623716",
+      "date": "2026-11-21",
+      "home": "ncaa:627341",
+      "away": "ncaa:627254",
+      "home_score": 71,
+      "away_score": 68,
+      "home_elo_before": 1311.018533,
+      "away_elo_before": 1284.304877,
+      "home_win_probability": 0.53836846,
+      "home_elo_after": 1325.766364,
+      "away_elo_after": 1269.557045,
+      "home_change": 14.747831
+    },
+    {
+      "id": "6624244",
+      "date": "2026-11-21",
+      "home": "ncaa:627344",
+      "away": "ncaa:627349",
+      "home_score": 90,
+      "away_score": 63,
+      "home_elo_before": 1584.942827,
+      "away_elo_before": 1469.641634,
+      "home_win_probability": 0.66009711,
+      "home_elo_after": 1599.593486,
+      "away_elo_after": 1454.990975,
+      "home_change": 14.650659
+    },
+    {
+      "id": "6624397",
+      "date": "2026-11-21",
+      "home": "ncaa:627290",
+      "away": "ncaa:627333",
+      "home_score": 67,
+      "away_score": 46,
+      "home_elo_before": 1376.045365,
+      "away_elo_before": 1353.283841,
+      "home_win_probability": 0.53270968,
+      "home_elo_after": 1395.540708,
+      "away_elo_after": 1333.788498,
+      "home_change": 19.495342
+    },
+    {
+      "id": "6626212",
+      "date": "2026-11-21",
+      "home": "ncaa:627285",
+      "away": "ncaa:627548",
+      "home_score": 73,
+      "away_score": 79,
+      "home_elo_before": 1557.292498,
+      "away_elo_before": 1493.428382,
+      "home_win_probability": 0.59088652,
+      "home_elo_after": 1536.519708,
+      "away_elo_after": 1514.201172,
+      "home_change": -20.772789
+    },
+    {
+      "id": "6626540",
+      "date": "2026-11-21",
+      "home": "ncaa:627516",
+      "away": "ncaa:627488",
+      "home_score": 70,
+      "away_score": 68,
+      "home_elo_before": 1456.740838,
+      "away_elo_before": 1445.934498,
+      "home_win_probability": 0.51554656,
+      "home_elo_after": 1471.418809,
+      "away_elo_after": 1431.256527,
+      "home_change": 14.677971
+    },
+    {
+      "id": "6629100",
+      "date": "2026-11-21",
+      "home": "ncaa:627466",
+      "away": "ncaa:627276",
+      "home_score": 91,
+      "away_score": 81,
+      "home_elo_before": 1371.153581,
+      "away_elo_before": 1377.805868,
+      "home_win_probability": 0.49042776,
+      "home_elo_after": 1390.388091,
+      "away_elo_after": 1358.571359,
+      "home_change": 19.234509
+    },
+    {
+      "id": "6629230",
+      "date": "2026-11-21",
+      "home": "ncaa:627326",
+      "away": "ncaa:627332",
+      "home_score": 90,
+      "away_score": 68,
+      "home_elo_before": 1361.685485,
+      "away_elo_before": 1328.003938,
+      "home_win_probability": 0.54832037,
+      "home_elo_after": 1380.644651,
+      "away_elo_after": 1309.044773,
+      "home_change": 18.959166
+    },
+    {
+      "id": "6630022",
+      "date": "2026-11-21",
+      "home": "ncaa:627432",
+      "away": "ncaa:627311",
+      "home_score": 52,
+      "away_score": 67,
+      "home_elo_before": 1400.251411,
+      "away_elo_before": 1418.846769,
+      "home_win_probability": 0.47326465,
+      "home_elo_after": 1381.370809,
+      "away_elo_after": 1437.727371,
+      "home_change": -18.880602
+    },
+    {
+      "id": "6630677",
+      "date": "2026-11-21",
+      "home": "ncaa:627263",
+      "away": "ncaa:627354",
+      "home_score": 91,
+      "away_score": 86,
+      "home_elo_before": 1456.469931,
+      "away_elo_before": 1471.174394,
+      "home_win_probability": 0.4788512,
+      "home_elo_after": 1474.330533,
+      "away_elo_after": 1453.313793,
+      "home_change": 17.860601
+    },
+    {
+      "id": "6630852",
+      "date": "2026-11-21",
+      "home": "ncaa:627303",
+      "away": "ncaa:627501",
+      "home_score": 80,
+      "away_score": 69,
+      "home_elo_before": 1536.45108,
+      "away_elo_before": 1423.398078,
+      "home_win_probability": 0.65718743,
+      "home_elo_after": 1549.562013,
+      "away_elo_after": 1410.287145,
+      "home_change": 13.110933
+    },
+    {
+      "id": "6631588",
+      "date": "2026-11-21",
+      "home": "ncaa:627513",
+      "away": "ncaa:627410",
+      "home_score": 74,
+      "away_score": 68,
+      "home_elo_before": 1503.303297,
+      "away_elo_before": 1470.661565,
+      "home_win_probability": 0.5468375,
+      "home_elo_after": 1519.234358,
+      "away_elo_after": 1454.730504,
+      "home_change": 15.931061
+    },
+    {
+      "id": "6632928",
+      "date": "2026-11-21",
+      "home": "ncaa:627352",
+      "away": "ncaa:627427",
+      "home_score": 85,
+      "away_score": 60,
+      "home_elo_before": 1665.14125,
+      "away_elo_before": 1670.291415,
+      "home_win_probability": 0.49258886,
+      "home_elo_after": 1686.796364,
+      "away_elo_after": 1648.636301,
+      "home_change": 21.655114
+    },
+    {
+      "id": "6633836",
+      "date": "2026-11-21",
+      "home": "ncaa:627357",
+      "away": "ncaa:627584",
+      "home_score": 70,
+      "away_score": 98,
+      "home_elo_before": 1397.715159,
+      "away_elo_before": 1491.945813,
+      "home_win_probability": 0.36762126,
+      "home_elo_after": 1381.795815,
+      "away_elo_after": 1507.865157,
+      "home_change": -15.919344
+    },
+    {
+      "id": "6616238",
+      "date": "2026-11-22",
+      "home": "ncaa:627553",
+      "away": "ncaa:627366",
+      "home_score": 75,
+      "away_score": 92,
+      "home_elo_before": 1483.385127,
+      "away_elo_before": 1491.969989,
+      "home_win_probability": 0.4876479,
+      "home_elo_after": 1463.601448,
+      "away_elo_after": 1511.753668,
+      "home_change": -19.783679
+    },
+    {
+      "id": "6618006",
+      "date": "2026-11-22",
+      "home": "ncaa:627299",
+      "away": "ncaa:627308",
+      "home_score": 82,
+      "away_score": 56,
+      "home_elo_before": 1678.81178,
+      "away_elo_before": 1382.517513,
+      "home_win_probability": 0.84626561,
+      "home_elo_after": 1685.406063,
+      "away_elo_after": 1375.92323,
+      "home_change": 6.594283
+    },
+    {
+      "id": "6618570",
+      "date": "2026-11-22",
+      "home": "ncaa:627362",
+      "away": "ncaa:627457",
+      "home_score": 74,
+      "away_score": 76,
+      "home_elo_before": 1558.662481,
+      "away_elo_before": 1773.068037,
+      "home_win_probability": 0.2254441,
+      "home_elo_after": 1551.831975,
+      "away_elo_after": 1779.898542,
+      "home_change": -6.830506
+    },
+    {
+      "id": "6619680",
+      "date": "2026-11-22",
+      "home": "ncaa:627224",
+      "away": "ncaa:627677",
+      "home_score": 79,
+      "away_score": 66,
+      "home_elo_before": 1479.885629,
+      "away_elo_before": 1467.588999,
+      "home_win_probability": 0.51768889,
+      "home_elo_after": 1498.757928,
+      "away_elo_after": 1448.716701,
+      "home_change": 18.872298
+    },
+    {
+      "id": "6623426",
+      "date": "2026-11-22",
+      "home": "ncaa:627462",
+      "away": "ncaa:627372",
+      "home_score": 68,
+      "away_score": 72,
+      "home_elo_before": 1536.119864,
+      "away_elo_before": 1455.570939,
+      "home_win_probability": 0.61388607,
+      "home_elo_after": 1515.722637,
+      "away_elo_after": 1475.968166,
+      "home_change": -20.397227
+    },
+    {
+      "id": "6629101",
+      "date": "2026-11-22",
+      "home": "ncaa:627466",
+      "away": "ncaa:627350",
+      "home_score": 46,
+      "away_score": 66,
+      "home_elo_before": 1390.388091,
+      "away_elo_before": 1234.018375,
+      "home_win_probability": 0.71097754,
+      "home_elo_after": 1360.915729,
+      "away_elo_after": 1263.490736,
+      "home_change": -29.472362
+    },
+    {
+      "id": "6629238",
+      "date": "2026-11-22",
+      "home": "ncaa:627247",
+      "away": "ncaa:627563",
+      "home_score": 88,
+      "away_score": 92,
+      "home_elo_before": 1587.114952,
+      "away_elo_before": 1478.239402,
+      "home_win_probability": 0.65174946,
+      "home_elo_after": 1565.459661,
+      "away_elo_after": 1499.894693,
+      "home_change": -21.655291
+    },
+    {
+      "id": "6629355",
+      "date": "2026-11-22",
+      "home": "ncaa:627227",
+      "away": "ncaa:627582",
+      "home_score": 74,
+      "away_score": 73,
+      "home_elo_before": 1352.687962,
+      "away_elo_before": 1461.983922,
+      "home_win_probability": 0.34770146,
+      "home_elo_after": 1370.935098,
+      "away_elo_after": 1443.736786,
+      "home_change": 18.247136
+    },
+    {
+      "id": "6629933",
+      "date": "2026-11-22",
+      "home": "ncaa:627414",
+      "away": "ncaa:627561",
+      "home_score": 64,
+      "away_score": 79,
+      "home_elo_before": 1623.070097,
+      "away_elo_before": 1571.074984,
+      "home_win_probability": 0.57427333,
+      "home_elo_after": 1600.159817,
+      "away_elo_after": 1593.985264,
+      "home_change": -22.91028
+    },
+    {
+      "id": "6629978",
+      "date": "2026-11-22",
+      "home": "ncaa:627324",
+      "away": "ncaa:627406",
+      "home_score": 97,
+      "away_score": 61,
+      "home_elo_before": 1714.839899,
+      "away_elo_before": 1292.252309,
+      "home_win_probability": 0.9192804,
+      "home_elo_after": 1718.448087,
+      "away_elo_after": 1288.644121,
+      "home_change": 3.608188
+    },
+    {
+      "id": "6630853",
+      "date": "2026-11-22",
+      "home": "ncaa:627303",
+      "away": "ncaa:627337",
+      "home_score": 89,
+      "away_score": 99,
+      "home_elo_before": 1549.562013,
+      "away_elo_before": 1539.365822,
+      "home_win_probability": 0.51466929,
+      "home_elo_after": 1530.135109,
+      "away_elo_after": 1558.792726,
+      "home_change": -19.426904
+    },
+    {
+      "id": "6635186",
+      "date": "2026-11-22",
+      "home": "ncaa:627390",
+      "away": "ncaa:627336",
+      "home_score": 77,
+      "away_score": 62,
+      "home_elo_before": 1529.29955,
+      "away_elo_before": 1490.147951,
+      "home_win_probability": 0.55610639,
+      "home_elo_after": 1547.008412,
+      "away_elo_after": 1472.439089,
+      "home_change": 17.708862
+    },
+    {
+      "id": "6624979",
+      "date": "2026-11-23",
+      "home": "ncaa:627265",
+      "away": "ncaa:627439",
+      "home_score": 68,
+      "away_score": 60,
+      "home_elo_before": 1618.298042,
+      "away_elo_before": 1577.930144,
+      "home_win_probability": 0.55783406,
+      "home_elo_after": 1634.479548,
+      "away_elo_after": 1561.748639,
+      "home_change": 16.181505
+    },
+    {
+      "id": "6631217",
+      "date": "2026-11-23",
+      "home": "ncaa:627460",
+      "away": "ncaa:627576",
+      "home_score": 71,
+      "away_score": 62,
+      "home_elo_before": 1603.800657,
+      "away_elo_before": 1521.14745,
+      "home_win_probability": 0.61675328,
+      "home_elo_after": 1618.057435,
+      "away_elo_after": 1506.890672,
+      "home_change": 14.256778
+    },
+    {
+      "id": "6631947",
+      "date": "2026-11-23",
+      "home": "ncaa:627453",
+      "away": "ncaa:627447",
+      "home_score": 85,
+      "away_score": 45,
+      "home_elo_before": 1735.894038,
+      "away_elo_before": 1483.562019,
+      "home_win_probability": 0.81038901,
+      "home_elo_after": 1744.481282,
+      "away_elo_after": 1474.974775,
+      "home_change": 8.587244
+    },
+    {
+      "id": "6632787",
+      "date": "2026-11-23",
+      "home": "ncaa:627281",
+      "away": "ncaa:627476",
+      "home_score": 96,
+      "away_score": 83,
+      "home_elo_before": 1792.502146,
+      "away_elo_before": 1596.374902,
+      "home_win_probability": 0.75565415,
+      "home_elo_after": 1802.063128,
+      "away_elo_after": 1586.81392,
+      "home_change": 9.560982
+    },
+    {
+      "id": "6632929",
+      "date": "2026-11-23",
+      "home": "ncaa:627352",
+      "away": "ncaa:627267",
+      "home_score": 91,
+      "away_score": 73,
+      "home_elo_before": 1686.796364,
+      "away_elo_before": 1450.145706,
+      "home_win_probability": 0.7961285,
+      "home_elo_after": 1695.130539,
+      "away_elo_after": 1441.811531,
+      "home_change": 8.334175
+    },
+    {
+      "id": "6633779",
+      "date": "2026-11-23",
+      "home": "ncaa:627370",
+      "away": "ncaa:627274",
+      "home_score": 96,
+      "away_score": 54,
+      "home_elo_before": 1572.862289,
+      "away_elo_before": 1377.286954,
+      "home_win_probability": 0.75506706,
+      "home_elo_after": 1584.02187,
+      "away_elo_after": 1366.127373,
+      "home_change": 11.159581
+    },
+    {
+      "id": "6636375",
+      "date": "2026-11-23",
+      "home": "ncaa:627483",
+      "away": "ncaa:627535",
+      "home_score": 79,
+      "away_score": 48,
+      "home_elo_before": 1555.838932,
+      "away_elo_before": 1574.424516,
+      "home_win_probability": 0.47327868,
+      "home_elo_after": 1578.945132,
+      "away_elo_after": 1551.318316,
+      "home_change": 23.1062
     }
   ],
   "preseason_seed": "data/ncaam-2026-27-preseason-player-quality-live.json",
