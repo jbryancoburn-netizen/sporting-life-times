@@ -241,6 +241,22 @@
         "log_loss": 1.2606083368252332
       }
     },
+    "401879237": {
+      "away": "Everton",
+      "away_score": 0,
+      "baseline": {
+        "brier": 0.437862348689288,
+        "log_loss": 0.7760865953770953
+      },
+      "fixture_id": "401879237",
+      "home": "Brentford",
+      "home_score": 4,
+      "outcome": "home",
+      "research": {
+        "brier": 0.4450932321488712,
+        "log_loss": 0.7859120065218668
+      }
+    },
     "401879238": {
       "away": "Nott'm Forest",
       "away_score": 0,
@@ -467,6 +483,57 @@
     }
   },
   "locked": {
+    "401878742": {
+      "away": "Chelsea",
+      "baseline_probabilities": {
+        "away": 0.2521935207940772,
+        "draw": 0.25,
+        "home": 0.4978064792059228
+      },
+      "fixture_id": "401878742",
+      "home": "Manchester City",
+      "issued_at_utc": "2026-11-24T00:19:45.514547+00:00",
+      "kickoff_utc": "2026-12-12T17:30:00+00:00",
+      "research_probabilities": {
+        "away": 0.27553542334068015,
+        "draw": 0.2512292534626569,
+        "home": 0.47323532319666295
+      }
+    },
+    "401878743": {
+      "away": "Leeds United",
+      "baseline_probabilities": {
+        "away": 0.27258373691474624,
+        "draw": 0.25,
+        "home": 0.47741626308525376
+      },
+      "fixture_id": "401878743",
+      "home": "Liverpool",
+      "issued_at_utc": "2026-11-24T00:19:45.514547+00:00",
+      "kickoff_utc": "2026-12-12T15:00:00+00:00",
+      "research_probabilities": {
+        "away": 0.28390955207201685,
+        "draw": 0.25244115525397703,
+        "home": 0.4636492926740061
+      }
+    },
+    "401878744": {
+      "away": "Newcastle United",
+      "baseline_probabilities": {
+        "away": 0.3201073802085611,
+        "draw": 0.25,
+        "home": 0.4298926197914389
+      },
+      "fixture_id": "401878744",
+      "home": "Ipswich",
+      "issued_at_utc": "2026-11-24T00:19:45.514547+00:00",
+      "kickoff_utc": "2026-12-12T15:00:00+00:00",
+      "research_probabilities": {
+        "away": 0.30325723042964675,
+        "draw": 0.2547691296938232,
+        "home": 0.44197363987653004
+      }
+    },
     "401878747": {
       "away": "Brighton",
       "baseline_probabilities": {
@@ -754,6 +821,23 @@
         "away": 0.2898325093195564,
         "draw": 0.25322273777750315,
         "home": 0.4569447529029404
+      }
+    },
+    "401879206": {
+      "away": "Brentford",
+      "baseline_probabilities": {
+        "away": 0.33773645062553737,
+        "draw": 0.25,
+        "home": 0.41226354937446263
+      },
+      "fixture_id": "401879206",
+      "home": "Fulham",
+      "issued_at_utc": "2026-11-24T00:19:45.514547+00:00",
+      "kickoff_utc": "2026-12-12T15:00:00+00:00",
+      "research_probabilities": {
+        "away": 0.3104225667641316,
+        "draw": 0.2554700459476855,
+        "home": 0.4341073872881828
       }
     },
     "401879209": {
@@ -1491,19 +1575,19 @@
   "schema_version": 1,
   "status": "research_only_not_for_live_promotion",
   "summary": {
-    "graded_count": 29,
-    "locked_count": 60,
+    "graded_count": 30,
+    "locked_count": 64,
     "new_grades": 1,
-    "new_locks": 0,
+    "new_locks": 4,
     "note": "Paired pregame outcomes only; a small sample cannot validate superiority.",
     "scores": {
       "baseline": {
-        "brier": 0.603091,
-        "log_loss": 1.00802
+        "brier": 0.597583,
+        "log_loss": 1.000289
       },
       "research": {
-        "brier": 0.606587,
-        "log_loss": 1.01425
+        "brier": 0.601203,
+        "log_loss": 1.006639
       }
     }
   }

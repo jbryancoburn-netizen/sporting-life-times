@@ -1,6 +1,6 @@
 {
-  "as_of_date": "2026-11-23",
-  "completed_matches": 109,
+  "as_of_date": "2026-11-24",
+  "completed_matches": 110,
   "elo_history": {
     "Arsenal": [
       {
@@ -329,6 +329,13 @@
         "fixture_id": "401879244",
         "match": 10,
         "opponent": "Brighton"
+      },
+      {
+        "date": "2026-11-23",
+        "elo": 1516.29989,
+        "fixture_id": "401879237",
+        "match": 11,
+        "opponent": "Everton"
       }
     ],
     "Brighton": [
@@ -742,6 +749,13 @@
         "fixture_id": "401879242",
         "match": 10,
         "opponent": "Coventry"
+      },
+      {
+        "date": "2026-11-23",
+        "elo": 1509.18696,
+        "fixture_id": "401879237",
+        "match": 11,
+        "opponent": "Brentford"
       }
     ],
     "Fulham": [
@@ -1692,11 +1706,11 @@
       "W"
     ],
     "Brentford": [
-      "D",
       "L",
       "D",
       "W",
-      "L"
+      "L",
+      "W"
     ],
     "Brighton": [
       "W",
@@ -1727,11 +1741,11 @@
       "L"
     ],
     "Everton": [
-      "D",
       "L",
       "L",
       "W",
-      "W"
+      "W",
+      "L"
     ],
     "Fulham": [
       "W",
@@ -1815,12 +1829,12 @@
     "Arsenal": -0.82614,
     "Aston Villa": -2.6083,
     "Bournemouth": 7.36698,
-    "Brentford": -7.74031,
+    "Brentford": 8.72132,
     "Brighton": -10.12477,
     "Chelsea": -11.55,
     "Coventry": 8.14764,
     "Crystal Palace": -8.14764,
-    "Everton": 7.37811,
+    "Everton": -8.72132,
     "Fulham": 2.80103,
     "Hull": 10.12477,
     "Ipswich": -8.10143,
@@ -1840,19 +1854,19 @@
     "fixture_policy": "only feed-confirmed future fixtures",
     "rating_origin": "neutral baseline; no independently sourced prior-season ratings",
     "season": "2026-2027",
-    "source_fixtures": 109,
-    "source_sha256": "49b539218596db4bc4533e2def67352fb92f3e1d51156abb7d7f59e04c259ed8"
+    "source_fixtures": 110,
+    "source_sha256": "0e5d6b22368dec806be0f7b0cd1c62b563c1e51f0581b765ee93517026ebcf71"
   },
   "ratings": {
     "Arsenal": 1571.36171,
     "Aston Villa": 1501.25376,
     "Bournemouth": 1520.35632,
-    "Brentford": 1507.57857,
+    "Brentford": 1516.29989,
     "Brighton": 1537.82285,
     "Chelsea": 1494.51359,
     "Coventry": 1473.02792,
     "Crystal Palace": 1446.62346,
-    "Everton": 1517.90828,
+    "Everton": 1509.18696,
     "Fulham": 1487.24136,
     "Hull": 1498.73728,
     "Ipswich": 1472.54293,
@@ -2737,6 +2751,14 @@
       "home": "Liverpool",
       "home_score": 4,
       "kickoff_utc": "2026-11-22T16:30:00+00:00"
+    },
+    {
+      "away": "Everton",
+      "away_score": 0,
+      "fixture_id": "401879237",
+      "home": "Brentford",
+      "home_score": 4,
+      "kickoff_utc": "2026-11-23T20:00:00+00:00"
     }
   ],
   "standings": [
@@ -2796,6 +2818,17 @@
       "won": 5
     },
     {
+      "club": "Brentford",
+      "drawn": 5,
+      "ga": 11,
+      "gd": 9,
+      "gf": 20,
+      "lost": 2,
+      "played": 11,
+      "points": 17,
+      "won": 4
+    },
+    {
       "club": "Leeds United",
       "drawn": 5,
       "ga": 9,
@@ -2804,17 +2837,6 @@
       "lost": 2,
       "played": 11,
       "points": 17,
-      "won": 4
-    },
-    {
-      "club": "Everton",
-      "drawn": 4,
-      "ga": 10,
-      "gd": 2,
-      "gf": 12,
-      "lost": 2,
-      "played": 10,
-      "points": 16,
       "won": 4
     },
     {
@@ -2829,6 +2851,17 @@
       "won": 5
     },
     {
+      "club": "Everton",
+      "drawn": 4,
+      "ga": 14,
+      "gd": -2,
+      "gf": 12,
+      "lost": 3,
+      "played": 11,
+      "points": 16,
+      "won": 4
+    },
+    {
       "club": "Tottenham",
       "drawn": 3,
       "ga": 11,
@@ -2838,17 +2871,6 @@
       "played": 11,
       "points": 15,
       "won": 4
-    },
-    {
-      "club": "Brentford",
-      "drawn": 5,
-      "ga": 11,
-      "gd": 5,
-      "gf": 16,
-      "lost": 2,
-      "played": 10,
-      "points": 14,
-      "won": 3
     },
     {
       "club": "Hull",
