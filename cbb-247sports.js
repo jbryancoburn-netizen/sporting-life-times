@@ -90,7 +90,7 @@
       if (!school) {
         const collected = formatTime(wire.updated_at);
         status.textContent = Date.now() - Date.parse(wire.updated_at) > 60 * 60 * 1000 && collected
-          ? 'Last collected ' + collected + '.'
+          ? '247Sports collection delayed. Showing last verified headlines from ' + collected + '. Open the publisher for current reporting.'
           : stories.length ? '' : 'No recent ' + edition + ' basketball headlines from 247Sports.';
       } else if (stories.length) {
         status.textContent = !check?.available || Date.now() - Date.parse(lastSuccess) > 60 * 60 * 1000
