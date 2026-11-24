@@ -152,6 +152,19 @@ for(const nav of navs){
    event.preventDefault();location.assign(dest.href);
   },true);
  }
+ // Consistent wayfinding for every college-basketball desk, including school and conference pages.
+ const essentials=[
+  ['News Desk',front+'#cbb-front-news'],
+  ['247Sports',front+'#cbb-247-title'],
+  ['Conferences',women?'ncaaw-conference.html':'ncaam-conference.html'],
+  ['Daily Ledger',women?'ncaam-slate.html?gender=women':'ncaam-slate.html?gender=men'],
+  ['Team Directory',front+'#teams']
+ ];
+ for(const [label,href] of essentials){
+  if([...nav.querySelectorAll('a')].some(a=>a.textContent.trim()===label))continue;
+  const anchor=document.createElement('a');anchor.href=href;anchor.textContent=label;
+  anchor.className='cbb-essential-link';nav.append(anchor);
+ }
  const links=[...nav.querySelectorAll('a')];
  if(document.body.dataset.sltFront!=='cbb')links.filter(a=>/Live Game Center/i.test(a.textContent)).forEach(a=>a.remove());
  const rating=links.find(a=>/RETRO Rankings|USRS Rankings|Power Index|^Rankings$/i.test(a.textContent.trim()));
