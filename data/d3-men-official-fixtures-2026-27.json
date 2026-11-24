@@ -3,7 +3,7 @@
   "division": "d3",
   "gender": "men",
   "season": "2026-27",
-  "generated_utc": "2026-11-23T20:17:29.037194+00:00",
+  "generated_utc": "2026-11-24T04:50:27.462852+00:00",
   "source": "NCAA 2026-27 member directory + year/gender-validated official school athletics calendars",
   "scope": "NCAA membership-wide first pass; sources without independently validated 2026-27 schedules excluded",
   "ncaa_confirmed_programs": 406,
@@ -14,8 +14,8 @@
   "school_calendars_unresolved": 17,
   "source_status_counts": {
     "parsed": 358,
-    "failed": 17,
-    "parsed_conference": 31
+    "parsed_conference": 31,
+    "failed": 17
   },
   "last_verified_school_source": {
     "4": "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
@@ -1630,9 +1630,9 @@
       "owner_org_id": 190,
       "source_url": "https://www.drewrangers.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "readable_rows": 28,
-      "verified_member_opponents": 23,
+      "verified_member_opponents": 22,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 4,
+        "identity_not_d3_matched_but_posted": 5,
         "conditional_or_ambiguous_opponent": 1
       },
       "status": "parsed",
@@ -2327,7 +2327,7 @@
       "verified_member_opponents": 18,
       "excluded_rows": {},
       "approved_at": "2024-10-08",
-      "university_source_failure": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
+      "university_source_failure": "HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not ",
       "university_source_status": "failed"
     },
     {
@@ -2857,7 +2857,7 @@
       "verified_member_opponents": 18,
       "excluded_rows": {},
       "approved_at": "2024-10-08",
-      "university_source_failure": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
+      "university_source_failure": "HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual pa",
       "university_source_status": "failed"
     },
     {
@@ -3489,9 +3489,9 @@
       "owner_org_id": 555,
       "source_url": "https://www.principiaathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true",
       "readable_rows": 26,
-      "verified_member_opponents": 17,
+      "verified_member_opponents": 19,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 9
+        "identity_not_d3_matched_but_posted": 7
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -5692,9 +5692,9 @@
       "owner_org_id": 1203,
       "source_url": "https://cruathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true",
       "readable_rows": 26,
-      "verified_member_opponents": 21,
+      "verified_member_opponents": 20,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 4,
+        "identity_not_d3_matched_but_posted": 5,
         "conditional_or_ambiguous_opponent": 1
       },
       "status": "parsed",
@@ -6288,9 +6288,9 @@
       "owner_org_id": 8746,
       "source_url": "https://www.southwesternpirates.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "readable_rows": 26,
-      "verified_member_opponents": 15,
+      "verified_member_opponents": 14,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 10,
+        "identity_not_d3_matched_but_posted": 11,
         "conditional_or_ambiguous_opponent": 1
       },
       "status": "parsed",
@@ -8181,9 +8181,9 @@
       ]
     }
   ],
-  "fixture_count": 4422,
+  "fixture_count": 4421,
   "reciprocal_fixtures": 2636,
-  "unresolved_opponent_fixture_count": 1663,
+  "unresolved_opponent_fixture_count": 1666,
   "unresolved_opponent_fixtures": [
     {
       "id": "d3-men-2026-11-06-18-other-7e7a67cf3608",
@@ -13031,6 +13031,21 @@
       "venue_location": "Hampden-Sydney, VA / Kirby Sports Center"
     },
     {
+      "id": "d3-men-2026-11-21-271-other-ae12a2cc9ea0",
+      "date": "2026-11-21",
+      "source_owner_org_id": 271,
+      "external_opponent_label": "Southwestern",
+      "placement": "home",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://hsuathletics.com/sports/mens-basketball/schedule?grid=true",
+      "tipoff_as_posted": "6 p.m.",
+      "venue_location": "Abilene, Texas / Mabee Complex"
+    },
+    {
       "id": "d3-men-2026-11-21-300-other-fb5c01bfa809",
       "date": "2026-11-21",
       "source_owner_org_id": 300,
@@ -13451,6 +13466,21 @@
       "venue_location": "Forest Grove, OR / Stoller Center"
     },
     {
+      "id": "d3-men-2026-11-21-8746-other-c67bb87542d7",
+      "date": "2026-11-21",
+      "source_owner_org_id": 8746,
+      "external_opponent_label": "#6 Hardin-Simmons University",
+      "placement": "away",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://www.southwesternpirates.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "6:00 PM",
+      "venue_location": "Abilene, TX"
+    },
+    {
       "id": "d3-men-2026-11-21-9500-other-751f6be56a83",
       "date": "2026-11-21",
       "source_owner_org_id": 9500,
@@ -13792,7 +13822,7 @@
       "schedule_only": true,
       "source_kind": "official_school",
       "source_url": "https://golinfieldwildcats.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "6 p.m.",
+      "tipoff_as_posted": "7 p.m.",
       "venue_location": "Pasadena, Calif."
     },
     {
@@ -14664,6 +14694,21 @@
       "source_url": "https://www.uofoathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "1:00 pm",
       "venue_location": "St. Louis, MO"
+    },
+    {
+      "id": "d3-men-2026-11-28-27892-other-cd4ad946eba6",
+      "date": "2026-11-28",
+      "source_owner_org_id": 27892,
+      "external_opponent_label": "No. 10 Wesleyan (Conn.)",
+      "placement": "away",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://www.farmingdalesports.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "tipoff_as_posted": "2 pm",
+      "venue_location": "Middletown, CT"
     },
     {
       "id": "d3-men-2026-11-28-30146-other-53c9534097a9",
@@ -16541,10 +16586,10 @@
       "venue_location": "Langhorne, PA / Mason Activity Center"
     },
     {
-      "id": "d3-men-2026-12-08-8746-other-3601883d399a",
+      "id": "d3-men-2026-12-08-8746-other-7d45077b3b59",
       "date": "2026-12-08",
       "source_owner_org_id": 8746,
-      "external_opponent_label": "#12 Trinity University (Texas) * *",
+      "external_opponent_label": "#24 Trinity University (Texas) * *",
       "placement": "away",
       "status": "scheduled",
       "elo_eligible": false,
@@ -18386,10 +18431,10 @@
       "venue_location": "Baltimore, Md. / MBK Sports Complex"
     },
     {
-      "id": "d3-men-2026-12-18-8746-other-a2f6d1902d14",
+      "id": "d3-men-2026-12-18-8746-other-7eb40dcbe69f",
       "date": "2026-12-18",
       "source_owner_org_id": 8746,
-      "external_opponent_label": "Maryville College * *",
+      "external_opponent_label": "RV Maryville College * *",
       "placement": "away",
       "status": "scheduled",
       "elo_eligible": false,
@@ -18562,7 +18607,7 @@
       "schedule_only": true,
       "source_kind": "official_school",
       "source_url": "https://www.uwwsports.com/sports/mens-basketball/schedule?grid=true",
-      "tipoff_as_posted": "TBD",
+      "tipoff_as_posted": "2:30 PM (PT)",
       "venue_location": "Pasadena, CA"
     },
     {
@@ -18836,10 +18881,10 @@
       "venue_location": "Las Vegas, NV | Cox Pavilion"
     },
     {
-      "id": "d3-men-2026-12-22-565-other-528ba26c7c54",
+      "id": "d3-men-2026-12-22-565-other-fdd12f4ca779",
       "date": "2026-12-22",
       "source_owner_org_id": 565,
-      "external_opponent_label": "Keene State/ #24 Chicago",
+      "external_opponent_label": "Keene State/ #18 Chicago",
       "placement": "neutral",
       "status": "scheduled",
       "elo_eligible": false,
@@ -18956,10 +19001,10 @@
       "venue_location": "High Point, N.C."
     },
     {
-      "id": "d3-men-2026-12-28-565-other-23d7a7e628f3",
+      "id": "d3-men-2026-12-28-565-other-704f5e240bb6",
       "date": "2026-12-28",
       "source_owner_org_id": 565,
-      "external_opponent_label": "#2 Chris. Newport vs. Scranton",
+      "external_opponent_label": "#15 Chris. Newport vs. Scranton",
       "placement": "neutral",
       "status": "scheduled",
       "elo_eligible": false,
@@ -19211,10 +19256,10 @@
       "venue_location": "Jackson, MS (Millsaps College)"
     },
     {
-      "id": "d3-men-2026-12-29-565-other-b25dd7d1579d",
+      "id": "d3-men-2026-12-29-565-other-eaf89c1d728e",
       "date": "2026-12-29",
       "source_owner_org_id": 565,
-      "external_opponent_label": "#2 Chris. Newport vs. #19 Babson",
+      "external_opponent_label": "#15 Chris. Newport vs. #17 Babson",
       "placement": "neutral",
       "status": "scheduled",
       "elo_eligible": false,
@@ -21461,10 +21506,10 @@
       "venue_location": "Sewanee, Tenn."
     },
     {
-      "id": "d3-men-2027-01-08-8746-other-67c11364137b",
+      "id": "d3-men-2027-01-08-8746-other-2f8fb93e0457",
       "date": "2027-01-08",
       "source_owner_org_id": 8746,
-      "external_opponent_label": "RV Rhodes College * *",
+      "external_opponent_label": "#22 Rhodes College * *",
       "placement": "away",
       "status": "scheduled",
       "elo_eligible": false,
@@ -24821,10 +24866,10 @@
       "venue_location": "Watertown, Wis. / Maranatha Gymnasium"
     },
     {
-      "id": "d3-men-2027-01-26-8746-other-25341dbd3e9e",
+      "id": "d3-men-2027-01-26-8746-other-ee4f699a1ff1",
       "date": "2027-01-26",
       "source_owner_org_id": 8746,
-      "external_opponent_label": "#12 Trinity University (Texas) * *",
+      "external_opponent_label": "#24 Trinity University (Texas) * *",
       "placement": "home",
       "status": "scheduled",
       "elo_eligible": false,
@@ -26606,10 +26651,10 @@
       "venue_location": "Utica, NY"
     },
     {
-      "id": "d3-men-2027-02-05-8746-other-1ea61781bba4",
+      "id": "d3-men-2027-02-05-8746-other-58aea4fd17f6",
       "date": "2027-02-05",
       "source_owner_org_id": 8746,
-      "external_opponent_label": "RV Rhodes College * *",
+      "external_opponent_label": "#22 Rhodes College * *",
       "placement": "home",
       "status": "scheduled",
       "elo_eligible": false,
@@ -29276,10 +29321,10 @@
       "venue_location": "Houston, Texas"
     },
     {
-      "id": "d3-men-2027-02-19-8746-other-eee57ae8af27",
+      "id": "d3-men-2027-02-19-8746-other-b41bb8cdcc7b",
       "date": "2027-02-19",
       "source_owner_org_id": 8746,
-      "external_opponent_label": "Maryville College * *",
+      "external_opponent_label": "RV Maryville College * *",
       "placement": "home",
       "status": "scheduled",
       "elo_eligible": false,
@@ -51869,30 +51914,6 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
-      "id": "d3-men-2026-11-21-271-8746",
-      "date": "2026-11-21",
-      "away_org_id": 8746,
-      "home_org_id": 271,
-      "neutral": false,
-      "status": "scheduled",
-      "source_url": "https://www.southwesternpirates.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "official_schedule_sources": [
-        "https://www.southwesternpirates.com/sports/mens-basketball/schedule/2026-27?grid=true"
-      ],
-      "verified_by_org_ids": [
-        8746
-      ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
-      "tipoff_as_posted": "6:00 PM",
-      "venue": "",
-      "venue_location": "Abilene, TX",
-      "network_as_posted": "",
-      "radio_as_posted": "",
-      "tournament": "",
-      "neutral_home_designation_unconfirmed": false
-    },
-    {
       "id": "d3-men-2026-11-21-272-779",
       "date": "2026-11-21",
       "away_org_id": 272,
@@ -54897,7 +54918,7 @@
       "venue_location": "Portland, OR",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "L, 88-106",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -56125,15 +56146,13 @@
       "status": "scheduled",
       "source_url": "https://www.gonyuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.drewrangers.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.gonyuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
-        190,
         479
       ],
       "source_kind": "official_school",
-      "source_verification": "reciprocal",
+      "source_verification": "single_official_school",
       "tipoff_as_posted": "3:00 PM",
       "venue": "John A. Paulson Center",
       "venue_location": "New York, NY",
@@ -57609,15 +57628,13 @@
       "status": "scheduled",
       "source_url": "https://athletics.uwsp.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://athletics.uwsp.edu/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://cruathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true"
+        "https://athletics.uwsp.edu/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
-        802,
-        1203
+        802
       ],
       "source_kind": "official_school",
-      "source_verification": "reciprocal",
+      "source_verification": "single_official_school",
       "tipoff_as_posted": "6:00 p.m.",
       "venue": "Bennett Court at Quandt Fieldhouse",
       "venue_location": "Stevens Point, Wis.",
@@ -60035,7 +60052,7 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "7 p.m.",
-      "venue": "Riddle Center",
+      "venue": "March F. Riddle Center",
       "venue_location": "Fayetteville, N.C.",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -91818,17 +91835,19 @@
       "home_org_id": 555,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://lyonscots.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.principiaathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
-        "https://lyonscots.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://lyonscots.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.principiaathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true"
       ],
       "verified_by_org_ids": [
+        555,
         22989
       ],
       "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "3:00 PM",
-      "venue": "",
+      "venue": "Hay Field House",
       "venue_location": "Elsah, IL",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -114516,13 +114535,15 @@
       "status": "scheduled",
       "source_url": "https://lyonscots.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://lyonscots.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://lyonscots.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.principiaathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true"
       ],
       "verified_by_org_ids": [
+        555,
         22989
       ],
       "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "7:30 PM",
       "venue": "Becknell Gymnasium",
       "venue_location": "Batesville, Arkansas",

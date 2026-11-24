@@ -3,7 +3,7 @@
   "division": "d3",
   "gender": "women",
   "season": "2026-27",
-  "generated_utc": "2026-11-23T20:18:36.041840+00:00",
+  "generated_utc": "2026-11-24T04:51:21.014068+00:00",
   "source": "NCAA 2026-27 member directory + year/gender-validated official school athletics calendars",
   "scope": "NCAA membership-wide first pass; sources without independently validated 2026-27 schedules excluded",
   "ncaa_confirmed_programs": 415,
@@ -3814,9 +3814,9 @@
       "owner_org_id": 555,
       "source_url": "https://www.principiaathletics.com/sports/womens-basketball/schedule?grid=true",
       "readable_rows": 20,
-      "verified_member_opponents": 15,
+      "verified_member_opponents": 17,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 5
+        "identity_not_d3_matched_but_posted": 3
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
@@ -6006,9 +6006,9 @@
       "owner_org_id": 1255,
       "source_url": "https://athletics.une.edu/sports/womens-basketball/schedule?grid=true",
       "readable_rows": 29,
-      "verified_member_opponents": 20,
+      "verified_member_opponents": 19,
       "excluded_rows": {
-        "identity_not_d3_matched_but_posted": 6,
+        "identity_not_d3_matched_but_posted": 7,
         "conditional_or_ambiguous_opponent": 3
       },
       "status": "parsed",
@@ -8381,8 +8381,8 @@
       ]
     }
   ],
-  "fixture_count": 4560,
-  "reciprocal_fixtures": 2722,
+  "fixture_count": 4558,
+  "reciprocal_fixtures": 2725,
   "unresolved_opponent_fixture_count": 1569,
   "unresolved_opponent_fixtures": [
     {
@@ -14581,6 +14581,21 @@
       "venue_location": "La Crosse, WI"
     },
     {
+      "id": "d3-women-2026-11-29-1255-other-dcf3740bbed1",
+      "date": "2026-11-29",
+      "source_owner_org_id": 1255,
+      "external_opponent_label": "#20 Bates",
+      "placement": "home",
+      "status": "scheduled",
+      "elo_eligible": false,
+      "opponent_d3_identity_unverified": true,
+      "schedule_only": true,
+      "source_kind": "official_school",
+      "source_url": "https://athletics.une.edu/sports/womens-basketball/schedule?grid=true",
+      "tipoff_as_posted": "1:00 pm",
+      "venue_location": "Biddeford, Maine / Harold Alfond Forum"
+    },
+    {
       "id": "d3-women-2026-11-29-2758-other-2a72c11effd6",
       "date": "2026-11-29",
       "source_owner_org_id": 2758,
@@ -18119,21 +18134,6 @@
       "source_url": "https://www.cucougars.com/sports/womens-basketball/schedule?grid=true",
       "tipoff_as_posted": "4:30 PM",
       "venue_location": "Springfield, Ill. / TRAC"
-    },
-    {
-      "id": "d3-women-2026-12-18-364-other-c25d4e64b64b",
-      "date": "2026-12-18",
-      "source_owner_org_id": 364,
-      "external_opponent_label": "Wheaton College (Ill.)",
-      "placement": "home",
-      "status": "scheduled",
-      "elo_eligible": false,
-      "opponent_d3_identity_unverified": true,
-      "schedule_only": true,
-      "source_kind": "official_school",
-      "source_url": "https://www.duhawks.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "tipoff_as_posted": "2:00 PM",
-      "venue_location": "Dubuque, Iowa / Lillis Athletic & Wellness Center"
     },
     {
       "id": "d3-women-2026-12-18-396-other-bd34ae4b475f",
@@ -21688,7 +21688,7 @@
       "source_kind": "official_school",
       "source_url": "https://www.franciscanathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "tipoff_as_posted": "6 PM",
-      "venue_location": "Monaca PA"
+      "venue_location": "Monaca, PA"
     },
     {
       "id": "d3-women-2027-01-13-30085-other-595164aa7932",
@@ -23476,10 +23476,10 @@
       "venue_location": "Oswego, N.Y."
     },
     {
-      "id": "d3-women-2027-01-23-567-other-7a57d450749b",
+      "id": "d3-women-2027-01-23-567-other-1707fcd0fe14",
       "date": "2027-01-23",
       "source_owner_org_id": 567,
-      "external_opponent_label": "Claremont-Mudd-Scripps Colleges * *",
+      "external_opponent_label": "Claremont-Mudd-Scripps * *",
       "placement": "away",
       "status": "scheduled",
       "elo_eligible": false,
@@ -26146,10 +26146,10 @@
       "venue_location": "Lisle, Ill."
     },
     {
-      "id": "d3-women-2027-02-06-1255-other-7ccb039e2013",
+      "id": "d3-women-2027-02-06-1255-other-c3fc5b7c2ec7",
       "date": "2027-02-06",
       "source_owner_org_id": 1255,
-      "external_opponent_label": "Johnson & Wales (R.I.) * *",
+      "external_opponent_label": "Johnson & Wales (R.I.) [#RV] * *",
       "placement": "away",
       "status": "scheduled",
       "elo_eligible": false,
@@ -27271,10 +27271,10 @@
       "venue_location": "Mahwah, NJ / Bradley Center"
     },
     {
-      "id": "d3-women-2027-02-13-567-other-9579d8194fe3",
+      "id": "d3-women-2027-02-13-567-other-ca1507d919b5",
       "date": "2027-02-13",
       "source_owner_org_id": 567,
-      "external_opponent_label": "Claremont-Mudd-Scripps Colleges * *",
+      "external_opponent_label": "Claremont-Mudd-Scripps * *",
       "placement": "home",
       "status": "scheduled",
       "elo_eligible": false,
@@ -28741,10 +28741,10 @@
       "venue_location": "Watertown, Wis. / Maranatha Gymnasium"
     },
     {
-      "id": "d3-women-2027-02-20-1255-other-69b2bb7b9f90",
+      "id": "d3-women-2027-02-20-1255-other-29ecb3e5d1df",
       "date": "2027-02-20",
       "source_owner_org_id": 1255,
-      "external_opponent_label": "Johnson & Wales (R.I.) * *",
+      "external_opponent_label": "Johnson & Wales (R.I.) [#RV] * *",
       "placement": "home",
       "status": "scheduled",
       "elo_eligible": false,
@@ -53357,7 +53357,7 @@
       "venue_location": "Cambridge, MA",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 81-50",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -53443,7 +53443,7 @@
       "home_org_id": 1130,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://collegiateconferenceofthesouth.com/schedule.aspx?schedule=549",
+      "source_url": "https://www.bereaathletics.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://collegiateconferenceofthesouth.com/schedule.aspx?schedule=549",
         "https://www.bereaathletics.com/sports/womens-basketball/schedule?grid=true"
@@ -53454,12 +53454,12 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "12:00 P.M.",
+      "tipoff_as_posted": "1:00 PM",
       "venue": "",
       "venue_location": "Montgomery, AL",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "W, 69-47",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -53504,7 +53504,7 @@
       ],
       "source_kind": "official_conference",
       "source_verification": "single_official_conference",
-      "tipoff_as_posted": "5:00 P.M.",
+      "tipoff_as_posted": "",
       "venue": "",
       "venue_location": "",
       "network_as_posted": "",
@@ -53587,7 +53587,7 @@
       "venue_location": "Swannanoa, NC",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "L, 59-96",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -57281,30 +57281,6 @@
       "tipoff_as_posted": "1:00 pm",
       "venue": "Staake Gymnasium",
       "venue_location": "Babson Park, Mass.",
-      "network_as_posted": "",
-      "radio_as_posted": "",
-      "tournament": "",
-      "neutral_home_designation_unconfirmed": false
-    },
-    {
-      "id": "d3-women-2026-11-29-50-1255",
-      "date": "2026-11-29",
-      "away_org_id": 50,
-      "home_org_id": 1255,
-      "neutral": false,
-      "status": "scheduled",
-      "source_url": "https://athletics.une.edu/sports/womens-basketball/schedule?grid=true",
-      "official_schedule_sources": [
-        "https://athletics.une.edu/sports/womens-basketball/schedule?grid=true"
-      ],
-      "verified_by_org_ids": [
-        1255
-      ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
-      "tipoff_as_posted": "1:00 pm",
-      "venue": "Harold Alfond Forum",
-      "venue_location": "Biddeford, Maine",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -62001,13 +61977,15 @@
       "status": "scheduled",
       "source_url": "https://www.uwwsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://udspartans.com/sports/womens-basketball/schedule?grid=true",
         "https://www.uwwsports.com/sports/womens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
+        192,
         805
       ],
       "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "7 PM",
       "venue": "Kachel Gymnasium in Williams Center",
       "venue_location": "Whitewater, WI",
@@ -63615,30 +63593,6 @@
       "tipoff_as_posted": "2 p.m.",
       "venue": "Lamade Gym",
       "venue_location": "Williamsport, Pa.",
-      "network_as_posted": "",
-      "radio_as_posted": "",
-      "tournament": "",
-      "neutral_home_designation_unconfirmed": false
-    },
-    {
-      "id": "d3-women-2026-12-05-192-805",
-      "date": "2026-12-05",
-      "away_org_id": 192,
-      "home_org_id": 805,
-      "neutral": false,
-      "status": "scheduled",
-      "source_url": "https://udspartans.com/sports/womens-basketball/schedule?grid=true",
-      "official_schedule_sources": [
-        "https://udspartans.com/sports/womens-basketball/schedule?grid=true"
-      ],
-      "verified_by_org_ids": [
-        192
-      ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
-      "tipoff_as_posted": "1:00 p.m.",
-      "venue": "Kachel Gymnasium in Williams Center",
-      "venue_location": "Whitewater, Wis.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -74693,6 +74647,30 @@
       "neutral_home_designation_unconfirmed": true
     },
     {
+      "id": "d3-women-2026-12-18-364-778",
+      "date": "2026-12-18",
+      "away_org_id": 778,
+      "home_org_id": 364,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://athletics.wheaton.edu/sports/womens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://athletics.wheaton.edu/sports/womens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        778
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "2:00 PM",
+      "venue": "",
+      "venue_location": "Dubuque, Iowa",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-women-2026-12-18-373-492",
       "date": "2026-12-18",
       "away_org_id": 373,
@@ -75899,30 +75877,6 @@
       "tipoff_as_posted": "2:00 PM",
       "venue": "Currier Gymnasium",
       "venue_location": "Redlands, Calif.",
-      "network_as_posted": "",
-      "radio_as_posted": "",
-      "tournament": "",
-      "neutral_home_designation_unconfirmed": false
-    },
-    {
-      "id": "d3-women-2026-12-19-364-778",
-      "date": "2026-12-19",
-      "away_org_id": 778,
-      "home_org_id": 364,
-      "neutral": false,
-      "status": "scheduled",
-      "source_url": "https://athletics.wheaton.edu/sports/womens-basketball/schedule/2026-27?grid=true",
-      "official_schedule_sources": [
-        "https://athletics.wheaton.edu/sports/womens-basketball/schedule/2026-27?grid=true"
-      ],
-      "verified_by_org_ids": [
-        778
-      ],
-      "source_kind": "official_school",
-      "source_verification": "single_official_school",
-      "tipoff_as_posted": "2:00 PM",
-      "venue": "",
-      "venue_location": "Dubuque, Iowa",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -92077,17 +92031,19 @@
       "home_org_id": 555,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://lyonscots.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.principiaathletics.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://lyonscots.com/sports/womens-basketball/schedule/2026-27?grid=true"
+        "https://lyonscots.com/sports/womens-basketball/schedule/2026-27?grid=true",
+        "https://www.principiaathletics.com/sports/womens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
+        555,
         22989
       ],
       "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "1:00 PM",
-      "venue": "",
+      "venue": "Hay Field House",
       "venue_location": "Elsah, IL",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -98857,7 +98813,7 @@
       "venue_location": "READING",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "Black Out Game",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -107667,7 +107623,7 @@
       "venue_location": "READING",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "Alumni Appreciation Day",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -115695,13 +115651,15 @@
       "status": "scheduled",
       "source_url": "https://lyonscots.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://lyonscots.com/sports/womens-basketball/schedule/2026-27?grid=true"
+        "https://lyonscots.com/sports/womens-basketball/schedule/2026-27?grid=true",
+        "https://www.principiaathletics.com/sports/womens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
+        555,
         22989
       ],
       "source_kind": "official_school",
-      "source_verification": "single_official_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "5:30 PM",
       "venue": "Becknell Gymnasium",
       "venue_location": "Batesville, AR",
@@ -134511,7 +134469,7 @@
       "venue_location": "READING",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "Senior Day",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -138881,7 +138839,7 @@
       "venue_location": "READING",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "",
+      "tournament": "Play4Kay Game",
       "neutral_home_designation_unconfirmed": false
     },
     {
