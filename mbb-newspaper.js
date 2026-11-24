@@ -17,8 +17,10 @@ const easternGameDay=value=>{
  }).format(date):'';
 };
 const page=document.body.dataset.page,params=new URLSearchParams(location.search);
-const files=['data/ncaam-2026-27-preseason-player-quality-live.json','data/ncaam-2026-27-current-provisional.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/ncaam-2026-27-game-ledger.json','data/ncaam-2026-27-upcoming-forecasts.json','data/ncaam-2026-27-national-polls.json','articles.json','multi_scoreboards.json','data/mbb-live.json','data/mbb-current-player-stats.json','data/mbb-overall-records-2026-27.json'];
+const files=['data/ncaam-2026-27-preseason-player-quality-live.json','data/ncaam-2026-27-current-provisional.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/ncaam-2026-27-game-ledger.json','data/ncaam-2026-27-upcoming-forecasts.json','data/ncaam-2026-27-national-polls.json','data/cbb-national-news.json','multi_scoreboards.json','data/mbb-live.json','data/mbb-current-player-stats.json','data/mbb-overall-records-2026-27.json'];
 let [pre,current,cross,ledger,schedule,polls,news,scoreboards,wire,currentPlayers,verifiedOverall]=await Promise.all(files.map(get));
+// Prefer the dedicated, source-verified basketball newsroom rather than the unrelated general sports archive.
+let archiveNews=await get('articles.json');
 const selectedTeam=(cross?.teams||[]).find(x=>x.id===params.get('team')||String(x.espn_id)===params.get('team'));
 if(page==='team'&&selectedTeam)params.set('team',selectedTeam.id);
 let bigTenNews=page==='conference'&&params.get('conference')==='Big Ten'?await get('data/mbb-team-news/big-ten.json'):null;
@@ -212,7 +214,7 @@ function liveRail(){
 function stories(team=null,conference=null){
  const curated=(team&&teamNews?.team_id===team.team_id)?teamNews.articles||[]:[];
  const conferenceCurated=conference==='Big Ten'?(bigTenNews?.articles||[]):[];
- const list=[...curated,...conferenceCurated,...(wire?.articles||[]),...(news?.articles||[])].filter(a=>a.category!=='WBB'&&a.title&&url(a.url)&&(curated.includes(a)||conferenceCurated.includes(a)||/college basketball|ncaa basketball|march madness|ncaam|men.s basketball/i.test([a.title,a.summary,a.category].join(' '))||a.category==='MBB'));
+ const list=[...curated,...conferenceCurated,...(news?.articles||[]),...(wire?.articles||[]),...(archiveNews?.articles||[])].filter(a=>a.category!=='WBB'&&a.title&&url(a.url)&&(curated.includes(a)||conferenceCurated.includes(a)||/college basketball|ncaa basketball|march madness|ncaam|men.s basketball/i.test([a.title,a.summary,a.category].join(' '))||a.category==='MBB'));
  const seen=new Set(),headlines=new Set();let filtered=list.sort((a,b)=>(Date.parse(b.published_at)||0)-(Date.parse(a.published_at)||0)).filter(a=>{const key=String(a.title).toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();if(seen.has(a.url)||headlines.has(key))return false;seen.add(a.url);headlines.add(key);return true;});
  if(team||conference){const names=team?[team.team,...((cross?.teams||[]).find(t=>t.id===team.team_id)?.espn_name?[cross.teams.find(t=>t.id===team.team_id).espn_name]:[])]:teams.filter(t=>t.conference===conference).map(t=>t.team);filtered=filtered.filter(a=>curated.includes(a)||conferenceCurated.includes(a)||names.some(n=>String(a.title||'').toLowerCase().includes(n.toLowerCase()))||(conference==='Big Ten'&&/\bbig ten\b|\bb1g\b|\bpenn state\b|\bohio state\b|\bmichigan state\b|\bboilermakers\b|\bhoosiers\b|\bbruins\b|\bspartans\b/i.test(a.title||''))).filter(a=>!conference||!/ex[- ](?:purdue|michigan|indiana|ucla|illinois|wisconsin|iowa|nebraska|rutgers|maryland|oregon|washington|northwestern|penn state|usc) (?:star|player)|former (?:purdue|michigan|indiana|ucla|illinois) (?:star|player)/i.test(a.title||''));}
  return filtered.length?filtered.slice(0,team||conference?12:9).map((a,i)=>'<article class="story '+(!i?'lead':'')+'">'+(!i&&url(a.image_url)?'<img class="story-img" alt="" loading="lazy" src="'+url(a.image_url)+'">':'')+'<div class="source">'+esc(a.source||'Reporting')+' · '+when(a.published_at)+'</div><h3><a href="'+url(a.url)+'" target="_blank" rel="noopener">'+esc(a.title)+'</a></h3>'+(i<3&&a.summary?'<p>'+esc(a.summary.slice(0,210))+'</p>':'')+'</article>').join(''):empty(team||conference?'No matching stories in the current reporting feed.':'No current attributed basketball stories were returned. Last successful stories will remain when a feed fails.');
@@ -612,7 +614,7 @@ async function refreshRatings(){
 }
 
 // Refresh data in-place without replacing searches or jumping the reader's scroll.
-let refreshing=false;setInterval(async()=>{if(document.hidden||refreshing)return;refreshing=true;try{const [nextWire,nextNews,nextScores,nextTeamNews]=await Promise.all([get('data/mbb-live.json'),get('articles.json'),get('multi_scoreboards.json'),page==='team'&&teamNews?.team_id?get('data/mbb-team-news/'+encodeURIComponent(ids.get(teamNews.team_id)||'')+'.json'):Promise.resolve(null)]);if(nextTeamNews)teamNews=nextTeamNews;
+let refreshing=false;setInterval(async()=>{if(document.hidden||refreshing)return;refreshing=true;try{const [nextWire,nextNews,nextScores,nextTeamNews]=await Promise.all([get('data/mbb-live.json'),get('data/cbb-national-news.json?refresh='+Date.now()),get('multi_scoreboards.json'),page==='team'&&teamNews?.team_id?get('data/mbb-team-news/'+encodeURIComponent(ids.get(teamNews.team_id)||'')+'.json'):Promise.resolve(null)]);if(nextTeamNews)teamNews=nextTeamNews;
  const nextPlayers=await get('data/mbb-current-player-stats.json');
  if(nextPlayers?.season==='2026-27'&&nextPlayers?.as_of!==currentPlayers?.as_of){
    currentPlayers=nextPlayers;
