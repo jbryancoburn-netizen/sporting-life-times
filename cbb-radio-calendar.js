@@ -23,6 +23,8 @@
  const montanaState = 'https://msubobcats.com/sports/2026/11/17/fan-central';
  const affiliates = {
   men: {
+   '12': ['Wildcats Radio 1290 AM', 'https://arizonawildcats.com/coverage?path=mten'],
+   '153': ['Tar Heel Sports Network', 'https://goheels.com/news/2023/11/14/general-carolina-athletics-launches-redesigned-goheels-com'],
    '70': ['Vandal Radio Network', 'https://govandals.com/news/2026/11/17/mens-basketball-idaho-heads-to-reno-to-face-wolf-pack.aspx'],
    '93': ['Froggy 103.7 FM', 'https://goracers.com/sports/mens-basketball/schedule'],
    '147': ['Bobcat Sports Radio Network', montanaState],
@@ -60,6 +62,7 @@
    '130': ['94.7 FM WCSX', 'https://mgoblue.com/sports/2017/6/16/mens-basketball-broadcast-information']
   },
   women: {
+   '153': ['Tar Heel Sports Network · free game audio', 'https://goheels.com/news/2023/11/14/general-carolina-athletics-launches-redesigned-goheels-com'],
    '147': ['Bobcat Sports Radio Network', montanaState],
    '302': ['KDVS 90.3 FM', 'https://ucdavisaggies.com/schedule.aspx?path=wbball&season=2026-27'],
    '2006': ['WHLO 640 AM', 'https://gozips.com/sports/womens-basketball/schedule/'],
