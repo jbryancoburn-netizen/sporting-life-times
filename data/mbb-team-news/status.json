@@ -1,9 +1,18 @@
 {
-  "attempted_at": "2026-11-25T19:10:11.450284+00:00",
+  "attempted_at": "2026-11-26T03:30:40.447871+00:00",
   "teams": 365,
-  "updated": 365,
+  "updated": 362,
   "big_ten_schools_with_reporting": 18,
   "big_ten_articles": 120,
-  "no_new_headlines": 0,
-  "errors": []
+  "no_new_headlines": 1,
+  "errors": [
+    {
+      "espn_id": "27",
+      "error": "error:HTTP Error 429: Too Many Requests"
+    },
+    {
+      "espn_id": "2630",
+      "error": "error:HTTP Error 429: Too Many Requests"
+    }
+  ]
 }
