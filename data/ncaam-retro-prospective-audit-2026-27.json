@@ -4,23 +4,23 @@
   "model": "retro-wider-margin-120-140-v1",
   "status": "SHADOW_ONLY",
   "summary": {
-    "games": 352,
+    "games": 378,
     "baseline": {
-      "spread_mae": 12.3665,
-      "home_score_mae": 9.2244,
-      "away_score_mae": 9.2585,
-      "team_score_mae": 9.2415,
-      "total_mae": 13.4489
+      "spread_mae": 12.287,
+      "home_score_mae": 9.2698,
+      "away_score_mae": 9.2487,
+      "team_score_mae": 9.2593,
+      "total_mae": 13.5079
     },
     "wider_margin": {
-      "spread_mae": 12.9148,
-      "home_score_mae": 9.3466,
-      "away_score_mae": 9.6648,
-      "team_score_mae": 9.5057,
-      "total_mae": 13.4318
+      "spread_mae": 12.9669,
+      "home_score_mae": 9.3836,
+      "away_score_mae": 9.6429,
+      "team_score_mae": 9.5132,
+      "total_mae": 13.4815
     }
   },
-  "pending": 42,
+  "pending": 16,
   "excluded": 24,
   "by_date": {
     "2026-11-17": {
@@ -160,20 +160,20 @@
       }
     },
     "2026-11-25": {
-      "games": 1,
+      "games": 27,
       "baseline": {
-        "spread_mae": 34,
-        "home_score_mae": 12,
-        "away_score_mae": 22,
-        "team_score_mae": 17,
-        "total_mae": 10
+        "spread_mae": 12.0556,
+        "home_score_mae": 9.963,
+        "away_score_mae": 9.5926,
+        "team_score_mae": 9.7778,
+        "total_mae": 14.1481
       },
       "wider_margin": {
-        "spread_mae": 33,
-        "home_score_mae": 11,
-        "away_score_mae": 22,
-        "team_score_mae": 16.5,
-        "total_mae": 11
+        "spread_mae": 14.3889,
+        "home_score_mae": 9.9259,
+        "away_score_mae": 9.8148,
+        "team_score_mae": 9.8704,
+        "total_mae": 14.037
       }
     }
   },
@@ -15494,6 +15494,27 @@
       "actual_away": 49
     },
     {
+      "id": "espn:401909720",
+      "date": "2026-11-25",
+      "home_id": "ncaa:609482",
+      "away_id": "ncaa:609618",
+      "captured_at_utc": "2026-11-25T19:37:59.914Z",
+      "tipoff_at_utc": "2026-11-25T23:00Z",
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "baseline": {
+        "margin": 22.5,
+        "home": 85,
+        "away": 63
+      },
+      "wider_margin": {
+        "margin": 29.5,
+        "home": 89,
+        "away": 59
+      },
+      "actual_home": 74,
+      "actual_away": 53
+    },
+    {
       "id": "espn:401909800",
       "date": "2026-11-25",
       "home_id": "ncaa:609581",
@@ -15513,6 +15534,531 @@
       },
       "actual_home": 61,
       "actual_away": 101
+    },
+    {
+      "id": "espn:401911028",
+      "date": "2026-11-25",
+      "home_id": "ncaa:609526",
+      "away_id": "ncaa:609786",
+      "captured_at_utc": "2026-11-25T19:37:59.914Z",
+      "tipoff_at_utc": "2026-11-26T00:00Z",
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "baseline": {
+        "margin": 10,
+        "home": 81,
+        "away": 71
+      },
+      "wider_margin": {
+        "margin": 12,
+        "home": 82,
+        "away": 70
+      },
+      "actual_home": 91,
+      "actual_away": 54
+    },
+    {
+      "id": "espn:401911241",
+      "date": "2026-11-25",
+      "home_id": "ncaa:609845",
+      "away_id": "ncaa:609631",
+      "captured_at_utc": "2026-11-25T19:37:59.914Z",
+      "tipoff_at_utc": "2026-11-25T23:00Z",
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "baseline": {
+        "margin": 11,
+        "home": 82,
+        "away": 71
+      },
+      "wider_margin": {
+        "margin": 13.5,
+        "home": 84,
+        "away": 70
+      },
+      "actual_home": 86,
+      "actual_away": 79
+    },
+    {
+      "id": "espn:401917182",
+      "date": "2026-11-25",
+      "home_id": "ncaa:609819",
+      "away_id": "ncaa:609664",
+      "captured_at_utc": "2026-11-25T19:37:59.914Z",
+      "tipoff_at_utc": "2026-11-25T22:00Z",
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "baseline": {
+        "margin": -2,
+        "home": 78,
+        "away": 80
+      },
+      "wider_margin": {
+        "margin": -2.5,
+        "home": 77,
+        "away": 80
+      },
+      "actual_home": 70,
+      "actual_away": 83
+    },
+    {
+      "id": "espn:401918960",
+      "date": "2026-11-25",
+      "home_id": "ncaa:609556",
+      "away_id": "ncaa:609773",
+      "captured_at_utc": "2026-11-25T19:37:59.914Z",
+      "tipoff_at_utc": "2026-11-26T00:00Z",
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "baseline": {
+        "margin": 31,
+        "home": 92,
+        "away": 61
+      },
+      "wider_margin": {
+        "margin": 41.5,
+        "home": 98,
+        "away": 56
+      },
+      "actual_home": 80,
+      "actual_away": 49
+    },
+    {
+      "id": "espn:401919042",
+      "date": "2026-11-25",
+      "home_id": "ncaa:609807",
+      "away_id": "ncaa:609578",
+      "captured_at_utc": "2026-11-25T19:37:59.914Z",
+      "tipoff_at_utc": "2026-11-25T20:00Z",
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "baseline": {
+        "margin": 14,
+        "home": 85,
+        "away": 71
+      },
+      "wider_margin": {
+        "margin": 17.5,
+        "home": 87,
+        "away": 69
+      },
+      "actual_home": 93,
+      "actual_away": 58
+    },
+    {
+      "id": "espn:401920076",
+      "date": "2026-11-25",
+      "home_id": "ncaa:609737",
+      "away_id": "ncaa:609538",
+      "captured_at_utc": "2026-11-25T19:37:59.914Z",
+      "tipoff_at_utc": "2026-11-26T00:00Z",
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "baseline": {
+        "margin": 8.5,
+        "home": 76,
+        "away": 68
+      },
+      "wider_margin": {
+        "margin": 10,
+        "home": 77,
+        "away": 67
+      },
+      "actual_home": 93,
+      "actual_away": 58
+    },
+    {
+      "id": "espn:401920237",
+      "date": "2026-11-25",
+      "home_id": "ncaa:609711",
+      "away_id": "ncaa:609749",
+      "captured_at_utc": "2026-11-25T19:37:59.914Z",
+      "tipoff_at_utc": "2026-11-25T22:00Z",
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "baseline": {
+        "margin": 25.5,
+        "home": 86,
+        "away": 61
+      },
+      "wider_margin": {
+        "margin": 33.5,
+        "home": 91,
+        "away": 57
+      },
+      "actual_home": 65,
+      "actual_away": 67
+    },
+    {
+      "id": "espn:401920299",
+      "date": "2026-11-25",
+      "home_id": "ncaa:609517",
+      "away_id": "ncaa:609648",
+      "captured_at_utc": "2026-11-25T19:37:59.914Z",
+      "tipoff_at_utc": "2026-11-25T23:00Z",
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "baseline": {
+        "margin": 13,
+        "home": 88,
+        "away": 75
+      },
+      "wider_margin": {
+        "margin": 16,
+        "home": 89,
+        "away": 73
+      },
+      "actual_home": 67,
+      "actual_away": 89
+    },
+    {
+      "id": "espn:401920548",
+      "date": "2026-11-25",
+      "home_id": "ncaa:609781",
+      "away_id": "ncaa:609909",
+      "captured_at_utc": "2026-11-25T19:37:59.914Z",
+      "tipoff_at_utc": "2026-11-25T20:00Z",
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "baseline": {
+        "margin": -2,
+        "home": 75,
+        "away": 77
+      },
+      "wider_margin": {
+        "margin": -2.5,
+        "home": 75,
+        "away": 78
+      },
+      "actual_home": 72,
+      "actual_away": 73
+    },
+    {
+      "id": "espn:401920549",
+      "date": "2026-11-25",
+      "home_id": "ncaa:609539",
+      "away_id": "ncaa:609597",
+      "captured_at_utc": "2026-11-25T19:37:59.914Z",
+      "tipoff_at_utc": "2026-11-25T23:00Z",
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "baseline": {
+        "margin": -1.5,
+        "home": 76,
+        "away": 78
+      },
+      "wider_margin": {
+        "margin": -2,
+        "home": 76,
+        "away": 78
+      },
+      "actual_home": 91,
+      "actual_away": 77
+    },
+    {
+      "id": "espn:401920858",
+      "date": "2026-11-25",
+      "home_id": "ncaa:609659",
+      "away_id": "ncaa:609830",
+      "captured_at_utc": "2026-11-25T19:37:59.914Z",
+      "tipoff_at_utc": "2026-11-25T21:00Z",
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "baseline": {
+        "margin": 6,
+        "home": 77,
+        "away": 71
+      },
+      "wider_margin": {
+        "margin": 7,
+        "home": 78,
+        "away": 71
+      },
+      "actual_home": 64,
+      "actual_away": 58
+    },
+    {
+      "id": "espn:401920916",
+      "date": "2026-11-25",
+      "home_id": "ncaa:609471",
+      "away_id": "ncaa:609792",
+      "captured_at_utc": "2026-11-25T19:37:59.914Z",
+      "tipoff_at_utc": "2026-11-26T00:00Z",
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "baseline": {
+        "margin": -14,
+        "home": 69,
+        "away": 83
+      },
+      "wider_margin": {
+        "margin": -17.5,
+        "home": 67,
+        "away": 85
+      },
+      "actual_home": 65,
+      "actual_away": 68
+    },
+    {
+      "id": "espn:401921108",
+      "date": "2026-11-25",
+      "home_id": "ncaa:609796",
+      "away_id": "ncaa:609882",
+      "captured_at_utc": "2026-11-25T19:37:59.914Z",
+      "tipoff_at_utc": "2026-11-26T00:00Z",
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "baseline": {
+        "margin": 3.5,
+        "home": 79,
+        "away": 76
+      },
+      "wider_margin": {
+        "margin": 4,
+        "home": 79,
+        "away": 75
+      },
+      "actual_home": 52,
+      "actual_away": 66
+    },
+    {
+      "id": "espn:401921670",
+      "date": "2026-11-25",
+      "home_id": "ncaa:609469",
+      "away_id": "ncaa:609901",
+      "captured_at_utc": "2026-11-25T19:37:59.914Z",
+      "tipoff_at_utc": "2026-11-25T21:30Z",
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "baseline": {
+        "margin": 6,
+        "home": 77,
+        "away": 71
+      },
+      "wider_margin": {
+        "margin": 7,
+        "home": 77,
+        "away": 70
+      },
+      "actual_home": 71,
+      "actual_away": 69
+    },
+    {
+      "id": "espn:401921703",
+      "date": "2026-11-25",
+      "home_id": "ncaa:609611",
+      "away_id": "ncaa:609741",
+      "captured_at_utc": "2026-11-25T19:37:59.914Z",
+      "tipoff_at_utc": "2026-11-25T21:00Z",
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "baseline": {
+        "margin": -6,
+        "home": 74,
+        "away": 80
+      },
+      "wider_margin": {
+        "margin": -7,
+        "home": 73,
+        "away": 80
+      },
+      "actual_home": 77,
+      "actual_away": 72
+    },
+    {
+      "id": "espn:401921716",
+      "date": "2026-11-25",
+      "home_id": "ncaa:609834",
+      "away_id": "ncaa:609638",
+      "captured_at_utc": "2026-11-25T19:37:59.914Z",
+      "tipoff_at_utc": "2026-11-25T22:30Z",
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "baseline": {
+        "margin": -4.5,
+        "home": 73,
+        "away": 77
+      },
+      "wider_margin": {
+        "margin": -5.5,
+        "home": 72,
+        "away": 78
+      },
+      "actual_home": 82,
+      "actual_away": 85
+    },
+    {
+      "id": "espn:401922253",
+      "date": "2026-11-25",
+      "home_id": "ncaa:609797",
+      "away_id": "pending-ncaa-id:west-florida",
+      "captured_at_utc": "2026-11-25T19:37:59.914Z",
+      "tipoff_at_utc": "2026-11-25T23:00Z",
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "baseline": {
+        "margin": -3.5,
+        "home": 72,
+        "away": 75
+      },
+      "wider_margin": {
+        "margin": -4,
+        "home": 71,
+        "away": 75
+      },
+      "actual_home": 71,
+      "actual_away": 57
+    },
+    {
+      "id": "espn:401922285",
+      "date": "2026-11-25",
+      "home_id": "ncaa:609701",
+      "away_id": "ncaa:609606",
+      "captured_at_utc": "2026-11-25T19:37:59.914Z",
+      "tipoff_at_utc": "2026-11-26T00:00Z",
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "baseline": {
+        "margin": 18,
+        "home": 81,
+        "away": 63
+      },
+      "wider_margin": {
+        "margin": 23,
+        "home": 84,
+        "away": 61
+      },
+      "actual_home": 72,
+      "actual_away": 54
+    },
+    {
+      "id": "espn:401924737",
+      "date": "2026-11-25",
+      "home_id": "ncaa:609589",
+      "away_id": "ncaa:609832",
+      "captured_at_utc": "2026-11-25T19:37:59.914Z",
+      "tipoff_at_utc": "2026-11-25T21:00Z",
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "baseline": {
+        "margin": 1.5,
+        "home": 73,
+        "away": 72
+      },
+      "wider_margin": {
+        "margin": 2,
+        "home": 73,
+        "away": 71
+      },
+      "actual_home": 72,
+      "actual_away": 79
+    },
+    {
+      "id": "espn:401925050",
+      "date": "2026-11-25",
+      "home_id": "ncaa:609767",
+      "away_id": "ncaa:609552",
+      "captured_at_utc": "2026-11-25T19:37:59.914Z",
+      "tipoff_at_utc": "2026-11-25T21:00Z",
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "baseline": {
+        "margin": 3,
+        "home": 78,
+        "away": 75
+      },
+      "wider_margin": {
+        "margin": 3.5,
+        "home": 79,
+        "away": 75
+      },
+      "actual_home": 80,
+      "actual_away": 81
+    },
+    {
+      "id": "espn:401925688",
+      "date": "2026-11-25",
+      "home_id": "ncaa:609477",
+      "away_id": "ncaa:609619",
+      "captured_at_utc": "2026-11-25T19:37:59.914Z",
+      "tipoff_at_utc": "2026-11-25T22:00Z",
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "baseline": {
+        "margin": 30.5,
+        "home": 89,
+        "away": 59
+      },
+      "wider_margin": {
+        "margin": 40.5,
+        "home": 95,
+        "away": 54
+      },
+      "actual_home": 97,
+      "actual_away": 70
+    },
+    {
+      "id": "espn:401925917",
+      "date": "2026-11-25",
+      "home_id": "ncaa:609693",
+      "away_id": "ncaa:609826",
+      "captured_at_utc": "2026-11-25T19:37:59.914Z",
+      "tipoff_at_utc": "2026-11-25T22:00Z",
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "baseline": {
+        "margin": 14,
+        "home": 82,
+        "away": 68
+      },
+      "wider_margin": {
+        "margin": 17.5,
+        "home": 84,
+        "away": 66
+      },
+      "actual_home": 65,
+      "actual_away": 72
+    },
+    {
+      "id": "espn:401926065",
+      "date": "2026-11-25",
+      "home_id": "ncaa:609686",
+      "away_id": "ncaa:609474",
+      "captured_at_utc": "2026-11-25T19:37:59.914Z",
+      "tipoff_at_utc": "2026-11-25T22:00Z",
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "baseline": {
+        "margin": 32.5,
+        "home": 90,
+        "away": 58
+      },
+      "wider_margin": {
+        "margin": 43.5,
+        "home": 96,
+        "away": 52
+      },
+      "actual_home": 101,
+      "actual_away": 72
+    },
+    {
+      "id": "espn:401928359",
+      "date": "2026-11-25",
+      "home_id": "ncaa:609732",
+      "away_id": "ncaa:609624",
+      "captured_at_utc": "2026-11-25T19:37:59.914Z",
+      "tipoff_at_utc": "2026-11-25T20:30Z",
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "baseline": {
+        "margin": 3.5,
+        "home": 82,
+        "away": 79
+      },
+      "wider_margin": {
+        "margin": 4,
+        "home": 83,
+        "away": 79
+      },
+      "actual_home": 88,
+      "actual_away": 92
+    },
+    {
+      "id": "espn:401928836",
+      "date": "2026-11-25",
+      "home_id": "ncaa:609621",
+      "away_id": "ncaa:609541",
+      "captured_at_utc": "2026-11-25T19:37:59.914Z",
+      "tipoff_at_utc": "2026-11-25T20:00Z",
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "baseline": {
+        "margin": -1,
+        "home": 66,
+        "away": 67
+      },
+      "wider_margin": {
+        "margin": -1,
+        "home": 66,
+        "away": 67
+      },
+      "actual_home": 76,
+      "actual_away": 66
     }
   ]
 }

@@ -1,9 +1,9 @@
 {
   "model": "retro-margin-challenger-v1",
   "status": "SHADOW_ONLY_NOT_PROMOTED",
-  "data_as_of": "2026-11-25T11:37:12+00:00",
-  "source_scored_games": 571,
-  "eligible_games": 571,
+  "data_as_of": "2026-11-26T02:25:34+00:00",
+  "source_scored_games": 589,
+  "eligible_games": 589,
   "excluded": {
     "unmatched": 0,
     "invalid": 0,
@@ -67,14 +67,14 @@
     }
   ],
   "all_games": {
-    "count": 571,
-    "baseline_mae": 13.1313,
-    "shadow_mae": 13.1068
+    "count": 589,
+    "baseline_mae": 13.1154,
+    "shadow_mae": 13.1154
   },
   "post_warmup": {
-    "games": 464,
-    "baseline_mae": 12.7909,
-    "shadow_mae": 12.7608
+    "games": 482,
+    "baseline_mae": 12.7842,
+    "shadow_mae": 12.7842
   },
   "by_date": [
     {
@@ -200,10 +200,10 @@
     {
       "date": "2026-11-25",
       "train_games": 570,
-      "test_games": 1,
+      "test_games": 19,
       "selected": "verified-home-plus-2",
-      "baseline_mae": 34,
-      "shadow_mae": 34
+      "baseline_mae": 13.7368,
+      "shadow_mae": 14.4737
     }
   ],
   "next_shadow_candidate": {
@@ -211,7 +211,7 @@
     "scale": 1,
     "tail": 1,
     "home": 2,
-    "fit_mae": 13.0438,
+    "fit_mae": 13.0543,
     "through": "2026-11-25"
   },
   "promotion_allowed": false,
