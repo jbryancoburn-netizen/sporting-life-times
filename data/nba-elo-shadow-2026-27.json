@@ -4,7 +4,7 @@
   "status": "primary_live_earned_elo",
   "model": "team_only_reset1500_home40_k24_sqrt_mov",
   "source": "data/nba-2026-27-current-provisional.json",
-  "games_played": 261,
+  "games_played": 264,
   "parameters": {
     "season_start_elo": 1500,
     "home_elo": 40,
@@ -70,6 +70,14 @@
       "difference_from_live": -7.889
     },
     {
+      "team": "NYK",
+      "elo": 1570.062,
+      "games": 18,
+      "forecast_prior": 1716.1215,
+      "live_elo": 1663.561,
+      "difference_from_live": -93.499
+    },
+    {
       "team": "DET",
       "elo": 1564.062,
       "games": 17,
@@ -78,28 +86,12 @@
       "difference_from_live": -43.599
     },
     {
-      "team": "NYK",
-      "elo": 1557.969,
-      "games": 17,
-      "forecast_prior": 1716.1215,
-      "live_elo": 1655.424,
-      "difference_from_live": -97.455
-    },
-    {
       "team": "PHI",
-      "elo": 1548.995,
-      "games": 18,
+      "elo": 1557.731,
+      "games": 19,
       "forecast_prior": 1532.3115,
-      "live_elo": 1600.179,
-      "difference_from_live": -51.184
-    },
-    {
-      "team": "MIA",
-      "elo": 1543.627,
-      "games": 16,
-      "forecast_prior": 1506.4537500000001,
-      "live_elo": 1562.353,
-      "difference_from_live": -18.726
+      "live_elo": 1610.607,
+      "difference_from_live": -52.876
     },
     {
       "team": "ATL",
@@ -116,6 +108,14 @@
       "forecast_prior": 1381.6267500000001,
       "live_elo": 1498.91,
       "difference_from_live": 36.016
+    },
+    {
+      "team": "MIA",
+      "elo": 1534.891,
+      "games": 17,
+      "forecast_prior": 1506.4537500000001,
+      "live_elo": 1551.926,
+      "difference_from_live": -17.035
     },
     {
       "team": "OKC",
@@ -142,20 +142,28 @@
       "difference_from_live": -17.499
     },
     {
-      "team": "CLE",
-      "elo": 1502.193,
-      "games": 18,
-      "forecast_prior": 1575.834,
-      "live_elo": 1525.531,
-      "difference_from_live": -23.338
-    },
-    {
       "team": "GSW",
       "elo": 1491.786,
       "games": 17,
       "forecast_prior": 1427.2995,
       "live_elo": 1476.867,
       "difference_from_live": 14.919
+    },
+    {
+      "team": "CLE",
+      "elo": 1490.1,
+      "games": 19,
+      "forecast_prior": 1575.834,
+      "live_elo": 1517.393,
+      "difference_from_live": -27.293
+    },
+    {
+      "team": "CHI",
+      "elo": 1457.019,
+      "games": 18,
+      "forecast_prior": 1374.9705000000001,
+      "live_elo": 1412.89,
+      "difference_from_live": 44.129
     },
     {
       "team": "TOR",
@@ -172,14 +180,6 @@
       "forecast_prior": 1545.279,
       "live_elo": 1480.674,
       "difference_from_live": -27.499
-    },
-    {
-      "team": "CHI",
-      "elo": 1451.828,
-      "games": 17,
-      "forecast_prior": 1374.9705000000001,
-      "live_elo": 1398.025,
-      "difference_from_live": 53.803
     },
     {
       "team": "IND",
@@ -231,11 +231,11 @@
     },
     {
       "team": "CHA",
-      "elo": 1400.457,
-      "games": 16,
+      "elo": 1395.266,
+      "games": 17,
       "forecast_prior": 1587.2549999999999,
-      "live_elo": 1441.134,
-      "difference_from_live": -40.677
+      "live_elo": 1426.269,
+      "difference_from_live": -31.003
     },
     {
       "team": "MIL",
@@ -4691,6 +4691,57 @@
       "home_elo_change": -19.721631906766167,
       "home_after": 1523.136157378118,
       "away_after": 1534.9259714910345
+    },
+    {
+      "id": "espn-nba-401909317",
+      "date": "2026-11-25T22:00:00.000Z",
+      "home": "PHI",
+      "away": "MIA",
+      "home_score": 111,
+      "away_score": 104,
+      "home_before": 1548.9948857240436,
+      "away_before": 1543.6268658143201,
+      "home_win_probability": 0.5649212559338811,
+      "forecast_home_win_probability": 0.573748518193223,
+      "forecast_prior_weight_home": 0.26785714285714285,
+      "forecast_prior_weight_away": 0.28846153846153844,
+      "home_elo_change": 8.736311845314512,
+      "home_after": 1557.731197569358,
+      "away_after": 1534.8905539690056
+    },
+    {
+      "id": "espn-nba-401909318",
+      "date": "2026-11-26T00:00:00.000Z",
+      "home": "CHA",
+      "away": "CHI",
+      "home_score": 105,
+      "away_score": 107,
+      "home_before": 1400.4568521955493,
+      "away_before": 1451.8275839361777,
+      "home_win_probability": 0.4836420415188965,
+      "forecast_home_win_probability": 0.5908843242881302,
+      "forecast_prior_weight_home": 0.28846153846153844,
+      "forecast_prior_weight_away": 0.2777777777777778,
+      "home_elo_change": -5.190991111742536,
+      "home_after": 1395.2658610838068,
+      "away_after": 1457.0185750479202
+    },
+    {
+      "id": "espn-nba-401909319",
+      "date": "2026-11-26T00:30:00.000Z",
+      "home": "NYK",
+      "away": "CLE",
+      "home_score": 121,
+      "away_score": 102,
+      "home_before": 1557.968814902417,
+      "away_before": 1502.1930371627677,
+      "home_win_probability": 0.6344440354086099,
+      "forecast_home_win_probability": 0.6661161513096574,
+      "forecast_prior_weight_home": 0.2777777777777778,
+      "forecast_prior_weight_away": 0.26785714285714285,
+      "home_elo_change": 12.09321897010821,
+      "home_after": 1570.0620338725253,
+      "away_after": 1490.0998181926595
     }
   ]
 }
