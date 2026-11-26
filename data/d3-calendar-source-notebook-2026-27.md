@@ -749,7 +749,7 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | Trine University (30037) | verified_university | [Exact verified URL](https://trinethunder.com/sports/womens-basketball/schedule/2026-27?grid=true) | 21 |
 | Trinity College (Connecticut) (713) | verified_university | [Exact verified URL](https://bantamsports.com/sports/womens-basketball/schedule/2026-27?grid=true) | 21 |
 | Trinity University (Texas) (715) | verified_university | [Exact verified URL](https://www.trinitytigers.com/sports/womens-basketball/schedule?grid=true) | 18 |
-| Tufts University (717) | verified_university | [Exact verified URL](https://www.gotuftsjumbos.com/sports/womens-basketball/schedule/2026-27?grid=true) | 19 |
+| Tufts University (717) | verified_university | [Exact verified URL](https://www.gotuftsjumbos.com/sports/womens-basketball/schedule/2026-27?grid=true) | 20 |
 | U.S. Coast Guard Academy (722) | verified_university | [Exact verified URL](https://coastguardathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 17 |
 | U.S. Merchant Marine Academy (724) | verified_university | [Exact verified URL](https://usmmasports.com/sports/womens-basketball/schedule?grid=true) | 13 |
 | Union College (New York) (727) | verified_university | [Exact verified URL](https://www.unionathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 17 |
