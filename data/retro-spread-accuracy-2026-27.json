@@ -2,9 +2,9 @@
   "season": "2026-27",
   "sport": "NCAA men's Division I basketball",
   "method": "Immutable prior-day and independently verified pretipoff forecasts versus verified in-season D-I finals",
-  "updated_at_utc": "2026-11-26T02:13:11+00:00",
+  "updated_at_utc": "2026-11-26T02:25:34+00:00",
   "archived_predictions": 620,
-  "pending_finals": 22,
+  "pending_finals": 21,
   "excluded_orientation_mismatches": [
     "espn:401918053",
     "espn:401919029",
@@ -18,11 +18,11 @@
     "espn:401917543"
   ],
   "summary": {
-    "games": 588,
-    "correct_winners": 415,
-    "winner_accuracy": 0.70578,
-    "margin_mae": 13.119,
-    "brier": 0.194399
+    "games": 589,
+    "correct_winners": 416,
+    "winner_accuracy": 0.70628,
+    "margin_mae": 13.1154,
+    "brier": 0.194134
   },
   "by_date": {
     "2026-11-06": {
@@ -131,11 +131,11 @@
       "brier": 0.194399
     },
     "2026-11-25": {
-      "games": 18,
-      "correct_winners": 12,
-      "winner_accuracy": 0.66667,
-      "margin_mae": 13.8889,
-      "brier": 0.220565
+      "games": 19,
+      "correct_winners": 13,
+      "winner_accuracy": 0.68421,
+      "margin_mae": 13.7368,
+      "brier": 0.210981
     }
   },
   "games": [
@@ -8256,6 +8256,20 @@
       "predicted_home_win_probability": 0.45995,
       "winner_correct": false,
       "brier": 0.291654,
+      "forecast_model": "retro-central-elo-uncapped-v2",
+      "captured_at_utc": "2026-11-25T21:41:48.774Z"
+    },
+    {
+      "date": "2026-11-25",
+      "id": "espn:401920916",
+      "home_id": "ncaa:609471",
+      "away_id": "ncaa:609792",
+      "predicted_home_margin": -14.0,
+      "actual_home_margin": -3,
+      "absolute_margin_error": 11.0,
+      "predicted_home_win_probability": 0.196144,
+      "winner_correct": true,
+      "brier": 0.03847247,
       "forecast_model": "retro-central-elo-uncapped-v2",
       "captured_at_utc": "2026-11-25T21:41:48.774Z"
     },
