@@ -3,7 +3,7 @@
   "status": "VERIFIED_PRETIPOFF_MARGIN_AUDIT",
   "method": "Saved pregame GitHub forecast versions (Nov 6-7) plus immutable pretipoff captures, exact game/team IDs, no postgame ratings. Errors in points. Zero projected margin means no winner pick.",
   "source_finals": "data/mbb-retro-live-finals.json",
-  "results_through": "2026-11-25",
+  "results_through": "2026-11-26",
   "baseline": {
     "games": 107,
     "correct_winners": 73,
@@ -20,34 +20,34 @@
     "mean_actual_absolute_margin": 17.3832
   },
   "prospective": {
-    "games": 465,
-    "correct_winners": 327,
-    "winner_accuracy": 0.7032,
-    "decisive_winner_accuracy": 0.7047,
+    "games": 474,
+    "correct_winners": 333,
+    "winner_accuracy": 0.7025,
+    "decisive_winner_accuracy": 0.704,
     "no_winner_picks": 1,
-    "margin_mae": 12.7422,
-    "margin_rmse": 16.3324,
-    "within_5_points": 0.2731,
-    "within_10_points": 0.4774,
-    "brier": 0.1872,
-    "signed_margin_bias": -4.2571,
-    "mean_projected_absolute_margin": 9.6317,
-    "mean_actual_absolute_margin": 16.5892
+    "margin_mae": 12.6225,
+    "margin_rmse": 16.2209,
+    "within_5_points": 0.2806,
+    "within_10_points": 0.481,
+    "brier": 0.1877,
+    "signed_margin_bias": -4.2317,
+    "mean_projected_absolute_margin": 9.5694,
+    "mean_actual_absolute_margin": 16.4346
   },
   "combined": {
-    "games": 572,
-    "correct_winners": 400,
-    "winner_accuracy": 0.6993,
-    "decisive_winner_accuracy": 0.7092,
+    "games": 581,
+    "correct_winners": 406,
+    "winner_accuracy": 0.6988,
+    "decisive_winner_accuracy": 0.7086,
     "no_winner_picks": 8,
-    "margin_mae": 13.0635,
-    "margin_rmse": 16.9911,
-    "within_5_points": 0.2815,
-    "within_10_points": 0.4808,
-    "brier": 0.1884,
-    "signed_margin_bias": -5.5416,
-    "mean_projected_absolute_margin": 8.7801,
-    "mean_actual_absolute_margin": 16.7378
+    "margin_mae": 12.9609,
+    "margin_rmse": 16.8937,
+    "within_5_points": 0.2874,
+    "within_10_points": 0.4836,
+    "brier": 0.1888,
+    "signed_margin_bias": -5.501,
+    "mean_projected_absolute_margin": 8.7425,
+    "mean_actual_absolute_margin": 16.6093
   },
   "by_day": [
     {
@@ -292,23 +292,39 @@
     },
     {
       "date": "2026-11-25",
-      "games": 21,
-      "correct_winners": 13,
-      "winner_accuracy": 0.619,
-      "decisive_winner_accuracy": 0.619,
+      "games": 29,
+      "correct_winners": 19,
+      "winner_accuracy": 0.6552,
+      "decisive_winner_accuracy": 0.6552,
       "no_winner_picks": 0,
-      "margin_mae": 12.7518,
-      "margin_rmse": 17.2865,
-      "within_5_points": 0.4286,
-      "within_10_points": 0.4762,
-      "brier": 0.219,
-      "signed_margin_bias": -0.652,
-      "mean_projected_absolute_margin": 12.5205,
-      "mean_actual_absolute_margin": 16.381
+      "margin_mae": 11.0668,
+      "margin_rmse": 15.4608,
+      "within_5_points": 0.4828,
+      "within_10_points": 0.5172,
+      "brier": 0.2141,
+      "signed_margin_bias": -1.2131,
+      "mean_projected_absolute_margin": 10.9414,
+      "mean_actual_absolute_margin": 14.4138
+    },
+    {
+      "date": "2026-11-26",
+      "games": 1,
+      "correct_winners": 0,
+      "winner_accuracy": 0,
+      "decisive_winner_accuracy": 0,
+      "no_winner_picks": 0,
+      "margin_mae": 4.784,
+      "margin_rmse": 4.784,
+      "within_5_points": 1,
+      "within_10_points": 1,
+      "brier": 0.325,
+      "signed_margin_bias": -4.784,
+      "mean_projected_absolute_margin": 2.784,
+      "mean_actual_absolute_margin": 2
     }
   ],
   "exclusions": {
-    "unmatched": 14,
+    "unmatched": 15,
     "late_or_invalid_tipoff": 0,
     "placeholder_tipoff": 0,
     "team_conflict": 11,
@@ -7521,6 +7537,19 @@
       "venue_verification": "unverified"
     },
     {
+      "game_id": "espn:401911522",
+      "date": "2026-11-25",
+      "source": "daily_pretip_capture",
+      "actual_home_margin": 2,
+      "predicted_home_margin": 5.033,
+      "absolute_error": 3.0330000000000004,
+      "signed_error": 3.0330000000000004,
+      "home_win_probability": 0.624792,
+      "correct_winner": true,
+      "no_winner_pick": false,
+      "venue_verification": "unverified"
+    },
+    {
       "game_id": "espn:401917182",
       "date": "2026-11-25",
       "source": "daily_pretip_capture",
@@ -7532,6 +7561,32 @@
       "correct_winner": true,
       "no_winner_pick": false,
       "venue_verification": "unverified"
+    },
+    {
+      "game_id": "espn:401917544",
+      "date": "2026-11-25",
+      "source": "daily_pretip_capture",
+      "actual_home_margin": 7,
+      "predicted_home_margin": -5.111,
+      "absolute_error": 12.111,
+      "signed_error": -12.111,
+      "home_win_probability": 0.37336,
+      "correct_winner": false,
+      "no_winner_pick": false,
+      "venue_verification": "unverified"
+    },
+    {
+      "game_id": "espn:401917545",
+      "date": "2026-11-25",
+      "source": "daily_pretip_capture",
+      "actual_home_margin": 9,
+      "predicted_home_margin": 7.889,
+      "absolute_error": 1.1109999999999998,
+      "signed_error": -1.1109999999999998,
+      "home_win_probability": 0.689826,
+      "correct_winner": true,
+      "no_winner_pick": false,
+      "venue_verification": "verified_home"
     },
     {
       "game_id": "espn:401918960",
@@ -7625,6 +7680,19 @@
       "venue_verification": "unverified"
     },
     {
+      "game_id": "espn:401920550",
+      "date": "2026-11-25",
+      "source": "daily_pretip_capture",
+      "actual_home_margin": 18,
+      "predicted_home_margin": 0.085,
+      "absolute_error": 17.915,
+      "signed_error": -17.915,
+      "home_win_probability": 0.502143,
+      "correct_winner": true,
+      "no_winner_pick": false,
+      "venue_verification": "unverified"
+    },
+    {
       "game_id": "espn:401920847",
       "date": "2026-11-25",
       "source": "daily_pretip_capture",
@@ -7677,6 +7745,32 @@
       "venue_verification": "unverified"
     },
     {
+      "game_id": "espn:401921671",
+      "date": "2026-11-25",
+      "source": "daily_pretip_capture",
+      "actual_home_margin": -6,
+      "predicted_home_margin": -8.818,
+      "absolute_error": 2.8179999999999996,
+      "signed_error": -2.8179999999999996,
+      "home_win_probability": 0.290394,
+      "correct_winner": true,
+      "no_winner_pick": false,
+      "venue_verification": "unverified"
+    },
+    {
+      "game_id": "espn:401921713",
+      "date": "2026-11-25",
+      "source": "daily_pretip_capture",
+      "actual_home_margin": 2,
+      "predicted_home_margin": 1.138,
+      "absolute_error": 0.8620000000000001,
+      "signed_error": -0.8620000000000001,
+      "home_win_probability": 0.528785,
+      "correct_winner": true,
+      "no_winner_pick": false,
+      "venue_verification": "unverified"
+    },
+    {
       "game_id": "espn:401921716",
       "date": "2026-11-25",
       "source": "daily_pretip_capture",
@@ -7716,6 +7810,19 @@
       "venue_verification": "unverified"
     },
     {
+      "game_id": "espn:401924897",
+      "date": "2026-11-25",
+      "source": "daily_pretip_capture",
+      "actual_home_margin": 23,
+      "predicted_home_margin": 20.499,
+      "absolute_error": 2.5010000000000012,
+      "signed_error": -2.5010000000000012,
+      "home_win_probability": 0.888652,
+      "correct_winner": true,
+      "no_winner_pick": false,
+      "venue_verification": "verified_home"
+    },
+    {
       "game_id": "espn:401925688",
       "date": "2026-11-25",
       "source": "daily_pretip_capture",
@@ -7753,6 +7860,32 @@
       "correct_winner": true,
       "no_winner_pick": false,
       "venue_verification": "verified_home"
+    },
+    {
+      "game_id": "espn:401929287",
+      "date": "2026-11-25",
+      "source": "daily_pretip_capture",
+      "actual_home_margin": -7,
+      "predicted_home_margin": 5.798,
+      "absolute_error": 12.798,
+      "signed_error": 12.798,
+      "home_win_probability": 0.642782,
+      "correct_winner": false,
+      "no_winner_pick": false,
+      "venue_verification": "unverified"
+    },
+    {
+      "game_id": "espn:401921714",
+      "date": "2026-11-26",
+      "source": "daily_pretip_capture",
+      "actual_home_margin": 2,
+      "predicted_home_margin": -2.784,
+      "absolute_error": 4.784,
+      "signed_error": -4.784,
+      "home_win_probability": 0.429954,
+      "correct_winner": false,
+      "no_winner_pick": false,
+      "venue_verification": "unverified"
     }
   ]
 }
