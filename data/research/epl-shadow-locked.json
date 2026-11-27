@@ -161,6 +161,22 @@
         "log_loss": 1.3734857910951361
       }
     },
+    "401879225": {
+      "away": "Chelsea",
+      "away_score": 2,
+      "baseline": {
+        "brier": 0.5291932897721573,
+        "log_loss": 0.8955241585554482
+      },
+      "fixture_id": "401879225",
+      "home": "Nott'm Forest",
+      "home_score": 3,
+      "outcome": "home",
+      "research": {
+        "brier": 0.4848616438074752,
+        "log_loss": 0.8384278052085038
+      }
+    },
     "401879232": {
       "away": "Arsenal",
       "away_score": 2,
@@ -1677,19 +1693,19 @@
   "schema_version": 1,
   "status": "research_only_not_for_live_promotion",
   "summary": {
-    "graded_count": 30,
+    "graded_count": 31,
     "locked_count": 70,
-    "new_grades": 0,
-    "new_locks": 1,
+    "new_grades": 1,
+    "new_locks": 0,
     "note": "Paired pregame outcomes only; a small sample cannot validate superiority.",
     "scores": {
       "baseline": {
-        "brier": 0.597583,
-        "log_loss": 1.000289
+        "brier": 0.595377,
+        "log_loss": 0.99691
       },
       "research": {
-        "brier": 0.601203,
-        "log_loss": 1.006639
+        "brier": 0.59745,
+        "log_loss": 1.001213
       }
     }
   }

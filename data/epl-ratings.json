@@ -1,6 +1,6 @@
 {
   "as_of_date": "2026-11-27",
-  "completed_matches": 110,
+  "completed_matches": 111,
   "elo_history": {
     "Arsenal": [
       {
@@ -504,6 +504,13 @@
         "fixture_id": "401879236",
         "match": 11,
         "opponent": "Leeds United"
+      },
+      {
+        "date": "2026-11-27",
+        "elo": 1485.30122,
+        "fixture_id": "401879225",
+        "match": 12,
+        "opponent": "Nott'm Forest"
       }
     ],
     "Coventry": [
@@ -1512,6 +1519,13 @@
         "fixture_id": "401879238",
         "match": 11,
         "opponent": "Bournemouth"
+      },
+      {
+        "date": "2026-11-27",
+        "elo": 1476.14773,
+        "fixture_id": "401879225",
+        "match": 12,
+        "opponent": "Chelsea"
       }
     ],
     "Sunderland": [
@@ -1720,9 +1734,9 @@
       "L"
     ],
     "Chelsea": [
-      "W",
       "L",
       "W",
+      "L",
       "L",
       "L"
     ],
@@ -1804,11 +1818,11 @@
       "D"
     ],
     "Nott'm Forest": [
-      "L",
       "D",
       "L",
       "W",
-      "L"
+      "L",
+      "W"
     ],
     "Sunderland": [
       "L",
@@ -1831,7 +1845,7 @@
     "Bournemouth": 7.36698,
     "Brentford": 8.72132,
     "Brighton": -10.12477,
-    "Chelsea": -11.55,
+    "Chelsea": -9.21237,
     "Coventry": 8.14764,
     "Crystal Palace": -8.14764,
     "Everton": -8.72132,
@@ -1843,7 +1857,7 @@
     "Manchester City": -2.80103,
     "Manchester United": -6.8951,
     "Newcastle United": 0.82614,
-    "Nott'm Forest": -7.36698,
+    "Nott'm Forest": 9.21237,
     "Sunderland": 2.6083,
     "Tottenham": 8.10143
   },
@@ -1854,8 +1868,8 @@
     "fixture_policy": "only feed-confirmed future fixtures",
     "rating_origin": "neutral baseline; no independently sourced prior-season ratings",
     "season": "2026-2027",
-    "source_fixtures": 110,
-    "source_sha256": "0e5d6b22368dec806be0f7b0cd1c62b563c1e51f0581b765ee93517026ebcf71"
+    "source_fixtures": 111,
+    "source_sha256": "6a71534c0930a8c4a4f65f49405c40c868d178a1ac335bd8d4f20e76acbd2f7b"
   },
   "ratings": {
     "Arsenal": 1571.36171,
@@ -1863,7 +1877,7 @@
     "Bournemouth": 1520.35632,
     "Brentford": 1516.29989,
     "Brighton": 1537.82285,
-    "Chelsea": 1494.51359,
+    "Chelsea": 1485.30122,
     "Coventry": 1473.02792,
     "Crystal Palace": 1446.62346,
     "Everton": 1509.18696,
@@ -1875,7 +1889,7 @@
     "Manchester City": 1526.62915,
     "Manchester United": 1465.16321,
     "Newcastle United": 1489.24527,
-    "Nott'm Forest": 1466.93536,
+    "Nott'm Forest": 1476.14773,
     "Sunderland": 1468.70551,
     "Tottenham": 1500.51901
   },
@@ -2759,6 +2773,14 @@
       "home": "Brentford",
       "home_score": 4,
       "kickoff_utc": "2026-11-23T20:00:00+00:00"
+    },
+    {
+      "away": "Chelsea",
+      "away_score": 2,
+      "fixture_id": "401879225",
+      "home": "Nott'm Forest",
+      "home_score": 3,
+      "kickoff_utc": "2026-11-27T20:00:00+00:00"
     }
   ],
   "standings": [
@@ -2842,11 +2864,11 @@
     {
       "club": "Chelsea",
       "drawn": 1,
-      "ga": 20,
-      "gd": 0,
-      "gf": 20,
-      "lost": 5,
-      "played": 11,
+      "ga": 23,
+      "gd": -1,
+      "gf": 22,
+      "lost": 6,
+      "played": 12,
       "points": 16,
       "won": 5
     },
@@ -2906,6 +2928,17 @@
       "won": 3
     },
     {
+      "club": "Nott'm Forest",
+      "drawn": 3,
+      "ga": 17,
+      "gd": -5,
+      "gf": 12,
+      "lost": 6,
+      "played": 12,
+      "points": 12,
+      "won": 3
+    },
+    {
       "club": "Coventry",
       "drawn": 0,
       "ga": 21,
@@ -2937,17 +2970,6 @@
       "played": 11,
       "points": 11,
       "won": 3
-    },
-    {
-      "club": "Nott'm Forest",
-      "drawn": 3,
-      "ga": 15,
-      "gd": -6,
-      "gf": 9,
-      "lost": 6,
-      "played": 11,
-      "points": 9,
-      "won": 2
     },
     {
       "club": "Sunderland",
