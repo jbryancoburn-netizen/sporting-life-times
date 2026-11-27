@@ -1,7 +1,7 @@
 {
   "division": "d3",
   "season": "2026-27",
-  "updated_utc": "2026-11-26T18:29:13.802903+00:00",
+  "updated_utc": "2026-11-27T02:54:32.360306+00:00",
   "summary": {
     "men": {
       "ncaa_teams": 406,
@@ -2573,7 +2573,44 @@
       "failure_category": "server_refused_method",
       "next_manual_action": "Inspect official school schedule platform's public print/text calendar; do not circumvent access controls",
       "source_error": "HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not ",
-      "rejected_page_evidence": [],
+      "rejected_page_evidence": [
+        {
+          "url": "https://www.fitchburgfalcons.com/sports/mens-basketball/schedule/2026-27?print=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fitchburgfalcons.com/sports/mens-basketball/schedule/text/2026-27",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fitchburgfalcons.com/sports/mens-basketball/schedule/2026-27",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.fitchburgfalcons.com/sports/mbball/schedule/2026",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        }
+      ],
       "conference_page_evidence": [],
       "refresh_rule": "Follow official university sports navigation, conference calendars and opponent evidence without inventing missing games"
     },
