@@ -2,7 +2,7 @@
   "league": "NBA",
   "season": "2026-27",
   "status": "provisional_live_from_historical_baseline",
-  "games_played": 275,
+  "games_played": 276,
   "preseason_status": "provisional_historical_regression_only",
   "source": "ESPN FINAL NBA regular-season scores; Sporting Life & Times independent Elo",
   "rankings": [
@@ -19,10 +19,6 @@
       "elo": 1637.017
     },
     {
-      "team": "MIN",
-      "elo": 1627.42
-    },
-    {
       "team": "PHI",
       "elo": 1618.359
     },
@@ -33,6 +29,10 @@
     {
       "team": "DET",
       "elo": 1611.341
+    },
+    {
+      "team": "MIN",
+      "elo": 1608.519
     },
     {
       "team": "POR",
@@ -59,16 +59,16 @@
       "elo": 1569.578
     },
     {
+      "team": "MEM",
+      "elo": 1526.631
+    },
+    {
       "team": "PHX",
       "elo": 1525.851
     },
     {
       "team": "CLE",
       "elo": 1517.393
-    },
-    {
-      "team": "MEM",
-      "elo": 1507.73
     },
     {
       "team": "DAL",
@@ -2602,6 +2602,15 @@
       "away_score": 87,
       "date": "2026-11-28T01:00:00.000Z",
       "home_elo_change": -13.60102
+    },
+    {
+      "id": "espn-nba-401909331",
+      "home": "MIN",
+      "away": "MEM",
+      "home_score": 109,
+      "away_score": 114,
+      "date": "2026-11-28T01:30:00.000Z",
+      "home_elo_change": -18.901024
     }
   ],
   "movement": {
@@ -2610,19 +2619,19 @@
       "SAS": 0,
       "NYK": -17.651763,
       "LAL": 0,
-      "MIN": 0,
       "PHI": 7.751889,
       "HOU": 0,
       "DET": 3.680451,
+      "MIN": -18.901024,
       "POR": 0,
       "BOS": -13.60102,
       "ATL": 13.60102,
       "DEN": 0,
       "OKC": 0,
       "MIA": 17.651763,
+      "MEM": 18.901024,
       "PHX": 0,
       "CLE": 0,
-      "MEM": 0,
       "DAL": 0,
       "GSW": 0,
       "ORL": 0,
@@ -2643,19 +2652,19 @@
       "SAS": 1681.17,
       "NYK": 1644.365,
       "LAL": 1633.83,
-      "MIN": 1600.727,
       "PHI": 1616.276,
       "HOU": 1599.178,
       "DET": 1609.589,
+      "MIN": 1600.727,
       "POR": 1576.901,
       "BOS": 1623.817,
       "ATL": 1553.911,
       "DEN": 1591.98,
       "OKC": 1627.702,
       "MIA": 1546.726,
+      "MEM": 1491.394,
       "PHX": 1526.939,
       "CLE": 1545.19,
-      "MEM": 1491.394,
       "DAL": 1456.318,
       "GSW": 1462.594,
       "ORL": 1513.498,
