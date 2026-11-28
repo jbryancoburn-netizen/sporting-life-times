@@ -405,7 +405,7 @@ function liveEvents(raw,day,registry,women=false,womenRankings=[],publishedGames
     status:liveStatusFromEvent(event,women),momentum:phase==='live'?momentumFromCompetition(match,away,home):null,
     possession:phase==='live'&&[away.team.id,home.team.id].includes(String(match?.possession))?
       (String(match.possession)===String(away.team.id)?'away':'home'):null,
-    completed,neutral,site_verified:siteVerified,timed:true,kind:'regular',
+    completed,neutral,site_verified:siteVerified,conference_game:typeof match.conferenceCompetition==='boolean'?match.conferenceCompetition:null,timed:true,kind:'regular',
     evidence:'live-scoreboard',source:phase==='final'?'Reported final · verification pending':phase==='upcoming'?'ESPN scheduled fixture':'Live score reported',probability:null}];
  });
 }
@@ -457,7 +457,7 @@ function provisionalRetro(published,live,engine,women=false){
   const id=(women?'':'espn:')+g.id,key=[g.day,a,h].join('|');
   if(existingIds.has(id)||fixtures.has(key)||newIds.has(id)||newFixtures.has(key))continue;
   extra.push({id,date:g.day,away_id:a,home_id:h,away_score:as,home_score:hs,
-   neutral:g.neutral===true||g.site_verified!==true,site_verified:g.site_verified===true});
+   neutral:g.neutral===true||g.site_verified!==true,site_verified:g.site_verified===true,conference_game:g.conference_game});
   newIds.add(id);newFixtures.add(key);
  }
  if(!extra.length)return {rankings:null,pending:0};
@@ -488,7 +488,7 @@ function provisionalRetro(published,live,engine,women=false){
   const winner=f.home_score>f.away_score?h:a,loser=winner===h?a:h;
   winner.wins=Number(winner.wins||0)+1;
   loser.losses=Number(loser.losses||0)+1;
-  if(h.conference&&h.conference===a.conference&&!engine.isNonconferenceGame?.(f.date,f.home_id,f.away_id)){
+  if(f.conference_game===true&&h.conference&&h.conference===a.conference&&!engine.isNonconferenceGame?.(f.date,f.home_id,f.away_id)){
    winner.conference_wins=Number(winner.conference_wins||0)+1;
    loser.conference_losses=Number(loser.conference_losses||0)+1;
   }
@@ -776,7 +776,7 @@ const lens=g=>{
   if(Number(aw?.wins)>0&&Number(hm?.wins)>0&&Number(aw?.losses)===0&&Number(hm?.losses)===0)
     return ['Unbeaten starts meet','Neither team has lost a verified 2026–27 final. '+leader+
       ' carries the '+Math.round(diff)+'-point rating edge.'];
-  if(aw?.conference&&hm?.conference&&aw.conference===hm.conference&&
+  if(g.conference_game===true&&aw?.conference&&hm?.conference&&aw.conference===hm.conference&&
      !window.MBB_RETRO?.isNonconferenceGame?.(g.day,g.away.canonical,g.home.canonical))
     return ['A conference test',g.away.name+' and '+g.home.name+
       ' share the '+aw.conference+'. The current RETRO gap is '+Math.round(diff)+' points.'];
