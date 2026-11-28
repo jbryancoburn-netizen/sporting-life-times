@@ -133,6 +133,7 @@ def game(event):
         if name:networks.append(name)
     out={"id":str(event.get("id") or ""),"date":date,"home_id":hid,"away_id":aid,
          "neutral":bool(c.get("neutralSite")),"site_verified":True,
+         "conference_game":c.get("conferenceCompetition") if isinstance(c.get("conferenceCompetition"),bool) else None,
          "venue":(c.get("venue") or {}).get("fullName"),
          "broadcast":", ".join(dict.fromkeys(str(n) for n in networks if n)) or None,
          "status":"final" if done else "scheduled"}
@@ -280,7 +281,8 @@ def live(today=None):
     outside_conflicts=[]
     ncaa_rows=ncaa_women_snapshot()
     failed=[]
-    day=max(dt.date(2026,11,1),today-dt.timedelta(days=3))
+    missing_days=[dt.date.fromisoformat(g["date"][:10]) for g in finals.values() if not isinstance(g.get("conference_game"),bool)]
+    day=max(dt.date(2026,11,1),min([today-dt.timedelta(days=3)]+missing_days))
     end=min(dt.date(2027,4,30),today+dt.timedelta(days=2))
     requested_start=day
     future_warnings=[]
@@ -365,6 +367,8 @@ def live(today=None):
                         ("espn_and_ncaa_origin","ncaa_origin_final_espn_fixture")
                         and g.get("score_evidence") in ("espn_only","espn_final_ncaa_pending")):
                         g["score_evidence"]=old["score_evidence"]
+                    if old and not isinstance(g.get("conference_game"),bool) and isinstance(old.get("conference_game"),bool):
+                        g["conference_game"]=old["conference_game"]
                     finals[g["id"]]=g
                 elif g["id"] not in finals:
                     upcoming[g["id"]]=g
