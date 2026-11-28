@@ -29,10 +29,18 @@ function retro(games,opts={}){
  }
  return {games:events.length,ratings:Object.fromEntries(ratings)};
 }
-// Kansas and West Virginia met in the Players Era 8 semifinal outside Big 12 play.
+// Official school schedules override erroneous ESPN conferenceCompetition flags for Players Era.
+// https://umterps.com/news/2026/11/27/mens-basketball-terps-face-oregon-in-players-era-finale
+// https://baylorbears.com/news/2026/7/30/mens-basketball-mbb-releases-2026-27-non-conference-schedule
+// https://kuathletics.com/news/2026/11/19/mens-basketball-no-11-kansas-to-face-no-8-houston-in-players-era-8-championship-thursday
 function isNonconferenceGame(date,a,b){
- return date==='2026-11-18'&&
-   [a,b].includes('ncaa:609518')&&[a,b].includes('ncaa:609582');
+ const pair=[String(a),String(b)].sort().join('|');
+ return new Set([
+ '2026-11-18|ncaa:609518|ncaa:609582',
+ '2026-11-19|ncaa:609582|ncaa:609752',
+ '2026-11-27|ncaa:609558|ncaa:609661',
+ '2026-11-27|ncaa:609490|ncaa:609630'
+ ]).has(date+'|'+pair);
 }
 root.MBB_RETRO={calculate:retro,isNonconferenceGame,version:'basketball-retro-experimental-v1'};
 })(typeof window!=='undefined'?window:globalThis);
