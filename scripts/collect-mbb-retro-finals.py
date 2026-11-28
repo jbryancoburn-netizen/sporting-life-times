@@ -53,6 +53,7 @@ def valid(event):
     return dict(id='espn:'+event_id, date=date, home_id=home_id, away_id=away_id,
                 home_score=hs, away_score=ass, neutral=neutral is True,
                 site_verified=isinstance(neutral,bool),
+                conference_game=competition.get('conferenceCompetition') if isinstance(competition.get('conferenceCompetition'), bool) else None,
                 source='ESPN completed D-I scoreboard', source_event_id=event_id)
 
 def scoreboard_events(day):
@@ -141,7 +142,9 @@ def main():
     queried = 0
     new = 0
     unavailable_days = []
-    for offset in range(3):
+    missing_days = {g['date'] for g in collected.values() if not isinstance(g.get('conference_game'), bool)}
+    offsets = sorted(set(range(3)) | {(today-datetime.fromisoformat(d).date()).days for d in missing_days if d <= today.isoformat()})
+    for offset in offsets:
         day = today-timedelta(days=offset)
         if not ('2026-11-01' <= day.isoformat() <= '2027-04-30'):
             continue
@@ -164,6 +167,8 @@ def main():
                 if (row['home_score'], row['away_score']) != (
                     official[row['id']]['home_score'], official[row['id']]['away_score']):
                     failures.append(day.isoformat()+': ESPN score differs from NCAA official final for '+row['id'])
+                if isinstance(row.get('conference_game'), bool):
+                    collected[row['id']]['conference_game'] = row['conference_game']
                 # Keep independently verified NCAA scores and conservative
                 # venue handling regardless of ESPN cache state.
                 continue
@@ -179,6 +184,10 @@ def main():
                     continue
                 # Preserve the provenance and certification of independently
                 # checked finals even when the new feed agrees with the score.
+                if isinstance(row.get('conference_game'), bool):
+                    previous['conference_game'] = row['conference_game']
+                elif isinstance(previous.get('conference_game'), bool):
+                    row['conference_game'] = previous['conference_game']
                 if previous.get('score_certified') is True:
                     continue
                 if previous.get('site_verified') and not row.get('site_verified'):
