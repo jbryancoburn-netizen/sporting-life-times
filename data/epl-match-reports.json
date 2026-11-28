@@ -1,7 +1,7 @@
 {
   "player_snapshot": {
     "scope": "published_match_reports_only",
-    "matches_covered": 110,
+    "matches_covered": 111,
     "goals": [
       {
         "player": "Erling Haaland",
@@ -99,6 +99,11 @@
         "count": 3
       },
       {
+        "player": "Emmanuel Emegha",
+        "team": "Chelsea",
+        "count": 3
+      },
+      {
         "player": "Enzo Le Fée",
         "team": "Sunderland",
         "count": 3
@@ -146,6 +151,11 @@
       {
         "player": "Mohamed Belloumi",
         "team": "Hull City",
+        "count": 3
+      },
+      {
+        "player": "Morgan Gibbs-White",
+        "team": "Nottingham Forest",
         "count": 3
       },
       {
@@ -221,6 +231,11 @@
       {
         "player": "Fábio Carvalho",
         "team": "Brentford",
+        "count": 2
+      },
+      {
+        "player": "Igor Jesus",
+        "team": "Nottingham Forest",
         "count": 2
       },
       {
@@ -469,11 +484,6 @@
         "count": 1
       },
       {
-        "player": "Emmanuel Emegha",
-        "team": "Chelsea",
-        "count": 1
-      },
-      {
         "player": "Ezri Konsa",
         "team": "Arsenal",
         "count": 1
@@ -491,11 +501,6 @@
       {
         "player": "Gonzalo García",
         "team": "Fulham",
-        "count": 1
-      },
-      {
-        "player": "Igor Jesus",
-        "team": "Nottingham Forest",
         "count": 1
       },
       {
@@ -636,11 +641,6 @@
       {
         "player": "Mohamed-Ali Cho",
         "team": "Hull City",
-        "count": 1
-      },
-      {
-        "player": "Morgan Gibbs-White",
-        "team": "Nottingham Forest",
         "count": 1
       },
       {
@@ -886,6 +886,11 @@
         "count": 2
       },
       {
+        "player": "Daniel Muñoz",
+        "team": "Nottingham Forest",
+        "count": 2
+      },
+      {
         "player": "Diego Gómez",
         "team": "Brighton & Hove Albion",
         "count": 2
@@ -956,6 +961,11 @@
         "count": 2
       },
       {
+        "player": "Pedro Neto",
+        "team": "Chelsea",
+        "count": 2
+      },
+      {
         "player": "Phil Foden",
         "team": "Manchester City",
         "count": 2
@@ -978,6 +988,11 @@
       {
         "player": "William Osula",
         "team": "Newcastle United",
+        "count": 2
+      },
+      {
+        "player": "Xaver Schlager",
+        "team": "Nottingham Forest",
         "count": 2
       },
       {
@@ -1028,11 +1043,6 @@
       {
         "player": "Christos Tzolis",
         "team": "Arsenal",
-        "count": 1
-      },
-      {
-        "player": "Daniel Muñoz",
-        "team": "Nottingham Forest",
         "count": 1
       },
       {
@@ -1296,11 +1306,6 @@
         "count": 1
       },
       {
-        "player": "Pedro Neto",
-        "team": "Chelsea",
-        "count": 1
-      },
-      {
         "player": "Pedro Porro",
         "team": "Tottenham Hotspur",
         "count": 1
@@ -1391,11 +1396,6 @@
         "count": 1
       },
       {
-        "player": "Xaver Schlager",
-        "team": "Nottingham Forest",
-        "count": 1
-      },
-      {
         "player": "Yehor Yarmoliuk",
         "team": "Brentford",
         "count": 1
@@ -1419,7 +1419,7 @@
     "own_goals_not_counted": 14,
     "note": "Event-derived from the published match-report window, not official season leaderboards; unresolved player names are excluded."
   },
-  "updated_at": "2026-11-27T22:43:03.864368+00:00",
+  "updated_at": "2026-11-28T04:15:37.954065+00:00",
   "source": "ESPN event summary; third-party match facts only, not Elo",
   "matches": {
     "401878768": {
@@ -52667,13 +52667,448 @@
         }
       ],
       "source_url": "https://www.espn.com/soccer/match/_/gameId/401879237"
+    },
+    "401879225": {
+      "home": "Nott'm Forest",
+      "away": "Chelsea",
+      "home_score": 3,
+      "away_score": 2,
+      "kickoff_utc": "2026-11-27T20:00:00+00:00",
+      "teams": [
+        {
+          "team": "Nottingham Forest",
+          "statistics": [
+            {
+              "name": "foulsCommitted",
+              "displayValue": "15",
+              "label": "Fouls"
+            },
+            {
+              "name": "yellowCards",
+              "displayValue": "2",
+              "label": "Yellow Cards"
+            },
+            {
+              "name": "redCards",
+              "displayValue": "0",
+              "label": "Red Cards"
+            },
+            {
+              "name": "offsides",
+              "displayValue": "1",
+              "label": "Offsides"
+            },
+            {
+              "name": "wonCorners",
+              "displayValue": "1",
+              "label": "Corner Kicks"
+            },
+            {
+              "name": "saves",
+              "displayValue": "1",
+              "label": "Saves"
+            },
+            {
+              "name": "possessionPct",
+              "displayValue": "35.2",
+              "label": "Possession"
+            },
+            {
+              "name": "totalShots",
+              "displayValue": "10",
+              "label": "SHOTS"
+            },
+            {
+              "name": "shotsOnTarget",
+              "displayValue": "7",
+              "label": "ON GOAL"
+            },
+            {
+              "name": "shotPct",
+              "displayValue": "0.7",
+              "label": "On Target %"
+            },
+            {
+              "name": "penaltyKickGoals",
+              "displayValue": "0",
+              "label": "Penalty Goals"
+            },
+            {
+              "name": "penaltyKickShots",
+              "displayValue": "1",
+              "label": "Penalty Kicks Taken"
+            },
+            {
+              "name": "accuratePasses",
+              "displayValue": "244",
+              "label": "Accurate Passes"
+            },
+            {
+              "name": "totalPasses",
+              "displayValue": "319",
+              "label": "Passes"
+            },
+            {
+              "name": "passPct",
+              "displayValue": "0.8",
+              "label": "Pass Completion %"
+            },
+            {
+              "name": "accurateCrosses",
+              "displayValue": "1",
+              "label": "Accurate Crosses"
+            },
+            {
+              "name": "totalCrosses",
+              "displayValue": "7",
+              "label": "Crosses"
+            },
+            {
+              "name": "crossPct",
+              "displayValue": "0.1",
+              "label": "Cross %"
+            },
+            {
+              "name": "totalLongBalls",
+              "displayValue": "61",
+              "label": "Long Balls"
+            },
+            {
+              "name": "accurateLongBalls",
+              "displayValue": "27",
+              "label": "Accurate Long Balls"
+            },
+            {
+              "name": "longballPct",
+              "displayValue": "0.4",
+              "label": "Long Balls %"
+            },
+            {
+              "name": "blockedShots",
+              "displayValue": "2",
+              "label": "Blocked Shots"
+            },
+            {
+              "name": "effectiveTackles",
+              "displayValue": "15",
+              "label": "Effective Tackles"
+            },
+            {
+              "name": "totalTackles",
+              "displayValue": "21",
+              "label": "Tackles"
+            },
+            {
+              "name": "tacklePct",
+              "displayValue": "0.7",
+              "label": "Tackle %"
+            },
+            {
+              "name": "interceptions",
+              "displayValue": "4",
+              "label": "Interceptions"
+            },
+            {
+              "name": "effectiveClearance",
+              "displayValue": "32",
+              "label": "Effective Clearances"
+            },
+            {
+              "name": "totalClearance",
+              "displayValue": "32",
+              "label": "Clearances"
+            }
+          ]
+        },
+        {
+          "team": "Chelsea",
+          "statistics": [
+            {
+              "name": "foulsCommitted",
+              "displayValue": "11",
+              "label": "Fouls"
+            },
+            {
+              "name": "yellowCards",
+              "displayValue": "3",
+              "label": "Yellow Cards"
+            },
+            {
+              "name": "redCards",
+              "displayValue": "0",
+              "label": "Red Cards"
+            },
+            {
+              "name": "offsides",
+              "displayValue": "0",
+              "label": "Offsides"
+            },
+            {
+              "name": "wonCorners",
+              "displayValue": "2",
+              "label": "Corner Kicks"
+            },
+            {
+              "name": "saves",
+              "displayValue": "4",
+              "label": "Saves"
+            },
+            {
+              "name": "possessionPct",
+              "displayValue": "64.8",
+              "label": "Possession"
+            },
+            {
+              "name": "totalShots",
+              "displayValue": "9",
+              "label": "SHOTS"
+            },
+            {
+              "name": "shotsOnTarget",
+              "displayValue": "3",
+              "label": "ON GOAL"
+            },
+            {
+              "name": "shotPct",
+              "displayValue": "0.3",
+              "label": "On Target %"
+            },
+            {
+              "name": "penaltyKickGoals",
+              "displayValue": "0",
+              "label": "Penalty Goals"
+            },
+            {
+              "name": "penaltyKickShots",
+              "displayValue": "0",
+              "label": "Penalty Kicks Taken"
+            },
+            {
+              "name": "accuratePasses",
+              "displayValue": "505",
+              "label": "Accurate Passes"
+            },
+            {
+              "name": "totalPasses",
+              "displayValue": "582",
+              "label": "Passes"
+            },
+            {
+              "name": "passPct",
+              "displayValue": "0.9",
+              "label": "Pass Completion %"
+            },
+            {
+              "name": "accurateCrosses",
+              "displayValue": "4",
+              "label": "Accurate Crosses"
+            },
+            {
+              "name": "totalCrosses",
+              "displayValue": "17",
+              "label": "Crosses"
+            },
+            {
+              "name": "crossPct",
+              "displayValue": "0.2",
+              "label": "Cross %"
+            },
+            {
+              "name": "totalLongBalls",
+              "displayValue": "57",
+              "label": "Long Balls"
+            },
+            {
+              "name": "accurateLongBalls",
+              "displayValue": "23",
+              "label": "Accurate Long Balls"
+            },
+            {
+              "name": "longballPct",
+              "displayValue": "0.4",
+              "label": "Long Balls %"
+            },
+            {
+              "name": "blockedShots",
+              "displayValue": "3",
+              "label": "Blocked Shots"
+            },
+            {
+              "name": "effectiveTackles",
+              "displayValue": "8",
+              "label": "Effective Tackles"
+            },
+            {
+              "name": "totalTackles",
+              "displayValue": "15",
+              "label": "Tackles"
+            },
+            {
+              "name": "tacklePct",
+              "displayValue": "0.5",
+              "label": "Tackle %"
+            },
+            {
+              "name": "interceptions",
+              "displayValue": "11",
+              "label": "Interceptions"
+            },
+            {
+              "name": "effectiveClearance",
+              "displayValue": "14",
+              "label": "Effective Clearances"
+            },
+            {
+              "name": "totalClearance",
+              "displayValue": "14",
+              "label": "Clearances"
+            }
+          ]
+        }
+      ],
+      "players": [],
+      "events": [
+        {
+          "clock": "",
+          "text": null,
+          "type": "Kickoff",
+          "team": null
+        },
+        {
+          "clock": "5'",
+          "text": "Goal! Nottingham Forest 1, Chelsea 0. Igor Jesus (Nottingham Forest) right footed shot from the centre of the box to the top right corner. Assisted by Daniel Muñoz with a cross.",
+          "type": "Goal",
+          "team": "Nottingham Forest"
+        },
+        {
+          "clock": "45'+2'",
+          "text": null,
+          "type": "Halftime",
+          "team": null
+        },
+        {
+          "clock": "45'",
+          "text": "Substitution, Chelsea. Emmanuel Emegha replaces Danny Welbeck.",
+          "type": "Substitution",
+          "team": "Chelsea"
+        },
+        {
+          "clock": "45'",
+          "text": "Second Half begins Nottingham Forest 1, Chelsea 0.",
+          "type": "Start 2nd Half",
+          "team": null
+        },
+        {
+          "clock": "49'",
+          "text": "Wesley Fofana (Chelsea) is shown the yellow card for a bad foul.",
+          "type": "Yellow Card",
+          "team": "Chelsea"
+        },
+        {
+          "clock": "51'",
+          "text": "Goal! Nottingham Forest 2, Chelsea 0. Morgan Gibbs-White (Nottingham Forest) converts the penalty with a right footed shot to the bottom right corner.",
+          "type": "Penalty - Scored",
+          "team": "Nottingham Forest"
+        },
+        {
+          "clock": "54'",
+          "text": "Goal! Nottingham Forest 2, Chelsea 1. Emmanuel Emegha (Chelsea) left footed shot from the centre of the box to the bottom right corner.",
+          "type": "Goal",
+          "team": "Chelsea"
+        },
+        {
+          "clock": "56'",
+          "text": "Substitution, Chelsea. Levi Colwill replaces Wesley Fofana.",
+          "type": "Substitution",
+          "team": "Chelsea"
+        },
+        {
+          "clock": "61'",
+          "text": "Jordan Henderson (Chelsea) is shown the yellow card for a bad foul.",
+          "type": "Yellow Card",
+          "team": "Chelsea"
+        },
+        {
+          "clock": "71'",
+          "text": "Pedro Neto (Chelsea) is shown the yellow card for a bad foul.",
+          "type": "Yellow Card",
+          "team": "Chelsea"
+        },
+        {
+          "clock": "72'",
+          "text": "Substitution, Nottingham Forest. Dan Ndoye replaces Igor Jesus.",
+          "type": "Substitution",
+          "team": "Nottingham Forest"
+        },
+        {
+          "clock": "72'",
+          "text": "Goal! Nottingham Forest 3, Chelsea 1. Morgan Gibbs-White (Nottingham Forest) right footed shot from the centre of the box to the bottom right corner. Assisted by Xaver Schlager with a through ball following a set piece situation.",
+          "type": "Goal",
+          "team": "Nottingham Forest"
+        },
+        {
+          "clock": "80'",
+          "text": "Liam Delap (Nottingham Forest) is shown the yellow card for a bad foul.",
+          "type": "Yellow Card",
+          "team": "Nottingham Forest"
+        },
+        {
+          "clock": "84'",
+          "text": "Substitution, Nottingham Forest. Chris Wood replaces Liam Delap.",
+          "type": "Substitution",
+          "team": "Nottingham Forest"
+        },
+        {
+          "clock": "84'",
+          "text": "Substitution, Nottingham Forest. Ibrahim Sangaré replaces Xaver Schlager.",
+          "type": "Substitution",
+          "team": "Nottingham Forest"
+        },
+        {
+          "clock": "85'",
+          "text": "Substitution, Chelsea. Marco Palestra replaces Josh Acheampong.",
+          "type": "Substitution",
+          "team": "Chelsea"
+        },
+        {
+          "clock": "85'",
+          "text": "Substitution, Chelsea. Geovany Quenda replaces Jordan Henderson.",
+          "type": "Substitution",
+          "team": "Chelsea"
+        },
+        {
+          "clock": "89'",
+          "text": "Goal! Nottingham Forest 3, Chelsea 2. Emmanuel Emegha (Chelsea) header from the centre of the box to the bottom right corner. Assisted by Pedro Neto with a cross.",
+          "type": "Goal - Header",
+          "team": "Chelsea"
+        },
+        {
+          "clock": "90'+3'",
+          "text": "Ibrahim Sangaré (Nottingham Forest) is shown the yellow card.",
+          "type": "Yellow Card",
+          "team": "Nottingham Forest"
+        },
+        {
+          "clock": "90'+3'",
+          "text": "Substitution, Nottingham Forest. Ryan Yates replaces James McAtee.",
+          "type": "Substitution",
+          "team": "Nottingham Forest"
+        },
+        {
+          "clock": "90'+6'",
+          "text": null,
+          "type": "End Regular Time",
+          "team": null
+        }
+      ],
+      "source_url": "https://www.espn.com/soccer/match/_/gameId/401879225"
     }
   },
   "fetch_status": {
-    "successful": 0,
+    "successful": 1,
     "failed": {},
-    "attempted": 0,
-    "season_finals": 110,
-    "detailed_reports": 110
+    "attempted": 1,
+    "season_finals": 111,
+    "detailed_reports": 111
   }
 }
