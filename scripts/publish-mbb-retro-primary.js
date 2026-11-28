@@ -52,6 +52,7 @@ for(const f of finals.values()){
   if(f.site_verified&&!previous.site_verified){f.conference_game=f.conference_game??previous.conference_game;byFixture.set(key,f);}else if(typeof f.conference_game==='boolean')previous.conference_game=f.conference_game;
  }else byFixture.set(key,f);
 }
+for(const game of byFixture.values())if(globalThis.MBB_RETRO.isNonconferenceGame(game.date,game.home_id,game.away_id))game.conference_game=false;
 const games=[...byFixture.values()].sort((a,b)=>a.date.localeCompare(b.date)||a.id.localeCompare(b.id));
 const calculated=globalThis.MBB_RETRO.calculate(games,{baseline:1500,homeEdge:100,passes:160});
 if(calculated.games!==games.length)throw Error('RETRO game coverage regression');
