@@ -1,19 +1,19 @@
 {
   "schema_version": 1,
-  "checked_at_utc": "2026-11-28T00:22:20.000978+00:00",
+  "checked_at_utc": "2026-11-28T04:41:04.905131+00:00",
   "source": "NCAA scoreboard via ncaa-api compatibility endpoint",
   "games": [
     {
       "match_id": "women-6663897",
       "cohort": "women-d1",
-      "status": "live",
-      "home_score": 1,
+      "status": "final",
+      "home_score": 3,
       "away_score": 0,
       "home_name": "North Carolina",
       "away_name": "Washington",
       "home_id": "north-carolina",
       "away_id": "washington",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6663897"
     },
     {
@@ -45,27 +45,27 @@
     {
       "match_id": "women-6663900",
       "cohort": "women-d1",
-      "status": "live",
+      "status": "final",
       "home_score": 1,
       "away_score": 0,
       "home_name": "Virginia",
       "away_name": "West Virginia",
       "home_id": "virginia",
       "away_id": "west-virginia",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6663900"
     },
     {
       "match_id": "women-6663901",
       "cohort": "women-d1",
-      "status": "live",
-      "home_score": 1,
+      "status": "final",
+      "home_score": 3,
       "away_score": 1,
       "home_name": "Wake Forest",
       "away_name": "Saint Louis",
       "home_id": "wake-forest",
       "away_id": "saint-louis",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6663901"
     },
     {
@@ -97,27 +97,27 @@
     {
       "match_id": "women-6663904",
       "cohort": "women-d1",
-      "status": "live",
+      "status": "final",
       "home_score": 2,
-      "away_score": 0,
+      "away_score": 2,
       "home_name": "Ohio St.",
       "away_name": "Tennessee",
       "home_id": "ohio-st",
       "away_id": "tennessee",
-      "period": "HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6663904"
     },
     {
       "match_id": "women-6663905",
       "cohort": "women-d1",
-      "status": "live",
-      "home_score": 0,
-      "away_score": 0,
+      "status": "final",
+      "home_score": 2,
+      "away_score": 1,
       "home_name": "Vanderbilt",
       "away_name": "Wisconsin",
       "home_id": "vanderbilt",
       "away_id": "wisconsin",
-      "period": "1ST HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6663905"
     },
     {
@@ -130,7 +130,7 @@
       "away_name": "Florida St.",
       "home_id": "south-carolina",
       "away_id": "florida-st",
-      "period": "FINAL/PK",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6663906"
     },
     {
@@ -147,16 +147,29 @@
       "source_url": "https://www.ncaa.com/game/6663907"
     },
     {
+      "match_id": "women-6663908",
+      "cohort": "women-d1",
+      "status": "final",
+      "home_score": 2,
+      "away_score": 1,
+      "home_name": "Baylor",
+      "away_name": "Virginia Tech",
+      "home_id": "baylor",
+      "away_id": "virginia-tech",
+      "period": "FINAL",
+      "source_url": "https://www.ncaa.com/game/6663908"
+    },
+    {
       "match_id": "women-6663909",
       "cohort": "women-d1",
-      "status": "live",
-      "home_score": 2,
+      "status": "final",
+      "home_score": 4,
       "away_score": 0,
       "home_name": "Notre Dame",
       "away_name": "Mississippi St.",
       "home_id": "notre-dame",
       "away_id": "mississippi-st",
-      "period": "HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6663909"
     },
     {
@@ -169,7 +182,7 @@
       "away_name": "Utah St.",
       "home_id": "byu",
       "away_id": "utah-st",
-      "period": "FINAL (OT)",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6663910"
     },
     {
@@ -188,14 +201,14 @@
     {
       "match_id": "women-6663912",
       "cohort": "women-d1",
-      "status": "live",
-      "home_score": 2,
-      "away_score": 0,
+      "status": "final",
+      "home_score": 6,
+      "away_score": 2,
       "home_name": "Michigan St.",
       "away_name": "Xavier",
       "home_id": "michigan-st",
       "away_id": "xavier",
-      "period": "1ST HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6663912"
     }
   ]
