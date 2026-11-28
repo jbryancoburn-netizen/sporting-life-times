@@ -44,7 +44,7 @@ for(const g of events){
   const winner=g.home_score>g.away_score?h:a,loser=winner===h?a:h;
   winner.wins++;loser.losses++;
   const ht=teamMap.get(String(g.home_id)),at=teamMap.get(String(g.away_id));
-  if(ht.conference&&ht.conference===at.conference){
+  if(g.conference_game===true&&ht.conference&&ht.conference===at.conference){
     winner.conference_wins++;loser.conference_losses++;
   }
 }
