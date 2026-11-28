@@ -36,9 +36,9 @@ for(const [source,rows] of dataSets){
   }
   const neutral=(g.neutral===true||g.neutral_site===true||g.neutralSite===true||String(g.site||'').toLowerCase()==='neutral');
   const siteVerified=(g.site_verified===true||g.venue_verified===true||neutral);
-  const result={id,home_id:home,away_id:away,home_score:hs,away_score:as,date:date.slice(0,10),neutral:neutral||!siteVerified,site_verified:siteVerified,source,score_certified:g.score_certified===true};
+  const result={id,home_id:home,away_id:away,home_score:hs,away_score:as,date:date.slice(0,10),neutral:neutral||!siteVerified,site_verified:siteVerified,source,score_certified:g.score_certified===true,conference_game:typeof g.conference_game==='boolean'?g.conference_game:null};
   const prior=finals.get(id);
-  if(prior){for(const k of ['home_id','away_id','home_score','away_score','date']){if(prior[k]!==result[k])throw Error('Conflicting verified finals '+id+': '+k);}}
+  if(prior){for(const k of ['home_id','away_id','home_score','away_score','date']){if(prior[k]!==result[k])throw Error('Conflicting verified finals '+id+': '+k);}if(typeof result.conference_game==='boolean')prior.conference_game=result.conference_game;}
   else finals.set(id,result);
  }
 }
@@ -49,7 +49,7 @@ for(const f of finals.values()){
  const previous=byFixture.get(key);
  if(previous){
   if(previous.home_score!==f.home_score||previous.away_score!==f.away_score)throw Error('Conflicting independent final-score sources: '+key);
-  if(f.site_verified&&!previous.site_verified)byFixture.set(key,f);
+  if(f.site_verified&&!previous.site_verified){f.conference_game=f.conference_game??previous.conference_game;byFixture.set(key,f);}else if(typeof f.conference_game==='boolean')previous.conference_game=f.conference_game;
  }else byFixture.set(key,f);
 }
 const games=[...byFixture.values()].sort((a,b)=>a.date.localeCompare(b.date)||a.id.localeCompare(b.id));
@@ -66,7 +66,7 @@ for(const game of games){
  a.games_played++;b.games_played++;
  const winner=game.home_score>game.away_score?a:b,loser=winner===a?b:a;
  winner.wins++;loser.losses++;
- if(byId.get(game.home_id).conference===byId.get(game.away_id).conference&&
+ if(game.conference_game===true&&byId.get(game.home_id).conference&&byId.get(game.home_id).conference===byId.get(game.away_id).conference&&
     !globalThis.MBB_RETRO.isNonconferenceGame(game.date,game.home_id,game.away_id)){
   winner.conference_wins++;loser.conference_losses++;
  }
